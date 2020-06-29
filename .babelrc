@@ -1,0 +1,31 @@
+{
+    "presets": ["module:metro-react-native-babel-preset"],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "alias": {
+            "atoms": "./src/components/atoms",
+            "atoms/*": "./src/components/atoms/*",
+            "assets": "./src/assets",
+            "assets/*": "./src/assets/*",
+            "screens": "./src/components/screens",
+            "screens/*": "./src/components/screens/*",
+            "core": "./src/core",
+            "core/*": "./src/core/*",
+            "services": "./src/services",
+            "services/*": "./src/services/*",
+            "molecules": "./src/components/molecules",
+            "molecules/*": "./src/components/molecules/*",
+            "organisms": "./src/components/organisms",
+            "organisms/*": "./src/components/organisms/*",
+            "mock": "./src/mock",
+            "selectors": "./src/core/selectors",
+            "navigation": "./src/navigation",
+            "navigation/*": "./src/navigation/*"        
+          }
+        }
+      ]
+    ]
+  }
+  
