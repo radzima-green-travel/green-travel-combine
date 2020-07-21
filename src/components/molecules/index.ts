@@ -1,0 +1,1 @@
+export {PlaceDetailsImageSlider} from './PlaceDetailsImageSlider';
