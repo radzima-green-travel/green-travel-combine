@@ -2,7 +2,13 @@ import React from 'react';
 
 import * as Icons from './icons';
 
-type IconsNames = 'mapMarkerGray' | 'cross';
+type IconsNames =
+  | 'mapMarkerGray'
+  | 'cross'
+  | 'bookmark'
+  | 'home'
+  | 'search'
+  | 'marker';
 
 interface Props {
   name: IconsNames;
@@ -13,8 +19,8 @@ interface Props {
 
 const IconsMap: {[key: string]: any} = Icons;
 
-export const Icon = ({name, width = 25, height = 25}: Props) => {
+export const Icon = ({name, width = 25, height = 25, color}: Props) => {
   const IconComponent = IconsMap[name];
 
-  return <IconComponent width={width} height={height} />;
+  return <IconComponent width={width} height={height} color={color} />;
 };

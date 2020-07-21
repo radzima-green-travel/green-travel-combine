@@ -1,0 +1,1 @@
+export {HomeCategoriesBar} from './HomeCategoriesBar';
