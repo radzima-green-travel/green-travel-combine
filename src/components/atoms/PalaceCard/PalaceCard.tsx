@@ -15,7 +15,7 @@ function PalaceCard({image, title}: PalaceCardProps) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={image} style={styles.image} resizeMode="cover" />
+        <Image source={image as any} style={styles.image} resizeMode="cover" />
       </View>
       <View style={styles.textContainer}>
         <TextElemets.H1 style={styles.title}>{title}</TextElemets.H1>

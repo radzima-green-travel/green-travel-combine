@@ -4,7 +4,7 @@ import {styles} from './styles';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 
 interface Props {
-  images: Array<number>;
+  images: Array<string>;
 }
 
 export const ImageCarousel = memo(({images}: Props) => {
