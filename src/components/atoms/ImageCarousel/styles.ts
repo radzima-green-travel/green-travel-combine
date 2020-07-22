@@ -5,26 +5,21 @@ const styles = StyleSheet.create({
     height: 316,
   },
   paginationContainer: {
-    height: 24,
     position: 'absolute',
     right: 0,
     left: 0,
-    bottom: 11,
-    flexDirection: 'row',
+    bottom: 0,
     backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 3,
+    paddingVertical: 22,
   },
-  paginationMark: {
+  dotStyle: {
     width: 8,
     height: 8,
-    borderRadius: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    marginHorizontal: 3,
+    borderRadius: 4,
+    backgroundColor: '#fff',
   },
-  paginationMarkActive: {
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+  dotContainerStyle: {
+    marginHorizontal: 3,
   },
 });
 

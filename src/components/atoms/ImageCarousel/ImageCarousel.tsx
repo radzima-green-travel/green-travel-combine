@@ -1,39 +1,27 @@
-import React, {memo, useMemo, useCallback, useState} from 'react';
-import {View, FlatList, Image, useWindowDimensions} from 'react-native';
+import React, {memo, useMemo, useState} from 'react';
+import {View, Image, useWindowDimensions} from 'react-native';
 import {styles} from './styles';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 
 interface Props {
   images: Array<number>;
 }
 
 export const ImageCarousel = memo(({images}: Props) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
   const pagesAmount = useMemo(() => images.length, [images.length]);
   const {width: screenWidth} = useWindowDimensions();
 
-  const onScroll = useCallback(
-    (e) => {
-      if (pagesAmount > 1) {
-        const {contentOffset} = e.nativeEvent;
-        const pageNum = Math.round(contentOffset.x / screenWidth);
-        setCurrentPage(pageNum + 1);
-      }
-    },
-    [pagesAmount, screenWidth],
-  );
-
   return (
     <View>
-      <FlatList
-        contentContainerStyle={styles.container}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={128}
-        bounces={false}
-        keyExtractor={(url, index) => String(index)}
-        onScroll={onScroll}
+      <Carousel
+        loop
+        inactiveSlideScale={1}
+        inactiveSlideOpacity={1}
+        onSnapToItem={setActiveIndex}
         data={images}
+        sliderWidth={screenWidth}
+        itemWidth={screenWidth}
         renderItem={({item: url}) => {
           return (
             <Image
@@ -45,19 +33,15 @@ export const ImageCarousel = memo(({images}: Props) => {
         }}
       />
       {pagesAmount > 1 && (
-        <View style={styles.paginationContainer}>
-          {Array.from({length: pagesAmount}).map((_el, pageIndex) => {
-            const isActivePage = pageIndex + 1 === currentPage;
-            return (
-              <View
-                style={[
-                  styles.paginationMark,
-                  isActivePage && styles.paginationMarkActive,
-                ]}
-              />
-            );
-          })}
-        </View>
+        <Pagination
+          dotsLength={images.length}
+          activeDotIndex={activeIndex}
+          dotStyle={styles.dotStyle}
+          dotContainerStyle={styles.dotContainerStyle}
+          containerStyle={styles.paginationContainer}
+          inactiveDotOpacity={0.5}
+          inactiveDotScale={1}
+        />
       )}
     </View>
   );
