@@ -15,12 +15,19 @@ interface Props {
   width?: number | string;
   height?: number | string;
   color?: string;
+  size?: number;
 }
 
 const IconsMap: {[key: string]: any} = Icons;
 
-export const Icon = ({name, width = 25, height = 25, color}: Props) => {
+export const Icon = ({name, width, height, color, size = 25}: Props) => {
   const IconComponent = IconsMap[name];
 
-  return <IconComponent width={width} height={height} color={color} />;
+  return (
+    <IconComponent
+      width={width || size}
+      height={height || size}
+      color={color}
+    />
+  );
 };

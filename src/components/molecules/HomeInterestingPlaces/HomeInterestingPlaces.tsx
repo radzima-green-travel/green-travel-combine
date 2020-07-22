@@ -18,7 +18,7 @@ export const HomeInterestingPlaces = ({paces = []}: Props) => {
         <TextElemets.H2>{t('Interesting around')}</TextElemets.H2>
         <IconButton icon={{name: 'marker'}} style={styles.button} />
       </View>
-      {paces.map(({image, title, root}) => (
+      {paces.map(({image, title, root}: any) => (
         <PalaceCard key={title} image={image} title={title} root={root} />
       ))}
     </View>

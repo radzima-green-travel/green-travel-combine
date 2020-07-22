@@ -12,12 +12,12 @@ import {Icon} from '../Icon';
 import {styles, crossHitClop, hitSlop} from './styles';
 
 interface Props {
-  onChange: Function;
-  value: string;
+  onChange?: Function;
+  value?: string;
 }
 
 function Searchbar({onChange, value = ''}: Props) {
-  const inputRef = useRef(null);
+  const inputRef = useRef<TextInput>(null);
   const [focused, setFocused] = useState(false);
   const [_value, setValue] = useState(value);
 

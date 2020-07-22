@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
+    "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -17,7 +18,9 @@
     "@types/lodash": "^4.14.157",
     "@types/react-native-snap-carousel": "^3.8.2",
     "@types/react-redux": "^7.1.9",
+    "husky": "^4.2.5",
     "i18next": "^19.5.1",
+    "lint-staged": "^10.2.11",
     "lodash": "^4.17.19",
     "react": "16.13.1",
     "react-i18next": "^11.7.0",
