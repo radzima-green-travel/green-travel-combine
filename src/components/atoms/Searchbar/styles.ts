@@ -22,11 +22,12 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 20,
     lineHeight: 22,
+    padding: 0,
   },
   clearButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: 7,
     width: 14,
     height: 14,
     borderWidth: 2,
@@ -44,15 +45,15 @@ const styles = StyleSheet.create({
 });
 
 const crossHitClop = {
-  top: 0,
-  bottom: 0,
-  left: 11,
-  right: 11,
+  top: 10,
+  bottom: 10,
+  left: 10,
+  right: 10,
 };
 
 const hitSlop = {
   top: 0,
-  left: 6,
+  left: 0,
   bottom: 0,
   right: 6,
 };

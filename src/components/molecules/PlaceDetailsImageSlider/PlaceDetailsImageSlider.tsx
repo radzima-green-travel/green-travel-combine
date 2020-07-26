@@ -13,7 +13,7 @@ export const PlaceDetailsImageSlider = ({images}: Props) => {
       <ImageCarousel images={images} />
       <IconButton
         style={styles.crossButton}
-        icon={{name: 'cross', width: 16, height: 16}}
+        icon={{name: 'cross', width: 16, height: 16, color: '#D9D9D9'}}
       />
       <IconButton
         style={styles.markerMapButton}

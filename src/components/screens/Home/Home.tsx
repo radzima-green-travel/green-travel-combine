@@ -8,11 +8,13 @@ import {styles} from './styles';
 
 export const Home = () => {
   return (
-    <ScrollView style={styles.scrollSontainer}>
+    <ScrollView
+      style={styles.scrollSontainer}
+      keyboardShouldPersistTaps="handled">
       <ScreenContent style={styles.contentContainer}>
         <HomeSearch />
         <HomeCategoriesBar categories={CATEGORIES} />
-        <HomeInterestingPlaces paces={PLACES} />
+        <HomeInterestingPlaces places={PLACES} />
       </ScreenContent>
     </ScrollView>
   );

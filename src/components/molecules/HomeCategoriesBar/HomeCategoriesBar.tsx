@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {memo, useCallback} from 'react';
 import {View, Image, Text} from 'react-native';
 import {Icon, TextElemets} from 'atoms';
 import {styles} from './styles';
@@ -9,7 +9,7 @@ interface Props {
   categories: Array<any>;
 }
 
-export const HomeCategoriesBar = ({categories}: Props) => {
+export const HomeCategoriesBar = memo(({categories}: Props) => {
   const {t} = useTranslation('home');
   const renderItem = useCallback(
     ({item: {image, title, icon}}) => (
@@ -29,7 +29,6 @@ export const HomeCategoriesBar = ({categories}: Props) => {
   return (
     <View>
       <TextElemets.H2>{t('Discover new places')}</TextElemets.H2>
-
       <FlatList
         keyExtractor={keyExtractor}
         style={styles.container}
@@ -41,4 +40,4 @@ export const HomeCategoriesBar = ({categories}: Props) => {
       />
     </View>
   );
-};
+});
