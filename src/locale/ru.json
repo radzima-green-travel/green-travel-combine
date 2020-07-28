@@ -19,5 +19,15 @@
     "Where are we going?": "Куда едем?",
     "Discover new places": "Открываем новые места",
     "Interesting around": "Интересное рядом"
+  },
+  "route-details":{
+    "routeName": "Царская поляна",
+    "distance": "Расстояние",
+    "time": "Время",
+    "difficulty": "Сложность",
+    "howToGetThere": "Как добраться",
+    "bikeRentalTitle": "На территории пущи действует велопрокат.",
+    "bikeTime": "Время работы",
+    "bikePrice": "Час проката"
   }
 }

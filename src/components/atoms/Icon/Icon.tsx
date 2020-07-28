@@ -8,7 +8,8 @@ type IconsNames =
   | 'bookmark'
   | 'home'
   | 'search'
-  | 'marker';
+  | 'marker'
+  | 'bicycle';
 
 interface Props {
   name: IconsNames;
