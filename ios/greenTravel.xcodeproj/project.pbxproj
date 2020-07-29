@@ -16,6 +16,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* greenTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* greenTravelTests.m */; };
+		6281F7E124C9E40D00C51231 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6281F7E024C9E40D00C51231 /* empty.swift */; };
 		62890DF924C5D86F00DF211E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62890DF824C5D86F00DF211E /* LaunchScreen.storyboard */; };
 		AB716AC1901FA4715BE6E49A /* libPods-greenTravel-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6361C1D1B0DE4F1968C4EDEA /* libPods-greenTravel-tvOSTests.a */; };
 		C1560A7BE8D185647104090C /* libPods-greenTravel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B7D2B21900923C3DDAFD91A /* libPods-greenTravel.a */; };
@@ -59,6 +60,8 @@
 		2E31EC9FA1B33EFB711920BC /* Pods-greenTravel-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-tvOS.release.xcconfig"; path = "Target Support Files/Pods-greenTravel-tvOS/Pods-greenTravel-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		3E908B266F322FA161BA1576 /* Pods-greenTravel-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel-tvOS/Pods-greenTravel-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5DC61A333ADB94FF40CB33BA /* Pods-greenTravel-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel-tvOSTests/Pods-greenTravel-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
+		6281F7E024C9E40D00C51231 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
 		62890DF824C5D86F00DF211E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = greenTravel/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6361C1D1B0DE4F1968C4EDEA /* libPods-greenTravel-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D2B21900923C3DDAFD91A /* libPods-greenTravel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +135,8 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				6281F7E024C9E40D00C51231 /* empty.swift */,
+				6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */,
 			);
 			name = greenTravel;
 			sourceTree = "<group>";
@@ -293,7 +298,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1130;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -569,6 +574,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				6281F7E124C9E40D00C51231 /* empty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +615,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C2385F88C66836B21A0E1615 /* Pods-greenTravel-greenTravelTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -632,6 +639,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C0621EBAF2C9E5D02BC85BE7 /* Pods-greenTravel-greenTravelTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = greenTravelTests/Info.plist;
@@ -669,6 +677,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = greenTravel;
+				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -691,6 +700,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = greenTravel;
+				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
