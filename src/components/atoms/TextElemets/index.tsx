@@ -17,6 +17,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 22,
   },
+  h3: {
+    fontFamily: FONTS.BASE,
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: 19,
+    lineHeight: 28,
+  },
   //   caption: {},
 } as {
   [key: string]: any;

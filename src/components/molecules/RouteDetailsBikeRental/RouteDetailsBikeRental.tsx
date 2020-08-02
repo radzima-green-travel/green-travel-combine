@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import {Icon} from 'atoms';
-import {RouteMetrics} from 'molecules';
+import {BikeRentalWidget} from 'molecules';
 
 import {styles} from './styles';
 
@@ -20,12 +20,7 @@ export const RouteDetailsBikeRental = () => {
       <View style={styles.iconContainer}>
         <Icon name="bicycle" />
       </View>
-      <View style={styles.contentContainer}>
-        <Text style={styles.title}>{t('bikeRentalTitle')}</Text>
-        <View style={styles.metricsContainer}>
-          <RouteMetrics data={mockData} />
-        </View>
-      </View>
+      <BikeRentalWidget data={mockData} title={t('bikeRentalTitle')} />
     </View>
   );
 };

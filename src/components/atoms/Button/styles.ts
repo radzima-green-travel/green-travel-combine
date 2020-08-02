@@ -17,12 +17,12 @@ export const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#000000',
+    borderColor: '#61B033',
     justifyContent: 'center',
     alignItems: 'center',
   },
   labelOutline: {
-    color: '#000000',
+    color: '#61B033',
     fontSize: 20,
   },
 });
