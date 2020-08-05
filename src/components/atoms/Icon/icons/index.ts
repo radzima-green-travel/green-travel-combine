@@ -1,9 +1,9 @@
-export {default as cross} from './cross.svg';
-export {default as mapMarkerGray} from './mapMarkerGray.svg';
-export {default as home} from './home.svg';
-export {default as bookmark} from './bookmark.svg';
-export {default as search} from './search.svg';
-export {default as paw} from './paw.svg';
 export {default as bicycle} from './bicycle.svg';
+export {default as bookmark} from './bookmark.svg';
 export {default as compass} from './compass.svg';
+export {default as cross} from './cross.svg';
+export {default as home} from './home.svg';
+export {default as mapMarkerGray} from './mapMarkerGray.svg';
 export {default as marker} from './marker.svg';
+export {default as paw} from './paw.svg';
+export {default as search} from './search.svg';

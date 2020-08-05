@@ -1,14 +1,8 @@
 import React from 'react';
 
 import * as Icons from './icons';
-
-type IconsNames =
-  | 'mapMarkerGray'
-  | 'cross'
-  | 'bookmark'
-  | 'home'
-  | 'search'
-  | 'marker';
+import {StyleProp, TextStyle} from 'react-native';
+import {IconsNames} from './IconsNames';
 
 interface Props {
   name: IconsNames;
@@ -16,18 +10,38 @@ interface Props {
   height?: number | string;
   color?: string;
   size?: number;
+  style?: StyleProp<TextStyle>;
 }
 
 const IconsMap: {[key: string]: any} = Icons;
 
-export const Icon = ({name, width, height, color, size = 25}: Props) => {
+export const Icon = ({name, width, height, color, size, style = {}}: Props) => {
   const IconComponent = IconsMap[name];
+
+  const iconStyle = Array.isArray(style) ? Object.assign({}, ...style) : style;
+  const {fontSize, color: iconColor} = iconStyle;
+
+  const iconWidth =
+    (height && width) ||
+    size ||
+    iconStyle.width ||
+    iconStyle.size ||
+    fontSize ||
+    24;
+  const iconHeight =
+    (width && height) ||
+    size ||
+    iconStyle.height ||
+    iconStyle.size ||
+    fontSize ||
+    24;
 
   return (
     <IconComponent
-      width={width || size}
-      height={height || size}
-      color={color}
+      width={iconWidth}
+      height={iconHeight}
+      style={iconStyle}
+      color={color || iconColor || 'white'}
     />
   );
 };
