@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
-    "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc"
+    "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
+    "update-svg": "node scripts/update-svg/update-svg.js"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -25,12 +26,15 @@
     "react": "16.13.1",
     "react-i18next": "^11.7.0",
     "react-native": "0.63.1",
+    "react-native-geolocation-service": "^5.0.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-permissions": "^2.1.5",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.7",
     "react-native-screens": "^2.9.0",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-redux": "^7.2.0",

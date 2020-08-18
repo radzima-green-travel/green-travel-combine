@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTranslation} from 'core/hooks';
 import {HomeScreen} from 'screens';
 import {Icon} from 'atoms';
-import {IconsNames} from 'atoms/Icon/Icon';
+import {IconsNames} from 'atoms/Icon';
 import {NAVIGATORS_NAMES} from 'navigation/constants';
 import {HomeNavigator} from './HomeNavigator';
 
