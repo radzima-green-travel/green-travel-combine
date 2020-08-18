@@ -19,6 +19,7 @@ export const HomeInterestingPlaces = memo(({places = []}: Props) => {
         <IconButton
           icon={{name: 'marker', width: 18, height: 18}}
           style={styles.button}
+          onPress={() => false} // TODO implement onpress
         />
       </View>
       {places.map(({image, title, root}: any) => (

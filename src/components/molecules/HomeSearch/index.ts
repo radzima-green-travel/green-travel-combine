@@ -1,1 +1,0 @@
-export {HomeSearch} from './HomeSearch';

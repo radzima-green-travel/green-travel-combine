@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScreenContent} from 'atoms';
-import {HomeCategoriesBar, HomeSearch, HomeInterestingPlaces} from 'molecules';
+import {HomeSectionBar} from 'molecules';
 import {ScrollView} from 'react-native';
 
 import {CATEGORIES, PLACES} from './mock';
@@ -12,9 +12,9 @@ export const Home = () => {
       style={styles.scrollSontainer}
       keyboardShouldPersistTaps="handled">
       <ScreenContent style={styles.contentContainer}>
-        <HomeSearch />
-        <HomeCategoriesBar categories={CATEGORIES} />
-        <HomeInterestingPlaces places={PLACES} />
+        {CATEGORIES.map(({title}) => (
+          <HomeSectionBar title={title} content={PLACES} />
+        ))}
       </ScreenContent>
     </ScrollView>
   );

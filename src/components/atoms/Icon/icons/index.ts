@@ -7,3 +7,4 @@ export {default as paw} from './paw.svg';
 export {default as bicycle} from './bicycle.svg';
 export {default as compass} from './compass.svg';
 export {default as marker} from './marker.svg';
+export {default as chevron} from './chevron.svg';

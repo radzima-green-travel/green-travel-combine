@@ -1,17 +1,23 @@
 import React, {memo, ComponentProps} from 'react';
-import {View, StyleProp, ViewStyle} from 'react-native';
+import {
+  StyleProp,
+  ViewStyle,
+  TouchableOpacity,
+  GestureResponderEvent,
+} from 'react-native';
 import {styles} from './styles';
 import {Icon} from '../Icon';
 
 export interface Props {
   icon: ComponentProps<typeof Icon>;
+  onPress: (event: GestureResponderEvent) => void;
   style?: StyleProp<ViewStyle>;
 }
 
-export const IconButton = memo(({icon, style}: Props) => {
+export const IconButton = memo(({icon, style, onPress}: Props) => {
   return (
-    <View style={[styles.container, style]}>
+    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
       <Icon {...icon} />
-    </View>
+    </TouchableOpacity>
   );
 });

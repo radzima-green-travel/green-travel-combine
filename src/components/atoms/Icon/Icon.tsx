@@ -2,13 +2,14 @@ import React from 'react';
 
 import * as Icons from './icons';
 
-type IconsNames =
+export type IconsNames =
   | 'mapMarkerGray'
   | 'cross'
   | 'bookmark'
   | 'home'
   | 'search'
-  | 'marker';
+  | 'marker'
+  | 'chevron';
 
 interface Props {
   name: IconsNames;
