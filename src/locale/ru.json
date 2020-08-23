@@ -12,12 +12,14 @@
     },
     "tabs":{
       "home":"Главная",
-      "bookmarks": "Мои маршруты"
+      "bookmarks": "Закладки",
+      "map": "Карта"
     }
   },
   "home":{
     "Where are we going?": "Куда едем?",
     "Discover new places": "Открываем новые места",
-    "Interesting around": "Интересное рядом"
+    "Interesting around": "Интересное рядом",
+    "all": "Все"
   }
 }

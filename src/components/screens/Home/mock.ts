@@ -3,38 +3,22 @@ const image = require('./mockImage.jpg');
 export const CATEGORIES = [
   {
     image,
-    icon: 'paw',
-    title: 'Флора и фауна',
+    title: 'ЗАПОВЕДНЫЕ ТЕРРИТОРИИ',
     root: '',
   },
   {
     image,
-    icon: 'compass',
-    title: 'Пешие маршруты',
+    title: 'МАРШРУТЫ',
     root: '',
   },
   {
     image,
-    icon: 'bicycle',
-    title: 'Веломаршруты',
+    title: 'ИСТОРИЧЕСКИЕ МЕСТА',
     root: '',
   },
   {
     image,
-    icon: 'paw',
-    title: 'Автопешеходные маршруты',
-    root: '',
-  },
-  {
-    image,
-    icon: 'paw',
-    title: 'Экскурсии',
-    root: '',
-  },
-  {
-    image,
-    icon: 'paw',
-    title: 'Историко-культурные ценности',
+    title: 'ЭКСКУРСИИ',
     root: '',
   },
 ];

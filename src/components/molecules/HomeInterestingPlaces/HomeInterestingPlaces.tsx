@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View} from 'react-native';
 import {IconButton, TextElemets, PalaceCard} from 'atoms';
 import {styles} from './styles';
@@ -6,21 +6,25 @@ import {styles} from './styles';
 import {useTranslation} from 'react-i18next';
 
 interface Props {
-  paces: Array<object>;
+  places: Array<object>;
 }
 
-export const HomeInterestingPlaces = ({paces = []}: Props) => {
+export const HomeInterestingPlaces = memo(({places = []}: Props) => {
   const {t} = useTranslation('home');
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <TextElemets.H2>{t('Interesting around')}</TextElemets.H2>
-        <IconButton icon={{name: 'marker'}} style={styles.button} />
+        <IconButton
+          icon={{name: 'marker', width: 18, height: 18}}
+          style={styles.button}
+          onPress={() => false} // TODO implement onpress
+        />
       </View>
-      {paces.map(({image, title, root}: any) => (
+      {places.map(({image, title, root}: any) => (
         <PalaceCard key={title} image={image} title={title} root={root} />
       ))}
     </View>
   );
-};
+});

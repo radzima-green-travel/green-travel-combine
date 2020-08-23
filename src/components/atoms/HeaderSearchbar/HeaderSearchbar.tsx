@@ -23,7 +23,7 @@ interface Props {
   value?: string;
 }
 
-function Searchbar({onChange, value = ''}: Props) {
+function HeaderSearchbar({onChange, value = ''}: Props) {
   const inputRef = useRef<TextInput>(null);
   const [focused, setFocused] = useState(false);
   const [_value, setValue] = useState(value);
@@ -58,12 +58,6 @@ function Searchbar({onChange, value = ''}: Props) {
   return (
     <View style={styles.searchContainer}>
       <View style={styles.container}>
-        <Icon
-          name="search"
-          color="rgba(60, 60, 67, 0.6)"
-          width={16}
-          height={16}
-        />
         <View style={styles.inputContainer}>
           <TextInput
             value={_value}
@@ -83,6 +77,7 @@ function Searchbar({onChange, value = ''}: Props) {
             <Icon name="cross" color="white" width="14" height="17" />
           </TouchableOpacity>
         )}
+        <Icon name="search" color="white" width={20} height={20} />
       </View>
       {focused && (
         <TouchableOpacity onPress={cancel} hitSlop={hitSlop}>
@@ -93,4 +88,4 @@ function Searchbar({onChange, value = ''}: Props) {
   );
 }
 
-export default React.memo(Searchbar);
+export default React.memo(HeaderSearchbar);

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
-    backgroundColor: 'rgba(118, 120, 118, 0.12)',
+    backgroundColor: 'rgba(68, 146, 26, 0.7)',
     height: 36,
     borderRadius: 10,
   },
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 22,
     padding: 0,
+    color: 'white',
   },
   clearButton: {
     justifyContent: 'center',
@@ -34,13 +35,14 @@ const styles = StyleSheet.create({
     borderColor: '#6C7283',
     backgroundColor: '#6C7283',
     overflow: 'hidden',
+    marginRight: 4,
   },
   cancelText: {
     marginLeft: 5,
     fontSize: 17,
     lineHeight: 22,
     letterSpacing: -0.41,
-    color: '#007aff',
+    color: 'white',
   },
 });
 
