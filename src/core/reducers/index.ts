@@ -6,3 +6,5 @@ export {
   bootstrapStart,
   bootstrapFinish,
 } from './BootstrapReducer';
+
+export * from './HomeReducer';

@@ -5,6 +5,7 @@ import {
   loadingReducer,
   successReducer,
   bootstrapReducer,
+  homeReducer,
 } from './reducers';
 
 export const rootReducer = combineReducers({
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
   loading: loadingReducer,
   success: successReducer,
   bootsrap: bootstrapReducer,
+  home: homeReducer,
 });
