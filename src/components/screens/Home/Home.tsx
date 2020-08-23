@@ -5,11 +5,11 @@ import {ScrollView} from 'react-native';
 
 import {CATEGORIES, PLACES} from './mock';
 import {styles} from './styles';
-import {objectsApiService} from 'services/ObjectsApiService';
+import {getObjects} from 'api/native';
 
 export const Home = () => {
   useEffect(() => {
-    objectsApiService.getObject().then(console.log);
+    getObjects().then(console.log);
   }, []);
   return (
     <ScrollView

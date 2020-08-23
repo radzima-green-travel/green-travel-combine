@@ -7,9 +7,6 @@ import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 
 import ruTranslations from './src/locale/ru.json';
-import {objectsApiService} from 'services/ObjectsApiService';
-
-objectsApiService.prefix = '/object';
 
 const resources = {
   ru: ruTranslations,

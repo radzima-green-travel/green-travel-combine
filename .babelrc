@@ -22,7 +22,9 @@
             "mock": "./src/mock",
             "selectors": "./src/core/selectors",
             "navigation": "./src/navigation",
-            "navigation/*": "./src/navigation/*"        
+            "navigation/*": "./src/navigation/*",
+            "api": "./src/api",
+            "api/*": "./src/api/*"           
           }
         }
       ]
