@@ -1,6 +1,7 @@
 import React from 'react';
 
 import * as Icons from './icons';
+
 import {StyleProp, TextStyle} from 'react-native';
 import {IconsNames} from './IconsNames';
 

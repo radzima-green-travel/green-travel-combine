@@ -2,7 +2,7 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {PlaceDetailsScreen} from 'screens';
+import {RouteDetailsFullScreen} from 'screens';
 
 import {SCREEN_NAMES, NAVIGATORS_NAMES} from '../constants';
 import {TabNavigator} from './TabNavigator';
@@ -19,7 +19,7 @@ export function MainNavigator() {
       />
       <Stack.Screen
         name={SCREEN_NAMES.placeDetails}
-        component={PlaceDetailsScreen}
+        component={RouteDetailsFullScreen}
         options={{
           headerShown: false,
         }}

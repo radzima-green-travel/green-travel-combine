@@ -7,3 +7,5 @@ export {HeaderSearchbar} from './HeaderSearchbar';
 export {ScreenContent} from './ScreenContent';
 export {TextElemets} from './TextElemets';
 export {PalaceCard} from './PalaceCard';
+export {RouteMetric} from './RouteMetric';
+export {Button} from './Button';
