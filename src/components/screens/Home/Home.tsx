@@ -5,12 +5,14 @@ import {ScrollView} from 'react-native';
 
 import {CATEGORIES, PLACES} from './mock';
 import {styles} from './styles';
-import {objectsApiService} from 'services/ObjectsApiService';
+import {getHomeDataRequest} from 'core/reducers';
+import {useDispatch} from 'react-redux';
 
 export const Home = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    objectsApiService.getObject().then(console.log);
-  }, []);
+    dispatch(getHomeDataRequest());
+  }, [dispatch]);
   return (
     <ScrollView
       style={styles.scrollSontainer}
