@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
-
-import {HomeScreen} from 'screens';
-
+import {View} from 'react-native';
+import {HomeScreen, ObjectsListScreen, RouteDetailsFullScreen} from 'screens';
+import {Fade} from '../transitition';
 import {SCREEN_NAMES} from '../constants';
 
 import {StyleSheet} from 'react-native';
@@ -26,7 +26,10 @@ export function HomeNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerBackTitleVisible: false,
+        headerTintColor: 'white',
         cardStyle: {backgroundColor: colorScheme === 'light' ? '#fff' : '#000'},
+        headerBackImage: () => <Icon name="chevron" color="white" size={32} />,
         headerBackground: () => (
           <LinearGradient
             start={{x: 0.0, y: 0.0}}
@@ -41,6 +44,7 @@ export function HomeNavigator() {
           fontSize: 16,
           lineHeight: 20,
         },
+        headerLeftContainerStyle: {paddingLeft: 16},
         title: 'Radzima',
       }}>
       <Stack.Screen
@@ -58,22 +62,28 @@ export function HomeNavigator() {
       />
       <Stack.Screen
         name={SCREEN_NAMES.search}
-        component={HomeScreen}
+        component={View}
         options={{
-          headerBackTitleVisible: false,
           headerTitle: () => <HeaderSearchbar />,
           headerTitleContainerStyle: {
             width: '100%',
             paddingLeft: 48,
             paddingRight: 16,
           },
-          headerBackImage: () => (
-            <Icon name="chevron" color="white" size={32} />
-          ),
-          headerLeftContainerStyle: {paddingLeft: 16},
+          ...Fade,
         }}
       />
-      <Stack.Screen name={SCREEN_NAMES.activities} component={HomeScreen} />
+      <Stack.Screen
+        name={SCREEN_NAMES.objectsList}
+        component={ObjectsListScreen}
+      />
+      <Stack.Screen
+        name={SCREEN_NAMES.routeDetails}
+        component={RouteDetailsFullScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }

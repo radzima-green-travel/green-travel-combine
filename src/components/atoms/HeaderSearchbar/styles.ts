@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     backgroundColor: 'rgba(68, 146, 26, 0.7)',
-    height: 36,
+
     borderRadius: 10,
   },
   inputContainer: {
@@ -19,10 +19,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   input: {
-    flex: 1,
-    fontSize: 20,
-    lineHeight: 22,
-    padding: 0,
+    fontSize: 15,
+    height: 32,
     color: 'white',
   },
   clearButton: {

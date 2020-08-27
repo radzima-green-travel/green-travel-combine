@@ -4,6 +4,8 @@ export enum SCREEN_NAMES {
   home = 'HOME',
   search = 'SEARCH',
   activities = 'ACTIVITIES',
+  objectsList = 'OBJECTS_LIST',
+  routeDetails = 'ROUTE_DETAILS',
 }
 
 export enum NAVIGATORS_NAMES {
