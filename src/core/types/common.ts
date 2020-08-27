@@ -25,6 +25,7 @@ export interface IObject {
   category: string;
   createdAt: string;
   updatedAt: string;
+  cover: string;
 }
 
 export interface ICategory {

@@ -15,7 +15,7 @@ export function* getMyLocationSaga() {
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_START, function* () {
-    yield call(getMyLocationSaga);
+    // yield call(getMyLocationSaga);
     yield put(bootstrapFinish());
   });
 }

@@ -9,6 +9,7 @@ import {SCREEN_NAMES} from '../constants';
 import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {IconButton, Icon, HeaderSearchbar} from 'atoms';
+import {useColorScheme} from 'core/hooks';
 
 const Stack = createStackNavigator();
 
@@ -21,9 +22,11 @@ const styles = StyleSheet.create({
 });
 
 export function HomeNavigator() {
+  const colorScheme = useColorScheme();
   return (
     <Stack.Navigator
       screenOptions={{
+        cardStyle: {backgroundColor: colorScheme === 'light' ? '#fff' : '#000'},
         headerBackground: () => (
           <LinearGradient
             start={{x: 0.0, y: 0.0}}
@@ -32,7 +35,6 @@ export function HomeNavigator() {
             style={StyleSheet.absoluteFill}
           />
         ),
-        headerStyle: {height: 72},
         headerTitleStyle: {
           color: 'white',
           fontWeight: '600',

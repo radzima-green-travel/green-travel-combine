@@ -1,27 +1,40 @@
-import React, {useEffect} from 'react';
-import {ScreenContent} from 'atoms';
+import React, {useEffect, useCallback} from 'react';
+import {SuspenseView} from 'atoms';
 import {HomeSectionBar} from 'molecules';
-import {ScrollView} from 'react-native';
+import {FlatList} from 'react-native';
 
-import {CATEGORIES, PLACES} from './mock';
 import {styles} from './styles';
 import {getHomeDataRequest} from 'core/reducers';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectHomeData} from 'core/selectors';
+import {useRequestError, useRequestLoading} from 'core/hooks';
 
 export const Home = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
+
+  const getData = useCallback(() => {
     dispatch(getHomeDataRequest());
   }, [dispatch]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const homeData = useSelector(selectHomeData);
+  const loading = useRequestLoading(getHomeDataRequest);
+  const {error} = useRequestError(getHomeDataRequest);
+
   return (
-    <ScrollView
-      style={styles.scrollSontainer}
-      keyboardShouldPersistTaps="handled">
-      <ScreenContent style={styles.contentContainer}>
-        {CATEGORIES.map(({title}) => (
-          <HomeSectionBar title={title} content={PLACES} />
-        ))}
-      </ScreenContent>
-    </ScrollView>
+    <SuspenseView loading={loading} error={error} retryCallback={getData}>
+      <FlatList
+        contentContainerStyle={styles.contentContainer}
+        keyboardShouldPersistTaps="handled"
+        data={homeData}
+        keyExtractor={(item) => item._id}
+        renderItem={({item}) => (
+          <HomeSectionBar title={item.name} content={item.objects} />
+        )}
+      />
+    </SuspenseView>
   );
 };

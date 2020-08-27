@@ -14,7 +14,10 @@ export function* getHomeDataSaga() {
 
     const data = map(categories, (category) => ({
       ...category,
-      objects: filter(objects, {category: category._id}),
+      objects: map(filter(objects, {category: category._id}), (object) => ({
+        ...object,
+        cover: 'https://placebear.com/640/360',
+      })),
     }));
 
     yield put(getHomeDataSuccess(data));

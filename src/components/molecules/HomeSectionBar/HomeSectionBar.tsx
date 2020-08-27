@@ -1,23 +1,24 @@
 import React, {memo, useCallback} from 'react';
-import {View, ImageBackground, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import {Icon} from 'atoms';
 import {styles} from './styles';
 import {FlatList} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
-
+import FastImage from 'react-native-fast-image';
+import {IObject} from 'core/types';
 interface Props {
   title: String;
-  content: Array<any>;
+  content: IObject[];
 }
 
-const renderItem = ({item: {image, title}}) => (
+const renderItem = ({item: {cover, name}}: {item: IObject}) => (
   <View style={styles.cardContainer}>
-    <ImageBackground style={styles.image} source={image}>
-      <View style={styles.cardContentContainer}>
-        <Text style={styles.title}>{title}</Text>
-        <Icon name="bookmark" width={20} height={20} color={'white'} />
-      </View>
-    </ImageBackground>
+    <FastImage style={styles.image} source={{uri: cover}} />
+
+    <View style={styles.cardContentContainer}>
+      <Text style={styles.title}>{name}</Text>
+      <Icon name="bookmark" width={20} height={20} color={'white'} />
+    </View>
   </View>
 );
 
@@ -38,8 +39,6 @@ export const HomeSectionBar = memo(({title: sectionTitle, content}: Props) => {
         horizontal
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
-        snapToInterval={324}
-        decelerationRate="fast"
       />
     </View>
   );
