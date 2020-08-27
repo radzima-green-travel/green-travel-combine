@@ -12,13 +12,16 @@
     },
     "tabs":{
       "home":"Главная",
-      "bookmarks": "Мои маршруты"
+      "bookmarks": "Закладки",
+      "map": "Карта"
     }
   },
   "home":{
     "Where are we going?": "Куда едем?",
     "Discover new places": "Открываем новые места",
-    "Interesting around": "Интересное рядом"
+    "Interesting around": "Интересное рядом",
+    "all": "Все"
+
   },
   "route-details":{
     "routeName": "Царская поляна",
@@ -30,6 +33,6 @@
     "bikeTime": "Время работы",
     "bikePrice": "Час проката",
     "aboutRoute": "О маршруте",
-    "showRoute": "Показать маршрут"
+    "showRoute": "Показать маршрут",
   }
 }

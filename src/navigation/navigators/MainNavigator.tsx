@@ -13,16 +13,16 @@ export function MainNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name={NAVIGATORS_NAMES.tabNavigator}
+        component={TabNavigator}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
         name={SCREEN_NAMES.placeDetails}
         component={RouteDetailsFullScreen}
         options={{
           headerShown: false,
         }}
-      />
-      <Stack.Screen
-        name={NAVIGATORS_NAMES.tabNavigator}
-        component={TabNavigator}
-        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

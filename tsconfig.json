@@ -39,7 +39,8 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "strictNullChecks": true,
-    "moduleResolution": "node",               /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    "moduleResolution": "node", 
+    "resolveJsonModule": true,              /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "baseUrl": "./",   
     "paths": {
       "components/*": ["./src/components/*"],
@@ -61,6 +62,8 @@
       "selectors": ["./src/core/selectors"],
       "navigation": ["./src/navigation"],
       "navigation/*": ["./src/navigation/*"],
+      "api": ["./src/api"],
+      "api/*": ["./src/api/*"],
     },
     /* Base directory to resolve non-absolute module names. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */

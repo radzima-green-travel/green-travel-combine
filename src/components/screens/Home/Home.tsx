@@ -1,18 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScreenContent} from 'atoms';
-import {HomeCategoriesBar, HomeSearch, HomeInterestingPlaces} from 'molecules';
+import {HomeSectionBar} from 'molecules';
 import {ScrollView} from 'react-native';
 
 import {CATEGORIES, PLACES} from './mock';
 import {styles} from './styles';
+import {getHomeDataRequest} from 'core/reducers';
+import {useDispatch} from 'react-redux';
 
 export const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getHomeDataRequest());
+  }, [dispatch]);
   return (
-    <ScrollView style={styles.scrollSontainer}>
+    <ScrollView
+      style={styles.scrollSontainer}
+      keyboardShouldPersistTaps="handled">
       <ScreenContent style={styles.contentContainer}>
-        <HomeSearch />
-        <HomeCategoriesBar categories={CATEGORIES} />
-        <HomeInterestingPlaces paces={PLACES} />
+        {CATEGORIES.map(({title}) => (
+          <HomeSectionBar title={title} content={PLACES} />
+        ))}
       </ScreenContent>
     </ScrollView>
   );

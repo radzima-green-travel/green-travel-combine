@@ -6,11 +6,18 @@ import {
   TouchableOpacity,
   Text,
   LayoutAnimation,
+  Platform,
+  UIManager,
 } from 'react-native';
 import {Icon} from '../Icon';
 
 import {styles, crossHitClop, hitSlop} from './styles';
 
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 interface Props {
   onChange?: Function;
   value?: string;
@@ -32,7 +39,6 @@ function Searchbar({onChange, value = ''}: Props) {
   }, []);
 
   const clear = useCallback(() => {
-    inputRef.current?.clear();
     setValue('');
   }, []);
 
@@ -69,11 +75,11 @@ function Searchbar({onChange, value = ''}: Props) {
             style={styles.input}
           />
         </View>
-        {!!value && (
+        {!!_value && (
           <TouchableOpacity
             onPress={clear}
             hitSlop={crossHitClop}
-            style={[styles.clearButton]}>
+            style={styles.clearButton}>
             <Icon name="cross" color="white" width="14" height="17" />
           </TouchableOpacity>
         )}
