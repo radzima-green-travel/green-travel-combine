@@ -1,8 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTranslation} from 'core/hooks';
-import {HomeScreen} from 'screens';
 import {AppMapNavigatior} from './AppMapNavigatior';
+import {BookmarksNavigator} from './BookmarksNavigator';
 import {Icon} from 'atoms';
 import {IconsNames} from 'atoms/Icon';
 import {NAVIGATORS_NAMES} from 'navigation/constants';
@@ -31,10 +31,10 @@ const tabs = [
     component: AppMapNavigatior,
   },
   {
-    name: 'bookmarks',
+    name: NAVIGATORS_NAMES.bookmarksNavigator,
     icon: 'bookmark',
     label: 'tabs.bookmarks',
-    component: HomeScreen,
+    component: BookmarksNavigator,
   },
 ] as Array<RouteParams>;
 
