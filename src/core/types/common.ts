@@ -10,27 +10,31 @@ export interface ILabelError {
 export type ICoordinates = Array<string>;
 
 export interface ILocationPoint {
+  _id: string;
   type: 'Point';
   coordinates: ICoordinates;
+}
+
+export interface IProhibition {
+  _id: string;
+  name: string;
+  key: string;
 }
 
 export interface IObject {
   location: ILocationPoint;
   images: string[];
-  prohibitions: string[];
+  prohibitions: IProhibition[];
   _id: string;
   name: string;
   description: string;
   address: string;
   category: string;
-  createdAt: string;
-  updatedAt: string;
   cover: string;
 }
 
 export interface ICategory {
   _id: string;
   name: string;
-  createdAt: string;
-  updatedAt: string;
+  items: IObject[];
 }

@@ -43,7 +43,7 @@ export const Home = ({navigation: {navigate}}) => {
           <HomeSectionBar
             onAllPress={navigateToObjectsList}
             title={item.name}
-            content={item.objects}
+            content={item.items}
           />
         )}
       />
