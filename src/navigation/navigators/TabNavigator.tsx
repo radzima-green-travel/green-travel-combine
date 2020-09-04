@@ -1,7 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTranslation} from 'core/hooks';
-import {HomeScreen, AppMapScreen} from 'screens';
+import {HomeScreen} from 'screens';
+import {AppMapNavigatior} from './AppMapNavigatior';
 import {Icon} from 'atoms';
 import {IconsNames} from 'atoms/Icon';
 import {NAVIGATORS_NAMES} from 'navigation/constants';
@@ -23,7 +24,12 @@ const tabs = [
     label: 'tabs.home',
     component: HomeNavigator,
   },
-  {name: 'map', icon: 'marker', label: 'tabs.map', component: AppMapScreen},
+  {
+    name: NAVIGATORS_NAMES.appMapNavigator,
+    icon: 'marker',
+    label: 'tabs.map',
+    component: AppMapNavigatior,
+  },
   {
     name: 'bookmarks',
     icon: 'bookmark',

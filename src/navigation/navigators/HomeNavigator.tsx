@@ -7,9 +7,9 @@ import {Fade} from '../transitition';
 import {SCREEN_NAMES} from '../constants';
 
 import {StyleSheet} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {IconButton, Icon, HeaderSearchbar} from 'atoms';
+import {IconButton, HeaderSearchbar} from 'atoms';
 import {useColorScheme} from 'core/hooks';
+import {getAppHeaderOptions} from '../screenOptions';
 
 const Stack = createStackNavigator();
 
@@ -26,25 +26,7 @@ export function HomeNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerBackTitleVisible: false,
-        headerTintColor: 'white',
-        cardStyle: {backgroundColor: colorScheme === 'light' ? '#fff' : '#000'},
-        headerBackImage: () => <Icon name="chevron" color="white" size={32} />,
-        headerBackground: () => (
-          <LinearGradient
-            start={{x: 0.0, y: 0.0}}
-            end={{x: 1.0, y: 0.0}}
-            colors={['#50A021', '#35C7A4']}
-            style={StyleSheet.absoluteFill}
-          />
-        ),
-        headerTitleStyle: {
-          color: 'white',
-          fontWeight: '600',
-          fontSize: 16,
-          lineHeight: 20,
-        },
-        headerLeftContainerStyle: {paddingLeft: 16},
+        ...getAppHeaderOptions({colorScheme}),
         title: 'Radzima',
       }}>
       <Stack.Screen
