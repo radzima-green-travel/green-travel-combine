@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "yarn rnuc .env && react-native run-ios",
     "start": "react-native start",
     "test": "jest",
     "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-mapbox-gl/maps": "^8.1.0-rc.2",
     "@react-navigation/bottom-tabs": "^5.7.0",
     "@react-navigation/native": "^5.6.1",
     "@react-navigation/stack": "^5.6.2",

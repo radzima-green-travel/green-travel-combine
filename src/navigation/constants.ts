@@ -6,6 +6,7 @@ export enum SCREEN_NAMES {
   activities = 'ACTIVITIES',
   objectsList = 'OBJECTS_LIST',
   routeDetails = 'ROUTE_DETAILS',
+  appMap = 'APP_MAP',
 }
 
 export enum NAVIGATORS_NAMES {
