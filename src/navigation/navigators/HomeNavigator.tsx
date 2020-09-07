@@ -4,14 +4,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {View} from 'react-native';
 import {HomeScreen, ObjectsListScreen, RouteDetailsFullScreen} from 'screens';
 import {Fade} from '../transitition';
-import {SCREEN_NAMES} from '../constants';
 
 import {StyleSheet} from 'react-native';
 import {IconButton, HeaderSearchbar} from 'atoms';
 import {useColorScheme} from 'core/hooks';
+import {HomeNavigatorParamsList} from 'core/types';
 import {getAppHeaderOptions} from '../screenOptions';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<HomeNavigatorParamsList>();
 
 const styles = StyleSheet.create({
   iconButton: {
@@ -30,20 +30,20 @@ export function HomeNavigator() {
         title: 'Radzima',
       }}>
       <Stack.Screen
-        name={SCREEN_NAMES.home}
+        name="Home"
         component={HomeScreen}
         options={({navigation}) => ({
           headerRight: () => (
             <IconButton
               style={styles.iconButton}
-              onPress={() => navigation.navigate(SCREEN_NAMES.search)}
+              onPress={() => navigation.navigate('Search')}
               icon={{name: 'search', color: 'white'}}
             />
           ),
         })}
       />
       <Stack.Screen
-        name={SCREEN_NAMES.search}
+        name="Search"
         component={View}
         options={{
           headerTitle: () => <HeaderSearchbar />,
@@ -55,12 +55,9 @@ export function HomeNavigator() {
           ...Fade,
         }}
       />
+      <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
       <Stack.Screen
-        name={SCREEN_NAMES.objectsList}
-        component={ObjectsListScreen}
-      />
-      <Stack.Screen
-        name={SCREEN_NAMES.routeDetails}
+        name="RouteDetails"
         component={RouteDetailsFullScreen}
         options={{
           headerShown: false,

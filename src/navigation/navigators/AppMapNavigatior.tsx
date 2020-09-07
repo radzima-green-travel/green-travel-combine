@@ -4,10 +4,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {AppMapScreen} from 'screens';
 
-import {SCREEN_NAMES} from '../constants';
 import {getAppHeaderOptions} from '../screenOptions';
 import {useColorScheme} from 'core/hooks';
-const Stack = createStackNavigator();
+import {AppMapNavigatorParamsList} from 'core/types';
+
+const Stack = createStackNavigator<AppMapNavigatorParamsList>();
 
 export function AppMapNavigatior() {
   const colorScheme = useColorScheme();
@@ -18,7 +19,7 @@ export function AppMapNavigatior() {
         ...getAppHeaderOptions({colorScheme}),
         title: 'Карта',
       }}>
-      <Stack.Screen name={SCREEN_NAMES.appMap} component={AppMapScreen} />
+      <Stack.Screen name="AppMap" component={AppMapScreen} />
     </Stack.Navigator>
   );
 }

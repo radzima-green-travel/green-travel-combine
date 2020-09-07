@@ -4,10 +4,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {BookmarksScreen} from 'screens';
 
-import {SCREEN_NAMES} from '../constants';
 import {getAppHeaderOptions} from '../screenOptions';
 import {useColorScheme} from 'core/hooks';
-const Stack = createStackNavigator();
+import {BookmarksNavigatorParamsList} from 'core/types';
+
+const Stack = createStackNavigator<BookmarksNavigatorParamsList>();
 
 export function BookmarksNavigator() {
   const colorScheme = useColorScheme();
@@ -18,7 +19,7 @@ export function BookmarksNavigator() {
         ...getAppHeaderOptions({colorScheme}),
         title: 'Закладки',
       }}>
-      <Stack.Screen name={SCREEN_NAMES.bookmarks} component={BookmarksScreen} />
+      <Stack.Screen name="Bookmarks" component={BookmarksScreen} />
     </Stack.Navigator>
   );
 }

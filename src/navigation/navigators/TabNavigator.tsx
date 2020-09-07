@@ -5,10 +5,10 @@ import {AppMapNavigatior} from './AppMapNavigatior';
 import {BookmarksNavigator} from './BookmarksNavigator';
 import {Icon} from 'atoms';
 import {IconsNames} from 'atoms/Icon';
-import {NAVIGATORS_NAMES} from 'navigation/constants';
 import {HomeNavigator} from './HomeNavigator';
+import {TabNavigatorParamsList} from 'core/types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabNavigatorParamsList>();
 
 type RouteParams = {
   name: string;
@@ -16,27 +16,6 @@ type RouteParams = {
   label: string;
   component: React.ComponentType<any>;
 };
-
-const tabs = [
-  {
-    name: NAVIGATORS_NAMES.homeNavigotor,
-    icon: 'home',
-    label: 'tabs.home',
-    component: HomeNavigator,
-  },
-  {
-    name: NAVIGATORS_NAMES.appMapNavigator,
-    icon: 'marker',
-    label: 'tabs.map',
-    component: AppMapNavigatior,
-  },
-  {
-    name: NAVIGATORS_NAMES.bookmarksNavigator,
-    icon: 'bookmark',
-    label: 'tabs.bookmarks',
-    component: BookmarksNavigator,
-  },
-] as Array<RouteParams>;
 
 export function TabNavigator() {
   const {t} = useTranslation('common');
@@ -46,19 +25,36 @@ export function TabNavigator() {
         activeTintColor: '#50A021',
         inactiveTintColor: '#777777',
       }}>
-      {tabs.map(({name, icon, label, component}) => (
-        <Tab.Screen
-          key={name}
-          name={name}
-          component={component}
-          options={{
-            tabBarLabel: t(label),
-            tabBarIcon: ({color}: {color: string}) => (
-              <Icon name={icon} color={color} size={24} />
-            ),
-          }}
-        />
-      ))}
+      <Tab.Screen
+        name="HomeNavigator"
+        component={HomeNavigator}
+        options={{
+          tabBarLabel: t('tabs.home'),
+          tabBarIcon: ({color}: {color: string}) => (
+            <Icon name={'home'} color={color} size={24} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="AppMapNavigator"
+        component={AppMapNavigatior}
+        options={{
+          tabBarLabel: t('tabs.map'),
+          tabBarIcon: ({color}: {color: string}) => (
+            <Icon name={'marker'} color={color} size={24} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="BookmarksNavigator"
+        component={BookmarksNavigator}
+        options={{
+          tabBarLabel: t('tabs.bookmarks'),
+          tabBarIcon: ({color}: {color: string}) => (
+            <Icon name={'bookmark'} color={color} size={24} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

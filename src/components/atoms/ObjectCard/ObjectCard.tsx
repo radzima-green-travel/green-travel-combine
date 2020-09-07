@@ -4,8 +4,6 @@ import {Icon} from 'atoms';
 import {styles} from './styles';
 import FastImage from 'react-native-fast-image';
 import {IObject} from 'core/types';
-import {useNavigation} from '@react-navigation/native';
-import {SCREEN_NAMES} from 'navigation/constants';
 
 interface IProps {
   data: IObject;
@@ -13,12 +11,11 @@ interface IProps {
   containerStyle?: StyleProp<ViewStyle>;
 }
 
-export const ObjectCard = memo(({data, containerStyle}: IProps) => {
+export const ObjectCard = memo(({data, containerStyle, onPress}: IProps) => {
   const {cover, name} = data;
-  const {navigate} = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => navigate(SCREEN_NAMES.routeDetails)}
+      onPress={onPress}
       activeOpacity={0.8}
       style={[styles.cardContainer, containerStyle]}>
       <FastImage style={styles.image} source={{uri: cover}} />

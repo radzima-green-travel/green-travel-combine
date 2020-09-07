@@ -4,21 +4,21 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {RouteDetailsFullScreen} from 'screens';
 
-import {SCREEN_NAMES, NAVIGATORS_NAMES} from '../constants';
 import {TabNavigator} from './TabNavigator';
+import {MainNavigatorParamsList} from 'core/types';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<MainNavigatorParamsList>();
 
 export function MainNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={NAVIGATORS_NAMES.tabNavigator}
+        name="TabNavigator"
         component={TabNavigator}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name={SCREEN_NAMES.placeDetails}
+        name="PlaceDetails"
         component={RouteDetailsFullScreen}
         options={{
           headerShown: false,
