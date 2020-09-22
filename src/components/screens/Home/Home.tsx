@@ -34,6 +34,12 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     [navigate],
   );
 
+  const navigateToPlaceDetails: ComponentProps<
+    typeof HomeSectionBar
+  >['onItemPress'] = useCallback(() => {
+    navigate('PlaceDetails');
+  }, [navigate]);
+
   return (
     <SuspenseView loading={loading} error={error} retryCallback={getData}>
       <FlatList
@@ -43,6 +49,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
         keyExtractor={(item) => item._id}
         renderItem={({item}) => (
           <HomeSectionBar
+            onItemPress={navigateToPlaceDetails}
             onAllPress={navigateToObjectsList}
             title={item.name}
             content={item.items}

@@ -8,3 +8,19 @@ export enum ACTIONS {
   GET_HOME_DATA_SUCCESS = 'GET_HOME_DATA_SUCCESS',
   GET_HOME_DATA_FAILURE = 'GET_HOME_DATA_FAILURE',
 }
+
+export const DEFAULT_BOUNDS = {
+  ne: [110.07385416701771, 85.05112862791776],
+  sw: [-110.07385416703308, -85.05112862791907],
+  paddingLeft: 30,
+  paddingRight: 30,
+};
+
+export enum MAP_PINS {
+  EMPTY = 'map-pin-empty',
+  BICYCLE_ROUTE = 'map-pin-bicycle-route',
+  CAPMING = 'map-pin-camping',
+  CAR_ROUTE = 'map-pin-car-route',
+  OBJECTS = 'map-pin-objects',
+  WALKING_ROUTE = 'map-pin-walking-route',
+}

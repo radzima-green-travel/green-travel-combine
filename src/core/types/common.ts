@@ -7,7 +7,7 @@ export interface ILabelError {
   originalMessage: string;
 }
 
-export type ICoordinates = Array<string>;
+export type ICoordinates = Array<number>;
 
 export interface ILocationPoint {
   _id: string;

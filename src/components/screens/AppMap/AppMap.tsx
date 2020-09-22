@@ -1,22 +1,62 @@
-import React, {useEffect} from 'react';
-import MapboxGL from '@react-native-mapbox-gl/maps';
-const {MapView, Camera} = MapboxGL;
+import React, {useRef, useState, useEffect, useLayoutEffect} from 'react';
+import {ClusterMap} from 'atoms';
+import {selectMapMarkers, selectBounds} from 'core/selectors';
+import {useSelector} from 'react-redux';
+import {View, Text} from 'react-native';
+import BottomSheet from 'reanimated-bottom-sheet';
+import {Button as CustomButton} from 'atoms';
+import {styles} from './styles';
+import {IObject} from 'core/types';
 
 export const AppMap = () => {
+  const markers = useSelector(selectMapMarkers);
+  const bounds = useSelector(selectBounds);
+  const [selected, setSelected] = useState<IObject | null>(null);
+
+  const bs = useRef<BottomSheet>(null);
+  const rendnerInner = () => {
+    return (
+      <View style={styles.bottomMenuContainer}>
+        <Text style={styles.bottomMenuText}>{selected?.name}</Text>
+        <CustomButton label="Узнать больше" />
+      </View>
+    );
+  };
+
   useEffect(() => {
-    MapboxGL.setTelemetryEnabled(false);
-  }, []);
+    if (selected) {
+      bs.current?.snapTo(1);
+    }
+  }, [selected]);
+
+  useLayoutEffect(() => {
+    if (!selected) {
+      bs.current?.snapTo(0);
+    }
+  }, [selected]);
 
   return (
-    <MapView style={{flex: 1}}>
-      <Camera
-        bounds={{
-          ne: [23.1994938494, 51.3195034857],
-          sw: [32.6936430193, 56.1691299506],
-          paddingLeft: 30,
-          paddingRight: 30,
+    <View style={styles.container}>
+      <ClusterMap
+        onPress={() => {
+          setSelected(null);
+        }}
+        markers={markers}
+        bounds={bounds}
+        onMarkerPress={({isClustered, data}) => {
+          if (!isClustered) {
+            setSelected(data);
+          }
         }}
       />
-    </MapView>
+      <BottomSheet
+        borderRadius={15}
+        ref={bs}
+        snapPoints={[0, 150]}
+        renderContent={rendnerInner}
+        initialSnap={0}
+        enabledGestureInteraction={false}
+      />
+    </View>
   );
 };

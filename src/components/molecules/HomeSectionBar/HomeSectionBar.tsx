@@ -9,20 +9,25 @@ interface Props {
   title: string;
   content: IObject[];
   onAllPress: (options: {data: IObject[]; title: string}) => void;
+  onItemPress: () => void;
 }
 
-const renderItem = ({item}: {item: IObject}) => (
-  <ObjectCard containerStyle={styles.cardContainer} data={item} />
-);
-
 export const HomeSectionBar = memo(
-  ({title: sectionTitle, content, onAllPress}: Props) => {
+  ({title: sectionTitle, content, onAllPress, onItemPress}: Props) => {
     const keyExtractor = useCallback(({title}) => title, []);
     const {t} = useTranslation('home');
 
     const onAllPressHandler = useCallback(() => {
       onAllPress({data: content, title: sectionTitle});
     }, [onAllPress, content, sectionTitle]);
+
+    const renderItem = ({item}: {item: IObject}) => (
+      <ObjectCard
+        containerStyle={styles.cardContainer}
+        onPress={onItemPress}
+        data={item}
+      />
+    );
 
     return (
       <View>

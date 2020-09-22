@@ -5,6 +5,7 @@ export type HomeNavigatorParamsList = {
   Search: undefined;
   ObjectsList: {data: IObject[]; title: string};
   RouteDetails: undefined;
+  PlaceDetails: undefined;
 };
 
 export type BookmarksNavigatorParamsList = {

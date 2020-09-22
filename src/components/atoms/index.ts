@@ -11,3 +11,4 @@ export {RouteMetric} from './RouteMetric';
 export {Button} from './Button';
 export {SuspenseView} from './SuspenseView';
 export {ObjectCard} from './ObjectCard';
+export {ClusterMap} from './ClusterMap';
