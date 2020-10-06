@@ -60,7 +60,6 @@ export function HomeNavigator() {
           ...Fade,
         }}
       />
-      <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
       <Stack.Screen
         name="RouteDetails"
         component={RouteDetailsFullScreen}

@@ -30,8 +30,8 @@ export const styles = StyleSheet.create({
     lineHeight: 15,
     letterSpacing: 0.2,
     color: 'black',
-    fontWeight: 'bold',
     textTransform: 'uppercase',
+    fontFamily: 'Montserrat-Bold',
   },
   sectionTitleContainer: {
     flexDirection: 'row',

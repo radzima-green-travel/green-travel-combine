@@ -6,6 +6,7 @@ import {
   successReducer,
   bootstrapReducer,
   homeReducer,
+  bookmarksReducer,
 } from './reducers';
 
 export const rootReducer = combineReducers({
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
   success: successReducer,
   bootsrap: bootstrapReducer,
   home: homeReducer,
+  bookmarks: bookmarksReducer,
 });

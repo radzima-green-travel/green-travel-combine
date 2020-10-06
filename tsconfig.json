@@ -64,6 +64,8 @@
       "navigation/*": ["./src/navigation/*"],
       "api": ["./src/api"],
       "api/*": ["./src/api/*"],
+      "storage": ["./src/storage"],
+      "storage/*": ["./src/storage/*"],
     },
     /* Base directory to resolve non-absolute module names. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */

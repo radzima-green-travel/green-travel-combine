@@ -36,5 +36,12 @@ export interface IObject {
 export interface ICategory {
   _id: string;
   name: string;
+}
+
+export interface ICategoryWithItems extends ICategory {
   items: IObject[];
+}
+
+export interface IBookmarksIds {
+  [key: string]: string[];
 }

@@ -8,3 +8,4 @@ export {default as mapMarkerGray} from './mapMarkerGray.svg';
 export {default as marker} from './marker.svg';
 export {default as paw} from './paw.svg';
 export {default as search} from './search.svg';
+export {default as bookmarkFilled} from './bookmarkFilled.svg';

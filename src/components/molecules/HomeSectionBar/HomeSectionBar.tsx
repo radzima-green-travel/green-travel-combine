@@ -5,15 +5,31 @@ import {styles} from './styles';
 import {FlatList} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
 import {IObject} from 'core/types';
+import {includes} from 'lodash';
 interface Props {
   title: string;
   content: IObject[];
+  categoryId: string;
   onAllPress: (options: {data: IObject[]; title: string}) => void;
   onItemPress: () => void;
+  favoritesObjects: string[] | null | undefined;
+  addToFavorite: (data: {
+    categoryId: string;
+    objectId: string;
+    needToAdd: boolean;
+  }) => void;
 }
 
 export const HomeSectionBar = memo(
-  ({title: sectionTitle, content, onAllPress, onItemPress}: Props) => {
+  ({
+    title: sectionTitle,
+    content,
+    onAllPress,
+    onItemPress,
+    addToFavorite,
+    categoryId,
+    favoritesObjects,
+  }: Props) => {
     const keyExtractor = useCallback(({title}) => title, []);
     const {t} = useTranslation('home');
 
@@ -21,11 +37,20 @@ export const HomeSectionBar = memo(
       onAllPress({data: content, title: sectionTitle});
     }, [onAllPress, content, sectionTitle]);
 
+    const addToFavoriteHandler = useCallback(
+      (objectId: string, needToAdd: boolean) => {
+        addToFavorite({objectId, needToAdd, categoryId});
+      },
+      [addToFavorite, categoryId],
+    );
+
     const renderItem = ({item}: {item: IObject}) => (
       <ObjectCard
         containerStyle={styles.cardContainer}
         onPress={onItemPress}
         data={item}
+        onIsFavoriteChange={addToFavoriteHandler}
+        isFavorite={includes(favoritesObjects, item._id)}
       />
     );
 

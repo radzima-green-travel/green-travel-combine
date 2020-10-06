@@ -1,30 +1,57 @@
-import React from 'react';
-import {View, Text, useWindowDimensions} from 'react-native';
+import React, {useCallback} from 'react';
+import {View, Text} from 'react-native';
 import {styles} from './styles';
+import {BookmarkItem, SuspenseView} from 'atoms';
+import {
+  selectBookmarksCategories,
+  selectHomeData,
+  selectSavedBookmarksIds,
+} from 'core/selectors';
+import {useSelector} from 'react-redux';
+import {useRequestError, useRequestLoading} from 'core/hooks';
+import {getHomeDataRequest} from 'core/reducers';
+import {includes} from 'lodash';
 
-const elements = [
-  'Заповедные территории',
-  'Исторические объекты',
-  'Веломаршруты',
-  'Экскурсии',
-  'Пешие маршруты',
-  'Авто-пешеходны маршруты',
-];
+export const Bookmarks = ({navigation}) => {
+  const bookmarksCategories = useSelector(selectBookmarksCategories);
+  const homeData = useSelector(selectHomeData);
+  const savedBookmarksIds = useSelector(selectSavedBookmarksIds);
 
-export const Bookmarks = () => {
-  const {width} = useWindowDimensions();
-  const itemWidth = width / 2.3;
-  const itemHeight = itemWidth / 1.5;
+  const loading = useRequestLoading(getHomeDataRequest);
+  const {error} = useRequestError(getHomeDataRequest);
+
+  const navigateToObjectsList = useCallback(
+    ({categoryId, title}) => {
+      const data = homeData
+        ?.find((category) => category._id === categoryId)
+        ?.items.filter((object) =>
+          includes(savedBookmarksIds?.[categoryId], object._id),
+        );
+
+      navigation.navigate('ObjectsList', {data, title});
+    },
+    [navigation],
+  );
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{'Закладки'}</Text>
-      <View style={styles.boxContainer}>
-        {elements.map((text) => (
-          <View style={[styles.box, {width: itemWidth, height: itemHeight}]}>
-            <Text style={styles.boxText}>{text}</Text>
+    <SuspenseView loading={loading} error={error}>
+      {bookmarksCategories ? (
+        <View style={styles.container}>
+          <Text style={styles.title}>{'Закладки'}</Text>
+          <View style={styles.boxContainer}>
+            {bookmarksCategories.map(({name, _id}, index) => (
+              <BookmarkItem
+                text={name}
+                isOdd={index % 2 === 0}
+                count={savedBookmarksIds?.[_id]?.length}
+                onPress={() => {
+                  navigateToObjectsList({categoryId: _id, title: name});
+                }}
+              />
+            ))}
           </View>
-        ))}
-      </View>
-    </View>
+        </View>
+      ) : null}
+    </SuspenseView>
   );
 };

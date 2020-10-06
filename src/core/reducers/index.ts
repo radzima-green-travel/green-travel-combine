@@ -8,3 +8,4 @@ export {
 } from './BootstrapReducer';
 
 export * from './HomeReducer';
+export * from './BookmarksReducer';

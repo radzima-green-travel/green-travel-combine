@@ -4,11 +4,12 @@ import {HomeSectionBar} from 'molecules';
 import {FlatList} from 'react-native';
 
 import {styles} from './styles';
-import {getHomeDataRequest} from 'core/reducers';
+import {getHomeDataRequest, addToBookmarksRequest} from 'core/reducers';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectHomeData} from 'core/selectors';
+import {selectHomeData, selectSavedBookmarksIds} from 'core/selectors';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {IProps} from './types';
+import {getCategoriesList} from 'api/native';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
   const dispatch = useDispatch();
@@ -18,10 +19,12 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   }, [dispatch]);
 
   useEffect(() => {
+    getCategoriesList().then(console.log);
     getData();
   }, [getData]);
 
   const homeData = useSelector(selectHomeData);
+  const savedBookmarksIds = useSelector(selectSavedBookmarksIds);
   const loading = useRequestLoading(getHomeDataRequest);
   const {error} = useRequestError(getHomeDataRequest);
 
@@ -40,6 +43,13 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     navigate('PlaceDetails');
   }, [navigate]);
 
+  const addToFavorite = useCallback(
+    (data) => {
+      dispatch(addToBookmarksRequest(data));
+    },
+    [dispatch],
+  );
+
   return (
     <SuspenseView loading={loading} error={error} retryCallback={getData}>
       <FlatList
@@ -53,6 +63,11 @@ export const Home = ({navigation: {navigate}}: IProps) => {
             onAllPress={navigateToObjectsList}
             title={item.name}
             content={item.items}
+            categoryId={item._id}
+            addToFavorite={addToFavorite}
+            favoritesObjects={
+              savedBookmarksIds ? savedBookmarksIds[item._id] : null
+            }
           />
         )}
       />

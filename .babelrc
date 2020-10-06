@@ -24,7 +24,9 @@
             "navigation": "./src/navigation",
             "navigation/*": "./src/navigation/*",
             "api": "./src/api",
-            "api/*": "./src/api/*"           
+            "api/*": "./src/api/*",           
+            "storage": "./src/storage",
+            "storage/*": "./src/storage/*"           
           }
         }
       ]

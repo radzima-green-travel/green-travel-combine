@@ -8,4 +8,5 @@ export type IconsNames =
   | 'mapMarkerGray'
   | 'marker'
   | 'paw'
-  | 'search';
+  | 'search'
+  | 'bookmarkFilled';
