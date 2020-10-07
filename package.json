@@ -28,7 +28,7 @@
     "lodash": "^4.17.19",
     "react": "16.13.1",
     "react-i18next": "^11.7.0",
-    "react-native": "0.63.1",
+    "react-native": "0.63.3",
     "react-native-fast-image": "^8.3.2",
     "react-native-geolocation-service": "^5.0.0",
     "react-native-gesture-handler": "^1.6.1",
