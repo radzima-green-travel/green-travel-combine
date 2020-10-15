@@ -6,5 +6,5 @@ export function getCategories(): Promise<ICategoryWithItems[]> {
 }
 
 export function getCategoriesList(): Promise<ICategoryWithItems[]> {
-  return nativeApi.get('/categories');
+  return nativeApi.get('/category');
 }

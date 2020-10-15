@@ -11,6 +11,7 @@ export interface IOptions {
 export const getAppHeaderOptions = ({colorScheme}: IOptions) => ({
   headerBackTitleVisible: false,
   headerTintColor: 'white',
+  headerTitleAlign: 'center',
   cardStyle: {backgroundColor: colorScheme === 'light' ? '#fff' : '#000'},
   headerBackImage: () => <Icon name="chevron" color="white" size={32} />,
   headerBackground: () => (
