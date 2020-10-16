@@ -1,4 +1,4 @@
-package com.greentravel; 
+package com.greentravel.radzima; 
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.greentravel;
+package com.greentravel.radzima;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;

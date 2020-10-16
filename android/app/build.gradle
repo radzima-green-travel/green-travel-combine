@@ -123,13 +123,15 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    flavorDimensions "default"
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
     defaultConfig {
-        applicationId "com.greentravel"
+        applicationId "com.greentravel.radzima"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -162,6 +164,22 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
+    }
+
+    productFlavors {
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix ".dev"
+            targetSdkVersion rootProject.ext.targetSdkVersion           
+            resValue "string", "build_config_package", "com.greentravel.radzima"
+            signingConfig signingConfigs.debug
+        }       
+        prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix ''
+            targetSdkVersion rootProject.ext.targetSdkVersion           
+            resValue "string", "build_config_package", "com.greentravel.radzima"
+        }       
     }
 
     // applicationVariants are e.g. debug, release
