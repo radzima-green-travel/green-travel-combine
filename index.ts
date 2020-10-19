@@ -4,7 +4,6 @@ import {name as appName} from './app.json';
 import 'react-native-gesture-handler';
 import MapBox from '@react-native-mapbox-gl/maps';
 import config from 'react-native-ultimate-config';
-
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 
