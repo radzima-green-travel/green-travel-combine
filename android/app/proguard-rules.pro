@@ -9,6 +9,6 @@
 
 # Add any project specific keep options here:
 
--keepclassmembers class <APPLICATION ID>.BuildConfig {
+-keepclassmembers class com.greentravel.radzima.BuildConfig {
    public static <fields>;
 }
