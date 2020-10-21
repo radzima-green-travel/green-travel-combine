@@ -27,7 +27,7 @@ const SplasScreen = ({onAnimationEnd}) => {
       ]).start(() => {
         onAnimationEnd();
       });
-    }, 200);
+    }, 300);
   }, [animatedValue, onAnimationEnd]);
   return (
     <View
