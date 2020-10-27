@@ -1,11 +1,17 @@
 import {createSelector} from 'reselect';
 import {IState} from 'core/store';
-import {ICategoryWithItems, ICategory, IBookmarksIds} from 'core/types';
-import {map, omit} from 'lodash';
+import {
+  ICategoryWithObjects,
+  ICategory,
+  IBookmarksIds,
+  IObject,
+  IExtendedObject,
+} from 'core/types';
+import {includes, map, omit} from 'lodash';
 
 export const selectBookmarksCategories = createSelector<
   IState,
-  ICategoryWithItems[] | null,
+  ICategoryWithObjects[] | null,
   ICategory[] | null
 >(
   (state) => state.home.data,
@@ -19,4 +25,24 @@ export const selectSavedBookmarksIds = createSelector<
 >(
   (state) => state.bookmarks.savedBookmarksIds,
   (savedBookmarksIds) => savedBookmarksIds,
+);
+
+export const selectSavedBookmarks = createSelector<
+  IState,
+  IObject[] | null,
+  IBookmarksIds | null,
+  IExtendedObject[] | null
+>(
+  (state) => state.bookmarks.data,
+  selectSavedBookmarksIds,
+  (objects, bookmarksIds) => {
+    return map(objects, (object) => {
+      const bookmarksForCategory = bookmarksIds?.[object.category];
+
+      return {
+        ...object,
+        isFavorite: includes(bookmarksForCategory, object._id),
+      };
+    });
+  },
 );

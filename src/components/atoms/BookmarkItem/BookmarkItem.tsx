@@ -1,4 +1,5 @@
-import React, {memo} from 'react';
+import {ICategory} from 'core/types';
+import React, {memo, useCallback} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {styles} from './styles';
@@ -9,23 +10,26 @@ const height = width / ratio;
 const marginRight = SCREEN_WIDTH * 0.12 * 0.26;
 
 interface IProps {
-  text: string;
   isOdd: boolean;
-  count: number;
-  onPress: () => {};
+  count: number | undefined;
+  item: ICategory;
+  onPress: (item: ICategory) => void;
 }
 
-export const BookmarkItem = memo(({text, isOdd, count, onPress}: IProps) => {
+export const BookmarkItem = memo(({isOdd, count, onPress, item}: IProps) => {
+  const onPressHandler = useCallback(() => {
+    onPress(item);
+  }, [item, onPress]);
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={onPress}
+      onPress={onPressHandler}
       style={[
         styles.box,
         {width: width, height: height},
         isOdd && {marginRight},
       ]}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>{item.name}</Text>
       <Text style={styles.count}>{count || 0}</Text>
     </TouchableOpacity>
   );

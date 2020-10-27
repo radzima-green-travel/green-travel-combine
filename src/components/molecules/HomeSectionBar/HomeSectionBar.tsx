@@ -4,15 +4,14 @@ import {ObjectCard} from 'atoms';
 import {styles} from './styles';
 import {FlatList} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
-import {IObject} from 'core/types';
-import {includes} from 'lodash';
+import {IExtendedObject} from 'core/types';
+
 interface Props {
   title: string;
-  content: IObject[];
+  content: IExtendedObject[];
   categoryId: string;
-  onAllPress: (options: {data: IObject[]; title: string}) => void;
+  onAllPress: (options: {categoryId: string; title: string}) => void;
   onItemPress: () => void;
-  favoritesObjects: string[] | null | undefined;
   addToFavorite: (data: {
     categoryId: string;
     objectId: string;
@@ -28,31 +27,13 @@ export const HomeSectionBar = memo(
     onItemPress,
     addToFavorite,
     categoryId,
-    favoritesObjects,
   }: Props) => {
     const keyExtractor = useCallback(({title}) => title, []);
     const {t} = useTranslation('home');
 
     const onAllPressHandler = useCallback(() => {
-      onAllPress({data: content, title: sectionTitle});
-    }, [onAllPress, content, sectionTitle]);
-
-    const addToFavoriteHandler = useCallback(
-      (objectId: string, needToAdd: boolean) => {
-        addToFavorite({objectId, needToAdd, categoryId});
-      },
-      [addToFavorite, categoryId],
-    );
-
-    const renderItem = ({item}: {item: IObject}) => (
-      <ObjectCard
-        containerStyle={styles.cardContainer}
-        onPress={onItemPress}
-        data={item}
-        onIsFavoriteChange={addToFavoriteHandler}
-        isFavorite={includes(favoritesObjects, item._id)}
-      />
-    );
+      onAllPress({categoryId, title: sectionTitle});
+    }, [onAllPress, categoryId, sectionTitle]);
 
     return (
       <View>
@@ -68,7 +49,14 @@ export const HomeSectionBar = memo(
           contentContainerStyle={styles.contentContainer}
           data={content}
           horizontal
-          renderItem={renderItem}
+          renderItem={({item}: {item: IExtendedObject}) => (
+            <ObjectCard
+              containerStyle={styles.cardContainer}
+              onPress={onItemPress}
+              data={item}
+              onIsFavoriteChange={addToFavorite}
+            />
+          )}
           showsHorizontalScrollIndicator={false}
         />
       </View>

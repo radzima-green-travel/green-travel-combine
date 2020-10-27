@@ -1,11 +1,13 @@
-import {IObject} from './common';
+export type NestedNavigatorParams<ParamList> = {
+  [K in keyof ParamList]: undefined extends ParamList[K]
+    ? {screen: K; params?: ParamList[K]}
+    : {screen: K; params: ParamList[K]};
+}[keyof ParamList];
 
 export type HomeNavigatorParamsList = {
   Home: undefined;
   Search: undefined;
-  ObjectsList: {data: IObject[]; title: string};
   RouteDetails: undefined;
-  PlaceDetails: undefined;
 };
 
 export type BookmarksNavigatorParamsList = {
@@ -17,12 +19,13 @@ export type AppMapNavigatorParamsList = {
 };
 
 export type MainNavigatorParamsList = {
-  TabNavigator: undefined;
+  TabNavigator: NestedNavigatorParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
+  ObjectsList: {categoryId?: string; title: string; objectIds?: string[]};
 };
 
 export type TabNavigatorParamsList = {
-  HomeNavigator: undefined;
-  AppMapNavigator: undefined;
-  BookmarksNavigator: undefined;
+  HomeNavigator: NestedNavigatorParams<HomeNavigatorParamsList>;
+  AppMapNavigator: NestedNavigatorParams<AppMapNavigatorParamsList>;
+  BookmarksNavigator: NestedNavigatorParams<BookmarksNavigatorParamsList>;
 };

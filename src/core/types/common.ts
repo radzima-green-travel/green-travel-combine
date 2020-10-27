@@ -33,13 +33,21 @@ export interface IObject {
   cover: string;
 }
 
+export interface IExtendedObject extends IObject {
+  isFavorite: boolean;
+}
+
 export interface ICategory {
   _id: string;
   name: string;
 }
 
-export interface ICategoryWithItems extends ICategory {
+export interface ICategoryWithObjects extends ICategory {
   items: IObject[];
+}
+
+export interface ICategoryWithExtendedObjects extends ICategory {
+  items: IExtendedObject[];
 }
 
 export interface IBookmarksIds {

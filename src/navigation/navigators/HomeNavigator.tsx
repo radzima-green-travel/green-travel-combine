@@ -2,12 +2,7 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {View} from 'react-native';
-import {
-  HomeScreen,
-  ObjectsListScreen,
-  RouteDetailsFullScreen,
-  PlaceDetailsScreen,
-} from 'screens';
+import {HomeScreen, RouteDetailsFullScreen} from 'screens';
 import {Fade} from '../transitition';
 
 import {StyleSheet} from 'react-native';
@@ -63,13 +58,6 @@ export function HomeNavigator() {
       <Stack.Screen
         name="RouteDetails"
         component={RouteDetailsFullScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="PlaceDetails"
-        component={PlaceDetailsScreen}
         options={{
           headerShown: false,
         }}

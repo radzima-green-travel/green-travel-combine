@@ -1,31 +1,40 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {Icon} from 'atoms';
 import {styles} from './styles';
 import FastImage from 'react-native-fast-image';
-import {IObject} from 'core/types';
+import {IExtendedObject} from 'core/types';
 
 interface IProps {
-  data: IObject;
+  data: IExtendedObject;
   onPress?: () => void;
   containerStyle?: StyleProp<ViewStyle>;
-  isFavorite: boolean;
-  onIsFavoriteChange: (objectId: string, needToAdd: boolean) => void;
+  onIsFavoriteChange: (data: {
+    objectId: string;
+    categoryId: string;
+    needToAdd: boolean;
+  }) => void;
 }
 
 export const ObjectCard = memo(
-  ({data, isFavorite, containerStyle, onPress, onIsFavoriteChange}: IProps) => {
-    const [internalIsFavorite, setInternalIsFavorite] = useState(isFavorite);
-    const {cover, name, _id} = data;
+  ({data, containerStyle, onPress, onIsFavoriteChange}: IProps) => {
+    const [internalIsFavorite, setInternalIsFavorite] = useState(
+      data.isFavorite,
+    );
+    const {cover, name, _id, category} = data;
 
     const onIsFavoriteChangeHandler = useCallback(() => {
       setInternalIsFavorite((prev) => {
         const nextValue = !prev;
 
-        onIsFavoriteChange(_id, nextValue);
+        onIsFavoriteChange({
+          objectId: _id,
+          needToAdd: nextValue,
+          categoryId: category,
+        });
         return nextValue;
       });
-    }, [onIsFavoriteChange, _id]);
+    }, [onIsFavoriteChange, _id, category]);
 
     return (
       <TouchableOpacity

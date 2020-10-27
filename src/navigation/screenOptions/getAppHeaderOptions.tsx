@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {StyleSheet, ColorSchemeName} from 'react-native';
+import {StackNavigationOptions} from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
 import {Icon} from 'atoms';
 
@@ -8,7 +9,9 @@ export interface IOptions {
   colorScheme: ColorSchemeName;
 }
 
-export const getAppHeaderOptions = ({colorScheme}: IOptions) => ({
+export const getAppHeaderOptions = ({
+  colorScheme,
+}: IOptions): StackNavigationOptions => ({
   headerBackTitleVisible: false,
   headerTintColor: 'white',
   headerTitleAlign: 'center',

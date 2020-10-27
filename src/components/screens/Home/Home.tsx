@@ -6,7 +6,7 @@ import {FlatList} from 'react-native';
 import {styles} from './styles';
 import {getHomeDataRequest, addToBookmarksRequest} from 'core/reducers';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectHomeData, selectSavedBookmarksIds} from 'core/selectors';
+import {selectHomeData} from 'core/selectors';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {IProps} from './types';
 import {getCategoriesList} from 'api/native';
@@ -24,15 +24,14 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   }, [getData]);
 
   const homeData = useSelector(selectHomeData);
-  const savedBookmarksIds = useSelector(selectSavedBookmarksIds);
   const loading = useRequestLoading(getHomeDataRequest);
   const {error} = useRequestError(getHomeDataRequest);
 
   const navigateToObjectsList: ComponentProps<
     typeof HomeSectionBar
   >['onAllPress'] = useCallback(
-    ({data, title}) => {
-      navigate('ObjectsList', {data, title});
+    ({categoryId, title}) => {
+      navigate('ObjectsList', {categoryId, title});
     },
     [navigate],
   );
@@ -65,9 +64,6 @@ export const Home = ({navigation: {navigate}}: IProps) => {
             content={item.items}
             categoryId={item._id}
             addToFavorite={addToFavorite}
-            favoritesObjects={
-              savedBookmarksIds ? savedBookmarksIds[item._id] : null
-            }
           />
         )}
       />
