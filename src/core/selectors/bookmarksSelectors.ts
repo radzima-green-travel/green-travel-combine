@@ -7,7 +7,7 @@ import {
   IObject,
   IExtendedObject,
 } from 'core/types';
-import {includes, map, omit} from 'lodash';
+import {includes, map, omit, reduce} from 'lodash';
 
 export const selectBookmarksCategories = createSelector<
   IState,
@@ -15,7 +15,8 @@ export const selectBookmarksCategories = createSelector<
   ICategory[] | null
 >(
   (state) => state.home.data,
-  (data) => (data ? map(data, (category) => omit(category, ['items'])) : null),
+  (data) =>
+    data ? map(data, (category) => omit(category, ['objects'])) : null,
 );
 
 export const selectSavedBookmarksIds = createSelector<
@@ -36,13 +37,21 @@ export const selectSavedBookmarks = createSelector<
   (state) => state.bookmarks.data,
   selectSavedBookmarksIds,
   (objects, bookmarksIds) => {
-    return map(objects, (object) => {
-      const bookmarksForCategory = bookmarksIds?.[object.category];
+    return reduce(
+      objects,
+      (acc, object) => {
+        const bookmarksForCategory = bookmarksIds?.[object.category];
+        const isFavorite = includes(bookmarksForCategory, object._id);
 
-      return {
-        ...object,
-        isFavorite: includes(bookmarksForCategory, object._id),
-      };
-    });
+        if (isFavorite) {
+          acc.push({
+            ...object,
+            isFavorite,
+          });
+        }
+        return acc;
+      },
+      [] as IExtendedObject[],
+    );
   },
 );

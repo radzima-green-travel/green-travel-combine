@@ -2,11 +2,11 @@ import {call, put, takeEvery} from 'redux-saga/effects';
 import {getHomeDataSuccess, getHomeDataFailure} from '../reducers';
 import {ACTIONS} from '../constants';
 import {getCategories} from 'api/native';
-import {ICategoryWithItems} from '../types';
+import {ICategoryWithObjects} from '../types';
 
 export function* getHomeDataSaga() {
   try {
-    const categories: ICategoryWithItems[] = yield call(getCategories);
+    const categories: ICategoryWithObjects[] = yield call(getCategories);
 
     yield put(getHomeDataSuccess(categories));
   } catch (e) {

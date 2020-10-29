@@ -43,11 +43,11 @@ export interface ICategory {
 }
 
 export interface ICategoryWithObjects extends ICategory {
-  items: IObject[];
+  objects: IObject[];
 }
 
 export interface ICategoryWithExtendedObjects extends ICategory {
-  items: IExtendedObject[];
+  objects: IExtendedObject[];
 }
 
 export interface IBookmarksIds {

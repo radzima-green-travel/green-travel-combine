@@ -25,7 +25,7 @@ export const selectAllCategoriesWithObjects = createSelector<
       const bookmarksForCategory = bookmarksIds?.[value._id];
       return {
         ...value,
-        items: map(value.items, (object) => {
+        objects: map(value.objects, (object) => {
           return {
             ...object,
             isFavorite: includes(bookmarksForCategory, object._id),
@@ -41,5 +41,5 @@ export const selectHomeData = createSelector<
   ICategoryWithExtendedObjects[] | null,
   ICategoryWithExtendedObjects[] | null
 >(selectAllCategoriesWithObjects, (data) =>
-  filter(data, ({items}) => !isEmpty(items)),
+  filter(data, ({objects}) => !isEmpty(objects)),
 );

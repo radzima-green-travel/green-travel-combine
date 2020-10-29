@@ -1,4 +1,4 @@
-import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
+import {call, put, takeEvery, takeLatest, select} from 'redux-saga/effects';
 import {
   getObjectsForBookmarkFailure,
   getObjectsForBookmarkRequest,
@@ -19,6 +19,9 @@ import {
   removeBookmarkFromStorage,
   getBookmarksFromStorage,
 } from 'storage';
+import {LayoutAnimation} from 'react-native';
+import * as NavigationService from 'services/NavigationService';
+import {selectSavedBookmarks} from 'core/selectors';
 
 export function* getObjectsForBookmarkSaga({
   payload,
@@ -36,11 +39,35 @@ export function* addToBookmarksSaga({
   payload,
 }: ActionType<typeof addToBookmarksRequest>) {
   try {
-    const {needToAdd, ...data} = payload;
+    const {needToAdd, removeWithAnimation = false, ...data} = payload;
     const value: IAddToBookmarksSuccess | null = yield call(
       needToAdd ? saveBookmarkToStorage : removeBookmarkFromStorage,
       data,
     );
+    if (!needToAdd && removeWithAnimation) {
+      const savedBookmarks: ReturnType<typeof selectSavedBookmarks> = yield select(
+        selectSavedBookmarks,
+      );
+
+      LayoutAnimation.configureNext(
+        {
+          duration: 400,
+          update: {
+            type: LayoutAnimation.Types.easeOut,
+            property: LayoutAnimation.Properties.opacity,
+          },
+          delete: {
+            type: LayoutAnimation.Types.easeOut,
+            property: LayoutAnimation.Properties.opacity,
+          },
+        },
+        () => {
+          if (savedBookmarks?.length === 1) {
+            NavigationService.goBack();
+          }
+        },
+      );
+    }
 
     yield put(addToBookmarksSuccess(value));
   } catch (e) {

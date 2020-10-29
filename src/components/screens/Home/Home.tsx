@@ -9,7 +9,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {selectHomeData} from 'core/selectors';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {IProps} from './types';
-import {getCategoriesList} from 'api/native';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
   const dispatch = useDispatch();
@@ -19,7 +18,6 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   }, [dispatch]);
 
   useEffect(() => {
-    getCategoriesList().then(console.log);
     getData();
   }, [getData]);
 
@@ -61,7 +59,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
             onItemPress={navigateToPlaceDetails}
             onAllPress={navigateToObjectsList}
             title={item.name}
-            content={item.items}
+            content={item.objects}
             categoryId={item._id}
             addToFavorite={addToFavorite}
           />

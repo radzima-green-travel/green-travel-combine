@@ -8,7 +8,8 @@ export function getObjects(): Promise<IObject> {
 export function getObjectsById(ids: Array<string>): Promise<IObject> {
   return nativeApi.get('/object', {
     params: {
-      ids: ids,
+      mobile: true,
+      ids: String(ids),
     },
   });
 }

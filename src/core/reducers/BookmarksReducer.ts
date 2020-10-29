@@ -32,10 +32,13 @@ export const getSavedBookmarksIdsFailure = createAction(
   ACTIONS.GET_SAVED_BOOKMARKS_IDS_FAILURE,
 )<ILabelError>();
 
+export const clearBookmarksData = createAction(ACTIONS.CLEAR_BOOKMARKS_DATA)();
+
 export interface IAddToBookmarks {
   needToAdd: boolean;
   categoryId: string;
   objectId: string;
+  removeWithAnimation?: boolean;
 }
 
 export interface IAddToBookmarksSuccess {
@@ -56,6 +59,7 @@ const actions = {
   getObjectsForBookmarkSuccess,
   addToBookmarksSuccess,
   getSavedBookmarksIdsSuccess,
+  clearBookmarksData,
 };
 
 export const bookmarksReducer = createReducer<
@@ -75,15 +79,20 @@ export const bookmarksReducer = createReducer<
     };
   })
   .handleAction(addToBookmarksSuccess, (state, {payload}) => {
-    if (!state.savedBookmarksIds || !payload) {
+    const prevBoomarksIds = state.savedBookmarksIds || {};
+    if (!payload) {
       return state;
     }
 
     return {
       ...state,
       savedBookmarksIds: {
-        ...state.savedBookmarksIds,
+        ...prevBoomarksIds,
         ...payload,
       },
     };
-  });
+  })
+  .handleAction(clearBookmarksData, (state) => ({
+    ...state,
+    data: null,
+  }));

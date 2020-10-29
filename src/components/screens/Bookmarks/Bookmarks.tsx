@@ -11,6 +11,7 @@ import {useRequestError, useRequestLoading} from 'core/hooks';
 import {getHomeDataRequest} from 'core/reducers';
 import {IProps} from './types';
 import {ICategory} from 'core/types';
+import {isEmpty} from 'lodash';
 
 export const Bookmarks = ({navigation}: IProps) => {
   const bookmarksCategories = useSelector(selectBookmarksCategories);
@@ -22,8 +23,11 @@ export const Bookmarks = ({navigation}: IProps) => {
   const navigateToObjectsList = useCallback(
     ({_id, name}: ICategory) => {
       const objectIds = savedBookmarksIds?.[_id];
-      if (objectIds) {
-        navigation.navigate('ObjectsList', {objectIds, title: name});
+      if (!isEmpty(objectIds)) {
+        navigation.navigate('BookmarksList', {
+          objectIds: objectIds!,
+          title: name,
+        });
       }
     },
     [navigation, savedBookmarksIds],

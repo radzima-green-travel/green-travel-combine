@@ -28,13 +28,11 @@ export const HomeSectionBar = memo(
     addToFavorite,
     categoryId,
   }: Props) => {
-    const keyExtractor = useCallback(({title}) => title, []);
     const {t} = useTranslation('home');
 
     const onAllPressHandler = useCallback(() => {
       onAllPress({categoryId, title: sectionTitle});
     }, [onAllPress, categoryId, sectionTitle]);
-
     return (
       <View>
         <View style={styles.sectionTitleContainer}>
@@ -44,7 +42,7 @@ export const HomeSectionBar = memo(
           </TouchableOpacity>
         </View>
         <FlatList
-          keyExtractor={keyExtractor}
+          keyExtractor={({_id, isFavorite}) => _id + String(isFavorite)}
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
           data={content}

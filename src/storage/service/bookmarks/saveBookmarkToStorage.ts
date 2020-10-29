@@ -17,6 +17,7 @@ export async function saveBookmarkToStorage({
       : {
           [categoryId]: [objectId],
         };
+
   await storage.merge({key: 'bookmarks', value: value});
 
   return value;

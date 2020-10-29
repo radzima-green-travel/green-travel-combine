@@ -2,7 +2,11 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {ObjectsListScreen, RouteDetailsFullScreen} from 'screens';
+import {
+  ObjectsListScreen,
+  RouteDetailsFullScreen,
+  BookmarksListScreen,
+} from 'screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
@@ -34,6 +38,13 @@ export function MainNavigator() {
         }}
         name="ObjectsList"
         component={ObjectsListScreen}
+      />
+      <Stack.Screen
+        options={{
+          ...getAppHeaderOptions({colorScheme}),
+        }}
+        name="BookmarksList"
+        component={BookmarksListScreen}
       />
     </Stack.Navigator>
   );

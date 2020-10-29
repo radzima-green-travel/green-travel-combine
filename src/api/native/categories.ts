@@ -1,10 +1,10 @@
 import {nativeApi} from './nativeApi';
-import {ICategoryWithItems} from 'core/types';
+import {ICategoryWithObjects} from 'core/types';
 
-export function getCategories(): Promise<ICategoryWithItems[]> {
+export function getCategories(): Promise<ICategoryWithObjects[]> {
   return nativeApi.get('/object', {params: {mobile: true}});
 }
 
-export function getCategoriesList(): Promise<ICategoryWithItems[]> {
+export function getCategoriesList(): Promise<ICategoryWithObjects[]> {
   return nativeApi.get('/category');
 }

@@ -21,7 +21,8 @@ export type AppMapNavigatorParamsList = {
 export type MainNavigatorParamsList = {
   TabNavigator: NestedNavigatorParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
-  ObjectsList: {categoryId?: string; title: string; objectIds?: string[]};
+  ObjectsList: {categoryId: string; title: string};
+  BookmarksList: {title: string; objectIds: string[]};
 };
 
 export type TabNavigatorParamsList = {

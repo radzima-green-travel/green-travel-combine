@@ -1,32 +1,39 @@
-import React, {useLayoutEffect, useCallback, useMemo} from 'react';
-import {FlatList} from 'react-native';
+import React, {useEffect, useLayoutEffect, useCallback} from 'react';
+import {FlatList, Text} from 'react-native';
 import {ObjectCard, SuspenseView} from 'atoms';
 import {styles} from './styles';
 import {IProps} from './types';
-import {find} from 'lodash';
-import {selectAllCategoriesWithObjects} from 'core/selectors';
+import {selectSavedBookmarks} from 'core/selectors';
 import {
   addToBookmarksRequest,
   getObjectsForBookmarkRequest,
+  clearBookmarksData,
 } from 'core/reducers';
 import {useSelector, useDispatch} from 'react-redux';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 
-export const ObjectsList = ({route, navigation: {setOptions}}: IProps) => {
+export const BookmarksList = ({route, navigation: {setOptions}}: IProps) => {
   const {
-    params: {categoryId, title},
+    params: {title, objectIds},
   } = route;
 
   const loading = useRequestLoading(getObjectsForBookmarkRequest);
   const {error} = useRequestError(getObjectsForBookmarkRequest);
 
   const dispatch = useDispatch();
-  const categoriesWithObjects = useSelector(selectAllCategoriesWithObjects);
+  const savedBookmarks = useSelector(selectSavedBookmarks);
 
-  const listData = useMemo(
-    () => find(categoriesWithObjects, ({_id}) => _id === categoryId)?.objects,
-    [categoryId, categoriesWithObjects],
-  );
+  useEffect(() => {
+    if (objectIds) {
+      dispatch(getObjectsForBookmarkRequest(objectIds));
+    }
+  }, [dispatch, objectIds]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearBookmarksData());
+    };
+  }, [dispatch]);
 
   useLayoutEffect(() => {
     setOptions({
@@ -36,18 +43,18 @@ export const ObjectsList = ({route, navigation: {setOptions}}: IProps) => {
 
   const addToFavorite = useCallback(
     (args) => {
-      dispatch(addToBookmarksRequest(args));
+      dispatch(addToBookmarksRequest({...args, removeWithAnimation: true}));
     },
     [dispatch],
   );
 
   return (
-    <SuspenseView error={error} loading={loading}>
-      {listData ? (
+    <SuspenseView error={error} loading={loading} cover>
+      {savedBookmarks ? (
         <FlatList
-          data={listData}
+          data={savedBookmarks}
           contentContainerStyle={styles.contentContainer}
-          keyExtractor={(item) => item._id}
+          keyExtractor={({_id}) => _id}
           renderItem={({item}) => (
             <ObjectCard
               onIsFavoriteChange={addToFavorite}
