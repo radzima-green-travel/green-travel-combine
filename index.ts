@@ -1,4 +1,4 @@
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Platform, UIManager} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import 'react-native-gesture-handler';
@@ -12,6 +12,12 @@ import ruTranslations from './src/locale/ru.json';
 const resources = {
   ru: ruTranslations,
 };
+
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 MapBox.setAccessToken(config.MAP_ACCESS_TOKEN);
 
