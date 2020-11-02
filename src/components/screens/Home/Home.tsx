@@ -50,6 +50,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   return (
     <SuspenseView loading={loading} error={error} retryCallback={getData}>
       <FlatList
+        style={styles.list}
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
         data={homeData}

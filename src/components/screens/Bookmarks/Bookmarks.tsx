@@ -37,12 +37,13 @@ export const Bookmarks = ({navigation}: IProps) => {
     <SuspenseView loading={loading} error={error}>
       {bookmarksCategories ? (
         <View style={styles.container}>
-          <Text style={styles.title}>{'Закладки'}</Text>
+          <Text style={[styles.title]}>{'Закладки'}</Text>
           <View style={styles.boxContainer}>
-            {bookmarksCategories.map((category, index) => (
+            {bookmarksCategories.map((category, index, items) => (
               <BookmarkItem
                 item={category}
                 isOdd={index % 2 === 0}
+                isLast={items.length - 1 === index}
                 count={savedBookmarksIds?.[category._id]?.length}
                 onPress={navigateToObjectsList}
               />
