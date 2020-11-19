@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect, useLayoutEffect} from 'react';
-import {ClusterMap} from 'atoms';
+import {ClusterMap, ClusterMapShape} from 'atoms';
 import {selectMapMarkers, selectBounds} from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {View, Text} from 'react-native';
@@ -35,20 +35,29 @@ export const AppMap = () => {
     }
   }, [selected]);
 
+  console.log(markers);
+
   return (
     <View style={styles.container}>
       <ClusterMap
         onPress={() => {
           setSelected(null);
         }}
-        markers={markers}
-        bounds={bounds}
-        onMarkerPress={({isClustered, data}) => {
-          if (!isClustered) {
-            setSelected(data);
-          }
-        }}
-      />
+        bounds={bounds}>
+        {markers.map((markersData, index) => {
+          return (
+            <ClusterMapShape
+              index={index}
+              markers={markersData}
+              onMarkerPress={({isClustered, data}) => {
+                if (!isClustered) {
+                  setSelected(data);
+                }
+              }}
+            />
+          );
+        })}
+      </ClusterMap>
       <BottomSheet
         borderRadius={15}
         ref={bs}

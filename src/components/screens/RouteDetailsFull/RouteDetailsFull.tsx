@@ -2,7 +2,7 @@ import React from 'react';
 import {ScrollView, Image, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
-import {ScreenContent, TextElemets, Button} from 'atoms';
+import {TextElemets, Button} from 'atoms';
 import {
   PlaceDetailsImageSlider,
   RouteMetrics,
@@ -60,26 +60,20 @@ export const RouteDetailsFull = () => {
   return (
     <ScrollView style={styles.container}>
       <PlaceDetailsImageSlider images={[image, image, image, image]} />
-      <ScreenContent style={styles.contentContainer}>
-        <TextElemets.H1>{t('routeName')}</TextElemets.H1>
-        <RouteMetrics containerStyle={styles.metricsContainer} />
-        <Button label={t('howToGetThere')} />
-        <RouteDetailsBikeRental />
-        <TextElemets.H1>{t('aboutRoute')}</TextElemets.H1>
-        <TextElemets.H3 style={styles.aboutText}>
-          {mockData.about}
-        </TextElemets.H3>
-        <Image source={image} style={styles.image} />
-        <>
-          {mockData.routePoints.map(({title, description}, index) => (
-            <View key={title} style={styles.pointsListContainer}>
-              <TextElemets.H1>{`${index + 1}.${title}`}</TextElemets.H1>
-              <TextElemets.H3>{description}</TextElemets.H3>
-            </View>
-          ))}
-        </>
-        <Button type="outline" label={t('showRoute')} />
-      </ScreenContent>
+      <TextElemets.H1>{t('routeName')}</TextElemets.H1>
+      <RouteMetrics containerStyle={styles.metricsContainer} />
+      <Button label={t('howToGetThere')} />
+      <RouteDetailsBikeRental />
+      <TextElemets.H1>{t('aboutRoute')}</TextElemets.H1>
+      <TextElemets.H3 style={styles.aboutText}>{mockData.about}</TextElemets.H3>
+      <Image source={image} style={styles.image} />
+      {mockData.routePoints.map(({title, description}, index) => (
+        <View key={title} style={styles.pointsListContainer}>
+          <TextElemets.H1>{`${index + 1}.${title}`}</TextElemets.H1>
+          <TextElemets.H3>{description}</TextElemets.H3>
+        </View>
+      ))}
+      <Button type="outline" label={t('showRoute')} />
     </ScrollView>
   );
 };

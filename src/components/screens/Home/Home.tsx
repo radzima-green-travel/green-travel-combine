@@ -46,7 +46,6 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     },
     [dispatch],
   );
-
   return (
     <SuspenseView loading={loading} error={error} retryCallback={getData}>
       <FlatList

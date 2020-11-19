@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {COLORS} from 'assets/colors';
 
 export const styles = StyleSheet.create({
   cardContainer: {
@@ -10,6 +11,7 @@ export const styles = StyleSheet.create({
     elevation: 5,
     marginHorizontal: 6,
     borderRadius: 15,
+    backgroundColor: COLORS.silver,
   },
   image: {
     ...StyleSheet.absoluteFillObject,

@@ -35,6 +35,6 @@ export enum MAP_PINS {
   BICYCLE_ROUTE = 'map-pin-bicycle-route',
   CAPMING = 'map-pin-camping',
   CAR_ROUTE = 'map-pin-car-route',
-  OBJECTS = 'map-pin-objects',
+  OBJECTS = 'object',
   WALKING_ROUTE = 'map-pin-walking-route',
 }

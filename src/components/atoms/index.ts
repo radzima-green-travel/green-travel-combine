@@ -13,3 +13,4 @@ export {SuspenseView} from './SuspenseView';
 export {ObjectCard} from './ObjectCard';
 export {ClusterMap} from './ClusterMap';
 export {BookmarkItem} from './BookmarkItem';
+export {ClusterMapShape} from './ClusterMapShape';

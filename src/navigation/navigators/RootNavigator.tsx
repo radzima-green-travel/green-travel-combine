@@ -8,6 +8,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {IState} from 'core/store';
 import {View, StyleSheet, Animated, Easing} from 'react-native';
 import {FONTS} from 'assets';
+// import {useReduxDevToolsExtension} from '@react-navigation/devtools';
 
 const SplasScreen = ({onAnimationEnd}) => {
   const animatedValue = useMemo(() => new Animated.Value(0), []);
@@ -95,6 +96,8 @@ export function RootNavigator() {
   const onAnimationEnd = useCallback(() => {
     setSplashTransitionFinished(true);
   }, []);
+
+  // useReduxDevToolsExtension(navigationRef);
   return (
     <NavigationContainer ref={navigationRef}>
       {bootstrapFinished && splashTransitionFinished ? (

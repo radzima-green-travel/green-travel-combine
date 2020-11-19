@@ -22,7 +22,6 @@ export const ObjectCard = memo(
       data.isFavorite,
     );
     const {cover, name, _id, category} = data;
-
     const onIsFavoriteChangeHandler = useCallback(() => {
       setInternalIsFavorite((prev) => {
         const nextValue = !prev;
