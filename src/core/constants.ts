@@ -31,10 +31,12 @@ export const DEFAULT_BOUNDS = {
 };
 
 export enum MAP_PINS {
-  EMPTY = 'map-pin-empty',
-  BICYCLE_ROUTE = 'map-pin-bicycle-route',
-  CAPMING = 'map-pin-camping',
-  CAR_ROUTE = 'map-pin-car-route',
-  OBJECTS = 'object',
-  WALKING_ROUTE = 'map-pin-walking-route',
+  BICYCLE_ROUTE = 'bicycle-route',
+  OBJECT = 'object',
+  HISTORICAL_PLACE = 'historical_place',
+  EXCURSION_PIN = 'excursion-pin',
+  WALKING_ROUTES = 'walking-routes',
+  OVAL_BIG = 'oval-big',
+  OVAL_SMALL = 'oval-small',
+  SELECTED_POSTFIX = '-black',
 }

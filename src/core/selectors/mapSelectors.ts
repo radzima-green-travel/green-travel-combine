@@ -17,41 +17,49 @@ import {IState} from 'core/store';
 
 export const selectMapMarkers = createSelector<
   IState,
+  IObject | null,
   ICategoryWithObjects[] | null,
+  IObject | null,
   FeatureCollection<Geometry, {icon_image: string; data: IObject}>[]
->(selectHomeData, (categories) => {
-  return map(categories, ({objects}) => {
-    const points = reduce(
-      objects,
-      (acc, data) => {
-        if (data.location) {
-          const {location} = data;
-          return [
-            ...acc,
-            point(
-              location.coordinates,
-              {
-                icon_image: MAP_PINS.OBJECTS,
-                data,
-              },
-              {id: location._id},
-            ),
-          ];
-        }
-        return acc;
-      },
-      [] as Feature<
-        Point,
-        {
-          icon_image: MAP_PINS;
-          data: IObject;
-        }
-      >[],
-    );
+>(
+  selectHomeData,
+  (_state, selected) => selected,
+  (categories, selected) => {
+    return map(categories, ({objects}) => {
+      const points = reduce(
+        objects,
+        (acc, data) => {
+          if (data.location) {
+            const {location} = data;
+            return [
+              ...acc,
+              point(
+                location.coordinates,
+                {
+                  icon_image: `${MAP_PINS.OBJECT}${
+                    selected?._id === data._id ? MAP_PINS.SELECTED_POSTFIX : ''
+                  }`,
+                  data,
+                },
+                {id: location._id},
+              ),
+            ];
+          }
+          return acc;
+        },
+        [] as Feature<
+          Point,
+          {
+            icon_image: string;
+            data: IObject;
+          }
+        >[],
+      );
 
-    return featureCollection(points);
-  });
-});
+      return featureCollection(points);
+    });
+  },
+);
 
 export const selectBounds = createSelector<
   IState,

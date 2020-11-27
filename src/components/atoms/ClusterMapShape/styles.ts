@@ -1,57 +1,46 @@
 import {SymbolLayerStyle} from '@react-native-mapbox-gl/maps';
-
+import {MAP_PINS} from 'core/constants';
 export const layerStyles = {
   singlePoint: {
     iconImage: ['get', 'icon_image'],
     iconSize: 1,
     iconAllowOverlap: true,
-    textTranslateTransition: {delay: 5000, duration: 0},
-  } as SymbolLayerStyle,
-
-  singlePointCircle: {
-    circlePitchAlignment: 'map',
-    circleColor: '#fff',
-    circleRadius: 20,
-    circleOpacity: 1,
   } as SymbolLayerStyle,
 
   singlePointCircleShadow: {
     circlePitchAlignment: 'map',
     circleColor: '#000',
 
-    circleRadius: 25,
+    circleRadius: 20,
 
     circleOpacity: 0.12,
     circleBlur: 0.4,
-    circleTranslate: [0, 5],
+    circleTranslate: [0, 3],
   } as SymbolLayerStyle,
 
   clusteredPoints: {
-    circlePitchAlignment: 'map',
-    circleColor: [
+    iconImage: [
       'step',
       ['get', 'point_count'],
-      '#fff',
+      MAP_PINS.OVAL_SMALL,
       100,
-      '#fff',
-      750,
-      '#fff',
+      MAP_PINS.OVAL_BIG,
     ],
-
-    circleRadius: ['step', ['get', 'point_count'], 20, 100, 30, 750, 40],
-
-    circleOpacity: 1,
+    iconSize: 1,
+    iconAllowOverlap: true,
   } as SymbolLayerStyle,
 
   clusteredPointsShadow: {
-    circlePitchAlignment: 'map',
-    circleColor: '#000',
-
-    circleRadius: ['step', ['get', 'point_count'], 25, 100, 35, 750, 45],
-
-    circleOpacity: 0.12,
-    circleBlur: 0.4,
-    circleTranslate: [0, 5],
+    iconImage: [
+      'step',
+      ['get', 'point_count'],
+      'blur-big-oval',
+      100,
+      'blur-big-oval',
+    ],
+    iconSize: 1,
+    iconAllowOverlap: true,
+    iconOffset: [0, 3],
   } as SymbolLayerStyle,
 
   clusterCount: {

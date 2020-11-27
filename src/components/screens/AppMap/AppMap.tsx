@@ -1,4 +1,10 @@
-import React, {useRef, useState, useEffect, useLayoutEffect} from 'react';
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+} from 'react';
 import {ClusterMap, ClusterMapShape} from 'atoms';
 import {selectMapMarkers, selectBounds} from 'core/selectors';
 import {useSelector} from 'react-redux';
@@ -7,11 +13,14 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import {Button as CustomButton} from 'atoms';
 import {styles} from './styles';
 import {IObject} from 'core/types';
+import {IState} from 'core/store';
 
 export const AppMap = () => {
-  const markers = useSelector(selectMapMarkers);
   const bounds = useSelector(selectBounds);
   const [selected, setSelected] = useState<IObject | null>(null);
+  const markers = useSelector((state: IState) =>
+    selectMapMarkers(state, selected),
+  );
 
   const bs = useRef<BottomSheet>(null);
   const rendnerInner = () => {
@@ -35,7 +44,11 @@ export const AppMap = () => {
     }
   }, [selected]);
 
-  console.log(markers);
+  const onMarkerPress = useCallback(({isClustered, data}) => {
+    if (!isClustered) {
+      setSelected(data);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -47,13 +60,10 @@ export const AppMap = () => {
         {markers.map((markersData, index) => {
           return (
             <ClusterMapShape
+              key={index}
               index={index}
               markers={markersData}
-              onMarkerPress={({isClustered, data}) => {
-                if (!isClustered) {
-                  setSelected(data);
-                }
-              }}
+              onMarkerPress={onMarkerPress}
             />
           );
         })}
