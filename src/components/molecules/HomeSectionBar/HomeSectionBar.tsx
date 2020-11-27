@@ -1,30 +1,28 @@
 import React, {memo, useCallback} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {ObjectCard} from 'atoms';
+import {ObjectCard, SubCategoryCard} from 'atoms';
 import {styles} from './styles';
 import {FlatList} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
-import {IExtendedObject} from 'core/types';
+import {
+  ICategoryWithExtendedObjects,
+  IExtendedObject,
+  IChildren,
+} from 'core/types';
+import {isEmpty} from 'lodash';
 
 interface Props {
-  title: string;
-  content: IExtendedObject[];
-  categoryId: string;
+  item: ICategoryWithExtendedObjects;
   onAllPress: (options: {categoryId: string; title: string}) => void;
   onItemPress: () => void;
   onIsFavoriteChange: (data: {objectId: string; needToAdd: boolean}) => void;
 }
 
 export const HomeSectionBar = memo(
-  ({
-    title: sectionTitle,
-    content,
-    onAllPress,
-    onItemPress,
-    onIsFavoriteChange,
-    categoryId,
-  }: Props) => {
+  ({onAllPress, onItemPress, onIsFavoriteChange, item}: Props) => {
     const {t} = useTranslation('home');
+
+    const {_id: categoryId, name: sectionTitle, objects, children} = item;
 
     const onAllPressHandler = useCallback(() => {
       onAllPress({categoryId, title: sectionTitle});
@@ -37,22 +35,40 @@ export const HomeSectionBar = memo(
             <Text style={styles.all}>{t('all')}</Text>
           </TouchableOpacity>
         </View>
-        <FlatList
-          keyExtractor={({_id, isFavorite}) => _id + String(isFavorite)}
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-          data={content}
-          horizontal
-          renderItem={({item}: {item: IExtendedObject}) => (
-            <ObjectCard
-              containerStyle={styles.cardContainer}
-              onPress={onItemPress}
-              data={item}
-              onIsFavoriteChange={onIsFavoriteChange}
-            />
-          )}
-          showsHorizontalScrollIndicator={false}
-        />
+        {isEmpty(objects) ? (
+          <FlatList
+            keyExtractor={({_id}) => _id}
+            style={styles.container}
+            contentContainerStyle={styles.contentContainer}
+            data={children}
+            horizontal
+            renderItem={({item: child}: {item: IChildren}) => (
+              <SubCategoryCard
+                containerStyle={styles.cardContainer}
+                onPress={onItemPress}
+                data={child}
+              />
+            )}
+            showsHorizontalScrollIndicator={false}
+          />
+        ) : (
+          <FlatList
+            keyExtractor={({_id, isFavorite}) => _id + String(isFavorite)}
+            style={styles.container}
+            contentContainerStyle={styles.contentContainer}
+            data={objects}
+            horizontal
+            renderItem={({item: object}: {item: IExtendedObject}) => (
+              <ObjectCard
+                containerStyle={styles.cardContainer}
+                onPress={onItemPress}
+                data={object}
+                onIsFavoriteChange={onIsFavoriteChange}
+              />
+            )}
+            showsHorizontalScrollIndicator={false}
+          />
+        )}
       </View>
     );
   },

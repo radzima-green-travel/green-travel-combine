@@ -29,7 +29,9 @@ export const Bookmarks = ({navigation}: IProps) => {
   );
 
   return (
-    <SuspenseView loading={loading} error={error}>
+    <SuspenseView
+      loading={!bookmarksCategories && loading}
+      error={bookmarksCategories ? null : error}>
       {bookmarksCategories ? (
         <View style={styles.container}>
           <Text style={[styles.title]}>{'Закладки'}</Text>

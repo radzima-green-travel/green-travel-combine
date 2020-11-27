@@ -36,19 +36,22 @@ export const ObjectCard = memo(
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle]}>
         <FastImage style={styles.image} source={{uri: cover}} />
+        <View style={styles.cover} />
         <View style={styles.cardContentContainer}>
           <Text style={styles.title}>{name}</Text>
-          <TouchableOpacity
-            onPress={onIsFavoriteChangeHandler}
-            hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
-            activeOpacity={0.8}>
-            <Icon
-              name={internalIsFavorite ? 'bookmarkFilled' : 'bookmark'}
-              width={20}
-              height={20}
-              color={'white'}
-            />
-          </TouchableOpacity>
+          {typeof internalIsFavorite === 'boolean' ? (
+            <TouchableOpacity
+              onPress={onIsFavoriteChangeHandler}
+              hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
+              activeOpacity={0.8}>
+              <Icon
+                name={internalIsFavorite ? 'bookmarkFilled' : 'bookmark'}
+                width={20}
+                height={20}
+                color={'white'}
+              />
+            </TouchableOpacity>
+          ) : null}
         </View>
       </TouchableOpacity>
     );

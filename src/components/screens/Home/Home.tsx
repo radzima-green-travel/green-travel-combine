@@ -46,7 +46,10 @@ export const Home = ({navigation: {navigate}}: IProps) => {
 
   const toggleFavorite = useToggleFavorite();
   return (
-    <SuspenseView loading={loading} error={error} retryCallback={getData}>
+    <SuspenseView
+      loading={!homeData && loading}
+      error={homeData ? null : error}
+      retryCallback={getData}>
       <FlatList
         style={styles.list}
         contentContainerStyle={styles.contentContainer}
@@ -57,9 +60,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
           <HomeSectionBar
             onItemPress={navigateToPlaceDetails}
             onAllPress={navigateToObjectsList}
-            title={item.name}
-            content={item.objects}
-            categoryId={item._id}
+            item={item}
             onIsFavoriteChange={toggleFavorite}
           />
         )}

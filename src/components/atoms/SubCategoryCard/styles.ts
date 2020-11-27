@@ -29,9 +29,4 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  cover: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(32, 36, 30, 0.35)',
-    borderRadius: 15,
-  },
 });
