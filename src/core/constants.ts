@@ -25,7 +25,7 @@ export enum MAP_PINS {
   HISTORICAL_PLACE = 'historical_place',
   EXCURSION_PIN = 'excursion-pin',
   WALKING_ROUTES = 'walking-routes',
-  OVAL_BIG = 'oval-big',
-  OVAL_SMALL = 'oval-small',
+  EMPTY_BIG = 'empty-big',
+  EMPTY = 'empty',
   SELECTED_POSTFIX = '-black',
 }

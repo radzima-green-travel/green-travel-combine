@@ -7,40 +7,16 @@ export const layerStyles = {
     iconAllowOverlap: true,
   } as SymbolLayerStyle,
 
-  singlePointCircleShadow: {
-    circlePitchAlignment: 'map',
-    circleColor: '#000',
-
-    circleRadius: 20,
-
-    circleOpacity: 0.12,
-    circleBlur: 0.4,
-    circleTranslate: [0, 3],
-  } as SymbolLayerStyle,
-
   clusteredPoints: {
     iconImage: [
       'step',
       ['get', 'point_count'],
-      MAP_PINS.OVAL_SMALL,
+      MAP_PINS.EMPTY,
       100,
-      MAP_PINS.OVAL_BIG,
+      MAP_PINS.EMPTY_BIG,
     ],
     iconSize: 1,
     iconAllowOverlap: true,
-  } as SymbolLayerStyle,
-
-  clusteredPointsShadow: {
-    iconImage: [
-      'step',
-      ['get', 'point_count'],
-      'blur-big-oval',
-      100,
-      'blur-big-oval',
-    ],
-    iconSize: 1,
-    iconAllowOverlap: true,
-    iconOffset: [0, 3],
   } as SymbolLayerStyle,
 
   clusterCount: {

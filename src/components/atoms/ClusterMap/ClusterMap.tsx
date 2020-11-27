@@ -11,7 +11,7 @@ export const ClusterMap = memo<Props>(({onPress, bounds, children}: Props) => {
         animated={false}
         onPress={onPress}
         style={styles.container}
-        styleURL="mapbox://styles/epm-slr/ckhuwanf0033219oggf3ijesc"
+        styleURL="mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h"
         compassEnabled={false}
         logoEnabled={false}>
         <MapboxGL.Camera animationDuration={300} bounds={bounds} />

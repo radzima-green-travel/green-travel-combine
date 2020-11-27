@@ -22,7 +22,7 @@ export const selectMapMarkers = createSelector<
   IObject | null,
   FeatureCollection<Geometry, {icon_image: string; data: IObject}>[]
 >(
-  selectHomeData,
+  (state) => state.home.data,
   (_state, selected) => selected,
   (categories, selected) => {
     return map(categories, ({objects}) => {

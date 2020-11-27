@@ -40,23 +40,9 @@ export const ClusterMapShape = ({onMarkerPress, markers, index}: Props) => {
       />
 
       <MapboxGL.SymbolLayer
-        id={'clusteredPointsShadow' + index}
-        belowLayerID={'clusteredPoints' + index}
-        filter={['has', 'point_count']}
-        style={layerStyles.clusteredPointsShadow}
-      />
-
-      <MapboxGL.SymbolLayer
         id={'singlePoint' + index}
         filter={['!', ['has', 'point_count']]}
         style={layerStyles.singlePoint}
-      />
-
-      <MapboxGL.CircleLayer
-        id={'singlePointCircleShadow' + index}
-        belowLayerID={'singlePoint' + index}
-        filter={['!', ['has', 'point_count']]}
-        style={layerStyles.singlePointCircleShadow}
       />
     </MapboxGL.ShapeSource>
   );
