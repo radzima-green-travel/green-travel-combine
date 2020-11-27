@@ -12,11 +12,7 @@ interface Props {
   categoryId: string;
   onAllPress: (options: {categoryId: string; title: string}) => void;
   onItemPress: () => void;
-  addToFavorite: (data: {
-    categoryId: string;
-    objectId: string;
-    needToAdd: boolean;
-  }) => void;
+  onIsFavoriteChange: (data: {objectId: string; needToAdd: boolean}) => void;
 }
 
 export const HomeSectionBar = memo(
@@ -25,7 +21,7 @@ export const HomeSectionBar = memo(
     content,
     onAllPress,
     onItemPress,
-    addToFavorite,
+    onIsFavoriteChange,
     categoryId,
   }: Props) => {
     const {t} = useTranslation('home');
@@ -52,7 +48,7 @@ export const HomeSectionBar = memo(
               containerStyle={styles.cardContainer}
               onPress={onItemPress}
               data={item}
-              onIsFavoriteChange={addToFavorite}
+              onIsFavoriteChange={onIsFavoriteChange}
             />
           )}
           showsHorizontalScrollIndicator={false}

@@ -9,11 +9,7 @@ interface IProps {
   data: IExtendedObject;
   onPress?: () => void;
   containerStyle?: StyleProp<ViewStyle>;
-  onIsFavoriteChange: (data: {
-    objectId: string;
-    categoryId: string;
-    needToAdd: boolean;
-  }) => void;
+  onIsFavoriteChange: (data: {objectId: string; needToAdd: boolean}) => void;
 }
 
 export const ObjectCard = memo(
@@ -21,7 +17,7 @@ export const ObjectCard = memo(
     const [internalIsFavorite, setInternalIsFavorite] = useState(
       data.isFavorite,
     );
-    const {cover, name, _id, category} = data;
+    const {cover, name, _id} = data;
     const onIsFavoriteChangeHandler = useCallback(() => {
       setInternalIsFavorite((prev) => {
         const nextValue = !prev;
@@ -29,11 +25,10 @@ export const ObjectCard = memo(
         onIsFavoriteChange({
           objectId: _id,
           needToAdd: nextValue,
-          categoryId: category,
         });
         return nextValue;
       });
-    }, [onIsFavoriteChange, _id, category]);
+    }, [onIsFavoriteChange, _id]);
 
     return (
       <TouchableOpacity

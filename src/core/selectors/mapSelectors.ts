@@ -10,7 +10,7 @@ import {
   Point,
 } from '@turf/helpers';
 import {MAP_PINS, DEFAULT_BOUNDS} from '../constants';
-import {ICoordinates, ICategoryWithObjects, IObject} from '../types';
+import {ICoordinates, ICategory, IObject} from '../types';
 import {CameraSettings} from '@react-native-mapbox-gl/maps';
 import bbox from '@turf/bbox';
 import {IState} from 'core/store';
@@ -18,7 +18,7 @@ import {IState} from 'core/store';
 export const selectMapMarkers = createSelector<
   IState,
   IObject | null,
-  ICategoryWithObjects[] | null,
+  ICategory[] | null,
   IObject | null,
   FeatureCollection<Geometry, {icon_image: string; data: IObject}>[]
 >(

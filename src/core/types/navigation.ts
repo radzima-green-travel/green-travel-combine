@@ -22,7 +22,7 @@ export type MainNavigatorParamsList = {
   TabNavigator: NestedNavigatorParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
   ObjectsList: {categoryId: string; title: string};
-  BookmarksList: {title: string; objectIds: string[]};
+  BookmarksList: {title: string; categoryId: string};
 };
 
 export type TabNavigatorParamsList = {

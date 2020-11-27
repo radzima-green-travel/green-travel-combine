@@ -2,10 +2,7 @@ import React, {useCallback} from 'react';
 import {View, Text} from 'react-native';
 import {styles} from './styles';
 import {BookmarkItem, SuspenseView} from 'atoms';
-import {
-  selectBookmarksCategories,
-  selectSavedBookmarksIds,
-} from 'core/selectors';
+import {selectBookmarksCategories} from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {getHomeDataRequest} from 'core/reducers';
@@ -15,22 +12,20 @@ import {isEmpty} from 'lodash';
 
 export const Bookmarks = ({navigation}: IProps) => {
   const bookmarksCategories = useSelector(selectBookmarksCategories);
-  const savedBookmarksIds = useSelector(selectSavedBookmarksIds);
 
   const loading = useRequestLoading(getHomeDataRequest);
   const {error} = useRequestError(getHomeDataRequest);
 
-  const navigateToObjectsList = useCallback(
-    ({_id, name}: ICategory) => {
-      const objectIds = savedBookmarksIds?.[_id];
-      if (!isEmpty(objectIds)) {
+  const navigateToBookmarksList = useCallback(
+    ({_id, name, objects}: ICategory) => {
+      if (!isEmpty(objects)) {
         navigation.navigate('BookmarksList', {
-          objectIds: objectIds!,
+          categoryId: _id,
           title: name,
         });
       }
     },
-    [navigation, savedBookmarksIds],
+    [navigation],
   );
 
   return (
@@ -44,8 +39,8 @@ export const Bookmarks = ({navigation}: IProps) => {
                 item={category}
                 isOdd={index % 2 === 0}
                 isLast={items.length - 1 === index}
-                count={savedBookmarksIds?.[category._id]?.length}
-                onPress={navigateToObjectsList}
+                count={category.objects.length}
+                onPress={navigateToBookmarksList}
               />
             ))}
           </View>

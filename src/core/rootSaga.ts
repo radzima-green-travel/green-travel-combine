@@ -1,6 +1,6 @@
 import {all} from 'redux-saga/effects';
-import {bootstrapSaga, homeSaga, bookmarksSaga} from './sagas';
+import {bootstrapSaga, homeSaga} from './sagas';
 
 export function* rootSaga() {
-  yield all([bootstrapSaga(), homeSaga(), bookmarksSaga()]);
+  yield all([bootstrapSaga(), homeSaga()]);
 }

@@ -4,10 +4,14 @@ import {HomeSectionBar} from 'molecules';
 import {FlatList} from 'react-native';
 
 import {styles} from './styles';
-import {getHomeDataRequest, addToBookmarksRequest} from 'core/reducers';
+import {getHomeDataRequest} from 'core/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectHomeData} from 'core/selectors';
-import {useRequestError, useRequestLoading} from 'core/hooks';
+import {
+  useRequestError,
+  useRequestLoading,
+  useToggleFavorite,
+} from 'core/hooks';
 import {IProps} from './types';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
@@ -40,12 +44,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     navigate('PlaceDetails');
   }, [navigate]);
 
-  const addToFavorite = useCallback(
-    (data) => {
-      dispatch(addToBookmarksRequest(data));
-    },
-    [dispatch],
-  );
+  const toggleFavorite = useToggleFavorite();
   return (
     <SuspenseView loading={loading} error={error} retryCallback={getData}>
       <FlatList
@@ -61,7 +60,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
             title={item.name}
             content={item.objects}
             categoryId={item._id}
-            addToFavorite={addToFavorite}
+            onIsFavoriteChange={toggleFavorite}
           />
         )}
       />

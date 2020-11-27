@@ -1,39 +1,28 @@
-import React, {useEffect, useLayoutEffect, useCallback} from 'react';
-import {FlatList, Text} from 'react-native';
-import {ObjectCard, SuspenseView} from 'atoms';
+import React, {useCallback, useLayoutEffect, useMemo} from 'react';
+import {FlatList} from 'react-native';
+import {ObjectCard} from 'atoms';
 import {styles} from './styles';
 import {IProps} from './types';
-import {selectSavedBookmarks} from 'core/selectors';
-import {
-  addToBookmarksRequest,
-  getObjectsForBookmarkRequest,
-  clearBookmarksData,
-} from 'core/reducers';
-import {useSelector, useDispatch} from 'react-redux';
-import {useRequestError, useRequestLoading} from 'core/hooks';
+import {selectBookmarksCategories} from 'core/selectors';
 
-export const BookmarksList = ({route, navigation: {setOptions}}: IProps) => {
+import {useSelector} from 'react-redux';
+import {useToggleFavorite} from 'core/hooks';
+import {find} from 'lodash';
+
+export const BookmarksList = ({
+  route,
+  navigation: {setOptions, goBack},
+}: IProps) => {
   const {
-    params: {title, objectIds},
+    params: {categoryId, title},
   } = route;
 
-  const loading = useRequestLoading(getObjectsForBookmarkRequest);
-  const {error} = useRequestError(getObjectsForBookmarkRequest);
+  const bookmarksCategories = useSelector(selectBookmarksCategories);
 
-  const dispatch = useDispatch();
-  const savedBookmarks = useSelector(selectSavedBookmarks);
-
-  useEffect(() => {
-    if (objectIds) {
-      dispatch(getObjectsForBookmarkRequest(objectIds));
-    }
-  }, [dispatch, objectIds]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearBookmarksData());
-    };
-  }, [dispatch]);
+  const listData = useMemo(
+    () => find(bookmarksCategories, ({_id}) => _id === categoryId)?.objects,
+    [categoryId, bookmarksCategories],
+  );
 
   useLayoutEffect(() => {
     setOptions({
@@ -41,29 +30,29 @@ export const BookmarksList = ({route, navigation: {setOptions}}: IProps) => {
     });
   }, [setOptions, title]);
 
-  const addToFavorite = useCallback(
-    (args) => {
-      dispatch(addToBookmarksRequest({...args, removeWithAnimation: true}));
-    },
-    [dispatch],
-  );
+  const onLastObjectRemoveAnimationEnd = useCallback(() => {
+    if (listData?.length === 1) {
+      goBack();
+    }
+  }, [goBack, listData]);
+
+  const toggleFavorite = useToggleFavorite({
+    removeWithAnimation: true,
+    onAnimationEnd: onLastObjectRemoveAnimationEnd,
+  });
 
   return (
-    <SuspenseView error={error} loading={loading} cover>
-      {savedBookmarks ? (
-        <FlatList
-          data={savedBookmarks}
-          contentContainerStyle={styles.contentContainer}
-          keyExtractor={({_id}) => _id}
-          renderItem={({item}) => (
-            <ObjectCard
-              onIsFavoriteChange={addToFavorite}
-              containerStyle={styles.cardContainer}
-              data={item}
-            />
-          )}
+    <FlatList
+      data={listData}
+      contentContainerStyle={styles.contentContainer}
+      keyExtractor={(item) => item._id}
+      renderItem={({item}) => (
+        <ObjectCard
+          onIsFavoriteChange={toggleFavorite}
+          containerStyle={styles.cardContainer}
+          data={item}
         />
-      ) : null}
-    </SuspenseView>
+      )}
+    />
   );
 };

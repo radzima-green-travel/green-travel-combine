@@ -15,6 +15,12 @@ export interface ILocationPoint {
   coordinates: ICoordinates;
 }
 
+export interface IArea {
+  totalArea: number;
+  type: 'MultiPolygon';
+  coordinates: ICoordinates[];
+}
+
 export interface IProhibition {
   _id: string;
   name: string;
@@ -22,15 +28,26 @@ export interface IProhibition {
 }
 
 export interface IObject {
-  location: ILocationPoint;
-  images: string[];
-  prohibitions: IProhibition[];
   _id: string;
   name: string;
   description: string;
   address: string;
+  area?: IArea;
+  location: ILocationPoint;
   category: string;
   cover: string;
+  images: string[];
+  prohibitions?: IProhibition[];
+}
+
+export interface IChildren {
+  _id: string;
+  path: string;
+  parent: string;
+  name: string;
+  icon: string;
+  fields: string[];
+  children: IChildren[];
 }
 
 export interface IExtendedObject extends IObject {
@@ -40,16 +57,15 @@ export interface IExtendedObject extends IObject {
 export interface ICategory {
   _id: string;
   name: string;
-}
-
-export interface ICategoryWithObjects extends ICategory {
+  icon: string;
+  updatedAt: string;
+  fields: string[];
   objects: IObject[];
+  children: IChildren[];
 }
 
 export interface ICategoryWithExtendedObjects extends ICategory {
   objects: IExtendedObject[];
 }
 
-export interface IBookmarksIds {
-  [key: string]: string[];
-}
+export type IBookmarksIds = string[];
