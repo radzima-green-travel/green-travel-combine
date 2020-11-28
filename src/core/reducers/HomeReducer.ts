@@ -1,8 +1,8 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
-import {ICategoryWithObjects, ILabelError} from '../types';
+import {ICategory, ILabelError} from '../types';
 import {ACTIONS} from '../constants';
 interface IDefaultState {
-  data: ICategoryWithObjects[] | null;
+  data: ICategory[] | null;
 }
 
 const initialState: IDefaultState = {
@@ -11,7 +11,7 @@ const initialState: IDefaultState = {
 
 export const getHomeDataRequest = createAction(ACTIONS.GET_HOME_DATA_REQUEST)();
 export const getHomeDataSuccess = createAction(ACTIONS.GET_HOME_DATA_SUCCESS)<
-  ICategoryWithObjects[]
+  ICategory[]
 >();
 export const getHomeDataFailure = createAction(ACTIONS.GET_HOME_DATA_FAILURE)<
   ILabelError

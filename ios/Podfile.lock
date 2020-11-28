@@ -18,12 +18,12 @@ PODS:
     - Flipper-Folly (~> 2.2)
     - Flipper-RSocket (~> 1.1)
   - Flipper-DoubleConversion (1.1.7)
-  - Flipper-Folly (2.2.0):
+  - Flipper-Folly (2.3.0):
     - boost-for-react-native
     - CocoaLibEvent (~> 1.0)
     - Flipper-DoubleConversion
     - Flipper-Glog
-    - OpenSSL-Universal (= 1.0.2.19)
+    - OpenSSL-Universal (= 1.0.2.20)
   - Flipper-Glog (0.3.6)
   - Flipper-PeerTalk (0.0.4)
   - Flipper-RSocket (1.1.0):
@@ -79,12 +79,12 @@ PODS:
   - libwebp/mux (1.1.0):
     - libwebp/demux
   - libwebp/webp (1.1.0)
-  - Mapbox-iOS-SDK (5.9.0):
+  - Mapbox-iOS-SDK (5.8.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
-  - OpenSSL-Universal (1.0.2.19):
-    - OpenSSL-Universal/Static (= 1.0.2.19)
-  - OpenSSL-Universal/Static (1.0.2.19)
+  - OpenSSL-Universal (1.0.2.20):
+    - OpenSSL-Universal/Static (= 1.0.2.20)
+  - OpenSSL-Universal/Static (1.0.2.20)
   - Permission-LocationAlways (2.1.5):
     - RNPermissions
   - Permission-LocationWhenInUse (2.1.5):
@@ -257,20 +257,23 @@ PODS:
   - React-jsinspector (0.63.3)
   - react-native-geolocation-service (5.0.0):
     - React
-  - react-native-mapbox-gl (8.1.0-rc.2):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.8)"
-    - Mapbox-iOS-SDK (~> 5.8)
+  - react-native-mapbox-gl (8.1.0-rc.9):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
+    - Mapbox-iOS-SDK (~> 5.8.0)
     - React
-    - react-native-mapbox-gl/DynamicLibrary (= 8.1.0-rc.2)
-    - react-native-mapbox-gl/StaticLibraryFixer (= 8.1.0-rc.2)
-  - react-native-mapbox-gl/DynamicLibrary (8.1.0-rc.2):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.8)"
-    - Mapbox-iOS-SDK (~> 5.8)
+    - React-Core
+    - react-native-mapbox-gl/DynamicLibrary (= 8.1.0-rc.9)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.1.0-rc.9)
+  - react-native-mapbox-gl/DynamicLibrary (8.1.0-rc.9):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
+    - Mapbox-iOS-SDK (~> 5.8.0)
     - React
-  - react-native-mapbox-gl/StaticLibraryFixer (8.1.0-rc.2):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.8)"
-    - Mapbox-iOS-SDK (~> 5.8)
+    - React-Core
+  - react-native-mapbox-gl/StaticLibraryFixer (8.1.0-rc.9):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
+    - Mapbox-iOS-SDK (~> 5.8.0)
     - React
+    - React-Core
   - react-native-safe-area-context (3.0.7):
     - React
   - react-native-splash-screen (3.2.0):
@@ -357,9 +360,9 @@ PODS:
     - React
   - RNSVG (12.1.0):
     - React
-  - SDWebImage (5.8.0):
-    - SDWebImage/Core (= 5.8.0)
-  - SDWebImage/Core (5.8.0)
+  - SDWebImage (5.10.0):
+    - SDWebImage/Core (= 5.10.0)
+  - SDWebImage/Core (5.10.0)
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
@@ -553,7 +556,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 7da9338acfb98d4ef9e5536805a0704572d33c2f
   Flipper: be611d4b742d8c87fbae2ca5f44603a02539e365
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
-  Flipper-Folly: c12092ea368353b58e992843a990a3225d4533c3
+  Flipper-Folly: e4493b013c02d9347d5e0cb4d128680239f6c78a
   Flipper-Glog: 1dfd6abf1e922806c52ceb8701a3599a79a200a6
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: 64e7431a55835eb953b0bf984ef3b90ae9fdddd7
@@ -561,9 +564,9 @@ SPEC CHECKSUMS:
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
-  Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
+  Mapbox-iOS-SDK: 02590a60fe300810c55432219a0caaa1338fbafb
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
-  OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
+  OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
   Permission-LocationAlways: 155e6251b757b380f6354737cae8e8d59c472495
   Permission-LocationWhenInUse: 3624cf08c12c6019926aba3054efee7f4f8ee91e
   RCTRequired: 48884c74035a0b5b76dbb7a998bd93bcfc5f2047
@@ -577,7 +580,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
   react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
-  react-native-mapbox-gl: 18785637738ca8b25c3633db431d6614ec7fc9bf
+  react-native-mapbox-gl: 2a4b1bbfb5708b4c997d312ad73337bafdc5baf5
   react-native-safe-area-context: ef6f16c66b0797ecae1bf86c103dfb3dc16fc33d
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-ultimate-config: 429433ed406d1c0d18b72b169dc99702d7180214
@@ -600,7 +603,7 @@ SPEC CHECKSUMS:
   RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
   RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
-  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
+  SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

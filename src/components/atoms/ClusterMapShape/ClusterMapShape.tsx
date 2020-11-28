@@ -5,7 +5,7 @@ import {head} from 'lodash';
 import {Props} from './types';
 import {layerStyles} from './styles';
 
-export const ClusterMapShape = ({onMarkerPress, markers, index}: Props) => {
+export const ClusterMapShape = ({onMarkerPress, markers}: Props) => {
   const onShapePress = useCallback(
     ({features}: OnPressEvent) => {
       const singlePoint: Feature = head(features);
@@ -21,7 +21,7 @@ export const ClusterMapShape = ({onMarkerPress, markers, index}: Props) => {
 
   return (
     <MapboxGL.ShapeSource
-      id={'earthquakes' + index}
+      id={'earthquakes'}
       hitbox={{width: 20, height: 20}}
       onPress={onShapePress}
       cluster
@@ -29,18 +29,17 @@ export const ClusterMapShape = ({onMarkerPress, markers, index}: Props) => {
       clusterMaxZoomLevel={14}
       shape={markers}>
       <MapboxGL.SymbolLayer
-        id={'pointCount' + index}
+        id={'pointCount'}
         style={layerStyles.clusterCount}
       />
       <MapboxGL.SymbolLayer
-        id={'clusteredPoints' + index}
-        belowLayerID={'pointCount' + index}
+        id={'clusteredPoints'}
+        belowLayerID={'pointCount'}
         filter={['has', 'point_count']}
         style={layerStyles.clusteredPoints}
       />
-
       <MapboxGL.SymbolLayer
-        id={'singlePoint' + index}
+        id={'singlePoint'}
         filter={['!', ['has', 'point_count']]}
         style={layerStyles.singlePoint}
       />

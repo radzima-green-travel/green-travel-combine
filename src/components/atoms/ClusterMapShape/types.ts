@@ -7,5 +7,4 @@ export type Props = {
     data: IObject | null;
   }) => void;
   markers: FeatureCollection<any, {data: IObject}>;
-  index: number;
 };

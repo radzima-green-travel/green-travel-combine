@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-} from 'react';
+import React, {useRef, useState, useEffect, useCallback} from 'react';
 import {ClusterMap, ClusterMapShape} from 'atoms';
 import {selectMapMarkers, selectBounds} from 'core/selectors';
 import {useSelector} from 'react-redux';
@@ -18,10 +12,10 @@ import {IState} from 'core/store';
 export const AppMap = () => {
   const bounds = useSelector(selectBounds);
   const [selected, setSelected] = useState<IObject | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const markers = useSelector((state: IState) =>
-    selectMapMarkers(state, selected),
+    selectMapMarkers(state, selectedId),
   );
-
   const bs = useRef<BottomSheet>(null);
   const rendnerInner = () => {
     return (
@@ -38,14 +32,9 @@ export const AppMap = () => {
     }
   }, [selected]);
 
-  useLayoutEffect(() => {
-    if (!selected) {
-      bs.current?.snapTo(0);
-    }
-  }, [selected]);
-
   const onMarkerPress = useCallback(({isClustered, data}) => {
     if (!isClustered) {
+      setSelectedId(data._id);
       setSelected(data);
     }
   }, []);
@@ -54,21 +43,16 @@ export const AppMap = () => {
     <View style={styles.container}>
       <ClusterMap
         onPress={() => {
-          setSelected(null);
+          bs.current?.snapTo(0);
+          setSelectedId(null);
         }}
         bounds={bounds}>
-        {markers.map((markersData, index) => {
-          return (
-            <ClusterMapShape
-              key={index}
-              index={index}
-              markers={markersData}
-              onMarkerPress={onMarkerPress}
-            />
-          );
-        })}
+        <ClusterMapShape markers={markers} onMarkerPress={onMarkerPress} />
       </ClusterMap>
       <BottomSheet
+        onCloseEnd={() => {
+          setSelected(null);
+        }}
         borderRadius={15}
         ref={bs}
         snapPoints={[0, 150]}

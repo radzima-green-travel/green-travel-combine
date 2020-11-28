@@ -1,6 +1,5 @@
 import {createSelector} from 'reselect';
-import {map, isEmpty, reduce} from 'lodash';
-import {selectHomeData} from './homeSelectors';
+import {isEmpty, reduce} from 'lodash';
 import {
   FeatureCollection,
   featureCollection,
@@ -17,35 +16,49 @@ import {IState} from 'core/store';
 
 export const selectMapMarkers = createSelector<
   IState,
-  IObject | null,
+  string | null,
   ICategory[] | null,
-  IObject | null,
-  FeatureCollection<Geometry, {icon_image: string; data: IObject}>[]
+  string | null,
+  FeatureCollection<Geometry, {icon_image: string; data: IObject}>
 >(
   (state) => state.home.data,
-  (_state, selected) => selected,
-  (categories, selected) => {
-    return map(categories, ({objects}) => {
-      const points = reduce(
-        objects,
-        (acc, data) => {
-          if (data.location) {
-            const {location} = data;
-            return [
-              ...acc,
-              point(
-                location.coordinates,
-                {
-                  icon_image: `${MAP_PINS.OBJECT}${
-                    selected?._id === data._id ? MAP_PINS.SELECTED_POSTFIX : ''
-                  }`,
-                  data,
-                },
-                {id: location._id},
-              ),
-            ];
-          }
-          return acc;
+  (_state, selectedId) => selectedId,
+  (categories, selectedId) => {
+    return featureCollection(
+      reduce(
+        categories,
+        (pointsAcc, {objects}) => {
+          const points = reduce(
+            objects,
+            (acc, data) => {
+              if (data.location) {
+                const {location} = data;
+                return [
+                  ...acc,
+                  point(
+                    location.coordinates,
+                    {
+                      icon_image: `${MAP_PINS.OBJECT}${
+                        selectedId === data._id ? MAP_PINS.SELECTED_POSTFIX : ''
+                      }`,
+                      data,
+                    },
+                    {id: location._id},
+                  ),
+                ];
+              }
+              return acc;
+            },
+            [] as Feature<
+              Point,
+              {
+                icon_image: string;
+                data: IObject;
+              }
+            >[],
+          );
+
+          return [...pointsAcc, ...points];
         },
         [] as Feature<
           Point,
@@ -54,10 +67,8 @@ export const selectMapMarkers = createSelector<
             data: IObject;
           }
         >[],
-      );
-
-      return featureCollection(points);
-    });
+      ),
+    );
   },
 );
 
@@ -66,13 +77,11 @@ export const selectBounds = createSelector<
   ReturnType<typeof selectMapMarkers>,
   CameraSettings['bounds']
 >(selectMapMarkers, (markers) => {
-  const allMarkers = markers[0];
-
-  if (isEmpty(allMarkers)) {
+  if (isEmpty(markers.features)) {
     return DEFAULT_BOUNDS;
   }
 
-  const [minLng, minLat, maxLng, maxLat] = bbox(allMarkers);
+  const [minLng, minLat, maxLng, maxLat] = bbox(markers);
 
   const southWest: ICoordinates = [minLng, minLat];
   const northEast: ICoordinates = [maxLng, maxLat];
