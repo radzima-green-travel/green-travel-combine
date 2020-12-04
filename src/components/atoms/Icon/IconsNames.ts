@@ -1,12 +1,15 @@
 export type IconsNames =
   | 'bicycle'
   | 'bookmark'
+  | 'bookmarkFilled'
   | 'chevron'
   | 'compass'
   | 'cross'
+  | 'error'
   | 'home'
+  | 'homeFilled'
   | 'mapMarkerGray'
   | 'marker'
+  | 'markerFilled'
   | 'paw'
-  | 'search'
-  | 'bookmarkFilled';
+  | 'search';

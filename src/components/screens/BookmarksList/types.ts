@@ -1,14 +1,14 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
-import {MainNavigatorParamsList} from 'core/types';
+import {BookmarksNavigatorParamsList} from 'core/types';
 
 export type BookmarksListScreenNavigationProps = StackNavigationProp<
-  MainNavigatorParamsList,
+  BookmarksNavigatorParamsList,
   'BookmarksList'
 >;
 
 export type BookmarksListScreenRouteProps = RouteProp<
-  MainNavigatorParamsList,
+  BookmarksNavigatorParamsList,
   'BookmarksList'
 >;
 

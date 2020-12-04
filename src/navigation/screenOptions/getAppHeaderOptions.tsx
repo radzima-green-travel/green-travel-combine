@@ -16,7 +16,7 @@ export const getAppHeaderOptions = ({
   headerTintColor: 'white',
   headerTitleAlign: 'center',
   cardStyle: {backgroundColor: colorScheme === 'light' ? '#fff' : '#000'},
-  headerBackImage: () => <Icon name="chevron" color="white" size={32} />,
+  headerBackImage: () => <Icon name="chevron" color="white" size={24} />,
   headerBackground: () => (
     <LinearGradient
       start={{x: 0.0, y: 0.0}}

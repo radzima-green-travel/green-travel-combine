@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useTranslation} from 'core/hooks';
+import {useLightStatusBar, useTranslation} from 'core/hooks';
 import {AppMapNavigatior} from './AppMapNavigatior';
 import {BookmarksNavigator} from './BookmarksNavigator';
 import {Icon} from 'atoms';
@@ -19,6 +19,8 @@ type RouteParams = {
 
 export function TabNavigator() {
   const {t} = useTranslation('common');
+  useLightStatusBar();
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -30,8 +32,12 @@ export function TabNavigator() {
         component={HomeNavigator}
         options={{
           tabBarLabel: t('tabs.home'),
-          tabBarIcon: ({color}: {color: string}) => (
-            <Icon name={'home'} color={color} size={24} />
+          tabBarIcon: ({color, focused}) => (
+            <Icon
+              name={focused ? 'homeFilled' : 'home'}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
@@ -40,8 +46,12 @@ export function TabNavigator() {
         component={AppMapNavigatior}
         options={{
           tabBarLabel: t('tabs.map'),
-          tabBarIcon: ({color}: {color: string}) => (
-            <Icon name={'marker'} color={color} size={24} />
+          tabBarIcon: ({color, focused}) => (
+            <Icon
+              name={focused ? 'markerFilled' : 'marker'}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
@@ -50,8 +60,12 @@ export function TabNavigator() {
         component={BookmarksNavigator}
         options={{
           tabBarLabel: t('tabs.bookmarks'),
-          tabBarIcon: ({color}: {color: string}) => (
-            <Icon name={'bookmark'} color={color} size={24} />
+          tabBarIcon: ({color, focused}) => (
+            <Icon
+              name={focused ? 'bookmarkFilled' : 'bookmark'}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />

@@ -1,6 +1,6 @@
 import React, {memo, useCallback} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {ObjectCard, SubCategoryCard} from 'atoms';
+import {ObjectCard} from 'atoms';
 import {styles} from './styles';
 import {FlatList} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
@@ -10,6 +10,10 @@ import {
   IChildren,
 } from 'core/types';
 import {isEmpty} from 'lodash';
+import {SCREEN_WIDTH} from 'services/PlatformService';
+import {PADDING_HORIZONTAL} from 'core/constants';
+
+const cardWidth = (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945;
 
 interface Props {
   item: ICategoryWithExtendedObjects;
@@ -24,6 +28,8 @@ export const HomeSectionBar = memo(
 
     const {_id: categoryId, name: sectionTitle, objects, children} = item;
 
+    const isLessThenTwoItems = objects.length < 2 && children.length < 2;
+
     const onAllPressHandler = useCallback(() => {
       onAllPress({categoryId, title: sectionTitle});
     }, [onAllPress, categoryId, sectionTitle]);
@@ -31,9 +37,11 @@ export const HomeSectionBar = memo(
       <View>
         <View style={styles.sectionTitleContainer}>
           <Text style={styles.sectionTitle}>{sectionTitle}</Text>
-          <TouchableOpacity activeOpacity={0.8} onPress={onAllPressHandler}>
-            <Text style={styles.all}>{t('all')}</Text>
-          </TouchableOpacity>
+          {!isLessThenTwoItems ? (
+            <TouchableOpacity activeOpacity={0.8} onPress={onAllPressHandler}>
+              <Text style={styles.all}>{t('all')}</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
         {isEmpty(objects) ? (
           <FlatList
@@ -42,11 +50,14 @@ export const HomeSectionBar = memo(
             contentContainerStyle={styles.contentContainer}
             data={children}
             horizontal
-            renderItem={({item: child}: {item: IChildren}) => (
-              <SubCategoryCard
-                containerStyle={styles.cardContainer}
+            renderItem={({item: {_id, name, cover}}: {item: IChildren}) => (
+              <ObjectCard
+                containerStyle={styles.objectCardContainer}
+                width={cardWidth}
                 onPress={onItemPress}
-                data={child}
+                id={_id}
+                name={name}
+                imageUri={cover}
               />
             )}
             showsHorizontalScrollIndicator={false}
@@ -58,12 +69,20 @@ export const HomeSectionBar = memo(
             contentContainerStyle={styles.contentContainer}
             data={objects}
             horizontal
-            renderItem={({item: object}: {item: IExtendedObject}) => (
+            renderItem={({
+              item: {_id, name, cover, isFavorite},
+            }: {
+              item: IExtendedObject;
+            }) => (
               <ObjectCard
-                containerStyle={styles.cardContainer}
+                containerStyle={styles.objectCardContainer}
+                width={cardWidth}
                 onPress={onItemPress}
-                data={object}
                 onIsFavoriteChange={onIsFavoriteChange}
+                id={_id}
+                name={name}
+                imageUri={cover}
+                isFavorite={isFavorite}
               />
             )}
             showsHorizontalScrollIndicator={false}

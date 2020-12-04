@@ -48,6 +48,7 @@ export interface IChildren {
   icon: string;
   fields: string[];
   children: IChildren[];
+  cover: string;
 }
 
 export interface IExtendedObject extends IObject {

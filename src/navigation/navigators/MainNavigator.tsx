@@ -2,22 +2,14 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {
-  ObjectsListScreen,
-  RouteDetailsFullScreen,
-  BookmarksListScreen,
-} from 'screens';
+import {RouteDetailsFullScreen, ErrorScreen} from 'screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
-import {getAppHeaderOptions} from '../screenOptions';
-import {useColorScheme} from 'core/hooks';
 
 const Stack = createStackNavigator<MainNavigatorParamsList>();
 
 export function MainNavigator() {
-  const colorScheme = useColorScheme();
-
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -33,18 +25,9 @@ export function MainNavigator() {
         }}
       />
       <Stack.Screen
-        options={{
-          ...getAppHeaderOptions({colorScheme}),
-        }}
-        name="ObjectsList"
-        component={ObjectsListScreen}
-      />
-      <Stack.Screen
-        options={{
-          ...getAppHeaderOptions({colorScheme}),
-        }}
-        name="BookmarksList"
-        component={BookmarksListScreen}
+        name="ErrorScreen"
+        component={ErrorScreen}
+        options={ErrorScreen.screenOptions}
       />
     </Stack.Navigator>
   );

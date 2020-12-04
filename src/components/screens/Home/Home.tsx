@@ -17,17 +17,16 @@ import {IProps} from './types';
 export const Home = ({navigation: {navigate}}: IProps) => {
   const dispatch = useDispatch();
 
+  const homeData = useSelector(selectHomeData);
   const getData = useCallback(() => {
     dispatch(getHomeDataRequest());
   }, [dispatch]);
+  const loading = useRequestLoading(getHomeDataRequest);
+  const {error} = useRequestError(getHomeDataRequest);
 
   useEffect(() => {
     getData();
   }, [getData]);
-
-  const homeData = useSelector(selectHomeData);
-  const loading = useRequestLoading(getHomeDataRequest);
-  const {error} = useRequestError(getHomeDataRequest);
 
   const navigateToObjectsList: ComponentProps<
     typeof HomeSectionBar

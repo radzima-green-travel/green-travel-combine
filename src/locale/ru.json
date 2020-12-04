@@ -7,16 +7,18 @@
       },
       "default": {
         "title": "",
-        "text": "Непредвиденная ошибка"
+        "text": "Что-то пошло не так..."
       }
     },
     "tabs":{
       "home":"Главная",
       "bookmarks": "Закладки",
       "map": "Карта"
-    }
+    },
+    "tryAgain": "Попробовать еще раз"
   },
   "home":{
+    "headerTitle": "Главная",
     "Where are we going?": "Куда едем?",
     "Discover new places": "Открываем новые места",
     "Interesting around": "Интересное рядом",

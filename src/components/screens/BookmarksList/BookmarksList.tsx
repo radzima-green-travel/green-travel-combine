@@ -8,6 +8,9 @@ import {selectBookmarksCategories} from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {useToggleFavorite} from 'core/hooks';
 import {find} from 'lodash';
+import {SCREEN_WIDTH} from 'services/PlatformService';
+import {PADDING_HORIZONTAL} from 'core/constants';
+const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
 export const BookmarksList = ({
   route,
@@ -46,11 +49,15 @@ export const BookmarksList = ({
       data={listData}
       contentContainerStyle={styles.contentContainer}
       keyExtractor={(item) => item._id}
-      renderItem={({item}) => (
+      renderItem={({item: {_id, name, cover, isFavorite}}) => (
         <ObjectCard
           onIsFavoriteChange={toggleFavorite}
           containerStyle={styles.cardContainer}
-          data={item}
+          id={_id}
+          name={name}
+          imageUri={cover}
+          isFavorite={isFavorite}
+          width={cardWidth}
         />
       )}
     />

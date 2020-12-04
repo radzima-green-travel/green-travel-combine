@@ -29,3 +29,5 @@ export enum MAP_PINS {
   EMPTY = 'empty',
   SELECTED_POSTFIX = '-black',
 }
+
+export const PADDING_HORIZONTAL = 16;

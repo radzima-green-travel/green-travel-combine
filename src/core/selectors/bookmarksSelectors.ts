@@ -7,10 +7,10 @@ import {selectAllCategoriesWithObjects} from './common';
 export const selectBookmarksCategories = createSelector<
   IState,
   ICategoryWithExtendedObjects[] | null,
-  ICategoryWithExtendedObjects[]
+  ICategoryWithExtendedObjects[] | null
 >(selectAllCategoriesWithObjects, (categories) => {
   if (!categories) {
-    return [];
+    return null;
   }
 
   return categories.map((category) => {

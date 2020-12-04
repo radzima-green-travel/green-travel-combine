@@ -8,10 +8,12 @@ export type HomeNavigatorParamsList = {
   Home: undefined;
   Search: undefined;
   RouteDetails: undefined;
+  ObjectsList: {categoryId: string; title: string};
 };
 
 export type BookmarksNavigatorParamsList = {
   Bookmarks: undefined;
+  BookmarksList: {title: string; categoryId: string};
 };
 
 export type AppMapNavigatorParamsList = {
@@ -21,8 +23,7 @@ export type AppMapNavigatorParamsList = {
 export type MainNavigatorParamsList = {
   TabNavigator: NestedNavigatorParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
-  ObjectsList: {categoryId: string; title: string};
-  BookmarksList: {title: string; categoryId: string};
+  ErrorScreen: undefined;
 };
 
 export type TabNavigatorParamsList = {

@@ -16,7 +16,10 @@ export interface Props {
 
 export const IconButton = memo(({icon, style, onPress}: Props) => {
   return (
-    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={[styles.container, style]}
+      onPress={onPress}>
       <Icon {...icon} />
     </TouchableOpacity>
   );

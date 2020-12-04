@@ -10,8 +10,10 @@ export const selectHomeData = createSelector<
   ICategoryWithExtendedObjects[] | null,
   ICategoryWithExtendedObjects[] | null
 >(selectAllCategoriesWithObjects, (data) =>
-  filter(
-    data,
-    ({objects, children}) => !isEmpty(objects) || !isEmpty(children),
-  ),
+  data
+    ? filter(
+        data,
+        ({objects, children}) => !isEmpty(objects) || !isEmpty(children),
+      )
+    : null,
 );

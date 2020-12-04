@@ -1,5 +1,6 @@
 import React, {memo, useEffect} from 'react';
-import {BackHandler, Text, TouchableOpacity, View} from 'react-native';
+import {BackHandler} from 'react-native';
+import {ErrorView} from 'molecules';
 import {LoadingView} from '../LoadingView';
 import {Props} from './types';
 
@@ -21,14 +22,7 @@ export const SuspenseView = memo<Props>(
     }, [blockBackPress, loading]);
 
     if (error) {
-      return (
-        <View>
-          <Text>Ошибочка</Text>
-          <TouchableOpacity onPress={retryCallback}>
-            <Text>Нажми как что бы еще разок попробовать</Text>
-          </TouchableOpacity>
-        </View>
-      );
+      return <ErrorView onTryAgainPress={retryCallback} error={error} />;
     }
 
     if (loading && !cover) {

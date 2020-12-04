@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {COLORS} from 'assets/colors';
+import {FONTS_STYLES} from 'assets/fonts';
 
 export const styles = StyleSheet.create({
   cardContainer: {
@@ -9,13 +10,12 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
-    marginHorizontal: 6,
-    borderRadius: 15,
-    backgroundColor: COLORS.silver,
+    borderRadius: 4,
+    backgroundColor: '#FAFAFA',
   },
   image: {
     ...StyleSheet.absoluteFillObject,
-    borderRadius: 15,
+    borderRadius: 4,
   },
   cardContentContainer: {
     flexDirection: 'row',
@@ -23,15 +23,17 @@ export const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    fontSize: 16,
-    lineHeight: 20,
-    letterSpacing: 0.2,
-    color: 'white',
-    fontWeight: 'bold',
+    ...FONTS_STYLES.bold15,
+    color: COLORS.white,
+  },
+  emptyCardTitle: {
+    flex: 1,
+    ...FONTS_STYLES.bold15,
+    color: COLORS.logCabin,
   },
   cover: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(32, 36, 30, 0.35)',
-    borderRadius: 15,
+    borderRadius: 4,
   },
 });

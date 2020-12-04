@@ -1,28 +1,33 @@
+import {COLORS, FONTS_STYLES} from 'assets';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   containerSolid: {
-    paddingHorizontal: 20,
     paddingVertical: 15,
-    borderRadius: 8,
+    borderRadius: 3,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   labelSolid: {
-    color: '#ffffff',
-    fontSize: 20,
+    ...FONTS_STYLES.semibold14,
+    color: COLORS.white,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    flex: 1,
   },
   containerOutline: {
     paddingHorizontal: 20,
     paddingVertical: 15,
-    borderRadius: 8,
+    borderRadius: 3,
     borderWidth: 2,
     borderColor: '#61B033',
     justifyContent: 'center',
     alignItems: 'center',
   },
   labelOutline: {
-    color: '#61B033',
-    fontSize: 20,
+    ...FONTS_STYLES.semibold14,
+    color: COLORS.primary,
+    textTransform: 'uppercase',
   },
 });

@@ -1,12 +1,13 @@
 import {StyleSheet} from 'react-native';
+import {FONTS_STYLES, COLORS} from 'assets';
+import {PADDING_HORIZONTAL} from 'core/constants';
 
 export const styles = StyleSheet.create({
   container: {
-    marginHorizontal: -16,
+    paddingHorizontal: PADDING_HORIZONTAL,
     marginTop: 16,
   },
   contentContainer: {
-    marginLeft: 10,
     paddingRight: 16,
     paddingBottom: 24,
   },
@@ -20,26 +21,22 @@ export const styles = StyleSheet.create({
     right: 30,
     top: 44,
   },
-  cardContainer: {
-    width: 324,
-  },
-
   sectionTitle: {
     flex: 1,
-    fontSize: 12,
-    lineHeight: 15,
-    letterSpacing: 0.2,
-    color: 'black',
+    ...FONTS_STYLES.semibold14,
+    color: COLORS.logCabin,
     textTransform: 'uppercase',
-    fontFamily: 'Montserrat-Bold',
   },
   sectionTitleContainer: {
     flexDirection: 'row',
+    paddingHorizontal: PADDING_HORIZONTAL,
+  },
+  objectCardContainer: {
+    marginRight: PADDING_HORIZONTAL,
   },
   all: {
-    fontSize: 12,
-    lineHeight: 14,
-    letterSpacing: -0.3,
-    color: '#50A021',
+    ...FONTS_STYLES.semibold14,
+    color: COLORS.primary,
+    textTransform: 'uppercase',
   },
 });

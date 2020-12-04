@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {styles} from './styles';
 import {BookmarkItem, SuspenseView} from 'atoms';
 import {selectBookmarksCategories} from 'core/selectors';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {getHomeDataRequest} from 'core/reducers';
 import {IProps} from './types';
@@ -12,6 +12,11 @@ import {isEmpty} from 'lodash';
 
 export const Bookmarks = ({navigation}: IProps) => {
   const bookmarksCategories = useSelector(selectBookmarksCategories);
+  const dispatch = useDispatch();
+
+  const getHomeData = useCallback(() => {
+    dispatch(getHomeDataRequest());
+  }, [dispatch]);
 
   const loading = useRequestLoading(getHomeDataRequest);
   const {error} = useRequestError(getHomeDataRequest);
@@ -30,6 +35,7 @@ export const Bookmarks = ({navigation}: IProps) => {
 
   return (
     <SuspenseView
+      retryCallback={getHomeData}
       loading={!bookmarksCategories && loading}
       error={bookmarksCategories ? null : error}>
       {bookmarksCategories ? (

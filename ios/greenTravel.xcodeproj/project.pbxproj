@@ -18,10 +18,9 @@
 		2DCD954D1E0B4F2C00145EB5 /* greenTravelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* greenTravelTests.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
-		624E38D52519E4B4001D98E2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D12519E4B4001D98E2 /* OpenSans-Bold.ttf */; };
-		624E38D62519E4B4001D98E2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D22519E4B4001D98E2 /* OpenSans-Regular.ttf */; };
 		6281F7E124C9E40D00C51231 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6281F7E024C9E40D00C51231 /* empty.swift */; };
 		62890DF924C5D86F00DF211E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62890DF824C5D86F00DF211E /* LaunchScreen.storyboard */; };
+		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
 		AB716AC1901FA4715BE6E49A /* libPods-greenTravel-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6361C1D1B0DE4F1968C4EDEA /* libPods-greenTravel-tvOSTests.a */; };
 		C1560A7BE8D185647104090C /* libPods-greenTravel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B7D2B21900923C3DDAFD91A /* libPods-greenTravel.a */; };
 		C1C56CA1243EF0EE662AFB50 /* libPods-greenTravel-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CDC6718C8A7D16FAAC241C8 /* libPods-greenTravel-tvOS.a */; };
@@ -66,11 +65,10 @@
 		5DC61A333ADB94FF40CB33BA /* Pods-greenTravel-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel-tvOSTests/Pods-greenTravel-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
-		624E38D12519E4B4001D98E2 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Bold.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		624E38D22519E4B4001D98E2 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		6281F7E024C9E40D00C51231 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
 		62890DF824C5D86F00DF211E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = greenTravel/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		6361C1D1B0DE4F1968C4EDEA /* libPods-greenTravel-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D2B21900923C3DDAFD91A /* libPods-greenTravel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABCFDD8E1168EB2829B0A3F0 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
@@ -167,8 +165,7 @@
 			children = (
 				624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */,
 				624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */,
-				624E38D12519E4B4001D98E2 /* OpenSans-Bold.ttf */,
-				624E38D22519E4B4001D98E2 /* OpenSans-Regular.ttf */,
+				62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -371,8 +368,7 @@
 				624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */,
 				624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				624E38D52519E4B4001D98E2 /* OpenSans-Bold.ttf in Resources */,
-				624E38D62519E4B4001D98E2 /* OpenSans-Regular.ttf in Resources */,
+				62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */,
 				62890DF924C5D86F00DF211E /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
