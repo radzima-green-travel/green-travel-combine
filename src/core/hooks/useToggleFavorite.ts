@@ -3,9 +3,11 @@ import {useDispatch} from 'react-redux';
 import {addToFavorite, removeFromFavorite} from 'core/reducers';
 import {LayoutAnimation} from 'react-native';
 
+const onAnimationEndDefault = () => {};
+
 export function useToggleFavorite({
   removeWithAnimation = false,
-  onAnimationEnd = () => {},
+  onAnimationEnd = onAnimationEndDefault,
 } = {}) {
   const dispatch = useDispatch();
 

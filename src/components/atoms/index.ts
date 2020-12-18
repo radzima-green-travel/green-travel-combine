@@ -1,5 +1,4 @@
 export {Test} from './Test';
-export {ImageCarousel} from './ImageCarousel';
 export {Icon} from './Icon';
 export {IconButton} from './IconButton';
 export {Searchbar} from './Searchbar';
@@ -14,3 +13,4 @@ export {ObjectCard} from './ObjectCard';
 export {ClusterMap} from './ClusterMap';
 export {BookmarkItem} from './BookmarkItem';
 export {ClusterMapShape} from './ClusterMapShape';
+export {ImageSlider} from './ImageSlider';

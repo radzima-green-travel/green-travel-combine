@@ -59,7 +59,20 @@ export const RouteDetailsFull = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <PlaceDetailsImageSlider images={[image, image, image, image]} />
+      <PlaceDetailsImageSlider
+        images={[
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+          'https://picsum.photos/500/500',
+        ]}
+      />
       <TextElemets.H1>{t('routeName')}</TextElemets.H1>
       <RouteMetrics containerStyle={styles.metricsContainer} />
       <Button label={t('howToGetThere')} />

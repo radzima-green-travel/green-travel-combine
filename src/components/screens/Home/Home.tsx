@@ -44,6 +44,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   }, [navigate]);
 
   const toggleFavorite = useToggleFavorite();
+
   return (
     <SuspenseView
       loading={!homeData && loading}
