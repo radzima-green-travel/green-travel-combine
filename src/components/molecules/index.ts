@@ -5,3 +5,5 @@ export {RouteMetrics} from './RouteMetrics';
 export {RouteDetailsBikeRental} from './RouteDetailsBikeRental';
 export {BikeRentalWidget} from './BikeRentalWidget';
 export {ErrorView} from './ErrorView';
+export {ClipboardToast} from './ClipboardToast';
+export {DetailsPageCapture} from './DetailsPageCapture';

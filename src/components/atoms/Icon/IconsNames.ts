@@ -2,6 +2,7 @@ export type IconsNames =
   | 'bicycle'
   | 'bookmark'
   | 'bookmarkFilled'
+  | 'check'
   | 'chevron'
   | 'compass'
   | 'cross'

@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
   contentContainer: {
     paddingRight: 16,
     paddingBottom: 24,
+    height: 184.5,
   },
   crossButton: {
     position: 'absolute',
@@ -36,7 +37,7 @@ export const styles = StyleSheet.create({
   },
   all: {
     ...FONTS_STYLES.semibold14,
-    color: COLORS.primary,
+    color: COLORS.apple,
     textTransform: 'uppercase',
   },
 });

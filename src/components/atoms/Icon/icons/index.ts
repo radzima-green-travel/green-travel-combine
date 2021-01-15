@@ -1,6 +1,7 @@
 export {default as bicycle} from './bicycle.svg';
 export {default as bookmark} from './bookmark.svg';
 export {default as bookmarkFilled} from './bookmarkFilled.svg';
+export {default as check} from './check.svg';
 export {default as chevron} from './chevron.svg';
 export {default as compass} from './compass.svg';
 export {default as cross} from './cross.svg';

@@ -37,11 +37,14 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     [navigate],
   );
 
-  const navigateToPlaceDetails: ComponentProps<
+  const navigateToObjectDetails: ComponentProps<
     typeof HomeSectionBar
-  >['onItemPress'] = useCallback(() => {
-    navigate('PlaceDetails');
-  }, [navigate]);
+  >['onItemPress'] = useCallback(
+    ({categoryId, objectId}) => {
+      navigate('ObjectDetails', {categoryId, objectId});
+    },
+    [navigate],
+  );
 
   const toggleFavorite = useToggleFavorite();
 
@@ -58,7 +61,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
         keyExtractor={(item) => item._id}
         renderItem={({item}) => (
           <HomeSectionBar
-            onItemPress={navigateToPlaceDetails}
+            onItemPress={navigateToObjectDetails}
             onAllPress={navigateToObjectsList}
             item={item}
             onIsFavoriteChange={toggleFavorite}

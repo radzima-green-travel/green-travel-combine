@@ -18,7 +18,7 @@ const cardWidth = (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945;
 interface Props {
   item: ICategoryWithExtendedObjects;
   onAllPress: (options: {categoryId: string; title: string}) => void;
-  onItemPress: () => void;
+  onItemPress: (options: {categoryId: string; objectId: string}) => void;
   onIsFavoriteChange: (data: {objectId: string; needToAdd: boolean}) => void;
 }
 
@@ -33,6 +33,14 @@ export const HomeSectionBar = memo(
     const onAllPressHandler = useCallback(() => {
       onAllPress({categoryId, title: sectionTitle});
     }, [onAllPress, categoryId, sectionTitle]);
+
+    const onItemPressHandler = useCallback(
+      (objectId: string) => {
+        onItemPress({categoryId, objectId});
+      },
+      [categoryId, onItemPress],
+    );
+
     return (
       <View>
         <View style={styles.sectionTitleContainer}>
@@ -54,7 +62,7 @@ export const HomeSectionBar = memo(
               <ObjectCard
                 containerStyle={styles.objectCardContainer}
                 width={cardWidth}
-                onPress={onItemPress}
+                onPress={onItemPressHandler}
                 id={_id}
                 name={name}
                 imageUri={cover}
@@ -77,7 +85,7 @@ export const HomeSectionBar = memo(
               <ObjectCard
                 containerStyle={styles.objectCardContainer}
                 width={cardWidth}
-                onPress={onItemPress}
+                onPress={onItemPressHandler}
                 onIsFavoriteChange={onIsFavoriteChange}
                 id={_id}
                 name={name}

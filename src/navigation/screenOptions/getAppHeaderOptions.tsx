@@ -4,6 +4,7 @@ import {StyleSheet, ColorSchemeName} from 'react-native';
 import {StackNavigationOptions} from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
 import {Icon} from 'atoms';
+import {FONTS_STYLES} from 'assets/fonts';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -26,10 +27,7 @@ export const getAppHeaderOptions = ({
     />
   ),
   headerTitleStyle: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 16,
-    lineHeight: 20,
+    ...FONTS_STYLES.semibold14,
   },
   headerLeftContainerStyle: {paddingLeft: 16},
 });

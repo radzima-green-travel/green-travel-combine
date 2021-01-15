@@ -15,7 +15,8 @@
       "bookmarks": "Закладки",
       "map": "Карта"
     },
-    "tryAgain": "Попробовать еще раз"
+    "tryAgain": "Попробовать еще раз",
+    "coppied": "Скопировано"
   },
   "home":{
     "headerTitle": "Главная",
@@ -24,6 +25,9 @@
     "Interesting around": "Интересное рядом",
     "all": "Все"
 
+  }, 
+  "objectDetails": {
+    "seeOnTheMap": "ПОСМОТРЕТЬ НА КАРТЕ"
   },
   "route-details":{
     "routeName": "Царская поляна",

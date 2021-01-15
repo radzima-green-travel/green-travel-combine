@@ -9,6 +9,7 @@ export type HomeNavigatorParamsList = {
   Search: undefined;
   RouteDetails: undefined;
   ObjectsList: {categoryId: string; title: string};
+  ObjectDetails: {categoryId: string; objectId: string};
 };
 
 export type BookmarksNavigatorParamsList = {

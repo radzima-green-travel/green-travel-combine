@@ -20,11 +20,9 @@ export const ErrorView = memo(({error, onTryAgainPress}: IProps) => {
     <View style={styles.container}>
       <Icon name="error" width={width} height={height} />
       <Text style={styles.text}>{t(error.message.textPaths)}</Text>
-      <Button
-        containerStyle={styles.buttonContainer}
-        onPress={onTryAgainPress}
-        label={t('tryAgain')}
-      />
+      <Button style={styles.buttonContainer} onPress={onTryAgainPress}>
+        {t('tryAgain')}
+      </Button>
     </View>
   );
 });

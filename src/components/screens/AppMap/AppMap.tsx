@@ -21,7 +21,7 @@ export const AppMap = () => {
     return (
       <View style={styles.bottomMenuContainer}>
         <Text style={styles.bottomMenuText}>{selected?.name}</Text>
-        <CustomButton label="Узнать больше" />
+        <CustomButton>Узнать больше</CustomButton>
       </View>
     );
   };

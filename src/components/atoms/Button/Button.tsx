@@ -1,38 +1,73 @@
-import React, {memo} from 'react';
-import capitalize from 'lodash/capitalize';
-import {TouchableOpacity, Text, StyleProp, ViewStyle} from 'react-native';
-
+import React, {memo, PropsWithChildren, useState, useCallback} from 'react';
+import {
+  Text,
+  StyleProp,
+  ViewStyle,
+  ActivityIndicator,
+  Pressable,
+} from 'react-native';
+import {BUTTON_THEMES} from './constants';
 import {styles} from './styles';
+import {ButtonThemes} from './types';
 
-interface Props {
-  label: string;
+type Props = PropsWithChildren<{
+  children: string;
   onPress?: () => void;
-  color?: string;
-  type?: string;
-  containerStyle?: StyleProp<ViewStyle>;
-}
+  style?: StyleProp<ViewStyle>;
+  theme?: ButtonThemes;
+  loading?: boolean;
+  disabled?: boolean;
+}>;
 
 export const Button = memo(
   ({
     onPress,
-    color = '#61B033',
-    label,
-    type = 'solid',
-    containerStyle,
+    children,
+    loading = false,
+    disabled = false,
+    style,
+    theme = 'green',
   }: Props) => {
+    const buttonThemeStyles = BUTTON_THEMES[theme];
+    const [isActive, setIsActive] = useState(false);
+
+    const setActive = useCallback(() => {
+      setIsActive(true);
+    }, []);
+
+    const setInactive = useCallback(() => {
+      setIsActive(false);
+    }, []);
+
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
+      <Pressable
+        onPressIn={setActive}
+        onPressOut={setInactive}
         onPress={onPress}
         style={[
-          {
-            ...styles[`container${capitalize(type)}`],
-            backgroundColor: type === 'solid' ? color : 'transparent',
-          },
-          containerStyle,
+          styles.container,
+          buttonThemeStyles.container,
+          disabled && buttonThemeStyles.disabled,
+          isActive && buttonThemeStyles.active,
+          style,
         ]}>
-        <Text style={styles[`label${capitalize(type)}`]}>{label}</Text>
-      </TouchableOpacity>
+        {loading ? (
+          <ActivityIndicator
+            size="small"
+            // @ts-ignore
+            color={buttonThemeStyles.text?.color}
+          />
+        ) : (
+          <Text
+            style={[
+              styles.text,
+              buttonThemeStyles.text,
+              disabled && buttonThemeStyles.disabledText,
+            ]}>
+            {children}
+          </Text>
+        )}
+      </Pressable>
     );
   },
 );

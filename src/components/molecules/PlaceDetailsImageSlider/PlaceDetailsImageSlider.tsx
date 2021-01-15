@@ -5,21 +5,34 @@ import {styles} from './styles';
 
 interface Props {
   images: Array<string>;
+  isFavorite: boolean;
+  onBookmarkPress: () => void;
+  onMarkerPress: () => void;
 }
 
-export const PlaceDetailsImageSlider = ({images}: Props) => {
+export const PlaceDetailsImageSlider = ({
+  images,
+  isFavorite,
+  onMarkerPress,
+  onBookmarkPress,
+}: Props) => {
   return (
     <View>
       <ImageSlider images={images} />
       <IconButton
-        style={styles.crossButton}
-        icon={{name: 'cross', width: 16, height: 16, color: '#D9D9D9'}}
-        onPress={() => false} // TODO implement onpress
+        style={styles.leftButton}
+        icon={{name: 'marker', width: 18, height: 22, color: '#393939'}}
+        onPress={onMarkerPress} // TODO implement onpress
       />
       <IconButton
-        style={styles.markerMapButton}
-        icon={{name: 'mapMarkerGray', width: 16, height: 20}}
-        onPress={() => false} // TODO implement onpress
+        style={styles.rightButton}
+        icon={{
+          name: isFavorite ? 'bookmarkFilled' : 'bookmark',
+          width: 14,
+          height: 18,
+          color: '#080908',
+        }}
+        onPress={onBookmarkPress} // TODO implement onpress
       />
     </View>
   );

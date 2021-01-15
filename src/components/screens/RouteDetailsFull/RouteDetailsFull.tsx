@@ -75,7 +75,7 @@ export const RouteDetailsFull = () => {
       />
       <TextElemets.H1>{t('routeName')}</TextElemets.H1>
       <RouteMetrics containerStyle={styles.metricsContainer} />
-      <Button label={t('howToGetThere')} />
+      <Button onPress={() => {}}>{t('howToGetThere')}</Button>
       <RouteDetailsBikeRental />
       <TextElemets.H1>{t('aboutRoute')}</TextElemets.H1>
       <TextElemets.H3 style={styles.aboutText}>{mockData.about}</TextElemets.H3>
@@ -86,7 +86,7 @@ export const RouteDetailsFull = () => {
           <TextElemets.H3>{description}</TextElemets.H3>
         </View>
       ))}
-      <Button type="outline" label={t('showRoute')} />
+      <Button>{t('showRoute')}</Button>
     </ScrollView>
   );
 };

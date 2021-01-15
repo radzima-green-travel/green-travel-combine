@@ -12,7 +12,7 @@ interface IProps {
   name: string;
   id: string;
   isFavorite?: boolean;
-  onPress?: () => void;
+  onPress?: (id: string) => void;
   containerStyle?: StyleProp<ViewStyle>;
   onIsFavoriteChange?: (data: {objectId: string; needToAdd: boolean}) => void;
   width: number;
@@ -43,9 +43,13 @@ export const ObjectCard = memo(
       return {width, height: width / ratio};
     }, [width]);
 
+    const onPressHander = useCallback(() => {
+      onPress?.(id);
+    }, [onPress, id]);
+
     return (
       <TouchableOpacity
-        onPress={onPress}
+        onPress={onPressHander}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}>
         <FastImage style={styles.image} source={{uri: imageUri}} />
