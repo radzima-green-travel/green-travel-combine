@@ -22,7 +22,7 @@ export const PlaceDetailsImageSlider = ({
       <IconButton
         style={styles.leftButton}
         icon={{name: 'marker', width: 18, height: 22, color: '#393939'}}
-        onPress={onMarkerPress} // TODO implement onpress
+        onPress={onMarkerPress}
       />
       <IconButton
         style={styles.rightButton}
@@ -32,7 +32,7 @@ export const PlaceDetailsImageSlider = ({
           height: 18,
           color: '#080908',
         }}
-        onPress={onBookmarkPress} // TODO implement onpress
+        onPress={onBookmarkPress}
       />
     </View>
   );

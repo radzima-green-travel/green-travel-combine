@@ -7,3 +7,5 @@ export {BikeRentalWidget} from './BikeRentalWidget';
 export {ErrorView} from './ErrorView';
 export {ClipboardToast} from './ClipboardToast';
 export {DetailsPageCapture} from './DetailsPageCapture';
+export {ObjectDescription} from './ObjectDescription';
+export {ObjectInlcudesItem} from './ObjectInlcudesItem';

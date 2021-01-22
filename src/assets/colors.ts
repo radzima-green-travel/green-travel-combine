@@ -6,4 +6,6 @@ export const COLORS = {
   logCabin: '#0A0B0A',
   white: '#FFFFFF',
   silver: '#BDBDBD',
+  cornflowerBlue: '#538FEF',
+  alto: '#D9D9D9',
 };

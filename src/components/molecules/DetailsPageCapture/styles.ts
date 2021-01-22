@@ -24,7 +24,7 @@ export const themeStyles = {
   location: {
     ...FONTS_STYLES.regular13,
     color: {
-      light: 'rgb(95,155,216)',
+      light: COLORS.cornflowerBlue,
       dark: COLORS.silver,
     },
   },

@@ -7,14 +7,15 @@ import {
   PlaceDetailsImageSlider,
   ClipboardToast,
   DetailsPageCapture,
+  ObjectDescription,
 } from 'molecules';
+import {ObjectIncludes} from 'organisms';
 import {useToast, Button} from 'atoms';
 import {IProps} from './types';
 import {selectAllCategoriesWithObjects} from 'core/selectors';
 import {useToggleFavorite, useTranslation} from 'core/hooks';
 import {useSelector} from 'react-redux';
 import {styles} from './styles';
-
 export const ObjectDetails = memo(({route, navigation}: IProps) => {
   const {
     params: {categoryId, objectId},
@@ -73,6 +74,8 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
           />
           <Button>{t('seeOnTheMap')}</Button>
         </View>
+        <ObjectDescription description={data.description} />
+        <ObjectIncludes />
       </ScrollView>
       <ClipboardToast {...toastProps} />
     </View>

@@ -1,0 +1,1 @@
+export {ObjectDescription} from './ObjectDescription';
