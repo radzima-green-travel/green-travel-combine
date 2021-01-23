@@ -1,4 +1,4 @@
-import {ICategory} from 'core/types';
+import {ICategoryWithExtendedObjects} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import {SCREEN_WIDTH} from 'services/PlatformService';
@@ -15,8 +15,8 @@ interface IProps {
   isOdd: boolean;
   isLast: boolean;
   count: number | undefined;
-  item: ICategory;
-  onPress: (item: ICategory) => void;
+  item: ICategoryWithExtendedObjects;
+  onPress: (item: ICategoryWithExtendedObjects) => void;
 }
 
 export const BookmarkItem = memo(

@@ -1,18 +1,18 @@
 import React, {useLayoutEffect, useMemo, useCallback} from 'react';
 import {FlatList} from 'react-native';
-import {ObjectCard} from 'molecules';
+import {CategoryCard} from 'molecules';
 import {styles} from './styles';
 import {IProps} from './types';
 import {selectAllCategoriesWithObjects} from 'core/selectors';
 
 import {useSelector} from 'react-redux';
-import {useToggleFavorite} from 'core/hooks';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
-import {findObjectsByCategoryId} from 'core/helpers';
-import {IExtendedObject} from 'core/types';
+import {findCategoriesById} from 'core/helpers';
+import {ICategoryWithExtendedObjects} from 'core/types';
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
-export const ObjectsList = ({
+
+export const CategoriesList = ({
   route,
   navigation: {setOptions, navigate},
 }: IProps) => {
@@ -25,16 +25,16 @@ export const ObjectsList = ({
   const listData = useMemo(
     () =>
       categoriesWithObjects
-        ? findObjectsByCategoryId(categoriesWithObjects, categoryId)
+        ? findCategoriesById(categoriesWithObjects, categoryId)
         : null,
     [categoryId, categoriesWithObjects],
   );
 
   const navigateToObjectDetails = useCallback(
-    ({_id}: IExtendedObject) => {
-      navigate('ObjectDetails', {categoryId, objectId: _id});
+    ({_id, name}: ICategoryWithExtendedObjects) => {
+      navigate('ObjectsList', {categoryId: _id, title: name});
     },
-    [categoryId, navigate],
+    [navigate],
   );
 
   useLayoutEffect(() => {
@@ -43,17 +43,14 @@ export const ObjectsList = ({
     });
   }, [setOptions, title]);
 
-  const toggleFavorite = useToggleFavorite();
-
   return (
     <FlatList
       data={listData}
       contentContainerStyle={styles.contentContainer}
       keyExtractor={(item) => item._id}
       renderItem={({item}) => (
-        <ObjectCard
+        <CategoryCard
           onPress={navigateToObjectDetails}
-          onIsFavoritePress={toggleFavorite}
           containerStyle={styles.cardContainer}
           data={item}
           width={cardWidth}

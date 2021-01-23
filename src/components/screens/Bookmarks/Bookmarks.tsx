@@ -1,17 +1,17 @@
 import React, {useCallback} from 'react';
-import {View, Text} from 'react-native';
+import {View, ScrollView, Text} from 'react-native';
 import {styles} from './styles';
 import {BookmarkItem, SuspenseView} from 'atoms';
-import {selectBookmarksCategories} from 'core/selectors';
+import {selectBookmarksCardsData} from 'core/selectors';
 import {useSelector, useDispatch} from 'react-redux';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {getHomeDataRequest} from 'core/reducers';
 import {IProps} from './types';
-import {ICategory} from 'core/types';
+import {ICategoryWithExtendedObjects} from 'core/types';
 import {isEmpty} from 'lodash';
 
 export const Bookmarks = ({navigation}: IProps) => {
-  const bookmarksCategories = useSelector(selectBookmarksCategories);
+  const bookmarksCategories = useSelector(selectBookmarksCardsData);
   const dispatch = useDispatch();
 
   const getHomeData = useCallback(() => {
@@ -22,7 +22,7 @@ export const Bookmarks = ({navigation}: IProps) => {
   const {error} = useRequestError(getHomeDataRequest);
 
   const navigateToBookmarksList = useCallback(
-    ({_id, name, objects}: ICategory) => {
+    ({_id, name, objects}: ICategoryWithExtendedObjects) => {
       if (!isEmpty(objects)) {
         navigation.navigate('BookmarksList', {
           categoryId: _id,
@@ -39,7 +39,7 @@ export const Bookmarks = ({navigation}: IProps) => {
       loading={!bookmarksCategories && loading}
       error={bookmarksCategories ? null : error}>
       {bookmarksCategories ? (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <Text style={[styles.title]}>{'Закладки'}</Text>
           <View style={styles.boxContainer}>
             {bookmarksCategories.map((category, index, items) => (
@@ -52,7 +52,7 @@ export const Bookmarks = ({navigation}: IProps) => {
               />
             ))}
           </View>
-        </View>
+        </ScrollView>
       ) : null}
     </SuspenseView>
   );

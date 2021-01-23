@@ -1,6 +1,6 @@
-import React, {useEffect, useCallback, ComponentProps} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {SuspenseView} from 'atoms';
-import {HomeSectionBar} from 'molecules';
+import {HomeSectionBar} from 'organisms';
 import {FlatList} from 'react-native';
 
 import {styles} from './styles';
@@ -28,19 +28,22 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     getData();
   }, [getData]);
 
-  const navigateToObjectsList: ComponentProps<
-    typeof HomeSectionBar
-  >['onAllPress'] = useCallback(
-    ({categoryId, title}) => {
+  const navigateToObjectsList = useCallback(
+    ({categoryId, title}: {categoryId: string; title: string}) => {
       navigate('ObjectsList', {categoryId, title});
     },
     [navigate],
   );
 
-  const navigateToObjectDetails: ComponentProps<
-    typeof HomeSectionBar
-  >['onItemPress'] = useCallback(
-    ({categoryId, objectId}) => {
+  const navigateToCategoriesList = useCallback(
+    ({categoryId, title}: {categoryId: string; title: string}) => {
+      navigate('CategoriesList', {categoryId, title});
+    },
+    [navigate],
+  );
+
+  const navigateToObjectDetails = useCallback(
+    ({categoryId, objectId}: {categoryId: string; objectId: string}) => {
       navigate('ObjectDetails', {categoryId, objectId});
     },
     [navigate],
@@ -61,8 +64,10 @@ export const Home = ({navigation: {navigate}}: IProps) => {
         keyExtractor={(item) => item._id}
         renderItem={({item}) => (
           <HomeSectionBar
-            onItemPress={navigateToObjectDetails}
-            onAllPress={navigateToObjectsList}
+            onObjectPress={navigateToObjectDetails}
+            onCategoryPress={navigateToObjectsList}
+            onAllObjectsPress={navigateToObjectsList}
+            onAllCategoriesPress={navigateToCategoriesList}
             item={item}
             onIsFavoriteChange={toggleFavorite}
           />

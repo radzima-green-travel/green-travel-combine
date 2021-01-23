@@ -2,7 +2,12 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {View} from 'react-native';
-import {HomeScreen, ObjectDetailsScreen, ObjectsListScreen} from 'screens';
+import {
+  HomeScreen,
+  ObjectDetailsScreen,
+  ObjectsListScreen,
+  CategoriesListScreen,
+} from 'screens';
 import {Fade} from '../transitition';
 
 import {StyleSheet} from 'react-native';
@@ -69,6 +74,13 @@ export function HomeNavigator() {
         }}
         name="ObjectsList"
         component={ObjectsListScreen}
+      />
+      <Stack.Screen
+        options={{
+          ...getAppHeaderOptions({colorScheme}),
+        }}
+        name="CategoriesList"
+        component={CategoriesListScreen}
       />
     </Stack.Navigator>
   );

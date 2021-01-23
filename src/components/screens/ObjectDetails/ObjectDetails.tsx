@@ -1,6 +1,5 @@
 import React, {memo, useMemo, useLayoutEffect, useCallback} from 'react';
 import {ScrollView, View} from 'react-native';
-import {find} from 'lodash';
 import Clipboard from '@react-native-community/clipboard';
 
 import {
@@ -14,6 +13,7 @@ import {useToast, Button} from 'atoms';
 import {IProps} from './types';
 import {selectAllCategoriesWithObjects} from 'core/selectors';
 import {useToggleFavorite, useTranslation} from 'core/hooks';
+import {findObject} from 'core/helpers';
 import {useSelector} from 'react-redux';
 import {styles} from './styles';
 export const ObjectDetails = memo(({route, navigation}: IProps) => {
@@ -26,8 +26,7 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
   const categories = useSelector(selectAllCategoriesWithObjects);
 
   const data = useMemo(() => {
-    const {objects} = find(categories, ({_id}) => _id === categoryId) || {};
-    return find(objects, ({_id}) => _id === objectId);
+    return categories ? findObject(categories, categoryId, objectId) : null;
   }, [categoryId, objectId, categories]);
 
   useLayoutEffect(() => {

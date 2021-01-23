@@ -1,1 +1,0 @@
-export {PlaceDetails} from './PlaceDetails';

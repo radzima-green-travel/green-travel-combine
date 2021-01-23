@@ -7,14 +7,15 @@ export type NestedNavigatorParams<ParamList> = {
 export type HomeNavigatorParamsList = {
   Home: undefined;
   Search: undefined;
-  RouteDetails: undefined;
   ObjectsList: {categoryId: string; title: string};
+  CategoriesList: {categoryId: string; title: string};
   ObjectDetails: {categoryId: string; objectId: string};
 };
 
 export type BookmarksNavigatorParamsList = {
   Bookmarks: undefined;
   BookmarksList: {title: string; categoryId: string};
+  ObjectDetails: {categoryId: string; objectId: string};
 };
 
 export type AppMapNavigatorParamsList = {

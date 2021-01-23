@@ -40,33 +40,30 @@ export interface IObject {
   prohibitions?: IProhibition[];
 }
 
-export interface IChildren {
-  _id: string;
-  path: string;
-  parent: string;
-  name: string;
-  icon: string;
-  fields: string[];
-  children: IChildren[];
-  cover: string;
-}
-
 export interface IExtendedObject extends IObject {
   isFavorite: boolean;
 }
 
 export interface ICategory {
   _id: string;
+  path: string;
   name: string;
   icon: string;
+  parent?: string;
   updatedAt: string;
   fields: string[];
   objects: IObject[];
-  children: IChildren[];
+  children: ICategory[];
 }
 
 export interface ICategoryWithExtendedObjects extends ICategory {
   objects: IExtendedObject[];
+  children: ICategoryWithExtendedObjects[];
+}
+
+export interface IBookmarkCategory {
+  name: string;
+  objects: IObject[];
 }
 
 export type IBookmarksIds = string[];

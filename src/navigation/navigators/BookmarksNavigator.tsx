@@ -2,7 +2,11 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {BookmarksListScreen, BookmarksScreen} from 'screens';
+import {
+  BookmarksListScreen,
+  BookmarksScreen,
+  ObjectDetailsScreen,
+} from 'screens';
 
 import {getAppHeaderOptions} from '../screenOptions';
 import {useColorScheme} from 'core/hooks';
@@ -26,6 +30,13 @@ export function BookmarksNavigator() {
         }}
         name="BookmarksList"
         component={BookmarksListScreen}
+      />
+      <Stack.Screen
+        name="ObjectDetails"
+        component={ObjectDetailsScreen}
+        options={{
+          ...getAppHeaderOptions({colorScheme}),
+        }}
       />
     </Stack.Navigator>
   );

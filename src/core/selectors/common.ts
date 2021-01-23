@@ -5,7 +5,7 @@ import {
   ICategory,
   IBookmarksIds,
 } from 'core/types';
-import {map, includes} from 'lodash';
+import {addIsFavoriteToObjects} from '../helpers';
 
 export const selectBookmarksIds = (state: IState) =>
   state.bookmarks.bookmarksIds;
@@ -13,7 +13,7 @@ export const selectBookmarksIds = (state: IState) =>
 export const selectAllCategoriesWithObjects = createSelector<
   IState,
   ICategory[] | null,
-  IBookmarksIds | null,
+  IBookmarksIds,
   ICategoryWithExtendedObjects[] | null
 >(
   (state) => state.home.data,
@@ -23,16 +23,6 @@ export const selectAllCategoriesWithObjects = createSelector<
       return null;
     }
 
-    return map(categories, (value) => {
-      return {
-        ...value,
-        objects: map(value.objects, (object) => {
-          return {
-            ...object,
-            isFavorite: includes(bookmarksIds, object._id),
-          };
-        }),
-      };
-    });
+    return addIsFavoriteToObjects(categories, bookmarksIds);
   },
 );

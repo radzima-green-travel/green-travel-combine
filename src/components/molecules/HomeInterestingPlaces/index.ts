@@ -1,1 +1,0 @@
-export {HomeInterestingPlaces} from './HomeInterestingPlaces';

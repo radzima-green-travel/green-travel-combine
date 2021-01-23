@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useMemo} from 'react';
+import React, {memo, useMemo} from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {Icon} from 'atoms';
 import {styles} from './styles';
@@ -9,47 +9,34 @@ const ratio = 324 / 144;
 
 interface IProps {
   imageUri?: string;
-  name: string;
-  id: string;
+  title: string;
   isFavorite?: boolean;
-  onPress?: (id: string) => void;
+  onPress?: () => void;
   containerStyle?: StyleProp<ViewStyle>;
-  onIsFavoriteChange?: (data: {objectId: string; needToAdd: boolean}) => void;
+  onIsFavoritePress?: () => void;
   width: number;
 }
 
-export const ObjectCard = memo(
+export const Card = memo(
   ({
     imageUri,
-    name,
-    id,
+    title,
     isFavorite,
     containerStyle,
     onPress,
-    onIsFavoriteChange,
+    onIsFavoritePress,
     width,
   }: IProps) => {
-    const isObjectCard = typeof isFavorite === 'boolean';
+    const isFavoriteBlockVisible = typeof isFavorite === 'boolean';
     const isImageProvided = Boolean(imageUri);
-
-    const onIsFavoriteChangeHandler = useCallback(() => {
-      onIsFavoriteChange?.({
-        objectId: id,
-        needToAdd: !isFavorite,
-      });
-    }, [onIsFavoriteChange, id, isFavorite]);
 
     const dimensions = useMemo(() => {
       return {width, height: width / ratio};
     }, [width]);
 
-    const onPressHander = useCallback(() => {
-      onPress?.(id);
-    }, [onPress, id]);
-
     return (
       <TouchableOpacity
-        onPress={onPressHander}
+        onPress={onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}>
         <FastImage style={styles.image} source={{uri: imageUri}} />
@@ -57,11 +44,11 @@ export const ObjectCard = memo(
         <View style={styles.cardContentContainer}>
           <Text
             style={[styles.title, !isImageProvided && styles.emptyCardTitle]}>
-            {name}
+            {title}
           </Text>
-          {isObjectCard ? (
+          {isFavoriteBlockVisible ? (
             <TouchableOpacity
-              onPress={onIsFavoriteChangeHandler}
+              onPress={onIsFavoritePress}
               hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
               activeOpacity={0.8}>
               <Icon

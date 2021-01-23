@@ -2,7 +2,7 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {RouteDetailsFullScreen, ErrorScreen} from 'screens';
+import {ErrorScreen} from 'screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
@@ -17,13 +17,7 @@ export function MainNavigator() {
         component={TabNavigator}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="PlaceDetails"
-        component={RouteDetailsFullScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+
       <Stack.Screen
         name="ErrorScreen"
         component={ErrorScreen}
