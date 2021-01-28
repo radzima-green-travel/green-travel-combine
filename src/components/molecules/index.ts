@@ -9,3 +9,4 @@ export {ObjectDescription} from './ObjectDescription';
 export {ObjectInlcudesItem} from './ObjectInlcudesItem';
 export {ObjectCard} from './ObjectCard';
 export {CategoryCard} from './CategoryCard';
+export {BookmarksEmptyView} from './BookmarksEmptyView';

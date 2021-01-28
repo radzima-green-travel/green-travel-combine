@@ -9,6 +9,7 @@ import {getHomeDataRequest} from 'core/reducers';
 import {IProps} from './types';
 import {ICategoryWithExtendedObjects} from 'core/types';
 import {isEmpty} from 'lodash';
+import {BookmarksEmptyView} from 'molecules';
 
 export const Bookmarks = ({navigation}: IProps) => {
   const bookmarksCategories = useSelector(selectBookmarksCardsData);
@@ -38,11 +39,13 @@ export const Bookmarks = ({navigation}: IProps) => {
       retryCallback={getHomeData}
       loading={!bookmarksCategories && loading}
       error={bookmarksCategories ? null : error}>
-      {bookmarksCategories ? (
+      {isEmpty(bookmarksCategories) ? (
+        <BookmarksEmptyView />
+      ) : (
         <ScrollView style={styles.container}>
           <Text style={[styles.title]}>{'Закладки'}</Text>
           <View style={styles.boxContainer}>
-            {bookmarksCategories.map((category, index, items) => (
+            {bookmarksCategories!.map((category, index, items) => (
               <BookmarkItem
                 item={category}
                 isOdd={index % 2 === 0}
@@ -53,7 +56,7 @@ export const Bookmarks = ({navigation}: IProps) => {
             ))}
           </View>
         </ScrollView>
-      ) : null}
+      )}
     </SuspenseView>
   );
 };

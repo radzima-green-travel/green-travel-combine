@@ -3,6 +3,7 @@ export type IconsNames =
   | 'bike'
   | 'bookmark'
   | 'bookmarkFilled'
+  | 'bookmarksEmpty'
   | 'check'
   | 'chevron'
   | 'chevronRight'

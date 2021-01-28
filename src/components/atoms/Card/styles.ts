@@ -33,6 +33,7 @@ export const styles = StyleSheet.create({
   },
   gradient: {
     ...StyleSheet.absoluteFillObject,
+    borderRadius: 4,
   },
 });
 

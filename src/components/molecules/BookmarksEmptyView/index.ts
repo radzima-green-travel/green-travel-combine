@@ -1,0 +1,1 @@
+export {BookmarksEmptyView} from './BookmarksEmptyView';
