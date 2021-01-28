@@ -55,7 +55,7 @@ export const Pager = memo(({currentPage, pagesAmount}: IProps) => {
   }, [animate, pageIndex, pivotIndex, isAnimated]);
 
   return (
-    <View>
+    <View style={styles.container}>
       <Animated.View
         style={[
           styles.dotsContainer,
