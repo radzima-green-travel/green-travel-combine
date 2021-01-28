@@ -6,7 +6,7 @@ import MapBox from '@react-native-mapbox-gl/maps';
 import config from 'react-native-ultimate-config';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
-
+import {sentryService} from 'services/SentryService';
 import ruTranslations from './src/locale/ru.json';
 
 const resources = {
@@ -20,6 +20,7 @@ if (Platform.OS === 'android') {
 }
 
 MapBox.setAccessToken(config.MAP_ACCESS_TOKEN);
+sentryService.init();
 
 i18n.use(initReactI18next).init({
   resources,

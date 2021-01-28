@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
 
 export class ApiService {
-  private axiosInstance: AxiosInstance;
+  protected axiosInstance: AxiosInstance;
 
   constructor(baseURL: string) {
     this.axiosInstance = axios.create({

@@ -20,6 +20,7 @@
     "@react-navigation/devtools": "^5.1.17",
     "@react-navigation/native": "^5.6.1",
     "@react-navigation/stack": "^5.6.2",
+    "@sentry/react-native": "^2.1.1",
     "@types/lodash": "^4.14.157",
     "@types/react-redux": "^7.1.9",
     "axios": "^0.19.2",
