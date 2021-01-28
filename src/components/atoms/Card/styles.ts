@@ -31,9 +31,13 @@ export const styles = StyleSheet.create({
     ...FONTS_STYLES.bold15,
     color: COLORS.logCabin,
   },
-  cover: {
+  gradient: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(32, 36, 30, 0.35)',
-    borderRadius: 4,
   },
 });
+
+export const gradientConfig = {
+  colors: ['rgba(32, 36, 30, 0.9)', 'rgba(32, 36, 30, 0)'],
+  start: {x: 0.0, y: 0},
+  end: {x: 0.0, y: 0.5},
+};

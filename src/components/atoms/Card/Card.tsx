@@ -1,9 +1,10 @@
 import React, {memo, useMemo} from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {Icon} from 'atoms';
-import {styles} from './styles';
+import {styles, gradientConfig} from './styles';
 import FastImage from 'react-native-fast-image';
 import {COLORS} from 'assets';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ratio = 324 / 144;
 
@@ -40,7 +41,9 @@ export const Card = memo(
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}>
         <FastImage style={styles.image} source={{uri: imageUri}} />
-        {isImageProvided ? <View style={styles.cover} /> : null}
+        {isImageProvided ? (
+          <LinearGradient {...gradientConfig} style={styles.gradient} />
+        ) : null}
         <View style={styles.cardContentContainer}>
           <Text
             style={[styles.title, !isImageProvided && styles.emptyCardTitle]}>
