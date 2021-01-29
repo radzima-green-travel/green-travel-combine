@@ -15,7 +15,9 @@ import {selectAllCategoriesWithObjects} from 'core/selectors';
 import {useToggleFavorite, useTranslation} from 'core/hooks';
 import {findObject} from 'core/helpers';
 import {useSelector} from 'react-redux';
+import {isEmpty} from 'lodash';
 import {styles} from './styles';
+
 export const ObjectDetails = memo(({route, navigation}: IProps) => {
   const {
     params: {categoryId, objectId},
@@ -55,6 +57,17 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
     [showToast],
   );
 
+  const navigateToObjectsList = useCallback(
+    ({_id, name, objects}: {_id: string; name: string; objects: string[]}) => {
+      navigation.navigate('ObjectsList', {
+        categoryId: _id,
+        title: name,
+        objectsIds: objects,
+      });
+    },
+    [navigation],
+  );
+
   return data ? (
     <View style={styles.container}>
       <ScrollView>
@@ -74,7 +87,12 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
           <Button>{t('seeOnTheMap')}</Button>
         </View>
         <ObjectDescription description={data.description} />
-        <ObjectIncludes />
+        {isEmpty(data.include) ? null : (
+          <ObjectIncludes
+            data={data.include}
+            onIncludePress={navigateToObjectsList}
+          />
+        )}
       </ScrollView>
       <ClipboardToast {...toastProps} />
     </View>

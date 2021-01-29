@@ -7,7 +7,11 @@ export type NestedNavigatorParams<ParamList> = {
 export type HomeNavigatorParamsList = {
   Home: undefined;
   Search: undefined;
-  ObjectsList: {categoryId: string; title: string};
+  ObjectsList: {
+    categoryId: string;
+    title: string;
+    objectsIds?: string[];
+  };
   CategoriesList: {categoryId: string; title: string};
   ObjectDetails: {categoryId: string; objectId: string};
 };

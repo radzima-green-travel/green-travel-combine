@@ -22,7 +22,7 @@ export const DEFAULT_BOUNDS = {
 export enum MAP_PINS {
   BICYCLE_ROUTE = 'bicycle-route',
   OBJECT = 'object',
-  HISTORICAL_PLACE = 'historical_place',
+  HISTORICAL_PLACE = 'historical-place',
   EXCURSION_PIN = 'excursion-pin',
   WALKING_ROUTES = 'walking-routes',
   EMPTY_BIG = 'empty-big',

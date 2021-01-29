@@ -17,7 +17,7 @@ export const ObjectsList = ({
   navigation: {setOptions, navigate},
 }: IProps) => {
   const {
-    params: {categoryId, title},
+    params: {categoryId, title, objectsIds},
   } = route;
 
   const categoriesWithObjects = useSelector(selectAllCategoriesWithObjects);
@@ -25,9 +25,9 @@ export const ObjectsList = ({
   const listData = useMemo(
     () =>
       categoriesWithObjects
-        ? findObjectsByCategoryId(categoriesWithObjects, categoryId)
+        ? findObjectsByCategoryId(categoriesWithObjects, categoryId, objectsIds)
         : null,
-    [categoryId, categoriesWithObjects],
+    [categoryId, categoriesWithObjects, objectsIds],
   );
 
   const navigateToObjectDetails = useCallback(

@@ -27,6 +27,13 @@ export interface IProhibition {
   key: string;
 }
 
+export interface IInclude {
+  _id: string;
+  name: string;
+  icon: string;
+  objects: string[];
+}
+
 export interface IObject {
   _id: string;
   name: string;
@@ -38,6 +45,7 @@ export interface IObject {
   cover: string;
   images: string[];
   prohibitions?: IProhibition[];
+  include: IInclude[];
 }
 
 export interface IExtendedObject extends IObject {

@@ -84,8 +84,12 @@ export const findCategoriesById = (
 export const findObjectsByCategoryId = (
   categories: ICategoryWithExtendedObjects[],
   id: string,
+  objectIds?: string[],
 ): IExtendedObject[] | null => {
-  return findCategoryById(categories, id)?.objects || null;
+  const result = findCategoryById(categories, id)?.objects || null;
+  return objectIds
+    ? filter(result, ({_id}) => includes(objectIds, _id))
+    : result;
 };
 
 export const findObject = (

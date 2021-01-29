@@ -7,7 +7,7 @@ import {useThemeStyles} from 'core/hooks';
 interface IProps {
   title: string;
   subtitle: string;
-  coordinates: ICoordinates;
+  coordinates?: ICoordinates;
   onCoordinatesPress: (location: string) => void;
 }
 
@@ -15,24 +15,28 @@ export const DetailsPageCapture = memo(
   ({title, subtitle, coordinates, onCoordinatesPress}: IProps) => {
     const styles = useThemeStyles(themeStyles);
     const location = useMemo(() => {
-      const stringCoordinates = coordinates.map((number) => number.toFixed(7));
+      const stringCoordinates = coordinates?.map((number) => number.toFixed(7));
 
-      return stringCoordinates.reverse().join(', ');
+      return stringCoordinates ? stringCoordinates.reverse().join(', ') : null;
     }, [coordinates]);
 
     const onCoordinatesPressHandler = useCallback(() => {
-      onCoordinatesPress(location);
+      if (location) {
+        onCoordinatesPress(location);
+      }
     }, [onCoordinatesPress, location]);
 
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={onCoordinatesPressHandler}>
-          <Text style={styles.location}>{location}</Text>
-        </TouchableOpacity>
+        {location ? (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={onCoordinatesPressHandler}>
+            <Text style={styles.location}>{location}</Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
     );
   },
