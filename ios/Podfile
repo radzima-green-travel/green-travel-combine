@@ -12,10 +12,7 @@ target 'greenTravel' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'greenTravelTests' do
-    inherit! :complete
-    # Pods for testing
-  end
+ 
 
   
   # Enables Flipper.
@@ -25,14 +22,5 @@ target 'greenTravel' do
   use_flipper!
   post_install do |installer|
     flipper_post_install(installer)
-  end
-end
-
-target 'greenTravel-tvOS' do
-  # Pods for greenTravel-tvOS
-
-  target 'greenTravel-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
   end
 end
