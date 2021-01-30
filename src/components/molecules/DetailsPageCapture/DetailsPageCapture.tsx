@@ -9,7 +9,6 @@ interface IProps {
   subtitle: string;
   coordinates?: ICoordinates;
   onCoordinatesPress: (location: string) => void;
-  test?: string;
 }
 
 export const DetailsPageCapture = memo(
