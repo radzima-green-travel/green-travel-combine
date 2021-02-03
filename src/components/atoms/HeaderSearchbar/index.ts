@@ -1,1 +1,1 @@
-export {default as HeaderSearchbar} from './HeaderSearchbar';
+export {HeaderSearchbar} from './HeaderSearchbar';

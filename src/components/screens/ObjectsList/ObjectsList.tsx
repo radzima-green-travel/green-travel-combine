@@ -11,10 +11,11 @@ import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {findObjectsByCategoryId} from 'core/helpers';
 import {IExtendedObject} from 'core/types';
+import {debounce} from 'lodash';
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 export const ObjectsList = ({
   route,
-  navigation: {setOptions, navigate},
+  navigation: {setOptions, push},
 }: IProps) => {
   const {
     params: {categoryId, title, objectsIds},
@@ -32,9 +33,15 @@ export const ObjectsList = ({
 
   const navigateToObjectDetails = useCallback(
     ({_id}: IExtendedObject) => {
-      navigate('ObjectDetails', {categoryId, objectId: _id});
+      push('ObjectDetails', {categoryId, objectId: _id});
     },
-    [categoryId, navigate],
+    [categoryId, push],
+  );
+
+  const navigateToObjectDetailsDebounced = useMemo(
+    () =>
+      debounce(navigateToObjectDetails, 300, {leading: true, trailing: false}),
+    [navigateToObjectDetails],
   );
 
   useLayoutEffect(() => {
@@ -52,7 +59,7 @@ export const ObjectsList = ({
       keyExtractor={(item) => item._id}
       renderItem={({item}) => (
         <ObjectCard
-          onPress={navigateToObjectDetails}
+          onPress={navigateToObjectDetailsDebounced}
           onIsFavoritePress={toggleFavorite}
           containerStyle={styles.cardContainer}
           data={item}

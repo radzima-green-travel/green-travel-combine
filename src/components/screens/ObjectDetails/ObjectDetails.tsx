@@ -15,7 +15,7 @@ import {selectAllCategoriesWithObjects} from 'core/selectors';
 import {useToggleFavorite, useTranslation} from 'core/hooks';
 import {findObject} from 'core/helpers';
 import {useSelector} from 'react-redux';
-import {isEmpty} from 'lodash';
+import {debounce, isEmpty} from 'lodash';
 import {styles} from './styles';
 
 export const ObjectDetails = memo(({route, navigation}: IProps) => {
@@ -59,13 +59,19 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
 
   const navigateToObjectsList = useCallback(
     ({_id, name, objects}: {_id: string; name: string; objects: string[]}) => {
-      navigation.navigate('ObjectsList', {
+      navigation.push('ObjectsList', {
         categoryId: _id,
         title: name,
         objectsIds: objects,
       });
     },
     [navigation],
+  );
+
+  const navigateToObjectsListDebounced = useMemo(
+    () =>
+      debounce(navigateToObjectsList, 300, {leading: true, trailing: false}),
+    [navigateToObjectsList],
   );
 
   return data ? (
@@ -90,7 +96,7 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
         {isEmpty(data.include) ? null : (
           <ObjectIncludes
             data={data.include}
-            onIncludePress={navigateToObjectsList}
+            onIncludePress={navigateToObjectsListDebounced}
           />
         )}
       </ScrollView>

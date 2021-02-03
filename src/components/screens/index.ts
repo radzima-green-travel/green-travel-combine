@@ -6,3 +6,4 @@ export {BookmarksList as BookmarksListScreen} from './BookmarksList';
 export {ErrorScreen} from './ErrorScreen';
 export {ObjectDetails as ObjectDetailsScreen} from './ObjectDetails';
 export {CategoriesList as CategoriesListScreen} from './CategoriesList';
+export {Search as SearchScreen} from './Search';

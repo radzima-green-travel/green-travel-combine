@@ -27,7 +27,8 @@ export const getAppHeaderOptions = ({
     />
   ),
   headerTitleStyle: {
-    ...FONTS_STYLES.semibold14,
+    ...FONTS_STYLES.semibold16,
   },
   headerLeftContainerStyle: {paddingLeft: 16},
+  headerRightContainerStyle: {paddingRight: 16},
 });

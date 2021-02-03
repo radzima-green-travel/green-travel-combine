@@ -12,12 +12,25 @@ interface Props {
   color?: string;
   size?: number;
   style?: StyleProp<TextStyle>;
+  additionalColor?: string;
 }
 
 const IconsMap: {[key: string]: any} = Icons;
 
-export const Icon = ({name, width, height, color, size, style = {}}: Props) => {
+export const Icon = ({
+  name,
+  width,
+  height,
+  color,
+  size,
+  style = {},
+  additionalColor,
+}: Props) => {
   const IconComponent = IconsMap[name];
+
+  if (!IconComponent) {
+    return null;
+  }
 
   const iconStyle = Array.isArray(style) ? Object.assign({}, ...style) : style;
   const {fontSize, color: iconColor} = iconStyle;
@@ -43,6 +56,7 @@ export const Icon = ({name, width, height, color, size, style = {}}: Props) => {
       height={iconHeight}
       style={iconStyle}
       color={color || iconColor || 'white'}
+      additionalColor={additionalColor}
     />
   );
 };
