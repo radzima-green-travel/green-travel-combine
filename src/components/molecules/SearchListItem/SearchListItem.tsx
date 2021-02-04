@@ -12,7 +12,7 @@ interface IProps {
 }
 
 export const SearchListItem = memo(({data, onPress}: IProps) => {
-  const {categoryName, name} = data;
+  const {categoryName, name, icon} = data;
   const onPressHandler = useCallback(() => {
     onPress(data);
   }, [onPress, data]);
@@ -24,7 +24,7 @@ export const SearchListItem = memo(({data, onPress}: IProps) => {
       onPress={onPressHandler}
       activeOpacity={0.8}
       style={styles.container}>
-      <Icon style={styles.icon} name="strokeBike" size={36} />
+      <Icon style={styles.icon} name={ICONS_MATCHER[icon]} size={36} />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{name}</Text>
         <Text style={styles.subtitle}>{categoryName}</Text>
