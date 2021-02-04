@@ -10,6 +10,9 @@ export enum ACTIONS {
 
   ADD_TO_FAVORITE = 'ADD_TO_FAVORITE',
   REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE',
+
+  SET_SEARCH_INPUT_VALUE = 'SET_SEARCH_INPUT_VALUE',
+  ADD_OBJECT_TO_SEARCH_HISTORY = 'ADD_OBJECT_TO_SEARCH_HISTORY',
 }
 
 export const DEFAULT_BOUNDS = {
@@ -31,3 +34,13 @@ export enum MAP_PINS {
 }
 
 export const PADDING_HORIZONTAL = 16;
+
+import {IconsNames} from 'atoms/Icon/IconsNames';
+
+export const ICONS_MATCHER = {
+  [MAP_PINS.BICYCLE_ROUTE]: 'strokeBike' as IconsNames,
+  [MAP_PINS.HISTORICAL_PLACE]: 'strokeChurch' as IconsNames,
+  [MAP_PINS.WALKING_ROUTES]: 'strokeFootprint' as IconsNames,
+  [MAP_PINS.EXCURSION_PIN]: 'strokeFlag' as IconsNames,
+  [MAP_PINS.OBJECT]: 'strokeForest' as IconsNames,
+};

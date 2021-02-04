@@ -10,3 +10,4 @@ export {ObjectInlcudesItem} from './ObjectInlcudesItem';
 export {ObjectCard} from './ObjectCard';
 export {CategoryCard} from './CategoryCard';
 export {BookmarksEmptyView} from './BookmarksEmptyView';
+export {SearchListItem} from './SearchListItem';

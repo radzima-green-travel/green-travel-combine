@@ -39,9 +39,12 @@
     "bikeTime": "Время работы",
     "bikePrice": "Час проката",
     "aboutRoute": "О маршруте",
-    "showRoute": "Показать маршрут",
+    "showRoute": "Показать маршрут"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"
+  },
+  "search": {
+    "searchTitle": "История поиска"
   }
 }

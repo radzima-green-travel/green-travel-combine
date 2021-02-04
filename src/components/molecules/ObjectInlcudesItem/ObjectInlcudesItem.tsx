@@ -4,7 +4,7 @@ import {Icon} from 'atoms';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {COLORS} from 'assets';
-import {ICONS_MATCHER} from './constants';
+import {ICONS_MATCHER} from 'core/constants';
 import {IInclude} from 'core/types';
 
 interface IProps {

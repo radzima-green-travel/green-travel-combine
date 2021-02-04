@@ -1,6 +1,6 @@
 import {COLORS} from 'assets';
 import {useThemeStyles} from 'core/hooks';
-import React, {useState, useCallback, memo, useEffect} from 'react';
+import React, {useCallback, memo, useState} from 'react';
 
 import {View, TextInput, TouchableOpacity} from 'react-native';
 import {Icon} from '../Icon';
@@ -8,22 +8,22 @@ import {Icon} from '../Icon';
 import {themeStyles, crossHitClop} from './styles';
 
 interface Props {
-  onChange?: Function;
-  value?: string;
+  onChange: Function;
 }
 
-export const HeaderSearchbar = memo(({onChange, value = ''}: Props) => {
+export const HeaderSearchbar = memo(({onChange}: Props) => {
   const styles = useThemeStyles(themeStyles);
-  const [_value, setValue] = useState(value);
+  const [value, setValue] = useState('');
 
   const clear = useCallback(() => {
+    onChange('');
     setValue('');
-  }, []);
+  }, [onChange]);
 
   const onChangeText = useCallback(
     (text) => {
       setValue(text);
-      onChange && onChange(text);
+      onChange(text);
     },
     [onChange],
   );
@@ -32,12 +32,12 @@ export const HeaderSearchbar = memo(({onChange, value = ''}: Props) => {
     <View style={styles.searchContainer}>
       <TextInput
         autoFocus
-        value={_value}
+        value={value}
         selectionColor={COLORS.logCabin}
         onChangeText={onChangeText}
         style={styles.input}
       />
-      {!!_value ? (
+      {value ? (
         <TouchableOpacity
           onPress={clear}
           hitSlop={crossHitClop}
