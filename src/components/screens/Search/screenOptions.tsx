@@ -4,6 +4,7 @@ import {setSearchInputValue} from 'core/reducers';
 import React, {useCallback, useMemo} from 'react';
 import {useDispatch} from 'react-redux';
 import {debounce} from 'lodash';
+import {isIOS} from 'services/PlatformService';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
@@ -30,5 +31,5 @@ export const screenOptions: StackNavigationOptions = {
     paddingLeft: 48,
     paddingRight: 16,
   },
-  headerLeftContainerStyle: {paddingLeft: 16, marginBottom: 14},
+  headerLeftContainerStyle: {paddingLeft: isIOS ? 16 : 6, marginBottom: 14},
 };

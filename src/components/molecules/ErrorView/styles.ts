@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     marginHorizontal: PADDING_HORIZONTAL,
     marginTop: 32,
+    alignSelf: 'stretch',
   },
   text: {
     ...FONTS_STYLES.regular15,

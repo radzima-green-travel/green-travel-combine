@@ -18,6 +18,14 @@ interface IProps {
   width: number;
 }
 
+const normaliseSource = (source) => {
+  const normalisedSource =
+    source && typeof source.uri === 'string' && !source.uri.split('http')[1]
+      ? null
+      : source;
+  return source && source.uri ? normalisedSource : source;
+};
+
 export const Card = memo(
   ({
     imageUri,
@@ -35,12 +43,20 @@ export const Card = memo(
       return {width, height: width / ratio};
     }, [width]);
 
+    const normalizedSource = useMemo(() => {
+      return normaliseSource({uri: imageUri});
+    }, [imageUri]);
+
     return (
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}>
-        <FastImage style={styles.image} source={{uri: imageUri}} />
+        <FastImage
+          style={styles.image}
+          source={normalizedSource}
+          onError={() => {}}
+        />
         {isImageProvided ? (
           <LinearGradient {...gradientConfig} style={styles.gradient} />
         ) : null}
