@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import {FlatList, Keyboard, Text} from 'react-native';
+import {FlatList, Keyboard, Text, View} from 'react-native';
 import {screenOptions} from './screenOptions';
 import {SearchListItem} from 'molecules';
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,6 +13,8 @@ import {addObjectToSearchHistory, setSearchInputValue} from 'core/reducers';
 import {IProps} from './types';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
+import {Icon} from 'atoms';
+import {COLORS} from 'assets';
 
 export const Search = ({navigation}: IProps) => {
   const styles = useThemeStyles(themeStyles);
@@ -42,13 +44,15 @@ export const Search = ({navigation}: IProps) => {
     };
   }, [dispatch]);
 
-  return (
+  const data = isHistoryVisible ? history : searchResults;
+
+  return data.length ? (
     <FlatList
       keyboardDismissMode="on-drag"
       contentContainerStyle={styles.contentContainer}
       onScrollBeginDrag={Keyboard.dismiss}
       keyExtractor={(item) => item._id}
-      data={isHistoryVisible ? history : searchResults}
+      data={data}
       ListHeaderComponent={() =>
         isHistoryVisible ? (
           <Text style={styles.listTitle}>{t('searchTitle')}</Text>
@@ -58,6 +62,11 @@ export const Search = ({navigation}: IProps) => {
         return <SearchListItem onPress={navigateToObjectDetails} data={item} />;
       }}
     />
+  ) : (
+    <View style={styles.emptyListContainer}>
+      <Icon name="search" color={COLORS.silver} height={48} width={48} />
+      <Text style={styles.emtyListText}>{t('notFound')}</Text>
+    </View>
   );
 };
 

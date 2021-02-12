@@ -3,6 +3,7 @@ export {default as bike} from './bike.svg';
 export {default as bookmark} from './bookmark.svg';
 export {default as bookmarkFilled} from './bookmarkFilled.svg';
 export {default as bookmarksEmpty} from './bookmarksEmpty.svg';
+export {default as camera} from './camera.svg';
 export {default as check} from './check.svg';
 export {default as chevron} from './chevron.svg';
 export {default as chevronRight} from './chevronRight.svg';

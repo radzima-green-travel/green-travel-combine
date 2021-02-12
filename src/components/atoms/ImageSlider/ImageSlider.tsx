@@ -5,17 +5,19 @@ import FastImage from 'react-native-fast-image';
 
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {styles} from './styles';
+import {Icon} from '../Icon';
+import {COLORS} from 'assets';
 interface IProps {
-  images: string[];
+  images?: string[];
 }
 
 export const ImageSlider = memo(({images}: IProps) => {
-  const pagesAmount = images.length;
+  const pagesAmount = images?.length;
   const [page, setPage] = useState(1);
 
   const onScroll = useCallback(
     (e) => {
-      if (pagesAmount > 1) {
+      if (pagesAmount && pagesAmount > 1) {
         const {contentOffset} = e.nativeEvent;
         const pageNum = Math.round(contentOffset.x / SCREEN_WIDTH);
         setPage(pageNum + 1);
@@ -24,7 +26,7 @@ export const ImageSlider = memo(({images}: IProps) => {
     [pagesAmount],
   );
 
-  return (
+  return pagesAmount ? (
     <View>
       <FlatList
         contentContainerStyle={styles.container}
@@ -55,6 +57,10 @@ export const ImageSlider = memo(({images}: IProps) => {
       <View style={styles.pagerContainer}>
         <Pager currentPage={page} pagesAmount={pagesAmount} />
       </View>
+    </View>
+  ) : (
+    <View style={styles.emptyContatiner}>
+      <Icon color={COLORS.boulder} name="camera" width={70} height={70} />
     </View>
   );
 });

@@ -77,14 +77,12 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
   return data ? (
     <View style={styles.container}>
       <ScrollView>
-        {data.images ? (
-          <PlaceDetailsImageSlider
-            onMarkerPress={onMarkerPress}
-            isFavorite={data.isFavorite}
-            onBookmarkPress={onBookmarkPress}
-            images={data.images}
-          />
-        ) : null}
+        <PlaceDetailsImageSlider
+          onMarkerPress={onMarkerPress}
+          isFavorite={data.isFavorite}
+          onBookmarkPress={onBookmarkPress}
+          images={data.images}
+        />
         <View style={styles.contentContainer}>
           <DetailsPageCapture
             title={data.name}

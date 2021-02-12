@@ -4,6 +4,7 @@ export type IconsNames =
   | 'bookmark'
   | 'bookmarkFilled'
   | 'bookmarksEmpty'
+  | 'camera'
   | 'check'
   | 'chevron'
   | 'chevronRight'
