@@ -30,20 +30,18 @@ export const AppMap = () => {
     }
   }, [selected]);
 
-  const onMarkerPress = useCallback(({isClustered, data}) => {
-    if (!isClustered) {
+  const onPress = useCallback((data) => {
+    if (data) {
       setSelected(data);
+    } else {
+      bs.current?.snapTo(0);
     }
   }, []);
 
   return (
     <View style={styles.container}>
-      <ClusterMap
-        onPress={useCallback(() => {
-          bs.current?.snapTo(0);
-        }, [])}
-        bounds={bounds}>
-        <ClusterMapShape markers={markers} onMarkerPress={onMarkerPress} />
+      <ClusterMap onPress={onPress} bounds={bounds}>
+        <ClusterMapShape markers={markers} />
 
         <MapBox.ShapeSource
           id={'selectedPointShapeSource'}
