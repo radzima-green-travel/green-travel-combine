@@ -1,73 +1,63 @@
 import {createSelector} from 'reselect';
-import {isEmpty, reduce} from 'lodash';
+import {isEmpty, map, compact} from 'lodash';
 import {
   FeatureCollection,
   featureCollection,
   point,
   Geometry,
-  Feature,
-  Point,
 } from '@turf/helpers';
-import {MAP_PINS, DEFAULT_BOUNDS} from '../constants';
-import {ICoordinates, ICategory, IObject} from '../types';
+import {DEFAULT_BOUNDS, MAP_PINS} from '../constants';
+import {ICoordinates, IObject, IExtendedObjectWithCategoryData} from '../types';
 import {CameraSettings} from '@react-native-mapbox-gl/maps';
 import bbox from '@turf/bbox';
 import {IState} from 'core/store';
+import {selectFlattenObjects} from './common';
 
 export const selectMapMarkers = createSelector<
   IState,
-  string | null,
-  ICategory[] | null,
-  string | null,
+  IExtendedObjectWithCategoryData[],
+  FeatureCollection<Geometry, {icon_image: string; data: IObject}>
+>(selectFlattenObjects, (objects) => {
+  const points = compact(
+    map(objects, (data) => {
+      if (data.location && data.location.coordinates && data.icon) {
+        const {location} = data;
+        return point(
+          location.coordinates,
+          {
+            icon_image: data.icon,
+            data,
+          },
+          {id: location._id},
+        );
+      }
+      return null;
+    }),
+  );
+
+  return featureCollection(points);
+});
+
+export const selectMarker = createSelector<
+  IExtendedObjectWithCategoryData | null,
+  IExtendedObjectWithCategoryData | null,
   FeatureCollection<Geometry, {icon_image: string; data: IObject}>
 >(
-  (state) => state.home.data,
-  (_state, selectedId) => selectedId,
-  (categories, selectedId) => {
+  (obj) => obj,
+  (data) => {
     return featureCollection(
-      reduce(
-        categories,
-        (pointsAcc, {objects}) => {
-          const points = reduce(
-            objects,
-            (acc, data) => {
-              if (data.location) {
-                const {location} = data;
-                return [
-                  ...acc,
-                  point(
-                    location.coordinates,
-                    {
-                      icon_image: `${MAP_PINS.OBJECT}${
-                        selectedId === data._id ? MAP_PINS.SELECTED_POSTFIX : ''
-                      }`,
-                      data,
-                    },
-                    {id: location._id},
-                  ),
-                ];
-              }
-              return acc;
-            },
-            [] as Feature<
-              Point,
+      compact([
+        data
+          ? point(
+              data.location.coordinates,
               {
-                icon_image: string;
-                data: IObject;
-              }
-            >[],
-          );
-
-          return [...pointsAcc, ...points];
-        },
-        [] as Feature<
-          Point,
-          {
-            icon_image: string;
-            data: IObject;
-          }
-        >[],
-      ),
+                icon_image: `${data.icon}${MAP_PINS.SELECTED_POSTFIX}`,
+                data,
+              },
+              {id: data.location._id},
+            )
+          : undefined,
+      ]),
     );
   },
 );

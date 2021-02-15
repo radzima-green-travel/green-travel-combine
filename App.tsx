@@ -5,14 +5,16 @@ import {StatusBar} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 declare let global: {HermesInternal: null | {}};
-
+import {Portal} from 'atoms';
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RootNavigator />
-        <StatusBar backgroundColor="transparent" translucent />
-      </PersistGate>
+      <Portal.Host>
+        <PersistGate loading={null} persistor={persistor}>
+          <RootNavigator />
+          <StatusBar backgroundColor="transparent" translucent />
+        </PersistGate>
+      </Portal.Host>
     </Provider>
   );
 };

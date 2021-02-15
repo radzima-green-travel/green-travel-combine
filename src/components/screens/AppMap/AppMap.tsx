@@ -1,21 +1,19 @@
 import React, {useRef, useState, useEffect, useCallback} from 'react';
 import {ClusterMap, ClusterMapShape} from 'atoms';
-import {selectMapMarkers, selectBounds} from 'core/selectors';
+import {selectMapMarkers, selectBounds, selectMarker} from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {View, Text} from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
-import {Button as CustomButton} from 'atoms';
+import {Button as CustomButton, Portal} from 'atoms';
 import {styles} from './styles';
 import {IObject} from 'core/types';
-import {IState} from 'core/store';
+import MapBox from '@react-native-mapbox-gl/maps';
 
 export const AppMap = () => {
   const bounds = useSelector(selectBounds);
   const [selected, setSelected] = useState<IObject | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const markers = useSelector((state: IState) =>
-    selectMapMarkers(state, selectedId),
-  );
+  const markers = useSelector(selectMapMarkers);
+  const selectedMarker = useSelector(() => selectMarker(selected));
   const bs = useRef<BottomSheet>(null);
   const rendnerInner = () => {
     return (
@@ -34,7 +32,6 @@ export const AppMap = () => {
 
   const onMarkerPress = useCallback(({isClustered, data}) => {
     if (!isClustered) {
-      setSelectedId(data._id);
       setSelected(data);
     }
   }, []);
@@ -42,24 +39,38 @@ export const AppMap = () => {
   return (
     <View style={styles.container}>
       <ClusterMap
-        onPress={() => {
+        onPress={useCallback(() => {
           bs.current?.snapTo(0);
-          setSelectedId(null);
-        }}
+        }, [])}
         bounds={bounds}>
         <ClusterMapShape markers={markers} onMarkerPress={onMarkerPress} />
+
+        <MapBox.ShapeSource
+          id={'selectedPointShapeSource'}
+          shape={selectedMarker}>
+          <MapBox.SymbolLayer
+            id={'selectedPoint'}
+            style={{
+              iconImage: ['get', 'icon_image'],
+              iconSize: 1,
+              iconAllowOverlap: true,
+            }}
+          />
+        </MapBox.ShapeSource>
       </ClusterMap>
-      <BottomSheet
-        onCloseEnd={() => {
-          setSelected(null);
-        }}
-        borderRadius={15}
-        ref={bs}
-        snapPoints={[0, 150]}
-        renderContent={rendnerInner}
-        initialSnap={0}
-        enabledGestureInteraction={false}
-      />
+      <Portal>
+        <BottomSheet
+          onCloseEnd={() => {
+            setSelected(null);
+          }}
+          borderRadius={15}
+          ref={bs}
+          snapPoints={[0, 150]}
+          renderContent={rendnerInner}
+          initialSnap={0}
+          enabledGestureInteraction={false}
+        />
+      </Portal>
     </View>
   );
 };

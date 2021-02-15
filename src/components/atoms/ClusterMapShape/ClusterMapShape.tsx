@@ -1,11 +1,12 @@
 import MapboxGL, {OnPressEvent} from '@react-native-mapbox-gl/maps';
-import React, {useCallback} from 'react';
+import React, {useCallback, memo} from 'react';
 import {Feature} from '@turf/helpers';
 import {head} from 'lodash';
 import {Props} from './types';
 import {layerStyles} from './styles';
 
-export const ClusterMapShape = ({onMarkerPress, markers}: Props) => {
+export const ClusterMapShape = memo(({onMarkerPress, markers}: Props) => {
+  console.log('render');
   const onShapePress = useCallback(
     ({features}: OnPressEvent) => {
       const singlePoint: Feature = head(features);
@@ -45,4 +46,4 @@ export const ClusterMapShape = ({onMarkerPress, markers}: Props) => {
       />
     </MapboxGL.ShapeSource>
   );
-};
+});
