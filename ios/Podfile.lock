@@ -1,5 +1,5 @@
 PODS:
-  - "@react-native-mapbox-gl-mapbox-static (5.8.0)"
+  - "@react-native-mapbox-gl-mapbox-static (5.9.0)"
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -79,7 +79,7 @@ PODS:
   - libwebp/mux (1.1.0):
     - libwebp/demux
   - libwebp/webp (1.1.0)
-  - Mapbox-iOS-SDK (5.8.0):
+  - Mapbox-iOS-SDK (5.9.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
   - OpenSSL-Universal (1.0.2.20):
@@ -257,21 +257,21 @@ PODS:
   - React-jsinspector (0.63.4)
   - react-native-geolocation-service (5.0.0):
     - React
-  - react-native-mapbox-gl (8.1.0-rc.9):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
-    - Mapbox-iOS-SDK (~> 5.8.0)
+  - react-native-mapbox-gl (8.1.0):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
+    - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
-    - react-native-mapbox-gl/DynamicLibrary (= 8.1.0-rc.9)
-    - react-native-mapbox-gl/StaticLibraryFixer (= 8.1.0-rc.9)
-  - react-native-mapbox-gl/DynamicLibrary (8.1.0-rc.9):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
-    - Mapbox-iOS-SDK (~> 5.8.0)
+    - react-native-mapbox-gl/DynamicLibrary (= 8.1.0)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.1.0)
+  - react-native-mapbox-gl/DynamicLibrary (8.1.0):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
+    - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
-  - react-native-mapbox-gl/StaticLibraryFixer (8.1.0-rc.9):
-    - "@react-native-mapbox-gl-mapbox-static (~> 5.8.0)"
-    - Mapbox-iOS-SDK (~> 5.8.0)
+  - react-native-mapbox-gl/StaticLibraryFixer (8.1.0):
+    - "@react-native-mapbox-gl-mapbox-static (~> 5.9.0)"
+    - Mapbox-iOS-SDK (~> 5.9.0)
     - React
     - React-Core
   - react-native-safe-area-context (3.0.7):
@@ -561,7 +561,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  "@react-native-mapbox-gl-mapbox-static": e247172bc43f47757f47d6cec1b325b1ab3e9287
+  "@react-native-mapbox-gl-mapbox-static": 83c0e0ba33597bb694735ffb136d3d96780af37d
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
@@ -579,7 +579,7 @@ SPEC CHECKSUMS:
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
-  Mapbox-iOS-SDK: 02590a60fe300810c55432219a0caaa1338fbafb
+  Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
   Permission-LocationAlways: 155e6251b757b380f6354737cae8e8d59c472495
@@ -595,7 +595,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
-  react-native-mapbox-gl: 2a4b1bbfb5708b4c997d312ad73337bafdc5baf5
+  react-native-mapbox-gl: eec7e5be5b874cfceb79fcfe24d595411015153a
   react-native-safe-area-context: ef6f16c66b0797ecae1bf86c103dfb3dc16fc33d
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-ultimate-config: 429433ed406d1c0d18b72b169dc99702d7180214
