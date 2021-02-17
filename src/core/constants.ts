@@ -52,3 +52,11 @@ export const ICONS_MATCHER = {
   [MAP_PINS.EXCURSION_PIN]: 'strokeFlag' as IconsNames,
   [MAP_PINS.OBJECT]: 'strokeForest' as IconsNames,
 };
+
+export const DARK_ICONS_MATCHER = {
+  [MAP_PINS.BICYCLE_ROUTE]: 'strokeBikeDark' as IconsNames,
+  [MAP_PINS.HISTORICAL_PLACE]: 'strokeChurchDark' as IconsNames,
+  [MAP_PINS.WALKING_ROUTES]: 'strokeFootprintDark' as IconsNames,
+  [MAP_PINS.EXCURSION_PIN]: 'strokeFlagDark' as IconsNames,
+  [MAP_PINS.OBJECT]: 'strokeForestDark' as IconsNames,
+};

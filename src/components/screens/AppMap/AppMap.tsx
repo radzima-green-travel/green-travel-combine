@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect, useCallback} from 'react';
-import {ClusterMap, ClusterMapShape} from 'atoms';
+import {ClusterMap, ClusterMapShape, Icon} from 'atoms';
 import {selectMapMarkers, selectBounds, selectMarker} from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {View, Text} from 'react-native';
@@ -8,6 +8,11 @@ import {Button as CustomButton, Portal} from 'atoms';
 import {styles} from './styles';
 import {IObject} from 'core/types';
 import MapBox from '@react-native-mapbox-gl/maps';
+const selectedPointStyle = {
+  iconImage: ['get', 'icon_image'],
+  iconSize: 1,
+  iconAllowOverlap: true,
+};
 
 export const AppMap = () => {
   const bounds = useSelector(selectBounds);
@@ -23,7 +28,6 @@ export const AppMap = () => {
       </View>
     );
   };
-
   useEffect(() => {
     if (selected) {
       bs.current?.snapTo(1);
@@ -41,19 +45,23 @@ export const AppMap = () => {
   return (
     <View style={styles.container}>
       <ClusterMap onPress={onPress} bounds={bounds}>
+        {/* {selected ? (
+          <MapBox.PointAnnotation
+            id="selectedPoint"
+            coordinate={selected.location.coordinates}>
+            <Icon
+              name={DARK_ICONS_MATCHER[selected.icon]}
+              width={50}
+              height={50}
+            />
+          </MapBox.PointAnnotation>
+        ) : null} */}
         <ClusterMapShape markers={markers} />
 
         <MapBox.ShapeSource
           id={'selectedPointShapeSource'}
           shape={selectedMarker}>
-          <MapBox.SymbolLayer
-            id={'selectedPoint'}
-            style={{
-              iconImage: ['get', 'icon_image'],
-              iconSize: 1,
-              iconAllowOverlap: true,
-            }}
-          />
+          <MapBox.SymbolLayer id={'selectedPoint'} style={selectedPointStyle} />
         </MapBox.ShapeSource>
       </ClusterMap>
       <Portal>

@@ -23,7 +23,12 @@ export type IconsNames =
   | 'paw'
   | 'search'
   | 'strokeBike'
+  | 'strokeBikeDark'
   | 'strokeChurch'
+  | 'strokeChurchDark'
   | 'strokeFlag'
+  | 'strokeFlagDark'
   | 'strokeFootprint'
-  | 'strokeForest';
+  | 'strokeFootprintDark'
+  | 'strokeForest'
+  | 'strokeForestDark';
