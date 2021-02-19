@@ -19,7 +19,11 @@ export function AppMapNavigatior() {
         ...getAppHeaderOptions({colorScheme}),
         title: 'Карта',
       }}>
-      <Stack.Screen name="AppMap" component={AppMapScreen} />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="AppMap"
+        component={AppMapScreen}
+      />
     </Stack.Navigator>
   );
 }

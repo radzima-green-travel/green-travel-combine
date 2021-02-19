@@ -14,7 +14,7 @@ import {styles, selectedPointStyle} from './styles';
 import {IExtendedObjectWithCategoryData} from 'core/types';
 import MapBox from '@react-native-mapbox-gl/maps';
 import {AppMapBottomMenu, AppMapBottomMenuRef} from 'molecules';
-import {useToggleFavorite} from 'core/hooks';
+import {useToggleFavorite, useDarkStatusBar} from 'core/hooks';
 import {IState} from 'core/store';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -62,7 +62,7 @@ export const AppMap = () => {
   }, []);
 
   const toggleFavorite = useToggleFavorite();
-
+  useDarkStatusBar();
   return (
     <View style={styles.container}>
       <ClusterMap onPress={onPress} bounds={bounds}>
