@@ -7,3 +7,4 @@ export {useThemeStyles} from './useThemeStyles';
 export {useColorScheme} from './useColorScheme';
 export {useToggleFavorite} from './useToggleFavorite';
 export {useLightStatusBar} from './useLightStatusBar';
+export {useDarkStatusBar} from './useDarkStatusBar';
