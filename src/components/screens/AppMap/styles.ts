@@ -16,3 +16,9 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+export const selectedPointStyle = {
+  iconImage: ['get', 'icon_image'],
+  iconSize: 1,
+  iconAllowOverlap: true,
+};

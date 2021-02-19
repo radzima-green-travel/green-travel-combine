@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {isEmpty, map, compact} from 'lodash';
+import {isEmpty, map, compact, find} from 'lodash';
 import {
   FeatureCollection,
   featureCollection,
@@ -38,29 +38,40 @@ export const selectMapMarkers = createSelector<
   return featureCollection(points);
 });
 
-export const selectMarker = createSelector<
-  IExtendedObjectWithCategoryData | null,
-  IExtendedObjectWithCategoryData | null,
-  FeatureCollection<Geometry, {icon_image: string; data: IObject}>
+export const selectSelectedMapMarker = createSelector<
+  IState,
+  string | null,
+  IExtendedObjectWithCategoryData[],
+  string | null,
+  IExtendedObjectWithCategoryData | null
 >(
-  (obj) => obj,
-  (data) => {
-    return featureCollection(
-      compact([
-        data
-          ? point(
-              data.location.coordinates,
-              {
-                icon_image: `${data.icon}${MAP_PINS.SELECTED_POSTFIX}`,
-                data,
-              },
-              {id: data.location._id},
-            )
-          : undefined,
-      ]),
-    );
+  selectFlattenObjects,
+  (_, selectedObjectId) => selectedObjectId,
+  (objects, selectedObjectId) => {
+    const selectedObject = find(objects, ({_id}) => _id === selectedObjectId);
+
+    return selectedObject || null;
   },
 );
+
+export const createMarkerFromObject = (
+  data: IExtendedObjectWithCategoryData | null,
+): FeatureCollection<Geometry, {icon_image: string; data: IObject}> => {
+  return featureCollection(
+    compact([
+      data
+        ? point(
+            data.location.coordinates,
+            {
+              icon_image: `${data.icon}${MAP_PINS.SELECTED_POSTFIX}`,
+              data,
+            },
+            {id: data.location._id},
+          )
+        : undefined,
+    ]),
+  );
+};
 
 export const selectBounds = createSelector<
   IState,
