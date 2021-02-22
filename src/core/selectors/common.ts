@@ -3,10 +3,9 @@ import {IState} from 'core/store';
 import {
   ICategoryWithExtendedObjects,
   ICategory,
-  IBookmarksIds,
   IExtendedObjectWithCategoryData,
 } from 'core/types';
-import {addIsFavoriteToObjects, flattenCategories} from '../helpers';
+import {flattenCategories} from '../helpers';
 import {map, reduce} from 'lodash';
 
 export const selectBookmarksIds = (state: IState) =>
@@ -15,29 +14,35 @@ export const selectBookmarksIds = (state: IState) =>
 export const selectAllCategoriesWithObjects = createSelector<
   IState,
   ICategory[] | null,
-  IBookmarksIds,
   ICategoryWithExtendedObjects[] | null
 >(
   (state) => state.home.data,
-  selectBookmarksIds,
-  (categories, bookmarksIds) => {
+  (categories) => {
     if (!categories) {
       return null;
     }
 
-    return addIsFavoriteToObjects(categories, bookmarksIds);
+    return categories;
   },
 );
 
-export const selectFlattenObjects = createSelector<
+export const selectFlattenCategories = createSelector<
   IState,
   ICategoryWithExtendedObjects[] | null,
-  IExtendedObjectWithCategoryData[]
+  ICategoryWithExtendedObjects[]
 >(selectAllCategoriesWithObjects, (categories) => {
   if (!categories) {
     return [];
   }
-  const flatCategories = flattenCategories(categories);
+
+  return flattenCategories(categories);
+});
+
+export const selectFlattenObjects = createSelector<
+  IState,
+  ICategoryWithExtendedObjects[],
+  IExtendedObjectWithCategoryData[]
+>(selectFlattenCategories, (flatCategories) => {
   return reduce(
     flatCategories,
     (acc, next) => {

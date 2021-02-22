@@ -49,8 +49,6 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     [navigate],
   );
 
-  const toggleFavorite = useToggleFavorite();
-
   return (
     <SuspenseView
       loading={!homeData && loading}
@@ -69,7 +67,6 @@ export const Home = ({navigation: {navigate}}: IProps) => {
             onAllObjectsPress={navigateToObjectsList}
             onAllCategoriesPress={navigateToCategoriesList}
             item={item}
-            onIsFavoriteChange={toggleFavorite}
           />
         )}
       />

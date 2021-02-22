@@ -15,3 +15,4 @@ export {ClusterMapShape} from './ClusterMapShape';
 export {ImageSlider} from './ImageSlider';
 export * from './Toast';
 export {Portal} from './Portal';
+export {MapFilterItem} from './MapFilterItem';

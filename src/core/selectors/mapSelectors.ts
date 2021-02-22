@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {isEmpty, map, compact, find} from 'lodash';
+import {isEmpty, map, compact, find, reduce, some} from 'lodash';
 import {
   FeatureCollection,
   featureCollection,
@@ -7,36 +7,82 @@ import {
   Geometry,
 } from '@turf/helpers';
 import {DEFAULT_BOUNDS, MAP_PINS} from '../constants';
-import {ICoordinates, IObject, IExtendedObjectWithCategoryData} from '../types';
+import {
+  ICoordinates,
+  IObject,
+  IExtendedObjectWithCategoryData,
+  ICategoryWithExtendedObjects,
+  IMapFilter,
+} from '../types';
 import {CameraSettings} from '@react-native-mapbox-gl/maps';
 import bbox from '@turf/bbox';
 import {IState} from 'core/store';
-import {selectFlattenObjects} from './common';
+import {selectFlattenObjects, selectFlattenCategories} from './common';
+
+export const selectMapFilters = createSelector<
+  IState,
+  ICategoryWithExtendedObjects[],
+  IMapFilter[]
+>(selectFlattenCategories, (flatCategories) => {
+  return reduce(
+    flatCategories,
+    (acc, category) => {
+      if (!isEmpty(category.objects)) {
+        const {name, _id, icon} = category;
+        return [
+          ...acc,
+          {
+            title: name,
+            icon,
+            categoryId: _id,
+          },
+        ];
+      }
+
+      return acc;
+    },
+    [] as IMapFilter[],
+  );
+});
 
 export const selectMapMarkers = createSelector<
   IState,
+  IMapFilter[],
   IExtendedObjectWithCategoryData[],
+  IMapFilter[],
   FeatureCollection<Geometry, {icon_image: string; data: IObject}>
->(selectFlattenObjects, (objects) => {
-  const points = compact(
-    map(objects, (data) => {
-      if (data.location && data.location.coordinates && data.icon) {
-        const {location} = data;
-        return point(
-          location.coordinates,
-          {
-            icon_image: data.icon,
-            data,
-          },
-          {id: location._id},
-        );
-      }
-      return null;
-    }),
-  );
+>(
+  selectFlattenObjects,
+  (_, filters) => filters,
+  (objects, filters) => {
+    const points = compact(
+      map(objects, (data) => {
+        const isMatchToFilters =
+          isEmpty(filters) ||
+          some(filters, ({categoryId}) => categoryId === data.category);
+        if (
+          data.location &&
+          data.location.coordinates &&
+          data.icon &&
+          isMatchToFilters
+        ) {
+          const {location} = data;
+          return point(
+            location.coordinates,
+            {
+              icon_image: data.icon,
+              data,
+            },
+            {id: location._id},
+          );
+        }
+        return null;
+      }),
+    );
 
-  return featureCollection(points);
-});
+    return featureCollection(points);
+  },
+);
 
 export const selectSelectedMapMarker = createSelector<
   IState,

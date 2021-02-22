@@ -48,9 +48,7 @@ export interface IObject {
   include: IInclude[];
 }
 
-export interface IExtendedObject extends IObject {
-  isFavorite: boolean;
-}
+export interface IExtendedObject extends IObject {}
 
 export interface ICategory {
   _id: string;

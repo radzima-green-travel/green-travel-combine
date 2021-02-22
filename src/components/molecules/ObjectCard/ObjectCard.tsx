@@ -2,25 +2,25 @@ import {Card} from 'atoms';
 import {IExtendedObject} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
-
 interface IProps {
   data: IExtendedObject;
-  onIsFavoritePress: (data: {objectId: string; needToAdd: boolean}) => void;
   onPress: (item: IExtendedObject) => void;
   width: number;
   containerStyle?: StyleProp<ViewStyle>;
+  removeFavoriteWithAnimation?: boolean;
+  onRemoveAnimationEnd?: () => void;
 }
 
 export const ObjectCard = memo(
-  ({data, width, onIsFavoritePress, onPress, containerStyle}: IProps) => {
-    const {_id, name, cover, isFavorite} = data;
-
-    const onIsFavoritePressHandler = useCallback(() => {
-      onIsFavoritePress({
-        objectId: _id,
-        needToAdd: !isFavorite,
-      });
-    }, [_id, isFavorite, onIsFavoritePress]);
+  ({
+    data,
+    width,
+    onPress,
+    containerStyle,
+    removeFavoriteWithAnimation,
+    onRemoveAnimationEnd,
+  }: IProps) => {
+    const {_id, name, cover} = data;
 
     const onPressHandler = useCallback(() => {
       onPress(data);
@@ -28,9 +28,11 @@ export const ObjectCard = memo(
 
     return (
       <Card
+        isFavoriteBlockVisible
+        removeFavoriteWithAnimation={removeFavoriteWithAnimation}
+        onRemoveAnimationEnd={onRemoveAnimationEnd}
         width={width}
-        onIsFavoritePress={onIsFavoritePressHandler}
-        isFavorite={isFavorite}
+        id={_id}
         onPress={onPressHandler}
         title={name}
         imageUri={cover}

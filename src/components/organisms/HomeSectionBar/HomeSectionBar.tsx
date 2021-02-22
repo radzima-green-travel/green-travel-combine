@@ -17,7 +17,6 @@ interface Props {
   onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
   onObjectPress: (options: {categoryId: string; objectId: string}) => void;
   onCategoryPress: (options: {categoryId: string; title: string}) => void;
-  onIsFavoriteChange: (data: {objectId: string; needToAdd: boolean}) => void;
 }
 
 export const HomeSectionBar = memo(
@@ -26,7 +25,6 @@ export const HomeSectionBar = memo(
     onAllCategoriesPress,
     onObjectPress,
     onCategoryPress,
-    onIsFavoriteChange,
     item,
   }: Props) => {
     const {t} = useTranslation('home');
@@ -93,7 +91,7 @@ export const HomeSectionBar = memo(
           />
         ) : (
           <FlatList
-            keyExtractor={({_id, isFavorite}) => _id + String(isFavorite)}
+            keyExtractor={({_id}) => _id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
             data={objects}
@@ -103,7 +101,6 @@ export const HomeSectionBar = memo(
                 containerStyle={styles.objectCardContainer}
                 width={cardWidth}
                 onPress={onObjectPressHandler}
-                onIsFavoritePress={onIsFavoriteChange}
                 data={object}
               />
             )}

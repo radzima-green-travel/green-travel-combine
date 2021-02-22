@@ -12,3 +12,4 @@ export {CategoryCard} from './CategoryCard';
 export {BookmarksEmptyView} from './BookmarksEmptyView';
 export {SearchListItem} from './SearchListItem';
 export * from './AppMapBottomMenu';
+export {AppMapFilters} from './AppMapFilters';

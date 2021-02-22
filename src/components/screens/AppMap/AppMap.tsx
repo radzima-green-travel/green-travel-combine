@@ -5,28 +5,32 @@ import {
   selectBounds,
   selectSelectedMapMarker,
   createMarkerFromObject,
+  selectMapFilters,
 } from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {View} from 'react-native';
 
 import {Portal} from 'atoms';
 import {styles, selectedPointStyle} from './styles';
-import {IExtendedObjectWithCategoryData} from 'core/types';
+import {IExtendedObjectWithCategoryData, IMapFilter} from 'core/types';
 import MapBox from '@react-native-mapbox-gl/maps';
-import {AppMapBottomMenu, AppMapBottomMenuRef} from 'molecules';
-import {useToggleFavorite, useDarkStatusBar} from 'core/hooks';
+import {AppMapBottomMenu, AppMapBottomMenuRef, AppMapFilters} from 'molecules';
+import {useDarkStatusBar} from 'core/hooks';
 import {IState} from 'core/store';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {xorBy} from 'lodash';
 
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 export const AppMap = () => {
   const bounds = useSelector(selectBounds);
+  const mapFilters = useSelector(selectMapFilters);
 
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<SelecteMarker | null>(
     () => createMarkerFromObject(null),
   );
+  const [selectedFilters, setSelectedFilters] = useState<IMapFilter[]>([]);
 
   const selected = useSelector((state: IState) =>
     selectSelectedMapMarker(state, selectedMarkerId),
@@ -34,7 +38,9 @@ export const AppMap = () => {
 
   const {bottom} = useSafeAreaInsets();
 
-  const markers = useSelector(selectMapMarkers);
+  const markers = useSelector((state: IState) =>
+    selectMapMarkers(state, selectedFilters),
+  );
 
   const bottomMenu = useRef<AppMapBottomMenuRef>(null);
 
@@ -61,7 +67,16 @@ export const AppMap = () => {
     setSelectedMarkerId(null);
   }, []);
 
-  const toggleFavorite = useToggleFavorite();
+  const onFilterSelect = useCallback((item: IMapFilter) => {
+    setSelectedFilters((prev) => {
+      return xorBy(prev, [item], 'categoryId');
+    });
+  }, []);
+
+  const resetFilters = useCallback(() => {
+    setSelectedFilters([]);
+  }, []);
+
   useDarkStatusBar();
   return (
     <View style={styles.container}>
@@ -76,13 +91,18 @@ export const AppMap = () => {
       </ClusterMap>
       <Portal>
         <AppMapBottomMenu
-          onIsFavoritePress={toggleFavorite}
           data={selected}
           ref={bottomMenu}
           onHideEnd={onMenuHideEnd}
           bottomInset={bottom}
         />
       </Portal>
+      <AppMapFilters
+        onFilterSelect={onFilterSelect}
+        resetFilters={resetFilters}
+        selectedFilters={selectedFilters}
+        filters={mapFilters}
+      />
     </View>
   );
 };

@@ -5,6 +5,8 @@
         "module-resolver",
         {
           "alias": {
+            "containers": "./src/components/containers",
+            "containers/*": "./src/components/containers/*",
             "atoms": "./src/components/atoms",
             "atoms/*": "./src/components/atoms/*",
             "assets": "./src/assets",

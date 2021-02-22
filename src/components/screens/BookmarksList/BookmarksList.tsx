@@ -6,7 +6,6 @@ import {IProps} from './types';
 import {selectBookmarksCategories} from 'core/selectors';
 
 import {useSelector} from 'react-redux';
-import {useToggleFavorite} from 'core/hooks';
 import {findObjectsByCategoryId} from 'core/helpers';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
@@ -43,11 +42,6 @@ export const BookmarksList = ({
     }
   }, [goBack, listData]);
 
-  const toggleFavorite = useToggleFavorite({
-    removeWithAnimation: true,
-    onAnimationEnd: onLastObjectRemoveAnimationEnd,
-  });
-
   const navigateToObjectDetails = useCallback(
     ({_id, category}: IExtendedObject) => {
       navigate('ObjectDetails', {categoryId: category, objectId: _id});
@@ -62,7 +56,8 @@ export const BookmarksList = ({
       keyExtractor={(item) => item._id}
       renderItem={({item}) => (
         <ObjectCard
-          onIsFavoritePress={toggleFavorite}
+          removeFavoriteWithAnimation={true}
+          onRemoveAnimationEnd={onLastObjectRemoveAnimationEnd}
           containerStyle={styles.cardContainer}
           data={item}
           width={cardWidth}

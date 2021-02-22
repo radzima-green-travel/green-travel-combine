@@ -5,17 +5,20 @@ import {styles, gradientConfig} from './styles';
 import FastImage from 'react-native-fast-image';
 import {COLORS} from 'assets';
 import LinearGradient from 'react-native-linear-gradient';
+import {FavoriteButtonContainer} from '../../containers';
 
 const ratio = 324 / 144;
 
 interface IProps {
   imageUri?: string;
   title: string;
-  isFavorite?: boolean;
   onPress?: () => void;
   containerStyle?: StyleProp<ViewStyle>;
-  onIsFavoritePress?: () => void;
   width: number;
+  isFavoriteBlockVisible?: boolean;
+  id?: string;
+  removeFavoriteWithAnimation?: boolean;
+  onRemoveAnimationEnd?: () => void;
 }
 
 const normaliseSource = (source) => {
@@ -30,13 +33,14 @@ export const Card = memo(
   ({
     imageUri,
     title,
-    isFavorite,
     containerStyle,
     onPress,
-    onIsFavoritePress,
     width,
+    id,
+    isFavoriteBlockVisible = false,
+    removeFavoriteWithAnimation,
+    onRemoveAnimationEnd,
   }: IProps) => {
-    const isFavoriteBlockVisible = typeof isFavorite === 'boolean';
     const isImageProvided = Boolean(imageUri);
 
     const dimensions = useMemo(() => {
@@ -66,17 +70,19 @@ export const Card = memo(
             {title}
           </Text>
           {isFavoriteBlockVisible ? (
-            <TouchableOpacity
-              onPress={onIsFavoritePress}
-              hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
-              activeOpacity={0.8}>
-              <Icon
-                name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                width={20}
-                height={20}
-                color={isImageProvided ? COLORS.white : COLORS.logCabin}
-              />
-            </TouchableOpacity>
+            <FavoriteButtonContainer
+              removeWithAnimation={removeFavoriteWithAnimation}
+              onAnimationEnd={onRemoveAnimationEnd}
+              objectId={id}>
+              {(isFavorite) => (
+                <Icon
+                  name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
+                  width={20}
+                  height={20}
+                  color={isImageProvided ? COLORS.white : COLORS.logCabin}
+                />
+              )}
+            </FavoriteButtonContainer>
           ) : null}
         </View>
       </TouchableOpacity>

@@ -46,6 +46,8 @@
       "components/*": ["./src/components/*"],
       "atoms/*": ["./src/components/atoms/*"],
       "atoms": ["./src/components/atoms"],
+      "container/*": ["./src/components/container/*"],
+      "container": ["./src/components/container"],
       "assets": ["./src/assets"],
       "assets/*": ["./src/assets/*"],
       "screens/*": ["./src/components/screens/*"],
