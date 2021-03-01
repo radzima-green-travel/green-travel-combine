@@ -7,7 +7,7 @@ target 'greenTravel' do
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
-
+  $ReactNativeMapboxGLIOSVersion = '~> 6.3'
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
