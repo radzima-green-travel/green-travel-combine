@@ -1,9 +1,9 @@
-import {CameraSettings} from '@react-native-mapbox-gl/maps';
+import {IBounds} from 'core/types';
 import * as React from 'react';
 
 export type Props = {
   onPress: () => void;
-
-  bounds: CameraSettings['bounds'];
+  onShapePress: () => void;
+  bounds: IBounds | null;
   children: React.ReactNode;
 };

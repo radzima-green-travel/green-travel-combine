@@ -1,43 +1,83 @@
-import React, {memo, useRef} from 'react';
+import React, {memo, useRef, forwardRef, useCallback, useMemo} from 'react';
 import {View, PixelRatio} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {Props} from './types';
 import {styles} from './styles';
 import {isIOS} from 'services/PlatformService';
 
-export const ClusterMap = memo<Props>(({onPress, bounds, children}: Props) => {
-  const map = useRef(null);
-  return (
-    <View
-      onResponderStart={async (event) => {
-        const {locationX, locationY} = event.nativeEvent;
-        let locX = locationX;
-        let locY = locationY;
+export const ClusterMap = memo(
+  forwardRef<MapboxGL.Camera, Props>(
+    ({onPress, children, onShapePress, bounds}: Props, ref) => {
+      const onShapePressed = useRef(false);
+      const map = useRef<MapboxGL.MapView>(null);
 
-        if (!isIOS) {
-          locX = locationX * PixelRatio.get();
-          locY = locationY * PixelRatio.get();
+      const onMapPress = useCallback(() => {
+        if (!onShapePressed.current) {
+          onPress();
+        } else {
+          onShapePressed.current = false;
         }
+      }, [onPress]);
 
-        const {features} = await map.current.queryRenderedFeaturesAtPoint(
-          [locX, locY],
-          null,
-          ['singlePoint'],
-        );
+      const initialBounds = useMemo(() => {
+        if (bounds) {
+          const [
+            ne,
+            sw,
+            [paddingLeft, paddingRight, paddingTop, paddingPottom],
+            duration,
+          ] = bounds;
+          return {
+            animationDuration: duration,
+            bounds: {
+              ne: ne,
+              sw,
+              paddingLeft,
+              paddingRight,
+              paddingTop,
+              paddingPottom,
+            },
+          };
+        }
+        return {};
+      }, [bounds]);
+      console.log(initialBounds);
+      return (
+        <View
+          onResponderStart={async (event) => {
+            const {locationX, locationY} = event.nativeEvent;
+            let locX = locationX;
+            let locY = locationY;
 
-        onPress(features[0]?.properties?.data || null);
-      }}
-      onStartShouldSetResponder={() => true}
-      style={styles.container}>
-      <MapboxGL.MapView
-        ref={map}
-        style={styles.container}
-        styleURL="mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h"
-        compassEnabled={false}
-        logoEnabled={false}>
-        <MapboxGL.Camera animationDuration={300} bounds={bounds} />
-        {children}
-      </MapboxGL.MapView>
-    </View>
-  );
-});
+            if (!isIOS) {
+              locX = locationX * PixelRatio.get();
+              locY = locationY * PixelRatio.get();
+            }
+
+            const {features} = await map.current?.queryRenderedFeaturesAtPoint(
+              [locX, locY],
+              null,
+              ['singlePoint'],
+            );
+            if (features[0]?.properties?.data) {
+              onShapePressed.current = true;
+              onShapePress(features[0]?.properties?.data);
+            }
+          }}
+          onStartShouldSetResponder={() => true}
+          style={styles.container}>
+          <MapboxGL.MapView
+            ref={map}
+            onPress={onMapPress}
+            style={styles.container}
+            styleURL="mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h"
+            compassEnabled={false}
+            logoEnabled={false}>
+            <MapboxGL.Camera {...initialBounds} ref={ref} />
+            {children}
+          </MapboxGL.MapView>
+        </View>
+      );
+    },
+  ),
+);

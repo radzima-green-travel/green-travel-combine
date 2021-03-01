@@ -6,15 +6,15 @@ import {
   point,
   Geometry,
 } from '@turf/helpers';
-import {DEFAULT_BOUNDS, MAP_PINS} from '../constants';
+import {MAP_PINS} from '../constants';
 import {
   ICoordinates,
   IObject,
   IExtendedObjectWithCategoryData,
   ICategoryWithExtendedObjects,
   IMapFilter,
+  IBounds,
 } from '../types';
-import {CameraSettings} from '@react-native-mapbox-gl/maps';
 import bbox from '@turf/bbox';
 import {IState} from 'core/store';
 import {selectFlattenObjects, selectFlattenCategories} from './common';
@@ -121,22 +121,23 @@ export const createMarkerFromObject = (
 
 export const selectBounds = createSelector<
   IState,
-  ReturnType<typeof selectMapMarkers>,
-  CameraSettings['bounds']
->(selectMapMarkers, (markers) => {
-  if (isEmpty(markers.features)) {
-    return DEFAULT_BOUNDS;
-  }
+  IMapFilter[],
+  FeatureCollection<Geometry, {icon_image: string; data: IObject}>,
+  IMapFilter[],
+  IBounds | null
+>(
+  selectMapMarkers,
+  (_, filters) => filters,
+  (markers) => {
+    if (isEmpty(markers.features)) {
+      return null;
+    }
 
-  const [minLng, minLat, maxLng, maxLat] = bbox(markers);
+    const [minLng, minLat, maxLng, maxLat] = bbox(markers);
 
-  const southWest: ICoordinates = [minLng, minLat];
-  const northEast: ICoordinates = [maxLng, maxLat];
+    const southWest: ICoordinates = [minLng, minLat];
+    const northEast: ICoordinates = [maxLng, maxLat];
 
-  return {
-    ne: northEast,
-    sw: southWest,
-    paddingLeft: 30,
-    paddingRight: 30,
-  };
-});
+    return [northEast, southWest, [30, 30, 30, 30], 1000];
+  },
+);

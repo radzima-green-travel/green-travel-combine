@@ -22,6 +22,7 @@ export type IconsNames =
   | 'markerFilled'
   | 'paw'
   | 'search'
+  | 'showLocation'
   | 'strokeBike'
   | 'strokeBikeDark'
   | 'strokeChurch'

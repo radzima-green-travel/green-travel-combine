@@ -21,6 +21,7 @@ export {default as marker} from './marker.svg';
 export {default as markerFilled} from './markerFilled.svg';
 export {default as paw} from './paw.svg';
 export {default as search} from './search.svg';
+export {default as showLocation} from './showLocation.svg';
 export {default as strokeBike} from './strokeBike.svg';
 export {default as strokeBikeDark} from './strokeBikeDark.svg';
 export {default as strokeChurch} from './strokeChurch.svg';

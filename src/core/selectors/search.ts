@@ -6,6 +6,7 @@ import {filter, orderBy} from 'lodash';
 
 export const selectSearchInputValue = (state: IState) =>
   state.search.inputValue;
+
 export const selectSearchHistory = (state: IState) =>
   orderBy(state.search.history, [({name}) => name.toLowerCase()], 'asc');
 
