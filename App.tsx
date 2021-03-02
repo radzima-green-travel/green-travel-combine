@@ -6,16 +6,18 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 declare let global: {HermesInternal: null | {}};
 
-import {Portal} from 'atoms';
+import {Portal, KeyboardRegulator} from 'atoms';
 const App = () => {
   return (
     <Provider store={store}>
-      <Portal.Host>
-        <PersistGate loading={null} persistor={persistor}>
-          <RootNavigator />
-          <StatusBar backgroundColor="transparent" translucent />
-        </PersistGate>
-      </Portal.Host>
+      <KeyboardRegulator>
+        <Portal.Host>
+          <PersistGate loading={null} persistor={persistor}>
+            <RootNavigator />
+            <StatusBar backgroundColor="transparent" translucent />
+          </PersistGate>
+        </Portal.Host>
+      </KeyboardRegulator>
     </Provider>
   );
 };

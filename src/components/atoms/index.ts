@@ -17,3 +17,4 @@ export * from './Toast';
 export {Portal} from './Portal';
 export {MapFilterItem} from './MapFilterItem';
 export {MapButtonContainer} from './MapButtonContainer';
+export * from './KeyboardRegulator';

@@ -14,7 +14,7 @@ import {useThemeStyles, useTask} from 'core/hooks';
 import {IExtendedObjectWithCategoryData} from 'core/types';
 import {SearchList} from 'organisms';
 import {HeaderSearchbar, Icon} from 'atoms';
-import {SCREEN_HEIGHT} from 'services/PlatformService';
+import {WINDOW_HEIGHT} from 'services/PlatformService';
 import {COLORS} from 'assets';
 export type AppMapBottomSearchMenuRef = {
   show: () => void;
@@ -45,7 +45,7 @@ export const AppMapBottomSearchMenu = memo(
       const styles = useThemeStyles(themeStyles);
       const bs = useRef<BottomSheet>(null);
       const [startTransitionTask, endTransitionTask] = useTask();
-      const snapPoint = useMemo(() => SCREEN_HEIGHT * 0.95, []);
+      const snapPoint = useMemo(() => WINDOW_HEIGHT * 0.95, []);
 
       const hide = useCallback(() => {
         bs.current?.snapTo(0);
