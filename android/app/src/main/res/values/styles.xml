@@ -17,6 +17,7 @@
     <!-- set the generated bootsplash.xml drawable as activity background -->
         <item name="android:background">@drawable/bootsplash</item>   
         <item name="android:windowFullscreen">true</item>  
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
 </resources>

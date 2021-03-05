@@ -5,6 +5,7 @@ import {StackNavigationOptions} from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
 import {Icon} from 'atoms';
 import {FONTS_STYLES} from 'assets/fonts';
+import {isAndroid} from 'services/PlatformService';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -29,6 +30,9 @@ export const getAppHeaderOptions = ({
   headerTitleStyle: {
     ...FONTS_STYLES.semibold16,
   },
-  headerLeftContainerStyle: {paddingLeft: 16},
+  headerTitleContainerStyle: {
+    marginHorizontal: isAndroid ? 45 : 50,
+  },
+  headerLeftContainerStyle: {paddingLeft: isAndroid ? 0 : 16},
   headerRightContainerStyle: {paddingRight: 16},
 });
