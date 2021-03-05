@@ -1,20 +1,20 @@
 import React from 'react';
 import {View} from 'react-native';
-import {ImageSlider, IconButton} from 'atoms';
+import {ImageSlider, IconButton, Icon} from 'atoms';
 import {styles} from './styles';
+import {FavoriteButtonContainer} from '../../containers';
+import {COLORS} from 'assets';
 
 interface Props {
   images: Array<string>;
-  isFavorite: boolean;
-  onBookmarkPress: () => void;
   onMarkerPress: () => void;
+  objectId: string;
 }
 
 export const PlaceDetailsImageSlider = ({
   images,
-  isFavorite,
   onMarkerPress,
-  onBookmarkPress,
+  objectId,
 }: Props) => {
   return (
     <View>
@@ -24,16 +24,19 @@ export const PlaceDetailsImageSlider = ({
         icon={{name: 'marker', width: 18, height: 22, color: '#393939'}}
         onPress={onMarkerPress}
       />
-      <IconButton
-        style={styles.rightButton}
-        icon={{
-          name: isFavorite ? 'bookmarkFilled' : 'bookmark',
-          width: 14,
-          height: 18,
-          color: '#080908',
-        }}
-        onPress={onBookmarkPress}
-      />
+
+      <FavoriteButtonContainer
+        objectId={objectId}
+        style={[styles.iconContainer, styles.rightButton]}>
+        {(isFavorite) => (
+          <Icon
+            width={14}
+            height={18}
+            color={COLORS.logCabin}
+            name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
+          />
+        )}
+      </FavoriteButtonContainer>
     </View>
   );
 };

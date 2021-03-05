@@ -12,7 +12,7 @@ import {ObjectIncludes} from 'organisms';
 import {useToast, Button} from 'atoms';
 import {IProps} from './types';
 import {selectAllCategoriesWithObjects} from 'core/selectors';
-import {useToggleFavorite, useTranslation} from 'core/hooks';
+import {useTranslation} from 'core/hooks';
 import {findObject} from 'core/helpers';
 import {useSelector} from 'react-redux';
 import {debounce, isEmpty} from 'lodash';
@@ -38,14 +38,6 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
   }, [navigation, data]);
 
   const {show: showToast, ...toastProps} = useToast();
-
-  const toggleFavorite = useToggleFavorite();
-
-  const onBookmarkPress = useCallback(() => {
-    if (data) {
-      toggleFavorite({objectId: data._id, needToAdd: !data.isFavorite});
-    }
-  }, [data, toggleFavorite]);
 
   const onMarkerPress = useCallback(() => {}, []);
 
@@ -79,8 +71,7 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
       <ScrollView>
         <PlaceDetailsImageSlider
           onMarkerPress={onMarkerPress}
-          isFavorite={data.isFavorite}
-          onBookmarkPress={onBookmarkPress}
+          objectId={data._id}
           images={data.images}
         />
         <View style={styles.contentContainer}>
