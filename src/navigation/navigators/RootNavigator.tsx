@@ -1,41 +1,58 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from 'services/NavigationService';
 import {MainNavigator} from './MainNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {bootstrapStart} from 'core/reducers';
-import SplashScreen from 'react-native-splash-screen';
 import {IState} from 'core/store';
-import {View, StyleSheet, Animated, Easing} from 'react-native';
+import {View, StyleSheet, Animated, Easing, StatusBar} from 'react-native';
 import {FONTS} from 'assets';
-// import {useReduxDevToolsExtension} from '@react-navigation/devtools';
+import RNBootSplash from 'react-native-bootsplash';
 
-const SplasScreen = ({onAnimationEnd}) => {
+// import {useReduxDevToolsExtension} from '@react-navigation/devtools';
+const SplasScreen = ({onAnimationEnd, onFadeStart}) => {
   const animatedValue = useMemo(() => new Animated.Value(0), []);
+  const opacity = useMemo(() => new Animated.Value(1), []);
 
   useEffect(() => {
-    SplashScreen.hide();
-
     setTimeout(() => {
-      Animated.sequence([
-        Animated.timing(animatedValue, {
-          toValue: 1,
-          duration: 300,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.delay(400),
-      ]).start(() => {
-        onAnimationEnd();
+      RNBootSplash.hide().then(() => {
+        setTimeout(() => {
+          onFadeStart?.();
+        }, 300);
+        Animated.sequence([
+          Animated.timing(animatedValue, {
+            toValue: 1,
+            duration: 300,
+            easing: Easing.out(Easing.ease),
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacity, {
+            toValue: 0,
+            duration: 300,
+            easing: Easing.out(Easing.ease),
+            useNativeDriver: true,
+          }),
+        ]).start(() => {
+          onAnimationEnd();
+        });
       });
     }, 300);
-  }, [animatedValue, onAnimationEnd]);
+  }, [animatedValue, opacity, onAnimationEnd]);
   return (
-    <View
+    <Animated.View
       style={{
+        ...StyleSheet.absoluteFill,
+        backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
+        opacity: opacity,
       }}>
       <Animated.Image
         style={{
@@ -76,7 +93,7 @@ const SplasScreen = ({onAnimationEnd}) => {
           Radzima
         </Animated.Text>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -100,10 +117,17 @@ export function RootNavigator() {
   // useReduxDevToolsExtension(navigationRef);
   return (
     <NavigationContainer ref={navigationRef}>
-      {bootstrapFinished && splashTransitionFinished ? (
-        <MainNavigator />
-      ) : (
-        <SplasScreen onAnimationEnd={onAnimationEnd} />
+      {bootstrapFinished && <MainNavigator />}
+      {splashTransitionFinished ? null : (
+        <SplasScreen
+          onFadeStart={() => {
+            StatusBar.pushStackEntry({
+              barStyle: 'light-content',
+              animated: true,
+            });
+          }}
+          onAnimationEnd={onAnimationEnd}
+        />
       )}
     </NavigationContainer>
   );

@@ -14,7 +14,7 @@ const App = () => {
         <Portal.Host>
           <PersistGate loading={null} persistor={persistor}>
             <RootNavigator />
-            <StatusBar backgroundColor="transparent" translucent />
+            <StatusBar barStyle="dark-content" backgroundColor="transparent" />
           </PersistGate>
         </Portal.Host>
       </KeyboardRegulator>

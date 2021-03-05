@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useLightStatusBar, useTranslation} from 'core/hooks';
+import {useTranslation} from 'core/hooks';
 import {AppMapNavigatior} from './AppMapNavigatior';
 import {BookmarksNavigator} from './BookmarksNavigator';
 import {Icon} from 'atoms';
@@ -19,7 +19,6 @@ type RouteParams = {
 
 export function TabNavigator() {
   const {t} = useTranslation('common');
-  useLightStatusBar();
 
   return (
     <Tab.Navigator
