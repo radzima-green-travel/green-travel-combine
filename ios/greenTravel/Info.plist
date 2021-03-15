@@ -38,11 +38,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app uses GPS to find shops around you and to navigate you to the selected shop.</string>
+	<string>This will let to pinpoint your exact location.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app uses GPS to find shops around you and to navigate you to the selected shop.</string>
+	<string>This will let to pinpoint your exact location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app uses GPS to find shops around you and to navigate you to the selected shop.</string>
+	<string>This will let to pinpoint your exact location.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-Bold.ttf</string>

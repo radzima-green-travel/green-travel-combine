@@ -22,7 +22,11 @@ import {
   AppMapFilters,
   AppMapButtons,
 } from 'molecules';
-import {useDarkStatusBar, useSearchList} from 'core/hooks';
+import {
+  useDarkStatusBar,
+  useSearchList,
+  useFocusToUserLocation,
+} from 'core/hooks';
 import {IState} from 'core/store';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {xorBy} from 'lodash';
@@ -33,6 +37,7 @@ export const AppMap = () => {
   const mapFilters = useSelector(selectMapFilters);
 
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
+
   const [selectedMarker, setSelectedMarker] = useState<SelecteMarker | null>(
     () => createMarkerFromObject(null),
   );
@@ -75,7 +80,7 @@ export const AppMap = () => {
 
   const onShapePress = useCallback(
     (itemData: IExtendedObjectWithCategoryData) => {
-      camera.current?.moveTo(itemData.location.coordinates, 1000);
+      camera.current?.moveTo(itemData.location.coordinates, 500);
       setSelectedMarkerId(itemData._id);
     },
     [],
@@ -86,7 +91,7 @@ export const AppMap = () => {
       camera.current?.setCamera({
         centerCoordinate: itemData.location.coordinates,
         zoomLevel: 7,
-        animationDuration: 1500,
+        animationDuration: 1000,
       });
       addToHistory(itemData);
       setSelectedMarkerId(itemData._id);
@@ -115,6 +120,9 @@ export const AppMap = () => {
     setSelectedFilters([]);
   }, []);
 
+  const {focusToUserLocation, ...userLocationProps} = useFocusToUserLocation(
+    camera,
+  );
   useDarkStatusBar();
   return (
     <View style={styles.container}>
@@ -123,6 +131,7 @@ export const AppMap = () => {
         ref={camera}
         onShapePress={onShapePress}
         onPress={onPress}>
+        <MapBox.UserLocation showsUserHeadingIndicator {...userLocationProps} />
         <ClusterMapShape markers={markers} />
 
         <MapBox.ShapeSource
@@ -148,7 +157,7 @@ export const AppMap = () => {
         />
       </Portal>
       <AppMapButtons
-        onShowLocationPress={() => {}}
+        onShowLocationPress={focusToUserLocation}
         onSearchPress={() => bottomSearchMenu.current?.show()}
       />
       <AppMapFilters

@@ -16,7 +16,11 @@
       "map": "Карта"
     },
     "tryAgain": "Попробовать еще раз",
-    "coppied": "Скопировано"
+    "coppied": "Скопировано",
+    "locationPermissionTitle": "Нет доступа к локации",
+    "locationPermissionText": "Предоставьте доступ к Геолокации в настройках что бы определить вашу позицию",
+    "locationPermissionCancel": "Отмена",
+    "locationPermissionSetttings": "Настройки"
   },
   "home":{
     "headerTitle": "Главная",

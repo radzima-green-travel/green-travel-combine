@@ -5,8 +5,8 @@ platform :ios, '10.0'
 
 target 'greenTravel' do
   permissions_path = '../node_modules/react-native-permissions/ios'
-  pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
-  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
+  pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   $ReactNativeMapboxGLIOSVersion = '~> 6.3'
   config = use_native_modules!
 

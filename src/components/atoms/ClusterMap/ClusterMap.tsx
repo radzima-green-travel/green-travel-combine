@@ -41,7 +41,7 @@ export const ClusterMap = memo(
         }
         return {};
       }, [bounds]);
-      console.log(initialBounds);
+
       return (
         <View
           onResponderStart={async (event) => {

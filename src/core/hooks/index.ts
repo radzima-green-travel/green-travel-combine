@@ -10,3 +10,4 @@ export {useLightStatusBar} from './useLightStatusBar';
 export {useDarkStatusBar} from './useDarkStatusBar';
 export {useSearchList} from './useSearchList';
 export {useTask} from './useTask';
+export {useFocusToUserLocation} from './useFocusToUserLocation';

@@ -138,6 +138,6 @@ export const selectBounds = createSelector<
     const southWest: ICoordinates = [minLng, minLat];
     const northEast: ICoordinates = [maxLng, maxLat];
 
-    return [northEast, southWest, [30, 30, 30, 30], 1000];
+    return [northEast, southWest, [30, 30, 30, 30], 500];
   },
 );

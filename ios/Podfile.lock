@@ -85,9 +85,9 @@ PODS:
   - OpenSSL-Universal (1.0.2.20):
     - OpenSSL-Universal/Static (= 1.0.2.20)
   - OpenSSL-Universal/Static (1.0.2.20)
-  - Permission-LocationAlways (2.1.5):
+  - Permission-LocationAlways (3.0.1):
     - RNPermissions
-  - Permission-LocationWhenInUse (2.1.5):
+  - Permission-LocationWhenInUse (3.0.1):
     - RNPermissions
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
@@ -354,8 +354,8 @@ PODS:
     - SDWebImageWebPCoder (~> 0.6.1)
   - RNGestureHandler (1.6.1):
     - React
-  - RNPermissions (2.1.5):
-    - React
+  - RNPermissions (3.0.1):
+    - React-Core
   - RNReanimated (1.13.0):
     - React
   - RNScreens (2.9.0):
@@ -404,8 +404,8 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (~> 0.54.0)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
-  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
+  - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways`)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -482,9 +482,9 @@ EXTERNAL SOURCES:
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   Permission-LocationAlways:
-    :path: "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
+    :path: "../node_modules/react-native-permissions/ios/LocationAlways"
   Permission-LocationWhenInUse:
-    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -582,8 +582,8 @@ SPEC CHECKSUMS:
   Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
   MapboxMobileEvents: 36ff53b135aac486eed94b61f813c7967a0c2c6f
   OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
-  Permission-LocationAlways: 155e6251b757b380f6354737cae8e8d59c472495
-  Permission-LocationWhenInUse: 3624cf08c12c6019926aba3054efee7f4f8ee91e
+  Permission-LocationAlways: a274bc04bb386068782468dbdaca3859f51634ca
+  Permission-LocationWhenInUse: 3a2b0dbc167d79e8e920a4377ff9520cdc108407
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
   React: b0a957a2c44da4113b0c4c9853d8387f8e64e615
@@ -615,7 +615,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNFastImage: d4870d58f5936111c56218dbd7fcfc18e65b58ff
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNPermissions: ad71dd4f767ec254f2cd57592fbee02afee75467
+  RNPermissions: 4c8a37b4dde50f1f152bf8cd08c4a43d2355829e
   RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
   RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
   RNSentry: 6b46b6fc1d715a378fbaa5d7d43bc9ce99b500e5
@@ -626,6 +626,6 @@ SPEC CHECKSUMS:
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e95c48fc7a50286ab1d7bb72e7dbe9ac24f925bf
+PODFILE CHECKSUM: 37a5bc7ccf7660582813619b32c4d299cb88721d
 
 COCOAPODS: 1.9.3
