@@ -30,10 +30,10 @@ import {
 import {IState} from 'core/store';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {xorBy} from 'lodash';
-
+import {IProps} from './types';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
-export const AppMap = () => {
+export const AppMap = ({navigation}: IProps) => {
   const mapFilters = useSelector(selectMapFilters);
 
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
@@ -86,6 +86,15 @@ export const AppMap = () => {
     [],
   );
 
+  const navigateToObjectDetails = useCallback(
+    ({_id, category}: IExtendedObjectWithCategoryData) => {
+      bottomMenu.current?.hide();
+      setSelectedMarker(createMarkerFromObject(null));
+      navigation.push('ObjectDetails', {categoryId: category, objectId: _id});
+    },
+    [navigation],
+  );
+
   const onSearchItemPress = useCallback(
     (itemData: IExtendedObjectWithCategoryData) => {
       camera.current?.setCamera({
@@ -131,7 +140,9 @@ export const AppMap = () => {
         ref={camera}
         onShapePress={onShapePress}
         onPress={onPress}>
-        <MapBox.UserLocation showsUserHeadingIndicator {...userLocationProps} />
+        {userLocationProps.visible ? (
+          <MapBox.UserLocation {...userLocationProps} />
+        ) : null}
         <ClusterMapShape markers={markers} />
 
         <MapBox.ShapeSource
@@ -146,6 +157,7 @@ export const AppMap = () => {
           ref={bottomMenu}
           onHideEnd={onMenuHideEnd}
           bottomInset={bottom}
+          onGetMorePress={navigateToObjectDetails}
         />
         <AppMapBottomSearchMenu
           isHistoryVisible={isHistoryVisible}

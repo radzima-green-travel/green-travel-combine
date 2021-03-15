@@ -24,6 +24,7 @@ export type BookmarksNavigatorParamsList = {
 
 export type AppMapNavigatorParamsList = {
   AppMap: undefined;
+  ObjectDetails: {categoryId: string; objectId: string};
 };
 
 export type MainNavigatorParamsList = {

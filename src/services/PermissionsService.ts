@@ -1,5 +1,5 @@
 import {Alert, Linking} from 'react-native';
-import {PERMISSIONS, request, check} from 'react-native-permissions';
+import {PERMISSIONS, request, check, RESULTS} from 'react-native-permissions';
 import {isIOS} from './PlatformService';
 import i18n from 'i18next';
 
@@ -9,9 +9,10 @@ const locationPermission = isIOS
 
 class PermissionsService {
   async checkLocationPermission() {
+    console.log('checkLocationPermission');
     let status = await check(locationPermission);
 
-    if (isIOS && status === 'denied') {
+    if (isIOS && status === RESULTS.BLOCKED) {
       Alert.alert(
         i18n.t('common:locationPermissionTitle'),
         i18n.t('common:locationPermissionText'),
@@ -33,7 +34,7 @@ class PermissionsService {
       return false;
     } else {
       status = await request(locationPermission);
-      return status === 'granted';
+      return status === RESULTS.GRANTED;
     }
   }
 }

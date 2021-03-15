@@ -24,15 +24,24 @@ interface IProps {
   data: IExtendedObjectWithCategoryData | null;
   onHideEnd: () => void;
   bottomInset: number;
+  onGetMorePress: (data: IExtendedObjectWithCategoryData) => void;
 }
 
 export const AppMapBottomMenu = memo(
   forwardRef<AppMapBottomMenuRef, IProps>(
-    ({data, onHideEnd, bottomInset}, ref) => {
+    ({data, onHideEnd, bottomInset, onGetMorePress}, ref) => {
       const styles = useThemeStyles(themeStyles);
       const bs = useRef<BottomSheet>(null);
 
       const snapPoint = useMemo(() => MENU_HEIGHT + bottomInset, [bottomInset]);
+      useImperativeHandle(ref, () => ({
+        show: () => {
+          bs.current?.snapTo(1);
+        },
+        hide: () => {
+          bs.current?.snapTo(0);
+        },
+      }));
 
       const rendnerInner = () => {
         if (!data) {
@@ -57,20 +66,16 @@ export const AppMapBottomMenu = memo(
                   )}
                 </FavoriteButtonContainer>
               </View>
-              <Button>Узнать больше</Button>
+              <Button
+                onPress={() => {
+                  onGetMorePress(data);
+                }}>
+                Узнать больше
+              </Button>
             </View>
           </View>
         );
       };
-
-      useImperativeHandle(ref, () => ({
-        show: () => {
-          bs.current?.snapTo(1);
-        },
-        hide: () => {
-          bs.current?.snapTo(0);
-        },
-      }));
 
       return (
         <BottomSheet
