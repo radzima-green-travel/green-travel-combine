@@ -45,7 +45,7 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    //[(MainViewController *) self.window.rootViewController loadCategories];
+    [(RootViewController *) self.window.rootViewController loadCategories];
 }
 
 

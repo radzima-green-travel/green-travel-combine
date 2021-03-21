@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
                       launchOptions:(NSDictionary *)launchOptions;
 - (void) showRNViewController;
 - (void) showNativeViewController;
+- (void)loadCategories;
 
 @end
 

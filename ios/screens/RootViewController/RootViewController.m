@@ -63,13 +63,15 @@ static void InitializeFlipper(UIApplication *application) {
     self.view.backgroundColor = UIColor.whiteColor;
     
     [self showNativeViewController];
+    //[self showRNViewController];
 }
 
 - (void)showRNViewController {
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(self.application);
 #endif
-  UIViewController *rnViewController = [[UIViewController alloc] init];
+    
+    UIViewController *rnViewController = [[UIViewController alloc] init];
     RCTBridge *bridge =
     [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions]; 
     RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
@@ -77,6 +79,7 @@ static void InitializeFlipper(UIApplication *application) {
                                               initialProperties:nil];
     rootView.backgroundColor =
     [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+    [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
     rnViewController.view = rootView;
     
     [self addChildViewController:rnViewController];
@@ -112,6 +115,12 @@ static void InitializeFlipper(UIApplication *application) {
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (void)loadCategories {
+  if ([self.current isKindOfClass:MainViewController.class]) {
+    [(MainViewController *) self.current loadCategories];
+  }
 }
 
 @end
