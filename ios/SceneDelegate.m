@@ -24,8 +24,7 @@
     
     UIWindowScene *windowScene = (UIWindowScene*) scene;
     NSLog(@"windowScene.coordinateSpace.bounds: %@", NSStringFromCGRect(windowScene.coordinateSpace.bounds));
-    self.window = [[UIWindow alloc] initWithFrame:windowScene.coordinateSpace.bounds];
-    self.window.windowScene = windowScene;
+    self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
     self.window.rootViewController = [[RootViewController alloc] init];
     [self.window makeKeyAndVisible];
 }

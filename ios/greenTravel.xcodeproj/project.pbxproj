@@ -117,6 +117,7 @@
 		5A775E1F26077A9600CEFC78 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775E1A26077A9600CEFC78 /* GalleryImagePlaceholder.m */; };
 		5A775E2026077A9600CEFC78 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775E1D26077A9600CEFC78 /* CommonButton.m */; };
 		5A775E792607E0A100CEFC78 /* GreenTravel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */; };
+		5A775E7C26092B8100CEFC78 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A775E7B26092B8100CEFC78 /* Settings.bundle */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -348,6 +349,7 @@
 		5A775E1D26077A9600CEFC78 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
 		5A775E1E26077A9600CEFC78 /* GalleryImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryImagePlaceholder.h; sourceTree = "<group>"; };
 		5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravel.xcdatamodel; sourceTree = "<group>"; };
+		5A775E7B26092B8100CEFC78 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5DC61A333ADB94FF40CB33BA /* Pods-greenTravel-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel-tvOSTests/Pods-greenTravel-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				5A775BDE260764BF00CEFC78 /* GoogleService-Info.plist */,
+				5A775E7B26092B8100CEFC78 /* Settings.bundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */,
 				6281F7E024C9E40D00C51231 /* empty.swift */,
@@ -1150,6 +1153,7 @@
 				5A775B3826064C9000CEFC78 /* Montserrat-ExtraLight.ttf in Resources */,
 				5A775B3526064C9000CEFC78 /* Montserrat-BoldItalic.ttf in Resources */,
 				628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */,
+				5A775E7C26092B8100CEFC78 /* Settings.bundle in Resources */,
 				5A775B4A26064C9000CEFC78 /* OpenSans-Regular.ttf in Resources */,
 				5A775B4B26064C9000CEFC78 /* OpenSans-BoldItalic.ttf in Resources */,
 				624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */,
