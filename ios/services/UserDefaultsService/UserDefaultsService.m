@@ -17,6 +17,7 @@
 @implementation UserDefaultsService
 
 NSString * const kKeyETag = @"eTag";
+NSString * const kKeyFramework = @"framework";
 
 - (instancetype)init
 {
@@ -34,5 +35,11 @@ NSString * const kKeyETag = @"eTag";
 - (NSString *)loadETag {
     return [self.userDefaults valueForKey:kKeyETag];
 }
+
+- (BOOL)rnAppEnabled {
+    NSString *frameworkValue = [self.userDefaults valueForKey:kKeyFramework];
+    return [frameworkValue isEqualToString:@"react"];
+}
+
 
 @end

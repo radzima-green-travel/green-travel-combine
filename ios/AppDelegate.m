@@ -19,12 +19,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [FIRApp configure];
-    UIWindow *window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    self.window = window;
-    RootViewController *rootViewController =
-    [[RootViewController alloc] initWithApplication:application launchOptions:launchOptions];
-    self.window.rootViewController = rootViewController;
-    [self.window makeKeyAndVisible];
+    if (@available(iOS 13.0, *)) {
+    } else {
+      UIWindow *window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+      self.window = window;
+      RootViewController *rootViewController =
+      [[RootViewController alloc] initWithApplication:application launchOptions:launchOptions];
+      self.window.rootViewController = rootViewController;
+      [self.window makeKeyAndVisible];
+    }
     return YES;
 }
 

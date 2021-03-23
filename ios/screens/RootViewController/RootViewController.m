@@ -10,6 +10,7 @@
 #import "MainViewController.h"
 #import "Colors.h"
 #import "TextUtils.h"
+#import "UserDefaultsService.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -41,6 +42,7 @@ static void InitializeFlipper(UIApplication *application) {
 @property (strong, nonatomic) UIViewController *current;
 @property (weak, nonatomic) UIApplication *application;
 @property (strong, nonatomic) NSDictionary *launchOptions;
+@property (strong, nonatomic) UserDefaultsService *userDefaultsService;
 
 @end
 
@@ -53,6 +55,7 @@ static void InitializeFlipper(UIApplication *application) {
     if (self) {
         _application = application;
         _launchOptions = launchOptions;
+        _userDefaultsService = [[UserDefaultsService alloc] init];
     }
     return self;
 }
@@ -62,8 +65,11 @@ static void InitializeFlipper(UIApplication *application) {
     
     self.view.backgroundColor = UIColor.whiteColor;
     
+    if (self.userDefaultsService.rnAppEnabled) {
+        [self showRNViewController];
+        return;
+    }
     [self showNativeViewController];
-    //[self showRNViewController];
 }
 
 - (void)showRNViewController {
@@ -95,7 +101,7 @@ static void InitializeFlipper(UIApplication *application) {
 }
 
 - (void)showNativeViewController {
-    MainViewController *mainViewController = [[MainViewController alloc] init];
+    MainViewController *mainViewController = [[MainViewController alloc] initWithUserDefaultsService:self.userDefaultsService];
     
     [self addChildViewController:mainViewController];
     mainViewController.view.frame = self.view.bounds;

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UserDefaultsService : NSObject
 
+@property (assign, nonatomic, readonly) BOOL rnAppEnabled;
 - (void)saveETag:(NSString *)eTag;
 - (NSString *)loadETag;
 
