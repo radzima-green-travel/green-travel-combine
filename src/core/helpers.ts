@@ -10,7 +10,13 @@ import {
   filter,
 } from 'lodash';
 
-import {StyleProp, ViewStyle, TextStyle, ColorSchemeName} from 'react-native';
+import {
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+  ColorSchemeName,
+  Linking,
+} from 'react-native';
 
 import {
   ICategory,
@@ -23,7 +29,7 @@ export const extractThemeStyles = (
   styles: Object,
   theme: ColorSchemeName,
 ): {[propName: string]: StyleProp<ViewStyle | TextStyle>} => {
-  return mapValues(styles, (value) => {
+  return mapValues(styles, value => {
     return isPlainObject(value) && (has(value, 'dark') || has(value, 'light'))
       ? value[theme!]
       : value;
@@ -34,11 +40,11 @@ export const addIsFavoriteToObjects = (
   categories: ICategory[],
   bookmarksIds: IBookmarksIds,
 ) => {
-  return map(categories, (value) => {
+  return map(categories, value => {
     if (isEmpty(value.children)) {
       return {
         ...value,
-        objects: map(value.objects, (object) => {
+        objects: map(value.objects, object => {
           return {
             ...object,
             isFavorite: includes(bookmarksIds, object._id),
@@ -104,7 +110,7 @@ export const filterDeepObjects = (
   categories: ICategoryWithExtendedObjects[],
   predicate: (item: IExtendedObject, index: number) => boolean,
 ): ICategoryWithExtendedObjects[] => {
-  return map(categories, (category) => {
+  return map(categories, category => {
     return {
       ...category,
       objects: filter(category.objects, predicate),
@@ -124,3 +130,17 @@ export const flattenCategories = (
     [] as ICategoryWithExtendedObjects[],
   );
 };
+
+export async function tryOpenURL(url: string) {
+  try {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      console.warn(`Don't know how to open URI: ${url}`);
+    }
+  } catch (e) {
+    console.warn(e.message);
+  }
+}

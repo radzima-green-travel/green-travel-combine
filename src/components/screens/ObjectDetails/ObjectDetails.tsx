@@ -9,7 +9,7 @@ import {
   ObjectDescription,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
-import {useToast, Button} from 'atoms';
+import {useToast, Button, ObjectDetailsSiteLink} from 'atoms';
 import {IProps} from './types';
 import {selectAllCategoriesWithObjects} from 'core/selectors';
 import {useTranslation} from 'core/hooks';
@@ -60,6 +60,15 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
     [navigation],
   );
 
+  const navigateToObjectsMap = useCallback(() => {
+    if (data) {
+      navigation.navigate('ObjectDetailsMap', {
+        categoryId: data.category,
+        objectId: data._id,
+      });
+    }
+  }, [data, navigation]);
+
   const navigateToObjectsListDebounced = useMemo(
     () =>
       debounce(navigateToObjectsList, 300, {leading: true, trailing: false}),
@@ -68,7 +77,7 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
 
   return data ? (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.listContentContainer}>
         <PlaceDetailsImageSlider
           onMarkerPress={onMarkerPress}
           objectId={data._id}
@@ -81,9 +90,10 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
             coordinates={data.location.coordinates}
             onCoordinatesPress={copyLocationToClipboard}
           />
-          <Button>{t('seeOnTheMap')}</Button>
+          <Button onPress={navigateToObjectsMap}>{t('seeOnTheMap')}</Button>
         </View>
         <ObjectDescription description={data.description} />
+        {data.url ? <ObjectDetailsSiteLink url={data.url} /> : null}
         {isEmpty(data.include) ? null : (
           <ObjectIncludes
             data={data.include}

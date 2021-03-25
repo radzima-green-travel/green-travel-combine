@@ -19,6 +19,7 @@ export {default as homeFilled} from './homeFilled.svg';
 export {default as mapMarkerGray} from './mapMarkerGray.svg';
 export {default as marker} from './marker.svg';
 export {default as markerFilled} from './markerFilled.svg';
+export {default as objectPin} from './objectPin.svg';
 export {default as paw} from './paw.svg';
 export {default as search} from './search.svg';
 export {default as showLocation} from './showLocation.svg';

@@ -114,7 +114,7 @@ export const AppMap = ({navigation}: IProps) => {
   }, []);
 
   const onFilterSelect = useCallback((item: IMapFilter) => {
-    setSelectedFilters((prev) => {
+    setSelectedFilters(prev => {
       return xorBy(prev, [item], 'categoryId');
     });
   }, []);

@@ -128,8 +128,6 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* greenTravelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = greenTravelTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Radzima.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Radzima.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = greenTravel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
@@ -137,9 +135,6 @@
 		1424EB44F3126DB1A68F769E /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		1A109EA28EA58E8867923D31 /* libPods-greenTravel-greenTravelTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel-greenTravelTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDC6718C8A7D16FAAC241C8 /* libPods-greenTravel-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D58341F3E13BBBCC56888CD /* Pods-greenTravel-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-greenTravel-tvOSTests/Pods-greenTravel-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		2E31EC9FA1B33EFB711920BC /* Pods-greenTravel-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-tvOS.release.xcconfig"; path = "Target Support Files/Pods-greenTravel-tvOS/Pods-greenTravel-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		3E908B266F322FA161BA1576 /* Pods-greenTravel-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel-tvOS/Pods-greenTravel-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A7759FD26064C6900CEFC78 /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		5A7759FE26064C6900CEFC78 /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
@@ -360,8 +355,6 @@
 		6361C1D1B0DE4F1968C4EDEA /* libPods-greenTravel-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7D2B21900923C3DDAFD91A /* libPods-greenTravel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABCFDD8E1168EB2829B0A3F0 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
-		C0621EBAF2C9E5D02BC85BE7 /* Pods-greenTravel-greenTravelTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-greenTravelTests.release.xcconfig"; path = "Target Support Files/Pods-greenTravel-greenTravelTests/Pods-greenTravel-greenTravelTests.release.xcconfig"; sourceTree = "<group>"; };
-		C2385F88C66836B21A0E1615 /* Pods-greenTravel-greenTravelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel-greenTravelTests.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel-greenTravelTests/Pods-greenTravel-greenTravelTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -378,23 +371,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* greenTravelTests */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F21AD99517003FC87E /* greenTravelTests.m */,
-				00E356F01AD99517003FC87E /* Supporting Files */,
-			);
-			path = greenTravelTests;
-			sourceTree = "<group>";
-		};
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* GreenTravel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1047,7 +1023,6 @@
 				624E38CE2519E467001D98E2 /* Resources */,
 				13B07FAE1A68108700A75B9A /* GreenTravel */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* greenTravelTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C11F5CD373D543CEFBB10130 /* Pods */,
@@ -1070,12 +1045,6 @@
 			children = (
 				1424EB44F3126DB1A68F769E /* Pods-greenTravel.debug.xcconfig */,
 				ABCFDD8E1168EB2829B0A3F0 /* Pods-greenTravel.release.xcconfig */,
-				C2385F88C66836B21A0E1615 /* Pods-greenTravel-greenTravelTests.debug.xcconfig */,
-				C0621EBAF2C9E5D02BC85BE7 /* Pods-greenTravel-greenTravelTests.release.xcconfig */,
-				3E908B266F322FA161BA1576 /* Pods-greenTravel-tvOS.debug.xcconfig */,
-				2E31EC9FA1B33EFB711920BC /* Pods-greenTravel-tvOS.release.xcconfig */,
-				5DC61A333ADB94FF40CB33BA /* Pods-greenTravel-tvOSTests.debug.xcconfig */,
-				2D58341F3E13BBBCC56888CD /* Pods-greenTravel-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1257,13 +1226,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-greenTravel/Pods-greenTravel-frameworks.sh",
-				"${PODS_ROOT}/@react-native-mapbox-gl-mapbox-static/dynamic/MapboxMobileEvents.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
+				"${PODS_ROOT}/hermes-engine/destroot/Library/Frameworks/iphoneos/hermes.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1478,6 +1451,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1538,6 +1512,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

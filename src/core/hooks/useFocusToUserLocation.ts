@@ -45,5 +45,6 @@ export function useFocusToUserLocation(
     onUpdate: saveUserLocation,
     visible: userLocationVisible,
     showsUserHeadingIndicator: userLocationVisible,
+    userLocation,
   };
 }

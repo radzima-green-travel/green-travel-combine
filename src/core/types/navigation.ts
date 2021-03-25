@@ -31,6 +31,7 @@ export type MainNavigatorParamsList = {
   TabNavigator: NestedNavigatorParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
   ErrorScreen: undefined;
+  ObjectDetailsMap: {objectId: string; categoryId: string};
 };
 
 export type TabNavigatorParamsList = {

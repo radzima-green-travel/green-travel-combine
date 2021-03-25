@@ -26,8 +26,7 @@
         android:launchMode="singleTask"
         android:windowSoftInputMode="adjustResize"
         android:exported="true">       
-      </activity>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      </activity>     
        <activity
           android:name="com.zoontek.rnbootsplash.RNBootSplashActivity"
           android:theme="@style/BootTheme"
