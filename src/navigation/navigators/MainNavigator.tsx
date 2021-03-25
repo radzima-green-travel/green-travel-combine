@@ -2,7 +2,7 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {ErrorScreen} from 'screens';
+import {ErrorScreen, ObjectDetailsMapScreen} from 'screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
@@ -15,6 +15,11 @@ export function MainNavigator() {
       <Stack.Screen
         name="TabNavigator"
         component={TabNavigator}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ObjectDetailsMap"
+        component={ObjectDetailsMapScreen}
         options={{headerShown: false}}
       />
 

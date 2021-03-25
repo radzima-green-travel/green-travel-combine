@@ -20,6 +20,7 @@ export type IconsNames =
   | 'mapMarkerGray'
   | 'marker'
   | 'markerFilled'
+  | 'objectPin'
   | 'paw'
   | 'search'
   | 'showLocation'

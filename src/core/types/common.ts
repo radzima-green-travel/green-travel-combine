@@ -46,6 +46,8 @@ export interface IObject {
   images: string[];
   prohibitions?: IProhibition[];
   include: IInclude[];
+  url?: string;
+  origin?: string;
 }
 
 export interface IExtendedObject extends IObject {}

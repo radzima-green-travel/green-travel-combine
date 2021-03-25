@@ -12,8 +12,15 @@ class SentryService {
   }
 
   logResponseError(error) {
-    Sentry.withScope((scope) => {
+    Sentry.withScope(scope => {
       scope.setExtra('Error Data', error || {});
+      Sentry.captureException(error);
+    });
+  }
+
+  logMapBoxError(error) {
+    Sentry.withScope(scope => {
+      scope.setExtra('Map Box Error data', error || {});
       Sentry.captureException(error);
     });
   }

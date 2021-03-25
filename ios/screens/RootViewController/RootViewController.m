@@ -83,8 +83,12 @@ static void InitializeFlipper(UIApplication *application) {
     RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                      moduleName:@"greenTravel"
                                               initialProperties:nil];
-    rootView.backgroundColor =
-    [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+    if (@available(iOS 13.0, *)) {
+        rootView.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        rootView.backgroundColor = [UIColor whiteColor];
+    }
+
     [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
     rnViewController.view = rootView;
     

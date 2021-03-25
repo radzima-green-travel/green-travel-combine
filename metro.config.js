@@ -10,12 +10,12 @@ module.exports = (async () => {
       getTransformOptions: async () => ({
         transform: {
           experimentalImportSupport: false,
-          inlineRequires: false,
+          inlineRequires: true,
         },
       }),
     },
     resolver: {
-      assetExts: assetExts.filter((ext) => ext !== 'svg'),
+      assetExts: assetExts.filter(ext => ext !== 'svg'),
       sourceExts: [...sourceExts, 'svg'],
     },
   };
