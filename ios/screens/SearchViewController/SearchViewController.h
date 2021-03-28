@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
                      mapModel:(MapModel *)mapModel
                    apiService:(ApiService *)apiService
               coreDataService:(CoreDataService *)coreDataService
+          itemsWithCoordsOnly:(BOOL)itemsWithCoordsOnly
            onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect;
 
 @end

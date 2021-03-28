@@ -11,6 +11,7 @@
 #import "CategoriesFilterObservable.h"
 
 @class FilterOption;
+@class MapModel;
 @class IndexModel;
 @class PlaceItem;
 
@@ -24,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nonnull) NSMutableArray<CategoriesFilterObserver> *categoriesFilterSelectObservers;
 @property (strong, nonatomic, nonnull) NSMutableArray<FilterOption *> *filterOptions;
 @property (strong, nonatomic, nonnull) NSMutableSet<NSString *> *selectedCategoryUUIDs;
-- (instancetype)initWithIndexModel:(IndexModel *)indexModel;
+- (instancetype)initWithMapModel:(MapModel *)mapModel
+                      indexModel:(IndexModel *)indexModel;
 - (void)selectOption:(FilterOption *)option;
 - (void)selectOptionForPlaceItem:(PlaceItem *)item;
 

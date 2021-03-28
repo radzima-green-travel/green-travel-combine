@@ -47,6 +47,7 @@
 @property (assign, nonatomic) UIEdgeInsets scrollInsets;
 @property (strong, nonatomic) NSLayoutConstraint *scrollViewHeightConstraint;
 @property (copy, nonatomic) void (^onSearchItemSelect)(PlaceItem *);
+@property (copy, nonatomic) BOOL(^searchItemFilter)(SearchItem *);
 
 @end
 
@@ -66,6 +67,7 @@ static const CGFloat kSearchRowHeight = 58.0;
                      mapModel:(MapModel *)mapModel
                    apiService:(ApiService *)apiService
               coreDataService:(CoreDataService *)coreDataService
+          itemsWithCoordsOnly:(BOOL)itemsWithCoordsOnly
            onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect
 {
     self = [super init];
@@ -76,6 +78,18 @@ static const CGFloat kSearchRowHeight = 58.0;
         _mapModel = mapModel;
         _apiService = apiService;
         _onSearchItemSelect = onSearchItemSelect;
+        if (itemsWithCoordsOnly) {
+          __weak typeof(self) weakSelf = self;
+          _searchItemFilter = ^BOOL(SearchItem *searchItem){
+              PlaceItem *item = weakSelf.indexModel.flatItems[searchItem.correspondingPlaceItemUUID];
+              return item.coords.latitude != kCLLocationCoordinate2DInvalid.latitude &&
+                item.coords.longitude != kCLLocationCoordinate2DInvalid.longitude;
+          };
+        } else {
+          _searchItemFilter = ^BOOL(SearchItem *searchItem){
+              return YES;
+          };
+        }
     }
     return self;
 }
@@ -300,7 +314,7 @@ static const CGFloat kSearchRowHeight = 58.0;
     if ([self isSearching]) {
         return [self.dataSourceFiltered count];
     }
-    NSUInteger searchHistoryItemsCount = [self.model.searchHistoryItems count];
+    NSUInteger searchHistoryItemsCount = [[self.model searchHistoryItemsWithFilter:self.searchItemFilter] count];
     if (searchHistoryItemsCount > 0) {
         return searchHistoryItemsCount + kDataSourceOrigOffset;
     }
@@ -308,7 +322,9 @@ static const CGFloat kSearchRowHeight = 58.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0 && ![self isSearching] && [self.model.searchHistoryItems count] > 0) {
+    NSArray<SearchItem *> *searchHistoryItems = [self.model searchHistoryItemsWithFilter:self.searchItemFilter];
+    NSUInteger searchHistoryItemsCount = [searchHistoryItems count];
+    if (indexPath.row == 0 && ![self isSearching] && searchHistoryItemsCount > 0) {
         WeRecommendCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kWeRecommendCellId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.userInteractionEnabled = NO;
@@ -323,8 +339,8 @@ static const CGFloat kSearchRowHeight = 58.0;
         [cell update:cellConfiguration];
         return cell;
     }
-    if ([self.model.searchHistoryItems count]) {
-        item = self.model.searchHistoryItems[indexPath.row - kDataSourceOrigOffset];
+    if (searchHistoryItemsCount) {
+        item = searchHistoryItems[indexPath.row - kDataSourceOrigOffset];
         cellConfiguration = [self mapSearchCellConfigurationFromSearchItem:item];
         [cell update:cellConfiguration];
         return cell;
@@ -359,7 +375,7 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
         self.searchController.searchBar.text = @"";
     } else {
         SearchItem *searchItem =
-        self.model.searchHistoryItems[indexPath.row - kDataSourceOrigOffset];
+        [self.model searchHistoryItemsWithFilter:self.searchItemFilter][indexPath.row - kDataSourceOrigOffset];
         self.itemToSaveToHistory = searchItem;
         item = self.indexModel.flatItems[searchItem.correspondingPlaceItemUUID];
     }
@@ -376,9 +392,9 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (![self isSearching] && indexPath.row >= kDataSourceOrigOffset) {
-            SearchItem *searchItem = self.model.searchHistoryItems[indexPath.row -kDataSourceOrigOffset];
+            SearchItem *searchItem = [self.model searchHistoryItemsWithFilter:self.searchItemFilter][indexPath.row -kDataSourceOrigOffset];
             [self.model removeSearchHistoryItem:searchItem];
-            if ([self.model.searchHistoryItems count] > 0) {
+            if ([[self.model searchHistoryItemsWithFilter:self.searchItemFilter] count] > 0) {
                 [self.tableView deleteRowsAtIndexPaths:@[indexPath]
                                       withRowAnimation:UITableViewRowAnimationAutomatic];
                 return;
@@ -398,7 +414,7 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
         [self updateViews];
         return;
     }
-    for (SearchItem *item in self.model.searchItems) {
+    for (SearchItem *item in [self.model searchItemsWithFilter:self.searchItemFilter]) {
         if ([[item searchableText] localizedCaseInsensitiveContainsString:search]) {
             [self.dataSourceFiltered addObject:item];
             continue;

@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadSearchHistoryItems;
 - (void)addSearchHistoryItem:(SearchItem *)searchItem;
 - (void)removeSearchHistoryItem:(SearchItem *)searchItem;
+- (NSArray<SearchItem *> *)searchItemsWithFilter:(BOOL(^)(SearchItem *))searchItemFilter;
+- (NSArray<SearchItem *> *)searchHistoryItemsWithFilter:(BOOL(^)(SearchItem *))searchItemFilter;
 
 @end
 

@@ -253,6 +253,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                         mapModel:self.mapModel
                                       apiService:self.apiService
                                  coreDataService:self.coreDataService
+                             itemsWithCoordsOnly:NO
                               onSearchItemSelect:^(PlaceItem * _Nonnull item) {
         DetailsViewController *detailsController =
         [[DetailsViewController alloc] initWithApiService:weakSelf.apiService

@@ -156,4 +156,16 @@
     return foundIndex;
 }
 
+- (NSArray<SearchItem *> *)searchItemsWithFilter:(BOOL (^)(SearchItem * _Nonnull))searchItemFilter {
+    return [self.searchItems filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return searchItemFilter(evaluatedObject);
+    }]];
+}
+
+- (NSArray<SearchItem *> *)searchHistoryItemsWithFilter:(BOOL (^)(SearchItem * _Nonnull))searchItemFilter {
+  return [self.searchHistoryItems filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+      return searchItemFilter(evaluatedObject);
+  }]];
+}
+
 @end

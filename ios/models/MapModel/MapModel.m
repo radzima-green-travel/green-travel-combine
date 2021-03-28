@@ -39,6 +39,7 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
             _locationModel = locationModel;
             self.mapItemsOriginal = [[NSMutableArray alloc] init];
             self.mapItemsFiltered = [[NSMutableArray alloc] init];
+            self.flatMapItems = [[NSMutableDictionary alloc] init];
             self.closeMapItems = [[NSMutableArray alloc] init];
             self.uuids = [[NSMutableSet alloc] init];
             self.mapItemsObservers = [[NSMutableArray alloc] init];
@@ -81,6 +82,7 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
             [сategoriesWithDefinedCoords addObject:categoryWithDefinedCoords];
         }
     }];
+    self.categories = сategoriesWithDefinedCoords;
     traverseCategories(сategoriesWithDefinedCoords, ^(Category *category, PlaceItem *item) {
         if (category != nil) {
             [self.categoryFilter addObject:category.uuid];
@@ -90,6 +92,7 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
             mapItem.coords = item.coords;
             mapItem.title = item.title;
             mapItem.correspondingPlaceItem = item;
+            self.flatMapItems[item.uuid] = mapItem;
             [self.mapItemsOriginal addObject:mapItem];
             [self.uuids addObject:item.uuid];
         }

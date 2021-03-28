@@ -528,10 +528,10 @@
 		5A775A6126064C8F00CEFC78 /* IndexModel */ = {
 			isa = PBXGroup;
 			children = (
+				5A775A6526064C8F00CEFC78 /* IndexModel.h */,
 				5A775A6226064C8F00CEFC78 /* IndexModel.m */,
 				5A775A6326064C8F00CEFC78 /* CategoriesObservable.h */,
 				5A775A6426064C8F00CEFC78 /* CategoriesObserver.h */,
-				5A775A6526064C8F00CEFC78 /* IndexModel.h */,
 				5A775A6626064C8F00CEFC78 /* BookmarksObservable.h */,
 				5A775A6726064C8F00CEFC78 /* BookmarksObserver.h */,
 			);
@@ -552,9 +552,9 @@
 		5A775A6D26064C8F00CEFC78 /* MapModel */ = {
 			isa = PBXGroup;
 			children = (
+				5A775A7026064C8F00CEFC78 /* MapModel.h */,
 				5A775A6E26064C8F00CEFC78 /* MapModel.m */,
 				5A775A6F26064C8F00CEFC78 /* MapItemsObserver.h */,
-				5A775A7026064C8F00CEFC78 /* MapModel.h */,
 				5A775A7126064C8F00CEFC78 /* MapItemsObservable.h */,
 			);
 			path = MapModel;
@@ -762,10 +762,10 @@
 				5A775DAA26077A7C00CEFC78 /* CategoriesFilterView */,
 				5A775DBD26077A7C00CEFC78 /* MapPinView.m */,
 				5A775DBE26077A7C00CEFC78 /* MapButton.m */,
+				5A775DC226077A7C00CEFC78 /* MapViewController.h */,
 				5A775DBF26077A7C00CEFC78 /* MapViewController.m */,
 				5A775DC026077A7C00CEFC78 /* MapButton.h */,
 				5A775DC126077A7C00CEFC78 /* MapPinView.h */,
-				5A775DC226077A7C00CEFC78 /* MapViewController.h */,
 			);
 			path = MapViewController;
 			sourceTree = "<group>";
@@ -936,12 +936,12 @@
 			children = (
 				5A775DE626077A7D00CEFC78 /* UISearchControllerNoCancel.h */,
 				5A775DE726077A7D00CEFC78 /* UISearchBarNoCancel.h */,
+				5A775DF426077A7D00CEFC78 /* SearchViewController.h */,
 				5A775DE826077A7D00CEFC78 /* SearchViewController.m */,
 				5A775DE926077A7D00CEFC78 /* UISearchBarNoCancel.m */,
 				5A775DEA26077A7D00CEFC78 /* UISearchControllerNoCancel.m */,
 				5A775DEB26077A7D00CEFC78 /* SearchCell */,
 				5A775DF126077A7D00CEFC78 /* WeRecommendCell */,
-				5A775DF426077A7D00CEFC78 /* SearchViewController.h */,
 			);
 			path = SearchViewController;
 			sourceTree = "<group>";
@@ -1077,9 +1077,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 53APD5F9YQ;
+						DevelopmentTeam = NWSTPFC433;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1358,10 +1358,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1375,9 +1375,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1391,10 +1391,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1403,9 +1403,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

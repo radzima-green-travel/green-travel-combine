@@ -10,12 +10,15 @@
 #import "FilterOption.h"
 #import "Category.h"
 #import "IndexModel.h"
+#import "MapModel.h"
 #import "CategoriesFilterObserver.h"
 #import "CategoryUtils.h"
 #import "PlaceItem.h"
+#import "MapItem.h"
 
 @interface CategoriesFilterModel()
 
+@property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSMutableSet<NSString *> *categoryUUIDs;
 
@@ -23,10 +26,12 @@
 
 @implementation CategoriesFilterModel
 
-- (instancetype)initWithIndexModel:(IndexModel *)indexModel
+- (instancetype)initWithMapModel:(MapModel *)mapModel
+                      indexModel:(IndexModel *)indexModel
 {
     self = [super init];
     if (self) {
+        _mapModel = mapModel;
         _indexModel = indexModel;
         [_indexModel addObserver:self];
         self.selectedCategoryUUIDs = [[NSMutableSet alloc] init];
@@ -60,7 +65,7 @@
     filterOptionAll.title = @"Все";
     
     [self.filterOptions addObject:filterOptionAll];
-    traverseCategories(self.indexModel.categories, ^(Category *category, PlaceItem *item) {
+    traverseCategories(self.mapModel.categories, ^(Category *category, PlaceItem *item) {
         if (category == nil || [self.categoryUUIDs containsObject:category.uuid]) {
             return;
         }
@@ -146,7 +151,8 @@
 }
 
 - (void)selectOptionForPlaceItem:(PlaceItem *)item {
-    NSString *categoryUUID = self.indexModel.flatItems[item.uuid].category.uuid;
+    NSString *categoryUUID = self.mapModel.flatMapItems[item.uuid]
+        .correspondingPlaceItem.category.uuid; 
     NSUInteger optionIndex = [self.filterOptions indexOfObjectPassingTest:^BOOL(FilterOption * _Nonnull filterOption, NSUInteger idx, BOOL * _Nonnull stop) {
         return [filterOption.categoryId isEqualToString:categoryUUID];
     }];
@@ -163,6 +169,5 @@
         [observer onFilterOptionsSelect:selectedIndex];
     }];
 }
-
 
 @end

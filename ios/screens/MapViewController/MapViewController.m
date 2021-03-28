@@ -96,7 +96,8 @@
 #pragma mark - Categories filter view
     __weak typeof(self) weakSelf = self;
     self.filterView =
-    [[CategoriesFilterView alloc] initWithIndexModel:self.indexModel
+  [[CategoriesFilterView alloc] initWithMapModel:self.mapModel
+                                      indexModel:self.indexModel
                                       onFilterUpdate:^(NSSet<NSString *>  * _Nonnull categoryUUIDs) {
         [weakSelf onFilterUpdate:categoryUUIDs];
     }];
@@ -223,6 +224,7 @@
                                        mapModel:self.mapModel
                                      apiService:self.apiService
                                 coreDataService:self.coreDataService
+                            itemsWithCoordsOnly:YES
                              onSearchItemSelect:^(PlaceItem * _Nonnull item) {
         [weakSelf.filterView activateFilterForPlaceItem:item];
         [weakSelf.navigationController dismissViewControllerAnimated:YES

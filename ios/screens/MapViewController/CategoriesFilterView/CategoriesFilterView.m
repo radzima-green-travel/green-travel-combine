@@ -28,8 +28,8 @@ static NSString* const kCategoriesFilterSpacerCellId = @"categoriesFilterSpacerC
 
 static const CGFloat kSpacingWidth = 16.0;
 
-@implementation CategoriesFilterView
-
+@implementation CategoriesFilterView 
+ 
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -38,7 +38,8 @@ static const CGFloat kSpacingWidth = 16.0;
 }
 */
 
-- (instancetype)initWithIndexModel:(IndexModel *)indexModel
+- (instancetype)initWithMapModel:(MapModel *)mapModel
+                      indexModel:(IndexModel *)indexModel
                onFilterUpdate:(void(^)(NSSet<NSString *>*))onFilterUpdate
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -50,7 +51,8 @@ static const CGFloat kSpacingWidth = 16.0;
         
         self.dataSource = self;
         self.delegate = self;
-        self.model = [[CategoriesFilterModel alloc] initWithIndexModel:indexModel];
+        self.model = [[CategoriesFilterModel alloc] initWithMapModel:mapModel
+                                                          indexModel:indexModel];
         self.onFilterUpdate = onFilterUpdate;
         [self.model addObserver:self];
         [self setBackgroundColor:UIColor.clearColor];
