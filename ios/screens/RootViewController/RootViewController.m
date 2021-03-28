@@ -55,7 +55,7 @@ static void InitializeFlipper(UIApplication *application) {
     if (self) {
         _application = application;
         _launchOptions = launchOptions;
-        _userDefaultsService = [[UserDefaultsService alloc] init];
+        _userDefaultsService = [UserDefaultsService get];
     }
     return self;
 }
@@ -105,8 +105,7 @@ static void InitializeFlipper(UIApplication *application) {
 }
 
 - (void)showNativeViewController {
-    MainViewController *mainViewController = [[MainViewController alloc] initWithUserDefaultsService:self.userDefaultsService];
-    
+    MainViewController *mainViewController = [[MainViewController alloc] init];
     [self addChildViewController:mainViewController];
     mainViewController.view.frame = self.view.bounds;
     [self.view addSubview:mainViewController.view];

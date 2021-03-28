@@ -776,10 +776,10 @@
 				5A775DAB26077A7C00CEFC78 /* CategoriesFilterSpacerCollectionViewCell */,
 				5A775DAE26077A7C00CEFC78 /* CategoriesFilterViewConstants.m */,
 				5A775DAF26077A7C00CEFC78 /* CategoriesFilterView.h */,
+				5A775DBB26077A7C00CEFC78 /* CategoriesFilterView.m */,
 				5A775DB026077A7C00CEFC78 /* FilterOption */,
 				5A775DB326077A7C00CEFC78 /* CategoriesFilterModel */,
 				5A775DB826077A7C00CEFC78 /* CategoriesFilterCollectionViewCell */,
-				5A775DBB26077A7C00CEFC78 /* CategoriesFilterView.m */,
 				5A775DBC26077A7C00CEFC78 /* CategoriesFilterViewConstants.h */,
 			);
 			path = CategoriesFilterView;
@@ -807,9 +807,9 @@
 			isa = PBXGroup;
 			children = (
 				5A775DB426077A7C00CEFC78 /* CategoriesFilterModel.h */,
+				5A775DB726077A7C00CEFC78 /* CategoriesFilterModel.m */,
 				5A775DB526077A7C00CEFC78 /* CategoriesFilterObservable.h */,
 				5A775DB626077A7C00CEFC78 /* CategoriesFilterObserver.h */,
-				5A775DB726077A7C00CEFC78 /* CategoriesFilterModel.m */,
 			);
 			path = CategoriesFilterModel;
 			sourceTree = "<group>";

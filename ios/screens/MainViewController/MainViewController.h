@@ -10,12 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class UserDefaultsService;
-
 @interface MainViewController : UITabBarController
 
 - (void)loadCategories;
-- (instancetype)initWithUserDefaultsService:(UserDefaultsService *)userDefaultsService;
 
 @end
 

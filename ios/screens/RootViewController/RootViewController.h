@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithApplication:(UIApplication *)application
                       launchOptions:(NSDictionary *)launchOptions;
-- (void) showRNViewController;
-- (void) showNativeViewController;
+- (void)showRNViewController;
+- (void)showNativeViewController;
 - (void)loadCategories;
 
 @end
