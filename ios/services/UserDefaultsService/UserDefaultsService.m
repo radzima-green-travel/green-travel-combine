@@ -19,6 +19,8 @@
 NSString * const kKeyETag = @"eTag";
 NSString * const kKeyFramework = @"framework";
 
+static UserDefaultsService *instance;
+
 - (instancetype)init
 {
     self = [super init];
@@ -41,5 +43,12 @@ NSString * const kKeyFramework = @"framework";
     return [frameworkValue isEqualToString:@"react"];
 }
 
++ (instancetype)get {
+    if (instance) {
+        return instance;
+    }
+    instance = [[UserDefaultsService alloc] init];
+    return instance;
+}
 
 @end

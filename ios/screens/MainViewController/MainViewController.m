@@ -27,23 +27,12 @@
 
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
-@property (strong, nonatomic) UserDefaultsService *userDefaultsService;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSURLSession *session;
-
 
 @end
 
 @implementation MainViewController
-
-- (instancetype)initWithUserDefaultsService:(UserDefaultsService *)userDefaultsService
-{
-  self = [super init];
-  if (self) {
-    _userDefaultsService = userDefaultsService;
-  }
-  return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,12 +44,13 @@
     self.view.backgroundColor = [Colors get].white;
 
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    UserDefaultsService *userDefaultsService = [UserDefaultsService get];
     self.session = [NSURLSession sessionWithConfiguration:configuration];
     self.apiService = [[ApiService alloc] initWithSession:self.session];
     self.coreDataService = [[CoreDataService alloc] init];
     self.indexModel = [[IndexModel alloc] initWithApiService:self.apiService
                                              coreDataService:self.coreDataService
-                                         userDefaultsService:self.userDefaultsService];
+                                         userDefaultsService:userDefaultsService];
     DetailsModel *detailsModel = [[DetailsModel alloc] initWithIndexModel:self.indexModel apiService:self.apiService coreDataService:self.coreDataService];
 
     LocationModel *locationModel = [[LocationModel alloc] init];

@@ -74,7 +74,14 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
 }
 
 - (void)fillMapItemsFromCategories:(NSArray<Category *> *)categories {
-    traverseCategories(categories, ^(Category *category, PlaceItem *item) {
+    NSMutableArray<Category *> *сategoriesWithDefinedCoords = [[NSMutableArray alloc] init];
+    [categories enumerateObjectsUsingBlock:^(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        Category *categoryWithDefinedCoords = [self mapCategoryWithCoordsFromCategory:obj];
+        if (categoryWithDefinedCoords != nil) {
+            [сategoriesWithDefinedCoords addObject:categoryWithDefinedCoords];
+        }
+    }];
+    traverseCategories(сategoriesWithDefinedCoords, ^(Category *category, PlaceItem *item) {
         if (category != nil) {
             [self.categoryFilter addObject:category.uuid];
         }
@@ -87,6 +94,45 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
             [self.uuids addObject:item.uuid];
         }
     });
+}
+
+- (Category *)mapCategoryWithCoordsFromCategory:(Category *)category {
+    Category *mappedCategory = [[Category alloc] init];
+    mappedCategory.cover = category.cover;
+    mappedCategory.icon = category.icon;
+    mappedCategory.title = category.title;
+    mappedCategory.onAllButtonPress = category.onAllButtonPress;
+    mappedCategory.onPlaceCellPress = category.onPlaceCellPress;
+    mappedCategory.uuid= category.uuid;
+    NSMutableArray<Category *> *resultedCategories = [[NSMutableArray alloc] init];
+    NSMutableArray<PlaceItem *> *resultedItems = [[NSMutableArray alloc] init];
+    [category.categories enumerateObjectsUsingBlock:^(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        Category *resultedCategory = [self mapCategoryWithCoordsFromCategory:obj];
+        if (resultedCategory != nil) {
+            [resultedCategories addObject:resultedCategory];
+        }
+    }];
+    [category.items enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        PlaceItem *resultedItem = [self mapMapItemWithCoordsFromItem:obj];
+        if (resultedItem != nil) {
+            [resultedItems addObject:resultedItem];
+        }
+    }];
+    if ([resultedItems count] == 0 && [resultedCategories count] == 0) {
+        return nil;
+    }
+    category.items = resultedItems;
+    category.categories = resultedCategories;
+    return category;
+}
+
+- (PlaceItem *)mapMapItemWithCoordsFromItem:(PlaceItem *)item {
+    if (item != nil && ![self.uuids containsObject:item.uuid] &&
+        (item.coords.latitude != kCLLocationCoordinate2DInvalid.latitude &&
+         item.coords.longitude != kCLLocationCoordinate2DInvalid.longitude)) {
+        return item;
+    }
+    return nil;
 }
 
 - (void)updateCloseItems {

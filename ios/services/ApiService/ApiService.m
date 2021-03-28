@@ -92,6 +92,9 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
 }
 
 - (CLLocationCoordinate2D)mapPointCoordsFromJSON:(NSDictionary *)item {
+    if (item[@"location"] == [NSNull null]) {
+      return kCLLocationCoordinate2DInvalid;
+    }
     return CLLocationCoordinate2DMake([item[@"location"][@"coordinates"][1] doubleValue], [item[@"location"][@"coordinates"][0] doubleValue]);
 }
 
