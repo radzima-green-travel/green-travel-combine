@@ -53,6 +53,7 @@
 @property (strong, nonatomic) NSTimer *bannerHideTimer;
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerShowAnimator;
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerHideAnimator;
+@property (strong, nonatomic) NSLayoutConstraint *descriptionTextTopAnchor;
 
 @property (assign, nonatomic) BOOL ready;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -204,24 +205,6 @@
     [NSLayoutConstraint activateConstraints:@[
         [self.locationButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:3.0],
         [self.locationButton.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0],
-        //[self.locationButton.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0],
-
-    ]];
-    
-    #pragma mark - Map button top
-    self.mapButtonTop = [[CommonButton alloc] initWithTarget:self action:@selector(onMapButtonPress:) label:@"Посмотреть на карте"];
-    
-    [self.contentView addSubview:self.mapButtonTop];
-
-    NSLayoutConstraint *mapButtonTopLeading = [self.mapButtonTop.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0];
-    NSLayoutConstraint *mapButtonTopTrailing = [self.mapButtonTop.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0];
-    mapButtonTopLeading.priority = UILayoutPriorityDefaultHigh - 1;
-    mapButtonTopTrailing.priority = UILayoutPriorityDefaultHigh - 1;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.mapButtonTop.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0],
-        [self.mapButtonTop.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        mapButtonTopLeading,
-        mapButtonTopTrailing,
     ]];
     
     #pragma mark - Description text
@@ -230,8 +213,9 @@
     self.descriptionTextView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.descriptionTextView];
 
+    self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0];
     [NSLayoutConstraint activateConstraints:@[
-        [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.mapButtonTop.bottomAnchor constant:26.0],
+        self.descriptionTextTopAnchor,
         [self.descriptionTextView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [self.descriptionTextView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
     ]];
@@ -314,27 +298,54 @@
     }
 }
 
+#pragma mark - Map button top
+- (void)addMapButton {
+    self.mapButtonTop = [[CommonButton alloc] initWithTarget:self action:@selector(onMapButtonPress:) label:@"Посмотреть на карте"];
+    
+    [self.contentView addSubview:self.mapButtonTop];
+
+    NSLayoutConstraint *mapButtonTopLeading = [self.mapButtonTop.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0];
+    NSLayoutConstraint *mapButtonTopTrailing = [self.mapButtonTop.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0];
+    mapButtonTopLeading.priority = UILayoutPriorityDefaultHigh - 1;
+    mapButtonTopTrailing.priority = UILayoutPriorityDefaultHigh - 1;
+  
+    [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
+    self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.mapButtonTop.bottomAnchor constant:26.0];
+    [NSLayoutConstraint activateConstraints:@[
+        self.descriptionTextTopAnchor,
+        [self.mapButtonTop.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0],
+        [self.mapButtonTop.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        mapButtonTopLeading,
+        mapButtonTopTrailing,
+    ]];
+}
+
 - (void)updateMainContent:(PlaceDetails *)details {
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
         NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML);
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (!self.ready) {
-                self.ready = YES;
-                [self.activityIndicatorContainerView setHidden:YES];
-                [self.activityIndicatorView stopAnimating];
+            if (!weakSelf.ready) {
+                weakSelf.ready = YES;
+                [weakSelf.activityIndicatorContainerView setHidden:YES];
+                [weakSelf.activityIndicatorView stopAnimating];
             }
-            self.titleLabel.attributedText = [[Typography get] makeTitle1Semibold:self.item.title];
+            weakSelf.titleLabel.attributedText = [[Typography get] makeTitle1Semibold:weakSelf.item.title];
             if (details.address) {
-                self.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:self.item.title];
+                weakSelf.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:weakSelf.item.title];
             }
-            [self.locationButton setAttributedTitle:
-             [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", self.item.coords.latitude, self.item.coords.longitude] color:[Colors get].royalBlue]
+            [weakSelf.locationButton setAttributedTitle:
+             [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[Colors get].royalBlue]
              forState:UIControlStateNormal];
-            [self.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
+            if (weakSelf.item.coords.latitude != kCLLocationCoordinate2DInvalid.latitude &&
+                weakSelf.item.coords.longitude != kCLLocationCoordinate2DInvalid.longitude) {
+                [weakSelf addMapButton];
+            }
+            [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
             if (details.categoryIdToItems) {
-                [self.linkedCategoriesView update:details.categoryIdToItems];
+                [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
             } else {
-                [self.linkedCategoriesView setHidden:YES];
+                [weakSelf.linkedCategoriesView setHidden:YES];
             }
         });
     });
@@ -417,7 +428,6 @@
     NSLog(@"Timer fired.");
     [self.bannerHideTimer invalidate];
     self.bannerHideTimer = nil;
-    //self.copiedBannerViewTopConstraint.constant = -44.0;
     [self.view layoutIfNeeded];
     
     __weak typeof(self) weakSelf = self;
@@ -440,22 +450,7 @@
     CGPoint pointToScrollTo = CGPointMake(self.imageGalleryView.indexOfScrolledItem * size.width, 0);
     [self.imageGalleryView.collectionView setContentOffset:pointToScrollTo animated:YES];
     [self.imageGalleryView toggleSkipAnimation]; 
-//    if (!CGSizeEqualToSize(self.screenSize, size)) {
-//        self.screenSize = size;
-//        self.resized = YES;
-//    }
-    
 }
 
-//- (void)viewDidLayoutSubviews {
-//    [super viewDidLayoutSubviews];
-//    if (self.resized) {
-//        [self.imageGalleryView setNeedsLayout];
-//        [self.imageGalleryView layoutIfNeeded];
-//        CGPoint pointToScrollTo = CGPointMake(self.imageGalleryView.indexOfScrolledItem * self.screenSize.width, 0);
-//        [self.imageGalleryView.collectionView setContentOffset:pointToScrollTo];
-//        self.resized = NO;
-//    }
-//}
 
 @end
