@@ -39,6 +39,7 @@
 @property (assign, nonatomic) BOOL intentionToFocusOnUserLocation;
 @property (strong, nonatomic) MapItem *mapItem;
 @property (strong, nonatomic) CategoriesFilterView *filterView;
+@property (strong, nonatomic) NSLayoutConstraint *locationButtonBottomAnchor;
 
 @end
 
@@ -93,23 +94,6 @@
     [self.mapModel addObserver:self];
     [self.locationModel addObserver:self];
     
-#pragma mark - Categories filter view
-    __weak typeof(self) weakSelf = self;
-    self.filterView =
-  [[CategoriesFilterView alloc] initWithMapModel:self.mapModel
-                                      indexModel:self.indexModel
-                                      onFilterUpdate:^(NSSet<NSString *>  * _Nonnull categoryUUIDs) {
-        [weakSelf onFilterUpdate:categoryUUIDs];
-    }];
-    [self.view addSubview:self.filterView];
-    self.filterView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [self.filterView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
-        [self.filterView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-        [self.filterView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [self.filterView.heightAnchor constraintEqualToConstant:73.5],
-    ]];
 #pragma mark - Location button
     self.locationButton = [[MapButton alloc] initWithImageName:@"location-arrow"
                                                       target:self
@@ -119,9 +103,10 @@
     [self.view addSubview:self.locationButton];
     
     self.locationButton.translatesAutoresizingMaskIntoConstraints = NO;
-    
+  
+    self.locationButtonBottomAnchor = [self.locationButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16.0];
     [NSLayoutConstraint activateConstraints:@[
-        [self.locationButton.bottomAnchor constraintEqualToAnchor:self.filterView.topAnchor],
+        self.locationButtonBottomAnchor,
         [self.locationButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
     ]];
 #pragma mark - Search button
@@ -138,6 +123,34 @@
         [self.searchButton.bottomAnchor constraintEqualToAnchor:self.locationButton.topAnchor constant:-8.0],
         [self.searchButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
     ]];
+  
+    [self addFilterView];
+}
+
+#pragma mark - Categories filter view
+- (void)addFilterView {
+  if (self.filterView != nil || [self.mapModel.categories count] == 0) {
+      return;
+  }
+  __weak typeof(self) weakSelf = self;
+  self.filterView =
+[[CategoriesFilterView alloc] initWithMapModel:self.mapModel
+                                    indexModel:self.indexModel
+                                    onFilterUpdate:^(NSSet<NSString *>  * _Nonnull categoryUUIDs) {
+      [weakSelf onFilterUpdate:categoryUUIDs];
+  }];
+  [self.view addSubview:self.filterView];
+  self.filterView.translatesAutoresizingMaskIntoConstraints = NO;
+  
+  [NSLayoutConstraint deactivateConstraints:@[self.locationButtonBottomAnchor]];
+  self.locationButtonBottomAnchor = [self.locationButton.bottomAnchor constraintEqualToAnchor:self.filterView.topAnchor];
+  [NSLayoutConstraint activateConstraints:@[
+      self.locationButtonBottomAnchor,
+      [self.filterView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+      [self.filterView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+      [self.filterView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+      [self.filterView.heightAnchor constraintEqualToConstant:73.5],
+  ]];
 }
 
 - (void)mapViewDidFinishLoadingMap:(MGLMapView *)mapView {
@@ -151,6 +164,7 @@
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf renderAnnotations:mapItems];
+        [weakSelf addFilterView];
     });
 }
 

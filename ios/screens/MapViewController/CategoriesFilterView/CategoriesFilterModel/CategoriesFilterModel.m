@@ -47,9 +47,14 @@
 }
 
 - (void)onCategoriesNewDataAvailable {
+  
 }
 
 - (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+    
+}
+
+- (void)onMapItemsUpdate:(nonnull NSArray<MapItem *> *)mapItems {
     [self fillFilterOptionsFromCategories];
     [self notifyObservers];
 }
@@ -58,18 +63,14 @@
     [self.filterOptions removeAllObjects];
     [self.categoryUUIDs removeAllObjects];
     
-    FilterOption *filterOptionAll = [[FilterOption alloc] init];
-    filterOptionAll.categoryId = nil;
-    filterOptionAll.on = YES;
-    filterOptionAll.selectAll = YES;
-    filterOptionAll.title = @"Все";
-    
-    [self.filterOptions addObject:filterOptionAll];
     traverseCategories(self.mapModel.categories, ^(Category *category, PlaceItem *item) {
         if (category == nil || [self.categoryUUIDs containsObject:category.uuid]) {
             return;
         }
         [self.categoryUUIDs addObject:category.uuid];
+        if ([category.categories count] > 0 && [category.items count] == 0) {
+          return;
+        }
         FilterOption *filterOption = [[FilterOption alloc] init];
         filterOption.categoryId = category.uuid;
         filterOption.title = category.title;
@@ -78,6 +79,16 @@
         filterOption.iconName = category.icon;
         [self.filterOptions addObject:filterOption];
     });
+  
+    if ([self.filterOptions count] == 0) {
+        return;
+    };
+    FilterOption *filterOptionAll = [[FilterOption alloc] init];
+    filterOptionAll.categoryId = nil;
+    filterOptionAll.on = YES;
+    filterOptionAll.selectAll = YES;
+    filterOptionAll.title = @"Все";
+    [self.filterOptions insertObject:filterOptionAll atIndex:0];
 }
 
 - (void)addObserver:(nonnull id<CategoriesFilterObserver>)observer {
@@ -162,7 +173,6 @@
     }
     
 }
-    
     
 - (void)notifyObserversFilterSelect:(NSUInteger)selectedIndex {
     [self.categoriesFilterObservers enumerateObjectsUsingBlock:^(id<CategoriesFilterObserver> _Nonnull observer, NSUInteger idx, BOOL * _Nonnull stop) {

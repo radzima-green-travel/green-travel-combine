@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CategoriesObserver.h"
+#import "MapItemsObserver.h"
 #import "CategoriesFilterObservable.h"
 
 @class FilterOption;
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CategoriesFilterObserver;
 
-@interface CategoriesFilterModel : NSObject<CategoriesObserver, CategoriesFilterObservable>
+@interface CategoriesFilterModel : NSObject<CategoriesObserver, MapItemsObserver, CategoriesFilterObservable>
 
 @property (strong, nonatomic, nonnull) NSMutableArray<CategoriesFilterObserver> *categoriesFilterObservers;
 @property (strong, nonatomic, nonnull) NSMutableArray<CategoriesFilterObserver> *categoriesFilterSelectObservers;
