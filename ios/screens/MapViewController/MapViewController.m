@@ -68,19 +68,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     self.title = self.mapItem ? self.mapItem.title : @"Карта";
     self.view.backgroundColor = [Colors get].white;
-    
+
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     configureNavigationBar(navigationBar);
-    
+
     NSURL *url = [NSURL URLWithString:@"mapbox://styles/mapbox/streets-v11"];
     self.mapView = [[MGLMapView alloc] initWithFrame:CGRectZero styleURL:url];
     [self.view addSubview:self.mapView];
-    
+
     self.mapView.delegate = self;
-    
+
     self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
@@ -88,12 +88,12 @@
         [self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
         [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
-    
+
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(53.893, 27.567)
                        zoomLevel:9.0 animated:NO];
     [self.mapModel addObserver:self];
     [self.locationModel addObserver:self];
-    
+
 #pragma mark - Location button
     self.locationButton = [[MapButton alloc] initWithImageName:@"location-arrow"
                                                       target:self
@@ -101,9 +101,9 @@
                                   imageCenterXAnchorConstant:-2.0
                                   imageCenterYAnchorConstant:2.0];
     [self.view addSubview:self.locationButton];
-    
+
     self.locationButton.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
     self.locationButtonBottomAnchor = [self.locationButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16.0];
     [NSLayoutConstraint activateConstraints:@[
         self.locationButtonBottomAnchor,
@@ -116,14 +116,14 @@
                                   imageCenterXAnchorConstant:0.0
                                   imageCenterYAnchorConstant:0.0];
     [self.view addSubview:self.searchButton];
-    
+
     self.searchButton.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.searchButton.bottomAnchor constraintEqualToAnchor:self.locationButton.topAnchor constant:-8.0],
         [self.searchButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
     ]];
-  
+
     [self addFilterView];
 }
 
@@ -141,7 +141,7 @@
   }];
   [self.view addSubview:self.filterView];
   self.filterView.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
   [NSLayoutConstraint deactivateConstraints:@[self.locationButtonBottomAnchor]];
   self.locationButtonBottomAnchor = [self.locationButton.bottomAnchor constraintEqualToAnchor:self.filterView.topAnchor];
   [NSLayoutConstraint activateConstraints:@[
@@ -186,12 +186,12 @@
         return nil;
     }
     NSString *reuseIdentifier = [NSString stringWithFormat:@"%f", annotation.coordinate.longitude];
-    
+
     MapPinView *mappin = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseIdentifier];
-    
+
     if (!mappin) {
         mappin = [[MapPinView alloc] initWithReuseIdentifier:reuseIdentifier];
-        mappin.bounds = CGRectMake(0, 0, 28, 35);        
+        mappin.bounds = CGRectMake(0, 0, 28, 35);
     }
     return mappin;
 }
@@ -223,7 +223,7 @@
     self.intentionToFocusOnUserLocation = YES;
     [self.locationModel authorize];
     [self.locationModel startMonitoring];
-    
+
     if (self.locationModel.locationEnabled && self.locationModel.lastLocation) {
         [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
     }
@@ -249,7 +249,7 @@
     }];
     searchViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
     UINavigationController *searchViewControllerWithNavigation =
-    [[UINavigationController alloc ] initWithRootViewController:searchViewController]; 
+    [[UINavigationController alloc ] initWithRootViewController:searchViewController];
     [self presentViewController:searchViewControllerWithNavigation animated:YES
                      completion:^{}];
 }
