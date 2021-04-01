@@ -66,6 +66,10 @@ static const CGFloat kSpacingWidth = 16.0;
     [self.model selectOptionForPlaceItem:item];
 }
 
+- (BOOL)empty {
+    return [self.model.filterOptions count] == 0;
+}
+
 #pragma mark - Collection view
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -128,7 +132,10 @@ static const CGFloat kSpacingWidth = 16.0;
 }
 
 - (void)onFilterOptionsUpdate:(nonnull NSArray<FilterOption *> *)filterOptions {
-    [self reloadData];
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [weakSelf reloadData];
+    });
     self.onFilterUpdate(self.model.selectedCategoryUUIDs);
 }
 

@@ -22,6 +22,7 @@
 @property (strong, nonatomic) LocationModel *locationModel;
 @property (strong, nonatomic) NSMutableSet *uuids;
 @property (strong, nonatomic) NSMutableSet<NSString *> *categoryFilter;
+@property (strong, nonatomic) NSSet<NSString *> *lastFilter;
 
 @end
 
@@ -52,9 +53,11 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
 
 #pragma mark - Observers
 - (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+    [self.uuids removeAllObjects];
+    [self.mapItemsOriginal removeAllObjects];
     [self fillMapItemsFromCategories:categories];
     [self updateCloseItems];
-    [self notifyObservers];
+    [self applyCategoryFiltersLast];
 }
 
 - (void)onCategoriesLoading:(BOOL)loading {}
@@ -173,14 +176,25 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
     [self.mapItemsObservers removeObject:observer];
 }
 
-- (void)applyCategoryFilters:(NSSet<NSString *> *)categoryUUIDs {
+- (void)applyCategoryFiltersLast {
     [self.mapItemsFiltered removeAllObjects];
+    if (self.lastFilter == nil) {
+        [self.mapItemsFiltered addObjectsFromArray:self.mapItemsOriginal];
+        [self notifyObservers];
+        return;
+    }
     [self.mapItemsOriginal enumerateObjectsUsingBlock:^(MapItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([categoryUUIDs containsObject:obj.correspondingPlaceItem.category.uuid]) {
+        if ([self.lastFilter containsObject:obj.correspondingPlaceItem.category.uuid]) {
             [self.mapItemsFiltered addObject:obj];
         }
     }];
     [self notifyObservers];
+}
+
+
+- (void)applyCategoryFilters:(NSSet<NSString *> *)categoryUUIDs {
+    self.lastFilter = [categoryUUIDs copy];
+    [self applyCategoryFiltersLast];
 }
 
 @end

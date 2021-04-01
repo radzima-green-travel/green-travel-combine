@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CategoriesFilterView : UICollectionView<UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CategoriesFilterObserver> 
 
-
+@property(assign, readonly) BOOL empty;
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                       indexModel:(IndexModel *)indexModel
                   onFilterUpdate:(void(^)(NSSet<NSString *>*))onFilterUpdate;
