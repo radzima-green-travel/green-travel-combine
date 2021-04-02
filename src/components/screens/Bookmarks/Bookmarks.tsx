@@ -7,7 +7,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {getHomeDataRequest} from 'core/reducers';
 import {IProps} from './types';
-import {ICategoryWithExtendedObjects} from 'core/types';
+import {IBookmarkItem} from 'core/types';
 import {isEmpty} from 'lodash';
 import {BookmarksEmptyView} from 'molecules';
 
@@ -23,13 +23,11 @@ export const Bookmarks = ({navigation}: IProps) => {
   const {error} = useRequestError(getHomeDataRequest);
 
   const navigateToBookmarksList = useCallback(
-    ({_id, name, objects}: ICategoryWithExtendedObjects) => {
-      if (!isEmpty(objects)) {
-        navigation.navigate('BookmarksList', {
-          categoryId: _id,
-          title: name,
-        });
-      }
+    ({categoryName, categoryId}: IBookmarkItem) => {
+      navigation.navigate('BookmarksList', {
+        title: categoryName,
+        categoryId: categoryId,
+      });
     },
     [navigation],
   );
@@ -50,7 +48,7 @@ export const Bookmarks = ({navigation}: IProps) => {
                 item={category}
                 isOdd={index % 2 === 0}
                 isLast={items.length - 1 === index}
-                count={category.objects.length}
+                count={category.objectsIds.length}
                 onPress={navigateToBookmarksList}
               />
             ))}

@@ -7,17 +7,14 @@ import {styles} from './styles';
 import {getHomeDataRequest} from 'core/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectHomeData} from 'core/selectors';
-import {
-  useRequestError,
-  useRequestLoading,
-  useToggleFavorite,
-} from 'core/hooks';
+import {useRequestError, useRequestLoading} from 'core/hooks';
 import {IProps} from './types';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
   const dispatch = useDispatch();
 
   const homeData = useSelector(selectHomeData);
+
   const getData = useCallback(() => {
     dispatch(getHomeDataRequest());
   }, [dispatch]);
@@ -43,8 +40,8 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   );
 
   const navigateToObjectDetails = useCallback(
-    ({categoryId, objectId}: {categoryId: string; objectId: string}) => {
-      navigate('ObjectDetails', {categoryId, objectId});
+    ({objectId}: {objectId: string}) => {
+      navigate('ObjectDetails', {objectId});
     },
     [navigate],
   );
@@ -59,7 +56,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
         data={homeData}
-        keyExtractor={(item) => item._id}
+        keyExtractor={item => item._id}
         renderItem={({item}) => (
           <HomeSectionBar
             onObjectPress={navigateToObjectDetails}

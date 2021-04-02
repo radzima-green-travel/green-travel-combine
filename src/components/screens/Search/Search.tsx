@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import {screenOptions} from './screenOptions';
 
-import {IExtendedObjectWithCategoryData} from 'core/types';
+import {ISearchItem} from 'core/types';
 import {IProps} from './types';
 import {SearchList} from 'organisms';
 import {useSearchList} from 'core/hooks';
@@ -10,12 +10,10 @@ export const Search = ({navigation}: IProps) => {
   const {data, isHistoryVisible, addToHistory, clearInput} = useSearchList();
 
   const navigateToObjectDetails = useCallback(
-    (object: IExtendedObjectWithCategoryData) => {
-      const {_id, category} = object;
-      addToHistory(object);
+    (searchItem: ISearchItem) => {
+      addToHistory(searchItem);
       navigation.navigate('ObjectDetails', {
-        categoryId: category,
-        objectId: _id,
+        objectId: searchItem.objectId,
       });
     },
     [addToHistory, navigation],

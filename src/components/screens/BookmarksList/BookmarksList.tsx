@@ -1,15 +1,14 @@
-import React, {useCallback, useLayoutEffect, useMemo} from 'react';
+import React, {useCallback, useLayoutEffect} from 'react';
 import {FlatList} from 'react-native';
 import {ObjectCard} from 'molecules';
 import {styles} from './styles';
 import {IProps} from './types';
-import {selectBookmarksCategories} from 'core/selectors';
 
-import {useSelector} from 'react-redux';
-import {findObjectsByCategoryId} from 'core/helpers';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
-import {IExtendedObject} from 'core/types';
+import {useBookmarksObjects} from 'core/hooks';
+import {IObject} from 'core/types';
+
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
 export const BookmarksList = ({
@@ -17,18 +16,10 @@ export const BookmarksList = ({
   navigation: {setOptions, goBack, navigate},
 }: IProps) => {
   const {
-    params: {categoryId, title},
+    params: {title, categoryId},
   } = route;
 
-  const bookmarksCategories = useSelector(selectBookmarksCategories);
-
-  const listData = useMemo(
-    () =>
-      bookmarksCategories
-        ? findObjectsByCategoryId(bookmarksCategories, categoryId)
-        : null,
-    [categoryId, bookmarksCategories],
-  );
+  const listData = useBookmarksObjects(categoryId);
 
   useLayoutEffect(() => {
     setOptions({
@@ -43,7 +34,7 @@ export const BookmarksList = ({
   }, [goBack, listData]);
 
   const navigateToObjectDetails = useCallback(
-    ({_id, category}: IExtendedObject) => {
+    ({_id, category}: IObject) => {
       navigate('ObjectDetails', {categoryId: category, objectId: _id});
     },
     [navigate],
@@ -53,7 +44,7 @@ export const BookmarksList = ({
     <FlatList
       data={listData}
       contentContainerStyle={styles.contentContainer}
-      keyExtractor={(item) => item._id}
+      keyExtractor={item => item._id}
       renderItem={({item}) => (
         <ObjectCard
           removeFavoriteWithAnimation={true}

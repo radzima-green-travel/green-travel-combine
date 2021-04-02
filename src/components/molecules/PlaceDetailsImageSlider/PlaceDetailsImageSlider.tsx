@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {ImageSlider, IconButton, Icon} from 'atoms';
+import {ImageSlider, Icon} from 'atoms';
 import {styles} from './styles';
 import {FavoriteButtonContainer} from '../../containers';
 import {COLORS} from 'assets';
@@ -13,22 +13,21 @@ interface Props {
 
 export const PlaceDetailsImageSlider = ({
   images,
-  onMarkerPress,
+  // onMarkerPress,
   objectId,
 }: Props) => {
   return (
     <View>
       <ImageSlider images={images} />
-      <IconButton
+      {/* <IconButton
         style={styles.leftButton}
         icon={{name: 'marker', width: 18, height: 22, color: '#393939'}}
         onPress={onMarkerPress}
-      />
-
+      /> */}
       <FavoriteButtonContainer
         objectId={objectId}
         style={[styles.iconContainer, styles.rightButton]}>
-        {(isFavorite) => (
+        {isFavorite => (
           <Icon
             width={14}
             height={18}

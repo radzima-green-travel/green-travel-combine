@@ -39,7 +39,7 @@ export const HeaderSearchbar = memo(
     }, [onChange]);
 
     const onChangeText = useCallback(
-      (text) => {
+      text => {
         setValue(text);
         onChange(text);
       },

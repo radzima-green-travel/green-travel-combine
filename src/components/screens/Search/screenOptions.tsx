@@ -31,5 +31,5 @@ export const screenOptions: StackNavigationOptions = {
     paddingLeft: 48,
     paddingRight: 16,
   },
-  headerLeftContainerStyle: {paddingLeft: isIOS ? 16 : 6, marginBottom: 14},
+  headerLeftContainerStyle: {paddingLeft: isIOS ? 16 : 6, marginBottom: 5},
 };

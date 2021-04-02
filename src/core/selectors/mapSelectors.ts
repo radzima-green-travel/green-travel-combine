@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {isEmpty, map, compact, find, reduce, some} from 'lodash';
+import {isEmpty, map, compact, reduce, some} from 'lodash';
 import {
   FeatureCollection,
   featureCollection,
@@ -10,75 +10,87 @@ import {MAP_PINS} from '../constants';
 import {
   ICoordinates,
   IObject,
-  IExtendedObjectWithCategoryData,
-  ICategoryWithExtendedObjects,
+  IObjectWithIcon,
   IMapFilter,
   IBounds,
+  ITransformedData,
 } from '../types';
 import bbox from '@turf/bbox';
 import {IState} from 'core/store';
-import {selectFlattenObjects, selectFlattenCategories} from './common';
+import {selectTransformedData} from './homeSelectors';
 
 export const selectMapFilters = createSelector<
   IState,
-  ICategoryWithExtendedObjects[],
+  ITransformedData | null,
   IMapFilter[]
->(selectFlattenCategories, (flatCategories) => {
-  return reduce(
-    flatCategories,
-    (acc, category) => {
-      if (!isEmpty(category.objects)) {
-        const {name, _id, icon} = category;
-        return [
-          ...acc,
-          {
-            title: name,
-            icon,
-            categoryId: _id,
-          },
-        ];
-      }
+>(selectTransformedData, transformedData => {
+  return transformedData
+    ? reduce(
+        Object.values(transformedData.categoriesMap),
+        (acc, category) => {
+          if (
+            !isEmpty(category.objects) &&
+            some(category.objects, id =>
+              Boolean(transformedData.objectsMap[id]?.location),
+            )
+          ) {
+            const {name, _id, icon} = category;
+            return [
+              ...acc,
+              {
+                title: name,
+                icon,
+                categoryId: _id,
+              },
+            ];
+          }
 
-      return acc;
-    },
-    [] as IMapFilter[],
-  );
+          return acc;
+        },
+        [] as IMapFilter[],
+      )
+    : [];
 });
 
 export const selectMapMarkers = createSelector<
   IState,
   IMapFilter[],
-  IExtendedObjectWithCategoryData[],
+  ITransformedData | null,
   IMapFilter[],
   FeatureCollection<Geometry, {icon_image: string; data: IObject}>
 >(
-  selectFlattenObjects,
+  selectTransformedData,
   (_, filters) => filters,
-  (objects, filters) => {
-    const points = compact(
-      map(objects, (data) => {
-        const isMatchToFilters =
-          isEmpty(filters) ||
-          some(filters, ({categoryId}) => categoryId === data.category);
-        if (
-          data.location &&
-          data.location.coordinates &&
-          data.icon &&
-          isMatchToFilters
-        ) {
-          const {location} = data;
-          return point(
-            location.coordinates,
-            {
-              icon_image: data.icon,
-              data,
-            },
-            {id: location._id},
-          );
-        }
-        return null;
-      }),
-    );
+  (transformedData, filters) => {
+    const points = transformedData
+      ? compact(
+          map(Object.values(transformedData.objectsMap), data => {
+            const isMatchToFilters =
+              isEmpty(filters) ||
+              some(filters, ({categoryId}) => categoryId === data.category);
+
+            const category = transformedData.categoriesMap[data.category];
+            if (
+              data.location &&
+              data.location.coordinates &&
+              category &&
+              category.icon &&
+              isMatchToFilters
+            ) {
+              const {location} = data;
+              return point(
+                location.coordinates,
+                {
+                  icon_image: category.icon,
+                  data,
+                },
+                {id: location._id},
+              );
+            }
+            return null;
+          }),
+        )
+      : [];
 
     return featureCollection(points);
   },
@@ -87,21 +99,27 @@ export const selectMapMarkers = createSelector<
 export const selectSelectedMapMarker = createSelector<
   IState,
   string | null,
-  IExtendedObjectWithCategoryData[],
+  ITransformedData | null,
   string | null,
-  IExtendedObjectWithCategoryData | null
+  IObjectWithIcon | null
 >(
-  selectFlattenObjects,
+  selectTransformedData,
   (_, selectedObjectId) => selectedObjectId,
-  (objects, selectedObjectId) => {
-    const selectedObject = find(objects, ({_id}) => _id === selectedObjectId);
+  (transformedData, selectedObjectId) => {
+    if (!selectedObjectId || !transformedData) {
+      return null;
+    }
+    const selectedObject = transformedData.objectsMap[selectedObjectId];
+    const category = transformedData.categoriesMap[selectedObject?.category];
 
-    return selectedObject || null;
+    return selectedObject && category
+      ? {...selectedObject, icon: category.icon}
+      : null;
   },
 );
 
 export const createMarkerFromObject = (
-  data: IExtendedObjectWithCategoryData | null,
+  data: IObjectWithIcon | null,
 ): FeatureCollection<Geometry, {icon_image: string; data: IObject}> => {
   return featureCollection(
     compact([
@@ -128,7 +146,7 @@ export const selectBounds = createSelector<
 >(
   selectMapMarkers,
   (_, filters) => filters,
-  (markers) => {
+  markers => {
     if (isEmpty(markers.features)) {
       return null;
     }

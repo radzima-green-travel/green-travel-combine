@@ -11,25 +11,17 @@ import {
 import {ObjectIncludes} from 'organisms';
 import {useToast, Button, ObjectDetailsSiteLink} from 'atoms';
 import {IProps} from './types';
-import {selectAllCategoriesWithObjects} from 'core/selectors';
-import {useTranslation} from 'core/hooks';
-import {findObject} from 'core/helpers';
-import {useSelector} from 'react-redux';
+import {useTranslation, useObject} from 'core/hooks';
 import {debounce, isEmpty} from 'lodash';
 import {styles} from './styles';
 
 export const ObjectDetails = memo(({route, navigation}: IProps) => {
   const {
-    params: {categoryId, objectId},
+    params: {objectId},
   } = route;
 
   const {t} = useTranslation('objectDetails');
-
-  const categories = useSelector(selectAllCategoriesWithObjects);
-
-  const data = useMemo(() => {
-    return categories ? findObject(categories, categoryId, objectId) : null;
-  }, [categoryId, objectId, categories]);
+  const data = useObject(objectId);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -87,10 +79,14 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
           <DetailsPageCapture
             title={data.name}
             subtitle={data.address}
-            coordinates={data.location.coordinates}
+            coordinates={data.location?.coordinates}
             onCoordinatesPress={copyLocationToClipboard}
           />
-          <Button onPress={navigateToObjectsMap}>{t('seeOnTheMap')}</Button>
+          {data.location ? (
+            <Button style={styles.button} onPress={navigateToObjectsMap}>
+              {t('seeOnTheMap')}
+            </Button>
+          ) : null}
         </View>
         <ObjectDescription description={data.description} />
         {data.url ? <ObjectDetailsSiteLink url={data.url} /> : null}

@@ -13,7 +13,7 @@ export type HomeNavigatorParamsList = {
     objectsIds?: string[];
   };
   CategoriesList: {categoryId: string; title: string};
-  ObjectDetails: {categoryId: string; objectId: string};
+  ObjectDetails: {objectId: string};
 };
 
 export type BookmarksNavigatorParamsList = {

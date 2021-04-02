@@ -8,4 +8,7 @@ export const styles = StyleSheet.create({
   listContentContainer: {
     paddingBottom: 16,
   },
+  button: {
+    marginTop: 24,
+  },
 });

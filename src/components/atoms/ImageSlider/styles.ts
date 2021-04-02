@@ -2,20 +2,24 @@ import {COLORS} from 'assets';
 import {StyleSheet} from 'react-native';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 
+const ratio = 310 / 375;
+export const IMAGE_WIDTH = SCREEN_WIDTH;
+export const IMAGE_HEIGHT = IMAGE_WIDTH * ratio;
+
 const styles = StyleSheet.create({
   container: {
-    height: 375,
+    height: IMAGE_HEIGHT,
   },
 
   emptyContatiner: {
-    height: 375,
+    height: IMAGE_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.alabaster,
     marginBottom: 24,
   },
   image: {
-    width: SCREEN_WIDTH,
+    width: IMAGE_WIDTH,
   },
   pagerContainer: {
     justifyContent: 'center',

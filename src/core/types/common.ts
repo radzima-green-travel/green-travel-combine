@@ -50,7 +50,9 @@ export interface IObject {
   origin?: string;
 }
 
-export interface IExtendedObject extends IObject {}
+export interface IObjectWithIcon extends IObject {
+  icon: string;
+}
 
 export interface ICategory {
   _id: string;
@@ -64,9 +66,27 @@ export interface ICategory {
   children: ICategory[];
 }
 
-export interface ICategoryWithExtendedObjects extends ICategory {
-  objects: IExtendedObject[];
-  children: ICategoryWithExtendedObjects[];
+export interface ITransformedCategory
+  extends Omit<ICategory, 'objects' | 'children'> {
+  objects: string[];
+  children: string[];
+}
+
+export interface ICategoriesMap {
+  [key: string]: ITransformedCategory;
+}
+
+export interface IObejctsMap {
+  [key: string]: IObject;
+}
+export interface IObejctsToCategoryMap {
+  [key: string]: string;
+}
+export interface ITransformedData {
+  categories: ITransformedCategory[];
+  objectsMap: IObejctsMap;
+  categoriesMap: ICategoriesMap;
+  objectsToCategoryMap: IObejctsToCategoryMap;
 }
 
 export interface IBookmarkCategory {
@@ -75,3 +95,9 @@ export interface IBookmarkCategory {
 }
 
 export type IBookmarksIds = string[];
+export type IBookmarkItem = {
+  categoryId: string;
+  objectsIds: string[];
+  categoryName: string;
+};
+export type IBookmarksData = IBookmarkItem[];

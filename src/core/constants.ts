@@ -60,3 +60,5 @@ export const DARK_ICONS_MATCHER = {
   [MAP_PINS.EXCURSION_PIN]: 'strokeFlagDark' as IconsNames,
   [MAP_PINS.OBJECT]: 'strokeForestDark' as IconsNames,
 };
+
+export const DEVELOP_APP_VERSION = 3;

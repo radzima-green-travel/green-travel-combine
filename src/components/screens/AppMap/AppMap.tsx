@@ -12,7 +12,7 @@ import {View} from 'react-native';
 
 import {Portal} from 'atoms';
 import {styles, selectedPointStyle} from './styles';
-import {IExtendedObjectWithCategoryData, IMapFilter} from 'core/types';
+import {IObjectWithIcon, IMapFilter, ISearchItem} from 'core/types';
 import MapBox from '@react-native-mapbox-gl/maps';
 import {
   AppMapBottomMenu,
@@ -26,6 +26,7 @@ import {
   useDarkStatusBar,
   useSearchList,
   useFocusToUserLocation,
+  useTransformedData,
 } from 'core/hooks';
 import {IState} from 'core/store';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -46,15 +47,9 @@ export const AppMap = ({navigation}: IProps) => {
   const selected = useSelector((state: IState) =>
     selectSelectedMapMarker(state, selectedMarkerId),
   );
-
+  const {getObject} = useTransformedData();
   const {bottom} = useSafeAreaInsets();
-  const {
-    data,
-    isHistoryVisible,
-    onTextChange,
-    addToHistory,
-    clearInput,
-  } = useSearchList();
+  const {data, isHistoryVisible, onTextChange, addToHistory} = useSearchList();
   const markers = useSelector((state: IState) =>
     selectMapMarkers(state, selectedFilters),
   );
@@ -78,16 +73,13 @@ export const AppMap = ({navigation}: IProps) => {
     bottomMenu.current?.hide();
   }, []);
 
-  const onShapePress = useCallback(
-    (itemData: IExtendedObjectWithCategoryData) => {
-      camera.current?.moveTo(itemData.location.coordinates, 500);
-      setSelectedMarkerId(itemData._id);
-    },
-    [],
-  );
+  const onShapePress = useCallback((itemData: IObjectWithIcon) => {
+    camera.current?.moveTo(itemData.location.coordinates, 500);
+    setSelectedMarkerId(itemData._id);
+  }, []);
 
   const navigateToObjectDetails = useCallback(
-    ({_id, category}: IExtendedObjectWithCategoryData) => {
+    ({_id, category}: IObjectWithIcon) => {
       bottomMenu.current?.hide();
       setSelectedMarker(createMarkerFromObject(null));
       navigation.push('ObjectDetails', {categoryId: category, objectId: _id});
@@ -96,17 +88,20 @@ export const AppMap = ({navigation}: IProps) => {
   );
 
   const onSearchItemPress = useCallback(
-    (itemData: IExtendedObjectWithCategoryData) => {
-      camera.current?.setCamera({
-        centerCoordinate: itemData.location.coordinates,
-        zoomLevel: 7,
-        animationDuration: 1000,
-      });
+    (itemData: ISearchItem) => {
+      const coordinates = getObject(itemData.objectId)?.location?.coordinates;
+      if (coordinates) {
+        camera.current?.setCamera({
+          centerCoordinate: coordinates,
+          zoomLevel: 7,
+          animationDuration: 1000,
+        });
+      }
+
       addToHistory(itemData);
-      setSelectedMarkerId(itemData._id);
-      clearInput();
+      setSelectedMarkerId(itemData.objectId);
     },
-    [addToHistory, clearInput],
+    [addToHistory, getObject],
   );
 
   const onMenuHideEnd = useCallback(() => {

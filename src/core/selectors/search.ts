@@ -1,26 +1,54 @@
-import {selectFlattenObjects} from './common';
 import {createSelector} from 'reselect';
-import {IExtendedObjectWithCategoryData} from '../types';
+import {ISearchItem, ITransformedData} from '../types';
 import {IState} from 'core/store';
-import {filter, orderBy} from 'lodash';
+import {orderBy, reduce} from 'lodash';
 
 export const selectSearchInputValue = (state: IState) =>
   state.search.inputValue;
 
 export const selectSearchHistory = (state: IState) =>
-  orderBy(state.search.history, [({name}) => name.toLowerCase()], 'asc');
+  orderBy(
+    state.search.history,
+    [({objectName}) => objectName.toLowerCase()],
+    'asc',
+  );
 
 export const selectSearchResults = createSelector<
   IState,
-  IExtendedObjectWithCategoryData[],
+  ITransformedData | null,
   string,
-  IExtendedObjectWithCategoryData[]
->(selectFlattenObjects, selectSearchInputValue, (objects, inputValue) => {
-  return orderBy(
-    filter(objects, (object) =>
-      object.name.toLowerCase().includes(inputValue.toLowerCase()),
-    ),
-    [({name}) => name.toLowerCase()],
-    'asc',
-  );
-});
+  ISearchItem[]
+>(
+  state => state.home.transformedData,
+  selectSearchInputValue,
+  (transformedData, inputValue) => {
+    return transformedData
+      ? orderBy(
+          reduce(
+            Object.values(transformedData.objectsMap),
+            (acc, object) => {
+              const category = transformedData.categoriesMap[object.category];
+              if (
+                object.name.toLowerCase().includes(inputValue.toLowerCase()) &&
+                category
+              ) {
+                return [
+                  ...acc,
+                  {
+                    objectId: object._id,
+                    objectName: object.name,
+                    categoryName: category.name,
+                    icon: category.icon,
+                  },
+                ];
+              }
+              return acc;
+            },
+            [] as ISearchItem[],
+          ),
+          [({objectName}) => objectName.toLowerCase()],
+          'asc',
+        )
+      : [];
+  },
+);

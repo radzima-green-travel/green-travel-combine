@@ -7,7 +7,7 @@ export const themeStyles = {
     height: 36,
     backgroundColor: COLORS.white,
     borderRadius: 4,
-    marginBottom: 15,
+    marginBottom: 5,
     paddingLeft: 16,
 
     shadowColor: 'rgb(0, 0, 0)',

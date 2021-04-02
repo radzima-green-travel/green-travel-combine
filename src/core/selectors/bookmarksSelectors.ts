@@ -1,33 +1,43 @@
 import {createSelector} from 'reselect';
-import {filter, isEmpty} from 'lodash';
+import {reduce} from 'lodash';
 import {IState} from 'core/store';
-import {ICategoryWithExtendedObjects, IBookmarksIds} from 'core/types';
-import {selectAllCategoriesWithObjects, selectBookmarksIds} from './common';
-import {filterDeepObjects, flattenCategories} from 'core/helpers';
-
-export const selectBookmarksCategories = createSelector<
-  IState,
-  ICategoryWithExtendedObjects[] | null,
-  IBookmarksIds,
-  ICategoryWithExtendedObjects[] | null
->(
-  selectAllCategoriesWithObjects,
-  selectBookmarksIds,
-  (categories, bookmarksIds) => {
-    if (!categories) {
-      return null;
-    }
-
-    return filterDeepObjects(categories, ({_id}) => bookmarksIds.includes(_id));
-  },
-);
+import {ITransformedData, IBookmarksIds, IBookmarkItem} from 'core/types';
+import {selectBookmarksIds} from './common';
 
 export const selectBookmarksCardsData = createSelector<
   IState,
-  ICategoryWithExtendedObjects[] | null,
-  ICategoryWithExtendedObjects[] | null
->(selectBookmarksCategories, (categories) => {
-  return categories
-    ? filter(flattenCategories(categories), ({objects}) => !isEmpty(objects))
-    : null;
-});
+  ITransformedData | null,
+  IBookmarksIds,
+  IBookmarkItem[] | null
+>(
+  state => state.home.transformedData,
+  selectBookmarksIds,
+  (transformedData, bookmarksIds) => {
+    if (!transformedData) {
+      return null;
+    }
+
+    const bookmarkItemMap = reduce(
+      bookmarksIds,
+      (acc, id) => {
+        const categoryId = transformedData.objectsToCategoryMap[id];
+        const category = transformedData.categoriesMap[categoryId];
+
+        const bookmarkItem: IBookmarkItem = acc[categoryId] || {
+          categoryId: categoryId,
+          categoryName: category.name,
+          objectsIds: [],
+        };
+        bookmarkItem.objectsIds = [...bookmarkItem.objectsIds, id];
+
+        acc[categoryId] = {
+          ...bookmarkItem,
+        };
+        return acc;
+      },
+      {} as {[key: string]: IBookmarkItem},
+    );
+
+    return Object.values(bookmarkItemMap);
+  },
+);

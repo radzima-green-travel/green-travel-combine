@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {FONTS_STYLES, COLORS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
+import {SCREEN_WIDTH} from 'services/PlatformService';
+import {ratio} from 'atoms/Card/Card';
+
+export const cardWidth = (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945;
+export const cardHeihgt = cardWidth / ratio;
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,7 +15,7 @@ export const styles = StyleSheet.create({
   contentContainer: {
     paddingRight: 16,
     paddingBottom: 24,
-    height: 184.5,
+    height: cardHeihgt + 24,
   },
   crossButton: {
     position: 'absolute',

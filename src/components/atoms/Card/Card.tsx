@@ -7,7 +7,7 @@ import {COLORS} from 'assets';
 import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 
-const ratio = 324 / 144;
+export const ratio = 324 / 144;
 
 interface IProps {
   imageUri?: string;
@@ -21,7 +21,7 @@ interface IProps {
   onRemoveAnimationEnd?: () => void;
 }
 
-const normaliseSource = (source) => {
+const normaliseSource = source => {
   const normalisedSource =
     source && typeof source.uri === 'string' && !source.uri.split('http')[1]
       ? null
@@ -74,7 +74,7 @@ export const Card = memo(
               removeWithAnimation={removeFavoriteWithAnimation}
               onAnimationEnd={onRemoveAnimationEnd}
               objectId={id}>
-              {(isFavorite) => (
+              {isFavorite => (
                 <Icon
                   name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
                   width={20}

@@ -4,7 +4,7 @@ import {
   selectSearchInputValue,
   selectSearchResults,
 } from 'core/selectors';
-import {IExtendedObjectWithCategoryData} from 'core/types';
+import {ISearchItem} from 'core/types';
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -18,7 +18,7 @@ export function useSearchList() {
   const data = isHistoryVisible ? history : searchResults;
 
   const addToHistory = useCallback(
-    (object: IExtendedObjectWithCategoryData) => {
+    (object: ISearchItem) => {
       dispatch(addObjectToSearchHistory(object));
     },
     [dispatch],

@@ -1,12 +1,15 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
-import {ICategory, ILabelError} from '../types';
+import {ICategory, ILabelError, ITransformedData} from '../types';
 import {ACTIONS} from '../constants';
+import {transformMainData} from '../helpers';
 interface IDefaultState {
   data: ICategory[] | null;
+  transformedData: ITransformedData | null;
 }
 
 const initialState: IDefaultState = {
   data: null,
+  transformedData: null,
 };
 
 export const getHomeDataRequest = createAction(ACTIONS.GET_HOME_DATA_REQUEST)();
@@ -27,4 +30,5 @@ export const homeReducer = createReducer<
 >(initialState).handleAction(getHomeDataSuccess, (state, {payload}) => ({
   ...state,
   data: payload,
+  transformedData: transformMainData(payload),
 }));

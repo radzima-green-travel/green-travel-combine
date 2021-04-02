@@ -16,8 +16,8 @@ export const selectAllCategoriesWithObjects = createSelector<
   ICategory[] | null,
   ICategoryWithExtendedObjects[] | null
 >(
-  (state) => state.home.data,
-  (categories) => {
+  state => state.home.data,
+  categories => {
     if (!categories) {
       return null;
     }
@@ -30,7 +30,7 @@ export const selectFlattenCategories = createSelector<
   IState,
   ICategoryWithExtendedObjects[] | null,
   ICategoryWithExtendedObjects[]
->(selectAllCategoriesWithObjects, (categories) => {
+>(selectAllCategoriesWithObjects, categories => {
   if (!categories) {
     return [];
   }
@@ -42,13 +42,13 @@ export const selectFlattenObjects = createSelector<
   IState,
   ICategoryWithExtendedObjects[],
   IExtendedObjectWithCategoryData[]
->(selectFlattenCategories, (flatCategories) => {
+>(selectFlattenCategories, flatCategories => {
   return reduce(
     flatCategories,
     (acc, next) => {
       return [
         ...acc,
-        ...map(next.objects, (object) => ({
+        ...map(next.objects, object => ({
           ...object,
           categoryName: next.name,
           icon: next.icon,

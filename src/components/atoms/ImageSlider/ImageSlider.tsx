@@ -16,7 +16,7 @@ export const ImageSlider = memo(({images}: IProps) => {
   const [page, setPage] = useState(1);
 
   const onScroll = useCallback(
-    (e) => {
+    e => {
       if (pagesAmount && pagesAmount > 1) {
         const {contentOffset} = e.nativeEvent;
         const pageNum = Math.round(contentOffset.x / SCREEN_WIDTH);

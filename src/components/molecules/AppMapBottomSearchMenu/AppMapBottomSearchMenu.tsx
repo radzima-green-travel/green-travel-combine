@@ -11,7 +11,7 @@ import {Keyboard, Pressable, View} from 'react-native';
 import {themeStyles} from './styles';
 
 import {useThemeStyles, useTask} from 'core/hooks';
-import {IExtendedObjectWithCategoryData} from 'core/types';
+import {ISearchItem} from 'core/types';
 import {SearchList} from 'organisms';
 import {HeaderSearchbar, Icon} from 'atoms';
 import {WINDOW_HEIGHT} from 'services/PlatformService';
@@ -22,10 +22,10 @@ export type AppMapBottomSearchMenuRef = {
 };
 
 interface IProps {
-  data: IExtendedObjectWithCategoryData[];
+  data: ISearchItem[];
   bottomInset: number;
   isHistoryVisible: boolean;
-  onItemPress: (object: IExtendedObjectWithCategoryData) => void;
+  onItemPress: (object: ISearchItem) => void;
   onTextChange: (value: string) => void;
 }
 
@@ -56,7 +56,7 @@ export const AppMapBottomSearchMenu = memo(
       }, []);
 
       const onItemPressHandler = useCallback(
-        async (object: IExtendedObjectWithCategoryData) => {
+        async (object: ISearchItem) => {
           hide();
           await startTransitionTask();
           onItemPress(object);

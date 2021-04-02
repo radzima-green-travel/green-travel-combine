@@ -14,5 +14,6 @@ export const themeStyles = {
     ...FONTS_STYLES.regular15,
     color: COLORS.cornflowerBlue,
     marginLeft: 5,
+    flexShrink: 1,
   },
 };

@@ -5,12 +5,12 @@ import {Icon} from 'atoms';
 import {COLORS} from 'assets';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
-import {IExtendedObjectWithCategoryData} from 'core/types';
+import {ISearchItem} from 'core/types';
 import {FlatList} from 'react-native-gesture-handler';
 
 interface IProps {
-  data: IExtendedObjectWithCategoryData[];
-  onItemPress: (object: IExtendedObjectWithCategoryData) => void;
+  data: ISearchItem[];
+  onItemPress: (object: ISearchItem) => void;
   isHistoryVisible: boolean;
 }
 
@@ -24,7 +24,7 @@ export const SearchList = memo(
         keyboardDismissMode="on-drag"
         contentContainerStyle={styles.contentContainer}
         onScrollBeginDrag={Keyboard.dismiss}
-        keyExtractor={(item) => item._id}
+        keyExtractor={item => item._id}
         data={data}
         ListHeaderComponent={() =>
           isHistoryVisible ? (

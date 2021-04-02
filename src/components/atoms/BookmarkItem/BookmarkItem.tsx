@@ -1,4 +1,4 @@
-import {ICategoryWithExtendedObjects} from 'core/types';
+import {IBookmarkItem} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import {SCREEN_WIDTH} from 'services/PlatformService';
@@ -15,8 +15,8 @@ interface IProps {
   isOdd: boolean;
   isLast: boolean;
   count: number | undefined;
-  item: ICategoryWithExtendedObjects;
-  onPress: (item: ICategoryWithExtendedObjects) => void;
+  item: IBookmarkItem;
+  onPress: (item: IBookmarkItem) => void;
 }
 
 export const BookmarkItem = memo(
@@ -33,7 +33,7 @@ export const BookmarkItem = memo(
           {width: width, height: height},
           isOdd && {marginRight: isLast ? width + marginRight : marginRight},
         ]}>
-        <Text style={styles.text}>{item.name}</Text>
+        <Text style={styles.text}>{item.categoryName}</Text>
         <Text style={styles.count}>{count || 0}</Text>
       </TouchableOpacity>
     );

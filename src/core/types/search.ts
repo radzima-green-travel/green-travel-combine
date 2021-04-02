@@ -1,6 +1,6 @@
-import {IExtendedObject} from './common';
-
-export interface IExtendedObjectWithCategoryData extends IExtendedObject {
+export interface ISearchItem {
+  objectName: string;
+  objectId: string;
   categoryName: string;
   icon: string;
 }

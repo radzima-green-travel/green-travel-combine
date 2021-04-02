@@ -1,11 +1,11 @@
 import {Card} from 'atoms';
-import {ICategoryWithExtendedObjects} from 'core/types';
+import {ITransformedCategory} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 
 interface IProps {
-  data: ICategoryWithExtendedObjects;
-  onPress: (item: ICategoryWithExtendedObjects) => void;
+  data: ITransformedCategory;
+  onPress: (item: ITransformedCategory) => void;
   width: number;
   containerStyle?: StyleProp<ViewStyle>;
 }

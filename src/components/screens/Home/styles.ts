@@ -1,4 +1,3 @@
-import {PADDING_HORIZONTAL} from 'core/constants';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -6,6 +5,6 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    paddingTop: 42,
+    paddingTop: 32,
   },
 });

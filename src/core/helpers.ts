@@ -23,6 +23,8 @@ import {
   IBookmarksIds,
   ICategoryWithExtendedObjects,
   IExtendedObject,
+  ITransformedData,
+  ITransformedCategory,
 } from 'core/types';
 
 export const extractThemeStyles = (
@@ -143,4 +145,50 @@ export async function tryOpenURL(url: string) {
   } catch (e) {
     console.warn(e.message);
   }
+}
+
+export function transformMainData(data: ICategory[]): ITransformedData {
+  const transformedData: ITransformedData = {
+    objectsMap: {},
+    categories: [],
+    categoriesMap: {},
+    objectsToCategoryMap: {},
+  };
+
+  function traverse(categories: ICategory[]): ITransformedCategory[] {
+    if (isEmpty(categories)) {
+      return [];
+    }
+
+    return map(categories, category => {
+      const objects: string[] = map(category.objects, object => {
+        transformedData.objectsMap[object._id] = object;
+        transformedData.objectsToCategoryMap[object._id] = category._id;
+        return object._id;
+      });
+
+      const transforedCategories = traverse(category.children);
+
+      const children = map(transforedCategories, cat => {
+        transformedData.categoriesMap[cat._id] = cat;
+        return cat._id;
+      });
+
+      const tramsformedCategory = {
+        ...category,
+        children,
+        objects,
+      };
+
+      transformedData.categoriesMap[
+        tramsformedCategory._id
+      ] = tramsformedCategory;
+
+      return tramsformedCategory;
+    });
+  }
+
+  transformedData.categories = traverse(data);
+
+  return transformedData;
 }

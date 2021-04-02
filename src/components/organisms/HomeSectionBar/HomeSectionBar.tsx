@@ -1,18 +1,15 @@
 import React, {memo, useCallback} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
-import {styles} from './styles';
+import {styles, cardWidth} from './styles';
 import {FlatList} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
-import {ICategoryWithExtendedObjects, IExtendedObject} from 'core/types';
+import {IObject, ITransformedCategory} from 'core/types';
 import {isEmpty} from 'lodash';
-import {SCREEN_WIDTH} from 'services/PlatformService';
-import {PADDING_HORIZONTAL} from 'core/constants';
-
-const cardWidth = (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945;
+import {useCategories, useObjects} from 'core/hooks';
 
 interface Props {
-  item: ICategoryWithExtendedObjects;
+  item: ITransformedCategory;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
   onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
   onObjectPress: (options: {categoryId: string; objectId: string}) => void;
@@ -34,6 +31,9 @@ export const HomeSectionBar = memo(
     const isLessThenTwoItems = objects.length < 2 && children.length < 2;
     const isCategoriesList = isEmpty(objects);
 
+    const objectsData = useObjects(objects);
+    const childrenData = useCategories(children);
+
     const onAllPressHandler = useCallback(() => {
       if (isCategoriesList) {
         onAllCategoriesPress({categoryId, title: sectionTitle});
@@ -49,14 +49,14 @@ export const HomeSectionBar = memo(
     ]);
 
     const onObjectPressHandler = useCallback(
-      ({_id, category}: IExtendedObject) => {
+      ({_id, category}: IObject) => {
         onObjectPress({categoryId: category, objectId: _id});
       },
       [onObjectPress],
     );
 
     const onCategoryPressHandler = useCallback(
-      ({name, _id}: ICategoryWithExtendedObjects) => {
+      ({name, _id}: ITransformedCategory) => {
         onCategoryPress({categoryId: _id, title: name});
       },
       [onCategoryPress],
@@ -77,7 +77,7 @@ export const HomeSectionBar = memo(
             keyExtractor={({_id}) => _id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
-            data={children}
+            data={childrenData}
             horizontal
             renderItem={({item: category}) => (
               <CategoryCard
@@ -94,7 +94,7 @@ export const HomeSectionBar = memo(
             keyExtractor={({_id}) => _id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
-            data={objects}
+            data={objectsData}
             horizontal
             renderItem={({item: object}) => (
               <ObjectCard

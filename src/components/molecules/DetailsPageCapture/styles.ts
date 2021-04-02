@@ -1,9 +1,7 @@
 import {COLORS, FONTS_STYLES} from 'assets';
 
 export const themeStyles = {
-  container: {
-    marginBottom: 24,
-  },
+  container: {},
   title: {
     ...FONTS_STYLES.semibold20,
     color: {
