@@ -65,6 +65,7 @@
     return self;
 }
 
+#pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -75,7 +76,7 @@
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     configureNavigationBar(navigationBar);
 
-    NSURL *url = [NSURL URLWithString:@"mapbox://styles/mapbox/streets-v11"];
+    NSURL *url = [NSURL URLWithString:@"mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h"];
     self.mapView = [[MGLMapView alloc] initWithFrame:CGRectZero styleURL:url];
     [self.view addSubview:self.mapView];
 
@@ -154,31 +155,65 @@
 }
 
 - (void)mapViewDidFinishLoadingMap:(MGLMapView *)mapView {
+
+}
+
+- (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
     NSArray<MapItem *> *mapItems = self.mapItem ? @[self.mapItem] :
         self.mapModel.mapItemsOriginal;
-    [self renderAnnotations:mapItems];
+    [self renderAnnotations:mapItems style:style];
 }
 
 - (void)onMapItemsUpdate:(NSArray<MapItem *> *)mapItems {
     NSLog(@"Map items: %@", mapItems);
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf renderAnnotations:mapItems];
+        [weakSelf renderAnnotations:mapItems style:weakSelf.mapView.style];
         [weakSelf addFilterView];
     });
 }
 
-- (void)renderAnnotations:(NSArray<MapItem *> *)mapItems {
+- (void)renderAnnotations:(NSArray<MapItem *> *)mapItems style:(MGLStyle *)style {
     NSMutableArray *mapAnnotations = [[NSMutableArray alloc] init];
     [self.mapView removeAnnotations:self.mapView.annotations];
     [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
-        MGLPointAnnotation *point = [[MGLPointAnnotation alloc] init];
+        MGLPointFeature *point = [[MGLPointFeature alloc] init];
         point.coordinate = mapItem.coords;
         point.title = mapItem.title;
         [mapAnnotations addObject:point];
     }];
-    [self.mapView addAnnotations:mapAnnotations];
-    [self.mapView showAnnotations:mapAnnotations animated:YES];
+    // [self.mapView addAnnotations:mapAnnotations];
+    // [self.mapView showAnnotations:mapAnnotations animated:YES];
+
+  MGLSource *source = [[MGLShapeSource alloc] initWithIdentifier:@"someId"
+                                                        features:mapAnnotations
+                                                         options:@{
+      MGLShapeSourceOptionClustered: @YES,
+      MGLShapeSourceOptionClusterRadius: @10.0
+  }];
+  [style addSource:source];
+
+  MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:@"layerId" source:source];
+  markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"markerNotClustered"];
+  markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
+  [style setImage:[UIImage imageNamed:@"flag"] forName:@"markerNotClustered"];
+
+  MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:@"clusterLayerId" source:source];
+  clusterLayer.textColor = [NSExpression expressionForConstantValue:[Colors get].green];
+  clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
+  clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:[NSNumber numberWithBool:YES]];
+  clusterLayer.textOffset =  [NSExpression expressionForConstantValue:[NSValue valueWithCGVector:CGVectorMake(0, 0.2)]];
+  clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
+  [style setImage:[UIImage imageNamed:@"forest"] forName:@"markerClustered"];
+
+
+  NSDictionary *stops = @{@10: [NSExpression expressionWithFormat:@"forest"]};
+  NSExpression *defaultShape = [NSExpression expressionWithFormat:@"markerClustered"];
+  clusterLayer.iconImageName = [NSExpression expressionWithFormat:@"mgl_step:from:stops:(point_count, %@, %@)", defaultShape, stops];
+  clusterLayer.text = [NSExpression expressionWithFormat:@"CAST(point_count, 'NSString')"];
+
+  [style addLayer:markerLayer];
+  [style addLayer:clusterLayer];
 }
 
 - (MGLAnnotationView *)mapView:(MGLMapView *)mapView viewForAnnotation:(id<MGLAnnotation>)annotation {
