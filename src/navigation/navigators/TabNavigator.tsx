@@ -22,6 +22,7 @@ export function TabNavigator() {
 
   return (
     <Tab.Navigator
+      lazy={false}
       tabBarOptions={{
         activeTintColor: '#50A021',
         inactiveTintColor: '#777777',

@@ -1,13 +1,19 @@
-import {Button, ClusterMap, Icon} from 'atoms';
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {ClusterMap, Icon, Portal} from 'atoms';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {View} from 'react-native';
 import MapBox from '@react-native-mapbox-gl/maps';
 import {IProps} from './types';
-import {selectAllCategoriesWithObjects} from 'core/selectors';
+import {createMarkerFromObject, selectSelectedMapMarker} from 'core/selectors';
 import {useSelector} from 'react-redux';
-import {findObject} from 'core/helpers';
 import {getDirections} from 'api/mapbox';
-import {useFocusToUserLocation} from 'core/hooks';
+import {useFocusToUserLocation, useObject} from 'core/hooks';
 import {lineString as makeLineString} from '@turf/helpers';
+import {
+  ObjectDetailsMapBottomMenu,
+  ObjectDetailsMapBottomMenuRef,
+} from 'molecules';
+import {IState} from 'core/store';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const layerStyles = {
   origin: {
@@ -30,26 +36,51 @@ const layerStyles = {
     lineWidth: 3,
   },
 };
+type SelectedMarker = ReturnType<typeof createMarkerFromObject>;
 
 export const ObjectDetailsMap = ({route}: IProps) => {
-  const {objectId, categoryId} = route.params;
+  const {objectId} = route.params;
   const camera = useRef<MapBox.Camera>(null);
   const [direction, setDirection] = useState(null);
+  const bottomMenu = useRef<ObjectDetailsMapBottomMenuRef>(null);
+  const {bottom} = useSafeAreaInsets();
+  const data = useObject(objectId);
+
+  const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
+
+  const [selectedMarker, setSelectedMarker] = useState<SelectedMarker | null>(
+    () => createMarkerFromObject(null),
+  );
+
+  const selected = useSelector((state: IState) =>
+    selectSelectedMapMarker(state, selectedMarkerId),
+  );
+
+  const onMenuHideEnd = useCallback(() => {
+    setSelectedMarkerId(null);
+  }, []);
+
+  useEffect(() => {
+    if (selected) {
+      setSelectedMarker(createMarkerFromObject(selected));
+      bottomMenu.current?.show();
+    }
+  }, [selected]);
+
   const {
-    focusToUserLocation,
     userLocation,
+    focusToUserWithPoints,
     ...userLocationProps
   } = useFocusToUserLocation(camera);
 
-  const categories = useSelector(selectAllCategoriesWithObjects);
-
-  const data = useMemo(() => {
-    return categories ? findObject(categories, categoryId, objectId) : null;
-  }, [categoryId, objectId, categories]);
+  useEffect(() => {
+    if (data) {
+      setSelectedMarkerId(data._id);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (userLocation && data) {
-      console.log(userLocation, data.location.coordinates);
       getDirections({from: userLocation, to: data.location.coordinates})
         .then(response => {
           setDirection(makeLineString(response.routes[0].geometry.coordinates));
@@ -57,24 +88,41 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         .catch(console.dir);
     }
   }, [data, userLocation]);
-  console.log(direction);
-  return (
-    <ClusterMap ref={camera}>
-      {data ? (
-        <MapBox.PointAnnotation
-          id="ObjectDetailsMapPin"
-          coordinate={data.location.coordinates}>
-          <Icon name="objectPin" width={32} height={32} />
-        </MapBox.PointAnnotation>
-      ) : null}
-      <MapBox.UserLocation {...userLocationProps} />
-      <Button onPress={focusToUserLocation}>{'show'}</Button>
 
-      {direction ? (
-        <MapBox.ShapeSource id="routeSource" shape={direction}>
-          <MapBox.LineLayer id="routeFill" style={layerStyles.route} />
-        </MapBox.ShapeSource>
-      ) : null}
-    </ClusterMap>
+  useEffect(() => {
+    if (userLocationProps.visible && direction) {
+      focusToUserWithPoints([data.location.coordinates]);
+    }
+  }, [data, direction, focusToUserWithPoints, userLocationProps.visible]);
+
+  return (
+    <View style={{flex: 1}}>
+      <ClusterMap ref={camera}>
+        {data ? (
+          <MapBox.PointAnnotation
+            id="ObjectDetailsMapPin"
+            coordinate={data.location.coordinates}>
+            <Icon name="objectPin" width={32} height={32} />
+          </MapBox.PointAnnotation>
+        ) : null}
+        <MapBox.UserLocation {...userLocationProps} />
+
+        {direction ? (
+          <MapBox.ShapeSource id="routeSource" shape={direction}>
+            <MapBox.LineLayer id="routeFill" style={layerStyles.route} />
+          </MapBox.ShapeSource>
+        ) : null}
+      </ClusterMap>
+
+      <Portal>
+        <ObjectDetailsMapBottomMenu
+          data={selected}
+          ref={bottomMenu}
+          onHideEnd={onMenuHideEnd}
+          bottomInset={bottom}
+          onGetMorePress={() => {}}
+        />
+      </Portal>
+    </View>
   );
 };

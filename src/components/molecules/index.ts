@@ -15,3 +15,4 @@ export * from './AppMapBottomMenu';
 export * from './AppMapBottomSearchMenu';
 export {AppMapFilters} from './AppMapFilters';
 export {AppMapButtons} from './AppMapButtons';
+export * from './ObjectDetailsMapBottomMenu';

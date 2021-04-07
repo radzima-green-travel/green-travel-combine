@@ -44,7 +44,7 @@ export const ClusterMap = memo(
 
       return (
         <View
-          onResponderStart={async (event) => {
+          onResponderStart={async event => {
             const {locationX, locationY} = event.nativeEvent;
             let locX = locationX;
             let locY = locationY;

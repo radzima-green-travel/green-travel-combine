@@ -11,25 +11,26 @@ import {themeStyles} from './styles';
 
 import {Button, Icon} from 'atoms';
 import {FavoriteButtonContainer} from 'containers';
-import {useThemeStyles} from 'core/hooks';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
 import {MENU_HEIGHT} from './styles';
-import {IObjectWithIcon} from 'core/types';
-export type AppMapBottomMenuRef = {
+import {IObject} from 'core/types';
+export type ObjectDetailsMapBottomMenuRef = {
   show: () => void;
   hide: () => void;
 };
 
 interface IProps {
-  data: IObjectWithIcon | null;
+  data: IObject | null;
   onHideEnd: () => void;
   bottomInset: number;
-  onGetMorePress: (data: IObjectWithIcon) => void;
+  onGetMorePress: (data: IObject) => void;
 }
 
-export const AppMapBottomMenu = memo(
-  forwardRef<AppMapBottomMenuRef, IProps>(
+export const ObjectDetailsMapBottomMenu = memo(
+  forwardRef<ObjectDetailsMapBottomMenuRef, IProps>(
     ({data, onHideEnd, bottomInset, onGetMorePress}, ref) => {
+      const {t} = useTranslation('objectDetails');
       const styles = useThemeStyles(themeStyles);
       const bs = useRef<BottomSheet>(null);
 
@@ -70,7 +71,7 @@ export const AppMapBottomMenu = memo(
                 onPress={() => {
                   onGetMorePress(data);
                 }}>
-                Узнать больше
+                {t('go')}
               </Button>
             </View>
           </View>

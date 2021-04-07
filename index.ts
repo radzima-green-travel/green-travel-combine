@@ -11,6 +11,9 @@ import ruTranslations from './src/locale/ru.json';
 import AsyncStorage from '@react-native-community/async-storage';
 import {DEVELOP_APP_VERSION} from 'core/constants';
 
+import {enableScreens} from 'react-native-screens';
+enableScreens();
+
 async function clearOfflineCache() {
   const currentVersion = await AsyncStorage.getItem('developAppVersion');
 

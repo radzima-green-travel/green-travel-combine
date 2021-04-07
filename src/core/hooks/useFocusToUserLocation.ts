@@ -2,6 +2,8 @@ import MapBox from '@react-native-mapbox-gl/maps';
 
 import React, {useRef, useCallback, useState, useEffect} from 'react';
 import {permissionsService} from 'services/PermissionsService';
+import {mapService} from 'services/MapService';
+import {ICoordinates} from 'core/types';
 export function useFocusToUserLocation(
   cameraRef: React.RefObject<MapBox.Camera | null>,
 ) {
@@ -22,6 +24,24 @@ export function useFocusToUserLocation(
     }
   }, [userLocation, userLocationVisible, cameraRef]);
 
+  const focusToUserWithPoints = useCallback(
+    async (coords: ICoordinates[]) => {
+      const permissionGranted = await permissionsService.checkLocationPermission();
+      if (!permissionGranted) {
+        return;
+      }
+
+      if (userLocation) {
+        const bounds = mapService.getBoundsFromCoords([
+          userLocation,
+          ...coords,
+        ]);
+        cameraRef.current?.fitBounds(...bounds);
+      }
+    },
+    [userLocation, cameraRef],
+  );
+
   useEffect(() => {
     if (
       userLocationVisible &&
@@ -33,12 +53,18 @@ export function useFocusToUserLocation(
     }
   }, [userLocation, userLocationVisible, focusToUserLocation]);
 
-  const saveUserLocation = useCallback((event: MapBox.Location) => {
-    if (event?.coords) {
-      const {latitude, longitude} = event.coords;
-      setUserLocation([longitude, latitude]);
-    }
-  }, []);
+  const saveUserLocation = useCallback(
+    (event: MapBox.Location) => {
+      if (!userLocationVisible) {
+        setUserLocationVisible(true);
+      }
+      if (event?.coords) {
+        const {latitude, longitude} = event.coords;
+        setUserLocation([longitude, latitude]);
+      }
+    },
+    [userLocationVisible],
+  );
 
   return {
     focusToUserLocation,
@@ -46,5 +72,6 @@ export function useFocusToUserLocation(
     visible: userLocationVisible,
     showsUserHeadingIndicator: userLocationVisible,
     userLocation,
+    focusToUserWithPoints,
   };
 }
