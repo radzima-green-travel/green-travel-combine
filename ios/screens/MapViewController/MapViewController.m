@@ -43,6 +43,10 @@
 
 @end
 
+static NSString* const kSourceId = @"sourceId";
+static NSString* const kClusterLayerId = @"clusterLayerId";
+static NSString* const kMarkerLayerId = @"markerLayerId";
+
 @implementation MapViewController
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
@@ -182,38 +186,48 @@
         point.title = mapItem.title;
         [mapAnnotations addObject:point];
     }];
-    // [self.mapView addAnnotations:mapAnnotations];
-    // [self.mapView showAnnotations:mapAnnotations animated:YES];
+    [self.mapView showAnnotations:mapAnnotations animated:YES];
 
-  MGLSource *source = [[MGLShapeSource alloc] initWithIdentifier:@"someId"
-                                                        features:mapAnnotations
-                                                         options:@{
-      MGLShapeSourceOptionClustered: @YES,
-      MGLShapeSourceOptionClusterRadius: @10.0
-  }];
-  [style addSource:source];
+  MGLShapeSource *source = [style sourceWithIdentifier:kSourceId];
+  if (source == nil) {
+    source = [[MGLShapeSource alloc] initWithIdentifier:kSourceId
+                                                          features:mapAnnotations
+                                                           options:@{
+        MGLShapeSourceOptionClustered: @YES,
+        MGLShapeSourceOptionClusterRadius: @50.0
+    }];
 
-  MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:@"layerId" source:source];
-  markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"markerNotClustered"];
-  markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
-  [style setImage:[UIImage imageNamed:@"flag"] forName:@"markerNotClustered"];
+    [style addSource:source];
 
-  MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:@"clusterLayerId" source:source];
-  clusterLayer.textColor = [NSExpression expressionForConstantValue:[Colors get].green];
-  clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
-  clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:[NSNumber numberWithBool:YES]];
-  clusterLayer.textOffset =  [NSExpression expressionForConstantValue:[NSValue valueWithCGVector:CGVectorMake(0, 0.2)]];
-  clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
-  [style setImage:[UIImage imageNamed:@"forest"] forName:@"markerClustered"];
+    MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kMarkerLayerId source:source];
+    markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"markerNotClustered"];
+    markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
+    [style setImage:[UIImage imageNamed:@"conserv.area"] forName:@"markerNotClustered"];
 
+    MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kClusterLayerId source:source];
+    clusterLayer.textColor = [NSExpression expressionForConstantValue:[Colors get].black];
+    clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
+    clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:[NSNumber numberWithBool:YES]];
+    clusterLayer.textOffset =  [NSExpression expressionForConstantValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)]];
+    clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
 
-  NSDictionary *stops = @{@10: [NSExpression expressionWithFormat:@"forest"]};
-  NSExpression *defaultShape = [NSExpression expressionWithFormat:@"markerClustered"];
-  clusterLayer.iconImageName = [NSExpression expressionWithFormat:@"mgl_step:from:stops:(point_count, %@, %@)", defaultShape, stops];
-  clusterLayer.text = [NSExpression expressionWithFormat:@"CAST(point_count, 'NSString')"];
+    NSDictionary *stops = @{@0: [NSExpression expressionForConstantValue:@"markerClustered"]};
+    NSExpression *defaultShape = [NSExpression expressionForConstantValue:@"markerClustered"];
+    clusterLayer.iconImageName = [NSExpression expressionWithFormat:@"mgl_step:from:stops:(point_count, %@, %@)", defaultShape, stops];
+    clusterLayer.text = [NSExpression expressionWithFormat:@"CAST(point_count, 'NSString')"];
+    [style setImage:[UIImage imageNamed:@"cluster"] forName:@"markerClustered"];
 
-  [style addLayer:markerLayer];
-  [style addLayer:clusterLayer];
+    [style addLayer:markerLayer];
+    [style addLayer:clusterLayer];
+  } else {
+    NSMutableArray *shapes = [[NSMutableArray alloc] init];
+    [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      MGLPointAnnotation *point = [[MGLPointAnnotation alloc] init];
+      point.coordinate = obj.coords;
+      [shapes addObject:point];
+    }];
+    source.shape = [MGLShapeCollection shapeCollectionWithShapes:shapes];
+  }
 }
 
 - (MGLAnnotationView *)mapView:(MGLMapView *)mapView viewForAnnotation:(id<MGLAnnotation>)annotation {
