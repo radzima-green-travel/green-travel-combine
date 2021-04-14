@@ -34,8 +34,8 @@ export const BookmarksList = ({
   }, [goBack, listData]);
 
   const navigateToObjectDetails = useCallback(
-    ({_id, category}: IObject) => {
-      navigate('ObjectDetails', {categoryId: category, objectId: _id});
+    ({id, category}: IObject) => {
+      navigate('ObjectDetails', {categoryId: category.id, objectId: id});
     },
     [navigate],
   );
@@ -44,7 +44,7 @@ export const BookmarksList = ({
     <FlatList
       data={listData}
       contentContainerStyle={styles.contentContainer}
-      keyExtractor={item => item._id}
+      keyExtractor={item => item.id}
       renderItem={({item}) => (
         <ObjectCard
           removeFavoriteWithAnimation={true}

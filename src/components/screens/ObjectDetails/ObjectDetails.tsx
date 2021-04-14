@@ -42,9 +42,9 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
   );
 
   const navigateToObjectsList = useCallback(
-    ({_id, name, objects}: {_id: string; name: string; objects: string[]}) => {
+    ({id, name, objects}: {id: string; name: string; objects: string[]}) => {
       navigation.push('ObjectsList', {
-        categoryId: _id,
+        categoryId: id,
         title: name,
         objectsIds: objects,
       });
@@ -55,8 +55,8 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
   const navigateToObjectsMap = useCallback(() => {
     if (data) {
       navigation.navigate('ObjectDetailsMap', {
-        categoryId: data.category,
-        objectId: data._id,
+        categoryId: data.category.id,
+        objectId: data.id,
       });
     }
   }, [data, navigation]);
@@ -72,14 +72,16 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
       <ScrollView contentContainerStyle={styles.listContentContainer}>
         <PlaceDetailsImageSlider
           onMarkerPress={onMarkerPress}
-          objectId={data._id}
+          objectId={data.id}
           images={data.images}
         />
         <View style={styles.contentContainer}>
           <DetailsPageCapture
             title={data.name}
             subtitle={data.address}
-            coordinates={data.location?.coordinates}
+            coordinates={
+              data.location ? [data.location.lon, data.location.lat] : undefined
+            }
             onCoordinatesPress={copyLocationToClipboard}
           />
           {data.location ? (

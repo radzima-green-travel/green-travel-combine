@@ -1,12 +1,11 @@
 import React, {memo} from 'react';
-import {Keyboard, View, Text} from 'react-native';
+import {Keyboard, View, Text, FlatList} from 'react-native';
 import {SearchListItem} from 'molecules';
 import {Icon} from 'atoms';
 import {COLORS} from 'assets';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {ISearchItem} from 'core/types';
-import {FlatList} from 'react-native-gesture-handler';
 
 interface IProps {
   data: ISearchItem[];
@@ -24,7 +23,7 @@ export const SearchList = memo(
         keyboardDismissMode="on-drag"
         contentContainerStyle={styles.contentContainer}
         onScrollBeginDrag={Keyboard.dismiss}
-        keyExtractor={item => item._id}
+        keyExtractor={item => item.objectId}
         data={data}
         ListHeaderComponent={() =>
           isHistoryVisible ? (

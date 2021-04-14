@@ -11,7 +11,7 @@ export function useBookmarksObjects(categoryId: string) {
         bookmarksIds,
         (acc, objectId) => {
           const object = objectsMap[objectId];
-          if (object?.category === categoryId) {
+          if (object?.category?.id === categoryId) {
             return [...acc, object];
           }
           return acc;

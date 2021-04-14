@@ -7,6 +7,7 @@ import {SCREEN_WIDTH} from 'services/PlatformService';
 import {styles} from './styles';
 import {Icon} from '../Icon';
 import {COLORS} from 'assets';
+import {imagesService} from 'services/ImagesService';
 interface IProps {
   images?: string[];
 }
@@ -44,7 +45,7 @@ export const ImageSlider = memo(({images}: IProps) => {
               style={styles.image}
               resizeMode={FastImage.resizeMode.cover}
               source={{
-                uri: item,
+                uri: imagesService.getOriginalImage(item),
                 priority:
                   index === 0
                     ? FastImage.priority.high

@@ -74,22 +74,23 @@ export const AppMap = ({navigation}: IProps) => {
   }, []);
 
   const onShapePress = useCallback((itemData: IObjectWithIcon) => {
-    camera.current?.moveTo(itemData.location.coordinates, 500);
-    setSelectedMarkerId(itemData._id);
+    camera.current?.moveTo([itemData.location.lon, itemData.location.lat], 500);
+    setSelectedMarkerId(itemData.id);
   }, []);
 
   const navigateToObjectDetails = useCallback(
-    ({_id, category}: IObjectWithIcon) => {
+    ({id, category}: IObjectWithIcon) => {
       bottomMenu.current?.hide();
       setSelectedMarker(createMarkerFromObject(null));
-      navigation.push('ObjectDetails', {categoryId: category, objectId: _id});
+      navigation.push('ObjectDetails', {categoryId: category.id, objectId: id});
     },
     [navigation],
   );
 
   const onSearchItemPress = useCallback(
     (itemData: ISearchItem) => {
-      const coordinates = getObject(itemData.objectId)?.location?.coordinates;
+      const location = getObject(itemData.objectId)?.location;
+      const coordinates = location ? [location.lon, location.lat] : null;
       if (coordinates) {
         camera.current?.setCamera({
           centerCoordinate: coordinates,

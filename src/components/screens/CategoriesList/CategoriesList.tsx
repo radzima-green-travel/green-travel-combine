@@ -21,8 +21,8 @@ export const CategoriesList = ({
   const listData = useCategoryChildren(categoryId);
 
   const navigateToObjectDetails = useCallback(
-    ({_id, name}: ITransformedCategory) => {
-      navigate('ObjectsList', {categoryId: _id, title: name});
+    ({id, name}: ITransformedCategory) => {
+      navigate('ObjectsList', {categoryId: id, title: name});
     },
     [navigate],
   );
@@ -37,7 +37,7 @@ export const CategoriesList = ({
     <FlatList
       data={listData}
       contentContainerStyle={styles.contentContainer}
-      keyExtractor={item => item._id}
+      keyExtractor={item => item.id}
       renderItem={({item}) => (
         <CategoryCard
           onPress={navigateToObjectDetails}

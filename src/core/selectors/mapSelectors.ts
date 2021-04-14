@@ -34,13 +34,13 @@ export const selectMapFilters = createSelector<
               Boolean(transformedData.objectsMap[id]?.location),
             )
           ) {
-            const {name, _id, icon} = category;
+            const {name, id, icon} = category;
             return [
               ...acc,
               {
                 title: name,
                 icon,
-                categoryId: _id,
+                categoryId: id,
               },
             ];
           }
@@ -67,24 +67,23 @@ export const selectMapMarkers = createSelector<
           map(Object.values(transformedData.objectsMap), data => {
             const isMatchToFilters =
               isEmpty(filters) ||
-              some(filters, ({categoryId}) => categoryId === data.category);
+              some(filters, ({categoryId}) => categoryId === data.category.id);
 
-            const category = transformedData.categoriesMap[data.category];
+            const category = transformedData.categoriesMap[data.category.id];
             if (
               data.location &&
-              data.location.coordinates &&
               category &&
               category.icon &&
               isMatchToFilters
             ) {
               const {location} = data;
               return point(
-                location.coordinates,
+                [location.lon, location.lat],
                 {
                   icon_image: category.icon,
                   data,
                 },
-                {id: location._id},
+                {id: data.id},
               );
             }
             return null;
@@ -110,7 +109,8 @@ export const selectSelectedMapMarker = createSelector<
       return null;
     }
     const selectedObject = transformedData.objectsMap[selectedObjectId];
-    const category = transformedData.categoriesMap[selectedObject?.category];
+    const category =
+      transformedData.categoriesMap[selectedObject?.category?.id];
 
     return selectedObject && category
       ? {...selectedObject, icon: category.icon}
@@ -125,12 +125,12 @@ export const createMarkerFromObject = (
     compact([
       data
         ? point(
-            data.location.coordinates,
+            [data.location.lon, data.location.lat],
             {
               icon_image: `${data.icon}${MAP_PINS.SELECTED_POSTFIX}`,
               data,
             },
-            {id: data.location._id},
+            {id: data.id},
           )
         : undefined,
     ]),

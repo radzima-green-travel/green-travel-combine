@@ -1,10 +1,7 @@
-import {nativeApi} from './nativeApi';
-import {ICategoryWithObjects} from 'core/types';
+import {nativeClientApi} from './nativeClientApi';
+import {ICategory} from 'core/types';
+import graphQLQuery from './graphQLQuery';
 
-export function getCategories(): Promise<ICategoryWithObjects[]> {
-  return nativeApi.get('/object', {params: {mobile: true}});
-}
-
-export function getCategoriesList(): Promise<ICategoryWithObjects[]> {
-  return nativeApi.get('/category');
+export function getCategories(): Promise<ICategory[]> {
+  return nativeClientApi.post('', {query: graphQLQuery});
 }

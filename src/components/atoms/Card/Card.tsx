@@ -6,7 +6,7 @@ import FastImage from 'react-native-fast-image';
 import {COLORS} from 'assets';
 import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
-
+import {imagesService} from 'services/ImagesService';
 export const ratio = 324 / 144;
 
 interface IProps {
@@ -48,7 +48,9 @@ export const Card = memo(
     }, [width]);
 
     const normalizedSource = useMemo(() => {
-      return normaliseSource({uri: imageUri});
+      return normaliseSource({
+        uri: imageUri ? imagesService.getOriginalImage(imageUri) : undefined,
+      });
     }, [imageUri]);
 
     return (

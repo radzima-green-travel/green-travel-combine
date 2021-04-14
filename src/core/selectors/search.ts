@@ -27,7 +27,8 @@ export const selectSearchResults = createSelector<
           reduce(
             Object.values(transformedData.objectsMap),
             (acc, object) => {
-              const category = transformedData.categoriesMap[object.category];
+              const category =
+                transformedData.categoriesMap[object.category.id];
               if (
                 object.name.toLowerCase().includes(inputValue.toLowerCase()) &&
                 category
@@ -35,7 +36,7 @@ export const selectSearchResults = createSelector<
                 return [
                   ...acc,
                   {
-                    objectId: object._id,
+                    objectId: object.id,
                     objectName: object.name,
                     categoryName: category.name,
                     icon: category.icon,

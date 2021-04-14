@@ -48,7 +48,7 @@ export const ObjectDetailsMapBottomMenu = memo(
         if (!data) {
           return null;
         }
-        const {_id, name} = data;
+        const {id, name} = data;
         return (
           <View style={[styles.container, {paddingBottom: bottomInset}]}>
             <View style={[styles.contentContainer, {height: MENU_HEIGHT}]}>
@@ -56,7 +56,7 @@ export const ObjectDetailsMapBottomMenu = memo(
                 <Text numberOfLines={2} style={styles.text}>
                   {name}
                 </Text>
-                <FavoriteButtonContainer objectId={_id}>
+                <FavoriteButtonContainer objectId={id}>
                   {isFavorite => (
                     <Icon
                       name={isFavorite ? 'bookmarkFilled' : 'bookmark'}

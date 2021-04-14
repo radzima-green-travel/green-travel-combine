@@ -75,13 +75,16 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
   useEffect(() => {
     if (data) {
-      setSelectedMarkerId(data._id);
+      setSelectedMarkerId(data.id);
     }
   }, [data]);
 
   useEffect(() => {
     if (userLocation && data) {
-      getDirections({from: userLocation, to: data.location.coordinates})
+      getDirections({
+        from: userLocation,
+        to: [data?.location.lon, data?.location.lat],
+      })
         .then(response => {
           setDirection(makeLineString(response.routes[0].geometry.coordinates));
         })
@@ -91,7 +94,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
   useEffect(() => {
     if (userLocationProps.visible && direction) {
-      focusToUserWithPoints([data.location.coordinates]);
+      focusToUserWithPoints([[data?.location.lon, data?.location.lat]]);
     }
   }, [data, direction, focusToUserWithPoints, userLocationProps.visible]);
 
@@ -101,11 +104,11 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         {data ? (
           <MapBox.PointAnnotation
             id="ObjectDetailsMapPin"
-            coordinate={data.location.coordinates}>
+            coordinate={[data?.location.lon, data?.location.lat]}>
             <Icon name="objectPin" width={32} height={32} />
           </MapBox.PointAnnotation>
         ) : null}
-        <MapBox.UserLocation {...userLocationProps} />
+        <MapBox.UserLocation minDisplacement={10} {...userLocationProps} />
 
         {direction ? (
           <MapBox.ShapeSource id="routeSource" shape={direction}>

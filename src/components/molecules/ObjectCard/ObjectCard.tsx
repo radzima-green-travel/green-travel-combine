@@ -1,10 +1,10 @@
 import {Card} from 'atoms';
-import {IExtendedObject} from 'core/types';
+import {IObject} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 interface IProps {
-  data: IExtendedObject;
-  onPress: (item: IExtendedObject) => void;
+  data: IObject;
+  onPress: (item: IObject) => void;
   width: number;
   containerStyle?: StyleProp<ViewStyle>;
   removeFavoriteWithAnimation?: boolean;
@@ -20,7 +20,7 @@ export const ObjectCard = memo(
     removeFavoriteWithAnimation,
     onRemoveAnimationEnd,
   }: IProps) => {
-    const {_id, name, cover} = data;
+    const {id, name, cover} = data;
 
     const onPressHandler = useCallback(() => {
       onPress(data);
@@ -32,7 +32,7 @@ export const ObjectCard = memo(
         removeFavoriteWithAnimation={removeFavoriteWithAnimation}
         onRemoveAnimationEnd={onRemoveAnimationEnd}
         width={width}
-        id={_id}
+        id={id}
         onPress={onPressHandler}
         title={name}
         imageUri={cover}

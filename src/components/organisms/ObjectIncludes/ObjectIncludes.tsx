@@ -7,7 +7,7 @@ import {IInclude} from 'core/types';
 interface IProps {
   data: IInclude[];
   onIncludePress: (config: {
-    _id: string;
+    id: string;
     name: string;
     objects: string[];
   }) => void;
@@ -18,10 +18,10 @@ export const ObjectIncludes = memo(({data, onIncludePress}: IProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Чем заняться</Text>
-      {data.map((item) => {
+      {data.map(item => {
         return (
           <ObjectInlcudesItem
-            key={item._id}
+            key={item.id}
             onPress={onIncludePress}
             data={item}
           />

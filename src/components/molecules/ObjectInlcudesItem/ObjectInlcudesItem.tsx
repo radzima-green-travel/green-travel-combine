@@ -8,18 +8,18 @@ import {ICONS_MATCHER} from 'core/constants';
 import {IInclude} from 'core/types';
 
 interface IProps {
-  onPress: (config: {_id: string; name: string; objects: string[]}) => void;
+  onPress: (config: {id: string; name: string; objects: string[]}) => void;
   data: IInclude;
 }
 
 export const ObjectInlcudesItem = memo(({data, onPress}: IProps) => {
   const styles = useThemeStyles(themeStyles);
-  const {icon, name, objects, _id} = data;
+  const {icon, name, objects, id} = data;
   const iconName = ICONS_MATCHER[icon];
 
   const onPressHandler = useCallback(() => {
-    onPress({_id: _id, objects, name});
-  }, [objects, _id, onPress, name]);
+    onPress({id: id, objects, name});
+  }, [objects, id, onPress, name]);
 
   return (
     <TouchableOpacity

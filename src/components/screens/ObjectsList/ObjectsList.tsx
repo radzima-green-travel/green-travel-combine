@@ -7,7 +7,7 @@ import {IProps} from './types';
 import {useCategoryObjects} from 'core/hooks';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
-import {IExtendedObject} from 'core/types';
+import {IObject} from 'core/types';
 import {debounce} from 'lodash';
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 export const ObjectsList = ({
@@ -21,8 +21,8 @@ export const ObjectsList = ({
   const listData = useCategoryObjects(categoryId);
 
   const navigateToObjectDetails = useCallback(
-    ({_id}: IExtendedObject) => {
-      push('ObjectDetails', {objectId: _id});
+    ({id}: IObject) => {
+      push('ObjectDetails', {objectId: id});
     },
     [push],
   );
@@ -43,7 +43,7 @@ export const ObjectsList = ({
     <FlatList
       data={listData}
       contentContainerStyle={styles.contentContainer}
-      keyExtractor={item => item._id}
+      keyExtractor={item => item.id}
       renderItem={({item}) => (
         <ObjectCard
           onPress={navigateToObjectDetailsDebounced}

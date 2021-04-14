@@ -26,7 +26,7 @@ export const HomeSectionBar = memo(
   }: Props) => {
     const {t} = useTranslation('home');
 
-    const {_id: categoryId, name: sectionTitle, objects, children} = item;
+    const {id: categoryId, name: sectionTitle, objects, children} = item;
 
     const isLessThenTwoItems = objects.length < 2 && children.length < 2;
     const isCategoriesList = isEmpty(objects);
@@ -49,15 +49,15 @@ export const HomeSectionBar = memo(
     ]);
 
     const onObjectPressHandler = useCallback(
-      ({_id, category}: IObject) => {
-        onObjectPress({categoryId: category, objectId: _id});
+      ({id, category}: IObject) => {
+        onObjectPress({categoryId: category.id, objectId: id});
       },
       [onObjectPress],
     );
 
     const onCategoryPressHandler = useCallback(
-      ({name, _id}: ITransformedCategory) => {
-        onCategoryPress({categoryId: _id, title: name});
+      ({name, id}: ITransformedCategory) => {
+        onCategoryPress({categoryId: id, title: name});
       },
       [onCategoryPress],
     );
@@ -74,7 +74,7 @@ export const HomeSectionBar = memo(
         </View>
         {isCategoriesList ? (
           <FlatList
-            keyExtractor={({_id}) => _id}
+            keyExtractor={({id}) => id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
             data={childrenData}
@@ -91,7 +91,7 @@ export const HomeSectionBar = memo(
           />
         ) : (
           <FlatList
-            keyExtractor={({_id}) => _id}
+            keyExtractor={({id}) => id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
             data={objectsData}

@@ -22,6 +22,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   const {error} = useRequestError(getHomeDataRequest);
 
   useEffect(() => {
+    console.log('getHomeDataRequest');
     getData();
   }, [getData]);
 
@@ -56,7 +57,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
         data={homeData}
-        keyExtractor={item => item._id}
+        keyExtractor={item => item.id}
         renderItem={({item}) => (
           <HomeSectionBar
             onObjectPress={navigateToObjectDetails}

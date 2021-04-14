@@ -113,7 +113,7 @@ export function RootNavigator() {
   const onAnimationEnd = useCallback(() => {
     setSplashTransitionFinished(true);
   }, []);
-
+  console.log(bootstrapFinished);
   // useReduxDevToolsExtension(navigationRef);
   return (
     <NavigationContainer ref={navigationRef}>

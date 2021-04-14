@@ -10,9 +10,8 @@ export interface ILabelError {
 export type ICoordinates = Array<number>;
 
 export interface ILocationPoint {
-  _id: string;
-  type: 'Point';
-  coordinates: ICoordinates;
+  lat: number;
+  lon: number;
 }
 
 export interface IArea {
@@ -22,26 +21,33 @@ export interface IArea {
 }
 
 export interface IProhibition {
-  _id: string;
+  id: string;
   name: string;
   key: string;
 }
 
 export interface IInclude {
-  _id: string;
+  id: string;
   name: string;
   icon: string;
   objects: string[];
 }
 
+export interface IObjectCategory {
+  icon: string;
+  id: string;
+  name: string;
+  parent: string | null;
+}
+
 export interface IObject {
-  _id: string;
+  id: string;
   name: string;
   description: string;
   address: string;
   area?: IArea;
   location: ILocationPoint;
-  category: string;
+  category: IObjectCategory;
   cover: string;
   images: string[];
   prohibitions?: IProhibition[];
@@ -55,7 +61,7 @@ export interface IObjectWithIcon extends IObject {
 }
 
 export interface ICategory {
-  _id: string;
+  id: string;
   path: string;
   name: string;
   icon: string;
@@ -101,3 +107,9 @@ export type IBookmarkItem = {
   categoryName: string;
 };
 export type IBookmarksData = IBookmarkItem[];
+
+// export interface IImageProxyParams {
+//   width:  number;
+//   height?: number;
+//   gravity:
+// }

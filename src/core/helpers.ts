@@ -21,8 +21,7 @@ import {
 import {
   ICategory,
   IBookmarksIds,
-  ICategoryWithExtendedObjects,
-  IExtendedObject,
+  IObject,
   ITransformedData,
   ITransformedCategory,
 } from 'core/types';
@@ -49,7 +48,7 @@ export const addIsFavoriteToObjects = (
         objects: map(value.objects, object => {
           return {
             ...object,
-            isFavorite: includes(bookmarksIds, object._id),
+            isFavorite: includes(bookmarksIds, object.id),
           };
         }),
       };
@@ -63,12 +62,12 @@ export const addIsFavoriteToObjects = (
 };
 
 const findCategoryById = (
-  categories: ICategoryWithExtendedObjects[],
+  categories: ICategory[],
   id: string,
-): ICategoryWithExtendedObjects | null => {
+): ICategory | null => {
   for (let i = 0; i < categories.length; i++) {
     const category = categories[i];
-    if (category._id === id) {
+    if (category.id === id) {
       return category;
     }
 
@@ -83,35 +82,33 @@ const findCategoryById = (
 };
 
 export const findCategoriesById = (
-  categories: ICategoryWithExtendedObjects[],
+  categories: ICategory[],
   id: string,
-): ICategoryWithExtendedObjects[] | null => {
+): ICategory[] | null => {
   return findCategoryById(categories, id)?.children || null;
 };
 
 export const findObjectsByCategoryId = (
-  categories: ICategoryWithExtendedObjects[],
+  categories: ICategory[],
   id: string,
   objectIds?: string[],
-): IExtendedObject[] | null => {
+): IObject[] | null => {
   const result = findCategoryById(categories, id)?.objects || null;
-  return objectIds
-    ? filter(result, ({_id}) => includes(objectIds, _id))
-    : result;
+  return objectIds ? filter(result, ({id}) => includes(objectIds, id)) : result;
 };
 
 export const findObject = (
-  categories: ICategoryWithExtendedObjects[],
+  categories: ICategory[],
   categoryId: string,
   id: string,
 ) => {
-  return find(findObjectsByCategoryId(categories, categoryId), {_id: id});
+  return find(findObjectsByCategoryId(categories, categoryId), {id: id});
 };
 
 export const filterDeepObjects = (
-  categories: ICategoryWithExtendedObjects[],
-  predicate: (item: IExtendedObject, index: number) => boolean,
-): ICategoryWithExtendedObjects[] => {
+  categories: ICategory[],
+  predicate: (item: IObject, index: number) => boolean,
+): ICategory[] => {
   return map(categories, category => {
     return {
       ...category,
@@ -121,15 +118,13 @@ export const filterDeepObjects = (
   });
 };
 
-export const flattenCategories = (
-  categories: ICategoryWithExtendedObjects[],
-): ICategoryWithExtendedObjects[] => {
+export const flattenCategories = (categories: ICategory[]): ICategory[] => {
   return reduce(
     categories,
     (acc, category) => {
       return [...acc, category, ...flattenCategories(category.children)];
     },
-    [] as ICategoryWithExtendedObjects[],
+    [] as ICategory[],
   );
 };
 
@@ -162,16 +157,16 @@ export function transformMainData(data: ICategory[]): ITransformedData {
 
     return map(categories, category => {
       const objects: string[] = map(category.objects, object => {
-        transformedData.objectsMap[object._id] = object;
-        transformedData.objectsToCategoryMap[object._id] = category._id;
-        return object._id;
+        transformedData.objectsMap[object.id] = object;
+        transformedData.objectsToCategoryMap[object.id] = category.id;
+        return object.id;
       });
 
       const transforedCategories = traverse(category.children);
 
       const children = map(transforedCategories, cat => {
-        transformedData.categoriesMap[cat._id] = cat;
-        return cat._id;
+        transformedData.categoriesMap[cat.id] = cat;
+        return cat.id;
       });
 
       const tramsformedCategory = {
@@ -181,7 +176,7 @@ export function transformMainData(data: ICategory[]): ITransformedData {
       };
 
       transformedData.categoriesMap[
-        tramsformedCategory._id
+        tramsformedCategory.id
       ] = tramsformedCategory;
 
       return tramsformedCategory;

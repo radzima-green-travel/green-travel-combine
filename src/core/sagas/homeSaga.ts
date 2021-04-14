@@ -6,7 +6,9 @@ import {ICategory} from '../types';
 
 export function* getHomeDataSaga() {
   try {
-    const categories: ICategory[] = yield call(getCategories);
+    const {
+      data: {listMobileObjects: categories},
+    }: ICategory[] = yield call(getCategories);
 
     yield put(getHomeDataSuccess(categories));
   } catch (e) {

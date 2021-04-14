@@ -25,7 +25,7 @@ export const FavoriteButtonContainer = memo(
     const bookmarksIds = useSelector(selectBookmarksIds);
 
     const isFavorite = useMemo(
-      () => (objectId ? find(bookmarksIds, (id) => id === objectId) : false),
+      () => (objectId ? find(bookmarksIds, id => id === objectId) : false),
       [bookmarksIds, objectId],
     );
 
