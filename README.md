@@ -1,6 +1,6 @@
 # About
 
-Combine containing UIKit and React Native implementation of the same app.
+Combine app containing UIKit and React Native implementation of the same functionality.
 
 # Prerequisites
 
