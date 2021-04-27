@@ -10,7 +10,6 @@
 		0C89FC5382F006AEE6C73A52 /* libPods-greenTravel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E5303B549934CCA839B125 /* libPods-greenTravel.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		5A775A0026064C6A00CEFC78 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7759FE26064C6900CEFC78 /* SceneDelegate.m */; };
 		5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7759FF26064C6900CEFC78 /* AppDelegate.m */; };
 		5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */; };
 		5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0826064C8E00CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m */; };
@@ -133,8 +132,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = greenTravel/main.m; sourceTree = "<group>"; };
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		5A7759FD26064C6900CEFC78 /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		5A7759FE26064C6900CEFC78 /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		5A7759FF26064C6900CEFC78 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m"; sourceTree = "<group>"; };
 		5A775A0726064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StoredCategoryUUIDToRelatedItemUUIDs+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -409,8 +406,6 @@
 			children = (
 				5A7759FC26064C6900CEFC78 /* AppDelegate.h */,
 				5A7759FF26064C6900CEFC78 /* AppDelegate.m */,
-				5A7759FD26064C6900CEFC78 /* SceneDelegate.h */,
-				5A7759FE26064C6900CEFC78 /* SceneDelegate.m */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -1287,7 +1282,6 @@
 				5A775B5B26064C9000CEFC78 /* PathItem.m in Sources */,
 				5A775B2226064C9000CEFC78 /* StoredSearchItem+CoreDataProperties.m in Sources */,
 				5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */,
-				5A775A0026064C6A00CEFC78 /* SceneDelegate.m in Sources */,
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
 				5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */,
