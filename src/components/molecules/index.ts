@@ -1,4 +1,4 @@
-export {PlaceDetailsImageSlider} from './PlaceDetailsImageSlider';
+export {PlaceDetailsImageSliderButtons} from './PlaceDetailsImageSliderButtons';
 export {RouteMetrics} from './RouteMetrics';
 export {RouteDetailsBikeRental} from './RouteDetailsBikeRental';
 export {BikeRentalWidget} from './BikeRentalWidget';
@@ -16,3 +16,6 @@ export * from './AppMapBottomSearchMenu';
 export {AppMapFilters} from './AppMapFilters';
 export {AppMapButtons} from './AppMapButtons';
 export * from './ObjectDetailsMapBottomMenu';
+export {ObjectDetailsPager} from './ObjectDetailsPager';
+export {ObjectDetailsMapButtons} from './ObjectDetailsMapButtons';
+export {BackCircleButton} from './BackCircleButton';

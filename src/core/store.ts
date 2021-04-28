@@ -18,6 +18,8 @@ import {
   homeReducer,
   bookmarksReducer,
   searchReducer,
+  appMapReducer,
+  objectDetailsMapReducer,
 } from './reducers';
 
 const searchPersistConfig = {
@@ -26,30 +28,36 @@ const searchPersistConfig = {
   whitelist: ['history'],
 };
 
+const homePersistConfig = {
+  key: 'home',
+  storage: AsyncStorage,
+  whitelist: ['data'],
+};
+
+const bookmarksPersistConfig = {
+  key: 'bookmarks',
+  storage: AsyncStorage,
+  whitelist: ['bookmarksIds'],
+};
+
 const rootReducer = combineReducers({
   error: errorReducer,
   loading: loadingReducer,
   success: successReducer,
   bootsrap: bootstrapReducer,
-  home: homeReducer,
-  bookmarks: bookmarksReducer,
+  home: persistReducer(homePersistConfig, homeReducer),
+  bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
+  appMap: appMapReducer,
   search: persistReducer(searchPersistConfig, searchReducer),
+  objectDetailsMap: objectDetailsMapReducer,
 });
-
-const persistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  whitelist: ['bookmarks', 'home'],
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const sagaMiddleware = createSagaMiddleware();
 
 export type IState = StateType<typeof rootReducer>;
 
 export const store: Store<IState> = createStore(
-  persistedReducer,
+  rootReducer,
   composeWithDevTools(applyMiddleware(errorLabelMiddliware, sagaMiddleware)),
 );
 

@@ -24,7 +24,7 @@ export const ClusterMap = memo(
           const [
             ne,
             sw,
-            [paddingLeft, paddingRight, paddingTop, paddingPottom],
+            [paddingTop, paddingRight, paddingBottom, paddingLeft],
             duration,
           ] = bounds;
           return {
@@ -35,7 +35,7 @@ export const ClusterMap = memo(
               paddingLeft,
               paddingRight,
               paddingTop,
-              paddingPottom,
+              paddingBottom,
             },
           };
         }
@@ -61,7 +61,8 @@ export const ClusterMap = memo(
             );
             if (features[0]?.properties?.data) {
               onShapePressed.current = true;
-              onShapePress(features[0]?.properties?.data);
+              const zoom = await map.current?.getZoom();
+              onShapePress(features[0]?.properties?.data, zoom);
             }
           }}
           onStartShouldSetResponder={() => true}

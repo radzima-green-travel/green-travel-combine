@@ -5,11 +5,11 @@ import {Icon} from 'atoms';
 import {COLORS} from 'assets';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
-import {ISearchItem} from 'core/types';
+import {IObject} from 'core/types';
 
 interface IProps {
-  data: ISearchItem[];
-  onItemPress: (object: ISearchItem) => void;
+  data: IObject[];
+  onItemPress: (object: IObject) => void;
   isHistoryVisible: boolean;
 }
 
@@ -23,7 +23,7 @@ export const SearchList = memo(
         keyboardDismissMode="on-drag"
         contentContainerStyle={styles.contentContainer}
         onScrollBeginDrag={Keyboard.dismiss}
-        keyExtractor={item => item.objectId}
+        keyExtractor={item => item.id}
         data={data}
         ListHeaderComponent={() =>
           isHistoryVisible ? (

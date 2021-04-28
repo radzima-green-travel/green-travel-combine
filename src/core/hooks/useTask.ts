@@ -4,14 +4,14 @@ class RemotePromise {
   resolveCallbacks: Array<(value?: unknown) => void> = [];
 
   pending() {
-    return new Promise((res) => {
+    return new Promise(res => {
       this.resolveCallbacks.push(res);
     });
   }
 
-  resolve() {
-    this.resolveCallbacks = this.resolveCallbacks.filter((res) => {
-      res();
+  resolve(...args) {
+    this.resolveCallbacks = this.resolveCallbacks.filter(res => {
+      res(...args);
       return true;
     });
   }
@@ -26,9 +26,12 @@ export function useTask() {
     return task.pending();
   }, [task]);
 
-  const end = useCallback(() => {
-    task.resolve();
-  }, [task]);
+  const end = useCallback(
+    (...args) => {
+      task.resolve(...args);
+    },
+    [task],
+  );
 
   return [start, end];
 }

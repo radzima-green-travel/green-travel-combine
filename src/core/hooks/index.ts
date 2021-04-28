@@ -18,3 +18,5 @@ export {useObjects} from './useObjects';
 export {useCategories} from './useCategories';
 export {useBookmarksObjects} from './useBookmarksObjects';
 export {useTransformedData} from './useTransformedData';
+export {useBackHandler} from './useBackHandler';
+export {useImageSlider} from './useImageSlider';

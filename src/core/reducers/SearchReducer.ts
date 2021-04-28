@@ -1,10 +1,9 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
-import {ISearchItem} from '../types';
 import {ACTIONS} from '../constants';
-import {uniqBy} from 'lodash';
+import {uniq} from 'lodash';
 
 interface IDefaultState {
-  history: ISearchItem[];
+  history: string[];
   inputValue: string;
 }
 
@@ -19,7 +18,7 @@ export const setSearchInputValue = createAction(ACTIONS.SET_SEARCH_INPUT_VALUE)<
 
 export const addObjectToSearchHistory = createAction(
   ACTIONS.ADD_OBJECT_TO_SEARCH_HISTORY,
-)<ISearchItem>();
+)<string>();
 
 const actions = {
   addObjectToSearchHistory,
@@ -36,5 +35,5 @@ export const searchReducer = createReducer<
   }))
   .handleAction(addObjectToSearchHistory, (state, {payload}) => ({
     ...state,
-    history: uniqBy([...state.history, payload], 'objectId'),
+    history: uniq([...state.history, payload]),
   }));

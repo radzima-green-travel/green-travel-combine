@@ -9,7 +9,6 @@ const locationPermission = isIOS
 
 class PermissionsService {
   async checkLocationPermission() {
-    console.log('checkLocationPermission');
     let status = await check(locationPermission);
 
     if (isIOS && status === RESULTS.BLOCKED) {

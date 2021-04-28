@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from 'services/NavigationService';
 import {MainNavigator} from './MainNavigator';
@@ -113,7 +107,6 @@ export function RootNavigator() {
   const onAnimationEnd = useCallback(() => {
     setSplashTransitionFinished(true);
   }, []);
-  console.log(bootstrapFinished);
   // useReduxDevToolsExtension(navigationRef);
   return (
     <NavigationContainer ref={navigationRef}>

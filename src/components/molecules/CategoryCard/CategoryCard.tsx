@@ -12,19 +12,18 @@ interface IProps {
 
 export const CategoryCard = memo(
   ({data, width, onPress, containerStyle}: IProps) => {
-    const {name, icon} = data;
+    const {name, cover} = data;
 
     const onPressHandler = useCallback(() => {
       onPress(data);
     }, [data, onPress]);
-
     return (
       <Card
         containerStyle={containerStyle}
         width={width}
         onPress={onPressHandler}
         title={name}
-        imageUri={icon}
+        imageUri={cover || undefined}
       />
     );
   },

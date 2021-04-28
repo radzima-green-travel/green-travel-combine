@@ -1,5 +1,6 @@
 import {COLORS} from 'assets/colors';
 import {FONTS_STYLES} from 'assets/fonts';
+import {hexWithAlpha} from 'core/helpers';
 
 export const TOAST_HEIGHT = 56;
 
@@ -9,12 +10,11 @@ export const themeStyles = {
     top: 0,
     right: 0,
     left: 0,
-    height: TOAST_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.logCabin,
+      light: hexWithAlpha(COLORS.white, 0.9),
+      dark: hexWithAlpha(COLORS.logCabin, 0.9),
     },
     paddingHorizontal: 20,
   },

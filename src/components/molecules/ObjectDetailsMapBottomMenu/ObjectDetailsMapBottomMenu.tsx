@@ -8,6 +8,7 @@ import React, {
 import BottomSheet from 'reanimated-bottom-sheet';
 import {View, Text} from 'react-native';
 import {themeStyles} from './styles';
+import Animated from 'react-native-reanimated';
 
 import {Button, Icon} from 'atoms';
 import {FavoriteButtonContainer} from 'containers';
@@ -24,12 +25,26 @@ interface IProps {
   data: IObject | null;
   onHideEnd: () => void;
   bottomInset: number;
-  onGetMorePress: (data: IObject) => void;
+  onButtonPress: (data: IObject) => void;
+  animatedPosition: Animated.Value<number>;
+  loading: boolean;
+  isDirectionShowed: boolean;
 }
 
 export const ObjectDetailsMapBottomMenu = memo(
   forwardRef<ObjectDetailsMapBottomMenuRef, IProps>(
-    ({data, onHideEnd, bottomInset, onGetMorePress}, ref) => {
+    (
+      {
+        data,
+        onHideEnd,
+        bottomInset,
+        onButtonPress,
+        animatedPosition,
+        loading,
+        isDirectionShowed,
+      },
+      ref,
+    ) => {
       const {t} = useTranslation('objectDetails');
       const styles = useThemeStyles(themeStyles);
       const bs = useRef<BottomSheet>(null);
@@ -68,10 +83,11 @@ export const ObjectDetailsMapBottomMenu = memo(
                 </FavoriteButtonContainer>
               </View>
               <Button
+                loading={loading}
                 onPress={() => {
-                  onGetMorePress(data);
+                  onButtonPress(data);
                 }}>
-                {t('go')}
+                {t(isDirectionShowed ? 'go' : 'show direction')}
               </Button>
             </View>
           </View>
@@ -80,6 +96,7 @@ export const ObjectDetailsMapBottomMenu = memo(
 
       return (
         <BottomSheet
+          callbackNode={animatedPosition}
           borderRadius={15}
           ref={bs}
           snapPoints={[0, snapPoint]}

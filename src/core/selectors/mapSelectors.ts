@@ -5,12 +5,13 @@ import {
   featureCollection,
   point,
   Geometry,
+  Feature,
+  LineString,
 } from '@turf/helpers';
 import {MAP_PINS} from '../constants';
 import {
   ICoordinates,
   IObject,
-  IObjectWithIcon,
   IMapFilter,
   IBounds,
   ITransformedData,
@@ -18,6 +19,11 @@ import {
 import bbox from '@turf/bbox';
 import {IState} from 'core/store';
 import {selectTransformedData} from './homeSelectors';
+
+export const selectSelectedFilters = (state: IState) =>
+  state.appMap.selectedFilters;
+export const selectSelectedMarkerId = (state: IState) =>
+  state.appMap.selectedMarkerId;
 
 export const selectMapFilters = createSelector<
   IState,
@@ -54,72 +60,55 @@ export const selectMapFilters = createSelector<
 
 export const selectMapMarkers = createSelector<
   IState,
-  IMapFilter[],
   ITransformedData | null,
   IMapFilter[],
   FeatureCollection<Geometry, {icon_image: string; data: IObject}>
->(
-  selectTransformedData,
-  (_, filters) => filters,
-  (transformedData, filters) => {
-    const points = transformedData
-      ? compact(
-          map(Object.values(transformedData.objectsMap), data => {
-            const isMatchToFilters =
-              isEmpty(filters) ||
-              some(filters, ({categoryId}) => categoryId === data.category.id);
+>(selectTransformedData, selectSelectedFilters, (transformedData, filters) => {
+  const points = transformedData
+    ? compact(
+        map(Object.values(transformedData.objectsMap), data => {
+          const isMatchToFilters =
+            isEmpty(filters) ||
+            some(filters, ({categoryId}) => categoryId === data.category.id);
 
-            const category = transformedData.categoriesMap[data.category.id];
-            if (
-              data.location &&
-              category &&
-              category.icon &&
-              isMatchToFilters
-            ) {
-              const {location} = data;
-              return point(
-                [location.lon, location.lat],
-                {
-                  icon_image: category.icon,
-                  data,
-                },
-                {id: data.id},
-              );
-            }
-            return null;
-          }),
-        )
-      : [];
+          if (data.location && isMatchToFilters) {
+            const {location} = data;
+            return point(
+              [location.lon, location.lat],
+              {
+                icon_image: data.category.icon,
+                data,
+              },
+              {id: data.id},
+            );
+          }
+          return null;
+        }),
+      )
+    : [];
 
-    return featureCollection(points);
-  },
-);
+  return featureCollection(points);
+});
 
 export const selectSelectedMapMarker = createSelector<
   IState,
-  string | null,
   ITransformedData | null,
   string | null,
-  IObjectWithIcon | null
+  IObject | null
 >(
   selectTransformedData,
-  (_, selectedObjectId) => selectedObjectId,
+  selectSelectedMarkerId,
   (transformedData, selectedObjectId) => {
     if (!selectedObjectId || !transformedData) {
       return null;
     }
-    const selectedObject = transformedData.objectsMap[selectedObjectId];
-    const category =
-      transformedData.categoriesMap[selectedObject?.category?.id];
 
-    return selectedObject && category
-      ? {...selectedObject, icon: category.icon}
-      : null;
+    return transformedData.objectsMap[selectedObjectId];
   },
 );
 
 export const createMarkerFromObject = (
-  data: IObjectWithIcon | null,
+  data: IObject | null,
 ): FeatureCollection<Geometry, {icon_image: string; data: IObject}> => {
   return featureCollection(
     compact([
@@ -127,7 +116,7 @@ export const createMarkerFromObject = (
         ? point(
             [data.location.lon, data.location.lat],
             {
-              icon_image: `${data.icon}${MAP_PINS.SELECTED_POSTFIX}`,
+              icon_image: `${data.category.icon}${MAP_PINS.SELECTED_POSTFIX}`,
               data,
             },
             {id: data.id},
@@ -139,23 +128,27 @@ export const createMarkerFromObject = (
 
 export const selectBounds = createSelector<
   IState,
-  IMapFilter[],
   FeatureCollection<Geometry, {icon_image: string; data: IObject}>,
   IMapFilter[],
   IBounds | null
->(
-  selectMapMarkers,
-  (_, filters) => filters,
-  markers => {
-    if (isEmpty(markers.features)) {
-      return null;
-    }
+>(selectMapMarkers, selectSelectedFilters, markers => {
+  if (isEmpty(markers.features)) {
+    return null;
+  }
 
-    const [minLng, minLat, maxLng, maxLat] = bbox(markers);
+  const [minLng, minLat, maxLng, maxLat] = bbox(markers);
 
-    const southWest: ICoordinates = [minLng, minLat];
-    const northEast: ICoordinates = [maxLng, maxLat];
+  const southWest: ICoordinates = [minLng, minLat];
+  const northEast: ICoordinates = [maxLng, maxLat];
 
-    return [northEast, southWest, [30, 30, 30, 30], 500];
-  },
-);
+  return [northEast, southWest, [30, 30, 30, 30], 500];
+});
+
+export const selectMapDirection = (state: IState) =>
+  state.objectDetailsMap.direction;
+
+export const selectIsDirectionShowed = createSelector<
+  IState,
+  Feature<LineString, unknown> | null,
+  boolean
+>(selectMapDirection, Boolean);

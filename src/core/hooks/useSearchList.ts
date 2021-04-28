@@ -3,23 +3,31 @@ import {
   selectSearchHistory,
   selectSearchInputValue,
   selectSearchResults,
+  selectSearchResultsWithLocation,
+  selectSearchHistoryWithLocation,
 } from 'core/selectors';
-import {ISearchItem} from 'core/types';
+import {IObject} from 'core/types';
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-export function useSearchList() {
+export function useSearchList({
+  withLocation = false,
+}: {withLocation?: boolean} = {}) {
   const dispatch = useDispatch();
-  const history = useSelector(selectSearchHistory);
-  const searchResults = useSelector(selectSearchResults);
+  const history = useSelector(
+    withLocation ? selectSearchHistoryWithLocation : selectSearchHistory,
+  );
+  const searchResults = useSelector(
+    withLocation ? selectSearchResultsWithLocation : selectSearchResults,
+  );
   const inputValue = useSelector(selectSearchInputValue);
 
   const isHistoryVisible = !inputValue;
   const data = isHistoryVisible ? history : searchResults;
 
   const addToHistory = useCallback(
-    (object: ISearchItem) => {
-      dispatch(addObjectToSearchHistory(object));
+    (object: IObject) => {
+      dispatch(addObjectToSearchHistory(object.id));
     },
     [dispatch],
   );
@@ -41,5 +49,6 @@ export function useSearchList() {
     addToHistory,
     clearInput,
     onTextChange,
+    inputValue,
   };
 }

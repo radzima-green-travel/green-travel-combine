@@ -32,7 +32,7 @@ export const Pager = memo(({currentPage, pagesAmount}: IProps) => {
   const pages = Array.from({length: pagesAmount});
 
   const animate = useCallback(
-    (toValue) => {
+    toValue => {
       Animated.timing(animatedValue, {
         toValue,
         duration: 200,
@@ -46,10 +46,10 @@ export const Pager = memo(({currentPage, pagesAmount}: IProps) => {
     if (isAnimated) {
       if (pageIndex < pivotIndex) {
         animate(pageIndex);
-        setPivotIndex((prev) => prev - 1);
+        setPivotIndex(prev => prev - 1);
       } else if (pageIndex > pivotIndex + 2) {
         animate(pageIndex - 2);
-        setPivotIndex((prev) => prev + 1);
+        setPivotIndex(prev => prev + 1);
       }
     }
   }, [animate, pageIndex, pivotIndex, isAnimated]);
@@ -69,6 +69,7 @@ export const Pager = memo(({currentPage, pagesAmount}: IProps) => {
         ]}>
         {pages.map((_p, index) => (
           <AnimatedDot
+            key={index}
             isActive={pageIndex === index}
             pivotIndex={pivotIndex}
             index={index}

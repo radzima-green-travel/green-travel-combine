@@ -2,8 +2,8 @@ import MapBox from '@react-native-mapbox-gl/maps';
 
 import React, {useRef, useCallback, useState, useEffect} from 'react';
 import {permissionsService} from 'services/PermissionsService';
-import {mapService} from 'services/MapService';
-import {ICoordinates} from 'core/types';
+import {useTask} from './useTask';
+
 export function useFocusToUserLocation(
   cameraRef: React.RefObject<MapBox.Camera | null>,
 ) {
@@ -11,36 +11,30 @@ export function useFocusToUserLocation(
   const [userLocationVisible, setUserLocationVisible] = useState(false);
   const initiallyFocusedToUserLocation = useRef(false);
 
-  const focusToUserLocation = useCallback(async () => {
+  const [getUserLocationTask, finishAllTasks] = useTask();
+
+  const getUserLocation = useCallback(async () => {
     const permissionGranted = await permissionsService.checkLocationPermission();
     if (!permissionGranted) {
-      return;
+      return null;
     }
 
     if (!userLocationVisible) {
       setUserLocationVisible(true);
+      const result = await getUserLocationTask();
+      return result;
     } else if (userLocation) {
-      cameraRef.current?.moveTo(userLocation, 500);
+      return userLocation;
     }
-  }, [userLocation, userLocationVisible, cameraRef]);
+  }, [getUserLocationTask, userLocation, userLocationVisible]);
 
-  const focusToUserWithPoints = useCallback(
-    async (coords: ICoordinates[]) => {
-      const permissionGranted = await permissionsService.checkLocationPermission();
-      if (!permissionGranted) {
-        return;
-      }
+  const focusToUserLocation = useCallback(async () => {
+    const location = userLocation || (await getUserLocation());
 
-      if (userLocation) {
-        const bounds = mapService.getBoundsFromCoords([
-          userLocation,
-          ...coords,
-        ]);
-        cameraRef.current?.fitBounds(...bounds);
-      }
-    },
-    [userLocation, cameraRef],
-  );
+    if (location) {
+      cameraRef.current?.moveTo(location, 500);
+    }
+  }, [userLocation, getUserLocation, cameraRef]);
 
   useEffect(() => {
     if (
@@ -48,10 +42,10 @@ export function useFocusToUserLocation(
       !initiallyFocusedToUserLocation.current &&
       userLocation
     ) {
-      focusToUserLocation();
+      finishAllTasks(userLocation);
       initiallyFocusedToUserLocation.current = true;
     }
-  }, [userLocation, userLocationVisible, focusToUserLocation]);
+  }, [userLocation, userLocationVisible, finishAllTasks]);
 
   const saveUserLocation = useCallback(
     (event: MapBox.Location) => {
@@ -72,6 +66,6 @@ export function useFocusToUserLocation(
     visible: userLocationVisible,
     showsUserHeadingIndicator: userLocationVisible,
     userLocation,
-    focusToUserWithPoints,
+    getUserLocation,
   };
 }

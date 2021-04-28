@@ -11,10 +11,13 @@ import {Animated} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles, TOAST_HEIGHT} from './styles';
 import {Props, toastRef} from './types';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const Toast = memo<Props>(
   forwardRef<toastRef, Props>(({children}, ref) => {
-    const [translateY] = useState(() => new Animated.Value(-TOAST_HEIGHT));
+    const {top} = useSafeAreaInsets();
+    const toastHeight = top + TOAST_HEIGHT;
+    const [translateY] = useState(() => new Animated.Value(-toastHeight));
     const isVisible = useRef(false);
     const styles = useThemeStyles(themeStyles);
     const timeout = useRef(null);
@@ -31,12 +34,12 @@ export const Toast = memo<Props>(
     );
     const hide = useCallback(() => {
       isVisible.current = false;
-      animateTanslateYTo(-TOAST_HEIGHT);
-    }, [animateTanslateYTo]);
+      animateTanslateYTo(-toastHeight);
+    }, [animateTanslateYTo, toastHeight]);
 
     const hideToastAfterDelay = useCallback(() => {
       // @ts-ignore FIXME: timeout could be null
-      timeout.current = setTimeout(hide, 3000);
+      timeout.current = setTimeout(hide, 1000);
     }, [hide]);
 
     const show = useCallback(() => {
@@ -56,7 +59,11 @@ export const Toast = memo<Props>(
     }));
 
     return (
-      <Animated.View style={[styles.container, {transform: [{translateY}]}]}>
+      <Animated.View
+        style={[
+          styles.container,
+          {height: toastHeight, paddingTop: top, transform: [{translateY}]},
+        ]}>
         {children}
       </Animated.View>
     );

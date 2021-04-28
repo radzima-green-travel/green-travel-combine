@@ -1,19 +1,27 @@
 import React, {memo, useMemo, useLayoutEffect, useCallback} from 'react';
-import {ScrollView, View} from 'react-native';
+import {View, Animated} from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
 
 import {
-  PlaceDetailsImageSlider,
+  PlaceDetailsImageSliderButtons,
   ClipboardToast,
   DetailsPageCapture,
   ObjectDescription,
+  ObjectDetailsPager,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
-import {useToast, Button, ObjectDetailsSiteLink} from 'atoms';
+import {useToast, Button, ObjectDetailsSiteLink, ImageSlider} from 'atoms';
 import {IProps} from './types';
-import {useTranslation, useObject} from 'core/hooks';
+import {
+  useTranslation,
+  useObject,
+  useImageSlider,
+  useLightStatusBar,
+} from 'core/hooks';
 import {debounce, isEmpty} from 'lodash';
-import {styles} from './styles';
+import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
+import LinearGradient from 'react-native-linear-gradient';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const ObjectDetails = memo(({route, navigation}: IProps) => {
   const {
@@ -31,7 +39,14 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
 
   const {show: showToast, ...toastProps} = useToast();
 
-  const onMarkerPress = useCallback(() => {}, []);
+  const onBackPress = useMemo(
+    () =>
+      debounce(() => navigation.goBack(), 300, {
+        leading: true,
+        trailing: false,
+      }),
+    [navigation],
+  );
 
   const copyLocationToClipboard = useCallback(
     (location: string) => {
@@ -67,14 +82,37 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
     [navigateToObjectsList],
   );
 
+  useLightStatusBar();
+
+  const {onScroll, page, pagesAmount} = useImageSlider(
+    data?.images?.length || 0,
+  );
+
+  const animatedValue = useMemo(() => new Animated.Value(0), []);
+  const {top} = useSafeAreaInsets();
+
   return data ? (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.listContentContainer}>
-        <PlaceDetailsImageSlider
-          onMarkerPress={onMarkerPress}
-          objectId={data.id}
-          images={data.images}
-        />
+      {/* <View style={styles.emptyContatiner}>
+        <Icon color={COLORS.boulder} name="camera" width={70} height={70} />
+      </View> */}
+
+      <Animated.ScrollView
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {contentOffset: {y: animatedValue}},
+            },
+          ],
+          {
+            useNativeDriver: true,
+          },
+        )}
+        contentContainerStyle={styles.listContentContainer}>
+        <ObjectDetailsPager pagesAmount={pagesAmount} page={page} />
+
         <View style={styles.contentContainer}>
           <DetailsPageCapture
             title={data.name}
@@ -98,7 +136,59 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
             onIncludePress={navigateToObjectsListDebounced}
           />
         )}
-      </ScrollView>
+      </Animated.ScrollView>
+
+      <Animated.View
+        style={[
+          styles.imageSliderContainer,
+          {
+            transform: [
+              {
+                translateY: animatedValue.interpolate({
+                  inputRange: [0, IMAGE_HEIGHT],
+                  outputRange: [0, -IMAGE_HEIGHT],
+                  extrapolate: 'clamp',
+                }),
+              },
+              {
+                scale: animatedValue.interpolate({
+                  inputRange: [-IMAGE_HEIGHT * 2, 0],
+                  outputRange: [5, 1],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ],
+          },
+        ]}>
+        <ImageSlider
+          width={IMAGE_WIDTH}
+          height={IMAGE_HEIGHT}
+          images={data.images}
+          onScroll={onScroll}
+        />
+      </Animated.View>
+      <LinearGradient
+        pointerEvents={'none'}
+        {...gradientConfig}
+        style={[styles.gradient, {height: top}]}
+      />
+      <PlaceDetailsImageSliderButtons
+        onBackPress={onBackPress}
+        objectId={data.id}
+        imageHeight={IMAGE_HEIGHT}
+        imageWidth={IMAGE_WIDTH}
+        style={{
+          transform: [
+            {
+              translateY: animatedValue.interpolate({
+                inputRange: [0, IMAGE_HEIGHT],
+                outputRange: [0, -IMAGE_HEIGHT],
+                extrapolate: 'clamp',
+              }),
+            },
+          ],
+        }}
+      />
       <ClipboardToast {...toastProps} />
     </View>
   ) : null;

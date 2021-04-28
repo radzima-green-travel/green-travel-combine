@@ -1,19 +1,39 @@
 import {ClusterMap, Icon, Portal} from 'atoms';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {View} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import {InteractionManager, View} from 'react-native';
 import MapBox from '@react-native-mapbox-gl/maps';
 import {IProps} from './types';
-import {createMarkerFromObject, selectSelectedMapMarker} from 'core/selectors';
-import {useSelector} from 'react-redux';
-import {getDirections} from 'api/mapbox';
-import {useFocusToUserLocation, useObject} from 'core/hooks';
-import {lineString as makeLineString} from '@turf/helpers';
+import {
+  createMarkerFromObject,
+  selectIsDirectionShowed,
+  selectMapDirection,
+} from 'core/selectors';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  useDarkStatusBar,
+  useFocusToUserLocation,
+  useObject,
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTranslation,
+} from 'core/hooks';
 import {
   ObjectDetailsMapBottomMenu,
   ObjectDetailsMapBottomMenuRef,
+  ObjectDetailsMapButtons,
+  BackCircleButton,
 } from 'molecules';
-import {IState} from 'core/store';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {COLORS} from 'assets';
+
+import {mapService} from 'services/MapService';
+import Animated from 'react-native-reanimated';
+import {IObject} from 'core/types';
+import {
+  clearObjectDetailsMapDirection,
+  showObjectDetailsMapDirectionRequest,
+} from 'core/reducers';
+import {showLocation} from 'react-native-map-link';
 
 const layerStyles = {
   origin: {
@@ -39,68 +59,89 @@ const layerStyles = {
 type SelectedMarker = ReturnType<typeof createMarkerFromObject>;
 
 export const ObjectDetailsMap = ({route}: IProps) => {
+  const {t} = useTranslation('objectDetails');
   const {objectId} = route.params;
   const camera = useRef<MapBox.Camera>(null);
-  const [direction, setDirection] = useState(null);
   const bottomMenu = useRef<ObjectDetailsMapBottomMenuRef>(null);
   const {bottom} = useSafeAreaInsets();
   const data = useObject(objectId);
-
-  const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
-
-  const [selectedMarker, setSelectedMarker] = useState<SelectedMarker | null>(
-    () => createMarkerFromObject(null),
-  );
-
-  const selected = useSelector((state: IState) =>
-    selectSelectedMapMarker(state, selectedMarkerId),
-  );
-
-  const onMenuHideEnd = useCallback(() => {
-    setSelectedMarkerId(null);
-  }, []);
-
-  useEffect(() => {
-    if (selected) {
-      setSelectedMarker(createMarkerFromObject(selected));
-      bottomMenu.current?.show();
-    }
-  }, [selected]);
+  useDarkStatusBar();
+  const dispatch = useDispatch();
+  const isDirectionShowed = useSelector(selectIsDirectionShowed);
+  const direction = useSelector(selectMapDirection);
 
   const {
-    userLocation,
-    focusToUserWithPoints,
+    focusToUserLocation,
+    getUserLocation,
     ...userLocationProps
   } = useFocusToUserLocation(camera);
 
+  const bounds = useMemo(() => {
+    if (data && data.area) {
+      return mapService.getBoundsFromGeoJSON(data.area, {bottom: 220 + bottom});
+    }
+    return null;
+  }, [bottom, data]);
+
+  useOnRequestSuccess(showObjectDetailsMapDirectionRequest, () => {
+    const directionBounds = mapService.getBoundsFromGeoJSON(direction, {
+      bottom: 250 + bottom,
+    });
+    camera.current?.fitBounds(...directionBounds);
+  });
+
+  const loading = useRequestLoading(showObjectDetailsMapDirectionRequest);
+
+  const onMenuButtonPress = useCallback(
+    async (obj: IObject) => {
+      const {location, name} = obj;
+      const point = [location.lon, location.lat];
+
+      if (isDirectionShowed) {
+        showLocation({
+          latitude: location.lat,
+          longitude: location.lon,
+          title: name,
+          alwaysIncludeGoogle: true,
+          dialogTitle: t('actionSheetTitle'),
+          dialogMessage: name,
+          cancelText: t('cancel'),
+        });
+      } else {
+        console.log('here');
+
+        const userLocation = await getUserLocation();
+        console.log(userLocation);
+        dispatch(
+          showObjectDetailsMapDirectionRequest({from: userLocation, to: point}),
+        );
+      }
+    },
+    [dispatch, getUserLocation, isDirectionShowed, t],
+  );
+
   useEffect(() => {
     if (data) {
-      setSelectedMarkerId(data.id);
+      InteractionManager.runAfterInteractions(() => {
+        bottomMenu.current?.show();
+      });
     }
   }, [data]);
 
-  useEffect(() => {
-    if (userLocation && data) {
-      getDirections({
-        from: userLocation,
-        to: [data?.location.lon, data?.location.lat],
-      })
-        .then(response => {
-          setDirection(makeLineString(response.routes[0].geometry.coordinates));
-        })
-        .catch(console.dir);
-    }
-  }, [data, userLocation]);
+  const animatedValue = useMemo(() => new Animated.Value(1), []);
 
-  useEffect(() => {
-    if (userLocationProps.visible && direction) {
-      focusToUserWithPoints([[data?.location.lon, data?.location.lat]]);
-    }
-  }, [data, direction, focusToUserWithPoints, userLocationProps.visible]);
+  const onBackPress = useCallback(() => {
+    bottomMenu.current?.hide();
+    dispatch(clearObjectDetailsMapDirection());
+  }, [dispatch]);
 
   return (
     <View style={{flex: 1}}>
-      <ClusterMap ref={camera}>
+      <ClusterMap
+        onPress={() => {}}
+        onShapePress={() => {}}
+        bounds={bounds}
+        ref={camera}>
         {data ? (
           <MapBox.PointAnnotation
             id="ObjectDetailsMapPin"
@@ -108,24 +149,47 @@ export const ObjectDetailsMap = ({route}: IProps) => {
             <Icon name="objectPin" width={32} height={32} />
           </MapBox.PointAnnotation>
         ) : null}
-        <MapBox.UserLocation minDisplacement={10} {...userLocationProps} />
+        {userLocationProps.visible ? (
+          <MapBox.UserLocation minDisplacement={10} {...userLocationProps} />
+        ) : null}
 
         {direction ? (
           <MapBox.ShapeSource id="routeSource" shape={direction}>
             <MapBox.LineLayer id="routeFill" style={layerStyles.route} />
           </MapBox.ShapeSource>
         ) : null}
-      </ClusterMap>
 
+        {data?.area ? (
+          <MapBox.ShapeSource id="area" shape={data?.area}>
+            <MapBox.FillLayer
+              id="areaFill"
+              style={{fillColor: COLORS.apple, fillOpacity: 0.5}}
+            />
+            <MapBox.LineLayer
+              id="areaStroke"
+              style={{lineColor: COLORS.forestGreen}}
+            />
+          </MapBox.ShapeSource>
+        ) : null}
+      </ClusterMap>
+      <ObjectDetailsMapButtons
+        bottomMenuPosition={animatedValue}
+        onShowLocationPress={focusToUserLocation}
+        botttomInset={bottom}
+      />
       <Portal>
         <ObjectDetailsMapBottomMenu
-          data={selected}
+          animatedPosition={animatedValue}
+          data={data}
           ref={bottomMenu}
-          onHideEnd={onMenuHideEnd}
+          onHideEnd={() => {}}
           bottomInset={bottom}
-          onGetMorePress={() => {}}
+          onButtonPress={onMenuButtonPress}
+          loading={loading}
+          isDirectionShowed={isDirectionShowed}
         />
       </Portal>
+      <BackCircleButton onPress={onBackPress} />
     </View>
   );
 };

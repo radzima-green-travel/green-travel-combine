@@ -1,6 +1,6 @@
 import {COLORS} from 'assets';
 import {useThemeStyles} from 'core/hooks';
-import React, {useCallback, memo, useState} from 'react';
+import React, {useCallback, memo} from 'react';
 
 import {
   View,
@@ -20,6 +20,7 @@ interface Props {
   containerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
   selectionColor?: string;
+  value: string;
 }
 
 export const HeaderSearchbar = memo(
@@ -29,18 +30,16 @@ export const HeaderSearchbar = memo(
     containerStyle,
     inputStyle,
     selectionColor,
+    value,
   }: Props) => {
     const styles = useThemeStyles(themeStyles);
-    const [value, setValue] = useState('');
 
     const clear = useCallback(() => {
       onChange('');
-      setValue('');
     }, [onChange]);
 
     const onChangeText = useCallback(
       text => {
-        setValue(text);
         onChange(text);
       },
       [onChange],

@@ -6,6 +6,7 @@ import React, {
   useMemo,
 } from 'react';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 import {View, Text} from 'react-native';
 import {themeStyles} from './styles';
 
@@ -14,32 +15,43 @@ import {FavoriteButtonContainer} from 'containers';
 import {useThemeStyles} from 'core/hooks';
 import {COLORS} from 'assets';
 import {MENU_HEIGHT} from './styles';
-import {IObjectWithIcon} from 'core/types';
+import {IObject} from 'core/types';
 export type AppMapBottomMenuRef = {
   show: () => void;
   hide: () => void;
+  isOpened: () => boolean;
 };
 
 interface IProps {
-  data: IObjectWithIcon | null;
+  data: IObject | null;
   onHideEnd: () => void;
   bottomInset: number;
-  onGetMorePress: (data: IObjectWithIcon) => void;
+  onGetMorePress: (data: IObject) => void;
+  animatedPosition: Animated.Value<number>;
 }
 
 export const AppMapBottomMenu = memo(
   forwardRef<AppMapBottomMenuRef, IProps>(
-    ({data, onHideEnd, bottomInset, onGetMorePress}, ref) => {
+    ({data, onHideEnd, bottomInset, onGetMorePress, animatedPosition}, ref) => {
       const styles = useThemeStyles(themeStyles);
       const bs = useRef<BottomSheet>(null);
+      const isOpened = useRef(false);
 
       const snapPoint = useMemo(() => MENU_HEIGHT + bottomInset, [bottomInset]);
+
+      const show = () => {
+        bs.current?.snapTo(1);
+      };
+
+      const hide = () => {
+        bs.current?.snapTo(0);
+      };
+
       useImperativeHandle(ref, () => ({
-        show: () => {
-          bs.current?.snapTo(1);
-        },
-        hide: () => {
-          bs.current?.snapTo(0);
+        show: show,
+        hide: hide,
+        isOpened: () => {
+          return isOpened.current;
         },
       }));
 
@@ -79,6 +91,7 @@ export const AppMapBottomMenu = memo(
 
       return (
         <BottomSheet
+          callbackNode={animatedPosition}
           borderRadius={15}
           ref={bs}
           snapPoints={[0, snapPoint]}
@@ -86,6 +99,8 @@ export const AppMapBottomMenu = memo(
           initialSnap={0}
           enabledGestureInteraction={false}
           onCloseEnd={onHideEnd}
+          onOpenStart={() => (isOpened.current = true)}
+          onCloseStart={() => (isOpened.current = false)}
         />
       );
     },

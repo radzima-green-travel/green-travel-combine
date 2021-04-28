@@ -1,20 +1,16 @@
 import {COLORS} from 'assets';
 import {StyleSheet} from 'react-native';
-import {IMAGE_HEIGHT, IMAGE_WIDTH} from 'atoms/ImageSlider/styles';
 
-const TOP_RATIO = 24 / 310;
-const RIGHT_RATIO = 16 / 375;
+export const TOP_RATIO = 15 / 310;
+export const RIGHT_RATIO = 16 / 375;
 
 export const styles = StyleSheet.create({
-  leftButton: {
+  container: {
     position: 'absolute',
-    left: 15,
-    top: 44,
-  },
-  rightButton: {
-    position: 'absolute',
-    right: RIGHT_RATIO * IMAGE_WIDTH,
-    top: TOP_RATIO * IMAGE_HEIGHT,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   iconContainer: {
     width: 38,

@@ -1,0 +1,1 @@
+export {ObjectDetailsPager} from './ObjectDetailsPager';

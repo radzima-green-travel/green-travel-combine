@@ -63,7 +63,7 @@ export function HomeNavigator() {
         name="ObjectDetails"
         component={ObjectDetailsScreen}
         options={{
-          ...getAppHeaderOptions({colorScheme}),
+          headerShown: false,
         }}
       />
       <Stack.Screen

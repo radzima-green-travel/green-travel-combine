@@ -45,6 +45,7 @@ export const Bookmarks = ({navigation}: IProps) => {
           <View style={styles.boxContainer}>
             {bookmarksCategories!.map((category, index, items) => (
               <BookmarkItem
+                key={category.categoryId}
                 item={category}
                 isOdd={index % 2 === 0}
                 isLast={items.length - 1 === index}

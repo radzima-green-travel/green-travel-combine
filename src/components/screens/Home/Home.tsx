@@ -1,7 +1,7 @@
 import React, {useEffect, useCallback} from 'react';
 import {SuspenseView} from 'atoms';
 import {HomeSectionBar} from 'organisms';
-import {FlatList} from 'react-native';
+import {FlatList, Alert} from 'react-native';
 
 import {styles} from './styles';
 import {getHomeDataRequest} from 'core/reducers';
@@ -22,7 +22,6 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   const {error} = useRequestError(getHomeDataRequest);
 
   useEffect(() => {
-    console.log('getHomeDataRequest');
     getData();
   }, [getData]);
 

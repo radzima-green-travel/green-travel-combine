@@ -1,3 +1,5 @@
+import {MultiPolygon} from '@turf/helpers';
+
 export interface ILabelError {
   message: {
     titlePaths: string[];
@@ -45,7 +47,7 @@ export interface IObject {
   name: string;
   description: string;
   address: string;
-  area?: IArea;
+  area?: MultiPolygon;
   location: ILocationPoint;
   category: IObjectCategory;
   cover: string;
@@ -56,15 +58,12 @@ export interface IObject {
   origin?: string;
 }
 
-export interface IObjectWithIcon extends IObject {
-  icon: string;
-}
-
 export interface ICategory {
   id: string;
   path: string;
   name: string;
   icon: string;
+  cover: string | null;
   parent?: string;
   updatedAt: string;
   fields: string[];

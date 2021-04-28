@@ -28,7 +28,7 @@ export function AppMapNavigatior() {
         name="ObjectDetails"
         component={ObjectDetailsScreen}
         options={{
-          ...getAppHeaderOptions({colorScheme}),
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

@@ -5,10 +5,19 @@ import {
   ITransformedData,
   IObejctsMap,
   ICategoriesMap,
+  ICategory,
 } from 'core/types';
+import {isEmpty, map} from 'lodash';
+import {transformMainData} from 'core/helpers';
 
-export const selectTransformedData = (state: IState) =>
-  state.home.transformedData;
+export const selectTransformedData = createSelector<
+  IState,
+  ICategory[] | null,
+  ITransformedData | null
+>(
+  state => state.home.data,
+  data => (data ? transformMainData(data) : null),
+);
 
 export const selectHomeData = createSelector<
   IState,
@@ -18,7 +27,15 @@ export const selectHomeData = createSelector<
   if (!transformedData) {
     return null;
   }
-  return transformedData.categories;
+  return map(transformedData.categories, category => {
+    return {
+      ...category,
+      objects: category.objects.slice(0, 10),
+      children: category.children.filter(id => {
+        return !isEmpty(transformedData.categoriesMap[id].objects);
+      }),
+    };
+  });
 });
 
 export const selectObjectsMap = createSelector<

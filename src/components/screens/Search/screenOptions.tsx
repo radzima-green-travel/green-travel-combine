@@ -1,13 +1,14 @@
 import {StackNavigationOptions} from '@react-navigation/stack';
 import {HeaderSearchbar} from 'atoms';
 import {setSearchInputValue} from 'core/reducers';
-import React, {useCallback, useMemo} from 'react';
-import {useDispatch} from 'react-redux';
-import {debounce} from 'lodash';
+import {selectSearchInputValue} from 'core/selectors';
+import React, {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {isIOS} from 'services/PlatformService';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
+  const inputValue = useSelector(selectSearchInputValue);
 
   const setInputValue = useCallback(
     (text: string) => {
@@ -16,12 +17,7 @@ const HeaderTitle = () => {
     [dispatch],
   );
 
-  const debounceSetInputValue = useMemo(
-    () => debounce(setInputValue, 200, {leading: false, trailing: true}),
-    [setInputValue],
-  );
-
-  return <HeaderSearchbar onChange={debounceSetInputValue} />;
+  return <HeaderSearchbar value={inputValue} onChange={setInputValue} />;
 };
 
 export const screenOptions: StackNavigationOptions = {

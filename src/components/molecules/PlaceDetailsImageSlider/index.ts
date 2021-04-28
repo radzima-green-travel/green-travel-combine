@@ -1,1 +1,0 @@
-export {PlaceDetailsImageSlider} from './PlaceDetailsImageSlider';

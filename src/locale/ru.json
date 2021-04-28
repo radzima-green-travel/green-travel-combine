@@ -33,7 +33,10 @@
   "objectDetails": {
     "seeOnTheMap": "ПОСМОТРЕТЬ НА КАРТЕ",
     "offSite": "Cайт:",
-    "go": "В путь"
+    "go": "В путь",
+    "show direction": "Проложить маршрут",
+    "cancel": "Отмена",
+    "actionSheetTitle": "В путь"
   },
   "route-details":{
     "routeName": "Царская поляна",
