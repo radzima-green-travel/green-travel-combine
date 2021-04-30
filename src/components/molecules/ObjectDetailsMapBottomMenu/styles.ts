@@ -15,11 +15,19 @@ export const themeStyles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 'auto',
   },
   text: {
     ...FONTS_STYLES.semibold20,
     color: COLORS.logCabin,
     flexShrink: 1,
+  },
+
+  subtitle: {
+    ...FONTS_STYLES.regular13,
+    color: COLORS.logCabin,
+    marginTop: 4,
+  },
+  button: {
+    marginTop: 'auto',
   },
 };

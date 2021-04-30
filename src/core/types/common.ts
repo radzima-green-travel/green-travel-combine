@@ -1,4 +1,4 @@
-import {MultiPolygon} from '@turf/helpers';
+import {MultiPolygon, LineString} from '@turf/helpers';
 
 export interface ILabelError {
   message: {
@@ -56,6 +56,7 @@ export interface IObject {
   include: IInclude[];
   url?: string;
   origin?: string;
+  routes?: LineString;
 }
 
 export interface ICategory {

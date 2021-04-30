@@ -16,6 +16,7 @@ import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
 import {MENU_HEIGHT} from './styles';
 import {IObject} from 'core/types';
+
 export type ObjectDetailsMapBottomMenuRef = {
   show: () => void;
   hide: () => void;
@@ -24,11 +25,13 @@ export type ObjectDetailsMapBottomMenuRef = {
 interface IProps {
   data: IObject | null;
   onHideEnd: () => void;
+  onOpenEnd: () => void;
   bottomInset: number;
   onButtonPress: (data: IObject) => void;
   animatedPosition: Animated.Value<number>;
   loading: boolean;
   isDirectionShowed: boolean;
+  distance: string | null;
 }
 
 export const ObjectDetailsMapBottomMenu = memo(
@@ -42,6 +45,8 @@ export const ObjectDetailsMapBottomMenu = memo(
         animatedPosition,
         loading,
         isDirectionShowed,
+        onOpenEnd,
+        distance,
       },
       ref,
     ) => {
@@ -71,6 +76,7 @@ export const ObjectDetailsMapBottomMenu = memo(
                 <Text numberOfLines={2} style={styles.text}>
                   {name}
                 </Text>
+
                 <FavoriteButtonContainer objectId={id}>
                   {isFavorite => (
                     <Icon
@@ -82,7 +88,11 @@ export const ObjectDetailsMapBottomMenu = memo(
                   )}
                 </FavoriteButtonContainer>
               </View>
+              {distance ? (
+                <Text style={styles.subtitle}> {`${distance} км`}</Text>
+              ) : null}
               <Button
+                style={styles.button}
                 loading={loading}
                 onPress={() => {
                   onButtonPress(data);
@@ -104,6 +114,7 @@ export const ObjectDetailsMapBottomMenu = memo(
           initialSnap={0}
           enabledGestureInteraction={false}
           onCloseEnd={onHideEnd}
+          onOpenEnd={onOpenEnd}
         />
       );
     },

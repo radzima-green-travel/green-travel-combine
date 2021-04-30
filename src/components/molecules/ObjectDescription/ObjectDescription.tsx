@@ -12,8 +12,21 @@ export const ObjectDescription = memo(({description}: IProps) => {
     <HTML
       containerStyle={styles.container}
       html={description}
-      ignoredStyles={['font-family', 'width', 'height']}
-      tagsStyles={{h1: styles.headline, p: styles.text}}
+      ignoredStyles={[
+        'font-family',
+        'width',
+        'height',
+        'background-color',
+        'color',
+      ]}
+      // ignoredTags={[]}
+
+      tagsStyles={{
+        h1: styles.headline,
+        h2: styles.headline,
+        p: styles.text,
+        span: styles.text,
+      }}
     />
   );
 });

@@ -1,12 +1,14 @@
-import {ClusterMap, Icon, Portal} from 'atoms';
-import React, {useCallback, useEffect, useMemo, useRef} from 'react';
+import {ClusterMap, ClusterMapShape, Icon, Portal} from 'atoms';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {InteractionManager, View} from 'react-native';
 import MapBox from '@react-native-mapbox-gl/maps';
 import {IProps} from './types';
 import {
-  createMarkerFromObject,
   selectIsDirectionShowed,
   selectMapDirection,
+  selectMapDirectionDistance,
+  selectMapMarkersObjectDetails,
+  selectTransformedData,
 } from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -22,6 +24,7 @@ import {
   ObjectDetailsMapBottomMenuRef,
   ObjectDetailsMapButtons,
   BackCircleButton,
+  ObjectDetailsMapCallout,
 } from 'molecules';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS} from 'assets';
@@ -31,44 +34,29 @@ import Animated from 'react-native-reanimated';
 import {IObject} from 'core/types';
 import {
   clearObjectDetailsMapDirection,
+  setObjectDetailsMapObjects,
   showObjectDetailsMapDirectionRequest,
 } from 'core/reducers';
 import {showLocation} from 'react-native-map-link';
-
-const layerStyles = {
-  origin: {
-    circleRadius: 5,
-    circleColor: 'white',
-  },
-  destination: {
-    circleRadius: 5,
-    circleColor: 'white',
-  },
-  route: {
-    lineColor: 'black',
-    lineCap: MapBox.LineJoin.Round,
-    lineWidth: 2,
-    lineOpacity: 0.84,
-    lineDasharray: [2, 4],
-  },
-  progress: {
-    lineColor: '#314ccd',
-    lineWidth: 3,
-  },
-};
-type SelectedMarker = ReturnType<typeof createMarkerFromObject>;
+import {filter} from 'lodash';
+import {layersStyles} from './styles';
 
 export const ObjectDetailsMap = ({route}: IProps) => {
   const {t} = useTranslation('objectDetails');
   const {objectId} = route.params;
   const camera = useRef<MapBox.Camera>(null);
   const bottomMenu = useRef<ObjectDetailsMapBottomMenuRef>(null);
-  const {bottom} = useSafeAreaInsets();
+  const [selectedOject, setSelectedObject] = useState<IObject | null>(null);
+
+  const {bottom, top} = useSafeAreaInsets();
   const data = useObject(objectId);
   useDarkStatusBar();
   const dispatch = useDispatch();
   const isDirectionShowed = useSelector(selectIsDirectionShowed);
   const direction = useSelector(selectMapDirection);
+  const distance = useSelector(selectMapDirectionDistance);
+  const markers = useSelector(selectMapMarkersObjectDetails);
+  const transforedData = useSelector(selectTransformedData);
 
   const {
     focusToUserLocation,
@@ -77,11 +65,24 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   } = useFocusToUserLocation(camera);
 
   const bounds = useMemo(() => {
-    if (data && data.area) {
-      return mapService.getBoundsFromGeoJSON(data.area, {bottom: 220 + bottom});
+    if (data) {
+      const paddings = {
+        bottom: 220 + bottom,
+        top: 30 + top,
+      };
+
+      if (data.area) {
+        return mapService.getBoundsFromGeoJSON(data.area, paddings);
+      }
+
+      if (data.routes) {
+        return mapService.getBoundsFromGeoJSON(data.routes, paddings);
+      }
+
+      return null;
     }
     return null;
-  }, [bottom, data]);
+  }, [bottom, data, top]);
 
   useOnRequestSuccess(showObjectDetailsMapDirectionRequest, () => {
     const directionBounds = mapService.getBoundsFromGeoJSON(direction, {
@@ -108,10 +109,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
           cancelText: t('cancel'),
         });
       } else {
-        console.log('here');
-
         const userLocation = await getUserLocation();
-        console.log(userLocation);
         dispatch(
           showObjectDetailsMapDirectionRequest({from: userLocation, to: point}),
         );
@@ -119,6 +117,16 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     },
     [dispatch, getUserLocation, isDirectionShowed, t],
   );
+
+  const showMarkers = useCallback(() => {
+    if (transforedData && data) {
+      const objects = filter(
+        Object.values(transforedData.objectsMap),
+        ({id}) => id !== data.id,
+      );
+      dispatch(setObjectDetailsMapObjects(objects));
+    }
+  }, [data, dispatch, transforedData]);
 
   useEffect(() => {
     if (data) {
@@ -135,13 +143,39 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     dispatch(clearObjectDetailsMapDirection());
   }, [dispatch]);
 
+  const onMarkerPress = useCallback((object, zoomLevel) => {
+    const coordinates = [object.location.lon, object.location.lat];
+    camera.current?.setCamera({
+      centerCoordinate: coordinates,
+      zoomLevel: zoomLevel,
+      animationDuration: 500,
+    });
+    setSelectedObject(object);
+  }, []);
+
+  const onMapPress = useCallback(() => {
+    setSelectedObject(null);
+  }, []);
+
   return (
     <View style={{flex: 1}}>
       <ClusterMap
-        onPress={() => {}}
-        onShapePress={() => {}}
+        onPress={onMapPress}
+        onShapePress={onMarkerPress}
         bounds={bounds}
         ref={camera}>
+        <ClusterMapShape markers={markers} />
+        {selectedOject ? (
+          <MapBox.PointAnnotation
+            id={'selectedObjectCallout'}
+            anchor={{x: 0.05, y: 1.8}}
+            coordinate={[
+              selectedOject.location.lon,
+              selectedOject.location.lat,
+            ]}>
+            <ObjectDetailsMapCallout />
+          </MapBox.PointAnnotation>
+        ) : null}
         {data ? (
           <MapBox.PointAnnotation
             id="ObjectDetailsMapPin"
@@ -154,8 +188,11 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         ) : null}
 
         {direction ? (
-          <MapBox.ShapeSource id="routeSource" shape={direction}>
-            <MapBox.LineLayer id="routeFill" style={layerStyles.route} />
+          <MapBox.ShapeSource id="directionSource" shape={direction}>
+            <MapBox.LineLayer
+              id="directionFill"
+              style={layersStyles.direction}
+            />
           </MapBox.ShapeSource>
         ) : null}
 
@@ -171,6 +208,12 @@ export const ObjectDetailsMap = ({route}: IProps) => {
             />
           </MapBox.ShapeSource>
         ) : null}
+
+        {data?.routes ? (
+          <MapBox.ShapeSource id="routeSource" shape={data?.routes}>
+            <MapBox.LineLayer id="routeFill" style={layersStyles.route} />
+          </MapBox.ShapeSource>
+        ) : null}
       </ClusterMap>
       <ObjectDetailsMapButtons
         bottomMenuPosition={animatedValue}
@@ -181,12 +224,14 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         <ObjectDetailsMapBottomMenu
           animatedPosition={animatedValue}
           data={data}
+          distance={distance}
           ref={bottomMenu}
           onHideEnd={() => {}}
           bottomInset={bottom}
           onButtonPress={onMenuButtonPress}
           loading={loading}
           isDirectionShowed={isDirectionShowed}
+          onOpenEnd={showMarkers}
         />
       </Portal>
       <BackCircleButton onPress={onBackPress} />

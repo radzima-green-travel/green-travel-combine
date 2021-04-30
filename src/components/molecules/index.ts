@@ -19,3 +19,4 @@ export * from './ObjectDetailsMapBottomMenu';
 export {ObjectDetailsPager} from './ObjectDetailsPager';
 export {ObjectDetailsMapButtons} from './ObjectDetailsMapButtons';
 export {BackCircleButton} from './BackCircleButton';
+export {ObjectDetailsMapCallout} from './ObjectDetailsMapCallout';

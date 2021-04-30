@@ -14,6 +14,10 @@ export default `query RadzimaMobile {
       createdAt
       description
       duration
+      routes {
+        coordinates
+        type
+      }
       governanceType
       id
       length
@@ -75,6 +79,10 @@ export default `query RadzimaMobile {
           parent
           updatedAt
           cover
+        }
+        routes {
+          coordinates
+          type
         }
         images
         cover

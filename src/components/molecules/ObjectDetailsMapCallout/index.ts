@@ -1,0 +1,1 @@
+export {ObjectDetailsMapCallout} from './ObjectDetailsMapCallout';

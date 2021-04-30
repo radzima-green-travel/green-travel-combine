@@ -13,13 +13,22 @@ export function* getDirectionSaga({
   payload,
 }: ActionType<typeof showObjectDetailsMapDirectionRequest>) {
   try {
-    const {routes} = yield call(getDirections, payload);
-
+    const data = yield call(getDirections, payload);
+    console.log(data);
     const lineStringGeoJSON: ReturnType<typeof makeLineString> = yield call(
       makeLineString,
-      routes[0].geometry.coordinates,
+      data.routes[0].geometry.coordinates,
     );
-    yield put(showObjectDetailsMapDirectionSuccess(lineStringGeoJSON));
+
+    const distance = data.routes[0].distance
+      ? (data.routes[0].distance / 1000).toFixed(1)
+      : null;
+    yield put(
+      showObjectDetailsMapDirectionSuccess({
+        direction: lineStringGeoJSON,
+        distance: distance,
+      }),
+    );
   } catch (e) {
     yield put(showObjectDetailsMapDirectionFailure(e));
   }

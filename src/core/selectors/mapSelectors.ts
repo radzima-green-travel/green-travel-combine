@@ -25,6 +25,9 @@ export const selectSelectedFilters = (state: IState) =>
 export const selectSelectedMarkerId = (state: IState) =>
   state.appMap.selectedMarkerId;
 
+export const selectObjectDetailsMapOjects = (state: IState) =>
+  state.objectDetailsMap.objects;
+
 export const selectMapFilters = createSelector<
   IState,
   ITransformedData | null,
@@ -56,6 +59,33 @@ export const selectMapFilters = createSelector<
         [] as IMapFilter[],
       )
     : [];
+});
+
+export const selectMapMarkersObjectDetails = createSelector<
+  IState,
+  IObject[] | null,
+  FeatureCollection<Geometry, {icon_image: string; data: IObject}>
+>(selectObjectDetailsMapOjects, objects => {
+  const points = objects
+    ? compact(
+        map(objects, data => {
+          if (data.location) {
+            const {location} = data;
+            return point(
+              [location.lon, location.lat],
+              {
+                icon_image: data.category.icon,
+                data,
+              },
+              {id: data.id},
+            );
+          }
+          return null;
+        }),
+      )
+    : [];
+
+  return featureCollection(points);
 });
 
 export const selectMapMarkers = createSelector<
@@ -146,6 +176,9 @@ export const selectBounds = createSelector<
 
 export const selectMapDirection = (state: IState) =>
   state.objectDetailsMap.direction;
+
+export const selectMapDirectionDistance = (state: IState) =>
+  state.objectDetailsMap.distance;
 
 export const selectIsDirectionShowed = createSelector<
   IState,
