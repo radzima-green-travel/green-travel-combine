@@ -24,6 +24,7 @@
 #import "ApiService.h"
 #import "CoreDataService.h"
 #import "PlaceItem.h"
+#import "Category.h"
 
 @interface MapViewController ()
 
@@ -184,6 +185,9 @@ static NSString* const kMarkerLayerId = @"markerLayerId";
         MGLPointFeature *point = [[MGLPointFeature alloc] init];
         point.coordinate = mapItem.coords;
         point.title = mapItem.title;
+        point.attributes = @{
+          @"icon": mapItem.correspondingPlaceItem.category.icon,
+        };
         [mapAnnotations addObject:point];
     }];
     [self.mapView showAnnotations:mapAnnotations animated:YES];
@@ -210,10 +214,13 @@ static NSString* const kMarkerLayerId = @"markerLayerId";
   [style addSource:source];
 
   MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kMarkerLayerId source:source];
-  markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"markerNotClustered"];
+  markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"{icon}"];
   markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
-  [style setImage:[UIImage imageNamed:@"conserv.area"] forName:@"markerNotClustered"];
 
+  [style setImage:[UIImage imageNamed:@"conserv.area"] forName:@"object"];
+  [style setImage:[UIImage imageNamed:@"hiking"] forName:@"hiking"];
+  [style setImage:[UIImage imageNamed:@"historical-place"] forName:@"historical-place"];
+  [style setImage:[UIImage imageNamed:@"bicycle-route"] forName:@"bicycle-route"];
   MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kClusterLayerId source:source];
   clusterLayer.textColor = [NSExpression expressionForConstantValue:[Colors get].black];
   clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
