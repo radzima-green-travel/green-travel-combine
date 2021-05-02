@@ -25,6 +25,7 @@
 #import "CoreDataService.h"
 #import "PlaceItem.h"
 #import "Category.h"
+#import "BottomSheetViewController.h"
 
 @interface MapViewController ()
 
@@ -41,12 +42,15 @@
 @property (strong, nonatomic) MapItem *mapItem;
 @property (strong, nonatomic) CategoriesFilterView *filterView;
 @property (strong, nonatomic) NSLayoutConstraint *locationButtonBottomAnchor;
+@property (strong, nonatomic) UIView *popup;
+@property (strong, nonatomic) BottomSheetViewController *bottomSheet;
 
 @end
 
 static NSString* const kSourceId = @"sourceId";
 static NSString* const kClusterLayerId = @"clusterLayerId";
 static NSString* const kMarkerLayerId = @"markerLayerId";
+static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 @implementation MapViewController
 
@@ -95,6 +99,14 @@ static NSString* const kMarkerLayerId = @"markerLayerId";
         [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
 
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
+    for (UIGestureRecognizer *recognizer in self.mapView.gestureRecognizers) {
+      if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        [singleTap requireGestureRecognizerToFail:recognizer];
+      }
+    }
+    [self.mapView addGestureRecognizer:singleTap];
+  
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(53.893, 27.567)
                        zoomLevel:9.0 animated:NO];
     [self.mapModel addObserver:self];
@@ -131,6 +143,11 @@ static NSString* const kMarkerLayerId = @"markerLayerId";
     ]];
 
     [self addFilterView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  [self addBottomSheet];
 }
 
 #pragma mark - Categories filter view
@@ -318,6 +335,101 @@ static NSString* const kMarkerLayerId = @"markerLayerId";
 
 - (void)onFilterUpdate:(NSSet<NSString *>*)categoryUUIDs {
     [self.mapModel applyCategoryFilters:categoryUUIDs];
+}
+
+- (IBAction)handleMapTap:(UITapGestureRecognizer *)tap {
+  MGLSource *source = [self.mapView.style sourceWithIdentifier:kSourceId];
+  if (![source isKindOfClass:[MGLShapeSource class]]) {
+    return;
+  }
+  if (tap.state != UIGestureRecognizerStateEnded) {
+    return;
+  }
+  [self showPopup:NO animated:NO];
+  
+  CGPoint point = [tap locationInView:tap.view];
+  CGFloat width = kIconSize.width;
+  CGRect rect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
+  
+  NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:kClusterLayerId, kMarkerLayerId, nil]];
+  
+  // Pick the first feature (which may be a port or a cluster), ideally selecting
+  // the one nearest nearest one to the touch point.
+  id<MGLFeature> feature = features.firstObject;
+  if (!feature) {
+    return;
+  }
+  NSString *description = @"No port name";
+  UIColor *color = UIColor.redColor;
+  if ([feature isKindOfClass:[MGLPointFeatureCluster class]]) {
+    // Tapped on a cluster.
+    MGLPointFeatureCluster *cluster = (MGLPointFeatureCluster *)feature;
+    NSArray *children = [(MGLShapeSource*)source childrenOfCluster:cluster];
+    description = [NSString stringWithFormat:@"Cluster #%zd\n%zd children",
+                   cluster.clusterIdentifier,
+                   children.count];
+    color = UIColor.blueColor;
+  } else {
+    // Tapped on a port.
+    id name = [feature attributeForKey:@"name"];
+    if ([name isKindOfClass:[NSString class]]) {
+      description = (NSString *)name;
+      color = UIColor.blackColor;
+    }
+  }
+  
+  self.popup = [self popupAtCoordinate:feature.coordinate
+                       withDescription:description
+                             textColor:color];
+  
+  [self showPopup:YES animated:YES];
+}
+
+- (UIView *)popupAtCoordinate:(CLLocationCoordinate2D)coordinate withDescription:(NSString *)description textColor:(UIColor *)textColor {
+  UILabel *popup = [[UILabel alloc] init];
+  
+  popup.backgroundColor     = [[UIColor whiteColor] colorWithAlphaComponent:0.9f];
+  popup.layer.cornerRadius  = 4;
+  popup.layer.masksToBounds = YES;
+  popup.textAlignment       = NSTextAlignmentCenter;
+  popup.lineBreakMode       = NSLineBreakByTruncatingTail;
+  popup.numberOfLines       = 0;
+  popup.font                = [UIFont systemFontOfSize:16];
+  popup.textColor           = textColor;
+  popup.alpha               = 0;
+  popup.text                = description;
+  
+  [popup sizeToFit];
+  
+  // Expand the popup.
+  popup.bounds = CGRectInset(popup.bounds, -10, -10);
+  CGPoint point = [self.mapView convertCoordinate:coordinate toPointToView:self.mapView];
+  popup.center = CGPointMake(point.x, point.y - 50);
+  
+  return popup;
+}
+
+- (void)showPopup:(BOOL)shouldShow animated:(BOOL)animated {
+  if (self.bottomSheet.visible) {
+    return;
+  }
+  [self.bottomSheet resetView];
+}
+
+- (void)addBottomSheet {
+  if (self.bottomSheet != nil) {
+    return;
+  }
+  
+  UIViewController *rootViewController = self.parentViewController.parentViewController;
+  self.bottomSheet = [[BottomSheetViewController alloc] init];
+  [rootViewController addChildViewController:self.bottomSheet];
+  [rootViewController.view addSubview:self.bottomSheet.view];
+  [self.bottomSheet didMoveToParentViewController:rootViewController];
+  self.bottomSheet.view.frame = CGRectMake(0,
+                                           CGRectGetMaxX(rootViewController.view.frame),
+                                           rootViewController.view.frame.size.width,
+                                           rootViewController.view.frame.size.height);
 }
 
 @end
