@@ -100,7 +100,8 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
   useOnRequestSuccess(showObjectDetailsMapDirectionRequest, () => {
     const directionBounds = mapService.getBoundsFromGeoJSON(direction, {
-      bottom: 250 + bottom,
+      bottom: 200 + bottom,
+      top: 30 + top,
     });
     camera.current?.fitBounds(...directionBounds);
   });
