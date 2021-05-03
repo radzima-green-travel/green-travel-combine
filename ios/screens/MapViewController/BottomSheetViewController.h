@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BottomSheetViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property(assign, nonatomic, readwrite) BOOL visible;
-- (void)resetView;
+- (void)show:(NSString *)title;
 
 @end
 

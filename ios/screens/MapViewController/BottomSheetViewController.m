@@ -8,11 +8,13 @@
 #import "BottomSheetViewController.h"
 #import "Colors.h"
 #import "CommonButton.h"
+#import "Typography.h"
 
 @interface BottomSheetViewController ()
 
 @property(strong, nonatomic) UIPanGestureRecognizer *recognizer;
 @property(strong, nonatomic) CommonButton *detailsButton;
+@property(strong, nonatomic) UILabel *headerLabel;
 
 @end
 
@@ -33,23 +35,36 @@
   
   UIView *gripView = [[UIView alloc] init];
   gripView.translatesAutoresizingMaskIntoConstraints = NO;
+  gripView.backgroundColor = [Colors get].alto;
+  gripView.layer.cornerRadius = 1.75;
+  gripView.layer.masksToBounds = YES;
   [self.view addSubview:gripView];
-  
   [NSLayoutConstraint activateConstraints:@[
-      [gripView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+    [gripView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:6.0],
       [gripView.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor],
+      [gripView.widthAnchor constraintEqualToConstant:36.0],
       [gripView.heightAnchor constraintEqualToConstant:3.5]
   ]];
   
-  self.detailsButton = [[CommonButton alloc] init];
+  self.headerLabel = [[UILabel alloc] init];
+  self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  self.headerLabel.numberOfLines = 3;
+  [self.view addSubview:self.headerLabel];
+  
+  [NSLayoutConstraint activateConstraints:@[
+      [self.headerLabel.topAnchor constraintEqualToAnchor:gripView.bottomAnchor constant:10.0],
+      [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10.0],
+      [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10.0],
+  ]];
+  
+  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Подробнее"];
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.detailsButton];
   
   [NSLayoutConstraint activateConstraints:@[
-      [self.detailsButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+      [self.detailsButton.topAnchor constraintEqualToAnchor:self.headerLabel.bottomAnchor constant:10.0],
       [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
       [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-      [self.detailsButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
   ]];
 }
 
@@ -63,13 +78,21 @@ otherGestureRecognizer {
   return YES;
 }
 
+- (void)show:(NSString *)title {
+  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:title]];
+  
+  [self resetView];
+}
+
 - (void)resetView {
   __weak typeof(self) weakSelf = self;
-  [UIView animateWithDuration:0.2 animations:^{
+  [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
     CGRect frame = weakSelf.view.frame;
-    CGFloat yComponent = UIScreen.mainScreen.bounds.size.height - 400.0;
+    CGFloat yComponent = UIScreen.mainScreen.bounds.size.height - 200.0;
     weakSelf.view.frame = CGRectMake(0, yComponent, frame.size.width, frame.size.height);
     weakSelf.visible = YES;
+  } completion:^(BOOL finished) {
+    
   }];
 }
 

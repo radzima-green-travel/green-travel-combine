@@ -413,7 +413,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (self.bottomSheet.visible) {
     return;
   }
-  [self.bottomSheet resetView];
+  [self.bottomSheet show:@"Place item"];
 }
 
 - (void)addBottomSheet {
