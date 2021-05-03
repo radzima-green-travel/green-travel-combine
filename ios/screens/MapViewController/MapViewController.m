@@ -24,6 +24,7 @@
 #import "ApiService.h"
 #import "CoreDataService.h"
 #import "PlaceItem.h"
+#import "Category.h"
 
 @interface MapViewController ()
 
@@ -42,6 +43,10 @@
 @property (strong, nonatomic) NSLayoutConstraint *locationButtonBottomAnchor;
 
 @end
+
+static NSString* const kSourceId = @"sourceId";
+static NSString* const kClusterLayerId = @"clusterLayerId";
+static NSString* const kMarkerLayerId = @"markerLayerId";
 
 @implementation MapViewController
 
@@ -65,22 +70,23 @@
     return self;
 }
 
+#pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     self.title = self.mapItem ? self.mapItem.title : @"Карта";
     self.view.backgroundColor = [Colors get].white;
-    
+
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     configureNavigationBar(navigationBar);
-    
-    NSURL *url = [NSURL URLWithString:@"mapbox://styles/mapbox/streets-v11"];
+
+    NSURL *url = [NSURL URLWithString:@"mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h"];
     self.mapView = [[MGLMapView alloc] initWithFrame:CGRectZero styleURL:url];
     [self.view addSubview:self.mapView];
-    
+
     self.mapView.delegate = self;
-    
+
     self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
@@ -88,12 +94,12 @@
         [self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
         [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
-    
+
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(53.893, 27.567)
                        zoomLevel:9.0 animated:NO];
     [self.mapModel addObserver:self];
     [self.locationModel addObserver:self];
-    
+
 #pragma mark - Location button
     self.locationButton = [[MapButton alloc] initWithImageName:@"location-arrow"
                                                       target:self
@@ -101,9 +107,9 @@
                                   imageCenterXAnchorConstant:-2.0
                                   imageCenterYAnchorConstant:2.0];
     [self.view addSubview:self.locationButton];
-    
+
     self.locationButton.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
     self.locationButtonBottomAnchor = [self.locationButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16.0];
     [NSLayoutConstraint activateConstraints:@[
         self.locationButtonBottomAnchor,
@@ -116,14 +122,14 @@
                                   imageCenterXAnchorConstant:0.0
                                   imageCenterYAnchorConstant:0.0];
     [self.view addSubview:self.searchButton];
-    
+
     self.searchButton.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.searchButton.bottomAnchor constraintEqualToAnchor:self.locationButton.topAnchor constant:-8.0],
         [self.searchButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
     ]];
-  
+
     [self addFilterView];
 }
 
@@ -141,7 +147,7 @@
   }];
   [self.view addSubview:self.filterView];
   self.filterView.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
   [NSLayoutConstraint deactivateConstraints:@[self.locationButtonBottomAnchor]];
   self.locationButtonBottomAnchor = [self.locationButton.bottomAnchor constraintEqualToAnchor:self.filterView.topAnchor];
   [NSLayoutConstraint activateConstraints:@[
@@ -154,31 +160,82 @@
 }
 
 - (void)mapViewDidFinishLoadingMap:(MGLMapView *)mapView {
+
+}
+
+- (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
     NSArray<MapItem *> *mapItems = self.mapItem ? @[self.mapItem] :
         self.mapModel.mapItemsOriginal;
-    [self renderAnnotations:mapItems];
+    [self renderAnnotations:mapItems style:style];
 }
 
 - (void)onMapItemsUpdate:(NSArray<MapItem *> *)mapItems {
     NSLog(@"Map items: %@", mapItems);
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf renderAnnotations:mapItems];
+        [weakSelf renderAnnotations:mapItems style:weakSelf.mapView.style];
         [weakSelf addFilterView];
     });
 }
 
-- (void)renderAnnotations:(NSArray<MapItem *> *)mapItems {
+- (void)renderAnnotations:(NSArray<MapItem *> *)mapItems style:(MGLStyle *)style {
     NSMutableArray *mapAnnotations = [[NSMutableArray alloc] init];
     [self.mapView removeAnnotations:self.mapView.annotations];
     [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
-        MGLPointAnnotation *point = [[MGLPointAnnotation alloc] init];
+        MGLPointFeature *point = [[MGLPointFeature alloc] init];
         point.coordinate = mapItem.coords;
         point.title = mapItem.title;
+        point.attributes = @{
+          @"icon": mapItem.correspondingPlaceItem.category.icon,
+        };
         [mapAnnotations addObject:point];
     }];
-    [self.mapView addAnnotations:mapAnnotations];
     [self.mapView showAnnotations:mapAnnotations animated:YES];
+
+  MGLShapeSource *source = (MGLShapeSource *)[style sourceWithIdentifier:kSourceId];
+  if ([style layerWithIdentifier:kMarkerLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:kMarkerLayerId]];
+  }
+  if ([style layerWithIdentifier:kClusterLayerId]) {
+    [style removeLayer:[style layerWithIdentifier:kClusterLayerId]];
+  }
+  if ([style sourceWithIdentifier:kSourceId] != nil) {
+    [style removeSource:[style sourceWithIdentifier:kSourceId]];
+  }
+
+  source =
+  [[MGLShapeSource alloc] initWithIdentifier:kSourceId
+                                    features:mapAnnotations
+                                     options:@{
+                                       MGLShapeSourceOptionClustered: @YES,
+                                       MGLShapeSourceOptionClusterRadius: @50.0
+                                     }];
+
+  [style addSource:source];
+
+  MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kMarkerLayerId source:source];
+  markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"{icon}"];
+  markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
+
+  [style setImage:[UIImage imageNamed:@"conserv.area"] forName:@"object"];
+  [style setImage:[UIImage imageNamed:@"hiking"] forName:@"hiking"];
+  [style setImage:[UIImage imageNamed:@"historical-place"] forName:@"historical-place"];
+  [style setImage:[UIImage imageNamed:@"bicycle-route"] forName:@"bicycle-route"];
+  MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kClusterLayerId source:source];
+  clusterLayer.textColor = [NSExpression expressionForConstantValue:[Colors get].black];
+  clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
+  clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:[NSNumber numberWithBool:YES]];
+  clusterLayer.textOffset =  [NSExpression expressionForConstantValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)]];
+  clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
+
+  NSDictionary *stops = @{@0: [NSExpression expressionForConstantValue:@"markerClustered"]};
+  NSExpression *defaultShape = [NSExpression expressionForConstantValue:@"markerClustered"];
+  clusterLayer.iconImageName = [NSExpression expressionWithFormat:@"mgl_step:from:stops:(point_count, %@, %@)", defaultShape, stops];
+  clusterLayer.text = [NSExpression expressionWithFormat:@"CAST(point_count, 'NSString')"];
+  [style setImage:[UIImage imageNamed:@"cluster"] forName:@"markerClustered"];
+
+  [style addLayer:markerLayer];
+  [style addLayer:clusterLayer];
 }
 
 - (MGLAnnotationView *)mapView:(MGLMapView *)mapView viewForAnnotation:(id<MGLAnnotation>)annotation {
@@ -186,12 +243,12 @@
         return nil;
     }
     NSString *reuseIdentifier = [NSString stringWithFormat:@"%f", annotation.coordinate.longitude];
-    
+
     MapPinView *mappin = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseIdentifier];
-    
+
     if (!mappin) {
         mappin = [[MapPinView alloc] initWithReuseIdentifier:reuseIdentifier];
-        mappin.bounds = CGRectMake(0, 0, 28, 35);        
+        mappin.bounds = CGRectMake(0, 0, 28, 35);
     }
     return mappin;
 }
@@ -223,7 +280,7 @@
     self.intentionToFocusOnUserLocation = YES;
     [self.locationModel authorize];
     [self.locationModel startMonitoring];
-    
+
     if (self.locationModel.locationEnabled && self.locationModel.lastLocation) {
         [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
     }
@@ -249,7 +306,7 @@
     }];
     searchViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
     UINavigationController *searchViewControllerWithNavigation =
-    [[UINavigationController alloc ] initWithRootViewController:searchViewController]; 
+    [[UINavigationController alloc ] initWithRootViewController:searchViewController];
     [self presentViewController:searchViewControllerWithNavigation animated:YES
                      completion:^{}];
 }
