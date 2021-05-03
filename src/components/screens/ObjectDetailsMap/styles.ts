@@ -3,6 +3,10 @@ import {LineLayerStyle} from '@react-native-mapbox-gl/maps';
 import {COLORS} from 'assets';
 
 export const layersStyles = {
+  objectDetailsPin: {
+    iconImage: ['get', 'icon'],
+    iconOffset: [0, -16],
+  },
   direction: {
     lineColor: 'black',
     lineCap: 'round',

@@ -56,6 +56,7 @@ export const Card = memo(
     return (
       <TouchableOpacity
         onPress={onPress}
+        disabled={!onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}>
         <FastImage

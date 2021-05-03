@@ -1,4 +1,4 @@
-import {ClusterMap, ClusterMapShape, Icon, Portal} from 'atoms';
+import {ClusterMap, ClusterMapShape, Portal} from 'atoms';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {InteractionManager, View} from 'react-native';
 import MapBox from '@react-native-mapbox-gl/maps';
@@ -9,6 +9,7 @@ import {
   selectMapDirectionDistance,
   selectMapMarkersObjectDetails,
   selectTransformedData,
+  createMarkerFromDetailsObject,
 } from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -40,6 +41,14 @@ import {
 import {showLocation} from 'react-native-map-link';
 import {filter} from 'lodash';
 import {layersStyles} from './styles';
+import {imagesService} from 'services/ImagesService';
+import {isIOS} from 'services/PlatformService';
+
+const mapPin = require('assets/images/map-pin.png');
+
+const images = {
+  mapPin,
+};
 
 export const ObjectDetailsMap = ({route}: IProps) => {
   const {t} = useTranslation('objectDetails');
@@ -50,6 +59,12 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
   const {bottom, top} = useSafeAreaInsets();
   const data = useObject(objectId);
+
+  const dataShapeSource = useMemo(
+    () => (data ? createMarkerFromDetailsObject(data) : data),
+    [data],
+  );
+
   useDarkStatusBar();
   const dispatch = useDispatch();
   const isDirectionShowed = useSelector(selectIsDirectionShowed);
@@ -144,18 +159,30 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   }, [dispatch]);
 
   const onMarkerPress = useCallback((object, zoomLevel) => {
+    if (!isIOS) {
+      setSelectedObject(null);
+    }
     const coordinates = [object.location.lon, object.location.lat];
     camera.current?.setCamera({
       centerCoordinate: coordinates,
       zoomLevel: zoomLevel,
       animationDuration: 500,
     });
-    setSelectedObject(object);
+
+    if (isIOS) {
+      setSelectedObject(object);
+    } else {
+      setTimeout(() => {
+        setSelectedObject(object);
+      }, 500);
+    }
   }, []);
 
   const onMapPress = useCallback(() => {
     setSelectedObject(null);
   }, []);
+
+  const CalloutComponent = MapBox[isIOS ? 'PointAnnotation' : 'MarkerView'];
 
   return (
     <View style={{flex: 1}}>
@@ -166,23 +193,20 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         ref={camera}>
         <ClusterMapShape markers={markers} />
         {selectedOject ? (
-          <MapBox.PointAnnotation
+          <CalloutComponent
             id={'selectedObjectCallout'}
-            anchor={{x: 0.05, y: 1.8}}
+            anchor={{x: 0.5, y: isIOS ? 1.8 : 1.15}}
             coordinate={[
               selectedOject.location.lon,
               selectedOject.location.lat,
             ]}>
-            <ObjectDetailsMapCallout />
-          </MapBox.PointAnnotation>
+            <ObjectDetailsMapCallout
+              title={selectedOject.name}
+              imageUri={selectedOject.cover}
+            />
+          </CalloutComponent>
         ) : null}
-        {data ? (
-          <MapBox.PointAnnotation
-            id="ObjectDetailsMapPin"
-            coordinate={[data?.location.lon, data?.location.lat]}>
-            <Icon name="objectPin" width={32} height={32} />
-          </MapBox.PointAnnotation>
-        ) : null}
+
         {userLocationProps.visible ? (
           <MapBox.UserLocation minDisplacement={10} {...userLocationProps} />
         ) : null}
@@ -213,6 +237,18 @@ export const ObjectDetailsMap = ({route}: IProps) => {
           <MapBox.ShapeSource id="routeSource" shape={data?.routes}>
             <MapBox.LineLayer id="routeFill" style={layersStyles.route} />
           </MapBox.ShapeSource>
+        ) : null}
+
+        {dataShapeSource ? (
+          <>
+            <MapBox.Images images={images} />
+            <MapBox.ShapeSource id="objectPinSource" shape={dataShapeSource}>
+              <MapBox.SymbolLayer
+                id="objectPinLayer"
+                style={layersStyles.objectDetailsPin}
+              />
+            </MapBox.ShapeSource>
+          </>
         ) : null}
       </ClusterMap>
       <ObjectDetailsMapButtons

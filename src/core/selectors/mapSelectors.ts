@@ -185,3 +185,22 @@ export const selectIsDirectionShowed = createSelector<
   Feature<LineString, unknown> | null,
   boolean
 >(selectMapDirection, Boolean);
+
+export const createMarkerFromDetailsObject = (
+  data: IObject | null,
+): FeatureCollection<Geometry, {icon: string; data: IObject}> => {
+  return featureCollection(
+    compact([
+      data
+        ? point(
+            [data.location.lon, data.location.lat],
+            {
+              icon: 'mapPin',
+              data,
+            },
+            {id: data.id},
+          )
+        : undefined,
+    ]),
+  );
+};
