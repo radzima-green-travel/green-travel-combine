@@ -63,6 +63,8 @@ export const AppMapBottomMenu = memo(
         return (
           <View style={[styles.container, {paddingBottom: bottomInset}]}>
             <View style={[styles.contentContainer, {height: MENU_HEIGHT}]}>
+              <View style={styles.touchIndicator} />
+
               <View style={styles.textContainer}>
                 <Text numberOfLines={2} style={styles.text}>
                   {name}
@@ -97,10 +99,13 @@ export const AppMapBottomMenu = memo(
           snapPoints={[0, snapPoint]}
           renderContent={rendnerInner}
           initialSnap={0}
-          enabledGestureInteraction={false}
+          enabledInnerScrolling={false}
           onCloseEnd={onHideEnd}
           onOpenStart={() => (isOpened.current = true)}
-          onCloseStart={() => (isOpened.current = false)}
+          onCloseStart={() => {
+            console.log('close start!');
+            isOpened.current = false;
+          }}
         />
       );
     },

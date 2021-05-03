@@ -1,6 +1,6 @@
 import {COLORS, FONTS_STYLES} from 'assets';
 
-export const MENU_HEIGHT = 218;
+export const MENU_HEIGHT = 169;
 
 export const themeStyles = {
   container: {
@@ -8,8 +8,7 @@ export const themeStyles = {
     paddingHorizontal: 16,
   },
   contentContainer: {
-    paddingTop: 24,
-    paddingBottom: 24,
+    paddingBottom: 10,
   },
   textContainer: {
     flexDirection: 'row',
@@ -29,5 +28,15 @@ export const themeStyles = {
   },
   button: {
     marginTop: 'auto',
+  },
+
+  touchIndicator: {
+    width: 36,
+    height: 3.5,
+    borderRadius: 100,
+    backgroundColor: COLORS.alto,
+    alignSelf: 'center',
+    marginTop: 6,
+    marginBottom: 14.5,
   },
 };

@@ -21,7 +21,7 @@ export const ObjectDetailsMapButtons = memo(
               {
                 translateY: Animated.interpolate(bottomMenuPosition, {
                   inputRange: [0, 1],
-                  outputRange: [-(205 + botttomInset), 0],
+                  outputRange: [-(155 + botttomInset), 0],
                   extrapolate: Extrapolate.CLAMP,
                 }),
               },

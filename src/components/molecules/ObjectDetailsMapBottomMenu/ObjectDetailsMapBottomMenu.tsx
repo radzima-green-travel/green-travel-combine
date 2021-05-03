@@ -72,6 +72,8 @@ export const ObjectDetailsMapBottomMenu = memo(
         return (
           <View style={[styles.container, {paddingBottom: bottomInset}]}>
             <View style={[styles.contentContainer, {height: MENU_HEIGHT}]}>
+              <View style={styles.touchIndicator} />
+
               <View style={styles.textContainer}>
                 <Text numberOfLines={2} style={styles.text}>
                   {name}
@@ -112,7 +114,6 @@ export const ObjectDetailsMapBottomMenu = memo(
           snapPoints={[0, snapPoint]}
           renderContent={rendnerInner}
           initialSnap={0}
-          enabledGestureInteraction={false}
           onCloseEnd={onHideEnd}
           onOpenEnd={onOpenEnd}
         />

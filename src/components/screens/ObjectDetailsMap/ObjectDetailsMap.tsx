@@ -1,5 +1,5 @@
-import {ClusterMap, ClusterMapShape, Portal} from 'atoms';
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {ClusterMap, Portal} from 'atoms';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {InteractionManager, View} from 'react-native';
 import MapBox from '@react-native-mapbox-gl/maps';
 import {IProps} from './types';
@@ -7,8 +7,8 @@ import {
   selectIsDirectionShowed,
   selectMapDirection,
   selectMapDirectionDistance,
-  selectMapMarkersObjectDetails,
-  selectTransformedData,
+  // selectMapMarkersObjectDetails,
+  // selectTransformedData,
   createMarkerFromDetailsObject,
 } from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,24 +25,22 @@ import {
   ObjectDetailsMapBottomMenuRef,
   ObjectDetailsMapButtons,
   BackCircleButton,
-  ObjectDetailsMapCallout,
+  // ObjectDetailsMapCallout,
 } from 'molecules';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {COLORS} from 'assets';
 
 import {mapService} from 'services/MapService';
 import Animated from 'react-native-reanimated';
 import {IObject} from 'core/types';
 import {
   clearObjectDetailsMapDirection,
-  setObjectDetailsMapObjects,
+  // setObjectDetailsMapObjects,
   showObjectDetailsMapDirectionRequest,
 } from 'core/reducers';
 import {showLocation} from 'react-native-map-link';
-import {filter} from 'lodash';
+// import {filter} from 'lodash';
 import {layersStyles} from './styles';
-import {imagesService} from 'services/ImagesService';
-import {isIOS} from 'services/PlatformService';
+// import {isIOS} from 'services/PlatformService';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -51,11 +49,14 @@ const images = {
 };
 
 export const ObjectDetailsMap = ({route}: IProps) => {
+  // const [selectedOject, setSelectedObject] = useState<IObject | null>(null);
+  // const markers = useSelector(selectMapMarkersObjectDetails);
+  // const transforedData = useSelector(selectTransformedData);
+
   const {t} = useTranslation('objectDetails');
   const {objectId} = route.params;
   const camera = useRef<MapBox.Camera>(null);
   const bottomMenu = useRef<ObjectDetailsMapBottomMenuRef>(null);
-  const [selectedOject, setSelectedObject] = useState<IObject | null>(null);
 
   const {bottom, top} = useSafeAreaInsets();
   const data = useObject(objectId);
@@ -70,8 +71,6 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   const isDirectionShowed = useSelector(selectIsDirectionShowed);
   const direction = useSelector(selectMapDirection);
   const distance = useSelector(selectMapDirectionDistance);
-  const markers = useSelector(selectMapMarkersObjectDetails);
-  const transforedData = useSelector(selectTransformedData);
 
   const {
     focusToUserLocation,
@@ -82,7 +81,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   const bounds = useMemo(() => {
     if (data) {
       const paddings = {
-        bottom: 220 + bottom,
+        bottom: 169 + bottom,
         top: 30 + top,
       };
 
@@ -125,23 +124,28 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         });
       } else {
         const userLocation = await getUserLocation();
-        dispatch(
-          showObjectDetailsMapDirectionRequest({from: userLocation, to: point}),
-        );
+        if (userLocation) {
+          dispatch(
+            showObjectDetailsMapDirectionRequest({
+              from: userLocation,
+              to: point,
+            }),
+          );
+        }
       }
     },
     [dispatch, getUserLocation, isDirectionShowed, t],
   );
 
   const showMarkers = useCallback(() => {
-    if (transforedData && data) {
-      const objects = filter(
-        Object.values(transforedData.objectsMap),
-        ({id}) => id !== data.id,
-      );
-      dispatch(setObjectDetailsMapObjects(objects));
-    }
-  }, [data, dispatch, transforedData]);
+    // if (transforedData && data) {
+    //   const objects = filter(
+    //     Object.values(transforedData.objectsMap),
+    //     ({id}) => id !== data.id,
+    //   );
+    //   dispatch(setObjectDetailsMapObjects(objects));
+    // }
+  }, []);
 
   useEffect(() => {
     if (data) {
@@ -158,41 +162,54 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     dispatch(clearObjectDetailsMapDirection());
   }, [dispatch]);
 
-  const onMarkerPress = useCallback((object, zoomLevel) => {
-    if (!isIOS) {
-      setSelectedObject(null);
-    }
-    const coordinates = [object.location.lon, object.location.lat];
-    camera.current?.setCamera({
-      centerCoordinate: coordinates,
-      zoomLevel: zoomLevel,
-      animationDuration: 500,
-    });
+  // const onMarkerPress = useCallback((object, zoomLevel) => {
+  // if (!isIOS) {
+  //   setSelectedObject(null);
+  // }
+  // const coordinates = [object.location.lon, object.location.lat];
+  // camera.current?.setCamera({
+  //   centerCoordinate: coordinates,
+  //   zoomLevel: zoomLevel,
+  //   animationDuration: 500,
+  // });
+  // if (isIOS) {
+  //   setSelectedObject(object);
+  // } else {
+  //   setTimeout(() => {
+  //     setSelectedObject(object);
+  //   }, 500);
+  // }
+  // }, []);
 
-    if (isIOS) {
-      setSelectedObject(object);
-    } else {
-      setTimeout(() => {
-        setSelectedObject(object);
-      }, 500);
-    }
-  }, []);
+  // const onMapPress = useCallback(() => {
+  //   setSelectedObject(null);
+  // }, []);
 
-  const onMapPress = useCallback(() => {
-    setSelectedObject(null);
-  }, []);
+  // const CalloutComponent = MapBox[isIOS ? 'PointAnnotation' : 'MarkerView'];
 
-  const CalloutComponent = MapBox[isIOS ? 'PointAnnotation' : 'MarkerView'];
+  const onMarkerPress = useCallback(
+    (object: IObject, zoomLevel: number) => {
+      if (bounds) {
+        camera.current?.fitBounds(...bounds);
+      } else {
+        const coordinates = [object.location.lon, object.location.lat];
+        camera.current?.setCamera({
+          centerCoordinate: coordinates,
+          zoomLevel: zoomLevel,
+          animationDuration: 500,
+        });
+      }
+
+      bottomMenu.current?.show();
+    },
+    [bounds],
+  );
 
   return (
     <View style={{flex: 1}}>
-      <ClusterMap
-        onPress={onMapPress}
-        onShapePress={onMarkerPress}
-        bounds={bounds}
-        ref={camera}>
-        <ClusterMapShape markers={markers} />
-        {selectedOject ? (
+      <ClusterMap onShapePress={onMarkerPress} bounds={bounds} ref={camera}>
+        {/* <ClusterMapShape markers={markers} /> */}
+        {/* {selectedOject ? (
           <CalloutComponent
             id={'selectedObjectCallout'}
             anchor={{x: 0.5, y: isIOS ? 1.8 : 1.15}}
@@ -205,7 +222,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
               imageUri={selectedOject.cover}
             />
           </CalloutComponent>
-        ) : null}
+        ) : null} */}
 
         {userLocationProps.visible ? (
           <MapBox.UserLocation minDisplacement={10} {...userLocationProps} />
@@ -222,14 +239,8 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
         {data?.area ? (
           <MapBox.ShapeSource id="area" shape={data?.area}>
-            <MapBox.FillLayer
-              id="areaFill"
-              style={{fillColor: COLORS.apple, fillOpacity: 0.5}}
-            />
-            <MapBox.LineLayer
-              id="areaStroke"
-              style={{lineColor: COLORS.forestGreen}}
-            />
+            <MapBox.FillLayer id="areaFill" style={layersStyles.area} />
+            <MapBox.LineLayer id="areaStroke" style={layersStyles.areaStroke} />
           </MapBox.ShapeSource>
         ) : null}
 
@@ -244,7 +255,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
             <MapBox.Images images={images} />
             <MapBox.ShapeSource id="objectPinSource" shape={dataShapeSource}>
               <MapBox.SymbolLayer
-                id="objectPinLayer"
+                id="singlePoint"
                 style={layersStyles.objectDetailsPin}
               />
             </MapBox.ShapeSource>

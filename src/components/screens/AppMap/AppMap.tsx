@@ -136,7 +136,11 @@ export const AppMap = ({navigation}: IProps) => {
 
   const onMenuHideEnd = useCallback(() => {
     dispatch(clearAppMapSelectedMarkerId());
-  }, [dispatch]);
+
+    if (selectedMarker) {
+      setSelectedMarker(createMarkerFromObject(null));
+    }
+  }, [dispatch, selectedMarker]);
 
   const onFilterSelect = useCallback(
     (item: IMapFilter) => {

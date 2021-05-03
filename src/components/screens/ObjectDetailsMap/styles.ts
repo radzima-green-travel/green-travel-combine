@@ -1,12 +1,12 @@
 import {StyleProp} from 'react-native';
-import {LineLayerStyle} from '@react-native-mapbox-gl/maps';
+import {LineLayerStyle, SymbolLayerStyle} from '@react-native-mapbox-gl/maps';
 import {COLORS} from 'assets';
 
 export const layersStyles = {
   objectDetailsPin: {
     iconImage: ['get', 'icon'],
     iconOffset: [0, -16],
-  },
+  } as StyleProp<SymbolLayerStyle>,
   direction: {
     lineColor: 'black',
     lineCap: 'round',
@@ -20,5 +20,14 @@ export const layersStyles = {
     lineCap: 'round',
     lineWidth: 3,
     lineOpacity: 1,
+  } as StyleProp<LineLayerStyle>,
+
+  area: {
+    fillColor: COLORS.apple,
+    fillOpacity: 0.5,
+  },
+
+  areaStroke: {
+    lineColor: COLORS.forestGreen,
   } as StyleProp<LineLayerStyle>,
 };

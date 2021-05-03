@@ -13,7 +13,7 @@ export const ClusterMap = memo(
 
       const onMapPress = useCallback(() => {
         if (!onShapePressed.current) {
-          onPress();
+          onPress?.();
         } else {
           onShapePressed.current = false;
         }
@@ -45,6 +45,9 @@ export const ClusterMap = memo(
       return (
         <View
           onResponderStart={async event => {
+            if (!onShapePress) {
+              return;
+            }
             const {locationX, locationY} = event.nativeEvent;
             let locX = locationX;
             let locY = locationY;
