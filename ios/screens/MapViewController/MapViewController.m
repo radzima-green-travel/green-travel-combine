@@ -410,24 +410,20 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (void)showPopup:(BOOL)shouldShow animated:(BOOL)animated {
-  if (self.bottomSheet.visible) {
-    return;
-  }
-  [self.bottomSheet show:@"Place item"];
+  [self.bottomSheet show:@"Place item" completion:^{}];
 }
 
 - (void)addBottomSheet {
   if (self.bottomSheet != nil) {
     return;
   }
-  
   UIViewController *rootViewController = self.parentViewController.parentViewController;
   self.bottomSheet = [[BottomSheetViewController alloc] init];
   [rootViewController addChildViewController:self.bottomSheet];
   [rootViewController.view addSubview:self.bottomSheet.view];
   [self.bottomSheet didMoveToParentViewController:rootViewController];
   self.bottomSheet.view.frame = CGRectMake(0,
-                                           CGRectGetMaxX(rootViewController.view.frame),
+                                           UIScreen.mainScreen.bounds.size.height,
                                            rootViewController.view.frame.size.width,
                                            rootViewController.view.frame.size.height);
 }

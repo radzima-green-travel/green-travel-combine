@@ -15,6 +15,7 @@
 @property(strong, nonatomic) UIPanGestureRecognizer *recognizer;
 @property(strong, nonatomic) CommonButton *detailsButton;
 @property(strong, nonatomic) UILabel *headerLabel;
+@property(assign, nonatomic, readwrite) BOOL inProgress;
 
 @end
 
@@ -25,12 +26,7 @@
   self.view.backgroundColor = [Colors get].white;
   self.recognizer =
   [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
-  self.recognizer.delegate = self;
-  UISwipeGestureRecognizer *recognizerSwipe =
-  [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
-  recognizerSwipe.numberOfTouchesRequired = 1;
-  recognizerSwipe.direction = UISwipeGestureRecognizerDirectionDown;
-  //[self.view addGestureRecognizer:recognizerSwipe];
+  [self.recognizer setMaximumNumberOfTouches:1];
   [self.view addGestureRecognizer:self.recognizer];
   
   UIView *gripView = [[UIView alloc] init];
@@ -52,19 +48,18 @@
   [self.view addSubview:self.headerLabel];
   
   [NSLayoutConstraint activateConstraints:@[
-      [self.headerLabel.topAnchor constraintEqualToAnchor:gripView.bottomAnchor constant:10.0],
-      [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10.0],
-      [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10.0],
+      [self.headerLabel.topAnchor constraintEqualToAnchor:gripView.bottomAnchor constant:14.5],
+      [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+      [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
   
-  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Подробнее"];
+  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Узнать больше"];
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.detailsButton];
-  
   [NSLayoutConstraint activateConstraints:@[
-      [self.detailsButton.topAnchor constraintEqualToAnchor:self.headerLabel.bottomAnchor constant:10.0],
-      [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-      [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+      [self.detailsButton.topAnchor constraintEqualToAnchor:self.headerLabel.bottomAnchor constant:24.0],
+      [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+      [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
 }
 
@@ -78,13 +73,30 @@ otherGestureRecognizer {
   return YES;
 }
 
-- (void)show:(NSString *)title {
+- (void)show:(NSString *)title completion:(void(^)(void))completion {
+  if (self.inProgress) {
+    return;
+  }
+  if (self.visible) {
+    self.inProgress = YES;
+    __weak typeof(self) weakSelf = self;
+    [self disappear:^{
+      [weakSelf.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:title]];
+      [weakSelf appear:^{
+        weakSelf.inProgress = NO;
+      }];
+    }];
+    return;
+  }
+  self.inProgress = YES;
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:title]];
-  
-  [self resetView];
+  __weak typeof(self) weakSelf = self;
+  [self appear:^{
+    weakSelf.inProgress = NO;
+  }];
 }
 
-- (void)resetView {
+- (void)appear:(void(^)(void))completion {
   __weak typeof(self) weakSelf = self;
   [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
     CGRect frame = weakSelf.view.frame;
@@ -92,11 +104,11 @@ otherGestureRecognizer {
     weakSelf.view.frame = CGRectMake(0, yComponent, frame.size.width, frame.size.height);
     weakSelf.visible = YES;
   } completion:^(BOOL finished) {
-    
+    completion();
   }];
 }
 
-- (void)dismissView {
+- (void)disappear:(void(^)(void))completion {
   __weak typeof(self) weakSelf = self;
   [UIView animateWithDuration:0.2 animations:^{
     CGRect frame = weakSelf.view.frame;
@@ -105,38 +117,46 @@ otherGestureRecognizer {
                                      frame.size.width,
                                      frame.size.height);
     weakSelf.visible = NO;
+  } completion:^(BOOL finished) {
+    completion();
   }];
 }
 
--(void)panGesture:(UIPanGestureRecognizer *)recognizer {
+- (void)panGesture:(UIPanGestureRecognizer *)recognizer {
   CGPoint translation = [recognizer translationInView:self.view];
   CGPoint velocity = [recognizer velocityInView:self.view];
   
-  //NSLog(@"velocity: %@", [NSValue valueWithCGPoint:velocity]);
-  
   if (recognizer.state == UIGestureRecognizerStateEnded && velocity.y >= 1000.0) {
-    [self dismissView];
-    //[recognizer setTranslation:CGPointZero inView:self.view];
-    return;
-  }
-  if (recognizer.state == UIGestureRecognizerStateEnded) {
-    [self resetView];
+    [self disappear:^{}];
     [recognizer setTranslation:CGPointZero inView:self.view];
     return;
   }
   CGFloat y = CGRectGetMinY(self.view.frame);
   CGFloat resultY = y + translation.y;
+  if (recognizer.state == UIGestureRecognizerStateEnded) {
+    if (resultY > 650.0) {
+      [self disappear:^{}];
+      [recognizer setTranslation:CGPointZero inView:self.view];
+      return;
+    }
+    [self appear:^{}];
+    [recognizer setTranslation:CGPointZero inView:self.view];
+    return;
+  }
+  if (resultY < 530.0) {
+    CGFloat divider = logf(fabs(resultY - 530)) / logf(2);
+    NSLog(@"Divider: %f", divider);
+    resultY = y + translation.y / (divider < 1 ? 1 : divider);
+  }
   NSLog(@"Result y: %f", resultY);
+  NSLog(@"translation.y: %f", translation.y);
   self.view.frame = CGRectMake(0, resultY, self.view.frame.size.width,
                                self.view.frame.size.height);
   [recognizer setTranslation:CGPointZero inView:self.view];
 }
 
--(void)swipeGesture:(UISwipeGestureRecognizer *)recognizer {
-  if (recognizer.direction == UISwipeGestureRecognizerDirectionDown &&
-      recognizer.state == UIGestureRecognizerStateEnded) {
-    [self dismissView];
-  }
+- (void)onDetailsPress:(id)sender {
+  
 }
 
 @end
