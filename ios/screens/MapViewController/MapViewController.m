@@ -204,6 +204,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
         point.title = mapItem.title;
         point.attributes = @{
           @"icon": mapItem.correspondingPlaceItem.category.icon,
+          @"title": mapItem.title,
+          @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
         };
         [mapAnnotations addObject:point];
     }];
@@ -345,7 +347,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (tap.state != UIGestureRecognizerStateEnded) {
     return;
   }
-  [self showPopup:NO animated:NO];
+  [self hidePopup];
   
   CGPoint point = [tap locationInView:tap.view];
   CGFloat width = kIconSize.width;
@@ -371,18 +373,15 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     color = UIColor.blueColor;
   } else {
     // Tapped on a port.
-    id name = [feature attributeForKey:@"name"];
-    if ([name isKindOfClass:[NSString class]]) {
-      description = (NSString *)name;
+    id title = [feature attributeForKey:@"title"];
+    id bookmarked = [feature attributeForKey:@"bookmarked"];
+    if ([title isKindOfClass:[NSString class]] &&
+        [bookmarked isKindOfClass:[NSNumber class]]) {
       color = UIColor.blackColor;
+      [self showPopupWithTitle:title
+                    bookmarked:[(NSNumber *)bookmarked boolValue]];
     }
   }
-  
-  self.popup = [self popupAtCoordinate:feature.coordinate
-                       withDescription:description
-                             textColor:color];
-  
-  [self showPopup:YES animated:YES];
 }
 
 - (UIView *)popupAtCoordinate:(CLLocationCoordinate2D)coordinate withDescription:(NSString *)description textColor:(UIColor *)textColor {
@@ -409,8 +408,12 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   return popup;
 }
 
-- (void)showPopup:(BOOL)shouldShow animated:(BOOL)animated {
-  [self.bottomSheet show:@"Place item" completion:^{}];
+- (void)hidePopup {
+  [self.bottomSheet hide];
+}
+
+- (void)showPopupWithTitle:(NSString *)title bookmarked:(BOOL)bookmarked{
+  [self.bottomSheet show:title bookmarked:bookmarked completion:^{}];
 }
 
 - (void)addBottomSheet {
@@ -423,7 +426,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [rootViewController.view addSubview:self.bottomSheet.view];
   [self.bottomSheet didMoveToParentViewController:rootViewController];
   self.bottomSheet.view.frame = CGRectMake(0,
-                                           UIScreen.mainScreen.bounds.size.height,
+                                           510.0,
                                            rootViewController.view.frame.size.width,
                                            rootViewController.view.frame.size.height);
 }

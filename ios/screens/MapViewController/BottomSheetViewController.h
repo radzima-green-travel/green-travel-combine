@@ -12,7 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BottomSheetViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property(assign, nonatomic, readwrite) BOOL visible;
-- (void)show:(NSString *)title completion:(void(^)(void))completion;
+- (void)show:(NSString *)title bookmarked:(BOOL)bookmarked
+  completion:(void(^)(void))completion;
+- (void)hide;
 
 @end
 

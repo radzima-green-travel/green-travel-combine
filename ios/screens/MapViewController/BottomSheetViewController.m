@@ -19,6 +19,9 @@
 
 @end
 
+static const CGFloat kViewTotalHeight = 510.0;
+static const CGFloat kViewVisibleHeight = 200.0;
+
 @implementation BottomSheetViewController
 
 - (void)viewDidLoad {
@@ -28,6 +31,13 @@
   [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
   [self.recognizer setMaximumNumberOfTouches:1];
   [self.view addGestureRecognizer:self.recognizer];
+  
+//  self.view.translatesAutoresizingMaskIntoConstraints = NO;
+//  [NSLayoutConstraint activateConstraints:@[
+//    [self.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+//    [self.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+//    [self.view.heightAnchor constraintEqualToConstant:kViewTotalHeight]
+//  ]];
   
   UIView *gripView = [[UIView alloc] init];
   gripView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -56,10 +66,13 @@
   self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Узнать больше"];
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.detailsButton];
+  
   [NSLayoutConstraint activateConstraints:@[
-      [self.detailsButton.topAnchor constraintEqualToAnchor:self.headerLabel.bottomAnchor constant:24.0],
+      [self.detailsButton.topAnchor constraintGreaterThanOrEqualToAnchor:self.headerLabel.bottomAnchor constant:24.0],
       [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
       [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+      [self.detailsButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor
+                                                                   constant:-16.0 - (UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight)]
   ]];
 }
 
@@ -73,7 +86,8 @@ otherGestureRecognizer {
   return YES;
 }
 
-- (void)show:(NSString *)title completion:(void(^)(void))completion {
+- (void)show:(NSString *)title bookmarked:(BOOL)bookmarked
+  completion:(void(^)(void))completion {
   if (self.inProgress) {
     return;
   }
@@ -96,11 +110,24 @@ otherGestureRecognizer {
   }];
 }
 
+- (void)hide {
+  if (self.inProgress) {
+    return;
+  }
+  if (self.visible) {
+    self.inProgress = YES;
+    __weak typeof(self) weakSelf = self;
+    [self disappear:^{
+      weakSelf.inProgress = NO;
+    }];
+  }
+}
+
 - (void)appear:(void(^)(void))completion {
   __weak typeof(self) weakSelf = self;
   [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
     CGRect frame = weakSelf.view.frame;
-    CGFloat yComponent = UIScreen.mainScreen.bounds.size.height - 200.0;
+    CGFloat yComponent = UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight;
     weakSelf.view.frame = CGRectMake(0, yComponent, frame.size.width, frame.size.height);
     weakSelf.visible = YES;
   } completion:^(BOOL finished) {
