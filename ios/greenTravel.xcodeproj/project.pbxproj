@@ -10,6 +10,7 @@
 		0C89FC5382F006AEE6C73A52 /* libPods-greenTravel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E5303B549934CCA839B125 /* libPods-greenTravel.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7759FF26064C6900CEFC78 /* AppDelegate.m */; };
 		5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */; };
 		5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0826064C8E00CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m */; };
@@ -132,6 +133,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = greenTravel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = greenTravel/main.m; sourceTree = "<group>"; };
+		5A246AC826429689003C6E5B /* BookmarkButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButton.h; sourceTree = "<group>"; };
+		5A246AC926429689003C6E5B /* BookmarkButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkButton.m; sourceTree = "<group>"; };
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A7759FF26064C6900CEFC78 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -402,6 +405,15 @@
 				B5E5303B549934CCA839B125 /* libPods-greenTravel.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A246AC72642966C003C6E5B /* BookmarkButton */ = {
+			isa = PBXGroup;
+			children = (
+				5A246AC826429689003C6E5B /* BookmarkButton.h */,
+				5A246AC926429689003C6E5B /* BookmarkButton.m */,
+			);
+			path = BookmarkButton;
 			sourceTree = "<group>";
 		};
 		5A7759FB26064C4F00CEFC78 /* app */ = {
@@ -993,6 +1005,7 @@
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5A246AC72642966C003C6E5B /* BookmarkButton */,
 				5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */,
 				5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */,
 				5AF8D589260C7D8A001CE702 /* CommonButton */,
@@ -1317,6 +1330,7 @@
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
+				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
 				5A775B5E26064C9000CEFC78 /* PathDetails.m in Sources */,
 				5A775E0226077A7D00CEFC78 /* CategoriesFilterCollectionViewCell.m in Sources */,
 				5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */,

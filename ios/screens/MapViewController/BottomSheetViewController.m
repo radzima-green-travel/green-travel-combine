@@ -9,6 +9,8 @@
 #import "Colors.h"
 #import "CommonButton.h"
 #import "Typography.h"
+#import "PlaceItem.h"
+#import "BookmarkButton.h"
 
 @interface BottomSheetViewController ()
 
@@ -16,11 +18,13 @@
 @property(strong, nonatomic) CommonButton *detailsButton;
 @property(strong, nonatomic) UILabel *headerLabel;
 @property(assign, nonatomic, readwrite) BOOL inProgress;
+@property(strong, nonatomic) BookmarkButton *bookmarkButton;
 
 @end
 
 static const CGFloat kViewTotalHeight = 510.0;
 static const CGFloat kViewVisibleHeight = 200.0;
+static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
 
 @implementation BottomSheetViewController
 
@@ -63,6 +67,17 @@ static const CGFloat kViewVisibleHeight = 200.0;
       [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
   
+  self.bookmarkButton = [[BookmarkButton alloc] initWithOnBookmarkPress:^(BOOL bookmarked) {
+  }];
+  self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.view addSubview:self.bookmarkButton];
+  
+  [NSLayoutConstraint activateConstraints:@[
+      [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:14.5],
+      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.headerLabel.trailingAnchor constant:16.0],
+      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0.0]
+  ]];
+  
   self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Узнать больше"];
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.detailsButton];
@@ -86,8 +101,7 @@ otherGestureRecognizer {
   return YES;
 }
 
-- (void)show:(NSString *)title bookmarked:(BOOL)bookmarked
-  completion:(void(^)(void))completion {
+- (void)show:(PlaceItem *)item completion:(void(^)(void))completion {
   if (self.inProgress) {
     return;
   }
@@ -95,7 +109,7 @@ otherGestureRecognizer {
     self.inProgress = YES;
     __weak typeof(self) weakSelf = self;
     [self disappear:^{
-      [weakSelf.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:title]];
+      [weakSelf.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
       [weakSelf appear:^{
         weakSelf.inProgress = NO;
       }];
@@ -103,7 +117,7 @@ otherGestureRecognizer {
     return;
   }
   self.inProgress = YES;
-  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:title]];
+  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
   __weak typeof(self) weakSelf = self;
   [self appear:^{
     weakSelf.inProgress = NO;
@@ -153,7 +167,7 @@ otherGestureRecognizer {
   CGPoint translation = [recognizer translationInView:self.view];
   CGPoint velocity = [recognizer velocityInView:self.view];
   
-  if (recognizer.state == UIGestureRecognizerStateEnded && velocity.y >= 1000.0) {
+  if (recognizer.state == UIGestureRecognizerStateEnded && velocity.y >= kVelocityEnoughToSwipeDown) {
     [self disappear:^{}];
     [recognizer setTranslation:CGPointZero inView:self.view];
     return;

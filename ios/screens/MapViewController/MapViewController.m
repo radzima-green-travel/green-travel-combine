@@ -205,6 +205,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
         point.attributes = @{
           @"icon": mapItem.correspondingPlaceItem.category.icon,
           @"title": mapItem.title,
+          @"uuid": mapItem.correspondingPlaceItem.uuid,
           @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
         };
         [mapAnnotations addObject:point];
@@ -372,14 +373,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                    children.count];
     color = UIColor.blueColor;
   } else {
-    // Tapped on a port.
-    id title = [feature attributeForKey:@"title"];
-    id bookmarked = [feature attributeForKey:@"bookmarked"];
-    if ([title isKindOfClass:[NSString class]] &&
-        [bookmarked isKindOfClass:[NSNumber class]]) {
+    id uuid = [feature attributeForKey:@"uuid"];
+    if ([uuid isKindOfClass:[NSString class]]) {
+      PlaceItem *item = self.indexModel.flatItems[(NSString *)uuid];
       color = UIColor.blackColor;
-      [self showPopupWithTitle:title
-                    bookmarked:[(NSNumber *)bookmarked boolValue]];
+      [self showPopupWithItem:item];
     }
   }
 }
@@ -412,8 +410,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self.bottomSheet hide];
 }
 
-- (void)showPopupWithTitle:(NSString *)title bookmarked:(BOOL)bookmarked{
-  [self.bottomSheet show:title bookmarked:bookmarked completion:^{}];
+- (void)showPopupWithItem:(PlaceItem *)item {
+  [self.bottomSheet show:item completion:^{}];
 }
 
 - (void)addBottomSheet {

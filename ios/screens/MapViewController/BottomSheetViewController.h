@@ -9,11 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class PlaceItem;
+
 @interface BottomSheetViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property(assign, nonatomic, readwrite) BOOL visible;
-- (void)show:(NSString *)title bookmarked:(BOOL)bookmarked
-  completion:(void(^)(void))completion;
+- (void)show:(PlaceItem *)item completion:(void(^)(void))completion;
 - (void)hide;
 
 @end
