@@ -26,6 +26,7 @@
 #import "PlaceItem.h"
 #import "Category.h"
 #import "BottomSheetViewController.h"
+#import "DetailsViewController.h"
 
 @interface MapViewController ()
 
@@ -110,6 +111,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(53.893, 27.567)
                        zoomLevel:9.0 animated:NO];
     [self.mapModel addObserver:self];
+    [self.indexModel addObserverBookmarks:self];
     [self.locationModel addObserver:self];
 
 #pragma mark - Location button
@@ -367,18 +369,52 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if ([feature isKindOfClass:[MGLPointFeatureCluster class]]) {
     // Tapped on a cluster.
     MGLPointFeatureCluster *cluster = (MGLPointFeatureCluster *)feature;
-    NSArray *children = [(MGLShapeSource*)source childrenOfCluster:cluster];
-    description = [NSString stringWithFormat:@"Cluster #%zd\n%zd children",
-                   cluster.clusterIdentifier,
-                   children.count];
+    
+    [self handleMapClusterTap:tap];
+    
     color = UIColor.blueColor;
   } else {
     id uuid = [feature attributeForKey:@"uuid"];
     if ([uuid isKindOfClass:[NSString class]]) {
       PlaceItem *item = self.indexModel.flatItems[(NSString *)uuid];
       color = UIColor.blackColor;
+      [self.mapView setCenterCoordinate:feature.coordinate zoomLevel:self.mapView.zoomLevel animated:YES];
       [self showPopupWithItem:item];
     }
+  }
+}
+
+- (MGLPointFeatureCluster *)firstClusterWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+  CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
+  CGFloat width = kIconSize.width;
+  CGRect selectionRect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
+  
+  NSArray<id<MGLFeature>> *visibleFeaturesInRect = [self.mapView visibleFeaturesInRect:selectionRect
+         inStyleLayersWithIdentifiers:[NSSet
+                       setWithObjects:kMarkerLayerId, kClusterLayerId, nil]];
+  NSPredicate *clusterPredicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject,
+                                                                        NSDictionary<NSString *,id> * _Nullable bindings) {
+    return [evaluatedObject isKindOfClass:MGLPointFeatureCluster.class];
+  }];
+  NSArray<id<MGLFeature>> *clusters = [visibleFeaturesInRect filteredArrayUsingPredicate:clusterPredicate];
+  return (MGLPointFeatureCluster *)[ clusters firstObject];
+}
+
+- (IBAction)handleMapClusterTap:(UITapGestureRecognizer *)sender {
+  MGLSource *source = [self.mapView.style sourceWithIdentifier:kSourceId];
+  if (![source isKindOfClass:MGLShapeSource.class]) {
+    return;
+  }
+  if (sender.state != UIGestureRecognizerStateEnded) {
+    return;
+  }
+  MGLPointFeatureCluster *cluster = [self firstClusterWithGestureRecognizer:sender];
+  if (!cluster) {
+    return;
+  }
+  CGFloat zoom = [(MGLShapeSource *)source zoomLevelForExpandingCluster:cluster];
+  if (zoom > 0.0) {
+    [self.mapView setCenterCoordinate:cluster.coordinate zoomLevel:zoom animated:YES];
   }
 }
 
@@ -411,7 +447,20 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (void)showPopupWithItem:(PlaceItem *)item {
-  [self.bottomSheet show:item completion:^{}];
+  __weak typeof(self) weakSelf = self;
+  [self.bottomSheet show:item onNavigatePress:^{
+    DetailsViewController *detailsController =
+    [[DetailsViewController alloc] initWithApiService:weakSelf.apiService
+                                      coreDataService:weakSelf.coreDataService
+                                           indexModel:weakSelf.indexModel
+                                             mapModel:weakSelf.mapModel
+                                        locationModel:weakSelf.locationModel
+                                          searchModel:weakSelf.searchModel];
+    detailsController.item = item;
+    [weakSelf.navigationController pushViewController:detailsController animated:YES];
+  } onBookmarkPress:^(BOOL bookmarked) {
+    [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
+  }];
 }
 
 - (void)addBottomSheet {
@@ -424,9 +473,13 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [rootViewController.view addSubview:self.bottomSheet.view];
   [self.bottomSheet didMoveToParentViewController:rootViewController];
   self.bottomSheet.view.frame = CGRectMake(0,
-                                           510.0,
+                                           UIScreen.mainScreen.bounds.size.height,
                                            rootViewController.view.frame.size.width,
                                            rootViewController.view.frame.size.height);
+}
+
+- (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
+  [self.bottomSheet setBookmarked:item bookmarked:bookmark];
 }
 
 @end

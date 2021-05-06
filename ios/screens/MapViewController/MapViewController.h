@@ -10,6 +10,7 @@
 #import "MapItemsObserver.h"
 #import "LocationObserver.h"
 @import Mapbox;
+#import "BookmarksObserver.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CoreDataService;
 @class DetailsModel;
 
-@interface MapViewController : UIViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver>
+@interface MapViewController : UIViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver>
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel

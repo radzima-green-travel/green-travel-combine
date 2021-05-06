@@ -16,9 +16,11 @@
 
 @property(strong, nonatomic) UIPanGestureRecognizer *recognizer;
 @property(strong, nonatomic) CommonButton *detailsButton;
+@property(strong, nonatomic) NSString *itemUUID;
 @property(strong, nonatomic) UILabel *headerLabel;
 @property(assign, nonatomic, readwrite) BOOL inProgress;
 @property(strong, nonatomic) BookmarkButton *bookmarkButton;
+@property(copy, nonatomic) void(^onNavigatePress)(void);
 
 @end
 
@@ -36,12 +38,8 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   [self.recognizer setMaximumNumberOfTouches:1];
   [self.view addGestureRecognizer:self.recognizer];
   
-//  self.view.translatesAutoresizingMaskIntoConstraints = NO;
-//  [NSLayoutConstraint activateConstraints:@[
-//    [self.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-//    [self.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-//    [self.view.heightAnchor constraintEqualToConstant:kViewTotalHeight]
-//  ]];
+  self.view.layer.cornerRadius = 8.0;
+  self.view.layer.masksToBounds= YES;
   
   UIView *gripView = [[UIView alloc] init];
   gripView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -67,15 +65,14 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
       [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
   
-  self.bookmarkButton = [[BookmarkButton alloc] initWithOnBookmarkPress:^(BOOL bookmarked) {
-  }];
+  self.bookmarkButton = [[BookmarkButton alloc] initWithOnBookmarkPress:^(BOOL bookmarked) {}];
   self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.bookmarkButton];
   
   [NSLayoutConstraint activateConstraints:@[
       [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:14.5],
       [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.headerLabel.trailingAnchor constant:16.0],
-      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0.0]
+      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-2.0]
   ]];
   
   self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Узнать больше"];
@@ -101,10 +98,16 @@ otherGestureRecognizer {
   return YES;
 }
 
-- (void)show:(PlaceItem *)item completion:(void(^)(void))completion {
+- (void)show:(PlaceItem *)item
+onNavigatePress:(void(^)(void))onNavigatePress
+onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   if (self.inProgress) {
     return;
   }
+  self.itemUUID = item.uuid;
+  self.onNavigatePress = onNavigatePress;
+  [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
+  [self.bookmarkButton setSelected:item.bookmarked];
   if (self.visible) {
     self.inProgress = YES;
     __weak typeof(self) weakSelf = self;
@@ -134,6 +137,12 @@ otherGestureRecognizer {
     [self disappear:^{
       weakSelf.inProgress = NO;
     }];
+  }
+}
+
+- (void)setBookmarked:(PlaceItem *)item bookmarked:(BOOL)bookmarked {
+  if ([item.uuid isEqualToString:self.itemUUID]) {
+    [self.bookmarkButton setSelected:bookmarked];
   }
 }
 
@@ -174,8 +183,9 @@ otherGestureRecognizer {
   }
   CGFloat y = CGRectGetMinY(self.view.frame);
   CGFloat resultY = y + translation.y;
+  CGFloat minY = UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight;
   if (recognizer.state == UIGestureRecognizerStateEnded) {
-    if (resultY > 650.0) {
+    if (resultY > (minY + kViewVisibleHeight / 3)) {
       [self disappear:^{}];
       [recognizer setTranslation:CGPointZero inView:self.view];
       return;
@@ -184,8 +194,8 @@ otherGestureRecognizer {
     [recognizer setTranslation:CGPointZero inView:self.view];
     return;
   }
-  if (resultY < 530.0) {
-    CGFloat divider = logf(fabs(resultY - 530)) / logf(2);
+  if (resultY < minY && translation.y < 0) {
+    CGFloat divider = logf(fabs(resultY - minY)) / logf(2);
     NSLog(@"Divider: %f", divider);
     resultY = y + translation.y / (divider < 1 ? 1 : divider);
   }
@@ -197,7 +207,8 @@ otherGestureRecognizer {
 }
 
 - (void)onDetailsPress:(id)sender {
-  
+  [self hide];
+  self.onNavigatePress();
 }
 
 @end

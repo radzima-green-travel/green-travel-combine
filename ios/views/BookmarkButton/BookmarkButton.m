@@ -54,4 +54,8 @@
   [self setSelected:bookmarked];
 }
 
+- (void)setOnBookmarkPress:(void(^)(BOOL))onBookmarkPress {
+  _onBookmarkPress = onBookmarkPress;
+}
+
 @end
