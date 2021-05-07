@@ -11,7 +11,7 @@ class PermissionsService {
   async checkLocationPermission() {
     let status = await check(locationPermission);
 
-    if (isIOS) {
+    if (isIOS && status !== RESULTS.GRANTED) {
       if (status === RESULTS.BLOCKED) {
         Alert.alert(
           i18n.t('common:locationPermissionTitle'),
