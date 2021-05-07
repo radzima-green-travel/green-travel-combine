@@ -8,7 +8,7 @@ import {useCategoryObjects} from 'core/hooks';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {IObject} from 'core/types';
-import {debounce} from 'lodash';
+import {debounce, orderBy} from 'lodash';
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 export const ObjectsList = ({
   route,
@@ -27,6 +27,14 @@ export const ObjectsList = ({
     [push],
   );
 
+  const sortedListData = useMemo(
+    () =>
+      listData
+        ? orderBy(listData, [({name}) => name.toLowerCase()], 'asc')
+        : null,
+    [listData],
+  );
+
   const navigateToObjectDetailsDebounced = useMemo(
     () =>
       debounce(navigateToObjectDetails, 300, {leading: true, trailing: false}),
@@ -41,7 +49,7 @@ export const ObjectsList = ({
 
   return (
     <FlatList
-      data={listData}
+      data={sortedListData}
       contentContainerStyle={styles.contentContainer}
       keyExtractor={item => item.id}
       renderItem={({item}) => (

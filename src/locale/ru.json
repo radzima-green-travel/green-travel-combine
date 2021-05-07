@@ -20,7 +20,8 @@
     "locationPermissionTitle": "Нет доступа к локации",
     "locationPermissionText": "Предоставьте доступ к Геолокации в настройках что бы определить вашу позицию",
     "locationPermissionCancel": "Отмена",
-    "locationPermissionSetttings": "Настройки"
+    "locationPermissionSetttings": "Настройки",
+    "locationPermissionTextDevice": "Включите Сервисы Геолокации в настройках телефона что бы определить вашу позицию"
   },
   "home":{
     "headerTitle": "Главная",

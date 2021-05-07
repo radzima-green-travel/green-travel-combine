@@ -29,5 +29,7 @@ export const layerStyles = {
     ],
     textSize: 12,
     textColor: '#000',
+    iconAllowOverlap: true,
+    textAllowOverlap: true,
   } as SymbolLayerStyle,
 };

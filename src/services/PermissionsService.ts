@@ -11,24 +11,33 @@ class PermissionsService {
   async checkLocationPermission() {
     let status = await check(locationPermission);
 
-    if (isIOS && status === RESULTS.BLOCKED) {
-      Alert.alert(
-        i18n.t('common:locationPermissionTitle'),
-        i18n.t('common:locationPermissionText'),
+    if (isIOS) {
+      if (status === RESULTS.BLOCKED) {
+        Alert.alert(
+          i18n.t('common:locationPermissionTitle'),
+          i18n.t('common:locationPermissionText'),
 
-        [
-          {
-            text: i18n.t('common:locationPermissionCancel'),
-            style: 'cancel',
-          },
-          {
-            text: i18n.t('common:locationPermissionSetttings'),
-            onPress: () => {
-              Linking.openURL('app-settings:');
+          [
+            {
+              text: i18n.t('common:locationPermissionCancel'),
+              style: 'cancel',
             },
-          },
-        ],
-      );
+            {
+              text: i18n.t('common:locationPermissionSetttings'),
+              onPress: () => {
+                Linking.openURL('app-settings:');
+              },
+            },
+          ],
+        );
+      }
+
+      if (status === RESULTS.UNAVAILABLE) {
+        Alert.alert(
+          i18n.t('common:locationPermissionTitle'),
+          i18n.t('common:locationPermissionTextDevice'),
+        );
+      }
 
       return false;
     } else {
