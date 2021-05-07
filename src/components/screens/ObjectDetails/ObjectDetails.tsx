@@ -91,6 +91,8 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
   const animatedValue = useMemo(() => new Animated.Value(0), []);
   const {top} = useSafeAreaInsets();
 
+  const isJustOneImage = pagesAmount < 2;
+
   return data ? (
     <View style={styles.container}>
       {/* <View style={styles.emptyContatiner}>
@@ -111,9 +113,15 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
           },
         )}
         contentContainerStyle={styles.listContentContainer}>
-        <ObjectDetailsPager pagesAmount={pagesAmount} page={page} />
+        {isJustOneImage ? null : (
+          <ObjectDetailsPager pagesAmount={pagesAmount} page={page} />
+        )}
 
-        <View style={styles.contentContainer}>
+        <View
+          style={[
+            styles.contentContainer,
+            isJustOneImage && styles.withoutPagerContentContainer,
+          ]}>
           <DetailsPageCapture
             title={data.name}
             subtitle={data.address}

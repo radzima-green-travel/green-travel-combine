@@ -1,33 +1,49 @@
-import {StyleSheet} from 'react-native';
-import {FONTS, COLORS} from 'assets';
+import {COLORS, FONTS_STYLES} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   box: {
-    shadowColor: 'rgb(21, 39, 2)',
+    shadowColor: {
+      light: 'rgb(21, 39, 2)',
+      dark: 'rgb(32, 34, 31)',
+    },
     shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.2,
+    shadowOpacity: {
+      light: 0.2,
+      dark: 0.08,
+    },
     shadowRadius: 4,
     elevation: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 15,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.mirage,
+    },
+    borderRadius: 4,
     marginBottom: 16,
     paddingHorizontal: 10,
   },
   text: {
+    ...FONTS_STYLES.semibold12,
     textTransform: 'uppercase',
-    fontFamily: FONTS.primary,
-    fontWeight: '400',
     textAlign: 'center',
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   count: {
     position: 'absolute',
-    top: 12,
-    right: 12,
-    fontFamily: FONTS.primary,
-    fontSize: 10,
-    opacity: 0.3,
-    color: COLORS.logCabin,
+    top: 10,
+    right: 9,
+    ...FONTS_STYLES.semibold12,
+    opacity: {
+      light: 0.3,
+      dark: 1,
+    },
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
-});
+};

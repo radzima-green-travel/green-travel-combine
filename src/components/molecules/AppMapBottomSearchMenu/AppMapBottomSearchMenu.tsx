@@ -7,7 +7,7 @@ import React, {
   useCallback,
 } from 'react';
 import BottomSheet from 'reanimated-bottom-sheet';
-import {Keyboard, Pressable, View} from 'react-native';
+import {Keyboard, Pressable, useColorScheme, View} from 'react-native';
 import {themeStyles} from './styles';
 
 import {useThemeStyles, useTask} from 'core/hooks';
@@ -49,6 +49,7 @@ export const AppMapBottomSearchMenu = memo(
       const [startTransitionTask, endTransitionTask] = useTask();
       const snapPoint = useMemo(() => WINDOW_HEIGHT * 0.95, []);
       const isOpened = useRef(false);
+      const theme = useColorScheme();
 
       const hide = useCallback(() => {
         bs.current?.snapTo(0);
@@ -81,7 +82,12 @@ export const AppMapBottomSearchMenu = memo(
                   hide();
                   onTextChange('');
                 }}>
-                <Icon name="chevron" color={COLORS.logCabin} size={24} />
+                <Icon
+                  style={styles.icon}
+                  name="chevron"
+                  color={COLORS.logCabin}
+                  size={24}
+                />
               </Pressable>
               <HeaderSearchbar
                 value={inputValue}
@@ -89,7 +95,9 @@ export const AppMapBottomSearchMenu = memo(
                 containerStyle={styles.searchBar}
                 autoFocus={false}
                 onChange={onTextChange}
-                selectionColor={COLORS.boulder}
+                selectionColor={
+                  theme === 'light' ? COLORS.boulder : COLORS.altoForDark
+                }
               />
             </View>
             <SearchList

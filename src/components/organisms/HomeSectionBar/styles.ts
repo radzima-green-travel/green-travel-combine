@@ -7,7 +7,7 @@ import {ratio} from 'atoms/Card/Card';
 export const cardWidth = (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945;
 export const cardHeihgt = cardWidth / ratio;
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
     paddingHorizontal: PADDING_HORIZONTAL,
     marginTop: 16,
@@ -30,8 +30,11 @@ export const styles = StyleSheet.create({
   sectionTitle: {
     flex: 1,
     ...FONTS_STYLES.semibold14,
-    color: COLORS.logCabin,
     textTransform: 'uppercase',
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.white,
+    },
   },
   sectionTitleContainer: {
     flexDirection: 'row',
@@ -42,7 +45,10 @@ export const styles = StyleSheet.create({
   },
   all: {
     ...FONTS_STYLES.semibold14,
-    color: COLORS.apple,
+    color: {
+      light: COLORS.apple,
+      dark: COLORS.white,
+    },
     textTransform: 'uppercase',
   },
-});
+};

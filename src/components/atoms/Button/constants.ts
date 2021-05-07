@@ -1,10 +1,13 @@
 import {COLORS} from 'assets/colors';
-import {ButtonThemes, ThemeData} from './types';
+import {ButtonThemes} from './types';
 
-export const BUTTON_THEMES: {[key in ButtonThemes]: ThemeData} = {
+export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
   green: {
     container: {
-      backgroundColor: COLORS.apple,
+      backgroundColor: {
+        light: COLORS.apple,
+        dark: COLORS.oceanGreen,
+      },
     },
     disabled: {
       backgroundColor: COLORS.silver,

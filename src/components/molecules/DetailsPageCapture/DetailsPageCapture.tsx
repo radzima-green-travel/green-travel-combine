@@ -15,7 +15,7 @@ export const DetailsPageCapture = memo(
   ({title, subtitle, coordinates, onCoordinatesPress}: IProps) => {
     const styles = useThemeStyles(themeStyles);
     const location = useMemo(() => {
-      const stringCoordinates = coordinates?.map((number) => number.toFixed(7));
+      const stringCoordinates = coordinates?.map(number => number.toFixed(7));
 
       return stringCoordinates ? stringCoordinates.reverse().join(', ') : null;
     }, [coordinates]);

@@ -19,6 +19,7 @@ export function BookmarksNavigator() {
 
   return (
     <Stack.Navigator
+      headerMode="screen"
       screenOptions={{
         ...getAppHeaderOptions({colorScheme}),
         title: 'Закладки',

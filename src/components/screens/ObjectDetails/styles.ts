@@ -11,6 +11,9 @@ export const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 16,
   },
+  withoutPagerContentContainer: {
+    marginTop: 16,
+  },
   listContentContainer: {
     paddingBottom: 16,
     paddingTop: IMAGE_HEIGHT,

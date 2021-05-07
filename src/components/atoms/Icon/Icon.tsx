@@ -55,7 +55,7 @@ export const Icon = ({
       width={iconWidth}
       height={iconHeight}
       style={iconStyle}
-      color={color || iconColor || 'white'}
+      color={iconColor || color || 'white'}
       additionalColor={additionalColor}
     />
   );

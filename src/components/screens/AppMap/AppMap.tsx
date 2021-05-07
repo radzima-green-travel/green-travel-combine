@@ -38,10 +38,11 @@ import {
   AppMapButtons,
 } from 'molecules';
 import {
-  useDarkStatusBar,
+  useStatusBar,
   useSearchList,
   useFocusToUserLocation,
   useBackHandler,
+  useColorScheme,
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
@@ -49,7 +50,7 @@ type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
-
+  const sheme = useColorScheme();
   const mapFilters = useSelector(selectMapFilters);
   const selected = useSelector(selectSelectedMapMarker);
   const markers = useSelector(selectMapMarkers);
@@ -178,7 +179,7 @@ export const AppMap = ({navigation}: IProps) => {
     return false;
   });
 
-  useDarkStatusBar();
+  useStatusBar(sheme);
 
   const animatedValue = useMemo(() => new Animated.Value(1), []);
   return (

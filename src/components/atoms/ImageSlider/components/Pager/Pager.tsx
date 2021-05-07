@@ -22,7 +22,7 @@ export const Pager = memo(({currentPage, pagesAmount}: IProps) => {
       ? animatedValue.interpolate({
           inputRange: [0, pagesAmount - 1],
           outputRange: [
-            DOT_OFFSET * 3,
+            DOT_OFFSET * 2,
             -((pagesAmount - 1) * DOT_OFFSET - DOT_OFFSET * 3),
           ],
         })

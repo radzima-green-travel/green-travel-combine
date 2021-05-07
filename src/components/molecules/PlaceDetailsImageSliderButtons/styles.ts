@@ -1,10 +1,10 @@
 import {COLORS} from 'assets';
-import {StyleSheet} from 'react-native';
+import {hexWithAlpha} from 'core/helpers';
 
 export const TOP_RATIO = 15 / 310;
 export const RIGHT_RATIO = 16 / 375;
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
     position: 'absolute',
     left: 0,
@@ -16,10 +16,22 @@ export const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 38,
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.mirage,
+    },
     borderWidth: 1,
-    borderColor: '#D9D9D9',
+    borderColor: {
+      light: COLORS.alto,
+      dark: hexWithAlpha(COLORS.altoForDark, 0.2),
+    },
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+  icon: {
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
+  },
+};

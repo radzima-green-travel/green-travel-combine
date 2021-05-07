@@ -12,13 +12,19 @@ export const themeStyles = {
   },
   emtyListText: {
     ...FONTS_STYLES.regular15,
-    color: COLORS.boulder,
+    color: {
+      light: COLORS.boulder,
+      dark: COLORS.altoForDark,
+    },
     textAlign: 'center',
     marginTop: 8,
   },
   listTitle: {
     ...FONTS_STYLES.regular15,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
     marginBottom: 24,
   },
 };

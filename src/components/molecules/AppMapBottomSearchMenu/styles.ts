@@ -2,7 +2,10 @@ import {COLORS} from 'assets';
 
 export const themeStyles = {
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.background,
+    },
   },
   searchBar: {
     marginBottom: 0,
@@ -10,11 +13,21 @@ export const themeStyles = {
     marginLeft: 10,
     shadowOpacity: 0,
     elevation: 0,
-    backgroundColor: COLORS.alabaster,
+    backgroundColor: {
+      light: COLORS.alabaster,
+      dark: COLORS.mirage,
+    },
     borderRadius: 8,
   },
   inputStyles: {
-    color: COLORS.boulder,
+    color: {
+      light: COLORS.boulder,
+      dark: COLORS.altoForDark,
+    },
+    backgroundColor: {
+      light: COLORS.alabaster,
+      dark: COLORS.mirage,
+    },
   },
   searchBarContatiner: {
     flexDirection: 'row',
@@ -22,5 +35,8 @@ export const themeStyles = {
     marginTop: 25,
     paddingHorizontal: 16,
     marginBottom: 10,
+  },
+  icon: {
+    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
   },
 };

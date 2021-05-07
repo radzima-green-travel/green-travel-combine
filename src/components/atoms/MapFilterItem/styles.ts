@@ -7,22 +7,35 @@ export const themeStyles = {
     alignItems: 'center',
     paddingHorizontal: 14,
     borderRadius: 4,
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.oxfordBlue,
+    },
     marginLeft: 16,
   },
   selectedContainer: {
-    backgroundColor: COLORS.apple,
+    backgroundColor: {
+      light: COLORS.apple,
+      dark: COLORS.oceanGreen,
+    },
   },
 
   text: {
     ...FONTS_STYLES.regular13,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   selectedText: {
     color: COLORS.white,
   },
   icon: {
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
+    marginRight: 7,
   },
 
   selectedIcon: {

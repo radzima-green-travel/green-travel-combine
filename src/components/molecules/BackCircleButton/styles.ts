@@ -1,4 +1,5 @@
 import {COLORS} from 'assets';
+import {hexWithAlpha} from 'core/helpers';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 
 export const TOP = 15;
@@ -9,13 +10,25 @@ export const themeStyles = {
     width: 38,
     height: 38,
     borderRadius: 38,
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.mirage,
+    },
     borderWidth: 1,
-    borderColor: COLORS.silver,
+    borderColor: {
+      light: COLORS.alto,
+      dark: hexWithAlpha(COLORS.altoForDark, 0.2),
+    },
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
 
     left: LEFT_RATIO * SCREEN_WIDTH,
+  },
+  icon: {
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
 };

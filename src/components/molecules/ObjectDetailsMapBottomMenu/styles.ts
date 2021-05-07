@@ -4,7 +4,10 @@ export const MENU_HEIGHT = 169;
 
 export const themeStyles = {
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.background,
+    },
     paddingHorizontal: 16,
   },
   contentContainer: {
@@ -17,13 +20,13 @@ export const themeStyles = {
   },
   text: {
     ...FONTS_STYLES.semibold20,
-    color: COLORS.logCabin,
+    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
     flexShrink: 1,
   },
 
   subtitle: {
     ...FONTS_STYLES.regular13,
-    color: COLORS.logCabin,
+    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
     marginTop: 4,
   },
   button: {
@@ -38,5 +41,8 @@ export const themeStyles = {
     alignSelf: 'center',
     marginTop: 6,
     marginBottom: 14.5,
+  },
+  icon: {
+    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
   },
 };

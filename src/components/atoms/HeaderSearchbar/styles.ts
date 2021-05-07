@@ -5,7 +5,10 @@ export const themeStyles = {
     flexDirection: 'row',
     alignItems: 'center',
     height: 36,
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.mirage,
+    },
     borderRadius: 4,
     marginBottom: 5,
     paddingLeft: 16,
@@ -22,9 +25,21 @@ export const themeStyles = {
     lineHeight: undefined,
     height: '100%',
     flex: 1,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.white,
+    },
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.mirage,
+    },
   },
   icon: {
     marginRight: 6,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.white,
+    },
   },
 };
 

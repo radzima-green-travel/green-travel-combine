@@ -9,6 +9,7 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  useColorScheme,
 } from 'react-native';
 import {Icon} from '../Icon';
 
@@ -33,6 +34,7 @@ export const HeaderSearchbar = memo(
     value,
   }: Props) => {
     const styles = useThemeStyles(themeStyles);
+    const colorTheme = useColorScheme();
 
     const clear = useCallback(() => {
       onChange('');
@@ -50,7 +52,10 @@ export const HeaderSearchbar = memo(
         <TextInput
           autoFocus={autoFocus}
           value={value}
-          selectionColor={selectionColor || COLORS.logCabin}
+          selectionColor={
+            selectionColor ||
+            (colorTheme === 'light' ? COLORS.logCabin : COLORS.white)
+          }
           onChangeText={onChangeText}
           style={[styles.input, inputStyle]}
         />
@@ -59,7 +64,7 @@ export const HeaderSearchbar = memo(
             onPress={clear}
             hitSlop={crossHitClop}
             style={styles.icon}>
-            <Icon name="cross" color={COLORS.logCabin} size={24} />
+            <Icon style={styles.icon} name="cross" size={24} />
           </TouchableOpacity>
         ) : (
           <Icon

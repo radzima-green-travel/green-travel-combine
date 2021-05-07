@@ -1,10 +1,11 @@
 import React, {ComponentProps} from 'react';
 import {TouchableOpacity, Animated} from 'react-native';
 import {Icon} from 'atoms';
-import {styles, TOP_RATIO, RIGHT_RATIO} from './styles';
+import {themeStyles, TOP_RATIO, RIGHT_RATIO} from './styles';
 import {FavoriteButtonContainer} from '../../containers';
 import {COLORS} from 'assets';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useThemeStyles} from 'core/hooks';
 
 interface Props {
   onBackPress: () => void;
@@ -21,6 +22,7 @@ export const PlaceDetailsImageSliderButtons = ({
   imageHeight,
   style,
 }: Props) => {
+  const styles = useThemeStyles(themeStyles);
   const buttonTop = TOP_RATIO * imageHeight;
   const horizontalOffset = RIGHT_RATIO * imageWidth;
   const {top} = useSafeAreaInsets();
@@ -35,13 +37,19 @@ export const PlaceDetailsImageSliderButtons = ({
         onPress={onBackPress}
         activeOpacity={0.8}
         style={[styles.iconContainer]}>
-        <Icon size={24} color={COLORS.logCabin} name="chevron" />
+        <Icon
+          style={styles.icon}
+          size={24}
+          color={COLORS.logCabin}
+          name="chevron"
+        />
       </TouchableOpacity>
       <FavoriteButtonContainer
         objectId={objectId}
         style={[styles.iconContainer]}>
         {isFavorite => (
           <Icon
+            style={styles.icon}
             width={14}
             height={18}
             color={COLORS.logCabin}

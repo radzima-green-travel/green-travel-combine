@@ -1,8 +1,9 @@
+import {useThemeStyles} from 'core/hooks';
 import {IBookmarkItem} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import {SCREEN_WIDTH} from 'services/PlatformService';
-import {styles} from './styles';
+import {themeStyles} from './styles';
 
 const ratio = 165 / 104;
 const width = (SCREEN_WIDTH * 0.88) / 2;
@@ -24,6 +25,7 @@ export const BookmarkItem = memo(
     const onPressHandler = useCallback(() => {
       onPress(item);
     }, [item, onPress]);
+    const styles = useThemeStyles(themeStyles);
     return (
       <TouchableOpacity
         activeOpacity={0.8}

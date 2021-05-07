@@ -8,7 +8,13 @@ export const themeStyles = {
     height: 44,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: COLORS.alto,
-    backgroundColor: COLORS.white,
+    borderColor: {
+      light: COLORS.alto,
+      dark: COLORS.oxfordBlue,
+    },
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.oxfordBlue,
+    },
   },
 };

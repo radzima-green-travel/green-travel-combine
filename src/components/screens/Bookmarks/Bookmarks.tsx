@@ -41,7 +41,6 @@ export const Bookmarks = ({navigation}: IProps) => {
         <BookmarksEmptyView />
       ) : (
         <ScrollView style={styles.container}>
-          <Text style={[styles.title]}>{'Закладки'}</Text>
           <View style={styles.boxContainer}>
             {bookmarksCategories!.map((category, index, items) => (
               <BookmarkItem

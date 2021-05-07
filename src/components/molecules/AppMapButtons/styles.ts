@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {COLORS} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
     position: 'absolute',
     bottom: 73,
@@ -12,4 +12,10 @@ export const styles = StyleSheet.create({
   contentContainer: {
     paddingBottom: 16,
   },
-});
+  icon: {
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
+  },
+};

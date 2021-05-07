@@ -1,8 +1,9 @@
 import React, {memo} from 'react';
 import {MapButtonContainer, Icon} from 'atoms';
-import {styles} from './styles';
+import {themeStyles} from './styles';
 import {COLORS} from 'assets';
 import Animated, {Extrapolate} from 'react-native-reanimated';
+import {useThemeStyles} from 'core/hooks';
 
 interface IProps {
   onShowLocationPress: () => void;
@@ -12,6 +13,7 @@ interface IProps {
 
 export const ObjectDetailsMapButtons = memo(
   ({onShowLocationPress, bottomMenuPosition, botttomInset}: IProps) => {
+    const styles = useThemeStyles(themeStyles);
     return (
       <Animated.View
         style={[
@@ -32,6 +34,7 @@ export const ObjectDetailsMapButtons = memo(
           style={styles.showLocationButton}
           onPress={onShowLocationPress}>
           <Icon
+            style={styles.icon}
             name="showLocation"
             width={19.5}
             height={19}

@@ -1,3 +1,4 @@
+import {useThemeStyles} from 'core/hooks';
 import React, {memo, PropsWithChildren, useState, useCallback} from 'react';
 import {
   Text,
@@ -28,7 +29,8 @@ export const Button = memo(
     style,
     theme = 'green',
   }: Props) => {
-    const buttonThemeStyles = BUTTON_THEMES[theme];
+    const buttonThemeStyles = useThemeStyles(BUTTON_THEMES[theme]);
+
     const [isActive, setIsActive] = useState(false);
 
     const setActive = useCallback(() => {

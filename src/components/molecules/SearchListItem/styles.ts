@@ -1,4 +1,5 @@
 import {COLORS, FONTS_STYLES} from 'assets';
+import {hexWithAlpha} from 'core/helpers';
 
 export const themeStyles = {
   container: {
@@ -9,16 +10,26 @@ export const themeStyles = {
     marginLeft: 8,
     paddingBottom: 8,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.alto,
+    borderBottomColor: {
+      light: COLORS.alto,
+      dark: hexWithAlpha(COLORS.altoForDark, 0.3),
+    },
+
     flex: 1,
   },
   title: {
     ...FONTS_STYLES.bold15,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   subtitle: {
     ...FONTS_STYLES.regular13,
-    color: COLORS.boulder,
+    color: {
+      light: COLORS.boulder,
+      dark: COLORS.altoForDark,
+    },
   },
   icon: {
     marginBottom: 'auto',

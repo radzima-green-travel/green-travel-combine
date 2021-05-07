@@ -1,12 +1,13 @@
 import React, {memo, useMemo} from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {Icon} from 'atoms';
-import {styles, gradientConfig} from './styles';
+import {themeStyles, gradientConfig} from './styles';
 import FastImage from 'react-native-fast-image';
 import {COLORS} from 'assets';
 import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {imagesService} from 'services/ImagesService';
+import {useThemeStyles} from 'core/hooks';
 export const ratio = 324 / 144;
 
 interface IProps {
@@ -42,7 +43,7 @@ export const Card = memo(
     onRemoveAnimationEnd,
   }: IProps) => {
     const isImageProvided = Boolean(imageUri);
-
+    const styles = useThemeStyles(themeStyles);
     const dimensions = useMemo(() => {
       return {width, height: width / ratio};
     }, [width]);

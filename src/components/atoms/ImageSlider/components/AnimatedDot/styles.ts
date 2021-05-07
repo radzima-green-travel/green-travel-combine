@@ -1,15 +1,21 @@
-import {StyleSheet} from 'react-native';
+import {COLORS} from 'assets';
 import {DOT_MARGIN, DOT_SIZE} from '../../constants';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: DOT_SIZE,
     marginRight: DOT_MARGIN,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: {
+      light: COLORS.alto,
+      dark: COLORS.fiord,
+    },
   },
   active: {
-    backgroundColor: '#4BA83B',
+    backgroundColor: {
+      light: COLORS.apple,
+      dark: COLORS.oceanGreen,
+    },
   },
-});
+};

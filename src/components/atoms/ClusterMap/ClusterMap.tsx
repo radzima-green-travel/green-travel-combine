@@ -1,5 +1,5 @@
 import React, {memo, useRef, forwardRef, useCallback, useMemo} from 'react';
-import {View, PixelRatio} from 'react-native';
+import {View, PixelRatio, useColorScheme} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {Props} from './types';
 import {styles} from './styles';
@@ -10,7 +10,7 @@ export const ClusterMap = memo(
     ({onPress, children, onShapePress, bounds}: Props, ref) => {
       const onShapePressed = useRef(false);
       const map = useRef<MapboxGL.MapView>(null);
-
+      const theme = useColorScheme();
       const onMapPress = useCallback(() => {
         if (!onShapePressed.current) {
           onPress?.();
@@ -74,7 +74,11 @@ export const ClusterMap = memo(
             ref={map}
             onPress={onMapPress}
             style={styles.container}
-            styleURL="mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h"
+            styleURL={
+              theme === 'light'
+                ? 'mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h'
+                : 'mapbox://styles/epm-slr/ckodyal5d3i9017pb9vii6v18'
+            }
             compassEnabled={false}
             logoEnabled={false}>
             <MapboxGL.Camera {...initialBounds} ref={ref} />

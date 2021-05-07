@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Icon} from 'atoms';
 import {FONTS_STYLES} from 'assets/fonts';
 import {isAndroid} from 'services/PlatformService';
+import {COLORS} from 'assets';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -15,18 +16,31 @@ export const getAppHeaderOptions = ({
   colorScheme,
 }: IOptions): StackNavigationOptions => ({
   headerBackTitleVisible: false,
-  headerTintColor: 'white',
+  headerTintColor: colorScheme === 'light' ? COLORS.white : COLORS.altoForDark,
   headerTitleAlign: 'center',
-  cardStyle: {backgroundColor: colorScheme === 'light' ? '#fff' : '#000'},
+  cardStyle: {
+    backgroundColor: colorScheme === 'light' ? COLORS.white : COLORS.background,
+  },
   headerBackImage: () => <Icon name="chevron" color="white" size={24} />,
-  headerBackground: () => (
-    <LinearGradient
-      start={{x: 0.0, y: 0.0}}
-      end={{x: 1.0, y: 0.0}}
-      colors={['#50A021', '#35C7A4']}
-      style={StyleSheet.absoluteFill}
-    />
-  ),
+  ...(colorScheme === 'light'
+    ? {
+        headerBackground: () => (
+          <LinearGradient
+            start={{x: 0.0, y: 0.0}}
+            end={{x: 1.0, y: 0.0}}
+            colors={['#50A021', '#35C7A4']}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
+      }
+    : {
+        headerStyle: {
+          backgroundColor: COLORS.background,
+          shadowOpacity: 0,
+          elevation: 0,
+        },
+      }),
+
   headerTitleStyle: {
     ...FONTS_STYLES.semibold16,
   },

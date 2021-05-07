@@ -8,7 +8,10 @@ export const themeStyles = {
   },
   title: {
     ...FONTS_STYLES.semibold15,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   text: {
     ...FONTS_STYLES.regular15,

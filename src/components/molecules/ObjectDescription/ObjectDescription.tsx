@@ -19,8 +19,6 @@ export const ObjectDescription = memo(({description}: IProps) => {
         'background-color',
         'color',
       ]}
-      // ignoredTags={[]}
-
       tagsStyles={{
         h1: styles.headline,
         h2: styles.headline,

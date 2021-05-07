@@ -1,6 +1,7 @@
+import {useThemeStyles} from 'core/hooks';
 import React, {useCallback, useLayoutEffect, useState, memo} from 'react';
 import {Animated} from 'react-native';
-import {styles} from './styles';
+import {themeStyles} from './styles';
 interface IProps {
   isActive: boolean;
   index: number;
@@ -10,6 +11,7 @@ interface IProps {
 
 export const AnimatedDot = memo(
   ({isActive, index, pivotIndex, animated}: IProps) => {
+    const styles = useThemeStyles(themeStyles);
     const getCurrentScale = useCallback(() => {
       if (!animated) {
         return 1;
@@ -30,7 +32,7 @@ export const AnimatedDot = memo(
       () => new Animated.Value(getCurrentScale()),
     );
     const animate = useCallback(
-      (toValue) => {
+      toValue => {
         Animated.timing(animatedValue, {
           toValue,
           duration: 200,

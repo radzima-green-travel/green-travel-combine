@@ -13,12 +13,14 @@ import {
 } from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  useDarkStatusBar,
+  useStatusBar,
   useFocusToUserLocation,
   useObject,
   useOnRequestSuccess,
   useRequestLoading,
+  useThemeStyles,
   useTranslation,
+  useColorScheme,
 } from 'core/hooks';
 import {
   ObjectDetailsMapBottomMenu,
@@ -39,7 +41,7 @@ import {
 } from 'core/reducers';
 import {showLocation} from 'react-native-map-link';
 // import {filter} from 'lodash';
-import {layersStyles} from './styles';
+import {themeLayerStyles} from './styles';
 // import {isIOS} from 'services/PlatformService';
 
 const mapPin = require('assets/images/map-pin.png');
@@ -52,7 +54,10 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   // const [selectedOject, setSelectedObject] = useState<IObject | null>(null);
   // const markers = useSelector(selectMapMarkersObjectDetails);
   // const transforedData = useSelector(selectTransformedData);
-
+  const layersStyles = useThemeStyles(themeLayerStyles, {
+    disableStyleSheet: true,
+  });
+  const theme = useColorScheme();
   const {t} = useTranslation('objectDetails');
   const {objectId} = route.params;
   const camera = useRef<MapBox.Camera>(null);
@@ -66,7 +71,8 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     [data],
   );
 
-  useDarkStatusBar();
+  useStatusBar(theme);
+
   const dispatch = useDispatch();
   const isDirectionShowed = useSelector(selectIsDirectionShowed);
   const direction = useSelector(selectMapDirection);

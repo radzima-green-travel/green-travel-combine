@@ -10,7 +10,7 @@ export const themeStyles = {
     ...FONTS_STYLES.semibold20,
     color: {
       light: COLORS.logCabin,
-      darl: COLORS.white,
+      dark: COLORS.altoForDark,
     },
     marginBottom: 12,
   },
@@ -18,7 +18,7 @@ export const themeStyles = {
     ...FONTS_STYLES.regular15,
     color: {
       light: COLORS.logCabin,
-      darl: COLORS.white,
+      dark: COLORS.altoForDark,
     },
   },
 };

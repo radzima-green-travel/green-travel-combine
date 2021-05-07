@@ -1,12 +1,12 @@
 import React, {memo, useCallback} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
-import {styles, cardWidth} from './styles';
+import {themeStyles, cardWidth} from './styles';
 import {FlatList} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
 import {IObject, ITransformedCategory} from 'core/types';
 import {isEmpty} from 'lodash';
-import {useCategories, useObjects} from 'core/hooks';
+import {useCategories, useObjects, useThemeStyles} from 'core/hooks';
 
 interface Props {
   item: ITransformedCategory;
@@ -25,7 +25,7 @@ export const HomeSectionBar = memo(
     item,
   }: Props) => {
     const {t} = useTranslation('home');
-
+    const styles = useThemeStyles(themeStyles);
     const {id: categoryId, name: sectionTitle, objects, children} = item;
 
     const isLessThenTwoItems = objects.length < 2 && children.length < 2;

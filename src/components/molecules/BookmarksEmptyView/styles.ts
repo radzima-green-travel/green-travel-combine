@@ -1,7 +1,6 @@
 import {COLORS, FONTS_STYLES} from 'assets';
-import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
     flex: 1,
     alignItems: 'center',
@@ -10,6 +9,15 @@ export const styles = StyleSheet.create({
   },
   text: {
     ...FONTS_STYLES.regular15,
-    color: COLORS.boulder,
+    color: {
+      light: COLORS.boulder,
+      dark: COLORS.altoForDark,
+    },
   },
-});
+  icon: {
+    color: {
+      light: COLORS.white,
+      dark: COLORS.background,
+    },
+  },
+};

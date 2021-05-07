@@ -27,7 +27,12 @@ export const BackCircleButton = memo(({onPress}: IProps) => {
       }}
       activeOpacity={0.8}
       style={[styles.iconContainer, {top: TOP + top}]}>
-      <Icon size={24} color={COLORS.logCabin} name="chevron" />
+      <Icon
+        style={styles.icon}
+        size={24}
+        color={COLORS.logCabin}
+        name="chevron"
+      />
     </TouchableOpacity>
   );
 });

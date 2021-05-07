@@ -8,16 +8,20 @@ type NamedStyles<T> = {[P in keyof T]: ViewStyle | TextStyle | ImageStyle};
 
 export const useThemeStyles = function <T extends Object>(
   themeStyles: T,
+  {disableStyleSheet = false} = {},
 ): NamedStyles<T> {
   const theme = useColorScheme();
 
   const styles = useMemo(() => {
-    return StyleSheet.create(
-      mapValues(themeStyles, (selectorStyles) => {
-        return extractThemeStyles(selectorStyles, theme);
-      }),
-    );
-  }, [theme, themeStyles]);
+    const processedStyles = mapValues(themeStyles, selectorStyles => {
+      return extractThemeStyles(selectorStyles, theme);
+    });
+    if (disableStyleSheet) {
+      return processedStyles;
+    }
+
+    return StyleSheet.create(processedStyles);
+  }, [disableStyleSheet, theme, themeStyles]);
 
   return styles;
 };

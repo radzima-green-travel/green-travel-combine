@@ -76,6 +76,7 @@ export const AppMapBottomMenu = memo(
                       width={20}
                       height={20}
                       color={COLORS.logCabin}
+                      style={styles.icon}
                     />
                   )}
                 </FavoriteButtonContainer>

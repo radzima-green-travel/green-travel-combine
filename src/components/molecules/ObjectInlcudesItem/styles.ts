@@ -10,9 +10,15 @@ export const themeStyles = {
     ...FONTS_STYLES.regular15,
     color: {
       light: COLORS.logCabin,
-      dark: COLORS.silver,
+      dark: COLORS.altoForDark,
     },
     marginLeft: 12,
     marginRight: 'auto',
+  },
+  icon: {
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
 };

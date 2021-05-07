@@ -1,7 +1,7 @@
 import {useThemeStyles} from 'core/hooks';
 import React, {memo} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Pressable, View, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import {themeStyles} from './styles';
 import {tryOpenURL} from 'core/helpers';
 
