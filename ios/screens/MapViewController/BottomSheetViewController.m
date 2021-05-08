@@ -40,7 +40,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   
   self.view.layer.cornerRadius = 8.0;
   self.view.layer.masksToBounds= YES;
-  
+#pragma mark - Grip view
   UIView *gripView = [[UIView alloc] init];
   gripView.translatesAutoresizingMaskIntoConstraints = NO;
   gripView.backgroundColor = [Colors get].alto;
@@ -53,38 +53,38 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
       [gripView.widthAnchor constraintEqualToConstant:36.0],
       [gripView.heightAnchor constraintEqualToConstant:3.5]
   ]];
-  
-  self.headerLabel = [[UILabel alloc] init];
-  self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  self.headerLabel.numberOfLines = 3;
-  [self.view addSubview:self.headerLabel];
+#pragma mark - Details button
+  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Узнать больше"];
+  self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.view addSubview:self.detailsButton];
   
   [NSLayoutConstraint activateConstraints:@[
-      [self.headerLabel.topAnchor constraintEqualToAnchor:gripView.bottomAnchor constant:14.5],
-      [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-      [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+      [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+      [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+      [self.detailsButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor
+                                                                   constant:-16.0 - (UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight)]
   ]];
-  
+#pragma mark - Bookmark button
   self.bookmarkButton = [[BookmarkButton alloc] initWithOnBookmarkPress:^(BOOL bookmarked) {}];
   self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.bookmarkButton];
   
   [NSLayoutConstraint activateConstraints:@[
       [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:14.5],
-      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.headerLabel.trailingAnchor constant:16.0],
       [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-2.0]
   ]];
-  
-  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Узнать больше"];
-  self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.view addSubview:self.detailsButton];
+#pragma mark - Header label
+  self.headerLabel = [[UILabel alloc] init];
+  self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  self.headerLabel.numberOfLines = 0;
+  self.headerLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  [self.view addSubview:self.headerLabel];
   
   [NSLayoutConstraint activateConstraints:@[
-      [self.detailsButton.topAnchor constraintGreaterThanOrEqualToAnchor:self.headerLabel.bottomAnchor constant:24.0],
-      [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-      [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
-      [self.detailsButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor
-                                                                   constant:-16.0 - (UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight)]
+      [self.headerLabel.topAnchor constraintEqualToAnchor:gripView.bottomAnchor constant:14.5],
+      [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+      [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.bookmarkButton.leadingAnchor constant:-16.0],
+      [self.headerLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.detailsButton.topAnchor constant:-24.0],
   ]];
 }
 
@@ -101,43 +101,24 @@ otherGestureRecognizer {
 - (void)show:(PlaceItem *)item
 onNavigatePress:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
-  if (self.inProgress) {
-    return;
-  }
   self.itemUUID = item.uuid;
   self.onNavigatePress = onNavigatePress;
   [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
   [self.bookmarkButton setSelected:item.bookmarked];
-  if (self.visible) {
-    self.inProgress = YES;
-    __weak typeof(self) weakSelf = self;
-    [self disappear:^{
-      [weakSelf.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
-      [weakSelf appear:^{
-        weakSelf.inProgress = NO;
-      }];
-    }];
+  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
+  //[self.headerLabel sizeToFit];
+  
+  if (self.inProgress || self.visible) {
     return;
   }
-  self.inProgress = YES;
-  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
-  __weak typeof(self) weakSelf = self;
-  [self appear:^{
-    weakSelf.inProgress = NO;
-  }];
+  [self appear];
 }
 
 - (void)hide {
-  if (self.inProgress) {
+  if (self.inProgress || !self.visible) {
     return;
   }
-  if (self.visible) {
-    self.inProgress = YES;
-    __weak typeof(self) weakSelf = self;
-    [self disappear:^{
-      weakSelf.inProgress = NO;
-    }];
-  }
+  [self disappear];
 }
 
 - (void)setBookmarked:(PlaceItem *)item bookmarked:(BOOL)bookmarked {
@@ -146,29 +127,31 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   }
 }
 
-- (void)appear:(void(^)(void))completion {
+- (void)appear {
   __weak typeof(self) weakSelf = self;
+  self.inProgress = YES;
   [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
     CGRect frame = weakSelf.view.frame;
     CGFloat yComponent = UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight;
     weakSelf.view.frame = CGRectMake(0, yComponent, frame.size.width, frame.size.height);
     weakSelf.visible = YES;
   } completion:^(BOOL finished) {
-    completion();
+    weakSelf.inProgress = NO;
   }];
 }
 
-- (void)disappear:(void(^)(void))completion {
+- (void)disappear {
   __weak typeof(self) weakSelf = self;
+  self.inProgress = YES;
   [UIView animateWithDuration:0.2 animations:^{
     CGRect frame = weakSelf.view.frame;
     CGFloat yComponent = 0;
     weakSelf.view.frame = CGRectMake(0, UIScreen.mainScreen.bounds.size.height,
                                      frame.size.width,
                                      frame.size.height);
-    weakSelf.visible = NO;
   } completion:^(BOOL finished) {
-    completion();
+    weakSelf.visible = NO;
+    weakSelf.inProgress = NO;
   }];
 }
 
@@ -177,7 +160,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   CGPoint velocity = [recognizer velocityInView:self.view];
   
   if (recognizer.state == UIGestureRecognizerStateEnded && velocity.y >= kVelocityEnoughToSwipeDown) {
-    [self disappear:^{}];
+    [self disappear];
     [recognizer setTranslation:CGPointZero inView:self.view];
     return;
   }
@@ -186,11 +169,11 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   CGFloat minY = UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight;
   if (recognizer.state == UIGestureRecognizerStateEnded) {
     if (resultY > (minY + kViewVisibleHeight / 3)) {
-      [self disappear:^{}];
+      [self disappear];
       [recognizer setTranslation:CGPointZero inView:self.view];
       return;
     }
-    [self appear:^{}];
+    [self appear];
     [recognizer setTranslation:CGPointZero inView:self.view];
     return;
   }

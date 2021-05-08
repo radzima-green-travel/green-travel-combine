@@ -309,28 +309,32 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (void)onSearchPress:(id)sender {
-    __weak typeof(self) weakSelf = self;
-    SearchViewController *searchViewController =
-    [[SearchViewController alloc] initWithModel:self.searchModel
-                                     indexModel:self.indexModel
-                                  locationModel:self.locationModel
-                                       mapModel:self.mapModel
-                                     apiService:self.apiService
-                                coreDataService:self.coreDataService
-                            itemsWithCoordsOnly:YES
-                             onSearchItemSelect:^(PlaceItem * _Nonnull item) {
-        [weakSelf.filterView activateFilterForPlaceItem:item];
-        [weakSelf.navigationController dismissViewControllerAnimated:YES
-            completion:^{}];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.mapView setCenterCoordinate:item.coords zoomLevel:8 animated:YES];
-        });
-    }];
-    searchViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
-    UINavigationController *searchViewControllerWithNavigation =
-    [[UINavigationController alloc ] initWithRootViewController:searchViewController];
-    [self presentViewController:searchViewControllerWithNavigation animated:YES
-                     completion:^{}];
+  __weak typeof(self) weakSelf = self;
+  SearchViewController *searchViewController =
+  [[SearchViewController alloc] initWithModel:self.searchModel
+                                   indexModel:self.indexModel
+                                locationModel:self.locationModel
+                                     mapModel:self.mapModel
+                                   apiService:self.apiService
+                              coreDataService:self.coreDataService
+                          itemsWithCoordsOnly:YES
+                           onSearchItemSelect:^(PlaceItem * _Nonnull item) {
+    [weakSelf.filterView activateFilterForPlaceItem:item];
+    [weakSelf.navigationController dismissViewControllerAnimated:YES
+                                                      completion:^{}];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [weakSelf.mapView setCenterCoordinate:item.coords zoomLevel:8 animated:YES];
+      [weakSelf.mapView setCenterCoordinate:item.coords zoomLevel:8
+                                  direction:-1 animated:YES completionHandler:^{
+        [weakSelf showPopupWithItem:item];
+      }];
+    });
+  }];
+  searchViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
+  UINavigationController *searchViewControllerWithNavigation =
+  [[UINavigationController alloc ] initWithRootViewController:searchViewController];
+  [self presentViewController:searchViewControllerWithNavigation animated:YES
+                   completion:^{}];
 }
 
 -(void)onDonePress:(id)sender {
@@ -350,7 +354,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (tap.state != UIGestureRecognizerStateEnded) {
     return;
   }
-  [self hidePopup];
   
   CGPoint point = [tap locationInView:tap.view];
   CGFloat width = kIconSize.width;
@@ -361,19 +364,17 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   // Pick the first feature (which may be a port or a cluster), ideally selecting
   // the one nearest nearest one to the touch point.
   id<MGLFeature> feature = features.firstObject;
-  if (!feature) {
-    return;
-  }
-  NSString *description = @"No port name";
   UIColor *color = UIColor.redColor;
-  if ([feature isKindOfClass:[MGLPointFeatureCluster class]]) {
+  if (feature && [feature isKindOfClass:[MGLPointFeatureCluster class]]) {
     // Tapped on a cluster.
     MGLPointFeatureCluster *cluster = (MGLPointFeatureCluster *)feature;
     
     [self handleMapClusterTap:tap];
     
     color = UIColor.blueColor;
-  } else {
+    return;
+  }
+  if (feature && [feature isKindOfClass:[MGLPointFeature class]]) {
     id uuid = [feature attributeForKey:@"uuid"];
     if ([uuid isKindOfClass:[NSString class]]) {
       PlaceItem *item = self.indexModel.flatItems[(NSString *)uuid];
@@ -381,7 +382,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       [self.mapView setCenterCoordinate:feature.coordinate zoomLevel:self.mapView.zoomLevel animated:YES];
       [self showPopupWithItem:item];
     }
+    return;
   }
+  [self hidePopup];
 }
 
 - (MGLPointFeatureCluster *)firstClusterWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
@@ -416,30 +419,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (zoom > 0.0) {
     [self.mapView setCenterCoordinate:cluster.coordinate zoomLevel:zoom animated:YES];
   }
-}
-
-- (UIView *)popupAtCoordinate:(CLLocationCoordinate2D)coordinate withDescription:(NSString *)description textColor:(UIColor *)textColor {
-  UILabel *popup = [[UILabel alloc] init];
-  
-  popup.backgroundColor     = [[UIColor whiteColor] colorWithAlphaComponent:0.9f];
-  popup.layer.cornerRadius  = 4;
-  popup.layer.masksToBounds = YES;
-  popup.textAlignment       = NSTextAlignmentCenter;
-  popup.lineBreakMode       = NSLineBreakByTruncatingTail;
-  popup.numberOfLines       = 0;
-  popup.font                = [UIFont systemFontOfSize:16];
-  popup.textColor           = textColor;
-  popup.alpha               = 0;
-  popup.text                = description;
-  
-  [popup sizeToFit];
-  
-  // Expand the popup.
-  popup.bounds = CGRectInset(popup.bounds, -10, -10);
-  CGPoint point = [self.mapView convertCoordinate:coordinate toPointToView:self.mapView];
-  popup.center = CGPointMake(point.x, point.y - 50);
-  
-  return popup;
 }
 
 - (void)hidePopup {
