@@ -15,9 +15,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TextUtils.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
+#import "ConfigValues.h"
 
-static NSString * const kGetCategoriesURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/object?mobile=true";
+static NSString * const kGetCategoriesURL = @"https://ahzzbvk2cnablnu7hlefv6dpfa.appsync-api.eu-central-1.amazonaws.com/graphql";
+static NSString * const kXAPIKey = @"da2-3kathjtstbg5rnh54ntazhh7au";
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
+static NSString * const kImageBaseURL = @"http://radzimastorage74831-prod.s3-website.eu-central-1.amazonaws.com/";
+static NSString * const kQueryGetCategories = @"query RadzimaMobile { getObjectsMetadata(id: \\\"tag\\\") { value } listMobileObjects {    id    name    fields    icon    cover    objects {      name      images      cover      address      author      createdAt      description      duration      routes {        coordinates        type      }      governanceType      id      length      location {        lat        lon      }      category {        createdAt        fields        icon        id        name        parent        updatedAt        cover      }      notes      origin      owner      status      url      area {        coordinates        type      }      include {        fields        icon        id        name        objects      }      permissions {        items {          permission {            id            key            name          }        }      }    }    children {      name      id      createdAt      fields      icon      cover      objects {        name        category {          createdAt          fields          icon          id          name          parent          updatedAt          cover        }        routes {          coordinates          type        }        images        cover        address        author        createdAt        description        duration        governanceType        id        length        location {          lat          lon        }        notes        origin        owner        status        url        area {          coordinates          type        }        include {          fields          icon          id          name          objects        }        permissions {          items {            permission {              id              key              name            }          }        }      }    }  }}";
+static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadata(id: \\\"tag\\\") { value } }";
 
 @interface ApiService ()
 
@@ -35,26 +40,48 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     return self;
 }
 
-- (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*, NSString *))completion {
-    NSURL *url = [NSURL URLWithString:kGetCategoriesURL];
-    __weak typeof(self) weakSelf = self;
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
-                                                  cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                              timeoutInterval:120];
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (!data) {
-            completion(@[], @"");
-            return;
-        }
-        NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
-        NSString *eTag = headers[@"ETag"];
-        
-        NSArray *categories = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        NSLog(@"Error when loading categories: %@", error);
-        NSArray<Category *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:categories] copy];
-        completion(mappedCategories, eTag);
+- (NSMutableURLRequest *)makeRequestForQuery:(NSString *)query {
+  NSURL *url = [NSURL URLWithString:kGetCategoriesURL];
+  NSMutableURLRequest *mutableRequest = [NSMutableURLRequest requestWithURL:url];
+  [mutableRequest setHTTPMethod:@"POST"];
+  [mutableRequest setValue:kXAPIKey forHTTPHeaderField:@"x-api-key"];
+  NSString *body = [NSString stringWithFormat:@"{\"query\":\"%@\"}", query];
+  NSData *bodyAsData = [body dataUsingEncoding:NSUTF8StringEncoding];
+  [mutableRequest setHTTPBody:bodyAsData];
+  
+  
+  NSLog(@"Request body: %@", body);
+  return mutableRequest;
+}
+
+- (void)loadCategoriesWithCompletion:(NSString *)existingTag
+                          completion:(void(^)(NSArray<Category *>*, NSString *))completion {
+  __weak typeof(self) weakSelf = self;
+  NSMutableURLRequest *getTagRequest = [self makeRequestForQuery:kQueryGetTag];
+  NSURLSessionDataTask *getTagTask = [self.session dataTaskWithRequest:getTagRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    if (!data) {
+      completion(@[], existingTag);
+      return;
+    }
+    NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    NSString *tag = body[@"data"][@"getObjectsMetadata"][@"value"];
+    if ([existingTag isEqualToString:tag]) {
+      completion(@[], existingTag);
+      return;
+    }
+    NSMutableURLRequest *getCategoriesRequest = [self makeRequestForQuery:kQueryGetCategories];
+    NSURLSessionDataTask *getCategoriesTask = [self.session dataTaskWithRequest:getCategoriesRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+      if (!data) {
+        completion(@[], existingTag);
+        return;
+      }
+      NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+      NSArray<Category *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:body[@"data"][@"listMobileObjects"]] copy];
+      completion(mappedCategories, tag);
     }];
-    [task resume];
+    [getCategoriesTask resume];
+  }];
+  [getTagTask resume];
 }
 
 - (NSArray<Category *>*)mapCategoriesFromJSON:(NSArray *)categories {
@@ -65,8 +92,8 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
         category.items = [self mapItemsFromJSON:obj[@"objects"] category:category];
         if ([category.categories count] > 0 || [category.items count] > 0) {
             category.title = obj[@"name"];
-            category.cover = obj[@"cover"];
-            category.uuid = obj[@"_id"];
+            category.cover = [NSString stringWithFormat:@"%@%@", kImageBaseURL, obj[@"cover"]];
+            category.uuid = obj[@"id"];
             category.icon = obj[@"icon"];
             [mappedCategories addObject:category];
         }
@@ -81,11 +108,11 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PlaceItem *placeItem = [[PlaceItem alloc] init];
         placeItem.title = obj[@"name"];
-        placeItem.cover = obj[@"cover"];
+        placeItem.cover = [NSString stringWithFormat:@"%@%@", kImageBaseURL, obj[@"cover"]];
         placeItem.category = category;
         placeItem.details = [weakSelf mapDetailsFromJSON:obj];
         placeItem.coords = [weakSelf mapPointCoordsFromJSON:obj];
-        placeItem.uuid = obj[@"_id"];
+        placeItem.uuid = obj[@"id"];
         [mappedItems addObject:placeItem];
     }];
     return mappedItems;
@@ -95,7 +122,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     if (item[@"location"] == [NSNull null]) {
       return kCLLocationCoordinate2DInvalid;
     }
-    return CLLocationCoordinate2DMake([item[@"location"][@"coordinates"][1] doubleValue], [item[@"location"][@"coordinates"][0] doubleValue]);
+    return CLLocationCoordinate2DMake([item[@"location"][@"lat"] doubleValue], [item[@"location"][@"lon"] doubleValue]);
 }
 
 - (PlaceDetails *)mapDetailsFromJSON:(NSDictionary *)item {
@@ -103,12 +130,12 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
     if (item[@"images"]) {
         [item[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL, NSUInteger idx, BOOL * _Nonnull stop) {
-            [imageURLs addObject:imageURL];
+          [imageURLs addObject:[NSString stringWithFormat:@"%@%@", kImageBaseURL, imageURL]];
         }];
     }
-    details.uuid = item[@"_id"];
+    details.uuid = item[@"id"];
     details.images = [imageURLs copy];
-    if (item[@"address"]) {
+    if (item[@"address"] && ![item[@"address"] isEqual:[NSNull null]]) {
         details.address = item[@"address"];
     } else {
         details.address = @"";
@@ -122,7 +149,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     
     NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) item[@"include"];
     [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *categoryId = (NSString *) obj[@"_id"];
+        NSString *categoryId = (NSString *) obj[@"id"];
         NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];
         CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
         categoryUUIDToRelatedItemUUIDs.categoryUUID = categoryId;
