@@ -15,6 +15,8 @@
 #import "CoreDataService.h"
 #import "CategoryUtils.h"
 #import "UserDefaultsService.h"
+#import "PlaceDetails.h"
+#import "CategoryUUIDToRelatedItemUUIDs.h"
 
 @interface IndexModel ()
 
@@ -143,20 +145,38 @@ static IndexModel *instance;
 }
 
 - (void)updateCategories:(NSArray<Category *> *)categories {
-    NSMutableDictionary<NSString *, Category *> *flatCategories = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary<NSString *, PlaceItem *> *flatItems = [[NSMutableDictionary alloc] init];
-    traverseCategories(categories, ^(Category *category, PlaceItem *placeItem) {
-        if (category != nil) {
-            flatCategories[category.uuid] = category;
-        }
-        if (placeItem != nil) {
-            flatItems[placeItem.uuid] = placeItem;
-        }
-    });
-    self.categories = categories;
-    self.flatItems = flatItems;
-    self.flatCategories = flatCategories;
-    [self notifyObservers];
+  NSMutableDictionary<NSString *, Category *> *flatCategories = [[NSMutableDictionary alloc] init];
+  NSMutableDictionary<NSString *, PlaceItem *> *flatItems = [[NSMutableDictionary alloc] init];
+  traverseCategories(categories, ^(Category *category, PlaceItem *placeItem) {
+    if (category != nil) {
+      flatCategories[category.uuid] = category;
+    }
+    if (placeItem != nil) {
+      flatItems[placeItem.uuid] = placeItem;
+    }
+  });
+  self.categories = categories;
+  self.flatItems = flatItems;
+  self.flatCategories = flatCategories;
+  
+  [self verifyLinks];
+  [self notifyObservers];
+}
+
+- (void)verifyLinks {
+  traverseCategories(self.categories, ^(Category *category, PlaceItem *placeItem) {
+    if (placeItem == nil) {
+      return;
+    }
+    placeItem.details.categoryIdToItems = [placeItem.details.categoryIdToItems filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(CategoryUUIDToRelatedItemUUIDs *  _Nullable relation, NSDictionary<NSString *,id> * _Nullable bindings) {
+      if (!self.flatCategories[relation.categoryUUID]) {
+        return NO;
+      }
+      return [[relation.relatedItemUUIDs filteredOrderedSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString *  _Nullable placeItemUUID, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return self.flatItems[placeItemUUID] != nil;
+      }]] count] > 0;
+    }]];
+  });
 }
 
 - (void)requestCategoriesUpdate:(NSArray<Category *> *)categoriesScheduledForUpdate
