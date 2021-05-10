@@ -321,34 +321,33 @@
 }
 
 - (void)updateMainContent:(PlaceDetails *)details {
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
-        NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (!weakSelf.ready) {
-                weakSelf.ready = YES;
-                [weakSelf.activityIndicatorContainerView setHidden:YES];
-                [weakSelf.activityIndicatorView stopAnimating];
-            }
-            weakSelf.titleLabel.attributedText = [[Typography get] makeTitle1Semibold:weakSelf.item.title];
-            if (details.address) {
-                weakSelf.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:weakSelf.item.title];
-            }
-            [weakSelf.locationButton setAttributedTitle:
-             [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[Colors get].royalBlue]
-             forState:UIControlStateNormal];
-            if (weakSelf.item.coords.latitude != kCLLocationCoordinate2DInvalid.latitude &&
-                weakSelf.item.coords.longitude != kCLLocationCoordinate2DInvalid.longitude) {
-                [weakSelf addMapButton];
-            }
-            [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
-            if (details.categoryIdToItems) {
-                [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
-            } else {
-                [weakSelf.linkedCategoriesView setHidden:YES];
-            }
-        });
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+    NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML);
+    dispatch_async(dispatch_get_main_queue(), ^{
+      if (!weakSelf.ready) {
+        weakSelf.ready = YES;
+        [weakSelf.activityIndicatorContainerView setHidden:YES];
+        [weakSelf.activityIndicatorView stopAnimating];
+      }
+      weakSelf.titleLabel.attributedText = [[Typography get] makeTitle1Semibold:weakSelf.item.title];
+      if (details.address) {
+        weakSelf.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:weakSelf.item.title];
+      }
+      if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
+        [weakSelf.locationButton setAttributedTitle:
+         [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[Colors get].royalBlue]
+                                           forState:UIControlStateNormal];
+        [weakSelf addMapButton];
+      }
+      [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
+      if (details.categoryIdToItems) {
+        [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
+      } else {
+        [weakSelf.linkedCategoriesView setHidden:YES];
+      }
     });
+  });
 }
 
 - (void)updateDetails {
