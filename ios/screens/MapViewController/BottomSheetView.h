@@ -11,9 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
 
-@interface BottomSheetViewController : UIViewController<UIGestureRecognizerDelegate>
+@interface BottomSheetView : UIView<UIGestureRecognizerDelegate>
 
 @property(assign, nonatomic, readwrite) BOOL visible;
+@property(weak, nonatomic) NSLayoutConstraint *top;
 - (void)show:(PlaceItem *)item onNavigatePress:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 - (void)hide;

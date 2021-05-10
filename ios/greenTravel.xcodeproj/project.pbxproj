@@ -117,7 +117,7 @@
 		5A775E1726077A7D00CEFC78 /* WeRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775DF226077A7D00CEFC78 /* WeRecommendCell.m */; };
 		5A775E792607E0A100CEFC78 /* GreenTravel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */; };
 		5A775E7C26092B8100CEFC78 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A775E7B26092B8100CEFC78 /* Settings.bundle */; };
-		5AC2C2A3263EC2E700CCBE63 /* BottomSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetViewController.m */; };
+		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
@@ -339,8 +339,8 @@
 		5A775DF426077A7D00CEFC78 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravel.xcdatamodel; sourceTree = "<group>"; };
 		5A775E7B26092B8100CEFC78 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		5A94AF3E263EB76F00AC4E7B /* BottomSheetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewController.h; sourceTree = "<group>"; };
-		5A94AF3F263EB76F00AC4E7B /* BottomSheetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewController.m; sourceTree = "<group>"; };
+		5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetView.h; sourceTree = "<group>"; };
+		5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetView.m; sourceTree = "<group>"; };
 		5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryImagePlaceholder.m; sourceTree = "<group>"; };
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
@@ -772,8 +772,8 @@
 				5A775DAA26077A7C00CEFC78 /* CategoriesFilterView */,
 				5A94AF8E263EBB8900AC4E7B /* MapPinView */,
 				5A94AF8D263EBB7300AC4E7B /* MapButton */,
-				5A94AF3E263EB76F00AC4E7B /* BottomSheetViewController.h */,
-				5A94AF3F263EB76F00AC4E7B /* BottomSheetViewController.m */,
+				5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */,
+				5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */,
 				5A775DC226077A7C00CEFC78 /* MapViewController.h */,
 				5A775DBF26077A7C00CEFC78 /* MapViewController.m */,
 			);
@@ -1316,7 +1316,7 @@
 				5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */,
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
-				5AC2C2A3263EC2E700CCBE63 /* BottomSheetViewController.m in Sources */,
+				5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */,
 				5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */,
 				5A775B5426064C9000CEFC78 /* DetailsModel.m in Sources */,
 				5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */,

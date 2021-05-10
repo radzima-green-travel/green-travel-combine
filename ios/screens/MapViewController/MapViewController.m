@@ -25,7 +25,7 @@
 #import "CoreDataService.h"
 #import "PlaceItem.h"
 #import "Category.h"
-#import "BottomSheetViewController.h"
+#import "BottomSheetView.h"
 #import "DetailsViewController.h"
 
 @interface MapViewController ()
@@ -44,7 +44,7 @@
 @property (strong, nonatomic) CategoriesFilterView *filterView;
 @property (strong, nonatomic) NSLayoutConstraint *locationButtonBottomAnchor;
 @property (strong, nonatomic) UIView *popup;
-@property (strong, nonatomic) BottomSheetViewController *bottomSheet;
+@property (strong, nonatomic) BottomSheetView *bottomSheet;
 
 @end
 
@@ -145,11 +145,12 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     ]];
 
     [self addFilterView];
+    [self addBottomSheet];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  [self addBottomSheet];
+  
 }
 
 #pragma mark - Categories filter view
@@ -447,14 +448,17 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     return;
   }
   UIViewController *rootViewController = self.parentViewController.parentViewController;
-  self.bottomSheet = [[BottomSheetViewController alloc] init];
-  [rootViewController addChildViewController:self.bottomSheet];
-  [rootViewController.view addSubview:self.bottomSheet.view];
-  [self.bottomSheet didMoveToParentViewController:rootViewController];
-  self.bottomSheet.view.frame = CGRectMake(0,
-                                           UIScreen.mainScreen.bounds.size.height,
-                                           rootViewController.view.frame.size.width,
-                                           rootViewController.view.frame.size.height);
+  self.bottomSheet = [[BottomSheetView alloc] init];
+  [rootViewController.view addSubview:self.bottomSheet];
+  
+  NSLayoutConstraint *topAnchor = [self.bottomSheet.topAnchor constraintEqualToAnchor:rootViewController.view.bottomAnchor];
+  [topAnchor setIdentifier:@"top"];
+  self.bottomSheet.top = topAnchor;
+  [NSLayoutConstraint activateConstraints:@[
+    topAnchor,
+    [self.bottomSheet.leadingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.leadingAnchor],
+    [self.bottomSheet.trailingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.trailingAnchor],
+  ]];
 }
 
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {

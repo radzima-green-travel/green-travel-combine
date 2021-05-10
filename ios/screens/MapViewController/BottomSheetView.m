@@ -5,14 +5,14 @@
 //  Created by Alex K on 5/2/21.
 //
 
-#import "BottomSheetViewController.h"
+#import "BottomSheetView.h"
 #import "Colors.h"
 #import "CommonButton.h"
 #import "Typography.h"
 #import "PlaceItem.h"
 #import "BookmarkButton.h"
 
-@interface BottomSheetViewController ()
+@interface BottomSheetView ()
 
 @property(strong, nonatomic) UIPanGestureRecognizer *recognizer;
 @property(strong, nonatomic) CommonButton *detailsButton;
@@ -28,68 +28,89 @@ static const CGFloat kViewTotalHeight = 510.0;
 static const CGFloat kViewVisibleHeight = 200.0;
 static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
 
-@implementation BottomSheetViewController
+@implementation BottomSheetView
 
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  self.view.backgroundColor = [Colors get].white;
+- (instancetype)initWithFrame:(CGRect)frame
+{
+  self = [super initWithFrame:frame];
+  if (self) {
+    [self setUp];
+  }
+  return self;
+}
+
+- (void)setUp {
+  self.backgroundColor = [Colors get].white;
   self.recognizer =
   [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
   [self.recognizer setMaximumNumberOfTouches:1];
-  [self.view addGestureRecognizer:self.recognizer];
+  [self addGestureRecognizer:self.recognizer];
   
-  self.view.layer.cornerRadius = 8.0;
-  self.view.layer.masksToBounds= YES;
+  self.layer.cornerRadius = 8.0;
+  self.layer.masksToBounds= YES;
+  self.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.heightAnchor constraintEqualToConstant:kViewTotalHeight]
+  ]];
 #pragma mark - Grip view
   UIView *gripView = [[UIView alloc] init];
   gripView.translatesAutoresizingMaskIntoConstraints = NO;
   gripView.backgroundColor = [Colors get].alto;
   gripView.layer.cornerRadius = 1.75;
   gripView.layer.masksToBounds = YES;
-  [self.view addSubview:gripView];
+  [self addSubview:gripView];
   [NSLayoutConstraint activateConstraints:@[
-    [gripView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:6.0],
-      [gripView.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor],
-      [gripView.widthAnchor constraintEqualToConstant:36.0],
-      [gripView.heightAnchor constraintEqualToConstant:3.5]
+    [gripView.topAnchor constraintEqualToAnchor:self.topAnchor constant:6.0],
+    [gripView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+    [gripView.widthAnchor constraintEqualToConstant:36.0],
+    [gripView.heightAnchor constraintEqualToConstant:3.5]
   ]];
 #pragma mark - Details button
   self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Узнать больше"];
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.view addSubview:self.detailsButton];
+  [self addSubview:self.detailsButton];
   
+  NSLayoutConstraint *widthConstraint = [self.detailsButton.widthAnchor constraintEqualToConstant:500.0];
+  widthConstraint.priority = UILayoutPriorityDefaultLow;
   [NSLayoutConstraint activateConstraints:@[
-      [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-      [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
-      [self.detailsButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor
-                                                                   constant:-16.0 - (UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight)]
+      [self.detailsButton.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+      [self.detailsButton.trailingAnchor constraintLessThanOrEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+      [self.detailsButton.bottomAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.bottomAnchor
+                                                                   constant:-16.0 - (kViewTotalHeight - kViewVisibleHeight)],
+      widthConstraint,
+      [self.detailsButton.centerXAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.centerXAnchor]
   ]];
 #pragma mark - Bookmark button
   self.bookmarkButton = [[BookmarkButton alloc] initWithOnBookmarkPress:^(BOOL bookmarked) {}];
   self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.view addSubview:self.bookmarkButton];
+  [self addSubview:self.bookmarkButton];
   
   [NSLayoutConstraint activateConstraints:@[
-      [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:14.5],
-      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-2.0]
+      [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.topAnchor constant:14.5],
+      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-2.0]
   ]];
 #pragma mark - Header label
   self.headerLabel = [[UILabel alloc] init];
   self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
   self.headerLabel.numberOfLines = 0;
   self.headerLabel.lineBreakMode = NSLineBreakByWordWrapping;
-  [self.view addSubview:self.headerLabel];
+  [self addSubview:self.headerLabel];
   
   [NSLayoutConstraint activateConstraints:@[
       [self.headerLabel.topAnchor constraintEqualToAnchor:gripView.bottomAnchor constant:14.5],
-      [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+      [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
       [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.bookmarkButton.leadingAnchor constant:-16.0],
       [self.headerLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.detailsButton.topAnchor constant:-24.0],
   ]];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
+- (NSLayoutConstraint *)getTopConstraint {
+//  NSLayoutConstraint *topConstraint;
+//  NSArray<NSLayoutConstraint *> *constraints = [self constraints];
+//  topConstraint = [constraints filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSLayoutConstraint *  _Nullable constraint, NSDictionary<NSString *,id> * _Nullable bindings) {
+//    return [constraint.identifier isEqualToString:@"top"];
+//  }]].firstObject;
+  return self.top;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
@@ -106,7 +127,6 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
   [self.bookmarkButton setSelected:item.bookmarked];
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
-  //[self.headerLabel sizeToFit];
   
   if (self.inProgress || self.visible) {
     return;
@@ -131,9 +151,8 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   __weak typeof(self) weakSelf = self;
   self.inProgress = YES;
   [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
-    CGRect frame = weakSelf.view.frame;
-    CGFloat yComponent = UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight;
-    weakSelf.view.frame = CGRectMake(0, yComponent, frame.size.width, frame.size.height);
+    [weakSelf getTopConstraint].constant = -kViewVisibleHeight;
+    [weakSelf.superview layoutIfNeeded];
     weakSelf.visible = YES;
   } completion:^(BOOL finished) {
     weakSelf.inProgress = NO;
@@ -144,11 +163,8 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   __weak typeof(self) weakSelf = self;
   self.inProgress = YES;
   [UIView animateWithDuration:0.2 animations:^{
-    CGRect frame = weakSelf.view.frame;
-    CGFloat yComponent = 0;
-    weakSelf.view.frame = CGRectMake(0, UIScreen.mainScreen.bounds.size.height,
-                                     frame.size.width,
-                                     frame.size.height);
+    [weakSelf getTopConstraint].constant = 0;
+    [weakSelf.superview layoutIfNeeded];
   } completion:^(BOOL finished) {
     weakSelf.visible = NO;
     weakSelf.inProgress = NO;
@@ -156,25 +172,25 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
 }
 
 - (void)panGesture:(UIPanGestureRecognizer *)recognizer {
-  CGPoint translation = [recognizer translationInView:self.view];
-  CGPoint velocity = [recognizer velocityInView:self.view];
+  CGPoint translation = [recognizer translationInView:self];
+  CGPoint velocity = [recognizer velocityInView:self];
   
   if (recognizer.state == UIGestureRecognizerStateEnded && velocity.y >= kVelocityEnoughToSwipeDown) {
     [self disappear];
-    [recognizer setTranslation:CGPointZero inView:self.view];
+    [recognizer setTranslation:CGPointZero inView:self];
     return;
   }
-  CGFloat y = CGRectGetMinY(self.view.frame);
+  CGFloat y = CGRectGetMinY(self.frame);
   CGFloat resultY = y + translation.y;
   CGFloat minY = UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight;
   if (recognizer.state == UIGestureRecognizerStateEnded) {
     if (resultY > (minY + kViewVisibleHeight / 3)) {
       [self disappear];
-      [recognizer setTranslation:CGPointZero inView:self.view];
+      [recognizer setTranslation:CGPointZero inView:self];
       return;
     }
     [self appear];
-    [recognizer setTranslation:CGPointZero inView:self.view];
+    [recognizer setTranslation:CGPointZero inView:self];
     return;
   }
   if (resultY < minY && translation.y < 0) {
@@ -184,9 +200,9 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   }
   NSLog(@"Result y: %f", resultY);
   NSLog(@"translation.y: %f", translation.y);
-  self.view.frame = CGRectMake(0, resultY, self.view.frame.size.width,
-                               self.view.frame.size.height);
-  [recognizer setTranslation:CGPointZero inView:self.view];
+  self.frame = CGRectMake(0, resultY, self.frame.size.width,
+                               self.frame.size.height);
+  [recognizer setTranslation:CGPointZero inView:self];
 }
 
 - (void)onDetailsPress:(id)sender {
