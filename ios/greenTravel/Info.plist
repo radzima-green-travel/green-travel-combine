@@ -22,6 +22,27 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>citymapper</string>
+		<string>uber</string>
+		<string>lyft</string>
+		<string>transit</string>
+		<string>truckmap</string>
+		<string>waze</string>
+		<string>yandexnavi</string>
+		<string>moovit</string>
+		<string>yandextaxi</string>
+		<string>yandexmaps</string>
+		<string>kakaomap</string>
+		<string>szn-mapy</string>
+		<string>mapsme</string>
+		<string>osmandmaps</string>
+		<string>gett</string>
+		<string>nmap</string>
+		<string>dgis</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MGLMapboxAccessToken</key>
@@ -65,26 +86,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>comgooglemaps</string>
-		<string>citymapper</string>
-		<string>uber</string>
-		<string>lyft</string>
-		<string>transit</string>
-		<string>truckmap</string>
-		<string>waze</string>
-		<string>yandexnavi</string>
-		<string>moovit</string>
-		<string>yandextaxi</string>
-		<string>yandexmaps</string>
-		<string>kakaomap</string>
-		<string>szn-mapy</string>
-		<string>mapsme</string>
-		<string>osmandmaps</string>
-		<string>gett</string>
-		<string>nmap</string>
-		<string>dgis</string>
-	</array>
 </dict>
 </plist>

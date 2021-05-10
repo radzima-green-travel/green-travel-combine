@@ -51,11 +51,12 @@ static IconNameToImageNameMap *instance;
 }
 
 - (UIImage *)iconForName:(NSString *)name {
-    if (!self.map[name]) {
-        return nil;
-    }
-    NSString *fileName = self.map[name];
-    return [UIImage imageNamed:fileName];
+  if (!self.map[name]) {
+    return nil;
+  }
+  NSString *fileName = self.map[name];
+  UIImage *image = [UIImage imageNamed:fileName];
+  return image;
 }
 
 - (UIImage *)filterIconForName:(NSString *)name

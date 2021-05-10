@@ -239,10 +239,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"{icon}"];
   markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
 
-  [style setImage:[UIImage imageNamed:@"conserv.area"] forName:@"object"];
-  [style setImage:[UIImage imageNamed:@"hiking"] forName:@"hiking"];
-  [style setImage:[UIImage imageNamed:@"historical-place"] forName:@"historical-place"];
-  [style setImage:[UIImage imageNamed:@"bicycle-route"] forName:@"bicycle-route"];
+  [style setImage:[UIImage imageNamed:@"conserv-area-map-pin"] forName:@"object"];
+  [style setImage:[UIImage imageNamed:@"hiking-map-pin"] forName:@"hiking"];
+  [style setImage:[UIImage imageNamed:@"historical-place-map-pin"] forName:@"historical-place"];
+  [style setImage:[UIImage imageNamed:@"bicycle-route-map-pin"] forName:@"bicycle-route"];
   MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kClusterLayerId source:source];
   clusterLayer.textColor = [NSExpression expressionForConstantValue:[Colors get].black];
   clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
