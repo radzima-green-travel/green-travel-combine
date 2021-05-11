@@ -108,15 +108,6 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   ]];
 }
 
-- (NSLayoutConstraint *)getTopConstraint {
-//  NSLayoutConstraint *topConstraint;
-//  NSArray<NSLayoutConstraint *> *constraints = [self constraints];
-//  topConstraint = [constraints filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSLayoutConstraint *  _Nullable constraint, NSDictionary<NSString *,id> * _Nullable bindings) {
-//    return [constraint.identifier isEqualToString:@"top"];
-//  }]].firstObject;
-  return self.top;
-}
-
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)
 otherGestureRecognizer {
@@ -155,7 +146,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   __weak typeof(self) weakSelf = self;
   self.inProgress = YES;
   [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
-    [weakSelf getTopConstraint].constant = -kViewVisibleHeight;
+    weakSelf.top.constant = -kViewVisibleHeight;
     [weakSelf.superview layoutIfNeeded];
     weakSelf.visible = YES;
   } completion:^(BOOL finished) {
@@ -167,7 +158,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   __weak typeof(self) weakSelf = self;
   self.inProgress = YES;
   [UIView animateWithDuration:0.2 animations:^{
-    [weakSelf getTopConstraint].constant = 0;
+    weakSelf.top.constant = 0;
     [weakSelf.superview layoutIfNeeded];
   } completion:^(BOOL finished) {
     weakSelf.visible = NO;
@@ -178,17 +169,17 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
 - (void)panGesture:(UIPanGestureRecognizer *)recognizer {
   CGPoint translation = [recognizer translationInView:self];
   CGPoint velocity = [recognizer velocityInView:self];
-  
-  if (recognizer.state == UIGestureRecognizerStateEnded && velocity.y >= kVelocityEnoughToSwipeDown) {
+  if (recognizer.state == UIGestureRecognizerStateEnded &&
+      velocity.y >= kVelocityEnoughToSwipeDown) {
     [self disappear];
     [recognizer setTranslation:CGPointZero inView:self];
     return;
   }
-  CGFloat y = CGRectGetMinY(self.frame);
+  CGFloat y = self.top.constant;
   CGFloat resultY = y + translation.y;
-  CGFloat minY = UIScreen.mainScreen.bounds.size.height - kViewVisibleHeight;
+  CGFloat minY = -kViewVisibleHeight;
   if (recognizer.state == UIGestureRecognizerStateEnded) {
-    if (resultY > (minY + kViewVisibleHeight / 3)) {
+    if (resultY > -kViewVisibleHeight * 2 / 3) {
       [self disappear];
       [recognizer setTranslation:CGPointZero inView:self];
       return;
@@ -199,13 +190,10 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   }
   if (resultY < minY && translation.y < 0) {
     CGFloat divider = logf(fabs(resultY - minY)) / logf(2);
-    NSLog(@"Divider: %f", divider);
     resultY = y + translation.y / (divider < 1 ? 1 : divider);
   }
-  NSLog(@"Result y: %f", resultY);
-  NSLog(@"translation.y: %f", translation.y);
-  self.frame = CGRectMake(0, resultY, self.frame.size.width,
-                               self.frame.size.height);
+  self.top.constant = resultY;
+  [self.superview layoutIfNeeded];
   [recognizer setTranslation:CGPointZero inView:self];
 }
 
