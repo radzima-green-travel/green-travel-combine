@@ -71,10 +71,14 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   [self addSubview:self.detailsButton];
   
   NSLayoutConstraint *widthConstraint = [self.detailsButton.widthAnchor constraintEqualToConstant:500.0];
+  NSLayoutConstraint *leadingConstraint = [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0];
+  NSLayoutConstraint *trailingConstraint = [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0];
+  leadingConstraint.priority = UILayoutPriorityDefaultLow;
+  trailingConstraint.priority = UILayoutPriorityDefaultLow;
   widthConstraint.priority = UILayoutPriorityDefaultLow;
   [NSLayoutConstraint activateConstraints:@[
-      [self.detailsButton.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-      [self.detailsButton.trailingAnchor constraintLessThanOrEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+      leadingConstraint,
+      trailingConstraint,
       [self.detailsButton.bottomAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.bottomAnchor
                                                                    constant:-16.0 - (kViewTotalHeight - kViewVisibleHeight)],
       widthConstraint,
