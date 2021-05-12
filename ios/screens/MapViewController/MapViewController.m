@@ -82,10 +82,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
     self.title = self.mapItem ? self.mapItem.title : @"Карта";
     self.view.backgroundColor = [Colors get].white;
-
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    configureNavigationBar(navigationBar);
-
+  UINavigationBar *navigationBar = self.navigationController.navigationBar;
+  configureNavigationBar(navigationBar);
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
+  
     NSURL *url = [NSURL URLWithString:@"mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h"];
     self.mapView = [[MGLMapView alloc] initWithFrame:CGRectZero styleURL:url];
     [self.view addSubview:self.mapView];
@@ -150,7 +150,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark - Categories filter view
@@ -437,6 +437,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                                         locationModel:weakSelf.locationModel
                                           searchModel:weakSelf.searchModel];
     detailsController.item = item;
+    [weakSelf.navigationController setNavigationBarHidden:NO animated:NO];
     [weakSelf.navigationController pushViewController:detailsController animated:YES];
   } onBookmarkPress:^(BOOL bookmarked) {
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
@@ -452,7 +453,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [rootViewController.view addSubview:self.bottomSheet];
   
   NSLayoutConstraint *topAnchor = [self.bottomSheet.topAnchor constraintEqualToAnchor:rootViewController.view.bottomAnchor];
-  [topAnchor setIdentifier:@"top"];
   self.bottomSheet.top = topAnchor;
   [NSLayoutConstraint activateConstraints:@[
     topAnchor,
