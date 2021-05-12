@@ -74,7 +74,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
     self.interestingLabel.numberOfLines = 2;
     [self.interestingLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:20.0]];
     self.interestingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.interestingLabel.attributedText = [[Typography get] makeTitle1Bold:@"Будет интересно"];
+    self.interestingLabel.attributedText = [[Typography get] makeTitle1Bold:@"Чем заняться"];
 
     [self addSubview:self.interestingLabel];
 
