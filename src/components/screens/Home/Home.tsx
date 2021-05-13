@@ -1,29 +1,35 @@
 import React, {useEffect, useCallback} from 'react';
-import {SuspenseView} from 'atoms';
+import {RefreshPageReminder, SuspenseView} from 'atoms';
 import {HomeSectionBar} from 'organisms';
-import {FlatList, Alert} from 'react-native';
+import {FlatList} from 'react-native';
 
 import {styles} from './styles';
-import {getHomeDataRequest} from 'core/reducers';
+import {getHomeDataRequest, checkHomeData} from 'core/reducers';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectHomeData} from 'core/selectors';
+import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {IProps} from './types';
+import {useIsFocused} from '@react-navigation/core';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
   const dispatch = useDispatch();
 
   const homeData = useSelector(selectHomeData);
+  const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
+  const isScreenFocused = useIsFocused();
 
   const getData = useCallback(() => {
     dispatch(getHomeDataRequest());
   }, [dispatch]);
+
   const loading = useRequestLoading(getHomeDataRequest);
   const {error} = useRequestError(getHomeDataRequest);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    if (isScreenFocused) {
+      dispatch(checkHomeData());
+    }
+  }, [dispatch, isScreenFocused]);
 
   const navigateToObjectsList = useCallback(
     ({categoryId, title}: {categoryId: string; title: string}) => {
@@ -67,6 +73,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
           />
         )}
       />
+      {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null}
     </SuspenseView>
   );
 };

@@ -1,4 +1,7 @@
 export default `query RadzimaMobile {
+  getObjectsMetadata(id: "tag") { 
+    value 
+  }
   listMobileObjects {
     id
     name

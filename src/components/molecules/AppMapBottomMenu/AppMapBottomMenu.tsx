@@ -104,7 +104,6 @@ export const AppMapBottomMenu = memo(
           onCloseEnd={onHideEnd}
           onOpenStart={() => (isOpened.current = true)}
           onCloseStart={() => {
-            console.log('close start!');
             isOpened.current = false;
           }}
         />

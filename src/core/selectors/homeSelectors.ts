@@ -10,6 +10,14 @@ import {
 import {isEmpty, map} from 'lodash';
 import {transformMainData} from 'core/helpers';
 
+export const selectIsUpdatesAvailable = (state: IState) =>
+  state.home.isUpdatesAvailable;
+export const selectHomeUpdatedData = (state: IState) => state.home.updatedData;
+export const selectHomeDataHash = (state: IState) => state.home.dataHash;
+export const selectHomeUpdatedHash = (state: IState) => state.home.updatedHash;
+export const selectIsHomeDataExists = (state: IState) =>
+  Boolean(state.home.data);
+
 export const selectTransformedData = createSelector<
   IState,
   ICategory[] | null,

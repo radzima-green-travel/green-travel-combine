@@ -113,3 +113,11 @@ export type IBookmarksData = IBookmarkItem[];
 //   height?: number;
 //   gravity:
 // }
+
+export interface IGetHomeDataResponse {
+  data: {listMobileObjects: ICategory[]; getObjectsMetadata: {value: string}};
+}
+
+export interface IGetHomeDataAvailabilityResponse {
+  data: {getObjectsMetadata: {value: string}};
+}

@@ -19,3 +19,4 @@ export {MapFilterItem} from './MapFilterItem';
 export {MapButtonContainer} from './MapButtonContainer';
 export * from './KeyboardRegulator';
 export {ObjectDetailsSiteLink} from './ObjectDetailsSiteLink';
+export {RefreshPageReminder} from './RefreshPageReminder';

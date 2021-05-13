@@ -14,7 +14,6 @@ export function* getDirectionSaga({
 }: ActionType<typeof showObjectDetailsMapDirectionRequest>) {
   try {
     const data = yield call(getDirections, payload);
-    console.log(data);
     const lineStringGeoJSON: ReturnType<typeof makeLineString> = yield call(
       makeLineString,
       data.routes[0].geometry.coordinates,
