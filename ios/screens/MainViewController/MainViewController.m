@@ -29,6 +29,7 @@
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSURLSession *session;
+@property (strong, nonatomic) UIViewController *previousViewController;
 
 @end
 
@@ -40,6 +41,7 @@
 
     self.tabBar.tintColor = [Colors get].green;
     self.tabBar.barTintColor = [Colors get].white;
+    self.delegate = self;
 
     self.view.backgroundColor = [Colors get].white;
 
@@ -140,6 +142,20 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
 
 - (void)loadCategories {
     [self.indexModel loadCategories];
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController
+ didSelectViewController:(UIViewController *)viewController {
+  if ([viewController isKindOfClass:UINavigationController.class]) {
+    UINavigationController *navigationController = (UINavigationController *) viewController;
+    UIViewController *topController = navigationController.viewControllers.lastObject;
+    if (self.previousViewController == topController) {
+      if ([topController respondsToSelector:@selector(scrollToTop)]) {
+        [topController performSelector:@selector(scrollToTop)];
+      }
+    }
+    self.previousViewController = topController;
+  }
 }
 
 /*

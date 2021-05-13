@@ -30,6 +30,7 @@ BookmarksObserver, UITableViewDelegate, UITableViewDataSource>
                            mapModel:(MapModel *)mapModel
                        detailsModel:(DetailsModel *)detailsModel
                     coreDataService:(CoreDataService *)coreDataService;
+- (void)scrollToTop;
 
 @end
 
