@@ -1,9 +1,20 @@
 import {createSelector} from 'reselect';
-import {reduce} from 'lodash';
+import {filter, reduce} from 'lodash';
 import {IState} from 'core/store';
 import {ITransformedData, IBookmarksIds, IBookmarkItem} from 'core/types';
 import {selectBookmarksIds} from './common';
 import {selectTransformedData} from './homeSelectors';
+
+export const filteredBookmarksIds = createSelector<
+  IState,
+  ITransformedData | null,
+  IBookmarksIds,
+  IBookmarksIds
+>(selectTransformedData, selectBookmarksIds, (transformedData, ids) =>
+  transformedData
+    ? filter(ids, id => Boolean(transformedData.objectsMap[id]))
+    : [],
+);
 
 export const selectBookmarksCardsData = createSelector<
   IState,
@@ -12,7 +23,7 @@ export const selectBookmarksCardsData = createSelector<
   IBookmarkItem[] | null
 >(
   selectTransformedData,
-  selectBookmarksIds,
+  filteredBookmarksIds,
   (transformedData, bookmarksIds) => {
     if (!transformedData) {
       return null;

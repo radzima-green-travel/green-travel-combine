@@ -1,4 +1,4 @@
-import {call, put, takeEvery, select} from 'redux-saga/effects';
+import {call, put, takeEvery, select, takeLeading} from 'redux-saga/effects';
 import {
   getHomeDataSuccess,
   getHomeDataFailure,
@@ -86,8 +86,8 @@ export function* checkHomeDataSaga() {
 }
 
 export function* homeSaga() {
-  yield takeEvery(ACTIONS.GET_HOME_DATA_REQUEST, getHomeDataSaga);
-  yield takeEvery(
+  yield takeLeading(ACTIONS.GET_HOME_DATA_REQUEST, getHomeDataSaga);
+  yield takeLeading(
     ACTIONS.GET_HOME_DATA_UPDATE_AVAILABLE_REQUEST,
     getHomeDataUpdatesSaga,
   );
