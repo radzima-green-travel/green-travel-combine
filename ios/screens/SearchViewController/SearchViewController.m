@@ -16,7 +16,7 @@
 #import "SearchItem.h"
 #import "SearchCellConfiguration.h"
 #import "WeRecommendCell.h"
-#import "MapViewController.h"
+#import "FullMapViewController.h"
 #import "IndexModel.h"
 #import "SearchModel.h"
 #import "LocationModel.h"

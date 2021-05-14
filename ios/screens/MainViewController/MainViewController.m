@@ -8,7 +8,7 @@
 
 #import "MainViewController.h"
 #import "IndexViewController.h"
-#import "MapViewController.h"
+#import "FullMapViewController.h"
 #import "BookmarksViewController.h"
 #import "Colors.h"
 #import "TextUtils.h"
@@ -82,7 +82,7 @@
 
 #pragma mark - MapViewController
 
-    MapViewController *mapController = [[MapViewController alloc] initWithMapModel:mapModel
+    FullMapViewController *mapController = [[FullMapViewController alloc] initWithMapModel:mapModel
                                                                      locationModel:locationModel
                                                                         indexModel:self.indexModel
                                                                        searchModel:searchModel

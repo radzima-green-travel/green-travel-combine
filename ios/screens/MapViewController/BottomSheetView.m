@@ -30,16 +30,15 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
 
 @implementation BottomSheetView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-  self = [super initWithFrame:frame];
+- (instancetype)initWithButtonLabel:(NSString *)buttonLabel {
+  self = [super initWithFrame:CGRectZero];
   if (self) {
-    [self setUp];
+    [self setUp:buttonLabel];
   }
   return self;
 }
 
-- (void)setUp {
+- (void)setUp:(NSString *)buttonLabel {
   self.backgroundColor = [Colors get].white;
   self.recognizer =
   [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
@@ -66,7 +65,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
     [gripView.heightAnchor constraintEqualToConstant:3.5]
   ]];
 #pragma mark - Details button
-  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@"Узнать больше"];
+  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:buttonLabel];
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.detailsButton];
   
