@@ -47,7 +47,7 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
-
+import {featureCollection} from '@turf/helpers';
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
   const sheme = useColorScheme();
@@ -56,6 +56,15 @@ export const AppMap = ({navigation}: IProps) => {
   const markers = useSelector(selectMapMarkers);
   const bounds = useSelector(selectBounds);
   const selectedFilters = useSelector(selectSelectedFilters);
+
+  const [clusterMarkers, setClusterMarkers] = useState(featureCollection([]));
+  useEffect(() => {
+    if (markers) {
+      setTimeout(() => {
+        setClusterMarkers(markers);
+      }, 100);
+    }
+  }, [markers]);
 
   const setSelectedMarkerId = useCallback(
     (objectId: string) => {
@@ -123,8 +132,8 @@ export const AppMap = ({navigation}: IProps) => {
       if (coordinates) {
         camera.current?.setCamera({
           centerCoordinate: coordinates,
-          zoomLevel: 7,
-          animationDuration: 1000,
+          zoomLevel: 10,
+          animationDuration: 400,
         });
       }
 
@@ -192,7 +201,7 @@ export const AppMap = ({navigation}: IProps) => {
         {userLocationProps.visible ? (
           <MapBox.UserLocation {...userLocationProps} />
         ) : null}
-        <ClusterMapShape markers={markers} />
+        <ClusterMapShape markers={clusterMarkers} />
 
         <MapBox.ShapeSource
           id={'selectedPointShapeSource'}
