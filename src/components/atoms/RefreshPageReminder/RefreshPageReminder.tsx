@@ -37,6 +37,16 @@ export const RefreshPageReminder = memo<Props>(({onPress}: Props) => {
     }).start();
   }, [animatedValue]);
 
+  const hide = () => {
+    Animated.timing(animatedValue, {
+      toValue: 0,
+      duration: 700,
+      useNativeDriver: true,
+    }).start(() => {
+      onPress();
+    });
+  };
+
   return (
     <View pointerEvents="box-none" style={styles.container}>
       <Animated.View
@@ -84,7 +94,9 @@ export const RefreshPageReminder = memo<Props>(({onPress}: Props) => {
         ]}>
         <TouchableOpacity
           style={styles.button}
-          onPress={onPress}
+          onPress={() => {
+            hide();
+          }}
           activeOpacity={1}>
           <Text style={styles.text}>{t('updatesAvailable')}</Text>
         </TouchableOpacity>

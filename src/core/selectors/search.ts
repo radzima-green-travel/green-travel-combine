@@ -1,7 +1,7 @@
 import {createSelector} from 'reselect';
 import {ITransformedData, IObject} from '../types';
 import {IState} from 'core/store';
-import {filter, orderBy, map} from 'lodash';
+import {filter, orderBy, reduce} from 'lodash';
 import {selectTransformedData} from './homeSelectors';
 
 export const selectSearchInputValue = (state: IState) =>
@@ -18,7 +18,17 @@ export const selectSearchHistory = createSelector<
   (history, transformedData) =>
     transformedData
       ? orderBy(
-          map(history, id => transformedData.objectsMap[id]),
+          reduce(
+            history,
+            (acc, id) => {
+              if (transformedData.objectsMap[id]) {
+                return [...acc, transformedData.objectsMap[id]];
+              }
+
+              return acc;
+            },
+            [] as IObject[],
+          ),
           [({name}) => name.toLowerCase()],
           'asc',
         )

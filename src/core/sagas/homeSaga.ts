@@ -1,4 +1,11 @@
-import {call, put, takeEvery, select, takeLeading} from 'redux-saga/effects';
+import {
+  call,
+  put,
+  takeEvery,
+  select,
+  takeLeading,
+  delay,
+} from 'redux-saga/effects';
 import {
   getHomeDataSuccess,
   getHomeDataFailure,
@@ -22,6 +29,7 @@ export function* getHomeDataSaga() {
     const updatedData = yield select(selectHomeUpdatedData);
     if (updatedData) {
       const updatedHash = yield select(selectHomeUpdatedHash);
+      yield delay(300);
 
       yield put(getHomeDataSuccess({data: updatedData, dataHash: updatedHash}));
     } else {
@@ -31,7 +39,6 @@ export function* getHomeDataSaga() {
           getObjectsMetadata: {value},
         },
       }: IGetHomeDataResponse = yield call(getCategories);
-
       yield put(getHomeDataSuccess({data: categories, dataHash: value}));
     }
   } catch (e) {

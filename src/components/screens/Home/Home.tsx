@@ -9,14 +9,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
 import {useRequestError, useRequestLoading} from 'core/hooks';
 import {IProps} from './types';
-import {useIsFocused} from '@react-navigation/core';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
   const dispatch = useDispatch();
 
   const homeData = useSelector(selectHomeData);
   const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
-  const isScreenFocused = useIsFocused();
 
   const getData = useCallback(() => {
     dispatch(getHomeDataRequest());
@@ -26,10 +24,8 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   const {error} = useRequestError(getHomeDataRequest);
 
   useEffect(() => {
-    if (isScreenFocused) {
-      dispatch(checkHomeData());
-    }
-  }, [dispatch, isScreenFocused]);
+    dispatch(checkHomeData());
+  }, [dispatch]);
 
   const navigateToObjectsList = useCallback(
     ({categoryId, title}: {categoryId: string; title: string}) => {
@@ -54,7 +50,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
 
   return (
     <SuspenseView
-      loading={!homeData && loading}
+      loading={(!homeData || isUpdatesAvailable) && loading}
       error={homeData ? null : error}
       retryCallback={getData}>
       <FlatList
