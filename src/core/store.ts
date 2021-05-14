@@ -27,8 +27,7 @@ let AsyncStorage;
 if (isIOS) {
   AsyncStorage = require('@react-native-community/async-storage').default;
 } else {
-  const Storage = require('react-native-fs-store').default;
-  AsyncStorage = new Storage('default');
+  AsyncStorage = require('redux-persist-filesystem-storage').default;
 }
 
 const searchPersistConfig = {
