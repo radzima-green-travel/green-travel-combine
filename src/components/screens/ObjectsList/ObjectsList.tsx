@@ -4,7 +4,7 @@ import {ObjectCard} from 'molecules';
 import {styles} from './styles';
 import {IProps} from './types';
 
-import {useCategoryObjects} from 'core/hooks';
+import {useCategoryObjects, useObjects} from 'core/hooks';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {IObject} from 'core/types';
@@ -15,10 +15,12 @@ export const ObjectsList = ({
   navigation: {setOptions, push},
 }: IProps) => {
   const {
-    params: {categoryId, title},
+    params: {categoryId, title, objectsIds},
   } = route;
 
   const listData = useCategoryObjects(categoryId);
+
+  const listDataByIds = useObjects(objectsIds || []);
 
   const navigateToObjectDetails = useCallback(
     ({id}: IObject) => {
@@ -27,13 +29,10 @@ export const ObjectsList = ({
     [push],
   );
 
-  const sortedListData = useMemo(
-    () =>
-      listData
-        ? orderBy(listData, [({name}) => name.toLowerCase()], 'asc')
-        : null,
-    [listData],
-  );
+  const sortedListData = useMemo(() => {
+    const data = objectsIds ? listDataByIds : listData;
+    return data ? orderBy(data, [({name}) => name.toLowerCase()], 'asc') : null;
+  }, [listData, listDataByIds, objectsIds]);
 
   const navigateToObjectDetailsDebounced = useMemo(
     () =>

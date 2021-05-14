@@ -2,7 +2,7 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {AppMapScreen, ObjectDetailsScreen} from 'screens';
+import {AppMapScreen, ObjectDetailsScreen, ObjectsListScreen} from 'screens';
 
 import {getAppHeaderOptions} from '../screenOptions';
 import {useColorScheme} from 'core/hooks';
@@ -31,6 +31,7 @@ export function AppMapNavigatior() {
           headerShown: false,
         }}
       />
+      <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>
   );
 }

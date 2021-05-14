@@ -6,6 +6,7 @@ import {
   BookmarksListScreen,
   BookmarksScreen,
   ObjectDetailsScreen,
+  ObjectsListScreen,
 } from 'screens';
 
 import {getAppHeaderOptions} from '../screenOptions';
@@ -39,6 +40,7 @@ export function BookmarksNavigator() {
           headerShown: false,
         }}
       />
+      <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>
   );
 }

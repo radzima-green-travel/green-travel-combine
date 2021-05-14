@@ -20,11 +20,21 @@ export type BookmarksNavigatorParamsList = {
   Bookmarks: undefined;
   BookmarksList: {title: string; categoryId: string};
   ObjectDetails: {categoryId: string; objectId: string};
+  ObjectsList: {
+    categoryId: string;
+    title: string;
+    objectsIds?: string[];
+  };
 };
 
 export type AppMapNavigatorParamsList = {
   AppMap: undefined;
   ObjectDetails: {categoryId: string; objectId: string};
+  ObjectsList: {
+    categoryId: string;
+    title: string;
+    objectsIds?: string[];
+  };
 };
 
 export type MainNavigatorParamsList = {

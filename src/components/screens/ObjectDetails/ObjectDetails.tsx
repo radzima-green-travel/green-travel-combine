@@ -58,11 +58,17 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
 
   const navigateToObjectsList = useCallback(
     ({id, name, objects}: {id: string; name: string; objects: string[]}) => {
-      navigation.push('ObjectsList', {
-        categoryId: id,
-        title: name,
-        objectsIds: objects,
-      });
+      if (objects.length === 1) {
+        navigation.push('ObjectDetails', {
+          objectId: objects[0],
+        });
+      } else {
+        navigation.push('ObjectsList', {
+          categoryId: id,
+          title: name,
+          objectsIds: objects,
+        });
+      }
     },
     [navigation],
   );
