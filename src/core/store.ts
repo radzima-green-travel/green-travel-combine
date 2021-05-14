@@ -6,7 +6,7 @@ import {rootSaga} from './rootSaga';
 import {errorLabelMiddliware} from 'services/ErrorLabelService';
 
 import {persistStore, persistReducer} from 'redux-persist';
-import AsyncStorage from '@react-native-community/async-storage';
+import {isIOS} from 'services/PlatformService';
 
 import {combineReducers} from 'redux';
 
@@ -21,6 +21,15 @@ import {
   appMapReducer,
   objectDetailsMapReducer,
 } from './reducers';
+
+let AsyncStorage;
+
+if (isIOS) {
+  AsyncStorage = require('@react-native-community/async-storage').default;
+} else {
+  const Storage = require('react-native-fs-store').default;
+  AsyncStorage = new Storage('default');
+}
 
 const searchPersistConfig = {
   key: 'search',

@@ -35,7 +35,7 @@
     "react-native-base64": "^0.2.1",
     "react-native-bootsplash": "^3.1.5",
     "react-native-fast-image": "^8.3.4",
-    "react-native-fs": "^2.17.0",
+    "react-native-fs": "^2.18.0",
     "react-native-fs-store": "^0.1.7",
     "react-native-geolocation-service": "^5.0.0",
     "react-native-gesture-handler": "^1.10.3",

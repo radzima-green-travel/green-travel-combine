@@ -62,7 +62,7 @@ export const AppMap = ({navigation}: IProps) => {
     if (markers) {
       setTimeout(() => {
         setClusterMarkers(markers);
-      }, 100);
+      }, 210);
     }
   }, [markers]);
 
