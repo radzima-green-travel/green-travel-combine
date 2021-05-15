@@ -20,7 +20,9 @@ export function useFocusToUserLocation(
     }
 
     if (!userLocationVisible) {
-      setUserLocationVisible(true);
+      setTimeout(() => {
+        setUserLocationVisible(true);
+      }, 0);
       const result = await getUserLocationTask();
       return result;
     } else if (userLocation) {
