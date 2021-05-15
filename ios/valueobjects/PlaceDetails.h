@@ -21,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEqual:(id)object;
 @property (readonly) NSUInteger hash;
 @property (strong, nonatomic) NSArray<CategoryUUIDToRelatedItemUUIDs *> *categoryIdToItems;
+// Coordinate array.
+@property (strong, nonatomic) NSArray<CLLocation *> *area;
+// Coordinate array.
+@property (strong, nonatomic) NSArray<CLLocation *> *path;
 
 @end 
 

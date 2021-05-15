@@ -27,14 +27,18 @@
 #import "Category.h"
 #import "BottomSheetView.h"
 #import "DetailsViewController.h"
+#import "PlaceDetails.h"
 
 @interface ItemDetailsMapViewController ()
 
 @end
 
-static NSString* const kSourceId = @"sourceId";
-static NSString* const kClusterLayerId = @"clusterLayerId";
-static NSString* const kMarkerLayerId = @"markerLayerId";
+static NSString* const kSourceIdPoint = @"sourceIdPoint";
+static NSString* const kSourceIdPath = @"sourceIdPath";
+static NSString* const kSourceIdPolygon = @"sourceIdPolygon";
+static NSString* const kPolygonLayerId = @"olygonLayerId";
+static NSString* const kPathLayerId = @"pathLayerId";
+static NSString* const kPointLayerId = @"pointLayerId";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 @implementation ItemDetailsMapViewController
@@ -66,40 +70,34 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (mapItemNew) {
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-      [weakSelf renderMapItems:@[mapItemNew] style:weakSelf.mapView.style];
+      [weakSelf renderMapItem:@[mapItemNew] style:weakSelf.mapView.style];
     });
   }
 }
 
-- (void)renderMapItems:(NSArray<MapItem *> *)mapItems style:(MGLStyle *)style {
-  NSMutableArray *mapAnnotations = [[NSMutableArray alloc] init];
+- (void)renderMapItem:(MapItem *)mapItem style:(MGLStyle *)style {
   [self.mapView removeAnnotations:self.mapView.annotations];
-  [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
-    MGLPointFeature *point = [[MGLPointFeature alloc] init];
-    point.coordinate = mapItem.coords;
-    point.title = mapItem.title;
-    point.attributes = @{
-      @"icon": mapItem.correspondingPlaceItem.category.icon,
-      @"title": mapItem.title,
-      @"uuid": mapItem.correspondingPlaceItem.uuid,
-      @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
-    };
-    [mapAnnotations addObject:point];
-  }];
-  if ([mapAnnotations count] > 1) {
-    [self.mapView showAnnotations:mapAnnotations animated:YES];
-  }
-  if ([mapAnnotations count] == 1){
-    MGLPointFeature *point = mapAnnotations.firstObject;
-    [self.mapView setCenterCoordinate:point.coordinate zoomLevel:8.0 animated:YES];
-  }
+  MGLPointFeature *point = [[MGLPointFeature alloc] init];
+  point.coordinate = mapItem.coords;
+  point.title = mapItem.title;
+  point.attributes = @{
+    @"icon": mapItem.correspondingPlaceItem.category.icon,
+    @"title": mapItem.title,
+    @"uuid": mapItem.correspondingPlaceItem.uuid,
+    @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
+  };
   
-  MGLShapeSource *source = (MGLShapeSource *)[style sourceWithIdentifier:kSourceId];
-  if ([style layerWithIdentifier:kMarkerLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:kMarkerLayerId]];
+  MGLShapeSource *sourcePoint = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPoint];
+  MGLShapeSource *sourcePath = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPath];
+  MGLShapeSource *sourcePolygon = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPolygon];
+  if ([style layerWithIdentifier:kPolygonLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:kPolygonLayerId]];
   }
-  if ([style sourceWithIdentifier:kSourceId] != nil) {
-    [style removeSource:[style sourceWithIdentifier:kSourceId]];
+  if ([style layerWithIdentifier:kPathLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:kPathLayerId]];
+  }
+  if ([style layerWithIdentifier:kPointLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:kPointLayerId]];
   }
   
   source =
@@ -110,15 +108,66 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                                        MGLShapeSourceOptionClusterRadius: @50.0
                                      }];
   
-  [style addSource:source];
-  
   MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kMarkerLayerId source:source];
   markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"mapPin"];
-  [style setImage:[UIImage imageNamed:@"map-pin"] forName:@"mapPin"];
   
-  [style addLayer:markerLayer];
+  
+  
+  if ([mapItem.correspondingPlaceItem.details.area count]) {
+    NSMutableArray<MGLPointFeature *> *vertices = [[NSMutableArray alloc] init];
+    [mapItem.correspondingPlaceItem.details.area enumerateObjectsUsingBlock:^(CLLocation * _Nonnull location, NSUInteger idx, BOOL * _Nonnull stop) {
+      MGLPointFeature *point = [[MGLPointFeature alloc] init];
+      point.coordinate = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
+      [vertices addObject:point];
+    }];
+    sourcePolygon = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
+                                                      features:vertices options:nil];
+  }
+  if ([mapItem.correspondingPlaceItem.details.path count]) {
+    NSMutableArray<MGLPointFeature *> *vertices = [[NSMutableArray alloc] init];
+    [mapItem.correspondingPlaceItem.details.path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull location, NSUInteger idx, BOOL * _Nonnull stop) {
+      MGLPointFeature *point = [[MGLPointFeature alloc] init];
+      point.coordinate = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
+      [vertices addObject:point];
+    }];
+    sourcePath = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
+                                                   features:vertices options:nil];
+  }
+  sourcePoint =
+  [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPoint
+                                    features:mapAnnotation options:nil];
+  
+  if ([mapAnnotations count] > 1) {
+    [self.mapView showAnnotations:mapAnnotations animated:YES];
+  }
+  if ([mapAnnotations count] == 1){
+    MGLPointFeature *point = mapAnnotations.firstObject;
+    [self.mapView setCenterCoordinate:point.coordinate zoomLevel:8.0 animated:YES];
+  }
+  
+  [style addSource:sourcePoint];
+  [style addSource:sourcePath];
+  [style addSource:sourcePolygon];
+  
+  MGLSymbolStyleLayer *pointLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kPointLayerId source:kSourceIdPoint];
+  pointLayer.iconImageName = [NSExpression expressionForConstantValue:@"mappin"];
+  [style setImage:[UIImage imageNamed:@"map-pin"] forName:@"mappin"];
+  
+  MGLLineStyleLayer *pathLayer = [[MGLFillStyleLayer alloc] initWithIdentifier:kPathLayerId source:sourcePath];
+  pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].apple];;
+  pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@0.5];;
+  pathLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];;
+  pathLayer.lineWidth =
+  [NSExpression expressionForConstantValue:@3.0];
+  
+  MGLFillStyleLayer *polygonLayer = [[MGLFillStyleLayer alloc] initWithIdentifier:kPolygonLayerId source:sourcePolygon];
+  polygonLayer.fillColor = [NSExpression expressionForConstantValue:[Colors get].apple];
+  polygonLayer.fillOpacity = [NSExpression expressionForConstantValue:@0.5];
+  
+  [style addLayer:pointLayer];
+  [style addLayer:pathLayer];
+  [style addLayer:polygonLayer];
 }
-
 
 - (IBAction)handleMapTap:(UITapGestureRecognizer *)tap {
   MGLSource *source = [self.mapView.style sourceWithIdentifier:kSourceId];

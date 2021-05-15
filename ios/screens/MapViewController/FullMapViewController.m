@@ -284,7 +284,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     return [evaluatedObject isKindOfClass:MGLPointFeatureCluster.class];
   }];
   NSArray<id<MGLFeature>> *clusters = [visibleFeaturesInRect filteredArrayUsingPredicate:clusterPredicate];
-  return (MGLPointFeatureCluster *)[ clusters firstObject];
+  return (MGLPointFeatureCluster *)[clusters firstObject];
 }
 
 - (IBAction)handleMapClusterTap:(UITapGestureRecognizer *)sender {

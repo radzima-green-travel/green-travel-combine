@@ -145,6 +145,20 @@ static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadat
     } else {
         details.descriptionHTML = @"";
     }
+  NSMutableArray<CLLocation *> *mappedCoords = [[NSMutableArray alloc] init];
+  if (item[@"area"] && ![item[@"area"] isEqual:[NSNull null]]) {
+    NSArray<NSArray<NSNumber *> *> *coords = item[@"area"][@"coordinates"][0];
+    [coords enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
+      [mappedCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[0] doubleValue] longitude:[coords[1] doubleValue]]];
+    }];
+  }
+  if (item[@"routes"] && ![item[@"routes"] isEqual:[NSNull null]]) {
+    NSArray<NSArray<NSNumber *> *> *coords = item[@"routes"][@"coordinates"];
+    [coords enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
+      [mappedCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[0] doubleValue] longitude:[coords[1] doubleValue]]];
+    }];
+  }
+  
     NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
     
     NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) item[@"include"];
