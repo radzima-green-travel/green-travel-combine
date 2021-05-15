@@ -31,6 +31,7 @@ UICollectionViewDataSource>
                      mapModel:(MapModel *)mapModel
                   searchModel:(SearchModel *)searchModel
                 locationModel:(LocationModel *)locationModel;
+- (void)scrollToTop;
 
 @end
 

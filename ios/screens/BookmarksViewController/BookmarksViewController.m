@@ -283,4 +283,8 @@ static const CGFloat kInsetVertical = 24.0;
     
 }
 
+- (void)scrollToTop {
+  [self.collectionView setContentOffset:CGPointZero animated:YES];
+}
+
 @end

@@ -418,14 +418,23 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    for (NSUInteger sectionCounter = 0; sectionCounter < self.tableView.numberOfSections; sectionCounter++) {
-        for (NSUInteger rowCounter = 0; rowCounter < [self.tableView numberOfRowsInSection:sectionCounter]; rowCounter++) {
-            PlacesTableViewCell *cell =
-            [self.tableView cellForRowAtIndexPath:
-             [NSIndexPath indexPathForRow:rowCounter inSection:sectionCounter]];
-            [cell.collectionView setContentOffset:CGPointMake(0, 0) animated:YES];
-        }
+  [self scrollItemsToLeft];
+}
+
+- (void)scrollItemsToLeft {
+  for (NSUInteger sectionCounter = 0; sectionCounter < self.tableView.numberOfSections; sectionCounter++) {
+    for (NSUInteger rowCounter = 0; rowCounter < [self.tableView numberOfRowsInSection:sectionCounter]; rowCounter++) {
+      PlacesTableViewCell *cell =
+      [self.tableView cellForRowAtIndexPath:
+       [NSIndexPath indexPathForRow:rowCounter inSection:sectionCounter]];
+      [cell.collectionView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
+  }
+}
+
+- (void)scrollToTop {
+  [self.tableView setContentOffset:CGPointZero animated:YES];
+  [self scrollItemsToLeft];
 }
 
 @end
