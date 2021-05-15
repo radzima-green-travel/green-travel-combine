@@ -16,6 +16,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNBootSplash.h"
+#import "RotationLockUtility.h"
 
 // #ifdef FB_SONARKIT_ENABLED
 // #import <FlipperKit/FlipperClient.h>
@@ -73,35 +74,36 @@
 }
 
 - (void)showRNViewController {
-// #ifdef FB_SONARKIT_ENABLED
-//   InitializeFlipper(self.application);
-// #endif
-    
-    UIViewController *rnViewController = [[UIViewController alloc] init];
-    RCTBridge *bridge =
-    [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions]; 
-    RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                                                     moduleName:@"greenTravel"
-                                              initialProperties:nil];
-    if (@available(iOS 13.0, *)) {
-        rootView.backgroundColor = [UIColor systemBackgroundColor];
-    } else {
-        rootView.backgroundColor = [UIColor whiteColor];
-    }
-
-    [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
-    rnViewController.view = rootView;
-    
-    [self addChildViewController:rnViewController];
-    rnViewController.view.frame = self.view.bounds;
-    [self.view addSubview:rnViewController.view];
-    [rnViewController didMoveToParentViewController:self];
-    
-    [self.current willMoveToParentViewController:nil];
-    [self.current.view removeFromSuperview];
-    [self.current removeFromParentViewController];
-    
-    self.current = rnViewController;
+  // #ifdef FB_SONARKIT_ENABLED
+  //   InitializeFlipper(self.application);
+  // #endif
+  
+  UIViewController *rnViewController = [[UIViewController alloc] init];
+  RCTBridge *bridge =
+  [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                   moduleName:@"greenTravel"
+                                            initialProperties:nil];
+  if (@available(iOS 13.0, *)) {
+    rootView.backgroundColor = [UIColor systemBackgroundColor];
+  } else {
+    rootView.backgroundColor = [UIColor whiteColor];
+  }
+  
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
+  rnViewController.view = rootView;
+  
+  [self addChildViewController:rnViewController];
+  rnViewController.view.frame = self.view.bounds;
+  [self.view addSubview:rnViewController.view];
+  [rnViewController didMoveToParentViewController:self];
+  
+  [self.current willMoveToParentViewController:nil];
+  [self.current.view removeFromSuperview];
+  [self.current removeFromParentViewController];
+  
+  self.current = rnViewController;
+  [RotationLockUtility lockToPortrait];
 }
 
 - (void)showNativeViewController {
