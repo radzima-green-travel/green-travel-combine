@@ -36,7 +36,7 @@
 static NSString* const kSourceIdPoint = @"sourceIdPoint";
 static NSString* const kSourceIdPath = @"sourceIdPath";
 static NSString* const kSourceIdPolygon = @"sourceIdPolygon";
-static NSString* const kPolygonLayerId = @"olygonLayerId";
+static NSString* const kPolygonLayerId = @"polygonLayerId";
 static NSString* const kPathLayerId = @"pathLayerId";
 static NSString* const kPointLayerId = @"pointLayerId";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
@@ -51,9 +51,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
+  //[self showPopupWithItem:self.mapItem.correspondingPlaceItem];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
+  [self hidePopup];
 }
 
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
@@ -120,23 +122,27 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     free(coordinates);
   }
   
-  if ([mapItem.correspondingPlaceItem.details.path count]) {
-    NSMutableArray<MGLPointFeature *> *vertices = [[NSMutableArray alloc] init];
-    [mapItem.correspondingPlaceItem.details.path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull location, NSUInteger idx, BOOL * _Nonnull stop) {
-      MGLPointFeature *point = [[MGLPointFeature alloc] init];
-      point.coordinate = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
-      [vertices addObject:point];
+  NSArray<CLLocation *> *path = mapItem.correspondingPlaceItem.details.path;
+  if ([path count]) {
+    CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * [path count]);
+    [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      coordinates[idx] = CLLocationCoordinate2DMake(obj.coordinate.latitude, obj.coordinate.longitude);
     }];
+    
+    MGLPolylineFeature *polyline = [MGLPolylineFeature polylineWithCoordinates:coordinates count:[path count]];
+    [vertices addObject:polyline];
+    
     sourcePath = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
-                                                   features:vertices options:nil];
+                                                   features:@[polyline] options:nil];
+    free(coordinates);
   }
   
   if (sourcePath) {
     [style addSource:sourcePath];
     
     MGLLineStyleLayer *pathLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:kPathLayerId source:sourcePath];
-    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].apple];;
-    pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@0.5];
+    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];;
+    pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     pathLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
     pathLayer.lineWidth =
     [NSExpression expressionForConstantValue:@3.0];
@@ -187,21 +193,16 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   CGFloat width = kIconSize.width;
   CGRect rect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
   
-  NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:kPointLayerId, nil]];
+  NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:kPointLayerId, kPathLayerId, kPolygonLayerId, nil]];
   
   // Pick the first feature (which may be a port or a cluster), ideally selecting
   // the one nearest nearest one to the touch point.
   id<MGLFeature> feature = features.firstObject;
-  UIColor *color = UIColor.redColor;
-  
-  if (feature && [feature isKindOfClass:[MGLPointFeature class]]) {
-    id uuid = [feature attributeForKey:@"uuid"];
-    if ([uuid isKindOfClass:[NSString class]]) {
-      PlaceItem *item = self.indexModel.flatItems[(NSString *)uuid];
-      color = UIColor.blackColor;
-      [self.mapView setCenterCoordinate:feature.coordinate zoomLevel:self.mapView.zoomLevel animated:YES];
-      [self showPopupWithItem:item];
-    }
+  if (feature && ([feature isKindOfClass:[MGLPointFeature class]] ||
+                  [feature isKindOfClass:[MGLMultiPolygonFeature class]] ||
+                  [feature isKindOfClass:[MGLPolygonFeature class]] ||
+                  [feature isKindOfClass:[MGLPolylineFeature class]])) {
+    [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
     return;
   }
   [self hidePopup];
