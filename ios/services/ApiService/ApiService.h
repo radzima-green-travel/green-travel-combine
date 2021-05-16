@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSession:(NSURLSession *)session;
 - (void)loadCategoriesWithCompletion:(NSString *)existingTag
-                          completion:(void(^)(NSArray<Category *>*, NSString *))completion;
+                          completion:(void(^)(NSArray<Category *>*, NSArray<PlaceDetails *>*, NSString *))completion;
 - (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void(^)(PlaceDetails *))completion;
 
 @end

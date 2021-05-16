@@ -42,6 +42,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self.navigationController setNavigationBarHidden:YES animated:NO];
 #pragma mark - Search button
   self.searchButton = [[MapButton alloc] initWithImageName:@"search-outline"
                                                     target:self

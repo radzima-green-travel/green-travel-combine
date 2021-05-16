@@ -78,7 +78,9 @@ static IndexModel *instance;
   __weak typeof(self) weakSelf = self;
   NSString *existingETag = [self.userDefaultsService loadETag];
   [self.apiService loadCategoriesWithCompletion:existingETag
-                                     completion:^(NSArray<Category *>  * _Nonnull categories, NSString *eTag) {
+                                     completion:^(NSArray<Category *>  * _Nonnull categories,
+                                                  NSArray<PlaceDetails *>  * _Nonnull placeDetails,
+                                                  NSString *eTag) {
     __strong typeof(weakSelf) strongSelf = weakSelf;
     if ([strongSelf.categories count] == 0 && [categories count] > 0) {
       [strongSelf.userDefaultsService saveETag:eTag];

@@ -55,29 +55,30 @@ static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadat
 }
 
 - (void)loadCategoriesWithCompletion:(NSString *)existingTag
-                          completion:(void(^)(NSArray<Category *>*, NSString *))completion {
+                          completion:(void(^)(NSArray<Category *>*, NSArray<PlaceDetails *>*, NSString *))completion {
   __weak typeof(self) weakSelf = self;
   NSMutableURLRequest *getTagRequest = [self makeRequestForQuery:kQueryGetTag];
   NSURLSessionDataTask *getTagTask = [self.session dataTaskWithRequest:getTagRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     if (!data) {
-      completion(@[], existingTag);
+      completion(@[], @[], existingTag);
       return;
     }
     NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSString *tag = body[@"data"][@"getObjectsMetadata"][@"value"];
     if ([existingTag isEqualToString:tag]) {
-      completion(@[], existingTag);
+      completion(@[], @[], existingTag);
       return;
     }
     NSMutableURLRequest *getCategoriesRequest = [self makeRequestForQuery:kQueryGetCategories];
     NSURLSessionDataTask *getCategoriesTask = [self.session dataTaskWithRequest:getCategoriesRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
       if (!data) {
-        completion(@[], existingTag);
+        completion(@[], @[], existingTag);
         return;
       }
       NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+      NSString *tagFromPayload = body[@"data"][@"getObjectsMetadata"][@"value"];
       NSArray<Category *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:body[@"data"][@"listMobileObjects"]] copy];
-      completion(mappedCategories, tag);
+      completion(mappedCategories, @[], tagFromPayload);
     }];
     [getCategoriesTask resume];
   }];
@@ -147,16 +148,19 @@ static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadat
     }
   NSMutableArray<CLLocation *> *mappedCoords = [[NSMutableArray alloc] init];
   if (item[@"area"] && ![item[@"area"] isEqual:[NSNull null]]) {
-    NSArray<NSArray<NSNumber *> *> *coords = item[@"area"][@"coordinates"][0];
+    NSArray<NSArray<NSNumber *> *> *coords = item[@"area"][@"coordinates"][0][0];
     [coords enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
-      [mappedCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[0] doubleValue] longitude:[coords[1] doubleValue]]];
+      [mappedCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[1] doubleValue] longitude:[coords[0] doubleValue]]];
     }];
+    details.area = [NSArray arrayWithArray:[mappedCoords copy]];
   }
   if (item[@"routes"] && ![item[@"routes"] isEqual:[NSNull null]]) {
+    [mappedCoords removeAllObjects];
     NSArray<NSArray<NSNumber *> *> *coords = item[@"routes"][@"coordinates"];
     [coords enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
-      [mappedCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[0] doubleValue] longitude:[coords[1] doubleValue]]];
+      [mappedCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[1] doubleValue] longitude:[coords[0] doubleValue]]];
     }];
+    details.path = [NSArray arrayWithArray:[mappedCoords copy]];
   }
   
     NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];

@@ -70,7 +70,6 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
   self.view.backgroundColor = [Colors get].white;
   UINavigationBar *navigationBar = self.navigationController.navigationBar;
   configureNavigationBar(navigationBar);
-  [self.navigationController setNavigationBarHidden:YES animated:YES];
   
   NSURL *url = [NSURL URLWithString:kMapboxURL];
   self.mapView = [[MGLMapView alloc] initWithFrame:CGRectZero styleURL:url];
@@ -115,11 +114,6 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
     self.locationButtonBottomAnchor,
     [self.locationButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-  [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
