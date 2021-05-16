@@ -58,6 +58,12 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self hidePopup];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  [self.mapView removeFromSuperview];
+  self.mapView.delegate = nil;
+}
+
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
     [self renderMapItem:self.mapItem style:style];
 }
@@ -202,6 +208,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                   [feature isKindOfClass:[MGLMultiPolygonFeature class]] ||
                   [feature isKindOfClass:[MGLPolygonFeature class]] ||
                   [feature isKindOfClass:[MGLPolylineFeature class]])) {
+    [self.mapView showAnnotations:@[feature] animated:YES];
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
     return;
   }
