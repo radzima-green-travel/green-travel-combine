@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSUInteger hash;
 @property (strong, nonatomic) NSArray<CategoryUUIDToRelatedItemUUIDs *> *categoryIdToItems;
 // Coordinate array.
-@property (strong, nonatomic) NSArray<CLLocation *> *area;
+@property (strong, nonatomic) NSArray<NSArray<CLLocation *> *> *area;
 // Coordinate array.
 @property (strong, nonatomic) NSArray<CLLocation *> *path;
 

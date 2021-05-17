@@ -224,6 +224,9 @@ NSPersistentContainer *_persistentContainer;
         }];
         [storedDetails addLinkedCategoriesObject:relatedCategoryUUIDs];
     }];
+  [details.path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull pathPoint, NSUInteger idx, BOOL * _Nonnull stop) {
+    
+  }];
     return storedDetails;
 }
 

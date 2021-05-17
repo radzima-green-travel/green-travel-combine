@@ -127,55 +127,59 @@ static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadat
 }
 
 - (PlaceDetails *)mapDetailsFromJSON:(NSDictionary *)item {
-    PlaceDetails *details = [[PlaceDetails alloc] init];
-    NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
-    if (item[@"images"]) {
-        [item[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL, NSUInteger idx, BOOL * _Nonnull stop) {
-          [imageURLs addObject:[NSString stringWithFormat:@"%@%@", kImageBaseURL, imageURL]];
-        }];
-    }
-    details.uuid = item[@"id"];
-    details.images = [imageURLs copy];
-    if (item[@"address"] && ![item[@"address"] isEqual:[NSNull null]]) {
-        details.address = item[@"address"];
-    } else {
-        details.address = @"";
-    }
-    if (item[@"description"] && ![item[@"description"] isEqual:[NSNull null]]) {
-        details.descriptionHTML = item[@"description"];
-    } else {
-        details.descriptionHTML = @"";
-    }
-  NSMutableArray<CLLocation *> *mappedCoords = [[NSMutableArray alloc] init];
-  if (item[@"area"] && ![item[@"area"] isEqual:[NSNull null]]) {
-    NSArray<NSArray<NSNumber *> *> *coords = item[@"area"][@"coordinates"][0][0];
-    [coords enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
-      [mappedCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[1] doubleValue] longitude:[coords[0] doubleValue]]];
+  PlaceDetails *details = [[PlaceDetails alloc] init];
+  NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
+  if (item[@"images"]) {
+    [item[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL, NSUInteger idx, BOOL * _Nonnull stop) {
+      [imageURLs addObject:[NSString stringWithFormat:@"%@%@", kImageBaseURL, imageURL]];
     }];
-    details.area = [NSArray arrayWithArray:[mappedCoords copy]];
   }
-  if (item[@"routes"] && ![item[@"routes"] isEqual:[NSNull null]]) {
-    [mappedCoords removeAllObjects];
-    NSArray<NSArray<NSNumber *> *> *coords = item[@"routes"][@"coordinates"];
-    [coords enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
-      [mappedCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[1] doubleValue] longitude:[coords[0] doubleValue]]];
+  details.uuid = item[@"id"];
+  details.images = [imageURLs copy];
+  if (item[@"address"] && ![item[@"address"] isEqual:[NSNull null]]) {
+    details.address = item[@"address"];
+  } else {
+    details.address = @"";
+  }
+  if (item[@"description"] && ![item[@"description"] isEqual:[NSNull null]]) {
+    details.descriptionHTML = item[@"description"];
+  } else {
+    details.descriptionHTML = @"";
+  }
+  NSMutableArray<NSMutableArray<CLLocation *> *> *mappedAreaCoords = [[NSMutableArray alloc] init];
+  if (item[@"area"] && ![item[@"area"] isEqual:[NSNull null]]) {
+    NSArray<NSArray<NSArray<NSArray<NSNumber *> *> *> *> *coords = item[@"area"][@"coordinates"];
+    [coords enumerateObjectsUsingBlock:^(NSArray<NSArray<NSArray<NSNumber *> *> *> * _Nonnull polygonPart, NSUInteger partIdx, BOOL * _Nonnull stop) {
+      [mappedAreaCoords addObject:[[NSMutableArray alloc] init]];
+      [polygonPart[0] enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
+        [mappedAreaCoords[partIdx] addObject:[[CLLocation alloc] initWithLatitude:[coords[1] doubleValue] longitude:[coords[0] doubleValue]]];
+      }];
     }];
-    details.path = [NSArray arrayWithArray:[mappedCoords copy]];
+    details.area = [NSArray arrayWithArray:[mappedAreaCoords copy]];
   }
   
-    NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
-    
-    NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) item[@"include"];
-    [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *categoryId = (NSString *) obj[@"id"];
-        NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];
-        CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
-        categoryUUIDToRelatedItemUUIDs.categoryUUID = categoryId;
-        categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:linkedItemIds];
-        [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
+  NSMutableArray<CLLocation *> *mappedPathCoords = [[NSMutableArray alloc] init];
+  if (item[@"routes"] && ![item[@"routes"] isEqual:[NSNull null]]) {
+    NSArray<NSArray<NSNumber *> *> *coords = item[@"routes"][@"coordinates"];
+    [coords enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
+      [mappedPathCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[1] doubleValue] longitude:[coords[0] doubleValue]]];
     }];
-    details.categoryIdToItems = categoryIdToItems;
-    return details;
+    details.path = [NSArray arrayWithArray:[mappedPathCoords copy]];
+  }
+  
+  NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
+  
+  NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) item[@"include"];
+  [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSString *categoryId = (NSString *) obj[@"id"];
+    NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];
+    CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
+    categoryUUIDToRelatedItemUUIDs.categoryUUID = categoryId;
+    categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:linkedItemIds];
+    [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
+  }];
+  details.categoryIdToItems = categoryIdToItems;
+  return details;
 }
 
 - (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void(^)(PlaceDetails*))completion{

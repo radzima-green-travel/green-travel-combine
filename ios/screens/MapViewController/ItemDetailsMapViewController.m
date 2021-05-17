@@ -112,20 +112,23 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                                                   features:@[point]
                                                    options:nil];
   
-  NSArray<CLLocation *> *area = mapItem.correspondingPlaceItem.details.area;
+  NSArray<NSArray<CLLocation *> *> *areaParts = mapItem.correspondingPlaceItem.details.area;
   NSMutableArray<id<MGLAnnotation>> *vertices = [[NSMutableArray alloc] init];
-  if ([area count]) {
-    CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * [area count]);
-    [area enumerateObjectsUsingBlock:^(CLLocation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-      coordinates[idx] = CLLocationCoordinate2DMake(obj.coordinate.latitude, obj.coordinate.longitude);
+  NSMutableArray<MGLPolygon *> *polygonParts = [[NSMutableArray alloc] init];
+  if ([areaParts count]) {
+    [areaParts enumerateObjectsUsingBlock:^(NSArray<CLLocation *> * _Nonnull partCoordinates, NSUInteger idx, BOOL * _Nonnull stop) {
+      CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * [partCoordinates count]);
+      [partCoordinates enumerateObjectsUsingBlock:^(CLLocation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        coordinates[idx] = CLLocationCoordinate2DMake(obj.coordinate.latitude, obj.coordinate.longitude);
+      }];
+      MGLPolygon *polygonPart = [MGLPolygon polygonWithCoordinates:coordinates count:[partCoordinates count]];
+      [polygonParts addObject:polygonPart];
+      free(coordinates);
     }];
-    MGLPolygon *polygonPart = [MGLPolygon polygonWithCoordinates:coordinates count:[area count]];
-    
-    MGLMultiPolygonFeature *polygon = [MGLMultiPolygonFeature multiPolygonWithPolygons:@[polygonPart]];
+    MGLMultiPolygonFeature *polygon = [MGLMultiPolygonFeature multiPolygonWithPolygons:polygonParts];
     [vertices addObject:polygon];
     sourcePolygon = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
                                                       features:@[polygon] options:nil];
-    free(coordinates);
   }
   
   NSArray<CLLocation *> *path = mapItem.correspondingPlaceItem.details.path;
@@ -147,11 +150,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [style addSource:sourcePath];
     
     MGLLineStyleLayer *pathLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:kPathLayerId source:sourcePath];
-    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];;
+    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
     pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     pathLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
     pathLayer.lineWidth =
-    [NSExpression expressionForConstantValue:@3.0];
+    [NSExpression expressionForConstantValue:@4.0];
     
     [style addLayer:pathLayer];
   };
