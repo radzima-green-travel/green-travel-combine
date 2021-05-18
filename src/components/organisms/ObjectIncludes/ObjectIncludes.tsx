@@ -11,13 +11,14 @@ interface IProps {
     name: string;
     objects: string[];
   }) => void;
+  title: string;
 }
 
-export const ObjectIncludes = memo(({data, onIncludePress}: IProps) => {
+export const ObjectIncludes = memo(({data, title, onIncludePress}: IProps) => {
   const styles = useThemeStyles(themeStyles);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Чем заняться</Text>
+      <Text style={styles.title}>{title}</Text>
       {data.map(item => {
         return (
           <ObjectInlcudesItem

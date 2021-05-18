@@ -17,8 +17,9 @@ import {
   useObject,
   useImageSlider,
   useLightStatusBar,
+  useTransformedData,
 } from 'core/hooks';
-import {debounce, isEmpty} from 'lodash';
+import {debounce, head, isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -30,6 +31,7 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
 
   const {t} = useTranslation('objectDetails');
   const data = useObject(objectId);
+  const {getObject} = useTransformedData();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -99,6 +101,15 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
 
   const isJustOneImage = pagesAmount < 2;
 
+  const belongsToSubtitle = useMemo(() => {
+    const belongsToObjectId = head(data?.belongsTo?.[0]?.objects);
+
+    if (belongsToObjectId) {
+      return getObject(belongsToObjectId)?.name || null;
+    }
+    return null;
+  }, [data?.belongsTo, getObject]);
+
   return data ? (
     <View style={styles.container}>
       {/* <View style={styles.emptyContatiner}>
@@ -129,8 +140,10 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
             isJustOneImage && styles.withoutPagerContentContainer,
           ]}>
           <DetailsPageCapture
+            routeLength={data.length}
             title={data.name}
             subtitle={data.address}
+            belongsToSubtitle={belongsToSubtitle}
             coordinates={
               data.location ? [data.location.lon, data.location.lat] : undefined
             }
@@ -146,7 +159,16 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
         {data.url ? <ObjectDetailsSiteLink url={data.url} /> : null}
         {isEmpty(data.include) ? null : (
           <ObjectIncludes
+            title={t('includes')}
             data={data.include}
+            onIncludePress={navigateToObjectsListDebounced}
+          />
+        )}
+
+        {isEmpty(data.belongsTo) ? null : (
+          <ObjectIncludes
+            title={t('belongs')}
+            data={data.belongsTo}
             onIncludePress={navigateToObjectsListDebounced}
           />
         )}

@@ -54,6 +54,13 @@ export default `query RadzimaMobile {
         name
         objects
       }
+      belongsTo {
+        fields
+        icon
+        id
+        name
+        objects
+      }
       permissions {
         items {
           permission {
@@ -111,6 +118,13 @@ export default `query RadzimaMobile {
           type
         }
         include {
+          fields
+          icon
+          id
+          name
+          objects
+        }
+        belongsTo {
           fields
           icon
           id

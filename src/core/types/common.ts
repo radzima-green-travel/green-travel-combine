@@ -34,6 +34,12 @@ export interface IInclude {
   icon: string;
   objects: string[];
 }
+export interface IBelongsTo {
+  id: string;
+  name: string;
+  icon: string;
+  objects: string[];
+}
 
 export interface IObjectCategory {
   icon: string;
@@ -54,9 +60,11 @@ export interface IObject {
   images: string[];
   prohibitions?: IProhibition[];
   include: IInclude[];
+  belongsTo: IBelongsTo[];
   url?: string;
   origin?: string;
   routes?: LineString;
+  length: number | null;
 }
 
 export interface ICategory {
