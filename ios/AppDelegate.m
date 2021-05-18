@@ -78,4 +78,8 @@
     }
 }
 
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return self.orientationLock;
+}
+
 @end
