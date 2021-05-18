@@ -15,12 +15,8 @@ export const ObjectDetailsSiteLink = memo(({url}: IProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('offSite')}</Text>
-      <Text
-        onPress={() => tryOpenURL(url)}
-        numberOfLines={1}
-        style={styles.text}>
-        {url}
+      <Text onPress={() => tryOpenURL(url)} style={styles.title}>
+        {t('offSite')}
       </Text>
     </View>
   );
