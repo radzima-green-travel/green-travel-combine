@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H1030" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="StoredArea" representedClassName="StoredArea" syncable="YES" codeGenerationType="class">
-        <relationship name="coordinateCollections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredCoordinateCollection"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H114" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="StoredArea" representedClassName="StoredArea" syncable="YES">
+        <relationship name="coordinateCollections" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="StoredCoordinateCollection"/>
     </entity>
     <entity name="StoredCategory" representedClassName="StoredCategory" syncable="YES">
         <attribute name="coverURL" optional="YES" attributeType="String"/>
@@ -16,12 +16,12 @@
         <attribute name="uuid" optional="YES" attributeType="String"/>
         <relationship name="relatedItemUUIDs" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="StoredRelatedItemUUID"/>
     </entity>
-    <entity name="StoredCoordinate" representedClassName="StoredCoordinate" syncable="YES" codeGenerationType="class">
+    <entity name="StoredCoordinate" representedClassName="StoredCoordinate" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="StoredCoordinateCollection" representedClassName="StoredCoordinateCollection" syncable="YES" codeGenerationType="class">
-        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredCoordinate"/>
+    <entity name="StoredCoordinateCollection" representedClassName="StoredCoordinateCollection" syncable="YES">
+        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="StoredCoordinate"/>
     </entity>
     <entity name="StoredPlaceDetails" representedClassName="StoredPlaceDetails" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -53,14 +53,14 @@
         <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
+        <element name="StoredArea" positionX="-27" positionY="108" width="128" height="58"/>
         <element name="StoredCategory" positionX="-63" positionY="54" width="128" height="148"/>
         <element name="StoredCategoryUUIDToRelatedItemUUIDs" positionX="-45" positionY="81" width="128" height="73"/>
+        <element name="StoredCoordinate" positionX="-45" positionY="90" width="128" height="73"/>
+        <element name="StoredCoordinateCollection" positionX="-36" positionY="99" width="128" height="58"/>
         <element name="StoredPlaceDetails" positionX="-54" positionY="72" width="128" height="28"/>
         <element name="StoredPlaceItem" positionX="-63" positionY="-18" width="128" height="208"/>
         <element name="StoredRelatedItemUUID" positionX="-36" positionY="90" width="128" height="58"/>
         <element name="StoredSearchItem" positionX="-54" positionY="72" width="128" height="73"/>
-        <element name="StoredCoordinate" positionX="-45" positionY="90" width="128" height="28"/>
-        <element name="StoredCoordinateCollection" positionX="-36" positionY="99" width="128" height="28"/>
-        <element name="StoredArea" positionX="-27" positionY="108" width="128" height="28"/>
     </elements>
 </model>
