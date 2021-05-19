@@ -1,4 +1,3 @@
-import {StyleSheet} from 'react-native';
 import {FONTS_STYLES, COLORS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {SCREEN_WIDTH} from 'services/PlatformService';

@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 
 import {ICategory, ITransformedData, ITransformedCategory} from 'core/types';
-import {isIOS} from 'services/PlatformService';
-
+import {imagesService} from 'services/ImagesService';
 export const extractThemeStyles = (
   styles: Object,
   theme: ColorSchemeName,
@@ -47,12 +46,6 @@ export async function tryOpenURL(url: string) {
   }
 }
 
-export function getMapAppLink(latitude: string, longitude: string): string {
-  return isIOS
-    ? `http://maps.apple.com/?daddr=${latitude},${longitude}`
-    : `geo:0,0?q=${latitude},${longitude}(${value})`;
-}
-
 export function transformMainData(data: ICategory[]): ITransformedData {
   const transformedData: ITransformedData = {
     objectsMap: {},
@@ -68,7 +61,11 @@ export function transformMainData(data: ICategory[]): ITransformedData {
 
     return map(categories, category => {
       const objects: string[] = map(category.objects, object => {
-        transformedData.objectsMap[object.id] = object;
+        transformedData.objectsMap[object.id] = {
+          ...object,
+          cover: imagesService.getImageProxy(object.cover),
+          images: map(object.images, img => imagesService.getImageProxy(img)),
+        };
         transformedData.objectsToCategoryMap[object.id] = category.id;
         return object.id;
       });
@@ -76,7 +73,10 @@ export function transformMainData(data: ICategory[]): ITransformedData {
       const transforedCategories = traverse(category.children);
 
       const children = map(transforedCategories, cat => {
-        transformedData.categoriesMap[cat.id] = cat;
+        transformedData.categoriesMap[cat.id] = {
+          ...cat,
+          cover: cat.cover ? imagesService.getImageProxy(cat.cover) : cat.cover,
+        };
         return cat.id;
       });
 

@@ -2,7 +2,6 @@ import React, {memo} from 'react';
 import {FlatList, NativeSyntheticEvent, NativeScrollEvent} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-import {imagesService} from 'services/ImagesService';
 interface IProps {
   images?: string[];
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
@@ -30,7 +29,7 @@ export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
             style={{width}}
             resizeMode={FastImage.resizeMode.cover}
             source={{
-              uri: imagesService.getOriginalImage(item),
+              uri: item,
               priority:
                 index === 0 ? FastImage.priority.high : FastImage.priority.low,
             }}

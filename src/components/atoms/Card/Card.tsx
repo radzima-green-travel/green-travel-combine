@@ -2,11 +2,10 @@ import React, {memo, useMemo} from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {Icon} from 'atoms';
 import {themeStyles, gradientConfig} from './styles';
-import FastImage from 'react-native-fast-image';
+import FastImage, {ImageStyle} from 'react-native-fast-image';
 import {COLORS} from 'assets';
 import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
-import {imagesService} from 'services/ImagesService';
 import {useThemeStyles} from 'core/hooks';
 export const ratio = 324 / 144;
 
@@ -50,7 +49,7 @@ export const Card = memo(
 
     const normalizedSource = useMemo(() => {
       return normaliseSource({
-        uri: imageUri ? imagesService.getOriginalImage(imageUri) : undefined,
+        uri: imageUri,
       });
     }, [imageUri]);
 
@@ -61,7 +60,7 @@ export const Card = memo(
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}>
         <FastImage
-          style={styles.image}
+          style={(styles.image as unknown) as StyleProp<ImageStyle>}
           source={normalizedSource}
           onError={() => {}}
         />
