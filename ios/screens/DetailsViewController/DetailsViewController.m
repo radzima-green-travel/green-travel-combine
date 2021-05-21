@@ -18,7 +18,7 @@
 #import "MapItem.h"
 #import "ImageUtils.h"
 #import "TextUtils.h"
-#import "MapViewController.h"
+#import "ItemDetailsMapViewController.h"
 #import "LinkedCategoriesView.h"
 #import "BannerView.h"
 #import "GalleryView.h"
@@ -388,7 +388,7 @@
     mapItem.uuid = self.item.uuid;
     mapItem.correspondingPlaceItem = self.item;
     mapItem.coords = self.item.coords;
-    MapViewController *mapViewController = [[MapViewController alloc] initWithMapModel:self.mapModel locationModel:self.locationModel indexModel:self.indexModel searchModel:self.searchModel apiService:self.apiService coreDataService:self.coreDataService mapItem:mapItem];
+    ItemDetailsMapViewController *mapViewController = [[ItemDetailsMapViewController alloc] initWithMapModel:self.mapModel locationModel:self.locationModel indexModel:self.indexModel searchModel:self.searchModel apiService:self.apiService coreDataService:self.coreDataService mapItem:mapItem];
     [self.navigationController pushViewController:mapViewController animated:YES]; 
 }
 

@@ -14,6 +14,9 @@
 #import "StoredPlaceDetails+CoreDataProperties.h"
 #import "StoredCategoryUUIDToRelatedItemUUIDs+CoreDataProperties.h"
 #import "StoredRelatedItemUUID+CoreDataProperties.h"
+#import "StoredCoordinate+CoreDataProperties.h"
+#import "StoredCoordinateCollection+CoreDataProperties.h"
+#import "StoredArea+CoreDataProperties.h"
 
 #import "PlaceItem.h"
 #import "Category.h"
@@ -207,45 +210,127 @@ NSPersistentContainer *_persistentContainer;
 }
 
 - (StoredPlaceDetails *)mapDetailsToStoredDetails:(PlaceDetails *)details {
-    __weak typeof(self) weakSelf = self;
-    StoredPlaceDetails *storedDetails = [NSEntityDescription insertNewObjectForEntityForName:@"StoredPlaceDetails" inManagedObjectContext:weakSelf.ctx];
-    storedDetails.uuid = details.uuid;
-    storedDetails.address = details.address;
-    storedDetails.descriptionHTML = details.descriptionHTML;
-    storedDetails.imageURLs = [details.images componentsJoinedByString:@","];
-    // Save linked categories.
-    [details.categoryIdToItems enumerateObjectsUsingBlock:^(CategoryUUIDToRelatedItemUUIDs * _Nonnull categoryUUIDToRelatedItemUUIDs, NSUInteger idx, BOOL * _Nonnull stop) {
-        StoredCategoryUUIDToRelatedItemUUIDs *relatedCategoryUUIDs = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCategoryUUIDToRelatedItemUUIDs" inManagedObjectContext:weakSelf.ctx];
-        relatedCategoryUUIDs.uuid = categoryUUIDToRelatedItemUUIDs.categoryUUID;
-        [categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            StoredRelatedItemUUID *relatedItemUUID = [NSEntityDescription insertNewObjectForEntityForName:@"StoredRelatedItemUUID" inManagedObjectContext:weakSelf.ctx];
-            relatedItemUUID.uuid = obj;
-            [relatedCategoryUUIDs addRelatedItemUUIDsObject:relatedItemUUID];
-        }];
-        [storedDetails addLinkedCategoriesObject:relatedCategoryUUIDs];
+  __weak typeof(self) weakSelf = self;
+  StoredPlaceDetails *storedDetails = [NSEntityDescription insertNewObjectForEntityForName:@"StoredPlaceDetails" inManagedObjectContext:weakSelf.ctx];
+  storedDetails.uuid = details.uuid;
+  storedDetails.address = details.address;
+  storedDetails.descriptionHTML = details.descriptionHTML;
+  storedDetails.imageURLs = [details.images componentsJoinedByString:@","];
+  // Save linked categories.
+  [details.categoryIdToItems enumerateObjectsUsingBlock:^(CategoryUUIDToRelatedItemUUIDs * _Nonnull categoryUUIDToRelatedItemUUIDs, NSUInteger idx, BOOL * _Nonnull stop) {
+    StoredCategoryUUIDToRelatedItemUUIDs *relatedCategoryUUIDs = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCategoryUUIDToRelatedItemUUIDs" inManagedObjectContext:weakSelf.ctx];
+    relatedCategoryUUIDs.uuid = categoryUUIDToRelatedItemUUIDs.categoryUUID;
+    [categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      StoredRelatedItemUUID *relatedItemUUID = [NSEntityDescription insertNewObjectForEntityForName:@"StoredRelatedItemUUID" inManagedObjectContext:weakSelf.ctx];
+      relatedItemUUID.uuid = obj;
+      [relatedCategoryUUIDs addRelatedItemUUIDsObject:relatedItemUUID];
     }];
-    return storedDetails;
+    [storedDetails addLinkedCategoriesObject:relatedCategoryUUIDs];
+  }];
+  
+  [weakSelf savePath:details.path storedDetails:storedDetails];
+  
+  [weakSelf saveArea:details.area storedDetails:storedDetails];
+  
+  return storedDetails;
+}
+
+- (void)savePath:(NSArray<CLLocation *> *)path
+   storedDetails:(StoredPlaceDetails *)storedDetails {
+  __weak typeof(self) weakSelf = self;
+  StoredCoordinateCollection *coordinateCollection = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinateCollection" inManagedObjectContext:weakSelf.ctx];
+  [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull pathPoint, NSUInteger idx, BOOL * _Nonnull stop) {
+    StoredCoordinate *coordinate = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinate" inManagedObjectContext:weakSelf.ctx];
+    coordinate.latitude = pathPoint.coordinate.latitude;
+    coordinate.longitude = pathPoint.coordinate.longitude;
+    [coordinateCollection addCoordinatesObject:coordinate];
+  }];
+  storedDetails.path = coordinateCollection;
+}
+
+- (void)saveArea:(NSArray<NSArray<CLLocation *> *> *)area
+   storedDetails:(StoredPlaceDetails *)storedDetails {
+  __weak typeof(self) weakSelf = self;
+  StoredArea *storedArea = [NSEntityDescription insertNewObjectForEntityForName:@"StoredArea" inManagedObjectContext:weakSelf.ctx];
+  [area enumerateObjectsUsingBlock:^(NSArray<CLLocation *> * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
+    StoredCoordinateCollection *coordinateCollection = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinateCollection" inManagedObjectContext:weakSelf.ctx];
+    [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull pathPoint, NSUInteger idx, BOOL * _Nonnull stop) {
+      StoredCoordinate *coordinate = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinate" inManagedObjectContext:weakSelf.ctx];
+      coordinate.latitude = pathPoint.coordinate.latitude;
+      coordinate.longitude = pathPoint.coordinate.longitude;
+      [coordinateCollection addCoordinatesObject:coordinate];
+    }];
+    [storedArea addCoordinateCollectionsObject:coordinateCollection];
+  }];
+  storedDetails.area = storedArea;
 }
 
 - (PlaceDetails *)mapStoredDetailsToDetails:(StoredPlaceDetails *)storedDetails {
-    PlaceDetails *details = [[PlaceDetails alloc] init];
-    details.address = storedDetails.address;
-    details.images = [storedDetails.imageURLs componentsSeparatedByString:@","];
-    details.descriptionHTML = storedDetails.descriptionHTML;
-
-    NSMutableArray<CategoryUUIDToRelatedItemUUIDs *> *categoryIdToItems = [[NSMutableArray alloc] init];
-    [storedDetails.linkedCategories enumerateObjectsUsingBlock:^(StoredCategoryUUIDToRelatedItemUUIDs * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
-        categoryUUIDToRelatedItemUUIDs.categoryUUID = obj.uuid;
-        NSMutableArray<NSString *> *relatedItemUUIDs = [[NSMutableArray alloc] init];
-        [obj.relatedItemUUIDs enumerateObjectsUsingBlock:^(StoredRelatedItemUUID * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [relatedItemUUIDs addObject:obj.uuid];
-        }];
-        categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:relatedItemUUIDs];
-        [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
+  PlaceDetails *details = [[PlaceDetails alloc] init];
+  details.address = storedDetails.address;
+  details.images = [storedDetails.imageURLs componentsSeparatedByString:@","];
+  details.descriptionHTML = storedDetails.descriptionHTML;
+  
+  NSMutableArray<CategoryUUIDToRelatedItemUUIDs *> *categoryIdToItems = [[NSMutableArray alloc] init];
+  [storedDetails.linkedCategories enumerateObjectsUsingBlock:^(StoredCategoryUUIDToRelatedItemUUIDs * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
+    categoryUUIDToRelatedItemUUIDs.categoryUUID = obj.uuid;
+    NSMutableArray<NSString *> *relatedItemUUIDs = [[NSMutableArray alloc] init];
+    [obj.relatedItemUUIDs enumerateObjectsUsingBlock:^(StoredRelatedItemUUID * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      [relatedItemUUIDs addObject:obj.uuid];
     }];
-    details.categoryIdToItems = categoryIdToItems;
-    return details;
+    categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:relatedItemUUIDs];
+    [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
+  }];
+  details.categoryIdToItems = categoryIdToItems;
+  
+  [self retrievePath:storedDetails.path.coordinates details:details];
+  
+  [self retrieveArea:storedDetails.area details:details];
+  
+  return details;
+}
+
+- (void)retrievePath:(NSOrderedSet<StoredCoordinate *> *)storedPath
+   details:(PlaceDetails *)details {
+  NSMutableArray<CLLocation *> *path = [[NSMutableArray alloc] init];
+  [storedPath enumerateObjectsUsingBlock:^(StoredCoordinate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:obj.latitude longitude:obj.longitude];
+    [path addObject:location];
+  }];
+  details.path = path;
+}
+
+- (void)retrieveArea:(StoredArea *)storedArea
+   details:(PlaceDetails *)details {
+  NSMutableArray<NSMutableArray<CLLocation *> *> *area = [[NSMutableArray alloc] init];
+  [storedArea.coordinateCollections enumerateObjectsUsingBlock:^(StoredCoordinateCollection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableArray<CLLocation *> *path = [[NSMutableArray alloc] init];
+    [obj.coordinates enumerateObjectsUsingBlock:^(StoredCoordinate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      CLLocation *location = [[CLLocation alloc] initWithLatitude:obj.latitude longitude:obj.longitude];
+      [path addObject:location];
+    }];
+    [area addObject:path];
+  }];
+  
+  details.area = area;
+}
+
+- (void)retrieveArea:(NSArray<NSArray<CLLocation *> *> *)area
+   storedDetails:(StoredPlaceDetails *)storedDetails {
+  __weak typeof(self) weakSelf = self;
+  StoredArea *storedArea = [NSEntityDescription insertNewObjectForEntityForName:@"StoredArea" inManagedObjectContext:weakSelf.ctx];
+  [area enumerateObjectsUsingBlock:^(NSArray<CLLocation *> * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
+    StoredCoordinateCollection *coordinateCollection = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinateCollection" inManagedObjectContext:weakSelf.ctx];
+    [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull pathPoint, NSUInteger idx, BOOL * _Nonnull stop) {
+      StoredCoordinate *coordinate = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinate" inManagedObjectContext:weakSelf.ctx];
+      coordinate.latitude = pathPoint.coordinate.latitude;
+      coordinate.longitude = pathPoint.coordinate.longitude;
+      [coordinateCollection addCoordinatesObject:coordinate];
+    }];
+    [storedArea addCoordinateCollectionsObject:coordinateCollection];
+  }];
+  storedDetails.area = storedArea;
 }
 
 #pragma mark - Search items

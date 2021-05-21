@@ -22,7 +22,7 @@
 {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        [self addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mappin"]]];
+        [self addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map-pin"]]];
     }
     return self;
 }

@@ -55,29 +55,30 @@ static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadat
 }
 
 - (void)loadCategoriesWithCompletion:(NSString *)existingTag
-                          completion:(void(^)(NSArray<Category *>*, NSString *))completion {
+                          completion:(void(^)(NSArray<Category *>*, NSArray<PlaceDetails *>*, NSString *))completion {
   __weak typeof(self) weakSelf = self;
   NSMutableURLRequest *getTagRequest = [self makeRequestForQuery:kQueryGetTag];
   NSURLSessionDataTask *getTagTask = [self.session dataTaskWithRequest:getTagRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     if (!data) {
-      completion(@[], existingTag);
+      completion(@[], @[], existingTag);
       return;
     }
     NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSString *tag = body[@"data"][@"getObjectsMetadata"][@"value"];
     if ([existingTag isEqualToString:tag]) {
-      completion(@[], existingTag);
+      completion(@[], @[], existingTag);
       return;
     }
     NSMutableURLRequest *getCategoriesRequest = [self makeRequestForQuery:kQueryGetCategories];
     NSURLSessionDataTask *getCategoriesTask = [self.session dataTaskWithRequest:getCategoriesRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
       if (!data) {
-        completion(@[], existingTag);
+        completion(@[], @[], existingTag);
         return;
       }
       NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+      NSString *tagFromPayload = body[@"data"][@"getObjectsMetadata"][@"value"];
       NSArray<Category *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:body[@"data"][@"listMobileObjects"]] copy];
-      completion(mappedCategories, tag);
+      completion(mappedCategories, @[], tagFromPayload);
     }];
     [getCategoriesTask resume];
   }];
@@ -126,38 +127,59 @@ static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadat
 }
 
 - (PlaceDetails *)mapDetailsFromJSON:(NSDictionary *)item {
-    PlaceDetails *details = [[PlaceDetails alloc] init];
-    NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
-    if (item[@"images"]) {
-        [item[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL, NSUInteger idx, BOOL * _Nonnull stop) {
-          [imageURLs addObject:[NSString stringWithFormat:@"%@%@", kImageBaseURL, imageURL]];
-        }];
-    }
-    details.uuid = item[@"id"];
-    details.images = [imageURLs copy];
-    if (item[@"address"] && ![item[@"address"] isEqual:[NSNull null]]) {
-        details.address = item[@"address"];
-    } else {
-        details.address = @"";
-    }
-    if (item[@"description"] && ![item[@"description"] isEqual:[NSNull null]]) {
-        details.descriptionHTML = item[@"description"];
-    } else {
-        details.descriptionHTML = @"";
-    }
-    NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
-    
-    NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) item[@"include"];
-    [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *categoryId = (NSString *) obj[@"id"];
-        NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];
-        CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
-        categoryUUIDToRelatedItemUUIDs.categoryUUID = categoryId;
-        categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:linkedItemIds];
-        [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
+  PlaceDetails *details = [[PlaceDetails alloc] init];
+  NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
+  if (item[@"images"]) {
+    [item[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL, NSUInteger idx, BOOL * _Nonnull stop) {
+      [imageURLs addObject:[NSString stringWithFormat:@"%@%@", kImageBaseURL, imageURL]];
     }];
-    details.categoryIdToItems = categoryIdToItems;
-    return details;
+  }
+  details.uuid = item[@"id"];
+  details.images = [imageURLs copy];
+  if (item[@"address"] && ![item[@"address"] isEqual:[NSNull null]]) {
+    details.address = item[@"address"];
+  } else {
+    details.address = @"";
+  }
+  if (item[@"description"] && ![item[@"description"] isEqual:[NSNull null]]) {
+    details.descriptionHTML = item[@"description"];
+  } else {
+    details.descriptionHTML = @"";
+  }
+  NSMutableArray<NSMutableArray<CLLocation *> *> *mappedAreaCoords = [[NSMutableArray alloc] init];
+  if (item[@"area"] && ![item[@"area"] isEqual:[NSNull null]]) {
+    NSArray<NSArray<NSArray<NSArray<NSNumber *> *> *> *> *coords = item[@"area"][@"coordinates"];
+    [coords enumerateObjectsUsingBlock:^(NSArray<NSArray<NSArray<NSNumber *> *> *> * _Nonnull polygonPart, NSUInteger partIdx, BOOL * _Nonnull stop) {
+      [mappedAreaCoords addObject:[[NSMutableArray alloc] init]];
+      [polygonPart[0] enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
+        [mappedAreaCoords[partIdx] addObject:[[CLLocation alloc] initWithLatitude:[coords[1] doubleValue] longitude:[coords[0] doubleValue]]];
+      }];
+    }];
+    details.area = [NSArray arrayWithArray:[mappedAreaCoords copy]];
+  }
+  
+  NSMutableArray<CLLocation *> *mappedPathCoords = [[NSMutableArray alloc] init];
+  if (item[@"routes"] && ![item[@"routes"] isEqual:[NSNull null]]) {
+    NSArray<NSArray<NSNumber *> *> *coords = item[@"routes"][@"coordinates"];
+    [coords enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull coords, NSUInteger idx, BOOL * _Nonnull stop) {
+      [mappedPathCoords addObject:[[CLLocation alloc] initWithLatitude:[coords[1] doubleValue] longitude:[coords[0] doubleValue]]];
+    }];
+    details.path = [NSArray arrayWithArray:[mappedPathCoords copy]];
+  }
+  
+  NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
+  
+  NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) item[@"include"];
+  [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSString *categoryId = (NSString *) obj[@"id"];
+    NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];
+    CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
+    categoryUUIDToRelatedItemUUIDs.categoryUUID = categoryId;
+    categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:linkedItemIds];
+    [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
+  }];
+  details.categoryIdToItems = categoryIdToItems;
+  return details;
 }
 
 - (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void(^)(PlaceDetails*))completion{

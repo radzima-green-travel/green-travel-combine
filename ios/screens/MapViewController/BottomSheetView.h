@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(assign, nonatomic, readwrite) BOOL visible;
 @property(weak, nonatomic) NSLayoutConstraint *top;
+- (instancetype)initWithButtonLabel:(NSString *)buttonLabel;
 - (void)show:(PlaceItem *)item onNavigatePress:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 - (void)hide;

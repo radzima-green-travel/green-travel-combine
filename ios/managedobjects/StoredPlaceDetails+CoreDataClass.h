@@ -10,6 +10,8 @@
 #import <CoreData/CoreData.h>
 
 @class StoredCategoryUUIDToRelatedItemUUIDs;
+@class StoredArea;
+@class StoredCoordinateCollection;
 
 NS_ASSUME_NONNULL_BEGIN
 

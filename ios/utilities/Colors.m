@@ -44,6 +44,7 @@ static Colors *instance;
         self.alto = UIColorFromHEX(0xD9D9D9);
         self.alabaster = UIColorFromHEX(0xF8F8F8);
         self.boulder = UIColorFromHEX(0x777777);
+        self.persimmon = UIColorFromHEX(0xFF565E);
     }
     return self;
 }
