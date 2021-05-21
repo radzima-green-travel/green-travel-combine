@@ -1,17 +1,11 @@
 import {COLORS} from 'assets';
 import {hexWithAlpha} from 'core/helpers';
+import {StyleSheet} from 'react-native';
 
-export const TOP_RATIO = 15 / 310;
-export const RIGHT_RATIO = 16 / 375;
+export const TOP = 15;
+export const LEFT_RATIO = 16 / 375;
 
 export const themeStyles = {
-  container: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   iconContainer: {
     width: 38,
     height: 38,
@@ -25,6 +19,11 @@ export const themeStyles = {
       light: COLORS.alto,
       dark: hexWithAlpha(COLORS.altoForDark, 0.2),
     },
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconWrapper: {
+    ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
   },

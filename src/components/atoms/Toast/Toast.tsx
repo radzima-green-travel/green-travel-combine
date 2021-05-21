@@ -11,13 +11,11 @@ import {Animated} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles, TOAST_HEIGHT} from './styles';
 import {Props, toastRef} from './types';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const Toast = memo<Props>(
   forwardRef<toastRef, Props>(({children}, ref) => {
-    const {top} = useSafeAreaInsets();
-    const toastHeight = top + TOAST_HEIGHT;
-    const [translateY] = useState(() => new Animated.Value(-toastHeight));
+    const toastHeight = TOAST_HEIGHT;
+    const [translateY] = useState(() => new Animated.Value(toastHeight));
     const isVisible = useRef(false);
     const styles = useThemeStyles(themeStyles);
     const timeout = useRef(null);
@@ -34,7 +32,7 @@ export const Toast = memo<Props>(
     );
     const hide = useCallback(() => {
       isVisible.current = false;
-      animateTanslateYTo(-toastHeight);
+      animateTanslateYTo(toastHeight);
     }, [animateTanslateYTo, toastHeight]);
 
     const hideToastAfterDelay = useCallback(() => {
@@ -62,7 +60,7 @@ export const Toast = memo<Props>(
       <Animated.View
         style={[
           styles.container,
-          {height: toastHeight, paddingTop: top, transform: [{translateY}]},
+          {height: toastHeight, transform: [{translateY}]},
         ]}>
         {children}
       </Animated.View>

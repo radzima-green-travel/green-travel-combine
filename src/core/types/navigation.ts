@@ -1,3 +1,5 @@
+import {Animated} from 'react-native';
+
 export type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]: undefined extends ParamList[K]
     ? {screen: K; params?: ParamList[K]}
@@ -12,14 +14,21 @@ export type HomeNavigatorParamsList = {
     title: string;
     objectsIds?: string[];
   };
-  CategoriesList: {categoryId: string; title: string};
-  ObjectDetails: {objectId: string};
+  CategoriesList: {
+    categoryId: string;
+    title: string;
+  };
+  ObjectDetails: {objectId: string; animatedValue?: Animated.Value};
 };
 
 export type BookmarksNavigatorParamsList = {
   Bookmarks: undefined;
   BookmarksList: {title: string; categoryId: string};
-  ObjectDetails: {categoryId: string; objectId: string};
+  ObjectDetails: {
+    categoryId: string;
+    objectId: string;
+    animatedValue?: Animated.Value;
+  };
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -29,7 +38,11 @@ export type BookmarksNavigatorParamsList = {
 
 export type AppMapNavigatorParamsList = {
   AppMap: undefined;
-  ObjectDetails: {categoryId: string; objectId: string};
+  ObjectDetails: {
+    categoryId: string;
+    objectId: string;
+    animatedValue?: Animated.Value;
+  };
   ObjectsList: {
     categoryId: string;
     title: string;

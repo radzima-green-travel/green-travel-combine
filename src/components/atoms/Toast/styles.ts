@@ -7,13 +7,13 @@ export const TOAST_HEIGHT = 56;
 export const themeStyles = {
   container: {
     position: 'absolute',
-    top: 0,
+    bottom: 0,
     right: 0,
     left: 0,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: {
-      light: hexWithAlpha(COLORS.white, 0.9),
+      light: hexWithAlpha(COLORS.alto, 0.9),
       dark: hexWithAlpha(COLORS.logCabin, 0.9),
     },
     paddingHorizontal: 20,

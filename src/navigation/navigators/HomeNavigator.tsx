@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import {View} from 'react-native';
+import {Animated} from 'react-native';
 import {
   HomeScreen,
   ObjectDetailsScreen,
@@ -61,10 +61,11 @@ export function HomeNavigator() {
       />
       <Stack.Screen
         name="ObjectDetails"
-        component={ObjectDetailsScreen}
-        options={{
-          headerShown: false,
+        initialParams={{
+          animatedValue: new Animated.Value(0),
         }}
+        component={ObjectDetailsScreen}
+        options={ObjectDetailsScreen.screenOptions(colorScheme)}
       />
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
       <Stack.Screen

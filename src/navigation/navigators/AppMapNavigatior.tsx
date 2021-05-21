@@ -7,6 +7,7 @@ import {AppMapScreen, ObjectDetailsScreen, ObjectsListScreen} from 'screens';
 import {getAppHeaderOptions} from '../screenOptions';
 import {useColorScheme} from 'core/hooks';
 import {AppMapNavigatorParamsList} from 'core/types';
+import {Animated} from 'react-native';
 
 const Stack = createStackNavigator<AppMapNavigatorParamsList>();
 
@@ -26,10 +27,11 @@ export function AppMapNavigatior() {
       />
       <Stack.Screen
         name="ObjectDetails"
-        component={ObjectDetailsScreen}
-        options={{
-          headerShown: false,
+        initialParams={{
+          animatedValue: new Animated.Value(0),
         }}
+        component={ObjectDetailsScreen}
+        options={ObjectDetailsScreen.screenOptions(colorScheme)}
       />
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>

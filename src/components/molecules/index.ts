@@ -1,4 +1,3 @@
-export {PlaceDetailsImageSliderButtons} from './PlaceDetailsImageSliderButtons';
 export {RouteMetrics} from './RouteMetrics';
 export {RouteDetailsBikeRental} from './RouteDetailsBikeRental';
 export {BikeRentalWidget} from './BikeRentalWidget';
@@ -20,3 +19,5 @@ export {ObjectDetailsPager} from './ObjectDetailsPager';
 export {ObjectDetailsMapButtons} from './ObjectDetailsMapButtons';
 export {BackCircleButton} from './BackCircleButton';
 export {ObjectDetailsMapCallout} from './ObjectDetailsMapCallout';
+export {AnimatedBackCircleButton} from './AnimatedBackCircleButton';
+export {AnimatedHeaderBookmarkButton} from './AnimatedHeaderBookmarkButton';

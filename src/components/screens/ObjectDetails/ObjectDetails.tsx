@@ -1,9 +1,8 @@
-import React, {memo, useMemo, useLayoutEffect, useCallback} from 'react';
+import React, {useMemo, useLayoutEffect, useCallback} from 'react';
 import {View, Animated} from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
 
 import {
-  PlaceDetailsImageSliderButtons,
   ClipboardToast,
   DetailsPageCapture,
   ObjectDescription,
@@ -16,17 +15,18 @@ import {
   useTranslation,
   useObject,
   useImageSlider,
-  useLightStatusBar,
   useTransformedData,
 } from 'core/hooks';
 import {debounce, head, isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {screenOptions} from './screenOptions';
+import {useObjectDetailsStatusBar} from './hooks';
 
-export const ObjectDetails = memo(({route, navigation}: IProps) => {
+export const ObjectDetails = ({route, navigation}: IProps) => {
   const {
-    params: {objectId},
+    params: {objectId, animatedValue = new Animated.Value(0)},
   } = route;
 
   const {t} = useTranslation('objectDetails');
@@ -40,15 +40,6 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
   }, [navigation, data]);
 
   const {show: showToast, ...toastProps} = useToast();
-
-  const onBackPress = useMemo(
-    () =>
-      debounce(() => navigation.goBack(), 300, {
-        leading: true,
-        trailing: false,
-      }),
-    [navigation],
-  );
 
   const copyLocationToClipboard = useCallback(
     (location: string) => {
@@ -90,13 +81,12 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
     [navigateToObjectsList],
   );
 
-  useLightStatusBar();
+  useObjectDetailsStatusBar();
 
   const {onScroll, page, pagesAmount} = useImageSlider(
     data?.images?.length || 0,
   );
 
-  const animatedValue = useMemo(() => new Animated.Value(0), []);
   const {top} = useSafeAreaInsets();
 
   const isJustOneImage = pagesAmount < 2;
@@ -208,24 +198,9 @@ export const ObjectDetails = memo(({route, navigation}: IProps) => {
         {...gradientConfig}
         style={[styles.gradient, {height: top}]}
       />
-      <PlaceDetailsImageSliderButtons
-        onBackPress={onBackPress}
-        objectId={data.id}
-        imageHeight={IMAGE_HEIGHT}
-        imageWidth={IMAGE_WIDTH}
-        style={{
-          transform: [
-            {
-              translateY: animatedValue.interpolate({
-                inputRange: [0, IMAGE_HEIGHT],
-                outputRange: [0, -IMAGE_HEIGHT],
-                extrapolate: 'clamp',
-              }),
-            },
-          ],
-        }}
-      />
       <ClipboardToast {...toastProps} />
     </View>
   ) : null;
-});
+};
+
+ObjectDetails.screenOptions = screenOptions;

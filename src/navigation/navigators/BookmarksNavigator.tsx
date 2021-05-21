@@ -12,6 +12,7 @@ import {
 import {getAppHeaderOptions} from '../screenOptions';
 import {useColorScheme} from 'core/hooks';
 import {BookmarksNavigatorParamsList} from 'core/types';
+import {Animated} from 'react-native';
 
 const Stack = createStackNavigator<BookmarksNavigatorParamsList>();
 
@@ -35,10 +36,11 @@ export function BookmarksNavigator() {
       />
       <Stack.Screen
         name="ObjectDetails"
-        component={ObjectDetailsScreen}
-        options={{
-          headerShown: false,
+        initialParams={{
+          animatedValue: new Animated.Value(0),
         }}
+        component={ObjectDetailsScreen}
+        options={ObjectDetailsScreen.screenOptions(colorScheme)}
       />
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>
