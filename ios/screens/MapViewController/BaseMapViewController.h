@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showPopupWithItem:(PlaceItem *)item;
 - (void)hidePopup;
 - (void)addBottomSheet:(NSString *)buttonLabel;
+- (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode;
 
 @end
 
