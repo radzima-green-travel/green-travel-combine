@@ -20,6 +20,7 @@
 		5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5682655B5C400A2D37B /* StoredCoordinate+CoreDataClass.m */; };
 		5A6DC56C2655B5C500A2D37B /* StoredCoordinate+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5672655B5C400A2D37B /* StoredCoordinate+CoreDataProperties.m */; };
 		5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5BE2659268700A2D37B /* CacheService.m */; };
+		5A6DC5D2265AAB3900A2D37B /* RoutesSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5D1265AAB3900A2D37B /* RoutesSheetController.m */; };
 		5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7759FF26064C6900CEFC78 /* AppDelegate.m */; };
 		5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */; };
 		5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0826064C8E00CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m */; };
@@ -164,6 +165,8 @@
 		5A6DC56A2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredCoordinate+CoreDataClass.h"; sourceTree = "<group>"; };
 		5A6DC5BD2659268700A2D37B /* CacheService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CacheService.h; sourceTree = "<group>"; };
 		5A6DC5BE2659268700A2D37B /* CacheService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
+		5A6DC5D0265AAB3900A2D37B /* RoutesSheetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutesSheetController.h; sourceTree = "<group>"; };
+		5A6DC5D1265AAB3900A2D37B /* RoutesSheetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoutesSheetController.m; sourceTree = "<group>"; };
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A7759FF26064C6900CEFC78 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -456,6 +459,17 @@
 				5A6DC5BE2659268700A2D37B /* CacheService.m */,
 			);
 			path = CacheService;
+			sourceTree = "<group>";
+		};
+		5A6DC5CE265AAAE900A2D37B /* ItemDetailsMapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EB19F264E7DF000333F1E /* ItemDetailsMapViewController.h */,
+				5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */,
+				5A6DC5D0265AAB3900A2D37B /* RoutesSheetController.h */,
+				5A6DC5D1265AAB3900A2D37B /* RoutesSheetController.m */,
+			);
+			path = ItemDetailsMapViewController;
 			sourceTree = "<group>";
 		};
 		5A7759FB26064C4F00CEFC78 /* app */ = {
@@ -835,8 +849,7 @@
 				5A8EB19C264E7DB000333F1E /* BaseMapViewController.m */,
 				5A775DC226077A7C00CEFC78 /* FullMapViewController.h */,
 				5A775DBF26077A7C00CEFC78 /* FullMapViewController.m */,
-				5A8EB19F264E7DF000333F1E /* ItemDetailsMapViewController.h */,
-				5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */,
+				5A6DC5CE265AAAE900A2D37B /* ItemDetailsMapViewController */,
 				5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */,
 				5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */,
 			);
@@ -1169,9 +1182,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 53APD5F9YQ;
+						DevelopmentTeam = NWSTPFC433;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1368,6 +1381,7 @@
 				5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */,
 				5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */,
 				5A775B2B26064C9000CEFC78 /* StoredSearchItem+CoreDataClass.m in Sources */,
+				5A6DC5D2265AAB3900A2D37B /* RoutesSheetController.m in Sources */,
 				5A775DFB26077A7D00CEFC78 /* GradientOverlayView.m in Sources */,
 				5A775E0626077A7D00CEFC78 /* FullMapViewController.m in Sources */,
 				6281F7E124C9E40D00C51231 /* empty.swift in Sources */,
@@ -1460,10 +1474,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1477,9 +1491,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1493,10 +1507,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1505,9 +1519,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

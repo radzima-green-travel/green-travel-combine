@@ -30,6 +30,7 @@
 #import "PlaceDetails.h"
 #import "CacheService.h"
 #import "MainViewController.h"
+#import "RoutesSheetController.h"
 
 @interface ItemDetailsMapViewController ()
 
@@ -287,9 +288,15 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
   [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onNavigatePress:^{
-    NSURL *geoURL = [NSURL URLWithString:@"geo:53.9006,27.5590"];
-    [[UIApplication sharedApplication] openURL:geoURL options:@{} completionHandler:^(BOOL success) {}];
-  } onBookmarkPress:^(BOOL bookmarked) {
+    [[RoutesSheetController get] show:YES
+                       locationSource:self.locationModel.lastLocation.coordinate
+                  locationDestination:item.coords
+                        locationTitle:item.title
+                            presenter:^(UIAlertController * _Nonnull alert) {
+      [weakSelf presentViewController:alert animated:YES completion:^{}];
+    }];
+  }
+  onBookmarkPress:^(BOOL bookmarked) {
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
   }];
 }
