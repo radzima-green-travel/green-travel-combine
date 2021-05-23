@@ -27,6 +27,7 @@
 #import "Category.h"
 #import "BottomSheetView.h"
 #import "DetailsViewController.h"
+#import "MainViewController.h"
 
 @interface BaseMapViewController ()
 
@@ -37,7 +38,6 @@
 static NSString* const kSourceId = @"sourceId";
 static NSString* const kClusterLayerId = @"clusterLayerId";
 static NSString* const kMarkerLayerId = @"markerLayerId";
-static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h";
 
 @implementation BaseMapViewController
@@ -113,6 +113,8 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
     self.locationButtonBottomAnchor,
     [self.locationButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
+#pragma mark - Add bottom sheet
+  self.bottomSheet = [self addBottomSheet];
 }
 
 - (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode {
@@ -183,39 +185,11 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
   [self.bottomSheet hide];
 }
 
-- (void)showPopupWithItem:(PlaceItem *)item {
-  __weak typeof(self) weakSelf = self;
-  [self.bottomSheet show:item onNavigatePress:^{
-    DetailsViewController *detailsController =
-    [[DetailsViewController alloc] initWithApiService:weakSelf.apiService
-                                      coreDataService:weakSelf.coreDataService
-                                           indexModel:weakSelf.indexModel
-                                             mapModel:weakSelf.mapModel
-                                        locationModel:weakSelf.locationModel
-                                          searchModel:weakSelf.searchModel];
-    detailsController.item = item;
-    [weakSelf.navigationController setNavigationBarHidden:NO animated:NO];
-    [weakSelf.navigationController pushViewController:detailsController animated:YES];
-  } onBookmarkPress:^(BOOL bookmarked) {
-    [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
-  }];
-}
+- (void)showPopupWithItem:(PlaceItem *)item {}
 
-- (void)addBottomSheet:(NSString *)buttonLabel {
-  if (self.bottomSheet != nil) {
-    return;
-  }
-  UIViewController *rootViewController = self.parentViewController.parentViewController;
-  self.bottomSheet = [[BottomSheetView alloc] initWithButtonLabel:buttonLabel];
-  [rootViewController.view addSubview:self.bottomSheet];
-
-  NSLayoutConstraint *topAnchor = [self.bottomSheet.topAnchor constraintEqualToAnchor:rootViewController.view.bottomAnchor];
-  self.bottomSheet.top = topAnchor;
-  [NSLayoutConstraint activateConstraints:@[
-    topAnchor,
-    [self.bottomSheet.leadingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.leadingAnchor],
-    [self.bottomSheet.trailingAnchor constraintEqualToAnchor:rootViewController.view.safeAreaLayoutGuide.trailingAnchor],
-  ]];
+- (BottomSheetView *)addBottomSheet {
+  MainViewController *mainViewController = (MainViewController *)self.parentViewController.parentViewController;
+  return [mainViewController addBottomSheet];
 }
 
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {

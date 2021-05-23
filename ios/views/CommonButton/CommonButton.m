@@ -62,4 +62,9 @@
     ]];
 }
 
+- (void)setLabel:(NSString *)label {
+  [self setAttributedTitle:
+   [[Typography get] makeButtonText:label] forState:UIControlStateNormal];
+}
+
 @end

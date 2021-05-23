@@ -29,6 +29,7 @@
 #import "DetailsViewController.h"
 #import "PlaceDetails.h"
 #import "CacheService.h"
+#import "MainViewController.h"
 
 @interface ItemDetailsMapViewController ()
 
@@ -42,15 +43,10 @@ static NSString* const kSourceIdPolygon = @"sourceIdPolygon";
 static NSString* const kPolygonLayerId = @"polygonLayerId";
 static NSString* const kPathLayerId = @"pathLayerId";
 static NSString* const kPointLayerId = @"pointLayerId";
+static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 @implementation ItemDetailsMapViewController
-
-#pragma mark - viewDidLoad
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  [self addBottomSheet:@"В путь"];
-}
 
 - (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode {
   MGLMapView *mapViewCached = [[CacheService get].cache objectForKey:@"mapView"];
@@ -64,6 +60,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   return mapViewConstructed;
 }
 
+#pragma mark - Lifecycle
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   if (self.loaded) {
@@ -72,18 +69,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
   [self hidePopup];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
-  [self.mapView removeFromSuperview];
-  self.mapView.delegate = nil;
 }
 
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
@@ -253,7 +241,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
-  [self.bottomSheet show:item onNavigatePress:^{
+  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onNavigatePress:^{
     NSURL *geoURL = [NSURL URLWithString:@"geo:53.9006,27.5590"];
     [[UIApplication sharedApplication] openURL:geoURL options:@{} completionHandler:^(BOOL success) {}];
   } onBookmarkPress:^(BOOL bookmarked) {

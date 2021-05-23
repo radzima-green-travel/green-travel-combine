@@ -10,9 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class BottomSheetView;
+
 @interface MainViewController : UITabBarController<UITabBarControllerDelegate>
 
+@property (strong, nonatomic) BottomSheetView *bottomSheet;
 - (void)loadCategories;
+- (BottomSheetView *)addBottomSheet;
 
 @end
 

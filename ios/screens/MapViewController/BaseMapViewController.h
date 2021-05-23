@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) CategoriesFilterView *filterView;
 @property (strong, nonatomic) NSLayoutConstraint *locationButtonBottomAnchor;
 @property (strong, nonatomic) UIView *popup;
-@property (strong, nonatomic) BottomSheetView *bottomSheet;
+@property (weak, nonatomic) BottomSheetView *bottomSheet;
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
                          mapItem:(nullable MapItem *)mapItem;
 - (void)showPopupWithItem:(PlaceItem *)item;
 - (void)hidePopup;
-- (void)addBottomSheet:(NSString *)buttonLabel;
+- (BottomSheetView *)addBottomSheet;
 - (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode;
 
 @end
