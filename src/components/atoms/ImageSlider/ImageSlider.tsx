@@ -16,7 +16,7 @@ export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
       horizontal
       pagingEnabled
       showsHorizontalScrollIndicator={false}
-      scrollEventThrottle={128}
+      scrollEventThrottle={16}
       bounces={false}
       keyExtractor={(_item, index) => String(_item || index)}
       onScroll={onScroll}

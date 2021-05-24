@@ -7,7 +7,7 @@ import {
   ICategoriesMap,
   ICategory,
 } from 'core/types';
-import {isEmpty, map} from 'lodash';
+import {isEmpty, map, shuffle} from 'lodash';
 import {transformMainData} from 'core/helpers';
 
 export const selectIsUpdatesAvailable = (state: IState) =>
@@ -38,7 +38,7 @@ export const selectHomeData = createSelector<
   return map(transformedData.categories, category => {
     return {
       ...category,
-      objects: category.objects.slice(0, 10),
+      objects: shuffle(category.objects).slice(0, 10),
       children: category.children.filter(id => {
         return !isEmpty(transformedData.categoriesMap[id].objects);
       }),
