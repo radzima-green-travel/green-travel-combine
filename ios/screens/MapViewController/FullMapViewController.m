@@ -212,7 +212,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       [weakSelf.mapView setCenterCoordinate:item.coords zoomLevel:8 animated:YES];
       [weakSelf.mapView setCenterCoordinate:item.coords zoomLevel:8
                                   direction:-1 animated:YES completionHandler:^{
-        [super showPopupWithItem:item];
+        [weakSelf showPopupWithItem:item];
       }];
     });
   }];
