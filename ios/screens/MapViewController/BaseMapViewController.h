@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSLayoutConstraint *locationButtonBottomAnchor;
 @property (strong, nonatomic) UIView *popup;
 @property (weak, nonatomic) BottomSheetView *bottomSheet;
+@property (strong, nonatomic) UITapGestureRecognizer *singleTap;
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel

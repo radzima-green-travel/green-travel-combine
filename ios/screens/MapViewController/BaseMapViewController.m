@@ -31,8 +31,6 @@
 
 @interface BaseMapViewController ()
 
-
-
 @end
 
 static NSString* const kSourceId = @"sourceId";
@@ -84,13 +82,13 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
     [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
   ]];
 
-  UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
+  self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
   for (UIGestureRecognizer *recognizer in self.mapView.gestureRecognizers) {
     if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
-      [singleTap requireGestureRecognizerToFail:recognizer];
+      [self.singleTap requireGestureRecognizerToFail:recognizer];
     }
   }
-  [self.mapView addGestureRecognizer:singleTap];
+  [self.mapView addGestureRecognizer:self.singleTap];
 
   [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(53.893, 27.567)
                           zoomLevel:9.0 animated:NO];
