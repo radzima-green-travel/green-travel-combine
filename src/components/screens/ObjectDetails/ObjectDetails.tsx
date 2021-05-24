@@ -102,10 +102,6 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
 
   return data ? (
     <View style={styles.container}>
-      {/* <View style={styles.emptyContatiner}>
-        <Icon color={COLORS.boulder} name="camera" width={70} height={70} />
-      </View> */}
-
       <Animated.ScrollView
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}

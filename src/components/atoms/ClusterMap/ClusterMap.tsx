@@ -7,7 +7,10 @@ import {isIOS} from 'services/PlatformService';
 
 export const ClusterMap = memo(
   forwardRef<MapboxGL.Camera, Props>(
-    ({onPress, children, onShapePress, bounds}: Props, ref) => {
+    (
+      {onPress, children, onShapePress, bounds, centerCoordinate}: Props,
+      ref,
+    ) => {
       const onShapePressed = useRef(false);
       const map = useRef<MapboxGL.MapView>(null);
       const theme = useColorScheme();
@@ -39,8 +42,16 @@ export const ClusterMap = memo(
             },
           };
         }
+        if (centerCoordinate) {
+          return {
+            zoomLevel: 8,
+            centerCoordinate: centerCoordinate,
+            animationDuration: 500,
+          };
+        }
+
         return {};
-      }, [bounds]);
+      }, [bounds, centerCoordinate]);
 
       return (
         <View
@@ -60,8 +71,9 @@ export const ClusterMap = memo(
             const {features} = await map.current?.queryRenderedFeaturesAtPoint(
               [locX, locY],
               null,
-              ['singlePoint'],
+              ['singlePoint', 'areaFill'],
             );
+            console.log(features);
             if (features[0]?.properties?.data) {
               onShapePressed.current = true;
               const zoom = await map.current?.getZoom();

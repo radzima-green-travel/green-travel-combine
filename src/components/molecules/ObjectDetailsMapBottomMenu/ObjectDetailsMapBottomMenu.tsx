@@ -25,7 +25,6 @@ export type ObjectDetailsMapBottomMenuRef = {
 interface IProps {
   data: IObject | null;
   onHideEnd: () => void;
-  onOpenEnd: () => void;
   bottomInset: number;
   onButtonPress: (data: IObject) => void;
   animatedPosition: Animated.Value<number>;
@@ -45,7 +44,6 @@ export const ObjectDetailsMapBottomMenu = memo(
         animatedPosition,
         loading,
         isDirectionShowed,
-        onOpenEnd,
         distance,
       },
       ref,
@@ -116,7 +114,6 @@ export const ObjectDetailsMapBottomMenu = memo(
           renderContent={rendnerInner}
           initialSnap={0}
           onCloseEnd={onHideEnd}
-          onOpenEnd={onOpenEnd}
         />
       );
     },

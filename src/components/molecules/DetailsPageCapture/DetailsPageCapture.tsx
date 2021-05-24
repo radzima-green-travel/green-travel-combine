@@ -38,9 +38,9 @@ export const DetailsPageCapture = memo(
     }, [onCoordinatesPress, location]);
 
     const subtitleText = useMemo(() => {
-      let result = subtitle;
+      let result = subtitle || '';
 
-      if (belongsToSubtitle) {
+      if (belongsToSubtitle && !result.includes(belongsToSubtitle)) {
         result = `${belongsToSubtitle}, ${result}`;
       }
 
@@ -48,6 +48,10 @@ export const DetailsPageCapture = memo(
         result = `${t('routeLength', {
           km: Number(routeLength.toFixed(2)),
         })}${result}`;
+      }
+
+      if (result.trim().endsWith(',')) {
+        result = result.trim().slice(0, -1);
       }
 
       return result;

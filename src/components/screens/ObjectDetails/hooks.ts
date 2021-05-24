@@ -18,16 +18,14 @@ export function useObjectDetailsStatusBar() {
   const isLightTheme = theme === 'light';
 
   useEffect(() => {
-    if (isLightTheme) {
-      animatedValue?.addListener(({value}) => {
-        setIsScrolledBelowImage(value >= IMAGE_HEIGHT);
-      });
-    }
+    animatedValue?.addListener(({value}) => {
+      setIsScrolledBelowImage(value >= IMAGE_HEIGHT);
+    });
 
     return () => {
       animatedValue?.removeAllListeners();
     };
-  }, [animatedValue, isLightTheme]);
+  }, [animatedValue]);
 
   useEffect(() => {
     if (isScreenFocused) {
