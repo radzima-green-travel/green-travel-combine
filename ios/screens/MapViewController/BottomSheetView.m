@@ -30,15 +30,15 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
 
 @implementation BottomSheetView
 
-- (instancetype)initWithButtonLabel:(NSString *)buttonLabel {
+- (instancetype)init {
   self = [super initWithFrame:CGRectZero];
   if (self) {
-    [self setUp:buttonLabel];
+    [self setUp];
   }
   return self;
 }
 
-- (void)setUp:(NSString *)buttonLabel {
+- (void)setUp {
   self.backgroundColor = [Colors get].white;
   self.recognizer =
   [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
@@ -65,7 +65,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
     [gripView.heightAnchor constraintEqualToConstant:3.5]
   ]];
 #pragma mark - Details button
-  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:buttonLabel];
+  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@""];
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.detailsButton];
   
@@ -114,6 +114,7 @@ otherGestureRecognizer {
 }
 
 - (void)show:(PlaceItem *)item
+ buttonLabel:(NSString *)buttonLabel
 onNavigatePress:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   self.itemUUID = item.uuid;
@@ -121,6 +122,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
   [self.bookmarkButton setSelected:item.bookmarked];
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
+  [self.detailsButton setLabel:buttonLabel];
   
   if (self.inProgress || self.visible) {
     return;

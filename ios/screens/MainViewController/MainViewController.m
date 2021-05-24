@@ -22,6 +22,7 @@
 #import "CoreDataService.h"
 #import "Typography.h"
 #import "UserDefaultsService.h"
+#import "BottomSheetView.h"
 
 @interface MainViewController ()
 
@@ -156,6 +157,23 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
     }
     self.previousViewController = topController;
   }
+}
+
+- (BottomSheetView *)addBottomSheet {
+  if (self.bottomSheet != nil) {
+    return self.bottomSheet;
+  }
+  self.bottomSheet = [[BottomSheetView alloc] init];
+  [self.view addSubview:self.bottomSheet];
+
+  NSLayoutConstraint *topAnchor = [self.bottomSheet.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
+  self.bottomSheet.top = topAnchor;
+  [NSLayoutConstraint activateConstraints:@[
+    topAnchor,
+    [self.bottomSheet.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+    [self.bottomSheet.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+  ]];
+  return self.bottomSheet; 
 }
 
 /*

@@ -27,6 +27,7 @@
 #import "Category.h"
 #import "BottomSheetView.h"
 #import "DetailsViewController.h"
+#import "MainViewController.h"
 
 @interface FullMapViewController ()
 
@@ -35,6 +36,7 @@
 static NSString* const kSourceId = @"sourceId";
 static NSString* const kClusterLayerId = @"clusterLayerId";
 static NSString* const kMarkerLayerId = @"markerLayerId";
+static NSString* const kBottomSheetButtonLabel = @"Узнать больше";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 @implementation FullMapViewController
@@ -63,7 +65,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
-  [self addBottomSheet:@"Узнать больше"];
 }
 
 #pragma mark - Categories filter view
@@ -306,8 +307,23 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   }
 }
 
-- (void)hidePopup {
-  [self.bottomSheet hide];
+- (void)showPopupWithItem:(PlaceItem *)item {
+  __weak typeof(self) weakSelf = self;
+  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onNavigatePress:^{
+    DetailsViewController *detailsController =
+    [[DetailsViewController alloc] initWithApiService:weakSelf.apiService
+                                      coreDataService:weakSelf.coreDataService
+                                           indexModel:weakSelf.indexModel
+                                             mapModel:weakSelf.mapModel
+                                        locationModel:weakSelf.locationModel
+                                          searchModel:weakSelf.searchModel];
+    detailsController.item = item;
+    [weakSelf.navigationController setNavigationBarHidden:NO animated:NO];
+    [weakSelf.navigationController pushViewController:detailsController animated:YES];
+  } onBookmarkPress:^(BOOL bookmarked) {
+    [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
+  }];
 }
+
 
 @end

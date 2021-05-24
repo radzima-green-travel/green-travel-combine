@@ -19,6 +19,7 @@
 		5A6DC50B2655B28900A2D37B /* StoredArea+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC50A2655B28900A2D37B /* StoredArea+CoreDataProperties.m */; };
 		5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5682655B5C400A2D37B /* StoredCoordinate+CoreDataClass.m */; };
 		5A6DC56C2655B5C500A2D37B /* StoredCoordinate+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5672655B5C400A2D37B /* StoredCoordinate+CoreDataProperties.m */; };
+		5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5BE2659268700A2D37B /* CacheService.m */; };
 		5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7759FF26064C6900CEFC78 /* AppDelegate.m */; };
 		5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */; };
 		5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0826064C8E00CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m */; };
@@ -161,6 +162,8 @@
 		5A6DC5682655B5C400A2D37B /* StoredCoordinate+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoredCoordinate+CoreDataClass.m"; sourceTree = "<group>"; };
 		5A6DC5692655B5C500A2D37B /* StoredCoordinate+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredCoordinate+CoreDataProperties.h"; sourceTree = "<group>"; };
 		5A6DC56A2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredCoordinate+CoreDataClass.h"; sourceTree = "<group>"; };
+		5A6DC5BD2659268700A2D37B /* CacheService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CacheService.h; sourceTree = "<group>"; };
+		5A6DC5BE2659268700A2D37B /* CacheService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A7759FF26064C6900CEFC78 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -446,6 +449,15 @@
 			path = BookmarkButton;
 			sourceTree = "<group>";
 		};
+		5A6DC5BC2659266E00A2D37B /* CacheService */ = {
+			isa = PBXGroup;
+			children = (
+				5A6DC5BD2659268700A2D37B /* CacheService.h */,
+				5A6DC5BE2659268700A2D37B /* CacheService.m */,
+			);
+			path = CacheService;
+			sourceTree = "<group>";
+		};
 		5A7759FB26064C4F00CEFC78 /* app */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,6 +684,7 @@
 		5A775AFF26064C9000CEFC78 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				5A6DC5BC2659266E00A2D37B /* CacheService */,
 				5A775B0026064C9000CEFC78 /* CoreDataService */,
 				5A775B0326064C9000CEFC78 /* ApiService */,
 				5A775B0826064C9000CEFC78 /* UserDefaultsService */,
@@ -1353,6 +1366,7 @@
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */,
+				5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */,
 				5A775B2B26064C9000CEFC78 /* StoredSearchItem+CoreDataClass.m in Sources */,
 				5A775DFB26077A7D00CEFC78 /* GradientOverlayView.m in Sources */,
 				5A775E0626077A7D00CEFC78 /* FullMapViewController.m in Sources */,
