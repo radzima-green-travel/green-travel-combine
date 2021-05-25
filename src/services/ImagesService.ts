@@ -11,7 +11,11 @@ class ImagesService {
 
     const base64String = base64.encode(params);
 
-    return `${config.NATIVE_CLIENT_IMAGE_URL}/${base64String}/${cover}`;
+    const coverWithNewExtension = cover.split('.');
+    coverWithNewExtension.pop();
+    const fileName = coverWithNewExtension.join('.');
+
+    return `${config.NATIVE_CLIENT_IMAGE_URL}/${base64String}/${fileName}.webp`;
   }
 }
 
