@@ -74,6 +74,12 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self hidePopup];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  [self.mapView removeGestureRecognizer:self.singleTap];
+  [self.mapView removeFromSuperview];
+}
+
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
   [self renderMapItem:self.mapItem style:style];
 }
