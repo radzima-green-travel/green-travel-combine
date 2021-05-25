@@ -76,8 +76,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
-  [self.mapView removeGestureRecognizer:self.singleTap];
-  [self.mapView removeFromSuperview];
+  if (self.movingFromParentViewController) {
+    [self.mapView removeGestureRecognizer:self.singleTap];
+    [self.mapView removeFromSuperview];
+  }  
 }
 
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
