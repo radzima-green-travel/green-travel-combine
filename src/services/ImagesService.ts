@@ -7,13 +7,13 @@ class ImagesService {
   }
 
   getImageProxy(cover: string) {
-    const params = 'cover/null/null/center/1/webp';
+    const coverWithNewExtension = cover.split('.');
+    const ext = coverWithNewExtension.pop();
+    const fileName = coverWithNewExtension.join('.');
+
+    const params = `cover/null/null/center/1/${ext}`;
 
     const base64String = base64.encode(params);
-
-    const coverWithNewExtension = cover.split('.');
-    coverWithNewExtension.pop();
-    const fileName = coverWithNewExtension.join('.');
 
     return `${config.NATIVE_CLIENT_IMAGE_URL}/${base64String}/${fileName}.webp`;
   }
