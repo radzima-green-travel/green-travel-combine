@@ -79,7 +79,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (self.movingFromParentViewController) {
     [self.mapView removeGestureRecognizer:self.singleTap];
     [self.mapView removeFromSuperview];
-  }  
+  }
 }
 
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
@@ -113,9 +113,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
   };
 #pragma mark - Remove sources
-  MGLShapeSource *sourcePoint = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPoint];
-  MGLShapeSource *sourcePath = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPath];
-  MGLShapeSource *sourcePolygon = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPolygon];
   if ([style layerWithIdentifier:kPolygonLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:kPolygonLayerId]];
   }
@@ -135,6 +132,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if ([style sourceWithIdentifier:kSourceIdPolygon] != nil) {
     [style removeSource:[style sourceWithIdentifier:kSourceIdPolygon]];
   }
+  MGLShapeSource *sourcePoint;
+  MGLShapeSource *sourcePath;
+  MGLShapeSource *sourcePolygon;
 #pragma mark - Sources
   sourcePoint = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPoint
                                                   features:@[point]
