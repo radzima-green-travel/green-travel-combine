@@ -31,11 +31,13 @@
 #import "CacheService.h"
 #import "MainViewController.h"
 #import "RoutesSheetController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface ItemDetailsMapViewController ()
 
 @property (assign, nonatomic) BOOL loaded;
 @property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
+@property (strong, nonatomic) UIAlertController *alert;
 
 @end
 
@@ -294,7 +296,15 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                   locationDestination:item.coords
                         locationTitle:item.title
                             presenter:^(UIAlertController * _Nonnull alert) {
-      [weakSelf presentViewController:alert animated:YES completion:^{}];
+      if (weakSelf.locationModel.locationEnabled &&
+          weakSelf.locationModel.lastLocation &&
+          CLLocationCoordinate2DIsValid(weakSelf.locationModel.lastLocation.coordinate)) {
+        [weakSelf presentViewController:alert animated:YES completion:^{}];
+        return;
+      }
+      [weakSelf.locationModel authorize];
+      [weakSelf.locationModel startMonitoring];
+      weakSelf.alert = alert;
     }];
   }
   onBookmarkPress:^(BOOL bookmarked) {
@@ -303,6 +313,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
+  if (self.alert) {
+    [self presentViewController:self.alert animated:YES completion:^{}];
+    self.alert = nil;
+    return;
+  }
   if (self.intentionToFocusOnUserLocation) {
     [self showDirections];
     self.intentionToFocusOnUserLocation = NO;
@@ -319,7 +334,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (self.locationModel.locationEnabled &&
       self.locationModel.lastLocation &&
       CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate)) {
-    
     [self showDirections];
   }
 }

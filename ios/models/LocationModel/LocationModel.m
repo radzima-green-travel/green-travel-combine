@@ -54,6 +54,7 @@
 
 - (void)startMonitoring {
     [self.locationManager startMonitoringSignificantLocationChanges];
+
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
