@@ -73,7 +73,7 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
   [self.view addSubview:self.mapView];
 
   self.mapView.delegate = self;
-
+  
   self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
     [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
@@ -158,22 +158,26 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
 #pragma mark - Location model
 
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
-    if (self.intentionToFocusOnUserLocation) {
-        [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
-        self.intentionToFocusOnUserLocation = NO;
-    }
+  if (self.intentionToFocusOnUserLocation) {
+    [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
+    [self.mapView setShowsUserLocation:YES];
+    [self.mapView setShowsHeading:YES];
+    self.intentionToFocusOnUserLocation = NO;
+  }
 }
 
 #pragma mark - Event listeners
 
 - (void)onLocateMePress:(id)sender {
-    self.intentionToFocusOnUserLocation = YES;
-    [self.locationModel authorize];
-    [self.locationModel startMonitoring];
-
-    if (self.locationModel.locationEnabled && self.locationModel.lastLocation) {
-        [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
-    }
+  self.intentionToFocusOnUserLocation = YES;
+  [self.locationModel authorize];
+  [self.locationModel startMonitoring];
+  
+  if (self.locationModel.locationEnabled && self.locationModel.lastLocation) {
+    [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
+    [self.mapView setShowsUserLocation:YES];
+    [self.mapView setShowsHeading:YES];
+  }
 }
 
 - (IBAction)handleMapTap:(UITapGestureRecognizer *)tap {

@@ -9,13 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "LocationObservable.h"
 #import <CoreLocation/CoreLocation.h>
+@import Mapbox;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol LocationObserver;
 
-@interface LocationModel : NSObject <LocationObservable, CLLocationManagerDelegate>
+@interface LocationModel : NSObject <LocationObservable, CLLocationManagerDelegate, MGLLocationManager>
 
+@property (strong, nonatomic) CLLocationManager *locationManager;
 @property (assign, nonatomic) BOOL locationEnabled;
 @property (strong, nonatomic) NSMutableArray<id<LocationObserver>> *locationObservers;
 @property (strong, nonatomic, nullable) CLLocation *lastLocation;

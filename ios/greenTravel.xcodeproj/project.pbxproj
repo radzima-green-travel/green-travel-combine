@@ -575,10 +575,10 @@
 		5A775A5226064C8F00CEFC78 /* LocationModel */ = {
 			isa = PBXGroup;
 			children = (
+				5A775A5626064C8F00CEFC78 /* LocationModel.h */,
 				5A775A5326064C8F00CEFC78 /* LocationModel.m */,
 				5A775A5426064C8F00CEFC78 /* LocationObserver.h */,
 				5A775A5526064C8F00CEFC78 /* LocationObservable.h */,
-				5A775A5626064C8F00CEFC78 /* LocationModel.h */,
 			);
 			path = LocationModel;
 			sourceTree = "<group>";

@@ -35,6 +35,7 @@
 @interface ItemDetailsMapViewController ()
 
 @property (assign, nonatomic) BOOL loaded;
+@property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
 
 @end
 
@@ -148,7 +149,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                                                    options:nil];
 
   NSArray<NSArray<CLLocation *> *> *areaParts = mapItem.correspondingPlaceItem.details.area;
-  NSMutableArray<id<MGLAnnotation>> *vertices = [[NSMutableArray alloc] init];
+  self.annotations = [[NSMutableArray alloc] init];
   NSMutableArray<MGLPolygon *> *polygonParts = [[NSMutableArray alloc] init];
   NSMutableArray<MGLPolylineFeature *> *polygonOutlines = [[NSMutableArray alloc] init];
   if ([areaParts count]) {
@@ -164,7 +165,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     }];
     MGLMultiPolygonFeature *polygon = [MGLMultiPolygonFeature multiPolygonWithPolygons:polygonParts];
     
-    [vertices addObject:polygon];
+    [self.annotations addObject:polygon];
     
     sourcePolygon = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
                                                       features:@[polygon] options:nil];
@@ -180,7 +181,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     }];
 
     MGLPolylineFeature *polyline = [MGLPolylineFeature polylineWithCoordinates:coordinates count:[path count]];
-    [vertices addObject:polyline];
+    [self.annotations addObject:polyline];
 
     sourcePath = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPath
                                                    features:@[polyline] options:nil];
@@ -237,8 +238,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 
 #pragma mark - Show point, path or polygon
-  if ([vertices count]) {
-    [self.mapView showAnnotations:vertices animated:YES];
+  if ([self.annotations count]) {
+    [self.mapView showAnnotations:self.annotations animated:YES];
   } else {
     [self.mapView setCenterCoordinate:point.coordinate zoomLevel:8.0 animated:YES];
   }
@@ -299,6 +300,39 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   onBookmarkPress:^(BOOL bookmarked) {
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
   }];
+}
+
+- (void)onLocationUpdate:(CLLocation *)lastLocation {
+  if (self.intentionToFocusOnUserLocation) {
+    [self showDirections];
+    self.intentionToFocusOnUserLocation = NO;
+  }
+}
+
+#pragma mark - Event listeners
+
+- (void)onLocateMePress:(id)sender {
+  self.intentionToFocusOnUserLocation = YES;
+  [self.locationModel authorize];
+  [self.locationModel startMonitoring];
+  
+  if (self.locationModel.locationEnabled &&
+      self.locationModel.lastLocation &&
+      CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate)) {
+    
+    [self showDirections];
+  }
+}
+
+- (void)showDirections {
+  [self.mapView setShowsUserLocation:YES];
+  [self.mapView setShowsHeading:YES];
+  
+  MGLPointFeature *location = [[MGLPointFeature alloc] init];
+  location.coordinate = CLLocationCoordinate2DMake(self.locationModel.lastLocation.coordinate.latitude, self.locationModel.lastLocation.coordinate.longitude);
+  NSArray<id<MGLAnnotation>> *annotations = @[location];
+  annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
+  [self.mapView showAnnotations:annotations animated:YES];
 }
 
 @end

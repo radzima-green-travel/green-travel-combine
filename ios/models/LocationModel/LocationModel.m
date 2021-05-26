@@ -12,8 +12,6 @@
 
 @interface LocationModel ()
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
-
 @end
 
 
