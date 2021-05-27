@@ -11,13 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class UIAlertController;
+@class Directions;
 
 @interface RoutesSheetController : NSObject
 
-- (void)show:(BOOL)useSourceDestiny
-locationSource:(CLLocationCoordinate2D)locationSource
-locationDestination:(CLLocationCoordinate2D)locationDestination
-locationTitle:(NSString *)locationTitle
+- (void)show:(Directions *)directions
    presenter:(void(^)(UIAlertController *))presenter;
 + (instancetype)get;
 

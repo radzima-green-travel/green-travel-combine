@@ -8,6 +8,7 @@
 #import "RoutesSheetController.h"
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "Directions.h"
 
 @interface RoutesSheetController()
 
@@ -31,10 +32,7 @@ typedef NS_ENUM(NSInteger, MapProvider) {
   MapProviderYandex,
 };
 
-- (void)show:(BOOL)useSourceDestiny
-locationSource:(CLLocationCoordinate2D)locationSource
-locationDestination:(CLLocationCoordinate2D)locationDestination
-locationTitle:(NSString *)locationTitle
+- (void)show:(Directions *)directions
    presenter:(void(^)(UIAlertController *))presenter
 {
   NSArray *prefixes = @[kPrefixAppleMaps, kPrefixGoogleMaps, kPrefixYandexMaps, kPrefixYandex];
@@ -57,9 +55,9 @@ locationTitle:(NSString *)locationTitle
       MapProvider provider = [prefixToProvider[prefix] intValue];
       NSString *title = providerToPrefs[@(provider)][@"title"];
       [urls addObject:[self urlForProvider:provider
-                             locationSource:locationSource
-                        locationDestination:locationDestination
-                                      title:locationTitle]];
+                             locationSource:directions.from
+                        locationDestination:directions.to
+                                      title:directions.title]];
       [titles addObject:title];
     }
   }];
@@ -99,14 +97,8 @@ title:(NSString *)title {
   NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
   switch (provider) {
     case MapProviderApple: {
-      NSString *sourceLatLngApple = [[NSString stringWithFormat:@"(%f, %f)",
-                                      locationSource.latitude,
-                                      locationSource.longitude] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-      NSString *destionationLatLngApple = [[NSString stringWithFormat:@"(%f, %f)",
-                                            locationSource.latitude,
-                                            locationSource.longitude] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-      url = [url stringByAppendingString:[NSString stringWithFormat:@"%@?saddr=%@&daddr=%@&q=%@&address=%@",
-                                          kPrefixAppleMaps, sourceLatLngApple, destionationLatLngApple, encodedTitle, encodedTitle]];
+      url = [url stringByAppendingString:[NSString stringWithFormat:@"%@?ll=%@&q=%@&address=%@",
+                                          kPrefixAppleMaps, destinationLatLng, encodedTitle, encodedTitle]];
       return url;
     }
     case MapProviderGoogle: {

@@ -32,12 +32,13 @@
 #import "MainViewController.h"
 #import "RoutesSheetController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "Directions.h"
 
 @interface ItemDetailsMapViewController ()
 
 @property (assign, nonatomic) BOOL loaded;
 @property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
-@property (strong, nonatomic) UIAlertController *alert;
+@property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
 
 @end
 
@@ -290,32 +291,40 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
-  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onNavigatePress:^{
-    [[RoutesSheetController get] show:YES
-                       locationSource:self.locationModel.lastLocation.coordinate
-                  locationDestination:item.coords
-                        locationTitle:item.title
-                            presenter:^(UIAlertController * _Nonnull alert) {
-      if (weakSelf.locationModel.locationEnabled &&
-          weakSelf.locationModel.lastLocation &&
-          CLLocationCoordinate2DIsValid(weakSelf.locationModel.lastLocation.coordinate)) {
-        [weakSelf presentViewController:alert animated:YES completion:^{}];
-        return;
-      }
-      [weakSelf.locationModel authorize];
-      [weakSelf.locationModel startMonitoring];
-      weakSelf.alert = alert;
-    }];
+  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel
+         onNavigatePress:^{
+    if (weakSelf.locationModel.locationEnabled &&
+        weakSelf.locationModel.lastLocation &&
+        CLLocationCoordinate2DIsValid(weakSelf.locationModel.lastLocation.coordinate)) {
+      [weakSelf showRoutesSheet];
+      return;
+    }
+    [weakSelf.locationModel authorize];
+    [weakSelf.locationModel startMonitoring];
+    weakSelf.intentionToShowRoutesSheet = YES;
   }
   onBookmarkPress:^(BOOL bookmarked) {
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
   }];
 }
 
+- (void)showRoutesSheet {
+  PlaceItem *item = self.mapItem.correspondingPlaceItem;
+  Directions *directions = [[Directions alloc] init];
+  directions.from = self.locationModel.lastLocation.coordinate;
+  directions.to = item.coords;
+  directions.title = item.title;
+  __weak typeof(self) weakSelf = self;
+  [[RoutesSheetController get] show:directions
+                          presenter:^(UIAlertController * _Nonnull alert) {
+    [weakSelf presentViewController:alert animated:YES completion:^{}];
+  }];
+}
+
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
-  if (self.alert) {
-    [self presentViewController:self.alert animated:YES completion:^{}];
-    self.alert = nil;
+  if (self.intentionToShowRoutesSheet) {
+    [self showRoutesSheet];
+    self.intentionToShowRoutesSheet = NO;
     return;
   }
   if (self.intentionToFocusOnUserLocation) {

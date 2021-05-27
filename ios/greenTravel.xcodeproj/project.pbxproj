@@ -11,6 +11,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
+		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FB2655B1D500A2D37B /* StoredCoordinateCollection+CoreDataProperties.m */; };
 		5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */; };
@@ -147,6 +148,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = greenTravel/main.m; sourceTree = "<group>"; };
 		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
 		5A105EE326501FA000511256 /* RotationLockUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationLockUtility.m; sourceTree = "<group>"; };
+		5A105FE9265FD99100511256 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
+		5A105FEA265FD99100511256 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
 		5A246AC826429689003C6E5B /* BookmarkButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButton.h; sourceTree = "<group>"; };
 		5A246AC926429689003C6E5B /* BookmarkButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkButton.m; sourceTree = "<group>"; };
 		5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoredCoordinateCollection+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -676,6 +679,8 @@
 				5A775A9526064C8F00CEFC78 /* IconNameToImageNameMap.h */,
 				5A775A9626064C8F00CEFC78 /* PathDetails.h */,
 				5A775A9726064C8F00CEFC78 /* FeedItem.h */,
+				5A105FE9265FD99100511256 /* Directions.h */,
+				5A105FEA265FD99100511256 /* Directions.m */,
 			);
 			path = valueobjects;
 			sourceTree = "<group>";
@@ -1454,6 +1459,7 @@
 				5A6DC5052655B1DA00A2D37B /* StoredArea+CoreDataClass.m in Sources */,
 				5A775B4E26064C9000CEFC78 /* LocationModel.m in Sources */,
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
+				5A105FEC265FD9E300511256 /* Directions.m in Sources */,
 				5A6DC50B2655B28900A2D37B /* StoredArea+CoreDataProperties.m in Sources */,
 				5A775E1726077A7D00CEFC78 /* WeRecommendCell.m in Sources */,
 				5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */,
