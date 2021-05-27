@@ -10,14 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MGLLineStyleLayer;
+@class MGLShape;
 
 @interface MapService : NSObject
 
 - (instancetype)initWithSession:(NSURLSession *)session;
 - (void)loadDirectionsWithCompletionFrom:(CLLocationCoordinate2D)from
                                  to:(CLLocationCoordinate2D)to
-                         completion:(void(^)(MGLLineStyleLayer *))completion;
+                         completion:(void(^)(NSArray<CLLocation *> *))completion;
 
 @end
 

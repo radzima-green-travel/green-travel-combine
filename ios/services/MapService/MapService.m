@@ -26,31 +26,36 @@
 
 - (void)loadDirectionsWithCompletionFrom:(CLLocationCoordinate2D)from
                                       to:(CLLocationCoordinate2D)to
-                              completion:(void (^)(MGLLineStyleLayer *))completion {
+                              completion:(void (^)(NSArray<CLLocation *> *))completion {
   NSString *sourceLatLng = [NSString stringWithFormat:@"%f,%f",
                             from.latitude, from.longitude];
   NSString *destinationLatLng = [NSString stringWithFormat:@"%f,%f",
                                  to.latitude, to.longitude];
   NSString *mapToken = @"";
-  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.mapbox.com/directions/v5/mapbox/driving/%@;%@?access_token=%@&geometries=geojson", sourceLatLng, destinationLatLng, mapToken]];
+  NSString *url = [NSString stringWithFormat:@"https://api.mapbox.com/directions/v5/mapbox/driving/%@;%@?access_token=%@&geometries=geojson", sourceLatLng, destinationLatLng, mapToken];
+
+  NSURL *nsURL = [NSURL URLWithString:url];
   
   NSURLSessionDataTask *getCategoriesTask =
-  [self.session dataTaskWithURL:url
-              completionHandler:^(NSData * _Nullable geoJson, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-    if (!geoJson) {
+  [self.session dataTaskWithURL:nsURL
+              completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    if (!data) {
       completion(nil);
       return;
     }
-    MGLShape *shape = [MGLShape shapeWithData:geoJson encoding:NSUTF8StringEncoding error:nil];
-    MGLSource *source = [[MGLShapeSource alloc] initWithIdentifier:@"polyline" shape:shape options:nil];
-    MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:@"polyline-dash" source:source];
-    dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];;
-    dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
-    dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
-    dashedLayer.lineColor = [NSExpression expressionForConstantValue:[UIColor whiteColor]];
-    dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@0.5];
-    dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@0, @1.5]];
-    completion(dashedLayer);
+    NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    NSArray<NSArray<NSNumber *>*> *coordinates = body[@"routes"][0][@"geometry"][@"coordinates"];
+    if (coordinates) {
+      NSMutableArray *locations = [[NSMutableArray alloc] init];
+      [coordinates enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [locations addObject:[[CLLocation alloc] initWithLatitude:[obj[0] doubleValue] longitude:[obj[1] doubleValue]]];
+      }];
+      NSLog(@"Error: %@", error);
+      completion(locations);
+    }
+    
+    
+    
   }];
   [getCategoriesTask resume];
 }

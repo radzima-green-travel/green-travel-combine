@@ -48,10 +48,12 @@ static NSString* const kSourceIdPoint = @"sourceIdPoint";
 static NSString* const kSourceIdPath = @"sourceIdPath";
 static NSString* const kSourceIdOutline = @"sourceIdOutline";
 static NSString* const kSourceIdPolygon = @"sourceIdPolygon";
+static NSString* const kSourceIdDirections = @"sourceIdDirections";
 static NSString* const kPolygonLayerId = @"polygonLayerId";
 static NSString* const kPathLayerId = @"pathLayerId";
 static NSString* const kOutlineLayerId = @"outlineLayerId";
 static NSString* const kPointLayerId = @"pointLayerId";
+static NSString* const kDirectionsLayerId = @"directionsLayerId";
 static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
@@ -239,9 +241,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   };
 #pragma mark - Layers
 
-
-
-
 #pragma mark - Show point, path or polygon
   if ([self.annotations count]) {
     [self.mapView showAnnotations:self.annotations animated:YES];
@@ -249,6 +248,31 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [self.mapView setCenterCoordinate:point.coordinate zoomLevel:8.0 animated:YES];
   }
 }
+
+- (void)addDirectionsLayer:(MGLStyle *)style shape:(MGLShape *)shape {
+  if ([style layerWithIdentifier:kDirectionsLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:kDirectionsLayerId]];
+  }
+  if ([style sourceWithIdentifier:kSourceIdDirections] != nil) {
+    [style removeSource:[style sourceWithIdentifier:kSourceIdDirections]];
+  }
+  
+  MGLSource *sourceDirections = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdDirections
+                                                                     shape:shape options:nil];
+  [style addSource:sourceDirections];
+  
+  MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:kDirectionsLayerId
+                                                                          source:sourceDirections];
+  dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+  dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
+  dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
+  dashedLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
+  dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@0, @1.5]];
+  
+  [style addLayer:dashedLayer];
+}
+
 
 - (MGLPolylineFeature *)polylineForPath:(NSArray<CLLocation *>*)path {
   MGLPolylineFeature *polyline;
@@ -364,10 +388,14 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     self.mapService = [[MapService alloc] initWithSession:session];
   }
+  __weak typeof(self) weakSelf = self;
   [self.mapService loadDirectionsWithCompletionFrom:location.coordinate
                                                  to:self.mapItem.coords
-                                         completion:^(MGLLineStyleLayer * _Nonnull directionsLayer) {
-    [self.mapView.style addLayer:directionsLayer];
+                                         completion:^(NSArray<CLLocation *> * _Nonnull locations) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      MGLPolyline *polyline = [weakSelf polylineForPath:locations];
+      [weakSelf addDirectionsLayer:weakSelf.mapView.style shape:polyline];
+    });
   }];
 }
 
