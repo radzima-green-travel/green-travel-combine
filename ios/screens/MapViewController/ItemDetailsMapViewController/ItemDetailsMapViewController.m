@@ -33,12 +33,14 @@
 #import "RoutesSheetController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "Directions.h"
+#import "MapService.h"
 
 @interface ItemDetailsMapViewController ()
 
 @property (assign, nonatomic) BOOL loaded;
 @property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
+@property (strong, nonatomic) MapService *mapService;
 
 @end
 
@@ -352,10 +354,21 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self.mapView setShowsHeading:YES];
   
   MGLPointFeature *location = [[MGLPointFeature alloc] init];
-  location.coordinate = CLLocationCoordinate2DMake(self.locationModel.lastLocation.coordinate.latitude, self.locationModel.lastLocation.coordinate.longitude);
+  location.coordinate = self.locationModel.lastLocation.coordinate;
   NSArray<id<MGLAnnotation>> *annotations = @[location];
   annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
   [self.mapView showAnnotations:annotations animated:YES];
+  
+  if (!self.mapService) {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    self.mapService = [[MapService alloc] initWithSession:session];
+  }
+  [self.mapService loadDirectionsWithCompletionFrom:location.coordinate
+                                                 to:self.mapItem.coords
+                                         completion:^(MGLLineStyleLayer * _Nonnull directionsLayer) {
+    [self.mapView.style addLayer:directionsLayer];
+  }];
 }
 
 @end
