@@ -22,6 +22,7 @@ NSString const *kPrefixAppleMaps = @"maps://";
 NSString const *kPrefixGoogleMaps = @"https://www.google.com/maps/";
 NSString const *kPrefixYandexMaps = @"yandexmaps://maps.yandex.ru/";
 NSString const *kPrefixYandex = @"yandexnavi://";
+NSString const *kPrefixMapsMe = @"mapsme://";
 
 NSString const *kGoogleMapsTravelModeCar = @"driving";
 
@@ -30,23 +31,26 @@ typedef NS_ENUM(NSInteger, MapProvider) {
   MapProviderGoogle,
   MapProviderYandexMaps,
   MapProviderYandex,
+  MapProviderMapsMe
 };
 
 - (void)show:(Directions *)directions
    presenter:(void(^)(UIAlertController *))presenter
 {
-  NSArray *prefixes = @[kPrefixAppleMaps, kPrefixGoogleMaps, kPrefixYandexMaps, kPrefixYandex];
+  NSArray *prefixes = @[kPrefixAppleMaps, kPrefixGoogleMaps, kPrefixMapsMe, kPrefixYandexMaps, kPrefixYandex];
   NSDictionary *prefixToProvider = @{
     kPrefixAppleMaps: @(MapProviderApple),
     kPrefixGoogleMaps: @(MapProviderGoogle),
     kPrefixYandexMaps: @(MapProviderYandexMaps),
     kPrefixYandex: @(MapProviderYandex),
+    kPrefixMapsMe: @(MapProviderMapsMe)
   };
   NSDictionary *providerToPrefs = @{
     @(MapProviderApple): @{@"title": @"Apple Maps"},
     @(MapProviderGoogle): @{@"title": @"Google Maps"},
     @(MapProviderYandexMaps): @{@"title": @"Yandex Maps"},
     @(MapProviderYandex): @{@"title": @"Yandex Navigator"},
+    @(MapProviderMapsMe): @{@"title": @"Maps.me"}
   };
   NSMutableArray<NSString *> *urls = [[NSMutableArray alloc] init];
   NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] init];
@@ -119,6 +123,14 @@ title:(NSString *)title {
                                           locationDestination.longitude,
                                           locationSource.latitude,
                                           locationSource.longitude]];
+      return url;
+    case MapProviderMapsMe:
+      url = [NSString stringWithFormat:@"%@route?sll=%@&saddr=%@&dll=%@&daddr=%@&type=vehicle",
+             kPrefixMapsMe,
+             sourceLatLng,
+             @"",
+             destinationLatLng,
+             encodedTitle];
       return url;
   }
 }
