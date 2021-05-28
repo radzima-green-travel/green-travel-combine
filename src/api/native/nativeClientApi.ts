@@ -1,10 +1,15 @@
 import {ApiService} from 'services/ApiService';
 import config from 'react-native-ultimate-config';
 import {sentryService} from 'services/SentryService';
-
+import {
+  etagCachingRequestInterceptor,
+  etagCachingRespnseInterceptor,
+} from '../interceptors';
 export class NativeApiService extends ApiService {
   constructor(baseURL: string) {
     super(baseURL);
+    this.axiosInstance.interceptors.request.use(etagCachingRequestInterceptor);
+    this.axiosInstance.interceptors.response.use(etagCachingRespnseInterceptor);
     this.axiosInstance.interceptors.response.use(
       res => res,
       error => {
@@ -12,11 +17,6 @@ export class NativeApiService extends ApiService {
         return Promise.reject(error);
       },
     );
-  }
-  protected getHeaders() {
-    return {
-      'x-api-key': config.NATIVE_CLIENT_API_KEY,
-    };
   }
 }
 

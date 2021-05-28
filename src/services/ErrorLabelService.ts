@@ -33,7 +33,7 @@ export const getErrorLabel = (error: ErrorOptions): ILabelError => {
   };
 };
 
-export const errorLabelMiddliware: Middleware = () => (next) => (action) => {
+export const errorLabelMiddliware: Middleware = () => next => action => {
   if (action.payload instanceof Error) {
     action.payload = getErrorLabel(action.payload);
   }

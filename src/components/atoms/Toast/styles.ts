@@ -18,6 +18,10 @@ export const themeStyles = {
     },
     paddingHorizontal: 20,
   },
+  topContainer: {
+    bottom: undefined,
+    top: 0,
+  },
   text: {
     ...FONTS_STYLES.regular15,
     color: {

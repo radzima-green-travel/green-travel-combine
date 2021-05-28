@@ -1,31 +1,86 @@
 import React, {useEffect, useCallback} from 'react';
-import {RefreshPageReminder, SuspenseView} from 'atoms';
+import {RefreshPageReminder, SuspenseView, useToast} from 'atoms';
 import {HomeSectionBar} from 'organisms';
-import {FlatList} from 'react-native';
+import {
+  AppStateStatus,
+  FlatList,
+  InteractionManager,
+  RefreshControl,
+} from 'react-native';
 
 import {styles} from './styles';
-import {getHomeDataRequest, checkHomeData} from 'core/reducers';
+import {
+  getHomeDataUpdatesRequest,
+  getInitialHomeDataRequest,
+  getHomeDataUpdateAvailableRequest,
+  getHomeData,
+} from 'core/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
-import {useRequestError, useRequestLoading} from 'core/hooks';
+import {
+  useAppState,
+  useRequestError,
+  useRequestLoading,
+  useTranslation,
+  useColorScheme,
+} from 'core/hooks';
 import {IProps} from './types';
+import {COLORS} from 'assets';
+import {useFocusEffect} from '@react-navigation/core';
+import {ErrorToast} from '../../molecules';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
+  const {t} = useTranslation('home');
   const dispatch = useDispatch();
-
+  const theme = useColorScheme();
   const homeData = useSelector(selectHomeData);
   const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
-
+  const {ref, show: showToast} = useToast();
   const getData = useCallback(() => {
-    dispatch(getHomeDataRequest());
+    dispatch(getHomeDataUpdatesRequest());
   }, [dispatch]);
 
-  const loading = useRequestLoading(getHomeDataRequest);
-  const {error} = useRequestError(getHomeDataRequest);
+  const getInitialData = useCallback(() => {
+    dispatch(getInitialHomeDataRequest());
+  }, [dispatch]);
+
+  const loading = useRequestLoading(getInitialHomeDataRequest);
+  const {error} = useRequestError(getInitialHomeDataRequest);
+
+  const refreshing = useRequestLoading(getHomeDataUpdatesRequest);
+  const {error: updateError} = useRequestError(getHomeDataUpdatesRequest);
 
   useEffect(() => {
-    dispatch(checkHomeData());
+    if (updateError) {
+      showToast();
+    }
+  }, [showToast, updateError]);
+
+  useEffect(() => {
+    dispatch(getHomeData());
   }, [dispatch]);
+
+  const checkUpdates = useCallback(
+    (state: AppStateStatus, prevState: AppStateStatus) => {
+      if (state === 'active' && prevState === 'background') {
+        dispatch(getHomeDataUpdateAvailableRequest());
+      }
+    },
+    [dispatch],
+  );
+
+  useAppState(checkUpdates);
+
+  useFocusEffect(
+    useCallback(
+      () => () => {
+        InteractionManager.runAfterInteractions(() => {
+          dispatch(getHomeDataUpdateAvailableRequest());
+        });
+      },
+      [dispatch],
+    ),
+  );
 
   const navigateToObjectsList = useCallback(
     ({categoryId, title}: {categoryId: string; title: string}) => {
@@ -50,13 +105,21 @@ export const Home = ({navigation: {navigate}}: IProps) => {
 
   return (
     <SuspenseView
-      loading={(!homeData || isUpdatesAvailable) && loading}
+      loading={loading}
       error={homeData ? null : error}
-      retryCallback={getData}>
+      retryCallback={getInitialData}>
       <FlatList
         style={styles.list}
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
+        refreshControl={
+          <RefreshControl
+            tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
+            colors={[theme === 'light' ? COLORS.forestGreen : COLORS.white]}
+            refreshing={refreshing}
+            onRefresh={getData}
+          />
+        }
         data={homeData}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
@@ -70,6 +133,14 @@ export const Home = ({navigation: {navigate}}: IProps) => {
         )}
       />
       {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null}
+      <ErrorToast
+        ref={ref}
+        text={
+          updateError?.message?.textPaths
+            ? t(updateError?.message?.textPaths)
+            : ''
+        }
+      />
     </SuspenseView>
   );
 };

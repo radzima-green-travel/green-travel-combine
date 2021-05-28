@@ -73,11 +73,11 @@ export const ClusterMap = memo(
               null,
               ['singlePoint', 'areaFill'],
             );
-            console.log(features);
-            if (features[0]?.properties?.data) {
+
+            if (features[0]?.properties?.objectId) {
               onShapePressed.current = true;
               const zoom = await map.current?.getZoom();
-              onShapePress(features[0]?.properties?.data, zoom);
+              onShapePress(features[0]?.properties?.objectId, zoom);
             }
           }}
           onStartShouldSetResponder={() => true}

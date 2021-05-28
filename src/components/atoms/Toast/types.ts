@@ -7,4 +7,6 @@ export type toastRef = {
 
 export type Props = PropsWithChildren<{
   ref: React.Ref<toastRef>;
+  isOnTop?: boolean;
+  safeArea?: boolean;
 }>;

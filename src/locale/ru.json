@@ -21,7 +21,7 @@
     "locationPermissionText": "Предоставьте доступ к Геолокации в настройках что бы определить вашу позицию",
     "locationPermissionCancel": "Отмена",
     "locationPermissionSetttings": "Настройки",
-    "locationPermissionTextDevice": "Включите Сервисы Геолокации в настройках телефона что бы определить вашу позицию"
+    "locationPermissionTextDevice": "Включите Сервисы Геолокации в настройках телефона что бы определить вашу позицию",
   },
   "home":{
     "headerTitle": "Главная",
@@ -29,7 +29,13 @@
     "Discover new places": "Открываем новые места",
     "Interesting around": "Интересное рядом",
     "all": "Все",
-    "updatesAvailable": "Доступны обновления"
+    "updatesAvailable": "Доступны обновления",
+    "errors": {
+      "-1": {
+        "title": "",
+        "text": "Отсутсвует подключение к Интернету"
+      }      
+    }
   }, 
   "objectDetails": {
     "seeOnTheMap": "ПОСМОТРЕТЬ НА КАРТЕ",

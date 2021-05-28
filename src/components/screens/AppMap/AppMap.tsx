@@ -43,6 +43,7 @@ import {
   useFocusToUserLocation,
   useBackHandler,
   useColorScheme,
+  useTransformedData,
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
@@ -56,13 +57,13 @@ export const AppMap = ({navigation}: IProps) => {
   const markers = useSelector(selectMapMarkers);
   const bounds = useSelector(selectBounds);
   const selectedFilters = useSelector(selectSelectedFilters);
-
+  const {getObject} = useTransformedData();
   const [clusterMarkers, setClusterMarkers] = useState(featureCollection([]));
   useEffect(() => {
     if (markers) {
       setTimeout(() => {
         setClusterMarkers(markers);
-      }, 210);
+      }, 0);
     }
   }, [markers]);
 
@@ -104,16 +105,19 @@ export const AppMap = ({navigation}: IProps) => {
   }, []);
 
   const onShapePress = useCallback(
-    (itemData: IObject, zoomLevel) => {
-      const coordinates = [itemData.location.lon, itemData.location.lat];
-      camera.current?.setCamera({
-        centerCoordinate: coordinates,
-        zoomLevel: zoomLevel,
-        animationDuration: 500,
-      });
-      setSelectedMarkerId(itemData.id);
+    (objectId: string, zoomLevel) => {
+      const itemData = getObject(objectId);
+      if (itemData) {
+        const coordinates = [itemData.location.lon, itemData.location.lat];
+        camera.current?.setCamera({
+          centerCoordinate: coordinates,
+          zoomLevel: zoomLevel,
+          animationDuration: 500,
+        });
+        setSelectedMarkerId(itemData.id);
+      }
     },
-    [setSelectedMarkerId],
+    [getObject, setSelectedMarkerId],
   );
 
   const navigateToObjectDetails = useCallback(

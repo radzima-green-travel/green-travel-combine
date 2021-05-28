@@ -1,5 +1,5 @@
 import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
-
+import {NetworkError} from 'core/errors';
 export class ApiService {
   protected axiosInstance: AxiosInstance;
 
@@ -7,7 +7,19 @@ export class ApiService {
     this.axiosInstance = axios.create({
       baseURL: baseURL,
       headers: this.getHeaders(),
+      validateStatus: status => status < 400,
     });
+
+    this.axiosInstance.interceptors.response.use(
+      resp => resp,
+      error => {
+        if (error.message === 'Network Error') {
+          return Promise.reject(new NetworkError(error.message));
+        }
+
+        return Promise.reject(error);
+      },
+    );
   }
 
   protected getHeaders() {

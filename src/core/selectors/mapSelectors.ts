@@ -61,38 +61,11 @@ export const selectMapFilters = createSelector<
     : [];
 });
 
-export const selectMapMarkersObjectDetails = createSelector<
-  IState,
-  IObject[] | null,
-  FeatureCollection<Geometry, {icon_image: string; data: IObject}>
->(selectObjectDetailsMapOjects, objects => {
-  const points = objects
-    ? compact(
-        map(objects, data => {
-          if (data.location) {
-            const {location} = data;
-            return point(
-              [location.lon, location.lat],
-              {
-                icon_image: data.category.icon,
-                data,
-              },
-              {id: data.id},
-            );
-          }
-          return null;
-        }),
-      )
-    : [];
-
-  return featureCollection(points);
-});
-
 export const selectMapMarkers = createSelector<
   IState,
   ITransformedData | null,
   IMapFilter[],
-  FeatureCollection<Geometry, {icon_image: string; data: IObject}>
+  FeatureCollection<Geometry, {icon_image: string; objectId: string}>
 >(selectTransformedData, selectSelectedFilters, (transformedData, filters) => {
   const points = transformedData
     ? compact(
@@ -107,7 +80,7 @@ export const selectMapMarkers = createSelector<
               [location.lon, location.lat],
               {
                 icon_image: data.category.icon,
-                data,
+                objectId: data.id,
               },
               {id: data.id},
             );
@@ -139,7 +112,7 @@ export const selectSelectedMapMarker = createSelector<
 
 export const createMarkerFromObject = (
   data: IObject | null,
-): FeatureCollection<Geometry, {icon_image: string; data: IObject}> => {
+): FeatureCollection<Geometry, {icon_image: string; objectId: string}> => {
   return featureCollection(
     compact([
       data
@@ -147,7 +120,7 @@ export const createMarkerFromObject = (
             [data.location.lon, data.location.lat],
             {
               icon_image: `${data.category.icon}${MAP_PINS.SELECTED_POSTFIX}`,
-              data,
+              objectId: data.id,
             },
             {id: data.id},
           )
@@ -158,7 +131,7 @@ export const createMarkerFromObject = (
 
 export const selectBounds = createSelector<
   IState,
-  FeatureCollection<Geometry, {icon_image: string; data: IObject}>,
+  FeatureCollection<Geometry, {icon_image: string; objectId: string}>,
   IMapFilter[],
   IBounds | null
 >(selectMapMarkers, selectSelectedFilters, markers => {
@@ -188,7 +161,7 @@ export const selectIsDirectionShowed = createSelector<
 
 export const createMarkerFromDetailsObject = (
   data: IObject | null,
-): FeatureCollection<Geometry, {icon: string; data: IObject}> => {
+): FeatureCollection<Geometry, {icon: string; objectId: string}> => {
   return featureCollection(
     compact([
       data
@@ -196,7 +169,7 @@ export const createMarkerFromDetailsObject = (
             [data.location.lon, data.location.lat],
             {
               icon: 'mapPin',
-              data,
+              objectId: data.id,
             },
             {id: data.id},
           )

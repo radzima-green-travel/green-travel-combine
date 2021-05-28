@@ -19,6 +19,7 @@ import {
   useThemeStyles,
   useTranslation,
   useColorScheme,
+  useTransformedData,
 } from 'core/hooks';
 import {
   ObjectDetailsMapBottomMenu,
@@ -56,7 +57,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
   const {bottom, top} = useSafeAreaInsets();
   const data = useObject(objectId);
-
+  const {getObject} = useTransformedData();
   const dataShapeSource = useMemo(
     () => (data ? createMarkerFromDetailsObject(data) : data),
     [data],
@@ -159,21 +160,24 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   }, [dispatch]);
 
   const onMarkerPress = useCallback(
-    (object: IObject) => {
-      if (bounds) {
-        camera.current?.fitBounds(...bounds);
-      } else {
-        const coordinates = [object.location.lon, object.location.lat];
-        camera.current?.setCamera({
-          centerCoordinate: coordinates,
-          zoomLevel: 8,
-          animationDuration: 500,
-        });
-      }
+    (id: string) => {
+      const object = getObject(id);
+      if (object) {
+        if (bounds) {
+          camera.current?.fitBounds(...bounds);
+        } else {
+          const coordinates = [object.location.lon, object.location.lat];
+          camera.current?.setCamera({
+            centerCoordinate: coordinates,
+            zoomLevel: 8,
+            animationDuration: 500,
+          });
+        }
 
-      bottomMenu.current?.show();
+        bottomMenu.current?.show();
+      }
     },
-    [bounds],
+    [bounds, getObject],
   );
 
   return (

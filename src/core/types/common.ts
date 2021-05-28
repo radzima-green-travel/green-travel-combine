@@ -1,5 +1,4 @@
 import {MultiPolygon, LineString} from '@turf/helpers';
-
 export interface ILabelError {
   message: {
     titlePaths: string[];
@@ -46,6 +45,7 @@ export interface IObjectCategory {
   id: string;
   name: string;
   parent: string | null;
+  singularName: string;
 }
 
 export interface IObject {
@@ -116,16 +116,6 @@ export type IBookmarkItem = {
 };
 export type IBookmarksData = IBookmarkItem[];
 
-// export interface IImageProxyParams {
-//   width:  number;
-//   height?: number;
-//   gravity:
-// }
-
 export interface IGetHomeDataResponse {
   data: {listMobileObjects: ICategory[]; getObjectsMetadata: {value: string}};
-}
-
-export interface IGetHomeDataAvailabilityResponse {
-  data: {getObjectsMetadata: {value: string}};
 }

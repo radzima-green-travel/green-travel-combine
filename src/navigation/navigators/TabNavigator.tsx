@@ -24,7 +24,6 @@ export function TabNavigator() {
 
   return (
     <Tab.Navigator
-      lazy={false}
       tabBarOptions={{
         activeTintColor: theme === 'light' ? COLORS.apple : COLORS.oceanGreen,
         inactiveTintColor: theme === 'light' ? COLORS.boulder : COLORS.cullGrey,

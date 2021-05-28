@@ -7,73 +7,79 @@ import {
   delay,
 } from 'redux-saga/effects';
 import {
-  getHomeDataSuccess,
-  getHomeDataFailure,
+  getInitialHomeDataSuccess,
+  getInitialHomeDataFailure,
   getHomeDataUpdateAvailableSuccess,
   getHomeDataUpdateAvailableFailure,
-  getHomeDataUpdateAvailableRequest,
-  getHomeDataRequest,
+  getInitialHomeDataRequest,
+  getHomeDataUpdatesRequest,
+  getHomeDataUpdatesSuccess,
+  getHomeDataUpdatesFailure,
 } from '../reducers';
 import {ACTIONS} from '../constants';
-import {getCategories, getUpdatesAvailability} from 'api/native';
-import {IGetHomeDataResponse, IGetHomeDataAvailabilityResponse} from '../types';
-import {
-  selectIsHomeDataExists,
-  selectHomeUpdatedData,
-  selectHomeDataHash,
-  selectHomeUpdatedHash,
-} from 'core/selectors';
+import {getCategories} from 'api/native';
+import {IGetHomeDataResponse} from '../types';
+import {selectIsHomeDataExists, selectHomeUpdatedData} from 'core/selectors';
 
-export function* getHomeDataSaga() {
+export function* getInitialHomeDataSaga() {
   try {
-    const updatedData = yield select(selectHomeUpdatedData);
-    if (updatedData) {
-      const updatedHash = yield select(selectHomeUpdatedHash);
-      yield delay(300);
+    const {
+      data: {listMobileObjects: categories},
+    }: IGetHomeDataResponse = yield call(() => getCategories());
 
-      yield put(getHomeDataSuccess({data: updatedData, dataHash: updatedHash}));
-    } else {
-      const {
-        data: {
-          listMobileObjects: categories,
-          getObjectsMetadata: {value},
-        },
-      }: IGetHomeDataResponse = yield call(getCategories);
-      yield put(getHomeDataSuccess({data: categories, dataHash: value}));
-    }
+    yield put(getInitialHomeDataSuccess({data: categories}));
   } catch (e) {
-    yield put(getHomeDataFailure(e));
+    yield put(getInitialHomeDataFailure(e));
   }
 }
 
 export function* getHomeDataUpdatesSaga() {
   try {
-    const {
-      data: {
-        getObjectsMetadata: {value},
-      },
-    }: IGetHomeDataAvailabilityResponse = yield call(getUpdatesAvailability);
-    const dataHash = yield select(selectHomeDataHash);
-
-    if (dataHash !== value) {
+    const data: IGetHomeDataResponse = yield call(() => getCategories());
+    const updatedData = yield select(selectHomeUpdatedData);
+    if (data) {
       const {
-        data: {
-          listMobileObjects: categories,
-          getObjectsMetadata: {value: updatedHash},
-        },
-      }: IGetHomeDataResponse = yield call(getCategories);
+        data: {listMobileObjects: categories},
+      } = data;
+
+      yield put(getHomeDataUpdatesSuccess({data: categories}));
+    } else if (updatedData) {
+      yield delay(300);
+
+      yield put(getHomeDataUpdatesSuccess({data: updatedData}));
+    } else {
+      yield put(getHomeDataUpdatesSuccess({data: null}));
+    }
+  } catch (e) {
+    const updatedData = yield select(selectHomeUpdatedData);
+    if (updatedData) {
+      yield delay(300);
+
+      yield put(getHomeDataUpdatesSuccess({data: updatedData}));
+    } else {
+      yield put(getHomeDataUpdatesFailure(e));
+    }
+  }
+}
+
+export function* getHomeDataUpdateAvailableSaga() {
+  try {
+    const data: IGetHomeDataResponse = yield call(() => getCategories());
+
+    if (data) {
+      const {
+        data: {listMobileObjects: categories},
+      } = data;
 
       yield put(
         getHomeDataUpdateAvailableSuccess({
           updatedData: categories,
-          updatedHash: updatedHash,
         }),
       );
     } else {
       yield put(
         getHomeDataUpdateAvailableSuccess({
           updatedData: null,
-          updatedHash: null,
         }),
       );
     }
@@ -82,21 +88,28 @@ export function* getHomeDataUpdatesSaga() {
   }
 }
 
-export function* checkHomeDataSaga() {
+export function* getHomeDataSaga() {
   const isHomeDataExists = yield select(selectIsHomeDataExists);
 
   if (isHomeDataExists) {
-    yield put(getHomeDataUpdateAvailableRequest());
+    yield put(getHomeDataUpdatesRequest());
   } else {
-    yield put(getHomeDataRequest());
+    yield put(getInitialHomeDataRequest());
   }
 }
 
 export function* homeSaga() {
-  yield takeLeading(ACTIONS.GET_HOME_DATA_REQUEST, getHomeDataSaga);
   yield takeLeading(
-    ACTIONS.GET_HOME_DATA_UPDATE_AVAILABLE_REQUEST,
+    ACTIONS.GET_INITIAL_HOME_DATA_REQUEST,
+    getInitialHomeDataSaga,
+  );
+  yield takeLeading(
+    ACTIONS.GET_HOME_DATA_UPDATES_REQUEST,
     getHomeDataUpdatesSaga,
   );
-  yield takeEvery(ACTIONS.CHECK_HOME_DATA, checkHomeDataSaga);
+  yield takeLeading(
+    ACTIONS.GET_HOME_DATA_UPDATE_AVAILABLE_REQUEST,
+    getHomeDataUpdateAvailableSaga,
+  );
+  yield takeEvery(ACTIONS.GET_HOME_DATA, getHomeDataSaga);
 }

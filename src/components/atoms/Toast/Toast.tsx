@@ -11,11 +11,16 @@ import {Animated} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles, TOAST_HEIGHT} from './styles';
 import {Props, toastRef} from './types';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const Toast = memo<Props>(
-  forwardRef<toastRef, Props>(({children}, ref) => {
-    const toastHeight = TOAST_HEIGHT;
-    const [translateY] = useState(() => new Animated.Value(toastHeight));
+  forwardRef<toastRef, Props>(({children, isOnTop, safeArea = false}, ref) => {
+    const {top: topOffset} = useSafeAreaInsets();
+    const top = safeArea ? topOffset : 0;
+    const toastHeight = (isOnTop ? top : 0) + TOAST_HEIGHT;
+    const [translateY] = useState(
+      () => new Animated.Value(isOnTop ? -toastHeight : toastHeight),
+    );
     const isVisible = useRef(false);
     const styles = useThemeStyles(themeStyles);
     const timeout = useRef(null);
@@ -32,8 +37,8 @@ export const Toast = memo<Props>(
     );
     const hide = useCallback(() => {
       isVisible.current = false;
-      animateTanslateYTo(toastHeight);
-    }, [animateTanslateYTo, toastHeight]);
+      animateTanslateYTo(isOnTop ? -toastHeight : toastHeight);
+    }, [animateTanslateYTo, isOnTop, toastHeight]);
 
     const hideToastAfterDelay = useCallback(() => {
       // @ts-ignore FIXME: timeout could be null
@@ -61,6 +66,8 @@ export const Toast = memo<Props>(
         style={[
           styles.container,
           {height: toastHeight, transform: [{translateY}]},
+          isOnTop && {paddingTop: top},
+          isOnTop && styles.topContainer,
         ]}>
         {children}
       </Animated.View>
