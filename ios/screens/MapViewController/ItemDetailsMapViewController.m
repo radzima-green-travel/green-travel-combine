@@ -39,9 +39,11 @@
 
 static NSString* const kSourceIdPoint = @"sourceIdPoint";
 static NSString* const kSourceIdPath = @"sourceIdPath";
+static NSString* const kSourceIdOutline = @"sourceIdOutline";
 static NSString* const kSourceIdPolygon = @"sourceIdPolygon";
 static NSString* const kPolygonLayerId = @"polygonLayerId";
 static NSString* const kPathLayerId = @"pathLayerId";
+static NSString* const kOutlineLayerId = @"outlineLayerId";
 static NSString* const kPointLayerId = @"pointLayerId";
 static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
@@ -76,8 +78,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
-  [self.mapView removeGestureRecognizer:self.singleTap];
-  [self.mapView removeFromSuperview];
+  if (self.movingFromParentViewController) {
+    [self.mapView removeGestureRecognizer:self.singleTap];
+    [self.mapView removeFromSuperview];
+  }
 }
 
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
@@ -111,9 +115,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
   };
 #pragma mark - Remove sources
-  MGLShapeSource *sourcePoint = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPoint];
-  MGLShapeSource *sourcePath = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPath];
-  MGLShapeSource *sourcePolygon = (MGLShapeSource *)[style sourceWithIdentifier:kSourceIdPolygon];
   if ([style layerWithIdentifier:kPolygonLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:kPolygonLayerId]];
   }
@@ -133,6 +134,13 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if ([style sourceWithIdentifier:kSourceIdPolygon] != nil) {
     [style removeSource:[style sourceWithIdentifier:kSourceIdPolygon]];
   }
+  if ([style sourceWithIdentifier:kSourceIdOutline] != nil) {
+    [style removeSource:[style sourceWithIdentifier:kSourceIdOutline]];
+  }
+  MGLShapeSource *sourcePoint;
+  MGLShapeSource *sourcePath;
+  MGLShapeSource *sourcePolygon;
+  MGLShapeSource *sourceOutline;
 #pragma mark - Sources
   sourcePoint = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPoint
                                                   features:@[point]
@@ -141,6 +149,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   NSArray<NSArray<CLLocation *> *> *areaParts = mapItem.correspondingPlaceItem.details.area;
   NSMutableArray<id<MGLAnnotation>> *vertices = [[NSMutableArray alloc] init];
   NSMutableArray<MGLPolygon *> *polygonParts = [[NSMutableArray alloc] init];
+  NSMutableArray<MGLPolylineFeature *> *polygonOutlines = [[NSMutableArray alloc] init];
   if ([areaParts count]) {
     [areaParts enumerateObjectsUsingBlock:^(NSArray<CLLocation *> * _Nonnull partCoordinates, NSUInteger idx, BOOL * _Nonnull stop) {
       CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * [partCoordinates count]);
@@ -150,11 +159,16 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       MGLPolygon *polygonPart = [MGLPolygon polygonWithCoordinates:coordinates count:[partCoordinates count]];
       [polygonParts addObject:polygonPart];
       free(coordinates);
+      [polygonOutlines addObject:[self polylineForPath:partCoordinates]];
     }];
     MGLMultiPolygonFeature *polygon = [MGLMultiPolygonFeature multiPolygonWithPolygons:polygonParts];
+    
     [vertices addObject:polygon];
+    
     sourcePolygon = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
                                                       features:@[polygon] options:nil];
+    sourceOutline = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdOutline
+                                                   features:polygonOutlines options:nil];
   }
 
   NSArray<CLLocation *> *path = mapItem.correspondingPlaceItem.details.path;
@@ -167,7 +181,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     MGLPolylineFeature *polyline = [MGLPolylineFeature polylineWithCoordinates:coordinates count:[path count]];
     [vertices addObject:polyline];
 
-    sourcePath = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
+    sourcePath = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPath
                                                    features:@[polyline] options:nil];
     free(coordinates);
   }
@@ -184,12 +198,25 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
     [style addLayer:pathLayer];
   };
+  if (sourceOutline) {
+    [style addSource:sourceOutline];
+
+    MGLLineStyleLayer *outlineLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:kPathLayerId source:sourceOutline];
+    outlineLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
+    outlineLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+    outlineLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
+    outlineLayer.lineWidth =
+    [NSExpression expressionForConstantValue:@2.0];
+    outlineLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@1, @2]];
+    
+    [style addLayer:outlineLayer];
+  };
   if (sourcePolygon) {
     [style addSource:sourcePolygon];
 
     MGLFillStyleLayer *polygonLayer = [[MGLFillStyleLayer alloc] initWithIdentifier:kPolygonLayerId source:sourcePolygon];
     polygonLayer.fillColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
-    polygonLayer.fillOpacity = [NSExpression expressionForConstantValue:@0.5];
+    polygonLayer.fillOpacity = [NSExpression expressionForConstantValue:@0.3];
     polygonLayer.fillOutlineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
 
     [style addLayer:polygonLayer];
@@ -214,6 +241,18 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   } else {
     [self.mapView setCenterCoordinate:point.coordinate zoomLevel:8.0 animated:YES];
   }
+}
+
+- (MGLPolylineFeature *)polylineForPath:(NSArray<CLLocation *>*)path {
+  MGLPolylineFeature *polyline;
+  if ([path count]) {
+    CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * [path count]);
+    [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      coordinates[idx] = CLLocationCoordinate2DMake(obj.coordinate.latitude, obj.coordinate.longitude);
+    }];
+    polyline = [MGLPolylineFeature polylineWithCoordinates:coordinates count:[path count]];
+  }
+  return polyline;
 }
 
 - (IBAction)handleMapTap:(UITapGestureRecognizer *)tap {
