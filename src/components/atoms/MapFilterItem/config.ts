@@ -33,4 +33,9 @@ export const iconsConfig: {
     width: 20,
     height: 20,
   },
+  [MAP_PINS.WATER_ROUTE]: {
+    name: 'wave',
+    width: 20,
+    height: 20,
+  },
 };

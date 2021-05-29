@@ -51,6 +51,7 @@ export enum MAP_PINS {
   HISTORICAL_PLACE = 'historical-place',
   EXCURSION_PIN = 'excursion-pin',
   WALKING_ROUTES = 'walking-routes',
+  WATER_ROUTE = 'water-route',
   EMPTY_BIG = 'empty-big',
   EMPTY = 'empty',
   SELECTED_POSTFIX = '-black',
@@ -74,6 +75,7 @@ export const ICONS_MATCHER = {
   [MAP_PINS.WALKING_ROUTES]: 'strokeFootprint' as IconsNames,
   [MAP_PINS.EXCURSION_PIN]: 'strokeFlag' as IconsNames,
   [MAP_PINS.OBJECT]: 'strokeForest' as IconsNames,
+  [MAP_PINS.WATER_ROUTE]: 'strokeWaterRoute' as IconsNames,
 };
 
 export const DARK_ICONS_MATCHER = {
@@ -82,6 +84,7 @@ export const DARK_ICONS_MATCHER = {
   [MAP_PINS.WALKING_ROUTES]: 'strokeFootprintDark' as IconsNames,
   [MAP_PINS.EXCURSION_PIN]: 'strokeFlagDark' as IconsNames,
   [MAP_PINS.OBJECT]: 'strokeForestDark' as IconsNames,
+  [MAP_PINS.WATER_ROUTE]: 'strokeWaterRouteDark' as IconsNames,
 };
 
 export const DEVELOP_APP_VERSION = 3;

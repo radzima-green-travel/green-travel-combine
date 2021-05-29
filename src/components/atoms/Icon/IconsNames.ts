@@ -33,4 +33,7 @@ export type IconsNames =
   | 'strokeFootprint'
   | 'strokeFootprintDark'
   | 'strokeForest'
-  | 'strokeForestDark';
+  | 'strokeForestDark'
+  | 'strokeWaterRoute'
+  | 'strokeWaterRouteDark'
+  | 'wave';

@@ -10,7 +10,6 @@ import Animated from 'react-native-reanimated';
 import {ClusterMap, ClusterMapShape} from 'atoms';
 import {
   selectMapMarkers,
-  selectBounds,
   selectSelectedMapMarker,
   createMarkerFromObject,
   selectMapFilters,
@@ -49,16 +48,30 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 import {featureCollection} from '@turf/helpers';
+import {mapService} from 'services/MapService';
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
   const sheme = useColorScheme();
   const mapFilters = useSelector(selectMapFilters);
   const selected = useSelector(selectSelectedMapMarker);
   const markers = useSelector(selectMapMarkers);
-  const bounds = useSelector(selectBounds);
+
   const selectedFilters = useSelector(selectSelectedFilters);
   const {getObject} = useTransformedData();
   const [clusterMarkers, setClusterMarkers] = useState(featureCollection([]));
+  const {top} = useSafeAreaInsets();
+
+  const bounds = useMemo(() => {
+    if (markers) {
+      return mapService.getBoundsFromGeoJSON(markers, {
+        bottom: 70,
+        top: top + 20,
+      });
+    }
+
+    return null;
+  }, [markers, top]);
+
   useEffect(() => {
     if (markers) {
       setTimeout(() => {

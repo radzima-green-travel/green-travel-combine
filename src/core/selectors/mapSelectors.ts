@@ -9,14 +9,7 @@ import {
   LineString,
 } from '@turf/helpers';
 import {MAP_PINS} from '../constants';
-import {
-  ICoordinates,
-  IObject,
-  IMapFilter,
-  IBounds,
-  ITransformedData,
-} from '../types';
-import bbox from '@turf/bbox';
+import {IObject, IMapFilter, ITransformedData} from '../types';
 import {IState} from 'core/store';
 import {selectTransformedData} from './homeSelectors';
 
@@ -128,24 +121,6 @@ export const createMarkerFromObject = (
     ]),
   );
 };
-
-export const selectBounds = createSelector<
-  IState,
-  FeatureCollection<Geometry, {icon_image: string; objectId: string}>,
-  IMapFilter[],
-  IBounds | null
->(selectMapMarkers, selectSelectedFilters, markers => {
-  if (isEmpty(markers.features)) {
-    return null;
-  }
-
-  const [minLng, minLat, maxLng, maxLat] = bbox(markers);
-
-  const southWest: ICoordinates = [minLng, minLat];
-  const northEast: ICoordinates = [maxLng, maxLat];
-
-  return [northEast, southWest, [30, 30, 30, 30], 200];
-});
 
 export const selectMapDirection = (state: IState) =>
   state.objectDetailsMap.direction;

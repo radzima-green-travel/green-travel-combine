@@ -33,3 +33,6 @@ export {default as strokeFootprint} from './strokeFootprint.svg';
 export {default as strokeFootprintDark} from './strokeFootprintDark.svg';
 export {default as strokeForest} from './strokeForest.svg';
 export {default as strokeForestDark} from './strokeForestDark.svg';
+export {default as strokeWaterRoute} from './strokeWaterRoute.svg';
+export {default as strokeWaterRouteDark} from './strokeWaterRouteDark.svg';
+export {default as wave} from './wave.svg';
