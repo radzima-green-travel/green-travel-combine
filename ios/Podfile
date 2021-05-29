@@ -9,7 +9,13 @@ target 'greenTravel' do
   # https://firebase.google.com/docs/ios/setup#available-pods
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Performance'
-  
+
+  plugin 'cocoapods-keys', {
+    :project => "greenTravel",
+    :keys => [
+      "MapAccessToken",
+    ]}
+
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
@@ -22,9 +28,9 @@ target 'greenTravel' do
     :hermes_enabled => true
   )
 
- 
 
-  
+
+
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
