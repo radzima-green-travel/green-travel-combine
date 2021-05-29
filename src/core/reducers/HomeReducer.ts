@@ -67,7 +67,7 @@ export const homeReducer = createReducer<
   }))
   .handleAction(getHomeDataUpdatesSuccess, (state, {payload: {data}}) => ({
     ...initialState,
-    data: data || state.data,
+    data: data || (state.data && [...state.data]),
   }))
 
   .handleAction(

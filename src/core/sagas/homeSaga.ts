@@ -44,16 +44,17 @@ export function* getHomeDataUpdatesSaga() {
 
       yield put(getHomeDataUpdatesSuccess({data: categories}));
     } else if (updatedData) {
-      yield delay(300);
+      yield delay(700);
 
       yield put(getHomeDataUpdatesSuccess({data: updatedData}));
     } else {
+      yield delay(700);
       yield put(getHomeDataUpdatesSuccess({data: null}));
     }
   } catch (e) {
     const updatedData = yield select(selectHomeUpdatedData);
     if (updatedData) {
-      yield delay(300);
+      yield delay(700);
 
       yield put(getHomeDataUpdatesSuccess({data: updatedData}));
     } else {

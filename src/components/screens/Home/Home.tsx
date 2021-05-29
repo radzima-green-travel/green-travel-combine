@@ -114,6 +114,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
         keyboardShouldPersistTaps="handled"
         refreshControl={
           <RefreshControl
+            style={{padding: 0}}
             tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
             colors={[theme === 'light' ? COLORS.forestGreen : COLORS.white]}
             refreshing={refreshing}

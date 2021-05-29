@@ -5,6 +5,6 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    paddingTop: 32,
+    paddingTop: 20,
   },
 });

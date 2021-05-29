@@ -2,8 +2,12 @@ import {AxiosResponse, AxiosRequestConfig} from 'axios';
 
 const etagsCache = new Map();
 
+const getCacheKey = (config: AxiosRequestConfig) =>
+  config.baseURL || '' + config.url || '';
+
 export const etagCachingRequestInterceptor = (request: AxiosRequestConfig) => {
-  const etag = etagsCache.get(request.url);
+  const cacheKey = getCacheKey(request);
+  const etag = etagsCache.get(cacheKey);
   if (etag) {
     request.headers['If-None-Match'] = etag;
   }
@@ -11,11 +15,12 @@ export const etagCachingRequestInterceptor = (request: AxiosRequestConfig) => {
   return request;
 };
 
-export const etagCachingRespnseInterceptor = (resp: AxiosResponse<any>) => {
-  const etag = resp.headers.etag;
+export const etagCachingRespnseInterceptor = (response: AxiosResponse<any>) => {
+  const etag = response.headers.etag;
   if (etag) {
-    etagsCache.set(resp.config.url, etag);
+    const cacheKey = getCacheKey(response.config);
+    etagsCache.set(cacheKey, etag);
   }
 
-  return resp;
+  return response;
 };
