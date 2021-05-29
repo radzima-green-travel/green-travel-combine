@@ -30,10 +30,17 @@
 #import "PlaceDetails.h"
 #import "CacheService.h"
 #import "MainViewController.h"
+#import "RoutesSheetController.h"
+#import <CoreLocation/CoreLocation.h>
+#import "Directions.h"
+#import "MapService.h"
 
 @interface ItemDetailsMapViewController ()
 
 @property (assign, nonatomic) BOOL loaded;
+@property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
+@property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
+@property (strong, nonatomic) MapService *mapService;
 
 @end
 
@@ -41,10 +48,12 @@ static NSString* const kSourceIdPoint = @"sourceIdPoint";
 static NSString* const kSourceIdPath = @"sourceIdPath";
 static NSString* const kSourceIdOutline = @"sourceIdOutline";
 static NSString* const kSourceIdPolygon = @"sourceIdPolygon";
+static NSString* const kSourceIdDirections = @"sourceIdDirections";
 static NSString* const kPolygonLayerId = @"polygonLayerId";
 static NSString* const kPathLayerId = @"pathLayerId";
 static NSString* const kOutlineLayerId = @"outlineLayerId";
 static NSString* const kPointLayerId = @"pointLayerId";
+static NSString* const kDirectionsLayerId = @"directionsLayerId";
 static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
@@ -147,7 +156,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                                                    options:nil];
 
   NSArray<NSArray<CLLocation *> *> *areaParts = mapItem.correspondingPlaceItem.details.area;
-  NSMutableArray<id<MGLAnnotation>> *vertices = [[NSMutableArray alloc] init];
+  self.annotations = [[NSMutableArray alloc] init];
   NSMutableArray<MGLPolygon *> *polygonParts = [[NSMutableArray alloc] init];
   NSMutableArray<MGLPolylineFeature *> *polygonOutlines = [[NSMutableArray alloc] init];
   if ([areaParts count]) {
@@ -163,7 +172,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     }];
     MGLMultiPolygonFeature *polygon = [MGLMultiPolygonFeature multiPolygonWithPolygons:polygonParts];
     
-    [vertices addObject:polygon];
+    [self.annotations addObject:polygon];
     
     sourcePolygon = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
                                                       features:@[polygon] options:nil];
@@ -179,7 +188,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     }];
 
     MGLPolylineFeature *polyline = [MGLPolylineFeature polylineWithCoordinates:coordinates count:[path count]];
-    [vertices addObject:polyline];
+    [self.annotations addObject:polyline];
 
     sourcePath = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPath
                                                    features:@[polyline] options:nil];
@@ -232,16 +241,38 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   };
 #pragma mark - Layers
 
-
-
-
 #pragma mark - Show point, path or polygon
-  if ([vertices count]) {
-    [self.mapView showAnnotations:vertices animated:YES];
+  if ([self.annotations count]) {
+    [self.mapView showAnnotations:self.annotations animated:YES];
   } else {
     [self.mapView setCenterCoordinate:point.coordinate zoomLevel:8.0 animated:YES];
   }
 }
+
+- (void)addDirectionsLayer:(MGLStyle *)style shape:(MGLShape *)shape {
+  if ([style layerWithIdentifier:kDirectionsLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:kDirectionsLayerId]];
+  }
+  if ([style sourceWithIdentifier:kSourceIdDirections] != nil) {
+    [style removeSource:[style sourceWithIdentifier:kSourceIdDirections]];
+  }
+  
+  MGLSource *sourceDirections = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdDirections
+                                                                     shape:shape options:nil];
+  [style addSource:sourceDirections];
+  
+  MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:kDirectionsLayerId
+                                                                          source:sourceDirections];
+  dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+  dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
+  dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
+  dashedLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
+  dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@0, @1.5]];
+  
+  [style addLayer:dashedLayer];
+}
+
 
 - (MGLPolylineFeature *)polylineForPath:(NSArray<CLLocation *>*)path {
   MGLPolylineFeature *polyline;
@@ -286,11 +317,85 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
-  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onNavigatePress:^{
-    NSURL *geoURL = [NSURL URLWithString:@"geo:53.9006,27.5590"];
-    [[UIApplication sharedApplication] openURL:geoURL options:@{} completionHandler:^(BOOL success) {}];
-  } onBookmarkPress:^(BOOL bookmarked) {
+  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel
+         onNavigatePress:^{
+    if (weakSelf.locationModel.locationEnabled &&
+        weakSelf.locationModel.lastLocation &&
+        CLLocationCoordinate2DIsValid(weakSelf.locationModel.lastLocation.coordinate)) {
+      [weakSelf showRoutesSheet];
+      return;
+    }
+    [weakSelf.locationModel authorize];
+    [weakSelf.locationModel startMonitoring];
+    weakSelf.intentionToShowRoutesSheet = YES;
+  }
+  onBookmarkPress:^(BOOL bookmarked) {
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
+  }];
+}
+
+- (void)showRoutesSheet {
+  PlaceItem *item = self.mapItem.correspondingPlaceItem;
+  Directions *directions = [[Directions alloc] init];
+  directions.from = self.locationModel.lastLocation.coordinate;
+  directions.to = item.coords;
+  directions.title = item.title;
+  __weak typeof(self) weakSelf = self;
+  [[RoutesSheetController get] show:directions
+                          presenter:^(UIAlertController * _Nonnull alert) {
+    [weakSelf presentViewController:alert animated:YES completion:^{}];
+  }];
+}
+
+- (void)onLocationUpdate:(CLLocation *)lastLocation {
+  if (self.intentionToShowRoutesSheet) {
+    [self showRoutesSheet];
+    self.intentionToShowRoutesSheet = NO;
+    return;
+  }
+  if (self.intentionToFocusOnUserLocation) {
+    [self showDirections];
+    self.intentionToFocusOnUserLocation = NO;
+  }
+}
+
+#pragma mark - Event listeners
+
+- (void)onLocateMePress:(id)sender {
+  self.intentionToFocusOnUserLocation = YES;
+  [self.locationModel authorize];
+  [self.locationModel startMonitoring];
+  
+  if (self.locationModel.locationEnabled &&
+      self.locationModel.lastLocation &&
+      CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate)) {
+    [self showDirections];
+  }
+}
+
+- (void)showDirections {
+  [self.mapView setShowsUserLocation:YES];
+  [self.mapView setShowsHeading:YES];
+  
+  MGLPointFeature *location = [[MGLPointFeature alloc] init];
+  location.coordinate = self.locationModel.lastLocation.coordinate;
+  NSArray<id<MGLAnnotation>> *annotations = @[location];
+  annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
+  [self.mapView showAnnotations:annotations animated:YES];
+  
+  if (!self.mapService) {
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    self.mapService = [[MapService alloc] initWithSession:session];
+  }
+  __weak typeof(self) weakSelf = self;
+  [self.mapService loadDirectionsWithCompletionFrom:location.coordinate
+                                                 to:self.mapItem.coords
+                                         completion:^(NSArray<CLLocation *> * _Nonnull locations) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      MGLPolyline *polyline = [weakSelf polylineForPath:locations];
+      [weakSelf addDirectionsLayer:weakSelf.mapView.style shape:polyline];
+    });
   }];
 }
 

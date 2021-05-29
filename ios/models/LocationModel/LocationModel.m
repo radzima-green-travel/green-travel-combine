@@ -12,8 +12,6 @@
 
 @interface LocationModel ()
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
-
 @end
 
 
@@ -56,6 +54,7 @@
 
 - (void)startMonitoring {
     [self.locationManager startMonitoringSignificantLocationChanges];
+
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
