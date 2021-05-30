@@ -23,11 +23,13 @@
 #import "Typography.h"
 #import "UserDefaultsService.h"
 #import "BottomSheetView.h"
+#import "MapService.h"
 
 @interface MainViewController ()
 
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
+@property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSURLSession *session;
 @property (strong, nonatomic) UIViewController *previousViewController;
@@ -50,6 +52,7 @@
     UserDefaultsService *userDefaultsService = [UserDefaultsService get];
     self.session = [NSURLSession sessionWithConfiguration:configuration];
     self.apiService = [[ApiService alloc] initWithSession:self.session];
+    self.mapService = [[MapService alloc] initWithSession:self.session];
     self.coreDataService = [[CoreDataService alloc] init];
     self.indexModel = [[IndexModel alloc] initWithApiService:self.apiService
                                              coreDataService:self.coreDataService
@@ -66,7 +69,7 @@
 
 #pragma mark - IndexViewController
 
-    IndexViewController *indexController = [[IndexViewController alloc]   initWithApiService:self.apiService model:self.indexModel searchModel:searchModel locationModel:locationModel mapModel:mapModel detailsModel:detailsModel coreDataService:self.coreDataService];
+    IndexViewController *indexController = [[IndexViewController alloc] initWithApiService:self.apiService model:self.indexModel searchModel:searchModel locationModel:locationModel mapModel:mapModel  detailsModel:detailsModel coreDataService:self.coreDataService mapService:self.mapService];
     indexController.title = @"Главная";
     UINavigationController *indexViewControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:indexController];
     UIImage *indexImage;
@@ -83,13 +86,15 @@
 
 #pragma mark - MapViewController
 
-    FullMapViewController *mapController = [[FullMapViewController alloc] initWithMapModel:mapModel
-                                                                     locationModel:locationModel
-                                                                        indexModel:self.indexModel
-                                                                       searchModel:searchModel
-                                                                        apiService:self.apiService
-                                                                   coreDataService:self.coreDataService
-                                                                           mapItem:nil];
+  FullMapViewController *mapController =
+  [[FullMapViewController alloc] initWithMapModel:mapModel
+                                    locationModel:locationModel
+                                       indexModel:self.indexModel
+                                      searchModel:searchModel
+                                       apiService:self.apiService
+                                  coreDataService:self.coreDataService
+                                       mapService:self.mapService
+                                          mapItem:nil];
     mapController.title = @"Карта";
     UINavigationController *mapControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:mapController];
     UIImage *mapImage;
@@ -110,6 +115,7 @@
                                         indexModel:self.indexModel
                                         apiService:self.apiService
                                    coreDataService:self.coreDataService
+                                        mapService:self.mapService
                                           mapModel:mapModel
                                        searchModel:searchModel
                                      locationModel:locationModel];

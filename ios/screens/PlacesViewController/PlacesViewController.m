@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSMutableArray<PlaceItem *> *bookmarkedItems;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
+@property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) LocationModel *locationModel;
 @property (strong, nonatomic) SearchModel *searchModel;
@@ -40,6 +41,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
                         apiService:(ApiService *)apiService
                         coreDataService:(CoreDataService *)coreDataService
+                   mapService:(MapService *)mapService
                           mapModel:(MapModel *)mapModel
                      locationModel:(LocationModel *)locationModel
                      searchModel:(SearchModel *)searchModel
@@ -59,22 +61,23 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
         _locationModel = locationModel;
         _searchModel = searchModel;
         _allowedItemUUIDs = allowedItemUUIDs;
+        _mapService = mapService;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     self.collectionView.backgroundColor = [Colors get].white;
     // Register cell classes
     [self.collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:kPhotoCellId];
     self.collectionView.alwaysBounceVertical = YES;
-    
+
     self.title = self.category.title;
-    
+
     if (!self.bookmarked) {
         [self.collectionView reloadData];
     }
@@ -143,7 +146,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellId forIndexPath:indexPath];
-    
+
     if ([self.category.categories count] > 0) {
         [cell updateCategory:self.category.categories[indexPath.row]];
     } else if (self.bookmarked) {
@@ -153,7 +156,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
     } else {
         [cell updateItem:self.category.items[indexPath.row]];
     }
-    
+
     return cell;
 }
 
@@ -176,11 +179,12 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Did select item at index path: %@", indexPath);
     if ([self.category.categories count] > 0) {
         Category *category = self.category.categories[indexPath.row];
-        
+
         PlacesViewController *placesViewController =
         [[PlacesViewController alloc] initWithIndexModel:self.indexModel
                                               apiService:self.apiService
                                          coreDataService:self.coreDataService
+                                         mapService:self.mapService
                                                 mapModel:self.mapModel
                                            locationModel:self.locationModel
                                              searchModel:self.searchModel
@@ -188,7 +192,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                                         allowedItemUUIDs:nil];
         placesViewController.category = category;
         [self.navigationController pushViewController:placesViewController animated:YES];
-        
+
         return;
     }
     PlaceItem *item;
@@ -202,6 +206,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DetailsViewController *detailsController =
     [[DetailsViewController alloc] initWithApiService:self.apiService
                                       coreDataService:self.coreDataService
+                                           mapService:self.mapService
                                            indexModel:self.indexModel
                                              mapModel:self.mapModel
                                         locationModel:self.locationModel
@@ -235,7 +240,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     } else {
         foundIndex = [self.category.items indexOfObjectPassingTest:indexOfObjectPassingTest];
     }
-    
+
     if (foundIndex == NSNotFound) {
         return;
     }
@@ -253,7 +258,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         } completion:^(BOOL finished) {
         }];
     }
-    
+
     if (self.viewIfLoaded.window != nil && [self.bookmarkedItems count] == 0) {
         [self.navigationController popViewControllerAnimated:YES];
     }

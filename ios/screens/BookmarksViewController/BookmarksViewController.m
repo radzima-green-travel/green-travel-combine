@@ -22,6 +22,7 @@
 @property (strong, nonatomic) BookmarksGroupModel *model;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
+@property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) LocationModel *locationModel;
 @property (strong, nonatomic) SearchModel *searchModel;
@@ -45,6 +46,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
                    indexModel:(IndexModel *)indexModel
                    apiService:(ApiService *)apiService
               coreDataService:(CoreDataService *)coreDataService
+                   mapService:(MapService *)mapService
                      mapModel:(MapModel *)mapModel
                   searchModel:(SearchModel *)searchModel
                 locationModel:(LocationModel *)locationModel
@@ -61,6 +63,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
         _mapModel = mapModel;
         _searchModel = searchModel;
         _locationModel = locationModel;
+        _mapService = mapService;
     }
     return self;
 }
@@ -257,6 +260,7 @@ static const CGFloat kInsetVertical = 24.0;
     [[PlacesViewController alloc] initWithIndexModel:self.indexModel 
                                           apiService:self.apiService
                                      coreDataService:self.coreDataService
+                                     mapService:self.mapService
                                             mapModel:self.mapModel
                                        locationModel:self.locationModel
                                          searchModel:self.searchModel

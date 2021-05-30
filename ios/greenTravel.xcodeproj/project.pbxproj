@@ -788,9 +788,9 @@
 		5A775D9026077A7C00CEFC78 /* BookmarksViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5A775D9526077A7C00CEFC78 /* BookmarksViewController.h */,
 				5A775D9126077A7C00CEFC78 /* BookmarksViewController.m */,
 				5A775D9226077A7C00CEFC78 /* BookmarkCell */,
-				5A775D9526077A7C00CEFC78 /* BookmarksViewController.h */,
 			);
 			path = BookmarksViewController;
 			sourceTree = "<group>";
@@ -810,9 +810,9 @@
 				5A775D9726077A7C00CEFC78 /* NewDataButton */,
 				5A775D9A26077A7C00CEFC78 /* IndexViewControllerConstants.h */,
 				5A775D9B26077A7C00CEFC78 /* IndexViewController.h */,
+				5A775DA826077A7C00CEFC78 /* IndexViewController.m */,
 				5A775D9C26077A7C00CEFC78 /* PlacesTableViewCell */,
 				5A775DA726077A7C00CEFC78 /* IndexViewControllerConstants.m */,
-				5A775DA826077A7C00CEFC78 /* IndexViewController.m */,
 			);
 			path = IndexViewController;
 			sourceTree = "<group>";

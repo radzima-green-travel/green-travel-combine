@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DetailsModel;
 @class CategoriesFilterView;
 @class BottomSheetView;
+@class MapService;
 
 @interface BaseMapViewController : UIViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver>
 
@@ -33,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) SearchModel *searchModel;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
+@property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) UIButton *locationButton;
 @property (strong, nonatomic) UIButton *searchButton;
 @property (strong, nonatomic) MGLMapView *mapView;
@@ -50,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
                      searchModel:(SearchModel *)searchModel
                       apiService:(ApiService *)apiService
                  coreDataService:(CoreDataService *)coreDataService
+                      mapService:(MapService *)mapService
                          mapItem:(nullable MapItem *)mapItem;
 - (void)showPopupWithItem:(PlaceItem *)item;
 - (void)hidePopup;

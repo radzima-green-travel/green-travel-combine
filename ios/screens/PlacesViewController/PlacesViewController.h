@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class LocationModel;
 @class IndexModel;
 @class SearchModel;
+@class MapService;
 
 @interface PlacesViewController : UICollectionViewController<BookmarksObserver>
 
@@ -27,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
                         apiService:(ApiService *)apiService
                    coreDataService:(CoreDataService *)coreDataService
+                   mapService:(MapService *)mapService
                           mapModel:(MapModel *)mapModel
                      locationModel:(LocationModel *)locationModel
                        searchModel:(SearchModel *)searchModel

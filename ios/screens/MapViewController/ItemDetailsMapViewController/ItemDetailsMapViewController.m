@@ -39,8 +39,7 @@
 
 @property (assign, nonatomic) BOOL loaded;
 @property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
-@property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
-@property (strong, nonatomic) MapService *mapService;
+@property (assign, nonatomic) BOOL intentionToShowRoutesSheet; 
 
 @end
 
@@ -382,12 +381,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   NSArray<id<MGLAnnotation>> *annotations = @[location];
   annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
   [self.mapView showAnnotations:annotations animated:YES];
-  
-  if (!self.mapService) {
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    self.mapService = [[MapService alloc] initWithSession:session];
-  }
   __weak typeof(self) weakSelf = self;
   [self.mapService loadDirectionsWithCompletionFrom:location.coordinate
                                                  to:self.mapItem.coords
