@@ -34,12 +34,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Directions.h"
 #import "MapService.h"
+#import "AlertUtils.h"
 
 @interface ItemDetailsMapViewController ()
 
 @property (assign, nonatomic) BOOL loaded;
 @property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
-@property (assign, nonatomic) BOOL intentionToShowRoutesSheet; 
+@property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
 
 @end
 
@@ -318,7 +319,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   __weak typeof(self) weakSelf = self;
   [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel
          onNavigatePress:^{
-    if (weakSelf.locationModel.locationEnabled &&
+    if (weakSelf.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {
+      showAlertGoToSettings(self);
+      return;
+    }
+    if (weakSelf.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
         weakSelf.locationModel.lastLocation &&
         CLLocationCoordinate2DIsValid(weakSelf.locationModel.lastLocation.coordinate)) {
       [weakSelf showRoutesSheet];
@@ -328,7 +333,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [weakSelf.locationModel startMonitoring];
     weakSelf.intentionToShowRoutesSheet = YES;
   }
-  onBookmarkPress:^(BOOL bookmarked) {
+         onBookmarkPress:^(BOOL bookmarked) {
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
   }];
 }
@@ -365,10 +370,14 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self.locationModel authorize];
   [self.locationModel startMonitoring];
   
-  if (self.locationModel.locationEnabled &&
+  if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
       self.locationModel.lastLocation &&
       CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate)) {
     [self showDirections];
+    return;
+  }
+  if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {
+    showAlertGoToSettings(self);
   }
 }
 

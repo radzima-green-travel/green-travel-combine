@@ -13,6 +13,7 @@
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
+		5A21445C2663E9A700582901 /* AlertUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21445B2663E9A700582901 /* AlertUtils.m */; };
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FB2655B1D500A2D37B /* StoredCoordinateCollection+CoreDataProperties.m */; };
 		5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */; };
@@ -153,6 +154,8 @@
 		5A105FEA265FD99100511256 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
 		5A105FEF266001AB00511256 /* MapService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapService.h; sourceTree = "<group>"; };
 		5A105FF0266001AB00511256 /* MapService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapService.m; sourceTree = "<group>"; };
+		5A21445A2663E9A700582901 /* AlertUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertUtils.h; sourceTree = "<group>"; };
+		5A21445B2663E9A700582901 /* AlertUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertUtils.m; sourceTree = "<group>"; };
 		5A246AC826429689003C6E5B /* BookmarkButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButton.h; sourceTree = "<group>"; };
 		5A246AC926429689003C6E5B /* BookmarkButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkButton.m; sourceTree = "<group>"; };
 		5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoredCoordinateCollection+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -770,6 +773,8 @@
 				5A775B1726064C9000CEFC78 /* Colors.m */,
 				5A775B1826064C9000CEFC78 /* TextUtils.h */,
 				5A775B1926064C9000CEFC78 /* StyleUtils.m */,
+				5A21445A2663E9A700582901 /* AlertUtils.h */,
+				5A21445B2663E9A700582901 /* AlertUtils.m */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -1415,6 +1420,7 @@
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
+				5A21445C2663E9A700582901 /* AlertUtils.m in Sources */,
 				5A6DC5062655B1DA00A2D37B /* StoredPlaceDetails+CoreDataProperties.m in Sources */,
 				5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */,
 				5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */,

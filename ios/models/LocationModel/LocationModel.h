@@ -24,7 +24,6 @@ typedef NS_ENUM(NSInteger, LocationModelLocationStatus) {
 @interface LocationModel : NSObject <LocationObservable, CLLocationManagerDelegate, MGLLocationManager>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (assign, nonatomic) BOOL locationEnabled;
 @property (assign, nonatomic) LocationModelLocationStatus locationMonitoringStatus;
 @property (strong, nonatomic) NSMutableArray<id<LocationObserver>> *locationObservers;
 @property (strong, nonatomic, nullable) CLLocation *lastLocation;

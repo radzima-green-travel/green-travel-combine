@@ -29,6 +29,7 @@
 #import "DetailsViewController.h"
 #import "MainViewController.h"
 #import "MapService.h"
+#import "AlertUtils.h"
 
 @interface BaseMapViewController ()
 
@@ -151,11 +152,11 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
 }
 
 - (void)onAuthorizationStatusChange:(CLAuthorizationStatus)status {
-    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
-        if (self.locationModel.locationEnabled) {
-            [self.locationModel startMonitoring];
-        }
+  if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+    if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted) {
+      [self.locationModel startMonitoring];
     }
+  }
 }
 
 #pragma mark - Location model
@@ -176,10 +177,14 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
   [self.locationModel authorize];
   [self.locationModel startMonitoring];
   
-  if (self.locationModel.locationEnabled && self.locationModel.lastLocation) {
+  if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted && self.locationModel.lastLocation) {
     [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
     [self.mapView setShowsUserLocation:YES];
     [self.mapView setShowsHeading:YES];
+    return;
+  }
+  if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {
+    showAlertGoToSettings(self);
   }
 }
 

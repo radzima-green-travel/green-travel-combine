@@ -58,12 +58,16 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
-        self.locationEnabled = YES;
-        [self.locationObservers enumerateObjectsUsingBlock:^(id<LocationObserver>  _Nonnull observer, NSUInteger idx, BOOL * _Nonnull stop) {
-            [observer onAuthorizationStatusChange:status];
-        }];
-    }
+  if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+    self.locationMonitoringStatus = LocationModelLocationStatusGranted;
+    [self.locationObservers enumerateObjectsUsingBlock:^(id<LocationObserver>  _Nonnull observer, NSUInteger idx, BOOL * _Nonnull stop) {
+      [observer onAuthorizationStatusChange:status];
+    }];
+    return;
+  }
+  if (status == kCLAuthorizationStatusDenied) {
+    self.locationMonitoringStatus = LocationModelLocationStatusDenied;
+  }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
