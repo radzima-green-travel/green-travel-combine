@@ -19,11 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 @class LocationModel;
 @class IndexModel;
 @class SearchModel;
+@class MapService;
 
 @interface DetailsViewController : UIViewController <BookmarksObserver, CategoriesObserver>
 
 - (instancetype)initWithApiService:(ApiService *)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService
+                   mapService:(nonnull MapService *)mapService
                         indexModel:(IndexModel *)indexModel
                           mapModel:(MapModel *)mapModel
                      locationModel:(LocationModel *)locationModel

@@ -28,6 +28,7 @@
 #import "BottomSheetView.h"
 #import "DetailsViewController.h"
 #import "MainViewController.h"
+#import "MapService.h"
 
 @interface BaseMapViewController ()
 
@@ -38,7 +39,7 @@ static NSString* const kClusterLayerId = @"clusterLayerId";
 static NSString* const kMarkerLayerId = @"markerLayerId";
 static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h";
 
-@implementation BaseMapViewController
+@implementation BaseMapViewController 
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel
@@ -46,18 +47,20 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
                      searchModel:(SearchModel *)searchModel
                       apiService:(ApiService *)apiService
                  coreDataService:(CoreDataService *)coreDataService
+                      mapService:(MapService *)mapService
                          mapItem:(nullable MapItem *)mapItem {
-    self = [super init];
-    if (self) {
-        _mapModel = mapModel;
-        _locationModel = locationModel;
-        _mapItem = mapItem;
-        _indexModel = indexModel;
-        _searchModel = searchModel;
-        _apiService = apiService;
-        _coreDataService = coreDataService;
-    }
-    return self;
+  self = [super init];
+  if (self) {
+    _mapModel = mapModel;
+    _locationModel = locationModel;
+    _mapItem = mapItem;
+    _indexModel = indexModel;
+    _searchModel = searchModel;
+    _apiService = apiService;
+    _coreDataService = coreDataService;
+    _mapService = mapService;
+  }
+  return self;
 }
 
 #pragma mark - viewDidLoad

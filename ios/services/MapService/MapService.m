@@ -7,6 +7,7 @@
 
 #import "MapService.h"
 @import Mapbox;
+#import <Keys/GreenTravelKeys.h>
 
 @interface MapService()
 
@@ -31,7 +32,8 @@
                             from.latitude, from.longitude];
   NSString *destinationLatLng = [NSString stringWithFormat:@"%f,%f",
                                  to.latitude, to.longitude];
-  NSString *mapToken = @"";
+  GreenTravelKeys *keys = [[GreenTravelKeys alloc] init];
+  NSString *mapToken = keys.mapAccessToken;
   NSString *url = [NSString stringWithFormat:@"https://api.mapbox.com/directions/v5/mapbox/driving/%@;%@?access_token=%@&geometries=geojson", sourceLatLng, destinationLatLng, mapToken];
 
   NSURL *nsURL = [NSURL URLWithString:url];

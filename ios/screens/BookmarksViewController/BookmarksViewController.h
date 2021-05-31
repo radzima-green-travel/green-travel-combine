@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class LocationModel;
 @class SearchModel;
 @class CoreDataService;
+@class MapService;
 
 @interface BookmarksViewController : UIViewController<
 UICollectionViewDelegateFlowLayout, BookmarksGroupObserver,
@@ -28,6 +29,7 @@ UICollectionViewDataSource>
                    indexModel:(IndexModel *)indexModel
                    apiService:(ApiService *)apiService
               coreDataService:(CoreDataService *)coreDataService
+              mapService:(MapService *)mapService
                      mapModel:(MapModel *)mapModel
                   searchModel:(SearchModel *)searchModel
                 locationModel:(LocationModel *)locationModel;

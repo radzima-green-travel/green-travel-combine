@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MapModel;
 @class DetailsModel;
 @class CoreDataService;
+@class MapService;
 
 @interface IndexViewController : UIViewController<CategoriesObserver,
 BookmarksObserver, UITableViewDelegate, UITableViewDataSource>
@@ -29,7 +30,8 @@ BookmarksObserver, UITableViewDelegate, UITableViewDataSource>
                       locationModel:(LocationModel *)locationModel
                            mapModel:(MapModel *)mapModel
                        detailsModel:(DetailsModel *)detailsModel
-                    coreDataService:(CoreDataService *)coreDataService;
+                    coreDataService:(CoreDataService *)coreDataService
+                         mapService:(MapService *)mapService;
 - (void)scrollToTop;
 
 @end

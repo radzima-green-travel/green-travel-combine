@@ -313,6 +313,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     DetailsViewController *detailsController =
     [[DetailsViewController alloc] initWithApiService:weakSelf.apiService
                                       coreDataService:weakSelf.coreDataService
+                                           mapService:weakSelf.mapService
                                            indexModel:weakSelf.indexModel
                                              mapModel:weakSelf.mapModel
                                         locationModel:weakSelf.locationModel

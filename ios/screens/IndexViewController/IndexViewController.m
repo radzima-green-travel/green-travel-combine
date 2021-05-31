@@ -37,6 +37,7 @@
 @property (strong, nonatomic) LocationModel *locationModel;
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) CoreDataService *coreDataService;
+@property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *contentView;
@@ -64,6 +65,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                            mapModel:(MapModel *)mapModel
                        detailsModel:(DetailsModel *)detailsModel
                     coreDataService:(CoreDataService *)coreDataService
+                         mapService:(MapService *)mapService
 {
     self = [super init];
     _apiService = apiService;
@@ -73,6 +75,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
     _mapModel = mapModel;
     _detailsModel = detailsModel;
     _coreDataService = coreDataService;
+    _mapService = mapService;
     return self;
 }
 
@@ -258,6 +261,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
         DetailsViewController *detailsController =
         [[DetailsViewController alloc] initWithApiService:weakSelf.apiService
                                           coreDataService:weakSelf.coreDataService
+                                               mapService:weakSelf.mapService
                                                indexModel:weakSelf.model
                                                  mapModel:weakSelf.mapModel
                                             locationModel:weakSelf.locationModel
@@ -371,6 +375,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
             [[PlacesViewController alloc] initWithIndexModel:weakSelf.model
                                                   apiService:weakSelf.apiService
                                              coreDataService:weakSelf.coreDataService
+                                                  mapService:weakSelf.mapService
                                                     mapModel:weakSelf.mapModel
                                                locationModel:weakSelf.locationModel
                                                  searchModel:weakSelf.searchModel
@@ -387,6 +392,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                 [[PlacesViewController alloc] initWithIndexModel:weakSelf.model
                                                       apiService:weakSelf.apiService
                                                  coreDataService:weakSelf.coreDataService
+                                                      mapService:weakSelf.mapService
                                                         mapModel:weakSelf.mapModel
                                                    locationModel:weakSelf.locationModel
                                                      searchModel:weakSelf.searchModel
@@ -402,6 +408,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                 DetailsViewController *detailsController =
                 [[DetailsViewController alloc] initWithApiService:weakSelf.apiService
                                                   coreDataService:weakSelf.coreDataService
+                                                       mapService:weakSelf.mapService
                                                        indexModel:weakSelf.model
                                                          mapModel:weakSelf.mapModel
                                                     locationModel:weakSelf.locationModel
