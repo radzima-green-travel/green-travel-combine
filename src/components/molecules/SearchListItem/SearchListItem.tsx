@@ -1,8 +1,8 @@
 import React, {memo, useCallback} from 'react';
-import {View, Text, TouchableOpacity, useColorScheme} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {Icon} from 'atoms';
 import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
+import {useThemeStyles, useColorScheme} from 'core/hooks';
 import {IObject} from 'core/types';
 import {DARK_ICONS_MATCHER, ICONS_MATCHER} from 'core/constants';
 

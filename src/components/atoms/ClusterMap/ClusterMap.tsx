@@ -1,9 +1,10 @@
 import React, {memo, useRef, forwardRef, useCallback, useMemo} from 'react';
-import {View, PixelRatio, useColorScheme} from 'react-native';
+import {View, PixelRatio} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {Props} from './types';
 import {styles} from './styles';
 import {isIOS} from 'services/PlatformService';
+import {useColorScheme} from 'core/hooks';
 
 export const ClusterMap = memo(
   forwardRef<MapboxGL.Camera, Props>(

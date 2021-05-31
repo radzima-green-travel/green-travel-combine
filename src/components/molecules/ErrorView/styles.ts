@@ -19,6 +19,8 @@ export const themeStyles = {
   },
   text: {
     ...FONTS_STYLES.regular15,
+    textAlign: 'center',
+    paddingHorizontal: PADDING_HORIZONTAL,
     color: {
       light: COLORS.boulder,
       dark: COLORS.altoForDark,

@@ -1,5 +1,5 @@
 import {COLORS} from 'assets';
-import {useThemeStyles} from 'core/hooks';
+import {useThemeStyles, useColorScheme} from 'core/hooks';
 import React, {useCallback, memo} from 'react';
 
 import {
@@ -9,7 +9,6 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
-  useColorScheme,
 } from 'react-native';
 import {Icon} from '../Icon';
 

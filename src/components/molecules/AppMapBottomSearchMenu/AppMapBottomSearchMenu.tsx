@@ -7,10 +7,10 @@ import React, {
   useCallback,
 } from 'react';
 import BottomSheet from 'reanimated-bottom-sheet';
-import {Keyboard, Pressable, useColorScheme, View} from 'react-native';
+import {Keyboard, Pressable, View} from 'react-native';
 import {themeStyles} from './styles';
 
-import {useThemeStyles, useTask} from 'core/hooks';
+import {useThemeStyles, useTask, useColorScheme} from 'core/hooks';
 import {IObject} from 'core/types';
 import {SearchList} from 'organisms';
 import {HeaderSearchbar, Icon} from 'atoms';
