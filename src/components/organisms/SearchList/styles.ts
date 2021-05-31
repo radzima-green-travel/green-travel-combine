@@ -10,6 +10,10 @@ export const themeStyles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  emptyListContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   emtyListText: {
     ...FONTS_STYLES.regular15,
     color: {

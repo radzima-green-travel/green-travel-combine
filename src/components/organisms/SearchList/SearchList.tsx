@@ -1,5 +1,11 @@
 import React, {memo} from 'react';
-import {Keyboard, View, Text, FlatList} from 'react-native';
+import {
+  Keyboard,
+  View,
+  Text,
+  FlatList,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {SearchListItem} from 'molecules';
 import {Icon} from 'atoms';
 import {COLORS} from 'assets';
@@ -35,10 +41,14 @@ export const SearchList = memo(
         }}
       />
     ) : (
-      <View style={styles.emptyListContainer}>
-        <Icon name="search" color={COLORS.silver} height={48} width={48} />
-        <Text style={styles.emtyListText}>{t('notFound')}</Text>
-      </View>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={styles.emptyListContainer}>
+        <View style={styles.emptyListContent}>
+          <Icon name="search" color={COLORS.silver} height={48} width={48} />
+          <Text style={styles.emtyListText}>{t('notFound')}</Text>
+        </View>
+      </KeyboardAvoidingView>
     );
   },
 );
