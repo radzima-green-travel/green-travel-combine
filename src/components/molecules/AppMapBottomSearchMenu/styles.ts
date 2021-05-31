@@ -36,6 +36,9 @@ export const themeStyles = {
     paddingHorizontal: 16,
     marginBottom: 10,
   },
+  searchListConttainer: {
+    flex: 1,
+  },
   icon: {
     color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
   },

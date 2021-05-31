@@ -1,12 +1,20 @@
 import {COLORS, FONTS_STYLES} from 'assets';
+import {StyleSheet} from 'react-native';
 
 export const themeStyles = {
+  listContainer: {
+    flex: 1,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.background,
+    },
+  },
   contentContainer: {
     paddingTop: 32,
     paddingLeft: 16,
   },
   emptyListContainer: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
   },

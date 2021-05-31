@@ -100,11 +100,13 @@ export const AppMapBottomSearchMenu = memo(
                 }
               />
             </View>
-            <SearchList
-              onItemPress={onItemPressHandler}
-              isHistoryVisible={isHistoryVisible}
-              data={data}
-            />
+            <View style={styles.searchListConttainer}>
+              <SearchList
+                onItemPress={onItemPressHandler}
+                isHistoryVisible={isHistoryVisible}
+                data={data}
+              />
+            </View>
           </View>
         );
       };

@@ -24,31 +24,36 @@ export const SearchList = memo(
     const {t} = useTranslation('search');
 
     const styles = useThemeStyles(themeStyles);
-    return data.length ? (
-      <FlatList
-        keyboardDismissMode="on-drag"
-        contentContainerStyle={styles.contentContainer}
-        onScrollBeginDrag={Keyboard.dismiss}
-        keyExtractor={item => item.id}
-        data={data}
-        ListHeaderComponent={() =>
-          isHistoryVisible ? (
-            <Text style={styles.listTitle}>{t('searchTitle')}</Text>
-          ) : null
-        }
-        renderItem={({item}) => {
-          return <SearchListItem onPress={onItemPress} data={item} />;
-        }}
-      />
-    ) : (
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={styles.emptyListContainer}>
-        <View style={styles.emptyListContent}>
-          <Icon name="search" color={COLORS.silver} height={48} width={48} />
-          <Text style={styles.emtyListText}>{t('notFound')}</Text>
-        </View>
-      </KeyboardAvoidingView>
+    return (
+      <>
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={styles.emptyListContainer}>
+          <View style={styles.emptyListContent}>
+            <Icon name="search" color={COLORS.silver} height={48} width={48} />
+            <Text style={styles.emtyListText}>{t('notFound')}</Text>
+          </View>
+        </KeyboardAvoidingView>
+
+        {data.length ? (
+          <FlatList
+            style={styles.listContainer}
+            keyboardDismissMode="on-drag"
+            contentContainerStyle={styles.contentContainer}
+            onScrollBeginDrag={Keyboard.dismiss}
+            keyExtractor={item => item.id}
+            data={data}
+            ListHeaderComponent={() =>
+              isHistoryVisible ? (
+                <Text style={styles.listTitle}>{t('searchTitle')}</Text>
+              ) : null
+            }
+            renderItem={({item}) => {
+              return <SearchListItem onPress={onItemPress} data={item} />;
+            }}
+          />
+        ) : null}
+      </>
     );
   },
 );
