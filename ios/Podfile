@@ -10,12 +10,6 @@ target 'greenTravel' do
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Performance'
 
-  plugin 'cocoapods-keys', {
-    :project => "greenTravel",
-    :keys => [
-      "MapAccessToken",
-    ]}
-
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
