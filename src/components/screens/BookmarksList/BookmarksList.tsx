@@ -8,6 +8,8 @@ import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useBookmarksObjects} from 'core/hooks';
 import {IObject} from 'core/types';
+import {useMemo} from 'react';
+import {orderBy} from 'lodash';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
@@ -21,6 +23,12 @@ export const BookmarksList = ({
 
   const listData = useBookmarksObjects(categoryId);
 
+  const sortedListData = useMemo(() => {
+    return listData
+      ? orderBy(listData, [({name}) => name.toLowerCase()], 'asc')
+      : null;
+  }, [listData]);
+
   useLayoutEffect(() => {
     setOptions({
       title: title,
@@ -28,10 +36,10 @@ export const BookmarksList = ({
   }, [setOptions, title]);
 
   const onLastObjectRemoveAnimationEnd = useCallback(() => {
-    if (listData?.length === 1) {
+    if (sortedListData?.length === 1) {
       goBack();
     }
-  }, [goBack, listData]);
+  }, [goBack, sortedListData]);
 
   const navigateToObjectDetails = useCallback(
     ({id, category}: IObject) => {
@@ -42,7 +50,7 @@ export const BookmarksList = ({
 
   return (
     <FlatList
-      data={listData}
+      data={sortedListData}
       contentContainerStyle={styles.contentContainer}
       keyExtractor={item => item.id}
       renderItem={({item}) => (
