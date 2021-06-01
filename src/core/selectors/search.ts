@@ -46,8 +46,14 @@ export const selectSearchResults = createSelector<
   (transformedData, inputValue) => {
     return transformedData
       ? orderBy(
-          filter(Object.values(transformedData.objectsMap), object =>
-            object.name.toLowerCase().includes(inputValue.toLowerCase()),
+          filter(
+            Object.values(transformedData.objectsMap),
+            object =>
+              object.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+              (Boolean(object.address) &&
+                object.address
+                  .toLowerCase()
+                  .includes(inputValue.toLowerCase())),
           ),
           [({name}) => name.toLowerCase()],
           'asc',
