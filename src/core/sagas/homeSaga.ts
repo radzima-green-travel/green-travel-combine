@@ -7,11 +7,11 @@ import {
   delay,
 } from 'redux-saga/effects';
 import {
+  getInitialHomeDataRequest,
   getInitialHomeDataSuccess,
   getInitialHomeDataFailure,
   getHomeDataUpdateAvailableSuccess,
   getHomeDataUpdateAvailableFailure,
-  getInitialHomeDataRequest,
   getHomeDataUpdatesRequest,
   getHomeDataUpdatesSuccess,
   getHomeDataUpdatesFailure,
@@ -20,6 +20,7 @@ import {ACTIONS} from '../constants';
 import {getCategories} from 'api/native';
 import {IGetHomeDataResponse} from '../types';
 import {selectIsHomeDataExists, selectHomeUpdatedData} from 'core/selectors';
+import {loadingSaga} from './loading';
 
 export function* getInitialHomeDataSaga() {
   try {
@@ -66,8 +67,18 @@ export function* getHomeDataUpdatesSaga() {
 export function* getHomeDataUpdateAvailableSaga() {
   try {
     const data: IGetHomeDataResponse = yield call(() => getCategories());
+    const updateDataLoading = yield call(
+      loadingSaga,
+      getHomeDataUpdatesRequest,
+    );
+    const getInitialDataLoading = yield call(
+      loadingSaga,
+      getInitialHomeDataRequest,
+    );
 
-    if (data) {
+    const loading = updateDataLoading || getInitialDataLoading;
+
+    if (data && !loading) {
       const {
         data: {listMobileObjects: categories},
       } = data;
