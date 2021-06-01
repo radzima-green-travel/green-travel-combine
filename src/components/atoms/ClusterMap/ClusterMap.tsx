@@ -71,7 +71,7 @@ export const ClusterMap = memo(
 
             const {features} = await map.current?.queryRenderedFeaturesAtPoint(
               [locX, locY],
-              null,
+              undefined,
               ['singlePoint', 'areaFill'],
             );
 

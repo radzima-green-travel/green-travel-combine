@@ -66,7 +66,6 @@ export function* getHomeDataUpdatesSaga() {
 
 export function* getHomeDataUpdateAvailableSaga() {
   try {
-    const data: IGetHomeDataResponse = yield call(() => getCategories());
     const updateDataLoading = yield call(
       loadingSaga,
       getHomeDataUpdatesRequest,
@@ -78,7 +77,11 @@ export function* getHomeDataUpdateAvailableSaga() {
 
     const loading = updateDataLoading || getInitialDataLoading;
 
-    if (data && !loading) {
+    const data: IGetHomeDataResponse = loading
+      ? null
+      : yield call(() => getCategories());
+
+    if (data) {
       const {
         data: {listMobileObjects: categories},
       } = data;
