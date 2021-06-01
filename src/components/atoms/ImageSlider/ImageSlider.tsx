@@ -23,15 +23,13 @@ export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
       data={images}
       initialNumToRender={2}
       maxToRenderPerBatch={2}
-      renderItem={({item, index}) => {
+      renderItem={({item}) => {
         return (
           <FastImage
             style={{width}}
             resizeMode={FastImage.resizeMode.cover}
             source={{
               uri: item,
-              priority:
-                index === 0 ? FastImage.priority.high : FastImage.priority.low,
             }}
           />
         );
