@@ -9,7 +9,7 @@ export const themeStyles = {
     borderRadius: 38,
     backgroundColor: {
       light: COLORS.white,
-      dark: COLORS.mirage,
+      dark: COLORS.oxfordBlue,
     },
     borderWidth: 1,
     borderColor: {

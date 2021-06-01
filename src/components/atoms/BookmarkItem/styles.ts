@@ -9,10 +9,13 @@ export const themeStyles = {
     shadowOffset: {width: 0, height: 5},
     shadowOpacity: {
       light: 0.2,
-      dark: 0.08,
+      dark: 0,
     },
     shadowRadius: 4,
-    elevation: 5,
+    elevation: {
+      light: 5,
+      dark: 0,
+    },
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: {
@@ -22,6 +25,14 @@ export const themeStyles = {
     borderRadius: 4,
     marginBottom: 16,
     paddingHorizontal: 10,
+    borderColor: {
+      light: 'transparent',
+      dark: COLORS.altoForDark,
+    },
+    borderWidth: {
+      light: 0,
+      dark: 1,
+    },
   },
   text: {
     ...FONTS_STYLES.semibold12,

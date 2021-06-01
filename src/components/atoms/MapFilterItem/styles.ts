@@ -1,4 +1,5 @@
 import {COLORS, FONTS_STYLES} from 'assets';
+import {hexWithAlpha} from 'core/helpers';
 
 export const themeStyles = {
   container: {
@@ -12,6 +13,11 @@ export const themeStyles = {
       dark: COLORS.oxfordBlue,
     },
     marginLeft: 16,
+    borderWidth: 1,
+    borderColor: {
+      light: COLORS.alto,
+      dark: hexWithAlpha(COLORS.altoForDark, 0.2),
+    },
   },
   selectedContainer: {
     backgroundColor: {
