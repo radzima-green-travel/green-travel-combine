@@ -122,6 +122,7 @@
        <activity
           android:name="com.zoontek.rnbootsplash.RNBootSplashActivity"
           android:theme="@style/BootTheme"
+          android:screenOrientation="portrait"
           android:launchMode="singleTask">
           <intent-filter>
             <action android:name="android.intent.action.MAIN" />
