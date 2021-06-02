@@ -78,6 +78,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [self renderMapItem:self.mapItem style:self.mapView.style];
     self.loaded = YES;
   }
+  [self.mapView setShowsUserLocation:self.locationMonitoringEnabled];
+  [self.mapView setShowsUserHeadingIndicator:self.locationMonitoringEnabled];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -91,6 +93,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [self.mapView removeGestureRecognizer:self.singleTap];
     [self.mapView removeFromSuperview];
   }
+  self.locationMonitoringEnabled = self.mapView.showsUserLocation;
 }
 
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
@@ -114,6 +117,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 - (void)renderMapItem:(MapItem *)mapItem
                 style:(MGLStyle *)style {
   [self.mapView removeAnnotations:self.mapView.annotations];
+  self.annotations = [[NSMutableArray alloc] init];
   MGLPointFeature *point = [[MGLPointFeature alloc] init];
   point.coordinate = mapItem.coords;
   point.title = mapItem.title;
@@ -123,6 +127,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     @"uuid": mapItem.correspondingPlaceItem.uuid,
     @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
   };
+  [self.annotations addObject:point];
 #pragma mark - Remove sources
   if ([style layerWithIdentifier:kPolygonLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:kPolygonLayerId]];
@@ -133,7 +138,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if ([style layerWithIdentifier:kPointLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:kPointLayerId]];
   }
-
+  if ([style layerWithIdentifier:kDirectionsLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:kDirectionsLayerId]];
+  }
+  
   if ([style sourceWithIdentifier:kSourceIdPoint] != nil) {
     [style removeSource:[style sourceWithIdentifier:kSourceIdPoint]];
   }
@@ -146,6 +154,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if ([style sourceWithIdentifier:kSourceIdOutline] != nil) {
     [style removeSource:[style sourceWithIdentifier:kSourceIdOutline]];
   }
+  if ([style sourceWithIdentifier:kSourceIdDirections] != nil) {
+    [style removeSource:[style sourceWithIdentifier:kSourceIdDirections]];
+  }
   MGLShapeSource *sourcePoint;
   MGLShapeSource *sourcePath;
   MGLShapeSource *sourcePolygon;
@@ -156,7 +167,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                                                    options:nil];
 
   NSArray<NSArray<CLLocation *> *> *areaParts = mapItem.correspondingPlaceItem.details.area;
-  self.annotations = [[NSMutableArray alloc] init];
   NSMutableArray<MGLPolygon *> *polygonParts = [[NSMutableArray alloc] init];
   NSMutableArray<MGLPolylineFeature *> *polygonOutlines = [[NSMutableArray alloc] init];
   if ([areaParts count]) {
@@ -245,7 +255,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if ([self.annotations count]) {
     [self.mapView showAnnotations:self.annotations animated:YES];
   } else {
-    [self.mapView setCenterCoordinate:point.coordinate zoomLevel:8.0 animated:YES];
+    [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate zoomLevel:8.0 animated:YES];
   }
 }
 
@@ -308,7 +318,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                   [feature isKindOfClass:[MGLMultiPolygonFeature class]] ||
                   [feature isKindOfClass:[MGLPolygonFeature class]] ||
                   [feature isKindOfClass:[MGLPolylineFeature class]])) {
-    [self.mapView showAnnotations:@[feature] animated:YES];
+    [self.mapView showAnnotations:self.annotations animated:YES];
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
     return;
   }

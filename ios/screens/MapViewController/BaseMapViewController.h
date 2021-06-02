@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIView *popup;
 @property (weak, nonatomic) BottomSheetView *bottomSheet;
 @property (strong, nonatomic) UITapGestureRecognizer *singleTap;
-@property (assign, nonatomic) BOOL *locationMonitoringEnabled;
+@property (assign, nonatomic) BOOL locationMonitoringEnabled;
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel
