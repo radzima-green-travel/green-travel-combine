@@ -28,12 +28,12 @@
                                       to:(CLLocationCoordinate2D)to
                               completion:(void (^)(NSArray<CLLocation *> *))completion {
   NSString *sourceLatLng = [NSString stringWithFormat:@"%f,%f",
-                            from.latitude, from.longitude];
+                            from.longitude, from.latitude];
   NSString *destinationLatLng = [NSString stringWithFormat:@"%f,%f",
-                                 to.latitude, to.longitude];
+                                 to.longitude, to.latitude];
   NSString *mapToken = @"pk.eyJ1IjoiZXBtLXNsciIsImEiOiJja2V2Z3RqdWYwem12MnFwN2EzYWQ2b2xtIn0.kpeAR4x3J-15NyvhjlZJnA";
   NSString *url = [NSString stringWithFormat:@"https://api.mapbox.com/directions/v5/mapbox/driving/%@;%@?access_token=%@&geometries=geojson", sourceLatLng, destinationLatLng, mapToken];
-
+  
   NSURL *nsURL = [NSURL URLWithString:url];
   
   NSURLSessionDataTask *getCategoriesTask =
@@ -56,7 +56,7 @@
     if (coordinates) {
       NSMutableArray *locations = [[NSMutableArray alloc] init];
       [coordinates enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [locations addObject:[[CLLocation alloc] initWithLatitude:[obj[0] doubleValue] longitude:[obj[1] doubleValue]]];
+        [locations addObject:[[CLLocation alloc] initWithLatitude:[obj[1] doubleValue] longitude:[obj[0] doubleValue]]];
       }];
       NSLog(@"Error: %@", error);
       completion(locations);
