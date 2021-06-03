@@ -44,6 +44,14 @@
       return;
     }
     NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    if (body[@"routes"] == [NSNull null]) {
+      completion(nil);
+      return;
+    }
+    if ([body[@"routes"] count] == 0) {
+      completion(nil);
+      return;
+    }
     NSArray<NSArray<NSNumber *>*> *coordinates = body[@"routes"][0][@"geometry"][@"coordinates"];
     if (coordinates) {
       NSMutableArray *locations = [[NSMutableArray alloc] init];
