@@ -21,4 +21,13 @@ export const themeStyles = {
       dark: COLORS.altoForDark,
     },
   },
+
+  link: {
+    ...FONTS_STYLES.regular15,
+    color: {
+      light: COLORS.cornflowerBlue,
+      dark: COLORS.cornflowerBlue,
+    },
+    textDecorationLine: 'underline',
+  },
 };

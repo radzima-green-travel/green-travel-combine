@@ -26,7 +26,7 @@ import {
 } from 'core/hooks';
 import {IProps} from './types';
 import {COLORS} from 'assets';
-import {useFocusEffect} from '@react-navigation/core';
+import {useFocusEffect, useIsFocused} from '@react-navigation/core';
 import {ErrorToast} from '../../molecules';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
@@ -36,6 +36,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   const homeData = useSelector(selectHomeData);
   const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
   const {ref, show: showToast} = useToast();
+  const isFocused = useIsFocused();
   const getData = useCallback(() => {
     dispatch(getHomeDataUpdatesRequest());
   }, [dispatch]);
@@ -116,7 +117,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
           <RefreshControl
             tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
             colors={[COLORS.forestGreen]}
-            refreshing={refreshing}
+            refreshing={refreshing && isFocused}
             onRefresh={getData}
           />
         }
