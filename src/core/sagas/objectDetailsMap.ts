@@ -16,10 +16,10 @@ export function* getDirectionSaga({
     const data = yield call(getDirections, payload);
     const lineStringGeoJSON: ReturnType<typeof makeLineString> = yield call(
       makeLineString,
-      data.routes[0].geometry.coordinates,
+      data.routes[0]?.geometry?.coordinates || [],
     );
 
-    const distance = data.routes[0].distance
+    const distance = data.routes[0]?.distance
       ? (data.routes[0].distance / 1000).toFixed(1)
       : null;
     yield put(

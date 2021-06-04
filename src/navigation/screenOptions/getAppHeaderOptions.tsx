@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {StyleSheet, ColorSchemeName} from 'react-native';
+import {StyleSheet, ColorSchemeName, View} from 'react-native';
 import {StackNavigationOptions} from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
 import {Icon} from 'atoms';
@@ -21,7 +21,11 @@ export const getAppHeaderOptions = ({
   cardStyle: {
     backgroundColor: colorScheme === 'light' ? COLORS.white : COLORS.background,
   },
-  headerBackImage: () => <Icon name="chevron" color="white" size={24} />,
+  headerBackImage: () => (
+    <View style={{paddingVertical: 5, paddingHorizontal: 8}}>
+      <Icon name="chevron" color="white" size={24} />
+    </View>
+  ),
   ...(colorScheme === 'light'
     ? {
         headerBackground: () => (

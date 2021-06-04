@@ -15,9 +15,9 @@ import {
   useTranslation,
   useObject,
   useImageSlider,
-  useTransformedData,
+  useObjectBelongsToSubtitle,
 } from 'core/hooks';
-import {debounce, head, isEmpty} from 'lodash';
+import {debounce, isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -31,7 +31,6 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
 
   const {t} = useTranslation('objectDetails');
   const data = useObject(objectId);
-  const {getObject} = useTransformedData();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -91,14 +90,9 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
 
   const isJustOneImage = pagesAmount < 2;
 
-  const belongsToSubtitle = useMemo(() => {
-    const belongsToObjectId = head(data?.belongsTo?.[0]?.objects);
-
-    if (belongsToObjectId) {
-      return getObject(belongsToObjectId)?.name || null;
-    }
-    return null;
-  }, [data?.belongsTo, getObject]);
+  const belongsToSubtitle = useObjectBelongsToSubtitle(
+    data?.belongsTo?.[0]?.objects,
+  );
 
   return data ? (
     <View style={styles.container}>

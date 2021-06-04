@@ -30,7 +30,7 @@ interface IProps {
   animatedPosition: Animated.Value<number>;
   loading: boolean;
   isDirectionShowed: boolean;
-  distance: string | null;
+  belongsToSubtitle: string | null;
 }
 
 export const ObjectDetailsMapBottomMenu = memo(
@@ -44,7 +44,7 @@ export const ObjectDetailsMapBottomMenu = memo(
         animatedPosition,
         loading,
         isDirectionShowed,
-        distance,
+        belongsToSubtitle,
       },
       ref,
     ) => {
@@ -61,6 +61,28 @@ export const ObjectDetailsMapBottomMenu = memo(
           bs.current?.snapTo(0);
         },
       }));
+
+      const subtitleText = useMemo(() => {
+        if (!data) {
+          return null;
+        }
+
+        const {address, length, category} = data;
+
+        let result = address || '';
+
+        if (belongsToSubtitle) {
+          result = `${belongsToSubtitle}`;
+        }
+
+        if (length) {
+          result = `${result}\n${t('routeLength', {
+            km: Number(length.toFixed(2)),
+          })}${category.singularName.toLowerCase()}`;
+        }
+
+        return result;
+      }, [belongsToSubtitle, data, t]);
 
       const rendnerInner = () => {
         if (!data) {
@@ -89,8 +111,10 @@ export const ObjectDetailsMapBottomMenu = memo(
                   )}
                 </FavoriteButtonContainer>
               </View>
-              {distance ? (
-                <Text style={styles.subtitle}> {`${distance} км`}</Text>
+              {subtitleText ? (
+                <Text numberOfLines={2} style={styles.subtitle}>
+                  {subtitleText}
+                </Text>
               ) : null}
               <Button
                 style={styles.button}

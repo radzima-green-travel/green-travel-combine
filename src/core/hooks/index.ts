@@ -22,3 +22,4 @@ export {useBackHandler} from './useBackHandler';
 export {useImageSlider} from './useImageSlider';
 export {useStatusBar} from './useStatusBar';
 export {useAppState} from './useAppState';
+export {useObjectBelongsToSubtitle} from './useObjectBelongsToSubtitle';

@@ -6,7 +6,6 @@ import {IProps} from './types';
 import {
   selectIsDirectionShowed,
   selectMapDirection,
-  selectMapDirectionDistance,
   createMarkerFromDetailsObject,
 } from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,6 +19,7 @@ import {
   useTranslation,
   useColorScheme,
   useTransformedData,
+  useObjectBelongsToSubtitle,
 } from 'core/hooks';
 import {
   ObjectDetailsMapBottomMenu,
@@ -63,12 +63,17 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     [data],
   );
 
+  const belongsToSubtitle = useObjectBelongsToSubtitle(
+    data?.belongsTo?.[0]?.objects,
+  );
+
+  console.log(belongsToSubtitle);
+
   useStatusBar(theme);
 
   const dispatch = useDispatch();
   const isDirectionShowed = useSelector(selectIsDirectionShowed);
   const direction = useSelector(selectMapDirection);
-  const distance = useSelector(selectMapDirectionDistance);
 
   const {
     focusToUserLocation,
@@ -234,7 +239,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         <ObjectDetailsMapBottomMenu
           animatedPosition={animatedValue}
           data={data}
-          distance={distance}
+          belongsToSubtitle={belongsToSubtitle}
           ref={bottomMenu}
           onHideEnd={() => {}}
           bottomInset={bottom}

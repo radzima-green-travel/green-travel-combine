@@ -10,9 +10,7 @@ export const themeStyles = {
     },
     paddingHorizontal: 16,
   },
-  contentContainer: {
-    paddingBottom: 10,
-  },
+  contentContainer: {},
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
