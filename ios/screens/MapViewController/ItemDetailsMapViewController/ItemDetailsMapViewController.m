@@ -35,6 +35,7 @@
 #import "Directions.h"
 #import "MapService.h"
 #import "AlertUtils.h"
+#import "MapViewControllerConstants.h"
 
 @interface ItemDetailsMapViewController ()
 
@@ -44,16 +45,7 @@
 
 @end
 
-static NSString* const kSourceIdPoint = @"sourceIdPoint";
-static NSString* const kSourceIdPath = @"sourceIdPath";
-static NSString* const kSourceIdOutline = @"sourceIdOutline";
-static NSString* const kSourceIdPolygon = @"sourceIdPolygon";
-static NSString* const kSourceIdDirections = @"sourceIdDirections";
-static NSString* const kPolygonLayerId = @"polygonLayerId";
-static NSString* const kPathLayerId = @"pathLayerId";
-static NSString* const kOutlineLayerId = @"outlineLayerId";
-static NSString* const kPointLayerId = @"pointLayerId";
-static NSString* const kDirectionsLayerId = @"directionsLayerId";
+
 static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
@@ -74,12 +66,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 #pragma mark - Lifecycle
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  if (self.loaded) {
-    [self renderMapItem:self.mapItem style:self.mapView.style];
-    self.loaded = YES;
-  }
-  [self.mapView setShowsUserLocation:self.locationMonitoringEnabled];
-  [self.mapView setShowsUserHeadingIndicator:self.locationMonitoringEnabled];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -89,15 +75,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
-  if (self.movingFromParentViewController) {
-    [self.mapView removeGestureRecognizer:self.singleTap];
-    [self.mapView removeFromSuperview];
-  }
-  self.locationMonitoringEnabled = self.mapView.showsUserLocation;
 }
 
-- (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
-  [self renderMapItem:self.mapItem style:style];
+- (void)renderMap:(BOOL)initialLoad {
+  [self renderMapItem:self.mapItem style:self.mapView.style
+          initialLoad:initialLoad];
 }
 
 - (void)onMapItemsUpdate:(NSArray<MapItem *> *)mapItems {
@@ -109,13 +91,16 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (mapItemNew) {
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-      [weakSelf renderMapItem:mapItemNew style:weakSelf.mapView.style];
+      [weakSelf renderMapItem:mapItemNew style:weakSelf.mapView.style
+                  initialLoad:NO];
     });
   }
 }
 
 - (void)renderMapItem:(MapItem *)mapItem
-                style:(MGLStyle *)style {
+                style:(MGLStyle *)style
+          initialLoad:(BOOL)initialLoad{
+  [self cleanMap];
   [self.mapView removeAnnotations:self.mapView.annotations];
   self.annotations = [[NSMutableArray alloc] init];
   MGLPointFeature *point = [[MGLPointFeature alloc] init];
@@ -128,41 +113,13 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
   };
   [self.annotations addObject:point];
-#pragma mark - Remove sources
-  if ([style layerWithIdentifier:kPolygonLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:kPolygonLayerId]];
-  }
-  if ([style layerWithIdentifier:kPathLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:kPathLayerId]];
-  }
-  if ([style layerWithIdentifier:kPointLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:kPointLayerId]];
-  }
-  if ([style layerWithIdentifier:kDirectionsLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:kDirectionsLayerId]];
-  }
   
-  if ([style sourceWithIdentifier:kSourceIdPoint] != nil) {
-    [style removeSource:[style sourceWithIdentifier:kSourceIdPoint]];
-  }
-  if ([style sourceWithIdentifier:kSourceIdPath] != nil) {
-    [style removeSource:[style sourceWithIdentifier:kSourceIdPath]];
-  }
-  if ([style sourceWithIdentifier:kSourceIdPolygon] != nil) {
-    [style removeSource:[style sourceWithIdentifier:kSourceIdPolygon]];
-  }
-  if ([style sourceWithIdentifier:kSourceIdOutline] != nil) {
-    [style removeSource:[style sourceWithIdentifier:kSourceIdOutline]];
-  }
-  if ([style sourceWithIdentifier:kSourceIdDirections] != nil) {
-    [style removeSource:[style sourceWithIdentifier:kSourceIdDirections]];
-  }
   MGLShapeSource *sourcePoint;
   MGLShapeSource *sourcePath;
   MGLShapeSource *sourcePolygon;
   MGLShapeSource *sourceOutline;
 #pragma mark - Sources
-  sourcePoint = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPoint
+  sourcePoint = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdPoint
                                                   features:@[point]
                                                    options:nil];
 
@@ -184,9 +141,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     
     [self.annotations addObject:polygon];
     
-    sourcePolygon = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPolygon
+    sourcePolygon = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdPolygon
                                                       features:@[polygon] options:nil];
-    sourceOutline = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdOutline
+    sourceOutline = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdOutline
                                                    features:polygonOutlines options:nil];
   }
 
@@ -200,7 +157,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     MGLPolylineFeature *polyline = [MGLPolylineFeature polylineWithCoordinates:coordinates count:[path count]];
     [self.annotations addObject:polyline];
 
-    sourcePath = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdPath
+    sourcePath = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdPath
                                                    features:@[polyline] options:nil];
     free(coordinates);
   }
@@ -208,7 +165,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (sourcePath) {
     [style addSource:sourcePath];
 
-    MGLLineStyleLayer *pathLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:kPathLayerId source:sourcePath];
+    MGLLineStyleLayer *pathLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourcePath];
     pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
     pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     pathLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
@@ -220,7 +177,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (sourceOutline) {
     [style addSource:sourceOutline];
 
-    MGLLineStyleLayer *outlineLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:kPathLayerId source:sourceOutline];
+    MGLLineStyleLayer *outlineLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourceOutline];
     outlineLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
     outlineLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     outlineLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
@@ -233,7 +190,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (sourcePolygon) {
     [style addSource:sourcePolygon];
 
-    MGLFillStyleLayer *polygonLayer = [[MGLFillStyleLayer alloc] initWithIdentifier:kPolygonLayerId source:sourcePolygon];
+    MGLFillStyleLayer *polygonLayer = [[MGLFillStyleLayer alloc] initWithIdentifier:MapViewControllerPolygonLayerId source:sourcePolygon];
     polygonLayer.fillColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
     polygonLayer.fillOpacity = [NSExpression expressionForConstantValue:@0.3];
     polygonLayer.fillOutlineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
@@ -243,7 +200,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (sourcePoint) {
     [style addSource:sourcePoint];
 
-    MGLSymbolStyleLayer *pointLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kPointLayerId source:sourcePoint];
+    MGLSymbolStyleLayer *pointLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:MapViewControllerPointLayerId source:sourcePoint];
     pointLayer.iconImageName = [NSExpression expressionForConstantValue:@"mappin"];
     [style setImage:[UIImage imageNamed:@"map-pin"] forName:@"mappin"];
 
@@ -252,27 +209,31 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 #pragma mark - Layers
 
 #pragma mark - Show point, path or polygon
-  if ([self.annotations count]) {
-    [self.mapView showAnnotations:self.annotations animated:YES];
-  } else {
-    [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate zoomLevel:8.0 animated:YES];
+  BOOL animated = !(initialLoad && !self.mapViewState.saved);
+  if ([self.annotations count] > 1) {
+    [self.mapView showAnnotations:self.annotations animated:animated];
+    return;
   }
+  if ([self.annotations count] == 1) {
+    [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate zoomLevel:12.0 animated:animated];
+    return;
+  }
+  [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate zoomLevel:8.0 animated:animated];
 }
 
 - (void)addDirectionsLayer:(MGLStyle *)style shape:(MGLShape *)shape {
-  if ([style layerWithIdentifier:kDirectionsLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:kDirectionsLayerId]];
+  if ([style layerWithIdentifier:MapViewControllerDirectionsLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerDirectionsLayerId]];
   }
-  if ([style sourceWithIdentifier:kSourceIdDirections] != nil) {
-    [style removeSource:[style sourceWithIdentifier:kSourceIdDirections]];
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdDirections] != nil) {
+    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdDirections]];
   }
   
-  MGLSource *sourceDirections = [[MGLShapeSource alloc] initWithIdentifier:kSourceIdDirections
+  MGLSource *sourceDirections = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdDirections
                                                                      shape:shape options:nil];
   [style addSource:sourceDirections];
   
-  MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:kDirectionsLayerId
-                                                                          source:sourceDirections];
+  MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
   dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
   dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
   dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
@@ -297,7 +258,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (IBAction)handleMapTap:(UITapGestureRecognizer *)tap {
-  MGLSource *source = [self.mapView.style sourceWithIdentifier:kSourceIdPoint];
+  MGLSource *source = [self.mapView.style sourceWithIdentifier:MapViewControllerSourceIdPoint];
   if (![source isKindOfClass:[MGLShapeSource class]]) {
     return;
   }
@@ -309,7 +270,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   CGFloat width = kIconSize.width;
   CGRect rect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
 
-  NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:kPointLayerId, kPathLayerId, kPolygonLayerId, nil]];
+  NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:MapViewControllerPointLayerId, MapViewControllerPathLayerId, MapViewControllerPolygonLayerId, nil]];
 
   // Pick the first feature (which may be a port or a cluster), ideally selecting
   // the one nearest nearest one to the touch point.

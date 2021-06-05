@@ -14,6 +14,8 @@
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
 		5A21445C2663E9A700582901 /* AlertUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21445B2663E9A700582901 /* AlertUtils.m */; };
+		5A2144B1266B988700582901 /* MapViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B0266B988700582901 /* MapViewState.m */; };
+		5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */; };
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FB2655B1D500A2D37B /* StoredCoordinateCollection+CoreDataProperties.m */; };
 		5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */; };
@@ -156,6 +158,10 @@
 		5A105FF0266001AB00511256 /* MapService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapService.m; sourceTree = "<group>"; };
 		5A21445A2663E9A700582901 /* AlertUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertUtils.h; sourceTree = "<group>"; };
 		5A21445B2663E9A700582901 /* AlertUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertUtils.m; sourceTree = "<group>"; };
+		5A2144AF266B988700582901 /* MapViewState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewState.h; sourceTree = "<group>"; };
+		5A2144B0266B988700582901 /* MapViewState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewState.m; sourceTree = "<group>"; };
+		5A2144B6266BEEBF00582901 /* MapViewControllerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewControllerConstants.h; sourceTree = "<group>"; };
+		5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewControllerConstants.m; sourceTree = "<group>"; };
 		5A246AC826429689003C6E5B /* BookmarkButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButton.h; sourceTree = "<group>"; };
 		5A246AC926429689003C6E5B /* BookmarkButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkButton.m; sourceTree = "<group>"; };
 		5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoredCoordinateCollection+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -459,6 +465,15 @@
 				5A105FF0266001AB00511256 /* MapService.m */,
 			);
 			path = MapService;
+			sourceTree = "<group>";
+		};
+		5A2144AE266B986F00582901 /* MapViewState */ = {
+			isa = PBXGroup;
+			children = (
+				5A2144AF266B988700582901 /* MapViewState.h */,
+				5A2144B0266B988700582901 /* MapViewState.m */,
+			);
+			path = MapViewState;
 			sourceTree = "<group>";
 		};
 		5A246AC72642966C003C6E5B /* BookmarkButton */ = {
@@ -865,6 +880,7 @@
 		5A775DA926077A7C00CEFC78 /* MapViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5A2144AE266B986F00582901 /* MapViewState */,
 				5A775DAA26077A7C00CEFC78 /* CategoriesFilterView */,
 				5A94AF8E263EBB8900AC4E7B /* MapPinView */,
 				5A94AF8D263EBB7300AC4E7B /* MapButton */,
@@ -875,6 +891,8 @@
 				5A6DC5CE265AAAE900A2D37B /* ItemDetailsMapViewController */,
 				5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */,
 				5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */,
+				5A2144B6266BEEBF00582901 /* MapViewControllerConstants.h */,
+				5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */,
 			);
 			path = MapViewController;
 			sourceTree = "<group>";
@@ -1205,9 +1223,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 53APD5F9YQ;
+						DevelopmentTeam = NWSTPFC433;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1395,11 +1413,13 @@
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
 				5A775DF726077A7D00CEFC78 /* RefreshButton.m in Sources */,
 				5A775E1226077A7D00CEFC78 /* SearchViewController.m in Sources */,
+				5A2144B1266B988700582901 /* MapViewState.m in Sources */,
 				5A775B6026064C9000CEFC78 /* MapItem.m in Sources */,
 				5A775E1426077A7D00CEFC78 /* UISearchControllerNoCancel.m in Sources */,
 				5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */,
 				5A775B5A26064C9000CEFC78 /* BookmarkItem.m in Sources */,
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
+				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */,
 				5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */,
@@ -1500,10 +1520,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1517,9 +1537,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1533,10 +1553,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1547,7 +1567,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -11,6 +11,7 @@
 #import "LocationObserver.h"
 @import Mapbox;
 #import "BookmarksObserver.h"
+#import "MapViewState.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) BottomSheetView *bottomSheet;
 @property (strong, nonatomic) UITapGestureRecognizer *singleTap;
 @property (assign, nonatomic) BOOL locationMonitoringEnabled;
+@property (strong, nonatomic) MapViewState *mapViewState;
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel
@@ -59,6 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hidePopup;
 - (BottomSheetView *)addBottomSheet;
 - (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode;
+- (void)renderMap:(BOOL)initialLoad;
+- (void)cleanMap;
 
 @end
 

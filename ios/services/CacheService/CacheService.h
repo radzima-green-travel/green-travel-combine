@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)get;
 @property (strong, nonatomic) NSCache *cache;
+@property (assign, nonatomic) BOOL mapLoaded;
 
 @end
 

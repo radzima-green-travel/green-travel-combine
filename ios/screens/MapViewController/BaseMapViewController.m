@@ -30,6 +30,8 @@
 #import "MainViewController.h"
 #import "MapService.h"
 #import "AlertUtils.h"
+#import "CacheService.h"
+#import "MapViewControllerConstants.h"
 
 @interface BaseMapViewController ()
 
@@ -60,6 +62,7 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
     _apiService = apiService;
     _coreDataService = coreDataService;
     _mapService = mapService;
+    _mapViewState = [[MapViewState alloc] init];
   }
   return self;
 }
@@ -72,34 +75,7 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
   self.view.backgroundColor = [Colors get].white;
   UINavigationBar *navigationBar = self.navigationController.navigationBar;
   configureNavigationBar(navigationBar);
-
-  self.mapView = [self mapForURL:kMapboxURL darkMode:NO];
-  [self.view addSubview:self.mapView];
-
-  self.mapView.delegate = self;
   
-  self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
-  [NSLayoutConstraint activateConstraints:@[
-    [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-    [self.mapView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-    [self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-    [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
-  ]];
-
-  self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
-  for (UIGestureRecognizer *recognizer in self.mapView.gestureRecognizers) {
-    if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
-      [self.singleTap requireGestureRecognizerToFail:recognizer];
-    }
-  }
-  [self.mapView addGestureRecognizer:self.singleTap];
-
-  [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(53.893, 27.567)
-                          zoomLevel:9.0 animated:NO];
-  [self.mapModel addObserver:self];
-  [self.indexModel addObserverBookmarks:self];
-  [self.locationModel addObserver:self];
-
 #pragma mark - Location button
   self.locationButton = [[MapButton alloc] initWithImageName:@"location-arrow"
                                                       target:self
@@ -117,6 +93,105 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
   ]];
 #pragma mark - Add bottom sheet
   self.bottomSheet = [self addBottomSheet];
+}
+
+#pragma mark - viewWillAppear
+- (void)viewWillAppear:(BOOL)animated {
+  
+  [self.mapView removeFromSuperview];
+  self.mapView = [self mapForURL:kMapboxURL darkMode:NO];
+  [self cleanMap];
+  [self.view insertSubview:self.mapView belowSubview:self.locationButton];
+  self.mapView.delegate = self;
+  
+  self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+    [self.mapView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+    [self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+    [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
+  ]];
+  
+  self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
+  for (UIGestureRecognizer *recognizer in self.mapView.gestureRecognizers) {
+    if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+      [self.singleTap requireGestureRecognizerToFail:recognizer];
+    }
+  }
+  [self.mapView addGestureRecognizer:self.singleTap];
+  [self.mapModel addObserver:self];
+  [self.indexModel addObserverBookmarks:self];
+  [self.locationModel addObserver:self];
+  
+  [self renderMap:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+  [self.mapViewState restoreToMap:self.mapView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [self.mapViewState saveWithMapView:self.mapView];
+}
+
+#pragma mark - viewDidDisappear
+- (void)viewDidDisappear:(BOOL)animated {
+  [self.mapView removeGestureRecognizer:self.singleTap];
+  [self.mapModel removeObserver:self];
+  [self.indexModel removeObserverBookmarks:self];
+  [self.locationModel removeObserver:self];
+}
+
+- (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
+  [[CacheService get] setMapLoaded:YES];
+  [self renderMap:YES];
+}
+
+- (void)renderMap:(BOOL)initialLoad {
+}
+
+- (void)cleanMap {
+  MGLStyle *style = self.mapView.style;
+  if ([style layerWithIdentifier:MapViewControllerPolygonLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerPolygonLayerId]];
+  }
+  if ([style layerWithIdentifier:MapViewControllerPathLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerPathLayerId]];
+  }
+  if ([style layerWithIdentifier:MapViewControllerOutlineLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerOutlineLayerId]];
+  }
+  if ([style layerWithIdentifier:MapViewControllerDirectionsLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerDirectionsLayerId]];
+  }
+  if ([style layerWithIdentifier:MapViewControllerPointLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerPointLayerId]];
+  }
+  if ([style layerWithIdentifier:MapViewControllerClusterLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerClusterLayerId]];
+  }
+  if ([style layerWithIdentifier:MapViewControllerMarkerLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerMarkerLayerId]];
+  }
+  
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdAll] != nil) {
+    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdAll]];
+  }
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdPolygon] != nil) {
+    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdPolygon]];
+  }
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdPath] != nil) {
+    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdPath]];
+  }
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdOutline] != nil) {
+    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdOutline]];
+  }
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdDirections] != nil) {
+    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdDirections]];
+  }
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdPoint] != nil) {
+    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdPoint]];
+  }
 }
 
 - (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode {

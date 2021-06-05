@@ -28,14 +28,16 @@
 #import "BottomSheetView.h"
 #import "DetailsViewController.h"
 #import "MainViewController.h"
+#import "CacheService.h"
+#import "MapViewControllerConstants.h"
 
 @interface FullMapViewController ()
 
+@property (assign, nonatomic) BOOL loaded;
+
 @end
 
-static NSString* const kSourceId = @"sourceId";
-static NSString* const kClusterLayerId = @"clusterLayerId";
-static NSString* const kMarkerLayerId = @"markerLayerId";
+
 static NSString* const kBottomSheetButtonLabel = @"Узнать больше";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
@@ -60,6 +62,22 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [self.searchButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
   [self addFilterView];
+}
+
+- (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode {
+  MGLMapView *mapViewCached = [[CacheService get].cache objectForKey:@"mapView"];
+  if (mapViewCached) {
+    self.loaded = YES;
+    return mapViewCached;
+  }
+  MGLMapView *mapViewConstructed = [super mapForURL:url darkMode:NO];
+  [[CacheService get].cache setObject:mapViewConstructed forKey:@"mapView"];
+
+  return mapViewConstructed;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -94,85 +112,86 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (void)mapViewDidFinishLoadingMap:(MGLMapView *)mapView {
-
 }
 
-- (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
-    NSArray<MapItem *> *mapItems = self.mapItem ? @[self.mapItem] :
-        self.mapModel.mapItemsOriginal;
-    [self renderMapItems:mapItems style:style];
+- (void)renderMap:(BOOL)initialLoad {
+  [self renderMapItems:self.mapModel.mapItemsFiltered
+                 style:self.mapView.style
+               initialLoad:initialLoad];
 }
 
 - (void)onMapItemsUpdate:(NSArray<MapItem *> *)mapItems {
     NSLog(@"Map items: %@", mapItems);
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf renderMapItems:mapItems style:weakSelf.mapView.style];
+        [weakSelf renderMapItems:mapItems style:weakSelf.mapView.style initialLoad:NO];
         [weakSelf addFilterView];
     });
 }
 
-- (void)renderMapItems:(NSArray<MapItem *> *)mapItems style:(MGLStyle *)style {
-    NSMutableArray *mapAnnotations = [[NSMutableArray alloc] init];
-    [self.mapView removeAnnotations:self.mapView.annotations];
-    [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
-        MGLPointFeature *point = [[MGLPointFeature alloc] init];
-        point.coordinate = mapItem.coords;
-        point.title = mapItem.title;
-        point.attributes = @{
-          @"icon": mapItem.correspondingPlaceItem.category.icon,
-          @"title": mapItem.title,
-          @"uuid": mapItem.correspondingPlaceItem.uuid,
-          @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
-        };
-        [mapAnnotations addObject:point];
-    }];
-    [self.mapView showAnnotations:mapAnnotations animated:YES];
-
-  MGLShapeSource *source = (MGLShapeSource *)[style sourceWithIdentifier:kSourceId];
-  if ([style layerWithIdentifier:kMarkerLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:kMarkerLayerId]];
+- (void)renderMapItems:(NSArray<MapItem *> *)mapItems
+                 style:(MGLStyle *)style initialLoad:(BOOL)initialLoad {
+  NSMutableArray *mapAnnotations = [[NSMutableArray alloc] init];
+  [self.mapView removeAnnotations:self.mapView.annotations];
+  [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
+    MGLPointFeature *point = [[MGLPointFeature alloc] init];
+    point.coordinate = mapItem.coords;
+    point.title = mapItem.title;
+    point.attributes = @{
+      @"icon": mapItem.correspondingPlaceItem.category.icon,
+      @"title": mapItem.title,
+      @"uuid": mapItem.correspondingPlaceItem.uuid,
+      @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
+    };
+    [mapAnnotations addObject:point];
+  }];
+  
+  MGLShapeSource *source = (MGLShapeSource *)[style sourceWithIdentifier:MapViewControllerSourceIdAll];
+  if ([style layerWithIdentifier:MapViewControllerMarkerLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerMarkerLayerId]];
   }
-  if ([style layerWithIdentifier:kClusterLayerId]) {
-    [style removeLayer:[style layerWithIdentifier:kClusterLayerId]];
+  if ([style layerWithIdentifier:MapViewControllerClusterLayerId]) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerClusterLayerId]];
   }
-  if ([style sourceWithIdentifier:kSourceId] != nil) {
-    [style removeSource:[style sourceWithIdentifier:kSourceId]];
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdAll] != nil) {
+    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdAll]];
   }
-
+  
   source =
-  [[MGLShapeSource alloc] initWithIdentifier:kSourceId
+  [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdAll
                                     features:mapAnnotations
                                      options:@{
                                        MGLShapeSourceOptionClustered: @YES,
                                        MGLShapeSourceOptionClusterRadius: @50.0
                                      }];
-
+  
   [style addSource:source];
-
-  MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kMarkerLayerId source:source];
+  
+  MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:MapViewControllerMarkerLayerId source:source];
   markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"{icon}"];
   markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
-
+  
   [style setImage:[UIImage imageNamed:@"conserv-area-map-pin"] forName:@"object"];
   [style setImage:[UIImage imageNamed:@"hiking-map-pin"] forName:@"hiking"];
   [style setImage:[UIImage imageNamed:@"historical-place-map-pin"] forName:@"historical-place"];
   [style setImage:[UIImage imageNamed:@"bicycle-route-map-pin"] forName:@"bicycle-route"];
-  MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:kClusterLayerId source:source];
+  MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:MapViewControllerClusterLayerId source:source];
   clusterLayer.textColor = [NSExpression expressionForConstantValue:[Colors get].black];
   clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
   clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:[NSNumber numberWithBool:YES]];
   clusterLayer.textOffset =  [NSExpression expressionForConstantValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)]];
   clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
-
+  
   NSDictionary *stops = @{@0: [NSExpression expressionForConstantValue:@"markerClustered"]};
   NSExpression *defaultShape = [NSExpression expressionForConstantValue:@"markerClustered"];
   clusterLayer.iconImageName = [NSExpression expressionWithFormat:@"mgl_step:from:stops:(point_count, %@, %@)", defaultShape, stops];
   clusterLayer.text = [NSExpression expressionWithFormat:@"CAST(point_count, 'NSString')"];
   [style setImage:[UIImage imageNamed:@"cluster"] forName:@"markerClustered"];
-
+  
   [style addLayer:markerLayer];
   [style addLayer:clusterLayer];
+  BOOL animated = !(initialLoad && !self.mapViewState.saved);
+  [self.mapView showAnnotations:mapAnnotations animated:animated];
 }
 
 - (MGLAnnotationView *)mapView:(MGLMapView *)mapView viewForAnnotation:(id<MGLAnnotation>)annotation {
@@ -192,6 +211,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (BOOL)mapView:(MGLMapView *)mapView annotationCanShowCallout:(id<MGLAnnotation>)annotation {
     return YES;
+}
+
+- (void)mapView:(MGLMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+  NSLog(@"Zoom level: %f", mapView.zoomLevel);
 }
 
 - (void)onSearchPress:(id)sender {
@@ -233,7 +256,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (IBAction)handleMapTap:(UITapGestureRecognizer *)tap {
-  MGLSource *source = [self.mapView.style sourceWithIdentifier:kSourceId];
+  MGLSource *source = [self.mapView.style sourceWithIdentifier:MapViewControllerSourceIdAll];
   if (![source isKindOfClass:[MGLShapeSource class]]) {
     return;
   }
@@ -245,7 +268,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   CGFloat width = kIconSize.width;
   CGRect rect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
   
-  NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:kClusterLayerId, kMarkerLayerId, nil]];
+  NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:MapViewControllerClusterLayerId, MapViewControllerMarkerLayerId, nil]];
   
   // Pick the first feature (which may be a port or a cluster), ideally selecting
   // the one nearest nearest one to the touch point.
@@ -280,7 +303,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   
   NSArray<id<MGLFeature>> *visibleFeaturesInRect = [self.mapView visibleFeaturesInRect:selectionRect
          inStyleLayersWithIdentifiers:[NSSet
-                       setWithObjects:kMarkerLayerId, kClusterLayerId, nil]];
+                       setWithObjects:MapViewControllerMarkerLayerId, MapViewControllerClusterLayerId, nil]];
   NSPredicate *clusterPredicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject,
                                                                         NSDictionary<NSString *,id> * _Nullable bindings) {
     return [evaluatedObject isKindOfClass:MGLPointFeatureCluster.class];
@@ -290,7 +313,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (IBAction)handleMapClusterTap:(UITapGestureRecognizer *)sender {
-  MGLSource *source = [self.mapView.style sourceWithIdentifier:kSourceId];
+  MGLSource *source = [self.mapView.style sourceWithIdentifier:MapViewControllerSourceIdAll];
   if (![source isKindOfClass:MGLShapeSource.class]) {
     return;
   }
