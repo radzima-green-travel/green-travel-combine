@@ -42,6 +42,7 @@
 @property (assign, nonatomic) BOOL loaded;
 @property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
+@property (strong, nonatomic) MGLPolyline *directionsPolyline;
 
 @end
 
@@ -66,6 +67,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 #pragma mark - Lifecycle
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  if (self.directionsPolyline != nil) {
+    [self addDirectionsLayer:self.mapView.style shape:self.directionsPolyline];
+  }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -367,6 +371,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                                          completion:^(NSArray<CLLocation *> * _Nonnull locations) {
     dispatch_async(dispatch_get_main_queue(), ^{
       MGLPolyline *polyline = [weakSelf polylineForPath:locations];
+      weakSelf.directionsPolyline = polyline;
       [weakSelf addDirectionsLayer:weakSelf.mapView.style shape:polyline];
     });
   }];
