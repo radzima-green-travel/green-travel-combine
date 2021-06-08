@@ -10,22 +10,11 @@ import {
   SearchScreen,
 } from 'screens';
 
-import {StyleSheet} from 'react-native';
-import {IconButton} from 'atoms';
 import {useColorScheme, useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
 import {getAppHeaderOptions} from '../screenOptions';
-import {COLORS} from 'assets';
 
 const Stack = createStackNavigator<HomeNavigatorParamsList>();
-
-const styles = StyleSheet.create({
-  iconButton: {
-    borderWidth: 0,
-    borderRadius: 0,
-    backgroundColor: 'transparent',
-  },
-});
 
 export function HomeNavigator() {
   const colorScheme = useColorScheme();
@@ -40,19 +29,7 @@ export function HomeNavigator() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={({navigation}) => ({
-          headerRight: () => (
-            <IconButton
-              style={styles.iconButton}
-              onPress={() => navigation.navigate('Search')}
-              icon={{
-                size: 24,
-                name: 'search',
-                color: COLORS.white,
-              }}
-            />
-          ),
-        })}
+        options={HomeScreen.screenOptions}
       />
       <Stack.Screen
         name="Search"
@@ -68,13 +45,7 @@ export function HomeNavigator() {
         options={ObjectDetailsScreen.screenOptions(colorScheme)}
       />
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
-      <Stack.Screen
-        options={{
-          ...getAppHeaderOptions({colorScheme}),
-        }}
-        name="CategoriesList"
-        component={CategoriesListScreen}
-      />
+      <Stack.Screen name="CategoriesList" component={CategoriesListScreen} />
     </Stack.Navigator>
   );
 }

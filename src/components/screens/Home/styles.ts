@@ -1,10 +1,17 @@
-import {StyleSheet} from 'react-native';
+import {COLORS} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   list: {
     flex: 1,
   },
   contentContainer: {
     paddingTop: 20,
   },
-});
+
+  icon: {
+    color: {
+      light: COLORS.white,
+      dark: COLORS.white,
+    },
+  },
+};

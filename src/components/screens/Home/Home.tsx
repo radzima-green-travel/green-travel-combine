@@ -8,7 +8,7 @@ import {
   RefreshControl,
 } from 'react-native';
 
-import {styles} from './styles';
+import {themeStyles} from './styles';
 import {
   getHomeDataUpdatesRequest,
   getInitialHomeDataRequest,
@@ -23,14 +23,17 @@ import {
   useRequestLoading,
   useTranslation,
   useColorScheme,
+  useThemeStyles,
 } from 'core/hooks';
 import {IProps} from './types';
 import {COLORS} from 'assets';
 import {useFocusEffect, useIsFocused} from '@react-navigation/core';
 import {ErrorToast} from '../../molecules';
+import {screenOptions} from './screenOptions';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
   const {t} = useTranslation('home');
+  const styles = useThemeStyles(themeStyles);
   const dispatch = useDispatch();
   const theme = useColorScheme();
   const homeData = useSelector(selectHomeData);
@@ -145,3 +148,5 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     </SuspenseView>
   );
 };
+
+Home.screenOptions = screenOptions;

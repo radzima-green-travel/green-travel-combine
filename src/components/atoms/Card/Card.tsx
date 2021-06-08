@@ -3,7 +3,6 @@ import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {Icon} from 'atoms';
 import {themeStyles, gradientConfig} from './styles';
 import FastImage, {ImageStyle} from 'react-native-fast-image';
-import {COLORS} from 'assets';
 import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
@@ -82,7 +81,10 @@ export const Card = memo(
                   name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
                   width={20}
                   height={20}
-                  color={isImageProvided ? COLORS.white : COLORS.logCabin}
+                  style={[
+                    styles.icon,
+                    isImageProvided ? {} : styles.emptyCardIcon,
+                  ]}
                 />
               )}
             </FavoriteButtonContainer>
