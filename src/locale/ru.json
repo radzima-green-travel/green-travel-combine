@@ -47,19 +47,7 @@
     "routeLength": "{{km}} км, ",
     "includes": "Чем заняться",
     "belongs": "Входит в..."
-  },
-  "route-details":{
-    "routeName": "Царская поляна",
-    "distance": "Расстояние",
-    "time": "Время",
-    "difficulty": "Сложность",
-    "howToGetThere": "Как добраться",
-    "bikeRentalTitle": "На территории пущи действует велопрокат.",
-    "bikeTime": "Время работы",
-    "bikePrice": "Час проката",
-    "aboutRoute": "О маршруте",
-    "showRoute": "Показать маршрут"
-  },
+  }, 
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"
   },
@@ -68,6 +56,8 @@
     "notFound": "К сожалению по вашему запросу\nничего не найдено"
   },
   "map": {
-    "all": "Все"
+    "all": "Все",
+    "getMore": "Узнать больше",
+    "routeLength": "{{km}} км, "
   }
 }

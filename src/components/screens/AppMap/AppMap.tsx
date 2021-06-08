@@ -43,6 +43,7 @@ import {
   useBackHandler,
   useColorScheme,
   useTransformedData,
+  useObjectBelongsToSubtitle,
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
@@ -208,6 +209,10 @@ export const AppMap = ({navigation}: IProps) => {
   useStatusBar(sheme);
 
   const animatedValue = useMemo(() => new Animated.Value(1), []);
+
+  const belongsToSubtitle = useObjectBelongsToSubtitle(
+    selected?.belongsTo?.[0]?.objects,
+  );
   return (
     <View style={styles.container}>
       <ClusterMap
@@ -234,6 +239,7 @@ export const AppMap = ({navigation}: IProps) => {
           onHideEnd={onMenuHideEnd}
           bottomInset={bottom}
           onGetMorePress={navigateToObjectDetails}
+          belongsToSubtitle={belongsToSubtitle}
         />
         <AppMapBottomSearchMenu
           inputValue={inputValue}

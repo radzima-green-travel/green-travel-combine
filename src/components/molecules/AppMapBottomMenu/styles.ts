@@ -10,20 +10,27 @@ export const themeStyles = {
     },
     paddingHorizontal: 16,
   },
-  contentContainer: {
-    paddingBottom: 24,
-  },
+  contentContainer: {},
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 'auto',
   },
   text: {
     ...FONTS_STYLES.semibold20,
     color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
     flexShrink: 1,
   },
+
+  subtitle: {
+    ...FONTS_STYLES.regular13,
+    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
+    marginTop: 4,
+  },
+  button: {
+    marginTop: 'auto',
+  },
+
   touchIndicator: {
     width: 36,
     height: 3.5,
@@ -33,7 +40,6 @@ export const themeStyles = {
     marginTop: 6,
     marginBottom: 14.5,
   },
-
   icon: {
     color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
   },

@@ -12,7 +12,7 @@ import {themeStyles} from './styles';
 
 import {Button, Icon} from 'atoms';
 import {FavoriteButtonContainer} from 'containers';
-import {useThemeStyles} from 'core/hooks';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
 import {MENU_HEIGHT} from './styles';
 import {IObject} from 'core/types';
@@ -28,11 +28,23 @@ interface IProps {
   bottomInset: number;
   onGetMorePress: (data: IObject) => void;
   animatedPosition: Animated.Value<number>;
+  belongsToSubtitle: string | null;
 }
 
 export const AppMapBottomMenu = memo(
   forwardRef<AppMapBottomMenuRef, IProps>(
-    ({data, onHideEnd, bottomInset, onGetMorePress, animatedPosition}, ref) => {
+    (
+      {
+        data,
+        onHideEnd,
+        bottomInset,
+        onGetMorePress,
+        animatedPosition,
+        belongsToSubtitle,
+      },
+      ref,
+    ) => {
+      const {t} = useTranslation('map');
       const styles = useThemeStyles(themeStyles);
       const bs = useRef<BottomSheet>(null);
       const isOpened = useRef(false);
@@ -55,6 +67,28 @@ export const AppMapBottomMenu = memo(
         },
       }));
 
+      const subtitleText = useMemo(() => {
+        if (!data) {
+          return null;
+        }
+
+        const {address, length, category} = data;
+
+        let result = address || '';
+
+        if (belongsToSubtitle) {
+          result = `${belongsToSubtitle}`;
+        }
+
+        if (length) {
+          result = `${result}\n${t('routeLength', {
+            km: Number(length.toFixed(2)),
+          })}${category.singularName.toLowerCase()}`;
+        }
+
+        return result;
+      }, [belongsToSubtitle, data, t]);
+
       const rendnerInner = () => {
         if (!data) {
           return null;
@@ -69,6 +103,7 @@ export const AppMapBottomMenu = memo(
                 <Text numberOfLines={2} style={styles.text}>
                   {name}
                 </Text>
+
                 <FavoriteButtonContainer objectId={id}>
                   {isFavorite => (
                     <Icon
@@ -81,11 +116,17 @@ export const AppMapBottomMenu = memo(
                   )}
                 </FavoriteButtonContainer>
               </View>
+              {subtitleText ? (
+                <Text numberOfLines={2} style={styles.subtitle}>
+                  {subtitleText}
+                </Text>
+              ) : null}
               <Button
+                style={styles.button}
                 onPress={() => {
                   onGetMorePress(data);
                 }}>
-                Узнать больше
+                {t('getMore')}
               </Button>
             </View>
           </View>
