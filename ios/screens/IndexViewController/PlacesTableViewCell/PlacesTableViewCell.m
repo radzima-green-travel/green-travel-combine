@@ -148,8 +148,9 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize adaptedSize = CGSizeMake(self.bounds.size.width - 50, self.bounds.size.height);
-    return getCoverSize(adaptedSize);
+  CGSize screenSize = [UIScreen mainScreen].bounds.size;
+  CGSize adaptedSize = CGSizeMake(screenSize.width - 50, screenSize.height);
+  return getCoverSize(adaptedSize);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
