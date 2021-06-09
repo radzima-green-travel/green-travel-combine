@@ -159,10 +159,10 @@
     [self.contentView addSubview:self.bookmarkButton];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:32.0],
-        [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0],
-        [self.bookmarkButton.widthAnchor constraintEqualToConstant:44.0],
-        [self.bookmarkButton.heightAnchor constraintEqualToConstant:44.0],
+      [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:32.0],
+      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+      [self.bookmarkButton.widthAnchor constraintEqualToConstant:44.0],
+      [self.bookmarkButton.heightAnchor constraintEqualToConstant:44.0],
     ]];
 
     #pragma mark - Title label
@@ -175,8 +175,8 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [self.titleLabel.topAnchor constraintEqualToAnchor:self.imageGalleryView.bottomAnchor],
-        [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0],
-        [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0],
+        [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+        [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
 
     ]];
 
@@ -190,8 +190,8 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [self.addressLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:8.0],
-        [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0],
-        [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0],
+        [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+        [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
 
     ]];
 
@@ -207,7 +207,7 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [self.locationButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:3.0],
-        [self.locationButton.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0],
+        [self.locationButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
     ]];
 
     #pragma mark - Description text
@@ -219,8 +219,8 @@
     self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0];
     [NSLayoutConstraint activateConstraints:@[
         self.descriptionTextTopAnchor,
-        [self.descriptionTextView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [self.descriptionTextView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [self.descriptionTextView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [self.descriptionTextView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
     ]];
 
     #pragma mark - Linked items
@@ -251,8 +251,8 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [self.linkedCategoriesView.topAnchor constraintEqualToAnchor:self.descriptionTextView.bottomAnchor constant:32.0],
-        [self.linkedCategoriesView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:0],
-        [self.linkedCategoriesView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0],
+        [self.linkedCategoriesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
+        [self.linkedCategoriesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
         [self.linkedCategoriesView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-10.5],
     ]];
 
@@ -263,8 +263,8 @@
     [self.view addSubview:self.activityIndicatorContainerView];
     [NSLayoutConstraint activateConstraints:@[
         [self.activityIndicatorContainerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [self.activityIndicatorContainerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [self.activityIndicatorContainerView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [self.activityIndicatorContainerView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [self.activityIndicatorContainerView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
         [self.activityIndicatorContainerView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 
