@@ -73,32 +73,28 @@ static IndexModel *instance;
 }
 
 - (void)loadCategoriesRemote:(BOOL)visible {
-  self.loading = YES;
-  if (visible) { [self notifyObserversLoading:YES]; }
-  __weak typeof(self) weakSelf = self;
-  NSString *existingETag = [self.userDefaultsService loadETag];
-  [self.apiService loadCategoriesWithCompletion:existingETag
-                                     completion:^(NSArray<Category *>  * _Nonnull categories,
-                                                  NSArray<PlaceDetails *>  * _Nonnull placeDetails,
-                                                  NSString *eTag) {
-    __strong typeof(weakSelf) strongSelf = weakSelf;
-    if ([strongSelf.categories count] == 0 && [categories count] > 0) {
-      [strongSelf.userDefaultsService saveETag:eTag];
-      [strongSelf updateCategories:categories];
-      [strongSelf.coreDataService saveCategories:categories];
-      strongSelf.loading = NO;
-      if (visible) { [strongSelf notifyObserversLoading:NO]; }
-      return;
-    }
-    if (![existingETag isEqualToString:eTag] && [categories count] > 0) {
-      NSArray<Category*> *newCategories =
-      [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
-                                           toNew:categories];
-      [strongSelf requestCategoriesUpdate:newCategories eTag:eTag];
-    }
-    strongSelf.loading = NO;
-    if (visible) { [strongSelf notifyObserversLoading:NO]; }
-  }];
+    self.loading = YES;
+    if (visible) { [self notifyObserversLoading:YES]; }
+    __weak typeof(self) weakSelf = self;
+    [self.apiService loadCategoriesWithCompletion:^(NSArray<Category *>  * _Nonnull categories,
+                                                    NSArray<PlaceDetails *> * _Nonnull details,
+                                                    NSString *eTag) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if ([strongSelf.categories count] == 0 && [categories count] > 0) {
+            [strongSelf.userDefaultsService saveETag:eTag];
+            [strongSelf updateCategories:categories];
+            [strongSelf.coreDataService saveCategories:categories];
+        }
+        NSString *existingETag = [strongSelf.userDefaultsService loadETag];
+        if (![existingETag isEqualToString:eTag] && [categories count] > 0) {
+            NSArray<Category*> *newCategories =
+            [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
+                                                 toNew:categories];
+            [strongSelf requestCategoriesUpdate:newCategories eTag:eTag];
+        }
+        strongSelf.loading = NO;
+        if (visible) { [strongSelf notifyObserversLoading:NO]; }
+    }];
 }
 
 - (void)refreshCategories {

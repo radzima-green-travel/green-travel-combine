@@ -755,8 +755,8 @@
 			isa = PBXGroup;
 			children = (
 				5A775B0426064C9000CEFC78 /* ApiService.h */,
-				5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */,
 				5A775B0626064C9000CEFC78 /* ApiService.m */,
+				5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */,
 				5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */,
 			);
 			path = ApiService;

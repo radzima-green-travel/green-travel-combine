@@ -17,12 +17,9 @@
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "ConfigValues.h"
 
-static NSString * const kGetCategoriesURL = @"https://ahzzbvk2cnablnu7hlefv6dpfa.appsync-api.eu-central-1.amazonaws.com/graphql";
-static NSString * const kXAPIKey = @"da2-3kathjtstbg5rnh54ntazhh7au";
+static NSString * const kGetCategoriesURL = @"https://d28njwxs8zbmie.cloudfront.net/objects.json";
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
 static NSString * const kImageBaseURL = @"http://radzimastorage74831-prod.s3-website.eu-central-1.amazonaws.com/";
-static NSString * const kQueryGetCategories = @"query RadzimaMobile { getObjectsMetadata(id: \\\"tag\\\") { value } listMobileObjects {    id    name    fields    icon    cover    objects {      name      images      cover      address      author      createdAt      description      duration      routes {        coordinates        type      }      governanceType      id      length      location {        lat        lon      }      category {        createdAt        fields        icon        id        name        parent        updatedAt        cover      }      notes      origin      owner      status      url      area {        coordinates        type      }      include {        fields        icon        id        name        objects      }      permissions {        items {          permission {            id            key            name          }        }      }    }    children {      name      id      createdAt      fields      icon      cover      objects {        name        category {          createdAt          fields          icon          id          name          parent          updatedAt          cover        }        routes {          coordinates          type        }        images        cover        address        author        createdAt        description        duration        governanceType        id        length        location {          lat          lon        }        notes        origin        owner        status        url        area {          coordinates          type        }        include {          fields          icon          id          name          objects        }        permissions {          items {            permission {              id              key              name            }          }        }      }    }  }}";
-static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadata(id: \\\"tag\\\") { value } }";
 
 @interface ApiService ()
 
@@ -40,49 +37,38 @@ static NSString * const kQueryGetTag = @"query RadzimaMobile { getObjectsMetadat
     return self;
 }
 
-- (NSMutableURLRequest *)makeRequestForQuery:(NSString *)query {
+- (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*,
+                                              NSArray<PlaceDetails *>*,
+                                              NSString *))completion {
   NSURL *url = [NSURL URLWithString:kGetCategoriesURL];
-  NSMutableURLRequest *mutableRequest = [NSMutableURLRequest requestWithURL:url];
-  [mutableRequest setHTTPMethod:@"POST"];
-  [mutableRequest setValue:kXAPIKey forHTTPHeaderField:@"x-api-key"];
-  NSString *body = [NSString stringWithFormat:@"{\"query\":\"%@\"}", query];
-  NSData *bodyAsData = [body dataUsingEncoding:NSUTF8StringEncoding];
-  [mutableRequest setHTTPBody:bodyAsData];
-  
-  
-  NSLog(@"Request body: %@", body);
-  return mutableRequest;
-}
-
-- (void)loadCategoriesWithCompletion:(NSString *)existingTag
-                          completion:(void(^)(NSArray<Category *>*, NSArray<PlaceDetails *>*, NSString *))completion {
   __weak typeof(self) weakSelf = self;
-  NSMutableURLRequest *getTagRequest = [self makeRequestForQuery:kQueryGetTag];
-  NSURLSessionDataTask *getTagTask = [self.session dataTaskWithRequest:getTagRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+  NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
+                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                            timeoutInterval:120];
+  NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     if (!data) {
-      completion(@[], @[], existingTag);
+      completion(@[], @[], @"");
       return;
     }
-    NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    NSString *tag = body[@"data"][@"getObjectsMetadata"][@"value"];
-    if ([existingTag isEqualToString:tag]) {
-      completion(@[], @[], existingTag);
+    NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
+    NSString *eTag = headers[@"ETag"];
+    
+    NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    NSDictionary *dataSection = parsedData[@"data"];
+    if (dataSection == nil || parsedData[@"data"] == [NSNull null]) {
+      completion(@[], @[], @"");
       return;
     }
-    NSMutableURLRequest *getCategoriesRequest = [self makeRequestForQuery:kQueryGetCategories];
-    NSURLSessionDataTask *getCategoriesTask = [self.session dataTaskWithRequest:getCategoriesRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-      if (!data) {
-        completion(@[], @[], existingTag);
-        return;
-      }
-      NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-      NSString *tagFromPayload = body[@"data"][@"getObjectsMetadata"][@"value"];
-      NSArray<Category *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:body[@"data"][@"listMobileObjects"]] copy];
-      completion(mappedCategories, @[], tagFromPayload);
-    }];
-    [getCategoriesTask resume];
+    NSArray *categories = dataSection[@"listMobileObjects"];
+    if (categories == nil || dataSection[@"listMobileObjects"] == [NSNull null]) {
+      completion(@[], @[], @"");
+      return;
+    }
+    NSLog(@"Error when loading categories: %@", error);
+    NSArray<Category *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:categories] copy];
+    completion(mappedCategories, @[], eTag);
   }];
-  [getTagTask resume];
+  [task resume];
 }
 
 - (NSArray<Category *>*)mapCategoriesFromJSON:(NSArray *)categories {
