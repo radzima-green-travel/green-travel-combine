@@ -283,9 +283,18 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                   [feature isKindOfClass:[MGLMultiPolygonFeature class]] ||
                   [feature isKindOfClass:[MGLPolygonFeature class]] ||
                   [feature isKindOfClass:[MGLPolylineFeature class]])) {
-    [self.mapView showAnnotations:self.annotations animated:YES];
+    
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
-    return;
+    if ([self.annotations count] > 1) {
+      [self.mapView showAnnotations:self.annotations animated:YES];
+      return;
+    }
+    if ([self.annotations count] == 1) {
+      [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate
+                              zoomLevel:12.0 
+                               animated:YES];
+      return;
+    }
   }
   [self hidePopup];
 }
