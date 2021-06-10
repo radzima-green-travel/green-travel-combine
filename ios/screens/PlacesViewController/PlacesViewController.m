@@ -169,9 +169,10 @@ static const CGFloat kSpacing = 32.0;
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat baseWidth = self.view.bounds.size.width;
-    return CGSizeMake((baseWidth - kInset * 2),
-                      ((baseWidth - kInset * 2) / kCellAspectRatio));
+  CGFloat baseWidth = self.view.bounds.size.width - self.view.safeAreaInsets.left -
+      self.view.safeAreaInsets.right;
+  return CGSizeMake((baseWidth - kInset * 2),
+                    ((baseWidth - kInset * 2) / kCellAspectRatio));
 }
 
 - (void)collectionView:(UICollectionView *)collectionView
