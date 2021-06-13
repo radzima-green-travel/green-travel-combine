@@ -9,7 +9,7 @@
 #import "BaseMapViewController.h"
 @import Mapbox;
 #import "StyleUtils.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "MapModel.h"
 #import "MapItemsObserver.h"
 #import "LocationObserver.h"
@@ -73,7 +73,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   [super viewDidLoad];
   // Do any additional setup after loading the view.
 
-  self.view.backgroundColor = [Colors get].white;
+  self.view.backgroundColor = [ColorsLegacy get].white;
   UINavigationBar *navigationBar = self.navigationController.navigationBar;
   configureNavigationBar(navigationBar);
   

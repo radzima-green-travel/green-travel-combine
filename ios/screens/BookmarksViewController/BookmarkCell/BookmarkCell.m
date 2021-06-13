@@ -7,7 +7,7 @@
 //
 
 #import "BookmarkCell.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "TextUtils.h"
 #import "Category.h"
 #import "StyleUtils.h"
@@ -33,7 +33,7 @@
 }
 
 - (void)setUp {
-    self.backgroundColor = [Colors get].white;
+    self.backgroundColor = [ColorsLegacy get].white;
     
     self.layer.cornerRadius = 4.0;
 #pragma mark - Header label

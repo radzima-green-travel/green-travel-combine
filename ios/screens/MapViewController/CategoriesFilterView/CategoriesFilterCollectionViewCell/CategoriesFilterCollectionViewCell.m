@@ -10,7 +10,7 @@
 #import "IconNameToImageNameMap.h"
 #import "FilterOption.h"
 #import "Typography.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "CategoriesFilterViewConstants.h"
 
 @interface CategoriesFilterCollectionViewCell ()
@@ -94,12 +94,12 @@
         self.iconView.contentMode = UIViewContentModeCenter;
     }
     if (option.on) {
-        [self.label setAttributedText:[[Typography get] makeSubtitle2Regular:option.title color:[Colors get].white]];
-        [self.contentView setBackgroundColor:[Colors get].apple];
+        [self.label setAttributedText:[[Typography get] makeSubtitle2Regular:option.title color:[ColorsLegacy get].white]];
+        [self.contentView setBackgroundColor:[ColorsLegacy get].apple];
         return;
     }
-    [self.label setAttributedText:[[Typography get] makeSubtitle2Regular:option.title color:[Colors get].logCabin]];
-    [self.contentView setBackgroundColor:[Colors get].white];
+    [self.label setAttributedText:[[Typography get] makeSubtitle2Regular:option.title color:[ColorsLegacy get].logCabin]];
+    [self.contentView setBackgroundColor:[ColorsLegacy get].white];
 }
 
 @end

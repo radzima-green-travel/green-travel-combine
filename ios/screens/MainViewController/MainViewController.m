@@ -10,6 +10,7 @@
 #import "IndexViewController.h"
 #import "FullMapViewController.h"
 #import "BookmarksViewController.h"
+#import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
 #import "ApiService.h"
@@ -38,15 +39,16 @@
 
 @implementation MainViewController
 
+- (void)viewWillLayoutSubviews {
+  self.tabBar.tintColor = [Colors get].tabBarTint; 
+  self.tabBar.barTintColor = [Colors get].tabBarBackground;
+  self.view.backgroundColor = [Colors get].background;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-    self.tabBar.tintColor = [Colors get].green;
-    self.tabBar.barTintColor = [Colors get].white;
     self.delegate = self;
-
-    self.view.backgroundColor = [Colors get].white;
 
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     UserDefaultsService *userDefaultsService = [UserDefaultsService get];
@@ -80,7 +82,7 @@
     
     indexViewControllerWithNavigation.tabBarItem = indexTabBarItem;
 
-    indexViewControllerWithNavigation.navigationBar.barTintColor = [Colors get].green;
+    indexViewControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     indexViewControllerWithNavigation.navigationBar.titleTextAttributes =
     [Typography get].navigationSemiboldAttributes;
 
@@ -104,7 +106,7 @@
     UITabBarItem *mapTabBarItem = createTabBarItem(@"Карта", 0, mapImage, mapImageSelected);
 
     mapControllerWithNavigation.tabBarItem = mapTabBarItem;
-    mapControllerWithNavigation.navigationBar.barTintColor = [Colors get].green;
+    mapControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     mapControllerWithNavigation.navigationBar.titleTextAttributes =
     [Typography get].navigationSemiboldAttributes;
 
@@ -128,7 +130,7 @@
     UITabBarItem *bookmarksTabBarItem = createTabBarItem(@"Закладки", 0, bookmarksImage, bookmarksImageSelected);
 
     bookmarksControllerWithNavigation.tabBarItem = bookmarksTabBarItem;
-    bookmarksControllerWithNavigation.navigationBar.barTintColor = [Colors get].green;
+    bookmarksControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
     [Typography get].navigationSemiboldAttributes;
 

@@ -8,7 +8,7 @@
 
 #import "SearchViewController.h"
 #import "UISearchControllerNoCancel.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "PlaceItem.h"
 #import "Category.h"
 #import "SearchCell.h"
@@ -148,7 +148,7 @@ static const CGFloat kSearchRowHeight = 58.0;
     
     self.tableView = [[UITableView alloc] init];
     [self.view addSubview:self.tableView];
-    self.tableView.backgroundColor = [Colors get].white;
+    self.tableView.backgroundColor = [ColorsLegacy get].white;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.alwaysBounceVertical = YES;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -176,7 +176,7 @@ static const CGFloat kSearchRowHeight = 58.0;
     }
     
     self.scrollView = [[UIScrollView alloc] init];
-    self.scrollView.backgroundColor = [Colors get].white;
+    self.scrollView.backgroundColor = [ColorsLegacy get].white;
     [self.view addSubview:self.scrollView];
     self.scrollView.alwaysBounceVertical = YES;
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;

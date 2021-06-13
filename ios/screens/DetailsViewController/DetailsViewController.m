@@ -7,7 +7,7 @@
 //
 
 #import "DetailsViewController.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "PlaceItem.h"
 #import "PlaceDetails.h"
 #import "ApiService.h"
@@ -92,7 +92,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [Colors get].white;
+    self.view.backgroundColor = [ColorsLegacy get].white;
     self.title = self.item.title;
 
     #pragma mark - Scroll view
@@ -137,11 +137,11 @@
     #pragma mark - Bookmark button
     self.bookmarkButton = [[UIButton alloc] init];
 
-    self.bookmarkButton.backgroundColor = [Colors get].white;
+    self.bookmarkButton.backgroundColor = [ColorsLegacy get].white;
     self.bookmarkButton.contentMode = UIViewContentModeScaleAspectFill;
     self.bookmarkButton.layer.cornerRadius = 22.0;
     self.bookmarkButton.layer.borderWidth = 1.0;
-    self.bookmarkButton.layer.borderColor = [[Colors get].heavyMetal35 CGColor];
+    self.bookmarkButton.layer.borderColor = [[ColorsLegacy get].heavyMetal35 CGColor];
     self.bookmarkButton.layer.masksToBounds = YES;
     UIImage *imageNotSelected = [[UIImage imageNamed:@"bookmark-index"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *imageSelected = [[UIImage imageNamed:@"bookmark-index-selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -149,7 +149,7 @@
     [self.bookmarkButton setImage:imageNotSelected forState:UIControlStateNormal];
     [self.bookmarkButton setImage:imageSelected forState:UIControlStateSelected];
 
-    self.bookmarkButton.tintColor = [Colors get].logCabin;
+    self.bookmarkButton.tintColor = [ColorsLegacy get].logCabin;
     [self.bookmarkButton setSelected:self.item.bookmarked];
 
     [self.bookmarkButton addTarget:self action:@selector(onBookmarkButtonPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -259,7 +259,7 @@
 #pragma mark - Activity indicator
     self.activityIndicatorContainerView = [[UIView alloc] init];
     self.activityIndicatorContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.activityIndicatorContainerView.backgroundColor = [Colors get].white;
+    self.activityIndicatorContainerView.backgroundColor = [ColorsLegacy get].white;
     [self.view addSubview:self.activityIndicatorContainerView];
     [NSLayoutConstraint activateConstraints:@[
         [self.activityIndicatorContainerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
@@ -340,7 +340,7 @@
       }
       if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
         [weakSelf.locationButton setAttributedTitle:
-         [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[Colors get].royalBlue]
+         [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[ColorsLegacy get].royalBlue]
                                            forState:UIControlStateNormal];
         [weakSelf addMapButton];
       }

@@ -8,7 +8,7 @@
 
 #import "RefreshButton.h"
 #import "Typography.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 
 @interface RefreshButton()
 
@@ -41,13 +41,13 @@
 }
 
 - (void)setUp {
-    self.backgroundColor = [Colors get].blue;
+    self.backgroundColor = [ColorsLegacy get].blue;
     self.translatesAutoresizingMaskIntoConstraints = NO;
-    [self setAttributedTitle:[[Typography get] makeButtonText:@"Новые данные" color:[Colors get].white] forState:UIControlStateNormal];
+    [self setAttributedTitle:[[Typography get] makeButtonText:@"Новые данные" color:[ColorsLegacy get].white] forState:UIControlStateNormal];
     [self addTarget:self.target action:self.action forControlEvents:UIControlEventTouchUpInside];
     
     self.layer.cornerRadius = 20.0;
-    self.backgroundColor = [Colors get].apple;
+    self.backgroundColor = [ColorsLegacy get].apple;
     
     [NSLayoutConstraint activateConstraints:@[
         [self.heightAnchor constraintEqualToConstant:40.0],

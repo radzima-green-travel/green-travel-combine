@@ -8,6 +8,7 @@
 
 #import "PlacesTableViewCell.h"
 #import "PhotoCollectionViewCell.h"
+#import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
 #import "Category.h"
@@ -50,6 +51,12 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.collectionView.backgroundColor = [Colors get].background;
+  self.backgroundColor = [Colors get].background;
+}
+
 - (void)setUp {
     self.headerLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.headerLabel];
@@ -67,7 +74,7 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
     [self.collectionView registerClass:PhotoCollectionViewCell.class forCellWithReuseIdentifier:kPhotoCellId];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [Colors get].white;
+    //self.collectionView.backgroundColor = [ColorsLegacy get].white;
     self.collectionView.alwaysBounceHorizontal = YES;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     
@@ -83,7 +90,7 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
     self.allButton = [[UIButton alloc] init];
     [self.contentView addSubview:self.allButton];
     [self.allButton.titleLabel setFont:[UIFont fontWithName:@"Montserrat-SemiBold" size:14.0]];
-    [self.allButton setAttributedTitle:[[Typography get] makeSubtitle1Semibold:@"ВСЕ" color:[Colors get].green] forState:UIControlStateNormal];
+    [self.allButton setAttributedTitle:[[Typography get] makeSubtitle1Semibold:@"ВСЕ" color:[ColorsLegacy get].green] forState:UIControlStateNormal];
     [self.allButton addTarget:self action:@selector(onAllButtonPress:) forControlEvents:UIControlEventTouchUpInside];
     
     self.allButton.translatesAutoresizingMaskIntoConstraints = NO;

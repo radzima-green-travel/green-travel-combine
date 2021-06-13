@@ -8,7 +8,7 @@
 
 #import "RootViewController.h"
 #import "MainViewController.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "TextUtils.h"
 #import "UserDefaultsService.h"
 

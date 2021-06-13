@@ -9,7 +9,7 @@
 #import "ItemDetailsMapViewController.h"
 @import Mapbox;
 #import "StyleUtils.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "MapModel.h"
 #import "MapItemsObserver.h"
 #import "LocationObserver.h"
@@ -170,7 +170,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [style addSource:sourcePath];
 
     MGLLineStyleLayer *pathLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourcePath];
-    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
+    pathLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
     pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     pathLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
     pathLayer.lineWidth =
@@ -182,7 +182,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [style addSource:sourceOutline];
 
     MGLLineStyleLayer *outlineLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourceOutline];
-    outlineLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
+    outlineLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
     outlineLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     outlineLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
     outlineLayer.lineWidth =
@@ -195,9 +195,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [style addSource:sourcePolygon];
 
     MGLFillStyleLayer *polygonLayer = [[MGLFillStyleLayer alloc] initWithIdentifier:MapViewControllerPolygonLayerId source:sourcePolygon];
-    polygonLayer.fillColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
+    polygonLayer.fillColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
     polygonLayer.fillOpacity = [NSExpression expressionForConstantValue:@0.3];
-    polygonLayer.fillOutlineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
+    polygonLayer.fillOutlineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
 
     [style addLayer:polygonLayer];
   }
@@ -241,7 +241,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
   dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
   dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
-  dashedLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].persimmon];
+  dashedLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
   dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
   dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@0, @1.5]];
   

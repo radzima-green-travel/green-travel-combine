@@ -7,7 +7,7 @@
 //
 
 #import "GalleryPageControl.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "DotSizes.h"
 
 typedef NS_ENUM(NSInteger, PageControlState) {
@@ -523,9 +523,9 @@ CGFloat centerCompensation(NSUInteger dotCountLeft, NSUInteger dotCountRight) {
     enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull dotView,
                   NSUInteger dotIndex, BOOL * _Nonnull stop) {
     if (dotIndex == currentDotIndex) {
-        dotView.backgroundColor = [Colors get].apple;
+        dotView.backgroundColor = [ColorsLegacy get].apple;
     } else {
-        dotView.backgroundColor = [Colors get].alto;
+        dotView.backgroundColor = [ColorsLegacy get].alto;
     }}];
 }
 
@@ -561,7 +561,7 @@ CGFloat centerCompensation(NSUInteger dotCountLeft, NSUInteger dotCountRight) {
         [dotView.heightAnchor constraintEqualToConstant:kDotWidth],
     ]];
     dotView.layer.cornerRadius = kDotWidth / 2;
-    dotView.backgroundColor = [Colors get].alto;
+    dotView.backgroundColor = [ColorsLegacy get].alto;
     return dotView;
 }
 

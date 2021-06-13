@@ -7,7 +7,7 @@
 //
 
 #import "GalleryImagePlaceholder.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 
 @implementation GalleryImagePlaceholder
 
@@ -21,7 +21,7 @@
 }
 
 - (void)setUp {
-    self.backgroundColor = [Colors get].alabaster;
+    self.backgroundColor = [ColorsLegacy get].alabaster;
     UIImageView *placeHolderViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"camera"]];
     placeHolderViewImage.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:placeHolderViewImage];

@@ -9,7 +9,7 @@
 #import "DescriptionView.h"
 #import "LinkedCategoriesView.h"
 #import "Typography.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 
 @interface DescriptionView()
 

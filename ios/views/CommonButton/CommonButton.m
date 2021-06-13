@@ -7,7 +7,7 @@
 //
 
 #import "CommonButton.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "Typography.h"
 
 @interface CommonButton()
@@ -46,7 +46,7 @@
 
 - (void)setUp {
     self.translatesAutoresizingMaskIntoConstraints = NO;
-    self.backgroundColor = [Colors get].apple;
+    self.backgroundColor = [ColorsLegacy get].apple;
     self.layer.cornerRadius = 3.0;
     self.layer.masksToBounds = YES;
     [self.titleLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:14.0]];

@@ -7,7 +7,7 @@
 //
 
 #import "BannerView.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "StyleUtils.h"
 #import "TextUtils.h"
 
@@ -44,7 +44,7 @@
 }
 
 - (void)setUp {
-    self.backgroundColor = [Colors get].white;
+    self.backgroundColor = [ColorsLegacy get].white;
     UIStackView *containerView = [[UIStackView alloc] init];
     containerView.alignment = UIStackViewAlignmentCenter;
     containerView.distribution = UIStackViewDistributionFill;
@@ -59,7 +59,7 @@
     ]];
     
     UILabel *bannerLabel = [[UILabel alloc] init];
-    [bannerLabel setAttributedText:getAttributedString(@"Скопировано", [Colors get].black, 15.0, UIFontWeightRegular)];
+    [bannerLabel setAttributedText:getAttributedString(@"Скопировано", [ColorsLegacy get].black, 15.0, UIFontWeightRegular)];
     bannerLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [containerView addArrangedSubview:bannerLabel];
     
@@ -69,7 +69,7 @@
     
     UIView *checkImageContainerView = [[UIView alloc] init];
     checkImageContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    checkImageContainerView.backgroundColor = [Colors get].yellow;
+    checkImageContainerView.backgroundColor = [ColorsLegacy get].yellow;
     [checkImageContainerView addSubview:checkImageView];
     [NSLayoutConstraint activateConstraints:@[
         [checkImageContainerView.heightAnchor constraintEqualToAnchor:checkImageView.heightAnchor],

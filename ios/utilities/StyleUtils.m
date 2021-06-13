@@ -8,13 +8,15 @@
 
 #import "StyleUtils.h"
 #import "Colors.h"
+#import "ColorsLegacy.h"
 #import "TextUtils.h"
 
 
 CAGradientLayer* createGradientLayer(UIView *view) {
     CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
     gradient.frame = view.bounds;
-    gradient.colors = @[(__bridge id)[Colors get].green.CGColor, (__bridge id)[Colors get].shamrock.CGColor];
+    gradient.colors = @[(__bridge id)[Colors get].navigationBarColorStart.CGColor,
+                        (__bridge id)[Colors get].navigationBarColorStop.CGColor];
     gradient.startPoint = CGPointMake(0, 0);
     gradient.endPoint = CGPointMake(1, 0);
     return gradient;
@@ -26,7 +28,7 @@ CAGradientLayer* createOverlayLayer(UIView *view) {
     };
     CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
     gradient.frame = view.bounds;
-    gradient.colors = @[(__bridge id)[Colors get].heavyMetal.CGColor, (__bridge id)UIColor.clearColor.CGColor];
+    gradient.colors = @[(__bridge id)[ColorsLegacy get].heavyMetal.CGColor, (__bridge id)UIColor.clearColor.CGColor];
     gradient.startPoint = CGPointMake(0, 0);
     gradient.endPoint = CGPointMake(0, 0.6);
     return gradient;
@@ -45,7 +47,8 @@ void insertGradientLayer(UIView *view, CGFloat cornerRadius) {
 UIImage* getGradientImageToFillRectWithRadius(CGRect rect, CGFloat cornerRadius) {
     CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
     gradient.frame = rect;
-    gradient.colors = @[(__bridge id)[Colors get].green.CGColor, (__bridge id)[Colors get].shamrock.CGColor];
+    gradient.colors = @[(__bridge id)[Colors get].navigationBarColorStart.CGColor,
+                        (__bridge id)[Colors get].navigationBarColorStop.CGColor];
     gradient.startPoint = CGPointMake(0, 0);
     gradient.endPoint = CGPointMake(1, 0);
     if (cornerRadius) {
@@ -67,9 +70,9 @@ UIImage* getGradientImageToFillRect(CGRect rect) {
 }
 
 void configureNavigationBar(UINavigationBar *navigationBar) {
-    navigationBar.titleTextAttributes = getTextAttributes([Colors get].white, 16.0, UIFontWeightSemibold);
-    navigationBar.barStyle = UIBarStyleBlack;
-    navigationBar.tintColor = [Colors get].white;
+    navigationBar.titleTextAttributes = getTextAttributes([Colors get].navigationBarTint, 16.0, UIFontWeightSemibold);
+    navigationBar.barStyle = UIBarStyleDefault;
+    navigationBar.tintColor = [Colors get].navigationBarTint;
 #pragma mark - Navigation item gradient
     CGRect navBarBounds = navigationBar.bounds;
     
@@ -81,7 +84,7 @@ void configureNavigationBar(UINavigationBar *navigationBar) {
 void drawShadow(UIView *view) {
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:view.bounds];
     view.layer.masksToBounds = NO;
-    view.layer.shadowColor = [[Colors get].heavyMetal CGColor];
+    view.layer.shadowColor = [[ColorsLegacy get].heavyMetal CGColor];
     view.layer.shadowOpacity = 0.2;
     view.layer.shadowOffset = CGSizeMake(0.0, 5.0);
     view.layer.shadowRadius = 8.0;

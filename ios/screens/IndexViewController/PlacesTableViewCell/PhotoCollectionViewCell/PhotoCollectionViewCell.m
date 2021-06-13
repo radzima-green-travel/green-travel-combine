@@ -11,7 +11,7 @@
 #import "PhotoCollectionViewCell.h"
 #import "StyleUtils.h"
 #import "GradientOverlayView.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "TextUtils.h"
 #import "ImageUtils.h"
 #import "Typography.h"
@@ -48,7 +48,7 @@
     
     self.placeholder.contentMode = UIViewContentModeScaleAspectFill;
     self.placeholder.translatesAutoresizingMaskIntoConstraints = NO;
-    self.placeholder.backgroundColor = [Colors get].alabaster;
+    self.placeholder.backgroundColor = [ColorsLegacy get].alabaster;
     
     self.placeholder.layer.cornerRadius = 4.0;
     self.placeholder.layer.masksToBounds = YES;
@@ -90,7 +90,7 @@
     [self.favoritesButton setImage:imageSelected forState:UIControlStateSelected];
     [self.favoritesButton addTarget:self action:@selector(onFavoritePress:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.favoritesButton.tintColor = [Colors get].black;
+    self.favoritesButton.tintColor = [ColorsLegacy get].black;
     [self addSubview:self.favoritesButton];
     
     self.favoritesButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -124,7 +124,7 @@
 
 - (void)updateItem:(PlaceItem *)item {
     self.item = item;
-    self.headerLabel.attributedText = [[Typography get] makeTitle2:item.title color:[Colors get].black];
+    self.headerLabel.attributedText = [[Typography get] makeTitle2:item.title color:[ColorsLegacy get].black];
     [self.favoritesButton setHidden:NO];
     [self.favoritesButton setSelected:item.bookmarked];
     if (item.cover != nil && item.cover != [NSNull null] &&
@@ -147,8 +147,8 @@
         return;
     }
     self.headerLabel.attributedText = [[Typography get] makeTitle2:title
-                                                                 color:[Colors get].white];
-    self.favoritesButton.tintColor = [Colors get].white;
+                                                                 color:[ColorsLegacy get].white];
+    self.favoritesButton.tintColor = [ColorsLegacy get].white;
     [self.placeholder setImage:image];
     [self.overlayView setHidden:NO];
 }
@@ -159,7 +159,7 @@
 }
 
 - (void)updateCategory:(Category *)category {
-     self.headerLabel.attributedText = [[Typography get] makeTitle2:category.title color:[Colors get].black];
+     self.headerLabel.attributedText = [[Typography get] makeTitle2:category.title color:[ColorsLegacy get].black];
     [self.favoritesButton setHidden:YES];
     if (category.cover != nil && category.cover != [NSNull null] &&
         [category.cover length] > 0) {
@@ -187,7 +187,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.loadImageOperation cancel];
-    [self.favoritesButton setTintColor:[Colors get].black];
+    [self.favoritesButton setTintColor:[ColorsLegacy get].black];
     [self.placeholder setImage:nil];
     [self.overlayView setHidden:YES];
     self.headerLabel.text = @"";

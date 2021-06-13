@@ -18,7 +18,7 @@
 #import "PlacesViewController.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "CategoryLinkCell.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "Typography.h"
 
 @interface LinkedCategoriesView()

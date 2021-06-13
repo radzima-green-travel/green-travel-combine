@@ -7,7 +7,7 @@
 //
 
 #import "SearchCell.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "TextUtils.h"
 #import "SearchCellConfiguration.h"
 #import "Typography.h"
@@ -88,7 +88,7 @@ static const NSUInteger kMaxNumberOfLinesForTitle = 5;
     UIView *separatorView = [[UIView alloc] init];
     [self.contentView addSubview:separatorView];
     separatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    separatorView.backgroundColor = [Colors get].alto;
+    separatorView.backgroundColor = [ColorsLegacy get].alto;
     
     [NSLayoutConstraint activateConstraints:@[
         [separatorView.heightAnchor constraintEqualToConstant:1.0],
@@ -100,10 +100,10 @@ static const NSUInteger kMaxNumberOfLinesForTitle = 5;
 
 - (void)update:(SearchCellConfiguration *)configuration {
     self.title.attributedText =
-    [[Typography get] makeTitle2:configuration.title color:[Colors get].black];
+    [[Typography get] makeTitle2:configuration.title color:[ColorsLegacy get].black];
     self.titleCategory.attributedText =
     [[Typography get] makeSubtitle2Regular:configuration.categoryTitle
-                           color:[Colors get].boulder];
+                           color:[ColorsLegacy get].boulder];
     [self.iconView setImage:[[IconNameToImageNameMap get]
                              iconForName:configuration.iconName]];
 }

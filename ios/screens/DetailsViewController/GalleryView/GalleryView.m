@@ -8,7 +8,7 @@
 
 #import "GalleryView.h"
 #import "SlideCollectionViewCell.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "StyleUtils.h"
 #import "GalleryPageControl.h"
 #import "GalleryImagePlaceholder.h"
@@ -85,7 +85,7 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
     [self.collectionView registerClass:SlideCollectionViewCell.class forCellWithReuseIdentifier:kSlideCellIdentifier];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = [Colors get].white;
+    self.collectionView.backgroundColor = [ColorsLegacy get].white;
     [self.collectionView setHidden:[imageURLs count] == 0];
 #pragma mark - Placeholder
     GalleryImagePlaceholder *placeHolderView = [[GalleryImagePlaceholder alloc] init];

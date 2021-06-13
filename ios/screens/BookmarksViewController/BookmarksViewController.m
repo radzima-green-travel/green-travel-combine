@@ -7,7 +7,7 @@
 //
 
 #import "BookmarksViewController.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "StyleUtils.h"
 #import "BookmarkCell.h"
 #import "Category.h"
@@ -80,7 +80,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
     configureNavigationBar(navigationBar);
 #pragma mark - Collection view
     [self.collectionView registerClass:BookmarkCell.class forCellWithReuseIdentifier:kBookmarkCellId];
-    self.collectionView.backgroundColor = [Colors get].white;
+    self.collectionView.backgroundColor = [ColorsLegacy get].white;
     self.collectionView.alwaysBounceVertical = YES;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;

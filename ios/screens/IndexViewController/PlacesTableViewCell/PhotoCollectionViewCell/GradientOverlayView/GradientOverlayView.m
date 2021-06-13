@@ -7,7 +7,7 @@
 //
 
 #import "GradientOverlayView.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 
 @implementation GradientOverlayView
 
@@ -26,7 +26,7 @@
 
 - (void)setUp {
     CAGradientLayer *gradient = (CAGradientLayer *) self.layer;
-    gradient.colors = @[(__bridge id)[Colors get].heavyMetal.CGColor, (__bridge id)UIColor.clearColor.CGColor];
+    gradient.colors = @[(__bridge id)[ColorsLegacy get].heavyMetal.CGColor, (__bridge id)UIColor.clearColor.CGColor];
     gradient.startPoint = CGPointMake(0, 0);
     gradient.endPoint = CGPointMake(0, 0.6);
 }

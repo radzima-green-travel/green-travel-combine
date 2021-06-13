@@ -7,7 +7,7 @@
 //
 
 #import "CategoryLinkCell.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "TextUtils.h"
 #import "Category.h"
 #import "Typography.h"
@@ -38,13 +38,13 @@
     
     self.icon.contentMode = UIViewContentModeScaleAspectFill;
     self.icon.translatesAutoresizingMaskIntoConstraints = NO;
-    self.icon.backgroundColor = [Colors get].blue;
+    self.icon.backgroundColor = [ColorsLegacy get].blue;
     
     self.icon.layer.cornerRadius = 16.0;
     self.icon.layer.masksToBounds = YES;
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = CGRectMake(0, 0, 32.0, 32.0);
-    gradient.colors = @[(__bridge id)[Colors get].green.CGColor, (__bridge id)[Colors get].shamrock.CGColor];
+    gradient.colors = @[(__bridge id)[ColorsLegacy get].green.CGColor, (__bridge id)[ColorsLegacy get].shamrock.CGColor];
     gradient.startPoint = CGPointMake(0.0, 0.5);
     gradient.endPoint = CGPointMake(1.0, 0.5);
     UIGraphicsBeginImageContext(gradient.frame.size);
@@ -75,7 +75,7 @@
     
 #pragma mark - Chevron
     self.chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevron-right"]];
-    self.chevron.tintColor = [Colors get].black;
+    self.chevron.tintColor = [ColorsLegacy get].black;
     [self addSubview:self.chevron];
     
     self.chevron.translatesAutoresizingMaskIntoConstraints = NO;

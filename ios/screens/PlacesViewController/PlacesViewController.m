@@ -9,7 +9,7 @@
 #import "PlacesViewController.h"
 #import "Category.h"
 #import "PhotoCollectionViewCell.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "PlaceItem.h"
 #import "DetailsViewController.h"
 #import "IndexModel.h"
@@ -71,7 +71,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
 
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
-    self.collectionView.backgroundColor = [Colors get].white;
+    self.collectionView.backgroundColor = [ColorsLegacy get].white;
     // Register cell classes
     [self.collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:kPhotoCellId];
     self.collectionView.alwaysBounceVertical = YES;
