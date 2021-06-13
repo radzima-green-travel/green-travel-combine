@@ -41,6 +41,7 @@ static NSString* const kSourceId = @"sourceId";
 static NSString* const kClusterLayerId = @"clusterLayerId";
 static NSString* const kMarkerLayerId = @"markerLayerId";
 static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h";
+static CGFloat const kLocateMeZoomLevel = 11.0;
 
 @implementation BaseMapViewController 
 
@@ -238,7 +239,9 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
 
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
   if (self.intentionToFocusOnUserLocation) {
-    [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
+    [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
+                            zoomLevel:kLocateMeZoomLevel
+                             animated:YES];
     [self.mapView setShowsUserLocation:YES];
     [self.mapView setShowsHeading:YES];
     self.intentionToFocusOnUserLocation = NO;
@@ -253,7 +256,8 @@ static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy
   [self.locationModel startMonitoring];
   
   if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted && self.locationModel.lastLocation) {
-    [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate animated:YES];
+    [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
+                            zoomLevel:kLocateMeZoomLevel animated:YES];
     [self.mapView setShowsUserLocation:YES];
     [self.mapView setShowsHeading:YES];
     return;
