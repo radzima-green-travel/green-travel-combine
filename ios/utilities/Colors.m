@@ -24,6 +24,9 @@ static Colors *instance;
     self.navigationBarColorStop = [UIColor colorNamed:@"navigationBarColorStop"];
     self.tabBarBackground = [UIColor colorNamed:@"tabBarBackground"];
     self.tabBarTint = [UIColor colorNamed:@"tabBarTint"];
+    self.cardPlaceholder = [UIColor colorNamed:@"cardPlaceholder"];
+    self.bookmarkTintEmptyCell = [UIColor colorNamed:@"bookmarkTintEmptyCell"];
+    self.cardPlaceholderText = [UIColor colorNamed:@"cardPlaceholderText"];
   }
   return self;
 }

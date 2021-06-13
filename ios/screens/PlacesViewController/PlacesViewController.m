@@ -9,13 +9,14 @@
 #import "PlacesViewController.h"
 #import "Category.h"
 #import "PhotoCollectionViewCell.h"
-#import "ColorsLegacy.h"
+#import "Colors.h"
 #import "PlaceItem.h"
 #import "DetailsViewController.h"
 #import "IndexModel.h"
 #import "MapModel.h"
 #import "LocationModel.h"
 #import "CategoryUtils.h"
+#import "StyleUtils.h"
 
 @interface PlacesViewController ()
 
@@ -66,12 +67,16 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
     return self;
 }
 
+- (void)viewWillLayoutSubviews {
+  self.collectionView.backgroundColor = [Colors get].background;
+  configureNavigationBar(self.navigationController.navigationBar);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
-    self.collectionView.backgroundColor = [ColorsLegacy get].white;
     // Register cell classes
     [self.collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:kPhotoCellId];
     self.collectionView.alwaysBounceVertical = YES;

@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIColor *navigationBarColorStop;
 @property (strong, nonatomic) UIColor *tabBarBackground;
 @property (strong, nonatomic) UIColor *tabBarTint;
+@property (strong, nonatomic) UIColor *cardPlaceholder;
+@property (strong, nonatomic) UIColor *cardPlaceholderText;
+@property (strong, nonatomic) UIColor *bookmarkTintEmptyCell;
 + (instancetype)get;
 
 @end

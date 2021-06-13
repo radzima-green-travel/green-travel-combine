@@ -12,6 +12,7 @@
 #import "StyleUtils.h"
 #import "GradientOverlayView.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "TextUtils.h"
 #import "ImageUtils.h"
 #import "Typography.h"
@@ -39,6 +40,16 @@
     return self;
 }
 
+- (void)layoutSubviews {
+  self.placeholder.backgroundColor = [Colors get].cardPlaceholder;
+  [super layoutSubviews];
+  [self updateOverlayAndShadow];
+  if (self.item != nil && ![self coverIsPresent]) {
+    self.headerLabel.attributedText = [[Typography get] makeTitle2:self.item.title
+                                                             color:[Colors get].cardPlaceholderText];
+  }
+}
+
 - (void)setUp {
 #pragma mark - Image
     self.placeholder = [[UIImageView alloc] init];
@@ -48,8 +59,7 @@
     
     self.placeholder.contentMode = UIViewContentModeScaleAspectFill;
     self.placeholder.translatesAutoresizingMaskIntoConstraints = NO;
-    self.placeholder.backgroundColor = [ColorsLegacy get].alabaster;
-    
+  
     self.placeholder.layer.cornerRadius = 4.0;
     self.placeholder.layer.masksToBounds = YES;
     
@@ -122,9 +132,15 @@
     
 }
 
+- (BOOL)coverIsPresent {
+  return self.item != nil && self.item.cover != nil &&
+      self.item.cover != [NSNull null] && [self.item.cover length] > 0;
+}
+
 - (void)updateItem:(PlaceItem *)item {
     self.item = item;
-    self.headerLabel.attributedText = [[Typography get] makeTitle2:item.title color:[ColorsLegacy get].black];
+    self.headerLabel.attributedText = [[Typography get] makeTitle2:item.title
+                                                             color:[Colors get].cardPlaceholderText];
     [self.favoritesButton setHidden:NO];
     [self.favoritesButton setSelected:item.bookmarked];
     if (item.cover != nil && item.cover != [NSNull null] &&
@@ -148,7 +164,7 @@
     }
     self.headerLabel.attributedText = [[Typography get] makeTitle2:title
                                                                  color:[ColorsLegacy get].white];
-    self.favoritesButton.tintColor = [ColorsLegacy get].white;
+    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
     [self.placeholder setImage:image];
     [self.overlayView setHidden:NO];
 }
@@ -159,7 +175,8 @@
 }
 
 - (void)updateCategory:(Category *)category {
-     self.headerLabel.attributedText = [[Typography get] makeTitle2:category.title color:[ColorsLegacy get].black];
+     self.headerLabel.attributedText = [[Typography get] makeTitle2:category.title
+                                                              color:[Colors get].cardPlaceholderText];
     [self.favoritesButton setHidden:YES];
     if (category.cover != nil && category.cover != [NSNull null] &&
         [category.cover length] > 0) {
@@ -179,15 +196,10 @@
     drawShadow(self);
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self updateOverlayAndShadow];
-}
-
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.loadImageOperation cancel];
-    [self.favoritesButton setTintColor:[ColorsLegacy get].black];
+    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
     [self.placeholder setImage:nil];
     [self.overlayView setHidden:YES];
     self.headerLabel.text = @"";

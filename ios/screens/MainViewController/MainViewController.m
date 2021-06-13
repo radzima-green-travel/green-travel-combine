@@ -40,7 +40,8 @@
 @implementation MainViewController
 
 - (void)viewWillLayoutSubviews {
-  self.tabBar.tintColor = [Colors get].tabBarTint; 
+  self.tabBar.tintColor = [Colors get].tabBarTint;
+  
   self.tabBar.barTintColor = [Colors get].tabBarBackground;
   self.view.backgroundColor = [Colors get].background;
 }
