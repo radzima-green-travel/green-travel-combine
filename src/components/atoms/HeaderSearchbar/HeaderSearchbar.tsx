@@ -66,12 +66,7 @@ export const HeaderSearchbar = memo(
             <Icon style={styles.icon} name="cross" size={24} />
           </TouchableOpacity>
         ) : (
-          <Icon
-            style={styles.icon}
-            name="search"
-            color={COLORS.logCabin}
-            size={24}
-          />
+          <Icon style={styles.icon} name="search" width={24} height={24} />
         )}
       </View>
     );

@@ -1,6 +1,5 @@
 export {Test} from './Test';
 export {Icon} from './Icon';
-export {Searchbar} from './Searchbar';
 export {HeaderSearchbar} from './HeaderSearchbar';
 export {ScreenContent} from './ScreenContent';
 export {TextElemets} from './TextElemets';

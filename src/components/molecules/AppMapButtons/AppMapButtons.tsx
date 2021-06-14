@@ -31,13 +31,7 @@ export const AppMapButtons = memo(
           },
         ]}>
         <MapButtonContainer onPress={onSearchPress}>
-          <Icon
-            style={styles.icon}
-            name="search"
-            width={20}
-            height={20}
-            color={COLORS.logCabin}
-          />
+          <Icon style={styles.icon} name="search" width={20} height={20} />
         </MapButtonContainer>
         <MapButtonContainer
           style={styles.showLocationButton}
