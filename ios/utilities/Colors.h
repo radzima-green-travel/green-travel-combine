@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIColor *cardPlaceholder;
 @property (strong, nonatomic) UIColor *cardPlaceholderText;
 @property (strong, nonatomic) UIColor *bookmarkTintEmptyCell;
+@property (strong, nonatomic) UIColor *bookmarkCard;
 + (instancetype)get;
 
 @end

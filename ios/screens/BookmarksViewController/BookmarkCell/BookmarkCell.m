@@ -8,6 +8,7 @@
 
 #import "BookmarkCell.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "TextUtils.h"
 #import "Category.h"
 #import "StyleUtils.h"
@@ -32,9 +33,12 @@
     return self;
 }
 
+- (void)layoutSubviews {
+  self.backgroundColor = [Colors get].bookmarkCard;
+  drawShadow(self);
+}
+
 - (void)setUp {
-    self.backgroundColor = [ColorsLegacy get].white;
-    
     self.layer.cornerRadius = 4.0;
 #pragma mark - Header label
     self.headerLabel = [[UILabel alloc] init];
@@ -76,11 +80,5 @@
     self.countLabel.attributedText =  [[NSAttributedString alloc] init];
     self.layer.shadowPath = nil;
 }
-
-- (void)layoutSubviews {
-    drawShadow(self);
-}
-
-
 
 @end
