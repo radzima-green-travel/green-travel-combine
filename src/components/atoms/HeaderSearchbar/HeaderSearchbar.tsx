@@ -46,14 +46,15 @@ export const HeaderSearchbar = memo(
       [onChange],
     );
 
+    const isLightTheme = colorTheme === 'light';
+
     return (
       <View style={[styles.searchContainer, containerStyle]}>
         <TextInput
           autoFocus={autoFocus}
           value={value}
           selectionColor={
-            selectionColor ||
-            (colorTheme === 'light' ? COLORS.logCabin : COLORS.white)
+            selectionColor || (isLightTheme ? COLORS.logCabin : COLORS.white)
           }
           onChangeText={onChangeText}
           style={[styles.input, inputStyle]}
@@ -66,7 +67,12 @@ export const HeaderSearchbar = memo(
             <Icon style={styles.icon} name="cross" size={24} />
           </TouchableOpacity>
         ) : (
-          <Icon style={styles.icon} name="search" width={24} height={24} />
+          <Icon
+            style={styles.icon}
+            name={isLightTheme ? 'searchDark' : 'searchLight'}
+            width={24}
+            height={24}
+          />
         )}
       </View>
     );
