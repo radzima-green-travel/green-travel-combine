@@ -9,7 +9,6 @@ import {View, StyleSheet, Animated, Easing, StatusBar} from 'react-native';
 import {FONTS} from 'assets';
 import RNBootSplash from 'react-native-bootsplash';
 
-// import {useReduxDevToolsExtension} from '@react-navigation/devtools';
 const SplasScreen = ({onAnimationEnd, onFadeStart}) => {
   const animatedValue = useMemo(() => new Animated.Value(0), []);
   const opacity = useMemo(() => new Animated.Value(1), []);
@@ -38,7 +37,7 @@ const SplasScreen = ({onAnimationEnd, onFadeStart}) => {
         });
       });
     }, 300);
-  }, [animatedValue, opacity, onAnimationEnd]);
+  }, [animatedValue, opacity, onAnimationEnd, onFadeStart]);
   return (
     <Animated.View
       style={{
@@ -54,7 +53,7 @@ const SplasScreen = ({onAnimationEnd, onFadeStart}) => {
             {
               translateX: animatedValue.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, -80],
+                outputRange: [0, -90],
               }),
             },
           ],
@@ -78,7 +77,7 @@ const SplasScreen = ({onAnimationEnd, onFadeStart}) => {
               {
                 translateX: animatedValue.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [0, 30],
+                  outputRange: [0, 35],
                 }),
               },
             ],
@@ -107,7 +106,6 @@ export function RootNavigator() {
   const onAnimationEnd = useCallback(() => {
     setSplashTransitionFinished(true);
   }, []);
-  // useReduxDevToolsExtension(navigationRef);
   return (
     <NavigationContainer ref={navigationRef}>
       {bootstrapFinished && <MainNavigator />}
