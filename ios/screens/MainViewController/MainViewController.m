@@ -35,6 +35,10 @@
 @property (strong, nonatomic) NSURLSession *session;
 @property (strong, nonatomic) UIViewController *previousViewController;
 
+@property (strong, nonatomic) UITabBarItem *indexTabBarItem;
+@property (strong, nonatomic) UITabBarItem *mapTabBarItem;
+@property (strong, nonatomic) UITabBarItem *bookmarksTabBarItem;
+
 @end
 
 @implementation MainViewController
@@ -43,7 +47,27 @@
   self.tabBar.tintColor = [Colors get].tabBarTint;
   
   self.tabBar.barTintColor = [Colors get].tabBarBackground;
+  self.tabBar.translucent = NO;
   self.view.backgroundColor = [Colors get].background;
+  
+  [self.indexTabBarItem setImage:[UIImage imageNamed:@"home"]];
+  [self.indexTabBarItem setSelectedImage:[UIImage imageNamed:@"home-selected"]];
+  [self.indexTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
+                                     forState:UIControlStateSelected];
+  [self.indexTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
+                                     forState:UIControlStateNormal];
+  [self.mapTabBarItem setImage:[UIImage imageNamed:@"map"]];
+  [self.mapTabBarItem setSelectedImage:[UIImage imageNamed:@"map-selected"]];
+  [self.mapTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
+                                     forState:UIControlStateSelected];
+  [self.mapTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
+                                     forState:UIControlStateNormal];
+  [self.bookmarksTabBarItem setImage:[UIImage imageNamed:@"bookmark"]];
+  [self.bookmarksTabBarItem setSelectedImage:[UIImage imageNamed:@"bookmark-selected"]];
+  [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
+                                     forState:UIControlStateSelected];
+  [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
+                                     forState:UIControlStateNormal];
 }
 
 - (void)viewDidLoad {
@@ -79,9 +103,9 @@
     UIImage *indexImageSelected;
     indexImage = [UIImage imageNamed:@"home"];
     indexImageSelected = [UIImage imageNamed:@"home-selected"];
-    UITabBarItem *indexTabBarItem = createTabBarItem(@"Главная", 0, indexImage, indexImageSelected);
-    
-    indexViewControllerWithNavigation.tabBarItem = indexTabBarItem;
+    self.indexTabBarItem = createTabBarItem(@"Главная", 0, indexImage, indexImageSelected);
+  
+    indexViewControllerWithNavigation.tabBarItem = self.indexTabBarItem;
 
     indexViewControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     indexViewControllerWithNavigation.navigationBar.titleTextAttributes =
@@ -104,9 +128,9 @@
     UIImage *mapImageSelected;
     mapImage = [UIImage imageNamed:@"map"];
     mapImageSelected = [UIImage imageNamed:@"map-selected"];
-    UITabBarItem *mapTabBarItem = createTabBarItem(@"Карта", 0, mapImage, mapImageSelected);
+    self.mapTabBarItem = createTabBarItem(@"Карта", 0, mapImage, mapImageSelected);
 
-    mapControllerWithNavigation.tabBarItem = mapTabBarItem;
+    mapControllerWithNavigation.tabBarItem = self.mapTabBarItem;
     mapControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     mapControllerWithNavigation.navigationBar.titleTextAttributes =
     [Typography get].navigationSemiboldAttributes;
@@ -128,9 +152,9 @@
     UIImage *bookmarksImageSelected;
     bookmarksImage = [UIImage imageNamed:@"bookmark"];
     bookmarksImageSelected = [UIImage imageNamed:@"bookmark-selected"];
-    UITabBarItem *bookmarksTabBarItem = createTabBarItem(@"Закладки", 0, bookmarksImage, bookmarksImageSelected);
+    self.bookmarksTabBarItem = createTabBarItem(@"Закладки", 0, bookmarksImage, bookmarksImageSelected);
 
-    bookmarksControllerWithNavigation.tabBarItem = bookmarksTabBarItem;
+    bookmarksControllerWithNavigation.tabBarItem = self.bookmarksTabBarItem;
     bookmarksControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
     [Typography get].navigationSemiboldAttributes;
@@ -141,13 +165,13 @@
 }
 
 UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, UIImage *imageSelected) {
-    UITabBarItem *bookmarksTabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image tag:tag];
-    [bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
+    UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image tag:tag];
+    [tabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
                                        forState:UIControlStateSelected];
-    [bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
+    [tabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
                                        forState:UIControlStateNormal];
-    bookmarksTabBarItem.selectedImage = imageSelected;
-    return bookmarksTabBarItem;
+    tabBarItem.selectedImage = imageSelected;
+    return tabBarItem;
 }
 
 - (void)loadCategories {

@@ -9,6 +9,7 @@
 #import "Typography.h"
 #import "TextUtils.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 
 @implementation Typography
 
@@ -22,8 +23,8 @@ static Typography *instance;
         self.subtitle2SemiboldAttributes = getTextAttributes([ColorsLegacy get].black, 12.0, UIFontWeightSemibold);
         
         
-        self.tabBarAttributes = getTextAttributes([ColorsLegacy get].logCabin, 12.0, UIFontWeightMedium);
-        self.tabBarSelectedAttributes = getTextAttributes([ColorsLegacy get].apple, 12.0, UIFontWeightMedium);
+        self.tabBarAttributes = getTextAttributes([Colors get].tabBarText, 12.0, UIFontWeightMedium);
+        self.tabBarSelectedAttributes = getTextAttributes([Colors get].tabBarTextSelected, 12.0, UIFontWeightMedium);
     }
     return self;
 }

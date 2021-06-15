@@ -27,7 +27,9 @@ static Colors *instance;
     self.cardPlaceholder = [UIColor colorNamed:@"cardPlaceholder"];
     self.bookmarkTintEmptyCell = [UIColor colorNamed:@"bookmarkTintEmptyCell"];
     self.cardPlaceholderText = [UIColor colorNamed:@"cardPlaceholderText"];
-    self.bookmarkCard = [UIColor colorNamed:@"bookmarkCard"]; 
+    self.bookmarkCard = [UIColor colorNamed:@"bookmarkCard"];
+    self.tabBarText = [UIColor colorNamed:@"tabBarText"];
+    self.tabBarTextSelected = [UIColor colorNamed:@"tabBarTextSelected"];
   }
   return self;
 }
