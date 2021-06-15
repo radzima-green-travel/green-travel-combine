@@ -41,7 +41,7 @@ static NSString* const kSourceId = @"sourceId";
 static NSString* const kClusterLayerId = @"clusterLayerId";
 static NSString* const kMarkerLayerId = @"markerLayerId";
 static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h";
-static CGFloat const kLocateMeZoomLevel = 11.0;
+static CGFloat const kLocateMeZoomLevel = 10.0;
 
 @implementation BaseMapViewController 
 
@@ -240,12 +240,17 @@ static CGFloat const kLocateMeZoomLevel = 11.0;
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
   if (self.intentionToFocusOnUserLocation) {
     [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
-                            zoomLevel:kLocateMeZoomLevel
+                            zoomLevel:[self locateMeZoomLevel]
                              animated:YES];
     [self.mapView setShowsUserLocation:YES];
     [self.mapView setShowsHeading:YES];
     self.intentionToFocusOnUserLocation = NO;
   }
+}
+
+- (CGFloat)locateMeZoomLevel {
+  CGFloat zoomLevel = self.mapView.zoomLevel > kLocateMeZoomLevel ? self.mapView.zoomLevel : kLocateMeZoomLevel;
+  return zoomLevel;
 }
 
 #pragma mark - Event listeners
@@ -257,7 +262,7 @@ static CGFloat const kLocateMeZoomLevel = 11.0;
   
   if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted && self.locationModel.lastLocation) {
     [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
-                            zoomLevel:kLocateMeZoomLevel animated:YES];
+                            zoomLevel:[self locateMeZoomLevel] animated:YES];
     [self.mapView setShowsUserLocation:YES];
     [self.mapView setShowsHeading:YES];
     return;
