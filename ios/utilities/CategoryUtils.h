@@ -13,6 +13,7 @@
 @class StoredPlaceItem;
 
 void traverseCategories(NSArray<Category *> *categories, void(^onCategoryAndItem)(Category*, PlaceItem*));
+void traverseCategoriesWithLevel(NSArray<Category *> *categories, NSUInteger level, void(^onCategoryAndItem)(Category*, PlaceItem*, NSUInteger level));
 void traverseStoredCategories(NSArray<StoredCategory *> *categories, void(^onCategoryAndItem)(StoredCategory*, StoredPlaceItem*));
 BOOL isCategoriesEqual(NSArray<Category *> *categoriesA, NSArray<Category *> *categoriesB);
 NSMutableDictionary<NSString *, Category *>* flattenCategoriesTreeIntoCategoriesMap(NSArray<Category *> *categories);

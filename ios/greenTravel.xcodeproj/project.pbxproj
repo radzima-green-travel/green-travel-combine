@@ -18,6 +18,7 @@
 		5A2144B1266B988700582901 /* MapViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B0266B988700582901 /* MapViewState.m */; };
 		5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */; };
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
+		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
 		5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FB2655B1D500A2D37B /* StoredCoordinateCollection+CoreDataProperties.m */; };
 		5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */; };
 		5A6DC5052655B1DA00A2D37B /* StoredArea+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FF2655B1D500A2D37B /* StoredArea+CoreDataClass.m */; };
@@ -165,8 +166,12 @@
 		5A2144B0266B988700582901 /* MapViewState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewState.m; sourceTree = "<group>"; };
 		5A2144B6266BEEBF00582901 /* MapViewControllerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewControllerConstants.h; sourceTree = "<group>"; };
 		5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewControllerConstants.m; sourceTree = "<group>"; };
+		5A238821267A57DA0004BF0A /* IndexPeeks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexPeeks.h; sourceTree = "<group>"; };
+		5A238822267A57DA0004BF0A /* IndexPeeks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexPeeks.m; sourceTree = "<group>"; };
 		5A246AC826429689003C6E5B /* BookmarkButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButton.h; sourceTree = "<group>"; };
 		5A246AC926429689003C6E5B /* BookmarkButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkButton.m; sourceTree = "<group>"; };
+		5A5DCEAC2687E5E7003025F5 /* ArrayUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayUtils.h; sourceTree = "<group>"; };
+		5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrayUtils.m; sourceTree = "<group>"; };
 		5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoredCoordinateCollection+CoreDataClass.m"; sourceTree = "<group>"; };
 		5A6DC4F52655B1D400A2D37B /* StoredPlaceDetails+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredPlaceDetails+CoreDataProperties.h"; sourceTree = "<group>"; };
 		5A6DC4F62655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredCoordinateCollection+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -650,6 +655,8 @@
 				5A775A6426064C8F00CEFC78 /* CategoriesObserver.h */,
 				5A775A6626064C8F00CEFC78 /* BookmarksObservable.h */,
 				5A775A6726064C8F00CEFC78 /* BookmarksObserver.h */,
+				5A238821267A57DA0004BF0A /* IndexPeeks.h */,
+				5A238822267A57DA0004BF0A /* IndexPeeks.m */,
 			);
 			path = IndexModel;
 			sourceTree = "<group>";
@@ -691,6 +698,7 @@
 			isa = PBXGroup;
 			children = (
 				5A775A8226064C8F00CEFC78 /* CategoryUUIDToRelatedItemUUIDs.m */,
+				5A775A9026064C8F00CEFC78 /* Category.h */,
 				5A775A8326064C8F00CEFC78 /* Category.m */,
 				5A775A8426064C8F00CEFC78 /* BookmarkItem.m */,
 				5A775A8526064C8F00CEFC78 /* PlaceDetails.h */,
@@ -704,7 +712,6 @@
 				5A775A8D26064C8F00CEFC78 /* CategoryUUIDToRelatedItemUUIDs.h */,
 				5A775A8E26064C8F00CEFC78 /* PathItem.h */,
 				5A775A8F26064C8F00CEFC78 /* PlaceDetails.m */,
-				5A775A9026064C8F00CEFC78 /* Category.h */,
 				5A775A9126064C8F00CEFC78 /* BookmarkItem.h */,
 				5A775A9226064C8F00CEFC78 /* SearchItem.h */,
 				5A775A9326064C8F00CEFC78 /* PlaceItem.m */,
@@ -785,16 +792,18 @@
 				5A775B1726064C9000CEFC78 /* ColorsLegacy.m */,
 				5A775B1826064C9000CEFC78 /* TextUtils.h */,
 				5A775B1026064C9000CEFC78 /* TextUtils.m */,
-				5A775B1426064C9000CEFC78 /* ImageUtils.h */,
 				5A775B0C26064C9000CEFC78 /* ImageUtils.m */,
+				5A775B1326064C9000CEFC78 /* CategoryUtils.h */,
 				5A775B0D26064C9000CEFC78 /* CategoryUtils.m */,
 				5A775B0F26064C9000CEFC78 /* StyleUtils.h */,
 				5A775B1226064C9000CEFC78 /* SizeUtils.h */,
-				5A775B1326064C9000CEFC78 /* CategoryUtils.h */,
+				5A775B1426064C9000CEFC78 /* ImageUtils.h */,
 				5A775B1626064C9000CEFC78 /* SizeUtils.m */,
 				5A775B1926064C9000CEFC78 /* StyleUtils.m */,
 				5A21445A2663E9A700582901 /* AlertUtils.h */,
 				5A21445B2663E9A700582901 /* AlertUtils.m */,
+				5A5DCEAC2687E5E7003025F5 /* ArrayUtils.h */,
+				5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -1482,6 +1491,7 @@
 				5A775E0726077A7D00CEFC78 /* MainViewController.m in Sources */,
 				5A775B2526064C9000CEFC78 /* StoredCategory+CoreDataProperties.m in Sources */,
 				5A775DFC26077A7D00CEFC78 /* IndexViewControllerConstants.m in Sources */,
+				5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */,
 				5A775E0B26077A7D00CEFC78 /* DetailsViewController.m in Sources */,
 				5A775E1126077A7D00CEFC78 /* PlacesViewController.m in Sources */,
 				5A775B5926064C9000CEFC78 /* Category.m in Sources */,

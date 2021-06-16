@@ -24,15 +24,19 @@ NS_ASSUME_NONNULL_BEGIN
 @class ApiService;
 @class CoreDataService;
 @class UserDefaultsService;
+@class IndexPeeks;
 
 @interface IndexModel : NSObject<CategoriesObservable, BookmarksObservable> 
 
 @property (strong, nonatomic) NSMutableArray<id<CategoriesObserver>> *categoriesObservers;
 @property (strong, nonatomic) NSMutableArray<id<BookmarksObserver>> *bookmarksObservers;
 @property (strong, nonatomic) NSArray<Category *> *categories;
+@property (strong, nonatomic) NSArray<Category *> *randomizedCategories;
 @property (copy, nonatomic) NSDictionary<NSString *, Category *> *flatCategories;
 @property (copy, nonatomic) NSDictionary<NSString *, PlaceItem *> *flatItems;
 @property (strong, nonatomic) NSDictionary<NSString *, PathDetails *> *pathsByUUID;
+@property (assign, nonatomic) BOOL *randomizationDone;
+
 - (instancetype)initWithApiService:(ApiService *)apiService
                    coreDataService:(CoreDataService *)coreDataService
                userDefaultsService:(UserDefaultsService *)userDefaultsService;

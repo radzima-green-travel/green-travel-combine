@@ -12,14 +12,21 @@
 #import "StoredPlaceItem+CoreDataProperties.h"
 #import "StoredCategory+CoreDataProperties.h"
 
-void traverseCategories(NSArray<Category *> *categories, void(^onCategoryAndItem)(Category*, PlaceItem*)) {
-    [categories enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
-        onCategoryAndItem(category, nil);
-        [category.items enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
-            onCategoryAndItem(category, item);
-        }];
-        traverseCategories(category.categories, onCategoryAndItem);
+void traverseCategoriesWithLevel(NSArray<Category *> *categories, NSUInteger level, void(^onCategoryAndItem)(Category*, PlaceItem*, NSUInteger)) {
+  [categories enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
+    onCategoryAndItem(category, nil, level);
+    [category.items enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+      onCategoryAndItem(category, item, level);
     }];
+    traverseCategoriesWithLevel(category.categories, level + 1,
+                                onCategoryAndItem);
+  }];
+}
+
+void traverseCategories(NSArray<Category *> *categories, void(^onCategoryAndItem)(Category*, PlaceItem*)) {
+  traverseCategoriesWithLevel(categories, 0, ^(Category *category, PlaceItem *item, NSUInteger level) {
+    onCategoryAndItem(category, item);
+  });
 }
 
 void traverseStoredCategories(NSArray<StoredCategory *> *categories, void(^onCategoryAndItem)(StoredCategory*, StoredPlaceItem*)) {

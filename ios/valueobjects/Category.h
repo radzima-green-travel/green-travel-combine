@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
 
-@interface Category : NSObject
+@interface Category : NSObject<NSCopying>
 
 @property (strong, nonatomic) NSString *uuid;
 @property (strong, nonatomic) NSString *title;
@@ -22,8 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *cover;
 @property (strong, nonatomic) void (^onAllButtonPress)(void);
 @property (strong, nonatomic) void (^onPlaceCellPress)(void);
-
-
 
 @end
 

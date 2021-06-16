@@ -244,7 +244,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 #pragma mark - Lifecycle
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self fillNavigationListeners:self.model.categories];
+    [self fillNavigationListeners:self.model.randomizedCategories];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -283,13 +283,13 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.model.categories count];
+    return [self.model.randomizedCategories count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PlacesTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCollectionCellId forIndexPath:indexPath];
     
-    [cell update:self.model.categories[indexPath.row]];
+    [cell update:self.model.randomizedCategories[indexPath.row]];
 
     return cell;
 }
@@ -302,7 +302,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 
 #pragma mark - Categories update
 - (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
-    [self fillNavigationListeners:self.model.categories];
+    [self fillNavigationListeners:self.model.randomizedCategories];
     if ([categories count]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setUpWithTable];
@@ -312,7 +312,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 
 - (void)onCategoriesNewDataAvailable {
     __weak typeof(self) weakSelf = self;
-    if (![self.model.categories count]) {
+    if (![self.model.randomizedCategories count]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf setUpWithTable];
         });
@@ -344,13 +344,13 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 
 #pragma mark - Bookmarks update
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
-    NSIndexSet *indexes = [self.model.categories indexesOfObjectsPassingTest:^BOOL(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSIndexSet *indexes = [self.model.randomizedCategories indexesOfObjectsPassingTest:^BOOL(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         return [obj.uuid isEqualToString:item.category.uuid];
     }];
     [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
         NSIndexPath *indexPathOfFoundCategory =  [NSIndexPath indexPathForRow:idx inSection:0];
         PlacesTableViewCell *cell = (PlacesTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPathOfFoundCategory];
-        NSIndexSet *indexes = [self.model.categories[idx].items indexesOfObjectsPassingTest:^BOOL(PlaceItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSIndexSet *indexes = [self.model.randomizedCategories[idx].items indexesOfObjectsPassingTest:^BOOL(PlaceItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             return [obj.uuid isEqualToString:item.uuid];
         }];
         [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
@@ -385,7 +385,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                                locationModel:weakSelf.locationModel
                                                  searchModel:weakSelf.searchModel
                                                   bookmarked:NO allowedItemUUIDs:nil];
-            placesViewController.category = weakCategory;
+            placesViewController.category = weakSelf.model.flatCategories[weakCategory.uuid];
             [weakSelf.navigationController pushViewController:placesViewController animated:YES];
         };
         [weakSelf fillNavigationListeners:obj.categories];

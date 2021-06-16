@@ -14,9 +14,11 @@
 #import "ApiService.h"
 #import "CoreDataService.h"
 #import "CategoryUtils.h"
+#import "ArrayUtils.h"
 #import "UserDefaultsService.h"
 #import "PlaceDetails.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
+#import "IndexPeeks.h"
 
 @interface IndexModel ()
 
@@ -145,9 +147,16 @@ static IndexModel *instance;
 - (void)updateCategories:(NSArray<Category *> *)categories {
   NSMutableDictionary<NSString *, Category *> *flatCategories = [[NSMutableDictionary alloc] init];
   NSMutableDictionary<NSString *, PlaceItem *> *flatItems = [[NSMutableDictionary alloc] init];
-  traverseCategories(categories, ^(Category *category, PlaceItem *placeItem) {
-    if (category != nil) {
+  NSMutableArray<Category*> *randomizedCategories = [[NSMutableArray alloc] init];
+  traverseCategoriesWithLevel(categories, 0, ^(Category *category, PlaceItem *placeItem, NSUInteger level) {
+    if (category != nil && placeItem == nil) {
       flatCategories[category.uuid] = category;
+      if (level == 0) {
+        Category *categoryRandomized = [category copyWithZone:nil];
+        categoryRandomized.items = shuffledArray(category.items);
+        categoryRandomized.categories = shuffledArray(category.categories);
+        [randomizedCategories addObject:categoryRandomized];
+      }
     }
     if (placeItem != nil) {
       flatItems[placeItem.uuid] = placeItem;
@@ -156,6 +165,7 @@ static IndexModel *instance;
   self.categories = categories;
   self.flatItems = flatItems;
   self.flatCategories = flatCategories;
+  self.randomizedCategories = [randomizedCategories copy];
   
   [self verifyLinks];
   [self notifyObservers];

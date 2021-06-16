@@ -16,6 +16,7 @@
 #import "SizeUtils.h"
 #import "Typography.h"
 #import "IndexViewControllerConstants.h"
+#import "CategoryUtils.h"
 
 static NSString * const kPhotoCellId = @"photoCellId";
 static NSInteger kMaximalNumberOfItemsInCell = 10;
