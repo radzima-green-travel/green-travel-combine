@@ -72,20 +72,26 @@ static NSString * const kImageBaseURL = @"http://radzimastorage74831-prod.s3-web
 }
 
 - (NSArray<Category *>*)mapCategoriesFromJSON:(NSArray *)categories {
-    NSMutableArray<Category *> *mappedCategories = [[NSMutableArray alloc] init];
-    [categories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        Category *category = [[Category alloc] init];
-        category.categories = [self mapCategoriesFromJSON:obj[@"children"]];
-        category.items = [self mapItemsFromJSON:obj[@"objects"] category:category];
-        if ([category.categories count] > 0 || [category.items count] > 0) {
-            category.title = obj[@"name"];
-            category.cover = [NSString stringWithFormat:@"%@%@", kImageBaseURL, obj[@"cover"]];
-            category.uuid = obj[@"id"];
-            category.icon = obj[@"icon"];
-            [mappedCategories addObject:category];
-        }
-    }];
-    return mappedCategories;
+  NSMutableArray<Category *> *mappedCategories = [[NSMutableArray alloc] init];
+  [categories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    Category *category = [[Category alloc] init];
+    category.categories = [self mapCategoriesFromJSON:obj[@"children"]];
+    category.items = [self mapItemsFromJSON:obj[@"objects"] category:category];
+    if ([self categoryIsValid:category rawCategory:obj]) {
+      category.title = obj[@"name"];
+      category.cover = [NSString stringWithFormat:@"%@%@", kImageBaseURL, obj[@"cover"]];
+      category.uuid = obj[@"id"];
+      category.icon = obj[@"icon"];
+      [mappedCategories addObject:category];
+    }
+  }];
+  return mappedCategories;
+}
+
+- (BOOL)categoryIsValid:(Category *)category
+            rawCategory:(NSDictionary *)rawCategory {
+  return ([category.categories count] > 0 || [category.items count] > 0) &&
+  rawCategory[@"icon"] != nil && ![rawCategory[@"icon"] isEqual:[NSNull null]];
 }
 
 - (NSArray<PlaceItem *>*)mapItemsFromJSON:(NSArray *)items
