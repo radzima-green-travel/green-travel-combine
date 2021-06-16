@@ -45,29 +45,27 @@
 
 - (void)viewWillLayoutSubviews {
   self.tabBar.tintColor = [Colors get].tabBarTint;
-  
   self.tabBar.barTintColor = [Colors get].tabBarBackground;
   self.tabBar.translucent = NO;
   self.view.backgroundColor = [Colors get].background;
   
   [self.indexTabBarItem setImage:[UIImage imageNamed:@"home"]];
   [self.indexTabBarItem setSelectedImage:[UIImage imageNamed:@"home-selected"]];
-  [self.indexTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
-                                     forState:UIControlStateSelected];
+  [self.indexTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
   [self.indexTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
                                      forState:UIControlStateNormal];
   [self.mapTabBarItem setImage:[UIImage imageNamed:@"map"]];
   [self.mapTabBarItem setSelectedImage:[UIImage imageNamed:@"map-selected"]];
-  [self.mapTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
-                                     forState:UIControlStateSelected];
+  [self.mapTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
   [self.mapTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
                                      forState:UIControlStateNormal];
   [self.bookmarksTabBarItem setImage:[UIImage imageNamed:@"bookmark"]];
   [self.bookmarksTabBarItem setSelectedImage:[UIImage imageNamed:@"bookmark-selected"]];
-  [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
-                                     forState:UIControlStateSelected];
+  [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
   [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
                                      forState:UIControlStateNormal];
+  
+  
 }
 
 - (void)viewDidLoad {
