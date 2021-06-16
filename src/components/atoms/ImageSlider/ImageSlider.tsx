@@ -1,6 +1,12 @@
-import React, {memo} from 'react';
-import {FlatList, NativeSyntheticEvent, NativeScrollEvent} from 'react-native';
+import React, {memo, useState} from 'react';
+import {
+  FlatList,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  View,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {LoadingView} from '../LoadingView';
 
 interface IProps {
   images?: string[];
@@ -8,6 +14,24 @@ interface IProps {
   width: number;
   height: number;
 }
+
+const Item = ({width, item}) => {
+  const [loading, setLoading] = useState(false);
+  return (
+    <View style={{width}}>
+      <FastImage
+        onLoadStart={() => setLoading(true)}
+        onLoadEnd={() => setLoading(false)}
+        style={{width, height: '100%'}}
+        resizeMode={FastImage.resizeMode.cover}
+        source={{
+          uri: item,
+        }}
+      />
+      {loading ? <LoadingView transparent /> : null}
+    </View>
+  );
+};
 
 export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
   return (
@@ -24,15 +48,7 @@ export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
       initialNumToRender={2}
       maxToRenderPerBatch={2}
       renderItem={({item}) => {
-        return (
-          <FastImage
-            style={{width}}
-            resizeMode={FastImage.resizeMode.cover}
-            source={{
-              uri: item,
-            }}
-          />
-        );
+        return <Item width={width} item={item} />;
       }}
     />
   );
