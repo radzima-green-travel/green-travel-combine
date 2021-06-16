@@ -11,12 +11,7 @@ const HeaderRight = ({navigation}: IProps) => {
       hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
       activeOpacity={0.8}
       onPress={() => navigation.navigate('Search')}>
-      <Icon
-        additionalColor={COLORS.white}
-        name={'marker'}
-        color={COLORS.white}
-        size={24}
-      />
+      <Icon name={'search'} color={COLORS.white} size={24} />
     </TouchableOpacity>
   );
 };

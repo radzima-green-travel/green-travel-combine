@@ -4,7 +4,7 @@ export const COLORS = {
   alabaster: '#F8F8F8',
   boulder: '#777777',
   logCabin: '#0A0B0A',
-  white: '#FFFFFF',
+  white: '#FFFFF0',
   silver: '#BDBDBD',
   cornflowerBlue: '#538FEF',
   alto: '#D9D9D9',

@@ -52,12 +52,6 @@ export const Card = memo(
       });
     }, [imageUri]);
 
-    const iconNameFilled = isImageProvided
-      ? 'bookmarkFilledLight'
-      : 'bookmarkFilledDark';
-
-    const iconName = isImageProvided ? 'bookmarkLight' : 'bookmarkDark';
-
     return (
       <TouchableOpacity
         onPress={onPress}
@@ -84,9 +78,13 @@ export const Card = memo(
               objectId={id}>
               {isFavorite => (
                 <Icon
-                  name={isFavorite ? iconNameFilled : iconName}
+                  name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
                   width={20}
                   height={20}
+                  style={[
+                    styles.icon,
+                    isImageProvided ? {} : styles.emptyCardIcon,
+                  ]}
                 />
               )}
             </FavoriteButtonContainer>

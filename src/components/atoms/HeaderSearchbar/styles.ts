@@ -38,7 +38,7 @@ export const themeStyles = {
     marginRight: 6,
     color: {
       light: COLORS.logCabin,
-      dark: COLORS.white,
+      dark: COLORS.altoForDark,
     },
   },
 };

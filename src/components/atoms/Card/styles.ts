@@ -49,6 +49,18 @@ export const themeStyles = {
     ...StyleSheet.absoluteFillObject,
     borderRadius: 4,
   },
+  icon: {
+    color: {
+      light: COLORS.white,
+      dark: COLORS.white,
+    },
+  },
+  emptyCardIcon: {
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.logCabin,
+    },
+  },
 };
 
 export const gradientConfig = {
