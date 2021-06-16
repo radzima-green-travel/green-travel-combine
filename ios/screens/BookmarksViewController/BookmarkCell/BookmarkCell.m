@@ -36,6 +36,13 @@
 - (void)layoutSubviews {
   self.backgroundColor = [Colors get].bookmarkCard;
   drawShadow(self);
+  if (self.item == nil) {
+    return;
+  }
+  self.headerLabel.attributedText =
+  [[Typography get] makeBookmarkText:[self.item.title uppercaseString]];
+  self.countLabel.attributedText =
+  [[Typography get] makeBookmarkText:[@(self.item.howMany) stringValue]];
 }
 
 - (void)setUp {

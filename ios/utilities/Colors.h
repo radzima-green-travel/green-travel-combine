@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIColor *bookmarkCard;
 @property (strong, nonatomic) UIColor *tabBarText;
 @property (strong, nonatomic) UIColor *tabBarTextSelected;
+@property (strong, nonatomic) UIColor *buttonAll;
+@property (strong, nonatomic) UIColor *categoryTitleText;
+@property (strong, nonatomic) UIColor *bookmarkCellText;
 + (instancetype)get;
 
 @end

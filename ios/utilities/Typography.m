@@ -108,7 +108,7 @@ static Typography *instance;
 
 - (NSAttributedString *)makeBookmarkText:(NSString *)input {
     return [[NSAttributedString alloc] initWithString:input
-                                           attributes:getTextAttributes([ColorsLegacy get].logCabin, 12.0, UIFontWeightSemibold)];
+                                           attributes:getTextAttributes([Colors get].bookmarkCellText, 12.0, UIFontWeightSemibold)];
 }
 
 - (NSAttributedString *)makeLoadingScreenText:(NSString *)input {

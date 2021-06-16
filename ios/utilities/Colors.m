@@ -30,6 +30,9 @@ static Colors *instance;
     self.bookmarkCard = [UIColor colorNamed:@"bookmarkCard"];
     self.tabBarText = [UIColor colorNamed:@"tabBarText"];
     self.tabBarTextSelected = [UIColor colorNamed:@"tabBarTextSelected"];
+    self.buttonAll = [UIColor colorNamed:@"buttonAll"];
+    self.categoryTitleText = [UIColor colorNamed:@"categoryTitleText"];
+    self.bookmarkCellText = [UIColor colorNamed:@"bookmarkCellText"]; 
   }
   return self;
 }
