@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from 'services/NavigationService';
 import {MainNavigator} from './MainNavigator';
@@ -92,24 +92,35 @@ const SplasScreen = ({onAnimationEnd, onFadeStart}) => {
 
 export function RootNavigator() {
   const dispatch = useDispatch();
-  const [splashTransitionFinished, setSplashTransitionFinished] = useState(
-    false,
-  );
+  // const [splashTransitionFinished, setSplashTransitionFinished] = useState(
+  //   false,
+  // );
   const bootstrapFinished = useSelector(
     (state: IState) => state.bootsrap.finished,
   );
 
   useEffect(() => {
+    if (bootstrapFinished) {
+      RNBootSplash.hide({fade: true}).then(() => {
+        StatusBar.pushStackEntry({
+          barStyle: 'light-content',
+          animated: true,
+        });
+      });
+    }
+  }, [bootstrapFinished]);
+
+  useEffect(() => {
     dispatch(bootstrapStart());
   }, [dispatch]);
 
-  const onAnimationEnd = useCallback(() => {
-    setSplashTransitionFinished(true);
-  }, []);
+  // const onAnimationEnd = useCallback(() => {
+  //   setSplashTransitionFinished(true);
+  // }, []);
   return (
     <NavigationContainer ref={navigationRef}>
       {bootstrapFinished && <MainNavigator />}
-      {splashTransitionFinished ? null : (
+      {/* {splashTransitionFinished ? null : (
         <SplasScreen
           onFadeStart={() => {
             StatusBar.pushStackEntry({
@@ -119,7 +130,7 @@ export function RootNavigator() {
           }}
           onAnimationEnd={onAnimationEnd}
         />
-      )}
+      )} */}
     </NavigationContainer>
   );
 }

@@ -48,7 +48,15 @@ export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
       initialNumToRender={2}
       maxToRenderPerBatch={2}
       renderItem={({item}) => {
-        return <Item width={width} item={item} />;
+        return (
+          <FastImage
+            style={{width}}
+            resizeMode={FastImage.resizeMode.cover}
+            source={{
+              uri: item,
+            }}
+          />
+        );
       }}
     />
   );

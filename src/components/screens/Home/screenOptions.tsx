@@ -3,15 +3,17 @@ import {TouchableOpacity} from 'react-native';
 import {IProps, ScreenOptions} from './types';
 
 import {Icon} from 'atoms';
-import {COLORS} from 'assets';
+import {useThemeStyles} from 'core/hooks';
+import {themeStyles} from './styles';
 
 const HeaderRight = ({navigation}: IProps) => {
+  const styles = useThemeStyles(themeStyles);
   return (
     <TouchableOpacity
       hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
       activeOpacity={0.8}
       onPress={() => navigation.navigate('Search')}>
-      <Icon name={'search'} color={COLORS.white} size={24} />
+      <Icon name={'search'} style={styles.icon} size={24} />
     </TouchableOpacity>
   );
 };
