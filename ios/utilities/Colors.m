@@ -32,7 +32,10 @@ static Colors *instance;
     self.tabBarTextSelected = [UIColor colorNamed:@"tabBarTextSelected"];
     self.buttonAll = [UIColor colorNamed:@"buttonAll"];
     self.categoryTitleText = [UIColor colorNamed:@"categoryTitleText"];
-    self.bookmarkCellText = [UIColor colorNamed:@"bookmarkCellText"]; 
+    self.bookmarkCellText = [UIColor colorNamed:@"bookmarkCellText"];
+    self.bookmarkTintFullCell = [UIColor colorNamed:@"bookmarkTintFullCell"];
+    self.buttonNewDataBackground = [UIColor colorNamed:@"buttonNewDataBackground"];
+    self.buttonNewDataText = [UIColor colorNamed:@"buttonNewDataText"];
   }
   return self;
 }

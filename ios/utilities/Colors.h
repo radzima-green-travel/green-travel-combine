@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIColor *buttonAll;
 @property (strong, nonatomic) UIColor *categoryTitleText;
 @property (strong, nonatomic) UIColor *bookmarkCellText;
+@property (strong, nonatomic) UIColor *bookmarkTintFullCell;
+@property (strong, nonatomic) UIColor *buttonNewDataBackground;
+@property (strong, nonatomic) UIColor *buttonNewDataText;
 + (instancetype)get;
 
 @end

@@ -45,9 +45,12 @@
   [super layoutSubviews];
   [self updateOverlayAndShadow];
   if (self.item != nil && ![self coverIsPresent]) {
+    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
     self.headerLabel.attributedText = [[Typography get] makeTitle2:self.item.title
                                                              color:[Colors get].cardPlaceholderText];
+    return;
   }
+  [self.favoritesButton setTintColor:[Colors get].bookmarkTintFullCell];
 }
 
 - (void)setUp {
@@ -134,7 +137,7 @@
 
 - (BOOL)coverIsPresent {
   return self.item != nil && self.item.cover != nil &&
-      self.item.cover != [NSNull null] && [self.item.cover length] > 0;
+      self.item.cover != [NSNull null] && [self.item.cover length] > 0 && self.placeholder.image != nil;
 }
 
 - (void)updateItem:(PlaceItem *)item {
