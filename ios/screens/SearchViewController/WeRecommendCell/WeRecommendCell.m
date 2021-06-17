@@ -8,14 +8,28 @@
 
 #import "WeRecommendCell.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "TextUtils.h"
 #import "Typography.h"
+
+@interface WeRecommendCell()
+
+@property (strong, nonatomic) UILabel *header;
+
+@end
 
 @implementation WeRecommendCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.backgroundColor = [Colors get].background;
+  self.header.attributedText = [[Typography get] makeBody:@"История поиска"
+                                                    color:[Colors get].mainText];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -33,18 +47,18 @@
 }
 
 - (void)setUp {
-    UILabel *header = [[UILabel alloc] init];
-    [self.contentView addSubview:header];
-    header.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [header.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:32.0],
-        [header.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-16.0],
-        [header.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0],
-        [header.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-    ]];
-    
-    [header setFont:[UIFont fontWithName:@"Montserrat-Bold" size:16.0]];
-    header.attributedText = [[Typography get] makeBody:@"История поиска"];
+  self.header = [[UILabel alloc] init];
+  [self.contentView addSubview:self.header];
+  self.header.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.header.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:32.0],
+    [self.header.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-16.0],
+    [self.header.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0],
+    [self.header.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
+  ]];
+  
+  [self.header setFont:[UIFont fontWithName:@"Montserrat-Bold" size:16.0]];
+  self.header.attributedText = [[Typography get] makeBody:@"История поиска" color:[Colors get].mainText];
 }
 
 @end

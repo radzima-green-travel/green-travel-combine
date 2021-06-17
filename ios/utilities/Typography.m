@@ -102,8 +102,15 @@ static Typography *instance;
 }
 
 - (NSAttributedString *)makeBody:(NSString *)input {
-    return [[NSAttributedString alloc] initWithString:input
-                                           attributes:getTextAttributes([ColorsLegacy get].logCabin, 15.0, UIFontWeightRegular)];
+  return [self makeBody:input color:[ColorsLegacy get].logCabin];
+}
+
+- (NSAttributedString *)makeBody:(NSString *)input
+                           color:(nonnull UIColor *)color {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes(color,
+                                                                      15.0,
+                                                                      UIFontWeightRegular)];
 }
 
 - (NSAttributedString *)makeBookmarkText:(NSString *)input {

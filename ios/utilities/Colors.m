@@ -36,6 +36,9 @@ static Colors *instance;
     self.bookmarkTintFullCell = [UIColor colorNamed:@"bookmarkTintFullCell"];
     self.buttonNewDataBackground = [UIColor colorNamed:@"buttonNewDataBackground"];
     self.buttonNewDataText = [UIColor colorNamed:@"buttonNewDataText"];
+    self.mainText = [UIColor colorNamed:@"mainText"];
+    self.auxiliaryText = [UIColor colorNamed:@"auxiliaryText"];
+    self.searchCellSeparator = [UIColor colorNamed:@"searchCellSeparator"];
   }
   return self;
 }

@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIColor *bookmarkTintFullCell;
 @property (strong, nonatomic) UIColor *buttonNewDataBackground;
 @property (strong, nonatomic) UIColor *buttonNewDataText;
+@property (strong, nonatomic) UIColor *mainText;
+@property (strong, nonatomic) UIColor *auxiliaryText;
+@property (strong, nonatomic) UIColor *searchCellSeparator;
 + (instancetype)get;
 
 @end
