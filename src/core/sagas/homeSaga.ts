@@ -10,6 +10,7 @@ import {
   getInitialHomeDataRequest,
   getInitialHomeDataSuccess,
   getInitialHomeDataFailure,
+  getHomeDataUpdateAvailableRequest,
   getHomeDataUpdateAvailableSuccess,
   getHomeDataUpdateAvailableFailure,
   getHomeDataUpdatesRequest,
@@ -107,7 +108,7 @@ export function* getHomeDataSaga() {
   const isHomeDataExists = yield select(selectIsHomeDataExists);
 
   if (isHomeDataExists) {
-    yield put(getHomeDataUpdatesRequest());
+    yield put(getHomeDataUpdateAvailableRequest());
   } else {
     yield put(getInitialHomeDataRequest());
   }
