@@ -117,7 +117,7 @@ export const ObjectDetailsMapBottomMenu = memo(
                 </Text>
               ) : null}
               <Button
-                style={styles.button}
+                style={[styles.button, !bottomInset && {marginBottom: 16}]}
                 loading={loading}
                 onPress={() => {
                   onButtonPress(data);
