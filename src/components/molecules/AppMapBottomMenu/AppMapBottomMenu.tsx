@@ -100,7 +100,10 @@ export const AppMapBottomMenu = memo(
               <View style={styles.touchIndicator} />
 
               <View style={styles.textContainer}>
-                <Text numberOfLines={2} style={styles.text}>
+                <Text
+                  allowFontScaling={false}
+                  numberOfLines={2}
+                  style={styles.text}>
                   {name}
                 </Text>
 
@@ -117,12 +120,15 @@ export const AppMapBottomMenu = memo(
                 </FavoriteButtonContainer>
               </View>
               {subtitleText ? (
-                <Text numberOfLines={2} style={styles.subtitle}>
+                <Text
+                  numberOfLines={2}
+                  allowFontScaling={false}
+                  style={styles.subtitle}>
                   {subtitleText}
                 </Text>
               ) : null}
               <Button
-                style={styles.button}
+                style={[styles.button, !bottomInset && {marginBottom: 16}]}
                 onPress={() => {
                   onGetMorePress(data);
                 }}>

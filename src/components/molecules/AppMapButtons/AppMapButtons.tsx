@@ -23,7 +23,7 @@ export const AppMapButtons = memo(
               {
                 translateY: Animated.interpolate(bottomMenuPosition, {
                   inputRange: [0, 0.5, 1],
-                  outputRange: [-60, 0, 0],
+                  outputRange: [-73, 0, 0],
                   extrapolate: Extrapolate.CLAMP,
                 }),
               },

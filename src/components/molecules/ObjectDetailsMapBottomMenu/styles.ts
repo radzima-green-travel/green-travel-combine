@@ -1,6 +1,6 @@
 import {COLORS, FONTS_STYLES} from 'assets';
 
-export const MENU_HEIGHT = 169;
+export const MENU_HEIGHT = 185;
 
 export const themeStyles = {
   container: {
