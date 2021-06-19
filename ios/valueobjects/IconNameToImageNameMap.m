@@ -11,7 +11,7 @@
 
 @interface IconNameToImageNameMap()
 
-@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *map;
+@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *objectIconToFileName;
 @property (strong, nonatomic) NSDictionary<NSString *, NSString *> *filterMap;
 @property (strong, nonatomic) NSDictionary<NSString *, NSString *> *filterMapSelected;
 
@@ -25,7 +25,7 @@ static IconNameToImageNameMap *instance;
 {
     self = [super init];
     if (self) {
-        _map = @{
+        _objectIconToFileName = @{
             @"object": @"conserv.area",
             @"hiking": @"walking-routes",
             @"historical-place": @"historical-place",
@@ -51,17 +51,17 @@ static IconNameToImageNameMap *instance;
 }
 
 - (UIImage *)iconForName:(NSString *)name {
-  if (!self.map[name]) {
+  if (!self.objectIconToFileName[name]) {
     return nil;
   }
-  NSString *fileName = self.map[name];
+  NSString *fileName = self.objectIconToFileName[name];
   UIImage *image = [UIImage imageNamed:fileName];
   return image;
 }
 
 - (UIImage *)filterIconForName:(NSString *)name
                  selectedState:(BOOL)selectedState {
-    if (!self.map[name]) {
+    if (!self.objectIconToFileName[name]) {
         return nil;
     }
     NSString *fileName;
