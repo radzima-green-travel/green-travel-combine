@@ -8,6 +8,7 @@
 
 #import "GalleryPageControl.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "DotSizes.h"
 
 typedef NS_ENUM(NSInteger, PageControlState) {
@@ -113,6 +114,11 @@ CGFloat centerCompensation(NSUInteger dotCountLeft, NSUInteger dotCountRight) {
         [self setNumberOfPages:numberOfPages];
     }
     return self;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [self applyDotColorsWithCurrentPage:self.currentPage
+                          indexWindow:self.indexWindow];
 }
 
 #pragma mark - Set up
@@ -523,9 +529,9 @@ CGFloat centerCompensation(NSUInteger dotCountLeft, NSUInteger dotCountRight) {
     enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull dotView,
                   NSUInteger dotIndex, BOOL * _Nonnull stop) {
     if (dotIndex == currentDotIndex) {
-        dotView.backgroundColor = [ColorsLegacy get].apple;
+        dotView.backgroundColor = [Colors get].pageControlDotSelected;
     } else {
-        dotView.backgroundColor = [ColorsLegacy get].alto;
+        dotView.backgroundColor = [Colors get].pageControlDotUnselected;
     }}];
 }
 

@@ -8,6 +8,8 @@
 
 #import "DetailsViewController.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
+#import "StyleUtils.h"
 #import "PlaceItem.h"
 #import "PlaceDetails.h"
 #import "ApiService.h"
@@ -87,6 +89,18 @@
         _mapService = mapService;
     }
     return self;
+}
+
+- (void)viewWillLayoutSubviews {
+  [super viewWillLayoutSubviews];
+  [self.descriptionTextView.descriptionTextView setTextColor:[Colors get].mainText];
+  [self.titleLabel setTextColor:[Colors get].mainText];
+  [self.addressLabel setTextColor:[Colors get].mainText];
+  self.activityIndicatorContainerView.backgroundColor =  [Colors get].background;
+  self.descriptionTextView.backgroundColor = [Colors get].background;
+  self.scrollView.backgroundColor = [Colors get].background;
+  self.contentView.backgroundColor = [Colors get].background;
+  configureNavigationBar(self.navigationController.navigationBar);
 }
 
 - (void)viewDidLoad {
@@ -327,7 +341,8 @@
 - (void)updateMainContent:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
-    NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML);
+    NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML,
+                                                           [Colors get].mainText);
     dispatch_async(dispatch_get_main_queue(), ^{
       if (!weakSelf.ready) {
         weakSelf.ready = YES;

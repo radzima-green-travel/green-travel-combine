@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DescriptionView : UIView
 
+@property (strong, nonatomic) UITextView *descriptionTextView;
 - (void)update:(NSAttributedString *)text showPlaceholder:(BOOL)showPlaceholder;
 
 @end

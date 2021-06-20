@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class UIColor;
 
+NSString* UIColorToHEX(UIColor *color);
+
 @interface Colors : NSObject
 
 @property (strong, nonatomic) UIColor *background;
@@ -35,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIColor *mainText;
 @property (strong, nonatomic) UIColor *auxiliaryText;
 @property (strong, nonatomic) UIColor *searchCellSeparator;
+@property (strong, nonatomic) UIColor *pageControlDotSelected;
+@property (strong, nonatomic) UIColor *pageControlDotUnselected;
 + (instancetype)get;
 
 @end

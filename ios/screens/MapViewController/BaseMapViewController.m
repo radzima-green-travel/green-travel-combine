@@ -68,6 +68,11 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   return self;
 }
 
+- (void)viewWillLayoutSubviews {
+  [super viewWillLayoutSubviews];
+  configureNavigationBar(self.navigationController.navigationBar);
+}
+
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
   [super viewDidLoad];

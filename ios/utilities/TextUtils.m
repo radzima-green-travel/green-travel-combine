@@ -7,6 +7,7 @@
 //
 
 #import "TextUtils.h"
+#import "Colors.h"
 #import <UIKit/UIKit.h>
 
 NSDictionary<NSAttributedStringKey, id>* getTextAttributes(UIColor* color, CGFloat size, UIFontWeight weight) {
@@ -22,17 +23,20 @@ NSAttributedString* getAttributedString(NSString *text, UIColor* color, CGFloat 
     return [[NSAttributedString alloc] initWithString:text attributes:getTextAttributes(color, size, weight)];
 }
 
-NSAttributedString* getAttributedStringFromHTML(NSString *html) {
-    NSError *error;
-    NSString *htmlWpappedWithStyles = [NSString stringWithFormat:@"<section style=\"%@\">%@</section>", kInlineStyle, html];
-    NSData *data = [htmlWpappedWithStyles dataUsingEncoding:NSUTF8StringEncoding];
-    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] initWithData:data
-                                     options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                                               NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
-                                     }
-                          documentAttributes:nil
-                                       error:&error];
-    return result;
+NSAttributedString* getAttributedStringFromHTML(NSString *html, UIColor *color) {
+  NSError *error;
+  NSString *colorStyle = [NSString stringWithFormat:@"color:#%@;", UIColorToHEX(color)];
+  NSString *htmlWpappedWithStyles = [NSString stringWithFormat:@"<section style=\"%@%@\">%@</section>", kInlineStyle, colorStyle, html];
+  NSData *data = [htmlWpappedWithStyles dataUsingEncoding:NSUTF8StringEncoding];
+  NSMutableAttributedString *result =
+  [[NSMutableAttributedString alloc] initWithData:data
+                                          options:@{
+                                            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                            NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
+                                          }
+                               documentAttributes:nil
+                                            error:&error];
+  return result;
 }
 
 

@@ -8,12 +8,14 @@
 
 #import "BannerView.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "StyleUtils.h"
 #import "TextUtils.h"
 
 @interface BannerView ()
 
 @property (strong, nonatomic) CAGradientLayer *gradient;
+@property (strong, nonatomic) UILabel *bannerLabel;
 
 @end
 
@@ -43,8 +45,13 @@
     return self;
 }
 
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.backgroundColor = [Colors get].background;
+  [self.bannerLabel setTextColor:[Colors get].mainText];
+}
+
 - (void)setUp {
-    self.backgroundColor = [ColorsLegacy get].white;
     UIStackView *containerView = [[UIStackView alloc] init];
     containerView.alignment = UIStackViewAlignmentCenter;
     containerView.distribution = UIStackViewDistributionFill;
@@ -58,14 +65,13 @@
         [containerView.heightAnchor constraintEqualToAnchor:self.heightAnchor]
     ]];
     
-    UILabel *bannerLabel = [[UILabel alloc] init];
-    [bannerLabel setAttributedText:getAttributedString(@"Скопировано", [ColorsLegacy get].black, 15.0, UIFontWeightRegular)];
-    bannerLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [containerView addArrangedSubview:bannerLabel];
+    self.bannerLabel = [[UILabel alloc] init];
+    [self.bannerLabel setAttributedText:getAttributedString(@"Скопировано", [ColorsLegacy get].black, 15.0, UIFontWeightRegular)];
+    self.bannerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [containerView addArrangedSubview:self.bannerLabel];
     
     UIImageView *checkImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check"]];
     checkImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    
     
     UIView *checkImageContainerView = [[UIView alloc] init];
     checkImageContainerView.translatesAutoresizingMaskIntoConstraints = NO;

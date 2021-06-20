@@ -10,6 +10,16 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+NSString* UIColorToHEX(UIColor *color) {
+  CGFloat red = 0;
+  CGFloat blue = 0;
+  CGFloat green = 0;
+  CGFloat alpha = 0;
+  [color getRed:&red green:&green blue:&blue alpha:&alpha];
+  NSInteger rgb = (NSInteger)(red*255)<<16 | (NSInteger)(green*255)<<8 | (NSInteger)(blue*255)<<0;
+  return [NSString stringWithFormat:@"%06lx", (long)rgb];
+}
+
 @implementation Colors
 
 static Colors *instance;
@@ -39,6 +49,8 @@ static Colors *instance;
     self.mainText = [UIColor colorNamed:@"mainText"];
     self.auxiliaryText = [UIColor colorNamed:@"auxiliaryText"];
     self.searchCellSeparator = [UIColor colorNamed:@"searchCellSeparator"];
+    self.pageControlDotSelected = [UIColor colorNamed:@"pageControlDotSelected"];
+    self.pageControlDotUnselected = [UIColor colorNamed:@"pageControlDotUnselected"];
   }
   return self;
 }

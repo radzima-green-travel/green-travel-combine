@@ -10,10 +10,10 @@
 #import "LinkedCategoriesView.h"
 #import "Typography.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 
 @interface DescriptionView()
 
-@property (strong, nonatomic) UITextView *descriptionTextView;
 @property (strong, nonatomic) LinkedCategoriesView *linkedCategoriesView;
 @property (strong, nonatomic) UIStackView *descriptionPlaceholderView;
 
@@ -21,7 +21,13 @@
 
 @implementation DescriptionView
 
-- (void)update:(NSAttributedString *)text showPlaceholder:(BOOL)showPlaceholder{
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.descriptionTextView.backgroundColor = [Colors get].background;
+  self.descriptionPlaceholderView.backgroundColor = [Colors get].background;
+}
+
+- (void)update:(NSAttributedString *)text showPlaceholder:(BOOL)showPlaceholder{ 
 #pragma mark - Description text
     if (!showPlaceholder && !self.descriptionTextView) {
         [self.descriptionPlaceholderView removeFromSuperview];
