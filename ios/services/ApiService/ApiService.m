@@ -112,7 +112,7 @@ static NSString * const kImageBaseURL = @"http://radzimastorage74831-prod.s3-web
 }
 
 - (CLLocationCoordinate2D)mapPointCoordsFromJSON:(NSDictionary *)item {
-    if (item[@"location"] == [NSNull null]) {
+    if (item[@"location"] == [NSNull null] || item[@"location"][@"lat"] == [NSNull null] || item[@"location"][@"lon"] == [NSNull null] ) {
       return kCLLocationCoordinate2DInvalid;
     }
     return CLLocationCoordinate2DMake([item[@"location"][@"lat"] doubleValue], [item[@"location"][@"lon"] doubleValue]);
