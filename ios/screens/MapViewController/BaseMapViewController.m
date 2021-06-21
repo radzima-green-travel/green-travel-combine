@@ -41,6 +41,7 @@ static NSString* const kSourceId = @"sourceId";
 static NSString* const kClusterLayerId = @"clusterLayerId";
 static NSString* const kMarkerLayerId = @"markerLayerId";
 static NSString* const kMapboxURL = @"mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h";
+static NSString* const kMapboxDarkModeURL = @"mapbox://styles/epm-slr/ckodyal5d3i9017pb9vii6v18";
 static CGFloat const kLocateMeZoomLevel = 10.0;
 
 @implementation BaseMapViewController 
@@ -71,6 +72,19 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
   configureNavigationBar(self.navigationController.navigationBar);
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  NSURL *styleURL;
+  if (@available(iOS 12.0, *)) {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+      styleURL = [NSURL URLWithString:kMapboxDarkModeURL];
+    } else {
+      styleURL = [NSURL URLWithString:kMapboxURL];
+    }
+    [self.mapView setStyleURL:styleURL];
+  }
+  
 }
 
 #pragma mark - viewDidLoad

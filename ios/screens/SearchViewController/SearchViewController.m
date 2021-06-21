@@ -49,6 +49,8 @@
 @property (strong, nonatomic) NSLayoutConstraint *scrollViewHeightConstraint;
 @property (copy, nonatomic) void (^onSearchItemSelect)(PlaceItem *);
 @property (copy, nonatomic) BOOL(^searchItemFilter)(SearchItem *);
+@property (strong, nonatomic) UILabel *noDataLabel;
+@property (strong, nonatomic) UIImageView *noDataImageView;
 
 @end
 
@@ -99,6 +101,8 @@ static const CGFloat kSearchRowHeight = 58.0;
   [super viewWillLayoutSubviews];
   self.tableView.backgroundColor = [Colors get].background;
   self.scrollView.backgroundColor = [Colors get].background;
+  [self.noDataLabel setTextColor:[Colors get].mainText];
+  [self.noDataImageView setImage:[UIImage imageNamed:@"search"]];
 }
 
 - (void)viewDidLoad {
@@ -212,26 +216,25 @@ static const CGFloat kSearchRowHeight = 58.0;
     stackView.spacing = 14.0;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search"]];
-    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.noDataImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search"]];
+    self.noDataImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [imageView.widthAnchor constraintEqualToConstant:48.0],
-        [imageView.heightAnchor constraintEqualToConstant:48.0],
+        [self.noDataImageView.widthAnchor constraintEqualToConstant:48.0],
+        [self.noDataImageView.heightAnchor constraintEqualToConstant:48.0],
     ]];
-    UILabel *label = [[UILabel alloc] init];
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    [label setAttributedText:[[Typography get] makeBody:@"К сожалению, по вашему запросу ничего не найдено"]];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    label.numberOfLines = 2;
+    self.noDataLabel = [[UILabel alloc] init];
+    self.noDataLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.noDataLabel setAttributedText:[[Typography get] makeBody:@"К сожалению, по вашему запросу ничего не найдено"]];
+    [self.noDataLabel setTextAlignment:NSTextAlignmentCenter];
+    self.noDataLabel.numberOfLines = 2;
     
-    [stackView addArrangedSubview:imageView];
-    [stackView addArrangedSubview:label];
+    [stackView addArrangedSubview:self.noDataImageView];
+    [stackView addArrangedSubview:self.noDataLabel];
     [NSLayoutConstraint activateConstraints:@[
         [stackView.centerYAnchor constraintEqualToAnchor:contentView.centerYAnchor],
         [stackView.heightAnchor constraintLessThanOrEqualToConstant:100.0],
         [stackView.widthAnchor constraintLessThanOrEqualToConstant:262.0],
-        [stackView.leadingAnchor constraintEqualToAnchor:contentView.leadingAnchor],
-        [stackView.trailingAnchor constraintEqualToAnchor:contentView.trailingAnchor],
+        [stackView.centerXAnchor constraintEqualToAnchor:contentView.centerXAnchor]
     ]];
     [self updateInsets:self.scrollInsets];
 }
