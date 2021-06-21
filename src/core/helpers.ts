@@ -8,7 +8,12 @@ import {
   Linking,
 } from 'react-native';
 
-import {ICategory, ITransformedData, ITransformedCategory} from 'core/types';
+import {
+  ICategory,
+  ITransformedData,
+  ITransformedCategory,
+  IObject,
+} from 'core/types';
 import {imagesService} from 'services/ImagesService';
 export const extractThemeStyles = (
   styles: Object,
@@ -97,4 +102,8 @@ export function transformMainData(data: ICategory[]): ITransformedData {
   transformedData.categories = traverse(data);
 
   return transformedData;
+}
+
+export function isLocationExist(object: IObject) {
+  return Boolean(object?.location?.lat && object.location.lon);
 }

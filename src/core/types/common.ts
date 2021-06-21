@@ -11,8 +11,8 @@ export interface ILabelError {
 export type ICoordinates = Array<number>;
 
 export interface ILocationPoint {
-  lat: number;
-  lon: number;
+  lat: number | null;
+  lon: number | null;
 }
 
 export interface IArea {
@@ -54,7 +54,7 @@ export interface IObject {
   description: string;
   address: string;
   area?: MultiPolygon;
-  location: ILocationPoint;
+  location: ILocationPoint | null;
   category: IObjectCategory;
   cover: string;
   images: string[];

@@ -23,6 +23,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {screenOptions} from './screenOptions';
 import {useObjectDetailsStatusBar} from './hooks';
+import {isLocationExist} from 'core/helpers';
 
 export const ObjectDetails = ({route, navigation}: IProps) => {
   const {
@@ -125,7 +126,9 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
             subtitle={data.address}
             belongsToSubtitle={belongsToSubtitle}
             coordinates={
-              data.location ? [data.location.lon, data.location.lat] : undefined
+              isLocationExist(data)
+                ? [data.location!.lon!, data.location!.lat!]
+                : undefined
             }
             onCoordinatesPress={copyLocationToClipboard}
           />

@@ -1,5 +1,5 @@
 import MapboxGL from '@react-native-mapbox-gl/maps';
-import React, {memo} from 'react';
+import React, {ComponentProps, memo} from 'react';
 import {Props} from './types';
 import {layerStyles} from './styles';
 
@@ -11,7 +11,7 @@ export const ClusterMapShape = memo(({markers}: Props) => {
       cluster
       clusterRadius={50}
       clusterMaxZoomLevel={14}
-      shape={markers}>
+      shape={markers as ComponentProps<typeof MapboxGL.ShapeSource>['shape']}>
       <MapboxGL.SymbolLayer
         id={'pointCount'}
         style={layerStyles.clusterCount}

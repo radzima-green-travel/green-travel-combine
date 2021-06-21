@@ -67,8 +67,6 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     data?.belongsTo?.[0]?.objects,
   );
 
-  console.log(belongsToSubtitle);
-
   useStatusBar(theme);
 
   const dispatch = useDispatch();

@@ -1,6 +1,5 @@
-import {FeatureCollection} from '@turf/helpers';
-import {IObject} from 'core/types';
+import {FeatureCollection, Geometry, Properties} from '@turf/helpers';
 
 export type Props = {
-  markers: FeatureCollection<any, {data: IObject}>;
+  markers: FeatureCollection<Geometry, Properties>;
 };

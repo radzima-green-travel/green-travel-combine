@@ -16,7 +16,7 @@ import {
   selectSelectedFilters,
 } from 'core/selectors';
 import {useSelector, useDispatch} from 'react-redux';
-import {View} from 'react-native';
+import {StyleProp, View} from 'react-native';
 
 import {Portal} from 'atoms';
 import {styles, selectedPointStyle} from './styles';
@@ -27,7 +27,7 @@ import {
   setAppMapSelectedFilters,
   clearAppMapSelectedFilters,
 } from 'core/reducers';
-import MapBox from '@react-native-mapbox-gl/maps';
+import MapBox, {SymbolLayerStyle} from '@react-native-mapbox-gl/maps';
 import {
   AppMapBottomMenu,
   AppMapBottomMenuRef,
@@ -122,7 +122,7 @@ export const AppMap = ({navigation}: IProps) => {
     (objectId: string, zoomLevel) => {
       const itemData = getObject(objectId);
       if (itemData) {
-        const coordinates = [itemData.location.lon, itemData.location.lat];
+        const coordinates = [itemData.location!.lon!, itemData.location!.lat!];
         camera.current?.setCamera({
           centerCoordinate: coordinates,
           zoomLevel: zoomLevel,
@@ -146,7 +146,7 @@ export const AppMap = ({navigation}: IProps) => {
   const onSearchItemPress = useCallback(
     (object: IObject) => {
       const location = object.location;
-      const coordinates = location ? [location.lon, location.lat] : null;
+      const coordinates = location ? [location.lon!, location.lat!] : null;
       if (coordinates) {
         camera.current?.setCamera({
           centerCoordinate: coordinates,
@@ -228,7 +228,10 @@ export const AppMap = ({navigation}: IProps) => {
         <MapBox.ShapeSource
           id={'selectedPointShapeSource'}
           shape={selectedMarker}>
-          <MapBox.SymbolLayer id={'selectedPoint'} style={selectedPointStyle} />
+          <MapBox.SymbolLayer
+            id={'selectedPoint'}
+            style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
+          />
         </MapBox.ShapeSource>
       </ClusterMap>
       <Portal>

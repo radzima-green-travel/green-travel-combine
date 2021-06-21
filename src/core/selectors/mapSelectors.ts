@@ -12,6 +12,7 @@ import {MAP_PINS} from '../constants';
 import {IObject, IMapFilter, ITransformedData} from '../types';
 import {IState} from 'core/store';
 import {selectTransformedData} from './homeSelectors';
+import {isLocationExist} from 'core/helpers';
 
 export const selectSelectedFilters = (state: IState) =>
   state.appMap.selectedFilters;
@@ -33,7 +34,7 @@ export const selectMapFilters = createSelector<
           if (
             !isEmpty(category.objects) &&
             some(category.objects, id =>
-              Boolean(transformedData.objectsMap[id]?.location),
+              isLocationExist(transformedData.objectsMap[id]),
             )
           ) {
             const {name, id, icon} = category;
@@ -67,10 +68,10 @@ export const selectMapMarkers = createSelector<
             isEmpty(filters) ||
             some(filters, ({categoryId}) => categoryId === data.category.id);
 
-          if (data.location && isMatchToFilters) {
+          if (isLocationExist(data) && isMatchToFilters) {
             const {location} = data;
             return point(
-              [location.lon, location.lat],
+              [location!.lon!, location!.lat!],
               {
                 icon_image: data.category.icon,
                 objectId: data.id,
@@ -108,9 +109,9 @@ export const createMarkerFromObject = (
 ): FeatureCollection<Geometry, {icon_image: string; objectId: string}> => {
   return featureCollection(
     compact([
-      data
+      data && isLocationExist(data)
         ? point(
-            [data.location.lon, data.location.lat],
+            [data.location!.lon!, data.location!.lat!],
             {
               icon_image: `${data.category.icon}${MAP_PINS.SELECTED_POSTFIX}`,
               objectId: data.id,
@@ -139,9 +140,9 @@ export const createMarkerFromDetailsObject = (
 ): FeatureCollection<Geometry, {icon: string; objectId: string}> => {
   return featureCollection(
     compact([
-      data
+      data && isLocationExist(data)
         ? point(
-            [data.location.lon, data.location.lat],
+            [data.location!.lon!, data.location!.lat!],
             {
               icon: 'mapPin',
               objectId: data.id,
