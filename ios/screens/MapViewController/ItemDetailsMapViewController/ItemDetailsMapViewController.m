@@ -39,7 +39,6 @@
 
 @interface ItemDetailsMapViewController ()
 
-@property (assign, nonatomic) BOOL loaded;
 @property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
 @property (strong, nonatomic) MGLPolyline *directionsPolyline;
@@ -51,18 +50,6 @@ static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 @implementation ItemDetailsMapViewController
-
-- (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode {
-  MGLMapView *mapViewCached = [[CacheService get].cache objectForKey:@"mapView"];
-  if (mapViewCached) {
-    self.loaded = YES;
-    return mapViewCached;
-  }
-  MGLMapView *mapViewConstructed = [super mapForURL:url darkMode:NO];
-  [[CacheService get].cache setObject:mapViewConstructed forKey:@"mapView"];
-
-  return mapViewConstructed;
-}
 
 #pragma mark - Lifecycle
 - (void)viewWillAppear:(BOOL)animated {

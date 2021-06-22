@@ -33,8 +33,6 @@
 
 @interface FullMapViewController ()
 
-@property (assign, nonatomic) BOOL loaded;
-
 @end
 
 
@@ -62,18 +60,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [self.searchButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
   [self addFilterView];
-}
-
-- (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode {
-  MGLMapView *mapViewCached = [[CacheService get].cache objectForKey:@"mapView"];
-  if (mapViewCached) {
-    self.loaded = YES;
-    return mapViewCached;
-  }
-  MGLMapView *mapViewConstructed = [super mapForURL:url darkMode:NO];
-  [[CacheService get].cache setObject:mapViewConstructed forKey:@"mapView"];
-
-  return mapViewConstructed;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

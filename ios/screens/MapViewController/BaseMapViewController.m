@@ -75,16 +75,30 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-  NSURL *styleURL;
+  [super traitCollectionDidChange:previousTraitCollection];
   if (@available(iOS 12.0, *)) {
+    if (self.traitCollection.userInterfaceStyle ==
+        previousTraitCollection.userInterfaceStyle) {
+      return;
+    }
+    [self applyStyleToMap];
+  }
+}
+
+- (void)applyStyleToMap {
+  if (@available(iOS 12.0, *)) {
+    NSURL *styleURL;
     if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
       styleURL = [NSURL URLWithString:kMapboxDarkModeURL];
-    } else {
-      styleURL = [NSURL URLWithString:kMapboxURL];
+      [self.mapView setStyleURL:styleURL];
+      return;
     }
-    [self.mapView setStyleURL:styleURL];
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight) {
+      styleURL = [NSURL URLWithString:kMapboxURL];
+      [self.mapView setStyleURL:styleURL];
+      return;
+    }
   }
-  
 }
 
 #pragma mark - viewDidLoad
@@ -117,9 +131,8 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 
 #pragma mark - viewWillAppear
 - (void)viewWillAppear:(BOOL)animated {
-  
   [self.mapView removeFromSuperview];
-  self.mapView = [self mapForURL:kMapboxURL darkMode:NO];
+  [self createMap];
   [self cleanMap];
   [self.view insertSubview:self.mapView belowSubview:self.locationButton];
   self.mapView.delegate = self;
@@ -214,10 +227,17 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   }
 }
 
-- (MGLMapView *)mapForURL:(NSString *)url darkMode:(BOOL)darkMode {
- 	NSURL *nsURL = [NSURL URLWithString:kMapboxURL];
-  MGLMapView *mapViewConstructed = [[MGLMapView alloc] initWithFrame:CGRectZero styleURL:nsURL];
-  return mapViewConstructed;
+- (void)createMap {
+  MGLMapView *mapViewCached = [[CacheService get].cache objectForKey:@"mapView"];
+  if (mapViewCached) {
+    self.mapView = mapViewCached;
+    [self applyStyleToMap];
+    return;
+  }
+  MGLMapView *mapViewConstructed =  [[MGLMapView alloc] initWithFrame:CGRectZero];
+  [[CacheService get].cache setObject:mapViewConstructed forKey:@"mapView"];
+  self.mapView = mapViewConstructed;
+  [self applyStyleToMap];
 }
 
 - (void)onMapItemsUpdate:(NSArray<MapItem *> *)mapItems {
