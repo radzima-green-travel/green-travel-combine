@@ -77,6 +77,10 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
   [super traitCollectionDidChange:previousTraitCollection];
   if (@available(iOS 12.0, *)) {
+    if (UIApplication.sharedApplication.applicationState ==
+        UIApplicationStateBackground) {
+      return;
+    }
     if (self.traitCollection.userInterfaceStyle ==
         previousTraitCollection.userInterfaceStyle) {
       return;
