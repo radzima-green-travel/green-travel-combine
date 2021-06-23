@@ -19,6 +19,7 @@
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "CategoryLinkCell.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "Typography.h"
 
 @interface LinkedCategoriesView()
@@ -66,6 +67,12 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
         [self setUp];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.backgroundColor = [Colors get].background;
+  [self.interestingLabel setTextColor:[Colors get].headlineText];
 }
 
 - (void)setUp {

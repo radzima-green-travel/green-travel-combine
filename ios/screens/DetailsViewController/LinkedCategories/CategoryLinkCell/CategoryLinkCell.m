@@ -8,6 +8,7 @@
 
 #import "CategoryLinkCell.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "TextUtils.h"
 #import "Category.h"
 #import "Typography.h"
@@ -29,6 +30,13 @@
         [self setUp];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.backgroundColor = [Colors get].background;
+  [self.title setTextColor:[Colors get].headlineText];
+  [self.chevron setImage:[UIImage imageNamed:@"chevron-right"]];
 }
 
 - (void)setUp {

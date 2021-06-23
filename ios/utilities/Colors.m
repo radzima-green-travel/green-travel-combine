@@ -51,6 +51,7 @@ static Colors *instance;
     self.searchCellSeparator = [UIColor colorNamed:@"searchCellSeparator"];
     self.pageControlDotSelected = [UIColor colorNamed:@"pageControlDotSelected"];
     self.pageControlDotUnselected = [UIColor colorNamed:@"pageControlDotUnselected"];
+    self.headlineText = [UIColor colorNamed:@"headlineText"];
   }
   return self;
 }

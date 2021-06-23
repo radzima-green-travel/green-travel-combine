@@ -39,6 +39,7 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *searchCellSeparator;
 @property (strong, nonatomic) UIColor *pageControlDotSelected;
 @property (strong, nonatomic) UIColor *pageControlDotUnselected;
+@property (strong, nonatomic) UIColor *headlineText;
 + (instancetype)get;
 
 @end

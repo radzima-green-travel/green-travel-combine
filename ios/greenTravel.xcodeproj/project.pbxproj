@@ -989,9 +989,9 @@
 		5A775DCB26077A7C00CEFC78 /* LinkedCategories */ = {
 			isa = PBXGroup;
 			children = (
+				5A775DD026077A7C00CEFC78 /* LinkedCategoriesView.h */,
 				5A775DCC26077A7C00CEFC78 /* LinkedCategoriesView.m */,
 				5A775DCD26077A7C00CEFC78 /* CategoryLinkCell */,
-				5A775DD026077A7C00CEFC78 /* LinkedCategoriesView.h */,
 			);
 			path = LinkedCategories;
 			sourceTree = "<group>";
