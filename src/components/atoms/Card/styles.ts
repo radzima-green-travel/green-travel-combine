@@ -52,7 +52,7 @@ export const themeStyles = {
   icon: {
     color: {
       light: COLORS.white,
-      dark: COLORS.altoForDark,
+      dark: COLORS.white,
     },
   },
   emptyCardIcon: {
