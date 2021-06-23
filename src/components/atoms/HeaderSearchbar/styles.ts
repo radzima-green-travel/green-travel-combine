@@ -1,5 +1,5 @@
 import {COLORS, FONTS_STYLES} from 'assets';
-
+import {Platform} from 'react-native';
 export const themeStyles = {
   searchContainer: {
     flexDirection: 'row',
@@ -24,6 +24,12 @@ export const themeStyles = {
     ...FONTS_STYLES.regular15,
     lineHeight: undefined,
     height: '100%',
+    ...Platform.select({
+      ios: {},
+      android: {
+        padding: 0,
+      },
+    }),
     flex: 1,
     color: {
       light: COLORS.logCabin,
