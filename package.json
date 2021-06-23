@@ -39,7 +39,7 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-map-link": "^2.7.25",
-    "react-native-permissions": "^3.0.1",
+    "react-native-permissions": "^3.0.4",
     "react-native-reanimated": "^1.13.0",
     "react-native-render-html": "^4.2.3",
     "react-native-safe-area-context": "^3.0.7",

@@ -1,20 +1,13 @@
-import {Alert, Linking} from 'react-native';
+import {Alert, Linking, NativeModules} from 'react-native';
 import {PERMISSIONS, request, check, RESULTS} from 'react-native-permissions';
 import {isIOS} from './PlatformService';
 import i18n from 'i18next';
 
-const locationPermission = isIOS
-  ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-  : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
-
 class PermissionsService {
-  async checkLocationPermission() {
-    let status = await check(locationPermission);
+  async checkLocationPermissionIOS() {
+    let status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
 
-    if (
-      isIOS &&
-      (status === RESULTS.BLOCKED || status === RESULTS.UNAVAILABLE)
-    ) {
+    if (status === RESULTS.BLOCKED || status === RESULTS.UNAVAILABLE) {
       if (status === RESULTS.BLOCKED) {
         Alert.alert(
           i18n.t('common:locationPermissionTitle'),
@@ -44,9 +37,38 @@ class PermissionsService {
 
       return false;
     } else {
-      status = await request(locationPermission);
+      status = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+
       return status === RESULTS.GRANTED;
     }
+  }
+
+  async checkLocationPermissionAndroid() {
+    const {
+      gps,
+    } = NativeModules.LocationProvidersModule.getAvailableLocationProvidersSync();
+
+    if (!gps) {
+      Alert.alert(
+        i18n.t('common:locationPermissionTitle'),
+        i18n.t('common:locationPermissionTextDevice'),
+      );
+
+      return false;
+    } else {
+      const status = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+
+      return status === RESULTS.GRANTED;
+    }
+  }
+
+  async checkLocationPermission() {
+    if (isIOS) {
+      const result = await this.checkLocationPermissionIOS();
+      return result;
+    }
+    const result = await this.checkLocationPermissionAndroid();
+    return result;
   }
 }
 
