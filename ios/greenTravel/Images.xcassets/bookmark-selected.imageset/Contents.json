@@ -3,6 +3,16 @@
     {
       "filename" : "bookmark-selected.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "bookmark-selected-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

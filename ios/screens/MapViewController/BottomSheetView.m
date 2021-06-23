@@ -6,7 +6,7 @@
 //
 
 #import "BottomSheetView.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "CommonButton.h"
 #import "Typography.h"
 #import "PlaceItem.h"
@@ -39,7 +39,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
 }
 
 - (void)setUp {
-  self.backgroundColor = [Colors get].white;
+  self.backgroundColor = [ColorsLegacy get].white;
   self.recognizer =
   [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
   [self.recognizer setMaximumNumberOfTouches:1];
@@ -54,7 +54,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
 #pragma mark - Grip view
   UIView *gripView = [[UIView alloc] init];
   gripView.translatesAutoresizingMaskIntoConstraints = NO;
-  gripView.backgroundColor = [Colors get].alto;
+  gripView.backgroundColor = [ColorsLegacy get].alto;
   gripView.layer.cornerRadius = 1.75;
   gripView.layer.masksToBounds = YES;
   [self addSubview:gripView];

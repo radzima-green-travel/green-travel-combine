@@ -10,10 +10,14 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-UIColor* UIColorFromHEX(int hexColor) {
-    return [UIColor colorWithRed:(float)((hexColor & 0xFF0000) >> 16) / 255.0
-                           green:(float)((hexColor & 0x00FF00) >> 8) / 255.0
-                            blue:(float)((hexColor & 0x0000FF) >> 0)  / 255.0 alpha:1.0];
+NSString* UIColorToHEX(UIColor *color) {
+  CGFloat red = 0;
+  CGFloat blue = 0;
+  CGFloat green = 0;
+  CGFloat alpha = 0;
+  [color getRed:&red green:&green blue:&blue alpha:&alpha];
+  NSInteger rgb = (NSInteger)(red*255)<<16 | (NSInteger)(green*255)<<8 | (NSInteger)(blue*255)<<0;
+  return [NSString stringWithFormat:@"%06lx", (long)rgb];
 }
 
 @implementation Colors
@@ -22,42 +26,33 @@ static Colors *instance;
 
 - (instancetype)init
 {
-    self = [super init];
-    if (self) {
-        self.black = UIColorFromHEX(0x111111);
-        self.darkGrey = UIColorFromHEX(0x232528);
-        self.white = UIColorFromHEX(0xFFFFFF);
-        self.red = UIColorFromHEX(0xEE686A);
-        self.blue = UIColorFromHEX(0x29C2D1);
-        self.green = UIColorFromHEX(0x50A021);
-        self.shamrock = UIColorFromHEX(0x35C7A4);
-        self.yellow = UIColorFromHEX(0xF9CC78);
-        self.apple = UIColorFromHEX(0x4BA83B);
-        self.pineTree = UIColorFromHEX(0x152702);
-        self.heavyMetal = UIColorFromHEX(0x151614);
-        self.heavyMetal35 = [self getHeavyMetal35];
-        self.yellowHighlighted = UIColorFromHEX(0xFDF4E3);
-        self.grey = UIColorFromHEX(0x757a7e);
-        self.royalBlue = UIColorFromHEX(0x2F80ED);
-        self.logCabin = UIColorFromHEX(0x0A0B0A);
-        self.milkyGrey = UIColorFromHEX(0xE0E0E0);
-        self.alto = UIColorFromHEX(0xD9D9D9);
-        self.alabaster = UIColorFromHEX(0xF8F8F8);
-        self.boulder = UIColorFromHEX(0x777777);
-        self.persimmon = UIColorFromHEX(0xFF565E);
-    }
-    return self;
-}
-
-- (UIColor *)getHeavyMetal35 {
-    CGFloat heavyMetalRed = 0.0;
-    CGFloat heavyMetalBlue = 0.0;
-    CGFloat heavyMetalGreen = 0.0;
-    [self.heavyMetal getRed:&heavyMetalRed green:&heavyMetalGreen blue:&heavyMetalBlue alpha:nil];
-    return [UIColor colorWithRed:heavyMetalRed
-                           green:heavyMetalBlue
-                            blue:heavyMetalGreen
-                           alpha:0.35];
+  self = [super init];
+  if (self) {
+    self.background = [UIColor colorNamed:@"background"];
+    self.navigationBarTint = [UIColor colorNamed:@"navigationBarTint"];
+    self.navigationBarColorStart = [UIColor colorNamed:@"navigationBarColorStart"];
+    self.navigationBarColorStop = [UIColor colorNamed:@"navigationBarColorStop"];
+    self.tabBarBackground = [UIColor colorNamed:@"tabBarBackground"];
+    self.tabBarTint = [UIColor colorNamed:@"tabBarTint"];
+    self.cardPlaceholder = [UIColor colorNamed:@"cardPlaceholder"];
+    self.bookmarkTintEmptyCell = [UIColor colorNamed:@"bookmarkTintEmptyCell"];
+    self.cardPlaceholderText = [UIColor colorNamed:@"cardPlaceholderText"];
+    self.bookmarkCard = [UIColor colorNamed:@"bookmarkCard"];
+    self.tabBarText = [UIColor colorNamed:@"tabBarText"];
+    self.tabBarTextSelected = [UIColor colorNamed:@"tabBarTextSelected"];
+    self.buttonAll = [UIColor colorNamed:@"buttonAll"];
+    self.categoryTitleText = [UIColor colorNamed:@"categoryTitleText"];
+    self.bookmarkCellText = [UIColor colorNamed:@"bookmarkCellText"];
+    self.bookmarkTintFullCell = [UIColor colorNamed:@"bookmarkTintFullCell"];
+    self.buttonNewDataBackground = [UIColor colorNamed:@"buttonNewDataBackground"];
+    self.buttonNewDataText = [UIColor colorNamed:@"buttonNewDataText"];
+    self.mainText = [UIColor colorNamed:@"mainText"];
+    self.auxiliaryText = [UIColor colorNamed:@"auxiliaryText"];
+    self.searchCellSeparator = [UIColor colorNamed:@"searchCellSeparator"];
+    self.pageControlDotSelected = [UIColor colorNamed:@"pageControlDotSelected"];
+    self.pageControlDotUnselected = [UIColor colorNamed:@"pageControlDotUnselected"];
+  }
+  return self;
 }
 
 + (instancetype)get {

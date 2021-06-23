@@ -7,6 +7,7 @@
 //
 
 #import "SearchCell.h"
+#import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
 #import "SearchCellConfiguration.h"
@@ -21,6 +22,8 @@
 @property (strong, nonatomic) UILabel *title;
 @property (strong, nonatomic) UILabel *titleCategory;
 @property (strong, nonatomic) UIImageView *iconView;
+@property (strong, nonatomic) UIView *separatorView;
+@property (strong, nonatomic) SearchCellConfiguration *configuration;
 
 @end
 
@@ -31,6 +34,18 @@ static const NSUInteger kMaxNumberOfLinesForTitle = 5;
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.backgroundColor = [Colors get].background;
+  self.separatorView.backgroundColor = [Colors get].searchCellSeparator;
+  self.title.attributedText =
+  [[Typography get] makeTitle2:self.configuration.title
+                         color:[Colors get].mainText];
+  self.titleCategory.attributedText =
+  [[Typography get] makeSubtitle2Regular:self.configuration.categoryTitle
+                                   color:[Colors get].auxiliaryText];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -85,27 +100,28 @@ static const NSUInteger kMaxNumberOfLinesForTitle = 5;
     ]];
     [self.titleCategory setFont:[UIFont fontWithName:@"Montserrat-Bold" size:14.0]];
     
-    UIView *separatorView = [[UIView alloc] init];
-    [self.contentView addSubview:separatorView];
-    separatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    separatorView.backgroundColor = [Colors get].alto;
+    self.separatorView = [[UIView alloc] init];
+    [self.contentView addSubview:self.separatorView];
+  self.separatorView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [NSLayoutConstraint activateConstraints:@[
-        [separatorView.heightAnchor constraintEqualToConstant:1.0],
-        [separatorView.leadingAnchor constraintEqualToAnchor:self.iconView.trailingAnchor],
-        [separatorView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-        [separatorView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+        [self.separatorView.heightAnchor constraintEqualToConstant:1.0],
+        [self.separatorView.leadingAnchor constraintEqualToAnchor:self.iconView.trailingAnchor],
+        [self.separatorView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
+        [self.separatorView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
     ]];
 }
 
 - (void)update:(SearchCellConfiguration *)configuration {
-    self.title.attributedText =
-    [[Typography get] makeTitle2:configuration.title color:[Colors get].black];
-    self.titleCategory.attributedText =
-    [[Typography get] makeSubtitle2Regular:configuration.categoryTitle
-                           color:[Colors get].boulder];
-    [self.iconView setImage:[[IconNameToImageNameMap get]
-                             iconForName:configuration.iconName]];
+  self.configuration = configuration;
+  self.title.attributedText =
+  [[Typography get] makeTitle2:self.configuration.title
+                         color:[Colors get].mainText];
+  self.titleCategory.attributedText =
+  [[Typography get] makeSubtitle2Regular:self.configuration.categoryTitle
+                                   color:[Colors get].auxiliaryText];
+  [self.iconView setImage:[[IconNameToImageNameMap get]
+                           iconForName:configuration.iconName]];
 }
 
 @end

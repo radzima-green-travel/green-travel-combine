@@ -11,7 +11,7 @@
 #import "FilterOption.h"
 #import "CategoriesFilterModel.h"
 #import "TextUtils.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "IconNameToImageNameMap.h"
 #import "CategoriesFilterSpacerCollectionViewCell.h"
 #import "CategoriesFilterViewConstants.h"
@@ -101,8 +101,8 @@ static const CGFloat kSpacingWidth = 16.0;
     
     width += CategoriesFilterViewLabelToCellSpacing * 2;
     CGSize textSize = [option.title sizeWithAttributes:
-     getTextAttributes(option.on ? [Colors get].white :
-                       [Colors get].logCabin, 13.0, UIFontWeightRegular)];
+     getTextAttributes(option.on ? [ColorsLegacy get].white :
+                       [ColorsLegacy get].logCabin, 13.0, UIFontWeightRegular)];
     width += textSize.width;
     
     if (!option.selectAll && [[IconNameToImageNameMap get]

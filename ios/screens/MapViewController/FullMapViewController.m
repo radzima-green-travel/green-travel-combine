@@ -9,7 +9,7 @@
 #import "FullMapViewController.h"
 @import Mapbox;
 #import "StyleUtils.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "MapModel.h"
 #import "MapItemsObserver.h"
 #import "LocationObserver.h"
@@ -176,7 +176,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [style setImage:[UIImage imageNamed:@"historical-place-map-pin"] forName:@"historical-place"];
   [style setImage:[UIImage imageNamed:@"bicycle-route-map-pin"] forName:@"bicycle-route"];
   MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:MapViewControllerClusterLayerId source:source];
-  clusterLayer.textColor = [NSExpression expressionForConstantValue:[Colors get].black];
+  clusterLayer.textColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].black];
   clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
   clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:[NSNumber numberWithBool:YES]];
   clusterLayer.textOffset =  [NSExpression expressionForConstantValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)]];

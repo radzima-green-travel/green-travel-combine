@@ -11,6 +11,7 @@
 #import "PhotoCollectionViewCell.h"
 #import "StyleUtils.h"
 #import "GradientOverlayView.h"
+#import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
 #import "ImageUtils.h"
@@ -39,6 +40,19 @@
     return self;
 }
 
+- (void)layoutSubviews {
+  self.placeholder.backgroundColor = [Colors get].cardPlaceholder;
+  [super layoutSubviews];
+  [self updateOverlayAndShadow];
+  if (self.item != nil && ![self coverIsPresent]) {
+    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
+    self.headerLabel.attributedText = [[Typography get] makeTitle2:self.item.title
+                                                             color:[Colors get].cardPlaceholderText];
+    return;
+  }
+  [self.favoritesButton setTintColor:[Colors get].bookmarkTintFullCell];
+}
+
 - (void)setUp {
 #pragma mark - Image
     self.placeholder = [[UIImageView alloc] init];
@@ -48,8 +62,7 @@
     
     self.placeholder.contentMode = UIViewContentModeScaleAspectFill;
     self.placeholder.translatesAutoresizingMaskIntoConstraints = NO;
-    self.placeholder.backgroundColor = [Colors get].alabaster;
-    
+  
     self.placeholder.layer.cornerRadius = 4.0;
     self.placeholder.layer.masksToBounds = YES;
     
@@ -90,7 +103,7 @@
     [self.favoritesButton setImage:imageSelected forState:UIControlStateSelected];
     [self.favoritesButton addTarget:self action:@selector(onFavoritePress:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.favoritesButton.tintColor = [Colors get].black;
+    self.favoritesButton.tintColor = [ColorsLegacy get].black;
     [self addSubview:self.favoritesButton];
     
     self.favoritesButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -122,9 +135,15 @@
     
 }
 
+- (BOOL)coverIsPresent {
+  return self.item != nil && self.item.cover != nil &&
+      self.item.cover != [NSNull null] && [self.item.cover length] > 0 && self.placeholder.image != nil;
+}
+
 - (void)updateItem:(PlaceItem *)item {
     self.item = item;
-    self.headerLabel.attributedText = [[Typography get] makeTitle2:item.title color:[Colors get].black];
+    self.headerLabel.attributedText = [[Typography get] makeTitle2:item.title
+                                                             color:[Colors get].cardPlaceholderText];
     [self.favoritesButton setHidden:NO];
     [self.favoritesButton setSelected:item.bookmarked];
     if (item.cover != nil && item.cover != [NSNull null] &&
@@ -147,8 +166,8 @@
         return;
     }
     self.headerLabel.attributedText = [[Typography get] makeTitle2:title
-                                                                 color:[Colors get].white];
-    self.favoritesButton.tintColor = [Colors get].white;
+                                                                 color:[ColorsLegacy get].white];
+    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
     [self.placeholder setImage:image];
     [self.overlayView setHidden:NO];
 }
@@ -159,7 +178,8 @@
 }
 
 - (void)updateCategory:(Category *)category {
-     self.headerLabel.attributedText = [[Typography get] makeTitle2:category.title color:[Colors get].black];
+     self.headerLabel.attributedText = [[Typography get] makeTitle2:category.title
+                                                              color:[Colors get].cardPlaceholderText];
     [self.favoritesButton setHidden:YES];
     if (category.cover != nil && category.cover != [NSNull null] &&
         [category.cover length] > 0) {
@@ -179,15 +199,10 @@
     drawShadow(self);
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self updateOverlayAndShadow];
-}
-
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.loadImageOperation cancel];
-    [self.favoritesButton setTintColor:[Colors get].black];
+    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
     [self.placeholder setImage:nil];
     [self.overlayView setHidden:YES];
     self.headerLabel.text = @"";

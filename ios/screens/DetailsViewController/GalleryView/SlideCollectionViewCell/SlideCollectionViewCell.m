@@ -8,7 +8,7 @@
 
 #import "SlideCollectionViewCell.h"
 #import "ImageUtils.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 #import "GalleryImagePlaceholder.h"
 
 @interface SlideCollectionViewCell ()

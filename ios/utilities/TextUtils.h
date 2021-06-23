@@ -16,4 +16,4 @@ NSAttributedString* getAttributedString(NSString *text, UIColor* color, CGFloat 
 
 NSString* getUsefulTimeComponents(NSString *duration);
 
-NSAttributedString* getAttributedStringFromHTML(NSString *html);
+NSAttributedString* getAttributedStringFromHTML(NSString *html, UIColor *color);

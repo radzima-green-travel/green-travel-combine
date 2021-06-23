@@ -8,6 +8,7 @@
 
 #import "GalleryView.h"
 #import "SlideCollectionViewCell.h"
+#import "ColorsLegacy.h"
 #import "Colors.h"
 #import "StyleUtils.h"
 #import "GalleryPageControl.h"
@@ -58,6 +59,11 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
     return self;
 }
 
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.collectionView.backgroundColor = [Colors get].background;
+}
+
 - (void)setUp:(NSArray<NSString *>*)imageURLs {
     self.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *aspectRatioConstraint = [self.heightAnchor
@@ -85,7 +91,6 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
     [self.collectionView registerClass:SlideCollectionViewCell.class forCellWithReuseIdentifier:kSlideCellIdentifier];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = [Colors get].white;
     [self.collectionView setHidden:[imageURLs count] == 0];
 #pragma mark - Placeholder
     GalleryImagePlaceholder *placeHolderView = [[GalleryImagePlaceholder alloc] init];

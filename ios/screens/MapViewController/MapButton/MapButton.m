@@ -7,7 +7,7 @@
 //
 
 #import "MapButton.h"
-#import "Colors.h"
+#import "ColorsLegacy.h"
 
 @implementation MapButton
 
@@ -52,7 +52,7 @@ imageCenterYAnchorConstant:(CGFloat)imageCenterYAnchorConstant {
     
     self.layer.masksToBounds = YES;
     self.layer.cornerRadius = 8.0;
-    self.layer.borderColor = [[Colors get].alto CGColor];
+    self.layer.borderColor = [[ColorsLegacy get].alto CGColor];
     self.layer.borderWidth = 1.0;
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];

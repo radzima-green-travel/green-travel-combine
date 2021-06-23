@@ -68,6 +68,10 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
     return self;
 }
 
+- (void)viewWillLayoutSubviews {
+  self.collectionView.backgroundColor = [Colors get].background;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
@@ -80,7 +84,6 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
     configureNavigationBar(navigationBar);
 #pragma mark - Collection view
     [self.collectionView registerClass:BookmarkCell.class forCellWithReuseIdentifier:kBookmarkCellId];
-    self.collectionView.backgroundColor = [Colors get].white;
     self.collectionView.alwaysBounceVertical = YES;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;

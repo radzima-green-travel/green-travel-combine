@@ -49,6 +49,7 @@
 @property (strong, nonatomic) UIView *placeholder;
 @property (strong, nonatomic) RefreshButton *refreshButton;
 @property (strong, nonatomic) NSLayoutConstraint *yPosition;
+@property (strong, nonatomic) UINavigationBar *navigationBar;
 
 @end
 
@@ -83,15 +84,19 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
     return UIStatusBarStyleLightContent;
 }
 
+- (void)viewWillLayoutSubviews {
+  self.view.backgroundColor = [Colors get].background;
+  self.tableView.backgroundColor = [Colors get].background;
+  self.navigationItem.rightBarButtonItem.tintColor = [Colors get].navigationBarTint;
+  configureNavigationBar(self.navigationBar);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [Colors get].white;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(onSearchPress:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [Colors get].white;
     
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    configureNavigationBar(navigationBar);
+    self.navigationBar = self.navigationController.navigationBar;
     
     self.originalBackButtonItem = self.navigationItem.backBarButtonItem;
 #pragma mark - Table view
@@ -442,6 +447,10 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 - (void)scrollToTop {
   [self.tableView setContentOffset:CGPointZero animated:YES];
   [self scrollItemsToLeft];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+  
 }
 
 @end

@@ -13,6 +13,7 @@
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
+		5A1FFB29267626A400E31162 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1FFB28267626A400E31162 /* Colors.m */; };
 		5A21445C2663E9A700582901 /* AlertUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21445B2663E9A700582901 /* AlertUtils.m */; };
 		5A2144B1266B988700582901 /* MapViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B0266B988700582901 /* MapViewState.m */; };
 		5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */; };
@@ -91,7 +92,7 @@
 		5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1026064C9000CEFC78 /* TextUtils.m */; };
 		5A775B8D26064C9000CEFC78 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1526064C9000CEFC78 /* Typography.m */; };
 		5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1626064C9000CEFC78 /* SizeUtils.m */; };
-		5A775B8F26064C9000CEFC78 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1726064C9000CEFC78 /* Colors.m */; };
+		5A775B8F26064C9000CEFC78 /* ColorsLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1726064C9000CEFC78 /* ColorsLegacy.m */; };
 		5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1926064C9000CEFC78 /* StyleUtils.m */; };
 		5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B9926064F6F00CEFC78 /* RootViewController.m */; };
 		5A775BDF260764BF00CEFC78 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A775BDE260764BF00CEFC78 /* GoogleService-Info.plist */; };
@@ -156,6 +157,8 @@
 		5A105FEA265FD99100511256 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
 		5A105FEF266001AB00511256 /* MapService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapService.h; sourceTree = "<group>"; };
 		5A105FF0266001AB00511256 /* MapService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapService.m; sourceTree = "<group>"; };
+		5A1FFB27267626A400E31162 /* Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		5A1FFB28267626A400E31162 /* Colors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		5A21445A2663E9A700582901 /* AlertUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertUtils.h; sourceTree = "<group>"; };
 		5A21445B2663E9A700582901 /* AlertUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertUtils.m; sourceTree = "<group>"; };
 		5A2144AF266B988700582901 /* MapViewState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewState.h; sourceTree = "<group>"; };
@@ -298,13 +301,13 @@
 		5A775B0E26064C9000CEFC78 /* Typography.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Typography.h; sourceTree = "<group>"; };
 		5A775B0F26064C9000CEFC78 /* StyleUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleUtils.h; sourceTree = "<group>"; };
 		5A775B1026064C9000CEFC78 /* TextUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextUtils.m; sourceTree = "<group>"; };
-		5A775B1126064C9000CEFC78 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		5A775B1126064C9000CEFC78 /* ColorsLegacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorsLegacy.h; sourceTree = "<group>"; };
 		5A775B1226064C9000CEFC78 /* SizeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SizeUtils.h; sourceTree = "<group>"; };
 		5A775B1326064C9000CEFC78 /* CategoryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryUtils.h; sourceTree = "<group>"; };
 		5A775B1426064C9000CEFC78 /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtils.h; sourceTree = "<group>"; };
 		5A775B1526064C9000CEFC78 /* Typography.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Typography.m; sourceTree = "<group>"; };
 		5A775B1626064C9000CEFC78 /* SizeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SizeUtils.m; sourceTree = "<group>"; };
-		5A775B1726064C9000CEFC78 /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
+		5A775B1726064C9000CEFC78 /* ColorsLegacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorsLegacy.m; sourceTree = "<group>"; };
 		5A775B1826064C9000CEFC78 /* TextUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextUtils.h; sourceTree = "<group>"; };
 		5A775B1926064C9000CEFC78 /* StyleUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleUtils.m; sourceTree = "<group>"; };
 		5A775B9826064F6F00CEFC78 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -774,19 +777,21 @@
 		5A775B0B26064C9000CEFC78 /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5A1FFB27267626A400E31162 /* Colors.h */,
+				5A1FFB28267626A400E31162 /* Colors.m */,
+				5A775B0E26064C9000CEFC78 /* Typography.h */,
+				5A775B1526064C9000CEFC78 /* Typography.m */,
+				5A775B1126064C9000CEFC78 /* ColorsLegacy.h */,
+				5A775B1726064C9000CEFC78 /* ColorsLegacy.m */,
+				5A775B1826064C9000CEFC78 /* TextUtils.h */,
+				5A775B1026064C9000CEFC78 /* TextUtils.m */,
 				5A775B0C26064C9000CEFC78 /* ImageUtils.m */,
 				5A775B0D26064C9000CEFC78 /* CategoryUtils.m */,
-				5A775B0E26064C9000CEFC78 /* Typography.h */,
 				5A775B0F26064C9000CEFC78 /* StyleUtils.h */,
-				5A775B1026064C9000CEFC78 /* TextUtils.m */,
-				5A775B1126064C9000CEFC78 /* Colors.h */,
 				5A775B1226064C9000CEFC78 /* SizeUtils.h */,
 				5A775B1326064C9000CEFC78 /* CategoryUtils.h */,
 				5A775B1426064C9000CEFC78 /* ImageUtils.h */,
-				5A775B1526064C9000CEFC78 /* Typography.m */,
 				5A775B1626064C9000CEFC78 /* SizeUtils.m */,
-				5A775B1726064C9000CEFC78 /* Colors.m */,
-				5A775B1826064C9000CEFC78 /* TextUtils.h */,
 				5A775B1926064C9000CEFC78 /* StyleUtils.m */,
 				5A21445A2663E9A700582901 /* AlertUtils.h */,
 				5A21445B2663E9A700582901 /* AlertUtils.m */,
@@ -1411,6 +1416,7 @@
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
+				5A1FFB29267626A400E31162 /* Colors.m in Sources */,
 				5A775DF726077A7D00CEFC78 /* RefreshButton.m in Sources */,
 				5A775E1226077A7D00CEFC78 /* SearchViewController.m in Sources */,
 				5A2144B1266B988700582901 /* MapViewState.m in Sources */,
@@ -1489,7 +1495,7 @@
 				5A775E1626077A7D00CEFC78 /* SearchCellConfiguration.m in Sources */,
 				5A775B2626064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataProperties.m in Sources */,
 				5A775B1F26064C9000CEFC78 /* StoredPlaceItem+CoreDataProperties.m in Sources */,
-				5A775B8F26064C9000CEFC78 /* Colors.m in Sources */,
+				5A775B8F26064C9000CEFC78 /* ColorsLegacy.m in Sources */,
 				5A775DF526077A7D00CEFC78 /* BookmarksViewController.m in Sources */,
 				5A775E0926077A7D00CEFC78 /* LinkedCategoriesView.m in Sources */,
 				5A105FF1266001AB00511256 /* MapService.m in Sources */,

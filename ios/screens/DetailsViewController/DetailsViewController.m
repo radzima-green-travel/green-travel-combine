@@ -7,7 +7,9 @@
 //
 
 #import "DetailsViewController.h"
+#import "ColorsLegacy.h"
 #import "Colors.h"
+#import "StyleUtils.h"
 #import "PlaceItem.h"
 #import "PlaceDetails.h"
 #import "ApiService.h"
@@ -89,10 +91,22 @@
     return self;
 }
 
+- (void)viewWillLayoutSubviews {
+  [super viewWillLayoutSubviews];
+  [self.descriptionTextView.descriptionTextView setTextColor:[Colors get].mainText];
+  [self.titleLabel setTextColor:[Colors get].mainText];
+  [self.addressLabel setTextColor:[Colors get].mainText];
+  self.activityIndicatorContainerView.backgroundColor =  [Colors get].background;
+  self.descriptionTextView.backgroundColor = [Colors get].background;
+  self.scrollView.backgroundColor = [Colors get].background;
+  self.contentView.backgroundColor = [Colors get].background;
+  configureNavigationBar(self.navigationController.navigationBar);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [Colors get].white;
+    self.view.backgroundColor = [ColorsLegacy get].white;
     self.title = self.item.title;
 
     #pragma mark - Scroll view
@@ -137,11 +151,11 @@
     #pragma mark - Bookmark button
     self.bookmarkButton = [[UIButton alloc] init];
 
-    self.bookmarkButton.backgroundColor = [Colors get].white;
+    self.bookmarkButton.backgroundColor = [ColorsLegacy get].white;
     self.bookmarkButton.contentMode = UIViewContentModeScaleAspectFill;
     self.bookmarkButton.layer.cornerRadius = 22.0;
     self.bookmarkButton.layer.borderWidth = 1.0;
-    self.bookmarkButton.layer.borderColor = [[Colors get].heavyMetal35 CGColor];
+    self.bookmarkButton.layer.borderColor = [[ColorsLegacy get].heavyMetal35 CGColor];
     self.bookmarkButton.layer.masksToBounds = YES;
     UIImage *imageNotSelected = [[UIImage imageNamed:@"bookmark-index"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *imageSelected = [[UIImage imageNamed:@"bookmark-index-selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -149,7 +163,7 @@
     [self.bookmarkButton setImage:imageNotSelected forState:UIControlStateNormal];
     [self.bookmarkButton setImage:imageSelected forState:UIControlStateSelected];
 
-    self.bookmarkButton.tintColor = [Colors get].logCabin;
+    self.bookmarkButton.tintColor = [ColorsLegacy get].logCabin;
     [self.bookmarkButton setSelected:self.item.bookmarked];
 
     [self.bookmarkButton addTarget:self action:@selector(onBookmarkButtonPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -259,7 +273,7 @@
 #pragma mark - Activity indicator
     self.activityIndicatorContainerView = [[UIView alloc] init];
     self.activityIndicatorContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.activityIndicatorContainerView.backgroundColor = [Colors get].white;
+    self.activityIndicatorContainerView.backgroundColor = [ColorsLegacy get].white;
     [self.view addSubview:self.activityIndicatorContainerView];
     [NSLayoutConstraint activateConstraints:@[
         [self.activityIndicatorContainerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
@@ -327,7 +341,8 @@
 - (void)updateMainContent:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
-    NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML);
+    NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML,
+                                                           [Colors get].mainText);
     dispatch_async(dispatch_get_main_queue(), ^{
       if (!weakSelf.ready) {
         weakSelf.ready = YES;
@@ -340,7 +355,7 @@
       }
       if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
         [weakSelf.locationButton setAttributedTitle:
-         [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[Colors get].royalBlue]
+         [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[ColorsLegacy get].royalBlue]
                                            forState:UIControlStateNormal];
         [weakSelf addMapButton];
       }
