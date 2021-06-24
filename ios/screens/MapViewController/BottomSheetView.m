@@ -7,6 +7,7 @@
 
 #import "BottomSheetView.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "CommonButton.h"
 #import "Typography.h"
 #import "PlaceItem.h"
@@ -18,6 +19,7 @@
 @property(strong, nonatomic) CommonButton *detailsButton;
 @property(strong, nonatomic) NSString *itemUUID;
 @property(strong, nonatomic) UILabel *headerLabel;
+@property(strong, nonatomic) UIView *gripView;
 @property(assign, nonatomic, readwrite) BOOL inProgress;
 @property(strong, nonatomic) BookmarkButton *bookmarkButton;
 @property(copy, nonatomic) void(^onNavigatePress)(void);
@@ -38,6 +40,13 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   return self;
 }
 
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.backgroundColor = [Colors get].background;
+  self.gripView.backgroundColor = [Colors get].bottomSheetGrip;
+  [self.headerLabel setTextColor:[Colors get].headlineText];
+}
+
 - (void)setUp {
   self.backgroundColor = [ColorsLegacy get].white;
   self.recognizer =
@@ -52,17 +61,16 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
     [self.heightAnchor constraintEqualToConstant:kViewTotalHeight]
   ]];
 #pragma mark - Grip view
-  UIView *gripView = [[UIView alloc] init];
-  gripView.translatesAutoresizingMaskIntoConstraints = NO;
-  gripView.backgroundColor = [ColorsLegacy get].alto;
-  gripView.layer.cornerRadius = 1.75;
-  gripView.layer.masksToBounds = YES;
-  [self addSubview:gripView];
+  self.gripView = [[UIView alloc] init];
+  self.gripView.translatesAutoresizingMaskIntoConstraints = NO;
+  self.gripView.layer.cornerRadius = 1.75;
+  self.gripView.layer.masksToBounds = YES;
+  [self addSubview:self.gripView];
   [NSLayoutConstraint activateConstraints:@[
-    [gripView.topAnchor constraintEqualToAnchor:self.topAnchor constant:6.0],
-    [gripView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
-    [gripView.widthAnchor constraintEqualToConstant:36.0],
-    [gripView.heightAnchor constraintEqualToConstant:3.5]
+    [self.gripView.topAnchor constraintEqualToAnchor:self.topAnchor constant:6.0],
+    [self.gripView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+    [self.gripView.widthAnchor constraintEqualToConstant:36.0],
+    [self.gripView.heightAnchor constraintEqualToConstant:3.5]
   ]];
 #pragma mark - Details button
   self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@""];
@@ -100,7 +108,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   [self addSubview:self.headerLabel];
   
   [NSLayoutConstraint activateConstraints:@[
-      [self.headerLabel.topAnchor constraintEqualToAnchor:gripView.bottomAnchor constant:14.5],
+      [self.headerLabel.topAnchor constraintEqualToAnchor:self.gripView.bottomAnchor constant:14.5],
       [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
       [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.bookmarkButton.leadingAnchor constant:-16.0],
       [self.headerLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.detailsButton.topAnchor constant:-24.0],
@@ -122,6 +130,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
   [self.bookmarkButton setSelected:item.bookmarked];
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
+  [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.detailsButton setLabel:buttonLabel];
   
   if (self.inProgress || self.visible) {

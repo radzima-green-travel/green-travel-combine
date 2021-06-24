@@ -8,6 +8,7 @@
 
 #import "GalleryImagePlaceholder.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 
 @implementation GalleryImagePlaceholder
 
@@ -18,6 +19,11 @@
         [self setUp];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.backgroundColor = [Colors get].galleryNoImagePlaceholder;
 }
 
 - (void)setUp {

@@ -7,6 +7,7 @@
 
 #import "BookmarkButton.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 
 @interface BookmarkButton()
 
@@ -33,12 +34,15 @@
   return self;
 }
 
-- (void)setUp {
-  self.translatesAutoresizingMaskIntoConstraints = NO;
-  self.backgroundColor = [ColorsLegacy get].white;
-  
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  self.backgroundColor = [Colors get].background;
   [self setImage:[UIImage imageNamed:@"bookmark"] forState:UIControlStateNormal];
   [self setImage:[UIImage imageNamed:@"bookmark-selected"] forState:UIControlStateSelected];
+}
+
+- (void)setUp {
+  self.translatesAutoresizingMaskIntoConstraints = NO;
   [self addTarget:self action:@selector(onPress:) forControlEvents:UIControlEventTouchUpInside];
   [NSLayoutConstraint activateConstraints:@[
     [self.widthAnchor constraintEqualToConstant:44.0],

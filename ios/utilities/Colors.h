@@ -40,6 +40,8 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *pageControlDotSelected;
 @property (strong, nonatomic) UIColor *pageControlDotUnselected;
 @property (strong, nonatomic) UIColor *headlineText;
+@property (strong, nonatomic) UIColor *galleryNoImagePlaceholder;
+@property (strong, nonatomic) UIColor *bottomSheetGrip;
 + (instancetype)get;
 
 @end

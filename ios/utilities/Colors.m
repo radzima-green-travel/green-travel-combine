@@ -52,6 +52,8 @@ static Colors *instance;
     self.pageControlDotSelected = [UIColor colorNamed:@"pageControlDotSelected"];
     self.pageControlDotUnselected = [UIColor colorNamed:@"pageControlDotUnselected"];
     self.headlineText = [UIColor colorNamed:@"headlineText"];
+    self.galleryNoImagePlaceholder = [UIColor colorNamed:@"galleryNoImagePlaceholder"];
+    self.bottomSheetGrip = [UIColor colorNamed:@"bottomSheetGrip"];
   }
   return self;
 }

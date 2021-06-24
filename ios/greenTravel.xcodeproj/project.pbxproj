@@ -1008,10 +1008,10 @@
 		5A775DD226077A7C00CEFC78 /* GalleryView */ = {
 			isa = PBXGroup;
 			children = (
-				5A775DD326077A7C00CEFC78 /* GalleryPageControl */,
-				5A775DDA26077A7C00CEFC78 /* GalleryView.m */,
-				5A775DDB26077A7C00CEFC78 /* SlideCollectionViewCell */,
 				5A775DDE26077A7C00CEFC78 /* GalleryView.h */,
+				5A775DDA26077A7C00CEFC78 /* GalleryView.m */,
+				5A775DD326077A7C00CEFC78 /* GalleryPageControl */,
+				5A775DDB26077A7C00CEFC78 /* SlideCollectionViewCell */,
 			);
 			path = GalleryView;
 			sourceTree = "<group>";

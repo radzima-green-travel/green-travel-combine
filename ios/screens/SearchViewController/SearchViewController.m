@@ -10,6 +10,7 @@
 #import "UISearchControllerNoCancel.h"
 #import "ColorsLegacy.h"
 #import "Colors.h"
+#import "StyleUtils.h"
 #import "PlaceItem.h"
 #import "Category.h"
 #import "SearchCell.h"
@@ -103,6 +104,7 @@ static const CGFloat kSearchRowHeight = 58.0;
   self.scrollView.backgroundColor = [Colors get].background;
   [self.noDataLabel setTextColor:[Colors get].mainText];
   [self.noDataImageView setImage:[UIImage imageNamed:@"search"]];
+  configureNavigationBar(self.navigationController.navigationBar);
 }
 
 - (void)viewDidLoad {
