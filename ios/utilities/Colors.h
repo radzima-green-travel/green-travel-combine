@@ -43,6 +43,7 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *galleryNoImagePlaceholder;
 @property (strong, nonatomic) UIColor *bottomSheetGrip;
 @property (strong, nonatomic) UIColor *searchModalNavigationBarTint;
+@property (strong, nonatomic) UIColor *categoryFilterCellBorder;
 + (instancetype)get;
 
 @end

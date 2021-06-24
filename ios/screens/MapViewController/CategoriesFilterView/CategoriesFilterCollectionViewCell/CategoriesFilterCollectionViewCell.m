@@ -37,9 +37,13 @@
   [super layoutSubviews];
   
   BOOL shouldShowLightStyleIcon = self.option.on;
+  BOOL interfaceDark = NO;
   if (@available(iOS 12.0, *)) {
-    shouldShowLightStyleIcon = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark || shouldShowLightStyleIcon;
+    interfaceDark = self.traitCollection.userInterfaceStyle ==
+    UIUserInterfaceStyleDark;
+    shouldShowLightStyleIcon = interfaceDark || shouldShowLightStyleIcon;
   }
+  self.layer.borderColor = [[Colors get].categoryFilterCellBorder CGColor];
   UIImage *icon = [[IconNameToImageNameMap get]
                    filterIconForName:self.option.iconName
                    lightStyle:shouldShowLightStyleIcon];
@@ -47,6 +51,9 @@
   if (self.option.on) {
     [self.label setTextColor:[Colors get].buttonNewDataText];
     [self.contentView setBackgroundColor:[Colors get].buttonNewDataBackground];
+    if (interfaceDark) {
+      self.layer.borderColor = [[Colors get].buttonNewDataBackground CGColor];
+    }
     return;
   }
   [self.label setTextColor:[Colors get].mainText];
@@ -54,6 +61,7 @@
 }
 
 - (void)setUp {
+  self.layer.borderWidth = 1.0;
   self.layer.masksToBounds = YES;
   self.layer.cornerRadius = 4.0;
 }
