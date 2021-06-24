@@ -11,6 +11,7 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "StyleUtils.h"
+#import "TextUtils.h"
 #import "PlaceItem.h"
 #import "Category.h"
 #import "SearchCell.h"
@@ -52,6 +53,7 @@
 @property (copy, nonatomic) BOOL(^searchItemFilter)(SearchItem *);
 @property (strong, nonatomic) UILabel *noDataLabel;
 @property (strong, nonatomic) UIImageView *noDataImageView;
+@property (assign, nonatomic) BOOL wasPresented;
 
 @end
 
@@ -104,6 +106,15 @@ static const CGFloat kSearchRowHeight = 58.0;
   self.scrollView.backgroundColor = [Colors get].background;
   [self.noDataLabel setTextColor:[Colors get].mainText];
   [self.noDataImageView setImage:[UIImage imageNamed:@"search"]];
+  if ([self.navigationController isBeingPresented] || self.wasPresented) {
+    self.wasPresented = YES;
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    navigationBar.titleTextAttributes = getTextAttributes([Colors get].searchModalNavigationBarTint, 16.0, UIFontWeightSemibold);
+    navigationBar.barStyle = UIBarStyleDefault;
+    navigationBar.barTintColor = [Colors get].background;
+    navigationBar.translucent = NO;
+    return;
+  }
   configureNavigationBar(self.navigationController.navigationBar);
 }
 

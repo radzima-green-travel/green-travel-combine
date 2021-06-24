@@ -54,6 +54,7 @@ static Colors *instance;
     self.headlineText = [UIColor colorNamed:@"headlineText"];
     self.galleryNoImagePlaceholder = [UIColor colorNamed:@"galleryNoImagePlaceholder"];
     self.bottomSheetGrip = [UIColor colorNamed:@"bottomSheetGrip"];
+    self.searchModalNavigationBarTint = [UIColor colorNamed:@"searchModalNavigationBarTint"];
   }
   return self;
 }
