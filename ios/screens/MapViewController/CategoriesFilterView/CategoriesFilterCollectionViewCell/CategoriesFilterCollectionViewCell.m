@@ -11,12 +11,14 @@
 #import "FilterOption.h"
 #import "Typography.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "CategoriesFilterViewConstants.h"
 
 @interface CategoriesFilterCollectionViewCell ()
 
 @property (strong, nonatomic) UILabel *label;
 @property (strong, nonatomic) UIImageView *iconView;
+@property (strong, nonatomic) FilterOption *option;
 
 @end
 
@@ -31,9 +33,29 @@
     return self;
 }
 
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  
+  BOOL shouldShowLightStyleIcon = self.option.on;
+  if (@available(iOS 12.0, *)) {
+    shouldShowLightStyleIcon = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark || shouldShowLightStyleIcon;
+  }
+  UIImage *icon = [[IconNameToImageNameMap get]
+                   filterIconForName:self.option.iconName
+                   lightStyle:shouldShowLightStyleIcon];
+  [self.iconView setImage:icon];
+  if (self.option.on) {
+    [self.label setTextColor:[Colors get].buttonNewDataText];
+    [self.contentView setBackgroundColor:[Colors get].buttonNewDataBackground];
+    return;
+  }
+  [self.label setTextColor:[Colors get].mainText];
+  [self.contentView setBackgroundColor:[Colors get].background];
+}
+
 - (void)setUp {
-    self.layer.masksToBounds = YES;
-    self.layer.cornerRadius = 4.0;
+  self.layer.masksToBounds = YES;
+  self.layer.cornerRadius = 4.0;
 }
 
 - (void)addIconView {
@@ -86,10 +108,11 @@
 }
 
 - (void)update:(FilterOption *)option {
+    self.option = option;
     [self updateSubiews:option];
     if (option.iconName && [[IconNameToImageNameMap get]
                             hasFilterIconForName:option.iconName]) {
-        UIImage *icon = [[IconNameToImageNameMap get] filterIconForName:option.iconName selectedState:option.on];
+        UIImage *icon = [[IconNameToImageNameMap get] filterIconForName:option.iconName lightStyle:option.on];
         [self.iconView setImage:icon];
         self.iconView.contentMode = UIViewContentModeCenter;
     }

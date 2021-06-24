@@ -8,6 +8,13 @@
 
 #import "MapButton.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
+
+@interface MapButton()
+
+@property (strong, nonatomic) UIImageView *icon;
+
+@end
 
 @implementation MapButton
 
@@ -36,6 +43,18 @@ imageCenterYAnchorConstant:imageCenterYAnchorConstant];
     return self;
 }
 
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  CGFloat red;
+  CGFloat green;
+  CGFloat blue;
+  CGFloat alpha;
+  UIColor *opaqueBg = [Colors get].background;
+  [opaqueBg getRed:&red green:&green blue:&blue alpha:&alpha];
+  self.backgroundColor = [UIColor colorWithRed:red green:green blue:blue alpha:0.7];
+  [self.icon setTintColor:[Colors get].mainText];
+}
+
 - (void)setUp:(NSString *)imageName
        target:(id)target
      selector:(SEL)selector
@@ -47,24 +66,22 @@ imageCenterYAnchorConstant:(CGFloat)imageCenterYAnchorConstant {
         [self.widthAnchor constraintEqualToConstant:44.0],
         [self.heightAnchor constraintEqualToConstant:44.0],
     ]];
-
-    self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.7];
     
     self.layer.masksToBounds = YES;
     self.layer.cornerRadius = 8.0;
     self.layer.borderColor = [[ColorsLegacy get].alto CGColor];
     self.layer.borderWidth = 1.0;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-    [self addSubview:imageView];
+    self.icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    [self addSubview:self.icon];
     
-    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.icon.translatesAutoresizingMaskIntoConstraints = NO;
     
     [NSLayoutConstraint activateConstraints:@[
-        [imageView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:imageCenterXAnchorConstant],
-        [imageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor constant:imageCenterYAnchorConstant],
-        [imageView.widthAnchor constraintEqualToConstant:26.0],
-        [imageView.heightAnchor constraintEqualToConstant:26.0],
+        [self.icon.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant:imageCenterXAnchorConstant],
+        [self.icon.centerYAnchor constraintEqualToAnchor:self.centerYAnchor constant:imageCenterYAnchorConstant],
+        [self.icon.widthAnchor constraintEqualToConstant:26.0],
+        [self.icon.heightAnchor constraintEqualToConstant:26.0],
     ]];
     
     [self addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];

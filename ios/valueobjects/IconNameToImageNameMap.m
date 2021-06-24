@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) NSDictionary<NSString *, NSString *> *objectIconToFileName;
 @property (strong, nonatomic) NSDictionary<NSString *, NSString *> *filterMap;
-@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *filterMapSelected;
+@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *filterMapLightStyle;
 
 @end
 
@@ -39,7 +39,7 @@ static IconNameToImageNameMap *instance;
             @"bicycle-route": @"bike",
             @"excursion-pin": @"flag",
         };
-        _filterMapSelected = @{
+        _filterMapLightStyle = @{
             @"object": @"forest-white",
             @"hiking": @"footprints-white",
             @"historical-place": @"church-white",
@@ -60,13 +60,13 @@ static IconNameToImageNameMap *instance;
 }
 
 - (UIImage *)filterIconForName:(NSString *)name
-                 selectedState:(BOOL)selectedState {
+                 lightStyle:(BOOL)lightStyle {
     if (!self.objectIconToFileName[name]) {
         return nil;
     }
     NSString *fileName;
-    if (selectedState) {
-        fileName = self.filterMapSelected[name];
+    if (lightStyle) {
+        fileName = self.filterMapLightStyle[name];
     } else {
         fileName = self.filterMap[name];
     }
@@ -74,7 +74,7 @@ static IconNameToImageNameMap *instance;
 }
 
 - (BOOL)hasFilterIconForName:(NSString *)name {
-    return self.filterMap[name] != nil && self.filterMapSelected[name] != nil;
+    return self.filterMap[name] != nil && self.filterMapLightStyle[name] != nil;
 }
 
 + (instancetype)get {
