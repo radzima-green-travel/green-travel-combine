@@ -70,6 +70,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
 
 - (void)viewWillLayoutSubviews {
   self.collectionView.backgroundColor = [Colors get].background;
+  configureNavigationBar(self.navigationController.navigationBar);
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
