@@ -16,6 +16,7 @@ import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
 import {MENU_HEIGHT} from './styles';
 import {IObject} from 'core/types';
+import {isIOS} from 'services/PlatformService';
 
 export type ObjectDetailsMapBottomMenuRef = {
   show: () => void;
@@ -131,6 +132,7 @@ export const ObjectDetailsMapBottomMenu = memo(
 
       return (
         <BottomSheet
+          enabledContentTapInteraction={isIOS}
           callbackNode={animatedPosition}
           borderRadius={15}
           ref={bs}

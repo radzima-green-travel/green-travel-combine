@@ -46,7 +46,7 @@ class PermissionsService {
   async checkLocationPermissionAndroid() {
     const {
       gps,
-    } = NativeModules.LocationProvidersModule.getAvailableLocationProvidersSync();
+    } = await NativeModules.LocationProvidersModule.getAvailableLocationProviders();
 
     if (!gps) {
       Alert.alert(

@@ -132,7 +132,7 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
             }
             onCoordinatesPress={copyLocationToClipboard}
           />
-          {data.location ? (
+          {isLocationExist(data) ? (
             <Button style={styles.button} onPress={navigateToObjectsMap}>
               {t('seeOnTheMap')}
             </Button>

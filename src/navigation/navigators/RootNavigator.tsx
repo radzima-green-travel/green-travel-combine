@@ -99,17 +99,6 @@ export function RootNavigator() {
     (state: IState) => state.bootsrap.finished,
   );
 
-  // useEffect(() => {
-  //   if (bootstrapFinished) {
-  //     RNBootSplash.hide({fade: true}).then(() => {
-  //       StatusBar.pushStackEntry({
-  //         barStyle: 'light-content',
-  //         animated: true,
-  //       });
-  //     });
-  //   }
-  // }, [bootstrapFinished]);
-
   useEffect(() => {
     dispatch(bootstrapStart());
   }, [dispatch]);

@@ -24,8 +24,8 @@ export const screenOptions: StackNavigationOptions = {
   headerTitle: () => <HeaderTitle />,
   headerTitleContainerStyle: {
     width: '100%',
-    paddingLeft: 48,
+    paddingLeft: isIOS ? 48 : 60,
     paddingRight: 16,
   },
-  headerLeftContainerStyle: {paddingLeft: isIOS ? 16 : 6, marginBottom: 5},
+  headerLeftContainerStyle: {paddingLeft: isIOS ? 10 : 0, marginBottom: 5},
 };

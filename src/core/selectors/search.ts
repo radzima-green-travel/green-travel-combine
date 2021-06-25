@@ -3,6 +3,7 @@ import {ITransformedData, IObject} from '../types';
 import {IState} from 'core/store';
 import {filter, orderBy, reduce} from 'lodash';
 import {selectTransformedData} from './homeSelectors';
+import {isLocationExist} from 'core/helpers';
 
 export const selectSearchInputValue = (state: IState) =>
   state.search.inputValue;
@@ -65,31 +66,12 @@ export const selectSearchResults = createSelector<
 export const selectSearchResultsWithLocation = createSelector<
   IState,
   ITransformedData | null,
-  string,
+  IObject[],
   IObject[]
->(
-  selectTransformedData,
-  selectSearchInputValue,
-  (transformedData, inputValue) => {
-    return transformedData
-      ? orderBy(
-          filter(
-            Object.values(transformedData.objectsMap),
-            object =>
-              object.name.toLowerCase().includes(inputValue.toLowerCase()) &&
-              Boolean(object.location),
-          ),
-          [({name}) => name.toLowerCase()],
-          'asc',
-        )
-      : [];
-  },
-);
+>(selectSearchResults, searchResults => filter(searchResults, isLocationExist));
 
 export const selectSearchHistoryWithLocation = createSelector<
   IState,
   IObject[],
   IObject[]
->(selectSearchHistory, history =>
-  filter(history, ({location}) => Boolean(location)),
-);
+>(selectSearchHistory, history => filter(history, isLocationExist));

@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Pressable,
 } from 'react-native';
+
 import {BUTTON_THEMES} from './constants';
 import {styles} from './styles';
 import {ButtonThemes} from './types';
