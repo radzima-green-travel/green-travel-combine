@@ -98,6 +98,7 @@
   [self.addressLabel setTextColor:[Colors get].mainText];
   self.activityIndicatorContainerView.backgroundColor =  [Colors get].background;
   self.descriptionTextView.backgroundColor = [Colors get].background;
+  self.view.backgroundColor = [Colors get].background;
   self.scrollView.backgroundColor = [Colors get].background;
   self.contentView.backgroundColor = [Colors get].background;
   configureNavigationBar(self.navigationController.navigationBar);
