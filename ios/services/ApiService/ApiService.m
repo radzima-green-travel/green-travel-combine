@@ -16,6 +16,7 @@
 #import "TextUtils.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "ConfigValues.h"
+#import "ImageUtils.h"
 
 static NSString * const kGetCategoriesURL = @"https://d28njwxs8zbmie.cloudfront.net/objects.json";
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
@@ -79,7 +80,7 @@ static NSString * const kImageBaseURL = @"http://radzimastorage74831-prod.s3-web
     category.items = [self mapItemsFromJSON:obj[@"objects"] category:category];
     if ([self categoryIsValid:category rawCategory:obj]) {
       category.title = obj[@"name"];
-      category.cover = [NSString stringWithFormat:@"%@%@", kImageBaseURL, obj[@"cover"]];
+      category.cover = getFullImageURL(kImageBaseURL, obj[@"cover"]);
       category.uuid = obj[@"id"];
       category.icon = obj[@"icon"];
       [mappedCategories addObject:category];
@@ -101,7 +102,7 @@ static NSString * const kImageBaseURL = @"http://radzimastorage74831-prod.s3-web
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PlaceItem *placeItem = [[PlaceItem alloc] init];
         placeItem.title = obj[@"name"];
-        placeItem.cover = [NSString stringWithFormat:@"%@%@", kImageBaseURL, obj[@"cover"]];
+        placeItem.cover = getFullImageURL(kImageBaseURL, obj[@"cover"]);
         placeItem.category = category;
         placeItem.details = [weakSelf mapDetailsFromJSON:obj];
         placeItem.coords = [weakSelf mapPointCoordsFromJSON:obj];
@@ -122,8 +123,10 @@ static NSString * const kImageBaseURL = @"http://radzimastorage74831-prod.s3-web
   PlaceDetails *details = [[PlaceDetails alloc] init];
   NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
   if (item[@"images"]) {
-    [item[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL, NSUInteger idx, BOOL * _Nonnull stop) {
-      [imageURLs addObject:[NSString stringWithFormat:@"%@%@", kImageBaseURL, imageURL]];
+    [item[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL,
+                                                  NSUInteger idx,
+                                                  BOOL * _Nonnull stop) {
+      [imageURLs addObject:getFullImageURL(kImageBaseURL, imageURL)];
     }];
   }
   details.uuid = item[@"id"];
