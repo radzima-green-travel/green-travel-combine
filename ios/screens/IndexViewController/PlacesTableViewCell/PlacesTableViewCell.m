@@ -175,6 +175,29 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
     item.onPlaceCellPress();
 }
 
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath
+                                         point:(CGPoint)point  API_AVAILABLE(ios(13.0)) {
+  NSString *title;
+  void(^navigation)(void);
+  if ([self.dataSourceCategories count] > 0) {
+    Category *category = self.dataSourceCategories[indexPath.row];
+    title = category.title;
+    navigation = category.onAllButtonPress;
+  } else {
+    PlaceItem *placeItem = self.dataSourceItems[indexPath.row];
+    title = placeItem.title;
+    navigation = placeItem.onPlaceCellPress;
+  }
+    
+  return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:nil actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+    UIAction *openAction = [UIAction actionWithTitle:@"Открыть" image:[UIImage systemImageNamed:@""] identifier:@"openAction" handler:^(__kindof UIAction * _Nonnull action) {
+      navigation();
+    }];
+    UIMenu *menu = [UIMenu menuWithTitle:title children:@[openAction]];
+    return menu;
+  }];
+}
+
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.dataSourceCategories = @[];
