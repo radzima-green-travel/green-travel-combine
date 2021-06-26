@@ -44,6 +44,7 @@
   self.placeholder.backgroundColor = [Colors get].cardPlaceholder;
   [super layoutSubviews];
   [self updateOverlayAndShadow];
+  self.layer.borderColor = [[Colors get].photoCollectionViewCellBorder CGColor];
   if (self.item != nil && ![self coverIsPresent]) {
     [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
     self.headerLabel.attributedText = [[Typography get] makeTitle2:self.item.title
@@ -65,6 +66,10 @@
   
     self.placeholder.layer.cornerRadius = 4.0;
     self.placeholder.layer.masksToBounds = YES;
+  
+    self.layer.cornerRadius = 4.0;
+    self.layer.masksToBounds = YES;
+    self.layer.borderWidth = 1.0;
     
     [NSLayoutConstraint activateConstraints:@[
         [self.placeholder.topAnchor constraintEqualToAnchor:self.topAnchor],

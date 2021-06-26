@@ -10,6 +10,7 @@
 @import Mapbox;
 #import "StyleUtils.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "MapModel.h"
 #import "MapItemsObserver.h"
 #import "LocationObserver.h"
@@ -71,6 +72,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
+  self.view.backgroundColor = [Colors get].background;
   configureNavigationBar(self.navigationController.navigationBar);
 }
 

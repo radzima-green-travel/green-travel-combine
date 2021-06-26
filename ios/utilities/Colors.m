@@ -56,6 +56,7 @@ static Colors *instance;
     self.bottomSheetGrip = [UIColor colorNamed:@"bottomSheetGrip"];
     self.searchModalNavigationBarTint = [UIColor colorNamed:@"searchModalNavigationBarTint"];
     self.categoryFilterCellBorder = [UIColor colorNamed:@"categoryFilterCellBorder"];
+    self.photoCollectionViewCellBorder = [UIColor colorNamed:@"photoCollectionViewCellBorder"];
   }
   return self;
 }
