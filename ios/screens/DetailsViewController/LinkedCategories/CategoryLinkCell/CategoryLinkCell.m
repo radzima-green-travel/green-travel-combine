@@ -97,7 +97,7 @@
 
 - (void)update:(Category *)category {
     self.title.attributedText = [[Typography get] makeBody:category.title];
-    [self.icon setImage:[[IconNameToImageNameMap get] iconForName:category.icon]];
+    [self.icon setImage:[[IconNameToImageNameMap get] iconForName32:category.icon]];
 }
 
 - (void)prepareForReuse {

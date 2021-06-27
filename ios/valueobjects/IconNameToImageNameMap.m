@@ -11,7 +11,8 @@
 
 @interface IconNameToImageNameMap()
 
-@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *objectIconToFileName;
+@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *objectIconToFileName36;
+@property (strong, nonatomic) NSDictionary<NSString *, NSString *> *objectIconToFileName32;
 @property (strong, nonatomic) NSDictionary<NSString *, NSString *> *filterMap;
 @property (strong, nonatomic) NSDictionary<NSString *, NSString *> *filterMapLightStyle;
 
@@ -25,13 +26,34 @@ static IconNameToImageNameMap *instance;
 {
     self = [super init];
     if (self) {
-        _objectIconToFileName = @{
-            @"object": @"conserv.area",
-            @"hiking": @"walking-routes",
-            @"historical-place": @"historical-place",
-            @"bicycle-route": @"bicycle-route",
-            @"excursion-pin": @"excursion",
+        _objectIconToFileName36 = @{
+            @"religious-christian-15": @"church36",
+            @"monument-11": @"memorial36",
+            @"museum-15": @"museum36",
+            @"castle-15": @"castle36",
+            @"tw-national-2": @"nature-object36",
+            @"town-hall-15": @"tower36",
+            @"routes": @"routes36",
+            @"walking-routes": @"walking-route36",
+            @"object": @"conserved-area36",
+            @"excursion-pin": @"excursion36",
+            @"bicycle-route": @"bicycle-route36",
+            @"water-route": @"water-route36",
         };
+      _objectIconToFileName32 = @{
+          @"religious-christian-15": @"church32",
+          @"monument-11": @"memorial32",
+          @"museum-15": @"museum32",
+          @"castle-15": @"castle32",
+          @"tw-national-2": @"nature-object32",
+          @"town-hall-15": @"tower32",
+          @"routes": @"routes32",
+          @"walking-routes": @"walking-route32",
+          @"object": @"conserved-area32",
+          @"excursion-pin": @"excursion32",
+          @"bicycle-route": @"bicycle-route32",
+          @"water-route": @"water-route32",
+      };
         _filterMap = @{
             @"object": @"forest",
             @"hiking": @"footprints",
@@ -50,18 +72,27 @@ static IconNameToImageNameMap *instance;
     return self;
 }
 
-- (UIImage *)iconForName:(NSString *)name {
-  if (!self.objectIconToFileName[name]) {
+- (UIImage *)iconForName36:(NSString *)name {
+  if (!self.objectIconToFileName36[name]) {
     return nil;
   }
-  NSString *fileName = self.objectIconToFileName[name];
+  NSString *fileName = self.objectIconToFileName36[name];
+  UIImage *image = [UIImage imageNamed:fileName];
+  return image;
+}
+
+- (UIImage *)iconForName32:(NSString *)name {
+  if (!self.objectIconToFileName36[name]) {
+    return nil;
+  }
+  NSString *fileName = self.objectIconToFileName32[name];
   UIImage *image = [UIImage imageNamed:fileName];
   return image;
 }
 
 - (UIImage *)filterIconForName:(NSString *)name
                  lightStyle:(BOOL)lightStyle {
-    if (!self.objectIconToFileName[name]) {
+    if (!self.objectIconToFileName36[name]) {
         return nil;
     }
     NSString *fileName;

@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IconNameToImageNameMap : NSObject
 
 + (instancetype)get;
-- (UIImage *)iconForName:(NSString *)name;
+- (UIImage *)iconForName36:(NSString *)name;
+- (UIImage *)iconForName32:(NSString *)name;
 - (UIImage *)filterIconForName:(NSString *)name
                  lightStyle:(BOOL)selectedState;
 - (BOOL)hasFilterIconForName:(NSString *)name;

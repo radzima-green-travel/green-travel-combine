@@ -121,7 +121,7 @@ static const NSUInteger kMaxNumberOfLinesForTitle = 5;
   [[Typography get] makeSubtitle2Regular:self.configuration.categoryTitle
                                    color:[Colors get].auxiliaryText];
   [self.iconView setImage:[[IconNameToImageNameMap get]
-                           iconForName:configuration.iconName]];
+                           iconForName36:configuration.iconName]];
 }
 
 @end
