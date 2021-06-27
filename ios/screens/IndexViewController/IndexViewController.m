@@ -245,6 +245,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 
 - (void)viewWillAppear:(BOOL)animated {
     [self fillNavigationListeners:self.model.randomizedCategories];
+    [self fillNavigationListeners:self.model.categories];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -303,6 +304,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 #pragma mark - Categories update
 - (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
     [self fillNavigationListeners:self.model.randomizedCategories];
+    [self fillNavigationListeners:self.model.categories];
     if ([categories count]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setUpWithTable];
