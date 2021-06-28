@@ -38,4 +38,29 @@ export const iconsConfig: {
     width: 20,
     height: 20,
   },
+  [MAP_PINS.CASTLES]: {
+    name: 'castles',
+    width: 20,
+    height: 20,
+  },
+  [MAP_PINS.MUSEUMS]: {
+    name: 'museums',
+    width: 20,
+    height: 20,
+  },
+  [MAP_PINS.NATURE_MONUMENTS]: {
+    name: 'natureMonuments',
+    width: 20,
+    height: 20,
+  },
+  [MAP_PINS.WAR_MONUMENTS]: {
+    name: 'warMonuments',
+    width: 20,
+    height: 20,
+  },
+  [MAP_PINS.OTHER_MONUMENTS]: {
+    name: 'otherMonuments',
+    width: 20,
+    height: 20,
+  },
 };

@@ -52,6 +52,11 @@ export enum MAP_PINS {
   EXCURSION_PIN = 'excursion-pin',
   WALKING_ROUTES = 'walking-routes',
   WATER_ROUTE = 'water-route',
+  CASTLES = 'castles',
+  MUSEUMS = 'museums',
+  NATURE_MONUMENTS = 'nature-monuments',
+  OTHER_MONUMENTS = 'other-monuments',
+  WAR_MONUMENTS = 'war-monuments',
   EMPTY_BIG = 'empty-big',
   EMPTY = 'empty',
   SELECTED_POSTFIX = '-black',
@@ -61,14 +66,6 @@ export const PADDING_HORIZONTAL = 16;
 
 import {IconsNames} from 'atoms/Icon/IconsNames';
 
-export const MAP_ICONS_MATCHER = {
-  [MAP_PINS.BICYCLE_ROUTE]: MAP_PINS[MAP_PINS.BICYCLE_ROUTE],
-  [MAP_PINS.HISTORICAL_PLACE]: MAP_PINS[MAP_PINS.HISTORICAL_PLACE],
-  [MAP_PINS.WALKING_ROUTES]: MAP_PINS[MAP_PINS.WALKING_ROUTES],
-  [MAP_PINS.EXCURSION_PIN]: MAP_PINS[MAP_PINS.EXCURSION_PIN],
-  [MAP_PINS.OBJECT]: MAP_PINS[MAP_PINS.OBJECT],
-};
-
 export const ICONS_MATCHER = {
   [MAP_PINS.BICYCLE_ROUTE]: 'strokeBike' as IconsNames,
   [MAP_PINS.HISTORICAL_PLACE]: 'strokeChurch' as IconsNames,
@@ -76,6 +73,11 @@ export const ICONS_MATCHER = {
   [MAP_PINS.EXCURSION_PIN]: 'strokeFlag' as IconsNames,
   [MAP_PINS.OBJECT]: 'strokeForest' as IconsNames,
   [MAP_PINS.WATER_ROUTE]: 'strokeWaterRoute' as IconsNames,
+  [MAP_PINS.CASTLES]: 'strokeCastles' as IconsNames,
+  [MAP_PINS.MUSEUMS]: 'strokeMuseums' as IconsNames,
+  [MAP_PINS.NATURE_MONUMENTS]: 'strokeNatureMonuments' as IconsNames,
+  [MAP_PINS.OTHER_MONUMENTS]: 'strokeOtherMonuments' as IconsNames,
+  [MAP_PINS.WAR_MONUMENTS]: 'strokeWarMonuments' as IconsNames,
 };
 
 export const DARK_ICONS_MATCHER = {
@@ -85,6 +87,11 @@ export const DARK_ICONS_MATCHER = {
   [MAP_PINS.EXCURSION_PIN]: 'strokeFlagDark' as IconsNames,
   [MAP_PINS.OBJECT]: 'strokeForestDark' as IconsNames,
   [MAP_PINS.WATER_ROUTE]: 'strokeWaterRouteDark' as IconsNames,
+  [MAP_PINS.CASTLES]: 'strokeCastlesDark' as IconsNames,
+  [MAP_PINS.MUSEUMS]: 'strokeMuseumsDark' as IconsNames,
+  [MAP_PINS.NATURE_MONUMENTS]: 'strokeNatureMonumentsDark' as IconsNames,
+  [MAP_PINS.OTHER_MONUMENTS]: 'strokeOtherMonumentsDark' as IconsNames,
+  [MAP_PINS.WAR_MONUMENTS]: 'strokeWarMonumentsDark' as IconsNames,
 };
 
 export const DEVELOP_APP_VERSION = 3;
