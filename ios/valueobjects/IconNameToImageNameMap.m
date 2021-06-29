@@ -27,12 +27,12 @@ static IconNameToImageNameMap *instance;
     self = [super init];
     if (self) {
         _objectIconToFileName36 = @{
-            @"religious-christian-15": @"church36",
-            @"monument-11": @"memorial36",
-            @"museum-15": @"museum36",
-            @"castle-15": @"castle36",
-            @"tw-national-2": @"nature-object36",
-            @"town-hall-15": @"tower36",
+            @"historical-place": @"church36",
+            @"war-monuments": @"memorial36",
+            @"museums": @"museum36",
+            @"castles": @"castle36",
+            @"nature-monuments": @"nature-object36",
+            @"other-monuments": @"tower36",
             @"routes": @"routes36",
             @"walking-routes": @"walking-route36",
             @"object": @"conserved-area36",
@@ -41,12 +41,12 @@ static IconNameToImageNameMap *instance;
             @"water-route": @"water-route36",
         };
       _objectIconToFileName32 = @{
-          @"religious-christian-15": @"church32",
-          @"monument-11": @"memorial32",
-          @"museum-15": @"museum32",
-          @"castle-15": @"castle32",
-          @"tw-national-2": @"nature-object32",
-          @"town-hall-15": @"tower32",
+          @"historical-place": @"church32",
+          @"war-monuments": @"memorial32",
+          @"museums": @"museum32",
+          @"castles": @"castle32",
+          @"nature-monuments": @"nature-object32",
+          @"other-monuments": @"tower32",
           @"routes": @"routes32",
           @"walking-routes": @"walking-route32",
           @"object": @"conserved-area32",
