@@ -28,7 +28,7 @@
     CAGradientLayer *gradient = (CAGradientLayer *) self.layer;
     gradient.colors = @[(__bridge id)[ColorsLegacy get].heavyMetal.CGColor, (__bridge id)UIColor.clearColor.CGColor];
     gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(0, 0.6);
+    gradient.endPoint = CGPointMake(0, 1);
 }
 
 @end

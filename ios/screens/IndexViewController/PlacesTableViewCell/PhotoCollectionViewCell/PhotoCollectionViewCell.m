@@ -29,6 +29,9 @@
 
 @end
 
+static const CGFloat kHeaderLabelTop = 16.0;
+static const CGFloat kGradientOffset = 50.0;
+
 @implementation PhotoCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -77,14 +80,7 @@
         [self.placeholder.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
         [self.placeholder.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
-    [self.placeholder addSubview:self.overlayView];
-    self.overlayView.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.overlayView.topAnchor constraintEqualToAnchor:self.placeholder.topAnchor],
-        [self.overlayView.leadingAnchor constraintEqualToAnchor:self.placeholder.leadingAnchor],
-        [self.overlayView.trailingAnchor constraintEqualToAnchor:self.placeholder.trailingAnchor],
-        [self.overlayView.bottomAnchor constraintEqualToAnchor:self.placeholder.bottomAnchor]
-    ]];
+    
     
 #pragma mark - Header label
     self.headerLabel = [[UILabel alloc] init];
@@ -92,12 +88,21 @@
     
     self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self.headerLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:15.0]];
+     [self.headerLabel setNumberOfLines:0];
     
     [NSLayoutConstraint activateConstraints:@[
-        [self.headerLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:16.0],
+        [self.headerLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:kHeaderLabelTop],
         [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:16.0],
-        [self.headerLabel.heightAnchor constraintEqualToConstant:20.0]
     ]];
+  
+  [self.placeholder addSubview:self.overlayView];
+  self.overlayView.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+      [self.overlayView.topAnchor constraintEqualToAnchor:self.placeholder.topAnchor],
+      [self.overlayView.leadingAnchor constraintEqualToAnchor:self.placeholder.leadingAnchor],
+      [self.overlayView.trailingAnchor constraintEqualToAnchor:self.placeholder.trailingAnchor],
+      [self.overlayView.heightAnchor constraintEqualToAnchor:self.headerLabel.heightAnchor constant:kHeaderLabelTop + kGradientOffset]
+  ]];
 #pragma mark - Favorites button
     self.favoritesButton = [[UIButton alloc] init];
     self.favoritesButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
@@ -167,14 +172,14 @@
 }
 
 - (void)updateSubviews:(NSString *)title image:(UIImage *)image {
-    if (image == nil) {
-        return;
-    }
-    self.headerLabel.attributedText = [[Typography get] makeTitle2:title
-                                                                 color:[ColorsLegacy get].white];
-    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
-    [self.placeholder setImage:image];
-    [self.overlayView setHidden:NO];
+  if (image == nil) {
+    return;
+  }
+  self.headerLabel.attributedText = [[Typography get] makeTitle2:title
+                                                           color:[ColorsLegacy get].white];
+  [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
+  [self.placeholder setImage:image];
+  [self.overlayView setHidden:NO];
 }
 
 - (void)updateBookmark:(BOOL)bookmark {
