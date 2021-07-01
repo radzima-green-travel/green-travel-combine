@@ -4,7 +4,7 @@ Combine app containing UIKit and React Native implementation of the same functio
 
 # Prerequisites
 
-1. The latest node LTS
+1. Node LTS
 2. Yarn
 3. Bundler
 
