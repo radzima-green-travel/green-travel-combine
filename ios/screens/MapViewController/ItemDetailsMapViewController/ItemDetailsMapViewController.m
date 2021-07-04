@@ -39,7 +39,6 @@
 
 @interface ItemDetailsMapViewController ()
 
-@property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
 @property (strong, nonatomic) MGLPolyline *directionsPolyline;
 
@@ -69,8 +68,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (void)renderMap:(BOOL)initialLoad {
-  [self renderMapItem:self.mapItem style:self.mapView.style
-          initialLoad:initialLoad];
+  [self renderMapItem:self.mapItem style:self.mapView.style];
+  if (!self.mapViewState.saved) {
+    [self showAnnotations];
+  }
 }
 
 - (void)onMapItemsUpdate:(NSArray<MapItem *> *)mapItems {
@@ -82,15 +83,14 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (mapItemNew) {
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-      [weakSelf renderMapItem:mapItemNew style:weakSelf.mapView.style
-                  initialLoad:NO];
+      [weakSelf renderMapItem:mapItemNew style:weakSelf.mapView.style];
+      [weakSelf showAnnotations];
     });
   }
 }
 
 - (void)renderMapItem:(MapItem *)mapItem
-                style:(MGLStyle *)style
-          initialLoad:(BOOL)initialLoad{
+                style:(MGLStyle *)style {
   [self cleanMap];
   [self.mapView removeAnnotations:self.mapView.annotations];
   self.annotations = [[NSMutableArray alloc] init];
@@ -197,10 +197,12 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
     [style addLayer:pointLayer];
   };
-#pragma mark - Layers
-
 #pragma mark - Show point, path or polygon
-  BOOL animated = !(initialLoad && !self.mapViewState.saved);
+  [self showAnnotations];
+}
+
+- (void)showAnnotations {
+  BOOL animated = YES;
   if ([self.annotations count] > 1) {
     [self.mapView showAnnotations:self.annotations animated:animated];
     return;

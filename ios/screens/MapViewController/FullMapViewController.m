@@ -106,20 +106,24 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self renderMapItems:self.mapModel.mapItemsFiltered
                  style:self.mapView.style
                initialLoad:initialLoad];
+  if (!self.mapViewState.saved) {
+    [self.mapView showAnnotations:self.annotations animated:YES];
+  }
 }
 
 - (void)onMapItemsUpdate:(NSArray<MapItem *> *)mapItems {
-    NSLog(@"Map items: %@", mapItems);
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf renderMapItems:mapItems style:weakSelf.mapView.style initialLoad:NO];
-        [weakSelf addFilterView];
-    });
+  NSLog(@"Map items: %@", mapItems);
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [weakSelf renderMapItems:mapItems style:weakSelf.mapView.style initialLoad:NO];
+    [weakSelf.mapView showAnnotations:weakSelf.annotations animated:YES];
+    [weakSelf addFilterView];
+  });
 }
 
 - (void)renderMapItems:(NSArray<MapItem *> *)mapItems
                  style:(MGLStyle *)style initialLoad:(BOOL)initialLoad {
-  NSMutableArray *mapAnnotations = [[NSMutableArray alloc] init];
+  self.annotations = [[NSMutableArray alloc] init];
   [self.mapView removeAnnotations:self.mapView.annotations];
   [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
     MGLPointFeature *point = [[MGLPointFeature alloc] init];
@@ -132,7 +136,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       @"uuid": mapItem.correspondingPlaceItem.uuid,
       @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
     };
-    [mapAnnotations addObject:point];
+    [self.annotations addObject:point];
   }];
   
   MGLShapeSource *source = (MGLShapeSource *)[style sourceWithIdentifier:MapViewControllerSourceIdAll];
@@ -148,7 +152,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   
   source =
   [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdAll
-                                    features:mapAnnotations
+                                    features:self.annotations
                                      options:@{
                                        MGLShapeSourceOptionClustered: @YES,
                                        MGLShapeSourceOptionClusterRadius: @50.0
@@ -179,8 +183,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   
   [style addLayer:markerLayer];
   [style addLayer:clusterLayer];
-  BOOL animated = !(initialLoad && !self.mapViewState.saved);
-   [self.mapView showAnnotations:mapAnnotations animated:animated];
 }
 
 - (MGLAnnotationView *)mapView:(MGLMapView *)mapView viewForAnnotation:(id<MGLAnnotation>)annotation {

@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UITapGestureRecognizer *singleTap;
 @property (assign, nonatomic) BOOL locationMonitoringEnabled;
 @property (strong, nonatomic) MapViewState *mapViewState;
+@property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel
