@@ -328,11 +328,17 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 
 - (BottomSheetView *)addBottomSheet {
   MainViewController *mainViewController = (MainViewController *)self.parentViewController.parentViewController;
-  return [mainViewController addBottomSheet];
+  __weak typeof(self) weakSelf = self;
+  return [mainViewController addBottomSheet:^(BOOL visible) {
+    [weakSelf onPopupShow:visible];
+  }];
 }
 
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
   [self.bottomSheet setBookmarked:item bookmarked:bookmark];
+}
+
+- (void)onPopupShow:(BOOL)visible {
 }
 
 @end

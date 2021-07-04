@@ -190,11 +190,12 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
   }
 }
 
-- (BottomSheetView *)addBottomSheet {
+- (BottomSheetView *)addBottomSheet:(void(^_Nonnull)(BOOL))onShow {
   if (self.bottomSheet != nil) {
     return self.bottomSheet;
   }
   self.bottomSheet = [[BottomSheetView alloc] init];
+  self.bottomSheet.onShow = onShow;
   [self.view addSubview:self.bottomSheet];
 
   NSLayoutConstraint *topAnchor = [self.bottomSheet.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];

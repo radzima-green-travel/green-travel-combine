@@ -164,10 +164,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"{icon}"];
   markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
   
-  [style setImage:[UIImage imageNamed:@"conserv-area-map-pin"] forName:@"object"];
-  [style setImage:[UIImage imageNamed:@"hiking-map-pin"] forName:@"hiking"];
-  [style setImage:[UIImage imageNamed:@"historical-place-map-pin"] forName:@"historical-place"];
-  [style setImage:[UIImage imageNamed:@"bicycle-route-map-pin"] forName:@"bicycle-route"];
+//  [style setImage:[UIImage imageNamed:@"conserv-area-map-pin"] forName:@"object"];
+//  [style setImage:[UIImage imageNamed:@"hiking-map-pin"] forName:@"hiking"];
+//  [style setImage:[UIImage imageNamed:@"historical-place-map-pin"] forName:@"historical-place"];
+//  [style setImage:[UIImage imageNamed:@"bicycle-route-map-pin"] forName:@"bicycle-route"];
   MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:MapViewControllerClusterLayerId source:source];
   clusterLayer.textColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].black];
   clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
@@ -280,17 +280,28 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       PlaceItem *item = self.indexModel.flatItems[(NSString *)uuid];
       if ([uuid isEqualToString:self.selectedItemUUID]) {
         self.selectedItemUUID = nil;
+        [self hidePopup];
       } else {
         self.selectedItemUUID = uuid;
+        [self showPopupWithItem:item];
       }
       [self renderMapItems:self.mapModel.mapItemsFiltered
                      style:self.mapView.style initialLoad:NO];
       [self.mapView setCenterCoordinate:feature.coordinate zoomLevel:self.mapView.zoomLevel animated:YES];
-      [self showPopupWithItem:item];
+      
     }
     return;
   }
   [self hidePopup];
+}
+
+- (void)onPopupShow:(BOOL)visible {
+  [super onPopupShow:visible];
+  if (!visible && self.selectedItemUUID != nil) {
+    self.selectedItemUUID = nil;
+    [self renderMapItems:self.mapModel.mapItemsFiltered
+                   style:self.mapView.style initialLoad:NO];
+  }
 }
 
 - (MGLPointFeatureCluster *)firstClusterWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {

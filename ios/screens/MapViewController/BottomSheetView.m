@@ -161,6 +161,9 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     weakSelf.visible = YES;
   } completion:^(BOOL finished) {
     weakSelf.inProgress = NO;
+    if (weakSelf.onShow) {
+      weakSelf.onShow(YES);
+    }
   }];
 }
 
@@ -173,6 +176,9 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   } completion:^(BOOL finished) {
     weakSelf.visible = NO;
     weakSelf.inProgress = NO;
+    if (weakSelf.onShow) {
+      weakSelf.onShow(NO);
+    }
   }];
 }
 

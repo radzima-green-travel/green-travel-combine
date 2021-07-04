@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BottomSheetView *)addBottomSheet;
 - (void)renderMap:(BOOL)initialLoad;
 - (void)cleanMap;
+- (void)onPopupShow:(BOOL)visible;
 
 @end
 
