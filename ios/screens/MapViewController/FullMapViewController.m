@@ -33,6 +33,8 @@
 
 @interface FullMapViewController ()
 
+@property(strong, nonatomic) NSString *selectedItemUUID;
+
 @end
 
 
@@ -124,7 +126,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     point.coordinate = mapItem.coords;
     point.title = mapItem.title;
     point.attributes = @{
-      @"icon": mapItem.correspondingPlaceItem.category.icon,
+      @"icon": [mapItem.correspondingPlaceItem.uuid isEqualToString:self.selectedItemUUID] ?
+      [NSString stringWithFormat:@"%@-black", mapItem.correspondingPlaceItem.category.icon] : mapItem.correspondingPlaceItem.category.icon,
       @"title": mapItem.title,
       @"uuid": mapItem.correspondingPlaceItem.uuid,
       @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
@@ -177,7 +180,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [style addLayer:markerLayer];
   [style addLayer:clusterLayer];
   BOOL animated = !(initialLoad && !self.mapViewState.saved);
-  [self.mapView showAnnotations:mapAnnotations animated:animated];
+   [self.mapView showAnnotations:mapAnnotations animated:animated];
 }
 
 - (MGLAnnotationView *)mapView:(MGLMapView *)mapView viewForAnnotation:(id<MGLAnnotation>)annotation {
@@ -273,7 +276,13 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     id uuid = [feature attributeForKey:@"uuid"];
     if ([uuid isKindOfClass:[NSString class]]) {
       PlaceItem *item = self.indexModel.flatItems[(NSString *)uuid];
-      color = UIColor.blackColor;
+      if ([uuid isEqualToString:self.selectedItemUUID]) {
+        self.selectedItemUUID = nil;
+      } else {
+        self.selectedItemUUID = uuid;
+      }
+      [self renderMapItems:self.mapModel.mapItemsFiltered
+                     style:self.mapView.style initialLoad:NO];
       [self.mapView setCenterCoordinate:feature.coordinate zoomLevel:self.mapView.zoomLevel animated:YES];
       [self showPopupWithItem:item];
     }
