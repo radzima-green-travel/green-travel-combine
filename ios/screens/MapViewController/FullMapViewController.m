@@ -34,6 +34,7 @@
 @interface FullMapViewController ()
 
 @property(strong, nonatomic) NSString *selectedItemUUID;
+@property(strong, nonatomic) UISelectionFeedbackGenerator *feedbackGenerator;
 
 @end
 
@@ -230,6 +231,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
         // after item selection.
         [weakSelf.mapViewState saveWithMapView:self.mapView];
         [weakSelf showPopupWithItem:item];
+        [weakSelf performFeedback];
       }];
     });
   }];
@@ -267,17 +269,13 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   // Pick the first feature (which may be a port or a cluster), ideally selecting
   // the one nearest nearest one to the touch point.
   id<MGLFeature> feature = features.firstObject;
-  UIColor *color = UIColor.redColor;
   if (feature && [feature isKindOfClass:[MGLPointFeatureCluster class]]) {
-    // Tapped on a cluster.
-    MGLPointFeatureCluster *cluster = (MGLPointFeatureCluster *)feature;
-    
     [self handleMapClusterTap:tap];
     
-    color = UIColor.blueColor;
     return;
   }
   if (feature && [feature isKindOfClass:[MGLPointFeature class]]) {
+    [self performFeedbackForTap:tap];
     id uuid = [feature attributeForKey:@"uuid"];
     if ([uuid isKindOfClass:[NSString class]]) {
       PlaceItem *item = self.indexModel.flatItems[(NSString *)uuid];
@@ -296,6 +294,29 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     return;
   }
   [self hidePopup];
+}
+
+- (void)performFeedbackForTap:(UITapGestureRecognizer *)tap {
+  switch (tap.state) {
+    case UIGestureRecognizerStateEnded: {
+      [self performFeedback];
+      break;
+    }
+    case UIGestureRecognizerStateFailed:
+      self.feedbackGenerator = nil;
+    default:
+      break;
+  }
+}
+
+- (void)performFeedback {
+  self.feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
+  [self.feedbackGenerator prepare];
+  __weak typeof(self) weakSelf = self;
+  [NSTimer scheduledTimerWithTimeInterval:0.3 repeats:NO block:^(NSTimer * _Nonnull timer) {
+    [weakSelf.feedbackGenerator selectionChanged];
+    weakSelf.feedbackGenerator = nil;
+  }];
 }
 
 - (void)onPopupShow:(BOOL)visible {
