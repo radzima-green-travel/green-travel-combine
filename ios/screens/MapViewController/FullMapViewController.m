@@ -313,7 +313,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   self.feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
   [self.feedbackGenerator prepare];
   __weak typeof(self) weakSelf = self;
-  [NSTimer scheduledTimerWithTimeInterval:0.3 repeats:NO block:^(NSTimer * _Nonnull timer) {
+  [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:NO block:^(NSTimer * _Nonnull timer) {
     [weakSelf.feedbackGenerator selectionChanged];
     weakSelf.feedbackGenerator = nil;
   }];
