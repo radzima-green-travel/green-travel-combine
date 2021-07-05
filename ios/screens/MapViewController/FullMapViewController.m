@@ -104,8 +104,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)renderMap:(BOOL)initialLoad {
   [self renderMapItems:self.mapModel.mapItemsFiltered
-                 style:self.mapView.style
-               initialLoad:initialLoad];
+                 style:self.mapView.style];
   if (!self.mapViewState.saved) {
     [self.mapView showAnnotations:self.annotations animated:YES];
   }
@@ -115,14 +114,14 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   NSLog(@"Map items: %@", mapItems);
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_main_queue(), ^{
-    [weakSelf renderMapItems:mapItems style:weakSelf.mapView.style initialLoad:NO];
+    [weakSelf renderMapItems:mapItems style:weakSelf.mapView.style];
     [weakSelf.mapView showAnnotations:weakSelf.annotations animated:YES];
     [weakSelf addFilterView];
   });
 }
 
 - (void)renderMapItems:(NSArray<MapItem *> *)mapItems
-                 style:(MGLStyle *)style initialLoad:(BOOL)initialLoad {
+                 style:(MGLStyle *)style {
   self.annotations = [[NSMutableArray alloc] init];
   [self.mapView removeAnnotations:self.mapView.annotations];
   [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -223,9 +222,13 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [weakSelf.navigationController dismissViewControllerAnimated:YES
                                                       completion:^{}];
     dispatch_async(dispatch_get_main_queue(), ^{
-      [weakSelf.mapView setCenterCoordinate:item.coords zoomLevel:8 animated:YES];
       [weakSelf.mapView setCenterCoordinate:item.coords zoomLevel:8
                                   direction:-1 animated:YES completionHandler:^{
+        weakSelf.selectedItemUUID = item.uuid;
+        [weakSelf renderMapItems:weakSelf.mapModel.mapItemsFiltered style:weakSelf.mapView.style];
+        // NOTE:on iOS <= 12, search modal requires navigation, thus we need to save map state
+        // after item selection.
+        [weakSelf.mapViewState saveWithMapView:self.mapView];
         [weakSelf showPopupWithItem:item];
       }];
     });
@@ -286,7 +289,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
         [self showPopupWithItem:item];
       }
       [self renderMapItems:self.mapModel.mapItemsFiltered
-                     style:self.mapView.style initialLoad:NO];
+                     style:self.mapView.style];
       [self.mapView setCenterCoordinate:feature.coordinate zoomLevel:self.mapView.zoomLevel animated:YES];
       
     }
@@ -300,7 +303,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (!visible && self.selectedItemUUID != nil) {
     self.selectedItemUUID = nil;
     [self renderMapItems:self.mapModel.mapItemsFiltered
-                   style:self.mapView.style initialLoad:NO];
+                   style:self.mapView.style];
   }
 }
 
