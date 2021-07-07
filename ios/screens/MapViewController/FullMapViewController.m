@@ -219,20 +219,12 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                               coreDataService:self.coreDataService
                           itemsWithCoordsOnly:YES
                            onSearchItemSelect:^(PlaceItem * _Nonnull item) {
-    [weakSelf.filterView activateFilterForPlaceItem:item];
+    __weak typeof(item) weakItem = item;
+    [weakSelf.filterView activateFilterForPlaceItem:weakItem];
     [weakSelf.navigationController dismissViewControllerAnimated:YES
                                                       completion:^{}];
     dispatch_async(dispatch_get_main_queue(), ^{
-      [weakSelf.mapView setCenterCoordinate:item.coords zoomLevel:8
-                                  direction:-1 animated:YES completionHandler:^{
-        weakSelf.selectedItemUUID = item.uuid;
-        [weakSelf renderMapItems:weakSelf.mapModel.mapItemsFiltered style:weakSelf.mapView.style];
-        // NOTE:on iOS <= 12, search modal requires navigation, thus we need to save map state
-        // after item selection.
-        [weakSelf.mapViewState saveWithMapView:self.mapView];
-        [weakSelf showPopupWithItem:item];
-        [weakSelf performFeedback];
-      }];
+      [weakSelf focusOnSearchedItem:weakItem];
     });
   }];
   searchViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
@@ -240,6 +232,48 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [[UINavigationController alloc ] initWithRootViewController:searchViewController];
   [self presentViewController:searchViewControllerWithNavigation animated:YES
                    completion:^{}];
+}
+
+- (void)focusOnSearchedItem:(PlaceItem *)item {
+  __weak typeof(self) weakSelf = self;
+  
+  CGPoint point = [weakSelf.mapView convertCoordinate:item.coords toPointToView:weakSelf.mapView];
+  NSArray<id<MGLFeature>> *features = [weakSelf.mapView visibleFeaturesAtPoint:point];
+  
+  
+  if ([[features firstObject] isKindOfClass:[MGLPointFeatureCluster class]]) {
+    MGLPointFeatureCluster *cluster = [features firstObject];
+    MGLSource *source = [self.mapView.style sourceWithIdentifier:MapViewControllerSourceIdAll];
+    CGFloat zoom = [(MGLShapeSource *)source zoomLevelForExpandingCluster:cluster];
+    if (zoom > 0.0) {
+      [self.mapView setCenterCoordinate:cluster.coordinate zoomLevel:zoom animated:YES];
+      [self.mapView setCenterCoordinate:item.coords zoomLevel:zoom
+                              direction:-1 animated:YES completionHandler:^{
+        [weakSelf focusOnSearchedItem:item];
+      }];
+    }
+    return;
+  }
+  
+  if ([[features firstObject] isKindOfClass:[MGLPointFeature class]]) {
+    CGFloat zoom = weakSelf.mapView.zoomLevel;
+    if (zoom > 8) {
+      [self.mapView setCenterCoordinate:item.coords zoomLevel:8.0
+                              direction:-1 animated:YES completionHandler:^{
+        [weakSelf focusOnSearchedItem:item];
+      }];
+      return
+    }
+    
+    weakSelf.selectedItemUUID = item.uuid;
+    [weakSelf renderMapItems:weakSelf.mapModel.mapItemsFiltered style:weakSelf.mapView.style];
+    // NOTE:on iOS <= 12, search modal requires navigation, thus we need to save map state
+    // after item selection.
+    [weakSelf.mapViewState saveWithMapView:weakSelf.mapView];
+    [weakSelf showPopupWithItem:item];
+    [weakSelf performFeedback];
+    return;
+  }
 }
 
 -(void)onDonePress:(id)sender {
