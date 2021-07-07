@@ -1,6 +1,6 @@
 # About
 
-Combine app containing UIKit and React Native implementation of the same functionality.
+Travel app containing UIKit and React Native implementations in one bundle.
 
 # Prerequisites
 
