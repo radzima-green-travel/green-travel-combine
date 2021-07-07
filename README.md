@@ -1,6 +1,6 @@
 # About
 
-Travel app containing UIKit and React Native implementations in one bundle.
+Travel app, has UIKit and React Native versions.
 
 # Prerequisites
 
