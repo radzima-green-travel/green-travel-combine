@@ -41,6 +41,7 @@
 
 static NSString* const kBottomSheetButtonLabel = @"Узнать больше";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
+static const CGFloat kZoomLevelForSearch = 8.0;
 
 @implementation FullMapViewController
 
@@ -59,7 +60,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   self.searchButton.translatesAutoresizingMaskIntoConstraints = NO;
   
   [NSLayoutConstraint activateConstraints:@[
-    [self.searchButton.bottomAnchor constraintEqualToAnchor:self.locationButton.topAnchor constant:-8.0],
+    [self.searchButton.bottomAnchor constraintEqualToAnchor:self.locationButton.topAnchor constant:-kZoomLevelForSearch],
     [self.searchButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
   [self addFilterView];
@@ -236,35 +237,41 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)focusOnSearchedItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
+  CGFloat zoom = self.mapView.zoomLevel;
+  if (zoom < kZoomLevelForSearch) {
+    [self.mapView setCenterCoordinate:item.coords zoomLevel:kZoomLevelForSearch
+                            direction:-1 animated:YES completionHandler:^{
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf focusOnSearchedItem:item];
+      });
+    }];
+    return;
+  }
   
   CGPoint point = [weakSelf.mapView convertCoordinate:item.coords toPointToView:weakSelf.mapView];
-  NSArray<id<MGLFeature>> *features = [weakSelf.mapView visibleFeaturesAtPoint:point];
+  NSSet<NSString *>* layersToSearch = [[NSSet alloc] initWithObjects:MapViewControllerClusterLayerId ,MapViewControllerMarkerLayerId, nil];
+  NSArray<id<MGLFeature>> *features = [weakSelf.mapView
+                                       visibleFeaturesAtPoint:point
+                                       inStyleLayersWithIdentifiers:layersToSearch];
+  id<MGLFeature> feature = [features firstObject];
   
-  
-  if ([[features firstObject] isKindOfClass:[MGLPointFeatureCluster class]]) {
-    MGLPointFeatureCluster *cluster = [features firstObject];
+  if (feature && [feature isKindOfClass:[MGLPointFeatureCluster class]]) {
+    MGLPointFeatureCluster *cluster = (MGLPointFeatureCluster *)feature;
     MGLSource *source = [self.mapView.style sourceWithIdentifier:MapViewControllerSourceIdAll];
     CGFloat zoom = [(MGLShapeSource *)source zoomLevelForExpandingCluster:cluster];
     if (zoom > 0.0) {
-      [self.mapView setCenterCoordinate:cluster.coordinate zoomLevel:zoom animated:YES];
-      [self.mapView setCenterCoordinate:item.coords zoomLevel:zoom
+      [self.mapView setCenterCoordinate:item.coords
+                              zoomLevel:zoom
                               direction:-1 animated:YES completionHandler:^{
-        [weakSelf focusOnSearchedItem:item];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+          [weakSelf focusOnSearchedItem:item];
+        });
       }];
     }
     return;
   }
   
-  if ([[features firstObject] isKindOfClass:[MGLPointFeature class]]) {
-    CGFloat zoom = weakSelf.mapView.zoomLevel;
-    if (zoom > 8) {
-      [self.mapView setCenterCoordinate:item.coords zoomLevel:8.0
-                              direction:-1 animated:YES completionHandler:^{
-        [weakSelf focusOnSearchedItem:item];
-      }];
-      return
-    }
-    
+  if ([feature isKindOfClass:[MGLPointFeature class]]) {
     weakSelf.selectedItemUUID = item.uuid;
     [weakSelf renderMapItems:weakSelf.mapModel.mapItemsFiltered style:weakSelf.mapView.style];
     // NOTE:on iOS <= 12, search modal requires navigation, thus we need to save map state
