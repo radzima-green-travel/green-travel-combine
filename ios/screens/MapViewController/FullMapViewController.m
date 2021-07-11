@@ -30,6 +30,7 @@
 #import "MainViewController.h"
 #import "CacheService.h"
 #import "MapViewControllerConstants.h"
+#import "CoordinateUtils.h"
 
 @interface FullMapViewController ()
 
@@ -205,10 +206,7 @@ static const CGFloat kZoomLevelForSearch = 8.0;
     return YES;
 }
 
-- (void)mapView:(MGLMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-  NSLog(@"Zoom level: %f", mapView.zoomLevel);
-}
-
+#pragma mark - onSearchPress
 - (void)onSearchPress:(id)sender {
   __weak typeof(self) weakSelf = self;
   SearchViewController *searchViewController =
@@ -225,7 +223,7 @@ static const CGFloat kZoomLevelForSearch = 8.0;
     [weakSelf.navigationController dismissViewControllerAnimated:YES
                                                       completion:^{}];
     dispatch_async(dispatch_get_main_queue(), ^{
-      [weakSelf focusOnSearchedItem:weakItem];
+      [weakSelf focusOnSearchItem:weakItem recursiveCall:NO delay:0];
     });
   }];
   searchViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
@@ -235,15 +233,18 @@ static const CGFloat kZoomLevelForSearch = 8.0;
                    completion:^{}];
 }
 
-- (void)focusOnSearchedItem:(PlaceItem *)item {
+#pragma mark - focusOnSearchItem
+- (void)focusOnSearchItem:(PlaceItem *)item
+               recursiveCall:(BOOL)recursiveCall delay:(int64_t)delay {
   __weak typeof(self) weakSelf = self;
   CGFloat zoom = self.mapView.zoomLevel;
-  if (zoom < kZoomLevelForSearch) {
+  if (zoom < kZoomLevelForSearch ||
+      !coordinatesEqual(self.mapView.centerCoordinate, item.coords)) {
     [self.mapView setCenterCoordinate:item.coords zoomLevel:kZoomLevelForSearch
                             direction:-1 animated:YES completionHandler:^{
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf focusOnSearchedItem:item];
-      });
+      [weakSelf.mapViewState saveWithMapView:weakSelf.mapView];
+      [weakSelf focusOnSearchItem:item recursiveCall:YES
+                                delay:delay];
     }];
     return;
   }
@@ -263,12 +264,10 @@ static const CGFloat kZoomLevelForSearch = 8.0;
       [self.mapView setCenterCoordinate:item.coords
                               zoomLevel:zoom
                               direction:-1 animated:YES completionHandler:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-          [weakSelf focusOnSearchedItem:item];
-        });
+        [weakSelf.mapViewState saveWithMapView:weakSelf.mapView];
+        [weakSelf focusOnSearchItem:item recursiveCall:YES delay:delay];
       }];
     }
-    return;
   }
   
   if ([feature isKindOfClass:[MGLPointFeature class]]) {
@@ -280,6 +279,20 @@ static const CGFloat kZoomLevelForSearch = 8.0;
     [weakSelf showPopupWithItem:item];
     [weakSelf performFeedback];
     return;
+  }
+  
+  if (recursiveCall) {
+    int64_t newDelay = delay + (int64_t)(0.3 * NSEC_PER_SEC);
+    [self.mapView setCenterCoordinate:item.coords
+                            zoomLevel:zoom
+                            direction:-1 animated:YES completionHandler:^{
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, newDelay),
+                     dispatch_get_main_queue(), ^{
+        [weakSelf.mapViewState saveWithMapView:weakSelf.mapView];
+        [weakSelf focusOnSearchItem:item recursiveCall:YES
+                                delay:newDelay];
+      });
+    }];
   }
 }
 
