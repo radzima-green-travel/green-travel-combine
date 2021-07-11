@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
                       indexModel:(IndexModel *)indexModel;
 - (void)selectOption:(FilterOption *)option;
 - (void)selectOptionForPlaceItem:(PlaceItem *)item;
+- (BOOL)optionSelectedForPlaceItem:(PlaceItem *)item;
 
 @end
 

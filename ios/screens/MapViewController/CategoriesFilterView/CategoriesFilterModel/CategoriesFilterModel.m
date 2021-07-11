@@ -163,17 +163,34 @@
 
 - (void)selectOptionForPlaceItem:(PlaceItem *)item {
     NSString *categoryUUID = self.mapModel.flatMapItems[item.uuid]
-        .correspondingPlaceItem.category.uuid; 
+        .correspondingPlaceItem.category.uuid;
     NSUInteger optionIndex = [self.filterOptions indexOfObjectPassingTest:^BOOL(FilterOption * _Nonnull filterOption, NSUInteger idx, BOOL * _Nonnull stop) {
         return [filterOption.categoryId isEqualToString:categoryUUID];
     }];
+    if (optionIndex == NSNotFound) {
+      return;
+    }
     FilterOption *optionForItem = self.filterOptions[optionIndex];
     if (!optionForItem.on) {
         [self selectOption:optionForItem];
     }
     
 }
-    
+
+- (BOOL)optionSelectedForPlaceItem:(PlaceItem *)item {
+  NSString *categoryUUID = self.mapModel.flatMapItems[item.uuid]
+  .correspondingPlaceItem.category.uuid;
+  return [self.selectedCategoryUUIDs containsObject:categoryUUID];
+//  NSUInteger optionIndex = [self.filterOptions indexOfObjectPassingTest:^BOOL(FilterOption * _Nonnull filterOption, NSUInteger idx, BOOL * _Nonnull stop) {
+//    return [filterOption.categoryId isEqualToString:categoryUUID];
+//  }];
+//  if (optionIndex == NSNotFound) {
+//    return NO;
+//  }
+//  FilterOption *optionForItem = self.filterOptions[optionIndex];
+//  return optionForItem.on;
+}
+
 - (void)notifyObserversFilterSelect:(NSUInteger)selectedIndex {
     [self.categoriesFilterObservers enumerateObjectsUsingBlock:^(id<CategoriesFilterObserver> _Nonnull observer, NSUInteger idx, BOOL * _Nonnull stop) {
         [observer onFilterOptionsSelect:selectedIndex];

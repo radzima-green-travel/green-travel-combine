@@ -66,6 +66,10 @@ static const CGFloat kSpacingWidth = 16.0;
     [self.model selectOptionForPlaceItem:item];
 }
 
+- (BOOL)optionSelectedForPlaceItem:(PlaceItem *)item {
+  return [self.model optionSelectedForPlaceItem:item];
+}
+
 - (BOOL)empty {
     return [self.model.filterOptions count] == 0;
 }

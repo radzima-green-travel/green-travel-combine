@@ -54,6 +54,7 @@
 @property (strong, nonatomic) UILabel *noDataLabel;
 @property (strong, nonatomic) UIImageView *noDataImageView;
 @property (assign, nonatomic) BOOL wasPresented;
+@property (strong, nonatomic) PlaceItem *selectedSearchItem;
 
 @end
 
@@ -300,6 +301,7 @@ static const CGFloat kSearchRowHeight = 58.0;
     }
     [NSNotificationCenter.defaultCenter removeObserver:self name:UIKeyboardDidShowNotification object:self];
     [NSNotificationCenter.defaultCenter removeObserver:self name:UIKeyboardWillHideNotification object:self];
+    self.onSearchItemSelect(self.selectedSearchItem);
 }
 
 - (void)onKeyboadAppear:(NSNotification *)notification {
@@ -386,6 +388,7 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kSearchRowHeight;
 }
 
+#pragma mark - didSelectRowAtIndexPath
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     PlaceItem *item;
@@ -400,7 +403,9 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
         self.itemToSaveToHistory = searchItem;
         item = self.indexModel.flatItems[searchItem.correspondingPlaceItemUUID];
     }
-    self.onSearchItemSelect(item);
+    self.selectedSearchItem = item;
+    [self.navigationController dismissViewControllerAnimated:YES
+                                                  completion:^{}];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

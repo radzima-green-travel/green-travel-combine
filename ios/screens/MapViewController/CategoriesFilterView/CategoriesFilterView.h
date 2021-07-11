@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
                       indexModel:(IndexModel *)indexModel
                   onFilterUpdate:(void(^)(NSSet<NSString *>*))onFilterUpdate;
 - (void)activateFilterForPlaceItem:(PlaceItem *)item;
+- (BOOL)optionSelectedForPlaceItem:(PlaceItem *)item;
 
 @end
 
