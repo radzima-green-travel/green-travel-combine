@@ -19,6 +19,8 @@
 		5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */; };
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
+		5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B0269BA98400540CE4 /* NumberUtils.m */; };
+		5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */; };
 		5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FB2655B1D500A2D37B /* StoredCoordinateCollection+CoreDataProperties.m */; };
 		5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */; };
 		5A6DC5052655B1DA00A2D37B /* StoredArea+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FF2655B1D500A2D37B /* StoredArea+CoreDataClass.m */; };
@@ -172,6 +174,10 @@
 		5A246AC926429689003C6E5B /* BookmarkButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkButton.m; sourceTree = "<group>"; };
 		5A5DCEAC2687E5E7003025F5 /* ArrayUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayUtils.h; sourceTree = "<group>"; };
 		5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrayUtils.m; sourceTree = "<group>"; };
+		5A5FF6B0269BA98400540CE4 /* NumberUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberUtils.m; sourceTree = "<group>"; };
+		5A5FF6B1269BA98400540CE4 /* NumberUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberUtils.h; sourceTree = "<group>"; };
+		5A5FF6B2269BA98500540CE4 /* CoordinateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordinateUtils.h; sourceTree = "<group>"; };
+		5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoordinateUtils.m; sourceTree = "<group>"; };
 		5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoredCoordinateCollection+CoreDataClass.m"; sourceTree = "<group>"; };
 		5A6DC4F52655B1D400A2D37B /* StoredPlaceDetails+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredPlaceDetails+CoreDataProperties.h"; sourceTree = "<group>"; };
 		5A6DC4F62655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredCoordinateCollection+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -784,6 +790,10 @@
 		5A775B0B26064C9000CEFC78 /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5A5FF6B2269BA98500540CE4 /* CoordinateUtils.h */,
+				5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */,
+				5A5FF6B1269BA98400540CE4 /* NumberUtils.h */,
+				5A5FF6B0269BA98400540CE4 /* NumberUtils.m */,
 				5A1FFB27267626A400E31162 /* Colors.h */,
 				5A1FFB28267626A400E31162 /* Colors.m */,
 				5A775B0E26064C9000CEFC78 /* Typography.h */,
@@ -1437,6 +1447,7 @@
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */,
+				5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */,
 				5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */,
 				5A775B2B26064C9000CEFC78 /* StoredSearchItem+CoreDataClass.m in Sources */,
 				5A6DC5D2265AAB3900A2D37B /* RoutesSheetController.m in Sources */,
@@ -1521,6 +1532,7 @@
 				5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */,
 				5A775B4F26064C9000CEFC78 /* SearchModel.m in Sources */,
 				5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */,
+				5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */,
 				5A775B8D26064C9000CEFC78 /* Typography.m in Sources */,
 				5A6DC56C2655B5C500A2D37B /* StoredCoordinate+CoreDataProperties.m in Sources */,
 				5A775E792607E0A100CEFC78 /* GreenTravel.xcdatamodeld in Sources */,
