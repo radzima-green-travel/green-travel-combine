@@ -274,6 +274,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                               searchModel:weakSelf.searchModel];
         detailsController.item = item;
         [weakSelf.navigationController pushViewController:detailsController animated:YES];
+    } onViewDidDisappearWithSelectedItem:^(PlaceItem * _Nonnull item) {
     }] animated:NO];
 }
 

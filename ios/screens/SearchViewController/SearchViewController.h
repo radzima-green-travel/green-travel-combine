@@ -30,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
                    apiService:(ApiService *)apiService
               coreDataService:(CoreDataService *)coreDataService
           itemsWithCoordsOnly:(BOOL)itemsWithCoordsOnly
-           onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect;
+           onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect
+onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithSelectedItem;
 
 @end
 

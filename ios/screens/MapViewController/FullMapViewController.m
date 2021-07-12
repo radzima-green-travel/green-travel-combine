@@ -220,6 +220,8 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 10;
                               coreDataService:self.coreDataService
                           itemsWithCoordsOnly:YES
                            onSearchItemSelect:^(PlaceItem * _Nonnull item) {
+    [weakSelf.navigationController dismissViewControllerAnimated:YES completion:^{}];
+  } onViewDidDisappearWithSelectedItem:^(PlaceItem * _Nonnull item) {
     __weak typeof(item) weakItem = item;
     [weakSelf.filterView activateFilterForPlaceItem:weakItem];
     dispatch_async(dispatch_get_main_queue(), ^{

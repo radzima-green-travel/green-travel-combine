@@ -50,6 +50,7 @@
 @property (assign, nonatomic) UIEdgeInsets scrollInsets;
 @property (strong, nonatomic) NSLayoutConstraint *scrollViewHeightConstraint;
 @property (copy, nonatomic) void (^onSearchItemSelect)(PlaceItem *);
+@property (copy, nonatomic) void (^onViewDidDisappearWithSelectedItem)(PlaceItem *);
 @property (copy, nonatomic) BOOL(^searchItemFilter)(SearchItem *);
 @property (strong, nonatomic) UILabel *noDataLabel;
 @property (strong, nonatomic) UIImageView *noDataImageView;
@@ -76,6 +77,7 @@ static const CGFloat kSearchRowHeight = 58.0;
               coreDataService:(CoreDataService *)coreDataService
           itemsWithCoordsOnly:(BOOL)itemsWithCoordsOnly
            onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect
+onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithSelectedItem
 {
     self = [super init];
     if (self) {
@@ -85,6 +87,7 @@ static const CGFloat kSearchRowHeight = 58.0;
         _mapModel = mapModel;
         _apiService = apiService;
         _onSearchItemSelect = onSearchItemSelect;
+        _onViewDidDisappearWithSelectedItem = onViewDidDisappearWithSelectedItem;
         if (itemsWithCoordsOnly) {
           __weak typeof(self) weakSelf = self;
           _searchItemFilter = ^BOOL(SearchItem *searchItem){
@@ -301,7 +304,7 @@ static const CGFloat kSearchRowHeight = 58.0;
     }
     [NSNotificationCenter.defaultCenter removeObserver:self name:UIKeyboardDidShowNotification object:self];
     [NSNotificationCenter.defaultCenter removeObserver:self name:UIKeyboardWillHideNotification object:self];
-    self.onSearchItemSelect(self.selectedSearchItem);
+    self.onViewDidDisappearWithSelectedItem(self.selectedSearchItem);
 }
 
 - (void)onKeyboadAppear:(NSNotification *)notification {
@@ -404,8 +407,7 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
         item = self.indexModel.flatItems[searchItem.correspondingPlaceItemUUID];
     }
     self.selectedSearchItem = item;
-    [self.navigationController dismissViewControllerAnimated:YES
-                                                  completion:^{}];
+    self.onSearchItemSelect(item);
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
