@@ -44,6 +44,7 @@
 static NSString* const kBottomSheetButtonLabel = @"Узнать больше";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 static const CGFloat kZoomLevelForSearch = 8.0;
+static const NSUInteger kMaxSearchZoomRecursionDepth = 10;
 
 @implementation FullMapViewController
 
@@ -222,7 +223,7 @@ static const CGFloat kZoomLevelForSearch = 8.0;
     __weak typeof(item) weakItem = item;
     [weakSelf.filterView activateFilterForPlaceItem:weakItem];
     dispatch_async(dispatch_get_main_queue(), ^{
-      [weakSelf focusOnSearchItem:weakItem recursiveCall:NO delay:0];
+      [weakSelf focusOnSearchItem:weakItem recursionDepth:0 delay:0];
     });
   }];
   searchViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
@@ -234,13 +235,16 @@ static const CGFloat kZoomLevelForSearch = 8.0;
 
 #pragma mark - focusOnSearchItem
 - (void)focusOnSearchItem:(PlaceItem *)item
-            recursiveCall:(BOOL)recursiveCall delay:(int64_t)delay {
+            recursionDepth:(NSUInteger)recursionDepth delay:(int64_t)delay {
+  if (recursionDepth >= kMaxSearchZoomRecursionDepth) {
+    return;
+  }
   __weak typeof(self) weakSelf = self;
-  if (!recursiveCall) {
+  if (recursionDepth == 0) {
     [self.mapView setCenterCoordinate:item.coords zoomLevel:kZoomLevelForSearch
                             direction:-1 animated:YES completionHandler:^{
       [weakSelf.mapViewState saveWithMapView:weakSelf.mapView];
-      [weakSelf focusOnSearchItem:item recursiveCall:YES
+      [weakSelf focusOnSearchItem:item recursionDepth:recursionDepth + 1
                             delay:delay];
     }];
     return;
@@ -262,11 +266,11 @@ static const CGFloat kZoomLevelForSearch = 8.0;
                               zoomLevel:zoom
                               direction:-1 animated:YES completionHandler:^{
         [weakSelf.mapViewState saveWithMapView:weakSelf.mapView];
-        [weakSelf focusOnSearchItem:item recursiveCall:YES delay:delay];
+        [weakSelf focusOnSearchItem:item recursionDepth:recursionDepth + 1 delay:0];
       }];
       return;
     }
-    [self focusOnSearchItem:item withDelay:delay];
+    [self delayedFocusOnSearchItem:item recursionDepth:recursionDepth + 1 delay:delay];
     return;
   }
   
@@ -281,12 +285,14 @@ static const CGFloat kZoomLevelForSearch = 8.0;
     return;
   }
   
-  if (recursiveCall) {
-    [self focusOnSearchItem:item withDelay:delay];
+  if (recursionDepth > 0) {
+    [self delayedFocusOnSearchItem:item recursionDepth:recursionDepth + 1 delay:delay];
   }
 }
 
-- (void)focusOnSearchItem:(PlaceItem *)item withDelay:(int64_t)delay {
+- (void)delayedFocusOnSearchItem:(PlaceItem *)item
+           recursionDepth:(NSUInteger)recursionDepth
+                delay:(int64_t)delay {
   CGFloat zoom = self.mapView.zoomLevel;
   int64_t newDelay = delay + (int64_t)(0.3 * NSEC_PER_SEC);
   __weak typeof(self) weakSelf = self;
@@ -296,7 +302,7 @@ static const CGFloat kZoomLevelForSearch = 8.0;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, newDelay),
                    dispatch_get_main_queue(), ^{
       [weakSelf.mapViewState saveWithMapView:weakSelf.mapView];
-      [weakSelf focusOnSearchItem:item recursiveCall:YES
+      [weakSelf focusOnSearchItem:item recursionDepth:recursionDepth
                             delay:newDelay];
     });
   }];
