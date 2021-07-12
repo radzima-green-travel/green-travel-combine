@@ -304,7 +304,9 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     }
     [NSNotificationCenter.defaultCenter removeObserver:self name:UIKeyboardDidShowNotification object:self];
     [NSNotificationCenter.defaultCenter removeObserver:self name:UIKeyboardWillHideNotification object:self];
-    self.onViewDidDisappearWithSelectedItem(self.selectedSearchItem);
+    if (self.selectedSearchItem != nil) {
+      self.onViewDidDisappearWithSelectedItem(self.selectedSearchItem);
+    }
 }
 
 - (void)onKeyboadAppear:(NSNotification *)notification {

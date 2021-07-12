@@ -44,7 +44,7 @@
 static NSString* const kBottomSheetButtonLabel = @"Узнать больше";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 static const CGFloat kZoomLevelForSearch = 8.0;
-static const NSUInteger kMaxSearchZoomRecursionDepth = 10;
+static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 
 @implementation FullMapViewController
 
