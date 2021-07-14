@@ -18,6 +18,7 @@
 
 NSString * const kKeyETag = @"eTag";
 NSString * const kKeyFramework = @"framework";
+NSString * const kUserId = @"userId";
 
 static UserDefaultsService *instance;
 
@@ -36,6 +37,14 @@ static UserDefaultsService *instance;
 
 - (NSString *)loadETag {
     return [self.userDefaults valueForKey:kKeyETag];
+}
+
+- (void)saveUserId:(NSString *)userId {
+  [self.userDefaults setValue:userId forKey:kUserId];
+}
+
+- (NSString *)loadUserId {
+  return [self.userDefaults valueForKey:kUserId];
 }
 
 - (BOOL)rnAppEnabled {

@@ -9,6 +9,7 @@ target 'greenTravel' do
   # https://firebase.google.com/docs/ios/setup#available-pods
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Performance'
+  pod 'Amplitude', '~> 8.3.0'
 
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"

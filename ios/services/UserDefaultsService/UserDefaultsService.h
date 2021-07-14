@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic, readonly) BOOL rnAppEnabled;
 - (void)saveETag:(NSString *)eTag;
 - (NSString *)loadETag;
+- (void)saveUserId:(NSString *)userId;
+- (NSString *)loadUserId;
 + (instancetype)get;
 
 @end

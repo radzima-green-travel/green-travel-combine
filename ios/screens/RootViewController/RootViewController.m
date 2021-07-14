@@ -17,6 +17,7 @@
 #import <React/RCTRootView.h>
 #import "RNBootSplash.h"
 #import "RotationLockUtility.h"
+@import Amplitude;
 
 // #ifdef FB_SONARKIT_ENABLED
 // #import <FlipperKit/FlipperClient.h>
@@ -107,6 +108,14 @@
 }
 
 - (void)showNativeViewController {
+    [Amplitude instance].trackingSessionEvents = YES;
+    [[Amplitude instance] initializeApiKey:@""];
+    NSString *userId = [self.userDefaultsService loadUserId];
+    if (userId == nil) {
+      [self.userDefaultsService saveUserId:[NSUUID UUID].UUIDString];
+    }
+    [[Amplitude instance] setUserId:[self.userDefaultsService loadUserId]];
+  
     MainViewController *mainViewController = [[MainViewController alloc] init];
     [self addChildViewController:mainViewController];
     mainViewController.view.frame = self.view.bounds;
