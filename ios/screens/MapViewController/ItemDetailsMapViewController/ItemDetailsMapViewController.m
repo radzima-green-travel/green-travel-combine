@@ -41,6 +41,7 @@
 
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
 @property (strong, nonatomic) MGLPolyline *directionsPolyline;
+@property (copy, nonatomic) void(^cancelGetDirections)(void);
 
 @end
 
@@ -61,6 +62,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 - (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
   [self hidePopup];
+  if (self.cancelGetDirections != nil) {
+    self.cancelGetDirections();
+  }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -364,6 +368,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
   [self.mapView showAnnotations:annotations animated:YES];
   __weak typeof(self) weakSelf = self;
+  if (self.cancelGetDirections != nil) {
+    self.cancelGetDirections();
+  }
+  self.cancelGetDirections =
   [self.mapService loadDirectionsWithCompletionFrom:location.coordinate
                                                  to:self.mapItem.coords
                                          completion:^(NSArray<CLLocation *> * _Nonnull locations) {
