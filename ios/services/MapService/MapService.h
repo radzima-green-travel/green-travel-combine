@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MapService : NSObject
 
 - (instancetype)initWithSession:(NSURLSession *)session;
-- (void)loadDirectionsWithCompletionFrom:(CLLocationCoordinate2D)from
+- (void(^)(void))loadDirectionsWithCompletionFrom:(CLLocationCoordinate2D)from
                                  to:(CLLocationCoordinate2D)to
                          completion:(void(^)(NSArray<CLLocation *> *))completion;
 

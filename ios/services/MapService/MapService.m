@@ -24,7 +24,7 @@
     return self;
 }
 
-- (void)loadDirectionsWithCompletionFrom:(CLLocationCoordinate2D)from
+- (void(^)(void))loadDirectionsWithCompletionFrom:(CLLocationCoordinate2D)from
                                       to:(CLLocationCoordinate2D)to
                               completion:(void (^)(NSArray<CLLocation *> *))completion {
   NSString *sourceLatLng = [NSString stringWithFormat:@"%f,%f",
@@ -36,7 +36,7 @@
   
   NSURL *nsURL = [NSURL URLWithString:url];
   
-  NSURLSessionDataTask *getCategoriesTask =
+  NSURLSessionDataTask *getDirectionsTask =
   [self.session dataTaskWithURL:nsURL
               completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     if (!data) {
@@ -56,16 +56,17 @@
     if (coordinates) {
       NSMutableArray *locations = [[NSMutableArray alloc] init];
       [coordinates enumerateObjectsUsingBlock:^(NSArray<NSNumber *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [locations addObject:[[CLLocation alloc] initWithLatitude:[obj[1] doubleValue] longitude:[obj[0] doubleValue]]];
+        [locations addObject:[[CLLocation alloc] initWithLatitude:[obj[1] doubleValue]
+                                                        longitude:[obj[0] doubleValue]]];
       }];
       NSLog(@"Error: %@", error);
       completion(locations);
     }
-    
-    
-    
   }];
-  [getCategoriesTask resume];
+  [getDirectionsTask resume];
+  return ^{
+    [getDirectionsTask cancel];
+  };
 }
 
 @end
