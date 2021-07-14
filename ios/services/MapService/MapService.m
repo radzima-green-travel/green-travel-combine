@@ -19,7 +19,7 @@
 - (instancetype) initWithSession:(NSURLSession *)session {
     self = [super init];
     if (self) {
-        _session = session; 
+        _session = session;
     }
     return self;
 }
@@ -33,9 +33,9 @@
                                  to.longitude, to.latitude];
   NSString *mapToken = @"pk.eyJ1IjoiZXBtLXNsciIsImEiOiJja2V2Z3RqdWYwem12MnFwN2EzYWQ2b2xtIn0.kpeAR4x3J-15NyvhjlZJnA";
   NSString *url = [NSString stringWithFormat:@"https://api.mapbox.com/directions/v5/mapbox/driving/%@;%@?access_token=%@&geometries=geojson", sourceLatLng, destinationLatLng, mapToken];
-  
+
   NSURL *nsURL = [NSURL URLWithString:url];
-  
+
   NSURLSessionDataTask *getDirectionsTask =
   [self.session dataTaskWithURL:nsURL
               completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
