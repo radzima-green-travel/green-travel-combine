@@ -37,6 +37,7 @@
 
 @property(strong, nonatomic) NSString *selectedItemUUID;
 @property(strong, nonatomic) UISelectionFeedbackGenerator *feedbackGenerator;
+@property(assign, nonatomic) BOOL shouldStopSearchZoom;
 
 @end
 
@@ -71,11 +72,17 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  self.shouldStopSearchZoom = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+  self.shouldStopSearchZoom = YES;
 }
 
 #pragma mark - Categories filter view
@@ -238,7 +245,8 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 #pragma mark - focusOnSearchItem
 - (void)focusOnSearchItem:(PlaceItem *)item
             recursionDepth:(NSUInteger)recursionDepth delay:(int64_t)delay {
-  if (recursionDepth >= kMaxSearchZoomRecursionDepth) {
+  if (self.shouldStopSearchZoom || recursionDepth >=
+      kMaxSearchZoomRecursionDepth) {
     return;
   }
   __weak typeof(self) weakSelf = self;
@@ -292,6 +300,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   }
 }
 
+#pragma mark - delayedFocusOnSearchItem
 - (void)delayedFocusOnSearchItem:(PlaceItem *)item
            recursionDepth:(NSUInteger)recursionDepth
                 delay:(int64_t)delay {
