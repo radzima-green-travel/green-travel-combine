@@ -118,7 +118,7 @@ title:(NSString *)title {
       return url;
     case MapProviderYandex:
       url = [url stringByAppendingString:[NSString stringWithFormat:@"%@build_route_on_map?lat_to=%f&lon_to=%f&lat_from=%f&lon_from=%f",
-                                          kPrefixYandexMaps,
+                                          kPrefixYandex,
                                           locationDestination.latitude,
                                           locationDestination.longitude,
                                           locationSource.latitude,
