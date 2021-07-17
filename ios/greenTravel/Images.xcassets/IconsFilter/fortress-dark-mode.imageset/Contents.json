@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "fortress-dark-mode.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

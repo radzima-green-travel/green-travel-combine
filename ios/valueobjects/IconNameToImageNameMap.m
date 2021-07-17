@@ -55,18 +55,32 @@ static IconNameToImageNameMap *instance;
           @"water-route": @"water-route32",
       };
         _filterMap = @{
-            @"object": @"forest",
-            @"hiking": @"footprints",
             @"historical-place": @"church",
-            @"bicycle-route": @"bike",
+            @"war-monuments": @"war-memorial",
+            @"museums": @"museum",
+            @"castles": @"castle",
+            @"nature-monuments": @"trees",
+            @"other-monuments": @"fortress",
+            @"routes": @"pin",
+            @"walking-routes": @"footprints",
+            @"object": @"forest",
             @"excursion-pin": @"flag",
+            @"bicycle-route": @"bike",
+            @"water-route": @"wave",
         };
         _filterMapLightStyle = @{
-            @"object": @"forest-white",
-            @"hiking": @"footprints-white",
-            @"historical-place": @"church-white",
-            @"bicycle-route": @"bike-white",
-            @"excursion-pin": @"flag-white",
+          @"historical-place": @"church-dark-mode",
+          @"war-monuments": @"war-memorial-dark-mode",
+          @"museums": @"museum-dark-mode",
+          @"castles": @"castle-dark-mode",
+          @"nature-monuments": @"trees-dark-mode",
+          @"other-monuments": @"fortress-dark-mode",
+          @"routes": @"pin-dark-mode",
+          @"walking-routes": @"footprints-dark-mode",
+          @"object": @"forest-dark-mode",
+          @"excursion-pin": @"flag-dark-mode",
+          @"bicycle-route": @"bike-dark-mode",
+          @"water-route": @"wave-dark-mode",
         };
     }
     return self;
