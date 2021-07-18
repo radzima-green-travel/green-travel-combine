@@ -11,6 +11,7 @@
 #import "Colors.h"
 #import "StyleUtils.h"
 #import "PlaceItem.h"
+#import "Category.h"
 #import "PlaceDetails.h"
 #import "ApiService.h"
 #import "DetailsModel.h"
@@ -29,6 +30,7 @@
 #import "CommonButton.h"
 #import "DescriptionView.h"
 #import "PlacesViewController.h"
+#import "AnalyticsEvents.h"
 
 @interface DetailsViewController ()
 
@@ -315,6 +317,14 @@
         [self.activityIndicatorView startAnimating];
         [self.activityIndicatorView setHidden:NO];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenDetails withParams:@{
+    @"param_card_name": self.item.title,
+    @"param_card_category": self.item.category.title,
+  }];
 }
 
 #pragma mark - Map button top

@@ -36,6 +36,7 @@
 #import "MapService.h"
 #import "AlertUtils.h"
 #import "MapViewControllerConstants.h"
+#import "AnalyticsEvents.h"
 
 @interface ItemDetailsMapViewController ()
 
@@ -69,6 +70,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (self.isMovingToParentViewController) {
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
   }
+  [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenMapItem];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -120,7 +122,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
   };
   [self.annotations addObject:point];
-  
+
   MGLShapeSource *sourcePoint;
   MGLShapeSource *sourcePath;
   MGLShapeSource *sourcePolygon;
@@ -145,9 +147,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       [polygonOutlines addObject:[self polylineForPath:partCoordinates]];
     }];
     MGLMultiPolygonFeature *polygon = [MGLMultiPolygonFeature multiPolygonWithPolygons:polygonParts];
-    
+
     [self.annotations addObject:polygon];
-    
+
     sourcePolygon = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdPolygon
                                                       features:@[polygon] options:nil];
     sourceOutline = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdOutline
@@ -191,7 +193,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     outlineLayer.lineWidth =
     [NSExpression expressionForConstantValue:@2.0];
     outlineLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@1, @2]];
-    
+
     [style addLayer:outlineLayer];
   };
   if (sourcePolygon) {
@@ -237,11 +239,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if ([style sourceWithIdentifier:MapViewControllerSourceIdDirections] != nil) {
     [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdDirections]];
   }
-  
+
   MGLSource *sourceDirections = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdDirections
                                                                      shape:shape options:nil];
   [style addSource:sourceDirections];
-  
+
   MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
   dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
   dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
@@ -249,7 +251,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   dashedLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
   dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
   dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@0, @1.5]];
-  
+
   [style addLayer:dashedLayer];
 }
 
@@ -288,7 +290,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                   [feature isKindOfClass:[MGLMultiPolygonFeature class]] ||
                   [feature isKindOfClass:[MGLPolygonFeature class]] ||
                   [feature isKindOfClass:[MGLPolylineFeature class]])) {
-    
+
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
     if ([self.annotations count] > 1) {
       [self.mapView showAnnotations:self.annotations animated:YES];
@@ -296,7 +298,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     }
     if ([self.annotations count] == 1) {
       [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate
-                              zoomLevel:12.0 
+                              zoomLevel:12.0
                                animated:YES];
       return;
     }
@@ -358,7 +360,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   self.intentionToFocusOnUserLocation = YES;
   [self.locationModel authorize];
   [self.locationModel startMonitoring];
-  
+
   if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
       self.locationModel.lastLocation &&
       CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate)) {
@@ -373,7 +375,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 - (void)showDirections {
   [self.mapView setShowsUserLocation:YES];
   [self.mapView setShowsHeading:YES];
-  
+
   MGLPointFeature *location = [[MGLPointFeature alloc] init];
   location.coordinate = self.locationModel.lastLocation.coordinate;
   NSArray<id<MGLAnnotation>> *annotations = @[location];

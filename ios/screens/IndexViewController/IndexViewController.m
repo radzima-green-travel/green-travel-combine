@@ -27,6 +27,7 @@
 #import "CommonButton.h"
 #import "Typography.h"
 #import "RefreshButton.h"
+#import "AnalyticsEvents.h"
 
 @interface IndexViewController ()
 
@@ -91,6 +92,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
   configureNavigationBar(self.navigationBar);
 }
 
+#pragma mark - Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -249,7 +251,9 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self.navigationItem setBackBarButtonItem:self.originalBackButtonItem];
+  [super viewDidAppear:animated];
+  [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenHome];
+  [self.navigationItem setBackBarButtonItem:self.originalBackButtonItem];
 }
 
 - (void)onSearchPress:(id)sender {

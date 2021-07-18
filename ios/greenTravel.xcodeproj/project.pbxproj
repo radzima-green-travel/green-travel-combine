@@ -22,6 +22,7 @@
 		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
 		5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B0269BA98400540CE4 /* NumberUtils.m */; };
 		5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */; };
+		5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */; };
 		5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FB2655B1D500A2D37B /* StoredCoordinateCollection+CoreDataProperties.m */; };
 		5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */; };
 		5A6DC5052655B1DA00A2D37B /* StoredArea+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FF2655B1D500A2D37B /* StoredArea+CoreDataClass.m */; };
@@ -183,6 +184,8 @@
 		5A5FF6B1269BA98400540CE4 /* NumberUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberUtils.h; sourceTree = "<group>"; };
 		5A5FF6B2269BA98500540CE4 /* CoordinateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordinateUtils.h; sourceTree = "<group>"; };
 		5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoordinateUtils.m; sourceTree = "<group>"; };
+		5A5FF70C26A46EDC00540CE4 /* AnalyticsEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsEvents.h; sourceTree = "<group>"; };
+		5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsEvents.m; sourceTree = "<group>"; };
 		5A6DC4F42655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoredCoordinateCollection+CoreDataClass.m"; sourceTree = "<group>"; };
 		5A6DC4F52655B1D400A2D37B /* StoredPlaceDetails+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredPlaceDetails+CoreDataProperties.h"; sourceTree = "<group>"; };
 		5A6DC4F62655B1D400A2D37B /* StoredCoordinateCollection+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredCoordinateCollection+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -824,6 +827,8 @@
 				5A21445B2663E9A700582901 /* AlertUtils.m */,
 				5A5DCEAC2687E5E7003025F5 /* ArrayUtils.h */,
 				5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */,
+				5A5FF70C26A46EDC00540CE4 /* AnalyticsEvents.h */,
+				5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -863,10 +868,10 @@
 			children = (
 				5A775D9726077A7C00CEFC78 /* NewDataButton */,
 				5A775D9A26077A7C00CEFC78 /* IndexViewControllerConstants.h */,
+				5A775DA726077A7C00CEFC78 /* IndexViewControllerConstants.m */,
 				5A775D9B26077A7C00CEFC78 /* IndexViewController.h */,
 				5A775DA826077A7C00CEFC78 /* IndexViewController.m */,
 				5A775D9C26077A7C00CEFC78 /* PlacesTableViewCell */,
-				5A775DA726077A7C00CEFC78 /* IndexViewControllerConstants.m */,
 			);
 			path = IndexViewController;
 			sourceTree = "<group>";
@@ -1501,6 +1506,7 @@
 				5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */,
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */,
+				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
 				5A21445C2663E9A700582901 /* AlertUtils.m in Sources */,
 				5A6DC5062655B1DA00A2D37B /* StoredPlaceDetails+CoreDataProperties.m in Sources */,

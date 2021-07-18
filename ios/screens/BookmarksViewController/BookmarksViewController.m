@@ -16,6 +16,7 @@
 #import "BookmarkItem.h"
 #import "IndexModel.h"
 #import "Typography.h"
+#import "AnalyticsEvents.h"
 
 @interface BookmarksViewController ()
 
@@ -149,6 +150,11 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
 
     [self.model addObserver:self];
     [self updateMainView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenBookmarks];
 }
 
 - (void)updateMainView {
