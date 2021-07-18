@@ -127,7 +127,7 @@
 
 - (void)showNativeViewController {
     [Amplitude instance].trackingSessionEvents = YES;
-    [[Amplitude instance] initializeApiKey:@""];
+    [[Amplitude instance] initializeApiKey:@"27068fbb56c4484098731da880a466de"];
     NSString *userId = [self.userDefaultsService loadUserId];
     if (userId == nil) {
       [self.userDefaultsService saveUserId:[NSUUID UUID].UUIDString];

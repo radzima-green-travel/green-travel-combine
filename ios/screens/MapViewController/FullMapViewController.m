@@ -32,6 +32,7 @@
 #import "MapViewControllerConstants.h"
 #import "CoordinateUtils.h"
 #import "NumberUtils.h"
+#import "AnalyticsEvents.h"
 
 @interface FullMapViewController ()
 
@@ -79,6 +80,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
+  [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenMapFull];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

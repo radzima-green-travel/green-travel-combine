@@ -26,6 +26,7 @@
 #import "BottomSheetView.h"
 #import "MapService.h"
 #import "MainViewControllerConstants.h"
+#import "AnalyticsEvents.h"
 
 @interface MainViewController ()
 
@@ -39,6 +40,9 @@
 @property (strong, nonatomic) UITabBarItem *indexTabBarItem;
 @property (strong, nonatomic) UITabBarItem *mapTabBarItem;
 @property (strong, nonatomic) UITabBarItem *bookmarksTabBarItem;
+@property (strong, nonatomic) UINavigationController *indexViewControllerWithNavigation;
+@property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
+@property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
 
 @end
 
@@ -49,7 +53,7 @@
   self.tabBar.barTintColor = [Colors get].tabBarBackground;
   self.tabBar.translucent = NO;
   self.view.backgroundColor = [Colors get].background;
-  
+
   [self.indexTabBarItem setImage:[UIImage imageNamed:@"home"]];
   [self.indexTabBarItem setSelectedImage:[UIImage imageNamed:@"home-selected"]];
   [self.indexTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
@@ -65,8 +69,8 @@
   [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
   [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
                                      forState:UIControlStateNormal];
-  
-  
+
+
 }
 
 - (void)viewDidLoad {
@@ -97,17 +101,17 @@
 
     IndexViewController *indexController = [[IndexViewController alloc] initWithApiService:self.apiService model:self.indexModel searchModel:searchModel locationModel:locationModel mapModel:mapModel  detailsModel:detailsModel coreDataService:self.coreDataService mapService:self.mapService];
     indexController.title = NSLocalizedString(@"IndexTitle", @"");
-    UINavigationController *indexViewControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:indexController];
+    self.indexViewControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:indexController];
     UIImage *indexImage;
     UIImage *indexImageSelected;
     indexImage = [UIImage imageNamed:@"home"];
     indexImageSelected = [UIImage imageNamed:@"home-selected"];
     self.indexTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMain", @""), 0, indexImage, indexImageSelected);
-  
-    indexViewControllerWithNavigation.tabBarItem = self.indexTabBarItem;
 
-    indexViewControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
-    indexViewControllerWithNavigation.navigationBar.titleTextAttributes =
+    self.indexViewControllerWithNavigation.tabBarItem = self.indexTabBarItem;
+
+    self.indexViewControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
+    self.indexViewControllerWithNavigation.navigationBar.titleTextAttributes =
     [Typography get].navigationSemiboldAttributes;
 
 #pragma mark - MapViewController
@@ -122,16 +126,16 @@
                                        mapService:self.mapService
                                           mapItem:nil];
     mapController.title = NSLocalizedString(@"MapTitle", @"");
-    UINavigationController *mapControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:mapController];
+    self.mapControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:mapController];
     UIImage *mapImage;
     UIImage *mapImageSelected;
     mapImage = [UIImage imageNamed:@"map"];
     mapImageSelected = [UIImage imageNamed:@"map-selected"];
     self.mapTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMap", @""), 0, mapImage, mapImageSelected);
 
-    mapControllerWithNavigation.tabBarItem = self.mapTabBarItem;
-    mapControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
-    mapControllerWithNavigation.navigationBar.titleTextAttributes =
+    self.mapControllerWithNavigation.tabBarItem = self.mapTabBarItem;
+    self.mapControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
+    self.mapControllerWithNavigation.navigationBar.titleTextAttributes =
     [Typography get].navigationSemiboldAttributes;
 
 #pragma mark - BookmarksViewController
@@ -146,19 +150,19 @@
                                        searchModel:searchModel
                                      locationModel:locationModel];
     bookmarksController.title = NSLocalizedString(@"SavedTitle", @"");
-    UINavigationController *bookmarksControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:bookmarksController];
+    self.bookmarksControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:bookmarksController];
     UIImage *bookmarksImage;
     UIImage *bookmarksImageSelected;
     bookmarksImage = [UIImage imageNamed:@"bookmark"];
     bookmarksImageSelected = [UIImage imageNamed:@"bookmark-selected"];
     self.bookmarksTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarSaved", @""), 0, bookmarksImage, bookmarksImageSelected);
 
-    bookmarksControllerWithNavigation.tabBarItem = self.bookmarksTabBarItem;
-    bookmarksControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
-    bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
+    self.bookmarksControllerWithNavigation.tabBarItem = self.bookmarksTabBarItem;
+    self.bookmarksControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
+    self.bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
     [Typography get].navigationSemiboldAttributes;
 
-    self.viewControllers = @[indexViewControllerWithNavigation, mapControllerWithNavigation, bookmarksControllerWithNavigation];
+    self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation, self.bookmarksControllerWithNavigation];
 
     self.selectedIndex = 0;
 }
@@ -188,6 +192,18 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
       }
     }
     self.previousViewController = topController;
+    if (viewController == self.indexViewControllerWithNavigation) {
+      [[AnalyticsEvents get] logEvent:AnalyticsEventsNaviMain];
+      return;
+    }
+    if (viewController == self.mapControllerWithNavigation) {
+      [[AnalyticsEvents get] logEvent:AnalyticsEventsNaviMap];
+      return;
+    }
+    if (viewController == self.bookmarksControllerWithNavigation) {
+      [[AnalyticsEvents get] logEvent:AnalyticsEventsNaviBookmarks];
+      return;
+    }
   }
 }
 
@@ -206,7 +222,7 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
     [bottomSheet.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
   ]];
   self.bottomSheets[@(sheetType)] = bottomSheet;
-  return bottomSheet; 
+  return bottomSheet;
 }
 
 /*
