@@ -150,14 +150,17 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
     [self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
     [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
   ]];
-  
-  self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
-  for (UIGestureRecognizer *recognizer in self.mapView.gestureRecognizers) {
-    if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
-      [self.singleTap requireGestureRecognizerToFail:recognizer];
+ 
+  if (![self.mapView.gestureRecognizers containsObject:self.singleTap]) {
+    self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
+    for (UIGestureRecognizer *recognizer in self.mapView.gestureRecognizers) {
+      if ([recognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+        [self.singleTap requireGestureRecognizerToFail:recognizer];
+      }
     }
+    [self.mapView addGestureRecognizer:self.singleTap];
   }
-  [self.mapView addGestureRecognizer:self.singleTap];
+  
   [self.mapModel addObserver:self];
   [self.indexModel addObserverBookmarks:self];
   [self.locationModel addObserver:self];
