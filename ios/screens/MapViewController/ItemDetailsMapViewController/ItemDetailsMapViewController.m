@@ -61,7 +61,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
+  if (self.isMovingToParentViewController) {
+    [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
+  }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
