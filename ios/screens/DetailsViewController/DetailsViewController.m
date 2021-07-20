@@ -30,7 +30,7 @@
 #import "CommonButton.h"
 #import "DescriptionView.h"
 #import "PlacesViewController.h"
-#import "AnalyticsEvents.h"
+#import "AnalyticsEvents.h" 
 
 @interface DetailsViewController ()
 
@@ -322,8 +322,8 @@
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenDetails withParams:@{
-    @"param_card_name": self.item.title,
-    @"param_card_category": self.item.category.title,
+    AnalyticsEventsParamCardName: self.item.title,
+    AnalyticsEventsParamCardCategory: self.item.category.title,
   }];
 }
 

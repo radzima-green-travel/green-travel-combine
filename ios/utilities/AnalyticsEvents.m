@@ -1,5 +1,5 @@
 //
-//  IconNameToImageNameMap.m
+//  AnalyticsEvents.m
 //  GreenTravel
 //
 //  Created by Alex K on 2/2/21.
@@ -56,3 +56,15 @@ const NSString* AnalyticsEventsScreenMapItem = @"screen_map_feed_event";
 const NSString* AnalyticsEventsScreenBookmarks = @"screen_bookmarks_feed_event";
 const NSString* AnalyticsEventsScreenMapFull = @"screen_map_all_event";
 const NSString* AnalyticsEventsScreenDetails = @"screen_details_event";
+const NSString* AnalyticsEventsParamCardName = @"param_card_name";
+const NSString* AnalyticsEventsParamCardCategory = @"param_card_category";
+
+const NSString* AnalyticsEventsPressCard = @"home_feed_card_event";
+const NSString* AnalyticsEventsSaveCard = @"home_feed_save_card_event";
+const NSString* AnalyticsEventsUnsaveCard = @"home_feed_unsave_card_event";
+const NSString* AnalyticsEventsSeeAll = @"home_feed_see_all_event";
+
+const NSString* AnalyticsEventsPressBookmarkedCard = @"saved_category_event";
+
+const NSString* AnalyticsEventsVisitSearch = @"home_search_select_event";
+const NSString* AnalyticsEventsPressSearchResult = @"home_search_result_event";
