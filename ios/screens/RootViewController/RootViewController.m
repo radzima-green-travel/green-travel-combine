@@ -17,6 +17,7 @@
 #import <React/RCTRootView.h>
 #import "RNBootSplash.h"
 #import "RotationLockUtility.h"
+#import "UserDefaultsServiceConstants.h"
 @import Amplitude;
 
 // #ifdef FB_SONARKIT_ENABLED
@@ -63,15 +64,32 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.view.backgroundColor = UIColor.whiteColor;
-    
-    if (self.userDefaultsService.rnAppEnabled) {
-        [self showRNViewController];
-        return;
+  [super viewDidLoad];
+  
+  self.view.backgroundColor = UIColor.whiteColor;
+  
+  [self showAppBasedOnDefaults];
+}
+
+- (void)showAppBasedOnDefaults {
+  NSString *framework = [self.userDefaultsService loadFrameworkValue];
+  if (framework == nil || [UserDefaultsServiceConstantsFrameworkRandom isEqualToString:
+                          framework]) {
+    u_int32_t randomNumber = arc4random_uniform(UINT32_MAX);
+    u_int32_t pivot = UINT32_MAX / 2;
+    if (randomNumber > pivot) {
+      [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkUIKit];
+    } else {
+      [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkReact];
     }
-    [self showNativeViewController];
+  }
+  
+  if ([UserDefaultsServiceConstantsFrameworkReact isEqualToString:
+       [self.userDefaultsService loadFrameworkValue]]) {
+    [self showRNViewController];
+    return;
+  }
+  [self showNativeViewController];
 }
 
 - (void)showRNViewController {

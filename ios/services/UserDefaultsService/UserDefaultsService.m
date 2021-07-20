@@ -47,9 +47,13 @@ static UserDefaultsService *instance;
   return [self.userDefaults valueForKey:kUserId];
 }
 
-- (BOOL)rnAppEnabled {
-    NSString *frameworkValue = [self.userDefaults valueForKey:kKeyFramework];
-    return [frameworkValue isEqualToString:@"react"];
+- (void)saveFrameworkValue:(NSString *)framework {
+  [self.userDefaults setValue:framework forKey:kKeyFramework];
+}
+
+- (NSString *)loadFrameworkValue {
+  NSString *frameworkValue = [self.userDefaults valueForKey:kKeyFramework];
+  return frameworkValue;
 }
 
 + (instancetype)get {

@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UserDefaultsService : NSObject
 
-@property (assign, nonatomic, readonly) BOOL rnAppEnabled;
+- (void)saveFrameworkValue:(NSString *)framework;
+- (NSString *)loadFrameworkValue;
 - (void)saveETag:(NSString *)eTag;
 - (NSString *)loadETag;
 - (void)saveUserId:(NSString *)userId;

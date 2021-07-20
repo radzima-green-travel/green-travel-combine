@@ -10,7 +10,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Advanced</string>
+			<string>Developer</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -20,14 +20,16 @@
 			<key>Key</key>
 			<string>framework</string>
 			<key>DefaultValue</key>
-			<string>uikit</string>
+			<string>random</string>
 			<key>Values</key>
 			<array>
+				<string>random</string>
 				<string>uikit</string>
 				<string>react</string>
 			</array>
 			<key>Titles</key>
 			<array>
+				<string>Random</string>
 				<string>UIKit</string>
 				<string>React Native</string>
 			</array>
