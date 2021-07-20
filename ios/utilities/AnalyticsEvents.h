@@ -26,6 +26,17 @@ FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenMapItem;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenBookmarks;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenMapFull;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenDetails;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamCardName;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamCardCategory;
 
+FOUNDATION_EXPORT const NSString* AnalyticsEventsPressCard;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsSaveCard;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsUnsaveCard;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsSeeAll;
+
+FOUNDATION_EXPORT const NSString* AnalyticsEventsPressBookmarkedCard;
+
+FOUNDATION_EXPORT const NSString* AnalyticsEventsVisitSearch;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSearchResult;
 
 NS_ASSUME_NONNULL_END
