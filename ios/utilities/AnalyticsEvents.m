@@ -66,8 +66,9 @@ const NSString* AnalyticsEventsSeeAll = @"home_feed_see_all_event";
 
 const NSString* AnalyticsEventsPressBookmarkedCard = @"saved_category_event";
 
-const NSString* AnalyticsEventsVisitSearch = @"home_search_select_event";
-const NSString* AnalyticsEventsPressSearchResult = @"home_search_result_event";
+const NSString* AnalyticsEventsSearchType = @"home_search_result_event";
+const NSString* AnalyticsEventsPressSearchResult = @"home_search_select_event";
+const NSString* AnalyticsEventsParamSearchQuery=@"param_search_query";
 
 const NSString* AnalyticsEventsTimeSpentInActiveState = @"time_active_event";
 const NSString* AnalyticsEventsParamFramework = @"param_framework";
