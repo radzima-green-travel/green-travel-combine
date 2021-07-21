@@ -384,8 +384,12 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                                locationModel:weakSelf.locationModel
                                                  searchModel:weakSelf.searchModel
                                                   bookmarked:NO allowedItemUUIDs:nil];
-            placesViewController.category = weakSelf.model.flatCategories[weakCategory.uuid];
+            Category *foundCategory = weakSelf.model.flatCategories[weakCategory.uuid];
+            placesViewController.category = foundCategory;
             [weakSelf.navigationController pushViewController:placesViewController animated:YES];
+            [[AnalyticsEvents get] logEvent:AnalyticsEventsSeeAll withParams:@{
+              AnalyticsEventsParamCardCategory:foundCategory.title
+            }];
         };
         [weakSelf fillNavigationListeners:obj.categories];
         
@@ -403,6 +407,9 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                                       bookmarked:NO allowedItemUUIDs:nil];
                 placesViewController.category = weakCategory;
                 [weakSelf.navigationController pushViewController:placesViewController animated:YES];
+                [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
+                    AnalyticsEventsParamCardName:weakCategory.title
+                }];
             };
         }];
         
@@ -421,9 +428,19 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                 [weakSelf.navigationController pushViewController:detailsController animated:YES];
             };
             placeItem.onFavoriteButtonPress = ^void() {
-                [weakSelf.model bookmarkItem:weakPlaceItem
-                                    bookmark:!weakPlaceItem.bookmarked];
+              [weakSelf.model bookmarkItem:weakPlaceItem
+                                  bookmark:!weakPlaceItem.bookmarked];
+              NSString *bookmarkEvent = weakPlaceItem.bookmarked ? AnalyticsEventsUnsaveCard : AnalyticsEventsSaveCard;
+              [[AnalyticsEvents get] logEvent:bookmarkEvent
+                                   withParams:@{
+                                     AnalyticsEventsParamCardName:weakPlaceItem.title,
+                                     AnalyticsEventsParamCardCategory:weakPlaceItem.category.title,
+                                   }];
             };
+            [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
+                AnalyticsEventsParamCardName:placeItem.title,
+                AnalyticsEventsParamCardCategory:placeItem.category.title,
+            }];
         }];
     }];
 }

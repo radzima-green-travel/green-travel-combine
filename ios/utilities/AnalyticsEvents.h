@@ -39,4 +39,7 @@ FOUNDATION_EXPORT const NSString* AnalyticsEventsPressBookmarkedCard;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsVisitSearch;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSearchResult;
 
+FOUNDATION_EXPORT const NSString* AnalyticsEventsTimeSpentInActiveState;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamFramework;
+
 NS_ASSUME_NONNULL_END

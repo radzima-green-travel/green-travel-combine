@@ -8,9 +8,13 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "UserDefaultsService.h"
+#import "AnalyticsEvents.h"
 @import Firebase;
 
 @interface AppDelegate ()
+
+@property (assign, nonatomic) NSTimeInterval applicationDidBecomeActiveTS;
 
 @end
 
@@ -31,6 +35,20 @@
     [(RootViewController *) self.window.rootViewController loadCategories];
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  self.applicationDidBecomeActiveTS = [[[NSDate alloc] init] timeIntervalSince1970];
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+  NSTimeInterval nowTS = [[[NSDate alloc] init] timeIntervalSince1970];
+  NSTimeInterval timeSpentInActiveState = nowTS - self.applicationDidBecomeActiveTS;
+  [UserDefaultsService get]
+  [[AnalyticsEvents get] logEvent:AnalyticsEventsTimeSpentInActiveState withParams:@{
+    
+    AnalyticsEventsParamFramework: framework
+  }];
+  NSLog(@"Time in active state: %f", timeSpentInActiveState);
+}
 
 #pragma mark - Core Data stack
 
