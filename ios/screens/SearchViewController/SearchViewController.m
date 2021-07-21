@@ -28,6 +28,7 @@
 #import "CoreDataService.h"
 #import <CoreLocation/CoreLocation.h>
 #import "Typography.h"
+#import "AnalyticsEvents.h"
 
 @interface SearchViewController ()
 
@@ -416,6 +417,9 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     self.selectedSearchItem = item;
     self.onSearchItemSelect(item);
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsPressSearchResult withParams:@{
+      AnalyticsEventsParamCardName: self.selectedSearchItem.title
+    }];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -450,6 +454,9 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
         [self updateViews];
         return;
     }
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsSearchType withParams:@{
+      AnalyticsEventsParamSearchQuery:search
+    }];
     for (SearchItem *item in [self.model searchItemsWithFilter:self.searchItemFilter]) {
         if ([[item searchableText] localizedCaseInsensitiveContainsString:search]) {
             [self.dataSourceFiltered addObject:item];

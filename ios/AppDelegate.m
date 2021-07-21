@@ -42,9 +42,9 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
   NSTimeInterval nowTS = [[[NSDate alloc] init] timeIntervalSince1970];
   NSTimeInterval timeSpentInActiveState = nowTS - self.applicationDidBecomeActiveTS;
-  [UserDefaultsService get]
-  [[AnalyticsEvents get] logEvent:AnalyticsEventsTimeSpentInActiveState withParams:@{
-    
+  NSString *framework = [[UserDefaultsService get] loadFrameworkValue];
+  [[AnalyticsEvents get] logEvent:AnalyticsEventsTimeSpentInActiveState
+                       withParams:@{
     AnalyticsEventsParamFramework: framework
   }];
   NSLog(@"Time in active state: %f", timeSpentInActiveState);
