@@ -136,8 +136,6 @@ static const CGFloat kGradientOffset = 50.0;
 }
 
 - (void)onFavoritePress:(id)sender {
-    NSLog(@"Favorites button pressed.");
-    NSLog(@"item: %@", self.item);
     self.item.onFavoriteButtonPress();
 }
 

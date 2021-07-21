@@ -17,6 +17,7 @@
 #import "LocationModel.h"
 #import "CategoryUtils.h"
 #import "StyleUtils.h"
+#import "AnalyticsEvents.h"
 
 @interface PlacesViewController ()
 
@@ -197,7 +198,9 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                                         allowedItemUUIDs:nil];
         placesViewController.category = category;
         [self.navigationController pushViewController:placesViewController animated:YES];
-
+        [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
+            AnalyticsEventsParamCardName:category.title,
+        }];
         return;
     }
     PlaceItem *item;
@@ -218,6 +221,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                                           searchModel:self.searchModel];
     detailsController.item = item;
     [self.navigationController pushViewController:detailsController animated:YES];
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
+        AnalyticsEventsParamCardName:item.title,
+        AnalyticsEventsParamCardCategory:item.category.title,
+    }];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView
