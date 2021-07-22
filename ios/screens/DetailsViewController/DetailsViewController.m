@@ -327,6 +327,14 @@
   }];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+  [[AnalyticsEvents get] logEvent:AnalyticsEventsDetailsBack withParams:@{
+    AnalyticsEventsParamCardName: self.item.title,
+    AnalyticsEventsParamCardCategory: self.item.category.title
+  }];
+}
+
 #pragma mark - Map button top
 - (void)addMapButton {
     self.mapButtonTop = [[CommonButton alloc] initWithTarget:self action:@selector(onMapButtonPress:) label:@"Посмотреть на карте"];
@@ -420,11 +428,16 @@
     mapItem.coords = self.item.coords;
     ItemDetailsMapViewController *mapViewController = [[ItemDetailsMapViewController alloc]  initWithMapModel:self.mapModel locationModel:self.locationModel indexModel:self.indexModel searchModel:self.searchModel apiService:self.apiService coreDataService:self.coreDataService mapService:self.mapService mapItem:mapItem];
     [self.navigationController pushViewController:mapViewController animated:YES];
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsDetailsOpenMap withParams:@{
+      AnalyticsEventsParamCardName: self.item.title,
+      AnalyticsEventsParamCardCategory: self.item.category.title
+    }];
 }
 
 - (void)onLocationButtonPress:(id)sender {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = [NSString stringWithFormat:@"%f,%f", self.item.coords.latitude, self.item.coords.longitude];
+    NSString *coordsText = [NSString stringWithFormat:@"%f,%f", self.item.coords.latitude, self.item.coords.longitude];
+    pasteboard.string = coordsText;
 
     [self cancelBanner];
 
@@ -440,6 +453,9 @@
                                    selector:@selector(onBannerTimerFire:)
                                    userInfo:nil
                                     repeats:NO];
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCoords withParams:@{
+      AnalyticsEventsParamLinkType: coordsText,
+    }];
 }
 
 - (void)cancelBanner {
@@ -468,7 +484,13 @@
 }
 
 - (void)onBookmarkButtonPress:(id)sender {
-    [self.indexModel bookmarkItem:self.item bookmark:!self.item.bookmarked];
+  BOOL bookmark = !self.item.bookmarked;
+  [self.indexModel bookmarkItem:self.item bookmark:bookmark];
+  [[AnalyticsEvents get] logEvent:bookmark ? AnalyticsEventsDetailsSave : AnalyticsEventsDetailsUnsave
+                       withParams:@{
+                         AnalyticsEventsParamCardName: self.item.title,
+                         AnalyticsEventsParamCardCategory: self.item.category.title
+                       }];
 }
 
 #pragma mark - Resize

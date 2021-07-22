@@ -72,3 +72,27 @@ const NSString* AnalyticsEventsParamSearchQuery=@"param_search_query";
 
 const NSString* AnalyticsEventsTimeSpentInActiveState = @"time_active_event";
 const NSString* AnalyticsEventsParamFramework = @"param_framework";
+
+const NSString* AnalyticsEventsDetailsSave = @"card_details_save_event";
+const NSString* AnalyticsEventsDetailsUnsave = @"card_details_unsave_event";
+const NSString* AnalyticsEventsDetailsOpenMap = @"card_details_open_in_map_event";
+const NSString* AnalyticsEventsPressCoords = @"card_details_coordinates_event";
+const NSString* AnalyticsEventsDetailsBack = @"card_details_close_event";
+const NSString* AnalyticsEventsParamLinkType = @"param_link_type";
+
+const NSString* AnalyticsEventsMapFilterAll = @"map_all_event";
+const NSString* AnalyticsEventsMapFilterTerritories = @"map_terr_event";
+const NSString* AnalyticsEventsMapFilterArchitecture = @"map_arch_event";
+const NSString* AnalyticsEventsMapFilterReligion = @"map_religion_event";
+const NSString* AnalyticsEventsMapFilterNature = @"map_nature_event";
+const NSString* AnalyticsEventsMapFilterMuseums = @"map_museums_event";
+const NSString* AnalyticsEventsMapFilterWarMemorials = @"map_war_memorials_event";
+const NSString* AnalyticsEventsMapFilterOther = @"map_other_event";
+const NSString* AnalyticsEventsMapFilterFoot = @"map_foot_event";
+const NSString* AnalyticsEventsMapFilterBike = @"map_velo_event";
+const NSString* AnalyticsEventsMapFilterWater = @"map_water_event";
+
+const NSString* AnalyticsEventsMapSearch = @"map_search_event";
+const NSString* AnalyticsEventsMapInteraction = @"map_point_interaction_event";
+const NSString* AnalyticsEventsMapSearchType = @"map_search_result_event";
+const NSString* AnalyticsEventsMapPressSearchResult = @"map_search_select_event";
