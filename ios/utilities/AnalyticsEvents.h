@@ -43,4 +43,29 @@ FOUNDATION_EXPORT const NSString* AnalyticsEventsParamSearchQuery;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsTimeSpentInActiveState;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsParamFramework;
 
+FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsSave;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsUnsave;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsOpenMap;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsPressCoords;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsBack;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamLinkType;
+
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterAll;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterTerritories;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterArchitecture;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterReligion;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterNature;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterMuseums;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterWarMemorials;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterOther;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterFoot;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterBike;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterWater;
+
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapSearch;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapInteraction;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapSearchType;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsMapPressSearchResult;
+
+
 NS_ASSUME_NONNULL_END
