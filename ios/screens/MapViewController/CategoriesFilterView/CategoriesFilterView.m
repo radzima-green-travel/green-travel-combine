@@ -15,6 +15,8 @@
 #import "IconNameToImageNameMap.h"
 #import "CategoriesFilterSpacerCollectionViewCell.h"
 #import "CategoriesFilterViewConstants.h"
+#import "AnalyticsEvents.h"
+#import "IconNameToAnalyticsEvent.h"
 
 static NSString* const kCategoriesFilterCellId = @"categoriesFilterCellId";
 static NSString* const kCategoriesFilterSpacerCellId = @"categoriesFilterSpacerCellId";
@@ -88,7 +90,6 @@ static const CGFloat kSpacingWidth = 16.0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cellForItemAtIndexPath method, index path: %@", indexPath);
     if (indexPath.item % 2 == 0) {
         CategoriesFilterSpacerCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCategoriesFilterSpacerCellId forIndexPath:indexPath];
         return cell;
@@ -127,6 +128,11 @@ static const CGFloat kSpacingWidth = 16.0;
     }
     FilterOption *option = self.model.filterOptions[indexPathToDataCellIndex(indexPath)];
     [self.model selectOption:option];
+    NSString *eventName = [[IconNameToAnalyticsEvent get] analyticsEventForIconName:option.iconName];
+    [[AnalyticsEvents get] logEvent:eventName
+                         withParams:@{
+                           AnalyticsEventsParamMapFilterCheck: @(option.on)
+    }];
 }
 
 - (void)onFilterOptionsSelect:(NSUInteger)selectedIndex {

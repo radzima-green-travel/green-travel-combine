@@ -64,8 +64,11 @@ FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterWater;
 
 FOUNDATION_EXPORT const NSString* AnalyticsEventsMapSearch;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsMapInteraction;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamMapInteractionSave;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamMapInteractionLearnMore;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsMapSearchType;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsMapPressSearchResult;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamMapFilterCheck;
 
 
 NS_ASSUME_NONNULL_END
