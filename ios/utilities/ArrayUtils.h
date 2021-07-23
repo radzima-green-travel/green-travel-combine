@@ -9,3 +9,4 @@
 #import <Foundation/Foundation.h>
 
 NSArray* shuffledArray(NSArray *items);
+NSArray* slice(NSArray *items);

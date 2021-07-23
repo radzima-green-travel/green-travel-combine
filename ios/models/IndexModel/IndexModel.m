@@ -154,7 +154,7 @@ static IndexModel *instance;
       if (level == 0) {
         Category *categoryRandomized = [category copyWithZone:nil];
         categoryRandomized.items = shuffledArray(category.items);
-        categoryRandomized.categories = shuffledArray(category.categories);
+        categoryRandomized.categories = slice(category.categories);
         [randomizedCategories addObject:categoryRandomized];
       }
     }
