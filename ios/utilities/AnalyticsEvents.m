@@ -94,5 +94,8 @@ const NSString* AnalyticsEventsMapFilterWater = @"map_water_event";
 
 const NSString* AnalyticsEventsMapSearch = @"map_search_event";
 const NSString* AnalyticsEventsMapInteraction = @"map_point_interaction_event";
+const NSString* AnalyticsEventsParamMapInteractionSave = @"param_save";
+const NSString* AnalyticsEventsParamMapInteractionLearnMore = @"param_learn_more";
 const NSString* AnalyticsEventsMapSearchType = @"map_search_result_event";
 const NSString* AnalyticsEventsMapPressSearchResult = @"map_search_select_event";
+const NSString* AnalyticsEventsParamMapFilterCheck = @"param_map_filter_check";

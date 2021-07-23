@@ -142,6 +142,7 @@
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
+		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
@@ -416,6 +417,8 @@
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5ADD30CB26A6E29F00551408 /* UserDefaultsServiceConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsServiceConstants.h; sourceTree = "<group>"; };
 		5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsServiceConstants.m; sourceTree = "<group>"; };
+		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
+		5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IconNameToAnalyticsEvent.m; sourceTree = "<group>"; };
 		5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryImagePlaceholder.m; sourceTree = "<group>"; };
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
@@ -734,6 +737,8 @@
 				5A775A9426064C8F00CEFC78 /* MapItem.h */,
 				5A775A9526064C8F00CEFC78 /* IconNameToImageNameMap.h */,
 				5A775A8A26064C8F00CEFC78 /* IconNameToImageNameMap.m */,
+				5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */,
+				5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */,
 				5A775A9626064C8F00CEFC78 /* PathDetails.h */,
 				5A775A9726064C8F00CEFC78 /* FeedItem.h */,
 				5A105FE9265FD99100511256 /* Directions.h */,
@@ -1491,6 +1496,7 @@
 				5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */,
 				5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */,
 				5A775B2B26064C9000CEFC78 /* StoredSearchItem+CoreDataClass.m in Sources */,
+				5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */,
 				5A6DC5D2265AAB3900A2D37B /* RoutesSheetController.m in Sources */,
 				5A775DFB26077A7D00CEFC78 /* GradientOverlayView.m in Sources */,
 				5A775E0626077A7D00CEFC78 /* FullMapViewController.m in Sources */,
