@@ -275,8 +275,12 @@ static const CGFloat kInsetVertical = 24.0;
                                        locationModel:self.locationModel
                                          searchModel:self.searchModel
                                           bookmarked:YES allowedItemUUIDs:nil];
-    placesViewController.category = bookmarkItem.correspondingCategory;
+    Category *category = bookmarkItem.correspondingCategory;
+    placesViewController.category = category;
     [self.navigationController pushViewController:placesViewController animated:YES];
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsPressSavedCategory withParams:@{
+      AnalyticsEventsParamCardCategory: category.title
+    }];
 }
 
 /*

@@ -128,11 +128,22 @@ static const CGFloat kSpacingWidth = 16.0;
     }
     FilterOption *option = self.model.filterOptions[indexPathToDataCellIndex(indexPath)];
     [self.model selectOption:option];
-    NSString *eventName = [[IconNameToAnalyticsEvent get] analyticsEventForIconName:option.iconName];
-    [[AnalyticsEvents get] logEvent:eventName
+    [self reportSelection:option];
+}
+
+- (void)reportSelection:(FilterOption *)option {
+  if (option.selectAll) {
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsMapFilterAll
                          withParams:@{
                            AnalyticsEventsParamMapFilterCheck: @(option.on)
-    }];
+                         }];
+    return;
+  }
+  NSString *eventName = [[IconNameToAnalyticsEvent get] analyticsEventForIconName:option.iconName];
+  [[AnalyticsEvents get] logEvent:eventName
+                       withParams:@{
+                         AnalyticsEventsParamMapFilterCheck: @(option.on)
+                       }];
 }
 
 - (void)onFilterOptionsSelect:(NSUInteger)selectedIndex {

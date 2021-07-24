@@ -70,5 +70,7 @@ FOUNDATION_EXPORT const NSString* AnalyticsEventsMapSearchType;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsMapPressSearchResult;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsParamMapFilterCheck;
 
+FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSavedCategory;
+
 
 NS_ASSUME_NONNULL_END
