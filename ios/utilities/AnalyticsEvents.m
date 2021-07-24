@@ -99,3 +99,5 @@ const NSString* AnalyticsEventsParamMapInteractionLearnMore = @"param_learn_more
 const NSString* AnalyticsEventsMapSearchType = @"map_search_result_event";
 const NSString* AnalyticsEventsMapPressSearchResult = @"map_search_select_event";
 const NSString* AnalyticsEventsParamMapFilterCheck = @"param_map_filter_check";
+
+const NSString* AnalyticsEventsPressSavedCategory = @"saved_category_event";

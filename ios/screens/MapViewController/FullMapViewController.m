@@ -33,6 +33,7 @@
 #import "CoordinateUtils.h"
 #import "NumberUtils.h"
 #import "AnalyticsEvents.h"
+#import "StringUtils.h"
 
 @interface FullMapViewController ()
 
@@ -462,8 +463,15 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
     detailsController.item = item;
     [weakSelf.navigationController setNavigationBarHidden:NO animated:NO];
     [weakSelf.navigationController pushViewController:detailsController animated:YES];
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsMapInteraction withParams:@{
+      AnalyticsEventsParamMapInteractionLearnMore: BOOLtoString(NO),
+    }];
   } onBookmarkPress:^(BOOL bookmarked) {
-    [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
+    BOOL bookmark = !bookmarked;
+    [weakSelf.indexModel bookmarkItem:item bookmark:bookmark];
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsMapInteraction withParams:@{
+      AnalyticsEventsParamMapInteractionSave: BOOLtoString(bookmark),
+    }];
   }];
 }
 

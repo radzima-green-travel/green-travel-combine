@@ -179,6 +179,7 @@
 		5A39D6F026B34C04008FC20C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A39D6F326B34C0A008FC20C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A39D6F526B6D255008FC20C /* MainViewControllerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewControllerConstants.h; sourceTree = "<group>"; };
+		5A39D6D326AC6A8A008FC20C /* StringUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		5A5DCEAC2687E5E7003025F5 /* ArrayUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayUtils.h; sourceTree = "<group>"; };
 		5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrayUtils.m; sourceTree = "<group>"; };
 		5A5FF6B0269BA98400540CE4 /* NumberUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberUtils.m; sourceTree = "<group>"; };
@@ -834,6 +835,7 @@
 				5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */,
 				5A5FF70C26A46EDC00540CE4 /* AnalyticsEvents.h */,
 				5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */,
+				5A39D6D326AC6A8A008FC20C /* StringUtils.h */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
