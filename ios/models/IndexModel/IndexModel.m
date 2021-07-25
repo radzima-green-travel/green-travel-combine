@@ -82,17 +82,21 @@ static IndexModel *instance;
                                                     NSArray<PlaceDetails *> * _Nonnull details,
                                                     NSString *eTag) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
+        BOOL shouldRequestCategoriesUpdate = YES;
         if ([strongSelf.categories count] == 0 && [categories count] > 0) {
             [strongSelf.userDefaultsService saveETag:eTag];
             [strongSelf updateCategories:categories];
             [strongSelf.coreDataService saveCategories:categories];
+            shouldRequestCategoriesUpdate = NO;
         }
         NSString *existingETag = [strongSelf.userDefaultsService loadETag];
         if (![existingETag isEqualToString:eTag] && [categories count] > 0) {
             NSArray<Category*> *newCategories =
             [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
                                                  toNew:categories];
-            [strongSelf requestCategoriesUpdate:newCategories eTag:eTag];
+            if (shouldRequestCategoriesUpdate) {
+              [strongSelf requestCategoriesUpdate:newCategories eTag:eTag];
+            }
         }
         strongSelf.loading = NO;
         if (visible) { [strongSelf notifyObserversLoading:NO]; }

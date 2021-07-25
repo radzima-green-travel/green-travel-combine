@@ -315,12 +315,6 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 
 - (void)onCategoriesNewDataAvailable {
     __weak typeof(self) weakSelf = self;
-    if (![self.model.randomizedCategories count]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf setUpWithTable];
-        });
-        return;
-    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf showRefreshButton:YES];
     });
