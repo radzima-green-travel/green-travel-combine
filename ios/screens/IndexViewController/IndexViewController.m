@@ -330,11 +330,9 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
     __weak typeof(self) weakSelf = self;
     if (!loading) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([weakSelf.model.categories count] > 0) {
-                [weakSelf setUpWithTable];
-                return;
+            if ([weakSelf.model.categories count] == 0) {
+                [weakSelf setUpWithNoDataPlaceholder];
             }
-            [weakSelf setUpWithNoDataPlaceholder];
         });
         return;
     }
