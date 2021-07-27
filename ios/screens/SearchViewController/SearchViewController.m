@@ -323,13 +323,19 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
 
 #pragma mark - SearchModel
 - (void)onSearchHistoryItemsUpdate:(NSArray<SearchItem *> *)searchHistoryItems {
-    if (![self isSearching]) {
-        [self updateViews];
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    if (![weakSelf isSearching]) {
+      [weakSelf updateViews];
     }
+  });
 }
 
 - (void)onSearchItemsUpdate:(nonnull NSArray<SearchItem *> *)searchItems {
-    [self updateViews];
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [weakSelf updateViews];
+  });
 }
 
 #pragma mark - Table view data source

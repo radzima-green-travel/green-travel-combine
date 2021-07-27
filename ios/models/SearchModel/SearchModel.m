@@ -163,8 +163,12 @@
 }
 
 - (NSArray<SearchItem *> *)searchHistoryItemsWithFilter:(BOOL (^)(SearchItem * _Nonnull))searchItemFilter {
-  return [self.searchHistoryItems filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-      return searchItemFilter(evaluatedObject);
+  return [self.searchHistoryItems filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SearchItem* _Nullable searchItem, NSDictionary<NSString *,id> * _Nullable bindings) {
+      PlaceItem *correspondingItem = self.indexModel.flatItems[searchItem.correspondingPlaceItemUUID];
+      if (correspondingItem == nil) {
+        return NO;
+      }
+      return searchItemFilter(searchItem);
   }]];
 }
 
