@@ -46,7 +46,9 @@
 
 - (void)layoutSubviews {
   [super layoutSubviews];
-  self.backgroundColor = [Colors get].buttonNewDataBackground;
+  self.backgroundColor = [self isHighlighted] ?
+    [Colors get].buttonNewDataBackgroundHighlighted :
+    [Colors get].buttonNewDataBackground;
 }
 
 - (void)setUp {

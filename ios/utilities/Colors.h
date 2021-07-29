@@ -33,6 +33,7 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *bookmarkCellText;
 @property (strong, nonatomic) UIColor *bookmarkTintFullCell;
 @property (strong, nonatomic) UIColor *buttonNewDataBackground;
+@property (strong, nonatomic) UIColor *buttonNewDataBackgroundHighlighted;
 @property (strong, nonatomic) UIColor *buttonNewDataText;
 @property (strong, nonatomic) UIColor *mainText;
 @property (strong, nonatomic) UIColor *auxiliaryText;
