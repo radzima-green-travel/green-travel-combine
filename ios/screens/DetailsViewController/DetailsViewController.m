@@ -352,7 +352,7 @@
       }
       weakSelf.titleLabel.attributedText = [[Typography get] makeTitle1Semibold:weakSelf.item.title];
       if (details.address) {
-        weakSelf.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:weakSelf.item.title];
+        weakSelf.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:weakSelf.item.details.address];
       }
       if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
         [weakSelf.locationButton setAttributedTitle:
