@@ -95,13 +95,13 @@
 #pragma mark - IndexViewController
 
     IndexViewController *indexController = [[IndexViewController alloc] initWithApiService:self.apiService model:self.indexModel searchModel:searchModel locationModel:locationModel mapModel:mapModel  detailsModel:detailsModel coreDataService:self.coreDataService mapService:self.mapService];
-    indexController.title = @"Главная";
+    indexController.title = NSLocalizedString(@"IndexTitle", @"");
     UINavigationController *indexViewControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:indexController];
     UIImage *indexImage;
     UIImage *indexImageSelected;
     indexImage = [UIImage imageNamed:@"home"];
     indexImageSelected = [UIImage imageNamed:@"home-selected"];
-    self.indexTabBarItem = createTabBarItem(@"Главная", 0, indexImage, indexImageSelected);
+    self.indexTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMain", @""), 0, indexImage, indexImageSelected);
   
     indexViewControllerWithNavigation.tabBarItem = self.indexTabBarItem;
 
@@ -120,13 +120,13 @@
                                   coreDataService:self.coreDataService
                                        mapService:self.mapService
                                           mapItem:nil];
-    mapController.title = @"Карта";
+    mapController.title = NSLocalizedString(@"MapTitle", @"");
     UINavigationController *mapControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:mapController];
     UIImage *mapImage;
     UIImage *mapImageSelected;
     mapImage = [UIImage imageNamed:@"map"];
     mapImageSelected = [UIImage imageNamed:@"map-selected"];
-    self.mapTabBarItem = createTabBarItem(@"Карта", 0, mapImage, mapImageSelected);
+    self.mapTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMap", @""), 0, mapImage, mapImageSelected);
 
     mapControllerWithNavigation.tabBarItem = self.mapTabBarItem;
     mapControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
@@ -144,13 +144,13 @@
                                           mapModel:mapModel
                                        searchModel:searchModel
                                      locationModel:locationModel];
-    bookmarksController.title = @"Закладки";
+    bookmarksController.title = NSLocalizedString(@"SavedTitle", @"");
     UINavigationController *bookmarksControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:bookmarksController];
     UIImage *bookmarksImage;
     UIImage *bookmarksImageSelected;
     bookmarksImage = [UIImage imageNamed:@"bookmark"];
     bookmarksImageSelected = [UIImage imageNamed:@"bookmark-selected"];
-    self.bookmarksTabBarItem = createTabBarItem(@"Закладки", 0, bookmarksImage, bookmarksImageSelected);
+    self.bookmarksTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarSaved", @""), 0, bookmarksImage, bookmarksImageSelected);
 
     bookmarksControllerWithNavigation.tabBarItem = self.bookmarksTabBarItem;
     bookmarksControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;

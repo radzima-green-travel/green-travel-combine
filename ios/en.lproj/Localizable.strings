@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  greenTravel
+
+  Created by Alex K on 7/29/21.
+  
+*/
+"AlertCancel" = "Cancel";
+"AlertSettings" = "Settings";
+"AllowGeolocationAlertMessageHeader" = "Please allow Location access";
+"AllowGeolocationAlertMessageBody" = "It will be possible to build routes, center map on your position";
+
+"TabBarMain" = "Main";
+"TabBarMap" = "Map";
+"TabBarSaved" = "Saved";
+
+"IndexAll" = "ALL";
+"IndexTitle" = "Main";
+
+"MapTitle" = "Map";
+
+"SavedTitle" = "Saved";
+
+"SearchHistory" = "Search history";
+"SearchNotFound" = "Unfortunately, no results match this search";
+
+"RoutesSheetTitle" = "Navigation";
+"RoutesSheetMessage" = "Build route to object.";

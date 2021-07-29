@@ -66,11 +66,11 @@ typedef NS_ENUM(NSInteger, MapProvider) {
     }
   }];
   if ([urls count]) {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Навигация"
-                                   message:@"Проложить путь к объекту."
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"RoutesSheetTitle", @"")
+                                   message:NSLocalizedString(@"RoutesSheetMessage", @"")
                                    preferredStyle:UIAlertControllerStyleActionSheet];
      
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel
        handler:^(UIAlertAction * action) {
     }];
     [urls enumerateObjectsUsingBlock:^(NSString * _Nonnull url, NSUInteger idx, BOOL * _Nonnull stop) {

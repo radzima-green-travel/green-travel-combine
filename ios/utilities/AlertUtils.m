@@ -8,11 +8,12 @@
 #import "AlertUtils.h"
 
 void showAlertGoToSettings(UIViewController *presenter) {
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ к местоположению"
-                                                                 message:@"Разрешите доступ к местоположению в настройках"
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-  [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
-  [alert addAction:[UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  UIAlertController *alert =
+  [UIAlertController alertControllerWithTitle:NSLocalizedString(@"AllowGeolocationAlertMessageHeader", @"")
+                                      message:NSLocalizedString(@"AllowGeolocationAlertMessageBody", @"")
+                               preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
+  [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertSettings", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:^(BOOL success) {}];
   }]];
   [presenter presentViewController:alert animated:YES completion:^{}];

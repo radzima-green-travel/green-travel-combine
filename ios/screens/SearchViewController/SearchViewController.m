@@ -241,7 +241,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     ]];
     self.noDataLabel = [[UILabel alloc] init];
     self.noDataLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.noDataLabel setAttributedText:[[Typography get] makeBody:@"К сожалению, по вашему запросу ничего не найдено"]];
+    [self.noDataLabel setAttributedText:[[Typography get] makeBody:NSLocalizedString(@"SearchNotFound", @"")]];
     [self.noDataLabel setTextAlignment:NSTextAlignmentCenter];
     self.noDataLabel.numberOfLines = 2;
     

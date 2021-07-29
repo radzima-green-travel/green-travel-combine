@@ -28,7 +28,7 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.backgroundColor = [Colors get].background;
-  self.header.attributedText = [[Typography get] makeBody:@"История поиска"
+  self.header.attributedText = [[Typography get] makeBody:NSLocalizedString(@"SearchHistory", @"")
                                                     color:[Colors get].mainText];
 }
 
