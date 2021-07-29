@@ -1,0 +1,23 @@
+/*
+  Localizable.strings
+  greenTravel
+
+  Created by Alex K on 7/29/21.
+  
+*/
+
+"AlertCancel" = "Отмена";
+"AlertSettings" = "Настройки";
+"AllowGeolocationAlertMessageHeader" = "Пожалуйста, разрешите доступ к Геопозиции";
+"AllowGeolocationAlertMessageBody" = "Можно будет строить марштруты, центрировать карту на Вашей позиции";
+
+"TabBarMain" = "Главная";
+"TabBarMap" = "Карта";
+"TabBarSaved" = "Закладки";
+
+"IndexAll" = "ВСЕ";
+"IndexTitle" = "Главная";
+
+"MapTitle" = "Карта";
+
+"SavedTitle" = "Закладки";

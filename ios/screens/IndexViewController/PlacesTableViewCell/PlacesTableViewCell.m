@@ -57,8 +57,10 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
   self.collectionView.backgroundColor = [Colors get].background;
   self.backgroundColor = [Colors get].background;
   
-  [self.allButton setAttributedTitle:[[Typography get] makeSubtitle1Semibold:@"ВСЕ"
-                                                                       color:[Colors get].buttonAll] forState:UIControlStateNormal];
+  [self.allButton setAttributedTitle:[[Typography get]
+                                      makeSubtitle1Semibold:NSLocalizedString(@"IndexAll", @"")
+                                      color:[Colors get].buttonAll]
+                            forState:UIControlStateNormal];
   self.headerLabel.attributedText = [[Typography get] makeSubtitle1Semibold:[self.item.title uppercaseString]
                                      color:[Colors get].categoryTitleText];
 }
