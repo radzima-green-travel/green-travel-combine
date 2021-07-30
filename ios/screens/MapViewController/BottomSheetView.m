@@ -20,7 +20,6 @@
 @property(strong, nonatomic) NSString *itemUUID;
 @property(strong, nonatomic) UILabel *headerLabel;
 @property(strong, nonatomic) UIView *gripView;
-@property(assign, nonatomic, readwrite) BOOL inProgress;
 @property(strong, nonatomic) BookmarkButton *bookmarkButton;
 @property(copy, nonatomic) void(^onNavigatePress)(void);
 
@@ -133,16 +132,10 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.detailsButton setLabel:buttonLabel];
   
-  if (self.inProgress || self.visible) {
-    return;
-  }
   [self appear];
 }
 
 - (void)hide {
-  if (self.inProgress || !self.visible) {
-    return;
-  }
   [self disappear];
 }
 
@@ -154,13 +147,10 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
 
 - (void)appear {
   __weak typeof(self) weakSelf = self;
-  self.inProgress = YES;
   [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
     weakSelf.top.constant = -kViewVisibleHeight;
     [weakSelf.superview layoutIfNeeded];
-    weakSelf.visible = YES;
   } completion:^(BOOL finished) {
-    weakSelf.inProgress = NO;
     if (weakSelf.onShow) {
       weakSelf.onShow(YES);
     }
@@ -169,13 +159,10 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
 
 - (void)disappear {
   __weak typeof(self) weakSelf = self;
-  self.inProgress = YES;
   [UIView animateWithDuration:0.2 animations:^{
     weakSelf.top.constant = 0;
     [weakSelf.superview layoutIfNeeded];
   } completion:^(BOOL finished) {
-    weakSelf.visible = NO;
-    weakSelf.inProgress = NO;
     if (weakSelf.onShow) {
       weakSelf.onShow(NO);
     }
