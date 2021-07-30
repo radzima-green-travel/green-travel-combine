@@ -220,6 +220,21 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self.navigationController pushViewController:detailsController animated:YES];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView
+didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+  __weak PhotoCollectionViewCell *cell = (PhotoCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+  [UIView animateWithDuration:0.3 animations:^{
+    cell.alpha = 0.8;
+  }];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+  __weak PhotoCollectionViewCell *cell = (PhotoCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+  [UIView animateWithDuration:0.3 animations:^{
+    cell.alpha = 1;
+  }];
+}
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 0;
 }

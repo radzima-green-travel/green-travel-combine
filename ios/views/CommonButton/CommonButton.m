@@ -46,9 +46,7 @@
 
 - (void)layoutSubviews {
   [super layoutSubviews];
-  self.backgroundColor = [self isHighlighted] ?
-    [Colors get].buttonNewDataBackgroundHighlighted :
-    [Colors get].buttonNewDataBackground;
+  self.backgroundColor = [Colors get].buttonNewDataBackground;
 }
 
 - (void)setUp {
@@ -67,6 +65,20 @@
         [self.widthAnchor constraintGreaterThanOrEqualToConstant:288.0],
         [self.heightAnchor constraintGreaterThanOrEqualToConstant:53.0],
     ]];
+}
+
+- (void)setHighlighted:(BOOL)highlighted {
+  [super setHighlighted:highlighted];
+  __weak typeof(self) weakSelf = self;
+  if (highlighted) {
+    [UIView animateWithDuration:0.3 animations:^{
+      weakSelf.alpha = 0.8;
+    }];
+  } else {
+    [UIView animateWithDuration:0.3 animations:^{
+      weakSelf.alpha = 1;
+    }];
+  }
 }
 
 - (void)setLabel:(NSString *)label {

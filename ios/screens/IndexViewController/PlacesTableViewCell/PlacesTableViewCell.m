@@ -178,6 +178,20 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
     item.onPlaceCellPress();
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+  __weak PhotoCollectionViewCell *cell = (PhotoCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+  [UIView animateWithDuration:0.3 animations:^{
+    cell.alpha = 0.8;
+  }];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+  __weak PhotoCollectionViewCell *cell = (PhotoCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+  [UIView animateWithDuration:0.3 animations:^{
+    cell.alpha = 1;
+  }];
+}
+
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.dataSourceCategories = @[];

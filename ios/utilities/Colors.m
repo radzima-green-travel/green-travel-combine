@@ -45,7 +45,6 @@ static Colors *instance;
     self.bookmarkCellText = [UIColor colorNamed:@"bookmarkCellText"];
     self.bookmarkTintFullCell = [UIColor colorNamed:@"bookmarkTintFullCell"];
     self.buttonNewDataBackground = [UIColor colorNamed:@"buttonNewDataBackground"];
-    self.buttonNewDataBackgroundHighlighted = [UIColor colorNamed:@"buttonNewDataBackgroundHighlighted"]; 
     self.buttonNewDataText = [UIColor colorNamed:@"buttonNewDataText"];
     self.mainText = [UIColor colorNamed:@"mainText"];
     self.auxiliaryText = [UIColor colorNamed:@"auxiliaryText"];

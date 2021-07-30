@@ -21,15 +21,15 @@ static NSString* const kCategoriesFilterSpacerCellId = @"categoriesFilterSpacerC
 
 @interface CategoriesFilterView()
 
-@property (strong, nonatomic) CategoriesFilterModel *model; 
+@property (strong, nonatomic) CategoriesFilterModel *model;
 @property (nonatomic, copy) void(^onFilterUpdate)(NSSet<NSString *>*);
 
 @end
 
 static const CGFloat kSpacingWidth = 16.0;
 
-@implementation CategoriesFilterView 
- 
+@implementation CategoriesFilterView
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -48,7 +48,7 @@ static const CGFloat kSpacingWidth = 16.0;
     if (self) {
         [self registerClass:CategoriesFilterCollectionViewCell.class forCellWithReuseIdentifier:kCategoriesFilterCellId];
         [self registerClass:CategoriesFilterSpacerCollectionViewCell.class forCellWithReuseIdentifier:kCategoriesFilterSpacerCellId];
-        
+
         self.dataSource = self;
         self.delegate = self;
         self.model = [[CategoriesFilterModel alloc] initWithMapModel:mapModel
@@ -102,13 +102,13 @@ static const CGFloat kSpacingWidth = 16.0;
     }
     CGFloat width = 0;
     FilterOption *option = self.model.filterOptions[indexPathToDataCellIndex(indexPath)];
-    
+
     width += CategoriesFilterViewLabelToCellSpacing * 2;
     CGSize textSize = [option.title sizeWithAttributes:
      getTextAttributes(option.on ? [ColorsLegacy get].white :
                        [ColorsLegacy get].logCabin, 13.0, UIFontWeightRegular)];
     width += textSize.width;
-    
+
     if (!option.selectAll && [[IconNameToImageNameMap get]
                         hasFilterIconForName:option.iconName]) {
         width += CategoriesFilterViewIconWidth + CategoriesFilterViewIconToLabelSpacing;

@@ -40,7 +40,7 @@ static NSString * const kBookmarkCellId = @"bookmarkCellId";
 static const CGFloat kCellAspectRatio = 166.0 / 104.0;
 static const CGFloat kMinHeightOfPlaceholderView = 400.0;
 
-@implementation BookmarksViewController 
+@implementation BookmarksViewController
 
 - (instancetype)initWithModel:(BookmarksGroupModel *)model
                    indexModel:(IndexModel *)indexModel
@@ -80,7 +80,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     configureNavigationBar(navigationBar);
 #pragma mark - Collection view
@@ -126,7 +126,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
         [self.placeholder.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
         [self.placeholder.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor],
     ]];
-    
+
     UIImage *placeholderImage = [UIImage imageNamed:arc4random_uniform(2) > 0 ?
                                  @"fox-in-the-jungle" : @"trekking"];
     self.placeholderImageView = [[UIImageView alloc] initWithImage:placeholderImage];
@@ -146,7 +146,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
         [self.somethingIsWrongLabel.topAnchor constraintEqualToAnchor:self.placeholderImageView.bottomAnchor constant:32.0],
         [self.somethingIsWrongLabel.bottomAnchor constraintEqualToAnchor:self.placeholder.bottomAnchor],
     ]];
-    
+
     [self.model addObserver:self];
     [self updateMainView];
 }
@@ -158,11 +158,11 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
 }
 
 - (void)setUpWithCollectionView {
-    
+
 }
 
 - (void)setUpWithNoDataPlaceholder {
-    
+
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -178,13 +178,13 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"cellForItemAtIndexPath method, index path: %@", indexPath);
     BookmarkCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kBookmarkCellId forIndexPath:indexPath];
-    
+
     long index = indexPath.row + indexPath.section * 2;
 
     if (index >= [self.model.bookmarkItems count]) {
         return cell;
     }
-    
+
     [cell update:self.model.bookmarkItems[index]];
     return cell;
 }
@@ -205,15 +205,15 @@ static const CGFloat kInsetVertical = 24.0;
     NSLog(@"Bounds: %@", @(self.collectionView.bounds));
     NSLog(@"Safe are layout guide size: %@", @([self.view.safeAreaLayoutGuide layoutFrame].size));
     //CGFloat baseWidth = layoutGuide.width;
-    
+
     long index = indexPath.row + indexPath.section * 2;
     if (index >= [self.model.bookmarkItems count]) {
         return CGSizeZero;
     }
-    
+
     CGSize cellSize = CGSizeMake((baseWidth - 3 * kInsetHorizontal) / 2,
                                  ((baseWidth - 3 * kInsetHorizontal) / kCellAspectRatio ) / 2);
-    
+
     return cellSize;
 }
 
@@ -249,9 +249,9 @@ static const CGFloat kInsetVertical = 24.0;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Selected cell at index path: %@", indexPath);
-    
+
     long index = indexPath.row + indexPath.section * 2;
-    
+
     if (index >= [self.model.bookmarkItems count]) {
         return;
     }
@@ -259,9 +259,9 @@ static const CGFloat kInsetVertical = 24.0;
     if (bookmarkItem.howMany == 0) {
         return;
     }
-    
+
     PlacesViewController *placesViewController =
-    [[PlacesViewController alloc] initWithIndexModel:self.indexModel 
+    [[PlacesViewController alloc] initWithIndexModel:self.indexModel
                                           apiService:self.apiService
                                      coreDataService:self.coreDataService
                                      mapService:self.mapService
@@ -275,7 +275,7 @@ static const CGFloat kInsetVertical = 24.0;
 
 /*
  #pragma mark - Navigation
- 
+
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
@@ -288,7 +288,7 @@ static const CGFloat kInsetVertical = 24.0;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf updateMainView];
     });
-    
+
 }
 
 - (void)scrollToTop {
