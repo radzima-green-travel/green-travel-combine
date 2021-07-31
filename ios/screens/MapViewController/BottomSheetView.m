@@ -152,7 +152,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     [weakSelf.superview layoutIfNeeded];
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      weakSelf.onShow(YES);
+      weakSelf.onShow(YES, weakSelf.itemUUID); 
     }
   }];
 }
@@ -164,7 +164,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     [weakSelf.superview layoutIfNeeded];
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      weakSelf.onShow(NO);
+      weakSelf.onShow(NO, weakSelf.itemUUID);
     }
   }];
 }

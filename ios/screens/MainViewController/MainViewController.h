@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) BottomSheetView *bottomSheet;
 - (void)loadCategories;
-- (BottomSheetView *)addBottomSheet:(void(^_Nonnull)(BOOL))onShow;
+- (BottomSheetView *)addBottomSheet:(void(^_Nonnull)(BOOL, NSString *))onShow;
 
 @end
 
