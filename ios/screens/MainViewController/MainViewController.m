@@ -190,7 +190,7 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
   }
 }
 
-- (BottomSheetView *)addBottomSheet:(void(^_Nonnull)(BOOL))onShow {
+- (BottomSheetView *)addBottomSheet:(void(^_Nonnull)(BOOL, NSString *))onShow { 
   if (self.bottomSheet != nil) {
     return self.bottomSheet;
   }

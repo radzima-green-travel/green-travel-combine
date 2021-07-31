@@ -396,10 +396,16 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   }];
 }
 
-- (void)onPopupShow:(BOOL)visible {
-  [super onPopupShow:visible];
-  if (!visible && self.selectedItemUUID != nil) {
+- (void)onPopupShow:(BOOL)visible itemUUID:(nonnull NSString *)itemUUID {
+  [super onPopupShow:visible itemUUID:itemUUID];
+  if (!visible && [self.selectedItemUUID isEqualToString:itemUUID]) {
     self.selectedItemUUID = nil;
+    [self renderMapItems:self.mapModel.mapItemsFiltered
+                   style:self.mapView.style];
+    return;
+  }
+  if (visible && ![self.selectedItemUUID isEqualToString:itemUUID]) {
+    self.selectedItemUUID = itemUUID;
     [self renderMapItems:self.mapModel.mapItemsFiltered
                    style:self.mapView.style];
   }

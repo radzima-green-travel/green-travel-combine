@@ -332,8 +332,8 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 - (BottomSheetView *)addBottomSheet {
   MainViewController *mainViewController = (MainViewController *)self.parentViewController.parentViewController;
   __weak typeof(self) weakSelf = self;
-  return [mainViewController addBottomSheet:^(BOOL visible) {
-    [weakSelf onPopupShow:visible];
+  return [mainViewController addBottomSheet:^(BOOL visible, NSString *itemUUID) {
+    [weakSelf onPopupShow:visible itemUUID:itemUUID];
   }];
 }
 
@@ -341,7 +341,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   [self.bottomSheet setBookmarked:item bookmarked:bookmark];
 }
 
-- (void)onPopupShow:(BOOL)visible {
+- (void)onPopupShow:(BOOL)visible itemUUID:(NSString *)itemUUID{
 }
 
 @end
