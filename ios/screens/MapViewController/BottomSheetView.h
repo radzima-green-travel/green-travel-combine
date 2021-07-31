@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BottomSheetView : UIView<UIGestureRecognizerDelegate>
 
 @property(weak, nonatomic) NSLayoutConstraint *top;
-@property(copy, nonatomic) void(^onShow)(BOOL);
+@property(copy, nonatomic) void(^onShow)(BOOL, NSString *);
 - (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel
 onNavigatePress:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
