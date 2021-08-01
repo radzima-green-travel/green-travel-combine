@@ -52,6 +52,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 @implementation ItemDetailsMapViewController
 
 #pragma mark - Lifecycle
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  self.bottomSheet = [self addBottomSheet:MainViewControllerBottomSheetDetailsMap];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   if (self.directionsPolyline != nil) {
