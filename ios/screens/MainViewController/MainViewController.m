@@ -25,6 +25,7 @@
 #import "UserDefaultsService.h"
 #import "BottomSheetView.h"
 #import "MapService.h"
+#import "MainViewControllerConstants.h"
 
 @interface MainViewController ()
 
@@ -190,22 +191,22 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
   }
 }
 
-- (BottomSheetView *)addBottomSheet:(void(^_Nonnull)(BOOL, NSString *))onShow { 
-  if (self.bottomSheet != nil) {
-    return self.bottomSheet;
+- (BottomSheetView *)addBottomSheet:(MainViewControllerBottomSheet)sheetType onShow:(void(^_Nonnull)(BOOL, NSString *))onShow {
+  if (self.bottomSheets[@(sheetType)] != nil) {
+    return self.bottomSheets[@(sheetType)];
   }
-  self.bottomSheet = [[BottomSheetView alloc] init];
-  self.bottomSheet.onShow = onShow;
-  [self.view addSubview:self.bottomSheet];
-
-  NSLayoutConstraint *topAnchor = [self.bottomSheet.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
-  self.bottomSheet.top = topAnchor;
+  BottomSheetView *bottomSheet = [[BottomSheetView alloc] init];
+  bottomSheet.onShow = onShow;
+  [self.view addSubview:bottomSheet];
+  NSLayoutConstraint *topAnchor = [bottomSheet.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
+  bottomSheet.top = topAnchor;
   [NSLayoutConstraint activateConstraints:@[
     topAnchor,
-    [self.bottomSheet.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-    [self.bottomSheet.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+    [bottomSheet.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+    [bottomSheet.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
   ]];
-  return self.bottomSheet; 
+  self.bottomSheets[@(sheetType)] = bottomSheet;
+  return bottomSheet; 
 }
 
 /*

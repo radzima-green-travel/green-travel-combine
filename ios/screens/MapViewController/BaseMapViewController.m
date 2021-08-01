@@ -131,8 +131,6 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
     self.locationButtonBottomAnchor,
     [self.locationButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
-#pragma mark - Add bottom sheet
-  self.bottomSheet = [self addBottomSheet];
 }
 
 #pragma mark - viewWillAppear
@@ -329,10 +327,11 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 
 - (void)showPopupWithItem:(PlaceItem *)item {}
 
-- (BottomSheetView *)addBottomSheet {
+- (BottomSheetView *)addBottomSheet:(MainViewControllerBottomSheet)sheetType {
   MainViewController *mainViewController = (MainViewController *)self.parentViewController.parentViewController;
   __weak typeof(self) weakSelf = self;
-  return [mainViewController addBottomSheet:^(BOOL visible, NSString *itemUUID) {
+  return [mainViewController addBottomSheet:sheetType
+                                     onShow:^(BOOL visible, NSString *itemUUID) {
     [weakSelf onPopupShow:visible itemUUID:itemUUID];
   }];
 }
