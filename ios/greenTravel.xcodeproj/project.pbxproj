@@ -99,7 +99,6 @@
 		5A775B8F26064C9000CEFC78 /* ColorsLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1726064C9000CEFC78 /* ColorsLegacy.m */; };
 		5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1926064C9000CEFC78 /* StyleUtils.m */; };
 		5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B9926064F6F00CEFC78 /* RootViewController.m */; };
-		5A775BDF260764BF00CEFC78 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A775BDE260764BF00CEFC78 /* GoogleService-Info.plist */; };
 		5A775DF526077A7D00CEFC78 /* BookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775D9126077A7C00CEFC78 /* BookmarksViewController.m */; };
 		5A775DF626077A7D00CEFC78 /* BookmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775D9326077A7C00CEFC78 /* BookmarkCell.m */; };
 		5A775DF726077A7D00CEFC78 /* RefreshButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775D9826077A7C00CEFC78 /* RefreshButton.m */; };
@@ -328,7 +327,6 @@
 		5A775B1926064C9000CEFC78 /* StyleUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleUtils.m; sourceTree = "<group>"; };
 		5A775B9826064F6F00CEFC78 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		5A775B9926064F6F00CEFC78 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		5A775BDE260764BF00CEFC78 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5A775D2F2607741F00CEFC78 /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A775D9126077A7C00CEFC78 /* BookmarksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarksViewController.m; sourceTree = "<group>"; };
 		5A775D9326077A7C00CEFC78 /* BookmarkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkCell.m; sourceTree = "<group>"; };
@@ -458,7 +456,6 @@
 				628194D025F213BD00491FDF /* BootSplash.storyboard */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				5A775BDE260764BF00CEFC78 /* GoogleService-Info.plist */,
 				5A775E7B26092B8100CEFC78 /* Settings.bundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */,
@@ -1313,7 +1310,6 @@
 				5A775B3C26064C9000CEFC78 /* Montserrat-MediumItalic.ttf in Resources */,
 				5A775B3226064C9000CEFC78 /* Montserrat-LightItalic.ttf in Resources */,
 				624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */,
-				5A775BDF260764BF00CEFC78 /* GoogleService-Info.plist in Resources */,
 				5A775B3D26064C9000CEFC78 /* OpenSans-Italic.ttf in Resources */,
 				5A775B4C26064C9000CEFC78 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,

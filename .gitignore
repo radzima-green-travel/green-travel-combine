@@ -64,3 +64,6 @@ buck-out/
 
 # react-native-ultimate-config
 rnuc.xcconfig
+
+# Google Analytics and Firebase
+ios/GoogleService-Info.plist
