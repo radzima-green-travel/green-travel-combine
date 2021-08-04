@@ -27,8 +27,11 @@
   
   [mapView setZoomLevel:self.zoomLevel];
   [mapView setCenterCoordinate:self.center];
+  [mapView setShowsUserLocation:NO];
   [mapView setShowsUserLocation:self.showLocation];
+  [mapView setShowsUserHeadingIndicator:NO];
   [mapView setShowsUserHeadingIndicator:self.showLocation];
+  [mapView updateUserLocationAnnotationView];
 }
 
 @end
