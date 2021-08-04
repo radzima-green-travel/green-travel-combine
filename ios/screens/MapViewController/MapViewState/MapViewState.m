@@ -29,6 +29,7 @@
   [mapView setCenterCoordinate:self.center];
   [mapView setShowsUserLocation:self.showLocation];
   [mapView setShowsUserHeadingIndicator:self.showLocation];
+  [mapView updateUserLocationAnnotationView];
 }
 
 @end
