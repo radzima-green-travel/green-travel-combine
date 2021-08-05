@@ -59,6 +59,7 @@
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerShowAnimator;
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerHideAnimator;
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextTopAnchor;
+@property (assign, nonatomic) BOOL scrolledToEnd;
 
 @property (assign, nonatomic) BOOL ready;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -117,6 +118,7 @@
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     self.scrollView.alwaysBounceVertical = YES;
     [self.view addSubview:self.scrollView];
+    self.scrollView.delegate = self;
 
     [NSLayoutConstraint activateConstraints:@[
         [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
@@ -503,5 +505,17 @@
     [self.imageGalleryView toggleSkipAnimation];
 }
 
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+  CGRect scrollViewFrame = scrollView.frame;
+  if (scrollViewFrame.size.height + scrollView.contentOffset.y ==
+      self.contentView.frame.size.height && !self.scrolledToEnd) {
+    self.scrolledToEnd = YES;
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenDetails withParams:@{
+      AnalyticsEventsParamCardName: self.item.title,
+      AnalyticsEventsParamCardCategory: self.item.category.title,
+    }];
+  }
+}
 
 @end
