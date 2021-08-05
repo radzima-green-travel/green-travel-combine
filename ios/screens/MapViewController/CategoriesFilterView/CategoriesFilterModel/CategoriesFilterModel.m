@@ -121,12 +121,12 @@
         }
         [self.selectedCategoryUUIDs removeObject:option.categoryId];
     }];
+    [self notifyObserversFilterSelect:0];
     [self notifyObservers];
 }
 
 - (void)selectOption:(FilterOption *)selectedOption {
     if (selectedOption.selectAll) {
-        [self notifyObserversFilterSelect:0];
         [self selectOptionAll:!selectedOption.on];
         return;
     }

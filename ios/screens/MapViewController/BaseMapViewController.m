@@ -288,6 +288,8 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
     [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
                             zoomLevel:[self locateMeZoomLevel]
                              animated:YES];
+    [self.mapView setShowsUserLocation:NO];
+    [self.mapView setShowsHeading:NO];
     [self.mapView setShowsUserLocation:YES];
     [self.mapView setShowsHeading:YES];
     self.intentionToFocusOnUserLocation = NO;

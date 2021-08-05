@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FullMapViewController : BaseMapViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver>
 
+- (void)scrollToTop;
+
 @end
 
 NS_ASSUME_NONNULL_END

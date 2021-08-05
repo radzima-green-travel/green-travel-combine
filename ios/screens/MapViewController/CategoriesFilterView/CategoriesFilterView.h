@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
                   onFilterUpdate:(void(^)(NSSet<NSString *>*))onFilterUpdate;
 - (void)activateFilterForPlaceItem:(PlaceItem *)item;
 - (BOOL)optionSelectedForPlaceItem:(PlaceItem *)item;
+- (void)selectOptionAll:(BOOL)on;
 
 @end
 
