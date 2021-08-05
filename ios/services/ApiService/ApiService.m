@@ -20,7 +20,7 @@
 
 static NSString * const kGetCategoriesURL = @"https://d28njwxs8zbmie.cloudfront.net/objects.json";
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
-static NSString * const kImageBaseURL = @"http://radzimastorage74831-prod.s3-website.eu-central-1.amazonaws.com/";
+static NSString * const kImageBaseURL = @"https://d28njwxs8zbmie.cloudfront.net/";
 
 @interface ApiService ()
 
