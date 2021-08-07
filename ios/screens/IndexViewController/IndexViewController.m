@@ -28,6 +28,7 @@
 #import "Typography.h"
 #import "RefreshButton.h"
 #import "AnalyticsEvents.h"
+#import "ScrollViewUtils.h"
 
 @interface IndexViewController ()
 
@@ -51,6 +52,7 @@
 @property (strong, nonatomic) RefreshButton *refreshButton;
 @property (strong, nonatomic) NSLayoutConstraint *yPosition;
 @property (strong, nonatomic) UINavigationBar *navigationBar;
+@property (assign, nonatomic) BOOL scrolledToEnd;
 
 @end
 
@@ -466,7 +468,10 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-  
+  if (scrolledToEnd(self.tableView) && !self.scrolledToEnd && [self.model.randomizedCategories count]) {
+    self.scrolledToEnd = YES;
+    [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenHome];
+  }
 }
 
 @end

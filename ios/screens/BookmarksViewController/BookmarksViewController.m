@@ -17,6 +17,7 @@
 #import "IndexModel.h"
 #import "Typography.h"
 #import "AnalyticsEvents.h"
+#import "AnalyticsUIScrollViewDelegate.h"
 
 @interface BookmarksViewController ()
 
@@ -34,6 +35,7 @@
 @property (strong, nonatomic) UIImageView *placeholderImageView;
 @property (strong, nonatomic) UILabel *somethingIsWrongLabel;
 @property (strong, nonatomic) UIView *placeholder;
+@property (strong, nonatomic) AnalyticsUIScrollViewDelegate *analyticsScrollDelegate;
 
 @end
 
@@ -119,6 +121,10 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
         [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor],
         [self.contentView.heightAnchor constraintGreaterThanOrEqualToConstant:kMinHeightOfPlaceholderView],
     ]];
+    self.analyticsScrollDelegate = [[AnalyticsUIScrollViewDelegate alloc] initWithOnScrollEnd:^{
+      [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenBookmarks];
+    }];
+    self.scrollView.delegate = self.analyticsScrollDelegate;
     self.placeholder = [[UIView alloc] init];
     [self.contentView addSubview:self.placeholder];
     self.placeholder.translatesAutoresizingMaskIntoConstraints = NO;

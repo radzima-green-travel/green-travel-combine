@@ -30,7 +30,9 @@
 #import "CommonButton.h"
 #import "DescriptionView.h"
 #import "PlacesViewController.h"
-#import "AnalyticsEvents.h" 
+#import "AnalyticsEvents.h"
+#import "ScrollViewUtils.h"
+#import "AnalyticsUIScrollViewDelegate.h"
 
 @interface DetailsViewController ()
 
@@ -68,6 +70,7 @@
 @property (strong, nonatomic) SearchModel *searchModel;
 @property (assign, nonatomic) BOOL resized;
 @property (assign, nonatomic) CGSize screenSize;
+@property (strong, nonatomic) AnalyticsUIScrollViewDelegate *analyticsScrollDelegate;
 
 @end
 
@@ -118,7 +121,6 @@
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     self.scrollView.alwaysBounceVertical = YES;
     [self.view addSubview:self.scrollView];
-    self.scrollView.delegate = self;
 
     [NSLayoutConstraint activateConstraints:@[
         [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
@@ -138,6 +140,13 @@
         [self.contentView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
         [self.contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor]
     ]];
+    self.analyticsScrollDelegate = [[AnalyticsUIScrollViewDelegate alloc] initWithOnScrollEnd:^{
+      [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenDetails withParams:@{
+        AnalyticsEventsParamCardName: self.item.title,
+        AnalyticsEventsParamCardCategory: self.item.category.title,
+      }];
+    }];
+    self.scrollView.delegate = self.analyticsScrollDelegate;
 
     #pragma mark - Gallery
     self.imageGalleryView = [[GalleryView alloc] initWithFrame:CGRectZero
@@ -503,19 +512,6 @@
     CGPoint pointToScrollTo = CGPointMake(self.imageGalleryView.indexOfScrolledItem * size.width, 0);
     [self.imageGalleryView.collectionView setContentOffset:pointToScrollTo animated:YES];
     [self.imageGalleryView toggleSkipAnimation];
-}
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-  CGRect scrollViewFrame = scrollView.frame;
-  if (scrollViewFrame.size.height + scrollView.contentOffset.y ==
-      self.contentView.frame.size.height && !self.scrolledToEnd) {
-    self.scrolledToEnd = YES;
-    [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenDetails withParams:@{
-      AnalyticsEventsParamCardName: self.item.title,
-      AnalyticsEventsParamCardCategory: self.item.category.title,
-    }];
-  }
 }
 
 @end
