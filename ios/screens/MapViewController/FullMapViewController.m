@@ -34,12 +34,14 @@
 #import "NumberUtils.h"
 #import "AnalyticsEvents.h"
 #import "StringUtils.h"
+#import "AnalyticsTimeTracer.h"
 
 @interface FullMapViewController ()
 
 @property(strong, nonatomic) NSString *selectedItemUUID;
 @property(strong, nonatomic) UISelectionFeedbackGenerator *feedbackGenerator;
 @property(assign, nonatomic) BOOL shouldStopSearchZoom;
+@property(strong, nonatomic) AnalyticsTimeTracer *timeTracer;
 
 @end
 
@@ -62,20 +64,22 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
                                 imageCenterXAnchorConstant:0.0
                                 imageCenterYAnchorConstant:0.0];
   [self.view addSubview:self.searchButton];
-  
+
   self.searchButton.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
   [NSLayoutConstraint activateConstraints:@[
     [self.searchButton.bottomAnchor constraintEqualToAnchor:self.locationButton.topAnchor constant:-kZoomLevelForSearch],
     [self.searchButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
   [self addFilterView];
   self.bottomSheet = [self addBottomSheet:MainViewControllerBottomSheetFullMap];
+  self.timeTracer = [[AnalyticsTimeTracer alloc] initWithEventName:AnalyticsEventsLifeTimeFullMapScreen];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   self.shouldStopSearchZoom = NO;
+  [self.timeTracer traceStart];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -87,6 +91,11 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 - (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
   self.shouldStopSearchZoom = YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  [self.timeTracer traceEnd];
 }
 
 #pragma mark - Categories filter view
@@ -153,7 +162,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
     };
     [self.annotations addObject:point];
   }];
-  
+
   MGLShapeSource *source = (MGLShapeSource *)[style sourceWithIdentifier:MapViewControllerSourceIdAll];
   if ([style layerWithIdentifier:MapViewControllerMarkerLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:MapViewControllerMarkerLayerId]];
@@ -164,7 +173,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   if ([style sourceWithIdentifier:MapViewControllerSourceIdAll] != nil) {
     [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdAll]];
   }
-  
+
   source =
   [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdAll
                                     features:self.annotations
@@ -172,13 +181,13 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
                                        MGLShapeSourceOptionClustered: @YES,
                                        MGLShapeSourceOptionClusterRadius: @50.0
                                      }];
-  
+
   [style addSource:source];
-  
+
   MGLSymbolStyleLayer *markerLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:MapViewControllerMarkerLayerId source:source];
   markerLayer.iconImageName = [NSExpression expressionForConstantValue:@"{icon}"];
   markerLayer.predicate = [NSPredicate predicateWithFormat:@"cluster != YES"];
-  
+
 //  [style setImage:[UIImage imageNamed:@"conserv-area-map-pin"] forName:@"object"];
 //  [style setImage:[UIImage imageNamed:@"hiking-map-pin"] forName:@"hiking"];
 //  [style setImage:[UIImage imageNamed:@"historical-place-map-pin"] forName:@"historical-place"];
@@ -189,13 +198,13 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:[NSNumber numberWithBool:YES]];
   clusterLayer.textOffset =  [NSExpression expressionForConstantValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)]];
   clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
-  
+
   NSDictionary *stops = @{@0: [NSExpression expressionForConstantValue:@"markerClustered"]};
   NSExpression *defaultShape = [NSExpression expressionForConstantValue:@"markerClustered"];
   clusterLayer.iconImageName = [NSExpression expressionWithFormat:@"mgl_step:from:stops:(point_count, %@, %@)", defaultShape, stops];
   clusterLayer.text = [NSExpression expressionWithFormat:@"CAST(point_count, 'NSString')"];
   [style setImage:[UIImage imageNamed:@"cluster"] forName:@"markerClustered"];
-  
+
   [style addLayer:markerLayer];
   [style addLayer:clusterLayer];
 }
@@ -263,14 +272,14 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
     }];
     return;
   }
-  
+
   CGPoint point = [weakSelf.mapView convertCoordinate:item.coords toPointToView:weakSelf.mapView];
   NSSet<NSString *>* layersToSearch = [[NSSet alloc] initWithObjects:MapViewControllerClusterLayerId ,MapViewControllerMarkerLayerId, nil];
   NSArray<id<MGLFeature>> *features = [weakSelf.mapView
                                        visibleFeaturesAtPoint:point
                                        inStyleLayersWithIdentifiers:layersToSearch];
   id<MGLFeature> feature = [features firstObject];
-  
+
   if (feature && [feature isKindOfClass:[MGLPointFeatureCluster class]]) {
     MGLPointFeatureCluster *cluster = (MGLPointFeatureCluster *)feature;
     MGLSource *source = [self.mapView.style sourceWithIdentifier:MapViewControllerSourceIdAll];
@@ -287,7 +296,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
     [self delayedFocusOnSearchItem:item recursionDepth:recursionDepth + 1 delay:delay];
     return;
   }
-  
+
   if (feature && [feature isKindOfClass:[MGLPointFeature class]]) {
     weakSelf.selectedItemUUID = item.uuid;
     [weakSelf renderMapItems:weakSelf.mapModel.mapItemsFiltered style:weakSelf.mapView.style];
@@ -298,7 +307,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
     [weakSelf performFeedback];
     return;
   }
-  
+
   if (recursionDepth > 0) {
     [self delayedFocusOnSearchItem:item recursionDepth:recursionDepth + 1 delay:delay];
   }
@@ -340,19 +349,19 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   if (tap.state != UIGestureRecognizerStateEnded) {
     return;
   }
-  
+
   CGPoint point = [tap locationInView:tap.view];
   CGFloat width = kIconSize.width;
   CGRect rect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
-  
+
   NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:MapViewControllerClusterLayerId, MapViewControllerMarkerLayerId, nil]];
-  
+
   // Pick the first feature (which may be a port or a cluster), ideally selecting
   // the one nearest nearest one to the touch point.
   id<MGLFeature> feature = features.firstObject;
   if (feature && [feature isKindOfClass:[MGLPointFeatureCluster class]]) {
     [self handleMapClusterTap:tap];
-    
+
     return;
   }
   if (feature && [feature isKindOfClass:[MGLPointFeature class]]) {
@@ -370,7 +379,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
       [self renderMapItems:self.mapModel.mapItemsFiltered
                      style:self.mapView.style];
       [self.mapView setCenterCoordinate:feature.coordinate zoomLevel:self.mapView.zoomLevel animated:YES];
-      
+
     }
     return;
   }
@@ -419,7 +428,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
   CGFloat width = kIconSize.width;
   CGRect selectionRect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
-  
+
   NSArray<id<MGLFeature>> *visibleFeaturesInRect = [self.mapView visibleFeaturesInRect:selectionRect
          inStyleLayersWithIdentifiers:[NSSet
                        setWithObjects:MapViewControllerMarkerLayerId, MapViewControllerClusterLayerId, nil]];

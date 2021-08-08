@@ -33,6 +33,7 @@
 #import "AnalyticsEvents.h"
 #import "ScrollViewUtils.h"
 #import "AnalyticsUIScrollViewDelegate.h"
+#import "AnalyticsTimeTracer.h"
 
 @interface DetailsViewController ()
 
@@ -71,6 +72,7 @@
 @property (assign, nonatomic) BOOL resized;
 @property (assign, nonatomic) CGSize screenSize;
 @property (strong, nonatomic) AnalyticsUIScrollViewDelegate *analyticsScrollDelegate;
+@property (strong, nonatomic) AnalyticsTimeTracer *timeTracer;
 
 @end
 
@@ -149,8 +151,14 @@
     self.scrollView.delegate = self.analyticsScrollDelegate;
 
     #pragma mark - Gallery
+    __weak typeof(self) weakSelf = self;
     self.imageGalleryView = [[GalleryView alloc] initWithFrame:CGRectZero
-                                                     imageURLs:self.item.details.images];
+                                                     imageURLs:self.item.details.images
+                                                  onPageChange:^{
+      [[AnalyticsEvents get] logEvent:AnalyticsEventsGalleryPictureView withParams:@{
+        AnalyticsEventsParamCardName: weakSelf.item.title 
+      }];
+    }];
     self.imageGalleryView.translatesAutoresizingMaskIntoConstraints = NO;
     self.imageGalleryView.layer.masksToBounds = YES;
 
@@ -252,7 +260,6 @@
     ]];
 
     #pragma mark - Linked items
-    __weak typeof(self) weakSelf = self;
     self.linkedCategoriesView =
     [[LinkedCategoriesView alloc] initWithIndexModel:self.indexModel
                                           apiService:self.apiService
@@ -328,6 +335,14 @@
         [self.activityIndicatorView startAnimating];
         [self.activityIndicatorView setHidden:NO];
     }
+  
+    self.timeTracer = [[AnalyticsTimeTracer alloc] initWithEventName:
+                       AnalyticsEventsLifeTimeDetailsScreen];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self.timeTracer traceStart];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -344,6 +359,7 @@
     AnalyticsEventsParamCardName: self.item.title,
     AnalyticsEventsParamCardCategory: self.item.category.title
   }];
+  [self.timeTracer traceEnd];
 }
 
 #pragma mark - Map button top
@@ -431,6 +447,7 @@
 
 - (void)onCategoriesNewDataAvailable {}
 
+#pragma mark - onMapButtonPress
 - (void)onMapButtonPress:(id)sender {
     MapItem *mapItem = [[MapItem alloc] init];
     mapItem.title = self.item.title;
@@ -494,6 +511,7 @@
     [self.bannerHideAnimator startAnimation];
 }
 
+#pragma mark onBookmarkButtonPress
 - (void)onBookmarkButtonPress:(id)sender {
   BOOL bookmark = !self.item.bookmarked;
   [self.indexModel bookmarkItem:self.item bookmark:bookmark];

@@ -285,7 +285,7 @@ static const CGFloat kInsetVertical = 24.0;
     placesViewController.category = category;
     [self.navigationController pushViewController:placesViewController animated:YES];
     [[AnalyticsEvents get] logEvent:AnalyticsEventsPressSavedCategory withParams:@{
-      AnalyticsEventsParamCardCategory: category.title
+      AnalyticsEventsParamCategoryName: category.title
     }];
 }
 
