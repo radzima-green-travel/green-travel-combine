@@ -143,6 +143,7 @@
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AD6BF1126BEA9DF00DD3F2B /* ScrollViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */; };
 		5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */; };
+		5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
@@ -422,6 +423,8 @@
     		5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollViewUtils.m; sourceTree = "<group>"; };
     		5AD6BF1326BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsUIScrollViewDelegate.h; sourceTree = "<group>"; };
     		5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsUIScrollViewDelegate.m; sourceTree = "<group>"; };
+		5AD6BF1826C030B100DD3F2B /* AnalyticsTimeTracer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsTimeTracer.h; sourceTree = "<group>"; };
+		5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsTimeTracer.m; sourceTree = "<group>"; };
 		5ADD30CB26A6E29F00551408 /* UserDefaultsServiceConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsServiceConstants.h; sourceTree = "<group>"; };
 		5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsServiceConstants.m; sourceTree = "<group>"; };
 		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
@@ -844,6 +847,8 @@
 				5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */,
 				5AD6BF1326BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.h */,
 				5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */,
+				5AD6BF1826C030B100DD3F2B /* AnalyticsTimeTracer.h */,
+				5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */,
 				5AD6BF0F26BEA9DF00DD3F2B /* ScrollViewUtils.h */,
 				5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */,
 			);
@@ -1592,6 +1597,7 @@
 				5A775E1726077A7D00CEFC78 /* WeRecommendCell.m in Sources */,
 				5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */,
 				5A775B4F26064C9000CEFC78 /* SearchModel.m in Sources */,
+				5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */,
 				5AD6BF1126BEA9DF00DD3F2B /* ScrollViewUtils.m in Sources */,
 				5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */,
 				5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */,

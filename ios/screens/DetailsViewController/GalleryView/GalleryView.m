@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, PageControlState) {
 @property (assign, nonatomic) CGFloat aspectRatio;
 @property (assign, nonatomic) CGFloat indexOfScrolledItem;
 @property (strong, nonatomic) NSLayoutConstraint *scrollViewWidthConstraint;
+@property (copy, nonatomic) void(^onPageChange)(void);
 
 @end
 
@@ -50,11 +51,13 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
 
 - (instancetype)initWithFrame:(CGRect)frame
                     imageURLs:(NSArray<NSString *>*)imageURLs
+                 onPageChange:(nonnull void (^)(void))onPageChange
 {
 
     self = [super initWithFrame:frame];
     if (self) {
         [self setUp:imageURLs];
+        self.onPageChange = onPageChange;
     }
     return self;
 }
@@ -158,13 +161,19 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat indexOfScrolledItem = [self getIndexOfScrolledItem];
+    BOOL shouldLogPageFlip = NO;
     while (indexOfScrolledItem > self.indexOfScrolledItem) {
         self.indexOfScrolledItem++;
         [self.pageControl moveToNextPage];
+        shouldLogPageFlip = YES;
     }
     while (indexOfScrolledItem < self.indexOfScrolledItem) {
         self.indexOfScrolledItem--;
         [self.pageControl moveToPrevPage];
+        shouldLogPageFlip = YES;
+    }
+    if (shouldLogPageFlip) {
+      self.onPageChange();
     }
 }
 

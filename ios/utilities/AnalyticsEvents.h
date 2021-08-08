@@ -35,7 +35,9 @@ FOUNDATION_EXPORT const NSString* AnalyticsEventsSaveCard;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsUnsaveCard;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsSeeAll;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsPressBookmarkedCard;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSavedCategory;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsPressCardSaved;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamCategoryName;
 
 FOUNDATION_EXPORT const NSString* AnalyticsEventsSearchType;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSearchResult;
@@ -71,7 +73,11 @@ FOUNDATION_EXPORT const NSString* AnalyticsEventsMapSearchType;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsMapPressSearchResult;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsParamMapFilterCheck;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSavedCategory;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsLifeTimeHomeScreen;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsLifeTimeDetailsScreen;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsLifeTimeFullMapScreen;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsParamTimeInterval;
 
+FOUNDATION_EXPORT const NSString* AnalyticsEventsGalleryPictureView;
 
 NS_ASSUME_NONNULL_END

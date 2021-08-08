@@ -11,7 +11,7 @@
 @interface AnalyticsUIScrollViewDelegate()
 
 @property (assign, nonatomic) BOOL scrolledToEnd;
-@property (strong, nonatomic) void(^onScrollEnd)(void);
+@property (copy, nonatomic) void(^onScrollEnd)(void);
 
 @end
 

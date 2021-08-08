@@ -29,6 +29,7 @@
 #import "RefreshButton.h"
 #import "AnalyticsEvents.h"
 #import "ScrollViewUtils.h"
+#import "AnalyticsTimeTracer.h"
 
 @interface IndexViewController ()
 
@@ -53,6 +54,7 @@
 @property (strong, nonatomic) NSLayoutConstraint *yPosition;
 @property (strong, nonatomic) UINavigationBar *navigationBar;
 @property (assign, nonatomic) BOOL scrolledToEnd;
+@property (strong, nonatomic) AnalyticsTimeTracer *timeTracer;
 
 @end
 
@@ -200,6 +202,8 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
     [self.model addObserver:self];
     [self.model addObserverBookmarks:self];
     [self.model loadCategories];
+    self.timeTracer = [[AnalyticsTimeTracer alloc]
+                   initWithEventName:AnalyticsEventsLifeTimeHomeScreen];
 }
 
 - (void)showRefreshButton:(BOOL)show {
@@ -248,14 +252,20 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 #pragma mark - Lifecycle
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self fillNavigationListeners:self.model.randomizedCategories];
-    [self fillNavigationListeners:self.model.categories];
+  [self fillNavigationListeners:self.model.randomizedCategories];
+  [self fillNavigationListeners:self.model.categories];
+  [self.timeTracer traceStart];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenHome];
   [self.navigationItem setBackBarButtonItem:self.originalBackButtonItem];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  [self.timeTracer traceEnd];
 }
 
 - (void)onSearchPress:(id)sender {
@@ -375,7 +385,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 - (void)fillNavigationListeners:(NSArray<Category *> *)categories {
     __weak typeof(self) weakSelf = self;
     [categories enumerateObjectsUsingBlock:^(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        __weak typeof(obj) weakCategory = obj;
+        __weak typeof(obj) weakParentCategory = obj;
         obj.onAllButtonPress = ^void() {
             PlacesViewController *placesViewController =
             [[PlacesViewController alloc] initWithIndexModel:weakSelf.model
@@ -386,7 +396,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                                locationModel:weakSelf.locationModel
                                                  searchModel:weakSelf.searchModel
                                                   bookmarked:NO allowedItemUUIDs:nil];
-            Category *foundCategory = weakSelf.model.flatCategories[weakCategory.uuid];
+            Category *foundCategory = weakSelf.model.flatCategories[weakParentCategory.uuid];
             placesViewController.category = foundCategory;
             [weakSelf.navigationController pushViewController:placesViewController animated:YES];
             [[AnalyticsEvents get] logEvent:AnalyticsEventsSeeAll withParams:@{
@@ -410,7 +420,8 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                 placesViewController.category = weakCategory;
                 [weakSelf.navigationController pushViewController:placesViewController animated:YES];
                 [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
-                    AnalyticsEventsParamCardName:weakCategory.title
+                    AnalyticsEventsParamCardName:weakCategory.title,
+                    AnalyticsEventsParamCardCategory:weakParentCategory.title,
                 }];
             };
         }];
@@ -428,6 +439,10 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                                       searchModel:weakSelf.searchModel];
                 detailsController.item = weakPlaceItem;
                 [weakSelf.navigationController pushViewController:detailsController animated:YES];
+                [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
+                    AnalyticsEventsParamCardName:weakPlaceItem.title,
+                    AnalyticsEventsParamCardCategory:weakParentCategory.title,
+                }];
             };
             placeItem.onFavoriteButtonPress = ^void() {
               [weakSelf.model bookmarkItem:weakPlaceItem

@@ -200,6 +200,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         [self.navigationController pushViewController:placesViewController animated:YES];
         [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
             AnalyticsEventsParamCardName:category.title,
+            AnalyticsEventsParamCardCategory:self.category.title,
         }];
         return;
     }
@@ -221,9 +222,16 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                                           searchModel:self.searchModel];
     detailsController.item = item;
     [self.navigationController pushViewController:detailsController animated:YES];
+    if (self.bookmarked) {
+      [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCardSaved withParams:@{
+          AnalyticsEventsParamCardName:item.title,
+          AnalyticsEventsParamCardCategory:self.category.title,
+      }];
+      return;
+    }
     [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
         AnalyticsEventsParamCardName:item.title,
-        AnalyticsEventsParamCardCategory:item.category.title,
+        AnalyticsEventsParamCardCategory:self.category.title,
     }];
 }
 

@@ -64,7 +64,9 @@ const NSString* AnalyticsEventsSaveCard = @"home_feed_save_card_event";
 const NSString* AnalyticsEventsUnsaveCard = @"home_feed_unsave_card_event";
 const NSString* AnalyticsEventsSeeAll = @"home_feed_see_all_event";
 
-const NSString* AnalyticsEventsPressBookmarkedCard = @"saved_category_event";
+const NSString* AnalyticsEventsPressSavedCategory = @"saved_category_event";
+const NSString* AnalyticsEventsPressCardSaved = @"saved_card_event";
+const NSString* AnalyticsEventsParamCategoryName = @"param_category_name";
 
 const NSString* AnalyticsEventsSearchType = @"home_search_result_event";
 const NSString* AnalyticsEventsPressSearchResult = @"home_search_select_event";
@@ -100,4 +102,13 @@ const NSString* AnalyticsEventsMapSearchType = @"map_search_result_event";
 const NSString* AnalyticsEventsMapPressSearchResult = @"map_search_select_event";
 const NSString* AnalyticsEventsParamMapFilterCheck = @"param_map_filter_check";
 
-const NSString* AnalyticsEventsPressSavedCategory = @"saved_category_event";
+const NSString* AnalyticsEventsLifeTimeHomeScreen = @"home_lifetime";
+const NSString* AnalyticsEventsLifeTimeDetailsScreen = @"card_details_lifetime";
+const NSString* AnalyticsEventsLifeTimeFullMapScreen = @"map_lifetime";
+
+const NSString* AnalyticsEventsParamTimeInterval = @"param_time_interval";
+
+const NSString* AnalyticsEventsGalleryPictureView = @"card_details_switch_photo";
+
+
+
