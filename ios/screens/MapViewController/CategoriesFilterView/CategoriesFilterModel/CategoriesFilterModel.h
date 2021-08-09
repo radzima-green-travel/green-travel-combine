@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectOption:(FilterOption *)option;
 - (void)selectOptionForPlaceItem:(PlaceItem *)item;
 - (BOOL)optionSelectedForPlaceItem:(PlaceItem *)item;
+- (void)selectOptionAll:(BOOL)on;
 
 @end
 

@@ -1239,6 +1239,7 @@
 				A6F1B229AF36466B86D337BD /* Upload Debug Symbols to Sentry */,
 				232E4E6A7E500C6AEB7514AB /* [CP] Embed Pods Frameworks */,
 				FE1F99B95C822BA4D8029599 /* [CP] Copy Pods Resources */,
+				5A0FAF6826BC09880041101C /* Upload Debug Symbols to Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1384,6 +1385,26 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		5A0FAF6826BC09880041101C /* Upload Debug Symbols to Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Upload Debug Symbols to Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		A6F1B229AF36466B86D337BD /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;

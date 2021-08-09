@@ -74,6 +74,10 @@ static const CGFloat kSpacingWidth = 16.0;
     return [self.model.filterOptions count] == 0;
 }
 
+- (void)selectOptionAll:(BOOL)on {
+  [self.model selectOptionAll:on];
+}
+
 #pragma mark - Collection view
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;

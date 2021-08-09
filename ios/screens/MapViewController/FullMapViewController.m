@@ -465,5 +465,8 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   }];
 }
 
+- (void)scrollToTop {
+  [self.filterView selectOptionAll:YES];
+}
 
 @end
