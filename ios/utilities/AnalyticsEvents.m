@@ -47,22 +47,24 @@ static AnalyticsEvents *instance;
 
 @end
 
+const NSString* AnalyticsEventsUserPropertyFramework = @"user_property_framework";
+
 const NSString* AnalyticsEventsNaviMain = @"navi_home_event";
 const NSString* AnalyticsEventsNaviMap = @"navi_map_event";
 const NSString* AnalyticsEventsNaviBookmarks = @"navi_bookmarks_event";
 
-const NSString* AnalyticsEventsScreenHome = @"screen_home_feed_event";
+const NSString* AnalyticsEventsScreenHome = @"view_home_event";
+const NSString* AnalyticsEventsScreenBookmarks = @"view_bookmarks_event";
+const NSString* AnalyticsEventsScreenMapFull = @"view_map_event";
+const NSString* AnalyticsEventsScreenDetails = @"view_details_event";
 const NSString* AnalyticsEventsScreenMapItem = @"screen_map_feed_event";
-const NSString* AnalyticsEventsScreenBookmarks = @"screen_bookmarks_feed_event";
-const NSString* AnalyticsEventsScreenMapFull = @"screen_map_all_event";
-const NSString* AnalyticsEventsScreenDetails = @"screen_details_event";
 const NSString* AnalyticsEventsParamCardName = @"param_card_name";
 const NSString* AnalyticsEventsParamCardCategory = @"param_card_category";
 
-const NSString* AnalyticsEventsPressCard = @"home_feed_card_event";
-const NSString* AnalyticsEventsSaveCard = @"home_feed_save_card_event";
-const NSString* AnalyticsEventsUnsaveCard = @"home_feed_unsave_card_event";
-const NSString* AnalyticsEventsSeeAll = @"home_feed_see_all_event";
+const NSString* AnalyticsEventsPressCard = @"home_card_event";
+const NSString* AnalyticsEventsSaveCard = @"home_save_card_event";
+const NSString* AnalyticsEventsUnsaveCard = @"home_unsave_card_event";
+const NSString* AnalyticsEventsSeeAll = @"home_see_all_event";
 
 const NSString* AnalyticsEventsPressSavedCategory = @"saved_category_event";
 const NSString* AnalyticsEventsPressCardSaved = @"saved_card_event";
@@ -73,11 +75,11 @@ const NSString* AnalyticsEventsPressSearchResult = @"home_search_select_event";
 const NSString* AnalyticsEventsParamSearchQuery=@"param_search_query";
 
 const NSString* AnalyticsEventsTimeSpentInActiveState = @"time_active_event";
-const NSString* AnalyticsEventsParamFramework = @"param_framework";
 
 const NSString* AnalyticsEventsDetailsSave = @"card_details_save_event";
 const NSString* AnalyticsEventsDetailsUnsave = @"card_details_unsave_event";
-const NSString* AnalyticsEventsDetailsOpenMap = @"card_details_open_in_map_event";
+const NSString* AnalyticsEventsDetailsOpenMap = @"card_details_map_event";
+const NSString* AnalyticsEventsDetailsScrollToEnd = @"card_details_scroll";
 const NSString* AnalyticsEventsPressCoords = @"card_details_coordinates_event";
 const NSString* AnalyticsEventsDetailsBack = @"card_details_close_event";
 const NSString* AnalyticsEventsParamLinkType = @"param_link_type";

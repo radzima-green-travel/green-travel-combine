@@ -19,6 +19,8 @@
 #import "RotationLockUtility.h"
 #import "UserDefaultsServiceConstants.h"
 @import Amplitude;
+#import <react-native-ultimate-config/ConfigValues.h>
+#import "AnalyticsEvents.h"
 
 // #ifdef FB_SONARKIT_ENABLED
 // #import <FlipperKit/FlipperClient.h>
@@ -126,25 +128,23 @@
 }
 
 - (void)showNativeViewController {
-    [Amplitude instance].trackingSessionEvents = YES;
-    [[Amplitude instance] initializeApiKey:@"27068fbb56c4484098731da880a466de"];
-    NSString *userId = [self.userDefaultsService loadUserId];
-    if (userId == nil) {
-      [self.userDefaultsService saveUserId:[NSUUID UUID].UUIDString];
-    }
-    [[Amplitude instance] setUserId:[self.userDefaultsService loadUserId]];
+  [Amplitude instance].trackingSessionEvents = YES;
+  [[Amplitude instance] initializeApiKey:AMPLITUDE_KEY];
+  [[Amplitude instance] setUserProperties:@{
+    AnalyticsEventsUserPropertyFramework: [self.userDefaultsService loadFrameworkValue]
+  }];
   
-    MainViewController *mainViewController = [[MainViewController alloc] init];
-    [self addChildViewController:mainViewController];
-    mainViewController.view.frame = self.view.bounds;
-    [self.view addSubview:mainViewController.view];
-    [mainViewController didMoveToParentViewController:self];
-    
-    [self.current willMoveToParentViewController:nil];
-    [self.current.view removeFromSuperview];
-    [self.current removeFromParentViewController];
-    
-    self.current = mainViewController;
+  MainViewController *mainViewController = [[MainViewController alloc] init];
+  [self addChildViewController:mainViewController];
+  mainViewController.view.frame = self.view.bounds;
+  [self.view addSubview:mainViewController.view];
+  [mainViewController didMoveToParentViewController:self];
+  
+  [self.current willMoveToParentViewController:nil];
+  [self.current.view removeFromSuperview];
+  [self.current removeFromParentViewController];
+  
+  self.current = mainViewController;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {

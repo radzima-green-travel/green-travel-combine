@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SearchModel;
 @class MapService;
 
-@interface DetailsViewController : UIViewController <BookmarksObserver, CategoriesObserver, UIScrollViewDelegate>
+@interface DetailsViewController : UIViewController <BookmarksObserver, CategoriesObserver>
 
 - (instancetype)initWithApiService:(ApiService *)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService

@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+FOUNDATION_EXPORT const NSString* AnalyticsEventsUserPropertyFramework;
+
 FOUNDATION_EXPORT const NSString* AnalyticsEventsNaviMain;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsNaviMap;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsNaviBookmarks;
@@ -44,11 +46,11 @@ FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSearchResult;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsParamSearchQuery;
 
 FOUNDATION_EXPORT const NSString* AnalyticsEventsTimeSpentInActiveState;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamFramework;
 
 FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsSave;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsUnsave;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsOpenMap;
+FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsScrollToEnd;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsPressCoords;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsBack;
 FOUNDATION_EXPORT const NSString* AnalyticsEventsParamLinkType;
