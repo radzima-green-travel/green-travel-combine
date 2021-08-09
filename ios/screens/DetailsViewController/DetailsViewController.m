@@ -62,7 +62,6 @@
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerShowAnimator;
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerHideAnimator;
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextTopAnchor;
-@property (assign, nonatomic) BOOL scrolledToEnd;
 
 @property (assign, nonatomic) BOOL ready;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -143,7 +142,7 @@
         [self.contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor]
     ]];
     self.analyticsScrollDelegate = [[AnalyticsUIScrollViewDelegate alloc] initWithOnScrollEnd:^{
-      [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenDetails withParams:@{
+      [[AnalyticsEvents get] logEvent:AnalyticsEventsDetailsScrollToEnd withParams:@{
         AnalyticsEventsParamCardName: self.item.title,
         AnalyticsEventsParamCardCategory: self.item.category.title,
       }];
@@ -156,7 +155,8 @@
                                                      imageURLs:self.item.details.images
                                                   onPageChange:^{
       [[AnalyticsEvents get] logEvent:AnalyticsEventsGalleryPictureView withParams:@{
-        AnalyticsEventsParamCardName: weakSelf.item.title 
+        AnalyticsEventsParamCardName: weakSelf.item.title,
+        AnalyticsEventsParamCardCategory: weakSelf.item.category.title
       }];
     }];
     self.imageGalleryView.translatesAutoresizingMaskIntoConstraints = NO;

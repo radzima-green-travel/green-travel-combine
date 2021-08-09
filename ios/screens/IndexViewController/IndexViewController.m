@@ -53,7 +53,6 @@
 @property (strong, nonatomic) RefreshButton *refreshButton;
 @property (strong, nonatomic) NSLayoutConstraint *yPosition;
 @property (strong, nonatomic) UINavigationBar *navigationBar;
-@property (assign, nonatomic) BOOL scrolledToEnd;
 @property (strong, nonatomic) AnalyticsTimeTracer *timeTracer;
 
 @end
@@ -480,13 +479,6 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 - (void)scrollToTop {
   [self.tableView setContentOffset:CGPointZero animated:YES];
   [self scrollItemsToLeft];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-  if (scrolledToEnd(self.tableView) && !self.scrolledToEnd && [self.model.randomizedCategories count]) {
-    self.scrolledToEnd = YES;
-    [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenHome];
-  }
 }
 
 @end

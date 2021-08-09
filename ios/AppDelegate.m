@@ -8,13 +8,9 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
-#import "UserDefaultsService.h"
-#import "AnalyticsEvents.h"
 @import Firebase;
 
 @interface AppDelegate ()
-
-@property (assign, nonatomic) NSTimeInterval applicationDidBecomeActiveTS;
 
 @end
 
@@ -35,20 +31,6 @@
     [(RootViewController *) self.window.rootViewController loadCategories];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-  self.applicationDidBecomeActiveTS = [[[NSDate alloc] init] timeIntervalSince1970];
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-  NSTimeInterval nowTS = [[[NSDate alloc] init] timeIntervalSince1970];
-  NSTimeInterval timeSpentInActiveState = nowTS - self.applicationDidBecomeActiveTS;
-  NSString *framework = [[UserDefaultsService get] loadFrameworkValue];
-  [[AnalyticsEvents get] logEvent:AnalyticsEventsTimeSpentInActiveState
-                       withParams:@{
-    AnalyticsEventsParamFramework: framework
-  }];
-  NSLog(@"Time in active state: %f", timeSpentInActiveState);
-}
 
 #pragma mark - Core Data stack
 
@@ -63,7 +45,7 @@
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    
+
                     /*
                      Typical reasons for an error here include:
                      * The parent directory does not exist, cannot be created, or disallows writing.
@@ -78,7 +60,7 @@
             }];
         }
     }
-    
+
     return _persistentContainer;
 }
 
