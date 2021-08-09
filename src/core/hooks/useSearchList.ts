@@ -2,6 +2,7 @@ import {addObjectToSearchHistory, setSearchInputValue} from 'core/reducers';
 import {
   selectSearchHistory,
   selectSearchInputValue,
+  selectIsHistoryVisible,
   selectSearchResults,
   selectSearchResultsWithLocation,
   selectSearchHistoryWithLocation,
@@ -22,7 +23,7 @@ export function useSearchList({
   );
   const inputValue = useSelector(selectSearchInputValue);
 
-  const isHistoryVisible = !inputValue;
+  const isHistoryVisible = useSelector(selectIsHistoryVisible);
   const data = isHistoryVisible ? history : searchResults;
 
   const addToHistory = useCallback(

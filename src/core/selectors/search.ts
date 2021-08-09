@@ -8,6 +8,16 @@ import {isLocationExist} from 'core/helpers';
 export const selectSearchInputValue = (state: IState) =>
   state.search.inputValue;
 
+export const selectSearchInputForSearch = createSelector(
+  selectSearchInputValue,
+  inputValue => inputValue.trim(),
+);
+
+export const selectIsHistoryVisible = createSelector(
+  selectSearchInputForSearch,
+  inputValue => !inputValue,
+);
+
 export const selectSearchHistory = createSelector<
   IState,
   string[],
@@ -43,7 +53,7 @@ export const selectSearchResults = createSelector<
   IObject[]
 >(
   selectTransformedData,
-  selectSearchInputValue,
+  selectSearchInputForSearch,
   (transformedData, inputValue) => {
     return transformedData
       ? orderBy(
@@ -65,7 +75,6 @@ export const selectSearchResults = createSelector<
 
 export const selectSearchResultsWithLocation = createSelector<
   IState,
-  ITransformedData | null,
   IObject[],
   IObject[]
 >(selectSearchResults, searchResults => filter(searchResults, isLocationExist));
