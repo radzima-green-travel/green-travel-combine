@@ -28,7 +28,7 @@
     "husky": "^4.2.5",
     "i18next": "^19.5.1",
     "lint-staged": "^10.2.11",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "react": "17.0.1",
     "react-i18next": "^11.7.0",
     "react-native": "0.64.2",
