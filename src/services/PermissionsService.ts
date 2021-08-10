@@ -15,30 +15,22 @@ class PermissionsService {
 
     if (status === RESULTS.BLOCKED || status === RESULTS.UNAVAILABLE) {
       if (status === RESULTS.BLOCKED) {
-        Alert.alert(
-          i18n.t('common:locationPermissionTitle'),
-          i18n.t('common:locationPermissionText'),
-
-          [
-            {
-              text: i18n.t('common:locationPermissionCancel'),
-              style: 'cancel',
+        Alert.alert(i18n.t('common:locationPermissionText'), '', [
+          {
+            text: i18n.t('common:locationPermissionCancel'),
+            style: 'cancel',
+          },
+          {
+            text: i18n.t('common:locationPermissionSetttings'),
+            onPress: () => {
+              Linking.openURL('app-settings:');
             },
-            {
-              text: i18n.t('common:locationPermissionSetttings'),
-              onPress: () => {
-                Linking.openURL('app-settings:');
-              },
-            },
-          ],
-        );
+          },
+        ]);
       }
 
       if (status === RESULTS.UNAVAILABLE) {
-        Alert.alert(
-          i18n.t('common:locationPermissionTitle'),
-          i18n.t('common:locationPermissionTextDevice'),
-        );
+        Alert.alert(i18n.t('common:locationPermissionText'));
       }
 
       return false;
@@ -52,23 +44,18 @@ class PermissionsService {
   async checkLocationPermissionAndroid() {
     const status = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
     if (status === 'blocked') {
-      Alert.alert(
-        i18n.t('common:locationPermissionTitle'),
-        i18n.t('common:locationPermissionText'),
-
-        [
-          {
-            text: i18n.t('common:locationPermissionCancel'),
-            style: 'cancel',
+      Alert.alert(i18n.t('common:locationPermissionText'), '', [
+        {
+          text: i18n.t('common:locationPermissionCancel'),
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('common:locationPermissionSetttings'),
+          onPress: () => {
+            openSettings();
           },
-          {
-            text: i18n.t('common:locationPermissionSetttings'),
-            onPress: () => {
-              openSettings();
-            },
-          },
-        ],
-      );
+        },
+      ]);
 
       return false;
     }
@@ -79,10 +66,7 @@ class PermissionsService {
       } = await NativeModules.LocationProvidersModule.getAvailableLocationProviders();
 
       if (!gps) {
-        Alert.alert(
-          i18n.t('common:locationPermissionTitle'),
-          i18n.t('common:locationPermissionTextDevice'),
-        );
+        Alert.alert(i18n.t('common:locationPermissionText'));
 
         return false;
       }
