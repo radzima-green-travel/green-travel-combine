@@ -453,10 +453,6 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                      AnalyticsEventsParamCardCategory:weakPlaceItem.category.title,
                                    }];
             };
-            [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{
-                AnalyticsEventsParamCardName:placeItem.title,
-                AnalyticsEventsParamCardCategory:placeItem.category.title,
-            }];
         }];
     }];
 }
