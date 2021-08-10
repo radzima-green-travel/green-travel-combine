@@ -17,11 +17,10 @@
     },
     "tryAgain": "Попробовать еще раз",
     "coppied": "Скопировано",
-    "locationPermissionTitle": "Нет доступа к локации",
-    "locationPermissionText": "Предоставьте доступ к Геолокации в настройках что бы определить вашу позицию",
-    "locationPermissionCancel": "Отмена",
-    "locationPermissionSetttings": "Настройки",
-    "locationPermissionTextDevice": "Включите Сервисы Геолокации в настройках телефона что бы определить вашу позицию",
+    "locationPermissionFirstRequest": "Разрешить приложению Radzima доступ к данным о местоположении устройства",
+    "locationPermissionText": "Предоставьте доступ к Геолокации в настройках, чтобы отпределить Вашу позицию",
+    "locationPermissionCancel": "Отменить",
+    "locationPermissionSetttings": "Настройки" 
   },
   "home":{
     "headerTitle": "Главная",
