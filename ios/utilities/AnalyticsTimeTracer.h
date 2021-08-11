@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AnalyticsTimeTracer : NSObject
 
 - (instancetype)initWithEventName:(NSString *)eventName;
+- (instancetype)initWithEventName:(NSString *)eventName
+                       withParams:(NSDictionary *)params;
 - (void)traceStart;
 - (void)traceEnd;
 

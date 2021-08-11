@@ -141,16 +141,16 @@
         [self.contentView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
         [self.contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor]
     ]];
+    __weak typeof(self) weakSelf = self;
     self.analyticsScrollDelegate = [[AnalyticsUIScrollViewDelegate alloc] initWithOnScrollEnd:^{
       [[AnalyticsEvents get] logEvent:AnalyticsEventsDetailsScrollToEnd withParams:@{
-        AnalyticsEventsParamCardName: self.item.title,
-        AnalyticsEventsParamCardCategory: self.item.category.title,
+        AnalyticsEventsParamCardName: weakSelf.item.title,
+        AnalyticsEventsParamCardCategory: weakSelf.item.category.title,
       }];
     }];
     self.scrollView.delegate = self.analyticsScrollDelegate;
 
     #pragma mark - Gallery
-    __weak typeof(self) weakSelf = self;
     self.imageGalleryView = [[GalleryView alloc] initWithFrame:CGRectZero
                                                      imageURLs:self.item.details.images
                                                   onPageChange:^{
@@ -332,12 +332,15 @@
 #pragma mark - Load data
     [self updateMainContent:self.item.details];
     if (!self.ready) {
-        [self.activityIndicatorView startAnimating];
-        [self.activityIndicatorView setHidden:NO];
+      [self.activityIndicatorView startAnimating];
+      [self.activityIndicatorView setHidden:NO];
     }
-  
+    
     self.timeTracer = [[AnalyticsTimeTracer alloc] initWithEventName:
-                       AnalyticsEventsLifeTimeDetailsScreen];
+                       AnalyticsEventsLifeTimeDetailsScreen withParams:@{
+                         AnalyticsEventsParamCardName: self.item.title,
+                         AnalyticsEventsParamCardCategory: self.item.category.title,
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
