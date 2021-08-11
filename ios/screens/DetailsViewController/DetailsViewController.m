@@ -484,9 +484,6 @@
                                    selector:@selector(onBannerTimerFire:)
                                    userInfo:nil
                                     repeats:NO];
-    [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCoords withParams:@{
-      AnalyticsEventsParamLinkType: coordsText,
-    }];
 }
 
 - (void)cancelBanner {
