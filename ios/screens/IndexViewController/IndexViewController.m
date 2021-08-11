@@ -404,9 +404,9 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
         };
         [weakSelf fillNavigationListeners:obj.categories];
         
-        [obj.categories enumerateObjectsUsingBlock:^(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            __weak typeof(obj) weakCategory = obj;
-            obj.onPlaceCellPress = ^void() {
+        [obj.categories enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
+            __weak typeof(category) weakCategory = category;
+            category.onPlaceCellPress = ^void() {
                 PlacesViewController *placesViewController =
                 [[PlacesViewController alloc] initWithIndexModel:weakSelf.model
                                                       apiService:weakSelf.apiService
