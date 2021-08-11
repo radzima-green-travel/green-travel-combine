@@ -131,7 +131,7 @@
   [Amplitude instance].trackingSessionEvents = YES;
   [[Amplitude instance] initializeApiKey:AMPLITUDE_KEY];
   [[Amplitude instance] setUserProperties:@{
-    AnalyticsEventsUserPropertyFramework: [self.userDefaultsService loadFrameworkValue]
+    AnalyticsEventsUserPropertyFramework: UserDefaultsServiceConstantsFrameworkUIKit
   }];
   
   MainViewController *mainViewController = [[MainViewController alloc] init];
