@@ -339,26 +339,26 @@ PODS:
     - React
   - react-native-geolocation-service (5.0.0):
     - React
-  - react-native-mapbox-gl (8.2.1):
+  - react-native-mapbox-gl (8.2.0-beta1):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
-    - react-native-mapbox-gl/DynamicLibrary (= 8.2.1)
-    - react-native-mapbox-gl/StaticLibraryFixer (= 8.2.1)
-  - react-native-mapbox-gl/DynamicLibrary (8.2.1):
+    - react-native-mapbox-gl/DynamicLibrary (= 8.2.0-beta1)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.2.0-beta1)
+  - react-native-mapbox-gl/DynamicLibrary (8.2.0-beta1):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
-  - react-native-mapbox-gl/StaticLibraryFixer (8.2.1):
+  - react-native-mapbox-gl/StaticLibraryFixer (8.2.0-beta1):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
   - react-native-safe-area-context (3.0.7):
     - React
-  - react-native-ultimate-config (3.3.4):
+  - react-native-ultimate-config (3.2.3):
     - React
-  - react-native-webview (10.10.2):
-    - React-Core
+  - react-native-webview (10.9.0):
+    - React
   - React-perflogger (0.64.2)
   - React-RCTActionSheet (0.64.2):
     - React-Core/RCTActionSheetHeaders (= 0.64.2)
@@ -655,7 +655,7 @@ SPEC CHECKSUMS:
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: 0640a63756b4924b947f70bec3cc7a3b77947ce2
+  FBReactNativeSpec: ba383d94edfdad65d35efd1d7877891fb8ab273c
   Firebase: d59ad4129167f9f0d2a4f6c1f0c462254b6002c8
   FirebaseABTesting: 44acbfc9db915bca8f111ebae342da6fd4f1cc55
   FirebaseAnalytics: 3b98b563d7d64c07900511198b4805cfd9f9f61c
@@ -692,10 +692,10 @@ SPEC CHECKSUMS:
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
-  react-native-mapbox-gl: 8cdd3bc47a3acd3c1a5c4cff5fd48b6a0e385dfc
+  react-native-mapbox-gl: 2733dbd037199e0484a5b4ba945488de6023b914
   react-native-safe-area-context: ef6f16c66b0797ecae1bf86c103dfb3dc16fc33d
-  react-native-ultimate-config: ce215b54420306a82821895649463b00d01b9b2f
-  react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
+  react-native-ultimate-config: 429433ed406d1c0d18b72b169dc99702d7180214
+  react-native-webview: bfe5436586b214759bd5043658863549fffc8e92
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
   React-RCTAnimation: 6a2e76ab50c6f25b428d81b76a5a45351c4d77aa

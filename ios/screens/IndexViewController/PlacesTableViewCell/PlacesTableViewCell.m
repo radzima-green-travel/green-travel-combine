@@ -170,7 +170,7 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
     NSLog(@"Did select item at index path: %@", indexPath);
     if ([self.dataSourceCategories count] > 0) {
         Category *category = self.dataSourceCategories[indexPath.row];
-        category.onAllButtonPress();
+        category.onPlaceCellPress();
         return;
     }
     
