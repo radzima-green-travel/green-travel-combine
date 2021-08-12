@@ -48,7 +48,7 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
-import {featureCollection} from '@turf/helpers';
+
 import {mapService} from 'services/MapService';
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
@@ -59,7 +59,6 @@ export const AppMap = ({navigation}: IProps) => {
 
   const selectedFilters = useSelector(selectSelectedFilters);
   const {getObject} = useTransformedData();
-  const [clusterMarkers, setClusterMarkers] = useState(featureCollection([]));
   const {top} = useSafeAreaInsets();
 
   const bounds = useMemo(() => {
@@ -72,14 +71,6 @@ export const AppMap = ({navigation}: IProps) => {
 
     return null;
   }, [markers, top]);
-
-  useEffect(() => {
-    if (markers) {
-      setTimeout(() => {
-        setClusterMarkers(markers);
-      }, 0);
-    }
-  }, [markers]);
 
   const setSelectedMarkerId = useCallback(
     (objectId: string) => {
@@ -223,16 +214,18 @@ export const AppMap = ({navigation}: IProps) => {
         {userLocationProps.visible ? (
           <MapBox.UserLocation {...userLocationProps} />
         ) : null}
-        <ClusterMapShape markers={clusterMarkers} />
+        {markers ? <ClusterMapShape markers={markers} /> : null}
 
-        <MapBox.ShapeSource
-          id={'selectedPointShapeSource'}
-          shape={selectedMarker}>
-          <MapBox.SymbolLayer
-            id={'selectedPoint'}
-            style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
-          />
-        </MapBox.ShapeSource>
+        {selectedMarker ? (
+          <MapBox.ShapeSource
+            id={'selectedPointShapeSource'}
+            shape={selectedMarker}>
+            <MapBox.SymbolLayer
+              id={'selectedPoint'}
+              style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
+            />
+          </MapBox.ShapeSource>
+        ) : null}
       </ClusterMap>
       <Portal>
         <AppMapBottomMenu

@@ -59,7 +59,7 @@ export const selectMapMarkers = createSelector<
   IState,
   ITransformedData | null,
   IMapFilter[],
-  FeatureCollection<Geometry, {icon_image: string; objectId: string}>
+  FeatureCollection<Geometry, {icon_image: string; objectId: string}> | null
 >(selectTransformedData, selectSelectedFilters, (transformedData, filters) => {
   const points = transformedData
     ? compact(
@@ -82,9 +82,9 @@ export const selectMapMarkers = createSelector<
           return null;
         }),
       )
-    : [];
+    : null;
 
-  return featureCollection(points);
+  return points ? featureCollection(points) : null;
 });
 
 export const selectSelectedMapMarker = createSelector<
