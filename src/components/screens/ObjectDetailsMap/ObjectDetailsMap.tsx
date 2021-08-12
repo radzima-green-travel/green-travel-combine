@@ -1,7 +1,11 @@
 import {ClusterMap, Portal} from 'atoms';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
-import {InteractionManager, View} from 'react-native';
-import MapBox from '@react-native-mapbox-gl/maps';
+import {InteractionManager, StyleProp, View} from 'react-native';
+import MapBox, {
+  FillLayerStyle,
+  LineLayerStyle,
+  SymbolLayerStyle,
+} from '@react-native-mapbox-gl/maps';
 import {IProps} from './types';
 import {
   selectIsDirectionShowed,
@@ -101,7 +105,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
   const centerCoordinate = useMemo(() => {
     if (data) {
-      return [data.location.lon, data.location.lat];
+      return [data.location?.lon!, data.location?.lat!];
     }
 
     return null;
@@ -120,12 +124,13 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   const onMenuButtonPress = useCallback(
     async (obj: IObject) => {
       const {location, name} = obj;
-      const point = [location.lon, location.lat];
+      const point = [location!.lon!, location!.lat!];
 
       if (isDirectionShowed) {
         showLocation({
-          latitude: location.lat,
-          longitude: location.lon,
+          latitude: location!.lat!,
+          longitude: location!.lon!,
+          googleForceLatLon: true,
           title: name,
           alwaysIncludeGoogle: true,
           dialogTitle: t('actionSheetTitle'),
@@ -159,7 +164,12 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
   const onBackPress = useCallback(() => {
     bottomMenu.current?.hide();
-    dispatch(clearObjectDetailsMapDirection());
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearObjectDetailsMapDirection());
+    };
   }, [dispatch]);
 
   const onMarkerPress = useCallback(
@@ -169,7 +179,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         if (bounds) {
           camera.current?.fitBounds(...bounds);
         } else {
-          const coordinates = [object.location.lon, object.location.lat];
+          const coordinates = [object.location?.lon!, object.location?.lat!];
           camera.current?.setCamera({
             centerCoordinate: coordinates,
             zoomLevel: 8,
@@ -198,21 +208,30 @@ export const ObjectDetailsMap = ({route}: IProps) => {
           <MapBox.ShapeSource id="directionSource" shape={direction}>
             <MapBox.LineLayer
               id="directionFill"
-              style={layersStyles.direction}
+              style={layersStyles.direction as StyleProp<LineLayerStyle>}
             />
           </MapBox.ShapeSource>
         ) : null}
 
         {data?.area ? (
           <MapBox.ShapeSource id="area" shape={data?.area}>
-            <MapBox.FillLayer id="areaFill" style={layersStyles.area} />
-            <MapBox.LineLayer id="areaStroke" style={layersStyles.areaStroke} />
+            <MapBox.FillLayer
+              id="areaFill"
+              style={layersStyles.area as StyleProp<FillLayerStyle>}
+            />
+            <MapBox.LineLayer
+              id="areaStroke"
+              style={layersStyles.areaStroke as StyleProp<LineLayerStyle>}
+            />
           </MapBox.ShapeSource>
         ) : null}
 
         {data?.routes ? (
           <MapBox.ShapeSource id="routeSource" shape={data?.routes}>
-            <MapBox.LineLayer id="routeFill" style={layersStyles.route} />
+            <MapBox.LineLayer
+              id="routeFill"
+              style={layersStyles.route as StyleProp<LineLayerStyle>}
+            />
           </MapBox.ShapeSource>
         ) : null}
 
@@ -222,7 +241,9 @@ export const ObjectDetailsMap = ({route}: IProps) => {
             <MapBox.ShapeSource id="objectPinSource" shape={dataShapeSource}>
               <MapBox.SymbolLayer
                 id="singlePoint"
-                style={layersStyles.objectDetailsPin}
+                style={
+                  layersStyles.objectDetailsPin as StyleProp<SymbolLayerStyle>
+                }
               />
             </MapBox.ShapeSource>
           </>

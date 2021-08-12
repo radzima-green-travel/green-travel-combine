@@ -32,10 +32,6 @@
     </intent>
     <intent>
       <action android:name="android.intent.action.VIEW" />
-      <data android:scheme="uber" />
-    </intent>
-    <intent>
-      <action android:name="android.intent.action.VIEW" />
       <data android:scheme="lyft" />
     </intent>
     <intent>
@@ -61,10 +57,6 @@
     <intent>
       <action android:name="android.intent.action.VIEW" />
       <data android:scheme="yandexmaps://maps.yandex." />
-    </intent>
-    <intent>
-      <action android:name="android.intent.action.VIEW" />
-      <data android:scheme="yandextaxi" />
     </intent>
     <intent>
       <action android:name="android.intent.action.VIEW" />

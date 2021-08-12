@@ -44,7 +44,7 @@ class PermissionsService {
   async checkLocationPermissionAndroid() {
     const status = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
     if (status === 'blocked') {
-      Alert.alert(i18n.t('common:locationPermissionText'), '', [
+      Alert.alert('', i18n.t('common:locationPermissionText'), [
         {
           text: i18n.t('common:locationPermissionCancel'),
           style: 'cancel',
@@ -66,7 +66,7 @@ class PermissionsService {
       } = await NativeModules.LocationProvidersModule.getAvailableLocationProviders();
 
       if (!gps) {
-        Alert.alert(i18n.t('common:locationPermissionText'));
+        Alert.alert('', i18n.t('common:locationPermissionText'));
 
         return false;
       }
