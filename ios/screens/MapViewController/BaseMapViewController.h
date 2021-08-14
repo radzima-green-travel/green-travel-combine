@@ -65,7 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)renderMap:(BOOL)initialLoad;
 - (void)cleanMap;
 - (void)onPopupShow:(BOOL)visible itemUUID:(NSString *)itemUUID;
-- (void)showUserLocation:(BOOL)show;
 
 @end
 
