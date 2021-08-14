@@ -57,6 +57,7 @@ static Colors *instance;
     self.searchModalNavigationBarTint = [UIColor colorNamed:@"searchModalNavigationBarTint"];
     self.categoryFilterCellBorder = [UIColor colorNamed:@"categoryFilterCellBorder"];
     self.photoCollectionViewCellBorder = [UIColor colorNamed:@"photoCollectionViewCellBorder"];
+    self.mapBackground = [UIColor colorNamed:@"mapBackground"];
   }
   return self;
 }

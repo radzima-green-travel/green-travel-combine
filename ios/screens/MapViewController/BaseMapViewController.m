@@ -72,7 +72,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
-  self.view.backgroundColor = [Colors get].background;
+  self.view.backgroundColor = [Colors get].mapBackground;
   configureNavigationBar(self.navigationController.navigationBar);
 }
 

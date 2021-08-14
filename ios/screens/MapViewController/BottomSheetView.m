@@ -53,7 +53,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   [self.recognizer setMaximumNumberOfTouches:1];
   [self addGestureRecognizer:self.recognizer];
   
-  self.layer.cornerRadius = 8.0;
+  self.layer.cornerRadius = 15.0;
   self.layer.masksToBounds= YES;
   self.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
