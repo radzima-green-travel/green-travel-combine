@@ -171,7 +171,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-  [self.mapViewState saveFromMapView:self.mapView];
+  [self.mapViewState saveWithMapView:self.mapView];
 }
 
 #pragma mark - viewDidDisappear
@@ -232,8 +232,6 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   if ([style sourceWithIdentifier:MapViewControllerSourceIdPoint] != nil) {
     [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdPoint]];
   }
-  [self.mapView setShowsUserLocation:NO];
-  [self.mapView setShowsUserHeadingIndicator:NO];
 }
 
 - (void)createMap {
@@ -283,20 +281,17 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   }
 }
 
-- (void)showUserLocation:(BOOL)show {
-  [self.mapView setShowsUserLocation:show];
-  [self.mapView setShowsHeading:show];
-  [self.mapViewState setShowLocation:show];
-}
-
 #pragma mark - Location model
+
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
   if (self.intentionToFocusOnUserLocation) {
     [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
                             zoomLevel:[self locateMeZoomLevel]
                              animated:YES];
-    
-    [self showUserLocation:YES];
+    [self.mapView setShowsUserLocation:NO];
+    [self.mapView setShowsHeading:NO];
+    [self.mapView setShowsUserLocation:YES];
+    [self.mapView setShowsHeading:YES];
     self.intentionToFocusOnUserLocation = NO;
   }
 }
@@ -316,7 +311,8 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted && self.locationModel.lastLocation) {
     [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
                             zoomLevel:[self locateMeZoomLevel] animated:YES];
-    [self showUserLocation:YES];
+    [self.mapView setShowsUserLocation:YES];
+    [self.mapView setShowsHeading:YES];
     return;
   }
   if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {

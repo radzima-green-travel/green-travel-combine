@@ -87,7 +87,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)renderMap:(BOOL)initialLoad {
   [self renderMapItem:self.mapItem style:self.mapView.style];
-  if (!(self.mapViewState.saved & MapViewStateSaveOptionZoomAndCenter)) {
+  if (!self.mapViewState.saved) {
     [self showAnnotations];
   }
 }
@@ -373,7 +373,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 }
 
 - (void)showDirections {
-  [self showUserLocation:YES];
+  [self.mapView setShowsUserLocation:YES];
+  [self.mapView setShowsHeading:YES];
 
   MGLPointFeature *location = [[MGLPointFeature alloc] init];
   location.coordinate = self.locationModel.lastLocation.coordinate;
