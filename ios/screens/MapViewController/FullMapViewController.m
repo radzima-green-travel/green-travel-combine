@@ -23,6 +23,7 @@
 #import "SearchModel.h"
 #import "ApiService.h"
 #import "CoreDataService.h"
+#import "Colors.h"
 #import "PlaceItem.h"
 #import "Category.h"
 #import "BottomSheetView.h"
@@ -35,6 +36,8 @@
 #import "AnalyticsEvents.h"
 #import "StringUtils.h"
 #import "AnalyticsTimeTracer.h"
+#import "BottomSheetPresentationController.h"
+#import "BottomSheetPresentationControllerTransitioningDelegate.h"
 
 @interface FullMapViewController ()
 
@@ -42,6 +45,7 @@
 @property(strong, nonatomic) UISelectionFeedbackGenerator *feedbackGenerator;
 @property(assign, nonatomic) BOOL shouldStopSearchZoom;
 @property(strong, nonatomic) AnalyticsTimeTracer *timeTracer;
+@property(strong, nonatomic) BottomSheetPresentationControllerTransitioningDelegate *bottomSheetDelegate;
 
 @end
 
@@ -74,6 +78,8 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   [self addFilterView];
   self.bottomSheet = [self addBottomSheet:MainViewControllerBottomSheetFullMap];
   self.timeTracer = [[AnalyticsTimeTracer alloc] initWithEventName:AnalyticsEventsLifeTimeFullMapScreen];
+  BottomSheetPresentationControllerTransitioningDelegate *bottomSheetDelegate = [[BottomSheetPresentationControllerTransitioningDelegate alloc] init];
+  self.bottomSheetDelegate = bottomSheetDelegate;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -460,6 +466,15 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
+  
+//  UIViewController *overlayViewController = [[UIViewController alloc] init];
+//  overlayViewController.view.backgroundColor = [Colors get].background;
+//  
+//  overlayViewController.transitioningDelegate = self.bottomSheetDelegate;
+//  overlayViewController.modalPresentationStyle = UIModalPresentationCustom;
+//  [self presentViewController:overlayViewController animated:YES completion:^{
+//  }];
+  
   [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onNavigatePress:^{
     DetailsViewController *detailsController =
     [[DetailsViewController alloc] initWithApiService:weakSelf.apiService

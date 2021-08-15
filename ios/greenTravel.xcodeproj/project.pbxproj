@@ -32,6 +32,9 @@
 		5A6DC56C2655B5C500A2D37B /* StoredCoordinate+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5672655B5C400A2D37B /* StoredCoordinate+CoreDataProperties.m */; };
 		5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5BE2659268700A2D37B /* CacheService.m */; };
 		5A6DC5D2265AAB3900A2D37B /* RoutesSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC5D1265AAB3900A2D37B /* RoutesSheetController.m */; };
+		5A6EDF8A26C93FB8001307DC /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6EDF8926C93FB8001307DC /* BottomSheetPresentationController.m */; };
+		5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6EDF8D26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m */; };
+		5A6EDF9226C9671C001307DC /* BottomSheetTouchForwardingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6EDF9126C9671C001307DC /* BottomSheetTouchForwardingView.m */; };
 		5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7759FF26064C6900CEFC78 /* AppDelegate.m */; };
 		5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */; };
 		5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A0826064C8E00CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m */; };
@@ -209,6 +212,12 @@
 		5A6DC5BE2659268700A2D37B /* CacheService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CacheService.m; sourceTree = "<group>"; };
 		5A6DC5D0265AAB3900A2D37B /* RoutesSheetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutesSheetController.h; sourceTree = "<group>"; };
 		5A6DC5D1265AAB3900A2D37B /* RoutesSheetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoutesSheetController.m; sourceTree = "<group>"; };
+		5A6EDF8826C93FB8001307DC /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
+		5A6EDF8926C93FB8001307DC /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
+		5A6EDF8C26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationControllerTransitioningDelegate.h; sourceTree = "<group>"; };
+		5A6EDF8D26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationControllerTransitioningDelegate.m; sourceTree = "<group>"; };
+		5A6EDF9026C9671C001307DC /* BottomSheetTouchForwardingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetTouchForwardingView.h; sourceTree = "<group>"; };
+		5A6EDF9126C9671C001307DC /* BottomSheetTouchForwardingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetTouchForwardingView.m; sourceTree = "<group>"; };
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A7759FF26064C6900CEFC78 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5A775A0626064C8E00CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -952,6 +961,12 @@
 				5A6DC5CE265AAAE900A2D37B /* ItemDetailsMapViewController */,
 				5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */,
 				5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */,
+				5A6EDF8826C93FB8001307DC /* BottomSheetPresentationController.h */,
+				5A6EDF8926C93FB8001307DC /* BottomSheetPresentationController.m */,
+				5A6EDF9026C9671C001307DC /* BottomSheetTouchForwardingView.h */,
+				5A6EDF9126C9671C001307DC /* BottomSheetTouchForwardingView.m */,
+				5A6EDF8C26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.h */,
+				5A6EDF8D26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m */,
 				5A2144B6266BEEBF00582901 /* MapViewControllerConstants.h */,
 				5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */,
 			);
@@ -1540,8 +1555,10 @@
 				5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */,
 				5A775B5126064C9000CEFC78 /* IndexModel.m in Sources */,
 				5A775E0D26077A7D00CEFC78 /* GalleryPageControl.m in Sources */,
+				5A6EDF9226C9671C001307DC /* BottomSheetTouchForwardingView.m in Sources */,
 				5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */,
 				5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */,
+				5A6EDF8A26C93FB8001307DC /* BottomSheetPresentationController.m in Sources */,
 				5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */,
 				5A775DFE26077A7D00CEFC78 /* CategoriesFilterSpacerCollectionViewCell.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
@@ -1549,6 +1566,7 @@
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
+				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
 				5A775B5E26064C9000CEFC78 /* PathDetails.m in Sources */,
 				5A775E0226077A7D00CEFC78 /* CategoriesFilterCollectionViewCell.m in Sources */,

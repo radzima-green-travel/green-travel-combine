@@ -52,7 +52,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
   [self.recognizer setMaximumNumberOfTouches:1];
   [self addGestureRecognizer:self.recognizer];
-  
+
   self.layer.cornerRadius = 15.0;
   self.layer.masksToBounds= YES;
   self.translatesAutoresizingMaskIntoConstraints = NO;
@@ -75,7 +75,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@""];
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.detailsButton];
-  
+
   NSLayoutConstraint *widthConstraint = [self.detailsButton.widthAnchor constraintEqualToConstant:500.0];
   NSLayoutConstraint *leadingConstraint = [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0];
   NSLayoutConstraint *trailingConstraint = [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0];
@@ -94,7 +94,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   self.bookmarkButton = [[BookmarkButton alloc] initWithOnBookmarkPress:^(BOOL bookmarked) {}];
   self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.bookmarkButton];
-  
+
   [NSLayoutConstraint activateConstraints:@[
       [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.topAnchor constant:14.5],
       [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-2.0]
@@ -105,7 +105,7 @@ static const CGFloat kVelocityEnoughToSwipeDown = 200.0;
   self.headerLabel.numberOfLines = 0;
   self.headerLabel.lineBreakMode = NSLineBreakByWordWrapping;
   [self addSubview:self.headerLabel];
-  
+
   [NSLayoutConstraint activateConstraints:@[
       [self.headerLabel.topAnchor constraintEqualToAnchor:self.gripView.bottomAnchor constant:14.5],
       [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
@@ -131,7 +131,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.detailsButton setLabel:buttonLabel];
-  
+
   [self appear];
 }
 
@@ -149,10 +149,11 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   __weak typeof(self) weakSelf = self;
   [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
     weakSelf.top.constant = -kViewVisibleHeight;
-    [weakSelf.superview layoutIfNeeded];
+    CGRect frame = weakSelf.frame;
+    weakSelf.frame = CGRectMake(frame.origin.x, [UIScreen mainScreen].bounds.size.height - kViewVisibleHeight, frame.size.width, frame.size.height);
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      weakSelf.onShow(YES, weakSelf.itemUUID); 
+      weakSelf.onShow(YES, weakSelf.itemUUID);
     }
   }];
 }
@@ -161,7 +162,8 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   __weak typeof(self) weakSelf = self;
   [UIView animateWithDuration:0.2 animations:^{
     weakSelf.top.constant = 0;
-    [weakSelf.superview layoutIfNeeded];
+    CGRect frame = weakSelf.frame;
+    weakSelf.frame = CGRectMake(frame.origin.x, [UIScreen mainScreen].bounds.size.height, frame.size.width, frame.size.height);
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
       weakSelf.onShow(NO, weakSelf.itemUUID);
@@ -178,11 +180,11 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     [recognizer setTranslation:CGPointZero inView:self];
     return;
   }
-  CGFloat y = self.top.constant;
+  CGFloat y = self.frame.origin.y;
   CGFloat resultY = y + translation.y;
-  CGFloat minY = -kViewVisibleHeight;
+  CGFloat minY = [UIScreen mainScreen].bounds.size.height - kViewVisibleHeight;
   if (recognizer.state == UIGestureRecognizerStateEnded) {
-    if (resultY > -kViewVisibleHeight * 2 / 3) {
+    if (resultY > (minY + kViewVisibleHeight / 3)) {
       [self disappear];
       [recognizer setTranslation:CGPointZero inView:self];
       return;
@@ -195,8 +197,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     CGFloat divider = logf(fabs(resultY - minY)) / logf(2);
     resultY = y + translation.y / (divider < 1 ? 1 : divider);
   }
-  self.top.constant = resultY;
-  [self.superview layoutIfNeeded];
+  self.frame = CGRectMake(self.frame.origin.x, resultY, self.frame.size.width, self.frame.size.height);
   [recognizer setTranslation:CGPointZero inView:self];
 }
 
