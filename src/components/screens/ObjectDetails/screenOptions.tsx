@@ -3,12 +3,50 @@ import {
   AnimatedBackCircleButton,
   AnimatedHeaderBookmarkButton,
 } from 'molecules';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {StyleSheet, Animated, View} from 'react-native';
 import {ScreenOptions} from './types';
 import {IMAGE_HEIGHT, styles} from './styles';
 import {isIOS} from 'services/PlatformService';
 import {COLORS} from 'assets';
+import {useDetailsPageHeaderAnalytics, useObject} from 'core/hooks';
+
+const HeaderLeftButton = ({
+  opacity,
+  objectId,
+}: {
+  opacity: Animated.AnimatedInterpolation;
+  objectId: string;
+}) => {
+  const data = useObject(objectId)!;
+
+  const {
+    sendSaveObjectDeatailsEvent,
+    sendUnsaveObjectDeatailsEvent,
+  } = useDetailsPageHeaderAnalytics({
+    name: data.name,
+    category: data.category.name,
+  });
+
+  const sendIsFavoriteChangedEvent = useCallback(
+    (nextIsFavoriteStatus: boolean) => {
+      if (nextIsFavoriteStatus) {
+        sendSaveObjectDeatailsEvent();
+      } else {
+        sendUnsaveObjectDeatailsEvent();
+      }
+    },
+    [sendSaveObjectDeatailsEvent, sendUnsaveObjectDeatailsEvent],
+  );
+
+  return (
+    <AnimatedHeaderBookmarkButton
+      onFavoriteToggle={sendIsFavoriteChangedEvent}
+      opacity={opacity}
+      objectId={objectId}
+    />
+  );
+};
 
 export const screenOptions: ScreenOptions = theme => ({route}) => {
   const animatedValue = route.params.animatedValue || new Animated.Value(0);
@@ -30,7 +68,7 @@ export const screenOptions: ScreenOptions = theme => ({route}) => {
     ),
 
     headerRight: () => (
-      <AnimatedHeaderBookmarkButton
+      <HeaderLeftButton
         opacity={buttonsOpacity}
         objectId={route.params.objectId}
       />

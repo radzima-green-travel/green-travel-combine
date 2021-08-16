@@ -7,7 +7,7 @@ import {IProps} from './types';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {ITransformedCategory} from 'core/types';
-import {useCategoryChildren} from 'core/hooks';
+import {useCategoryChildren, useCategoryListAnalytics} from 'core/hooks';
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
 export const CategoriesList = ({
@@ -20,11 +20,14 @@ export const CategoriesList = ({
 
   const listData = useCategoryChildren(categoryId);
 
+  const {sendSelectCardEvent} = useCategoryListAnalytics();
+
   const navigateToObjectDetails = useCallback(
     ({id, name}: ITransformedCategory) => {
       navigate('ObjectsList', {categoryId: id, title: name});
+      sendSelectCardEvent(name, title);
     },
-    [navigate],
+    [navigate, sendSelectCardEvent, title],
   );
 
   useLayoutEffect(() => {

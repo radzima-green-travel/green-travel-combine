@@ -8,6 +8,7 @@ import {IconsNames} from 'atoms/Icon';
 import {HomeNavigator} from './HomeNavigator';
 import {TabNavigatorParamsList} from 'core/types';
 import {COLORS} from 'assets';
+import {analyticsService} from 'services/AnalyticsService';
 
 const Tab = createBottomTabNavigator<TabNavigatorParamsList>();
 
@@ -43,6 +44,11 @@ export function TabNavigator() {
       <Tab.Screen
         name="HomeNavigator"
         component={HomeNavigator}
+        listeners={{
+          tabPress: () => {
+            analyticsService.logEvent('navi_home_event');
+          },
+        }}
         options={{
           tabBarLabel: t('tabs.home'),
           tabBarIcon: ({color, focused}) => (
@@ -60,6 +66,11 @@ export function TabNavigator() {
       <Tab.Screen
         name="AppMapNavigator"
         component={AppMapNavigatior}
+        listeners={{
+          tabPress: () => {
+            analyticsService.logEvent('navi_map_event');
+          },
+        }}
         options={{
           tabBarLabel: t('tabs.map'),
           tabBarIcon: ({color, focused}) => (
@@ -77,6 +88,11 @@ export function TabNavigator() {
       <Tab.Screen
         name="BookmarksNavigator"
         component={BookmarksNavigator}
+        listeners={{
+          tabPress: () => {
+            analyticsService.logEvent('navi_bookmarks_event');
+          },
+        }}
         options={{
           tabBarLabel: t('tabs.bookmarks'),
           tabBarIcon: ({color, focused}) => (

@@ -1,11 +1,15 @@
 import React, {useCallback} from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import {styles} from './styles';
 import {BookmarkItem, SuspenseView} from 'atoms';
 import {selectBookmarksCardsData} from 'core/selectors';
 import {useSelector, useDispatch} from 'react-redux';
-import {useRequestError, useRequestLoading} from 'core/hooks';
-import {getHomeDataRequest} from 'core/reducers';
+import {
+  useRequestError,
+  useRequestLoading,
+  useBookmarksAnalytics,
+} from 'core/hooks';
+import {getInitialHomeDataRequest} from 'core/reducers';
 import {IProps} from './types';
 import {IBookmarkItem} from 'core/types';
 import {isEmpty} from 'lodash';
@@ -14,13 +18,14 @@ import {BookmarksEmptyView} from 'molecules';
 export const Bookmarks = ({navigation}: IProps) => {
   const bookmarksCategories = useSelector(selectBookmarksCardsData);
   const dispatch = useDispatch();
+  const {sendSelectSavedCategoryEvent} = useBookmarksAnalytics();
 
   const getHomeData = useCallback(() => {
-    dispatch(getHomeDataRequest());
+    dispatch(getInitialHomeDataRequest());
   }, [dispatch]);
 
-  const loading = useRequestLoading(getHomeDataRequest);
-  const {error} = useRequestError(getHomeDataRequest);
+  const loading = useRequestLoading(getInitialHomeDataRequest);
+  const {error} = useRequestError(getInitialHomeDataRequest);
 
   const navigateToBookmarksList = useCallback(
     ({categoryName, categoryId}: IBookmarkItem) => {
@@ -28,8 +33,9 @@ export const Bookmarks = ({navigation}: IProps) => {
         title: categoryName,
         categoryId: categoryId,
       });
+      sendSelectSavedCategoryEvent(categoryName);
     },
-    [navigation],
+    [navigation, sendSelectSavedCategoryEvent],
   );
 
   return (

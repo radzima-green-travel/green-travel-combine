@@ -18,6 +18,7 @@ interface IProps {
   id?: string;
   removeFavoriteWithAnimation?: boolean;
   onRemoveAnimationEnd?: () => void;
+  onFavoriteChanged?: (nextIsFavorite: boolean) => void;
 }
 
 const normaliseSource = source => {
@@ -39,6 +40,7 @@ export const Card = memo(
     isFavoriteBlockVisible = false,
     removeFavoriteWithAnimation,
     onRemoveAnimationEnd,
+    onFavoriteChanged,
   }: IProps) => {
     const isImageProvided = Boolean(imageUri);
     const styles = useThemeStyles(themeStyles);
@@ -73,6 +75,7 @@ export const Card = memo(
           </Text>
           {isFavoriteBlockVisible ? (
             <FavoriteButtonContainer
+              onFavoriteToggle={onFavoriteChanged}
               removeWithAnimation={removeFavoriteWithAnimation}
               onAnimationEnd={onRemoveAnimationEnd}
               objectId={id}>

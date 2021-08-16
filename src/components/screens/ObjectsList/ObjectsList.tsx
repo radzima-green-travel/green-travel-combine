@@ -4,11 +4,16 @@ import {ObjectCard} from 'molecules';
 import {styles} from './styles';
 import {IProps} from './types';
 
-import {useCategoryObjects, useObjects} from 'core/hooks';
+import {
+  useCategoryObjects,
+  useObjects,
+  useObjectsListAnalytics,
+} from 'core/hooks';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {IObject} from 'core/types';
 import {debounce, orderBy} from 'lodash';
+
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 export const ObjectsList = ({
   route,
@@ -18,15 +23,22 @@ export const ObjectsList = ({
     params: {categoryId, title, objectsIds},
   } = route;
 
+  const {
+    sendSaveCardEvent,
+    sendSelectCardEvent,
+    sendUnsaveCardEvent,
+  } = useObjectsListAnalytics();
+
   const listData = useCategoryObjects(categoryId);
 
   const listDataByIds = useObjects(objectsIds || []);
 
   const navigateToObjectDetails = useCallback(
-    ({id}: IObject) => {
+    ({id, name, category}: IObject) => {
       push('ObjectDetails', {objectId: id});
+      sendSelectCardEvent(name, category.name);
     },
-    [push],
+    [push, sendSelectCardEvent],
   );
 
   const sortedListData = useMemo(() => {
@@ -38,6 +50,17 @@ export const ObjectsList = ({
     () =>
       debounce(navigateToObjectDetails, 300, {leading: true, trailing: false}),
     [navigateToObjectDetails],
+  );
+
+  const sendIsFavoriteChangedEvent = useCallback(
+    ({name, category}: IObject, nextIsFavoriteStatus: boolean) => {
+      if (nextIsFavoriteStatus) {
+        sendSaveCardEvent(name, category.name);
+      } else {
+        sendUnsaveCardEvent(name, category.name);
+      }
+    },
+    [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
   useLayoutEffect(() => {
@@ -57,6 +80,7 @@ export const ObjectsList = ({
           containerStyle={styles.cardContainer}
           data={item}
           width={cardWidth}
+          onFavoriteChanged={sendIsFavoriteChangedEvent}
         />
       )}
     />

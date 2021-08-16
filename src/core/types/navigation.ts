@@ -25,7 +25,6 @@ export type BookmarksNavigatorParamsList = {
   Bookmarks: undefined;
   BookmarksList: {title: string; categoryId: string};
   ObjectDetails: {
-    categoryId: string;
     objectId: string;
     animatedValue?: Animated.Value;
   };
@@ -39,7 +38,6 @@ export type BookmarksNavigatorParamsList = {
 export type AppMapNavigatorParamsList = {
   AppMap: undefined;
   ObjectDetails: {
-    categoryId: string;
     objectId: string;
     animatedValue?: Animated.Value;
   };

@@ -12,8 +12,15 @@ interface Props {
   item: ITransformedCategory;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
   onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
-  onObjectPress: (options: {categoryId: string; objectId: string}) => void;
-  onCategoryPress: (options: {categoryId: string; title: string}) => void;
+  onObjectPress: (options: IObject) => void;
+  onCategoryPress: (
+    options: ITransformedCategory,
+    parentCategoryName: string,
+  ) => void;
+  onObjectCardIsFavoriteChanged: (
+    options: IObject,
+    nextIsFavorite: boolean,
+  ) => void;
 }
 
 export const HomeSectionBar = memo(
@@ -22,6 +29,7 @@ export const HomeSectionBar = memo(
     onAllCategoriesPress,
     onObjectPress,
     onCategoryPress,
+    onObjectCardIsFavoriteChanged,
     item,
   }: Props) => {
     const {t} = useTranslation('home');
@@ -49,17 +57,17 @@ export const HomeSectionBar = memo(
     ]);
 
     const onObjectPressHandler = useCallback(
-      ({id, category}: IObject) => {
-        onObjectPress({categoryId: category.id, objectId: id});
+      (object: IObject) => {
+        onObjectPress(object);
       },
       [onObjectPress],
     );
 
     const onCategoryPressHandler = useCallback(
-      ({name, id}: ITransformedCategory) => {
-        onCategoryPress({categoryId: id, title: name});
+      (category: ITransformedCategory) => {
+        onCategoryPress(category, sectionTitle);
       },
-      [onCategoryPress],
+      [onCategoryPress, sectionTitle],
     );
 
     return (
@@ -102,6 +110,7 @@ export const HomeSectionBar = memo(
                 width={cardWidth}
                 onPress={onObjectPressHandler}
                 data={object}
+                onFavoriteChanged={onObjectCardIsFavoriteChanged}
               />
             )}
             showsHorizontalScrollIndicator={false}

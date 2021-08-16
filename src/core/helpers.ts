@@ -107,3 +107,7 @@ export function transformMainData(data: ICategory[]): ITransformedData {
 export function isLocationExist(object: IObject) {
   return Boolean(object?.location?.lat && object.location.lon);
 }
+
+export function getScreenTimeSec(startMs: number, endMs: number) {
+  return Math.floor((endMs - startMs) / 1000);
+}

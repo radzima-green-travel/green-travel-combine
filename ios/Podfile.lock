@@ -1,5 +1,8 @@
 PODS:
-  - Amplitude (8.3.0)
+  - Amplitude (8.2.0)
+  - amplitude-react-native (2.3.3):
+    - Amplitude (= 8.2.0)
+    - React-Core
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -339,26 +342,26 @@ PODS:
     - React
   - react-native-geolocation-service (5.0.0):
     - React
-  - react-native-mapbox-gl (8.2.0-beta1):
+  - react-native-mapbox-gl (8.2.1):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
-    - react-native-mapbox-gl/DynamicLibrary (= 8.2.0-beta1)
-    - react-native-mapbox-gl/StaticLibraryFixer (= 8.2.0-beta1)
-  - react-native-mapbox-gl/DynamicLibrary (8.2.0-beta1):
+    - react-native-mapbox-gl/DynamicLibrary (= 8.2.1)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.2.1)
+  - react-native-mapbox-gl/DynamicLibrary (8.2.1):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
-  - react-native-mapbox-gl/StaticLibraryFixer (8.2.0-beta1):
+  - react-native-mapbox-gl/StaticLibraryFixer (8.2.1):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
   - react-native-safe-area-context (3.0.7):
     - React
-  - react-native-ultimate-config (3.2.3):
+  - react-native-ultimate-config (3.3.4):
     - React
-  - react-native-webview (10.9.0):
-    - React
+  - react-native-webview (10.10.2):
+    - React-Core
   - React-perflogger (0.64.2)
   - React-RCTActionSheet (0.64.2):
     - React-Core/RCTActionSheetHeaders (= 0.64.2)
@@ -462,7 +465,8 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - Amplitude (~> 8.3.0)
+  - Amplitude (~> 8.2.0)
+  - "amplitude-react-native (from `../node_modules/@amplitude/react-native`)"
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -550,6 +554,8 @@ SPEC REPOS:
     - Sentry
 
 EXTERNAL SOURCES:
+  amplitude-react-native:
+    :path: "../node_modules/@amplitude/react-native"
   BVLinearGradient:
     :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
@@ -650,12 +656,13 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Amplitude: 5627b4574e36d789a75c1656ba39b3278edf1ade
+  Amplitude: 263118b9e691e73a1c864b05bb08a3aff3636d16
+  amplitude-react-native: 9369759dc6d01590aeb6261f714d53beaebc7e6f
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: ba383d94edfdad65d35efd1d7877891fb8ab273c
+  FBReactNativeSpec: 0640a63756b4924b947f70bec3cc7a3b77947ce2
   Firebase: d59ad4129167f9f0d2a4f6c1f0c462254b6002c8
   FirebaseABTesting: 44acbfc9db915bca8f111ebae342da6fd4f1cc55
   FirebaseAnalytics: 3b98b563d7d64c07900511198b4805cfd9f9f61c
@@ -692,10 +699,10 @@ SPEC CHECKSUMS:
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
-  react-native-mapbox-gl: 2733dbd037199e0484a5b4ba945488de6023b914
+  react-native-mapbox-gl: 8cdd3bc47a3acd3c1a5c4cff5fd48b6a0e385dfc
   react-native-safe-area-context: ef6f16c66b0797ecae1bf86c103dfb3dc16fc33d
-  react-native-ultimate-config: 429433ed406d1c0d18b72b169dc99702d7180214
-  react-native-webview: bfe5436586b214759bd5043658863549fffc8e92
+  react-native-ultimate-config: ce215b54420306a82821895649463b00d01b9b2f
+  react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
   React-perflogger: 25373e382fed75ce768a443822f07098a15ab737
   React-RCTActionSheet: af7796ba49ffe4ca92e7277a5d992d37203f7da5
   React-RCTAnimation: 6a2e76ab50c6f25b428d81b76a5a45351c4d77aa
@@ -725,6 +732,6 @@ SPEC CHECKSUMS:
   Sentry: 388c9dc093b2fd3a264466a5c5b21e25959610a9
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
-PODFILE CHECKSUM: edb133d559b9ce5660c11a563d64c7fb22cc160b
+PODFILE CHECKSUM: 2f0febafa02bfc5dec6798c0572d54ae417c1277
 
 COCOAPODS: 1.10.2

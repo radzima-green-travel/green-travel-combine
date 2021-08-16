@@ -6,7 +6,7 @@ import {IProps} from './types';
 
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
-import {useBookmarksObjects} from 'core/hooks';
+import {useBookmarksObjects, useBookmarksListAnalytics} from 'core/hooks';
 import {IObject} from 'core/types';
 import {useMemo} from 'react';
 import {orderBy} from 'lodash';
@@ -22,6 +22,12 @@ export const BookmarksList = ({
   } = route;
 
   const listData = useBookmarksObjects(categoryId);
+
+  const {
+    sendSaveCardEvent,
+    sendSelectCardEvent,
+    sendUnsaveCardEvent,
+  } = useBookmarksListAnalytics();
 
   const sortedListData = useMemo(() => {
     return listData
@@ -42,10 +48,22 @@ export const BookmarksList = ({
   }, [goBack, sortedListData]);
 
   const navigateToObjectDetails = useCallback(
-    ({id, category}: IObject) => {
-      navigate('ObjectDetails', {categoryId: category.id, objectId: id});
+    ({id, name, category}: IObject) => {
+      navigate('ObjectDetails', {objectId: id});
+      sendSelectCardEvent(name, category.name);
     },
-    [navigate],
+    [navigate, sendSelectCardEvent],
+  );
+
+  const sendIsFavoriteChangedEvent = useCallback(
+    ({name, category}: IObject, nextIsFavoriteStatus: boolean) => {
+      if (nextIsFavoriteStatus) {
+        sendSaveCardEvent(name, category.name);
+      } else {
+        sendUnsaveCardEvent(name, category.name);
+      }
+    },
+    [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
   return (
@@ -61,6 +79,7 @@ export const BookmarksList = ({
           data={item}
           width={cardWidth}
           onPress={navigateToObjectDetails}
+          onFavoriteChanged={sendIsFavoriteChangedEvent}
         />
       )}
     />

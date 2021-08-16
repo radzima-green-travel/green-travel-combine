@@ -47,6 +47,7 @@ import {
   useColorScheme,
   useTransformedData,
   useObjectBelongsToSubtitle,
+  useAppMapAnalytics,
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
@@ -129,10 +130,10 @@ export const AppMap = ({navigation}: IProps) => {
   );
 
   const navigateToObjectDetails = useCallback(
-    ({id, category}: IObject) => {
+    ({id}: IObject) => {
       bottomMenu.current?.hide();
       setSelectedMarker(createMarkerFromObject(null));
-      navigation.push('ObjectDetails', {categoryId: category.id, objectId: id});
+      navigation.push('ObjectDetails', {objectId: id});
     },
     [navigation],
   );
@@ -235,6 +236,7 @@ export const AppMap = ({navigation}: IProps) => {
     },
     [top],
   );
+  useAppMapAnalytics();
 
   return (
     <View style={styles.container}>
