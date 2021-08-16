@@ -20,6 +20,7 @@ export const AppMapFilters = memo(
       <View style={styles.container}>
         <FlatList
           horizontal={true}
+          keyExtractor={item => item.categoryId}
           data={filters}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.contentContainer}

@@ -16,6 +16,8 @@ import {
   useObject,
   useImageSlider,
   useObjectBelongsToSubtitle,
+  useDetailsPageAnalytics,
+  useUpdateEffect,
 } from 'core/hooks';
 import {debounce, isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
@@ -31,7 +33,16 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
   } = route;
 
   const {t} = useTranslation('objectDetails');
-  const data = useObject(objectId);
+  const data = useObject(objectId)!;
+
+  const {
+    sendOpenMapEvent,
+    sendSwitchPhotosEvent,
+    sendScrollEvent,
+  } = useDetailsPageAnalytics({
+    name: data.name,
+    category: data.category.name,
+  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -72,8 +83,10 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
         categoryId: data.category.id,
         objectId: data.id,
       });
+
+      sendOpenMapEvent();
     }
-  }, [data, navigation]);
+  }, [data, navigation, sendOpenMapEvent]);
 
   const navigateToObjectsListDebounced = useMemo(
     () =>
@@ -95,6 +108,10 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
     data?.belongsTo?.[0]?.objects,
   );
 
+  useUpdateEffect(() => {
+    sendSwitchPhotosEvent();
+  }, [page, sendSwitchPhotosEvent]);
+
   return data ? (
     <View style={styles.container}>
       <Animated.ScrollView
@@ -108,6 +125,7 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
           ],
           {
             useNativeDriver: true,
+            listener: sendScrollEvent,
           },
         )}
         contentContainerStyle={styles.listContentContainer}>

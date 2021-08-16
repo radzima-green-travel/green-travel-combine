@@ -24,12 +24,14 @@ import {
   useTranslation,
   useColorScheme,
   useThemeStyles,
+  useHomeAnalytics,
 } from 'core/hooks';
 import {IProps} from './types';
 import {COLORS} from 'assets';
 import {useFocusEffect, useIsFocused} from '@react-navigation/core';
 import {ErrorToast} from '../../molecules';
 import {screenOptions} from './screenOptions';
+import {IObject, ITransformedCategory} from 'core/types';
 
 export const Home = ({navigation: {navigate}}: IProps) => {
   const {t} = useTranslation('home');
@@ -40,6 +42,15 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
   const {ref, show: showToast} = useToast();
   const isFocused = useIsFocused();
+
+  const {
+    listRef,
+    sendSelectCardEvent,
+    sendSelectAllEvent,
+    sendSaveCardEvent,
+    sendUnsaveCardEvent,
+  } = useHomeAnalytics();
+
   const getData = useCallback(() => {
     dispatch(getHomeDataUpdatesRequest());
   }, [dispatch]);
@@ -93,18 +104,47 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     [navigate],
   );
 
+  const onCategoryPress = useCallback(
+    (category: ITransformedCategory, parentCategoryName: string) => {
+      navigateToObjectsList({categoryId: category.id, title: category.name});
+      sendSelectCardEvent(category.name, parentCategoryName);
+    },
+    [navigateToObjectsList, sendSelectCardEvent],
+  );
+
+  const onAllObjectsPress = useCallback(
+    (data: {categoryId: string; title: string}) => {
+      sendSelectAllEvent(data.title);
+      navigateToObjectsList(data);
+    },
+    [navigateToObjectsList, sendSelectAllEvent],
+  );
+
   const navigateToCategoriesList = useCallback(
     ({categoryId, title}: {categoryId: string; title: string}) => {
       navigate('CategoriesList', {categoryId, title});
+      sendSelectAllEvent(title);
     },
-    [navigate],
+    [navigate, sendSelectAllEvent],
   );
 
   const navigateToObjectDetails = useCallback(
-    ({objectId}: {objectId: string}) => {
-      navigate('ObjectDetails', {objectId});
+    ({id, name, category}: IObject) => {
+      navigate('ObjectDetails', {objectId: id});
+      sendSelectCardEvent(name, category.name);
     },
-    [navigate],
+    [navigate, sendSelectCardEvent],
+  );
+
+  const sendIsFavoriteChangedEvent = useCallback(
+    ({name, category}: IObject, nextIsFavoriteStatus: boolean) => {
+      if (nextIsFavoriteStatus) {
+        sendSaveCardEvent(name, category.name);
+      } else {
+        sendUnsaveCardEvent(name, category.name);
+      }
+    },
+    [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
   return (
@@ -113,6 +153,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
       error={homeData ? null : error}
       retryCallback={getInitialData}>
       <FlatList
+        ref={listRef}
         style={styles.list}
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
@@ -129,10 +170,11 @@ export const Home = ({navigation: {navigate}}: IProps) => {
         renderItem={({item}) => (
           <HomeSectionBar
             onObjectPress={navigateToObjectDetails}
-            onCategoryPress={navigateToObjectsList}
-            onAllObjectsPress={navigateToObjectsList}
+            onCategoryPress={onCategoryPress}
+            onAllObjectsPress={onAllObjectsPress}
             onAllCategoriesPress={navigateToCategoriesList}
             item={item}
+            onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
           />
         )}
       />

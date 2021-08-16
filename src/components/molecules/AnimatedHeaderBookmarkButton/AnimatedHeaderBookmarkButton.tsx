@@ -9,14 +9,17 @@ import {Animated, View} from 'react-native';
 interface IProps {
   objectId: string;
   opacity: Animated.AnimatedInterpolation;
+  onFavoriteToggle: (nextIsFavorite: boolean) => void;
 }
 
 export const AnimatedHeaderBookmarkButton = memo(
-  ({objectId, opacity}: IProps) => {
+  ({objectId, opacity, onFavoriteToggle}: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     return (
-      <FavoriteButtonContainer objectId={objectId}>
+      <FavoriteButtonContainer
+        onFavoriteToggle={onFavoriteToggle}
+        objectId={objectId}>
         {isFavorite => (
           <>
             <Animated.View style={[styles.iconContainer, {opacity}]} />

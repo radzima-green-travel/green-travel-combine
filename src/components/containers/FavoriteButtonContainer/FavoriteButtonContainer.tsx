@@ -12,6 +12,7 @@ interface IProps {
   children: (isFavorite: boolean) => React.ReactNode;
   removeWithAnimation?: boolean;
   onAnimationEnd?: () => void;
+  onFavoriteToggle?: (nextIsFavorite: boolean) => void;
 }
 
 export const FavoriteButtonContainer = memo(
@@ -21,6 +22,7 @@ export const FavoriteButtonContainer = memo(
     style,
     removeWithAnimation = false,
     onAnimationEnd = onAnimationEndDefault,
+    onFavoriteToggle,
   }: IProps) => {
     const bookmarksIds = useSelector(selectBookmarksIds);
 
@@ -36,9 +38,11 @@ export const FavoriteButtonContainer = memo(
 
     const onPress = useCallback(() => {
       if (objectId) {
-        toggleFavorite({objectId, needToAdd: !isFavorite});
+        const nextIsFavorite = !isFavorite;
+        onFavoriteToggle?.(nextIsFavorite);
+        toggleFavorite({objectId, needToAdd: nextIsFavorite});
       }
-    }, [isFavorite, objectId, toggleFavorite]);
+    }, [isFavorite, objectId, onFavoriteToggle, toggleFavorite]);
 
     return (
       <TouchableOpacity

@@ -9,6 +9,7 @@ interface IProps {
   containerStyle?: StyleProp<ViewStyle>;
   removeFavoriteWithAnimation?: boolean;
   onRemoveAnimationEnd?: () => void;
+  onFavoriteChanged?: (item: IObject, nextIsFavorite: boolean) => void;
 }
 
 export const ObjectCard = memo(
@@ -19,12 +20,20 @@ export const ObjectCard = memo(
     containerStyle,
     removeFavoriteWithAnimation,
     onRemoveAnimationEnd,
+    onFavoriteChanged,
   }: IProps) => {
     const {id, name, cover} = data;
 
     const onPressHandler = useCallback(() => {
       onPress(data);
     }, [data, onPress]);
+
+    const onFavoriteChangedHandler = useCallback(
+      (nextIsFavorite: boolean) => {
+        onFavoriteChanged?.(data, nextIsFavorite);
+      },
+      [data, onFavoriteChanged],
+    );
 
     return (
       <Card
@@ -37,6 +46,7 @@ export const ObjectCard = memo(
         title={name}
         imageUri={cover}
         containerStyle={containerStyle}
+        onFavoriteChanged={onFavoriteChangedHandler}
       />
     );
   },

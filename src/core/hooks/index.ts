@@ -23,3 +23,5 @@ export {useImageSlider} from './useImageSlider';
 export {useStatusBar} from './useStatusBar';
 export {useAppState} from './useAppState';
 export {useObjectBelongsToSubtitle} from './useObjectBelongsToSubtitle';
+export * from './analytics';
+export {useUpdateEffect} from './useUpdateEffect';
