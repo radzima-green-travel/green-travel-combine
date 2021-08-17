@@ -27,7 +27,10 @@ import {
   setAppMapSelectedFilters,
   clearAppMapSelectedFilters,
 } from 'core/reducers';
-import MapBox, {SymbolLayerStyle} from '@react-native-mapbox-gl/maps';
+import MapBox, {
+  OnPressEvent,
+  SymbolLayerStyle,
+} from '@react-native-mapbox-gl/maps';
 import {
   AppMapBottomMenu,
   AppMapBottomMenuRef,
@@ -204,6 +207,35 @@ export const AppMap = ({navigation}: IProps) => {
   const belongsToSubtitle = useObjectBelongsToSubtitle(
     selected?.belongsTo?.[0]?.objects,
   );
+
+  const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
+
+  const fitToClusterLeaves = useCallback(
+    async (event: OnPressEvent) => {
+      const {features} = event;
+      const isCluster = features[0]?.properties?.cluster;
+
+      if (isCluster) {
+        const {cluster_id, point_count} = features[0]?.properties as {
+          cluster_id: number;
+          point_count: number;
+        };
+        const getJson = await shapeSourceRef.current?.getClusterLeaves(
+          cluster_id,
+          point_count,
+          0,
+        );
+        const bnds = mapService.getBoundsFromGeoJSON(getJson, {
+          bottom: 70,
+          top: top + 20,
+        });
+
+        camera.current?.fitBounds(...bnds);
+      }
+    },
+    [top],
+  );
+
   return (
     <View style={styles.container}>
       <ClusterMap
@@ -214,7 +246,13 @@ export const AppMap = ({navigation}: IProps) => {
         {userLocationProps.visible ? (
           <MapBox.UserLocation {...userLocationProps} />
         ) : null}
-        {markers ? <ClusterMapShape markers={markers} /> : null}
+        {markers ? (
+          <ClusterMapShape
+            ref={shapeSourceRef}
+            onShapePress={fitToClusterLeaves}
+            markers={markers}
+          />
+        ) : null}
 
         {selectedMarker ? (
           <MapBox.ShapeSource
