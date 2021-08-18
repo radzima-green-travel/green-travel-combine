@@ -77,8 +77,12 @@ export const ClusterMap = memo(
 
             if (features[0]?.properties?.objectId) {
               onShapePressed.current = true;
-              const zoom = await map.current?.getZoom();
+              const zoom = await map.current?.getZoom()!;
               onShapePress(features[0]?.properties?.objectId, zoom);
+            } else if (features[0]?.geometry.type === 'Polygon') {
+              onShapePress(null);
+            } else if (!features.length) {
+              onShapePressed.current = false;
             }
           }}
           onStartShouldSetResponder={() => true}

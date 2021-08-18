@@ -172,25 +172,34 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     };
   }, [dispatch]);
 
-  const onMarkerPress = useCallback(
-    (id: string) => {
-      const object = getObject(id);
-      if (object) {
-        if (bounds) {
-          camera.current?.fitBounds(...bounds);
-        } else {
-          const coordinates = [object.location?.lon!, object.location?.lat!];
-          camera.current?.setCamera({
-            centerCoordinate: coordinates,
-            zoomLevel: 8,
-            animationDuration: 500,
-          });
-        }
+  const boundsToArea = useCallback(() => {
+    if (bounds) {
+      camera.current?.fitBounds(...bounds);
+    }
+  }, [bounds]);
 
-        bottomMenu.current?.show();
+  const onMarkerPress = useCallback(
+    (id: string | null) => {
+      if (id) {
+        const object = getObject(id);
+        if (object) {
+          if (data?.area) {
+            boundsToArea();
+          } else {
+            const coordinates = [object.location?.lon!, object.location?.lat!];
+            camera.current?.setCamera({
+              centerCoordinate: coordinates,
+              zoomLevel: 8,
+              animationDuration: 500,
+            });
+          }
+        }
+      } else {
+        boundsToArea();
       }
+      bottomMenu.current?.show();
     },
-    [bounds, getObject],
+    [boundsToArea, data?.area, getObject],
   );
 
   return (

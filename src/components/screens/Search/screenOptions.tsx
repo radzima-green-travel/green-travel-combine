@@ -5,6 +5,7 @@ import {selectSearchInputValue} from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {isIOS} from 'services/PlatformService';
+import {Fade} from 'navigation/transitition';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,8 @@ export const screenOptions: StackNavigationOptions = {
   headerTitleContainerStyle: {
     width: '100%',
     paddingLeft: isIOS ? 48 : 60,
-    paddingRight: 16,
+    paddingRight: 10,
   },
-  headerLeftContainerStyle: {paddingLeft: isIOS ? 10 : 0, marginBottom: 5},
+  headerLeftContainerStyle: {paddingLeft: isIOS ? 10 : 0, marginBottom: 3},
+  ...Fade,
 };

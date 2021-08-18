@@ -4,13 +4,13 @@ export const themeStyles = {
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 36,
+    height: 32,
     backgroundColor: {
       light: COLORS.white,
       dark: COLORS.mirage,
     },
     borderRadius: 4,
-    marginBottom: 5,
+    marginBottom: 2,
     paddingLeft: 16,
 
     shadowColor: 'rgb(0, 0, 0)',

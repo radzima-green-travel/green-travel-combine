@@ -51,6 +51,8 @@ import {
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
+
+import {Geometry, Feature, Position} from '@turf/helpers';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {mapService} from 'services/MapService';
@@ -211,31 +213,26 @@ export const AppMap = ({navigation}: IProps) => {
 
   const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
 
-  const fitToClusterLeaves = useCallback(
-    async (event: OnPressEvent) => {
-      const {features} = event;
-      const isCluster = features[0]?.properties?.cluster;
+  const fitToClusterLeaves = useCallback(async (event: OnPressEvent) => {
+    const {features} = event;
+    const isCluster = features[0]?.properties?.cluster;
 
-      if (isCluster) {
-        const {cluster_id, point_count} = features[0]?.properties as {
-          cluster_id: number;
-          point_count: number;
-        };
-        const getJson = await shapeSourceRef.current?.getClusterLeaves(
-          cluster_id,
-          point_count,
-          0,
-        );
-        const bnds = mapService.getBoundsFromGeoJSON(getJson, {
-          bottom: 70,
-          top: top + 20,
-        });
+    if (isCluster) {
+      const {
+        geometry: {coordinates},
+        properties: {cluster_id},
+      } = features[0] as Feature<Geometry, {cluster_id: number}>;
 
-        camera.current?.fitBounds(...bnds);
-      }
-    },
-    [top],
-  );
+      const zoom = await shapeSourceRef.current?.getClusterExpansionZoom(
+        cluster_id,
+      );
+      camera.current?.setCamera({
+        centerCoordinate: coordinates as Position,
+        zoomLevel: zoom,
+        animationDuration: 300,
+      });
+    }
+  }, []);
   useAppMapAnalytics();
 
   return (
