@@ -17,10 +17,9 @@
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "ConfigValues.h"
 #import "ImageUtils.h"
+#import <react-native-ultimate-config/ConfigValues.h>
 
-static NSString * const kGetCategoriesURL = @"https://d28njwxs8zbmie.cloudfront.net/objects.json";
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
-static NSString * const kImageBaseURL = @"https://d28njwxs8zbmie.cloudfront.net/";
 
 @interface ApiService ()
 
@@ -38,10 +37,15 @@ static NSString * const kImageBaseURL = @"https://d28njwxs8zbmie.cloudfront.net/
     return self;
 }
 
+- (NSString *)categoriesURL {
+  return [NSString stringWithFormat:@"%@/%@",
+          NATIVE_CLIENT_URL, @"objects.json"];
+}
+
 - (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*,
                                               NSArray<PlaceDetails *>*,
                                               NSString *))completion {
-  NSURL *url = [NSURL URLWithString:kGetCategoriesURL];
+  NSURL *url = [NSURL URLWithString:[self categoriesURL]];
   __weak typeof(self) weakSelf = self;
   NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -80,7 +84,7 @@ static NSString * const kImageBaseURL = @"https://d28njwxs8zbmie.cloudfront.net/
     category.items = [self mapItemsFromJSON:obj[@"objects"] category:category];
     if ([self categoryIsValid:category rawCategory:obj]) {
       category.title = obj[@"name"];
-      category.cover = getFullImageURL(kImageBaseURL, obj[@"cover"]);
+      category.cover = getFullImageURL(obj[@"cover"]);
       category.uuid = obj[@"id"];
       category.icon = obj[@"icon"];
       [mappedCategories addObject:category];
@@ -102,7 +106,7 @@ static NSString * const kImageBaseURL = @"https://d28njwxs8zbmie.cloudfront.net/
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PlaceItem *placeItem = [[PlaceItem alloc] init];
         placeItem.title = obj[@"name"];
-        placeItem.cover = getFullImageURL(kImageBaseURL, obj[@"cover"]);
+        placeItem.cover = getFullImageURL(obj[@"cover"]);
         placeItem.category = category;
         placeItem.details = [weakSelf mapDetailsFromJSON:obj];
         placeItem.coords = [weakSelf mapPointCoordsFromJSON:obj];
@@ -126,7 +130,7 @@ static NSString * const kImageBaseURL = @"https://d28njwxs8zbmie.cloudfront.net/
     [item[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL,
                                                   NSUInteger idx,
                                                   BOOL * _Nonnull stop) {
-      [imageURLs addObject:getFullImageURL(kImageBaseURL, imageURL)];
+      [imageURLs addObject:getFullImageURL(imageURL)];
     }];
   }
   details.uuid = item[@"id"];

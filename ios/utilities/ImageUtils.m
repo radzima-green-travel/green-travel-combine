@@ -8,6 +8,7 @@
 
 #import "ImageUtils.h"
 #import <UIKit/UIKit.h>
+#import <react-native-ultimate-config/ConfigValues.h>
 
 SDWebImageCombinedOperation* loadImage(NSString *url, void (^onImageReady)(UIImage *, NSError *)) {
   NSURL *urlForImage = [NSURL URLWithString:url];
@@ -23,12 +24,12 @@ SDWebImageCombinedOperation* loadImage(NSString *url, void (^onImageReady)(UIIma
   }];
 }
 
-NSString* getFullImageURL(NSString *basePath, NSString *imageURL) {
+NSString* getFullImageURL(NSString *imageURL) {
   NSString *urlDecodedImageURL = [imageURL stringByRemovingPercentEncoding];
   
   NSString *pathPart = [urlDecodedImageURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
   
-  NSString *fullImageURL = [NSString stringWithFormat:@"%@%@", basePath,
+  NSString *fullImageURL = [NSString stringWithFormat:@"%@/%@", NATIVE_CLIENT_IMAGE_URL,
                             pathPart];
   return fullImageURL;
 }

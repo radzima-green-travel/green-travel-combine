@@ -11,4 +11,4 @@
 #import <SDWebImage/SDWebImage.h>
 
 SDWebImageCombinedOperation* loadImage(NSString *url, void (^onImageReady)(UIImage *, NSError *));
-NSString* getFullImageURL(NSString *basePath, NSString *imageURL);
+NSString* getFullImageURL(NSString *imageURL);

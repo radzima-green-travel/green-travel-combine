@@ -7,6 +7,7 @@
 
 #import "MapService.h"
 @import Mapbox;
+#import <react-native-ultimate-config/ConfigValues.h>
 
 @interface MapService()
 
@@ -31,8 +32,8 @@
                             from.longitude, from.latitude];
   NSString *destinationLatLng = [NSString stringWithFormat:@"%f,%f",
                                  to.longitude, to.latitude];
-  NSString *mapToken = @"pk.eyJ1IjoiZXBtLXNsciIsImEiOiJja2V2Z3RqdWYwem12MnFwN2EzYWQ2b2xtIn0.kpeAR4x3J-15NyvhjlZJnA";
-  NSString *url = [NSString stringWithFormat:@"https://api.mapbox.com/directions/v5/mapbox/driving/%@;%@?access_token=%@&geometries=geojson", sourceLatLng, destinationLatLng, mapToken];
+  NSString *mapToken = MAP_ACCESS_TOKEN;
+  NSString *url = [NSString stringWithFormat:@"%@/directions/v5/mapbox/driving/%@;%@?access_token=%@&geometries=geojson", MAP_BOX_CLIENT_URL, sourceLatLng, destinationLatLng, mapToken];
 
   NSURL *nsURL = [NSURL URLWithString:url];
 
