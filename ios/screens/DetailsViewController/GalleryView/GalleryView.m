@@ -65,6 +65,7 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.collectionView.backgroundColor = [Colors get].background;
+  self.collectionView.alwaysBounceHorizontal = YES;
 }
 
 - (void)setUp:(NSArray<NSString *>*)imageURLs {
