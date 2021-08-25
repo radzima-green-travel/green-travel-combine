@@ -70,16 +70,43 @@ UIImage* getGradientImageToFillRect(CGRect rect) {
 }
 
 void configureNavigationBar(UINavigationBar *navigationBar) {
+  CGRect navBarBounds = navigationBar.bounds;
+  navBarBounds.size.height += UIApplication.sharedApplication.statusBarFrame.size.height;
+  
+  if (@available(iOS 15.0, *)) {
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundImage = getGradientImageToFillRect(navBarBounds);
+    appearance.backgroundEffect = nil;
+    appearance.titleTextAttributes = getTextAttributes([Colors get].navigationBarTint, 16.0, UIFontWeightSemibold);
+    navigationBar.standardAppearance = appearance;
+    navigationBar.scrollEdgeAppearance = navigationBar.standardAppearance;
+    
+  } else {
     navigationBar.titleTextAttributes = getTextAttributes([Colors get].navigationBarTint, 16.0, UIFontWeightSemibold);
     navigationBar.barStyle = UIBarStyleDefault;
-    navigationBar.tintColor = [Colors get].navigationBarTint;
-#pragma mark - Navigation item gradient
-    CGRect navBarBounds = navigationBar.bounds;
-    
-    navBarBounds.size.height += UIApplication.sharedApplication.statusBarFrame.size.height;
-    
     [navigationBar setBackgroundImage:getGradientImageToFillRect(navBarBounds) forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+  }
+  navigationBar.tintColor = [Colors get].navigationBarTint;
 }
+
+void configureNavigationBarForModal(UINavigationBar *navigationBar) {
+  if (@available(iOS 15.0, *)) {
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundEffect = nil;
+    appearance.backgroundColor = [Colors get].background;
+    appearance.titleTextAttributes = getTextAttributes([Colors get].navigationBarTint, 16.0, UIFontWeightSemibold);
+    navigationBar.standardAppearance = appearance;
+    navigationBar.scrollEdgeAppearance = navigationBar.standardAppearance;
+  } else {
+    navigationBar.titleTextAttributes = getTextAttributes([Colors get].searchModalNavigationBarTint, 16.0, UIFontWeightSemibold);
+    navigationBar.barStyle = UIBarStyleDefault;
+    navigationBar.barTintColor = [Colors get].background;
+    navigationBar.translucent = NO;
+  }
+}
+
 
 void drawShadow(UIView *view) {
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:view.bounds];

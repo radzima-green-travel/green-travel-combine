@@ -111,16 +111,13 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
   self.scrollView.backgroundColor = [Colors get].background;
   [self.noDataLabel setTextColor:[Colors get].mainText];
   [self.noDataImageView setImage:[UIImage imageNamed:@"search"]];
+  UINavigationBar *navigationBar = self.navigationController.navigationBar;
   if ([self.navigationController isBeingPresented] || self.wasPresented) {
     self.wasPresented = YES;
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    navigationBar.titleTextAttributes = getTextAttributes([Colors get].searchModalNavigationBarTint, 16.0, UIFontWeightSemibold);
-    navigationBar.barStyle = UIBarStyleDefault;
-    navigationBar.barTintColor = [Colors get].background;
-    navigationBar.translucent = NO;
+    configureNavigationBarForModal(navigationBar);
     return;
   }
-  configureNavigationBar(self.navigationController.navigationBar);
+  configureNavigationBar(navigationBar);
 }
 
 - (void)viewDidLoad {
