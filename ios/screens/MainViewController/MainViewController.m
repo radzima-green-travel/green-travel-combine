@@ -27,6 +27,7 @@
 #import "MapService.h"
 #import "MainViewControllerConstants.h"
 #import "AnalyticsEvents.h"
+#import "StyleUtils.h"
 
 @interface MainViewController ()
 
@@ -49,9 +50,9 @@
 @implementation MainViewController
 
 - (void)viewWillLayoutSubviews {
-  self.tabBar.tintColor = [Colors get].tabBarTint;
-  self.tabBar.barTintColor = [Colors get].tabBarBackground;
-  self.tabBar.translucent = NO;
+  
+  configureTabBar(self.tabBar);
+  
   self.view.backgroundColor = [Colors get].background;
 
   [self.indexTabBarItem setImage:[UIImage imageNamed:@"home"]];
@@ -69,8 +70,6 @@
   [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
   [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
                                      forState:UIControlStateNormal];
-
-
 }
 
 - (void)viewDidLoad {

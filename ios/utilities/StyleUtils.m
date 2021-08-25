@@ -84,10 +84,10 @@ void configureNavigationBar(UINavigationBar *navigationBar) {
     
   } else {
     navigationBar.titleTextAttributes = getTextAttributes([Colors get].navigationBarTint, 16.0, UIFontWeightSemibold);
-    navigationBar.barStyle = UIBarStyleDefault;
     [navigationBar setBackgroundImage:getGradientImageToFillRect(navBarBounds) forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
   }
   navigationBar.tintColor = [Colors get].navigationBarTint;
+  navigationBar.barStyle = UIBarStyleBlack;
 }
 
 void configureNavigationBarForModal(UINavigationBar *navigationBar) {
@@ -107,6 +107,22 @@ void configureNavigationBarForModal(UINavigationBar *navigationBar) {
   }
 }
 
+void configureTabBar(UITabBar *tabBar) {
+  if (@available(iOS 15.0, *)) {
+    UITabBarAppearance *appearance = [[UITabBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundColor = [Colors get].tabBarBackground;
+    appearance.backgroundEffect = nil;
+    
+    tabBar.standardAppearance = appearance;
+    tabBar.scrollEdgeAppearance = tabBar.standardAppearance;
+  } else {
+    tabBar.barTintColor = [Colors get].tabBarBackground;
+    tabBar.translucent = NO;
+    
+  }
+  tabBar.tintColor = [Colors get].tabBarTint;
+}
 
 void drawShadow(UIView *view) {
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:view.bounds];

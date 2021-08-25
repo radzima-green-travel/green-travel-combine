@@ -15,4 +15,5 @@ UIImage* getGradientImageToFillRect(CGRect rect);
 UIImage* getGradientImageToFillRectWithRadius(CGRect rect, CGFloat cornerRadius);
 void configureNavigationBar(UINavigationBar *navigationBar);
 void configureNavigationBarForModal(UINavigationBar *navigationBar);
+void configureTabBar(UITabBar *tabBar);
 void drawShadow(UIView *view);
