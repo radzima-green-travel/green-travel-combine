@@ -54,22 +54,13 @@
   configureTabBar(self.tabBar);
   
   self.view.backgroundColor = [Colors get].background;
-
-  [self.indexTabBarItem setImage:[UIImage imageNamed:@"home"]];
-  [self.indexTabBarItem setSelectedImage:[UIImage imageNamed:@"home-selected"]];
-  [self.indexTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
-  [self.indexTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
-                                     forState:UIControlStateNormal];
-  [self.mapTabBarItem setImage:[UIImage imageNamed:@"map"]];
-  [self.mapTabBarItem setSelectedImage:[UIImage imageNamed:@"map-selected"]];
-  [self.mapTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
-  [self.mapTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
-                                     forState:UIControlStateNormal];
-  [self.bookmarksTabBarItem setImage:[UIImage imageNamed:@"bookmark"]];
-  [self.bookmarksTabBarItem setSelectedImage:[UIImage imageNamed:@"bookmark-selected"]];
-  [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
-  [self.bookmarksTabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
-                                     forState:UIControlStateNormal];
+  
+  configureTabBarItem(self.indexTabBarItem, [UIImage imageNamed:@"home"],
+                      [UIImage imageNamed:@"home-selected"]);
+  configureTabBarItem(self.mapTabBarItem, [UIImage imageNamed:@"map"],
+                      [UIImage imageNamed:@"map-selected"]);
+  configureTabBarItem(self.bookmarksTabBarItem, [UIImage imageNamed:@"bookmark"],
+                      [UIImage imageNamed:@"bookmark-selected"]);
 }
 
 - (void)viewDidLoad {

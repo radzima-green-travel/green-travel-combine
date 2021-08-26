@@ -13,7 +13,8 @@
 NSDictionary<NSAttributedStringKey, id>* getTextAttributes(UIColor* color, CGFloat size, UIFontWeight weight) {
     return @{
         NSForegroundColorAttributeName:color,
-        NSFontAttributeName:[UIFont systemFontOfSize:size weight:weight]
+        NSFontAttributeName:[UIFont systemFontOfSize:size weight:weight],
+        NSParagraphStyleAttributeName: NSParagraphStyle.defaultParagraphStyle,
     };
 };
 

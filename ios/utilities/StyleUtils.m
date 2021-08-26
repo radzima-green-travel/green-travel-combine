@@ -10,6 +10,7 @@
 #import "Colors.h"
 #import "ColorsLegacy.h"
 #import "TextUtils.h"
+#import "Typography.h"
 
 
 CAGradientLayer* createGradientLayer(UIView *view) {
@@ -107,6 +108,21 @@ void configureNavigationBarForModal(UINavigationBar *navigationBar) {
   }
 }
 
+void configureTabBarItem(UITabBarItem *tabBarItem, UIImage *imageNormal, UIImage *imageSelected) {
+  if (@available(iOS 15.0, *)) {} else {
+    [tabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes forState:UIControlStateNormal];
+    [tabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
+  }
+  [tabBarItem setImage:imageNormal];
+  [tabBarItem setSelectedImage:imageSelected];
+}
+
+API_AVAILABLE(ios(13.0))
+void configureTabBarItemAppearance(UITabBarItemAppearance *tabBarItemAppearance) {
+  [tabBarItemAppearance.normal setTitleTextAttributes:[Typography get].tabBarAttributes];
+  [tabBarItemAppearance.selected setTitleTextAttributes:[Typography get].tabBarSelectedAttributes];
+}
+
 void configureTabBar(UITabBar *tabBar) {
   if (@available(iOS 15.0, *)) {
     UITabBarAppearance *appearance = [[UITabBarAppearance alloc] init];
@@ -114,14 +130,17 @@ void configureTabBar(UITabBar *tabBar) {
     appearance.backgroundColor = [Colors get].tabBarBackground;
     appearance.backgroundEffect = nil;
     
+    configureTabBarItemAppearance(appearance.stackedLayoutAppearance);
+    configureTabBarItemAppearance(appearance.inlineLayoutAppearance);
+    configureTabBarItemAppearance(appearance.compactInlineLayoutAppearance);
+    
     tabBar.standardAppearance = appearance;
     tabBar.scrollEdgeAppearance = tabBar.standardAppearance;
   } else {
     tabBar.barTintColor = [Colors get].tabBarBackground;
     tabBar.translucent = NO;
-    
+    tabBar.tintColor = [Colors get].tabBarTint;
   }
-  tabBar.tintColor = [Colors get].tabBarTint;
 }
 
 void drawShadow(UIView *view) {
