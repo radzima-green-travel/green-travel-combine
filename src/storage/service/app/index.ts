@@ -1,1 +1,1 @@
-export {getEtagFromStorage, setEtagToStorage} from './etagStorage';
+export {getEtagsFromStorage, setEtagsToStorage} from './etagStorage';

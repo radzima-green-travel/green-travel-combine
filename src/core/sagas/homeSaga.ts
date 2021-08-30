@@ -19,6 +19,7 @@ import {
 } from '../reducers';
 import {ACTIONS} from '../constants';
 import {getCategories} from 'api/native';
+import {saveLocalEtagsToStorage} from 'api/interceptors';
 import {IGetHomeDataResponse} from '../types';
 import {selectIsHomeDataExists, selectHomeUpdatedData} from 'core/selectors';
 import {loadingSaga} from './loading';
@@ -45,10 +46,13 @@ export function* getHomeDataUpdatesSaga() {
       } = data;
 
       yield put(getHomeDataUpdatesSuccess({data: categories}));
+
+      yield call(saveLocalEtagsToStorage);
     } else if (updatedData) {
       yield delay(700);
 
       yield put(getHomeDataUpdatesSuccess({data: updatedData}));
+      yield call(saveLocalEtagsToStorage);
     } else {
       yield delay(700);
       yield put(getHomeDataUpdatesSuccess({data: null}));
@@ -59,6 +63,7 @@ export function* getHomeDataUpdatesSaga() {
       yield delay(700);
 
       yield put(getHomeDataUpdatesSuccess({data: updatedData}));
+      yield call(saveLocalEtagsToStorage);
     } else {
       yield put(getHomeDataUpdatesFailure(e));
     }

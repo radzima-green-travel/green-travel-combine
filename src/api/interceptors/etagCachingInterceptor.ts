@@ -1,9 +1,9 @@
 import {AxiosResponse, AxiosRequestConfig} from 'axios';
-import {getEtagFromStorage, setEtagToStorage} from 'storage';
+import {getEtagsFromStorage, setEtagsToStorage} from 'storage';
 
 let isAppJustLaunched = true;
 
-const etagsCache = new Map();
+let etagsCache = {};
 
 const getCacheKey = (config: AxiosRequestConfig) =>
   config.baseURL || '' + config.url || '';
@@ -14,12 +14,12 @@ export const etagCachingRequestInterceptor = async (
   const cacheKey = getCacheKey(request);
   if (isAppJustLaunched) {
     isAppJustLaunched = false;
-    const etagFromStorage = await getEtagFromStorage(cacheKey);
-    if (etagFromStorage) {
-      etagsCache.set(cacheKey, etagFromStorage);
+    const etagsFromStorage = await getEtagsFromStorage();
+    if (etagsFromStorage) {
+      etagsCache = {...etagsCache, ...etagsFromStorage};
     }
   }
-  const etag = etagsCache.get(cacheKey);
+  const etag = etagsCache[cacheKey];
   if (etag) {
     request.headers['If-None-Match'] = etag;
   }
@@ -31,9 +31,12 @@ export const etagCachingRespnseInterceptor = (response: AxiosResponse<any>) => {
   const etag = response.headers.etag;
   if (etag) {
     const cacheKey = getCacheKey(response.config);
-    etagsCache.set(cacheKey, etag);
-    setEtagToStorage({key: cacheKey, value: etag});
+    etagsCache[cacheKey] = etag;
   }
 
   return response;
 };
+
+export function saveLocalEtagsToStorage() {
+  return setEtagsToStorage(etagsCache);
+}
