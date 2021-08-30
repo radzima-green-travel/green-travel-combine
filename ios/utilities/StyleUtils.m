@@ -88,7 +88,7 @@ void configureNavigationBar(UINavigationBar *navigationBar) {
     [navigationBar setBackgroundImage:getGradientImageToFillRect(navBarBounds) forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
   }
   navigationBar.tintColor = [Colors get].navigationBarTint;
-  navigationBar.barStyle = UIBarStyleBlack;
+  navigationBar.barStyle = UIBarStyleDefault;
 }
 
 void configureNavigationBarForModal(UINavigationBar *navigationBar) {
