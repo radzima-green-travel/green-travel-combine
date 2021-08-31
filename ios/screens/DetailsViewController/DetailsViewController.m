@@ -215,44 +215,13 @@
         [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
 
     ]];
-
-    #pragma mark - Address label
-    self.addressLabel = [[UILabel alloc] init];
-    self.addressLabel.numberOfLines = 4;
-    [self.addressLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
-    self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [self.contentView addSubview:self.addressLabel];
-
-    [NSLayoutConstraint activateConstraints:@[
-        [self.addressLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:8.0],
-        [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-        [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
-
-    ]];
-
-    #pragma mark - Location button
-    self.locationButton = [[UIButton alloc] init];
-    [self.locationButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
-
-    [self.locationButton addTarget:self action:@selector(onLocationButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-
-    self.locationButton.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [self.contentView addSubview:self.locationButton];
-
-    [NSLayoutConstraint activateConstraints:@[
-        [self.locationButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:3.0],
-        [self.locationButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-    ]];
-
     #pragma mark - Description text
     self.descriptionTextView = [[DescriptionView alloc] init];
 
     self.descriptionTextView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.descriptionTextView];
 
-    self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0];
+    self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0];
     [NSLayoutConstraint activateConstraints:@[
         self.descriptionTextTopAnchor,
         [self.descriptionTextView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
@@ -365,6 +334,47 @@
   [self.timeTracer traceEnd];
 }
 
+#pragma mark - Address label
+- (void)addAddressLabel {
+  self.addressLabel = [[UILabel alloc] init];
+  self.addressLabel.numberOfLines = 4;
+  [self.addressLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
+  self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  
+  [self.contentView addSubview:self.addressLabel];
+  
+  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
+  self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:26.0];
+  
+  [NSLayoutConstraint activateConstraints:@[
+    self.descriptionTextTopAnchor,
+    [self.addressLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:8.0],
+    [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+    [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+  ]];
+}
+
+#pragma mark - Location button
+- (void)addLocationButton {
+  self.locationButton = [[UIButton alloc] init];
+  [self.locationButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
+  
+  [self.locationButton addTarget:self action:@selector(onLocationButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+  
+  self.locationButton.translatesAutoresizingMaskIntoConstraints = NO;
+  
+  [self.contentView addSubview:self.locationButton];
+  
+  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
+  self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:26.0];
+  
+  [NSLayoutConstraint activateConstraints:@[
+    self.descriptionTextTopAnchor,
+    [self.locationButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:3.0],
+    [self.locationButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+  ]];
+}
+
 #pragma mark - Map button top
 - (void)addMapButton {
     self.mapButtonTop = [[CommonButton alloc] initWithTarget:self action:@selector(onMapButtonPress:) label:@"Посмотреть на карте"];
@@ -399,10 +409,12 @@
         [weakSelf.activityIndicatorView stopAnimating];
       }
       weakSelf.titleLabel.attributedText = [[Typography get] makeTitle1Semibold:weakSelf.item.title];
-      if (details.address) {
+      if (details.address && [details.address length]) {
+        [weakSelf addAddressLabel];
         weakSelf.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:weakSelf.item.details.address];
       }
       if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
+        [weakSelf addLocationButton];
         [weakSelf.locationButton setAttributedTitle:
          [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[ColorsLegacy get].royalBlue]
                                            forState:UIControlStateNormal];
