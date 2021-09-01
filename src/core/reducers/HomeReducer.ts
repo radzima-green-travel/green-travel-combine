@@ -74,7 +74,7 @@ export const homeReducer = createReducer<
     getHomeDataUpdateAvailableSuccess,
     (state, {payload: {updatedData}}) => ({
       ...state,
-      isUpdatesAvailable: Boolean(updatedData),
-      updatedData: updatedData,
+      isUpdatesAvailable: Boolean(updatedData || state.updatedData),
+      updatedData: updatedData || state.updatedData,
     }),
   );

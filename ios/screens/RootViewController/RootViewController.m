@@ -48,6 +48,7 @@
 @property (weak, nonatomic) UIApplication *application;
 @property (strong, nonatomic) NSDictionary *launchOptions;
 @property (strong, nonatomic) UserDefaultsService *userDefaultsService;
+@property (strong, nonatomic) RCTRootView *reactRootView;
 
 @end
 
@@ -102,17 +103,17 @@
   UIViewController *rnViewController = [[UIViewController alloc] init];
   RCTBridge *bridge =
   [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+  self.reactRootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"greenTravel"
                                             initialProperties:nil];
   if (@available(iOS 13.0, *)) {
-    rootView.backgroundColor = [UIColor systemBackgroundColor];
+    self.reactRootView.backgroundColor = [UIColor systemBackgroundColor];
   } else {
-    rootView.backgroundColor = [UIColor whiteColor];
+    self.reactRootView.backgroundColor = [UIColor whiteColor];
   }
   
-  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
-  rnViewController.view = rootView;
+  
+  rnViewController.view = self.reactRootView;
   
   [self addChildViewController:rnViewController];
   rnViewController.view.frame = self.view.bounds;
@@ -125,6 +126,12 @@
   
   self.current = rnViewController;
   [RotationLockUtility lockToPortrait];
+}
+
+- (void)initRNBootSplash {
+  if(self.reactRootView != nil) {
+    [RNBootSplash initWithStoryboard:@"BootSplash" rootView: self.reactRootView];
+  }
 }
 
 - (void)showNativeViewController {

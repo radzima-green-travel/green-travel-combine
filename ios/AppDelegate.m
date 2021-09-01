@@ -24,6 +24,7 @@
     [[RootViewController alloc] initWithApplication:application launchOptions:launchOptions];
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
+    [rootViewController initRNBootSplash];
     return YES;
 }
 
