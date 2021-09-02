@@ -1,4 +1,4 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+String mapBoxDownloadsToken = System.getenv("NETRC_PASSWORD") as String ?: System.getenv("MAPBOX_DOWNLOADS_TOKEN") as String
 
 buildscript {
     ext {
@@ -37,7 +37,7 @@ allprojects {
                 // Do not change the username below.
                 // This should always be `mapbox` (not your username). 
                 username = 'mapbox'               
-                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+                password = mapBoxDownloadsToken ?: ""
             }
         }
         maven {

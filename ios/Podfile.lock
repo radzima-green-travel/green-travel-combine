@@ -123,9 +123,9 @@ PODS:
     - nanopb/encode (= 2.30907.0)
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
-  - Permission-LocationAlways (3.0.5):
+  - Permission-LocationAlways (3.0.4):
     - RNPermissions
-  - Permission-LocationWhenInUse (3.0.5):
+  - Permission-LocationWhenInUse (3.0.4):
     - RNPermissions
   - PromisesObjC (1.2.12)
   - Protobuf (3.14.0)
@@ -326,28 +326,28 @@ PODS:
   - React-jsinspector (0.65.1)
   - react-native-blur (0.8.0):
     - React
-  - react-native-geolocation-service (5.2.0):
+  - react-native-geolocation-service (5.0.0):
     - React
-  - react-native-mapbox-gl (8.2.1):
+  - react-native-mapbox-gl (8.3.0):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
-    - react-native-mapbox-gl/DynamicLibrary (= 8.2.1)
-    - react-native-mapbox-gl/StaticLibraryFixer (= 8.2.1)
-  - react-native-mapbox-gl/DynamicLibrary (8.2.1):
+    - react-native-mapbox-gl/DynamicLibrary (= 8.3.0)
+    - react-native-mapbox-gl/StaticLibraryFixer (= 8.3.0)
+  - react-native-mapbox-gl/DynamicLibrary (8.3.0):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
-  - react-native-mapbox-gl/StaticLibraryFixer (8.2.1):
+  - react-native-mapbox-gl/StaticLibraryFixer (8.3.0):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
-  - react-native-safe-area-context (3.3.0):
-    - React-Core
+  - react-native-safe-area-context (3.0.7):
+    - React
   - react-native-ultimate-config (3.3.4):
     - React
-  - react-native-webview (10.10.2):
-    - React-Core
+  - react-native-webview (10.9.0):
+    - React
   - React-perflogger (0.65.1)
   - React-RCTActionSheet (0.65.1):
     - React-Core/RCTActionSheetHeaders (= 0.65.1)
@@ -416,28 +416,28 @@ PODS:
     - React-Core
   - RNBootSplash (3.2.4):
     - React-Core
-  - RNCAsyncStorage (1.12.1):
-    - React-Core
+  - RNCAsyncStorage (1.12.0):
+    - React
   - RNCClipboard (1.5.1):
     - React-Core
-  - RNCMaskedView (0.1.11):
+  - RNCMaskedView (0.1.10):
     - React
-  - RNFastImage (8.3.7):
+  - RNFastImage (8.3.4):
     - React-Core
     - SDWebImage (~> 5.8)
     - SDWebImageWebPCoder (~> 0.6.1)
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNPermissions (3.0.5):
+  - RNPermissions (3.0.4):
     - React-Core
-  - RNReanimated (1.13.3):
+  - RNReanimated (1.13.0):
+    - React
+  - RNScreens (2.9.0):
+    - React
+  - RNSentry (2.1.1):
     - React-Core
-  - RNScreens (2.18.1):
-    - React-Core
-  - RNSentry (2.6.2):
-    - React-Core
-    - Sentry (= 7.1.4)
-  - RNSVG (12.1.1):
+    - Sentry (= 6.0.9)
+  - RNSVG (12.1.0):
     - React
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
@@ -445,9 +445,9 @@ PODS:
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
-  - Sentry (7.1.4):
-    - Sentry/Core (= 7.1.4)
-  - Sentry/Core (7.1.4)
+  - Sentry (6.0.9):
+    - Sentry/Core (= 6.0.9)
+  - Sentry/Core (6.0.9)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -663,8 +663,8 @@ SPEC CHECKSUMS:
   Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
   MapboxMobileEvents: 36ff53b135aac486eed94b61f813c7967a0c2c6f
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
-  Permission-LocationAlways: 0704c3bcce11f98f8d6ddf34c49c65893ec64b09
-  Permission-LocationWhenInUse: e1168a583654f1d2d34d3a18c4c6518ce409ad2a
+  Permission-LocationAlways: d3ac15e4bf8f4f5f4e224b4fea6f84b14fa19132
+  Permission-LocationWhenInUse: ebef6bf8a123d382f25e9990468cfc8a76fbadf5
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Protobuf: 0cde852566359049847168e51bd1c690e0f70056
   RCT-Folly: 0dd9e1eb86348ecab5ba76f910b56f4b5fef3c46
@@ -679,11 +679,11 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 43f2542aed3c26e42175b339f8d37fe3dd683765
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
-  react-native-geolocation-service: 7c9436da6dfdecd9526c62eac62ea2bc3f0cc8ea
-  react-native-mapbox-gl: 8cdd3bc47a3acd3c1a5c4cff5fd48b6a0e385dfc
-  react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
+  react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
+  react-native-mapbox-gl: 5bfbdb80cea9af34c5b2ccef84d322b182f2481a
+  react-native-safe-area-context: ef6f16c66b0797ecae1bf86c103dfb3dc16fc33d
   react-native-ultimate-config: ce215b54420306a82821895649463b00d01b9b2f
-  react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
+  react-native-webview: bfe5436586b214759bd5043658863549fffc8e92
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
   React-RCTAnimation: 2119a18ee26159004b001bc56404ca5dbaae6077
@@ -698,19 +698,19 @@ SPEC CHECKSUMS:
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNBootSplash: 4844706cbb56a3270556c9b94e59dedadccd47e4
-  RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
+  RNCAsyncStorage: 2a692bcb9b69b76a2f1a95f33db057129700af64
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
-  RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNFastImage: a7384db75df352500261e8e8f1ac2026def26102
+  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
+  RNFastImage: d4870d58f5936111c56218dbd7fcfc18e65b58ff
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNPermissions: 7043bacbf928eae25808275cfe73799b8f618911
-  RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
-  RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
-  RNSentry: 68644ef607b780551cc555f084869764f2566652
-  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
+  RNPermissions: c46788f4cd402287425983e04a4c9bb4356036eb
+  RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
+  RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
+  RNSentry: 6b46b6fc1d715a378fbaa5d7d43bc9ce99b500e5
+  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
-  Sentry: 1d3eb1a25f8c5333c88dd5603904a6d461cd9fcf
+  Sentry: 388c9dc093b2fd3a264466a5c5b21e25959610a9
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
 
 PODFILE CHECKSUM: bd70858f1d7a0acfc37d58e11f0bffbaddb9dc8e
