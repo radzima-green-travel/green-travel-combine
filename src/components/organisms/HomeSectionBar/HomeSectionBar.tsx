@@ -1,13 +1,12 @@
-import React, {memo, useCallback} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {memo, useCallback, useRef} from 'react';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
 import {themeStyles, cardWidth} from './styles';
-import {FlatList} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
 import {IObject, ITransformedCategory} from 'core/types';
 import {isEmpty} from 'lodash';
 import {useCategories, useObjects, useThemeStyles} from 'core/hooks';
-
+import {useScrollToTop} from '@react-navigation/native';
 interface Props {
   item: ITransformedCategory;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
@@ -70,6 +69,10 @@ export const HomeSectionBar = memo(
       [onCategoryPress, sectionTitle],
     );
 
+    const listRef = useRef<FlatList>(null);
+
+    useScrollToTop(listRef);
+
     return (
       <View>
         <View style={styles.sectionTitleContainer}>
@@ -82,6 +85,7 @@ export const HomeSectionBar = memo(
         </View>
         {isCategoriesList ? (
           <FlatList
+            ref={listRef}
             keyExtractor={({id}) => id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
@@ -99,6 +103,7 @@ export const HomeSectionBar = memo(
           />
         ) : (
           <FlatList
+            ref={listRef}
             keyExtractor={({id}) => id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}

@@ -1,10 +1,11 @@
-import React, {memo} from 'react';
+import React, {memo, useRef} from 'react';
 import {FlatList, View} from 'react-native';
 import {MapFilterItem} from 'atoms';
 import {isEmpty, some} from 'lodash';
 import {styles} from './styles';
 import {IMapFilter} from 'core/types';
 import {useTranslation} from 'react-i18next';
+import {useScrollToTop} from '@react-navigation/native';
 
 interface IProps {
   filters: Array<IMapFilter>;
@@ -16,9 +17,14 @@ interface IProps {
 export const AppMapFilters = memo(
   ({filters, selectedFilters, onFilterSelect, resetFilters}: IProps) => {
     const {t} = useTranslation('map');
+
+    const listRef = useRef<FlatList>(null);
+    useScrollToTop(listRef);
+
     return (
       <View style={styles.container}>
         <FlatList
+          ref={listRef}
           horizontal={true}
           keyExtractor={item => item.categoryId}
           data={filters}

@@ -2173,10 +2173,10 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.5.tgz#75a2a8e7d8ab4b230414505d92335d1dcb53a6df"
   integrity sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==
 
-"@types/react-native@0.64.0":
-  version "0.64.0"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.64.0.tgz#8c4aab67fca2197eacc73e403239be85c909d564"
-  integrity sha512-yys0k6tNby1VxEVfuxpaJRUChMer7lvnxSQfK6EtpxV8rtNk8boo/nQJkUoXgIi0mdhC1pj72flztdkj6wOHPA==
+"@types/react-native@0.64.13":
+  version "0.64.13"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.64.13.tgz#9e57b85631380b75979a09f5a97e1884299e8d5a"
+  integrity sha512-QSOBN6m3TKBPFAcDhuFItDQtw1Fo1/FKDTHGeyeTwBXd3bu0V9s+oHEhntHN7PUK5dAOYFWsnO0wynWwS/KRxQ==
   dependencies:
     "@types/react" "*"
 
@@ -7301,11 +7301,6 @@ prettier-linter-helpers@^1.0.0:
   integrity sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
   dependencies:
     fast-diff "^1.1.2"
-
-prettier@2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.4.tgz#2d1bae173e355996ee355ec9830a7a1ee05457ef"
-  integrity sha512-SVJIQ51spzFDvh4fIbCLvciiDMCrRhlN3mbZvv/+ycjvmF5E73bKdGfU8QDLNmjYJf+lsGnDBC4UUnvTe5OO0w==
 
 prettier@^2.0.2:
   version "2.3.2"
