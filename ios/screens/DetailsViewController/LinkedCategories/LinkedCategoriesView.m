@@ -86,7 +86,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
     [self addSubview:self.interestingLabel];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.interestingLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:32.0],
+        [self.interestingLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:0],
         [self.interestingLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:16.0],
         [self.interestingLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-25.0],
     ]];
@@ -98,7 +98,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
         [self.tableView.topAnchor constraintEqualToAnchor:self.interestingLabel.bottomAnchor constant:18],
         [self.tableView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:0.0],
         [self.tableView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:0.0],
-        [self.tableView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-32.0],
+        [self.tableView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:0],
     ]];
 }
 
