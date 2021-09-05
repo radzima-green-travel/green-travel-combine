@@ -67,20 +67,6 @@
     ]];
 }
 
-- (void)setHighlighted:(BOOL)highlighted {
-  [super setHighlighted:highlighted];
-  __weak typeof(self) weakSelf = self;
-  if (highlighted) {
-    [UIView animateWithDuration:0.3 animations:^{
-      weakSelf.alpha = 0.8;
-    }];
-  } else {
-    [UIView animateWithDuration:0.3 animations:^{
-      weakSelf.alpha = 1;
-    }];
-  }
-}
-
 - (void)setLabel:(NSString *)label {
   [self setAttributedTitle:
    [[Typography get] makeButtonText:label] forState:UIControlStateNormal];

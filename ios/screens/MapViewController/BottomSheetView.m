@@ -13,6 +13,7 @@
 #import "PlaceItem.h"
 #import "BookmarkButton.h"
 #import "PlaceDetails.h"
+#import "BookmarkButtonConstants.h"
 
 @interface BottomSheetView ()
 
@@ -88,7 +89,8 @@ static const CGFloat kDistanceButtonBottom = 24;
 #pragma mark - Details button
   
 #pragma mark - Bookmark button
-  self.bookmarkButton = [[BookmarkButton alloc] initWithOnBookmarkPress:^(BOOL bookmarked) {}];
+  self.bookmarkButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorBottomSheet
+                                               onBookmarkPress:^(BOOL bookmarked) {}];
   self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.bookmarkButton];
 
