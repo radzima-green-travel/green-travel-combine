@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButtonWithFeedback : UIButtonHighlightable
 
+- (void)prepare;
+- (void)fire;
+
 @end
 
 NS_ASSUME_NONNULL_END
