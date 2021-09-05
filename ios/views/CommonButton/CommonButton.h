@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIButtonHighlightable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CommonButton : UIButton
+
+@interface CommonButton : UIButtonHighlightable
 
 - (instancetype)initWithTarget:(id)target
                         action:(SEL)action

@@ -467,14 +467,6 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
   
-//  UIViewController *overlayViewController = [[UIViewController alloc] init];
-//  overlayViewController.view.backgroundColor = [Colors get].background;
-//  
-//  overlayViewController.transitioningDelegate = self.bottomSheetDelegate;
-//  overlayViewController.modalPresentationStyle = UIModalPresentationCustom;
-//  [self presentViewController:overlayViewController animated:YES completion:^{
-//  }];
-  
   [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onNavigatePress:^{
     DetailsViewController *detailsController =
     [[DetailsViewController alloc] initWithApiService:weakSelf.apiService

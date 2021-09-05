@@ -18,6 +18,8 @@
 		5A2144B1266B988700582901 /* MapViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B0266B988700582901 /* MapViewState.m */; };
 		5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */; };
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
+		5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148626E3B893004AD6F3 /* UIButtonHighlightable.m */; };
+		5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */; };
 		5A39D6EF26B34C04008FC20C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A39D6F126B34C04008FC20C /* Localizable.strings */; };
 		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
 		5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B0269BA98400540CE4 /* NumberUtils.m */; };
@@ -182,6 +184,11 @@
 		5A238822267A57DA0004BF0A /* IndexPeeks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexPeeks.m; sourceTree = "<group>"; };
 		5A246AC826429689003C6E5B /* BookmarkButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButton.h; sourceTree = "<group>"; };
 		5A246AC926429689003C6E5B /* BookmarkButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkButton.m; sourceTree = "<group>"; };
+		5A29148526E3B893004AD6F3 /* UIButtonHighlightable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIButtonHighlightable.h; sourceTree = "<group>"; };
+		5A29148626E3B893004AD6F3 /* UIButtonHighlightable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIButtonHighlightable.m; sourceTree = "<group>"; };
+		5A29148926E4F7AB004AD6F3 /* UIButtonWithFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIButtonWithFeedback.h; sourceTree = "<group>"; };
+		5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIButtonWithFeedback.m; sourceTree = "<group>"; };
+		5A29148D26E5031D004AD6F3 /* BookmarkButtonConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButtonConstants.h; sourceTree = "<group>"; };
 		5A39D6D326AC6A8A008FC20C /* StringUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		5A39D6F026B34C04008FC20C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A39D6F326B34C0A008FC20C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -528,8 +535,27 @@
 			children = (
 				5A246AC826429689003C6E5B /* BookmarkButton.h */,
 				5A246AC926429689003C6E5B /* BookmarkButton.m */,
+				5A29148D26E5031D004AD6F3 /* BookmarkButtonConstants.h */,
 			);
 			path = BookmarkButton;
+			sourceTree = "<group>";
+		};
+		5A29148826E3B89A004AD6F3 /* UIButtonHighlightable */ = {
+			isa = PBXGroup;
+			children = (
+				5A29148526E3B893004AD6F3 /* UIButtonHighlightable.h */,
+				5A29148626E3B893004AD6F3 /* UIButtonHighlightable.m */,
+			);
+			path = UIButtonHighlightable;
+			sourceTree = "<group>";
+		};
+		5A29148C26E4F7F6004AD6F3 /* UIButtonWithFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				5A29148926E4F7AB004AD6F3 /* UIButtonWithFeedback.h */,
+				5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */,
+			);
+			path = UIButtonWithFeedback;
 			sourceTree = "<group>";
 		};
 		5A6DC5BC2659266E00A2D37B /* CacheService */ = {
@@ -1203,6 +1229,8 @@
 				5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */,
 				5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */,
 				5AF8D589260C7D8A001CE702 /* CommonButton */,
+				5A29148826E3B89A004AD6F3 /* UIButtonHighlightable */,
+				5A29148C26E4F7F6004AD6F3 /* UIButtonWithFeedback */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1524,6 +1552,7 @@
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */,
 				5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */,
+				5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */,
 				5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */,
 				5A775B2B26064C9000CEFC78 /* StoredSearchItem+CoreDataClass.m in Sources */,
 				5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */,
@@ -1606,6 +1635,7 @@
 				5A775E0426077A7D00CEFC78 /* MapPinView.m in Sources */,
 				5A775B5326064C9000CEFC78 /* MapModel.m in Sources */,
 				5A6DC5052655B1DA00A2D37B /* StoredArea+CoreDataClass.m in Sources */,
+				5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */,
 				5A775B4E26064C9000CEFC78 /* LocationModel.m in Sources */,
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
 				5A105FEC265FD9E300511256 /* Directions.m in Sources */,
