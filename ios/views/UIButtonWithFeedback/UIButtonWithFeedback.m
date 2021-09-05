@@ -16,8 +16,7 @@
 
 @implementation UIButtonWithFeedback
 
-- (void)setHighlighted:(BOOL)highlighted {
-  [super setHighlighted:highlighted];
+- (void)prepare {
   self.feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
   [self.feedbackGenerator prepare];
   __weak typeof(self) weakSelf = self;
@@ -26,8 +25,7 @@
   }];
 }
 
-- (void)setSelected:(BOOL)selected {
-  [super setSelected:selected];
+- (void)fire {
   [self.timer invalidate];
   [self.feedbackGenerator selectionChanged];
 }

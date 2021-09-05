@@ -47,6 +47,7 @@
   [self setUpImages];
   self.translatesAutoresizingMaskIntoConstraints = NO;
   [self addTarget:self action:@selector(onPress:) forControlEvents:UIControlEventTouchUpInside];
+  [self addTarget:self action:@selector(onPressStart:) forControlEvents:UIControlEventTouchDown];
   [NSLayoutConstraint activateConstraints:@[
     [self.widthAnchor constraintEqualToConstant:44.0],
     [self.heightAnchor constraintEqualToConstant:44.0],
@@ -82,6 +83,11 @@
 
 - (void)onPress:(id)sender {
   self.onBookmarkPress(self.selected);
+  [super fire];
+}
+
+- (void)onPressStart:(id)sender {
+  [super prepare];
 }
 
 - (void)setBookmark:(BOOL)bookmarked {

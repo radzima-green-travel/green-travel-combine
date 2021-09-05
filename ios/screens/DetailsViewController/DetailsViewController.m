@@ -174,7 +174,7 @@
     ]];
 
     #pragma mark - Bookmark button
-    self.bookmarkButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorDetailsScreen onBookmarkPress:^(BOOL) {
+    self.bookmarkButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorDetailsScreen onBookmarkPress:^(BOOL selected) {
       [weakSelf onBookmarkButtonPress];
     }];
 
