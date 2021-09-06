@@ -1,16 +1,11 @@
 import {useEffect, useState} from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, Animated} from 'react-native';
 
-import {ObjectDetailsScreenRouteProps} from './types';
 import {useColorScheme} from 'core/hooks';
 import {IMAGE_HEIGHT} from './styles';
-import {useIsFocused, useRoute} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 
-export function useObjectDetailsStatusBar() {
-  const {
-    params: {animatedValue},
-  } = useRoute<ObjectDetailsScreenRouteProps>();
-
+export function useObjectDetailsStatusBar(animatedValue: Animated.Value) {
   const [isScrolledBelowImage, setIsScrolledBelowImage] = useState(false);
   const theme = useColorScheme();
   const isScreenFocused = useIsFocused();

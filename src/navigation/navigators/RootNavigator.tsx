@@ -92,9 +92,8 @@ const SplasScreen = ({onAnimationEnd, onFadeStart}) => {
 
 export function RootNavigator() {
   const dispatch = useDispatch();
-  const [splashTransitionFinished, setSplashTransitionFinished] = useState(
-    false,
-  );
+  const [splashTransitionFinished, setSplashTransitionFinished] =
+    useState(false);
   const bootstrapFinished = useSelector(
     (state: IState) => state.bootsrap.finished,
   );

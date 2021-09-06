@@ -342,8 +342,8 @@ PODS:
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
-  - react-native-safe-area-context (3.0.7):
-    - React
+  - react-native-safe-area-context (3.3.2):
+    - React-Core
   - react-native-ultimate-config (3.3.4):
     - React
   - react-native-webview (10.9.0):
@@ -432,8 +432,9 @@ PODS:
     - React-Core
   - RNReanimated (1.13.0):
     - React
-  - RNScreens (2.9.0):
-    - React
+  - RNScreens (3.6.0):
+    - React-Core
+    - React-RCTImage
   - RNSentry (2.1.1):
     - React-Core
     - Sentry (= 6.0.9)
@@ -681,7 +682,7 @@ SPEC CHECKSUMS:
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
   react-native-mapbox-gl: 5bfbdb80cea9af34c5b2ccef84d322b182f2481a
-  react-native-safe-area-context: ef6f16c66b0797ecae1bf86c103dfb3dc16fc33d
+  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-ultimate-config: ce215b54420306a82821895649463b00d01b9b2f
   react-native-webview: bfe5436586b214759bd5043658863549fffc8e92
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
@@ -705,7 +706,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNPermissions: c46788f4cd402287425983e04a4c9bb4356036eb
   RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
-  RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
+  RNScreens: eb0dfb2d6b21d2d7f980ad46b14eb306d2f1062e
   RNSentry: 6b46b6fc1d715a378fbaa5d7d43bc9ce99b500e5
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84

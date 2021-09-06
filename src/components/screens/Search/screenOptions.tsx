@@ -2,10 +2,10 @@ import {StackNavigationOptions} from '@react-navigation/stack';
 import {HeaderSearchbar} from 'atoms';
 import {setSearchInputValue} from 'core/reducers';
 import {selectSearchInputValue} from 'core/selectors';
+import {Fade} from 'navigation/transitition';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {isIOS} from 'services/PlatformService';
-import {Fade} from 'navigation/transitition';
+import {isAndroid} from 'services/PlatformService';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
@@ -24,10 +24,17 @@ const HeaderTitle = () => {
 export const screenOptions: StackNavigationOptions = {
   headerTitle: () => <HeaderTitle />,
   headerTitleContainerStyle: {
-    width: '100%',
-    paddingLeft: isIOS ? 48 : 60,
-    paddingRight: 10,
+    flexGrow: isAndroid ? 0.82 : 0.85,
+    marginRight: 10,
+    marginLeft: 0,
   },
-  headerLeftContainerStyle: {paddingLeft: isIOS ? 10 : 0, marginBottom: 3},
+  headerLeftContainerStyle: {
+    flexGrow: isAndroid ? 0.18 : 0.15,
+    marginBottom: 3,
+    paddingLeft: isAndroid ? 0 : 16,
+  },
+  headerRightContainerStyle: {
+    flexGrow: 0,
+  },
   ...Fade,
 };

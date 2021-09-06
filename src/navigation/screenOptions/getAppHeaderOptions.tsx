@@ -48,9 +48,6 @@ export const getAppHeaderOptions = ({
   headerTitleStyle: {
     ...FONTS_STYLES.semibold16,
   },
-  headerTitleContainerStyle: {
-    marginHorizontal: isAndroid ? 45 : 50,
-  },
   headerLeftContainerStyle: {paddingLeft: isAndroid ? 0 : 16},
   headerRightContainerStyle: {paddingRight: 16},
 });

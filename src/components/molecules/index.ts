@@ -21,3 +21,4 @@ export {ObjectDetailsMapCallout} from './ObjectDetailsMapCallout';
 export {AnimatedBackCircleButton} from './AnimatedBackCircleButton';
 export {AnimatedHeaderBookmarkButton} from './AnimatedHeaderBookmarkButton';
 export {ErrorToast} from './ErrorToast';
+export {ObjectDetailsHeader} from './ObjectDetailsHeader';

@@ -11,7 +11,10 @@ const Stack = createStackNavigator<MainNavigatorParamsList>();
 
 export function MainNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        detachPreviousScreen: false,
+      }}>
       <Stack.Screen
         name="TabNavigator"
         component={TabNavigator}

@@ -1,4 +1,4 @@
-import React, {useMemo, useLayoutEffect, useCallback} from 'react';
+import React, {useMemo, useLayoutEffect, useCallback, useState} from 'react';
 import {View, Animated} from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
 
@@ -23,26 +23,25 @@ import {debounce, isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {screenOptions} from './screenOptions';
 import {useObjectDetailsStatusBar} from './hooks';
 import {isLocationExist} from 'core/helpers';
+import {ObjectDetailsHeader} from 'molecules';
 
 export const ObjectDetails = ({route, navigation}: IProps) => {
   const {
-    params: {objectId, animatedValue = new Animated.Value(0)},
+    params: {objectId},
   } = route;
+
+  const [animatedValue] = useState(() => new Animated.Value(0));
 
   const {t} = useTranslation('objectDetails');
   const data = useObject(objectId)!;
 
-  const {
-    sendOpenMapEvent,
-    sendSwitchPhotosEvent,
-    sendScrollEvent,
-  } = useDetailsPageAnalytics({
-    name: data.name,
-    category: data.category.name,
-  });
+  const {sendOpenMapEvent, sendSwitchPhotosEvent, sendScrollEvent} =
+    useDetailsPageAnalytics({
+      name: data.name,
+      category: data.category.name,
+    });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -94,7 +93,7 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
     [navigateToObjectsList],
   );
 
-  useObjectDetailsStatusBar();
+  useObjectDetailsStatusBar(animatedValue);
 
   const {onScroll, page, pagesAmount} = useImageSlider(
     data?.images?.length || 0,
@@ -111,6 +110,16 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
   useUpdateEffect(() => {
     sendSwitchPhotosEvent();
   }, [page, sendSwitchPhotosEvent]);
+
+  const opacity = animatedValue.interpolate({
+    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
+    outputRange: [0, 0, 1],
+  });
+
+  const buttonsOpacity = animatedValue.interpolate({
+    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
+    outputRange: [1, 1, 0],
+  });
 
   return data ? (
     <View style={styles.container}>
@@ -210,8 +219,11 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
         style={[styles.gradient, {height: top}]}
       />
       <ClipboardToast {...toastProps} />
+      <ObjectDetailsHeader
+        buttonsOpacity={buttonsOpacity}
+        opacity={opacity}
+        objecId={objectId}
+      />
     </View>
   ) : null;
 };
-
-ObjectDetails.screenOptions = screenOptions;

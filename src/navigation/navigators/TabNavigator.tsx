@@ -25,10 +25,14 @@ export function TabNavigator() {
 
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        activeTintColor: theme === 'light' ? COLORS.apple : COLORS.oceanGreen,
-        inactiveTintColor: theme === 'light' ? COLORS.boulder : COLORS.cullGrey,
-        style: {
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor:
+          theme === 'light' ? COLORS.apple : COLORS.oceanGreen,
+        tabBarInactiveTintColor:
+          theme === 'light' ? COLORS.boulder : COLORS.cullGrey,
+
+        tabBarStyle: {
           backgroundColor: theme === 'light' ? COLORS.white : COLORS.oxfordBlue,
           ...(theme === 'light'
             ? {}

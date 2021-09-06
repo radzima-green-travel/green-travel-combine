@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import {Animated} from 'react-native';
 import {
   HomeScreen,
   ObjectDetailsScreen,
@@ -21,8 +20,9 @@ export function HomeNavigator() {
   const {t} = useTranslation('home');
   return (
     <Stack.Navigator
-      headerMode="screen"
       screenOptions={{
+        detachPreviousScreen: false,
+        headerMode: 'screen',
         ...getAppHeaderOptions({colorScheme}),
         title: t('headerTitle'),
       }}>
@@ -38,11 +38,8 @@ export function HomeNavigator() {
       />
       <Stack.Screen
         name="ObjectDetails"
-        initialParams={{
-          animatedValue: new Animated.Value(0),
-        }}
         component={ObjectDetailsScreen}
-        options={ObjectDetailsScreen.screenOptions(colorScheme)}
+        options={{headerShown: false}}
       />
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
       <Stack.Screen name="CategoriesList" component={CategoriesListScreen} />

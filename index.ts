@@ -10,12 +10,9 @@ import {sentryService} from 'services/SentryService';
 import ruTranslations from './src/locale/ru.json';
 
 import {enableScreens} from 'react-native-screens';
-import {isIOS} from 'services/PlatformService';
 import {analyticsService} from 'services/AnalyticsService';
 
-if (isIOS) {
-  enableScreens();
-}
+enableScreens();
 
 const resources = {
   ru: ruTranslations,
