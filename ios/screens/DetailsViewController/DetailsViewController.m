@@ -61,7 +61,9 @@
 @property (strong, nonatomic) NSTimer *bannerHideTimer;
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerShowAnimator;
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerHideAnimator;
+
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextTopAnchor;
+@property (strong, nonatomic) NSLayoutConstraint *descriptionTextBottomAnchor;
 
 @property (assign, nonatomic) BOOL ready;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -215,82 +217,21 @@
         [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
 
     ]];
-
-    #pragma mark - Address label
-    self.addressLabel = [[UILabel alloc] init];
-    self.addressLabel.numberOfLines = 4;
-    [self.addressLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
-    self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [self.contentView addSubview:self.addressLabel];
-
-    [NSLayoutConstraint activateConstraints:@[
-        [self.addressLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:8.0],
-        [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-        [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
-
-    ]];
-
-    #pragma mark - Location button
-    self.locationButton = [[UIButton alloc] init];
-    [self.locationButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
-
-    [self.locationButton addTarget:self action:@selector(onLocationButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-
-    self.locationButton.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [self.contentView addSubview:self.locationButton];
-
-    [NSLayoutConstraint activateConstraints:@[
-        [self.locationButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:3.0],
-        [self.locationButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-    ]];
-
     #pragma mark - Description text
     self.descriptionTextView = [[DescriptionView alloc] init];
 
     self.descriptionTextView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.descriptionTextView];
 
-    self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0];
+    self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0];
+    self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5],
     [NSLayoutConstraint activateConstraints:@[
         self.descriptionTextTopAnchor,
         [self.descriptionTextView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
         [self.descriptionTextView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        self.descriptionTextBottomAnchor,
     ]];
-
-    #pragma mark - Linked items
-    self.linkedCategoriesView =
-    [[LinkedCategoriesView alloc] initWithIndexModel:self.indexModel
-                                          apiService:self.apiService
-                                            mapModel:self.mapModel
-                                       locationModel:self.locationModel
-                                onCategoryLinkSelect:^(Category * _Nonnull category, NSOrderedSet<NSString *> * _Nonnull linkedItems) {
-        PlacesViewController *placesViewController =
-        [[PlacesViewController alloc] initWithIndexModel:weakSelf.indexModel
-                                              apiService:weakSelf.apiService
-                                         coreDataService:weakSelf.coreDataService
-                                              mapService:weakSelf.mapService
-                                                mapModel:weakSelf.mapModel
-                                           locationModel:weakSelf.locationModel
-                                             searchModel:weakSelf.searchModel
-                                              bookmarked:NO
-                                        allowedItemUUIDs:linkedItems];
-        placesViewController.category = category;
-        [weakSelf.navigationController pushViewController:placesViewController animated:YES];
-    }];
-
-    self.linkedCategoriesView.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [self.contentView addSubview:self.linkedCategoriesView];
-
-    [NSLayoutConstraint activateConstraints:@[
-        [self.linkedCategoriesView.topAnchor constraintEqualToAnchor:self.descriptionTextView.bottomAnchor constant:32.0],
-        [self.linkedCategoriesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
-        [self.linkedCategoriesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
-        [self.linkedCategoriesView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-10.5],
-    ]];
-
+    
 #pragma mark - Activity indicator
     self.activityIndicatorContainerView = [[UIView alloc] init];
     self.activityIndicatorContainerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -365,8 +306,60 @@
   [self.timeTracer traceEnd];
 }
 
+#pragma mark - Address label
+- (void)addAddressLabel {
+  if (self.addressLabel != nil) {
+    return;
+  }
+  self.addressLabel = [[UILabel alloc] init];
+  self.addressLabel.numberOfLines = 4;
+  [self.addressLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
+  self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  
+  [self.contentView addSubview:self.addressLabel];
+  
+  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
+  self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:26.0];
+  
+  [NSLayoutConstraint activateConstraints:@[
+    self.descriptionTextTopAnchor,
+    [self.addressLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:8.0],
+    [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+    [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+  ]];
+}
+
+#pragma mark - Location button
+- (void)addLocationButton {
+  if (self.locationButton != nil) {
+    return;
+  }
+  
+  self.locationButton = [[UIButton alloc] init];
+  [self.locationButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
+  
+  [self.locationButton addTarget:self action:@selector(onLocationButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+  
+  self.locationButton.translatesAutoresizingMaskIntoConstraints = NO;
+  
+  [self.contentView addSubview:self.locationButton];
+  
+  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
+  self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:26.0];
+  
+  [NSLayoutConstraint activateConstraints:@[
+    self.descriptionTextTopAnchor,
+    [self.locationButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:3.0],
+    [self.locationButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+  ]];
+}
+
 #pragma mark - Map button top
 - (void)addMapButton {
+    if (self.mapButtonTop != nil) {
+      return;
+    }
+  
     self.mapButtonTop = [[CommonButton alloc] initWithTarget:self action:@selector(onMapButtonPress:) label:@"Посмотреть на карте"];
 
     [self.contentView addSubview:self.mapButtonTop];
@@ -387,6 +380,46 @@
     ]];
 }
 
+#pragma mark - Linked categories view
+- (void)addLinkedCategoriesView {
+  if (self.linkedCategoriesView != nil) {
+    return;
+  }
+  
+  self.linkedCategoriesView =
+  [[LinkedCategoriesView alloc] initWithIndexModel:self.indexModel
+                                        apiService:self.apiService
+                                          mapModel:self.mapModel
+                                     locationModel:self.locationModel
+                              onCategoryLinkSelect:^(Category * _Nonnull category, NSOrderedSet<NSString *> * _Nonnull linkedItems) {
+      PlacesViewController *placesViewController =
+      [[PlacesViewController alloc] initWithIndexModel:self.indexModel
+                                            apiService:self.apiService
+                                       coreDataService:self.coreDataService
+                                            mapService:self.mapService
+                                              mapModel:self.mapModel
+                                         locationModel:self.locationModel
+                                           searchModel:self.searchModel
+                                            bookmarked:NO
+                                      allowedItemUUIDs:linkedItems];
+      placesViewController.category = category;
+      [self.navigationController pushViewController:placesViewController animated:YES];
+  }];
+
+  self.linkedCategoriesView.translatesAutoresizingMaskIntoConstraints = NO;
+
+  [self.contentView addSubview:self.linkedCategoriesView];
+
+  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
+  self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.linkedCategoriesView.topAnchor constant:-32.0];
+  [NSLayoutConstraint activateConstraints:@[
+      self.descriptionTextBottomAnchor,
+      [self.linkedCategoriesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
+      [self.linkedCategoriesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
+      [self.linkedCategoriesView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5],
+  ]];
+}
+
 - (void)updateMainContent:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
@@ -399,10 +432,12 @@
         [weakSelf.activityIndicatorView stopAnimating];
       }
       weakSelf.titleLabel.attributedText = [[Typography get] makeTitle1Semibold:weakSelf.item.title];
-      if (details.address) {
+      if (details.address && [details.address length]) {
+        [weakSelf addAddressLabel];
         weakSelf.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:weakSelf.item.details.address];
       }
       if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
+        [weakSelf addLocationButton];
         [weakSelf.locationButton setAttributedTitle:
          [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[ColorsLegacy get].royalBlue]
                                            forState:UIControlStateNormal];
@@ -410,9 +445,8 @@
       }
       [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
       if (details.categoryIdToItems) {
+        [weakSelf addLinkedCategoriesView];
         [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
-      } else {
-        [weakSelf.linkedCategoriesView setHidden:YES];
       }
     });
   });

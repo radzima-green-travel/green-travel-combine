@@ -14,7 +14,6 @@
 
 @interface DescriptionView()
 
-@property (strong, nonatomic) LinkedCategoriesView *linkedCategoriesView;
 @property (strong, nonatomic) UIStackView *descriptionPlaceholderView;
 
 @end
