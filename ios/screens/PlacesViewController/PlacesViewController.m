@@ -23,6 +23,7 @@
 
 @property (assign, nonatomic) BOOL bookmarked;
 @property (strong, nonatomic) NSMutableArray<PlaceItem *> *bookmarkedItems;
+@property (strong, nonatomic) NSMutableArray<PlaceItem *> *bin;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
@@ -64,6 +65,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
         _searchModel = searchModel;
         _allowedItemUUIDs = allowedItemUUIDs;
         _mapService = mapService;
+        _bin = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -288,8 +290,11 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!bookmark) {
         __weak typeof(self) weakSelf = self;
         [self.collectionView performBatchUpdates:^{
+            PlaceItem *itemToRemove = [weakSelf.bookmarkedItems objectAtIndex:indexPathOfFoundIndex.item];
             [weakSelf.bookmarkedItems removeObjectAtIndex:indexPathOfFoundIndex.item];
             [weakSelf.collectionView deleteItemsAtIndexPaths:@[indexPathOfFoundIndex]];
+          
+            [weakSelf.bin addObject:itemToRemove];
         } completion:^(BOOL finished) {
         }];
     }
@@ -297,6 +302,22 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.viewIfLoaded.window != nil && [self.bookmarkedItems count] == 0) {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+  if (motion != UIEventSubtypeMotionShake) {
+    return;
+  }
+  
+  __weak typeof(self) weakSelf = self;
+  [self.collectionView performBatchUpdates:^{
+      PlaceItem *itemToReturn = [weakSelf.bin lastObject];
+      [weakSelf.bookmarkedItems addObject:itemToReturn];
+      NSIndexPath *lastItemIndexPath = [NSIndexPath indexPathWithIndex:[weakSelf.bookmarkedItems count]];
+      [weakSelf.collectionView insertItemsAtIndexPaths:@[lastItemIndexPath]];
+      [weakSelf.bin removeObject:itemToReturn];
+  } completion:^(BOOL finished) {
+  }];
 }
 
 @end
