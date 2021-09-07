@@ -16,6 +16,7 @@
 #import "TextUtils.h"
 #import "ImageUtils.h"
 #import "Typography.h"
+#import "BookmarkButton.h"
 
 @interface PhotoCollectionViewCell ()
 
@@ -104,16 +105,14 @@ static const CGFloat kGradientOffset = 50.0;
       [self.overlayView.heightAnchor constraintEqualToAnchor:self.headerLabel.heightAnchor constant:kHeaderLabelTop + kGradientOffset]
   ]];
 #pragma mark - Favorites button
-    self.favoritesButton = [[UIButton alloc] init];
+    __weak typeof(self) weakSelf = self;
+    self.favoritesButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorIndex
+                                                  onBookmarkPress:^(BOOL selected) { 
+      weakSelf.item.onFavoriteButtonPress();
+    }];
     self.favoritesButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     self.favoritesButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    UIImage *imageNotSelected = [[UIImage imageNamed:@"bookmark-index"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIImage *imageSelected = [[UIImage imageNamed:@"bookmark-index-selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.favoritesButton setImage:imageNotSelected forState:UIControlStateNormal];
-    [self.favoritesButton setImage:imageSelected forState:UIControlStateSelected];
-    [self.favoritesButton addTarget:self action:@selector(onFavoritePress:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.favoritesButton.tintColor = [ColorsLegacy get].black;
     [self addSubview:self.favoritesButton];
     
     self.favoritesButton.translatesAutoresizingMaskIntoConstraints = NO;

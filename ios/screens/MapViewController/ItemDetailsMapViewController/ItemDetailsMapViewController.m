@@ -42,6 +42,7 @@
 
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
 @property (strong, nonatomic) MGLPolyline *directionsPolyline;
+@property (strong, nonatomic) UINotificationFeedbackGenerator *feedbackGenerator;
 @property (copy, nonatomic) void(^cancelGetDirections)(void);
 
 @end
@@ -63,6 +64,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   if (self.directionsPolyline != nil) {
     [self addDirectionsLayer:self.mapView.style shape:self.directionsPolyline];
   }
+  self.feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+  [self.feedbackGenerator prepare];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -328,6 +331,15 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
   }];
 }
+
+- (void)onPopupShow:(BOOL)visible itemUUID:(nonnull NSString *)itemUUID {
+  [super onPopupShow:visible itemUUID:itemUUID];
+  if (visible) {
+    [self.feedbackGenerator notificationOccurred:UINotificationFeedbackTypeSuccess];
+    self.feedbackGenerator = nil;
+  }
+}
+
 
 - (void)showRoutesSheet {
   PlaceItem *item = self.mapItem.correspondingPlaceItem;

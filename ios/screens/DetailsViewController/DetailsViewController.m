@@ -34,6 +34,7 @@
 #import "ScrollViewUtils.h"
 #import "AnalyticsUIScrollViewDelegate.h"
 #import "AnalyticsTimeTracer.h"
+#import "BookmarkButton.h"
 
 @interface DetailsViewController ()
 
@@ -173,7 +174,9 @@
     ]];
 
     #pragma mark - Bookmark button
-    self.bookmarkButton = [[UIButton alloc] init];
+    self.bookmarkButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorDetailsScreen onBookmarkPress:^(BOOL selected) {
+      [weakSelf onBookmarkButtonPress];
+    }];
 
     self.bookmarkButton.backgroundColor = [ColorsLegacy get].white;
     self.bookmarkButton.contentMode = UIViewContentModeScaleAspectFill;
@@ -181,16 +184,9 @@
     self.bookmarkButton.layer.borderWidth = 1.0;
     self.bookmarkButton.layer.borderColor = [[ColorsLegacy get].heavyMetal35 CGColor];
     self.bookmarkButton.layer.masksToBounds = YES;
-    UIImage *imageNotSelected = [[UIImage imageNamed:@"bookmark-index"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIImage *imageSelected = [[UIImage imageNamed:@"bookmark-index-selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-
-    [self.bookmarkButton setImage:imageNotSelected forState:UIControlStateNormal];
-    [self.bookmarkButton setImage:imageSelected forState:UIControlStateSelected];
-
+    
     self.bookmarkButton.tintColor = [ColorsLegacy get].logCabin;
     [self.bookmarkButton setSelected:self.item.bookmarked];
-
-    [self.bookmarkButton addTarget:self action:@selector(onBookmarkButtonPress:) forControlEvents:UIControlEventTouchUpInside];
 
     self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -546,7 +542,7 @@
 }
 
 #pragma mark onBookmarkButtonPress
-- (void)onBookmarkButtonPress:(id)sender {
+- (void)onBookmarkButtonPress {
   BOOL bookmark = !self.item.bookmarked;
   [self.indexModel bookmarkItem:self.item bookmark:bookmark];
   [[AnalyticsEvents get] logEvent:bookmark ? AnalyticsEventsDetailsSave : AnalyticsEventsDetailsUnsave

@@ -6,12 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIButtonWithFeedback.h"
+#import "BookmarkButtonConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BookmarkButton : UIButton
 
-- (instancetype)initWithOnBookmarkPress:(void(^)(BOOL))onBookmarkPress;
+@interface BookmarkButton : UIButtonWithFeedback
+
+- (instancetype)initWithFlavor:(BookmarkButtonFlavor)flavor
+               onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 - (void)setBookmark:(BOOL)bookmarked;
 - (void)setOnBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 
