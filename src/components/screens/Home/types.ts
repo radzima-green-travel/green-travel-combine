@@ -1,7 +1,5 @@
-import {
-  StackNavigationOptions,
-  StackNavigationProp,
-} from '@react-navigation/stack';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
 import {
@@ -25,4 +23,4 @@ export interface IProps {
   route: HomeScreenRouteProps;
 }
 
-export type ScreenOptions = (props: IProps) => StackNavigationOptions;
+export type ScreenOptions = (props: IProps) => NativeStackNavigationOptions;

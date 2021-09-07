@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {createStackNavigator} from '@react-navigation/stack';
-
 import {
   BookmarksListScreen,
   BookmarksScreen,
@@ -9,32 +7,22 @@ import {
   ObjectsListScreen,
 } from 'screens';
 
-import {getAppHeaderOptions} from '../screenOptions';
-import {useColorScheme} from 'core/hooks';
+import {useScreenOptions} from '../screenOptions';
 import {BookmarksNavigatorParamsList} from 'core/types';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator<BookmarksNavigatorParamsList>();
+const Stack = createNativeStackNavigator<BookmarksNavigatorParamsList>();
 
 export function BookmarksNavigator() {
-  const colorScheme = useColorScheme();
-
+  const screenOptions = useScreenOptions();
   return (
     <Stack.Navigator
       screenOptions={{
-        detachPreviousScreen: false,
-        headerMode: 'screen',
-        ...getAppHeaderOptions({colorScheme}),
-
+        ...screenOptions,
         title: 'Закладки',
       }}>
       <Stack.Screen name="Bookmarks" component={BookmarksScreen} />
-      <Stack.Screen
-        options={{
-          ...getAppHeaderOptions({colorScheme}),
-        }}
-        name="BookmarksList"
-        component={BookmarksListScreen}
-      />
+      <Stack.Screen name="BookmarksList" component={BookmarksListScreen} />
       <Stack.Screen
         name="ObjectDetails"
         component={ObjectDetailsScreen}

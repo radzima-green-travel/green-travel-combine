@@ -1,23 +1,19 @@
 import React from 'react';
 
-import {createStackNavigator} from '@react-navigation/stack';
-
 import {AppMapScreen, ObjectDetailsScreen, ObjectsListScreen} from 'screens';
 
-import {getAppHeaderOptions} from '../screenOptions';
-import {useColorScheme} from 'core/hooks';
+import {useScreenOptions} from '../screenOptions';
 import {AppMapNavigatorParamsList} from 'core/types';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator<AppMapNavigatorParamsList>();
+const Stack = createNativeStackNavigator<AppMapNavigatorParamsList>();
 
 export function AppMapNavigatior() {
-  const colorScheme = useColorScheme();
-
+  const screenOptions = useScreenOptions();
   return (
     <Stack.Navigator
       screenOptions={{
-        detachPreviousScreen: false,
-        ...getAppHeaderOptions({colorScheme}),
+        ...screenOptions,
         title: 'Карта',
       }}>
       <Stack.Screen

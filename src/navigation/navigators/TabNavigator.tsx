@@ -25,6 +25,9 @@ export function TabNavigator() {
 
   return (
     <Tab.Navigator
+      sceneContainerStyle={{
+        backgroundColor: theme === 'light' ? COLORS.white : COLORS.background,
+      }}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor:

@@ -1,1 +1,1 @@
-export {getAppHeaderOptions} from './getAppHeaderOptions';
+export {useScreenOptions} from './useScreenOptions';

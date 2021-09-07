@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   HomeScreen,
   ObjectDetailsScreen,
@@ -9,21 +9,20 @@ import {
   SearchScreen,
 } from 'screens';
 
-import {useColorScheme, useTranslation} from 'core/hooks';
+import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
-import {getAppHeaderOptions} from '../screenOptions';
+import {useScreenOptions} from '../screenOptions';
 
-const Stack = createStackNavigator<HomeNavigatorParamsList>();
+const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
 export function HomeNavigator() {
-  const colorScheme = useColorScheme();
   const {t} = useTranslation('home');
+
+  const screenOptions = useScreenOptions();
   return (
     <Stack.Navigator
       screenOptions={{
-        detachPreviousScreen: false,
-        headerMode: 'screen',
-        ...getAppHeaderOptions({colorScheme}),
+        ...screenOptions,
         title: t('headerTitle'),
       }}>
       <Stack.Screen
@@ -34,7 +33,10 @@ export function HomeNavigator() {
       <Stack.Screen
         name="Search"
         component={SearchScreen}
-        options={SearchScreen.screenOptions}
+        options={{
+          ...SearchScreen.screenOptions,
+          animation: 'fade',
+        }}
       />
       <Stack.Screen
         name="ObjectDetails"

@@ -6,6 +6,7 @@ import {
   FlatList,
   InteractionManager,
   RefreshControl,
+  View,
 } from 'react-native';
 
 import {themeStyles} from './styles';
@@ -148,46 +149,48 @@ export const Home = ({navigation: {navigate}}: IProps) => {
   );
 
   return (
-    <SuspenseView
-      loading={loading}
-      error={homeData ? null : error}
-      retryCallback={getInitialData}>
-      <FlatList
-        ref={listRef}
-        style={styles.list}
-        contentContainerStyle={styles.contentContainer}
-        keyboardShouldPersistTaps="handled"
-        refreshControl={
-          <RefreshControl
-            tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
-            colors={[COLORS.forestGreen]}
-            refreshing={refreshing && isFocused}
-            onRefresh={getData}
-          />
-        }
-        data={homeData}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <HomeSectionBar
-            onObjectPress={navigateToObjectDetails}
-            onCategoryPress={onCategoryPress}
-            onAllObjectsPress={onAllObjectsPress}
-            onAllCategoriesPress={navigateToCategoriesList}
-            item={item}
-            onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
-          />
-        )}
-      />
-      {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null}
-      <ErrorToast
-        ref={ref}
-        text={
-          updateError?.message?.textPaths
-            ? t(updateError?.message?.textPaths)
-            : ''
-        }
-      />
-    </SuspenseView>
+    <View style={{overflow: 'hidden', flex: 1}}>
+      <SuspenseView
+        loading={loading}
+        error={homeData ? null : error}
+        retryCallback={getInitialData}>
+        <FlatList
+          ref={listRef}
+          style={styles.list}
+          contentContainerStyle={styles.contentContainer}
+          keyboardShouldPersistTaps="handled"
+          refreshControl={
+            <RefreshControl
+              tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
+              colors={[COLORS.forestGreen]}
+              refreshing={refreshing && isFocused}
+              onRefresh={getData}
+            />
+          }
+          data={homeData}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <HomeSectionBar
+              onObjectPress={navigateToObjectDetails}
+              onCategoryPress={onCategoryPress}
+              onAllObjectsPress={onAllObjectsPress}
+              onAllCategoriesPress={navigateToCategoriesList}
+              item={item}
+              onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
+            />
+          )}
+        />
+        {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null}
+        <ErrorToast
+          ref={ref}
+          text={
+            updateError?.message?.textPaths
+              ? t(updateError?.message?.textPaths)
+              : ''
+          }
+        />
+      </SuspenseView>
+    </View>
   );
 };
 

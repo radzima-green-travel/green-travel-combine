@@ -2,7 +2,6 @@ import {StackNavigationOptions} from '@react-navigation/stack';
 import {HeaderSearchbar} from 'atoms';
 import {setSearchInputValue} from 'core/reducers';
 import {selectSearchInputValue} from 'core/selectors';
-import {Fade} from 'navigation/transitition';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {isAndroid} from 'services/PlatformService';
@@ -23,18 +22,19 @@ const HeaderTitle = () => {
 
 export const screenOptions: StackNavigationOptions = {
   headerTitle: () => <HeaderTitle />,
+
   headerTitleContainerStyle: {
     flexGrow: isAndroid ? 0.82 : 0.85,
     marginRight: 10,
     marginLeft: 0,
+    maxWidth: undefined,
   },
   headerLeftContainerStyle: {
     flexGrow: isAndroid ? 0.18 : 0.15,
     marginBottom: 3,
-    paddingLeft: isAndroid ? 0 : 16,
+    paddingLeft: 16,
   },
   headerRightContainerStyle: {
     flexGrow: 0,
   },
-  ...Fade,
 };

@@ -1,20 +1,16 @@
 import React from 'react';
 
-import {createStackNavigator} from '@react-navigation/stack';
-
 import {ErrorScreen, ObjectDetailsMapScreen} from 'screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator<MainNavigatorParamsList>();
+const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
 export function MainNavigator() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        detachPreviousScreen: false,
-      }}>
+    <Stack.Navigator>
       <Stack.Screen
         name="TabNavigator"
         component={TabNavigator}
@@ -29,7 +25,10 @@ export function MainNavigator() {
       <Stack.Screen
         name="ErrorScreen"
         component={ErrorScreen}
-        options={ErrorScreen.screenOptions}
+        options={{
+          headerShown: false,
+          animation: 'fade',
+        }}
       />
     </Stack.Navigator>
   );
