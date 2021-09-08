@@ -106,6 +106,8 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.3.1):
     - GoogleUtilities/Logger
+  - hermes-engine (0.8.1)
+  - libevent (2.1.12)
   - libwebp (1.1.0):
     - libwebp/demux (= 1.1.0)
     - libwebp/mux (= 1.1.0)
@@ -140,6 +142,12 @@ PODS:
     - DoubleConversion
     - fmt (~> 6.2.1)
     - glog
+  - RCT-Folly/Futures (2021.04.26.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - fmt (~> 6.2.1)
+    - glog
+    - libevent
   - RCTRequired (0.65.1)
   - RCTTypeSafety (0.65.1):
     - FBLazyVector (= 0.65.1)
@@ -305,6 +313,17 @@ PODS:
     - React-jsinspector (= 0.65.1)
     - React-perflogger (= 0.65.1)
     - React-runtimeexecutor (= 0.65.1)
+  - React-hermes (0.65.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2021.04.26.00)
+    - RCT-Folly/Futures (= 2021.04.26.00)
+    - React-cxxreact (= 0.65.1)
+    - React-jsi (= 0.65.1)
+    - React-jsiexecutor (= 0.65.1)
+    - React-jsinspector (= 0.65.1)
+    - React-perflogger (= 0.65.1)
   - React-jsi (0.65.1):
     - boost-for-react-native (= 1.63.0)
     - DoubleConversion
@@ -462,6 +481,8 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Performance
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - hermes-engine (~> 0.8.1)
+  - libevent (~> 2.1.12)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways`)
   - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -474,6 +495,7 @@ DEPENDENCIES:
   - React-Core/RCTWebSocket (from `../node_modules/react-native/`)
   - React-CoreModules (from `../node_modules/react-native/React/CoreModules`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
+  - React-hermes (from `../node_modules/react-native/ReactCommon/hermes`)
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
@@ -526,6 +548,8 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - hermes-engine
+    - libevent
     - libwebp
     - Mapbox-iOS-SDK
     - MapboxMobileEvents
@@ -569,6 +593,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/React/CoreModules"
   React-cxxreact:
     :path: "../node_modules/react-native/ReactCommon/cxxreact"
+  React-hermes:
+    :path: "../node_modules/react-native/ReactCommon/hermes"
   React-jsi:
     :path: "../node_modules/react-native/ReactCommon/jsi"
   React-jsiexecutor:
@@ -660,6 +686,8 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 50a254ee92c1b94fbe2abea7e3da35e4c6dedce0
   GoogleDataTransport: b006084b73915a42c28a3466961a4edda3065da6
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
+  hermes-engine: 7dcd1dbd908e6353bd7e4a4add72dba7bf76bf84
+  libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
   MapboxMobileEvents: 36ff53b135aac486eed94b61f813c7967a0c2c6f
@@ -676,6 +704,7 @@ SPEC CHECKSUMS:
   React-Core: 001e21bad5ca41e59e9d90df5c0b53da04c3ce8e
   React-CoreModules: 0a0410ab296a62ab38e2f8d321e822d1fcc2fe49
   React-cxxreact: 8d904967134ae8ff0119c5357c42eaae976806f8
+  React-hermes: ae17bfbf550cefc6331b9544f00b66ad1d9b9d99
   React-jsi: 12913c841713a15f64eabf5c9ad98592c0ec5940
   React-jsiexecutor: 43f2542aed3c26e42175b339f8d37fe3dd683765
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
@@ -714,6 +743,6 @@ SPEC CHECKSUMS:
   Sentry: 388c9dc093b2fd3a264466a5c5b21e25959610a9
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
 
-PODFILE CHECKSUM: bd70858f1d7a0acfc37d58e11f0bffbaddb9dc8e
+PODFILE CHECKSUM: 2f0febafa02bfc5dec6798c0572d54ae417c1277
 
 COCOAPODS: 1.10.2
