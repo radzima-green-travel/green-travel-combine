@@ -156,7 +156,7 @@ android {
                     println "The value of \$DOWNLOADED_KEYSTORE_PATH can be something like \$HOME/keystores/android.keystore " +
                             "with the `replace variables` checkmark checked."
                 }
-                storeFile file(downloadedKeystorePath)
+                storeFile file('BITRISE_ANDROID_KEYSTORE_NAME')
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
                 storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
