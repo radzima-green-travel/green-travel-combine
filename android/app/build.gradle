@@ -147,15 +147,30 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") != null) {
+            bitrise {
+                def downloadedKeystorePath = System.getenv("DOWNLOADED_KEYSTORE_PATH")
+                if (downloadedKeystorePath == null) {
+                    println "Environment variable DOWNLOADED_KEYSTORE_PATH not set."
+                    println "Please create a File Downloader step and download \$BITRISEIO_ANDROID_KEYSTORE_URL into \$DOWNLOADED_KEYSTORE_PATH"
+                    println "The value of \$DOWNLOADED_KEYSTORE_PATH can be something like \$HOME/keystores/android.keystore " +
+                            "with the `replace variables` checkmark checked."
+                }
+                storeFile file(downloadedKeystorePath)
+                keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+                keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+                storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+            }
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
-        release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+        release {            
+            if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") != null) {
+                signingConfig signingConfigs.bitrise
+            }
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
