@@ -1,13 +1,20 @@
+import {COLORS} from 'assets';
 import React, {memo, useState} from 'react';
 import {
   FlatList,
   NativeSyntheticEvent,
   NativeScrollEvent,
   View,
+  StyleProp,
   Image,
+  ImageStyle as NativeImageStyle,
 } from 'react-native';
-import {LoadingView} from '../LoadingView';
 
+import * as Progress from 'react-native-progress';
+import FastImage, {ImageStyle} from 'react-native-fast-image';
+import {themeStyles} from './styles';
+import {useThemeStyles} from 'core/hooks';
+import {isIOS} from 'services/PlatformService';
 interface IProps {
   images?: string[];
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
@@ -15,25 +22,63 @@ interface IProps {
   height: number;
 }
 
-const Item = ({width, item}) => {
+const Item = memo(({width, uri}: {width: number; uri: string}) => {
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const styles = useThemeStyles(themeStyles);
   return (
-    <View style={{width}}>
-      <Image
-        onLoadStart={() => setLoading(true)}
-        onLoadEnd={() => setLoading(false)}
-        style={{width, height: '100%'}}
-        resizeMode="cover"
-        source={{
-          uri: item,
-        }}
-      />
-      {loading ? <LoadingView transparent /> : null}
+    <View style={[styles.container, {width}]}>
+      {isIOS ? (
+        <FastImage
+          onLoadStart={() => setLoading(true)}
+          onLoad={() => setLoading(false)}
+          style={[styles.image as unknown as StyleProp<ImageStyle>, {width}]}
+          onProgress={({nativeEvent}) => {
+            const {loaded, total} = nativeEvent;
+            console.log(loaded, total);
+            setProgress(loaded / total);
+          }}
+          resizeMode="cover"
+          source={{
+            uri: uri,
+          }}
+        />
+      ) : (
+        <Image
+          onLoadStart={() => setLoading(true)}
+          onLoad={() => setLoading(false)}
+          style={[
+            styles.image as unknown as StyleProp<NativeImageStyle>,
+            {width},
+          ]}
+          onProgress={({nativeEvent}) => {
+            const {loaded, total} = nativeEvent;
+            console.log(loaded, total);
+            setProgress(loaded / total);
+          }}
+          resizeMode="cover"
+          source={{
+            uri: uri,
+          }}
+        />
+      )}
+
+      {loading ? (
+        <View style={styles.progressContainer}>
+          <Progress.Circle
+            size={40}
+            borderWidth={0}
+            color={COLORS.forestGreen}
+            progress={progress}
+            thickness={1.5}
+          />
+        </View>
+      ) : null}
     </View>
   );
-};
+});
 
-export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
+export const ImageSlider = ({images, onScroll, width, height}: IProps) => {
   return (
     <FlatList
       contentContainerStyle={{height}}
@@ -45,19 +90,11 @@ export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
       keyExtractor={(_item, index) => String(_item || index)}
       onScroll={onScroll}
       data={images}
-      initialNumToRender={2}
-      maxToRenderPerBatch={2}
+      initialNumToRender={1}
+      maxToRenderPerBatch={1}
       renderItem={({item}) => {
-        return (
-          <Image
-            style={{width}}
-            resizeMode="cover"
-            source={{
-              uri: item,
-            }}
-          />
-        );
+        return <Item width={width} uri={item} />;
       }}
     />
   );
-});
+};

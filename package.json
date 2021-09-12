@@ -43,6 +43,7 @@
     "react-native-linear-gradient": "2.5.6",
     "react-native-map-link": "2.7.25",
     "react-native-permissions": "3.0.4",
+    "react-native-progress": "^5.0.0",
     "react-native-reanimated": "1.13.0",
     "react-native-render-html": "4.2.3",
     "react-native-safe-area-context": "3.3.2",

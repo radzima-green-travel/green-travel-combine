@@ -1,18 +1,11 @@
 import React, {memo, useMemo} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleProp,
-  ViewStyle,
-  Image,
-  ImageStyle,
-} from 'react-native';
+import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {Icon} from 'atoms';
 import {themeStyles, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
+import FastImage, {ImageStyle} from 'react-native-fast-image';
 export const ratio = 324 / 144;
 
 interface IProps {
@@ -67,7 +60,7 @@ export const Card = memo(
         disabled={!onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}>
-        <Image
+        <FastImage
           style={styles.image as unknown as StyleProp<ImageStyle>}
           source={normalizedSource}
           onError={() => {}}

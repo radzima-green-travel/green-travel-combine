@@ -7,13 +7,17 @@ import {COLORS} from 'assets';
 
 type Props = {
   transparent?: boolean;
+  size?: number | 'small' | 'large';
 };
 
-export const LoadingView = memo<Props>(({transparent = true}: Props) => {
-  const styles = useThemeStyles(themeStyles);
-  return (
-    <View style={[styles.loadingContainer, transparent && styles.transparent]}>
-      <ActivityIndicator color={COLORS.forestGreen} size="large" />
-    </View>
-  );
-});
+export const LoadingView = memo<Props>(
+  ({transparent = true, size = 'large'}: Props) => {
+    const styles = useThemeStyles(themeStyles);
+    return (
+      <View
+        style={[styles.loadingContainer, transparent && styles.transparent]}>
+        <ActivityIndicator color={COLORS.forestGreen} size={size} />
+      </View>
+    );
+  },
+);
