@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
     "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
-    "update-svg": "node scripts/update-svg/update-svg.js"
+    "update-svg": "node scripts/update-svg/update-svg.js",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@amplitude/react-native": "2.3.3",
@@ -30,12 +31,13 @@
     "i18next": "19.5.1",
     "lint-staged": "10.2.11",
     "lodash": "4.17.21",
+    "patch-package": "6.4.7",
     "react": "17.0.2",
     "react-i18next": "11.7.0",
     "react-native": "0.65.1",
     "react-native-base64": "0.2.1",
     "react-native-bootsplash": "3.2.4",
-    "react-native-fast-image": "8.3.4",
+    "react-native-fast-image": "8.3.7",
     "react-native-geolocation-service": "5.0.0",
     "react-native-gesture-handler": "1.10.3",
     "react-native-linear-gradient": "2.5.6",
@@ -44,7 +46,7 @@
     "react-native-reanimated": "1.13.0",
     "react-native-render-html": "4.2.3",
     "react-native-safe-area-context": "3.3.2",
-    "react-native-screens": "3.6.0",
+    "react-native-screens": "3.7.0",
     "react-native-svg": "12.1.0",
     "react-native-svg-transformer": "0.14.3",
     "react-native-ultimate-config": "3.3.4",

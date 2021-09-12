@@ -5,6 +5,7 @@ import {AppMapScreen, ObjectDetailsScreen, ObjectsListScreen} from 'screens';
 import {useScreenOptions} from '../screenOptions';
 import {AppMapNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {defaultTransition} from '../transitition';
 
 const Stack = createNativeStackNavigator<AppMapNavigatorParamsList>();
 
@@ -15,6 +16,7 @@ export function AppMapNavigatior() {
       screenOptions={{
         ...screenOptions,
         title: 'Карта',
+        animation: defaultTransition,
       }}>
       <Stack.Screen
         options={{headerShown: false}}

@@ -5,12 +5,16 @@ import {ErrorScreen, ObjectDetailsMapScreen} from 'screens';
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {defaultTransition} from '../transitition';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
 export function MainNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        animation: defaultTransition,
+      }}>
       <Stack.Screen
         name="TabNavigator"
         component={TabNavigator}

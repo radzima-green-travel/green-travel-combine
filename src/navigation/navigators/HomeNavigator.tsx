@@ -12,6 +12,7 @@ import {
 import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
 import {useScreenOptions} from '../screenOptions';
+import {defaultTransition} from '../transitition';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
@@ -24,6 +25,7 @@ export function HomeNavigator() {
       screenOptions={{
         ...screenOptions,
         title: t('headerTitle'),
+        animation: defaultTransition,
       }}>
       <Stack.Screen
         name="Home"
