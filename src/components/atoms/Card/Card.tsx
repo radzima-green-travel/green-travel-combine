@@ -1,8 +1,15 @@
 import React, {memo, useMemo} from 'react';
-import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+  Image,
+  ImageStyle,
+} from 'react-native';
 import {Icon} from 'atoms';
 import {themeStyles, gradientConfig} from './styles';
-import FastImage, {ImageStyle} from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
@@ -60,8 +67,8 @@ export const Card = memo(
         disabled={!onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}>
-        <FastImage
-          style={(styles.image as unknown) as StyleProp<ImageStyle>}
+        <Image
+          style={styles.image as unknown as StyleProp<ImageStyle>}
           source={normalizedSource}
           onError={() => {}}
         />

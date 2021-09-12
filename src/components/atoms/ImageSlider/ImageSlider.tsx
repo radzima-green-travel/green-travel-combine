@@ -4,8 +4,8 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
   View,
+  Image,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import {LoadingView} from '../LoadingView';
 
 interface IProps {
@@ -19,11 +19,11 @@ const Item = ({width, item}) => {
   const [loading, setLoading] = useState(false);
   return (
     <View style={{width}}>
-      <FastImage
+      <Image
         onLoadStart={() => setLoading(true)}
         onLoadEnd={() => setLoading(false)}
         style={{width, height: '100%'}}
-        resizeMode={FastImage.resizeMode.cover}
+        resizeMode="cover"
         source={{
           uri: item,
         }}
@@ -49,9 +49,9 @@ export const ImageSlider = memo(({images, onScroll, width, height}: IProps) => {
       maxToRenderPerBatch={2}
       renderItem={({item}) => {
         return (
-          <FastImage
+          <Image
             style={{width}}
-            resizeMode={FastImage.resizeMode.cover}
+            resizeMode="cover"
             source={{
               uri: item,
             }}
