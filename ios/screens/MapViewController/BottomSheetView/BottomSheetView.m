@@ -123,25 +123,47 @@ self.addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
   [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
   [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
 ]];
+}
 
 #pragma mark - Details button
-self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@""];
-self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
-[self addSubview:self.detailsButton];
+- (UIButton *)makeDetailsButton {
+  self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@""];
+  self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
+  [self addSubview:self.detailsButton];
 
-NSLayoutConstraint *widthConstraint = [self.detailsButton.widthAnchor constraintEqualToConstant:500.0];
-NSLayoutConstraint *leadingConstraint = [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0];
-NSLayoutConstraint *trailingConstraint = [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0];
-leadingConstraint.priority = UILayoutPriorityDefaultLow;
-trailingConstraint.priority = UILayoutPriorityDefaultLow;
-widthConstraint.priority = UILayoutPriorityDefaultLow;
-[NSLayoutConstraint activateConstraints:@[
-  [self.detailsButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:kDistanceAddressButton],
-  leadingConstraint,
-  trailingConstraint,
-  widthConstraint,
-  [self.detailsButton.centerXAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.centerXAnchor]
-]];
+  NSLayoutConstraint *widthConstraint = [self.detailsButton.widthAnchor constraintEqualToConstant:500.0];
+  NSLayoutConstraint *leadingConstraint = [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0];
+  NSLayoutConstraint *trailingConstraint = [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0];
+  leadingConstraint.priority = UILayoutPriorityDefaultLow;
+  trailingConstraint.priority = UILayoutPriorityDefaultLow;
+  widthConstraint.priority = UILayoutPriorityDefaultLow;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.detailsButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:kDistanceAddressButton],
+    leadingConstraint,
+    trailingConstraint,
+    widthConstraint,
+    [self.detailsButton.centerXAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.centerXAnchor]
+  ]];
+  self.detailsButton
+}
+
+- (void)setInProgress:(BOOL)inProgress {
+  _inProgress = inProgress;
+  if (inProgress) {
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+    [self.detailsButton setLabel:@""];
+    [self.detailsButton addSubview:spinner];
+    return
+  }
+  [self.detailsButton setLabel:@""];
+  [self.detailsButton addSubview:spinner];
+}
+
+- (void)setButtonLabel:(NSString *)buttonLabel {
+  _buttonLabel = buttonLabel;
+  [self.detailsButton setLabel:buttonLabel];
 }
 
 - (CGFloat)heightOfContent {

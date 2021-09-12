@@ -143,6 +143,8 @@
 		5A775E7C26092B8100CEFC78 /* Settings_Debug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */; };
 		5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB19C264E7DB000333F1E /* BaseMapViewController.m */; };
 		5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */; };
+		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
+		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
@@ -438,6 +440,10 @@
 		5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemDetailsMapViewController.m; sourceTree = "<group>"; };
 		5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetView.h; sourceTree = "<group>"; };
 		5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetView.m; sourceTree = "<group>"; };
+		5A9D706B26EE447B00F4799D /* CommonButtonWithProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonButtonWithProgress.h; sourceTree = "<group>"; };
+		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
+		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
+		5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewDetailedMap.m; sourceTree = "<group>"; };
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
 		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -992,8 +998,8 @@
 				5A775DC226077A7C00CEFC78 /* FullMapViewController.h */,
 				5A775DBF26077A7C00CEFC78 /* FullMapViewController.m */,
 				5A6DC5CE265AAAE900A2D37B /* ItemDetailsMapViewController */,
-				5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */,
-				5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */,
+				5A9D706F26EE6E6900F4799D /* BottomSheetView */,
+				5A9D707326EE7F4700F4799D /* BottomSheetViewDetailedMap */,
 				5A6EDF8826C93FB8001307DC /* BottomSheetPresentationController.h */,
 				5A6EDF8926C93FB8001307DC /* BottomSheetPresentationController.m */,
 				5A6EDF9026C9671C001307DC /* BottomSheetTouchForwardingView.h */,
@@ -1229,6 +1235,33 @@
 			path = MapPinView;
 			sourceTree = "<group>";
 		};
+		5A9D706E26EE448000F4799D /* CommonButtonWithProgress */ = {
+			isa = PBXGroup;
+			children = (
+				5A9D706B26EE447B00F4799D /* CommonButtonWithProgress.h */,
+				5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */,
+			);
+			path = CommonButtonWithProgress;
+			sourceTree = "<group>";
+		};
+		5A9D706F26EE6E6900F4799D /* BottomSheetView */ = {
+			isa = PBXGroup;
+			children = (
+				5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */,
+				5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */,
+			);
+			path = BottomSheetView;
+			sourceTree = "<group>";
+		};
+		5A9D707326EE7F4700F4799D /* BottomSheetViewDetailedMap */ = {
+			isa = PBXGroup;
+			children = (
+				5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */,
+				5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */,
+			);
+			path = BottomSheetViewDetailedMap;
+			sourceTree = "<group>";
+		};
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1238,6 +1271,7 @@
 				5AF8D589260C7D8A001CE702 /* CommonButton */,
 				5A29148826E3B89A004AD6F3 /* UIButtonHighlightable */,
 				5A29148C26E4F7F6004AD6F3 /* UIButtonWithFeedback */,
+				5A9D706E26EE448000F4799D /* CommonButtonWithProgress */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1338,9 +1372,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 53APD5F9YQ;
+						DevelopmentTeam = NWSTPFC433;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1619,6 +1653,7 @@
 				5A6EDF8A26C93FB8001307DC /* BottomSheetPresentationController.m in Sources */,
 				5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */,
 				5A775DFE26077A7D00CEFC78 /* CategoriesFilterSpacerCollectionViewCell.m in Sources */,
+				5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
 				5A775B2A26064C9000CEFC78 /* StoredPlaceDetails+CoreDataProperties.m in Sources */,
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
@@ -1650,6 +1685,7 @@
 				5A775B5926064C9000CEFC78 /* Category.m in Sources */,
 				5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */,
 				5A775DFD26077A7D00CEFC78 /* IndexViewController.m in Sources */,
+				5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */,
 				5A775B5D26064C9000CEFC78 /* FeedItem.m in Sources */,
 				5A775DF826077A7D00CEFC78 /* PlacesTableViewCell.m in Sources */,
 				5A775B5C26064C9000CEFC78 /* SearchItem.m in Sources */,
@@ -1706,10 +1742,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1723,9 +1759,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1739,10 +1775,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1751,9 +1787,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

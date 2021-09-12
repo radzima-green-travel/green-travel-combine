@@ -313,23 +313,46 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   __weak typeof(self) weakSelf = self;
   [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel
          onNavigatePress:^{
-    if (weakSelf.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {
-      showAlertGoToSettings(self);
-      return;
-    }
-    if (weakSelf.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
-        weakSelf.locationModel.lastLocation &&
-        CLLocationCoordinate2DIsValid(weakSelf.locationModel.lastLocation.coordinate)) {
-      [weakSelf showRoutesSheet];
-      return;
-    }
-    [weakSelf.locationModel authorize];
-    [weakSelf.locationModel startMonitoring];
-    weakSelf.intentionToShowRoutesSheet = YES;
+    [weakSelf onNavigatePressPhase1];
   }
          onBookmarkPress:^(BOOL bookmarked) {
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
   }];
+}
+
+- (void)onNavigatePressPhase1 {
+  if (self.cancelGetDirections != nil) {
+    self.cancelGetDirections();
+  }
+  __weak typeof(self) weakSelf = self;
+  self.cancelGetDirections =
+  [self.mapService loadDirectionsWithCompletionFrom:location.coordinate
+                                                 to:self.mapItem.coords
+                                         completion:^(NSArray<CLLocation *> * _Nonnull locations) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      MGLPolyline *polyline = [weakSelf polylineForPath:locations];
+      weakSelf.directionsPolyline = polyline;
+      [weakSelf addDirectionsLayer:weakSelf.mapView.style shape:polyline];
+    });
+  }];
+  
+  if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {
+    showAlertGoToSettings(self);
+    return;
+  }
+  if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
+      self.locationModel.lastLocation &&
+      CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate)) {
+    [self showRoutesSheet];
+    return;
+  }
+  [self.locationModel authorize];
+  [self.locationModel startMonitoring];
+  self.intentionToShowRoutesSheet = YES;
+}
+
+- (void)onNavigatePressPhase2 {
+  [self showRoutesSheet];
 }
 
 - (void)onPopupShow:(BOOL)visible itemUUID:(nonnull NSString *)itemUUID {

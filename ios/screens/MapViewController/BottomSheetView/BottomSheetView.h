@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel
 onNavigatePress:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
+@property(strong, nonatomic) NSString *buttonLabel;
 - (void)hide;
 - (void)setBookmarked:(PlaceItem *)item bookmarked:(BOOL)bookmarked;
 
