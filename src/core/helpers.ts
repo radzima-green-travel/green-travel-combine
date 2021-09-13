@@ -15,6 +15,7 @@ import {
   IObject,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
+import {SCREEN_WIDTH} from 'services/PlatformService';
 export const extractThemeStyles = (
   styles: Object,
   theme: ColorSchemeName,
@@ -68,7 +69,7 @@ export function transformMainData(data: ICategory[]): ITransformedData {
       const objects: string[] = map(category.objects, object => {
         transformedData.objectsMap[object.id] = {
           ...object,
-          cover: imagesService.getImageProxy(object.cover),
+          cover: imagesService.getImageProxy(object.cover, SCREEN_WIDTH * 2),
           images: map(object.images, img => imagesService.getImageProxy(img)),
         };
         transformedData.objectsToCategoryMap[object.id] = category.id;
@@ -80,7 +81,9 @@ export function transformMainData(data: ICategory[]): ITransformedData {
       const children = map(transforedCategories, cat => {
         transformedData.categoriesMap[cat.id] = {
           ...cat,
-          cover: cat.cover ? imagesService.getImageProxy(cat.cover) : cat.cover,
+          cover: cat.cover
+            ? imagesService.getImageProxy(cat.cover, SCREEN_WIDTH * 2)
+            : cat.cover,
         };
         return cat.id;
       });
@@ -91,9 +94,8 @@ export function transformMainData(data: ICategory[]): ITransformedData {
         objects,
       };
 
-      transformedData.categoriesMap[
-        tramsformedCategory.id
-      ] = tramsformedCategory;
+      transformedData.categoriesMap[tramsformedCategory.id] =
+        tramsformedCategory;
 
       return tramsformedCategory;
     });
