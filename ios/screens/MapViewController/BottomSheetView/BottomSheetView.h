@@ -16,9 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(weak, nonatomic) NSLayoutConstraint *top;
 @property(copy, nonatomic) void(^onShow)(BOOL, NSString *);
 - (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel
-onNavigatePress:(void(^)(void))onNavigatePress
+onPressDetails:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 @property(strong, nonatomic) NSString *buttonLabel;
+@property(copy, nonatomic) void(^onPressDetails)(void);
 - (void)hide;
 - (void)setBookmarked:(PlaceItem *)item bookmarked:(BOOL)bookmarked;
 

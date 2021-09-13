@@ -312,7 +312,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
   [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel
-         onNavigatePress:^{
+         onPressDetails:^{
     [weakSelf onNavigatePressPhase1];
   }
          onBookmarkPress:^(BOOL bookmarked) {

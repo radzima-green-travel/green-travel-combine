@@ -467,7 +467,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
   
-  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onNavigatePress:^{
+  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onPressDetails:^{
     DetailsViewController *detailsController =
     [[DetailsViewController alloc] initWithApiService:weakSelf.apiService
                                       coreDataService:weakSelf.coreDataService
