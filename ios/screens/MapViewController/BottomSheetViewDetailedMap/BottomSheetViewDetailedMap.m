@@ -10,8 +10,8 @@
 
 @interface BottomSheetViewDetailedMap()
 
-@property (assign, nonatomic) BOOL requestIsInProgress;
-@property (copy, nonatomic) void (^onPressRoute)(void);
+@property (assign, nonatomic) BottomSheetViewDetailedMapStep progressStep;
+@property (copy, nonatomic) void (^onPressRoute)(ContinueToNavigation);
 @property (copy, nonatomic) void (^onPressNavigate)(void);
 
 @end
@@ -31,20 +31,38 @@
 }
 
 - (void)onDetailsPress:(id)sender {
-  if (self.requestIsInProgress) {
-    [self onPressRoute];
-    return;
+  __weak typeof(self) weakSelf = self;
+  switch (self.progressStep) {
+    case BottomSheetViewDetailedMapStepRoute: {
+      self.progressStep = BottomSheetViewDetailedMapStepRouteInProgress;
+      [(CommonButtonWithProgress *)self.detailsButton setInProgress:YES];
+      self.onPressRoute(^{
+        [weakSelf continueToNavigation];
+      });
+      return;
+    }
+    case BottomSheetViewDetailedMapStepNavigate: {
+      self.onPressNavigate();
+      [self hide];
+      return;
+    }
+    case BottomSheetViewDetailedMapStepRouteInProgress:break;
   }
-  self.requestIsInProgress = YES;
-  [self onPressNavigate];
 }
 
 - (void)continueToNavigation {
-  self.requestIsInProgress = NO;
+  self.progressStep = BottomSheetViewDetailedMapStepNavigate;
+  CommonButtonWithProgress *detailsButton = (CommonButtonWithProgress *) self.detailsButton;
+  [(CommonButtonWithProgress *)self.detailsButton setInProgress:NO];
+  [detailsButton setTitle:@"В путь" forState:UIControlStateNormal];
 }
 
-- (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel onPressRoute:(void (^)(void))onPressRoute onPressNavigate:(void (^)(void))onPressNavigate onBookmarkPress:(void (^)(BOOL))onBookmarkPress {
-  [super show:item buttonLabel:buttonLabel onPressDetails:onPressRoute onBookmarkPress:onBookmarkPress];
+- (void)show:(PlaceItem *)item
+onPressRoute:(void (^)(ContinueToNavigation))onPressRoute
+onPressNavigate:(void (^)(void))onPressNavigate
+onBookmarkPress:(void (^)(BOOL))onBookmarkPress {
+  [super show:item buttonLabel:@"Проложить маршрут" onPressDetails:^{}
+onBookmarkPress:onBookmarkPress];
   self.onPressRoute = onPressRoute;
   self.onPressNavigate = onPressNavigate;
 }

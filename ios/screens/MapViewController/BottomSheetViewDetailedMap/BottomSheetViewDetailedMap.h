@@ -9,15 +9,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^ContinueToNavigation)(void);
+
+
+typedef NS_ENUM(NSInteger, BottomSheetViewDetailedMapStep) {
+  BottomSheetViewDetailedMapStepRoute = 0,
+  BottomSheetViewDetailedMapStepRouteInProgress = 1,
+  BottomSheetViewDetailedMapStepNavigate = 2,
+};
+
 @interface BottomSheetViewDetailedMap : BottomSheetView
 
 - (void)continueToNavigation;
 - (void)onNavigationPress;
-- (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel
-onPressRoute:(void(^)(void))onPressRoute
-onPressNavigate:(void(^)(void))onPressNavigate
-onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
-
+- (void)show:(PlaceItem *)item
+onPressRoute:(void (^)(ContinueToNavigation))onPressRoute
+onPressNavigate:(void (^)(void))onPressNavigate
+onBookmarkPress:(void (^)(BOOL))onBookmarkPress;
 @end
 
 NS_ASSUME_NONNULL_END

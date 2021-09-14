@@ -10,11 +10,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
+@class CommonButton;
 
 @interface BottomSheetView : UIView<UIGestureRecognizerDelegate>
 
 @property(weak, nonatomic) NSLayoutConstraint *top;
 @property(copy, nonatomic) void(^onShow)(BOOL, NSString *);
+@property(strong, nonatomic) CommonButton *detailsButton;
+
 - (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel
 onPressDetails:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
@@ -22,6 +25,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 @property(copy, nonatomic) void(^onPressDetails)(void);
 - (void)hide;
 - (void)setBookmarked:(PlaceItem *)item bookmarked:(BOOL)bookmarked;
+- (CommonButton *)makeDetailsButton;
 
 @end
 

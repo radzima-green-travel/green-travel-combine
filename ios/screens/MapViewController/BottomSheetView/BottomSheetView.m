@@ -18,7 +18,6 @@
 @interface BottomSheetView ()
 
 @property(strong, nonatomic) UIPanGestureRecognizer *recognizer;
-@property(strong, nonatomic) CommonButton *detailsButton;
 @property(strong, nonatomic) NSString *itemUUID;
 @property(strong, nonatomic) UILabel *headerLabel;
 @property(strong, nonatomic) UILabel *addressLabel;
