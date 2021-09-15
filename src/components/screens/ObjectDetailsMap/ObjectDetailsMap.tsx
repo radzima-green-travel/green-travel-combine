@@ -153,7 +153,6 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   useEffect(() => {
     if (data) {
       InteractionManager.runAfterInteractions(() => {
-        console.log('opem');
         openMenu();
       });
     }
