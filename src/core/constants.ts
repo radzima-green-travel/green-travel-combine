@@ -93,3 +93,5 @@ export const DARK_ICONS_MATCHER = {
   [MAP_PINS.OTHER_MONUMENTS]: 'strokeOtherMonumentsDark' as IconsNames,
   [MAP_PINS.WAR_MONUMENTS]: 'strokeWarMonumentsDark' as IconsNames,
 };
+
+export const MAP_BOTTOM_MENU_HEIGHT = 185;

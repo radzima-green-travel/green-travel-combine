@@ -5,17 +5,17 @@ import {StatusBar} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 declare let global: {HermesInternal: null | {}};
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
-import {Portal} from 'atoms';
 const App = () => {
   return (
     <Provider store={store}>
-      <Portal.Host>
+      <BottomSheetModalProvider>
         <PersistGate loading={null} persistor={persistor}>
           <RootNavigator />
           <StatusBar barStyle="dark-content" backgroundColor="transparent" />
         </PersistGate>
-      </Portal.Host>
+      </BottomSheetModalProvider>
     </Provider>
   );
 };

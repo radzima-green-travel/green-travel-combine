@@ -1,4 +1,4 @@
-import {ClusterMap, Portal} from 'atoms';
+import {ClusterMap, BottomMenu} from 'atoms';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {InteractionManager, StyleProp, View} from 'react-native';
 import MapBox, {
@@ -24,17 +24,17 @@ import {
   useColorScheme,
   useTransformedData,
   useObjectBelongsToSubtitle,
+  useBottomMenu,
 } from 'core/hooks';
 import {
   ObjectDetailsMapBottomMenu,
-  ObjectDetailsMapBottomMenuRef,
   ObjectDetailsMapButtons,
   BackCircleButton,
 } from 'molecules';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {mapService} from 'services/MapService';
-import Animated from 'react-native-reanimated';
+
 import {IObject} from 'core/types';
 import {
   clearObjectDetailsMapDirection,
@@ -42,6 +42,7 @@ import {
 } from 'core/reducers';
 import {showLocation} from 'react-native-map-link';
 import {themeLayerStyles} from './styles';
+import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -57,7 +58,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   const {t} = useTranslation('objectDetails');
   const {objectId} = route.params;
   const camera = useRef<MapBox.Camera>(null);
-  const bottomMenu = useRef<ObjectDetailsMapBottomMenuRef>(null);
+  const {openMenu, closeMenu, ...menuProps} = useBottomMenu();
 
   const {bottom, top} = useSafeAreaInsets();
   const data = useObject(objectId);
@@ -77,11 +78,8 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   const isDirectionShowed = useSelector(selectIsDirectionShowed);
   const direction = useSelector(selectMapDirection);
 
-  const {
-    focusToUserLocation,
-    getUserLocation,
-    ...userLocationProps
-  } = useFocusToUserLocation(camera);
+  const {focusToUserLocation, getUserLocation, ...userLocationProps} =
+    useFocusToUserLocation(camera);
 
   const bounds = useMemo(() => {
     if (data) {
@@ -155,16 +153,15 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   useEffect(() => {
     if (data) {
       InteractionManager.runAfterInteractions(() => {
-        bottomMenu.current?.show();
+        console.log('opem');
+        openMenu();
       });
     }
-  }, [data]);
-
-  const animatedValue = useMemo(() => new Animated.Value(1), []);
+  }, [data, openMenu]);
 
   const onBackPress = useCallback(() => {
-    bottomMenu.current?.hide();
-  }, []);
+    closeMenu();
+  }, [closeMenu]);
 
   useEffect(() => {
     return () => {
@@ -197,9 +194,9 @@ export const ObjectDetailsMap = ({route}: IProps) => {
       } else {
         boundsToArea();
       }
-      bottomMenu.current?.show();
+      openMenu();
     },
-    [boundsToArea, data?.area, getObject],
+    [boundsToArea, data?.area, getObject, openMenu],
   );
 
   return (
@@ -259,23 +256,21 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         ) : null}
       </ClusterMap>
       <ObjectDetailsMapButtons
-        bottomMenuPosition={animatedValue}
+        bottomMenuPosition={menuProps.animatedPosition}
         onShowLocationPress={focusToUserLocation}
         botttomInset={bottom}
       />
-      <Portal>
+      <BottomMenu menuHeight={MAP_BOTTOM_MENU_HEIGHT + bottom} {...menuProps}>
         <ObjectDetailsMapBottomMenu
-          animatedPosition={animatedValue}
           data={data}
           belongsToSubtitle={belongsToSubtitle}
-          ref={bottomMenu}
           onHideEnd={() => {}}
           bottomInset={bottom}
           onButtonPress={onMenuButtonPress}
           loading={loading}
           isDirectionShowed={isDirectionShowed}
         />
-      </Portal>
+      </BottomMenu>
       <BackCircleButton onPress={onBackPress} />
     </View>
   );

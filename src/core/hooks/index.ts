@@ -25,3 +25,4 @@ export {useAppState} from './useAppState';
 export {useObjectBelongsToSubtitle} from './useObjectBelongsToSubtitle';
 export * from './analytics';
 export {useUpdateEffect} from './useUpdateEffect';
+export {useBottomMenu} from './useBottomMenu';

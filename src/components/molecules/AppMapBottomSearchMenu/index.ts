@@ -1,4 +1,1 @@
-export {
-  AppMapBottomSearchMenu,
-  AppMapBottomSearchMenuRef,
-} from './AppMapBottomSearchMenu';
+export {AppMapBottomSearchMenu} from './AppMapBottomSearchMenu';

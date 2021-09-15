@@ -1,7 +1,5 @@
 import {COLORS, FONTS_STYLES} from 'assets';
 
-export const MENU_HEIGHT = 185;
-
 export const themeStyles = {
   container: {
     backgroundColor: {
@@ -9,8 +7,11 @@ export const themeStyles = {
       dark: COLORS.background,
     },
     paddingHorizontal: 16,
+    flex: 1,
   },
-  contentContainer: {},
+  contentContainer: {
+    flex: 1,
+  },
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

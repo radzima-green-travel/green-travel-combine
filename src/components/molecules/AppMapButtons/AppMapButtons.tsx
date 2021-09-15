@@ -2,34 +2,32 @@ import React, {memo} from 'react';
 import {MapButtonContainer, Icon} from 'atoms';
 import {themeStyles} from './styles';
 import {COLORS} from 'assets';
-import Animated, {Extrapolate} from 'react-native-reanimated';
+import Animated, {useAnimatedStyle, interpolate} from 'react-native-reanimated';
 import {useThemeStyles} from 'core/hooks';
 
 interface IProps {
   onSearchPress: () => void;
   onShowLocationPress: () => void;
-  bottomMenuPosition: Animated.Value<number>;
+  bottomMenuPosition: Animated.SharedValue<number>;
 }
 
 export const AppMapButtons = memo(
   ({onSearchPress, onShowLocationPress, bottomMenuPosition}: IProps) => {
     const styles = useThemeStyles(themeStyles);
+
+    const animatedStyles = useAnimatedStyle(() => {
+      const translateY = interpolate(
+        bottomMenuPosition.value,
+        [-1, -0.5, 0],
+        [0, 0, -75],
+      );
+      return {
+        transform: [{translateY}],
+      };
+    });
+
     return (
-      <Animated.View
-        style={[
-          styles.container,
-          {
-            transform: [
-              {
-                translateY: Animated.interpolate(bottomMenuPosition, {
-                  inputRange: [0, 0.5, 1],
-                  outputRange: [-73, 0, 0],
-                  extrapolate: Extrapolate.CLAMP,
-                }),
-              },
-            ],
-          },
-        ]}>
+      <Animated.View style={[styles.container, animatedStyles]}>
         <MapButtonContainer onPress={onSearchPress}>
           <Icon style={styles.icon} name="search" width={20} height={20} />
         </MapButtonContainer>

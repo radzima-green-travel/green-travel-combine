@@ -9,7 +9,8 @@ class ImagesService {
     const coverWithNewExtension = cover.split('.');
     const ext = coverWithNewExtension.pop();
     const fileName = coverWithNewExtension.join('.');
-    const imageWidth = width ? width * 2 : 'null';
+    const imageWidth = width ? Math.floor(width * 2) : 'null';
+
     const params = `cover/${imageWidth}/null/center/1/${ext}`;
 
     const base64String = base64.encode(params);

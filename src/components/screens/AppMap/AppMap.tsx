@@ -6,8 +6,7 @@ import React, {
   useLayoutEffect,
   useMemo,
 } from 'react';
-import Animated from 'react-native-reanimated';
-import {ClusterMap, ClusterMapShape} from 'atoms';
+import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
 import {
   selectMapMarkers,
   selectSelectedMapMarker,
@@ -18,7 +17,6 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleProp, View} from 'react-native';
 
-import {Portal} from 'atoms';
 import {styles, selectedPointStyle} from './styles';
 import {IMapFilter, IObject} from 'core/types';
 import {
@@ -33,8 +31,6 @@ import MapBox, {
 } from '@react-native-mapbox-gl/maps';
 import {
   AppMapBottomMenu,
-  AppMapBottomMenuRef,
-  AppMapBottomSearchMenuRef,
   AppMapBottomSearchMenu,
   AppMapFilters,
   AppMapButtons,
@@ -48,7 +44,9 @@ import {
   useTransformedData,
   useObjectBelongsToSubtitle,
   useAppMapAnalytics,
+  useBottomMenu,
 } from 'core/hooks';
+import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
 
@@ -56,12 +54,14 @@ import {Geometry, Feature, Position} from '@turf/helpers';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {mapService} from 'services/MapService';
+import {WINDOW_HEIGHT} from 'services/PlatformService';
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
   const sheme = useColorScheme();
   const mapFilters = useSelector(selectMapFilters);
   const selected = useSelector(selectSelectedMapMarker);
   const markers = useSelector(selectMapMarkers);
+  const shouldPersistData = useRef(false);
 
   const selectedFilters = useSelector(selectSelectedFilters);
   const {getObject} = useTransformedData();
@@ -99,21 +99,30 @@ export const AppMap = ({navigation}: IProps) => {
     clearInput,
   } = useSearchList({withLocation: true});
 
+  useStatusBar(sheme);
+
+  useAppMapAnalytics();
+
   const camera = useRef<MapBox.Camera>(null);
-  const bottomMenu = useRef<AppMapBottomMenuRef>(null);
-  const bottomSearchMenu = useRef<AppMapBottomSearchMenuRef>(null);
+  const {openMenu, closeMenu, isMenuOpened, ...menuProps} = useBottomMenu();
+  const {
+    openMenu: openSearchMenu,
+    closeMenu: closeSearchMenu,
+    isMenuOpened: isSearchMenuOpened,
+    ...searchMenuProps
+  } = useBottomMenu();
 
   useEffect(() => {
     if (selected) {
       setSelectedMarker(createMarkerFromObject(selected));
-      bottomMenu.current?.show();
+      openMenu();
     }
-  }, [selected]);
+  }, [openMenu, selected]);
 
   const unselectObject = useCallback(() => {
     setSelectedMarker(createMarkerFromObject(null));
-    bottomMenu.current?.hide();
-  }, []);
+    closeMenu();
+  }, [closeMenu]);
 
   const onShapePress = useCallback(
     (objectId: string, zoomLevel) => {
@@ -133,15 +142,16 @@ export const AppMap = ({navigation}: IProps) => {
 
   const navigateToObjectDetails = useCallback(
     ({id}: IObject) => {
-      bottomMenu.current?.hide();
+      closeMenu();
       setSelectedMarker(createMarkerFromObject(null));
       navigation.push('ObjectDetails', {objectId: id});
     },
-    [navigation],
+    [closeMenu, navigation],
   );
 
   const onSearchItemPress = useCallback(
     (object: IObject) => {
+      closeSearchMenu();
       const location = object.location;
       const coordinates = location ? [location.lon!, location.lat!] : null;
       if (coordinates) {
@@ -156,16 +166,27 @@ export const AppMap = ({navigation}: IProps) => {
       setSelectedMarkerId(object.id);
       clearInput();
     },
-    [addToHistory, clearInput, setSelectedMarkerId],
+    [addToHistory, clearInput, closeSearchMenu, setSelectedMarkerId],
   );
 
   const onMenuHideEnd = useCallback(() => {
-    dispatch(clearAppMapSelectedMarkerId());
+    if (!shouldPersistData.current) {
+      dispatch(clearAppMapSelectedMarkerId());
 
-    if (selectedMarker) {
-      setSelectedMarker(createMarkerFromObject(null));
+      if (selectedMarker) {
+        setSelectedMarker(createMarkerFromObject(null));
+      }
     }
   }, [dispatch, selectedMarker]);
+
+  const openSearchMenuAndPersistData = useCallback(() => {
+    openSearchMenu();
+    shouldPersistData.current = true;
+  }, [openSearchMenu]);
+
+  const onSearchMenuHide = useCallback(() => {
+    shouldPersistData.current = false;
+  }, []);
 
   const onFilterSelect = useCallback(
     (item: IMapFilter) => {
@@ -184,28 +205,23 @@ export const AppMap = ({navigation}: IProps) => {
     dispatch(clearAppMapSelectedFilters());
   }, [dispatch]);
 
-  const {focusToUserLocation, ...userLocationProps} = useFocusToUserLocation(
-    camera,
-  );
+  const {focusToUserLocation, ...userLocationProps} =
+    useFocusToUserLocation(camera);
 
   useBackHandler(() => {
-    if (bottomMenu.current?.isOpened()) {
+    if (isMenuOpened()) {
       unselectObject();
       return true;
     }
 
-    if (bottomSearchMenu.current?.isOpened()) {
-      bottomSearchMenu.current.hide();
+    if (isSearchMenuOpened()) {
+      closeSearchMenu();
       clearInput();
       return true;
     }
 
     return false;
   });
-
-  useStatusBar(sheme);
-
-  const animatedValue = useMemo(() => new Animated.Value(1), []);
 
   const belongsToSubtitle = useObjectBelongsToSubtitle(
     selected?.belongsTo?.[0]?.objects,
@@ -233,7 +249,6 @@ export const AppMap = ({navigation}: IProps) => {
       });
     }
   }, []);
-  useAppMapAnalytics();
 
   return (
     <View style={styles.container}>
@@ -264,31 +279,38 @@ export const AppMap = ({navigation}: IProps) => {
           </MapBox.ShapeSource>
         ) : null}
       </ClusterMap>
-      <Portal>
+      <BottomMenu
+        menuHeight={MAP_BOTTOM_MENU_HEIGHT + bottom}
+        onHideEnd={onMenuHideEnd}
+        {...menuProps}>
         <AppMapBottomMenu
           data={selected}
-          animatedPosition={animatedValue}
-          ref={bottomMenu}
-          onHideEnd={onMenuHideEnd}
           bottomInset={bottom}
           onGetMorePress={navigateToObjectDetails}
           belongsToSubtitle={belongsToSubtitle}
         />
+      </BottomMenu>
+
+      <BottomMenu
+        onHideEnd={onSearchMenuHide}
+        showDragIndicator={false}
+        menuHeight={WINDOW_HEIGHT * 0.95}
+        {...searchMenuProps}>
         <AppMapBottomSearchMenu
+          onBackPress={closeSearchMenu}
           inputValue={inputValue}
           isHistoryVisible={isHistoryVisible}
           data={data}
-          ref={bottomSearchMenu}
           onItemPress={onSearchItemPress}
           onTextChange={onTextChange}
           bottomInset={bottom}
         />
-      </Portal>
+      </BottomMenu>
 
       <AppMapButtons
-        bottomMenuPosition={animatedValue}
+        bottomMenuPosition={menuProps.animatedPosition}
         onShowLocationPress={focusToUserLocation}
-        onSearchPress={() => bottomSearchMenu.current?.show()}
+        onSearchPress={openSearchMenuAndPersistData}
       />
       <AppMapFilters
         onFilterSelect={onFilterSelect}

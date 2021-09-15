@@ -13,14 +13,21 @@ import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {IObject} from 'core/types';
 
+import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 interface IProps {
   data: IObject[];
   onItemPress: (object: IObject) => void;
   isHistoryVisible: boolean;
+  FlatListComponent?: typeof FlatList | typeof BottomSheetFlatList;
 }
 
 export const SearchList = memo(
-  ({data, onItemPress, isHistoryVisible}: IProps) => {
+  ({
+    data,
+    onItemPress,
+    isHistoryVisible,
+    FlatListComponent = FlatList,
+  }: IProps) => {
     const {t} = useTranslation('search');
 
     const styles = useThemeStyles(themeStyles);
@@ -36,7 +43,7 @@ export const SearchList = memo(
         </KeyboardAvoidingView>
 
         {data.length ? (
-          <FlatList
+          <FlatListComponent
             style={styles.listContainer}
             keyboardDismissMode="on-drag"
             contentContainerStyle={styles.contentContainer}

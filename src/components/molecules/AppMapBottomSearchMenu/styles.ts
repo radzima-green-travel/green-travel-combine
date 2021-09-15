@@ -6,6 +6,9 @@ export const themeStyles = {
       light: COLORS.white,
       dark: COLORS.background,
     },
+    flex: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   searchBar: {
     marginBottom: 0,
