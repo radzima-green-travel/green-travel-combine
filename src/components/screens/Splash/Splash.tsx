@@ -51,13 +51,18 @@ export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
   const animateIOS = useCallback(() => {
     setTimeout(() => {
       RNBootSplash.hide().then(() => {
-        animatedValue.value = withTiming(1, {
-          duration: 300,
-          easing: Easing.out(Easing.ease),
-        });
-        if (onAnimationEnd) {
-          onAnimationEnd();
-        }
+        animatedValue.value = withTiming(
+          1,
+          {
+            duration: 300,
+            easing: Easing.out(Easing.ease),
+          },
+          () => {
+            if (onAnimationEnd) {
+              runOnJS(onAnimationEnd)();
+            }
+          },
+        );
       });
     }, 10);
   }, [animatedValue, onAnimationEnd]);
