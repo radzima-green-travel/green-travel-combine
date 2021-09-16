@@ -10,7 +10,7 @@ interface IProps {
   coordinates?: ICoordinates;
   onCoordinatesPress: (location: string) => void;
   routeLength: number | null;
-  belongsToSubtitle: string | null;
+  belongsToSubtitle?: string | null;
 }
 
 export const DetailsPageCapture = memo(

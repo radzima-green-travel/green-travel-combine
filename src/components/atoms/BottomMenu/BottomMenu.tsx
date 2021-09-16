@@ -8,8 +8,9 @@ import React, {
 } from 'react';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
-import {styles} from './styles';
+import {themeStyles} from './styles';
 import {Keyboard} from 'react-native';
+import {useThemeStyles} from 'core/hooks';
 
 interface IProps {
   onHideEnd?: () => void;
@@ -35,6 +36,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     },
     ref,
   ) => {
+    const styles = useThemeStyles(themeStyles);
     const isOpened = useRef(false);
     const bottomSheetRef = useRef<BottomSheetModal>(null);
 
@@ -78,6 +80,8 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
         handleComponent={showDragIndicator ? undefined : null}
         animatedIndex={animatedPosition}
         ref={bottomSheetRef}
+        handleStyle={styles.handleStyles}
+        backgroundStyle={styles.bgStyle}
         handleIndicatorStyle={styles.touchIndicator}
         index={0}
         snapPoints={snapPoints}

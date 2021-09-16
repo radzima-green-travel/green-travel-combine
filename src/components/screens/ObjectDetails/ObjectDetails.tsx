@@ -15,7 +15,6 @@ import {
   useTranslation,
   useObject,
   useImageSlider,
-  useObjectBelongsToSubtitle,
   useDetailsPageAnalytics,
   useUpdateEffect,
 } from 'core/hooks';
@@ -103,10 +102,6 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
 
   const isJustOneImage = pagesAmount < 2;
 
-  const belongsToSubtitle = useObjectBelongsToSubtitle(
-    data?.belongsTo?.[0]?.objects,
-  );
-
   useUpdateEffect(() => {
     sendSwitchPhotosEvent();
   }, [page, sendSwitchPhotosEvent]);
@@ -151,7 +146,6 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
             routeLength={data.length}
             title={data.name}
             subtitle={data.address}
-            belongsToSubtitle={belongsToSubtitle}
             coordinates={
               isLocationExist(data)
                 ? [data.location!.lon!, data.location!.lat!]
