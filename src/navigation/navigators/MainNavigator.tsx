@@ -7,6 +7,7 @@ import {MainNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transitition';
 import {isIOS} from 'services/PlatformService';
+import {StatusBar} from 'react-native';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
@@ -14,6 +15,11 @@ export function MainNavigator() {
   const [splashVisible, setSplashVisible] = useState(true);
   const onAnimationEnd = useCallback(() => {
     setSplashVisible(false);
+
+    StatusBar.pushStackEntry({
+      barStyle: 'light-content',
+      animated: true,
+    });
   }, []);
 
   const showSplashForIOS = () => {
