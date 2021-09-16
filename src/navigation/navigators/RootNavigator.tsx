@@ -5,111 +5,10 @@ import {MainNavigator} from './MainNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {bootstrapStart} from 'core/reducers';
 import {IState} from 'core/store';
-import {View, StyleSheet, StatusBar} from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-  interpolate,
-  Easing,
-  runOnJS,
-} from 'react-native-reanimated';
-import {FONTS} from 'assets';
-import RNBootSplash from 'react-native-bootsplash';
+import {StatusBar} from 'react-native';
 
-const SplasScreen = ({onAnimationEnd, onFadeStart}) => {
-  const opacity = useSharedValue(1);
-  const animatedValue = useSharedValue(0);
-
-  const imageAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {translateX: interpolate(animatedValue.value, [0, 1], [0, -90])},
-      ],
-    };
-  });
-
-  const textAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: animatedValue.value,
-      transform: [
-        {scale: animatedValue.value},
-        {
-          translateX: interpolate(animatedValue.value, [0, 1], [0, 35]),
-        },
-      ],
-    };
-  });
-
-  const containerAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value,
-    };
-  });
-
-  useEffect(() => {
-    setTimeout(() => {
-      RNBootSplash.hide().then(() => {
-        animatedValue.value = withTiming(
-          1,
-          {
-            duration: 400,
-            easing: Easing.out(Easing.ease),
-          },
-          () => {
-            runOnJS(onFadeStart)();
-            opacity.value = withTiming(
-              0,
-              {
-                duration: 500,
-                easing: Easing.out(Easing.ease),
-              },
-              () => {
-                runOnJS(onAnimationEnd)();
-              },
-            );
-          },
-        );
-      });
-    }, 300);
-  }, [animatedValue, opacity, onAnimationEnd, onFadeStart]);
-  return (
-    <Animated.View
-      style={[
-        containerAnimatedStyle,
-        {
-          ...StyleSheet.absoluteFill,
-          backgroundColor: '#fff',
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-      ]}>
-      <Animated.Image
-        style={imageAnimatedStyle}
-        source={require('./img/icon.png')}
-      />
-
-      <View
-        style={{
-          ...StyleSheet.absoluteFill,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Animated.Text
-          style={[
-            textAnimatedStyle,
-            {
-              color: '#444444',
-              fontSize: 36,
-              fontFamily: FONTS.secondarySemibold,
-            },
-          ]}>
-          Radzima
-        </Animated.Text>
-      </View>
-    </Animated.View>
-  );
-};
+import {SplashScreen} from 'screens';
+import {isIOS} from 'services/PlatformService';
 
 export function RootNavigator() {
   const dispatch = useDispatch();
@@ -118,6 +17,8 @@ export function RootNavigator() {
   const bootstrapFinished = useSelector(
     (state: IState) => state.bootsrap.finished,
   );
+
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     dispatch(bootstrapStart());
@@ -133,15 +34,24 @@ export function RootNavigator() {
       animated: true,
     });
   }, []);
-  return (
-    <NavigationContainer ref={navigationRef}>
-      {bootstrapFinished && <MainNavigator />}
-      {splashTransitionFinished ? null : (
-        <SplasScreen
+
+  const showSplashForAndroid = () => {
+    if (!isIOS && isReady) {
+      return splashTransitionFinished ? null : (
+        <SplashScreen
           onFadeStart={onFadeStart}
           onAnimationEnd={onAnimationEnd}
         />
-      )}
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <NavigationContainer onReady={() => setIsReady(true)} ref={navigationRef}>
+      {bootstrapFinished && <MainNavigator />}
+      {showSplashForAndroid()}
     </NavigationContainer>
   );
 }

@@ -8,6 +8,7 @@ import {
   useRequestError,
   useRequestLoading,
   useBookmarksAnalytics,
+  useLightStatusBar,
 } from 'core/hooks';
 import {getInitialHomeDataRequest} from 'core/reducers';
 import {IProps} from './types';
@@ -37,7 +38,7 @@ export const Bookmarks = ({navigation}: IProps) => {
     },
     [navigation, sendSelectSavedCategoryEvent],
   );
-
+  useLightStatusBar();
   return (
     <SuspenseView
       retryCallback={getHomeData}

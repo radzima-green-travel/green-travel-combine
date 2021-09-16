@@ -52,6 +52,7 @@ export type MainNavigatorParamsList = {
   TabNavigator: NestedNavigatorParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
   ErrorScreen: undefined;
+  Splash: undefined;
   ObjectDetailsMap: {objectId: string; categoryId: string};
 };
 

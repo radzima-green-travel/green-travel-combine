@@ -8,3 +8,4 @@ export {ObjectDetails as ObjectDetailsScreen} from './ObjectDetails';
 export {CategoriesList as CategoriesListScreen} from './CategoriesList';
 export {Search as SearchScreen} from './Search';
 export {ObjectDetailsMap as ObjectDetailsMapScreen} from './ObjectDetailsMap';
+export {Splash as SplashScreen} from './Splash';

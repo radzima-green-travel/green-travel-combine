@@ -26,6 +26,7 @@ import {
   useColorScheme,
   useThemeStyles,
   useHomeAnalytics,
+  useLightStatusBar,
 } from 'core/hooks';
 import {IProps} from './types';
 import {COLORS} from 'assets';
@@ -147,7 +148,7 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     },
     [sendSaveCardEvent, sendUnsaveCardEvent],
   );
-
+  useLightStatusBar();
   return (
     <View style={{overflow: 'hidden', flex: 1}}>
       <SuspenseView
