@@ -60,7 +60,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
 
     const onChange = useCallback(
       (index: number) => {
-        isOpened.current = index === -1;
+        isOpened.current = index === 0;
 
         if (index === -1) {
           onHideEnd?.();
