@@ -26,7 +26,7 @@
 
 
 - (UIActivityIndicatorView *)makeActivityIndicator {
-  if (self.progressIndicator == nil) {
+  if (self.progressIndicator != nil) {
     return self.progressIndicator;
   }
   self.progressIndicator = [[UIActivityIndicatorView alloc]

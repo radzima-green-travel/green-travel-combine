@@ -206,7 +206,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     [weakSelf adaptToContent];
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      weakSelf.onShow(YES, weakSelf.itemUUID);
+      [weakSelf appearAnimationDidEnd:YES];
       weakSelf.visible = YES;
       weakSelf.progressCounter--;
     }
@@ -222,11 +222,17 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     weakSelf.frame = CGRectMake(frame.origin.x, [UIScreen mainScreen].bounds.size.height, frame.size.width, frame.size.height);
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      weakSelf.onShow(NO, weakSelf.itemUUID);
+      [weakSelf appearAnimationDidEnd:NO];
       weakSelf.visible = NO;
       weakSelf.progressCounter--;
     }
   }];
+}
+
+- (void)appearAnimationDidEnd:(BOOL)appear {
+  if (self.onShow) {
+    self.onShow(appear, self.itemUUID);
+  }
 }
 
 - (void)panGesture:(UIPanGestureRecognizer *)recognizer {

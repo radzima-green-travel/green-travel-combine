@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, BottomSheetViewDetailedMapStep) {
 
 @interface BottomSheetViewDetailedMap : BottomSheetView
 
+@property(copy, nonatomic) void(^onNavigatePress)(void);
 - (void)continueToNavigation;
 - (void)onNavigationPress;
 - (void)show:(PlaceItem *)item

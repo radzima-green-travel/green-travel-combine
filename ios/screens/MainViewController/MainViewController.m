@@ -24,6 +24,7 @@
 #import "Typography.h"
 #import "UserDefaultsService.h"
 #import "BottomSheetView.h"
+#import "BottomSheetViewDetailedMap.h"
 #import "MapService.h"
 #import "MainViewControllerConstants.h"
 #import "AnalyticsEvents.h"
@@ -201,7 +202,9 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
   if (self.bottomSheets[@(sheetType)] != nil) {
     return self.bottomSheets[@(sheetType)];
   }
-  BottomSheetView *bottomSheet = [[BottomSheetView alloc] init];
+  BottomSheetView *bottomSheet = sheetType == MainViewControllerBottomSheetDetailsMap ?
+    [[BottomSheetViewDetailedMap alloc] init] :
+    [[BottomSheetView alloc] init];
   bottomSheet.onShow = onShow;
   [self.view addSubview:bottomSheet];
   NSLayoutConstraint *topAnchor = [bottomSheet.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];

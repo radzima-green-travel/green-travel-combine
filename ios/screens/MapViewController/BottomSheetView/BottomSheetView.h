@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(weak, nonatomic) NSLayoutConstraint *top;
 @property(copy, nonatomic) void(^onShow)(BOOL, NSString *);
+@property(copy, nonatomic) void(^onButtonPress)(void);
+@property(copy, nonatomic) void(^onBookmarkPress)(BOOL);
 @property(strong, nonatomic) CommonButton *detailsButton;
 
 - (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel
@@ -26,6 +28,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 - (void)hide;
 - (void)setBookmarked:(PlaceItem *)item bookmarked:(BOOL)bookmarked;
 - (CommonButton *)makeDetailsButton;
+- (void)appearAnimationDidEnd:(BOOL)appear;
 
 @end
 
