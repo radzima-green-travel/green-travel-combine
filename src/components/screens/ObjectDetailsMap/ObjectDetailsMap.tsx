@@ -204,7 +204,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         centerCoordinate={centerCoordinate}
         onShapePress={onMarkerPress}
         bounds={bounds}
-        ref={camera}>
+        cameraRef={camera}>
         {userLocationProps.visible ? (
           <MapBox.UserLocation minDisplacement={10} {...userLocationProps} />
         ) : null}

@@ -26,3 +26,4 @@ export {useObjectBelongsToSubtitle} from './useObjectBelongsToSubtitle';
 export * from './analytics';
 export {useUpdateEffect} from './useUpdateEffect';
 export {useBottomMenu} from './useBottomMenu';
+export {useFindZoomForObjectInCluster} from './useFindZoomForObjectInCluster';

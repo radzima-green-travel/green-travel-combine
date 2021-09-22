@@ -45,6 +45,7 @@ import {
   useObjectBelongsToSubtitle,
   useAppMapAnalytics,
   useBottomMenu,
+  useFindZoomForObjectInCluster,
 } from 'core/hooks';
 import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -55,6 +56,7 @@ type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {mapService} from 'services/MapService';
 import {WINDOW_HEIGHT} from 'services/PlatformService';
+import {find, some} from 'lodash';
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
   const sheme = useColorScheme();
@@ -62,6 +64,10 @@ export const AppMap = ({navigation}: IProps) => {
   const selected = useSelector(selectSelectedMapMarker);
   const markers = useSelector(selectMapMarkers);
   const shouldPersistData = useRef(false);
+  const camera = useRef<MapBox.Camera>(null);
+  const map = useRef<MapBox.MapView>(null);
+  const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
+  const regionDidChangeListener = useRef<(() => void) | null>(null);
 
   const selectedFilters = useSelector(selectSelectedFilters);
   const {getObject} = useTransformedData();
@@ -103,7 +109,6 @@ export const AppMap = ({navigation}: IProps) => {
 
   useAppMapAnalytics();
 
-  const camera = useRef<MapBox.Camera>(null);
   const {openMenu, closeMenu, isMenuOpened, ...menuProps} = useBottomMenu();
   const {
     openMenu: openSearchMenu,
@@ -119,9 +124,15 @@ export const AppMap = ({navigation}: IProps) => {
     }
   }, [openMenu, selected]);
 
+  useLayoutEffect(() => {
+    if (bounds) {
+      camera.current?.fitBounds(...bounds);
+    }
+  }, [bounds]);
+
   const unselectObject = useCallback(() => {
-    setSelectedMarker(createMarkerFromObject(null));
     closeMenu();
+    setSelectedMarker(createMarkerFromObject(null));
   }, [closeMenu]);
 
   const onShapePress = useCallback(
@@ -142,32 +153,79 @@ export const AppMap = ({navigation}: IProps) => {
 
   const navigateToObjectDetails = useCallback(
     ({id}: IObject) => {
-      closeMenu();
-      setSelectedMarker(createMarkerFromObject(null));
+      unselectObject();
       navigation.push('ObjectDetails', {objectId: id});
     },
-    [closeMenu, navigation],
+    [unselectObject, navigation],
   );
 
-  const onSearchItemPress = useCallback(
-    (object: IObject) => {
-      closeSearchMenu();
+  const {findZoomForObjectInCluster} = useFindZoomForObjectInCluster({
+    shapeSourceRef: shapeSourceRef,
+  });
+
+  const moveCameraToSearchedObject = useCallback(
+    async (object: IObject) => {
       const location = object.location;
       const coordinates = location ? [location.lon!, location.lat!] : null;
-      if (coordinates) {
-        camera.current?.setCamera({
-          centerCoordinate: coordinates,
-          zoomLevel: 10,
-          animationDuration: 400,
-        });
-      }
 
-      addToHistory(object);
-      setSelectedMarkerId(object.id);
-      clearInput();
+      if (coordinates) {
+        try {
+          const visibleFeatures = await shapeSourceRef.current?.features();
+          const currentZoom = await map.current?.getZoom();
+
+          if (visibleFeatures && currentZoom) {
+            const zoomLevel = await findZoomForObjectInCluster(
+              object,
+              visibleFeatures,
+              currentZoom,
+            );
+
+            if (zoomLevel) {
+              camera.current?.setCamera({
+                centerCoordinate: coordinates,
+                zoomLevel: zoomLevel,
+                animationDuration: 300,
+              });
+            }
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
     },
-    [addToHistory, clearInput, closeSearchMenu, setSelectedMarkerId],
+    [findZoomForObjectInCluster],
   );
+
+  const onSearchItemPress = (object: IObject) => {
+    closeSearchMenu();
+
+    addToHistory(object);
+    setSelectedMarkerId(object.id);
+    clearInput();
+
+    const itemFilterGroup = find(mapFilters, ({categoryId}) => {
+      return categoryId === object.category.id;
+    });
+
+    regionDidChangeListener.current = () => {
+      regionDidChangeListener.current = null;
+      moveCameraToSearchedObject(object);
+    };
+
+    if (
+      itemFilterGroup &&
+      !some(
+        selectedFilters,
+        ({categoryId}) => categoryId === itemFilterGroup.categoryId,
+      )
+    ) {
+      dispatch(setAppMapSelectedFilters(itemFilterGroup));
+    } else {
+      if (bounds) {
+        camera.current?.fitBounds(...bounds);
+      }
+    }
+  };
 
   const onMenuHideEnd = useCallback(() => {
     if (!shouldPersistData.current) {
@@ -195,12 +253,6 @@ export const AppMap = ({navigation}: IProps) => {
     [dispatch],
   );
 
-  useLayoutEffect(() => {
-    if (bounds) {
-      camera.current?.fitBounds(...bounds);
-    }
-  }, [bounds]);
-
   const resetFilters = useCallback(() => {
     dispatch(clearAppMapSelectedFilters());
   }, [dispatch]);
@@ -227,20 +279,18 @@ export const AppMap = ({navigation}: IProps) => {
     selected?.belongsTo?.[0]?.objects,
   );
 
-  const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
-
   const fitToClusterLeaves = useCallback(async (event: OnPressEvent) => {
     const {features} = event;
     const isCluster = features[0]?.properties?.cluster;
 
     if (isCluster) {
+      const cluster = features[0] as Feature<Geometry, {cluster_id: number}>;
       const {
         geometry: {coordinates},
-        properties: {cluster_id},
-      } = features[0] as Feature<Geometry, {cluster_id: number}>;
+      } = cluster;
 
       const zoom = await shapeSourceRef.current?.getClusterExpansionZoom(
-        cluster_id,
+        cluster,
       );
       camera.current?.setCamera({
         centerCoordinate: coordinates as Position,
@@ -254,8 +304,17 @@ export const AppMap = ({navigation}: IProps) => {
     <View style={styles.container}>
       <ClusterMap
         bounds={bounds}
-        ref={camera}
+        ref={map}
+        cameraRef={camera}
         onShapePress={onShapePress}
+        onRegionDidChange={({properties}) => {
+          if (
+            !properties.isUserInteraction &&
+            regionDidChangeListener.current
+          ) {
+            regionDidChangeListener.current();
+          }
+        }}
         onPress={unselectObject}>
         {userLocationProps.visible ? (
           <MapBox.UserLocation {...userLocationProps} />

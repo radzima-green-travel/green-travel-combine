@@ -1,5 +1,12 @@
-import React, {memo, useRef, forwardRef, useCallback, useMemo} from 'react';
-import {View, PixelRatio} from 'react-native';
+import React, {
+  memo,
+  useRef,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import {View, PixelRatio, GestureResponderEvent} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {Props} from './types';
 import {styles} from './styles';
@@ -7,13 +14,29 @@ import {isIOS} from 'services/PlatformService';
 import {useColorScheme} from 'core/hooks';
 
 export const ClusterMap = memo(
-  forwardRef<MapboxGL.Camera, Props>(
+  forwardRef<MapboxGL.MapView, Props>(
     (
-      {onPress, children, onShapePress, bounds, centerCoordinate}: Props,
+      {
+        onPress,
+        children,
+        onShapePress,
+        bounds,
+        centerCoordinate,
+        cameraRef,
+        onRegionDidChange,
+      }: Props,
       ref,
     ) => {
       const onShapePressed = useRef(false);
       const map = useRef<MapboxGL.MapView>(null);
+
+      useEffect(() => {
+        if (ref) {
+          // @ts-ignore
+          ref.current = map.current;
+        }
+      });
+
       const theme = useColorScheme();
       const onMapPress = useCallback(() => {
         if (!onShapePressed.current) {
@@ -23,7 +46,7 @@ export const ClusterMap = memo(
         }
       }, [onPress]);
 
-      const initialBounds = useMemo(() => {
+      const [initialBounds] = useState(() => {
         if (bounds) {
           const [
             ne,
@@ -52,11 +75,11 @@ export const ClusterMap = memo(
         }
 
         return {};
-      }, [bounds, centerCoordinate]);
+      });
 
-      return (
-        <View
-          onResponderStart={async event => {
+      const onResponderStart = useCallback(
+        async (event: GestureResponderEvent) => {
+          try {
             if (!onShapePress) {
               return;
             }
@@ -78,13 +101,23 @@ export const ClusterMap = memo(
             if (features[0]?.properties?.objectId) {
               onShapePressed.current = true;
               const zoom = await map.current?.getZoom()!;
+
               onShapePress(features[0]?.properties?.objectId, zoom);
             } else if (features[0]?.geometry.type === 'Polygon') {
               onShapePress(null);
             } else if (!features.length) {
               onShapePressed.current = false;
             }
-          }}
+          } catch (e) {
+            console.log(e);
+          }
+        },
+        [onShapePress],
+      );
+
+      return (
+        <View
+          onResponderStart={onResponderStart}
           onStartShouldSetResponder={() => true}
           style={styles.container}>
           <MapboxGL.MapView
@@ -97,8 +130,9 @@ export const ClusterMap = memo(
                 : 'mapbox://styles/epm-slr/ckodyal5d3i9017pb9vii6v18'
             }
             compassEnabled={false}
+            onRegionDidChange={onRegionDidChange}
             logoEnabled={false}>
-            <MapboxGL.Camera {...initialBounds} ref={ref} />
+            <MapboxGL.Camera {...initialBounds} ref={cameraRef} />
             {children}
           </MapboxGL.MapView>
         </View>

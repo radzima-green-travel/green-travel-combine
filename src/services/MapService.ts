@@ -36,7 +36,7 @@ class MapService {
     const southWest: ICoordinates = [minLng, minLat];
     const northEast: ICoordinates = [maxLng, maxLat];
 
-    return [northEast, southWest, [top, right, bottom, left], 500];
+    return [northEast, southWest, [top, right, bottom, left], 300];
   }
 }
 
