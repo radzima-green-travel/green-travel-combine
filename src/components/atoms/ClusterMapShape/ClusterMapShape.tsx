@@ -18,7 +18,7 @@ export const ClusterMapShape = memo(
         cluster
         ref={ref}
         onPress={onShapePress}
-        clusterRadius={50}
+        clusterRadius={40}
         clusterMaxZoomLevel={14}
         shape={markers as ComponentProps<typeof MapboxGL.ShapeSource>['shape']}>
         <MapboxGL.SymbolLayer

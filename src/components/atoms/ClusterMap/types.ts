@@ -9,7 +9,5 @@ export type Props = {
   children: React.ReactNode;
   centerCoordinate?: ICoordinates | null;
   cameraRef?: React.LegacyRef<MapboxGL.Camera>;
-  onRegionDidChange?: React.ComponentProps<
-    typeof MapboxGL.MapView
-  >['onRegionDidChange'];
+  onMapReady?: () => void;
 };

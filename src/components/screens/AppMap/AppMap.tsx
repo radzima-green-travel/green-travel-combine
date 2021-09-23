@@ -13,6 +13,7 @@ import {
   createMarkerFromObject,
   selectMapFilters,
   selectSelectedFilters,
+  selectTransformedData,
 } from 'core/selectors';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleProp, View} from 'react-native';
@@ -49,14 +50,14 @@ import {
 } from 'core/hooks';
 import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {IProps} from './types';
+import {IProps, Features} from './types';
 
 import {Geometry, Feature, Position} from '@turf/helpers';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {mapService} from 'services/MapService';
 import {WINDOW_HEIGHT} from 'services/PlatformService';
-import {find, some} from 'lodash';
+
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
   const sheme = useColorScheme();
@@ -67,7 +68,9 @@ export const AppMap = ({navigation}: IProps) => {
   const camera = useRef<MapBox.Camera>(null);
   const map = useRef<MapBox.MapView>(null);
   const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
-  const regionDidChangeListener = useRef<(() => void) | null>(null);
+  const [isMapReady, setIsMapReady] = useState(false);
+
+  const ignoreFitBounds = useRef(false);
 
   const selectedFilters = useSelector(selectSelectedFilters);
   const {getObject} = useTransformedData();
@@ -117,6 +120,31 @@ export const AppMap = ({navigation}: IProps) => {
     ...searchMenuProps
   } = useBottomMenu();
 
+  const appData = useSelector(selectTransformedData);
+
+  const [rootFeatures, setRootFeatures] = useState<Features | null>(null);
+
+  const onFilterSelect = useCallback(
+    (item: IMapFilter) => {
+      dispatch(setAppMapSelectedFilters(item));
+    },
+    [dispatch],
+  );
+
+  const resetFilters = useCallback(() => {
+    dispatch(clearAppMapSelectedFilters());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (appData && isMapReady) {
+      resetFilters();
+
+      setTimeout(() => {
+        shapeSourceRef.current?.features().then(setRootFeatures);
+      }, 1000);
+    }
+  }, [appData, isMapReady, resetFilters]);
+
   useEffect(() => {
     if (selected) {
       setSelectedMarker(createMarkerFromObject(selected));
@@ -126,7 +154,11 @@ export const AppMap = ({navigation}: IProps) => {
 
   useLayoutEffect(() => {
     if (bounds) {
-      camera.current?.fitBounds(...bounds);
+      if (!ignoreFitBounds.current) {
+        camera.current?.fitBounds(...bounds);
+      } else {
+        ignoreFitBounds.current = false;
+      }
     }
   }, [bounds]);
 
@@ -170,7 +202,7 @@ export const AppMap = ({navigation}: IProps) => {
 
       if (coordinates) {
         try {
-          const visibleFeatures = await shapeSourceRef.current?.features();
+          const visibleFeatures = rootFeatures;
           const currentZoom = await map.current?.getZoom();
 
           if (visibleFeatures && currentZoom) {
@@ -184,7 +216,7 @@ export const AppMap = ({navigation}: IProps) => {
               camera.current?.setCamera({
                 centerCoordinate: coordinates,
                 zoomLevel: zoomLevel,
-                animationDuration: 300,
+                animationDuration: 600,
               });
             }
           }
@@ -193,38 +225,20 @@ export const AppMap = ({navigation}: IProps) => {
         }
       }
     },
-    [findZoomForObjectInCluster],
+    [findZoomForObjectInCluster, rootFeatures],
   );
 
-  const onSearchItemPress = (object: IObject) => {
-    closeSearchMenu();
+  const onSearchItemPress = async (object: IObject) => {
+    if (selectedFilters.length) {
+      ignoreFitBounds.current = true;
+      resetFilters();
+    }
 
+    closeSearchMenu();
+    await moveCameraToSearchedObject(object);
     addToHistory(object);
     setSelectedMarkerId(object.id);
     clearInput();
-
-    const itemFilterGroup = find(mapFilters, ({categoryId}) => {
-      return categoryId === object.category.id;
-    });
-
-    regionDidChangeListener.current = () => {
-      regionDidChangeListener.current = null;
-      moveCameraToSearchedObject(object);
-    };
-
-    if (
-      itemFilterGroup &&
-      !some(
-        selectedFilters,
-        ({categoryId}) => categoryId === itemFilterGroup.categoryId,
-      )
-    ) {
-      dispatch(setAppMapSelectedFilters(itemFilterGroup));
-    } else {
-      if (bounds) {
-        camera.current?.fitBounds(...bounds);
-      }
-    }
   };
 
   const onMenuHideEnd = useCallback(() => {
@@ -245,17 +259,6 @@ export const AppMap = ({navigation}: IProps) => {
   const onSearchMenuHide = useCallback(() => {
     shouldPersistData.current = false;
   }, []);
-
-  const onFilterSelect = useCallback(
-    (item: IMapFilter) => {
-      dispatch(setAppMapSelectedFilters(item));
-    },
-    [dispatch],
-  );
-
-  const resetFilters = useCallback(() => {
-    dispatch(clearAppMapSelectedFilters());
-  }, [dispatch]);
 
   const {focusToUserLocation, ...userLocationProps} =
     useFocusToUserLocation(camera);
@@ -307,13 +310,8 @@ export const AppMap = ({navigation}: IProps) => {
         ref={map}
         cameraRef={camera}
         onShapePress={onShapePress}
-        onRegionDidChange={({properties}) => {
-          if (
-            !properties.isUserInteraction &&
-            regionDidChangeListener.current
-          ) {
-            regionDidChangeListener.current();
-          }
+        onMapReady={() => {
+          setIsMapReady(true);
         }}
         onPress={unselectObject}>
         {userLocationProps.visible ? (

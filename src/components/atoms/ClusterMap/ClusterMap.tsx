@@ -23,7 +23,7 @@ export const ClusterMap = memo(
         bounds,
         centerCoordinate,
         cameraRef,
-        onRegionDidChange,
+        onMapReady,
       }: Props,
       ref,
     ) => {
@@ -123,6 +123,7 @@ export const ClusterMap = memo(
           <MapboxGL.MapView
             ref={map}
             onPress={onMapPress}
+            onDidFinishRenderingMapFully={onMapReady}
             style={styles.container}
             styleURL={
               theme === 'light'
@@ -130,7 +131,6 @@ export const ClusterMap = memo(
                 : 'mapbox://styles/epm-slr/ckodyal5d3i9017pb9vii6v18'
             }
             compassEnabled={false}
-            onRegionDidChange={onRegionDidChange}
             logoEnabled={false}>
             <MapboxGL.Camera {...initialBounds} ref={cameraRef} />
             {children}
