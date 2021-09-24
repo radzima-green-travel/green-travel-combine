@@ -168,6 +168,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = greenTravel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = greenTravel/main.m; sourceTree = "<group>"; };
+		2470130636CD59AB49E99F3A /* Pods-greenTravel.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.releaseproduction.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.releaseproduction.xcconfig"; sourceTree = "<group>"; };
 		3DAF8DA1365C266021E58B8E /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
 		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
 		5A105EE326501FA000511256 /* RotationLockUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationLockUtility.m; sourceTree = "<group>"; };
@@ -1295,6 +1296,7 @@
 			children = (
 				D4707A7F1D006E9C14643CFE /* Pods-greenTravel.debug.xcconfig */,
 				3DAF8DA1365C266021E58B8E /* Pods-greenTravel.release.xcconfig */,
+				2470130636CD59AB49E99F3A /* Pods-greenTravel.releaseproduction.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1814,7 +1816,7 @@
 		};
 		5AD2DA2D26FDC94A00876841 /* ReleaseProduction */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DAF8DA1365C266021E58B8E /* Pods-greenTravel.release.xcconfig */;
+			baseConfigurationReference = 2470130636CD59AB49E99F3A /* Pods-greenTravel.releaseproduction.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
