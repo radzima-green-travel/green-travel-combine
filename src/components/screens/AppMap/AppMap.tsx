@@ -140,7 +140,9 @@ export const AppMap = ({navigation}: IProps) => {
       resetFilters();
 
       setTimeout(() => {
-        shapeSourceRef.current?.features().then(setRootFeatures);
+        shapeSourceRef.current
+          ?.features(['==', 'cluster', true])
+          .then(setRootFeatures);
       }, 1000);
     }
   }, [appData, isMapReady, resetFilters]);
@@ -202,13 +204,13 @@ export const AppMap = ({navigation}: IProps) => {
 
       if (coordinates) {
         try {
-          const visibleFeatures = rootFeatures;
+          const visibleClusters = rootFeatures;
           const currentZoom = await map.current?.getZoom();
 
-          if (visibleFeatures && currentZoom) {
+          if (visibleClusters && currentZoom) {
             const zoomLevel = await findZoomForObjectInCluster(
               object,
-              visibleFeatures,
+              visibleClusters,
               currentZoom,
             );
 
@@ -232,13 +234,21 @@ export const AppMap = ({navigation}: IProps) => {
     if (selectedFilters.length) {
       ignoreFitBounds.current = true;
       resetFilters();
-    }
 
-    closeSearchMenu();
-    await moveCameraToSearchedObject(object);
-    addToHistory(object);
-    setSelectedMarkerId(object.id);
-    clearInput();
+      closeSearchMenu();
+      setTimeout(async () => {
+        await moveCameraToSearchedObject(object);
+        addToHistory(object);
+        setSelectedMarkerId(object.id);
+        clearInput();
+      }, 30);
+    } else {
+      closeSearchMenu();
+      await moveCameraToSearchedObject(object);
+      addToHistory(object);
+      setSelectedMarkerId(object.id);
+      clearInput();
+    }
   };
 
   const onMenuHideEnd = useCallback(() => {

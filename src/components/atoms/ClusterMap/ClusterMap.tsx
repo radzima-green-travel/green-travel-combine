@@ -123,7 +123,7 @@ export const ClusterMap = memo(
           <MapboxGL.MapView
             ref={map}
             onPress={onMapPress}
-            onDidFinishRenderingMapFully={onMapReady}
+            onDidFinishLoadingMap={onMapReady}
             style={styles.container}
             styleURL={
               theme === 'light'

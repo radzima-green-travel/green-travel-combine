@@ -1,6 +1,6 @@
 import distance from '@turf/distance';
 import {IObject} from 'core/types';
-import {reduce, some} from 'lodash';
+import {some, sortBy} from 'lodash';
 import {useCallback} from 'react';
 
 import {
@@ -13,7 +13,17 @@ import {
 
 import MapBox from '@react-native-mapbox-gl/maps';
 
-function findClosesClusterToObject(
+function isFeaturesIncludesObject(
+  featuresCollection: FeatureCollection<Geometry, Properties>,
+  object: IObject,
+) {
+  return some(featuresCollection.features, feature => {
+    return feature.properties?.objectId === object.id;
+  });
+}
+
+async function findClosesClusterToObject(
+  shapeSourceRef: React.RefObject<MapBox.ShapeSource>,
   featuresCollection: FeatureCollection<Geometry, Properties>,
   object: IObject,
 ) {
@@ -27,22 +37,32 @@ function findClosesClusterToObject(
   }
   const objectPoint = point(coordinates);
 
-  reduce(
-    featuresCollection.features,
-    (acc, feature) => {
-      const distanceBetween = distance(
+  const sortedByDistance = sortBy(featuresCollection.features, [
+    feature => {
+      return distance(
         point(feature.geometry.coordinates as number[]),
         objectPoint,
       );
-      if (distanceBetween < acc && feature.properties?.cluster) {
-        closestCluster = feature;
-        return distanceBetween;
-      }
-
-      return acc;
     },
-    Infinity,
-  );
+  ]);
+
+  for (let i = 0; i <= sortedByDistance.length; i++) {
+    const feature = sortedByDistance[i];
+
+    if (feature.properties?.cluster) {
+      const childrenOfCluster = await shapeSourceRef.current?.getClusterLeaves(
+        feature,
+        feature.properties.point_count,
+        0,
+      );
+      if (
+        childrenOfCluster &&
+        isFeaturesIncludesObject(childrenOfCluster, object)
+      ) {
+        return feature;
+      }
+    }
+  }
 
   return closestCluster;
 }
@@ -59,15 +79,12 @@ export function useFindZoomForObjectInCluster({
       zoom: number,
     ) => {
       try {
-        if (
-          some(featuresCollection.features, feature => {
-            return feature.properties?.objectId === object.id;
-          })
-        ) {
+        if (isFeaturesIncludesObject(featuresCollection, object)) {
           return zoom;
         }
 
-        let closestCluster = findClosesClusterToObject(
+        let closestCluster = await findClosesClusterToObject(
+          shapeSourceRef,
           featuresCollection,
           object,
         );
