@@ -146,7 +146,7 @@
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
-		5AD2DA3226FDE1FA00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3126FDE1FA00876841 /* Settings.bundle */; };
+		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
 		5AD6BF1126BEA9DF00DD3F2B /* ScrollViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */; };
 		5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */; };
 		5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */; };
@@ -439,7 +439,7 @@
 		5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetView.m; sourceTree = "<group>"; };
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
-		5AD2DA3126FDE1FA00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AD6BF0F26BEA9DF00DD3F2B /* ScrollViewUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollViewUtils.h; sourceTree = "<group>"; };
 		5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollViewUtils.m; sourceTree = "<group>"; };
 		5AD6BF1326BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsUIScrollViewDelegate.h; sourceTree = "<group>"; };
@@ -495,7 +495,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */,
-				5AD2DA3126FDE1FA00876841 /* Settings.bundle */,
+				5AD2DA3326FDED7B00876841 /* Settings.bundle */,
 				5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */,
 				5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -1393,7 +1393,7 @@
 				5A775B3C26064C9000CEFC78 /* Montserrat-MediumItalic.ttf in Resources */,
 				5A775B3226064C9000CEFC78 /* Montserrat-LightItalic.ttf in Resources */,
 				624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */,
-				5AD2DA3226FDE1FA00876841 /* Settings.bundle in Resources */,
+				5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */,
 				5A775B3D26064C9000CEFC78 /* OpenSans-Italic.ttf in Resources */,
 				5A775B4C26064C9000CEFC78 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -1499,7 +1499,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ \"${CONFIGURATION}\" != \"ReleaseProduction\" ]; then\ncp -R \"${PROJECT_DIR}/Settings_Debug.bundle/\" \"${PROJECT_DIR}/Settings.bundle/\"\necho \"Debug settings bundle copied\"\nfi\nif [ \"${CONFIGURATION}\" == \"ReleaseProduction\" ]; then\ncp -R \"${PROJECT_DIR}/Settings_ReleaseProduction.bundle/\" \"${PROJECT_DIR}/Settings.bundle/\"\necho \"ReleaseProduction settings bundle copied\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmkdir \"${PROJECT_DIR}/Settings.bundle/\"\nif [ \"${CONFIGURATION}\" != \"ReleaseProduction\" ]; then\ncp -R \"${PROJECT_DIR}/Settings_Debug.bundle/\" \"${PROJECT_DIR}/Settings.bundle/\"\necho \"Debug settings bundle copied\"\nfi\nif [ \"${CONFIGURATION}\" == \"ReleaseProduction\" ]; then\ncp -R \"${PROJECT_DIR}/Settings_ReleaseProduction.bundle/\" \"${PROJECT_DIR}/Settings.bundle/\"\necho \"ReleaseProduction settings bundle copied\"\nfi\n";
 		};
 		A6F1B229AF36466B86D337BD /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
