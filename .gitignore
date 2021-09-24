@@ -68,5 +68,8 @@ rnuc.xcconfig
 # Google Analytics and Firebase
 ios/GoogleService-Info.plist
 
-# ENV 
+# Default settings bundle
+ios/Settings.bundle
+
+# ENV
 .env
