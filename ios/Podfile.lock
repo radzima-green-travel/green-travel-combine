@@ -107,18 +107,18 @@ PODS:
     - GoogleUtilities/Logger
   - hermes-engine (0.8.1)
   - libevent (2.1.12)
-  - libwebp (1.1.0):
-    - libwebp/demux (= 1.1.0)
-    - libwebp/mux (= 1.1.0)
-    - libwebp/webp (= 1.1.0)
-  - libwebp/demux (1.1.0):
+  - libwebp (1.2.0):
+    - libwebp/demux (= 1.2.0)
+    - libwebp/mux (= 1.2.0)
+    - libwebp/webp (= 1.2.0)
+  - libwebp/demux (1.2.0):
     - libwebp/webp
-  - libwebp/mux (1.1.0):
+  - libwebp/mux (1.2.0):
     - libwebp/demux
-  - libwebp/webp (1.1.0)
+  - libwebp/webp (1.2.0)
   - Mapbox-iOS-SDK (6.3.0):
     - MapboxMobileEvents (~> 0.10.4)
-  - MapboxMobileEvents (0.10.8)
+  - MapboxMobileEvents (0.10.12)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -484,9 +484,9 @@ PODS:
     - Sentry (= 6.0.9)
   - RNSVG (12.1.0):
     - React
-  - SDWebImage (5.10.4):
-    - SDWebImage/Core (= 5.10.4)
-  - SDWebImage/Core (5.10.4)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
@@ -712,9 +712,9 @@ SPEC CHECKSUMS:
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
   hermes-engine: 7dcd1dbd908e6353bd7e4a4add72dba7bf76bf84
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
   Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
-  MapboxMobileEvents: 36ff53b135aac486eed94b61f813c7967a0c2c6f
+  MapboxMobileEvents: b72b07268586c6fd1f53178f08df15f74070b188
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   Permission-LocationAlways: d3ac15e4bf8f4f5f4e224b4fea6f84b14fa19132
   Permission-LocationWhenInUse: ebef6bf8a123d382f25e9990468cfc8a76fbadf5
@@ -761,7 +761,7 @@ SPEC CHECKSUMS:
   RNScreens: 2a71d74b4e530f051f5684c8111d7591176722cf
   RNSentry: 6b46b6fc1d715a378fbaa5d7d43bc9ce99b500e5
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
-  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   Sentry: 388c9dc093b2fd3a264466a5c5b21e25959610a9
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
