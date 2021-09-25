@@ -144,7 +144,9 @@ static const CGFloat kDistanceButtonBottom = 24;
 
 #pragma mark - Details button
 - (CommonButton *)makeDetailsButton {
-  return [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@""];
+  return [[CommonButton alloc] initWithTarget:self
+                                       action:@selector(onDetailsPress:)
+                                        label:NSLocalizedString(@"ButtonMoreInfoLabel", @"")];
 }
 
 - (CGFloat)heightOfContent {
@@ -163,6 +165,14 @@ otherGestureRecognizer {
   return YES;
 }
 
+- (void)show:(PlaceItem *)item {
+  self.itemUUID = item.uuid;
+  [self.bookmarkButton setSelected:item.bookmarked];
+  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
+  [self.headerLabel setTextColor:[Colors get].headlineText];
+  [self.addressLabel setAttributedText:[[Typography get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
+}
+
 - (void)show:(PlaceItem *)item
  buttonLabel:(NSString *)buttonLabel
 onPressDetails:(void(^)(void))onPressDetails
@@ -174,7 +184,6 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.addressLabel setAttributedText:[[Typography get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
-  [self.detailsButton setLabel:buttonLabel];
 
   [self appear];
 }

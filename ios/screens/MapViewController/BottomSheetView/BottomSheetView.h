@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nonatomic) void(^onBookmarkPress)(BOOL);
 @property(strong, nonatomic) CommonButton *detailsButton;
 
+- (void)show:(PlaceItem *)item;
 - (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel
 onPressDetails:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress;

@@ -18,3 +18,13 @@ void showAlertGoToSettings(UIViewController *presenter) {
   }]];
   [presenter presentViewController:alert animated:YES completion:^{}];
 }
+
+void showAlertCantPlotRoute(UIViewController *presenter) {
+  UIAlertController *alert =
+  [UIAlertController alertControllerWithTitle:NSLocalizedString(@"BuildRouteErrorAlertMessageHeader", @"")
+                                      message:NSLocalizedString(@"BuildRouteErrorAlertMessageBody", @"")
+                               preferredStyle:UIAlertControllerStyleAlert];
+  [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  }]];
+  [presenter presentViewController:alert animated:YES completion:^{}];
+}

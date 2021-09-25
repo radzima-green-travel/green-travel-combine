@@ -22,11 +22,10 @@ typedef NS_ENUM(NSInteger, BottomSheetViewDetailedMapStep) {
 
 @property(copy, nonatomic) void(^onNavigatePress)(void);
 - (void)continueToNavigation;
+- (void)revertToInitialState;
 - (void)onNavigationPress;
-- (void)show:(PlaceItem *)item
-onPressRoute:(void (^)(ContinueToNavigation))onPressRoute
-onPressNavigate:(void (^)(void))onPressNavigate
-onBookmarkPress:(void (^)(BOOL))onBookmarkPress;
+@property (copy, nonatomic) void (^onPressRoute)(ContinueToNavigation);
+@property (copy, nonatomic) void (^onPressNavigate)(void);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,6 +7,7 @@
 */
 
 "AlertCancel" = "Отмена";
+"AlertOK" = "OK";
 "AlertSettings" = "Настройки";
 "AllowGeolocationAlertMessageHeader" = "Пожалуйста, разрешите доступ к Геопозиции";
 "AllowGeolocationAlertMessageBody" = "Можно будет строить марштруты, центрировать карту на Вашей позиции";
@@ -27,3 +28,8 @@
 
 "RoutesSheetTitle" = "Навигация";
 "RoutesSheetMessage" = "Проложить путь к объекту.";
+"ButtonBuildRouteLabel" = "Проложить маршрут";
+"ButtonNavigateLabel" = "В путь";
+"ButtonMoreInfoLabel" = "Узнать больше";
+"BuildRouteErrorAlertMessageHeader" = "К сожалению, маршрут не может быть построен"
+"BuildRouteErrorAlertMessageBody" = "Проверьте, пожалуйста, свое подключение к интернет. Также, возможно, сервис Mapbox испытывает проблемы"

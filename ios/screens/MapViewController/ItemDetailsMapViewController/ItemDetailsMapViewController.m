@@ -65,6 +65,13 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       [weakSelf cancelGetDirections];
     }
   };
+  ((BottomSheetViewDetailedMap *) self.bottomSheet).onPressRoute =
+      ^(ContinueToNavigation _Nonnull next) {
+    [weakSelf showDirections:next];
+  };
+  ((BottomSheetViewDetailedMap *) self.bottomSheet).onPressNavigate = ^{
+    [weakSelf showRoutesSheet];
+  };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -319,14 +326,10 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
-  [(BottomSheetViewDetailedMap *) self.bottomSheet
-   show:item onPressRoute:^(ContinueToNavigation _Nonnull next) {
-    [weakSelf showDirections:next];
-  } onPressNavigate:^{
-    [weakSelf showRoutesSheet];
-  } onBookmarkPress:^(BOOL bookmarked) {
-    [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
-  }];
+  ((BottomSheetViewDetailedMap *) self.bottomSheet).onBookmarkPress = ^(BOOL bookmarked){
+    [weakSelf.indexModel bookmarkItem:item bookmark:bookmarked];
+  };
+  [self.bottomSheet show:item];
 }
 
 - (void)onPopupShow:(BOOL)visible itemUUID:(nonnull NSString *)itemUUID {
@@ -350,6 +353,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   }];
 }
 
+#pragma mark - Location update
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
   if (self.intentionToShowRoutesSheet) {
     [self showDirections:self.next];
@@ -417,7 +421,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
                                          completion:^(NSArray<CLLocation *> * _Nonnull locations) {
     dispatch_async(dispatch_get_main_queue(), ^{
       if (locations == nil) {
-        next();
+        next(NO);
+        showAlertCantPlotRoute(weakSelf);
+        return;
       }
       MGLPolyline *polyline = [weakSelf polylineForPath:locations];
       weakSelf.directionsPolyline = polyline;
