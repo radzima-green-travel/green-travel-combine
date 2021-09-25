@@ -47,6 +47,7 @@ import {
   useAppMapAnalytics,
   useBottomMenu,
   useFindZoomForObjectInCluster,
+  useStaticCallback,
 } from 'core/hooks';
 import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -57,6 +58,7 @@ type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {mapService} from 'services/MapService';
 import {WINDOW_HEIGHT} from 'services/PlatformService';
+import {withRetry} from 'core/helpers';
 
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
@@ -197,33 +199,32 @@ export const AppMap = ({navigation}: IProps) => {
     shapeSourceRef: shapeSourceRef,
   });
 
-  const moveCameraToSearchedObject = useCallback(
+  const moveCameraToSearchedObject = useStaticCallback(
     async (object: IObject) => {
       const location = object.location;
       const coordinates = location ? [location.lon!, location.lat!] : null;
 
       if (coordinates) {
-        try {
-          const visibleClusters = rootFeatures;
-          const currentZoom = await map.current?.getZoom();
+        if (!rootFeatures) {
+          throw new Error('map is not ready');
+        }
+        const visibleClusters = rootFeatures;
+        const currentZoom = await map.current?.getZoom();
 
-          if (visibleClusters && currentZoom) {
-            const zoomLevel = await findZoomForObjectInCluster(
-              object,
-              visibleClusters,
-              currentZoom,
-            );
+        if (visibleClusters && currentZoom) {
+          const zoomLevel = await findZoomForObjectInCluster(
+            object,
+            visibleClusters,
+            currentZoom,
+          );
 
-            if (zoomLevel) {
-              camera.current?.setCamera({
-                centerCoordinate: coordinates,
-                zoomLevel: zoomLevel,
-                animationDuration: 600,
-              });
-            }
+          if (zoomLevel) {
+            camera.current?.setCamera({
+              centerCoordinate: coordinates,
+              zoomLevel: zoomLevel,
+              animationDuration: 600,
+            });
           }
-        } catch (e) {
-          console.log(e);
         }
       }
     },
@@ -234,21 +235,17 @@ export const AppMap = ({navigation}: IProps) => {
     if (selectedFilters.length) {
       ignoreFitBounds.current = true;
       resetFilters();
-
-      closeSearchMenu();
-      setTimeout(async () => {
-        await moveCameraToSearchedObject(object);
-        addToHistory(object);
-        setSelectedMarkerId(object.id);
-        clearInput();
-      }, 30);
-    } else {
-      closeSearchMenu();
-      await moveCameraToSearchedObject(object);
-      addToHistory(object);
-      setSelectedMarkerId(object.id);
-      clearInput();
     }
+
+    closeSearchMenu();
+
+    await withRetry(() => moveCameraToSearchedObject(object)).catch(
+      console.log,
+    );
+
+    addToHistory(object);
+    setSelectedMarkerId(object.id);
+    clearInput();
   };
 
   const onMenuHideEnd = useCallback(() => {

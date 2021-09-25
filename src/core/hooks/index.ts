@@ -27,3 +27,4 @@ export * from './analytics';
 export {useUpdateEffect} from './useUpdateEffect';
 export {useBottomMenu} from './useBottomMenu';
 export {useFindZoomForObjectInCluster} from './useFindZoomForObjectInCluster';
+export {useStaticCallback} from './useStaticCallback';
