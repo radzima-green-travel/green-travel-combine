@@ -31,5 +31,5 @@
 "ButtonBuildRouteLabel" = "Проложить маршрут";
 "ButtonNavigateLabel" = "В путь";
 "ButtonMoreInfoLabel" = "Узнать больше";
-"BuildRouteErrorAlertMessageHeader" = "К сожалению, маршрут не может быть построен"
-"BuildRouteErrorAlertMessageBody" = "Проверьте, пожалуйста, свое подключение к интернет. Также, возможно, сервис Mapbox испытывает проблемы"
+"BuildRouteErrorAlertMessageHeader" = "К сожалению, маршрут не может быть построен";
+"BuildRouteErrorAlertMessageBody" = "Проверьте, пожалуйста, свое подключение к интернет. Возможно, сервис Mapbox испытывает проблемы";

@@ -198,7 +198,8 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
   }
 }
 
-- (BottomSheetView *)addBottomSheet:(MainViewControllerBottomSheet)sheetType onShow:(void(^_Nonnull)(BOOL, NSString *))onShow {
+- (BottomSheetView *)addBottomSheet:(MainViewControllerBottomSheet)sheetType
+                             onShow:(void(^_Nonnull)(BOOL, NSString *))onShow {
   if (self.bottomSheets[@(sheetType)] != nil) {
     return self.bottomSheets[@(sheetType)];
   }

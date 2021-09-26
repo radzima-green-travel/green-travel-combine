@@ -88,7 +88,7 @@ static const CGFloat kDistanceButtonBottom = 24;
   
 #pragma mark - Bookmark button
   self.bookmarkButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorBottomSheet
-                                               onBookmarkPress:^(BOOL bookmarked) {}];
+                                               onBookmarkPress:self.onBookmarkPress];
   self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.bookmarkButton];
 
@@ -171,6 +171,13 @@ otherGestureRecognizer {
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.addressLabel setAttributedText:[[Typography get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
+  
+  [self appear];
+}
+
+- (void)setOnBookmarkPress:(void (^)(BOOL))onBookmarkPress {
+  _onBookmarkPress = onBookmarkPress;
+  [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
 }
 
 - (void)show:(PlaceItem *)item

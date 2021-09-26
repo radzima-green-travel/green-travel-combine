@@ -146,6 +146,7 @@
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
+		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
 		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
 		5AD6BF1126BEA9DF00DD3F2B /* ScrollViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */; };
@@ -445,6 +446,8 @@
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
 		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
+		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
 		5AD6BF0F26BEA9DF00DD3F2B /* ScrollViewUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollViewUtils.h; sourceTree = "<group>"; };
 		5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollViewUtils.m; sourceTree = "<group>"; };
 		5AD6BF1326BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsUIScrollViewDelegate.h; sourceTree = "<group>"; };
@@ -1000,6 +1003,8 @@
 				5A6EDF9026C9671C001307DC /* BottomSheetTouchForwardingView.h */,
 				5A6EDF9126C9671C001307DC /* BottomSheetTouchForwardingView.m */,
 				5A6EDF8C26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.h */,
+				5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */,
+				5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */,
 				5A6EDF8D26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m */,
 				5A2144B6266BEEBF00582901 /* MapViewControllerConstants.h */,
 				5A2144B7266BF3B300582901 /* MapViewControllerConstants.m */,
@@ -1690,6 +1695,7 @@
 				5A775B1F26064C9000CEFC78 /* StoredPlaceItem+CoreDataProperties.m in Sources */,
 				5A775B8F26064C9000CEFC78 /* ColorsLegacy.m in Sources */,
 				5A775DF526077A7D00CEFC78 /* BookmarksViewController.m in Sources */,
+				5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */,
 				5A775E0926077A7D00CEFC78 /* LinkedCategoriesView.m in Sources */,
 				5A105FF1266001AB00511256 /* MapService.m in Sources */,
 				5A775E0126077A7D00CEFC78 /* CategoriesFilterModel.m in Sources */,

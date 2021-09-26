@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^ContinueToNavigation)(void);
+typedef void(^ContinueToNavigation)(BOOL);
 
 
 typedef NS_ENUM(NSInteger, BottomSheetViewDetailedMapStep) {

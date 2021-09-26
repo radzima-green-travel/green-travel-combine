@@ -26,10 +26,12 @@ onPressDetails:(void(^)(void))onNavigatePress
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 @property(strong, nonatomic) NSString *buttonLabel;
 @property(copy, nonatomic) void(^onPressDetails)(void);
+
 - (void)hide;
 - (void)setBookmarked:(PlaceItem *)item bookmarked:(BOOL)bookmarked;
 - (CommonButton *)makeDetailsButton;
 - (void)appearAnimationDidEnd:(BOOL)appear;
+- (CGFloat)heightOfContent;
 
 @end
 

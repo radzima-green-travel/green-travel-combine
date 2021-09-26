@@ -27,8 +27,8 @@
 
 "RoutesSheetTitle" = "Navigation";
 "RoutesSheetMessage" = "Build route to object.";
-"ButtonBuildRouteLabel" = "Build route to object";
-"ButtonNavigateLabel" = "Let's go";
+"ButtonBuildRouteLabel" = "Get directions";
+"ButtonNavigateLabel" = "Navigate";
 "ButtonMoreInfoLabel" = "More info";
 "BuildRouteErrorAlertMessageHeader" = "Route cannot be built, sorry";
 "BuildRouteErrorAlertMessageBody" = "Please check your internet connection, or maybe Mapbox service is having issues";

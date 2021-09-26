@@ -25,7 +25,7 @@
 */
 
 - (CommonButton *)makeDetailsButton {
-  return [[CommonButton alloc] initWithTarget:self
+  return [[CommonButtonWithProgress alloc] initWithTarget:self
                                        action:@selector(onDetailsPress:)
                                         label:NSLocalizedString(@"ButtonBuildRouteLabel", @"")];
 }
@@ -36,8 +36,12 @@
     case BottomSheetViewDetailedMapStepRoute: {
       self.progressStep = BottomSheetViewDetailedMapStepRouteInProgress;
       [(CommonButtonWithProgress *)self.detailsButton setInProgress:YES];
-      self.onPressRoute(^{
-        [weakSelf continueToNavigation];
+      self.onPressRoute(^(BOOL success){
+        if (success) {
+          [weakSelf continueToNavigation];
+        } else {
+          [weakSelf revertToInitialState];
+        }
       });
       return;
     }

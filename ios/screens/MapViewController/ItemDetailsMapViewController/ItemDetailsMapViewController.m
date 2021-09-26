@@ -42,6 +42,7 @@
 @interface ItemDetailsMapViewController ()
 
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
+@property (assign, nonatomic) BOOL feedbackOnAppearGiven;
 @property (strong, nonatomic) MGLPolyline *directionsPolyline;
 @property (strong, nonatomic) UINotificationFeedbackGenerator *feedbackGenerator;
 @property (copy, nonatomic) void(^cancelGetDirections)(void);
@@ -64,6 +65,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     if (!show) {
       [weakSelf cancelGetDirections];
     }
+    [weakSelf onPopupShow:show itemUUID:itemUUID];
   };
   ((BottomSheetViewDetailedMap *) self.bottomSheet).onPressRoute =
       ^(ContinueToNavigation _Nonnull next) {
@@ -326,17 +328,18 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
-  ((BottomSheetViewDetailedMap *) self.bottomSheet).onBookmarkPress = ^(BOOL bookmarked){
-    [weakSelf.indexModel bookmarkItem:item bookmark:bookmarked];
+  (self.bottomSheet).onBookmarkPress = ^(BOOL bookmarked){
+    [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
   };
   [self.bottomSheet show:item];
 }
 
 - (void)onPopupShow:(BOOL)visible itemUUID:(nonnull NSString *)itemUUID {
   [super onPopupShow:visible itemUUID:itemUUID];
-  if (visible) {
+  if (visible && !self.feedbackOnAppearGiven) {
     [self.feedbackGenerator notificationOccurred:UINotificationFeedbackTypeSuccess];
     self.feedbackGenerator = nil;
+    self.feedbackOnAppearGiven = YES;
   }
 }
 
@@ -361,7 +364,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     return;
   }
   if (self.intentionToFocusOnUserLocation) {
-    [self focusOnCurrentLocation];
+    [self focusOnCurrentLocation:^{}];
     self.intentionToFocusOnUserLocation = NO;
   }
 }
@@ -371,7 +374,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 - (void)onLocateMePress:(id)sender {
   self.intentionToFocusOnUserLocation = YES;
   [self startMonitoringLocation];
-  [self focusOnCurrentLocation];
+  [self focusOnCurrentLocation:^{}];
 }
 
 - (void)startMonitoringLocation {
@@ -390,7 +393,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
            CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate));
 }
 
-- (void)focusOnCurrentLocation {
+- (void)focusOnCurrentLocation:(void(^)(void))completion {
   if ([self locationIsInvalid]) {
     return;
   }
@@ -401,6 +404,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   NSArray<id<MGLAnnotation>> *annotations = @[location];
   annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
   [self.mapView showAnnotations:annotations animated:YES];
+  completion();
 }
 
 - (void)showDirections:(ContinueToNavigation)next {
@@ -415,6 +419,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     return;
   }
   CLLocationCoordinate2D coordinate = self.locationModel.lastLocation.coordinate;
+  self.feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+  [self.feedbackGenerator prepare];
   self.cancelGetDirections =
   [self.mapService loadDirectionsWithCompletionFrom:coordinate
                                                  to:self.mapItem.coords
@@ -423,12 +429,19 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       if (locations == nil) {
         next(NO);
         showAlertCantPlotRoute(weakSelf);
+        [self.feedbackGenerator notificationOccurred:UINotificationFeedbackTypeError];
+        weakSelf.feedbackGenerator = nil;
         return;
       }
       MGLPolyline *polyline = [weakSelf polylineForPath:locations];
       weakSelf.directionsPolyline = polyline;
       [weakSelf addDirectionsLayer:weakSelf.mapView.style shape:polyline];
-      next();
+      [weakSelf focusOnCurrentLocation:^{
+        [weakSelf.feedbackGenerator
+         notificationOccurred:UINotificationFeedbackTypeSuccess];
+        weakSelf.feedbackGenerator = nil;
+        next(YES);
+      }];
     });
   }];
 }

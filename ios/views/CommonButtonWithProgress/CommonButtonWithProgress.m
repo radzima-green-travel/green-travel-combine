@@ -6,6 +6,7 @@
 //
 
 #import "CommonButtonWithProgress.h"
+#import "ColorsLegacy.h"
 
 @interface CommonButtonWithProgress()
 
@@ -31,6 +32,7 @@
   }
   self.progressIndicator = [[UIActivityIndicatorView alloc]
                                       initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+  self.progressIndicator.color = [ColorsLegacy get].white;
   return self.progressIndicator;
 }
 
@@ -49,7 +51,7 @@
     UIActivityIndicatorView *progressIndicator = [[UIActivityIndicatorView alloc]
                                         initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
     self.labelBackup = self.currentTitle;
-    [self setTitle:@"" forState:UIControlStateNormal];
+    [self setLabel:@""];
     [self addActivityIndicator];
     [self.progressIndicator startAnimating];
     [self setEnabled:NO];
@@ -57,7 +59,7 @@
   }
   [self setEnabled:YES];
   if (self.labelBackup) {
-    [self setTitle:self.labelBackup forState:UIControlStateNormal];
+    [self setLabel:self.labelBackup];
   }
   [self.progressIndicator stopAnimating];
   [self.progressIndicator removeFromSuperview];
