@@ -9,5 +9,4 @@ export type Props = {
   children: React.ReactNode;
   centerCoordinate?: ICoordinates | null;
   cameraRef?: React.LegacyRef<MapboxGL.Camera>;
-  onMapReady?: () => void;
 };

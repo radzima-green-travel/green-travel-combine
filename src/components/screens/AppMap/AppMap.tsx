@@ -8,23 +8,21 @@ import React, {
 } from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
 import {
-  selectMapMarkers,
   selectSelectedMapMarker,
   createMarkerFromObject,
   selectMapFilters,
-  selectSelectedFilters,
   selectTransformedData,
+  getMapMarkers,
 } from 'core/selectors';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleProp, View} from 'react-native';
+import bbox from '@turf/bbox';
 
 import {styles, selectedPointStyle} from './styles';
 import {IMapFilter, IObject} from 'core/types';
 import {
   setAppMapSelectedMarkerId,
   clearAppMapSelectedMarkerId,
-  setAppMapSelectedFilters,
-  clearAppMapSelectedFilters,
 } from 'core/reducers';
 import MapBox, {
   OnPressEvent,
@@ -47,34 +45,39 @@ import {
   useAppMapAnalytics,
   useBottomMenu,
   useFindZoomForObjectInCluster,
-  useStaticCallback,
 } from 'core/hooks';
 import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {IProps, Features} from './types';
+import {IProps} from './types';
 
 import {Geometry, Feature, Position} from '@turf/helpers';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {mapService} from 'services/MapService';
 import {WINDOW_HEIGHT} from 'services/PlatformService';
-import {withRetry} from 'core/helpers';
+import Supercluster from 'supercluster';
+import {xorBy} from 'lodash';
 
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
   const sheme = useColorScheme();
   const mapFilters = useSelector(selectMapFilters);
   const selected = useSelector(selectSelectedMapMarker);
-  const markers = useSelector(selectMapMarkers);
+  const appData = useSelector(selectTransformedData);
+
   const shouldPersistData = useRef(false);
   const camera = useRef<MapBox.Camera>(null);
   const map = useRef<MapBox.MapView>(null);
   const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
-  const [isMapReady, setIsMapReady] = useState(false);
 
   const ignoreFitBounds = useRef(false);
 
-  const selectedFilters = useSelector(selectSelectedFilters);
+  const [selectedFilters, setSelectedFilters] = useState<IMapFilter[]>([]);
+
+  const [markers, setMarkers] = useState(() =>
+    getMapMarkers(appData, selectedFilters),
+  );
+
   const {getObject} = useTransformedData();
   const {top} = useSafeAreaInsets();
 
@@ -122,32 +125,22 @@ export const AppMap = ({navigation}: IProps) => {
     ...searchMenuProps
   } = useBottomMenu();
 
-  const appData = useSelector(selectTransformedData);
-
-  const [rootFeatures, setRootFeatures] = useState<Features | null>(null);
-
   const onFilterSelect = useCallback(
     (item: IMapFilter) => {
-      dispatch(setAppMapSelectedFilters(item));
+      const newSelectedFilters = xorBy(selectedFilters, [item], 'categoryId');
+      const newMarkers = getMapMarkers(appData, newSelectedFilters);
+      setSelectedFilters(newSelectedFilters);
+      setMarkers(newMarkers);
     },
-    [dispatch],
+    [appData, selectedFilters],
   );
 
   const resetFilters = useCallback(() => {
-    dispatch(clearAppMapSelectedFilters());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (appData && isMapReady) {
-      resetFilters();
-
-      setTimeout(() => {
-        shapeSourceRef.current
-          ?.features(['==', 'cluster', true])
-          .then(setRootFeatures);
-      }, 1000);
-    }
-  }, [appData, isMapReady, resetFilters]);
+    const newSelectedFilters = [];
+    const newMarkers = getMapMarkers(appData, newSelectedFilters);
+    setSelectedFilters(newSelectedFilters);
+    setMarkers(newMarkers);
+  }, [appData]);
 
   useEffect(() => {
     if (selected) {
@@ -195,24 +188,25 @@ export const AppMap = ({navigation}: IProps) => {
     [unselectObject, navigation],
   );
 
-  const {findZoomForObjectInCluster} = useFindZoomForObjectInCluster({
-    shapeSourceRef: shapeSourceRef,
-  });
+  const {findZoomForObjectInCluster} = useFindZoomForObjectInCluster();
 
-  const moveCameraToSearchedObject = useStaticCallback(
-    async (object: IObject) => {
+  const moveCameraToSearchedObject = useCallback(
+    async (
+      object: IObject,
+      cluster: Supercluster<Supercluster.AnyProps, Supercluster.AnyProps>,
+      clusterBounds,
+    ) => {
       const location = object.location;
       const coordinates = location ? [location.lon!, location.lat!] : null;
 
       if (coordinates) {
-        if (!rootFeatures) {
-          throw new Error('map is not ready');
-        }
-        const visibleClusters = rootFeatures;
+        const visibleClusters = cluster.getClusters(clusterBounds, 4);
+
         const currentZoom = await map.current?.getZoom();
 
         if (visibleClusters && currentZoom) {
-          const zoomLevel = await findZoomForObjectInCluster(
+          const zoomLevel = findZoomForObjectInCluster(
+            cluster,
             object,
             visibleClusters,
             currentZoom,
@@ -228,20 +222,31 @@ export const AppMap = ({navigation}: IProps) => {
         }
       }
     },
-    [findZoomForObjectInCluster, rootFeatures],
+    [findZoomForObjectInCluster],
   );
 
   const onSearchItemPress = async (object: IObject) => {
+    let newFitlters = selectedFilters;
+    let newMarkers = markers;
+
     if (selectedFilters.length) {
       ignoreFitBounds.current = true;
-      resetFilters();
+
+      newFitlters = [];
+      newMarkers = getMapMarkers(appData, newFitlters);
+
+      setSelectedFilters(newFitlters);
+      setMarkers(newMarkers);
     }
 
     closeSearchMenu();
+    const clusterBounds = bbox(newMarkers);
+    const cluster = new Supercluster({
+      radius: 40,
+      maxZoom: 14,
+    }).load(newMarkers?.features!);
 
-    await withRetry(() => moveCameraToSearchedObject(object)).catch(
-      console.log,
-    );
+    moveCameraToSearchedObject(object, cluster, clusterBounds);
 
     addToHistory(object);
     setSelectedMarkerId(object.id);
@@ -317,9 +322,6 @@ export const AppMap = ({navigation}: IProps) => {
         ref={map}
         cameraRef={camera}
         onShapePress={onShapePress}
-        onMapReady={() => {
-          setIsMapReady(true);
-        }}
         onPress={unselectObject}>
         {userLocationProps.visible ? (
           <MapBox.UserLocation {...userLocationProps} />

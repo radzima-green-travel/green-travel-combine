@@ -3,28 +3,22 @@ import {IObject} from 'core/types';
 import {some, sortBy} from 'lodash';
 import {useCallback} from 'react';
 
-import {
-  Geometry,
-  Feature,
-  FeatureCollection,
-  Properties,
-  point,
-} from '@turf/helpers';
+import {Geometry, Feature, Properties, point} from '@turf/helpers';
 
-import MapBox from '@react-native-mapbox-gl/maps';
+import Supercluster from 'supercluster';
 
 function isFeaturesIncludesObject(
-  featuresCollection: FeatureCollection<Geometry, Properties>,
+  features: Feature<Geometry, Properties>[],
   object: IObject,
 ) {
-  return some(featuresCollection.features, feature => {
+  return some(features, feature => {
     return feature.properties?.objectId === object.id;
   });
 }
 
-async function findClosesClusterToObject(
-  shapeSourceRef: React.RefObject<MapBox.ShapeSource>,
-  featuresCollection: FeatureCollection<Geometry, Properties>,
+function findClosesClusterToObject(
+  cluster: Supercluster<Supercluster.AnyProps, Supercluster.AnyProps>,
+  features: Feature<Geometry, Properties>[],
   object: IObject,
 ) {
   let closestCluster: Feature<Geometry, Properties> | null = null;
@@ -35,9 +29,10 @@ async function findClosesClusterToObject(
   if (!coordinates) {
     return null;
   }
+
   const objectPoint = point(coordinates);
 
-  const sortedByDistance = sortBy(featuresCollection.features, [
+  const sortedByDistance = sortBy(features, [
     feature => {
       return distance(
         point(feature.geometry.coordinates as number[]),
@@ -50,11 +45,12 @@ async function findClosesClusterToObject(
     const feature = sortedByDistance[i];
 
     if (feature.properties?.cluster) {
-      const childrenOfCluster = await shapeSourceRef.current?.getClusterLeaves(
-        feature,
-        feature.properties.point_count,
+      const childrenOfCluster = cluster.getLeaves(
+        feature.properties.cluster_id,
+        Infinity,
         0,
       );
+
       if (
         childrenOfCluster &&
         isFeaturesIncludesObject(childrenOfCluster, object)
@@ -67,38 +63,36 @@ async function findClosesClusterToObject(
   return closestCluster;
 }
 
-export function useFindZoomForObjectInCluster({
-  shapeSourceRef,
-}: {
-  shapeSourceRef: React.RefObject<MapBox.ShapeSource>;
-}) {
+export function useFindZoomForObjectInCluster() {
   const findZoomForObjectInCluster = useCallback(
-    async (
+    (
+      cluster: Supercluster<Supercluster.AnyProps, Supercluster.AnyProps>,
       object: IObject,
-      featuresCollection: FeatureCollection<Geometry, Properties>,
+      features: Feature<Geometry, Properties>[],
       zoom: number,
     ) => {
       try {
-        if (isFeaturesIncludesObject(featuresCollection, object)) {
+        if (isFeaturesIncludesObject(features, object)) {
           return zoom;
         }
 
-        let closestCluster = await findClosesClusterToObject(
-          shapeSourceRef,
-          featuresCollection,
+        let closestCluster = findClosesClusterToObject(
+          cluster,
+          features,
           object,
         );
 
-        if (closestCluster) {
-          const clusterChildren =
-            await shapeSourceRef.current?.getClusterChildren(closestCluster);
-          const zoomToExpand =
-            await shapeSourceRef.current?.getClusterExpansionZoom(
-              closestCluster,
-            );
+        if (closestCluster && closestCluster.properties?.cluster_id) {
+          const clusterChildren = cluster.getChildren(
+            closestCluster.properties.cluster_id,
+          );
+          const zoomToExpand = cluster.getClusterExpansionZoom(
+            closestCluster.properties.cluster_id,
+          );
 
           if (clusterChildren && zoomToExpand) {
-            const zoomLevel = await findZoomForObjectInCluster(
+            const zoomLevel = findZoomForObjectInCluster(
+              cluster,
               object,
               clusterChildren,
               zoomToExpand,
@@ -111,7 +105,7 @@ export function useFindZoomForObjectInCluster({
         return zoom;
       }
     },
-    [shapeSourceRef],
+    [],
   );
 
   return {findZoomForObjectInCluster};

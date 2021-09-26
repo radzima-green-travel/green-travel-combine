@@ -113,22 +113,3 @@ export function isLocationExist(object: IObject) {
 export function getScreenTimeSec(startMs: number, endMs: number) {
   return Math.floor((endMs - startMs) / 1000);
 }
-
-function rejectDelay(reason, timeout) {
-  return new Promise(function (resolve, reject) {
-    setTimeout(reject.bind(null, reason), timeout);
-  });
-}
-
-export function withRetry(
-  promise: (reason: any) => PromiseLike<never>,
-  {timeout = 500, attempts = 5}: {timeout?: number; attempts?: number} = {},
-) {
-  let p = Promise.reject();
-
-  for (var i = 0; i < attempts; i++) {
-    p = p.catch(promise).catch(e => rejectDelay(e, timeout)) as Promise<never>;
-  }
-
-  return p;
-}
