@@ -43,7 +43,6 @@
 
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
 @property (assign, nonatomic) BOOL feedbackOnAppearGiven;
-@property (strong, nonatomic) MGLPolyline *directionsPolyline;
 @property (strong, nonatomic) UINotificationFeedbackGenerator *feedbackGenerator;
 @property (copy, nonatomic) void(^cancelGetDirections)(void);
 @property (copy, nonatomic) ContinueToNavigation next;
@@ -109,7 +108,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self renderMapItem:self.mapItem style:self.mapView.style];
   if (!(self.mapViewState.saved & (MapViewStateSaveOptionZoom |
                                    MapViewStateSaveOptionCenter))) {
-    [self showAnnotations];
+    [self showAnnotations:^{}];
   }
   if (self.mapViewState.saved & MapViewStateSaveOptionDirections) {
     [self addDirections:self.mapViewState.directions];
@@ -126,7 +125,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
       [weakSelf renderMapItem:mapItemNew style:weakSelf.mapView.style];
-      [weakSelf showAnnotations];
+      [weakSelf showAnnotations:^{}];
     });
   }
 }
@@ -240,13 +239,14 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [style addLayer:pointLayer];
   };
 #pragma mark - Show point, path or polygon
-  [self showAnnotations];
+  // [self showAnnotations];
 }
 
-- (void)showAnnotations {
+- (void)showAnnotations:(void(^)(void))completion {
   BOOL animated = YES;
   if ([self.annotations count] > 1) {
     [self.mapView showAnnotations:self.annotations animated:animated];
+    completion();
     return;
   }
   if ([self.annotations count] == 1) {
@@ -283,7 +283,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)addDirections:(NSArray<CLLocation *> *)locations {
   MGLPolyline *polyline = [self polylineForPath:locations];
-  self.directionsPolyline = polyline;
+  [self.annotations addObject:polyline];
   [self addDirectionsLayer:self.mapView.style shape:polyline];
 }
 
@@ -414,8 +414,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   location.coordinate = self.locationModel.lastLocation.coordinate;
   NSArray<id<MGLAnnotation>> *annotations = @[location];
   annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
-  [self.mapView showAnnotations:annotations animated:YES];
-  completion();
+  [self showAnnotations:completion];
 }
 
 - (void)showDirections:(ContinueToNavigation)next {
