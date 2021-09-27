@@ -166,11 +166,11 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-  [self.mapViewState restoreToMap:self.mapView];
+  [self.mapViewState restoreToMap:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-  [self.mapViewState saveFromMapView:self.mapView];
+  [self.mapViewState saveFromMapView:self];
 }
 
 #pragma mark - viewDidDisappear
@@ -346,6 +346,32 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 }
 
 - (void)onPopupShow:(BOOL)visible itemUUID:(NSString *)itemUUID{
+}
+
+#pragma mark MapViewToStateIntermediary
+- (void)passCenterCoordinate:(CLLocationCoordinate2D)centerCoordinate {
+  [self.mapView setCenterCoordinate:centerCoordinate];
+}
+
+- (void)passDirections:(NSArray<CLLocation *> *)directions {
+}
+
+- (void)passShowsUserLocation:(BOOL)showsUserLocation {
+  [self.mapView setShowsUserLocation:showsUserLocation];
+  [self.mapView setShowsUserHeadingIndicator:showsUserLocation];
+  [self.mapView updateUserLocationAnnotationView];
+}
+
+- (void)passZoomLevel:(CGFloat)zoomLevel {
+  [self.mapView setZoomLevel:zoomLevel];
+}
+
+- (CLLocationCoordinate2D)retrieveCenterCoordinate {
+  return self.mapView.centerCoordinate;
+}
+
+- (CGFloat)retrieveZoomLevel {
+  return self.mapView.zoomLevel;
 }
 
 @end

@@ -6,6 +6,7 @@
 //
 
 #import "MapViewState.h"
+#import "MapViewToStateIntermediary.h"
 
 @interface MapViewState()
 
@@ -16,9 +17,9 @@
 
 @implementation MapViewState
 
-- (void)saveFromMapView:(MGLMapView *)mapView {
-  [self setZoomLevel:mapView.zoomLevel];
-  [self setCenter:mapView.centerCoordinate];
+- (void)saveFromMapView:(id<MapViewToStateIntermediary>)mapIntermediary {
+  [self setZoomLevel:[mapIntermediary retrieveZoomLevel]];
+  [self setCenter:[mapIntermediary retrieveCenterCoordinate]];
   self.saved = self.saved | MapViewStateSaveOptionZoomAndCenter;
 }
 
@@ -27,15 +28,21 @@
   self.saved = self.saved | MapViewStateSaveOptionLocation;
 }
 
-- (void)restoreToMap:(MGLMapView *)mapView {
+- (void)setDirections:(NSArray<CLLocation *> *)directions {
+  _directions = directions;
+  self.saved = self.saved | MapViewStateSaveOptionDirections;
+}
+
+- (void)restoreToMap:(id<MapViewToStateIntermediary>)mapIntermediary {
   if (self.saved & MapViewStateSaveOptionLocation) {
-    [mapView setShowsUserLocation:self.showLocation];
-    [mapView setShowsUserHeadingIndicator:self.showLocation];
-    [mapView updateUserLocationAnnotationView];
+    [mapIntermediary passShowsUserLocation:self.showLocation];
   }
   if (self.saved & MapViewStateSaveOptionZoomAndCenter) {
-    [mapView setZoomLevel:self.zoomLevel];
-    [mapView setCenterCoordinate:self.center];
+    [mapIntermediary passZoomLevel:self.zoomLevel];
+    [mapIntermediary passCenterCoordinate:self.center];
+  }
+  if (self.saved & MapViewStateSaveOptionDirections) {
+    [mapIntermediary passDirections:self.directions];
   }
 }
 

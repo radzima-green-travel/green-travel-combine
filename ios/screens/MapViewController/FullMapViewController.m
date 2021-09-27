@@ -272,7 +272,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   if (recursionDepth == 0) {
     [self.mapView setCenterCoordinate:item.coords zoomLevel:kZoomLevelForSearch
                             direction:-1 animated:YES completionHandler:^{
-      [weakSelf.mapViewState saveFromMapView:weakSelf.mapView];
+      [weakSelf.mapViewState saveFromMapView:weakSelf];
       [weakSelf focusOnSearchItem:item recursionDepth:recursionDepth + 1
                             delay:delay];
     }];
@@ -294,7 +294,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
       [self.mapView setCenterCoordinate:item.coords
                               zoomLevel:zoom
                               direction:-1 animated:YES completionHandler:^{
-        [weakSelf.mapViewState saveFromMapView:weakSelf.mapView];
+        [weakSelf.mapViewState saveFromMapView:weakSelf];
         [weakSelf focusOnSearchItem:item recursionDepth:recursionDepth + 1 delay:0];
       }];
       return;
@@ -308,7 +308,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
     [weakSelf renderMapItems:weakSelf.mapModel.mapItemsFiltered style:weakSelf.mapView.style];
     // NOTE:on iOS <= 12, search modal requires navigation, thus we need to save map state
     // after item selection.
-    [weakSelf.mapViewState saveFromMapView:weakSelf.mapView];
+    [weakSelf.mapViewState saveFromMapView:weakSelf];
     [weakSelf showPopupWithItem:item];
     [weakSelf performFeedback];
     return;
@@ -331,7 +331,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
                           direction:-1 animated:YES completionHandler:^{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, newDelay),
                    dispatch_get_main_queue(), ^{
-      [weakSelf.mapViewState saveFromMapView:weakSelf.mapView];
+      [weakSelf.mapViewState saveFromMapView:weakSelf];
       [weakSelf focusOnSearchItem:item recursionDepth:recursionDepth
                             delay:newDelay];
     });

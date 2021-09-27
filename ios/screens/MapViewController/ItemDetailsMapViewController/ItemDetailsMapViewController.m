@@ -78,9 +78,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  if (self.directionsPolyline != nil) {
-    [self addDirectionsLayer:self.mapView.style shape:self.directionsPolyline];
-  }
+//  if (self.directionsPolyline != nil) {
+//    [self addDirectionsLayer:self.mapView.style shape:self.directionsPolyline];
+//  }
   self.feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
   [self.feedbackGenerator prepare];
 }
@@ -109,6 +109,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self renderMapItem:self.mapItem style:self.mapView.style];
   if (!(self.mapViewState.saved & MapViewStateSaveOptionZoomAndCenter)) {
     [self showAnnotations];
+  }
+  if (self.mapViewState.saved & MapViewStateSaveOptionDirections) {
+    [self addDirections:self.mapViewState.directions];
   }
 }
 
@@ -252,6 +255,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate zoomLevel:8.0 animated:animated];
 }
 
+#pragma mark addDirections
 - (void)addDirectionsLayer:(MGLStyle *)style shape:(MGLShape *)shape {
   if ([style layerWithIdentifier:MapViewControllerDirectionsLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:MapViewControllerDirectionsLayerId]];
@@ -260,8 +264,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdDirections]];
   }
 
-  MGLSource *sourceDirections = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdDirections
-                                                                     shape:shape options:nil];
+  MGLSource *sourceDirections =
+  [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdDirections
+                                       shape:shape options:nil];
   [style addSource:sourceDirections];
 
   MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
@@ -275,6 +280,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [style addLayer:dashedLayer];
 }
 
+- (void)addDirections:(NSArray<CLLocation *> *)locations {
+  MGLPolyline *polyline = [self polylineForPath:locations];
+  self.directionsPolyline = polyline;
+  [self addDirectionsLayer:self.mapView.style shape:polyline];
+}
 
 - (MGLPolylineFeature *)polylineForPath:(NSArray<CLLocation *>*)path {
   MGLPolylineFeature *polyline;
@@ -433,9 +443,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
         weakSelf.feedbackGenerator = nil;
         return;
       }
-      MGLPolyline *polyline = [weakSelf polylineForPath:locations];
-      weakSelf.directionsPolyline = polyline;
-      [weakSelf addDirectionsLayer:weakSelf.mapView.style shape:polyline];
+      [weakSelf.mapViewState setDirections:locations];
+      [weakSelf addDirections:locations];
       [weakSelf focusOnCurrentLocation:^{
         [weakSelf.feedbackGenerator
          notificationOccurred:UINotificationFeedbackTypeSuccess];
@@ -444,6 +453,11 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
       }];
     });
   }];
+}
+
+#pragma mark MapViewToStateIntermediary
+- (void)passDirections:(NSArray<CLLocation *> *)directions {
+  [self addDirections:directions];
 }
 
 @end

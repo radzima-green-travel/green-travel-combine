@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 @import Mapbox;
+#import "MapViewToStateIntermediary.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,8 +24,9 @@ typedef NS_OPTIONS(NSUInteger, MapViewStateSaveOption) {
 
 @property (assign, nonatomic) MapViewStateSaveOption saved;
 @property (assign, nonatomic) BOOL showLocation;
-- (void)saveFromMapView:(MGLMapView *)mapView;
-- (void)restoreToMap:(MGLMapView *)mapView;
+@property (strong, nonatomic) NSArray<CLLocation *> *directions;
+- (void)saveFromMapView:(id<MapViewToStateIntermediary>)mapIntermediary;
+- (void)restoreToMap:(id<MapViewToStateIntermediary>)mapIntermediary;
 
 @end
 

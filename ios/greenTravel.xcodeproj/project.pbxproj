@@ -447,6 +447,7 @@
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
 		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		5AD2DA352701D88300876841 /* MapViewToStateIntermediary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewToStateIntermediary.h; sourceTree = "<group>"; };
 		5AD6BF0F26BEA9DF00DD3F2B /* ScrollViewUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollViewUtils.h; sourceTree = "<group>"; };
 		5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollViewUtils.m; sourceTree = "<group>"; };
 		5AD6BF1326BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsUIScrollViewDelegate.h; sourceTree = "<group>"; };
@@ -539,6 +540,7 @@
 			children = (
 				5A2144AF266B988700582901 /* MapViewState.h */,
 				5A2144B0266B988700582901 /* MapViewState.m */,
+				5AD2DA352701D88300876841 /* MapViewToStateIntermediary.h */,
 			);
 			path = MapViewState;
 			sourceTree = "<group>";
