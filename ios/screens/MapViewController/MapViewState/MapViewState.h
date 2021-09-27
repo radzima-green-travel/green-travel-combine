@@ -13,11 +13,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_OPTIONS(NSUInteger, MapViewStateSaveOption) {
-  MapViewStateSaveOptionZoomAndCenter = 1 << 0,
-  MapViewStateSaveOptionLocation = 1 << 1,
-  MapViewStateSaveOptionDirections = 1 << 2,
-  MapViewStateSaveOptionRotation = 1 << 3,
-  MapViewStateSaveOptionAngle = 1 << 4,
+  MapViewStateSaveOptionZoom = 1 << 0,
+  MapViewStateSaveOptionCenter = 1 << 1,
+  MapViewStateSaveOptionLocation = 1 << 2,
+  MapViewStateSaveOptionDirections = 1 << 3,
+  MapViewStateSaveOptionRotation = 1 << 4,
+  MapViewStateSaveOptionAngle = 1 << 5,
 };
 
 @interface MapViewState : NSObject
@@ -25,7 +26,8 @@ typedef NS_OPTIONS(NSUInteger, MapViewStateSaveOption) {
 @property (assign, nonatomic) MapViewStateSaveOption saved;
 @property (assign, nonatomic) BOOL showLocation;
 @property (strong, nonatomic) NSArray<CLLocation *> *directions;
-- (void)saveFromMapView:(id<MapViewToStateIntermediary>)mapIntermediary;
+@property (assign, nonatomic) double zoomLevel;
+@property (assign, nonatomic) CLLocationCoordinate2D center;
 - (void)restoreToMap:(id<MapViewToStateIntermediary>)mapIntermediary;
 
 @end

@@ -10,17 +10,18 @@
 
 @interface MapViewState()
 
-@property (assign, nonatomic) double zoomLevel;
-@property (assign, nonatomic) CLLocationCoordinate2D center;
-
 @end
 
 @implementation MapViewState
 
-- (void)saveFromMapView:(id<MapViewToStateIntermediary>)mapIntermediary {
-  [self setZoomLevel:[mapIntermediary retrieveZoomLevel]];
-  [self setCenter:[mapIntermediary retrieveCenterCoordinate]];
-  self.saved = self.saved | MapViewStateSaveOptionZoomAndCenter;
+- (void)setZoomLevel:(double)zoomLevel {
+  _zoomLevel = zoomLevel;
+  self.saved = self.saved | MapViewStateSaveOptionZoom;
+}
+
+- (void)setCenter:(CLLocationCoordinate2D)center {
+  _center = center;
+  self.saved = self.saved | MapViewStateSaveOptionCenter;
 }
 
 - (void)setShowLocation:(BOOL)showLocation {
@@ -37,8 +38,10 @@
   if (self.saved & MapViewStateSaveOptionLocation) {
     [mapIntermediary passShowsUserLocation:self.showLocation];
   }
-  if (self.saved & MapViewStateSaveOptionZoomAndCenter) {
+  if (self.saved & MapViewStateSaveOptionZoom) {
     [mapIntermediary passZoomLevel:self.zoomLevel];
+  }
+  if (self.saved & MapViewStateSaveOptionCenter) {
     [mapIntermediary passCenterCoordinate:self.center];
   }
   if (self.saved & MapViewStateSaveOptionDirections) {

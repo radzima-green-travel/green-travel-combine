@@ -107,7 +107,8 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)renderMap:(BOOL)initialLoad {
   [self renderMapItem:self.mapItem style:self.mapView.style];
-  if (!(self.mapViewState.saved & MapViewStateSaveOptionZoomAndCenter)) {
+  if (!(self.mapViewState.saved & (MapViewStateSaveOptionZoom |
+                                   MapViewStateSaveOptionCenter))) {
     [self showAnnotations];
   }
   if (self.mapViewState.saved & MapViewStateSaveOptionDirections) {

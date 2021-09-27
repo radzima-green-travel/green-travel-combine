@@ -21,7 +21,4 @@
 - (void)passZoomLevel:(CGFloat)zoomLevel;
 - (void)passCenterCoordinate:(CLLocationCoordinate2D)centerCoordinate;
 
-- (CGFloat)retrieveZoomLevel;
-- (CLLocationCoordinate2D)retrieveCenterCoordinate;
-
 @end
