@@ -147,31 +147,25 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") != null) {
-            bitrise {
+        bitriseDev {
                 def downloadedKeystorePath = System.getenv("DOWNLOADED_KEYSTORE_PATH")
                 def keystoreName = System.getenv("BITRISE_ANDROID_KEYSTORE_NAME")
-                if (downloadedKeystorePath == null) {
-                    println "Environment variable DOWNLOADED_KEYSTORE_PATH not set."
-                    println "Please create a File Downloader step and download \$BITRISEIO_ANDROID_KEYSTORE_URL into \$DOWNLOADED_KEYSTORE_PATH"
-                    println "The value of \$DOWNLOADED_KEYSTORE_PATH can be something like \$HOME/keystores/android.keystore " +
-                            "with the `replace variables` checkmark checked."
-                }
                 storeFile file(keystoreName)
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
                 storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-            }
+        }
+        bitriseProd {
+                def downloadedKeystorePath = System.getenv("DOWNLOADED_KEYSTORE_PATH")
+                def keystoreName = System.getenv("BITRISE_ANDROID_KEYSTORE_NAME")
+                storeFile file(keystoreName)
+                keyAlias System.getenv("BITRISEIO_PROD_ANDROID_KEYSTORE_ALIAS")
+                keyPassword System.getenv("BITRISEIO_PROD_ANDROID_KEYSTORE_PASSWORD")
+                storePassword System.getenv("BITRISEIO_PROD_ANDROID_KEYSTORE_PASSWORD")
         }
     }
     buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-        }
-        release {            
-            if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") != null) {
-                signingConfig signingConfigs.bitrise
-            }
+        release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -184,12 +178,20 @@ android {
             targetSdkVersion rootProject.ext.targetSdkVersion           
             resValue "string", "build_config_package", "app.radzima"
             signingConfig signingConfigs.debug
-        }       
+        }
+        staging {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix '.staging'
+            targetSdkVersion rootProject.ext.targetSdkVersion           
+            resValue "string", "build_config_package", "app.radzima"
+            signingConfig signingConfigs.bitriseDev
+        }
         prod {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationIdSuffix ''
             targetSdkVersion rootProject.ext.targetSdkVersion           
             resValue "string", "build_config_package", "app.radzima"
+            signingConfig signingConfigs.bitriseProd
         }       
     }
 
