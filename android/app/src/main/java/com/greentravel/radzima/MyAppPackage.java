@@ -1,4 +1,4 @@
-package com.greentravel.radzima; 
+package app.radzima; 
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

@@ -128,7 +128,7 @@ android {
     flavorDimensions "default"
 
     defaultConfig {
-        applicationId "com.greentravel.radzima"
+        applicationId "app.radzima"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
     }
@@ -182,14 +182,14 @@ android {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationIdSuffix ".dev"
             targetSdkVersion rootProject.ext.targetSdkVersion           
-            resValue "string", "build_config_package", "com.greentravel.radzima"
+            resValue "string", "build_config_package", "app.radzima"
             signingConfig signingConfigs.debug
         }       
         prod {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationIdSuffix ''
             targetSdkVersion rootProject.ext.targetSdkVersion           
-            resValue "string", "build_config_package", "com.greentravel.radzima"
+            resValue "string", "build_config_package", "app.radzima"
         }       
     }
 
