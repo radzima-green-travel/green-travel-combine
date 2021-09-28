@@ -52,6 +52,8 @@
 
 static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
+static NSString* const kAttributeNameLocation = @"location";
+static NSString* const kAttributeNameRoute = @"route";
 
 @implementation ItemDetailsMapViewController
 
@@ -77,9 +79,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-//  if (self.directionsPolyline != nil) {
-//    [self addDirectionsLayer:self.mapView.style shape:self.directionsPolyline];
-//  }
   self.feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
   [self.feedbackGenerator prepare];
 }
@@ -112,6 +111,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   }
   if (self.mapViewState.saved & MapViewStateSaveOptionDirections) {
     [self addDirections:self.mapViewState.directions];
+  }
+  if (self.mapViewState.saved & MapViewStateSaveOptionLocation) {
+    [self passShowsUserLocation:self.mapViewState.showLocation];
   }
 }
 
@@ -238,8 +240,6 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
     [style addLayer:pointLayer];
   };
-#pragma mark - Show point, path or polygon
-  // [self showAnnotations];
 }
 
 - (void)showAnnotations:(void(^)(void))completion {
@@ -281,8 +281,23 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [style addLayer:dashedLayer];
 }
 
+- (void)removeDuplicateAnnotations:(Class)class attribute:(NSString *)attributeName {
+  [self.annotations filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id<MGLFeature> evaluatedObject,  NSDictionary<NSString *,id> * _Nullable bindings) {
+    if ([evaluatedObject isKindOfClass:class]) {
+      BOOL attributeIsPresent = ((MGLPointFeature *)evaluatedObject).attributes[attributeName];
+      return !attributeIsPresent;
+    }
+    return YES;
+  }]];
+}
+
 - (void)addDirections:(NSArray<CLLocation *> *)locations {
-  MGLPolyline *polyline = [self polylineForPath:locations];
+  [self removeDuplicateAnnotations:MGLPolylineFeature.class attribute:kAttributeNameRoute];
+  
+  MGLPolylineFeature *polyline = [self polylineForPath:locations];
+  polyline.attributes = @{
+    kAttributeNameRoute: @(YES)
+  };
   [self.annotations addObject:polyline];
   [self addDirectionsLayer:self.mapView.style shape:polyline];
 }
@@ -409,11 +424,14 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     return;
   }
   [self showUserLocation:YES];
-
+  
+  [self removeDuplicateAnnotations:MGLPointFeature.class attribute:kAttributeNameLocation];
   MGLPointFeature *location = [[MGLPointFeature alloc] init];
   location.coordinate = self.locationModel.lastLocation.coordinate;
-  NSArray<id<MGLAnnotation>> *annotations = @[location];
-  annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
+  location.attributes = @{
+    kAttributeNameLocation: @(YES)
+  };
+  [self.annotations addObject:location];
   [self showAnnotations:completion];
 }
 

@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "LocationObserver.h"
 
-static const NSUInteger kTimeWaitForLocationUpdate = 5;
+static const NSUInteger kTimeWaitForLocationUpdate = 3;
 
 @interface LocationModel ()
 
