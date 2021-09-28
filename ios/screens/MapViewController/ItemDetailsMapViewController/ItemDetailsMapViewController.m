@@ -242,15 +242,32 @@ static NSString* const kAttributeNameRoute = @"route";
   };
 }
 
+- (UIEdgeInsets)calculateEdgePadding {
+  CGFloat bottomPadding = self.bottomSheet.visible ?
+    [self.bottomSheet heightOfContent] : 40.0;
+  UIEdgeInsets edgePadding = UIEdgeInsetsMake(40.0, 40.0, bottomPadding, 40.0);
+  return edgePadding;
+}
+
 - (void)showAnnotations:(void(^)(void))completion {
   BOOL animated = YES;
   if ([self.annotations count] > 1) {
-    [self.mapView showAnnotations:self.annotations animated:animated];
-    completion();
+    [self.mapView showAnnotations:self.annotations
+                      edgePadding:[self calculateEdgePadding]
+                         animated:YES
+                completionHandler:completion];
     return;
   }
   if ([self.annotations count] == 1) {
-    [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate zoomLevel:12.0 animated:animated];
+    [self.mapView showAnnotations:self.annotations
+                       edgePadding:[self calculateEdgePadding]
+                          animated:YES
+                completionHandler:^{
+      if (self.mapView.zoomLevel > 12.0) {
+        [self.mapView setZoomLevel:12.0];
+      }
+      completion();
+    }];
     return;
   }
   [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate zoomLevel:8.0 animated:animated];
@@ -339,7 +356,7 @@ static NSString* const kAttributeNameRoute = @"route";
 
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
     if ([self.annotations count] > 1) {
-      [self.mapView showAnnotations:self.annotations animated:YES];
+      [self  showAnnotations:^{}];
       return;
     }
     if ([self.annotations count] == 1) {
@@ -367,6 +384,7 @@ static NSString* const kAttributeNameRoute = @"route";
     self.feedbackGenerator = nil;
     self.feedbackOnAppearGiven = YES;
   }
+  [self showAnnotations:^{}];
 }
 
 - (void)showRoutesSheet {

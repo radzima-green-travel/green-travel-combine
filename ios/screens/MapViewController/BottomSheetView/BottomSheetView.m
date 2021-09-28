@@ -23,7 +23,6 @@
 @property(strong, nonatomic) UILabel *addressLabel;
 @property(strong, nonatomic) UIView *gripView;
 @property(strong, nonatomic) BookmarkButton *bookmarkButton;
-@property(assign, nonatomic) BOOL visible;
 @property(assign, nonatomic) NSUInteger progressCounter;
 
 @end
@@ -222,8 +221,8 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     [weakSelf adaptToContent];
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      [weakSelf appearAnimationDidEnd:YES];
       weakSelf.visible = YES;
+      [weakSelf appearAnimationDidEnd:YES];
       weakSelf.progressCounter--;
     }
   }];
@@ -238,8 +237,8 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     weakSelf.frame = CGRectMake(frame.origin.x, [UIScreen mainScreen].bounds.size.height, frame.size.width, frame.size.height);
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      [weakSelf appearAnimationDidEnd:NO];
       weakSelf.visible = NO;
+      [weakSelf appearAnimationDidEnd:NO];
       weakSelf.progressCounter--;
     }
   }];
