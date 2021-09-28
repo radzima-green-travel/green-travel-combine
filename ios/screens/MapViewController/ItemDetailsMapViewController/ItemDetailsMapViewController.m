@@ -250,7 +250,6 @@ static NSString* const kAttributeNameRoute = @"route";
 }
 
 - (void)showAnnotations:(void(^)(void))completion {
-  BOOL animated = YES;
   if ([self.annotations count] > 1) {
     [self.mapView showAnnotations:self.annotations
                       edgePadding:[self calculateEdgePadding]
@@ -259,18 +258,14 @@ static NSString* const kAttributeNameRoute = @"route";
     return;
   }
   if ([self.annotations count] == 1) {
-    [self.mapView showAnnotations:self.annotations
-                       edgePadding:[self calculateEdgePadding]
-                          animated:YES
-                completionHandler:^{
-      if (self.mapView.zoomLevel > 12.0) {
-        [self.mapView setZoomLevel:12.0];
-      }
-      completion();
-    }];
+    [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate
+                            zoomLevel:12.0 direction:self.mapView.direction
+                             animated:YES completionHandler:completion];
     return;
   }
-  [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate zoomLevel:8.0 animated:animated];
+  [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate
+                          zoomLevel:8.0 direction:self.mapView.direction
+                           animated:YES completionHandler:completion];
 }
 
 #pragma mark addDirections
