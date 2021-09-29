@@ -12,11 +12,10 @@ interface IProps {
   data: IObject | null;
   bottomInset: number;
   onGetMorePress: (data: IObject) => void;
-  belongsToSubtitle: string | null;
 }
 
 export const AppMapBottomMenu = memo(
-  ({data, bottomInset, onGetMorePress, belongsToSubtitle}: IProps) => {
+  ({data, bottomInset, onGetMorePress}: IProps) => {
     const {t} = useTranslation('map');
     const styles = useThemeStyles(themeStyles);
 
@@ -29,10 +28,6 @@ export const AppMapBottomMenu = memo(
 
       let result = address || '';
 
-      if (belongsToSubtitle) {
-        result = `${belongsToSubtitle}`;
-      }
-
       if (length) {
         result = `${result}\n${t('routeLength', {
           km: Number(length.toFixed(2)),
@@ -40,7 +35,7 @@ export const AppMapBottomMenu = memo(
       }
 
       return result;
-    }, [belongsToSubtitle, data, t]);
+    }, [data, t]);
 
     if (!data) {
       return null;

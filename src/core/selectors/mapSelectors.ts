@@ -14,9 +14,6 @@ import {IState} from 'core/store';
 import {selectTransformedData} from './homeSelectors';
 import {isLocationExist} from 'core/helpers';
 
-export const selectSelectedMarkerId = (state: IState) =>
-  state.appMap.selectedMarkerId;
-
 export const selectObjectDetailsMapOjects = (state: IState) =>
   state.objectDetailsMap.objects;
 
@@ -82,23 +79,6 @@ export const getMapMarkers = (
 
   return points ? featureCollection(points) : null;
 };
-
-export const selectSelectedMapMarker = createSelector<
-  IState,
-  ITransformedData | null,
-  string | null,
-  IObject | null
->(
-  selectTransformedData,
-  selectSelectedMarkerId,
-  (transformedData, selectedObjectId) => {
-    if (!selectedObjectId || !transformedData) {
-      return null;
-    }
-
-    return transformedData.objectsMap[selectedObjectId];
-  },
-);
 
 export const createMarkerFromObject = (
   data: IObject | null,

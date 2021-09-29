@@ -8,22 +8,17 @@ import React, {
 } from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
 import {
-  selectSelectedMapMarker,
   createMarkerFromObject,
   selectMapFilters,
   selectTransformedData,
   getMapMarkers,
 } from 'core/selectors';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {StyleProp, View} from 'react-native';
 import bbox from '@turf/bbox';
 
 import {styles, selectedPointStyle} from './styles';
 import {IMapFilter, IObject} from 'core/types';
-import {
-  setAppMapSelectedMarkerId,
-  clearAppMapSelectedMarkerId,
-} from 'core/reducers';
 import MapBox, {
   OnPressEvent,
   SymbolLayerStyle,
@@ -41,7 +36,6 @@ import {
   useBackHandler,
   useColorScheme,
   useTransformedData,
-  useObjectBelongsToSubtitle,
   useAppMapAnalytics,
   useBottomMenu,
   useFindZoomForObjectInCluster,
@@ -59,18 +53,20 @@ import {xorBy} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 export const AppMap = ({navigation}: IProps) => {
-  const dispatch = useDispatch();
   const sheme = useColorScheme();
   const mapFilters = useSelector(selectMapFilters);
-  const selected = useSelector(selectSelectedMapMarker);
   const appData = useSelector(selectTransformedData);
 
   const shouldPersistData = useRef(false);
   const camera = useRef<MapBox.Camera>(null);
   const map = useRef<MapBox.MapView>(null);
   const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
-
   const ignoreFitBounds = useRef(false);
+
+  const [selectedObject, setSelectedObject] = useState<null | IObject>(null);
+  const [selectedMarker, setSelectedMarker] = useState<SelecteMarker | null>(
+    () => createMarkerFromObject(null),
+  );
 
   const [selectedFilters, setSelectedFilters] = useState<IMapFilter[]>([]);
 
@@ -91,17 +87,6 @@ export const AppMap = ({navigation}: IProps) => {
 
     return null;
   }, [markers, top]);
-
-  const setSelectedMarkerId = useCallback(
-    (objectId: string) => {
-      dispatch(setAppMapSelectedMarkerId(objectId));
-    },
-    [dispatch],
-  );
-
-  const [selectedMarker, setSelectedMarker] = useState<SelecteMarker | null>(
-    () => createMarkerFromObject(null),
-  );
 
   const {bottom} = useSafeAreaInsets();
   const {
@@ -143,13 +128,13 @@ export const AppMap = ({navigation}: IProps) => {
   }, [appData]);
 
   useEffect(() => {
-    if (selected) {
+    if (selectedObject) {
       hapticFeedbackService.trigger();
 
-      setSelectedMarker(createMarkerFromObject(selected));
+      setSelectedMarker(createMarkerFromObject(selectedObject));
       openMenu();
     }
-  }, [openMenu, selected]);
+  }, [openMenu, selectedObject]);
 
   useLayoutEffect(() => {
     if (bounds) {
@@ -163,12 +148,13 @@ export const AppMap = ({navigation}: IProps) => {
 
   const unselectObject = useCallback(() => {
     closeMenu();
-    setSelectedMarker(createMarkerFromObject(null));
+    setSelectedObject(null);
   }, [closeMenu]);
 
   const onShapePress = useCallback(
     (objectId: string, zoomLevel) => {
       const itemData = getObject(objectId);
+
       if (itemData) {
         const coordinates = [itemData.location!.lon!, itemData.location!.lat!];
         camera.current?.setCamera({
@@ -176,10 +162,10 @@ export const AppMap = ({navigation}: IProps) => {
           zoomLevel: zoomLevel,
           animationDuration: 500,
         });
-        setSelectedMarkerId(itemData.id);
+        setSelectedObject({...itemData});
       }
     },
-    [getObject, setSelectedMarkerId],
+    [getObject],
   );
 
   const navigateToObjectDetails = useCallback(
@@ -251,19 +237,18 @@ export const AppMap = ({navigation}: IProps) => {
     moveCameraToSearchedObject(object, cluster, clusterBounds);
 
     addToHistory(object);
-    setSelectedMarkerId(object.id);
+    setSelectedObject({...object});
     clearInput();
   };
 
   const onMenuHideEnd = useCallback(() => {
     if (!shouldPersistData.current) {
-      dispatch(clearAppMapSelectedMarkerId());
-
       if (selectedMarker) {
+        setSelectedObject(null);
         setSelectedMarker(createMarkerFromObject(null));
       }
     }
-  }, [dispatch, selectedMarker]);
+  }, [selectedMarker]);
 
   const openSearchMenuAndPersistData = useCallback(() => {
     openSearchMenu();
@@ -291,10 +276,6 @@ export const AppMap = ({navigation}: IProps) => {
 
     return false;
   });
-
-  const belongsToSubtitle = useObjectBelongsToSubtitle(
-    selected?.belongsTo?.[0]?.objects,
-  );
 
   const fitToClusterLeaves = useCallback(async (event: OnPressEvent) => {
     const {features} = event;
@@ -349,10 +330,9 @@ export const AppMap = ({navigation}: IProps) => {
       </ClusterMap>
       <BottomMenu onHideEnd={onMenuHideEnd} {...menuProps}>
         <AppMapBottomMenu
-          data={selected}
+          data={selectedObject}
           bottomInset={bottom}
           onGetMorePress={navigateToObjectDetails}
-          belongsToSubtitle={belongsToSubtitle}
         />
       </BottomMenu>
 

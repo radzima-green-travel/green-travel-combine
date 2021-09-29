@@ -18,7 +18,6 @@ import {
   homeReducer,
   bookmarksReducer,
   searchReducer,
-  appMapReducer,
   objectDetailsMapReducer,
 } from './reducers';
 
@@ -55,7 +54,6 @@ const rootReducer = combineReducers({
   bootsrap: bootstrapReducer,
   home: persistReducer(homePersistConfig, homeReducer),
   bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
-  appMap: appMapReducer,
   search: persistReducer(searchPersistConfig, searchReducer),
   objectDetailsMap: objectDetailsMapReducer,
 });

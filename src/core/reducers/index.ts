@@ -10,5 +10,4 @@ export {
 export * from './HomeReducer';
 export * from './BookmarksReducer';
 export * from './SearchReducer';
-export * from './AppMapReducer';
 export * from './ObjectDetailsMapReducer';
