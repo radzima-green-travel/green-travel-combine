@@ -42,7 +42,6 @@ import {
 } from 'core/reducers';
 import {showLocation} from 'react-native-map-link';
 import {themeLayerStyles} from './styles';
-import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 const mapPin = require('assets/images/map-pin.png');
@@ -266,7 +265,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         onShowLocationPress={focusToUserLocation}
         botttomInset={bottom}
       />
-      <BottomMenu menuHeight={MAP_BOTTOM_MENU_HEIGHT + bottom} {...menuProps}>
+      <BottomMenu {...menuProps}>
         <ObjectDetailsMapBottomMenu
           data={data}
           belongsToSubtitle={belongsToSubtitle}

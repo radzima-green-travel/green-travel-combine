@@ -64,28 +64,27 @@ export const ObjectDetailsMapBottomMenu = memo(
     return (
       <View style={[styles.container, {paddingBottom: bottomInset}]}>
         <View style={[styles.contentContainer]}>
-          <View style={styles.textContainer}>
-            <Text numberOfLines={2} style={styles.text}>
-              {name}
-            </Text>
+          <View>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>{name}</Text>
 
-            <FavoriteButtonContainer objectId={id}>
-              {isFavorite => (
-                <Icon
-                  name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                  width={20}
-                  height={20}
-                  color={COLORS.logCabin}
-                  style={styles.icon}
-                />
-              )}
-            </FavoriteButtonContainer>
+              <FavoriteButtonContainer objectId={id}>
+                {isFavorite => (
+                  <Icon
+                    name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
+                    width={20}
+                    height={20}
+                    color={COLORS.logCabin}
+                    style={styles.icon}
+                  />
+                )}
+              </FavoriteButtonContainer>
+            </View>
+            {subtitleText ? (
+              <Text style={styles.subtitle}>{subtitleText}</Text>
+            ) : null}
           </View>
-          {subtitleText ? (
-            <Text numberOfLines={2} style={styles.subtitle}>
-              {subtitleText}
-            </Text>
-          ) : null}
+
           <Button
             style={[styles.button, !bottomInset && {marginBottom: 16}]}
             loading={loading}

@@ -1,9 +1,10 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import {MapButtonContainer, Icon} from 'atoms';
 import {themeStyles} from './styles';
 import {COLORS} from 'assets';
-import Animated, {interpolate, useAnimatedStyle} from 'react-native-reanimated';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {useThemeStyles} from 'core/hooks';
+import {SCREEN_HEIGHT} from 'services/PlatformService';
 
 interface IProps {
   onShowLocationPress: () => void;
@@ -12,20 +13,28 @@ interface IProps {
 }
 
 export const ObjectDetailsMapButtons = memo(
-  ({onShowLocationPress, bottomMenuPosition, botttomInset}: IProps) => {
+  ({onShowLocationPress, bottomMenuPosition}: IProps) => {
     const styles = useThemeStyles(themeStyles);
+    const [buttonsOffset, setButtonsOffset] = useState(140);
+
     const animatedStyles = useAnimatedStyle(() => {
-      const translateY = interpolate(
-        bottomMenuPosition.value,
-        [-1, 0],
-        [0, -(165 + botttomInset)],
-      );
+      const diff = SCREEN_HEIGHT - bottomMenuPosition.value;
+      const translateY = diff < buttonsOffset ? 0 : (diff - buttonsOffset) * -1;
       return {
         transform: [{translateY}],
       };
     });
     return (
-      <Animated.View style={[styles.container, animatedStyles]}>
+      <Animated.View
+        onLayout={({nativeEvent}) =>
+          setButtonsOffset(
+            SCREEN_HEIGHT -
+              nativeEvent.layout.y -
+              nativeEvent.layout.height -
+              16,
+          )
+        }
+        style={[styles.container, animatedStyles]}>
         <MapButtonContainer
           style={styles.showLocationButton}
           onPress={onShowLocationPress}>

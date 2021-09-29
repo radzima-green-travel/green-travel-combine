@@ -6,7 +6,11 @@ import React, {
   useRef,
   useMemo,
 } from 'react';
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {
+  BottomSheetModal,
+  useBottomSheetDynamicSnapPoints,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
 import {themeStyles} from './styles';
 import {Keyboard} from 'react-native';
@@ -14,7 +18,7 @@ import {useThemeStyles} from 'core/hooks';
 
 interface IProps {
   onHideEnd?: () => void;
-  menuHeight: number;
+  menuHeight?: number;
   animatedPosition?: Animated.SharedValue<number>;
   showDragIndicator?: boolean;
 }
@@ -36,6 +40,15 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     },
     ref,
   ) => {
+    const initialSnapPoints = useMemo(() => ['CONTENT_HEIGHT'], []);
+
+    const {
+      animatedHandleHeight,
+      animatedSnapPoints,
+      animatedContentHeight,
+      handleContentLayout,
+    } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
+
     const styles = useThemeStyles(themeStyles);
     const isOpened = useRef(false);
     const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -75,20 +88,42 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
       }
     }, []);
 
+    if (menuHeight ) {
+      return (
+        <BottomSheetModal
+          handleComponent={showDragIndicator ? undefined : null}
+          ref={bottomSheetRef}
+          handleStyle={styles.handleStyles}
+          backgroundStyle={styles.bgStyle}
+          handleIndicatorStyle={styles.touchIndicator}
+          index={0}
+          snapPoints={snapPoints as [number]}
+          enablePanDownToClose
+          onAnimate={onAnimate}
+          onChange={onChange}>
+          {children}
+        </BottomSheetModal>
+      );
+    }
+
     return (
       <BottomSheetModal
-        handleComponent={showDragIndicator ? undefined : null}
-        animatedIndex={animatedPosition}
+        handleComponent={showDragIndicator ? undefined : null}       
+        animatedPosition={animatedPosition}
         ref={bottomSheetRef}
         handleStyle={styles.handleStyles}
         backgroundStyle={styles.bgStyle}
         handleIndicatorStyle={styles.touchIndicator}
         index={0}
-        snapPoints={snapPoints}
+        snapPoints={animatedSnapPoints}
+        handleHeight={animatedHandleHeight}
+        contentHeight={animatedContentHeight}
         enablePanDownToClose
         onAnimate={onAnimate}
         onChange={onChange}>
-        {children}
+        <BottomSheetView onLayout={handleContentLayout}>
+          {children}
+        </BottomSheetView>
       </BottomSheetModal>
     );
   },
