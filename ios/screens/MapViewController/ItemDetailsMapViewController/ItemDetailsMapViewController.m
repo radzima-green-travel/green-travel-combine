@@ -26,6 +26,7 @@
 #import "PlaceItem.h"
 #import "Category.h"
 #import "BottomSheetView.h"
+#import "BottomSheetViewDetailedMap.h"
 #import "DetailsViewController.h"
 #import "PlaceDetails.h"
 #import "CacheService.h"
@@ -41,15 +42,18 @@
 @interface ItemDetailsMapViewController ()
 
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
-@property (strong, nonatomic) MGLPolyline *directionsPolyline;
+@property (assign, nonatomic) BOOL feedbackOnAppearGiven;
 @property (strong, nonatomic) UINotificationFeedbackGenerator *feedbackGenerator;
 @property (copy, nonatomic) void(^cancelGetDirections)(void);
+@property (copy, nonatomic) ContinueToNavigation next;
 
 @end
 
 
 static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
+static NSString* const kAttributeNameLocation = @"location";
+static NSString* const kAttributeNameRoute = @"route";
 
 @implementation ItemDetailsMapViewController
 
@@ -57,13 +61,24 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.bottomSheet = [self addBottomSheet:MainViewControllerBottomSheetDetailsMap];
+  __weak typeof(self) weakSelf = self;
+  self.bottomSheet.onShow = ^(BOOL show, NSString * _Nonnull itemUUID) {
+    if (!show) {
+      [weakSelf cancelGetDirections];
+    }
+    [weakSelf onPopupShow:show itemUUID:itemUUID];
+  };
+  ((BottomSheetViewDetailedMap *) self.bottomSheet).onPressRoute =
+      ^(ContinueToNavigation _Nonnull next) {
+    [weakSelf showDirections:next];
+  };
+  ((BottomSheetViewDetailedMap *) self.bottomSheet).onPressNavigate = ^{
+    [weakSelf showRoutesSheet];
+  };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  if (self.directionsPolyline != nil) {
-    [self addDirectionsLayer:self.mapView.style shape:self.directionsPolyline];
-  }
   self.feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
   [self.feedbackGenerator prepare];
 }
@@ -90,8 +105,15 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)renderMap:(BOOL)initialLoad {
   [self renderMapItem:self.mapItem style:self.mapView.style];
-  if (!(self.mapViewState.saved & MapViewStateSaveOptionZoomAndCenter)) {
-    [self showAnnotations];
+  if (!(self.mapViewState.saved & (MapViewStateSaveOptionZoom |
+                                   MapViewStateSaveOptionCenter))) {
+    [self showAnnotations:^{}];
+  }
+  if (self.mapViewState.saved & MapViewStateSaveOptionDirections) {
+    [self addDirections:self.mapViewState.directions];
+  }
+  if (self.mapViewState.saved & MapViewStateSaveOptionLocation) {
+    [self passShowsUserLocation:self.mapViewState.showLocation];
   }
 }
 
@@ -105,7 +127,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
       [weakSelf renderMapItem:mapItemNew style:weakSelf.mapView.style];
-      [weakSelf showAnnotations];
+      [weakSelf showAnnotations:^{}];
     });
   }
 }
@@ -218,23 +240,35 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
     [style addLayer:pointLayer];
   };
-#pragma mark - Show point, path or polygon
-  [self showAnnotations];
 }
 
-- (void)showAnnotations {
-  BOOL animated = YES;
+- (UIEdgeInsets)calculateEdgePadding {
+  CGFloat bottomPadding = self.bottomSheet.visible ?
+    [self.bottomSheet heightOfContent] : 40.0;
+  UIEdgeInsets edgePadding = UIEdgeInsetsMake(40.0, 40.0, bottomPadding, 40.0);
+  return edgePadding;
+}
+
+- (void)showAnnotations:(void(^)(void))completion {
   if ([self.annotations count] > 1) {
-    [self.mapView showAnnotations:self.annotations animated:animated];
+    [self.mapView showAnnotations:self.annotations
+                      edgePadding:[self calculateEdgePadding]
+                         animated:YES
+                completionHandler:completion];
     return;
   }
   if ([self.annotations count] == 1) {
-    [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate zoomLevel:12.0 animated:animated];
+    [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate
+                            zoomLevel:12.0 direction:self.mapView.direction
+                             animated:YES completionHandler:completion];
     return;
   }
-  [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate zoomLevel:8.0 animated:animated];
+  [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate
+                          zoomLevel:8.0 direction:self.mapView.direction
+                           animated:YES completionHandler:completion];
 }
 
+#pragma mark addDirections
 - (void)addDirectionsLayer:(MGLStyle *)style shape:(MGLShape *)shape {
   if ([style layerWithIdentifier:MapViewControllerDirectionsLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:MapViewControllerDirectionsLayerId]];
@@ -243,8 +277,9 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
     [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdDirections]];
   }
 
-  MGLSource *sourceDirections = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdDirections
-                                                                     shape:shape options:nil];
+  MGLSource *sourceDirections =
+  [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdDirections
+                                       shape:shape options:nil];
   [style addSource:sourceDirections];
 
   MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
@@ -258,6 +293,26 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   [style addLayer:dashedLayer];
 }
 
+- (void)removeDuplicateAnnotations:(Class)class attribute:(NSString *)attributeName {
+  [self.annotations filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id<MGLFeature> evaluatedObject,  NSDictionary<NSString *,id> * _Nullable bindings) {
+    if ([evaluatedObject isKindOfClass:class]) {
+      BOOL attributeIsPresent = ((MGLPointFeature *)evaluatedObject).attributes[attributeName];
+      return !attributeIsPresent;
+    }
+    return YES;
+  }]];
+}
+
+- (void)addDirections:(NSArray<CLLocation *> *)locations {
+  [self removeDuplicateAnnotations:MGLPolylineFeature.class attribute:kAttributeNameRoute];
+  
+  MGLPolylineFeature *polyline = [self polylineForPath:locations];
+  polyline.attributes = @{
+    kAttributeNameRoute: @(YES)
+  };
+  [self.annotations addObject:polyline];
+  [self addDirectionsLayer:self.mapView.style shape:polyline];
+}
 
 - (MGLPolylineFeature *)polylineForPath:(NSArray<CLLocation *>*)path {
   MGLPolylineFeature *polyline;
@@ -296,7 +351,7 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
     if ([self.annotations count] > 1) {
-      [self.mapView showAnnotations:self.annotations animated:YES];
+      [self  showAnnotations:^{}];
       return;
     }
     if ([self.annotations count] == 1) {
@@ -311,35 +366,25 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
-  [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel
-         onNavigatePress:^{
-    if (weakSelf.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {
-      showAlertGoToSettings(self);
-      return;
-    }
-    if (weakSelf.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
-        weakSelf.locationModel.lastLocation &&
-        CLLocationCoordinate2DIsValid(weakSelf.locationModel.lastLocation.coordinate)) {
-      [weakSelf showRoutesSheet];
-      return;
-    }
-    [weakSelf.locationModel authorize];
-    [weakSelf.locationModel startMonitoring];
-    weakSelf.intentionToShowRoutesSheet = YES;
-  }
-         onBookmarkPress:^(BOOL bookmarked) {
+  (self.bottomSheet).onBookmarkPress = ^(BOOL bookmarked){
     [weakSelf.indexModel bookmarkItem:item bookmark:!bookmarked];
-  }];
+  };
+  [self.bottomSheet show:item];
 }
 
 - (void)onPopupShow:(BOOL)visible itemUUID:(nonnull NSString *)itemUUID {
+  __weak typeof(self) weakSelf = self;
   [super onPopupShow:visible itemUUID:itemUUID];
-  if (visible) {
+  if (visible && !self.feedbackOnAppearGiven) {
     [self.feedbackGenerator notificationOccurred:UINotificationFeedbackTypeSuccess];
     self.feedbackGenerator = nil;
+    self.feedbackOnAppearGiven = YES;
   }
+  [self showAnnotations:^{
+    [weakSelf.mapViewState setZoomLevel:weakSelf.mapView.zoomLevel];
+    [weakSelf.mapViewState setCenter:weakSelf.mapView.centerCoordinate];
+  }];
 }
-
 
 - (void)showRoutesSheet {
   PlaceItem *item = self.mapItem.correspondingPlaceItem;
@@ -354,14 +399,15 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
   }];
 }
 
+#pragma mark - Location update
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
   if (self.intentionToShowRoutesSheet) {
-    [self showRoutesSheet];
+    [self showDirections:self.next];
     self.intentionToShowRoutesSheet = NO;
     return;
   }
   if (self.intentionToFocusOnUserLocation) {
-    [self showDirections];
+    [self focusOnCurrentLocation:^{}];
     self.intentionToFocusOnUserLocation = NO;
   }
 }
@@ -370,42 +416,83 @@ static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 
 - (void)onLocateMePress:(id)sender {
   self.intentionToFocusOnUserLocation = YES;
+  [self startMonitoringLocation];
+  [self focusOnCurrentLocation:^{}];
+}
+
+- (void)startMonitoringLocation {
   [self.locationModel authorize];
   [self.locationModel startMonitoring];
 
-  if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
-      self.locationModel.lastLocation &&
-      CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate)) {
-    [self showDirections];
-    return;
-  }
   if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {
     showAlertGoToSettings(self);
+    return;
   }
 }
 
-- (void)showDirections {
-  [self showUserLocation:YES];
+- (BOOL)locationIsInvalid {
+  return !(self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
+      self.locationModel.lastLocation &&
+           CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate));
+}
 
+- (void)focusOnCurrentLocation:(void(^)(void))completion {
+  if ([self locationIsInvalid]) {
+    return;
+  }
+  [self showUserLocation:YES];
+  
+  [self removeDuplicateAnnotations:MGLPointFeature.class attribute:kAttributeNameLocation];
   MGLPointFeature *location = [[MGLPointFeature alloc] init];
   location.coordinate = self.locationModel.lastLocation.coordinate;
-  NSArray<id<MGLAnnotation>> *annotations = @[location];
-  annotations = [annotations arrayByAddingObjectsFromArray:self.annotations];
-  [self.mapView showAnnotations:annotations animated:YES];
+  location.attributes = @{
+    kAttributeNameLocation: @(YES)
+  };
+  [self.annotations addObject:location];
+  [self showAnnotations:completion];
+}
+
+- (void)showDirections:(ContinueToNavigation)next {
+  self.intentionToShowRoutesSheet = YES;
   __weak typeof(self) weakSelf = self;
+  self.next = next;
+  [self startMonitoringLocation];
   if (self.cancelGetDirections != nil) {
     self.cancelGetDirections();
   }
+  if ([self locationIsInvalid]) {
+    return;
+  }
+  CLLocationCoordinate2D coordinate = self.locationModel.lastLocation.coordinate;
+  self.feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+  [self.feedbackGenerator prepare];
   self.cancelGetDirections =
-  [self.mapService loadDirectionsWithCompletionFrom:location.coordinate
+  [self.mapService loadDirectionsWithCompletionFrom:coordinate
                                                  to:self.mapItem.coords
                                          completion:^(NSArray<CLLocation *> * _Nonnull locations) {
     dispatch_async(dispatch_get_main_queue(), ^{
-      MGLPolyline *polyline = [weakSelf polylineForPath:locations];
-      weakSelf.directionsPolyline = polyline;
-      [weakSelf addDirectionsLayer:weakSelf.mapView.style shape:polyline];
+      if (locations == nil) {
+        next(NO);
+        showAlertCantPlotRoute(weakSelf);
+        [self.feedbackGenerator notificationOccurred:UINotificationFeedbackTypeError];
+        weakSelf.feedbackGenerator = nil;
+        return;
+      }
+      [weakSelf.mapViewState setDirections:locations];
+      [weakSelf addDirections:locations];
+      [weakSelf focusOnCurrentLocation:^{
+        [weakSelf.feedbackGenerator
+         notificationOccurred:UINotificationFeedbackTypeSuccess];
+        weakSelf.feedbackGenerator = nil;
+        next(YES);
+      }];
     });
   }];
+}
+
+#pragma mark MapViewToStateIntermediary
+- (void)passDirections:(NSArray<CLLocation *> *)directions {
+  [self addDirections:directions];
 }
 
 @end

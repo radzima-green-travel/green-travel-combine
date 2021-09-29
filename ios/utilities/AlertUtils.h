@@ -11,5 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 void showAlertGoToSettings(UIViewController *presenter);
+void showAlertCantPlotRoute(UIViewController *presenter);
 
 NS_ASSUME_NONNULL_END

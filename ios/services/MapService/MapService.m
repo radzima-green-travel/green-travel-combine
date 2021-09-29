@@ -9,6 +9,8 @@
 @import Mapbox;
 #import <react-native-ultimate-config/ConfigValues.h>
 
+static const NSUInteger kRoutesRequestTimeout = 60;
+
 @interface MapService()
 
 @property (strong, nonatomic) NSURLSession *session;
@@ -36,10 +38,10 @@
   NSString *url = [NSString stringWithFormat:@"%@/directions/v5/mapbox/driving/%@;%@?access_token=%@&geometries=geojson", MAP_BOX_CLIENT_URL, sourceLatLng, destinationLatLng, mapToken];
 
   NSURL *nsURL = [NSURL URLWithString:url];
-
-  NSURLSessionDataTask *getDirectionsTask =
-  [self.session dataTaskWithURL:nsURL
-              completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+  NSURLRequest *request = [NSURLRequest requestWithURL:nsURL
+                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                       timeoutInterval:kRoutesRequestTimeout];
+  NSURLSessionDataTask *getDirectionsTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     if (!data) {
       completion(nil);
       return;

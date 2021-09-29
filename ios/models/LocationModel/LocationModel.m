@@ -10,7 +10,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import "LocationObserver.h"
 
+static const NSUInteger kTimeWaitForLocationUpdate = 3;
+
 @interface LocationModel ()
+
+@property (strong, nonatomic) NSTimer *timerWaitForLocationUpdate;
 
 @end
 
@@ -53,8 +57,21 @@
 }
 
 - (void)startMonitoring {
-    [self.locationManager startMonitoringSignificantLocationChanges];
+  [self.locationManager startMonitoringSignificantLocationChanges];
+  if (self.lastLocation == nil) {
+    self.timerWaitForLocationUpdate =
+    [NSTimer scheduledTimerWithTimeInterval:kTimeWaitForLocationUpdate
+                           repeats:NO block:^(NSTimer * _Nonnull timer) {
+      if (self.lastLocation == nil) {
+        [self.locationManager stopMonitoringSignificantLocationChanges];
+        [self.locationManager startUpdatingLocation];
+      }
+    }];
+  }
+}
 
+- (void)stopMonitoring {
+  [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -73,6 +90,9 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     if ([locations count] > 0) {
         self.lastLocation = locations[[locations count] - 1];
+        [self.timerWaitForLocationUpdate invalidate];
+        [self.locationManager stopUpdatingLocation];
+        [self.locationManager startMonitoringSignificantLocationChanges];
     } else {
         self.lastLocation = nil;
     }

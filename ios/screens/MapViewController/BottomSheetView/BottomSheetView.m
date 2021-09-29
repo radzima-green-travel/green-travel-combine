@@ -18,15 +18,12 @@
 @interface BottomSheetView ()
 
 @property(strong, nonatomic) UIPanGestureRecognizer *recognizer;
-@property(strong, nonatomic) CommonButton *detailsButton;
 @property(strong, nonatomic) NSString *itemUUID;
 @property(strong, nonatomic) UILabel *headerLabel;
 @property(strong, nonatomic) UILabel *addressLabel;
 @property(strong, nonatomic) UIView *gripView;
 @property(strong, nonatomic) BookmarkButton *bookmarkButton;
-@property(assign, nonatomic) BOOL visible;
 @property(assign, nonatomic) NSUInteger progressCounter;
-@property(copy, nonatomic) void(^onNavigatePress)(void);
 
 @end
 
@@ -90,7 +87,7 @@ static const CGFloat kDistanceButtonBottom = 24;
   
 #pragma mark - Bookmark button
   self.bookmarkButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorBottomSheet
-                                               onBookmarkPress:^(BOOL bookmarked) {}];
+                                               onBookmarkPress:self.onBookmarkPress];
   self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.bookmarkButton];
 
@@ -99,49 +96,56 @@ static const CGFloat kDistanceButtonBottom = 24;
       [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-2.0]
   ]];
   
-self.headerLabel = [[UILabel alloc] init];
-self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
-self.headerLabel.numberOfLines = 0;
-self.headerLabel.lineBreakMode = NSLineBreakByWordWrapping;
-[self addSubview:self.headerLabel];
+  self.headerLabel = [[UILabel alloc] init];
+  self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  self.headerLabel.numberOfLines = 0;
+  self.headerLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  [self addSubview:self.headerLabel];
 
-[NSLayoutConstraint activateConstraints:@[
-  [self.headerLabel.topAnchor constraintEqualToAnchor:self.gripView.bottomAnchor constant:kDistanceGripTitle],
-  [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-  [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.bookmarkButton.leadingAnchor constant:-16.0],
-]];
+  [NSLayoutConstraint activateConstraints:@[
+    [self.headerLabel.topAnchor constraintEqualToAnchor:self.gripView.bottomAnchor constant:kDistanceGripTitle],
+    [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+    [self.headerLabel.trailingAnchor constraintEqualToAnchor:self.bookmarkButton.leadingAnchor constant:-16.0],
+  ]];
 
-#pragma mark - Address label
-self.addressLabel = [[UILabel alloc] init];
-self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
-self.addressLabel.numberOfLines = 0;
-self.addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
-[self addSubview:self.addressLabel];
+  #pragma mark - Address label
+  self.addressLabel = [[UILabel alloc] init];
+  self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  self.addressLabel.numberOfLines = 0;
+  self.addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  [self addSubview:self.addressLabel];
 
-[NSLayoutConstraint activateConstraints:@[
-  [self.addressLabel.topAnchor constraintEqualToAnchor:self.headerLabel.bottomAnchor constant:kDistanceTitleAddress],
-  [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
-  [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
-]];
+  [NSLayoutConstraint activateConstraints:@[
+    [self.addressLabel.topAnchor constraintEqualToAnchor:self.headerLabel.bottomAnchor constant:kDistanceTitleAddress],
+    [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
+    [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+  ]];
+  
+  self.detailsButton = [self makeDetailsButton];
+  
+  self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
+  [self addSubview:self.detailsButton];
+
+  NSLayoutConstraint *widthConstraint = [self.detailsButton.widthAnchor constraintEqualToConstant:500.0];
+  NSLayoutConstraint *leadingConstraint = [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0];
+  NSLayoutConstraint *trailingConstraint = [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0];
+  leadingConstraint.priority = UILayoutPriorityDefaultLow;
+  trailingConstraint.priority = UILayoutPriorityDefaultLow;
+  widthConstraint.priority = UILayoutPriorityDefaultLow;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.detailsButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:kDistanceAddressButton],
+    leadingConstraint,
+    trailingConstraint,
+    widthConstraint,
+    [self.detailsButton.centerXAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.centerXAnchor]
+  ]];
+}
 
 #pragma mark - Details button
-self.detailsButton = [[CommonButton alloc] initWithTarget:self action:@selector(onDetailsPress:) label:@""];
-self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
-[self addSubview:self.detailsButton];
-
-NSLayoutConstraint *widthConstraint = [self.detailsButton.widthAnchor constraintEqualToConstant:500.0];
-NSLayoutConstraint *leadingConstraint = [self.detailsButton.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0];
-NSLayoutConstraint *trailingConstraint = [self.detailsButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0];
-leadingConstraint.priority = UILayoutPriorityDefaultLow;
-trailingConstraint.priority = UILayoutPriorityDefaultLow;
-widthConstraint.priority = UILayoutPriorityDefaultLow;
-[NSLayoutConstraint activateConstraints:@[
-  [self.detailsButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:kDistanceAddressButton],
-  leadingConstraint,
-  trailingConstraint,
-  widthConstraint,
-  [self.detailsButton.centerXAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.centerXAnchor]
-]];
+- (CommonButton *)makeDetailsButton {
+  return [[CommonButton alloc] initWithTarget:self
+                                       action:@selector(onDetailsPress:)
+                                        label:NSLocalizedString(@"ButtonMoreInfoLabel", @"")];
 }
 
 - (CGFloat)heightOfContent {
@@ -160,18 +164,32 @@ otherGestureRecognizer {
   return YES;
 }
 
+- (void)show:(PlaceItem *)item {
+  self.itemUUID = item.uuid;
+  [self.bookmarkButton setSelected:item.bookmarked];
+  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
+  [self.headerLabel setTextColor:[Colors get].headlineText];
+  [self.addressLabel setAttributedText:[[Typography get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
+  
+  [self appear];
+}
+
+- (void)setOnBookmarkPress:(void (^)(BOOL))onBookmarkPress {
+  _onBookmarkPress = onBookmarkPress;
+  [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
+}
+
 - (void)show:(PlaceItem *)item
  buttonLabel:(NSString *)buttonLabel
-onNavigatePress:(void(^)(void))onNavigatePress
+onPressDetails:(void(^)(void))onPressDetails
 onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   self.itemUUID = item.uuid;
-  self.onNavigatePress = onNavigatePress;
+  self.onPressDetails = onPressDetails;
   [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
   [self.bookmarkButton setSelected:item.bookmarked];
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.addressLabel setAttributedText:[[Typography get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
-  [self.detailsButton setLabel:buttonLabel];
 
   [self appear];
 }
@@ -203,8 +221,8 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     [weakSelf adaptToContent];
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      weakSelf.onShow(YES, weakSelf.itemUUID);
       weakSelf.visible = YES;
+      [weakSelf appearAnimationDidEnd:YES];
       weakSelf.progressCounter--;
     }
   }];
@@ -219,11 +237,17 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     weakSelf.frame = CGRectMake(frame.origin.x, [UIScreen mainScreen].bounds.size.height, frame.size.width, frame.size.height);
   } completion:^(BOOL finished) {
     if (weakSelf.onShow) {
-      weakSelf.onShow(NO, weakSelf.itemUUID);
       weakSelf.visible = NO;
+      [weakSelf appearAnimationDidEnd:NO];
       weakSelf.progressCounter--;
     }
   }];
+}
+
+- (void)appearAnimationDidEnd:(BOOL)appear {
+  if (self.onShow) {
+    self.onShow(appear, self.itemUUID);
+  }
 }
 
 - (void)panGesture:(UIPanGestureRecognizer *)recognizer {
@@ -258,7 +282,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
 
 - (void)onDetailsPress:(id)sender {
   [self hide];
-  self.onNavigatePress();
+  self.onPressDetails();
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "BookmarksObserver.h"
 #import "MapViewState.h"
 #import "MainViewControllerConstants.h"
+#import "MapViewToStateIntermediary.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class BottomSheetView;
 @class MapService;
 
-@interface BaseMapViewController : UIViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver>
+@interface BaseMapViewController : UIViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver, MapViewToStateIntermediary>
 
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -66,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cleanMap;
 - (void)onPopupShow:(BOOL)visible itemUUID:(NSString *)itemUUID;
 - (void)showUserLocation:(BOOL)show;
+- (void)saveZoomAndCenter;
 
 @end
 

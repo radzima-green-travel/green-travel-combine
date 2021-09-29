@@ -6,6 +6,7 @@
   
 */
 "AlertCancel" = "Cancel";
+"AlertOK" = "OK";
 "AlertSettings" = "Settings";
 "AllowGeolocationAlertMessageHeader" = "Please allow Location access";
 "AllowGeolocationAlertMessageBody" = "It will be possible to build routes, center map on your position";
@@ -26,3 +27,8 @@
 
 "RoutesSheetTitle" = "Navigation";
 "RoutesSheetMessage" = "Build route to object.";
+"ButtonBuildRouteLabel" = "Get directions";
+"ButtonNavigateLabel" = "Navigate";
+"ButtonMoreInfoLabel" = "More info";
+"BuildRouteErrorAlertMessageHeader" = "Route cannot be built, sorry";
+"BuildRouteErrorAlertMessageBody" = "Please check your internet connection, or maybe Mapbox service is having issues";

@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, LocationModelLocationStatus) {
 - (instancetype)init;
 - (void)authorize;
 - (void)startMonitoring;
+- (void)stopMonitoring;
 
 @end
 

@@ -166,11 +166,11 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-  [self.mapViewState restoreToMap:self.mapView];
+  [self.mapViewState restoreToMap:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-  [self.mapViewState saveFromMapView:self.mapView];
+  [self saveZoomAndCenter];
 }
 
 #pragma mark - viewDidDisappear
@@ -184,6 +184,11 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
   [[CacheService get] setMapLoaded:YES];
   [self renderMap:YES];
+}
+
+- (void)saveZoomAndCenter {
+  [self.mapViewState setZoomLevel:self.mapView.zoomLevel];
+  [self.mapViewState setCenter:self.mapView.centerCoordinate];
 }
 
 - (void)renderMap:(BOOL)initialLoad {
@@ -346,6 +351,24 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 }
 
 - (void)onPopupShow:(BOOL)visible itemUUID:(NSString *)itemUUID{
+}
+
+#pragma mark MapViewToStateIntermediary
+- (void)passCenterCoordinate:(CLLocationCoordinate2D)centerCoordinate {
+  [self.mapView setCenterCoordinate:centerCoordinate];
+}
+
+- (void)passDirections:(NSArray<CLLocation *> *)directions {
+}
+
+- (void)passShowsUserLocation:(BOOL)showsUserLocation {
+  [self.mapView setShowsUserLocation:showsUserLocation];
+  [self.mapView setShowsUserHeadingIndicator:showsUserLocation];
+  [self.mapView updateUserLocationAnnotationView];
+}
+
+- (void)passZoomLevel:(CGFloat)zoomLevel {
+  [self.mapView setZoomLevel:zoomLevel];
 }
 
 @end
