@@ -4,6 +4,7 @@ import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import {useSelector} from 'react-redux';
 import {selectBookmarksIds} from 'core/selectors';
 import {find} from 'lodash';
+import {hapticFeedbackService} from 'services/HapticFeedbackService';
 const onAnimationEndDefault = () => {};
 
 interface IProps {
@@ -38,6 +39,7 @@ export const FavoriteButtonContainer = memo(
 
     const onPress = useCallback(() => {
       if (objectId) {
+        hapticFeedbackService.trigger();
         const nextIsFavorite = !isFavorite;
         onFavoriteToggle?.(nextIsFavorite);
         toggleFavorite({objectId, needToAdd: nextIsFavorite});

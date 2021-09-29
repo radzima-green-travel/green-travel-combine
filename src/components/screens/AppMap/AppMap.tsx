@@ -57,6 +57,7 @@ import {mapService} from 'services/MapService';
 import {WINDOW_HEIGHT} from 'services/PlatformService';
 import Supercluster from 'supercluster';
 import {xorBy} from 'lodash';
+import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 export const AppMap = ({navigation}: IProps) => {
   const dispatch = useDispatch();
@@ -144,6 +145,8 @@ export const AppMap = ({navigation}: IProps) => {
 
   useEffect(() => {
     if (selected) {
+      hapticFeedbackService.trigger();
+
       setSelectedMarker(createMarkerFromObject(selected));
       openMenu();
     }

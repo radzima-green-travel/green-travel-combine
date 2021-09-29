@@ -43,6 +43,7 @@ import {
 import {showLocation} from 'react-native-map-link';
 import {themeLayerStyles} from './styles';
 import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
+import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -118,6 +119,12 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   });
 
   const loading = useRequestLoading(showObjectDetailsMapDirectionRequest);
+  useOnRequestSuccess(
+    showObjectDetailsMapDirectionRequest,
+    useCallback(() => {
+      hapticFeedbackService.trigger('impactMedium');
+    }, []),
+  );
 
   const onMenuButtonPress = useCallback(
     async (obj: IObject) => {
