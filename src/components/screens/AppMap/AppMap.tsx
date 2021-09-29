@@ -46,7 +46,6 @@ import {
   useBottomMenu,
   useFindZoomForObjectInCluster,
 } from 'core/hooks';
-import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
 
@@ -348,10 +347,7 @@ export const AppMap = ({navigation}: IProps) => {
           </MapBox.ShapeSource>
         ) : null}
       </ClusterMap>
-      <BottomMenu
-        menuHeight={MAP_BOTTOM_MENU_HEIGHT + bottom}
-        onHideEnd={onMenuHideEnd}
-        {...menuProps}>
+      <BottomMenu onHideEnd={onMenuHideEnd} {...menuProps}>
         <AppMapBottomMenu
           data={selected}
           bottomInset={bottom}

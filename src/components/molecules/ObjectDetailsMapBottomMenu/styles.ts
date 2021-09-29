@@ -1,7 +1,10 @@
 import {COLORS, FONTS_STYLES} from 'assets';
+import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 
 export const themeStyles = {
   container: {
+    minHeight: MAP_BOTTOM_MENU_HEIGHT,
+
     backgroundColor: {
       light: COLORS.white,
       dark: COLORS.background,
@@ -11,6 +14,7 @@ export const themeStyles = {
   },
   contentContainer: {
     flex: 1,
+    justifyContent: 'space-between',
   },
   textContainer: {
     flexDirection: 'row',
@@ -29,7 +33,7 @@ export const themeStyles = {
     marginTop: 4,
   },
   button: {
-    marginTop: 'auto',
+    marginTop: 14,
   },
 
   touchIndicator: {
