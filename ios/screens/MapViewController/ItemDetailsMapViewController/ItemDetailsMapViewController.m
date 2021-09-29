@@ -381,7 +381,7 @@ static NSString* const kAttributeNameRoute = @"route";
   }
   __weak typeof(self) weakSelf = self;
   [self showAnnotations:^{
-    [weakSelf saveZoomAndCenter];
+    [weakSelf saveMapCoordinates];
   }];
 }
 

@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cleanMap;
 - (void)onPopupShow:(BOOL)visible itemUUID:(NSString *)itemUUID;
 - (void)showUserLocation:(BOOL)show;
-- (void)saveZoomAndCenter;
+- (void)saveMapCoordinates;
 
 @end
 

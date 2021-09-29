@@ -18,6 +18,7 @@
 
 - (void)passShowsUserLocation:(BOOL)showsUserLocation;
 - (void)passDirections:(NSArray<CLLocation *> *)directions;
+- (void)passRotation:(CLLocationDirection)direction;
 - (void)passZoomLevel:(CGFloat)zoomLevel;
 - (void)passCenterCoordinate:(CLLocationCoordinate2D)centerCoordinate;
 
