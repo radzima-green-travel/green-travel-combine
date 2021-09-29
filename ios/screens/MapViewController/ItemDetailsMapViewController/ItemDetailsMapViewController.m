@@ -373,16 +373,15 @@ static NSString* const kAttributeNameRoute = @"route";
 }
 
 - (void)onPopupShow:(BOOL)visible itemUUID:(nonnull NSString *)itemUUID {
-  __weak typeof(self) weakSelf = self;
   [super onPopupShow:visible itemUUID:itemUUID];
   if (visible && !self.feedbackOnAppearGiven) {
     [self.feedbackGenerator notificationOccurred:UINotificationFeedbackTypeSuccess];
     self.feedbackGenerator = nil;
     self.feedbackOnAppearGiven = YES;
   }
+  __weak typeof(self) weakSelf = self;
   [self showAnnotations:^{
-    [weakSelf.mapViewState setZoomLevel:weakSelf.mapView.zoomLevel];
-    [weakSelf.mapViewState setCenter:weakSelf.mapView.centerCoordinate];
+    [weakSelf saveZoomAndCenter];
   }];
 }
 

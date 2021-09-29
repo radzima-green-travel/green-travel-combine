@@ -217,14 +217,16 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
 - (void)appear {
   __weak typeof(self) weakSelf = self;
   self.progressCounter++;
-  [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear animations:^{
+  [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8
+        initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveLinear
+                   animations:^{
     [weakSelf adaptToContent];
   } completion:^(BOOL finished) {
-    if (weakSelf.onShow) {
+    if (!weakSelf.visible) {
       weakSelf.visible = YES;
       [weakSelf appearAnimationDidEnd:YES];
-      weakSelf.progressCounter--;
     }
+    weakSelf.progressCounter--;
   }];
 }
 
@@ -236,11 +238,11 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     CGRect frame = weakSelf.frame;
     weakSelf.frame = CGRectMake(frame.origin.x, [UIScreen mainScreen].bounds.size.height, frame.size.width, frame.size.height);
   } completion:^(BOOL finished) {
-    if (weakSelf.onShow) {
+    if (weakSelf.visible) {
       weakSelf.visible = NO;
       [weakSelf appearAnimationDidEnd:NO];
-      weakSelf.progressCounter--;
     }
+    weakSelf.progressCounter--;
   }];
 }
 
