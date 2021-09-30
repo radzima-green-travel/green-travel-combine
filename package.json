@@ -1,6 +1,6 @@
 {
   "name": "greenTravel",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant=devDebug",
@@ -10,7 +10,8 @@
     "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
     "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
     "update-svg": "node scripts/update-svg/update-svg.js",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "postversion": "react-native-version"
   },
   "dependencies": {
     "@amplitude/react-native": "2.3.3",
@@ -54,6 +55,7 @@
     "react-native-svg": "12.1.0",
     "react-native-svg-transformer": "0.14.3",
     "react-native-ultimate-config": "3.3.4",
+    "react-native-version": "^4.0.0",
     "react-native-webview": "10.9.0",
     "react-redux": "7.2.0",
     "redux": "4.0.5",
