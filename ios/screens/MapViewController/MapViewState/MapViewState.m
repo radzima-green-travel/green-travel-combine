@@ -34,6 +34,11 @@
   self.saved = self.saved | MapViewStateSaveOptionDirections;
 }
 
+- (void)setDirection:(CLLocationDirection)direction {
+  _direction = direction;
+  self.saved = self.saved | MapViewStateSaveOptionAngle;
+}
+
 - (void)restoreToMap:(id<MapViewToStateIntermediary>)mapIntermediary {
   if (self.saved & MapViewStateSaveOptionLocation) {
     [mapIntermediary passShowsUserLocation:self.showLocation];
@@ -46,6 +51,11 @@
   }
   if (self.saved & MapViewStateSaveOptionDirections) {
     [mapIntermediary passDirections:self.directions];
+  }
+  if (self.saved & MapViewStateSaveOptionAngle) {
+    [mapIntermediary passRotation:self.direction];
+  } else {
+    [mapIntermediary passRotation:0];
   }
 }
 

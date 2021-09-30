@@ -27,6 +27,7 @@ typedef NS_OPTIONS(NSUInteger, MapViewStateSaveOption) {
 @property (assign, nonatomic) BOOL showLocation;
 @property (strong, nonatomic) NSArray<CLLocation *> *directions;
 @property (assign, nonatomic) double zoomLevel;
+@property (assign, nonatomic) CLLocationDirection direction;  
 @property (assign, nonatomic) CLLocationCoordinate2D center;
 - (void)restoreToMap:(id<MapViewToStateIntermediary>)mapIntermediary;
 

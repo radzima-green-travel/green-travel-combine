@@ -170,7 +170,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-  [self saveZoomAndCenter];
+  [self saveMapCoordinates];
 }
 
 #pragma mark - viewDidDisappear
@@ -186,9 +186,10 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   [self renderMap:YES];
 }
 
-- (void)saveZoomAndCenter {
+- (void)saveMapCoordinates {
   [self.mapViewState setZoomLevel:self.mapView.zoomLevel];
   [self.mapViewState setCenter:self.mapView.centerCoordinate];
+  [self.mapViewState setDirection:self.mapView.direction];
 }
 
 - (void)renderMap:(BOOL)initialLoad {
@@ -369,6 +370,10 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 
 - (void)passZoomLevel:(CGFloat)zoomLevel {
   [self.mapView setZoomLevel:zoomLevel];
+}
+
+- (void)passRotation:(CLLocationDirection)direction{
+  [self.mapView setDirection:direction];
 }
 
 @end
