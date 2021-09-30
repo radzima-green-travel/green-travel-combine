@@ -127,15 +127,6 @@ export const AppMap = ({navigation}: IProps) => {
     setMarkers(newMarkers);
   }, [appData]);
 
-  useEffect(() => {
-    if (selectedObject) {
-      hapticFeedbackService.trigger();
-
-      setSelectedMarker(createMarkerFromObject(selectedObject));
-      openMenu();
-    }
-  }, [openMenu, selectedObject]);
-
   useLayoutEffect(() => {
     if (bounds) {
       if (!ignoreFitBounds.current) {
@@ -148,8 +139,18 @@ export const AppMap = ({navigation}: IProps) => {
 
   const unselectObject = useCallback(() => {
     closeMenu();
-    setSelectedObject(null);
+    setSelectedMarker(createMarkerFromObject(null));
   }, [closeMenu]);
+
+  const selectObjectAndOpenMenu = useCallback(
+    (object: IObject) => {
+      hapticFeedbackService.trigger();
+      setSelectedObject(object);
+      setSelectedMarker(createMarkerFromObject(object));
+      openMenu();
+    },
+    [openMenu],
+  );
 
   const onShapePress = useCallback(
     (objectId: string, zoomLevel) => {
@@ -162,10 +163,11 @@ export const AppMap = ({navigation}: IProps) => {
           zoomLevel: zoomLevel,
           animationDuration: 500,
         });
-        setSelectedObject({...itemData});
+
+        selectObjectAndOpenMenu(itemData);
       }
     },
-    [getObject],
+    [getObject, selectObjectAndOpenMenu],
   );
 
   const navigateToObjectDetails = useCallback(
@@ -237,7 +239,7 @@ export const AppMap = ({navigation}: IProps) => {
     moveCameraToSearchedObject(object, cluster, clusterBounds);
 
     addToHistory(object);
-    setSelectedObject({...object});
+    selectObjectAndOpenMenu(object);
     clearInput();
   };
 
@@ -337,7 +339,7 @@ export const AppMap = ({navigation}: IProps) => {
       </BottomMenu>
 
       <BottomMenu
-        onHideEnd={onSearchMenuHide}
+        onHideStart={onSearchMenuHide}
         showDragIndicator={false}
         menuHeight={WINDOW_HEIGHT * 0.95}
         {...searchMenuProps}>

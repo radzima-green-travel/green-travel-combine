@@ -18,6 +18,7 @@ import {useThemeStyles} from 'core/hooks';
 
 interface IProps {
   onHideEnd?: () => void;
+  onHideStart?: () => void
   menuHeight?: number;
   animatedPosition?: Animated.SharedValue<number>;
   showDragIndicator?: boolean;
@@ -34,6 +35,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     {
       children,
       onHideEnd,
+      onHideStart,
       menuHeight,
       animatedPosition,
       showDragIndicator = true,
@@ -60,7 +62,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     };
 
     const hide = () => {
-      bottomSheetRef.current?.dismiss();
+      bottomSheetRef.current?.forceClose();
     };
 
     useImperativeHandle(ref, () => ({
@@ -83,7 +85,9 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     );
 
     const onAnimate = useCallback((fromIndex: number) => {
+     
       if (fromIndex === 0) {
+        onHideStart?.()
         Keyboard.dismiss();
       }
     }, []);
@@ -96,7 +100,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
           handleStyle={styles.handleStyles}
           backgroundStyle={styles.bgStyle}
           handleIndicatorStyle={styles.touchIndicator}
-          index={0}
+          index={0}     
           snapPoints={snapPoints as [number]}
           enablePanDownToClose
           onAnimate={onAnimate}
