@@ -18,7 +18,7 @@ typedef NS_OPTIONS(NSUInteger, MapViewStateSaveOption) {
   MapViewStateSaveOptionLocation = 1 << 2,
   MapViewStateSaveOptionDirections = 1 << 3,
   MapViewStateSaveOptionRotation = 1 << 4,
-  MapViewStateSaveOptionAngle = 1 << 5,
+  MapViewStateSaveOptionPitch = 1 << 5,
 };
 
 @interface MapViewState : NSObject
@@ -27,6 +27,7 @@ typedef NS_OPTIONS(NSUInteger, MapViewStateSaveOption) {
 @property (assign, nonatomic) BOOL showLocation;
 @property (strong, nonatomic) NSArray<CLLocation *> *directions;
 @property (assign, nonatomic) double zoomLevel;
+@property (assign, nonatomic) CGFloat pitch;
 @property (assign, nonatomic) CLLocationDirection direction;  
 @property (assign, nonatomic) CLLocationCoordinate2D center;
 - (void)restoreToMap:(id<MapViewToStateIntermediary>)mapIntermediary;

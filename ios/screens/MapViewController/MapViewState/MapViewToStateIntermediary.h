@@ -21,5 +21,6 @@
 - (void)passRotation:(CLLocationDirection)direction;
 - (void)passZoomLevel:(CGFloat)zoomLevel;
 - (void)passCenterCoordinate:(CLLocationCoordinate2D)centerCoordinate;
+- (void)passPitch:(CGFloat)pitch;
 
 @end

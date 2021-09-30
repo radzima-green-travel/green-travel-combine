@@ -36,12 +36,22 @@
 
 - (void)setDirection:(CLLocationDirection)direction {
   _direction = direction;
-  self.saved = self.saved | MapViewStateSaveOptionAngle;
+  self.saved = self.saved | MapViewStateSaveOptionRotation;
+}
+
+- (void)setPitch:(CGFloat)pitch {
+  _pitch = pitch;
+  self.saved = self.saved | MapViewStateSaveOptionPitch;
 }
 
 - (void)restoreToMap:(id<MapViewToStateIntermediary>)mapIntermediary {
   if (self.saved & MapViewStateSaveOptionLocation) {
     [mapIntermediary passShowsUserLocation:self.showLocation];
+  }
+  if (self.saved & MapViewStateSaveOptionPitch) {
+    [mapIntermediary passPitch:self.pitch];
+  } else {
+    [mapIntermediary passPitch:0];
   }
   if (self.saved & MapViewStateSaveOptionZoom) {
     [mapIntermediary passZoomLevel:self.zoomLevel];
@@ -52,7 +62,7 @@
   if (self.saved & MapViewStateSaveOptionDirections) {
     [mapIntermediary passDirections:self.directions];
   }
-  if (self.saved & MapViewStateSaveOptionAngle) {
+  if (self.saved & MapViewStateSaveOptionRotation) {
     [mapIntermediary passRotation:self.direction];
   } else {
     [mapIntermediary passRotation:0];
