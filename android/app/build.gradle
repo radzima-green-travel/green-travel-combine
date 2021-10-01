@@ -79,7 +79,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.ts",
-    enableHermes: true,  
+    enableHermes: true,
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -131,8 +131,8 @@ android {
         applicationId "app.radzima"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.3"
     }
     splits {
         abi {
@@ -164,9 +164,9 @@ android {
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
                 storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
             }
-        }  
+        }
 
-        if (System.getenv("BITRISEIO_PROD_ANDROID_KEYSTORE_URL") != null) {      
+        if (System.getenv("BITRISEIO_PROD_ANDROID_KEYSTORE_URL") != null) {
             bitriseProd {
                     def downloadedKeystorePath = System.getenv("DOWNLOADED_KEYSTORE_PATH")
                     def keystoreName = System.getenv("BITRISE_ANDROID_KEYSTORE_NAME")
@@ -195,13 +195,13 @@ android {
         dev {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationIdSuffix ".dev"
-            targetSdkVersion rootProject.ext.targetSdkVersion           
-            resValue "string", "build_config_package", "app.radzima"            
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "app.radzima"
         }
         staging {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationIdSuffix '.staging'
-            targetSdkVersion rootProject.ext.targetSdkVersion           
+            targetSdkVersion rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "app.radzima"
             if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL") != null) {
                 signingConfig signingConfigs.bitriseDev
@@ -210,12 +210,12 @@ android {
         prod {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationIdSuffix ''
-            targetSdkVersion rootProject.ext.targetSdkVersion           
+            targetSdkVersion rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "app.radzima"
             if (System.getenv("BITRISEIO_PROD_ANDROID_KEYSTORE_URL") != null) {
                 signingConfig signingConfigs.bitriseProd
             }
-        }       
+        }
     }
 
     // applicationVariants are e.g. debug, release

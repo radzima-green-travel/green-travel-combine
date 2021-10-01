@@ -43,6 +43,7 @@
 
 @property (assign, nonatomic) BOOL intentionToShowRoutesSheet;
 @property (assign, nonatomic) BOOL feedbackOnAppearGiven;
+@property (assign, nonatomic) BOOL popupWasShown;
 @property (strong, nonatomic) UINotificationFeedbackGenerator *feedbackGenerator;
 @property (copy, nonatomic) void(^cancelGetDirections)(void);
 @property (copy, nonatomic) ContinueToNavigation next;
@@ -85,8 +86,9 @@ static NSString* const kAttributeNameRoute = @"route";
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  if (self.isMovingToParentViewController) {
+  if (!self.popupWasShown) {
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
+    self.popupWasShown = YES;
   }
   [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenMapItem];
 }
@@ -381,7 +383,7 @@ static NSString* const kAttributeNameRoute = @"route";
   }
   __weak typeof(self) weakSelf = self;
   [self showAnnotations:^{
-    [weakSelf saveMapCoordinates];
+     [weakSelf saveMapCoordinates];
   }];
 }
 

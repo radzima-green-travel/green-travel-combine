@@ -190,6 +190,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   [self.mapViewState setZoomLevel:self.mapView.zoomLevel];
   [self.mapViewState setCenter:self.mapView.centerCoordinate];
   [self.mapViewState setDirection:self.mapView.direction];
+  [self.mapViewState setPitch:self.mapView.camera.pitch];
 }
 
 - (void)renderMap:(BOOL)initialLoad {
@@ -374,6 +375,11 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 
 - (void)passRotation:(CLLocationDirection)direction{
   [self.mapView setDirection:direction];
+}
+
+- (void)passPitch:(CGFloat)pitch {
+  MGLMapCamera *cameraModified = [MGLMapCamera cameraLookingAtCenterCoordinate:self.mapView.camera.centerCoordinate altitude:self.mapView.camera.altitude pitch:pitch heading:self.mapView.camera.heading];
+  [self.mapView setCamera:cameraModified];
 }
 
 @end
