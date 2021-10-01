@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nonatomic) void(^onBookmarkPress)(BOOL);
 @property(strong, nonatomic) CommonButton *detailsButton;
 @property(assign, nonatomic) BOOL visible;
+@property(assign, nonatomic) BOOL active;
 
 - (void)show:(PlaceItem *)item;
 - (void)show:(PlaceItem *)item buttonLabel:(NSString *)buttonLabel
