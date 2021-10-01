@@ -1,10 +1,10 @@
 import React, {
   useRef,
   useState,
-  useEffect,
   useCallback,
   useLayoutEffect,
   useMemo,
+  useEffect,
 } from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
 import {
@@ -57,11 +57,11 @@ export const AppMap = ({navigation}: IProps) => {
   const mapFilters = useSelector(selectMapFilters);
   const appData = useSelector(selectTransformedData);
 
-  const shouldPersistData = useRef(false);
   const camera = useRef<MapBox.Camera>(null);
   const map = useRef<MapBox.MapView>(null);
   const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
   const ignoreFitBounds = useRef(false);
+  const isNeedToUnselectObject = useRef(false);
 
   const [selectedObject, setSelectedObject] = useState<null | IObject>(null);
   const [selectedMarker, setSelectedMarker] = useState<SelecteMarker | null>(
@@ -142,28 +142,38 @@ export const AppMap = ({navigation}: IProps) => {
     setSelectedMarker(createMarkerFromObject(null));
   }, [closeMenu]);
 
-  const selectObjectAndOpenMenu = useCallback(
-    (object: IObject) => {
-      hapticFeedbackService.trigger();
-      setSelectedObject(object);
-      setSelectedMarker(createMarkerFromObject(object));
+  const onMapPress = useCallback(() => {
+    if (isMenuOpened()) {
+      unselectObject();
+    }
+  }, [isMenuOpened, unselectObject]);
+
+  useEffect(() => {
+    if (selectedObject) {
+      setSelectedMarker(createMarkerFromObject(selectedObject));
       openMenu();
-    },
-    [openMenu],
-  );
+    }
+  }, [openMenu, selectedObject]);
+
+  const selectObjectAndOpenMenu = useCallback((object: IObject) => {
+    hapticFeedbackService.trigger();
+    setSelectedObject({...object});
+  }, []);
 
   const onShapePress = useCallback(
-    (objectId: string, zoomLevel) => {
+    async (objectId: string) => {
+      isNeedToUnselectObject.current = false;
       const itemData = getObject(objectId);
 
       if (itemData) {
+        const currentZoom = await map.current?.getZoom();
+
         const coordinates = [itemData.location!.lon!, itemData.location!.lat!];
         camera.current?.setCamera({
           centerCoordinate: coordinates,
-          zoomLevel: zoomLevel,
+          zoomLevel: currentZoom,
           animationDuration: 500,
         });
-
         selectObjectAndOpenMenu(itemData);
       }
     },
@@ -244,22 +254,23 @@ export const AppMap = ({navigation}: IProps) => {
   };
 
   const onMenuHideEnd = useCallback(() => {
-    if (!shouldPersistData.current) {
+    if (isNeedToUnselectObject.current) {
+      setSelectedObject(null);
+
       if (selectedMarker) {
-        setSelectedObject(null);
         setSelectedMarker(createMarkerFromObject(null));
       }
     }
   }, [selectedMarker]);
 
-  const openSearchMenuAndPersistData = useCallback(() => {
-    openSearchMenu();
-    shouldPersistData.current = true;
-  }, [openSearchMenu]);
-
-  const onSearchMenuHide = useCallback(() => {
-    shouldPersistData.current = false;
+  const onMenuHideStart = useCallback(() => {
+    isNeedToUnselectObject.current = true;
   }, []);
+
+  const openSearchMenuAndPersistData = useCallback(() => {
+    closeMenu();
+    openSearchMenu();
+  }, [closeMenu, openSearchMenu]);
 
   const {focusToUserLocation, ...userLocationProps} =
     useFocusToUserLocation(camera);
@@ -307,7 +318,7 @@ export const AppMap = ({navigation}: IProps) => {
         ref={map}
         cameraRef={camera}
         onShapePress={onShapePress}
-        onPress={unselectObject}>
+        onPress={onMapPress}>
         {userLocationProps.visible ? (
           <MapBox.UserLocation {...userLocationProps} />
         ) : null}
@@ -330,7 +341,10 @@ export const AppMap = ({navigation}: IProps) => {
           </MapBox.ShapeSource>
         ) : null}
       </ClusterMap>
-      <BottomMenu onHideEnd={onMenuHideEnd} {...menuProps}>
+      <BottomMenu
+        onHideStart={onMenuHideStart}
+        onHideEnd={onMenuHideEnd}
+        {...menuProps}>
         <AppMapBottomMenu
           data={selectedObject}
           bottomInset={bottom}
@@ -339,7 +353,6 @@ export const AppMap = ({navigation}: IProps) => {
       </BottomMenu>
 
       <BottomMenu
-        onHideStart={onSearchMenuHide}
         showDragIndicator={false}
         menuHeight={WINDOW_HEIGHT * 0.95}
         {...searchMenuProps}>

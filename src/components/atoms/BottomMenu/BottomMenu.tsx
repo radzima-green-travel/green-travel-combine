@@ -11,7 +11,7 @@ import {
   useBottomSheetDynamicSnapPoints,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
-import Animated from 'react-native-reanimated';
+import Animated, { useAnimatedReaction} from 'react-native-reanimated';
 import {themeStyles} from './styles';
 import {Keyboard} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
@@ -62,7 +62,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     };
 
     const hide = () => {
-      bottomSheetRef.current?.forceClose();
+      bottomSheetRef.current?.dismiss();
     };
 
     useImperativeHandle(ref, () => ({
@@ -76,7 +76,6 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     const onChange = useCallback(
       (index: number) => {
         isOpened.current = index === 0;
-
         if (index === -1) {
           onHideEnd?.();
         }
@@ -85,7 +84,6 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     );
 
     const onAnimate = useCallback((fromIndex: number) => {
-     
       if (fromIndex === 0) {
         onHideStart?.()
         Keyboard.dismiss();

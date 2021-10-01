@@ -121,7 +121,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   useOnRequestSuccess(
     showObjectDetailsMapDirectionRequest,
     useCallback(() => {
-      hapticFeedbackService.trigger('impactMedium');
+      hapticFeedbackService.trigger('notificationSuccess');
     }, []),
   );
 
