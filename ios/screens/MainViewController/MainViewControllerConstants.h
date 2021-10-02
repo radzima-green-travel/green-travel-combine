@@ -11,6 +11,7 @@ typedef NS_ENUM(NSInteger, MainViewControllerBottomSheet) {
   MainViewControllerBottomSheetNone = 0,
   MainViewControllerBottomSheetDetailsMap = 1,
   MainViewControllerBottomSheetFullMap = 2,
-  MainViewControllerBottomSheetIndexDetailsMap = 3,
-  MainViewControllerBottomSheetBookmarksDetailsMap = 4,
+  MainViewControllerBottomSheetFullMapDetailsMap = 3,
+  MainViewControllerBottomSheetIndexDetailsMap = 4,
+  MainViewControllerBottomSheetBookmarksDetailsMap = 5,
 };
