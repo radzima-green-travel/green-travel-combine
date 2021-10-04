@@ -1,3 +1,14 @@
+import Animated from 'react-native-reanimated';
+import {themeStyles} from './styles';
+import {Keyboard} from 'react-native';
+import {useThemeStyles} from 'core/hooks';
+
+import {
+  BottomSheetModal,
+  useBottomSheetDynamicSnapPoints,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet';
+
 import React, {
   forwardRef,
   PropsWithChildren,
@@ -5,16 +16,8 @@ import React, {
   useImperativeHandle,
   useRef,
   useMemo,
+  memo,
 } from 'react';
-import {
-  BottomSheetModal,
-  useBottomSheetDynamicSnapPoints,
-  BottomSheetView,
-} from '@gorhom/bottom-sheet';
-import Animated, { useAnimatedReaction} from 'react-native-reanimated';
-import {themeStyles} from './styles';
-import {Keyboard} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
 
 interface IProps {
   onHideEnd?: () => void;
@@ -30,7 +33,7 @@ export interface IBottomMenuRef {
   isOpened: () => boolean;
 }
 
-export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
+export const BottomMenu = memo(forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
   (
     {
       children,
@@ -41,7 +44,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
       showDragIndicator = true,
     },
     ref,
-  ) => {
+  ) => {  
     const initialSnapPoints = useMemo(() => ['CONTENT_HEIGHT'], []);
 
     const {
@@ -49,7 +52,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
       animatedSnapPoints,
       animatedContentHeight,
       handleContentLayout,
-    } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
+    } = useBottomSheetDynamicSnapPoints(initialSnapPoints);  
 
     const styles = useThemeStyles(themeStyles);
     const isOpened = useRef(false);
@@ -57,13 +60,13 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
 
     const snapPoints = useMemo(() => [menuHeight], [menuHeight]);
 
-    const show = () => {
+    const show = useCallback(() => {
       bottomSheetRef.current?.present();
-    };
+    }, []);
 
-    const hide = () => {
+    const hide = useCallback(() => {
       bottomSheetRef.current?.dismiss();
-    };
+    }, [])
 
     useImperativeHandle(ref, () => ({
       show: show,
@@ -75,10 +78,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
 
     const onChange = useCallback(
       (index: number) => {
-        isOpened.current = index === 0;
-        if (index === -1) {
-          onHideEnd?.();
-        }
+        isOpened.current = index === 0;       
       },
       [onHideEnd],
     );
@@ -93,6 +93,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
     if (menuHeight ) {
       return (
         <BottomSheetModal
+          onDismiss={onHideEnd}
           handleComponent={showDragIndicator ? undefined : null}
           ref={bottomSheetRef}
           handleStyle={styles.handleStyles}
@@ -110,6 +111,7 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
 
     return (
       <BottomSheetModal
+        onDismiss={onHideEnd}
         handleComponent={showDragIndicator ? undefined : null}       
         animatedPosition={animatedPosition}
         ref={bottomSheetRef}
@@ -129,4 +131,4 @@ export const BottomMenu = forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
       </BottomSheetModal>
     );
   },
-);
+))
