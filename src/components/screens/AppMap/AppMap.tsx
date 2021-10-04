@@ -4,7 +4,6 @@ import React, {
   useCallback,
   useLayoutEffect,
   useMemo,
-  useEffect,
 } from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
 import {
@@ -39,6 +38,7 @@ import {
   useAppMapAnalytics,
   useBottomMenu,
   useFindZoomForObjectInCluster,
+  useStaticCallback,
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
@@ -61,7 +61,6 @@ export const AppMap = ({navigation}: IProps) => {
   const map = useRef<MapBox.MapView>(null);
   const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
   const ignoreFitBounds = useRef(false);
-  const isNeedToUnselectObject = useRef(false);
 
   const [selectedObject, setSelectedObject] = useState<null | IObject>(null);
   const [selectedMarker, setSelectedMarker] = useState<SelecteMarker | null>(
@@ -148,21 +147,18 @@ export const AppMap = ({navigation}: IProps) => {
     }
   }, [isMenuOpened, unselectObject]);
 
-  useEffect(() => {
-    if (selectedObject) {
-      setSelectedMarker(createMarkerFromObject(selectedObject));
+  const selectObjectAndOpenMenu = useCallback(
+    (object: IObject) => {
+      hapticFeedbackService.trigger();
+      setSelectedObject(object);
+      setSelectedMarker(createMarkerFromObject(object));
       openMenu();
-    }
-  }, [openMenu, selectedObject]);
-
-  const selectObjectAndOpenMenu = useCallback((object: IObject) => {
-    hapticFeedbackService.trigger();
-    setSelectedObject({...object});
-  }, []);
+    },
+    [openMenu],
+  );
 
   const onShapePress = useCallback(
     async (objectId: string) => {
-      isNeedToUnselectObject.current = false;
       const itemData = getObject(objectId);
 
       if (itemData) {
@@ -253,19 +249,13 @@ export const AppMap = ({navigation}: IProps) => {
     clearInput();
   };
 
-  const onMenuHideEnd = useCallback(() => {
-    if (isNeedToUnselectObject.current) {
-      setSelectedObject(null);
+  const onMenuHideEnd = useStaticCallback(() => {
+    setSelectedObject(null);
 
-      if (selectedMarker) {
-        setSelectedMarker(createMarkerFromObject(null));
-      }
+    if (selectedMarker) {
+      setSelectedMarker(createMarkerFromObject(null));
     }
   }, [selectedMarker]);
-
-  const onMenuHideStart = useCallback(() => {
-    isNeedToUnselectObject.current = true;
-  }, []);
 
   const openSearchMenuAndPersistData = useCallback(() => {
     closeMenu();
@@ -306,7 +296,7 @@ export const AppMap = ({navigation}: IProps) => {
       camera.current?.setCamera({
         centerCoordinate: coordinates as Position,
         zoomLevel: zoom,
-        animationDuration: 300,
+        animationDuration: 200,
       });
     }
   }, []);
@@ -341,10 +331,7 @@ export const AppMap = ({navigation}: IProps) => {
           </MapBox.ShapeSource>
         ) : null}
       </ClusterMap>
-      <BottomMenu
-        onHideStart={onMenuHideStart}
-        onHideEnd={onMenuHideEnd}
-        {...menuProps}>
+      <BottomMenu onHideEnd={onMenuHideEnd} {...menuProps}>
         <AppMapBottomMenu
           data={selectedObject}
           bottomInset={bottom}
