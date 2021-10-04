@@ -34,6 +34,26 @@
 				<string>React Native</string>
 			</array>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Build number</string>
+			<key>Key</key>
+			<string>buildNumber</string>
+      <key>DefaultValue</key>
+      <string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Version</string>
+			<key>Key</key>
+			<string>version</string>
+      <key>DefaultValue</key>
+      <string></string>
+		</dict>
 	</array>
 </dict>
 </plist>

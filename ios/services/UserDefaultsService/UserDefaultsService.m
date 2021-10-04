@@ -19,6 +19,8 @@
 NSString * const kKeyETag = @"eTag";
 NSString * const kKeyFramework = @"framework";
 NSString * const kUserId = @"userId";
+NSString * const kAppVersion = @"version";
+NSString * const kAppBuildNumber =  @"buildNumber";
 
 static UserDefaultsService *instance;
 
@@ -54,6 +56,14 @@ static UserDefaultsService *instance;
 - (NSString *)loadFrameworkValue {
   NSString *frameworkValue = [self.userDefaults valueForKey:kKeyFramework];
   return frameworkValue;
+}
+
+- (void)saveVersion:(NSString *)version {
+  [self.userDefaults setValue:version forKey:kAppVersion];
+}
+
+- (void)saveBuildNumber:(NSString *)buildNumber {
+  [self.userDefaults setValue:buildNumber forKey:kAppBuildNumber];
 }
 
 + (instancetype)get {
