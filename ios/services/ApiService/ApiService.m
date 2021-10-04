@@ -57,7 +57,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     }
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
     NSString *eTag = headers[@"ETag"];
-    
+
     NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSDictionary *dataSection = parsedData[@"data"];
     if (dataSection == nil || parsedData[@"data"] == [NSNull null]) {
@@ -156,7 +156,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     }];
     details.area = [NSArray arrayWithArray:[mappedAreaCoords copy]];
   }
-  
+
   NSMutableArray<CLLocation *> *mappedPathCoords = [[NSMutableArray alloc] init];
   if (item[@"routes"] && ![item[@"routes"] isEqual:[NSNull null]]) {
     NSArray<NSArray<NSNumber *> *> *coords = item[@"routes"][@"coordinates"];
@@ -165,9 +165,9 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     }];
     details.path = [NSArray arrayWithArray:[mappedPathCoords copy]];
   }
-  
+
   NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
-  
+
   NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) item[@"include"];
   [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     NSString *categoryId = (NSString *) obj[@"id"];
@@ -194,7 +194,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
         parsedDetails.address = detailsFromAPI[@"address"];
         parsedDetails.descriptionHTML = [detailsFromAPI[@"sections"] firstObject];
         NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
-        
+
         NSArray<NSArray*> *linkedCategoriesFromAPI = (NSArray<NSArray*>*) detailsFromAPI[@"linkedCategories"];
         [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSArray * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *categoryId = obj[0];
@@ -205,10 +205,10 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
             [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
         }];
         parsedDetails.categoryIdToItems = categoryIdToItems;
-        
+
         completion(parsedDetails);
     }];
-    
+
     [task resume];
 }
 

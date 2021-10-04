@@ -60,6 +60,8 @@
 static NSString * const kCollectionCellId = @"collectionCellId";
 static CGFloat kDeltaCoverAndBounds = 50.0;
 static CGFloat kMinHeightOfPlaceholderView = 500.0;
+static CGFloat kNewDataButtonOffScreenOffsetY = 0.0;
+static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 
 @implementation IndexViewController 
 
@@ -190,7 +192,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
                                                             action:@selector(onNewDataPress:)];
     [self.view addSubview:self.refreshButton];
     self.refreshButton.translatesAutoresizingMaskIntoConstraints = NO;
-    self.yPosition = [self.refreshButton.bottomAnchor constraintEqualToAnchor:self.view.topAnchor constant:0.0];
+    self.yPosition = [self.refreshButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:kNewDataButtonOffScreenOffsetY];
     [NSLayoutConstraint activateConstraints:@[
         [self.refreshButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
         self.yPosition,
@@ -210,7 +212,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
     if (show) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [UIView animateWithDuration:0.5 animations:^{
-            strongSelf.yPosition.constant = 50.0;
+            strongSelf.yPosition.constant = kNewDataButtonOnScreenOffsetY;
             [strongSelf.view setNeedsLayout];
             [strongSelf.view layoutIfNeeded];
         } completion:^(BOOL finished) {
@@ -219,7 +221,7 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
     }
     [UIView animateWithDuration:0.5 animations:^{
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        strongSelf.yPosition.constant = 0.0;
+        strongSelf.yPosition.constant = kNewDataButtonOffScreenOffsetY;
         [strongSelf.view setNeedsLayout];
         [strongSelf.view layoutIfNeeded];
     } completion:^(BOOL finished) {
