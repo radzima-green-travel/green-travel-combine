@@ -13,6 +13,7 @@
 #import "BookmarksObserver.h"
 #import "MapViewState.h"
 #import "MainViewControllerConstants.h"
+#import "MapViewControllerConstants.h"
 #import "MapViewToStateIntermediary.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -62,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
                          mapItem:(nullable MapItem *)mapItem;
 - (void)showPopupWithItem:(PlaceItem *)item;
 - (void)hidePopup;
-- (BottomSheetView *)addBottomSheet:(MainViewControllerBottomSheet)sheetType;
+- (BottomSheetView *)addBottomSheet:(MapViewControllerType)sheetType;
 - (void)renderMap:(BOOL)initialLoad;
 - (void)cleanMap;
 - (void)onPopupShow:(BOOL)visible itemUUID:(NSString *)itemUUID;

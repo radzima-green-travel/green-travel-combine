@@ -52,7 +52,7 @@ static const CGFloat kDistanceButtonBottom = 24;
   self.backgroundColor = [Colors get].background;
   self.gripView.backgroundColor = [Colors get].bottomSheetGrip;
   [self.headerLabel setTextColor:[Colors get].headlineText];
-  
+
   if (self.visible && self.progressCounter == 0) {
     [self adaptToContent];
   }
@@ -84,7 +84,7 @@ static const CGFloat kDistanceButtonBottom = 24;
     [self.gripView.heightAnchor constraintEqualToConstant:kGripWidth]
   ]];
 #pragma mark - Details button
-  
+
 #pragma mark - Bookmark button
   self.bookmarkButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorBottomSheet
                                                onBookmarkPress:self.onBookmarkPress];
@@ -95,7 +95,7 @@ static const CGFloat kDistanceButtonBottom = 24;
       [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.topAnchor constant:14.5],
       [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-2.0]
   ]];
-  
+
   self.headerLabel = [[UILabel alloc] init];
   self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
   self.headerLabel.numberOfLines = 0;
@@ -120,9 +120,9 @@ static const CGFloat kDistanceButtonBottom = 24;
     [self.addressLabel.leadingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.leadingAnchor constant:16.0],
     [self.addressLabel.trailingAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
-  
+
   self.detailsButton = [self makeDetailsButton];
-  
+
   self.detailsButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.detailsButton];
 
@@ -170,7 +170,7 @@ otherGestureRecognizer {
   [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.addressLabel setAttributedText:[[Typography get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
-  
+
   [self appear];
 }
 
@@ -247,7 +247,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
 }
 
 - (void)appearAnimationDidEnd:(BOOL)appear {
-  if (self.onShow) {
+  if (self.onShow && self.active) {
     self.onShow(appear, self.itemUUID);
   }
 }

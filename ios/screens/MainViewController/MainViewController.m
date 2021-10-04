@@ -29,6 +29,7 @@
 #import "MainViewControllerConstants.h"
 #import "AnalyticsEvents.h"
 #import "StyleUtils.h"
+#import "MapViewControllerConstants.h"
 
 @interface MainViewController ()
 
@@ -38,7 +39,6 @@
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSURLSession *session;
 @property (strong, nonatomic) UIViewController *previousViewController;
-
 @property (strong, nonatomic) UITabBarItem *indexTabBarItem;
 @property (strong, nonatomic) UITabBarItem *mapTabBarItem;
 @property (strong, nonatomic) UITabBarItem *bookmarksTabBarItem;
@@ -156,6 +156,8 @@
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation, self.bookmarksControllerWithNavigation];
 
     self.selectedIndex = 0;
+    
+    self.bottomSheets = [[NSMutableDictionary<NSNumber *, BottomSheetView *> alloc] init];
 }
 
 UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, UIImage *imageSelected) {
@@ -183,30 +185,49 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
       }
     }
     self.previousViewController = topController;
+    
+    [self.bottomSheets enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key,
+                                                           BottomSheetView * _Nonnull bv,
+                                                           BOOL * _Nonnull stop) {
+      [bv setActive:NO];
+    }];
+    
     if (viewController == self.indexViewControllerWithNavigation) {
+      [self.bottomSheets[@(MainViewControllerBottomSheetIndexDetailsMap)] setActive:YES];
+      self.activeBottomSheetTypeByTab = MainViewControllerBottomSheetIndexDetailsMap;
       [[AnalyticsEvents get] logEvent:AnalyticsEventsNaviMain];
       return;
     }
     if (viewController == self.mapControllerWithNavigation) {
+      // We may have 2 bottom sheets for Map tab.
+      [self.bottomSheets[@(MainViewControllerBottomSheetFullMap)] setActive:YES];
+      [self.bottomSheets[@(MainViewControllerBottomSheetFullMapDetailsMap)] setActive:YES];
+      self.activeBottomSheetTypeByTab = MainViewControllerBottomSheetFullMap;
       [[AnalyticsEvents get] logEvent:AnalyticsEventsNaviMap];
       return;
     }
     if (viewController == self.bookmarksControllerWithNavigation) {
+      [self.bottomSheets[@(MainViewControllerBottomSheetBookmarksDetailsMap)] setActive:YES];
+      self.activeBottomSheetTypeByTab = MainViewControllerBottomSheetBookmarksDetailsMap;
       [[AnalyticsEvents get] logEvent:AnalyticsEventsNaviBookmarks];
       return;
     }
   }
 }
 
-- (BottomSheetView *)addBottomSheet:(MainViewControllerBottomSheet)sheetType
+- (BottomSheetView *)addBottomSheet:(MapViewControllerType)controllerType
                              onShow:(void(^_Nonnull)(BOOL, NSString *))onShow {
+  MainViewControllerBottomSheet sheetType =
+  [self bottomSheetTypeBaseOn:controllerType
+                  bottomSheetTypeByTab:self.activeBottomSheetTypeByTab];
   if (self.bottomSheets[@(sheetType)] != nil) {
     return self.bottomSheets[@(sheetType)];
   }
-  BottomSheetView *bottomSheet = sheetType == MainViewControllerBottomSheetDetailsMap ?
+  BottomSheetView *bottomSheet = controllerType == MapViewControllerTypeDetails ?
     [[BottomSheetViewDetailedMap alloc] init] :
     [[BottomSheetView alloc] init];
   bottomSheet.onShow = onShow;
+  bottomSheet.active = YES;
   [self.view addSubview:bottomSheet];
   NSLayoutConstraint *topAnchor = [bottomSheet.topAnchor constraintEqualToAnchor:self.view.bottomAnchor];
   bottomSheet.top = topAnchor;
@@ -217,6 +238,25 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
   ]];
   self.bottomSheets[@(sheetType)] = bottomSheet;
   return bottomSheet;
+}
+
+- (MainViewControllerBottomSheet)bottomSheetTypeBaseOn:(MapViewControllerType)controllerType
+                                 bottomSheetTypeByTab:(MainViewControllerBottomSheet)bottomSheetTypeByTab {
+  switch (bottomSheetTypeByTab) {
+    case MainViewControllerBottomSheetIndexDetailsMap:
+      return MainViewControllerBottomSheetIndexDetailsMap;
+    case MainViewControllerBottomSheetBookmarksDetailsMap:
+      return MainViewControllerBottomSheetBookmarksDetailsMap;
+    case MainViewControllerBottomSheetFullMap:
+      if (controllerType == MapViewControllerTypeFull) {
+        return MainViewControllerBottomSheetFullMap;
+      }
+      if (controllerType == MapViewControllerTypeDetails) {
+        return MainViewControllerBottomSheetFullMapDetailsMap;
+      }
+    default:
+      return MainViewControllerBottomSheetNone;
+  }
 }
 
 /*

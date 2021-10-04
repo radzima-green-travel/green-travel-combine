@@ -76,7 +76,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
     [self.searchButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
   ]];
   [self addFilterView];
-  self.bottomSheet = [self addBottomSheet:MainViewControllerBottomSheetFullMap];
+  self.bottomSheet = [self addBottomSheet:MapViewControllerTypeFull];
   self.timeTracer = [[AnalyticsTimeTracer alloc] initWithEventName:AnalyticsEventsLifeTimeFullMapScreen];
   BottomSheetPresentationControllerTransitioningDelegate *bottomSheetDelegate = [[BottomSheetPresentationControllerTransitioningDelegate alloc] init];
   self.bottomSheetDelegate = bottomSheetDelegate;

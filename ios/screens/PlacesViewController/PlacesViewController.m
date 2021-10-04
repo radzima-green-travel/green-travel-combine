@@ -272,6 +272,8 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     };
     if (self.bookmarked) {
         foundIndex = [self.bookmarkedItems indexOfObjectPassingTest:indexOfObjectPassingTest];
+    } else if ([self.allowedItems count]) {
+        foundIndex = [self.allowedItems indexOfObjectPassingTest:indexOfObjectPassingTest];
     } else {
         foundIndex = [self.category.items indexOfObjectPassingTest:indexOfObjectPassingTest];
     }

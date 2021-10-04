@@ -339,7 +339,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 
 - (void)showPopupWithItem:(PlaceItem *)item {}
 
-- (BottomSheetView *)addBottomSheet:(MainViewControllerBottomSheet)sheetType {
+- (BottomSheetView *)addBottomSheet:(MapViewControllerType)sheetType {
   MainViewController *mainViewController = (MainViewController *)self.parentViewController.parentViewController;
   __weak typeof(self) weakSelf = self;
   return [mainViewController addBottomSheet:sheetType

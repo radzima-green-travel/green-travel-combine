@@ -8,6 +8,10 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, MainViewControllerBottomSheet) {
-  MainViewControllerBottomSheetDetailsMap = 0,
-  MainViewControllerBottomSheetFullMap = 1,
+  MainViewControllerBottomSheetNone = 0,
+  MainViewControllerBottomSheetDetailsMap = 1,
+  MainViewControllerBottomSheetFullMap = 2,
+  MainViewControllerBottomSheetFullMapDetailsMap = 3,
+  MainViewControllerBottomSheetIndexDetailsMap = 4,
+  MainViewControllerBottomSheetBookmarksDetailsMap = 5,
 };

@@ -20,3 +20,9 @@ FOUNDATION_EXPORT NSString* const MapViewControllerOutlineLayerId;
 FOUNDATION_EXPORT NSString* const MapViewControllerPointLayerId;
 FOUNDATION_EXPORT NSString* const MapViewControllerDirectionsLayerId;
 
+typedef NS_ENUM(NSInteger, MapViewControllerType) {
+  MapViewControllerTypeDetails = 0,
+  MapViewControllerTypeFull = 1,
+};
+
+

@@ -61,7 +61,8 @@ static NSString* const kAttributeNameRoute = @"route";
 #pragma mark - Lifecycle
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.bottomSheet = [self addBottomSheet:MainViewControllerBottomSheetDetailsMap];
+  self.bottomSheet = [self addBottomSheet:MapViewControllerTypeDetails];
+  [((BottomSheetViewDetailedMap *) self.bottomSheet) revertToInitialState];
   __weak typeof(self) weakSelf = self;
   self.bottomSheet.onShow = ^(BOOL show, NSString * _Nonnull itemUUID) {
     if (!show) {
@@ -383,7 +384,9 @@ static NSString* const kAttributeNameRoute = @"route";
   }
   __weak typeof(self) weakSelf = self;
   [self showAnnotations:^{
-     [weakSelf saveMapCoordinates];
+    if (weakSelf.bottomSheet.active) {
+      [weakSelf saveMapCoordinates];
+    }
   }];
 }
 
