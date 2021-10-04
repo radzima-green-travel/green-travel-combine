@@ -167,7 +167,7 @@
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		06C721B7A060C8E881E0BDCC /* libPods-greenTravel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* Radzima.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Radzima.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Radzima Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Radzima Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = greenTravel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = greenTravel/main.m; sourceTree = "<group>"; };
@@ -1322,7 +1322,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Radzima.app */,
+				13B07F961A680F5B00A75B9A /* Radzima Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1363,7 +1363,7 @@
 			);
 			name = greenTravel;
 			productName = greenTravel;
-			productReference = 13B07F961A680F5B00A75B9A /* Radzima.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Radzima Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1781,7 +1781,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
-				PRODUCT_NAME = Radzima;
+				PRODUCT_NAME = "Radzima Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1809,7 +1809,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
-				PRODUCT_NAME = Radzima;
+				PRODUCT_NAME = "Radzima Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
