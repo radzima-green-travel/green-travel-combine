@@ -86,6 +86,8 @@
       [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkReact];
     }
   }
+  [self.userDefaultsService saveBuildNumber:[NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
+  [self.userDefaultsService saveVersion:[NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]];
   
   if ([UserDefaultsServiceConstantsFrameworkReact isEqualToString:
        [self.userDefaultsService loadFrameworkValue]]) {

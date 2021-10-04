@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)loadETag;
 - (void)saveUserId:(NSString *)userId;
 - (NSString *)loadUserId;
+- (void)saveVersion:(NSString *)version;
+- (void)saveBuildNumber:(NSString *)buildNumber;
 + (instancetype)get;
 
 @end
