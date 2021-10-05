@@ -141,6 +141,8 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   [self.view insertSubview:self.mapView belowSubview:self.locationButton];
   self.mapView.delegate = self;
   
+  [self.mapView setAttributionButtonPosition:MGLOrnamentPositionTopLeft];
+  
   self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
     [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
