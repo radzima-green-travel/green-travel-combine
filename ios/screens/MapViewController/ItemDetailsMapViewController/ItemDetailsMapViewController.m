@@ -55,6 +55,8 @@ static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 static NSString* const kAttributeNameLocation = @"location";
 static NSString* const kAttributeNameRoute = @"route";
+static NSString* const kAttributeNameArea = @"area";
+static NSString* const kAttributeType = @"type";
 
 @implementation ItemDetailsMapViewController
 
@@ -135,6 +137,7 @@ static NSString* const kAttributeNameRoute = @"route";
   }
 }
 
+#pragma mark - renderMapItem
 - (void)renderMapItem:(MapItem *)mapItem
                 style:(MGLStyle *)style {
   [self cleanMap];
@@ -252,6 +255,7 @@ static NSString* const kAttributeNameRoute = @"route";
   return edgePadding;
 }
 
+#pragma mark - showAnnotations
 - (void)showAnnotations:(void(^)(void))completion {
   if ([self.annotations count] > 1) {
     [self.mapView showAnnotations:self.annotations
@@ -269,6 +273,17 @@ static NSString* const kAttributeNameRoute = @"route";
   [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate
                           zoomLevel:8.0 direction:self.mapView.direction
                            animated:YES completionHandler:completion];
+}
+
+- (void)showAnnotationsWithType:(NSString *)annotationType
+                     completion:(void(^)(void))completion {
+  NSArray<id<MGLAnnotation>> *annotationsToShow =
+  [self.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:
+                                                 [self makeAnnotationFilter:annotationType]]];
+  [self.mapView showAnnotations:annotationsToShow
+                      edgePadding:[self calculateEdgePadding]
+                         animated:YES
+                completionHandler:completion];
 }
 
 #pragma mark addDirections
@@ -297,13 +312,15 @@ static NSString* const kAttributeNameRoute = @"route";
 }
 
 - (void)removeDuplicateAnnotations:(Class)class attribute:(NSString *)attributeName {
-  [self.annotations filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id<MGLFeature> evaluatedObject,  NSDictionary<NSString *,id> * _Nullable bindings) {
-    if ([evaluatedObject isKindOfClass:class]) {
-      BOOL attributeIsPresent = ((MGLPointFeature *)evaluatedObject).attributes[attributeName];
-      return !attributeIsPresent;
-    }
-    return YES;
-  }]];
+  [self.annotations filterUsingPredicate:[NSPredicate predicateWithBlock:
+                                          [self makeAnnotationFilter:attributeName]]];
+}
+
+- (BOOL(^)(id<MGLFeature>,  NSDictionary<NSString *,id>*))makeAnnotationFilter:(NSString *)attributeName {
+  return ^BOOL(id<MGLFeature> evaluatedObject,  NSDictionary<NSString *,id> * _Nullable bindings) {
+    BOOL attributeIsPresent = [evaluatedObject.attributes[kAttributeType] isEqualToString:attributeName];
+    return !attributeIsPresent;
+  };
 }
 
 - (void)addDirections:(NSArray<CLLocation *> *)locations {
@@ -311,7 +328,7 @@ static NSString* const kAttributeNameRoute = @"route";
   
   MGLPolylineFeature *polyline = [self polylineForPath:locations];
   polyline.attributes = @{
-    kAttributeNameRoute: @(YES)
+    kAttributeType: kAttributeNameRoute
   };
   [self.annotations addObject:polyline];
   [self addDirectionsLayer:self.mapView.style shape:polyline];
@@ -329,6 +346,7 @@ static NSString* const kAttributeNameRoute = @"route";
   return polyline;
 }
 
+#pragma mark - handleMapTap
 - (IBAction)handleMapTap:(UITapGestureRecognizer *)tap {
   MGLSource *source = [self.mapView.style sourceWithIdentifier:MapViewControllerSourceIdPoint];
   if (![source isKindOfClass:[MGLShapeSource class]]) {
@@ -354,7 +372,7 @@ static NSString* const kAttributeNameRoute = @"route";
 
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
     if ([self.annotations count] > 1) {
-      [self  showAnnotations:^{}];
+      [self showAnnotations:^{}];
       return;
     }
     if ([self.annotations count] == 1) {
@@ -450,7 +468,7 @@ static NSString* const kAttributeNameRoute = @"route";
   MGLPointFeature *location = [[MGLPointFeature alloc] init];
   location.coordinate = self.locationModel.lastLocation.coordinate;
   location.attributes = @{
-    kAttributeNameLocation: @(YES)
+    kAttributeType: kAttributeNameLocation
   };
   [self.annotations addObject:location];
   [self showAnnotations:completion];
