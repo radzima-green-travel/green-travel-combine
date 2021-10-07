@@ -86,8 +86,8 @@
       [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkReact];
     }
   }
-  [self.userDefaultsService saveBuildNumber:[NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
-  [self.userDefaultsService saveVersion:[NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]];
+  
+  [self saveVersion];
   
   if ([UserDefaultsServiceConstantsFrameworkReact isEqualToString:
        [self.userDefaultsService loadFrameworkValue]]) {
@@ -162,6 +162,14 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+- (void)saveVersion {
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+    [weakSelf.userDefaultsService saveBuildNumber:[NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
+    [weakSelf.userDefaultsService saveVersion:[NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]];
+  });
 }
 
 - (void)loadCategories {
