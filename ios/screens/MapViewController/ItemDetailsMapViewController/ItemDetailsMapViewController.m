@@ -54,8 +54,10 @@
 static NSString* const kBottomSheetButtonLabel = @"В путь";
 static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
 static NSString* const kAttributeNameLocation = @"location";
+static NSString* const kAttributeNamePoint = @"point";
 static NSString* const kAttributeNameRoute = @"route";
 static NSString* const kAttributeNameArea = @"area";
+static NSString* const kAttributeNameBorder = @"border";
 static NSString* const kAttributeType = @"type";
 
 @implementation ItemDetailsMapViewController
@@ -151,6 +153,7 @@ static NSString* const kAttributeType = @"type";
     @"title": mapItem.title,
     @"uuid": mapItem.correspondingPlaceItem.uuid,
     @"bookmarked":[NSNumber numberWithBool:mapItem.correspondingPlaceItem.bookmarked],
+    kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypePoint),
   };
   [self.annotations addObject:point];
 
@@ -175,9 +178,17 @@ static NSString* const kAttributeType = @"type";
       MGLPolygon *polygonPart = [MGLPolygon polygonWithCoordinates:coordinates count:[partCoordinates count]];
       [polygonParts addObject:polygonPart];
       free(coordinates);
-      [polygonOutlines addObject:[self polylineForPath:partCoordinates]];
+      
+      MGLPolylineFeature *outline = [self polylineForPath:partCoordinates];
+      outline.attributes = @{
+        kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeOutline),
+      };
+      [polygonOutlines addObject:outline];
     }];
     MGLMultiPolygonFeature *polygon = [MGLMultiPolygonFeature multiPolygonWithPolygons:polygonParts];
+    polygon.attributes = @{
+      kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeArea),
+    };
 
     [self.annotations addObject:polygon];
 
@@ -195,6 +206,9 @@ static NSString* const kAttributeType = @"type";
     }];
 
     MGLPolylineFeature *polyline = [MGLPolylineFeature polylineWithCoordinates:coordinates count:[path count]];
+    polyline.attributes = @{
+      kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypePath),
+    };
     [self.annotations addObject:polyline];
 
     sourcePath = [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdPath
@@ -275,18 +289,24 @@ static NSString* const kAttributeType = @"type";
                            animated:YES completionHandler:completion];
 }
 
-- (void)showAnnotationsWithType:(NSString *)annotationType
+- (void)showAnnotationsWithType:(ItemDetailsMapViewControllerAnnotationType)annotationType
                      completion:(void(^)(void))completion {
   NSArray<id<MGLAnnotation>> *annotationsToShow =
   [self.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:
                                                  [self makeAnnotationFilter:annotationType]]];
+  if ([annotationsToShow count] == 1) {
+    [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate
+                            zoomLevel:12.0
+                             animated:YES];
+    return;
+  }
   [self.mapView showAnnotations:annotationsToShow
-                      edgePadding:[self calculateEdgePadding]
-                         animated:YES
-                completionHandler:completion];
+                    edgePadding:[self calculateEdgePadding]
+                       animated:YES
+              completionHandler:completion];
 }
 
-#pragma mark addDirections
+#pragma mark - addDirections
 - (void)addDirectionsLayer:(MGLStyle *)style shape:(MGLShape *)shape {
   if ([style layerWithIdentifier:MapViewControllerDirectionsLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:MapViewControllerDirectionsLayerId]];
@@ -311,24 +331,28 @@ static NSString* const kAttributeType = @"type";
   [style addLayer:dashedLayer];
 }
 
-- (void)removeDuplicateAnnotations:(Class)class attribute:(NSString *)attributeName {
+#pragma mark - removeDuplicateAnnotations
+- (void)removeDuplicateAnnotations:(Class)class
+                         attribute:(ItemDetailsMapViewControllerAnnotationType)attributeValue {
   [self.annotations filterUsingPredicate:[NSPredicate predicateWithBlock:
-                                          [self makeAnnotationFilter:attributeName]]];
+                                          [self makeAnnotationFilter:attributeValue]]];
 }
 
-- (BOOL(^)(id<MGLFeature>,  NSDictionary<NSString *,id>*))makeAnnotationFilter:(NSString *)attributeName {
+- (BOOL(^)(id<MGLFeature>,  NSDictionary<NSString *,id>*))makeAnnotationFilter:(ItemDetailsMapViewControllerAnnotationType)attributeValue {
   return ^BOOL(id<MGLFeature> evaluatedObject,  NSDictionary<NSString *,id> * _Nullable bindings) {
-    BOOL attributeIsPresent = [evaluatedObject.attributes[kAttributeType] isEqualToString:attributeName];
+    BOOL attributeIsPresent =
+    [((NSNumber *)evaluatedObject.attributes[kAttributeType]) intValue] & attributeValue;
     return !attributeIsPresent;
   };
 }
 
 - (void)addDirections:(NSArray<CLLocation *> *)locations {
-  [self removeDuplicateAnnotations:MGLPolylineFeature.class attribute:kAttributeNameRoute];
+  [self removeDuplicateAnnotations:MGLPolylineFeature.class
+                         attribute:ItemDetailsMapViewControllerAnnotationTypeRoute];
   
   MGLPolylineFeature *polyline = [self polylineForPath:locations];
   polyline.attributes = @{
-    kAttributeType: kAttributeNameRoute
+    kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeRoute)
   };
   [self.annotations addObject:polyline];
   [self addDirectionsLayer:self.mapView.style shape:polyline];
@@ -363,24 +387,28 @@ static NSString* const kAttributeType = @"type";
   NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:MapViewControllerPointLayerId, MapViewControllerPathLayerId, MapViewControllerPolygonLayerId, nil]];
 
   // Pick the first feature (which may be a port or a cluster), ideally selecting
-  // the one nearest nearest one to the touch point.
+  // the one nearest one to the touch point.
   id<MGLFeature> feature = features.firstObject;
-  if (feature && ([feature isKindOfClass:[MGLPointFeature class]] ||
-                  [feature isKindOfClass:[MGLMultiPolygonFeature class]] ||
-                  [feature isKindOfClass:[MGLPolygonFeature class]] ||
-                  [feature isKindOfClass:[MGLPolylineFeature class]])) {
-
+  if (!feature) {
+    [self hidePopup];
+    return;
+  }
+  ItemDetailsMapViewControllerAnnotationType featureType =
+  [((NSNumber *) feature.attributes[kAttributeType]) intValue];
+  NSUInteger placeItemTypes = ItemDetailsMapViewControllerAnnotationTypePoint |
+  ItemDetailsMapViewControllerAnnotationTypeArea |
+  ItemDetailsMapViewControllerAnnotationTypeOutline |
+  ItemDetailsMapViewControllerAnnotationTypePath;
+  if (featureType & placeItemTypes) {
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
-    if ([self.annotations count] > 1) {
-      [self showAnnotations:^{}];
-      return;
-    }
-    if ([self.annotations count] == 1) {
-      [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate
-                              zoomLevel:12.0
-                               animated:YES];
-      return;
-    }
+    [self showAnnotationsWithType:placeItemTypes
+                       completion:^{}];
+  }
+  if (featureType & ItemDetailsMapViewControllerAnnotationTypeRoute) {
+    [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
+    [self showAnnotationsWithType:placeItemTypes |
+     ItemDetailsMapViewControllerAnnotationTypeRoute
+                       completion:^{}];
   }
   [self hidePopup];
 }
@@ -464,11 +492,12 @@ static NSString* const kAttributeType = @"type";
   }
   [self showUserLocation:YES];
   
-  [self removeDuplicateAnnotations:MGLPointFeature.class attribute:kAttributeNameLocation];
+  [self removeDuplicateAnnotations:MGLPointFeature.class
+                         attribute:ItemDetailsMapViewControllerAnnotationTypeLocation];
   MGLPointFeature *location = [[MGLPointFeature alloc] init];
   location.coordinate = self.locationModel.lastLocation.coordinate;
   location.attributes = @{
-    kAttributeType: kAttributeNameLocation
+    kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeLocation)
   };
   [self.annotations addObject:location];
   [self showAnnotations:completion];
