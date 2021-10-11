@@ -158,6 +158,10 @@ static const CGFloat kDistanceButtonBottom = 24;
   return totalHeight;
 }
 
+- (BOOL)isInProgress {
+  return self.progressCounter > 0;
+}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)
 otherGestureRecognizer {
@@ -222,11 +226,11 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
                    animations:^{
     [weakSelf adaptToContent];
   } completion:^(BOOL finished) {
+    weakSelf.progressCounter--;
     if (!weakSelf.visible) {
       weakSelf.visible = YES;
       [weakSelf appearAnimationDidEnd:YES];
     }
-    weakSelf.progressCounter--;
   }];
 }
 
@@ -238,11 +242,11 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
     CGRect frame = weakSelf.frame;
     weakSelf.frame = CGRectMake(frame.origin.x, [UIScreen mainScreen].bounds.size.height, frame.size.width, frame.size.height);
   } completion:^(BOOL finished) {
+    weakSelf.progressCounter--;
     if (weakSelf.visible) {
       weakSelf.visible = NO;
       [weakSelf appearAnimationDidEnd:NO];
     }
-    weakSelf.progressCounter--;
   }];
 }
 

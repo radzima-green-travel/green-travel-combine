@@ -34,6 +34,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress;
 - (CommonButton *)makeDetailsButton;
 - (void)appearAnimationDidEnd:(BOOL)appear;
 - (CGFloat)heightOfContent;
+- (BOOL)isInProgress;
 
 @end
 

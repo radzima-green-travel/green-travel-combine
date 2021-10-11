@@ -272,8 +272,8 @@ static NSString* const kAttributeType = @"type";
 }
 
 - (UIEdgeInsets)calculateEdgePadding {
-  CGFloat bottomPadding = self.bottomSheet.visible ?
-    [self.bottomSheet heightOfContent] : 40.0;
+  CGFloat bottomPadding = (self.bottomSheet.visible ||
+    [self.bottomSheet isInProgress]) ? [self.bottomSheet heightOfContent] : 40.0;
   UIEdgeInsets edgePadding = UIEdgeInsetsMake(40.0, 40.0, bottomPadding, 40.0);
   return edgePadding;
 }
