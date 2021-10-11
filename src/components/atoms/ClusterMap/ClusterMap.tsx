@@ -12,6 +12,7 @@ import {Props} from './types';
 import {styles} from './styles';
 import {isIOS} from 'services/PlatformService';
 import {useColorScheme} from 'core/hooks';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const ClusterMap = memo(
   forwardRef<MapboxGL.MapView, Props>(
@@ -27,6 +28,7 @@ export const ClusterMap = memo(
       ref,
     ) => {
       const onShapePressed = useRef(false);
+      const {top} = useSafeAreaInsets();
       const map = useRef<MapboxGL.MapView>(null);
 
       useEffect(() => {
@@ -127,8 +129,9 @@ export const ClusterMap = memo(
                 ? 'mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h'
                 : 'mapbox://styles/epm-slr/ckodyal5d3i9017pb9vii6v18'
             }
-            compassEnabled={false}
-            logoEnabled={false}>
+            logoPosition={{left: 22, bottom: 22}}
+            attributionPosition={{top: top, right: top > 20 ? 17 : 7}}
+            compassEnabled={false}>
             <MapboxGL.Camera {...initialBounds} ref={cameraRef} />
             {children}
           </MapboxGL.MapView>
