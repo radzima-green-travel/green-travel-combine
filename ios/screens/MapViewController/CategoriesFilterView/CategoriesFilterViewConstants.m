@@ -11,3 +11,5 @@
 const CGFloat CategoriesFilterViewIconWidth = 25.0;
 const CGFloat CategoriesFilterViewIconToLabelSpacing = 10.0;
 const CGFloat CategoriesFilterViewLabelToCellSpacing = 14.0;
+const CGFloat CategoriesFilterViewSpacingWidth = 16.0;
+const CGFloat CategoriesFilterViewInsetBottom = 13.5;

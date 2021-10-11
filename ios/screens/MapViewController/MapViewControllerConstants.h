@@ -20,6 +20,8 @@ FOUNDATION_EXPORT NSString* const MapViewControllerOutlineLayerId;
 FOUNDATION_EXPORT NSString* const MapViewControllerPointLayerId;
 FOUNDATION_EXPORT NSString* const MapViewControllerDirectionsLayerId;
 
+FOUNDATION_EXPORT CGFloat const MapViewControllerAttributionButtonInset;
+
 typedef NS_ENUM(NSInteger, MapViewControllerType) {
   MapViewControllerTypeDetails = 0,
   MapViewControllerTypeFull = 1,

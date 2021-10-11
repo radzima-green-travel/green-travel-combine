@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CoreDataService;
 @class DetailsModel;
 
-@interface FullMapViewController : BaseMapViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver>
+@interface FullMapViewController : BaseMapViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver, UINavigationControllerDelegate>
 
 - (void)scrollToTop;
 

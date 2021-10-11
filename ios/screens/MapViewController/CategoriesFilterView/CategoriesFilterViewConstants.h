@@ -12,3 +12,5 @@
 FOUNDATION_EXPORT const CGFloat CategoriesFilterViewIconWidth;
 FOUNDATION_EXPORT const CGFloat CategoriesFilterViewIconToLabelSpacing;
 FOUNDATION_EXPORT const CGFloat CategoriesFilterViewLabelToCellSpacing;
+FOUNDATION_EXPORT const CGFloat CategoriesFilterViewSpacingWidth;
+FOUNDATION_EXPORT const CGFloat CategoriesFilterViewInsetBottom;
