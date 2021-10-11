@@ -80,6 +80,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   self.timeTracer = [[AnalyticsTimeTracer alloc] initWithEventName:AnalyticsEventsLifeTimeFullMapScreen];
   BottomSheetPresentationControllerTransitioningDelegate *bottomSheetDelegate = [[BottomSheetPresentationControllerTransitioningDelegate alloc] init];
   self.bottomSheetDelegate = bottomSheetDelegate;
+  self.navigationController.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -90,7 +91,20 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
+  if (![self.navigationController isNavigationBarHidden]) {
+    [self adaptAttributionButton];
+    __weak typeof(self) weakSelf = self;
+    [NSTimer  scheduledTimerWithTimeInterval:UINavigationControllerHideShowBarDuration
+                                    repeats:NO block:^(NSTimer * _Nonnull timer) {
+      [weakSelf adaptAttributionButton];
+    }];
+  } else {
+    [self.mapView setAttributionButtonMargins:CGPointMake(
+                 MapViewControllerAttributionButtonInset,
+                 MapViewControllerAttributionButtonInset)];
+  }
   [self.navigationController setNavigationBarHidden:YES animated:YES];
+  
   [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenMapFull];
 }
 
@@ -102,6 +116,22 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
   [self.timeTracer traceEnd];
+}
+
+- (void)adaptAttributionButton {
+  CGFloat topPadding = self.mapView.safeAreaInsets.top;
+  CGSize statusBarSize = [[UIApplication sharedApplication] statusBarFrame].size;
+  CGFloat statusBarHeight = MIN(statusBarSize.width, statusBarSize.height);
+  [self.mapView setAttributionButtonMargins:
+   CGPointMake(MapViewControllerAttributionButtonInset,
+               -topPadding + MapViewControllerAttributionButtonInset + statusBarHeight)];
+}
+
+#pragma mark - Orientation change
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+  [self.mapView setAttributionButtonMargins:CGPointMake(
+               MapViewControllerAttributionButtonInset,
+               MapViewControllerAttributionButtonInset)];
 }
 
 #pragma mark - Categories filter view

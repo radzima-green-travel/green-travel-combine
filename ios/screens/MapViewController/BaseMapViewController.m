@@ -34,6 +34,7 @@
 #import "CacheService.h"
 #import "MapViewControllerConstants.h"
 #import <react-native-ultimate-config/ConfigValues.h>
+#import "CategoriesFilterView/CategoriesFilterViewConstants.h"
 
 @interface BaseMapViewController ()
 
@@ -147,7 +148,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
     [self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
     [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
   ]];
- 
+  
   if (![self.mapView.gestureRecognizers containsObject:self.singleTap]) {
     self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
     for (UIGestureRecognizer *recognizer in self.mapView.gestureRecognizers) {
@@ -253,6 +254,8 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   [[CacheService get].cache setObject:mapViewConstructed forKey:@"mapView"];
   self.mapView = mapViewConstructed;
   [self applyStyleToMap];
+  [self.mapView setAttributionButtonPosition:MGLOrnamentPositionTopRight];
+  [self.mapView setLogoViewMargins:CGPointMake(CategoriesFilterViewSpacingWidth, CategoriesFilterViewInsetBottom)];
 }
 
 - (void)onMapItemsUpdate:(NSArray<MapItem *> *)mapItems {

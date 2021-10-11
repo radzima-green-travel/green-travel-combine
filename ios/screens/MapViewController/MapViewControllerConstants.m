@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 
 NSString* const MapViewControllerSourceIdAll = @"sourceIdAll";
@@ -22,3 +23,5 @@ NSString* const MapViewControllerPathLayerId = @"pathLayerId";
 NSString* const MapViewControllerOutlineLayerId = @"outlineLayerId";
 NSString* const MapViewControllerPointLayerId = @"pointLayerId";
 NSString* const MapViewControllerDirectionsLayerId = @"directionsLayerId";
+
+CGFloat const MapViewControllerAttributionButtonInset = 8.0;

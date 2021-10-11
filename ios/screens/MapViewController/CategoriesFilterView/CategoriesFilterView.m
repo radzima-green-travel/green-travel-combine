@@ -174,7 +174,7 @@ static const CGFloat kSpacingWidth = 16.0;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(16.0, 0, 13.5, 0);
+    return UIEdgeInsetsMake(CategoriesFilterViewSpacingWidth, 0, CategoriesFilterViewInsetBottom, 0);
 }
 
 NSUInteger indexPathToDataCellIndex(NSIndexPath *indexPath) {
