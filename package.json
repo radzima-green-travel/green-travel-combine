@@ -30,7 +30,7 @@
     "@types/lodash": "4.14.157",
     "@types/react-redux": "7.1.9",
     "@types/supercluster": "^5.0.3",
-    "axios": "0.19.2",
+    "axios": "0.23.0",
     "husky": "4.2.5",
     "i18next": "19.5.1",
     "lint-staged": "10.2.11",
