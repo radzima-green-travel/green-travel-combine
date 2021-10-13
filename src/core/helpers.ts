@@ -69,8 +69,12 @@ export function transformMainData(data: ICategory[]): ITransformedData {
       const objects: string[] = map(category.objects, object => {
         transformedData.objectsMap[object.id] = {
           ...object,
-          cover: imagesService.getImageProxy(object.cover, SCREEN_WIDTH * 2),
-          images: map(object.images, img => imagesService.getImageProxy(img)),
+          cover: object.cover
+            ? imagesService.getImageProxy(object.cover)
+            : object.cover,
+          images: map(object.images, img =>
+            img ? imagesService.getImageProxy(img) : img,
+          ),
         };
         transformedData.objectsToCategoryMap[object.id] = category.id;
         return object.id;
@@ -81,9 +85,7 @@ export function transformMainData(data: ICategory[]): ITransformedData {
       const children = map(transforedCategories, cat => {
         transformedData.categoriesMap[cat.id] = {
           ...cat,
-          cover: cat.cover
-            ? imagesService.getImageProxy(cat.cover, SCREEN_WIDTH * 2)
-            : cat.cover,
+          cover: cat.cover ? imagesService.getImageProxy(cat.cover) : cat.cover,
         };
         return cat.id;
       });
