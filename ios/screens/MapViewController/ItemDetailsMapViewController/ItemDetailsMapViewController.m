@@ -47,6 +47,8 @@
 @property (strong, nonatomic) UINotificationFeedbackGenerator *feedbackGenerator;
 @property (copy, nonatomic) void(^cancelGetDirections)(void);
 @property (copy, nonatomic) ContinueToNavigation next;
+@property (assign, nonatomic) ItemDetailsMapViewControllerAnnotationType
+currentFeatureSelection;
 
 @end
 
@@ -81,6 +83,13 @@ static NSString* const kAttributeType = @"type";
   ((BottomSheetViewDetailedMap *) self.bottomSheet).onPressNavigate = ^{
     [weakSelf showRoutesSheet];
   };
+  self.currentFeatureSelection =
+  ItemDetailsMapViewControllerAnnotationTypePoint |
+  ItemDetailsMapViewControllerAnnotationTypeArea |
+  ItemDetailsMapViewControllerAnnotationTypeOutline |
+  ItemDetailsMapViewControllerAnnotationTypePath |
+  ItemDetailsMapViewControllerAnnotationTypeRoute |
+  ItemDetailsMapViewControllerAnnotationTypeLocation;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -271,22 +280,23 @@ static NSString* const kAttributeType = @"type";
 
 #pragma mark - showAnnotations
 - (void)showAnnotations:(void(^)(void))completion {
-  if ([self.annotations count] > 1) {
-    [self.mapView showAnnotations:self.annotations
+  NSArray<id<MGLAnnotation>> *annotations =
+  [self.annotations filteredArrayUsingPredicate:
+   [NSPredicate predicateWithBlock:[self makeAnnotationFilter:
+                                    self.currentFeatureSelection]]];
+  if ([annotations count] > 1) {
+    [self.mapView showAnnotations:annotations
                       edgePadding:[self calculateEdgePadding]
                          animated:YES
                 completionHandler:completion];
     return;
   }
-  if ([self.annotations count] == 1) {
-    [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate
+  if ([annotations count] == 1) {
+    [self.mapView setCenterCoordinate:annotations.firstObject.coordinate
                             zoomLevel:12.0 direction:self.mapView.direction
                              animated:YES completionHandler:completion];
-    return;
+   
   }
-  [self.mapView setCenterCoordinate:self.locationModel.lastLocation.coordinate
-                          zoomLevel:8.0 direction:self.mapView.direction
-                           animated:YES completionHandler:completion];
 }
 
 - (void)showAnnotationsWithType:(ItemDetailsMapViewControllerAnnotationType)annotationType
@@ -294,6 +304,7 @@ static NSString* const kAttributeType = @"type";
   NSArray<id<MGLAnnotation>> *annotationsToShow =
   [self.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:
                                                  [self makeAnnotationFilter:annotationType]]];
+  self.currentFeatureSelection = annotationType;
   if ([annotationsToShow count] == 1) {
     [self.mapView setCenterCoordinate:self.annotations.firstObject.coordinate
                             zoomLevel:12.0
@@ -334,15 +345,18 @@ static NSString* const kAttributeType = @"type";
 #pragma mark - removeDuplicateAnnotations
 - (void)removeDuplicateAnnotations:(Class)class
                          attribute:(ItemDetailsMapViewControllerAnnotationType)attributeValue {
+  ItemDetailsMapViewControllerAnnotationType typesWithoutFilteredOutValue =
+      getAllItemTypes() ^ attributeValue;
   [self.annotations filterUsingPredicate:[NSPredicate predicateWithBlock:
-                                          [self makeAnnotationFilter:attributeValue]]];
+                                          [self makeAnnotationFilter:typesWithoutFilteredOutValue]]];
 }
 
-- (BOOL(^)(id<MGLFeature>,  NSDictionary<NSString *,id>*))makeAnnotationFilter:(ItemDetailsMapViewControllerAnnotationType)attributeValue {
+- (BOOL(^)(id<MGLFeature>,  NSDictionary<NSString *,id>*))makeAnnotationFilter:(ItemDetailsMapViewControllerAnnotationType)attributeMask {
   return ^BOOL(id<MGLFeature> evaluatedObject,  NSDictionary<NSString *,id> * _Nullable bindings) {
-    BOOL attributeIsPresent =
-    [((NSNumber *)evaluatedObject.attributes[kAttributeType]) intValue] & attributeValue;
-    return !attributeIsPresent;
+    NSUInteger attributeValue =
+    [((NSNumber *)evaluatedObject.attributes[kAttributeType]) intValue];
+    BOOL attributeIsPresent = attributeValue & attributeMask;
+    return attributeIsPresent;
   };
 }
 
@@ -384,7 +398,11 @@ static NSString* const kAttributeType = @"type";
   CGFloat width = kIconSize.width;
   CGRect rect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
 
-  NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:MapViewControllerPointLayerId, MapViewControllerPathLayerId, MapViewControllerPolygonLayerId, nil]];
+  NSArray<id<MGLFeature>> *features =
+  [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:
+   [NSSet setWithObjects:
+    MapViewControllerPointLayerId, MapViewControllerPathLayerId,
+    MapViewControllerPolygonLayerId, MapViewControllerDirectionsLayerId, nil]];
 
   // Pick the first feature (which may be a port or a cluster), ideally selecting
   // the one nearest one to the touch point.
@@ -395,20 +413,23 @@ static NSString* const kAttributeType = @"type";
   }
   ItemDetailsMapViewControllerAnnotationType featureType =
   [((NSNumber *) feature.attributes[kAttributeType]) intValue];
-  NSUInteger placeItemTypes = ItemDetailsMapViewControllerAnnotationTypePoint |
+  ItemDetailsMapViewControllerAnnotationType placeItemTypes =
+  ItemDetailsMapViewControllerAnnotationTypePoint |
   ItemDetailsMapViewControllerAnnotationTypeArea |
   ItemDetailsMapViewControllerAnnotationTypeOutline |
   ItemDetailsMapViewControllerAnnotationTypePath;
+  ItemDetailsMapViewControllerAnnotationType allItemTypes = getAllItemTypes();
   if (featureType & placeItemTypes) {
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
     [self showAnnotationsWithType:placeItemTypes
                        completion:^{}];
+    return;
   }
   if (featureType & ItemDetailsMapViewControllerAnnotationTypeRoute) {
     [self showPopupWithItem:self.mapItem.correspondingPlaceItem];
-    [self showAnnotationsWithType:placeItemTypes |
-     ItemDetailsMapViewControllerAnnotationTypeRoute
+    [self showAnnotationsWithType:allItemTypes
                        completion:^{}];
+    return;
   }
   [self hidePopup];
 }
@@ -500,7 +521,7 @@ static NSString* const kAttributeType = @"type";
     kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeLocation)
   };
   [self.annotations addObject:location];
-  [self showAnnotations:completion];
+  [self showAnnotationsWithType:getAllItemTypes() completion:completion];
 }
 
 - (void)showDirections:(ContinueToNavigation)next {

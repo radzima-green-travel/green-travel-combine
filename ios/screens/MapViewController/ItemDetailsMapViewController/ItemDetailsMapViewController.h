@@ -24,6 +24,15 @@ typedef NS_OPTIONS(NSUInteger, ItemDetailsMapViewControllerAnnotationType) {
   ItemDetailsMapViewControllerAnnotationTypeLocation = 1 << 5,
 };
 
+static inline ItemDetailsMapViewControllerAnnotationType getAllItemTypes() {
+  return ItemDetailsMapViewControllerAnnotationTypePoint |
+  ItemDetailsMapViewControllerAnnotationTypeArea |
+  ItemDetailsMapViewControllerAnnotationTypeOutline |
+  ItemDetailsMapViewControllerAnnotationTypePath |
+  ItemDetailsMapViewControllerAnnotationTypeRoute |
+  ItemDetailsMapViewControllerAnnotationTypeLocation;
+}
+
 @class MapModel;
 @class MapItem;
 @class LocationModel;
