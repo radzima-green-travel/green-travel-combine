@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class SearchModel;
 @class MapService;
 
+typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
+  DetailsViewControllerCTATypeMap = 0,
+  DetailsViewControllerCTATypeWebsite = 1,
+};
+
 @interface DetailsViewController : UIViewController <BookmarksObserver, CategoriesObserver>
 
 - (instancetype)initWithApiService:(ApiService *)apiService

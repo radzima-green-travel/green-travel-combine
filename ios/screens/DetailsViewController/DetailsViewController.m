@@ -35,6 +35,7 @@
 #import "AnalyticsUIScrollViewDelegate.h"
 #import "AnalyticsTimeTracer.h"
 #import "BookmarkButton.h"
+#import <SafariServices/SafariServices.h>
 
 @interface DetailsViewController ()
 
@@ -49,6 +50,7 @@
 @property (strong, nonatomic) GalleryView *imageGalleryView;
 @property (strong, nonatomic) UIButton *mapButtonTop;
 @property (strong, nonatomic) UIButton *mapButtonBottom;
+@property (strong, nonatomic) UIButton *linkWebsiteSecondary;
 @property (strong, nonatomic) DescriptionView *descriptionTextView;
 @property (strong, nonatomic) UIStackView *descriptionPlaceholderView;
 @property (strong, nonatomic) UILabel *interestingLabel;
@@ -77,6 +79,9 @@
 @property (strong, nonatomic) AnalyticsTimeTracer *timeTracer;
 
 @end
+
+static const CGFloat kDistanceDescriptionToBottom = 26.0;
+static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 @implementation DetailsViewController
 
@@ -351,30 +356,75 @@
 }
 
 #pragma mark - Map button top
-- (void)addMapButton {
-    if (self.mapButtonTop != nil) {
-      return;
-    }
+- (void)addButtonCTA:(DetailsViewControllerCTAType)ctaType {
+  if (self.mapButtonTop != nil) {
+    return;
+  }
+  NSLayoutConstraint *topAnchor;
+  if (ctaType == DetailsViewControllerCTATypeMap) {
+    self.mapButtonTop =
+    [[CommonButton alloc] initWithTarget:self
+                                  action:@selector(onMapButtonPress:)
+                                   label:@"Посмотреть на карте"];
+    topAnchor = [self.mapButtonTop.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0];
+  }
+  if (ctaType == DetailsViewControllerCTATypeWebsite) {
+    self.mapButtonTop =
+    [[CommonButton alloc] initWithTarget:self
+                                  action:@selector(onWebsiteButtonPress:)
+                                   label:@"Официальный сайт"];
+    topAnchor = [self.mapButtonTop.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0];
+  }
   
-    self.mapButtonTop = [[CommonButton alloc] initWithTarget:self action:@selector(onMapButtonPress:) label:@"Посмотреть на карте"];
-
-    [self.contentView addSubview:self.mapButtonTop];
-
-    NSLayoutConstraint *mapButtonTopLeading = [self.mapButtonTop.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0];
-    NSLayoutConstraint *mapButtonTopTrailing = [self.mapButtonTop.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0];
-    mapButtonTopLeading.priority = UILayoutPriorityDefaultHigh - 1;
-    mapButtonTopTrailing.priority = UILayoutPriorityDefaultHigh - 1;
-
-    [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
-    self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.mapButtonTop.bottomAnchor constant:26.0];
-    [NSLayoutConstraint activateConstraints:@[
-        self.descriptionTextTopAnchor,
-        [self.mapButtonTop.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0],
-        [self.mapButtonTop.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        mapButtonTopLeading,
-        mapButtonTopTrailing,
-    ]];
+  [self.contentView addSubview:self.mapButtonTop];
+  
+  NSLayoutConstraint *mapButtonTopLeading = [self.mapButtonTop.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0];
+  NSLayoutConstraint *mapButtonTopTrailing = [self.mapButtonTop.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0];
+  mapButtonTopLeading.priority = UILayoutPriorityDefaultHigh - 1;
+  mapButtonTopTrailing.priority = UILayoutPriorityDefaultHigh - 1;
+  
+  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
+  self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.mapButtonTop.bottomAnchor constant:26.0];
+  [NSLayoutConstraint activateConstraints:@[
+    self.descriptionTextTopAnchor,
+    topAnchor,
+    [self.mapButtonTop.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+    mapButtonTopLeading,
+    mapButtonTopTrailing,
+  ]];
 }
+
+- (void)addButtonSecondary {
+  if (self.linkWebsiteSecondary != nil) {
+    return;
+  }
+  self.linkWebsiteSecondary = [[UIButton alloc] initWithFrame:CGRectZero];
+  [self.linkWebsiteSecondary addTarget:self
+                                action:@selector(onWebsiteButtonSecondaryPress:) forControlEvents:UIControlEventTouchUpInside];
+  NSAttributedString *label =
+  [[Typography get] makeButtonText:@"Официальный сайт"
+                             color:[ColorsLegacy get].royalBlue];
+  [self.linkWebsiteSecondary setAttributedTitle:label
+                                       forState:UIControlStateNormal];
+  
+  [self.contentView addSubview:self.linkWebsiteSecondary];
+  
+  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
+  self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.linkWebsiteSecondary.topAnchor constant:0.0];
+  self.linkWebsiteSecondary.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    self.descriptionTextBottomAnchor,
+    [self.linkWebsiteSecondary.leadingAnchor
+     constraintEqualToAnchor:self.descriptionTextView.leadingAnchor
+     constant:kDistanceScreenEdgeToTextContent],
+    [self.linkWebsiteSecondary.trailingAnchor
+     constraintLessThanOrEqualToAnchor:self.descriptionTextView.trailingAnchor
+     constant:-kDistanceScreenEdgeToTextContent],
+    [self.linkWebsiteSecondary.bottomAnchor
+     constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5],
+  ]];
+}
+
 
 #pragma mark - Linked categories view
 - (void)addLinkedCategoriesView {
@@ -437,9 +487,15 @@
         [weakSelf.locationButton setAttributedTitle:
          [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[ColorsLegacy get].royalBlue]
                                            forState:UIControlStateNormal];
-        [weakSelf addMapButton];
+        [weakSelf addButtonCTA:DetailsViewControllerCTATypeMap];
+      }
+      if (weakSelf.item.details.url && [weakSelf.item.details.url hasPrefix:@"https://"]) {
+        [weakSelf addButtonCTA:DetailsViewControllerCTATypeWebsite];
       }
       [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
+      if (weakSelf.item.details.url && [weakSelf.item.details.url hasPrefix:@"http://"]) {
+         [weakSelf addButtonSecondary];
+      }
       if (details.categoryIdToItems) {
         [weakSelf addLinkedCategoriesView];
         [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
@@ -494,6 +550,20 @@
       AnalyticsEventsParamCardCategory: self.item.category.title
     }];
 }
+
+#pragma mark - onWebsiteButtonPress
+- (void)onWebsiteButtonPress:(id)sender {
+  NSURL *url = [NSURL URLWithString:self.item.details.url];
+  SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+  [self presentViewController:safariViewController animated:YES completion:^{}];
+}
+
+- (void)onWebsiteButtonSecondaryPress:(id)sender {
+  NSURL *url = [NSURL URLWithString:self.item.details.url];
+  [UIApplication.sharedApplication openURL:url options:@{}
+                         completionHandler:^(BOOL success) {}];
+}
+
 
 - (void)onLocationButtonPress:(id)sender {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
