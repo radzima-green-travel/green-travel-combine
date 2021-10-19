@@ -130,8 +130,10 @@ export const ClusterMap = memo(
                 : 'mapbox://styles/epm-slr/ckodyal5d3i9017pb9vii6v18'
             }
             logoPosition={{left: 22, bottom: 22}}
-            attributionPosition={{top: top, right: top > 20 ? 17 : 7}}
-            compassEnabled={false}>
+            // attributionPosition={{top: top, right: top > 20 ? 17 : 7}}
+            attributionPosition={{bottom: 90, right: 30}}
+            compassEnabled={true}
+            compassViewMargins={{y: top > 20 ? top : top + 10, x: 16}}>
             <MapboxGL.Camera {...initialBounds} ref={cameraRef} />
             {children}
           </MapboxGL.MapView>
