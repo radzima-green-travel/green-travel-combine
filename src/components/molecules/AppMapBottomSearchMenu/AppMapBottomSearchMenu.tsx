@@ -1,5 +1,5 @@
 import React, {memo, useCallback} from 'react';
-import {Pressable, View} from 'react-native';
+import {Keyboard, Pressable, View} from 'react-native';
 import {themeStyles} from './styles';
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {useThemeStyles, useColorScheme} from 'core/hooks';
@@ -33,7 +33,10 @@ export const AppMapBottomSearchMenu = memo(
 
     const onItemPressHandler = useCallback(
       async (object: IObject) => {
-        onItemPress(object);
+        Keyboard.dismiss();
+        setTimeout(() => {
+          onItemPress(object);
+        }, 0);
       },
       [onItemPress],
     );

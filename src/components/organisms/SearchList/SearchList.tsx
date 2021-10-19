@@ -46,6 +46,7 @@ export const SearchList = memo(
           <FlatListComponent
             style={styles.listContainer}
             keyboardDismissMode="on-drag"
+            keyboardShouldPersistTaps="handled"
             contentContainerStyle={styles.contentContainer}
             onScrollBeginDrag={Keyboard.dismiss}
             keyExtractor={item => item.id}

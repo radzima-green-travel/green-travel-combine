@@ -207,6 +207,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   return (
     <View style={{flex: 1}}>
       <ClusterMap
+        attributionPosition={{bottom: 40, right: 30}}
         centerCoordinate={centerCoordinate}
         onShapePress={onMarkerPress}
         bounds={bounds}

@@ -9,4 +9,5 @@ export type Props = {
   children: React.ReactNode;
   centerCoordinate?: ICoordinates | null;
   cameraRef?: React.LegacyRef<MapboxGL.Camera>;
+  attributionPosition?: {bottom: number; right: number};
 };
