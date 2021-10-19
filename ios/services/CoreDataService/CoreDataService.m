@@ -214,6 +214,7 @@ NSPersistentContainer *_persistentContainer;
   StoredPlaceDetails *storedDetails = [NSEntityDescription insertNewObjectForEntityForName:@"StoredPlaceDetails" inManagedObjectContext:weakSelf.ctx];
   storedDetails.uuid = details.uuid;
   storedDetails.address = details.address;
+  storedDetails.url = details.url;
   storedDetails.descriptionHTML = details.descriptionHTML;
   storedDetails.imageURLs = [details.images componentsJoinedByString:@","];
   // Save linked categories.
@@ -268,6 +269,7 @@ NSPersistentContainer *_persistentContainer;
 - (PlaceDetails *)mapStoredDetailsToDetails:(StoredPlaceDetails *)storedDetails {
   PlaceDetails *details = [[PlaceDetails alloc] init];
   details.address = storedDetails.address;
+  details.url = storedDetails.url;
   details.images = [storedDetails.imageURLs componentsSeparatedByString:@","];
   details.descriptionHTML = storedDetails.descriptionHTML;
   

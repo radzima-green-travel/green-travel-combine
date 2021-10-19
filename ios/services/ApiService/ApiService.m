@@ -145,6 +145,11 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
   } else {
     details.descriptionHTML = @"";
   }
+  if (item[@"url"] && ![item[@"url"] isEqual:[NSNull null]]) {
+    details.url = item[@"url"];
+  } else {
+    details.url = @"";
+  }
   NSMutableArray<NSMutableArray<CLLocation *> *> *mappedAreaCoords = [[NSMutableArray alloc] init];
   if (item[@"area"] && ![item[@"area"] isEqual:[NSNull null]]) {
     NSArray<NSArray<NSArray<NSArray<NSNumber *> *> *> *> *coords = item[@"area"][@"coordinates"];

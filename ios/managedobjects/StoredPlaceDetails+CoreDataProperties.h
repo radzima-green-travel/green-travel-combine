@@ -2,7 +2,7 @@
 //  StoredPlaceDetails+CoreDataProperties.h
 //  
 //
-//  Created by Alex K on 5/19/21.
+//  Created by Alex K on 20.10.21.
 //
 //
 
@@ -13,12 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StoredPlaceDetails (CoreDataProperties)
 
-+ (NSFetchRequest<StoredPlaceDetails *> *)fetchRequest;
++ (NSFetchRequest<StoredPlaceDetails *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
 
 @property (nullable, nonatomic, copy) NSString *address;
 @property (nullable, nonatomic, copy) NSString *descriptionHTML;
 @property (nullable, nonatomic, copy) NSString *imageURLs;
 @property (nullable, nonatomic, copy) NSString *uuid;
+@property (nullable, nonatomic, copy) NSString *url;
 @property (nullable, nonatomic, retain) StoredArea *area;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredCategoryUUIDToRelatedItemUUIDs *> *linkedCategories;
 @property (nullable, nonatomic, retain) StoredCoordinateCollection *path;
