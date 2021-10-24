@@ -8,7 +8,7 @@
 
 #import "CommonButton.h"
 #import "Colors.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 
 @interface CommonButton()
 
@@ -56,7 +56,7 @@
     self.layer.masksToBounds = YES;
     [self.titleLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:14.0]];
     [self setAttributedTitle:
-     [[Typography get] makeButtonText:self.label] forState:UIControlStateNormal];
+     [[TypographyLegacy get] makeButtonText:self.label] forState:UIControlStateNormal];
 
     [self addTarget:self.target action:self.action forControlEvents:UIControlEventTouchUpInside];
 
@@ -69,7 +69,7 @@
 
 - (void)setLabel:(NSString *)label {
   [self setAttributedTitle:
-   [[Typography get] makeButtonText:label] forState:UIControlStateNormal];
+   [[TypographyLegacy get] makeButtonText:label] forState:UIControlStateNormal];
 }
 
 @end

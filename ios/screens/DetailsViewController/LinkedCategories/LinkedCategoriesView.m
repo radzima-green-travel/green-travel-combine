@@ -20,7 +20,7 @@
 #import "CategoryLinkCell.h"
 #import "ColorsLegacy.h"
 #import "Colors.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 
 @interface LinkedCategoriesView()
 
@@ -81,7 +81,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
     self.interestingLabel.numberOfLines = 2;
     [self.interestingLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:20.0]];
     self.interestingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.interestingLabel.attributedText = [[Typography get] makeTitle1Bold:@"Чем заняться"];
+    self.interestingLabel.attributedText = [[TypographyLegacy get] makeTitle1Bold:@"Чем заняться"];
 
     [self addSubview:self.interestingLabel];
 

@@ -15,7 +15,7 @@
 #import "BookmarksGroupModel.h"
 #import "BookmarkItem.h"
 #import "IndexModel.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "AnalyticsEvents.h"
 #import "AnalyticsUIScrollViewDelegate.h"
 
@@ -141,7 +141,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
     self.somethingIsWrongLabel = [[UILabel alloc] init];
     [self.placeholder addSubview:self.somethingIsWrongLabel];
     [self.somethingIsWrongLabel setAttributedText:
-     [[Typography get] makeLoadingScreenText:@"Вы пока ничего  сюда не добавили"]];
+     [[TypographyLegacy get] makeLoadingScreenText:@"Вы пока ничего  сюда не добавили"]];
     self.somethingIsWrongLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [self.somethingIsWrongLabel.centerXAnchor constraintEqualToAnchor:self.placeholder.centerXAnchor],

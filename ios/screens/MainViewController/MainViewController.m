@@ -21,7 +21,7 @@
 #import "BookmarksGroupModel.h"
 #import "LocationModel.h"
 #import "CoreDataService.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "UserDefaultsService.h"
 #import "BottomSheetView.h"
 #import "BottomSheetViewDetailedMap.h"
@@ -103,7 +103,7 @@
 
     self.indexViewControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     self.indexViewControllerWithNavigation.navigationBar.titleTextAttributes =
-    [Typography get].navigationSemiboldAttributes;
+    [TypographyLegacy get].navigationSemiboldAttributes;
 
 #pragma mark - MapViewController
 
@@ -127,7 +127,7 @@
     self.mapControllerWithNavigation.tabBarItem = self.mapTabBarItem;
     self.mapControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     self.mapControllerWithNavigation.navigationBar.titleTextAttributes =
-    [Typography get].navigationSemiboldAttributes;
+    [TypographyLegacy get].navigationSemiboldAttributes;
 
 #pragma mark - BookmarksViewController
 
@@ -151,7 +151,7 @@
     self.bookmarksControllerWithNavigation.tabBarItem = self.bookmarksTabBarItem;
     self.bookmarksControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     self.bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
-    [Typography get].navigationSemiboldAttributes;
+    [TypographyLegacy get].navigationSemiboldAttributes;
 
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation, self.bookmarksControllerWithNavigation];
 
@@ -162,9 +162,9 @@
 
 UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, UIImage *imageSelected) {
     UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image tag:tag];
-    [tabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes
+    [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes
                                        forState:UIControlStateSelected];
-    [tabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes
+    [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarAttributes
                                        forState:UIControlStateNormal];
     tabBarItem.selectedImage = imageSelected;
     return tabBarItem;

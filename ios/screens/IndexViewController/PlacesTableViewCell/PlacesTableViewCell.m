@@ -14,7 +14,7 @@
 #import "Category.h"
 #import "PlaceItem.h"
 #import "SizeUtils.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "IndexViewControllerConstants.h"
 #import "CategoryUtils.h"
 
@@ -57,11 +57,11 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
   self.collectionView.backgroundColor = [Colors get].background;
   self.backgroundColor = [Colors get].background;
   
-  [self.allButton setAttributedTitle:[[Typography get]
+  [self.allButton setAttributedTitle:[[TypographyLegacy get]
                                       makeSubtitle1Semibold:NSLocalizedString(@"IndexAll", @"")
                                       color:[Colors get].buttonAll]
                             forState:UIControlStateNormal];
-  self.headerLabel.attributedText = [[Typography get] makeSubtitle1Semibold:[self.item.title uppercaseString]
+  self.headerLabel.attributedText = [[TypographyLegacy get] makeSubtitle1Semibold:[self.item.title uppercaseString]
                                      color:[Colors get].categoryTitleText];
 }
 
@@ -117,7 +117,7 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
 }
 
 - (void)update:(Category *)item {
-    self.headerLabel.attributedText = [[Typography get] makeSubtitle1Semibold:[item.title uppercaseString]];
+    self.headerLabel.attributedText = [[TypographyLegacy get] makeSubtitle1Semibold:[item.title uppercaseString]];
     if ([item.categories count] > 0) {
         self.dataSourceCategories = [item.categories subarrayWithRange:NSMakeRange(0, MIN([item.categories count], kMaximalNumberOfItemsInCell))];
     } else {
