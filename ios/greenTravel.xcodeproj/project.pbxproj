@@ -98,7 +98,7 @@
 		5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0C26064C9000CEFC78 /* ImageUtils.m */; };
 		5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0D26064C9000CEFC78 /* CategoryUtils.m */; };
 		5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1026064C9000CEFC78 /* TextUtils.m */; };
-		5A775B8D26064C9000CEFC78 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1526064C9000CEFC78 /* Typography.m */; };
+		5A775B8D26064C9000CEFC78 /* TypographyLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1526064C9000CEFC78 /* TypographyLegacy.m */; };
 		5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1626064C9000CEFC78 /* SizeUtils.m */; };
 		5A775B8F26064C9000CEFC78 /* ColorsLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1726064C9000CEFC78 /* ColorsLegacy.m */; };
 		5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B1926064C9000CEFC78 /* StyleUtils.m */; };
@@ -152,6 +152,7 @@
 		5AD6BF1126BEA9DF00DD3F2B /* ScrollViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */; };
 		5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */; };
 		5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */; };
+		5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADBAC3E27243A7D0006A8C1 /* Typography.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
@@ -341,14 +342,14 @@
 		5A775B0A26064C9000CEFC78 /* UserDefaultsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsService.h; sourceTree = "<group>"; };
 		5A775B0C26064C9000CEFC78 /* ImageUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtils.m; sourceTree = "<group>"; };
 		5A775B0D26064C9000CEFC78 /* CategoryUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryUtils.m; sourceTree = "<group>"; };
-		5A775B0E26064C9000CEFC78 /* Typography.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Typography.h; sourceTree = "<group>"; };
+		5A775B0E26064C9000CEFC78 /* TypographyLegacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypographyLegacy.h; sourceTree = "<group>"; };
 		5A775B0F26064C9000CEFC78 /* StyleUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleUtils.h; sourceTree = "<group>"; };
 		5A775B1026064C9000CEFC78 /* TextUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextUtils.m; sourceTree = "<group>"; };
 		5A775B1126064C9000CEFC78 /* ColorsLegacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorsLegacy.h; sourceTree = "<group>"; };
 		5A775B1226064C9000CEFC78 /* SizeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SizeUtils.h; sourceTree = "<group>"; };
 		5A775B1326064C9000CEFC78 /* CategoryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryUtils.h; sourceTree = "<group>"; };
 		5A775B1426064C9000CEFC78 /* ImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtils.h; sourceTree = "<group>"; };
-		5A775B1526064C9000CEFC78 /* Typography.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Typography.m; sourceTree = "<group>"; };
+		5A775B1526064C9000CEFC78 /* TypographyLegacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypographyLegacy.m; sourceTree = "<group>"; };
 		5A775B1626064C9000CEFC78 /* SizeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SizeUtils.m; sourceTree = "<group>"; };
 		5A775B1726064C9000CEFC78 /* ColorsLegacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorsLegacy.m; sourceTree = "<group>"; };
 		5A775B1826064C9000CEFC78 /* TextUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextUtils.h; sourceTree = "<group>"; };
@@ -453,6 +454,8 @@
 		5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsUIScrollViewDelegate.m; sourceTree = "<group>"; };
 		5AD6BF1826C030B100DD3F2B /* AnalyticsTimeTracer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsTimeTracer.h; sourceTree = "<group>"; };
 		5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsTimeTracer.m; sourceTree = "<group>"; };
+		5ADBAC3D27243A7D0006A8C1 /* Typography.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Typography.h; sourceTree = "<group>"; };
+		5ADBAC3E27243A7D0006A8C1 /* Typography.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Typography.m; sourceTree = "<group>"; };
 		5ADD30CB26A6E29F00551408 /* UserDefaultsServiceConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsServiceConstants.h; sourceTree = "<group>"; };
 		5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsServiceConstants.m; sourceTree = "<group>"; };
 		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
@@ -875,8 +878,10 @@
 				5A39D6D326AC6A8A008FC20C /* StringUtils.h */,
 				5A1FFB27267626A400E31162 /* Colors.h */,
 				5A1FFB28267626A400E31162 /* Colors.m */,
-				5A775B0E26064C9000CEFC78 /* Typography.h */,
-				5A775B1526064C9000CEFC78 /* Typography.m */,
+				5A775B0E26064C9000CEFC78 /* TypographyLegacy.h */,
+				5A775B1526064C9000CEFC78 /* TypographyLegacy.m */,
+				5ADBAC3D27243A7D0006A8C1 /* Typography.h */,
+				5ADBAC3E27243A7D0006A8C1 /* Typography.m */,
 				5A775B1126064C9000CEFC78 /* ColorsLegacy.h */,
 				5A775B1726064C9000CEFC78 /* ColorsLegacy.m */,
 				5A775B1826064C9000CEFC78 /* TextUtils.h */,
@@ -1658,6 +1663,7 @@
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */,
 				5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */,
+				5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */,
 				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
 				5A21445C2663E9A700582901 /* AlertUtils.m in Sources */,
@@ -1736,7 +1742,7 @@
 				5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */,
 				5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */,
 				5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */,
-				5A775B8D26064C9000CEFC78 /* Typography.m in Sources */,
+				5A775B8D26064C9000CEFC78 /* TypographyLegacy.m in Sources */,
 				5A6DC56C2655B5C500A2D37B /* StoredCoordinate+CoreDataProperties.m in Sources */,
 				5A775E792607E0A100CEFC78 /* GreenTravel.xcdatamodeld in Sources */,
 			);

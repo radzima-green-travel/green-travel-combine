@@ -27,7 +27,7 @@
 #import "ApiService.h"
 #import "CoreDataService.h"
 #import <CoreLocation/CoreLocation.h>
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "AnalyticsEvents.h"
 
 @interface SearchViewController ()
@@ -239,7 +239,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     ]];
     self.noDataLabel = [[UILabel alloc] init];
     self.noDataLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.noDataLabel setAttributedText:[[Typography get] makeBody:NSLocalizedString(@"SearchNotFound", @"")]];
+    [self.noDataLabel setAttributedText:[[TypographyLegacy get] makeBody:NSLocalizedString(@"SearchNotFound", @"")]];
     [self.noDataLabel setTextAlignment:NSTextAlignmentCenter];
     self.noDataLabel.numberOfLines = 2;
     

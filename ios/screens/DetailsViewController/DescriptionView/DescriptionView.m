@@ -8,7 +8,7 @@
 
 #import "DescriptionView.h"
 #import "LinkedCategoriesView.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "ColorsLegacy.h"
 #import "Colors.h"
 
@@ -62,7 +62,7 @@
                                      @"fox-in-the-jungle" : @"trekking"];
 
         UILabel *placeholderLabel = [[UILabel alloc] init];
-        [placeholderLabel setAttributedText:[[Typography get] makeLoadingScreenText:@"Описание будет дополняться"]];
+        [placeholderLabel setAttributedText:[[TypographyLegacy get] makeLoadingScreenText:@"Описание будет дополняться"]];
         [self.descriptionPlaceholderView addArrangedSubview:placeholderLabel];
         [self.descriptionPlaceholderView addArrangedSubview:[[UIImageView alloc] initWithImage:placeholderImage]];
         [NSLayoutConstraint activateConstraints:@[

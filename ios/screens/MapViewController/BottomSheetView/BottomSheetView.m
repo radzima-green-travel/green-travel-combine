@@ -9,7 +9,7 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "CommonButton.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "PlaceItem.h"
 #import "BookmarkButton.h"
 #import "PlaceDetails.h"
@@ -171,9 +171,9 @@ otherGestureRecognizer {
 - (void)show:(PlaceItem *)item {
   self.itemUUID = item.uuid;
   [self.bookmarkButton setSelected:item.bookmarked];
-  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
+  [self.headerLabel setAttributedText:[[TypographyLegacy get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
-  [self.addressLabel setAttributedText:[[Typography get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
+  [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
 
   [self appear];
 }
@@ -191,9 +191,9 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   self.onPressDetails = onPressDetails;
   [self.bookmarkButton setOnBookmarkPress:onBookmarkPress];
   [self.bookmarkButton setSelected:item.bookmarked];
-  [self.headerLabel setAttributedText:[[Typography get] makeTitle1Bold:item.title]];
+  [self.headerLabel setAttributedText:[[TypographyLegacy get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
-  [self.addressLabel setAttributedText:[[Typography get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
+  [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
 
   [self appear];
 }

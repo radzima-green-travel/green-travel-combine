@@ -7,7 +7,7 @@
 //
 
 #import "RefreshButton.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "ColorsLegacy.h"
 #import "Colors.h"
 
@@ -44,7 +44,7 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.backgroundColor = [Colors get].buttonNewDataBackground;
-  [self setAttributedTitle:[[Typography get] makeButtonText:@"Новые данные" color:[Colors get].buttonNewDataText] forState:UIControlStateNormal];
+  [self setAttributedTitle:[[TypographyLegacy get] makeButtonText:@"Новые данные" color:[Colors get].buttonNewDataText] forState:UIControlStateNormal];
 
 }
 

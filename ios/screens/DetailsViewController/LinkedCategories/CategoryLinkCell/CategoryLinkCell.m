@@ -11,7 +11,7 @@
 #import "Colors.h"
 #import "TextUtils.h"
 #import "Category.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "IconNameToImageNameMap.h"
 
 @interface CategoryLinkCell ()
@@ -96,7 +96,7 @@
 }
 
 - (void)update:(Category *)category {
-    self.title.attributedText = [[Typography get] makeBody:category.title];
+    self.title.attributedText = [[TypographyLegacy get] makeBody:category.title];
     [self.icon setImage:[[IconNameToImageNameMap get] iconForName32:category.icon]];
 }
 

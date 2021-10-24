@@ -10,7 +10,7 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 
 @interface WeRecommendCell()
 
@@ -28,7 +28,7 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.backgroundColor = [Colors get].background;
-  self.header.attributedText = [[Typography get] makeBody:NSLocalizedString(@"SearchHistory", @"")
+  self.header.attributedText = [[TypographyLegacy get] makeBody:NSLocalizedString(@"SearchHistory", @"")
                                                     color:[Colors get].mainText];
 }
 
@@ -58,7 +58,7 @@
   ]];
   
   [self.header setFont:[UIFont fontWithName:@"Montserrat-Bold" size:16.0]];
-  self.header.attributedText = [[Typography get] makeBody:@"История поиска" color:[Colors get].mainText];
+  self.header.attributedText = [[TypographyLegacy get] makeBody:@"История поиска" color:[Colors get].mainText];
 }
 
 @end

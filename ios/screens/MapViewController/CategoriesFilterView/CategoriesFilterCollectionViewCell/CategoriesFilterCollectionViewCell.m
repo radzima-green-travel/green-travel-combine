@@ -9,7 +9,7 @@
 #import "CategoriesFilterCollectionViewCell.h"
 #import "IconNameToImageNameMap.h"
 #import "FilterOption.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "CategoriesFilterViewConstants.h"
@@ -125,11 +125,11 @@
         self.iconView.contentMode = UIViewContentModeCenter;
     }
     if (option.on) {
-        [self.label setAttributedText:[[Typography get] makeSubtitle2Regular:option.title color:[ColorsLegacy get].white]];
+        [self.label setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:option.title color:[ColorsLegacy get].white]];
         [self.contentView setBackgroundColor:[ColorsLegacy get].apple];
         return;
     }
-    [self.label setAttributedText:[[Typography get] makeSubtitle2Regular:option.title color:[ColorsLegacy get].logCabin]];
+    [self.label setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:option.title color:[ColorsLegacy get].logCabin]];
     [self.contentView setBackgroundColor:[ColorsLegacy get].white];
 }
 

@@ -15,7 +15,7 @@
 #import "Colors.h"
 #import "TextUtils.h"
 #import "ImageUtils.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "BookmarkButton.h"
 
 @interface PhotoCollectionViewCell ()
@@ -51,7 +51,7 @@ static const CGFloat kGradientOffset = 50.0;
   self.layer.borderColor = [[Colors get].photoCollectionViewCellBorder CGColor];
   if (self.item != nil && ![self coverIsPresent]) {
     [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
-    self.headerLabel.attributedText = [[Typography get] makeTitle2:self.item.title
+    self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:self.item.title
                                                              color:[Colors get].cardPlaceholderText];
     return;
   }
@@ -149,7 +149,7 @@ static const CGFloat kGradientOffset = 50.0;
 
 - (void)updateItem:(PlaceItem *)item {
     self.item = item;
-    self.headerLabel.attributedText = [[Typography get] makeTitle2:item.title
+    self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:item.title
                                                              color:[Colors get].cardPlaceholderText];
     [self.favoritesButton setHidden:NO];
     [self.favoritesButton setSelected:item.bookmarked];
@@ -172,7 +172,7 @@ static const CGFloat kGradientOffset = 50.0;
   if (image == nil) {
     return;
   }
-  self.headerLabel.attributedText = [[Typography get] makeTitle2:title
+  self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:title
                                                            color:[ColorsLegacy get].white];
   [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
   [self.placeholder setImage:image];
@@ -185,7 +185,7 @@ static const CGFloat kGradientOffset = 50.0;
 }
 
 - (void)updateCategory:(Category *)category {
-     self.headerLabel.attributedText = [[Typography get] makeTitle2:category.title
+     self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:category.title
                                                               color:[Colors get].cardPlaceholderText];
     [self.favoritesButton setHidden:YES];
     if (category.cover != nil && category.cover != [NSNull null] &&

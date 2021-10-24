@@ -10,7 +10,7 @@
 #import "Colors.h"
 #import "ColorsLegacy.h"
 #import "TextUtils.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 
 
 CAGradientLayer* createGradientLayer(UIView *view) {
@@ -110,8 +110,8 @@ void configureNavigationBarForModal(UINavigationBar *navigationBar) {
 
 void configureTabBarItem(UITabBarItem *tabBarItem, UIImage *imageNormal, UIImage *imageSelected) {
   if (@available(iOS 15.0, *)) {} else {
-    [tabBarItem setTitleTextAttributes:[Typography get].tabBarAttributes forState:UIControlStateNormal];
-    [tabBarItem setTitleTextAttributes:[Typography get].tabBarSelectedAttributes forState:UIControlStateSelected];
+    [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarAttributes forState:UIControlStateNormal];
+    [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes forState:UIControlStateSelected];
   }
   [tabBarItem setImage:imageNormal];
   [tabBarItem setSelectedImage:imageSelected];
@@ -119,8 +119,8 @@ void configureTabBarItem(UITabBarItem *tabBarItem, UIImage *imageNormal, UIImage
 
 API_AVAILABLE(ios(13.0))
 void configureTabBarItemAppearance(UITabBarItemAppearance *tabBarItemAppearance) {
-  [tabBarItemAppearance.normal setTitleTextAttributes:[Typography get].tabBarAttributes];
-  [tabBarItemAppearance.selected setTitleTextAttributes:[Typography get].tabBarSelectedAttributes];
+  [tabBarItemAppearance.normal setTitleTextAttributes:[TypographyLegacy get].tabBarAttributes];
+  [tabBarItemAppearance.selected setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes];
 }
 
 void configureTabBar(UITabBar *tabBar) {

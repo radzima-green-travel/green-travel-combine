@@ -58,6 +58,7 @@ static Colors *instance;
     self.categoryFilterCellBorder = [UIColor colorNamed:@"categoryFilterCellBorder"];
     self.photoCollectionViewCellBorder = [UIColor colorNamed:@"photoCollectionViewCellBorder"];
     self.mapBackground = [UIColor colorNamed:@"mapBackground"];
+    self.mainTextLink = [UIColor colorNamed:@"mainTextLink"];
   }
   return self;
 }

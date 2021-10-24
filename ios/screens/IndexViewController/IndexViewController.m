@@ -25,7 +25,7 @@
 #import "CoreDataService.h"
 #import "IndexViewControllerConstants.h"
 #import "CommonButton.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "RefreshButton.h"
 #import "AnalyticsEvents.h"
 #import "ScrollViewUtils.h"
@@ -162,7 +162,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
     
     self.somethingIsWrongLabel = [[UILabel alloc] init];
     [self.placeholder addSubview:self.somethingIsWrongLabel];
-    [self.somethingIsWrongLabel setAttributedText:[[Typography get] makeLoadingScreenText:@"Что-то пошло не так..."]];
+    [self.somethingIsWrongLabel setAttributedText:[[TypographyLegacy get] makeLoadingScreenText:@"Что-то пошло не так..."]];
     self.somethingIsWrongLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [self.somethingIsWrongLabel.centerXAnchor constraintEqualToAnchor:self.placeholder.centerXAnchor],

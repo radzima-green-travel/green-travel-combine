@@ -13,7 +13,7 @@
 #import "Category.h"
 #import "StyleUtils.h"
 #import "BookmarkItem.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 
 @interface BookmarkCell ()
 
@@ -40,9 +40,9 @@
     return;
   }
   self.headerLabel.attributedText =
-  [[Typography get] makeBookmarkText:[self.item.title uppercaseString]];
+  [[TypographyLegacy get] makeBookmarkText:[self.item.title uppercaseString]];
   self.countLabel.attributedText =
-  [[Typography get] makeBookmarkText:[@(self.item.howMany) stringValue]];
+  [[TypographyLegacy get] makeBookmarkText:[@(self.item.howMany) stringValue]];
 }
 
 - (void)setUp {
@@ -76,9 +76,9 @@
 
 - (void)update:(BookmarkItem *)item {
     self.headerLabel.attributedText =
-    [[Typography get] makeBookmarkText:[item.title uppercaseString]];
+    [[TypographyLegacy get] makeBookmarkText:[item.title uppercaseString]];
     self.countLabel.attributedText =
-    [[Typography get] makeBookmarkText:[@(item.howMany) stringValue]];
+    [[TypographyLegacy get] makeBookmarkText:[@(item.howMany) stringValue]];
 }
 
 - (void)prepareForReuse {

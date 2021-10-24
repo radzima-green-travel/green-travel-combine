@@ -26,6 +26,7 @@
 #import "BannerView.h"
 #import "GalleryView.h"
 #import "CategoryUtils.h"
+#import "TypographyLegacy.h"
 #import "Typography.h"
 #import "CommonButton.h"
 #import "DescriptionView.h"
@@ -50,7 +51,7 @@
 @property (strong, nonatomic) GalleryView *imageGalleryView;
 @property (strong, nonatomic) UIButton *mapButtonTop;
 @property (strong, nonatomic) UIButton *mapButtonBottom;
-@property (strong, nonatomic) UIButton *linkWebsiteSecondary;
+@property (strong, nonatomic) UIButton *linkOfficialSite;
 @property (strong, nonatomic) DescriptionView *descriptionTextView;
 @property (strong, nonatomic) UIStackView *descriptionPlaceholderView;
 @property (strong, nonatomic) UILabel *interestingLabel;
@@ -356,26 +357,14 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 }
 
 #pragma mark - Map button top
-- (void)addButtonCTA:(DetailsViewControllerCTAType)ctaType {
+- (void)addButtonCTA {
   if (self.mapButtonTop != nil) {
     return;
   }
-  NSLayoutConstraint *topAnchor;
-  if (ctaType == DetailsViewControllerCTATypeMap) {
-    self.mapButtonTop =
-    [[CommonButton alloc] initWithTarget:self
-                                  action:@selector(onMapButtonPress:)
-                                   label:@"Посмотреть на карте"];
-    topAnchor = [self.mapButtonTop.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0];
-  }
-  if (ctaType == DetailsViewControllerCTATypeWebsite) {
-    self.mapButtonTop =
-    [[CommonButton alloc] initWithTarget:self
-                                  action:@selector(onWebsiteButtonPress:)
-                                   label:@"Официальный сайт"];
-    topAnchor = [self.mapButtonTop.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0];
-  }
-  
+  self.mapButtonTop =
+  [[CommonButton alloc] initWithTarget:self
+                                action:@selector(onMapButtonPress:)
+                                 label:@"Посмотреть на карте"];
   [self.contentView addSubview:self.mapButtonTop];
   
   NSLayoutConstraint *mapButtonTopLeading = [self.mapButtonTop.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0];
@@ -387,44 +376,71 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.mapButtonTop.bottomAnchor constant:26.0];
   [NSLayoutConstraint activateConstraints:@[
     self.descriptionTextTopAnchor,
-    topAnchor,
+    [self.mapButtonTop.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:20.0],
     [self.mapButtonTop.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
     mapButtonTopLeading,
     mapButtonTopTrailing,
   ]];
 }
 
-- (void)addButtonSecondary {
-  if (self.linkWebsiteSecondary != nil) {
+#pragma mark - Link to official site
+- (void)addButtonOfficialSite {
+  if (self.linkOfficialSite != nil) {
     return;
   }
-  self.linkWebsiteSecondary = [[UIButton alloc] initWithFrame:CGRectZero];
-  [self.linkWebsiteSecondary addTarget:self
-                                action:@selector(onWebsiteButtonSecondaryPress:) forControlEvents:UIControlEventTouchUpInside];
-  NSAttributedString *label =
-  [[Typography get] makeButtonText:@"Официальный сайт"
-                             color:[ColorsLegacy get].royalBlue];
-  [self.linkWebsiteSecondary setAttributedTitle:label
-                                       forState:UIControlStateNormal];
+  self.linkOfficialSite = [[UIButton alloc] initWithFrame:CGRectZero];
+  SEL action = @selector(onWebsiteButtonPress:);
+  BOOL urlIsUnsafe = [self.item.details.url hasPrefix:@"http://"];
   
-  [self.contentView addSubview:self.linkWebsiteSecondary];
+  if (urlIsUnsafe) {
+    action = @selector(onWebsiteUnsafeButtonPress:);
+  }
+  [self.linkOfficialSite addTarget:self
+                            action:action
+                  forControlEvents:UIControlEventTouchUpInside];
+  NSAttributedString *label = [[Typography get] mainTextLink:@"Официальный сайт"];
+  [self.linkOfficialSite setAttributedTitle:label
+                                   forState:UIControlStateNormal];
+  
+  [self.contentView addSubview:self.linkOfficialSite];
   
   [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
-  self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.linkWebsiteSecondary.topAnchor constant:0.0];
-  self.linkWebsiteSecondary.translatesAutoresizingMaskIntoConstraints = NO;
+  self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.linkOfficialSite.topAnchor constant:0.0];
+  self.linkOfficialSite.translatesAutoresizingMaskIntoConstraints = NO;
+  NSLayoutConstraint *buttonLeading =
+  [self.linkOfficialSite.leadingAnchor constraintEqualToAnchor:self.descriptionTextView.leadingAnchor
+                                                      constant:kDistanceScreenEdgeToTextContent];
   [NSLayoutConstraint activateConstraints:@[
     self.descriptionTextBottomAnchor,
-    [self.linkWebsiteSecondary.leadingAnchor
-     constraintEqualToAnchor:self.descriptionTextView.leadingAnchor
-     constant:kDistanceScreenEdgeToTextContent],
-    [self.linkWebsiteSecondary.trailingAnchor
+    buttonLeading,
+    [self.linkOfficialSite.trailingAnchor
      constraintLessThanOrEqualToAnchor:self.descriptionTextView.trailingAnchor
      constant:-kDistanceScreenEdgeToTextContent],
-    [self.linkWebsiteSecondary.bottomAnchor
+    [self.linkOfficialSite.bottomAnchor
      constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5],
   ]];
+  if (urlIsUnsafe) {
+    UIImage *lockSlash;
+    if (@available(iOS 13.0, *)) {
+      lockSlash = [UIImage systemImageNamed:@"lock.slash"];
+    } else {
+      lockSlash = [UIImage imageNamed:@"lock.slash"];
+    }
+    UIImageView *lockSlashView = [[UIImageView alloc] initWithImage:lockSlash];
+    [self.contentView addSubview:lockSlashView];
+    [NSLayoutConstraint deactivateConstraints:@[buttonLeading]];
+    lockSlashView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+      [lockSlashView.leadingAnchor constraintEqualToAnchor:self.descriptionTextView.leadingAnchor
+                                                          constant:kDistanceScreenEdgeToTextContent],
+      [self.linkOfficialSite.leadingAnchor constraintEqualToAnchor:lockSlashView.trailingAnchor
+                                                          constant:5.0],
+      [lockSlashView.centerYAnchor constraintEqualToAnchor:self.linkOfficialSite.centerYAnchor],
+      [lockSlashView.heightAnchor constraintEqualToConstant:20.0],
+      [lockSlashView.widthAnchor constraintEqualToConstant:20.0],
+    ]];
+  }
 }
-
 
 #pragma mark - Linked categories view
 - (void)addLinkedCategoriesView {
@@ -477,24 +493,21 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         [weakSelf.activityIndicatorContainerView setHidden:YES];
         [weakSelf.activityIndicatorView stopAnimating];
       }
-      weakSelf.titleLabel.attributedText = [[Typography get] makeTitle1Semibold:weakSelf.item.title];
+      weakSelf.titleLabel.attributedText = [[TypographyLegacy get] makeTitle1Semibold:weakSelf.item.title];
       if (details.address && [details.address length]) {
         [weakSelf addAddressLabel];
-        weakSelf.addressLabel.attributedText = [[Typography get] makeSubtitle3Regular:weakSelf.item.details.address];
+        weakSelf.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:weakSelf.item.details.address];
       }
       if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
         [weakSelf addLocationButton];
         [weakSelf.locationButton setAttributedTitle:
-         [[Typography get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[ColorsLegacy get].royalBlue]
+         [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%f° N, %f° E", weakSelf.item.coords.latitude, weakSelf.item.coords.longitude] color:[ColorsLegacy get].royalBlue]
                                            forState:UIControlStateNormal];
-        [weakSelf addButtonCTA:DetailsViewControllerCTATypeMap];
-      }
-      if (weakSelf.item.details.url && [weakSelf.item.details.url hasPrefix:@"https://"]) {
-        [weakSelf addButtonCTA:DetailsViewControllerCTATypeWebsite];
+        [weakSelf addButtonCTA];
       }
       [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
-      if (weakSelf.item.details.url && [weakSelf.item.details.url hasPrefix:@"http://"]) {
-         [weakSelf addButtonSecondary];
+      if (weakSelf.item.details.url && [weakSelf.item.details.url length]) {
+         [weakSelf addButtonOfficialSite];
       }
       if (details.categoryIdToItems) {
         [weakSelf addLinkedCategoriesView];
@@ -551,19 +564,18 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     }];
 }
 
-#pragma mark - onWebsiteButtonPress
+#pragma mark - Website press actions
 - (void)onWebsiteButtonPress:(id)sender {
   NSURL *url = [NSURL URLWithString:self.item.details.url];
   SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
   [self presentViewController:safariViewController animated:YES completion:^{}];
 }
 
-- (void)onWebsiteButtonSecondaryPress:(id)sender {
+- (void)onWebsiteUnsafeButtonPress:(id)sender {
   NSURL *url = [NSURL URLWithString:self.item.details.url];
   [UIApplication.sharedApplication openURL:url options:@{}
                          completionHandler:^(BOOL success) {}];
 }
-
 
 - (void)onLocationButtonPress:(id)sender {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];

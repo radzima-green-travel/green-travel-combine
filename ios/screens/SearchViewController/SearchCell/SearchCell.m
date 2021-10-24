@@ -11,7 +11,7 @@
 #import "Colors.h"
 #import "TextUtils.h"
 #import "SearchCellConfiguration.h"
-#import "Typography.h"
+#import "TypographyLegacy.h"
 #import "IconNameToImageNameMap.h"
 #import "Category.h"
 #import "PlaceItem.h"
@@ -41,10 +41,10 @@ static const NSUInteger kMaxNumberOfLinesForTitle = 5;
   self.backgroundColor = [Colors get].background;
   self.separatorView.backgroundColor = [Colors get].searchCellSeparator;
   self.title.attributedText =
-  [[Typography get] makeTitle2:self.configuration.title
+  [[TypographyLegacy get] makeTitle2:self.configuration.title
                          color:[Colors get].mainText];
   self.titleCategory.attributedText =
-  [[Typography get] makeSubtitle2Regular:self.configuration.categoryTitle
+  [[TypographyLegacy get] makeSubtitle2Regular:self.configuration.categoryTitle
                                    color:[Colors get].auxiliaryText];
 }
 
@@ -115,10 +115,10 @@ static const NSUInteger kMaxNumberOfLinesForTitle = 5;
 - (void)update:(SearchCellConfiguration *)configuration {
   self.configuration = configuration;
   self.title.attributedText =
-  [[Typography get] makeTitle2:self.configuration.title
+  [[TypographyLegacy get] makeTitle2:self.configuration.title
                          color:[Colors get].mainText];
   self.titleCategory.attributedText =
-  [[Typography get] makeSubtitle2Regular:self.configuration.categoryTitle
+  [[TypographyLegacy get] makeSubtitle2Regular:self.configuration.categoryTitle
                                    color:[Colors get].auxiliaryText];
   [self.iconView setImage:[[IconNameToImageNameMap get]
                            iconForName36:configuration.iconName]];
