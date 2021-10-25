@@ -9,6 +9,7 @@ import {StatusBar} from 'react-native';
 
 import {SplashScreen} from 'screens';
 import {isIOS} from 'services/PlatformService';
+import {PortalProvider} from '@gorhom/portal';
 
 export function RootNavigator() {
   const dispatch = useDispatch();
@@ -50,8 +51,10 @@ export function RootNavigator() {
 
   return (
     <NavigationContainer onReady={() => setIsReady(true)} ref={navigationRef}>
-      {bootstrapFinished && <MainNavigator />}
-      {showSplashForAndroid()}
+      <PortalProvider>
+        {bootstrapFinished && <MainNavigator />}
+        {showSplashForAndroid()}
+      </PortalProvider>
     </NavigationContainer>
   );
 }

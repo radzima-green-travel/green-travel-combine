@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useLayoutEffect,
   useMemo,
+  useEffect,
 } from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
 import {
@@ -147,15 +148,17 @@ export const AppMap = ({navigation}: IProps) => {
     }
   }, [isMenuOpened, unselectObject]);
 
-  const selectObjectAndOpenMenu = useCallback(
-    (object: IObject) => {
-      hapticFeedbackService.trigger();
-      setSelectedObject(object);
-      setSelectedMarker(createMarkerFromObject(object));
+  useEffect(() => {
+    if (selectedObject) {
       openMenu();
-    },
-    [openMenu],
-  );
+    }
+  }, [openMenu, selectedObject]);
+
+  const selectObjectAndOpenMenu = useCallback((object: IObject) => {
+    hapticFeedbackService.trigger();
+    setSelectedObject({...object});
+    setSelectedMarker(createMarkerFromObject(object));
+  }, []);
 
   const onShapePress = useCallback(
     async (objectId: string) => {
