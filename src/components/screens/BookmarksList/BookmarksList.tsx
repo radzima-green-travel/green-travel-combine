@@ -1,10 +1,10 @@
-import React, {useCallback, useLayoutEffect} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect} from 'react';
 import {FlatList} from 'react-native';
 import {ObjectCard} from 'molecules';
 import {styles} from './styles';
 import {IProps} from './types';
 
-import {SCREEN_WIDTH} from 'services/PlatformService';
+import {isAndroid, isIOS, SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useBookmarksObjects, useBookmarksListAnalytics} from 'core/hooks';
 import {IObject} from 'core/types';
@@ -23,11 +23,8 @@ export const BookmarksList = ({
 
   const listData = useBookmarksObjects(categoryId);
 
-  const {
-    sendSaveCardEvent,
-    sendSelectCardEvent,
-    sendUnsaveCardEvent,
-  } = useBookmarksListAnalytics();
+  const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
+    useBookmarksListAnalytics();
 
   const sortedListData = useMemo(() => {
     return listData
@@ -46,6 +43,12 @@ export const BookmarksList = ({
       goBack();
     }
   }, [goBack, sortedListData]);
+
+  useEffect(() => {
+    if (isAndroid && sortedListData?.length === 0) {
+      goBack();
+    }
+  }, [goBack, onLastObjectRemoveAnimationEnd, sortedListData]);
 
   const navigateToObjectDetails = useCallback(
     ({id, name, category}: IObject) => {
@@ -73,7 +76,7 @@ export const BookmarksList = ({
       keyExtractor={item => item.id}
       renderItem={({item}) => (
         <ObjectCard
-          removeFavoriteWithAnimation={true}
+          removeFavoriteWithAnimation={isIOS}
           onRemoveAnimationEnd={onLastObjectRemoveAnimationEnd}
           containerStyle={styles.cardContainer}
           data={item}
