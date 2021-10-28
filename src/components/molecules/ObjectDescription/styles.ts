@@ -1,10 +1,11 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_STYLES, FONTS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
+export const systemFonts = Object.values(FONTS);
 
 export const themeStyles = {
   container: {
     marginTop: 32,
-    paddingHorizontal: PADDING_HORIZONTAL,
+    marginHorizontal: PADDING_HORIZONTAL,
   },
   headline: {
     ...FONTS_STYLES.semibold20,
@@ -20,6 +21,9 @@ export const themeStyles = {
       light: COLORS.logCabin,
       dark: COLORS.altoForDark,
     },
+    textDecorationLine: 'none',
+    padding: 0,
+    margin: 0,
   },
 
   link: {
@@ -29,5 +33,9 @@ export const themeStyles = {
       dark: COLORS.cornflowerBlue,
     },
     textDecorationLine: 'underline',
+  },
+  ul: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
 };

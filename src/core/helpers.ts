@@ -15,7 +15,7 @@ import {
   IObject,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
-import {SCREEN_WIDTH} from 'services/PlatformService';
+
 export const extractThemeStyles = (
   styles: Object,
   theme: ColorSchemeName,

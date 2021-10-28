@@ -8,5 +8,4 @@ export type Props = {
   retryCallback?: () => void;
   children: ReactNode;
   cover?: boolean;
-  blockBackPress?: boolean;
 };
