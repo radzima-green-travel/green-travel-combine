@@ -68,6 +68,7 @@
 
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextTopAnchor;
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextBottomAnchor;
+@property (strong, nonatomic) NSLayoutConstraint *linkWebsiteBottomAnchor;
 
 @property (assign, nonatomic) BOOL ready;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -410,14 +411,16 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   NSLayoutConstraint *buttonLeading =
   [self.linkOfficialSite.leadingAnchor constraintEqualToAnchor:self.descriptionTextView.leadingAnchor
                                                       constant:kDistanceScreenEdgeToTextContent];
+  self.linkWebsiteBottomAnchor =
+  [self.linkOfficialSite.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor
+                                                     constant:-19.5];
   [NSLayoutConstraint activateConstraints:@[
     self.descriptionTextBottomAnchor,
     buttonLeading,
     [self.linkOfficialSite.trailingAnchor
      constraintLessThanOrEqualToAnchor:self.descriptionTextView.trailingAnchor
      constant:-kDistanceScreenEdgeToTextContent],
-    [self.linkOfficialSite.bottomAnchor
-     constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5],
+    self.linkWebsiteBottomAnchor,
   ]];
   if (urlIsUnsafe) {
     UIImage *lockSlash;
@@ -472,10 +475,16 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
   [self.contentView addSubview:self.linkedCategoriesView];
 
-  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
-  self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.linkedCategoriesView.topAnchor constant:-32.0];
+  NSLayoutConstraint *topAnchor;
+  if (self.linkOfficialSite != nil) {
+    [NSLayoutConstraint deactivateConstraints:@[self.linkWebsiteBottomAnchor]];
+    topAnchor = [self.linkOfficialSite.bottomAnchor constraintEqualToAnchor:self.linkedCategoriesView.topAnchor constant:-32.0];
+  } else {
+    [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
+    topAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.linkedCategoriesView.topAnchor constant:-32.0];
+  }
   [NSLayoutConstraint activateConstraints:@[
-      self.descriptionTextBottomAnchor,
+      topAnchor,
       [self.linkedCategoriesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
       [self.linkedCategoriesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
       [self.linkedCategoriesView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5],
