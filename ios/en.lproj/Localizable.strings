@@ -32,3 +32,6 @@
 "ButtonMoreInfoLabel" = "More info";
 "BuildRouteErrorAlertMessageHeader" = "Route cannot be built, sorry";
 "BuildRouteErrorAlertMessageBody" = "Please check your internet connection, or maybe Mapbox service is having issues";
+
+"DetailsScreenOfficialSite" = "Official website";
+"DetailsScreenActivities" = "Activities";

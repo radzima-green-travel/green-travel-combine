@@ -227,7 +227,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     [self.contentView addSubview:self.descriptionTextView];
 
     self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0];
-    self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5],
+    self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5];
     [NSLayoutConstraint activateConstraints:@[
         self.descriptionTextTopAnchor,
         [self.descriptionTextView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
@@ -389,7 +389,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   if (self.linkOfficialSite != nil) {
     return;
   }
-  self.linkOfficialSite = [[UIButton alloc] initWithFrame:CGRectZero];
+  self.linkOfficialSite = [[UIButtonHighlightable alloc] initWithFrame:CGRectZero];
   SEL action = @selector(onWebsiteButtonPress:);
   BOOL urlIsUnsafe = [self.item.details.url hasPrefix:@"http://"];
   
@@ -399,7 +399,8 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   [self.linkOfficialSite addTarget:self
                             action:action
                   forControlEvents:UIControlEventTouchUpInside];
-  NSAttributedString *label = [[Typography get] mainTextLink:@"Официальный сайт"];
+  NSAttributedString *label = [[Typography get] mainTextLink:
+                                 NSLocalizedString(@"DetailsScreenOfficialSite", @"")];
   [self.linkOfficialSite setAttributedTitle:label
                                    forState:UIControlStateNormal];
   

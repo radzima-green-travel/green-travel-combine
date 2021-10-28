@@ -33,3 +33,6 @@
 "ButtonMoreInfoLabel" = "Узнать больше";
 "BuildRouteErrorAlertMessageHeader" = "К сожалению, маршрут не может быть построен";
 "BuildRouteErrorAlertMessageBody" = "Пожалуйста, проверьте, свое подключение к интернет. Возможно, сервис Mapbox испытывает проблемы";
+
+"DetailsScreenOfficialSite" = "Официальный сайт";
+"DetailsScreenActivities" = "Чем заняться";
