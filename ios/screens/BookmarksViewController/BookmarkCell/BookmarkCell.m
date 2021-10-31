@@ -36,6 +36,7 @@
 - (void)layoutSubviews {
   self.backgroundColor = [Colors get].bookmarkCard;
   drawShadow(self);
+  self.layer.borderColor = [[Colors get].photoCollectionViewCellBorder CGColor];
   if (self.item == nil) {
     return;
   }
@@ -47,6 +48,8 @@
 
 - (void)setUp {
     self.layer.cornerRadius = 4.0;
+    self.layer.masksToBounds = YES;
+    self.layer.borderWidth = 1.0;
 #pragma mark - Header label
     self.headerLabel = [[UILabel alloc] init];
     [self addSubview:self.headerLabel];
