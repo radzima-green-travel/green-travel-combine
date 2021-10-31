@@ -472,24 +472,14 @@ static NSString* const kAttributeType = @"type";
 
 #pragma mark - Location update
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
+  [super onLocationUpdate:lastLocation];
   if (self.intentionToShowRoutesSheet) {
     [self showDirections:self.next];
     self.intentionToShowRoutesSheet = NO;
-    return;
-  }
-  if (self.intentionToFocusOnUserLocation) {
-    [self focusOnCurrentLocation:^{}];
-    self.intentionToFocusOnUserLocation = NO;
   }
 }
 
 #pragma mark - Event listeners
-
-- (void)onLocateMePress:(id)sender {
-  self.intentionToFocusOnUserLocation = YES;
-  [self startMonitoringLocation];
-  [self focusOnCurrentLocation:^{}];
-}
 
 - (void)startMonitoringLocation {
   [self.locationModel authorize];
@@ -501,10 +491,10 @@ static NSString* const kAttributeType = @"type";
   }
 }
 
-- (BOOL)locationIsInvalid {
-  return !(self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
-      self.locationModel.lastLocation &&
-           CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate));
+#pragma mark - showBigPicture
+- (void)showBigPicture {
+  [super showBigPicture];
+  [self focusOnCurrentLocation:^{}];
 }
 
 - (void)focusOnCurrentLocation:(void(^)(void))completion {

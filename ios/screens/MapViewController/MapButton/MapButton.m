@@ -87,6 +87,10 @@ imageCenterYAnchorConstant:(CGFloat)imageCenterYAnchorConstant {
     [self addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)setIconImage:(UIImage *)image {
+  [self.icon setImage:image];
+}
+
 - (void)setHighlighted:(BOOL)highlighted {
   [super setHighlighted:highlighted];
   __weak typeof(self) weakSelf = self;

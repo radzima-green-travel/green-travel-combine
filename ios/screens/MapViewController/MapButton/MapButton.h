@@ -17,7 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
                          selector:(SEL)selector
         imageCenterXAnchorConstant:(CGFloat)imageCenterXAnchorConstant
         imageCenterYAnchorConstant:(CGFloat)imageCenterYAnchorConstant;
+- (void)setIconImage:(UIImage *)image;
 
 @end
+
+
 
 NS_ASSUME_NONNULL_END
