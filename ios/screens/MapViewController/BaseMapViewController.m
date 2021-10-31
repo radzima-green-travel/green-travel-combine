@@ -301,36 +301,71 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 #pragma mark - Location model
 - (void)onLocationUpdate:(CLLocation *)lastLocation {
   if (self.intentionToFocusOnUserLocation) {
+    __weak typeof(self) weakSelf = self;
     [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
                             zoomLevel:[self locateMeZoomLevel]
-                             animated:YES];
-    
+                            direction:self.mapView.direction animated:YES
+                    completionHandler:^{
+      [weakSelf updateLocationButton:YES];
+    }];
     [self showUserLocation:YES];
     self.intentionToFocusOnUserLocation = NO;
   }
 }
 
 - (CGFloat)locateMeZoomLevel {
-  CGFloat zoomLevel = self.mapView.zoomLevel > kLocateMeZoomLevel ? self.mapView.zoomLevel : kLocateMeZoomLevel;
+  CGFloat zoomLevel = self.mapView.zoomLevel > kLocateMeZoomLevel ?
+      self.mapView.zoomLevel : kLocateMeZoomLevel;
   return zoomLevel;
 }
 
 #pragma mark - Event listeners
-
 - (void)onLocateMePress:(id)sender {
   self.intentionToFocusOnUserLocation = YES;
   [self.locationModel authorize];
   [self.locationModel startMonitoring];
   
-  if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted && self.locationModel.lastLocation) {
+  if (self.showingUserLocation) {
+    [self showBigPicture];
+    return;
+  }
+  if (![self locationIsInvalid]) {
+    __weak typeof(self) weakSelf = self;
     [self.mapView setCenterCoordinate:self.mapModel.lastLocation.coordinate
-                            zoomLevel:[self locateMeZoomLevel] animated:YES];
+                            zoomLevel:[self locateMeZoomLevel]
+                            direction:self.mapView.direction animated:YES
+                    completionHandler:^{
+      [weakSelf updateLocationButton:YES];
+    }];
     [self showUserLocation:YES];
     return;
   }
   if (self.locationModel.locationMonitoringStatus == LocationModelLocationStatusDenied) {
     showAlertGoToSettings(self);
   }
+}
+
+- (BOOL)locationIsInvalid {
+  return !(self.locationModel.locationMonitoringStatus == LocationModelLocationStatusGranted &&
+      self.locationModel.lastLocation &&
+           CLLocationCoordinate2DIsValid(self.locationModel.lastLocation.coordinate));
+}
+
+- (void)mapViewRegionIsChanging:(MGLMapView *)mapView {
+  [self updateLocationButton:NO];
+}
+
+- (void)showBigPicture {
+  [self updateLocationButton:NO];
+}
+
+- (void)updateLocationButton:(BOOL)centeredOnUserLocation {
+  if (self.showingUserLocation == centeredOnUserLocation) {
+    return;
+  }
+  NSString *imageName = centeredOnUserLocation ? @"location-arrow-fill" : @"location-arrow";
+  [self.locationButton setIconImage:[UIImage imageNamed:imageName]];
+  self.showingUserLocation = centeredOnUserLocation;
 }
 
 - (IBAction)handleMapTap:(UITapGestureRecognizer *)tap {

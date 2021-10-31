@@ -265,6 +265,12 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
     return YES;
 }
 
+#pragma mark - showBigPicture
+- (void)showBigPicture {
+  [super showBigPicture];
+  [self.filterView selectOptionAll:YES];
+}
+
 #pragma mark - onSearchPress
 - (void)onSearchPress:(id)sender {
   __weak typeof(self) weakSelf = self;

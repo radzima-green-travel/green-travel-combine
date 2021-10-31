@@ -15,6 +15,7 @@
 #import "MainViewControllerConstants.h"
 #import "MapViewControllerConstants.h"
 #import "MapViewToStateIntermediary.h"
+#import "MapButton/MapButton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,8 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
-@property (strong, nonatomic) UIButton *locationButton;
-@property (strong, nonatomic) UIButton *searchButton;
+@property (strong, nonatomic) MapButton *locationButton;
+@property (strong, nonatomic) MapButton *searchButton;
 @property (strong, nonatomic) MGLMapView *mapView;
 @property (assign, nonatomic) BOOL intentionToFocusOnUserLocation;
 @property (strong, nonatomic) MapItem *mapItem;
@@ -52,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL locationMonitoringEnabled;
 @property (strong, nonatomic) MapViewState *mapViewState;
 @property (strong, nonatomic) NSMutableArray<id<MGLAnnotation>> *annotations;
+@property (assign, nonatomic) BOOL showingUserLocation;
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel
@@ -69,6 +71,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onPopupShow:(BOOL)visible itemUUID:(NSString *)itemUUID;
 - (void)showUserLocation:(BOOL)show;
 - (void)saveMapCoordinates;
+- (void)updateLocationButton:(BOOL)centeredOnUserLocation;
+- (void)showBigPicture;
+- (BOOL)locationIsInvalid;
 
 @end
 
