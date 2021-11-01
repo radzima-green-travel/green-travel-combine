@@ -268,7 +268,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 #pragma mark - showBigPicture
 - (void)showBigPicture {
   [super showBigPicture];
-  [self.filterView selectOptionAll:YES];
+  [self.mapView showAnnotations:self.annotations animated:YES];
 }
 
 #pragma mark - onSearchPress
