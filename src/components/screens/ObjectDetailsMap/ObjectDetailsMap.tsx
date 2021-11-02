@@ -18,6 +18,7 @@ import {
   useFocusToUserLocation,
   useObject,
   useOnRequestSuccess,
+  useRequestErrorAlert,
   useRequestLoading,
   useThemeStyles,
   useTranslation,
@@ -108,6 +109,8 @@ export const ObjectDetailsMap = ({route}: IProps) => {
 
     return null;
   }, [data]);
+
+  useRequestErrorAlert(showObjectDetailsMapDirectionRequest, 'common');
 
   useOnRequestSuccess(showObjectDetailsMapDirectionRequest, () => {
     const directionBounds = mapService.getBoundsFromGeoJSON(direction, {
@@ -213,7 +216,11 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         bounds={bounds}
         cameraRef={camera}>
         {userLocationProps.visible ? (
-          <MapBox.UserLocation minDisplacement={10} {...userLocationProps} />
+          <MapBox.UserLocation
+            renderMode="native"
+            minDisplacement={10}
+            {...userLocationProps}
+          />
         ) : null}
 
         {direction ? (

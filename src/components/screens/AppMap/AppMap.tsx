@@ -313,7 +313,7 @@ export const AppMap = ({navigation}: IProps) => {
         onShapePress={onShapePress}
         onPress={onMapPress}>
         {userLocationProps.visible ? (
-          <MapBox.UserLocation {...userLocationProps} />
+          <MapBox.UserLocation renderMode="native" {...userLocationProps} />
         ) : null}
         {markers ? (
           <ClusterMapShape

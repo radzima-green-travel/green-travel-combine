@@ -14,7 +14,8 @@ export function useFocusToUserLocation(
   const [getUserLocationTask, finishAllTasks] = useTask();
 
   const getUserLocation = useCallback(async () => {
-    const permissionGranted = await permissionsService.checkLocationPermission();
+    const permissionGranted =
+      await permissionsService.checkLocationPermission();
     if (!permissionGranted) {
       return null;
     }
@@ -66,7 +67,7 @@ export function useFocusToUserLocation(
     focusToUserLocation,
     onUpdate: saveUserLocation,
     visible: userLocationVisible,
-    showsUserHeadingIndicator: userLocationVisible,
+    showsUserHeadingIndicator: true,
     userLocation,
     getUserLocation,
   };
