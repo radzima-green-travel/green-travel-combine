@@ -193,8 +193,7 @@ NSPersistentContainer *_persistentContainer;
     }];
 }
 
-#pragma mark - Mapping
-
+#pragma mark - mapPlaceItemToStoredPlaceItem
 - (StoredPlaceItem *)mapPlaceItemToStoredPlaceItem:(PlaceItem *)item {
     StoredPlaceItem *storedItem = (StoredPlaceItem*)[NSEntityDescription insertNewObjectForEntityForName:@"StoredPlaceItem" inManagedObjectContext:self.ctx];
     storedItem.title = item.title;
@@ -208,7 +207,8 @@ NSPersistentContainer *_persistentContainer;
     storedItem.details = [self mapDetailsToStoredDetails:item.details];
     return storedItem;
 }
-
+ 
+#pragma mark - mapDetailsToStoredDetails
 - (StoredPlaceDetails *)mapDetailsToStoredDetails:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
   StoredPlaceDetails *storedDetails = [NSEntityDescription insertNewObjectForEntityForName:@"StoredPlaceDetails" inManagedObjectContext:weakSelf.ctx];
@@ -266,6 +266,7 @@ NSPersistentContainer *_persistentContainer;
   storedDetails.area = storedArea;
 }
 
+#pragma mark - mapStoredDetailsToDetails
 - (PlaceDetails *)mapStoredDetailsToDetails:(StoredPlaceDetails *)storedDetails {
   PlaceDetails *details = [[PlaceDetails alloc] init];
   details.address = storedDetails.address;
@@ -273,8 +274,18 @@ NSPersistentContainer *_persistentContainer;
   details.images = [storedDetails.imageURLs componentsSeparatedByString:@","];
   details.descriptionHTML = storedDetails.descriptionHTML;
   
+  details.categoryIdToItems = categoryIdToItemsFromStored(storedDetails.linkedCategories);
+  
+  [self retrievePath:storedDetails.path.coordinates details:details];
+  
+  [self retrieveArea:storedDetails.area details:details];
+  
+  return details;
+}
+
+NSMutableArray<CategoryUUIDToRelatedItemUUIDs *>* categoryIdToItemsFromStored(NSOrderedSet<StoredCategoryUUIDToRelatedItemUUIDs *> *linkedCategories) {
   NSMutableArray<CategoryUUIDToRelatedItemUUIDs *> *categoryIdToItems = [[NSMutableArray alloc] init];
-  [storedDetails.linkedCategories enumerateObjectsUsingBlock:^(StoredCategoryUUIDToRelatedItemUUIDs * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+  [linkedCategories enumerateObjectsUsingBlock:^(StoredCategoryUUIDToRelatedItemUUIDs * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
     categoryUUIDToRelatedItemUUIDs.categoryUUID = obj.uuid;
     NSMutableArray<NSString *> *relatedItemUUIDs = [[NSMutableArray alloc] init];
@@ -284,13 +295,7 @@ NSPersistentContainer *_persistentContainer;
     categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:relatedItemUUIDs];
     [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
   }];
-  details.categoryIdToItems = categoryIdToItems;
-  
-  [self retrievePath:storedDetails.path.coordinates details:details];
-  
-  [self retrieveArea:storedDetails.area details:details];
-  
-  return details;
+  return categoryIdToItems;
 }
 
 - (void)retrievePath:(NSOrderedSet<StoredCoordinate *> *)storedPath
