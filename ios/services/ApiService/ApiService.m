@@ -171,9 +171,15 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     details.path = [NSArray arrayWithArray:[mappedPathCoords copy]];
   }
 
-  NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
+  details.categoryIdToItems = categoryIdToItemsFromJSON(item[@"include"]);
+  details.categoryIdToItemsBelongsTo = categoryIdToItemsFromJSON(item[@"belongsTo"]);
+  return details;
+}
 
-  NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) item[@"include"];
+NSMutableArray* categoryIdToItemsFromJSON(NSObject *relations) {
+  NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) relations;
+  NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
+  
   [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     NSString *categoryId = (NSString *) obj[@"id"];
     NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];
@@ -182,8 +188,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:linkedItemIds];
     [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
   }];
-  details.categoryIdToItems = categoryIdToItems;
-  return details;
+  return categoryIdToItems;
 }
 
 - (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void(^)(PlaceDetails*))completion{
