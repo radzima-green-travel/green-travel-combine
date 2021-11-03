@@ -32,7 +32,7 @@ export const AppMapBottomSearchMenu = memo(
     const theme = useColorScheme();
 
     const onItemPressHandler = useCallback(
-      async (object: IObject) => {
+      (object: IObject) => {
         Keyboard.dismiss();
         setTimeout(() => {
           onItemPress(object);

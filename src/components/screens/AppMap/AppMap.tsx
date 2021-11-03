@@ -224,33 +224,45 @@ export const AppMap = ({navigation}: IProps) => {
     [findZoomForObjectInCluster],
   );
 
-  const onSearchItemPress = async (object: IObject) => {
-    let newFitlters = selectedFilters;
-    let newMarkers = markers;
+  const onSearchItemPress = useStaticCallback(
+    (object: IObject) => {
+      let newFitlters = selectedFilters;
+      let newMarkers = markers;
 
-    if (selectedFilters.length) {
-      ignoreFitBounds.current = true;
+      if (selectedFilters.length) {
+        ignoreFitBounds.current = true;
 
-      newFitlters = [];
-      newMarkers = getMapMarkers(appData, newFitlters);
+        newFitlters = [];
+        newMarkers = getMapMarkers(appData, newFitlters);
 
-      setSelectedFilters(newFitlters);
-      setMarkers(newMarkers);
-    }
+        setSelectedFilters(newFitlters);
+        setMarkers(newMarkers);
+      }
 
-    closeSearchMenu();
-    const clusterBounds = bbox(newMarkers);
-    const cluster = new Supercluster({
-      radius: 40,
-      maxZoom: 14,
-    }).load(newMarkers?.features!);
+      closeSearchMenu();
+      const clusterBounds = bbox(newMarkers);
+      const cluster = new Supercluster({
+        radius: 40,
+        maxZoom: 14,
+      }).load(newMarkers?.features!);
 
-    moveCameraToSearchedObject(object, cluster, clusterBounds);
+      moveCameraToSearchedObject(object, cluster, clusterBounds);
 
-    addToHistory(object);
-    selectObjectAndOpenMenu(object);
-    clearInput();
-  };
+      addToHistory(object);
+      selectObjectAndOpenMenu(object);
+      clearInput();
+    },
+    [
+      addToHistory,
+      appData,
+      clearInput,
+      closeSearchMenu,
+      markers,
+      moveCameraToSearchedObject,
+      selectObjectAndOpenMenu,
+      selectedFilters,
+    ],
+  );
 
   const onMenuHideEnd = useStaticCallback(() => {
     setSelectedObject(null);
