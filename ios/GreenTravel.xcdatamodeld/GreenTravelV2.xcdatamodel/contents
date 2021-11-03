@@ -27,9 +27,11 @@
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="descriptionHTML" optional="YES" attributeType="String"/>
         <attribute name="imageURLs" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>
         <relationship name="area" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredArea"/>
         <relationship name="linkedCategories" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="StoredCategoryUUIDToRelatedItemUUIDs"/>
+        <relationship name="linkedCategoriesBelongsTo" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="StoredCategoryUUIDToRelatedItemUUIDs"/>
         <relationship name="path" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredCoordinateCollection"/>
     </entity>
     <entity name="StoredPlaceItem" representedClassName="StoredPlaceItem" syncable="YES">
@@ -58,7 +60,7 @@
         <element name="StoredCategoryUUIDToRelatedItemUUIDs" positionX="-45" positionY="81" width="128" height="73"/>
         <element name="StoredCoordinate" positionX="-45" positionY="90" width="128" height="73"/>
         <element name="StoredCoordinateCollection" positionX="-36" positionY="99" width="128" height="58"/>
-        <element name="StoredPlaceDetails" positionX="-54" positionY="72" width="128" height="134"/>
+        <element name="StoredPlaceDetails" positionX="-54" positionY="72" width="128" height="164"/>
         <element name="StoredPlaceItem" positionX="-63" positionY="-18" width="128" height="208"/>
         <element name="StoredRelatedItemUUID" positionX="-36" positionY="90" width="128" height="58"/>
         <element name="StoredSearchItem" positionX="-54" positionY="72" width="128" height="73"/>
