@@ -224,7 +224,7 @@ export const AppMap = ({navigation}: IProps) => {
     [findZoomForObjectInCluster],
   );
 
-  const onSearchItemPress = useStaticCallback(
+  const onSearchItemPress = useCallback(
     (object: IObject) => {
       let newFitlters = selectedFilters;
       let newMarkers = markers;
