@@ -2,7 +2,7 @@
 //  StoredCategory+CoreDataProperties.h
 //  
 //
-//  Created by Alex K on 2/6/21.
+//  Created by Alex K on 4.11.21.
 //
 //
 
@@ -13,12 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StoredCategory (CoreDataProperties)
 
-+ (NSFetchRequest<StoredCategory *> *)fetchRequest;
++ (NSFetchRequest<StoredCategory *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
 
 @property (nullable, nonatomic, copy) NSString *coverURL;
+@property (nullable, nonatomic, copy) NSString *icon;
 @property (nullable, nonatomic, copy) NSString *title;
 @property (nullable, nonatomic, copy) NSString *uuid;
-@property (nullable, nonatomic, copy) NSString *icon;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredCategory *> *categories;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredPlaceItem *> *items;
 @property (nullable, nonatomic, retain) StoredCategory *parent;

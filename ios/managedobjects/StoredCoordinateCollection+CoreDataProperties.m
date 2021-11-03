@@ -2,7 +2,7 @@
 //  StoredCoordinateCollection+CoreDataProperties.m
 //  
 //
-//  Created by Alex K on 5/19/21.
+//  Created by Alex K on 4.11.21.
 //
 //
 

@@ -2,7 +2,7 @@
 //  StoredCategoryUUIDToRelatedItemUUIDs+CoreDataProperties.h
 //  
 //
-//  Created by Alex K on 2/6/21.
+//  Created by Alex K on 4.11.21.
 //
 //
 
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StoredCategoryUUIDToRelatedItemUUIDs (CoreDataProperties)
 
-+ (NSFetchRequest<StoredCategoryUUIDToRelatedItemUUIDs *> *)fetchRequest;
++ (NSFetchRequest<StoredCategoryUUIDToRelatedItemUUIDs *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
 
 @property (nullable, nonatomic, copy) NSString *uuid;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredRelatedItemUUID *> *relatedItemUUIDs;
