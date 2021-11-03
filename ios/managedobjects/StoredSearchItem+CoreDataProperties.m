@@ -2,7 +2,7 @@
 //  StoredSearchItem+CoreDataProperties.m
 //  
 //
-//  Created by Alex K on 2/23/21.
+//  Created by Alex K on 4.11.21.
 //
 //
 

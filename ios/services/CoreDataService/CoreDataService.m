@@ -218,7 +218,27 @@ NSPersistentContainer *_persistentContainer;
   storedDetails.descriptionHTML = details.descriptionHTML;
   storedDetails.imageURLs = [details.images componentsJoinedByString:@","];
   // Save linked categories.
-  [details.categoryIdToItems enumerateObjectsUsingBlock:^(CategoryUUIDToRelatedItemUUIDs * _Nonnull categoryUUIDToRelatedItemUUIDs, NSUInteger idx, BOOL * _Nonnull stop) {
+  [self addLinkedCategoriesObjectToDetails:details.categoryIdToItems
+                                       add:^(StoredCategoryUUIDToRelatedItemUUIDs*
+                                             relatedCategoryUUIDs) {
+    [storedDetails addLinkedCategoriesObject:relatedCategoryUUIDs];
+  }];
+  [self addLinkedCategoriesObjectToDetails:details.categoryIdToItemsBelongsTo
+                                       add:^(StoredCategoryUUIDToRelatedItemUUIDs*
+                                             relatedCategoryUUIDs) {
+    [storedDetails addLinkedCategoriesBelongsToObject:relatedCategoryUUIDs];
+  }];
+  
+  [weakSelf savePath:details.path storedDetails:storedDetails];
+  [weakSelf saveArea:details.area storedDetails:storedDetails];
+  
+  return storedDetails;
+}
+
+- (void)addLinkedCategoriesObjectToDetails:(NSArray<CategoryUUIDToRelatedItemUUIDs *> *)categoryIdToItems
+                                       add:(void (^)(StoredCategoryUUIDToRelatedItemUUIDs*))add {
+  __weak typeof(self) weakSelf = self;
+  [categoryIdToItems enumerateObjectsUsingBlock:^(CategoryUUIDToRelatedItemUUIDs * _Nonnull categoryUUIDToRelatedItemUUIDs, NSUInteger idx, BOOL * _Nonnull stop) {
     StoredCategoryUUIDToRelatedItemUUIDs *relatedCategoryUUIDs = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCategoryUUIDToRelatedItemUUIDs" inManagedObjectContext:weakSelf.ctx];
     relatedCategoryUUIDs.uuid = categoryUUIDToRelatedItemUUIDs.categoryUUID;
     [categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -226,14 +246,8 @@ NSPersistentContainer *_persistentContainer;
       relatedItemUUID.uuid = obj;
       [relatedCategoryUUIDs addRelatedItemUUIDsObject:relatedItemUUID];
     }];
-    [storedDetails addLinkedCategoriesObject:relatedCategoryUUIDs];
+    add(relatedCategoryUUIDs);
   }];
-  
-  [weakSelf savePath:details.path storedDetails:storedDetails];
-  
-  [weakSelf saveArea:details.area storedDetails:storedDetails];
-  
-  return storedDetails;
 }
 
 - (void)savePath:(NSArray<CLLocation *> *)path
@@ -274,10 +288,12 @@ NSPersistentContainer *_persistentContainer;
   details.images = [storedDetails.imageURLs componentsSeparatedByString:@","];
   details.descriptionHTML = storedDetails.descriptionHTML;
   
-  details.categoryIdToItems = categoryIdToItemsFromStored(storedDetails.linkedCategories);
+  details.categoryIdToItems =
+      categoryIdToItemsFromStored(storedDetails.linkedCategories);
+  details.categoryIdToItemsBelongsTo =
+      categoryIdToItemsFromStored(storedDetails.linkedCategoriesBelongsTo);
   
   [self retrievePath:storedDetails.path.coordinates details:details];
-  
   [self retrieveArea:storedDetails.area details:details];
   
   return details;

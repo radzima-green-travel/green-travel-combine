@@ -2,7 +2,7 @@
 //  StoredRelatedItemUUID+CoreDataProperties.h
 //  
 //
-//  Created by Alex K on 2/6/21.
+//  Created by Alex K on 4.11.21.
 //
 //
 
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StoredRelatedItemUUID (CoreDataProperties)
 
-+ (NSFetchRequest<StoredRelatedItemUUID *> *)fetchRequest;
++ (NSFetchRequest<StoredRelatedItemUUID *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
 
 @property (nullable, nonatomic, copy) NSString *uuid;
 
