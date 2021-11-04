@@ -56,6 +56,8 @@
 @property (strong, nonatomic) UIStackView *descriptionPlaceholderView;
 @property (strong, nonatomic) UILabel *interestingLabel;
 @property (strong, nonatomic) LinkedCategoriesView *linkedCategoriesView;
+@property (strong, nonatomic) LinkedCategoriesView *belongsToView;
+@property (strong, nonatomic) NSMutableDictionary<NSNumber, LinkedCategoriesView *> *linksBlockTypeToView;
 @property (strong, nonatomic) NSLayoutConstraint *linkedCategoriesViewHeightConstraint;
 @property (strong, nonatomic) UIView *activityIndicatorContainerView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
@@ -69,6 +71,7 @@
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextTopAnchor;
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextBottomAnchor;
 @property (strong, nonatomic) NSLayoutConstraint *linkWebsiteBottomAnchor;
+@property (strong, nonatomic) NSLayoutConstraint *linkedCategoriesViewBottomAnchor;
 
 @property (assign, nonatomic) BOOL ready;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -447,16 +450,17 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 }
 
 #pragma mark - Linked categories view
-- (void)addLinkedCategoriesView {
-  if (self.linkedCategoriesView != nil) {
+- (void)addLinkedCategoriesView:(LinkedCategoriesViewType)type {
+  if ([self.linksBlockTypeToView[@(LinkedCategoriesViewType)]] != nil) {
     return;
   }
   
-  self.linkedCategoriesView =
+  LinkedCategoriesView *linkedCategoriesView =
   [[LinkedCategoriesView alloc] initWithIndexModel:self.indexModel
                                         apiService:self.apiService
                                           mapModel:self.mapModel
                                      locationModel:self.locationModel
+                                             title:[self linkedCategoriesLabelByType:linkedCategoriesViewType]
                               onCategoryLinkSelect:^(Category * _Nonnull category, NSOrderedSet<NSString *> * _Nonnull linkedItems) {
       PlacesViewController *placesViewController =
       [[PlacesViewController alloc] initWithIndexModel:self.indexModel
@@ -471,25 +475,76 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
       placesViewController.category = category;
       [self.navigationController pushViewController:placesViewController animated:YES];
   }];
+  
+  self.linksBlockTypeToView[@(LinkedCategoriesViewType)] = linkedCategoriesView;
 
-  self.linkedCategoriesView.translatesAutoresizingMaskIntoConstraints = NO;
+  linkedCategoriesView.translatesAutoresizingMaskIntoConstraints = NO;
 
-  [self.contentView addSubview:self.linkedCategoriesView];
+  [self.contentView addSubview:linkedCategoriesView];
 
   NSLayoutConstraint *topAnchor;
-  if (self.linkOfficialSite != nil) {
-    [NSLayoutConstraint deactivateConstraints:@[self.linkWebsiteBottomAnchor]];
-    topAnchor = [self.linkOfficialSite.bottomAnchor constraintEqualToAnchor:self.linkedCategoriesView.topAnchor constant:-32.0];
-  } else {
-    [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
-    topAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.linkedCategoriesView.topAnchor constant:-32.0];
+  switch (linkedCategoriesViewType) {
+    case LinkedCategoriesViewTypeCategories:
+      if (self.linkOfficialSite != nil) {
+        [NSLayoutConstraint deactivateConstraints:@[self.linkWebsiteBottomAnchor]];
+        topAnchor = [self.linkOfficialSite.bottomAnchor
+                     constraintEqualToAnchor:linkedCategoriesView.topAnchor
+                     constant:-32.0];
+        break;
+      }
+    case LinkedCategoriesViewTypeBelongsTo:
+      LinkedCategoriesView *prevView = self.linksBlockTypeToView[@(LinkedCategoriesViewTypeCategories)];
+      if (prevView != nil) {
+        [NSLayoutConstraint deactivateConstraints:@[self.linkedCategoriesViewBottomAnchor]];
+        topAnchor = [prevView.bottomAnchor
+                     constraintEqualToAnchor:linkedCategoriesView.topAnchor
+                     constant:-32.0];
+        break;
+      }
+      if (self.linkOfficialSite != nil) {
+        [NSLayoutConstraint deactivateConstraints:@[self.linkWebsiteBottomAnchor]];
+        topAnchor = [self.linkOfficialSite.bottomAnchor
+                     constraintEqualToAnchor:linkedCategoriesView.topAnchor
+                     constant:-32.0];
+        break;
+      }
+    default:
+      [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
+      topAnchor = [self.descriptionTextView.bottomAnchor
+                   constraintEqualToAnchor:linkedCategoriesView.topAnchor
+                   constant:-32.0];
   }
+  
+  self.linkedCategoriesViewBottomAnchor = [linkedCategoriesView.bottomAnchor
+                                           constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5];
   [NSLayoutConstraint activateConstraints:@[
       topAnchor,
-      [self.linkedCategoriesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
-      [self.linkedCategoriesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
-      [self.linkedCategoriesView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5],
+      [linkedCategoriesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
+      [linkedCategoriesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
+      self.linkedCategoriesViewBottomAnchor,
   ]];
+}
+
+- (NSString *)linkedCategoriesLabelByType:(LinkedCategoriesViewType)linkedCategoriesViewType {
+  switch (linkedCategoriesViewType) {
+    case LinkedCategoriesViewTypeCategories:
+      return NSLocalizedString(@"DetailsScreenActivities", @"");
+    case LinkedCategoriesViewTypeBelongsTo:
+      return NSLocalizedString(@"DetailsScreenBelongsTo", @"");
+  }
+}
+
+
+- (void)setLinkedCategoriesView:(LinkedCategoriesView *)view
+                         byType:(LinkedCategoriesViewType)linkedCategoriesViewType {
+  switch (linkedCategoriesViewType) {
+    case LinkedCategoriesViewTypeCategories:
+      self.linkedCategoriesView = view;
+      return;
+    case LinkedCategoriesViewTypeBelongsTo:
+      self.belongsToView = view;
+      return;
+  }
 }
 
 - (void)updateMainContent:(PlaceDetails *)details {
@@ -520,7 +575,11 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
          [weakSelf addButtonOfficialSite];
       }
       if (details.categoryIdToItems) {
-        [weakSelf addLinkedCategoriesView];
+        [weakSelf addLinkedCategoriesView:LinkedCategoriesViewTypeCategories];
+        [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
+      }
+      if (details.categoryIdToItemsBelongsTo) {
+        [weakSelf addLinkedCategoriesView:LinkedCategoriesViewTypeBelongsTo];
         [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
       }
     });
