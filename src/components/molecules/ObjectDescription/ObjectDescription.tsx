@@ -10,7 +10,7 @@ interface IProps {
 
 export const ObjectDescription = memo(({description}: IProps) => {
   const styles = useThemeStyles(themeStyles, {disableStyleSheet: true});
-  console.log(description);
+
   const {width} = useWindowDimensions();
   return (
     <HTML
