@@ -39,4 +39,9 @@ typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
 
 @end
 
+typedef NS_ENUM(NSUInteger, LinkedCategoriesViewType) {
+  LinkedCategoriesViewTypeCategories,
+  LinkedCategoriesViewTypeBelongsTo,
+}
+
 NS_ASSUME_NONNULL_END

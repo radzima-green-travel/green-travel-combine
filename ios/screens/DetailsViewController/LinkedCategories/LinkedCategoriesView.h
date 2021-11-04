@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
                         apiService:(nonnull ApiService *)apiService
                           mapModel:(nonnull MapModel *)mapModel
                      locationModel:(nonnull LocationModel *)locationModel
+                             title:(nonnull NSString *)title
               onCategoryLinkSelect:(void(^)(Category *, NSOrderedSet<NSString *> *))onCategoryLinkSelect;
 - (void)update:(NSArray<CategoryUUIDToRelatedItemUUIDs *>*)categoryIdToItems;
 
