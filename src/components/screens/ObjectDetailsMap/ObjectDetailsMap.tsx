@@ -5,6 +5,7 @@ import MapBox, {
   FillLayerStyle,
   LineLayerStyle,
   SymbolLayerStyle,
+  RegionPayload,
 } from '@react-native-mapbox-gl/maps';
 import {IProps} from './types';
 import {
@@ -36,7 +37,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {mapService} from 'services/MapService';
 
-import {IObject} from 'core/types';
+import {IBounds, IObject} from 'core/types';
 import {
   clearObjectDetailsMapDirection,
   showObjectDetailsMapDirectionRequest,
@@ -44,6 +45,16 @@ import {
 import {showLocation} from 'react-native-map-link';
 import {themeLayerStyles} from './styles';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
+import {
+  Feature,
+  Point,
+  point,
+  featureCollection,
+  multiPolygon,
+  lineString,
+  MultiPolygon,
+  LineString,
+} from '@turf/helpers';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -59,6 +70,8 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   const {t} = useTranslation('objectDetails');
   const {objectId} = route.params;
   const camera = useRef<MapBox.Camera>(null);
+  const map = useRef<MapBox.MapView>(null);
+
   const {openMenu, closeMenu, ...menuProps} = useBottomMenu();
 
   const {bottom, top} = useSafeAreaInsets();
@@ -79,8 +92,14 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   const isDirectionShowed = useSelector(selectIsDirectionShowed);
   const direction = useSelector(selectMapDirection);
 
-  const {focusToUserLocation, getUserLocation, ...userLocationProps} =
-    useFocusToUserLocation(camera);
+  const {
+    focusToUserLocation,
+    setIsUserLocationFocused,
+    isUserLocationFocused,
+    getUserLocation,
+    userLocation,
+    ...userLocationProps
+  } = useFocusToUserLocation(camera);
 
   const bounds = useMemo(() => {
     if (data) {
@@ -131,7 +150,6 @@ export const ObjectDetailsMap = ({route}: IProps) => {
   const onMenuButtonPress = useCallback(
     async (obj: IObject) => {
       const {location, name} = obj;
-      const point = [location!.lon!, location!.lat!];
 
       if (isDirectionShowed) {
         showLocation({
@@ -144,19 +162,19 @@ export const ObjectDetailsMap = ({route}: IProps) => {
           dialogMessage: name,
           cancelText: t('cancel'),
         });
-      } else {
-        const userLocation = await getUserLocation();
-        if (userLocation) {
+      } else if (centerCoordinate) {
+        const usrLocation = await getUserLocation();
+        if (usrLocation) {
           dispatch(
             showObjectDetailsMapDirectionRequest({
-              from: userLocation,
-              to: point,
+              from: usrLocation,
+              to: centerCoordinate,
             }),
           );
         }
       }
     },
-    [dispatch, getUserLocation, isDirectionShowed, t],
+    [centerCoordinate, dispatch, getUserLocation, isDirectionShowed, t],
   );
 
   useEffect(() => {
@@ -207,13 +225,55 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     [boundsToArea, data?.area, getObject, openMenu],
   );
 
+  const onShowLocationPress = async () => {
+    let directionBounds: IBounds | null = null;
+
+    let objectFeature: Feature<MultiPolygon | LineString | Point> | null = null;
+
+    if (data?.area) {
+      objectFeature = multiPolygon(data.area.coordinates);
+    } else if (data?.routes) {
+      objectFeature = lineString(data.routes.coordinates);
+    } else if (centerCoordinate) {
+      objectFeature = point(centerCoordinate);
+    }
+
+    if (userLocation && objectFeature) {
+      directionBounds = mapService.getBoundsFromGeoJSON(
+        featureCollection([objectFeature, point(userLocation)]),
+        {
+          bottom: 200 + bottom,
+          top: 30 + top,
+        },
+      );
+    }
+
+    const currentZoom = (await map.current?.getZoom()) || null;
+
+    focusToUserLocation(directionBounds, currentZoom);
+  };
+
+  const unfocusUserLocation = useCallback(
+    (feature: Feature<Point, RegionPayload>) => {
+      const {
+        properties: {isUserInteraction},
+      } = feature;
+      if (isUserInteraction) {
+        setIsUserLocationFocused(false);
+      }
+    },
+    [setIsUserLocationFocused],
+  );
+
   return (
     <View style={{flex: 1}}>
       <ClusterMap
         attributionPosition={{bottom: 40, right: 30}}
         centerCoordinate={centerCoordinate}
+        onRegionWillChange={unfocusUserLocation}
         onShapePress={onMarkerPress}
         bounds={bounds}
+        ref={map}
         cameraRef={camera}>
         {userLocationProps.visible ? (
           <MapBox.UserLocation
@@ -270,7 +330,8 @@ export const ObjectDetailsMap = ({route}: IProps) => {
       </ClusterMap>
       <ObjectDetailsMapButtons
         bottomMenuPosition={menuProps.animatedPosition}
-        onShowLocationPress={focusToUserLocation}
+        onShowLocationPress={onShowLocationPress}
+        isUserLocationFocused={isUserLocationFocused}
         botttomInset={bottom}
       />
       <BottomMenu {...menuProps}>

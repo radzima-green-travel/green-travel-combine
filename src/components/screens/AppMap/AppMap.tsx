@@ -22,6 +22,7 @@ import {IMapFilter, IObject} from 'core/types';
 import MapBox, {
   OnPressEvent,
   SymbolLayerStyle,
+  RegionPayload,
 } from '@react-native-mapbox-gl/maps';
 import {
   AppMapBottomMenu,
@@ -44,7 +45,7 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
 
-import {Geometry, Feature, Position} from '@turf/helpers';
+import {Geometry, Feature, Position, Point} from '@turf/helpers';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {mapService} from 'services/MapService';
@@ -277,8 +278,12 @@ export const AppMap = ({navigation}: IProps) => {
     openSearchMenu();
   }, [closeMenu, openSearchMenu]);
 
-  const {focusToUserLocation, ...userLocationProps} =
-    useFocusToUserLocation(camera);
+  const {
+    focusToUserLocation,
+    setIsUserLocationFocused,
+    isUserLocationFocused,
+    ...userLocationProps
+  } = useFocusToUserLocation(camera);
 
   useBackHandler(() => {
     if (isMenuOpened()) {
@@ -316,12 +321,31 @@ export const AppMap = ({navigation}: IProps) => {
     }
   }, []);
 
+  const onShowLocationPress = useCallback(async () => {
+    const currentZoom = (await map.current?.getZoom()) || null;
+
+    focusToUserLocation(bounds, currentZoom);
+  }, [bounds, focusToUserLocation]);
+
+  const unfocusUserLocation = useCallback(
+    (feature: Feature<Point, RegionPayload>) => {
+      const {
+        properties: {isUserInteraction},
+      } = feature;
+      if (isUserInteraction) {
+        setIsUserLocationFocused(false);
+      }
+    },
+    [setIsUserLocationFocused],
+  );
+
   return (
     <View style={styles.container}>
       <ClusterMap
         bounds={bounds}
         ref={map}
         cameraRef={camera}
+        onRegionWillChange={unfocusUserLocation}
         onShapePress={onShapePress}
         onPress={onMapPress}>
         {userLocationProps.visible ? (
@@ -370,8 +394,9 @@ export const AppMap = ({navigation}: IProps) => {
       </BottomMenu>
 
       <AppMapButtons
+        isUserLocationFocused={isUserLocationFocused}
         bottomMenuPosition={menuProps.animatedPosition}
-        onShowLocationPress={focusToUserLocation}
+        onShowLocationPress={onShowLocationPress}
         onSearchPress={openSearchMenuAndPersistData}
       />
       <AppMapFilters

@@ -27,6 +27,7 @@ export {default as otherMonuments} from './otherMonuments.svg';
 export {default as paw} from './paw.svg';
 export {default as search} from './search.svg';
 export {default as showLocation} from './showLocation.svg';
+export {default as showLocationFilled} from './showLocationFilled.svg';
 export {default as strokeBike} from './strokeBike.svg';
 export {default as strokeBikeDark} from './strokeBikeDark.svg';
 export {default as strokeCastles} from './strokeCastles.svg';

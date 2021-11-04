@@ -10,10 +10,15 @@ interface IProps {
   onShowLocationPress: () => void;
   bottomMenuPosition: Animated.SharedValue<number>;
   botttomInset: number;
+  isUserLocationFocused: boolean;
 }
 
 export const ObjectDetailsMapButtons = memo(
-  ({onShowLocationPress, bottomMenuPosition}: IProps) => {
+  ({
+    onShowLocationPress,
+    bottomMenuPosition,
+    isUserLocationFocused,
+  }: IProps) => {
     const styles = useThemeStyles(themeStyles);
     const [buttonsOffset, setButtonsOffset] = useState(140);
 
@@ -40,9 +45,9 @@ export const ObjectDetailsMapButtons = memo(
           onPress={onShowLocationPress}>
           <Icon
             style={styles.icon}
-            name="showLocation"
-            width={19.5}
-            height={19}
+            name={isUserLocationFocused ? 'showLocationFilled' : 'showLocation'}
+            width={22.5}
+            height={22}
             color={COLORS.logCabin}
           />
         </MapButtonContainer>

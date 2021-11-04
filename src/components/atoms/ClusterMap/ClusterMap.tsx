@@ -25,6 +25,7 @@ export const ClusterMap = memo(
         centerCoordinate,
         cameraRef,
         attributionPosition,
+        onRegionWillChange,
       }: Props,
       ref,
     ) => {
@@ -70,7 +71,7 @@ export const ClusterMap = memo(
         }
         if (centerCoordinate) {
           return {
-            zoomLevel: 8,
+            zoomLevel: 12,
             centerCoordinate: centerCoordinate,
             animationDuration: 500,
           };
@@ -124,6 +125,7 @@ export const ClusterMap = memo(
           <MapboxGL.MapView
             ref={map}
             onPress={onMapPress}
+            onRegionWillChange={onRegionWillChange}
             style={styles.container}
             styleURL={
               theme === 'light'

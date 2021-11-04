@@ -28,6 +28,7 @@ export type IconsNames =
   | 'paw'
   | 'search'
   | 'showLocation'
+  | 'showLocationFilled'
   | 'strokeBike'
   | 'strokeBikeDark'
   | 'strokeCastles'

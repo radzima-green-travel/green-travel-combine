@@ -10,4 +10,7 @@ export type Props = {
   centerCoordinate?: ICoordinates | null;
   cameraRef?: React.LegacyRef<MapboxGL.Camera>;
   attributionPosition?: {bottom: number; right: number};
+  onRegionWillChange?: React.ComponentProps<
+    typeof MapboxGL.MapView
+  >['onRegionWillChange'];
 };
