@@ -10,7 +10,7 @@ interface IProps {
 
 export const ObjectDescription = memo(({description}: IProps) => {
   const styles = useThemeStyles(themeStyles, {disableStyleSheet: true});
-
+  console.log(description);
   const {width} = useWindowDimensions();
   return (
     <HTML
@@ -23,6 +23,7 @@ export const ObjectDescription = memo(({description}: IProps) => {
         h1: styles.headline as MixedStyleDeclaration,
         h2: styles.headline as MixedStyleDeclaration,
         p: styles.text as MixedStyleDeclaration,
+        em: styles.text as MixedStyleDeclaration,
 
         span: styles.text as MixedStyleDeclaration,
         strong: styles.text as MixedStyleDeclaration,

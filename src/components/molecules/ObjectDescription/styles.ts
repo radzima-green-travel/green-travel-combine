@@ -21,6 +21,7 @@ export const themeStyles = {
       light: COLORS.logCabin,
       dark: COLORS.altoForDark,
     },
+    fontStyle: 'normal',
     textDecorationLine: 'none',
     padding: 0,
     margin: 0,
