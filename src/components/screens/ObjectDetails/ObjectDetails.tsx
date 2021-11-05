@@ -1,4 +1,10 @@
-import React, {useMemo, useLayoutEffect, useCallback, useState} from 'react';
+import React, {
+  useMemo,
+  useLayoutEffect,
+  useCallback,
+  useState,
+  PropsWithChildren,
+} from 'react';
 import {View, Animated} from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
 
@@ -25,6 +31,80 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useObjectDetailsStatusBar} from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
+import {
+  PinchGestureHandler,
+  PinchGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
+import Reanimated, {
+  useAnimatedGestureHandler,
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+
+interface IProps {
+  width: number;
+  height: number;
+}
+
+export const ZoomableView = ({
+  children,
+  width,
+  height,
+}: PropsWithChildren<IProps>) => {
+  const scale = useSharedValue(1);
+
+  const originX = useSharedValue(0);
+  const originY = useSharedValue(0);
+
+  const focalX = useSharedValue(0);
+  const focalY = useSharedValue(0);
+
+  const translationX = useSharedValue(0);
+  const translationY = useSharedValue(0);
+
+  const pinchHandler =
+    useAnimatedGestureHandler<PinchGestureHandlerGestureEvent>({
+      onStart: event => {
+        originX.value = event.focalX - width / 2;
+        originY.value = event.focalY - height / 2;
+      },
+      onActive: event => {
+        scale.value = Math.max(1, event.scale);
+        focalX.value = event.focalX - width / 2;
+        focalY.value = event.focalY - height / 2;
+
+        translationX.value = originX.value - focalX.value;
+        translationY.value = originY.value - focalY.value;
+      },
+      onEnd: () => {
+        scale.value = withTiming(1);
+        translationX.value = withTiming(0);
+        translationY.value = withTiming(0);
+      },
+    });
+
+  const rStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        // {translateX: translationX.value},
+        // {translateY: translationY.value},
+
+        {translateX: originX.value},
+        {translateY: originY.value},
+        {scale: scale.value},
+        {translateX: -originX.value},
+        {translateY: -originY.value},
+      ],
+    };
+  });
+
+  return (
+    <PinchGestureHandler onGestureEvent={pinchHandler}>
+      <Reanimated.View style={rStyle}>{children}</Reanimated.View>
+    </PinchGestureHandler>
+  );
+};
 
 export const ObjectDetails = ({route, navigation}: IProps) => {
   const {
@@ -200,12 +280,14 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
             ],
           },
         ]}>
-        <ImageSlider
-          width={IMAGE_WIDTH}
-          height={IMAGE_HEIGHT}
-          images={data.images}
-          onScroll={onScroll}
-        />
+        <ZoomableView width={IMAGE_WIDTH} height={IMAGE_HEIGHT}>
+          <ImageSlider
+            width={IMAGE_WIDTH}
+            height={IMAGE_HEIGHT}
+            images={data.images}
+            onScroll={onScroll}
+          />
+        </ZoomableView>
       </Animated.View>
       <LinearGradient
         pointerEvents={'none'}
