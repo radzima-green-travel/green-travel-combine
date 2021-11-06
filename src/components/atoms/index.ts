@@ -18,3 +18,4 @@ export * from './KeyboardRegulator';
 export {ObjectDetailsSiteLink} from './ObjectDetailsSiteLink';
 export {RefreshPageReminder} from './RefreshPageReminder';
 export {BottomMenu} from './BottomMenu';
+export {ZoomableView} from './ZoomableView';
