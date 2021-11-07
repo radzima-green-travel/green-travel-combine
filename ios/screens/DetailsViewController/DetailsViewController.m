@@ -55,9 +55,7 @@
 @property (strong, nonatomic) DescriptionView *descriptionTextView;
 @property (strong, nonatomic) UIStackView *descriptionPlaceholderView;
 @property (strong, nonatomic) UILabel *interestingLabel;
-@property (strong, nonatomic) LinkedCategoriesView *linkedCategoriesView;
-@property (strong, nonatomic) LinkedCategoriesView *belongsToView;
-@property (strong, nonatomic) NSMutableDictionary<NSNumber, LinkedCategoriesView *> *linksBlockTypeToView;
+@property (strong, nonatomic) NSMutableDictionary<NSNumber *, LinkedCategoriesView *> *linkedCategoriesTypeToView;
 @property (strong, nonatomic) NSLayoutConstraint *linkedCategoriesViewHeightConstraint;
 @property (strong, nonatomic) UIView *activityIndicatorContainerView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
@@ -69,9 +67,8 @@
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerHideAnimator;
 
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextTopAnchor;
-@property (strong, nonatomic) NSLayoutConstraint *descriptionTextBottomAnchor;
-@property (strong, nonatomic) NSLayoutConstraint *linkWebsiteBottomAnchor;
-@property (strong, nonatomic) NSLayoutConstraint *linkedCategoriesViewBottomAnchor;
+@property (strong, nonatomic) UIView *prevLastView;
+@property (strong, nonatomic) NSLayoutConstraint *prevLastViewBottomAnchor;
 
 @property (assign, nonatomic) BOOL ready;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -107,6 +104,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         _searchModel = searchModel;
         _mapModel = mapModel;
         _mapService = mapService;
+        _linkedCategoriesTypeToView = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -225,18 +223,20 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     ]];
     #pragma mark - Description text
     self.descriptionTextView = [[DescriptionView alloc] init];
+    self.prevLastView = self.descriptionTextView;
 
     self.descriptionTextView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.descriptionTextView];
 
     self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0];
-    self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5];
+    NSLayoutConstraint *descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5];
     [NSLayoutConstraint activateConstraints:@[
         self.descriptionTextTopAnchor,
         [self.descriptionTextView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
         [self.descriptionTextView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        self.descriptionTextBottomAnchor,
+        descriptionTextBottomAnchor,
     ]];
+    self.prevLastViewBottomAnchor = descriptionTextBottomAnchor;
     
 #pragma mark - Activity indicator
     self.activityIndicatorContainerView = [[UIView alloc] init];
@@ -393,6 +393,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     return;
   }
   self.linkOfficialSite = [[UIButtonHighlightable alloc] initWithFrame:CGRectZero];
+  
   SEL action = @selector(onWebsiteButtonPress:);
   BOOL urlIsUnsafe = [self.item.details.url hasPrefix:@"http://"];
   
@@ -409,22 +410,21 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   
   [self.contentView addSubview:self.linkOfficialSite];
   
-  [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
-  self.descriptionTextBottomAnchor = [self.descriptionTextView.bottomAnchor constraintEqualToAnchor:self.linkOfficialSite.topAnchor constant:0.0];
+  [NSLayoutConstraint deactivateConstraints:@[self.prevLastViewBottomAnchor]];
   self.linkOfficialSite.translatesAutoresizingMaskIntoConstraints = NO;
   NSLayoutConstraint *buttonLeading =
   [self.linkOfficialSite.leadingAnchor constraintEqualToAnchor:self.descriptionTextView.leadingAnchor
                                                       constant:kDistanceScreenEdgeToTextContent];
-  self.linkWebsiteBottomAnchor =
+  NSLayoutConstraint *bottomAnchor =
   [self.linkOfficialSite.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor
                                                      constant:-19.5];
   [NSLayoutConstraint activateConstraints:@[
-    self.descriptionTextBottomAnchor,
+    [self.prevLastView.bottomAnchor constraintEqualToAnchor:self.linkOfficialSite.topAnchor constant:0.0],
     buttonLeading,
     [self.linkOfficialSite.trailingAnchor
      constraintLessThanOrEqualToAnchor:self.descriptionTextView.trailingAnchor
      constant:-kDistanceScreenEdgeToTextContent],
-    self.linkWebsiteBottomAnchor,
+    bottomAnchor,
   ]];
   if (urlIsUnsafe) {
     UIImage *lockSlash;
@@ -447,11 +447,13 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
       [lockSlashView.widthAnchor constraintEqualToConstant:20.0],
     ]];
   }
+  self.prevLastViewBottomAnchor = bottomAnchor;
+  self.prevLastView = self.linkOfficialSite;
 }
 
 #pragma mark - Linked categories view
 - (void)addLinkedCategoriesView:(LinkedCategoriesViewType)type {
-  if ([self.linksBlockTypeToView[@(LinkedCategoriesViewType)]] != nil) {
+  if (self.linkedCategoriesTypeToView[@(type)] != nil) {
     return;
   }
   
@@ -460,69 +462,39 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
                                         apiService:self.apiService
                                           mapModel:self.mapModel
                                      locationModel:self.locationModel
-                                             title:[self linkedCategoriesLabelByType:linkedCategoriesViewType]
+                                             title:[self linkedCategoriesLabelByType:type]
                               onCategoryLinkSelect:^(Category * _Nonnull category, NSOrderedSet<NSString *> * _Nonnull linkedItems) {
-      PlacesViewController *placesViewController =
-      [[PlacesViewController alloc] initWithIndexModel:self.indexModel
-                                            apiService:self.apiService
-                                       coreDataService:self.coreDataService
-                                            mapService:self.mapService
-                                              mapModel:self.mapModel
-                                         locationModel:self.locationModel
-                                           searchModel:self.searchModel
-                                            bookmarked:NO
-                                      allowedItemUUIDs:linkedItems];
-      placesViewController.category = category;
-      [self.navigationController pushViewController:placesViewController animated:YES];
+    PlacesViewController *placesViewController =
+    [[PlacesViewController alloc] initWithIndexModel:self.indexModel
+                                          apiService:self.apiService
+                                     coreDataService:self.coreDataService
+                                          mapService:self.mapService
+                                            mapModel:self.mapModel
+                                       locationModel:self.locationModel
+                                         searchModel:self.searchModel
+                                          bookmarked:NO
+                                    allowedItemUUIDs:linkedItems];
+    placesViewController.category = category;
+    [self.navigationController pushViewController:placesViewController animated:YES];
   }];
   
-  self.linksBlockTypeToView[@(LinkedCategoriesViewType)] = linkedCategoriesView;
-
+  [self.contentView addSubview:linkedCategoriesView];
+  
   linkedCategoriesView.translatesAutoresizingMaskIntoConstraints = NO;
 
-  [self.contentView addSubview:linkedCategoriesView];
+  [NSLayoutConstraint deactivateConstraints:@[self.prevLastViewBottomAnchor]];
 
-  NSLayoutConstraint *topAnchor;
-  switch (linkedCategoriesViewType) {
-    case LinkedCategoriesViewTypeCategories:
-      if (self.linkOfficialSite != nil) {
-        [NSLayoutConstraint deactivateConstraints:@[self.linkWebsiteBottomAnchor]];
-        topAnchor = [self.linkOfficialSite.bottomAnchor
-                     constraintEqualToAnchor:linkedCategoriesView.topAnchor
-                     constant:-32.0];
-        break;
-      }
-    case LinkedCategoriesViewTypeBelongsTo:
-      LinkedCategoriesView *prevView = self.linksBlockTypeToView[@(LinkedCategoriesViewTypeCategories)];
-      if (prevView != nil) {
-        [NSLayoutConstraint deactivateConstraints:@[self.linkedCategoriesViewBottomAnchor]];
-        topAnchor = [prevView.bottomAnchor
-                     constraintEqualToAnchor:linkedCategoriesView.topAnchor
-                     constant:-32.0];
-        break;
-      }
-      if (self.linkOfficialSite != nil) {
-        [NSLayoutConstraint deactivateConstraints:@[self.linkWebsiteBottomAnchor]];
-        topAnchor = [self.linkOfficialSite.bottomAnchor
-                     constraintEqualToAnchor:linkedCategoriesView.topAnchor
-                     constant:-32.0];
-        break;
-      }
-    default:
-      [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextBottomAnchor]];
-      topAnchor = [self.descriptionTextView.bottomAnchor
-                   constraintEqualToAnchor:linkedCategoriesView.topAnchor
-                   constant:-32.0];
-  }
-  
-  self.linkedCategoriesViewBottomAnchor = [linkedCategoriesView.bottomAnchor
-                                           constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5];
+  self.prevLastViewBottomAnchor =
+  [linkedCategoriesView.bottomAnchor
+   constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5];
   [NSLayoutConstraint activateConstraints:@[
-      topAnchor,
+      [self.prevLastView.bottomAnchor constraintEqualToAnchor:linkedCategoriesView.topAnchor constant:-32.0],
       [linkedCategoriesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
       [linkedCategoriesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
-      self.linkedCategoriesViewBottomAnchor,
+      self.prevLastViewBottomAnchor,
   ]];
+  self.prevLastView = linkedCategoriesView;
+  self.linkedCategoriesTypeToView[@(type)] = linkedCategoriesView;
 }
 
 - (NSString *)linkedCategoriesLabelByType:(LinkedCategoriesViewType)linkedCategoriesViewType {
@@ -531,19 +503,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
       return NSLocalizedString(@"DetailsScreenActivities", @"");
     case LinkedCategoriesViewTypeBelongsTo:
       return NSLocalizedString(@"DetailsScreenBelongsTo", @"");
-  }
-}
-
-
-- (void)setLinkedCategoriesView:(LinkedCategoriesView *)view
-                         byType:(LinkedCategoriesViewType)linkedCategoriesViewType {
-  switch (linkedCategoriesViewType) {
-    case LinkedCategoriesViewTypeCategories:
-      self.linkedCategoriesView = view;
-      return;
-    case LinkedCategoriesViewTypeBelongsTo:
-      self.belongsToView = view;
-      return;
   }
 }
 
@@ -574,13 +533,15 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
       if (weakSelf.item.details.url && [weakSelf.item.details.url length]) {
          [weakSelf addButtonOfficialSite];
       }
-      if (details.categoryIdToItems) {
+      if ([details.categoryIdToItems count]) {
         [weakSelf addLinkedCategoriesView:LinkedCategoriesViewTypeCategories];
-        [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
+        [weakSelf.linkedCategoriesTypeToView[@(LinkedCategoriesViewTypeCategories)]
+         update:details.categoryIdToItems];
       }
-      if (details.categoryIdToItemsBelongsTo) {
+      if ([details.categoryIdToItemsBelongsTo count]) {
         [weakSelf addLinkedCategoriesView:LinkedCategoriesViewTypeBelongsTo];
-        [weakSelf.linkedCategoriesView update:details.categoryIdToItems];
+        [weakSelf.linkedCategoriesTypeToView[@(LinkedCategoriesViewTypeBelongsTo)]
+         update:details.categoryIdToItemsBelongsTo];
       }
     });
   });
