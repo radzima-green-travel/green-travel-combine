@@ -3,6 +3,8 @@ import React, {PropsWithChildren, memo} from 'react';
 import {
   PinchGestureHandler,
   PinchGestureHandlerGestureEvent,
+  GestureEventPayload,
+  PinchGestureHandlerEventPayload,
 } from 'react-native-gesture-handler';
 import Reanimated, {
   useAnimatedGestureHandler,
@@ -10,6 +12,7 @@ import Reanimated, {
   withTiming,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+import {isIOS, isAndroid} from 'services/PlatformService';
 
 interface IProps {
   width: number;
@@ -18,6 +21,8 @@ interface IProps {
 
 export const ZoomableView = memo(
   ({children, width, height}: PropsWithChildren<IProps>) => {
+    const isStart = useSharedValue(false);
+
     const scale = useSharedValue(1);
     const lastScale = useSharedValue(1);
 
@@ -35,23 +40,37 @@ export const ZoomableView = memo(
     const translationX = useSharedValue(0);
     const translationY = useSharedValue(0);
 
+    const onStart = (
+      event: Readonly<GestureEventPayload & PinchGestureHandlerEventPayload>,
+    ) => {
+      'worklet';
+      const x = event.focalX - width / 2;
+      const y = event.focalY - height / 2;
+      originX.value = x;
+      originY.value = y;
+
+      transOriginX.value = x;
+      transOriginY.value = y;
+      prevNumberOfPointers.value = event.numberOfPointers;
+    };
+
     const pinchHandler =
       useAnimatedGestureHandler<PinchGestureHandlerGestureEvent>({
         onStart: event => {
-          const x = event.focalX - width / 2;
-          const y = event.focalY - height / 2;
-
-          originX.value = x;
-          originY.value = y;
-
-          transOriginX.value = x;
-          transOriginY.value = y;
-          prevNumberOfPointers.value = event.numberOfPointers;
+          if (isIOS) {
+            onStart(event);
+          } else {
+            isStart.value = true;
+          }
         },
         onActive: event => {
+          if (isAndroid && isStart.value) {
+            isStart.value = false;
+            onStart(event);
+          }
+
           focalX.value = event.focalX - width / 2;
           focalY.value = event.focalY - height / 2;
-
           if (
             (event.numberOfPointers === 2 &&
               prevNumberOfPointers.value === 1) ||
