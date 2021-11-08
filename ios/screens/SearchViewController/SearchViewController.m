@@ -140,6 +140,11 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     self.searchController.hidesNavigationBarDuringPresentation = NO;
     self.searchController.searchBar.placeholder = kPlaceholderSearch;
     self.searchController.searchBar.keyboardAppearance = UIKeyboardAppearanceDefault;
+    if (@available(iOS 13.0, *)) {
+      [self.searchController.searchBar.searchTextField setTextColor:[ColorsLegacy get].white];
+      [self.searchController.searchBar.searchTextField.leftView setTintColor:[ColorsLegacy get].white];
+      [self.searchController.searchBar.searchTextField.rightView setTintColor:[ColorsLegacy get].white];
+    }
     self.searchController.searchBar.delegate = self;
     if (@available(iOS 13.0, *)) {
         self.searchController.automaticallyShowsCancelButton = NO;

@@ -96,7 +96,7 @@ static IconNameToImageNameMap *instance;
 }
 
 - (UIImage *)iconForName32:(NSString *)name {
-  if (!self.objectIconToFileName36[name]) {
+  if (!self.objectIconToFileName32[name]) {
     return nil;
   }
   NSString *fileName = self.objectIconToFileName32[name];
