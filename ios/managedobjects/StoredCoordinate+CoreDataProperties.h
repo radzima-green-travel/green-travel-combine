@@ -2,7 +2,7 @@
 //  StoredCoordinate+CoreDataProperties.h
 //  
 //
-//  Created by Alex K on 5/20/21.
+//  Created by Alex K on 4.11.21.
 //
 //
 
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StoredCoordinate (CoreDataProperties)
 
-+ (NSFetchRequest<StoredCoordinate *> *)fetchRequest;
++ (NSFetchRequest<StoredCoordinate *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
 
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;

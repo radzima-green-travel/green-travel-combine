@@ -2,7 +2,7 @@
 //  StoredCoordinateCollection+CoreDataProperties.h
 //  
 //
-//  Created by Alex K on 5/19/21.
+//  Created by Alex K on 4.11.21.
 //
 //
 
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StoredCoordinateCollection (CoreDataProperties)
 
-+ (NSFetchRequest<StoredCoordinateCollection *> *)fetchRequest;
++ (NSFetchRequest<StoredCoordinateCollection *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
 
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredCoordinate *> *coordinates;
 

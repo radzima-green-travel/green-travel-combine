@@ -460,6 +460,7 @@
 		5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsServiceConstants.m; sourceTree = "<group>"; };
 		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
 		5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IconNameToAnalyticsEvent.m; sourceTree = "<group>"; };
+		5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV2.xcdatamodel; sourceTree = "<group>"; };
 		5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryImagePlaceholder.m; sourceTree = "<group>"; };
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
@@ -2048,9 +2049,10 @@
 		5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */,
 				5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */,
 			);
-			currentVersion = 5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */;
+			currentVersion = 5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */;
 			path = GreenTravel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

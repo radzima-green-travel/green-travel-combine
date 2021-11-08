@@ -29,6 +29,7 @@
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) LocationModel *locationModel;
+@property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) UILabel *interestingLabel;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Category *> *categories;
@@ -47,6 +48,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
                      apiService:(nonnull ApiService *)apiService
                        mapModel:(nonnull MapModel *)mapModel
                   locationModel:(nonnull LocationModel *)locationModel
+                          title:(nonnull NSString *)title
               onCategoryLinkSelect:(void(^)(Category *, NSOrderedSet<NSString *> *))onCategoryLinkSelect
 {
     self = [super init];
@@ -64,6 +66,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.scrollEnabled = NO;
         self.tableView.alwaysBounceVertical = NO;
+        self.title = title;
         [self setUp];
     }
     return self;
@@ -81,7 +84,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
     self.interestingLabel.numberOfLines = 2;
     [self.interestingLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:20.0]];
     self.interestingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.interestingLabel.attributedText = [[TypographyLegacy get] makeTitle1Bold:NSLocalizedString(@"DetailsScreenActivities", @"")];
+    self.interestingLabel.attributedText = [[TypographyLegacy get] makeTitle1Bold:self.title];
 
     [self addSubview:self.interestingLabel];
 
