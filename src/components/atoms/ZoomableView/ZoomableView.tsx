@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/core';
 import React, {PropsWithChildren, memo} from 'react';
 
 import {
@@ -21,6 +22,7 @@ interface IProps {
 
 export const ZoomableView = memo(
   ({children, width, height}: PropsWithChildren<IProps>) => {
+    const navigation = useNavigation();
     const isStart = useSharedValue(false);
 
     const scale = useSharedValue(1);
@@ -90,12 +92,23 @@ export const ZoomableView = memo(
           translationY.value = transOriginY.value - focalY.value;
         },
 
-        onEnd: () => {
+        onFinish: () => {
           scale.value = withTiming(1);
           translationX.value = withTiming(0);
           translationY.value = withTiming(0);
         },
       });
+
+    React.useEffect(() => {
+      const unsubscribe = navigation.addListener('beforeRemove', () => {
+        console.log('here');
+        scale.value = 1;
+        translationX.value = 1;
+        translationY.value = 1;
+      });
+
+      return unsubscribe;
+    }, [navigation, scale, translationX, translationY]);
 
     const rStyle = useAnimatedStyle(() => {
       return {
