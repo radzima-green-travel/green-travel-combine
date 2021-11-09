@@ -59,6 +59,7 @@ static Colors *instance;
     self.photoCollectionViewCellBorder = [UIColor colorNamed:@"photoCollectionViewCellBorder"];
     self.mapBackground = [UIColor colorNamed:@"mapBackground"];
     self.mainTextLink = [UIColor colorNamed:@"mainTextLink"];
+    self.searchBarClearButton = [UIColor colorNamed:@"searchBarClearButton"];
   }
   return self;
 }
