@@ -19,6 +19,7 @@
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148626E3B893004AD6F3 /* UIButtonHighlightable.m */; };
 		5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */; };
+		5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */; };
 		5A39D6EF26B34C04008FC20C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A39D6F126B34C04008FC20C /* Localizable.strings */; };
 		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
 		5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B0269BA98400540CE4 /* NumberUtils.m */; };
@@ -195,6 +196,8 @@
 		5A29148926E4F7AB004AD6F3 /* UIButtonWithFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIButtonWithFeedback.h; sourceTree = "<group>"; };
 		5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIButtonWithFeedback.m; sourceTree = "<group>"; };
 		5A29148D26E5031D004AD6F3 /* BookmarkButtonConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButtonConstants.h; sourceTree = "<group>"; };
+		5A333C59273C551100F95180 /* SearchViewControllerUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewControllerUtils.h; sourceTree = "<group>"; };
+		5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewControllerUtils.m; sourceTree = "<group>"; };
 		5A39D6D326AC6A8A008FC20C /* StringUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		5A39D6F026B34C04008FC20C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A39D6F326B34C0A008FC20C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1189,6 +1192,8 @@
 				5A775DE726077A7D00CEFC78 /* UISearchBarNoCancel.h */,
 				5A775DF426077A7D00CEFC78 /* SearchViewController.h */,
 				5A775DE826077A7D00CEFC78 /* SearchViewController.m */,
+				5A333C59273C551100F95180 /* SearchViewControllerUtils.h */,
+				5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */,
 				5A775DE926077A7D00CEFC78 /* UISearchBarNoCancel.m */,
 				5A775DEA26077A7D00CEFC78 /* UISearchControllerNoCancel.m */,
 				5A775DEB26077A7D00CEFC78 /* SearchCell */,
@@ -1640,6 +1645,7 @@
 				5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */,
 				5A775B5A26064C9000CEFC78 /* BookmarkItem.m in Sources */,
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
+				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */,

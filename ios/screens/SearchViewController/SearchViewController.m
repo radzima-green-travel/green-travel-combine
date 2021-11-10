@@ -29,6 +29,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TypographyLegacy.h"
 #import "AnalyticsEvents.h"
+#import "SearchViewControllerUtils.h"
 
 @interface SearchViewController ()
 
@@ -116,23 +117,13 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
   if ([self.navigationController isBeingPresented] || self.wasPresented) {
     self.wasPresented = YES;
     configureNavigationBarForModal(navigationBar);
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[Colors get].mainText];
-    if (@available(iOS 13.0, *)) {
-      [self.searchController.searchBar.searchTextField setTextColor:[Colors get].mainText];
-      [self.searchController.searchBar.searchTextField.leftView setTintColor:[Colors get].searchBarClearButton];
-      [self.searchBarClearButton setTintColor:[Colors get].searchBarClearButton];
-    }
+    configureSearchBarForModal(self.searchController.searchBar,
+                               self.searchBarClearButton);
     return;
   }
   configureNavigationBar(navigationBar);
-  if (@available(iOS 13.0, *)) {
-    [self.searchController.searchBar.searchTextField setTextColor:[ColorsLegacy get].white];
-    [self.searchController.searchBar.searchTextField.leftView setTintColor:[ColorsLegacy get].white];
-    [self.searchBarClearButton setTintColor:[ColorsLegacy get].white];
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[ColorsLegacy get].white];
-  } else {
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[Colors get].mainText];
-  }
+  configureSearchBar(self.searchController.searchBar,
+                     self.searchBarClearButton);
 }
 
 - (void)viewDidLoad {
@@ -147,13 +138,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     
     if (@available(iOS 13.0, *)) {
       self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-      UIButton *clearButton = [self.searchController.searchBar.searchTextField
-                               valueForKey:@"_clearButton"];
-      UIImage *clearButtonImage = [clearButton.imageView.image
-                                   imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-      [clearButton setImage:clearButtonImage forState:UIControlStateNormal];
-      [clearButton setImage:clearButtonImage forState:UIControlStateHighlighted];
-      self.searchBarClearButton = clearButton;
+      self.searchBarClearButton = prepareClearButton(self.searchController);
       self.searchController.automaticallyShowsCancelButton = NO;
     } else {
       self.searchController = [[UISearchControllerNoCancel alloc] initWithSearchResultsController:nil];
