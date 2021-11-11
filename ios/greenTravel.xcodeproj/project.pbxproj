@@ -199,6 +199,7 @@
 		5A29148D26E5031D004AD6F3 /* BookmarkButtonConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButtonConstants.h; sourceTree = "<group>"; };
 		5A333C59273C551100F95180 /* SearchViewControllerUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewControllerUtils.h; sourceTree = "<group>"; };
 		5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewControllerUtils.m; sourceTree = "<group>"; };
+		5A333C5C273DC89A00F95180 /* GreenTravelV3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV3.xcdatamodel; sourceTree = "<group>"; };
 		5A39D6D326AC6A8A008FC20C /* StringUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		5A39D6F026B34C04008FC20C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A39D6F326B34C0A008FC20C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2069,10 +2070,11 @@
 		5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				5A333C5C273DC89A00F95180 /* GreenTravelV3.xcdatamodel */,
 				5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */,
 				5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */,
 			);
-			currentVersion = 5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */;
+			currentVersion = 5A333C5C273DC89A00F95180 /* GreenTravelV3.xcdatamodel */;
 			path = GreenTravel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
