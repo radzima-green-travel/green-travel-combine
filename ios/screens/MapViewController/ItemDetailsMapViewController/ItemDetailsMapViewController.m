@@ -523,6 +523,7 @@ static NSString* const kAttributeType = @"type";
     self.cancelGetDirections();
   }
   if ([self locationIsInvalid]) {
+    next(NO);
     return;
   }
   CLLocationCoordinate2D coordinate = self.locationModel.lastLocation.coordinate;
