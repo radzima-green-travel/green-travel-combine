@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onCategoriesUpdate:(NSArray<Category *>*)categories;
 - (void)onCategoriesNewDataAvailable;
 - (void)onCategoriesLoading:(BOOL)loading;
+- (void)onDetailsLoading:(BOOL)loading;
 
 @end
 

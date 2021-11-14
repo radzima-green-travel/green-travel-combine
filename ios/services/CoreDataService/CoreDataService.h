@@ -22,12 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 - (void)updatePlaceItem:(PlaceItem *)placeItem bookmark:(BOOL)bookmark;
 - (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*))completion;
-- (void)loadDetailsByUUID:(NSString *)uuid
-           withCompletion:(void(^)(PlaceDetails *))completion;
 - (void)saveCategories:(NSArray<Category *> *)categories;
+- (void)saveDetailsFromCategories:(NSArray<Category *> *)categories;
 - (void)loadSearchItemsWithCompletion:(void(^)(NSArray<SearchItem *>*))completion;
 - (void)addSearchItem:(SearchItem *)searchItem;
 - (void)removeSearchItem:(SearchItem *)searchItem;
+- (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void (^)(PlaceDetails *))completion;
 - (void)savePlaceDetails:(PlaceDetails *)details forUUID:(NSString *)uuid;
 
 @end

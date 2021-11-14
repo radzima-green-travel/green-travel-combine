@@ -137,21 +137,41 @@ NSPersistentContainer *_persistentContainer;
 }
 
 - (void)saveCategories:(NSArray<Category *> *)categories {
-    __weak typeof(self) weakSelf = self;
-    [self.ctx performBlockAndWait:^{
-        NSError *error;
+  __weak typeof(self) weakSelf = self;
+  [self.ctx performBlockAndWait:^{
+    NSError *error;
+    
+    [weakSelf updateSearchItemsWhenSavingCategories:categories];
+    [weakSelf reorderSearchItems];
+    
+    NSFetchRequest *fetchRequest = [StoredCategory fetchRequest];
+    NSBatchDeleteRequest *deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+    [weakSelf.ctx executeRequest:deleteRequest error:&error];
+    
+    if ([categories count]) {
+      [weakSelf saveCategoriesWithinBlock:categories parentCategory:nil];
+    }
+  }];
+}
 
-        [weakSelf updateSearchItemsWhenSavingCategories:categories];
-        [weakSelf reorderSearchItems];
-
-        NSFetchRequest *fetchRequest = [StoredCategory fetchRequest];
-        NSBatchDeleteRequest *deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
-        [weakSelf.ctx executeRequest:deleteRequest error:&error];
-
-        if ([categories count]) {
-            [weakSelf saveCategoriesWithinBlock:categories parentCategory:nil];
+- (void)saveDetailsFromCategories:(NSArray<Category *> *)categories {
+  NSError *error;
+  NSFetchRequest *fetchRequest = [StoredPlaceDetails fetchRequest];
+  NSBatchDeleteRequest *deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+  [self.ctx executeRequest:deleteRequest error:&error];
+  __weak typeof(self) weakSelf = self;
+  [self.ctx performBlockAndWait:^{
+    if ([categories count]) {
+      traverseCategories(categories, ^(Category *cat, PlaceItem *item) {
+        if (item != nil) {
+          NSError *error;
+          StoredPlaceDetails *storedDetails = [weakSelf mapDetailsToStoredDetails:item.details];
+          [weakSelf.ctx insertObject:storedDetails];
         }
-    }];
+      });
+      [weakSelf.ctx save:&error];
+    }
+  }];
 }
 
 - (void)updateSearchItemsWhenSavingCategories:(NSArray<Category *> *)categories {
@@ -217,7 +237,8 @@ NSPersistentContainer *_persistentContainer;
 #pragma mark - mapDetailsToStoredDetails
 - (StoredPlaceDetails *)mapDetailsToStoredDetails:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
-  StoredPlaceDetails *storedDetails = [NSEntityDescription insertNewObjectForEntityForName:@"StoredPlaceDetails" inManagedObjectContext:weakSelf.ctx];
+  StoredPlaceDetails *storedDetails = [NSEntityDescription insertNewObjectForEntityForName:@"StoredPlaceDetails"
+                                                                    inManagedObjectContext:weakSelf.ctx];
   storedDetails.uuid = details.uuid;
   storedDetails.address = details.address;
   storedDetails.url = details.url;
@@ -424,39 +445,23 @@ NSMutableArray<CategoryUUIDToRelatedItemUUIDs *>* categoryIdToItemsFromStored(NS
     }];
 }
 
-- (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void (^)(PlaceDetails *))completion {
-    __weak typeof(self) weakSelf = self;
-    [self.ctx performBlockAndWait:^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        NSError *error;
-        NSFetchRequest *fetchRequestSearchItem = [StoredPlaceDetails fetchRequest];
-        fetchRequestSearchItem.predicate = [NSPredicate predicateWithFormat:@"uuid == %@", uuid];
-        NSArray<StoredPlaceDetails *> *fetchResult = [strongSelf.ctx executeFetchRequest:fetchRequestSearchItem error:&error];
-        StoredPlaceDetails *storedDetails = [fetchResult firstObject];
-        if (storedDetails) {
-            PlaceDetails *details = [[PlaceDetails alloc] init];
-            details.address = storedDetails.address;
-            details.images = [storedDetails.imageURLs componentsSeparatedByString:@","];
-            details.descriptionHTML = storedDetails.descriptionHTML;
-
-            NSMutableArray<CategoryUUIDToRelatedItemUUIDs *> *categoryIdToItems = [[NSMutableArray alloc] init];
-            [storedDetails.linkedCategories enumerateObjectsUsingBlock:^(StoredCategoryUUIDToRelatedItemUUIDs * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
-                categoryUUIDToRelatedItemUUIDs.categoryUUID = obj.uuid;
-                NSMutableArray<NSString *> *relatedItemUUIDs = [[NSMutableArray alloc] init];
-                [obj.relatedItemUUIDs enumerateObjectsUsingBlock:^(StoredRelatedItemUUID * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    [relatedItemUUIDs addObject:obj.uuid];
-                }];
-                categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:relatedItemUUIDs];
-                [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
-            }];
-            details.categoryIdToItems = categoryIdToItems;
-
-            completion(details);
-            return;
-        }
-        completion(nil);
-    }];
+- (void)loadDetailsByUUID:(NSString *)uuid
+           withCompletion:(void (^)(PlaceDetails *))completion {
+  __weak typeof(self) weakSelf = self;
+  [self.ctx performBlockAndWait:^{
+    __strong typeof(weakSelf) strongSelf = weakSelf;
+    NSError *error;
+    NSFetchRequest *fetchRequestSearchItem = [StoredPlaceDetails fetchRequest];
+    fetchRequestSearchItem.predicate = [NSPredicate predicateWithFormat:@"uuid == %@", uuid];
+    NSArray<StoredPlaceDetails *> *fetchResult = [strongSelf.ctx executeFetchRequest:fetchRequestSearchItem error:&error];
+    StoredPlaceDetails *storedDetails = [fetchResult firstObject];
+    if (storedDetails) {
+      PlaceDetails *details = [strongSelf mapStoredDetailsToDetails:storedDetails];
+      completion(details);
+      return;
+    }
+    completion(nil);
+  }];
 }
 
 - (void)savePlaceDetails:(PlaceDetails *)details forUUID:(NSString *)uuid {
