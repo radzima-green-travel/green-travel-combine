@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSString *uuid;
 @property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *address;
 @property (strong, nonatomic) NSString *cover;
 @property (weak, nonatomic) Category *category;
 @property (assign, nonatomic) CLLocationCoordinate2D coords;
