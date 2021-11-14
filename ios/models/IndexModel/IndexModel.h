@@ -35,13 +35,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSDictionary<NSString *, Category *> *flatCategories;
 @property (copy, nonatomic) NSDictionary<NSString *, PlaceItem *> *flatItems;
 @property (strong, nonatomic) NSDictionary<NSString *, PathDetails *> *pathsByUUID;
-@property (assign, nonatomic) BOOL *randomizationDone;
+@property (assign, nonatomic) BOOL *detailsInProgress;
 
 - (instancetype)initWithApiService:(ApiService *)apiService
                    coreDataService:(CoreDataService *)coreDataService
                userDefaultsService:(UserDefaultsService *)userDefaultsService;
 - (void)loadCategories;
 - (void)loadCategoriesRemote:(BOOL)visible;
+- (void)loadDetailsByUUID:(NSString *)uuid
+           withCompletion:(void(^)(PlaceDetails *))completion;
 - (void)refreshCategories;
 - (void)retryCategories;
 - (void)bookmarkItem:(PlaceItem *)item bookmark:(BOOL)bookmark;

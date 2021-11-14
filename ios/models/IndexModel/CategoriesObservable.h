@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeObserver:(id<CategoriesObserver>)observer;
 - (void)notifyObservers;
 - (void)notifyObserversNewDataAvailable;
-- (void)notifyObserversLoading:(BOOL)loading;
+- (void)notifyObserversCategoriesLoading:(BOOL)loading;
+- (void)notifyObserversDetailsInProgress:(BOOL)loading;
 
 @end
 

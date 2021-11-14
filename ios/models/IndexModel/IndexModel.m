@@ -75,49 +75,69 @@ static IndexModel *instance;
 }
 
 - (void)loadCategoriesRemote:(BOOL)visible {
-    self.loading = YES;
-    if (visible) { [self notifyObserversLoading:YES]; }
-    __weak typeof(self) weakSelf = self;
-    [self.apiService loadCategoriesWithCompletion:^(NSArray<Category *>  * _Nonnull categories,
-                                                    NSArray<PlaceDetails *> * _Nonnull details,
-                                                    NSString *eTag) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        BOOL shouldRequestCategoriesUpdate = YES;
-        if ([strongSelf.categories count] == 0 && [categories count] > 0) {
-            [strongSelf.userDefaultsService saveETag:eTag];
-            [strongSelf updateCategories:categories];
-            [strongSelf.coreDataService saveCategories:categories];
-            shouldRequestCategoriesUpdate = NO;
-        }
-        NSString *existingETag = [strongSelf.userDefaultsService loadETag];
-        if (![existingETag isEqualToString:eTag] && [categories count] > 0) {
-            NSArray<Category*> *newCategories =
-            [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
-                                                 toNew:categories];
-            if (shouldRequestCategoriesUpdate) {
-              [strongSelf requestCategoriesUpdate:newCategories eTag:eTag];
-            }
-        }
-        strongSelf.loading = NO;
-        if (visible) { [strongSelf notifyObserversLoading:NO]; }
-    }];
+  self.loading = YES;
+  if (visible) { [self notifyObserversCategoriesLoading:YES]; }
+  __weak typeof(self) weakSelf = self;
+  [self.apiService loadCategoriesWithCompletion:^(NSArray<Category *>  * _Nonnull categories,
+                                                  NSArray<PlaceDetails *> * _Nonnull details,
+                                                  NSString *eTag) {
+    __strong typeof(weakSelf) strongSelf = weakSelf;
+    BOOL shouldRequestCategoriesUpdate = YES;
+    if ([strongSelf.categories count] == 0 && [categories count] > 0) {
+      [strongSelf.userDefaultsService saveETag:eTag];
+      [strongSelf updateCategories:categories];
+      [strongSelf.coreDataService saveCategories:categories];
+      [strongSelf saveDetails:categories];
+      shouldRequestCategoriesUpdate = NO;
+    }
+    NSString *existingETag = [strongSelf.userDefaultsService loadETag];
+    if (![existingETag isEqualToString:eTag] && [categories count] > 0) {
+      NSArray<Category*> *newCategories =
+      [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
+                                           toNew:categories];
+      if (shouldRequestCategoriesUpdate) {
+        [strongSelf requestCategoriesUpdate:newCategories eTag:eTag];
+      }
+    }
+    strongSelf.loading = NO;
+    if (visible) { [strongSelf notifyObserversCategoriesLoading:NO]; }
+  }];
+}
+
+- (void)saveDetails:(NSArray<Category *>*)categories {
+  [self notifyObserversDetailsInProgress:YES];
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_queue_get_qos_class(QOS_CLASS_DEFAULT, 0), ^{
+    [weakSelf.coreDataService saveDetailsFromCategories:categories];
+    [weakSelf notifyObserversDetailsInProgress:NO];
+  });
+}
+
+- (void)loadDetailsByUUID:(NSString *)uuid
+           withCompletion:(void (^)(PlaceDetails * _Nonnull))completion {
+  [self.coreDataService loadDetailsByUUID:uuid
+                           withCompletion:^(PlaceDetails * _Nonnull details) {
+    completion(details);
+  }];
 }
 
 - (void)refreshCategories {
-    [self notifyObserversLoading:YES];
-    __weak typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        NSArray<Category*> *newCategories = [weakSelf.categoriesScheduledForUpdate copy];
-        [strongSelf.userDefaultsService saveETag:strongSelf.eTagScheduledForUpdate];
-        [strongSelf.coreDataService saveCategories:newCategories];
-        [strongSelf notifyObserversLoading:NO];
-        [strongSelf updateCategories:newCategories];
-    });
+  [self notifyObserversCategoriesLoading:YES];
+  __weak typeof(self) weakSelf = self;
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+    __strong typeof(weakSelf) strongSelf = weakSelf;
+    NSArray<Category*> *newCategories = [weakSelf.categoriesScheduledForUpdate copy];
+    [strongSelf.userDefaultsService saveETag:strongSelf.eTagScheduledForUpdate];
+    [strongSelf notifyObserversDetailsInProgress:YES];
+    [strongSelf.coreDataService saveCategories:newCategories];
+    [strongSelf saveDetails:newCategories];
+    [strongSelf notifyObserversCategoriesLoading:NO];
+    [strongSelf updateCategories:newCategories];
+  });
 }
 
 - (void)retryCategories {
-  [self notifyObserversLoading:YES];
+  [self notifyObserversCategoriesLoading:YES];
   __weak typeof(self) weakSelf = self;
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -223,10 +243,17 @@ static IndexModel *instance;
     }];
 }
 
-- (void)notifyObserversLoading:(BOOL)loading {
+- (void)notifyObserversCategoriesLoading:(BOOL)loading {
     [self.categoriesObservers enumerateObjectsUsingBlock:^(id<CategoriesObserver>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj onCategoriesLoading:loading];
     }];
+}
+
+- (void)notifyObserversDetailsInProgress:(BOOL)loading {
+  self.detailsInProgress = loading;
+  [self.categoriesObservers enumerateObjectsUsingBlock:^(id<CategoriesObserver>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      [obj onDetailsLoading:loading];
+  }];
 }
 
 - (void)removeObserver:(nonnull id<CategoriesObserver>)observer {
