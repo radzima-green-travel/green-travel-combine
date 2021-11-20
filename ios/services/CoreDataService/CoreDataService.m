@@ -161,15 +161,17 @@ NSPersistentContainer *_persistentContainer;
   [self.ctx executeRequest:deleteRequest error:&error];
   __weak typeof(self) weakSelf = self;
   [self.ctx performBlockAndWait:^{
+    __strong typeof(weakSelf) strongSelf = weakSelf;
     if ([categories count]) {
+      NSError *error;
       traverseCategories(categories, ^(Category *cat, PlaceItem *item) {
         if (item != nil) {
-          NSError *error;
-          StoredPlaceDetails *storedDetails = [weakSelf mapDetailsToStoredDetails:item.details];
-          [weakSelf.ctx insertObject:storedDetails];
+          StoredPlaceDetails *storedDetails =
+          [strongSelf mapDetailsToStoredDetails:item.details];
+          [strongSelf.ctx insertObject:storedDetails];
         }
       });
-      [weakSelf.ctx save:&error];
+      [strongSelf.ctx save:&error];
     }
   }];
 }

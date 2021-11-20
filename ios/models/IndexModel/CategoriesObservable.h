@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)notifyObservers;
 - (void)notifyObserversNewDataAvailable;
 - (void)notifyObserversCategoriesLoading:(BOOL)loading;
-- (void)notifyObserversDetailsInProgress:(BOOL)loading;
 
 @end
 

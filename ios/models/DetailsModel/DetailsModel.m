@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSMutableSet<NSString*> *itemUUIDs;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
+@property (assign, nonatomic) BOOL detailsLoadState;
 
 @end
 
@@ -37,6 +38,7 @@
             _detailsObservers = [[NSMutableArray alloc] init];
             _itemUUIDToItem = [[NSMutableDictionary alloc] init];
             _itemUUIDToDetails = [[NSMutableDictionary alloc] init];
+            _itemUUIDToStatus = [[NSMutableDictionary alloc] init];
             _apiService = apiService;
             _coreDataService = coreDataService;
             [self.indexModel addObserver:self];
@@ -57,6 +59,10 @@
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
 }
 
+- (void)onDetailsBatchStatusUpdate:(DetailsLoadState)detailsLoadState {
+  self.detailsLoadState = detailsLoadState;
+}
+
 - (void)fillPlaceItemsFromCategories:(NSArray<Category *> *)categories {
     [categories enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
         [self fillPlaceItemsFromCategories:category.categories];
@@ -74,23 +80,22 @@
     [self notifyObservers];
 }
 
-- (void)loadDetailsByUUID:(NSString *)uuid {
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [self.coreDataService loadDetailsByUUID:uuid withCompletion:^(PlaceDetails * _Nonnull details) {
-            if (details) {
-                [weakSelf updateDetails:details forUUID:uuid];
-            }
-            [self.apiService loadDetailsByUUID:uuid withCompletion:^(PlaceDetails * _Nonnull newDetails) {
-                if (![details isEqual:newDetails]) {
-                    [strongSelf updateDetails:newDetails forUUID:uuid];
-                    [strongSelf.coreDataService savePlaceDetails:newDetails forUUID:uuid];
-                }
-            }];
-        }];
-    });
-    
+- (void)loadDetailsByUUID:(NSString *)uuid
+           withCompletion:(nonnull void (^)(PlaceDetails * _Nonnull))completion{
+  __weak typeof(self) weakSelf = self;
+  self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateProgress);
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+    __strong typeof(weakSelf) strongSelf = weakSelf;
+    [self.coreDataService loadDetailsByUUID:uuid withCompletion:^(PlaceDetails * _Nonnull details) {
+      if (details) {
+        [weakSelf updateDetails:details forUUID:uuid];
+        self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateSuccess);
+        return;
+      }
+      self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateProgress);
+    }];
+  });
+  
 }
 
 - (void)addObserver:(nonnull id<DetailsObserver>)observer {
