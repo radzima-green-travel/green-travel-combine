@@ -20,7 +20,7 @@
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "IndexPeeks.h"
 
-@interface IndexModel ()
+@interface IndexModel () 
 
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
@@ -36,7 +36,7 @@
 
 @end
 
-@implementation IndexModel
+@implementation IndexModel 
  
 static IndexModel *instance;
 
@@ -85,9 +85,15 @@ static IndexModel *instance;
     BOOL shouldRequestCategoriesUpdate = YES;
     if ([strongSelf.categories count] == 0 && [categories count] > 0) {
       [strongSelf.userDefaultsService saveETag:eTag];
-      [strongSelf updateCategories:categories];
       [strongSelf.coreDataService saveCategories:categories];
-      [strongSelf saveDetails:categories];
+      [strongSelf saveDetailsFromCategories:categories];
+      __weak typeof(strongSelf) weakSelf = strongSelf;
+      [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf updateCategories:categoriesFromDB];
+        strongSelf.loading = NO;
+        if (visible) { [strongSelf notifyObserversCategoriesLoading:NO]; }
+      }];
       shouldRequestCategoriesUpdate = NO;
     }
     NSString *existingETag = [strongSelf.userDefaultsService loadETag];
@@ -99,15 +105,13 @@ static IndexModel *instance;
         [strongSelf requestCategoriesUpdate:newCategories eTag:eTag];
       }
     }
-    strongSelf.loading = NO;
-    if (visible) { [strongSelf notifyObserversCategoriesLoading:NO]; }
   }];
 }
 
-- (void)saveDetails:(NSArray<Category *>*)categories {
+- (void)saveDetailsFromCategories:(NSArray<Category *>*)categories {
   [self notifyObserversDetailsInProgress:YES];
   __weak typeof(self) weakSelf = self;
-  dispatch_async(dispatch_queue_get_qos_class(QOS_CLASS_DEFAULT, 0), ^{
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     [weakSelf.coreDataService saveDetailsFromCategories:categories];
     [weakSelf notifyObserversDetailsInProgress:NO];
   });
@@ -124,13 +128,14 @@ static IndexModel *instance;
 - (void)refreshCategories {
   [self notifyObserversCategoriesLoading:YES];
   __weak typeof(self) weakSelf = self;
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC),
+                 dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
     NSArray<Category*> *newCategories = [weakSelf.categoriesScheduledForUpdate copy];
     [strongSelf.userDefaultsService saveETag:strongSelf.eTagScheduledForUpdate];
     [strongSelf notifyObserversDetailsInProgress:YES];
     [strongSelf.coreDataService saveCategories:newCategories];
-    [strongSelf saveDetails:newCategories];
+    [strongSelf saveDetailsFromCategories:newCategories];
     [strongSelf notifyObserversCategoriesLoading:NO];
     [strongSelf updateCategories:newCategories];
   });
@@ -249,13 +254,6 @@ static IndexModel *instance;
     }];
 }
 
-- (void)notifyObserversDetailsInProgress:(BOOL)loading {
-  self.detailsInProgress = loading;
-  [self.categoriesObservers enumerateObjectsUsingBlock:^(id<CategoriesObserver>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-      [obj onDetailsLoading:loading];
-  }];
-}
-
 - (void)removeObserver:(nonnull id<CategoriesObserver>)observer {
     if ([self.categoriesObservers containsObject:observer]) {
         return;
@@ -283,7 +281,25 @@ static IndexModel *instance;
     [self.bookmarksObservers removeObject:observer];
 }
 
+- (void)notifyObserversDetailsBatch:(DetailsLoadState)detailsLoadState {
+  [self.detailsBatchObservers enumerateObjectsUsingBlock:^(id<DetailsBatchObserver>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      [obj onDetailsBatchStatusUpdate:detailsLoadState];
+  }];
+}
 
+- (void)addObserverDetailsBatch:(id<DetailsBatchObserver>)observer {
+  if ([self.detailsBatchObservers containsObject:observer]) {
+      return;
+  }
+  [self.detailsBatchObservers addObject:observer];
+}
+
+- (void)removeObserverDetailsBatch:(nonnull id<DetailsBatchObserver>)observer {
+    if ([self.detailsBatchObservers containsObject:observer]) {
+        return;
+    }
+    [self.detailsBatchObservers removeObject:observer];
+}
 
 @end
 

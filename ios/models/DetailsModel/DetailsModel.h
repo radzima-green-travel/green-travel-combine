@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DetailsObservable.h"
 #import "CategoriesObserver.h"
+#import "DetailsBatchObserver.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,17 +20,20 @@ NS_ASSUME_NONNULL_BEGIN
 @class CoreDataService;
 @protocol DetailsObserver;
 
-@interface DetailsModel : NSObject<CategoriesObserver, DetailsObservable> 
+@interface DetailsModel : NSObject<CategoriesObserver, DetailsObservable, DetailsBatchObserver>
 
 - (instancetype)initWithIndexModel:(IndexModel *)model
                         apiService:(ApiService *)apiService
                    coreDataService:(CoreDataService *)coreDataService;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, PlaceDetails*> *itemUUIDToDetails;
+@property (strong, nonatomic) NSMutableDictionary<NSString*, NSNumber*> *itemUUIDToStatus;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, PlaceItem*> *itemUUIDToItem;
 @property (strong, nonatomic) NSMutableArray<id<DetailsObserver>> *detailsObservers;
 
+- (void)setDetailsAllInProgress:(BOOL)inProgress;
 - (void)updateDetails:(PlaceDetails *)details forUUID:(NSString *)uuid;
-- (void)loadDetailsByUUID:(NSString *)uuid;
+- (void)loadDetailsByUUID:(NSString *)uuid
+           withCompletion:(void(^)(PlaceDetails *))completion;
 
 @end
 
