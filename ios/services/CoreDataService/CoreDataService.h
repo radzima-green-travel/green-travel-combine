@@ -27,7 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadSearchItemsWithCompletion:(void(^)(NSArray<SearchItem *>*))completion;
 - (void)addSearchItem:(SearchItem *)searchItem;
 - (void)removeSearchItem:(SearchItem *)searchItem;
-- (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void (^)(PlaceDetails *))completion;
+- (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void (^)(PlaceDetails *,
+                                                                    NSError * _Nullable))completion;
 - (void)savePlaceDetails:(PlaceDetails *)details forUUID:(NSString *)uuid;
 
 @end

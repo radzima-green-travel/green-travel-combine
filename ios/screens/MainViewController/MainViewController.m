@@ -78,7 +78,9 @@
     self.indexModel = [[IndexModel alloc] initWithApiService:self.apiService
                                              coreDataService:self.coreDataService
                                          userDefaultsService:userDefaultsService];
-    DetailsModel *detailsModel = [[DetailsModel alloc] initWithIndexModel:self.indexModel apiService:self.apiService coreDataService:self.coreDataService];
+    DetailsModel *detailsModel = [[DetailsModel alloc] initWithIndexModel:self.indexModel
+                                                               apiService:self.apiService
+                                                          coreDataService:self.coreDataService];
 
     LocationModel *locationModel = [[LocationModel alloc] init];
     SearchModel *searchModel = [[SearchModel alloc]
@@ -90,7 +92,7 @@
 
 #pragma mark - IndexViewController
 
-    IndexViewController *indexController = [[IndexViewController alloc] initWithApiService:self.apiService model:self.indexModel searchModel:searchModel locationModel:locationModel mapModel:mapModel  detailsModel:detailsModel coreDataService:self.coreDataService mapService:self.mapService];
+    IndexViewController *indexController = [[IndexViewController alloc] initWithApiService:self.apiService model:self.indexModel searchModel:searchModel locationModel:locationModel mapModel:mapModel detailsModel:detailsModel coreDataService:self.coreDataService mapService:self.mapService];
     indexController.title = NSLocalizedString(@"IndexTitle", @"");
     self.indexViewControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:indexController];
     UIImage *indexImage;
@@ -112,6 +114,7 @@
                                     locationModel:locationModel
                                        indexModel:self.indexModel
                                       searchModel:searchModel
+                                     detailsModel:detailsModel
                                        apiService:self.apiService
                                   coreDataService:self.coreDataService
                                        mapService:self.mapService
@@ -139,6 +142,7 @@
                                         mapService:self.mapService
                                           mapModel:mapModel
                                        searchModel:searchModel
+                                       detailsModel:detailsModel
                                      locationModel:locationModel];
     bookmarksController.title = NSLocalizedString(@"SavedTitle", @"");
     self.bookmarksControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:bookmarksController];

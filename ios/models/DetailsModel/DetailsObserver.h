@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol DetailsObserver <NSObject>
 
 - (void)onDetailsUpdate:(NSMutableDictionary<NSString*, PlaceDetails*> *)itemUUIDToDetails
-                  items:(NSMutableDictionary<NSString*, PlaceItem*> *)itemUUIDToItem;
+       itemUUIDToStatus:(NSMutableDictionary<NSString*, NSNumber*> *)itemUUIDToStatus;
 
 @end
 

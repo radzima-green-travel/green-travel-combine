@@ -288,7 +288,8 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
                                                indexModel:weakSelf.model
                                                  mapModel:weakSelf.mapModel
                                             locationModel:weakSelf.locationModel
-                                              searchModel:weakSelf.searchModel];
+                                              searchModel:weakSelf.searchModel
+                                             detailsModel:weakSelf.detailsModel];
         detailsController.item = item;
         [weakSelf.navigationController pushViewController:detailsController animated:YES];
     } onViewDidDisappearWithSelectedItem:^(PlaceItem * _Nonnull item) {
@@ -396,6 +397,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
                                                     mapModel:weakSelf.mapModel
                                                locationModel:weakSelf.locationModel
                                                  searchModel:weakSelf.searchModel
+                                                 detailsModel:weakSelf.detailsModel
                                                   bookmarked:NO allowedItemUUIDs:nil];
             Category *foundCategory = weakSelf.model.flatCategories[weakParentCategory.uuid];
             placesViewController.category = foundCategory;
@@ -417,6 +419,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
                                                         mapModel:weakSelf.mapModel
                                                    locationModel:weakSelf.locationModel
                                                      searchModel:weakSelf.searchModel
+                                                    detailsModel:weakSelf.detailsModel
                                                       bookmarked:NO allowedItemUUIDs:nil];
                 placesViewController.category = weakCategory;
                 [weakSelf.navigationController pushViewController:placesViewController animated:YES];
@@ -437,7 +440,8 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
                                                        indexModel:weakSelf.model
                                                          mapModel:weakSelf.mapModel
                                                     locationModel:weakSelf.locationModel
-                                                      searchModel:weakSelf.searchModel];
+                                                      searchModel:weakSelf.searchModel
+                                                     detailsModel:weakSelf.detailsModel];
                 detailsController.item = weakPlaceItem;
                 [weakSelf.navigationController pushViewController:detailsController animated:YES];
                 [[AnalyticsEvents get] logEvent:AnalyticsEventsPressCard withParams:@{

@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) LocationModel *locationModel;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) SearchModel *searchModel;
+@property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
@@ -59,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
                    locationModel:(LocationModel *)locationModel
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
+                     detailsModel:(DetailsModel *)detailsModel
                       apiService:(ApiService *)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService

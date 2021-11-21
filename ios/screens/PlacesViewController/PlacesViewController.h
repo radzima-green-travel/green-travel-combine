@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class LocationModel;
 @class IndexModel;
 @class SearchModel;
+@class DetailsModel;
 @class MapService;
 
 @interface PlacesViewController : UICollectionViewController<BookmarksObserver>
@@ -32,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
                           mapModel:(MapModel *)mapModel
                      locationModel:(LocationModel *)locationModel
                        searchModel:(SearchModel *)searchModel
+                       detailsModel:(DetailsModel *)detailsModel
                         bookmarked:(BOOL)bookmarked
                   allowedItemUUIDs:(nullable NSOrderedSet<NSString *> *)allowedItemUUIDs;
 

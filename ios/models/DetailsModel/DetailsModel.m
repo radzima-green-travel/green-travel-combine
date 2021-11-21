@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSMutableSet<NSString*> *itemUUIDs;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
-@property (assign, nonatomic) BOOL detailsLoadState;
+@property (assign, nonatomic) DetailsLoadState detailsLoadState;
 
 @end
 
@@ -59,8 +59,25 @@
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
 }
 
-- (void)onDetailsBatchStatusUpdate:(DetailsLoadState)detailsLoadState {
+- (void)onDetailsBatchStatusUpdate:(DetailsLoadState)detailsLoadState
+                             error:(NSError * _Nullable)error{
   self.detailsLoadState = detailsLoadState;
+  if (self.detailsLoadState == DetailsLoadStateSuccess ||
+          self.detailsLoadState == DetailsLoadStateFailure) {
+    [self.itemUUIDToStatus enumerateKeysAndObjectsUsingBlock:
+     ^(NSString * _Nonnull itemUUID, NSNumber * _Nonnull status, BOOL * _Nonnull stop) {
+      if ([status intValue] == DetailsLoadStateProgress) {
+        if (self.detailsLoadState == DetailsLoadStateSuccess) {
+          [self loadDetailsByUUID:itemUUID];
+          return;
+        }
+        if (self.detailsLoadState == DetailsLoadStateFailure) {
+          self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateFailure);
+          [self updateDetails:self.itemUUIDToDetails error:error forUUID:itemUUID];
+        }
+      }
+    }];
+  }
 }
 
 - (void)fillPlaceItemsFromCategories:(NSArray<Category *> *)categories {
@@ -75,27 +92,39 @@
     }];
 }
 
-- (void)updateDetails:(PlaceDetails *)details forUUID:(NSString *)uuid {
-    [self.itemUUIDToDetails setValue:details forKey:uuid];
-    [self notifyObservers];
+- (void)updateDetails:(PlaceDetails *)details
+                error:(NSError * _Nullable)error
+              forUUID:(NSString *)uuid {
+  if (error == nil) {
+    self.itemUUIDToStatus[uuid] = @(DetailsLoadStateSuccess);
+    self.itemUUIDToDetails[uuid] = details;
+  } else {
+    self.itemUUIDToStatus[uuid] = @(DetailsLoadStateFailure);
+  }
+  [self notifyObservers];
 }
 
-- (void)loadDetailsByUUID:(NSString *)uuid
-           withCompletion:(nonnull void (^)(PlaceDetails * _Nonnull))completion{
+- (void)loadDetailsByUUID:(NSString *)itemUUID {
   __weak typeof(self) weakSelf = self;
   self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateProgress);
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-    __strong typeof(weakSelf) strongSelf = weakSelf;
-    [self.coreDataService loadDetailsByUUID:uuid withCompletion:^(PlaceDetails * _Nonnull details) {
+    [self.coreDataService loadDetailsByUUID:itemUUID withCompletion:^(PlaceDetails * _Nonnull details,
+                                                                      NSError * _Nullable error) {
+      __strong typeof(weakSelf) strongSelf = weakSelf;
       if (details) {
-        [weakSelf updateDetails:details forUUID:uuid];
-        self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateSuccess);
+        [strongSelf updateDetails:details error:error forUUID:itemUUID];
+        strongSelf.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateSuccess);
         return;
       }
-      self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateProgress);
+      strongSelf.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateProgress);
     }];
   });
-  
+}
+
+- (void)deleteDetailsForUUID:(NSString *)uuid {
+  self.itemUUIDToStatus[uuid] = nil;
+  self.itemUUIDToItem[uuid] = nil;
+  self.itemUUIDToDetails[uuid] = nil;
 }
 
 - (void)addObserver:(nonnull id<DetailsObserver>)observer {
@@ -108,7 +137,8 @@
 - (void)notifyObservers {
     NSLog(@"notifyObservers");
     [self.detailsObservers enumerateObjectsUsingBlock:^(id<DetailsObserver>  _Nonnull observer, NSUInteger idx, BOOL * _Nonnull stop) {
-        [observer onDetailsUpdate:self.itemUUIDToDetails items:self.itemUUIDToItem]; 
+      [observer onDetailsUpdate:self.itemUUIDToDetails
+               itemUUIDToStatus:self.itemUUIDToStatus];
     }];
 }
 

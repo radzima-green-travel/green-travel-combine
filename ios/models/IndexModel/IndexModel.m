@@ -96,7 +96,7 @@ static IndexModel *instance;
       }];
       shouldRequestCategoriesUpdate = NO;
     }
-    NSString *existingETag = [strongSelf.userDefaultsService loadETag];
+    NSString *existingETag = @"";
     if (![existingETag isEqualToString:eTag] && [categories count] > 0) {
       NSArray<Category*> *newCategories =
       [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
@@ -109,31 +109,33 @@ static IndexModel *instance;
 }
 
 - (void)saveDetailsFromCategories:(NSArray<Category *>*)categories {
-  [self notifyObserversDetailsInProgress:YES];
+  [self notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     [weakSelf.coreDataService saveDetailsFromCategories:categories];
-    [weakSelf notifyObserversDetailsInProgress:NO];
+    [self notifyObserversDetailsBatch:DetailsLoadStateSuccess error:nil];
   });
 }
 
 - (void)loadDetailsByUUID:(NSString *)uuid
-           withCompletion:(void (^)(PlaceDetails * _Nonnull))completion {
+           withCompletion:(void (^)(PlaceDetails * _Nonnull,
+                                    NSError * _Nullable error))completion {
   [self.coreDataService loadDetailsByUUID:uuid
-                           withCompletion:^(PlaceDetails * _Nonnull details) {
-    completion(details);
+                           withCompletion:^(PlaceDetails * _Nonnull details,
+                                            NSError * _Nullable error) {
+    completion(details, error);
   }];
 }
 
 - (void)refreshCategories {
   [self notifyObserversCategoriesLoading:YES];
   __weak typeof(self) weakSelf = self;
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC),
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
                  dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
     NSArray<Category*> *newCategories = [weakSelf.categoriesScheduledForUpdate copy];
     [strongSelf.userDefaultsService saveETag:strongSelf.eTagScheduledForUpdate];
-    [strongSelf notifyObserversDetailsInProgress:YES];
+    [strongSelf notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
     [strongSelf.coreDataService saveCategories:newCategories];
     [strongSelf saveDetailsFromCategories:newCategories];
     [strongSelf notifyObserversCategoriesLoading:NO];
@@ -281,9 +283,11 @@ static IndexModel *instance;
     [self.bookmarksObservers removeObject:observer];
 }
 
-- (void)notifyObserversDetailsBatch:(DetailsLoadState)detailsLoadState {
+- (void)notifyObserversDetailsBatch:(DetailsLoadState)detailsLoadState
+                              error:(NSError * _Nullable)error
+{
   [self.detailsBatchObservers enumerateObjectsUsingBlock:^(id<DetailsBatchObserver>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-      [obj onDetailsBatchStatusUpdate:detailsLoadState];
+      [obj onDetailsBatchStatusUpdate:detailsLoadState error:error];
   }];
 }
 

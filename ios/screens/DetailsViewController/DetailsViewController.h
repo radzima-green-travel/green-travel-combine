@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BookmarksObserver.h"
 #import "CategoriesObserver.h"
+#import "DetailsObserver.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,13 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
 @class IndexModel;
 @class SearchModel;
 @class MapService;
+@class DetailsModel;
 
 typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
   DetailsViewControllerCTATypeMap = 0,
   DetailsViewControllerCTATypeWebsite = 1,
 };
 
-@interface DetailsViewController : UIViewController <BookmarksObserver, CategoriesObserver>
+@interface DetailsViewController : UIViewController <BookmarksObserver,
+    CategoriesObserver, DetailsObserver>
 
 - (instancetype)initWithApiService:(ApiService *)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService
@@ -34,7 +37,8 @@ typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
                         indexModel:(IndexModel *)indexModel
                           mapModel:(MapModel *)mapModel
                      locationModel:(LocationModel *)locationModel
-                       searchModel:(SearchModel *) searchModel;
+                       searchModel:(SearchModel *) searchModel
+                       detailsModel:(DetailsModel *)detailsModel;
 @property (strong, nonatomic) PlaceItem *item;
 
 @end

@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray<id<DetailsBatchObserver>> *detailsBatchObservers;
 - (void)addObserverDetailsBatch:(id<DetailsBatchObserver>)observer;
 - (void)removeObserverDetailsBatch:(id<DetailsBatchObserver>)observer;
-- (void)notifyObserversDetailsBatch:(DetailsLoadState)detailsLoadState;
+- (void)notifyObserversDetailsBatch:(DetailsLoadState)detailsLoadState
+                              error:(NSError * _Nullable)error;
 
 @end
 
