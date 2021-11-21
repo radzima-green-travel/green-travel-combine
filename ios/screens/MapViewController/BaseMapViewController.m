@@ -51,6 +51,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
                    locationModel:(LocationModel *)locationModel
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
+                     detailsModel:(DetailsModel *)detailsModel
                       apiService:(ApiService *)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
@@ -62,6 +63,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
     _mapItem = mapItem;
     _indexModel = indexModel;
     _searchModel = searchModel;
+    _detailsModel = detailsModel;
     _apiService = apiService;
     _coreDataService = coreDataService;
     _mapService = mapService;

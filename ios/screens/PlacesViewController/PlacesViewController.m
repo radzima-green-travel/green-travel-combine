@@ -29,6 +29,7 @@
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) LocationModel *locationModel;
 @property (strong, nonatomic) SearchModel *searchModel;
+@property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSOrderedSet<NSString *> *allowedItemUUIDs;
 @property (strong, nonatomic) NSMutableArray<PlaceItem *> *allowedItems;
@@ -47,6 +48,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
                           mapModel:(MapModel *)mapModel
                      locationModel:(LocationModel *)locationModel
                      searchModel:(SearchModel *)searchModel
+                      detailsModel:(DetailsModel *)detailsModel
                         bookmarked:(BOOL)bookmarked
                   allowedItemUUIDs:(NSOrderedSet<NSString *> *)allowedItemUUIDs;
 {
@@ -62,6 +64,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
         _mapModel = mapModel;
         _locationModel = locationModel;
         _searchModel = searchModel;
+        _detailsModel = detailsModel;
         _allowedItemUUIDs = allowedItemUUIDs;
         _mapService = mapService;
     }
@@ -194,6 +197,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                                                 mapModel:self.mapModel
                                            locationModel:self.locationModel
                                              searchModel:self.searchModel
+                                            detailsModel:self.detailsModel
                                               bookmarked:NO
                                         allowedItemUUIDs:nil];
         placesViewController.category = category;
@@ -219,7 +223,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
                                            indexModel:self.indexModel
                                              mapModel:self.mapModel
                                         locationModel:self.locationModel
-                                          searchModel:self.searchModel];
+                                          searchModel:self.searchModel
+                                         detailsModel:self.detailsModel];
     detailsController.item = item;
     [self.navigationController pushViewController:detailsController animated:YES];
     if (self.bookmarked) {

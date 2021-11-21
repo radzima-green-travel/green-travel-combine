@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, PageControlState) {
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) GalleryPageControl *pageControl;
+@property (strong, nonatomic) GalleryImagePlaceholder *placeHolderView;
 @property (strong, nonatomic) NSArray<NSString *> *imageURLs;
 @property (assign, nonatomic) CGFloat aspectRatio;
 @property (assign, nonatomic) CGFloat indexOfScrolledItem;
@@ -97,16 +98,16 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
     self.collectionView.delegate = self;
     [self.collectionView setHidden:[imageURLs count] == 0];
 #pragma mark - Placeholder
-    GalleryImagePlaceholder *placeHolderView = [[GalleryImagePlaceholder alloc] init];
-    [self addSubview:placeHolderView];
-    placeHolderView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.placeHolderView = [[GalleryImagePlaceholder alloc] init];
+    [self addSubview:self.placeHolderView];
+    self.placeHolderView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [placeHolderView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [placeHolderView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [placeHolderView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [placeHolderView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-kPageControlHeight],
+        [self.placeHolderView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [self.placeHolderView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [self.placeHolderView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [self.placeHolderView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-kPageControlHeight],
     ]];
-    [placeHolderView setHidden:[imageURLs count] > 0];
+    [self.placeHolderView setHidden:[imageURLs count] > 0];
 
 #pragma mark - Page control
     self.pageControl = [[GalleryPageControl alloc] initWithNumberOfPages:[imageURLs count]];
@@ -122,11 +123,17 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
 }
 
 - (void)setUpWithPictureURLs:(NSArray<NSString *>*)pictureURLs {
-    self.imageURLs = [[NSArray alloc] initWithArray:pictureURLs];
-    [self.collectionView reloadData];
+  self.imageURLs = [[NSArray alloc] initWithArray:pictureURLs];
+  [self.collectionView reloadData];
+  NSUInteger numberOfPages = [self.imageURLs count];
+  [self.pageControl setHidden:numberOfPages <= 1];
+  [self.pageControl setNumberOfPages:numberOfPages];
+  [self.placeHolderView setHidden:numberOfPages > 0];
+  [self.collectionView setHidden:numberOfPages == 0];
 }
 
-- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
+                                   cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     SlideCollectionViewCell *cell = [self.collectionView
                                      dequeueReusableCellWithReuseIdentifier:kSlideCellIdentifier
                                      forIndexPath:indexPath];

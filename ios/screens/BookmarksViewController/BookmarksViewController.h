@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IndexModel;
 @class LocationModel;
 @class SearchModel;
+@class DetailsModel;
 @class CoreDataService;
 @class MapService;
 
@@ -32,6 +33,7 @@ UICollectionViewDataSource>
               mapService:(MapService *)mapService
                      mapModel:(MapModel *)mapModel
                   searchModel:(SearchModel *)searchModel
+                  detailsModel:(DetailsModel *)detailsModel
                 locationModel:(LocationModel *)locationModel;
 - (void)scrollToTop;
 

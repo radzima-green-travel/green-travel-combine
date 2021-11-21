@@ -28,6 +28,7 @@
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) LocationModel *locationModel;
 @property (strong, nonatomic) SearchModel *searchModel;
+@property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -51,6 +52,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
                    mapService:(MapService *)mapService
                      mapModel:(MapModel *)mapModel
                   searchModel:(SearchModel *)searchModel
+                  detailsModel:(DetailsModel *)detailsModel
                 locationModel:(LocationModel *)locationModel
 {
     self = [super init];
@@ -64,6 +66,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
         _coreDataService = coreDataService;
         _mapModel = mapModel;
         _searchModel = searchModel;
+        _detailsModel = detailsModel;
         _locationModel = locationModel;
         _mapService = mapService;
     }
@@ -275,6 +278,7 @@ static const CGFloat kInsetVertical = 24.0;
                                             mapModel:self.mapModel
                                        locationModel:self.locationModel
                                          searchModel:self.searchModel
+                                        detailsModel:self.detailsModel
                                           bookmarked:YES allowedItemUUIDs:nil];
     Category *category = bookmarkItem.correspondingCategory;
     placesViewController.category = category;

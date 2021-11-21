@@ -61,6 +61,7 @@
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
+@property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) NSTimer *bannerHideTimer;
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerShowAnimator;
@@ -94,6 +95,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
                           mapModel:(MapModel *)mapModel
                      locationModel:(LocationModel *)locationModel
                      searchModel:(SearchModel *)searchModel
+                      detailsModel:(DetailsModel *)detailsModel;
 {
     self = [super init];
     if (self) {
@@ -104,6 +106,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         _searchModel = searchModel;
         _mapModel = mapModel;
         _mapService = mapService;
+        _detailsModel = detailsModel;
         _linkedCategoriesTypeToView = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -163,7 +166,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
     #pragma mark - Gallery
     self.imageGalleryView = [[GalleryView alloc] initWithFrame:CGRectZero
-                                                     imageURLs:self.item.details.images
+                                                     imageURLs:@[]
                                                   onPageChange:^{
       [[AnalyticsEvents get] logEvent:AnalyticsEventsGalleryPictureView withParams:@{
         AnalyticsEventsParamCardName: weakSelf.item.title,
@@ -275,9 +278,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 #pragma mark - Add observers
     [self.indexModel addObserver:self];
     [self.indexModel addObserverBookmarks:self];
+    [self.detailsModel addObserver:self];
 
 #pragma mark - Load data
-    [self updateMainContent:self.item.details];
+    [self.detailsModel loadDetailsByUUID:self.item.uuid];
     if (!self.ready) {
       [self.activityIndicatorView startAnimating];
       [self.activityIndicatorView setHidden:NO];
@@ -309,6 +313,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     AnalyticsEventsParamCardName: self.item.title,
     AnalyticsEventsParamCardCategory: self.item.category.title
   }];
+#pragma mark - Remove observers
+  [self.indexModel removeObserver:self];
+  [self.indexModel removeObserverBookmarks:self];
+  [self.detailsModel removeObserver:self];
   [self.timeTracer traceEnd];
 }
 
@@ -472,6 +480,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
                                             mapModel:self.mapModel
                                        locationModel:self.locationModel
                                          searchModel:self.searchModel
+                                        detailsModel:self.detailsModel
                                           bookmarked:NO
                                     allowedItemUUIDs:linkedItems];
     placesViewController.category = category;
@@ -508,7 +517,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 - (void)updateMainContent:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
-  dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML,
                                                            [Colors get].mainText);
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -520,7 +529,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
       weakSelf.titleLabel.attributedText = [[TypographyLegacy get] makeTitle1Semibold:weakSelf.item.title];
       if (details.address && [details.address length]) {
         [weakSelf addAddressLabel];
-        weakSelf.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:weakSelf.item.details.address];
+        weakSelf.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:details.address];
       }
       if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
         [weakSelf addLocationButton];
@@ -530,7 +539,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         [weakSelf addButtonCTA];
       }
       [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
-      if (weakSelf.item.details.url && [weakSelf.item.details.url length]) {
+      if (weakSelf.item.details.url && [details.url length]) {
          [weakSelf addButtonOfficialSite];
       }
       if ([details.categoryIdToItems count]) {
@@ -547,13 +556,12 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   });
 }
 
-- (void)updateDetails {
-    PlaceDetails *details = self.item.details;
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf.imageGalleryView setUpWithPictureURLs:details.images];
-    });
-    [self updateMainContent:details];
+- (void)updateDetails:(PlaceDetails *)details {
+  __weak typeof(self) weakSelf = self;
+  [self updateMainContent:details];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [weakSelf.imageGalleryView setUpWithPictureURLs:details.images];
+  });
 }
 
 #pragma mark - Observers
@@ -572,12 +580,20 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
             weakSelf.item = newItem;
         }
     });
-    [self updateDetails];
 }
 
 - (void)onCategoriesLoading:(BOOL)loading {}
 
 - (void)onCategoriesNewDataAvailable {}
+
+- (void)onDetailsUpdate:(NSMutableDictionary<NSString *,PlaceDetails *> *)itemUUIDToDetails
+       itemUUIDToStatus:(NSMutableDictionary<NSString *,NSNumber *> *)itemUUIDToStatus {
+  PlaceDetails *details = itemUUIDToDetails[self.item.uuid];
+  if (details == nil) {
+    return;
+  }
+  [self updateDetails:details];
+}
 
 #pragma mark - onMapButtonPress
 - (void)onMapButtonPress:(id)sender {
@@ -586,7 +602,16 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     mapItem.uuid = self.item.uuid;
     mapItem.correspondingPlaceItem = self.item;
     mapItem.coords = self.item.coords;
-    ItemDetailsMapViewController *mapViewController = [[ItemDetailsMapViewController alloc]  initWithMapModel:self.mapModel locationModel:self.locationModel indexModel:self.indexModel searchModel:self.searchModel apiService:self.apiService coreDataService:self.coreDataService mapService:self.mapService mapItem:mapItem];
+    ItemDetailsMapViewController *mapViewController =
+    [[ItemDetailsMapViewController alloc] initWithMapModel:self.mapModel
+                                             locationModel:self.locationModel
+                                                indexModel:self.indexModel
+                                               searchModel:self.searchModel
+                                               detailsModel:self.detailsModel
+                                                apiService:self.apiService
+                                           coreDataService:self.coreDataService
+                                                mapService:self.mapService
+                                                   mapItem:mapItem];
     [self.navigationController pushViewController:mapViewController animated:YES];
     [[AnalyticsEvents get] logEvent:AnalyticsEventsDetailsOpenMap withParams:@{
       AnalyticsEventsParamCardName: self.item.title,

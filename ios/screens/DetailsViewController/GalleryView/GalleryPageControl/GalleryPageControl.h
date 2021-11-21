@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GalleryPageControl : UIControl
 
 - (instancetype)initWithNumberOfPages:(NSUInteger)numberOfPages;
+- (void)setNumberOfPages:(NSInteger)numberOfPages;
 - (void)moveToNextPage;
 - (void)moveToPrevPage;
 - (void)toggleSkipAnimation;

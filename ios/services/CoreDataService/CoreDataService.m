@@ -83,14 +83,14 @@ NSPersistentContainer *_persistentContainer;
         NSFetchRequest *fetchRequest = [StoredCategory fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"parent == %@", nil];
         NSError *error;
-        double startTime = [[NSDate now] timeIntervalSince1970];
+        // double startTime = [[NSDate now] timeIntervalSince1970];
         NSArray<StoredCategory *> *fetchResult = [ctx executeFetchRequest:fetchRequest error:&error];
-        double total = [[NSDate now] timeIntervalSince1970] - startTime;
-        NSLog(@"Fetch time: %f", total);
-        startTime = [[NSDate now] timeIntervalSince1970];
+        // double total = [[NSDate now] timeIntervalSince1970] - startTime;
+        // NSLog(@"Fetch time: %f", total);
+        // startTime = [[NSDate now] timeIntervalSince1970];
         NSMutableArray<Category *> *categories = [weakSelf mapStoredCategoriesToCategories:fetchResult];
-        total = [[NSDate now] timeIntervalSince1970] - startTime;
-        NSLog(@"Map time: %f", total);
+        // total = [[NSDate now] timeIntervalSince1970] - startTime;
+        // NSLog(@"Map time: %f", total);
         completion(categories);
     }];
 }
@@ -282,22 +282,26 @@ NSPersistentContainer *_persistentContainer;
 - (void)savePath:(NSArray<CLLocation *> *)path
    storedDetails:(StoredPlaceDetails *)storedDetails {
   NSError *error;
+  if (path == nil) {
+    return;
+  }
   NSDictionary *rootObject = @{@"root": path};
   NSData *pathData = [NSKeyedArchiver archivedDataWithRootObject:rootObject
                                            requiringSecureCoding:NO
                                                            error:&error];
-  NSLog(@"Archiving error: %@", error);
   storedDetails.path = pathData;
 }
 
 - (void)saveArea:(NSArray<NSArray<CLLocation *> *> *)area
    storedDetails:(StoredPlaceDetails *)storedDetails {
   NSError *error;
+  if (area == nil) {
+    return;
+  }
   NSDictionary *rootObject = @{@"root": area};
   NSData *areaData = [NSKeyedArchiver archivedDataWithRootObject:rootObject
                                            requiringSecureCoding:NO
                                                            error:&error];
-  NSLog(@"Archiving error: %@", error);
   storedDetails.area = areaData;
 }
 
@@ -360,7 +364,6 @@ NSMutableArray<CategoryUUIDToRelatedItemUUIDs *>* categoryIdToItemsFromStored(NS
     [unarchiver decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class],
                                                             [CLLocation class]]]
                                forKey:@"root"];
-    NSLog(@"Unarchiving error: %@", error);
     details.area = area;
     return;
   }
@@ -448,7 +451,7 @@ NSMutableArray<CategoryUUIDToRelatedItemUUIDs *>* categoryIdToItemsFromStored(NS
 }
 
 - (void)loadDetailsByUUID:(NSString *)uuid
-           withCompletion:(void (^)(PlaceDetails *))completion {
+           withCompletion:(void (^)(PlaceDetails *, NSError *))completion {
   __weak typeof(self) weakSelf = self;
   [self.ctx performBlockAndWait:^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -459,10 +462,10 @@ NSMutableArray<CategoryUUIDToRelatedItemUUIDs *>* categoryIdToItemsFromStored(NS
     StoredPlaceDetails *storedDetails = [fetchResult firstObject];
     if (storedDetails) {
       PlaceDetails *details = [strongSelf mapStoredDetailsToDetails:storedDetails];
-      completion(details);
+      completion(details, error);
       return;
     }
-    completion(nil);
+    completion(nil, error);
   }];
 }
 

@@ -512,7 +512,8 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
                                            indexModel:weakSelf.indexModel
                                              mapModel:weakSelf.mapModel
                                         locationModel:weakSelf.locationModel
-                                          searchModel:weakSelf.searchModel];
+                                          searchModel:weakSelf.searchModel
+                                         detailsModel:weakSelf.detailsModel]; 
     detailsController.item = item;
     [weakSelf.navigationController setNavigationBarHidden:NO animated:NO];
     [weakSelf.navigationController pushViewController:detailsController animated:YES];

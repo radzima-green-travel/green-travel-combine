@@ -31,9 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray<id<DetailsObserver>> *detailsObservers;
 
 - (void)setDetailsAllInProgress:(BOOL)inProgress;
-- (void)updateDetails:(PlaceDetails *)details forUUID:(NSString *)uuid;
-- (void)loadDetailsByUUID:(NSString *)uuid
-           withCompletion:(void(^)(PlaceDetails *))completion;
+- (void)updateDetails:(PlaceDetails *)details
+                error:(NSError * _Nullable)error
+              forUUID:(NSString *)uuid;
+- (void)loadDetailsByUUID:(NSString *)uuid;
+- (void)deleteDetailsForUUID:(NSString *)uuid;
 
 @end
 

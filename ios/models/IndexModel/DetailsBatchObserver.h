@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol DetailsBatchObserver <NSObject>
 
-- (void)onDetailsBatchStatusUpdate:(DetailsLoadState)detailsLoadState;
+- (void)onDetailsBatchStatusUpdate:(DetailsLoadState)detailsLoadState
+                             error:(NSError * _Nullable)error;
 
 @end
 
