@@ -44,7 +44,7 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.backgroundColor = [Colors get].buttonNewDataBackground;
-  [self setAttributedTitle:[[TypographyLegacy get] makeButtonText:@"Новые данные" color:[Colors get].buttonNewDataText] forState:UIControlStateNormal];
+  [self setAttributedTitle:[[TypographyLegacy get] makeButtonText:NSLocalizedString(@"IndexNewData", @"") color:[Colors get].buttonNewDataText] forState:UIControlStateNormal];
 
 }
 
