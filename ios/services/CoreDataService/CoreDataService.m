@@ -106,6 +106,7 @@ NSPersistentContainer *_persistentContainer;
     item.coords = coords;
     item.cover = storedItem.coverURL;
     item.bookmarked = storedItem.bookmarked;
+    item.address = storedItem.address;
     // item.details = [self mapStoredDetailsToDetails:storedItem.details];
     return item;
 }
@@ -140,14 +141,14 @@ NSPersistentContainer *_persistentContainer;
   __weak typeof(self) weakSelf = self;
   [self.ctx performBlockAndWait:^{
     NSError *error;
-    
+
     [weakSelf updateSearchItemsWhenSavingCategories:categories];
     [weakSelf reorderSearchItems];
-    
+
     NSFetchRequest *fetchRequest = [StoredCategory fetchRequest];
     NSBatchDeleteRequest *deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
     [weakSelf.ctx executeRequest:deleteRequest error:&error];
-    
+
     if ([categories count]) {
       [weakSelf saveCategoriesWithinBlock:categories parentCategory:nil];
     }
@@ -187,7 +188,7 @@ NSPersistentContainer *_persistentContainer;
     NSError *error;
     NSFetchRequest *fetchRequest = [StoredSearchItem fetchRequest];
     NSArray<StoredSearchItem *> *fetchResultSearchItem = [self.ctx executeFetchRequest:fetchRequest error:&error];
-    
+
     [fetchResultSearchItem enumerateObjectsUsingBlock:^(StoredSearchItem * _Nonnull searchItem, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         if ([incomingItemUUIDs containsObject:searchItem.correspondingPlaceItemUUID]) {
@@ -232,10 +233,11 @@ NSPersistentContainer *_persistentContainer;
     storedItem.coverURL = item.cover != nil && item.cover != [NSNull null] ? item.cover : @"";
     storedItem.uuid = item.uuid;
     storedItem.bookmarked = item.bookmarked;
+    storedItem.address = item.address;
     // storedItem.details = [self mapDetailsToStoredDetails:item.details];
     return storedItem;
 }
- 
+
 #pragma mark - mapDetailsToStoredDetails
 - (StoredPlaceDetails *)mapDetailsToStoredDetails:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
@@ -257,10 +259,10 @@ NSPersistentContainer *_persistentContainer;
                                              relatedCategoryUUIDs) {
     [storedDetails addLinkedCategoriesBelongsToObject:relatedCategoryUUIDs];
   }];
-  
+
   [weakSelf savePath:details.path storedDetails:storedDetails];
   [weakSelf saveArea:details.area storedDetails:storedDetails];
-  
+
   return storedDetails;
 }
 
@@ -281,28 +283,32 @@ NSPersistentContainer *_persistentContainer;
 
 - (void)savePath:(NSArray<CLLocation *> *)path
    storedDetails:(StoredPlaceDetails *)storedDetails {
-  NSError *error;
-  if (path == nil) {
-    return;
-  }
-  NSDictionary *rootObject = @{@"root": path};
-  NSData *pathData = [NSKeyedArchiver archivedDataWithRootObject:rootObject
-                                           requiringSecureCoding:NO
-                                                           error:&error];
-  storedDetails.path = pathData;
+  __weak typeof(self) weakSelf = self;
+  StoredCoordinateCollection *coordinateCollection = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinateCollection" inManagedObjectContext:weakSelf.ctx];
+  [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull pathPoint, NSUInteger idx, BOOL * _Nonnull stop) {
+    StoredCoordinate *coordinate = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinate" inManagedObjectContext:weakSelf.ctx];
+    coordinate.latitude = pathPoint.coordinate.latitude;
+    coordinate.longitude = pathPoint.coordinate.longitude;
+    [coordinateCollection addCoordinatesObject:coordinate];
+  }];
+  storedDetails.path = coordinateCollection;
 }
 
 - (void)saveArea:(NSArray<NSArray<CLLocation *> *> *)area
    storedDetails:(StoredPlaceDetails *)storedDetails {
-  NSError *error;
-  if (area == nil) {
-    return;
-  }
-  NSDictionary *rootObject = @{@"root": area};
-  NSData *areaData = [NSKeyedArchiver archivedDataWithRootObject:rootObject
-                                           requiringSecureCoding:NO
-                                                           error:&error];
-  storedDetails.area = areaData;
+  __weak typeof(self) weakSelf = self;
+  StoredArea *storedArea = [NSEntityDescription insertNewObjectForEntityForName:@"StoredArea" inManagedObjectContext:weakSelf.ctx];
+  [area enumerateObjectsUsingBlock:^(NSArray<CLLocation *> * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
+    StoredCoordinateCollection *coordinateCollection = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinateCollection" inManagedObjectContext:weakSelf.ctx];
+    [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull pathPoint, NSUInteger idx, BOOL * _Nonnull stop) {
+      StoredCoordinate *coordinate = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinate" inManagedObjectContext:weakSelf.ctx];
+      coordinate.latitude = pathPoint.coordinate.latitude;
+      coordinate.longitude = pathPoint.coordinate.longitude;
+      [coordinateCollection addCoordinatesObject:coordinate];
+    }];
+    [storedArea addCoordinateCollectionsObject:coordinateCollection];
+  }];
+  storedDetails.area = storedArea;
 }
 
 #pragma mark - mapStoredDetailsToDetails
@@ -312,15 +318,15 @@ NSPersistentContainer *_persistentContainer;
   details.url = storedDetails.url;
   details.images = [storedDetails.imageURLs componentsSeparatedByString:@","];
   details.descriptionHTML = storedDetails.descriptionHTML;
-  
+
   details.categoryIdToItems =
       categoryIdToItemsFromStored(storedDetails.linkedCategories);
   details.categoryIdToItemsBelongsTo =
       categoryIdToItemsFromStored(storedDetails.linkedCategoriesBelongsTo);
-  
-  [self retrievePath:storedDetails.path details:details];
+
+  [self retrievePath:storedDetails.path.coordinates details:details]; 
   [self retrieveArea:storedDetails.area details:details];
-  
+
   return details;
 }
 
@@ -339,34 +345,46 @@ NSMutableArray<CategoryUUIDToRelatedItemUUIDs *>* categoryIdToItemsFromStored(NS
   return categoryIdToItems;
 }
 
-- (void)retrievePath:(NSData *)storedPath
+- (void)retrievePath:(NSOrderedSet<StoredCoordinate *> *)storedPath
    details:(PlaceDetails *)details {
-  NSError *error;
-  if (@available(iOS 14.0, *)) {
-    NSKeyedUnarchiver *unarchiver =
-    [[NSKeyedUnarchiver alloc] initForReadingFromData:storedPath error:&error];
-    NSArray<CLLocation *> *path =
-    [unarchiver decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class],
-                                                            [CLLocation class]]]
-                               forKey:@"root"];
-    details.path = path;
-    return;
-  }
+  NSMutableArray<CLLocation *> *path = [[NSMutableArray alloc] init];
+  [storedPath enumerateObjectsUsingBlock:^(StoredCoordinate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:obj.latitude longitude:obj.longitude];
+    [path addObject:location];
+  }];
+  details.path = path;
 }
-  
-- (void)retrieveArea:(NSData *)storedArea
-             details:(PlaceDetails *)details {
-  NSError *error;
-  if (@available(iOS 14.0, *)) {
-    NSKeyedUnarchiver *unarchiver =
-    [[NSKeyedUnarchiver alloc] initForReadingFromData:storedArea error:&error];
-    NSArray<NSArray<CLLocation *> *> *area =
-    [unarchiver decodeObjectOfClasses:[NSSet setWithArray:@[[NSArray class],
-                                                            [CLLocation class]]]
-                               forKey:@"root"];
-    details.area = area;
-    return;
-  }
+
+- (void)retrieveArea:(StoredArea *)storedArea
+   details:(PlaceDetails *)details {
+  NSMutableArray<NSMutableArray<CLLocation *> *> *area = [[NSMutableArray alloc] init];
+  [storedArea.coordinateCollections enumerateObjectsUsingBlock:^(StoredCoordinateCollection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableArray<CLLocation *> *path = [[NSMutableArray alloc] init];
+    [obj.coordinates enumerateObjectsUsingBlock:^(StoredCoordinate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      CLLocation *location = [[CLLocation alloc] initWithLatitude:obj.latitude longitude:obj.longitude];
+      [path addObject:location];
+    }];
+    [area addObject:path];
+  }];
+
+  details.area = area;
+}
+
+- (void)retrieveArea:(NSArray<NSArray<CLLocation *> *> *)area
+   storedDetails:(StoredPlaceDetails *)storedDetails {
+  __weak typeof(self) weakSelf = self;
+  StoredArea *storedArea = [NSEntityDescription insertNewObjectForEntityForName:@"StoredArea" inManagedObjectContext:weakSelf.ctx];
+  [area enumerateObjectsUsingBlock:^(NSArray<CLLocation *> * _Nonnull path, NSUInteger idx, BOOL * _Nonnull stop) {
+    StoredCoordinateCollection *coordinateCollection = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinateCollection" inManagedObjectContext:weakSelf.ctx];
+    [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull pathPoint, NSUInteger idx, BOOL * _Nonnull stop) {
+      StoredCoordinate *coordinate = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCoordinate" inManagedObjectContext:weakSelf.ctx];
+      coordinate.latitude = pathPoint.coordinate.latitude;
+      coordinate.longitude = pathPoint.coordinate.longitude;
+      [coordinateCollection addCoordinatesObject:coordinate];
+    }];
+    [storedArea addCoordinateCollectionsObject:coordinateCollection];
+  }];
+  storedDetails.area = storedArea;
 }
 
 #pragma mark - Search items

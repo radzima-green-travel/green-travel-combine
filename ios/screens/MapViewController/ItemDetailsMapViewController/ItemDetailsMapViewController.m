@@ -45,6 +45,7 @@
 @property (assign, nonatomic) BOOL feedbackOnAppearGiven;
 @property (assign, nonatomic) BOOL popupWasShown;
 @property (strong, nonatomic) UINotificationFeedbackGenerator *feedbackGenerator;
+@property (strong, nonatomic) PlaceDetails *itemDetails;
 @property (copy, nonatomic) void(^cancelGetDirections)(void);
 @property (copy, nonatomic) ContinueToNavigation next;
 @property (assign, nonatomic) ItemDetailsMapViewControllerAnnotationType
@@ -63,6 +64,28 @@ static NSString* const kAttributeNameBorder = @"border";
 static NSString* const kAttributeType = @"type";
 
 @implementation ItemDetailsMapViewController
+
+- (instancetype)initWithMapModel:(MapModel *)mapModel
+                   locationModel:(LocationModel *)locationModel
+                      indexModel:(IndexModel *)indexModel
+                     searchModel:(SearchModel *)searchModel
+                    detailsModel:(DetailsModel *)detailsModel
+                      apiService:(ApiService *)apiService
+                 coreDataService:(CoreDataService *)coreDataService
+                      mapService:(MapService *)mapService
+                         mapItem:(MapItem *)mapItem
+                     itemDetails:(PlaceDetails *)itemDetails {
+  self = [super initWithMapModel:mapModel locationModel:locationModel
+                      indexModel:indexModel searchModel:searchModel
+                    detailsModel:detailsModel apiService:apiService
+                 coreDataService:coreDataService mapService:mapService
+                         mapItem:mapItem];
+  if (self) {
+    _itemDetails = itemDetails;
+  }
+  return self;
+  
+}
 
 #pragma mark - Lifecycle
 - (void)viewDidLoad {
@@ -175,7 +198,7 @@ static NSString* const kAttributeType = @"type";
                                                   features:@[point]
                                                    options:nil];
 
-  NSArray<NSArray<CLLocation *> *> *areaParts = mapItem.correspondingPlaceItem.details.area;
+  NSArray<NSArray<CLLocation *> *> *areaParts = self.itemDetails.area;
   NSMutableArray<MGLPolygon *> *polygonParts = [[NSMutableArray alloc] init];
   NSMutableArray<MGLPolylineFeature *> *polygonOutlines = [[NSMutableArray alloc] init];
   if ([areaParts count]) {
@@ -207,7 +230,7 @@ static NSString* const kAttributeType = @"type";
                                                    features:polygonOutlines options:nil];
   }
 
-  NSArray<CLLocation *> *path = mapItem.correspondingPlaceItem.details.path;
+  NSArray<CLLocation *> *path = self.itemDetails.path;
   if ([path count]) {
     CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * [path count]);
     [path enumerateObjectsUsingBlock:^(CLLocation * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

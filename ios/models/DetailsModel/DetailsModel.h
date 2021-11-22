@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
                 error:(NSError * _Nullable)error
               forUUID:(NSString *)uuid;
 - (void)loadDetailsByUUID:(NSString *)uuid;
+- (PlaceDetails *)getDetailsByUUID:(NSString *)uuid;
 - (void)deleteDetailsForUUID:(NSString *)uuid;
 
 @end

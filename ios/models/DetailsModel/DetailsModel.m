@@ -121,6 +121,10 @@
   });
 }
 
+- (PlaceDetails *)getDetailsByUUID:(NSString *)uuid {
+  return self.itemUUIDToDetails[uuid];
+}
+
 - (void)deleteDetailsForUUID:(NSString *)uuid {
   self.itemUUIDToStatus[uuid] = nil;
   self.itemUUIDToItem[uuid] = nil;

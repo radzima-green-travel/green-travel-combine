@@ -2,7 +2,7 @@
 //  StoredPlaceDetails+CoreDataProperties.h
 //  
 //
-//  Created by Alex K on 12.11.21.
+//  Created by Alex K on 23.11.21.
 //
 //
 
@@ -20,10 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *imageURLs;
 @property (nullable, nonatomic, copy) NSString *url;
 @property (nullable, nonatomic, copy) NSString *uuid;
-@property (nullable, nonatomic, retain) NSObject *area;
-@property (nullable, nonatomic, retain) NSObject *path;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredCategoryUUIDToRelatedItemUUIDs *> *linkedCategories;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredCategoryUUIDToRelatedItemUUIDs *> *linkedCategoriesBelongsTo;
+@property (nullable, nonatomic, retain) StoredCoordinateCollection *path;
+@property (nullable, nonatomic, retain) StoredArea *area;
 
 @end
 

@@ -72,6 +72,7 @@
 @property (strong, nonatomic) NSLayoutConstraint *prevLastViewBottomAnchor;
 
 @property (assign, nonatomic) BOOL ready;
+@property (strong, nonatomic) PlaceDetails *itemDetails;
 @property (strong, nonatomic) LocationModel *locationModel;
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) IndexModel *indexModel;
@@ -558,6 +559,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 - (void)updateDetails:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
+  self.itemDetails = details;
   [self updateMainContent:details];
   dispatch_async(dispatch_get_main_queue(), ^{
     [weakSelf.imageGalleryView setUpWithPictureURLs:details.images];
@@ -611,7 +613,8 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
                                                 apiService:self.apiService
                                            coreDataService:self.coreDataService
                                                 mapService:self.mapService
-                                                   mapItem:mapItem];
+                                                   mapItem:mapItem
+                                               itemDetails:self.itemDetails];
     [self.navigationController pushViewController:mapViewController animated:YES];
     [[AnalyticsEvents get] logEvent:AnalyticsEventsDetailsOpenMap withParams:@{
       AnalyticsEventsParamCardName: self.item.title,
