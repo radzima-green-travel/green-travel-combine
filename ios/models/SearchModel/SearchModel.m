@@ -122,12 +122,14 @@
 }
 
 - (void)loadSearchHistoryItems {
-    __weak typeof(self) weakSelf = self;
-    [self.coreDataService loadSearchItemsWithCompletion:^(NSArray<SearchItem *> * _Nonnull searchItems) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        strongSelf.searchHistoryItems = [[NSMutableArray alloc] initWithArray:searchItems];
-        [strongSelf notifyObserversOfSearchHistoryUpdate];
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+    [weakSelf.coreDataService loadSearchItemsWithCompletion:^(NSArray<SearchItem *> * _Nonnull searchItems) {
+      __strong typeof(weakSelf) strongSelf = weakSelf;
+      strongSelf.searchHistoryItems = [[NSMutableArray alloc] initWithArray:searchItems];
+      [strongSelf notifyObserversOfSearchHistoryUpdate];
     }];
+  });
 }
 
 - (void)addSearchHistoryItem:(SearchItem *)searchItem {
