@@ -41,8 +41,20 @@ static inline ItemDetailsMapViewControllerAnnotationType getAllItemTypes() {
 @class ApiService;
 @class CoreDataService;
 @class DetailsModel;
+@class PlaceDetails;
 
 @interface ItemDetailsMapViewController : BaseMapViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver>
+
+- (instancetype)initWithMapModel:(MapModel *)mapModel
+                   locationModel:(LocationModel *)locationModel
+                      indexModel:(IndexModel *)indexModel
+                     searchModel:(SearchModel *)searchModel
+                    detailsModel:(DetailsModel *)detailsModel
+                      apiService:(ApiService *)apiService
+                 coreDataService:(CoreDataService *)coreDataService
+                      mapService:(MapService *)mapService
+                         mapItem:(nullable MapItem *)mapItem
+                     itemDetails:(nullable PlaceDetails *)itemDetails;
 
 @end
 

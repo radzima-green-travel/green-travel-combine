@@ -173,7 +173,7 @@ otherGestureRecognizer {
   [self.bookmarkButton setSelected:item.bookmarked];
   [self.headerLabel setAttributedText:[[TypographyLegacy get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
-  [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
+  [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.address color:[Colors get].mainText]];
 
   [self appear];
 }
@@ -193,7 +193,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.bookmarkButton setSelected:item.bookmarked];
   [self.headerLabel setAttributedText:[[TypographyLegacy get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
-  [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.details.address color:[Colors get].mainText]];
+  [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.address color:[Colors get].mainText]];
 
   [self appear];
 }

@@ -25,14 +25,14 @@
     </entity>
     <entity name="StoredPlaceDetails" representedClassName="StoredPlaceDetails" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String"/>
-        <attribute name="area" optional="YES" attributeType="Binary"/>
         <attribute name="descriptionHTML" optional="YES" attributeType="String"/>
         <attribute name="imageURLs" optional="YES" attributeType="String"/>
-        <attribute name="path" optional="YES" attributeType="Binary"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>
+        <relationship name="area" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredArea"/>
         <relationship name="linkedCategories" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="StoredCategoryUUIDToRelatedItemUUIDs"/>
         <relationship name="linkedCategoriesBelongsTo" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="StoredCategoryUUIDToRelatedItemUUIDs"/>
+        <relationship name="path" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredCoordinateCollection"/>
     </entity>
     <entity name="StoredPlaceItem" representedClassName="StoredPlaceItem" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String"/>

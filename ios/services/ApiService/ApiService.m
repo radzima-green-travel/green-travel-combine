@@ -111,6 +111,11 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
         placeItem.details = [weakSelf mapDetailsFromJSON:obj];
         placeItem.coords = [weakSelf mapPointCoordsFromJSON:obj];
         placeItem.uuid = obj[@"id"];
+        if (obj[@"address"] && ![obj[@"address"] isEqual:[NSNull null]]) {
+          placeItem.address = obj[@"address"];
+        } else {
+          placeItem.address = @"";
+        }
         [mappedItems addObject:placeItem];
     }];
     return mappedItems;
