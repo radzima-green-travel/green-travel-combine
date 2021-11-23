@@ -22,6 +22,7 @@
 		5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */; };
 		5A39D6EF26B34C04008FC20C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A39D6F126B34C04008FC20C /* Localizable.strings */; };
 		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
+		5A5E2AF5274D9D0C00A20489 /* DispatchUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2AF4274D9D0C00A20489 /* DispatchUtils.m */; };
 		5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B0269BA98400540CE4 /* NumberUtils.m */; };
 		5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */; };
 		5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */; };
@@ -208,6 +209,8 @@
 		5A5E2AF02749327A00A20489 /* DetailsBatchObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsBatchObservable.h; sourceTree = "<group>"; };
 		5A5E2AF1274933AF00A20489 /* DetailsBatchObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsBatchObserver.h; sourceTree = "<group>"; };
 		5A5E2AF2274936E100A20489 /* DetailsBatchConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsBatchConstants.h; sourceTree = "<group>"; };
+		5A5E2AF3274D9CFB00A20489 /* DispatchUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DispatchUtils.h; sourceTree = "<group>"; };
+		5A5E2AF4274D9D0C00A20489 /* DispatchUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DispatchUtils.m; sourceTree = "<group>"; };
 		5A5FF6B0269BA98400540CE4 /* NumberUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberUtils.m; sourceTree = "<group>"; };
 		5A5FF6B1269BA98400540CE4 /* NumberUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberUtils.h; sourceTree = "<group>"; };
 		5A5FF6B2269BA98500540CE4 /* CoordinateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordinateUtils.h; sourceTree = "<group>"; };
@@ -882,6 +885,8 @@
 		5A775B0B26064C9000CEFC78 /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5A5E2AF3274D9CFB00A20489 /* DispatchUtils.h */,
+				5A5E2AF4274D9D0C00A20489 /* DispatchUtils.m */,
 				5A5FF6B2269BA98500540CE4 /* CoordinateUtils.h */,
 				5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */,
 				5A5FF6B1269BA98400540CE4 /* NumberUtils.h */,
@@ -1683,6 +1688,7 @@
 				5A21445C2663E9A700582901 /* AlertUtils.m in Sources */,
 				5A6DC5062655B1DA00A2D37B /* StoredPlaceDetails+CoreDataProperties.m in Sources */,
 				5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */,
+				5A5E2AF5274D9D0C00A20489 /* DispatchUtils.m in Sources */,
 				5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */,
 				5A775B5426064C9000CEFC78 /* DetailsModel.m in Sources */,
 				5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */,

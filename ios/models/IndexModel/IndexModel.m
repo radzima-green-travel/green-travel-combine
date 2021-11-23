@@ -19,6 +19,7 @@
 #import "PlaceDetails.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "IndexPeeks.h"
+#import "DispatchUtils.h"
 
 @interface IndexModel () 
 
@@ -130,26 +131,29 @@ static IndexModel *instance;
 - (void)refreshCategories {
   [self notifyObserversCategoriesLoading:YES];
   __weak typeof(self) weakSelf = self;
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
-                 dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-    __strong typeof(weakSelf) strongSelf = weakSelf;
-    NSArray<Category*> *newCategories = [strongSelf.categoriesScheduledForUpdate copy];
-    [strongSelf.userDefaultsService saveETag:strongSelf.eTagScheduledForUpdate];
-    [strongSelf notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
-    [strongSelf.coreDataService saveCategories:newCategories];
-    [strongSelf saveDetailsFromCategories:newCategories];
-    [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
-      __weak typeof(strongSelf) weakSelf = strongSelf;
-      [weakSelf updateCategories:categoriesFromDB];
-      weakSelf.categoriesScheduledForUpdate = nil;
-      [weakSelf notifyObserversCategoriesLoading:NO];
-    }];
+  dispatchBlockWithUXDelay(10, ^(void (^completion)(void)) {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+      __strong typeof(weakSelf) strongSelf = weakSelf;
+      NSArray<Category*> *newCategories = [strongSelf.categoriesScheduledForUpdate copy];
+      [strongSelf.userDefaultsService saveETag:strongSelf.eTagScheduledForUpdate];
+      [strongSelf notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
+      [strongSelf.coreDataService saveCategories:newCategories];
+      [strongSelf saveDetailsFromCategories:newCategories];
+      [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
+        __weak typeof(strongSelf) weakSelf = strongSelf;
+        [weakSelf updateCategories:categoriesFromDB];
+        weakSelf.categoriesScheduledForUpdate = nil;
+        [weakSelf notifyObserversCategoriesLoading:NO];
+        completion();
+      }];
+    });
   });
 }
 
 - (void)retryCategories {
   [self notifyObserversCategoriesLoading:YES];
   __weak typeof(self) weakSelf = self;
+  
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
     [strongSelf.userDefaultsService saveETag:@""];
