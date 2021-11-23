@@ -153,6 +153,7 @@
 		5AD6BF1126BEA9DF00DD3F2B /* ScrollViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */; };
 		5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */; };
 		5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */; };
+		5AD71D9D274D5CDA00F205AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AD71D9F274D5CDA00F205AD /* InfoPlist.strings */; };
 		5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADBAC3E27243A7D0006A8C1 /* Typography.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
@@ -457,6 +458,8 @@
 		5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsUIScrollViewDelegate.m; sourceTree = "<group>"; };
 		5AD6BF1826C030B100DD3F2B /* AnalyticsTimeTracer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsTimeTracer.h; sourceTree = "<group>"; };
 		5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsTimeTracer.m; sourceTree = "<group>"; };
+		5AD71D9E274D5CDA00F205AD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5AD71DA0274D5CE000F205AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5ADBAC3D27243A7D0006A8C1 /* Typography.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Typography.h; sourceTree = "<group>"; };
 		5ADBAC3E27243A7D0006A8C1 /* Typography.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Typography.m; sourceTree = "<group>"; };
 		5ADD30CB26A6E29F00551408 /* UserDefaultsServiceConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsServiceConstants.h; sourceTree = "<group>"; };
@@ -1304,6 +1307,7 @@
 				624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */,
 				624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */,
 				62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */,
+				5AD71D9F274D5CDA00F205AD /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1441,6 +1445,7 @@
 				5A775B4226064C9000CEFC78 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				5A775B4D26064C9000CEFC78 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				5A775B3C26064C9000CEFC78 /* Montserrat-MediumItalic.ttf in Resources */,
+				5AD71D9D274D5CDA00F205AD /* InfoPlist.strings in Resources */,
 				5A775B3226064C9000CEFC78 /* Montserrat-LightItalic.ttf in Resources */,
 				624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */,
 				5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */,
@@ -1765,6 +1770,15 @@
 				5A39D6F326B34C0A008FC20C /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5AD71D9F274D5CDA00F205AD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5AD71D9E274D5CDA00F205AD /* ru */,
+				5AD71DA0274D5CE000F205AD /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
