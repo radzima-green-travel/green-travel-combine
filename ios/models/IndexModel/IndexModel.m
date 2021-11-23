@@ -78,15 +78,15 @@ static IndexModel *instance;
   self.loading = YES;
   if (visible) { [self notifyObserversCategoriesLoading:YES]; }
   __weak typeof(self) weakSelf = self;
-  [self.apiService loadCategoriesWithCompletion:^(NSArray<Category *>  * _Nonnull categories,
+  [self.apiService loadCategoriesWithCompletion:^(NSArray<Category *>  * _Nonnull categoriesFromServer,
                                                   NSArray<PlaceDetails *> * _Nonnull details,
                                                   NSString *eTag) {
     __strong typeof(weakSelf) strongSelf = weakSelf;
     BOOL shouldRequestCategoriesUpdate = YES;
-    if ([strongSelf.categories count] == 0 && [categories count] > 0) {
+    if ([strongSelf.categories count] == 0 && [categoriesFromServer count] > 0) {
       [strongSelf.userDefaultsService saveETag:eTag];
-      [strongSelf.coreDataService saveCategories:categories];
-      [strongSelf saveDetailsFromCategories:categories];
+      [strongSelf.coreDataService saveCategories:categoriesFromServer];
+      [strongSelf saveDetailsFromCategories:categoriesFromServer];
       __weak typeof(strongSelf) weakSelf = strongSelf;
       [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -97,12 +97,12 @@ static IndexModel *instance;
       shouldRequestCategoriesUpdate = NO;
     }
     NSString *existingETag = @"";
-    if (![existingETag isEqualToString:eTag] && [categories count] > 0) {
-      NSArray<Category*> *newCategories =
+    if (![existingETag isEqualToString:eTag] && [categoriesFromServer count] > 0) {
+      NSArray<Category*> *newCategoriesFromServer =
       [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
-                                           toNew:categories];
+                                           toNew:categoriesFromServer];
       if (shouldRequestCategoriesUpdate) {
-        [strongSelf requestCategoriesUpdate:newCategories eTag:eTag];
+        [strongSelf requestCategoriesUpdate:newCategoriesFromServer eTag:eTag];
       }
     }
   }];
@@ -133,13 +133,17 @@ static IndexModel *instance;
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
                  dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
-    NSArray<Category*> *newCategories = [weakSelf.categoriesScheduledForUpdate copy];
+    NSArray<Category*> *newCategories = [strongSelf.categoriesScheduledForUpdate copy];
     [strongSelf.userDefaultsService saveETag:strongSelf.eTagScheduledForUpdate];
     [strongSelf notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
     [strongSelf.coreDataService saveCategories:newCategories];
     [strongSelf saveDetailsFromCategories:newCategories];
-    [strongSelf notifyObserversCategoriesLoading:NO];
-    [strongSelf updateCategories:newCategories];
+    [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
+      __weak typeof(strongSelf) weakSelf = strongSelf;
+      [weakSelf updateCategories:categoriesFromDB];
+      weakSelf.categoriesScheduledForUpdate = nil;
+      [weakSelf notifyObserversCategoriesLoading:NO];
+    }];
   });
 }
 
