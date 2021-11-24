@@ -23,12 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updatePlaceItem:(PlaceItem *)placeItem bookmark:(BOOL)bookmark;
 - (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*))completion;
 - (void)saveCategories:(NSArray<Category *> *)categories;
-- (void)saveDetailsFromCategories:(NSArray<Category *> *)categories;
+- (void)saveDetailsFromCategories:(NSArray<Category *> *)categories
+                   withCompletion:(void(^)(void))completion;
 - (void)loadSearchItemsWithCompletion:(void(^)(NSArray<SearchItem *>*))completion;
 - (void)addSearchItem:(SearchItem *)searchItem;
 - (void)removeSearchItem:(SearchItem *)searchItem;
-- (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void (^)(PlaceDetails *,
-                                                                    NSError * _Nullable))completion;
+- (void)loadDetailsByUUID:(NSString *)uuid
+           withCompletion:(void (^)(PlaceDetails *, NSError * _Nullable))completion;
 - (void)savePlaceDetails:(PlaceDetails *)details forUUID:(NSString *)uuid;
 
 @end

@@ -20,7 +20,7 @@
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "IndexPeeks.h"
 
-@interface IndexModel () 
+@interface IndexModel ()
 
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
@@ -36,8 +36,8 @@
 
 @end
 
-@implementation IndexModel 
- 
+@implementation IndexModel
+
 static IndexModel *instance;
 
 - (instancetype)initWithApiService:(ApiService *)apiService
@@ -84,9 +84,11 @@ static IndexModel *instance;
     __strong typeof(weakSelf) strongSelf = weakSelf;
     BOOL shouldRequestCategoriesUpdate = YES;
     if ([strongSelf.categories count] == 0 && [categoriesFromServer count] > 0) {
-      [strongSelf.userDefaultsService saveETag:eTag];
       [strongSelf.coreDataService saveCategories:categoriesFromServer];
-      [strongSelf saveDetailsFromCategories:categoriesFromServer];
+      [strongSelf saveDetailsFromCategories:categoriesFromServer
+                             withCompletion:^{
+        [weakSelf.userDefaultsService saveETag:eTag];
+      }];
       __weak typeof(strongSelf) weakSelf = strongSelf;
       [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -96,7 +98,7 @@ static IndexModel *instance;
       }];
       shouldRequestCategoriesUpdate = NO;
     }
-    NSString *existingETag = @"";
+    NSString *existingETag = [strongSelf.userDefaultsService loadETag];
     if (![existingETag isEqualToString:eTag] && [categoriesFromServer count] > 0) {
       NSArray<Category*> *newCategoriesFromServer =
       [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
@@ -108,11 +110,13 @@ static IndexModel *instance;
   }];
 }
 
-- (void)saveDetailsFromCategories:(NSArray<Category *>*)categories {
+- (void)saveDetailsFromCategories:(NSArray<Category *>*)categories
+                   withCompletion:(nonnull void (^)(void))completion {
   [self notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-    [weakSelf.coreDataService saveDetailsFromCategories:categories];
+    [weakSelf.coreDataService saveDetailsFromCategories:categories
+                                         withCompletion:completion];
     [self notifyObserversDetailsBatch:DetailsLoadStateSuccess error:nil];
   });
 }
@@ -134,10 +138,11 @@ static IndexModel *instance;
                  dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
     NSArray<Category*> *newCategories = [strongSelf.categoriesScheduledForUpdate copy];
-    [strongSelf.userDefaultsService saveETag:strongSelf.eTagScheduledForUpdate];
     [strongSelf notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
     [strongSelf.coreDataService saveCategories:newCategories];
-    [strongSelf saveDetailsFromCategories:newCategories];
+    [strongSelf saveDetailsFromCategories:newCategories withCompletion:^{
+      [weakSelf.userDefaultsService saveETag:weakSelf.eTagScheduledForUpdate];
+    }];
     [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
       __weak typeof(strongSelf) weakSelf = strongSelf;
       [weakSelf updateCategories:categoriesFromDB];
@@ -201,7 +206,7 @@ static IndexModel *instance;
   self.flatItems = flatItems;
   self.flatCategories = flatCategories;
   self.randomizedCategories = [randomizedCategories copy];
-  
+
   [self verifyLinks];
   [self notifyObservers];
 }

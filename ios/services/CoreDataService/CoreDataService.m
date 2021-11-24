@@ -155,7 +155,8 @@ NSPersistentContainer *_persistentContainer;
   }];
 }
 
-- (void)saveDetailsFromCategories:(NSArray<Category *> *)categories {
+- (void)saveDetailsFromCategories:(NSArray<Category *> *)categories
+                   withCompletion:(nonnull void (^)(void))completion {
   NSError *error;
   NSFetchRequest *fetchRequest = [StoredPlaceDetails fetchRequest];
   NSBatchDeleteRequest *deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
@@ -173,6 +174,7 @@ NSPersistentContainer *_persistentContainer;
         }
       });
       [strongSelf.ctx save:&error];
+      completion();
     }
   }];
 }
@@ -324,7 +326,7 @@ NSPersistentContainer *_persistentContainer;
   details.categoryIdToItemsBelongsTo =
       categoryIdToItemsFromStored(storedDetails.linkedCategoriesBelongsTo);
 
-  [self retrievePath:storedDetails.path.coordinates details:details]; 
+  [self retrievePath:storedDetails.path.coordinates details:details];
   [self retrieveArea:storedDetails.area details:details];
 
   return details;
