@@ -38,3 +38,6 @@
 "DetailsScreenOfficialSite" = "Official website";
 "DetailsScreenActivities" = "Activities";
 "DetailsScreenBelongsTo" = "Part of...";
+
+"NoDataText" = "Oops! Something's not right...";
+"NoDataActionLabel" = "Try again";

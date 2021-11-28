@@ -38,3 +38,6 @@
 "DetailsScreenOfficialSite" = "Официальный сайт";
 "DetailsScreenActivities" = "Чем заняться";
 "DetailsScreenBelongsTo" = "Входит в...";
+
+"NoDataText" = "Что-то пошло не так...";
+"NoDataActionLabel" = "Попробовать еще раз";

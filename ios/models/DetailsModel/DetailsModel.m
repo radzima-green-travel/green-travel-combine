@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSMutableSet<NSString*> *itemUUIDs;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
-@property (assign, nonatomic) DetailsLoadState detailsLoadState;
+@property (assign, nonatomic) DetailsLoadState globalDetailsLoadState;
 
 @end
 
@@ -41,7 +41,8 @@
             _itemUUIDToStatus = [[NSMutableDictionary alloc] init];
             _apiService = apiService;
             _coreDataService = coreDataService;
-            [self.indexModel addObserver:self];
+            [_indexModel addObserver:self];
+            [_indexModel addObserverDetailsBatch:self];
         }
         return self;
 }
@@ -52,7 +53,11 @@
     [self notifyObservers];
 }
 
-- (void)onCategoriesLoading:(BOOL)loading {}
+- (void)onCategoriesLoading:(BOOL)loading {
+  if (loading) {
+    self.globalDetailsLoadState = DetailsLoadStateProgress;
+  }
+}
 
 - (void)onCategoriesNewDataAvailable {}
 
@@ -61,19 +66,20 @@
 
 - (void)onDetailsBatchStatusUpdate:(DetailsLoadState)detailsLoadState
                              error:(NSError * _Nullable)error{
-  self.detailsLoadState = detailsLoadState;
-  if (self.detailsLoadState == DetailsLoadStateSuccess ||
-          self.detailsLoadState == DetailsLoadStateFailure) {
+  self.globalDetailsLoadState = detailsLoadState;
+  if (self.globalDetailsLoadState == DetailsLoadStateSuccess ||
+          self.globalDetailsLoadState == DetailsLoadStateFailure) {
     [self.itemUUIDToStatus enumerateKeysAndObjectsUsingBlock:
      ^(NSString * _Nonnull itemUUID, NSNumber * _Nonnull status, BOOL * _Nonnull stop) {
       if ([status intValue] == DetailsLoadStateProgress) {
-        if (self.detailsLoadState == DetailsLoadStateSuccess) {
+        if (self.globalDetailsLoadState == DetailsLoadStateSuccess) {
           [self loadDetailsByUUID:itemUUID];
           return;
         }
-        if (self.detailsLoadState == DetailsLoadStateFailure) {
+        if (self.globalDetailsLoadState == DetailsLoadStateFailure) {
           self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateFailure);
-          [self updateDetails:self.itemUUIDToDetails error:error forUUID:itemUUID];
+          [self updateDetails:self.itemUUIDToDetails[itemUUID]
+                        error:error forUUID:itemUUID];
         }
       }
     }];
@@ -92,7 +98,7 @@
     }];
 }
 
-- (void)updateDetails:(PlaceDetails *)details
+- (void)updateDetails:(PlaceDetails * _Nullable)details
                 error:(NSError * _Nullable)error
               forUUID:(NSString *)uuid {
   if (error == nil) {
@@ -107,16 +113,24 @@
 - (void)loadDetailsByUUID:(NSString *)itemUUID {
   __weak typeof(self) weakSelf = self;
   self.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateProgress);
+  [self notifyObservers];
+  if (self.globalDetailsLoadState == DetailsLoadStateProgress) {
+    return;
+  }
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     [self.coreDataService loadDetailsByUUID:itemUUID withCompletion:^(PlaceDetails * _Nonnull details,
                                                                       NSError * _Nullable error) {
       __strong typeof(weakSelf) strongSelf = weakSelf;
-      if (details) {
-        [strongSelf updateDetails:details error:error forUUID:itemUUID];
-        strongSelf.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateSuccess);
+      if (error != nil) {
+        [strongSelf updateDetails:nil error:error forUUID:itemUUID];
         return;
       }
-      strongSelf.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateProgress);
+      if (details) {
+        [strongSelf updateDetails:details error:nil forUUID:itemUUID];
+        return;
+      }
+      strongSelf.itemUUIDToStatus[itemUUID] = @(DetailsLoadStateFailure);
+      [strongSelf notifyObservers];
     }];
   });
 }
@@ -124,6 +138,11 @@
 - (PlaceDetails *)getDetailsByUUID:(NSString *)uuid {
   return self.itemUUIDToDetails[uuid];
 }
+
+- (DetailsLoadState)getDetailsStatusByUUID:(NSString *)uuid {
+  return [self.itemUUIDToStatus[uuid] intValue];
+}
+
 
 - (void)deleteDetailsForUUID:(NSString *)uuid {
   self.itemUUIDToStatus[uuid] = nil;
@@ -139,7 +158,6 @@
 }
 
 - (void)notifyObservers {
-    NSLog(@"notifyObservers");
     [self.detailsObservers enumerateObjectsUsingBlock:^(id<DetailsObserver>  _Nonnull observer, NSUInteger idx, BOOL * _Nonnull stop) {
       [observer onDetailsUpdate:self.itemUUIDToDetails
                itemUUIDToStatus:self.itemUUIDToStatus];

@@ -83,14 +83,8 @@ NSPersistentContainer *_persistentContainer;
         NSFetchRequest *fetchRequest = [StoredCategory fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"parent == %@", nil];
         NSError *error;
-        // double startTime = [[NSDate now] timeIntervalSince1970];
         NSArray<StoredCategory *> *fetchResult = [ctx executeFetchRequest:fetchRequest error:&error];
-        // double total = [[NSDate now] timeIntervalSince1970] - startTime;
-        // NSLog(@"Fetch time: %f", total);
-        // startTime = [[NSDate now] timeIntervalSince1970];
         NSMutableArray<Category *> *categories = [weakSelf mapStoredCategoriesToCategories:fetchResult];
-        // total = [[NSDate now] timeIntervalSince1970] - startTime;
-        // NSLog(@"Map time: %f", total);
         completion(categories);
     }];
 }
@@ -107,7 +101,6 @@ NSPersistentContainer *_persistentContainer;
     item.cover = storedItem.coverURL;
     item.bookmarked = storedItem.bookmarked;
     item.address = storedItem.address;
-    // item.details = [self mapStoredDetailsToDetails:storedItem.details];
     return item;
 }
 
@@ -236,7 +229,6 @@ NSPersistentContainer *_persistentContainer;
     storedItem.uuid = item.uuid;
     storedItem.bookmarked = item.bookmarked;
     storedItem.address = item.address;
-    // storedItem.details = [self mapDetailsToStoredDetails:item.details];
     return storedItem;
 }
 

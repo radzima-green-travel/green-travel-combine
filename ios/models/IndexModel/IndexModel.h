@@ -44,8 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
                userDefaultsService:(UserDefaultsService *)userDefaultsService;
 - (void)loadCategories;
 - (void)loadCategoriesRemote:(BOOL)visible;
-- (void)loadDetailsByUUID:(NSString *)uuid
-           withCompletion:(void(^)(PlaceDetails *))completion;
 - (void)refreshCategories;
 - (void)retryCategories;
 - (void)bookmarkItem:(PlaceItem *)item bookmark:(BOOL)bookmark;

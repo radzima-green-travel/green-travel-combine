@@ -30,6 +30,7 @@
 #import "AnalyticsEvents.h"
 #import "ScrollViewUtils.h"
 #import "AnalyticsTimeTracer.h"
+#import "NoDataView.h"
 
 @interface IndexViewController ()
 
@@ -41,8 +42,7 @@
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
-@property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) NoDataView *noDataView;
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UIBarButtonItem *originalBackButtonItem;
 @property (strong, nonatomic) UIImageView *placeholderImageView;
@@ -92,7 +92,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 
 - (void)viewWillLayoutSubviews {
   self.view.backgroundColor = [Colors get].background;
-  self.tableView.backgroundColor = [Colors get].background;
+  self.dataView.backgroundColor = [Colors get].background;
   self.navigationItem.rightBarButtonItem.tintColor = [Colors get].navigationBarTint;
   configureNavigationBar(self.navigationBar);
 }
@@ -107,85 +107,21 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
     
     self.originalBackButtonItem = self.navigationItem.backBarButtonItem;
 #pragma mark - Table view
-    self.tableView = [[UITableView alloc] init];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.tableView registerClass:PlacesTableViewCell.class forCellReuseIdentifier:kCollectionCellId];
-    self.tableView.allowsSelection = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.alwaysBounceVertical = YES;
-    [self.view addSubview:self.tableView];
-    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.dataView = [[UITableView alloc] init];
+    UITableView *dataView = (UITableView *) self.dataView;
+    dataView.delegate = self;
+    dataView.dataSource = self;
+    [dataView registerClass:PlacesTableViewCell.class forCellReuseIdentifier:kCollectionCellId];
+    dataView.allowsSelection = NO;
+    dataView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    dataView.alwaysBounceVertical = YES;
+    [self.view addSubview:dataView];
+    dataView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [self.tableView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-        [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-        [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
-    ]];
-#pragma mark - No data view
-    self.scrollView = [[UIScrollView alloc] init];
-    [self.view addSubview:self.scrollView];
-    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.scrollView.alwaysBounceVertical = YES;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-        [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-        [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
-    ]];
-    self.contentView = [[UIView alloc] init];
-    [self.scrollView addSubview:self.contentView];
-    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
-        [self.contentView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
-        [self.contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor],
-        [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor],
-        [self.contentView.heightAnchor constraintGreaterThanOrEqualToConstant:kMinHeightOfPlaceholderView],
-    ]];
-    self.placeholder = [[UIView alloc] init];
-    [self.contentView addSubview:self.placeholder];
-    self.placeholder.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.placeholder.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-        [self.placeholder.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-        [self.placeholder.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor],
-    ]];
-    
-    self.placeholderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"coffee-break"]];
-    [self.placeholder addSubview:self.placeholderImageView];
-    self.placeholderImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.placeholderImageView.centerXAnchor constraintEqualToAnchor:self.placeholder.centerXAnchor],
-        [self.placeholderImageView.topAnchor constraintEqualToAnchor:self.placeholder.topAnchor],
-    ]];
-    
-    self.somethingIsWrongLabel = [[UILabel alloc] init];
-    [self.placeholder addSubview:self.somethingIsWrongLabel];
-    [self.somethingIsWrongLabel setAttributedText:[[TypographyLegacy get] makeLoadingScreenText:@"Что-то пошло не так..."]];
-    self.somethingIsWrongLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.somethingIsWrongLabel.centerXAnchor constraintEqualToAnchor:self.placeholder.centerXAnchor],
-        [self.somethingIsWrongLabel.topAnchor constraintEqualToAnchor:self.placeholderImageView.bottomAnchor constant:32.0],
-    ]];
-    
-    self.retryButton = [[CommonButton alloc] initWithTarget:self
-                                                     action:@selector(onRetry:)
-                                                      label:@"Попробовать еще раз"];
-    [self.placeholder addSubview:self.retryButton];
-    self.retryButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.retryButton.centerXAnchor constraintEqualToAnchor:self.placeholder.centerXAnchor],
-        [self.retryButton.topAnchor constraintEqualToAnchor:self.somethingIsWrongLabel.bottomAnchor constant:27.28],
-        [self.retryButton.bottomAnchor constraintEqualToAnchor:self.placeholder.bottomAnchor],
-    ]];
-#pragma mark - Activity indicator view
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [self.view addSubview:self.activityIndicatorView];
-    self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.activityIndicatorView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        [self.activityIndicatorView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+        [dataView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [dataView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [dataView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        [dataView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
     ]];
 #pragma mark - Refresh button
     self.refreshButton = [[RefreshButton alloc] initWithTarget:self
@@ -228,26 +164,9 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
     }];
 }
 
-- (void)setUpWithTable {
-    [self.activityIndicatorView setHidden:YES];
-    [self.activityIndicatorView stopAnimating];
-    [self.scrollView setHidden:YES];
-    [self.tableView setHidden:NO];
-    [self.tableView reloadData];
-}
-
-- (void)setUpWithNoDataPlaceholder {
-    [self.tableView setHidden:NO];
-    [self.activityIndicatorView setHidden:YES];
-    [self.activityIndicatorView stopAnimating];
-    [self.scrollView setHidden:NO];
-}
-
-- (void)setUpWithActivityIndicator {
-    [self.tableView setHidden:YES];
-    [self.scrollView setHidden:YES];
-    [self.activityIndicatorView setHidden:NO];
-    [self.activityIndicatorView startAnimating];
+- (void)setUpWithDataView {
+  [super setUpWithDataView];
+  [(UITableView *)self.dataView reloadData];
 }
 
 #pragma mark - Lifecycle
@@ -307,7 +226,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PlacesTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCollectionCellId forIndexPath:indexPath];
+    PlacesTableViewCell *cell = [(UITableView *)self.dataView dequeueReusableCellWithIdentifier:kCollectionCellId forIndexPath:indexPath];
     
     [cell update:self.model.randomizedCategories[indexPath.row]];
 
@@ -326,7 +245,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
     [self fillNavigationListeners:self.model.categories];
     if ([categories count]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self setUpWithTable];
+            [self setUpWithDataView];
         });
     }
 }
@@ -362,7 +281,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
     }];
     [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
         NSIndexPath *indexPathOfFoundCategory =  [NSIndexPath indexPathForRow:idx inSection:0];
-        PlacesTableViewCell *cell = (PlacesTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPathOfFoundCategory];
+        PlacesTableViewCell *cell = (PlacesTableViewCell *) [(UITableView *) self.dataView cellForRowAtIndexPath:indexPathOfFoundCategory];
         NSIndexSet *indexes = [self.model.randomizedCategories[idx].items indexesOfObjectsPassingTest:^BOOL(PlaceItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             return [obj.uuid isEqualToString:item.uuid];
         }];
@@ -375,7 +294,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 #pragma mark - Listeners
-- (void)onRetry:(id)sender {
+- (void)onRetry {
     [self.model retryCategories];
 }
 
@@ -468,10 +387,11 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (void)scrollItemsToLeft {
-  for (NSUInteger sectionCounter = 0; sectionCounter < self.tableView.numberOfSections; sectionCounter++) {
-    for (NSUInteger rowCounter = 0; rowCounter < [self.tableView numberOfRowsInSection:sectionCounter]; rowCounter++) {
+  UITableView *dataView = (UITableView *)self.dataView;
+  for (NSUInteger sectionCounter = 0; sectionCounter < dataView.numberOfSections; sectionCounter++) {
+    for (NSUInteger rowCounter = 0; rowCounter < [dataView numberOfRowsInSection:sectionCounter]; rowCounter++) {
       PlacesTableViewCell *cell =
-      [self.tableView cellForRowAtIndexPath:
+      [dataView cellForRowAtIndexPath:
        [NSIndexPath indexPathForRow:rowCounter inSection:sectionCounter]];
       [cell.collectionView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
@@ -479,7 +399,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (void)scrollToTop {
-  [self.tableView setContentOffset:CGPointZero animated:YES];
+  [self.dataView setContentOffset:CGPointZero animated:YES];
   [self scrollItemsToLeft];
 }
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CategoriesObserver.h"
 #import "BookmarksObserver.h"
+#import "LoadableDataViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CoreDataService;
 @class MapService;
 
-@interface IndexViewController : UIViewController<CategoriesObserver,
+@interface IndexViewController : LoadableDataViewController<CategoriesObserver,
 BookmarksObserver, UITableViewDelegate, UITableViewDataSource>
 
 - (instancetype) initWithApiService:(ApiService *)apiService

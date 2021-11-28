@@ -37,10 +37,10 @@
 #import "AnalyticsTimeTracer.h"
 #import "BookmarkButton.h"
 #import <SafariServices/SafariServices.h>
+#import "NoDataView.h"
 
 @interface DetailsViewController ()
 
-@property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) BannerView *copiedBannerView;
 @property (strong, nonatomic) NSLayoutConstraint *copiedBannerViewTopConstraint;
 @property (strong, nonatomic) UIView *contentView;
@@ -57,8 +57,6 @@
 @property (strong, nonatomic) UILabel *interestingLabel;
 @property (strong, nonatomic) NSMutableDictionary<NSNumber *, LinkedCategoriesView *> *linkedCategoriesTypeToView;
 @property (strong, nonatomic) NSLayoutConstraint *linkedCategoriesViewHeightConstraint;
-@property (strong, nonatomic) UIView *activityIndicatorContainerView;
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) ApiService *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) DetailsModel *detailsModel;
@@ -118,10 +116,9 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   [self.descriptionTextView.descriptionTextView setTextColor:[Colors get].mainText];
   [self.titleLabel setTextColor:[Colors get].mainText];
   [self.addressLabel setTextColor:[Colors get].mainText];
-  self.activityIndicatorContainerView.backgroundColor =  [Colors get].background;
   self.descriptionTextView.backgroundColor = [Colors get].background;
   self.view.backgroundColor = [Colors get].background;
-  self.scrollView.backgroundColor = [Colors get].background;
+  self.dataView.backgroundColor = [Colors get].background;
   self.contentView.backgroundColor = [Colors get].background;
   configureNavigationBar(self.navigationController.navigationBar);
 }
@@ -133,28 +130,28 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     self.title = self.item.title;
 
     #pragma mark - Scroll view
-    self.scrollView = [[UIScrollView alloc] init];
-    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.scrollView.alwaysBounceVertical = YES;
-    [self.view addSubview:self.scrollView];
+    self.dataView = [[UIScrollView alloc] init];
+    self.dataView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.dataView.alwaysBounceVertical = YES;
+    [self.view addSubview:self.dataView];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-        [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-        [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
+        [self.dataView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [self.dataView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [self.dataView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        [self.dataView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
     ]];
 
     self.contentView = [[UIView alloc] init];
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView addSubview:self.contentView];
+    [self.dataView addSubview:self.contentView];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
-        [self.contentView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
-        [self.contentView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
-        [self.contentView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
-        [self.contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor]
+        [self.contentView.topAnchor constraintEqualToAnchor:self.dataView.topAnchor],
+        [self.contentView.leadingAnchor constraintEqualToAnchor:self.dataView.leadingAnchor],
+        [self.contentView.trailingAnchor constraintEqualToAnchor:self.dataView.trailingAnchor],
+        [self.contentView.bottomAnchor constraintEqualToAnchor:self.dataView.bottomAnchor],
+        [self.contentView.widthAnchor constraintEqualToAnchor:self.dataView.widthAnchor]
     ]];
     __weak typeof(self) weakSelf = self;
     self.analyticsScrollDelegate = [[AnalyticsUIScrollViewDelegate alloc] initWithOnScrollEnd:^{
@@ -163,7 +160,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         AnalyticsEventsParamCardCategory: weakSelf.item.category.title,
       }];
     }];
-    self.scrollView.delegate = self.analyticsScrollDelegate;
+    self.dataView.delegate = self.analyticsScrollDelegate;
 
     #pragma mark - Gallery
     self.imageGalleryView = [[GalleryView alloc] initWithFrame:CGRectZero
@@ -241,28 +238,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         descriptionTextBottomAnchor,
     ]];
     self.prevLastViewBottomAnchor = descriptionTextBottomAnchor;
-    
-#pragma mark - Activity indicator
-    self.activityIndicatorContainerView = [[UIView alloc] init];
-    self.activityIndicatorContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.activityIndicatorContainerView.backgroundColor = [ColorsLegacy get].white;
-    [self.view addSubview:self.activityIndicatorContainerView];
-    [NSLayoutConstraint activateConstraints:@[
-        [self.activityIndicatorContainerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [self.activityIndicatorContainerView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-        [self.activityIndicatorContainerView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [self.activityIndicatorContainerView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-    ]];
-
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.activityIndicatorView.hidesWhenStopped = YES;
-    self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.activityIndicatorContainerView addSubview:self.activityIndicatorView];
-    [NSLayoutConstraint activateConstraints:@[
-        [self.activityIndicatorView.centerXAnchor constraintEqualToAnchor:self.activityIndicatorContainerView.centerXAnchor],
-        [self.activityIndicatorView.centerYAnchor constraintEqualToAnchor:self.activityIndicatorContainerView.centerYAnchor]
-    ]];
-
 #pragma mark - "Copied" banner
     self.copiedBannerView = [[BannerView alloc] init];
     self.copiedBannerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -283,11 +258,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 #pragma mark - Load data
     [self.detailsModel loadDetailsByUUID:self.item.uuid];
-    if (!self.ready) {
-      [self.activityIndicatorView startAnimating];
-      [self.activityIndicatorView setHidden:NO];
-    }
-    
     self.timeTracer = [[AnalyticsTimeTracer alloc] initWithEventName:
                        AnalyticsEventsLifeTimeDetailsScreen withParams:@{
                          AnalyticsEventsParamCardName: self.item.title,
@@ -522,11 +492,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML,
                                                            [Colors get].mainText);
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (!weakSelf.ready) {
-        weakSelf.ready = YES;
-        [weakSelf.activityIndicatorContainerView setHidden:YES];
-        [weakSelf.activityIndicatorView stopAnimating];
-      }
       weakSelf.titleLabel.attributedText = [[TypographyLegacy get] makeTitle1Semibold:weakSelf.item.title];
       if (details.address && [details.address length]) {
         [weakSelf addAddressLabel];
@@ -553,6 +518,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         [weakSelf.linkedCategoriesTypeToView[@(LinkedCategoriesViewTypeBelongsTo)]
          update:details.categoryIdToItemsBelongsTo];
       }
+      [self setUpWithDataView];
     });
   });
 }
@@ -567,7 +533,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 }
 
 #pragma mark - Observers
-
 - (void)onBookmarkUpdate:(PlaceItem *)item bookmark:(BOOL)bookmark {
     if ([self.item.uuid isEqualToString:item.uuid]) {
         [self.bookmarkButton setSelected:bookmark];
@@ -591,10 +556,28 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 - (void)onDetailsUpdate:(NSMutableDictionary<NSString *,PlaceDetails *> *)itemUUIDToDetails
        itemUUIDToStatus:(NSMutableDictionary<NSString *,NSNumber *> *)itemUUIDToStatus {
   PlaceDetails *details = itemUUIDToDetails[self.item.uuid];
-  if (details == nil) {
-    return;
-  }
-  [self updateDetails:details];
+  DetailsLoadState status = [itemUUIDToStatus[self.item.uuid] intValue];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    switch (status) {
+      case DetailsLoadStateFailure:
+        [self setUpWithNoDataPlaceholder];
+        return;
+      case DetailsLoadStateInitial:
+      case DetailsLoadStateProgress:
+        [self setUpWithActivityIndicator];
+        return;
+      case DetailsLoadStateSuccess:
+        [self setUpWithDataView];
+        [self updateDetails:details];
+        return;
+    }
+  });
+  
+}
+
+- (void)onRetry {
+  [self.indexModel retryCategories];
+  [self.detailsModel loadDetailsByUUID:self.item.uuid];
 }
 
 #pragma mark - onMapButtonPress

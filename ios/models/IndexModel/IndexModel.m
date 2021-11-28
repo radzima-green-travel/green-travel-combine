@@ -48,6 +48,7 @@ static IndexModel *instance;
     if (self) {
         _categoriesObservers = [[NSMutableArray alloc] init];
         _bookmarksObservers = [[NSMutableArray alloc] init];
+        _detailsBatchObservers = [[NSMutableArray alloc] init];
         _coreDataService = coreDataService;
         _apiService = apiService;
         _userDefaultsService = userDefaultsService;
@@ -65,16 +66,17 @@ static IndexModel *instance;
         [self.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categories) {
             __strong typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf updateCategories:categories];
-            [strongSelf loadCategoriesRemote:[categories count] == 0];
+            [strongSelf loadCategoriesRemote:[categories count] == 0 forceRefresh:NO];
         }];
         return;
     }
     if (!self.loading) {
-        [self loadCategoriesRemote:[self.categories count] == 0];
+        [self loadCategoriesRemote:[self.categories count] == 0 forceRefresh:NO];
     }
 }
 
-- (void)loadCategoriesRemote:(BOOL)visible {
+- (void)loadCategoriesRemote:(BOOL)visible
+                forceRefresh:(BOOL)forceRefresh {
   self.loading = YES;
   if (visible) { [self notifyObserversCategoriesLoading:YES]; }
   __weak typeof(self) weakSelf = self;
@@ -82,8 +84,9 @@ static IndexModel *instance;
                                                   NSArray<PlaceDetails *> * _Nonnull details,
                                                   NSString *eTag) {
     __strong typeof(weakSelf) strongSelf = weakSelf;
-    BOOL shouldRequestCategoriesUpdate = YES;
-    if ([strongSelf.categories count] == 0 && [categoriesFromServer count] > 0) {
+    BOOL shouldRequestCategoriesUpdate = !forceRefresh;
+    if (forceRefresh || ([strongSelf.categories count] == 0 &&
+                    [categoriesFromServer count] > 0)) {
       [strongSelf.coreDataService saveCategories:categoriesFromServer];
       [strongSelf saveDetailsFromCategories:categoriesFromServer
                              withCompletion:^{
@@ -116,19 +119,11 @@ static IndexModel *instance;
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     [weakSelf.coreDataService saveDetailsFromCategories:categories
-                                         withCompletion:completion];
-    [self notifyObserversDetailsBatch:DetailsLoadStateSuccess error:nil];
+                                         withCompletion:^{
+      completion();
+      [weakSelf notifyObserversDetailsBatch:DetailsLoadStateSuccess error:nil];
+    }];
   });
-}
-
-- (void)loadDetailsByUUID:(NSString *)uuid
-           withCompletion:(void (^)(PlaceDetails * _Nonnull,
-                                    NSError * _Nullable error))completion {
-  [self.coreDataService loadDetailsByUUID:uuid
-                           withCompletion:^(PlaceDetails * _Nonnull details,
-                                            NSError * _Nullable error) {
-    completion(details, error);
-  }];
 }
 
 - (void)refreshCategories {
@@ -155,10 +150,11 @@ static IndexModel *instance;
 - (void)retryCategories {
   [self notifyObserversCategoriesLoading:YES];
   __weak typeof(self) weakSelf = self;
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
+                 dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
     [strongSelf.userDefaultsService saveETag:@""];
-    [strongSelf loadCategoriesRemote:YES];
+    [strongSelf loadCategoriesRemote:YES forceRefresh:YES];
   });
 }
 

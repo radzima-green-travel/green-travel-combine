@@ -10,6 +10,7 @@
 #import "BookmarksObserver.h"
 #import "CategoriesObserver.h"
 #import "DetailsObserver.h"
+#import "LoadableDataViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +29,7 @@ typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
   DetailsViewControllerCTATypeWebsite = 1,
 };
 
-@interface DetailsViewController : UIViewController <BookmarksObserver,
+@interface DetailsViewController : LoadableDataViewController<BookmarksObserver,
     CategoriesObserver, DetailsObserver>
 
 - (instancetype)initWithApiService:(ApiService *)apiService
