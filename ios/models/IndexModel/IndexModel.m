@@ -86,7 +86,7 @@ static IndexModel *instance;
     __strong typeof(weakSelf) strongSelf = weakSelf;
     BOOL shouldRequestCategoriesUpdate = !forceRefresh;
     if (forceRefresh || ([strongSelf.categories count] == 0 &&
-                    [categoriesFromServer count] > 0)) {
+                         [categoriesFromServer count] > 0)) {
       [strongSelf.coreDataService saveCategories:categoriesFromServer];
       [strongSelf saveDetailsFromCategories:categoriesFromServer
                              withCompletion:^{
@@ -100,6 +100,9 @@ static IndexModel *instance;
         if (visible) { [strongSelf notifyObserversCategoriesLoading:NO]; }
       }];
       shouldRequestCategoriesUpdate = NO;
+    } else {
+      strongSelf.loading = NO;
+      if (visible) { [strongSelf notifyObserversCategoriesLoading:NO]; }
     }
     NSString *existingETag = [strongSelf.userDefaultsService loadETag];
     if (![existingETag isEqualToString:eTag] && [categoriesFromServer count] > 0) {
