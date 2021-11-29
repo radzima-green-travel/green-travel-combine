@@ -44,7 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
                userDefaultsService:(UserDefaultsService *)userDefaultsService;
 - (void)loadCategories;
 - (void)loadCategoriesRemote:(BOOL)visible;
-- (void)refreshCategories;
+- (void)applyCategoriesUpdate;
+- (void)reloadCategoriesRemote:(void(^)(void))completion;
 - (void)retryCategories;
 - (void)bookmarkItem:(PlaceItem *)item bookmark:(BOOL)bookmark;
 - (void)updateCategories:(NSArray<Category *> *)categories;

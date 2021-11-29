@@ -43,6 +43,7 @@
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) NoDataView *noDataView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UIBarButtonItem *originalBackButtonItem;
 @property (strong, nonatomic) UIImageView *placeholderImageView;
@@ -123,6 +124,10 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
         [dataView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
         [dataView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
     ]];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(onRefresh:)
+                  forControlEvents:UIControlEventValueChanged];
+    dataView.refreshControl = self.refreshControl;
 #pragma mark - Refresh button
     self.refreshButton = [[RefreshButton alloc] initWithTarget:self
                                                             action:@selector(onNewDataPress:)];
@@ -299,8 +304,18 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (void)onNewDataPress:(id)sender {
-    [self.model refreshCategories];
+    [self.model applyCategoriesUpdate];
     [self showRefreshButton:NO];
+}
+
+- (void)onRefresh:(id)sender {
+  __weak typeof(self) weakSelf = self;
+  [self.model reloadCategoriesRemote:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [weakSelf.refreshControl endRefreshing];
+      [weakSelf scrollItemsToLeft:NO];
+    });
+  }];
 }
 
 - (void)fillNavigationListeners:(NSArray<Category *> *)categories {
@@ -383,24 +398,24 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-  [self scrollItemsToLeft];
+  [self scrollItemsToLeft:YES];
 }
 
-- (void)scrollItemsToLeft {
+- (void)scrollItemsToLeft:(BOOL)animated {
   UITableView *dataView = (UITableView *)self.dataView;
   for (NSUInteger sectionCounter = 0; sectionCounter < dataView.numberOfSections; sectionCounter++) {
     for (NSUInteger rowCounter = 0; rowCounter < [dataView numberOfRowsInSection:sectionCounter]; rowCounter++) {
       PlacesTableViewCell *cell =
       [dataView cellForRowAtIndexPath:
        [NSIndexPath indexPathForRow:rowCounter inSection:sectionCounter]];
-      [cell.collectionView setContentOffset:CGPointMake(0, 0) animated:YES];
+      [cell.collectionView setContentOffset:CGPointMake(0, 0) animated:animated];
     }
   }
 }
 
 - (void)scrollToTop {
   [self.dataView setContentOffset:CGPointZero animated:YES];
-  [self scrollItemsToLeft];
+  [self scrollItemsToLeft:YES];
 }
 
 @end
