@@ -567,12 +567,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         [self setUpWithActivityIndicator];
         return;
       case DetailsLoadStateSuccess:
-        [self setUpWithDataView];
         [self updateDetails:details];
         return;
     }
   });
-  
 }
 
 - (void)onRetry {
