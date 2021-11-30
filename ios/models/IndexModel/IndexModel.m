@@ -129,6 +129,8 @@ static IndexModel *instance;
     __strong typeof(weakSelf) strongSelf = weakSelf;
     NSString *existingETag = [strongSelf.userDefaultsService loadETag];
     if (![existingETag isEqualToString:eTag]) {
+      [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
+                                           toNew:categoriesFromServer];
       [strongSelf.coreDataService saveCategories:categoriesFromServer];
       __weak typeof(strongSelf) weakSelf = strongSelf;
       [strongSelf saveDetailsFromCategories:categoriesFromServer
