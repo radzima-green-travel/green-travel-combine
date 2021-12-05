@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZoomableImageCollectionViewCellDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GalleryView : UIView<UICollectionViewDelegate,
-    UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
+    UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, ZoomableImageCollectionViewCellDelegate>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (assign, readonly, nonatomic) CGFloat indexOfScrolledItem;

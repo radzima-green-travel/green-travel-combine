@@ -185,5 +185,10 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
     }
 }
 
+#pragma mark - ZoomableImageCollectionViewCellDelegate
+- (void)setZooming:(BOOL)zooming {
+  [self.collectionView setScrollEnabled:!zooming];
+}
+
 @end
  

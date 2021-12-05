@@ -13,7 +13,6 @@
 
 @interface SlideCollectionViewCell ()
 
-@property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) SDWebImageCombinedOperation *loadImageOperation;
 @property (strong, nonatomic) GalleryImagePlaceholder *placeHolderView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
@@ -45,13 +44,14 @@
     __weak typeof(self) weakSelf = self;
     [self addActivityIndicatorSubview];
     self.loadImageOperation = loadImage(imageURL, ^(UIImage *image, NSError *error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if (error || image == nil) {
-            [weakSelf.activityIndicatorView removeFromSuperview];
-            [weakSelf addPlaceholderSubview];
+            [strongSelf.activityIndicatorView removeFromSuperview];
+            [strongSelf addPlaceholderSubview];
             return;
         }
-        [weakSelf.imageView setImage:image];
-        [weakSelf.activityIndicatorView removeFromSuperview];
+        [strongSelf.imageView setImage:image];
+        [strongSelf.activityIndicatorView removeFromSuperview];
     });
 }
 
