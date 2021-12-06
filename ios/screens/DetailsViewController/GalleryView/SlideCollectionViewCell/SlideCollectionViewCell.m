@@ -25,17 +25,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.imageView = [[UIImageView alloc] init];
-        [self addSubview:self.imageView];
-        self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.imageView.clipsToBounds = YES;
-        [NSLayoutConstraint activateConstraints:@[
-            [self.imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
-            [self.imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-            [self.imageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-            [self.imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        ]];
     }
     return self;
 }
