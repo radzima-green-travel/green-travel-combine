@@ -156,6 +156,8 @@
 		5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */; };
 		5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */; };
 		5AD71D9D274D5CDA00F205AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AD71D9F274D5CDA00F205AD /* InfoPlist.strings */; };
+		5AD71DA5275905AA00F205AD /* StoredBookmark+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD71DA2275905AA00F205AD /* StoredBookmark+CoreDataProperties.m */; };
+		5AD71DA6275905AA00F205AD /* StoredBookmark+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD71DA4275905AA00F205AD /* StoredBookmark+CoreDataClass.m */; };
 		5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADBAC3E27243A7D0006A8C1 /* Typography.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
@@ -470,6 +472,10 @@
 		5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsTimeTracer.m; sourceTree = "<group>"; };
 		5AD71D9E274D5CDA00F205AD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5AD71DA0274D5CE000F205AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5AD71DA1275905AA00F205AD /* StoredBookmark+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "StoredBookmark+CoreDataClass.h"; path = "/Users/alexk/Work/green-travel-combine/ios/managedobjects/StoredBookmark+CoreDataClass.h"; sourceTree = "<absolute>"; };
+		5AD71DA2275905AA00F205AD /* StoredBookmark+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "StoredBookmark+CoreDataProperties.m"; path = "/Users/alexk/Work/green-travel-combine/ios/managedobjects/StoredBookmark+CoreDataProperties.m"; sourceTree = "<absolute>"; };
+		5AD71DA3275905AA00F205AD /* StoredBookmark+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "StoredBookmark+CoreDataProperties.h"; path = "/Users/alexk/Work/green-travel-combine/ios/managedobjects/StoredBookmark+CoreDataProperties.h"; sourceTree = "<absolute>"; };
+		5AD71DA4275905AA00F205AD /* StoredBookmark+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "StoredBookmark+CoreDataClass.m"; path = "/Users/alexk/Work/green-travel-combine/ios/managedobjects/StoredBookmark+CoreDataClass.m"; sourceTree = "<absolute>"; };
 		5ADBAC3D27243A7D0006A8C1 /* Typography.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Typography.h; sourceTree = "<group>"; };
 		5ADBAC3E27243A7D0006A8C1 /* Typography.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Typography.m; sourceTree = "<group>"; };
 		5ADD30CB26A6E29F00551408 /* UserDefaultsServiceConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsServiceConstants.h; sourceTree = "<group>"; };
@@ -644,6 +650,10 @@
 		5A775A0326064C8E00CEFC78 /* managedobjects */ = {
 			isa = PBXGroup;
 			children = (
+				5AD71DA3275905AA00F205AD /* StoredBookmark+CoreDataProperties.h */,
+				5AD71DA1275905AA00F205AD /* StoredBookmark+CoreDataClass.h */,
+				5AD71DA4275905AA00F205AD /* StoredBookmark+CoreDataClass.m */,
+				5AD71DA2275905AA00F205AD /* StoredBookmark+CoreDataProperties.m */,
 				5A6DC5692655B5C500A2D37B /* StoredCoordinate+CoreDataProperties.h */,
 				5A6DC56A2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.h */,
 				5A6DC5682655B5C400A2D37B /* StoredCoordinate+CoreDataClass.m */,
@@ -1696,6 +1706,7 @@
 				5A6DC5D2265AAB3900A2D37B /* RoutesSheetController.m in Sources */,
 				5A775DFB26077A7D00CEFC78 /* GradientOverlayView.m in Sources */,
 				5A775E0626077A7D00CEFC78 /* FullMapViewController.m in Sources */,
+				5AD71DA6275905AA00F205AD /* StoredBookmark+CoreDataClass.m in Sources */,
 				6281F7E124C9E40D00C51231 /* empty.swift in Sources */,
 				5A775E0026077A7D00CEFC78 /* FilterOption.m in Sources */,
 				5A775E1026077A7D00CEFC78 /* BannerView.m in Sources */,
@@ -1705,6 +1716,7 @@
 				5A775B5B26064C9000CEFC78 /* PathItem.m in Sources */,
 				5A775B2226064C9000CEFC78 /* StoredSearchItem+CoreDataProperties.m in Sources */,
 				5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */,
+				5AD71DA5275905AA00F205AD /* StoredBookmark+CoreDataProperties.m in Sources */,
 				5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */,
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */,
