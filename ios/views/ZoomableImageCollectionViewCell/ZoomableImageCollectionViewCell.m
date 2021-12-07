@@ -40,14 +40,17 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
       [self.imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
     ]];
     UIPinchGestureRecognizer *pinchRecognizer =
-    [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
-    pinchRecognizer.delegate = self;
+    [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(onPinch:)];
+    UIPanGestureRecognizer *panRecognizer =
+    [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
+    panRecognizer.delegate = self;
     [self addGestureRecognizer:pinchRecognizer];
+    [self addGestureRecognizer:panRecognizer];
   }
   return self;
 }
 
-- (void)pinch:(UIPinchGestureRecognizer *)sender {
+- (void)onPinch:(UIPinchGestureRecognizer *)sender {
   switch (sender.state) {
     case UIGestureRecognizerStateBegan: {
       CGSize imageFrameSize = self.imageView.frame.size;
@@ -103,7 +106,7 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
       self.overlayView.alpha = kMinOvelayAlpha + (newScale - 1) < kMaxOvelayAlpha ?
       kMinOvelayAlpha + (newScale - 1) : kMaxOvelayAlpha;
       CGPoint pinchPointInWindow = [sender locationInView:currentWindow];
-      sender 
+      
       NSLog(@"Pinch point: %@", NSStringFromCGPoint(pinchPointInWindow));
       CGPoint pinchCenter = CGPointMake(pinchPointInWindow.x - CGRectGetMidX(currentWindow.bounds),
                                         pinchPointInWindow.y - CGRectGetMidY(currentWindow.bounds));
@@ -150,5 +153,37 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
   }
 }
 
+- (void)onPan:(UIPanGestureRecognizer *)sender {
+  switch (sender.state) {
+    case UIGestureRecognizerStateBegan: {
+      
+    };break;
+    case UIGestureRecognizerStateChanged: {
+      CGPoint pinchPointInWindow = [sender translationInView:currentWindow];
+      
+      NSLog(@"Pinch point: %@", NSStringFromCGPoint(pinchPointInWindow));
+      CGPoint pinchCenter = CGPointMake(pinchPointInWindow.x - CGRectGetMidX(currentWindow.bounds),
+                                        pinchPointInWindow.y - CGRectGetMidY(currentWindow.bounds));
+      CGFloat centerXDifference = self.initialCenter.x - pinchPointInWindow.x;
+      CGFloat centerYDifference = self.initialCenter.y - pinchPointInWindow.y;
+      
+      CGAffineTransform transform = currentWindow.transform;
+      CGAffineTransform translate2 = CGAffineTransformMakeTranslation(-centerXDifference / zoomScale, -centerYDifference / zoomScale);
+
+      transform = CGAffineTransformConcat(transform, translate2);
+      
+      [self.windowImageView setTransform:transform];
+    };break;
+    case UIGestureRecognizerStateEnded:
+    case UIGestureRecognizerStateFailed:
+    case UIGestureRecognizerStateCancelled:break;
+    default:
+      break;
+  }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+  return YES;
+}
 
 @end
