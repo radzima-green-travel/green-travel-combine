@@ -19,7 +19,7 @@
 @end
 
 static const CGFloat kMinOvelayAlpha = 0.0;
-static const CGFloat kMaxOvelayAlpha = 0.8;
+static const CGFloat kMaxOvelayAlpha = 0.5;
 static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
 
 @implementation ZoomableImageCollectionViewCell
@@ -105,27 +105,11 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
       CGFloat newScale = currentScale * sender.scale;
       self.overlayView.alpha = kMinOvelayAlpha + (newScale - 1) < kMaxOvelayAlpha ?
       kMinOvelayAlpha + (newScale - 1) : kMaxOvelayAlpha;
-      CGPoint pinchPointInWindow = [sender locationInView:currentWindow];
-      
-      NSLog(@"Pinch point: %@", NSStringFromCGPoint(pinchPointInWindow));
-      CGPoint pinchCenter = CGPointMake(pinchPointInWindow.x - CGRectGetMidX(currentWindow.bounds),
-                                        pinchPointInWindow.y - CGRectGetMidY(currentWindow.bounds));
-      CGFloat centerXDifference = self.initialCenter.x - pinchPointInWindow.x;
-      CGFloat centerYDifference = self.initialCenter.y - pinchPointInWindow.y;
       CGFloat zoomScale = (newScale * windowImageViewWidth >= self.imageView.frame.size.width) ?
       newScale : currentScale;
       CGAffineTransform transform = currentWindow.transform;
-      
-      CGAffineTransform translate1 = CGAffineTransformMakeTranslation(pinchCenter.x / zoomScale, pinchCenter.y / zoomScale);
       CGAffineTransform scale = CGAffineTransformMakeScale(zoomScale, zoomScale);
-      CGAffineTransform translate2 = CGAffineTransformMakeTranslation(-centerXDifference / zoomScale, -centerYDifference / zoomScale);
-
-      transform = CGAffineTransformConcat(
-                                          CGAffineTransformConcat(
-                                                                  transform,
-                                                                  translate2),
-                                          scale);
-      
+      transform = CGAffineTransformConcat(transform, scale);
       [self.windowImageView setTransform:transform];
       sender.scale = 1;
     };break;
@@ -159,6 +143,10 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
       
     };break;
     case UIGestureRecognizerStateChanged: {
+      UIWindow *currentWindow = getCurrentWindow();
+      if (currentWindow == nil) {
+        return;
+      }
       CGPoint pinchPointInWindow = [sender translationInView:currentWindow];
       
       NSLog(@"Pinch point: %@", NSStringFromCGPoint(pinchPointInWindow));
@@ -167,8 +155,8 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
       CGFloat centerXDifference = self.initialCenter.x - pinchPointInWindow.x;
       CGFloat centerYDifference = self.initialCenter.y - pinchPointInWindow.y;
       
-      CGAffineTransform transform = currentWindow.transform;
-      CGAffineTransform translate2 = CGAffineTransformMakeTranslation(-centerXDifference / zoomScale, -centerYDifference / zoomScale);
+      CGAffineTransform transform = self.windowImageView.transform;
+      CGAffineTransform translate2 = CGAffineTransformMakeTranslation(pinchPointInWindow.x, pinchPointInWindow.y);
 
       transform = CGAffineTransformConcat(transform, translate2);
       
