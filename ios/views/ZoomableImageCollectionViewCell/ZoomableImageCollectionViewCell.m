@@ -53,6 +53,9 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
 - (void)onPinch:(UIPinchGestureRecognizer *)sender {
   switch (sender.state) {
     case UIGestureRecognizerStateBegan: {
+      if (self.imageView.image == nil) {
+        return;
+      }
       CGSize imageFrameSize = self.imageView.frame.size;
       CGSize boundsSize = self.imageView.bounds.size;
       CGFloat currentScale = imageFrameSize.width / boundsSize.width;
