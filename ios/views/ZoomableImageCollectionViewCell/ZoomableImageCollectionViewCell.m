@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) UIView *overlayView;
 @property (strong, nonatomic) UIView *windowImageView;
-@property (assign, nonatomic) CGPoint initialCenter;
 @property (assign, nonatomic) CGRect startingRect;
 @property (strong, nonatomic) UISelectionFeedbackGenerator *feedbackGenerator;
 
@@ -50,6 +49,7 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
   return self;
 }
 
+#pragma mark - onPinch
 - (void)onPinch:(UIPinchGestureRecognizer *)sender {
   switch (sender.state) {
     case UIGestureRecognizerStateBegan: {
@@ -72,7 +72,6 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
       self.overlayView.backgroundColor = UIColor.blackColor;
       self.overlayView.alpha = kMinOvelayAlpha;
       [currentWindow addSubview:self.overlayView];
-      self.initialCenter = [sender locationInView:currentWindow];
       
       self.windowImageView = [[UIImageView alloc] initWithImage:self.imageView.image];
       [self.windowImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -137,29 +136,20 @@ static const NSTimeInterval kAnimationSnapBackDuration = 0.3;
   }
 }
 
+#pragma mark - onPan
 - (void)onPan:(UIPanGestureRecognizer *)sender {
   switch (sender.state) {
-    case UIGestureRecognizerStateBegan: {
-      
-    };break;
+    case UIGestureRecognizerStateBegan:break;
     case UIGestureRecognizerStateChanged: {
       UIWindow *currentWindow = getCurrentWindow();
       if (currentWindow == nil) {
         return;
       }
-      CGPoint pinchPointInWindow = [sender translationInView:currentWindow];
-      
-      NSLog(@"Pinch point: %@", NSStringFromCGPoint(pinchPointInWindow));
-      CGPoint pinchCenter = CGPointMake(pinchPointInWindow.x - CGRectGetMidX(currentWindow.bounds),
-                                        pinchPointInWindow.y - CGRectGetMidY(currentWindow.bounds));
-      CGFloat centerXDifference = self.initialCenter.x - pinchPointInWindow.x;
-      CGFloat centerYDifference = self.initialCenter.y - pinchPointInWindow.y;
-      
+      CGPoint translation = [sender translationInView:currentWindow];
       CGAffineTransform transform = self.windowImageView.transform;
-      CGAffineTransform translate2 = CGAffineTransformMakeTranslation(pinchPointInWindow.x, pinchPointInWindow.y);
-
-      transform = CGAffineTransformConcat(transform, translate2);
-      
+      CGAffineTransform translate = CGAffineTransformMakeTranslation(translation.x,
+                                                                     translation.y);
+      transform = CGAffineTransformConcat(transform, translate);
       [self.windowImageView setTransform:transform];
     };break;
     case UIGestureRecognizerStateEnded:
