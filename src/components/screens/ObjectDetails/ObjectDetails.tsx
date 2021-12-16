@@ -6,6 +6,7 @@ import {
   ClipboardToast,
   DetailsPageCapture,
   ObjectDescription,
+  ObjectDescriptionSource,
   ObjectDetailsPager,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
@@ -166,6 +167,7 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
           ) : null}
         </View>
         <ObjectDescription description={data.description} />
+        <ObjectDescriptionSource origins={data.origins} />
         {data.url ? <ObjectDetailsSiteLink url={data.url} /> : null}
         {isEmpty(data.include) ? null : (
           <ObjectIncludes

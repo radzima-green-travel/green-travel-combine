@@ -23,11 +23,8 @@ export const ObjectsList = ({
     params: {categoryId, title, objectsIds},
   } = route;
 
-  const {
-    sendSaveCardEvent,
-    sendSelectCardEvent,
-    sendUnsaveCardEvent,
-  } = useObjectsListAnalytics();
+  const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
+    useObjectsListAnalytics();
 
   const listData = useCategoryObjects(categoryId);
 

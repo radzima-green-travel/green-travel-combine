@@ -4,6 +4,7 @@ export {ErrorView} from './ErrorView';
 export {ClipboardToast} from './ClipboardToast';
 export {DetailsPageCapture} from './DetailsPageCapture';
 export {ObjectDescription} from './ObjectDescription';
+export {ObjectDescriptionSource} from './ObjectDescriptionSource';
 export {ObjectInlcudesItem} from './ObjectInlcudesItem';
 export {ObjectCard} from './ObjectCard';
 export {CategoryCard} from './CategoryCard';
