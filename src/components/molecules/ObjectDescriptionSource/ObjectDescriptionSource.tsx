@@ -13,10 +13,6 @@ export const ObjectDescriptionSource = memo(({origins}: IProps) => {
   const {t} = useTranslation('objectDetails');
 
   const sourceTitle = useMemo(() => {
-    if (!origins?.length) {
-      return null;
-    }
-
     return origins.length === 1 ? t('source') : t('sources');
   }, [origins, t]);
 
