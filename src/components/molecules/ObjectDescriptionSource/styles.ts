@@ -1,6 +1,5 @@
-import {COLORS, FONTS_STYLES, FONTS} from 'assets';
+import {COLORS, FONTS_STYLES} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
-export const systemFonts = Object.values(FONTS);
 
 export const themeStyles = {
   container: {

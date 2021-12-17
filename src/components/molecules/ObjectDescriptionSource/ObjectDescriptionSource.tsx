@@ -5,11 +5,11 @@ import {IOrigins} from 'core/types';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 interface IProps {
-  origins: IOrigins[] | null;
+  origins: IOrigins[];
 }
 
 export const ObjectDescriptionSource = memo(({origins}: IProps) => {
-  const styles = useThemeStyles(themeStyles, {disableStyleSheet: true});
+  const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('objectDetails');
 
   const sourceTitle = useMemo(() => {
