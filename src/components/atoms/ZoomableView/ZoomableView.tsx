@@ -102,8 +102,8 @@ export const ZoomableView = memo(
     React.useEffect(() => {
       const unsubscribe = navigation.addListener('beforeRemove', () => {
         scale.value = 1;
-        translationX.value = 1;
-        translationY.value = 1;
+        translationX.value = 0;
+        translationY.value = 0;
       });
 
       return unsubscribe;

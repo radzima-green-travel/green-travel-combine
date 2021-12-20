@@ -1,1 +1,4 @@
-export {getEtagsFromStorage, setEtagsToStorage} from './etagStorage';
+export {
+  getAllAppDataVersionFromStorage,
+  setAllAppDataVersionToStorage,
+} from './allAppDataVersionStorage';

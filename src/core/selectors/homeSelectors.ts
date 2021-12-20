@@ -5,24 +5,24 @@ import {
   ITransformedData,
   IObejctsMap,
   ICategoriesMap,
-  ICategory,
 } from 'core/types';
 import {isEmpty, map, shuffle} from 'lodash';
-import {transformMainData} from 'core/helpers';
+import {transformQueryData} from 'core/helpers';
+import {ListMobileDataQuery} from 'api/graphql/types';
 
 export const selectIsUpdatesAvailable = (state: IState) =>
   state.home.isUpdatesAvailable;
 export const selectHomeUpdatedData = (state: IState) => state.home.updatedData;
 export const selectIsHomeDataExists = (state: IState) =>
-  Boolean(state.home.data);
+  Boolean(state.home.currentData);
 
 export const selectTransformedData = createSelector<
   IState,
-  ICategory[] | null,
+  ListMobileDataQuery | null,
   ITransformedData | null
 >(
-  state => state.home.data,
-  data => (data ? transformMainData(data) : null),
+  state => state.home.currentData,
+  data => (data ? transformQueryData(data) : null),
 );
 
 export const selectHomeData = createSelector<

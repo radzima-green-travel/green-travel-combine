@@ -1,0 +1,18 @@
+projects:
+  radzimaAPI:
+    schemaPath: amplify/backend/api/radzimaAPI/build/schema.graphql
+    includes:
+      - src/api/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/api/graphql/types.ts
+        docsFilePath: src/api/graphql
+        region: eu-central-1
+        apiId: null
+        maxDepth: 6
+extensions:
+  amplify:
+    version: 3

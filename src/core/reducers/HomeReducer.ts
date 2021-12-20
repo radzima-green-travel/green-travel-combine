@@ -1,14 +1,15 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
-import {ICategory, ILabelError} from '../types';
+import {ILabelError} from '../types';
 import {ACTIONS} from '../constants';
+import {ListMobileDataQuery} from 'api/graphql/types';
 interface IDefaultState {
-  data: ICategory[] | null;
-  updatedData: ICategory[] | null;
+  currentData: ListMobileDataQuery | null;
+  updatedData: ListMobileDataQuery | null;
   isUpdatesAvailable: boolean;
 }
 
 const initialState: IDefaultState = {
-  data: null,
+  currentData: null,
   updatedData: null,
   isUpdatesAvailable: false,
 };
@@ -19,7 +20,7 @@ export const getInitialHomeDataRequest = createAction(
 export const getInitialHomeDataSuccess = createAction(
   ACTIONS.GET_INITIAL_HOME_DATA_SUCCESS,
 )<{
-  data: ICategory[];
+  data: ListMobileDataQuery;
 }>();
 export const getInitialHomeDataFailure = createAction(
   ACTIONS.GET_INITIAL_HOME_DATA_FAILURE,
@@ -31,7 +32,7 @@ export const getHomeDataUpdatesRequest = createAction(
 export const getHomeDataUpdatesSuccess = createAction(
   ACTIONS.GET_HOME_DATA_UPDATES_SUCCESS,
 )<{
-  data: ICategory[] | null;
+  data: ListMobileDataQuery | null;
 }>();
 export const getHomeDataUpdatesFailure = createAction(
   ACTIONS.GET_HOME_DATA_UPDATES_FAILURE,
@@ -43,7 +44,7 @@ export const getHomeDataUpdateAvailableRequest = createAction(
 export const getHomeDataUpdateAvailableSuccess = createAction(
   ACTIONS.GET_HOME_DATA_UPDATE_AVAILABLE_SUCCESS,
 )<{
-  updatedData: ICategory[] | null;
+  updatedData: ListMobileDataQuery | null;
 }>();
 export const getHomeDataUpdateAvailableFailure = createAction(
   ACTIONS.GET_HOME_DATA_UPDATE_AVAILABLE_FAILURE,
@@ -63,11 +64,11 @@ export const homeReducer = createReducer<
 >(initialState)
   .handleAction(getInitialHomeDataSuccess, (state, {payload: {data}}) => ({
     ...initialState,
-    data: data,
+    currentData: data,
   }))
   .handleAction(getHomeDataUpdatesSuccess, (state, {payload: {data}}) => ({
     ...initialState,
-    data: data || (state.data && [...state.data]),
+    currentData: data || state.currentData,
   }))
 
   .handleAction(

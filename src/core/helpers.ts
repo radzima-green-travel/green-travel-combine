@@ -1,4 +1,13 @@
-import {isPlainObject, mapValues, has, map, isEmpty} from 'lodash';
+import {
+  isPlainObject,
+  mapValues,
+  has,
+  reduce,
+  compact,
+  map,
+  pick,
+  orderBy,
+} from 'lodash';
 
 import {
   StyleProp,
@@ -7,14 +16,20 @@ import {
   ColorSchemeName,
   Linking,
 } from 'react-native';
+import {MultiPolygon, LineString} from '@turf/helpers';
 
 import {
-  ICategory,
   ITransformedData,
   ITransformedCategory,
   IObject,
+  ICategoriesMap,
+  IInclude,
+  IBelongsTo,
+  IObejctsMap,
+  IObejctsToCategoryMap,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
+import {ListMobileDataQuery} from 'api/graphql/types';
 
 export const extractThemeStyles = (
   styles: Object,
@@ -52,7 +67,9 @@ export async function tryOpenURL(url: string) {
   }
 }
 
-export function transformMainData(data: ICategory[]): ITransformedData {
+export function transformQueryData(
+  dataQuery: ListMobileDataQuery,
+): ITransformedData {
   const transformedData: ITransformedData = {
     objectsMap: {},
     categories: [],
@@ -60,50 +77,152 @@ export function transformMainData(data: ICategory[]): ITransformedData {
     objectsToCategoryMap: {},
   };
 
-  function traverse(categories: ICategory[]): ITransformedCategory[] {
-    if (isEmpty(categories)) {
-      return [];
-    }
+  const {listMobileData} = dataQuery;
 
-    return map(categories, category => {
-      const objects: string[] = map(category.objects, object => {
-        transformedData.objectsMap[object.id] = {
-          ...object,
-          cover: object.cover
-            ? imagesService.getImageProxy(object.cover)
-            : object.cover,
-          images: map(object.images, img =>
-            img ? imagesService.getImageProxy(img) : img,
-          ),
-        };
-        transformedData.objectsToCategoryMap[object.id] = category.id;
-        return object.id;
-      });
+  if (listMobileData) {
+    const {categories, objects} = listMobileData;
 
-      const transforedCategories = traverse(category.children);
+    const sortedCategories = orderBy(categories, ['index'], ['asc']);
 
-      const children = map(transforedCategories, cat => {
-        transformedData.categoriesMap[cat.id] = {
-          ...cat,
-          cover: cat.cover ? imagesService.getImageProxy(cat.cover) : cat.cover,
-        };
-        return cat.id;
-      });
+    const objectsToCategoryMap: IObejctsToCategoryMap = {};
+    const categoriesMap = reduce(
+      sortedCategories,
+      (acc, category) => {
+        if (category) {
+          acc[category.id] = {
+            id: category.id,
+            name: category.name,
+            path: '',
+            icon: category.icon || '',
+            cover: category.cover
+              ? imagesService.getImageProxy(category.cover)
+              : null,
+            parent: category.parent || undefined,
+            updatedAt: category.updatedAt,
+            fields: compact(category.fields),
+            children: reduce(
+              sortedCategories,
+              (acc, cat) =>
+                cat?.parent === category.id ? [...acc, cat.id] : acc,
+              [] as string[],
+            ),
+            objects: reduce(
+              objects?.items,
+              (acc, object) =>
+                object && object?.categoryId === category.id
+                  ? [...acc, object.id]
+                  : acc,
+              [] as string[],
+            ),
+          };
+        }
 
-      const tramsformedCategory = {
-        ...category,
-        children,
-        objects,
-      };
+        return acc;
+      },
+      {} as ICategoriesMap,
+    );
 
-      transformedData.categoriesMap[tramsformedCategory.id] =
-        tramsformedCategory;
+    const objectsMap = reduce(
+      objects?.items,
+      (acc, object) => {
+        if (object) {
+          objectsToCategoryMap[object.id] = object.category?.id!;
+          return {
+            ...acc,
+            [object.id]: {
+              id: object.id,
+              name: object.name,
+              description: object.description || '',
+              address: object.address || '',
+              area: (object.area as MultiPolygon) || null,
+              location:
+                object.location?.lat && object.location?.lon
+                  ? {
+                      lat: object.location?.lat,
+                      lon: object.location?.lon,
+                    }
+                  : null,
+              category: {
+                icon: object.category?.icon || '',
+                id: object.category?.id || '',
+                name: object.category?.name || '',
+                parent: object.category?.parent || '',
+                singularName: object.category?.singularName || '',
+              },
+              cover: object.cover
+                ? imagesService.getImageProxy(object.cover)
+                : '',
+              images: compact(
+                map(object.images, img =>
+                  img ? imagesService.getImageProxy(img) : img,
+                ),
+              ),
+              include: reduce(
+                object.include,
+                (acc, categoryId) => {
+                  if (categoryId && categoriesMap[categoryId]) {
+                    return [
+                      ...acc,
+                      pick(categoriesMap[categoryId], [
+                        'id',
+                        'name',
+                        'icon',
+                        'objects',
+                      ]),
+                    ];
+                  }
 
-      return tramsformedCategory;
-    });
+                  return acc;
+                },
+                [] as IInclude[],
+              ),
+              belongsTo: reduce(
+                object.belongsTo,
+                (acc, categoryId) => {
+                  if (categoryId && categoriesMap[categoryId]) {
+                    return [
+                      ...acc,
+                      pick(categoriesMap[categoryId], [
+                        'id',
+                        'name',
+                        'icon',
+                        'objects',
+                      ]),
+                    ];
+                  }
+
+                  return acc;
+                },
+                [] as IBelongsTo[],
+              ),
+              url: object.url || undefined,
+              routes: (object.routes as LineString) || undefined,
+              length: object.length || null,
+            },
+          };
+        }
+
+        return acc;
+      },
+      {} as IObejctsMap,
+    );
+
+    return {
+      objectsMap,
+      categories: reduce(
+        sortedCategories,
+        (acc, category) => {
+          if (category && !category.parent) {
+            return [...acc, categoriesMap[category.id]];
+          }
+          return acc;
+        },
+        [] as ITransformedCategory[],
+      ),
+      categoriesMap: categoriesMap,
+      objectsToCategoryMap: objectsToCategoryMap,
+    };
   }
-
-  transformedData.categories = traverse(data);
 
   return transformedData;
 }

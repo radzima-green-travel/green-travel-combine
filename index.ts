@@ -11,6 +11,13 @@ import ruTranslations from './src/locale/ru.json';
 
 import {enableScreens} from 'react-native-screens';
 import {analyticsService} from 'services/AnalyticsService';
+import Amplify from 'aws-amplify';
+import awsConfig from './src/aws-exports';
+
+Amplify.configure({
+  ...awsConfig,
+  aws_appsync_authenticationType: 'API_KEY',
+});
 
 enableScreens();
 

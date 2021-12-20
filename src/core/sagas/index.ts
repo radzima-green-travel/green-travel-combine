@@ -1,3 +1,3 @@
 export {bootstrapSaga} from './bootstrap';
-export {homeSaga} from './homeSaga';
+export {homeSaga} from './home';
 export {objectDetailsMapSaga} from './objectDetailsMap';

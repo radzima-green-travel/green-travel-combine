@@ -38,7 +38,7 @@ const searchPersistConfig = {
 const homePersistConfig = {
   key: 'home',
   storage: AsyncStorage,
-  whitelist: ['data', 'dataHash'],
+  whitelist: ['currentData'],
 };
 
 const bookmarksPersistConfig = {
