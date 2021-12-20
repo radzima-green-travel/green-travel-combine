@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Config from 'react-native-ultimate-config';
 
 import {Alert} from 'react-native';
@@ -54,7 +54,7 @@ class Storage {
   getParams(options: StorageOptions): Array<any> {
     return Object.entries(options)
       .sort((x, y) => paramsOrderPattern[x[0]] - paramsOrderPattern[y[0]])
-      .map((itm) => itm[1]);
+      .map(itm => itm[1]);
   }
 
   parseResponse(response: StorageResponse) {

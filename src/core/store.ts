@@ -24,7 +24,7 @@ import {
 let AsyncStorage;
 
 if (isIOS) {
-  AsyncStorage = require('@react-native-community/async-storage').default;
+  AsyncStorage = require('@react-native-async-storage/async-storage').default;
 } else {
   AsyncStorage = require('redux-persist-filesystem-storage').default;
 }
