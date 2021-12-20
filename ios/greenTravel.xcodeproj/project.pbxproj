@@ -24,6 +24,8 @@
 		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
 		5A5E2AFD27524E7200A20489 /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2AFC27524E7200A20489 /* NoDataView.m */; };
 		5A5E2B012753AE2700A20489 /* LoadableDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2B002753AE2700A20489 /* LoadableDataViewController.m */; };
+		5A5E2B05275CE3AB00A20489 /* ZoomableImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2B04275CE3AB00A20489 /* ZoomableImageCollectionViewCell.m */; };
+		5A5E2B09275D5AB600A20489 /* ViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2B08275D5AB600A20489 /* ViewUtils.m */; };
 		5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B0269BA98400540CE4 /* NumberUtils.m */; };
 		5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */; };
 		5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */; };
@@ -215,6 +217,11 @@
 		5A5E2AFC27524E7200A20489 /* NoDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoDataView.m; sourceTree = "<group>"; };
 		5A5E2AFF2753AE2700A20489 /* LoadableDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoadableDataViewController.h; sourceTree = "<group>"; };
 		5A5E2B002753AE2700A20489 /* LoadableDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoadableDataViewController.m; sourceTree = "<group>"; };
+		5A5E2B03275CE3AB00A20489 /* ZoomableImageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomableImageCollectionViewCell.h; sourceTree = "<group>"; };
+		5A5E2B04275CE3AB00A20489 /* ZoomableImageCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomableImageCollectionViewCell.m; sourceTree = "<group>"; };
+		5A5E2B06275CFC8000A20489 /* ZoomableImageCollectionViewCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomableImageCollectionViewCellDelegate.h; sourceTree = "<group>"; };
+		5A5E2B07275D5AB600A20489 /* ViewUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewUtils.h; sourceTree = "<group>"; };
+		5A5E2B08275D5AB600A20489 /* ViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewUtils.m; sourceTree = "<group>"; };
 		5A5FF6B0269BA98400540CE4 /* NumberUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberUtils.m; sourceTree = "<group>"; };
 		5A5FF6B1269BA98400540CE4 /* NumberUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberUtils.h; sourceTree = "<group>"; };
 		5A5FF6B2269BA98500540CE4 /* CoordinateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordinateUtils.h; sourceTree = "<group>"; };
@@ -612,6 +619,16 @@
 			path = viewcontrollers;
 			sourceTree = "<group>";
 		};
+		5A5E2B02275CE37700A20489 /* ZoomableImageCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5A5E2B03275CE3AB00A20489 /* ZoomableImageCollectionViewCell.h */,
+				5A5E2B04275CE3AB00A20489 /* ZoomableImageCollectionViewCell.m */,
+				5A5E2B06275CFC8000A20489 /* ZoomableImageCollectionViewCellDelegate.h */,
+			);
+			path = ZoomableImageCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		5A6DC5BC2659266E00A2D37B /* CacheService */ = {
 			isa = PBXGroup;
 			children = (
@@ -945,6 +962,8 @@
 				5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */,
 				5AD6BF0F26BEA9DF00DD3F2B /* ScrollViewUtils.h */,
 				5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */,
+				5A5E2B07275D5AB600A20489 /* ViewUtils.h */,
+				5A5E2B08275D5AB600A20489 /* ViewUtils.m */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -1313,6 +1332,7 @@
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5A5E2B02275CE37700A20489 /* ZoomableImageCollectionViewCell */,
 				5A5E2AFA27524E5B00A20489 /* NoDataView */,
 				5A246AC72642966C003C6E5B /* BookmarkButton */,
 				5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */,
@@ -1702,6 +1722,7 @@
 				5A775B8826064C9000CEFC78 /* ApiServiceDataMapper.m in Sources */,
 				5A775E0326077A7D00CEFC78 /* CategoriesFilterView.m in Sources */,
 				5A775B5226064C9000CEFC78 /* FeedModel.m in Sources */,
+				5A5E2B05275CE3AB00A20489 /* ZoomableImageCollectionViewCell.m in Sources */,
 				5A775B5B26064C9000CEFC78 /* PathItem.m in Sources */,
 				5A775B2226064C9000CEFC78 /* StoredSearchItem+CoreDataProperties.m in Sources */,
 				5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */,
@@ -1724,6 +1745,7 @@
 				5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */,
 				5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */,
 				5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */,
+				5A5E2B09275D5AB600A20489 /* ViewUtils.m in Sources */,
 				5A775DFE26077A7D00CEFC78 /* CategoriesFilterSpacerCollectionViewCell.m in Sources */,
 				5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
@@ -1827,7 +1849,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1860,7 +1882,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1941,7 +1963,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = K36CA7QL4T;
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

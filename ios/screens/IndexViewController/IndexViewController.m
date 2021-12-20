@@ -151,6 +151,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 - (void)showRefreshButton:(BOOL)show {
     __weak typeof(self) weakSelf = self;
     if (show) {
+        [self.refreshButton setEnabled:YES];
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [UIView animateWithDuration:0.5 animations:^{
             strongSelf.yPosition.constant = kNewDataButtonOnScreenOffsetY;
@@ -160,6 +161,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
         }];
         return;
     }
+    [self.refreshButton setEnabled:NO];
     [UIView animateWithDuration:0.5 animations:^{
         __strong typeof(weakSelf) strongSelf = weakSelf;
         strongSelf.yPosition.constant = kNewDataButtonOffScreenOffsetY;
@@ -309,6 +311,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (void)onRefresh:(id)sender {
+  [self showRefreshButton:NO];
   __weak typeof(self) weakSelf = self;
   [self.model reloadCategoriesRemote:^{
     dispatch_async(dispatch_get_main_queue(), ^{

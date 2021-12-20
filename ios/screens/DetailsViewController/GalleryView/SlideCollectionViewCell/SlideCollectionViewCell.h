@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZoomableImageCollectionViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SlideCollectionViewCell : UICollectionViewCell
+@interface SlideCollectionViewCell : ZoomableImageCollectionViewCell
 
 - (void)setUpWithImageURL:(NSString *)imageURL;
 

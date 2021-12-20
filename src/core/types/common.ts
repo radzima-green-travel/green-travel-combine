@@ -48,6 +48,11 @@ export interface IObjectCategory {
   singularName: string;
 }
 
+export interface IOrigins {
+  name: string;
+  value: string;
+}
+
 export interface IObject {
   id: string;
   name: string;
@@ -63,6 +68,7 @@ export interface IObject {
   belongsTo: IBelongsTo[];
   url?: string;
   origin?: string;
+  origins: IOrigins[] | null;
   routes?: LineString;
   length: number | null;
 }

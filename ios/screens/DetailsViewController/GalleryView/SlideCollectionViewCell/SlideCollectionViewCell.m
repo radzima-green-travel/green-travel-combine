@@ -13,7 +13,6 @@
 
 @interface SlideCollectionViewCell ()
 
-@property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) SDWebImageCombinedOperation *loadImageOperation;
 @property (strong, nonatomic) GalleryImagePlaceholder *placeHolderView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
@@ -26,17 +25,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.imageView = [[UIImageView alloc] init];
-        [self addSubview:self.imageView];
-        self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.imageView.clipsToBounds = YES;
-        [NSLayoutConstraint activateConstraints:@[
-            [self.imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
-            [self.imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-            [self.imageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-            [self.imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        ]];
     }
     return self;
 }
@@ -45,13 +33,14 @@
     __weak typeof(self) weakSelf = self;
     [self addActivityIndicatorSubview];
     self.loadImageOperation = loadImage(imageURL, ^(UIImage *image, NSError *error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if (error || image == nil) {
-            [weakSelf.activityIndicatorView removeFromSuperview];
-            [weakSelf addPlaceholderSubview];
+            [strongSelf.activityIndicatorView removeFromSuperview];
+            [strongSelf addPlaceholderSubview];
             return;
         }
-        [weakSelf.imageView setImage:image];
-        [weakSelf.activityIndicatorView removeFromSuperview];
+        [strongSelf.imageView setImage:image];
+        [strongSelf.activityIndicatorView removeFromSuperview];
     });
 }
 

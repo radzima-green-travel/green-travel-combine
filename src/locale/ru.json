@@ -45,7 +45,9 @@
     "actionSheetTitle": "В путь",
     "routeLength": "{{km}} км, ",
     "includes": "Чем заняться",
-    "belongs": "Входит в..."
+    "belongs": "Входит в...",
+    "source": "Источник:",
+    "sources": "Источники:"
   }, 
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"
