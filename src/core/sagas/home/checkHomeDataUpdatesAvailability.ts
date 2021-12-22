@@ -26,14 +26,14 @@ export function* checkHomeDataUpdatesAvailabilitySaga() {
 
     let updatedData: ListMobileDataQuery | null = null;
     if (!loading) {
-      const {data}: {data: ListMobileMetadata} = yield call(getAllAppMetadata);
+      const metaData: ListMobileMetadata = yield call(getAllAppMetadata);
       const isHomeDataVersionChanged = yield call(
         checkIfHomeDataVersionChanged,
-        data,
+        metaData,
       );
 
       if (isHomeDataVersionChanged) {
-        const {data}: {data: ListMobileDataQuery} = yield call(getAllAppData);
+        const data: ListMobileDataQuery = yield call(getAllAppData);
         updatedData = data;
       }
     }

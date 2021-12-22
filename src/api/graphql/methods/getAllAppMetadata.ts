@@ -1,7 +1,6 @@
-import {API, graphqlOperation} from 'aws-amplify';
-
 import {listMobileMetadata} from '../customQueries';
+import {amplifyApiService} from 'services/AmplifyApiService';
 
 export function getAllAppMetadata() {
-  return API.graphql(graphqlOperation(listMobileMetadata));
+  return amplifyApiService.query(listMobileMetadata);
 }

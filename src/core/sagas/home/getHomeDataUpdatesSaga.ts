@@ -11,9 +11,8 @@ import {saveHomeDataVersionSaga} from './homeDataVersion';
 
 export function* getHomeDataUpdatesSaga() {
   try {
-    const {data}: {data: ListMobileDataQuery} = yield call(() =>
-      getAllAppData(),
-    );
+    const data: ListMobileDataQuery = yield call(() => getAllAppData());
+
     yield call(saveHomeDataVersionSaga, data);
 
     yield put(getHomeDataUpdatesSuccess({data: data}));

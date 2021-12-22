@@ -2118,7 +2118,10 @@ export const searchByBounds = /* GraphQL */ `
   }
 `;
 export const listMobileData = /* GraphQL */ `
-  query ListMobileData {
+  query ListMobileData(  
+      $limit: Int
+      $nextToken: String
+    ) {
     listMobileData {
       categories {
         id
@@ -2140,7 +2143,10 @@ export const listMobileData = /* GraphQL */ `
           singularName
         }
       }
-      objects {
+      objects(
+        limit: $limit
+        nextToken: $nextToken
+      ) {
         items {
           id
           name

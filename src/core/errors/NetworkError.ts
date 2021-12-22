@@ -3,7 +3,7 @@ export class NetworkError extends Error {
 
   status: number;
 
-  constructor({message = 'Network Error'}: {message: string}) {
+  constructor({message = 'Network Error'}: {message?: string} = {}) {
     super(message);
     this.name = this.constructor.name;
     this.status = -1;

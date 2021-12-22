@@ -11,10 +11,10 @@ import ruTranslations from './src/locale/ru.json';
 
 import {enableScreens} from 'react-native-screens';
 import {analyticsService} from 'services/AnalyticsService';
-import Amplify from 'aws-amplify';
+import {amplifyApiService} from 'services/AmplifyApiService';
 import awsConfig from './src/aws-exports';
 
-Amplify.configure({
+amplifyApiService.init({
   ...awsConfig,
   aws_appsync_authenticationType: 'API_KEY',
 });
