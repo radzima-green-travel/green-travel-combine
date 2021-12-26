@@ -38,6 +38,9 @@
 "DetailsScreenOfficialSite" = "Official website";
 "DetailsScreenActivities" = "Activities";
 "DetailsScreenBelongsTo" = "Part of...";
+"DetailsScreenSeeOnMap" = "See on map";
+
+"MapFilterAll" = "All";
 
 "NoDataText" = "Oops! Something's not right...";
 "NoDataActionLabel" = "Try again";

@@ -484,6 +484,8 @@
 		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
 		5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IconNameToAnalyticsEvent.m; sourceTree = "<group>"; };
 		5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV2.xcdatamodel; sourceTree = "<group>"; };
+		5AED944B27773DF60053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		5AED944C27773DF70053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryImagePlaceholder.m; sourceTree = "<group>"; };
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
@@ -1457,6 +1459,7 @@
 				en,
 				Base,
 				ru,
+				"zh-Hans",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -1587,7 +1590,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nrm -r \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/en.lproj\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ \"${CONFIGURATION}\" == \"ReleaseProduction\" ]; then\nrm -r \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/en.lproj\"\necho \"Removed localization for production builds.\"\nfi \n";
 		};
 		5AD2DA2E26FDCCEC00876841 /* Add Settings.bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1825,6 +1828,7 @@
 			children = (
 				5A39D6F026B34C04008FC20C /* en */,
 				5A39D6F326B34C0A008FC20C /* ru */,
+				5AED944C27773DF70053C825 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1834,6 +1838,7 @@
 			children = (
 				5AD71D9E274D5CDA00F205AD /* ru */,
 				5AD71DA0274D5CE000F205AD /* en */,
+				5AED944B27773DF60053C825 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
