@@ -347,7 +347,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   self.mapButtonTop =
   [[CommonButton alloc] initWithTarget:self
                                 action:@selector(onMapButtonPress:)
-                                 label:@"Посмотреть на карте"];
+                                 label:NSLocalizedString(@"DetailsScreenSeeOnMap", "")];
   [self.contentView addSubview:self.mapButtonTop];
   
   NSLayoutConstraint *mapButtonTopLeading = [self.mapButtonTop.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0];

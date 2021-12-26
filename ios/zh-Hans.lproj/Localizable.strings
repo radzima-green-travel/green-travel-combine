@@ -1,0 +1,46 @@
+/*
+  Localizable.strings
+  greenTravel
+
+  Created by Alex K on 7/29/21.
+  
+*/
+
+"AlertCancel" = "取消";
+"AlertOK" = "OK";
+"AlertSettings" = "设置";
+"AllowGeolocationAlertMessageHeader" = "允许访问位置信息";
+"AllowGeolocationAlertMessageBody" = "您可以在地图上查询路线";
+
+"TabBarMain" = "主页";
+"TabBarMap" = "地图";
+"TabBarSaved" = "收藏";
+
+"IndexNewData" = "更新";
+"IndexAll" = "全部";
+"IndexTitle" = "主页";
+
+"MapTitle" = "地图";
+
+"SavedTitle" = "收藏";
+
+"SearchHistory" = "历史记录";
+"SearchNotFound" = "抱歉，未找到相关结果";
+
+"RoutesSheetTitle" = "导航";
+"RoutesSheetMessage" = "到这去";
+"ButtonBuildRouteLabel" = "到这去";
+"ButtonNavigateLabel" = "导航";
+"ButtonMoreInfoLabel" = "了解更多";
+"BuildRouteErrorAlertMessageHeader" = "抱歉，未找到合适路线";
+"BuildRouteErrorAlertMessageBody" = "请检查您是否连接到互联网，Mapbox服务可能出问题";
+
+"DetailsScreenOfficialSite" = "官方网站";
+"DetailsScreenActivities" = "活动";
+"DetailsScreenBelongsTo" = "位于在……";
+"DetailsScreenSeeOnMap" = "Посмотреть на карте";
+
+"MapFilterAll" = "All";
+
+"NoDataText" = "抱歉，出了点问题";
+"NoDataActionLabel" = "再试一次";

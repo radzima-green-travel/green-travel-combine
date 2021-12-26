@@ -38,6 +38,9 @@
 "DetailsScreenOfficialSite" = "Официальный сайт";
 "DetailsScreenActivities" = "Чем заняться";
 "DetailsScreenBelongsTo" = "Входит в...";
+"DetailsScreenSeeOnMap" = "Посмотреть на карте";
+
+"MapFilterAll" = "Все";
 
 "NoDataText" = "Что-то пошло не так...";
 "NoDataActionLabel" = "Попробовать еще раз";

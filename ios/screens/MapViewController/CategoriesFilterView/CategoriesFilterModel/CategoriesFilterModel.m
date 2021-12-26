@@ -87,7 +87,7 @@
     filterOptionAll.categoryId = nil;
     filterOptionAll.on = YES;
     filterOptionAll.selectAll = YES;
-    filterOptionAll.title = @"Все";
+    filterOptionAll.title = NSLocalizedString(@"MapFilterAll", @"");
     [self.filterOptions insertObject:filterOptionAll atIndex:0];
 }
 
