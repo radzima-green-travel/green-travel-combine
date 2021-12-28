@@ -27,6 +27,7 @@ import {
   IBelongsTo,
   IObejctsMap,
   IObejctsToCategoryMap,
+  IOrigins,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {ListMobileDataQuery} from 'api/graphql/types';
@@ -127,78 +128,81 @@ export function transformQueryData(
       (acc, object) => {
         if (object) {
           objectsToCategoryMap[object.id] = object.category?.id!;
+          const objectData: IObject = {
+            id: object.id,
+            name: object.name,
+            description: object.description || '',
+            address: object.address || '',
+            area: (object.area as MultiPolygon) || null,
+            location:
+              object.location?.lat && object.location?.lon
+                ? {
+                    lat: object.location?.lat,
+                    lon: object.location?.lon,
+                  }
+                : null,
+            category: {
+              icon: object.category?.icon || '',
+              id: object.category?.id || '',
+              name: object.category?.name || '',
+              parent: object.category?.parent || null,
+              singularName: object.category?.singularName || '',
+            },
+            cover: object.cover
+              ? imagesService.getImageProxy(object.cover)
+              : '',
+            images: compact(
+              map(object.images, img =>
+                img ? imagesService.getImageProxy(img) : img,
+              ),
+            ),
+            include: reduce(
+              object.include,
+              (acc, categoryId) => {
+                if (categoryId && categoriesMap[categoryId]) {
+                  return [
+                    ...acc,
+                    pick(categoriesMap[categoryId], [
+                      'id',
+                      'name',
+                      'icon',
+                      'objects',
+                    ]),
+                  ];
+                }
+
+                return acc;
+              },
+              [] as IInclude[],
+            ),
+            belongsTo: reduce(
+              object.belongsTo,
+              (acc, categoryId) => {
+                if (categoryId && categoriesMap[categoryId]) {
+                  return [
+                    ...acc,
+                    pick(categoriesMap[categoryId], [
+                      'id',
+                      'name',
+                      'icon',
+                      'objects',
+                    ]),
+                  ];
+                }
+
+                return acc;
+              },
+              [] as IBelongsTo[],
+            ),
+            url: object.url || undefined,
+            routes: (object.routes as LineString) || undefined,
+            length: object.length || null,
+            origins: (object.origins as IOrigins[]) || null,
+          };
+
           return {
             ...acc,
-            [object.id]: {
-              id: object.id,
-              name: object.name,
-              description: object.description || '',
-              address: object.address || '',
-              area: (object.area as MultiPolygon) || null,
-              location:
-                object.location?.lat && object.location?.lon
-                  ? {
-                      lat: object.location?.lat,
-                      lon: object.location?.lon,
-                    }
-                  : null,
-              category: {
-                icon: object.category?.icon || '',
-                id: object.category?.id || '',
-                name: object.category?.name || '',
-                parent: object.category?.parent || '',
-                singularName: object.category?.singularName || '',
-              },
-              cover: object.cover
-                ? imagesService.getImageProxy(object.cover)
-                : '',
-              images: compact(
-                map(object.images, img =>
-                  img ? imagesService.getImageProxy(img) : img,
-                ),
-              ),
-              include: reduce(
-                object.include,
-                (acc, categoryId) => {
-                  if (categoryId && categoriesMap[categoryId]) {
-                    return [
-                      ...acc,
-                      pick(categoriesMap[categoryId], [
-                        'id',
-                        'name',
-                        'icon',
-                        'objects',
-                      ]),
-                    ];
-                  }
-
-                  return acc;
-                },
-                [] as IInclude[],
-              ),
-              belongsTo: reduce(
-                object.belongsTo,
-                (acc, categoryId) => {
-                  if (categoryId && categoriesMap[categoryId]) {
-                    return [
-                      ...acc,
-                      pick(categoriesMap[categoryId], [
-                        'id',
-                        'name',
-                        'icon',
-                        'objects',
-                      ]),
-                    ];
-                  }
-
-                  return acc;
-                },
-                [] as IBelongsTo[],
-              ),
-              url: object.url || undefined,
-              routes: (object.routes as LineString) || undefined,
-              length: object.length || null,
-            },
+            [object.id]: objectData,
           };
         }
 
