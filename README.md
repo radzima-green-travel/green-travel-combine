@@ -1,6 +1,6 @@
 # About
 
-Travel app, has [UIKit](https://developer.apple.com/documentation/uikit?language=objc) and [React Native](https://reactnative.dev/) versions.
+Travel app, has native iOS ([UIKit](https://developer.apple.com/documentation/uikit?language=objc)) and [React Native](https://reactnative.dev/) versions.
 
 # Prerequisites
 
