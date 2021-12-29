@@ -10,7 +10,7 @@ Travel app, has [UIKit](https://developer.apple.com/documentation/uikit?language
 
 # Setup
 
-1. Create **_.netrc_** file:
+1. Create/Open **_.netrc_** file:
 
 - `cd ~`
 - `touch .netrc`
@@ -30,15 +30,14 @@ Travel app, has [UIKit](https://developer.apple.com/documentation/uikit?language
    > `MAP_BOX_CLIENT_URL=<MAP_BOX_CLIENT_URL>`  
    > `MAP_BOX_STYLE_URL_ANY=<MAP_BOX_STYLE_URL_ANY>`  
    > `MAP_BOX_STYLE_URL_DARK=<MAP_BOX_STYLE_URL_DARK>`  
-   > `AMPLITUDE_KEY=<AMPLITUDE_KEY>`  
-   > `MAPBOX_DOWNLOADS_TOKEN=<MAPBOX_DOWNLOADS_TOKEN>`
+   > `AMPLITUDE_KEY=<AMPLITUDE_KEY>`
 
-3. Create **_aws-exports.js_** file in `src/` folder
-4. Create **_GoogleService-Info.plist_** file in `ios/` folder
+3. Generate **_aws-exports.js_** file in `src/` folder
+4. Put **_GoogleService-Info.plist_** file in `ios/` folder
 
 # Quickstart
 
 1. `yarn`
 2. `cd ios && pod install && cd ..`
-3. `yarn rnuc dev.env` - generate dev.env files for native projects (used for RN app only, but necessary to build).
+3. `yarn rnuc dev.env` - generate dev.env files for native projects.
 4. `yarn run android` / `yarn run ios` - to start RN app.
