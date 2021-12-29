@@ -1423,7 +1423,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				A6F1B229AF36466B86D337BD /* Upload Debug Symbols to Sentry */,
 				5A0FAF6826BC09880041101C /* Upload Debug Symbols to Crashlytics */,
-				5A4BCB7C270A059500098511 /* Delete en locale */,
+				5A4BCB7C270A059500098511 /* Delete en and zh locales */,
 				ACF0E977660BB3F14C86FC19 /* [CP] Embed Pods Frameworks */,
 				BAD2D605BE8F84F9B8423078 /* [CP] Copy Pods Resources */,
 			);
@@ -1574,7 +1574,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		5A4BCB7C270A059500098511 /* Delete en locale */ = {
+		5A4BCB7C270A059500098511 /* Delete en and zh locales */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1583,14 +1583,14 @@
 			);
 			inputPaths = (
 			);
-			name = "Delete en locale";
+			name = "Delete en and zh locales";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ \"${CONFIGURATION}\" == \"ReleaseProduction\" ]; then\nrm -r \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/en.lproj\"\necho \"Removed localization for production builds.\"\nfi \n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# if [ \"${CONFIGURATION}\" == \"ReleaseProduction\" ]; then\nif false; then\nrm -r \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/en.lproj\"\nrm -r \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/zh-Hans.lproj\"\necho \"Removed localization for production builds.\"\nfi \n";
 		};
 		5AD2DA2E26FDCCEC00876841 /* Add Settings.bundle */ = {
 			isa = PBXShellScriptBuildPhase;
