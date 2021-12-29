@@ -73,7 +73,7 @@ ios/GoogleService-Info.plist
 ios/Settings.bundle
 
 # ENV
-.env
+*.env
 
 
 aws-exports.js
