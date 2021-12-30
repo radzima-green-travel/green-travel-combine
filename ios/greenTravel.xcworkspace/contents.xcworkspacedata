@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:MappingModelV3toV4.xcmappingmodel">
+   </FileRef>
+   <FileRef
       location = "group:greenTravel.xcodeproj">
    </FileRef>
    <FileRef

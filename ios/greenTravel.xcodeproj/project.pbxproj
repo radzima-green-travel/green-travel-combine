@@ -463,6 +463,7 @@
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
 		5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewDetailedMap.m; sourceTree = "<group>"; };
+		5AA5B822277E1DE70008A98B /* GreenTravelV4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV4.xcdatamodel; sourceTree = "<group>"; };
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
@@ -2131,6 +2132,7 @@
 		5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				5AA5B822277E1DE70008A98B /* GreenTravelV4.xcdatamodel */,
 				5A333C5C273DC89A00F95180 /* GreenTravelV3.xcdatamodel */,
 				5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */,
 				5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */,
