@@ -42,5 +42,7 @@
 
 "MapFilterAll" = "All";
 
+"BookmarksScreenNoBookmarksAdded" = "Nothing is saved for now";
+
 "NoDataText" = "抱歉，出了点问题";
 "NoDataActionLabel" = "再试一次";

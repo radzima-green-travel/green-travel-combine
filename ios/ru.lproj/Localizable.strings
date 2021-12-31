@@ -42,5 +42,7 @@
 
 "MapFilterAll" = "Все";
 
+"BookmarksScreenNoBookmarksAdded" = "Вы пока ничего  сюда не добавили";
+
 "NoDataText" = "Что-то пошло не так...";
 "NoDataActionLabel" = "Попробовать еще раз";
