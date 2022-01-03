@@ -34,6 +34,8 @@ Travel app, has native iOS ([UIKit](https://developer.apple.com/documentation/ui
 
 3. Generate **_aws-exports.js_** file in `src/` folder
 4. Put **_GoogleService-Info.plist_** file in `ios/` folder
+5. Add line below in your `.bashrc`/`.zshrc` file:
+   > `export MAPBOX_DOWNLOADS_TOKEN=<MAPBOX_DOWNLOADS_TOKEN>`
 
 # Quickstart
 
