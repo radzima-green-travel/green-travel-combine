@@ -373,11 +373,11 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   }
   self.linkOfficialSite = [[UIButtonHighlightable alloc] initWithFrame:CGRectZero];
   
-  SEL action = @selector(onWebsiteButtonPress:);
-  BOOL urlIsUnsafe = [self.itemDetails.url hasPrefix:@"http://"];
+  SEL action = @selector(onWebsiteUnsafeButtonPress:);
+  BOOL urlIsSafe = [self.itemDetails.url hasPrefix:@"https://"];
   
-  if (urlIsUnsafe) {
-    action = @selector(onWebsiteUnsafeButtonPress:);
+  if (urlIsSafe) {
+    action = @selector(onWebsiteButtonPress:);
   }
   [self.linkOfficialSite addTarget:self
                             action:action
@@ -405,7 +405,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
      constant:-kDistanceScreenEdgeToTextContent],
     bottomAnchor,
   ]];
-  if (urlIsUnsafe) {
+  if (!urlIsSafe) {
     UIImage *lockSlash;
     if (@available(iOS 13.0, *)) {
       lockSlash = [UIImage systemImageNamed:@"lock.slash"];
