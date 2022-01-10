@@ -4,7 +4,7 @@ import {hexWithAlpha} from 'core/helpers';
 export const themeStyles = {
   container: {
     flexDirection: 'row',
-    marginBottom: 8,
+    marginTop: 8,
   },
   textContainer: {
     marginLeft: 8,
@@ -33,5 +33,12 @@ export const themeStyles = {
   },
   icon: {
     marginBottom: 'auto',
+  },
+  rightDeleteActionBox: {
+    height: 60,
+    backgroundColor: COLORS.persimmon,
+    paddingLeft: 30,
+    paddingRight: 26,
+    justifyContent: 'center',
   },
 };
