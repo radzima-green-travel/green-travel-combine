@@ -9831,6 +9831,11 @@ react-native-linear-gradient@2.5.6:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
   integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
 
+react-native-localize@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-localize/-/react-native-localize-2.1.7.tgz#f1dda0c6fd58ab06b5b119cb4a507ab8800b9823"
+  integrity sha512-phimOUtDLiqY2ba7Rjk9KpuaVSo7iGMNnwr7rjBVqlhmtTF3ShQ1FPFPxOyUrzDU9jLtj1xMi7MXWYuiVg660Q==
+
 react-native-map-link@2.7.25:
   version "2.7.25"
   resolved "https://registry.yarnpkg.com/react-native-map-link/-/react-native-map-link-2.7.25.tgz#4070f6f85bf1ff446a0f353468214f905cd26eab"
@@ -9989,6 +9994,11 @@ react-native@0.66.1:
     use-subscription "^1.0.0"
     whatwg-fetch "^3.0.0"
     ws "^6.1.4"
+
+react-redux-help-kit@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-redux-help-kit/-/react-redux-help-kit-1.1.2.tgz#7c62b6ad38aa747276933f0cf7ec8c38c2ca68a7"
+  integrity sha512-B116mvyVto89O1q+wyULIjXoMfyvbHI6b3vE5kXFf7GeIIu8h7Am9Q+iuI3DZegk9kpNN4wO7iAjAe5+/J3p+w==
 
 react-redux@7.2.0:
   version "7.2.0"

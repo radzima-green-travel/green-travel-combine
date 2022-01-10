@@ -24,7 +24,7 @@ export const Bookmarks = ({navigation}: IProps) => {
     dispatch(getInitialHomeDataRequest());
   }, [dispatch]);
 
-  const loading = useRequestLoading(getInitialHomeDataRequest);
+  const {loading} = useRequestLoading(getInitialHomeDataRequest);
   const {error} = useRequestError(getInitialHomeDataRequest);
 
   const navigateToBookmarksList = useCallback(

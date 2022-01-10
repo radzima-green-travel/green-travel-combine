@@ -60,10 +60,10 @@ export const Home = ({navigation: {navigate}}: IProps) => {
     dispatch(getInitialHomeDataRequest());
   }, [dispatch]);
 
-  const loading = useRequestLoading(getInitialHomeDataRequest);
+  const {loading} = useRequestLoading(getInitialHomeDataRequest);
   const {error} = useRequestError(getInitialHomeDataRequest);
 
-  const refreshing = useRequestLoading(getHomeDataUpdatesRequest);
+  const {loading: refreshing} = useRequestLoading(getHomeDataUpdatesRequest);
   const {error: updateError} = useRequestError(getHomeDataUpdatesRequest);
 
   useEffect(() => {
