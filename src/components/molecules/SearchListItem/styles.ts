@@ -35,7 +35,7 @@ export const themeStyles = {
     marginBottom: 'auto',
   },
   rightDeleteActionBox: {
-    height: 60,
+    flex: 1,
     backgroundColor: COLORS.persimmon,
     paddingLeft: 30,
     paddingRight: 26,
