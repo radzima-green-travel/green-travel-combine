@@ -12,6 +12,7 @@ export type IconsNames =
   | 'church'
   | 'compass'
   | 'cross'
+  | 'delete'
   | 'error'
   | 'flag'
   | 'footprints'

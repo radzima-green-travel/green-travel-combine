@@ -17,6 +17,7 @@ import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 interface IProps {
   data: IObject[];
   onItemPress: (object: IObject) => void;
+  onDeletePress: (object: IObject) => void;
   isHistoryVisible: boolean;
   FlatListComponent?: typeof FlatList | typeof BottomSheetFlatList;
 }
@@ -25,12 +26,14 @@ export const SearchList = memo(
   ({
     data,
     onItemPress,
+    onDeletePress,
     isHistoryVisible,
     FlatListComponent = FlatList,
   }: IProps) => {
     const {t} = useTranslation('search');
 
     const styles = useThemeStyles(themeStyles);
+
     return (
       <>
         <KeyboardAvoidingView
@@ -57,7 +60,13 @@ export const SearchList = memo(
               ) : null
             }
             renderItem={({item}) => {
-              return <SearchListItem onPress={onItemPress} data={item} />;
+              return (
+                <SearchListItem
+                  onPress={onItemPress}
+                  onDeletePress={onDeletePress}
+                  data={item}
+                />
+              );
             }}
           />
         ) : null}

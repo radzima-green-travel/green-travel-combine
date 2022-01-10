@@ -11,6 +11,7 @@ export {default as chevronRight} from './chevronRight.svg';
 export {default as church} from './church.svg';
 export {default as compass} from './compass.svg';
 export {default as cross} from './cross.svg';
+export {default as delete} from './delete.svg';
 export {default as error} from './error.svg';
 export {default as flag} from './flag.svg';
 export {default as footprints} from './footprints.svg';
