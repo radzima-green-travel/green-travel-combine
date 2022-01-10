@@ -1,4 +1,8 @@
-import {addObjectToSearchHistory, setSearchInputValue} from 'core/reducers';
+import {
+  addObjectToSearchHistory,
+  deleteObjectFromSearchHistory,
+  setSearchInputValue,
+} from 'core/reducers';
 import {
   selectSearchHistory,
   selectSearchInputValue,
@@ -33,6 +37,13 @@ export function useSearchList({
     [dispatch],
   );
 
+  const deleteFromHistory = useCallback(
+    (object: IObject) => {
+      dispatch(deleteObjectFromSearchHistory(object.id));
+    },
+    [dispatch],
+  );
+
   const clearInput = useCallback(() => {
     dispatch(setSearchInputValue(''));
   }, [dispatch]);
@@ -48,6 +59,7 @@ export function useSearchList({
     isHistoryVisible,
     data,
     addToHistory,
+    deleteFromHistory,
     clearInput,
     onTextChange,
     inputValue,

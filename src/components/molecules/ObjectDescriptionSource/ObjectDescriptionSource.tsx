@@ -16,7 +16,7 @@ export const ObjectDescriptionSource = memo(({origins}: IProps) => {
     return origins.length === 1 ? t('source') : t('sources');
   }, [origins, t]);
 
-  const sourceData = origins?.map(origin => {
+  const sourceData = origins.map(origin => {
     return (
       <TouchableOpacity
         key={origin.name}

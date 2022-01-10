@@ -8,7 +8,8 @@ import {useSearchList} from 'core/hooks';
 import {Keyboard} from 'react-native';
 
 export const Search = ({navigation}: IProps) => {
-  const {data, isHistoryVisible, addToHistory, clearInput} = useSearchList();
+  const {data, isHistoryVisible, addToHistory, deleteFromHistory, clearInput} =
+    useSearchList();
 
   const navigateToObjectDetails = useCallback(
     (searchItem: IObject) => {
@@ -19,6 +20,13 @@ export const Search = ({navigation}: IProps) => {
       });
     },
     [addToHistory, navigation],
+  );
+
+  const deleteItem = useCallback(
+    (searchItem: IObject) => {
+      deleteFromHistory(searchItem);
+    },
+    [deleteFromHistory],
   );
 
   useEffect(() => {
@@ -32,6 +40,7 @@ export const Search = ({navigation}: IProps) => {
       isHistoryVisible={isHistoryVisible}
       data={data}
       onItemPress={navigateToObjectDetails}
+      onDeletePress={deleteItem}
     />
   );
 };
