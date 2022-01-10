@@ -51,7 +51,7 @@ export const SearchListItem = memo(({data, onPress, onDeletePress}: IProps) => {
   };
 
   return (
-    <Swipeable renderRightActions={renderRightAction}>
+    <Swipeable friction={2} renderRightActions={renderRightAction}>
       <TouchableOpacity
         onPress={onPressHandler}
         activeOpacity={0.8}
