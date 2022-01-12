@@ -4,7 +4,8 @@ import {hexWithAlpha} from 'core/helpers';
 export const themeStyles = {
   container: {
     flexDirection: 'row',
-    marginTop: 8,
+    paddingTop: 8,
+    backgroundColor: COLORS.white,
   },
   textContainer: {
     marginLeft: 8,
@@ -36,9 +37,9 @@ export const themeStyles = {
   },
   rightDeleteActionBox: {
     flex: 1,
-    backgroundColor: COLORS.persimmon,
-    paddingLeft: 30,
-    paddingRight: 26,
     justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundColor: COLORS.persimmon,
+    paddingRight: 20,
   },
 };
