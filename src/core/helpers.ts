@@ -127,6 +127,23 @@ export function transformQueryData(
       objects?.items,
       (acc, object) => {
         if (object) {
+          // if (object.name.includes('7')) {
+          //   console.log(object.images);
+          //   console.log(
+          //     compact(
+          //       map(object.images, img =>
+          //         img ? imagesService.getOriginalImage(img) : img,
+          //       ),
+          //     ),
+          //   );
+          //   console.log(
+          //     compact(
+          //       map(object.images, img =>
+          //         img ? imagesService.getImageProxy(img) : img,
+          //       ),
+          //     ),
+          //   );
+          // }
           objectsToCategoryMap[object.id] = object.category?.id!;
           const objectData: IObject = {
             id: object.id,

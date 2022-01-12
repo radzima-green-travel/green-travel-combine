@@ -373,11 +373,11 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   }
   self.linkOfficialSite = [[UIButtonHighlightable alloc] initWithFrame:CGRectZero];
   
-  SEL action = @selector(onWebsiteButtonPress:);
-  BOOL urlIsUnsafe = [self.item.details.url hasPrefix:@"http://"];
+  SEL action = @selector(onWebsiteUnsafeButtonPress:);
+  BOOL urlIsSafe = [self.itemDetails.url hasPrefix:@"https://"];
   
-  if (urlIsUnsafe) {
-    action = @selector(onWebsiteUnsafeButtonPress:);
+  if (urlIsSafe) {
+    action = @selector(onWebsiteButtonPress:);
   }
   [self.linkOfficialSite addTarget:self
                             action:action
@@ -405,7 +405,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
      constant:-kDistanceScreenEdgeToTextContent],
     bottomAnchor,
   ]];
-  if (urlIsUnsafe) {
+  if (!urlIsSafe) {
     UIImage *lockSlash;
     if (@available(iOS 13.0, *)) {
       lockSlash = [UIImage systemImageNamed:@"lock.slash"];
@@ -505,7 +505,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         [weakSelf addButtonCTA];
       }
       [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
-      if (weakSelf.item.details.url && [details.url length]) {
+      if (details.url && [details.url length]) {
          [weakSelf addButtonOfficialSite];
       }
       if ([details.categoryIdToItems count]) {
@@ -605,13 +605,13 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 #pragma mark - Website press actions
 - (void)onWebsiteButtonPress:(id)sender {
-  NSURL *url = [NSURL URLWithString:self.item.details.url];
+  NSURL *url = [NSURL URLWithString:self.itemDetails.url];
   SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
   [self presentViewController:safariViewController animated:YES completion:^{}];
 }
 
 - (void)onWebsiteUnsafeButtonPress:(id)sender {
-  NSURL *url = [NSURL URLWithString:self.item.details.url];
+  NSURL *url = [NSURL URLWithString:self.itemDetails.url];
   [UIApplication.sharedApplication openURL:url options:@{}
                          completionHandler:^(BOOL success) {}];
 }

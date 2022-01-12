@@ -17,6 +17,7 @@
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "ConfigValues.h"
 #import "ImageUtils.h"
+#import "URLUtils.h"
 #import <react-native-ultimate-config/ConfigValues.h>
 
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
@@ -151,7 +152,8 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     details.descriptionHTML = @"";
   }
   if (item[@"url"] && ![item[@"url"] isEqual:[NSNull null]]) {
-    details.url = item[@"url"];
+    NSString *url = encodeURL(item[@"url"]);
+    details.url = url;
   } else {
     details.url = @"";
   }
