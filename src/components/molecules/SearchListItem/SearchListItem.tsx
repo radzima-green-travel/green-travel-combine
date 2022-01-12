@@ -30,31 +30,29 @@ export const SearchListItem = memo(({data, onPress, onDeletePress}: IProps) => {
   }, [onDeletePress, data]);
 
   const renderRightAction = (progress, dragX) => {
-    const transition = dragX.interpolate({
-      inputRange: [0, 100],
-      outputRange: [92, 192],
+    const opacity = dragX.interpolate({
+      inputRange: [-150, -20, 0],
+      outputRange: [1, 0, 0],
+      extrapolate: 'clamp',
     });
 
     return (
-      <TouchableOpacity activeOpacity={0.8} onPress={onPressDeleteHandler}>
-        <Animated.View
-          style={[
-            styles.rightDeleteActionBox,
-            {
-              transform: [{translateX: transition}],
-            },
-          ]}>
+      <View style={styles.rightDeleteActionBox}>
+        <Animated.View style={{opacity: opacity}}>
           <Icon name="delete" size={36} />
         </Animated.View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
   return (
-    <Swipeable friction={2} renderRightActions={renderRightAction}>
+    <Swipeable
+      friction={1.1}
+      renderRightActions={renderRightAction}
+      onSwipeableRightOpen={onPressDeleteHandler}>
       <TouchableOpacity
         onPress={onPressHandler}
-        activeOpacity={0.8}
+        activeOpacity={1}
         style={styles.container}>
         <Icon
           style={styles.icon}
