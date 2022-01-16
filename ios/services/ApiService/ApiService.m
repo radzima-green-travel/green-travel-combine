@@ -19,6 +19,12 @@
 #import "ImageUtils.h"
 #import "URLUtils.h"
 #import <react-native-ultimate-config/ConfigValues.h>
+#if PROD
+#import "Radzima-Swift.h"
+#else
+#import "Radzima_Dev-Swift.h"
+#endif
+
 
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
 
@@ -34,6 +40,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     self = [super init];
     if (self) {
         _session = session;
+      [[AmplifyWrapper alloc] init];
     }
     return self;
 }
