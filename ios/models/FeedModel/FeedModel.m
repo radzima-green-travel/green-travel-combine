@@ -59,11 +59,11 @@
     
 }
 
-- (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+- (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     
 }
 
-- (NSArray<FeedItem *>*)mapCategoriesToFeedItems:(NSArray<Category *>*)categories {
+- (NSArray<FeedItem *>*)mapCategoriesToFeedItems:(NSArray<PlaceCategory *>*)categories {
     return @[];
 }
 

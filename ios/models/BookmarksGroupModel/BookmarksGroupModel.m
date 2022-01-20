@@ -10,7 +10,7 @@
 #import "IndexModel.h"
 #import "BookmarksGroupObserver.h"
 #import "BookmarkItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlaceItem.h"
 #import "CategoryUtils.h"
 
@@ -39,7 +39,7 @@
 }
 
 #pragma mark - Observers
-- (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+- (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     [self fillBookmarkItemsFromCategories:categories];
     [self notifyObservers];
 }
@@ -53,12 +53,12 @@
     [self notifyObservers];
 }
 
-- (void)fillBookmarkItemsFromCategories:(NSArray<Category *> *)categories {
+- (void)fillBookmarkItemsFromCategories:(NSArray<PlaceCategory *> *)categories {
     __weak typeof(self) weakSelf = self;
     self.bookmarkItems = [[NSMutableArray alloc] init];
     self.categoryTypeToBookmark = [[NSMutableDictionary alloc] init];
     self.itemUUIDs = [[NSMutableSet alloc] init];
-    traverseCategories(categories, ^(Category *category, PlaceItem *item) {
+    traverseCategories(categories, ^(PlaceCategory *category, PlaceItem *item) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         if (item && item.bookmarked && ![strongSelf.itemUUIDs containsObject:item.uuid]) {
             [strongSelf.itemUUIDs addObject:item.uuid];

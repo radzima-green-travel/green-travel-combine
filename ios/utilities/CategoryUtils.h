@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-@class Category;
+@class PlaceCategory;
 @class PlaceItem;
 @class StoredCategory;
 @class StoredPlaceItem;
 
-void traverseCategories(NSArray<Category *> *categories, void(^onCategoryAndItem)(Category*, PlaceItem*));
-void traverseCategoriesWithLevel(NSArray<Category *> *categories, NSUInteger level, void(^onCategoryAndItem)(Category*, PlaceItem*, NSUInteger level));
+void traverseCategories(NSArray<PlaceCategory *> *categories, void(^onCategoryAndItem)(PlaceCategory*, PlaceItem*));
+void traverseCategoriesWithLevel(NSArray<PlaceCategory *> *categories, NSUInteger level, void(^onCategoryAndItem)(PlaceCategory*, PlaceItem*, NSUInteger level));
 void traverseStoredCategories(NSArray<StoredCategory *> *categories, void(^onCategoryAndItem)(StoredCategory*, StoredPlaceItem*));
-BOOL isCategoriesEqual(NSArray<Category *> *categoriesA, NSArray<Category *> *categoriesB);
-NSMutableDictionary<NSString *, Category *>* flattenCategoriesTreeIntoCategoriesMap(NSArray<Category *> *categories);
-NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(NSArray<Category *> *categories);
+BOOL isCategoriesEqual(NSArray<PlaceCategory *> *categoriesA, NSArray<PlaceCategory *> *categoriesB);
+NSMutableDictionary<NSString *, PlaceCategory *>* flattenCategoriesTreeIntoCategoriesMap(NSArray<PlaceCategory *> *categories);
+NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(NSArray<PlaceCategory *> *categories);

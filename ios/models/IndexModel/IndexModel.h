@@ -17,7 +17,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Category;
+@class PlaceCategory;
 @class PlaceItem;
 @class PathItem;
 @class PlaceDetails;
@@ -33,9 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray<id<CategoriesObserver>> *categoriesObservers;
 @property (strong, nonatomic) NSMutableArray<id<BookmarksObserver>> *bookmarksObservers;
 @property (strong, nonatomic) NSMutableArray<id<DetailsBatchObserver>> *detailsBatchObservers;
-@property (strong, nonatomic) NSArray<Category *> *categories;
-@property (strong, nonatomic) NSArray<Category *> *randomizedCategories;
-@property (copy, nonatomic) NSDictionary<NSString *, Category *> *flatCategories;
+@property (strong, nonatomic) NSArray<PlaceCategory *> *categories;
+@property (strong, nonatomic) NSArray<PlaceCategory *> *randomizedCategories;
+@property (copy, nonatomic) NSDictionary<NSString *, PlaceCategory *> *flatCategories;
 @property (copy, nonatomic) NSDictionary<NSString *, PlaceItem *> *flatItems;
 @property (strong, nonatomic) NSDictionary<NSString *, PathDetails *> *pathsByUUID;
 
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadCategoriesRemote:(void(^)(void))completion;
 - (void)retryCategories;
 - (void)bookmarkItem:(PlaceItem *)item bookmark:(BOOL)bookmark;
-- (void)updateCategories:(NSArray<Category *> *)categories;
+- (void)updateCategories:(NSArray<PlaceCategory *> *)categories;
 
 @end
 

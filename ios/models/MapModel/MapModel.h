@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithIndexModel:(IndexModel *)model
                      locationModel:(LocationModel *)locationModel;
-@property (strong, nonatomic) NSMutableArray<Category *> *categories;
+@property (strong, nonatomic) NSMutableArray<PlaceCategory *> *categories;
 @property (strong, nonatomic) NSMutableDictionary<NSString *, MapItem *> *flatMapItems;
 @property (strong, nonatomic) NSMutableArray<MapItem *> *mapItemsOriginal;
 @property (strong, nonatomic) NSMutableArray<MapItem *> *mapItemsFiltered;

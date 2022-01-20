@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Category;
+@class PlaceCategory;
 @class PlaceDetails;
 
 @interface PlaceItem : NSObject
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *address;
 @property (strong, nonatomic) NSString *cover;
-@property (weak, nonatomic) Category *category;
+@property (weak, nonatomic) PlaceCategory *category;
 @property (assign, nonatomic) CLLocationCoordinate2D coords;
 @property (assign, nonatomic) BOOL bookmarked;
 @property (strong, nonatomic) PlaceDetails *details;

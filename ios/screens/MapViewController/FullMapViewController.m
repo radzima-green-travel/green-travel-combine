@@ -25,7 +25,7 @@
 #import "CoreDataService.h"
 #import "Colors.h"
 #import "PlaceItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "BottomSheetView.h"
 #import "DetailsViewController.h"
 #import "MainViewController.h"

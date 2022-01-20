@@ -4,9 +4,8 @@
 //
 //  Created by Alex K on 16.01.22.
 //
-
 import Foundation
-import UIKit
+import Amplify
 
 class AmplifyWrapper: NSObject {
     override init() {
@@ -16,5 +15,4 @@ class AmplifyWrapper: NSObject {
     public func initialize() {
         
     }
-    
 }

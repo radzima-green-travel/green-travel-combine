@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class DetailsModel;
-@class Category;
+@class PlaceCategory;
 @class PlaceDetails;
 
 @interface ApiService : NSObject<IndexLoader>

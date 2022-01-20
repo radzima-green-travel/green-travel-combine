@@ -12,12 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
 
-@interface Category : NSObject<NSCopying>
+@interface PlaceCategory : NSObject<NSCopying>
 
 @property (strong, nonatomic) NSString *uuid;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *icon;
-@property (strong, nonatomic) NSArray<Category *> *categories;
+@property (strong, nonatomic) NSArray<PlaceCategory *> *categories;
 @property (strong, nonatomic) NSArray<PlaceItem *> *items;
 @property (strong, nonatomic) NSString *cover;
 @property (strong, nonatomic) void (^onAllButtonPress)(void);

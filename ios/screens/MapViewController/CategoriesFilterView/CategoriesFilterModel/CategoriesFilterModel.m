@@ -8,7 +8,7 @@
 
 #import "CategoriesFilterModel.h"
 #import "FilterOption.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "IndexModel.h"
 #import "MapModel.h"
 #import "CategoriesFilterObserver.h"
@@ -50,7 +50,7 @@
   
 }
 
-- (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+- (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     
 }
 
@@ -63,7 +63,7 @@
     [self.filterOptions removeAllObjects];
     [self.categoryUUIDs removeAllObjects];
     
-    traverseCategories(self.mapModel.categories, ^(Category *category, PlaceItem *item) {
+    traverseCategories(self.mapModel.categories, ^(PlaceCategory *category, PlaceItem *item) {
         if (category == nil || [self.categoryUUIDs containsObject:category.uuid]) {
             return;
         }

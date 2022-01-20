@@ -10,12 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Category;
+@class PlaceCategory;
 @class PlaceItem;
 
 @protocol CategoriesObserver <NSObject>
 
-- (void)onCategoriesUpdate:(NSArray<Category *>*)categories;
+- (void)onCategoriesUpdate:(NSArray<PlaceCategory *>*)categories;
 - (void)onCategoriesNewDataAvailable;
 - (void)onCategoriesLoading:(BOOL)loading;
 - (void)onDetailsLoading:(BOOL)loading;

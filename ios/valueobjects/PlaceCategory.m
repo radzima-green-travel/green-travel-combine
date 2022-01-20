@@ -6,12 +6,12 @@
 //  Copyright © 2020 Alex K. All rights reserved.
 //
 
-#import "Category.h"
+#import "PlaceCategory.h"
 
-@implementation Category
+@implementation PlaceCategory
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
-  Category *categoryCopied = [[Category alloc] init];
+  PlaceCategory *categoryCopied = [[PlaceCategory alloc] init];
   
   categoryCopied.cover = self.cover;
   categoryCopied.icon = self.icon;

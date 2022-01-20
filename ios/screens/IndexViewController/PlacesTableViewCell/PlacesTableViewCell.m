@@ -11,7 +11,7 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlaceItem.h"
 #import "SizeUtils.h"
 #import "TypographyLegacy.h"
@@ -26,8 +26,8 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
 @property (strong, nonatomic) UILabel *headerLabel;
 @property (strong, nonatomic) UIButton *allButton;
 @property (strong, nonatomic) NSArray<PlaceItem *> *dataSourceItems;
-@property (strong, nonatomic) NSArray<Category *> *dataSourceCategories;
-@property (strong, nonatomic) Category *item;
+@property (strong, nonatomic) NSArray<PlaceCategory *> *dataSourceCategories;
+@property (strong, nonatomic) PlaceCategory *item;
 
 @end
 
@@ -116,7 +116,7 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
 - (void)onDeviceOrientationChange:(id)sender {
 }
 
-- (void)update:(Category *)item {
+- (void)update:(PlaceCategory *)item {
     self.headerLabel.attributedText = [[TypographyLegacy get] makeSubtitle1Semibold:[item.title uppercaseString]];
     if ([item.categories count] > 0) {
         self.dataSourceCategories = [item.categories subarrayWithRange:NSMakeRange(0, MIN([item.categories count], kMaximalNumberOfItemsInCell))];
@@ -169,7 +169,7 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Did select item at index path: %@", indexPath);
     if ([self.dataSourceCategories count] > 0) {
-        Category *category = self.dataSourceCategories[indexPath.row];
+        PlaceCategory *category = self.dataSourceCategories[indexPath.row];
         category.onPlaceCellPress();
         return;
     }

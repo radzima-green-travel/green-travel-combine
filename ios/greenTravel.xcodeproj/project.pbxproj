@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		50F898AF03FA14964B53CDDE /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4AB486F166B072118E2DEF /* Pods_greenTravel.framework */; };
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
 		5A006D1B2795DC5F00010D63 /* AmplifyGraphQLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97FE2027943754006E575D /* AmplifyGraphQLService.swift */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
@@ -88,7 +89,7 @@
 		5A775B5326064C9000CEFC78 /* MapModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A6E26064C8F00CEFC78 /* MapModel.m */; };
 		5A775B5426064C9000CEFC78 /* DetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A7326064C8F00CEFC78 /* DetailsModel.m */; };
 		5A775B5826064C9000CEFC78 /* CategoryUUIDToRelatedItemUUIDs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A8226064C8F00CEFC78 /* CategoryUUIDToRelatedItemUUIDs.m */; };
-		5A775B5926064C9000CEFC78 /* Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A8326064C8F00CEFC78 /* Category.m */; };
+		5A775B5926064C9000CEFC78 /* PlaceCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A8326064C8F00CEFC78 /* PlaceCategory.m */; };
 		5A775B5A26064C9000CEFC78 /* BookmarkItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A8426064C8F00CEFC78 /* BookmarkItem.m */; };
 		5A775B5B26064C9000CEFC78 /* PathItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A8626064C8F00CEFC78 /* PathItem.m */; };
 		5A775B5C26064C9000CEFC78 /* SearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A8726064C8F00CEFC78 /* SearchItem.m */; };
@@ -170,7 +171,6 @@
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
 		6281F7E124C9E40D00C51231 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6281F7E024C9E40D00C51231 /* empty.swift */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
-		6A621A2E820F7EDE7648E78B /* libPods-greenTravel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B08620D665569E9DD8E8FDB /* libPods-greenTravel.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +180,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = greenTravel/main.m; sourceTree = "<group>"; };
 		33553A8D4336D166DC0AAA01 /* Pods-greenTravel.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.releaseproduction.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.releaseproduction.xcconfig"; sourceTree = "<group>"; };
+		4F4AB486F166B072118E2DEF /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A006D182783565A00010D63 /* URLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLUtils.h; sourceTree = "<group>"; };
 		5A006D192783565A00010D63 /* URLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLUtils.m; sourceTree = "<group>"; };
 		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
@@ -336,7 +337,7 @@
 		5A775A7526064C8F00CEFC78 /* DetailsObservable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsObservable.h; sourceTree = "<group>"; };
 		5A775A7626064C8F00CEFC78 /* DetailsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsModel.h; sourceTree = "<group>"; };
 		5A775A8226064C8F00CEFC78 /* CategoryUUIDToRelatedItemUUIDs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryUUIDToRelatedItemUUIDs.m; sourceTree = "<group>"; };
-		5A775A8326064C8F00CEFC78 /* Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Category.m; sourceTree = "<group>"; };
+		5A775A8326064C8F00CEFC78 /* PlaceCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceCategory.m; sourceTree = "<group>"; };
 		5A775A8426064C8F00CEFC78 /* BookmarkItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkItem.m; sourceTree = "<group>"; };
 		5A775A8526064C8F00CEFC78 /* PlaceDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDetails.h; sourceTree = "<group>"; };
 		5A775A8626064C8F00CEFC78 /* PathItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathItem.m; sourceTree = "<group>"; };
@@ -349,7 +350,7 @@
 		5A775A8D26064C8F00CEFC78 /* CategoryUUIDToRelatedItemUUIDs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryUUIDToRelatedItemUUIDs.h; sourceTree = "<group>"; };
 		5A775A8E26064C8F00CEFC78 /* PathItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathItem.h; sourceTree = "<group>"; };
 		5A775A8F26064C8F00CEFC78 /* PlaceDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDetails.m; sourceTree = "<group>"; };
-		5A775A9026064C8F00CEFC78 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Category.h; sourceTree = "<group>"; };
+		5A775A9026064C8F00CEFC78 /* PlaceCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceCategory.h; sourceTree = "<group>"; };
 		5A775A9126064C8F00CEFC78 /* BookmarkItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkItem.h; sourceTree = "<group>"; };
 		5A775A9226064C8F00CEFC78 /* SearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItem.h; sourceTree = "<group>"; };
 		5A775A9326064C8F00CEFC78 /* PlaceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceItem.m; sourceTree = "<group>"; };
@@ -503,7 +504,6 @@
 		6281F7E024C9E40D00C51231 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
 		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		6AA28443C92738FF8513BB6B /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
-		6B08620D665569E9DD8E8FDB /* libPods-greenTravel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		916ED1EBEF96DADE9E1E81E3 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -514,7 +514,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A621A2E820F7EDE7648E78B /* libPods-greenTravel.a in Frameworks */,
+				50F898AF03FA14964B53CDDE /* Pods_greenTravel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,7 +535,6 @@
 				5A775B0B26064C9000CEFC78 /* utilities */,
 				5A775A8126064C8F00CEFC78 /* valueobjects */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				5A97FE2027943754006E575D /* AmplifyGraphQLService.swift */,
 				628194D025F213BD00491FDF /* BootSplash.storyboard */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -558,7 +557,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5A775D2F2607741F00CEFC78 /* libSDWebImage.a */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				6B08620D665569E9DD8E8FDB /* libPods-greenTravel.a */,
+				4F4AB486F166B072118E2DEF /* Pods_greenTravel.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -846,8 +845,8 @@
 			isa = PBXGroup;
 			children = (
 				5A775A8226064C8F00CEFC78 /* CategoryUUIDToRelatedItemUUIDs.m */,
-				5A775A9026064C8F00CEFC78 /* Category.h */,
-				5A775A8326064C8F00CEFC78 /* Category.m */,
+				5A775A9026064C8F00CEFC78 /* PlaceCategory.h */,
+				5A775A8326064C8F00CEFC78 /* PlaceCategory.m */,
 				5A775A8426064C8F00CEFC78 /* BookmarkItem.m */,
 				5A775A8526064C8F00CEFC78 /* PlaceDetails.h */,
 				5A775A8626064C8F00CEFC78 /* PathItem.m */,
@@ -919,6 +918,7 @@
 				5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */,
 				5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */,
 				5A97FE1F278F696B006E575D /* IndexLoader.h */,
+				5A97FE2027943754006E575D /* AmplifyGraphQLService.swift */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -1435,7 +1435,6 @@
 				5A0FAF6826BC09880041101C /* Upload Debug Symbols to Crashlytics */,
 				5A4BCB7C270A059500098511 /* Delete en and zh locales */,
 				ACF0E977660BB3F14C86FC19 /* [CP] Embed Pods Frameworks */,
-				E4673FBBDBDA86CFF435A3CD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1455,9 +1454,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = NWSTPFC433;
+						DevelopmentTeam = 53APD5F9YQ;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1641,39 +1640,161 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-greenTravel/Pods-greenTravel-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSPluginsCore/AWSPluginsCore.framework",
+				"${BUILT_PRODUCTS_DIR}/Amplify/Amplify.framework",
+				"${BUILT_PRODUCTS_DIR}/AmplifyPlugins/AmplifyPlugins.framework",
+				"${BUILT_PRODUCTS_DIR}/Amplitude/Amplitude.framework",
+				"${BUILT_PRODUCTS_DIR}/AppSyncRealTimeClient/AppSyncRealTimeClient.framework",
+				"${BUILT_PRODUCTS_DIR}/BVLinearGradient/BVLinearGradient.framework",
+				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
+				"${BUILT_PRODUCTS_DIR}/FBReactNativeSpec/FBReactNativeSpec.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseABTesting/FirebaseABTesting.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebasePerformance/FirebasePerformance.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseRemoteConfig/FirebaseRemoteConfig.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes/hermes.framework/hermes",
+				"${BUILT_PRODUCTS_DIR}/Permission-LocationAlways/Permission_LocationAlways.framework",
+				"${BUILT_PRODUCTS_DIR}/Permission-LocationWhenInUse/Permission_LocationWhenInUse.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/RCT-Folly/folly.framework",
+				"${BUILT_PRODUCTS_DIR}/RCTTypeSafety/RCTTypeSafety.framework",
+				"${BUILT_PRODUCTS_DIR}/RNAWSCognito/RNAWSCognito.framework",
+				"${BUILT_PRODUCTS_DIR}/RNBootSplash/RNBootSplash.framework",
+				"${BUILT_PRODUCTS_DIR}/RNCAsyncStorage/RNCAsyncStorage.framework",
+				"${BUILT_PRODUCTS_DIR}/RNCClipboard/RNCClipboard.framework",
+				"${BUILT_PRODUCTS_DIR}/RNCMaskedView/RNCMaskedView.framework",
+				"${BUILT_PRODUCTS_DIR}/RNFastImage/RNFastImage.framework",
+				"${BUILT_PRODUCTS_DIR}/RNGestureHandler/RNGestureHandler.framework",
+				"${BUILT_PRODUCTS_DIR}/RNLocalize/RNLocalize.framework",
+				"${BUILT_PRODUCTS_DIR}/RNPermissions/RNPermissions.framework",
+				"${BUILT_PRODUCTS_DIR}/RNReactNativeHapticFeedback/RNReactNativeHapticFeedback.framework",
+				"${BUILT_PRODUCTS_DIR}/RNReanimated/RNReanimated.framework",
+				"${BUILT_PRODUCTS_DIR}/RNSVG/RNSVG.framework",
+				"${BUILT_PRODUCTS_DIR}/RNScreens/RNScreens.framework",
+				"${BUILT_PRODUCTS_DIR}/RNSentry/RNSentry.framework",
+				"${BUILT_PRODUCTS_DIR}/React-Core/React.framework",
+				"${BUILT_PRODUCTS_DIR}/React-CoreModules/CoreModules.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTAnimation/RCTAnimation.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTBlob/RCTBlob.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTImage/RCTImage.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTLinking/RCTLinking.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTNetwork/RCTNetwork.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTSettings/RCTSettings.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTText/RCTText.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTVibration/RCTVibration.framework",
+				"${BUILT_PRODUCTS_DIR}/React-cxxreact/cxxreact.framework",
+				"${BUILT_PRODUCTS_DIR}/React-jsi/jsi.framework",
+				"${BUILT_PRODUCTS_DIR}/React-jsiexecutor/jsireact.framework",
+				"${BUILT_PRODUCTS_DIR}/React-jsinspector/jsinspector.framework",
+				"${BUILT_PRODUCTS_DIR}/React-logger/logger.framework",
+				"${BUILT_PRODUCTS_DIR}/React-perflogger/reactperflogger.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactCommon/ReactCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImageWebPCoder/SDWebImageWebPCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
+				"${BUILT_PRODUCTS_DIR}/amplitude-react-native/amplitude_react_native.framework",
+				"${BUILT_PRODUCTS_DIR}/fmt/fmt.framework",
+				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
+				"${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-blur/react_native_blur.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-geolocation-service/react_native_geolocation_service.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-mapbox-gl/react_native_mapbox_gl.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-safe-area-context/react_native_safe_area_context.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-ultimate-config/react_native_ultimate_config.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-webview/react_native_webview.framework",
+				"${BUILT_PRODUCTS_DIR}/rn-fetch-blob/rn_fetch_blob.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSPluginsCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Amplify.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AmplifyPlugins.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Amplitude.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppSyncRealTimeClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BVLinearGradient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBReactNativeSpec.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseABTesting.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebasePerformance.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseRemoteConfig.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Permission_LocationAlways.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Permission_LocationWhenInUse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTTypeSafety.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNAWSCognito.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNBootSplash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCAsyncStorage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCClipboard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCMaskedView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNFastImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNGestureHandler.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNLocalize.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNPermissions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNReactNativeHapticFeedback.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNReanimated.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNSVG.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNScreens.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNSentry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreModules.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTAnimation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTBlob.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTLinking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTNetwork.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTSettings.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTVibration.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/cxxreact.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsi.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsireact.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsinspector.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/logger.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/reactperflogger.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImageWebPCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/amplitude_react_native.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fmt.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_blur.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_geolocation_service.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_mapbox_gl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_netinfo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_safe_area_context.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_ultimate_config.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_webview.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/rn_fetch_blob.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-greenTravel/Pods-greenTravel-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E4673FBBDBDA86CFF435A3CD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-greenTravel/Pods-greenTravel-resources.sh",
-				"${PODS_ROOT}/Amplitude/Sources/Amplitude/Resources/ComodoRsaDomainValidationCA.der",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ComodoRsaDomainValidationCA.der",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-greenTravel/Pods-greenTravel-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -1791,7 +1912,7 @@
 				5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */,
 				5A775E0B26077A7D00CEFC78 /* DetailsViewController.m in Sources */,
 				5A775E1126077A7D00CEFC78 /* PlacesViewController.m in Sources */,
-				5A775B5926064C9000CEFC78 /* Category.m in Sources */,
+				5A775B5926064C9000CEFC78 /* PlaceCategory.m in Sources */,
 				5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */,
 				5A775DFD26077A7D00CEFC78 /* IndexViewController.m in Sources */,
 				5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */,
@@ -1864,10 +1985,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 20;
-				DEVELOPMENT_TEAM = NWSTPFC433;
+				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1886,9 +2007,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

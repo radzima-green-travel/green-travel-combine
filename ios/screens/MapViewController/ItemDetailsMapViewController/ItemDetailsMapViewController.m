@@ -24,7 +24,7 @@
 #import "ApiService.h"
 #import "CoreDataService.h"
 #import "PlaceItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "BottomSheetView.h"
 #import "BottomSheetViewDetailedMap.h"
 #import "DetailsViewController.h"

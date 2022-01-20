@@ -10,12 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Category;
+@class PlaceCategory;
 
 @interface PlacesTableViewCell : UITableViewCell<UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
-- (void)update:(Category *)item; 
+- (void)update:(PlaceCategory *)item; 
 
 @end
 

@@ -7,7 +7,7 @@
 //
 
 #import "PlaceItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PhotoCollectionViewCell.h"
 #import "StyleUtils.h"
 #import "GradientOverlayView.h"
@@ -20,7 +20,7 @@
 
 @interface PhotoCollectionViewCell ()
 
-@property (strong, nonatomic) Category *category;
+@property (strong, nonatomic) PlaceCategory *category;
 @property (strong, nonatomic) PlaceItem *item;
 @property (strong, nonatomic) UILabel *headerLabel;
 @property (strong, nonatomic) UIButton *favoritesButton;
@@ -184,7 +184,7 @@ static const CGFloat kGradientOffset = 50.0;
     [self.favoritesButton setSelected:bookmark];
 }
 
-- (void)updateCategory:(Category *)category {
+- (void)updateCategory:(PlaceCategory *)category {
      self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:category.title
                                                               color:[Colors get].cardPlaceholderText];
     [self.favoritesButton setHidden:YES];

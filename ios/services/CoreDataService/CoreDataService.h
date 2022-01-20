@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
 @class PlaceDetails;
-@class Category;
+@class PlaceCategory;
 @class BookmarksModel;
 @class SearchItem;
 
@@ -21,9 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 - (void)updatePlaceItem:(PlaceItem *)placeItem bookmark:(BOOL)bookmark;
-- (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*))completion;
-- (void)saveCategories:(NSArray<Category *> *)categories;
-- (void)saveDetailsFromCategories:(NSArray<Category *> *)categories
+- (void)loadCategoriesWithCompletion:(void(^)(NSArray<PlaceCategory *>*))completion;
+- (void)saveCategories:(NSArray<PlaceCategory *> *)categories;
+- (void)saveDetailsFromCategories:(NSArray<PlaceCategory *> *)categories
                    withCompletion:(void(^)(void))completion;
 - (void)loadSearchItemsWithCompletion:(void(^)(NSArray<SearchItem *>*))completion;
 - (void)addSearchItem:(SearchItem *)searchItem;

@@ -7,13 +7,13 @@
 //
 
 #import "CategoryUtils.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlaceItem.h"
 #import "StoredPlaceItem+CoreDataProperties.h"
 #import "StoredCategory+CoreDataProperties.h"
 
-void traverseCategoriesWithLevel(NSArray<Category *> *categories, NSUInteger level, void(^onCategoryAndItem)(Category*, PlaceItem*, NSUInteger)) {
-  [categories enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
+void traverseCategoriesWithLevel(NSArray<PlaceCategory *> *categories, NSUInteger level, void(^onCategoryAndItem)(PlaceCategory*, PlaceItem*, NSUInteger)) {
+  [categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
     onCategoryAndItem(category, nil, level);
     [category.items enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
       onCategoryAndItem(category, item, level);
@@ -23,8 +23,8 @@ void traverseCategoriesWithLevel(NSArray<Category *> *categories, NSUInteger lev
   }];
 }
 
-void traverseCategories(NSArray<Category *> *categories, void(^onCategoryAndItem)(Category*, PlaceItem*)) {
-  traverseCategoriesWithLevel(categories, 0, ^(Category *category, PlaceItem *item, NSUInteger level) {
+void traverseCategories(NSArray<PlaceCategory *> *categories, void(^onCategoryAndItem)(PlaceCategory*, PlaceItem*)) {
+  traverseCategoriesWithLevel(categories, 0, ^(PlaceCategory *category, PlaceItem *item, NSUInteger level) {
     onCategoryAndItem(category, item);
   });
 }
@@ -54,12 +54,12 @@ BOOL isItemsEqual(NSArray<PlaceItem *> *itemsA, NSArray<PlaceItem *> *itemsB) {
     return equal;
 }
 
-BOOL isCategoriesEqual(NSArray<Category *> *categoriesA, NSArray<Category *> *categoriesB) {
+BOOL isCategoriesEqual(NSArray<PlaceCategory *> *categoriesA, NSArray<PlaceCategory *> *categoriesB) {
     if ([categoriesA count] != [categoriesB count]) {
         return NO;
     }
     __block BOOL equal = YES;
-    [categoriesA enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
+    [categoriesA enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
         if (!isItemsEqual(category.items, categoriesB[idx].items)) {
             *stop = YES;
             equal = NO;
@@ -72,9 +72,9 @@ BOOL isCategoriesEqual(NSArray<Category *> *categoriesA, NSArray<Category *> *ca
     return equal;
 }
 
-NSMutableDictionary<NSString *, Category *>* flattenCategoriesTreeIntoCategoriesMap(NSArray<Category *> *categories) {
+NSMutableDictionary<NSString *, PlaceCategory *>* flattenCategoriesTreeIntoCategoriesMap(NSArray<PlaceCategory *> *categories) {
     NSMutableDictionary *flatCategories = [[NSMutableDictionary alloc] init];
-    traverseCategories(categories, ^(Category *category, PlaceItem *placeItem) {
+    traverseCategories(categories, ^(PlaceCategory *category, PlaceItem *placeItem) {
         if (flatCategories[category.uuid]) {
             return;
         }
@@ -83,9 +83,9 @@ NSMutableDictionary<NSString *, Category *>* flattenCategoriesTreeIntoCategories
     return flatCategories;
 }
 
-NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(NSArray<Category *> *categories) {
+NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(NSArray<PlaceCategory *> *categories) {
     NSMutableDictionary *flatItems = [[NSMutableDictionary alloc] init];
-    traverseCategories(categories, ^(Category *category, PlaceItem *placeItem) {
+    traverseCategories(categories, ^(PlaceCategory *category, PlaceItem *placeItem) {
         if (!placeItem || flatItems[placeItem.uuid]) {
             return;
         }

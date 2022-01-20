@@ -10,13 +10,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
-@class Category;
+@class PlaceCategory;
 
 @interface IndexPeeks : NSObject
 
-@property (strong, nonatomic) Category *category;
+@property (strong, nonatomic) PlaceCategory *category;
 @property (strong, nonatomic) NSArray<PlaceItem *> *items;
-@property (strong, nonatomic) NSArray<Category *> *categories;
+@property (strong, nonatomic) NSArray<PlaceCategory *> *categories;
 
 @end
 

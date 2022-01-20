@@ -10,7 +10,7 @@
 #import "PlacesTableViewCell.h"
 #import "PhotoCollectionViewCell.h"
 #import "PlaceItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "DetailsViewController.h"
 #import "SearchViewController.h"
 #import "PlacesViewController.h"
@@ -247,7 +247,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 #pragma mark - Categories update
-- (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+- (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     [self fillNavigationListeners:self.model.randomizedCategories];
     [self fillNavigationListeners:self.model.categories];
     if ([categories count]) {
@@ -283,7 +283,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 
 #pragma mark - Bookmarks update
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
-    NSIndexSet *indexes = [self.model.randomizedCategories indexesOfObjectsPassingTest:^BOOL(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSIndexSet *indexes = [self.model.randomizedCategories indexesOfObjectsPassingTest:^BOOL(PlaceCategory * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         return [obj.uuid isEqualToString:item.category.uuid];
     }];
     [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
@@ -321,9 +321,9 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
   }];
 }
 
-- (void)fillNavigationListeners:(NSArray<Category *> *)categories {
+- (void)fillNavigationListeners:(NSArray<PlaceCategory *> *)categories {
     __weak typeof(self) weakSelf = self;
-    [categories enumerateObjectsUsingBlock:^(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         __weak typeof(obj) weakParentCategory = obj;
         obj.onAllButtonPress = ^void() {
             PlacesViewController *placesViewController =
@@ -336,7 +336,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
                                                  searchModel:weakSelf.searchModel
                                                  detailsModel:weakSelf.detailsModel
                                                   bookmarked:NO allowedItemUUIDs:nil];
-            Category *foundCategory = weakSelf.model.flatCategories[weakParentCategory.uuid];
+            PlaceCategory *foundCategory = weakSelf.model.flatCategories[weakParentCategory.uuid];
             placesViewController.category = foundCategory;
             [weakSelf.navigationController pushViewController:placesViewController animated:YES];
             [[AnalyticsEvents get] logEvent:AnalyticsEventsSeeAll withParams:@{
@@ -345,7 +345,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
         };
         [weakSelf fillNavigationListeners:obj.categories];
         
-        [obj.categories enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj.categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
             __weak typeof(category) weakCategory = category;
             category.onPlaceCellPress = ^void() {
                 PlacesViewController *placesViewController =
