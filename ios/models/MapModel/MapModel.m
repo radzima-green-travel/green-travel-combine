@@ -10,7 +10,7 @@
 #import "IndexModel.h"
 #import "LocationModel.h"
 #import "MapItemsObserver.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlaceItem.h"
 #import "MapItem.h"
 #import <CoreLocation/CoreLocation.h>
@@ -52,7 +52,7 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
 }
 
 #pragma mark - Observers
-- (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+- (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     [self.uuids removeAllObjects];
     [self.mapItemsOriginal removeAllObjects];
     [self fillMapItemsFromCategories:categories];
@@ -77,16 +77,16 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
     [self updateCloseItems];
 }
 
-- (void)fillMapItemsFromCategories:(NSArray<Category *> *)categories {
-    NSMutableArray<Category *> *сategoriesWithDefinedCoords = [[NSMutableArray alloc] init];
-    [categories enumerateObjectsUsingBlock:^(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        Category *categoryWithDefinedCoords = [self mapCategoryWithCoordsFromCategory:obj];
+- (void)fillMapItemsFromCategories:(NSArray<PlaceCategory *> *)categories {
+    NSMutableArray<PlaceCategory *> *сategoriesWithDefinedCoords = [[NSMutableArray alloc] init];
+    [categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        PlaceCategory *categoryWithDefinedCoords = [self mapCategoryWithCoordsFromCategory:obj];
         if (categoryWithDefinedCoords != nil) {
             [сategoriesWithDefinedCoords addObject:categoryWithDefinedCoords];
         }
     }];
     self.categories = сategoriesWithDefinedCoords;
-    traverseCategories(сategoriesWithDefinedCoords, ^(Category *category, PlaceItem *item) {
+    traverseCategories(сategoriesWithDefinedCoords, ^(PlaceCategory *category, PlaceItem *item) {
         if (category != nil) {
             [self.categoryFilter addObject:category.uuid];
         }
@@ -102,18 +102,18 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
     });
 }
 
-- (Category *)mapCategoryWithCoordsFromCategory:(Category *)category {
-    Category *mappedCategory = [[Category alloc] init];
+- (PlaceCategory *)mapCategoryWithCoordsFromCategory:(PlaceCategory *)category {
+    PlaceCategory *mappedCategory = [[PlaceCategory alloc] init];
     mappedCategory.cover = category.cover;
     mappedCategory.icon = category.icon;
     mappedCategory.title = category.title;
     mappedCategory.onAllButtonPress = category.onAllButtonPress;
     mappedCategory.onPlaceCellPress = category.onPlaceCellPress;
     mappedCategory.uuid= category.uuid;
-    NSMutableArray<Category *> *resultedCategories = [[NSMutableArray alloc] init];
+    NSMutableArray<PlaceCategory *> *resultedCategories = [[NSMutableArray alloc] init];
     NSMutableArray<PlaceItem *> *resultedItems = [[NSMutableArray alloc] init];
-    [category.categories enumerateObjectsUsingBlock:^(Category * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        Category *resultedCategory = [self mapCategoryWithCoordsFromCategory:obj];
+    [category.categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        PlaceCategory *resultedCategory = [self mapCategoryWithCoordsFromCategory:obj];
         if (resultedCategory != nil) {
             [resultedCategories addObject:resultedCategory];
         }

@@ -7,7 +7,7 @@
 //
 
 #import "PlacesViewController.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PhotoCollectionViewCell.h"
 #import "Colors.h"
 #import "PlaceItem.h"
@@ -113,7 +113,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
             [weakSelf.allowedItems addObject:flatItems[itemUUID]];
         }];
     }
-    traverseCategories(@[self.category], ^(Category *category, PlaceItem *item) {
+    traverseCategories(@[self.category], ^(PlaceCategory *category, PlaceItem *item) {
         category.onPlaceCellPress = ^{};
         item.onPlaceCellPress = ^{};
     });
@@ -187,7 +187,7 @@ static const CGFloat kSpacing = 32.0;
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Did select item at index path: %@", indexPath);
     if ([self.category.categories count] > 0) {
-        Category *category = self.category.categories[indexPath.row];
+        PlaceCategory *category = self.category.categories[indexPath.row];
 
         PlacesViewController *placesViewController =
         [[PlacesViewController alloc] initWithIndexModel:self.indexModel

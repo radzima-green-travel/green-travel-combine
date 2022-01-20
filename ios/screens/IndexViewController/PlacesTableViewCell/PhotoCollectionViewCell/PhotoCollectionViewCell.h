@@ -11,13 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
-@class Category;
+@class PlaceCategory;
 
 @interface PhotoCollectionViewCell : UICollectionViewCell
 
 - (void)updateItem:(PlaceItem *)item;
 - (void)updateBookmark:(BOOL)bookmark;
-- (void)updateCategory:(Category *)category;
+- (void)updateCategory:(PlaceCategory *)category;
 
 @end
 

@@ -9,7 +9,7 @@
 #import "IndexModel.h"
 #import "CategoriesObserver.h"
 #import "BookmarksObserver.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlaceItem.h"
 #import "ApiService.h"
 #import "CoreDataService.h"
@@ -28,10 +28,10 @@
 @property (assign, nonatomic) BOOL loadedFromDB;
 @property (assign, nonatomic) BOOL loading;
 @property (assign, nonatomic) BOOL loadingRemote;
-@property (strong, nonatomic) NSArray<Category *> *categoriesScheduledForUpdate;
+@property (strong, nonatomic) NSArray<PlaceCategory *> *categoriesScheduledForUpdate;
 @property (strong, nonatomic) NSString *eTagScheduledForUpdate;
-- (NSArray<Category *>*)copyBookmarksFromOldCategories:(NSArray<Category *>*)oldCategories
-                                   toNew:(NSArray<Category *>*)newCategories;
+- (NSArray<PlaceCategory *>*)copyBookmarksFromOldCategories:(NSArray<PlaceCategory *>*)oldCategories
+                                   toNew:(NSArray<PlaceCategory *>*)newCategories;
 
 
 @end
@@ -63,7 +63,7 @@ static IndexModel *instance;
         self.loadedFromDB = YES;
         __weak typeof(self) weakSelf = self;
         self.loading = YES;
-        [self.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categories) {
+        [self.coreDataService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *> * _Nonnull categories) {
             __strong typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf updateCategories:categories];
             [strongSelf loadCategoriesRemote:[categories count] == 0 forceRefresh:NO];
@@ -80,7 +80,7 @@ static IndexModel *instance;
   self.loading = YES;
   if (visible) { [self notifyObserversCategoriesLoading:YES]; }
   __weak typeof(self) weakSelf = self;
-  [self.apiService loadCategoriesWithCompletion:^(NSArray<Category *>  * _Nonnull categoriesFromServer,
+  [self.apiService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *>  * _Nonnull categoriesFromServer,
                                                   NSArray<PlaceDetails *> * _Nonnull details,
                                                   NSString *eTag) {
     __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -93,7 +93,7 @@ static IndexModel *instance;
         [weakSelf.userDefaultsService saveETag:eTag];
       }];
       __weak typeof(strongSelf) weakSelf = strongSelf;
-      [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
+      [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *> * _Nonnull categoriesFromDB) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [strongSelf updateCategories:categoriesFromDB];
         strongSelf.loading = NO;
@@ -106,7 +106,7 @@ static IndexModel *instance;
     }
     NSString *existingETag = [strongSelf.userDefaultsService loadETag];
     if (![existingETag isEqualToString:eTag] && [categoriesFromServer count] > 0) {
-      NSArray<Category*> *newCategoriesFromServer =
+      NSArray<PlaceCategory*> *newCategoriesFromServer =
       [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
                                            toNew:categoriesFromServer];
       if (shouldRequestCategoriesUpdate) {
@@ -119,7 +119,7 @@ static IndexModel *instance;
 - (void)reloadCategoriesRemote:(void(^)(void))completion {
   self.loading = YES;
   __weak typeof(self) weakSelf = self;
-  [self.apiService loadCategoriesWithCompletion:^(NSArray<Category *>  * _Nonnull categoriesFromServer,
+  [self.apiService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *>  * _Nonnull categoriesFromServer,
                                                   NSArray<PlaceDetails *> * _Nonnull details,
                                                   NSString *eTag) {
     if ([categoriesFromServer count] == 0) {
@@ -139,7 +139,7 @@ static IndexModel *instance;
       }];
     }
     __weak typeof(strongSelf) weakSelf = strongSelf;
-    [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
+    [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *> * _Nonnull categoriesFromDB) {
       [weakSelf updateCategories:categoriesFromDB];
       weakSelf.loading = NO;
       completion();
@@ -147,7 +147,7 @@ static IndexModel *instance;
   }];
 }
 
-- (void)saveDetailsFromCategories:(NSArray<Category *>*)categories
+- (void)saveDetailsFromCategories:(NSArray<PlaceCategory *>*)categories
                    withCompletion:(nonnull void (^)(void))completion {
   [self notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
   __weak typeof(self) weakSelf = self;
@@ -166,13 +166,13 @@ static IndexModel *instance;
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
                  dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
-    NSArray<Category*> *newCategories = [strongSelf.categoriesScheduledForUpdate copy];
+    NSArray<PlaceCategory*> *newCategories = [strongSelf.categoriesScheduledForUpdate copy];
     [strongSelf notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
     [strongSelf.coreDataService saveCategories:newCategories];
     [strongSelf saveDetailsFromCategories:newCategories withCompletion:^{
       [weakSelf.userDefaultsService saveETag:weakSelf.eTagScheduledForUpdate];
     }];
-    [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<Category *> * _Nonnull categoriesFromDB) {
+    [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *> * _Nonnull categoriesFromDB) {
       __weak typeof(strongSelf) weakSelf = strongSelf;
       [weakSelf updateCategories:categoriesFromDB];
       weakSelf.categoriesScheduledForUpdate = nil;
@@ -192,15 +192,15 @@ static IndexModel *instance;
   });
 }
 
-- (NSArray<Category *>*)copyBookmarksFromOldCategories:(NSArray<Category *>*)oldCategories
-                                   toNew:(NSArray<Category *>*)newCategories {
+- (NSArray<PlaceCategory *>*)copyBookmarksFromOldCategories:(NSArray<PlaceCategory *>*)oldCategories
+                                   toNew:(NSArray<PlaceCategory *>*)newCategories {
     NSMutableSet *uuids = [[NSMutableSet alloc] init];
-    traverseCategories(oldCategories, ^(Category *category, PlaceItem *item) {
+    traverseCategories(oldCategories, ^(PlaceCategory *category, PlaceItem *item) {
         if (item.bookmarked) {
             [uuids addObject:item.uuid];
         }
     });
-    traverseCategories(newCategories, ^(Category *category, PlaceItem *item) {
+    traverseCategories(newCategories, ^(PlaceCategory *category, PlaceItem *item) {
         if ([uuids containsObject:item.uuid]) {
             item.bookmarked = YES;
         }
@@ -214,15 +214,15 @@ static IndexModel *instance;
     [self notifyObserversBookmarks:item bookmark:bookmark];
 }
 
-- (void)updateCategories:(NSArray<Category *> *)categories {
-  NSMutableDictionary<NSString *, Category *> *flatCategories = [[NSMutableDictionary alloc] init];
+- (void)updateCategories:(NSArray<PlaceCategory *> *)categories {
+  NSMutableDictionary<NSString *, PlaceCategory *> *flatCategories = [[NSMutableDictionary alloc] init];
   NSMutableDictionary<NSString *, PlaceItem *> *flatItems = [[NSMutableDictionary alloc] init];
-  NSMutableArray<Category*> *randomizedCategories = [[NSMutableArray alloc] init];
-  traverseCategoriesWithLevel(categories, 0, ^(Category *category, PlaceItem *placeItem, NSUInteger level) {
+  NSMutableArray<PlaceCategory*> *randomizedCategories = [[NSMutableArray alloc] init];
+  traverseCategoriesWithLevel(categories, 0, ^(PlaceCategory *category, PlaceItem *placeItem, NSUInteger level) {
     if (category != nil && placeItem == nil) {
       flatCategories[category.uuid] = category;
       if (level == 0) {
-        Category *categoryRandomized = [category copyWithZone:nil];
+        PlaceCategory *categoryRandomized = [category copyWithZone:nil];
         categoryRandomized.items = shuffledArray(category.items);
         categoryRandomized.categories = slice(category.categories);
         [randomizedCategories addObject:categoryRandomized];
@@ -242,7 +242,7 @@ static IndexModel *instance;
 }
 
 - (void)verifyLinks {
-  traverseCategories(self.categories, ^(Category *category, PlaceItem *placeItem) {
+  traverseCategories(self.categories, ^(PlaceCategory *category, PlaceItem *placeItem) {
     if (placeItem == nil) {
       return;
     }
@@ -257,7 +257,7 @@ static IndexModel *instance;
   });
 }
 
-- (void)requestCategoriesUpdate:(NSArray<Category *> *)categoriesScheduledForUpdate
+- (void)requestCategoriesUpdate:(NSArray<PlaceCategory *> *)categoriesScheduledForUpdate
                            eTag:(NSString *)eTag {
     // TODO: change this to show "new content is available" widget
     self.categoriesScheduledForUpdate = categoriesScheduledForUpdate;

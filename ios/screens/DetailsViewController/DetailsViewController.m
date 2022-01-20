@@ -11,7 +11,7 @@
 #import "Colors.h"
 #import "StyleUtils.h"
 #import "PlaceItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlaceDetails.h"
 #import "ApiService.h"
 #import "DetailsModel.h"
@@ -442,7 +442,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
                                           mapModel:self.mapModel
                                      locationModel:self.locationModel
                                              title:[self linkedCategoriesLabelByType:type]
-                              onCategoryLinkSelect:^(Category * _Nonnull category, NSOrderedSet<NSString *> * _Nonnull linkedItems) {
+                              onCategoryLinkSelect:^(PlaceCategory * _Nonnull category, NSOrderedSet<NSString *> * _Nonnull linkedItems) {
     PlacesViewController *placesViewController =
     [[PlacesViewController alloc] initWithIndexModel:self.indexModel
                                           apiService:self.apiService
@@ -539,10 +539,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     }
 }
 
-- (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+- (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     NSString *itemUUID = self.item.uuid;
     __weak typeof(self) weakSelf = self;
-    traverseCategories(categories, ^(Category *newCategory, PlaceItem *newItem) {
+    traverseCategories(categories, ^(PlaceCategory *newCategory, PlaceItem *newItem) {
         if ([newItem.uuid isEqualToString:itemUUID]) {
             weakSelf.item = newItem;
         }

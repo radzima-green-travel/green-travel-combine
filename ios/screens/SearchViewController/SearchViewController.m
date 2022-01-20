@@ -13,7 +13,7 @@
 #import "StyleUtils.h"
 #import "TextUtils.h"
 #import "PlaceItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "SearchCell.h"
 #import "DetailsViewController.h"
 #import "SearchItem.h"

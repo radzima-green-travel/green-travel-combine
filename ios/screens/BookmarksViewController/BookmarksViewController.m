@@ -10,7 +10,7 @@
 #import "Colors.h"
 #import "StyleUtils.h"
 #import "BookmarkCell.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlacesViewController.h"
 #import "BookmarksGroupModel.h"
 #import "BookmarkItem.h"
@@ -281,7 +281,7 @@ static const CGFloat kInsetVertical = 24.0;
                                          searchModel:self.searchModel
                                         detailsModel:self.detailsModel
                                           bookmarked:YES allowedItemUUIDs:nil];
-    Category *category = bookmarkItem.correspondingCategory;
+    PlaceCategory *category = bookmarkItem.correspondingCategory;
     placesViewController.category = category;
     [self.navigationController pushViewController:placesViewController animated:YES];
     [[AnalyticsEvents get] logEvent:AnalyticsEventsPressSavedCategory withParams:@{

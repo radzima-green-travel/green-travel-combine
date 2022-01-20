@@ -10,14 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Category;
+@class PlaceCategory;
 
 @interface BookmarkItem : NSObject
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *uuid;
 @property (assign, nonatomic) int howMany;
-@property (strong, nonatomic) Category *correspondingCategory;
+@property (strong, nonatomic) PlaceCategory *correspondingCategory;
 
 @end
 

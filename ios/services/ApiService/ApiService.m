@@ -7,7 +7,7 @@
 //
 
 #import "ApiService.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "IndexModel.h"
 #import "DetailsModel.h"
 #import "PlaceItem.h"
@@ -50,7 +50,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
           NATIVE_CLIENT_URL, @"objects.json"];
 }
 
-- (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*,
+- (void)loadCategoriesWithCompletion:(void(^)(NSArray<PlaceCategory *>*,
                                               NSArray<PlaceDetails *>*,
                                               NSString *))completion {
   NSURL *url = [NSURL URLWithString:[self categoriesURL]];
@@ -78,16 +78,16 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
       return;
     }
     NSLog(@"Error when loading categories: %@", error);
-    NSArray<Category *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:categories] copy];
+    NSArray<PlaceCategory *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:categories] copy];
     completion(mappedCategories, @[], eTag);
   }];
   [task resume];
 }
 
-- (NSArray<Category *>*)mapCategoriesFromJSON:(NSArray *)categories {
-  NSMutableArray<Category *> *mappedCategories = [[NSMutableArray alloc] init];
+- (NSArray<PlaceCategory *>*)mapCategoriesFromJSON:(NSArray *)categories {
+  NSMutableArray<PlaceCategory *> *mappedCategories = [[NSMutableArray alloc] init];
   [categories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-    Category *category = [[Category alloc] init];
+    PlaceCategory *category = [[PlaceCategory alloc] init];
     category.categories = [self mapCategoriesFromJSON:obj[@"children"]];
     category.items = [self mapItemsFromJSON:obj[@"objects"] category:category];
     if ([self categoryIsValid:category rawCategory:obj]) {
@@ -101,14 +101,14 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
   return mappedCategories;
 }
 
-- (BOOL)categoryIsValid:(Category *)category
+- (BOOL)categoryIsValid:(PlaceCategory *)category
             rawCategory:(NSDictionary *)rawCategory {
   return ([category.categories count] > 0 || [category.items count] > 0) &&
   rawCategory[@"icon"] != nil && ![rawCategory[@"icon"] isEqual:[NSNull null]];
 }
 
 - (NSArray<PlaceItem *>*)mapItemsFromJSON:(NSArray *)items
-                                 category:(Category *)category{
+                                 category:(PlaceCategory *)category{
     NSMutableArray<PlaceItem *> *mappedItems = [[NSMutableArray alloc] init];
     __weak typeof(self) weakSelf = self;
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

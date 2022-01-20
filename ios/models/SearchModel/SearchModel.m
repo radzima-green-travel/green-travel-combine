@@ -9,7 +9,7 @@
 #import "SearchModel.h"
 #import "IndexModel.h"
 #import "SearchItemsObserver.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "SearchItem.h"
 #import "PlaceItem.h"
 #import "LocationModel.h"
@@ -47,7 +47,7 @@
 }
  
 #pragma mark - Observers
-- (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+- (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     [self.searchItems removeAllObjects];
     [self.searchHistoryItems removeAllObjects];
     [self.uuids removeAllObjects];
@@ -62,8 +62,8 @@
 
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {}
 
-- (void)fillSearchItemsFromCategories:(NSArray<Category *>*)categories {
-    traverseCategories(categories, ^(Category *category, PlaceItem *item) {
+- (void)fillSearchItemsFromCategories:(NSArray<PlaceCategory *>*)categories {
+    traverseCategories(categories, ^(PlaceCategory *category, PlaceItem *item) {
         if (item == nil) {
             return;
         }

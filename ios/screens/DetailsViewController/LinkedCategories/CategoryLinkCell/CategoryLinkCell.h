@@ -10,11 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Category;
+@class PlaceCategory;
 
 @interface CategoryLinkCell : UITableViewCell
 
-- (void)update:(Category *)category;
+- (void)update:(PlaceCategory *)category;
 
 @end
 

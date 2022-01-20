@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Category;
+@class PlaceCategory;
 @class PlaceItem;
 @class ApiService;
 @class CoreDataService;
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlacesViewController : UICollectionViewController<BookmarksObserver>
 
-@property (strong, nonatomic) Category *category;
+@property (strong, nonatomic) PlaceCategory *category;
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
                         apiService:(ApiService *)apiService
                    coreDataService:(CoreDataService *)coreDataService

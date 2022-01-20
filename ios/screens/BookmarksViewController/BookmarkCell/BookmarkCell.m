@@ -10,7 +10,7 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "StyleUtils.h"
 #import "BookmarkItem.h"
 #import "TypographyLegacy.h"

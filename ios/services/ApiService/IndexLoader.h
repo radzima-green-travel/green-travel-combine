@@ -11,12 +11,12 @@
 
 #endif /* IndexLoader_h */
 
-@class Category;
+@class PlaceCategory;
 @class PlaceDetails;
 
 @protocol IndexLoader <NSObject>
 
-- (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*,
+- (void)loadCategoriesWithCompletion:(void(^)(NSArray<PlaceCategory *>*,
                                               NSArray<PlaceDetails *>*,
                                               NSString *))completion;
 

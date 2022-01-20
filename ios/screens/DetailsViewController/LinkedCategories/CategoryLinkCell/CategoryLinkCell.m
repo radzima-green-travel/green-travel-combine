@@ -10,7 +10,7 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "TypographyLegacy.h"
 #import "IconNameToImageNameMap.h"
 
@@ -95,7 +95,7 @@
     ]];
 }
 
-- (void)update:(Category *)category {
+- (void)update:(PlaceCategory *)category {
     self.title.attributedText = [[TypographyLegacy get] makeBody:category.title];
     [self.icon setImage:[[IconNameToImageNameMap get] iconForName32:category.icon]];
 }

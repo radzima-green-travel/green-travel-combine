@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class Category;
+@class PlaceCategory;
 @class ApiService;
 @class MapModel;
 @class LocationModel;
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
                           mapModel:(nonnull MapModel *)mapModel
                      locationModel:(nonnull LocationModel *)locationModel
                              title:(nonnull NSString *)title
-              onCategoryLinkSelect:(void(^)(Category *, NSOrderedSet<NSString *> *))onCategoryLinkSelect;
+              onCategoryLinkSelect:(void(^)(PlaceCategory *, NSOrderedSet<NSString *> *))onCategoryLinkSelect;
 - (void)update:(NSArray<CategoryUUIDToRelatedItemUUIDs *>*)categoryIdToItems;
 
 @end

@@ -13,7 +13,7 @@
 #import "SearchCellConfiguration.h"
 #import "TypographyLegacy.h"
 #import "IconNameToImageNameMap.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlaceItem.h"
 
 @interface SearchCell ()

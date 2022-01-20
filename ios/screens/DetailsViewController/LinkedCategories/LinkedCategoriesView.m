@@ -14,7 +14,7 @@
 #import "LocationModel.h"
 #import "CategoryUtils.h"
 #import "PlaceItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "PlacesViewController.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "CategoryLinkCell.h"
@@ -32,11 +32,11 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) UILabel *interestingLabel;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray<Category *> *categories;
+@property (strong, nonatomic) NSMutableArray<PlaceCategory *> *categories;
 @property (strong, nonatomic) NSArray<CategoryUUIDToRelatedItemUUIDs *> *categoryIdToItems;
 @property (copy, nonatomic) void(^pushToNavigationController)(PlacesViewController *);
 @property (strong, nonatomic) NSLayoutConstraint *tableViewHeightConstraint;
-@property (copy, nonatomic) void(^onCategoryLinkSelect)(Category *, NSOrderedSet<NSString *> *);
+@property (copy, nonatomic) void(^onCategoryLinkSelect)(PlaceCategory *, NSOrderedSet<NSString *> *);
 
 @end
 
@@ -49,7 +49,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
                        mapModel:(nonnull MapModel *)mapModel
                   locationModel:(nonnull LocationModel *)locationModel
                           title:(nonnull NSString *)title
-              onCategoryLinkSelect:(void(^)(Category *, NSOrderedSet<NSString *> *))onCategoryLinkSelect
+              onCategoryLinkSelect:(void(^)(PlaceCategory *, NSOrderedSet<NSString *> *))onCategoryLinkSelect
 {
     self = [super init];
     if (self) {
@@ -109,10 +109,10 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
     self.categoryIdToItems = categoryIdToItems;
     [self.categories removeAllObjects];
     
-    NSMutableDictionary<NSString *, Category *> *categoryUUIDToCategoryMap =  flattenCategoriesTreeIntoCategoriesMap(self.indexModel.categories);
+    NSMutableDictionary<NSString *, PlaceCategory *> *categoryUUIDToCategoryMap =  flattenCategoriesTreeIntoCategoriesMap(self.indexModel.categories);
     __weak typeof(self) weakSelf = self;
     [categoryIdToItems enumerateObjectsUsingBlock:^(CategoryUUIDToRelatedItemUUIDs * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        Category *category = categoryUUIDToCategoryMap[obj.categoryUUID];
+        PlaceCategory *category = categoryUUIDToCategoryMap[obj.categoryUUID];
         [weakSelf.categories addObject:category];
     }];
     [self.tableView reloadData];
@@ -142,7 +142,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    Category *category = self.categories[indexPath.row];
+    PlaceCategory *category = self.categories[indexPath.row];
     CategoryLinkCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCategoryLinkCellId];
     [cell update:category];
     return cell;
@@ -154,7 +154,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSOrderedSet<NSString *> *linkedItems = [self.categoryIdToItems[indexPath.row].relatedItemUUIDs copy];
-    Category *category = self.categories[indexPath.row];
+    PlaceCategory *category = self.categories[indexPath.row];
     self.onCategoryLinkSelect(category, linkedItems);
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

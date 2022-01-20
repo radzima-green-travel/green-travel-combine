@@ -19,7 +19,7 @@
 #import "StoredArea+CoreDataProperties.h"
 
 #import "PlaceItem.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "SearchItem.h"
 #import "CategoryUtils.h"
 #import "PlaceDetails.h"
@@ -77,20 +77,20 @@ NSPersistentContainer *_persistentContainer;
 
 #pragma mark - Categories
 
-- (void)loadCategoriesWithCompletion:(void(^)(NSArray<Category *>*))completion {
+- (void)loadCategoriesWithCompletion:(void(^)(NSArray<PlaceCategory *>*))completion {
     __weak typeof(self) weakSelf = self;
     [self.persistentContainer performBackgroundTask:^(NSManagedObjectContext *ctx) {
         NSFetchRequest *fetchRequest = [StoredCategory fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"parent == %@", nil];
         NSError *error;
         NSArray<StoredCategory *> *fetchResult = [ctx executeFetchRequest:fetchRequest error:&error];
-        NSMutableArray<Category *> *categories = [weakSelf mapStoredCategoriesToCategories:fetchResult];
+        NSMutableArray<PlaceCategory *> *categories = [weakSelf mapStoredCategoriesToCategories:fetchResult];
         completion(categories);
     }];
 }
 
 - (PlaceItem *)mapStoredPlaceItemToPlaceItem:(StoredPlaceItem *)storedItem
-                                withCategory:(Category *)category {
+                                withCategory:(PlaceCategory *)category {
     PlaceItem *item = [[PlaceItem alloc] init];
     item.title = storedItem.title;
     item.uuid = storedItem.uuid;
@@ -104,8 +104,8 @@ NSPersistentContainer *_persistentContainer;
     return item;
 }
 
-- (Category *)mapStoredCategoryToCategory:(StoredCategory *)storedCategory {
-    Category *category = [[Category alloc] init];
+- (PlaceCategory *)mapStoredCategoryToCategory:(StoredCategory *)storedCategory {
+    PlaceCategory *category = [[PlaceCategory alloc] init];
     category.title = storedCategory.title;
     category.uuid = storedCategory.uuid;
     category.cover = storedCategory.coverURL;
@@ -120,17 +120,17 @@ NSPersistentContainer *_persistentContainer;
 }
 
 
-- (NSMutableArray<Category *>*)mapStoredCategoriesToCategories:(NSArray<StoredCategory *>*)storedCategories {
-    NSMutableArray<Category *> *categories = [[NSMutableArray alloc] init];
+- (NSMutableArray<PlaceCategory *>*)mapStoredCategoriesToCategories:(NSArray<StoredCategory *>*)storedCategories {
+    NSMutableArray<PlaceCategory *> *categories = [[NSMutableArray alloc] init];
     __weak typeof(self) weakSelf = self;
     [storedCategories enumerateObjectsUsingBlock:^(StoredCategory * _Nonnull storedCategory, NSUInteger idx, BOOL * _Nonnull stop) {
-        Category *category = [weakSelf mapStoredCategoryToCategory:storedCategory];
+        PlaceCategory *category = [weakSelf mapStoredCategoryToCategory:storedCategory];
         [categories addObject:category];
     }];
     return categories;
 }
 
-- (void)saveCategories:(NSArray<Category *> *)categories {
+- (void)saveCategories:(NSArray<PlaceCategory *> *)categories {
   __weak typeof(self) weakSelf = self;
   [self.ctx performBlockAndWait:^{
     NSError *error;
@@ -148,7 +148,7 @@ NSPersistentContainer *_persistentContainer;
   }];
 }
 
-- (void)saveDetailsFromCategories:(NSArray<Category *> *)categories
+- (void)saveDetailsFromCategories:(NSArray<PlaceCategory *> *)categories
                    withCompletion:(nonnull void (^)(void))completion {
   NSError *error;
   NSFetchRequest *fetchRequest = [StoredPlaceDetails fetchRequest];
@@ -159,7 +159,7 @@ NSPersistentContainer *_persistentContainer;
     __strong typeof(weakSelf) strongSelf = weakSelf;
     if ([categories count]) {
       NSError *error;
-      traverseCategories(categories, ^(Category *cat, PlaceItem *item) {
+      traverseCategories(categories, ^(PlaceCategory *cat, PlaceItem *item) {
         if (item != nil) {
           StoredPlaceDetails *storedDetails =
           [strongSelf mapDetailsToStoredDetails:item.details];
@@ -172,9 +172,9 @@ NSPersistentContainer *_persistentContainer;
   }];
 }
 
-- (void)updateSearchItemsWhenSavingCategories:(NSArray<Category *> *)categories {
+- (void)updateSearchItemsWhenSavingCategories:(NSArray<PlaceCategory *> *)categories {
     NSMutableSet<NSString *> *incomingItemUUIDs = [[NSMutableSet alloc] init];
-    traverseCategories(categories, ^(Category *category, PlaceItem *placeItem) {
+    traverseCategories(categories, ^(PlaceCategory *category, PlaceItem *placeItem) {
         if (placeItem == nil) {
             return;
         }
@@ -194,10 +194,10 @@ NSPersistentContainer *_persistentContainer;
     }];
 }
 
-- (void)saveCategoriesWithinBlock:(NSArray<Category *> *)categories
+- (void)saveCategoriesWithinBlock:(NSArray<PlaceCategory *> *)categories
         parentCategory:(StoredCategory *)parentCategory {
     __weak typeof(self) weakSelf = self;
-    [categories enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
+    [categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         StoredCategory *storedCategory = [NSEntityDescription insertNewObjectForEntityForName:@"StoredCategory" inManagedObjectContext:weakSelf.ctx];
         storedCategory.title = category.title;

@@ -7,7 +7,7 @@
 //
 
 #import "DetailsModel.h"
-#import "Category.h"
+#import "PlaceCategory.h"
 #import "IndexModel.h"
 #import "DetailsObserver.h"
 #import "PlaceItem.h"
@@ -48,7 +48,7 @@
 }
 
 #pragma mark - Observers
-- (void)onCategoriesUpdate:(nonnull NSArray<Category *> *)categories {
+- (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     [self fillPlaceItemsFromCategories:categories];
     [self notifyObservers];
 }
@@ -86,8 +86,8 @@
   }
 }
 
-- (void)fillPlaceItemsFromCategories:(NSArray<Category *> *)categories {
-    [categories enumerateObjectsUsingBlock:^(Category * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
+- (void)fillPlaceItemsFromCategories:(NSArray<PlaceCategory *> *)categories {
+    [categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
         [self fillPlaceItemsFromCategories:category.categories];
         [category.items enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
             if (![self.itemUUIDs containsObject:item.uuid]) {
