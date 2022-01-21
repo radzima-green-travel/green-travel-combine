@@ -7,6 +7,15 @@ import i18n from 'i18next';
 import ruTranslations from '../locale/ru.json';
 import enTranslations from '../locale/en.json';
 
+const RESOURCES = new Map([
+  ['ru' as const, ruTranslations],
+  ['en' as const, enTranslations],
+]);
+
+const languages = [...RESOURCES.keys()];
+
+type Languages = typeof languages[number];
+
 class LanguageService {
   private resources: object = {
     ru: ruTranslations,
@@ -19,7 +28,7 @@ class LanguageService {
    * Constructor
    */
   constructor() {
-    const resources = this.resources;
+    const resources = Object.fromEntries(RESOURCES);
     this.initialData = {
       resources,
       lng: 'ru',
@@ -38,9 +47,9 @@ class LanguageService {
    * Device lang: 'en', app lang: 'ru' - will return 'ru'
    */
   public getPreferredLanguage(): string {
-    const preferredLang = RNLocalize.findBestAvailableLanguage(
-      Object.keys(this.resources),
-    );
+    const preferredLang = RNLocalize.findBestAvailableLanguage([
+      ...RESOURCES.keys(),
+    ]);
 
     const deviceLang =
       Platform.OS === 'ios'
@@ -53,7 +62,7 @@ class LanguageService {
   /**
    * Changes the language of the application
    */
-  public changeAppLanguage(lang: string): void {
+  public changeAppLanguage(lang: Languages): void {
     i18n.changeLanguage(lang);
   }
 
@@ -65,7 +74,7 @@ class LanguageService {
 
     const language = this.getPreferredLanguage();
 
-    this.changeAppLanguage(language);
+    i18n.changeLanguage(language);
   }
 }
 
