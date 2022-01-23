@@ -17,9 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ApiService : NSObject<IndexLoader>
 
+@property (strong, nonatomic) NSURLSession *session;
 - (instancetype)initWithSession:(NSURLSession *)session;
 - (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void(^)(PlaceDetails *))completion;
-
+- (NSArray<PlaceCategory *>*)mapCategoriesFromJSON:(NSArray *)categories;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -80,7 +80,9 @@ static IndexModel *instance;
   self.loading = YES;
   if (visible) { [self notifyObserversCategoriesLoading:YES]; }
   __weak typeof(self) weakSelf = self;
-  [self.apiService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *>  * _Nonnull categoriesFromServer,
+  NSString *existingETag = [self.userDefaultsService loadETag];
+  [self.apiService loadCategories:existingETag
+                   withCompletion:^(NSArray<PlaceCategory *>  * _Nonnull categoriesFromServer,
                                                   NSArray<PlaceDetails *> * _Nonnull details,
                                                   NSString *eTag) {
     __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -119,7 +121,9 @@ static IndexModel *instance;
 - (void)reloadCategoriesRemote:(void(^)(void))completion {
   self.loading = YES;
   __weak typeof(self) weakSelf = self;
-  [self.apiService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *>  * _Nonnull categoriesFromServer,
+  NSString *existingETag = [self.userDefaultsService loadETag];
+  [self.apiService loadCategories:existingETag
+                   withCompletion:^(NSArray<PlaceCategory *>  * _Nonnull categoriesFromServer,
                                                   NSArray<PlaceDetails *> * _Nonnull details,
                                                   NSString *eTag) {
     if ([categoriesFromServer count] == 0) {

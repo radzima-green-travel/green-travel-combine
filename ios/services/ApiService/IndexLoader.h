@@ -16,8 +16,9 @@
 
 @protocol IndexLoader <NSObject>
 
-- (void)loadCategoriesWithCompletion:(void(^)(NSArray<PlaceCategory *>*,
-                                              NSArray<PlaceDetails *>*,
-                                              NSString *))completion;
+- (void)loadCategories:(NSString *)currentHash
+        withCompletion:(void(^)(NSArray<PlaceCategory *>*categoriesList,
+                                NSArray<PlaceDetails *>*detailsList,
+                                NSString *updatedHash))completion;
 
 @end

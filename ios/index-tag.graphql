@@ -1,0 +1,5 @@
+{
+    getObjectsMetadata(id: "tag") {
+        value
+    }
+}

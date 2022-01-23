@@ -19,18 +19,10 @@
 #import "ImageUtils.h"
 #import "URLUtils.h"
 #import <react-native-ultimate-config/ConfigValues.h>
-#if PROD
-#import "Radzima-Swift.h"
-#else
-#import "Radzima_Dev-Swift.h"
-#endif
-
 
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
 
 @interface ApiService ()
-
-@property (strong, nonatomic) NSURLSession *session;
 
 @end
 
@@ -40,7 +32,6 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     self = [super init];
     if (self) {
         _session = session;
-      [[AmplifyWrapper alloc] init];
     }
     return self;
 }
@@ -50,9 +41,10 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
           NATIVE_CLIENT_URL, @"objects.json"];
 }
 
-- (void)loadCategoriesWithCompletion:(void(^)(NSArray<PlaceCategory *>*,
-                                              NSArray<PlaceDetails *>*,
-                                              NSString *))completion {
+- (void)loadCategories:(NSString *)currentHash
+        withCompletion:(void (^)(NSArray<PlaceCategory *> *,
+                                 NSArray<PlaceDetails *> *,
+                                 NSString *))completion {
   NSURL *url = [NSURL URLWithString:[self categoriesURL]];
   __weak typeof(self) weakSelf = self;
   NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
@@ -60,26 +52,26 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
                                             timeoutInterval:120];
   NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     if (!data) {
-      completion(@[], @[], @"");
+      completion(@[], @[], currentHash);
       return;
     }
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
-    NSString *eTag = headers[@"ETag"];
+    NSString *updatedHash = headers[@"ETag"];
 
     NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSDictionary *dataSection = parsedData[@"data"];
     if (dataSection == nil || parsedData[@"data"] == [NSNull null]) {
-      completion(@[], @[], @"");
+      completion(@[], @[], currentHash);
       return;
     }
     NSArray *categories = dataSection[@"listMobileObjects"];
     if (categories == nil || dataSection[@"listMobileObjects"] == [NSNull null]) {
-      completion(@[], @[], @"");
+      completion(@[], @[], currentHash);
       return;
     }
     NSLog(@"Error when loading categories: %@", error);
     NSArray<PlaceCategory *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:categories] copy];
-    completion(mappedCategories, @[], eTag);
+    completion(mappedCategories, @[], updatedHash);
   }];
   [task resume];
 }

@@ -1,0 +1,128 @@
+{
+    getObjectsMetadata(id: "tag") {
+        value
+    }
+    listMobileObjects {
+        id
+        name
+        fields
+        icon
+        cover
+        objects {
+            name
+            images
+            cover
+            address
+            author
+            createdAt
+            description
+            duration
+            routes {
+                coordinates
+                type
+            }
+            id
+            length
+            location {
+                lat
+                lon
+            }
+            category {
+                createdAt
+                fields
+                icon
+                id
+                name
+                parent
+                updatedAt
+                cover
+            }
+            notes
+            owner
+            status
+            url
+            area {
+                coordinates
+                type
+            }
+            include {
+                fields
+                icon
+                id
+                name
+                objects
+            }
+            permissions {
+                items {
+                    permission {
+                        id
+                        key
+                        name
+                    }
+                }
+            }
+        }
+        children {
+            name
+            id
+            createdAt
+            fields
+            icon
+            cover
+            objects {
+                name
+                category {
+                    createdAt
+                    fields
+                    icon
+                    id
+                    name
+                    parent
+                    updatedAt
+                    cover
+                }
+                routes {
+                    coordinates
+                    type
+                }
+                images
+                cover
+                address
+                author
+                createdAt
+                description
+                duration
+                id
+                length
+                location {
+                    lat
+                    lon
+                }
+                notes
+                owner
+                status
+                url
+                area {
+                    coordinates
+                    type
+                }
+                include {
+                    fields
+                    icon
+                    id
+                    name
+                    objects
+                }
+                permissions {
+                    items {
+                        permission {
+                            id
+                            key
+                            name
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
