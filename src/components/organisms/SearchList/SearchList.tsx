@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {SearchListItem} from 'molecules';
+import {SwipeToDeleteContainer} from '../../containers';
 import {Icon} from 'atoms';
 import {COLORS} from 'assets';
 import {themeStyles} from './styles';
@@ -17,7 +18,7 @@ import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 interface IProps {
   data: IObject[];
   onItemPress: (object: IObject) => void;
-  onDeletePress: (object: IObject) => void;
+  onDeletePress?: (object: IObject) => void;
   isHistoryVisible: boolean;
   FlatListComponent?: typeof FlatList | typeof BottomSheetFlatList;
 }
@@ -60,12 +61,14 @@ export const SearchList = memo(
               ) : null
             }
             renderItem={({item}) => {
-              return (
-                <SearchListItem
-                  onPress={onItemPress}
-                  onDeletePress={onDeletePress}
+              return isHistoryVisible && onDeletePress ? (
+                <SwipeToDeleteContainer
                   data={item}
-                />
+                  onDeletePress={onDeletePress}>
+                  <SearchListItem onPress={onItemPress} data={item} />
+                </SwipeToDeleteContainer>
+              ) : (
+                <SearchListItem onPress={onItemPress} data={item} />
               );
             }}
           />
