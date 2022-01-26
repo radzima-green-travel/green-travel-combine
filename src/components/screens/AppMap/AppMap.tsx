@@ -95,6 +95,7 @@ export const AppMap = ({navigation}: IProps) => {
     isHistoryVisible,
     onTextChange,
     addToHistory,
+    deleteFromHistory,
     inputValue,
     clearInput,
   } = useSearchList({withLocation: true});
@@ -265,6 +266,13 @@ export const AppMap = ({navigation}: IProps) => {
     ],
   );
 
+  const onDeleteItem = useCallback(
+    (searchItem: IObject) => {
+      deleteFromHistory(searchItem);
+    },
+    [deleteFromHistory],
+  );
+
   const onMenuHideEnd = useStaticCallback(() => {
     setSelectedObject(null);
 
@@ -384,6 +392,7 @@ export const AppMap = ({navigation}: IProps) => {
         {...searchMenuProps}>
         <AppMapBottomSearchMenu
           onBackPress={closeSearchMenu}
+          onDeletePress={onDeleteItem}
           inputValue={inputValue}
           isHistoryVisible={isHistoryVisible}
           data={data}

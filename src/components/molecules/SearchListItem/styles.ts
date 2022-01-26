@@ -5,7 +5,10 @@ export const themeStyles = {
   container: {
     flexDirection: 'row',
     paddingTop: 8,
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.background,
+    },
   },
   textContainer: {
     marginLeft: 8,
@@ -34,12 +37,5 @@ export const themeStyles = {
   },
   icon: {
     marginBottom: 'auto',
-  },
-  rightDeleteActionBox: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    backgroundColor: COLORS.persimmon,
-    paddingRight: 20,
   },
 };
