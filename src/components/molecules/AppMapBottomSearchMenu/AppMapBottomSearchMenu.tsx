@@ -13,6 +13,7 @@ interface IProps {
   bottomInset: number;
   isHistoryVisible: boolean;
   onItemPress: (object: IObject) => void;
+  onDeletePress?: (object: IObject) => void;
   onTextChange: (value: string) => void;
   inputValue: string;
   onBackPress: () => void;
@@ -25,6 +26,7 @@ export const AppMapBottomSearchMenu = memo(
     bottomInset,
     isHistoryVisible,
     onItemPress,
+    onDeletePress,
     onTextChange,
     onBackPress,
   }: IProps) => {
@@ -72,6 +74,7 @@ export const AppMapBottomSearchMenu = memo(
           <SearchList
             FlatListComponent={BottomSheetFlatList}
             onItemPress={onItemPressHandler}
+            onDeletePress={onDeletePress}
             isHistoryVisible={isHistoryVisible}
             data={data}
           />
