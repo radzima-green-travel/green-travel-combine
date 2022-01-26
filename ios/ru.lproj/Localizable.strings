@@ -10,7 +10,7 @@
 "AlertOK" = "OK";
 "AlertSettings" = "Настройки";
 "AllowGeolocationAlertMessageHeader" = "Пожалуйста, разрешите доступ к Геопозиции";
-"AllowGeolocationAlertMessageBody" = "Можно будет строить марштруты, центрировать карту на Вашей позиции";
+"AllowGeolocationAlertMessageBody" = "Можно будет строить маршруты, центрировать карту на Вашей позиции";
 
 "TabBarMain" = "Главная";
 "TabBarMap" = "Карта";
@@ -38,6 +38,11 @@
 "DetailsScreenOfficialSite" = "Официальный сайт";
 "DetailsScreenActivities" = "Чем заняться";
 "DetailsScreenBelongsTo" = "Входит в...";
+"DetailsScreenSeeOnMap" = "Посмотреть на карте";
+
+"MapFilterAll" = "Все";
+
+"BookmarksScreenNoBookmarksAdded" = "Вы пока ничего  сюда не добавили";
 
 "NoDataText" = "Что-то пошло не так...";
 "NoDataActionLabel" = "Попробовать еще раз";

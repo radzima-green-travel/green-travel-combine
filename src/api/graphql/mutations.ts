@@ -12,6 +12,23 @@ export const updateMobileObjectsS3 = /* GraphQL */ `
     updateMobileObjectsS3
   }
 `;
+export const putObjectMetadata = /* GraphQL */ `
+  mutation PutObjectMetadata($key: String!, $metadata: ObjectS3MetadataInput) {
+    putObjectMetadata(key: $key, metadata: $metadata) {
+      zoom
+      croppedAreaPixels {
+        x
+        y
+        width
+        height
+      }
+      crop {
+        x
+        y
+      }
+    }
+  }
+`;
 export const createCategory = /* GraphQL */ `
   mutation CreateCategory(
     $input: CreateCategoryInput!
@@ -107,10 +124,6 @@ export const createReference = /* GraphQL */ `
       owner
       createdBy
       updatedBy
-      i18n {
-        name
-        locale
-      }
     }
   }
 `;
@@ -128,10 +141,6 @@ export const updateReference = /* GraphQL */ `
       owner
       createdBy
       updatedBy
-      i18n {
-        name
-        locale
-      }
     }
   }
 `;
@@ -149,10 +158,6 @@ export const deleteReference = /* GraphQL */ `
       owner
       createdBy
       updatedBy
-      i18n {
-        name
-        locale
-      }
     }
   }
 `;
@@ -230,7 +235,6 @@ export const createObject = /* GraphQL */ `
       description
       images
       status
-      governanceType
       location {
         lat
         lon
@@ -269,7 +273,6 @@ export const createObject = /* GraphQL */ `
         locale
         name
         description
-        governanceType
         author
         address
         notes
@@ -307,7 +310,6 @@ export const createObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -346,7 +348,6 @@ export const createObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -411,7 +412,6 @@ export const createObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -450,7 +450,6 @@ export const createObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -526,7 +525,6 @@ export const createObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -565,7 +563,6 @@ export const createObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -630,7 +627,6 @@ export const createObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -669,7 +665,6 @@ export const createObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -759,7 +754,6 @@ export const createObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -798,7 +792,6 @@ export const createObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -875,7 +868,6 @@ export const updateObject = /* GraphQL */ `
       description
       images
       status
-      governanceType
       location {
         lat
         lon
@@ -914,7 +906,6 @@ export const updateObject = /* GraphQL */ `
         locale
         name
         description
-        governanceType
         author
         address
         notes
@@ -952,7 +943,6 @@ export const updateObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -991,7 +981,6 @@ export const updateObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -1056,7 +1045,6 @@ export const updateObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -1095,7 +1083,6 @@ export const updateObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -1171,7 +1158,6 @@ export const updateObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -1210,7 +1196,6 @@ export const updateObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -1275,7 +1260,6 @@ export const updateObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -1314,7 +1298,6 @@ export const updateObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -1404,7 +1387,6 @@ export const updateObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -1443,7 +1425,6 @@ export const updateObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -1520,7 +1501,6 @@ export const deleteObject = /* GraphQL */ `
       description
       images
       status
-      governanceType
       location {
         lat
         lon
@@ -1559,7 +1539,6 @@ export const deleteObject = /* GraphQL */ `
         locale
         name
         description
-        governanceType
         author
         address
         notes
@@ -1597,7 +1576,6 @@ export const deleteObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -1636,7 +1614,6 @@ export const deleteObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -1701,7 +1678,6 @@ export const deleteObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -1740,7 +1716,6 @@ export const deleteObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -1816,7 +1791,6 @@ export const deleteObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -1855,7 +1829,6 @@ export const deleteObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -1920,7 +1893,6 @@ export const deleteObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -1959,7 +1931,6 @@ export const deleteObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -2049,7 +2020,6 @@ export const deleteObject = /* GraphQL */ `
             description
             images
             status
-            governanceType
             location {
               lat
               lon
@@ -2088,7 +2058,6 @@ export const deleteObject = /* GraphQL */ `
               locale
               name
               description
-              governanceType
               author
               address
               notes
@@ -2318,7 +2287,6 @@ export const createObjectsLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -2357,7 +2325,6 @@ export const createObjectsLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -2395,7 +2362,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -2434,7 +2400,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -2470,7 +2435,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -2509,7 +2473,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -2556,7 +2519,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -2595,7 +2557,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -2631,7 +2592,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -2670,7 +2630,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -2731,7 +2690,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -2770,7 +2728,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -2811,7 +2768,6 @@ export const createObjectsLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -2850,7 +2806,6 @@ export const createObjectsLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -2888,7 +2843,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -2927,7 +2881,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -2963,7 +2916,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3002,7 +2954,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3049,7 +3000,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3088,7 +3038,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3124,7 +3073,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3163,7 +3111,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3224,7 +3171,6 @@ export const createObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3263,7 +3209,6 @@ export const createObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3319,7 +3264,6 @@ export const updateObjectsLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -3358,7 +3302,6 @@ export const updateObjectsLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -3396,7 +3339,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3435,7 +3377,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3471,7 +3412,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3510,7 +3450,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3557,7 +3496,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3596,7 +3534,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3632,7 +3569,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3671,7 +3607,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3732,7 +3667,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3771,7 +3705,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3812,7 +3745,6 @@ export const updateObjectsLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -3851,7 +3783,6 @@ export const updateObjectsLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -3889,7 +3820,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -3928,7 +3858,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -3964,7 +3893,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4003,7 +3931,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4050,7 +3977,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4089,7 +4015,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4125,7 +4050,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4164,7 +4088,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4225,7 +4148,6 @@ export const updateObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4264,7 +4186,6 @@ export const updateObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4320,7 +4241,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -4359,7 +4279,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -4397,7 +4316,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4436,7 +4354,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4472,7 +4389,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4511,7 +4427,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4558,7 +4473,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4597,7 +4511,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4633,7 +4546,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4672,7 +4584,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4733,7 +4644,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4772,7 +4682,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4813,7 +4722,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -4852,7 +4760,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -4890,7 +4797,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -4929,7 +4835,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -4965,7 +4870,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5004,7 +4908,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5051,7 +4954,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5090,7 +4992,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5126,7 +5027,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5165,7 +5065,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5226,7 +5125,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5265,7 +5163,6 @@ export const deleteObjectsLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5335,7 +5232,6 @@ export const createPermissionLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -5374,7 +5270,6 @@ export const createPermissionLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -5412,7 +5307,6 @@ export const createPermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5451,7 +5345,6 @@ export const createPermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5487,7 +5380,6 @@ export const createPermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5526,7 +5418,6 @@ export const createPermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5573,7 +5464,6 @@ export const createPermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5612,7 +5502,6 @@ export const createPermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5648,7 +5537,6 @@ export const createPermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5687,7 +5575,6 @@ export const createPermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5748,7 +5635,6 @@ export const createPermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5787,7 +5673,6 @@ export const createPermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -5857,7 +5742,6 @@ export const updatePermissionLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -5896,7 +5780,6 @@ export const updatePermissionLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -5934,7 +5817,6 @@ export const updatePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -5973,7 +5855,6 @@ export const updatePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6009,7 +5890,6 @@ export const updatePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6048,7 +5928,6 @@ export const updatePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6095,7 +5974,6 @@ export const updatePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6134,7 +6012,6 @@ export const updatePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6170,7 +6047,6 @@ export const updatePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6209,7 +6085,6 @@ export const updatePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6270,7 +6145,6 @@ export const updatePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6309,7 +6183,6 @@ export const updatePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6379,7 +6252,6 @@ export const deletePermissionLinking = /* GraphQL */ `
         description
         images
         status
-        governanceType
         location {
           lat
           lon
@@ -6418,7 +6290,6 @@ export const deletePermissionLinking = /* GraphQL */ `
           locale
           name
           description
-          governanceType
           author
           address
           notes
@@ -6456,7 +6327,6 @@ export const deletePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6495,7 +6365,6 @@ export const deletePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6531,7 +6400,6 @@ export const deletePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6570,7 +6438,6 @@ export const deletePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6617,7 +6484,6 @@ export const deletePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6656,7 +6522,6 @@ export const deletePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6692,7 +6557,6 @@ export const deletePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6731,7 +6595,6 @@ export const deletePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes
@@ -6792,7 +6655,6 @@ export const deletePermissionLinking = /* GraphQL */ `
               description
               images
               status
-              governanceType
               location {
                 lat
                 lon
@@ -6831,7 +6693,6 @@ export const deletePermissionLinking = /* GraphQL */ `
                 locale
                 name
                 description
-                governanceType
                 author
                 address
                 notes

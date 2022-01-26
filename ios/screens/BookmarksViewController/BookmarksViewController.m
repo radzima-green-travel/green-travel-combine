@@ -144,7 +144,8 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
     self.somethingIsWrongLabel = [[UILabel alloc] init];
     [self.placeholder addSubview:self.somethingIsWrongLabel];
     [self.somethingIsWrongLabel setAttributedText:
-     [[TypographyLegacy get] makeLoadingScreenText:@"Вы пока ничего  сюда не добавили"]];
+     [[TypographyLegacy get] makeLoadingScreenText:
+      NSLocalizedString(@"BookmarksScreenNoBookmarksAdded", "")]];
     self.somethingIsWrongLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [self.somethingIsWrongLabel.centerXAnchor constraintEqualToAnchor:self.placeholder.centerXAnchor],

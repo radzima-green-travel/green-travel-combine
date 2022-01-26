@@ -7,13 +7,11 @@ import {errorLabelMiddliware} from 'services/ErrorLabelService';
 
 import {persistStore, persistReducer} from 'redux-persist';
 import {isIOS} from 'services/PlatformService';
+import {asyncReducers} from 'react-redux-help-kit';
 
 import {combineReducers} from 'redux';
 
 import {
-  errorReducer,
-  loadingReducer,
-  successReducer,
   bootstrapReducer,
   homeReducer,
   bookmarksReducer,
@@ -48,9 +46,7 @@ const bookmarksPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-  error: errorReducer,
-  loading: loadingReducer,
-  success: successReducer,
+  ...asyncReducers,
   bootsrap: bootstrapReducer,
   home: persistReducer(homePersistConfig, homeReducer),
   bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),

@@ -2,63 +2,63 @@
   "common": {
     "errors": {
       "-1": {
-        "title": "Ошибка сети",
-        "text": "Пожалуйста проверьте ваше интернет соединение и попробуйте еще раз"
+        "title": "Network error",
+        "text": "Please check your connection and try again"
       },
       "default": {
         "title": "",
-        "text": "Что-то пошло не так..."
+        "text": "Something went wrong..."
       }
     },
     "tabs": {
-      "home": "Главная",
-      "bookmarks": "Закладки",
-      "map": "Карта"
+      "home": "Main",
+      "bookmarks": "Bookmarks",
+      "map": "Map"
     },
-    "tryAgain": "Попробовать еще раз",
-    "coppied": "Скопировано",
+    "tryAgain": "Try again",
+    "coppied": "Copied",
     "locationPermissionFirstRequest": "Разрешить приложению Radzima доступ к данным о местоположении устройства",
     "locationPermissionText": "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию",
-    "locationPermissionCancel": "Отменить",
-    "locationPermissionSetttings": "Настройки"
+    "locationPermissionCancel": "Cancel",
+    "locationPermissionSetttings": "Settings"
   },
   "home": {
-    "headerTitle": "Главная",
+    "headerTitle": "Main",
     "Where are we going?": "Куда едем?",
     "Discover new places": "Открываем новые места",
     "Interesting around": "Интересное рядом",
-    "all": "Все",
-    "updatesAvailable": "Доступны обновления",
+    "all": "All",
+    "updatesAvailable": "Updates available",
     "errors": {
       "-1": {
         "title": "",
-        "text": "Отсутсвует подключение к Интернету"
+        "text": "Internet connection lost"
       }
     }
   },
   "objectDetails": {
-    "seeOnTheMap": "ПОСМОТРЕТЬ НА КАРТЕ",
-    "offSite": "Официальный сайт",
+    "seeOnTheMap": "SEE ON THE MAP",
+    "offSite": "Official site",
     "go": "В путь",
     "show direction": "Проложить маршрут",
-    "cancel": "Отмена",
+    "cancel": "Cancel",
     "actionSheetTitle": "В путь",
-    "routeLength": "{{km}} км, ",
+    "routeLength": "{{km}} km, ",
     "includes": "Чем заняться",
     "belongs": "Входит в...",
-    "source": "Источник:",
-    "sources": "Источники:"
+    "source": "Source:",
+    "sources": "Sources:"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"
   },
   "search": {
-    "searchTitle": "История поиска",
+    "searchTitle": "Search history",
     "notFound": "К сожалению по вашему запросу\nничего не найдено"
   },
   "map": {
-    "all": "Все",
-    "getMore": "Узнать больше",
-    "routeLength": "{{km}} км, "
+    "all": "All",
+    "getMore": "Learn more",
+    "routeLength": "{{km}} km, "
   }
 }

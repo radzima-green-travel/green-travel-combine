@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  greenTravel
+
+  Created by Alex K on 23.11.21.
+  
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Your location is used to show your position on the map and to get directions.";
+NSLocationAlwaysUsageDescription = "Your location is used to show your position on the map and to get directions.";
+NSLocationWhenInUseUsageDescription = "Your location is used to show your position on the map and to get directions.";

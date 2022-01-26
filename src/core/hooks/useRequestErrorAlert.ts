@@ -2,7 +2,8 @@ import {useEffect} from 'react';
 import {Alert} from 'react-native';
 import {EmptyActionCreator, PayloadAction} from 'typesafe-actions';
 import {useTranslation} from 'react-i18next';
-import {useRequestError} from './useRequestError';
+
+import {useRequestError} from 'react-redux-help-kit';
 
 type ActionCreator = (payload: any) => PayloadAction<string, any>;
 export function useRequestErrorAlert(
@@ -16,6 +17,7 @@ export function useRequestErrorAlert(
       const {
         message: {titlePaths, textPaths},
       } = error;
+
       Alert.alert(t(titlePaths), t(textPaths));
     }
   }, [error, t]);
