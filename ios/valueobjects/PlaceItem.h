@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PlaceItem : NSObject
 
 @property (strong, nonatomic) NSString *uuid;
+@property (weak, nonatomic) PlaceCategory *parentCategory;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *address;
 @property (strong, nonatomic) NSString *cover;

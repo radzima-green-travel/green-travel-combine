@@ -19,6 +19,7 @@
 #import "ImageUtils.h"
 #import "URLUtils.h"
 #import <react-native-ultimate-config/ConfigValues.h>
+#import "IndexModelData.h"
 
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
 
@@ -41,10 +42,8 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
           NATIVE_CLIENT_URL, @"objects.json"];
 }
 
-- (void)loadCategories:(NSString *)currentHash
-        withCompletion:(void (^)(NSArray<PlaceCategory *> *,
-                                 NSArray<PlaceDetails *> *,
-                                 NSString *))completion {
+- (void)loadCategories:(NSString *)currentHash withCompletion:(CategoriesCompletion)completion {
+  IndexModelData *indexModelData = [[IndexModelData alloc] init];
   NSURL *url = [NSURL URLWithString:[self categoriesURL]];
   __weak typeof(self) weakSelf = self;
   NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
@@ -52,26 +51,27 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
                                             timeoutInterval:120];
   NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     if (!data) {
-      completion(@[], @[], currentHash);
+      completion(indexModelData, @[], currentHash);
       return;
     }
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
     NSString *updatedHash = headers[@"ETag"];
-
+    
     NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSDictionary *dataSection = parsedData[@"data"];
     if (dataSection == nil || parsedData[@"data"] == [NSNull null]) {
-      completion(@[], @[], currentHash);
+      completion(indexModelData, @[], currentHash);
       return;
     }
     NSArray *categories = dataSection[@"listMobileObjects"];
     if (categories == nil || dataSection[@"listMobileObjects"] == [NSNull null]) {
-      completion(@[], @[], currentHash);
+      completion(indexModelData, @[], currentHash);
       return;
     }
     NSLog(@"Error when loading categories: %@", error);
     NSArray<PlaceCategory *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:categories] copy];
-    completion(mappedCategories, @[], updatedHash);
+    indexModelData.categoryTree = mappedCategories;
+    completion(indexModelData, @[], updatedHash);
   }];
   [task resume];
 }

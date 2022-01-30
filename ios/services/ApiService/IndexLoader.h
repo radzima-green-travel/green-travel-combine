@@ -13,12 +13,15 @@
 
 @class PlaceCategory;
 @class PlaceDetails;
+@class IndexModelData;
+
+typedef void (^CategoriesCompletion)(IndexModelData *indexModelData,
+                                     NSArray<PlaceDetails *> *details,
+                                     NSString *updatedHash);
 
 @protocol IndexLoader <NSObject>
 
 - (void)loadCategories:(NSString *)currentHash
-        withCompletion:(void(^)(NSArray<PlaceCategory *>*categoriesList,
-                                NSArray<PlaceDetails *>*detailsList,
-                                NSString *updatedHash))completion;
+        withCompletion:(CategoriesCompletion)completion;
 
 @end

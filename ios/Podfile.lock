@@ -345,7 +345,7 @@ PODS:
   - React-logger (0.66.1):
     - glog
   - react-native-blur (0.8.0):
-    - React
+    - React-Core
   - react-native-geolocation-service (5.0.0):
     - React
   - react-native-mapbox-gl (8.4.0):
@@ -367,9 +367,9 @@ PODS:
   - react-native-safe-area-context (3.3.2):
     - React-Core
   - react-native-ultimate-config (3.3.4):
-    - React
+    - React-Core
   - react-native-webview (10.9.0):
-    - React
+    - React-Core
   - React-perflogger (0.66.1)
   - React-RCTActionSheet (0.66.1):
     - React-Core/RCTActionSheetHeaders (= 0.66.1)
@@ -495,7 +495,7 @@ PODS:
     - React-Core
     - Sentry (= 6.0.9)
   - RNSVG (12.1.0):
-    - React
+    - React-Core
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -761,13 +761,13 @@ SPEC CHECKSUMS:
   React-jsiexecutor: db2f6e22a534d466fc0e34e622df47d9d20bab2f
   React-jsinspector: 8c0517dee5e8c70cd6c3066f20213ff7ce54f176
   React-logger: bfddd3418dc1d45b77b822958f3e31422e2c179b
-  react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
+  react-native-blur: ef741a08d020010ba65e411be0ab82d1d325e7ad
   react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
   react-native-mapbox-gl: e8129634c0f91c74a9342e4f018885e143172015
   react-native-netinfo: c9b0719bce3b436cd30a3c879fd59de3f6d72476
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
-  react-native-ultimate-config: ce215b54420306a82821895649463b00d01b9b2f
-  react-native-webview: bfe5436586b214759bd5043658863549fffc8e92
+  react-native-ultimate-config: 09b3ca27d48b7e4d133d1bdae8d7d9b0cd4077db
+  react-native-webview: aebb17d51f2115850b52b3211ec83b6f15a820c4
   React-perflogger: fcac6090a80e3d967791b4c7f1b1a017f9d4a398
   React-RCTActionSheet: caf5913d9f9e605f5467206cf9d1caa6d47d7ad6
   React-RCTAnimation: 6539e3bf594f6a529cd861985ba6548286ae1ead
@@ -794,7 +794,7 @@ SPEC CHECKSUMS:
   RNReanimated: b04ef2a4f0cb61b062bbcf033f84a9e470f4f60b
   RNScreens: 2a71d74b4e530f051f5684c8111d7591176722cf
   RNSentry: 6b46b6fc1d715a378fbaa5d7d43bc9ce99b500e5
-  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
+  RNSVG: 59dfa0b461f9e94136e1b1f3878da58a743d4795
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   Sentry: 388c9dc093b2fd3a264466a5c5b21e25959610a9

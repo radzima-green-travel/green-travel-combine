@@ -2,127 +2,154 @@
     getObjectsMetadata(id: "tag") {
         value
     }
-    listMobileObjects {
+    listMobileData {
+      categories {
         id
         name
-        fields
+        singularName
         icon
+        createdAt
+        updatedAt
+        owner
+        createdBy
+        updatedBy
+        fields
+        parent
         cover
-        objects {
+        index
+        i18n {
+          locale
+          name
+          singularName
+        }
+      }
+      objects(
+        limit: 100
+        nextToken: $nextToken$
+      ) {
+        items {
+          id
+          name
+          description
+          images
+          status
+          location {
+            lat
+            lon
+          }
+          area {
+            type
+            coordinates
+          }
+          cover
+          categoryId
+          owner
+          createdBy
+          updatedBy
+          createdAt
+          updatedAt
+          statusUpdatedAt
+          point {
+            type
+            coordinates
+          }
+          author
+          address
+          length
+          duration
+          origins {
             name
-            images
-            cover
-            address
-            author
-            createdAt
+            value
+          }
+          notes
+          url
+          routes {
+            type
+            coordinates
+          }
+          include
+          belongsTo
+          i18n {
+            locale
+            name
             description
-            duration
-            routes {
-                coordinates
-                type
-            }
-            id
-            length
-            location {
-                lat
-                lon
-            }
-            category {
-                createdAt
-                fields
-                icon
-                id
-                name
-                parent
-                updatedAt
-                cover
-            }
+            author
+            address
             notes
-            owner
-            status
-            url
-            area {
-                coordinates
-                type
-            }
-            include {
-                fields
-                icon
-                id
-                name
-                objects
-            }
-            permissions {
-                items {
-                    permission {
-                        id
-                        key
-                        name
-                    }
-                }
-            }
-        }
-        children {
-            name
+          }
+          category {
             id
-            createdAt
-            fields
+            name
+            singularName
             icon
+            createdAt
+            updatedAt
+            owner
+            createdBy
+            updatedBy
+            fields
+            parent
             cover
-            objects {
-                name
-                category {
-                    createdAt
-                    fields
-                    icon
-                    id
-                    name
-                    parent
-                    updatedAt
-                    cover
-                }
-                routes {
-                    coordinates
-                    type
-                }
-                images
-                cover
-                address
-                author
-                createdAt
-                description
-                duration
-                id
-                length
-                location {
-                    lat
-                    lon
-                }
-                notes
-                owner
-                status
-                url
-                area {
-                    coordinates
-                    type
-                }
-                include {
-                    fields
-                    icon
-                    id
-                    name
-                    objects
-                }
-                permissions {
-                    items {
-                        permission {
-                            id
-                            key
-                            name
-                        }
-                    }
-                }
+            index
+            i18n {
+              locale
+              name
+              singularName
             }
+          }
+          permissions {
+            items {
+              id
+              objectId
+              permissionId
+              createdAt
+              updatedAt
+              permission {
+                id
+                name
+                key
+                createdAt
+                updatedAt
+                owner
+                createdBy
+                updatedBy
+              }
+              object {
+                id
+                name
+                description
+                images
+                status
+                cover
+                categoryId
+                owner
+                createdBy
+                updatedBy
+                createdAt
+                updatedAt
+                statusUpdatedAt
+                author
+                address
+                length
+                duration
+                notes
+                url
+              }
+              owner
+            }
+            nextToken
+          }
         }
+        nextToken
+        total
+      }
+      metadata {
+        id
+        value
+        createdAt
+        updatedAt
+        owner
+      }
     }
+  }
 }

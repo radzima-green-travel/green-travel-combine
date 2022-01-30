@@ -23,6 +23,7 @@
 		5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */; };
 		5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */; };
 		5A39D6EF26B34C04008FC20C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A39D6F126B34C04008FC20C /* Localizable.strings */; };
+		5A53584827A999DC0017A40F /* IndexModelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A53584727A999DC0017A40F /* IndexModelData.m */; };
 		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
 		5A5E2AFD27524E7200A20489 /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2AFC27524E7200A20489 /* NoDataView.m */; };
 		5A5E2B012753AE2700A20489 /* LoadableDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2B002753AE2700A20489 /* LoadableDataViewController.m */; };
@@ -216,6 +217,8 @@
 		5A39D6F026B34C04008FC20C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A39D6F326B34C0A008FC20C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5A39D6F526B6D255008FC20C /* MainViewControllerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewControllerConstants.h; sourceTree = "<group>"; };
+		5A53584627A999DC0017A40F /* IndexModelData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexModelData.h; sourceTree = "<group>"; };
+		5A53584727A999DC0017A40F /* IndexModelData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexModelData.m; sourceTree = "<group>"; };
 		5A5DCEAC2687E5E7003025F5 /* ArrayUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayUtils.h; sourceTree = "<group>"; };
 		5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrayUtils.m; sourceTree = "<group>"; };
 		5A5E2AF02749327A00A20489 /* DetailsBatchObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsBatchObservable.h; sourceTree = "<group>"; };
@@ -888,6 +891,8 @@
 				5A775A9726064C8F00CEFC78 /* FeedItem.h */,
 				5A105FE9265FD99100511256 /* Directions.h */,
 				5A105FEA265FD99100511256 /* Directions.m */,
+				5A53584627A999DC0017A40F /* IndexModelData.h */,
+				5A53584727A999DC0017A40F /* IndexModelData.m */,
 			);
 			path = valueobjects;
 			sourceTree = "<group>";
@@ -1819,6 +1824,7 @@
 				5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */,
 				5A775DFD26077A7D00CEFC78 /* IndexViewController.m in Sources */,
 				5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */,
+				5A53584827A999DC0017A40F /* IndexModelData.m in Sources */,
 				5A775B5D26064C9000CEFC78 /* FeedItem.m in Sources */,
 				5A775DF826077A7D00CEFC78 /* PlacesTableViewCell.m in Sources */,
 				5A775B5C26064C9000CEFC78 /* SearchItem.m in Sources */,

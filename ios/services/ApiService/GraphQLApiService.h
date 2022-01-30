@@ -10,6 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class PlaceItem;
+@class PlaceCategory;
+@class IndexModelData;
+
 @interface GraphQLApiService : ApiService
 
 @end

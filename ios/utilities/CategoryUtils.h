@@ -11,6 +11,7 @@
 @class PlaceItem;
 @class StoredCategory;
 @class StoredPlaceItem;
+@class IndexModelData;
 
 void traverseCategories(NSArray<PlaceCategory *> *categories, void(^onCategoryAndItem)(PlaceCategory*, PlaceItem*));
 void traverseCategoriesWithLevel(NSArray<PlaceCategory *> *categories, NSUInteger level, void(^onCategoryAndItem)(PlaceCategory*, PlaceItem*, NSUInteger level));
@@ -18,3 +19,5 @@ void traverseStoredCategories(NSArray<StoredCategory *> *categories, void(^onCat
 BOOL isCategoriesEqual(NSArray<PlaceCategory *> *categoriesA, NSArray<PlaceCategory *> *categoriesB);
 NSMutableDictionary<NSString *, PlaceCategory *>* flattenCategoriesTreeIntoCategoriesMap(NSArray<PlaceCategory *> *categories);
 NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(NSArray<PlaceCategory *> *categories);
+IndexModelData* rawIndexToIndexModelData(NSArray<NSDictionary *> *rawCategories,
+                                         NSArray<NSDictionary *> *rawItems);

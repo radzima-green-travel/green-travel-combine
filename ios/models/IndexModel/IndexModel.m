@@ -19,6 +19,7 @@
 #import "PlaceDetails.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "IndexPeeks.h"
+#import "IndexModelData.h"
 
 @interface IndexModel ()
 
@@ -81,10 +82,9 @@ static IndexModel *instance;
   if (visible) { [self notifyObserversCategoriesLoading:YES]; }
   __weak typeof(self) weakSelf = self;
   NSString *existingETag = [self.userDefaultsService loadETag];
-  [self.apiService loadCategories:existingETag
-                   withCompletion:^(NSArray<PlaceCategory *>  * _Nonnull categoriesFromServer,
-                                                  NSArray<PlaceDetails *> * _Nonnull details,
-                                                  NSString *eTag) {
+  
+  [self.apiService loadCategories:existingETag withCompletion:^(IndexModelData *indexModelData, NSArray<PlaceDetails *> *details, NSString *eTag) {
+    NSArray<PlaceCategory *>  *categoriesFromServer = indexModelData.categoryTree;
     __strong typeof(weakSelf) strongSelf = weakSelf;
     BOOL shouldRequestCategoriesUpdate = !forceRefresh;
     if (forceRefresh || ([strongSelf.categories count] == 0 &&
@@ -122,10 +122,8 @@ static IndexModel *instance;
   self.loading = YES;
   __weak typeof(self) weakSelf = self;
   NSString *existingETag = [self.userDefaultsService loadETag];
-  [self.apiService loadCategories:existingETag
-                   withCompletion:^(NSArray<PlaceCategory *>  * _Nonnull categoriesFromServer,
-                                                  NSArray<PlaceDetails *> * _Nonnull details,
-                                                  NSString *eTag) {
+  [self.apiService loadCategories:existingETag withCompletion:^(IndexModelData *indexModelData, NSArray<PlaceDetails *> *details, NSString *eTag) {
+    NSArray<PlaceCategory *>  *categoriesFromServer = indexModelData.categoryTree;
     if ([categoriesFromServer count] == 0) {
       completion();
       return;
