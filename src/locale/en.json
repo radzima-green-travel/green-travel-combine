@@ -39,18 +39,18 @@
   "objectDetails": {
     "seeOnTheMap": "SEE ON THE MAP",
     "offSite": "Official site",
-    "go": "Navigate",
-    "show direction": "Get directions",
+    "go": "В путь",
+    "show direction": "Проложить маршрут",
     "cancel": "Cancel",
-    "actionSheetTitle": "Navigate",
+    "actionSheetTitle": "В путь",
     "routeLength": "{{km}} km, ",
-    "includes": "Activities",
-    "belongs": "Part of...",
+    "includes": "Чем заняться",
+    "belongs": "Входит в...",
     "source": "Source:",
     "sources": "Sources:"
   },
   "bookmarks": {
-    "emptyText": "Nothing is saved for now"
+    "emptyText": "Вы пока ничего сюда не добавили"
   },
   "search": {
     "searchTitle": "Search history",
