@@ -1,0 +1,64 @@
+{
+  "common": {
+    "errors": {
+      "-1": {
+        "title": "Ошибка сети",
+        "text": "请检查您是否连接到互联网"
+      },
+      "default": {
+        "title": "",
+        "text": "抱歉，出了点问题"
+      }
+    },
+    "tabs": {
+      "home": "主页",
+      "bookmarks": "收藏",
+      "map": "地图"
+    },
+    "tryAgain": "再试一次",
+    "coppied": "Скопировано",
+    "locationPermissionFirstRequest": "Разрешить приложению Radzima доступ к данным о местоположении устройства",
+    "locationPermissionText": "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию",
+    "locationPermissionCancel": "取消",
+    "locationPermissionSetttings": "设置"
+  },
+  "home": {
+    "headerTitle": "主页",
+    "Where are we going?": "Куда едем?",
+    "Discover new places": "Открываем новые места",
+    "Interesting around": "Интересное рядом",
+    "all": "全部",
+    "updatesAvailable": "Доступны обновления",
+    "errors": {
+      "-1": {
+        "title": "",
+        "text": "Отсутсвует подключение к Интернету"
+      }
+    }
+  },
+  "objectDetails": {
+    "seeOnTheMap": "ПОСМОТРЕТЬ НА КАРТЕ",
+    "offSite": "官方网站",
+    "go": "导航",
+    "show direction": "Проложить маршрут",
+    "cancel": "取消",
+    "actionSheetTitle": "导航",
+    "routeLength": "{{km}} км, ",
+    "includes": "活动",
+    "belongs": "位于在……",
+    "source": "Источник:",
+    "sources": "Источники:"
+  },
+  "bookmarks": {
+    "emptyText": "Вы пока ничего сюда не добавили"
+  },
+  "search": {
+    "searchTitle": "历史记录",
+    "notFound": "抱歉，未找到相关结果"
+  },
+  "map": {
+    "all": "全部",
+    "getMore": "了解更多",
+    "routeLength": "{{km}} км, "
+  }
+}

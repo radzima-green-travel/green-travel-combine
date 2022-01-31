@@ -6,22 +6,21 @@ import i18n from 'i18next';
 
 import ruTranslations from '../locale/ru.json';
 import enTranslations from '../locale/en.json';
+import zhTranslations from '../locale/zh.json';
 
+import {SupportedLocales} from 'core/types';
+
+/**
+ * NOTE: Add language code to SupportedLocales type
+ * before adding new language
+ */
 const RESOURCES = new Map([
   ['ru' as const, ruTranslations],
   ['en' as const, enTranslations],
+  ['zh' as const, zhTranslations],
 ]);
 
-const languages = [...RESOURCES.keys()];
-
-type Languages = typeof languages[number];
-
 class LanguageService {
-  private resources: object = {
-    ru: ruTranslations,
-    en: enTranslations,
-  };
-
   private initialData: object;
 
   /**
@@ -62,7 +61,7 @@ class LanguageService {
   /**
    * Changes the language of the application
    */
-  public changeAppLanguage(lang: Languages): void {
+  public changeAppLanguage(lang: SupportedLocales): void {
     i18n.changeLanguage(lang);
   }
 

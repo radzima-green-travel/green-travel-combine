@@ -28,6 +28,10 @@ import {
   IObejctsMap,
   IObejctsToCategoryMap,
   IOrigins,
+  SupportedLocales,
+  CategoryI18n,
+  ObjectI18n,
+  CategoryAndObjectI18n,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {ListMobileDataQuery} from 'api/graphql/types';
@@ -68,8 +72,23 @@ export async function tryOpenURL(url: string) {
   }
 }
 
+function getDataTranslation(
+  objectWithTranslates: CategoryAndObjectI18n,
+  currentLocale: SupportedLocales,
+): CategoryI18n | ObjectI18n | null | undefined {
+  if (objectWithTranslates?.length) {
+    const object = objectWithTranslates.find(
+      el => el?.locale === currentLocale,
+    );
+    return object;
+  }
+
+  return null;
+}
+
 export function transformQueryData(
   dataQuery: ListMobileDataQuery,
+  currentLocale: SupportedLocales,
 ): ITransformedData {
   const transformedData: ITransformedData = {
     objectsMap: {},
@@ -86,13 +105,19 @@ export function transformQueryData(
     const sortedCategories = orderBy(categories, ['index'], ['asc']);
 
     const objectsToCategoryMap: IObejctsToCategoryMap = {};
+
     const categoriesMap = reduce(
       sortedCategories,
       (acc, category) => {
+        const translations = getDataTranslation(
+          category?.i18n,
+          currentLocale,
+        ) as CategoryI18n;
+
         if (category) {
           acc[category.id] = {
             id: category.id,
-            name: category.name,
+            name: translations?.name ? translations.name : category.name,
             path: '',
             icon: category.icon || '',
             cover: category.cover
@@ -126,30 +151,27 @@ export function transformQueryData(
     const objectsMap = reduce(
       objects?.items,
       (acc, object) => {
+        const translations = getDataTranslation(
+          object?.i18n,
+          currentLocale,
+        ) as ObjectI18n;
+
+        const categoryTranslations = getDataTranslation(
+          object?.category?.i18n,
+          currentLocale,
+        ) as CategoryI18n;
+
         if (object) {
-          // if (object.name.includes('7')) {
-          //   console.log(object.images);
-          //   console.log(
-          //     compact(
-          //       map(object.images, img =>
-          //         img ? imagesService.getOriginalImage(img) : img,
-          //       ),
-          //     ),
-          //   );
-          //   console.log(
-          //     compact(
-          //       map(object.images, img =>
-          //         img ? imagesService.getImageProxy(img) : img,
-          //       ),
-          //     ),
-          //   );
-          // }
           objectsToCategoryMap[object.id] = object.category?.id!;
           const objectData: IObject = {
             id: object.id,
-            name: object.name,
-            description: object.description || '',
-            address: object.address || '',
+            name: translations?.name ? translations.name : object.name,
+            description: translations?.description
+              ? translations.description
+              : object.description || '',
+            address: translations?.address
+              ? translations.address
+              : object.address || '',
             area: (object.area as MultiPolygon) || null,
             location:
               object.location?.lat && object.location?.lon
@@ -161,9 +183,13 @@ export function transformQueryData(
             category: {
               icon: object.category?.icon || '',
               id: object.category?.id || '',
-              name: object.category?.name || '',
+              name: categoryTranslations?.name
+                ? categoryTranslations.name
+                : object.category?.name || '',
               parent: object.category?.parent || null,
-              singularName: object.category?.singularName || '',
+              singularName: categoryTranslations?.singularName
+                ? categoryTranslations.singularName
+                : object.category?.singularName || '',
             },
             cover: object.cover
               ? imagesService.getImageProxy(object.cover)
