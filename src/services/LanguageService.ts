@@ -1,4 +1,5 @@
 import {NativeModules, Platform} from 'react-native';
+
 import * as RNLocalize from 'react-native-localize';
 import {initReactI18next} from 'react-i18next';
 import i18n from 'i18next';
@@ -36,6 +37,7 @@ class LanguageService {
       },
     };
   }
+
   /**
    * Get all available files with translations via Object.keys(this.#resources)
    * and find best available language via findBestAvailableLanguage()
@@ -47,25 +49,32 @@ class LanguageService {
     const preferredLang = RNLocalize.findBestAvailableLanguage([
       ...RESOURCES.keys(),
     ]);
+
     const deviceLang =
       Platform.OS === 'ios'
         ? NativeModules.SettingsManager.settings.AppleLocale
         : NativeModules.I18nManager.localeIdentifier;
+
     return preferredLang?.languageTag || deviceLang;
   }
+
   /**
    * Changes the language of the application
    */
   public changeAppLanguage(lang: SupportedLocales): void {
     i18n.changeLanguage(lang);
   }
+
   /**
    * Init language service
    */
   public init(): void {
     i18n.use(initReactI18next).init(this.initialData);
+
     const language = this.getPreferredLanguage();
+
     i18n.changeLanguage(language);
   }
 }
+
 export const languageService = new LanguageService();
