@@ -28,13 +28,13 @@ import {
   IObejctsMap,
   IObejctsToCategoryMap,
   IOrigins,
+  SupportedLocales,
+  CategoryI18n,
+  ObjectI18n,
+  CategoryAndObjectI18n,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {ListMobileDataQuery} from 'api/graphql/types';
-
-import i18next from 'i18next';
-
-const APP_LANGUAGE = i18next.language;
 
 export const extractThemeStyles = (
   styles: Object,
@@ -72,8 +72,23 @@ export async function tryOpenURL(url: string) {
   }
 }
 
+function getDataTranslation(
+  objectWithTranslates: CategoryAndObjectI18n,
+  currentLocale: SupportedLocales,
+): CategoryI18n | ObjectI18n | null | undefined {
+  if (objectWithTranslates?.length) {
+    const object = objectWithTranslates.find(
+      el => el?.locale === currentLocale,
+    );
+    return object;
+  }
+
+  return null;
+}
+
 export function transformQueryData(
   dataQuery: ListMobileDataQuery,
+  currentLocale: SupportedLocales,
 ): ITransformedData {
   const transformedData: ITransformedData = {
     objectsMap: {},
@@ -94,9 +109,10 @@ export function transformQueryData(
     const categoriesMap = reduce(
       sortedCategories,
       (acc, category) => {
-        const translations = category?.i18n?.length
-          ? category?.i18n?.find(el => el?.locale === APP_LANGUAGE)
-          : undefined;
+        const translations = getDataTranslation(
+          category?.i18n,
+          currentLocale,
+        ) as CategoryI18n;
 
         if (category) {
           acc[category.id] = {
@@ -135,13 +151,15 @@ export function transformQueryData(
     const objectsMap = reduce(
       objects?.items,
       (acc, object) => {
-        const translations = object?.i18n?.length
-          ? object.i18n.find(el => el?.locale === APP_LANGUAGE)
-          : undefined;
+        const translations = getDataTranslation(
+          object?.i18n,
+          currentLocale,
+        ) as ObjectI18n;
 
-        const categoryTranslations = object?.category?.i18n?.length
-          ? object.category.i18n.find(el => el?.locale === APP_LANGUAGE)
-          : undefined;
+        const categoryTranslations = getDataTranslation(
+          object?.category?.i18n,
+          currentLocale,
+        ) as CategoryI18n;
 
         if (object) {
           objectsToCategoryMap[object.id] = object.category?.id!;
