@@ -125,3 +125,24 @@ export type IBookmarksData = IBookmarkItem[];
 export interface IGetHomeDataResponse {
   data: {listMobileObjects: ICategory[]; getObjectsMetadata: {value: string}};
 }
+
+export type SupportedLocales = 'ru' | 'en' | 'zh';
+
+export type CategoryI18n = {
+  locale: string;
+  name?: string | null;
+  singularName?: string | null;
+};
+export type ObjectI18n = {
+  locale: string;
+  name?: string | null;
+  description?: string | null;
+  governanceType?: string | null;
+  author?: string | null;
+  address?: string | null;
+  notes?: string | null;
+};
+export type CategoryAndObjectI18n =
+  | Array<CategoryI18n | ObjectI18n | null>
+  | null
+  | undefined;
