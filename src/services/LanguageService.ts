@@ -6,10 +6,12 @@ import i18n from 'i18next';
 
 import ruTranslations from '../locale/ru.json';
 import enTranslations from '../locale/en.json';
+import zhTranslations from '../locale/zh.json';
 
 const RESOURCES = new Map([
   ['ru' as const, ruTranslations],
   ['en' as const, enTranslations],
+  ['zh' as const, zhTranslations],
 ]);
 
 const languages = [...RESOURCES.keys()];
@@ -17,11 +19,6 @@ const languages = [...RESOURCES.keys()];
 type Languages = typeof languages[number];
 
 class LanguageService {
-  private resources: object = {
-    ru: ruTranslations,
-    en: enTranslations,
-  };
-
   private initialData: object;
 
   /**
