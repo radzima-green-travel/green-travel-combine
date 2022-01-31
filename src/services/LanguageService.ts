@@ -14,9 +14,9 @@ class LanguageService {
    * @returns {string}
    */
   public getPreferredLanguage(): string {
-    const languagesList = i18n.languages;
+    // const languagesList = i18n.languages;
 
-    const preferredLang = RNLocalize.findBestAvailableLanguage(languagesList);
+    const preferredLang = RNLocalize.findBestAvailableLanguage(['en', 'ru']);
 
     const deviceLang =
       Platform.OS === 'ios'
