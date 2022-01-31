@@ -1,30 +1,69 @@
 import {NativeModules, Platform} from 'react-native';
-
 import * as RNLocalize from 'react-native-localize';
+import {initReactI18next} from 'react-i18next';
 import i18n from 'i18next';
 
+import ruTranslations from '../locale/ru.json';
+import enTranslations from '../locale/en.json';
+import zhTranslations from '../locale/zh.json';
+
+const RESOURCES = new Map([
+  ['ru' as const, ruTranslations],
+  ['en' as const, enTranslations],
+  ['zh' as const, zhTranslations],
+]);
+
+const languages = [...RESOURCES.keys()];
+
+type Languages = typeof languages[number];
+
 class LanguageService {
+  private initialData: object;
+
   /**
-   * Get all available files with translations via i18n.languages
+   * Constructor
+   */
+  constructor() {
+    const resources = Object.fromEntries(RESOURCES);
+    this.initialData = {
+      resources,
+      lng: 'ru',
+      fallbackLng: 'ru',
+      interpolation: {
+        escapeValue: false,
+      },
+    };
+  }
+  /**
+   * Get all available files with translations via Object.keys(this.#resources)
    * and find best available language via findBestAvailableLanguage()
    * 'findBestAvailableLanguage' payed attention to
    * selected preferred language in app settings:
    * Device lang: 'en', app lang: 'ru' - will return 'ru'
-   *
-   * @returns {string}
    */
   public getPreferredLanguage(): string {
-    const languagesList = i18n.languages;
-
-    const preferredLang = RNLocalize.findBestAvailableLanguage(languagesList);
-
+    const preferredLang = RNLocalize.findBestAvailableLanguage([
+      ...RESOURCES.keys(),
+    ]);
     const deviceLang =
       Platform.OS === 'ios'
         ? NativeModules.SettingsManager.settings.AppleLocale
         : NativeModules.I18nManager.localeIdentifier;
-
     return preferredLang?.languageTag || deviceLang;
   }
+  /**
+   * Changes the language of the application
+   */
+  public changeAppLanguage(lang: Languages): void {
+    i18n.changeLanguage(lang);
+  }
+  /**
+   * Init language service
+   */
+  public init(): void {
+    i18n.use(initReactI18next).init(this.initialData);
+    const language = this.getPreferredLanguage();
+    i18n.changeLanguage(language);
+  }
 }
-
 export const languageService = new LanguageService();
