@@ -42,7 +42,7 @@ export const SearchList = memo(
           style={styles.emptyListContainer}>
           <View style={styles.emptyListContent}>
             <Icon name="search" color={COLORS.silver} height={48} width={48} />
-            <Text style={styles.emtyListText}>{t('notFound')}</Text>
+            <Text style={styles.emptyListText}>{t('notFound')}</Text>
           </View>
         </KeyboardAvoidingView>
 

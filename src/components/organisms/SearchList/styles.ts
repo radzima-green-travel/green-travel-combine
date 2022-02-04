@@ -22,7 +22,7 @@ export const themeStyles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  emtyListText: {
+  emptyListText: {
     ...FONTS_STYLES.regular15,
     color: {
       light: COLORS.boulder,

@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useRef} from 'react';
+import React, {memo, useCallback, useRef, useEffect} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
 import {themeStyles, cardWidth} from './styles';
@@ -41,6 +41,8 @@ export const HomeSectionBar = memo(
     const objectsData = useObjects(objects);
     const childrenData = useCategories(children);
 
+    const listRef = useRef<FlatList>(null);
+
     const onAllPressHandler = useCallback(() => {
       if (isCategoriesList) {
         onAllCategoriesPress({categoryId, title: sectionTitle});
@@ -69,9 +71,11 @@ export const HomeSectionBar = memo(
       [onCategoryPress, sectionTitle],
     );
 
-    const listRef = useRef<FlatList>(null);
-
     useScrollToTop(listRef);
+
+    useEffect(() => {
+      listRef.current?.scrollToOffset({animated: true, offset: 0});
+    }, [childrenData, objectsData]);
 
     return (
       <View>
