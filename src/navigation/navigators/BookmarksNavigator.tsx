@@ -7,6 +7,7 @@ import {
   ObjectsListScreen,
 } from 'screens';
 
+import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
 import {BookmarksNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -16,11 +17,13 @@ const Stack = createNativeStackNavigator<BookmarksNavigatorParamsList>();
 
 export function BookmarksNavigator() {
   const screenOptions = useScreenOptions();
+  const {t} = useTranslation('common');
+
   return (
     <Stack.Navigator
       screenOptions={{
         ...screenOptions,
-        title: 'Закладки',
+        title: t('tabs.bookmarks'),
         animation: defaultTransition,
       }}>
       <Stack.Screen name="Bookmarks" component={BookmarksScreen} />

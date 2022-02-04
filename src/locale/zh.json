@@ -2,7 +2,7 @@
   "common": {
     "errors": {
       "-1": {
-        "title": "Ошибка сети",
+        "title": "網絡錯誤",
         "text": "请检查您是否连接到互联网"
       },
       "default": {
@@ -16,41 +16,41 @@
       "map": "地图"
     },
     "tryAgain": "再试一次",
-    "coppied": "Скопировано",
-    "locationPermissionFirstRequest": "Разрешить приложению Radzima доступ к данным о местоположении устройства",
-    "locationPermissionText": "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию",
+    "coppied": "已復制",
+    "locationPermissionFirstRequest": "允許 Radzima 應用訪問設備位置數據",
+    "locationPermissionText": "在設置中授予對地理位置的訪問權限以確定您的位置",
     "locationPermissionCancel": "取消",
     "locationPermissionSetttings": "设置"
   },
   "home": {
     "headerTitle": "主页",
-    "Where are we going?": "Куда едем?",
-    "Discover new places": "Открываем новые места",
-    "Interesting around": "Интересное рядом",
+    "Where are we going?": "我們去哪裡？",
+    "Discover new places": "開闢新的地方",
+    "Interesting around": "附近有趣",
     "all": "全部",
-    "updatesAvailable": "Доступны обновления",
+    "updatesAvailable": "可用更新",
     "errors": {
       "-1": {
         "title": "",
-        "text": "Отсутсвует подключение к Интернету"
+        "text": "沒有網絡連接"
       }
     }
   },
   "objectDetails": {
-    "seeOnTheMap": "ПОСМОТРЕТЬ НА КАРТЕ",
+    "seeOnTheMap": "在地图上查看",
     "offSite": "官方网站",
     "go": "导航",
-    "show direction": "Проложить маршрут",
+    "show direction": "獲取路線",
     "cancel": "取消",
     "actionSheetTitle": "导航",
-    "routeLength": "{{km}} км, ",
+    "routeLength": "{{km}} 公里, ",
     "includes": "活动",
     "belongs": "位于在……",
-    "source": "Источник:",
-    "sources": "Источники:"
+    "source": "來源:",
+    "sources": "來源:"
   },
   "bookmarks": {
-    "emptyText": "Вы пока ничего сюда не добавили"
+    "emptyText": "暂时没有添加书签"
   },
   "search": {
     "searchTitle": "历史记录",
@@ -59,6 +59,6 @@
   "map": {
     "all": "全部",
     "getMore": "了解更多",
-    "routeLength": "{{km}} км, "
+    "routeLength": "{{km}} 公里, "
   }
 }

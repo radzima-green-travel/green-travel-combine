@@ -17,16 +17,16 @@
     },
     "tryAgain": "Try again",
     "coppied": "Copied",
-    "locationPermissionFirstRequest": "Разрешить приложению Radzima доступ к данным о местоположении устройства",
-    "locationPermissionText": "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию",
+    "locationPermissionFirstRequest": "Allow the Radzima app to access device location data",
+    "locationPermissionText": "Grant access to Geolocation in settings to determine your position",
     "locationPermissionCancel": "Cancel",
     "locationPermissionSetttings": "Settings"
   },
   "home": {
     "headerTitle": "Main",
-    "Where are we going?": "Куда едем?",
-    "Discover new places": "Открываем новые места",
-    "Interesting around": "Интересное рядом",
+    "Where are we going?": "Where we go?",
+    "Discover new places": "Opening new places",
+    "Interesting around": "Interesting nearby",
     "all": "All",
     "updatesAvailable": "Updates available",
     "errors": {
@@ -54,7 +54,7 @@
   },
   "search": {
     "searchTitle": "Search history",
-    "notFound": "К сожалению по вашему запросу\nничего не найдено"
+    "notFound": "Unfortunately, no results match this search"
   },
   "map": {
     "all": "All",
