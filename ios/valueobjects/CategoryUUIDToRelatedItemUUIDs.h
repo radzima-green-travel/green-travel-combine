@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CategoryUUIDToRelatedItemUUIDs : NSObject
 
 @property (strong, nonatomic) NSString *categoryUUID;
-@property (strong, nonatomic) NSOrderedSet<NSString *> *relatedItemUUIDs;
+@property (strong, nonatomic) NSMutableOrderedSet<NSString *> *relatedItemUUIDs;
 
 @end
 

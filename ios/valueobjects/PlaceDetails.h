@@ -10,12 +10,14 @@
 #import <CoreLocation/CoreLocation.h>
 
 @class CategoryUUIDToRelatedItemUUIDs;
+@class PlaceItem;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaceDetails : NSObject
 
 @property (strong, nonatomic) NSString *uuid;
+@property (weak, nonatomic) PlaceItem *parentItem;
 @property (strong, nonatomic) NSArray<NSString *> *images;
 @property (strong, nonatomic) NSString *address;
 @property (strong, nonatomic) NSString *descriptionHTML;

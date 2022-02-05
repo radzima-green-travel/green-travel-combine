@@ -14,7 +14,7 @@
 
 @interface GraphQLApiService()
 
-@property (strong, nonatomic) NSCache<NSString *, NSMutableString *> *requestBodyCache;
+@property (strong, nonatomic) NSCache<NSString *, NSMutableString *> *queryCache;
 
 @end
 
@@ -29,7 +29,7 @@ static const NSString * kQueryGetIndex = @"index";
 
 - (NSData *)getQuery:(NSString *)queryName
               withParams:(NSDictionary<NSString *,NSString *> *)params {
-  NSMutableString *query = [self.requestBodyCache objectForKey:queryName];
+  NSMutableString *query = [self.queryCache objectForKey:queryName];
   NSError *error;
   if (query == nil) {
     NSString *fileName = [NSString stringWithFormat:@"%@.graphql", queryName];
@@ -50,7 +50,7 @@ static const NSString * kQueryGetIndex = @"index";
              [regex stringByReplacingMatchesInString:query options:0
                                                range:NSMakeRange(0, [query length])
                                         withTemplate:@" "]];
-    [self.requestBodyCache setObject:query forKey:queryName];
+    [self.queryCache setObject:query forKey:queryName];
   }
   if (params != nil && [params count]) {
     [params enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull paramKey,
@@ -70,7 +70,7 @@ static const NSString * kQueryGetIndex = @"index";
 }
 
 - (NSMutableURLRequest *)makeRequestForQuery:(NSString *)query
-                                      withParams:(NSDictionary<NSString *,NSString *> *)params {
+                                  withParams:(NSDictionary<NSString *,NSString *> *)params {
   NSURL *url = [NSURL URLWithString:NATIVE_CLIENT_GRAPHQL_URL];
   NSMutableURLRequest *mutableRequest = [NSMutableURLRequest requestWithURL:url];
   [mutableRequest setHTTPMethod:@"POST"];
@@ -82,11 +82,11 @@ static const NSString * kQueryGetIndex = @"index";
 
 - (void)loadCategories:(NSString *)currentHash
         withCompletion:(CategoriesCompletion)completion {
-  IndexModelData *indexModelData = [[IndexModelData alloc] init];
   NSMutableURLRequest *getTagRequest = [self makeRequestForQuery:kQueryGetTag
                                                       withParams:nil];
   __weak typeof(self) weakSelf = self;
   NSURLSessionDataTask *getTagTask = [self.session dataTaskWithRequest:getTagRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    IndexModelData *indexModelData = [[IndexModelData alloc] init];
     if (!data) {
       completion(indexModelData, @[], currentHash);
       return;
@@ -97,8 +97,10 @@ static const NSString * kQueryGetIndex = @"index";
       completion(indexModelData, @[], currentHash);
       return;
     }
-    NSMutableDictionary<NSString *, NSDictionary *> *accumulatedCategories = [[NSMutableDictionary<NSString *, NSDictionary *> alloc] init];
-    NSMutableDictionary<NSString *, NSDictionary *> *accumulatedItems = [[NSMutableDictionary<NSString *, NSDictionary *> alloc] init];
+    NSMutableDictionary<NSString *, NSDictionary *> *accumulatedCategories =
+    [[NSMutableDictionary alloc] init];
+    NSMutableDictionary<NSString *, NSDictionary *> *accumulatedItems =
+    [[NSMutableDictionary alloc] init];
     [weakSelf getCategories:currentHash nextToken:nil accumulatedCategories:accumulatedCategories accumulatedItems:accumulatedItems сompletion:completion];
   }];
   [getTagTask resume];
@@ -110,7 +112,10 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
      accumulatedItems:(NSMutableDictionary<NSString *, NSDictionary *> *)accumulatedItems
            сompletion:(CategoriesCompletion)completion
 {
-  NSString *nextTokenSub = nextToken == nil ? @"null" : nextToken;
+  NSString *nextTokenSub = @"null";
+  if (nextToken != nil) {
+    nextTokenSub = [NSString stringWithFormat:@"\\\"%@\\\"", nextToken];
+  }
   NSMutableURLRequest *getCategoriesRequest =
   [self makeRequestForQuery:kQueryGetIndex withParams:@{
     @"$nextToken$": nextTokenSub
@@ -129,15 +134,15 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
            intoAccumulatedCategories:accumulatedCategories
                     accumulatedItems:accumulatedItems];
     
-    NSString *updatedToken = body[@"data"][@"getObjectsMetadata"][@"objects"][@"nextToken"];
+    NSString *updatedToken = body[@"data"][@"listMobileData"][@"objects"][@"nextToken"];
     
-    if (updatedToken == nil) {
+    if (updatedToken == nil || [updatedToken isEqual:[NSNull null]]) {
       NSString *updatedHash = body[@"data"][@"getObjectsMetadata"][@"value"];
       indexModelData = rawIndexToIndexModelData(accumulatedCategories, accumulatedItems);
       completion(indexModelData, @[], updatedHash);
       return;
     }
-    [weakSelf getCategories:currentHash nextToken:nextToken
+    [weakSelf getCategories:currentHash nextToken:updatedToken
       accumulatedCategories:accumulatedCategories
            accumulatedItems:accumulatedItems сompletion:completion];
   }];
@@ -147,8 +152,8 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
 - (void)fillRawIndexData:(NSDictionary *)body
      intoAccumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumulatedCategories
               accumulatedItems:(NSMutableDictionary<NSString *, NSDictionary *> *)accumulatedItems {
-  NSArray<NSDictionary *> *rawItems = [[self mapCategoriesFromJSON:body[@"data"][@"listMobileData"][@"objects"]] copy];
-  NSArray<NSDictionary *> *rawCategories = [[self mapCategoriesFromJSON:body[@"data"][@"listMobileData"][@"categories"]] copy];
+  NSArray<NSDictionary *> *rawItems = [body[@"data"][@"listMobileData"][@"objects"][@"items"] copy];
+  NSArray<NSDictionary *> *rawCategories = [body[@"data"][@"listMobileData"][@"categories"] copy];
   [rawItems enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull rawItem, NSUInteger idx, BOOL * _Nonnull stop) {
     accumulatedItems[rawItem[@"id"]] = rawItem;
   }];
