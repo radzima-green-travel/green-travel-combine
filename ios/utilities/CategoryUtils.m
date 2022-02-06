@@ -7,6 +7,7 @@
 //
 
 #import "CategoryUtils.h"
+#import "LocaleUtils.h"
 #import "IndexModelData.h"
 #import "PlaceCategory.h"
 #import "PlaceItem.h"
@@ -98,13 +99,15 @@ NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(
     });
     return flatItems;
 }
-
+ 
+#pragma mark - Mapping category
 PlaceCategory* mapRawCategoryToPlaceCategory(NSDictionary *rawCategory) {
   PlaceCategory *category = [[PlaceCategory alloc] init];
   category.title = rawCategory[@"name"];
   category.cover = getFullImageURL(rawCategory[@"cover"]);
   category.uuid = rawCategory[@"id"];
   category.icon = rawCategory[@"icon"];
+  category.index = [(NSNumber *) rawCategory[@"index"] intValue];
   return category;
 }
 
@@ -137,6 +140,7 @@ NSMutableArray* buildCategoryIdToItemIdsRelations(NSArray *itemIds,
   return categoryIdToItemsOrdered;
 }
 
+#pragma mark - Mapping details
 PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
                                           NSMutableDictionary<NSString*, PlaceItem*> *flatItems,
                                           NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories) {
@@ -203,6 +207,7 @@ CLLocationCoordinate2D mapRawCoordsToCLLocationCoordinate2D(NSDictionary *rawIte
   return CLLocationCoordinate2DMake([rawItem[@"location"][@"lat"] doubleValue], [rawItem[@"location"][@"lon"] doubleValue]);
 }
 
+#pragma mark - Mapping item
 PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
   PlaceItem *placeItem = [[PlaceItem alloc] init];
   placeItem.title = rawItem[@"name"];
@@ -219,14 +224,14 @@ PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
 }
 
 
-BOOL categoryIsValid(NSDictionary *rawCategory) {
+BOOL rawCategoryIsValid(NSDictionary *rawCategory) {
   return rawCategory[@"icon"] != nil && ![rawCategory[@"icon"] isEqual:[NSNull null]];
 }
 
 NSMutableDictionary<NSString*, PlaceCategory*>* mapToFlatCategories(NSMutableDictionary<NSString *, NSDictionary *>* rawCategories) {
   NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories = [[NSMutableDictionary alloc] init];
   [rawCategories enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull rawCategoryId, NSDictionary * _Nonnull rawCategory, BOOL * _Nonnull stop) {
-    if (categoryIsValid(rawCategory)) {
+    if (rawCategoryIsValid(rawCategory)) {
       flatCategories[rawCategoryId] = mapRawCategoryToPlaceCategory(rawCategory);
     }
   }];
@@ -259,7 +264,49 @@ void fillInDetails(NSMutableDictionary<NSString *, NSDictionary *>* rawItems,
   }];
 }
 
+BOOL categoryIsValid(PlaceCategory *category) {
+  return [category.items count] > 0 || [category.categories count] > 0;
+}
+
+BOOL itemIsValid(PlaceItem *item) {
+  return [item.details.descriptionHTML length] > 0 &&
+  [item.details.images count] > 0;
+}
+
 #pragma mark - Merging into tree
+void filterInvalidItems(NSMutableArray<PlaceItem *> *rootNodes) {
+  [rootNodes filterUsingPredicate:
+   [NSPredicate predicateWithBlock:^BOOL(PlaceItem * _Nullable item,
+                                         NSDictionary<NSString *,id> * _Nullable bindings) {
+    return itemIsValid(item);
+  }]];
+  
+}
+
+void filterInvalidCategories(NSMutableArray<PlaceCategory *> *rootNodes) {
+  [rootNodes filterUsingPredicate:
+   [NSPredicate predicateWithBlock:^BOOL(PlaceCategory * _Nullable category,
+                                         NSDictionary<NSString *,id> * _Nullable bindings) {
+    filterInvalidCategories(category.categories);
+    filterInvalidItems(category.items);
+    return categoryIsValid(category);
+  }]];
+}
+
+void sortTree(NSMutableArray<PlaceCategory *> *rootNodes) {
+  [rootNodes enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull placeCategory, NSUInteger idx, BOOL * _Nonnull stop) {
+    sortTree(placeCategory.categories);
+    [placeCategory.items sortUsingComparator:^NSComparisonResult(PlaceItem * _Nonnull i1,
+                                                                 PlaceItem * _Nonnull i2) {
+      return [i1.title localizedCaseInsensitiveCompare:i2.title];
+    }];
+  }];
+  [rootNodes sortUsingComparator:^NSComparisonResult(PlaceCategory *  _Nonnull c1,
+                                                     PlaceCategory *  _Nonnull c2) {
+    return c1.index - c2.index;
+  }];
+}
+
 NSMutableArray<PlaceCategory *>* mergeIntoCategoryTree(NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories, NSMutableDictionary<NSString*, PlaceItem*> *flatItems) {
   NSMutableArray<PlaceCategory *> *rootNodes = [[NSMutableArray alloc] init];
   [flatCategories enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, PlaceCategory * _Nonnull placeCategory, BOOL * _Nonnull stop) {
@@ -282,7 +329,6 @@ NSMutableArray<PlaceCategory *>* mergeIntoCategoryTree(NSMutableDictionary<NSStr
     }
     [parentCategory.items addObject:placeItem];
   }];
-  
   return rootNodes;
 }
 
@@ -293,6 +339,9 @@ IndexModelData* rawIndexToIndexModelData(NSMutableDictionary<NSString *, NSDicti
   NSMutableDictionary<NSString*, PlaceItem*> *flatItems = mapToFlatItems(rawItems, flatCategories);
   fillInDetails(rawItems, flatCategories, flatItems);
   NSMutableArray<PlaceCategory *> *categoryTree = mergeIntoCategoryTree(flatCategories, flatItems);
+  filterInvalidCategories(categoryTree);
+  sortTree(categoryTree);
+  
   IndexModelData *indexModelData = [[IndexModelData alloc] init];
   indexModelData.flatCategories = flatCategories;
   indexModelData.flatItems = flatItems;

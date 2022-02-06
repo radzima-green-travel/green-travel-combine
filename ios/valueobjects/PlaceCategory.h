@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSString *uuid;
 @property (weak, nonatomic) PlaceCategory *parentCategory;
+@property (assign, nonatomic) NSUInteger index;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *icon;
 @property (strong, nonatomic) NSMutableArray<PlaceCategory *> *categories;

@@ -148,8 +148,8 @@ NSPersistentContainer *_persistentContainer;
   }];
 }
 
-- (void)saveDetailsFromCategories:(NSArray<PlaceCategory *> *)categories
-                   withCompletion:(nonnull void (^)(void))completion {
+- (void)saveDetailsFromItems:(NSMutableDictionary<NSString *, PlaceItem *> *)items
+              withCompletion:(nonnull void (^)(void))completion {
   NSError *error;
   NSFetchRequest *fetchRequest = [StoredPlaceDetails fetchRequest];
   NSBatchDeleteRequest *deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
@@ -157,18 +157,19 @@ NSPersistentContainer *_persistentContainer;
   __weak typeof(self) weakSelf = self;
   [self.ctx performBlockAndWait:^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
-    if ([categories count]) {
-      NSError *error;
-      traverseCategories(categories, ^(PlaceCategory *cat, PlaceItem *item) {
-        if (item != nil) {
-          StoredPlaceDetails *storedDetails =
-          [strongSelf mapDetailsToStoredDetails:item.details];
-          [strongSelf.ctx insertObject:storedDetails];
-        }
-      });
-      [strongSelf.ctx save:&error];
-      completion();
+    if ([items count] == 0) {
+      return;
     }
+    NSError *error;
+    [items enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key,
+                                               PlaceItem * _Nonnull item,
+                                               BOOL * _Nonnull stop) {
+      StoredPlaceDetails *storedDetails =
+      [strongSelf mapDetailsToStoredDetails:item.details];
+      [strongSelf.ctx insertObject:storedDetails];
+    }];
+    [strongSelf.ctx save:&error];
+    completion();
   }];
 }
 

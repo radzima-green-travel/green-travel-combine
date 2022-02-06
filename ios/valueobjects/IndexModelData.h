@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IndexModelData : NSObject
 
-@property (strong, nonatomic) NSDictionary<NSString *, PlaceCategory *> *flatCategories;
-@property (strong, nonatomic) NSDictionary<NSString *, PlaceItem *> *flatItems;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, PlaceCategory *> *flatCategories;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, PlaceItem *> *flatItems;
 @property (strong, nonatomic) NSMutableArray<PlaceCategory *> *categoryTree;
 
 @end

@@ -156,6 +156,8 @@
 		5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */; };
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
+		5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB227B016D000C74857 /* LocaleUtils.m */; };
+		5AB4AFB627B0311800C74857 /* InformationSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB527B0311800C74857 /* InformationSource.m */; };
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
@@ -481,6 +483,10 @@
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
 		5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewDetailedMap.m; sourceTree = "<group>"; };
+		5AB4AFB127B016D000C74857 /* LocaleUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleUtils.h; sourceTree = "<group>"; };
+		5AB4AFB227B016D000C74857 /* LocaleUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaleUtils.m; sourceTree = "<group>"; };
+		5AB4AFB427B0311800C74857 /* InformationSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationSource.h; sourceTree = "<group>"; };
+		5AB4AFB527B0311800C74857 /* InformationSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationSource.m; sourceTree = "<group>"; };
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
@@ -870,6 +876,7 @@
 				5A775A8326064C8F00CEFC78 /* PlaceCategory.m */,
 				5A775A8426064C8F00CEFC78 /* BookmarkItem.m */,
 				5A775A8526064C8F00CEFC78 /* PlaceDetails.h */,
+				5A775A8F26064C8F00CEFC78 /* PlaceDetails.m */,
 				5A775A8626064C8F00CEFC78 /* PathItem.m */,
 				5A775A8726064C8F00CEFC78 /* SearchItem.m */,
 				5A775A8826064C8F00CEFC78 /* FeedItem.m */,
@@ -878,7 +885,6 @@
 				5A775A8C26064C8F00CEFC78 /* PlaceItem.h */,
 				5A775A8D26064C8F00CEFC78 /* CategoryUUIDToRelatedItemUUIDs.h */,
 				5A775A8E26064C8F00CEFC78 /* PathItem.h */,
-				5A775A8F26064C8F00CEFC78 /* PlaceDetails.m */,
 				5A775A9126064C8F00CEFC78 /* BookmarkItem.h */,
 				5A775A9226064C8F00CEFC78 /* SearchItem.h */,
 				5A775A9326064C8F00CEFC78 /* PlaceItem.m */,
@@ -893,6 +899,8 @@
 				5A105FEA265FD99100511256 /* Directions.m */,
 				5A53584627A999DC0017A40F /* IndexModelData.h */,
 				5A53584727A999DC0017A40F /* IndexModelData.m */,
+				5AB4AFB427B0311800C74857 /* InformationSource.h */,
+				5AB4AFB527B0311800C74857 /* InformationSource.m */,
 			);
 			path = valueobjects;
 			sourceTree = "<group>";
@@ -1000,6 +1008,8 @@
 				5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */,
 				5A5E2B07275D5AB600A20489 /* ViewUtils.h */,
 				5A5E2B08275D5AB600A20489 /* ViewUtils.m */,
+				5AB4AFB127B016D000C74857 /* LocaleUtils.h */,
+				5AB4AFB227B016D000C74857 /* LocaleUtils.m */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -1737,6 +1747,7 @@
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
 				5A1FFB29267626A400E31162 /* Colors.m in Sources */,
 				5A775DF726077A7D00CEFC78 /* RefreshButton.m in Sources */,
+				5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */,
 				5A775E1226077A7D00CEFC78 /* SearchViewController.m in Sources */,
 				5A2144B1266B988700582901 /* MapViewState.m in Sources */,
 				5A775B6026064C9000CEFC78 /* MapItem.m in Sources */,
@@ -1779,6 +1790,7 @@
 				5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */,
 				5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */,
 				5A775B5426064C9000CEFC78 /* DetailsModel.m in Sources */,
+				5AB4AFB627B0311800C74857 /* InformationSource.m in Sources */,
 				5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */,
 				5A775B5126064C9000CEFC78 /* IndexModel.m in Sources */,
 				5A775E0D26077A7D00CEFC78 /* GalleryPageControl.m in Sources */,

@@ -29,9 +29,9 @@
 @property (assign, nonatomic) BOOL loadedFromDB;
 @property (assign, nonatomic) BOOL loading;
 @property (assign, nonatomic) BOOL loadingRemote;
-@property (strong, nonatomic) NSArray<PlaceCategory *> *categoriesScheduledForUpdate;
+@property (strong, nonatomic) IndexModelData *indexModelDataScheduledForUpdate;
 @property (strong, nonatomic) NSString *eTagScheduledForUpdate;
-- (NSArray<PlaceCategory *>*)copyBookmarksFromOldCategories:(NSArray<PlaceCategory *>*)oldCategories
+- (void)copyBookmarksFromOldCategories:(NSArray<PlaceCategory *>*)oldCategories
                                    toNew:(NSArray<PlaceCategory *>*)newCategories;
 
 
@@ -83,14 +83,15 @@ static IndexModel *instance;
   __weak typeof(self) weakSelf = self;
   NSString *existingETag = [self.userDefaultsService loadETag];
   
-  [self.apiService loadCategories:existingETag withCompletion:^(IndexModelData *indexModelData, NSArray<PlaceDetails *> *details, NSString *eTag) {
+  [self.apiService loadCategories:existingETag
+                   withCompletion:^(IndexModelData *indexModelData, NSArray<PlaceDetails *> *details, NSString *eTag) {
     NSArray<PlaceCategory *>  *categoriesFromServer = indexModelData.categoryTree;
     __strong typeof(weakSelf) strongSelf = weakSelf;
     BOOL shouldRequestCategoriesUpdate = !forceRefresh;
     if (forceRefresh || ([strongSelf.categories count] == 0 &&
                          [categoriesFromServer count] > 0)) {
       [strongSelf.coreDataService saveCategories:categoriesFromServer];
-      [strongSelf saveDetailsFromCategories:categoriesFromServer
+      [strongSelf saveDetailsFromItems:indexModelData.flatItems
                              withCompletion:^{
         [weakSelf.userDefaultsService saveETag:eTag];
       }];
@@ -108,11 +109,10 @@ static IndexModel *instance;
     }
     NSString *existingETag = [strongSelf.userDefaultsService loadETag];
     if (![existingETag isEqualToString:eTag] && [categoriesFromServer count] > 0) {
-      NSArray<PlaceCategory*> *newCategoriesFromServer =
       [strongSelf copyBookmarksFromOldCategories:strongSelf.categories
-                                           toNew:categoriesFromServer];
+                                           toNew:indexModelData.categoryTree];
       if (shouldRequestCategoriesUpdate) {
-        [strongSelf requestCategoriesUpdate:newCategoriesFromServer eTag:eTag];
+        [strongSelf requestCategoriesUpdate:indexModelData eTag:eTag];
       }
     }
   }];
@@ -135,7 +135,7 @@ static IndexModel *instance;
                                            toNew:categoriesFromServer];
       [strongSelf.coreDataService saveCategories:categoriesFromServer];
       __weak typeof(strongSelf) weakSelf = strongSelf;
-      [strongSelf saveDetailsFromCategories:categoriesFromServer
+      [strongSelf saveDetailsFromItems:indexModelData.flatItems
                              withCompletion:^{
         [weakSelf.userDefaultsService saveETag:eTag];
       }];
@@ -149,12 +149,12 @@ static IndexModel *instance;
   }];
 }
 
-- (void)saveDetailsFromCategories:(NSArray<PlaceCategory *>*)categories
+- (void)saveDetailsFromItems:(NSMutableDictionary<NSString *, PlaceItem *>*)items
                    withCompletion:(nonnull void (^)(void))completion {
   [self notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-    [weakSelf.coreDataService saveDetailsFromCategories:categories
+    [weakSelf.coreDataService saveDetailsFromItems:items
                                          withCompletion:^{
       completion();
       [weakSelf notifyObserversDetailsBatch:DetailsLoadStateSuccess error:nil];
@@ -168,16 +168,17 @@ static IndexModel *instance;
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
                  dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     __strong typeof(weakSelf) strongSelf = weakSelf;
-    NSArray<PlaceCategory*> *newCategories = [strongSelf.categoriesScheduledForUpdate copy];
+    NSArray<PlaceCategory*> *newCategories = [strongSelf.indexModelDataScheduledForUpdate.categoryTree copy];
     [strongSelf notifyObserversDetailsBatch:DetailsLoadStateProgress error:nil];
     [strongSelf.coreDataService saveCategories:newCategories];
-    [strongSelf saveDetailsFromCategories:newCategories withCompletion:^{
+    [strongSelf saveDetailsFromItems:strongSelf.indexModelDataScheduledForUpdate.flatItems
+                      withCompletion:^{
       [weakSelf.userDefaultsService saveETag:weakSelf.eTagScheduledForUpdate];
     }];
     [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *> * _Nonnull categoriesFromDB) {
       __weak typeof(strongSelf) weakSelf = strongSelf;
       [weakSelf updateCategories:categoriesFromDB];
-      weakSelf.categoriesScheduledForUpdate = nil;
+      weakSelf.indexModelDataScheduledForUpdate = nil;
       [weakSelf notifyObserversCategoriesLoading:NO];
     }];
   });
@@ -194,7 +195,7 @@ static IndexModel *instance;
   });
 }
 
-- (NSArray<PlaceCategory *>*)copyBookmarksFromOldCategories:(NSArray<PlaceCategory *>*)oldCategories
+- (void)copyBookmarksFromOldCategories:(NSArray<PlaceCategory *>*)oldCategories
                                    toNew:(NSArray<PlaceCategory *>*)newCategories {
     NSMutableSet *uuids = [[NSMutableSet alloc] init];
     traverseCategories(oldCategories, ^(PlaceCategory *category, PlaceItem *item) {
@@ -207,7 +208,6 @@ static IndexModel *instance;
             item.bookmarked = YES;
         }
     });
-    return newCategories;
 }
 
 - (void)bookmarkItem:(PlaceItem *)item bookmark:(BOOL)bookmark {
@@ -259,10 +259,10 @@ static IndexModel *instance;
   });
 }
 
-- (void)requestCategoriesUpdate:(NSArray<PlaceCategory *> *)categoriesScheduledForUpdate
+- (void)requestCategoriesUpdate:(IndexModelData *)indexModelData
                            eTag:(NSString *)eTag {
     // TODO: change this to show "new content is available" widget
-    self.categoriesScheduledForUpdate = categoriesScheduledForUpdate;
+    self.indexModelDataScheduledForUpdate = indexModelData;
     self.eTagScheduledForUpdate = eTag;
     [self notifyObserversNewDataAvailable];
 }

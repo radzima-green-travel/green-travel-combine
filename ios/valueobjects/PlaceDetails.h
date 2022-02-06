@@ -11,6 +11,7 @@
 
 @class CategoryUUIDToRelatedItemUUIDs;
 @class PlaceItem;
+@class InformationSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray<NSArray<CLLocation *> *> *area;
 // Coordinate array.
 @property (strong, nonatomic) NSArray<CLLocation *> *path;
+@property (strong, nonatomic) NSArray<InformationSource *> *sources;
 
 @end 
 
