@@ -119,6 +119,9 @@ PODS:
   - Mapbox-iOS-SDK (6.3.0):
     - MapboxMobileEvents (~> 0.10.4)
   - MapboxMobileEvents (0.10.12)
+  - MMKV (1.2.12):
+    - MMKVCore (~> 1.2.12)
+  - MMKVCore (1.2.12)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -362,6 +365,9 @@ PODS:
     - Mapbox-iOS-SDK (~> 6.3)
     - React
     - React-Core
+  - react-native-mmkv (2.0.1):
+    - MMKV
+    - React-Core
   - react-native-netinfo (7.1.4):
     - React-Core
   - react-native-safe-area-context (3.3.2):
@@ -541,6 +547,7 @@ DEPENDENCIES:
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - "react-native-mapbox-gl (from `../node_modules/@react-native-mapbox-gl/maps`)"
+  - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-ultimate-config (from `../node_modules/react-native-ultimate-config`)
@@ -595,6 +602,8 @@ SPEC REPOS:
     - libwebp
     - Mapbox-iOS-SDK
     - MapboxMobileEvents
+    - MMKV
+    - MMKVCore
     - nanopb
     - PromisesObjC
     - SDWebImage
@@ -652,6 +661,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-mapbox-gl:
     :path: "../node_modules/@react-native-mapbox-gl/maps"
+  react-native-mmkv:
+    :path: "../node_modules/react-native-mmkv"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
@@ -744,6 +755,8 @@ SPEC CHECKSUMS:
   libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
   Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
   MapboxMobileEvents: b72b07268586c6fd1f53178f08df15f74070b188
+  MMKV: f281020c9d9be5eb7a03ae746dc4deb570e46c23
+  MMKVCore: df0565f6b58463604731a68ba6cd89bc0b2d1d55
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   Permission-LocationAlways: d3ac15e4bf8f4f5f4e224b4fea6f84b14fa19132
   Permission-LocationWhenInUse: ebef6bf8a123d382f25e9990468cfc8a76fbadf5
@@ -764,6 +777,7 @@ SPEC CHECKSUMS:
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
   react-native-mapbox-gl: e8129634c0f91c74a9342e4f018885e143172015
+  react-native-mmkv: bb1b8057949b5318bca2c0f6ba832051b713403c
   react-native-netinfo: c9b0719bce3b436cd30a3c879fd59de3f6d72476
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-ultimate-config: ce215b54420306a82821895649463b00d01b9b2f
