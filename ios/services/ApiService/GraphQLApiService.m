@@ -76,6 +76,8 @@ static const NSString * kQueryGetIndex = @"index";
   [mutableRequest setHTTPMethod:@"POST"];
   [mutableRequest setValue:NATIVE_CLIENT_GRAPHQL_API_KEY
         forHTTPHeaderField:@"x-api-key"];
+  [mutableRequest setValue:@"gzip"
+        forHTTPHeaderField:@"Accept-Encoding"];
   [mutableRequest setHTTPBody:[self getQuery:query withParams:params]];
   return mutableRequest;
 }
