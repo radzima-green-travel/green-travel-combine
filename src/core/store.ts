@@ -1,3 +1,4 @@
+import {MMKV} from 'react-native-mmkv';
 import {applyMiddleware, createStore, Store} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -5,7 +6,7 @@ import {StateType} from 'typesafe-actions';
 import {rootSaga} from './rootSaga';
 import {errorLabelMiddliware} from 'services/ErrorLabelService';
 
-import {persistStore, persistReducer} from 'redux-persist';
+import {Storage, persistStore, persistReducer} from 'redux-persist';
 import {isIOS} from 'services/PlatformService';
 import {asyncReducers} from 'react-redux-help-kit';
 
@@ -19,12 +20,29 @@ import {
   objectDetailsMapReducer,
 } from './reducers';
 
+const storage = new MMKV();
+
+const reduxStorage: Storage = {
+  setItem: (key, value) => {
+    storage.set(key, value);
+    return Promise.resolve(true);
+  },
+  getItem: key => {
+    const value = storage.getString(key);
+    return Promise.resolve(value);
+  },
+  removeItem: key => {
+    storage.delete(key);
+    return Promise.resolve();
+  },
+};
+
 let AsyncStorage;
 
 if (isIOS) {
   AsyncStorage = require('@react-native-async-storage/async-storage').default;
 } else {
-  AsyncStorage = require('redux-persist-filesystem-storage').default;
+  AsyncStorage = reduxStorage;
 }
 
 const searchPersistConfig = {
