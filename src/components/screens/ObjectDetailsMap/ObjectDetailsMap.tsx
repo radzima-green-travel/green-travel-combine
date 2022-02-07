@@ -139,7 +139,8 @@ export const ObjectDetailsMap = ({route}: IProps) => {
     camera.current?.fitBounds(...directionBounds);
   });
 
-  const loading = useRequestLoading(showObjectDetailsMapDirectionRequest);
+  const {loading} = useRequestLoading(showObjectDetailsMapDirectionRequest);
+
   useOnRequestSuccess(
     showObjectDetailsMapDirectionRequest,
     useCallback(() => {
