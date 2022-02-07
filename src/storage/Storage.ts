@@ -46,7 +46,7 @@ class Storage {
       return this.parseResponse(response);
     } catch (e) {
       if (['development', 'staging'].indexOf(Config.ENVIRONMENT) !== -1) {
-        Alert.alert('', e?.message || 'Storage process error');
+        Alert.alert('', (e as Error)?.message || 'Storage process error');
       }
     }
   }
