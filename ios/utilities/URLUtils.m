@@ -14,3 +14,18 @@ NSString* encodeURL(NSString *urlStringToEncode) {
   return percentEncodedURLString;
 }
 
+BOOL urlIsSafe(NSString *url) {
+  return [url hasPrefix:@"https://"];
+}
+
+void openURL(UIViewController *vc, NSString *urlStr) {
+  NSURL *url = [NSURL URLWithString:urlStr];
+  BOOL safeURL = urlIsSafe(urlStr);
+  if (safeURL) {
+    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+    [vc presentViewController:safariViewController animated:YES completion:^{}];
+    return;
+  }
+  [UIApplication.sharedApplication openURL:url options:@{}
+                         completionHandler:^(BOOL success) {}];
+}

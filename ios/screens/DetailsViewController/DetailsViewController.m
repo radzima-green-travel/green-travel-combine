@@ -39,6 +39,8 @@
 #import <SafariServices/SafariServices.h>
 #import "NoDataView.h"
 #import "LabelledButtonGroup.h"
+#import "URLUtils.h"
+#import "InformationReference.h"
 
 @interface DetailsViewController ()
 
@@ -193,7 +195,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     self.bookmarkButton.layer.borderWidth = 1.0;
     self.bookmarkButton.layer.borderColor = [[ColorsLegacy get].heavyMetal35 CGColor];
     self.bookmarkButton.layer.masksToBounds = YES;
-    
+
     self.bookmarkButton.tintColor = [ColorsLegacy get].logCabin;
     [self.bookmarkButton setSelected:self.item.bookmarked];
 
@@ -300,12 +302,12 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   self.addressLabel.numberOfLines = 4;
   [self.addressLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
   self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
   [self.contentView addSubview:self.addressLabel];
-  
+
   [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
   self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:26.0];
-  
+
   [NSLayoutConstraint activateConstraints:@[
     self.descriptionTextTopAnchor,
     [self.addressLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:8.0],
@@ -319,19 +321,19 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   if (self.locationButton != nil) {
     return;
   }
-  
+
   self.locationButton = [[UIButton alloc] init];
   [self.locationButton.titleLabel setFont:[UIFont fontWithName:@"OpenSans-Regular" size:14.0]];
-  
+
   [self.locationButton addTarget:self action:@selector(onLocationButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-  
+
   self.locationButton.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
   [self.contentView addSubview:self.locationButton];
-  
+
   [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
   self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.locationButton.bottomAnchor constant:26.0];
-  
+
   [NSLayoutConstraint activateConstraints:@[
     self.descriptionTextTopAnchor,
     [self.locationButton.topAnchor constraintEqualToAnchor:self.addressLabel.bottomAnchor constant:3.0],
@@ -349,12 +351,12 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
                                 action:@selector(onMapButtonPress:)
                                  label:NSLocalizedString(@"DetailsScreenSeeOnMap", "")];
   [self.contentView addSubview:self.mapButtonTop];
-  
+
   NSLayoutConstraint *mapButtonTopLeading = [self.mapButtonTop.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:16.0];
   NSLayoutConstraint *mapButtonTopTrailing = [self.mapButtonTop.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16.0];
   mapButtonTopLeading.priority = UILayoutPriorityDefaultHigh - 1;
   mapButtonTopTrailing.priority = UILayoutPriorityDefaultHigh - 1;
-  
+
   [NSLayoutConstraint deactivateConstraints:@[self.descriptionTextTopAnchor]];
   self.descriptionTextTopAnchor = [self.descriptionTextView.topAnchor constraintEqualToAnchor:self.mapButtonTop.bottomAnchor constant:26.0];
   [NSLayoutConstraint activateConstraints:@[
@@ -372,10 +374,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     return;
   }
   self.linkOfficialSite = [[UIButtonHighlightable alloc] initWithFrame:CGRectZero];
-  
+
   SEL action = @selector(onWebsiteUnsafeButtonPress:);
   BOOL urlIsSafe = [self.itemDetails.url hasPrefix:@"https://"];
-  
+
   if (urlIsSafe) {
     action = @selector(onWebsiteButtonPress:);
   }
@@ -386,9 +388,9 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
                                  NSLocalizedString(@"DetailsScreenOfficialSite", @"")];
   [self.linkOfficialSite setAttributedTitle:label
                                    forState:UIControlStateNormal];
-  
+
   [self.contentView addSubview:self.linkOfficialSite];
-  
+
   [NSLayoutConstraint deactivateConstraints:@[self.prevLastViewBottomAnchor]];
   self.linkOfficialSite.translatesAutoresizingMaskIntoConstraints = NO;
   NSLayoutConstraint *buttonLeading =
@@ -430,22 +432,26 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   self.prevLastView = self.linkOfficialSite;
 }
 
+#pragma mark - References
 - (void)addSourcesView {
   if (self.sourcesView != nil) {
     return;
   }
+  __weak typeof(self) weakSelf = self;
   self.sourcesView =
   [[LabelledButtonGroup alloc] initWithConfigItems:self.item.details.references
                                              label:NSLocalizedString(@"DetailsScreenSources", @"")
                                          viewMaker:^UIView * _Nonnull(NSObject * _Nonnull) {
     return [[UIView alloc] initWithFrame:CGRectZero];
-  } onPress:^(NSObject * _Nonnull) {
+  } onPress:^(NSObject * _Nonnull obj, NSUInteger idx) {
+    InformationReference reference = (InformationReference *) obj;
+    openURL(weakSelf, reference.url);
   }];
-  
+
   [self.contentView addSubview:self.sourcesView];
-  
+
   [self.contentView addSubview:self.sourcesView];
-  
+
   self.sourcesView.translatesAutoresizingMaskIntoConstraints = NO;
 
   [NSLayoutConstraint deactivateConstraints:@[self.prevLastViewBottomAnchor]];
@@ -467,7 +473,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   if (self.linkedCategoriesTypeToView[@(type)] != nil) {
     return;
   }
-  
+
   LinkedCategoriesView *linkedCategoriesView =
   [[LinkedCategoriesView alloc] initWithIndexModel:self.indexModel
                                         apiService:self.apiService
@@ -489,9 +495,9 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     placesViewController.category = category;
     [self.navigationController pushViewController:placesViewController animated:YES];
   }];
-  
+
   [self.contentView addSubview:linkedCategoriesView];
-  
+
   linkedCategoriesView.translatesAutoresizingMaskIntoConstraints = NO;
 
   [NSLayoutConstraint deactivateConstraints:@[self.prevLastViewBottomAnchor]];

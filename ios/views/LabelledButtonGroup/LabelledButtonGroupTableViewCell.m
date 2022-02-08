@@ -32,51 +32,30 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.backgroundColor = [Colors get].background;
-  [self.chevron setImage:[UIImage imageNamed:@"chevron-right"]];
 }
 
 - (void)setUp {
-#pragma mark - Header label
-    self.contentWrapperView = [[UIView alloc] init];
-    [self.contentView addSubview:self.contentWrapperView];
-    
-    self.contentWrapperView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [self.contentWrapperView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [self.contentWrapperView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-    ]];
-    
-#pragma mark - Chevron
-    self.chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevron-right"]];
-    self.chevron.tintColor = [ColorsLegacy get].black;
-    [self.contentView addSubview:self.chevron];
-    
-    self.chevron.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [self.chevron.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [self.chevron.leadingAnchor constraintEqualToAnchor:self.contentWrapperView.trailingAnchor constant:10.0],
-        [self.chevron.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-25.0],
-    ]];
 }
 
-- (void)update:(UIView *)contentView {
-  [self.contentWrapperView addSubview:contentView];
-  
-  contentView.translatesAutoresizingMaskIntoConstraints = NO;
-  
+- (void)update:(UIView *)embeddedView {
+  [self.contentView addSubview:embeddedView];
+
+  embeddedView.translatesAutoresizingMaskIntoConstraints = NO;
+
   [NSLayoutConstraint activateConstraints:@[
-      [contentView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-      [contentView.leadingAnchor constraintEqualToAnchor:self.contentWrapperView.leadingAnchor],
-      [contentView.trailingAnchor constraintEqualToAnchor:self.contentWrapperView.trailingAnchor],
+    [embeddedView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
+    [embeddedView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
+    [embeddedView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
+    [embeddedView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+
   ]];
 }
 
 - (void)prepareForReuse {
   [super prepareForReuse];
-  [self.contentWrapperView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subview,
-                                                                 NSUInteger idx, BOOL * _Nonnull stop) {
+  [self.contentView.subviews
+   enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subview,
+                                NSUInteger idx, BOOL * _Nonnull stop) {
     [subview removeFromSuperview];
   }];
 }

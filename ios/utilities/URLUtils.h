@@ -7,5 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIKit/UIKit.h"
+#import <SafariServices/SafariServices.h>
 
 NSString* encodeURL(NSString *url);
+BOOL urlIsSafe(NSString *url);
