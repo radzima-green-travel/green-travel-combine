@@ -225,7 +225,10 @@ PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
 
 
 BOOL rawCategoryIsValid(NSDictionary *rawCategory) {
-  return rawCategory[@"icon"] != nil && ![rawCategory[@"icon"] isEqual:[NSNull null]];
+  return rawCategory[@"icon"] != nil &&
+  ![rawCategory[@"icon"] isEqual:[NSNull null]] &&
+  rawCategory[@"index"] != nil &&
+  ![rawCategory[@"index"] isEqual:[NSNull null]];
 }
 
 NSMutableDictionary<NSString*, PlaceCategory*>* mapToFlatCategories(NSMutableDictionary<NSString *, NSDictionary *>* rawCategories) {
