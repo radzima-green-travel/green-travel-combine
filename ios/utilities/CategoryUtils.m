@@ -17,6 +17,7 @@
 #import "StoredCategory+CoreDataProperties.h"
 #import "URLUtils.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
+#import "InformationReference.h"
 
 void traverseCategoriesWithLevel(NSArray<PlaceCategory *> *categories, NSUInteger level, void(^onCategoryAndItem)(PlaceCategory*, PlaceItem*, NSUInteger)) {
   [categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -141,6 +142,23 @@ NSMutableArray* buildCategoryIdToItemIdsRelations(NSArray *itemIds,
 }
 
 #pragma mark - Mapping details
+void fillReferencesIntoDetails(PlaceDetails *details, NSDictionary *rawItem) {
+  if (rawItem[@"origins"] && ![rawItem[@"origins"] isEqual:[NSNull null]]) {
+    NSMutableArray *references = [[NSMutableArray alloc] init];
+    NSArray<NSDictionary *> *rawReferences = (NSArray<NSDictionary *>*) rawItem[@"origins"];
+    [rawReferences enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull rawReference,
+                                                NSUInteger idx, BOOL * _Nonnull stop) {
+      InformationReference *reference = [[InformationReference alloc] init];
+      reference.url = rawReference[@"url"];
+      reference.title = rawReference[@"title"];
+      [references addObject:reference];
+    }];
+    details.references = [references copy];
+  } else {
+    details.references = @[];
+  }
+}
+
 PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
                                           NSMutableDictionary<NSString*, PlaceItem*> *flatItems,
                                           NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories) {
@@ -172,6 +190,7 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
   } else {
     details.url = @"";
   }
+  fillReferencesIntoDetails(details, rawItem);
   NSMutableArray<NSMutableArray<CLLocation *> *> *mappedAreaCoords = [[NSMutableArray alloc] init];
   if (rawItem[@"area"] && ![rawItem[@"area"] isEqual:[NSNull null]]) {
     NSArray<NSArray<NSArray<NSArray<NSNumber *> *> *> *> *coords = rawItem[@"area"][@"coordinates"];

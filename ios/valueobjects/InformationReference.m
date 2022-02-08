@@ -5,8 +5,8 @@
 //  Created by Alex K on 6.02.22.
 //
 
-#import "InformationSource.h"
+#import "InformationReference.h"
 
-@implementation InformationSource
+@implementation InformationReference
 
 @end

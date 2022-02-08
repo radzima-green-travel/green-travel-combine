@@ -24,6 +24,7 @@
 		5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */; };
 		5A39D6EF26B34C04008FC20C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A39D6F126B34C04008FC20C /* Localizable.strings */; };
 		5A53584827A999DC0017A40F /* IndexModelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A53584727A999DC0017A40F /* IndexModelData.m */; };
+		5A53584B27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A53584A27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m */; };
 		5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */; };
 		5A5E2AFD27524E7200A20489 /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2AFC27524E7200A20489 /* NoDataView.m */; };
 		5A5E2B012753AE2700A20489 /* LoadableDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E2B002753AE2700A20489 /* LoadableDataViewController.m */; };
@@ -157,7 +158,8 @@
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
 		5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB227B016D000C74857 /* LocaleUtils.m */; };
-		5AB4AFB627B0311800C74857 /* InformationSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB527B0311800C74857 /* InformationSource.m */; };
+		5AB4AFB627B0311800C74857 /* InformationReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB527B0311800C74857 /* InformationReference.m */; };
+		5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB827B31D8300C74857 /* LabelledButtonGroup.m */; };
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
@@ -221,6 +223,8 @@
 		5A39D6F526B6D255008FC20C /* MainViewControllerConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewControllerConstants.h; sourceTree = "<group>"; };
 		5A53584627A999DC0017A40F /* IndexModelData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexModelData.h; sourceTree = "<group>"; };
 		5A53584727A999DC0017A40F /* IndexModelData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexModelData.m; sourceTree = "<group>"; };
+		5A53584927B4162A0017A40F /* LabelledButtonGroupTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelledButtonGroupTableViewCell.h; sourceTree = "<group>"; };
+		5A53584A27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelledButtonGroupTableViewCell.m; sourceTree = "<group>"; };
 		5A5DCEAC2687E5E7003025F5 /* ArrayUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayUtils.h; sourceTree = "<group>"; };
 		5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrayUtils.m; sourceTree = "<group>"; };
 		5A5E2AF02749327A00A20489 /* DetailsBatchObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsBatchObservable.h; sourceTree = "<group>"; };
@@ -485,8 +489,10 @@
 		5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewDetailedMap.m; sourceTree = "<group>"; };
 		5AB4AFB127B016D000C74857 /* LocaleUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleUtils.h; sourceTree = "<group>"; };
 		5AB4AFB227B016D000C74857 /* LocaleUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaleUtils.m; sourceTree = "<group>"; };
-		5AB4AFB427B0311800C74857 /* InformationSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationSource.h; sourceTree = "<group>"; };
-		5AB4AFB527B0311800C74857 /* InformationSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationSource.m; sourceTree = "<group>"; };
+		5AB4AFB427B0311800C74857 /* InformationReference.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationReference.h; sourceTree = "<group>"; };
+		5AB4AFB527B0311800C74857 /* InformationReference.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationReference.m; sourceTree = "<group>"; };
+		5AB4AFB727B31D8300C74857 /* LabelledButtonGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelledButtonGroup.h; sourceTree = "<group>"; };
+		5AB4AFB827B31D8300C74857 /* LabelledButtonGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelledButtonGroup.m; sourceTree = "<group>"; };
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
@@ -899,8 +905,8 @@
 				5A105FEA265FD99100511256 /* Directions.m */,
 				5A53584627A999DC0017A40F /* IndexModelData.h */,
 				5A53584727A999DC0017A40F /* IndexModelData.m */,
-				5AB4AFB427B0311800C74857 /* InformationSource.h */,
-				5AB4AFB527B0311800C74857 /* InformationSource.m */,
+				5AB4AFB427B0311800C74857 /* InformationReference.h */,
+				5AB4AFB527B0311800C74857 /* InformationReference.m */,
 			);
 			path = valueobjects;
 			sourceTree = "<group>";
@@ -1195,6 +1201,7 @@
 				5A775DCB26077A7C00CEFC78 /* LinkedCategories */,
 				5A775DD226077A7C00CEFC78 /* GalleryView */,
 				5A775DDF26077A7C00CEFC78 /* BannerView */,
+				5AB4AFBB27B46C4A00C74857 /* SourcesView */,
 			);
 			path = DetailsViewController;
 			sourceTree = "<group>";
@@ -1375,6 +1382,24 @@
 			path = BottomSheetViewDetailedMap;
 			sourceTree = "<group>";
 		};
+		5AB4AFBA27B31D8C00C74857 /* LabelledButtonGroup */ = {
+			isa = PBXGroup;
+			children = (
+				5AB4AFB727B31D8300C74857 /* LabelledButtonGroup.h */,
+				5AB4AFB827B31D8300C74857 /* LabelledButtonGroup.m */,
+				5A53584927B4162A0017A40F /* LabelledButtonGroupTableViewCell.h */,
+				5A53584A27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m */,
+			);
+			path = LabelledButtonGroup;
+			sourceTree = "<group>";
+		};
+		5AB4AFBB27B46C4A00C74857 /* SourcesView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SourcesView;
+			sourceTree = "<group>";
+		};
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1387,6 +1412,7 @@
 				5A29148826E3B89A004AD6F3 /* UIButtonHighlightable */,
 				5A29148C26E4F7F6004AD6F3 /* UIButtonWithFeedback */,
 				5A9D706E26EE448000F4799D /* CommonButtonWithProgress */,
+				5AB4AFBA27B31D8C00C74857 /* LabelledButtonGroup */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1491,9 +1517,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 53APD5F9YQ;
+						DevelopmentTeam = NWSTPFC433;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1754,6 +1780,7 @@
 				5A775E1426077A7D00CEFC78 /* UISearchControllerNoCancel.m in Sources */,
 				5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */,
 				5A775B5A26064C9000CEFC78 /* BookmarkItem.m in Sources */,
+				5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */,
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
@@ -1785,12 +1812,13 @@
 				5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */,
 				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
+				5A53584B27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m in Sources */,
 				5A21445C2663E9A700582901 /* AlertUtils.m in Sources */,
 				5A6DC5062655B1DA00A2D37B /* StoredPlaceDetails+CoreDataProperties.m in Sources */,
 				5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */,
 				5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */,
 				5A775B5426064C9000CEFC78 /* DetailsModel.m in Sources */,
-				5AB4AFB627B0311800C74857 /* InformationSource.m in Sources */,
+				5AB4AFB627B0311800C74857 /* InformationReference.m in Sources */,
 				5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */,
 				5A775B5126064C9000CEFC78 /* IndexModel.m in Sources */,
 				5A775E0D26077A7D00CEFC78 /* GalleryPageControl.m in Sources */,
@@ -1906,10 +1934,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1928,9 +1956,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

@@ -39,6 +39,7 @@
 "DetailsScreenActivities" = "Activities";
 "DetailsScreenBelongsTo" = "Part of...";
 "DetailsScreenSeeOnMap" = "See on map";
+"DetailsScreenSources" = "References";
 
 "MapFilterAll" = "All";
 

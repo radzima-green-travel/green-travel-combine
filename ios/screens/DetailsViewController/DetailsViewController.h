@@ -41,6 +41,9 @@ typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
                        searchModel:(SearchModel *) searchModel
                        detailsModel:(DetailsModel *)detailsModel;
 @property (strong, nonatomic) PlaceItem *item;
+@property (strong, nonatomic) UIView *prevLastView;
+@property (strong, nonatomic) NSLayoutConstraint *prevLastViewBottomAnchor;
+@property (strong, nonatomic) UIButton *sourcesView;
 
 @end
 

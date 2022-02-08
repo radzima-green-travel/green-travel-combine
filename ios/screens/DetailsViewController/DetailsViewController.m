@@ -38,6 +38,7 @@
 #import "BookmarkButton.h"
 #import <SafariServices/SafariServices.h>
 #import "NoDataView.h"
+#import "LabelledButtonGroup.h"
 
 @interface DetailsViewController ()
 
@@ -52,6 +53,7 @@
 @property (strong, nonatomic) UIButton *mapButtonTop;
 @property (strong, nonatomic) UIButton *mapButtonBottom;
 @property (strong, nonatomic) UIButton *linkOfficialSite;
+
 @property (strong, nonatomic) DescriptionView *descriptionTextView;
 @property (strong, nonatomic) UIStackView *descriptionPlaceholderView;
 @property (strong, nonatomic) UILabel *interestingLabel;
@@ -66,8 +68,6 @@
 @property (strong, nonatomic) UIViewPropertyAnimator *bannerHideAnimator;
 
 @property (strong, nonatomic) NSLayoutConstraint *descriptionTextTopAnchor;
-@property (strong, nonatomic) UIView *prevLastView;
-@property (strong, nonatomic) NSLayoutConstraint *prevLastViewBottomAnchor;
 
 @property (assign, nonatomic) BOOL ready;
 @property (strong, nonatomic) PlaceDetails *itemDetails;
@@ -428,6 +428,38 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   }
   self.prevLastViewBottomAnchor = bottomAnchor;
   self.prevLastView = self.linkOfficialSite;
+}
+
+- (void)addSourcesView {
+  if (self.sourcesView != nil) {
+    return;
+  }
+  self.sourcesView =
+  [[LabelledButtonGroup alloc] initWithConfigItems:self.item.details.references
+                                             label:NSLocalizedString(@"DetailsScreenSources", @"")
+                                         viewMaker:^UIView * _Nonnull(NSObject * _Nonnull) {
+    return [[UIView alloc] initWithFrame:CGRectZero];
+  } onPress:^(NSObject * _Nonnull) {
+  }];
+  
+  [self.contentView addSubview:self.sourcesView];
+  
+  [self.contentView addSubview:self.sourcesView];
+  
+  self.sourcesView.translatesAutoresizingMaskIntoConstraints = NO;
+
+  [NSLayoutConstraint deactivateConstraints:@[self.prevLastViewBottomAnchor]];
+
+  self.prevLastViewBottomAnchor =
+  [self.sourcesView.bottomAnchor
+   constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5];
+  [NSLayoutConstraint activateConstraints:@[
+      [self.prevLastView.bottomAnchor constraintEqualToAnchor:self.sourcesView.topAnchor constant:-32.0],
+      [self.sourcesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
+      [self.sourcesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
+      self.prevLastViewBottomAnchor,
+  ]];
+  self.prevLastView = linkedCategoriesView;
 }
 
 #pragma mark - Linked categories view
