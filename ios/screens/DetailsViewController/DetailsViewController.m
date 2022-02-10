@@ -42,6 +42,7 @@
 #import "URLUtils.h"
 #import "InformationReference.h"
 #import "ReferenceContentView.h"
+#import "LabelledButtonGroupTableViewCell.h"
 
 @interface DetailsViewController ()
 
@@ -442,10 +443,8 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   self.referencesView =
   [[LabelledButtonGroup alloc] initWithConfigItems:self.item.details.references
                                              label:NSLocalizedString(@"DetailsScreenSources", @"")
-                                         viewMaker:^UIView * _Nonnull(NSObject * _Nonnull obj) {
-    InformationReference *reference = (InformationReference *) obj;
-    return [[ReferenceContentView alloc] initWithIconVisible:urlIsSafe(reference.url) text:reference.title];
-  } onPress:^(NSObject * _Nonnull obj) {
+                                         cellClass:LabelledButtonGroupTableViewCell.class
+                                           onPress:^(NSObject * _Nonnull obj) {
     InformationReference *reference = (InformationReference *) obj;
     openURL(weakSelf, reference.url);
   }];

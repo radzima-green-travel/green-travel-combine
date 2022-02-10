@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *items;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) UILabel *labelView;
+@property (strong, nonatomic) Class cellClass;
 @property (strong, nonatomic) UITableView *tableView;
 @property (copy, nonatomic) UIView*(^viewMaker)(NSObject * _Nonnull);
 @property (copy, nonatomic) void(^onPress)(NSObject * _Nonnull);
@@ -41,14 +42,14 @@ static NSUInteger kRowHeight = 46.0;
 
 - (instancetype)initWithConfigItems:(NSArray *)items
                               label:(NSString *)label
-                          viewMaker:(UIView*(^)(NSObject *))viewMaker
+                          cellClass:(Class)cellClass
                             onPress:(void (^)(NSObject * _Nonnull))onPress {
     self = [super init];
     if (self) {
       self.items = [[NSMutableArray alloc] initWithArray:items];
       self.title = label;
-      self.viewMaker = viewMaker;
       self.onPress = onPress;
+      self.cellClass = cellClass;
       [self setUp];
     }
     return self;
@@ -76,7 +77,8 @@ static NSUInteger kRowHeight = 46.0;
   ]];
   
   self.tableView = [[UITableView alloc] init];
-  [self.tableView registerClass:LabelledButtonGroupTableViewCell.class forCellReuseIdentifier:kButtonCellId];
+  [self.tableView registerClass:self.cellClass
+         forCellReuseIdentifier:kButtonCellId];
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -126,7 +128,7 @@ static NSUInteger kRowHeight = 46.0;
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
   NSObject *dataItem = self.items[indexPath.row];
   LabelledButtonGroupTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kButtonCellId];
-  [cell update:self.viewMaker(dataItem)];
+  [cell update:dataItem];
   return cell;
 }
  

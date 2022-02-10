@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithConfigItems:(NSArray<ContentType> *)items
                               label:(NSString *)label
-                          viewMaker:(UIView*(^)(NSObject *))viewMaker
+                          cellClass:(Class)cellClass
                             onPress:(void(^)(NSObject *))onPress;
 - (void)update:(NSArray<ContentType> *)items;
 

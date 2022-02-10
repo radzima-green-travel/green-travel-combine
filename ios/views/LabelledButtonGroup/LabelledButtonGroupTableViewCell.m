@@ -8,13 +8,16 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
+#import "URLUtils.h"
 #import "PlaceCategory.h"
 #import "TypographyLegacy.h"
 #import "IconNameToImageNameMap.h"
+#import "InformationReference.h"
 
 @interface LabelledButtonGroupTableViewCell()
 
-@property (strong, nonatomic) UIView *contentWrapperView;
+@property (strong, nonatomic) UIImageView *icon;
+@property (strong, nonatomic) UILabel *title;
 @property (strong, nonatomic) UIImageView *chevron;
 
 @end
@@ -37,27 +40,79 @@
 - (void)setUp {
 }
 
-- (void)update:(UIView *)embeddedView {
-  [self.contentView addSubview:embeddedView];
+- (void)update:(NSObject *)dataItem {
+  InformationReference *reference = (InformationReference *) dataItem;
+  [self.icon removeFromSuperview];
+  [self.title removeFromSuperview];
+  [self.chevron removeFromSuperview];
 
-  embeddedView.translatesAutoresizingMaskIntoConstraints = NO;
-
+  BOOL safeURL = urlIsSafe(reference.url);
+#pragma mark - Image
+  if (!safeURL) {
+    UIImage *lockSlash;
+    if (@available(iOS 13.0, *)) {
+      lockSlash = [UIImage systemImageNamed:@"lock.slash"];
+    } else {
+      lockSlash = [UIImage imageNamed:@"lock.slash"];
+    }
+    self.icon = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.icon];
+    
+    self.icon.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.icon setImage:lockSlash];
+    
+    [NSLayoutConstraint activateConstraints:@[
+      [self.icon.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+      [self.icon.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0],
+      [self.icon.widthAnchor constraintEqualToConstant:20.0],
+      [self.icon.heightAnchor constraintEqualToConstant:20.0],
+    ]];
+  }
+#pragma mark - Chevron
+  if (safeURL) {
+    self.chevron = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chevron-right"]];
+    self.chevron.tintColor = [ColorsLegacy get].black;
+    [self.contentView addSubview:self.chevron];
+    
+    self.chevron.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [NSLayoutConstraint activateConstraints:@[
+      [self.chevron.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+      [self.chevron.widthAnchor constraintEqualToConstant:7.0],
+      [self.chevron.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-25.0],
+    ]];
+  }
+  
+#pragma mark - Header label
+  self.title = [[UILabel alloc] init];
+  [self.contentView addSubview:self.title];
+  
+  self.title.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.title setFont:[UIFont fontWithName:@"Montserrat-Regular" size:15.0]];
+  
+  NSLayoutConstraint *leading = self.icon == nil ?
+  [self.title.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0] :
+  [self.title.leadingAnchor constraintEqualToAnchor:self.icon.trailingAnchor constant:10.0];
+  
+  NSLayoutConstraint *trailing = self.chevron == nil ?
+  [self.title.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:16.0] :
+  [self.title.leadingAnchor constraintLessThanOrEqualToAnchor:self.chevron.leadingAnchor constant:10.0];
+  
   [NSLayoutConstraint activateConstraints:@[
-    [embeddedView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
-    [embeddedView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-    [embeddedView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
-    [embeddedView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
-
+    [self.title.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+    leading,
+    trailing,
   ]];
+  [self.title setLineBreakMode:NSLineBreakByTruncatingTail];
+  [self.title setAttributedText:[[TypographyLegacy get] makeBody:reference.title]];
 }
 
 - (void)prepareForReuse {
   [super prepareForReuse];
-  [self.contentView.subviews
-   enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subview,
-                                NSUInteger idx, BOOL * _Nonnull stop) {
-    [subview removeFromSuperview];
-  }];
+  [self.icon removeFromSuperview];
+  [self.title removeFromSuperview];
+  [self.chevron removeFromSuperview];
 }
 
 @end
