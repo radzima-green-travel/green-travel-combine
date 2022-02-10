@@ -1,37 +1,37 @@
-import {ClusterMap, BottomMenu} from 'atoms';
+import {BottomMenu, ClusterMap} from 'atoms';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {InteractionManager, StyleProp, View} from 'react-native';
 import MapBox, {
   FillLayerStyle,
   LineLayerStyle,
-  SymbolLayerStyle,
   RegionPayload,
+  SymbolLayerStyle,
 } from '@react-native-mapbox-gl/maps';
 import {IProps} from './types';
 import {
+  createMarkerFromDetailsObject,
   selectIsDirectionShowed,
   selectMapDirection,
-  createMarkerFromDetailsObject,
 } from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  useStatusBar,
+  useBottomMenu,
+  useColorScheme,
   useFocusToUserLocation,
   useObject,
+  useObjectBelongsToSubtitle,
   useOnRequestSuccess,
   useRequestErrorAlert,
   useRequestLoading,
+  useStatusBar,
   useThemeStyles,
   useTranslation,
-  useColorScheme,
   useTransformedData,
-  useObjectBelongsToSubtitle,
-  useBottomMenu,
 } from 'core/hooks';
 import {
-  ObjectDetailsMapBottomMenu,
-  ObjectDetailsMapButtons,
   BackCircleButton,
+  ObjectDetailsMapButtons,
+  ObjectDetailsMapBottomMenu,
 } from 'molecules';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -47,13 +47,14 @@ import {themeLayerStyles} from './styles';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {
   Feature,
+  FeatureCollection,
+  featureCollection,
+  MultiPolygon,
+  multiPolygon,
+  LineString,
+  lineString,
   Point,
   point,
-  featureCollection,
-  multiPolygon,
-  lineString,
-  MultiPolygon,
-  LineString,
 } from '@turf/helpers';
 
 const mapPin = require('assets/images/map-pin.png');
@@ -285,7 +286,9 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         ) : null}
 
         {direction ? (
-          <MapBox.ShapeSource id="directionSource" shape={direction}>
+          <MapBox.ShapeSource
+            id="directionSource"
+            shape={direction as unknown as LineString}>
             <MapBox.LineLayer
               id="directionFill"
               style={layersStyles.direction as StyleProp<LineLayerStyle>}
@@ -318,7 +321,9 @@ export const ObjectDetailsMap = ({route}: IProps) => {
         {dataShapeSource ? (
           <>
             <MapBox.Images images={images} />
-            <MapBox.ShapeSource id="objectPinSource" shape={dataShapeSource}>
+            <MapBox.ShapeSource
+              id="objectPinSource"
+              shape={dataShapeSource as FeatureCollection<Point>}>
               <MapBox.SymbolLayer
                 id="singlePoint"
                 style={

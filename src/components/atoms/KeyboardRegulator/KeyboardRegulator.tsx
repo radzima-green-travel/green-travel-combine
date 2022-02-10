@@ -6,8 +6,13 @@ interface IProps {
   children: ReactNode;
 }
 
+interface IHeight {
+  flex?: number;
+  height?: number;
+}
+
 export const KeyboardRegulator = memo(({children}: IProps) => {
-  const [style, setStyle] = useState({flex: 1});
+  const [style, setStyle] = useState<IHeight>({flex: 1});
 
   const setAppHeight = useCallback(({nativeEvent}) => {
     const {

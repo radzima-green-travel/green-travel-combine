@@ -1,4 +1,4 @@
-export enum ACTIONS {
+export const enum ACTIONS {
   BOOTSTRAP_START = 'BOOTSTRAP_START',
   BOOTSTRAP_FINISH = 'BOOTSTRAP_FINISH',
 
@@ -39,7 +39,7 @@ export const DEFAULT_BOUNDS = {
   paddingRight: 30,
 };
 
-export enum MAP_PINS {
+export const enum MAP_PINS {
   BICYCLE_ROUTE = 'bicycle-route',
   OBJECT = 'object',
   HISTORICAL_PLACE = 'historical-place',

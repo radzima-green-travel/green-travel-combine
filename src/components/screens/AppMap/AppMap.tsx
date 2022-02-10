@@ -45,7 +45,13 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IProps} from './types';
 
-import {Geometry, Feature, Position, Point} from '@turf/helpers';
+import {
+  Feature,
+  FeatureCollection,
+  Geometry,
+  Point,
+  Position,
+} from '@turf/helpers';
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {mapService} from 'services/MapService';
@@ -370,7 +376,7 @@ export const AppMap = ({navigation}: IProps) => {
         {selectedMarker ? (
           <MapBox.ShapeSource
             id={'selectedPointShapeSource'}
-            shape={selectedMarker}>
+            shape={selectedMarker as FeatureCollection<Point>}>
             <MapBox.SymbolLayer
               id={'selectedPoint'}
               style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
