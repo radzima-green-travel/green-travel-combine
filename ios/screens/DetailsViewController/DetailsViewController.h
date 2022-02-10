@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SearchModel;
 @class MapService;
 @class DetailsModel;
+@class LabelledButtonGroup;
 
 typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
   DetailsViewControllerCTATypeMap = 0,
@@ -43,7 +44,7 @@ typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
 @property (strong, nonatomic) PlaceItem *item;
 @property (strong, nonatomic) UIView *prevLastView;
 @property (strong, nonatomic) NSLayoutConstraint *prevLastViewBottomAnchor;
-@property (strong, nonatomic) UIButton *sourcesView;
+@property (strong, nonatomic) LabelledButtonGroup *referencesView;
 
 @end
 

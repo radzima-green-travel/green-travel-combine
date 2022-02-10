@@ -17,11 +17,13 @@
 #import "StoredCoordinate+CoreDataProperties.h"
 #import "StoredCoordinateCollection+CoreDataProperties.h"
 #import "StoredArea+CoreDataProperties.h"
+#import "StoredInformationReference+CoreDataProperties.h"
 
 #import "PlaceItem.h"
 #import "PlaceCategory.h"
 #import "SearchItem.h"
 #import "CategoryUtils.h"
+#import "InformationReference.h"
 #import "PlaceDetails.h"
 #import "TextUtils.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
@@ -254,6 +256,9 @@ NSPersistentContainer *_persistentContainer;
                                              relatedCategoryUUIDs) {
     [storedDetails addLinkedCategoriesBelongsToObject:relatedCategoryUUIDs];
   }];
+  [self addReferencesToDetails:details.references add:^(StoredInformationReference *storedReference) {
+    [storedDetails addReferencesObject:storedReference];
+  }];
 
   [weakSelf savePath:details.path storedDetails:storedDetails];
   [weakSelf saveArea:details.area storedDetails:storedDetails];
@@ -273,6 +278,17 @@ NSPersistentContainer *_persistentContainer;
       [relatedCategoryUUIDs addRelatedItemUUIDsObject:relatedItemUUID];
     }];
     add(relatedCategoryUUIDs);
+  }];
+}
+
+- (void)addReferencesToDetails:(NSArray<InformationReference *> *)references
+                                       add:(void (^)(StoredInformationReference*))add {
+  __weak typeof(self) weakSelf = self;
+  [references enumerateObjectsUsingBlock:^(InformationReference * _Nonnull reference, NSUInteger idx, BOOL * _Nonnull stop) {
+    StoredInformationReference *storedReference = [NSEntityDescription insertNewObjectForEntityForName:@"StoredInformationReference" inManagedObjectContext:weakSelf.ctx];
+    storedReference.url = reference.url;
+    storedReference.title = reference.title;
+    add(storedReference);
   }];
 }
 
@@ -318,6 +334,8 @@ NSPersistentContainer *_persistentContainer;
       categoryIdToItemsFromStored(storedDetails.linkedCategories);
   details.categoryIdToItemsBelongsTo =
       categoryIdToItemsFromStored(storedDetails.linkedCategoriesBelongsTo);
+  details.references =
+      referencesFromStored(storedDetails.references);
 
   [self retrievePath:storedDetails.path.coordinates details:details];
   [self retrieveArea:storedDetails.area details:details];
@@ -338,6 +356,17 @@ NSMutableArray<CategoryUUIDToRelatedItemUUIDs *>* categoryIdToItemsFromStored(NS
     [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
   }];
   return categoryIdToItems;
+}
+
+NSMutableArray<InformationReference *>* referencesFromStored(NSOrderedSet<StoredInformationReference *> *storedReferences) {
+  NSMutableArray<InformationReference *> *references = [[NSMutableArray alloc] init];
+  [storedReferences enumerateObjectsUsingBlock:^(StoredInformationReference * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    InformationReference *reference = [[InformationReference alloc] init];
+    reference.url = obj.url;
+    reference.title = obj.title;
+    [references addObject:reference];
+  }];
+  return references;
 }
 
 - (void)retrievePath:(NSOrderedSet<StoredCoordinate *> *)storedPath

@@ -2,7 +2,7 @@
 //  StoredPlaceDetails+CoreDataProperties.h
 //  
 //
-//  Created by Alex K on 23.11.21.
+//  Created by Alex K on 10.02.22.
 //
 //
 
@@ -20,10 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *imageURLs;
 @property (nullable, nonatomic, copy) NSString *url;
 @property (nullable, nonatomic, copy) NSString *uuid;
+@property (nullable, nonatomic, retain) StoredArea *area;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredCategoryUUIDToRelatedItemUUIDs *> *linkedCategories;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredCategoryUUIDToRelatedItemUUIDs *> *linkedCategoriesBelongsTo;
 @property (nullable, nonatomic, retain) StoredCoordinateCollection *path;
-@property (nullable, nonatomic, retain) StoredArea *area;
+@property (nullable, nonatomic, retain) NSOrderedSet<StoredInformationReference *> *references;
 
 @end
 
@@ -50,6 +51,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeLinkedCategoriesBelongsToObject:(StoredCategoryUUIDToRelatedItemUUIDs *)value;
 - (void)addLinkedCategoriesBelongsTo:(NSOrderedSet<StoredCategoryUUIDToRelatedItemUUIDs *> *)values;
 - (void)removeLinkedCategoriesBelongsTo:(NSOrderedSet<StoredCategoryUUIDToRelatedItemUUIDs *> *)values;
+
+- (void)insertObject:(StoredInformationReference *)value inReferencesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromReferencesAtIndex:(NSUInteger)idx;
+- (void)insertReferences:(NSArray<StoredInformationReference *> *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeReferencesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInReferencesAtIndex:(NSUInteger)idx withObject:(StoredInformationReference *)value;
+- (void)replaceReferencesAtIndexes:(NSIndexSet *)indexes withReferences:(NSArray<StoredInformationReference *> *)values;
+- (void)addReferencesObject:(StoredInformationReference *)value;
+- (void)removeReferencesObject:(StoredInformationReference *)value;
+- (void)addReferences:(NSOrderedSet<StoredInformationReference *> *)values;
+- (void)removeReferences:(NSOrderedSet<StoredInformationReference *> *)values;
 
 @end
 

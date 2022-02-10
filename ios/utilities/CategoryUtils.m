@@ -157,6 +157,16 @@ void fillReferencesIntoDetails(PlaceDetails *details, NSDictionary *rawItem) {
   } else {
     details.references = @[];
   }
+  
+  InformationReference *reference1 = [[InformationReference alloc] init];
+  reference1.url = @"http://google.com";
+  reference1.title = @"Google";
+  
+  InformationReference *reference2 = [[InformationReference alloc] init];
+  reference2.url = @"https://wikipedia.org";
+  reference2.title = @"Wikipedia";
+  
+  details.references = @[reference1, reference2];
 }
 
 PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,

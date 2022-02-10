@@ -2,7 +2,7 @@
 //  StoredPlaceDetails+CoreDataProperties.m
 //  
 //
-//  Created by Alex K on 23.11.21.
+//  Created by Alex K on 10.02.22.
 //
 //
 
@@ -19,9 +19,10 @@
 @dynamic imageURLs;
 @dynamic url;
 @dynamic uuid;
+@dynamic area;
 @dynamic linkedCategories;
 @dynamic linkedCategoriesBelongsTo;
 @dynamic path;
-@dynamic area;
+@dynamic references;
 
 @end

@@ -2,16 +2,14 @@
 //  StoredPlaceDetails+CoreDataClass.h
 //  
 //
-//  Created by Alex K on 2/6/21.
+//  Created by Alex K on 10.02.22.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class StoredCategoryUUIDToRelatedItemUUIDs;
-@class StoredArea;
-@class StoredCoordinateCollection;
+@class StoredArea, StoredCategoryUUIDToRelatedItemUUIDs, StoredCoordinateCollection, StoredInformationReference;
 
 NS_ASSUME_NONNULL_BEGIN
 

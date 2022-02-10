@@ -49,6 +49,7 @@ static NSUInteger kRowHeight = 46.0;
       self.title = label;
       self.viewMaker = viewMaker;
       self.onPress = onPress;
+      [self setUp];
     }
     return self;
 }
@@ -63,7 +64,6 @@ static NSUInteger kRowHeight = 46.0;
   self.labelView = [[UILabel alloc] init];
   
   self.labelView.numberOfLines = 2;
-  [self.labelView setFont:[UIFont fontWithName:@"Montserrat-Bold" size:20.0]];
   self.labelView.translatesAutoresizingMaskIntoConstraints = NO;
   self.labelView.attributedText = [[TypographyLegacy get] makeTitle1Bold:self.title];
   
@@ -106,7 +106,7 @@ static NSUInteger kRowHeight = 46.0;
   if (self.tableViewHeightConstraint) {
       [NSLayoutConstraint deactivateConstraints:@[self.tableViewHeightConstraint]];
   }
-  self.tableViewHeightConstraint = [self.tableView.heightAnchor constraintEqualToConstant:[self.items count] * 46.0];
+  self.tableViewHeightConstraint = [self.tableView.heightAnchor constraintEqualToConstant:[self.items count] * kRowHeight];
   [NSLayoutConstraint activateConstraints:@[
       self.tableViewHeightConstraint
   ]];

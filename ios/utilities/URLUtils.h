@@ -12,3 +12,4 @@
 
 NSString* encodeURL(NSString *url);
 BOOL urlIsSafe(NSString *url);
+void openURL(UIViewController *vc, NSString *urlStr);

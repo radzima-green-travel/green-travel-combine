@@ -41,6 +41,7 @@
 #import "LabelledButtonGroup.h"
 #import "URLUtils.h"
 #import "InformationReference.h"
+#import "ReferenceContentView.h"
 
 @interface DetailsViewController ()
 
@@ -433,39 +434,38 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 }
 
 #pragma mark - References
-- (void)addSourcesView {
-  if (self.sourcesView != nil) {
+- (void)addReferencesView {
+  if (self.referencesView != nil) {
     return;
   }
   __weak typeof(self) weakSelf = self;
-  self.sourcesView =
+  self.referencesView =
   [[LabelledButtonGroup alloc] initWithConfigItems:self.item.details.references
                                              label:NSLocalizedString(@"DetailsScreenSources", @"")
-                                         viewMaker:^UIView * _Nonnull(NSObject * _Nonnull) {
-    return [[UIView alloc] initWithFrame:CGRectZero];
-  } onPress:^(NSObject * _Nonnull obj, NSUInteger idx) {
-    InformationReference reference = (InformationReference *) obj;
+                                         viewMaker:^UIView * _Nonnull(NSObject * _Nonnull obj) {
+    InformationReference *reference = (InformationReference *) obj;
+    return [[ReferenceContentView alloc] initWithIconVisible:urlIsSafe(reference.url) text:reference.title];
+  } onPress:^(NSObject * _Nonnull obj) {
+    InformationReference *reference = (InformationReference *) obj;
     openURL(weakSelf, reference.url);
   }];
 
-  [self.contentView addSubview:self.sourcesView];
+  [self.contentView addSubview:self.referencesView];
 
-  [self.contentView addSubview:self.sourcesView];
-
-  self.sourcesView.translatesAutoresizingMaskIntoConstraints = NO;
+  self.referencesView.translatesAutoresizingMaskIntoConstraints = NO;
 
   [NSLayoutConstraint deactivateConstraints:@[self.prevLastViewBottomAnchor]];
 
   self.prevLastViewBottomAnchor =
-  [self.sourcesView.bottomAnchor
+  [self.referencesView.bottomAnchor
    constraintEqualToAnchor:self.contentView.bottomAnchor constant:-19.5];
   [NSLayoutConstraint activateConstraints:@[
-      [self.prevLastView.bottomAnchor constraintEqualToAnchor:self.sourcesView.topAnchor constant:-32.0],
-      [self.sourcesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
-      [self.sourcesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
+      [self.prevLastView.bottomAnchor constraintEqualToAnchor:self.referencesView.topAnchor constant:-32.0],
+      [self.referencesView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:0],
+      [self.referencesView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:0],
       self.prevLastViewBottomAnchor,
   ]];
-  self.prevLastView = linkedCategoriesView;
+  self.prevLastView = self.referencesView;
 }
 
 #pragma mark - Linked categories view
@@ -545,6 +545,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
       [weakSelf.descriptionTextView update:html showPlaceholder:[details.descriptionHTML length] == 0];
       if (details.url && [details.url length]) {
          [weakSelf addButtonOfficialSite];
+      }
+      if ([details.references count]) {
+        [weakSelf addReferencesView];
+        [weakSelf.referencesView update:details.references];
       }
       if ([details.categoryIdToItems count]) {
         [weakSelf addLinkedCategoriesView:LinkedCategoriesViewTypeCategories];

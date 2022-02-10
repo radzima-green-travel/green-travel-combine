@@ -2,7 +2,7 @@
 //  StoredPlaceDetails+CoreDataClass.m
 //  
 //
-//  Created by Alex K on 2/6/21.
+//  Created by Alex K on 10.02.22.
 //
 //
 
