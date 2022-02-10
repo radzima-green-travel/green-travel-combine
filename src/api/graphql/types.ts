@@ -58,7 +58,7 @@ export type ModelStringInput = {
   size?: ModelSizeInput | null,
 };
 
-export enum ModelAttributeTypes {
+export const enum ModelAttributeTypes {
   binary = "binary",
   binarySet = "binarySet",
   bool = "bool",
@@ -297,7 +297,7 @@ export type CreateObjectInput = {
   i18n?: Array< ObjectI18nInput | null > | null,
 };
 
-export enum ObjectStatus {
+export const enum ObjectStatus {
   draft = "draft",
   archived = "archived",
   pending = "pending",
@@ -1002,7 +1002,7 @@ export type SearchableObjectSortInput = {
   direction?: SearchableSortDirection | null,
 };
 
-export enum SearchableObjectSortableFields {
+export const enum SearchableObjectSortableFields {
   id = "id",
   name = "name",
   description = "description",
@@ -1026,7 +1026,7 @@ export enum SearchableObjectSortableFields {
 }
 
 
-export enum SearchableSortDirection {
+export const enum SearchableSortDirection {
   asc = "asc",
   desc = "desc",
 }
@@ -1091,7 +1091,7 @@ export type SearchableCategorySortInput = {
   direction?: SearchableSortDirection | null,
 };
 
-export enum SearchableCategorySortableFields {
+export const enum SearchableCategorySortableFields {
   id = "id",
   name = "name",
   singularName = "singularName",
@@ -1154,7 +1154,7 @@ export type SearchableReferenceSortInput = {
   direction?: SearchableSortDirection | null,
 };
 
-export enum SearchableReferenceSortableFields {
+export const enum SearchableReferenceSortableFields {
   id = "id",
   name = "name",
   type = "type",
@@ -1212,7 +1212,7 @@ export type SearchablePermissionSortInput = {
   direction?: SearchableSortDirection | null,
 };
 
-export enum SearchablePermissionSortableFields {
+export const enum SearchablePermissionSortableFields {
   id = "id",
   name = "name",
   key = "key",
@@ -1263,7 +1263,7 @@ export type ModelObjectConnection = {
   nextToken?: string | null,
 };
 
-export enum ModelSortDirection {
+export const enum ModelSortDirection {
   ASC = "ASC",
   DESC = "DESC",
 }
