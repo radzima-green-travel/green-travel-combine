@@ -127,9 +127,13 @@ static NSUInteger kRowHeight = 46.0;
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
   NSObject *dataItem = self.items[indexPath.row];
-  LabelledButtonGroupTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kButtonCellId];
-  [cell update:dataItem];
-  return cell;
+  NSObject *cell = [self.tableView dequeueReusableCellWithIdentifier:kButtonCellId];
+  if ([cell respondsToSelector:@selector(update:)]) {
+    [cell performSelector:@selector(update:) withObject:dataItem];
+  } else {
+    NSLog(@"Cell does not support update: from LabelledButtonGroup.");
+  }
+  return (UITableViewCell *)cell;
 }
  
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

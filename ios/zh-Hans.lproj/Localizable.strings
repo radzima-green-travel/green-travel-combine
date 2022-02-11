@@ -38,12 +38,12 @@
 "DetailsScreenOfficialSite" = "官方网站";
 "DetailsScreenActivities" = "活动";
 "DetailsScreenBelongsTo" = "位于在……";
-"DetailsScreenSeeOnMap" = "Посмотреть на карте";
-"DetailsScreenSources" = "參考資料";
+"DetailsScreenSeeOnMap" = "在地图上查看";
+"DetailsScreenReferences" = "參考資料";
 
 "MapFilterAll" = "All";
 
-"BookmarksScreenNoBookmarksAdded" = "Nothing is saved for now";
+"BookmarksScreenNoBookmarksAdded" = "暂时没有添加书签";
 
 "NoDataText" = "抱歉，出了点问题";
 "NoDataActionLabel" = "再试一次";

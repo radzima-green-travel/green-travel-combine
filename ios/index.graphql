@@ -74,68 +74,6 @@
           address
           notes
         }
-        category {
-          id
-          name
-          singularName
-          icon
-          createdAt
-          updatedAt
-          owner
-          createdBy
-          updatedBy
-          fields
-          parent
-          cover
-          index
-          i18n {
-            locale
-            name
-            singularName
-          }
-        }
-        permissions {
-          items {
-            id
-            objectId
-            permissionId
-            createdAt
-            updatedAt
-            permission {
-              id
-              name
-              key
-              createdAt
-              updatedAt
-              owner
-              createdBy
-              updatedBy
-            }
-            object {
-              id
-              name
-              description
-              images
-              status
-              cover
-              categoryId
-              owner
-              createdBy
-              updatedBy
-              createdAt
-              updatedAt
-              statusUpdatedAt
-              author
-              address
-              length
-              duration
-              notes
-              url
-            }
-            owner
-          }
-          nextToken
-        }
       }
       nextToken
       total

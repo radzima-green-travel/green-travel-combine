@@ -39,7 +39,7 @@
 "DetailsScreenActivities" = "Чем заняться";
 "DetailsScreenBelongsTo" = "Входит в...";
 "DetailsScreenSeeOnMap" = "Посмотреть на карте";
-"DetailsScreenSources" = "Ссылки";
+"DetailsScreenReferences" = "Ссылки";
 
 "MapFilterAll" = "Все";
 

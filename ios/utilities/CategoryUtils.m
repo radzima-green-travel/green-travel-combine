@@ -143,30 +143,25 @@ NSMutableArray* buildCategoryIdToItemIdsRelations(NSArray *itemIds,
 
 #pragma mark - Mapping details
 void fillReferencesIntoDetails(PlaceDetails *details, NSDictionary *rawItem) {
+  NSMutableArray *references = [[NSMutableArray alloc] init];
+  if (rawItem[@"url"] && ![rawItem[@"url"] isEqual:[NSNull null]]) {
+    InformationReference *officialSite = [[InformationReference alloc] init];
+    officialSite.url = encodeURL(rawItem[@"url"]);
+    officialSite.title = NSLocalizedString(@"DetailsScreenOfficialSite", @"");
+    [references addObject:officialSite];
+  }
   if (rawItem[@"origins"] && ![rawItem[@"origins"] isEqual:[NSNull null]]) {
-    NSMutableArray *references = [[NSMutableArray alloc] init];
+    
     NSArray<NSDictionary *> *rawReferences = (NSArray<NSDictionary *>*) rawItem[@"origins"];
     [rawReferences enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull rawReference,
                                                 NSUInteger idx, BOOL * _Nonnull stop) {
       InformationReference *reference = [[InformationReference alloc] init];
-      reference.url = rawReference[@"url"];
-      reference.title = rawReference[@"title"];
+      reference.url = rawReference[@"value"];
+      reference.title = rawReference[@"name"];
       [references addObject:reference];
     }];
-    details.references = [references copy];
-  } else {
-    details.references = @[];
   }
-  
-  InformationReference *reference1 = [[InformationReference alloc] init];
-  reference1.url = @"http://google.com";
-  reference1.title = @"Google";
-  
-  InformationReference *reference2 = [[InformationReference alloc] init];
-  reference2.url = @"https://wikipedia.org";
-  reference2.title = @"Wikipedia";
-  
-  details.references = @[reference1, reference2];
+  details.references = [references copy];
 }
 
 PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
@@ -194,12 +189,12 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
   } else {
     details.descriptionHTML = @"";
   }
-  if (rawItem[@"url"] && ![rawItem[@"url"] isEqual:[NSNull null]]) {
-    NSString *url = encodeURL(rawItem[@"url"]);
-    details.url = url;
-  } else {
+//  if (rawItem[@"url"] && ![rawItem[@"url"] isEqual:[NSNull null]]) {
+//    NSString *url = encodeURL(rawItem[@"url"]);
+//    details.url = url;
+//  } else {
     details.url = @"";
-  }
+//  }
   fillReferencesIntoDetails(details, rawItem);
   NSMutableArray<NSMutableArray<CLLocation *> *> *mappedAreaCoords = [[NSMutableArray alloc] init];
   if (rawItem[@"area"] && ![rawItem[@"area"] isEqual:[NSNull null]]) {

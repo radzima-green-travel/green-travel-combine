@@ -41,8 +41,7 @@
 #import "LabelledButtonGroup.h"
 #import "URLUtils.h"
 #import "InformationReference.h"
-#import "ReferenceContentView.h"
-#import "LabelledButtonGroupTableViewCell.h"
+#import "ReferenceContentTableViewCell.h"
 
 @interface DetailsViewController ()
 
@@ -442,8 +441,8 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   __weak typeof(self) weakSelf = self;
   self.referencesView =
   [[LabelledButtonGroup alloc] initWithConfigItems:self.item.details.references
-                                             label:NSLocalizedString(@"DetailsScreenSources", @"")
-                                         cellClass:LabelledButtonGroupTableViewCell.class
+                                             label:NSLocalizedString(@"DetailsScreenReferences", @"")
+                                         cellClass:ReferenceContentTableViewCell.class
                                            onPress:^(NSObject * _Nonnull obj) {
     InformationReference *reference = (InformationReference *) obj;
     openURL(weakSelf, reference.url);
