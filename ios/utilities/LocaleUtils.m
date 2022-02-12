@@ -7,9 +7,14 @@
 
 #import "LocaleUtils.h"
 
+NSString *shortCode;
+
 NSString* getCurrentLocaleLanguageCode() {
-  NSString *firstPrefferedLanguage = [[NSLocale preferredLanguages] firstObject];
-  NSString *shortCode = [[firstPrefferedLanguage componentsSeparatedByString:@"-"] firstObject];
+  if (shortCode == nil) {
+    NSString *firstPrefferedLanguage = [[NSLocale preferredLanguages] firstObject];
+    shortCode = [[firstPrefferedLanguage componentsSeparatedByString:@"-"] firstObject];
+    return shortCode;
+  }
   return shortCode;
 }
 

@@ -142,6 +142,18 @@ NSMutableArray* buildCategoryIdToItemIdsRelations(NSArray *itemIds,
 }
 
 #pragma mark - Mapping details
+NSDictionary* findLocalizedEntry(NSArray<NSDictionary *> *translations, NSString *languageCode) {
+  NSUInteger indexOfLocaleEntry =
+  [translations indexOfObjectPassingTest:^BOOL(NSDictionary  * _Nonnull entry,
+                                               NSUInteger idx, BOOL * _Nonnull stop) {
+    return [languageCode isEqualToString:entry[@"locale"]];
+  }];
+  if (indexOfLocaleEntry == NSNotFound) {
+    return nil;
+  }
+  return translations[indexOfLocaleEntry];
+}
+
 void fillReferencesIntoDetails(PlaceDetails *details, NSDictionary *rawItem) {
   NSMutableArray *references = [[NSMutableArray alloc] init];
   if (rawItem[@"url"] && ![rawItem[@"url"] isEqual:[NSNull null]]) {
@@ -169,6 +181,8 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
                                           NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories) {
   PlaceDetails *details = [[PlaceDetails alloc] init];
   NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
+  NSArray *i18n = rawItem[@"i18n"];
+  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
   if (rawItem[@"images"]) {
     [rawItem[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL,
                                                   NSUInteger idx,
@@ -179,13 +193,13 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
   details.uuid = rawItem[@"id"];
   details.parentItem = flatItems[details.uuid];
   details.images = [imageURLs copy];
-  if (rawItem[@"address"] && ![rawItem[@"address"] isEqual:[NSNull null]]) {
-    details.address = rawItem[@"address"];
+  if (localizedEntry[@"address"] && ![localizedEntry[@"address"] isEqual:[NSNull null]]) {
+    details.address = localizedEntry[@"address"];
   } else {
     details.address = @"";
   }
-  if (rawItem[@"description"] && ![rawItem[@"description"] isEqual:[NSNull null]]) {
-    details.descriptionHTML = rawItem[@"description"];
+  if (localizedEntry[@"description"] && ![localizedEntry[@"description"] isEqual:[NSNull null]]) {
+    details.descriptionHTML = localizedEntry[@"description"];
   } else {
     details.descriptionHTML = @"";
   }
@@ -229,13 +243,15 @@ CLLocationCoordinate2D mapRawCoordsToCLLocationCoordinate2D(NSDictionary *rawIte
 #pragma mark - Mapping item
 PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
   PlaceItem *placeItem = [[PlaceItem alloc] init];
-  placeItem.title = rawItem[@"name"];
+  NSArray *i18n = rawItem[@"i18n"];
+  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
+  placeItem.title = localizedEntry[@"name"];
   placeItem.cover = getFullImageURL(rawItem[@"cover"]);
   placeItem.details = [[PlaceDetails alloc] init];
   placeItem.coords = mapRawCoordsToCLLocationCoordinate2D(rawItem);
   placeItem.uuid = rawItem[@"id"];
-  if (rawItem[@"address"] && ![rawItem[@"address"] isEqual:[NSNull null]]) {
-    placeItem.address = rawItem[@"address"];
+  if (localizedEntry[@"address"] && ![localizedEntry[@"address"] isEqual:[NSNull null]]) {
+    placeItem.address = localizedEntry[@"address"];
   } else {
     placeItem.address = @"";
   }
@@ -264,10 +280,28 @@ NSMutableDictionary<NSString*, PlaceCategory*>* mapToFlatCategories(NSMutableDic
   return flatCategories;
 }
 
+BOOL rawItemIsValid(NSDictionary *rawItem) {
+  if (rawItem[@"i18n"] == nil ||
+      [rawItem[@"i18n"] isEqual:[NSNull null]]) {
+    return NO;
+  };
+  NSArray *translations = (NSArray * ) rawItem[@"i18n"];
+  NSDictionary *translationEntry = findLocalizedEntry(translations, getCurrentLocaleLanguageCode());
+  if (translationEntry == nil) {
+    return NO;
+  }
+  if (translationEntry[@"name"] == nil || translationEntry[@"description"] == nil) {
+    return NO;
+  }
+  return YES;
+}
+
 NSMutableDictionary<NSString*, PlaceItem*>* mapToFlatItems(NSMutableDictionary<NSString *, NSDictionary *>* rawItems, NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories) {
   NSMutableDictionary<NSString*, PlaceItem*> *flatItems = [[NSMutableDictionary alloc] init];
   [rawItems enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull rawItemId, NSDictionary * _Nonnull rawItem, BOOL * _Nonnull stop) {
-    flatItems[rawItemId] = mapRawItemToPlaceItem(rawItem);
+    if (rawItemIsValid(rawItem)) {
+      flatItems[rawItemId] = mapRawItemToPlaceItem(rawItem);
+    }
   }];
   [rawItems enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull rawItemId, NSDictionary * _Nonnull rawItem, BOOL * _Nonnull stop) {
     NSString *rawItemParentId = rawItem[@"categoryId"];
@@ -279,8 +313,8 @@ NSMutableDictionary<NSString*, PlaceItem*>* mapToFlatItems(NSMutableDictionary<N
 void fillInDetails(NSMutableDictionary<NSString *, NSDictionary *>* rawItems,
                    NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories,
                    NSMutableDictionary<NSString*, PlaceItem*> *flatItems) {
-  [rawItems enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull rawItemId, NSDictionary * _Nonnull rawItem, BOOL * _Nonnull stop) {
-    PlaceItem *item = flatItems[rawItemId];
+  [flatItems enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull itemId, PlaceItem * _Nonnull item, BOOL * _Nonnull stop) {
+    NSDictionary *rawItem = rawItems[itemId];
     item.details = mapRawDetailsToPlaceDetails(rawItem, flatItems,
                                                flatCategories);
   }];

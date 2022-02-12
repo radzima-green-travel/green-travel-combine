@@ -10,6 +10,7 @@
 #import "PlaceCategory.h"
 #import <react-native-ultimate-config/ConfigValues.h>
 #import "CategoryUtils.h"
+#import "LocaleUtils.h"
 #import "IndexModelData.h"
 
 @interface GraphQLApiService()
@@ -118,9 +119,12 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
   if (nextToken != nil) {
     nextTokenSub = [NSString stringWithFormat:@"\\\"%@\\\"", nextToken];
   }
+  NSString *currentLocaleLanguageCodeSub =
+  [NSString stringWithFormat:@"\\\"%@\\\"", getCurrentLocaleLanguageCode()];
   NSMutableURLRequest *getCategoriesRequest =
   [self makeRequestForQuery:kQueryGetIndex withParams:@{
-    @"$nextToken$": nextTokenSub
+    @"$nextToken$": nextTokenSub,
+    @"$locale$": currentLocaleLanguageCodeSub
   }];
   __weak typeof(self) weakSelf = self;
   NSURLSessionDataTask *getCategoriesTask =

@@ -20,6 +20,7 @@
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "IndexPeeks.h"
 #import "IndexModelData.h"
+#import "LocaleUtils.h"
 
 @interface IndexModel ()
 
@@ -60,6 +61,14 @@ static IndexModel *instance;
 
 - (void)loadCategories {
     NSLog(@"loadCategories");
+    // Check whether we need to reload for new locale.
+    NSString *existingLanguageCode = [self.userDefaultsService loadLanguageCode];
+    if (![existingLanguageCode isEqualToString:getCurrentLocaleLanguageCode()]) {
+      // Consider data in the DB invalidated, go to remote load.
+      self.loadedFromDB = YES;
+      self.loading = NO;
+    }
+    // Try to load from db first.
     if (!self.loadedFromDB) {
         self.loadedFromDB = YES;
         __weak typeof(self) weakSelf = self;
@@ -71,11 +80,13 @@ static IndexModel *instance;
         }];
         return;
     }
+    // Load from remote.
     if (!self.loading) {
         [self loadCategoriesRemote:[self.categories count] == 0 forceRefresh:NO];
     }
 }
 
+#pragma mark - Load remote data
 - (void)loadCategoriesRemote:(BOOL)visible
                 forceRefresh:(BOOL)forceRefresh {
   self.loading = YES;
@@ -94,6 +105,7 @@ static IndexModel *instance;
       [strongSelf saveDetailsFromItems:indexModelData.flatItems
                              withCompletion:^{
         [weakSelf.userDefaultsService saveETag:eTag];
+        [weakSelf.userDefaultsService saveLanguageCode:getCurrentLocaleLanguageCode()];
       }];
       __weak typeof(strongSelf) weakSelf = strongSelf;
       [strongSelf.coreDataService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *> * _Nonnull categoriesFromDB) {

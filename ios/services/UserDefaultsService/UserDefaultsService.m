@@ -21,6 +21,7 @@ NSString * const kKeyFramework = @"framework";
 NSString * const kUserId = @"userId";
 NSString * const kAppVersion = @"version";
 NSString * const kAppBuildNumber =  @"buildNumber";
+NSString * const kKeyLanguageCode =  @"languageCode";
 
 static UserDefaultsService *instance;
 
@@ -58,12 +59,21 @@ static UserDefaultsService *instance;
   return frameworkValue;
 }
 
+- (NSString *)loadLanguageCode {
+  NSString *languageCode = [self.userDefaults valueForKey:kKeyLanguageCode];
+  return languageCode;
+}
+
 - (void)saveVersion:(NSString *)version {
   [self.userDefaults setValue:version forKey:kAppVersion];
 }
 
 - (void)saveBuildNumber:(NSString *)buildNumber {
   [self.userDefaults setValue:buildNumber forKey:kAppBuildNumber];
+}
+
+- (void)saveLanguageCode:(NSString *)languageCode {
+  [self.userDefaults setValue:languageCode forKey:kKeyLanguageCode];
 }
 
 + (instancetype)get {

@@ -23,7 +23,7 @@
         singularName
       }
     }
-    objects(limit: 100, nextToken: $nextToken$) {
+    objects(limit: 100, nextToken: $nextToken$, filter: {locale: $locale$}) {
       items {
         id
         name

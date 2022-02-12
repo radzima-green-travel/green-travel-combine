@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)loadUserId;
 - (void)saveVersion:(NSString *)version;
 - (void)saveBuildNumber:(NSString *)buildNumber;
+- (void)saveLanguageCode:(NSString *)languageCode;
+- (NSString *)loadLanguageCode;
 + (instancetype)get;
 
 @end
