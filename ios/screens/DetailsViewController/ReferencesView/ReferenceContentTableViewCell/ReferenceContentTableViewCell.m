@@ -23,6 +23,8 @@
 
 @end
 
+const CGFloat kChevronImageWidth = 24.0;
+
 @implementation ReferenceContentTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -34,6 +36,12 @@
 }
 
 - (void)setUp {
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  [self.title setTextColor:[Colors get].headlineText];
+  [self.chevron setImage:[UIImage imageNamed:@"chevron-right"]];
 }
 
 - (void)update:(NSObject *)dataItem {
@@ -75,7 +83,7 @@
     
     [NSLayoutConstraint activateConstraints:@[
       [self.chevron.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-      [self.chevron.widthAnchor constraintEqualToConstant:7.0],
+      [self.chevron.widthAnchor constraintEqualToConstant:kChevronImageWidth],
       [self.chevron.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-25.0],
     ]];
   }
@@ -92,16 +100,16 @@
   [self.title.leadingAnchor constraintEqualToAnchor:self.icon.trailingAnchor constant:10.0];
   
   NSLayoutConstraint *trailing = self.chevron == nil ?
-  [self.title.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:16.0] :
-  [self.title.leadingAnchor constraintLessThanOrEqualToAnchor:self.chevron.leadingAnchor constant:10.0];
+  [self.title.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0] :
+  [self.title.trailingAnchor constraintEqualToAnchor:self.chevron.leadingAnchor constant:-10.0];
   
   [NSLayoutConstraint activateConstraints:@[
     [self.title.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
     leading,
     trailing,
   ]];
-  [self.title setLineBreakMode:NSLineBreakByTruncatingTail];
   [self.title setAttributedText:[[TypographyLegacy get] makeBody:reference.title]];
+  [self.title setLineBreakMode:NSLineBreakByTruncatingTail];
 }
 
 - (void)prepareForReuse {

@@ -189,12 +189,7 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
   } else {
     details.descriptionHTML = @"";
   }
-//  if (rawItem[@"url"] && ![rawItem[@"url"] isEqual:[NSNull null]]) {
-//    NSString *url = encodeURL(rawItem[@"url"]);
-//    details.url = url;
-//  } else {
-    details.url = @"";
-//  }
+  details.url = @"";
   fillReferencesIntoDetails(details, rawItem);
   NSMutableArray<NSMutableArray<CLLocation *> *> *mappedAreaCoords = [[NSMutableArray alloc] init];
   if (rawItem[@"area"] && ![rawItem[@"area"] isEqual:[NSNull null]]) {
