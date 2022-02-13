@@ -84,6 +84,7 @@ static const NSString * kQueryGetIndex = @"index";
 }
 
 - (void)loadCategories:(NSString *)currentHash
+             forceLoad:(BOOL)forceLoad
         withCompletion:(CategoriesCompletion)completion {
   NSMutableURLRequest *getTagRequest = [self makeRequestForQuery:kQueryGetTag
                                                       withParams:nil];
@@ -96,7 +97,7 @@ static const NSString * kQueryGetIndex = @"index";
     }
     NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSString *updatedHash = body[@"data"][@"getObjectsMetadata"][@"value"];
-    if ([currentHash isEqualToString:updatedHash]) {
+    if (!forceLoad && [currentHash isEqualToString:updatedHash]) {
       completion(indexModelData, @[], currentHash);
       return;
     }

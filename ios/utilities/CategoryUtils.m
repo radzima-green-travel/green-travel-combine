@@ -102,9 +102,23 @@ NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(
 }
  
 #pragma mark - Mapping category
+NSDictionary* findLocalizedEntry(NSArray<NSDictionary *> *translations, NSString *languageCode) {
+  NSUInteger indexOfLocaleEntry =
+  [translations indexOfObjectPassingTest:^BOOL(NSDictionary  * _Nonnull entry,
+                                               NSUInteger idx, BOOL * _Nonnull stop) {
+    return [languageCode isEqualToString:entry[@"locale"]];
+  }];
+  if (indexOfLocaleEntry == NSNotFound) {
+    return nil;
+  }
+  return translations[indexOfLocaleEntry];
+}
+
 PlaceCategory* mapRawCategoryToPlaceCategory(NSDictionary *rawCategory) {
   PlaceCategory *category = [[PlaceCategory alloc] init];
-  category.title = rawCategory[@"name"];
+  NSArray *i18n = rawCategory[@"i18n"];
+  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
+  category.title = localizedEntry[@"name"];
   category.cover = getFullImageURL(rawCategory[@"cover"]);
   category.uuid = rawCategory[@"id"];
   category.icon = rawCategory[@"icon"];
@@ -142,18 +156,6 @@ NSMutableArray* buildCategoryIdToItemIdsRelations(NSArray *itemIds,
 }
 
 #pragma mark - Mapping details
-NSDictionary* findLocalizedEntry(NSArray<NSDictionary *> *translations, NSString *languageCode) {
-  NSUInteger indexOfLocaleEntry =
-  [translations indexOfObjectPassingTest:^BOOL(NSDictionary  * _Nonnull entry,
-                                               NSUInteger idx, BOOL * _Nonnull stop) {
-    return [languageCode isEqualToString:entry[@"locale"]];
-  }];
-  if (indexOfLocaleEntry == NSNotFound) {
-    return nil;
-  }
-  return translations[indexOfLocaleEntry];
-}
-
 void fillReferencesIntoDetails(PlaceDetails *details, NSDictionary *rawItem) {
   NSMutableArray *references = [[NSMutableArray alloc] init];
   if (rawItem[@"url"] && ![rawItem[@"url"] isEqual:[NSNull null]]) {
@@ -260,6 +262,21 @@ PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
 
 
 BOOL rawCategoryIsValid(NSDictionary *rawCategory) {
+  if (rawCategory[@"i18n"] == nil ||
+      [rawCategory[@"i18n"] isEqual:[NSNull null]]) {
+    return NO;
+  };
+  NSArray *translations = (NSArray * ) rawCategory[@"i18n"];
+  NSDictionary *translationEntry = findLocalizedEntry(translations, getCurrentLocaleLanguageCode());
+  if (translationEntry == nil) {
+    return NO;
+  }
+  if (translationEntry[@"name"] == nil ||
+      [translationEntry[@"name"] isEqual:[NSNull null]] ||
+      translationEntry[@"singularName"] == nil ||
+      [translationEntry[@"singularName"] isEqual:[NSNull null]]) {
+    return NO;
+  }
   return rawCategory[@"icon"] != nil &&
   ![rawCategory[@"icon"] isEqual:[NSNull null]] &&
   rawCategory[@"index"] != nil &&
@@ -290,7 +307,10 @@ BOOL rawItemIsValid(NSDictionary *rawItem) {
   if (translationEntry == nil) {
     return NO;
   }
-  if (translationEntry[@"name"] == nil || translationEntry[@"description"] == nil) {
+  if (translationEntry[@"name"] == nil ||
+      [translationEntry[@"name"] isEqual:[NSNull null]] ||
+      translationEntry[@"description"] == nil ||
+      [translationEntry[@"description"] isEqual:[NSNull null]]) {
     return NO;
   }
   return YES;

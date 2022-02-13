@@ -163,6 +163,9 @@
     self.selectedIndex = 0;
     
     self.bottomSheets = [[NSMutableDictionary<NSNumber *, BottomSheetView *> alloc] init];
+  
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(onLocaleChange:) name:NSCurrentLocaleDidChangeNotification object:nil];
 }
 
 UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, UIImage *imageSelected) {
@@ -262,6 +265,11 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
     default:
       return MainViewControllerBottomSheetNone;
   }
+}
+
+- (void)onLocaleChange:(id)sender {
+  NSLog(@"Locale update");
+  //[self.indexModel loadCategories];
 }
 
 /*

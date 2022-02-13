@@ -143,7 +143,7 @@ NSPersistentContainer *_persistentContainer;
     NSFetchRequest *fetchRequest = [StoredCategory fetchRequest];
     NSBatchDeleteRequest *deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
     [weakSelf.ctx executeRequest:deleteRequest error:&error];
-
+    [weakSelf.ctx save:&error];
     if ([categories count]) {
       [weakSelf saveCategoriesWithinBlock:categories parentCategory:nil];
     }

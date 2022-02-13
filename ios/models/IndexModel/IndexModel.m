@@ -31,6 +31,8 @@
 @property (assign, nonatomic) BOOL loading;
 @property (assign, nonatomic) BOOL loadingRemote;
 @property (strong, nonatomic) IndexModelData *indexModelDataScheduledForUpdate;
+@property (strong, nonatomic) NSMutableSet<NSString *> *preservedBookmarksUUIDs;
+
 @property (strong, nonatomic) NSString *eTagScheduledForUpdate;
 - (void)copyBookmarksFromOldCategories:(NSArray<PlaceCategory *>*)oldCategories
                                    toNew:(NSArray<PlaceCategory *>*)newCategories;
@@ -54,6 +56,7 @@ static IndexModel *instance;
         _coreDataService = coreDataService;
         _apiService = apiService;
         _userDefaultsService = userDefaultsService;
+        _preservedBookmarksUUIDs = [[NSMutableSet alloc] init];
         _loading = YES;
     }
     return self;
@@ -66,7 +69,11 @@ static IndexModel *instance;
     if (![existingLanguageCode isEqualToString:getCurrentLocaleLanguageCode()]) {
       // Consider data in the DB invalidated, go to remote load.
       self.loadedFromDB = YES;
-      self.loading = NO;
+      __weak typeof(self) weakSelf = self;
+      [self.coreDataService loadCategoriesWithCompletion:^(NSArray<PlaceCategory *> * _Nonnull categories) {
+          [weakSelf saveBookmarksUUIDs:categories];
+          [weakSelf loadCategoriesRemote:YES forceRefresh:YES];
+      }];
     }
     // Try to load from db first.
     if (!self.loadedFromDB) {
@@ -93,14 +100,15 @@ static IndexModel *instance;
   if (visible) { [self notifyObserversCategoriesLoading:YES]; }
   __weak typeof(self) weakSelf = self;
   NSString *existingETag = [self.userDefaultsService loadETag];
-  
   [self.apiService loadCategories:existingETag
+                        forceLoad:forceRefresh
                    withCompletion:^(IndexModelData *indexModelData, NSArray<PlaceDetails *> *details, NSString *eTag) {
     NSArray<PlaceCategory *>  *categoriesFromServer = indexModelData.categoryTree;
     __strong typeof(weakSelf) strongSelf = weakSelf;
     BOOL shouldRequestCategoriesUpdate = !forceRefresh;
     if (forceRefresh || ([strongSelf.categories count] == 0 &&
                          [categoriesFromServer count] > 0)) {
+      [strongSelf restoreBookmarksFromUUIDs:categoriesFromServer];
       [strongSelf.coreDataService saveCategories:categoriesFromServer];
       [strongSelf saveDetailsFromItems:indexModelData.flatItems
                              withCompletion:^{
@@ -134,7 +142,8 @@ static IndexModel *instance;
   self.loading = YES;
   __weak typeof(self) weakSelf = self;
   NSString *existingETag = [self.userDefaultsService loadETag];
-  [self.apiService loadCategories:existingETag withCompletion:^(IndexModelData *indexModelData, NSArray<PlaceDetails *> *details, NSString *eTag) {
+  [self.apiService loadCategories:existingETag forceLoad:NO
+                   withCompletion:^(IndexModelData *indexModelData, NSArray<PlaceDetails *> *details, NSString *eTag) {
     NSArray<PlaceCategory *>  *categoriesFromServer = indexModelData.categoryTree;
     if ([categoriesFromServer count] == 0) {
       completion();
@@ -208,18 +217,28 @@ static IndexModel *instance;
 }
 
 - (void)copyBookmarksFromOldCategories:(NSArray<PlaceCategory *>*)oldCategories
-                                   toNew:(NSArray<PlaceCategory *>*)newCategories {
-    NSMutableSet *uuids = [[NSMutableSet alloc] init];
-    traverseCategories(oldCategories, ^(PlaceCategory *category, PlaceItem *item) {
-        if (item.bookmarked) {
-            [uuids addObject:item.uuid];
-        }
-    });
-    traverseCategories(newCategories, ^(PlaceCategory *category, PlaceItem *item) {
-        if ([uuids containsObject:item.uuid]) {
-            item.bookmarked = YES;
-        }
-    });
+                                 toNew:(NSArray<PlaceCategory *>*)newCategories {
+  [self saveBookmarksUUIDs:oldCategories];
+  [self restoreBookmarksFromUUIDs:newCategories];
+}
+
+- (void)saveBookmarksUUIDs:(NSArray<PlaceCategory *>*)oldCategories {
+  [self.preservedBookmarksUUIDs removeAllObjects];
+  __weak typeof(self) weakSelf = self;
+  traverseCategories(oldCategories, ^(PlaceCategory *category, PlaceItem *item) {
+    if (item.bookmarked) {
+      [weakSelf.preservedBookmarksUUIDs addObject:item.uuid];
+    }
+  });
+}
+
+- (void)restoreBookmarksFromUUIDs:(NSArray<PlaceCategory *>*)newCategories {
+  __weak typeof(self) weakSelf = self;
+  traverseCategories(newCategories, ^(PlaceCategory *category, PlaceItem *item) {
+    if ([weakSelf.preservedBookmarksUUIDs containsObject:item.uuid]) {
+      item.bookmarked = YES;
+    }
+  });
 }
 
 - (void)bookmarkItem:(PlaceItem *)item bookmark:(BOOL)bookmark {

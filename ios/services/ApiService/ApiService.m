@@ -42,7 +42,9 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
           NATIVE_CLIENT_URL, @"objects.json"];
 }
 
-- (void)loadCategories:(NSString *)currentHash withCompletion:(CategoriesCompletion)completion {
+- (void)loadCategories:(NSString *)currentHash
+             forceLoad:(BOOL)forceLoad
+        withCompletion:(CategoriesCompletion)completion {
   IndexModelData *indexModelData = [[IndexModelData alloc] init];
   NSURL *url = [NSURL URLWithString:[self categoriesURL]];
   __weak typeof(self) weakSelf = self;

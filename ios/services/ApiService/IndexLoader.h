@@ -22,6 +22,7 @@ typedef void (^CategoriesCompletion)(IndexModelData *indexModelData,
 @protocol IndexLoader <NSObject>
 
 - (void)loadCategories:(NSString *)currentHash
+        forceLoad:(BOOL)forceLoad
         withCompletion:(CategoriesCompletion)completion;
 
 @end

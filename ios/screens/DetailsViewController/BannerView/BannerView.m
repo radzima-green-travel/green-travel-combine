@@ -66,7 +66,7 @@
     ]];
     
     self.bannerLabel = [[UILabel alloc] init];
-    [self.bannerLabel setAttributedText:getAttributedString(@"Скопировано", [ColorsLegacy get].black, 15.0, UIFontWeightRegular)];
+    [self.bannerLabel setAttributedText:getAttributedString(NSLocalizedString(@"DetailsScreenBannerCopied", @""), [ColorsLegacy get].black, 15.0, UIFontWeightRegular)];
     self.bannerLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [containerView addArrangedSubview:self.bannerLabel];
     
