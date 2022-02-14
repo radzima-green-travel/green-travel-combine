@@ -10,5 +10,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NSString* getCurrentLocaleLanguageCode(void);
+BOOL isCurrentLanguageCodeLegacy(void);
 
 NS_ASSUME_NONNULL_END

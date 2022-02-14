@@ -15,6 +15,8 @@
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
 		5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */; };
+		5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */; };
+		5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E89227BBC991004FD8C6 /* LocaleConstants.m */; };
 		5A1FFB29267626A400E31162 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1FFB28267626A400E31162 /* Colors.m */; };
 		5A21445C2663E9A700582901 /* AlertUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21445B2663E9A700582901 /* AlertUtils.m */; };
 		5A2144B1266B988700582901 /* MapViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B0266B988700582901 /* MapViewState.m */; };
@@ -35,7 +37,7 @@
 		5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */; };
 		5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */; };
 		5A6CC8D8279C213D00EE6E35 /* GraphQLApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A97FE22279C1702006E575D /* GraphQLApiService.m */; };
-		5A6CC8DA279C2C4500EE6E35 /* index.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A6CC8D9279C2C4500EE6E35 /* index.graphql */; };
+		5A6CC8DA279C2C4500EE6E35 /* index-locale-any.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A6CC8D9279C2C4500EE6E35 /* index-locale-any.graphql */; };
 		5A6CC8DC279D930C00EE6E35 /* index-tag.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A6CC8DB279D930C00EE6E35 /* index-tag.graphql */; };
 		5A6CC8E0279D9AB700EE6E35 /* IndexController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC8DF279D9AB700EE6E35 /* IndexController.m */; };
 		5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DC4FB2655B1D500A2D37B /* StoredCoordinateCollection+CoreDataProperties.m */; };
@@ -201,6 +203,9 @@
 		5A105FF0266001AB00511256 /* MapService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapService.m; sourceTree = "<group>"; };
 		5A12E88C27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReferenceContentTableViewCell.h; sourceTree = "<group>"; };
 		5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReferenceContentTableViewCell.m; sourceTree = "<group>"; };
+		5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = "index-locale-legacy.graphql"; sourceTree = "<group>"; };
+		5A12E89127BBC991004FD8C6 /* LocaleConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleConstants.h; sourceTree = "<group>"; };
+		5A12E89227BBC991004FD8C6 /* LocaleConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaleConstants.m; sourceTree = "<group>"; };
 		5A1FFB27267626A400E31162 /* Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		5A1FFB28267626A400E31162 /* Colors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		5A21445A2663E9A700582901 /* AlertUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertUtils.h; sourceTree = "<group>"; };
@@ -249,7 +254,7 @@
 		5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoordinateUtils.m; sourceTree = "<group>"; };
 		5A5FF70C26A46EDC00540CE4 /* AnalyticsEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsEvents.h; sourceTree = "<group>"; };
 		5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsEvents.m; sourceTree = "<group>"; };
-		5A6CC8D9279C2C4500EE6E35 /* index.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = index.graphql; sourceTree = "<group>"; };
+		5A6CC8D9279C2C4500EE6E35 /* index-locale-any.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = "index-locale-any.graphql"; sourceTree = "<group>"; };
 		5A6CC8DB279D930C00EE6E35 /* index-tag.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = "index-tag.graphql"; sourceTree = "<group>"; };
 		5A6CC8DE279D9AB700EE6E35 /* IndexController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexController.h; sourceTree = "<group>"; };
 		5A6CC8DF279D9AB700EE6E35 /* IndexController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexController.m; sourceTree = "<group>"; };
@@ -1034,6 +1039,8 @@
 				5A5E2B08275D5AB600A20489 /* ViewUtils.m */,
 				5AB4AFB127B016D000C74857 /* LocaleUtils.h */,
 				5AB4AFB227B016D000C74857 /* LocaleUtils.m */,
+				5A12E89127BBC991004FD8C6 /* LocaleConstants.h */,
+				5A12E89227BBC991004FD8C6 /* LocaleConstants.m */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -1452,7 +1459,8 @@
 				624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */,
 				62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */,
 				5AD71D9F274D5CDA00F205AD /* InfoPlist.strings */,
-				5A6CC8D9279C2C4500EE6E35 /* index.graphql */,
+				5A6CC8D9279C2C4500EE6E35 /* index-locale-any.graphql */,
+				5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */,
 				5A6CC8DB279D930C00EE6E35 /* index-tag.graphql */,
 			);
 			name = Resources;
@@ -1597,7 +1605,7 @@
 				5A775B3226064C9000CEFC78 /* Montserrat-LightItalic.ttf in Resources */,
 				624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */,
 				5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */,
-				5A6CC8DA279C2C4500EE6E35 /* index.graphql in Resources */,
+				5A6CC8DA279C2C4500EE6E35 /* index-locale-any.graphql in Resources */,
 				5A775B3D26064C9000CEFC78 /* OpenSans-Italic.ttf in Resources */,
 				5A775B4C26064C9000CEFC78 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -1605,6 +1613,7 @@
 				5A775B4926064C9000CEFC78 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */,
 				5A775B4826064C9000CEFC78 /* Montserrat-Italic.ttf in Resources */,
+				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1906,6 +1915,7 @@
 				5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */,
 				5A775B4E26064C9000CEFC78 /* LocationModel.m in Sources */,
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
+				5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */,
 				5A105FEC265FD9E300511256 /* Directions.m in Sources */,
 				5A6DC50B2655B28900A2D37B /* StoredArea+CoreDataProperties.m in Sources */,
 				5A775E1726077A7D00CEFC78 /* WeRecommendCell.m in Sources */,

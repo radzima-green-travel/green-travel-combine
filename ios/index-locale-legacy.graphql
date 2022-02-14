@@ -17,13 +17,8 @@
       parent
       cover
       index
-      i18n {
-        locale
-        name
-        singularName
-      }
     }
-    objects(limit: 100, nextToken: $nextToken$, filter: {locale: $locale$}) {
+    objects(limit: 100, nextToken: $nextToken$) {
       items {
         id
         name
@@ -50,7 +45,6 @@
           type
           coordinates
         }
-        author
         address
         length
         duration
@@ -58,7 +52,6 @@
           name
           value
         }
-        notes
         url
         routes {
           type
@@ -66,14 +59,6 @@
         }
         include
         belongsTo
-        i18n {
-          locale
-          name
-          description
-          author
-          address
-          notes
-        }
       }
       nextToken
       total

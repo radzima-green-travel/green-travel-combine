@@ -12,6 +12,7 @@
 #import "CategoryUtils.h"
 #import "LocaleUtils.h"
 #import "IndexModelData.h"
+#import "LocaleConstants.h"
 
 @interface GraphQLApiService()
 
@@ -20,7 +21,8 @@
 @end
 
 static const NSString * kQueryGetTag = @"index-tag";
-static const NSString * kQueryGetIndex = @"index";
+static const NSString * kQueryGetIndexLocaleAny = @"index-locale-any";
+static const NSString * kQueryGetIndexLocaleLegacy = @"index-locale-legacy";
 
 @implementation GraphQLApiService
 
@@ -83,6 +85,13 @@ static const NSString * kQueryGetIndex = @"index";
   return mutableRequest;
 }
 
+- (NSMutableURLRequest *)makeGetCategoriesRequest:(NSDictionary<NSString *,NSString *> *)params {
+  if (isCurrentLanguageCodeLegacy()) {
+    return [self makeRequestForQuery:kQueryGetIndexLocaleLegacy withParams:params];
+  };
+  return [self makeRequestForQuery:kQueryGetIndexLocaleAny withParams:params];
+}
+
 - (void)loadCategories:(NSString *)currentHash
              forceLoad:(BOOL)forceLoad
         withCompletion:(CategoriesCompletion)completion {
@@ -123,7 +132,7 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
   NSString *currentLocaleLanguageCodeSub =
   [NSString stringWithFormat:@"\\\"%@\\\"", getCurrentLocaleLanguageCode()];
   NSMutableURLRequest *getCategoriesRequest =
-  [self makeRequestForQuery:kQueryGetIndex withParams:@{
+  [self makeGetCategoriesRequest:@{
     @"$nextToken$": nextTokenSub,
     @"$locale$": currentLocaleLanguageCodeSub
   }];

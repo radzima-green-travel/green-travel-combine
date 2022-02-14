@@ -18,6 +18,7 @@
 #import "URLUtils.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 #import "InformationReference.h"
+#import "LocaleConstants.h"
 
 void traverseCategoriesWithLevel(NSArray<PlaceCategory *> *categories, NSUInteger level, void(^onCategoryAndItem)(PlaceCategory*, PlaceItem*, NSUInteger)) {
   [categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -116,13 +117,17 @@ NSDictionary* findLocalizedEntry(NSArray<NSDictionary *> *translations, NSString
 
 PlaceCategory* mapRawCategoryToPlaceCategory(NSDictionary *rawCategory) {
   PlaceCategory *category = [[PlaceCategory alloc] init];
-  NSArray *i18n = rawCategory[@"i18n"];
-  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
-  category.title = localizedEntry[@"name"];
   category.cover = getFullImageURL(rawCategory[@"cover"]);
   category.uuid = rawCategory[@"id"];
   category.icon = rawCategory[@"icon"];
   category.index = [(NSNumber *) rawCategory[@"index"] intValue];
+  if (isCurrentLanguageCodeLegacy()) {
+    category.title = rawCategory[@"name"];
+    return category;
+  };
+  NSArray *i18n = rawCategory[@"i18n"];
+  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
+  category.title = localizedEntry[@"name"];
   return category;
 }
 
@@ -183,28 +188,16 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
                                           NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories) {
   PlaceDetails *details = [[PlaceDetails alloc] init];
   NSMutableArray *imageURLs = [[NSMutableArray alloc] init];
-  NSArray *i18n = rawItem[@"i18n"];
-  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
+  details.uuid = rawItem[@"id"];
+  details.parentItem = flatItems[details.uuid];
   if (rawItem[@"images"]) {
     [rawItem[@"images"] enumerateObjectsUsingBlock:^(id  _Nonnull imageURL,
-                                                  NSUInteger idx,
-                                                  BOOL * _Nonnull stop) {
+                                                     NSUInteger idx,
+                                                     BOOL * _Nonnull stop) {
       [imageURLs addObject:getFullImageURL(imageURL)];
     }];
   }
-  details.uuid = rawItem[@"id"];
-  details.parentItem = flatItems[details.uuid];
   details.images = [imageURLs copy];
-  if (localizedEntry[@"address"] && ![localizedEntry[@"address"] isEqual:[NSNull null]]) {
-    details.address = localizedEntry[@"address"];
-  } else {
-    details.address = @"";
-  }
-  if (localizedEntry[@"description"] && ![localizedEntry[@"description"] isEqual:[NSNull null]]) {
-    details.descriptionHTML = localizedEntry[@"description"];
-  } else {
-    details.descriptionHTML = @"";
-  }
   details.url = @"";
   fillReferencesIntoDetails(details, rawItem);
   NSMutableArray<NSMutableArray<CLLocation *> *> *mappedAreaCoords = [[NSMutableArray alloc] init];
@@ -218,7 +211,7 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
     }];
     details.area = [NSArray arrayWithArray:[mappedAreaCoords copy]];
   }
-
+  
   NSMutableArray<CLLocation *> *mappedPathCoords = [[NSMutableArray alloc] init];
   if (rawItem[@"routes"] && ![rawItem[@"routes"] isEqual:[NSNull null]]) {
     NSArray<NSArray<NSNumber *> *> *coords = rawItem[@"routes"][@"coordinates"];
@@ -227,11 +220,37 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
     }];
     details.path = [NSArray arrayWithArray:[mappedPathCoords copy]];
   }
-
+  
   details.categoryIdToItems =
   buildCategoryIdToItemIdsRelations(rawItem[@"include"], flatItems, flatCategories);
   details.categoryIdToItemsBelongsTo =
   buildCategoryIdToItemIdsRelations(rawItem[@"belongsTo"], flatItems, flatCategories);
+  
+  if (isCurrentLanguageCodeLegacy()) {
+    if (rawItem[@"address"] && ![rawItem[@"address"] isEqual:[NSNull null]]) {
+      details.address = rawItem[@"address"];
+    } else {
+      details.address = @"";
+    }
+    if (rawItem[@"description"] && ![rawItem[@"description"] isEqual:[NSNull null]]) {
+      details.descriptionHTML = rawItem[@"description"];
+    } else {
+      details.descriptionHTML = @"";
+    }
+    return details;
+  }
+  NSArray *i18n = rawItem[@"i18n"];
+  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
+  if (localizedEntry[@"address"] && ![localizedEntry[@"address"] isEqual:[NSNull null]]) {
+    details.address = localizedEntry[@"address"];
+  } else {
+    details.address = @"";
+  }
+  if (localizedEntry[@"description"] && ![localizedEntry[@"description"] isEqual:[NSNull null]]) {
+    details.descriptionHTML = localizedEntry[@"description"];
+  } else {
+    details.descriptionHTML = @"";
+  }
   return details;
 }
 
@@ -245,13 +264,22 @@ CLLocationCoordinate2D mapRawCoordsToCLLocationCoordinate2D(NSDictionary *rawIte
 #pragma mark - Mapping item
 PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
   PlaceItem *placeItem = [[PlaceItem alloc] init];
-  NSArray *i18n = rawItem[@"i18n"];
-  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
-  placeItem.title = localizedEntry[@"name"];
   placeItem.cover = getFullImageURL(rawItem[@"cover"]);
   placeItem.details = [[PlaceDetails alloc] init];
   placeItem.coords = mapRawCoordsToCLLocationCoordinate2D(rawItem);
   placeItem.uuid = rawItem[@"id"];
+  if (isCurrentLanguageCodeLegacy()) {
+    placeItem.title = rawItem[@"name"];
+    if (rawItem[@"address"] && ![rawItem[@"address"] isEqual:[NSNull null]]) {
+      placeItem.address = rawItem[@"address"];
+    } else {
+      placeItem.address = @"";
+    }
+    return placeItem;
+  }
+  NSArray *i18n = rawItem[@"i18n"];
+  NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
+  placeItem.title = localizedEntry[@"name"];
   if (localizedEntry[@"address"] && ![localizedEntry[@"address"] isEqual:[NSNull null]]) {
     placeItem.address = localizedEntry[@"address"];
   } else {
@@ -262,6 +290,18 @@ PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
 
 
 BOOL rawCategoryIsValid(NSDictionary *rawCategory) {
+  if (rawCategory[@"icon"] == nil ||
+      [rawCategory[@"icon"] isEqual:[NSNull null]] ||
+      rawCategory[@"index"] == nil ||
+      [rawCategory[@"index"] isEqual:[NSNull null]]) {
+    return NO;
+  }
+  if (isCurrentLanguageCodeLegacy()) {
+    return rawCategory[@"name"] != nil &&
+    ![rawCategory[@"name"] isEqual:[NSNull null]] &&
+    rawCategory[@"singularName"] != nil &&
+    ![rawCategory[@"singularName"] isEqual:[NSNull null]];
+  }
   if (rawCategory[@"i18n"] == nil ||
       [rawCategory[@"i18n"] isEqual:[NSNull null]]) {
     return NO;
@@ -271,16 +311,10 @@ BOOL rawCategoryIsValid(NSDictionary *rawCategory) {
   if (translationEntry == nil) {
     return NO;
   }
-  if (translationEntry[@"name"] == nil ||
-      [translationEntry[@"name"] isEqual:[NSNull null]] ||
-      translationEntry[@"singularName"] == nil ||
-      [translationEntry[@"singularName"] isEqual:[NSNull null]]) {
-    return NO;
-  }
-  return rawCategory[@"icon"] != nil &&
-  ![rawCategory[@"icon"] isEqual:[NSNull null]] &&
-  rawCategory[@"index"] != nil &&
-  ![rawCategory[@"index"] isEqual:[NSNull null]];
+  return translationEntry[@"name"] != nil &&
+  ![translationEntry[@"name"] isEqual:[NSNull null]] &&
+  translationEntry[@"singularName"] != nil &&
+  ![translationEntry[@"singularName"] isEqual:[NSNull null]];
 }
 
 NSMutableDictionary<NSString*, PlaceCategory*>* mapToFlatCategories(NSMutableDictionary<NSString *, NSDictionary *>* rawCategories) {
@@ -298,6 +332,12 @@ NSMutableDictionary<NSString*, PlaceCategory*>* mapToFlatCategories(NSMutableDic
 }
 
 BOOL rawItemIsValid(NSDictionary *rawItem) {
+  if (isCurrentLanguageCodeLegacy()) {
+    return rawItem[@"name"] != nil &&
+    ![rawItem[@"name"] isEqual:[NSNull null]] &&
+    rawItem[@"description"] != nil &&
+    ![rawItem[@"description"] isEqual:[NSNull null]];
+  }
   if (rawItem[@"i18n"] == nil ||
       [rawItem[@"i18n"] isEqual:[NSNull null]]) {
     return NO;
@@ -307,13 +347,10 @@ BOOL rawItemIsValid(NSDictionary *rawItem) {
   if (translationEntry == nil) {
     return NO;
   }
-  if (translationEntry[@"name"] == nil ||
-      [translationEntry[@"name"] isEqual:[NSNull null]] ||
-      translationEntry[@"description"] == nil ||
-      [translationEntry[@"description"] isEqual:[NSNull null]]) {
-    return NO;
-  }
-  return YES;
+  return translationEntry[@"name"] != nil &&
+  ![translationEntry[@"name"] isEqual:[NSNull null]] &&
+  translationEntry[@"description"] != nil &&
+  ![translationEntry[@"description"] isEqual:[NSNull null]];
 }
 
 NSMutableDictionary<NSString*, PlaceItem*>* mapToFlatItems(NSMutableDictionary<NSString *, NSDictionary *>* rawItems, NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories) {
