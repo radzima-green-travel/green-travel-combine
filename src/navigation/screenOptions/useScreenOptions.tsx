@@ -9,6 +9,7 @@ import {Header} from '@react-navigation/elements';
 import {useColorScheme} from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
+import {SCREEN_WIDTH} from 'services/PlatformService';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -70,7 +71,7 @@ export function useScreenOptions(): NativeStackNavigationOptions {
           headerTitleStyle={{
             ...FONTS_STYLES.semibold16,
           }}
-          headerTitleContainerStyle={{maxWidth: undefined}}
+          headerTitleContainerStyle={{maxWidth: SCREEN_WIDTH * 0.7}}
           headerLeftContainerStyle={{paddingLeft: 16}}
           headerRightContainerStyle={{paddingRight: 16}}
           title={titleText}
