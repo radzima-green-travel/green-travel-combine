@@ -202,16 +202,28 @@ export function transformQueryData(
             include: reduce(
               object.include,
               (acc, categoryId) => {
-                if (categoryId && categoriesMap[categoryId]) {
-                  return [
-                    ...acc,
-                    pick(categoriesMap[categoryId], [
-                      'id',
-                      'name',
-                      'icon',
-                      'objects',
-                    ]),
-                  ];
+                const belongsObject = objects?.items?.find(
+                  el => el?.id === categoryId,
+                );
+                const belongsObjectCategory =
+                  categoriesMap[belongsObject?.categoryId || ''];
+
+                const translations = getDataTranslation(
+                  belongsObject?.i18n,
+                  currentLocale,
+                ) as ObjectI18n;
+
+                if (belongsObject && belongsObjectCategory) {
+                  const belongsTo = {
+                    id: belongsObjectCategory?.id,
+                    name: translations?.name
+                      ? translations.name
+                      : belongsObject?.name,
+                    icon: belongsObjectCategory?.icon,
+                    objects: belongsObjectCategory?.objects,
+                  };
+
+                  return [...acc, belongsTo];
                 }
 
                 return acc;
@@ -221,16 +233,28 @@ export function transformQueryData(
             belongsTo: reduce(
               object.belongsTo,
               (acc, categoryId) => {
-                if (categoryId && categoriesMap[categoryId]) {
-                  return [
-                    ...acc,
-                    pick(categoriesMap[categoryId], [
-                      'id',
-                      'name',
-                      'icon',
-                      'objects',
-                    ]),
-                  ];
+                const belongsObject = objects?.items?.find(
+                  el => el?.id === categoryId,
+                );
+                const belongsObjectCategory =
+                  categoriesMap[belongsObject?.categoryId || ''];
+
+                const translations = getDataTranslation(
+                  belongsObject?.i18n,
+                  currentLocale,
+                ) as ObjectI18n;
+
+                if (belongsObject && belongsObjectCategory) {
+                  const belongsTo = {
+                    id: belongsObjectCategory?.id,
+                    name: translations?.name
+                      ? translations.name
+                      : belongsObject?.name,
+                    icon: belongsObjectCategory?.icon,
+                    objects: belongsObjectCategory?.objects,
+                  };
+
+                  return [...acc, belongsTo];
                 }
 
                 return acc;
