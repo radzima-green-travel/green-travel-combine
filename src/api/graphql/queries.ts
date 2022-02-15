@@ -2159,26 +2159,6 @@ export const listMobileData = /* GraphQL */ `
             address
             notes
           }
-          category {
-            id
-            name
-            singularName
-            icon
-            createdAt
-            updatedAt
-            owner
-            createdBy
-            updatedBy
-            fields
-            parent
-            cover
-            index
-            i18n {
-              locale
-              name
-              singularName
-            }
-          }
           permissions {
             items {
               id
