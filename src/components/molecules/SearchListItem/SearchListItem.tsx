@@ -1,10 +1,12 @@
 import React, {memo, useCallback} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, View} from 'react-native';
+
 import {Icon} from 'atoms';
 import {themeStyles} from './styles';
 import {useThemeStyles, useColorScheme} from 'core/hooks';
 import {IObject} from 'core/types';
 import {DARK_ICONS_MATCHER, ICONS_MATCHER} from 'core/constants';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface IProps {
   data: IObject;
