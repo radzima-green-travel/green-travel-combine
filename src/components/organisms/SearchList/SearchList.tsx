@@ -1,10 +1,11 @@
 import React, {memo} from 'react';
 import {
-  Keyboard,
-  View,
-  Text,
   FlatList,
+  Keyboard,
   KeyboardAvoidingView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import {SearchListItem} from 'molecules';
 import {SwipeToDeleteContainer} from '../../containers';
@@ -19,6 +20,7 @@ interface IProps {
   data: IObject[];
   onItemPress: (object: IObject) => void;
   onDeletePress?: (object: IObject) => void;
+  onDeleteAllPress: () => void;
   isHistoryVisible: boolean;
   FlatListComponent?: typeof FlatList | typeof BottomSheetFlatList;
 }
@@ -26,10 +28,11 @@ interface IProps {
 export const SearchList = memo(
   ({
     data,
-    onItemPress,
-    onDeletePress,
-    isHistoryVisible,
     FlatListComponent = FlatList,
+    isHistoryVisible,
+    onDeletePress,
+    onDeleteAllPress,
+    onItemPress,
   }: IProps) => {
     const {t} = useTranslation('search');
 
@@ -57,7 +60,14 @@ export const SearchList = memo(
             data={data}
             ListHeaderComponent={() =>
               isHistoryVisible ? (
-                <Text style={styles.listTitle}>{t('searchTitle')}</Text>
+                <View style={styles.listTitleHeader}>
+                  <Text style={styles.listTitle}>{t('searchTitle')}</Text>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={onDeleteAllPress}>
+                    <Text style={styles.clearAll}>{t('clearAll')}</Text>
+                  </TouchableOpacity>
+                </View>
               ) : null
             }
             renderItem={({item}) => {

@@ -31,12 +31,24 @@ export const themeStyles = {
     textAlign: 'center',
     marginTop: 8,
   },
+  listTitleHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: 16,
+    marginBottom: 24,
+  },
   listTitle: {
     ...FONTS_STYLES.regular15,
     color: {
       light: COLORS.logCabin,
       dark: COLORS.altoForDark,
     },
-    marginBottom: 24,
+  },
+  clearAll: {
+    ...FONTS_STYLES.regular13,
+    color: {
+      light: COLORS.boulder,
+      dark: COLORS.altoForDark,
+    },
   },
 };
