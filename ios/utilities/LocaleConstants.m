@@ -9,3 +9,4 @@
 
 const NSString * LocaleLanguageCodeLegacy = @"ru";
 const NSString * LocaleLanguageCodeDefault = @"en";
+const NSString * SupportedLanguageCodes = @"en,ru,zh";

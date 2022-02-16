@@ -14,13 +14,18 @@ NSString* getCurrentLocaleLanguageCode() {
   if (shortCode != nil) {
     return shortCode;
   }
+  NSSet<NSString *> *supportedLanguageCodes = [[NSSet alloc] initWithArray:[SupportedLanguageCodes componentsSeparatedByString:@","]];
   NSArray<NSString *> *preferredLanguages = [NSLocale preferredLanguages];
-  if ([preferredLanguages count] == 0) {
+  [preferredLanguages enumerateObjectsUsingBlock:^(NSString * _Nonnull   prefferedLanguage, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSString *firstPrefferedLanguageLangCode = [[prefferedLanguage componentsSeparatedByString:@"-"] firstObject];
+    if ([supportedLanguageCodes containsObject:firstPrefferedLanguageLangCode]) {
+      shortCode = firstPrefferedLanguageLangCode;
+      *stop = YES;
+    }
+  }];
+  if (shortCode == nil) {
     shortCode = LocaleLanguageCodeDefault;
-    return shortCode;
   }
-  NSString *firstPrefferedLanguage = [[NSLocale preferredLanguages] firstObject];
-  shortCode = [[firstPrefferedLanguage componentsSeparatedByString:@"-"] firstObject];
   return shortCode;
 }
 

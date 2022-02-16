@@ -9,3 +9,4 @@
 
 FOUNDATION_EXPORT const NSString * LocaleLanguageCodeLegacy;
 FOUNDATION_EXPORT const NSString * LocaleLanguageCodeDefault;
+FOUNDATION_EXPORT const NSString * SupportedLanguageCodes;
