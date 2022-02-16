@@ -24,9 +24,14 @@ export const deleteObjectFromSearchHistory = createAction(
   ACTIONS.DELETE_OBJECT_FROM_SEARCH_HISTORY,
 )<string>();
 
+export const deleteAllFromSearchHistory = createAction(
+  ACTIONS.DELETE_All_FROM_SEARCH_HISTORY,
+)();
+
 const actions = {
   addObjectToSearchHistory,
   deleteObjectFromSearchHistory,
+  deleteAllFromSearchHistory,
   setSearchInputValue,
 };
 
@@ -45,4 +50,8 @@ export const searchReducer = createReducer<
   .handleAction(deleteObjectFromSearchHistory, (state, {payload}) => ({
     ...state,
     history: filter(state.history, item => item !== payload),
+  }))
+  .handleAction(deleteAllFromSearchHistory, state => ({
+    ...state,
+    history: [],
   }));

@@ -1,6 +1,7 @@
 import {
   addObjectToSearchHistory,
   deleteObjectFromSearchHistory,
+  deleteAllFromSearchHistory,
   setSearchInputValue,
 } from 'core/reducers';
 import {
@@ -44,6 +45,10 @@ export function useSearchList({
     [dispatch],
   );
 
+  const deleteAllFromHistory = useCallback(() => {
+    dispatch(deleteAllFromSearchHistory());
+  }, [dispatch]);
+
   const clearInput = useCallback(() => {
     dispatch(setSearchInputValue(''));
   }, [dispatch]);
@@ -60,6 +65,7 @@ export function useSearchList({
     data,
     addToHistory,
     deleteFromHistory,
+    deleteAllFromHistory,
     clearInput,
     onTextChange,
     inputValue,

@@ -54,7 +54,8 @@
   },
   "search": {
     "searchTitle": "Search history",
-    "notFound": "Unfortunately, no results match this search"
+    "notFound": "Unfortunately, no results match this search",
+    "clearAll": "Clear all"
   },
   "map": {
     "all": "All",
