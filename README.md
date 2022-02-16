@@ -16,21 +16,27 @@ Travel app, has native iOS ([UIKit](https://developer.apple.com/documentation/ui
 - `touch .netrc`
 - `open .netrc`
 - Paste text below into file
-  > `machine api.mapbox.com`  
-  > `login mapbox`  
-  > `password <MY_SECRET_TOKEN>`
+```
+machine api.mapbox.com
+login mapbox
+password <MY_SECRET_TOKEN>
+```
 
 2. Create **_dev.env_** file in root directory:
 
-   > `ENVIRONMENT=development`  
-   > `NATIVE_CLIENT_URL=<NATIVE_CLIENT_URL>`  
-   > `NATIVE_CLIENT_IMAGE_URL=<NATIVE_CLIENT_IMAGE_URL>`  
-   > `MAP_ACCESS_TOKEN=<MAP_ACCESS_TOKEN>`  
-   > `SENTRY_DSN=<SENTRY_DSN>`  
-   > `MAP_BOX_CLIENT_URL=<MAP_BOX_CLIENT_URL>`  
-   > `MAP_BOX_STYLE_URL_ANY=<MAP_BOX_STYLE_URL_ANY>`  
-   > `MAP_BOX_STYLE_URL_DARK=<MAP_BOX_STYLE_URL_DARK>`  
-   > `AMPLITUDE_KEY=<AMPLITUDE_KEY>`
+```
+ENVIRONMENT=development  
+NATIVE_CLIENT_URL=<NATIVE_CLIENT_URL>
+NATIVE_CLIENT_IMAGE_URL=<NATIVE_CLIENT_IMAGE_URL>
+NATIVE_CLIENT_GRAPHQL_URL=<NATIVE_CLIENT_GRAPHQL_URL>
+NATIVE_CLIENT_GRAPHQL_API_KEY=<NATIVE_CLIENT_GRAPHQL_API_KEY>
+MAP_ACCESS_TOKEN=<MAP_ACCESS_TOKEN>
+SENTRY_DSN=<SENTRY_DSN>
+MAP_BOX_CLIENT_URL=<MAP_BOX_CLIENT_URL>
+MAP_BOX_STYLE_URL_ANY=<MAP_BOX_STYLE_URL_ANY>
+MAP_BOX_STYLE_URL_DARK=<MAP_BOX_STYLE_URL_DARK>
+AMPLITUDE_KEY=<AMPLITUDE_KEY>
+```
 
 3. Generate **_aws-exports.js_** file in `src/` folder
 4. Put **_GoogleService-Info.plist_** file in `ios/` folder
