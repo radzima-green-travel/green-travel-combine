@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)saveBuildNumber:(NSString *)buildNumber;
 - (void)saveLanguageCode:(NSString *)languageCode;
 - (NSString *)loadLanguageCode;
+- (void)clearLanguageCode;
 + (instancetype)get;
 
 @end

@@ -76,6 +76,10 @@ static UserDefaultsService *instance;
   [self.userDefaults setValue:languageCode forKey:kKeyLanguageCode];
 }
 
+- (void)clearLanguageCode {
+  [self saveLanguageCode:@""];
+}
+
 + (instancetype)get {
     if (instance) {
         return instance;

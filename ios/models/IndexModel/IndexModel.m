@@ -67,6 +67,7 @@ static IndexModel *instance;
     // Check whether we need to reload for new locale.
     NSString *existingLanguageCode = [self.userDefaultsService loadLanguageCode];
     if (![existingLanguageCode isEqualToString:getCurrentLocaleLanguageCode()]) {
+      [self.userDefaultsService clearLanguageCode];
       // Consider data in the DB invalidated, go to remote load.
       self.loadedFromDB = YES;
       __weak typeof(self) weakSelf = self;
