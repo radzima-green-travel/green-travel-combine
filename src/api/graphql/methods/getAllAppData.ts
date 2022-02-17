@@ -1,4 +1,4 @@
-import {listMobileData as listMobileDataQuery} from '../queries';
+import {listMobileData as listMobileDataQuery} from '../customQueries';
 import {ListMobileDataQuery} from '../types';
 import {concat} from 'lodash';
 import {amplifyApiService} from 'services/AmplifyApiService';

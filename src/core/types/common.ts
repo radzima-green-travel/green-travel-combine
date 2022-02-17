@@ -77,6 +77,7 @@ export interface ICategory {
   id: string;
   path: string;
   name: string;
+  singularName: string;
   icon: string;
   cover: string | null;
   parent?: string;

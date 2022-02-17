@@ -5,7 +5,6 @@ import {
   reduce,
   compact,
   map,
-  pick,
   orderBy,
 } from 'lodash';
 
@@ -118,6 +117,7 @@ export function transformQueryData(
           acc[category.id] = {
             id: category.id,
             name: translations?.name ? translations.name : category.name,
+            singularName: translations?.singularName || category.singularName,
             path: '',
             icon: category.icon || '',
             cover: category.cover
@@ -156,19 +156,15 @@ export function transformQueryData(
           currentLocale,
         ) as ObjectI18n;
 
-        const categoryTranslations = getDataTranslation(
-          object?.category?.i18n,
-          currentLocale,
-        ) as CategoryI18n;
-
         if (object) {
-          objectsToCategoryMap[object.id] = object.category?.id!;
+          objectsToCategoryMap[object.id] = object.categoryId;
+
+          const objectCategory = categoriesMap[object.categoryId];
+
           const objectData: IObject = {
             id: object.id,
-            name: translations?.name ? translations.name : object.name,
-            description: translations?.description
-              ? translations.description
-              : object.description || '',
+            name: translations?.name || object.name,
+            description: translations?.description || object.description || '',
             address: translations?.address
               ? translations.address
               : object.address || '',
@@ -181,15 +177,11 @@ export function transformQueryData(
                   }
                 : null,
             category: {
-              icon: object.category?.icon || '',
-              id: object.category?.id || '',
-              name: categoryTranslations?.name
-                ? categoryTranslations.name
-                : object.category?.name || '',
-              parent: object.category?.parent || null,
-              singularName: categoryTranslations?.singularName
-                ? categoryTranslations.singularName
-                : object.category?.singularName || '',
+              icon: objectCategory?.icon || '',
+              id: objectCategory?.id || '',
+              name: objectCategory?.name,
+              parent: objectCategory?.parent || null,
+              singularName: objectCategory?.singularName || '',
             },
             cover: object.cover
               ? imagesService.getImageProxy(object.cover)
