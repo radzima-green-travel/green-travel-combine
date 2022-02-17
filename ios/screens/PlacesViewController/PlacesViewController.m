@@ -117,6 +117,25 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
         category.onPlaceCellPress = ^{};
         item.onPlaceCellPress = ^{};
     });
+  
+  NSArray *indexSource;
+  if ([self.category.categories count] > 0) {
+    indexSource = self.category.categories;
+    [self.category.categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      [obj.title characterAtIndex:0];
+    }];
+  }
+  if (self.bookmarked) {
+    indexSource = self.bookmarkedItems;
+  }
+  if (self.allowedItemUUIDs) {
+    indexSource = self.allowedItems;
+  } else {
+    indexSource = self.category.items
+  }
+  [indexSource enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      
+  }];
 }
 
 /*
@@ -166,6 +185,14 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
     }
 
     return cell;
+}
+
+- (NSArray<NSString *> *)indexTitlesForCollectionView:(UICollectionView *)collectionView {
+  
+}
+
+- (NSIndexPath *)collectionView:(UICollectionView *)collectionView indexPathForIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+  
 }
 
 #pragma mark <UICollectionViewDelegate>
@@ -270,6 +297,7 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     return UIEdgeInsetsMake(kInsetVertical, kInset, kInsetVertical, kInset);
 }
 
+#pragma mark - BookmarkObserver
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
     NSUInteger foundIndex = NSNotFound;
     BOOL(^indexOfObjectPassingTest)(PlaceItem *, NSUInteger , BOOL*) = ^BOOL(PlaceItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
