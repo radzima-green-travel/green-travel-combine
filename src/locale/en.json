@@ -46,8 +46,7 @@
     "routeLength": "{{km}} km, ",
     "includes": "Activities",
     "belongs": "Part of...",
-    "source": "Source:",
-    "sources": "Sources:"
+    "sources": "References"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"
