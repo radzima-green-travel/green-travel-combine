@@ -17,6 +17,8 @@
 		5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */; };
 		5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */; };
 		5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E89227BBC991004FD8C6 /* LocaleConstants.m */; };
+		5A12E89527BEA68E004FD8C6 /* details.html in Resources */ = {isa = PBXBuildFile; fileRef = 5A12E89427BEA68E004FD8C6 /* details.html */; };
+		5A12E89827C51F9C004FD8C6 /* DetailsScreenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E89727C51F9C004FD8C6 /* DetailsScreenModel.m */; };
 		5A1FFB29267626A400E31162 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1FFB28267626A400E31162 /* Colors.m */; };
 		5A21445C2663E9A700582901 /* AlertUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21445B2663E9A700582901 /* AlertUtils.m */; };
 		5A2144B1266B988700582901 /* MapViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2144B0266B988700582901 /* MapViewState.m */; };
@@ -164,6 +166,7 @@
 		5AB4AFD027B5B20E00C74857 /* StoredInformationReference+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFC727B5B20D00C74857 /* StoredInformationReference+CoreDataClass.m */; };
 		5AB4AFD127B5B20E00C74857 /* StoredPlaceDetails+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFCE27B5B20E00C74857 /* StoredPlaceDetails+CoreDataProperties.m */; };
 		5AB4AFD227B5B20E00C74857 /* StoredInformationReference+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFCA27B5B20E00C74857 /* StoredInformationReference+CoreDataProperties.m */; };
+		5AB4AFD527C27B2B00C74857 /* DetailsScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFD427C27B2B00C74857 /* DetailsScreenController.m */; };
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
@@ -206,6 +209,9 @@
 		5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = "index-locale-legacy.graphql"; sourceTree = "<group>"; };
 		5A12E89127BBC991004FD8C6 /* LocaleConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleConstants.h; sourceTree = "<group>"; };
 		5A12E89227BBC991004FD8C6 /* LocaleConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaleConstants.m; sourceTree = "<group>"; };
+		5A12E89427BEA68E004FD8C6 /* details.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = details.html; sourceTree = "<group>"; };
+		5A12E89627C51F9C004FD8C6 /* DetailsScreenModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsScreenModel.h; sourceTree = "<group>"; };
+		5A12E89727C51F9C004FD8C6 /* DetailsScreenModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsScreenModel.m; sourceTree = "<group>"; };
 		5A1FFB27267626A400E31162 /* Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		5A1FFB28267626A400E31162 /* Colors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		5A21445A2663E9A700582901 /* AlertUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertUtils.h; sourceTree = "<group>"; };
@@ -505,6 +511,8 @@
 		5AB4AFCC27B5B20E00C74857 /* StoredPlaceDetails+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredPlaceDetails+CoreDataClass.h"; sourceTree = "<group>"; };
 		5AB4AFCD27B5B20E00C74857 /* StoredInformationReference+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoredInformationReference+CoreDataProperties.h"; sourceTree = "<group>"; };
 		5AB4AFCE27B5B20E00C74857 /* StoredPlaceDetails+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoredPlaceDetails+CoreDataProperties.m"; sourceTree = "<group>"; };
+		5AB4AFD327C27B2B00C74857 /* DetailsScreenController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsScreenController.h; sourceTree = "<group>"; };
+		5AB4AFD427C27B2B00C74857 /* DetailsScreenController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsScreenController.m; sourceTree = "<group>"; };
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
@@ -1222,6 +1230,10 @@
 			children = (
 				5A775DC726077A7C00CEFC78 /* DetailsViewController.h */,
 				5A775DD126077A7C00CEFC78 /* DetailsViewController.m */,
+				5AB4AFD327C27B2B00C74857 /* DetailsScreenController.h */,
+				5AB4AFD427C27B2B00C74857 /* DetailsScreenController.m */,
+				5A12E89627C51F9C004FD8C6 /* DetailsScreenModel.h */,
+				5A12E89727C51F9C004FD8C6 /* DetailsScreenModel.m */,
 				5A775DC826077A7C00CEFC78 /* DescriptionView */,
 				5A775DCB26077A7C00CEFC78 /* LinkedCategories */,
 				5A775DD226077A7C00CEFC78 /* GalleryView */,
@@ -1462,6 +1474,7 @@
 				5A6CC8D9279C2C4500EE6E35 /* index-locale-any.graphql */,
 				5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */,
 				5A6CC8DB279D930C00EE6E35 /* index-tag.graphql */,
+				5A12E89427BEA68E004FD8C6 /* details.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1612,6 +1625,7 @@
 				5A775B3426064C9000CEFC78 /* Montserrat-Medium.ttf in Resources */,
 				5A775B4926064C9000CEFC78 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */,
+				5A12E89527BEA68E004FD8C6 /* details.html in Resources */,
 				5A775B4826064C9000CEFC78 /* Montserrat-Italic.ttf in Resources */,
 				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
 			);
@@ -1814,6 +1828,7 @@
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
+				5A12E89827C51F9C004FD8C6 /* DetailsScreenModel.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */,
 				5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */,
@@ -1836,6 +1851,7 @@
 				5A775B2226064C9000CEFC78 /* StoredSearchItem+CoreDataProperties.m in Sources */,
 				5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */,
 				5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */,
+				5AB4AFD527C27B2B00C74857 /* DetailsScreenController.m in Sources */,
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */,
 				5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */,

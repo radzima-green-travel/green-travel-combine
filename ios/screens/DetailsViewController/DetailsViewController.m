@@ -519,11 +519,13 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   }
 }
 
+#pragma mark - Update content
 - (void)updateMainContent:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-    NSAttributedString *html = getAttributedStringFromHTML(details.descriptionHTML,
-                                                           [Colors get].mainText);
+    NSAttributedString *html =
+    getAttributedStringFromHTML(details.descriptionHTML,
+                                [Colors get].mainText);
     dispatch_async(dispatch_get_main_queue(), ^{
       weakSelf.titleLabel.attributedText = [[TypographyLegacy get] makeTitle1Semibold:weakSelf.item.title];
       if (details.address && [details.address length]) {
