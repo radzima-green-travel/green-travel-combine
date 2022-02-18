@@ -46,8 +46,7 @@
     "routeLength": "{{km}} км, ",
     "includes": "Чем заняться",
     "belongs": "Входит в...",
-    "source": "Источник:",
-    "sources": "Источники:"
+    "sources": "Ссылки"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

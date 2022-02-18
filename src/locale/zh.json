@@ -46,8 +46,7 @@
     "routeLength": "{{km}} 公里, ",
     "includes": "活动",
     "belongs": "位于在……",
-    "source": "來源:",
-    "sources": "來源:"
+    "sources": "來源"
   },
   "bookmarks": {
     "emptyText": "暂时没有添加书签"

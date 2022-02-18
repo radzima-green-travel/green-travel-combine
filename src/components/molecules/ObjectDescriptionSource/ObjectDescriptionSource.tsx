@@ -13,8 +13,8 @@ export const ObjectDescriptionSource = memo(({origins}: IProps) => {
   const {t} = useTranslation('objectDetails');
 
   const sourceTitle = useMemo(() => {
-    return origins.length === 1 ? t('source') : t('sources');
-  }, [origins, t]);
+    return t('sources');
+  }, [t]);
 
   const sourceData = origins.map(origin => {
     return (
