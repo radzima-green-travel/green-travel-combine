@@ -146,7 +146,7 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
       return;
     }
     NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    if ([weakSelf validateBody:body error:error]) {
+    if (![weakSelf validateBody:body error:error]) {
       completion(indexModelData, @[], currentHash);
       return;
     }
