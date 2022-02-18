@@ -169,7 +169,7 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
   [getCategoriesTask resume];
 }
 
-- (BOOL)validateBody:(NSDictionary *)body error:(NSError)error {
+- (BOOL)validateBody:(NSDictionary *)body error:(NSError *)error {
   return error == nil && body != nil &&
   ![body isEqual:[NSNull null]] && body[@"data"] != nil &&
   ![body[@"data"] isEqual:[NSNull null]];
