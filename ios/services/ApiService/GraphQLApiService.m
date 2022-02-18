@@ -146,6 +146,10 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
       return;
     }
     NSDictionary *body = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    if ([weakSelf validateBody:body error:error]) {
+      completion(indexModelData, @[], currentHash);
+      return;
+    }
     [weakSelf fillRawIndexData:body
            intoAccumulatedCategories:accumulatedCategories
                     accumulatedItems:accumulatedItems];
@@ -163,6 +167,12 @@ accumulatedCategories:(NSMutableDictionary<NSString *, NSDictionary *> *)accumul
            accumulatedItems:accumulatedItems сompletion:completion];
   }];
   [getCategoriesTask resume];
+}
+
+- (BOOL)validateBody:(NSDictionary *)body error:(NSError)error {
+  return error == nil && body != nil &&
+  ![body isEqual:[NSNull null]] && body[@"data"] != nil &&
+  ![body[@"data"] isEqual:[NSNull null]];
 }
 
 - (void)fillRawIndexData:(NSDictionary *)body
