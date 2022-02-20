@@ -33,6 +33,8 @@
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSOrderedSet<NSString *> *allowedItemUUIDs;
 @property (strong, nonatomic) NSMutableArray<PlaceItem *> *allowedItems;
+@property (strong, nonatomic) NSMutableArray<NSString *> *indexTitlesDuplicated;
+@property (strong, nonatomic) NSMutableArray<NSString *> *indexTitles;
 
 @end
 
@@ -40,6 +42,8 @@
 
 static NSString * const kPhotoCellId = @"photoCellId";
 static const CGFloat kCellAspectRatio = 324.0 / 144.0;
+static const NSUInteger kCollectionSizeWhenToShowIndexTitles = 10;
+static const NSUInteger kNumberOfLetterSizeWhenToShowIndexTitles = 4;
 
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
                         apiService:(ApiService *)apiService
@@ -74,6 +78,7 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
 - (void)viewWillLayoutSubviews {
   self.collectionView.backgroundColor = [Colors get].background;
   configureNavigationBar(self.navigationController.navigationBar);
+  self.collectionView.tintColor = [Colors get].mainText;
 }
 
 - (void)viewDidLoad {
@@ -87,13 +92,6 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
 
     self.title = self.category.title;
 
-    if (!self.bookmarked) {
-        [self.collectionView reloadData];
-    }
-    [self.indexModel addObserverBookmarks:self];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
     if (self.bookmarked) {
         self.bookmarkedItems = [[NSMutableArray alloc] initWithArray:[self.category.items
         filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"bookmarked == YES"]]];
@@ -117,6 +115,56 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
         category.onPlaceCellPress = ^{};
         item.onPlaceCellPress = ^{};
     });
+    [self formIndexTitles];
+  
+    if (!self.bookmarked) {
+        [self.collectionView reloadData];
+    }
+    [self.indexModel addObserverBookmarks:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+}
+
+- (void)formIndexTitles {
+  self.indexTitlesDuplicated = [[NSMutableArray alloc] init];
+  self.indexTitles = [[NSMutableArray alloc] init];
+  NSMutableSet<NSString *> *uniqueIndexes = [[NSMutableSet alloc] init];
+  NSMutableArray<NSString *> *indexSource = [[NSMutableArray alloc] init];
+  if ([self.category.categories count] > 0) {
+    [self.category.categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
+      [indexSource addObject:category.title];
+    }];
+  }
+  if (self.bookmarked) {
+    [self.bookmarkedItems enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+      [indexSource addObject:item.title];
+    }];
+  }
+  if (self.allowedItemUUIDs) {
+    [self.allowedItems enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+      [indexSource addObject:item.title];
+    }];
+  } else {
+    [self.category.items enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+      [indexSource addObject:item.title];
+    }];
+  }
+  if ([indexSource count] < kCollectionSizeWhenToShowIndexTitles) {
+    return;
+  }
+  [indexSource enumerateObjectsUsingBlock:^(NSString * _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSRange firstCharRange = NSMakeRange(0, 1);
+    NSString *firstChar = [title substringWithRange:firstCharRange];
+    [uniqueIndexes addObject:firstChar];
+    [self.indexTitlesDuplicated addObject:firstChar];
+  }];
+  if ([uniqueIndexes count] < kNumberOfLetterSizeWhenToShowIndexTitles) {
+    return;
+  }
+  [self.indexTitlesDuplicated sortUsingComparator:titleCompare];
+  self.indexTitles = [[NSMutableArray alloc] initWithArray:[uniqueIndexes allObjects]];
+  [self.indexTitles sortUsingComparator:titleCompare];
 }
 
 /*
@@ -166,6 +214,22 @@ static const CGFloat kCellAspectRatio = 324.0 / 144.0;
     }
 
     return cell;
+}
+
+#pragma mark - Index titles
+- (NSArray<NSString *> *)indexTitlesForCollectionView:(UICollectionView *)collectionView {
+  return self.indexTitles;
+}
+
+- (NSIndexPath *)collectionView:(UICollectionView *)collectionView
+         indexPathForIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+  NSUInteger row =
+  [self.indexTitlesDuplicated indexOfObject:title
+                              inSortedRange:NSMakeRange(0, [self.indexTitlesDuplicated count])
+                                    options:NSBinarySearchingFirstEqual
+                            usingComparator:titleCompare];
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+  return indexPath;
 }
 
 #pragma mark <UICollectionViewDelegate>
@@ -270,6 +334,7 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     return UIEdgeInsetsMake(kInsetVertical, kInset, kInsetVertical, kInset);
 }
 
+#pragma mark - BookmarkObserver
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
     NSUInteger foundIndex = NSNotFound;
     BOOL(^indexOfObjectPassingTest)(PlaceItem *, NSUInteger , BOOL*) = ^BOOL(PlaceItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -101,6 +101,10 @@ NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(
     });
     return flatItems;
 }
+
+NSComparisonResult (^titleCompare)(NSString *, NSString *) = ^NSComparisonResult(NSString *t1, NSString *t2) {
+  return [t1 localizedCaseInsensitiveCompare:t2];
+};
  
 #pragma mark - Mapping category
 NSDictionary* findLocalizedEntry(NSArray<NSDictionary *> *translations, NSString *languageCode) {

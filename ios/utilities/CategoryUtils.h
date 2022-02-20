@@ -21,3 +21,4 @@ NSMutableDictionary<NSString *, PlaceCategory *>* flattenCategoriesTreeIntoCateg
 NSMutableDictionary<NSString *, PlaceItem *>* flattenCategoriesTreeIntoItemsMap(NSArray<PlaceCategory *> *categories);
 IndexModelData* rawIndexToIndexModelData(NSMutableDictionary<NSString *, NSDictionary *>* rawCategories,
                                          NSMutableDictionary<NSString *, NSDictionary *>* rawItems);
+extern NSComparisonResult (^titleCompare)(NSString *, NSString *); 
