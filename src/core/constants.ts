@@ -90,3 +90,5 @@ export const DARK_ICONS_MATCHER = {
 };
 
 export const MAP_BOTTOM_MENU_HEIGHT = 185;
+
+export const DEFAULT_LOCALE = 'ru';

@@ -9,6 +9,7 @@ export const themeStyles = {
       light: COLORS.white,
       dark: COLORS.background,
     },
+    paddingLeft: 16,
   },
   textContainer: {
     marginLeft: 8,

@@ -7,6 +7,7 @@ import {
   map,
   orderBy,
   some,
+  filter,
 } from 'lodash';
 
 import {
@@ -35,6 +36,7 @@ import {
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {ListMobileDataQuery} from 'api/graphql/types';
+import {DEFAULT_LOCALE} from './constants';
 
 export const extractThemeStyles = (
   styles: Object,
@@ -84,6 +86,35 @@ function getDataTranslation(
   }
 
   return null;
+}
+
+export function sanitizeQuaryDataByLocale(
+  dataQuery: ListMobileDataQuery,
+  currentLocale: SupportedLocales,
+): ListMobileDataQuery {
+  const {listMobileData} = dataQuery;
+
+  if (listMobileData && currentLocale !== DEFAULT_LOCALE) {
+    return {
+      ...dataQuery,
+      listMobileData: {
+        ...listMobileData,
+        categories: filter(listMobileData.categories, category =>
+          Boolean(category?.i18n && category?.i18n.length),
+        ),
+        objects: listMobileData.objects
+          ? {
+              ...listMobileData.objects,
+              items: filter(listMobileData.objects?.items, object =>
+                Boolean(object?.i18n && object.i18n.length),
+              ),
+            }
+          : listMobileData.objects,
+      },
+    };
+  }
+
+  return dataQuery;
 }
 
 export function transformQueryData(

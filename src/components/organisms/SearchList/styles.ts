@@ -11,7 +11,6 @@ export const themeStyles = {
   },
   contentContainer: {
     paddingTop: 32,
-    paddingLeft: 16,
   },
   emptyListContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -36,6 +35,7 @@ export const themeStyles = {
     justifyContent: 'space-between',
     marginRight: 16,
     marginBottom: 24,
+    marginLeft: 16,
   },
   listTitle: {
     ...FONTS_STYLES.regular15,
