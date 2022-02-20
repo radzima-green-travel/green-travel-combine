@@ -6,6 +6,7 @@ import {
   compact,
   map,
   orderBy,
+  some,
 } from 'lodash';
 
 import {
@@ -161,6 +162,46 @@ export function transformQueryData(
 
           const objectCategory = categoriesMap[object.categoryId];
 
+          function getObjectRelatedData(
+            objectIds?: Array<string | null> | null,
+          ): IInclude[] | IBelongsTo[] {
+            return reduce(
+              objectIds,
+              (relatedAcc, objectId) => {
+                const categoryId: string | undefined = objects?.items?.find(
+                  el => el?.id === objectId,
+                )?.categoryId;
+
+                if (categoryId && objectId) {
+                  const categoryData = categoriesMap[categoryId];
+                  if (some(relatedAcc, ({id}) => id === categoryId)) {
+                    return map(relatedAcc, item => {
+                      return item.id === categoryId
+                        ? {
+                            ...item,
+                            objects: [...item.objects, objectId],
+                          }
+                        : item;
+                    });
+                  } else if (categoryData) {
+                    return [
+                      ...relatedAcc,
+                      {
+                        id: categoryData.id,
+                        name: categoryData.name,
+                        icon: categoryData.icon,
+                        objects: [objectId],
+                      },
+                    ];
+                  }
+                }
+
+                return relatedAcc;
+              },
+              [] as IInclude[] | IBelongsTo[],
+            );
+          }
+
           const objectData: IObject = {
             id: object.id,
             name: translations?.name || object.name,
@@ -191,68 +232,9 @@ export function transformQueryData(
                 img ? imagesService.getImageProxy(img) : img,
               ),
             ),
-            include: reduce(
-              object.include,
-              (acc, categoryId) => {
-                const belongsObject = objects?.items?.find(
-                  el => el?.id === categoryId,
-                );
-                const belongsObjectCategory =
-                  categoriesMap[belongsObject?.categoryId || ''];
 
-                const translations = getDataTranslation(
-                  belongsObject?.i18n,
-                  currentLocale,
-                ) as ObjectI18n;
-
-                if (belongsObject && belongsObjectCategory) {
-                  const belongsTo = {
-                    id: belongsObjectCategory?.id,
-                    name: translations?.name
-                      ? translations.name
-                      : belongsObject?.name,
-                    icon: belongsObjectCategory?.icon,
-                    objects: belongsObjectCategory?.objects,
-                  };
-
-                  return [...acc, belongsTo];
-                }
-
-                return acc;
-              },
-              [] as IInclude[],
-            ),
-            belongsTo: reduce(
-              object.belongsTo,
-              (acc, categoryId) => {
-                const belongsObject = objects?.items?.find(
-                  el => el?.id === categoryId,
-                );
-                const belongsObjectCategory =
-                  categoriesMap[belongsObject?.categoryId || ''];
-
-                const translations = getDataTranslation(
-                  belongsObject?.i18n,
-                  currentLocale,
-                ) as ObjectI18n;
-
-                if (belongsObject && belongsObjectCategory) {
-                  const belongsTo = {
-                    id: belongsObjectCategory?.id,
-                    name: translations?.name
-                      ? translations.name
-                      : belongsObject?.name,
-                    icon: belongsObjectCategory?.icon,
-                    objects: belongsObjectCategory?.objects,
-                  };
-
-                  return [...acc, belongsTo];
-                }
-
-                return acc;
-              },
-              [] as IBelongsTo[],
-            ),
+            include: getObjectRelatedData(object.include),
+            belongsTo: getObjectRelatedData(object.belongsTo),
             url: object.url || undefined,
             routes: (object.routes as LineString) || undefined,
             length: object.length || null,
