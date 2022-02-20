@@ -474,9 +474,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
   LinkedCategoriesView *linkedCategoriesView =
   [[LinkedCategoriesView alloc] initWithIndexModel:self.indexModel
-                                        apiService:self.apiService
-                                          mapModel:self.mapModel
-                                     locationModel:self.locationModel
                                              title:[self linkedCategoriesLabelByType:type]
                               onCategoryLinkSelect:^(PlaceCategory * _Nonnull category, NSOrderedSet<NSString *> * _Nonnull linkedItems) {
     PlacesViewController *placesViewController =
