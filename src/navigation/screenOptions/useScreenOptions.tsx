@@ -71,9 +71,18 @@ export function useScreenOptions(): NativeStackNavigationOptions {
           headerTitleStyle={{
             ...FONTS_STYLES.semibold16,
           }}
-          headerTitleContainerStyle={{maxWidth: SCREEN_WIDTH * 0.7}}
-          headerLeftContainerStyle={{paddingLeft: 16}}
-          headerRightContainerStyle={{paddingRight: 16}}
+          headerTitleContainerStyle={{
+            flex: 4,
+            alignItems: 'center',
+          }}
+          headerLeftContainerStyle={{
+            flex: 1,
+            paddingLeft: 16,
+          }}
+          headerRightContainerStyle={{
+            flex: 1,
+            paddingRight: 16,
+          }}
           title={titleText}
           {...restOptions}
         />
