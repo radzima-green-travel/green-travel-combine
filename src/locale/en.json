@@ -2,8 +2,8 @@
   "common": {
     "errors": {
       "-1": {
-        "title": "Network error",
-        "text": "Please check your connection and try again"
+        "title": "Route cannot be built, sorry",
+        "text": "Please check your internet connection, or maybe Mapbox service is having issues"
       },
       "default": {
         "title": "",
@@ -12,7 +12,7 @@
     },
     "tabs": {
       "home": "Main",
-      "bookmarks": "Bookmarks",
+      "bookmarks": "Saved",
       "map": "Map"
     },
     "tryAgain": "Try again",
@@ -28,7 +28,7 @@
     "Discover new places": "Opening new places",
     "Interesting around": "Interesting nearby",
     "all": "All",
-    "updatesAvailable": "Updates available",
+    "updatesAvailable": "New data",
     "errors": {
       "-1": {
         "title": "",
@@ -37,7 +37,7 @@
     }
   },
   "objectDetails": {
-    "seeOnTheMap": "SEE ON THE MAP",
+    "seeOnTheMap": "See on map",
     "offSite": "Official site",
     "go": "Navigate",
     "show direction": "Get directions",
@@ -58,7 +58,7 @@
   },
   "map": {
     "all": "All",
-    "getMore": "Learn more",
+    "getMore": "More info",
     "routeLength": "{{km}} km, "
   }
 }
