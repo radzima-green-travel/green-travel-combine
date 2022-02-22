@@ -34,16 +34,24 @@ NSMutableAttributedString* loadDetailsTemplate(NSString *body) {
                          withString:body
                             options:NSCaseInsensitiveSearch
                               range:NSMakeRange(0, [details length])];
+
   NSData *data = [details dataUsingEncoding:NSUTF8StringEncoding];
-  NSMutableAttributedString *result =
-  [[NSMutableAttributedString alloc] initWithData:data
+  NSAttributedString *result =
+  [[NSAttributedString alloc] initWithData:data
                                           options:@{
     NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
     NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
   }
                                documentAttributes:nil
                                             error:&error];
-  return result;
+
+  NSCharacterSet *noNewlines = [NSCharacterSet.whitespaceCharacterSet invertedSet];
+  NSRange start = [result.string rangeOfCharacterFromSet:noNewlines];
+  NSRange end = [result.string rangeOfCharacterFromSet:noNewlines options:NSBackwardsSearch];
+  NSRange noNewlinesRange = NSMakeRange(start.location, end.location - start.location);
+
+  NSAttributedString *noNewlinesSubstring = [result attributedSubstringFromRange:noNewlinesRange];
+  return noNewlinesSubstring;
 }
 
 @implementation DetailsScreenController
