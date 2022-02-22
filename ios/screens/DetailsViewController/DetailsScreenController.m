@@ -15,7 +15,7 @@ static const NSString * kDetailsTemplateName = @"details.html";
 static const NSString * kDetailsTemplateCacheKey = @"detailsTemplateId";
 NSCache<NSString *, NSMutableString *> *htmlTemplateCache;
 
-NSString* loadDetailsTemplate(NSString *body) {
+NSMutableAttributedString* loadDetailsTemplate(NSString *body) {
   NSError *error;
   if (htmlTemplateCache == nil) {
     htmlTemplateCache = [[NSCache alloc] init];
@@ -43,7 +43,7 @@ NSString* loadDetailsTemplate(NSString *body) {
   }
                                documentAttributes:nil
                                             error:&error];
-  return [details copy];
+  return result;
 }
 
 @implementation DetailsScreenController

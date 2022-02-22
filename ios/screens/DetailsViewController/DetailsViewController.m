@@ -7,6 +7,7 @@
 //
 
 #import "DetailsViewController.h"
+#import "DetailsScreenController.h"
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "StyleUtils.h"
@@ -524,8 +525,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
     NSAttributedString *html =
-    getAttributedStringFromHTML(details.descriptionHTML,
-                                [Colors get].mainText);
+    loadDetailsTemplate(details.descriptionHTML);
     dispatch_async(dispatch_get_main_queue(), ^{
       weakSelf.titleLabel.attributedText = [[TypographyLegacy get] makeTitle1Semibold:weakSelf.item.title];
       if (details.address && [details.address length]) {

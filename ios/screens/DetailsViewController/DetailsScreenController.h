@@ -6,10 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* loadDetailsTemplate(NSString *);
+NSMutableAttributedString* loadDetailsTemplate(NSString *);
 
 @interface DetailsScreenController : NSObject
 
