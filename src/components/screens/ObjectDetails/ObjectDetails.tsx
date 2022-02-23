@@ -10,13 +10,7 @@ import {
   ObjectDetailsPager,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
-import {
-  useToast,
-  Button,
-  ObjectDetailsSiteLink,
-  ImageSlider,
-  ZoomableView,
-} from 'atoms';
+import {useToast, Button, ImageSlider, ZoomableView} from 'atoms';
 import {IProps} from './types';
 import {
   useTranslation,
@@ -167,10 +161,9 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
           ) : null}
         </View>
         <ObjectDescription description={data.description} />
-        {data.origins && data.origins.length ? (
-          <ObjectDescriptionSource origins={data.origins} />
+        {(data.origins && data.origins.length) || data.url ? (
+          <ObjectDescriptionSource origins={data.origins} siteLink={data.url} />
         ) : null}
-        {data.url ? <ObjectDetailsSiteLink url={data.url} /> : null}
         {isEmpty(data.include) ? null : (
           <ObjectIncludes
             title={t('includes')}
