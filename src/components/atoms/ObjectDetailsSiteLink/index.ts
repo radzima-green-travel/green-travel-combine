@@ -1,1 +1,0 @@
-export {ObjectDetailsSiteLink} from './ObjectDetailsSiteLink';

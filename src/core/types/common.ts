@@ -68,7 +68,7 @@ export interface IObject {
   belongsTo: IBelongsTo[];
   url?: string;
   origin?: string;
-  origins: IOrigins[] | null;
+  origins?: IOrigins[];
   routes?: LineString;
   length: number | null;
 }
