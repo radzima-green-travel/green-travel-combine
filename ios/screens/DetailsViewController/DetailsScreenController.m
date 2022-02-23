@@ -20,16 +20,16 @@ NSMutableAttributedString* loadDetailsTemplate(NSString *body) {
   if (htmlTemplateCache == nil) {
     htmlTemplateCache = [[NSCache alloc] init];
   }
-  NSMutableString *details = [htmlTemplateCache objectForKey:kDetailsTemplateCacheKey];
-  if (details == nil) {
+  NSString *template = [htmlTemplateCache objectForKey:kDetailsTemplateCacheKey];
+  if (template == nil) {
     NSString *filePath = [[[NSBundle mainBundle] resourcePath]
                                   stringByAppendingPathComponent:kDetailsTemplateName];
-    details = [NSMutableString stringWithContentsOfFile:filePath
+    template = [NSString stringWithContentsOfFile:filePath
                                                 encoding:NSUTF8StringEncoding
                                                    error:&error];
-    [htmlTemplateCache setObject:details forKey:kDetailsTemplateCacheKey];
+    [htmlTemplateCache setObject:template forKey:kDetailsTemplateCacheKey];
   }
-  details = [htmlTemplateCache objectForKey:kDetailsTemplateCacheKey];
+  NSMutableString *details = [NSMutableString stringWithString:template];
   [details replaceOccurrencesOfString:@"$body$"
                          withString:body
                             options:NSCaseInsensitiveSearch
