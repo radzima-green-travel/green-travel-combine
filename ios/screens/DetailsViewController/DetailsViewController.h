@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
 };
 
 @interface DetailsViewController : LoadableDataViewController<BookmarksObserver,
-    CategoriesObserver, DetailsObserver>
+    CategoriesObserver, DetailsObserver, UIScrollViewDelegate>
 
 - (instancetype)initWithApiService:(ApiService *)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService

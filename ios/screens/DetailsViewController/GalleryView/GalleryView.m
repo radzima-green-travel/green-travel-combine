@@ -185,6 +185,14 @@ static const CGFloat kPreviewImageAspectRatio = 310.0 / 375.0;
     }
 }
 
+- (UIImageView *)getCurrentImageView {
+  NSUInteger index = (NSUInteger) [self getIndexOfScrolledItem];
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+  SlideCollectionViewCell *cell = (SlideCollectionViewCell *)
+  [self.collectionView cellForItemAtIndexPath:indexPath];
+  return cell.imageView;
+}
+
 #pragma mark - ZoomableImageCollectionViewCellDelegate
 - (void)setZooming:(BOOL)zooming {
   [self.collectionView setScrollEnabled:!zooming];

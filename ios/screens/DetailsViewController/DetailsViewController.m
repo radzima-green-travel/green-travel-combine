@@ -84,6 +84,10 @@
 @property (strong, nonatomic) AnalyticsUIScrollViewDelegate *analyticsScrollDelegate;
 @property (strong, nonatomic) AnalyticsTimeTracer *timeTracer;
 
+@property (assign, nonatomic) CGFloat initialImageHeight;
+@property (assign, nonatomic) CGFloat prevContentOffsetY;
+@property (strong, nonatomic) UIImageView *currentImageView;
+
 @end
 
 static const CGFloat kDistanceDescriptionToBottom = 26.0;
@@ -137,6 +141,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     self.dataView = [[UIScrollView alloc] init];
     self.dataView.translatesAutoresizingMaskIntoConstraints = NO;
     self.dataView.alwaysBounceVertical = YES;
+    self.dataView.delegate = self;
     [self.view addSubview:self.dataView];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -164,7 +169,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         AnalyticsEventsParamCardCategory: weakSelf.item.category.title,
       }];
     }];
-    self.dataView.delegate = self.analyticsScrollDelegate;
 
     #pragma mark - Gallery
     self.imageGalleryView = [[GalleryView alloc] initWithFrame:CGRectZero
@@ -720,6 +724,55 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     CGPoint pointToScrollTo = CGPointMake(self.imageGalleryView.indexOfScrolledItem * size.width, 0);
     [self.imageGalleryView.collectionView setContentOffset:pointToScrollTo animated:YES];
     [self.imageGalleryView toggleSkipAnimation];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)addElasticImage {
+  if (self.currentImageView != nil) {
+    return;
+  }
+  
+  UIImageView *currentImageView = [self.imageGalleryView getCurrentImageView];
+  self.currentImageView = [[UIImageView alloc] initWithImage:currentImageView.image];
+  self.currentImageView.contentMode = UIViewContentModeScaleAspectFill;
+  self.initialImageHeight = currentImageView.frame.size.height;
+  
+  [self.currentImageView setFrame:CGRectMake(0, self.view.safeAreaInsets.top - currentImageView.frame.size.height / 2, currentImageView.frame.size.width, currentImageView.frame.size.height)];
+  
+  [self.view addSubview:self.currentImageView];
+  
+//  self.currentImageView.translatesAutoresizingMaskIntoConstraints = NO;
+//  [NSLayoutConstraint activateConstraints:@[
+//    [self.currentImageView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+//    [self.currentImageView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+//    [self.currentImageView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+//  ]];
+  self.currentImageView.layer.anchorPoint = CGPointMake(0.5, 0.0);
+}
+
+- (void)removeElasticImage {
+  [self.currentImageView removeFromSuperview];
+  self.currentImageView = nil;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+  CGFloat prevContentOffsetY = self.prevContentOffsetY;
+  CGFloat contentOffsetY = self.dataView.contentOffset.y;
+  self.prevContentOffsetY = contentOffsetY;
+  
+  NSLog(@"Content ofsset: %f", contentOffsetY);
+  [self.analyticsScrollDelegate scrollViewDidScroll:scrollView];
+  if (contentOffsetY < 0) {
+    [self addElasticImage];
+    CGFloat scale = (self.initialImageHeight + fabs(contentOffsetY)) / self.initialImageHeight;
+    NSLog(@"Scale: %F", scale);
+    CGAffineTransform scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+    CGAffineTransform translateTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0, contentOffsetY);
+    [self.currentImageView setTransform:scaleTransform];
+    return;
+  }
+  
+  [self removeElasticImage];
 }
 
 @end

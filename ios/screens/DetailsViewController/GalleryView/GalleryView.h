@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
                  onPageChange:(void(^)(void))onPageChange; 
 - (void)setUpWithPictureURLs:(NSArray<NSString *>*)pictureURLs;
 - (void)toggleSkipAnimation;
+- (UIImageView *)getCurrentImageView;
 
 @end
 
