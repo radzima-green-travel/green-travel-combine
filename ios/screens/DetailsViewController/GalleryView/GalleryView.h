@@ -11,11 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class GalleryPageControl;
+
 @interface GalleryView : UIView<UICollectionViewDelegate,
     UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, ZoomableImageCollectionViewCellDelegate>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (assign, readonly, nonatomic) CGFloat indexOfScrolledItem;
+@property (strong, nonatomic) GalleryPageControl *pageControl;
 
 - (instancetype)initWithFrame:(CGRect)frame
                     imageURLs:(NSArray<NSString *>*)imageURLs

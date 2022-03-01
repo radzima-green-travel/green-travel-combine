@@ -32,11 +32,13 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   switch (self.flavor) {
-    case BookmarkButtonFlavorBottomSheet:
+    case BookmarkButtonFlavorBottomSheet: {
       [self setImage:[UIImage imageNamed:@"bookmark"] forState:UIControlStateNormal];
       [self setImage:[UIImage imageNamed:@"bookmark"] forState:UIControlStateHighlighted];
       [self setImage:[UIImage imageNamed:@"bookmark-selected"] forState:UIControlStateSelected];
       [self setImage:[UIImage imageNamed:@"bookmark-selected"] forState:UIControlStateSelected | UIControlStateHighlighted];
+      break;
+    }
     default:
       break;
   }

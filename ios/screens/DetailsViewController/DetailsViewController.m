@@ -43,6 +43,7 @@
 #import "URLUtils.h"
 #import "InformationReference.h"
 #import "ReferenceContentTableViewCell.h"
+#import "GalleryPageControl.h"
 
 @interface DetailsViewController ()
 
@@ -128,6 +129,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   self.view.backgroundColor = [Colors get].background;
   self.dataView.backgroundColor = [Colors get].background;
   self.contentView.backgroundColor = [Colors get].background;
+  self.bookmarkButton.tintColor = [Colors get].mainText;
   configureNavigationBar(self.navigationController.navigationBar);
 }
 
@@ -195,14 +197,8 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
       [weakSelf onBookmarkButtonPress];
     }];
 
-    self.bookmarkButton.backgroundColor = [ColorsLegacy get].white;
     self.bookmarkButton.contentMode = UIViewContentModeScaleAspectFill;
-    self.bookmarkButton.layer.cornerRadius = 22.0;
-    self.bookmarkButton.layer.borderWidth = 1.0;
-    self.bookmarkButton.layer.borderColor = [[ColorsLegacy get].heavyMetal35 CGColor];
-    self.bookmarkButton.layer.masksToBounds = YES;
-
-    self.bookmarkButton.tintColor = [ColorsLegacy get].logCabin;
+    
     [self.bookmarkButton setSelected:self.item.bookmarked];
 
     self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -210,8 +206,8 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     [self.contentView addSubview:self.bookmarkButton];
 
     [NSLayoutConstraint activateConstraints:@[
-      [self.bookmarkButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:32.0],
-      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16.0],
+      [self.bookmarkButton.centerYAnchor constraintEqualToAnchor:self.imageGalleryView.pageControl.centerYAnchor],
+      [self.bookmarkButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-6.0],
       [self.bookmarkButton.widthAnchor constraintEqualToConstant:44.0],
       [self.bookmarkButton.heightAnchor constraintEqualToConstant:44.0],
     ]];
@@ -727,34 +723,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)addElasticImage {
-  if (self.currentImageView != nil) {
-    return;
-  }
-  
-  UIImageView *currentImageView = [self.imageGalleryView getCurrentImageView];
-  self.currentImageView = [[UIImageView alloc] initWithImage:currentImageView.image];
-  self.currentImageView.contentMode = UIViewContentModeScaleAspectFill;
-  self.initialImageHeight = currentImageView.frame.size.height;
-  
-  [self.currentImageView setFrame:CGRectMake(0, self.view.safeAreaInsets.top - currentImageView.frame.size.height / 2, currentImageView.frame.size.width, currentImageView.frame.size.height)];
-  
-  [self.view addSubview:self.currentImageView];
-  
-//  self.currentImageView.translatesAutoresizingMaskIntoConstraints = NO;
-//  [NSLayoutConstraint activateConstraints:@[
-//    [self.currentImageView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-//    [self.currentImageView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-//    [self.currentImageView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-//  ]];
-  self.currentImageView.layer.anchorPoint = CGPointMake(0.5, 0.0);
-}
-
-- (void)removeElasticImage {
-  [self.currentImageView removeFromSuperview];
-  self.currentImageView = nil;
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
   CGFloat prevContentOffsetY = self.prevContentOffsetY;
   CGFloat contentOffsetY = self.dataView.contentOffset.y;
@@ -768,11 +736,35 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     NSLog(@"Scale: %F", scale);
     CGAffineTransform scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
     CGAffineTransform translateTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0, contentOffsetY);
-    [self.currentImageView setTransform:scaleTransform];
+    CGAffineTransform concatedTransform = CGAffineTransformConcat(scaleTransform, translateTransform);
+    [self.currentImageView setTransform:concatedTransform];
     return;
   }
   
   [self removeElasticImage];
+}
+
+- (void)addElasticImage {
+  if (self.currentImageView != nil) {
+    return;
+  }
+  
+  UIImageView *currentImageView = [self.imageGalleryView getCurrentImageView];
+  self.currentImageView = [[UIImageView alloc] initWithImage:currentImageView.image];
+  self.currentImageView.contentMode = UIViewContentModeScaleAspectFill;
+  self.initialImageHeight = currentImageView.frame.size.height;
+  
+  [self.currentImageView setFrame:CGRectMake(0, -currentImageView.frame.size.height / 2, currentImageView.frame.size.width, currentImageView.frame.size.height)];
+  
+  [self.dataView addSubview:self.currentImageView];
+  
+  self.currentImageView.layer.masksToBounds = YES;
+  self.currentImageView.layer.anchorPoint = CGPointMake(0.5, 0.0);
+}
+
+- (void)removeElasticImage {
+  [self.currentImageView removeFromSuperview];
+  self.currentImageView = nil;
 }
 
 @end

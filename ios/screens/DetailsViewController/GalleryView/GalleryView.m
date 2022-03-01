@@ -26,7 +26,6 @@ typedef NS_ENUM(NSInteger, PageControlState) {
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *contentView;
-@property (strong, nonatomic) GalleryPageControl *pageControl;
 @property (strong, nonatomic) GalleryImagePlaceholder *placeHolderView;
 @property (strong, nonatomic) NSArray<NSString *> *imageURLs;
 @property (assign, nonatomic) CGFloat aspectRatio;
