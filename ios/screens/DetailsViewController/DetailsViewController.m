@@ -728,12 +728,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   CGFloat contentOffsetY = self.dataView.contentOffset.y;
   self.prevContentOffsetY = contentOffsetY;
   
-  NSLog(@"Content ofsset: %f", contentOffsetY);
   [self.analyticsScrollDelegate scrollViewDidScroll:scrollView];
   if (contentOffsetY < 0) {
     [self addElasticImage];
     CGFloat scale = (self.initialImageHeight + fabs(contentOffsetY)) / self.initialImageHeight;
-    NSLog(@"Scale: %F", scale);
     CGAffineTransform scaleTransform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
     CGAffineTransform translateTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0, contentOffsetY);
     CGAffineTransform concatedTransform = CGAffineTransformConcat(scaleTransform, translateTransform);
