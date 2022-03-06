@@ -20,6 +20,7 @@
 
 static NSString * const kPhotoCellId = @"photoCellId";
 static NSInteger kMaximalNumberOfItemsInCell = 10;
+static CGFloat kSwipeThresholdVelocity = 0.5;
 
 @interface PlacesTableViewCell ()
 
@@ -28,6 +29,8 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
 @property (strong, nonatomic) NSArray<PlaceItem *> *dataSourceItems;
 @property (strong, nonatomic) NSArray<PlaceCategory *> *dataSourceCategories;
 @property (strong, nonatomic) PlaceCategory *item;
+@property (assign, nonatomic) CGSize cellSize;
+@property (assign, nonatomic) NSUInteger indexOfMostExposedCellBeforeDragging;
 
 @end
 
@@ -163,7 +166,8 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
   CGSize screenSize = [UIScreen mainScreen].bounds.size;
   CGSize adaptedSize = CGSizeMake(screenSize.width - 50, screenSize.height);
-  return getCoverSize(adaptedSize);
+  self.cellSize = getCoverSize(adaptedSize);
+  return self.cellSize;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -203,7 +207,6 @@ static NSInteger kMaximalNumberOfItemsInCell = 10;
 }
 
 #pragma mark - <UICollectionViewDelegate>
-
 static const CGFloat kSpacing = 16.0;
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
@@ -219,6 +222,59 @@ static const CGFloat kSpacing = 16.0;
                             IndexViewControllerCoverInset,
                             IndexViewControllerCoverInset,
                             IndexViewControllerCoverInset);
+}
+
+#pragma mark - <UIScrollViewDelegate>
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
+                     withVelocity:(CGPoint)velocity
+              targetContentOffset:(inout CGPoint *)targetContentOffset {
+  //Stop deceleraion.
+  *targetContentOffset = self.collectionView.contentOffset;
+  
+  NSUInteger safeIndex = [self indexOfMostExposedCell];
+  NSUInteger dataSourceCount = self.dataSourceCategories.count > 0 ?
+  self.dataSourceCategories.count : self.dataSourceItems.count;
+  
+  BOOL swipedToSkipCell = NO;
+  if (self.indexOfMostExposedCellBeforeDragging == safeIndex &&
+      (velocity.x >= kSwipeThresholdVelocity ||
+       velocity.x <= -kSwipeThresholdVelocity)) {
+    if (velocity.x > kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging + 1 < dataSourceCount) {
+      NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging + 1 inSection:0];
+      
+      //[UIView animateWithDuration:10 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        [self.collectionView scrollToItemAtIndexPath:indexPath
+                                    atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                            animated:YES];
+      //} completion:nil];
+      return;
+    }
+    if (velocity.x < -kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging - 1 >= 0) {
+      NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging - 1 inSection:0];
+      [self.collectionView scrollToItemAtIndexPath:indexPath
+                                  atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                          animated:YES];
+      return;
+    }
+  }
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:safeIndex inSection:0];
+  [self.collectionView scrollToItemAtIndexPath:indexPath
+                              atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                      animated:YES];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+  self.indexOfMostExposedCellBeforeDragging = [self indexOfMostExposedCell];
+}
+
+- (NSUInteger)indexOfMostExposedCell {
+  CGSize itemSize = self.cellSize;
+  NSUInteger index = (NSUInteger) round(self.collectionView.contentOffset.x / itemSize.width);
+  
+  NSUInteger dataSourceCount = self.dataSourceCategories.count > 0 ?
+      self.dataSourceCategories.count : self.dataSourceItems.count;
+  NSUInteger safeIndex = MAX(0, MIN(dataSourceCount - 1, index));
+  return safeIndex;
 }
 
 @end
