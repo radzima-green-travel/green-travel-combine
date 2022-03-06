@@ -235,27 +235,42 @@ static const CGFloat kSpacing = 16.0;
   NSUInteger dataSourceCount = self.dataSourceCategories.count > 0 ?
   self.dataSourceCategories.count : self.dataSourceItems.count;
   
-  BOOL swipedToSkipCell = NO;
   if (self.indexOfMostExposedCellBeforeDragging == safeIndex &&
       (velocity.x >= kSwipeThresholdVelocity ||
        velocity.x <= -kSwipeThresholdVelocity)) {
     if (velocity.x > kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging + 1 < dataSourceCount) {
       NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging + 1 inSection:0];
-      
-      //[UIView animateWithDuration:10 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+      CGFloat predictedOffset = [self offsetByIndex:self.indexOfMostExposedCellBeforeDragging + 1];
+      CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (velocity.x * 1000.0);
+      [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         [self.collectionView scrollToItemAtIndexPath:indexPath
                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                            animated:YES];
-      //} completion:nil];
+                                            animated:NO];
+      } completion:nil];
       return;
     }
     if (velocity.x < -kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging - 1 >= 0) {
       NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging - 1 inSection:0];
-      [self.collectionView scrollToItemAtIndexPath:indexPath
-                                  atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                          animated:YES];
+      CGFloat predictedOffset = [self offsetByIndex:self.indexOfMostExposedCellBeforeDragging - 1];
+      CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (velocity.x * 1000.0);
+      [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        [self.collectionView scrollToItemAtIndexPath:indexPath
+                                    atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                            animated:NO];
+      } completion:nil];
       return;
     }
+  }
+  if (fabs(velocity.x) > 0) {
+    CGFloat predictedOffset = [self offsetByIndex:safeIndex];
+    CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (velocity.x * 1000.0);
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:safeIndex inSection:0];
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+      [self.collectionView scrollToItemAtIndexPath:indexPath
+                                  atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                          animated:NO];
+    } completion:nil];
+    return;
   }
   NSIndexPath *indexPath = [NSIndexPath indexPathForRow:safeIndex inSection:0];
   [self.collectionView scrollToItemAtIndexPath:indexPath
@@ -276,5 +291,12 @@ static const CGFloat kSpacing = 16.0;
   NSUInteger safeIndex = MAX(0, MIN(dataSourceCount - 1, index));
   return safeIndex;
 }
+
+- (CGFloat)offsetByIndex:(NSUInteger)index {
+  CGSize itemSize = self.cellSize;
+  CGFloat offset = self.cellSize.width * index;
+  return offset;
+}
+
 
 @end
