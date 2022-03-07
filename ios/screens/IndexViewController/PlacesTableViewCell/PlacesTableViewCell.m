@@ -19,7 +19,7 @@
 #import "CategoryUtils.h"
 
 static NSString * const kPhotoCellId = @"photoCellId";
-static NSInteger kMaximalNumberOfItemsInCell = 10;
+static NSUInteger kMaximalNumberOfItemsInCell = 10;
 static CGFloat kSwipeThresholdVelocity = 0.5;
 
 @interface PlacesTableViewCell ()
@@ -30,7 +30,7 @@ static CGFloat kSwipeThresholdVelocity = 0.5;
 @property (strong, nonatomic) NSArray<PlaceCategory *> *dataSourceCategories;
 @property (strong, nonatomic) PlaceCategory *item;
 @property (assign, nonatomic) CGSize cellSize;
-@property (assign, nonatomic) NSUInteger indexOfMostExposedCellBeforeDragging;
+@property (assign, nonatomic) NSInteger indexOfMostExposedCellBeforeDragging;
 
 @end
 
@@ -229,19 +229,22 @@ static const CGFloat kSpacing = 16.0;
                      withVelocity:(CGPoint)velocity
               targetContentOffset:(inout CGPoint *)targetContentOffset {
   //Stop deceleraion.
-  *targetContentOffset = self.collectionView.contentOffset;
+  //*targetContentOffset = self.collectionView.contentOffset;
   
   NSUInteger safeIndex = [self indexOfMostExposedCell];
   NSUInteger dataSourceCount = self.dataSourceCategories.count > 0 ?
   self.dataSourceCategories.count : self.dataSourceItems.count;
-  
+  NSLog(@"End velocity: %f", velocity.x);
+  NSLog(@"self.indexOfMostExposedCellBeforeDragging: %ld", (long)self.indexOfMostExposedCellBeforeDragging);
   if (self.indexOfMostExposedCellBeforeDragging == safeIndex &&
       (velocity.x >= kSwipeThresholdVelocity ||
        velocity.x <= -kSwipeThresholdVelocity)) {
-    if (velocity.x > kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging + 1 < dataSourceCount) {
+    if (velocity.x > kSwipeThresholdVelocity && (self.indexOfMostExposedCellBeforeDragging + 1) < dataSourceCount) {
+      *targetContentOffset = self.collectionView.contentOffset;
       NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging + 1 inSection:0];
       CGFloat predictedOffset = [self offsetByIndex:self.indexOfMostExposedCellBeforeDragging + 1];
-      CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (velocity.x * 1000.0);
+      CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
+      NSLog(@"Duration: %f", duration);
       [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         [self.collectionView scrollToItemAtIndexPath:indexPath
                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
@@ -249,10 +252,12 @@ static const CGFloat kSpacing = 16.0;
       } completion:nil];
       return;
     }
-    if (velocity.x < -kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging - 1 >= 0) {
+    if (velocity.x < -kSwipeThresholdVelocity && (self.indexOfMostExposedCellBeforeDragging - 1) >= 0) {
+      *targetContentOffset = self.collectionView.contentOffset;
       NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging - 1 inSection:0];
       CGFloat predictedOffset = [self offsetByIndex:self.indexOfMostExposedCellBeforeDragging - 1];
-      CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (velocity.x * 1000.0);
+      CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
+      NSLog(@"Duration: %f", duration);
       [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         [self.collectionView scrollToItemAtIndexPath:indexPath
                                     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
@@ -261,9 +266,15 @@ static const CGFloat kSpacing = 16.0;
       return;
     }
   }
+  if ((velocity.x > 0 && (self.indexOfMostExposedCellBeforeDragging + 1) == dataSourceCount) ||
+      (velocity.x < 0 && (self.indexOfMostExposedCellBeforeDragging - 1) < 0)) {
+    return;
+  }
+  *targetContentOffset = self.collectionView.contentOffset;
   if (fabs(velocity.x) > 0) {
     CGFloat predictedOffset = [self offsetByIndex:safeIndex];
-    CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (velocity.x * 1000.0);
+    CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
+    NSLog(@"Duration: %f", duration);
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:safeIndex inSection:0];
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
       [self.collectionView scrollToItemAtIndexPath:indexPath
