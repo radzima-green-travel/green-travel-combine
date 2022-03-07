@@ -17,10 +17,13 @@
 #import "TypographyLegacy.h"
 #import "IndexViewControllerConstants.h"
 #import "CategoryUtils.h"
+#import "NumberUtils.h"
 
 static NSString * const kPhotoCellId = @"photoCellId";
 static NSUInteger kMaximalNumberOfItemsInCell = 10;
 static CGFloat kSwipeThresholdVelocity = 0.5;
+static CGFloat kDurationMax = 0.4;
+static CGFloat kDurationMin = 0.05;
 
 @interface PlacesTableViewCell ()
 
@@ -244,6 +247,7 @@ static const CGFloat kSpacing = 16.0;
       NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging + 1 inSection:0];
       CGFloat predictedOffset = [self offsetByIndex:self.indexOfMostExposedCellBeforeDragging + 1];
       CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
+      duration = clamp(duration, kDurationMin, kDurationMax);
       NSLog(@"Duration: %f", duration);
       [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         [self.collectionView scrollToItemAtIndexPath:indexPath
@@ -257,6 +261,7 @@ static const CGFloat kSpacing = 16.0;
       NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging - 1 inSection:0];
       CGFloat predictedOffset = [self offsetByIndex:self.indexOfMostExposedCellBeforeDragging - 1];
       CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
+      duration = clamp(duration, kDurationMin, kDurationMax);
       NSLog(@"Duration: %f", duration);
       [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
         [self.collectionView scrollToItemAtIndexPath:indexPath
@@ -274,6 +279,7 @@ static const CGFloat kSpacing = 16.0;
   if (fabs(velocity.x) > 0) {
     CGFloat predictedOffset = [self offsetByIndex:safeIndex];
     CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
+    duration = clamp(duration, kDurationMin, kDurationMax);
     NSLog(@"Duration: %f", duration);
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:safeIndex inSection:0];
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
