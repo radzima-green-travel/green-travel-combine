@@ -34,6 +34,7 @@ static CGFloat kDurationMin = 0.05;
 @property (strong, nonatomic) PlaceCategory *item;
 @property (assign, nonatomic) CGSize cellSize;
 @property (assign, nonatomic) NSInteger indexOfMostExposedCellBeforeDragging;
+@property (assign, nonatomic) CGRect lastFrame;
 
 @end
 
@@ -69,9 +70,15 @@ static CGFloat kDurationMin = 0.05;
                             forState:UIControlStateNormal];
   self.headerLabel.attributedText = [[TypographyLegacy get] makeSubtitle1Semibold:[self.item.title uppercaseString]
                                      color:[Colors get].categoryTitleText];
+  if (!CGRectEqualToRect(self.frame, self.lastFrame)) {
+    self.lastFrame = self.frame;
+    NSUInteger safeIndex = [self indexOfMostExposedCell];
+    [self scrollToIndex:safeIndex animated:NO];
+  }
 }
 
 - (void)setUp {
+    self.lastFrame = CGRectZero;
     self.headerLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.headerLabel];
     [self.headerLabel setFont:[UIFont fontWithName:@"Montserrat-SemiBold" size:14.0]];
@@ -231,68 +238,82 @@ static const CGFloat kSpacing = 16.0;
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
                      withVelocity:(CGPoint)velocity
               targetContentOffset:(inout CGPoint *)targetContentOffset {
-  //Stop deceleraion.
-  //*targetContentOffset = self.collectionView.contentOffset;
-  
   NSUInteger safeIndex = [self indexOfMostExposedCell];
   NSUInteger dataSourceCount = self.dataSourceCategories.count > 0 ?
   self.dataSourceCategories.count : self.dataSourceItems.count;
   NSLog(@"End velocity: %f", velocity.x);
-  NSLog(@"self.indexOfMostExposedCellBeforeDragging: %ld", (long)self.indexOfMostExposedCellBeforeDragging);
-  if (self.indexOfMostExposedCellBeforeDragging == safeIndex &&
-      (velocity.x >= kSwipeThresholdVelocity ||
-       velocity.x <= -kSwipeThresholdVelocity)) {
+  NSLog(@"self.indexOfMostExposedCellBeforeDragging: %ld", (long) self.indexOfMostExposedCellBeforeDragging);
+  NSLog(@"safeIndex: %ld", safeIndex);
+  if (self.indexOfMostExposedCellBeforeDragging == safeIndex) {
     if (velocity.x > kSwipeThresholdVelocity && (self.indexOfMostExposedCellBeforeDragging + 1) < dataSourceCount) {
-      *targetContentOffset = self.collectionView.contentOffset;
-      NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging + 1 inSection:0];
-      CGFloat predictedOffset = [self offsetByIndex:self.indexOfMostExposedCellBeforeDragging + 1];
-      CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
-      duration = clamp(duration, kDurationMin, kDurationMax);
-      NSLog(@"Duration: %f", duration);
-      [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        [self.collectionView scrollToItemAtIndexPath:indexPath
-                                    atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                            animated:NO];
-      } completion:nil];
+      [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging + 1
+                 velocity:velocity targetContentOffset:targetContentOffset];
       return;
     }
     if (velocity.x < -kSwipeThresholdVelocity && (self.indexOfMostExposedCellBeforeDragging - 1) >= 0) {
-      *targetContentOffset = self.collectionView.contentOffset;
-      NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.indexOfMostExposedCellBeforeDragging - 1 inSection:0];
-      CGFloat predictedOffset = [self offsetByIndex:self.indexOfMostExposedCellBeforeDragging - 1];
-      CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
-      duration = clamp(duration, kDurationMin, kDurationMax);
-      NSLog(@"Duration: %f", duration);
-      [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        [self.collectionView scrollToItemAtIndexPath:indexPath
-                                    atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                            animated:NO];
-      } completion:nil];
+      [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging - 1
+                 velocity:velocity targetContentOffset:targetContentOffset];
       return;
     }
+  }
+  if (velocity.x > kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging - 1 == safeIndex) {
+    [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging
+               velocity:velocity targetContentOffset:targetContentOffset];
+    return;
+  }
+  if (velocity.x < -kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging + 1 == safeIndex) {
+    [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging
+               velocity:velocity targetContentOffset:targetContentOffset];
+    return;
   }
   if ((velocity.x > 0 && (self.indexOfMostExposedCellBeforeDragging + 1) == dataSourceCount) ||
       (velocity.x < 0 && (self.indexOfMostExposedCellBeforeDragging - 1) < 0)) {
     return;
   }
-  *targetContentOffset = self.collectionView.contentOffset;
+  [self stopDeceleration:targetContentOffset];
   if (fabs(velocity.x) > 0) {
     CGFloat predictedOffset = [self offsetByIndex:safeIndex];
     CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
-    duration = clamp(duration, kDurationMin, kDurationMax);
+    duration = fclamp(duration, kDurationMin, kDurationMax);
     NSLog(@"Duration: %f", duration);
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:safeIndex inSection:0];
+    __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-      [self.collectionView scrollToItemAtIndexPath:indexPath
+      [weakSelf.collectionView scrollToItemAtIndexPath:indexPath
                                   atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                           animated:NO];
     } completion:nil];
     return;
   }
-  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:safeIndex inSection:0];
+  [self scrollToIndex:safeIndex animated:YES];
+}
+
+- (void)scrollToIndex:(NSInteger)index
+             velocity:(CGPoint)velocity
+  targetContentOffset:(CGPoint *)targetContentOffset {
+  [self stopDeceleration:targetContentOffset];
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+  CGFloat predictedOffset = [self offsetByIndex:index];
+  CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
+  duration = fclamp(duration, kDurationMin, kDurationMax);
+  NSLog(@"Duration: %f", duration);
+  __weak typeof(self) weakSelf = self;
+  [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+    [weakSelf.collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:NO];
+  } completion:nil];
+}
+
+- (void)scrollToIndex:(NSUInteger)index animated:(BOOL)animated {
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
   [self.collectionView scrollToItemAtIndexPath:indexPath
                               atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                      animated:YES];
+                                      animated:animated];
+}
+
+- (void)stopDeceleration:(CGPoint *)targetContentOffset {
+  *targetContentOffset = self.collectionView.contentOffset;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -300,20 +321,41 @@ static const CGFloat kSpacing = 16.0;
 }
 
 - (NSUInteger)indexOfMostExposedCell {
-  CGSize itemSize = self.cellSize;
-  NSUInteger index = (NSUInteger) round(self.collectionView.contentOffset.x / itemSize.width);
-  
   NSUInteger dataSourceCount = self.dataSourceCategories.count > 0 ?
       self.dataSourceCategories.count : self.dataSourceItems.count;
-  NSUInteger safeIndex = MAX(0, MIN(dataSourceCount - 1, index));
+  NSUInteger index = 0;
+  CGFloat cumulativeSize = [self sizeOfNthCell:index totalCells:dataSourceCount];
+  while (cumulativeSize < self.collectionView.contentOffset.x) {
+    index++;
+    cumulativeSize += [self sizeOfNthCell:index totalCells:dataSourceCount];
+  };
+  CGFloat fraction = (cumulativeSize - self.collectionView.contentOffset.x) / self.frame.size.width;
+  // Most of the cell is hidden.
+  if (fraction < 0.5) {
+    index =  index + 1;
+  }
+  NSUInteger safeIndex = clamp(index, 0, dataSourceCount - 1);
   return safeIndex;
 }
 
-- (CGFloat)offsetByIndex:(NSUInteger)index {
+- (CGFloat)sizeOfNthCell:(NSUInteger)index
+              totalCells:(NSUInteger)totalCells {
   CGSize itemSize = self.cellSize;
+  if (index == 0) {
+    return IndexViewControllerCoverInset + itemSize.width +
+    IndexViewControllerCoverInset / 2;
+  }
+  if (index == totalCells - 1) {
+    return IndexViewControllerCoverInset / 2 + itemSize.width +
+    IndexViewControllerCoverInset;
+  }
+  return IndexViewControllerCoverInset / 2 + itemSize.width +
+  IndexViewControllerCoverInset / 2;
+}
+
+- (CGFloat)offsetByIndex:(NSUInteger)index {
   CGFloat offset = self.cellSize.width * index;
   return offset;
 }
-
 
 @end

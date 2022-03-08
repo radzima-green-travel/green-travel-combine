@@ -16,7 +16,11 @@ CGFloat roundToN(CGFloat coordValue) {
   return roundToGivenN(coordValue, 9);
 }
 
-CGFloat clamp(CGFloat value, CGFloat min, CGFloat max) {
-  return fmax(min, fmin(max, value));
+CGFloat fclamp(CGFloat value, CGFloat minValue, CGFloat maxValue) {
+  return fmax(minValue, fmin(maxValue, value));
+}
+
+NSInteger clamp(NSInteger value, NSInteger minValue, NSInteger maxValue) {
+  return MAX(minValue, MIN(maxValue, value));
 }
 
