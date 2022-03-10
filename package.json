@@ -35,7 +35,7 @@
     "amazon-cognito-identity-js": "^5.2.3",
     "aws-amplify": "^4.3.10",
     "aws-amplify-react-native": "^6.0.1",
-    "axios": "0.19.2",
+    "axios": "0.26.1",
     "husky": "4.2.5",
     "i18next": "19.5.1",
     "lint-staged": "10.2.11",
