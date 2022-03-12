@@ -1,41 +1,40 @@
+import {LineString, MultiPolygon} from '@turf/helpers';
+import {ListMobileDataQuery} from 'api/graphql/types';
 import {
-  isPlainObject,
-  mapValues,
-  has,
-  reduce,
-  compact,
-  map,
-  orderBy,
-  some,
-  filter,
-} from 'lodash';
-
-import {
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  ColorSchemeName,
-  Linking,
-} from 'react-native';
-import {MultiPolygon, LineString} from '@turf/helpers';
-
-import {
-  ITransformedData,
-  ITransformedCategory,
-  IObject,
+  CategoryAndObjectI18n,
+  CategoryI18n,
+  IBelongsTo,
   ICategoriesMap,
   IInclude,
-  IBelongsTo,
   IObejctsMap,
   IObejctsToCategoryMap,
+  IObject,
   IOrigins,
-  SupportedLocales,
-  CategoryI18n,
+  ITransformedCategory,
+  ITransformedData,
   ObjectI18n,
-  CategoryAndObjectI18n,
+  SupportedLocales,
 } from 'core/types';
+import {
+  compact,
+  filter,
+  has,
+  isPlainObject,
+  map,
+  mapValues,
+  orderBy,
+  reduce,
+  some,
+} from 'lodash';
+import {
+  ColorSchemeName,
+  Linking,
+  NativeModules,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 import {imagesService} from 'services/ImagesService';
-import {ListMobileDataQuery} from 'api/graphql/types';
 import {DEFAULT_LOCALE} from './constants';
 
 export const extractThemeStyles = (
@@ -310,3 +309,30 @@ export function isLocationExist(object: IObject) {
 export function getScreenTimeSec(startMs: number, endMs: number) {
   return Math.floor((endMs - startMs) / 1000);
 }
+
+export const getSystemLocale = (): string => {
+  let locale: string | undefined;
+  // iOS
+  if (
+    NativeModules.SettingsManager &&
+    NativeModules.SettingsManager.settings &&
+    NativeModules.SettingsManager.settings.AppleLanguages
+  ) {
+    locale =
+      NativeModules.SettingsManager.settings.AppleLanguages[
+        NativeModules.SettingsManager.settings.AppleLanguages.length - 1
+      ];
+    console.log(locale);
+    // Android
+  } else if (NativeModules.I18nManager) {
+    locale = NativeModules.I18nManager.localeIdentifier;
+    console.log(locale);
+  }
+
+  if (typeof locale === 'undefined') {
+    console.log('Couldnt get locale');
+    return 'en';
+  }
+
+  return locale;
+};
