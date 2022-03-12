@@ -206,7 +206,7 @@ android {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationIdSuffix ".dev"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "app.radzima"
+            resValue "string", "build_config_package", "com.greentravel"
         }
         staging {
             minSdkVersion rootProject.ext.minSdkVersion
