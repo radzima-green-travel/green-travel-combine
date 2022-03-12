@@ -23,7 +23,7 @@ static NSString * const kPhotoCellId = @"photoCellId";
 static NSUInteger kMaximalNumberOfItemsInCell = 10;
 static CGFloat kSwipeThresholdVelocity = 0.5;
 static CGFloat kDraggedDistanceToWidthRatioThreshold = 0.2;
-static CGFloat kDurationMax = 0.4;
+static CGFloat kDurationMax = 0.5;
 static CGFloat kDurationMin = 0.1;
 
 @interface PlacesTableViewCell ()
@@ -34,11 +34,13 @@ static CGFloat kDurationMin = 0.1;
 @property (strong, nonatomic) NSArray<PlaceCategory *> *dataSourceCategories;
 @property (strong, nonatomic) PlaceCategory *item;
 @property (assign, nonatomic) CGSize cellSize;
+@property (assign, nonatomic) CGRect cellRect;
 @property (assign, nonatomic) NSInteger indexOfMostExposedCellBeforeDragging;
 @property (assign, nonatomic) CGRect lastFrame;
 @property (assign, nonatomic) CGFloat initialContentOffsetX;
 @property (assign, nonatomic) CGFloat maxDragDistanceFromRight;
 @property (assign, nonatomic) CGFloat maxDragDistanceFromLeft;
+@property (assign, nonatomic) CGRect cellBeforeDraggingVisibleRect;
 
 @end
 
@@ -253,49 +255,56 @@ static const CGFloat kSpacing = 16.0;
       (velocity.x < 0 && (self.indexOfMostExposedCellBeforeDragging - 1) < 0)) {
     return;
   }
-  if (self.indexOfMostExposedCellBeforeDragging == safeIndex) {
-    CGFloat ratioDraggedToWidth = self.maxDragDistanceFromLeft / self.cellSize.width;
-    NSLog(@"ratioDraggedToWidth leading: %f", ratioDraggedToWidth);
-    // If we're dragging the 1st cell to the right and then rapidly to the left.
-    if (velocity.x > kSwipeThresholdVelocity &&
-        ratioDraggedToWidth < -kDraggedDistanceToWidthRatioThreshold &&
-        self.indexOfMostExposedCellBeforeDragging == 0) {
+  // Prevent flash of the 1st and the last cell.
+  NSLog(@"Visible rect: %@", NSStringFromCGRect(self.cellBeforeDraggingVisibleRect));
+  if (self.cellBeforeDraggingVisibleRect.size.width / self.collectionView.frame.size.width < 0.9) {
+    if (velocity.x > 0 && self.indexOfMostExposedCellBeforeDragging == 0 && self.cellBeforeDraggingVisibleRect.origin.x > 0) {
       [self scrollToIndex:0
                  velocity:velocity targetContentOffset:targetContentOffset];
       return;
     }
-    ratioDraggedToWidth = self.maxDragDistanceFromRight / self.cellSize.width;
-    NSLog(@"ratioDraggedToWidth trailing: %f", ratioDraggedToWidth);
-    // If we're dragging the last cell to the left and then rapidly to the right.
-    if (velocity.x < -kSwipeThresholdVelocity &&
-        ratioDraggedToWidth > kDraggedDistanceToWidthRatioThreshold &&
-        self.indexOfMostExposedCellBeforeDragging == dataSourceCount - 1) {
+    if (velocity.x < 0 && self.indexOfMostExposedCellBeforeDragging == dataSourceCount - 1 &&
+        self.cellBeforeDraggingVisibleRect.origin.x == 0 &&
+        self.cellBeforeDraggingVisibleRect.size.width < self.cellSize.width) {
       [self scrollToIndex:dataSourceCount - 1
                  velocity:velocity targetContentOffset:targetContentOffset];
       return;
     }
+  }
+  if (self.cellBeforeDraggingVisibleRect.size.width / self.collectionView.frame.size.width >= 0.8) {
     // Swipe to right.
-    if (velocity.x > kSwipeThresholdVelocity && (self.indexOfMostExposedCellBeforeDragging + 1) < dataSourceCount) {
+    if (velocity.x > kSwipeThresholdVelocity) {
       [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging + 1
                  velocity:velocity targetContentOffset:targetContentOffset];
       return;
     }
     // Swipe to left.
-    if (velocity.x < -kSwipeThresholdVelocity && (self.indexOfMostExposedCellBeforeDragging - 1) >= 0) {
+    if (velocity.x < -kSwipeThresholdVelocity) {
       [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging - 1
                  velocity:velocity targetContentOffset:targetContentOffset];
       return;
     }
-  }
-  if (velocity.x > kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging - 1 == safeIndex) {
-    [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging
-               velocity:velocity targetContentOffset:targetContentOffset];
-    return;
-  }
-  if (velocity.x < -kSwipeThresholdVelocity && self.indexOfMostExposedCellBeforeDragging + 1 == safeIndex) {
-    [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging
-               velocity:velocity targetContentOffset:targetContentOffset];
-    return;
+  } else {
+    if (velocity.x > kSwipeThresholdVelocity && self.cellBeforeDraggingVisibleRect.origin.x == 0) {
+      [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging + 1
+                 velocity:velocity targetContentOffset:targetContentOffset];
+      return;
+    }
+    if (velocity.x < -kSwipeThresholdVelocity && self.cellBeforeDraggingVisibleRect.origin.x == 0) {
+      [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging
+                 velocity:velocity targetContentOffset:targetContentOffset];
+      return;
+    }
+    if (velocity.x > kSwipeThresholdVelocity && self.cellBeforeDraggingVisibleRect.origin.x > 0) {
+      [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging
+                 velocity:velocity targetContentOffset:targetContentOffset];
+      return;
+    }
+    if (velocity.x < -kSwipeThresholdVelocity && self.cellBeforeDraggingVisibleRect.origin.x > 0) {
+      [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging - 1
+                 velocity:velocity targetContentOffset:targetContentOffset];
+      return;
+    }
   }
   [self stopDeceleration:targetContentOffset];
   if (fabs(velocity.x) > 0) {
@@ -309,7 +318,9 @@ static const CGFloat kSpacing = 16.0;
       [weakSelf.collectionView scrollToItemAtIndexPath:indexPath
                                   atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                           animated:NO];
-    } completion:nil];
+    } completion:^(BOOL finished) {
+      [weakSelf scrollToIndex:safeIndex animated:YES];
+    }];
     return;
   }
   [self scrollToIndex:safeIndex animated:YES];
@@ -322,6 +333,13 @@ static const CGFloat kSpacing = 16.0;
   self.maxDragDistanceFromRight = fmax(self.collectionView.contentOffset.x -
                                        self.initialContentOffsetX,
                                        self.maxDragDistanceFromRight);
+  
+  NSUInteger index = self.indexOfMostExposedCellBeforeDragging;
+  UICollectionViewCell *cell =
+  [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+  
+  CGRect rect2 = [self convertRect:cell.frame fromView:self.collectionView];
+  self.cellBeforeDraggingVisibleRect = CGRectIntersection(self.collectionView.frame, rect2);
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
