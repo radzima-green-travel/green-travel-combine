@@ -29,7 +29,6 @@ import {
 import {
   ColorSchemeName,
   Linking,
-  NativeModules,
   StyleProp,
   TextStyle,
   ViewStyle,
@@ -309,30 +308,3 @@ export function isLocationExist(object: IObject) {
 export function getScreenTimeSec(startMs: number, endMs: number) {
   return Math.floor((endMs - startMs) / 1000);
 }
-
-export const getSystemLocale = (): string => {
-  let locale: string | undefined;
-  // iOS
-  if (
-    NativeModules.SettingsManager &&
-    NativeModules.SettingsManager.settings &&
-    NativeModules.SettingsManager.settings.AppleLanguages
-  ) {
-    locale =
-      NativeModules.SettingsManager.settings.AppleLanguages[
-        NativeModules.SettingsManager.settings.AppleLanguages.length - 1
-      ];
-    console.log(locale);
-    // Android
-  } else if (NativeModules.I18nManager) {
-    locale = NativeModules.I18nManager.localeIdentifier;
-    console.log(locale);
-  }
-
-  if (typeof locale === 'undefined') {
-    console.log('Couldnt get locale');
-    return 'en';
-  }
-
-  return locale;
-};
