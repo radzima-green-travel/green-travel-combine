@@ -14,7 +14,7 @@ export const listMobileMetadata = /* GraphQL */ `
 export const getListMobileData = () => {
   const isRussianLocale =
     languageService.getPreferredLanguage() === 'ru' || false;
-  console.log(isRussianLocale, 'languageService.getPreferredLanguage()');
+
   return /* GraphQL */ `
     query ListMobileData($limit: Int, $nextToken: String) {
       listMobileData {
