@@ -22,7 +22,6 @@
 static NSString * const kPhotoCellId = @"photoCellId";
 static NSUInteger kMaximalNumberOfItemsInCell = 10;
 static CGFloat kSwipeThresholdVelocity = 0.5;
-static CGFloat kDraggedDistanceToWidthRatioThreshold = 0.2;
 static CGFloat kDurationMax = 0.5;
 static CGFloat kDurationMin = 0.1;
 static CGFloat kRatioDivider = 1.09;
@@ -268,22 +267,6 @@ static const CGFloat kSpacing = 16.0;
   }
   // Prevent flash of the 1st and the last cell.
   NSLog(@"Visible rect end drag: %@", NSStringFromCGRect(self.cellBeforeDraggingVisibleRect));
-  CGFloat visiblePartRatioForEdgeCells = self.cellWidthToCollectionViewWidthRatio * kRatioMultiplier;
-//  if (self.cellBeforeDraggingVisibleRect.size.width /
-//      self.collectionView.frame.size.width < visiblePartRatioForEdgeCells) {
-//    if (velocity.x > 0 && self.indexOfMostExposedCellBeforeDragging == 0 && self.cellBeforeDraggingVisibleRect.origin.x > 0) {
-//      [self scrollToIndex:0
-//                 velocity:velocity targetContentOffset:targetContentOffset];
-//      return;
-//    }
-//    if (velocity.x < 0 && self.indexOfMostExposedCellBeforeDragging == dataSourceCount - 1 &&
-//        self.cellBeforeDraggingVisibleRect.origin.x == 0 &&
-//        self.cellBeforeDraggingVisibleRect.size.width < self.cellSize.width) {
-//      [self scrollToIndex:dataSourceCount - 1
-//                 velocity:velocity targetContentOffset:targetContentOffset];
-//      return;
-//    }
-//  }
   CGFloat visiblePartRatio = self.cellWidthToCollectionViewWidthRatio / kRatioDivider;
   if (self.cellBeforeDraggingVisibleRect.size.width / self.collectionView.frame.size.width >= visiblePartRatio) {
     // Swipe to right.
