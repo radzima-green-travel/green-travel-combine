@@ -25,7 +25,6 @@ static CGFloat kSwipeThresholdVelocity = 0.5;
 static CGFloat kDurationMax = 0.5;
 static CGFloat kDurationMin = 0.1;
 static CGFloat kRatioDivider = 1.09;
-static CGFloat kRatioMultiplier = 1.03;
 
 @interface PlacesTableViewCell ()
 
@@ -82,13 +81,6 @@ static CGFloat kRatioMultiplier = 1.03;
     NSUInteger safeIndex = [self indexOfMostExposedCell];
     UICollectionViewCell *cell =
     [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:safeIndex inSection:0]];
-  if (!CGSizeEqualToSize(cell.frame.size, self.lastSize)) {
-    NSLog(@"Cell width to collectionview width ratio: %f",
-          cell.frame.size.width / self.frame.size.width);
-    self.lastSize = cell.frame.size;
-    
-    [self scrollToIndex:safeIndex animated:NO];
-  }
 }
 
 - (void)setUp {
@@ -176,8 +168,6 @@ static CGFloat kRatioMultiplier = 1.03;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cellForItemAtIndexPath method, index path: %@", indexPath);
-    
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellId forIndexPath:indexPath];
     if ([self.dataSourceCategories count] > 0) {
         [cell updateCategory:self.dataSourceCategories[indexPath.row]];
@@ -197,7 +187,6 @@ static CGFloat kRatioMultiplier = 1.03;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Did select item at index path: %@", indexPath);
     if ([self.dataSourceCategories count] > 0) {
         PlaceCategory *category = self.dataSourceCategories[indexPath.row];
         category.onPlaceCellPress();
@@ -257,16 +246,11 @@ static const CGFloat kSpacing = 16.0;
   NSUInteger safeIndex = [self indexOfMostExposedCell];
   NSUInteger dataSourceCount = self.dataSourceCategories.count > 0 ?
   self.dataSourceCategories.count : self.dataSourceItems.count;
-  NSLog(@"End velocity: %f", velocity.x);
-  NSLog(@"self.indexOfMostExposedCellBeforeDragging: %ld", (long) self.indexOfMostExposedCellBeforeDragging);
-  NSLog(@"safeIndex: %ld", safeIndex);
   //Dragging against the edge.
   if ((velocity.x > 0 && (self.indexOfMostExposedCellBeforeDragging + 1) == dataSourceCount) ||
       (velocity.x < 0 && (self.indexOfMostExposedCellBeforeDragging - 1) < 0)) {
     return;
   }
-  // Prevent flash of the 1st and the last cell.
-  NSLog(@"Visible rect end drag: %@", NSStringFromCGRect(self.cellBeforeDraggingVisibleRect));
   CGFloat visiblePartRatio = self.cellWidthToCollectionViewWidthRatio / kRatioDivider;
   if (self.cellBeforeDraggingVisibleRect.size.width / self.collectionView.frame.size.width >= visiblePartRatio) {
     // Swipe to right.
@@ -308,7 +292,6 @@ static const CGFloat kSpacing = 16.0;
     CGFloat predictedOffset = [self offsetByIndex:safeIndex];
     CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
     duration = fclamp(duration, kDurationMin, kDurationMax);
-    NSLog(@"Duration: %f", duration);
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:safeIndex inSection:0];
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -336,7 +319,6 @@ static const CGFloat kSpacing = 16.0;
   [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
   CGRect cellRect = [self convertRect:cell.frame fromView:self.collectionView];
   self.cellBeforeDraggingVisibleRect = CGRectIntersection(self.collectionView.frame, cellRect);
-  NSLog(@"Visible rect: %@", NSStringFromCGRect(self.cellBeforeDraggingVisibleRect));
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -354,7 +336,6 @@ static const CGFloat kSpacing = 16.0;
   CGFloat predictedOffset = [self offsetByIndex:index];
   CGFloat duration = fabs(self.collectionView.contentOffset.x - predictedOffset) / (fabs(velocity.x) * 1000.0);
   duration = fclamp(duration, kDurationMin, kDurationMax);
-  NSLog(@"Duration: %f", duration);
   __weak typeof(self) weakSelf = self;
   [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
     [weakSelf.collectionView scrollToItemAtIndexPath:indexPath
