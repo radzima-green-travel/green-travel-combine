@@ -55,6 +55,7 @@
 @property (strong, nonatomic) NSLayoutConstraint *yPosition;
 @property (strong, nonatomic) UINavigationBar *navigationBar;
 @property (strong, nonatomic) AnalyticsTimeTracer *timeTracer;
+@property (assign, nonatomic) UIInterfaceOrientation prevOrientation;
 
 @end
 
@@ -89,6 +90,10 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (UIInterfaceOrientation)windowInterfaceOrientation {
+  return [[[[[UIApplication sharedApplication] windows] firstObject] windowScene] interfaceOrientation];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -405,20 +410,48 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (void)scrollItemsToLeft:(BOOL)animated {
+  [self iterateOverCells:^(PlacesTableViewCell *cell) {
+    [cell.collectionView setContentOffset:CGPointMake(0, 0) animated:animated];
+  }];
+}
+
+- (void)scrollToTop {
+  [self.dataView setContentOffset:CGPointZero animated:YES];
+  [self scrollItemsToLeft:YES];
+}
+
+#pragma mark - viewWillTransitionToSize
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+    UIInterfaceOrientation orientation = [self windowInterfaceOrientation];
+    if ([self windowInterfaceOrientation] == UIInterfaceOrientationUnknown) {
+      return;
+    }
+    if (
+        (self.prevOrientation == UIInterfaceOrientationUnknown && orientation != UIInterfaceOrientationUnknown) ||
+        (UIInterfaceOrientationIsPortrait(self.prevOrientation) && !UIInterfaceOrientationIsPortrait(orientation)) ||
+        (UIInterfaceOrientationIsLandscape(self.prevOrientation) && !UIInterfaceOrientationIsLandscape(orientation))) {
+          self.prevOrientation = orientation;
+          [self iterateOverCells:^(PlacesTableViewCell *cell) {
+            [cell scrollToMostExposedCell];
+          }];
+        }
+  } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+  }];
+}
+
+- (void)iterateOverCells:(void(^)(PlacesTableViewCell *))onCellVisit {
   UITableView *dataView = (UITableView *)self.dataView;
   for (NSUInteger sectionCounter = 0; sectionCounter < dataView.numberOfSections; sectionCounter++) {
     for (NSUInteger rowCounter = 0; rowCounter < [dataView numberOfRowsInSection:sectionCounter]; rowCounter++) {
       PlacesTableViewCell *cell =
       [dataView cellForRowAtIndexPath:
        [NSIndexPath indexPathForRow:rowCounter inSection:sectionCounter]];
-      [cell.collectionView setContentOffset:CGPointMake(0, 0) animated:animated];
+      onCellVisit(cell);
     }
   }
-}
-
-- (void)scrollToTop {
-  [self.dataView setContentOffset:CGPointZero animated:YES];
-  [self scrollItemsToLeft:YES];
 }
 
 @end
