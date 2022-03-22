@@ -38,6 +38,14 @@ class LanguageService {
     };
   }
 
+  getSupportedLanguages() {
+    return [...RESOURCES.keys()];
+  }
+
+  getCurrentLanguage() {
+    return i18n.language as SupportedLocales;
+  }
+
   /**
    * Get all available files with translations via Object.keys(this.#resources)
    * and find best available language via findBestAvailableLanguage()
@@ -46,9 +54,9 @@ class LanguageService {
    * Device lang: 'en', app lang: 'ru' - will return 'ru'
    */
   public getPreferredLanguage(): string {
-    const preferredLang = RNLocalize.findBestAvailableLanguage([
-      ...RESOURCES.keys(),
-    ]);
+    const preferredLang = RNLocalize.findBestAvailableLanguage(
+      this.getSupportedLanguages(),
+    );
 
     const deviceLang =
       Platform.OS === 'ios'

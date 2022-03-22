@@ -7,7 +7,7 @@ import {
   map,
   orderBy,
   some,
-  filter,
+  find,
 } from 'lodash';
 
 import {
@@ -32,11 +32,9 @@ import {
   SupportedLocales,
   CategoryI18n,
   ObjectI18n,
-  CategoryAndObjectI18n,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {ListMobileDataQuery} from 'api/graphql/types';
-import {DEFAULT_LOCALE} from './constants';
 
 export const extractThemeStyles = (
   styles: Object,
@@ -74,47 +72,51 @@ export async function tryOpenURL(url: string) {
   }
 }
 
-function getDataTranslation(
-  objectWithTranslates: CategoryAndObjectI18n,
+function getCategoryTranslation(
+  category: {i18n?: CategoryI18n; name?: string; singularName?: string},
   currentLocale: SupportedLocales,
-): CategoryI18n | ObjectI18n | null | undefined {
-  if (objectWithTranslates?.length) {
-    const object = objectWithTranslates.find(
-      el => el?.locale === currentLocale,
-    );
-    return object;
-  }
+): {name: string; singularName: string} {
+  const i18nObject = find(
+    category.i18n,
+    translate => translate?.locale === currentLocale,
+  );
+  const name = currentLocale === 'ru' ? category.name : i18nObject?.name;
 
-  return null;
+  const singularName =
+    currentLocale === 'ru' ? category.singularName : i18nObject?.singularName;
+
+  return {
+    name: name || '',
+    singularName: singularName || '',
+  };
 }
 
-export function sanitizeQuaryDataByLocale(
-  dataQuery: ListMobileDataQuery,
+function getObjectTranslation(
+  object: {
+    i18n?: ObjectI18n;
+    name?: string;
+    description?: string | null;
+    address?: string | null;
+  },
   currentLocale: SupportedLocales,
-): ListMobileDataQuery {
-  const {listMobileData} = dataQuery;
+): {name: string; description: string; address: string} {
+  const i18nObject = find(
+    object.i18n,
+    translate => translate?.locale === currentLocale,
+  );
 
-  if (listMobileData && currentLocale !== DEFAULT_LOCALE) {
-    return {
-      ...dataQuery,
-      listMobileData: {
-        ...listMobileData,
-        categories: filter(listMobileData.categories, category =>
-          Boolean(category?.i18n && category?.i18n.length),
-        ),
-        objects: listMobileData.objects
-          ? {
-              ...listMobileData.objects,
-              items: filter(listMobileData.objects?.items, object =>
-                Boolean(object?.i18n && object.i18n.length),
-              ),
-            }
-          : listMobileData.objects,
-      },
-    };
-  }
+  const name = currentLocale === 'ru' ? object.name : i18nObject?.name;
 
-  return dataQuery;
+  const description =
+    currentLocale === 'ru' ? object.description : i18nObject?.description;
+
+  const address = currentLocale === 'ru' ? object.address : i18nObject?.address;
+
+  return {
+    name: name || '',
+    description: description || '',
+    address: address || '',
+  };
 }
 
 export function transformQueryData(
@@ -127,7 +129,6 @@ export function transformQueryData(
     categoriesMap: {},
     objectsToCategoryMap: {},
   };
-
   const {listMobileData} = dataQuery;
 
   if (listMobileData) {
@@ -140,16 +141,16 @@ export function transformQueryData(
     const categoriesMap = reduce(
       sortedCategories,
       (acc, category) => {
-        const translations = getDataTranslation(
-          category?.i18n,
-          currentLocale,
-        ) as CategoryI18n;
-
         if (category) {
+          const {name, singularName} = getCategoryTranslation(
+            category,
+            currentLocale,
+          );
+
           acc[category.id] = {
             id: category.id,
-            name: translations?.name ? translations.name : category.name,
-            singularName: translations?.singularName || category.singularName,
+            name,
+            singularName,
             path: '',
             icon: category.icon || '',
             cover: category.cover
@@ -183,12 +184,12 @@ export function transformQueryData(
     const objectsMap = reduce(
       objects?.items,
       (acc, object) => {
-        const translations = getDataTranslation(
-          object?.i18n,
-          currentLocale,
-        ) as ObjectI18n;
-
         if (object) {
+          const {address, name, description} = getObjectTranslation(
+            object,
+            currentLocale,
+          );
+
           objectsToCategoryMap[object.id] = object.categoryId;
 
           const objectCategory = categoriesMap[object.categoryId];
@@ -235,11 +236,9 @@ export function transformQueryData(
 
           const objectData: IObject = {
             id: object.id,
-            name: translations?.name || object.name,
-            description: translations?.description || object.description || '',
-            address: translations?.address
-              ? translations.address
-              : object.address || '',
+            name,
+            description,
+            address,
             area: (object.area as MultiPolygon) || null,
             location:
               object.location?.lat && object.location?.lon

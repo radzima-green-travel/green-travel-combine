@@ -129,20 +129,29 @@ export interface IGetHomeDataResponse {
 
 export type SupportedLocales = 'ru' | 'en' | 'zh';
 
-export type CategoryI18n = {
-  locale: string;
-  name?: string | null;
-  singularName?: string | null;
-};
-export type ObjectI18n = {
-  locale: string;
-  name?: string | null;
-  description?: string | null;
-  governanceType?: string | null;
-  author?: string | null;
-  address?: string | null;
-  notes?: string | null;
-};
+export type CategoryI18n =
+  | ({
+      __typename: 'CategoryI18n';
+      locale: string;
+      name?: string | null | undefined;
+      singularName?: string | null | undefined;
+    } | null)[]
+  | null
+  | undefined;
+
+export type ObjectI18n =
+  | ({
+      __typename: 'ObjectI18n';
+      locale: string;
+      name?: string | null | undefined;
+      description?: string | null | undefined;
+      governanceType?: string | null | undefined;
+      author?: string | null | undefined;
+      address?: string | null | undefined;
+      notes?: string | null | undefined;
+    } | null)[]
+  | null
+  | undefined;
 export type CategoryAndObjectI18n =
   | Array<CategoryI18n | ObjectI18n | null>
   | null

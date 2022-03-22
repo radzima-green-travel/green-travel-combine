@@ -10,9 +10,15 @@ import {
 } from '../../reducers';
 import {loadingSaga} from '../loading';
 import {checkIfHomeDataVersionChanged} from './homeDataVersion';
+import {languageService} from 'services/LanguageService';
+import {SupportedLocales} from 'core/types';
 
 export function* checkHomeDataUpdatesAvailabilitySaga() {
   try {
+    const currentAppLocale: SupportedLocales = yield call([
+      languageService,
+      languageService.getCurrentLanguage,
+    ]);
     const updateDataLoading = yield call(
       loadingSaga,
       getHomeDataUpdatesRequest,
@@ -25,6 +31,7 @@ export function* checkHomeDataUpdatesAvailabilitySaga() {
     const loading = updateDataLoading || getInitialDataLoading;
 
     let updatedData: ListMobileDataQuery | null = null;
+
     if (!loading) {
       const metaData: ListMobileMetadata = yield call(getAllAppMetadata);
       const isHomeDataVersionChanged = yield call(
@@ -33,7 +40,9 @@ export function* checkHomeDataUpdatesAvailabilitySaga() {
       );
 
       if (isHomeDataVersionChanged) {
-        const data: ListMobileDataQuery = yield call(getAllAppData);
+        const data: ListMobileDataQuery = yield call(getAllAppData, {
+          locale: currentAppLocale,
+        });
         updatedData = data;
       }
     }

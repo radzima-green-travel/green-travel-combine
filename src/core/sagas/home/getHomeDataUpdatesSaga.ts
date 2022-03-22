@@ -8,11 +8,18 @@ import {
 } from '../../reducers';
 import {selectHomeUpdatedData} from '../../selectors';
 import {saveHomeDataVersionSaga} from './homeDataVersion';
+import {languageService} from 'services/LanguageService';
+import {SupportedLocales} from 'core/types';
 
 export function* getHomeDataUpdatesSaga() {
   try {
-    const data: ListMobileDataQuery = yield call(() => getAllAppData());
-
+    const currentAppLocale: SupportedLocales = yield call([
+      languageService,
+      languageService.getCurrentLanguage,
+    ]);
+    const data: ListMobileDataQuery = yield call(getAllAppData, {
+      locale: currentAppLocale,
+    });
     yield call(saveHomeDataVersionSaga, data);
 
     yield put(getHomeDataUpdatesSuccess({data: data}));

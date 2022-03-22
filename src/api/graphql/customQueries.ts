@@ -1,3 +1,5 @@
+import {SupportedLocales} from 'core/types';
+
 export const listMobileMetadata = /* GraphQL */ `
   query ListMobileData {
     listMobileData {
@@ -9,13 +11,16 @@ export const listMobileMetadata = /* GraphQL */ `
   }
 `;
 
-export const listMobileData = /* GraphQL */ `
-  query ListMobileData($limit: Int, $nextToken: String) {
+export function getListMobileData(locale: SupportedLocales) {
+  return `
+  query ListMobileData(
+    $limit: Int
+    $nextToken: String
+    $filter: MobileDataFilter
+  ) {
     listMobileData {
-      categories {
+      categories(filter: $filter) {
         id
-        name
-        singularName
         icon
         createdAt
         updatedAt
@@ -26,17 +31,45 @@ export const listMobileData = /* GraphQL */ `
         parent
         cover
         index
-        i18n {
-          locale
+        ${
+          locale === 'ru'
+            ? `
           name
           singularName
+          `
+            : `
+          i18n {
+            locale
+            name
+            singularName
+          }
+          `
         }
+     
       }
-      objects(limit: $limit, nextToken: $nextToken) {
+      objects(limit: $limit, nextToken: $nextToken, filter: $filter) {
         items {
+          ${
+            locale === 'ru'
+              ? `
+              name
+              description
+              author
+              address
+              notes
+            `
+              : `
+            i18n {
+              locale
+              name
+              description
+              author
+              address
+              notes
+            }
+            `
+          }
           id
-          name
-          description
           images
           status
           location {
@@ -59,33 +92,22 @@ export const listMobileData = /* GraphQL */ `
             type
             coordinates
           }
-          author
-          address
           length
           duration
           origins {
             name
             value
           }
-          notes
           url
           routes {
             type
             coordinates
           }
           include
-          belongsTo
-          i18n {
-            locale
-            name
-            description
-            author
-            address
-            notes
-          }
+          belongsTo          
         }
         nextToken
-        total
+        total        
       }
       metadata {
         id
@@ -97,3 +119,4 @@ export const listMobileData = /* GraphQL */ `
     }
   }
 `;
+}

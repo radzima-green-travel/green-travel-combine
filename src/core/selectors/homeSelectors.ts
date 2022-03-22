@@ -5,14 +5,11 @@ import {
   ITransformedData,
   IObejctsMap,
   ICategoriesMap,
-  SupportedLocales,
 } from 'core/types';
 import {isEmpty, map, shuffle} from 'lodash';
 import {transformQueryData} from 'core/helpers';
 import {ListMobileDataQuery} from 'api/graphql/types';
-import i18n from 'i18next';
-
-const CURRENT_LOCALE = i18n.language as SupportedLocales;
+import {languageService} from 'services/LanguageService';
 
 export const selectIsUpdatesAvailable = (state: IState) =>
   state.home.isUpdatesAvailable;
@@ -26,7 +23,10 @@ export const selectTransformedData = createSelector<
   ITransformedData | null
 >(
   state => state.home.currentData,
-  data => (data ? transformQueryData(data, CURRENT_LOCALE) : null),
+  data =>
+    data
+      ? transformQueryData(data, languageService.getCurrentLanguage())
+      : null,
 );
 
 export const selectHomeData = createSelector<
