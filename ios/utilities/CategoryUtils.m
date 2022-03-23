@@ -424,6 +424,23 @@ void sortTree(NSMutableArray<PlaceCategory *> *rootNodes) {
   }];
 }
 
+NSMutableArray<PlaceCategory *>* mergeIntoCategoryList(NSMutableArray<PlaceCategory*> *categories,
+                                                       NSMutableDictionary<NSString *, PlaceCategory *> *flatCategories) {
+  NSMutableOrderedSet<NSString *> *categoryIds = [[NSMutableOrderedSet alloc] init];
+  NSMutableArray<PlaceCategory *> *rootNodes = [[NSMutableArray alloc] init];
+  traverseCategories(categories, ^(PlaceCategory *category, PlaceItem *item) {
+    if (category == nil || [category.categories count] > 0) {
+      return;
+    }
+    [categoryIds addObject:category.uuid];
+  });
+  [categoryIds enumerateObjectsUsingBlock:^(NSString * _Nonnull uuid,
+                                            NSUInteger idx, BOOL * _Nonnull stop) {
+    [rootNodes addObject:flatCategories[uuid]];
+  }];
+  return rootNodes;
+}
+
 NSMutableArray<PlaceCategory *>* mergeIntoCategoryTree(NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories, NSMutableDictionary<NSString*, PlaceItem*> *flatItems) {
   NSMutableArray<PlaceCategory *> *rootNodes = [[NSMutableArray alloc] init];
   [flatCategories enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, PlaceCategory * _Nonnull placeCategory, BOOL * _Nonnull stop) {
@@ -455,13 +472,14 @@ IndexModelData* rawIndexToIndexModelData(NSMutableDictionary<NSString *, NSDicti
   NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories = mapToFlatCategories(rawCategories);
   NSMutableDictionary<NSString*, PlaceItem*> *flatItems = mapToFlatItems(rawItems, flatCategories);
   fillInDetails(rawItems, flatCategories, flatItems);
-  NSMutableArray<PlaceCategory *> *categoryTree = mergeIntoCategoryTree(flatCategories, flatItems);
-  filterInvalidCategories(categoryTree);
-  sortTree(categoryTree);
+  NSMutableArray<PlaceCategory *> *categories = mergeIntoCategoryTree(flatCategories, flatItems);
+  sortTree(categories);
+  NSMutableArray<PlaceCategory *> *categoryList = mergeIntoCategoryList(categories, flatCategories);
+  filterInvalidCategories(categoryList);
   
   IndexModelData *indexModelData = [[IndexModelData alloc] init];
   indexModelData.flatCategories = flatCategories;
   indexModelData.flatItems = flatItems;
-  indexModelData.categoryTree = categoryTree;
+  indexModelData.categoryTree = categoryList;
   return indexModelData;
 }
