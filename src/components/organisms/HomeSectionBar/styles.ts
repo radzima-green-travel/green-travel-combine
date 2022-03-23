@@ -5,6 +5,7 @@ import {ratio} from 'atoms/Card/Card';
 
 export const cardWidth = (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945;
 export const cardHeihgt = cardWidth / ratio;
+export const SNAP_INTERVAL = cardWidth + PADDING_HORIZONTAL;
 
 export const themeStyles = {
   container: {

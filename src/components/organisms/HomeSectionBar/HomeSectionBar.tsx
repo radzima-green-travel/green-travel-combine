@@ -1,12 +1,13 @@
 import React, {memo, useCallback, useRef, useEffect} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
-import {themeStyles, cardWidth} from './styles';
+import {themeStyles, cardWidth, SNAP_INTERVAL} from './styles';
 import {useTranslation} from 'react-i18next';
 import {IObject, ITransformedCategory} from 'core/types';
 import {isEmpty} from 'lodash';
 import {useCategories, useObjects, useThemeStyles} from 'core/hooks';
 import {useScrollToTop} from '@react-navigation/native';
+
 interface Props {
   item: ITransformedCategory;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
@@ -90,6 +91,9 @@ export const HomeSectionBar = memo(
         {isCategoriesList ? (
           <FlatList
             ref={listRef}
+            snapToInterval={SNAP_INTERVAL}
+            snapToStart={false}
+            decelerationRate="fast"
             keyExtractor={({id}) => id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
@@ -109,6 +113,9 @@ export const HomeSectionBar = memo(
           <FlatList
             ref={listRef}
             keyExtractor={({id}) => id}
+            snapToInterval={SNAP_INTERVAL}
+            snapToStart={false}
+            decelerationRate="fast"
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
             data={objectsData}
