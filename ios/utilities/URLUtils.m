@@ -11,7 +11,19 @@
 NSString* encodeURL(NSString *urlStringToEncode) {
   NSString *percentEncodedURLString =
   [[NSURL URLWithDataRepresentation:[urlStringToEncode dataUsingEncoding:NSUTF8StringEncoding] relativeToURL:nil] relativeString];
+  
   return percentEncodedURLString;
+}
+
+NSString* encodeURLNoCommas(NSString *urlStringToEncode) {
+  NSString *percentEncodedURLString =
+  [urlStringToEncode stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
+  return percentEncodedURLString;
+}
+
+NSString* decodeURL(NSString *urlStringToDecode) {
+  NSString *urlDecodedString = [urlStringToDecode stringByRemovingPercentEncoding];
+  return urlDecodedString;
 }
 
 BOOL urlIsSafe(NSString *url) {

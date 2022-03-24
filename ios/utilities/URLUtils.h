@@ -11,5 +11,7 @@
 #import <SafariServices/SafariServices.h>
 
 NSString* encodeURL(NSString *url);
+NSString* encodeURLNoCommas(NSString *urlStringToEncode);
+NSString* decodeURL(NSString *urlStringToDecode);
 BOOL urlIsSafe(NSString *url);
 void openURL(UIViewController *vc, NSString *urlStr);

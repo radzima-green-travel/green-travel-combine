@@ -26,6 +26,7 @@
 #import "InformationReference.h"
 #import "PlaceDetails.h"
 #import "TextUtils.h"
+#import "URLUtils.h"
 #import "CategoryUUIDToRelatedItemUUIDs.h"
 
 @interface CoreDataService ()
@@ -235,6 +236,27 @@ NSPersistentContainer *_persistentContainer;
     return storedItem;
 }
 
+#pragma mark - Mapping image URLs
+NSString* mapURLsToStoredURLs(NSArray<NSString *> *urls) {
+  NSMutableArray<NSString *> *encodedURLs = [[NSMutableArray alloc] init];
+  [urls enumerateObjectsUsingBlock:^(NSString * _Nonnull url, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSString *encodedURL = encodeURLNoCommas(url);
+    [encodedURLs addObject:encodedURL];
+  }];
+  return [encodedURLs componentsJoinedByString:@","];
+}
+
+NSArray<NSString *>* mapStoredURLsToURLs(NSString *urls) {
+  NSArray<NSString *> *encodedURLs = [urls componentsSeparatedByString:@","];
+  NSMutableArray<NSString *> *decodedURLs = [[NSMutableArray alloc] init];
+  
+  [encodedURLs enumerateObjectsUsingBlock:^(NSString * _Nonnull encodedURL, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSString *url = decodeURL(encodedURL);
+    [decodedURLs addObject:url];
+  }];
+  return [decodedURLs copy];
+}
+
 #pragma mark - mapDetailsToStoredDetails
 - (StoredPlaceDetails *)mapDetailsToStoredDetails:(PlaceDetails *)details {
   __weak typeof(self) weakSelf = self;
@@ -244,7 +266,8 @@ NSPersistentContainer *_persistentContainer;
   storedDetails.address = details.address;
   storedDetails.url = details.url;
   storedDetails.descriptionHTML = details.descriptionHTML;
-  storedDetails.imageURLs = [details.images componentsJoinedByString:@","];
+  
+  storedDetails.imageURLs = mapURLsToStoredURLs(details.images);
   // Save linked categories.
   [self addLinkedCategoriesObjectToDetails:details.categoryIdToItems
                                        add:^(StoredCategoryUUIDToRelatedItemUUIDs*
@@ -327,7 +350,7 @@ NSPersistentContainer *_persistentContainer;
   PlaceDetails *details = [[PlaceDetails alloc] init];
   details.address = storedDetails.address;
   details.url = storedDetails.url;
-  details.images = [storedDetails.imageURLs componentsSeparatedByString:@","];
+  details.images = mapStoredURLsToURLs(storedDetails.imageURLs);
   details.descriptionHTML = storedDetails.descriptionHTML;
 
   details.categoryIdToItems =
