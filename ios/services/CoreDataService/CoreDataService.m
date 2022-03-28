@@ -383,10 +383,13 @@ NSMutableArray<CategoryUUIDToRelatedItemUUIDs *>* categoryIdToItemsFromStored(NS
 
 NSMutableArray<InformationReference *>* referencesFromStored(NSOrderedSet<StoredInformationReference *> *storedReferences) {
   NSMutableArray<InformationReference *> *references = [[NSMutableArray alloc] init];
-  [storedReferences enumerateObjectsUsingBlock:^(StoredInformationReference * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+  [storedReferences enumerateObjectsUsingBlock:^(StoredInformationReference * _Nonnull storedReference, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([storedReference.url length] == 0) {
+      return;
+    }
     InformationReference *reference = [[InformationReference alloc] init];
-    reference.url = obj.url;
-    reference.title = obj.title;
+    reference.url = storedReference.url;
+    reference.title = storedReference.title;
     [references addObject:reference];
   }];
   return references;

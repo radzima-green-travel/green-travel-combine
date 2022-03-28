@@ -167,7 +167,8 @@ NSMutableArray* buildCategoryIdToItemIdsRelations(NSArray *itemIds,
 #pragma mark - Mapping details
 void fillReferencesIntoDetails(PlaceDetails *details, NSDictionary *rawItem) {
   NSMutableArray *references = [[NSMutableArray alloc] init];
-  if (rawItem[@"url"] && ![rawItem[@"url"] isEqual:[NSNull null]]) {
+  if (rawItem[@"url"] && ![rawItem[@"url"] isEqual:[NSNull null]] &&
+      [rawItem[@"url"] length] > 0) {
     InformationReference *officialSite = [[InformationReference alloc] init];
     officialSite.url = encodeURL(rawItem[@"url"]);
     officialSite.title = NSLocalizedString(@"DetailsScreenOfficialSite", @"");
