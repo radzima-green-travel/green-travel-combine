@@ -247,8 +247,14 @@ NSString* mapURLsToStoredURLs(NSArray<NSString *> *urls) {
 }
 
 NSArray<NSString *>* mapStoredURLsToURLs(NSString *urls) {
-  NSArray<NSString *> *decodedURLs = [urls componentsSeparatedByString:@","];
-  return decodedURLs;
+  NSArray<NSString *> *encodedURLs = [urls componentsSeparatedByString:@","];
+  NSMutableArray<NSString *> *decodedURLs = [[NSMutableArray alloc] init];
+  
+  [encodedURLs enumerateObjectsUsingBlock:^(NSString * _Nonnull encodedURL, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSString *url = decodeURL(encodedURL);
+    [decodedURLs addObject:url];
+  }];
+  return [decodedURLs copy];
 }
 
 #pragma mark - mapDetailsToStoredDetails
