@@ -392,6 +392,17 @@ NSMutableArray<InformationReference *>* referencesFromStored(NSOrderedSet<Stored
     reference.title = storedReference.title;
     [references addObject:reference];
   }];
+  // TODO: preserve ordering in database.
+  [references sortUsingComparator:^NSComparisonResult(InformationReference * _Nonnull a,
+                                                      InformationReference * _Nonnull b) {
+    if ([a.url hasPrefix:@"https"] && ![b.url hasPrefix:@"https"]) {
+      return NSOrderedAscending;
+    }
+    if (![a.url hasPrefix:@"https"] && [b.url hasPrefix:@"https"]) {
+      return NSOrderedDescending;
+    }
+    return [a.title localizedCaseInsensitiveCompare:b.title];
+  }];
   return references;
 }
 
