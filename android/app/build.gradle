@@ -136,8 +136,8 @@ android {
         applicationId "app.radzima"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20
-        versionName "1.3.0"
+        versionCode 21
+        versionName "1.3.2"
     }
     splits {
         abi {
