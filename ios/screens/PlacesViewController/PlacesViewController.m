@@ -116,7 +116,7 @@ static const NSUInteger kNumberOfLetterSizeWhenToShowIndexTitles = 4;
         item.onPlaceCellPress = ^{};
     });
     [self formIndexTitles];
-  
+
     if (!self.bookmarked) {
         [self.collectionView reloadData];
     }
@@ -127,6 +127,10 @@ static const NSUInteger kNumberOfLetterSizeWhenToShowIndexTitles = 4;
 }
 
 - (void)formIndexTitles {
+  // TODO: disable index titles until this feature is discussed.
+  if (/* DISABLES CODE */ (YES)) {
+		return;
+	}
   self.indexTitlesDuplicated = [[NSMutableArray alloc] init];
   self.indexTitles = [[NSMutableArray alloc] init];
   NSMutableSet<NSString *> *uniqueIndexes = [[NSMutableSet alloc] init];
