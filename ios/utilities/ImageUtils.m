@@ -28,9 +28,10 @@ NSString* getFullImageURL(NSString *imageURL) {
   NSString *urlDecodedImageURL = [imageURL stringByRemovingPercentEncoding];
   
   NSString *pathPart = [urlDecodedImageURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+  NSString *pathPartNoCommas = [pathPart stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
   
   NSString *fullImageURL = [NSString stringWithFormat:@"%@/public/%@",
-                            NATIVE_CLIENT_IMAGE_URL, pathPart];
+                            NATIVE_CLIENT_IMAGE_URL, pathPartNoCommas];
   return fullImageURL;
 }
 
