@@ -53,7 +53,8 @@
   },
   "search": {
     "searchTitle": "历史记录",
-    "notFound": "抱歉，未找到相关结果"
+    "notFound": "抱歉，未找到相关结果",
+    "clearAll": "清除所有"
   },
   "map": {
     "all": "全部",
