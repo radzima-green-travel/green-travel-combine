@@ -1,9 +1,13 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
 
 import {ACTIONS} from '../constants';
+import {ILabelError} from '../types';
 
-export const bootstrapStart = createAction(ACTIONS.BOOTSTRAP_START)();
-export const bootstrapFinish = createAction(ACTIONS.BOOTSTRAP_FINISH)();
+export const bootstrapRequest = createAction(ACTIONS.BOOTSTRAP_REQUEST)();
+export const bootstrapSuccess = createAction(ACTIONS.BOOTSTRAP_SUCCESS)();
+export const bootstrapFailure = createAction(
+  ACTIONS.BOOTSTRAP_FAILURE,
+)<ILabelError>();
 
 export interface IBootsrap {
   finished: boolean;
@@ -14,15 +18,15 @@ const defaultState: IBootsrap = {
 };
 
 const actions = {
-  bootstrapStart,
-  bootstrapFinish,
+  bootstrapSuccess,
+  bootstrapFailure,
 };
 
 type Actions = ActionType<typeof actions>;
 
 export const bootstrapReducer = createReducer<IBootsrap, Actions>(
   defaultState,
-).handleAction(bootstrapFinish, () => {
+).handleAction([actions.bootstrapSuccess, actions.bootstrapFailure], () => {
   return {
     finished: true,
   };

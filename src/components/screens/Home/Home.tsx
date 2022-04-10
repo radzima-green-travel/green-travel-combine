@@ -14,7 +14,6 @@ import {
   getHomeDataUpdatesRequest,
   getInitialHomeDataRequest,
   getHomeDataUpdateAvailableRequest,
-  getHomeData,
 } from 'core/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
@@ -71,10 +70,6 @@ export const Home = ({navigation: {navigate}}: IProps) => {
       showToast();
     }
   }, [showToast, updateError]);
-
-  useEffect(() => {
-    dispatch(getHomeData());
-  }, [dispatch]);
 
   const checkUpdates = useCallback(
     (state: AppStateStatus, prevState: AppStateStatus) => {
