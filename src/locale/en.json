@@ -12,8 +12,9 @@
     },
     "tabs": {
       "home": "Main",
-      "bookmarks": "Saved",
-      "map": "Map"
+      "bookmarks": "Favorites",
+      "map": "Map",
+      "profile": "Profile"
     },
     "tryAgain": "Try again",
     "coppied": "Copied",
@@ -60,5 +61,16 @@
     "all": "All",
     "getMore": "More info",
     "routeLength": "{{km}} km, "
+  },
+  "authentification": {
+    "enterTab": "Enter",
+    "signUpTab": "Create account",
+    "createButton": "Sign Up",
+    "authTitle": "Create new account",
+    "enterWith": "or enter through",
+    "registrationWarning": "By clicking Sign Up, you agree to our Terms of Use and Privacy Policy",
+    "email": "Email",
+    "userName": "Username",
+    "password": "Password"
   }
 }

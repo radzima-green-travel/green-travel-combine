@@ -52,6 +52,7 @@ const NSString* AnalyticsEventsUserPropertyFramework = @"user_property_framework
 const NSString* AnalyticsEventsNaviMain = @"navi_home_event";
 const NSString* AnalyticsEventsNaviMap = @"navi_map_event";
 const NSString* AnalyticsEventsNaviBookmarks = @"navi_bookmarks_event";
+const NSString* AnalyticsEventsNaviProfile = @"navi_profile_event";
 
 const NSString* AnalyticsEventsScreenHome = @"view_home_event";
 const NSString* AnalyticsEventsScreenBookmarks = @"view_bookmarks_event";

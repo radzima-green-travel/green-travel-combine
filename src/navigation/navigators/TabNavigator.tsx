@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useColorScheme, useTranslation} from 'core/hooks';
 import {AppMapNavigatior} from './AppMapNavigatior';
 import {BookmarksNavigator} from './BookmarksNavigator';
+import {ProfileNavigator} from './ProfileNavigator';
 import {Icon} from 'atoms';
 import {IconsNames} from 'atoms/Icon';
 import {HomeNavigator} from './HomeNavigator';
@@ -105,6 +106,28 @@ export function TabNavigator() {
           tabBarIcon: ({color, focused}) => (
             <Icon
               name={focused ? 'bookmarkFilled' : 'bookmark'}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ProfileNavigator"
+        component={ProfileNavigator}
+        listeners={{
+          tabPress: () => {
+            analyticsService.logEvent('navi_profile_event');
+          },
+        }}
+        options={{
+          tabBarLabel: t('tabs.profile'),
+          tabBarIcon: ({color, focused}) => (
+            <Icon
+              additionalColor={
+                theme === 'light' ? COLORS.white : COLORS.oxfordBlue
+              }
+              name={focused ? 'avatarFilled' : 'avatar'}
               color={color}
               size={24}
             />

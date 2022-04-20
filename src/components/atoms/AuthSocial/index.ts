@@ -1,0 +1,1 @@
+export {AuthSocial} from './AuthSocial';
