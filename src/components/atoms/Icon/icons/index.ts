@@ -18,6 +18,7 @@ export {default as delete} from './delete.svg';
 export {default as email} from './email.svg';
 export {default as error} from './error.svg';
 export {default as eye} from './eye.svg';
+export {default as eyeOff} from './eyeOff.svg';
 export {default as facebookAuth} from './facebookAuth.svg';
 export {default as flag} from './flag.svg';
 export {default as footprints} from './footprints.svg';
