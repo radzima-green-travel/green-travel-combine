@@ -19,6 +19,7 @@ export type IconsNames =
   | 'email'
   | 'error'
   | 'eye'
+  | 'eyeOff'
   | 'facebookAuth'
   | 'flag'
   | 'footprints'

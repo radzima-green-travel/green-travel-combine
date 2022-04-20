@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {TextInput, View} from 'react-native';
+import {Pressable, TextInput, View} from 'react-native';
 import {styles} from './styles';
-import {useTranslation} from 'core/hooks';
+import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
 import {Button, Icon} from 'atoms';
 
 export const AuthForm = () => {
@@ -10,6 +10,8 @@ export const AuthForm = () => {
   const [password, setPassword] = useState('');
 
   const {t} = useTranslation('authentification');
+  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
+    useTogglePasswordVisibility('eye');
   const buttonText = t('createButton').toUpperCase();
 
   return (
@@ -39,12 +41,15 @@ export const AuthForm = () => {
         <TextInput
           style={styles.inputField}
           placeholder={t('password')}
+          secureTextEntry={passwordVisibility}
           value={password}
           onChangeText={setPassword}
         />
-        <View style={styles.iconContainer}>
-          <Icon name={'eye'} size={16} />
-        </View>
+        <Pressable
+          style={styles.iconContainer}
+          onPress={handlePasswordVisibility}>
+          <Icon name={rightIcon} size={16} />
+        </Pressable>
       </View>
 
       <Button style={styles.button}>{buttonText}</Button>

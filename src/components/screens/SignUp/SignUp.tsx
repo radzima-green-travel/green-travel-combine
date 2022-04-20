@@ -2,7 +2,8 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {styles} from './styles';
 import {useTranslation} from 'core/hooks';
-import {AuthForm, AuthSocial} from 'atoms';
+import {AuthForm} from 'atoms';
+import {AuthSocial} from 'molecules';
 
 export const SignUp = () => {
   const {t} = useTranslation('authentification');

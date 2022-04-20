@@ -1,5 +1,4 @@
 export {AuthForm} from './AuthForm';
-export {AuthSocial} from './AuthSocial';
 export {BookmarkItem} from './BookmarkItem';
 export {BottomMenu} from './BottomMenu';
 export {Button} from './Button';
