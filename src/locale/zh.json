@@ -12,8 +12,9 @@
     },
     "tabs": {
       "home": "主页",
-      "bookmarks": "收藏",
-      "map": "地图"
+      "bookmarks": "最愛",
+      "map": "地图",
+      "profile": "輪廓"
     },
     "tryAgain": "再试一次",
     "coppied": "已復制",

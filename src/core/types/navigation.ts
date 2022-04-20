@@ -35,6 +35,11 @@ export type BookmarksNavigatorParamsList = {
   };
 };
 
+export type ProfileNavigatorParamsList = {
+  Profile: undefined;
+  SignUp: undefined;
+};
+
 export type AppMapNavigatorParamsList = {
   AppMap: undefined;
   ObjectDetails: {
@@ -60,4 +65,5 @@ export type TabNavigatorParamsList = {
   HomeNavigator: NestedNavigatorParams<HomeNavigatorParamsList>;
   AppMapNavigator: NestedNavigatorParams<AppMapNavigatorParamsList>;
   BookmarksNavigator: NestedNavigatorParams<BookmarksNavigatorParamsList>;
+  ProfileNavigator: NestedNavigatorParams<ProfileNavigatorParamsList>;
 };

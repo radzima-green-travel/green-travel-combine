@@ -53,6 +53,12 @@ export const FONTS_STYLES = StyleSheet.create({
     lineHeight: 15,
     letterSpacing: 0.2,
   },
+  regular16: {
+    fontSize: 16,
+    fontWeight: '400',
+    fontFamily: FONTS.regular,
+    lineHeight: 22,
+  },
   regular15: {
     fontSize: 15,
     fontWeight: '400',

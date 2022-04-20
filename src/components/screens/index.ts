@@ -1,11 +1,13 @@
-export {Home as HomeScreen} from './Home';
-export {ObjectsList as ObjectsListScreen} from './ObjectsList';
 export {AppMap as AppMapScreen} from './AppMap';
 export {Bookmarks as BookmarksScreen} from './Bookmarks';
 export {BookmarksList as BookmarksListScreen} from './BookmarksList';
-export {ErrorScreen} from './ErrorScreen';
-export {ObjectDetails as ObjectDetailsScreen} from './ObjectDetails';
 export {CategoriesList as CategoriesListScreen} from './CategoriesList';
-export {Search as SearchScreen} from './Search';
+export {ErrorScreen} from './ErrorScreen';
+export {Home as HomeScreen} from './Home';
+export {ObjectDetails as ObjectDetailsScreen} from './ObjectDetails';
 export {ObjectDetailsMap as ObjectDetailsMapScreen} from './ObjectDetailsMap';
+export {ObjectsList as ObjectsListScreen} from './ObjectsList';
+export {Profile as ProfileScreen} from './Profile';
+export {Search as SearchScreen} from './Search';
+export {SignUp as SignUpScreen} from './SignUp';
 export {Splash as SplashScreen} from './Splash';

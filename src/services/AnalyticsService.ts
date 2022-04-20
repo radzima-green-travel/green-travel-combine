@@ -1,6 +1,10 @@
 import {Identify, Amplitude} from '@amplitude/react-native';
 
-type TabEvents = 'navi_home_event' | 'navi_map_event' | 'navi_bookmarks_event';
+type TabEvents =
+  | 'navi_bookmarks_event'
+  | 'navi_home_event'
+  | 'navi_map_event'
+  | 'navi_profile_event';
 type ScreenViewEvents =
   | 'view_home_event'
   | 'view_map_event'
