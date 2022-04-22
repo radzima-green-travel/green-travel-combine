@@ -1,4 +1,5 @@
 export {AppMap as AppMapScreen} from './AppMap';
+export {Authentification as AuthentificationScreen} from './Authentification';
 export {Bookmarks as BookmarksScreen} from './Bookmarks';
 export {BookmarksList as BookmarksListScreen} from './BookmarksList';
 export {CategoriesList as CategoriesListScreen} from './CategoriesList';
@@ -9,5 +10,4 @@ export {ObjectDetailsMap as ObjectDetailsMapScreen} from './ObjectDetailsMap';
 export {ObjectsList as ObjectsListScreen} from './ObjectsList';
 export {Profile as ProfileScreen} from './Profile';
 export {Search as SearchScreen} from './Search';
-export {SignUp as SignUpScreen} from './SignUp';
 export {Splash as SplashScreen} from './Splash';

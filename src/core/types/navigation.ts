@@ -37,7 +37,7 @@ export type BookmarksNavigatorParamsList = {
 
 export type ProfileNavigatorParamsList = {
   Profile: undefined;
-  SignUp: undefined;
+  Authentification: undefined;
 };
 
 export type AppMapNavigatorParamsList = {

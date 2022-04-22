@@ -63,14 +63,18 @@
     "routeLength": "{{km}} km, "
   },
   "authentification": {
-    "enterTab": "Enter",
+    "signInTab": "Log in",
     "signUpTab": "Create account",
-    "createButton": "Sign Up",
+    "signUpButton": "Sign Up",
+    "signInButton": "Sign In",
     "authTitle": "Create new account",
+    "signInTitle": "Log in",
     "enterWith": "or enter through",
+    "or": "or",
     "registrationWarning": "By clicking Sign Up, you agree to our Terms of Use and Privacy Policy",
     "email": "Email",
     "userName": "Username",
-    "password": "Password"
+    "password": "Password",
+    "forgetPassword": "Forgot your password?"
   }
 }
