@@ -5,6 +5,7 @@ export {Button} from './Button';
 export {Card} from './Card';
 export {ClusterMap} from './ClusterMap';
 export {ClusterMapShape} from './ClusterMapShape';
+export {FormInput} from './FormInput';
 export {HeaderSearchbar} from './HeaderSearchbar';
 export {Icon} from './Icon';
 export {ImageSlider} from './ImageSlider';
