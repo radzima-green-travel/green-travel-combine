@@ -7,6 +7,7 @@ interface IProps {
   size?: number;
 }
 
+// TODO: navigation with clicking on icons
 export const AuthSocial = ({size}: IProps) => {
   return (
     <View style={styles.boxContainer}>

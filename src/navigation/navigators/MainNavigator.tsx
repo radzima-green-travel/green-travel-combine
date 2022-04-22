@@ -5,7 +5,7 @@ import {ErrorScreen, ObjectDetailsMapScreen, SplashScreen} from 'screens';
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {defaultTransition} from '../transitition';
+import {defaultTransition} from '../transition';
 import {isIOS} from 'services/PlatformService';
 import {StatusBar} from 'react-native';
 

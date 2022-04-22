@@ -5,7 +5,7 @@ import {AppMapScreen, ObjectDetailsScreen, ObjectsListScreen} from 'screens';
 import {useScreenOptions} from '../screenOptions';
 import {AppMapNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {defaultTransition} from '../transitition';
+import {defaultTransition} from '../transition';
 
 const Stack = createNativeStackNavigator<AppMapNavigatorParamsList>();
 

@@ -10,14 +10,14 @@ export const Authentification = () => {
   const [isSignUp, setIsignUp] = useState(true);
   const {t} = useTranslation('authentification');
 
-  const togleSignUp = () => {
+  const toggleSignUp = () => {
     setIsignUp(!isSignUp);
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
-        <AuthTabBar isSignUp={isSignUp} onPress={togleSignUp} />
+        <AuthTabBar isSignUp={isSignUp} onPress={toggleSignUp} />
         {isSignUp ? <SignUp /> : <SignIn />}
         <Text style={styles.warning}>{t('registrationWarning')}</Text>
       </View>
