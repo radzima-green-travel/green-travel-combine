@@ -12,7 +12,7 @@ import {
 import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
 import {useScreenOptions} from '../screenOptions';
-import {defaultTransition} from '../transitition';
+import {defaultTransition} from '../transition';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 

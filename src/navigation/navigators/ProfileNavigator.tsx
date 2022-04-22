@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
 import {ProfileNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {defaultTransition} from '../transitition';
+import {defaultTransition} from '../transition';
 
 const Stack = createNativeStackNavigator<ProfileNavigatorParamsList>();
 
