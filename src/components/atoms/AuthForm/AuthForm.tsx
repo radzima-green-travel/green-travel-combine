@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {Pressable, TextInput, View} from 'react-native';
 import {styles} from './styles';
 import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
-import {Button, Icon} from 'atoms';
+import {Button, FormInput} from 'atoms';
 
 export const AuthForm = () => {
   const [email, setEmail] = useState('');
@@ -16,42 +15,34 @@ export const AuthForm = () => {
 
   return (
     <>
-      <View style={styles.inputFieldContainer}>
-        <Icon name={'email'} size={16} style={styles.icon} />
-        <TextInput
-          style={styles.inputField}
-          placeholder={t('email')}
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
-
-      <View style={styles.inputFieldContainer}>
-        <Icon name={'avatar'} size={16} style={styles.icon} />
-        <TextInput
-          style={styles.inputField}
-          placeholder={t('userName')}
-          value={userName}
-          onChangeText={setUserName}
-        />
-      </View>
-
-      <View style={styles.inputFieldContainer}>
-        <Icon name={'lock'} size={16} style={styles.icon} />
-        <TextInput
-          style={styles.inputField}
-          placeholder={t('password')}
-          secureTextEntry={passwordVisibility}
-          value={password}
-          onChangeText={setPassword}
-        />
-        <Pressable
-          style={styles.iconContainer}
-          onPress={handlePasswordVisibility}>
-          <Icon name={rightIcon} size={16} />
-        </Pressable>
-      </View>
-
+      <FormInput
+        iconLeftName={'email'}
+        size={16}
+        placeholder={'email'}
+        value={email}
+        setValue={setEmail}
+        renderLeftIcon={true}
+      />
+      <FormInput
+        iconLeftName={'avatar'}
+        size={16}
+        placeholder={'userName'}
+        value={userName}
+        setValue={setUserName}
+        renderLeftIcon={true}
+      />
+      <FormInput
+        iconRightName={rightIcon}
+        iconLeftName={'lock'}
+        size={16}
+        placeholder={'password'}
+        secureTextEntry={passwordVisibility}
+        onRightIconPress={handlePasswordVisibility}
+        value={password}
+        setValue={setPassword}
+        renderLeftIcon={true}
+        renderRightIcon={true}
+      />
       <Button style={styles.button}>{buttonText}</Button>
     </>
   );

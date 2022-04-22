@@ -4,6 +4,9 @@ import {COLORS, FONTS_STYLES} from 'assets';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  authContainer: {
+    flex: 1,
     paddingHorizontal: 24,
     paddingBottom: 9,
   },
