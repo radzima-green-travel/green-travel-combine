@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ProfileScreen, SignUpScreen} from 'screens';
+import {AuthentificationScreen, ProfileScreen} from 'screens';
 
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
@@ -21,7 +21,10 @@ export function ProfileNavigator() {
         title: t('tabs.profile'),
         animation: defaultTransition,
       }}>
-      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen
+        name="Authentification"
+        component={AuthentificationScreen}
+      />
       <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );

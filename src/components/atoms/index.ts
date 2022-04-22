@@ -1,4 +1,5 @@
 export {AuthForm} from './AuthForm';
+export {AuthTabBar} from './AuthTabBar';
 export {BookmarkItem} from './BookmarkItem';
 export {BottomMenu} from './BottomMenu';
 export {Button} from './Button';

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useLayoutEffect} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useMemo} from 'react';
 import {FlatList} from 'react-native';
 import {ObjectCard} from 'molecules';
 import {styles} from './styles';
@@ -8,7 +8,6 @@ import {isAndroid, isIOS, SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useBookmarksObjects, useBookmarksListAnalytics} from 'core/hooks';
 import {IObject} from 'core/types';
-import {useMemo} from 'react';
 import {orderBy} from 'lodash';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;

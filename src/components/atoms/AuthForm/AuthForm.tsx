@@ -3,7 +3,11 @@ import {styles} from './styles';
 import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
 import {Button, FormInput} from 'atoms';
 
-export const AuthForm = () => {
+interface IProp {
+  isSignUp: boolean;
+}
+
+export const AuthForm = ({isSignUp}: IProp) => {
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -11,7 +15,23 @@ export const AuthForm = () => {
   const {t} = useTranslation('authentification');
   const {passwordVisibility, rightIcon, handlePasswordVisibility} =
     useTogglePasswordVisibility('eye');
-  const buttonText = t('createButton').toUpperCase();
+  const buttonText = isSignUp
+    ? t('signUpButton').toUpperCase()
+    : t('signInButton').toUpperCase();
+
+  const onFormSubmit = () => {
+    const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const passwordMinLength = 8;
+
+    // TODO: form input validation
+    if (!regexForEmail.test(email)) {
+      console.log('wrong email');
+    }
+
+    if (password.length < passwordMinLength) {
+      console.log('password is too short');
+    }
+  };
 
   return (
     <>
@@ -23,14 +43,17 @@ export const AuthForm = () => {
         setValue={setEmail}
         renderLeftIcon={true}
       />
-      <FormInput
-        iconLeftName={'avatar'}
-        size={16}
-        placeholder={'userName'}
-        value={userName}
-        setValue={setUserName}
-        renderLeftIcon={true}
-      />
+      {isSignUp ? (
+        <FormInput
+          iconLeftName={'avatar'}
+          size={16}
+          placeholder={'userName'}
+          value={userName}
+          setValue={setUserName}
+          renderLeftIcon={true}
+        />
+      ) : null}
+
       <FormInput
         iconRightName={rightIcon}
         iconLeftName={'lock'}
@@ -43,7 +66,9 @@ export const AuthForm = () => {
         renderLeftIcon={true}
         renderRightIcon={true}
       />
-      <Button style={styles.button}>{buttonText}</Button>
+      <Button style={styles.button} onPress={onFormSubmit}>
+        {buttonText}
+      </Button>
     </>
   );
 };
