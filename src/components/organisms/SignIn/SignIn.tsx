@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {styles} from './styles';
 import {useTranslation} from 'core/hooks';
-import {AuthForm} from 'atoms';
+import {AuthForm, Divider} from 'atoms';
 import {AuthSocial} from 'molecules';
 
 export const SignIn = () => {
@@ -12,11 +12,7 @@ export const SignIn = () => {
     <View style={styles.container}>
       <Text style={styles.title}>{t('signInTitle')}</Text>
       <AuthSocial size={48} />
-      <View style={styles.textContainer}>
-        <View style={styles.lineAround} />
-        <Text style={styles.text}>{t('or')}</Text>
-        <View style={styles.lineAround} />
-      </View>
+      <Divider text={'or'} marginVertical={24} />
       <AuthForm isSignUp={false} />
       <Text style={styles.passwordText}>{t('forgetPassword')}</Text>
     </View>

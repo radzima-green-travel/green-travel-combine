@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, FONTS_STYLES} from 'assets';
+import {FONTS_STYLES} from 'assets';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,20 +10,5 @@ export const styles = StyleSheet.create({
     ...FONTS_STYLES.semibold20,
     textAlign: 'center',
     marginBottom: 20,
-  },
-  textContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 24,
-  },
-  text: {
-    ...FONTS_STYLES.regular15,
-    textAlign: 'center',
-    marginHorizontal: 16,
-  },
-  lineAround: {
-    flex: 1,
-    height: 1,
-    backgroundColor: COLORS.silver,
   },
 });
