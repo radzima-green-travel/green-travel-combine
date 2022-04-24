@@ -11,6 +11,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		58B51DD0F7509AACEE68A755 /* libPods-greenTravel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAAE55E9FC1C4F4F779DD4C /* libPods-greenTravel.a */; };
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
+		5A05E6DD2815AA2300017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E6DC2815AA2300017BA0 /* AmplifyBridge.swift */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
@@ -179,6 +180,10 @@
 		5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADBAC3E27243A7D0006A8C1 /* Typography.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
+		5AE895632816BFD20026218D /* Amplify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A05E6992815A5AB00017BA0 /* Amplify.framework */; };
+		5AE895642816BFD20026218D /* Amplify.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A05E6992815A5AB00017BA0 /* Amplify.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5AE895B52816C3A40026218D /* AWSCognitoAuthPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE895AE2816C32B0026218D /* AWSCognitoAuthPlugin.framework */; };
+		5AE895B62816C3A40026218D /* AWSCognitoAuthPlugin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE895AE2816C32B0026218D /* AWSCognitoAuthPlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
@@ -187,6 +192,325 @@
 		6281F7E124C9E40D00C51231 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6281F7E024C9E40D00C51231 /* empty.swift */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5A05E6982815A5AB00017BA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FAC234D22279F8DA00424678;
+			remoteInfo = Amplify;
+		};
+		5A05E69A2815A5AB00017BA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FACA36042327FBD4000E74F6;
+			remoteInfo = AmplifyTestCommon;
+		};
+		5A05E69C2815A5AB00017BA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FAC234DB2279F8DA00424678;
+			remoteInfo = AmplifyTests;
+		};
+		5A05E69E2815A5AB00017BA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FACA35F22327FB14000E74F6;
+			remoteInfo = AmplifyFunctionalTests;
+		};
+		5A05E6A02815A5AB00017BA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FA131AAA2360FE070008381C;
+			remoteInfo = AWSPluginsCore;
+		};
+		5A05E6A22815A5AB00017BA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FA131AB22360FE070008381C;
+			remoteInfo = AWSPluginsCoreTests;
+		};
+		5A05E6A42815A5AB00017BA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FAB2C99A2384B108008EE879;
+			remoteInfo = AWSPluginsTestCommon;
+		};
+		5A05E6A62815A5AB00017BA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2125E2512319EC3000B3DEB5;
+			remoteInfo = AmplifyTestApp;
+		};
+		5AE8958A2816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCFB8F03867DB892EFC47B53186590C4;
+			remoteInfo = AWSCore;
+		};
+		5AE8958C2816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E0BC8BB0FE4725CF87EB0A9F5D400FD6;
+			remoteInfo = CwlCatchException;
+		};
+		5AE8958E2816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 220D1365CED5CB83C4C0CE1E3DABD3B0;
+			remoteInfo = CwlCatchExceptionSupport;
+		};
+		5AE895902816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1176A8E7C8F4162FFCA404BE6EEBB1C;
+			remoteInfo = CwlMachBadInstructionHandler;
+		};
+		5AE895922816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AD834000B280096FEB80FBEBD9A414;
+			remoteInfo = CwlPosixPreconditionTesting;
+		};
+		5AE895942816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC56497384E780278F916D6C57EA4951;
+			remoteInfo = CwlPreconditionTesting;
+		};
+		5AE895962816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 80DF1944FBE1C02C0D19FA556279CF7A;
+			remoteInfo = "Pods-Amplify";
+		};
+		5AE895982816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D745E2A5C3D7BB82BB00BA0C3CD9A56C;
+			remoteInfo = "Pods-Amplify-AmplifyTestConfigs-AmplifyFunctionalTests";
+		};
+		5AE8959A2816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A4B8551213E176E1C8DC109BF5957DD3;
+			remoteInfo = "Pods-Amplify-AmplifyTestConfigs-AmplifyTestCommon";
+		};
+		5AE8959C2816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B270484543DC97A2E5759EB4E30E0E90;
+			remoteInfo = "Pods-Amplify-AmplifyTestConfigs-AmplifyTests";
+		};
+		5AE8959E2816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CBED44CF131280494DBEBD7CF2B56150;
+			remoteInfo = "Pods-Amplify-AWSPluginsCore";
+		};
+		5AE895A02816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 01CEDC80C5B028F2AE09C4BECC2F076B;
+			remoteInfo = "Pods-Amplify-AWSPluginsCore-AWSPluginsTestConfigs-AWSPluginsCoreTests";
+		};
+		5AE895A22816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3E93CB74B9F5DE129151102493A989CB;
+			remoteInfo = "Pods-Amplify-AWSPluginsCore-AWSPluginsTestConfigs-AWSPluginsTestCommon";
+		};
+		5AE895A42816C20F0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0F1DEDC150BBA9D337427317717EC680;
+			remoteInfo = "Pods-AmplifyTestApp";
+		};
+		5AE895AD2816C32B0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895A62816C32A0026218D /* AWSCognitoAuthPlugin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B43DC7452410572400D40275;
+			remoteInfo = AWSCognitoAuthPlugin;
+		};
+		5AE895AF2816C32B0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895A62816C32A0026218D /* AWSCognitoAuthPlugin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B43DC74E2410572400D40275;
+			remoteInfo = AWSCognitoAuthPluginTests;
+		};
+		5AE895B12816C32B0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895A62816C32A0026218D /* AWSCognitoAuthPlugin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B40F165824784AE300CDB920;
+			remoteInfo = AWSCognitoAuthPluginIntegrationTests;
+		};
+		5AE895B32816C32B0026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895A62816C32A0026218D /* AWSCognitoAuthPlugin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B4F3EA20243A65BD00F23296;
+			remoteInfo = HostApp;
+		};
+		5AE896052816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2623D914779D55DA0FE0DA26F46C56E9;
+			remoteInfo = Amplify;
+		};
+		5AE896072816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4B26A411641E3515C54C4BC1620F58BB;
+			remoteInfo = AmplifyTestCommon;
+		};
+		5AE896092816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6C81CC0258D4E4C6230E583C79613573;
+			remoteInfo = AWSAuthCore;
+		};
+		5AE8960B2816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5FA201FD7F04844F9B9C1F2974AD9B46;
+			remoteInfo = AWSCognitoIdentityProvider;
+		};
+		5AE8960D2816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 592313CB94B49286EEF277EA91D3D95A;
+			remoteInfo = AWSCognitoIdentityProviderASF;
+		};
+		5AE8960F2816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCFB8F03867DB892EFC47B53186590C4;
+			remoteInfo = AWSCore;
+		};
+		5AE896112816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88B5B053284A3CD214CB2345BB04C33F;
+			remoteInfo = AWSMobileClient;
+		};
+		5AE896132816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BABAB0B403C0FA58F04F9274AB97A470;
+			remoteInfo = AWSPluginsCore;
+		};
+		5AE896152816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E0BC8BB0FE4725CF87EB0A9F5D400FD6;
+			remoteInfo = CwlCatchException;
+		};
+		5AE896172816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 220D1365CED5CB83C4C0CE1E3DABD3B0;
+			remoteInfo = CwlCatchExceptionSupport;
+		};
+		5AE896192816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1176A8E7C8F4162FFCA404BE6EEBB1C;
+			remoteInfo = CwlMachBadInstructionHandler;
+		};
+		5AE8961B2816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AD834000B280096FEB80FBEBD9A414;
+			remoteInfo = CwlPosixPreconditionTesting;
+		};
+		5AE8961D2816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC56497384E780278F916D6C57EA4951;
+			remoteInfo = CwlPreconditionTesting;
+		};
+		5AE8961F2816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F801CBD53C9BB2A329CAB3705FFA79A;
+			remoteInfo = "Pods-AWSCognitoAuthPlugin";
+		};
+		5AE896212816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7C0F8A2E018954589FDAE0A0743F16A7;
+			remoteInfo = "Pods-AWSCognitoAuthPlugin-AWSCognitoAuthPluginTests";
+		};
+		5AE896232816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ED00F87B053026A542BE85D0CA39F88F;
+			remoteInfo = "Pods-HostApp";
+		};
+		5AE896252816C4060026218D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D7DCF0541F9241F206C17CE5B970FC8;
+			remoteInfo = "Pods-HostApp-AWSCognitoAuthPluginIntegrationTests";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5AE895672816BFD20026218D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5AE895642816BFD20026218D /* Amplify.framework in Embed Frameworks */,
+				5AE895B62816C3A40026218D /* AWSCognitoAuthPlugin.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -198,6 +522,8 @@
 		33553A8D4336D166DC0AAA01 /* Pods-greenTravel.releaseproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.releaseproduction.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.releaseproduction.xcconfig"; sourceTree = "<group>"; };
 		5A006D182783565A00010D63 /* URLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLUtils.h; sourceTree = "<group>"; };
 		5A006D192783565A00010D63 /* URLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLUtils.m; sourceTree = "<group>"; };
+		5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Amplify.xcodeproj; path = Frameworks/Internal/Amplify/Amplify.xcodeproj; sourceTree = "<group>"; };
+		5A05E6DC2815AA2300017BA0 /* AmplifyBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyBridge.swift; sourceTree = "<group>"; };
 		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
 		5A105EE326501FA000511256 /* RotationLockUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationLockUtility.m; sourceTree = "<group>"; };
 		5A105FE9265FD99100511256 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
@@ -534,6 +860,9 @@
 		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
 		5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IconNameToAnalyticsEvent.m; sourceTree = "<group>"; };
 		5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV2.xcdatamodel; sourceTree = "<group>"; };
+		5AE895772816C20F0026218D /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Frameworks/Internal/Amplify/Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		5AE895A62816C32A0026218D /* AWSCognitoAuthPlugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AWSCognitoAuthPlugin.xcodeproj; path = Frameworks/Internal/Amplify/AmplifyPlugins/Auth/AWSCognitoAuthPlugin.xcodeproj; sourceTree = "<group>"; };
+		5AE895EF2816C4060026218D /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Frameworks/Internal/Amplify/AmplifyPlugins/Auth/Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		5AED944B27773DF60053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5AED944C27773DF70053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryImagePlaceholder.m; sourceTree = "<group>"; };
@@ -558,6 +887,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				58B51DD0F7509AACEE68A755 /* libPods-greenTravel.a in Frameworks */,
+				5AE895632816BFD20026218D /* Amplify.framework in Frameworks */,
+				5AE895B52816C3A40026218D /* AWSCognitoAuthPlugin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +935,21 @@
 				2DAAE55E9FC1C4F4F779DD4C /* libPods-greenTravel.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A05E68E2815A5AB00017BA0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A05E6992815A5AB00017BA0 /* Amplify.framework */,
+				5A05E69B2815A5AB00017BA0 /* AmplifyTestCommon.framework */,
+				5A05E69D2815A5AB00017BA0 /* AmplifyTests.xctest */,
+				5A05E69F2815A5AB00017BA0 /* AmplifyFunctionalTests.xctest */,
+				5A05E6A12815A5AB00017BA0 /* AWSPluginsCore.framework */,
+				5A05E6A32815A5AB00017BA0 /* AWSPluginsCoreTests.xctest */,
+				5A05E6A52815A5AB00017BA0 /* AWSPluginsTestCommon.framework */,
+				5A05E6A72815A5AB00017BA0 /* AmplifyTestApp.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5A105FEE2660018C00511256 /* MapService */ = {
@@ -724,6 +1070,7 @@
 			children = (
 				5A7759FC26064C6900CEFC78 /* AppDelegate.h */,
 				5A7759FF26064C6900CEFC78 /* AppDelegate.m */,
+				5A05E6DC2815AA2300017BA0 /* AmplifyBridge.swift */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -1438,6 +1785,62 @@
 			path = ReferencesView;
 			sourceTree = "<group>";
 		};
+		5AE895782816C20F0026218D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AE8958B2816C20F0026218D /* AWSCore */,
+				5AE8958D2816C20F0026218D /* CwlCatchException */,
+				5AE8958F2816C20F0026218D /* CwlCatchExceptionSupport */,
+				5AE895912816C20F0026218D /* CwlMachBadInstructionHandler */,
+				5AE895932816C20F0026218D /* CwlPosixPreconditionTesting */,
+				5AE895952816C20F0026218D /* CwlPreconditionTesting */,
+				5AE895972816C20F0026218D /* Pods-Amplify */,
+				5AE895992816C20F0026218D /* Pods-Amplify-AmplifyTestConfigs-AmplifyFunctionalTests */,
+				5AE8959B2816C20F0026218D /* Pods-Amplify-AmplifyTestConfigs-AmplifyTestCommon */,
+				5AE8959D2816C20F0026218D /* Pods-Amplify-AmplifyTestConfigs-AmplifyTests */,
+				5AE8959F2816C20F0026218D /* Pods-Amplify-AWSPluginsCore */,
+				5AE895A12816C20F0026218D /* Pods-Amplify-AWSPluginsCore-AWSPluginsTestConfigs-AWSPluginsCoreTests */,
+				5AE895A32816C20F0026218D /* Pods-Amplify-AWSPluginsCore-AWSPluginsTestConfigs-AWSPluginsTestCommon */,
+				5AE895A52816C20F0026218D /* Pods-AmplifyTestApp */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5AE895A72816C32A0026218D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AE895AE2816C32B0026218D /* AWSCognitoAuthPlugin.framework */,
+				5AE895B02816C32B0026218D /* AWSCognitoAuthPluginTests.xctest */,
+				5AE895B22816C32B0026218D /* AWSCognitoAuthPluginIntegrationTests.xctest */,
+				5AE895B42816C32B0026218D /* HostApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5AE895F02816C4060026218D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AE896062816C4060026218D /* Amplify */,
+				5AE896082816C4060026218D /* AmplifyTestCommon */,
+				5AE8960A2816C4060026218D /* AWSAuthCore */,
+				5AE8960C2816C4060026218D /* AWSCognitoIdentityProvider */,
+				5AE8960E2816C4060026218D /* AWSCognitoIdentityProviderASF */,
+				5AE896102816C4060026218D /* AWSCore */,
+				5AE896122816C4060026218D /* AWSMobileClient */,
+				5AE896142816C4060026218D /* AWSPluginsCore */,
+				5AE896162816C4060026218D /* CwlCatchException */,
+				5AE896182816C4060026218D /* CwlCatchExceptionSupport */,
+				5AE8961A2816C4060026218D /* CwlMachBadInstructionHandler */,
+				5AE8961C2816C4060026218D /* CwlPosixPreconditionTesting */,
+				5AE8961E2816C4060026218D /* CwlPreconditionTesting */,
+				5AE896202816C4060026218D /* Pods-AWSCognitoAuthPlugin */,
+				5AE896222816C4060026218D /* Pods-AWSCognitoAuthPlugin-AWSCognitoAuthPluginTests */,
+				5AE896242816C4060026218D /* Pods-HostApp */,
+				5AE896262816C4060026218D /* Pods-HostApp-AWSCognitoAuthPluginIntegrationTests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1489,6 +1892,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */,
+				5AE895772816C20F0026218D /* Pods.xcodeproj */,
+				5AE895A62816C32A0026218D /* AWSCognitoAuthPlugin.xcodeproj */,
+				5AE895EF2816C4060026218D /* Pods.xcodeproj */,
 				624E38CE2519E467001D98E2 /* Resources */,
 				13B07FAE1A68108700A75B9A /* GreenTravel */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -1538,6 +1945,7 @@
 				5A4BCB7C270A059500098511 /* Delete en and zh locales */,
 				ACF0E977660BB3F14C86FC19 /* [CP] Embed Pods Frameworks */,
 				958270D5399F14FE454CDC3A /* [CP] Copy Pods Resources */,
+				5AE895672816BFD20026218D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1576,12 +1984,365 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5A05E68E2815A5AB00017BA0 /* Products */;
+					ProjectRef = 5A05E68D2815A5AB00017BA0 /* Amplify.xcodeproj */;
+				},
+				{
+					ProductGroup = 5AE895A72816C32A0026218D /* Products */;
+					ProjectRef = 5AE895A62816C32A0026218D /* AWSCognitoAuthPlugin.xcodeproj */;
+				},
+				{
+					ProductGroup = 5AE895F02816C4060026218D /* Products */;
+					ProjectRef = 5AE895EF2816C4060026218D /* Pods.xcodeproj */;
+				},
+				{
+					ProductGroup = 5AE895782816C20F0026218D /* Products */;
+					ProjectRef = 5AE895772816C20F0026218D /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* greenTravel */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5A05E6992815A5AB00017BA0 /* Amplify.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Amplify.framework;
+			remoteRef = 5A05E6982815A5AB00017BA0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A05E69B2815A5AB00017BA0 /* AmplifyTestCommon.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AmplifyTestCommon.framework;
+			remoteRef = 5A05E69A2815A5AB00017BA0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A05E69D2815A5AB00017BA0 /* AmplifyTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AmplifyTests.xctest;
+			remoteRef = 5A05E69C2815A5AB00017BA0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A05E69F2815A5AB00017BA0 /* AmplifyFunctionalTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AmplifyFunctionalTests.xctest;
+			remoteRef = 5A05E69E2815A5AB00017BA0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A05E6A12815A5AB00017BA0 /* AWSPluginsCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AWSPluginsCore.framework;
+			remoteRef = 5A05E6A02815A5AB00017BA0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A05E6A32815A5AB00017BA0 /* AWSPluginsCoreTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AWSPluginsCoreTests.xctest;
+			remoteRef = 5A05E6A22815A5AB00017BA0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A05E6A52815A5AB00017BA0 /* AWSPluginsTestCommon.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AWSPluginsTestCommon.framework;
+			remoteRef = 5A05E6A42815A5AB00017BA0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5A05E6A72815A5AB00017BA0 /* AmplifyTestApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = AmplifyTestApp.app;
+			remoteRef = 5A05E6A62815A5AB00017BA0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8958B2816C20F0026218D /* AWSCore */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = AWSCore;
+			path = AWSCore.framework;
+			remoteRef = 5AE8958A2816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8958D2816C20F0026218D /* CwlCatchException */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlCatchException;
+			path = CwlCatchException.framework;
+			remoteRef = 5AE8958C2816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8958F2816C20F0026218D /* CwlCatchExceptionSupport */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlCatchExceptionSupport;
+			path = CwlCatchExceptionSupport.framework;
+			remoteRef = 5AE8958E2816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895912816C20F0026218D /* CwlMachBadInstructionHandler */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlMachBadInstructionHandler;
+			path = CwlMachBadInstructionHandler.framework;
+			remoteRef = 5AE895902816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895932816C20F0026218D /* CwlPosixPreconditionTesting */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlPosixPreconditionTesting;
+			path = CwlPosixPreconditionTesting.framework;
+			remoteRef = 5AE895922816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895952816C20F0026218D /* CwlPreconditionTesting */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlPreconditionTesting;
+			path = CwlPreconditionTesting.framework;
+			remoteRef = 5AE895942816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895972816C20F0026218D /* Pods-Amplify */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-Amplify";
+			path = Pods_Amplify.framework;
+			remoteRef = 5AE895962816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895992816C20F0026218D /* Pods-Amplify-AmplifyTestConfigs-AmplifyFunctionalTests */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-Amplify-AmplifyTestConfigs-AmplifyFunctionalTests";
+			path = Pods_Amplify_AmplifyTestConfigs_AmplifyFunctionalTests.framework;
+			remoteRef = 5AE895982816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8959B2816C20F0026218D /* Pods-Amplify-AmplifyTestConfigs-AmplifyTestCommon */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-Amplify-AmplifyTestConfigs-AmplifyTestCommon";
+			path = Pods_Amplify_AmplifyTestConfigs_AmplifyTestCommon.framework;
+			remoteRef = 5AE8959A2816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8959D2816C20F0026218D /* Pods-Amplify-AmplifyTestConfigs-AmplifyTests */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-Amplify-AmplifyTestConfigs-AmplifyTests";
+			path = Pods_Amplify_AmplifyTestConfigs_AmplifyTests.framework;
+			remoteRef = 5AE8959C2816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8959F2816C20F0026218D /* Pods-Amplify-AWSPluginsCore */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-Amplify-AWSPluginsCore";
+			path = Pods_Amplify_AWSPluginsCore.framework;
+			remoteRef = 5AE8959E2816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895A12816C20F0026218D /* Pods-Amplify-AWSPluginsCore-AWSPluginsTestConfigs-AWSPluginsCoreTests */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-Amplify-AWSPluginsCore-AWSPluginsTestConfigs-AWSPluginsCoreTests";
+			path = Pods_Amplify_AWSPluginsCore_AWSPluginsTestConfigs_AWSPluginsCoreTests.framework;
+			remoteRef = 5AE895A02816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895A32816C20F0026218D /* Pods-Amplify-AWSPluginsCore-AWSPluginsTestConfigs-AWSPluginsTestCommon */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-Amplify-AWSPluginsCore-AWSPluginsTestConfigs-AWSPluginsTestCommon";
+			path = Pods_Amplify_AWSPluginsCore_AWSPluginsTestConfigs_AWSPluginsTestCommon.framework;
+			remoteRef = 5AE895A22816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895A52816C20F0026218D /* Pods-AmplifyTestApp */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-AmplifyTestApp";
+			path = Pods_AmplifyTestApp.framework;
+			remoteRef = 5AE895A42816C20F0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895AE2816C32B0026218D /* AWSCognitoAuthPlugin.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AWSCognitoAuthPlugin.framework;
+			remoteRef = 5AE895AD2816C32B0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895B02816C32B0026218D /* AWSCognitoAuthPluginTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AWSCognitoAuthPluginTests.xctest;
+			remoteRef = 5AE895AF2816C32B0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895B22816C32B0026218D /* AWSCognitoAuthPluginIntegrationTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AWSCognitoAuthPluginIntegrationTests.xctest;
+			remoteRef = 5AE895B12816C32B0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE895B42816C32B0026218D /* HostApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = HostApp.app;
+			remoteRef = 5AE895B32816C32B0026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896062816C4060026218D /* Amplify */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = Amplify;
+			path = Amplify.framework;
+			remoteRef = 5AE896052816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896082816C4060026218D /* AmplifyTestCommon */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = AmplifyTestCommon;
+			path = AmplifyTestCommon.framework;
+			remoteRef = 5AE896072816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8960A2816C4060026218D /* AWSAuthCore */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = AWSAuthCore;
+			path = AWSAuthCore.framework;
+			remoteRef = 5AE896092816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8960C2816C4060026218D /* AWSCognitoIdentityProvider */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = AWSCognitoIdentityProvider;
+			path = AWSCognitoIdentityProvider.framework;
+			remoteRef = 5AE8960B2816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8960E2816C4060026218D /* AWSCognitoIdentityProviderASF */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = AWSCognitoIdentityProviderASF;
+			path = AWSCognitoIdentityProviderASF.framework;
+			remoteRef = 5AE8960D2816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896102816C4060026218D /* AWSCore */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = AWSCore;
+			path = AWSCore.framework;
+			remoteRef = 5AE8960F2816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896122816C4060026218D /* AWSMobileClient */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = AWSMobileClient;
+			path = AWSMobileClient.framework;
+			remoteRef = 5AE896112816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896142816C4060026218D /* AWSPluginsCore */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = AWSPluginsCore;
+			path = AWSPluginsCore.framework;
+			remoteRef = 5AE896132816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896162816C4060026218D /* CwlCatchException */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlCatchException;
+			path = CwlCatchException.framework;
+			remoteRef = 5AE896152816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896182816C4060026218D /* CwlCatchExceptionSupport */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlCatchExceptionSupport;
+			path = CwlCatchExceptionSupport.framework;
+			remoteRef = 5AE896172816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8961A2816C4060026218D /* CwlMachBadInstructionHandler */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlMachBadInstructionHandler;
+			path = CwlMachBadInstructionHandler.framework;
+			remoteRef = 5AE896192816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8961C2816C4060026218D /* CwlPosixPreconditionTesting */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlPosixPreconditionTesting;
+			path = CwlPosixPreconditionTesting.framework;
+			remoteRef = 5AE8961B2816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE8961E2816C4060026218D /* CwlPreconditionTesting */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = CwlPreconditionTesting;
+			path = CwlPreconditionTesting.framework;
+			remoteRef = 5AE8961D2816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896202816C4060026218D /* Pods-AWSCognitoAuthPlugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-AWSCognitoAuthPlugin";
+			path = Pods_AWSCognitoAuthPlugin.framework;
+			remoteRef = 5AE8961F2816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896222816C4060026218D /* Pods-AWSCognitoAuthPlugin-AWSCognitoAuthPluginTests */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-AWSCognitoAuthPlugin-AWSCognitoAuthPluginTests";
+			path = Pods_AWSCognitoAuthPlugin_AWSCognitoAuthPluginTests.framework;
+			remoteRef = 5AE896212816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896242816C4060026218D /* Pods-HostApp */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-HostApp";
+			path = Pods_HostApp.framework;
+			remoteRef = 5AE896232816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5AE896262816C4060026218D /* Pods-HostApp-AWSCognitoAuthPluginIntegrationTests */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			name = "Pods-HostApp-AWSCognitoAuthPluginIntegrationTests";
+			path = Pods_HostApp_AWSCognitoAuthPluginIntegrationTests.framework;
+			remoteRef = 5AE896252816C4060026218D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -1909,6 +2670,7 @@
 				5A775B5926064C9000CEFC78 /* PlaceCategory.m in Sources */,
 				5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */,
 				5A775DFD26077A7D00CEFC78 /* IndexViewController.m in Sources */,
+				5A05E6DD2815AA2300017BA0 /* AmplifyBridge.swift in Sources */,
 				5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */,
 				5A53584827A999DC0017A40F /* IndexModelData.m in Sources */,
 				5A775B5D26064C9000CEFC78 /* FeedItem.m in Sources */,
