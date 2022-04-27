@@ -75,6 +75,10 @@
     "email": "Электронная почта",
     "userName": "Имя пользователя",
     "password": "Пароль",
-    "forgetPassword": "Забыли пароль?"
+    "forgetPassword": "Забыли пароль?",
+    "signUpValidationTitle": "Подтвердите регистрацию",
+    "signUpValidationText": "введите цифры из письма, высланного на электронную почту",
+    "repeatAttempt": "Повторить отправку",
+    "ready": "Готово"
   }
 }

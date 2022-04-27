@@ -2,6 +2,7 @@ export {useAppState} from './useAppState';
 export {useBackHandler} from './useBackHandler';
 export {useBookmarksObjects} from './useBookmarksObjects';
 export {useBottomMenu} from './useBottomMenu';
+export {useBoxShadowStyle} from './useBoxShadowStyle';
 export {useCategories} from './useCategories';
 export {useCategoryChildren} from './useCategoryChildren';
 export {useCategoryObjects} from './useCategoryObjects';
