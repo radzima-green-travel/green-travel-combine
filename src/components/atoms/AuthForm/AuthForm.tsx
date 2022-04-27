@@ -3,11 +3,12 @@ import {styles} from './styles';
 import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
 import {Button, FormInput} from 'atoms';
 
-interface IProp {
+interface IProps {
   isSignUp: boolean;
+  onCreatePress: () => void;
 }
 
-export const AuthForm = ({isSignUp}: IProp) => {
+export const AuthForm = ({isSignUp, onCreatePress}: IProps) => {
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -66,7 +67,7 @@ export const AuthForm = ({isSignUp}: IProp) => {
         renderLeftIcon={true}
         renderRightIcon={true}
       />
-      <Button style={styles.button} onPress={onFormSubmit}>
+      <Button style={styles.button} onPress={onCreatePress}>
         {buttonText}
       </Button>
     </>

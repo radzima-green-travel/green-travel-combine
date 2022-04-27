@@ -64,7 +64,7 @@
   },
   "authentification": {
     "signInTab": "Log in",
-    "signUpTab": "Create account",
+    "signUpTab": "Create an account",
     "signUpButton": "Sign Up",
     "signInButton": "Sign In",
     "signUpTitle": "Create new account",

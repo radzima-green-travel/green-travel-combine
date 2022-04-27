@@ -41,6 +41,8 @@ export const FormInput = ({
         style={styles.inputField}
         placeholder={t(placeholder)}
         secureTextEntry={secureTextEntry}
+        autoCapitalize="none"
+        autoCorrect={false}
         value={value}
         onChangeText={setValue}
       />
