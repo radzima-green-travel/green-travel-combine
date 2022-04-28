@@ -7,6 +7,7 @@ export const COLORS = {
   white: '#FFFFFF',
   silver: '#BDBDBD',
   cornflowerBlue: '#538FEF',
+  deepBlue: '#1890FF',
   cerulean: '#85E6C9',
   alto: '#D9D9D9',
   persimmon: '#FF565E',

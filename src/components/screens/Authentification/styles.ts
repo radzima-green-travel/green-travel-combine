@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_STYLES} from 'assets';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,5 +10,9 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 9,
     marginTop: 'auto',
+  },
+  link: {
+    color: COLORS.cornflowerBlue,
+    textDecorationLine: 'underline',
   },
 });

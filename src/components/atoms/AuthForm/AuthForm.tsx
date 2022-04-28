@@ -20,11 +20,11 @@ export const AuthForm = ({isSignUp, onCreatePress}: IProps) => {
     ? t('signUpButton').toUpperCase()
     : t('signInButton').toUpperCase();
 
-  const onFormSubmit = () => {
+  // TODO: form input validation
+  /* const onFormSubmit = () => {
     const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     const passwordMinLength = 8;
 
-    // TODO: form input validation
     if (!regexForEmail.test(email)) {
       console.log('wrong email');
     }
@@ -32,7 +32,7 @@ export const AuthForm = ({isSignUp, onCreatePress}: IProps) => {
     if (password.length < passwordMinLength) {
       console.log('password is too short');
     }
-  };
+  }; */
 
   return (
     <>
@@ -42,7 +42,6 @@ export const AuthForm = ({isSignUp, onCreatePress}: IProps) => {
         placeholder={'email'}
         value={email}
         setValue={setEmail}
-        renderLeftIcon={true}
       />
       {isSignUp ? (
         <FormInput
@@ -51,7 +50,6 @@ export const AuthForm = ({isSignUp, onCreatePress}: IProps) => {
           placeholder={'userName'}
           value={userName}
           setValue={setUserName}
-          renderLeftIcon={true}
         />
       ) : null}
 
@@ -64,8 +62,6 @@ export const AuthForm = ({isSignUp, onCreatePress}: IProps) => {
         onRightIconPress={handlePasswordVisibility}
         value={password}
         setValue={setPassword}
-        renderLeftIcon={true}
-        renderRightIcon={true}
       />
       <Button style={styles.button} onPress={onCreatePress}>
         {buttonText}
