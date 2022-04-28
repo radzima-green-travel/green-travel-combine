@@ -13,8 +13,6 @@ interface IProps {
   setValue: Dispatch<SetStateAction<string>>;
   placeholder: string;
   secureTextEntry?: boolean;
-  renderLeftIcon?: boolean;
-  renderRightIcon?: boolean;
   onRightIconPress?: () => void;
 }
 
@@ -26,15 +24,13 @@ export const FormInput = ({
   secureTextEntry = false,
   value,
   setValue,
-  renderLeftIcon = false,
-  renderRightIcon = false,
   onRightIconPress,
 }: IProps) => {
   const {t} = useTranslation('authentification');
 
   return (
     <View style={styles.inputFieldContainer}>
-      {renderLeftIcon && iconLeftName ? (
+      {iconLeftName ? (
         <Icon name={iconLeftName} size={size} style={styles.icon} />
       ) : null}
       <TextInput
@@ -46,7 +42,7 @@ export const FormInput = ({
         value={value}
         onChangeText={setValue}
       />
-      {renderRightIcon && iconRightName ? (
+      {iconRightName ? (
         <Pressable style={styles.iconContainer} onPress={onRightIconPress}>
           <Icon name={iconRightName} size={16} />
         </Pressable>

@@ -71,7 +71,7 @@
     "signInTitle": "Log in",
     "signInWith": "or enter through",
     "or": "or",
-    "registrationWarning": "By clicking Sign Up, you agree to our Terms of Use and Privacy Policy",
+    "registrationWarning": "By clicking Sign Up, you agree to our <linkStyle>Terms of Use</linkStyle> and <linkStyle>Privacy Policy</linkStyle>",
     "email": "Email",
     "userName": "Username",
     "password": "Password",

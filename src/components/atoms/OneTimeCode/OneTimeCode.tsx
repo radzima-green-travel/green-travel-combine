@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
 import {styles} from './styles';
-import {useBoxShadowStyle} from 'core/hooks';
 
 interface IProp {
   onCodeInput: (codeCondition: boolean) => void;
@@ -13,8 +12,6 @@ export const OneTimeCode = ({onCodeInput}: IProp) => {
   const [containerIsFocused, setContainerIsFocused] = useState(false);
   const codeDigits = [...Array(CODE_LENGTH)];
   const codeRef = useRef<TextInput>(null);
-
-  useBoxShadowStyle(styles, -2, 3, 0.7, 3, 3, '#1890FF');
 
   const onCodeDigitPress = () => {
     setContainerIsFocused(true);
@@ -45,11 +42,11 @@ export const OneTimeCode = ({onCodeInput}: IProp) => {
           containerIsFocused && isDigitFocused && isLastDigitEmpty
             ? styles.digitContainerFocused
             : null,
-          containerIsFocused && isDigitFocused && isLastDigitEmpty
-            ? styles.boxShadow
-            : null,
         ]}>
         <Text style={styles.digit}>{codeDigit}</Text>
+        {containerIsFocused && isDigitFocused && isLastDigitEmpty ? (
+          <Text style={styles.placeholder} />
+        ) : null}
       </View>
     );
   };

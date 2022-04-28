@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS} from 'assets';
+import {COLORS, SHADOWS} from 'assets';
 
 export const styles = StyleSheet.create({
   container: {
@@ -21,13 +21,18 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
   },
   digitContainerFocused: {
+    ...SHADOWS.boxShadow,
     borderColor: COLORS.cerulean,
   },
   digit: {
     textAlign: 'center',
     fontSize: 24,
   },
-  boxShadow: {},
+  placeholder: {
+    borderTopWidth: 1,
+    marginHorizontal: 10,
+    marginTop: 10,
+  },
   hiddenCodeInput: {
     position: 'absolute',
     height: 0,
