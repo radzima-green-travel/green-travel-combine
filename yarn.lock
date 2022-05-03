@@ -9845,9 +9845,9 @@ react-native-map-link@2.7.25:
     react-native-modal "^10.0.0"
 
 react-native-mmkv@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.0.1.tgz#99cdb49e378d9dd23d62097220cbb79590109dbb"
-  integrity sha512-4DSUt47zGEvOaFKhv6OiAmK8yYDOi5Jlp5iYs4BRQkHme+DsUMAZWpZzhqxPlP5IghY2Hub4EB7GkKPs3LkPZA==
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.3.3.tgz#ca0916e3dfb3e420fa27de526e53d9e391e3c9a1"
+  integrity sha512-bfBsIivEnr+OAxS2tWRqzyaDLlw9ZBGrbiuifO7wRtq1J5rNwkiKfSwTYBNLe23dzpl8pvSIUYgDrvmRnXTAhA==
 
 react-native-modal@^10.0.0:
   version "10.0.0"

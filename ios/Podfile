@@ -1,7 +1,9 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '12.0'
+use_frameworks!
 
 target 'greenTravel' do
   pod 'Firebase/AnalyticsWithoutAdIdSupport'
@@ -10,7 +12,10 @@ target 'greenTravel' do
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Performance'
   pod 'Amplitude', '~> 8.2.0'
-
+  
+  pod 'Amplify'
+  pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
+  
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
@@ -20,7 +25,7 @@ target 'greenTravel' do
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => true
+    :hermes_enabled => false
   )
 
   # Enables Flipper.
@@ -31,6 +36,17 @@ target 'greenTravel' do
 
   pre_install do |installer|
     $RNMBGL.pre_install(installer)
+    Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+    $static_framework = ['react-native-ultimate-config', 'react-native-blur', 'react-native-webview',
+    'RNSVG', 'BVLinearGradient', 'RNCMaskedView']
+
+    installer.pod_targets.each do |pod|
+      if $static_framework.include?(pod.name)
+        def pod.build_type
+          Pod::BuildType.static_library
+        end
+      end
+    end
   end
 
   post_install do |installer|
