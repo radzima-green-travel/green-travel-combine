@@ -3,12 +3,11 @@ import {COLORS, FONTS_STYLES} from 'assets';
 
 export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 24,
+    marginHorizontal: 24,
     marginTop: '20%',
   },
   boxContainer: {
     alignItems: 'center',
-    paddingHorizontal: 15,
     marginBottom: 25,
   },
   title: {

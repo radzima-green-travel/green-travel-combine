@@ -2,17 +2,17 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {ProfileNavigatorParamsList} from 'core/types';
 
-export type ProfileScreenNavigationProps = StackNavigationProp<
+export type RestorePasswordScreenNavigationProps = StackNavigationProp<
   ProfileNavigatorParamsList,
-  'Profile'
+  'RestorePassword'
 >;
 
-export type ProfileScreenRouteProps = RouteProp<
+export type RestorePasswordScreenRouteProps = RouteProp<
   ProfileNavigatorParamsList,
-  'Profile'
+  'RestorePassword'
 >;
 
 export interface IProps {
-  navigation: ProfileScreenNavigationProps;
-  route: ProfileScreenRouteProps;
+  navigation: RestorePasswordScreenNavigationProps;
+  route: RestorePasswordScreenRouteProps;
 }

@@ -2,17 +2,17 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {ProfileNavigatorParamsList} from 'core/types';
 
-export type ProfileScreenNavigationProps = StackNavigationProp<
+export type EmailValidationScreenNavigationProps = StackNavigationProp<
   ProfileNavigatorParamsList,
-  'Profile'
+  'EmailValidation'
 >;
 
-export type ProfileScreenRouteProps = RouteProp<
+export type EmailValidationScreenRouteProps = RouteProp<
   ProfileNavigatorParamsList,
-  'Profile'
+  'EmailValidation'
 >;
 
 export interface IProps {
-  navigation: ProfileScreenNavigationProps;
-  route: ProfileScreenRouteProps;
+  navigation: EmailValidationScreenNavigationProps;
+  route: EmailValidationScreenRouteProps;
 }

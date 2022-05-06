@@ -4,7 +4,7 @@ import {styles} from './styles';
 import {useTranslation} from 'core/hooks';
 import {Button, OneTimeCode} from 'atoms';
 
-export const AuthEmailValildation = () => {
+export const EmailValidation = () => {
   const [isCodeFull, setIsCodeFull] = useState(false);
   const {t} = useTranslation('authentification');
   const buttonText = t('ready').toUpperCase();
