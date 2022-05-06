@@ -75,7 +75,16 @@
     "email": "Электронная почта",
     "userName": "Имя пользователя",
     "password": "Пароль",
+    "messageTips": {
+      "emptyEmail": "Укажите вашу электронную почту",
+      "wrongEmail": "Неверный формат электроной почты",
+      "repeatingEmail": "Электронный адрес уже зарегистрирован",
+      "emptyUserName": "Укажите имя",
+      "emptyPassword": "Придумайте пароль из 8 символов",
+      "repeatingUserName": "Пользователь с таким именем уже существует"
+    },
     "forgetPassword": "Забыли пароль?",
+    "restorePassword": "Восстановить пароль",
     "signUpValidationTitle": "Подтвердите регистрацию",
     "signUpValidationText": "введите цифры из письма, высланного на электронную почту",
     "repeatAttempt": "Повторить отправку",

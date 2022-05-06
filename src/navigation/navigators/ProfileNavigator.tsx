@@ -1,7 +1,10 @@
 import React from 'react';
-
-import {AuthentificationScreen, ProfileScreen} from 'screens';
-
+import {
+  EmailValidationScreen,
+  ProfileScreen,
+  RestorePasswordScreen,
+} from 'screens';
+import {TabAuthNavigator} from './TabAuthNavigator';
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
 import {ProfileNavigatorParamsList} from 'core/types';
@@ -12,7 +15,10 @@ const Stack = createNativeStackNavigator<ProfileNavigatorParamsList>();
 
 export function ProfileNavigator() {
   const screenOptions = useScreenOptions();
-  const {t} = useTranslation('common');
+  const {t} = useTranslation(['common', 'authentification']);
+
+  // TODO: rewrite this condition when backend validation will be done
+  let isSignedIn = false;
 
   return (
     <Stack.Navigator
@@ -21,11 +27,22 @@ export function ProfileNavigator() {
         title: t('tabs.profile'),
         animation: defaultTransition,
       }}>
-      <Stack.Screen
-        name="Authentification"
-        component={AuthentificationScreen}
-      />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      {isSignedIn ? (
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      ) : (
+        <>
+          <Stack.Screen name="TabAuthNavigator" component={TabAuthNavigator} />
+          <Stack.Screen
+            name="EmailValidation"
+            component={EmailValidationScreen}
+          />
+          <Stack.Screen
+            name="RestorePassword"
+            component={RestorePasswordScreen}
+            options={{title: t('restorePassword', {ns: 'authentification'})}}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 }

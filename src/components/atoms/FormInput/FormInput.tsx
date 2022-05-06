@@ -13,6 +13,7 @@ interface IProps {
   setValue: Dispatch<SetStateAction<string>>;
   placeholder: string;
   secureTextEntry?: boolean;
+  dangerBorder?: boolean;
   onRightIconPress?: () => void;
 }
 
@@ -22,6 +23,7 @@ export const FormInput = ({
   size,
   placeholder,
   secureTextEntry = false,
+  dangerBorder = false,
   value,
   setValue,
   onRightIconPress,
@@ -29,7 +31,11 @@ export const FormInput = ({
   const {t} = useTranslation('authentification');
 
   return (
-    <View style={styles.inputFieldContainer}>
+    <View
+      style={[
+        styles.inputFieldContainer,
+        dangerBorder ? styles.dangerBorder : null,
+      ]}>
       {iconLeftName ? (
         <Icon name={iconLeftName} size={size} style={styles.icon} />
       ) : null}
@@ -43,7 +49,12 @@ export const FormInput = ({
         onChangeText={setValue}
       />
       {iconRightName ? (
-        <Pressable style={styles.iconContainer} onPress={onRightIconPress}>
+        <Pressable
+          style={[
+            styles.iconContainer,
+            dangerBorder ? styles.dangerBorder : null,
+          ]}
+          onPress={onRightIconPress}>
           <Icon name={iconRightName} size={16} />
         </Pressable>
       ) : null}

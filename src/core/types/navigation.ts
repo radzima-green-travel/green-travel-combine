@@ -37,7 +37,9 @@ export type BookmarksNavigatorParamsList = {
 
 export type ProfileNavigatorParamsList = {
   Profile: undefined;
-  Authentification: undefined;
+  TabAuthNavigator: NestedNavigatorParams<TabAuthNavigatorParamsList>;
+  RestorePassword: undefined;
+  EmailValidation: undefined;
 };
 
 export type AppMapNavigatorParamsList = {
@@ -66,4 +68,9 @@ export type TabNavigatorParamsList = {
   AppMapNavigator: NestedNavigatorParams<AppMapNavigatorParamsList>;
   BookmarksNavigator: NestedNavigatorParams<BookmarksNavigatorParamsList>;
   ProfileNavigator: NestedNavigatorParams<ProfileNavigatorParamsList>;
+};
+
+export type TabAuthNavigatorParamsList = {
+  SignIn: undefined;
+  SignUp: undefined;
 };

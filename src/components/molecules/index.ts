@@ -2,7 +2,6 @@ export {AnimatedBackCircleButton} from './AnimatedBackCircleButton';
 export {AnimatedHeaderBookmarkButton} from './AnimatedHeaderBookmarkButton';
 export {AppMapFilters} from './AppMapFilters';
 export {AppMapButtons} from './AppMapButtons';
-export {AuthEmailValildation} from './AuthEmailValidation';
 export {AuthSocial} from './AuthSocial';
 export {BackCircleButton} from './BackCircleButton';
 export {BikeRentalWidget} from './BikeRentalWidget';

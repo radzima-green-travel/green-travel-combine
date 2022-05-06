@@ -10,7 +10,9 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.silver,
     borderRadius: 2,
-    marginBottom: 12,
+  },
+  dangerBorder: {
+    borderColor: COLORS.persimmon,
   },
   inputField: {
     flex: 1,
@@ -21,7 +23,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderLeftWidth: 1,
-    borderLeftColor: COLORS.silver,
+    borderColor: COLORS.silver,
   },
   icon: {
     marginLeft: 12,
