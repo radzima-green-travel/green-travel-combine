@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
 import {styles} from './styles';
 
@@ -10,8 +10,13 @@ export const OneTimeCode = ({onCodeInput}: IProp) => {
   const CODE_LENGTH = 4;
   const [code, setCode] = useState('');
   const [containerIsFocused, setContainerIsFocused] = useState(false);
+  const isCodeFull = code.length === CODE_LENGTH;
   const codeDigits = [...Array(CODE_LENGTH)];
   const codeRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    onCodeInput(isCodeFull);
+  }, [isCodeFull, onCodeInput]);
 
   const onCodeDigitPress = () => {
     setContainerIsFocused(true);
@@ -29,10 +34,7 @@ export const OneTimeCode = ({onCodeInput}: IProp) => {
     const isCurrentDigit = index === code.length;
     const isLastDigit = index === CODE_LENGTH - 1;
     const isLastDigitEmpty = code[CODE_LENGTH - 1] === undefined;
-    const isCodeFull = code.length === CODE_LENGTH;
     const isDigitFocused = isCurrentDigit || (isLastDigit && isCodeFull);
-
-    onCodeInput(isCodeFull);
 
     return (
       <View
