@@ -11,10 +11,10 @@ interface IProps {
 
 export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
   const [email, setEmail] = useState('');
-  const [userName, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [emailTip, setEmailTip] = useState('');
-  const [userNameTip, setUserNameTip] = useState('');
+  const [usernameTip, setUsernameTip] = useState('');
   const [passwordTip, setPasswordTip] = useState('');
 
   const {t} = useTranslation('authentification');
@@ -40,11 +40,11 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
       setEmailTip('');
     }
 
-    if (!userName) {
-      setUserNameTip(t('messageTips.emptyUserName'));
+    if (!username) {
+      setUsernameTip(t('messageTips.emptyUserName'));
       isValidated = false;
     } else {
-      setUserNameTip('');
+      setUsernameTip('');
     }
 
     if (!password || password.length < passwordMinLength) {
@@ -83,12 +83,12 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
             iconLeftName={'avatar'}
             size={16}
             placeholder={'userName'}
-            value={userName}
-            setValue={setUserName}
-            dangerBorder={!!userNameTip}
+            value={username}
+            setValue={setUsername}
+            dangerBorder={!!usernameTip}
           />
-          {userNameTip ? (
-            <Text style={styles.textDanger}>{userNameTip}</Text>
+          {usernameTip ? (
+            <Text style={styles.textDanger}>{usernameTip}</Text>
           ) : null}
         </View>
       ) : null}
