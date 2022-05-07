@@ -30,7 +30,6 @@ export const OneTimeCode = ({onCodeInput}: IProp) => {
   const toDigitInput = (_, index: number) => {
     const emptyDigit = ' ';
     const codeDigit = code[index] || emptyDigit;
-
     const isCurrentDigit = index === code.length;
     const isLastDigit = index === CODE_LENGTH - 1;
     const isLastDigitEmpty = code[CODE_LENGTH - 1] === undefined;
