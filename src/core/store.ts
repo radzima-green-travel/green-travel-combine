@@ -5,7 +5,6 @@ import {StateType} from 'typesafe-actions';
 import {rootSaga} from './rootSaga';
 import {errorLabelMiddliware} from 'services/ErrorLabelService';
 import {persistStore, persistReducer} from 'redux-persist';
-import {isIOS} from 'services/PlatformService';
 import {asyncReducers} from 'react-redux-help-kit';
 import {combineReducers} from 'redux';
 import {
@@ -18,13 +17,7 @@ import {
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
 
-let AsyncStorage;
-
-if (isIOS) {
-  AsyncStorage = require('@react-native-async-storage/async-storage').default;
-} else {
-  AsyncStorage = reduxStorage;
-}
+const AsyncStorage = reduxStorage;
 
 const searchPersistConfig = {
   key: 'search',
