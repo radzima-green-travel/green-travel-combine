@@ -7,6 +7,7 @@ import {rootSaga} from './rootSaga';
 import {errorLabelMiddliware} from 'services/ErrorLabelService';
 
 import {Storage, persistStore, persistReducer} from 'redux-persist';
+import {isIOS} from 'services/PlatformService';
 import {asyncReducers} from 'react-redux-help-kit';
 
 import {combineReducers} from 'redux';
@@ -36,21 +37,29 @@ const reduxStorage: Storage = {
   },
 };
 
+let AsyncStorage;
+
+if (isIOS) {
+  AsyncStorage = require('@react-native-async-storage/async-storage').default;
+} else {
+  AsyncStorage = reduxStorage;
+}
+
 const searchPersistConfig = {
   key: 'search',
-  storage: reduxStorage,
+  storage: AsyncStorage,
   whitelist: ['history'],
 };
 
 const homePersistConfig = {
   key: 'home',
-  storage: reduxStorage,
+  storage: AsyncStorage,
   whitelist: ['currentData'],
 };
 
 const bookmarksPersistConfig = {
   key: 'bookmarks',
-  storage: reduxStorage,
+  storage: AsyncStorage,
   whitelist: ['bookmarksIds'],
 };
 
