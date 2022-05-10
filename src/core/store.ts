@@ -1,17 +1,13 @@
-import {MMKV} from 'react-native-mmkv';
 import {applyMiddleware, createStore, Store} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {StateType} from 'typesafe-actions';
 import {rootSaga} from './rootSaga';
 import {errorLabelMiddliware} from 'services/ErrorLabelService';
-
-import {Storage, persistStore, persistReducer} from 'redux-persist';
+import {persistStore, persistReducer} from 'redux-persist';
 import {isIOS} from 'services/PlatformService';
 import {asyncReducers} from 'react-redux-help-kit';
-
 import {combineReducers} from 'redux';
-
 import {
   bootstrapReducer,
   homeReducer,
@@ -19,23 +15,7 @@ import {
   searchReducer,
   objectDetailsMapReducer,
 } from './reducers';
-
-const storage = new MMKV();
-
-const reduxStorage: Storage = {
-  setItem: (key, value) => {
-    storage.set(key, value);
-    return Promise.resolve(true);
-  },
-  getItem: key => {
-    const value = storage.getString(key);
-    return Promise.resolve(value);
-  },
-  removeItem: key => {
-    storage.delete(key);
-    return Promise.resolve();
-  },
-};
+import {reduxStorage} from 'core/reduxStorage.android';
 
 let AsyncStorage;
 
