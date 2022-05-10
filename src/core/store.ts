@@ -15,7 +15,8 @@ import {
   searchReducer,
   objectDetailsMapReducer,
 } from './reducers';
-import {reduxStorage} from 'core/reduxStorage.android';
+// @ts-ignore
+import {reduxStorage} from 'core/reduxStorage';
 
 let AsyncStorage;
 
