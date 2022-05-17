@@ -28,6 +28,7 @@
     [rootViewController initRNBootSplash];
     AmplifyBridge *bridge =  [AmplifyBridge new];
     [bridge initialize];
+    [bridge fetchCurrentAuthSession];
     return YES;
 }
 

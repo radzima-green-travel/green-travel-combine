@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
+		5A1102252833FCC700FC967A /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A1102232833FCC600FC967A /* awsconfiguration.json */; };
+		5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A1102242833FCC600FC967A /* amplifyconfiguration.json */; };
 		5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */; };
 		5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */; };
 		5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E89227BBC991004FD8C6 /* LocaleConstants.m */; };
@@ -205,6 +209,8 @@
 		5A105FEA265FD99100511256 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
 		5A105FEF266001AB00511256 /* MapService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapService.h; sourceTree = "<group>"; };
 		5A105FF0266001AB00511256 /* MapService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapService.m; sourceTree = "<group>"; };
+		5A1102232833FCC600FC967A /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		5A1102242833FCC600FC967A /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		5A12E88C27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReferenceContentTableViewCell.h; sourceTree = "<group>"; };
 		5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReferenceContentTableViewCell.m; sourceTree = "<group>"; };
 		5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = "index-locale-legacy.graphql"; sourceTree = "<group>"; };
@@ -541,12 +547,14 @@
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
 		5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryImagePlaceholder.h; sourceTree = "<group>"; };
+		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		628194D025F213BD00491FDF /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = greenTravel/BootSplash.storyboard; sourceTree = "<group>"; };
 		6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		6281F7E024C9E40D00C51231 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
 		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		745C34F067A2EA32BDC236BD /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E864D96B10ABCD37BAAAE8 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
@@ -569,6 +577,8 @@
 		13B07FAE1A68108700A75B9A /* GreenTravel */ = {
 			isa = PBXGroup;
 			children = (
+				5A1102242833FCC600FC967A /* amplifyconfiguration.json */,
+				5A1102232833FCC600FC967A /* awsconfiguration.json */,
 				5A775A3426064C8E00CEFC78 /* fonts */,
 				5A775A0326064C8E00CEFC78 /* managedobjects */,
 				5A775A5126064C8F00CEFC78 /* models */,
@@ -595,6 +605,15 @@
 				5A39D6F126B34C04008FC20C /* Localizable.strings */,
 			);
 			name = GreenTravel;
+			sourceTree = "<group>";
+		};
+		15C907380D85C2A4462F18A4 /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				745C34F067A2EA32BDC236BD /* awsconfiguration.json */,
+				5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */,
+			);
+			name = AmplifyConfig;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -1498,6 +1517,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C11F5CD373D543CEFBB10130 /* Pods */,
+				15C907380D85C2A4462F18A4 /* AmplifyConfig */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -1614,6 +1634,7 @@
 				5A775B4326064C9000CEFC78 /* Montserrat-ExtraBold.ttf in Resources */,
 				5A775B4626064C9000CEFC78 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				5A775B4226064C9000CEFC78 /* Montserrat-ExtraLightItalic.ttf in Resources */,
+				5A1102252833FCC700FC967A /* awsconfiguration.json in Resources */,
 				5A775B4D26064C9000CEFC78 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				5A775B3C26064C9000CEFC78 /* Montserrat-MediumItalic.ttf in Resources */,
 				5AD71D9D274D5CDA00F205AD /* InfoPlist.strings in Resources */,
@@ -1630,6 +1651,9 @@
 				5A12E89527BEA68E004FD8C6 /* details.html in Resources */,
 				5A775B4826064C9000CEFC78 /* Montserrat-Italic.ttf in Resources */,
 				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
+				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
+				0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */,
+				5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
