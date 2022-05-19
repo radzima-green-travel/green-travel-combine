@@ -82,18 +82,13 @@
     u_int32_t pivot = UINT32_MAX / 2;
     if (randomNumber > pivot) {
       [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkUIKit];
-    } else {
-      [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkReact];
+      return;
     }
   }
   
   [self saveVersion];
   
-  if ([UserDefaultsServiceConstantsFrameworkReact isEqualToString:
-       [self.userDefaultsService loadFrameworkValue]]) {
-    [self showRNViewController];
-    return;
-  }
+
   [self showNativeViewController];
 }
 
