@@ -6,6 +6,6 @@
   
 */
 
-NSLocationAlwaysAndWhenInUseUsageDescription = "Your location is used to show your position on the map and to get directions.";
-NSLocationAlwaysUsageDescription = "Your location is used to show your position on the map and to get directions.";
-NSLocationWhenInUseUsageDescription = "Your location is used to show your position on the map and to get directions.";
+NSLocationAlwaysAndWhenInUseUsageDescription = "您的位置用于在地图上显示您的位置并获取路线。";
+NSLocationAlwaysUsageDescription = "您的位置用于在地图上显示您的位置并获取路线。";
+NSLocationWhenInUseUsageDescription = "您的位置用于在地图上显示您的位置并获取路线。";
