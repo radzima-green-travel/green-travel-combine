@@ -13,6 +13,7 @@
 		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
+		5A096AFD2836A20F000FADB2 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* ProfileViewController.m */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
@@ -203,6 +204,8 @@
 		5A006D182783565A00010D63 /* URLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLUtils.h; sourceTree = "<group>"; };
 		5A006D192783565A00010D63 /* URLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLUtils.m; sourceTree = "<group>"; };
 		5A05E8532821787E00017BA0 /* AmplifyBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyBridge.swift; sourceTree = "<group>"; };
+		5A096AFB2836A20F000FADB2 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		5A096AFC2836A20F000FADB2 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
 		5A105EE326501FA000511256 /* RotationLockUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationLockUtility.m; sourceTree = "<group>"; };
 		5A105FE9265FD99100511256 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
@@ -627,6 +630,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5A096AFA2836A1F0000FADB2 /* ProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A096AFB2836A20F000FADB2 /* ProfileViewController.h */,
+				5A096AFC2836A20F000FADB2 /* ProfileViewController.m */,
+			);
+			path = ProfileViewController;
+			sourceTree = "<group>";
+		};
 		5A105FEE2660018C00511256 /* MapService */ = {
 			isa = PBXGroup;
 			children = (
@@ -969,6 +981,7 @@
 			children = (
 				5A775D83260775EA00CEFC78 /* RootViewController */,
 				5A775D9026077A7C00CEFC78 /* BookmarksViewController */,
+				5A096AFA2836A1F0000FADB2 /* ProfileViewController */,
 				5A775DC626077A7C00CEFC78 /* DetailsViewController */,
 				5A775D9626077A7C00CEFC78 /* IndexViewController */,
 				5A775DC326077A7C00CEFC78 /* MainViewController */,
@@ -2022,6 +2035,7 @@
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
 				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
+				5A096AFD2836A20F000FADB2 /* ProfileViewController.m in Sources */,
 				5A775B5E26064C9000CEFC78 /* PathDetails.m in Sources */,
 				5A775E0226077A7D00CEFC78 /* CategoriesFilterCollectionViewCell.m in Sources */,
 				5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */,

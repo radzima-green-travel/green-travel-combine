@@ -15,6 +15,7 @@
 "TabBarMain" = "Main";
 "TabBarMap" = "Map";
 "TabBarSaved" = "Saved";
+"TabBarProfile" = "Profile";
 
 "IndexNewData" = "New data";
 "IndexAll" = "ALL";
@@ -23,6 +24,7 @@
 "MapTitle" = "Map";
 
 "SavedTitle" = "Saved";
+"ProfileTitle" = "Profile";
 
 "SearchHistory" = "Search history";
 "SearchNotFound" = "Unfortunately, no results match this search";

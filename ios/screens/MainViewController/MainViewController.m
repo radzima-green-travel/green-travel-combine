@@ -31,6 +31,7 @@
 #import "AnalyticsEvents.h"
 #import "StyleUtils.h"
 #import "MapViewControllerConstants.h"
+#import "ProfileViewController.h"
 
 @interface MainViewController ()
 
@@ -43,9 +44,11 @@
 @property (strong, nonatomic) UITabBarItem *indexTabBarItem;
 @property (strong, nonatomic) UITabBarItem *mapTabBarItem;
 @property (strong, nonatomic) UITabBarItem *bookmarksTabBarItem;
+@property (strong, nonatomic) UITabBarItem *profileTabBarItem;
 @property (strong, nonatomic) UINavigationController *indexViewControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
+@property (strong, nonatomic) UINavigationController *profileControllerWithNavigation;
 
 @end
 
@@ -158,7 +161,24 @@
     self.bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
     [TypographyLegacy get].navigationSemiboldAttributes;
 
-    self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation, self.bookmarksControllerWithNavigation];
+#pragma mark - ProfileViewController
+  ProfileViewController *profileController =
+  [[ProfileViewController alloc] init];
+  profileController.title = NSLocalizedString(@"ProfileTitle", @"");
+  self.profileControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:profileController];
+  UIImage *profileImage;
+  UIImage *profileImageSelected;
+  profileImage = [UIImage imageNamed:@"user"];
+  profileImageSelected = [UIImage imageNamed:@"user-selected"];
+  self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage, profileImageSelected);
+  
+  self.profileControllerWithNavigation.tabBarItem = self.profileTabBarItem;
+  self.profileControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
+  self.profileControllerWithNavigation.navigationBar.titleTextAttributes =
+  [TypographyLegacy get].navigationSemiboldAttributes;
+  
+    self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
+                             self.bookmarksControllerWithNavigation, self.profileControllerWithNavigation];
 
     self.selectedIndex = 0;
     

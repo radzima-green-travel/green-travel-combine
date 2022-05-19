@@ -15,6 +15,7 @@
 "TabBarMain" = "主页";
 "TabBarMap" = "地图";
 "TabBarSaved" = "收藏";
+"TabBarProfile" = "Profile";
 
 "IndexNewData" = "更新";
 "IndexAll" = "全部";
@@ -23,6 +24,7 @@
 "MapTitle" = "地图";
 
 "SavedTitle" = "收藏";
+"ProfileTitle" = "Profile";
 
 "SearchHistory" = "历史记录";
 "SearchNotFound" = "抱歉，未找到相关结果";

@@ -14,7 +14,8 @@
 
 "TabBarMain" = "Главная";
 "TabBarMap" = "Карта";
-"TabBarSaved" = "Закладки";
+"TabBarSaved" = "Избранное";
+"TabBarProfile" = "Профиль";
 
 "IndexNewData" = "Новые данные";
 "IndexAll" = "ВСЕ";
@@ -22,7 +23,8 @@
 
 "MapTitle" = "Карта";
 
-"SavedTitle" = "Закладки";
+"SavedTitle" = "Избранное";
+"ProfileTitle" = "Профиль";
 
 "SearchHistory" = "История поиска";
 "SearchNotFound" = "К сожалению, по вашему запросу ничего не найдено";
