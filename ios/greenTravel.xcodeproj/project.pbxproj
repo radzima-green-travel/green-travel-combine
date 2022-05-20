@@ -177,6 +177,11 @@
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
 		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
+		5AD347E02837B2B100235E96 /* AmplifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347DF2837B2B100235E96 /* AmplifyAuth.m */; };
+		5AD347E32837C2C500235E96 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347E22837C2C500235E96 /* UserController.m */; };
+		5AD347E72837C2EE00235E96 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347E62837C2EE00235E96 /* UserModel.m */; };
+		5AD347EF2837FD2800235E96 /* SignUpFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347EE2837FD2800235E96 /* SignUpFormView.m */; };
+		5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347F12837FD5900235E96 /* SignInFormView.m */; };
 		5AD6BF1126BEA9DF00DD3F2B /* ScrollViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */; };
 		5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */; };
 		5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */; };
@@ -529,6 +534,17 @@
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
 		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AD2DA352701D88300876841 /* MapViewToStateIntermediary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewToStateIntermediary.h; sourceTree = "<group>"; };
+		5AD347DE2837B2B100235E96 /* AmplifyAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AmplifyAuth.h; sourceTree = "<group>"; };
+		5AD347DF2837B2B100235E96 /* AmplifyAuth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmplifyAuth.m; sourceTree = "<group>"; };
+		5AD347E12837C2C500235E96 /* UserController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserController.h; sourceTree = "<group>"; };
+		5AD347E22837C2C500235E96 /* UserController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserController.m; sourceTree = "<group>"; };
+		5AD347E52837C2EE00235E96 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		5AD347E62837C2EE00235E96 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		5AD347EA2837C33C00235E96 /* AmplifyBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AmplifyBridge.h; sourceTree = "<group>"; };
+		5AD347ED2837FD2800235E96 /* SignUpFormView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpFormView.h; sourceTree = "<group>"; };
+		5AD347EE2837FD2800235E96 /* SignUpFormView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpFormView.m; sourceTree = "<group>"; };
+		5AD347F02837FD5900235E96 /* SignInFormView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInFormView.h; sourceTree = "<group>"; };
+		5AD347F12837FD5900235E96 /* SignInFormView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInFormView.m; sourceTree = "<group>"; };
 		5AD6BF0F26BEA9DF00DD3F2B /* ScrollViewUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollViewUtils.h; sourceTree = "<group>"; };
 		5AD6BF1026BEA9DF00DD3F2B /* ScrollViewUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollViewUtils.m; sourceTree = "<group>"; };
 		5AD6BF1326BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsUIScrollViewDelegate.h; sourceTree = "<group>"; };
@@ -590,6 +606,7 @@
 				5A7759FB26064C4F00CEFC78 /* app */,
 				5A775A9826064C8F00CEFC78 /* screens */,
 				5A6CC8DD279D9A9300EE6E35 /* controllers */,
+				5AD347DD2837B28100235E96 /* bridges */,
 				5A775AFF26064C9000CEFC78 /* services */,
 				5A775B0B26064C9000CEFC78 /* utilities */,
 				5A775A8126064C8F00CEFC78 /* valueobjects */,
@@ -635,6 +652,8 @@
 			children = (
 				5A096AFB2836A20F000FADB2 /* ProfileViewController.h */,
 				5A096AFC2836A20F000FADB2 /* ProfileViewController.m */,
+				5AD347EC2837FD0200235E96 /* SignUpFormView */,
+				5AD347EB2837FCF600235E96 /* SignInFormView */,
 			);
 			path = ProfileViewController;
 			sourceTree = "<group>";
@@ -726,8 +745,8 @@
 		5A6CC8DD279D9A9300EE6E35 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5A6CC8DE279D9AB700EE6E35 /* IndexController.h */,
-				5A6CC8DF279D9AB700EE6E35 /* IndexController.m */,
+				5AD347E82837C2F400235E96 /* IndexController */,
+				5AD347E92837C2FD00235E96 /* UserController */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -757,7 +776,6 @@
 			children = (
 				5A7759FC26064C6900CEFC78 /* AppDelegate.h */,
 				5A7759FF26064C6900CEFC78 /* AppDelegate.m */,
-				5A05E8532821787E00017BA0 /* AmplifyBridge.swift */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -844,6 +862,7 @@
 		5A775A5126064C8F00CEFC78 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				5AD347E42837C2CE00235E96 /* UserModel */,
 				5A775A5226064C8F00CEFC78 /* LocationModel */,
 				5A775A5726064C8F00CEFC78 /* SearchModel */,
 				5A775A5C26064C8F00CEFC78 /* BookmarksGroupModel */,
@@ -1473,6 +1492,62 @@
 			path = ReferencesView;
 			sourceTree = "<group>";
 		};
+		5AD347DD2837B28100235E96 /* bridges */ = {
+			isa = PBXGroup;
+			children = (
+				5A05E8532821787E00017BA0 /* AmplifyBridge.swift */,
+				5AD347DE2837B2B100235E96 /* AmplifyAuth.h */,
+				5AD347DF2837B2B100235E96 /* AmplifyAuth.m */,
+				5AD347EA2837C33C00235E96 /* AmplifyBridge.h */,
+			);
+			path = bridges;
+			sourceTree = "<group>";
+		};
+		5AD347E42837C2CE00235E96 /* UserModel */ = {
+			isa = PBXGroup;
+			children = (
+				5AD347E52837C2EE00235E96 /* UserModel.h */,
+				5AD347E62837C2EE00235E96 /* UserModel.m */,
+			);
+			path = UserModel;
+			sourceTree = "<group>";
+		};
+		5AD347E82837C2F400235E96 /* IndexController */ = {
+			isa = PBXGroup;
+			children = (
+				5A6CC8DE279D9AB700EE6E35 /* IndexController.h */,
+				5A6CC8DF279D9AB700EE6E35 /* IndexController.m */,
+			);
+			path = IndexController;
+			sourceTree = "<group>";
+		};
+		5AD347E92837C2FD00235E96 /* UserController */ = {
+			isa = PBXGroup;
+			children = (
+				5AD347E12837C2C500235E96 /* UserController.h */,
+				5AD347E22837C2C500235E96 /* UserController.m */,
+			);
+			path = UserController;
+			sourceTree = "<group>";
+		};
+		5AD347EB2837FCF600235E96 /* SignInFormView */ = {
+			isa = PBXGroup;
+			children = (
+				5AD347F02837FD5900235E96 /* SignInFormView.h */,
+				5AD347F12837FD5900235E96 /* SignInFormView.m */,
+			);
+			path = SignInFormView;
+			sourceTree = "<group>";
+		};
+		5AD347EC2837FD0200235E96 /* SignUpFormView */ = {
+			isa = PBXGroup;
+			children = (
+				5AD347ED2837FD2800235E96 /* SignUpFormView.h */,
+				5AD347EE2837FD2800235E96 /* SignUpFormView.m */,
+			);
+			path = SignUpFormView;
+			sourceTree = "<group>";
+		};
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1965,6 +2040,7 @@
 				5A775E0F26077A7D00CEFC78 /* SlideCollectionViewCell.m in Sources */,
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
+				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
 				5AB4AFCF27B5B20E00C74857 /* StoredPlaceDetails+CoreDataClass.m in Sources */,
 				5A1FFB29267626A400E31162 /* Colors.m in Sources */,
@@ -2008,6 +2084,7 @@
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */,
 				5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */,
+				5AD347E72837C2EE00235E96 /* UserModel.m in Sources */,
 				5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */,
 				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
@@ -2033,6 +2110,8 @@
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
+				5AD347E32837C2C500235E96 /* UserController.m in Sources */,
+				5AD347EF2837FD2800235E96 /* SignUpFormView.m in Sources */,
 				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
 				5A096AFD2836A20F000FADB2 /* ProfileViewController.m in Sources */,
@@ -2046,6 +2125,7 @@
 				5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */,
 				5A775B2826064C9000CEFC78 /* StoredCategory+CoreDataClass.m in Sources */,
 				5A775E0E26077A7D00CEFC78 /* GalleryView.m in Sources */,
+				5AD347E02837B2B100235E96 /* AmplifyAuth.m in Sources */,
 				5A775E0526077A7D00CEFC78 /* MapButton.m in Sources */,
 				5AB4AFD227B5B20E00C74857 /* StoredInformationReference+CoreDataProperties.m in Sources */,
 				5A775B2126064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataClass.m in Sources */,

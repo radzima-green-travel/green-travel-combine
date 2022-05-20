@@ -50,3 +50,6 @@
 
 "NoDataText" = "Что-то пошло не так...";
 "NoDataActionLabel" = "Попробовать еще раз";
+
+"ProfileScreenChoiceSignUp" = "Создать аккаунт";
+"ProfileScreenChoiceSignIn" = "Войти";

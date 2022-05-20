@@ -50,3 +50,6 @@
 
 "NoDataText" = "抱歉，出了点问题";
 "NoDataActionLabel" = "再试一次";
+
+"ProfileScreenChoiceSignUp" = "Sign Up";
+"ProfileScreenChoiceSignIn" = "SIgn In";

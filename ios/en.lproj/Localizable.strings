@@ -50,3 +50,6 @@
 
 "NoDataText" = "Oops! Something's not right...";
 "NoDataActionLabel" = "Try again";
+
+"ProfileScreenChoiceSignUp" = "Sign Up";
+"ProfileScreenChoiceSignIn" = "Sign In";

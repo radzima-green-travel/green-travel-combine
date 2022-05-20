@@ -6,6 +6,8 @@
 //
 
 #import "ProfileViewController.h"
+#import "Colors.h"
+#import "StyleUtils.h"
 
 @interface ProfileViewController ()
 
@@ -14,18 +16,30 @@
 @implementation ProfileViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+  UINavigationBar *navigationBar = self.navigationController.navigationBar;
+  configureNavigationBar(navigationBar);
+  
+  NSArray *items = @[NSLocalizedString(@"ProfileScreenChoiceSignIn", @""), NSLocalizedString(@"ProfileScreenChoiceSignUp", @"")];
+  
+  UISegmentedControl *procedureChoiceView = [[UISegmentedControl alloc] initWithItems:items];
+  [procedureChoiceView addTarget:self action:@selector(onModeChoice:) forControlEvents:UIControlEventValueChanged];
+  
+  [self.view addSubview:procedureChoiceView];
+  procedureChoiceView.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [procedureChoiceView.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor],
+    [procedureChoiceView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:19.0],
+    [procedureChoiceView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:23.5],
+    [procedureChoiceView.trailingAnchor constraintLessThanOrEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-23.5],
+    [procedureChoiceView.widthAnchor constraintGreaterThanOrEqualToConstant:328.0],
+  ]];
+  
+  [procedureChoiceView setSelectedSegmentIndex:0];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)onModeChoice:(id)sender {
+  
 }
-*/
 
 @end
