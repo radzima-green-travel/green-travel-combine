@@ -175,6 +175,8 @@
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
+		5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A99283948CA008E302D /* CommonTextField.m */; };
+		5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A9D283969F7008E302D /* SecureTextField.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
 		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
 		5AD347E02837B2B100235E96 /* AmplifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347DF2837B2B100235E96 /* AmplifyAuth.m */; };
@@ -531,6 +533,10 @@
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
+		5ACC9A98283948CA008E302D /* CommonTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonTextField.h; sourceTree = "<group>"; };
+		5ACC9A99283948CA008E302D /* CommonTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonTextField.m; sourceTree = "<group>"; };
+		5ACC9A9C283969F7008E302D /* SecureTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecureTextField.h; sourceTree = "<group>"; };
+		5ACC9A9D283969F7008E302D /* SecureTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecureTextField.m; sourceTree = "<group>"; };
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
 		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AD2DA352701D88300876841 /* MapViewToStateIntermediary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewToStateIntermediary.h; sourceTree = "<group>"; };
@@ -1492,6 +1498,24 @@
 			path = ReferencesView;
 			sourceTree = "<group>";
 		};
+		5ACC9A93283945F2008E302D /* CommonTextField */ = {
+			isa = PBXGroup;
+			children = (
+				5ACC9A98283948CA008E302D /* CommonTextField.h */,
+				5ACC9A99283948CA008E302D /* CommonTextField.m */,
+			);
+			path = CommonTextField;
+			sourceTree = "<group>";
+		};
+		5ACC9A9B283969DB008E302D /* SecureTextField */ = {
+			isa = PBXGroup;
+			children = (
+				5ACC9A9C283969F7008E302D /* SecureTextField.h */,
+				5ACC9A9D283969F7008E302D /* SecureTextField.m */,
+			);
+			path = SecureTextField;
+			sourceTree = "<group>";
+		};
 		5AD347DD2837B28100235E96 /* bridges */ = {
 			isa = PBXGroup;
 			children = (
@@ -1551,6 +1575,8 @@
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5ACC9A9B283969DB008E302D /* SecureTextField */,
+				5ACC9A93283945F2008E302D /* CommonTextField */,
 				5A5E2B02275CE37700A20489 /* ZoomableImageCollectionViewCell */,
 				5A5E2AFA27524E5B00A20489 /* NoDataView */,
 				5A246AC72642966C003C6E5B /* BookmarkButton */,
@@ -2075,6 +2101,7 @@
 				5A775B8826064C9000CEFC78 /* ApiServiceDataMapper.m in Sources */,
 				5A775E0326077A7D00CEFC78 /* CategoriesFilterView.m in Sources */,
 				5A775B5226064C9000CEFC78 /* FeedModel.m in Sources */,
+				5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */,
 				5A5E2B05275CE3AB00A20489 /* ZoomableImageCollectionViewCell.m in Sources */,
 				5A775B5B26064C9000CEFC78 /* PathItem.m in Sources */,
 				5A775B2226064C9000CEFC78 /* StoredSearchItem+CoreDataProperties.m in Sources */,
@@ -2116,6 +2143,7 @@
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
 				5A096AFD2836A20F000FADB2 /* ProfileViewController.m in Sources */,
 				5A775B5E26064C9000CEFC78 /* PathDetails.m in Sources */,
+				5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */,
 				5A775E0226077A7D00CEFC78 /* CategoriesFilterCollectionViewCell.m in Sources */,
 				5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */,
 				5A775B6126064C9000CEFC78 /* PlaceDetails.m in Sources */,

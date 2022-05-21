@@ -52,4 +52,6 @@
 "NoDataActionLabel" = "再试一次";
 
 "ProfileScreenChoiceSignUp" = "Sign Up";
-"ProfileScreenChoiceSignIn" = "SIgn In";
+"ProfileScreenChoiceSignIn" = "Sшgn In";
+"ProfileScreenLabelCreateAccount" = "建立新帐户";
+

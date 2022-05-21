@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SighUpFormView : UIView
+@interface SignUpFormView : UIView
 
 @end
 
