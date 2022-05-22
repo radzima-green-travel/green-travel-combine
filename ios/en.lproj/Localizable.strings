@@ -54,3 +54,9 @@
 "ProfileScreenChoiceSignUp" = "Sign Up";
 "ProfileScreenChoiceSignIn" = "Sign In";
 "ProfileScreenLabelCreateAccount" = "Create new account";
+"ProfileScreenPlaceholderEMail" = "EMail";
+"ProfileScreenPlaceholderUserName" = "Username";
+"ProfileScreenPlaceholderPassword" = "Password";
+"ProfileScreenPlaceholderPasswordRepeat" = "Repeat password";
+"ProfileScreenButtonLabelCreate" = "CREATE";
+

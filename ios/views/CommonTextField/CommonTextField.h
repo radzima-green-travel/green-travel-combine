@@ -12,9 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CommonTextField: UIView
 
 @property (strong, nonatomic) UITextField *textField;
+@property (strong, nonatomic) NSLayoutConstraint *trailingConstraint;
 - (instancetype)initWithImageName:(NSString *)imageName
+                     keyboardType:(UIKeyboardType)keyboardType
                       placeholder:(NSString *)placeholder;
 - (void)setUp:(NSString *)imageName
+ keyboardType:(UIKeyboardType)keyboardType
   placeholder:(NSString *)placeholder;
 
 @end

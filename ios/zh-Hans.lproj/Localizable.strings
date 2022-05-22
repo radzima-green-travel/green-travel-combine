@@ -52,6 +52,11 @@
 "NoDataActionLabel" = "再试一次";
 
 "ProfileScreenChoiceSignUp" = "Sign Up";
-"ProfileScreenChoiceSignIn" = "Sшgn In";
+"ProfileScreenChoiceSignIn" = "Sign In";
 "ProfileScreenLabelCreateAccount" = "建立新帐户";
+"ProfileScreenPlaceholderEMail" = "Электронная почта";
+"ProfileScreenPlaceholderUserName" = "Имя пользователя";
+"ProfileScreenPlaceholderPassword" = "Пароль";
+"ProfileScreenPlaceholderPasswordRepeat" = "Пароль еще раз";
+"ProfileScreenButtonLabelCreate" = "СОЗДАТЬ";
 

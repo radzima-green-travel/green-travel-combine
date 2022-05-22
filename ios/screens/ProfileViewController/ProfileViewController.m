@@ -31,6 +31,11 @@ static const CGFloat kTopOffset = 90.0;
   [super viewDidLoad];
   UINavigationBar *navigationBar = self.navigationController.navigationBar;
   configureNavigationBar(navigationBar);
+  [self registerForKeyboardNotifications];
+  
+  UITapGestureRecognizer *tap =
+  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
+  [self.view addGestureRecognizer:tap];
   
   self.scrollView = [[UIScrollView alloc] init];
   self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -89,6 +94,10 @@ static const CGFloat kTopOffset = 90.0;
   [self addSignInView];
 }
 
+- (void)dismissKeyboard:(id)sender {
+  [self.view endEditing:YES];
+}
+
 -(void)addSignUpView {
   [self.signInView removeFromSuperview];
   
@@ -103,7 +112,7 @@ static const CGFloat kTopOffset = 90.0;
     [self.signUpView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kTopOffset],
     [self.signUpView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor constant:kMinContentInset],
     [self.signUpView.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor constant:-kMinContentInset],
-    [self.signUpView.widthAnchor constraintGreaterThanOrEqualToConstant:kMaxContentWidth],
+    [self.signUpView.widthAnchor constraintLessThanOrEqualToConstant:kMaxContentWidth],
     
     [self.signUpView.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
   ]];
@@ -117,7 +126,6 @@ static const CGFloat kTopOffset = 90.0;
   }
   
   self.signInView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.signInView.backgroundColor = [UIColor redColor];
   [self.contentView addSubview:self.signInView];
   [NSLayoutConstraint activateConstraints:@[
     [self.signInView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
@@ -128,6 +136,29 @@ static const CGFloat kTopOffset = 90.0;
     
     [self.signInView.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
   ]];
+}
+
+- (void)registerForKeyboardNotifications {
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWasShown:)
+                                               name:UIKeyboardDidShowNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillBeHidden:)
+                                               name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+  NSDictionary* info = [aNotification userInfo];
+  CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+  UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+  self.scrollView.contentInset = contentInsets;
+  self.scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+  UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+  self.scrollView.contentInset = contentInsets;
+  self.scrollView.scrollIndicatorInsets = contentInsets;
 }
 
 @end

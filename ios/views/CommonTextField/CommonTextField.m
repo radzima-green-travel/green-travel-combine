@@ -17,10 +17,12 @@
 @implementation CommonTextField
 
 - (instancetype)initWithImageName:(NSString *)imageName
-                      placeholder:(NSString *)placeholder {
+                     keyboardType:(UIKeyboardType)keyboardType
+                      placeholder:(NSString *)placeholder
+{
   self = [self initWithFrame:CGRectZero];
   if (self) {
-    [self setUp:imageName placeholder:placeholder];
+    [self setUp:imageName keyboardType:keyboardType placeholder:placeholder];
   }
   return self;
 }
@@ -31,6 +33,7 @@
 }
 
 - (void)setUp:(NSString *)imageName
+ keyboardType:(UIKeyboardType)keyboardType
   placeholder:(NSString *)placeholder {
   self.translatesAutoresizingMaskIntoConstraints = NO;
   self.backgroundColor = [Colors get].background;
@@ -51,10 +54,12 @@
   self.textField = [[UITextField alloc] init];
   [self addSubview:self.textField];
   self.textField.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.textField setKeyboardType:keyboardType];
+  self.trailingConstraint = [self.textField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-12.0];
   [NSLayoutConstraint activateConstraints:@[
     [self.textField.heightAnchor constraintEqualToAnchor:self.heightAnchor],
     [self.textField.leadingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor constant:8.0],
-    [self.textField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-12.0],
+    self.trailingConstraint,
   ]];
   [self.textField setPlaceholder:placeholder];
   

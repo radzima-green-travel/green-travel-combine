@@ -54,3 +54,9 @@
 "ProfileScreenChoiceSignUp" = "Создать аккаунт";
 "ProfileScreenChoiceSignIn" = "Войти";
 "ProfileScreenLabelCreateAccount" = "Создать новый аккаунт";
+"ProfileScreenPlaceholderEMail" = "Электронная почта";
+"ProfileScreenPlaceholderUserName" = "Имя пользователя";
+"ProfileScreenPlaceholderPassword" = "Пароль";
+"ProfileScreenPlaceholderPasswordRepeat" = "Пароль еще раз";
+"ProfileScreenButtonLabelCreate" = "СОЗДАТЬ";
+

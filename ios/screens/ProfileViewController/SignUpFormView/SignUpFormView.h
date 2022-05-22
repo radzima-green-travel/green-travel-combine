@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SignUpFormView : UIView
+@interface SignUpFormView : UIView<UITextFieldDelegate>
 
 @end
 

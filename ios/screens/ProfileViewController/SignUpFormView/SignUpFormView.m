@@ -8,6 +8,8 @@
 #import "SignUpFormView.h"
 #import "Colors.h"
 #import "CommonTextField.h"
+#import "SecureTextField.h"
+#import "CommonButton.h"
 
 @interface SignUpFormView()
 
@@ -15,6 +17,8 @@
 @property (strong, nonatomic) CommonTextField *textFieldMail;
 @property (strong, nonatomic) CommonTextField *textFieldNick;
 @property (strong, nonatomic) CommonTextField *textFieldPass;
+@property (strong, nonatomic) CommonTextField *textFieldPassRepeat;
+@property (strong, nonatomic) CommonButton *submitButton;
 
 @end
 
@@ -50,7 +54,8 @@
   [self.titleLabel setText:NSLocalizedString(@"ProfileScreenLabelCreateAccount", @"")];
   
   self.textFieldMail = [[CommonTextField alloc] initWithImageName:@"textfield-mail"
-                                                      placeholder:@"example@example.com"];
+                                                     keyboardType:UIKeyboardTypeEmailAddress
+                                                      placeholder:NSLocalizedString(@"ProfileScreenPlaceholderEMail", @"")];
   [self addSubview:self.textFieldMail];
   self.textFieldMail.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
@@ -59,8 +64,10 @@
       [self.textFieldMail.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
   ]];
   
-  self.textFieldNick = [[CommonTextField alloc] initWithImageName:@"textfield-profile"
-                                                      placeholder:@"username"];
+  self.textFieldNick =
+  [[CommonTextField alloc] initWithImageName:@"textfield-profile"
+                                keyboardType:UIKeyboardTypeASCIICapable
+                                 placeholder:NSLocalizedString(@"ProfileScreenPlaceholderUserName", @"")];
   [self addSubview:self.textFieldNick];
   self.textFieldNick.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
@@ -69,17 +76,56 @@
       [self.textFieldNick.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
   ]];
   
-  self.textFieldPass = [[CommonTextField alloc] initWithImageName:@"password-lock"
-                                                      placeholder:@""];
+  self.textFieldPass =
+  [[SecureTextField alloc] initWithImageName:@"password-lock"
+                                keyboardType:UIKeyboardTypeDefault
+                                 placeholder:NSLocalizedString(@"ProfileScreenPlaceholderPassword", @"")];
+  self.textFieldPass.textField.delegate = self;
+  
   [self addSubview:self.textFieldPass];
   self.textFieldPass.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
       [self.textFieldPass.topAnchor constraintEqualToAnchor:self.textFieldNick.bottomAnchor constant:12],
       [self.textFieldPass.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
       [self.textFieldPass.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-      
-      [self.textFieldPass.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
   ]];
+  
+  self.textFieldPassRepeat =
+  [[SecureTextField alloc] initWithImageName:@"password-lock"
+                                keyboardType:UIKeyboardTypeDefault
+                                 placeholder:NSLocalizedString(@"ProfileScreenPlaceholderPasswordRepeat", @"")];
+  self.textFieldPassRepeat.textField.delegate = self;
+  
+  [self addSubview:self.textFieldPassRepeat];
+  self.textFieldPassRepeat.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+      [self.textFieldPassRepeat.topAnchor constraintEqualToAnchor:self.textFieldPass.bottomAnchor constant:12],
+      [self.textFieldPassRepeat.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+      [self.textFieldPassRepeat.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+  ]];
+  
+  self.submitButton =
+  [[CommonButton alloc] initWithTarget:self
+                                action:@selector(onSubmit:)
+                                 label:NSLocalizedString(@"ProfileScreenButtonLabelCreate", @"")];
+  [self addSubview:self.submitButton];
+  self.submitButton.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+      [self.submitButton.topAnchor constraintEqualToAnchor:self.textFieldPassRepeat.bottomAnchor constant:12],
+      [self.submitButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+      [self.submitButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+      
+      [self.submitButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+  ]];
+}
+
+- (void)onSubmit:(CommonButton *)sender {
+  [self endEditing:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+  [textField resignFirstResponder];
+  return YES;
 }
 
 @end
