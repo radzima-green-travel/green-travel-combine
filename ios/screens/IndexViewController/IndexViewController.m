@@ -246,9 +246,9 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize adaptedSize = CGSizeMake(self.view.bounds.size.width - kDeltaCoverAndBounds, self.view.bounds.size.height);
-    return getCoverSize(adaptedSize).height + 2 *
-            IndexViewControllerCoverInset + 50.0;
+    CGSize adaptedSize = CGSizeMake(self.view.bounds.size.width - kDeltaCoverAndBounds, self.view.bounds.size.height + IndexViewControllerCoverInset);
+    return getCoverSize(adaptedSize).height + 3.5 *
+            IndexViewControllerCoverInset;
 }
 
 #pragma mark - Categories update
