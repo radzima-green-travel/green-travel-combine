@@ -10,8 +10,8 @@ import {IProps} from './types';
 export const SignUp = ({navigation}: IProps) => {
   const {t} = useTranslation('authentification');
 
-  const navigateToEmailValidation = () => {
-    navigation.navigate('EmailValidation');
+  const navigateToEmailValidation = email => {
+    navigation.navigate('EmailValidation', {email});
   };
 
   // TODO: add actual links to Terms of Use and Privacy Policy

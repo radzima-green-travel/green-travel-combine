@@ -3,11 +3,11 @@ import {Pressable, Text, TextInput, View} from 'react-native';
 import {styles} from './styles';
 
 interface IProp {
-  onCodeInput: (codeCondition: boolean) => void;
+  onCodeInput: (code: string, codeCondition: boolean) => void;
 }
 
 export const OneTimeCode = ({onCodeInput}: IProp) => {
-  const CODE_LENGTH = 4;
+  const CODE_LENGTH = 6;
   const [code, setCode] = useState('');
   const [containerIsFocused, setContainerIsFocused] = useState(false);
   const isCodeFull = code.length === CODE_LENGTH;
@@ -15,8 +15,8 @@ export const OneTimeCode = ({onCodeInput}: IProp) => {
   const codeRef = useRef<TextInput>(null);
 
   useEffect(() => {
-    onCodeInput(isCodeFull);
-  }, [isCodeFull, onCodeInput]);
+    onCodeInput(code, isCodeFull);
+  }, [code, isCodeFull, onCodeInput]);
 
   const onCodeDigitPress = () => {
     setContainerIsFocused(true);

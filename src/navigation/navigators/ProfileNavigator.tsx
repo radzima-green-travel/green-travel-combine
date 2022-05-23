@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   EmailValidationScreen,
   ProfileScreen,
@@ -10,15 +10,44 @@ import {useScreenOptions} from '../screenOptions';
 import {ProfileNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';
+import {Auth, Hub} from 'aws-amplify';
+import {LoadingView} from 'atoms';
 
 const Stack = createNativeStackNavigator<ProfileNavigatorParamsList>();
 
 export function ProfileNavigator() {
+  const [user, setUser] = useState(undefined);
   const screenOptions = useScreenOptions();
   const {t} = useTranslation(['common', 'authentification']);
 
-  // TODO: rewrite this condition when backend validation will be done
-  let isSignedIn = false;
+  const isUser = async () => {
+    try {
+      const authUser = await Auth.currentAuthenticatedUser({bypassCache: true});
+      setUser(authUser);
+    } catch (e) {
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    isUser();
+  }, []);
+
+  useEffect(() => {
+    const signListener = data => {
+      if (data.payload.event === 'signIn' || data.payload.event === 'signOut') {
+        isUser();
+      }
+    };
+
+    Hub.listen('auth', signListener);
+
+    return () => Hub.remove('auth', signListener);
+  }, []);
+
+  if (user === undefined) {
+    return <LoadingView />;
+  }
 
   return (
     <Stack.Navigator
@@ -27,7 +56,7 @@ export function ProfileNavigator() {
         title: t('tabs.profile'),
         animation: defaultTransition,
       }}>
-      {isSignedIn ? (
+      {user ? (
         <Stack.Screen name="Profile" component={ProfileScreen} />
       ) : (
         <>

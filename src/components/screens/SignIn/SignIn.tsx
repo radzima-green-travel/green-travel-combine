@@ -16,9 +16,6 @@ import {IProps} from './types';
 export const SignIn = ({navigation}: IProps) => {
   const {t} = useTranslation('authentification');
 
-  // TODO: create a check whether user logs in
-  const isSignedIn = () => {};
-
   const navigateToRestorePassword = useCallback(() => {
     navigation.navigate('RestorePassword');
   }, [navigation]);
@@ -30,7 +27,7 @@ export const SignIn = ({navigation}: IProps) => {
         <Text style={styles.title}>{t('signInTitle')}</Text>
         <AuthSocial size={48} />
         <Divider text={'or'} marginVertical={24} />
-        <AuthForm isSignUpScreen={false} onPress={isSignedIn} />
+        <AuthForm isSignUpScreen={false} />
         <Pressable onPress={navigateToRestorePassword}>
           <Text style={styles.passwordText}>{t('forgetPassword')}</Text>
         </Pressable>

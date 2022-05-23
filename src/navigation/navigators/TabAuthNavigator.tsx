@@ -13,7 +13,6 @@ export function TabAuthNavigator() {
 
   return (
     <Tab.Navigator
-      initialRouteName="SignUp"
       screenOptions={({route}) => ({
         swipeEnabled: false,
         tabBarStyle: {

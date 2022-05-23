@@ -11,6 +11,7 @@ export {HeaderSearchbar} from './HeaderSearchbar';
 export {Icon} from './Icon';
 export {ImageSlider} from './ImageSlider';
 export * from './KeyboardRegulator';
+export {LoadingView} from './LoadingView';
 export {MapButtonContainer} from './MapButtonContainer';
 export {MapFilterItem} from './MapFilterItem';
 export {OneTimeCode} from './OneTimeCode';
