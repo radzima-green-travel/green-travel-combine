@@ -20,6 +20,8 @@
 @property (strong, nonatomic) SignInFormView *signInView;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *contentView;
+@property (strong, nonatomic) UserController *userController;
+@property (strong, nonatomic) UserModel *userModel;
 
 @end
 
@@ -32,7 +34,8 @@ static const CGFloat kTopOffset = 90.0;
 - (instancetype)initWithController:(UserController *)controller model:(UserModel *)model {
   self = [super init];
   if (self) {
-    
+    _userController = controller;
+    _userModel = model;
   }
   return self;
 }
@@ -117,9 +120,12 @@ static const CGFloat kTopOffset = 90.0;
   
   if (self.signUpView == nil) {
     __weak typeof(self) weakSelf = self;
-    self.signUpView = [[SignUpFormView alloc] initWithOnSubmit:^{
+    self.signUpView =
+    [[SignUpFormView alloc] initWithOnSubmit:^(NSString *email,
+                                               NSString *username,
+                                               NSString *password){
       __strong typeof(weakSelf) strongSelf = weakSelf;
-      [strongSelf onSubmit];
+      [strongSelf onSubmit:email username:username password:password];
     }];
   }
   
@@ -184,8 +190,10 @@ static const CGFloat kTopOffset = 90.0;
   self.scrollView.scrollIndicatorInsets = contentInsets;
 }
 
-- (void)onSubmit {
-  
+- (void)onSubmit:(NSString *)email
+        username:(NSString *)username
+        password:(NSString *)password {
+  [self.userController initiateSignUp:email username:username password:password];
 }
 
 @end
