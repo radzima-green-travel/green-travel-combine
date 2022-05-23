@@ -11,6 +11,8 @@
 #import "SignUpFormView.h"
 #import "SignInFormView.h"
 #import "Colors.h"
+#import "UserController.h"
+#import "UserModel.h"
 
 @interface ProfileViewController ()
 
@@ -26,6 +28,14 @@ static const CGFloat kMaxContentWidth = 328.0;
 static const CGFloat kTopOffset = 90.0;
 
 @implementation ProfileViewController
+
+- (instancetype)initWithController:(UserController *)controller model:(UserModel *)model {
+  self = [super init];
+  if (self) {
+    
+  }
+  return self;
+}
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -106,7 +116,11 @@ static const CGFloat kTopOffset = 90.0;
   [self.signInView removeFromSuperview];
   
   if (self.signUpView == nil) {
-    self.signUpView = [[SignUpFormView alloc] init];
+    __weak typeof(self) weakSelf = self;
+    self.signUpView = [[SignUpFormView alloc] initWithOnSubmit:^{
+      __strong typeof(weakSelf) strongSelf = weakSelf;
+      [strongSelf onSubmit];
+    }];
   }
   
   self.signUpView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -168,6 +182,10 @@ static const CGFloat kTopOffset = 90.0;
   UIEdgeInsets contentInsets = UIEdgeInsetsZero;
   self.scrollView.contentInset = contentInsets;
   self.scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)onSubmit {
+  
 }
 
 @end

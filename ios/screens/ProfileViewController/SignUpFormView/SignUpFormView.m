@@ -19,15 +19,17 @@
 @property (strong, nonatomic) CommonTextField *textFieldPass;
 @property (strong, nonatomic) CommonTextField *textFieldPassRepeat;
 @property (strong, nonatomic) CommonButton *submitButton;
+@property (copy, nonatomic) void(^onSubmit)(void);
 
 @end
 
 @implementation SignUpFormView
 
-- (instancetype)init {
+- (instancetype)initWithOnSubmit:(void (^)(void))onSumbit {
   self = [self initWithFrame:CGRectZero];
   if (self) {
     [self setUp];
+    _onSubmit = onSumbit;
   }
   return self;
 }
@@ -121,6 +123,7 @@
 
 - (void)onSubmit:(CommonButton *)sender {
   [self endEditing:YES];
+  self.onSubmit();
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

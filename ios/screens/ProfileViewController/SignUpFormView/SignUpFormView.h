@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SignUpFormView : UIView<UITextFieldDelegate>
 
+- (instancetype)initWithOnSubmit:(void(^)(void))onSumbit;
+
 @end
 
 NS_ASSUME_NONNULL_END

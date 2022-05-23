@@ -9,7 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UserController;
+@class UserModel;
+
 @interface ProfileViewController : UIViewController
+
+- (instancetype)initWithController:(UserController *)controller
+                   model:(UserModel *)model;
 
 @end
 

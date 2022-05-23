@@ -9,4 +9,10 @@
 
 @implementation UserController
 
+- (void)initiateSignUp:(NSString *)email
+              username:(NSString *)username
+              password:(NSString *)email {
+  
+}
+
 @end
