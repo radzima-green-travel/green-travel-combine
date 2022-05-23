@@ -352,9 +352,16 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
         foundIndex = [self.category.items indexOfObjectPassingTest:indexOfObjectPassingTest];
     }
 
-    if (foundIndex == NSNotFound) {
-        return;
+  if (foundIndex == NSNotFound) {
+    if (self.bookmarked) {
+      self.bookmarkedItems = [[NSMutableArray alloc] initWithArray:[self.category.items
+                                                                    filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"bookmarked == YES"]]];
+      [self.collectionView reloadData];
     }
+    
+    return;
+    }
+  
     NSIndexPath *indexPathOfFoundIndex =  [NSIndexPath indexPathForItem:foundIndex inSection:0];
     PhotoCollectionViewCell *cell = (PhotoCollectionViewCell *) [self.collectionView cellForItemAtIndexPath:indexPathOfFoundIndex];
     [cell updateBookmark:bookmark];
