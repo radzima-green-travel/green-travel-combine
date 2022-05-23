@@ -69,12 +69,16 @@ static const CGFloat kTopOffset = 90.0;
   
   procedureChoiceView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:procedureChoiceView];
+  NSLayoutConstraint *leading = [procedureChoiceView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kMinContentInset];
+  leading.priority = UILayoutPriorityDefaultHigh;
+  NSLayoutConstraint *trailing = [procedureChoiceView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-kMinContentInset];
+  trailing.priority = UILayoutPriorityDefaultHigh;
   [NSLayoutConstraint activateConstraints:@[
     [procedureChoiceView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [procedureChoiceView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:19.0],
-    [procedureChoiceView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor constant:kMinContentInset],
-    [procedureChoiceView.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor constant:-kMinContentInset],
-    [procedureChoiceView.widthAnchor constraintGreaterThanOrEqualToConstant:kMaxContentWidth],
+    leading,
+    trailing,
+    [procedureChoiceView.widthAnchor constraintLessThanOrEqualToConstant:kMaxContentWidth],
   ]];
   
   [procedureChoiceView setSelectedSegmentIndex:0];
@@ -107,13 +111,18 @@ static const CGFloat kTopOffset = 90.0;
   
   self.signUpView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.signUpView];
+  
+  NSLayoutConstraint *leading = [self.signUpView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kMinContentInset];
+  leading.priority = UILayoutPriorityDefaultHigh;
+  NSLayoutConstraint *trailing = [self.signUpView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-kMinContentInset];
+  trailing.priority = UILayoutPriorityDefaultHigh;
+  
   [NSLayoutConstraint activateConstraints:@[
     [self.signUpView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.signUpView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kTopOffset],
-    [self.signUpView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor constant:kMinContentInset],
-    [self.signUpView.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor constant:-kMinContentInset],
+    leading,
+    trailing,
     [self.signUpView.widthAnchor constraintLessThanOrEqualToConstant:kMaxContentWidth],
-    
     [self.signUpView.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
   ]];
 }
