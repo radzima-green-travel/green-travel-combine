@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 import {styles} from './styles';
 import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
 import {Button, FormInput} from 'atoms';
+import {Auth} from 'aws-amplify';
 
 interface IProps {
   isSignUpScreen: boolean;
-  onPress: () => void;
+  onPress?: (email: string) => void;
 }
 
 export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
@@ -24,9 +25,20 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
     ? t('signUpButton').toUpperCase()
     : t('signInButton').toUpperCase();
 
-  // TODO: form input validation at backend
-  const onSignUpSubmit = () => {
-    const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const onSignUpSubmit = async () => {
+    try {
+      await Auth.signUp({
+        username: email,
+        password,
+        attributes: {family_name: username, name: username},
+      });
+
+      onPress!(email);
+    } catch (e) {
+      Alert.alert('Oops', (e as Error).message);
+    }
+
+    /* const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     const passwordMinLength = 8;
     let isValidated = true;
 
@@ -56,11 +68,15 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
 
     if (isValidated) {
       onPress();
-    }
+    } */
   };
 
-  const onSignInSubmit = () => {
-    onPress();
+  const onSignInSubmit = async () => {
+    try {
+      await Auth.signIn(email, password);
+    } catch (e) {
+      Alert.alert('Oops', (e as Error).message);
+    }
   };
 
   return (

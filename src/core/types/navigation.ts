@@ -39,7 +39,8 @@ export type ProfileNavigatorParamsList = {
   Profile: undefined;
   TabAuthNavigator: NestedNavigatorParams<TabAuthNavigatorParamsList>;
   RestorePassword: undefined;
-  EmailValidation: undefined;
+  NewPassword: undefined;
+  EmailValidation: {email: string};
 };
 
 export type AppMapNavigatorParamsList = {
