@@ -9,8 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UserModel;
+@class AuthService;
+
 @interface UserController : NSObject
 
+- (instancetype)initWithModel:(UserModel *)model authService:(AuthService *)authService;
 - (void)fetchCurrentAuthSession;
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username

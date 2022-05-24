@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 @import Firebase;
-#import "AmplifyBridge.h"
 
 @interface AppDelegate ()
 
@@ -26,10 +25,6 @@
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
     [rootViewController initRNBootSplash];
-    AmplifyBridge *bridge = [AmplifyBridge new];
-    [bridge initialize];
-    [bridge fetchCurrentAuthSession];
-    
     return YES;
 }
 

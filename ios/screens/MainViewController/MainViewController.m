@@ -34,6 +34,8 @@
 #import "MapViewControllerConstants.h"
 #import "ProfileViewController.h"
 #import "UserController.h"
+#import "AmplifyBridge.h"
+#import "AuthService.h"
 
 @interface MainViewController ()
 
@@ -95,8 +97,13 @@
                                 coreDataService:self.coreDataService];
     MapModel *mapModel = [[MapModel alloc] initWithIndexModel:self.indexModel locationModel:locationModel];
     BookmarksGroupModel *bookmarksGroupsModel = [[BookmarksGroupModel alloc] initWithIndexModel:self.indexModel];
+    AmplifyBridge *bridge = [AmplifyBridge new];
+    AuthService *authService = [[AuthService alloc] initWithAmplifyBridge:bridge];
     UserModel *userModel = [[UserModel alloc] init];
-    UserController *userController = [[UserController alloc] init];
+    UserController *userController = [[UserController alloc] initWithModel:userModel authService:authService];
+    
+    [bridge initialize];
+    [userController fetchCurrentAuthSession];
 
 #pragma mark - IndexViewController
 

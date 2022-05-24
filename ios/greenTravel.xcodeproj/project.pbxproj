@@ -192,6 +192,7 @@
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
 		5ADF034B283CED3200D98E9A /* EmailSendingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034A283CED3200D98E9A /* EmailSendingState.m */; };
+		5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034E283D1C3700D98E9A /* AuthService.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
@@ -570,6 +571,8 @@
 		5ADF0348283CE3AA00D98E9A /* UserModelObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelObservable.h; sourceTree = "<group>"; };
 		5ADF0349283CED3200D98E9A /* EmailSendingState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailSendingState.h; sourceTree = "<group>"; };
 		5ADF034A283CED3200D98E9A /* EmailSendingState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailSendingState.m; sourceTree = "<group>"; };
+		5ADF034D283D1C3700D98E9A /* AuthService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthService.h; sourceTree = "<group>"; };
+		5ADF034E283D1C3700D98E9A /* AuthService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthService.m; sourceTree = "<group>"; };
 		5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV2.xcdatamodel; sourceTree = "<group>"; };
 		5AED944B27773DF60053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5AED944C27773DF70053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1025,6 +1028,7 @@
 		5A775AFF26064C9000CEFC78 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				5ADF034C283D1C2700D98E9A /* AuthService */,
 				5A105FEE2660018C00511256 /* MapService */,
 				5A6DC5BC2659266E00A2D37B /* CacheService */,
 				5A775B0026064C9000CEFC78 /* CoreDataService */,
@@ -1581,6 +1585,15 @@
 			path = SignUpFormView;
 			sourceTree = "<group>";
 		};
+		5ADF034C283D1C2700D98E9A /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+				5ADF034D283D1C3700D98E9A /* AuthService.h */,
+				5ADF034E283D1C3700D98E9A /* AuthService.m */,
+			);
+			path = AuthService;
+			sourceTree = "<group>";
+		};
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2076,6 +2089,7 @@
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
 				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
+				5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */,
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
 				5AB4AFCF27B5B20E00C74857 /* StoredPlaceDetails+CoreDataClass.m in Sources */,
 				5ADF034B283CED3200D98E9A /* EmailSendingState.m in Sources */,

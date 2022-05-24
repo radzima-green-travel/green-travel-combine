@@ -25,18 +25,24 @@ class AmplifyBridge: NSObject {
     }
   }
   
-  @objc public func fetchCurrentAuthSession() {
+  @objc public func fetchCurrentAuthSession(completion: (_ err: NSError?, _ signedIn: Bool) -> Void) {
     _ = Amplify.Auth.fetchAuthSession { result in
       switch result {
       case .success(let session):
         print("Is user signed in - \(session.isSignedIn)")
+        completion(nil, session.isSignedIn)
       case .failure(let error):
         print("Fetch session failed with error \(error)")
+        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
+          "message" -> "Fetch session failed with error \(error)"
+        ])
+        completion(customError, false)
       }
     }
   }
   
-  @objc public func signUp(username: String, password: String, email: String) {
+  @objc public func signUp(username: String, password: String, email: String,
+                           completion: (_ err: NSError, _ session: NSObject) -> Void) {
     let userAttributes = [AuthUserAttribute(.email, value: email)]
     let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
     Amplify.Auth.signUp(username: username, password: password, options: options) { result in
