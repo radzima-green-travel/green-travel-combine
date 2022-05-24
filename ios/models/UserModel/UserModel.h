@@ -6,10 +6,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UserModelObservable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UserModel : NSObject
+@protocol UserModelObserver;
+@class EmailSendingState;
+
+@interface UserModel : NSObject<UserModelObservable>
+
+@property (assign, nonatomic) EmailSendingState *emailSendingState;
+@property (strong, nonatomic) NSMutableArray<id<UserModelObserver>> *userModelObservers;
 
 @end
 

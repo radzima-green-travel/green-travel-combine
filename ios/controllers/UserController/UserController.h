@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UserController : NSObject
 
+- (void)fetchCurrentAuthSession;
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
               password:(NSString *)email;

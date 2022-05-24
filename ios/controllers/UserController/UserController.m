@@ -6,12 +6,17 @@
 //
 
 #import "UserController.h"
+#import "AmplifyBridge.h"
 
 @implementation UserController
 
+- (void)fetchCurrentAuthSession {
+  
+}
+
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
-              password:(NSString *)email {
+              password:(NSString *)password {
   
 }
 

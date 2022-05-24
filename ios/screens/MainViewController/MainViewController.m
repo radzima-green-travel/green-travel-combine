@@ -21,6 +21,7 @@
 #import "MapModel.h"
 #import "BookmarksGroupModel.h"
 #import "LocationModel.h"
+#import "UserModel.h"
 #import "CoreDataService.h"
 #import "TypographyLegacy.h"
 #import "UserDefaultsService.h"
@@ -32,6 +33,7 @@
 #import "StyleUtils.h"
 #import "MapViewControllerConstants.h"
 #import "ProfileViewController.h"
+#import "UserController.h"
 
 @interface MainViewController ()
 
@@ -93,6 +95,8 @@
                                 coreDataService:self.coreDataService];
     MapModel *mapModel = [[MapModel alloc] initWithIndexModel:self.indexModel locationModel:locationModel];
     BookmarksGroupModel *bookmarksGroupsModel = [[BookmarksGroupModel alloc] initWithIndexModel:self.indexModel];
+    UserModel *userModel = [[UserModel alloc] init];
+    UserController *userController = [[UserController alloc] init];
 
 #pragma mark - IndexViewController
 
@@ -163,7 +167,7 @@
 
 #pragma mark - ProfileViewController
   ProfileViewController *profileController =
-  [[ProfileViewController alloc] init];
+  [[ProfileViewController alloc] initWithController:userController model:userModel];
   profileController.title = NSLocalizedString(@"ProfileTitle", @"");
   self.profileControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:profileController];
   UIImage *profileImage;

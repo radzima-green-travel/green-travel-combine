@@ -13,6 +13,7 @@
 #import "Colors.h"
 #import "UserController.h"
 #import "UserModel.h"
+#import "EmailSendingState.h"
 
 @interface ProfileViewController ()
 
@@ -45,6 +46,7 @@ static const CGFloat kTopOffset = 90.0;
   UINavigationBar *navigationBar = self.navigationController.navigationBar;
   configureNavigationBar(navigationBar);
   [self registerForKeyboardNotifications];
+  [self.userModel addUserModelObserver:self];
   
   UITapGestureRecognizer *tap =
   [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
@@ -176,6 +178,8 @@ static const CGFloat kTopOffset = 90.0;
                                                name:UIKeyboardWillHideNotification object:nil];
 }
 
+
+
 - (void)keyboardWasShown:(NSNotification*)aNotification {
   NSDictionary* info = [aNotification userInfo];
   CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
@@ -194,6 +198,15 @@ static const CGFloat kTopOffset = 90.0;
         username:(NSString *)username
         password:(NSString *)password {
   [self.userController initiateSignUp:email username:username password:password];
+}
+
+- (void)onEmailSendingUpdate:(nonnull EmailSendingState *)emailSendingState {
+  if (emailSendingState.error) {
+    
+  }
+  if (emailSendingState.inProgress) {
+    
+  }
 }
 
 @end

@@ -191,6 +191,7 @@
 		5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADBAC3E27243A7D0006A8C1 /* Typography.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
+		5ADF034B283CED3200D98E9A /* EmailSendingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034A283CED3200D98E9A /* EmailSendingState.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
@@ -565,6 +566,10 @@
 		5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsServiceConstants.m; sourceTree = "<group>"; };
 		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
 		5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IconNameToAnalyticsEvent.m; sourceTree = "<group>"; };
+		5ADF0347283CE39500D98E9A /* UserModelObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelObserver.h; sourceTree = "<group>"; };
+		5ADF0348283CE3AA00D98E9A /* UserModelObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelObservable.h; sourceTree = "<group>"; };
+		5ADF0349283CED3200D98E9A /* EmailSendingState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailSendingState.h; sourceTree = "<group>"; };
+		5ADF034A283CED3200D98E9A /* EmailSendingState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailSendingState.m; sourceTree = "<group>"; };
 		5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV2.xcdatamodel; sourceTree = "<group>"; };
 		5AED944B27773DF60053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5AED944C27773DF70053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1532,6 +1537,10 @@
 			children = (
 				5AD347E52837C2EE00235E96 /* UserModel.h */,
 				5AD347E62837C2EE00235E96 /* UserModel.m */,
+				5ADF0347283CE39500D98E9A /* UserModelObserver.h */,
+				5ADF0348283CE3AA00D98E9A /* UserModelObservable.h */,
+				5ADF0349283CED3200D98E9A /* EmailSendingState.h */,
+				5ADF034A283CED3200D98E9A /* EmailSendingState.m */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -2069,6 +2078,7 @@
 				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
 				5AB4AFCF27B5B20E00C74857 /* StoredPlaceDetails+CoreDataClass.m in Sources */,
+				5ADF034B283CED3200D98E9A /* EmailSendingState.m in Sources */,
 				5A1FFB29267626A400E31162 /* Colors.m in Sources */,
 				5A775DF726077A7D00CEFC78 /* RefreshButton.m in Sources */,
 				5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */,
