@@ -14,7 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AuthService : NSObject
 
 - (instancetype)initWithAmplifyBridge:(AmplifyBridge *)amplifyBridge;
-- (void)fetchCurrentAuthSession:^(NSError * _Nonnull err, BOOL signedIn)completion;
+- (void)fetchCurrentAuthSession:(void(^)(NSError * _Nonnull, BOOL))completion;
+- (void)signUpWithUsername:(NSString *)username
+                  password:(NSString *)password
+                     email:(NSString *)email
+                          completion:(void(^)(NSError * _Nonnull))completion;
+- (void)confirmSignUp:(void(^)(NSError * _Nonnull))completion;
 
 @end
 

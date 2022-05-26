@@ -24,13 +24,24 @@
   return self;
 }
 
-- (void)fetchCurrentAuthSession {
-  [self.amplifyBridge fetchCurrentAuthSessionWithCompletion:
-   ^(NSError * _Nonnull err, BOOL signedIn) {
-  
+- (void)fetchCurrentAuthSession:(void (^)(NSError * _Nonnull, BOOL))completion {
+  [self.amplifyBridge fetchCurrentAuthSessionWithCompletion:^(NSError * _Nullable error, BOOL signedIn) {
+    completion(error, signedIn);
   }];
 }
 
+- (void)signUpWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(NSError * _Nonnull))completion {
+  [self.amplifyBridge signUpWithUsername:username password:password email:email completion:^(NSError * _Nullable error) {
+    completion(error);
+  }];
+}
 
+- (void)confirmSignUpForUsername:(NSString *)username
+                            code:(NSString *)code
+                      completion:(void (^)(NSError * _Nonnull))completion {
+  [self.amplifyBridge confirmSignUpFor:username with:code completion:^(NSError * _Nullable error) {
+    completion(error);
+  }];
+}
 
 @end

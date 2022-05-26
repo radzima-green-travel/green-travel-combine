@@ -25,7 +25,7 @@ class AmplifyBridge: NSObject {
     }
   }
   
-  @objc public func fetchCurrentAuthSession(completion: (_ err: NSError?, _ signedIn: Bool) -> Void) {
+  @objc public func fetchCurrentAuthSession(completion: @escaping (_ err: NSError?, _ signedIn: Bool) -> Void) {
     _ = Amplify.Auth.fetchAuthSession { result in
       switch result {
       case .success(let session):
@@ -34,7 +34,7 @@ class AmplifyBridge: NSObject {
       case .failure(let error):
         print("Fetch session failed with error \(error)")
         let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
-          "message" -> "Fetch session failed with error \(error)"
+          "message": "Fetch session failed with error \(error)"
         ])
         completion(customError, false)
       }
@@ -42,7 +42,7 @@ class AmplifyBridge: NSObject {
   }
   
   @objc public func signUp(username: String, password: String, email: String,
-                           completion: (_ err: NSError, _ session: NSObject) -> Void) {
+                           completion: @escaping (_ err: NSError?) -> Void) {
     let userAttributes = [AuthUserAttribute(.email, value: email)]
     let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
     Amplify.Auth.signUp(username: username, password: password, options: options) { result in
@@ -53,19 +53,30 @@ class AmplifyBridge: NSObject {
         } else {
           print("SignUp Complete")
         }
+        completion(nil)
       case .failure(let error):
+        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
+          "message": "Sign up failed with error \(error)"
+        ])
         print("An error occurred while registering a user \(error)")
+        completion(customError)
       }
     }
   }
   
-  @objc public func confirmSignUp(for username: String, with confirmationCode: String) {
+  @objc public func confirmSignUp(for username: String, with confirmationCode: String,
+                                  completion: @escaping (_ err: NSError?) -> Void) {
     Amplify.Auth.confirmSignUp(for: username, confirmationCode: confirmationCode) { result in
       switch result {
       case .success:
         print("Confirm signUp succeeded")
+        completion(nil)
       case .failure(let error):
+        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
+          "message": "Confirm sign up failed with error \(error)"
+        ])
         print("An error occurred while confirming sign up \(error)")
+        completion(customError)
       }
     }
   }

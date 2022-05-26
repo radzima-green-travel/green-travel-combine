@@ -169,6 +169,26 @@ static const CGFloat kTopOffset = 90.0;
   ]];
 }
 
+- (void)enableLoadingIndicator:(BOOL)enable {
+  if (enable) {
+//    [self.signInView setHidden:YES];
+//    [self.signInView setHidden:YES];
+//    
+//    self.signInView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.contentView addSubview:self.signInView];
+//    [NSLayoutConstraint activateConstraints:@[
+//      [self.signInView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+//      [self.signInView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kTopOffset],
+//      [self.signInView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor constant:kMinContentInset],
+//      [self.signInView.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor constant:-kMinContentInset],
+//      [self.signInView.widthAnchor constraintGreaterThanOrEqualToConstant:kMaxContentWidth],
+//      
+//      [self.signInView.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
+//    ]];
+    return;
+  }
+}
+
 - (void)registerForKeyboardNotifications {
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(keyboardWasShown:)
@@ -201,12 +221,16 @@ static const CGFloat kTopOffset = 90.0;
 }
 
 - (void)onEmailSendingUpdate:(nonnull EmailSendingState *)emailSendingState {
-  if (emailSendingState.error) {
-    
-  }
-  if (emailSendingState.inProgress) {
-    
-  }
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      if (emailSendingState.error) {
+        
+      }
+      if (emailSendingState.inProgress) {
+        
+      }
+    });
+  });
 }
 
 @end
