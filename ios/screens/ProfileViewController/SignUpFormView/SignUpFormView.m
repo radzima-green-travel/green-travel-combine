@@ -15,7 +15,6 @@
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) CommonTextField *textFieldMail;
-@property (strong, nonatomic) CommonTextField *textFieldNick;
 @property (strong, nonatomic) CommonTextField *textFieldPass;
 @property (strong, nonatomic) CommonTextField *textFieldPassRepeat;
 @property (strong, nonatomic) CommonButton *submitButton;
@@ -66,17 +65,6 @@
       [self.textFieldMail.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
   ]];
   
-  self.textFieldNick =
-  [[CommonTextField alloc] initWithImageName:@"textfield-profile"
-                                keyboardType:UIKeyboardTypeASCIICapable
-                                 placeholder:NSLocalizedString(@"ProfileScreenPlaceholderUserName", @"")];
-  [self addSubview:self.textFieldNick];
-  self.textFieldNick.translatesAutoresizingMaskIntoConstraints = NO;
-  [NSLayoutConstraint activateConstraints:@[
-      [self.textFieldNick.topAnchor constraintEqualToAnchor:self.textFieldMail.bottomAnchor constant:12],
-      [self.textFieldNick.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-      [self.textFieldNick.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-  ]];
   
   self.textFieldPass =
   [[SecureTextField alloc] initWithImageName:@"password-lock"
@@ -87,7 +75,7 @@
   [self addSubview:self.textFieldPass];
   self.textFieldPass.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
-      [self.textFieldPass.topAnchor constraintEqualToAnchor:self.textFieldNick.bottomAnchor constant:12],
+      [self.textFieldPass.topAnchor constraintEqualToAnchor:self.textFieldMail.bottomAnchor constant:12],
       [self.textFieldPass.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
       [self.textFieldPass.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
   ]];
@@ -123,9 +111,8 @@
 
 - (void)onSubmit:(CommonButton *)sender {
   [self endEditing:YES];
-  self.onSubmit(self.textFieldMail.textField.text,
-                self.textFieldNick.textField.text,
-                self.textFieldPass.textField.text);
+  NSString *mail = self.textFieldMail.textField.text;
+  self.onSubmit(mail, mail, self.textFieldPass.textField.text);
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
