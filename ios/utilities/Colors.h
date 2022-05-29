@@ -49,6 +49,7 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *mapBackground;
 @property (strong, nonatomic) UIColor *mainTextLink;
 @property (strong, nonatomic) UIColor *searchBarClearButton;
+@property (strong, nonatomic) UIColor *passCodeTint;
 + (instancetype)get;
 
 @end

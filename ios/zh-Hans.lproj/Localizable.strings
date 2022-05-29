@@ -60,3 +60,4 @@
 "ProfileScreenPlaceholderPasswordRepeat" = "Пароль еще раз";
 "ProfileScreenButtonLabelCreate" = "СОЗДАТЬ";
 
+"CodeConfirmationScreenTitle" = "Подтверждение почты";

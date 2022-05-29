@@ -60,3 +60,5 @@
 "ProfileScreenPlaceholderPasswordRepeat" = "Repeat password";
 "ProfileScreenButtonLabelCreate" = "CREATE";
 
+"CodeConfirmationScreenTitle" = "Email confirmation";
+

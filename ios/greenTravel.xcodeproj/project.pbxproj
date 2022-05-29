@@ -163,6 +163,8 @@
 		5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB19C264E7DB000333F1E /* BaseMapViewController.m */; };
 		5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */; };
 		5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894328424A980000271B /* CodeConfirmationViewController.m */; };
+		5A9889482843A5BB0000271B /* PassCodeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9889472843A5BB0000271B /* PassCodeTextField.m */; };
+		5A98894C2843AA030000271B /* NumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894B2843AA030000271B /* NumberView.m */; };
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
 		5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB227B016D000C74857 /* LocaleUtils.m */; };
@@ -194,6 +196,7 @@
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
 		5ADF034B283CED3200D98E9A /* EmailSendingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034A283CED3200D98E9A /* EmailSendingState.m */; };
 		5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034E283D1C3700D98E9A /* AuthService.m */; };
+		5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF0351284524B000D98E9A /* NumberViewConstants.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
@@ -514,6 +517,10 @@
 		5A97FE22279C1702006E575D /* GraphQLApiService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphQLApiService.m; sourceTree = "<group>"; };
 		5A98894228424A980000271B /* CodeConfirmationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeConfirmationViewController.h; sourceTree = "<group>"; };
 		5A98894328424A980000271B /* CodeConfirmationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodeConfirmationViewController.m; sourceTree = "<group>"; };
+		5A9889462843A5BB0000271B /* PassCodeTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassCodeTextField.h; sourceTree = "<group>"; };
+		5A9889472843A5BB0000271B /* PassCodeTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassCodeTextField.m; sourceTree = "<group>"; };
+		5A98894A2843AA030000271B /* NumberView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberView.h; sourceTree = "<group>"; };
+		5A98894B2843AA030000271B /* NumberView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberView.m; sourceTree = "<group>"; };
 		5A9D706B26EE447B00F4799D /* CommonButtonWithProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonButtonWithProgress.h; sourceTree = "<group>"; };
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
@@ -576,6 +583,8 @@
 		5ADF034A283CED3200D98E9A /* EmailSendingState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailSendingState.m; sourceTree = "<group>"; };
 		5ADF034D283D1C3700D98E9A /* AuthService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthService.h; sourceTree = "<group>"; };
 		5ADF034E283D1C3700D98E9A /* AuthService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthService.m; sourceTree = "<group>"; };
+		5ADF0350284524B000D98E9A /* NumberViewConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberViewConstants.h; sourceTree = "<group>"; };
+		5ADF0351284524B000D98E9A /* NumberViewConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberViewConstants.m; sourceTree = "<group>"; };
 		5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV2.xcdatamodel; sourceTree = "<group>"; };
 		5AED944B27773DF60053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5AED944C27773DF70053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1474,6 +1483,27 @@
 			path = CodeConfirmationController;
 			sourceTree = "<group>";
 		};
+		5A9889452843A5800000271B /* PassCodeTextField */ = {
+			isa = PBXGroup;
+			children = (
+				5A9889492843A9EE0000271B /* NumberView */,
+				5A9889462843A5BB0000271B /* PassCodeTextField.h */,
+				5A9889472843A5BB0000271B /* PassCodeTextField.m */,
+			);
+			path = PassCodeTextField;
+			sourceTree = "<group>";
+		};
+		5A9889492843A9EE0000271B /* NumberView */ = {
+			isa = PBXGroup;
+			children = (
+				5A98894A2843AA030000271B /* NumberView.h */,
+				5A98894B2843AA030000271B /* NumberView.m */,
+				5ADF0350284524B000D98E9A /* NumberViewConstants.h */,
+				5ADF0351284524B000D98E9A /* NumberViewConstants.m */,
+			);
+			path = NumberView;
+			sourceTree = "<group>";
+		};
 		5A9D706E26EE448000F4799D /* CommonButtonWithProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -1610,6 +1640,7 @@
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5A9889452843A5800000271B /* PassCodeTextField */,
 				5ACC9A9B283969DB008E302D /* SecureTextField */,
 				5ACC9A93283945F2008E302D /* CommonTextField */,
 				5A5E2B02275CE37700A20489 /* ZoomableImageCollectionViewCell */,
@@ -2118,6 +2149,7 @@
 				5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */,
 				5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */,
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
+				5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */,
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
 				5A12E89827C51F9C004FD8C6 /* DetailsScreenModel.m in Sources */,
@@ -2182,6 +2214,7 @@
 				5A775B5E26064C9000CEFC78 /* PathDetails.m in Sources */,
 				5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */,
 				5A775E0226077A7D00CEFC78 /* CategoriesFilterCollectionViewCell.m in Sources */,
+				5A9889482843A5BB0000271B /* PassCodeTextField.m in Sources */,
 				5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */,
 				5A775B6126064C9000CEFC78 /* PlaceDetails.m in Sources */,
 				5A6CC8E0279D9AB700EE6E35 /* IndexController.m in Sources */,
@@ -2235,6 +2268,7 @@
 				5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */,
 				5A105FEC265FD9E300511256 /* Directions.m in Sources */,
 				5A6DC50B2655B28900A2D37B /* StoredArea+CoreDataProperties.m in Sources */,
+				5A98894C2843AA030000271B /* NumberView.m in Sources */,
 				5A775E1726077A7D00CEFC78 /* WeRecommendCell.m in Sources */,
 				5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */,
 				5A775B4F26064C9000CEFC78 /* SearchModel.m in Sources */,

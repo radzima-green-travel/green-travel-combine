@@ -129,6 +129,14 @@ static const CGFloat kTopOffset = 90.0;
   self.view.backgroundColor = [Colors get].background;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  CodeConfirmationViewController *codeConfirmationViewController =
+  [[CodeConfirmationViewController alloc] init];
+  [self.navigationController pushViewController:codeConfirmationViewController
+                                       animated:YES];
+}
+
 - (void)onModeChoice:(UISegmentedControl *)sender {
   if (sender.selectedSegmentIndex == 1) {
     [self addSignUpView];

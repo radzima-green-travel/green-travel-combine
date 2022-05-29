@@ -60,6 +60,7 @@ static Colors *instance;
     self.mapBackground = [UIColor colorNamed:@"mapBackground"];
     self.mainTextLink = [UIColor colorNamed:@"mainTextLink"];
     self.searchBarClearButton = [UIColor colorNamed:@"searchBarClearButton"];
+    self.passCodeTint = [UIColor colorNamed:@"passCodeTint"];
   }
   return self;
 }
