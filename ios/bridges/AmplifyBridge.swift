@@ -43,7 +43,17 @@ class AmplifyBridge: NSObject {
   
   @objc public func signUp(username: String, password: String, email: String,
                            completion: @escaping (_ err: NSError?) -> Void) {
-    let userAttributes = [AuthUserAttribute(.email, value: email)]
+    let emailParts = email.components(separatedBy: "@")
+    guard let familyName = emailParts.first else {
+      let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
+        "message": "Cannot extract family name from email"
+      ])
+      completion(customError)
+      return
+    }
+    let userAttributes = [AuthUserAttribute(.email, value: email),
+                          AuthUserAttribute(.familyName, value: familyName),
+                          AuthUserAttribute(.name, value: familyName)]
     let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
     Amplify.Auth.signUp(username: username, password: password, options: options) { result in
       switch result {

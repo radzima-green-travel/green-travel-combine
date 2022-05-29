@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign, nonatomic) BOOL inProgress;
 @property (assign, nonatomic) BOOL error;
-@property (assign, nonatomic) BOOL signedIn;
+@property (assign, nonatomic) BOOL codeSent;
 
 @end
 

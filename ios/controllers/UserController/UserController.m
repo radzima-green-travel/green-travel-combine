@@ -42,7 +42,7 @@
     EmailSendingState *state = [EmailSendingState new];
     [state setInProgress:NO];
     [state setError:error == nil];
-    [state setSignedIn:signedIn];
+    [state setCodeSent:signedIn];
     [strongSelf.model setEmailSendingState:state];
   }];
 }

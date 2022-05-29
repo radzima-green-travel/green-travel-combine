@@ -7,6 +7,7 @@
 
 #import "UserModel.h"
 #import "UserModelObserver.h"
+#import "EmailSendingState.h"
 
 @implementation UserModel
 - (instancetype)init
@@ -14,6 +15,8 @@
   self = [super init];
   if (self) {
     _userModelObservers = [[NSMutableArray alloc] init];
+    EmailSendingState *state = [EmailSendingState new];
+    _emailSendingState = state;
   }
   return self;
 }

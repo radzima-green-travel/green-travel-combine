@@ -14,6 +14,7 @@
 #import "UserController.h"
 #import "UserModel.h"
 #import "EmailSendingState.h"
+#import "CodeConfirmationViewController.h"
 
 @interface ProfileViewController ()
 
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UserController *userController;
 @property (strong, nonatomic) UserModel *userModel;
+@property (strong, nonatomic) UISegmentedControl *procedureChoiceView;
+@property (strong, nonatomic) UIActivityIndicatorView *loadingView;
 
 @end
 
@@ -76,28 +79,49 @@ static const CGFloat kTopOffset = 90.0;
     [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor]
   ]];
   
+#pragma mark - Loading indicator
+  if (@available(iOS 13.0, *)) {
+    self.loadingView =
+    [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+  } else {
+    self.loadingView = [[UIActivityIndicatorView alloc] init];
+  }
+  self.loadingView.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:self.loadingView];
+  [NSLayoutConstraint activateConstraints:@[
+    [self.loadingView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.loadingView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+  ]];
+  
+#pragma mark - Segmented control
   NSArray *items = @[NSLocalizedString(@"ProfileScreenChoiceSignIn", @""),
                      NSLocalizedString(@"ProfileScreenChoiceSignUp", @"")];
   
-  UISegmentedControl *procedureChoiceView = [[UISegmentedControl alloc] initWithItems:items];
-  [procedureChoiceView addTarget:self action:@selector(onModeChoice:) forControlEvents:UIControlEventValueChanged];
+  self.procedureChoiceView = [[UISegmentedControl alloc] initWithItems:items];
+  [self.procedureChoiceView addTarget:self action:@selector(onModeChoice:)
+                     forControlEvents:UIControlEventValueChanged];
   
-  procedureChoiceView.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.contentView addSubview:procedureChoiceView];
-  NSLayoutConstraint *leading = [procedureChoiceView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kMinContentInset];
+  self.procedureChoiceView.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:self.procedureChoiceView];
+  NSLayoutConstraint *leading = [self.procedureChoiceView.leadingAnchor
+                                 constraintEqualToAnchor:self.contentView.leadingAnchor
+                                 constant:kMinContentInset];
   leading.priority = UILayoutPriorityDefaultHigh;
-  NSLayoutConstraint *trailing = [procedureChoiceView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-kMinContentInset];
+  NSLayoutConstraint *trailing = [self.procedureChoiceView.trailingAnchor
+                                  constraintEqualToAnchor:self.contentView.trailingAnchor
+                                  constant:-kMinContentInset];
   trailing.priority = UILayoutPriorityDefaultHigh;
   [NSLayoutConstraint activateConstraints:@[
-    [procedureChoiceView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-    [procedureChoiceView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:19.0],
+    [self.procedureChoiceView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.procedureChoiceView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:19.0],
     leading,
     trailing,
-    [procedureChoiceView.widthAnchor constraintLessThanOrEqualToConstant:kMaxContentWidth],
+    [self.procedureChoiceView.widthAnchor constraintLessThanOrEqualToConstant:kMaxContentWidth],
   ]];
   
-  [procedureChoiceView setSelectedSegmentIndex:0];
-  [self onModeChoice:procedureChoiceView];
+  [self.procedureChoiceView setSelectedSegmentIndex:0];
+  [self onModeChoice:self.procedureChoiceView];
+  [self onEmailSendingUpdate:self.userModel.emailSendingState];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -171,21 +195,16 @@ static const CGFloat kTopOffset = 90.0;
 
 - (void)enableLoadingIndicator:(BOOL)enable {
   if (enable) {
-//    [self.signInView setHidden:YES];
-//    [self.signInView setHidden:YES];
-//    
-//    self.signInView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self.contentView addSubview:self.signInView];
-//    [NSLayoutConstraint activateConstraints:@[
-//      [self.signInView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-//      [self.signInView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kTopOffset],
-//      [self.signInView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor constant:kMinContentInset],
-//      [self.signInView.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor constant:-kMinContentInset],
-//      [self.signInView.widthAnchor constraintGreaterThanOrEqualToConstant:kMaxContentWidth],
-//      
-//      [self.signInView.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
-//    ]];
-    return;
+    [self.signInView setHidden:enable];
+    [self.signInView setHidden:enable];
+    [self.procedureChoiceView setHidden:enable];
+    
+    [self.loadingView setHidden:!enable];
+    if (enable) {
+      [self.loadingView startAnimating];
+      return;
+    }
+    [self.loadingView stopAnimating];
   }
 }
 
@@ -227,7 +246,14 @@ static const CGFloat kTopOffset = 90.0;
         
       }
       if (emailSendingState.inProgress) {
-        
+        [self enableLoadingIndicator:YES];
+      }
+      if (emailSendingState.codeSent) {
+        [self enableLoadingIndicator:NO];
+        CodeConfirmationViewController *codeConfirmationViewController =
+        [[CodeConfirmationViewController alloc] init];
+        [self.navigationController pushViewController:codeConfirmationViewController
+                                             animated:YES];
       }
     });
   });

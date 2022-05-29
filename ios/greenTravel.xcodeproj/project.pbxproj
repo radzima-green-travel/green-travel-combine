@@ -162,6 +162,7 @@
 		5A775E7C26092B8100CEFC78 /* Settings_Debug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */; };
 		5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB19C264E7DB000333F1E /* BaseMapViewController.m */; };
 		5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */; };
+		5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894328424A980000271B /* CodeConfirmationViewController.m */; };
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
 		5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB227B016D000C74857 /* LocaleUtils.m */; };
@@ -511,6 +512,8 @@
 		5A97FE1F278F696B006E575D /* IndexLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexLoader.h; sourceTree = "<group>"; };
 		5A97FE21279C1702006E575D /* GraphQLApiService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphQLApiService.h; sourceTree = "<group>"; };
 		5A97FE22279C1702006E575D /* GraphQLApiService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphQLApiService.m; sourceTree = "<group>"; };
+		5A98894228424A980000271B /* CodeConfirmationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeConfirmationViewController.h; sourceTree = "<group>"; };
+		5A98894328424A980000271B /* CodeConfirmationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodeConfirmationViewController.m; sourceTree = "<group>"; };
 		5A9D706B26EE447B00F4799D /* CommonButtonWithProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonButtonWithProgress.h; sourceTree = "<group>"; };
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
@@ -1012,6 +1015,7 @@
 		5A775A9826064C8F00CEFC78 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				5A98894128424A1B0000271B /* CodeConfirmationController */,
 				5A775D83260775EA00CEFC78 /* RootViewController */,
 				5A775D9026077A7C00CEFC78 /* BookmarksViewController */,
 				5A096AFA2836A1F0000FADB2 /* ProfileViewController */,
@@ -1459,6 +1463,15 @@
 				5A775DC126077A7C00CEFC78 /* MapPinView.h */,
 			);
 			path = MapPinView;
+			sourceTree = "<group>";
+		};
+		5A98894128424A1B0000271B /* CodeConfirmationController */ = {
+			isa = PBXGroup;
+			children = (
+				5A98894228424A980000271B /* CodeConfirmationViewController.h */,
+				5A98894328424A980000271B /* CodeConfirmationViewController.m */,
+			);
+			path = CodeConfirmationController;
 			sourceTree = "<group>";
 		};
 		5A9D706E26EE448000F4799D /* CommonButtonWithProgress */ = {
@@ -2192,6 +2205,7 @@
 				5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */,
 				5A775E0B26077A7D00CEFC78 /* DetailsViewController.m in Sources */,
 				5A775E1126077A7D00CEFC78 /* PlacesViewController.m in Sources */,
+				5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */,
 				5A775B5926064C9000CEFC78 /* PlaceCategory.m in Sources */,
 				5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */,
 				5A775DFD26077A7D00CEFC78 /* IndexViewController.m in Sources */,
