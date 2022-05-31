@@ -1,52 +1,37 @@
 # About
-
 Travel app, has native iOS ([UIKit](https://developer.apple.com/documentation/uikit?language=objc)) and [React Native](https://reactnative.dev/) versions.
 
-# Prerequisites
+#Setup
+1. Install [Bundler](https://bundler.io/).
+2. Install [Node LTS](https://nodejs.org/en/download/).
+3. Install [Yarn](https://yarnpkg.com/).
+4. On project root execute  `bundle install`.
+5. On project root execute  `yarn install`.
+6. Create `~/.netrc` file. Ask maintainers (see below) to provide file contents.
+7. On folder `./ios` execute `bundle exec pod install`.
+8. Ask maintainers for files:
+   1. `aws-exports.js` - put into `./src` folder.
+   2. `.env` - put into root folder.
+   3. `amplifyconfiguration.json` - put into `./ios` folder.
+   4. `awsconfiguration.json` - put into `./ios` folder.
+   5. `GoogleService-Info.plist` - put into `./ios` folder.
+9. On project root execute `yarn rnuc .env`.
 
-1. [Node 12](https://nodejs.org/en/download/) or newer LTS.
-2. [Yarn](https://yarnpkg.com/).
-3. [Bundler](https://bundler.io/).
-
-# Setup
-
-1. Create/Open **_.netrc_** file:
-
-- `cd ~`
-- `touch .netrc`
-- `open .netrc`
-- Paste text below into file
+## Setup - React Native specific
+1. Add line below in your `.bashrc`/`.zshrc` file:
 ```
-machine api.mapbox.com
-login mapbox
-password <MY_SECRET_TOKEN>
-```
-
-2. Create **_dev.env_** file in root directory:
-
-```
-ENVIRONMENT=development  
-NATIVE_CLIENT_URL=<NATIVE_CLIENT_URL>
-NATIVE_CLIENT_IMAGE_URL=<NATIVE_CLIENT_IMAGE_URL>
-NATIVE_CLIENT_GRAPHQL_URL=<NATIVE_CLIENT_GRAPHQL_URL>
-NATIVE_CLIENT_GRAPHQL_API_KEY=<NATIVE_CLIENT_GRAPHQL_API_KEY>
-MAP_ACCESS_TOKEN=<MAP_ACCESS_TOKEN>
-SENTRY_DSN=<SENTRY_DSN>
-MAP_BOX_CLIENT_URL=<MAP_BOX_CLIENT_URL>
-MAP_BOX_STYLE_URL_ANY=<MAP_BOX_STYLE_URL_ANY>
-MAP_BOX_STYLE_URL_DARK=<MAP_BOX_STYLE_URL_DARK>
-AMPLITUDE_KEY=<AMPLITUDE_KEY>
+export MAPBOX_DOWNLOADS_TOKEN=<MAPBOX_DOWNLOADS_TOKEN>
 ```
 
-3. Generate **_aws-exports.js_** file in `src/` folder
-4. Put **_GoogleService-Info.plist_** file in `ios/` folder
-5. Add line below in your `.bashrc`/`.zshrc` file:
-   > `export MAPBOX_DOWNLOADS_TOKEN=<MAPBOX_DOWNLOADS_TOKEN>`
-6. Type `bundle install` in root folder
+# Maintainers who can provide files needed for setup
+1. UIKit [maintainer](https://github.com/alexeykomov/).
+2. React Native [maintainer](https://github.com/tr3v3r).
 
-# Quickstart
-
-1. `yarn`
-2. `cd ios && bundle exec pod install && cd ..`
-3. `yarn rnuc dev.env` - generate dev.env files for native projects.
-4. `yarn run android` / `yarn run ios` - to start RN app.
+# Troubleshooting
+1. `An error occurred while installing json (2.5.1), and Bundler cannot
+   continue.` In this case try to:
+   1. Install [rvm](https://rvm.io/).
+   2. `rvm install 2.6.3`.
+   3. `gem install bundler`.
+   4. Repeat from step **4** in main setup.
+2. Error during the pod installation - try the same as above.
