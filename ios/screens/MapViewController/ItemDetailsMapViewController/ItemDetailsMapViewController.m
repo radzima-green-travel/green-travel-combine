@@ -264,12 +264,12 @@ static NSString* const kAttributeType = @"type";
     [style addSource:sourceOutline];
 
     MGLLineStyleLayer *outlineLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourceOutline];
-    outlineLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+    outlineLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].green];
     outlineLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     outlineLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
     outlineLayer.lineWidth =
     [NSExpression expressionForConstantValue:@2.0];
-    outlineLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@1, @2]];
+    outlineLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@1]];
 
     [style addLayer:outlineLayer];
   };
@@ -277,9 +277,9 @@ static NSString* const kAttributeType = @"type";
     [style addSource:sourcePolygon];
 
     MGLFillStyleLayer *polygonLayer = [[MGLFillStyleLayer alloc] initWithIdentifier:MapViewControllerPolygonLayerId source:sourcePolygon];
-    polygonLayer.fillColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+    polygonLayer.fillColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].green];
     polygonLayer.fillOpacity = [NSExpression expressionForConstantValue:@0.3];
-    polygonLayer.fillOutlineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+    polygonLayer.fillOutlineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].green];
 
     [style addLayer:polygonLayer];
   }
