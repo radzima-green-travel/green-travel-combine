@@ -1,0 +1,11 @@
+# React Native
+/src @tr3v3r
+
+# Android
+/android @tr3v3r
+
+# iOS
+/ios @alexeykomov
+
+# Common dependencies
+package.json @alexeykomov @tr3v3r
