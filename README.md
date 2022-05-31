@@ -1,7 +1,7 @@
 # About
 Travel app, has native iOS ([UIKit](https://developer.apple.com/documentation/uikit?language=objc)) and [React Native](https://reactnative.dev/) versions.
 
-#Setup
+# Setup
 1. Install [Bundler](https://bundler.io/).
 2. Install [Node LTS](https://nodejs.org/en/download/).
 3. Install [Yarn](https://yarnpkg.com/).
