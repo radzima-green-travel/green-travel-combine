@@ -53,6 +53,7 @@
   UserState *state = [UserState new];
   [state setInProgress:YES];
   [self.model setEmailSendingState:state];
+  [self.model setEmail:email];
   
   __weak typeof(self) weakSelf = self;
   [self.authService signUpWithUsername:username password:password email:email

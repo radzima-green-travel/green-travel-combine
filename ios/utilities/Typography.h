@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString *)mainTextLink:(NSString *)input;
 - (NSAttributedString *)mainText:(NSString *)input;
+- (NSAttributedString *)codeConfirmationHeader:(NSString *)input;
+- (NSAttributedString *)codeConfirmationHint:(NSString *)input;
 
 @end
 

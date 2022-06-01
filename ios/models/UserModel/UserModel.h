@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UserModel : NSObject<UserModelObservable>
 
 @property (strong, nonatomic) UserState *emailSendingState;
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSMutableArray<id<UserModelObserver>> *userModelObservers;
 
 @end
