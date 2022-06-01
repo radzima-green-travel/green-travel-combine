@@ -61,4 +61,8 @@
 "ProfileScreenButtonLabelCreate" = "СОЗДАТЬ";
 
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
+"CodeConfirmationScreenHeader" = "Подтвердите регистрацию";
+"CodeConfirmationScreenHint" = "введите цифры из письма, высланного на электронную почту %@";
+"CodeConfirmationScreenRetry" = "Повторить отправку";
+"CodeConfirmationScreenSubmit" = "Готово";
 

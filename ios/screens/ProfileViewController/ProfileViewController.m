@@ -13,7 +13,7 @@
 #import "Colors.h"
 #import "UserController.h"
 #import "UserModel.h"
-#import "EmailSendingState.h"
+#import "UserState.h"
 #import "CodeConfirmationViewController.h"
 
 @interface ProfileViewController ()
@@ -121,7 +121,7 @@ static const CGFloat kTopOffset = 90.0;
   
   [self.procedureChoiceView setSelectedSegmentIndex:0];
   [self onModeChoice:self.procedureChoiceView];
-  [self onEmailSendingUpdate:self.userModel.emailSendingState];
+  [self onUserStateUpdate:self.userModel.emailSendingState];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -247,7 +247,7 @@ static const CGFloat kTopOffset = 90.0;
   [self.userController initiateSignUp:email username:username password:password];
 }
 
-- (void)onEmailSendingUpdate:(nonnull EmailSendingState *)emailSendingState {
+- (void)onUserStateUpdate:(nonnull UserState *)emailSendingState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
       if (emailSendingState.error) {
@@ -259,7 +259,8 @@ static const CGFloat kTopOffset = 90.0;
       if (emailSendingState.codeSent) {
         [self enableLoadingIndicator:NO];
         CodeConfirmationViewController *codeConfirmationViewController =
-        [[CodeConfirmationViewController alloc] init];
+        [[CodeConfirmationViewController alloc] initWithController:self.userController
+                                                             model:self.userModel];
         [self.navigationController pushViewController:codeConfirmationViewController
                                              animated:YES];
       }

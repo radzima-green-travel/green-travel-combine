@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EmailSendingState : NSObject
+@interface UserState : NSObject
 
 @property (assign, nonatomic) BOOL inProgress;
 @property (assign, nonatomic) BOOL error;

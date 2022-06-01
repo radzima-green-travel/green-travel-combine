@@ -7,7 +7,7 @@
 
 #import "UserModel.h"
 #import "UserModelObserver.h"
-#import "EmailSendingState.h"
+#import "UserState.h"
 
 @implementation UserModel
 - (instancetype)init
@@ -15,13 +15,13 @@
   self = [super init];
   if (self) {
     _userModelObservers = [[NSMutableArray alloc] init];
-    EmailSendingState *state = [EmailSendingState new];
+    UserState *state = [UserState new];
     _emailSendingState = state;
   }
   return self;
 }
 
-- (void)setEmailSendingState:(EmailSendingState *)emailSendingState {
+- (void)setEmailSendingState:(UserState *)emailSendingState {
   _emailSendingState = emailSendingState;
   [self notifyUserModelObservers];
 }
@@ -36,7 +36,7 @@
 - (void)notifyUserModelObservers {
   
   [self.userModelObservers enumerateObjectsUsingBlock:^(id<UserModelObserver> _Nonnull observer, NSUInteger idx, BOOL * _Nonnull stop) {
-    [observer onEmailSendingUpdate:self.emailSendingState];
+    [observer onUserStateUpdate:self.emailSendingState];
   }];
 }
 

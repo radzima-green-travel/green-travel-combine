@@ -6,10 +6,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserModelObserver.h"
+#import "BaseFormViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CodeConfirmationViewController : UIViewController
+@class UserController;
+@class UserModel;
+
+@interface CodeConfirmationViewController : BaseFormViewController
 
 @end
 

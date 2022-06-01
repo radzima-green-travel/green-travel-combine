@@ -11,11 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol UserModelObserver;
-@class EmailSendingState;
+@class UserState;
 
 @interface UserModel : NSObject<UserModelObservable>
 
-@property (strong, nonatomic) EmailSendingState *emailSendingState;
+@property (strong, nonatomic) UserState *emailSendingState;
 @property (strong, nonatomic) NSMutableArray<id<UserModelObserver>> *userModelObservers;
 
 @end

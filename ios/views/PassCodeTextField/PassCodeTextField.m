@@ -42,7 +42,28 @@ static const CGFloat kSpacing = 8.0;
   [NSLayoutConstraint activateConstraints:@[
     [self.widthAnchor constraintEqualToConstant:
      (kMaxSymbols * NumberViewWidth + (kMaxSymbols - 1) * kSpacing)],
-    [self.heightAnchor constraintEqualToConstant:NumberViewWidth],
+    [self.heightAnchor constraintEqualToConstant:NumberViewHeight],
+  ]];
+  
+  self.backingTextField = [[UITextField alloc] init];
+  [self addSubview:self.backingTextField];
+  self.backingTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.backingTextField setKeyboardType:UIKeyboardTypeNumberPad];
+  self.backingTextField.delegate = self;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.backingTextField.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+    [self.backingTextField.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+  ]];
+  [self.backingTextField addTarget:self action:@selector(onTextChange:)
+                  forControlEvents:UIControlEventEditingChanged];
+  
+  UIView *shieldView = [[UIView alloc] init];
+  shieldView.backgroundColor = [Colors get].background;
+  [self addSubview:shieldView];
+  shieldView.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [shieldView.widthAnchor constraintEqualToAnchor:self.widthAnchor],
+    [shieldView.heightAnchor constraintEqualToAnchor:self.heightAnchor],
   ]];
   
   self.numbersView = [[UIStackView alloc] init];
@@ -61,24 +82,27 @@ static const CGFloat kSpacing = 8.0;
     [self.numbersView addArrangedSubview:[self createNumberView]];
   }
   
-  self.backingTextField = [[UITextField alloc] init];
-  [self addSubview:self.backingTextField];
-  self.backingTextField.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.backingTextField setKeyboardType:UIKeyboardTypeNumberPad];
-  self.backingTextField.delegate = self;
-  [NSLayoutConstraint activateConstraints:@[
-    [self.backingTextField.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
-    [self.backingTextField.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-  ]];
+  UITapGestureRecognizer *tap =
+  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(focusOnTextField:)];
+  [self addGestureRecognizer:tap];
   
-  
+  [self fillWithNumbers:self.backingTextField.text];
 }
 
 - (void)fillWithNumbers:(NSString *)numbers {
   [self.numbersView.arrangedSubviews
    enumerateObjectsUsingBlock:^(__kindof NumberView * _Nonnull numberView,
                                 NSUInteger idx, BOOL * _Nonnull stop) {
-    [numberView.numberLabel setText: numbers ];
+    if (idx < numbers.length) {
+      NSString *substr = [numbers substringWithRange:NSMakeRange(idx, 1)];
+      [numberView.numberLabel setText:substr];
+      return;
+    }
+    if (idx == numbers.length) {
+      [numberView.numberLabel setText:@"_"];
+      return;
+    }
+    [numberView.numberLabel setText:@""];
   }];
 }
 
@@ -89,11 +113,17 @@ static const CGFloat kSpacing = 8.0;
 - (BOOL)textField:(UITextField *)textField
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string {
-  if ([textField.text length] > kMaxSymbols) {
-    textField.text = [textField.text substringToIndex:kMaxSymbols - 1];
-    return NO;
-  }
-  return YES;
+  NSString *currentString = textField.text;
+  NSString *modifiedString = [currentString stringByReplacingCharactersInRange:range withString:string];
+  return modifiedString.length <= kMaxSymbols;
+}
+
+- (void)focusOnTextField:(id)sender {
+  [self.backingTextField becomeFirstResponder];
+}
+
+- (void)onTextChange:(UITextField *)sender {
+  [self fillWithNumbers:sender.text];
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "AmplifyBridge.h"
 #import "UserModel.h"
 #import "AuthService.h"
-#import "EmailSendingState.h"
+#import "UserState.h"
 
 @interface UserController()
 
@@ -31,7 +31,7 @@
 }
 
 - (void)fetchCurrentAuthSession {
-  EmailSendingState *state = [EmailSendingState new];
+  UserState *state = [UserState new];
   [state setInProgress:YES];
   [self.model setEmailSendingState:state];
   
@@ -39,7 +39,7 @@
   [self.authService fetchCurrentAuthSession:^(NSError * _Nonnull error, BOOL signedIn) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
       
-    EmailSendingState *state = [EmailSendingState new];
+    UserState *state = [UserState new];
     [state setInProgress:NO];
     [state setError:error == nil];
     [state setCodeSent:signedIn];
@@ -50,7 +50,7 @@
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
               password:(NSString *)password {
-  EmailSendingState *state = [EmailSendingState new];
+  UserState *state = [UserState new];
   [state setInProgress:YES];
   [self.model setEmailSendingState:state];
   
@@ -58,7 +58,7 @@
   [self.authService signUpWithUsername:username password:password email:email
                             completion:^(NSError * _Nonnull error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
-    EmailSendingState *state = [EmailSendingState new];
+    UserState *state = [UserState new];
     [state setInProgress:NO];
     [state setError:error == nil];
     [strongSelf.model setEmailSendingState:state];

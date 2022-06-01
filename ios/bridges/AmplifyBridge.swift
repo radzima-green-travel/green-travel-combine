@@ -56,6 +56,7 @@ class AmplifyBridge: NSObject {
                           AuthUserAttribute(.name, value: familyName),
                           AuthUserAttribute(.nickname, value: familyName)]
     let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
+    
     Amplify.Auth.signUp(username: username, password: password, options: options) { result in
       switch result {
       case .success(let signUpResult):

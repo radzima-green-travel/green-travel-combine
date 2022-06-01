@@ -12,8 +12,7 @@
 @implementation NumberView
 
 - (instancetype)init {
-  CGRect frame = CGRectMake(0, 0, NumberViewWidth, NumberViewHeight);
-  self = [super initWithFrame:frame];
+  self = [super initWithFrame:CGRectZero];
   if (self) {
     [self setUp];
   }
@@ -29,9 +28,12 @@
   
   self.numberLabel = [UILabel new];
   [self addSubview:self.numberLabel];
+  self.numberLabel.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
     [self.numberLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
     [self.numberLabel.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+    [self.widthAnchor constraintEqualToConstant:NumberViewWidth],
+    [self.heightAnchor constraintEqualToConstant:NumberViewHeight],
   ]];
 }
 

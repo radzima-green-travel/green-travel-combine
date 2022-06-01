@@ -61,3 +61,8 @@
 "ProfileScreenButtonLabelCreate" = "СОЗДАТЬ";
 
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
+"CodeConfirmationScreenTitle" = "Email confirmation";
+"CodeConfirmationScreenHeader" = "Confirm sign up";
+"CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
+"CodeConfirmationScreenRetry" = "Retry";
+"CodeConfirmationScreenSubmit" = "Done";

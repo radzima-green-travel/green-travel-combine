@@ -16,11 +16,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class CLLocation;
-@class EmailSendingState;
+@class UserState;
 
 @protocol UserModelObserver <NSObject>
 
-- (void)onEmailSendingUpdate:(EmailSendingState *)emailSendingState;
+- (void)onUserStateUpdate:(UserState *)emailSendingState;
 
 @end
 

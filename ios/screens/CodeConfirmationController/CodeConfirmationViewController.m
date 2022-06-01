@@ -7,12 +7,17 @@
 
 #import "CodeConfirmationViewController.h"
 #import "PassCodeTextField.h"
+#import "UserController.h"
+#import "UserModel.h"
+#import "CommonButton.h"
 
 @interface CodeConfirmationViewController ()
 
 @property(strong, nonatomic) PassCodeTextField *passCodeField;
-@property (strong, nonatomic) UIScrollView *scrollView;
-@property (strong, nonatomic) UIView *contentView;
+@property(strong, nonatomic) UILabel *hintLabel;
+@property(strong, nonatomic) UILabel *titleLabel;
+@property(strong, nonatomic) CommonButton *buttonSubmit;
+@property(strong, nonatomic) UIButton *buttonRetry;
 
 @end
 
@@ -23,28 +28,24 @@
  
   self.title = NSLocalizedString(@"CodeConfirmationScreenTitle", @"");
   
-  self.scrollView = [[UIScrollView alloc] init];
-  self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.scrollView.alwaysBounceVertical = YES;
-  [self.view addSubview:self.scrollView];
+  self.titleLabel = [[UILabel alloc] init];
+  [self.titleLabel setText: NSLocalizedString(@"CodeConfirmationScreenHeader", @"")];
+  [self.contentView addSubview:self.titleLabel];
+  self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  
   [NSLayoutConstraint activateConstraints:@[
-    [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-    [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-    [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-    [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
+    [self.titleLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:150.0],
   ]];
   
-  self.contentView = [[UIView alloc] init];
-  self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.scrollView addSubview:self.contentView];
+  self.hintLabel = [[UILabel alloc] init];
+  [self.hintLabel setText: [NSString stringWithFormat:NSLocalizedString(@"CodeConfirmationScreenHint", @""), @"lala"]];
+  [self.contentView addSubview:self.hintLabel];
+  self.hintLabel.translatesAutoresizingMaskIntoConstraints = NO;
   
   [NSLayoutConstraint activateConstraints:@[
-    [self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
-    [self.contentView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
-    [self.contentView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
-    [self.contentView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
-    [self.contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor],
-    [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor]
+    [self.hintLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.hintLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0],
   ]];
   
   self.passCodeField = [[PassCodeTextField alloc] init];
@@ -53,18 +54,29 @@
   
   [NSLayoutConstraint activateConstraints:@[
     [self.passCodeField.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-    [self.passCodeField.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+    [self.passCodeField.topAnchor constraintEqualToAnchor:self.hintLabel.bottomAnchor constant:20.0],
+  ]];
+  
+  self.buttonSubmit = [[CommonButton alloc] initWithTarget:self action:@selector(onSubmit:) label:NSLocalizedString(@"CodeConfirmationScreenSubmit", @"")];
+  self.buttonSubmit.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:self.buttonSubmit];
+  
+  [NSLayoutConstraint activateConstraints:@[
+    [self.buttonSubmit.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.passCodeField.bottomAnchor constant:25.0],
   ]];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)onUserStateUpdate:(nonnull UserState *)emailSendingState {
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      
+    });
+  });
 }
-*/
+
+- (void)onSubmit:(CommonButton *)sender {
+  
+}
 
 @end
