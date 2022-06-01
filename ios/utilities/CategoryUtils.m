@@ -127,11 +127,13 @@ PlaceCategory* mapRawCategoryToPlaceCategory(NSDictionary *rawCategory) {
   category.index = [(NSNumber *) rawCategory[@"index"] intValue];
   if (isCurrentLanguageCodeLegacy()) {
     category.title = rawCategory[@"name"];
+    category.singularName = rawCategory[@"singularName"];
     return category;
   };
   NSArray *i18n = rawCategory[@"i18n"];
   NSDictionary *localizedEntry = findLocalizedEntry(i18n, getCurrentLocaleLanguageCode());
   category.title = localizedEntry[@"name"];
+  category.singularName = localizedEntry[@"singularName"];
   return category;
 }
 
@@ -242,6 +244,10 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
     } else {
       details.descriptionHTML = @"";
     }
+    if (rawItem[@"length"] && ![rawItem[@"length"] isEqual:[NSNull null]] &&
+        ![rawItem[@"length"] isEqual:@0]) {
+      details.length = rawItem[@"length"];
+    }
     return details;
   }
   NSArray *i18n = rawItem[@"i18n"];
@@ -255,6 +261,10 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
     details.descriptionHTML = localizedEntry[@"description"];
   } else {
     details.descriptionHTML = @"";
+  }
+  if (rawItem[@"length"] && ![rawItem[@"length"] isEqual:[NSNull null]] &&
+      ![rawItem[@"length"] isEqual:@0]) {
+    details.length = rawItem[@"length"];
   }
   return details;
 }
@@ -280,6 +290,10 @@ PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
     } else {
       placeItem.address = @"";
     }
+    if (rawItem[@"length"] && ![rawItem[@"length"] isEqual:[NSNull null]] &&
+        ![rawItem[@"length"] isEqual:@0]) {
+      placeItem.length = rawItem[@"length"];
+    }
     return placeItem;
   }
   NSArray *i18n = rawItem[@"i18n"];
@@ -289,6 +303,10 @@ PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
     placeItem.address = localizedEntry[@"address"];
   } else {
     placeItem.address = @"";
+  }
+  if (rawItem[@"length"] && ![rawItem[@"length"] isEqual:[NSNull null]] &&
+      ![rawItem[@"length"] isEqual:@0]) {
+    placeItem.length = rawItem[@"length"];
   }
   return placeItem;
 }
