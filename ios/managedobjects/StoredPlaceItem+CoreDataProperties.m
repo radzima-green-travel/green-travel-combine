@@ -25,5 +25,6 @@
 @dynamic uuid;
 @dynamic details;
 @dynamic parent;
+@dynamic length;
 
 @end

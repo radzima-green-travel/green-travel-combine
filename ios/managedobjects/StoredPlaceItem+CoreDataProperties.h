@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *categoryUUID;
 @property (nullable, nonatomic, retain) NSData *coords;
 @property (nullable, nonatomic, copy) NSString *coverURL;
+@property (nullable, nonatomic, copy) NSString *length;
 @property (nullable, nonatomic, copy) NSString *imageURLs;
 @property (nullable, nonatomic, copy) NSString *sections;
 @property (nullable, nonatomic, copy) NSString *title;

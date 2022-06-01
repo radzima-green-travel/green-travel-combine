@@ -188,6 +188,13 @@ void fillReferencesIntoDetails(PlaceDetails *details, NSDictionary *rawItem) {
   details.references = [references copy];
 }
 
+NSString* routeLength(NSString *length) {
+  if (length && ![length isEqual:[NSNull null]] &&
+       ![length isEqual:@0]) {
+}
+  return length;
+}
+
 PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
                                           NSMutableDictionary<NSString*, PlaceItem*> *flatItems,
                                           NSMutableDictionary<NSString*, PlaceCategory*> *flatCategories) {
@@ -242,6 +249,7 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
     } else {
       details.descriptionHTML = @"";
     }
+    details.length = routeLength(rawItem[@"length"]);
     return details;
   }
   NSArray *i18n = rawItem[@"i18n"];
@@ -256,6 +264,7 @@ PlaceDetails* mapRawDetailsToPlaceDetails(NSDictionary *rawItem,
   } else {
     details.descriptionHTML = @"";
   }
+  details.length = routeLength(rawItem[@"length"]);
   return details;
 }
 
@@ -280,6 +289,7 @@ PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
     } else {
       placeItem.address = @"";
     }
+    placeItem.length = routeLength(rawItem[@"length"]);
     return placeItem;
   }
   NSArray *i18n = rawItem[@"i18n"];
@@ -290,6 +300,7 @@ PlaceItem* mapRawItemToPlaceItem(NSDictionary *rawItem) {
   } else {
     placeItem.address = @"";
   }
+  placeItem.length = routeLength(rawItem[@"length"]);
   return placeItem;
 }
 

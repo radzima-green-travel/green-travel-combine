@@ -104,6 +104,7 @@ NSPersistentContainer *_persistentContainer;
     item.cover = storedItem.coverURL;
     item.bookmarked = storedItem.bookmarked;
     item.address = storedItem.address;
+    item.length = storedItem.length.description;
     return item;
 }
 
@@ -233,6 +234,7 @@ NSPersistentContainer *_persistentContainer;
     storedItem.uuid = item.uuid;
     storedItem.bookmarked = item.bookmarked;
     storedItem.address = item.address;
+    storedItem.length = item.length.description;
     return storedItem;
 }
 
@@ -255,6 +257,7 @@ NSArray<NSString *>* mapStoredURLsToURLs(NSString *urls) {
   storedDetails.address = details.address;
   storedDetails.url = details.url;
   storedDetails.descriptionHTML = details.descriptionHTML;
+  storedDetails.length = details.length.description;
   
   storedDetails.imageURLs = mapURLsToStoredURLs(details.images);
   // Save linked categories.
@@ -341,6 +344,7 @@ NSArray<NSString *>* mapStoredURLsToURLs(NSString *urls) {
   details.url = storedDetails.url;
   details.images = mapStoredURLsToURLs(storedDetails.imageURLs);
   details.descriptionHTML = storedDetails.descriptionHTML;
+  details.length = storedDetails.length.description;
 
   details.categoryIdToItems =
       categoryIdToItemsFromStored(storedDetails.linkedCategories);
@@ -553,6 +557,7 @@ NSMutableArray<InformationReference *>* referencesFromStored(NSOrderedSet<Stored
         storedDetails = [NSEntityDescription insertNewObjectForEntityForName:@"StoredPlaceDetails" inManagedObjectContext:strongSelf.ctx];
         storedDetails.uuid = uuid;
         storedDetails.address = details.address;
+        storedDetails.length = details.length.description;
         storedDetails.descriptionHTML = details.descriptionHTML;
         storedDetails.imageURLs = [details.images componentsJoinedByString:@","];
         // Save linked categories.

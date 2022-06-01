@@ -531,6 +531,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
       if (details.address && [details.address length]) {
         [weakSelf addAddressLabel];
         weakSelf.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:details.address];
+          NSString * kilometers = NSLocalizedString(@"Kilometers", "");
+    if (details.length.description) {
+      weakSelf.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%.2f %@, %@", details.length.doubleValue, kilometers, details.address]];
+        }
       }
       if (CLLocationCoordinate2DIsValid(weakSelf.item.coords)) {
         [weakSelf addLocationButton];

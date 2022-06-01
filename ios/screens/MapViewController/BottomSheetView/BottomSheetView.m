@@ -24,6 +24,7 @@
 @property(strong, nonatomic) UIView *gripView;
 @property(strong, nonatomic) BookmarkButton *bookmarkButton;
 @property(assign, nonatomic) NSUInteger progressCounter;
+@property(strong, nonatomic) NSString * kilometers;
 
 @end
 
@@ -113,6 +114,7 @@ static const CGFloat kDistanceButtonBottom = 24;
   self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
   self.addressLabel.numberOfLines = 0;
   self.addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
+  self.kilometers = NSLocalizedString(@"Kilometers", "");
   [self addSubview:self.addressLabel];
 
   [NSLayoutConstraint activateConstraints:@[
@@ -174,6 +176,9 @@ otherGestureRecognizer {
   [self.headerLabel setAttributedText:[[TypographyLegacy get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.address color:[Colors get].mainText]];
+  if (item.length.description && ![item.length.description isEqual:[NSNull null]] ) {
+    self.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%.2f %@, %@", item.length.doubleValue, self.kilometers, item.address]];
+      }
 
   [self appear];
 }
@@ -194,6 +199,9 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.headerLabel setAttributedText:[[TypographyLegacy get] makeTitle1Bold:item.title]];
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.address color:[Colors get].mainText]];
+  if (item.length.description && ![item.length.description isEqual:[NSNull null]] ) {
+    self.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%.2f %@, %@", item.length.doubleValue, self.kilometers, item.address]];
+      }
 
   [self appear];
 }

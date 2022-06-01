@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *address;
 @property (strong, nonatomic) NSString *cover;
+@property (strong, nonatomic) NSString *length;
 @property (weak, nonatomic) PlaceCategory *category;
 @property (assign, nonatomic) CLLocationCoordinate2D coords;
 @property (assign, nonatomic) BOOL bookmarked;
