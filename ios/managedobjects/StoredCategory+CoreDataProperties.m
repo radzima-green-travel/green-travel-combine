@@ -21,5 +21,6 @@
 @dynamic categories;
 @dynamic items;
 @dynamic parent;
+@dynamic singularName;
 
 @end

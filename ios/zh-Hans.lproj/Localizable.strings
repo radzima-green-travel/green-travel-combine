@@ -44,6 +44,7 @@
 "DetailsScreenSeeOnMap" = "在地图上查看";
 "DetailsScreenReferences" = "參考資料";
 "DetailsScreenBannerCopied" = "复制到剪贴板";
+"DetailsScreenBottomSheetKilometers" = "公里";
 
 "MapFilterAll" = "全部";
 

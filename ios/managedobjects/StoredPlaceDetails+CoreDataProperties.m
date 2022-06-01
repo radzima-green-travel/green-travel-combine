@@ -24,5 +24,7 @@
 @dynamic linkedCategoriesBelongsTo;
 @dynamic path;
 @dynamic references;
+@dynamic length;
+@dynamic singularName;
 
 @end

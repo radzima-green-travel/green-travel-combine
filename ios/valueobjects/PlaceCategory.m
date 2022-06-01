@@ -21,6 +21,7 @@
   categoryCopied.onPlaceCellPress = self.onPlaceCellPress;
   categoryCopied.title = self.title;
   categoryCopied.uuid = self.uuid;
+  categoryCopied.singularName = self.singularName;
   return categoryCopied;
 }
 

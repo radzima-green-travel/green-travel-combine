@@ -44,6 +44,7 @@
 "DetailsScreenSeeOnMap" = "Посмотреть на карте";
 "DetailsScreenReferences" = "Ссылки";
 "DetailsScreenBannerCopied" = "Скопировано";
+"DetailsScreenBottomSheetKilometers" = "км";
 
 "MapFilterAll" = "Все";
 
