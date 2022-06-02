@@ -7,13 +7,14 @@
 
 #import <UIKit/UIKit.h>
 #import "UserModelObserver.h"
+#import "BaseFormViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserController;
 @class UserModel;
 
-@interface ProfileViewController : UIViewController<UserModelObserver>
+@interface ProfileViewController : BaseFormViewController<UserModelObserver>
 
 - (instancetype)initWithController:(UserController *)controller
                    model:(UserModel *)model;

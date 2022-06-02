@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithController:(UserController *)controller
                    model:(UserModel *)model;
 - (void)onUserStateUpdate:(nonnull UserState *)emailSendingState;
+- (void)enableLoadingIndicator:(BOOL)enable;
 
 @end
 
