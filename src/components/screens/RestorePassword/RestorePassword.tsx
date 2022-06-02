@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
-  Alert,
   Keyboard,
   Pressable,
   Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import {styles} from './styles';
 import {useTranslation} from 'core/hooks';
+import {forgotPasswordRequest} from 'core/reducers';
 import {Button, FormInput} from 'atoms';
-import {Auth} from 'aws-amplify';
 import {IProps} from './types';
 
 export const RestorePassword = ({navigation}: IProps) => {
@@ -19,19 +19,25 @@ export const RestorePassword = ({navigation}: IProps) => {
   const {t} = useTranslation('authentification');
   const buttonText = t('send').toUpperCase();
 
+  const dispatch = useDispatch();
+
   const navigateToSignIn = () => {
     navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
   };
 
-  // TODO: add parameters to Auth.forgotPassword
-  const onResendPassword = async () => {
+  const onResendPassword = useCallback(() => {
+    dispatch(forgotPasswordRequest({email}));
+    navigation.navigate('EmailValidation', {email, restorePassword: true});
+  }, [dispatch, email, navigation]);
+
+  /* const onResendPassword = async () => {
     try {
       await Auth.forgotPassword(email);
       navigation.navigate('EmailValidation', {email});
     } catch (e) {
       Alert.alert('Oops', (e as Error).message);
     }
-  };
+  }; */
 
   useEffect(() => {
     const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

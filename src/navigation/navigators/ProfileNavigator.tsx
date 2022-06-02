@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {
   EmailValidationScreen,
+  NewPasswordScreen,
   ProfileScreen,
   RestorePasswordScreen,
 } from 'screens';
@@ -68,6 +69,11 @@ export function ProfileNavigator() {
           <Stack.Screen
             name="RestorePassword"
             component={RestorePasswordScreen}
+            options={{title: t('restorePassword', {ns: 'authentification'})}}
+          />
+          <Stack.Screen
+            name="NewPassword"
+            component={NewPasswordScreen}
             options={{title: t('restorePassword', {ns: 'authentification'})}}
           />
         </>

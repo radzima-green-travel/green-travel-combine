@@ -12,11 +12,12 @@ import {asyncReducers} from 'react-redux-help-kit';
 import {combineReducers} from 'redux';
 
 import {
+  bookmarksReducer,
   bootstrapReducer,
   homeReducer,
-  bookmarksReducer,
-  searchReducer,
   objectDetailsMapReducer,
+  searchReducer,
+  signInReducer,
 } from './reducers';
 
 const storage = new MMKV();
@@ -56,11 +57,12 @@ const bookmarksPersistConfig = {
 
 const rootReducer = combineReducers({
   ...asyncReducers,
+  bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
   bootsrap: bootstrapReducer,
   home: persistReducer(homePersistConfig, homeReducer),
-  bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
-  search: persistReducer(searchPersistConfig, searchReducer),
   objectDetailsMap: objectDetailsMapReducer,
+  search: persistReducer(searchPersistConfig, searchReducer),
+  signIn: signInReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
