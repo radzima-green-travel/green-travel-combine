@@ -33,11 +33,14 @@
   NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"CodeConfirmationScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
   [self.titleLabel setNumberOfLines:0];
+  [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
   [self.contentView addSubview:self.titleLabel];
   self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
   [NSLayoutConstraint activateConstraints:@[
     [self.titleLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.titleLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor],
+    [self.titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor],
     [self.titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:150.0],
   ]];
 
@@ -45,11 +48,14 @@
   NSAttributedString *hint = [[Typography get] codeConfirmationHint:[NSString stringWithFormat:NSLocalizedString(@"CodeConfirmationScreenHint", @""), self.userModel.email]];
   [self.hintLabel setAttributedText:hint];
   [self.hintLabel setNumberOfLines:0];
+  [self.hintLabel setTextAlignment:NSTextAlignmentCenter];
   [self.contentView addSubview:self.hintLabel];
   self.hintLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
   [NSLayoutConstraint activateConstraints:@[
     [self.hintLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.hintLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor],
+    [self.hintLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor],
     [self.hintLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0],
   ]];
 

@@ -61,12 +61,20 @@ static const CGFloat kTopOffset = 90.0;
   self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.scrollView addSubview:self.contentView];
   
+  NSLayoutConstraint *leading = [self.contentView.leadingAnchor
+                                 constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:kMinContentInset];
+  leading.priority = UILayoutPriorityDefaultHigh;
+  NSLayoutConstraint *trailing = [self.contentView.trailingAnchor
+                                  constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-kMinContentInset];
+  trailing.priority = UILayoutPriorityDefaultHigh;
+  
   [NSLayoutConstraint activateConstraints:@[
     [self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
-    [self.contentView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
-    [self.contentView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
+    [self.contentView.centerXAnchor constraintEqualToAnchor:self.scrollView.centerXAnchor],
+    leading,
+    trailing,
+    [self.contentView.widthAnchor constraintLessThanOrEqualToConstant:kMaxContentWidth],
     [self.contentView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
-    [self.contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor],
     [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor]
   ]];
   
@@ -83,8 +91,6 @@ static const CGFloat kTopOffset = 90.0;
     [self.loadingView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.loadingView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
   ]];
-  
-  
 }
 
 - (void)viewDidLayoutSubviews {
