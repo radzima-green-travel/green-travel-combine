@@ -27,7 +27,7 @@ export const RestorePassword = ({navigation}: IProps) => {
 
   const onResendPassword = useCallback(() => {
     dispatch(forgotPasswordRequest({email}));
-    navigation.navigate('EmailValidation', {email, restorePassword: true});
+    navigation.navigate('EmailValidation', {email, isSignUp: false});
   }, [dispatch, email, navigation]);
 
   /* const onResendPassword = async () => {

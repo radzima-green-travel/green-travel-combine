@@ -11,7 +11,7 @@ export const SignUp = ({navigation}: IProps) => {
   const {t} = useTranslation('authentification');
 
   const navigateToEmailValidation = email => {
-    navigation.navigate('EmailValidation', {email, restorePassword: false});
+    navigation.navigate('EmailValidation', {email, isSignUp: true});
   };
 
   // TODO: add actual links to Terms of Use and Privacy Policy

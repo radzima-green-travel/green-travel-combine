@@ -22,7 +22,7 @@ export const EmailValidation = ({navigation, route}: IProps) => {
   const dispatch = useDispatch();
 
   const {
-    params: {email, restorePassword},
+    params: {email, isSignUp},
   } = route;
 
   const getEmailCode = (emailCode, isCode) => {
@@ -47,20 +47,22 @@ export const EmailValidation = ({navigation, route}: IProps) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         <View style={styles.boxContainer}>
-          <Text style={styles.title}>{t('signUpValidationTitle')}</Text>
+          <Text style={styles.title}>
+            {isSignUp ? t('signUpValidationTitle') : t('emailValidationTitle')}
+          </Text>
           <Text style={styles.text}>
             {t('signUpValidationText')} {email}
           </Text>
           <OneTimeCode onCodeInput={getEmailCode} />
-          {restorePassword ? null : (
+          {isSignUp ? (
             <Pressable onPress={onResendSignUpCodetoEmail}>
               <Text style={styles.repeatText}>{t('repeatAttempt')}</Text>
             </Pressable>
-          )}
+          ) : null}
         </View>
         <Button
           style={!isCodeFull ? styles.notActivated : null}
-          onPress={restorePassword ? onConfirmForgotPassword : onConfirmSignUp}>
+          onPress={isSignUp ? onConfirmSignUp : onConfirmForgotPassword}>
           {buttonText}
         </Button>
       </View>
