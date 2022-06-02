@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
-  Alert,
   Keyboard,
   Pressable,
   Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {confirmSignUpRequest, resendSignUpCodeRequest} from 'core/reducers';
 import {styles} from './styles';
 import {useTranslation} from 'core/hooks';
 import {Button, OneTimeCode} from 'atoms';
-import {Auth} from 'aws-amplify';
 import {IProps} from './types';
 
 export const EmailValidation = ({navigation, route}: IProps) => {
@@ -19,8 +19,10 @@ export const EmailValidation = ({navigation, route}: IProps) => {
   const {t} = useTranslation('authentification');
   const buttonText = t('ready').toUpperCase();
 
+  const dispatch = useDispatch();
+
   const {
-    params: {email},
+    params: {email, restorePassword},
   } = route;
 
   const getEmailCode = (emailCode, isCode) => {
@@ -28,22 +30,18 @@ export const EmailValidation = ({navigation, route}: IProps) => {
     setCode(emailCode);
   };
 
-  const onConfirm = async () => {
-    try {
-      await Auth.confirmSignUp(email, code);
-      navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
-    } catch (e) {
-      Alert.alert('Oops', (e as Error).message);
-    }
+  const onConfirmSignUp = useCallback(() => {
+    dispatch(confirmSignUpRequest({email, code}));
+    navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
+  }, [dispatch, email, code, navigation]);
+
+  const onConfirmForgotPassword = () => {
+    navigation.navigate('NewPassword', {email, code});
   };
 
-  const onResendEmail = async () => {
-    try {
-      await Auth.resendSignUp(email);
-    } catch (e) {
-      Alert.alert('Oops', (e as Error).message);
-    }
-  };
+  const onResendSignUpCodetoEmail = useCallback(() => {
+    dispatch(resendSignUpCodeRequest(email));
+  }, [dispatch, email]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -54,13 +52,15 @@ export const EmailValidation = ({navigation, route}: IProps) => {
             {t('signUpValidationText')} {email}
           </Text>
           <OneTimeCode onCodeInput={getEmailCode} />
-          <Pressable onPress={onResendEmail}>
-            <Text style={styles.repeatText}>{t('repeatAttempt')}</Text>
-          </Pressable>
+          {restorePassword ? null : (
+            <Pressable onPress={onResendSignUpCodetoEmail}>
+              <Text style={styles.repeatText}>{t('repeatAttempt')}</Text>
+            </Pressable>
+          )}
         </View>
         <Button
           style={!isCodeFull ? styles.notActivated : null}
-          onPress={onConfirm}>
+          onPress={restorePassword ? onConfirmForgotPassword : onConfirmSignUp}>
           {buttonText}
         </Button>
       </View>

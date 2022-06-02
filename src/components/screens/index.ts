@@ -7,6 +7,7 @@ export {CategoriesList as CategoriesListScreen} from './CategoriesList';
 export {EmailValidation as EmailValidationScreen} from './EmailValidation';
 export {ErrorScreen} from './ErrorScreen';
 export {Home as HomeScreen} from './Home';
+export {NewPassword as NewPasswordScreen} from './NewPassword';
 export {ObjectDetails as ObjectDetailsScreen} from './ObjectDetails';
 export {ObjectDetailsMap as ObjectDetailsMapScreen} from './ObjectDetailsMap';
 export {ObjectsList as ObjectsListScreen} from './ObjectsList';
