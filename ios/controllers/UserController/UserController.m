@@ -66,4 +66,13 @@
   }];
 }
 
+- (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code {
+  
+  
+  __weak typeof(self) weakSelf = self;
+  [self.authService confirmSignUpForEMail:email code:code completion:^(NSError * _Nonnull) {
+    
+  }];
+}
+
 @end

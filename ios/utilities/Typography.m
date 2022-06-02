@@ -45,7 +45,7 @@ static Typography *instance;
 
 - (NSAttributedString *)codeConfirmationHint:(NSString *)input {
   return [[NSAttributedString alloc] initWithString:input
-                                         attributes:getTextAttributes([Colors get].mainText,
+                                         attributes:getTextAttributes([Colors get].auxiliaryText,
                                                                       15.0,
                                                                       UIFontWeightRegular)];
 }

@@ -36,10 +36,9 @@
   }];
 }
 
-- (void)confirmSignUpForUsername:(NSString *)username
-                            code:(NSString *)code
-                      completion:(void (^)(NSError * _Nonnull))completion {
-  [self.amplifyBridge confirmSignUpFor:username with:code completion:^(NSError * _Nullable error) {
+- (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code
+                   completion:(void (^)(NSError * _Nonnull))completion {
+  [self.amplifyBridge confirmSignUpFor:email with:code completion:^(NSError * _Nullable error) {
     completion(error);
   }];
 }

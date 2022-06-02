@@ -126,4 +126,12 @@ replacementString:(NSString *)string {
   [self fillWithNumbers:sender.text];
 }
 
+- (NSString *)text {
+  return self.backingTextField.text;
+}
+
+- (void)setText:(NSString *)text {
+  [self.backingTextField setText:text];
+}
+
 @end

@@ -19,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
                   password:(NSString *)password
                      email:(NSString *)email
                           completion:(void(^)(NSError * _Nonnull))completion;
-- (void)confirmSignUp:(void(^)(NSError * _Nonnull))completion;
+- (void)confirmSignUpForEMail:(NSString *)email
+                            code:(NSString *)code
+                   completion:(void (^)(NSError * _Nonnull))completion;
 
 @end
 

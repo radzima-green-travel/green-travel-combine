@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PassCodeTextField : UIView<UITextFieldDelegate>
 
+@property(strong, nonatomic) NSString *text;
 - (instancetype)init;
 
 @end

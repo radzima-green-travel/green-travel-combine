@@ -62,7 +62,9 @@
     [self.passCodeField.topAnchor constraintEqualToAnchor:self.hintLabel.bottomAnchor constant:20.0],
   ]];
 
-  self.buttonSubmit = [[CommonButton alloc] initWithTarget:self action:@selector(onSubmit:) label:NSLocalizedString(@"CodeConfirmationScreenSubmit", @"")];
+  self.buttonSubmit = [[CommonButton alloc] initWithTarget:self
+                                                    action:@selector(onSubmit:)
+                                                     label:NSLocalizedString(@"CodeConfirmationScreenSubmit", @"")];
   self.buttonSubmit.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.buttonSubmit];
 
@@ -81,7 +83,8 @@
 }
 
 - (void)onSubmit:(CommonButton *)sender {
-
+  [self.userController confirmSignUpForEMail:self.userModel.email
+                                        code:self.passCodeField.text];
 }
 
 @end

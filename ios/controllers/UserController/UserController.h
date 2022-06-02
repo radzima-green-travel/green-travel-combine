@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
               password:(NSString *)email;
+- (void)confirmSignUpForEMail:(NSString *)email
+                            code:(NSString *)code;
 
 @end
 
