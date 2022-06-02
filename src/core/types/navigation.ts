@@ -45,7 +45,7 @@ export type ProfileNavigatorParamsList = {
   };
   EmailValidation: {
     email: string;
-    restorePassword: boolean;
+    isSignUp: boolean;
   };
 };
 
