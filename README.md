@@ -24,8 +24,8 @@ export MAPBOX_DOWNLOADS_TOKEN=<MAPBOX_DOWNLOADS_TOKEN>
 ```
 
 # Maintainers who can provide files needed for setup
-1. UIKit [maintainer](https://github.com/alexeykomov/).
-2. React Native [maintainer](https://github.com/tr3v3r).
+1. UIKit version [maintainer](https://github.com/alexeykomov/).
+2. React Native version [maintainer](https://github.com/tr3v3r).
 
 # Troubleshooting
 1. `An error occurred while installing json (2.5.1), and Bundler cannot
