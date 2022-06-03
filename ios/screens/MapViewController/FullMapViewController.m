@@ -54,6 +54,7 @@ static NSString* const kBottomSheetButtonLabel = @"Узнать больше";
 static const CGSize kIconSize = {.width = 44.0, .height = 44.0};
 static const CGFloat kZoomLevelForSearch = 8.0;
 static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
+static const CGFloat clusterSize = 32.0;
 
 @implementation FullMapViewController
 
@@ -185,7 +186,6 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 - (void)renderMapItems:(NSArray<MapItem *> *)mapItems
                  style:(MGLStyle *)style {
   self.annotations = [[NSMutableArray alloc] init];
-  CGFloat clusterSize = 32;
   CGFloat clusterSizeMultiplier = clusterSize / kIconSize.width;
   [self.mapView removeAnnotations:self.mapView.annotations];
   [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
