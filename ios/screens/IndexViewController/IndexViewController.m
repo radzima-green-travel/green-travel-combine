@@ -94,10 +94,9 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 
 - (UIInterfaceOrientation)windowInterfaceOrientation {
   if (@available(iOS 13, *)) {
-      return [[[[[UIApplication sharedApplication] windows] firstObject] windowScene] interfaceOrientation];
-    } else {
-      return [[UIApplication sharedApplication] statusBarOrientation];
-    }
+    return [[[[[UIApplication sharedApplication] windows] firstObject] windowScene] interfaceOrientation];
+  }
+  return [[UIApplication sharedApplication] statusBarOrientation];
 }
 
 - (void)viewWillLayoutSubviews {
