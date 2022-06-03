@@ -135,7 +135,7 @@ void configureTabBar(UITabBar *tabBar) {
     configureTabBarItemAppearance(appearance.compactInlineLayoutAppearance);
     
     tabBar.standardAppearance = appearance;
-    tabBar.scrollEdgeAppearance = tabBar.standardAppearance;
+//    tabBar.scrollEdgeAppearance = tabBar.standardAppearance;
   } else {
     tabBar.barTintColor = [Colors get].tabBarBackground;
     tabBar.translucent = NO;
