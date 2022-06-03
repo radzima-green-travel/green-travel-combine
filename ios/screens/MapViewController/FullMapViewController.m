@@ -185,7 +185,8 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 - (void)renderMapItems:(NSArray<MapItem *> *)mapItems
                  style:(MGLStyle *)style {
   self.annotations = [[NSMutableArray alloc] init];
-  double clusterSizeMultiplier = 32 / kIconSize.width;
+  CGFloat clusterSize = 32;
+  CGFloat clusterSizeMultiplier = clusterSize / kIconSize.width;
   [self.mapView removeAnnotations:self.mapView.annotations];
   [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
     MGLPointFeature *point = [[MGLPointFeature alloc] init];
@@ -238,7 +239,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
   clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:
                                     [NSNumber numberWithBool:YES]];
   clusterLayer.iconScale = [NSExpression expressionForConstantValue:
-                            [NSNumber numberWithDouble:clusterSizeMultiplier]];
+                            [NSNumber numberWithFloat:clusterSizeMultiplier]];
   clusterLayer.textOffset =  [NSExpression expressionForConstantValue:
                               [NSValue valueWithCGVector:CGVectorMake(0, 0)]];
   clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
