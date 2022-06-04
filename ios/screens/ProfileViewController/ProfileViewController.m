@@ -73,8 +73,8 @@ static const CGFloat kTopOffset = 90.0;
   [super viewWillAppear:animated];
   CodeConfirmationViewController *codeConfirmationViewController =
   [[CodeConfirmationViewController alloc] init];
-//  [self.navigationController pushViewController:codeConfirmationViewController
-//                                       animated:YES];
+  [self.navigationController pushViewController:codeConfirmationViewController
+                                       animated:YES];
 }
 
 - (void)onModeChoice:(UISegmentedControl *)sender {

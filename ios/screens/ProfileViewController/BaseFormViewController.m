@@ -18,6 +18,8 @@
 
 @interface BaseFormViewController ()
 
+@property(strong, nonatomic) UIView *contentContainerView;
+
 @end
 
 static const CGFloat kMinContentInset = 23.5;
@@ -57,15 +59,30 @@ static const CGFloat kTopOffset = 90.0;
     [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
   ]];
   
+  self.contentContainerView = [[UIView alloc] init];
+  self.contentContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.scrollView addSubview:self.contentContainerView];
+  
+  [NSLayoutConstraint activateConstraints:@[
+    [self.contentContainerView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
+    [self.contentContainerView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
+    [self.contentContainerView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
+    [self.contentContainerView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor],
+    [self.contentContainerView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
+    [self.contentContainerView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor]
+  ]];
+  
+  
   self.contentView = [[UIView alloc] init];
   self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+  self.contentView.backgroundColor = [UIColor blueColor];
   [self.scrollView addSubview:self.contentView];
   
   NSLayoutConstraint *leading = [self.contentView.leadingAnchor
-                                 constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:kMinContentInset];
+                                 constraintEqualToAnchor:self.contentContainerView.leadingAnchor constant:kMinContentInset];
   leading.priority = UILayoutPriorityDefaultHigh;
   NSLayoutConstraint *trailing = [self.contentView.trailingAnchor
-                                  constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-kMinContentInset];
+                                  constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-kMinContentInset];
   trailing.priority = UILayoutPriorityDefaultHigh;
   
   [NSLayoutConstraint activateConstraints:@[

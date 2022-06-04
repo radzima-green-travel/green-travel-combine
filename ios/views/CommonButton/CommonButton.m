@@ -21,15 +21,8 @@
 
 @implementation CommonButton
 
- 
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+static const CGFloat kMaxWidth = 343.0;
+static const CGFloat kMinWidth = 273.0;
 
 - (instancetype)initWithTarget:(id)target action:(SEL)action
                          label:(NSString *)label
@@ -61,8 +54,8 @@
     [self addTarget:self.target action:self.action forControlEvents:UIControlEventTouchUpInside];
 
     [NSLayoutConstraint activateConstraints:@[
-        [self.widthAnchor constraintLessThanOrEqualToConstant:343.0],
-        [self.widthAnchor constraintGreaterThanOrEqualToConstant:288.0],
+        [self.widthAnchor constraintLessThanOrEqualToConstant:kMaxWidth],
+        [self.widthAnchor constraintGreaterThanOrEqualToConstant:kMinWidth],
         [self.heightAnchor constraintGreaterThanOrEqualToConstant:53.0],
     ]];
 }

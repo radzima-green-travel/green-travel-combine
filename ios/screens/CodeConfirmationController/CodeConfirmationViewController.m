@@ -80,6 +80,10 @@
   ]];
 }
 
+- (void)viewDidLayoutSubviews {
+  [self.hintLabel setPreferredMaxLayoutWidth:self.view.frame.size.width - 47.0];
+}
+
 - (void)onUserStateUpdate:(nonnull UserState *)emailSendingState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{

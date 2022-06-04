@@ -16,9 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileViewController : BaseFormViewController<UserModelObserver>
 
-- (instancetype)initWithController:(UserController *)controller
-                   model:(UserModel *)model;
-
 @end
 
 NS_ASSUME_NONNULL_END
