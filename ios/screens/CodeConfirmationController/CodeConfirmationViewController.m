@@ -11,6 +11,7 @@
 #import "UserModel.h"
 #import "CommonButton.h"
 #import "Typography.h"
+#import "Colors.h"
 
 @interface CodeConfirmationViewController ()
 
@@ -19,10 +20,15 @@
 @property(strong, nonatomic) UILabel *titleLabel;
 @property(strong, nonatomic) CommonButton *buttonSubmit;
 @property(strong, nonatomic) UIButton *buttonRetry;
+@property(assign, nonatomic) BOOL shownKeyboard;
 
 @end
 
 @implementation CodeConfirmationViewController
+
+- (void)viewDidLayoutSubviews {
+  [self.hintLabel setPreferredMaxLayoutWidth:self.view.frame.size.width - 47.0];
+}
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -76,12 +82,30 @@
 
   [NSLayoutConstraint activateConstraints:@[
     [self.buttonSubmit.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.passCodeField.bottomAnchor constant:25.0],
+    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.passCodeField.bottomAnchor constant:25.0]
+  ]];
+  
+  self.buttonRetry = [[UIButton alloc] init];
+  self.buttonRetry.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.buttonRetry setTintColor:[Colors get].buttonTextTint];
+  NSAttributedString *label = [[Typography get] textButtonLabel:NSLocalizedString(@"CodeConfirmationScreenRetry", @"")];
+  [self.buttonRetry setAttributedTitle:label forState:UIControlStateNormal];
+  [self.buttonRetry addTarget:self action:@selector(onRetry:) forControlEvents:UIControlEventTouchUpInside];
+  
+  [self.contentView addSubview:self.buttonRetry];
+
+  [NSLayoutConstraint activateConstraints:@[
+    [self.buttonRetry.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.buttonRetry.topAnchor constraintEqualToAnchor:self.buttonSubmit.bottomAnchor constant:25.0],
+    [self.buttonRetry.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor constant:-25.0]
   ]];
 }
 
-- (void)viewDidLayoutSubviews {
-  [self.hintLabel setPreferredMaxLayoutWidth:self.view.frame.size.width - 47.0];
+- (void)viewDidAppear:(BOOL)animated {
+  if (!self.shownKeyboard) {
+    self.shownKeyboard = YES;
+    [self.passCodeField becomeFirstResponder];
+  }
 }
 
 - (void)onUserStateUpdate:(nonnull UserState *)emailSendingState {
@@ -95,6 +119,10 @@
 - (void)onSubmit:(CommonButton *)sender {
   [self.userController confirmSignUpForEMail:self.userModel.email
                                         code:self.passCodeField.text];
+}
+
+- (void)onRetry:(UIButton *)sender {
+  [self.userController resendSignUpCodeForEMail:self.userModel.email];
 }
 
 @end

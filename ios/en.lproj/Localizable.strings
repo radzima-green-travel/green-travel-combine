@@ -62,8 +62,8 @@
 
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";
-"CodeConfirmationScreenHint" = "enter confirmation code from e-mail enter confirmation code from e-mail enter confirmation code from e-mail %@";
-"CodeConfirmationScreenRetry" = "Re-send e-mail";
-"CodeConfirmationScreenSubmit" = "Done";
+"CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
+"CodeConfirmationScreenRetry" = "Resend e-mail";
+"CodeConfirmationScreenSubmit" = "DONE";
 
 

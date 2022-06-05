@@ -61,6 +61,7 @@ static Colors *instance;
     self.mainTextLink = [UIColor colorNamed:@"mainTextLink"];
     self.searchBarClearButton = [UIColor colorNamed:@"searchBarClearButton"];
     self.passCodeTint = [UIColor colorNamed:@"passCodeTint"];
+    self.buttonTextTint = [UIColor colorNamed:@"buttonTextTint"];
   }
   return self;
 }

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)mainText:(NSString *)input;
 - (NSAttributedString *)codeConfirmationHeader:(NSString *)input;
 - (NSAttributedString *)codeConfirmationHint:(NSString *)input;
+- (NSAttributedString *)textButtonLabel:(NSString *)input;
 
 @end
 

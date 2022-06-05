@@ -37,10 +37,14 @@ static const CGFloat kTopOffset = 90.0;
   return self;
 }
 
+- (void)viewWillLayoutSubviews {
+  [super viewWillLayoutSubviews];
+  self.view.backgroundColor = [Colors get].background;
+  configureNavigationBar(self.navigationController.navigationBar);
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
-  UINavigationBar *navigationBar = self.navigationController.navigationBar;
-  configureNavigationBar(navigationBar);
   [self registerForKeyboardNotifications];
   [self.userModel addUserModelObserver:self];
   
@@ -75,7 +79,6 @@ static const CGFloat kTopOffset = 90.0;
   
   self.contentView = [[UIView alloc] init];
   self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.contentView.backgroundColor = [UIColor blueColor];
   [self.scrollView addSubview:self.contentView];
   
   NSLayoutConstraint *leading = [self.contentView.leadingAnchor

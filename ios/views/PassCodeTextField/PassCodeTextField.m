@@ -134,4 +134,9 @@ replacementString:(NSString *)string {
   [self.backingTextField setText:text];
 }
 
+- (BOOL)becomeFirstResponder {
+  [super becomeFirstResponder];
+  return [self.backingTextField becomeFirstResponder];
+}
+
 @end

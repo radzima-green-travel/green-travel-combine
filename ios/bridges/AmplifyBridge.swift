@@ -92,4 +92,22 @@ class AmplifyBridge: NSObject {
       }
     }
   }
+  
+  @objc public func resendSignUpCode(for username: String,
+                                  completion: @escaping (_ err: NSError?) -> Void) {
+    Amplify.Auth.resendSignUpCode(for: username, options: nil) { result in
+      switch result {
+      case .success:
+        print("Resend of confirmatin code succeeded")
+        completion(nil)
+      case .failure(let error):
+        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
+          "message": "Resend of confirmation code failed with error \(error)"
+        ])
+        print("Resend of confirmation code failed \(error)")
+        completion(customError)
+      }
+    }
+  }
+  
 }

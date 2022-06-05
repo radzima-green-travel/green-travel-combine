@@ -64,11 +64,6 @@ static const CGFloat kTopOffset = 90.0;
   [self onUserStateUpdate:self.userModel.emailSendingState];
 }
 
-- (void)viewDidLayoutSubviews {
-  [super viewDidLayoutSubviews];
-  self.view.backgroundColor = [Colors get].background;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   CodeConfirmationViewController *codeConfirmationViewController =

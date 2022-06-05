@@ -50,6 +50,14 @@ static Typography *instance;
                                                                       UIFontWeightRegular)];
 }
 
+- (NSAttributedString *)textButtonLabel:(NSString *)input {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes([Colors get].buttonTextTint,
+                                                                      16.0,
+                                                                      UIFontWeightRegular)];
+}
+
+
 + (instancetype)get {
     if (instance) {
         return instance;

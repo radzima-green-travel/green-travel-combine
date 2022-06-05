@@ -43,4 +43,11 @@
   }];
 }
 
+- (void)resendSignUpCodeEMail:(NSString *)email
+                   completion:(void (^)(NSError * _Nonnull))completion {
+  [self.amplifyBridge resendSignUpCodeFor:email completion:^(NSError * _Nullable error) {
+    completion(error);
+  }];
+}
+
 @end

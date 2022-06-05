@@ -105,7 +105,7 @@
       [self.submitButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
       [self.submitButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
       
-      [self.submitButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+      [self.submitButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-25.0],
   ]];
 }
 

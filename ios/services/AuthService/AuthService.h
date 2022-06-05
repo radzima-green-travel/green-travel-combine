@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)confirmSignUpForEMail:(NSString *)email
                             code:(NSString *)code
                    completion:(void (^)(NSError * _Nonnull))completion;
+- (void)resendSignUpCodeEMail:(NSString *)email
+                   completion:(void (^)(NSError * _Nonnull))completion;
+
 
 @end
 

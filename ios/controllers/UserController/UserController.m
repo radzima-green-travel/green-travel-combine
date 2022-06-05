@@ -70,7 +70,13 @@
   
   
   __weak typeof(self) weakSelf = self;
-  [self.authService confirmSignUpForEMail:email code:code completion:^(NSError * _Nonnull) {
+  [self.authService confirmSignUpForEMail:email code:code completion:^(NSError * _Nonnull error) {
+    
+  }];
+}
+
+- (void)resendSignUpCodeForEMail:(NSString *)email {
+  [self.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull error) {
     
   }];
 }
