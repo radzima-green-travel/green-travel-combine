@@ -15,15 +15,15 @@
   self = [super init];
   if (self) {
     _userModelObservers = [[NSMutableArray alloc] init];
-    UserState *state = [UserState new];
-    _emailSendingState = state;
+    _state = UserModelStateSignUpForm;
   }
   return self;
 }
 
-- (void)setEmailSendingState:(UserState *)emailSendingState {
-  _emailSendingState = emailSendingState;
-  [self notifyUserModelObservers];
+- (void)setState:(UserModelState)state {
+  UserModelState prevState = _state;
+  _state = state;
+  [self notifyUserModelObservers:prevState currentState:state];
 }
 
 - (void)addUserModelObserver:(id<UserModelObserver>)observer {
@@ -33,10 +33,11 @@
   [self.userModelObservers addObject:observer];
 }
 
-- (void)notifyUserModelObservers {
-  
-  [self.userModelObservers enumerateObjectsUsingBlock:^(id<UserModelObserver> _Nonnull observer, NSUInteger idx, BOOL * _Nonnull stop) {
-    [observer onUserStateUpdate:self.emailSendingState];
+- (void)notifyUserModelObservers:(UserModelState)prevState
+                    currentState:(UserModelState)currentState  {
+  [self.userModelObservers enumerateObjectsUsingBlock:^(id<UserModelObserver> _Nonnull observer,
+                                                        NSUInteger idx, BOOL * _Nonnull stop) {
+    [observer onUserModelStateUpdate:prevState currentState:currentState];
   }];
 }
 

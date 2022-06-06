@@ -12,6 +12,7 @@
 #endif /* UserModelObserver_h */
 
 #import <Foundation/Foundation.h>
+#import "UserModelConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol UserModelObserver <NSObject>
 
 - (void)onUserStateUpdate:(UserState *)emailSendingState;
+- (void)onUserModelStateUpdate:(UserModelState)prevState
+                  currentState:(UserModelState)currentState;
 
 @end
 

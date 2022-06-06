@@ -243,7 +243,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PlacesTableViewCell *cell = [(UITableView *)self.dataView dequeueReusableCellWithIdentifier:kCollectionCellId forIndexPath:indexPath];
     [cell update:self.model.randomizedCategories[indexPath.row]];
-
+    
     return cell;
 }
 

@@ -10,6 +10,7 @@
 #import "UserModel.h"
 #import "AuthService.h"
 #import "UserState.h"
+#import "UserModelConstants.h"
 
 @interface UserController()
 
@@ -33,7 +34,7 @@
 - (void)fetchCurrentAuthSession {
   UserState *state = [UserState new];
   [state setInProgress:YES];
-  [self.model setEmailSendingState:state];
+  [self.model setState:UserModelStateSignUpForm];
   
   __weak typeof(self) weakSelf = self;
   [self.authService fetchCurrentAuthSession:^(NSError * _Nonnull error, BOOL signedIn) {
@@ -43,7 +44,7 @@
     [state setInProgress:NO];
     [state setError:error == nil];
     [state setCodeSent:signedIn];
-    [strongSelf.model setEmailSendingState:state];
+    [strongSelf.model setState:UserModelStateSignUpForm];
   }];
 }
 
@@ -52,7 +53,7 @@
               password:(NSString *)password {
   UserState *state = [UserState new];
   [state setInProgress:YES];
-  [self.model setEmailSendingState:state];
+  [self.model setState:UserModelStateSignUpEmailInProgress];
   [self.model setEmail:email];
   
   __weak typeof(self) weakSelf = self;
@@ -62,22 +63,37 @@
     UserState *state = [UserState new];
     [state setInProgress:NO];
     [state setError:error == nil];
-    [strongSelf.model setEmailSendingState:state];
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateSignUpForm];
+      return;
+    }
+    [strongSelf.model setState:UserModelStateCodeConfirmForm];
   }];
 }
 
 - (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code {
-  
-  
+  [self.model setState:UserModelStateCodeConfirmInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService confirmSignUpForEMail:email code:code completion:^(NSError * _Nonnull error) {
-    
+    __weak typeof(weakSelf) strongSelf = weakSelf;
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateCodeConfirmForm];
+      return;
+    }
+    [strongSelf.model setState:UserModelStateSignUpSuccess];
   }];
 }
 
 - (void)resendSignUpCodeForEMail:(NSString *)email {
+  [self.model setState:UserModelStateCodeConfirmInProgress];
+  __weak typeof(self) weakSelf = self;
   [self.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull error) {
-    
+    __weak typeof(weakSelf) strongSelf = weakSelf;
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateCodeConfirmForm];
+      return;
+    }
+    [strongSelf.model setState:UserModelStateSignUpSuccess];
   }];
 }
 

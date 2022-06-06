@@ -10,7 +10,7 @@
 
 
 #endif /* UserModelObservable_h */
-
+#import "UserModelConstants.h"
 
 @protocol UserModelObserver;
 
@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSMutableArray<id<UserModelObserver>> *userModelObservers;
 - (void)addUserModelObserver:(id<UserModelObserver>)observer;
 - (void)removeUserModelObserver:(id<UserModelObserver>)observer;
-- (void)notifyUserModelObservers;
+- (void)notifyUserModelObservers:(UserModelState)prevState
+                    currentState:(UserModelState)prevState;
 
 @end

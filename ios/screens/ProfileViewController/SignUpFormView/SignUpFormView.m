@@ -16,7 +16,6 @@
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) CommonTextField *textFieldMail;
 @property (strong, nonatomic) CommonTextField *textFieldPass;
-@property (strong, nonatomic) CommonTextField *textFieldPassRepeat;
 @property (strong, nonatomic) CommonButton *submitButton;
 @property (copy, nonatomic) void(^onSubmit)(NSString *, NSString *, NSString *);
 
@@ -80,20 +79,6 @@
       [self.textFieldPass.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
   ]];
   
-  self.textFieldPassRepeat =
-  [[SecureTextField alloc] initWithImageName:@"password-lock"
-                                keyboardType:UIKeyboardTypeDefault
-                                 placeholder:NSLocalizedString(@"ProfileScreenPlaceholderPasswordRepeat", @"")];
-  self.textFieldPassRepeat.textField.delegate = self;
-  
-  [self addSubview:self.textFieldPassRepeat];
-  self.textFieldPassRepeat.translatesAutoresizingMaskIntoConstraints = NO;
-  [NSLayoutConstraint activateConstraints:@[
-      [self.textFieldPassRepeat.topAnchor constraintEqualToAnchor:self.textFieldPass.bottomAnchor constant:12],
-      [self.textFieldPassRepeat.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-      [self.textFieldPassRepeat.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-  ]];
-  
   self.submitButton =
   [[CommonButton alloc] initWithTarget:self
                                 action:@selector(onSubmit:)
@@ -101,7 +86,7 @@
   [self addSubview:self.submitButton];
   self.submitButton.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
-      [self.submitButton.topAnchor constraintEqualToAnchor:self.textFieldPassRepeat.bottomAnchor constant:12],
+      [self.submitButton.topAnchor constraintEqualToAnchor:self.textFieldPass.bottomAnchor constant:12],
       [self.submitButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
       [self.submitButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
       

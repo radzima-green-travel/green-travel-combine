@@ -15,6 +15,7 @@
 #import "UserModel.h"
 #import "UserState.h"
 #import "CodeConfirmationViewController.h"
+#import "UserModelConstants.h"
 
 @interface ProfileViewController ()
 
@@ -40,7 +41,7 @@ static const CGFloat kTopOffset = 90.0;
   self.procedureChoiceView = [[UISegmentedControl alloc] initWithItems:items];
   [self.procedureChoiceView addTarget:self action:@selector(onModeChoice:)
                      forControlEvents:UIControlEventValueChanged];
-  
+  [self.procedureChoiceView setTintColor:[Colors get].buttonTextTint];
   self.procedureChoiceView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.procedureChoiceView];
   NSLayoutConstraint *leading = [self.procedureChoiceView.leadingAnchor
@@ -61,15 +62,14 @@ static const CGFloat kTopOffset = 90.0;
   
   [self.procedureChoiceView setSelectedSegmentIndex:0];
   [self onModeChoice:self.procedureChoiceView];
-  [self onUserStateUpdate:self.userModel.emailSendingState];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  CodeConfirmationViewController *codeConfirmationViewController =
-  [[CodeConfirmationViewController alloc] init];
-  [self.navigationController pushViewController:codeConfirmationViewController
-                                       animated:YES];
+//  CodeConfirmationViewController *codeConfirmationViewController =
+//  [[CodeConfirmationViewController alloc] init];
+//  [self.navigationController pushViewController:codeConfirmationViewController
+//                                       animated:YES];
 }
 
 - (void)onModeChoice:(UISegmentedControl *)sender {
@@ -128,17 +128,23 @@ static const CGFloat kTopOffset = 90.0;
   [self.userController initiateSignUp:email username:username password:password];
 }
 
-- (void)onUserStateUpdate:(nonnull UserState *)emailSendingState {
+- (void)onUserModelStateUpdate:(UserModelState)prevState
+                  currentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (emailSendingState.error) {
-        
-      }
-      if (emailSendingState.inProgress) {
+      if (prevState == UserModelStateSignUpForm && currentState == UserModelStateSignUpEmailInProgress) {
         [self enableLoadingIndicator:YES];
+        return;
       }
-      if (emailSendingState.codeSent) {
+      if (prevState == UserModelStateCodeConfirmForm && currentState == UserModelStateCodeConfirmInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
+      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateSignUpForm) {
         [self enableLoadingIndicator:NO];
+        return;
+      }
+      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateCodeConfirmForm) {
         CodeConfirmationViewController *codeConfirmationViewController =
         [[CodeConfirmationViewController alloc] initWithController:self.userController
                                                              model:self.userModel];

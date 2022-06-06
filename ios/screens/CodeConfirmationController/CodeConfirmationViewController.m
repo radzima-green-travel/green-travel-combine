@@ -12,6 +12,7 @@
 #import "CommonButton.h"
 #import "Typography.h"
 #import "Colors.h"
+#import "UIButtonHighlightable.h"
 
 @interface CodeConfirmationViewController ()
 
@@ -85,7 +86,7 @@
     [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.passCodeField.bottomAnchor constant:25.0]
   ]];
   
-  self.buttonRetry = [[UIButton alloc] init];
+  self.buttonRetry = [[UIButtonHighlightable alloc] init];
   self.buttonRetry.translatesAutoresizingMaskIntoConstraints = NO;
   [self.buttonRetry setTintColor:[Colors get].buttonTextTint];
   NSAttributedString *label = [[Typography get] textButtonLabel:NSLocalizedString(@"CodeConfirmationScreenRetry", @"")];
@@ -108,10 +109,24 @@
   }
 }
 
-- (void)onUserStateUpdate:(nonnull UserState *)emailSendingState {
+- (void)onUserModelStateUpdate:(UserModelState)prevState currentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
-
+      if (prevState == UserModelStateCodeConfirmForm && currentState == UserModelStateCodeConfirmInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
+      if (prevState == UserModelStateCodeConfirmInProgress && currentState == UserModelStateCodeConfirmForm) {
+        [self enableLoadingIndicator:NO];
+        return;
+      }
+      if (prevState == UserModelStateCodeConfirmInProgress && currentState == UserModelStateSignUpSuccess) {
+        CodeConfirmationViewController *codeConfirmationViewController =
+        [[CodeConfirmationViewController alloc] initWithController:self.userController
+                                                             model:self.userModel];
+        [self.navigationController pushViewController:codeConfirmationViewController
+                                             animated:YES];
+      }
     });
   });
 }

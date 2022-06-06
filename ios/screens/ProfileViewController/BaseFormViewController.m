@@ -106,10 +106,10 @@ static const CGFloat kTopOffset = 90.0;
     self.loadingView = [[UIActivityIndicatorView alloc] init];
   }
   self.loadingView.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.contentView addSubview:self.loadingView];
+  [self.scrollView addSubview:self.loadingView];
   [NSLayoutConstraint activateConstraints:@[
-    [self.loadingView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-    [self.loadingView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+    [self.loadingView.centerXAnchor constraintEqualToAnchor:self.scrollView.centerXAnchor],
+    [self.loadingView.centerYAnchor constraintEqualToAnchor:self.scrollView.centerYAnchor],
   ]];
 }
 
@@ -123,15 +123,13 @@ static const CGFloat kTopOffset = 90.0;
 }
 
 - (void)enableLoadingIndicator:(BOOL)enable {
+  [self.contentView setHidden:enable];
+  [self.loadingView setHidden:!enable];
   if (enable) {
-    [self.contentView setHidden:enable];
-    [self.loadingView setHidden:!enable];
-    if (enable) {
-      [self.loadingView startAnimating];
-      return;
-    }
-    [self.loadingView stopAnimating];
+    [self.loadingView startAnimating];
+    return;
   }
+  [self.loadingView stopAnimating];
 }
 
 - (void)registerForKeyboardNotifications {
