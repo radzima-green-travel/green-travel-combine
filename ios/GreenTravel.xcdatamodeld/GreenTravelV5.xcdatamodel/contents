@@ -6,6 +6,7 @@
     <entity name="StoredCategory" representedClassName="StoredCategory" syncable="YES">
         <attribute name="coverURL" optional="YES" attributeType="String"/>
         <attribute name="icon" optional="YES" attributeType="String"/>
+        <attribute name="singularName" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>
         <relationship name="categories" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="StoredCategory" inverseName="parent" inverseEntity="StoredCategory"/>
@@ -32,6 +33,7 @@
         <attribute name="descriptionHTML" optional="YES" attributeType="String"/>
         <attribute name="imageURLs" optional="YES" attributeType="String"/>
         <attribute name="length" optional="YES" attributeType="String"/>
+        <attribute name="singularName" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>
         <relationship name="area" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredArea"/>
@@ -49,6 +51,7 @@
         <attribute name="imageURLs" optional="YES" attributeType="String"/>
         <attribute name="length" optional="YES" attributeType="String"/>
         <attribute name="sections" optional="YES" attributeType="String"/>
+        <attribute name="singularName" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>
         <relationship name="details" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="StoredPlaceDetails"/>
@@ -63,13 +66,13 @@
     </entity>
     <elements>
         <element name="StoredArea" positionX="-27" positionY="108" width="128" height="44"/>
-        <element name="StoredCategory" positionX="-63" positionY="54" width="128" height="148"/>
+        <element name="StoredCategory" positionX="-63" positionY="54" width="128" height="149"/>
         <element name="StoredCategoryUUIDToRelatedItemUUIDs" positionX="-45" positionY="81" width="128" height="73"/>
         <element name="StoredCoordinate" positionX="-45" positionY="90" width="128" height="73"/>
         <element name="StoredCoordinateCollection" positionX="-36" positionY="99" width="128" height="58"/>
         <element name="StoredInformationReference" positionX="-45" positionY="99" width="128" height="59"/>
-        <element name="StoredPlaceDetails" positionX="-54" positionY="72" width="128" height="194"/>
-        <element name="StoredPlaceItem" positionX="-63" positionY="-18" width="128" height="209"/>
+        <element name="StoredPlaceDetails" positionX="-54" positionY="72" width="128" height="209"/>
+        <element name="StoredPlaceItem" positionX="-63" positionY="-18" width="128" height="224"/>
         <element name="StoredRelatedItemUUID" positionX="-36" positionY="90" width="128" height="58"/>
         <element name="StoredSearchItem" positionX="-54" positionY="72" width="128" height="73"/>
     </elements>

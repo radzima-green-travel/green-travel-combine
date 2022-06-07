@@ -105,6 +105,7 @@ NSPersistentContainer *_persistentContainer;
     item.bookmarked = storedItem.bookmarked;
     item.address = storedItem.address;
     item.length = storedItem.length.description;
+    item.singularName = storedItem.singularName;
     return item;
 }
 
@@ -114,6 +115,7 @@ NSPersistentContainer *_persistentContainer;
     category.uuid = storedCategory.uuid;
     category.cover = storedCategory.coverURL;
     category.icon = storedCategory.icon;
+    category.singularName = storedCategory.singularName;
     NSMutableArray *items = [[NSMutableArray alloc] init];
     [storedCategory.items enumerateObjectsUsingBlock:^(StoredPlaceItem * _Nonnull storedItem, NSUInteger idx, BOOL * _Nonnull stop) {
         [items addObject:[self mapStoredPlaceItemToPlaceItem:storedItem withCategory:category]];
@@ -208,6 +210,7 @@ NSPersistentContainer *_persistentContainer;
         storedCategory.title = category.title;
         storedCategory.uuid = category.uuid;
         storedCategory.icon = category.icon;
+        storedCategory.singularName = category.singularName;
         storedCategory.coverURL = category.cover != nil && category.cover != [NSNull null] ? category.cover : @"";
         storedCategory.parent = parentCategory;
         [category.items enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -235,6 +238,7 @@ NSPersistentContainer *_persistentContainer;
     storedItem.bookmarked = item.bookmarked;
     storedItem.address = item.address;
     storedItem.length = item.length.description;
+    storedItem.singularName = item.singularName;
     return storedItem;
 }
 
@@ -258,6 +262,7 @@ NSArray<NSString *>* mapStoredURLsToURLs(NSString *urls) {
   storedDetails.url = details.url;
   storedDetails.descriptionHTML = details.descriptionHTML;
   storedDetails.length = details.length.description;
+  storedDetails.singularName = details.singularName;
   
   storedDetails.imageURLs = mapURLsToStoredURLs(details.images);
   // Save linked categories.
@@ -345,6 +350,7 @@ NSArray<NSString *>* mapStoredURLsToURLs(NSString *urls) {
   details.images = mapStoredURLsToURLs(storedDetails.imageURLs);
   details.descriptionHTML = storedDetails.descriptionHTML;
   details.length = storedDetails.length.description;
+  details.singularName = storedDetails.singularName;
 
   details.categoryIdToItems =
       categoryIdToItemsFromStored(storedDetails.linkedCategories);
@@ -558,6 +564,7 @@ NSMutableArray<InformationReference *>* referencesFromStored(NSOrderedSet<Stored
         storedDetails.uuid = uuid;
         storedDetails.address = details.address;
         storedDetails.length = details.length.description;
+        storedDetails.singularName = details.singularName;
         storedDetails.descriptionHTML = details.descriptionHTML;
         storedDetails.imageURLs = [details.images componentsJoinedByString:@","];
         // Save linked categories.

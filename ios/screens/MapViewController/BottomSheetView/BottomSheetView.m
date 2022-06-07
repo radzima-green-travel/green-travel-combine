@@ -14,6 +14,7 @@
 #import "BookmarkButton.h"
 #import "PlaceDetails.h"
 #import "BookmarkButtonConstants.h"
+#import "PlaceCategory.h"
 
 @interface BottomSheetView ()
 
@@ -177,7 +178,7 @@ otherGestureRecognizer {
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.address color:[Colors get].mainText]];
   if (item.length.description && ![item.length.description isEqual:[NSNull null]] ) {
-    self.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%.2f %@, %@", item.length.doubleValue, self.kilometers, item.address]];
+    self.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%@\n%.2f %@, %@", item.address, item.length.doubleValue, self.kilometers, item.category.singularName]];
       }
 
   [self appear];
@@ -200,7 +201,7 @@ onBookmarkPress:(void(^)(BOOL))onBookmarkPress {
   [self.headerLabel setTextColor:[Colors get].headlineText];
   [self.addressLabel setAttributedText:[[TypographyLegacy get] makeSubtitle2Regular:item.address color:[Colors get].mainText]];
   if (item.length.description && ![item.length.description isEqual:[NSNull null]] ) {
-    self.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%.2f %@, %@", item.length.doubleValue, self.kilometers, item.address]];
+    self.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%@\n%.2f %@, %@", item.address, item.length.doubleValue, self.kilometers, item.category.singularName]];
       }
 
   [self appear];

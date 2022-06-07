@@ -532,7 +532,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
         [weakSelf addAddressLabel];
         weakSelf.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:details.address];
           NSString * kilometers = NSLocalizedString(@"Kilometers", "");
-    if (details.length.description) {
+    if (details.length) {
       weakSelf.addressLabel.attributedText = [[TypographyLegacy get] makeSubtitle3Regular:[NSString stringWithFormat:@"%.2f %@, %@", details.length.doubleValue, kilometers, details.address]];
         }
       }
