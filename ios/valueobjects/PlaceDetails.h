@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *address;
 @property (strong, nonatomic) NSString *descriptionHTML;
 @property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) NSString *length;
+@property (strong, nonatomic) NSString *singularName;
 - (BOOL)isEqual:(id)object;
 @property (readonly) NSUInteger hash;
 @property (strong, nonatomic) NSArray<CategoryUUIDToRelatedItemUUIDs *> *categoryIdToItems;

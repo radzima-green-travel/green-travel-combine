@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray<PlaceCategory *> *categories;
 @property (strong, nonatomic) NSMutableArray<PlaceItem *> *items;
 @property (strong, nonatomic) NSString *cover;
+@property (strong, nonatomic) NSString *singularName;
 @property (strong, nonatomic) void (^onAllButtonPress)(void);
 @property (strong, nonatomic) void (^onPlaceCellPress)(void);
 

@@ -583,6 +583,7 @@
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E864D96B10ABCD37BAAAE8 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
+		D9B6501C284559B70048EAA4 /* GreenTravelV5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV5.xcdatamodel; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -2552,12 +2553,13 @@
 		5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D9B6501C284559B70048EAA4 /* GreenTravelV5.xcdatamodel */,
 				5AB4AFC027B5A94C00C74857 /* GreenTravelV4.xcdatamodel */,
 				5A333C5C273DC89A00F95180 /* GreenTravelV3.xcdatamodel */,
 				5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */,
 				5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */,
 			);
-			currentVersion = 5AB4AFC027B5A94C00C74857 /* GreenTravelV4.xcdatamodel */;
+			currentVersion = D9B6501C284559B70048EAA4 /* GreenTravelV5.xcdatamodel */;
 			path = GreenTravel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

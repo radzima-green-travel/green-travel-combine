@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *coverURL;
 @property (nullable, nonatomic, copy) NSString *icon;
 @property (nullable, nonatomic, copy) NSString *title;
+@property (nullable, nonatomic, copy) NSString *singularName;
 @property (nullable, nonatomic, copy) NSString *uuid;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredCategory *> *categories;
 @property (nullable, nonatomic, retain) NSOrderedSet<StoredPlaceItem *> *items;
