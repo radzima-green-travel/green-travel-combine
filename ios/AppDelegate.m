@@ -29,7 +29,7 @@
     AmplifyBridge *bridge = [AmplifyBridge new];
     [bridge initialize];
     [bridge fetchCurrentAuthSession];
-    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     return YES;
 }
 
