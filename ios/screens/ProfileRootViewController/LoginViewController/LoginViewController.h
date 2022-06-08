@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class UserController;
 @class UserModel;
 
-@interface ProfileViewController : BaseFormViewController<UserModelObserver>
+@interface LoginViewController : BaseFormViewController<UserModelObserver>
 
 @end
 

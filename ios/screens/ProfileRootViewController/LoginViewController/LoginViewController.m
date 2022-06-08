@@ -5,7 +5,7 @@
 //  Created by Alex K on 19.05.22.
 //
 
-#import "ProfileViewController.h"
+#import "LoginViewController.h"
 #import "Colors.h"
 #import "StyleUtils.h"
 #import "SignUpFormView.h"
@@ -17,11 +17,12 @@
 #import "CodeConfirmationViewController.h"
 #import "UserModelConstants.h"
 
-@interface ProfileViewController ()
+@interface LoginViewController ()
 
 @property (strong, nonatomic) SignUpFormView *signUpView;
 @property (strong, nonatomic) SignInFormView *signInView;
 @property (strong, nonatomic) UISegmentedControl *procedureChoiceView;
+@property (assign, nonatomic) BOOL navigatedToCodeScreen;
 
 @end
 
@@ -29,7 +30,7 @@ static const CGFloat kMinContentInset = 23.5;
 static const CGFloat kMaxContentWidth = 328.0;
 static const CGFloat kTopOffset = 90.0;
 
-@implementation ProfileViewController
+@implementation LoginViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -66,10 +67,8 @@ static const CGFloat kTopOffset = 90.0;
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-//  CodeConfirmationViewController *codeConfirmationViewController =
-//  [[CodeConfirmationViewController alloc] init];
-//  [self.navigationController pushViewController:codeConfirmationViewController
-//                                       animated:YES];
+  [self onUserModelStateTransitionFrom:self.userModel.prevState
+                        toCurrentState:self.userModel.state];
 }
 
 - (void)onModeChoice:(UISegmentedControl *)sender {
@@ -126,30 +125,45 @@ static const CGFloat kTopOffset = 90.0;
         username:(NSString *)username
         password:(NSString *)password {
   [self.userController initiateSignUp:email username:username password:password];
+  self.navigatedToCodeScreen = NO;
 }
 
-- (void)onUserModelStateUpdate:(UserModelState)prevState
-                  currentState:(UserModelState)currentState {
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
+                  toCurrentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (prevState == UserModelStateSignUpForm && currentState == UserModelStateSignUpEmailInProgress) {
+      if (prevState == UserModelStateFetched && currentState == UserModelStateSignUpEmailInProgress) {
         [self enableLoadingIndicator:YES];
         return;
       }
-      if (prevState == UserModelStateCodeConfirmForm && currentState == UserModelStateCodeConfirmInProgress) {
+      if (prevState == UserModelStateConfirmCodeNotSent && currentState == UserModelStateConfirmCodeInProgress) {
         [self enableLoadingIndicator:YES];
         return;
       }
-      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateSignUpForm) {
+      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateFetched) {
         [self enableLoadingIndicator:NO];
         return;
       }
-      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateCodeConfirmForm) {
+      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateConfirmCodeSent) {
+        [self enableLoadingIndicator:NO];
+        return;
+      }
+      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateConfirmCodeNotSent && !self.navigatedToCodeScreen) {
         CodeConfirmationViewController *codeConfirmationViewController =
         [[CodeConfirmationViewController alloc] initWithController:self.userController
                                                              model:self.userModel];
         [self.navigationController pushViewController:codeConfirmationViewController
                                              animated:YES];
+        self.navigatedToCodeScreen = YES;
+        return;
+      }
+      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateConfirmCodeNotSent && self.navigatedToCodeScreen) {
+        [self enableLoadingIndicator:NO];
+        return;
+      }
+      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateConfirmCodeNotSent && self.navigatedToCodeScreen) {
+        [self enableLoadingIndicator:NO];
+        return;
       }
     });
   });

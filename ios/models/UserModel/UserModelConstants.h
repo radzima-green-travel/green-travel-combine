@@ -12,9 +12,12 @@
 #endif /* UserModelConstants_h */
 
 typedef NS_ENUM(NSInteger, UserModelState) {
-    UserModelStateSignUpForm,
+    UserModelStateNotFetched,
+    UserModelStateFetchingInProgress,
+    UserModelStateFetched,
     UserModelStateSignUpEmailInProgress,
-    UserModelStateCodeConfirmForm,
-    UserModelStateCodeConfirmInProgress,
+    UserModelStateConfirmCodeNotSent,
+    UserModelStateConfirmCodeInProgress,
+    UserModelStateConfirmCodeSent,
     UserModelStateSignUpSuccess,
 };

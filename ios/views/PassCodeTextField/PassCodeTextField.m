@@ -49,6 +49,7 @@ static const CGFloat kSpacing = 8.0;
   [self addSubview:self.backingTextField];
   self.backingTextField.translatesAutoresizingMaskIntoConstraints = NO;
   [self.backingTextField setKeyboardType:UIKeyboardTypeNumberPad];
+  [self.backingTextField setTextContentType:UITextContentTypeOneTimeCode];
   self.backingTextField.delegate = self;
   [NSLayoutConstraint activateConstraints:@[
     [self.backingTextField.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],

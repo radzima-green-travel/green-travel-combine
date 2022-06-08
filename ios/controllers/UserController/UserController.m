@@ -32,19 +32,12 @@
 }
 
 - (void)fetchCurrentAuthSession {
-  UserState *state = [UserState new];
-  [state setInProgress:YES];
-  [self.model setState:UserModelStateSignUpForm];
-  
+  [self.model setState:UserModelStateFetchingInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService fetchCurrentAuthSession:^(NSError * _Nonnull error, BOOL signedIn) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
-      
-    UserState *state = [UserState new];
-    [state setInProgress:NO];
-    [state setError:error == nil];
-    [state setCodeSent:signedIn];
-    [strongSelf.model setState:UserModelStateSignUpForm];
+    [strongSelf.model setSignedIn:signedIn];
+    [strongSelf.model setState:UserModelStateFetched];
   }];
 }
 
@@ -64,20 +57,20 @@
     [state setInProgress:NO];
     [state setError:error == nil];
     if (error != nil) {
-      [strongSelf.model setState:UserModelStateSignUpForm];
+      [strongSelf.model setState:UserModelStateFetched];
       return;
     }
-    [strongSelf.model setState:UserModelStateCodeConfirmForm];
+    [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
   }];
 }
 
 - (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code {
-  [self.model setState:UserModelStateCodeConfirmInProgress];
+  [self.model setState:UserModelStateConfirmCodeInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService confirmSignUpForEMail:email code:code completion:^(NSError * _Nonnull error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
-      [strongSelf.model setState:UserModelStateCodeConfirmForm];
+      [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
       return;
     }
     [strongSelf.model setState:UserModelStateSignUpSuccess];
@@ -85,12 +78,12 @@
 }
 
 - (void)resendSignUpCodeForEMail:(NSString *)email {
-  [self.model setState:UserModelStateCodeConfirmInProgress];
+  [self.model setState:UserModelStateConfirmCodeInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
-      [strongSelf.model setState:UserModelStateCodeConfirmForm];
+      [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
       return;
     }
     [strongSelf.model setState:UserModelStateSignUpSuccess];

@@ -157,8 +157,7 @@ static const CGFloat kTopOffset = 90.0;
   self.scrollView.scrollIndicatorInsets = contentInsets;
 }
 
-- (void)onUserStateUpdate:(nonnull UserState *)userState {
-  
-}
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
+                        toCurrentState:(UserModelState)currentState {}
 
 @end

@@ -21,9 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol UserModelObserver <NSObject>
 
-- (void)onUserStateUpdate:(UserState *)emailSendingState;
-- (void)onUserModelStateUpdate:(UserModelState)prevState
-                  currentState:(UserModelState)currentState;
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
+                  toCurrentState:(UserModelState)currentState;
 
 @end
 

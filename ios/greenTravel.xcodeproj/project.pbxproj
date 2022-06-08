@@ -13,7 +13,7 @@
 		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
-		5A096AFD2836A20F000FADB2 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* ProfileViewController.m */; };
+		5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* LoginViewController.m */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
@@ -200,6 +200,10 @@
 		5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF0351284524B000D98E9A /* NumberViewConstants.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
+		5AFFD0F12850E4BD009E5AB8 /* ProfileRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */; };
+		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
+		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
+		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -218,8 +222,8 @@
 		5A006D182783565A00010D63 /* URLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLUtils.h; sourceTree = "<group>"; };
 		5A006D192783565A00010D63 /* URLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLUtils.m; sourceTree = "<group>"; };
 		5A05E8532821787E00017BA0 /* AmplifyBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyBridge.swift; sourceTree = "<group>"; };
-		5A096AFB2836A20F000FADB2 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
-		5A096AFC2836A20F000FADB2 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		5A096AFB2836A20F000FADB2 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5A096AFC2836A20F000FADB2 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
 		5A105EE326501FA000511256 /* RotationLockUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationLockUtility.m; sourceTree = "<group>"; };
 		5A105FE9265FD99100511256 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
@@ -596,6 +600,14 @@
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
 		5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryImagePlaceholder.h; sourceTree = "<group>"; };
+		5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileRootViewController.h; sourceTree = "<group>"; };
+		5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileRootViewController.m; sourceTree = "<group>"; };
+		5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		5AFFD0F82851FE88009E5AB8 /* UserFetchProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchProgressViewController.h; sourceTree = "<group>"; };
+		5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchProgressViewController.m; sourceTree = "<group>"; };
+		5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchErrorViewController.h; sourceTree = "<group>"; };
+		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
 		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -677,17 +689,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5A096AFA2836A1F0000FADB2 /* ProfileViewController */ = {
+		5A096AFA2836A1F0000FADB2 /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5A096AFB2836A20F000FADB2 /* ProfileViewController.h */,
-				5A096AFC2836A20F000FADB2 /* ProfileViewController.m */,
+				5A096AFB2836A20F000FADB2 /* LoginViewController.h */,
+				5A096AFC2836A20F000FADB2 /* LoginViewController.m */,
 				5AD347EC2837FD0200235E96 /* SignUpFormView */,
 				5AD347EB2837FCF600235E96 /* SignInFormView */,
 				5A95F1F92847F39500CCA852 /* BaseFormViewController.h */,
 				5A95F1FA2847F39500CCA852 /* BaseFormViewController.m */,
 			);
-			path = ProfileViewController;
+			path = LoginViewController;
 			sourceTree = "<group>";
 		};
 		5A105FEE2660018C00511256 /* MapService */ = {
@@ -1030,10 +1042,9 @@
 		5A775A9826064C8F00CEFC78 /* screens */ = {
 			isa = PBXGroup;
 			children = (
-				5A98894128424A1B0000271B /* CodeConfirmationController */,
+				5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */,
 				5A775D83260775EA00CEFC78 /* RootViewController */,
 				5A775D9026077A7C00CEFC78 /* BookmarksViewController */,
-				5A096AFA2836A1F0000FADB2 /* ProfileViewController */,
 				5A775DC626077A7C00CEFC78 /* DetailsViewController */,
 				5A775D9626077A7C00CEFC78 /* IndexViewController */,
 				5A775DC326077A7C00CEFC78 /* MainViewController */,
@@ -1673,6 +1684,47 @@
 			path = CommonButton;
 			sourceTree = "<group>";
 		};
+		5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */,
+				5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */,
+				5AFFD0F72851FE6D009E5AB8 /* UserFetchProgressViewController */,
+				5AFFD0F62851FE54009E5AB8 /* UserFetchErrorViewController */,
+				5A98894128424A1B0000271B /* CodeConfirmationController */,
+				5A096AFA2836A1F0000FADB2 /* LoginViewController */,
+				5AFFD0F22850E7FD009E5AB8 /* ProfileViewController */,
+			);
+			path = ProfileRootViewController;
+			sourceTree = "<group>";
+		};
+		5AFFD0F22850E7FD009E5AB8 /* ProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */,
+				5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */,
+			);
+			path = ProfileViewController;
+			sourceTree = "<group>";
+		};
+		5AFFD0F62851FE54009E5AB8 /* UserFetchErrorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */,
+				5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */,
+			);
+			path = UserFetchErrorViewController;
+			sourceTree = "<group>";
+		};
+		5AFFD0F72851FE6D009E5AB8 /* UserFetchProgressViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFD0F82851FE88009E5AB8 /* UserFetchProgressViewController.h */,
+				5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */,
+			);
+			path = UserFetchProgressViewController;
+			sourceTree = "<group>";
+		};
 		624E38CE2519E467001D98E2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1766,9 +1818,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 53APD5F9YQ;
+						DevelopmentTeam = NWSTPFC433;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -2138,12 +2190,14 @@
 				5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */,
 				5A775E0F26077A7D00CEFC78 /* SlideCollectionViewCell.m in Sources */,
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
+				5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
 				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
 				5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */,
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
 				5AB4AFCF27B5B20E00C74857 /* StoredPlaceDetails+CoreDataClass.m in Sources */,
 				5ADF034B283CED3200D98E9A /* UserState.m in Sources */,
+				5AFFD0F12850E4BD009E5AB8 /* ProfileRootViewController.m in Sources */,
 				5A1FFB29267626A400E31162 /* Colors.m in Sources */,
 				5A775DF726077A7D00CEFC78 /* RefreshButton.m in Sources */,
 				5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */,
@@ -2156,6 +2210,7 @@
 				5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */,
 				5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */,
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
+				5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */,
 				5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */,
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
@@ -2218,7 +2273,7 @@
 				5AD347EF2837FD2800235E96 /* SignUpFormView.m in Sources */,
 				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
-				5A096AFD2836A20F000FADB2 /* ProfileViewController.m in Sources */,
+				5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */,
 				5A775B5E26064C9000CEFC78 /* PathDetails.m in Sources */,
 				5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */,
 				5A775E0226077A7D00CEFC78 /* CategoriesFilterCollectionViewCell.m in Sources */,
@@ -2274,6 +2329,7 @@
 				5A775B4E26064C9000CEFC78 /* LocationModel.m in Sources */,
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
 				5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */,
+				5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */,
 				5A105FEC265FD9E300511256 /* Directions.m in Sources */,
 				5A6DC50B2655B28900A2D37B /* StoredArea+CoreDataProperties.m in Sources */,
 				5A98894C2843AA030000271B /* NumberView.m in Sources */,
@@ -2324,10 +2380,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 25;
-				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				DEVELOPMENT_TEAM = NWSTPFC433;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2346,9 +2402,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
-				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

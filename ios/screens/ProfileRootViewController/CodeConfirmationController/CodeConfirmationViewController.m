@@ -109,23 +109,19 @@
   }
 }
 
-- (void)onUserModelStateUpdate:(UserModelState)prevState currentState:(UserModelState)currentState {
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (prevState == UserModelStateCodeConfirmForm && currentState == UserModelStateCodeConfirmInProgress) {
+      if (prevState == UserModelStateConfirmCodeNotSent && currentState == UserModelStateConfirmCodeInProgress) {
         [self enableLoadingIndicator:YES];
         return;
       }
-      if (prevState == UserModelStateCodeConfirmInProgress && currentState == UserModelStateCodeConfirmForm) {
+      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateConfirmCodeNotSent) {
         [self enableLoadingIndicator:NO];
         return;
       }
-      if (prevState == UserModelStateCodeConfirmInProgress && currentState == UserModelStateSignUpSuccess) {
-        CodeConfirmationViewController *codeConfirmationViewController =
-        [[CodeConfirmationViewController alloc] initWithController:self.userController
-                                                             model:self.userModel];
-        [self.navigationController pushViewController:codeConfirmationViewController
-                                             animated:YES];
+      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateSignUpSuccess) {
+        // Success case is handled by ProfileRootViewController.
       }
     });
   });
@@ -134,6 +130,7 @@
 - (void)onSubmit:(CommonButton *)sender {
   [self.userController confirmSignUpForEMail:self.userModel.email
                                         code:self.passCodeField.text];
+  [self.view endEditing:YES];
 }
 
 - (void)onRetry:(UIButton *)sender {

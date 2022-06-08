@@ -15,15 +15,17 @@
   self = [super init];
   if (self) {
     _userModelObservers = [[NSMutableArray alloc] init];
-    _state = UserModelStateSignUpForm;
+    _prevState = UserModelStateNotFetched;
+    _state = UserModelStateNotFetched;
   }
   return self;
 }
 
 - (void)setState:(UserModelState)state {
   UserModelState prevState = _state;
+  _prevState = prevState;
   _state = state;
-  [self notifyUserModelObservers:prevState currentState:state];
+  [self notifyUserModelObservers:_prevState currentState:_state];
 }
 
 - (void)addUserModelObserver:(id<UserModelObserver>)observer {
@@ -37,7 +39,7 @@
                     currentState:(UserModelState)currentState  {
   [self.userModelObservers enumerateObjectsUsingBlock:^(id<UserModelObserver> _Nonnull observer,
                                                         NSUInteger idx, BOOL * _Nonnull stop) {
-    [observer onUserModelStateUpdate:prevState currentState:currentState];
+    [observer onUserModelStateTransitionFrom:prevState toCurrentState:currentState];
   }];
 }
 

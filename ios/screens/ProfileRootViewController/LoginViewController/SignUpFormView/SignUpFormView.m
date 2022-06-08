@@ -15,7 +15,7 @@
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) CommonTextField *textFieldMail;
-@property (strong, nonatomic) CommonTextField *textFieldPass;
+@property (strong, nonatomic) SecureTextField *textFieldPass;
 @property (strong, nonatomic) CommonButton *submitButton;
 @property (copy, nonatomic) void(^onSubmit)(NSString *, NSString *, NSString *);
 
@@ -56,6 +56,7 @@
   self.textFieldMail = [[CommonTextField alloc] initWithImageName:@"textfield-mail"
                                                      keyboardType:UIKeyboardTypeEmailAddress
                                                       placeholder:NSLocalizedString(@"ProfileScreenPlaceholderEMail", @"")];
+  [self.textFieldMail.textField setTextContentType:UITextContentTypeEmailAddress];
   [self addSubview:self.textFieldMail];
   self.textFieldMail.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
@@ -70,7 +71,7 @@
                                 keyboardType:UIKeyboardTypeDefault
                                  placeholder:NSLocalizedString(@"ProfileScreenPlaceholderPassword", @"")];
   self.textFieldPass.textField.delegate = self;
-  
+  [self.textFieldPass setCreatingPassword:YES];
   [self addSubview:self.textFieldPass];
   self.textFieldPass.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
