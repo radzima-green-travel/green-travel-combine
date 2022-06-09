@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UICollectionView *collectionView;
 - (void)update:(PlaceCategory *)item;
 - (void)scrollToMostExposedCell;
+- (void)setCollectionViewCellPosition;
+- (void)setCollectionViewCelltoPositionZero;
 
 @end
 
