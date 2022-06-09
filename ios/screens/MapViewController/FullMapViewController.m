@@ -54,7 +54,7 @@ static NSString* const kBottomSheetButtonLabel = @"Узнать больше";
 static const CGSize kIconSize = {.width = 44.0, .height = 44.0};
 static const CGFloat kZoomLevelForSearch = 8.0;
 static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
-static const CGFloat clusterSize = 32.0;
+static const CGFloat kClusterSize = 32.0;
 
 @implementation FullMapViewController
 
@@ -186,7 +186,7 @@ static const CGFloat clusterSize = 32.0;
 - (void)renderMapItems:(NSArray<MapItem *> *)mapItems
                  style:(MGLStyle *)style {
   self.annotations = [[NSMutableArray alloc] init];
-  CGFloat clusterSizeMultiplier = clusterSize / kIconSize.width;
+  CGFloat kClusterSizeMultiplier = kClusterSize / kIconSize.width;
   [self.mapView removeAnnotations:self.mapView.annotations];
   [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
     MGLPointFeature *point = [[MGLPointFeature alloc] init];
@@ -239,7 +239,7 @@ static const CGFloat clusterSize = 32.0;
   clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:
                                     [NSNumber numberWithBool:YES]];
   clusterLayer.iconScale = [NSExpression expressionForConstantValue:
-                            [NSNumber numberWithFloat:clusterSizeMultiplier]];
+                            [NSNumber numberWithFloat:kClusterSizeMultiplier]];
   clusterLayer.textOffset =  [NSExpression expressionForConstantValue:
                               [NSValue valueWithCGVector:CGVectorMake(0, 0)]];
   clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
