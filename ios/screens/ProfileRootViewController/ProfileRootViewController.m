@@ -43,74 +43,49 @@
   LoginViewController *loginViewController =
   [[LoginViewController alloc] initWithController:self.userController
                                                   model:self.userModel];
-  loginViewController.title = NSLocalizedString(@"ProfileTitle", @"");
-  UINavigationController *loginViewControllerWithNavigation =
-  [[UINavigationController alloc ] initWithRootViewController:loginViewController];
-  
-  loginViewControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
-  loginViewControllerWithNavigation.navigationBar.titleTextAttributes =
-  [TypographyLegacy get].navigationSemiboldAttributes;
-  
-  [self addChildViewController:loginViewControllerWithNavigation];
-  loginViewControllerWithNavigation.view.frame = self.view.bounds;
-  [self.view addSubview:loginViewControllerWithNavigation.view];
-  [loginViewControllerWithNavigation didMoveToParentViewController:self];
-  
-  [self.current willMoveToParentViewController:nil];
-  [self.current.view removeFromSuperview];
-  [self.current removeFromParentViewController];
-  
-  self.current = loginViewControllerWithNavigation;
+  [self showViewController:loginViewController title:@"Profile"];
 }
 
 - (void)showProfileViewController {
   ProfileViewController *profileViewController =
   [[ProfileViewController alloc] initWithController:self.userController
                                               model:self.userModel];
-  
-  [self addChildViewController:profileViewController];
-  profileViewController.view.frame = self.view.bounds;
-  [self.view addSubview:profileViewController.view];
-  [profileViewController didMoveToParentViewController:self];
-  
-  [self.current willMoveToParentViewController:nil];
-  [self.current.view removeFromSuperview];
-  [self.current removeFromParentViewController];
-  
-  self.current = profileViewController;
+  [self showViewController:profileViewController title:@"Profile"];
 }
 
 - (void)showUserFetchProgressViewController {
   UserFetchProgressViewController *userFetchProgressViewController =
   [[UserFetchProgressViewController alloc] init];
-  
-  [self addChildViewController:userFetchProgressViewController];
-  userFetchProgressViewController.view.frame = self.view.bounds;
-  [self.view addSubview:userFetchProgressViewController.view];
-  [userFetchProgressViewController didMoveToParentViewController:self];
-  
-  [self.current willMoveToParentViewController:nil];
-  [self.current.view removeFromSuperview];
-  [self.current removeFromParentViewController];
-  
-  self.current = userFetchProgressViewController;
+  [self showViewController:userFetchProgressViewController title:@"Profile"];
 }
 
 - (void)showUserFetchErrorViewController {
   UserFetchErrorViewController *userFetchErrorViewController =
   [[UserFetchErrorViewController alloc] initWithController:self.userController
                                                      model:self.userModel];
+  [self showViewController:userFetchErrorViewController title:@"Profile"];
+}
+
+- (void)showViewController:(UIViewController *)controller
+                     title:(NSString *)title {
+  controller.title = NSLocalizedString(title, @"");
+  UINavigationController *controllerWithNavigation =
+  [[UINavigationController alloc ] initWithRootViewController:controller];
   
-  [self addChildViewController:userFetchErrorViewController];
-  userFetchErrorViewController.view.frame = self.view.bounds;
-  [self.view addSubview:userFetchErrorViewController.view];
-  [userFetchErrorViewController didMoveToParentViewController:self];
+  controllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
+  controllerWithNavigation.navigationBar.titleTextAttributes =
+  [TypographyLegacy get].navigationSemiboldAttributes;
+  
+  [self addChildViewController:controllerWithNavigation];
+  controllerWithNavigation.view.frame = self.view.bounds;
+  [self.view addSubview:controllerWithNavigation.view];
+  [controllerWithNavigation didMoveToParentViewController:self];
   
   [self.current willMoveToParentViewController:nil];
   [self.current.view removeFromSuperview];
   [self.current removeFromParentViewController];
   
-  self.current = userFetchErrorViewController;
+  self.current = controllerWithNavigation;
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
