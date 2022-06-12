@@ -40,7 +40,6 @@ static const CGFloat kTopOffset = 90.0;
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
   self.view.backgroundColor = [Colors get].background;
-  configureNavigationBar(self.navigationController.navigationBar);
 }
 
 - (void)viewDidLoad {

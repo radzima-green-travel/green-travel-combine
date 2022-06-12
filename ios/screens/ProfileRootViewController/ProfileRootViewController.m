@@ -15,10 +15,11 @@
 #import "UserModel.h"
 #import "ColorsLegacy.h"
 #import "TypographyLegacy.h"
+#import "StyleUtils.h"
 
 @interface ProfileRootViewController ()
 
-@property (strong, nonatomic) UIViewController *current;
+@property (strong, nonatomic) UINavigationController *current;
 
 @end
 
@@ -31,6 +32,11 @@
     _userModel = model;
   }
   return self;
+}
+
+- (void)viewWillLayoutSubviews {
+  [super viewWillLayoutSubviews];
+  configureNavigationBar(self.current.navigationBar);
 }
 
 - (void)viewDidLoad {
