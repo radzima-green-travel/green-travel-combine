@@ -20,4 +20,7 @@ typedef NS_ENUM(NSInteger, UserModelState) {
     UserModelStateConfirmCodeInProgress,
     UserModelStateConfirmCodeSent,
     UserModelStateSignUpSuccess,
+    UserModelStateNotSignedIn,
+    UserModelStateSignInInProgress,
+    UserModelStateSignedIn,
 };

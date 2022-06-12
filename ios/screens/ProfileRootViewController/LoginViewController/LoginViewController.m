@@ -89,7 +89,7 @@ static const CGFloat kTopOffset = 90.0;
                                                NSString *username,
                                                NSString *password){
       __strong typeof(weakSelf) strongSelf = weakSelf;
-      [strongSelf onSubmit:email username:username password:password];
+      [strongSelf onSubmitSignUp:email username:username password:password];
     }];
   }
   
@@ -108,7 +108,13 @@ static const CGFloat kTopOffset = 90.0;
   [self.signUpView removeFromSuperview];
   
   if (self.signInView == nil) {
-    self.signInView = [[SignInFormView alloc] init];
+    __weak typeof(self) weakSelf = self;
+    self.signInView = [[SignInFormView alloc] initWithOnSubmit:^(NSString * _Nonnull email,
+                                                                 NSString * _Nonnull username,
+                                                                 NSString * _Nonnull password) {
+      __strong typeof(weakSelf) strongSelf = weakSelf;
+      [strongSelf onSubmitSignIn:email password:password];
+    }];
   }
   
   self.signInView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -121,11 +127,16 @@ static const CGFloat kTopOffset = 90.0;
   ]];
 }
 
-- (void)onSubmit:(NSString *)email
+- (void)onSubmitSignUp:(NSString *)email
         username:(NSString *)username
         password:(NSString *)password {
   [self.userController initiateSignUp:email username:username password:password];
   self.navigatedToCodeScreen = NO;
+}
+
+- (void)onSubmitSignIn:(NSString *)email
+        password:(NSString *)password {
+  [self.userController initiateSignIn:email password:password];
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
@@ -140,6 +151,11 @@ static const CGFloat kTopOffset = 90.0;
         [self enableLoadingIndicator:YES];
         return;
       }
+      if (prevState == UserModelStateNotSignedIn && currentState == UserModelStateSignInInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
+      
       if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateFetched) {
         [self enableLoadingIndicator:NO];
         return;
@@ -148,6 +164,11 @@ static const CGFloat kTopOffset = 90.0;
         [self enableLoadingIndicator:NO];
         return;
       }
+      if (prevState == UserModelStateSignInInProgress && currentState == UserModelStateSignedIn) {
+        // Handler in ProfileRootViewController.
+        return;
+      }
+      
       if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateConfirmCodeNotSent && !self.navigatedToCodeScreen) {
         CodeConfirmationViewController *codeConfirmationViewController =
         [[CodeConfirmationViewController alloc] initWithController:self.userController

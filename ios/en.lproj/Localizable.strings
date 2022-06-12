@@ -59,6 +59,9 @@
 "ProfileScreenPlaceholderPassword" = "Password";
 "ProfileScreenPlaceholderPasswordRepeat" = "Repeat password";
 "ProfileScreenButtonLabelCreate" = "CREATE";
+"ProfileScreenLabelSignIn" = "Sign in to your account";
+"ProfileScreenButtonLabelSignIn" = "SIGN IN";
+"ProfileScreenButtonLabelForgotPassword" = "Forgot password?";
 
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";

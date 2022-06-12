@@ -30,6 +30,13 @@
   }];
 }
 
+- (void)signInWithUsername:(NSString *)username password:(NSString *)password
+                completion:(void (^)(NSError * _Nonnull))completion {
+  [self.amplifyBridge signInUsername:username password:password completion:^(NSError * _Nullable error) {
+    completion(error);
+  }];
+}
+
 - (void)signUpWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(NSError * _Nonnull))completion {
   [self.amplifyBridge signUpWithUsername:username password:password email:email completion:^(NSError * _Nullable error) {
     completion(error);

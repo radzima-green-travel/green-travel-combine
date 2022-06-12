@@ -59,6 +59,9 @@
 "ProfileScreenPlaceholderPassword" = "Пароль";
 "ProfileScreenPlaceholderPasswordRepeat" = "Пароль еще раз";
 "ProfileScreenButtonLabelCreate" = "СОЗДАТЬ";
+"ProfileScreenLabelSignIn" = "Войдите в свой аккаунт";
+"ProfileScreenButtonLabelSignIn" = "ВОЙТИ";
+"ProfileScreenButtonLabelForgotPassword" = "Забыли пароль?";
 
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenHeader" = "Подтвердите регистрацию";

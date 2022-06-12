@@ -28,6 +28,7 @@
   [loadingIndicator startAnimating];
   
   loadingIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.view addSubview:loadingIndicator];
   
   [NSLayoutConstraint activateConstraints:@[
     [loadingIndicator.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor],

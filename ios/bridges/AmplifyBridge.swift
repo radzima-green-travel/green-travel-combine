@@ -9,6 +9,10 @@
 import Amplify
 import AmplifyPlugins
 
+enum AuthErrors {
+case FetchSessionFailed
+}
+
 @objc
 class AmplifyBridge: NSObject {
   override init() {
@@ -37,6 +41,41 @@ class AmplifyBridge: NSObject {
           "message": "Fetch session failed with error \(error)"
         ])
         completion(customError, false)
+      }
+    }
+  }
+  
+  @objc public func signIn(username: String, password: String,
+                           completion: @escaping (_ err: NSError?) -> Void) {
+    Amplify.Auth.signIn(username: username, password: password, options: nil) { result in
+      switch result {
+      case .success(let signInResult):
+        if (!signInResult.isSignedIn) {
+          signInResult.nextStep
+        }
+        completion(nil)
+      case .failure(let error):
+        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
+          "message": "Sign in failed with error \(error)"
+        ])
+        print("An error occurred while signing in a user \(error)")
+        completion(customError)
+      }
+    }
+  }
+  
+  @objc public func resetPassword(username: String,
+                           completion: @escaping (_ err: NSError?) -> Void) {
+    Amplify.Auth.resetPassword(for: username) { result in
+      switch result {
+      case .success(let resetPasswordResult):
+        completion(nil)
+      case .failure(let error):
+        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
+          "message": "Sign in failed with error \(error)"
+        ])
+        print("An error occurred while signing in a user \(error)")
+        completion(customError)
       }
     }
   }

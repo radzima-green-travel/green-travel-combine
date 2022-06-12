@@ -41,6 +41,33 @@
   }];
 }
 
+- (void)initiateSignIn:(NSString *)username password:(NSString *)password {
+  [self.model setState:UserModelStateSignInInProgress];
+  __weak typeof(self) weakSelf = self;
+  [self.authService signInWithUsername:username password:password
+                            completion:^(NSError * _Nonnull error) {
+    __weak typeof(weakSelf) strongSelf = weakSelf;
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateNotSignedIn];
+      return;
+    }
+    [strongSelf.model setState:UserModelStateSignedIn];
+  }];
+}
+
+- (void)signIn:(NSString *)username
+      password:(NSString *)password
+    completion:(void (^)(NSError * _Nullable))completion {
+  [self.authService signInWithUsername:username password:password
+                            completion:^(NSError * _Nullable error) {
+    if (error != nil) {
+      completion(error);
+      return;
+    }
+    completion(nil);
+  }];
+}
+
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
               password:(NSString *)password {
@@ -48,10 +75,10 @@
   [state setInProgress:YES];
   [self.model setState:UserModelStateSignUpEmailInProgress];
   [self.model setEmail:email];
-  
+  [self.model setPassword:password];
   __weak typeof(self) weakSelf = self;
   [self.authService signUpWithUsername:username password:password email:email
-                            completion:^(NSError * _Nonnull error) {
+                            completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     UserState *state = [UserState new];
     [state setInProgress:NO];
@@ -73,7 +100,16 @@
       [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
       return;
     }
-    [strongSelf.model setState:UserModelStateSignUpSuccess];
+    __weak typeof(strongSelf) weakSelf = strongSelf;
+    [self signIn:strongSelf.model.email password:strongSelf.model.password
+      completion:^(NSError * _Nonnull error){
+      __weak typeof(weakSelf) strongSelf = weakSelf;
+      if (error != nil) {
+        [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
+        return;
+      }
+      [strongSelf.model setState:UserModelStateSignUpSuccess];
+    }];
   }];
 }
 

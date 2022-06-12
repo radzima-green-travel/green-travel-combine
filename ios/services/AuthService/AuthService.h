@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithAmplifyBridge:(AmplifyBridge *)amplifyBridge;
 - (void)fetchCurrentAuthSession:(void(^)(NSError * _Nonnull, BOOL))completion;
+- (void)signInWithUsername:(NSString *)username
+                  password:(NSString *)password
+                          completion:(void(^)(NSError * _Nonnull))completion;
 - (void)signUpWithUsername:(NSString *)username
                   password:(NSString *)password
                      email:(NSString *)email
