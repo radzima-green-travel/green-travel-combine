@@ -52,6 +52,8 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *searchBarClearButton;
 @property (strong, nonatomic) UIColor *passCodeTint;
 @property (strong, nonatomic) UIColor *buttonTextTint;
+@property (strong, nonatomic) UIColor *areaOutline;
+@property (strong, nonatomic) UIColor *areaFill;
 + (instancetype)get;
 
 @end
