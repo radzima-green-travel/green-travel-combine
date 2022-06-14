@@ -144,11 +144,6 @@
     [NSPredicate predicateWithFormat:@"on = YES AND selectAll == NO"];
     NSUInteger selectedCount = [[self.filterOptions filteredArrayUsingPredicate:ordinaryOptionsPredicate] count];
     // If all options are selected.
-    if (selectedCount == [self.filterOptions count] - 1) {
-        [self notifyObserversFilterSelect:0];
-        [self selectOptionAll:YES];
-        return;
-    }
     if (selectedCount != [self.filterOptions count] - 1 && [self.filterOptions firstObject].on) {
         [self.filterOptions firstObject].on = NO;
         [self.selectedCategoryUUIDs removeAllObjects];
