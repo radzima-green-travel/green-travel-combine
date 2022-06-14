@@ -69,4 +69,13 @@
 "CodeConfirmationScreenRetry" = "Resend e-mail";
 "CodeConfirmationScreenSubmit" = "DONE";
 
+"ResetPasswordEMailScreenTitle" = "Reset password";
+"ResetPasswordEMailScreenHeader" = "Reset password";
+"ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+
+"ResetPasswordPassCodeScreenTitle" = "Reset password";
+"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenHint" = "enter confirmation code from e-mail %@";
+
+
 

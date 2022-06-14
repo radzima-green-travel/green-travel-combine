@@ -21,16 +21,19 @@
 @property (strong, nonatomic) SecureTextField *textFieldPass;
 @property (strong, nonatomic) CommonButton *submitButton;
 @property (copy, nonatomic) void(^onSubmit)(NSString *, NSString *, NSString *);
+@property (copy, nonatomic) void(^onForgotPasswordSubmit)(void);
 
 @end
 
 @implementation SignInFormView
 
-- (instancetype)initWithOnSubmit:(void (^)(NSString *, NSString *, NSString *))onSumbit {
+- (instancetype)initWithOnSubmit:(void (^)(NSString *, NSString *, NSString *))onSumbit
+          onForgotPasswordSubmit:(nonnull void (^)(void))onForgotPasswordSubmit{
   self = [self initWithFrame:CGRectZero];
   if (self) {
     [self setUp];
     _onSubmit = onSumbit;
+    _onForgotPasswordSubmit = onForgotPasswordSubmit;
   }
   return self;
 }
@@ -120,6 +123,7 @@
 
 - (void)onForgotPasswordSubmit:(UIButtonHighlightable *)sender {
   [self endEditing:YES];
+  self.onForgotPasswordSubmit();
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

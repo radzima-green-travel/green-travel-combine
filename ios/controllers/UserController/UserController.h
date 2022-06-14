@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchCurrentAuthSession;
 - (void)initiateSignIn:(NSString *)username
               password:(NSString *)password;
+- (void)initiateResetPassword:(NSString *)username;
+- (void)initiateResetPasswordConfirm:(NSString *)username
+                                code:(NSString *)code
+                         newPassword:(NSString *)newPassword;
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
               password:(NSString *)password;

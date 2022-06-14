@@ -68,6 +68,18 @@
   }];
 }
 
+- (void)initiateResetPassword:(NSString *)username {
+  [self.model setState:UserModelStatePasswordNotReset];
+  __weak typeof(self) weakSelf = self;
+  [self.authService resetPassword:username completion:^(NSError * _Nullable) {
+      
+  }];
+}
+
+- (void)initiateResetPasswordConfirm:(NSString *)username code:(NSString *)code newPassword:(NSString *)newPassword {
+  
+}
+
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
               password:(NSString *)password {

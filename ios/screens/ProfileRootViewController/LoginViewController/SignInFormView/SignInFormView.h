@@ -11,7 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SignInFormView : UIView
 
-- (instancetype)initWithOnSubmit:(void (^)(NSString *, NSString *, NSString *))onSumbit;
+- (instancetype)initWithOnSubmit:(void (^)(NSString *, NSString *, NSString *))onSumbit
+          onForgotPasswordSubmit:(void (^)(void))onForgotPasswordSubmit;
 
 @end
 

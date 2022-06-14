@@ -24,34 +24,46 @@
   return self;
 }
 
-- (void)fetchCurrentAuthSession:(void (^)(NSError * _Nonnull, BOOL))completion {
+- (void)fetchCurrentAuthSession:(void (^)(NSError * _Nullable, BOOL))completion {
   [self.amplifyBridge fetchCurrentAuthSessionWithCompletion:^(NSError * _Nullable error, BOOL signedIn) {
     completion(error, signedIn);
   }];
 }
 
 - (void)signInWithUsername:(NSString *)username password:(NSString *)password
-                completion:(void (^)(NSError * _Nonnull))completion {
+                completion:(void (^)(NSError * _Nullable))completion {
   [self.amplifyBridge signInUsername:username password:password completion:^(NSError * _Nullable error) {
     completion(error);
   }];
 }
 
-- (void)signUpWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(NSError * _Nonnull))completion {
+- (void)resetPassword:(NSString *)username completion:(void (^)(NSError * _Nullable))completion {
+  [self.amplifyBridge resetPasswordWithUsername:username completion:^(NSError * _Nullable error) {
+    completion(error);
+  }];
+}
+
+- (void)resetPasswordConfirm:(NSString *)username code:(NSString *)code newPassword:(NSString *)newPassword completion:(void (^)(NSError * _Nullable))completion {
+  [self.amplifyBridge resetPasswordConfirmWithUsername:username code:code newPassword:newPassword completion:^(NSError * _Nullable error) {
+    completion(error);
+  }];
+}
+
+- (void)signUpWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(NSError * _Nullable))completion {
   [self.amplifyBridge signUpWithUsername:username password:password email:email completion:^(NSError * _Nullable error) {
     completion(error);
   }];
 }
 
 - (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code
-                   completion:(void (^)(NSError * _Nonnull))completion {
+                   completion:(void (^)(NSError * _Nullable))completion {
   [self.amplifyBridge confirmSignUpFor:email with:code completion:^(NSError * _Nullable error) {
     completion(error);
   }];
 }
 
 - (void)resendSignUpCodeEMail:(NSString *)email
-                   completion:(void (^)(NSError * _Nonnull))completion {
+                   completion:(void (^)(NSError * _Nullable))completion {
   [self.amplifyBridge resendSignUpCodeFor:email completion:^(NSError * _Nullable error) {
     completion(error);
   }];

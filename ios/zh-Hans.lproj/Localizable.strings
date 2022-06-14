@@ -69,3 +69,11 @@
 "CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
 "CodeConfirmationScreenRetry" = "Retry";
 "CodeConfirmationScreenSubmit" = "Done";
+
+"ResetPasswordEMailScreenTitle" = "Восстановить пароль";
+"ResetPasswordEMailScreenHeader" = "Восстановить пароль";
+"ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+
+"ResetPasswordPassCodeScreenTitle" = "Reset password";
+"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenHint" = "enter confirmation code from e-mail %@";

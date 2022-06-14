@@ -17,11 +17,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchCurrentAuthSession:(void(^)(NSError * _Nonnull, BOOL))completion;
 - (void)signInWithUsername:(NSString *)username
                   password:(NSString *)password
-                          completion:(void(^)(NSError * _Nonnull))completion;
+                          completion:(void(^)(NSError * _Nullable))completion;
+- (void)resetPassword:(NSString *)username
+           completion:(void(^)(NSError * _Nullable))completion;
+- (void)resetPasswordConfirm:(NSString *)username
+                        code:(NSString *)code
+                 newPassword:(NSString *)newPassword
+                  completion:(void(^)(NSError * _Nullable))completion;
 - (void)signUpWithUsername:(NSString *)username
                   password:(NSString *)password
                      email:(NSString *)email
-                          completion:(void(^)(NSError * _Nonnull))completion;
+                          completion:(void(^)(NSError * _Nullable))completion;
 - (void)confirmSignUpForEMail:(NSString *)email
                             code:(NSString *)code
                    completion:(void (^)(NSError * _Nonnull))completion;

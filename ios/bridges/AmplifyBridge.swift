@@ -8,10 +8,7 @@
 
 import Amplify
 import AmplifyPlugins
-
-enum AuthErrors {
-case FetchSessionFailed
-}
+import Foundation
 
 @objc
 class AmplifyBridge: NSObject {
@@ -51,13 +48,12 @@ class AmplifyBridge: NSObject {
       switch result {
       case .success(let signInResult):
         if (!signInResult.isSignedIn) {
-          signInResult.nextStep
+          let customError = NSError(domain: AuthErrorDomain, code: AuthError.AuthErrorNotSignedIn.rawValue)
+          completion(customError)
         }
         completion(nil)
       case .failure(let error):
-        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
-          "message": "Sign in failed with error \(error)"
-        ])
+        let customError = NSError(domain: AuthErrorDomain, code: AuthError.AuthErrorSignInFailed.rawValue)
         print("An error occurred while signing in a user \(error)")
         completion(customError)
       }
@@ -65,16 +61,37 @@ class AmplifyBridge: NSObject {
   }
   
   @objc public func resetPassword(username: String,
-                           completion: @escaping (_ err: NSError?) -> Void) {
+                                  completion: @escaping (_ err: NSError?) -> Void) {
     Amplify.Auth.resetPassword(for: username) { result in
+      do {
+        let resetResult = try result.get()
+        switch resetResult.nextStep {
+        case .confirmResetPasswordWithCode(let deliveryDetails, let info):
+          print("Confirm reset password with code send to - \(deliveryDetails) \(info)")
+        case .done:
+          print("Reset completed")
+          completion(nil)
+        }
+      } catch {
+        let customError = NSError(domain: AuthErrorDomain, code: AuthError.AuthErrorResetPasswordFailed.rawValue)
+        print("An error occurred while resetting the password \(error)")
+        completion(customError)
+      }
+    }
+  }
+  
+  @objc public func resetPasswordConfirm(username: String,
+                                         code: String,
+                                         newPassword: String,
+                           completion: @escaping (_ err: NSError?) -> Void) {
+    Amplify.Auth.confirmResetPassword(for: username, with: newPassword, confirmationCode: code, options:nil) {
+      result in
       switch result {
-      case .success(let resetPasswordResult):
+      case .success(()):
         completion(nil)
       case .failure(let error):
-        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
-          "message": "Sign in failed with error \(error)"
-        ])
-        print("An error occurred while signing in a user \(error)")
+        let customError = NSError(domain: AuthErrorDomain, code: AuthError.AuthErrorResetPasswordConfirmFailed.rawValue)
+        print("An error occurred while confirming reset password \(error)")
         completion(customError)
       }
     }

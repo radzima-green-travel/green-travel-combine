@@ -12,15 +12,24 @@
 #endif /* UserModelConstants_h */
 
 typedef NS_ENUM(NSInteger, UserModelState) {
-    UserModelStateNotFetched,
-    UserModelStateFetchingInProgress,
-    UserModelStateFetched,
-    UserModelStateSignUpEmailInProgress,
-    UserModelStateConfirmCodeNotSent,
-    UserModelStateConfirmCodeInProgress,
-    UserModelStateConfirmCodeSent,
-    UserModelStateSignUpSuccess,
-    UserModelStateNotSignedIn,
-    UserModelStateSignInInProgress,
-    UserModelStateSignedIn,
+  // Sign up.
+  UserModelStateNotFetched,
+  UserModelStateFetchingInProgress,
+  UserModelStateFetched,
+  UserModelStateSignUpEmailInProgress,
+  UserModelStateConfirmCodeNotSent,
+  UserModelStateConfirmCodeInProgress,
+  UserModelStateConfirmCodeSent,
+  UserModelStateSignUpSuccess,
+  // Sign in.
+  UserModelStateNotSignedIn,
+  UserModelStateSignInInProgress,
+  UserModelStateSignedIn,
+  // Passsword reset.
+  UserModelStatePasswordNotReset,
+  UserModelStatePasswordResetInProgress,
+  UserModelStatePasswordResetConfirmCodeNotSet,
+  UserModelStatePasswordResetConfirmCodeSet,
+  UserModelStatePasswordResetConfirmCodeInProgress,
+  UserModelStatePasswordResetConfirmCodeSuccess,
 };

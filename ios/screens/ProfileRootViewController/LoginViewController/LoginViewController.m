@@ -16,6 +16,7 @@
 #import "UserState.h"
 #import "CodeConfirmationViewController.h"
 #import "UserModelConstants.h"
+#import "ResetPasswordEMailViewController.h"
 
 @interface LoginViewController ()
 
@@ -54,7 +55,8 @@ static const CGFloat kTopOffset = 90.0;
                                   constant:-kMinContentInset];
   trailing.priority = UILayoutPriorityDefaultHigh;
   [NSLayoutConstraint activateConstraints:@[
-    [self.procedureChoiceView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+    [self.procedureChoiceView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
+    [self.procedureChoiceView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
     [self.procedureChoiceView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:19.0],
     leading,
     trailing,
@@ -114,6 +116,9 @@ static const CGFloat kTopOffset = 90.0;
                                                                  NSString * _Nonnull password) {
       __strong typeof(weakSelf) strongSelf = weakSelf;
       [strongSelf onSubmitSignIn:email password:password];
+    } onForgotPasswordSubmit:^{
+      __strong typeof(weakSelf) strongSelf = weakSelf;
+      [strongSelf onSubmitForgotPassword];
     }];
   }
   
@@ -137,6 +142,14 @@ static const CGFloat kTopOffset = 90.0;
 - (void)onSubmitSignIn:(NSString *)email
         password:(NSString *)password {
   [self.userController initiateSignIn:email password:password];
+}
+
+- (void)onSubmitForgotPassword {
+  ResetPasswordEMailViewController *resetPasswordEMailViewController =
+  [[ResetPasswordEMailViewController alloc] initWithController:self.userController
+                                                       model:self.userModel];
+  [self.navigationController pushViewController:resetPasswordEMailViewController
+                                       animated:YES];
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
