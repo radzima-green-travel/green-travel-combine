@@ -754,7 +754,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   
   [self.currentImageView setFrame:CGRectMake(0, -currentImageView.frame.size.height / 2, currentImageView.frame.size.width, currentImageView.frame.size.height)];
   
-  [self.dataView addSubview:self.currentImageView];
+  [self.contentView addSubview:self.currentImageView];
   
   self.currentImageView.layer.masksToBounds = YES;
   self.currentImageView.layer.anchorPoint = CGPointMake(0.5, 0.0);
