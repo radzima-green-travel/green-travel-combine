@@ -133,6 +133,10 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   configureNavigationBar(self.navigationController.navigationBar);
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return UIStatusBarStyleLightContent;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

@@ -198,6 +198,8 @@
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
 		6281F7E124C9E40D00C51231 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6281F7E024C9E40D00C51231 /* empty.swift */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
+		D9EA11FF285B9C4900FFA405 /* GTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA11FE285B9C4900FFA405 /* GTNavigationController.m */; };
+		D9EA1203285BD49400FFA405 /* GTSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA1202285BD49400FFA405 /* GTSearchController.m */; };
 		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
 /* End PBXBuildFile section */
 
@@ -583,6 +585,10 @@
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E864D96B10ABCD37BAAAE8 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
+		D9EA11FD285B9C4900FFA405 /* GTNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTNavigationController.h; sourceTree = "<group>"; };
+		D9EA11FE285B9C4900FFA405 /* GTNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTNavigationController.m; sourceTree = "<group>"; };
+		D9EA1201285BD49400FFA405 /* GTSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTSearchController.h; sourceTree = "<group>"; };
+		D9EA1202285BD49400FFA405 /* GTSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTSearchController.m; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -608,6 +614,7 @@
 				5A775A0326064C8E00CEFC78 /* managedobjects */,
 				5A775A5126064C8F00CEFC78 /* models */,
 				5AF8D587260C7D8A001CE702 /* views */,
+				D9EA1200285BA08300FFA405 /* navigationcontrollers */,
 				5A5E2AFE2753ADF300A20489 /* viewcontrollers */,
 				5A7759FB26064C4F00CEFC78 /* app */,
 				5A775A9826064C8F00CEFC78 /* screens */,
@@ -1656,6 +1663,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D9EA1200285BA08300FFA405 /* navigationcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				D9EA1201285BD49400FFA405 /* GTSearchController.h */,
+				D9EA1202285BD49400FFA405 /* GTSearchController.m */,
+				D9EA11FD285B9C4900FFA405 /* GTNavigationController.h */,
+				D9EA11FE285B9C4900FFA405 /* GTNavigationController.m */,
+			);
+			path = navigationcontrollers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2089,6 +2107,7 @@
 				5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */,
 				5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */,
 				5A6DC5BF2659268700A2D37B /* CacheService.m in Sources */,
+				D9EA1203285BD49400FFA405 /* GTSearchController.m in Sources */,
 				5A5E2AFD27524E7200A20489 /* NoDataView.m in Sources */,
 				5A775B2B26064C9000CEFC78 /* StoredSearchItem+CoreDataClass.m in Sources */,
 				5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */,
@@ -2150,6 +2169,7 @@
 				5A6CC8E0279D9AB700EE6E35 /* IndexController.m in Sources */,
 				5A775B8926064C9000CEFC78 /* UserDefaultsService.m in Sources */,
 				5A775B8726064C9000CEFC78 /* ApiService.m in Sources */,
+				D9EA11FF285B9C4900FFA405 /* GTNavigationController.m in Sources */,
 				5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */,
 				5A775B2826064C9000CEFC78 /* StoredCategory+CoreDataClass.m in Sources */,
 				5A775E0E26077A7D00CEFC78 /* GalleryView.m in Sources */,

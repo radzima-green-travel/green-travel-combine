@@ -126,6 +126,10 @@ static const NSUInteger kNumberOfLetterSizeWhenToShowIndexTitles = 4;
 - (void)viewWillAppear:(BOOL)animated {
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return UIStatusBarStyleLightContent;
+}
+
 - (void)formIndexTitles {
   // TODO: disable index titles until this feature is discussed.
   if (/* DISABLES CODE */ (YES)) {

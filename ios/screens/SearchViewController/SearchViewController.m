@@ -30,12 +30,13 @@
 #import "TypographyLegacy.h"
 #import "AnalyticsEvents.h"
 #import "SearchViewControllerUtils.h"
+#import "GTSearchController.h"
 
 @interface SearchViewController ()
 
 @property (strong, nonatomic) NSMutableArray<NSString *> *dataSourceHistory;
 @property (strong, nonatomic) NSMutableArray<SearchItem *> *dataSourceFiltered;
-@property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) GTSearchController *searchController;
 @property (strong, nonatomic) SearchModel *model;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -137,7 +138,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     [self setUpWithTable];
     
     if (@available(iOS 13.0, *)) {
-      self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+      self.searchController = [[GTSearchController alloc] initWithSearchResultsController:nil];
       self.searchBarClearButton = prepareClearButton(self.searchController);
       self.searchController.automaticallyShowsCancelButton = NO;
     } else {
@@ -311,6 +312,10 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     if (self.selectedSearchItem != nil) {
       self.onViewDidDisappearWithSelectedItem(self.selectedSearchItem);
     }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return UIStatusBarStyleLightContent;
 }
 
 - (void)onKeyboadAppear:(NSNotification *)notification {

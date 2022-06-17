@@ -32,6 +32,7 @@
 #import "StyleUtils.h"
 #import "MapViewControllerConstants.h"
 #import "ProfileViewController.h"
+#import "GTNavigationController.h"
 
 @interface MainViewController ()
 
@@ -45,10 +46,10 @@
 @property (strong, nonatomic) UITabBarItem *mapTabBarItem;
 @property (strong, nonatomic) UITabBarItem *bookmarksTabBarItem;
 @property (strong, nonatomic) UITabBarItem *profileTabBarItem;
-@property (strong, nonatomic) UINavigationController *indexViewControllerWithNavigation;
-@property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
-@property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
-@property (strong, nonatomic) UINavigationController *profileControllerWithNavigation;
+@property (strong, nonatomic) GTNavigationController *indexViewControllerWithNavigation;
+@property (strong, nonatomic) GTNavigationController *mapControllerWithNavigation;
+@property (strong, nonatomic) GTNavigationController *bookmarksControllerWithNavigation;
+@property (strong, nonatomic) GTNavigationController *profileControllerWithNavigation;
 
 @end
 
@@ -98,7 +99,7 @@
 
     IndexViewController *indexController = [[IndexViewController alloc] initWithApiService:self.apiService model:self.indexModel searchModel:searchModel locationModel:locationModel mapModel:mapModel detailsModel:detailsModel coreDataService:self.coreDataService mapService:self.mapService];
     indexController.title = NSLocalizedString(@"IndexTitle", @"");
-    self.indexViewControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:indexController];
+    self.indexViewControllerWithNavigation = [[GTNavigationController alloc] initWithRootViewController:indexController];
     UIImage *indexImage;
     UIImage *indexImageSelected;
     indexImage = [UIImage imageNamed:@"home"];
@@ -124,7 +125,7 @@
                                        mapService:self.mapService
                                           mapItem:nil];
     mapController.title = NSLocalizedString(@"MapTitle", @"");
-    self.mapControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:mapController];
+    self.mapControllerWithNavigation = [[GTNavigationController alloc] initWithRootViewController:mapController];
     UIImage *mapImage;
     UIImage *mapImageSelected;
     mapImage = [UIImage imageNamed:@"map"];
@@ -149,7 +150,7 @@
                                        detailsModel:detailsModel
                                      locationModel:locationModel];
     bookmarksController.title = NSLocalizedString(@"SavedTitle", @"");
-    self.bookmarksControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:bookmarksController];
+    self.bookmarksControllerWithNavigation = [[GTNavigationController alloc] initWithRootViewController:bookmarksController];
     UIImage *bookmarksImage;
     UIImage *bookmarksImageSelected;
     bookmarksImage = [UIImage imageNamed:@"bookmark"];
@@ -165,7 +166,7 @@
   ProfileViewController *profileController =
   [[ProfileViewController alloc] init];
   profileController.title = NSLocalizedString(@"ProfileTitle", @"");
-  self.profileControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:profileController];
+  self.profileControllerWithNavigation = [[GTNavigationController alloc] initWithRootViewController:profileController];
   UIImage *profileImage;
   UIImage *profileImageSelected;
   profileImage = [UIImage imageNamed:@"user"];

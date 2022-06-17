@@ -27,6 +27,10 @@ static const CGFloat kTopOffset = 90.0;
 
 @implementation ProfileViewController
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return UIStatusBarStyleLightContent;
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   UINavigationBar *navigationBar = self.navigationController.navigationBar;
