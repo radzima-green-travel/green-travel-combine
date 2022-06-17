@@ -136,7 +136,8 @@
 }
 
 - (void)onRetry:(UIButton *)sender {
-  [self.userController resendSignUpCodeForEMail:self.userModel.email];
+  [self.userController initiateResetPassword:self.userModel.email];
+  [self.view endEditing:YES];
 }
 
 @end

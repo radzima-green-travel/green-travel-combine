@@ -113,7 +113,7 @@
       if (prevState == UserModelStatePasswordResetInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSet && !self.navigatedToCodeScreen) {
         ResetPasswordPassCodeViewController *resetPasswordPassCodeViewController =
         [[ResetPasswordPassCodeViewController alloc] initWithController:self.userController
-                                                             model:self.userModel];
+                                                                  model:self.userModel];
         [self.navigationController pushViewController:resetPasswordPassCodeViewController
                                              animated:YES];
         self.navigatedToCodeScreen = YES;

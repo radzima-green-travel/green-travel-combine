@@ -65,9 +65,10 @@
     [self.hintLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0],
   ]];
   
-  self.textFieldNewPassword = [[SecureTextField alloc] initWithImageName:@"password-lock"
-                                                     keyboardType:UIKeyboardTypeDefault
-                                                      placeholder:NSLocalizedString(@"ProfileScreenPlaceholderPassword", @"")];
+  self.textFieldNewPassword =
+  [[SecureTextField alloc] initWithImageName:@"password-lock"
+                                keyboardType:UIKeyboardTypeDefault
+                                 placeholder:NSLocalizedString(@"ProfileScreenPlaceholderPassword", @"")];
   [self.textFieldNewPassword.textField setTextContentType:UITextContentTypeEmailAddress];
   [self.contentView addSubview:self.textFieldNewPassword];
   self.textFieldNewPassword.translatesAutoresizingMaskIntoConstraints = NO;
@@ -129,7 +130,6 @@
         return;
       }
       
-      
       if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeSet) {
         return;
       }
@@ -140,9 +140,8 @@
   });
 }
 
-
 - (void)onSubmit:(CommonButton *)sender {
-  [self.userController initiateResetPassword:self.textFieldNewPassword.textField.text];
+  [self.userController initiateResetPasswordConfirm:self.userModel.email code:self.userModel.confirmationCode newPassword:self.textFieldNewPassword.textField.text];
   [self.view endEditing:YES];
 }
 

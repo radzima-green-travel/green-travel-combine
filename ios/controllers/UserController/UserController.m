@@ -126,15 +126,15 @@
 }
 
 - (void)resendSignUpCodeForEMail:(NSString *)email {
-  [self.model setState:UserModelStateConfirmCodeInProgress];
+  [self.model setState:UserModelStateSignUpEmailInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
-      [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
+      [strongSelf.model setState:UserModelStateFetched];
       return;
     }
-    [strongSelf.model setState:UserModelStateSignUpSuccess];
+    [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
   }];
 }
 
