@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.title = NSLocalizedString(@"ResetPasswordNewPasswordScreenTitle", @"");
-  
+
   self.titleLabel = [[UILabel alloc] init];
   NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"ResetPasswordNewPasswordScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
@@ -64,7 +64,7 @@
     [self.hintLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor],
     [self.hintLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0],
   ]];
-  
+
   self.textFieldNewPassword =
   [[SecureTextField alloc] initWithImageName:@"password-lock"
                                 keyboardType:UIKeyboardTypeDefault
@@ -77,7 +77,7 @@
       [self.textFieldNewPassword.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
       [self.textFieldNewPassword.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
   ]];
-  
+
   self.buttonSubmit = [[CommonButton alloc] initWithTarget:self
                                                     action:@selector(onSubmit:)
                                                      label:NSLocalizedString(@"CodeConfirmationScreenSubmit", @"")];
@@ -89,7 +89,7 @@
     [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.textFieldNewPassword.bottomAnchor constant:25.0],
     [self.buttonSubmit.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
     [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-    
+
   ]];
 }
 
@@ -121,7 +121,7 @@
 
 
 - (void)onSubmit:(CommonButton *)sender {
-  [self.userController initiateResetPasswordConfirm:self.userModel.emailResetPassword code:self.userModel.confirmationCode newPassword:self.textFieldNewPassword.textField.text];
+  [self.userController resetPasswordConfirm:self.userModel.emailResetPassword code:self.userModel.confirmationCode newPassword:self.textFieldNewPassword.textField.text];
   [self.view endEditing:YES];
 }
 

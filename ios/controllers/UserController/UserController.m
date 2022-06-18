@@ -82,12 +82,12 @@
   }];
 }
 
-- (void)initiateResetPasswordConfirm:(NSString *)username code:(NSString *)code newPassword:(NSString *)newPassword {
+- (void)resetPasswordConfirm:(NSString *)username code:(NSString *)code newPassword:(NSString *)newPassword {
   [self.model setPasswordNew:newPassword];
   [self.model setConfirmationCode:code];
   [self.model setState:UserModelStatePasswordResetConfirmCodeInProgress];
   __weak typeof(self) weakSelf = self;
-  
+
   [self.authService resetPasswordConfirm:username code:code
                              newPassword:newPassword
                               completion:^(NSError * _Nullable error) {
@@ -96,7 +96,17 @@
       [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
       return;
     }
-    [strongSelf.model setState:UserModelStatePasswordResetSuccess];
+
+    [self signIn:strongSelf.model.emailResetPassword
+        password:strongSelf.model.passwordNew
+      completion:^(NSError * _Nonnull error){
+      __weak typeof(weakSelf) strongSelf = weakSelf;
+      if (error != nil) {
+        [strongSelf.model setState:UserModelStateFetched];
+        return;
+      }
+      [strongSelf.model setState:UserModelStatePasswordResetSuccess];
+    }];
   }];
 }
 

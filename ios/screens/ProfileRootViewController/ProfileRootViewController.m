@@ -129,6 +129,16 @@
         [strongSelf showProfileViewController];
         return;
       }
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress &&
+          currentState == UserModelStateFetched) {
+        [strongSelf showLoginViewController];
+        return;
+      }
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress &&
+          currentState == UserModelStatePasswordResetSuccess) {
+        [strongSelf showProfileViewController];
+        return;
+      }
     });
   });
 }

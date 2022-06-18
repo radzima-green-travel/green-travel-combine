@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.title = NSLocalizedString(@"ResetPasswordEMailScreenTitle", @"");
-  
+
   self.titleLabel = [[UILabel alloc] init];
   NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"ResetPasswordEMailScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
@@ -65,7 +65,7 @@
     [self.hintLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor],
     [self.hintLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0],
   ]];
-  
+
   self.textFieldMail = [[CommonTextField alloc] initWithImageName:@"textfield-mail"
                                                      keyboardType:UIKeyboardTypeEmailAddress
                                                       placeholder:NSLocalizedString(@"ProfileScreenPlaceholderEMail", @"")];
@@ -77,7 +77,7 @@
       [self.textFieldMail.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
       [self.textFieldMail.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
   ]];
-  
+
   self.buttonSubmit = [[CommonButton alloc] initWithTarget:self
                                                     action:@selector(onSubmit:)
                                                      label:NSLocalizedString(@"CodeConfirmationScreenSubmit", @"")];
@@ -89,11 +89,18 @@
     [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.textFieldMail.bottomAnchor constant:CommonFormTexFieldAndButtonSpace],
     [self.buttonSubmit.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
     [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-    
+
   ]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self onUserModelStateTransitionFrom:self.userModel.prevState
+                        toCurrentState:self.userModel.state];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
   if (!self.shownKeyboard) {
     self.shownKeyboard = YES;
     [self.textFieldMail becomeFirstResponder];
@@ -126,6 +133,12 @@
         [self.navigationController pushViewController:resetPasswordPassCodeViewController
                                              animated:YES];
         self.navigatedToCodeScreen = YES;
+        return;
+      }
+      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent && self.navigatedToCodeScreen) {
+        [self enableLoadingIndicator:NO];
+        self.navigatedToCodeScreen = NO;
+        return;
       }
     });
   });
