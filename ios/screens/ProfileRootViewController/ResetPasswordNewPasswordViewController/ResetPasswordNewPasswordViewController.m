@@ -33,10 +33,10 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.title = NSLocalizedString(@"ResetPasswordEMailScreenTitle", @"");
+  self.title = NSLocalizedString(@"ResetPasswordNewPasswordScreenTitle", @"");
   
   self.titleLabel = [[UILabel alloc] init];
-  NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"ResetPasswordEMailScreenHeader", @"")];
+  NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"ResetPasswordNewPasswordScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
   [self.titleLabel setNumberOfLines:0];
   [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -51,7 +51,7 @@
   ]];
 
   self.hintLabel = [[UILabel alloc] init];
-  NSAttributedString *hint = [[Typography get] codeConfirmationHint:NSLocalizedString(@"ResetPasswordEMailScreenHint", @"")];
+  NSAttributedString *hint = [[Typography get] codeConfirmationHint:NSLocalizedString(@"ResetPasswordNewPasswordScreenHint", @"")];
   [self.hintLabel setAttributedText:hint];
   [self.hintLabel setNumberOfLines:0];
   [self.hintLabel setTextAlignment:NSTextAlignmentCenter];
@@ -100,48 +100,28 @@
   }
 }
 
-- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
-                  toCurrentState:(UserModelState)currentState {
+
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (prevState == UserModelStateFetched && currentState == UserModelStateSignUpEmailInProgress) {
+      if (prevState == UserModelStatePasswordResetConfirmCodeNotSent && currentState == UserModelStatePasswordResetConfirmCodeInProgress) {
         [self enableLoadingIndicator:YES];
         return;
       }
-      if (prevState == UserModelStateConfirmCodeNotSent && currentState == UserModelStateConfirmCodeInProgress) {
-        [self enableLoadingIndicator:YES];
-        return;
-      }
-      if (prevState == UserModelStateNotSignedIn && currentState == UserModelStateSignInInProgress) {
-        [self enableLoadingIndicator:YES];
-        return;
-      }
-      
-      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateFetched) {
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStateConfirmCodeNotSent) {
         [self enableLoadingIndicator:NO];
         return;
       }
-      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateConfirmCodeSent) {
-        [self enableLoadingIndicator:NO];
-        return;
-      }
-      if (prevState == UserModelStateSignInInProgress && currentState == UserModelStateSignedIn) {
-        // Handler in ProfileRootViewController.
-        return;
-      }
-      
-      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeSet) {
-        return;
-      }
-      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSet) {
-        return;
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetSuccess) {
+        // Success case is handled by ProfileRootViewController.
       }
     });
   });
 }
 
+
 - (void)onSubmit:(CommonButton *)sender {
-  [self.userController initiateResetPasswordConfirm:self.userModel.email code:self.userModel.confirmationCode newPassword:self.textFieldNewPassword.textField.text];
+  [self.userController initiateResetPasswordConfirm:self.userModel.emailResetPassword code:self.userModel.confirmationCode newPassword:self.textFieldNewPassword.textField.text];
   [self.view endEditing:YES];
 }
 

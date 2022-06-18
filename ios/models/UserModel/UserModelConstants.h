@@ -26,10 +26,8 @@ typedef NS_ENUM(NSInteger, UserModelState) {
   UserModelStateSignInInProgress,
   UserModelStateSignedIn,
   // Passsword reset.
-  UserModelStatePasswordNotReset,
-  UserModelStatePasswordResetInProgress,
-  UserModelStatePasswordResetConfirmCodeNotSet,
-  UserModelStatePasswordResetConfirmCodeSet,
+  UserModelStatePasswordEmailInProgress,
+  UserModelStatePasswordResetConfirmCodeNotSent,
   UserModelStatePasswordResetConfirmCodeInProgress,
-  UserModelStatePasswordResetConfirmCodeSuccess,
+  UserModelStatePasswordResetSuccess,
 };

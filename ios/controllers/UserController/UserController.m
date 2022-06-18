@@ -69,15 +69,35 @@
 }
 
 - (void)initiateResetPassword:(NSString *)username {
-  [self.model setState:UserModelStatePasswordNotReset];
+  [self.model setEmailResetPassword:username];
+  [self.model setState:UserModelStatePasswordEmailInProgress];
   __weak typeof(self) weakSelf = self;
-  [self.authService resetPassword:username completion:^(NSError * _Nullable) {
-      
+  [self.authService resetPassword:username completion:^(NSError * _Nullable error) {
+    __weak typeof(weakSelf) strongSelf = weakSelf;
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateFetched];
+      return;
+    }
+    [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
   }];
 }
 
 - (void)initiateResetPasswordConfirm:(NSString *)username code:(NSString *)code newPassword:(NSString *)newPassword {
+  [self.model setPasswordNew:newPassword];
+  [self.model setConfirmationCode:code];
+  [self.model setState:UserModelStatePasswordResetConfirmCodeInProgress];
+  __weak typeof(self) weakSelf = self;
   
+  [self.authService resetPasswordConfirm:username code:code
+                             newPassword:newPassword
+                              completion:^(NSError * _Nullable error) {
+    __weak typeof(weakSelf) strongSelf = weakSelf;
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
+      return;
+    }
+    [strongSelf.model setState:UserModelStatePasswordResetSuccess];
+  }];
 }
 
 - (void)initiateSignUp:(NSString *)email

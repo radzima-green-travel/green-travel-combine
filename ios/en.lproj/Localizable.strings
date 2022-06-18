@@ -77,5 +77,10 @@
 "ResetPasswordPassCodeScreenHeader" = "Reset password";
 "ResetPasswordPassCodeScreenHint" = "enter confirmation code from e-mail %@";
 
+"ResetPasswordNewPasswordScreenTitle" = "Reset password";
+"ResetPasswordNewPasswordScreenHeader" = "New password";
+"ResetPasswordNewPasswordScreenHint" = "New password must be different from the previous ones";
+
+
 
 

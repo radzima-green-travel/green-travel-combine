@@ -68,6 +68,7 @@ class AmplifyBridge: NSObject {
         switch resetResult.nextStep {
         case .confirmResetPasswordWithCode(let deliveryDetails, let info):
           print("Confirm reset password with code send to - \(deliveryDetails) \(info)")
+          completion(nil) 
         case .done:
           print("Reset completed")
           completion(nil)

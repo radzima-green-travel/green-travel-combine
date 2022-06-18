@@ -53,7 +53,7 @@
   ]];
   
   self.hintLabel = [[UILabel alloc] init];
-  NSAttributedString *hint = [[Typography get] codeConfirmationHint:[NSString stringWithFormat:NSLocalizedString(@"ResetPasswordPassCodeScreenHint", @""), self.userModel.email]];
+  NSAttributedString *hint = [[Typography get] codeConfirmationHint:[NSString stringWithFormat:NSLocalizedString(@"ResetPasswordPassCodeScreenHint", @""), self.userModel.emailResetPassword]];
   [self.hintLabel setAttributedText:hint];
   [self.hintLabel setNumberOfLines:0];
   [self.hintLabel setTextAlignment:NSTextAlignmentCenter];
@@ -113,15 +113,15 @@
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (prevState == UserModelStatePasswordResetConfirmCodeSet && currentState == UserModelStatePasswordResetConfirmCodeInProgress) {
+      if (prevState == UserModelStatePasswordResetConfirmCodeNotSent && currentState == UserModelStatePasswordResetConfirmCodeInProgress) {
         [self enableLoadingIndicator:YES];
         return;
       }
-      if (prevState == UserModelStatePasswordResetConfirmCodeSet && currentState == UserModelStateConfirmCodeNotSent) {
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStateConfirmCodeNotSent) {
         [self enableLoadingIndicator:NO];
         return;
       }
-      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeSuccess) {
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetSuccess) {
         // Success case is handled by ProfileRootViewController.
       }
     });
@@ -129,6 +129,8 @@
 }
 
 - (void)onSubmit:(CommonButton *)sender {
+  [self.userModel setConfirmationCode:self.passCodeField.text];
+  
   ResetPasswordNewPasswordViewController *resetPasswordNewPasswordViewController =
   [[ResetPasswordNewPasswordViewController alloc] initWithController:self.userController model:self.userModel];
   [self.navigationController pushViewController:resetPasswordNewPasswordViewController animated:YES];

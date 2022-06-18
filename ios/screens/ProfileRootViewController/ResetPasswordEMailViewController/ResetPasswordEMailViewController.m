@@ -13,6 +13,7 @@
 #import "UserModel.h"
 #import "UserModelConstants.h"
 #import "ResetPasswordPassCodeViewController.h"
+#import "CommonFormConstants.h"
 
 @interface ResetPasswordEMailViewController ()
 
@@ -85,7 +86,7 @@
 
   [NSLayoutConstraint activateConstraints:@[
     [self.buttonSubmit.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.textFieldMail.bottomAnchor constant:25.0],
+    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.textFieldMail.bottomAnchor constant:CommonFormTexFieldAndButtonSpace],
     [self.buttonSubmit.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
     [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
     
@@ -102,15 +103,23 @@
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (prevState == UserModelStatePasswordNotReset && currentState == UserModelStatePasswordResetInProgress) {
+      if (currentState == UserModelStatePasswordEmailInProgress) {
         [self enableLoadingIndicator:YES];
         return;
       }
-      if (prevState == UserModelStatePasswordResetInProgress && currentState == UserModelStatePasswordNotReset) {
+      if (currentState == UserModelStatePasswordResetConfirmCodeInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
+      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStateFetched) {
         [self enableLoadingIndicator:NO];
         return;
       }
-      if (prevState == UserModelStatePasswordResetInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSet && !self.navigatedToCodeScreen) {
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent) {
+        [self enableLoadingIndicator:NO];
+        return;
+      }
+      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent && !self.navigatedToCodeScreen) {
         ResetPasswordPassCodeViewController *resetPasswordPassCodeViewController =
         [[ResetPasswordPassCodeViewController alloc] initWithController:self.userController
                                                                   model:self.userModel];

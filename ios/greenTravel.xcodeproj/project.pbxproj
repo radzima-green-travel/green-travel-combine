@@ -186,6 +186,7 @@
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
 		5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A99283948CA008E302D /* CommonTextField.m */; };
 		5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A9D283969F7008E302D /* SecureTextField.m */; };
+		5ACDFCDC285DFA2A0079C8EC /* CommonFormConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
 		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
 		5AD347E02837B2B100235E96 /* AmplifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347DF2837B2B100235E96 /* AmplifyAuth.m */; };
@@ -571,6 +572,8 @@
 		5ACC9A99283948CA008E302D /* CommonTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonTextField.m; sourceTree = "<group>"; };
 		5ACC9A9C283969F7008E302D /* SecureTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecureTextField.h; sourceTree = "<group>"; };
 		5ACC9A9D283969F7008E302D /* SecureTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecureTextField.m; sourceTree = "<group>"; };
+		5ACDFCDA285DFA2A0079C8EC /* CommonFormConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonFormConstants.h; sourceTree = "<group>"; };
+		5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonFormConstants.m; sourceTree = "<group>"; };
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
 		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AD2DA352701D88300876841 /* MapViewToStateIntermediary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewToStateIntermediary.h; sourceTree = "<group>"; };
@@ -712,6 +715,8 @@
 				5AD347EB2837FCF600235E96 /* SignInFormView */,
 				5A95F1F92847F39500CCA852 /* BaseFormViewController.h */,
 				5A95F1FA2847F39500CCA852 /* BaseFormViewController.m */,
+				5ACDFCDA285DFA2A0079C8EC /* CommonFormConstants.h */,
+				5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
@@ -1873,9 +1878,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = NWSTPFC433;
+						DevelopmentTeam = 53APD5F9YQ;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -2304,6 +2309,7 @@
 				5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */,
 				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
+				5ACDFCDC285DFA2A0079C8EC /* CommonFormConstants.m in Sources */,
 				5A53584B27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m in Sources */,
 				5A21445C2663E9A700582901 /* AlertUtils.m in Sources */,
 				5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */,
@@ -2440,10 +2446,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
-				DEVELOPMENT_TEAM = NWSTPFC433;
+				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2462,9 +2468,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = by.gov.nasb.greentravel.radzima;
+				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
