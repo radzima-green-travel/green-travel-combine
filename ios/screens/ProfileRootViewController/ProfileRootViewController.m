@@ -105,7 +105,7 @@
         return;
       }
       BOOL fetched = prevState == UserModelStateFetchingInProgress &&
-        currentState == UserModelStateFetched;
+      currentState == UserModelStateFetched;
       if (fetched && strongSelf.userModel.error != nil) {
         [strongSelf showUserFetchErrorViewController];
         return;

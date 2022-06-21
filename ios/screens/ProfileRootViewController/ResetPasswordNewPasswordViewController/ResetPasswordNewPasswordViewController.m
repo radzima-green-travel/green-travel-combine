@@ -108,7 +108,7 @@
         [self enableLoadingIndicator:YES];
         return;
       }
-      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStateConfirmCodeNotSent) {
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent) {
         [self enableLoadingIndicator:NO];
         return;
       }
