@@ -116,8 +116,18 @@
         [self enableLoadingIndicator:YES];
         return;
       }
+      if (prevState == UserModelStateConfirmCodeNotSent && currentState == UserModelStateSignUpEmailInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
       if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateConfirmCodeNotSent) {
         [self enableLoadingIndicator:NO];
+        [self.passCodeField setText:@""];
+        return;
+      }
+      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateConfirmCodeNotSent) {
+        [self enableLoadingIndicator:NO];
+        [self.passCodeField setText:@""];
         return;
       }
       if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateSignUpSuccess) {

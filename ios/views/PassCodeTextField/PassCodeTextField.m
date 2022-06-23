@@ -133,6 +133,7 @@ replacementString:(NSString *)string {
 
 - (void)setText:(NSString *)text {
   [self.backingTextField setText:text];
+  [self fillWithNumbers:text];
 }
 
 - (BOOL)becomeFirstResponder {
