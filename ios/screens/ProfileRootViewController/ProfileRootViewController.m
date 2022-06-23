@@ -82,18 +82,10 @@
   controllerWithNavigation.navigationBar.titleTextAttributes =
   [TypographyLegacy get].navigationSemiboldAttributes;
   
-  [self addChildViewController:controllerWithNavigation];
+  controllerWithNavigation.view.frame = self.view.bounds;
   [self.view addSubview:controllerWithNavigation.view];
+  
   [controllerWithNavigation didMoveToParentViewController:self];
-  
-  controllerWithNavigation.view.translatesAutoresizingMaskIntoConstraints = NO;
-  
-  [NSLayoutConstraint activateConstraints:@[
-  [controllerWithNavigation.view.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-  [controllerWithNavigation.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-  [controllerWithNavigation.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-  [controllerWithNavigation.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
-  ]];
   
   [self.current willMoveToParentViewController:nil];
   [self.current.view removeFromSuperview];
