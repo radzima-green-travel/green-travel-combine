@@ -13,62 +13,6 @@
 #import "TypographyLegacy.h"
 
 
-CAGradientLayer* createGradientLayer(UIView *view) {
-    CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
-    gradient.frame = view.bounds;
-    gradient.colors = @[(__bridge id)[Colors get].navigationBarColorStart.CGColor,
-                        (__bridge id)[Colors get].navigationBarColorStop.CGColor];
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(1, 0);
-    return gradient;
-}
-
-CAGradientLayer* createOverlayLayer(UIView *view) {
-    if (CGRectEqualToRect(view.bounds, CGRectZero)) {
-        return nil;
-    };
-    CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
-    gradient.frame = view.bounds;
-    gradient.colors = @[(__bridge id)[ColorsLegacy get].heavyMetal.CGColor, (__bridge id)UIColor.clearColor.CGColor];
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(0, 0.6);
-    return gradient;
-}
-
-void insertGradientLayer(UIView *view, CGFloat cornerRadius) {
-    CAGradientLayer *gradient = createGradientLayer(view);
-    if (cornerRadius) {
-        gradient.cornerRadius = cornerRadius;
-    }
-    if (!gradient.superlayer) {
-        [view.layer insertSublayer:gradient atIndex:0];
-    }
-}
-
-UIImage* getGradientImageToFillRectWithRadius(CGRect rect, CGFloat cornerRadius) {
-    CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
-    gradient.frame = rect;
-    gradient.colors = @[(__bridge id)[Colors get].navigationBarColorStart.CGColor,
-                        (__bridge id)[Colors get].navigationBarColorStop.CGColor];
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(1, 0);
-    if (cornerRadius) {
-        gradient.cornerRadius = cornerRadius;
-    }
-    
-    UIImage* gradientImage;
-    UIGraphicsBeginImageContext(gradient.frame.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    [gradient renderInContext:context];
-    gradientImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeStretch];
-    UIGraphicsEndImageContext();
-    return gradientImage;
-}
-
-UIImage* getGradientImageToFillRect(CGRect rect) {
-    return getGradientImageToFillRectWithRadius(rect, 0.0);
-}
 
 void configureNavigationBar(UINavigationBar *navigationBar) {
   CGRect navBarBounds = navigationBar.bounds;
@@ -77,7 +21,7 @@ void configureNavigationBar(UINavigationBar *navigationBar) {
   if (@available(iOS 15.0, *)) {
     UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
     [appearance configureWithOpaqueBackground];
-    appearance.backgroundImage = getGradientImageToFillRect(navBarBounds);
+    appearance.backgroundColor = [Colors get].navigationBarColor;
     appearance.backgroundEffect = nil;
     appearance.titleTextAttributes = getTextAttributes([Colors get].navigationBarTint, 16.0, UIFontWeightSemibold);
     navigationBar.standardAppearance = appearance;
@@ -85,7 +29,7 @@ void configureNavigationBar(UINavigationBar *navigationBar) {
     
   } else {
     navigationBar.titleTextAttributes = getTextAttributes([Colors get].navigationBarTint, 16.0, UIFontWeightSemibold);
-    [navigationBar setBackgroundImage:getGradientImageToFillRect(navBarBounds) forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    navigationBar.barTintColor = [Colors get].navigationBarColor;
   }
   navigationBar.tintColor = [Colors get].navigationBarTint;
   navigationBar.barStyle = UIBarStyleDefault;
