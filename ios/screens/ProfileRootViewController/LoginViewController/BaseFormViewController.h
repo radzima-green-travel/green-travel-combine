@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UserController *userController;
 @property (strong, nonatomic) UserModel *userModel;
 @property (strong, nonatomic) UIActivityIndicatorView *loadingView;
+@property (assign, nonatomic) CGFloat tbHeight;
 
 - (instancetype)initWithController:(UserController *)controller
                    model:(UserModel *)model;

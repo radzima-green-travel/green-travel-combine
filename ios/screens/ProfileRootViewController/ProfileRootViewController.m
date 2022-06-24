@@ -20,6 +20,7 @@
 @interface ProfileRootViewController ()
 
 @property (strong, nonatomic) UINavigationController *current;
+@property (strong, nonatomic) LoginViewController *loginViewController;
 
 @end
 
@@ -36,6 +37,7 @@
 
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
+  [self addDeviceOrientationObserver];
   configureNavigationBar(self.current.navigationBar);
 }
 
@@ -45,11 +47,34 @@
   [self onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  [self removeDeviceOrientationObserver];
+}
+
+- (void)addDeviceOrientationObserver {
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                        selector:@selector(orientationDidChange)
+                                        name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)removeDeviceOrientationObserver {
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                        name:UIDeviceOrientationDidChangeNotification
+                                        object:nil];
+}
+
+- (void)orientationDidChange {
+  self.loginViewController.tbHeight = self.tabBarController.tabBar.frame.size.height;
+}
+
 - (void)showLoginViewController {
-  LoginViewController *loginViewController =
+  self.loginViewController =
   [[LoginViewController alloc] initWithController:self.userController
-                                                  model:self.userModel];
-  [self showViewController:loginViewController title:@"Profile"];
+                                            model:self.userModel];
+  CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+  self.loginViewController.tbHeight = tabBarHeight;
+  [self showViewController:self.loginViewController title:@"Profile"];
 }
 
 - (void)showProfileViewController {
@@ -82,7 +107,6 @@
   controllerWithNavigation.navigationBar.titleTextAttributes =
   [TypographyLegacy get].navigationSemiboldAttributes;
   
-  [self addChildViewController:controllerWithNavigation];
   controllerWithNavigation.view.frame = self.view.bounds;
   [self.view addSubview:controllerWithNavigation.view];
   [controllerWithNavigation didMoveToParentViewController:self];
