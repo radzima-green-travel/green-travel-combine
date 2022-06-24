@@ -20,6 +20,7 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *navigationBarTint;
 @property (strong, nonatomic) UIColor *navigationBarColorStart;
 @property (strong, nonatomic) UIColor *navigationBarColorStop;
+@property (strong, nonatomic) UIColor *navigationBarColor;
 @property (strong, nonatomic) UIColor *tabBarBackground;
 @property (strong, nonatomic) UIColor *tabBarTint;
 @property (strong, nonatomic) UIColor *cardPlaceholder;
