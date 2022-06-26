@@ -3,6 +3,16 @@
     {
       "filename" : "textfield-mail.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "textfield-mail-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
