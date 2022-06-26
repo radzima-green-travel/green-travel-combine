@@ -112,6 +112,16 @@ static const CGFloat kTopOffset = 90.0;
   ]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self.userModel addUserModelObserver:self];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+  [self.userModel removeUserModelObserver:self];
+}
+
 - (void)viewDidLayoutSubviews {
   [super viewDidLayoutSubviews];
   self.view.backgroundColor = [Colors get].background;

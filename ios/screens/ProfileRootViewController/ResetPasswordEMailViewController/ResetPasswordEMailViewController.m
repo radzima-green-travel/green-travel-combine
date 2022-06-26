@@ -23,6 +23,8 @@
 @property(strong, nonatomic) CommonButton *buttonSubmit;
 @property(assign, nonatomic) BOOL shownKeyboard;
 @property(assign, nonatomic) BOOL navigatedToCodeScreen;
+@property(assign, nonatomic) BOOL codeSent;
+@property(assign, nonatomic) BOOL initialLoad;
 
 @end
 
@@ -107,6 +109,10 @@
   }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+}
+
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -126,7 +132,8 @@
         [self enableLoadingIndicator:NO];
         return;
       }
-      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent && !self.navigatedToCodeScreen) {
+      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent &&
+          !self.navigatedToCodeScreen && self.codeSent) {
         ResetPasswordPassCodeViewController *resetPasswordPassCodeViewController =
         [[ResetPasswordPassCodeViewController alloc] initWithController:self.userController
                                                                   model:self.userModel];
@@ -135,7 +142,8 @@
         self.navigatedToCodeScreen = YES;
         return;
       }
-      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent && self.navigatedToCodeScreen) {
+      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent &&
+          self.navigatedToCodeScreen) {
         [self enableLoadingIndicator:NO];
         self.navigatedToCodeScreen = NO;
         return;
@@ -146,6 +154,7 @@
 
 - (void)onSubmit:(CommonButton *)sender {
   [self.userController initiateResetPassword:self.textFieldMail.textField.text];
+  self.codeSent = YES;
   [self.view endEditing:YES];
 }
 
