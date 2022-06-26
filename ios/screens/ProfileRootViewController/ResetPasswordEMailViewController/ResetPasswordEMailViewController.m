@@ -22,8 +22,7 @@
 @property (strong, nonatomic) CommonTextField *textFieldMail;
 @property(strong, nonatomic) CommonButton *buttonSubmit;
 @property(assign, nonatomic) BOOL shownKeyboard;
-@property(assign, nonatomic) BOOL navigatedToCodeScreen;
-@property(assign, nonatomic) BOOL codeSent;
+@property(assign, nonatomic) BOOL shouldNavigateToCodeScreen;
 @property(assign, nonatomic) BOOL initialLoad;
 
 @end
@@ -133,19 +132,18 @@
         return;
       }
       if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent &&
-          !self.navigatedToCodeScreen && self.codeSent) {
+          self.shouldNavigateToCodeScreen) {
         ResetPasswordPassCodeViewController *resetPasswordPassCodeViewController =
         [[ResetPasswordPassCodeViewController alloc] initWithController:self.userController
                                                                   model:self.userModel];
         [self.navigationController pushViewController:resetPasswordPassCodeViewController
                                              animated:YES];
-        self.navigatedToCodeScreen = YES;
+        self.shouldNavigateToCodeScreen = NO;
         return;
       }
       if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent &&
-          self.navigatedToCodeScreen) {
+          !self.shouldNavigateToCodeScreen) {
         [self enableLoadingIndicator:NO];
-        self.navigatedToCodeScreen = NO;
         return;
       }
     });
@@ -153,8 +151,8 @@
 }
 
 - (void)onSubmit:(CommonButton *)sender {
+  self.shouldNavigateToCodeScreen = YES;
   [self.userController initiateResetPassword:self.textFieldMail.textField.text];
-  self.codeSent = YES;
   [self.view endEditing:YES];
 }
 

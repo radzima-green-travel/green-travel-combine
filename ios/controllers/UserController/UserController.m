@@ -94,6 +94,7 @@
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
+      [strongSelf.model setError:error];
       return;
     }
 
@@ -103,6 +104,7 @@
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
         [strongSelf.model setState:UserModelStateFetched];
+        [strongSelf.model setError:error];
         return;
       }
       [strongSelf.model setState:UserModelStatePasswordResetSuccess];

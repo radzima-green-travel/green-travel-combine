@@ -48,12 +48,12 @@ class AmplifyBridge: NSObject {
       switch result {
       case .success(let signInResult):
         if (!signInResult.isSignedIn) {
-          let customError = NSError(domain: AuthErrorDomain, code: AuthError.AuthErrorNotSignedIn.rawValue)
+          let customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorNotSignedIn.rawValue)
           completion(customError)
         }
         completion(nil)
       case .failure(let error):
-        let customError = NSError(domain: AuthErrorDomain, code: AuthError.AuthErrorSignInFailed.rawValue)
+        let customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorSignInFailed.rawValue)
         print("An error occurred while signing in a user \(error)")
         completion(customError)
       }
@@ -74,7 +74,7 @@ class AmplifyBridge: NSObject {
           completion(nil)
         }
       } catch {
-        let customError = NSError(domain: AuthErrorDomain, code: AuthError.AuthErrorResetPasswordFailed.rawValue)
+        let customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordFailed.rawValue)
         print("An error occurred while resetting the password \(error)")
         completion(customError)
       }
@@ -84,15 +84,26 @@ class AmplifyBridge: NSObject {
   @objc public func resetPasswordConfirm(username: String,
                                          code: String,
                                          newPassword: String,
-                           completion: @escaping (_ err: NSError?) -> Void) {
+                                         completion: @escaping (_ err: NSError?) -> Void) {
     Amplify.Auth.confirmResetPassword(for: username, with: newPassword, confirmationCode: code, options:nil) {
       result in
       switch result {
       case .success(()):
         completion(nil)
       case .failure(let error):
-        let customError = NSError(domain: AuthErrorDomain, code: AuthError.AuthErrorResetPasswordConfirmFailed.rawValue)
-        print("An error occurred while confirming reset password \(error)")
+        print("An error occurred while confirming password reset \(error)")
+        var customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordConfirmFailed.rawValue)
+        if let authError = error as? AuthError,
+            let cognitoAuthError = authError.underlyingError as? AWSCognitoAuthError {
+            switch cognitoAuthError {
+            case .codeMismatch:
+              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordConfirmFailedCodeMismatch.rawValue)
+            case .invalidPassword:
+              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordConfirmFailedCodeMismatch.rawValue)
+            default:
+                break
+            }
+        }
         completion(customError)
       }
     }

@@ -7,12 +7,13 @@
 
 import Foundation
 
-@objc enum AuthError: Int {
+@objc enum AmplifyBridgeError: Int {
   case AuthErrorFetchSessionFailed = 1
   case AuthErrorSignInFailed
   case AuthErrorNotSignedIn
   case AuthErrorResetPasswordFailed
   case AuthErrorResetPasswordConfirmFailed
+  case AuthErrorResetPasswordConfirmFailedCodeMismatch
 }
 
 let AuthErrorDomain = "app.radzima"

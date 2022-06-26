@@ -13,6 +13,7 @@
 #import "UserModel.h"
 #import "UserModelConstants.h"
 #import "ResetPasswordPassCodeViewController.h"
+#import "Radzima_Dev-Swift.h"
 
 @interface ResetPasswordNewPasswordViewController ()
 
@@ -93,13 +94,19 @@
   ]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self.textFieldNewPassword.textField setText:self.userModel.passwordNew];
+}
+
+
 - (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
   if (!self.shownKeyboard) {
     self.shownKeyboard = YES;
     [self.textFieldNewPassword becomeFirstResponder];
   }
 }
-
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
@@ -110,6 +117,12 @@
       }
       if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent) {
         [self enableLoadingIndicator:NO];
+        switch (self.userModel.error.code) {
+          case AmplifyBridgeErrorAuthErrorResetPasswordConfirmFailedCodeMismatch:
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+          default:break;
+        }
         return;
       }
       if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetSuccess) {
