@@ -117,7 +117,19 @@
         [self enableLoadingIndicator:YES];
         return;
       }
+      if (prevState == UserModelStatePasswordResetConfirmCodeNotSent && currentState == UserModelStatePasswordEmailInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
       if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent) {
+        [self enableLoadingIndicator:NO];
+        return;
+      }
+      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent) {
+        [self enableLoadingIndicator:NO];
+        return;
+      }
+      if (prevState == UserModelStatePasswordEmailInProgress && currentState == UserModelStateFetched) {
         [self enableLoadingIndicator:NO];
         return;
       }
@@ -138,7 +150,7 @@
 }
 
 - (void)onRetry:(UIButton *)sender {
-  [self.userController initiateResetPassword:self.userModel.email];
+  [self.userController initiateResetPassword:self.userModel.emailResetPassword];
   [self.view endEditing:YES];
 }
 

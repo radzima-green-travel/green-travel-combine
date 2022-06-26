@@ -74,8 +74,17 @@ class AmplifyBridge: NSObject {
           completion(nil)
         }
       } catch {
-        let customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordFailed.rawValue)
         print("An error occurred while resetting the password \(error)")
+        var customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordFailed.rawValue)
+        if let authError = error as? AuthError,
+            let cognitoAuthError = authError.underlyingError as? AWSCognitoAuthError {
+            switch cognitoAuthError {
+            case .userNotFound:
+              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorUserNotFound.rawValue)
+            default:
+                break
+            }
+        }
         completion(customError)
       }
     }
@@ -97,9 +106,9 @@ class AmplifyBridge: NSObject {
             let cognitoAuthError = authError.underlyingError as? AWSCognitoAuthError {
             switch cognitoAuthError {
             case .codeMismatch:
-              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordConfirmFailedCodeMismatch.rawValue)
+              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorCodeMismatch.rawValue)
             case .invalidPassword:
-              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordConfirmFailedCodeMismatch.rawValue)
+              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorInvalidPassword.rawValue)
             default:
                 break
             }

@@ -118,8 +118,8 @@
       if (prevState == UserModelStatePasswordResetConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent) {
         [self enableLoadingIndicator:NO];
         switch (self.userModel.error.code) {
-          case AmplifyBridgeErrorAuthErrorResetPasswordConfirmFailedCodeMismatch:
-            [self.navigationController popViewControllerAnimated:YES];
+          case AmplifyBridgeErrorAuthErrorCodeMismatch:
+            [self.navigationController popViewControllerAnimated:NO];
             break;
           default:break;
         }

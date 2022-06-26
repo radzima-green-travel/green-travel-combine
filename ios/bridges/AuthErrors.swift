@@ -13,7 +13,9 @@ import Foundation
   case AuthErrorNotSignedIn
   case AuthErrorResetPasswordFailed
   case AuthErrorResetPasswordConfirmFailed
-  case AuthErrorResetPasswordConfirmFailedCodeMismatch
+  case AuthErrorCodeMismatch
+  case AuthErrorInvalidPassword
+  case AuthErrorUserNotFound
 }
 
 let AuthErrorDomain = "app.radzima"
