@@ -3,6 +3,16 @@
     {
       "filename" : "password-lock.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "password-lock-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
