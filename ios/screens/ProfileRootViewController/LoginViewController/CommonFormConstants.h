@@ -9,3 +9,4 @@
 #import <UIKit/UIKit.h>
  
 FOUNDATION_EXPORT const CGFloat CommonFormTexFieldAndButtonSpace;
+FOUNDATION_EXPORT const CGFloat CommonFormMinContentInset;

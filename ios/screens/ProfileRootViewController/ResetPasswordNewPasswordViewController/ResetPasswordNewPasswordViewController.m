@@ -14,6 +14,7 @@
 #import "UserModelConstants.h"
 #import "ResetPasswordPassCodeViewController.h"
 #import "Radzima_Dev-Swift.h"
+#import "CommonFormConstants.h"
 
 @interface ResetPasswordNewPasswordViewController ()
 
@@ -29,7 +30,8 @@
 @implementation ResetPasswordNewPasswordViewController
 
 - (void)viewDidLayoutSubviews {
-  [self.hintLabel setPreferredMaxLayoutWidth:self.view.frame.size.width - 47.0];
+  [self.hintLabel setPreferredMaxLayoutWidth:self.view.frame.size.width -
+   CommonFormMinContentInset * 2];
 }
 
 - (void)viewDidLoad {

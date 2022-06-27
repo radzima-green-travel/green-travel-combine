@@ -14,6 +14,7 @@
 #import "Typography.h"
 #import "Colors.h"
 #import "UIButtonHighlightable.h"
+#import "CommonFormConstants.h"
 
 @interface ResetPasswordPassCodeViewController ()
 
@@ -29,7 +30,8 @@
 @implementation ResetPasswordPassCodeViewController
 
 - (void)viewDidLayoutSubviews {
-  [self.hintLabel setPreferredMaxLayoutWidth:self.view.frame.size.width - 47.0];
+  [self.hintLabel setPreferredMaxLayoutWidth:self.view.frame.size.width -
+   CommonFormMinContentInset * 2];
 }
 
 - (void)viewDidLoad {
