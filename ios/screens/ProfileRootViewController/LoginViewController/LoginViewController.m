@@ -164,16 +164,19 @@ static const CGFloat kTopOffset = 90.0;
         [self enableLoadingIndicator:YES];
         return;
       }
-      if (prevState == UserModelStateNotSignedIn && currentState == UserModelStateSignInInProgress) {
+      if (prevState == UserModelStateFetched && currentState == UserModelStateSignInInProgress) {
         [self enableLoadingIndicator:YES];
         return;
       }
-      
       if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateFetched) {
         [self enableLoadingIndicator:NO];
         return;
       }
       if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateConfirmCodeSent) {
+        [self enableLoadingIndicator:NO];
+        return;
+      }
+      if (prevState == UserModelStateSignInInProgress && currentState == UserModelStateFetched) {
         [self enableLoadingIndicator:NO];
         return;
       }

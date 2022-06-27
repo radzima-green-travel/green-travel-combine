@@ -48,7 +48,7 @@
                             completion:^(NSError * _Nonnull error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
-      [strongSelf.model setState:UserModelStateNotSignedIn];
+      [strongSelf.model setState:UserModelStateFetched];
       return;
     }
     [strongSelf.model setState:UserModelStateSignedIn];

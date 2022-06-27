@@ -96,8 +96,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  [self onUserModelStateTransitionFrom:self.userModel.prevState
-                        toCurrentState:self.userModel.state];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

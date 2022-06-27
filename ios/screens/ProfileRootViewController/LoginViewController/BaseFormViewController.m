@@ -115,6 +115,8 @@ static const CGFloat kTopOffset = 90.0;
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   [self.userModel addUserModelObserver:self];
+  [self onUserModelStateTransitionFrom:self.userModel.prevState
+                        toCurrentState:self.userModel.state];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
