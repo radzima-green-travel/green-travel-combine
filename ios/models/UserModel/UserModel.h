@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSString *passwordNew;
 @property (strong, nonatomic) NSString *confirmationCode;
-@property (strong, nonatomic) NSError *error;
+@property (strong, nonatomic, nullable) NSError *error;
 @property (assign, nonatomic) BOOL signedIn;
 @property (strong, nonatomic) NSMutableArray<id<UserModelObserver>> *userModelObservers;
 @property (assign, nonatomic) UserModelState prevState;

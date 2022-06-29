@@ -23,7 +23,7 @@
 @property (strong, nonatomic) SecureTextField *textFieldNewPassword;
 @property(strong, nonatomic) CommonButton *buttonSubmit;
 @property(assign, nonatomic) BOOL shownKeyboard;
-@property(assign, nonatomic) BOOL navigatedToCodeScreen;
+@property(assign, nonatomic) BOOL codeSent;
 
 @end
 
@@ -121,7 +121,9 @@
         [self enableLoadingIndicator:NO];
         switch (self.userModel.error.code) {
           case AmplifyBridgeErrorAuthErrorCodeMismatch:
-            [self.navigationController popViewControllerAnimated:NO];
+            if (self.codeSent) {
+              [self.navigationController popViewControllerAnimated:NO];
+            }
             break;
           default:break;
         }
@@ -137,6 +139,7 @@
 
 - (void)onSubmit:(CommonButton *)sender {
   [self.userController resetPasswordConfirm:self.userModel.emailResetPassword code:self.userModel.confirmationCode newPassword:self.textFieldNewPassword.textField.text];
+  self.codeSent = YES;
   [self.view endEditing:YES];
 }
 

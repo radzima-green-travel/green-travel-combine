@@ -86,8 +86,9 @@
   [self.model setPasswordNew:newPassword];
   [self.model setConfirmationCode:code];
   [self.model setState:UserModelStatePasswordResetConfirmCodeInProgress];
-  __weak typeof(self) weakSelf = self;
 
+  [self.model setError:nil];
+  __weak typeof(self) weakSelf = self;
   [self.authService resetPasswordConfirm:username code:code
                              newPassword:newPassword
                               completion:^(NSError * _Nullable error) {
@@ -98,6 +99,7 @@
       return;
     }
 
+    [strongSelf.model setError:nil];
     [self signIn:strongSelf.model.emailResetPassword
         password:strongSelf.model.passwordNew
       completion:^(NSError * _Nonnull error){
@@ -124,9 +126,7 @@
   [self.authService signUpWithUsername:username password:password email:email
                             completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
-    UserState *state = [UserState new];
-    [state setInProgress:NO];
-    [state setError:error == nil];
+    
     if (error != nil) {
       [strongSelf.model setState:UserModelStateFetched];
       return;
