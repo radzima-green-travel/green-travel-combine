@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Keyboard, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {styles} from './styles';
 import {Trans} from 'react-i18next';
@@ -10,9 +10,12 @@ import {IProps} from './types';
 export const SignUp = ({navigation}: IProps) => {
   const {t} = useTranslation('authentification');
 
-  const navigateToEmailValidation = email => {
-    navigation.navigate('EmailValidation', {email, isSignUp: true});
-  };
+  const navigateToEmailValidation = useCallback(
+    email => {
+      navigation.navigate('EmailValidation', {email, isSignUp: true});
+    },
+    [navigation],
+  );
 
   // TODO: add actual links to Terms of Use and Privacy Policy
   return (

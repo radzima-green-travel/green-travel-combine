@@ -17,7 +17,7 @@ import {
   homeReducer,
   objectDetailsMapReducer,
   searchReducer,
-  signInReducer,
+  authenticationReducer,
 } from './reducers';
 
 const storage = new MMKV();
@@ -62,7 +62,7 @@ const rootReducer = combineReducers({
   home: persistReducer(homePersistConfig, homeReducer),
   objectDetailsMap: objectDetailsMapReducer,
   search: persistReducer(searchPersistConfig, searchReducer),
-  signIn: signInReducer,
+  authentication: authenticationReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

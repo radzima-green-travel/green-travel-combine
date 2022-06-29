@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   EmailValidationScreen,
   NewPasswordScreen,
@@ -10,43 +11,38 @@ import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
 import {ProfileNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {selectUserAuthorized} from 'core/selectors';
+import {userAuthorizedRequest} from 'core/reducers';
 import {defaultTransition} from '../transition';
-import {Auth, Hub} from 'aws-amplify';
+import {Hub} from 'aws-amplify';
 import {LoadingView} from 'atoms';
 
 const Stack = createNativeStackNavigator<ProfileNavigatorParamsList>();
 
 export function ProfileNavigator() {
-  const [user, setUser] = useState(undefined);
   const screenOptions = useScreenOptions();
   const {t} = useTranslation(['common', 'authentification']);
+  const dispatch = useDispatch();
 
-  const isUser = async () => {
-    try {
-      const authUser = await Auth.currentAuthenticatedUser({bypassCache: true});
-      setUser(authUser);
-    } catch (e) {
-      setUser(null);
-    }
-  };
+  const userAuthorized = useSelector(selectUserAuthorized);
 
   useEffect(() => {
-    isUser();
-  }, []);
+    dispatch(userAuthorizedRequest());
+  }, [dispatch]);
 
   useEffect(() => {
     const signListener = data => {
       if (data.payload.event === 'signIn' || data.payload.event === 'signOut') {
-        isUser();
+        dispatch(userAuthorizedRequest());
       }
     };
 
     Hub.listen('auth', signListener);
 
     return () => Hub.remove('auth', signListener);
-  }, []);
+  }, [dispatch]);
 
-  if (user === undefined) {
+  if (userAuthorized === undefined) {
     return <LoadingView />;
   }
 
@@ -57,7 +53,7 @@ export function ProfileNavigator() {
         title: t('tabs.profile'),
         animation: defaultTransition,
       }}>
-      {user ? (
+      {userAuthorized ? (
         <Stack.Screen name="Profile" component={ProfileScreen} />
       ) : (
         <>

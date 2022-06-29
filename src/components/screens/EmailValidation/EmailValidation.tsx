@@ -9,7 +9,11 @@ import {
 import {useDispatch} from 'react-redux';
 import {confirmSignUpRequest, resendSignUpCodeRequest} from 'core/reducers';
 import {styles} from './styles';
-import {useTranslation} from 'core/hooks';
+import {
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTranslation,
+} from 'core/hooks';
 import {Button, OneTimeCode} from 'atoms';
 import {IProps} from './types';
 
@@ -30,10 +34,15 @@ export const EmailValidation = ({navigation, route}: IProps) => {
     setCode(emailCode);
   };
 
+  const {loading} = useRequestLoading(confirmSignUpRequest);
+
+  useOnRequestSuccess(confirmSignUpRequest, () => {
+    navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
+  });
+
   const onConfirmSignUp = useCallback(() => {
     dispatch(confirmSignUpRequest({email, code}));
-    navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
-  }, [dispatch, email, code, navigation]);
+  }, [dispatch, email, code]);
 
   const onConfirmForgotPassword = () => {
     navigation.navigate('NewPassword', {email, code});
@@ -54,17 +63,18 @@ export const EmailValidation = ({navigation, route}: IProps) => {
             {t('signUpValidationText')} {email}
           </Text>
           <OneTimeCode onCodeInput={getEmailCode} />
-          {isSignUp ? (
-            <Pressable onPress={onResendSignUpCodetoEmail}>
-              <Text style={styles.repeatText}>{t('repeatAttempt')}</Text>
-            </Pressable>
-          ) : null}
         </View>
         <Button
           style={!isCodeFull ? styles.notActivated : null}
-          onPress={isSignUp ? onConfirmSignUp : onConfirmForgotPassword}>
+          onPress={isSignUp ? onConfirmSignUp : onConfirmForgotPassword}
+          loading={loading}>
           {buttonText}
         </Button>
+        {isSignUp ? (
+          <Pressable onPress={onResendSignUpCodetoEmail}>
+            <Text style={styles.repeatText}>{t('repeatAttempt')}</Text>
+          </Pressable>
+        ) : null}
       </View>
     </TouchableWithoutFeedback>
   );
