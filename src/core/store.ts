@@ -13,7 +13,7 @@ import {
   homeReducer,
   objectDetailsMapReducer,
   searchReducer,
-  signInReducer,
+  authenticationReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -45,7 +45,7 @@ const rootReducer = combineReducers({
   home: persistReducer(homePersistConfig, homeReducer),
   objectDetailsMap: objectDetailsMapReducer,
   search: persistReducer(searchPersistConfig, searchReducer),
-  signIn: signInReducer,
+  authentication: authenticationReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

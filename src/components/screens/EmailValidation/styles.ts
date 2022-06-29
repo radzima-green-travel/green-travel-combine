@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   },
   boxContainer: {
     alignItems: 'center',
-    marginBottom: 25,
+    marginBottom: 20,
   },
   title: {
     ...FONTS_STYLES.semibold20,
@@ -22,6 +22,8 @@ export const styles = StyleSheet.create({
   repeatText: {
     ...FONTS_STYLES.regular16,
     color: COLORS.apple,
+    textAlign: 'center',
+    marginTop: 25,
   },
   notActivated: {
     backgroundColor: COLORS.alto,

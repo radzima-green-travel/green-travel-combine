@@ -117,6 +117,8 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
     outputRange: [1, 1, 0],
   });
 
+  const defaultPhoto = [require('./img/objectDetailsDefaultPhoto.png')];
+
   return data ? (
     <View style={styles.container}>
       <Animated.ScrollView
@@ -207,7 +209,7 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
           <ImageSlider
             width={IMAGE_WIDTH}
             height={IMAGE_HEIGHT}
-            images={data.images}
+            images={data.images || defaultPhoto}
             onScroll={onScroll}
           />
         </ZoomableView>

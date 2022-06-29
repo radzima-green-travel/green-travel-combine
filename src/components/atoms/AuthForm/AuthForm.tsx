@@ -19,7 +19,6 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
 
   const dispatch = useDispatch();
 
-  // TODO: remove attributes 'name' and 'family_name' when backend configuration is fixed
   const onSignUpSubmit = useCallback(() => {
     dispatch(
       signUpRequest({

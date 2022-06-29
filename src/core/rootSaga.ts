@@ -1,26 +1,16 @@
 import {all} from 'redux-saga/effects';
 import {
+  authentificationSaga,
   bootstrapSaga,
-  confirmNewPasswordSaga,
-  confirmSignUpSaga,
-  forgotPasswordSaga,
   homeSaga,
   objectDetailsMapSaga,
-  resendSignUpCodeSaga,
-  signInSaga,
-  signUpSaga,
 } from './sagas';
 
 export function* rootSaga() {
   yield all([
+    authentificationSaga(),
     bootstrapSaga(),
-    confirmNewPasswordSaga(),
-    confirmSignUpSaga(),
-    forgotPasswordSaga(),
     homeSaga(),
     objectDetailsMapSaga(),
-    resendSignUpCodeSaga(),
-    signInSaga(),
-    signUpSaga(),
   ]);
 }
