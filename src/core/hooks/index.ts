@@ -1,4 +1,5 @@
 export {useAppState} from './useAppState';
+export {useAuthHubChannel} from './useAuthHubChannel';
 export {useBackHandler} from './useBackHandler';
 export {useBookmarksObjects} from './useBookmarksObjects';
 export {useBottomMenu} from './useBottomMenu';

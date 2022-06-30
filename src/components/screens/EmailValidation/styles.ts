@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     ...FONTS_STYLES.semibold20,
+    textAlign: 'center',
     marginBottom: 20,
   },
   text: {
