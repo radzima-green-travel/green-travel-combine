@@ -7,7 +7,11 @@ import {
   View,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
-import {confirmSignUpRequest, resendSignUpCodeRequest} from 'core/reducers';
+import {
+  confirmSignUpRequest,
+  forgotPasswordRequest,
+  resendSignUpCodeRequest,
+} from 'core/reducers';
 import {styles} from './styles';
 import {
   useOnRequestSuccess,
@@ -52,6 +56,10 @@ export const EmailValidation = ({navigation, route}: IProps) => {
     dispatch(resendSignUpCodeRequest(email));
   }, [dispatch, email]);
 
+  const onResendRestorePasswordCodetoEmail = useCallback(() => {
+    dispatch(forgotPasswordRequest({email}));
+  }, [dispatch, email]);
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
@@ -70,11 +78,14 @@ export const EmailValidation = ({navigation, route}: IProps) => {
           loading={loading}>
           {buttonText}
         </Button>
-        {isSignUp ? (
-          <Pressable onPress={onResendSignUpCodetoEmail}>
-            <Text style={styles.repeatText}>{t('repeatAttempt')}</Text>
-          </Pressable>
-        ) : null}
+        <Pressable
+          onPress={
+            isSignUp
+              ? onResendSignUpCodetoEmail
+              : onResendRestorePasswordCodetoEmail
+          }>
+          <Text style={styles.repeatText}>{t('repeatAttempt')}</Text>
+        </Pressable>
       </View>
     </TouchableWithoutFeedback>
   );

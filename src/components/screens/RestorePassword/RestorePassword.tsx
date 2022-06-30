@@ -30,15 +30,6 @@ export const RestorePassword = ({navigation}: IProps) => {
     navigation.navigate('EmailValidation', {email, isSignUp: false});
   }, [dispatch, email, navigation]);
 
-  /* const onResendPassword = async () => {
-    try {
-      await Auth.forgotPassword(email);
-      navigation.navigate('EmailValidation', {email});
-    } catch (e) {
-      Alert.alert('Oops', (e as Error).message);
-    }
-  }; */
-
   useEffect(() => {
     const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 

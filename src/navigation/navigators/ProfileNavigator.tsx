@@ -14,7 +14,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {selectUserAuthorized} from 'core/selectors';
 import {userAuthorizedRequest} from 'core/reducers';
 import {defaultTransition} from '../transition';
-import {Hub} from 'aws-amplify';
 import {LoadingView} from 'atoms';
 
 const Stack = createNativeStackNavigator<ProfileNavigatorParamsList>();
@@ -28,18 +27,6 @@ export function ProfileNavigator() {
 
   useEffect(() => {
     dispatch(userAuthorizedRequest());
-  }, [dispatch]);
-
-  useEffect(() => {
-    const signListener = data => {
-      if (data.payload.event === 'signIn' || data.payload.event === 'signOut') {
-        dispatch(userAuthorizedRequest());
-      }
-    };
-
-    Hub.listen('auth', signListener);
-
-    return () => Hub.remove('auth', signListener);
   }, [dispatch]);
 
   if (userAuthorized === undefined) {

@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {styles} from './styles';
 import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
@@ -14,8 +14,8 @@ interface IProps {
 export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [emailTip, setEmailTip] = useState('');
-  const [passwordTip, setPasswordTip] = useState('');
+  /*  const [emailTip, setEmailTip] = useState('');
+  const [passwordTip, setPasswordTip] = useState(''); */
 
   const dispatch = useDispatch();
 
@@ -77,9 +77,9 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
           placeholder={'email'}
           value={email}
           setValue={setEmail}
-          dangerBorder={!!emailTip}
+          // dangerBorder={!!emailTip}
         />
-        {emailTip ? <Text style={styles.textDanger}>{emailTip}</Text> : null}
+        {/*  {emailTip ? <Text style={styles.textDanger}>{emailTip}</Text> : null} */}
       </View>
 
       <View style={styles.input}>
@@ -92,11 +92,11 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
           onRightIconPress={handlePasswordVisibility}
           value={password}
           setValue={setPassword}
-          dangerBorder={!!passwordTip}
+          // dangerBorder={!!passwordTip}
         />
-        {passwordTip ? (
+        {/* {passwordTip ? (
           <Text style={styles.textDanger}>{passwordTip}</Text>
-        ) : null}
+        ) : null} */}
       </View>
 
       <Button
