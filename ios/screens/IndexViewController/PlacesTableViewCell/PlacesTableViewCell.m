@@ -108,7 +108,7 @@ static CGFloat kRatioDivider = 1.09;
     self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [self.collectionView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:0.0],
-        [self.collectionView.topAnchor constraintEqualToAnchor:self.headerLabel.bottomAnchor constant:0.0],
+        [self.collectionView.topAnchor constraintEqualToAnchor:self.headerLabel.bottomAnchor constant:16.0],
         [self.collectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:0.0],
         [self.collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:0.0],
     ]];
