@@ -37,12 +37,12 @@
 
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
-  [self addDeviceOrientationObserver];
   configureNavigationBar(self.current.navigationBar);
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  [self addDeviceOrientationObserver];
   [self.userModel addUserModelObserver:self];
   [self onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
 }
@@ -65,7 +65,9 @@
 }
 
 - (void)orientationDidChange {
-  self.loginViewController.tbHeight = self.tabBarController.tabBar.frame.size.height;
+  if (self.loginViewController != nil){
+    self.loginViewController.tbHeight = self.tabBarController.tabBar.frame.size.height;
+  }
 }
 
 - (void)showLoginViewController {
