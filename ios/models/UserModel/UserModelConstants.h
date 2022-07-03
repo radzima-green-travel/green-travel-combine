@@ -12,7 +12,7 @@
 #endif /* UserModelConstants_h */
 
 typedef NS_ENUM(NSInteger, UserModelState) {
-  // Sign up.
+#pragma mark - sign up
   UserModelStateNotFetched,
   UserModelStateFetchingInProgress,
   UserModelStateFetched,
@@ -21,12 +21,14 @@ typedef NS_ENUM(NSInteger, UserModelState) {
   UserModelStateConfirmCodeInProgress,
   UserModelStateConfirmCodeSent,
   UserModelStateSignUpSuccess,
-  // Sign in.
+#pragma mark - sign in
   UserModelStateSignInInProgress,
   UserModelStateSignedIn,
-  // Passsword reset.
+#pragma mark - password reset
   UserModelStatePasswordEmailInProgress,
   UserModelStatePasswordResetConfirmCodeNotSent,
   UserModelStatePasswordResetConfirmCodeInProgress,
   UserModelStatePasswordResetSuccess,
+#pragma mark - log out
+  UserModelStateSignOutInProgress,
 };

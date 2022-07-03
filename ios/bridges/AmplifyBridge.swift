@@ -186,4 +186,28 @@ class AmplifyBridge: NSObject {
     }
   }
   
+  @objc public func logOut(completion: @escaping (_ err: NSError?) -> Void) {
+    Amplify.Auth.signOut { result in
+      switch result {
+      case .success:
+        print("Log out succeeded")
+        completion(nil)
+      case .failure(let error):
+        var customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorResetPasswordConfirmFailed.rawValue)
+        
+        if let authError = error as? AuthError,
+            let cognitoAuthError = authError.underlyingError as? AWSCognitoAuthError {
+            switch cognitoAuthError {
+            case .userNotFound:
+              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorCodeMismatch.rawValue)
+            default:
+                break
+            }
+        }
+        print("Resend of confirmation code failed \(error)")
+        completion(customError)
+      }
+    }
+  }
+  
 }

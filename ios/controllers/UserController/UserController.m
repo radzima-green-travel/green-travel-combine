@@ -34,7 +34,7 @@
 - (void)fetchCurrentAuthSession {
   [self.model setState:UserModelStateFetchingInProgress];
   __weak typeof(self) weakSelf = self;
-  [self.authService fetchCurrentAuthSession:^(NSError * _Nonnull error, BOOL signedIn) {
+  [self.authService fetchCurrentAuthSession:^(NSError * _Nullable error, BOOL signedIn) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     [strongSelf.model setSignedIn:signedIn];
     [strongSelf.model setState:UserModelStateFetched];
@@ -45,7 +45,7 @@
   [self.model setState:UserModelStateSignInInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService signInWithUsername:username password:password
-                            completion:^(NSError * _Nonnull error) {
+                            completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateFetched];
@@ -102,7 +102,7 @@
     [strongSelf.model setError:nil];
     [self signIn:strongSelf.model.emailResetPassword
         password:strongSelf.model.passwordNew
-      completion:^(NSError * _Nonnull error){
+      completion:^(NSError * _Nullable error){
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
         [strongSelf.model setState:UserModelStateFetched];
@@ -138,7 +138,7 @@
 - (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code {
   [self.model setState:UserModelStateConfirmCodeInProgress];
   __weak typeof(self) weakSelf = self;
-  [self.authService confirmSignUpForEMail:email code:code completion:^(NSError * _Nonnull error) {
+  [self.authService confirmSignUpForEMail:email code:code completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
@@ -146,7 +146,7 @@
     }
     __weak typeof(strongSelf) weakSelf = strongSelf;
     [self signIn:strongSelf.model.email password:strongSelf.model.password
-      completion:^(NSError * _Nonnull error){
+      completion:^(NSError * _Nullable error){
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
         [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
@@ -160,13 +160,26 @@
 - (void)resendSignUpCodeForEMail:(NSString *)email {
   [self.model setState:UserModelStateSignUpEmailInProgress];
   __weak typeof(self) weakSelf = self;
-  [self.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull error) {
+  [self.authService resendSignUpCodeEMail:email completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateFetched];
       return;
     }
     [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
+  }];
+}
+
+- (void)initiateSignOut {
+  [self.model setState:UserModelStateSignOutInProgress];
+  __weak typeof(self) weakSelf = self;
+  [self.authService signOutWithCompletion:^(NSError * _Nullable error) {
+    __weak typeof(weakSelf) strongSelf = weakSelf;
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateSignUpSuccess];
+      return;
+    }
+    [strongSelf.model setState:UserModelStateFetched];
   }];
 }
 

@@ -139,6 +139,11 @@
         [strongSelf showProfileViewController];
         return;
       }
+      if (prevState == UserModelStateSignOutInProgress &&
+          currentState == UserModelStateFetched) {
+        [strongSelf showLoginViewController];
+        return;
+      }
     });
   });
 }

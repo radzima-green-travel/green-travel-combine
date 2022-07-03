@@ -69,4 +69,10 @@
   }];
 }
 
+- (void)signOutWithCompletion:(void (^)(NSError * _Nonnull))completion {
+  [self.amplifyBridge logOutWithCompletion:^(NSError * _Nullable error) {
+    completion(error);
+  }];
+}
+
 @end

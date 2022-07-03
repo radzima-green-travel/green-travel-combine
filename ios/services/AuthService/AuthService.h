@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
                    completion:(void (^)(NSError * _Nonnull))completion;
 - (void)resendSignUpCodeEMail:(NSString *)email
                    completion:(void (^)(NSError * _Nonnull))completion;
+- (void)signOutWithCompletion:(void (^)(NSError * _Nonnull))completion;
 
 
 @end
