@@ -36,7 +36,7 @@
     "aws-amplify": "^4.3.10",
     "aws-amplify-react-native": "^6.0.1",
     "axios": "0.19.2",
-    "husky": "4.2.5",
+    "husky": "^8.0.1",
     "i18next": "19.5.1",
     "lint-staged": "10.2.11",
     "lodash": "4.17.21",
@@ -79,6 +79,8 @@
   "devDependencies": {
     "@babel/core": "7.12.9",
     "@babel/runtime": "7.12.5",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@react-native-community/eslint-config": "2.0.0",
     "@types/jest": "25.1.0",
     "@types/react-native": "0.64.13",
