@@ -7,5 +7,6 @@
 
 #import "CommonFormConstants.h"
 
-FOUNDATION_EXPORT const CGFloat CommonFormTexFieldAndButtonSpace = 12.0;
-FOUNDATION_EXPORT const CGFloat CommonFormMinContentInset = 23.5;
+const CGFloat CommonFormTexFieldAndButtonSpace = 12.0;
+const CGFloat CommonFormMinContentInset = 23.5;
+const CGFloat CommonFormContentTopOffset = 150.0;

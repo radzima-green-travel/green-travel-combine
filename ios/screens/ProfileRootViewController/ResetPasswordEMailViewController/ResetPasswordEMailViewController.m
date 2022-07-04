@@ -50,7 +50,7 @@
     [self.titleLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.titleLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor],
     [self.titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor],
-    [self.titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:150.0],
+    [self.titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:CommonFormContentTopOffset],
   ]];
 
   self.hintLabel = [[UILabel alloc] init];

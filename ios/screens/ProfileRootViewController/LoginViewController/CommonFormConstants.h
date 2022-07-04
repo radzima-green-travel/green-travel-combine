@@ -10,3 +10,4 @@
  
 FOUNDATION_EXPORT const CGFloat CommonFormTexFieldAndButtonSpace;
 FOUNDATION_EXPORT const CGFloat CommonFormMinContentInset;
+FOUNDATION_EXPORT const CGFloat CommonFormContentTopOffset;

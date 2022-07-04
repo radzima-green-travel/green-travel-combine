@@ -8,6 +8,7 @@
 #import "ProfileViewController.h"
 #import "CommonButton.h"
 #import "UserController.h"
+#import "CommonFormConstants.h"
 
 @interface ProfileViewController ()
 
@@ -27,7 +28,7 @@
   [self.contentView addSubview:loggedInLabel];
   
   [NSLayoutConstraint activateConstraints:@[
-    [loggedInLabel.centerYAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerYAnchor],
+    [loggedInLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:CommonFormContentTopOffset],
     [loggedInLabel.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor],
   ]];
   
@@ -37,8 +38,9 @@
   [self.contentView addSubview:self.logOutButton];
   
   [NSLayoutConstraint activateConstraints:@[
-    [self.logOutButton.topAnchor constraintEqualToAnchor:loggedInLabel.bottomAnchor],
+    [self.logOutButton.topAnchor constraintEqualToAnchor:loggedInLabel.bottomAnchor constant:CommonFormTexFieldAndButtonSpace],
     [self.logOutButton.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor],
+    [self.logOutButton.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
   ]];
 }
 
