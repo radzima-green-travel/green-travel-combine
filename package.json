@@ -10,7 +10,7 @@
     "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
     "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
     "update-svg": "node scripts/update-svg/update-svg.js",
-    "postinstall": "patch-package",
+    "postinstall": "patch-package && yarn husky install",
     "postversion": "react-native-version"
   },
   "dependencies": {
@@ -94,11 +94,6 @@
     "metro-react-native-babel-preset": "^0.66.2",
     "react-test-renderer": "17.0.2",
     "typescript": "4.4.2"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "jest": {
     "preset": "react-native",
