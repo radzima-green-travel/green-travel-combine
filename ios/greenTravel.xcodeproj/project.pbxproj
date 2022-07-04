@@ -215,6 +215,7 @@
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
 		6281F7E124C9E40D00C51231 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6281F7E024C9E40D00C51231 /* empty.swift */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
+		D9B6CF11287339E20046E692 /* UITextField+RemoveWhiteSpaces.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B6CF10287339E20046E692 /* UITextField+RemoveWhiteSpaces.m */; };
 		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
 /* End PBXBuildFile section */
 
@@ -636,6 +637,8 @@
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E864D96B10ABCD37BAAAE8 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
+		D9B6CF0F287339E20046E692 /* UITextField+RemoveWhiteSpaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+RemoveWhiteSpaces.h"; sourceTree = "<group>"; };
+		D9B6CF10287339E20046E692 /* UITextField+RemoveWhiteSpaces.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+RemoveWhiteSpaces.m"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -662,6 +665,7 @@
 				5A775A5126064C8F00CEFC78 /* models */,
 				5AF8D587260C7D8A001CE702 /* views */,
 				5A5E2AFE2753ADF300A20489 /* viewcontrollers */,
+				D9B6CF1228733A0E0046E692 /* categories */,
 				5A7759FB26064C4F00CEFC78 /* app */,
 				5A775A9826064C8F00CEFC78 /* screens */,
 				5A6CC8DD279D9A9300EE6E35 /* controllers */,
@@ -1841,6 +1845,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D9B6CF1228733A0E0046E692 /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				D9B6CF0F287339E20046E692 /* UITextField+RemoveWhiteSpaces.h */,
+				D9B6CF10287339E20046E692 /* UITextField+RemoveWhiteSpaces.m */,
+			);
+			path = categories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2394,6 +2407,7 @@
 				5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */,
 				5A775B4E26064C9000CEFC78 /* LocationModel.m in Sources */,
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
+				D9B6CF11287339E20046E692 /* UITextField+RemoveWhiteSpaces.m in Sources */,
 				5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */,
 				5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */,
 				5A105FEC265FD9E300511256 /* Directions.m in Sources */,

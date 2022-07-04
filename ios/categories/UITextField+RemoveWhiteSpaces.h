@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextField (RemoveWhiteSpaces)
 
+- (void) removeSpaces;
+
 @end
 
 NS_ASSUME_NONNULL_END
