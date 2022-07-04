@@ -80,7 +80,6 @@
     "@babel/core": "7.12.9",
     "@babel/runtime": "7.12.5",
     "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
     "@react-native-community/eslint-config": "2.0.0",
     "@types/jest": "25.1.0",
     "@types/react-native": "0.64.13",
@@ -89,11 +88,17 @@
     "@typescript-eslint/parser": "2.27.0",
     "babel-jest": "26.6.3",
     "babel-plugin-module-resolver": "4.0.0",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
     "eslint": "7.14.0",
     "jest": "26.6.3",
     "metro-react-native-babel-preset": "^0.66.2",
     "react-test-renderer": "17.0.2",
     "typescript": "4.4.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "jest": {
     "preset": "react-native",
