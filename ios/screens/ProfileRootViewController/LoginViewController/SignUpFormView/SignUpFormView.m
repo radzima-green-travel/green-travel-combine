@@ -10,6 +10,7 @@
 #import "CommonTextField.h"
 #import "SecureTextField.h"
 #import "CommonButton.h"
+#import "UITextField+RemoveWhiteSpaces.h"
 
 @interface SignUpFormView()
 
@@ -104,6 +105,10 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
   [textField resignFirstResponder];
   return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+  [textField removeSpaces];
 }
 
 @end
