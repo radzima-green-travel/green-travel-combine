@@ -7,6 +7,7 @@
 
 #import "AuthService.h"
 #import "AmplifyBridge.h"
+#import "LocaleUtils.h"
 
 @interface AuthService()
 
@@ -49,8 +50,16 @@
   }];
 }
 
-- (void)signUpWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email completion:(void (^)(NSError * _Nullable))completion {
-  [self.amplifyBridge signUpWithUsername:username password:password email:email completion:^(NSError * _Nullable error) {
+- (void)signUpWithUsername:(NSString *)username
+                  password:(NSString *)password
+                     email:(NSString *)email
+                completion:(void (^)(NSError * _Nullable))completion {
+  NSString *locale = getCurrentLocaleLanguageCode();
+  [self.amplifyBridge signUpWithUsername:username
+                                password:password
+                                   email:email
+                                  locale:locale
+                              completion:^(NSError * _Nullable error) {
     completion(error);
   }];
 }

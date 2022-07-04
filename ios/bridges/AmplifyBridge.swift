@@ -119,6 +119,7 @@ class AmplifyBridge: NSObject {
   }
   
   @objc public func signUp(username: String, password: String, email: String,
+                           locale: String,
                            completion: @escaping (_ err: NSError?) -> Void) {
     let emailParts = email.components(separatedBy: "@")
     guard let familyName = emailParts.first else {
@@ -129,6 +130,7 @@ class AmplifyBridge: NSObject {
       return
     }
     let userAttributes = [AuthUserAttribute(.email, value: email),
+                          AuthUserAttribute(.custom("custom:locale"), value: locale),
                           AuthUserAttribute(.familyName, value: familyName),
                           AuthUserAttribute(.name, value: familyName)]
     let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
