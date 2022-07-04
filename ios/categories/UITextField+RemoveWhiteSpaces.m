@@ -9,4 +9,9 @@
 
 @implementation UITextField (RemoveWhiteSpaces)
 
+- (void) removeSpaces {
+  self.text = [self.text stringByTrimmingCharactersInSet:
+               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 @end
