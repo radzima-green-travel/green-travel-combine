@@ -27,6 +27,15 @@ export MAPBOX_DOWNLOADS_TOKEN=<MAPBOX_DOWNLOADS_TOKEN>
 1. UIKit version [maintainer](https://github.com/alexeykomov/).
 2. React Native version [maintainer](https://github.com/tr3v3r).
 
+# Commit format
+We use [commitlint](https://github.com/conventional-changelog/commitlint#what-is-commitlint) to check git commit messages.  
+Valid format examples (**notice space after comma**):
+```
+chore(EPMEDUGRN-243): run tests on travis ci
+fix(137): send cors headers
+feat(312): add comment section
+```
+
 # Troubleshooting
 1. `An error occurred while installing json (2.5.1), and Bundler cannot
    continue.` In this case try to:
