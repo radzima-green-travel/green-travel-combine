@@ -3,16 +3,6 @@
     {
       "filename" : "bookmark.pdf",
       "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "bookmark-1.pdf",
-      "idiom" : "universal"
     }
   ],
   "info" : {
@@ -20,7 +10,7 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "original"
+    "compression-type" : "automatic",
+    "preserves-vector-representation" : true
   }
 }
