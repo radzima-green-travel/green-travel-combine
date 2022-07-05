@@ -3,16 +3,6 @@
     {
       "filename" : "user.pdf",
       "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "user-dark.pdf",
-      "idiom" : "universal"
     }
   ],
   "info" : {
@@ -20,7 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "original"
+    "preserves-vector-representation" : true
   }
 }
