@@ -6,6 +6,12 @@ Travel app, has native iOS ([UIKit](https://developer.apple.com/documentation/ui
 2. Install [Node LTS](https://nodejs.org/en/download/).
 3. Install [Yarn](https://yarnpkg.com/).
 4. Install [git secrets](https://github.com/awslabs/git-secrets#id6). 
+   ```
+   brew install git-secrets
+   cd green-travel-combine
+   git secrets --install
+   git secrets --register-aws
+   ```
 5. On project root execute  `bundle install`.
 6. On project root execute  `yarn install`.
 7. Create `~/.netrc` file. Ask maintainers (see below) to provide file contents.
