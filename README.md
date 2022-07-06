@@ -5,17 +5,18 @@ Travel app, has native iOS ([UIKit](https://developer.apple.com/documentation/ui
 1. Install [Bundler](https://bundler.io/).
 2. Install [Node LTS](https://nodejs.org/en/download/).
 3. Install [Yarn](https://yarnpkg.com/).
-4. On project root execute  `bundle install`.
-5. On project root execute  `yarn install`.
-6. Create `~/.netrc` file. Ask maintainers (see below) to provide file contents.
-7. On folder `./ios` execute `bundle exec pod install`.
-8. Ask maintainers for files:
+4. Install [git secrets](https://github.com/awslabs/git-secrets#id6). 
+5. On project root execute  `bundle install`.
+6. On project root execute  `yarn install`.
+7. Create `~/.netrc` file. Ask maintainers (see below) to provide file contents.
+8. On folder `./ios` execute `bundle exec pod install`.
+9. Ask maintainers for files:
    1. `aws-exports.js` - put into `./src` folder.
    2. `.env` - put into root folder.
    3. `amplifyconfiguration.json` - put into `./ios` folder.
    4. `awsconfiguration.json` - put into `./ios` folder.
    5. `GoogleService-Info.plist` - put into `./ios` folder.
-9. On project root execute `yarn rnuc .env`.
+10. On project root execute `yarn rnuc .env`.
 
 ## Setup - React Native specific
 1. Add line below in your `.bashrc`/`.zshrc` file:
