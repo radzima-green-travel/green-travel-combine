@@ -34,10 +34,6 @@
   return self;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-  return UIStatusBarStyleLightContent;
-}
-
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
   configureNavigationBar(self.current.navigationBar);

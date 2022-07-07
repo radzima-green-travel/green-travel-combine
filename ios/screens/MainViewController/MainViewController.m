@@ -54,7 +54,7 @@
 @property (strong, nonatomic) GTNavigationController *indexViewControllerWithNavigation;
 @property (strong, nonatomic) GTNavigationController *mapControllerWithNavigation;
 @property (strong, nonatomic) GTNavigationController *bookmarksControllerWithNavigation;
-@property (strong, nonatomic) ProfileRootViewController *profileRootController;
+@property (strong, nonatomic) ProfileRootViewController *profileControllerWithNavigation;
 
 @end
 
