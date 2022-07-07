@@ -65,10 +65,6 @@ static Colors *instance;
     self.buttonTextTint = [UIColor colorNamed:@"buttonTextTint"];
     self.areaOutline = [UIColor colorNamed:@"areaOutline"];
     self.areaFill = [UIColor colorNamed:@"areaFill"];
-    self.areaOutline = [UIColor colorNamed:@"areaOutline"];
-    self.areaFill = [UIColor colorNamed:@"areaFill"];
-    self.passCodeTint = [UIColor colorNamed:@"passCodeTint"];
-    self.buttonTextTint = [UIColor colorNamed:@"buttonTextTint"];
   }
   return self;
 }
