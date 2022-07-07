@@ -207,7 +207,6 @@
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		5AFFD0F12850E4BD009E5AB8 /* ProfileRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */; };
-		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
 		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
@@ -621,8 +620,6 @@
 		5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryImagePlaceholder.h; sourceTree = "<group>"; };
 		5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileRootViewController.h; sourceTree = "<group>"; };
 		5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileRootViewController.m; sourceTree = "<group>"; };
-		5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
-		5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		5AFFD0F82851FE88009E5AB8 /* UserFetchProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchProgressViewController.h; sourceTree = "<group>"; };
 		5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchProgressViewController.m; sourceTree = "<group>"; };
 		5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchErrorViewController.h; sourceTree = "<group>"; };
@@ -1760,18 +1757,8 @@
 				5A6685D8285A3609008E193E /* ResetPasswordPassCodeViewController */,
 				5A6685D7285A35EE008E193E /* ResetPasswordEMailViewController */,
 				5A6685D6285A35D7008E193E /* ResetPasswordViewController */,
-				5AFFD0F22850E7FD009E5AB8 /* ProfileViewController */,
 			);
 			path = ProfileRootViewController;
-			sourceTree = "<group>";
-		};
-		5AFFD0F22850E7FD009E5AB8 /* ProfileViewController */ = {
-			isa = PBXGroup;
-			children = (
-				5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */,
-				5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */,
-			);
-			path = ProfileViewController;
 			sourceTree = "<group>";
 		};
 		5AFFD0F62851FE54009E5AB8 /* UserFetchErrorViewController */ = {
@@ -2290,7 +2277,6 @@
 				5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */,
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
 				5A6685DF285A3697008E193E /* ResetPasswordPassCodeViewController.m in Sources */,
-				5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */,
 				5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */,
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
