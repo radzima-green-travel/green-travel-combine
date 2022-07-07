@@ -59,4 +59,26 @@
 "ProfileScreenPlaceholderPassword" = "Пароль";
 "ProfileScreenPlaceholderPasswordRepeat" = "Пароль еще раз";
 "ProfileScreenButtonLabelCreate" = "СОЗДАТЬ";
+"ProfileScreenLabelSignIn" = "Войдите в свой аккаунт";
+"ProfileScreenButtonLabelSignIn" = "ВОЙТИ";
+"ProfileScreenButtonLabelForgotPassword" = "Забыли пароль?";
+
+"CodeConfirmationScreenTitle" = "Подтверждение почты";
+"CodeConfirmationScreenTitle" = "Email confirmation";
+"CodeConfirmationScreenHeader" = "Confirm sign up";
+"CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
+"CodeConfirmationScreenRetry" = "Retry";
+"CodeConfirmationScreenSubmit" = "Done";
+
+"ResetPasswordEMailScreenTitle" = "Восстановить пароль";
+"ResetPasswordEMailScreenHeader" = "Восстановить пароль";
+"ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+
+"ResetPasswordPassCodeScreenTitle" = "Reset password";
+"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenHint" = "enter confirmation code from e-mail %@";
+
+"ResetPasswordNewPasswordScreenTitle" = "Reset password";
+"ResetPasswordNewPasswordScreenHeader" = "New password";
+"ResetPasswordNewPasswordScreenHint" = "New password must be different from the previous ones";
 

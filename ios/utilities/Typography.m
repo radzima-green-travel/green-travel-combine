@@ -36,6 +36,27 @@ static Typography *instance;
                                                                       UIFontWeightRegular)];
 }
 
+- (NSAttributedString *)codeConfirmationHeader:(NSString *)input {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes([Colors get].mainText,
+                                                                      20.0,
+                                                                      UIFontWeightSemibold)];
+}
+
+- (NSAttributedString *)codeConfirmationHint:(NSString *)input {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes([Colors get].auxiliaryText,
+                                                                      15.0,
+                                                                      UIFontWeightRegular)];
+}
+
+- (NSAttributedString *)textButtonLabel:(NSString *)input {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes([Colors get].buttonTextTint,
+                                                                      16.0,
+                                                                      UIFontWeightRegular)];
+}
+
 
 + (instancetype)get {
     if (instance) {

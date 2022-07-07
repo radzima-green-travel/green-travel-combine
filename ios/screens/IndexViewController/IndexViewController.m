@@ -93,7 +93,10 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (UIInterfaceOrientation)windowInterfaceOrientation {
-  return [[[[[UIApplication sharedApplication] windows] firstObject] windowScene] interfaceOrientation];
+  if (@available(iOS 13, *)) {
+    return [[[[[UIApplication sharedApplication] windows] firstObject] windowScene] interfaceOrientation];
+  }
+  return [[UIApplication sharedApplication] statusBarOrientation];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -240,7 +243,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PlacesTableViewCell *cell = [(UITableView *)self.dataView dequeueReusableCellWithIdentifier:kCollectionCellId forIndexPath:indexPath];
     [cell update:self.model.randomizedCategories[indexPath.row]];
-
+    
     return cell;
 }
 

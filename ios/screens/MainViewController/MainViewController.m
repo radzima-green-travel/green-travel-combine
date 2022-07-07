@@ -21,6 +21,7 @@
 #import "MapModel.h"
 #import "BookmarksGroupModel.h"
 #import "LocationModel.h"
+#import "UserModel.h"
 #import "CoreDataService.h"
 #import "TypographyLegacy.h"
 #import "UserDefaultsService.h"
@@ -31,7 +32,11 @@
 #import "AnalyticsEvents.h"
 #import "StyleUtils.h"
 #import "MapViewControllerConstants.h"
-#import "ProfileViewController.h"
+#import "ProfileRootViewController.h"
+#import "LoginViewController.h"
+#import "UserController.h"
+#import "AmplifyBridge.h"
+#import "AuthService.h"
 #import "GTNavigationController.h"
 
 @interface MainViewController ()
@@ -49,7 +54,7 @@
 @property (strong, nonatomic) GTNavigationController *indexViewControllerWithNavigation;
 @property (strong, nonatomic) GTNavigationController *mapControllerWithNavigation;
 @property (strong, nonatomic) GTNavigationController *bookmarksControllerWithNavigation;
-@property (strong, nonatomic) GTNavigationController *profileControllerWithNavigation;
+@property (strong, nonatomic) ProfileRootViewController *profileControllerWithNavigation;
 
 @end
 
@@ -94,6 +99,13 @@
                                 coreDataService:self.coreDataService];
     MapModel *mapModel = [[MapModel alloc] initWithIndexModel:self.indexModel locationModel:locationModel];
     BookmarksGroupModel *bookmarksGroupsModel = [[BookmarksGroupModel alloc] initWithIndexModel:self.indexModel];
+    AmplifyBridge *bridge = [AmplifyBridge new];
+    AuthService *authService = [[AuthService alloc] initWithAmplifyBridge:bridge];
+    UserModel *userModel = [[UserModel alloc] init];
+    UserController *userController = [[UserController alloc] initWithModel:userModel authService:authService];
+    
+    [bridge initialize];
+    [userController fetchCurrentAuthSession];
 
 #pragma mark - IndexViewController
 
@@ -162,31 +174,27 @@
     self.bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
     [TypographyLegacy get].navigationSemiboldAttributes;
 
-#pragma mark - ProfileViewController
-  ProfileViewController *profileController =
-  [[ProfileViewController alloc] init];
-  profileController.title = NSLocalizedString(@"ProfileTitle", @"");
-  self.profileControllerWithNavigation = [[GTNavigationController alloc] initWithRootViewController:profileController];
+#pragma mark - ProfileRootViewController
+  self.profileRootController =
+  [[ProfileRootViewController alloc] initWithController:userController model:userModel];
+  
   UIImage *profileImage;
   UIImage *profileImageSelected;
   profileImage = [UIImage imageNamed:@"user"];
   profileImageSelected = [UIImage imageNamed:@"user-selected"];
   self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage, profileImageSelected);
   
-  self.profileControllerWithNavigation.tabBarItem = self.profileTabBarItem;
-  self.profileControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
-  self.profileControllerWithNavigation.navigationBar.titleTextAttributes =
-  [TypographyLegacy get].navigationSemiboldAttributes;
+  self.profileRootController.tabBarItem = self.profileTabBarItem;
   
-    self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
-                             self.bookmarksControllerWithNavigation, self.profileControllerWithNavigation];
-
-    self.selectedIndex = 0;
-    
-    self.bottomSheets = [[NSMutableDictionary<NSNumber *, BottomSheetView *> alloc] init];
+  self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
+                           self.bookmarksControllerWithNavigation, self.profileRootController];
   
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(onLocaleChange:) name:NSCurrentLocaleDidChangeNotification object:nil];
+  self.selectedIndex = 0;
+  
+  self.bottomSheets = [[NSMutableDictionary<NSNumber *, BottomSheetView *> alloc] init];
+  
+  [NSNotificationCenter.defaultCenter addObserver:self
+                                         selector:@selector(onLocaleChange:) name:NSCurrentLocaleDidChangeNotification object:nil];
 }
 
 UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, UIImage *imageSelected) {

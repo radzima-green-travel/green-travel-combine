@@ -8,11 +8,12 @@ import {persistStore, persistReducer} from 'redux-persist';
 import {asyncReducers} from 'react-redux-help-kit';
 import {combineReducers} from 'redux';
 import {
+  bookmarksReducer,
   bootstrapReducer,
   homeReducer,
-  bookmarksReducer,
-  searchReducer,
   objectDetailsMapReducer,
+  searchReducer,
+  authenticationReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -39,11 +40,12 @@ const bookmarksPersistConfig = {
 
 const rootReducer = combineReducers({
   ...asyncReducers,
+  bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
   bootsrap: bootstrapReducer,
   home: persistReducer(homePersistConfig, homeReducer),
-  bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
-  search: persistReducer(searchPersistConfig, searchReducer),
   objectDetailsMap: objectDetailsMapReducer,
+  search: persistReducer(searchPersistConfig, searchReducer),
+  authentication: authenticationReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

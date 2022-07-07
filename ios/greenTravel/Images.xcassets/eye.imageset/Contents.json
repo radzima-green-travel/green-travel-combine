@@ -3,6 +3,16 @@
     {
       "filename" : "eye.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "eye-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

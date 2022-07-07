@@ -356,27 +356,34 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
         foundIndex = [self.category.items indexOfObjectPassingTest:indexOfObjectPassingTest];
     }
 
-    if (foundIndex == NSNotFound) {
-        return;
-    }
     NSIndexPath *indexPathOfFoundIndex =  [NSIndexPath indexPathForItem:foundIndex inSection:0];
     PhotoCollectionViewCell *cell = (PhotoCollectionViewCell *) [self.collectionView cellForItemAtIndexPath:indexPathOfFoundIndex];
     [cell updateBookmark:bookmark];
     if (!self.bookmarked) {
         return;
     }
-    if (!bookmark) {
-        __weak typeof(self) weakSelf = self;
-        [self.collectionView performBatchUpdates:^{
-            [weakSelf.bookmarkedItems removeObjectAtIndex:indexPathOfFoundIndex.item];
-            [weakSelf.collectionView deleteItemsAtIndexPaths:@[indexPathOfFoundIndex]];
-        } completion:^(BOOL finished) {
-        }];
-    }
-
-    if (self.viewIfLoaded.window != nil && [self.bookmarkedItems count] == 0) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+  
+  if (bookmark) {
+    NSUInteger indexOfAdded = [self.bookmarkedItems count];
+    NSIndexPath *indexPathOfAddedIndex = [NSIndexPath indexPathForItem:indexOfAdded inSection:0];
+    __weak typeof(self) weakSelf = self;
+    [self.collectionView performBatchUpdates:^{
+      [weakSelf.bookmarkedItems addObject:item];
+      [weakSelf.collectionView insertItemsAtIndexPaths:@[indexPathOfAddedIndex]];
+    } completion:^(BOOL finished) {
+    }];
+  } else {
+    __weak typeof(self) weakSelf = self;
+    [self.collectionView performBatchUpdates:^{
+      [weakSelf.bookmarkedItems removeObjectAtIndex:indexPathOfFoundIndex.item];
+      [weakSelf.collectionView deleteItemsAtIndexPaths:@[indexPathOfFoundIndex]];
+    } completion:^(BOOL finished) {
+    }];
+  }
+  
+  if (self.viewIfLoaded.window != nil && [self.bookmarkedItems count] == 0) {
+    [self.navigationController popViewControllerAnimated:YES];
+  }
 }
 
 @end

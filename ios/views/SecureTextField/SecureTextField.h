@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SecureTextField : CommonTextField
 
+@property(assign, nonatomic) BOOL creatingPassword;
+
 @end
 
 NS_ASSUME_NONNULL_END

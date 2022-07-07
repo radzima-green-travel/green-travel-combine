@@ -59,4 +59,25 @@
 "ProfileScreenPlaceholderPassword" = "Пароль";
 "ProfileScreenPlaceholderPasswordRepeat" = "Пароль еще раз";
 "ProfileScreenButtonLabelCreate" = "СОЗДАТЬ";
+"ProfileScreenLabelSignIn" = "Войдите в свой аккаунт";
+"ProfileScreenButtonLabelSignIn" = "ВОЙТИ";
+"ProfileScreenButtonLabelForgotPassword" = "Забыли пароль?";
 
+"CodeConfirmationScreenTitle" = "Подтверждение почты";
+"CodeConfirmationScreenHeader" = "Подтвердите регистрацию";
+"CodeConfirmationScreenHint" = "введите цифры из письма, высланного на электронную почту %@";
+"CodeConfirmationScreenRetry" = "Повторить отправку";
+"CodeConfirmationScreenSubmit" = "ГОТОВО";
+
+"ResetPasswordEMailScreenTitle" = "Сбросить пароль";
+"ResetPasswordEMailScreenHeader" = "Reset password";
+"ResetPasswordEMailScreenHint" = "Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля";
+"ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+
+"ResetPasswordPassCodeScreenTitle" = "Сбросить пароль";
+"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenHint" = "введите цифры из письма, высланного на  электронную почту %@";
+
+"ResetPasswordNewPasswordScreenTitle" = "Сбросить пароль";
+"ResetPasswordNewPasswordScreenHeader" = "Новый пароль";
+"ResetPasswordNewPasswordScreenHint" = "Ваш новый пароль должен отличаться от используемых ранее паролей";

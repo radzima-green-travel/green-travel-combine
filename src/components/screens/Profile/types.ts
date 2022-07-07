@@ -1,18 +1,18 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
-import {MainNavigatorParamsList, ProfileNavigatorParamsList} from 'core/types';
+import {RouteProp} from '@react-navigation/native';
+import {ProfileNavigatorParamsList} from 'core/types';
 
-export type ObjectsListScreenNavigationProps = CompositeNavigationProp<
-  StackNavigationProp<ProfileNavigatorParamsList, 'Profile'>,
-  StackNavigationProp<MainNavigatorParamsList>
+export type ProfileScreenNavigationProps = StackNavigationProp<
+  ProfileNavigatorParamsList,
+  'Profile'
 >;
 
-export type ObjectsListScreenRouteProps = RouteProp<
+export type ProfileScreenRouteProps = RouteProp<
   ProfileNavigatorParamsList,
   'Profile'
 >;
 
 export interface IProps {
-  navigation: ObjectsListScreenNavigationProps;
-  route: ObjectsListScreenRouteProps;
+  navigation: ProfileScreenNavigationProps;
+  route: ProfileScreenRouteProps;
 }

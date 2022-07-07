@@ -75,6 +75,7 @@
     "email": "Email",
     "userName": "Username",
     "password": "Password",
-    "forgetPassword": "Forgot your password?"
+    "forgetPassword": "Forgot your password?",
+    "restorePassword": "Restore password"
   }
 }

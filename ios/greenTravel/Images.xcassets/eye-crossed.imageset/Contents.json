@@ -3,6 +3,16 @@
     {
       "filename" : "eye-crossed.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "eye-crossed-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

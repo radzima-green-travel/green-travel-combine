@@ -1,6 +1,18 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Pressable, Text} from 'react-native';
+import {Auth} from 'aws-amplify';
 
 export const Profile = () => {
-  return <Text>ProfilePage</Text>;
+  const signOut = () => {
+    Auth.signOut();
+  };
+
+  return (
+    <>
+      <Text>ProfilePage</Text>
+      <Pressable onPress={signOut}>
+        <Text>Выйти</Text>
+      </Pressable>
+    </>
+  );
 };

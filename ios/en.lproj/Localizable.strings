@@ -59,4 +59,28 @@
 "ProfileScreenPlaceholderPassword" = "Password";
 "ProfileScreenPlaceholderPasswordRepeat" = "Repeat password";
 "ProfileScreenButtonLabelCreate" = "CREATE";
+"ProfileScreenLabelSignIn" = "Sign in to your account";
+"ProfileScreenButtonLabelSignIn" = "SIGN IN";
+"ProfileScreenButtonLabelForgotPassword" = "Forgot password?";
+
+"CodeConfirmationScreenTitle" = "Email confirmation";
+"CodeConfirmationScreenHeader" = "Confirm sign up";
+"CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
+"CodeConfirmationScreenRetry" = "Resend e-mail";
+"CodeConfirmationScreenSubmit" = "DONE";
+
+"ResetPasswordEMailScreenTitle" = "Reset password";
+"ResetPasswordEMailScreenHeader" = "Reset password";
+"ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+
+"ResetPasswordPassCodeScreenTitle" = "Reset password";
+"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenHint" = "enter confirmation code from e-mail %@";
+
+"ResetPasswordNewPasswordScreenTitle" = "Reset password";
+"ResetPasswordNewPasswordScreenHeader" = "New password";
+"ResetPasswordNewPasswordScreenHint" = "New password must be different from the previous ones";
+
+
+
 

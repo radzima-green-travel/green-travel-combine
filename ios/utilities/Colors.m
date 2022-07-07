@@ -31,6 +31,7 @@ static Colors *instance;
     self.background = [UIColor colorNamed:@"background"];
     self.navigationBarTint = [UIColor colorNamed:@"navigationBarTint"];
     self.navigationBarColorStart = [UIColor colorNamed:@"navigationBarColorStart"];
+    self.navigationBarColor = [UIColor colorNamed:@"navigationBarColor"];
     self.navigationBarColorStop = [UIColor colorNamed:@"navigationBarColorStop"];
     self.tabBarBackground = [UIColor colorNamed:@"tabBarBackground"];
     self.tabBarTint = [UIColor colorNamed:@"tabBarTint"];
@@ -60,6 +61,8 @@ static Colors *instance;
     self.mapBackground = [UIColor colorNamed:@"mapBackground"];
     self.mainTextLink = [UIColor colorNamed:@"mainTextLink"];
     self.searchBarClearButton = [UIColor colorNamed:@"searchBarClearButton"];
+    self.passCodeTint = [UIColor colorNamed:@"passCodeTint"];
+    self.buttonTextTint = [UIColor colorNamed:@"buttonTextTint"];
   }
   return self;
 }

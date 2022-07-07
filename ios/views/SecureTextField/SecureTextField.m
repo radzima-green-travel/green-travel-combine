@@ -19,6 +19,14 @@
 
 @implementation SecureTextField
 
+- (void)setCreatingPassword:(BOOL)creatingPassword {
+  _creatingPassword = creatingPassword;
+  if (creatingPassword) {
+    [self.textField setTextContentType:UITextContentTypeNewPassword];
+  }
+  [self.textField setTextContentType:UITextContentTypePassword];
+}
+
 - (void)setUp:(NSString *)imageName
  keyboardType:(UIKeyboardType)keyboardType
   placeholder:(NSString *)placeholder {

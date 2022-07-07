@@ -1,5 +1,4 @@
 export {AuthForm} from './AuthForm';
-export {AuthTabBar} from './AuthTabBar';
 export {BookmarkItem} from './BookmarkItem';
 export {BottomMenu} from './BottomMenu';
 export {Button} from './Button';
@@ -12,6 +11,7 @@ export {HeaderSearchbar} from './HeaderSearchbar';
 export {Icon} from './Icon';
 export {ImageSlider} from './ImageSlider';
 export * from './KeyboardRegulator';
+export {LoadingView} from './LoadingView';
 export {MapButtonContainer} from './MapButtonContainer';
 export {MapFilterItem} from './MapFilterItem';
 export {OneTimeCode} from './OneTimeCode';

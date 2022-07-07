@@ -13,7 +13,7 @@
 		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
-		5A096AFD2836A20F000FADB2 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* ProfileViewController.m */; };
+		5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* LoginViewController.m */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
@@ -43,6 +43,11 @@
 		5A5FF6B4269BA98500540CE4 /* NumberUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B0269BA98400540CE4 /* NumberUtils.m */; };
 		5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */; };
 		5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */; };
+		5A6685D52858898C008E193E /* AuthErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6685D42858898C008E193E /* AuthErrors.swift */; };
+		5A6685DC285A3687008E193E /* ResetPasswordNewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6685DB285A3687008E193E /* ResetPasswordNewPasswordViewController.m */; };
+		5A6685DF285A3697008E193E /* ResetPasswordPassCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6685DE285A3697008E193E /* ResetPasswordPassCodeViewController.m */; };
+		5A6685E2285A36AC008E193E /* ResetPasswordEMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6685E1285A36AC008E193E /* ResetPasswordEMailViewController.m */; };
+		5A6685E5285A36BC008E193E /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6685E4285A36BC008E193E /* ResetPasswordViewController.m */; };
 		5A6CC8D8279C213D00EE6E35 /* GraphQLApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A97FE22279C1702006E575D /* GraphQLApiService.m */; };
 		5A6CC8DA279C2C4500EE6E35 /* index-locale-any.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A6CC8D9279C2C4500EE6E35 /* index-locale-any.graphql */; };
 		5A6CC8DC279D930C00EE6E35 /* index-tag.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A6CC8DB279D930C00EE6E35 /* index-tag.graphql */; };
@@ -162,6 +167,10 @@
 		5A775E7C26092B8100CEFC78 /* Settings_Debug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */; };
 		5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB19C264E7DB000333F1E /* BaseMapViewController.m */; };
 		5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */; };
+		5A95F1FB2847F39500CCA852 /* BaseFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1FA2847F39500CCA852 /* BaseFormViewController.m */; };
+		5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894328424A980000271B /* CodeConfirmationViewController.m */; };
+		5A9889482843A5BB0000271B /* PassCodeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9889472843A5BB0000271B /* PassCodeTextField.m */; };
+		5A98894C2843AA030000271B /* NumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894B2843AA030000271B /* NumberView.m */; };
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
 		5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB227B016D000C74857 /* LocaleUtils.m */; };
@@ -177,6 +186,7 @@
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
 		5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A99283948CA008E302D /* CommonTextField.m */; };
 		5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A9D283969F7008E302D /* SecureTextField.m */; };
+		5ACDFCDC285DFA2A0079C8EC /* CommonFormConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
 		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
 		5AD347E02837B2B100235E96 /* AmplifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347DF2837B2B100235E96 /* AmplifyAuth.m */; };
@@ -191,8 +201,15 @@
 		5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADBAC3E27243A7D0006A8C1 /* Typography.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
+		5ADF034B283CED3200D98E9A /* UserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034A283CED3200D98E9A /* UserState.m */; };
+		5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034E283D1C3700D98E9A /* AuthService.m */; };
+		5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF0351284524B000D98E9A /* NumberViewConstants.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
+		5AFFD0F12850E4BD009E5AB8 /* ProfileRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */; };
+		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
+		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
+		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -213,8 +230,8 @@
 		5A006D182783565A00010D63 /* URLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLUtils.h; sourceTree = "<group>"; };
 		5A006D192783565A00010D63 /* URLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLUtils.m; sourceTree = "<group>"; };
 		5A05E8532821787E00017BA0 /* AmplifyBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyBridge.swift; sourceTree = "<group>"; };
-		5A096AFB2836A20F000FADB2 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
-		5A096AFC2836A20F000FADB2 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		5A096AFB2836A20F000FADB2 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5A096AFC2836A20F000FADB2 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
 		5A105EE326501FA000511256 /* RotationLockUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationLockUtility.m; sourceTree = "<group>"; };
 		5A105FE9265FD99100511256 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
@@ -279,6 +296,15 @@
 		5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoordinateUtils.m; sourceTree = "<group>"; };
 		5A5FF70C26A46EDC00540CE4 /* AnalyticsEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticsEvents.h; sourceTree = "<group>"; };
 		5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalyticsEvents.m; sourceTree = "<group>"; };
+		5A6685D42858898C008E193E /* AuthErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrors.swift; sourceTree = "<group>"; };
+		5A6685DA285A3687008E193E /* ResetPasswordNewPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResetPasswordNewPasswordViewController.h; sourceTree = "<group>"; };
+		5A6685DB285A3687008E193E /* ResetPasswordNewPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordNewPasswordViewController.m; sourceTree = "<group>"; };
+		5A6685DD285A3697008E193E /* ResetPasswordPassCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResetPasswordPassCodeViewController.h; sourceTree = "<group>"; };
+		5A6685DE285A3697008E193E /* ResetPasswordPassCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordPassCodeViewController.m; sourceTree = "<group>"; };
+		5A6685E0285A36AC008E193E /* ResetPasswordEMailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResetPasswordEMailViewController.h; sourceTree = "<group>"; };
+		5A6685E1285A36AC008E193E /* ResetPasswordEMailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordEMailViewController.m; sourceTree = "<group>"; };
+		5A6685E3285A36BC008E193E /* ResetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
+		5A6685E4285A36BC008E193E /* ResetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		5A6CC8D9279C2C4500EE6E35 /* index-locale-any.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = "index-locale-any.graphql"; sourceTree = "<group>"; };
 		5A6CC8DB279D930C00EE6E35 /* index-tag.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = "index-tag.graphql"; sourceTree = "<group>"; };
 		5A6CC8DE279D9AB700EE6E35 /* IndexController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexController.h; sourceTree = "<group>"; };
@@ -508,13 +534,22 @@
 		5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemDetailsMapViewController.m; sourceTree = "<group>"; };
 		5A94AF3E263EB76F00AC4E7B /* BottomSheetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetView.h; sourceTree = "<group>"; };
 		5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetView.m; sourceTree = "<group>"; };
+		5A95F1F92847F39500CCA852 /* BaseFormViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseFormViewController.h; sourceTree = "<group>"; };
+		5A95F1FA2847F39500CCA852 /* BaseFormViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseFormViewController.m; sourceTree = "<group>"; };
 		5A97FE1F278F696B006E575D /* IndexLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexLoader.h; sourceTree = "<group>"; };
 		5A97FE21279C1702006E575D /* GraphQLApiService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphQLApiService.h; sourceTree = "<group>"; };
 		5A97FE22279C1702006E575D /* GraphQLApiService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphQLApiService.m; sourceTree = "<group>"; };
+		5A98894228424A980000271B /* CodeConfirmationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeConfirmationViewController.h; sourceTree = "<group>"; };
+		5A98894328424A980000271B /* CodeConfirmationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodeConfirmationViewController.m; sourceTree = "<group>"; };
+		5A9889462843A5BB0000271B /* PassCodeTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PassCodeTextField.h; sourceTree = "<group>"; };
+		5A9889472843A5BB0000271B /* PassCodeTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassCodeTextField.m; sourceTree = "<group>"; };
+		5A98894A2843AA030000271B /* NumberView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberView.h; sourceTree = "<group>"; };
+		5A98894B2843AA030000271B /* NumberView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberView.m; sourceTree = "<group>"; };
 		5A9D706B26EE447B00F4799D /* CommonButtonWithProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonButtonWithProgress.h; sourceTree = "<group>"; };
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
 		5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewDetailedMap.m; sourceTree = "<group>"; };
+		5AA3DB3E284EB5B4009D506E /* UserModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelConstants.h; sourceTree = "<group>"; };
 		5AB4AFB127B016D000C74857 /* LocaleUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleUtils.h; sourceTree = "<group>"; };
 		5AB4AFB227B016D000C74857 /* LocaleUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaleUtils.m; sourceTree = "<group>"; };
 		5AB4AFB427B0311800C74857 /* InformationReference.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationReference.h; sourceTree = "<group>"; };
@@ -539,6 +574,8 @@
 		5ACC9A99283948CA008E302D /* CommonTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonTextField.m; sourceTree = "<group>"; };
 		5ACC9A9C283969F7008E302D /* SecureTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecureTextField.h; sourceTree = "<group>"; };
 		5ACC9A9D283969F7008E302D /* SecureTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecureTextField.m; sourceTree = "<group>"; };
+		5ACDFCDA285DFA2A0079C8EC /* CommonFormConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonFormConstants.h; sourceTree = "<group>"; };
+		5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonFormConstants.m; sourceTree = "<group>"; };
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
 		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AD2DA352701D88300876841 /* MapViewToStateIntermediary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewToStateIntermediary.h; sourceTree = "<group>"; };
@@ -567,6 +604,14 @@
 		5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsServiceConstants.m; sourceTree = "<group>"; };
 		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
 		5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IconNameToAnalyticsEvent.m; sourceTree = "<group>"; };
+		5ADF0347283CE39500D98E9A /* UserModelObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelObserver.h; sourceTree = "<group>"; };
+		5ADF0348283CE3AA00D98E9A /* UserModelObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelObservable.h; sourceTree = "<group>"; };
+		5ADF0349283CED3200D98E9A /* UserState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserState.h; sourceTree = "<group>"; };
+		5ADF034A283CED3200D98E9A /* UserState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserState.m; sourceTree = "<group>"; };
+		5ADF034D283D1C3700D98E9A /* AuthService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthService.h; sourceTree = "<group>"; };
+		5ADF034E283D1C3700D98E9A /* AuthService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthService.m; sourceTree = "<group>"; };
+		5ADF0350284524B000D98E9A /* NumberViewConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberViewConstants.h; sourceTree = "<group>"; };
+		5ADF0351284524B000D98E9A /* NumberViewConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberViewConstants.m; sourceTree = "<group>"; };
 		5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV2.xcdatamodel; sourceTree = "<group>"; };
 		5AED944B27773DF60053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5AED944C27773DF70053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -574,6 +619,14 @@
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
 		5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryImagePlaceholder.h; sourceTree = "<group>"; };
+		5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileRootViewController.h; sourceTree = "<group>"; };
+		5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileRootViewController.m; sourceTree = "<group>"; };
+		5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		5AFFD0F82851FE88009E5AB8 /* UserFetchProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchProgressViewController.h; sourceTree = "<group>"; };
+		5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchProgressViewController.m; sourceTree = "<group>"; };
+		5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchErrorViewController.h; sourceTree = "<group>"; };
+		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
 		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -660,15 +713,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5A096AFA2836A1F0000FADB2 /* ProfileViewController */ = {
+		5A096AFA2836A1F0000FADB2 /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5A096AFB2836A20F000FADB2 /* ProfileViewController.h */,
-				5A096AFC2836A20F000FADB2 /* ProfileViewController.m */,
+				5A096AFB2836A20F000FADB2 /* LoginViewController.h */,
+				5A096AFC2836A20F000FADB2 /* LoginViewController.m */,
 				5AD347EC2837FD0200235E96 /* SignUpFormView */,
 				5AD347EB2837FCF600235E96 /* SignInFormView */,
+				5A95F1F92847F39500CCA852 /* BaseFormViewController.h */,
+				5A95F1FA2847F39500CCA852 /* BaseFormViewController.m */,
+				5ACDFCDA285DFA2A0079C8EC /* CommonFormConstants.h */,
+				5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */,
 			);
-			path = ProfileViewController;
+			path = LoginViewController;
 			sourceTree = "<group>";
 		};
 		5A105FEE2660018C00511256 /* MapService */ = {
@@ -753,6 +810,42 @@
 				5A5E2B06275CFC8000A20489 /* ZoomableImageCollectionViewCellDelegate.h */,
 			);
 			path = ZoomableImageCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		5A6685D6285A35D7008E193E /* ResetPasswordViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A6685E3285A36BC008E193E /* ResetPasswordViewController.h */,
+				5A6685E4285A36BC008E193E /* ResetPasswordViewController.m */,
+			);
+			path = ResetPasswordViewController;
+			sourceTree = "<group>";
+		};
+		5A6685D7285A35EE008E193E /* ResetPasswordEMailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A6685E0285A36AC008E193E /* ResetPasswordEMailViewController.h */,
+				5A6685E1285A36AC008E193E /* ResetPasswordEMailViewController.m */,
+			);
+			path = ResetPasswordEMailViewController;
+			sourceTree = "<group>";
+		};
+		5A6685D8285A3609008E193E /* ResetPasswordPassCodeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A6685DD285A3697008E193E /* ResetPasswordPassCodeViewController.h */,
+				5A6685DE285A3697008E193E /* ResetPasswordPassCodeViewController.m */,
+			);
+			path = ResetPasswordPassCodeViewController;
+			sourceTree = "<group>";
+		};
+		5A6685D9285A362D008E193E /* ResetPasswordNewPasswordViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A6685DA285A3687008E193E /* ResetPasswordNewPasswordViewController.h */,
+				5A6685DB285A3687008E193E /* ResetPasswordNewPasswordViewController.m */,
+			);
+			path = ResetPasswordNewPasswordViewController;
 			sourceTree = "<group>";
 		};
 		5A6CC8DD279D9A9300EE6E35 /* controllers */ = {
@@ -1011,9 +1104,9 @@
 		5A775A9826064C8F00CEFC78 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */,
 				5A775D83260775EA00CEFC78 /* RootViewController */,
 				5A775D9026077A7C00CEFC78 /* BookmarksViewController */,
-				5A096AFA2836A1F0000FADB2 /* ProfileViewController */,
 				5A775DC626077A7C00CEFC78 /* DetailsViewController */,
 				5A775D9626077A7C00CEFC78 /* IndexViewController */,
 				5A775DC326077A7C00CEFC78 /* MainViewController */,
@@ -1027,6 +1120,7 @@
 		5A775AFF26064C9000CEFC78 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				5ADF034C283D1C2700D98E9A /* AuthService */,
 				5A105FEE2660018C00511256 /* MapService */,
 				5A6DC5BC2659266E00A2D37B /* CacheService */,
 				5A775B0026064C9000CEFC78 /* CoreDataService */,
@@ -1459,6 +1553,36 @@
 			path = MapPinView;
 			sourceTree = "<group>";
 		};
+		5A98894128424A1B0000271B /* CodeConfirmationController */ = {
+			isa = PBXGroup;
+			children = (
+				5A98894228424A980000271B /* CodeConfirmationViewController.h */,
+				5A98894328424A980000271B /* CodeConfirmationViewController.m */,
+			);
+			path = CodeConfirmationController;
+			sourceTree = "<group>";
+		};
+		5A9889452843A5800000271B /* PassCodeTextField */ = {
+			isa = PBXGroup;
+			children = (
+				5A9889492843A9EE0000271B /* NumberView */,
+				5A9889462843A5BB0000271B /* PassCodeTextField.h */,
+				5A9889472843A5BB0000271B /* PassCodeTextField.m */,
+			);
+			path = PassCodeTextField;
+			sourceTree = "<group>";
+		};
+		5A9889492843A9EE0000271B /* NumberView */ = {
+			isa = PBXGroup;
+			children = (
+				5A98894A2843AA030000271B /* NumberView.h */,
+				5A98894B2843AA030000271B /* NumberView.m */,
+				5ADF0350284524B000D98E9A /* NumberViewConstants.h */,
+				5ADF0351284524B000D98E9A /* NumberViewConstants.m */,
+			);
+			path = NumberView;
+			sourceTree = "<group>";
+		};
 		5A9D706E26EE448000F4799D /* CommonButtonWithProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -1530,6 +1654,7 @@
 				5AD347DE2837B2B100235E96 /* AmplifyAuth.h */,
 				5AD347DF2837B2B100235E96 /* AmplifyAuth.m */,
 				5AD347EA2837C33C00235E96 /* AmplifyBridge.h */,
+				5A6685D42858898C008E193E /* AuthErrors.swift */,
 			);
 			path = bridges;
 			sourceTree = "<group>";
@@ -1539,6 +1664,11 @@
 			children = (
 				5AD347E52837C2EE00235E96 /* UserModel.h */,
 				5AD347E62837C2EE00235E96 /* UserModel.m */,
+				5ADF0347283CE39500D98E9A /* UserModelObserver.h */,
+				5ADF0348283CE3AA00D98E9A /* UserModelObservable.h */,
+				5ADF0349283CED3200D98E9A /* UserState.h */,
+				5ADF034A283CED3200D98E9A /* UserState.m */,
+				5AA3DB3E284EB5B4009D506E /* UserModelConstants.h */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -1579,9 +1709,19 @@
 			path = SignUpFormView;
 			sourceTree = "<group>";
 		};
+		5ADF034C283D1C2700D98E9A /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+				5ADF034D283D1C3700D98E9A /* AuthService.h */,
+				5ADF034E283D1C3700D98E9A /* AuthService.m */,
+			);
+			path = AuthService;
+			sourceTree = "<group>";
+		};
 		5AF8D587260C7D8A001CE702 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5A9889452843A5800000271B /* PassCodeTextField */,
 				5ACC9A9B283969DB008E302D /* SecureTextField */,
 				5ACC9A93283945F2008E302D /* CommonTextField */,
 				5A5E2B02275CE37700A20489 /* ZoomableImageCollectionViewCell */,
@@ -1605,6 +1745,51 @@
 				5AF8D58B260C7D8A001CE702 /* CommonButton.m */,
 			);
 			path = CommonButton;
+			sourceTree = "<group>";
+		};
+		5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */,
+				5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */,
+				5AFFD0F72851FE6D009E5AB8 /* UserFetchProgressViewController */,
+				5AFFD0F62851FE54009E5AB8 /* UserFetchErrorViewController */,
+				5A98894128424A1B0000271B /* CodeConfirmationController */,
+				5A096AFA2836A1F0000FADB2 /* LoginViewController */,
+				5A6685D9285A362D008E193E /* ResetPasswordNewPasswordViewController */,
+				5A6685D8285A3609008E193E /* ResetPasswordPassCodeViewController */,
+				5A6685D7285A35EE008E193E /* ResetPasswordEMailViewController */,
+				5A6685D6285A35D7008E193E /* ResetPasswordViewController */,
+				5AFFD0F22850E7FD009E5AB8 /* ProfileViewController */,
+			);
+			path = ProfileRootViewController;
+			sourceTree = "<group>";
+		};
+		5AFFD0F22850E7FD009E5AB8 /* ProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */,
+				5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */,
+			);
+			path = ProfileViewController;
+			sourceTree = "<group>";
+		};
+		5AFFD0F62851FE54009E5AB8 /* UserFetchErrorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */,
+				5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */,
+			);
+			path = UserFetchErrorViewController;
+			sourceTree = "<group>";
+		};
+		5AFFD0F72851FE6D009E5AB8 /* UserFetchProgressViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFD0F82851FE88009E5AB8 /* UserFetchProgressViewController.h */,
+				5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */,
+			);
+			path = UserFetchProgressViewController;
 			sourceTree = "<group>";
 		};
 		624E38CE2519E467001D98E2 /* Resources */ = {
@@ -2083,10 +2268,14 @@
 				5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */,
 				5A775E0F26077A7D00CEFC78 /* SlideCollectionViewCell.m in Sources */,
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
+				5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
 				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
+				5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */,
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
 				5AB4AFCF27B5B20E00C74857 /* StoredPlaceDetails+CoreDataClass.m in Sources */,
+				5ADF034B283CED3200D98E9A /* UserState.m in Sources */,
+				5AFFD0F12850E4BD009E5AB8 /* ProfileRootViewController.m in Sources */,
 				5A1FFB29267626A400E31162 /* Colors.m in Sources */,
 				5A775DF726077A7D00CEFC78 /* RefreshButton.m in Sources */,
 				5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */,
@@ -2095,10 +2284,14 @@
 				5A775B6026064C9000CEFC78 /* MapItem.m in Sources */,
 				5A775E1426077A7D00CEFC78 /* UISearchControllerNoCancel.m in Sources */,
 				5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */,
+				5A6685D52858898C008E193E /* AuthErrors.swift in Sources */,
 				5A775B5A26064C9000CEFC78 /* BookmarkItem.m in Sources */,
 				5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */,
 				5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */,
 				5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */,
+				5A6685DF285A3697008E193E /* ResetPasswordPassCodeViewController.m in Sources */,
+				5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */,
+				5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */,
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
 				5A12E89827C51F9C004FD8C6 /* DetailsScreenModel.m in Sources */,
@@ -2115,6 +2308,7 @@
 				5A775DFB26077A7D00CEFC78 /* GradientOverlayView.m in Sources */,
 				5A775E0626077A7D00CEFC78 /* FullMapViewController.m in Sources */,
 				6281F7E124C9E40D00C51231 /* empty.swift in Sources */,
+				5A95F1FB2847F39500CCA852 /* BaseFormViewController.m in Sources */,
 				5A775E0026077A7D00CEFC78 /* FilterOption.m in Sources */,
 				5A775E1026077A7D00CEFC78 /* BannerView.m in Sources */,
 				5A775B8826064C9000CEFC78 /* ApiServiceDataMapper.m in Sources */,
@@ -2134,6 +2328,7 @@
 				5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */,
 				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
+				5ACDFCDC285DFA2A0079C8EC /* CommonFormConstants.m in Sources */,
 				5A53584B27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m in Sources */,
 				5A21445C2663E9A700582901 /* AlertUtils.m in Sources */,
 				5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */,
@@ -2151,19 +2346,23 @@
 				5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */,
 				5A5E2B09275D5AB600A20489 /* ViewUtils.m in Sources */,
 				5A775DFE26077A7D00CEFC78 /* CategoriesFilterSpacerCollectionViewCell.m in Sources */,
+				5A6685E5285A36BC008E193E /* ResetPasswordViewController.m in Sources */,
 				5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
+				5A6685E2285A36AC008E193E /* ResetPasswordEMailViewController.m in Sources */,
 				5AD347E32837C2C500235E96 /* UserController.m in Sources */,
 				5AD347EF2837FD2800235E96 /* SignUpFormView.m in Sources */,
+				5A6685DC285A3687008E193E /* ResetPasswordNewPasswordViewController.m in Sources */,
 				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
-				5A096AFD2836A20F000FADB2 /* ProfileViewController.m in Sources */,
+				5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */,
 				5A775B5E26064C9000CEFC78 /* PathDetails.m in Sources */,
 				5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */,
 				5A775E0226077A7D00CEFC78 /* CategoriesFilterCollectionViewCell.m in Sources */,
+				5A9889482843A5BB0000271B /* PassCodeTextField.m in Sources */,
 				5A775B1C26064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataClass.m in Sources */,
 				5A775B6126064C9000CEFC78 /* PlaceDetails.m in Sources */,
 				5A6CC8E0279D9AB700EE6E35 /* IndexController.m in Sources */,
@@ -2188,6 +2387,7 @@
 				5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */,
 				5A775E0B26077A7D00CEFC78 /* DetailsViewController.m in Sources */,
 				5A775E1126077A7D00CEFC78 /* PlacesViewController.m in Sources */,
+				5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */,
 				5A775B5926064C9000CEFC78 /* PlaceCategory.m in Sources */,
 				5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */,
 				5A775DFD26077A7D00CEFC78 /* IndexViewController.m in Sources */,
@@ -2215,8 +2415,10 @@
 				5A775B4E26064C9000CEFC78 /* LocationModel.m in Sources */,
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
 				5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */,
+				5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */,
 				5A105FEC265FD9E300511256 /* Directions.m in Sources */,
 				5A6DC50B2655B28900A2D37B /* StoredArea+CoreDataProperties.m in Sources */,
+				5A98894C2843AA030000271B /* NumberView.m in Sources */,
 				5A775E1726077A7D00CEFC78 /* WeRecommendCell.m in Sources */,
 				5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */,
 				5A775B4F26064C9000CEFC78 /* SearchModel.m in Sources */,

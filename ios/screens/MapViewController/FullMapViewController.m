@@ -51,9 +51,10 @@
 
 
 static NSString* const kBottomSheetButtonLabel = @"Узнать больше";
-static const CGSize kIconSize = {.width = 20.0, .height = 20.0};
+static const CGSize kIconSize = {.width = 44.0, .height = 44.0};
 static const CGFloat kZoomLevelForSearch = 8.0;
 static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
+static const CGFloat kClusterSize = 32.0;
 
 @implementation FullMapViewController
 
@@ -185,6 +186,7 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 - (void)renderMapItems:(NSArray<MapItem *> *)mapItems
                  style:(MGLStyle *)style {
   self.annotations = [[NSMutableArray alloc] init];
+  CGFloat kClusterSizeMultiplier = kClusterSize / kIconSize.width;
   [self.mapView removeAnnotations:self.mapView.annotations];
   [mapItems enumerateObjectsUsingBlock:^(MapItem * _Nonnull mapItem, NSUInteger idx, BOOL * _Nonnull stop) {
     MGLPointFeature *point = [[MGLPointFeature alloc] init];
@@ -230,10 +232,16 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 //  [style setImage:[UIImage imageNamed:@"historical-place-map-pin"] forName:@"historical-place"];
 //  [style setImage:[UIImage imageNamed:@"bicycle-route-map-pin"] forName:@"bicycle-route"];
   MGLSymbolStyleLayer *clusterLayer = [[MGLSymbolStyleLayer alloc] initWithIdentifier:MapViewControllerClusterLayerId source:source];
-  clusterLayer.textColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].black];
-  clusterLayer.textFontSize = [NSExpression expressionForConstantValue:[NSNumber numberWithDouble:20.0]];
-  clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:[NSNumber numberWithBool:YES]];
-  clusterLayer.textOffset =  [NSExpression expressionForConstantValue:[NSValue valueWithCGVector:CGVectorMake(0, 0)]];
+  clusterLayer.textColor = [NSExpression expressionForConstantValue:
+                            [ColorsLegacy get].black];
+  clusterLayer.textFontSize = [NSExpression expressionForConstantValue:
+                               [NSNumber numberWithDouble:14.0]];
+  clusterLayer.iconAllowsOverlap = [NSExpression expressionForConstantValue:
+                                    [NSNumber numberWithBool:YES]];
+  clusterLayer.iconScale = [NSExpression expressionForConstantValue:
+                            [NSNumber numberWithFloat:kClusterSizeMultiplier]];
+  clusterLayer.textOffset =  [NSExpression expressionForConstantValue:
+                              [NSValue valueWithCGVector:CGVectorMake(0, 0)]];
   clusterLayer.predicate = [NSPredicate predicateWithFormat:@"cluster == YES"];
 
   NSDictionary *stops = @{@0: [NSExpression expressionForConstantValue:@"markerClustered"]};
@@ -395,12 +403,13 @@ static const NSUInteger kMaxSearchZoomRecursionDepth = 15;
 
   CGPoint point = [tap locationInView:tap.view];
   CGFloat width = kIconSize.width;
-  CGRect rect = CGRectMake(point.x - width / 2, point.y - width / 2, width, width);
+  CGFloat height = kIconSize.height;
+  CGRect rect = CGRectMake(point.x - width / 2, point.y - height / 2, width, height);
 
   NSArray<id<MGLFeature>> *features = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:[NSSet setWithObjects:MapViewControllerClusterLayerId, MapViewControllerMarkerLayerId, nil]];
 
   // Pick the first feature (which may be a port or a cluster), ideally selecting
-  // the one nearest nearest one to the touch point.
+  // the one nearest one to the touch point.
   id<MGLFeature> feature = features.firstObject;
   if (feature && [feature isKindOfClass:[MGLPointFeatureCluster class]]) {
     [self handleMapClusterTap:tap];

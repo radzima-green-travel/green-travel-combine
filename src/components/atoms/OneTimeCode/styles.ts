@@ -4,7 +4,6 @@ import {COLORS, SHADOWS} from 'assets';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginBottom: 25,
   },
   codeContainer: {
     flexDirection: 'row',
