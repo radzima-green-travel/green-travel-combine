@@ -30,10 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
                           completion:(void(^)(NSError * _Nullable))completion;
 - (void)confirmSignUpForEMail:(NSString *)email
                             code:(NSString *)code
-                   completion:(void (^)(NSError * _Nonnull))completion;
+                   completion:(void (^)(NSError * _Nullable))completion;
 - (void)resendSignUpCodeEMail:(NSString *)email
-                   completion:(void (^)(NSError * _Nonnull))completion;
-- (void)signOutWithCompletion:(void (^)(NSError * _Nonnull))completion;
+                   completion:(void (^)(NSError * _Nullable))completion;
+- (void)signOutWithCompletion:(void (^)(NSError * _Nullable))completion;
 
 
 @end

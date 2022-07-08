@@ -126,13 +126,46 @@
   [self.authService signUpWithUsername:username password:password email:email
                             completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
-    
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateFetched];
+      
+      if ([strongSelf usingTheSameEMailAndPassword:error
+                                             email:email
+                                          password:password]) {
+        [strongSelf resendCodeForSameUser:email
+                                 password:password];
+        return;
+      };
+      return;
+    }
+    [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
+    [self.model setEmailUserOnSignUp:email];
+    [self.model setPasswordUsedOnSignUp:password];
+  }];
+}
+
+- (void)resendCodeForSameUser:(NSString *)email
+                     password:(NSString *)password {
+  [self.model setState:UserModelStateSignUpEmailInProgress];
+  __weak typeof(self) weakSelf = self;
+  [self.authService resendSignUpCodeEMail:email
+                               completion:^(NSError * _Nullable error) {
+    __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateFetched];
       return;
     }
     [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
   }];
+  return;
+}
+
+- (BOOL)usingTheSameEMailAndPassword:(NSError *)error
+                               email:(NSString *)email
+                            password:(NSString *)password {
+  return error.code == AmplifyBridgeErrorAuthErrorUsernameExists &&
+  [self.model.emailUserOnSignUp isEqualToString:email] &&
+  [self.model.passwordUsedOnSignUp isEqualToString:password];
 }
 
 - (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code {

@@ -143,10 +143,18 @@ class AmplifyBridge: NSObject {
         }
         completion(nil)
       case .failure(let error):
-        let customError = NSError(domain: "app.radzima", code: 1, userInfo: [
-          "message": "Sign up failed with error \(error)"
-        ])
         print("An error occurred while registering a user \(error)")
+        var customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorSignUpFailed.rawValue)
+        if let authError = error as? AuthError,
+            let cognitoAuthError = authError.underlyingError as? AWSCognitoAuthError {
+            switch cognitoAuthError {
+            case .usernameExists:
+              customError = NSError(domain: AuthErrorDomain, code: AmplifyBridgeError.AuthErrorUsernameExists.rawValue)
+            default:
+                break
+            }
+        }
+        
         completion(customError)
       }
     }
