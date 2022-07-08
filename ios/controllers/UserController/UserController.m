@@ -114,6 +114,12 @@
   }];
 }
 
+- (BOOL)usingTheSameEMailAndPassword:(NSString *)email
+                            password:(NSString *)password {
+  return [self.model.email isEqualToString:email] &&
+  [self.model.password isEqualToString:password];
+}
+
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
               password:(NSString *)password {
@@ -152,6 +158,13 @@
                                completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
+      if (error.code == AmplifyBridgeErrorAuthErrorUsernameExists &&
+          [self usingTheSameEMailAndPassword:email password:password]) {
+        [self.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull) {
+                  
+        }];
+      }
+      
       [strongSelf.model setState:UserModelStateFetched];
       return;
     }
@@ -178,7 +191,7 @@
       return;
     }
     __weak typeof(strongSelf) weakSelf = strongSelf;
-    [self signIn:strongSelf.model.email password:strongSelf.model.password
+    [strongSelf signIn:strongSelf.model.email password:strongSelf.model.password
       completion:^(NSError * _Nullable error){
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
