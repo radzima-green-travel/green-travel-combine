@@ -74,8 +74,6 @@ void configureTabBar(UITabBar *tabBar) {
     [appearance configureWithOpaqueBackground];
     appearance.backgroundColor = [Colors get].tabBarBackground;
     appearance.backgroundEffect = nil;
-//    tabBar.tintColor = [Colors get].tabBarTextSelected;
-//    tabBar.unselectedItemTintColor = [Colors get].tabBarText;
     
     configureTabBarItemAppearance(appearance.stackedLayoutAppearance);
     configureTabBarItemAppearance(appearance.inlineLayoutAppearance);
