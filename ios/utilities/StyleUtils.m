@@ -64,6 +64,8 @@ API_AVAILABLE(ios(13.0))
 void configureTabBarItemAppearance(UITabBarItemAppearance *tabBarItemAppearance) {
   [tabBarItemAppearance.normal setTitleTextAttributes:[TypographyLegacy get].tabBarAttributes];
   [tabBarItemAppearance.selected setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes];
+  [tabBarItemAppearance.selected setIconColor:[Colors get].tabBarTextSelected];
+  [tabBarItemAppearance.normal setIconColor:[Colors get].tabBarText];
 }
 
 void configureTabBar(UITabBar *tabBar) {
@@ -72,8 +74,8 @@ void configureTabBar(UITabBar *tabBar) {
     [appearance configureWithOpaqueBackground];
     appearance.backgroundColor = [Colors get].tabBarBackground;
     appearance.backgroundEffect = nil;
-    tabBar.tintColor = [Colors get].tabBarTextSelected;
-    tabBar.unselectedItemTintColor = [Colors get].tabBarText;
+//    tabBar.tintColor = [Colors get].tabBarTextSelected;
+//    tabBar.unselectedItemTintColor = [Colors get].tabBarText;
     
     configureTabBarItemAppearance(appearance.stackedLayoutAppearance);
     configureTabBarItemAppearance(appearance.inlineLayoutAppearance);
