@@ -64,10 +64,6 @@
   configureTabBar(self.tabBar);
   
   self.view.backgroundColor = [Colors get].background;
-  
-  configureTabBarItem(self.indexTabBarItem, [UIImage imageNamed:@"home"]);
-  configureTabBarItem(self.mapTabBarItem, [UIImage imageNamed:@"map"]);
-  configureTabBarItem(self.bookmarksTabBarItem, [UIImage imageNamed:@"bookmark"]);
 }
 
 - (void)viewDidLoad {
