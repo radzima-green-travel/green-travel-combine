@@ -15,6 +15,7 @@
 #import "TextUtils.h"
 #import "ApiService.h"
 #import "GraphQLApiService.h"
+#import "ApiServiceIndexFile.h"
 #import "IndexModel.h"
 #import "DetailsModel.h"
 #import "SearchModel.h"
@@ -74,7 +75,7 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     UserDefaultsService *userDefaultsService = [UserDefaultsService get];
     self.session = [NSURLSession sessionWithConfiguration:configuration];
-    self.apiService = [[GraphQLApiService alloc] initWithSession:self.session];
+    self.apiService = [[ApiServiceIndexFile alloc] initWithSession:self.session];
     self.mapService = [[MapService alloc] initWithSession:self.session];
     self.coreDataService = [[CoreDataService alloc] init];
     self.indexModel = [[IndexModel alloc] initWithApiService:self.apiService
