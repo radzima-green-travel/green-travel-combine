@@ -29,7 +29,7 @@
 
 - (void)layoutSubviews {
   [super layoutSubviews];
-  self.backgroundColor = [Colors get].background;
+  self.backgroundColor = [Colors get].textFieldBackground;
 }
 
 - (void)setUp:(NSString *)imageName
