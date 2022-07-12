@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonTextField.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithOnSubmit:(void (^)(NSString *, NSString *, NSString *))onSumbit
           onForgotPasswordSubmit:(void (^)(void))onForgotPasswordSubmit;
+
+@property (strong, nonatomic) CommonTextField *textFieldMail;
 
 @end
 

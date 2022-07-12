@@ -95,6 +95,7 @@ static const CGFloat kTopOffset = 90.0;
     }];
   }
   
+  self.signUpView.textFieldMail.textField.delegate = self;
   self.signUpView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.signUpView];
   
@@ -122,6 +123,7 @@ static const CGFloat kTopOffset = 90.0;
     }];
   }
   
+  self.signInView.textFieldMail.textField.delegate = self;
   self.signInView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.signInView];
   [NSLayoutConstraint activateConstraints:@[

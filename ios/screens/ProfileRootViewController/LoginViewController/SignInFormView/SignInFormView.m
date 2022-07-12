@@ -18,7 +18,6 @@
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIButtonHighlightable *forgotPasswordButton;
-@property (strong, nonatomic) CommonTextField *textFieldMail;
 @property (strong, nonatomic) SecureTextField *textFieldPass;
 @property (strong, nonatomic) CommonButton *submitButton;
 @property (copy, nonatomic) void(^onSubmit)(NSString *, NSString *, NSString *);
@@ -63,7 +62,6 @@
   self.textFieldMail = [[CommonTextField alloc] initWithImageName:@"textfield-mail"
                                                      keyboardType:UIKeyboardTypeEmailAddress
                                                       placeholder:NSLocalizedString(@"ProfileScreenPlaceholderEMail", @"")];
-  self.textFieldMail.textField.delegate = self;
   [self.textFieldMail.textField setTextContentType:UITextContentTypeEmailAddress];
   [self addSubview:self.textFieldMail];
   self.textFieldMail.translatesAutoresizingMaskIntoConstraints = NO;
@@ -131,10 +129,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
   [textField resignFirstResponder];
   return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-  [textField removeSpaces];
 }
 
 @end

@@ -15,6 +15,7 @@
 #import "UserModel.h"
 #import "UserState.h"
 #import "CodeConfirmationViewController.h"
+#import "CommonTextField.h"
 
 @interface BaseFormViewController ()
 
@@ -170,5 +171,10 @@ static const CGFloat kTopOffset = 90.0;
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
                         toCurrentState:(UserModelState)currentState {}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+  textField.text = [textField.text stringByTrimmingCharactersInSet:
+               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
 
 @end
