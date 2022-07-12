@@ -99,9 +99,7 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
         ) : null} */}
       </View>
 
-      <Button
-        style={styles.button}
-        onPress={isSignUpScreen ? onSignUpSubmit : onSignInSubmit}>
+      <Button onPress={isSignUpScreen ? onSignUpSubmit : onSignInSubmit}>
         {buttonText}
       </Button>
     </>

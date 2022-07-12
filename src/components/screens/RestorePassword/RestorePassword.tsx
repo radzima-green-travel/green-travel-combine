@@ -7,8 +7,8 @@ import {
   View,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
-import {styles} from './styles';
-import {useTranslation} from 'core/hooks';
+import {themeStyles} from './styles';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {forgotPasswordRequest} from 'core/reducers';
 import {Button, FormInput} from 'atoms';
 import {IProps} from './types';
@@ -17,6 +17,7 @@ export const RestorePassword = ({navigation}: IProps) => {
   const [email, setEmail] = useState('');
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
   const {t} = useTranslation('authentification');
+  const styles = useThemeStyles(themeStyles);
   const buttonText = t('send').toUpperCase();
 
   const dispatch = useDispatch();

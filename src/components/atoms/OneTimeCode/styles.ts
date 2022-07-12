@@ -1,7 +1,6 @@
-import {StyleSheet} from 'react-native';
 import {COLORS, SHADOWS} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
     flexDirection: 'row',
   },
@@ -14,7 +13,10 @@ export const styles = StyleSheet.create({
     height: 48,
     justifyContent: 'center',
     marginHorizontal: 8,
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.mirage,
+    },
     borderWidth: 1,
     borderColor: COLORS.alto,
     borderRadius: 4,
@@ -38,4 +40,4 @@ export const styles = StyleSheet.create({
     width: 0,
     opacity: 0,
   },
-});
+};

@@ -1,14 +1,15 @@
 import React, {useCallback} from 'react';
 import {Keyboard, Text, TouchableWithoutFeedback, View} from 'react-native';
-import {styles} from './styles';
+import {themeStyles} from './styles';
 import {Trans} from 'react-i18next';
-import {useTranslation} from 'core/hooks';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {AuthForm, Divider} from 'atoms';
 import {AuthSocial} from 'molecules';
 import {IProps} from './types';
 
 export const SignUp = ({navigation}: IProps) => {
   const {t} = useTranslation('authentification');
+  const styles = useThemeStyles(themeStyles);
 
   const navigateToEmailValidation = useCallback(
     email => {
