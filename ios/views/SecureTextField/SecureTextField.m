@@ -60,7 +60,7 @@
   ]];
   
   self.delimiterView = [[UIView alloc] initWithFrame:CGRectZero];
-  self.delimiterView.backgroundColor = [Colors get].bottomSheetGrip;
+  self.delimiterView.backgroundColor = [Colors get].textFieldBorderColor;
   
   [self addSubview:self.delimiterView];
   self.delimiterView.translatesAutoresizingMaskIntoConstraints = NO;
