@@ -1,9 +1,10 @@
 import React, {Dispatch, SetStateAction} from 'react';
 import {Pressable, TextInput, View} from 'react-native';
-import {styles} from './styles';
-import {useTranslation} from 'core/hooks';
+import {themeStyles} from './styles';
+import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
 import {Icon} from 'atoms';
 import {IconsNames} from 'atoms/Icon/IconsNames';
+import {COLORS} from 'assets';
 
 interface IProps {
   iconLeftName?: IconsNames;
@@ -29,6 +30,8 @@ export const FormInput = ({
   onRightIconPress,
 }: IProps) => {
   const {t} = useTranslation('authentification');
+  const styles = useThemeStyles(themeStyles);
+  const colorScheme = useColorScheme();
 
   return (
     <View
@@ -37,7 +40,12 @@ export const FormInput = ({
         dangerBorder ? styles.dangerBorder : null,
       ]}>
       {iconLeftName ? (
-        <Icon name={iconLeftName} size={size} style={styles.icon} />
+        <Icon
+          name={iconLeftName}
+          size={size}
+          color={colorScheme === 'light' ? COLORS.logCabin : COLORS.white}
+          style={styles.icon}
+        />
       ) : null}
       <TextInput
         style={styles.inputField}
@@ -55,7 +63,11 @@ export const FormInput = ({
             dangerBorder ? styles.dangerBorder : null,
           ]}
           onPress={onRightIconPress}>
-          <Icon name={iconRightName} size={16} />
+          <Icon
+            name={iconRightName}
+            size={16}
+            color={colorScheme === 'light' ? COLORS.logCabin : COLORS.white}
+          />
         </Pressable>
       ) : null}
     </View>

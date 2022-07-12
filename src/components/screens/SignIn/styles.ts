@@ -1,11 +1,13 @@
-import {StyleSheet} from 'react-native';
 import {COLORS, FONTS_STYLES} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
-    backgroundColor: COLORS.white,
     flex: 1,
     paddingHorizontal: 24,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.background,
+    },
   },
   title: {
     ...FONTS_STYLES.semibold20,
@@ -15,7 +17,10 @@ export const styles = StyleSheet.create({
   },
   passwordText: {
     ...FONTS_STYLES.regular16,
-    color: COLORS.forestGreen,
+    color: {
+      light: COLORS.forestGreen,
+      dark: COLORS.oceanGreen,
+    },
     textAlign: 'center',
     marginTop: 25,
   },
@@ -28,4 +33,4 @@ export const styles = StyleSheet.create({
   link: {
     color: COLORS.cornflowerBlue,
   },
-});
+};
