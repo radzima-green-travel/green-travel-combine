@@ -15,7 +15,6 @@
 @interface SignUpFormView()
 
 @property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) CommonTextField *textFieldMail;
 @property (strong, nonatomic) SecureTextField *textFieldPass;
 @property (strong, nonatomic) CommonButton *submitButton;
 @property (copy, nonatomic) void(^onSubmit)(NSString *, NSString *, NSString *);
@@ -105,10 +104,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
   [textField resignFirstResponder];
   return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-  [textField removeSpaces];
 }
 
 @end
