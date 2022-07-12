@@ -18,6 +18,7 @@ NSString* UIColorToHEX(UIColor *color);
 
 @property (strong, nonatomic) UIColor *background;
 @property (strong, nonatomic) UIColor *textFieldBackground;
+@property (strong, nonatomic) UIColor *textFieldBorderColor;
 @property (strong, nonatomic) UIColor *navigationBarTint;
 @property (strong, nonatomic) UIColor *navigationBarColorStart;
 @property (strong, nonatomic) UIColor *navigationBarColorStop;

@@ -30,13 +30,13 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.backgroundColor = [Colors get].textFieldBackground;
+  self.layer.borderColor = [[Colors get].textFieldBorderColor CGColor];
 }
 
 - (void)setUp:(NSString *)imageName
  keyboardType:(UIKeyboardType)keyboardType
   placeholder:(NSString *)placeholder {
   self.translatesAutoresizingMaskIntoConstraints = NO;
-  self.backgroundColor = [Colors get].background;
   [NSLayoutConstraint activateConstraints:@[
     [self.heightAnchor constraintEqualToConstant:40.0],
   ]];
@@ -63,7 +63,6 @@
   ]];
   [self.textField setPlaceholder:placeholder];
   
-  self.layer.borderColor = [[Colors get].bottomSheetGrip CGColor];
   self.layer.borderWidth = 1.0;
   self.layer.cornerRadius = 2.0;
 }
