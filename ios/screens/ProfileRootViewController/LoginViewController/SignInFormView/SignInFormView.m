@@ -12,7 +12,6 @@
 #import "CommonButton.h"
 #import "UIButtonHighlightable.h"
 #import "Typography.h"
-#import "UITextField+RemoveWhiteSpaces.h"
 
 @interface SignInFormView()
 
