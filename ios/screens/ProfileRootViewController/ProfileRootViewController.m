@@ -45,6 +45,10 @@
   [self onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return UIStatusBarStyleLightContent;
+}
+
 - (void)showLoginViewController {
   LoginViewController *loginViewController =
   [[LoginViewController alloc] initWithController:self.userController

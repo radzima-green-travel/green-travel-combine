@@ -66,6 +66,10 @@
     return self;
 }
 
+- (UIViewController *)childViewControllerForStatusBarStyle {
+  return self.current;
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   

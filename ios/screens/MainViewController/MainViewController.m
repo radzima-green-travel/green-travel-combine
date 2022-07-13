@@ -37,6 +37,7 @@
 #import "UserController.h"
 #import "AmplifyBridge.h"
 #import "AuthService.h"
+#import "GTNavigationController.h"
 
 @interface MainViewController ()
 
@@ -50,9 +51,9 @@
 @property (strong, nonatomic) UITabBarItem *mapTabBarItem;
 @property (strong, nonatomic) UITabBarItem *bookmarksTabBarItem;
 @property (strong, nonatomic) UITabBarItem *profileTabBarItem;
-@property (strong, nonatomic) UINavigationController *indexViewControllerWithNavigation;
-@property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
-@property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
+@property (strong, nonatomic) GTNavigationController *indexViewControllerWithNavigation;
+@property (strong, nonatomic) GTNavigationController *mapControllerWithNavigation;
+@property (strong, nonatomic) GTNavigationController *bookmarksControllerWithNavigation;
 @property (strong, nonatomic) ProfileRootViewController *profileRootController;
 
 @end
@@ -103,7 +104,7 @@
 
     IndexViewController *indexController = [[IndexViewController alloc] initWithApiService:self.apiService model:self.indexModel searchModel:searchModel locationModel:locationModel mapModel:mapModel detailsModel:detailsModel coreDataService:self.coreDataService mapService:self.mapService];
     indexController.title = NSLocalizedString(@"IndexTitle", @"");
-    self.indexViewControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:indexController];
+    self.indexViewControllerWithNavigation = [[GTNavigationController alloc] initWithRootViewController:indexController];
     UIImage *indexImage;
     indexImage = [UIImage imageNamed:@"home"];
     self.indexTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMain", @""), 0, indexImage);
@@ -127,7 +128,7 @@
                                        mapService:self.mapService
                                           mapItem:nil];
     mapController.title = NSLocalizedString(@"MapTitle", @"");
-    self.mapControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:mapController];
+    self.mapControllerWithNavigation = [[GTNavigationController alloc] initWithRootViewController:mapController];
     UIImage *mapImage;
     mapImage = [UIImage imageNamed:@"map"];
     self.mapTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMap", @""), 0, mapImage);
@@ -150,7 +151,7 @@
                                        detailsModel:detailsModel
                                      locationModel:locationModel];
     bookmarksController.title = NSLocalizedString(@"SavedTitle", @"");
-    self.bookmarksControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:bookmarksController];
+    self.bookmarksControllerWithNavigation = [[GTNavigationController alloc] initWithRootViewController:bookmarksController];
     UIImage *bookmarksImage;
     bookmarksImage = [UIImage imageNamed:@"bookmark"];
     self.bookmarksTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarSaved", @""), 0, bookmarksImage);

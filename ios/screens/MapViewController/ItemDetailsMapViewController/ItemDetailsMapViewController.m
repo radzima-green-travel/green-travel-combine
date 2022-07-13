@@ -143,6 +143,10 @@ static NSString* const kAttributeType = @"type";
   [super viewDidDisappear:animated];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return UIStatusBarStyleLightContent;
+}
+
 - (void)renderMap:(BOOL)initialLoad {
   [self renderMapItem:self.mapItem style:self.mapView.style];
   if (!(self.mapViewState.saved & (MapViewStateSaveOptionZoom |
