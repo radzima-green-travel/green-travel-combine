@@ -38,7 +38,7 @@
 #import "AlertUtils.h"
 #import "MapViewControllerConstants.h"
 #import "AnalyticsEvents.h"
-#import "UIColor+GreenTravel.h"
+#import "Colors.h"
 
 @interface ItemDetailsMapViewController ()
 
@@ -359,7 +359,7 @@ static NSString* const kAttributeType = @"type";
   dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
   dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
   dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@1];
-  dashedLayer.lineColor = [NSExpression expressionForConstantValue: UIColor.lineMapColorAppearance];
+  dashedLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPath];
   dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
   dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@5, @5]];
   [style addLayer:dashedLayer];
