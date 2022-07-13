@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class LocationModel;
 @class SearchModel;
 @class IndexModel;
-@class ApiService;
+@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @class DetailsModel;
 @class CategoriesFilterView;
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) SearchModel *searchModel;
 @property (strong, nonatomic) DetailsModel *detailsModel;
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) MapButton *locationButton;
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
                      detailsModel:(DetailsModel *)detailsModel
-                      apiService:(ApiService *)apiService
+                      apiService:(ApiServiceIndexFileLegacy *)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
                          mapItem:(nullable MapItem *)mapItem;

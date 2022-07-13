@@ -24,7 +24,7 @@
 #import "SearchModel.h"
 #import "LocationModel.h"
 #import "DetailsModel.h"
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "CoreDataService.h"
 #import <CoreLocation/CoreLocation.h>
 #import "TypographyLegacy.h"
@@ -42,7 +42,7 @@
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) CLLocation *lastLocation;
 @property (assign, nonatomic) BOOL locationIsEnabled;
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) SearchItem *itemToSaveToHistory;
 @property (strong, nonatomic) UITableView *tableView;
@@ -76,7 +76,7 @@ static const CGFloat kSearchRowHeight = 58.0;
                 indexModel:(IndexModel *)indexModel
                 locationModel:(LocationModel *)locationModel
                      mapModel:(MapModel *)mapModel
-                   apiService:(ApiService *)apiService
+                   apiService:(ApiServiceIndexFileLegacy *)apiService
               coreDataService:(CoreDataService *)coreDataService
           itemsWithCoordsOnly:(BOOL)itemsWithCoordsOnly
            onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect

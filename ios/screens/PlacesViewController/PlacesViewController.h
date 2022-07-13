@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceCategory;
 @class PlaceItem;
-@class ApiService;
+@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @class MapModel;
 @class LocationModel;
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) PlaceCategory *category;
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
-                        apiService:(ApiService *)apiService
+                        apiService:(ApiServiceIndexFileLegacy *)apiService
                    coreDataService:(CoreDataService *)coreDataService
                    mapService:(MapService *)mapService
                           mapModel:(MapModel *)mapModel

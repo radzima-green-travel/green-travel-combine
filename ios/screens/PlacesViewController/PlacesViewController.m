@@ -23,7 +23,7 @@
 
 @property (assign, nonatomic) BOOL bookmarked;
 @property (strong, nonatomic) NSMutableArray<PlaceItem *> *bookmarkedItems;
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) MapModel *mapModel;
@@ -46,7 +46,7 @@ static const NSUInteger kCollectionSizeWhenToShowIndexTitles = 10;
 static const NSUInteger kNumberOfLetterSizeWhenToShowIndexTitles = 4;
 
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
-                        apiService:(ApiService *)apiService
+                        apiService:(ApiServiceIndexFileLegacy *)apiService
                         coreDataService:(CoreDataService *)coreDataService
                    mapService:(MapService *)mapService
                           mapModel:(MapModel *)mapModel

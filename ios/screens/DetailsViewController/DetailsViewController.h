@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
-@class ApiService;
+@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @class MapModel;
 @class LocationModel;
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
 @interface DetailsViewController : LoadableDataViewController<BookmarksObserver,
     CategoriesObserver, DetailsObserver, UIScrollViewDelegate>
 
-- (instancetype)initWithApiService:(ApiService *)apiService
+- (instancetype)initWithApiService:(ApiServiceIndexFileLegacy *)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService
                    mapService:(nonnull MapService *)mapService
                         indexModel:(IndexModel *)indexModel

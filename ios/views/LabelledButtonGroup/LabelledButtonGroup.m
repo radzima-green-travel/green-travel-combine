@@ -9,7 +9,7 @@
 
 #import "LinkedCategoriesView.h"
 #import "IndexModel.h"
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "DetailsModel.h"
 #import "MapModel.h"
 #import "LocationModel.h"

@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class PlaceCategory;
 @class PlaceDetails;
 
-@interface ApiService : NSObject<IndexLoader>
+@interface ApiServiceIndexFileLegacy : NSObject<IndexLoader>
 
 @property (strong, nonatomic) NSURLSession *session;
 - (instancetype)initWithSession:(NSURLSession *)session;

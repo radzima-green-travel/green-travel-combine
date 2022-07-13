@@ -6,7 +6,7 @@
 //  Copyright © 2020 Alex K. All rights reserved.
 //
 
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "PlaceCategory.h"
 #import "IndexModel.h"
 #import "DetailsModel.h"
@@ -23,11 +23,11 @@
 
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
 
-@interface ApiService ()
+@interface ApiServiceIndexFileLegacy ()
 
 @end
 
-@implementation ApiService
+@implementation ApiServiceIndexFileLegacy
 
 - (instancetype) initWithSession:(NSURLSession *)session {
     self = [super init];

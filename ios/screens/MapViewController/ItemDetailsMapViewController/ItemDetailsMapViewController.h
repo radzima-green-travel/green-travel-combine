@@ -38,7 +38,7 @@ static inline ItemDetailsMapViewControllerAnnotationType getAllItemTypes() {
 @class LocationModel;
 @class SearchModel;
 @class IndexModel;
-@class ApiService;
+@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @class DetailsModel;
 @class PlaceDetails;
@@ -50,7 +50,7 @@ static inline ItemDetailsMapViewControllerAnnotationType getAllItemTypes() {
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
                     detailsModel:(DetailsModel *)detailsModel
-                      apiService:(ApiService *)apiService
+                      apiService:(ApiServiceIndexFileLegacy *)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
                          mapItem:(nullable MapItem *)mapItem

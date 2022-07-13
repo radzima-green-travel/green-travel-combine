@@ -6,15 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DetailsModel;
-@class PlaceCategory;
-@class PlaceDetails;
-
-@interface ApiServiceIndexFile : ApiService
+@interface ApiServiceIndexFile : ApiServiceIndexFileLegacy
 
 @end
 

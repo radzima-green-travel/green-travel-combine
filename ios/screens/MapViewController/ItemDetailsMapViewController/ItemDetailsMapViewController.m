@@ -22,7 +22,7 @@
 #import "MapButton.h"
 #import "SearchViewController.h"
 #import "SearchModel.h"
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "CoreDataService.h"
 #import "PlaceItem.h"
 #import "PlaceCategory.h"
@@ -71,7 +71,7 @@ static NSString* const kAttributeType = @"type";
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
                     detailsModel:(DetailsModel *)detailsModel
-                      apiService:(ApiService *)apiService
+                      apiService:(ApiServiceIndexFileLegacy *)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
                          mapItem:(MapItem *)mapItem
