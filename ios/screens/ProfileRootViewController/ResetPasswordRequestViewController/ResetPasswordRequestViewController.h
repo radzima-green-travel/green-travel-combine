@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ResetPasswordRequestViewController : BaseFormViewController
+@interface ResetPasswordRequestViewController : BaseFormViewController<UserModelObserver>
 
 @end
 
