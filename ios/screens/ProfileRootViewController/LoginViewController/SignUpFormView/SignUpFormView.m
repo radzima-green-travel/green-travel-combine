@@ -10,7 +10,6 @@
 #import "CommonTextField.h"
 #import "SecureTextField.h"
 #import "CommonButton.h"
-#import "UITextField+RemoveWhiteSpaces.h"
 
 @interface SignUpFormView()
 

@@ -19,7 +19,6 @@
 
 @property(strong, nonatomic) UILabel *hintLabel;
 @property(strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) CommonTextField *textFieldMail;
 @property(strong, nonatomic) CommonButton *buttonSubmit;
 @property(assign, nonatomic) BOOL shownKeyboard;
 @property(assign, nonatomic) BOOL shouldNavigateToCodeScreen;
@@ -71,6 +70,7 @@
   self.textFieldMail = [[CommonTextField alloc] initWithImageName:@"textfield-mail"
                                                      keyboardType:UIKeyboardTypeEmailAddress
                                                       placeholder:NSLocalizedString(@"ProfileScreenPlaceholderEMail", @"")];
+  self.textFieldMail.textField.delegate = self;
   [self.textFieldMail.textField setTextContentType:UITextContentTypeEmailAddress];
   [self.contentView addSubview:self.textFieldMail];
   self.textFieldMail.translatesAutoresizingMaskIntoConstraints = NO;
