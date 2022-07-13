@@ -171,6 +171,7 @@
 		5A9889482843A5BB0000271B /* PassCodeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9889472843A5BB0000271B /* PassCodeTextField.m */; };
 		5A98894C2843AA030000271B /* NumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894B2843AA030000271B /* NumberView.m */; };
 		5A99116228801CC30061C1AD /* ApiServiceBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99116128801CC30061C1AD /* ApiServiceBase.m */; };
+		5A99115F287F099C0061C1AD /* ResetPasswordRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99115E287F099C0061C1AD /* ResetPasswordRequestViewController.m */; };
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
 		5A9DD883287B0F7800D4A988 /* ApiServiceIndexFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9DD882287B0F7800D4A988 /* ApiServiceIndexFile.m */; };
@@ -544,6 +545,8 @@
 		5A98894B2843AA030000271B /* NumberView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberView.m; sourceTree = "<group>"; };
 		5A99116028801CC30061C1AD /* ApiServiceBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiServiceBase.h; sourceTree = "<group>"; };
 		5A99116128801CC30061C1AD /* ApiServiceBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApiServiceBase.m; sourceTree = "<group>"; };
+		5A99115D287F099C0061C1AD /* ResetPasswordRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResetPasswordRequestViewController.h; sourceTree = "<group>"; };
+    5A99115E287F099C0061C1AD /* ResetPasswordRequestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordRequestViewController.m; sourceTree = "<group>"; };
 		5A9D706B26EE447B00F4799D /* CommonButtonWithProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonButtonWithProgress.h; sourceTree = "<group>"; };
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
@@ -1581,6 +1584,15 @@
 			path = NumberView;
 			sourceTree = "<group>";
 		};
+		5A99115C287F09630061C1AD /* ResetPasswordRequestViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A99115D287F099C0061C1AD /* ResetPasswordRequestViewController.h */,
+				5A99115E287F099C0061C1AD /* ResetPasswordRequestViewController.m */,
+			);
+			path = ResetPasswordRequestViewController;
+			sourceTree = "<group>";
+		};
 		5A9D706E26EE448000F4799D /* CommonButtonWithProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -1755,6 +1767,7 @@
 				5A98894128424A1B0000271B /* CodeConfirmationController */,
 				5A096AFA2836A1F0000FADB2 /* LoginViewController */,
 				5A6685D9285A362D008E193E /* ResetPasswordNewPasswordViewController */,
+				5A99115C287F09630061C1AD /* ResetPasswordRequestViewController */,
 				5A6685D8285A3609008E193E /* ResetPasswordPassCodeViewController */,
 				5A6685D7285A35EE008E193E /* ResetPasswordEMailViewController */,
 				5A6685D6285A35D7008E193E /* ResetPasswordViewController */,
@@ -2341,6 +2354,7 @@
 				5A6685E2285A36AC008E193E /* ResetPasswordEMailViewController.m in Sources */,
 				5AD347E32837C2C500235E96 /* UserController.m in Sources */,
 				5AD347EF2837FD2800235E96 /* SignUpFormView.m in Sources */,
+				5A99115F287F099C0061C1AD /* ResetPasswordRequestViewController.m in Sources */,
 				5A6685DC285A3687008E193E /* ResetPasswordNewPasswordViewController.m in Sources */,
 				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,

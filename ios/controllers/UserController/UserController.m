@@ -159,8 +159,8 @@
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       if (error.code == AmplifyBridgeErrorAuthErrorUsernameExists &&
-          [self usingTheSameEMailAndPassword:email password:password]) {
-        [self.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull) {
+          [strongSelf usingTheSameEMailAndPassword:email password:password]) {
+        [strongSelf.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull) {
                   
         }];
       }
@@ -195,6 +195,10 @@
       completion:^(NSError * _Nullable error){
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
+        if (error.code === AmplifyBridgeErrorAuthErrorInvalidPassword) {
+          [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
+          return;
+        }
         [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
         return;
       }

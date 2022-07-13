@@ -127,6 +127,11 @@
         [self.passCodeField setText:@""];
         return;
       }
+      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent) {
+        [self enableLoadingIndicator:NO];
+        [self.passCodeField setText:@""];
+        return;
+      }
       if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateConfirmCodeNotSent) {
         [self enableLoadingIndicator:NO];
         [self.passCodeField setText:@""];
