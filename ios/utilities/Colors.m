@@ -34,6 +34,7 @@ static Colors *instance;
     self.navigationBarTint = [UIColor colorNamed:@"navigationBarTint"];
     self.navigationBarColorStart = [UIColor colorNamed:@"navigationBarColorStart"];
     self.navigationBarColor = [UIColor colorNamed:@"navigationBarColor"];
+    self.mapDirectionsPath = [UIColor colorNamed:@"mapDirectionsPath"];
     self.navigationBarColorStop = [UIColor colorNamed:@"navigationBarColorStop"];
     self.tabBarBackground = [UIColor colorNamed:@"tabBarBackground"];
     self.tabBarTint = [UIColor colorNamed:@"tabBarTint"];
