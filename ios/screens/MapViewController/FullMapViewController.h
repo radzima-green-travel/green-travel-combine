@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class LocationModel;
 @class SearchModel;
 @class IndexModel;
-@class ApiService;
+@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @class DetailsModel;
 

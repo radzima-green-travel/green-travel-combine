@@ -21,7 +21,7 @@
 #import "MapButton.h"
 #import "SearchViewController.h"
 #import "SearchModel.h"
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "CoreDataService.h"
 #import "Colors.h"
 #import "PlaceItem.h"

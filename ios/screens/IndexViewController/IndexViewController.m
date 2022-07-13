@@ -20,7 +20,7 @@
 #import "IndexModel.h"
 #import "DetailsModel.h"
 #import "SearchModel.h"
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "LocationModel.h"
 #import "CoreDataService.h"
 #import "IndexViewControllerConstants.h"
@@ -34,7 +34,7 @@
 
 @interface IndexViewController ()
 
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
 @property (strong, nonatomic) IndexModel *model;
 @property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) SearchModel *searchModel;
@@ -67,7 +67,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 
 @implementation IndexViewController 
 
-- (instancetype) initWithApiService:(ApiService *)apiService
+- (instancetype) initWithApiService:(ApiServiceIndexFileLegacy *)apiService
                               model:(nonnull IndexModel *)model
                         searchModel:(SearchModel *)searchModel
                       locationModel:(LocationModel *)locationModel

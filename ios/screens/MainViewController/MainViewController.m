@@ -13,7 +13,7 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "GraphQLApiService.h"
 #import "ApiServiceIndexFile.h"
 #import "IndexModel.h"
@@ -41,7 +41,7 @@
 
 @interface MainViewController ()
 
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) IndexModel *indexModel;

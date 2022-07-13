@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class BookmarksGroupModel;
-@class ApiService;
+@class ApiServiceIndexFileLegacy;
 @class DetailsModel;
 @class MapModel;
 @class IndexModel;
@@ -28,7 +28,7 @@ UICollectionViewDataSource>
 
 - (instancetype)initWithModel:(BookmarksGroupModel *)model
                    indexModel:(IndexModel *)indexModel
-                   apiService:(ApiService *)apiService
+                   apiService:(ApiServiceIndexFileLegacy *)apiService
               coreDataService:(CoreDataService *)coreDataService
               mapService:(MapService *)mapService
                      mapModel:(MapModel *)mapModel

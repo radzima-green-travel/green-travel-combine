@@ -117,7 +117,7 @@
 		5A775B6126064C9000CEFC78 /* PlaceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A8F26064C8F00CEFC78 /* PlaceDetails.m */; };
 		5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A9326064C8F00CEFC78 /* PlaceItem.m */; };
 		5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0226064C9000CEFC78 /* CoreDataService.m */; };
-		5A775B8726064C9000CEFC78 /* ApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0626064C9000CEFC78 /* ApiService.m */; };
+		5A775B8726064C9000CEFC78 /* ApiServiceIndexFileLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */; };
 		5A775B8826064C9000CEFC78 /* ApiServiceDataMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */; };
 		5A775B8926064C9000CEFC78 /* UserDefaultsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0926064C9000CEFC78 /* UserDefaultsService.m */; };
 		5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0C26064C9000CEFC78 /* ImageUtils.m */; };
@@ -429,9 +429,9 @@
 		5A775A9726064C8F00CEFC78 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedItem.h; sourceTree = "<group>"; };
 		5A775B0126064C9000CEFC78 /* CoreDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataService.h; sourceTree = "<group>"; };
 		5A775B0226064C9000CEFC78 /* CoreDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataService.m; sourceTree = "<group>"; };
-		5A775B0426064C9000CEFC78 /* ApiService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiService.h; sourceTree = "<group>"; };
+		5A775B0426064C9000CEFC78 /* ApiServiceIndexFileLegacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiServiceIndexFileLegacy.h; sourceTree = "<group>"; };
 		5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiServiceDataMapper.h; sourceTree = "<group>"; };
-		5A775B0626064C9000CEFC78 /* ApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiService.m; sourceTree = "<group>"; };
+		5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiServiceIndexFileLegacy.m; sourceTree = "<group>"; };
 		5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiServiceDataMapper.m; sourceTree = "<group>"; };
 		5A775B0926064C9000CEFC78 /* UserDefaultsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsService.m; sourceTree = "<group>"; };
 		5A775B0A26064C9000CEFC78 /* UserDefaultsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsService.h; sourceTree = "<group>"; };
@@ -548,9 +548,9 @@
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
 		5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewDetailedMap.m; sourceTree = "<group>"; };
-		5AA3DB3E284EB5B4009D506E /* UserModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelConstants.h; sourceTree = "<group>"; };
 		5A9DD881287B0F7800D4A988 /* ApiServiceIndexFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiServiceIndexFile.h; sourceTree = "<group>"; };
-    5A9DD882287B0F7800D4A988 /* ApiServiceIndexFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApiServiceIndexFile.m; sourceTree = "<group>"; };
+		5A9DD882287B0F7800D4A988 /* ApiServiceIndexFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApiServiceIndexFile.m; sourceTree = "<group>"; };
+		5AA3DB3E284EB5B4009D506E /* UserModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelConstants.h; sourceTree = "<group>"; };
 		5AB4AFB127B016D000C74857 /* LocaleUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleUtils.h; sourceTree = "<group>"; };
 		5AB4AFB227B016D000C74857 /* LocaleUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaleUtils.m; sourceTree = "<group>"; };
 		5AB4AFB427B0311800C74857 /* InformationReference.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationReference.h; sourceTree = "<group>"; };
@@ -1139,8 +1139,8 @@
 			isa = PBXGroup;
 			children = (
 				5A97FE1F278F696B006E575D /* IndexLoader.h */,
-				5A775B0426064C9000CEFC78 /* ApiService.h */,
-				5A775B0626064C9000CEFC78 /* ApiService.m */,
+				5A775B0426064C9000CEFC78 /* ApiServiceIndexFileLegacy.h */,
+				5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */,
 				5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */,
 				5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */,
 				5A97FE21279C1702006E575D /* GraphQLApiService.h */,
@@ -2353,7 +2353,7 @@
 				5A775B6126064C9000CEFC78 /* PlaceDetails.m in Sources */,
 				5A6CC8E0279D9AB700EE6E35 /* IndexController.m in Sources */,
 				5A775B8926064C9000CEFC78 /* UserDefaultsService.m in Sources */,
-				5A775B8726064C9000CEFC78 /* ApiService.m in Sources */,
+				5A775B8726064C9000CEFC78 /* ApiServiceIndexFileLegacy.m in Sources */,
 				5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */,
 				5A775B2826064C9000CEFC78 /* StoredCategory+CoreDataClass.m in Sources */,
 				5A775E0E26077A7D00CEFC78 /* GalleryView.m in Sources */,

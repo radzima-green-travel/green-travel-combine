@@ -30,7 +30,11 @@ static const NSString * kAPIVersion = @"v1";
   NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
                                             timeoutInterval:120];
-  NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+  NSURLSessionDataTask *task =
+  [self.session dataTaskWithRequest:request
+                  completionHandler:^(NSData * _Nullable data,
+                                      NSURLResponse * _Nullable response,
+                                      NSError * _Nullable error) {
     IndexModelData *indexModelData = [[IndexModelData alloc] init];
     if (!data) {
       completion(indexModelData, @[], currentHash);
@@ -38,7 +42,7 @@ static const NSString * kAPIVersion = @"v1";
     }
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
     NSString *updatedHash = headers[@"ETag"];
-    
+    // TODO: compare currentHash and updatedHash and do not parse new data
     NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data
                                                                options:kNilOptions error:&error];
     

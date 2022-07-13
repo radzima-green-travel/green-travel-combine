@@ -14,7 +14,7 @@
 #import "PlaceItem.h"
 #import "PlaceCategory.h"
 #import "PlaceDetails.h"
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "DetailsModel.h"
 #import "LocationModel.h"
 #import "MapModel.h"
@@ -64,7 +64,7 @@
 @property (strong, nonatomic) UILabel *interestingLabel;
 @property (strong, nonatomic) NSMutableDictionary<NSNumber *, LinkedCategoriesView *> *linkedCategoriesTypeToView;
 @property (strong, nonatomic) NSLayoutConstraint *linkedCategoriesViewHeightConstraint;
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) MapService *mapService;
@@ -96,7 +96,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 @implementation DetailsViewController
 
-- (instancetype)initWithApiService:(ApiService *)apiService
+- (instancetype)initWithApiService:(ApiServiceIndexFileLegacy *)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService
                    mapService:(nonnull MapService *)mapService
                       indexModel:(IndexModel *)indexModel

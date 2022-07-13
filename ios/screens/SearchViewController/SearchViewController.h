@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SearchModel;
 @class LocationModel;
 @class MapModel;
-@class ApiService;
+@class ApiServiceIndexFileLegacy;
 @class DetailsModel;
 @class CoreDataService;
 @class IndexModel;
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
                    indexModel:(IndexModel *)indexModel
                 locationModel:(LocationModel *)locationModel
                      mapModel:(MapModel *)mapModel
-                   apiService:(ApiService *)apiService
+                   apiService:(ApiServiceIndexFileLegacy *)apiService
               coreDataService:(CoreDataService *)coreDataService
           itemsWithCoordsOnly:(BOOL)itemsWithCoordsOnly
            onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect

@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ApiService;
+@class ApiServiceIndexFileLegacy;
 @class IndexModel;
 @class SearchModel;
 @class LocationModel;
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IndexViewController : LoadableDataViewController<CategoriesObserver,
 BookmarksObserver, UITableViewDelegate, UITableViewDataSource>
 
-- (instancetype) initWithApiService:(ApiService *)apiService
+- (instancetype) initWithApiService:(ApiServiceIndexFileLegacy *)apiService
                               model:(IndexModel *)model
                         searchModel:(SearchModel *)searchModel
                       locationModel:(LocationModel *)locationModel
