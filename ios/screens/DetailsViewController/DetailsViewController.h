@@ -15,7 +15,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class PlaceItem;
-@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @class MapModel;
 @class LocationModel;

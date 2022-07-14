@@ -12,7 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class BookmarksGroupModel;
-@class ApiServiceIndexFileLegacy;
 @class DetailsModel;
 @class MapModel;
 @class IndexModel;

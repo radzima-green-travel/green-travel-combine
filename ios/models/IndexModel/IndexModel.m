@@ -12,7 +12,6 @@
 #import "BookmarksObserver.h"
 #import "PlaceCategory.h"
 #import "PlaceItem.h"
-
 #import "CoreDataService.h"
 #import "CategoryUtils.h"
 #import "ArrayUtils.h"

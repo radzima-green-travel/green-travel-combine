@@ -13,7 +13,6 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
-
 #import "GraphQLApiService.h"
 #import "ApiServiceIndexFile.h"
 #import "IndexModel.h"

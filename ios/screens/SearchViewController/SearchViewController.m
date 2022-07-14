@@ -24,7 +24,6 @@
 #import "SearchModel.h"
 #import "LocationModel.h"
 #import "DetailsModel.h"
-
 #import "CoreDataService.h"
 #import <CoreLocation/CoreLocation.h>
 #import "TypographyLegacy.h"

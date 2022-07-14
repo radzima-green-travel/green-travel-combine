@@ -14,7 +14,6 @@
 #import "PlaceItem.h"
 #import "PlaceCategory.h"
 #import "PlaceDetails.h"
-
 #import "DetailsModel.h"
 #import "LocationModel.h"
 #import "MapModel.h"
@@ -84,7 +83,6 @@
 @property (assign, nonatomic) CGSize screenSize;
 @property (strong, nonatomic) AnalyticsUIScrollViewDelegate *analyticsScrollDelegate;
 @property (strong, nonatomic) AnalyticsTimeTracer *timeTracer;
-
 @property (assign, nonatomic) CGFloat initialImageHeight;
 @property (assign, nonatomic) CGFloat prevContentOffsetY;
 @property (strong, nonatomic) UIImageView *currentImageView;

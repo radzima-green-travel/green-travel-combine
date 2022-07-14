@@ -6,10 +6,8 @@
 //
 
 #import "LabelledButtonGroup.h"
-
 #import "LinkedCategoriesView.h"
 #import "IndexModel.h"
-
 #import "DetailsModel.h"
 #import "MapModel.h"
 #import "LocationModel.h"
