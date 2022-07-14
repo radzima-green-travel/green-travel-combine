@@ -22,12 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 @class SearchModel;
 @class DetailsModel;
 @class MapService;
+@protocol IndexLoader;
 
 @interface PlacesViewController : UICollectionViewController<BookmarksObserver>
 
 @property (strong, nonatomic) PlaceCategory *category;
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
-                        apiService:(ApiServiceIndexFileLegacy *)apiService
+                        apiService:(id<IndexLoader>)apiService
                    coreDataService:(CoreDataService *)coreDataService
                    mapService:(MapService *)mapService
                           mapModel:(MapModel *)mapModel

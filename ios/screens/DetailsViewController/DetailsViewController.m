@@ -64,7 +64,7 @@
 @property (strong, nonatomic) UILabel *interestingLabel;
 @property (strong, nonatomic) NSMutableDictionary<NSNumber *, LinkedCategoriesView *> *linkedCategoriesTypeToView;
 @property (strong, nonatomic) NSLayoutConstraint *linkedCategoriesViewHeightConstraint;
-@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) MapService *mapService;
@@ -96,7 +96,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 @implementation DetailsViewController
 
-- (instancetype)initWithApiService:(ApiServiceIndexFileLegacy *)apiService
+- (instancetype)initWithApiService:(id<IndexLoader>)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService
                    mapService:(nonnull MapService *)mapService
                       indexModel:(IndexModel *)indexModel
@@ -198,7 +198,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     }];
 
     self.bookmarkButton.contentMode = UIViewContentModeScaleAspectFill;
-    
+
     [self.bookmarkButton setSelected:self.item.bookmarked];
 
     self.bookmarkButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -727,7 +727,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   CGFloat prevContentOffsetY = self.prevContentOffsetY;
   CGFloat contentOffsetY = self.dataView.contentOffset.y;
   self.prevContentOffsetY = contentOffsetY;
-  
+
   [self.analyticsScrollDelegate scrollViewDidScroll:scrollView];
   if (contentOffsetY < 0) {
     [self addElasticImage];
@@ -738,7 +738,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     [self.currentImageView setTransform:concatedTransform];
     return;
   }
-  
+
   [self removeElasticImage];
 }
 
@@ -746,16 +746,16 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
   if (self.currentImageView != nil) {
     return;
   }
-  
+
   UIImageView *currentImageView = [self.imageGalleryView getCurrentImageView];
   self.currentImageView = [[UIImageView alloc] initWithImage:currentImageView.image];
   self.currentImageView.contentMode = UIViewContentModeScaleAspectFill;
   self.initialImageHeight = currentImageView.frame.size.height;
-  
+
   [self.currentImageView setFrame:CGRectMake(0, -currentImageView.frame.size.height / 2, currentImageView.frame.size.width, currentImageView.frame.size.height)];
-  
+
   [self.contentView addSubview:self.currentImageView];
-  
+
   self.currentImageView.layer.masksToBounds = YES;
   self.currentImageView.layer.anchorPoint = CGPointMake(0.5, 0.0);
 }

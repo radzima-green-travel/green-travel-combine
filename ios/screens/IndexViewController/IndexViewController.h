@@ -21,11 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class DetailsModel;
 @class CoreDataService;
 @class MapService;
+@protocol IndexLoader;
 
 @interface IndexViewController : LoadableDataViewController<CategoriesObserver,
 BookmarksObserver, UITableViewDelegate, UITableViewDataSource>
 
-- (instancetype) initWithApiService:(ApiServiceIndexFileLegacy *)apiService
+- (instancetype) initWithApiService:(id<IndexLoader>)apiService
                               model:(IndexModel *)model
                         searchModel:(SearchModel *)searchModel
                       locationModel:(LocationModel *)locationModel

@@ -118,7 +118,6 @@
 		5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A9326064C8F00CEFC78 /* PlaceItem.m */; };
 		5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0226064C9000CEFC78 /* CoreDataService.m */; };
 		5A775B8726064C9000CEFC78 /* ApiServiceIndexFileLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */; };
-		5A775B8826064C9000CEFC78 /* ApiServiceDataMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */; };
 		5A775B8926064C9000CEFC78 /* UserDefaultsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0926064C9000CEFC78 /* UserDefaultsService.m */; };
 		5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0C26064C9000CEFC78 /* ImageUtils.m */; };
 		5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0D26064C9000CEFC78 /* CategoryUtils.m */; };
@@ -171,6 +170,7 @@
 		5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894328424A980000271B /* CodeConfirmationViewController.m */; };
 		5A9889482843A5BB0000271B /* PassCodeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9889472843A5BB0000271B /* PassCodeTextField.m */; };
 		5A98894C2843AA030000271B /* NumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894B2843AA030000271B /* NumberView.m */; };
+		5A99116228801CC30061C1AD /* ApiServiceBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99116128801CC30061C1AD /* ApiServiceBase.m */; };
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
 		5A9DD883287B0F7800D4A988 /* ApiServiceIndexFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9DD882287B0F7800D4A988 /* ApiServiceIndexFile.m */; };
@@ -430,9 +430,7 @@
 		5A775B0126064C9000CEFC78 /* CoreDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataService.h; sourceTree = "<group>"; };
 		5A775B0226064C9000CEFC78 /* CoreDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataService.m; sourceTree = "<group>"; };
 		5A775B0426064C9000CEFC78 /* ApiServiceIndexFileLegacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiServiceIndexFileLegacy.h; sourceTree = "<group>"; };
-		5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiServiceDataMapper.h; sourceTree = "<group>"; };
 		5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiServiceIndexFileLegacy.m; sourceTree = "<group>"; };
-		5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiServiceDataMapper.m; sourceTree = "<group>"; };
 		5A775B0926064C9000CEFC78 /* UserDefaultsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsService.m; sourceTree = "<group>"; };
 		5A775B0A26064C9000CEFC78 /* UserDefaultsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsService.h; sourceTree = "<group>"; };
 		5A775B0C26064C9000CEFC78 /* ImageUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtils.m; sourceTree = "<group>"; };
@@ -544,6 +542,8 @@
 		5A9889472843A5BB0000271B /* PassCodeTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassCodeTextField.m; sourceTree = "<group>"; };
 		5A98894A2843AA030000271B /* NumberView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberView.h; sourceTree = "<group>"; };
 		5A98894B2843AA030000271B /* NumberView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberView.m; sourceTree = "<group>"; };
+		5A99116028801CC30061C1AD /* ApiServiceBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiServiceBase.h; sourceTree = "<group>"; };
+		5A99116128801CC30061C1AD /* ApiServiceBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApiServiceBase.m; sourceTree = "<group>"; };
 		5A9D706B26EE447B00F4799D /* CommonButtonWithProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonButtonWithProgress.h; sourceTree = "<group>"; };
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
@@ -1139,10 +1139,10 @@
 			isa = PBXGroup;
 			children = (
 				5A97FE1F278F696B006E575D /* IndexLoader.h */,
+				5A99116028801CC30061C1AD /* ApiServiceBase.h */,
+				5A99116128801CC30061C1AD /* ApiServiceBase.m */,
 				5A775B0426064C9000CEFC78 /* ApiServiceIndexFileLegacy.h */,
 				5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */,
-				5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */,
-				5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */,
 				5A97FE21279C1702006E575D /* GraphQLApiService.h */,
 				5A97FE22279C1702006E575D /* GraphQLApiService.m */,
 				5A9DD881287B0F7800D4A988 /* ApiServiceIndexFile.h */,
@@ -2257,6 +2257,7 @@
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
 				5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
+				5A99116228801CC30061C1AD /* ApiServiceBase.m in Sources */,
 				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
 				5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */,
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
@@ -2297,7 +2298,6 @@
 				5A95F1FB2847F39500CCA852 /* BaseFormViewController.m in Sources */,
 				5A775E0026077A7D00CEFC78 /* FilterOption.m in Sources */,
 				5A775E1026077A7D00CEFC78 /* BannerView.m in Sources */,
-				5A775B8826064C9000CEFC78 /* ApiServiceDataMapper.m in Sources */,
 				5A775E0326077A7D00CEFC78 /* CategoriesFilterView.m in Sources */,
 				5A775B5226064C9000CEFC78 /* FeedModel.m in Sources */,
 				5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */,

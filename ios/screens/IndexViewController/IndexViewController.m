@@ -34,7 +34,7 @@
 
 @interface IndexViewController ()
 
-@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) IndexModel *model;
 @property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) SearchModel *searchModel;
@@ -65,9 +65,9 @@ static CGFloat kMinHeightOfPlaceholderView = 500.0;
 static CGFloat kNewDataButtonOffScreenOffsetY = 0.0;
 static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 
-@implementation IndexViewController 
+@implementation IndexViewController
 
-- (instancetype) initWithApiService:(ApiServiceIndexFileLegacy *)apiService
+- (instancetype) initWithApiService:(id<IndexLoader>)apiService
                               model:(nonnull IndexModel *)model
                         searchModel:(SearchModel *)searchModel
                       locationModel:(LocationModel *)locationModel
@@ -111,9 +111,9 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(onSearchPress:)];
-    
+
     self.navigationBar = self.navigationController.navigationBar;
-    
+
     self.originalBackButtonItem = self.navigationItem.backBarButtonItem;
 #pragma mark - Table view
     self.dataView = [[UITableView alloc] init];
@@ -146,7 +146,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
         [self.refreshButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
         self.yPosition,
     ]];
-    
+
     [self setUpWithActivityIndicator];
 
     [self.model addObserver:self];
@@ -243,7 +243,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PlacesTableViewCell *cell = [(UITableView *)self.dataView dequeueReusableCellWithIdentifier:kCollectionCellId forIndexPath:indexPath];
     [cell update:self.model.randomizedCategories[indexPath.row]];
-    
+
     return cell;
 }
 
@@ -351,7 +351,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
             }];
         };
         [weakSelf fillNavigationListeners:obj.categories];
-        
+
         [obj.categories enumerateObjectsUsingBlock:^(PlaceCategory * _Nonnull category, NSUInteger idx, BOOL * _Nonnull stop) {
             __weak typeof(category) weakCategory = category;
             category.onPlaceCellPress = ^void() {
@@ -373,7 +373,7 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
                 }];
             };
         }];
-        
+
         [obj.items enumerateObjectsUsingBlock:^(PlaceItem * _Nonnull placeItem, NSUInteger idx, BOOL * _Nonnull stop) {
             __weak typeof(placeItem) weakPlaceItem = placeItem;
             placeItem.onPlaceCellPress = ^void() {

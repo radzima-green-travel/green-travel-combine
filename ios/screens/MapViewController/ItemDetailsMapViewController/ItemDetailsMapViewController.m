@@ -71,7 +71,7 @@ static NSString* const kAttributeType = @"type";
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
                     detailsModel:(DetailsModel *)detailsModel
-                      apiService:(ApiServiceIndexFileLegacy *)apiService
+                      apiService:(id<IndexLoader>)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
                          mapItem:(MapItem *)mapItem
@@ -85,7 +85,7 @@ static NSString* const kAttributeType = @"type";
     _itemDetails = itemDetails;
   }
   return self;
-  
+
 }
 
 #pragma mark - Lifecycle
@@ -211,7 +211,7 @@ static NSString* const kAttributeType = @"type";
       MGLPolygon *polygonPart = [MGLPolygon polygonWithCoordinates:coordinates count:[partCoordinates count]];
       [polygonParts addObject:polygonPart];
       free(coordinates);
-      
+
       MGLPolylineFeature *outline = [self polylineForPath:partCoordinates];
       outline.attributes = @{
         kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeOutline),
@@ -319,7 +319,7 @@ static NSString* const kAttributeType = @"type";
     [self.mapView setCenterCoordinate:annotations.firstObject.coordinate
                             zoomLevel:12.0 direction:self.mapView.direction
                              animated:YES completionHandler:completion];
-   
+
   }
 }
 
@@ -387,7 +387,7 @@ static NSString* const kAttributeType = @"type";
 - (void)addDirections:(NSArray<CLLocation *> *)locations {
   [self removeDuplicateAnnotations:MGLPolylineFeature.class
                          attribute:ItemDetailsMapViewControllerAnnotationTypeRoute];
-  
+
   MGLPolylineFeature *polyline = [self polylineForPath:locations];
   polyline.attributes = @{
     kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeRoute)
@@ -526,7 +526,7 @@ static NSString* const kAttributeType = @"type";
     return;
   }
   [self showUserLocation:YES];
-  
+
   [self removeDuplicateAnnotations:MGLPointFeature.class
                          attribute:ItemDetailsMapViewControllerAnnotationTypeLocation];
   MGLPointFeature *location = [[MGLPointFeature alloc] init];

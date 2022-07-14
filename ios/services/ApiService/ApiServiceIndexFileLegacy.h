@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IndexLoader.h"
+#import "ApiServiceBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,12 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class PlaceCategory;
 @class PlaceDetails;
 
-@interface ApiServiceIndexFileLegacy : NSObject<IndexLoader>
+@interface ApiServiceIndexFileLegacy : ApiServiceBase
 
-@property (strong, nonatomic) NSURLSession *session;
-- (instancetype)initWithSession:(NSURLSession *)session;
-- (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void(^)(PlaceDetails *))completion;
-- (NSArray<PlaceCategory *>*)mapCategoriesFromJSON:(NSArray *)categories;
 @end
 
 NS_ASSUME_NONNULL_END

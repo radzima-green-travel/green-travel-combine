@@ -23,7 +23,7 @@
 
 @property (assign, nonatomic) BOOL bookmarked;
 @property (strong, nonatomic) NSMutableArray<PlaceItem *> *bookmarkedItems;
-@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) MapModel *mapModel;
@@ -46,7 +46,7 @@ static const NSUInteger kCollectionSizeWhenToShowIndexTitles = 10;
 static const NSUInteger kNumberOfLetterSizeWhenToShowIndexTitles = 4;
 
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
-                        apiService:(ApiServiceIndexFileLegacy *)apiService
+                        apiService:(id<IndexLoader>)apiService
                         coreDataService:(CoreDataService *)coreDataService
                    mapService:(MapService *)mapService
                           mapModel:(MapModel *)mapModel
@@ -358,7 +358,7 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.bookmarked) {
         return;
     }
-  
+
   if (bookmark) {
     NSUInteger indexOfAdded = [self.bookmarkedItems count];
     NSIndexPath *indexPathOfAddedIndex = [NSIndexPath indexPathForItem:indexOfAdded inSection:0];
@@ -376,7 +376,7 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     } completion:^(BOOL finished) {
     }];
   }
-  
+
   if (self.viewIfLoaded.window != nil && [self.bookmarkedItems count] == 0) {
     [self.navigationController popViewControllerAnimated:YES];
   }

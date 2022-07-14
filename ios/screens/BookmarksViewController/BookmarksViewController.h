@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DetailsModel;
 @class CoreDataService;
 @class MapService;
+@protocol IndexLoader;
 
 @interface BookmarksViewController : UIViewController<
 UICollectionViewDelegateFlowLayout, BookmarksGroupObserver,
@@ -28,7 +29,7 @@ UICollectionViewDataSource>
 
 - (instancetype)initWithModel:(BookmarksGroupModel *)model
                    indexModel:(IndexModel *)indexModel
-                   apiService:(ApiServiceIndexFileLegacy *)apiService
+                   apiService:(id<IndexLoader>)apiService
               coreDataService:(CoreDataService *)coreDataService
               mapService:(MapService *)mapService
                      mapModel:(MapModel *)mapModel
