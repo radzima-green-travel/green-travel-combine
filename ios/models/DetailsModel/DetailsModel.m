@@ -12,7 +12,7 @@
 #import "DetailsObserver.h"
 #import "PlaceItem.h"
 #import "BookmarkItem.h"
-#import "ApiServiceIndexFileLegacy.h"
+
 #import "CoreDataService.h"
 #import "PlaceDetails.h"
 

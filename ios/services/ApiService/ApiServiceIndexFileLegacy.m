@@ -52,7 +52,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     }
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
     NSString *updatedHash = headers[@"ETag"];
-    
+
     NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSDictionary *dataSection = parsedData[@"data"];
     if (dataSection == nil || parsedData[@"data"] == [NSNull null]) {
@@ -181,7 +181,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
 NSMutableArray* categoryIdToItemsFromJSON(NSObject *relations) {
   NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) relations;
   NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
-  
+
   [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     NSString *categoryId = (NSString *) obj[@"id"];
     NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];

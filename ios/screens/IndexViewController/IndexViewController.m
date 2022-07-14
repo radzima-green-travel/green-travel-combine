@@ -20,7 +20,7 @@
 #import "IndexModel.h"
 #import "DetailsModel.h"
 #import "SearchModel.h"
-#import "ApiServiceIndexFileLegacy.h"
+
 #import "LocationModel.h"
 #import "CoreDataService.h"
 #import "IndexViewControllerConstants.h"
