@@ -12,7 +12,6 @@
 #import "DetailsObserver.h"
 #import "PlaceItem.h"
 #import "BookmarkItem.h"
-
 #import "CoreDataService.h"
 #import "PlaceDetails.h"
 

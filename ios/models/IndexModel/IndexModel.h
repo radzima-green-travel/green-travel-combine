@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class PlaceDetails;
 @class PathDetails;
 @class BookmarksModel;
-@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @class UserDefaultsService;
 @class IndexPeeks;

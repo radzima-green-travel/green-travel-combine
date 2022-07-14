@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class LocationModel;
 @class SearchModel;
 @class IndexModel;
-@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @class DetailsModel;
 @class CategoriesFilterView;

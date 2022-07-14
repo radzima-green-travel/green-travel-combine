@@ -13,7 +13,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ApiServiceIndexFileLegacy;
 @class IndexModel;
 @class SearchModel;
 @class LocationModel;

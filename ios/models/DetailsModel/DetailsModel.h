@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class PlaceDetails;
 @class PlaceItem;
 @class IndexModel;
-@class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @protocol DetailsObserver;
 @protocol IndexLoader;

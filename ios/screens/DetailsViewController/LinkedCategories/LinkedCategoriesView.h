@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @class PlaceCategory;
-@class ApiServiceIndexFileLegacy;
 @class MapModel;
 @class LocationModel;
 @class IndexModel;
