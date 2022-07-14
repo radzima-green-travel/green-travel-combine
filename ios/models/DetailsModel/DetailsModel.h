@@ -19,11 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class ApiServiceIndexFileLegacy;
 @class CoreDataService;
 @protocol DetailsObserver;
+@protocol IndexLoader;
 
 @interface DetailsModel : NSObject<CategoriesObserver, DetailsObservable, DetailsBatchObserver>
 
 - (instancetype)initWithIndexModel:(IndexModel *)model
-                        apiService:(ApiServiceIndexFileLegacy *)apiService
+                        apiService:(id<IndexLoader>)apiService
                    coreDataService:(CoreDataService *)coreDataService;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, PlaceDetails*> *itemUUIDToDetails;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, NSNumber*> *itemUUIDToStatus;

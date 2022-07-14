@@ -20,7 +20,7 @@
 
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSMutableSet<NSString*> *itemUUIDs;
-@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (assign, nonatomic) DetailsLoadState globalDetailsLoadState;
 
@@ -29,7 +29,7 @@
 @implementation DetailsModel
 
 - (instancetype)initWithIndexModel:(IndexModel *)model
-                        apiService:(nonnull ApiServiceIndexFileLegacy *)apiService
+                        apiService:(nonnull id<IndexLoader>)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService {
         self = [super init];
         if (self) {

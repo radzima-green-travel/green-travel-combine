@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CoreDataService;
 @class IndexModel;
 @class PlaceItem;
+@protocol IndexLoader;
 
 @interface SearchViewController : UIViewController<UISearchResultsUpdating, SearchItemsObserver, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
@@ -27,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
                    indexModel:(IndexModel *)indexModel
                 locationModel:(LocationModel *)locationModel
                      mapModel:(MapModel *)mapModel
-                   apiService:(ApiServiceIndexFileLegacy *)apiService
+                   apiService:(id<IndexLoader>)apiService
               coreDataService:(CoreDataService *)coreDataService
           itemsWithCoordsOnly:(BOOL)itemsWithCoordsOnly
            onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect

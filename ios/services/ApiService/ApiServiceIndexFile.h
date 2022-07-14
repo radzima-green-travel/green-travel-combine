@@ -6,11 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ApiServiceIndexFileLegacy.h"
+#import "ApiServiceBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ApiServiceIndexFile : ApiServiceIndexFileLegacy
+@interface ApiServiceIndexFile : ApiServiceBase
 
 @end
 

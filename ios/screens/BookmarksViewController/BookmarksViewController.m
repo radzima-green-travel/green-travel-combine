@@ -22,7 +22,7 @@
 @interface BookmarksViewController ()
 
 @property (strong, nonatomic) BookmarksGroupModel *model;
-@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) MapModel *mapModel;
@@ -47,7 +47,7 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
 
 - (instancetype)initWithModel:(BookmarksGroupModel *)model
                    indexModel:(IndexModel *)indexModel
-                   apiService:(ApiServiceIndexFileLegacy *)apiService
+                   apiService:(id<IndexLoader>)apiService
               coreDataService:(CoreDataService *)coreDataService
                    mapService:(MapService *)mapService
                      mapModel:(MapModel *)mapModel

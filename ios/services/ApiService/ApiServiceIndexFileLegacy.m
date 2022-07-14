@@ -25,17 +25,11 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
 
 @interface ApiServiceIndexFileLegacy ()
 
+- (NSArray<PlaceCategory *>*)mapCategoriesFromJSON:(NSArray *)categories;
+
 @end
 
 @implementation ApiServiceIndexFileLegacy
-
-- (instancetype) initWithSession:(NSURLSession *)session {
-    self = [super init];
-    if (self) {
-        _session = session;
-    }
-    return self;
-}
 
 - (NSString *)categoriesURL {
   return [NSString stringWithFormat:@"%@/%@",

@@ -45,14 +45,14 @@ static NSString* const kClusterLayerId = @"clusterLayerId";
 static NSString* const kMarkerLayerId = @"markerLayerId";
 static CGFloat const kLocateMeZoomLevel = 10.0;
 
-@implementation BaseMapViewController 
+@implementation BaseMapViewController
 
 - (instancetype)initWithMapModel:(MapModel *)mapModel
                    locationModel:(LocationModel *)locationModel
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
                      detailsModel:(DetailsModel *)detailsModel
-                      apiService:(ApiServiceIndexFileLegacy *)apiService
+                      apiService:(id<IndexLoader>)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
                          mapItem:(nullable MapItem *)mapItem {
@@ -117,7 +117,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   self.view.backgroundColor = [ColorsLegacy get].white;
   UINavigationBar *navigationBar = self.navigationController.navigationBar;
   configureNavigationBar(navigationBar);
-  
+
 #pragma mark - Location button
   self.locationButton = [[MapButton alloc] initWithImageName:@"location-arrow"
                                                       target:self
@@ -142,7 +142,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   [self cleanMap];
   [self.view insertSubview:self.mapView belowSubview:self.locationButton];
   self.mapView.delegate = self;
-  
+
   self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
     [self.mapView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
@@ -150,7 +150,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
     [self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
     [self.mapView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
   ]];
-  
+
   if (![self.mapView.gestureRecognizers containsObject:self.singleTap]) {
     self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleMapTap:)];
     for (UIGestureRecognizer *recognizer in self.mapView.gestureRecognizers) {
@@ -160,11 +160,11 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
     }
     [self.mapView addGestureRecognizer:self.singleTap];
   }
-  
+
   [self.mapModel addObserver:self];
   [self.indexModel addObserverBookmarks:self];
   [self.locationModel addObserver:self];
-  
+
   [self renderMap:YES];
 }
 
@@ -222,7 +222,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   if ([style layerWithIdentifier:MapViewControllerMarkerLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:MapViewControllerMarkerLayerId]];
   }
-  
+
   if ([style sourceWithIdentifier:MapViewControllerSourceIdAll] != nil) {
     [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdAll]];
   }
@@ -326,7 +326,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   self.intentionToFocusOnUserLocation = YES;
   [self.locationModel authorize];
   [self.locationModel startMonitoring];
-  
+
   if (self.showingUserLocation) {
     [self showBigPicture];
     return;

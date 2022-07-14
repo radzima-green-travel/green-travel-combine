@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MapService;
 @class DetailsModel;
 @class LabelledButtonGroup;
+@protocol IndexLoader;
 
 typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
   DetailsViewControllerCTATypeMap = 0,
@@ -33,7 +34,7 @@ typedef NS_ENUM(NSUInteger, DetailsViewControllerCTAType) {
 @interface DetailsViewController : LoadableDataViewController<BookmarksObserver,
     CategoriesObserver, DetailsObserver, UIScrollViewDelegate>
 
-- (instancetype)initWithApiService:(ApiServiceIndexFileLegacy *)apiService
+- (instancetype)initWithApiService:(id<IndexLoader>)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService
                    mapService:(nonnull MapService *)mapService
                         indexModel:(IndexModel *)indexModel

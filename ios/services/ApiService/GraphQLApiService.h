@@ -6,11 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ApiServiceIndexFileLegacy.h"
+#import "ApiServiceBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GraphQLApiService : ApiServiceIndexFileLegacy
+@interface GraphQLApiService : ApiServiceBase
 
 @end
 

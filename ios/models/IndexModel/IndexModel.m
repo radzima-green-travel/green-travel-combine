@@ -24,7 +24,7 @@
 
 @interface IndexModel ()
 
-@property (strong, nonatomic) ApiServiceIndexFileLegacy *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) UserDefaultsService *userDefaultsService;
 @property (assign, nonatomic) BOOL loadedFromDB;
@@ -44,7 +44,7 @@
 
 static IndexModel *instance;
 
-- (instancetype)initWithApiService:(ApiServiceIndexFileLegacy *)apiService
+- (instancetype)initWithApiService:(id<IndexLoader>)apiService
                    coreDataService:(CoreDataService *)coreDataService
                userDefaultsService:(UserDefaultsService *)userDefaultsService
 {
