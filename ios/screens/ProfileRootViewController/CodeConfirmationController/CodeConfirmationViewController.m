@@ -14,6 +14,7 @@
 #import "Colors.h"
 #import "UIButtonHighlightable.h"
 #import "CommonFormConstants.h"
+#import "ResetPasswordRequestViewController.h"
 
 @interface CodeConfirmationViewController ()
 
@@ -23,6 +24,7 @@
 @property(strong, nonatomic) CommonButton *buttonSubmit;
 @property(strong, nonatomic) UIButton *buttonRetry;
 @property(assign, nonatomic) BOOL shownKeyboard;
+@property(assign, nonatomic) BOOL navigatedToCodeScreen;
 
 @end
 
@@ -127,9 +129,13 @@
         [self.passCodeField setText:@""];
         return;
       }
-      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent) {
-        [self enableLoadingIndicator:NO];
-        [self.passCodeField setText:@""];
+      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStatePasswordResetConfirmCodeNotSent && !self.navigatedToCodeScreen) {
+        ResetPasswordRequestViewController *resetPasswordRequestViewController =
+        [[ResetPasswordRequestViewController alloc] initWithController:self.userController
+                                                                 model:self.userModel];
+        [self.navigationController pushViewController:resetPasswordRequestViewController
+                                             animated:YES];
+        self.navigatedToCodeScreen = YES;
         return;
       }
       if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateConfirmCodeNotSent) {
