@@ -22,7 +22,7 @@
 #import "MapButton.h"
 #import "SearchViewController.h"
 #import "SearchModel.h"
-#import "ApiServiceIndexFileLegacy.h"
+
 #import "CoreDataService.h"
 #import "PlaceItem.h"
 #import "PlaceCategory.h"

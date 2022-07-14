@@ -7,11 +7,12 @@
 //
 
 #import "IndexModel.h"
+#import "IndexLoader.h"
 #import "CategoriesObserver.h"
 #import "BookmarksObserver.h"
 #import "PlaceCategory.h"
 #import "PlaceItem.h"
-#import "ApiServiceIndexFileLegacy.h"
+
 #import "CoreDataService.h"
 #import "CategoryUtils.h"
 #import "ArrayUtils.h"

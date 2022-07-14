@@ -14,7 +14,7 @@
 #import "PlaceItem.h"
 #import "PlaceCategory.h"
 #import "PlaceDetails.h"
-#import "ApiServiceIndexFileLegacy.h"
+
 #import "DetailsModel.h"
 #import "LocationModel.h"
 #import "MapModel.h"
