@@ -26,3 +26,4 @@ jobs:
      - name: AWS credentials leakage scanner
        uses: radzima-green-travel/credentials-scan-action@main
 
+
