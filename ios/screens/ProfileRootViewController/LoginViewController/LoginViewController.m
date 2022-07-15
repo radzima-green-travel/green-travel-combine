@@ -162,6 +162,10 @@ static const CGFloat kTopOffset = 90.0;
         [self enableLoadingIndicator:YES];
         return;
       }
+      if (prevState == UserModelStateConfirmCodeNotSent && currentState == UserModelStateSignUpEmailInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
       if (prevState == UserModelStateConfirmCodeNotSent && currentState == UserModelStateConfirmCodeInProgress) {
         [self enableLoadingIndicator:YES];
         return;

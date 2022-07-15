@@ -134,10 +134,7 @@
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateFetched];
-      
-      if ([strongSelf usingTheSameEMailAndPassword:error
-                                             email:email
-                                          password:password]) {
+      if (error.code == AmplifyBridgeErrorAuthErrorUsernameExists) {
         [strongSelf resendCodeForSameUser:email
                                  password:password];
         return;
@@ -145,8 +142,6 @@
       return;
     }
     [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
-    [self.model setEmailUserOnSignUp:email];
-    [self.model setPasswordUsedOnSignUp:password];
   }];
 }
 
@@ -158,27 +153,12 @@
                                completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
-      if (error.code == AmplifyBridgeErrorAuthErrorUsernameExists &&
-          [strongSelf usingTheSameEMailAndPassword:email password:password]) {
-        [strongSelf.authService resendSignUpCodeEMail:email completion:^(NSError * _Nonnull) {
-                  
-        }];
-      }
-      
       [strongSelf.model setState:UserModelStateFetched];
       return;
     }
     [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
   }];
   return;
-}
-
-- (BOOL)usingTheSameEMailAndPassword:(NSError *)error
-                               email:(NSString *)email
-                            password:(NSString *)password {
-  return error.code == AmplifyBridgeErrorAuthErrorUsernameExists &&
-  [self.model.emailUserOnSignUp isEqualToString:email] &&
-  [self.model.passwordUsedOnSignUp isEqualToString:password];
 }
 
 - (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code {
@@ -195,7 +175,7 @@
       completion:^(NSError * _Nullable error){
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
-        if (error.code === AmplifyBridgeErrorAuthErrorInvalidPassword) {
+        if (error.code == AmplifyBridgeErrorAuthErrorNotAuthorized) {
           [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
           return;
         }
