@@ -6,6 +6,15 @@
 //
 
 #import "ResetPasswordRequestViewController.h"
+#import "ResetPasswordPassCodeViewController.h"
+#import "UserModel.h"
+#import "UserController.h"
+#import "CommonTextField.h"
+#import "CommonButton.h"
+#import "Typography.h"
+#import "UserModelConstants.h"
+#import "ResetPasswordPassCodeViewController.h"
+#import "CommonFormConstants.h"
 
 @interface ResetPasswordRequestViewController ()
 
@@ -45,7 +54,7 @@
   ]];
 
   self.hintLabel = [[UILabel alloc] init];
-  NSAttributedString *hint = [[Typography get] codeConfirmationHint:NSLocalizedString(@"ResetPasswordRequestScreenHint", @"")];
+  NSAttributedString *hint = [[Typography get] codeConfirmationHint:[NSString stringWithFormat:NSLocalizedString(@"ResetPasswordRequestScreenHint", @""), self.userModel.email]];
   [self.hintLabel setAttributedText:hint];
   [self.hintLabel setNumberOfLines:0];
   [self.hintLabel setTextAlignment:NSTextAlignmentCenter];
@@ -61,16 +70,15 @@
 
   self.buttonSubmit = [[CommonButton alloc] initWithTarget:self
                                                     action:@selector(onSubmit:)
-                                                     label:NSLocalizedString(@"CodeConfirmationScreenSubmit", @"")];
+                                                     label:NSLocalizedString(@"ResetPasswordRequestScreenSubmit", @"")];
   self.buttonSubmit.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.buttonSubmit];
 
   [NSLayoutConstraint activateConstraints:@[
     [self.buttonSubmit.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.hintLabel.bottomAnchor constant:CommonFormTexFieldAndButtonSpace],
+    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.hintLabel.bottomAnchor constant:CommonFormLabelAndButtonSpace],
     [self.buttonSubmit.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
     [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-
   ]];
 }
 
@@ -118,7 +126,7 @@
 
 - (void)onSubmit:(CommonButton *)sender {
   self.shouldNavigateToCodeScreen = YES;
-  [self.userController initiateResetPassword:self.textFieldMail.textField.text];
+  [self.userController initiateResetPassword:self.userModel.email];
   [self.view endEditing:YES];
 }
 

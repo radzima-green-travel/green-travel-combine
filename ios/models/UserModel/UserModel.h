@@ -18,8 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *password;
-@property (strong, nonatomic) NSString *emailUserOnSignUp;
-@property (strong, nonatomic) NSString *passwordUsedOnSignUp;
 @property (strong, nonatomic) NSString *emailResetPassword;
 @property (strong, nonatomic) NSString *passwordNew;
 @property (strong, nonatomic) NSString *confirmationCode;
