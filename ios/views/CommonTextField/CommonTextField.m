@@ -67,4 +67,9 @@
   self.layer.cornerRadius = 2.0;
 }
 
+- (BOOL)becomeFirstResponder {
+  [super becomeFirstResponder];
+  return [self.textField becomeFirstResponder];
+}
+
 @end

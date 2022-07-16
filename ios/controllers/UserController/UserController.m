@@ -114,12 +114,6 @@
   }];
 }
 
-- (BOOL)usingTheSameEMailAndPassword:(NSString *)email
-                            password:(NSString *)password {
-  return [self.model.email isEqualToString:email] &&
-  [self.model.password isEqualToString:password];
-}
-
 - (void)initiateSignUp:(NSString *)email
               username:(NSString *)username
               password:(NSString *)password {
@@ -133,12 +127,12 @@
                             completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
-      [strongSelf.model setState:UserModelStateFetched];
       if (error.code == AmplifyBridgeErrorAuthErrorUsernameExists) {
         [strongSelf resendCodeForSameUser:email
                                  password:password];
         return;
       };
+      [strongSelf.model setState:UserModelStateFetched];
       return;
     }
     [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
@@ -147,7 +141,6 @@
 
 - (void)resendCodeForSameUser:(NSString *)email
                      password:(NSString *)password {
-  [self.model setState:UserModelStateSignUpEmailInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService resendSignUpCodeEMail:email
                                completion:^(NSError * _Nullable error) {
@@ -176,6 +169,8 @@
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
         if (error.code == AmplifyBridgeErrorAuthErrorNotAuthorized) {
+          // NOTE: if we cannot auto sign in after sign up, than let user reset password.
+          // https://github.com/radzima-green-travel/green-travel-combine/issues/465
           [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
           return;
         }
