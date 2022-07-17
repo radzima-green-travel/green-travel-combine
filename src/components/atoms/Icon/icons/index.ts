@@ -6,6 +6,8 @@ export {default as bike} from './bike.svg';
 export {default as bookmark} from './bookmark.svg';
 export {default as bookmarkFilled} from './bookmarkFilled.svg';
 export {default as bookmarksEmpty} from './bookmarksEmpty.svg';
+export {default as bookmarkTab} from './bookmarkTab.svg';
+export {default as bookmarkTabFilled} from './bookmarkTabFilled.svg';
 export {default as camera} from './camera.svg';
 export {default as castles} from './castles.svg';
 export {default as check} from './check.svg';
