@@ -105,7 +105,7 @@ export function TabNavigator() {
           tabBarLabel: t('tabs.bookmarks'),
           tabBarIcon: ({color, focused}) => (
             <Icon
-              name={focused ? 'bookmarkFilled' : 'bookmark'}
+              name={focused ? 'bookmarkTabFilled' : 'bookmarkTab'}
               color={color}
               size={24}
             />
