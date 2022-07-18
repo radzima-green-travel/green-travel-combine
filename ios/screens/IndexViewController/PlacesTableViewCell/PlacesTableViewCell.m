@@ -154,6 +154,19 @@ static CGFloat kRatioDivider = 1.09;
 
 #pragma mark - Collection view
 
+- (void)setCollectionViewCellPosition {
+  if (self.item.currentCellIndex == 0) {
+    [self scrollToIndex:0 animated:NO];
+  } else {
+    [self scrollToIndex:self.item.currentCellIndex animated:NO];
+  }
+}
+
+- (void)setCollectionViewCelltoPositionZero {
+  self.item.currentCellIndex = 0;
+  [self scrollToIndex:0 animated:TRUE];
+}
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -213,8 +226,8 @@ static CGFloat kRatioDivider = 1.09;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.dataSourceCategories = @[];
-    self.dataSourceItems = @[];
+//    self.dataSourceCategories = @[];
+//    self.dataSourceItems = @[];
 }
 
 - (void)onAllButtonPress:(id)sender {
@@ -257,33 +270,39 @@ static const CGFloat kSpacing = 16.0;
     if (velocity.x > kSwipeThresholdVelocity) {
       [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging + 1
                  velocity:velocity targetContentOffset:targetContentOffset];
+      self.item.currentCellIndex = self.indexOfMostExposedCellBeforeDragging + 1;
       return;
     }
     // Swipe to left.
     if (velocity.x < -kSwipeThresholdVelocity) {
       [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging - 1
                  velocity:velocity targetContentOffset:targetContentOffset];
+      self.item.currentCellIndex = self.indexOfMostExposedCellBeforeDragging - 1;
       return;
     }
   } else {
     if (velocity.x > kSwipeThresholdVelocity && self.cellBeforeDraggingVisibleRect.origin.x == 0) {
       [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging + 1
                  velocity:velocity targetContentOffset:targetContentOffset];
+      self.item.currentCellIndex = self.indexOfMostExposedCellBeforeDragging + 1;
       return;
     }
     if (velocity.x < -kSwipeThresholdVelocity && self.cellBeforeDraggingVisibleRect.origin.x == 0) {
       [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging
                  velocity:velocity targetContentOffset:targetContentOffset];
+      self.item.currentCellIndex = self.indexOfMostExposedCellBeforeDragging;
       return;
     }
     if (velocity.x > kSwipeThresholdVelocity && self.cellBeforeDraggingVisibleRect.origin.x > 0) {
       [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging
                  velocity:velocity targetContentOffset:targetContentOffset];
+      self.item.currentCellIndex = self.indexOfMostExposedCellBeforeDragging;
       return;
     }
     if (velocity.x < -kSwipeThresholdVelocity && self.cellBeforeDraggingVisibleRect.origin.x > 0) {
       [self scrollToIndex:self.indexOfMostExposedCellBeforeDragging - 1
                  velocity:velocity targetContentOffset:targetContentOffset];
+      self.item.currentCellIndex = self.indexOfMostExposedCellBeforeDragging - 1;
       return;
     }
   }

@@ -55,6 +55,7 @@
 @property (strong, nonatomic) UINavigationBar *navigationBar;
 @property (strong, nonatomic) AnalyticsTimeTracer *timeTracer;
 @property (assign, nonatomic) UIInterfaceOrientation prevOrientation;
+@property (assign, nonatomic) BOOL isScrollToTop;
 
 @end
 
@@ -252,6 +253,14 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
             IndexViewControllerCoverInset + 50.0;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(PlacesTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (self.isScrollToTop){
+    [cell setCollectionViewCelltoPositionZero];
+  } else {
+  [cell setCollectionViewCellPosition];
+  }
+}
+
 #pragma mark - Categories update
 - (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     [self fillNavigationListeners:self.model.randomizedCategories];
@@ -407,7 +416,13 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+  self.isScrollToTop = NO;
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
   [self scrollItemsToLeft:YES];
+  self.isScrollToTop = YES;
+  return TRUE;
 }
 
 - (void)scrollItemsToLeft:(BOOL)animated {
@@ -416,10 +431,10 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
   }];
 }
 
-- (void)scrollToTop {
-  [self.dataView setContentOffset:CGPointZero animated:YES];
-  [self scrollItemsToLeft:YES];
-}
+//- (void)scrollToTop {
+//  [self.dataView setContentOffset:CGPointZero animated:YES];
+//  [self scrollItemsToLeft:YES];
+//}
 
 #pragma mark - viewWillTransitionToSize
 - (void)viewWillTransitionToSize:(CGSize)size
