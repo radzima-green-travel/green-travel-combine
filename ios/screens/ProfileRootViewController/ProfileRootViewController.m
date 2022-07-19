@@ -82,9 +82,13 @@
   controllerWithNavigation.navigationBar.titleTextAttributes =
   [TypographyLegacy get].navigationSemiboldAttributes;
   
-  [self addChildViewController:controllerWithNavigation];
+  if (@available(iOS 15.0, *)) {
+    [self addChildViewController:controllerWithNavigation];
+  }
+ 
   controllerWithNavigation.view.frame = self.view.bounds;
   [self.view addSubview:controllerWithNavigation.view];
+  
   [controllerWithNavigation didMoveToParentViewController:self];
   
   [self.current willMoveToParentViewController:nil];
