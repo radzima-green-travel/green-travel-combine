@@ -51,6 +51,12 @@ static const CGFloat kTopOffset = 90.0;
   [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
   [self.view addGestureRecognizer:tap];
   [self prepareView];
+
+}
+
+- (void)viewDidLayoutSubviews {
+  [super viewDidLayoutSubviews];
+  self.view.backgroundColor = [Colors get].background;
 }
 
 - (void)prepareView {
@@ -125,11 +131,6 @@ static const CGFloat kTopOffset = 90.0;
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
   [self.userModel removeUserModelObserver:self];
-}
-
-- (void)viewDidLayoutSubviews {
-  [super viewDidLayoutSubviews];
-  self.view.backgroundColor = [Colors get].background;
 }
 
 - (void)dismissKeyboard:(id)sender {
