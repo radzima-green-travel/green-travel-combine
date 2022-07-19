@@ -109,7 +109,6 @@
   [NSLayoutConstraint activateConstraints:@[
     [self.forgotPasswordButton.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
     [self.forgotPasswordButton.topAnchor constraintEqualToAnchor:self.submitButton.bottomAnchor constant:25.0],
-    
     [self.forgotPasswordButton.bottomAnchor constraintLessThanOrEqualToAnchor:self.bottomAnchor constant:-25.0]
   ]];
 }
