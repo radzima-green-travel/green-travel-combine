@@ -52,6 +52,7 @@
 "NoDataText" = "Oops! Something's not right...";
 "NoDataActionLabel" = "Try again";
 
+"ProfileScreenTitle" = "Profile";
 "ProfileScreenChoiceSignUp" = "Sign Up";
 "ProfileScreenChoiceSignIn" = "Sign In";
 "ProfileScreenLabelCreateAccount" = "Create new account";
@@ -92,6 +93,7 @@
 "ResetPasswordEMailScreenTitle" = "Reset password";
 "ResetPasswordEMailScreenHeader" = "Reset password";
 "ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+"ResetPasswordBackToSignInButtonTitle" = "Back and Sign In";
 
 "ResetPasswordPassCodeScreenTitle" = "Reset password";
 "ResetPasswordPassCodeScreenHeader" = "Reset password";
