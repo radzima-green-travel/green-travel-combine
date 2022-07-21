@@ -372,15 +372,28 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     }
   }
   
+  if (bookmark) {
+    if ([item.category.uuid isEqualToString:self.category.uuid]) {
+      NSUInteger indexOfAdded = [self.bookmarkedItems count];
+      NSIndexPath *indexPathOfAddedIndex = [NSIndexPath indexPathForItem:indexOfAdded inSection:0];
+      __weak typeof(self) weakSelf = self;
+      [self.collectionView performBatchUpdates:^{
+        [weakSelf.bookmarkedItems addObject:item];
+        [weakSelf.collectionView insertItemsAtIndexPaths:@[indexPathOfAddedIndex]];
+      } completion:^(BOOL finished) {
+      }];
+    }
+  }
+  
   if (!bookmark) {
-    __weak typeof(self) weakSelf = self;
-    [self.collectionView performBatchUpdates:^{
-      if (foundIndex != NSNotFound) {
+    if (foundIndex != NSNotFound) {
+      __weak typeof(self) weakSelf = self;
+      [self.collectionView performBatchUpdates:^{
         [weakSelf.bookmarkedItems removeObjectAtIndex:indexPathOfFoundIndex.item];
         [weakSelf.collectionView deleteItemsAtIndexPaths:@[indexPathOfFoundIndex]];
-      }
-    } completion:^(BOOL finished) {
-    }];
+      } completion:^(BOOL finished) {
+      }];
+    }
   }
 
   if (self.viewIfLoaded.window != nil && [self.bookmarkedItems count] == 0) {
