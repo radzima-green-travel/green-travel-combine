@@ -52,6 +52,7 @@
 "NoDataText" = "抱歉，出了点问题";
 "NoDataActionLabel" = "再试一次";
 
+"ProfileScreenTitle" = "形象";
 "ProfileScreenChoiceSignUp" = "Sign Up";
 "ProfileScreenChoiceSignIn" = "Sign In";
 "ProfileScreenLabelCreateAccount" = "建立新帐户";
@@ -81,6 +82,8 @@
 "ResetPasswordEMailScreenTitle" = "Восстановить пароль";
 "ResetPasswordEMailScreenHeader" = "Восстановить пароль";
 "ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+"ResetPasswordBackToSignInButtonTitle" = "返回并登录";
+
 
 "ResetPasswordPassCodeScreenTitle" = "Reset password";
 "ResetPasswordPassCodeScreenHeader" = "Reset password";
