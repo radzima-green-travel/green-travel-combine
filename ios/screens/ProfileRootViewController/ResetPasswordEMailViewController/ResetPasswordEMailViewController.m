@@ -14,12 +14,14 @@
 #import "UserModelConstants.h"
 #import "ResetPasswordPassCodeViewController.h"
 #import "CommonFormConstants.h"
+#import "Colors.h"
 
 @interface ResetPasswordEMailViewController ()
 
 @property(strong, nonatomic) UILabel *hintLabel;
 @property(strong, nonatomic) UILabel *titleLabel;
 @property(strong, nonatomic) CommonButton *buttonSubmit;
+@property(strong, nonatomic) UIButtonHighlightable *buttonBackToSignIn;
 @property(assign, nonatomic) BOOL shownKeyboard;
 @property(assign, nonatomic) BOOL shouldNavigateToCodeScreen;
 @property(assign, nonatomic) BOOL initialLoad;
@@ -90,9 +92,22 @@
     [self.buttonSubmit.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.textFieldMail.bottomAnchor constant:CommonFormTextFieldAndButtonSpace],
     [self.buttonSubmit.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
-    [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-
+    [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor]
   ]];
+  
+  self.buttonBackToSignIn = [[UIButtonHighlightable alloc] init];
+  self.buttonBackToSignIn.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.buttonBackToSignIn setTintColor:[Colors get].buttonTextTint];
+  NSAttributedString *label = [[Typography get] textButtonLabel:NSLocalizedString(@"ResetPasswordBackToSignInButtonTitle", @"")];
+  [self.buttonBackToSignIn setAttributedTitle:label forState:UIControlStateNormal];
+  [self.buttonBackToSignIn addTarget:self action:@selector(backToSignIn) forControlEvents:UIControlEventTouchUpInside];
+  
+  [self.contentView addSubview:self.buttonBackToSignIn];
+  
+  [NSLayoutConstraint activateConstraints:@[
+    [self.buttonBackToSignIn.centerXAnchor constraintEqualToAnchor:self.buttonSubmit.centerXAnchor],
+    [self.buttonBackToSignIn.topAnchor constraintEqualToAnchor:self.buttonSubmit.bottomAnchor constant:25.0]
+    ]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,6 +124,10 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
+}
+
+- (void)backToSignIn {
+  [self.navigationController popViewControllerAnimated:TRUE];
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {

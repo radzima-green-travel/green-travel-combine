@@ -36,6 +36,7 @@ static const CGFloat kTopOffset = 90.0;
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  self.title = NSLocalizedString(@"ProfileScreenTitle", @"");
 #pragma mark - Segmented control
   NSArray *items = @[NSLocalizedString(@"ProfileScreenChoiceSignIn", @""),
                      NSLocalizedString(@"ProfileScreenChoiceSignUp", @"")];
