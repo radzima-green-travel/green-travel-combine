@@ -134,7 +134,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
 
     self.scrollInsets = UIEdgeInsetsZero;
     [self setUpWithTable];
-[self setUpTapGesture];
+		[self setUpTapGesture];
 
     if (@available(iOS 13.0, *)) {
       self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -154,7 +154,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     self.definesPresentationContext = YES;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadAppear:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadDisappear:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadDisappear:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)updateViews {
@@ -170,7 +170,8 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
 }
 
 - (void)setUpTapGesture {
-  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(dismissKeyboard)];
 
   [self.view addGestureRecognizer:tap];
   [tap setCancelsTouchesInView:NO];
