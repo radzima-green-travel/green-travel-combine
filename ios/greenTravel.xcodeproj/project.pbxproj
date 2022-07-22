@@ -639,6 +639,7 @@
 		6281F7E024C9E40D00C51231 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
 		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		745C34F067A2EA32BDC236BD /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		7E3231662865D12E00B39540 /* DeviceRotationObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceRotationObservable.h; sourceTree = "<group>"; };
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E864D96B10ABCD37BAAAE8 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
@@ -674,6 +675,7 @@
 				5AD347DD2837B28100235E96 /* bridges */,
 				5A775AFF26064C9000CEFC78 /* services */,
 				5A775B0B26064C9000CEFC78 /* utilities */,
+				7E3231642865D01E00B39540 /* protocols */,
 				5A775A8126064C8F00CEFC78 /* valueobjects */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				628194D025F213BD00491FDF /* BootSplash.storyboard */,
@@ -1816,6 +1818,14 @@
 				5A12E89427BEA68E004FD8C6 /* details.html */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		7E3231642865D01E00B39540 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7E3231662865D12E00B39540 /* DeviceRotationObservable.h */,
+			);
+			path = protocols;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {

@@ -47,11 +47,19 @@ static const CGFloat kTopOffset = 90.0;
   [super viewDidLoad];
   [self registerForKeyboardNotifications];
   [self.userModel addUserModelObserver:self];
-  
   UITapGestureRecognizer *tap =
   [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
   [self.view addGestureRecognizer:tap];
-  
+  [self prepareView];
+
+}
+
+- (void)viewDidLayoutSubviews {
+  [super viewDidLayoutSubviews];
+  self.view.backgroundColor = [Colors get].background;
+}
+
+- (void)prepareView {
   self.scrollView = [[UIScrollView alloc] init];
   self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
   self.scrollView.alwaysBounceVertical = YES;
@@ -125,11 +133,6 @@ static const CGFloat kTopOffset = 90.0;
   [self.userModel removeUserModelObserver:self];
 }
 
-- (void)viewDidLayoutSubviews {
-  [super viewDidLayoutSubviews];
-  self.view.backgroundColor = [Colors get].background;
-}
-
 - (void)dismissKeyboard:(id)sender {
   [self.view endEditing:YES];
 }
@@ -158,7 +161,7 @@ static const CGFloat kTopOffset = 90.0;
 - (void)keyboardWasShown:(NSNotification*)aNotification {
   NSDictionary* info = [aNotification userInfo];
   CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-  UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+  UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height - self.tbHeight, 0.0);
   self.scrollView.contentInset = contentInsets;
   self.scrollView.scrollIndicatorInsets = contentInsets;
 }

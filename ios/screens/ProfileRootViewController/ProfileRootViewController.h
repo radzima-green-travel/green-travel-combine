@@ -7,13 +7,14 @@
 
 #import <UIKit/UIKit.h>
 #import "UserModelObserver.h"
+#import "DeviceRotationObservable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserController;
 @class UserModel;
 
-@interface ProfileRootViewController : UIViewController<UserModelObserver>
+@interface ProfileRootViewController : UIViewController<UserModelObserver, DeviceRotationObservable>
 
 @property (strong, nonatomic) UserController *userController;
 @property (strong, nonatomic) UserModel *userModel;
