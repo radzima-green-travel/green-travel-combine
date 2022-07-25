@@ -12,8 +12,9 @@ import {
   forgotPasswordRequest,
   resendSignUpCodeRequest,
 } from 'core/reducers';
-import {styles} from './styles';
+import {themeStyles} from './styles';
 import {
+  useThemeStyles,
   useOnRequestSuccess,
   useRequestLoading,
   useTranslation,
@@ -25,6 +26,7 @@ export const EmailValidation = ({navigation, route}: IProps) => {
   const [isCodeFull, setIsCodeFull] = useState(false);
   const [code, setCode] = useState('');
   const {t} = useTranslation('authentification');
+  const styles = useThemeStyles(themeStyles);
   const buttonText = t('ready').toUpperCase();
 
   const dispatch = useDispatch();

@@ -1,9 +1,8 @@
 //
-//  ApiService.h
-//  GreenTravel
+//  ApiServiceBase.h
+//  greenTravel
 //
-//  Created by Alex K on 8/27/20.
-//  Copyright © 2020 Alex K. All rights reserved.
+//  Created by Alex K on 14.07.22.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,16 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @class DetailsModel;
 @class PlaceCategory;
 @class PlaceDetails;
 
-@interface ApiService : NSObject<IndexLoader>
+@interface ApiServiceBase : NSObject<IndexLoader>
 
 @property (strong, nonatomic) NSURLSession *session;
 - (instancetype)initWithSession:(NSURLSession *)session;
 - (void)loadDetailsByUUID:(NSString *)uuid withCompletion:(void(^)(PlaceDetails *))completion;
-- (NSArray<PlaceCategory *>*)mapCategoriesFromJSON:(NSArray *)categories;
 @end
+
 
 NS_ASSUME_NONNULL_END

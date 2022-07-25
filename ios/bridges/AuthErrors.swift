@@ -18,6 +18,7 @@ import Foundation
   case AuthErrorInvalidPassword
   case AuthErrorUserNotFound
   case AuthErrorUsernameExists
+  case AuthErrorNotAuthorized
 }
 
 let AuthErrorDomain = "app.radzima"

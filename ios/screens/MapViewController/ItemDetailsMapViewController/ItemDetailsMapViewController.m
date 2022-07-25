@@ -22,7 +22,6 @@
 #import "MapButton.h"
 #import "SearchViewController.h"
 #import "SearchModel.h"
-#import "ApiService.h"
 #import "CoreDataService.h"
 #import "PlaceItem.h"
 #import "PlaceCategory.h"
@@ -39,6 +38,7 @@
 #import "AlertUtils.h"
 #import "MapViewControllerConstants.h"
 #import "AnalyticsEvents.h"
+#import "Colors.h"
 
 @interface ItemDetailsMapViewController ()
 
@@ -71,7 +71,7 @@ static NSString* const kAttributeType = @"type";
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
                     detailsModel:(DetailsModel *)detailsModel
-                      apiService:(ApiService *)apiService
+                      apiService:(id<IndexLoader>)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
                          mapItem:(MapItem *)mapItem
@@ -85,7 +85,7 @@ static NSString* const kAttributeType = @"type";
     _itemDetails = itemDetails;
   }
   return self;
-  
+
 }
 
 #pragma mark - Lifecycle
@@ -211,7 +211,7 @@ static NSString* const kAttributeType = @"type";
       MGLPolygon *polygonPart = [MGLPolygon polygonWithCoordinates:coordinates count:[partCoordinates count]];
       [polygonParts addObject:polygonPart];
       free(coordinates);
-      
+
       MGLPolylineFeature *outline = [self polylineForPath:partCoordinates];
       outline.attributes = @{
         kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeOutline),
@@ -319,7 +319,7 @@ static NSString* const kAttributeType = @"type";
     [self.mapView setCenterCoordinate:annotations.firstObject.coordinate
                             zoomLevel:12.0 direction:self.mapView.direction
                              animated:YES completionHandler:completion];
-   
+
   }
 }
 
@@ -358,11 +358,10 @@ static NSString* const kAttributeType = @"type";
   MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
   dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
   dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
-  dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
-  dashedLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+  dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@1];
+  dashedLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPath];
   dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
-  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@0, @1.5]];
-
+  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@5, @5]];
   [style addLayer:dashedLayer];
 }
 
@@ -387,7 +386,7 @@ static NSString* const kAttributeType = @"type";
 - (void)addDirections:(NSArray<CLLocation *> *)locations {
   [self removeDuplicateAnnotations:MGLPolylineFeature.class
                          attribute:ItemDetailsMapViewControllerAnnotationTypeRoute];
-  
+
   MGLPolylineFeature *polyline = [self polylineForPath:locations];
   polyline.attributes = @{
     kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeRoute)
@@ -526,7 +525,7 @@ static NSString* const kAttributeType = @"type";
     return;
   }
   [self showUserLocation:YES];
-  
+
   [self removeDuplicateAnnotations:MGLPointFeature.class
                          attribute:ItemDetailsMapViewControllerAnnotationTypeLocation];
   MGLPointFeature *location = [[MGLPointFeature alloc] init];

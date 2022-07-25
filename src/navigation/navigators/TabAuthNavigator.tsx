@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import {SignInScreen, SignUpScreen} from 'screens';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {useTranslation} from 'core/hooks';
+import {useColorScheme, useTranslation} from 'core/hooks';
 import {TabAuthNavigatorParamsList} from 'core/types';
 import {COLORS, FONTS_STYLES} from 'assets';
 
@@ -10,13 +10,15 @@ const Tab = createMaterialTopTabNavigator<TabAuthNavigatorParamsList>();
 
 export function TabAuthNavigator() {
   const {t} = useTranslation('authentification');
+  const colorScheme = useColorScheme();
 
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
         swipeEnabled: false,
         tabBarStyle: {
-          backgroundColor: COLORS.white,
+          backgroundColor:
+            colorScheme === 'light' ? COLORS.white : COLORS.background,
           elevation: 0,
           borderBottomWidth: 1,
           borderBottomColor: 'rgba(0, 0, 0, 0.03)',
@@ -25,7 +27,8 @@ export function TabAuthNavigator() {
         },
         tabBarIndicatorStyle: {
           borderBottomWidth: 2,
-          borderBottomColor: COLORS.apple,
+          borderBottomColor:
+            colorScheme === 'light' ? COLORS.apple : COLORS.oceanGreen,
         },
         tabBarLabel: ({focused}) => (
           <Text
@@ -33,11 +36,17 @@ export function TabAuthNavigator() {
               focused
                 ? {
                     ...FONTS_STYLES.semibold16,
-                    color: COLORS.apple,
+                    color:
+                      colorScheme === 'light'
+                        ? COLORS.apple
+                        : COLORS.oceanGreen,
                   }
                 : {
                     ...FONTS_STYLES.regular16,
-                    color: COLORS.boulder,
+                    color:
+                      colorScheme === 'light'
+                        ? COLORS.boulder
+                        : COLORS.altoForDark,
                   }
             }>
             {route.name === 'SignUp' ? t('signUpTab') : t('signInTab')}

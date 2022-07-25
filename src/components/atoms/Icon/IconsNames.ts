@@ -7,6 +7,8 @@ export type IconsNames =
   | 'bookmark'
   | 'bookmarkFilled'
   | 'bookmarksEmpty'
+  | 'bookmarkTab'
+  | 'bookmarkTabFilled'
   | 'camera'
   | 'castles'
   | 'check'

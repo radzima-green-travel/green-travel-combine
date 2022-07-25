@@ -1,7 +1,6 @@
-import {StyleSheet} from 'react-native';
 import {COLORS, FONTS_STYLES} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
     marginHorizontal: 24,
     marginTop: '20%',
@@ -21,11 +20,17 @@ export const styles = StyleSheet.create({
   },
   returnText: {
     ...FONTS_STYLES.regular16,
-    color: COLORS.apple,
+    color: {
+      light: COLORS.apple,
+      dark: COLORS.oceanGreen,
+    },
     textAlign: 'center',
     marginTop: 25,
   },
   notActivated: {
-    backgroundColor: COLORS.alto,
+    backgroundColor: {
+      light: COLORS.alto,
+      dark: COLORS.silver,
+    },
   },
-});
+};

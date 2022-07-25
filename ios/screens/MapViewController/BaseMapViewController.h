@@ -24,12 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class LocationModel;
 @class SearchModel;
 @class IndexModel;
-@class ApiService;
 @class CoreDataService;
 @class DetailsModel;
 @class CategoriesFilterView;
 @class BottomSheetView;
 @class MapService;
+@protocol IndexLoader;
 
 @interface BaseMapViewController : UIViewController<MapItemsObserver, MGLMapViewDelegate, LocationObserver, BookmarksObserver, MapViewToStateIntermediary>
 
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) SearchModel *searchModel;
 @property (strong, nonatomic) DetailsModel *detailsModel;
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) MapButton *locationButton;
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
                      detailsModel:(DetailsModel *)detailsModel
-                      apiService:(ApiService *)apiService
+                      apiService:(id<IndexLoader>)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
                          mapItem:(nullable MapItem *)mapItem;

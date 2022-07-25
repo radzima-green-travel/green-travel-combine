@@ -8,10 +8,13 @@
 #import <UIKit/UIKit.h>
 #import "UserModelObserver.h"
 #import "BaseFormViewController.h"
+#import "CommonTextField.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ResetPasswordEMailViewController : BaseFormViewController<UserModelObserver>
+
+@property (strong, nonatomic) CommonTextField *textFieldMail;
 
 @end
 

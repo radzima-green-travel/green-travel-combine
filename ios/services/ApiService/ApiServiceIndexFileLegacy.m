@@ -6,7 +6,7 @@
 //  Copyright © 2020 Alex K. All rights reserved.
 //
 
-#import "ApiService.h"
+#import "ApiServiceIndexFileLegacy.h"
 #import "PlaceCategory.h"
 #import "IndexModel.h"
 #import "DetailsModel.h"
@@ -23,19 +23,13 @@
 
 static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001/api/v1/details/%@";
 
-@interface ApiService ()
+@interface ApiServiceIndexFileLegacy ()
+
+- (NSArray<PlaceCategory *>*)mapCategoriesFromJSON:(NSArray *)categories;
 
 @end
 
-@implementation ApiService
-
-- (instancetype) initWithSession:(NSURLSession *)session {
-    self = [super init];
-    if (self) {
-        _session = session;
-    }
-    return self;
-}
+@implementation ApiServiceIndexFileLegacy
 
 - (NSString *)categoriesURL {
   return [NSString stringWithFormat:@"%@/%@",
@@ -58,7 +52,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     }
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
     NSString *updatedHash = headers[@"ETag"];
-    
+
     NSDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSDictionary *dataSection = parsedData[@"data"];
     if (dataSection == nil || parsedData[@"data"] == [NSNull null]) {
@@ -187,7 +181,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
 NSMutableArray* categoryIdToItemsFromJSON(NSObject *relations) {
   NSArray<NSDictionary*> *linkedCategoriesFromAPI = (NSArray<NSDictionary*>*) relations;
   NSMutableArray *categoryIdToItems = [[NSMutableArray alloc] init];
-  
+
   [linkedCategoriesFromAPI enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     NSString *categoryId = (NSString *) obj[@"id"];
     NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];

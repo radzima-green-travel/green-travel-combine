@@ -127,26 +127,20 @@
                             completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
-      [strongSelf.model setState:UserModelStateFetched];
-      
-      if ([strongSelf usingTheSameEMailAndPassword:error
-                                             email:email
-                                          password:password]) {
+      if (error.code == AmplifyBridgeErrorAuthErrorUsernameExists) {
         [strongSelf resendCodeForSameUser:email
                                  password:password];
         return;
       };
+      [strongSelf.model setState:UserModelStateFetched];
       return;
     }
     [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
-    [self.model setEmailUserOnSignUp:email];
-    [self.model setPasswordUsedOnSignUp:password];
   }];
 }
 
 - (void)resendCodeForSameUser:(NSString *)email
                      password:(NSString *)password {
-  [self.model setState:UserModelStateSignUpEmailInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService resendSignUpCodeEMail:email
                                completion:^(NSError * _Nullable error) {
@@ -160,14 +154,6 @@
   return;
 }
 
-- (BOOL)usingTheSameEMailAndPassword:(NSError *)error
-                               email:(NSString *)email
-                            password:(NSString *)password {
-  return error.code == AmplifyBridgeErrorAuthErrorUsernameExists &&
-  [self.model.emailUserOnSignUp isEqualToString:email] &&
-  [self.model.passwordUsedOnSignUp isEqualToString:password];
-}
-
 - (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code {
   [self.model setState:UserModelStateConfirmCodeInProgress];
   __weak typeof(self) weakSelf = self;
@@ -178,10 +164,16 @@
       return;
     }
     __weak typeof(strongSelf) weakSelf = strongSelf;
-    [self signIn:strongSelf.model.email password:strongSelf.model.password
+    [strongSelf signIn:strongSelf.model.email password:strongSelf.model.password
       completion:^(NSError * _Nullable error){
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
+        if (error.code == AmplifyBridgeErrorAuthErrorNotAuthorized) {
+          // NOTE: if we cannot auto sign in after sign up, than let user reset password.
+          // https://github.com/radzima-green-travel/green-travel-combine/issues/465
+          [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
+          return;
+        }
         [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
         return;
       }

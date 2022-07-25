@@ -23,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @class PlaceDetails;
 @class PathDetails;
 @class BookmarksModel;
-@class ApiService;
 @class CoreDataService;
 @class UserDefaultsService;
 @class IndexPeeks;
+@protocol IndexLoader;
 
 @interface IndexModel : NSObject<CategoriesObservable, BookmarksObservable, DetailsBatchObservable>
 
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSDictionary<NSString *, PlaceItem *> *flatItems;
 @property (strong, nonatomic) NSDictionary<NSString *, PathDetails *> *pathsByUUID;
 
-- (instancetype)initWithApiService:(ApiService *)apiService
+- (instancetype)initWithApiService:(id<IndexLoader>)apiService
                    coreDataService:(CoreDataService *)coreDataService
                userDefaultsService:(UserDefaultsService *)userDefaultsService;
 - (void)loadCategories;

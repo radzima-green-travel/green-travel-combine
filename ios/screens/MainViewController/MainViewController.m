@@ -13,8 +13,8 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
-#import "ApiService.h"
 #import "GraphQLApiService.h"
+#import "ApiServiceIndexFile.h"
 #import "IndexModel.h"
 #import "DetailsModel.h"
 #import "SearchModel.h"
@@ -40,7 +40,7 @@
 
 @interface MainViewController ()
 
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) IndexModel *indexModel;
@@ -60,9 +60,9 @@
 @implementation MainViewController
 
 - (void)viewWillLayoutSubviews {
-  
+
   configureTabBar(self.tabBar);
-  
+
   self.view.backgroundColor = [Colors get].background;
 }
 
@@ -74,7 +74,7 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     UserDefaultsService *userDefaultsService = [UserDefaultsService get];
     self.session = [NSURLSession sessionWithConfiguration:configuration];
-    self.apiService = [[GraphQLApiService alloc] initWithSession:self.session];
+    self.apiService = [[ApiServiceIndexFile alloc] initWithSession:self.session];
     self.mapService = [[MapService alloc] initWithSession:self.session];
     self.coreDataService = [[CoreDataService alloc] init];
     self.indexModel = [[IndexModel alloc] initWithApiService:self.apiService
@@ -95,7 +95,7 @@
     AuthService *authService = [[AuthService alloc] initWithAmplifyBridge:bridge];
     UserModel *userModel = [[UserModel alloc] init];
     UserController *userController = [[UserController alloc] initWithModel:userModel authService:authService];
-    
+
     [bridge initialize];
     [userController fetchCurrentAuthSession];
 
@@ -163,20 +163,20 @@
 #pragma mark - ProfileRootViewController
   self.profileRootController =
   [[ProfileRootViewController alloc] initWithController:userController model:userModel];
-  
+
   UIImage *profileImage;
   profileImage = [UIImage imageNamed:@"user"];
   self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage);
-  
+
   self.profileRootController.tabBarItem = self.profileTabBarItem;
-  
+
   self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
                            self.bookmarksControllerWithNavigation, self.profileRootController];
-  
+
   self.selectedIndex = 0;
-  
+
   self.bottomSheets = [[NSMutableDictionary<NSNumber *, BottomSheetView *> alloc] init];
-  
+
   [NSNotificationCenter.defaultCenter addObserver:self
                                          selector:@selector(onLocaleChange:) name:NSCurrentLocaleDidChangeNotification object:nil];
 }
@@ -205,13 +205,13 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image) 
       }
     }
     self.previousViewController = topController;
-    
+
     [self.bottomSheets enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key,
                                                            BottomSheetView * _Nonnull bv,
                                                            BOOL * _Nonnull stop) {
       [bv setActive:NO];
     }];
-    
+
     if (viewController == self.indexViewControllerWithNavigation) {
       [self.bottomSheets[@(MainViewControllerBottomSheetIndexDetailsMap)] setActive:YES];
       self.activeBottomSheetTypeByTab = MainViewControllerBottomSheetIndexDetailsMap;
