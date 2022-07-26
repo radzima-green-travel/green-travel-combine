@@ -76,7 +76,7 @@
   [[SecureTextField alloc] initWithImageName:@"password-lock"
                                 keyboardType:UIKeyboardTypeDefault
                                  placeholder:NSLocalizedString(@"ProfileScreenPlaceholderPassword", @"")];
-  [self.textFieldNewPassword.textField setTextContentType:UITextContentTypeEmailAddress];
+  [self.textFieldNewPassword setCreatingPassword:YES];
   [self.contentView addSubview:self.textFieldNewPassword];
   self.textFieldNewPassword.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
