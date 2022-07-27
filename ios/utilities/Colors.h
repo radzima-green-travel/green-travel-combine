@@ -57,6 +57,8 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *buttonTextTint;
 @property (strong, nonatomic) UIColor *areaOutline;
 @property (strong, nonatomic) UIColor *areaFill;
+@property (strong, nonatomic) UIColor *segmentedControlBackground;
+@property (strong, nonatomic) UIColor *segmentedControlPicker;
 + (instancetype)get;
 
 @end

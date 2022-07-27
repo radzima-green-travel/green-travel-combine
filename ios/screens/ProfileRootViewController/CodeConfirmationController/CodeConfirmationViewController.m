@@ -43,6 +43,7 @@
   self.titleLabel = [[UILabel alloc] init];
   NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"CodeConfirmationScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
+  [self.titleLabel setTextColor:[Colors get].headlineText];
   [self.titleLabel setNumberOfLines:0];
   [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
   [self.contentView addSubview:self.titleLabel];

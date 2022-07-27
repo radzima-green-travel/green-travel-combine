@@ -21,8 +21,9 @@
 
 - (void)setUp {
   self.layer.cornerRadius = 4.0;
-  self.layer.borderColor = [[Colors get].passCodeTint CGColor];
+  self.layer.borderColor = [[Colors get].textFieldBorderColor CGColor];
   self.layer.borderWidth = 1.0;
+  self.backgroundColor = [Colors get].textFieldBackground;
   
   self.translatesAutoresizingMaskIntoConstraints = NO;
   

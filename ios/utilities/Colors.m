@@ -68,6 +68,8 @@ static Colors *instance;
     self.buttonTextTint = [UIColor colorNamed:@"buttonTextTint"];
     self.areaOutline = [UIColor colorNamed:@"areaOutline"];
     self.areaFill = [UIColor colorNamed:@"areaFill"];
+    self.segmentedControlBackground = [UIColor colorNamed:@"segmentedControlBackground"];
+    self.segmentedControlPicker = [UIColor colorNamed:@"segmentedControlPicker"];
   }
   return self;
 }
