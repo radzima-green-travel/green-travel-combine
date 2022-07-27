@@ -102,9 +102,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  [self.textFieldNewPassword.textField setText:self.userModel.passwordNew];
 }
-
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
@@ -145,6 +143,7 @@
   [self.userController resetPasswordConfirm:self.userModel.emailResetPassword code:self.userModel.confirmationCode newPassword:self.textFieldNewPassword.textField.text];
   self.codeSent = YES;
   [self.view endEditing:YES];
+  [self.textFieldNewPassword.textField setText:@""];
 }
 
 @end

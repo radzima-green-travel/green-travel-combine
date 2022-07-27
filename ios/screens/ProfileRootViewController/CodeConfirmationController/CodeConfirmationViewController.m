@@ -163,10 +163,12 @@
   [self.userController confirmSignUpForEMail:self.userModel.email
                                         code:self.passCodeField.text];
   [self.view endEditing:YES];
+  [self.passCodeField setText:@""];
 }
 
 - (void)onRetry:(UIButton *)sender {
   [self.userController resendSignUpCodeForEMail:self.userModel.email];
+  [self.passCodeField setText:@""];
 }
 
 @end

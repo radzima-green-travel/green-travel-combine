@@ -154,6 +154,7 @@
 - (void)onRetry:(UIButton *)sender {
   [self.userController initiateResetPassword:self.userModel.emailResetPassword];
   [self.view endEditing:YES];
+  [self.passCodeField setText:@""];
 }
 
 @end
