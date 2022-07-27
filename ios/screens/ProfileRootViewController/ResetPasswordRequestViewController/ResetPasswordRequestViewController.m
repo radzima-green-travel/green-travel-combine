@@ -79,6 +79,7 @@
     [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.hintLabel.bottomAnchor constant:CommonFormLabelAndButtonSpace],
     [self.buttonSubmit.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
     [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
+    [self.buttonSubmit.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor constant:CommonFormButtonBottomSpace],
   ]];
 }
 
