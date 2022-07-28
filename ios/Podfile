@@ -2,8 +2,11 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '12.0'
+platform :ios, '12.4'
+install! 'cocoapods', :deterministic_uuids => false
 use_frameworks!
+
+production = ENV["PRODUCTION"] == "1"
 
 target 'greenTravel' do
   pod 'Firebase/AnalyticsWithoutAdIdSupport'
@@ -21,11 +24,19 @@ target 'greenTravel' do
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   $ReactNativeMapboxGLIOSVersion = '~> 6.3'
   config = use_native_modules!
+  
+  # Flags change depending on the env values.
+    flags = get_default_flags()
 
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => false
+    :production => production,
+    :hermes_enabled => true,
+    :fabric_enabled => true,
+    :flipper_configuration => FlipperConfiguration.enabled,
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
   # Enables Flipper.
@@ -33,21 +44,6 @@ target 'greenTravel' do
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
   # use_flipper!()
-
-  pre_install do |installer|
-    $RNMBGL.pre_install(installer)
-    Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
-    $static_framework = ['react-native-ultimate-config', 'react-native-blur', 'react-native-webview',
-    'RNSVG', 'BVLinearGradient', 'RNCMaskedView']
-
-    installer.pod_targets.each do |pod|
-      if $static_framework.include?(pod.name)
-        def pod.build_type
-          Pod::BuildType.static_library
-        end
-      end
-    end
-  end
 
   post_install do |installer|
     $RNMBGL.post_install(installer)
