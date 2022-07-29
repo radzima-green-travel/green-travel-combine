@@ -88,18 +88,20 @@
 "CodeConfirmationScreenHeader" = "Confirm sign up";
 "CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
 "CodeConfirmationScreenRetry" = "Resend e-mail";
-"CodeConfirmationScreenSubmit" = "DONE";
+"CodeConfirmationScreenSubmit" = "SEND";
+"CodeConfirmationScreenDone" = "DONE";
+"CodeConfirmationScreenSave" = "SAVE";
 
 "ResetPasswordEMailScreenTitle" = "Reset password";
 "ResetPasswordEMailScreenHeader" = "Reset password";
 "ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
 "ResetPasswordBackToSignInButtonTitle" = "Back and Sign In";
 
-"ResetPasswordPassCodeScreenTitle" = "Reset password";
-"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenTitle" = "Profile";
+"ResetPasswordPassCodeScreenHeader" = "Confirm email address";
 "ResetPasswordPassCodeScreenHint" = "enter confirmation code from e-mail %@";
 
-"ResetPasswordNewPasswordScreenTitle" = "Reset password";
+"ResetPasswordNewPasswordScreenTitle" = "Recover password";
 "ResetPasswordNewPasswordScreenHeader" = "New password";
 "ResetPasswordNewPasswordScreenHint" = "New password must be different from the previous ones";
 

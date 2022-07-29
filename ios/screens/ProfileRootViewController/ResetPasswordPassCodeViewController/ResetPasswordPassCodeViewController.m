@@ -80,7 +80,7 @@
 
   self.buttonSubmit = [[CommonButton alloc] initWithTarget:self
                                                     action:@selector(onSubmit:)
-                                                     label:NSLocalizedString(@"CodeConfirmationScreenSubmit", @"")];
+                                                     label:NSLocalizedString(@"CodeConfirmationScreenDone", @"")];
   self.buttonSubmit.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.buttonSubmit];
 

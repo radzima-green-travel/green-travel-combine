@@ -77,7 +77,9 @@
 "CodeConfirmationScreenHeader" = "Confirm sign up";
 "CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
 "CodeConfirmationScreenRetry" = "Retry";
-"CodeConfirmationScreenSubmit" = "Done";
+"CodeConfirmationScreenSubmit" = "SEND";
+"CodeConfirmationScreenDone" = "DONE";
+"CodeConfirmationScreenSave" = "SAVE";
 
 "ResetPasswordEMailScreenTitle" = "Восстановить пароль";
 "ResetPasswordEMailScreenHeader" = "Восстановить пароль";
@@ -85,12 +87,12 @@
 "ResetPasswordBackToSignInButtonTitle" = "返回并登录";
 
 
-"ResetPasswordPassCodeScreenTitle" = "Reset password";
-"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenTitle" = "形象";
+"ResetPasswordPassCodeScreenHeader" = "确认电子邮件地址";
 "ResetPasswordPassCodeScreenHint" = "enter confirmation code from e-mail %@";
 
-"ResetPasswordNewPasswordScreenTitle" = "Reset password";
-"ResetPasswordNewPasswordScreenHeader" = "New password";
+"ResetPasswordNewPasswordScreenTitle" = "恢复密码";
+"ResetPasswordNewPasswordScreenHeader" = "新密码";
 "ResetPasswordNewPasswordScreenHint" = "New password must be different from the previous ones";
 
 "ResetPasswordRequestScreenTitle" = "更改密码";
