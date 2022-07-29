@@ -359,20 +359,24 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
         return;
     }
 
-  if (bookmark) {
+  if (bookmark && [item.category.uuid isEqualToString:self.category.uuid]) {
     NSUInteger indexOfAdded = [self.bookmarkedItems count];
     NSIndexPath *indexPathOfAddedIndex = [NSIndexPath indexPathForItem:indexOfAdded inSection:0];
     __weak typeof(self) weakSelf = self;
     [self.collectionView performBatchUpdates:^{
-      [weakSelf.bookmarkedItems addObject:item];
-      [weakSelf.collectionView insertItemsAtIndexPaths:@[indexPathOfAddedIndex]];
+      __weak typeof(weakSelf) strongSelf = weakSelf;
+      [strongSelf.bookmarkedItems addObject:item];
+      [strongSelf.collectionView insertItemsAtIndexPaths:@[indexPathOfAddedIndex]];
     } completion:^(BOOL finished) {
     }];
-  } else {
+  }
+
+  if (!bookmark && foundIndex != NSNotFound) {
     __weak typeof(self) weakSelf = self;
     [self.collectionView performBatchUpdates:^{
-      [weakSelf.bookmarkedItems removeObjectAtIndex:indexPathOfFoundIndex.item];
-      [weakSelf.collectionView deleteItemsAtIndexPaths:@[indexPathOfFoundIndex]];
+      __weak typeof(weakSelf) strongSelf = weakSelf;
+      [strongSelf.bookmarkedItems removeObjectAtIndex:indexPathOfFoundIndex.item];
+      [strongSelf.collectionView deleteItemsAtIndexPaths:@[indexPathOfFoundIndex]];
     } completion:^(BOOL finished) {
     }];
   }

@@ -7,7 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
+#if PROD
+#import "Radzima-Swift.h"
+#else
 #import "Radzima_Dev-Swift.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

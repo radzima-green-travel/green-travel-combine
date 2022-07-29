@@ -134,6 +134,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
 
     self.scrollInsets = UIEdgeInsetsZero;
     [self setUpWithTable];
+		[self setUpTapGesture];
 
     if (@available(iOS 13.0, *)) {
       self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -153,7 +154,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     self.definesPresentationContext = YES;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadAppear:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadDisappear:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadDisappear:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)updateViews {
@@ -168,6 +169,14 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     [self setUpWithTable];
 }
 
+- (void)setUpTapGesture {
+  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(dismissKeyboard)];
+
+  [self.view addGestureRecognizer:tap];
+  [tap setCancelsTouchesInView:NO];
+  return;
+}
 
 - (void)setUpWithTable {
     [self.scrollView removeFromSuperview];
@@ -322,6 +331,18 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
 - (void)onKeyboadDisappear:(NSNotification *)notification {
     UIEdgeInsets insets = UIEdgeInsetsZero;
     [self updateInsets:insets];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  if([self.searchController.searchBar isFirstResponder]) {
+    [self.searchController.searchBar resignFirstResponder];
+  }
+}
+
+- (void)dismissKeyboard {
+  [self.searchController.searchBar endEditing:YES];
+
 }
 
 #pragma mark - SearchModel
