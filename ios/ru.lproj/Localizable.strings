@@ -89,6 +89,8 @@
 "CodeConfirmationScreenHint" = "введите цифры из письма, высланного на электронную почту %@";
 "CodeConfirmationScreenRetry" = "Повторить отправку";
 "CodeConfirmationScreenSubmit" = "ОТПРАВИТЬ";
+"CodeConfirmationScreenDone" = "ГОТОВО";
+"CodeConfirmationScreenSave" = "СОХРАНИТЬ";
 
 
 "ResetPasswordEMailScreenTitle" = "Восстановить пароль";
@@ -96,11 +98,11 @@
 "ResetPasswordEMailScreenHint" = "Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля";
 "ResetPasswordBackToSignInButtonTitle" = "Вернуться и войти";
 
-"ResetPasswordPassCodeScreenTitle" = "Сбросить пароль";
-"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenTitle" = "Профиль";
+"ResetPasswordPassCodeScreenHeader" = "Подтвердите электронный адрес";
 "ResetPasswordPassCodeScreenHint" = "введите цифры из письма, высланного на  электронную почту %@";
 
-"ResetPasswordNewPasswordScreenTitle" = "Сбросить пароль";
+"ResetPasswordNewPasswordScreenTitle" = "Восстановить пароль";
 "ResetPasswordNewPasswordScreenHeader" = "Новый пароль";
 "ResetPasswordNewPasswordScreenHint" = "Ваш новый пароль должен отличаться от используемых ранее паролей";
 
