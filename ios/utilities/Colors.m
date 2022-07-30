@@ -42,6 +42,8 @@ static Colors *instance;
     self.bookmarkTintEmptyCell = [UIColor colorNamed:@"bookmarkTintEmptyCell"];
     self.cardPlaceholderText = [UIColor colorNamed:@"cardPlaceholderText"];
     self.bookmarkCard = [UIColor colorNamed:@"bookmarkCard"];
+    self.bookmarkBottomSheetTintColor = [UIColor colorNamed:@"bookmarkBottomSheetTintColor"];
+    self.bookmarkDetailScreen = [UIColor colorNamed:@"bookmarkDetailScreen"];
     self.tabBarText = [UIColor colorNamed:@"tabBarText"];
     self.tabBarTextSelected = [UIColor colorNamed:@"tabBarTextSelected"];
     self.buttonAll = [UIColor colorNamed:@"buttonAll"];
