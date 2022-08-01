@@ -39,6 +39,7 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *bookmarkSelectedBottomSheetTintColor;
 @property (strong, nonatomic) UIColor *bookmarkUnselectedBottomSheetTintColor;
 @property (strong, nonatomic) UIColor *bookmarkDetailScreen;
+@property (strong, nonatomic) UIColor *bookmarkIndexScreen;
 @property (strong, nonatomic) UIColor *buttonNewDataBackground;
 @property (strong, nonatomic) UIColor *buttonNewDataBackgroundHighlighted;
 @property (strong, nonatomic) UIColor *buttonNewDataText;

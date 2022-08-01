@@ -49,8 +49,12 @@
 - (void)setUpImages {
   switch (self.flavor) {
     case BookmarkButtonFlavorIndex: {
-      UIImage *imageNotSelected = [UIImage imageNamed:@"bookmark-index"];
-      UIImage *imageSelected = [UIImage imageNamed:@"bookmark-index-selected"];
+      UIImage *imageNotSelected = [[[UIImage imageNamed:@"bookmark-index"]
+                                    imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate]
+                                    tintedImage:[Colors get].bookmarkIndexScreen];
+      UIImage *imageSelected = [[[UIImage imageNamed:@"bookmark-index-selected"]
+                                 imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate]
+                                 tintedImage:[Colors get].bookmarkIndexScreen];
       
       [self setImage:imageNotSelected forState:UIControlStateNormal];
       [self setImage:imageSelected forState:UIControlStateSelected];
