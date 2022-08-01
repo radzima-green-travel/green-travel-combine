@@ -14,7 +14,7 @@
 
 "TabBarMain" = "Main";
 "TabBarMap" = "Map";
-"TabBarSaved" = "Saved";
+"TabBarSaved" = "Favorites";
 "TabBarProfile" = "Profile";
 
 "IndexNewData" = "New data";
