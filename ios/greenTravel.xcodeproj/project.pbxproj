@@ -212,6 +212,7 @@
 		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
 		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
+		5E510A78289823430095A302 /* UIImage+extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E510A77289823430095A302 /* UIImage+extensions.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -632,6 +633,8 @@
 		5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchProgressViewController.m; sourceTree = "<group>"; };
 		5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchErrorViewController.h; sourceTree = "<group>"; };
 		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
+		5E510A76289823430095A302 /* UIImage+extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+extensions.h"; sourceTree = "<group>"; };
+		5E510A77289823430095A302 /* UIImage+extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+extensions.m"; sourceTree = "<group>"; };
 		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -664,6 +667,7 @@
 			children = (
 				5A1102242833FCC600FC967A /* amplifyconfiguration.json */,
 				5A1102232833FCC600FC967A /* awsconfiguration.json */,
+				5E510A75289823430095A302 /* extensions */,
 				5A775A3426064C8E00CEFC78 /* fonts */,
 				5A775A0326064C8E00CEFC78 /* managedobjects */,
 				5A775A5126064C8F00CEFC78 /* models */,
@@ -1804,6 +1808,15 @@
 			path = UserFetchProgressViewController;
 			sourceTree = "<group>";
 		};
+		5E510A75289823430095A302 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5E510A76289823430095A302 /* UIImage+extensions.h */,
+				5E510A77289823430095A302 /* UIImage+extensions.m */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		624E38CE2519E467001D98E2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2349,6 +2362,7 @@
 				5A775DFE26077A7D00CEFC78 /* CategoriesFilterSpacerCollectionViewCell.m in Sources */,
 				5A6685E5285A36BC008E193E /* ResetPasswordViewController.m in Sources */,
 				5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */,
+				5E510A78289823430095A302 /* UIImage+extensions.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
