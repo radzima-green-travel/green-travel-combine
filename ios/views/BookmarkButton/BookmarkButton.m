@@ -49,37 +49,41 @@
 - (void)setUpImages {
   switch (self.flavor) {
     case BookmarkButtonFlavorIndex: {
-      [self setImage:[UIImage imageNamed: @"bookmark-index"] forState:UIControlStateNormal];
-      [self setImage:[UIImage imageNamed:@"bookmark-index-selected"] forState:UIControlStateSelected];
-      [self setImage:[UIImage imageNamed:@"bookmark-index"] forState:UIControlStateHighlighted | UIControlStateNormal];
-      [self setImage:[UIImage imageNamed:@"bookmark-index-selected"] forState:UIControlStateSelected | UIControlStateHighlighted];
+      UIImage *imageNotSelected = [UIImage imageNamed:@"bookmark-index"];
+      UIImage *imageSelected = [UIImage imageNamed:@"bookmark-index-selected"];
+      
+      [self setImage:imageNotSelected forState:UIControlStateNormal];
+      [self setImage:imageSelected forState:UIControlStateSelected];
+      [self setImage:imageNotSelected forState:UIControlStateHighlighted | UIControlStateNormal];
+      [self setImage:imageSelected forState:UIControlStateSelected | UIControlStateHighlighted];
       break;
     }
     case BookmarkButtonFlavorDetailsScreen: {
-      UIImage *imageNotSelected = [[UIImage imageNamed:@"bookmark-index"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-      UIImage *imageSelected = [[UIImage imageNamed:@"bookmark-index-selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+      UIImage *imageNotSelected = [[[UIImage imageNamed:@"bookmark-index"]
+                                    imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                                    tintedImage:[Colors get].bookmarkDetailScreen];
+      UIImage *imageSelected = [[[UIImage imageNamed:@"bookmark-index-selected"]
+                                 imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                                 tintedImage:[Colors get].bookmarkDetailScreen];
       
-      [self setImage:[imageNotSelected tintedImage:[Colors get].bookmarkDetailScreen]
-            forState:UIControlStateNormal];
-      [self setImage:[imageSelected tintedImage:[Colors get].bookmarkDetailScreen]
-            forState:UIControlStateSelected];
-      [self setImage:[imageNotSelected tintedImage:[Colors get].bookmarkDetailScreen]
-            forState:UIControlStateHighlighted | UIControlStateNormal];
-      [self setImage:[imageSelected tintedImage:[Colors get].bookmarkDetailScreen] forState:UIControlStateHighlighted | UIControlStateSelected];
+      [self setImage:imageNotSelected forState:UIControlStateNormal];
+      [self setImage:imageSelected forState:UIControlStateSelected];
+      [self setImage:imageNotSelected forState:UIControlStateHighlighted | UIControlStateNormal];
+      [self setImage:imageSelected forState:UIControlStateHighlighted | UIControlStateSelected];
       break;
     }
     case BookmarkButtonFlavorBottomSheet: {
-      UIImage *imageNotSelected = [[UIImage imageNamed:@"bookmark-index"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-      UIImage *imageSelected = [[UIImage imageNamed:@"bookmark-index-selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+      UIImage *imageNotSelected = [[[UIImage imageNamed:@"bookmark-index"]
+                                    imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                                    tintedImage:[Colors get].bookmarkUnselectedBottomSheetTintColor];
+      UIImage *imageSelected = [[[UIImage imageNamed:@"bookmark-index-selected"]
+                                 imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                                 tintedImage:[Colors get].bookmarkSelectedBottomSheetTintColor];
       
-      [self setImage:[imageNotSelected tintedImage:[Colors get].bookmarkBottomSheetTintColor]
-            forState:UIControlStateNormal];
-      [self setImage:[imageSelected tintedImage:[Colors get].bookmarkBottomSheetTintColor]
-            forState:UIControlStateSelected];
-      [self setImage:[imageNotSelected tintedImage:[Colors get].bookmarkBottomSheetTintColor]
-            forState:UIControlStateHighlighted | UIControlStateNormal];
-      [self setImage:[imageSelected tintedImage:[Colors get].bookmarkBottomSheetTintColor]
-            forState:UIControlStateHighlighted | UIControlStateSelected];
+      [self setImage:imageNotSelected forState:UIControlStateNormal];
+      [self setImage:imageSelected forState:UIControlStateSelected];
+      [self setImage:imageNotSelected forState:UIControlStateHighlighted | UIControlStateNormal];
+      [self setImage:imageSelected forState:UIControlStateHighlighted | UIControlStateSelected];
       break;
     }
   }
