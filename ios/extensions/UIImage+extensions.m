@@ -20,10 +20,10 @@
   return tintedImage;
 }
 
-- (UIImage *)named:(NSString *)imageName withTintColor:(UIColor *)color {
++ (UIImage *)named:(NSString *)imageName withTintColor:(UIColor *)color {
   UIImage *image = [[[UIImage imageNamed:imageName]
-                             imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
-                             tintedImage:color];
+                     imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                    tintedImage:color];
   return image;
 }
 

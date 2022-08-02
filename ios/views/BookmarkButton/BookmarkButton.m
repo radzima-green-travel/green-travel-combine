@@ -50,21 +50,21 @@
 - (void)setUpImages {
   switch (self.flavor) {
     case BookmarkButtonFlavorIndex: {
-      UIImage *imageNotSelected = [[UIImage alloc] named:@"bookmark-index" withTintColor:[Colors get].bookmarkIndexScreen];
-      UIImage *imageSelected = [[UIImage alloc] named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkIndexScreen];
-      [self setImageForSelectedStates:imageSelected imageForNormalState:imageNotSelected];
+      UIImage *imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkIndexScreen];
+      UIImage *imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkIndexScreen];
+      [self setImageForSelectedState:imageSelected imageForNormalState:imageNotSelected];
       break;
     }
     case BookmarkButtonFlavorDetailsScreen: {
-      UIImage *imageNotSelected = [[UIImage alloc] named:@"bookmark-index" withTintColor:[Colors get].bookmarkDetailScreen];
-      UIImage *imageSelected = [[UIImage alloc] named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkDetailScreen];
-      [self setImageForSelectedStates:imageSelected imageForNormalState:imageNotSelected];
+      UIImage *imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkDetailScreen];
+      UIImage *imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkDetailScreen];
+      [self setImageForSelectedState:imageSelected imageForNormalState:imageNotSelected];
       break;
     }
     case BookmarkButtonFlavorBottomSheet: {
-      UIImage *imageNotSelected = [[UIImage alloc] named:@"bookmark-index" withTintColor:[Colors get].bookmarkUnselectedBottomSheetTintColor];
-      UIImage *imageSelected = [[UIImage alloc] named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkSelectedBottomSheetTintColor];
-      [self setImageForSelectedStates:imageSelected imageForNormalState:imageNotSelected];
+      UIImage *imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkUnselectedBottomSheetTintColor];
+      UIImage *imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkSelectedBottomSheetTintColor];
+      [self setImageForSelectedState:imageSelected imageForNormalState:imageNotSelected];
       break;
     }
   }
