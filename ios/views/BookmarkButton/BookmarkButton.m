@@ -52,19 +52,19 @@
     case BookmarkButtonFlavorIndex: {
       UIImage *imageNotSelected = [[UIImage alloc] named:@"bookmark-index" withTintColor:[Colors get].bookmarkIndexScreen];
       UIImage *imageSelected = [[UIImage alloc] named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkIndexScreen];
-      [self setSelectedImageForStates:imageSelected :imageNotSelected];
+      [self setImageForSelectedStates:imageSelected imageForNormalState:imageNotSelected];
       break;
     }
     case BookmarkButtonFlavorDetailsScreen: {
       UIImage *imageNotSelected = [[UIImage alloc] named:@"bookmark-index" withTintColor:[Colors get].bookmarkDetailScreen];
       UIImage *imageSelected = [[UIImage alloc] named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkDetailScreen];
-      [self setSelectedImageForStates:imageSelected :imageNotSelected];
+      [self setImageForSelectedStates:imageSelected imageForNormalState:imageNotSelected];
       break;
     }
     case BookmarkButtonFlavorBottomSheet: {
       UIImage *imageNotSelected = [[UIImage alloc] named:@"bookmark-index" withTintColor:[Colors get].bookmarkUnselectedBottomSheetTintColor];
       UIImage *imageSelected = [[UIImage alloc] named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkSelectedBottomSheetTintColor];
-      [self setSelectedImageForStates:imageSelected :imageNotSelected];
+      [self setImageForSelectedStates:imageSelected imageForNormalState:imageNotSelected];
       break;
     }
   }

@@ -9,11 +9,11 @@
 
 @implementation UIButton (Extensions)
 
-- (void)setSelectedImageForStates:(nonnull UIImage *)imageSelected notSelected:(nonnull UIImage *)imageNotSelected {
-  [self setImage:imageNotSelected forState:UIControlStateNormal];
-  [self setImage:imageSelected forState:UIControlStateSelected];
-  [self setImage:imageNotSelected forState:UIControlStateHighlighted | UIControlStateNormal];
-  [self setImage:imageSelected forState:UIControlStateSelected | UIControlStateHighlighted];
+- (void)setImageForSelectedStates:(nonnull UIImage *)imageForSelectedState imageForNormalState:(nonnull UIImage *)imageForNormalState {
+  [self setImage:imageForNormalState forState:UIControlStateNormal];
+  [self setImage:imageForSelectedState forState:UIControlStateSelected];
+  [self setImage:imageForNormalState forState:UIControlStateHighlighted | UIControlStateNormal];
+  [self setImage:imageForSelectedState forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 @end
