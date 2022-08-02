@@ -44,8 +44,6 @@ static const CGFloat kTopOffset = 90.0;
   [self.procedureChoiceView addTarget:self action:@selector(onModeChoice:)
                      forControlEvents:UIControlEventValueChanged];
   [self.procedureChoiceView setTintColor:[Colors get].buttonTextTint];
-  [self.procedureChoiceView setBackgroundColor:[Colors get].segmentedControlBackground];
-  [self fixSegmentControl:self.procedureChoiceView];
   self.procedureChoiceView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.procedureChoiceView];
   NSLayoutConstraint *leading = [self.procedureChoiceView.leadingAnchor
@@ -156,15 +154,6 @@ static const CGFloat kTopOffset = 90.0;
                                        animated:YES];
 }
 
-- (void)fixSegmentControl: (UISegmentedControl *) segmentControl {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-      for (int i = 0; i < [segmentControl numberOfSegments]; i++)
-      {
-        UIView *view = self.procedureChoiceView.subviews[i];
-        [view setHidden:YES];
-      }
-    });
-}
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
                   toCurrentState:(UserModelState)currentState {
