@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (Extensions)
 
-- (void)setImageForSelectedStates:(nonnull UIImage *)imageForSelectedState imageForNormalState:(nonnull UIImage *)imageForNormalState;
+- (void)setImageForSelectedState:(nonnull UIImage *)imageForSelectedState imageForNormalState:(nonnull UIImage *)imageForNormalState;
 
 @end
 
