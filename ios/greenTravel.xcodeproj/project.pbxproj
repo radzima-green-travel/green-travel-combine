@@ -213,6 +213,7 @@
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
 		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
 		5E510A78289823430095A302 /* UIImage+extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E510A77289823430095A302 /* UIImage+extensions.m */; };
+		5E6B29BB28994EAA008796F8 /* UIButton+extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B29BA28994EAA008796F8 /* UIButton+extensions.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -635,6 +636,8 @@
 		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
 		5E510A76289823430095A302 /* UIImage+extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+extensions.h"; sourceTree = "<group>"; };
 		5E510A77289823430095A302 /* UIImage+extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+extensions.m"; sourceTree = "<group>"; };
+		5E6B29B928994EAA008796F8 /* UIButton+extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+extensions.h"; sourceTree = "<group>"; };
+		5E6B29BA28994EAA008796F8 /* UIButton+extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+extensions.m"; sourceTree = "<group>"; };
 		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -1813,6 +1816,8 @@
 			children = (
 				5E510A76289823430095A302 /* UIImage+extensions.h */,
 				5E510A77289823430095A302 /* UIImage+extensions.m */,
+				5E6B29B928994EAA008796F8 /* UIButton+extensions.h */,
+				5E6B29BA28994EAA008796F8 /* UIButton+extensions.m */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2159,6 +2164,7 @@
 				"${BUILT_PRODUCTS_DIR}/react-native-geolocation-service/react_native_geolocation_service.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-mapbox-gl/react_native_mapbox_gl.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-pager-view/react_native_pager_view.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-safe-area-context/react_native_safe_area_context.framework",
 				"${BUILT_PRODUCTS_DIR}/rn-fetch-blob/rn_fetch_blob.framework",
 			);
@@ -2232,6 +2238,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_geolocation_service.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_mapbox_gl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_netinfo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_pager_view.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_safe_area_context.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/rn_fetch_blob.framework",
 			);
@@ -2391,6 +2398,7 @@
 				5A775E0526077A7D00CEFC78 /* MapButton.m in Sources */,
 				5AB4AFD227B5B20E00C74857 /* StoredInformationReference+CoreDataProperties.m in Sources */,
 				5A775B2126064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataClass.m in Sources */,
+				5E6B29BB28994EAA008796F8 /* UIButton+extensions.m in Sources */,
 				5AB4AFD027B5B20E00C74857 /* StoredInformationReference+CoreDataClass.m in Sources */,
 				5A775E1526077A7D00CEFC78 /* SearchCell.m in Sources */,
 				5A775DF626077A7D00CEFC78 /* BookmarkCell.m in Sources */,
