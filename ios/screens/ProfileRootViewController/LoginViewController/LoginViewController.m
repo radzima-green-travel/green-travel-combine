@@ -154,7 +154,6 @@ static const CGFloat kTopOffset = 90.0;
                                        animated:YES];
 }
 
-
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
                   toCurrentState:(UserModelState)currentState {
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
