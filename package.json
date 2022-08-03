@@ -66,7 +66,7 @@
     "react-native-tab-view": "^3.1.1",
     "react-native-ultimate-config": "3.3.4",
     "react-native-version": "^4.0.0",
-    "react-native-webview": "10.9.0",
+    "react-native-webview": "11.23.0",
     "react-redux": "7.2.0",
     "react-redux-help-kit": "^1.1.2",
     "redux": "4.0.5",
