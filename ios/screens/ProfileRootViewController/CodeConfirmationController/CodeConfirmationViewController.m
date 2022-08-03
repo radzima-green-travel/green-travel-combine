@@ -44,6 +44,7 @@
   NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"CodeConfirmationScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
   [self.titleLabel setNumberOfLines:0];
+  [self.titleLabel setTextColor:[Colors get].headlineText];
   [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
   [self.contentView addSubview:self.titleLabel];
   self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
