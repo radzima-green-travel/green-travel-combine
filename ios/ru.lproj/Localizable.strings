@@ -72,10 +72,9 @@
 "ResetPasswordEMailScreenTitle" = "Сбросить пароль";
 "ResetPasswordEMailScreenHeader" = "Reset password";
 "ResetPasswordEMailScreenHint" = "Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля";
-"ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
 
 "ResetPasswordPassCodeScreenTitle" = "Сбросить пароль";
-"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenHeader" = "Сбросить пароль";
 "ResetPasswordPassCodeScreenHint" = "введите цифры из письма, высланного на  электронную почту %@";
 
 "ResetPasswordNewPasswordScreenTitle" = "Сбросить пароль";
