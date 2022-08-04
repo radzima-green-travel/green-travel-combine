@@ -361,7 +361,7 @@ static NSString* const kAttributeType = @"type";
   dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@1];
   dashedLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPath];
   dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
-  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@5, @5]];
+  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@5]];
   [style addLayer:dashedLayer];
 }
 
