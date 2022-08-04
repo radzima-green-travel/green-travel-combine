@@ -253,13 +253,22 @@ static NSString* const kAttributeType = @"type";
     [style addSource:sourcePath];
 
     MGLLineStyleLayer *pathLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourcePath];
-    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].areaOutline];
+    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].mapDirectionsPathFrontLayer];
     pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     pathLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
-    pathLayer.lineWidth =
-    [NSExpression expressionForConstantValue:@4.0];
-
+    pathLayer.lineWidth = [NSExpression expressionForConstantValue:@4.0];
+    
     [style addLayer:pathLayer];
+    
+    MGLLineStyleLayer *backwardLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:@"backward" source:sourcePath];
+    backwardLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].mapDirectionsPathBackgroundLayer];
+    backwardLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+    backwardLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
+    backwardLayer.lineWidth = [NSExpression expressionForConstantValue:@6.0];
+    
+    [style insertLayer:backwardLayer belowLayer:pathLayer];
+
+    
   };
   if (sourceOutline) {
     [style addSource:sourceOutline];
@@ -355,14 +364,22 @@ static NSString* const kAttributeType = @"type";
                                        shape:shape options:nil];
   [style addSource:sourceDirections];
 
-  MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
-  dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
-  dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
-  dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@1];
-  dashedLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPath];
-  dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
-  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@5]];
-  [style addLayer:dashedLayer];
+  MGLLineStyleLayer *backwardLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
+  backwardLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+  backwardLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
+  backwardLayer.lineWidth = [NSExpression expressionForConstantValue:@6];
+  backwardLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPathBackgroundLayer];
+  backwardLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+  [style addLayer:backwardLayer];
+  
+  MGLLineStyleLayer *forwardLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:@"forward" source:sourceDirections];
+  forwardLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+  forwardLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
+  forwardLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
+  forwardLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPathFrontLayer];
+  forwardLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+  
+  [style insertLayer:forwardLayer aboveLayer:backwardLayer];
 }
 
 #pragma mark - removeDuplicateAnnotations
