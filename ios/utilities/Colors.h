@@ -17,7 +17,10 @@ NSString* UIColorToHEX(UIColor *color);
 @interface Colors : NSObject
 
 @property (strong, nonatomic) UIColor *background;
+@property (strong, nonatomic) UIColor *textFieldBackground;
+@property (strong, nonatomic) UIColor *textFieldBorderColor;
 @property (strong, nonatomic) UIColor *navigationBarTint;
+@property (strong, nonatomic) UIColor *mapDirectionsPath;
 @property (strong, nonatomic) UIColor *navigationBarColorStart;
 @property (strong, nonatomic) UIColor *navigationBarColorStop;
 @property (strong, nonatomic) UIColor *navigationBarColor;
@@ -33,6 +36,10 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *categoryTitleText;
 @property (strong, nonatomic) UIColor *bookmarkCellText;
 @property (strong, nonatomic) UIColor *bookmarkTintFullCell;
+@property (strong, nonatomic) UIColor *bookmarkSelectedBottomSheetTintColor;
+@property (strong, nonatomic) UIColor *bookmarkUnselectedBottomSheetTintColor;
+@property (strong, nonatomic) UIColor *bookmarkDetailScreen;
+@property (strong, nonatomic) UIColor *bookmarkIndexScreen;
 @property (strong, nonatomic) UIColor *buttonNewDataBackground;
 @property (strong, nonatomic) UIColor *buttonNewDataBackgroundHighlighted;
 @property (strong, nonatomic) UIColor *buttonNewDataText;
@@ -52,6 +59,8 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *searchBarClearButton;
 @property (strong, nonatomic) UIColor *passCodeTint;
 @property (strong, nonatomic) UIColor *buttonTextTint;
+@property (strong, nonatomic) UIColor *areaOutline;
+@property (strong, nonatomic) UIColor *areaFill;
 + (instancetype)get;
 
 @end

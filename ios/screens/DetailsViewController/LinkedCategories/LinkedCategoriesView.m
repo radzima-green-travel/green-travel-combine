@@ -9,7 +9,6 @@
 #import "LinkedCategoriesView.h"
 #import "LabelledButtonGroup.h"
 #import "IndexModel.h"
-#import "ApiService.h"
 #import "DetailsModel.h"
 #import "MapModel.h"
 #import "LocationModel.h"
@@ -51,7 +50,7 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
     }
     return self;
 }
-  
+
 - (void)setUp:(NSString *)title {
   __weak typeof(self) weakSelf = self;
   self.buttonGroupView = [[LabelledButtonGroup alloc] initWithConfigItems:@[] label:title cellClass:CategoryLinkCell.class onPress:^(NSObject * _Nonnull dataItem) {
@@ -70,13 +69,13 @@ static NSString * const kCategoryLinkCellId = @"categoryLinkCellId";
 - (void)update:(NSArray<CategoryUUIDToRelatedItemUUIDs *>*)categoryIdToItems {
   self.categoryIdToItems = categoryIdToItems;
   [self.categories removeAllObjects];
-  
+
   NSMutableDictionary<NSString *, PlaceCategory *> *categoryUUIDToCategoryMap =  flattenCategoriesTreeIntoCategoriesMap(self.indexModel.categories);
   [categoryIdToItems enumerateObjectsUsingBlock:^(CategoryUUIDToRelatedItemUUIDs * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     PlaceCategory *category = categoryUUIDToCategoryMap[obj.categoryUUID];
     [self.categories addObject:category];
   }];
-  
+
   [self.buttonGroupView update:self.categories];
   [self setNeedsLayout];
   [self layoutIfNeeded];

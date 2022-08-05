@@ -17,7 +17,6 @@
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIButtonHighlightable *forgotPasswordButton;
-@property (strong, nonatomic) CommonTextField *textFieldMail;
 @property (strong, nonatomic) SecureTextField *textFieldPass;
 @property (strong, nonatomic) CommonButton *submitButton;
 @property (copy, nonatomic) void(^onSubmit)(NSString *, NSString *, NSString *);

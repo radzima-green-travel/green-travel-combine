@@ -6,10 +6,8 @@
 //
 
 #import "LabelledButtonGroup.h"
-
 #import "LinkedCategoriesView.h"
 #import "IndexModel.h"
-#import "ApiService.h"
 #import "DetailsModel.h"
 #import "MapModel.h"
 #import "LocationModel.h"
@@ -63,19 +61,19 @@ static NSUInteger kRowHeight = 46.0;
 
 - (void)setUp {
   self.labelView = [[UILabel alloc] init];
-  
+
   self.labelView.numberOfLines = 2;
   self.labelView.translatesAutoresizingMaskIntoConstraints = NO;
   self.labelView.attributedText = [[TypographyLegacy get] makeTitle1Bold:self.title];
-  
+
   [self addSubview:self.labelView];
-  
+
   [NSLayoutConstraint activateConstraints:@[
     [self.labelView.topAnchor constraintEqualToAnchor:self.topAnchor constant:0],
     [self.labelView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:16.0],
     [self.labelView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-25.0],
   ]];
-  
+
   self.tableView = [[UITableView alloc] init];
   [self.tableView registerClass:self.cellClass
          forCellReuseIdentifier:kButtonCellId];
@@ -84,10 +82,10 @@ static NSUInteger kRowHeight = 46.0;
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.scrollEnabled = NO;
   self.tableView.alwaysBounceVertical = NO;
-  
+
   self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
   [self addSubview:self.tableView];
-  
+
   [NSLayoutConstraint activateConstraints:@[
     [self.tableView.topAnchor constraintEqualToAnchor:self.labelView.bottomAnchor constant:18],
     [self.tableView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:0.0],
@@ -98,13 +96,13 @@ static NSUInteger kRowHeight = 46.0;
 
 - (void)update:(NSArray *)items {
   self.items = [[NSMutableArray alloc] initWithArray:items];
-  
+
   [self.tableView reloadData];
-  
+
   if ([self.items count] == 0) {
       [self setHidden:YES];
   }
-  
+
   if (self.tableViewHeightConstraint) {
       [NSLayoutConstraint deactivateConstraints:@[self.tableViewHeightConstraint]];
   }
@@ -135,7 +133,7 @@ static NSUInteger kRowHeight = 46.0;
   }
   return (UITableViewCell *)cell;
 }
- 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return [self.items count];
 }

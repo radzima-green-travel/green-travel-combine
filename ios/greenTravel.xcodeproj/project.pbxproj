@@ -117,8 +117,7 @@
 		5A775B6126064C9000CEFC78 /* PlaceDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A8F26064C8F00CEFC78 /* PlaceDetails.m */; };
 		5A775B6226064C9000CEFC78 /* PlaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775A9326064C8F00CEFC78 /* PlaceItem.m */; };
 		5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0226064C9000CEFC78 /* CoreDataService.m */; };
-		5A775B8726064C9000CEFC78 /* ApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0626064C9000CEFC78 /* ApiService.m */; };
-		5A775B8826064C9000CEFC78 /* ApiServiceDataMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */; };
+		5A775B8726064C9000CEFC78 /* ApiServiceIndexFileLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */; };
 		5A775B8926064C9000CEFC78 /* UserDefaultsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0926064C9000CEFC78 /* UserDefaultsService.m */; };
 		5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0C26064C9000CEFC78 /* ImageUtils.m */; };
 		5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775B0D26064C9000CEFC78 /* CategoryUtils.m */; };
@@ -171,8 +170,11 @@
 		5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894328424A980000271B /* CodeConfirmationViewController.m */; };
 		5A9889482843A5BB0000271B /* PassCodeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9889472843A5BB0000271B /* PassCodeTextField.m */; };
 		5A98894C2843AA030000271B /* NumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894B2843AA030000271B /* NumberView.m */; };
+		5A99115F287F099C0061C1AD /* ResetPasswordRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99115E287F099C0061C1AD /* ResetPasswordRequestViewController.m */; };
+		5A99116228801CC30061C1AD /* ApiServiceBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99116128801CC30061C1AD /* ApiServiceBase.m */; };
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
+		5A9DD883287B0F7800D4A988 /* ApiServiceIndexFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9DD882287B0F7800D4A988 /* ApiServiceIndexFile.m */; };
 		5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB227B016D000C74857 /* LocaleUtils.m */; };
 		5AB4AFB627B0311800C74857 /* InformationReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB527B0311800C74857 /* InformationReference.m */; };
 		5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB827B31D8300C74857 /* LabelledButtonGroup.m */; };
@@ -210,6 +212,8 @@
 		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
 		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
+		5E510A78289823430095A302 /* UIImage+extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E510A77289823430095A302 /* UIImage+extensions.m */; };
+		5E6B29BB28994EAA008796F8 /* UIButton+extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6B29BA28994EAA008796F8 /* UIButton+extensions.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -431,10 +435,8 @@
 		5A775A9726064C8F00CEFC78 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedItem.h; sourceTree = "<group>"; };
 		5A775B0126064C9000CEFC78 /* CoreDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataService.h; sourceTree = "<group>"; };
 		5A775B0226064C9000CEFC78 /* CoreDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataService.m; sourceTree = "<group>"; };
-		5A775B0426064C9000CEFC78 /* ApiService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiService.h; sourceTree = "<group>"; };
-		5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiServiceDataMapper.h; sourceTree = "<group>"; };
-		5A775B0626064C9000CEFC78 /* ApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiService.m; sourceTree = "<group>"; };
-		5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiServiceDataMapper.m; sourceTree = "<group>"; };
+		5A775B0426064C9000CEFC78 /* ApiServiceIndexFileLegacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiServiceIndexFileLegacy.h; sourceTree = "<group>"; };
+		5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiServiceIndexFileLegacy.m; sourceTree = "<group>"; };
 		5A775B0926064C9000CEFC78 /* UserDefaultsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsService.m; sourceTree = "<group>"; };
 		5A775B0A26064C9000CEFC78 /* UserDefaultsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsService.h; sourceTree = "<group>"; };
 		5A775B0C26064C9000CEFC78 /* ImageUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtils.m; sourceTree = "<group>"; };
@@ -546,10 +548,16 @@
 		5A9889472843A5BB0000271B /* PassCodeTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PassCodeTextField.m; sourceTree = "<group>"; };
 		5A98894A2843AA030000271B /* NumberView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberView.h; sourceTree = "<group>"; };
 		5A98894B2843AA030000271B /* NumberView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberView.m; sourceTree = "<group>"; };
+		5A99115D287F099C0061C1AD /* ResetPasswordRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResetPasswordRequestViewController.h; sourceTree = "<group>"; };
+		5A99115E287F099C0061C1AD /* ResetPasswordRequestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordRequestViewController.m; sourceTree = "<group>"; };
+		5A99116028801CC30061C1AD /* ApiServiceBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiServiceBase.h; sourceTree = "<group>"; };
+		5A99116128801CC30061C1AD /* ApiServiceBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApiServiceBase.m; sourceTree = "<group>"; };
 		5A9D706B26EE447B00F4799D /* CommonButtonWithProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonButtonWithProgress.h; sourceTree = "<group>"; };
 		5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonButtonWithProgress.m; sourceTree = "<group>"; };
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
 		5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewDetailedMap.m; sourceTree = "<group>"; };
+		5A9DD881287B0F7800D4A988 /* ApiServiceIndexFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiServiceIndexFile.h; sourceTree = "<group>"; };
+		5A9DD882287B0F7800D4A988 /* ApiServiceIndexFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApiServiceIndexFile.m; sourceTree = "<group>"; };
 		5AA3DB3E284EB5B4009D506E /* UserModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelConstants.h; sourceTree = "<group>"; };
 		5AB4AFB127B016D000C74857 /* LocaleUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleUtils.h; sourceTree = "<group>"; };
 		5AB4AFB227B016D000C74857 /* LocaleUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaleUtils.m; sourceTree = "<group>"; };
@@ -569,6 +577,7 @@
 		5AB4AFD327C27B2B00C74857 /* DetailsScreenController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsScreenController.h; sourceTree = "<group>"; };
 		5AB4AFD427C27B2B00C74857 /* DetailsScreenController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsScreenController.m; sourceTree = "<group>"; };
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5AC097E4288EDB3F00054AEA /* greenTravelDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelDebug.entitlements; path = greenTravel/greenTravelDebug.entitlements; sourceTree = "<group>"; };
 		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
 		5ACC9A98283948CA008E302D /* CommonTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonTextField.h; sourceTree = "<group>"; };
@@ -628,6 +637,10 @@
 		5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchProgressViewController.m; sourceTree = "<group>"; };
 		5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchErrorViewController.h; sourceTree = "<group>"; };
 		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
+		5E510A76289823430095A302 /* UIImage+extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+extensions.h"; sourceTree = "<group>"; };
+		5E510A77289823430095A302 /* UIImage+extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+extensions.m"; sourceTree = "<group>"; };
+		5E6B29B928994EAA008796F8 /* UIButton+extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+extensions.h"; sourceTree = "<group>"; };
+		5E6B29BA28994EAA008796F8 /* UIButton+extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+extensions.m"; sourceTree = "<group>"; };
 		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -666,6 +679,7 @@
 			children = (
 				5A1102242833FCC600FC967A /* amplifyconfiguration.json */,
 				5A1102232833FCC600FC967A /* awsconfiguration.json */,
+				5E510A75289823430095A302 /* extensions */,
 				5A775A3426064C8E00CEFC78 /* fonts */,
 				5A775A0326064C8E00CEFC78 /* managedobjects */,
 				5A775A5126064C8F00CEFC78 /* models */,
@@ -1148,12 +1162,14 @@
 			isa = PBXGroup;
 			children = (
 				5A97FE1F278F696B006E575D /* IndexLoader.h */,
-				5A775B0426064C9000CEFC78 /* ApiService.h */,
-				5A775B0626064C9000CEFC78 /* ApiService.m */,
-				5A775B0526064C9000CEFC78 /* ApiServiceDataMapper.h */,
-				5A775B0726064C9000CEFC78 /* ApiServiceDataMapper.m */,
+				5A99116028801CC30061C1AD /* ApiServiceBase.h */,
+				5A99116128801CC30061C1AD /* ApiServiceBase.m */,
+				5A775B0426064C9000CEFC78 /* ApiServiceIndexFileLegacy.h */,
+				5A775B0626064C9000CEFC78 /* ApiServiceIndexFileLegacy.m */,
 				5A97FE21279C1702006E575D /* GraphQLApiService.h */,
 				5A97FE22279C1702006E575D /* GraphQLApiService.m */,
+				5A9DD881287B0F7800D4A988 /* ApiServiceIndexFile.h */,
+				5A9DD882287B0F7800D4A988 /* ApiServiceIndexFile.m */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -1588,6 +1604,15 @@
 			path = NumberView;
 			sourceTree = "<group>";
 		};
+		5A99115C287F09630061C1AD /* ResetPasswordRequestViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A99115D287F099C0061C1AD /* ResetPasswordRequestViewController.h */,
+				5A99115E287F099C0061C1AD /* ResetPasswordRequestViewController.m */,
+			);
+			path = ResetPasswordRequestViewController;
+			sourceTree = "<group>";
+		};
 		5A9D706E26EE448000F4799D /* CommonButtonWithProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -1762,6 +1787,7 @@
 				5A98894128424A1B0000271B /* CodeConfirmationController */,
 				5A096AFA2836A1F0000FADB2 /* LoginViewController */,
 				5A6685D9285A362D008E193E /* ResetPasswordNewPasswordViewController */,
+				5A99115C287F09630061C1AD /* ResetPasswordRequestViewController */,
 				5A6685D8285A3609008E193E /* ResetPasswordPassCodeViewController */,
 				5A6685D7285A35EE008E193E /* ResetPasswordEMailViewController */,
 				5A6685D6285A35D7008E193E /* ResetPasswordViewController */,
@@ -1797,6 +1823,17 @@
 			path = UserFetchProgressViewController;
 			sourceTree = "<group>";
 		};
+		5E510A75289823430095A302 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5E510A76289823430095A302 /* UIImage+extensions.h */,
+				5E510A77289823430095A302 /* UIImage+extensions.m */,
+				5E6B29B928994EAA008796F8 /* UIButton+extensions.h */,
+				5E6B29BA28994EAA008796F8 /* UIButton+extensions.m */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		624E38CE2519E467001D98E2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1822,6 +1859,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5AC097E4288EDB3F00054AEA /* greenTravelDebug.entitlements */,
 				624E38CE2519E467001D98E2 /* Resources */,
 				13B07FAE1A68108700A75B9A /* GreenTravel */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -2165,6 +2203,7 @@
 				"${BUILT_PRODUCTS_DIR}/react-native-geolocation-service/react_native_geolocation_service.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-mapbox-gl/react_native_mapbox_gl.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-pager-view/react_native_pager_view.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-safe-area-context/react_native_safe_area_context.framework",
 				"${BUILT_PRODUCTS_DIR}/rn-fetch-blob/rn_fetch_blob.framework",
 			);
@@ -2238,6 +2277,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_geolocation_service.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_mapbox_gl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_netinfo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_pager_view.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_safe_area_context.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/rn_fetch_blob.framework",
 			);
@@ -2291,6 +2331,7 @@
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
 				5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
+				5A99116228801CC30061C1AD /* ApiServiceBase.m in Sources */,
 				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
 				5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */,
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
@@ -2332,7 +2373,6 @@
 				5A95F1FB2847F39500CCA852 /* BaseFormViewController.m in Sources */,
 				5A775E0026077A7D00CEFC78 /* FilterOption.m in Sources */,
 				5A775E1026077A7D00CEFC78 /* BannerView.m in Sources */,
-				5A775B8826064C9000CEFC78 /* ApiServiceDataMapper.m in Sources */,
 				5A775E0326077A7D00CEFC78 /* CategoriesFilterView.m in Sources */,
 				5A775B5226064C9000CEFC78 /* FeedModel.m in Sources */,
 				5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */,
@@ -2369,6 +2409,7 @@
 				5A775DFE26077A7D00CEFC78 /* CategoriesFilterSpacerCollectionViewCell.m in Sources */,
 				5A6685E5285A36BC008E193E /* ResetPasswordViewController.m in Sources */,
 				5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */,
+				5E510A78289823430095A302 /* UIImage+extensions.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
@@ -2376,6 +2417,7 @@
 				5A6685E2285A36AC008E193E /* ResetPasswordEMailViewController.m in Sources */,
 				5AD347E32837C2C500235E96 /* UserController.m in Sources */,
 				5AD347EF2837FD2800235E96 /* SignUpFormView.m in Sources */,
+				5A99115F287F099C0061C1AD /* ResetPasswordRequestViewController.m in Sources */,
 				5A6685DC285A3687008E193E /* ResetPasswordNewPasswordViewController.m in Sources */,
 				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
@@ -2388,8 +2430,8 @@
 				5A775B6126064C9000CEFC78 /* PlaceDetails.m in Sources */,
 				5A6CC8E0279D9AB700EE6E35 /* IndexController.m in Sources */,
 				5A775B8926064C9000CEFC78 /* UserDefaultsService.m in Sources */,
-				5A775B8726064C9000CEFC78 /* ApiService.m in Sources */,
 				D9EA11FF285B9C4900FFA405 /* NavigationController.m in Sources */,
+				5A775B8726064C9000CEFC78 /* ApiServiceIndexFileLegacy.m in Sources */,
 				5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */,
 				5A775B2826064C9000CEFC78 /* StoredCategory+CoreDataClass.m in Sources */,
 				5A775E0E26077A7D00CEFC78 /* GalleryView.m in Sources */,
@@ -2397,6 +2439,7 @@
 				5A775E0526077A7D00CEFC78 /* MapButton.m in Sources */,
 				5AB4AFD227B5B20E00C74857 /* StoredInformationReference+CoreDataProperties.m in Sources */,
 				5A775B2126064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataClass.m in Sources */,
+				5E6B29BB28994EAA008796F8 /* UIButton+extensions.m in Sources */,
 				5AB4AFD027B5B20E00C74857 /* StoredInformationReference+CoreDataClass.m in Sources */,
 				5A775E1526077A7D00CEFC78 /* SearchCell.m in Sources */,
 				5A775DF626077A7D00CEFC78 /* BookmarkCell.m in Sources */,
@@ -2445,6 +2488,7 @@
 				5A775A0126064C6A00CEFC78 /* AppDelegate.m in Sources */,
 				5A775B4F26064C9000CEFC78 /* SearchModel.m in Sources */,
 				5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */,
+				5A9DD883287B0F7800D4A988 /* ApiServiceIndexFile.m in Sources */,
 				5AD6BF1126BEA9DF00DD3F2B /* ScrollViewUtils.m in Sources */,
 				5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */,
 				5A6DC5042655B1D900A2D37B /* StoredCoordinateCollection+CoreDataClass.m in Sources */,
@@ -2488,9 +2532,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2526,9 +2571,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",
@@ -2619,9 +2665,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = K36CA7QL4T;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",

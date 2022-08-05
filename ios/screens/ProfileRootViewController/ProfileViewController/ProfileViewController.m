@@ -38,7 +38,7 @@
   [self.contentView addSubview:self.logOutButton];
   
   [NSLayoutConstraint activateConstraints:@[
-    [self.logOutButton.topAnchor constraintEqualToAnchor:loggedInLabel.bottomAnchor constant:CommonFormTexFieldAndButtonSpace],
+    [self.logOutButton.topAnchor constraintEqualToAnchor:loggedInLabel.bottomAnchor constant:CommonFormTextFieldAndButtonSpace],
     [self.logOutButton.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor],
     [self.logOutButton.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor],
   ]];

@@ -13,8 +13,8 @@
 #import "ColorsLegacy.h"
 #import "Colors.h"
 #import "TextUtils.h"
-#import "ApiService.h"
 #import "GraphQLApiService.h"
+#import "ApiServiceIndexFile.h"
 #import "IndexModel.h"
 #import "DetailsModel.h"
 #import "SearchModel.h"
@@ -41,7 +41,7 @@
 
 @interface MainViewController ()
 
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) IndexModel *indexModel;
@@ -61,17 +61,10 @@
 @implementation MainViewController
 
 - (void)viewWillLayoutSubviews {
-  
+
   configureTabBar(self.tabBar);
-  
+
   self.view.backgroundColor = [Colors get].background;
-  
-  configureTabBarItem(self.indexTabBarItem, [UIImage imageNamed:@"home"],
-                      [UIImage imageNamed:@"home-selected"]);
-  configureTabBarItem(self.mapTabBarItem, [UIImage imageNamed:@"map"],
-                      [UIImage imageNamed:@"map-selected"]);
-  configureTabBarItem(self.bookmarksTabBarItem, [UIImage imageNamed:@"bookmark"],
-                      [UIImage imageNamed:@"bookmark-selected"]);
 }
 
 - (void)viewDidLoad {
@@ -82,7 +75,7 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     UserDefaultsService *userDefaultsService = [UserDefaultsService get];
     self.session = [NSURLSession sessionWithConfiguration:configuration];
-    self.apiService = [[GraphQLApiService alloc] initWithSession:self.session];
+    self.apiService = [[ApiServiceIndexFile alloc] initWithSession:self.session];
     self.mapService = [[MapService alloc] initWithSession:self.session];
     self.coreDataService = [[CoreDataService alloc] init];
     self.indexModel = [[IndexModel alloc] initWithApiService:self.apiService
@@ -103,7 +96,7 @@
     AuthService *authService = [[AuthService alloc] initWithAmplifyBridge:bridge];
     UserModel *userModel = [[UserModel alloc] init];
     UserController *userController = [[UserController alloc] initWithModel:userModel authService:authService];
-    
+
     [bridge initialize];
     [userController fetchCurrentAuthSession];
 
@@ -113,10 +106,8 @@
     indexController.title = NSLocalizedString(@"IndexTitle", @"");
     self.indexViewControllerWithNavigation = [[NavigationController alloc] initWithRootViewController:indexController];
     UIImage *indexImage;
-    UIImage *indexImageSelected;
     indexImage = [UIImage imageNamed:@"home"];
-    indexImageSelected = [UIImage imageNamed:@"home-selected"];
-    self.indexTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMain", @""), 0, indexImage, indexImageSelected);
+    self.indexTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMain", @""), 0, indexImage);
 
     self.indexViewControllerWithNavigation.tabBarItem = self.indexTabBarItem;
 
@@ -139,10 +130,8 @@
     mapController.title = NSLocalizedString(@"MapTitle", @"");
     self.mapControllerWithNavigation = [[NavigationController alloc] initWithRootViewController:mapController];
     UIImage *mapImage;
-    UIImage *mapImageSelected;
     mapImage = [UIImage imageNamed:@"map"];
-    mapImageSelected = [UIImage imageNamed:@"map-selected"];
-    self.mapTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMap", @""), 0, mapImage, mapImageSelected);
+    self.mapTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMap", @""), 0, mapImage);
 
     self.mapControllerWithNavigation.tabBarItem = self.mapTabBarItem;
     self.mapControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
@@ -164,10 +153,8 @@
     bookmarksController.title = NSLocalizedString(@"SavedTitle", @"");
     self.bookmarksControllerWithNavigation = [[NavigationController alloc] initWithRootViewController:bookmarksController];
     UIImage *bookmarksImage;
-    UIImage *bookmarksImageSelected;
-    bookmarksImage = [UIImage imageNamed:@"bookmark"];
-    bookmarksImageSelected = [UIImage imageNamed:@"bookmark-selected"];
-    self.bookmarksTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarSaved", @""), 0, bookmarksImage, bookmarksImageSelected);
+    bookmarksImage = [UIImage imageNamed:@"bookmark-index"];
+    self.bookmarksTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarSaved", @""), 0, bookmarksImage);
 
     self.bookmarksControllerWithNavigation.tabBarItem = self.bookmarksTabBarItem;
     self.bookmarksControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
@@ -177,33 +164,30 @@
 #pragma mark - ProfileRootViewController
   self.profileRootController =
   [[ProfileRootViewController alloc] initWithController:userController model:userModel];
-  
+
   UIImage *profileImage;
-  UIImage *profileImageSelected;
   profileImage = [UIImage imageNamed:@"user"];
-  profileImageSelected = [UIImage imageNamed:@"user-selected"];
-  self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage, profileImageSelected);
-  
+  self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage);
+
   self.profileRootController.tabBarItem = self.profileTabBarItem;
-  
+
   self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
                            self.bookmarksControllerWithNavigation, self.profileRootController];
-  
+
   self.selectedIndex = 0;
-  
+
   self.bottomSheets = [[NSMutableDictionary<NSNumber *, BottomSheetView *> alloc] init];
-  
+
   [NSNotificationCenter.defaultCenter addObserver:self
                                          selector:@selector(onLocaleChange:) name:NSCurrentLocaleDidChangeNotification object:nil];
 }
 
-UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, UIImage *imageSelected) {
+UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image) {
     UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image tag:tag];
     [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes
                                        forState:UIControlStateSelected];
     [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarAttributes
                                        forState:UIControlStateNormal];
-    tabBarItem.selectedImage = imageSelected;
     return tabBarItem;
 }
 
@@ -222,13 +206,13 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image, 
       }
     }
     self.previousViewController = topController;
-    
+
     [self.bottomSheets enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key,
                                                            BottomSheetView * _Nonnull bv,
                                                            BOOL * _Nonnull stop) {
       [bv setActive:NO];
     }];
-    
+
     if (viewController == self.indexViewControllerWithNavigation) {
       [self.bottomSheets[@(MainViewControllerBottomSheetIndexDetailsMap)] setActive:YES];
       self.activeBottomSheetTypeByTab = MainViewControllerBottomSheetIndexDetailsMap;

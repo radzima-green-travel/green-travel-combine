@@ -126,13 +126,32 @@
   [self.authService signUpWithUsername:username password:password email:email
                             completion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
-    
+    if (error != nil) {
+      if (error.code == AmplifyBridgeErrorAuthErrorUsernameExists) {
+        [strongSelf resendCodeForSameUser:email
+                                 password:password];
+        return;
+      };
+      [strongSelf.model setState:UserModelStateFetched];
+      return;
+    }
+    [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
+  }];
+}
+
+- (void)resendCodeForSameUser:(NSString *)email
+                     password:(NSString *)password {
+  __weak typeof(self) weakSelf = self;
+  [self.authService resendSignUpCodeEMail:email
+                               completion:^(NSError * _Nullable error) {
+    __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateFetched];
       return;
     }
     [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
   }];
+  return;
 }
 
 - (void)confirmSignUpForEMail:(NSString *)email code:(NSString *)code {
@@ -145,10 +164,16 @@
       return;
     }
     __weak typeof(strongSelf) weakSelf = strongSelf;
-    [self signIn:strongSelf.model.email password:strongSelf.model.password
+    [strongSelf signIn:strongSelf.model.email password:strongSelf.model.password
       completion:^(NSError * _Nullable error){
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
+        if (error.code == AmplifyBridgeErrorAuthErrorNotAuthorized) {
+          // NOTE: if we cannot auto sign in after sign up, than let user reset password.
+          // https://github.com/radzima-green-travel/green-travel-combine/issues/465
+          [strongSelf.model setState:UserModelStatePasswordResetConfirmCodeNotSent];
+          return;
+        }
         [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
         return;
       }

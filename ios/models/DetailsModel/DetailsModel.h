@@ -16,14 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class PlaceDetails;
 @class PlaceItem;
 @class IndexModel;
-@class ApiService;
 @class CoreDataService;
 @protocol DetailsObserver;
+@protocol IndexLoader;
 
 @interface DetailsModel : NSObject<CategoriesObserver, DetailsObservable, DetailsBatchObserver>
 
 - (instancetype)initWithIndexModel:(IndexModel *)model
-                        apiService:(ApiService *)apiService
+                        apiService:(id<IndexLoader>)apiService
                    coreDataService:(CoreDataService *)coreDataService;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, PlaceDetails*> *itemUUIDToDetails;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, NSNumber*> *itemUUIDToStatus;

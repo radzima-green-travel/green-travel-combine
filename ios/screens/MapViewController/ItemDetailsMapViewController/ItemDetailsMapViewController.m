@@ -10,6 +10,7 @@
 @import Mapbox;
 #import "StyleUtils.h"
 #import "ColorsLegacy.h"
+#import "Colors.h"
 #import "MapModel.h"
 #import "MapItemsObserver.h"
 #import "LocationObserver.h"
@@ -21,7 +22,6 @@
 #import "MapButton.h"
 #import "SearchViewController.h"
 #import "SearchModel.h"
-#import "ApiService.h"
 #import "CoreDataService.h"
 #import "PlaceItem.h"
 #import "PlaceCategory.h"
@@ -38,6 +38,7 @@
 #import "AlertUtils.h"
 #import "MapViewControllerConstants.h"
 #import "AnalyticsEvents.h"
+#import "Colors.h"
 
 @interface ItemDetailsMapViewController ()
 
@@ -70,7 +71,7 @@ static NSString* const kAttributeType = @"type";
                       indexModel:(IndexModel *)indexModel
                      searchModel:(SearchModel *)searchModel
                     detailsModel:(DetailsModel *)detailsModel
-                      apiService:(ApiService *)apiService
+                      apiService:(id<IndexLoader>)apiService
                  coreDataService:(CoreDataService *)coreDataService
                       mapService:(MapService *)mapService
                          mapItem:(MapItem *)mapItem
@@ -84,7 +85,7 @@ static NSString* const kAttributeType = @"type";
     _itemDetails = itemDetails;
   }
   return self;
-  
+
 }
 
 #pragma mark - Lifecycle
@@ -214,7 +215,7 @@ static NSString* const kAttributeType = @"type";
       MGLPolygon *polygonPart = [MGLPolygon polygonWithCoordinates:coordinates count:[partCoordinates count]];
       [polygonParts addObject:polygonPart];
       free(coordinates);
-      
+
       MGLPolylineFeature *outline = [self polylineForPath:partCoordinates];
       outline.attributes = @{
         kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeOutline),
@@ -256,7 +257,7 @@ static NSString* const kAttributeType = @"type";
     [style addSource:sourcePath];
 
     MGLLineStyleLayer *pathLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourcePath];
-    pathLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].areaOutline];
     pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     pathLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
     pathLayer.lineWidth =
@@ -268,12 +269,12 @@ static NSString* const kAttributeType = @"type";
     [style addSource:sourceOutline];
 
     MGLLineStyleLayer *outlineLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourceOutline];
-    outlineLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+    outlineLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].areaOutline];
     outlineLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
     outlineLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
     outlineLayer.lineWidth =
     [NSExpression expressionForConstantValue:@2.0];
-    outlineLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@1, @2]];
+    outlineLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@1]];
 
     [style addLayer:outlineLayer];
   };
@@ -281,9 +282,9 @@ static NSString* const kAttributeType = @"type";
     [style addSource:sourcePolygon];
 
     MGLFillStyleLayer *polygonLayer = [[MGLFillStyleLayer alloc] initWithIdentifier:MapViewControllerPolygonLayerId source:sourcePolygon];
-    polygonLayer.fillColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+    polygonLayer.fillColor = [NSExpression expressionForConstantValue:[Colors get].areaFill];
     polygonLayer.fillOpacity = [NSExpression expressionForConstantValue:@0.3];
-    polygonLayer.fillOutlineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+    polygonLayer.fillOutlineColor = [NSExpression expressionForConstantValue:[Colors get].areaOutline];
 
     [style addLayer:polygonLayer];
   }
@@ -322,7 +323,7 @@ static NSString* const kAttributeType = @"type";
     [self.mapView setCenterCoordinate:annotations.firstObject.coordinate
                             zoomLevel:12.0 direction:self.mapView.direction
                              animated:YES completionHandler:completion];
-   
+
   }
 }
 
@@ -361,11 +362,10 @@ static NSString* const kAttributeType = @"type";
   MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
   dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
   dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
-  dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
-  dashedLayer.lineColor = [NSExpression expressionForConstantValue:[ColorsLegacy get].persimmon];
+  dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@1];
+  dashedLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPath];
   dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
-  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@0, @1.5]];
-
+  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@5, @5]];
   [style addLayer:dashedLayer];
 }
 
@@ -390,7 +390,7 @@ static NSString* const kAttributeType = @"type";
 - (void)addDirections:(NSArray<CLLocation *> *)locations {
   [self removeDuplicateAnnotations:MGLPolylineFeature.class
                          attribute:ItemDetailsMapViewControllerAnnotationTypeRoute];
-  
+
   MGLPolylineFeature *polyline = [self polylineForPath:locations];
   polyline.attributes = @{
     kAttributeType: @(ItemDetailsMapViewControllerAnnotationTypeRoute)
@@ -529,7 +529,7 @@ static NSString* const kAttributeType = @"type";
     return;
   }
   [self showUserLocation:YES];
-  
+
   [self removeDuplicateAnnotations:MGLPointFeature.class
                          attribute:ItemDetailsMapViewControllerAnnotationTypeLocation];
   MGLPointFeature *location = [[MGLPointFeature alloc] init];

@@ -13,7 +13,11 @@
 #import "UserModel.h"
 #import "UserModelConstants.h"
 #import "ResetPasswordPassCodeViewController.h"
+#if PROD
+#import "Radzima-Swift.h"
+#else
 #import "Radzima_Dev-Swift.h"
+#endif
 #import "CommonFormConstants.h"
 
 @interface ResetPasswordNewPasswordViewController ()
@@ -72,7 +76,7 @@
   [[SecureTextField alloc] initWithImageName:@"password-lock"
                                 keyboardType:UIKeyboardTypeDefault
                                  placeholder:NSLocalizedString(@"ProfileScreenPlaceholderPassword", @"")];
-  [self.textFieldNewPassword.textField setTextContentType:UITextContentTypeEmailAddress];
+  [self.textFieldNewPassword setCreatingPassword:YES];
   [self.contentView addSubview:self.textFieldNewPassword];
   self.textFieldNewPassword.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
@@ -92,7 +96,7 @@
     [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.textFieldNewPassword.bottomAnchor constant:25.0],
     [self.buttonSubmit.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
     [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-
+    [self.buttonSubmit.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor constant:CommonFormButtonBottomSpace],
   ]];
 }
 

@@ -1,15 +1,20 @@
-import {StyleSheet} from 'react-native';
 import {COLORS} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   inputFieldContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 40,
-    backgroundColor: COLORS.white,
     borderWidth: 1,
-    borderColor: COLORS.silver,
     borderRadius: 2,
+    borderColor: {
+      light: COLORS.silver,
+      dark: COLORS.oxfordBlue,
+    },
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.mirage,
+    },
   },
   dangerBorder: {
     borderColor: COLORS.persimmon,
@@ -23,10 +28,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderLeftWidth: 1,
-    borderColor: COLORS.silver,
+    borderColor: {
+      light: COLORS.silver,
+      dark: COLORS.oxfordBlue,
+    },
   },
   icon: {
     marginLeft: 12,
     marginRight: 8,
   },
-});
+};

@@ -21,7 +21,6 @@
 #import "MapButton.h"
 #import "SearchViewController.h"
 #import "SearchModel.h"
-#import "ApiService.h"
 #import "CoreDataService.h"
 #import "Colors.h"
 #import "PlaceItem.h"
@@ -105,7 +104,7 @@ static const CGFloat kClusterSize = 32.0;
                  MapViewControllerAttributionButtonInset)];
   }
   [self.navigationController setNavigationBarHidden:YES animated:YES];
-  
+
   [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenMapFull];
 }
 
@@ -512,7 +511,7 @@ static const CGFloat kClusterSize = 32.0;
 
 - (void)showPopupWithItem:(PlaceItem *)item {
   __weak typeof(self) weakSelf = self;
-  
+
   [self.bottomSheet show:item buttonLabel:kBottomSheetButtonLabel onPressDetails:^{
     DetailsViewController *detailsController =
     [[DetailsViewController alloc] initWithApiService:weakSelf.apiService
@@ -522,7 +521,7 @@ static const CGFloat kClusterSize = 32.0;
                                              mapModel:weakSelf.mapModel
                                         locationModel:weakSelf.locationModel
                                           searchModel:weakSelf.searchModel
-                                         detailsModel:weakSelf.detailsModel]; 
+                                         detailsModel:weakSelf.detailsModel];
     detailsController.item = item;
     [weakSelf.navigationController setNavigationBarHidden:NO animated:NO];
     [weakSelf.navigationController pushViewController:detailsController animated:YES];

@@ -10,12 +10,15 @@ import Foundation
 @objc enum AmplifyBridgeError: Int {
   case AuthErrorFetchSessionFailed = 1
   case AuthErrorSignInFailed
+  case AuthErrorSignUpFailed
   case AuthErrorNotSignedIn
   case AuthErrorResetPasswordFailed
   case AuthErrorResetPasswordConfirmFailed
   case AuthErrorCodeMismatch
   case AuthErrorInvalidPassword
   case AuthErrorUserNotFound
+  case AuthErrorUsernameExists
+  case AuthErrorNotAuthorized
 }
 
 let AuthErrorDomain = "app.radzima"

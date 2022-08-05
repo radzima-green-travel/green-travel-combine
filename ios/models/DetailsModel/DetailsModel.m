@@ -12,7 +12,6 @@
 #import "DetailsObserver.h"
 #import "PlaceItem.h"
 #import "BookmarkItem.h"
-#import "ApiService.h"
 #import "CoreDataService.h"
 #import "PlaceDetails.h"
 
@@ -20,7 +19,7 @@
 
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) NSMutableSet<NSString*> *itemUUIDs;
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (assign, nonatomic) DetailsLoadState globalDetailsLoadState;
 
@@ -29,7 +28,7 @@
 @implementation DetailsModel
 
 - (instancetype)initWithIndexModel:(IndexModel *)model
-                        apiService:(nonnull ApiService *)apiService
+                        apiService:(nonnull id<IndexLoader>)apiService
                    coreDataService:(nonnull CoreDataService *)coreDataService {
         self = [super init];
         if (self) {

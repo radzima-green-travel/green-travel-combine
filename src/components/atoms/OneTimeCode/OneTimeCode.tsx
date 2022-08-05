@@ -1,12 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
-import {styles} from './styles';
+import {useThemeStyles} from 'core/hooks';
+import {themeStyles} from './styles';
 
 interface IProp {
   onCodeInput: (code: string, codeCondition: boolean) => void;
 }
 
 export const OneTimeCode = ({onCodeInput}: IProp) => {
+  const styles = useThemeStyles(themeStyles);
   const CODE_LENGTH = 6;
   const [code, setCode] = useState('');
   const [containerIsFocused, setContainerIsFocused] = useState(false);

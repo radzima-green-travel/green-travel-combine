@@ -19,7 +19,6 @@
 
 @property(strong, nonatomic) UILabel *hintLabel;
 @property(strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) CommonTextField *textFieldMail;
 @property(strong, nonatomic) CommonButton *buttonSubmit;
 @property(assign, nonatomic) BOOL shownKeyboard;
 @property(assign, nonatomic) BOOL shouldNavigateToCodeScreen;
@@ -71,6 +70,7 @@
   self.textFieldMail = [[CommonTextField alloc] initWithImageName:@"textfield-mail"
                                                      keyboardType:UIKeyboardTypeEmailAddress
                                                       placeholder:NSLocalizedString(@"ProfileScreenPlaceholderEMail", @"")];
+  self.textFieldMail.textField.delegate = self;
   [self.textFieldMail.textField setTextContentType:UITextContentTypeEmailAddress];
   [self.contentView addSubview:self.textFieldMail];
   self.textFieldMail.translatesAutoresizingMaskIntoConstraints = NO;
@@ -88,10 +88,10 @@
 
   [NSLayoutConstraint activateConstraints:@[
     [self.buttonSubmit.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
-    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.textFieldMail.bottomAnchor constant:CommonFormTexFieldAndButtonSpace],
+    [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.textFieldMail.bottomAnchor constant:CommonFormTextFieldAndButtonSpace],
     [self.buttonSubmit.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
     [self.buttonSubmit.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
-
+    [self.buttonSubmit.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor constant:CommonFormButtonBottomSpace],
   ]];
 }
 

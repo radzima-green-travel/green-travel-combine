@@ -8,13 +8,16 @@
 #import <UIKit/UIKit.h>
 #import "UserModelObserver.h"
 #import "BaseViewController.h"
+#import "CommonTextField.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserController;
 @class UserModel;
 
-@interface BaseFormViewController : BaseViewController<UserModelObserver>
+
+@interface BaseFormViewController : BaseViewController<UserModelObserver, UITextFieldDelegate>
 
 
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -27,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
                    model:(UserModel *)model;
 - (void)onUserStateUpdate:(nonnull UserState *)emailSendingState;
 - (void)enableLoadingIndicator:(BOOL)enable;
+- (void)textFieldDidEndEditing:(CommonTextField *)textField;
 
 @end
 

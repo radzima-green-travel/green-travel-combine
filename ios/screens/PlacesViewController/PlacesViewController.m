@@ -23,7 +23,7 @@
 
 @property (assign, nonatomic) BOOL bookmarked;
 @property (strong, nonatomic) NSMutableArray<PlaceItem *> *bookmarkedItems;
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
 @property (strong, nonatomic) MapModel *mapModel;
@@ -46,7 +46,7 @@ static const NSUInteger kCollectionSizeWhenToShowIndexTitles = 10;
 static const NSUInteger kNumberOfLetterSizeWhenToShowIndexTitles = 4;
 
 - (instancetype)initWithIndexModel:(IndexModel *)indexModel
-                        apiService:(ApiService *)apiService
+                        apiService:(id<IndexLoader>)apiService
                         coreDataService:(CoreDataService *)coreDataService
                    mapService:(MapService *)mapService
                           mapModel:(MapModel *)mapModel
@@ -362,25 +362,29 @@ didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.bookmarked) {
         return;
     }
-  
-  if (bookmark) {
+
+  if (bookmark && [item.category.uuid isEqualToString:self.category.uuid]) {
     NSUInteger indexOfAdded = [self.bookmarkedItems count];
     NSIndexPath *indexPathOfAddedIndex = [NSIndexPath indexPathForItem:indexOfAdded inSection:0];
     __weak typeof(self) weakSelf = self;
     [self.collectionView performBatchUpdates:^{
-      [weakSelf.bookmarkedItems addObject:item];
-      [weakSelf.collectionView insertItemsAtIndexPaths:@[indexPathOfAddedIndex]];
-    } completion:^(BOOL finished) {
-    }];
-  } else {
-    __weak typeof(self) weakSelf = self;
-    [self.collectionView performBatchUpdates:^{
-      [weakSelf.bookmarkedItems removeObjectAtIndex:indexPathOfFoundIndex.item];
-      [weakSelf.collectionView deleteItemsAtIndexPaths:@[indexPathOfFoundIndex]];
+      __weak typeof(weakSelf) strongSelf = weakSelf;
+      [strongSelf.bookmarkedItems addObject:item];
+      [strongSelf.collectionView insertItemsAtIndexPaths:@[indexPathOfAddedIndex]];
     } completion:^(BOOL finished) {
     }];
   }
-  
+
+  if (!bookmark && foundIndex != NSNotFound) {
+    __weak typeof(self) weakSelf = self;
+    [self.collectionView performBatchUpdates:^{
+      __weak typeof(weakSelf) strongSelf = weakSelf;
+      [strongSelf.bookmarkedItems removeObjectAtIndex:indexPathOfFoundIndex.item];
+      [strongSelf.collectionView deleteItemsAtIndexPaths:@[indexPathOfFoundIndex]];
+    } completion:^(BOOL finished) {
+    }];
+  }
+
   if (self.viewIfLoaded.window != nil && [self.bookmarkedItems count] == 0) {
     [self.navigationController popViewControllerAnimated:YES];
   }

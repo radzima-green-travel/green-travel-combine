@@ -7,11 +7,11 @@
 //
 
 #import "IndexModel.h"
+#import "IndexLoader.h"
 #import "CategoriesObserver.h"
 #import "BookmarksObserver.h"
 #import "PlaceCategory.h"
 #import "PlaceItem.h"
-#import "ApiService.h"
 #import "CoreDataService.h"
 #import "CategoryUtils.h"
 #import "ArrayUtils.h"
@@ -24,7 +24,7 @@
 
 @interface IndexModel ()
 
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) UserDefaultsService *userDefaultsService;
 @property (assign, nonatomic) BOOL loadedFromDB;
@@ -44,7 +44,7 @@
 
 static IndexModel *instance;
 
-- (instancetype)initWithApiService:(ApiService *)apiService
+- (instancetype)initWithApiService:(id<IndexLoader>)apiService
                    coreDataService:(CoreDataService *)coreDataService
                userDefaultsService:(UserDefaultsService *)userDefaultsService
 {

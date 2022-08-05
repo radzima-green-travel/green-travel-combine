@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
  
-FOUNDATION_EXPORT const CGFloat CommonFormTexFieldAndButtonSpace;
+FOUNDATION_EXPORT const CGFloat CommonFormTextFieldAndButtonSpace;
+FOUNDATION_EXPORT const CGFloat CommonFormLabelAndButtonSpace;
 FOUNDATION_EXPORT const CGFloat CommonFormMinContentInset;
 FOUNDATION_EXPORT const CGFloat CommonFormContentTopOffset;
+FOUNDATION_EXPORT const CGFloat CommonFormButtonBottomSpace;

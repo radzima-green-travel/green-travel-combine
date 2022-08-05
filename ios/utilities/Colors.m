@@ -29,9 +29,12 @@ static Colors *instance;
   self = [super init];
   if (self) {
     self.background = [UIColor colorNamed:@"background"];
+    self.textFieldBackground = [UIColor colorNamed:@"textFieldBackground"];
+    self.textFieldBorderColor = [UIColor colorNamed:@"textFieldBorderColor"];
     self.navigationBarTint = [UIColor colorNamed:@"navigationBarTint"];
     self.navigationBarColorStart = [UIColor colorNamed:@"navigationBarColorStart"];
     self.navigationBarColor = [UIColor colorNamed:@"navigationBarColor"];
+    self.mapDirectionsPath = [UIColor colorNamed:@"mapDirectionsPath"];
     self.navigationBarColorStop = [UIColor colorNamed:@"navigationBarColorStop"];
     self.tabBarBackground = [UIColor colorNamed:@"tabBarBackground"];
     self.tabBarTint = [UIColor colorNamed:@"tabBarTint"];
@@ -39,6 +42,10 @@ static Colors *instance;
     self.bookmarkTintEmptyCell = [UIColor colorNamed:@"bookmarkTintEmptyCell"];
     self.cardPlaceholderText = [UIColor colorNamed:@"cardPlaceholderText"];
     self.bookmarkCard = [UIColor colorNamed:@"bookmarkCard"];
+    self.bookmarkSelectedBottomSheetTintColor = [UIColor colorNamed:@"bookmarkSelectedBottomSheetTintColor"];
+    self.bookmarkUnselectedBottomSheetTintColor = [UIColor colorNamed:@"bookmarkUnselectedBottomSheetTintColor"];
+    self.bookmarkDetailScreen = [UIColor colorNamed:@"bookmarkDetailScreen"];
+    self.bookmarkIndexScreen = [UIColor colorNamed:@"bookmarkIndexScreen"];
     self.tabBarText = [UIColor colorNamed:@"tabBarText"];
     self.tabBarTextSelected = [UIColor colorNamed:@"tabBarTextSelected"];
     self.buttonAll = [UIColor colorNamed:@"buttonAll"];
@@ -63,6 +70,8 @@ static Colors *instance;
     self.searchBarClearButton = [UIColor colorNamed:@"searchBarClearButton"];
     self.passCodeTint = [UIColor colorNamed:@"passCodeTint"];
     self.buttonTextTint = [UIColor colorNamed:@"buttonTextTint"];
+    self.areaOutline = [UIColor colorNamed:@"areaOutline"];
+    self.areaFill = [UIColor colorNamed:@"areaFill"];
   }
   return self;
 }

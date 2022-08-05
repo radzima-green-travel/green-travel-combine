@@ -24,7 +24,6 @@
 #import "SearchModel.h"
 #import "LocationModel.h"
 #import "DetailsModel.h"
-#import "ApiService.h"
 #import "CoreDataService.h"
 #import <CoreLocation/CoreLocation.h>
 #import "TypographyLegacy.h"
@@ -43,7 +42,7 @@
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) CLLocation *lastLocation;
 @property (assign, nonatomic) BOOL locationIsEnabled;
-@property (strong, nonatomic) ApiService *apiService;
+@property (strong, nonatomic) id<IndexLoader> apiService;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) SearchItem *itemToSaveToHistory;
 @property (strong, nonatomic) UITableView *tableView;
@@ -77,7 +76,7 @@ static const CGFloat kSearchRowHeight = 58.0;
                 indexModel:(IndexModel *)indexModel
                 locationModel:(LocationModel *)locationModel
                      mapModel:(MapModel *)mapModel
-                   apiService:(ApiService *)apiService
+                   apiService:(id<IndexLoader>)apiService
               coreDataService:(CoreDataService *)coreDataService
           itemsWithCoordsOnly:(BOOL)itemsWithCoordsOnly
            onSearchItemSelect:(void(^)(PlaceItem *))onSearchItemSelect
@@ -130,13 +129,14 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     self.dataSourceHistory = [[NSMutableArray alloc] init];
     self.dataSourceFiltered = [[NSMutableArray alloc] init];
-    
+
     self.scrollInsets = UIEdgeInsetsZero;
     [self setUpWithTable];
-    
+		[self setUpTapGesture];
+
     if (@available(iOS 13.0, *)) {
       self.searchController = [[SearchController alloc] initWithSearchResultsController:nil];
       self.searchBarClearButton = prepareClearButton(self.searchController);
@@ -144,7 +144,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     } else {
       self.searchController = [[UISearchControllerNoCancel alloc] initWithSearchResultsController:nil];
     }
-    
+
     self.searchController.searchResultsUpdater = self;
     self.searchController.obscuresBackgroundDuringPresentation = NO;
     self.searchController.hidesNavigationBarDuringPresentation = NO;
@@ -153,9 +153,9 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     self.searchController.searchBar.delegate = self;
     self.navigationItem.titleView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadAppear:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadDisappear:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboadDisappear:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)updateViews {
@@ -170,6 +170,14 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     [self setUpWithTable];
 }
 
+- (void)setUpTapGesture {
+  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(dismissKeyboard)];
+
+  [self.view addGestureRecognizer:tap];
+  [tap setCancelsTouchesInView:NO];
+  return;
+}
 
 - (void)setUpWithTable {
     [self.scrollView removeFromSuperview];
@@ -178,7 +186,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
         [self.tableView reloadData];
         return;
     }
-    
+
     self.tableView = [[UITableView alloc] init];
     [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -206,7 +214,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     if (self.scrollView != nil) {
         return;
     }
-    
+
     self.scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:self.scrollView];
     self.scrollView.alwaysBounceVertical = YES;
@@ -217,7 +225,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
         [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
         [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
     ]];
-    
+
     UIView *contentView = [[UIView alloc] init];
     [self.scrollView addSubview:contentView];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -228,7 +236,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
         [contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor],
         self.scrollViewHeightConstraint,
     ]];
-    
+
     UIStackView *stackView = [[UIStackView alloc] init];
     [contentView addSubview:stackView];
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -237,7 +245,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 14.0;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     self.noDataImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search"]];
     self.noDataImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -249,7 +257,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     [self.noDataLabel setAttributedText:[[TypographyLegacy get] makeBody:NSLocalizedString(@"SearchNotFound", @"")]];
     [self.noDataLabel setTextAlignment:NSTextAlignmentCenter];
     self.noDataLabel.numberOfLines = 2;
-    
+
     [stackView addArrangedSubview:self.noDataImageView];
     [stackView addArrangedSubview:self.noDataLabel];
     [NSLayoutConstraint activateConstraints:@[
@@ -276,24 +284,24 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     [super viewWillAppear:animated];
     [self.model addObserver:self];
     [self.model loadSearchHistoryItems];
-    
+
     [self.navigationController.view setNeedsLayout];
     [self.navigationController.view layoutIfNeeded];
-    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.searchController.searchBar performSelector:@selector(becomeFirstResponder)
                                           withObject:nil afterDelay:0];
-    
+
 }
 
 // This fixes situation when next view in the navigation stack doesn't adapt to
 // navigation bar of variable height. https://stackoverflow.com/a/47976999
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     [self.navigationController.view setNeedsLayout];
     [self.navigationController.view layoutIfNeeded];
     [self.searchController.searchBar resignFirstResponder];
@@ -328,6 +336,18 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
 - (void)onKeyboadDisappear:(NSNotification *)notification {
     UIEdgeInsets insets = UIEdgeInsetsZero;
     [self updateInsets:insets];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  if([self.searchController.searchBar isFirstResponder]) {
+    [self.searchController.searchBar resignFirstResponder];
+  }
+}
+
+- (void)dismissKeyboard {
+  [self.searchController.searchBar endEditing:YES];
+
 }
 
 #pragma mark - SearchModel
@@ -490,4 +510,4 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 @end
- 
+

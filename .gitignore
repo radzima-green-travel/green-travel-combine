@@ -91,6 +91,8 @@ node_modules/
 aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
+awsconfiguration.json.backup
+amplifyconfiguration.json.backup
 amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json

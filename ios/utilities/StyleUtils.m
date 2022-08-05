@@ -52,19 +52,20 @@ void configureNavigationBarForModal(UINavigationBar *navigationBar) {
   }
 }
 
-void configureTabBarItem(UITabBarItem *tabBarItem, UIImage *imageNormal, UIImage *imageSelected) {
+void configureTabBarItem(UITabBarItem *tabBarItem, UIImage *imageNormal) {
   if (@available(iOS 15.0, *)) {} else {
     [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarAttributes forState:UIControlStateNormal];
     [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes forState:UIControlStateSelected];
   }
   [tabBarItem setImage:imageNormal];
-  [tabBarItem setSelectedImage:imageSelected];
 }
 
 API_AVAILABLE(ios(13.0))
 void configureTabBarItemAppearance(UITabBarItemAppearance *tabBarItemAppearance) {
   [tabBarItemAppearance.normal setTitleTextAttributes:[TypographyLegacy get].tabBarAttributes];
   [tabBarItemAppearance.selected setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes];
+  [tabBarItemAppearance.selected setIconColor:[Colors get].tabBarTextSelected];
+  [tabBarItemAppearance.normal setIconColor:[Colors get].tabBarText];
 }
 
 void configureTabBar(UITabBar *tabBar) {
@@ -83,7 +84,8 @@ void configureTabBar(UITabBar *tabBar) {
   } else {
     tabBar.barTintColor = [Colors get].tabBarBackground;
     tabBar.translucent = NO;
-    tabBar.tintColor = [Colors get].tabBarTint;
+    tabBar.tintColor = [Colors get].tabBarTextSelected;
+    tabBar.unselectedItemTintColor = [Colors get].tabBarText;
   }
 }
 

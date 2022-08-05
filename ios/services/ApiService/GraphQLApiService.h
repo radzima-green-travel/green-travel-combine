@@ -6,15 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ApiService.h"
+#import "ApiServiceBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class PlaceItem;
-@class PlaceCategory;
-@class IndexModelData;
-
-@interface GraphQLApiService : ApiService
+@interface GraphQLApiService : ApiServiceBase
 
 @end
 
