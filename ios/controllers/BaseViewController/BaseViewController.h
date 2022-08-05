@@ -1,5 +1,5 @@
 //
-//  UIViewController+BaseViewController.h
+//  BaseViewController.h
 //  greenTravel
 //
 //  Created by Eugene Kudritsky on 3.08.22.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (BaseViewController)
+@interface BaseViewController : UIViewController
 
 @end
 

@@ -7,6 +7,10 @@
 
 #import "BaseViewController.h"
 
-@implementation BaseViewController : UIViewController
+@implementation BaseViewController
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+  return UIStatusBarStyleLightContent;
+}
 
 @end
