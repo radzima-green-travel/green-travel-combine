@@ -22,22 +22,22 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
   const onSignUpSubmit = useCallback(() => {
     dispatch(
       signUpRequest({
-        username: email,
+        username: email.trim(),
         password,
         attributes: {name: email, family_name: email},
       }),
     );
 
-    onPress!(email);
+    onPress!(email.trim());
   }, [dispatch, email, onPress, password]);
 
   const onSignInSubmit = useCallback(() => {
-    dispatch(signInRequest({email, password}));
+    dispatch(signInRequest({email: email.trim(), password}));
   }, [dispatch, email, password]);
 
   const {t} = useTranslation('authentification');
   const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
+    useTogglePasswordVisibility('eyeOff');
   const buttonText = isSignUpScreen
     ? t('signUpButton').toUpperCase()
     : t('signInButton').toUpperCase();

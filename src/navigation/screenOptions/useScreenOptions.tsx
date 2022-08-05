@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {StyleSheet, ColorSchemeName, TouchableOpacity} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {ColorSchemeName, TouchableOpacity} from 'react-native';
 import {Icon} from 'atoms';
 import {FONTS_STYLES} from 'assets/fonts';
 import {COLORS} from 'assets';
@@ -52,14 +51,11 @@ export function useScreenOptions(): NativeStackNavigationOptions {
           modal={false}
           {...(colorScheme === 'light'
             ? {
-                headerBackground: () => (
-                  <LinearGradient
-                    start={{x: 0.0, y: 0.0}}
-                    end={{x: 1.0, y: 0.0}}
-                    colors={['#50A021', '#35C7A4']}
-                    style={StyleSheet.absoluteFill}
-                  />
-                ),
+                headerStyle: {
+                  backgroundColor: COLORS.apple,
+                  shadowOpacity: 0,
+                  elevation: 0,
+                },
               }
             : {
                 headerStyle: {
