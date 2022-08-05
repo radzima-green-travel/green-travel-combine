@@ -1,5 +1,5 @@
 //
-//  GTSearchController.h
+//  SearchController.h
 //  greenTravel
 //
 //  Created by Eugene Kudritsky on 17.06.22.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GTSearchController : UISearchController
+@interface SearchController : UISearchController
 
 @end
 

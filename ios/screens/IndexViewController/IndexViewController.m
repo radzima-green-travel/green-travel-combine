@@ -88,10 +88,6 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
     return self;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 - (UIInterfaceOrientation)windowInterfaceOrientation {
   if (@available(iOS 13, *)) {
     return [[[[[UIApplication sharedApplication] windows] firstObject] windowScene] interfaceOrientation];

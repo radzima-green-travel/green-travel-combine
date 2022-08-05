@@ -7,10 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NoDataView.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LoadableDataViewController : UIViewController
+@interface LoadableDataViewController : BaseViewController
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) UIScrollView *dataView;

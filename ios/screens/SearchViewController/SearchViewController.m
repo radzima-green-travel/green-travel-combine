@@ -30,13 +30,13 @@
 #import "TypographyLegacy.h"
 #import "AnalyticsEvents.h"
 #import "SearchViewControllerUtils.h"
-#import "GTSearchController.h"
+#import "SearchController.h"
 
 @interface SearchViewController ()
 
 @property (strong, nonatomic) NSMutableArray<NSString *> *dataSourceHistory;
 @property (strong, nonatomic) NSMutableArray<SearchItem *> *dataSourceFiltered;
-@property (strong, nonatomic) GTSearchController *searchController;
+@property (strong, nonatomic) SearchController *searchController;
 @property (strong, nonatomic) SearchModel *model;
 @property (strong, nonatomic) IndexModel *indexModel;
 @property (strong, nonatomic) LocationModel *locationModel;
@@ -138,7 +138,7 @@ onViewDidDisappearWithSelectedItem:(void(^)(PlaceItem *))onViewDidDisappearWithS
     [self setUpWithTable];
     
     if (@available(iOS 13.0, *)) {
-      self.searchController = [[GTSearchController alloc] initWithSearchResultsController:nil];
+      self.searchController = [[SearchController alloc] initWithSearchResultsController:nil];
       self.searchBarClearButton = prepareClearButton(self.searchController);
       self.searchController.automaticallyShowsCancelButton = NO;
     } else {

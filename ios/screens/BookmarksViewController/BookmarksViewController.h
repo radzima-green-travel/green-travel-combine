@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BookmarksGroupObserver.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CoreDataService;
 @class MapService;
 
-@interface BookmarksViewController : UIViewController<
+@interface BookmarksViewController : BaseViewController<
 UICollectionViewDelegateFlowLayout, BookmarksGroupObserver,
 UICollectionViewDataSource>
 

@@ -1,17 +1,17 @@
 //
-//  GTSearchController.m
+//  SearchController.m
 //  greenTravel
 //
 //  Created by Eugene Kudritsky on 17.06.22.
 //
 
-#import "GTSearchController.h"
+#import "SearchController.h"
 
-@interface GTSearchController ()
+@interface SearchController ()
 
 @end
 
-@implementation GTSearchController
+@implementation SearchController
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
   return UIStatusBarStyleLightContent;

@@ -7,13 +7,14 @@
 
 #import <UIKit/UIKit.h>
 #import "UserModelObserver.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserController;
 @class UserModel;
 
-@interface ProfileRootViewController : UIViewController<UserModelObserver>
+@interface ProfileRootViewController : BaseViewController<UserModelObserver>
 
 @property (strong, nonatomic) UserController *userController;
 @property (strong, nonatomic) UserModel *userModel;

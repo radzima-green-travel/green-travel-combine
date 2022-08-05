@@ -1,17 +1,17 @@
 //
-//  GTNavigationController.m
+//  NavigationController.m
 //  greenTravel
 //
 //  Created by Eugene Kudritsky on 16.06.22.
 //
 
-#import "GTNavigationController.h"
+#import "NavigationController.h"
 
-@interface GTNavigationController ()
+@interface NavigationController ()
 
 @end
 
-@implementation GTNavigationController
+@implementation NavigationController
 
 - (UIViewController *)childViewControllerForStatusBarStyle {
   return self.topViewController;

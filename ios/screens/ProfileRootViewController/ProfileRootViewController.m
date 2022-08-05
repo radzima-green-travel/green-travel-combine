@@ -16,6 +16,7 @@
 #import "ColorsLegacy.h"
 #import "TypographyLegacy.h"
 #import "StyleUtils.h"
+#import "BaseViewController.h"
 
 @interface ProfileRootViewController ()
 
@@ -45,10 +46,6 @@
   [self onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-  return UIStatusBarStyleLightContent;
-}
-
 - (void)showLoginViewController {
   LoginViewController *loginViewController =
   [[LoginViewController alloc] initWithController:self.userController
@@ -76,7 +73,7 @@
   [self showViewController:userFetchErrorViewController title:@"Profile"];
 }
 
-- (void)showViewController:(UIViewController *)controller
+- (void)showViewController:(BaseViewController *)controller
                      title:(NSString *)title {
   controller.title = NSLocalizedString(title, @"");
   UINavigationController *controllerWithNavigation =

@@ -1,5 +1,5 @@
 //
-//  GTNavigationController.h
+//  NavigationController.h
 //  greenTravel
 //
 //  Created by Eugene Kudritsky on 16.06.22.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GTNavigationController : UINavigationController
+@interface NavigationController : UINavigationController
 
 @end
 

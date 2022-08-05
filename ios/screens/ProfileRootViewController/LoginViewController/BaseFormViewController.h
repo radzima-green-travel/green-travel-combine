@@ -7,13 +7,14 @@
 
 #import <UIKit/UIKit.h>
 #import "UserModelObserver.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserController;
 @class UserModel;
 
-@interface BaseFormViewController : UIViewController<UserModelObserver>
+@interface BaseFormViewController : BaseViewController<UserModelObserver>
 
 
 @property (strong, nonatomic) UIScrollView *scrollView;

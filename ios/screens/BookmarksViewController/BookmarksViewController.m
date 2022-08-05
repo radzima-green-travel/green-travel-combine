@@ -78,10 +78,6 @@ static const CGFloat kMinHeightOfPlaceholderView = 400.0;
   configureNavigationBar(self.navigationController.navigationBar);
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
