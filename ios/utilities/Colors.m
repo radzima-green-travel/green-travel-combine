@@ -68,7 +68,7 @@ static Colors *instance;
     self.mapBackground = [UIColor colorNamed:@"mapBackground"];
     self.mainTextLink = [UIColor colorNamed:@"mainTextLink"];
     self.searchBarClearButton = [UIColor colorNamed:@"searchBarClearButton"];
-    self.passCodeTint = [UIColor colorNamed:@"passCodeTint"];
+    self.textFieldCodeBorderColor = [UIColor colorNamed:@"textFieldCodeBorderColor"];
     self.buttonTextTint = [UIColor colorNamed:@"buttonTextTint"];
     self.areaOutline = [UIColor colorNamed:@"areaOutline"];
     self.areaFill = [UIColor colorNamed:@"areaFill"];
