@@ -21,7 +21,7 @@
 
 - (void)setUp {
   self.layer.cornerRadius = 4.0;
-  self.layer.borderColor = [[Colors get].textFieldBorderColor CGColor];
+  self.layer.borderColor = [[Colors get].textFieldCodeBorderColor CGColor];
   self.layer.borderWidth = 1.0;
   self.backgroundColor = [Colors get].textFieldBackground;
   
