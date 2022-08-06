@@ -41,7 +41,7 @@
   self.title = NSLocalizedString(@"CodeConfirmationScreenTitle", @"");
 
   self.titleLabel = [[UILabel alloc] init];
-  NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"CodeConfirmationScreenHeader", @"")];
+  NSAttributedString *header = [[Typography get] formHeader:NSLocalizedString(@"CodeConfirmationScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
   [self.titleLabel setNumberOfLines:0];
   [self.titleLabel setTextColor:[Colors get].headlineText];
