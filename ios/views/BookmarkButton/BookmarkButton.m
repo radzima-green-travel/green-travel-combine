@@ -15,6 +15,8 @@
 
 @property (copy, nonatomic) void(^onBookmarkPress)(BOOL);
 @property (assign, nonatomic) BookmarkButtonFlavor flavor;
+@property (strong, nonatomic) UIImage *imageSelected;
+@property (strong, nonatomic) UIImage *imageNotSelected;
 
 @end
 
@@ -35,6 +37,11 @@
   [super layoutSubviews];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [super traitCollectionDidChange:previousTraitCollection];
+  [self setUpImages];
+}
+
 - (void)setUp {
   self.backgroundColor = UIColor.clearColor;
   [self setUpImages];
@@ -50,21 +57,21 @@
 - (void)setUpImages {
   switch (self.flavor) {
     case BookmarkButtonFlavorIndex: {
-      UIImage *imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkIndexScreen];
-      UIImage *imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkIndexScreen];
-      [self setImageForSelectedState:imageSelected imageForNormalState:imageNotSelected];
+      self.imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkIndexScreen];
+      self.imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkIndexScreen];
+      [self setImageForSelectedState:self.imageSelected imageForNormalState:self.imageNotSelected];
       break;
     }
     case BookmarkButtonFlavorDetailsScreen: {
-      UIImage *imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkDetailScreen];
-      UIImage *imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkDetailScreen];
-      [self setImageForSelectedState:imageSelected imageForNormalState:imageNotSelected];
+      self.imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkDetailScreen];
+      self.imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkDetailScreen];
+      [self setImageForSelectedState:self.imageSelected imageForNormalState:self.imageNotSelected];
       break;
     }
     case BookmarkButtonFlavorBottomSheet: {
-      UIImage *imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkUnselectedBottomSheetTintColor];
-      UIImage *imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkSelectedBottomSheetTintColor];
-      [self setImageForSelectedState:imageSelected imageForNormalState:imageNotSelected];
+      self.imageNotSelected = [UIImage named:@"bookmark-index" withTintColor:[Colors get].bookmarkUnselectedBottomSheetTintColor];
+      self.imageSelected = [UIImage named:@"bookmark-index-selected" withTintColor:[Colors get].bookmarkSelectedBottomSheetTintColor];
+      [self setImageForSelectedState:self.imageSelected imageForNormalState:self.imageNotSelected];
       break;
     }
   }
