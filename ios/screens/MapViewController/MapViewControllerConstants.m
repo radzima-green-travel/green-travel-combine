@@ -24,6 +24,7 @@ NSString* const MapViewControllerPolygonLayerId = @"polygonLayerId";
 NSString* const MapViewControllerPathLayerId = @"pathLayerId";
 NSString* const MapViewControllerOutlineLayerId = @"outlineLayerId";
 NSString* const MapViewControllerPointLayerId = @"pointLayerId";
-NSString* const MapViewControllerDirectionsLayerId = @"directionsLayerId";
+NSString* const MapViewControllerDirectionsForegroundLayerId = @"directionsForegroundLayerId";
+NSString* const MapViewControllerDirectionsBackgroundLayerId = @"directionsBackgroundLayerId";
 
 CGFloat const MapViewControllerAttributionButtonInset = 8.0;

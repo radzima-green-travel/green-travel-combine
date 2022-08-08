@@ -25,6 +25,7 @@
     self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
     [rootViewController initRNBootSplash];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     return YES;
 }
 

@@ -209,8 +209,8 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
   if ([style layerWithIdentifier:MapViewControllerOutlineLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:MapViewControllerOutlineLayerId]];
   }
-  if ([style layerWithIdentifier:MapViewControllerDirectionsLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:MapViewControllerDirectionsLayerId]];
+  if ([style layerWithIdentifier:MapViewControllerDirectionsForegroundLayerId] != nil) {
+    [style removeLayer:[style layerWithIdentifier:MapViewControllerDirectionsForegroundLayerId]];
   }
   if ([style layerWithIdentifier:MapViewControllerPointLayerId] != nil) {
     [style removeLayer:[style layerWithIdentifier:MapViewControllerPointLayerId]];

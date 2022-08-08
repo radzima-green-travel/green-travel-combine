@@ -104,6 +104,7 @@ static const CGFloat kClusterSize = 32.0;
                  MapViewControllerAttributionButtonInset)];
   }
   [self.navigationController setNavigationBarHidden:YES animated:YES];
+  [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 
   [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenMapFull];
 }
@@ -111,6 +112,7 @@ static const CGFloat kClusterSize = 32.0;
 - (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
   self.shouldStopSearchZoom = YES;
+  [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

@@ -40,7 +40,7 @@
   self.title = NSLocalizedString(@"ResetPasswordPassCodeScreenTitle", @"");
   
   self.titleLabel = [[UILabel alloc] init];
-  NSAttributedString *header = [[Typography get] codeConfirmationHeader:NSLocalizedString(@"ResetPasswordPassCodeScreenHeader", @"")];
+  NSAttributedString *header = [[Typography get] formHeader:NSLocalizedString(@"ResetPasswordPassCodeScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
   [self.titleLabel setNumberOfLines:0];
   [self.titleLabel setTextAlignment:NSTextAlignmentCenter];

@@ -152,7 +152,7 @@
     bookmarksController.title = NSLocalizedString(@"SavedTitle", @"");
     self.bookmarksControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:bookmarksController];
     UIImage *bookmarksImage;
-    bookmarksImage = [UIImage imageNamed:@"bookmark"];
+    bookmarksImage = [UIImage imageNamed:@"bookmark-index"];
     self.bookmarksTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarSaved", @""), 0, bookmarksImage);
 
     self.bookmarksControllerWithNavigation.tabBarItem = self.bookmarksTabBarItem;

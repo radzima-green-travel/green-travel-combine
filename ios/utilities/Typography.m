@@ -36,9 +36,9 @@ static Typography *instance;
                                                                       UIFontWeightRegular)];
 }
 
-- (NSAttributedString *)codeConfirmationHeader:(NSString *)input {
+- (NSAttributedString *)formHeader:(NSString *)input {
   return [[NSAttributedString alloc] initWithString:input
-                                         attributes:getTextAttributes([Colors get].mainText,
+                                         attributes:getTextAttributes([Colors get].headlineText,
                                                                       20.0,
                                                                       UIFontWeightSemibold)];
 }

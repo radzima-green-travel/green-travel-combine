@@ -18,7 +18,8 @@ FOUNDATION_EXPORT NSString* const MapViewControllerPolygonLayerId;
 FOUNDATION_EXPORT NSString* const MapViewControllerPathLayerId;
 FOUNDATION_EXPORT NSString* const MapViewControllerOutlineLayerId;
 FOUNDATION_EXPORT NSString* const MapViewControllerPointLayerId;
-FOUNDATION_EXPORT NSString* const MapViewControllerDirectionsLayerId;
+FOUNDATION_EXPORT NSString* const MapViewControllerDirectionsForegroundLayerId;
+FOUNDATION_EXPORT NSString* const MapViewControllerDirectionsBackgroundLayerId;
 
 FOUNDATION_EXPORT CGFloat const MapViewControllerAttributionButtonInset;
 

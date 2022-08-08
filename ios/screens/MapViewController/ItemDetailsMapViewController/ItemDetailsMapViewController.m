@@ -252,14 +252,25 @@ static NSString* const kAttributeType = @"type";
   if (sourcePath) {
     [style addSource:sourcePath];
 
-    MGLLineStyleLayer *pathLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourcePath];
-    pathLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].areaOutline];
-    pathLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
-    pathLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
-    pathLayer.lineWidth =
-    [NSExpression expressionForConstantValue:@4.0];
+    MGLLineStyleLayer *foregroundLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourcePath];
+    foregroundLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].mapDirectionsPathFrontLayer];
+    foregroundLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+    foregroundLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+    foregroundLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
+    foregroundLayer.lineWidth = [NSExpression expressionForConstantValue:@4.0];
+    
+    [style addLayer:foregroundLayer];
+    
+    MGLLineStyleLayer *backgroundLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:@"backward" source:sourcePath];
+    backgroundLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].mapDirectionsPathBackgroundLayer];
+    backgroundLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+    backgroundLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+    backgroundLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
+    backgroundLayer.lineWidth = [NSExpression expressionForConstantValue:@6.0];
+    
+    [style insertLayer:backgroundLayer belowLayer:foregroundLayer];
 
-    [style addLayer:pathLayer];
+    
   };
   if (sourceOutline) {
     [style addSource:sourceOutline];
@@ -267,7 +278,8 @@ static NSString* const kAttributeType = @"type";
     MGLLineStyleLayer *outlineLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerPathLayerId source:sourceOutline];
     outlineLayer.lineColor = [NSExpression expressionForConstantValue:[Colors get].areaOutline];
     outlineLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
-    outlineLayer.lineCap = [NSExpression expressionForConstantValue:@"round"];
+    outlineLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+    outlineLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
     outlineLayer.lineWidth =
     [NSExpression expressionForConstantValue:@2.0];
     outlineLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@1]];
@@ -343,26 +355,41 @@ static NSString* const kAttributeType = @"type";
 
 #pragma mark - addDirections
 - (void)addDirectionsLayer:(MGLStyle *)style shape:(MGLShape *)shape {
-  if ([style layerWithIdentifier:MapViewControllerDirectionsLayerId] != nil) {
-    [style removeLayer:[style layerWithIdentifier:MapViewControllerDirectionsLayerId]];
+  MGLShapeSource *sourceDirections;
+  if ([style sourceWithIdentifier:MapViewControllerSourceIdDirections] == nil) {
+    sourceDirections =
+    [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdDirections
+                                         shape:shape options:nil];
+    [style addSource:sourceDirections];
+  } else {
+    sourceDirections.shape = shape;
   }
-  if ([style sourceWithIdentifier:MapViewControllerSourceIdDirections] != nil) {
-    [style removeSource:[style sourceWithIdentifier:MapViewControllerSourceIdDirections]];
+  
+  MGLLineStyleLayer *backgroundLayer;
+  if ([style layerWithIdentifier:MapViewControllerDirectionsBackgroundLayerId] == nil) {
+    backgroundLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsBackgroundLayerId source:sourceDirections];
+    
+    backgroundLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+    backgroundLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
+    backgroundLayer.lineWidth = [NSExpression expressionForConstantValue:@6];
+    backgroundLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPathBackgroundLayer];
+    backgroundLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+    [style addLayer:backgroundLayer];
   }
-
-  MGLSource *sourceDirections =
-  [[MGLShapeSource alloc] initWithIdentifier:MapViewControllerSourceIdDirections
-                                       shape:shape options:nil];
-  [style addSource:sourceDirections];
-
-  MGLLineStyleLayer *dashedLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsLayerId source:sourceDirections];
-  dashedLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
-  dashedLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
-  dashedLayer.lineWidth = [NSExpression expressionForConstantValue:@1];
-  dashedLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPath];
-  dashedLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
-  dashedLayer.lineDashPattern = [NSExpression expressionForConstantValue:@[@5, @5]];
-  [style addLayer:dashedLayer];
+  
+  MGLLineStyleLayer *foregroundLayer;
+  if ([style layerWithIdentifier:MapViewControllerDirectionsForegroundLayerId] == nil) {
+    foregroundLayer = [[MGLLineStyleLayer alloc] initWithIdentifier:MapViewControllerDirectionsForegroundLayerId source:sourceDirections];
+    
+    foregroundLayer.lineJoin = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
+    foregroundLayer.lineCap = [NSExpression expressionForConstantValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
+    foregroundLayer.lineWidth = [NSExpression expressionForConstantValue:@4];
+    foregroundLayer.lineColor = [NSExpression expressionForConstantValue: [Colors get].mapDirectionsPathFrontLayer];
+    foregroundLayer.lineOpacity = [NSExpression expressionForConstantValue:@1];
+    
+    [style insertLayer:foregroundLayer aboveLayer:backgroundLayer];
+  }
+  
 }
 
 #pragma mark - removeDuplicateAnnotations
@@ -384,6 +411,7 @@ static NSString* const kAttributeType = @"type";
 }
 
 - (void)addDirections:(NSArray<CLLocation *> *)locations {
+  // TODO: we should call this method on location update.
   [self removeDuplicateAnnotations:MGLPolylineFeature.class
                          attribute:ItemDetailsMapViewControllerAnnotationTypeRoute];
 
@@ -425,7 +453,7 @@ static NSString* const kAttributeType = @"type";
   [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:
    [NSSet setWithObjects:
     MapViewControllerPointLayerId, MapViewControllerPathLayerId,
-    MapViewControllerPolygonLayerId, MapViewControllerDirectionsLayerId, nil]];
+    MapViewControllerPolygonLayerId, MapViewControllerDirectionsForegroundLayerId, nil]];
 
   // Pick the first feature (which may be a port or a cluster), ideally selecting
   // the one nearest one to the touch point.
