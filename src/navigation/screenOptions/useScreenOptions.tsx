@@ -49,21 +49,11 @@ export function useScreenOptions(): NativeStackNavigationOptions {
             ) : undefined;
           }}
           modal={false}
-          {...(colorScheme === 'light'
-            ? {
-                headerStyle: {
-                  backgroundColor: COLORS.apple,
-                  shadowOpacity: 0,
-                  elevation: 0,
-                },
-              }
-            : {
-                headerStyle: {
-                  backgroundColor: COLORS.background,
-                  shadowOpacity: 0,
-                  elevation: 0,
-                },
-              })}
+          headerStyle={{
+            backgroundColor: colorScheme === 'light' ? COLORS.apple : COLORS.background,
+            shadowOpacity: 0,
+            elevation: 0,
+          }}
           headerTitleStyle={{
             ...FONTS_STYLES.semibold16,
           }}
