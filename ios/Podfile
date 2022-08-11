@@ -15,39 +15,35 @@ target 'greenTravel' do
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Performance'
   pod 'Amplitude', '~> 8.2.0'
-  
+
   pod 'Amplify'
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
-  
+
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   $ReactNativeMapboxGLIOSVersion = '~> 6.3'
   config = use_native_modules!
-  
+
   # Flags change depending on the env values.
     flags = get_default_flags()
 
-  use_react_native!(
-    :path => config[:reactNativePath],
-    # to enable hermes on iOS, change `false` to `true` and then install pods
-    :production => production,
-    :hermes_enabled => true,
-    :fabric_enabled => true,
-    :flipper_configuration => FlipperConfiguration.enabled,
-    # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
-  )
 
-  # Enables Flipper.
-  #
-  # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable these next few lines.
-  # use_flipper!()
+  use_react_native!(
+      :path => config[:reactNativePath],
+      # to enable hermes on iOS, change `false` to `true` and then install pods
+      :production => production,
+      :hermes_enabled => flags[:hermes_enabled],
+      :fabric_enabled => flags[:fabric_enabled],
+      :flipper_configuration => FlipperConfiguration.disabled,
+      # An absolute path to your application root.
+      :app_path => "#{Pod::Config.instance.installation_root}/.."
+    )
+
 
   post_install do |installer|
+  	__apply_Xcode_12_5_M1_post_install_workaround(installer)
     $RNMBGL.post_install(installer)
-    # __apply_Xcode_12_5_M1_post_install_workaround(installer)
-    # react_native_post_install(installer)
+    react_native_post_install(installer)
   end
 end
