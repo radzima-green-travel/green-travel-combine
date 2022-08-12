@@ -210,6 +210,8 @@
 		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
 		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
+		5EAE433E28A6C45600042455 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE433C28A6C45500042455 /* ProfileTableViewCell.m */; };
+		5EAE433F28A6C45600042455 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE433D28A6C45600042455 /* ProfileTableViewController.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -625,6 +627,10 @@
 		5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchProgressViewController.m; sourceTree = "<group>"; };
 		5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchErrorViewController.h; sourceTree = "<group>"; };
 		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
+		5EAE433928A6C45500042455 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
+		5EAE433B28A6C45500042455 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
+		5EAE433C28A6C45500042455 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
+		5EAE433D28A6C45600042455 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
 		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -1743,6 +1749,7 @@
 		5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5EAE433828A6C45500042455 /* ProfileTableViewController */,
 				5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */,
 				5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */,
 				5AFFD0F72851FE6D009E5AB8 /* UserFetchProgressViewController */,
@@ -1783,6 +1790,25 @@
 				5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */,
 			);
 			path = UserFetchProgressViewController;
+			sourceTree = "<group>";
+		};
+		5EAE433828A6C45500042455 /* ProfileTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5EAE433928A6C45500042455 /* ProfileTableViewController.h */,
+				5EAE433A28A6C45500042455 /* ProfileTableViewCell */,
+				5EAE433D28A6C45600042455 /* ProfileTableViewController.m */,
+			);
+			path = ProfileTableViewController;
+			sourceTree = "<group>";
+		};
+		5EAE433A28A6C45500042455 /* ProfileTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5EAE433B28A6C45500042455 /* ProfileTableViewCell.h */,
+				5EAE433C28A6C45500042455 /* ProfileTableViewCell.m */,
+			);
+			path = ProfileTableViewCell;
 			sourceTree = "<group>";
 		};
 		624E38CE2519E467001D98E2 /* Resources */ = {
@@ -2250,6 +2276,8 @@
 				5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */,
 				5A775E0F26077A7D00CEFC78 /* SlideCollectionViewCell.m in Sources */,
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
+				5EAE433F28A6C45600042455 /* ProfileTableViewController.m in Sources */,
+				5EAE433E28A6C45600042455 /* ProfileTableViewCell.m in Sources */,
 				5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
 				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
