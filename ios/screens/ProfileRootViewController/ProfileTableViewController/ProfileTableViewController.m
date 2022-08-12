@@ -55,9 +55,9 @@ static const CGFloat kAuthRowHeight = 96.0;
   self.tableView.dataSource = self;
   [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:@"ProfileCell"];
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-  
+
   self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
   [self.view addSubview:self.tableView];
   self.tableView.frame = self.view.bounds;
 }
@@ -80,13 +80,13 @@ static const CGFloat kAuthRowHeight = 96.0;
   NSMutableArray<SettingsTableViewCellModel *> *models = self.models[indexPath.section].cellmodels;
   SettingsTableViewCellModel *model = models[indexPath.row];
   ProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileCell" forIndexPath:indexPath];
-  
+
   if (indexPath.section == 0) {
     [cell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
   } else {
     [cell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
   }
-  
+
   return cell;
 }
 
@@ -117,7 +117,7 @@ static const CGFloat kAuthRowHeight = 96.0;
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:self.userController model:self.userModel];
     [self.navigationController pushViewController:loginViewController animated:YES];
   }];
-  
+
   SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]
                                                     initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelDataAndStorage", @"")
                                                     subTitle:@""
@@ -125,7 +125,7 @@ static const CGFloat kAuthRowHeight = 96.0;
                                                     handler:^{
     NSLog(@"DataAndStorageCell Tapped");
   }];
-  
+
   SettingsTableViewCellModel *languageCell = [[SettingsTableViewCellModel alloc]
                                               initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelLanguage", @"")
                                               subTitle:NSLocale.currentLocale.languageCode
@@ -133,7 +133,7 @@ static const CGFloat kAuthRowHeight = 96.0;
                                               handler:^{
     NSLog(@"LanguageCell Tapped");
   }];
-  
+
   SettingsTableViewCellModel *themeCell = [[SettingsTableViewCellModel alloc]
                                            initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelTheme", @"")
                                            subTitle:@"Light"
@@ -141,16 +141,16 @@ static const CGFloat kAuthRowHeight = 96.0;
                                            handler:^{
     NSLog(@"ThemeCell Tapped");
   }];
-  
+
   NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
   ProfileSection *authSection = [[ProfileSection alloc]
                                  initWithTitle:@""
                                  cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
-  
+
   ProfileSection *settingsSection = [[ProfileSection alloc]
                                      initWithTitle:NSLocalizedString(@"ProfileTableViewSettingsSection", @"")
                                      cellModels:settingCellModels];
-  
+
   self.models = [[NSMutableArray alloc] initWithArray:@[authSection, settingsSection]];
 }
 
