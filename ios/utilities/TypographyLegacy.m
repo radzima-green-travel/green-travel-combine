@@ -21,8 +21,8 @@ static TypographyLegacy *instance;
     if (self) {
         self.navigationSemiboldAttributes = getTextAttributes([ColorsLegacy get].white, 16.0, UIFontWeightSemibold);
         self.subtitle2SemiboldAttributes = getTextAttributes([ColorsLegacy get].black, 12.0, UIFontWeightSemibold);
-        
-        
+
+
         self.tabBarAttributes = getTextAttributes([Colors get].tabBarText, 12.0, UIFontWeightMedium);
         self.tabBarSelectedAttributes = getTextAttributes([Colors get].tabBarTextSelected, 12.0, UIFontWeightMedium);
     }
