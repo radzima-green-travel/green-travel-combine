@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {Keyboard, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {confirmNewPasswordRequest} from 'core/reducers';
+import {confirmNewPasswordRequest, signInRequest} from 'core/reducers';
 import {styles} from './styles';
 import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
 import {Button, FormInput} from 'atoms';
@@ -11,7 +11,7 @@ export const NewPassword = ({navigation, route}: IProps) => {
   const [newPassword, setNewPassword] = useState('');
   const {t} = useTranslation('authentification');
   const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
+    useTogglePasswordVisibility('eyeOff');
   const buttonText = t('save').toUpperCase();
 
   const dispatch = useDispatch();
@@ -22,7 +22,8 @@ export const NewPassword = ({navigation, route}: IProps) => {
 
   const onConfirmNewPassword = useCallback(() => {
     dispatch(confirmNewPasswordRequest({email, code, newPassword}));
-    navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
+    dispatch(signInRequest({email, password: newPassword}));
+    // navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
   }, [code, dispatch, email, navigation, newPassword]);
 
   return (

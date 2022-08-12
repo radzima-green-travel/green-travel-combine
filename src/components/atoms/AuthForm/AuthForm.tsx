@@ -8,7 +8,7 @@ import {signInRequest, signUpRequest} from 'core/reducers';
 
 interface IProps {
   isSignUpScreen: boolean;
-  onPress?: (email: string) => void;
+  onPress?: (email: string, password: string) => void;
 }
 
 export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
@@ -28,7 +28,7 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
       }),
     );
 
-    onPress!(email);
+    onPress!(email, password);
   }, [dispatch, email, onPress, password]);
 
   const onSignInSubmit = useCallback(() => {

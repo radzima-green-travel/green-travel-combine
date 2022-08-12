@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   FlatList,
   NativeSyntheticEvent,
@@ -14,10 +14,12 @@ interface IProps {
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   width: number;
   height: number;
+  defaultPhoto?: number;
 }
 
-export const ImageSlider = ({images, onScroll, width, height}: IProps) => {
+export const ImageSlider = ({images, onScroll, width, height, defaultPhoto}: IProps) => {
   const styles = useThemeStyles(themeStyles);
+  const [isImgDownloaded, setIsImgDownloaded] = useState(true)
 
   return (
     <FlatList
@@ -33,18 +35,19 @@ export const ImageSlider = ({images, onScroll, width, height}: IProps) => {
       initialNumToRender={1}
       maxToRenderPerBatch={1}
       renderItem={({item}) => {
-        console.log(item);
+        const imageSourse =
+          typeof item === 'string'
+            ? {
+                uri: item,
+              }
+            : item
+  
         return (
           <FastImage
             style={[styles.image as unknown as StyleProp<ImageStyle>, {width}]}
             resizeMode="cover"
-            source={
-              typeof item === 'string'
-                ? {
-                    uri: item,
-                  }
-                : item
-            }
+            source={isImgDownloaded ? imageSourse : defaultPhoto ?? imageSourse}
+            onError={() => setIsImgDownloaded(false)}
           />
         );
       }}

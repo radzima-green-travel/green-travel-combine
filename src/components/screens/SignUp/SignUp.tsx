@@ -12,8 +12,8 @@ export const SignUp = ({navigation}: IProps) => {
   const styles = useThemeStyles(themeStyles);
 
   const navigateToEmailValidation = useCallback(
-    email => {
-      navigation.navigate('EmailValidation', {email, isSignUp: true});
+    (email, password) => {
+      navigation.navigate('EmailValidation', {email, password, isSignUp: true});
     },
     [navigation],
   );

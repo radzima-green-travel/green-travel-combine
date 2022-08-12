@@ -139,14 +139,21 @@ export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
     state => {
       return {
         ...state,
+        userAuthorized: undefined,
       };
     },
   )
+  .handleAction(actions.confirmSignUpSuccess, (state) => {
+    return {
+      ...state,
+      userAuthorized: undefined,
+    };
+  })
   .handleAction(
     actions.userAuthorizedSuccess,
     (state, {payload: {userAuthorized}}) => {
       return {
-        ...defaultState,
+        ...state,
         userAuthorized: userAuthorized ?? null,
       };
     },

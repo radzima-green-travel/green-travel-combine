@@ -11,6 +11,7 @@ import {
   confirmSignUpRequest,
   forgotPasswordRequest,
   resendSignUpCodeRequest,
+  signInRequest,
 } from 'core/reducers';
 import {themeStyles} from './styles';
 import {
@@ -32,7 +33,7 @@ export const EmailValidation = ({navigation, route}: IProps) => {
   const dispatch = useDispatch();
 
   const {
-    params: {email, isSignUp},
+    params: {email, password, isSignUp},
   } = route;
 
   const getEmailCode = (emailCode, isCode) => {
@@ -48,7 +49,8 @@ export const EmailValidation = ({navigation, route}: IProps) => {
 
   const onConfirmSignUp = useCallback(() => {
     dispatch(confirmSignUpRequest({email, code}));
-  }, [dispatch, email, code]);
+    dispatch(signInRequest({email, password: password!}));
+  }, [dispatch, email, code, password]);
 
   const onConfirmForgotPassword = () => {
     navigation.navigate('NewPassword', {email, code});
