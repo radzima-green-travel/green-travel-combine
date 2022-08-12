@@ -29,6 +29,7 @@ static Colors *instance;
   self = [super init];
   if (self) {
     self.background = [UIColor colorNamed:@"background"];
+    self.backgroundProfileScreen = [UIColor colorNamed:@"backgroundProfileScreen"];
     self.textFieldBackground = [UIColor colorNamed:@"textFieldBackground"];
     self.textFieldBorderColor = [UIColor colorNamed:@"textFieldBorderColor"];
     self.navigationBarTint = [UIColor colorNamed:@"navigationBarTint"];
