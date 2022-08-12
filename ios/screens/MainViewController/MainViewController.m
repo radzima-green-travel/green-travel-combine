@@ -33,6 +33,7 @@
 #import "StyleUtils.h"
 #import "MapViewControllerConstants.h"
 #import "ProfileRootViewController.h"
+#import "ProfileTableViewController.h"
 #import "LoginViewController.h"
 #import "UserController.h"
 #import "AmplifyBridge.h"

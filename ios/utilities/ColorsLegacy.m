@@ -60,6 +60,13 @@ static ColorsLegacy *instance;
                            alpha:0.35];
 }
 
+- (UIColor *)getLightGreyColorWithAlpha:(NSNumber*)alpha {
+  return [UIColor colorWithRed:0.235
+                         green:0.235
+                          blue:0.263
+                         alpha:alpha.floatValue];
+}
+
 + (instancetype)get {
     if (instance) {
         return instance;

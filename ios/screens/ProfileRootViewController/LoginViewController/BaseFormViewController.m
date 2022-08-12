@@ -18,7 +18,7 @@
 
 @interface BaseFormViewController ()
 
-@property(strong, nonatomic) UIView *contentContainerView;
+//@property(strong, nonatomic) UIView *contentContainerView;
 
 @end
 
@@ -56,42 +56,42 @@ static const CGFloat kTopOffset = 90.0;
   self.scrollView.alwaysBounceVertical = YES;
   [self.view addSubview:self.scrollView];
   [NSLayoutConstraint activateConstraints:@[
-    [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-    [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-    [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-    [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
+    [self.scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+    [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+    [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+    [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
   ]];
   
-  self.contentContainerView = [[UIView alloc] init];
-  self.contentContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.scrollView addSubview:self.contentContainerView];
-  
-  [NSLayoutConstraint activateConstraints:@[
-    [self.contentContainerView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
-    [self.contentContainerView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
-    [self.contentContainerView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
-    [self.contentContainerView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor],
-    [self.contentContainerView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
-    [self.contentContainerView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor]
-  ]];
+//  self.contentContainerView = [[UIView alloc] init];
+//  self.contentContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+//  [self.scrollView addSubview:self.contentContainerView];
+//
+//  [NSLayoutConstraint activateConstraints:@[
+//    [self.contentContainerView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
+//    [self.contentContainerView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
+//    [self.contentContainerView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
+//    [self.contentContainerView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor],
+//    [self.contentContainerView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
+//    [self.contentContainerView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor]
+//  ]];
   
   
   self.contentView = [[UIView alloc] init];
   self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.scrollView addSubview:self.contentView];
   
-  NSLayoutConstraint *leading = [self.contentView.leadingAnchor
-                                 constraintEqualToAnchor:self.contentContainerView.leadingAnchor constant:kMinContentInset];
-  leading.priority = UILayoutPriorityDefaultHigh;
-  NSLayoutConstraint *trailing = [self.contentView.trailingAnchor
-                                  constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-kMinContentInset];
-  trailing.priority = UILayoutPriorityDefaultHigh;
+//  NSLayoutConstraint *leading = [self.contentView.leadingAnchor
+//                                 constraintEqualToAnchor:self.contentContainerView.leadingAnchor constant:kMinContentInset];
+//  leading.priority = UILayoutPriorityDefaultHigh;
+//  NSLayoutConstraint *trailing = [self.contentView.trailingAnchor
+//                                  constraintEqualToAnchor:self.scrollView.trailingAnchor constant:-kMinContentInset];
+//  trailing.priority = UILayoutPriorityDefaultHigh;
   
   [NSLayoutConstraint activateConstraints:@[
     [self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
     [self.contentView.centerXAnchor constraintEqualToAnchor:self.scrollView.centerXAnchor],
-    leading,
-    trailing,
+//    leading,
+//    trailing,
     [self.contentView.widthAnchor constraintLessThanOrEqualToConstant:kMaxContentWidth],
     [self.contentView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
     [self.contentView.heightAnchor constraintGreaterThanOrEqualToAnchor:self.scrollView.heightAnchor]
