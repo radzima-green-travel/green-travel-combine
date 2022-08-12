@@ -23,7 +23,6 @@ export const NewPassword = ({navigation, route}: IProps) => {
   const onConfirmNewPassword = useCallback(() => {
     dispatch(confirmNewPasswordRequest({email, code, newPassword}));
     dispatch(signInRequest({email, password: newPassword}));
-    // navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
   }, [code, dispatch, email, navigation, newPassword]);
 
   return (
