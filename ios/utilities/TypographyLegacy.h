@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)makeBody:(NSString *)input;
 - (NSAttributedString *)makeBookmarkText:(NSString *)input;
 - (NSAttributedString *)makeLoadingScreenText:(NSString *)input;
+- (NSAttributedString *)makeProfileTableViewCellMainTextLabel:(NSString *)input;
+- (NSAttributedString *)makeProfileTableViewCellSubTextLabel:(NSString *)input;
 
 @end
 

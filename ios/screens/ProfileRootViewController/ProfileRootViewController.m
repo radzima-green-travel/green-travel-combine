@@ -6,6 +6,7 @@
 //
 
 #import "ProfileRootViewController.h"
+#import "ProfileTableViewController.h"
 #import "UserModelConstants.h"
 #import "LoginViewController.h"
 #import "ProfileViewController.h"
@@ -46,10 +47,14 @@
 }
 
 - (void)showLoginViewController {
-  LoginViewController *loginViewController =
-  [[LoginViewController alloc] initWithController:self.userController
+//  LoginViewController *loginViewController =
+//  [[LoginViewController alloc] initWithController:self.userController
+//                                                  model:self.userModel];
+//  [self showViewController:loginViewController title:@"Profile"];
+  ProfileTableViewController *profileTableViewController =
+  [[ProfileTableViewController alloc] initWithController:self.userController
                                                   model:self.userModel];
-  [self showViewController:loginViewController title:@"Profile"];
+  [self showViewController:profileTableViewController title:@"Profile"];
 }
 
 - (void)showProfileViewController {
@@ -57,6 +62,13 @@
   [[ProfileViewController alloc] initWithController:self.userController
                                               model:self.userModel];
   [self showViewController:profileViewController title:@"Profile"];
+}
+
+- (void)showProfileSettingsControler {
+  ProfileTableViewController *profileTableViewController =
+  [[ProfileTableViewController alloc] initWithController:self.userController
+                                                  model:self.userModel];
+  [self showViewController:profileTableViewController title:@"Profile"];
 }
 
 - (void)showUserFetchProgressViewController {
@@ -82,14 +94,14 @@
   controllerWithNavigation.navigationBar.titleTextAttributes =
   [TypographyLegacy get].navigationSemiboldAttributes;
   
-  [self addChildViewController:controllerWithNavigation];
+//  [self addChildViewController:controllerWithNavigation];
   controllerWithNavigation.view.frame = self.view.bounds;
   [self.view addSubview:controllerWithNavigation.view];
-  [controllerWithNavigation didMoveToParentViewController:self];
+//  [controllerWithNavigation didMoveToParentViewController:self];
   
-  [self.current willMoveToParentViewController:nil];
-  [self.current.view removeFromSuperview];
-  [self.current removeFromParentViewController];
+//  [self.current willMoveToParentViewController:nil];
+//  [self.current.view removeFromSuperview];
+//  [self.current removeFromParentViewController];
   
   self.current = controllerWithNavigation;
 }
