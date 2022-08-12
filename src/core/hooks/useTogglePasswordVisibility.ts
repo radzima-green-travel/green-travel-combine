@@ -6,13 +6,8 @@ export function useTogglePasswordVisibility(rightIconName: IconsNames) {
   const [rightIcon, setRightIcon] = useState(rightIconName);
 
   const handlePasswordVisibility = () => {
-    if (rightIcon === 'eye') {
-      setRightIcon('eyeOff');
-      setPasswordVisibility(!passwordVisibility);
-    } else {
-      setRightIcon('eye');
-      setPasswordVisibility(!passwordVisibility);
-    }
+    rightIcon === 'eye' ? setRightIcon('eyeOff') : setRightIcon('eye');
+    setPasswordVisibility(!passwordVisibility);
   };
 
   return {
