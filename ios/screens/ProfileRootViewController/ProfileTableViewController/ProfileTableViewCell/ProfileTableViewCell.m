@@ -23,7 +23,6 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.selectionStyle = UITableViewCellSelectionStyleNone;
-  [self setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)prepareForReuse {
@@ -35,29 +34,17 @@
 }
 
 - (void)prepareTableViewCell {
-  self.backgroundView = [[UIView alloc] init];
-  self.backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.backgroundView.backgroundColor = [ColorsLegacy get].white;
-  
-  [self.contentView addSubview:self.backgroundView];
-  
-  [NSLayoutConstraint activateConstraints:@[
-  [self.backgroundView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0],
-  [self.backgroundView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0],
-  [self.backgroundView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
-  [self.backgroundView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
-  ]];
   
   self.iconImageView = [[UIImageView alloc] init];
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
   
-  [self.backgroundView addSubview:self.iconImageView];
+  [self.contentView addSubview:self.iconImageView];
   
   [NSLayoutConstraint activateConstraints:@[
-  [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.backgroundView.leadingAnchor constant:16.0],
-  [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.backgroundView.centerYAnchor],
-  [self.iconImageView.topAnchor constraintEqualToAnchor:self.backgroundView.topAnchor constant:8],
-  [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.backgroundView.bottomAnchor constant:-8],
+  [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0],
+  [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+  [self.iconImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:8],
+  [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-8],
   [self.iconImageView.widthAnchor constraintEqualToAnchor:self.iconImageView.heightAnchor]
   ]];
 }
@@ -68,17 +55,17 @@
   self.iconImageView.image = image;
 
   UIImage *chevron = [UIImage imageNamed:@"chevron-right"];
-  //UIImage *chevron = [UIImage named:@"chevron-right" withTintColor:[[ColorsLegacy get] getLightGreyColorWithAlpha:@0.3]];
+  //UIImage *chevron = [[UIImage named:@"chevron-right"] withTintColor:[[Colors get].subText colorWithAlphaComponent:0.6]];
   self.chevronImageView = [[UIImageView alloc] initWithImage: chevron];
   self.chevronImageView.translatesAutoresizingMaskIntoConstraints = NO;
   
   [self.contentView addSubview:self.chevronImageView];
   
   [NSLayoutConstraint activateConstraints:@[
-  [self.chevronImageView.trailingAnchor constraintEqualToAnchor:self.backgroundView.trailingAnchor constant:-16.0],
-  [self.chevronImageView.centerYAnchor constraintEqualToAnchor:self.backgroundView.centerYAnchor],
-  [self.chevronImageView.topAnchor constraintEqualToAnchor:self.backgroundView.topAnchor constant:8],
-  [self.chevronImageView.bottomAnchor constraintEqualToAnchor:self.backgroundView.bottomAnchor constant:-8],
+  [self.chevronImageView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0],
+  [self.chevronImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+  [self.chevronImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:8],
+  [self.chevronImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-8],
   [self.chevronImageView.widthAnchor constraintEqualToAnchor:self.chevronImageView.heightAnchor]
   ]];
   
@@ -91,7 +78,7 @@
   
   [NSLayoutConstraint activateConstraints:@[
   [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:16.0],
-  [self.mainLabel.centerYAnchor constraintEqualToAnchor:self.backgroundView.centerYAnchor]
+  [self.mainLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
   ]];
   
   self.subLabel = [[UILabel alloc] init];
@@ -103,49 +90,40 @@
   
   [NSLayoutConstraint activateConstraints:@[
   [self.subLabel.trailingAnchor constraintEqualToAnchor:self.chevronImageView.leadingAnchor constant:-8],
-  [self.subLabel.centerYAnchor constraintEqualToAnchor:self.backgroundView.centerYAnchor],
+  [self.subLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
   [self.subLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.mainLabel.trailingAnchor constant:8]
   ]];
-  
-  self.separatorView = [[UIView alloc] init];
-  self.separatorView.backgroundColor = [[ColorsLegacy get] getLightGreyColorWithAlpha:@0.6];
-  
-  self.separatorView.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.backgroundView addSubview:self.separatorView];
-  
-  [NSLayoutConstraint activateConstraints:@[
-  [self.separatorView.leadingAnchor constraintEqualToAnchor:self.mainLabel.leadingAnchor],
-  [self.separatorView.trailingAnchor constraintEqualToAnchor:self.backgroundView.trailingAnchor],
-  [self.separatorView.bottomAnchor constraintEqualToAnchor:self.backgroundView.bottomAnchor],
-  [self.separatorView.heightAnchor constraintEqualToConstant:1.0]
-  ]];
-  
 }
 
 - (void)prepareAuthCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText {
-  [self prepareTableViewCell];
   
-  self.backgroundView.layer.cornerRadius = 14;
+  self.iconImageView = [[UIImageView alloc] init];
+  self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
+  
+  [self.contentView addSubview:self.iconImageView];
   
   self.iconImageView.image = image;
   
   [NSLayoutConstraint activateConstraints:@[
-  [self.iconImageView.topAnchor constraintEqualToAnchor:self.backgroundView.topAnchor constant:18],
-  [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.backgroundView.bottomAnchor constant:-18],
+    [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0],
+    [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+    [self.iconImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:18],
+    [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-18],
+    [self.iconImageView.widthAnchor constraintEqualToAnchor:self.iconImageView.heightAnchor]
   ]];
   
   self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height / 2;
   
   UIImage *chevron = [UIImage imageNamed:@"chevron-right"];
-  //UIImage *chevron = [UIImage named:@"chevron-right" withTintColor:[[ColorsLegacy get] getLightGreyColorWithAlpha:@0.3]];
+  //UIImage *chevron = [[UIImage named:@"chevron-right"] withTintColor:[[Colors get].subText colorWithAlphaComponent:0.6]];
   self.chevronImageView = [[UIImageView alloc] initWithImage: chevron];
   self.chevronImageView.translatesAutoresizingMaskIntoConstraints = NO;
   
   [self.contentView addSubview:self.chevronImageView];
   
   [NSLayoutConstraint activateConstraints:@[
-  [self.chevronImageView.trailingAnchor constraintEqualToAnchor:self.backgroundView.trailingAnchor constant:-16.0],
-  [self.chevronImageView.centerYAnchor constraintEqualToAnchor:self.backgroundView.centerYAnchor],
+  [self.chevronImageView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0],
+  [self.chevronImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
   [self.chevronImageView.widthAnchor constraintEqualToAnchor:self.chevronImageView.heightAnchor]
   ]];
   
@@ -159,7 +137,7 @@
   [NSLayoutConstraint activateConstraints:@[
   [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:13.0],
   [self.mainLabel.topAnchor constraintEqualToAnchor:self.iconImageView.topAnchor],
-  [self.mainLabel.trailingAnchor constraintEqualToAnchor:self.backgroundView.trailingAnchor constant:-24.0]
+  [self.mainLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-24.0]
   ]];
   
   self.subLabel = [[UILabel alloc] init];
@@ -173,8 +151,7 @@
   [NSLayoutConstraint activateConstraints:@[
   [self.subLabel.leadingAnchor constraintEqualToAnchor:self.mainLabel.leadingAnchor],
   [self.subLabel.trailingAnchor constraintEqualToAnchor:self.mainLabel.trailingAnchor],
-  [self.subLabel.topAnchor constraintEqualToAnchor:self.mainLabel.bottomAnchor constant:2],
-  [self.subLabel.bottomAnchor constraintEqualToAnchor:self.iconImageView.bottomAnchor]
+  [self.subLabel.topAnchor constraintEqualToAnchor:self.mainLabel.bottomAnchor constant:2]
   ]];
 }
 

@@ -125,12 +125,12 @@ static TypographyLegacy *instance;
 
 - (NSAttributedString *)makeProfileTableViewCellMainTextLabel:(NSString *)input {
   return [[NSAttributedString alloc] initWithString:input
-                                         attributes:getTextAttributes([ColorsLegacy get].black, 17.0, UIFontWeightRegular)];
+                                         attributes:getTextAttributes([Colors get].mainText, 17.0, UIFontWeightRegular)];
 }
 
 - (NSAttributedString *)makeProfileTableViewCellSubTextLabel:(NSString *)input {
   return [[NSAttributedString alloc] initWithString:input
-                                         attributes:getTextAttributes([[ColorsLegacy get] getLightGreyColorWithAlpha:@0.6], 17.0, UIFontWeightThin)];
+                                         attributes:getTextAttributes([[Colors get].subText colorWithAlphaComponent:0.6], 17.0, UIFontWeightThin)];
 }
 
 

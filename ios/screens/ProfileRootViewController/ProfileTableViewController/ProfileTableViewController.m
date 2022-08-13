@@ -44,50 +44,17 @@ static const CGFloat kAuthRowHeight = 96.0;
   [self prepareView];
 }
 
-- (void)configureTableViewCells {
-  SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"You are not authorized"
-                                                                                  subTitle:@"Authorized or Sign up"
-                                                                                     image:[UIImage imageNamed:@"accountPhoto"]
-                                                                                   handler:^{
-    LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:self.userController model:self.userModel];
-    [self.navigationController pushViewController:loginViewController animated:YES];
-  }];
-  
-  SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Data and Storage"
-                                                                                            subTitle:@""
-                                                                                               image:[UIImage imageNamed:@"dataAndStorage"]
-                                                                                             handler:^{
-    NSLog(@"DataAndStorageCell Tapped");
-  }];
-  
-  SettingsTableViewCellModel *languageCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Language"
-                                                                                      subTitle:@"English"
-                                                                                         image:[UIImage imageNamed:@"language"]
-                                                                                       handler:^{
-    NSLog(@"LanguageCell Tapped");
-  }];
-  
-  SettingsTableViewCellModel *themeCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Theme"
-                                                                                   subTitle:@"Light"
-                                                                                      image:[UIImage imageNamed:@"theme"]
-                                                                                    handler:^{
-    NSLog(@"ThemeCell Tapped");
-  }];
-  
-  NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
-  ProfileSection *authSection = [[ProfileSection alloc] initWithTitle:@"" cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
-  ProfileSection *settingsSection = [[ProfileSection alloc] initWithTitle:@"Settings" cellModels:settingCellModels];
-  
-  self.models = [[NSMutableArray alloc] initWithArray:@[authSection, settingsSection]];
-  }
-
 - (void)prepareView {
   self.view.backgroundColor = [Colors get].backgroundProfileScreen;
-  self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+  if (@available(iOS 13.0, *)) {
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
+  } else {
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+  }
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:@"ProfileCell"];
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
   
   self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
   
@@ -118,14 +85,6 @@ static const CGFloat kAuthRowHeight = 96.0;
     [cell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
   } else {
     [cell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
-    if (indexPath.section == 1 && indexPath.row == 0) {
-      cell.backgroundView.layer.cornerRadius = 14;
-      cell.backgroundView.layer.maskedCorners = kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
-    } else if (indexPath.section == 1 && indexPath.row == models.count - 1){
-      cell.backgroundView.layer.cornerRadius = 14;
-      cell.backgroundView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
-      cell.separatorView.alpha = 0;
-    }
   }
   
   return cell;
@@ -148,5 +107,51 @@ static const CGFloat kAuthRowHeight = 96.0;
   [self.tableView reloadData];
 }
 
+#pragma mark - Configure cells
+- (void)configureTableViewCells {
+  SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
+                                          initWithTitle:NSLocalizedString(@"ProfileTableViewCellAuthMainTitle", @"")
+                                          subTitle:NSLocalizedString(@"ProfileTableViewCellAuthSubTitle", @"")
+                                          image:[UIImage imageNamed:@"accountPhoto"]
+                                          handler:^{
+    LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:self.userController model:self.userModel];
+    [self.navigationController pushViewController:loginViewController animated:YES];
+  }];
+  
+  SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]
+                                                    initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelDataAndStorage", @"")
+                                                    subTitle:@""
+                                                    image:[UIImage imageNamed:@"dataAndStorage"]
+                                                    handler:^{
+    NSLog(@"DataAndStorageCell Tapped");
+  }];
+  
+  SettingsTableViewCellModel *languageCell = [[SettingsTableViewCellModel alloc]
+                                              initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelLanguage", @"")
+                                              subTitle:NSLocale.currentLocale.languageCode
+                                              image:[UIImage imageNamed:@"language"]
+                                              handler:^{
+    NSLog(@"LanguageCell Tapped");
+  }];
+  
+  SettingsTableViewCellModel *themeCell = [[SettingsTableViewCellModel alloc]
+                                           initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelTheme", @"")
+                                           subTitle:@"Light"
+                                           image:[UIImage imageNamed:@"theme"]
+                                           handler:^{
+    NSLog(@"ThemeCell Tapped");
+  }];
+  
+  NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
+  ProfileSection *authSection = [[ProfileSection alloc]
+                                 initWithTitle:@""
+                                 cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
+  
+  ProfileSection *settingsSection = [[ProfileSection alloc]
+                                     initWithTitle:NSLocalizedString(@"ProfileTableViewSettingsSection", @"")
+                                     cellModels:settingCellModels];
+  
+  self.models = [[NSMutableArray alloc] initWithArray:@[authSection, settingsSection]];
+}
 
 @end
