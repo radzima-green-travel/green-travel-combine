@@ -51,6 +51,7 @@ static Colors *instance;
     self.buttonNewDataBackground = [UIColor colorNamed:@"buttonNewDataBackground"];
     self.buttonNewDataText = [UIColor colorNamed:@"buttonNewDataText"];
     self.mainText = [UIColor colorNamed:@"mainText"];
+    self.subText = [UIColor colorNamed:@"subText"];
     self.auxiliaryText = [UIColor colorNamed:@"auxiliaryText"];
     self.searchCellSeparator = [UIColor colorNamed:@"searchCellSeparator"];
     self.pageControlDotSelected = [UIColor colorNamed:@"pageControlDotSelected"];

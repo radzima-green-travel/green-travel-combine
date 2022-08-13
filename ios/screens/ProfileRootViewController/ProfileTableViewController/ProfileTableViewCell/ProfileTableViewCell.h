@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileTableViewCell : UITableViewCell
 
-@property (strong, nonatomic)UIView *separatorView;
 @property (strong, nonatomic)UIImageView *chevronImageView;
 
 - (void)prepareSettingsCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText;

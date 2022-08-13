@@ -63,6 +63,13 @@
 "ProfileScreenButtonLabelSignIn" = "ВОЙТИ";
 "ProfileScreenButtonLabelForgotPassword" = "Забыли пароль?";
 
+"ProfileTableViewSettingsSection" = "Settings";
+"ProfileTableViewCellAuthMainTitle" = "You are not authorized";
+"ProfileTableViewCellAuthSubTitle" = "Authorized or Sign up";
+"ProfileTableViewCellLabelDataAndStorage" = "Data and Storage";
+"ProfileTableViewCellLabelLanguage" = "Language";
+"ProfileTableViewCellLabelTheme" = "Theme";
+
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";

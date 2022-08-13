@@ -63,6 +63,13 @@
 "ProfileScreenButtonLabelSignIn" = "SIGN IN";
 "ProfileScreenButtonLabelForgotPassword" = "Forgot password?";
 
+"ProfileTableViewSettingsSection" = "Settings";
+"ProfileTableViewCellAuthMainTitle" = "You are not authorized";
+"ProfileTableViewCellAuthSubTitle" = "Authorized or Sign up";
+"ProfileTableViewCellLabelDataAndStorage" = "Data and Storage";
+"ProfileTableViewCellLabelLanguage" = "Language";
+"ProfileTableViewCellLabelTheme" = "Theme";
+
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";
 "CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
