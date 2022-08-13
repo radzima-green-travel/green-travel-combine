@@ -63,6 +63,13 @@
 "ProfileScreenButtonLabelSignIn" = "ВОЙТИ";
 "ProfileScreenButtonLabelForgotPassword" = "Забыли пароль?";
 
+"ProfileTableViewSettingsSection" = "Настройки";
+"ProfileTableViewCellAuthMainTitle" = "Вы не авторизованы";
+"ProfileTableViewCellAuthSubTitle" = "Авторизуйтесь или зарегестрируйтесь";
+"ProfileTableViewCellLabelDataAndStorage" = "Данные и память";
+"ProfileTableViewCellLabelLanguage" = "Язык";
+"ProfileTableViewCellLabelTheme" = "Тема";
+
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenHeader" = "Подтвердите регистрацию";
 "CodeConfirmationScreenHint" = "введите цифры из письма, высланного на электронную почту %@";

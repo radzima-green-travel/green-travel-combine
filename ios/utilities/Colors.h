@@ -47,6 +47,7 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *buttonNewDataBackgroundHighlighted;
 @property (strong, nonatomic) UIColor *buttonNewDataText;
 @property (strong, nonatomic) UIColor *mainText;
+@property (strong, nonatomic) UIColor *subText;
 @property (strong, nonatomic) UIColor *auxiliaryText;
 @property (strong, nonatomic) UIColor *searchCellSeparator;
 @property (strong, nonatomic) UIColor *pageControlDotSelected;
