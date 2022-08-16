@@ -17,8 +17,10 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
+**Actual result**
+A clear and concise description of what you see in fact.
 
-**Expected behavior**
+**Expected result**
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
