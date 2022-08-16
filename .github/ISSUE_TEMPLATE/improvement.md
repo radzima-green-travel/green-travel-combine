@@ -2,7 +2,7 @@
 name: Improvement
 about: Suggest an idea for this project
 title: ''
-labels: enhancement
+labels: ''
 assignees: VKavaliou1984
 
 ---
