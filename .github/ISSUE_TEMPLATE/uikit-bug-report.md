@@ -23,8 +23,8 @@ A clear and concise description of what you see in fact.
 **Expected result**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Screenshots/video**
+If applicable, add screenshots/video to help explain your problem.
 
 **Radzima app version**
  - Build [e.g. 1.4.1]
