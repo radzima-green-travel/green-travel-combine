@@ -6,9 +6,10 @@
 //
 
 #import "ProfileTableViewCell.h"
-#import "TypographyLegacy.h"
-#import "ColorsLegacy.h"
+#import "Typography.h"
+#import "Colors.h"
 #import "SettingsTableViewCellModel.h"
+#import "UIImage+extensions.h"
 
 @interface ProfileTableViewCell ()
 
@@ -30,10 +31,10 @@
   self.iconImageView.image = nil;
   self.mainLabel.text = nil;
   self.subLabel.text = nil;
-  self.chevronImageView.image = nil;
 }
 
 - (void)prepareTableViewCell {
+  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
   self.iconImageView = [[UIImageView alloc] init];
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -54,23 +55,8 @@
 
   self.iconImageView.image = image;
 
-  UIImage *chevron = [UIImage imageNamed:@"chevron-right"];
-  //UIImage *chevron = [[UIImage named:@"chevron-right"] withTintColor:[[Colors get].subText colorWithAlphaComponent:0.6]];
-  self.chevronImageView = [[UIImageView alloc] initWithImage: chevron];
-  self.chevronImageView.translatesAutoresizingMaskIntoConstraints = NO;
-
-  [self.contentView addSubview:self.chevronImageView];
-
-  [NSLayoutConstraint activateConstraints:@[
-  [self.chevronImageView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0],
-  [self.chevronImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-  [self.chevronImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:8],
-  [self.chevronImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-8],
-  [self.chevronImageView.widthAnchor constraintEqualToAnchor:self.chevronImageView.heightAnchor]
-  ]];
-
   self.mainLabel = [[UILabel alloc] init];
-  NSAttributedString *mainTextLabelAttributedString = [[TypographyLegacy get] makeProfileTableViewCellMainTextLabel:mainText];
+  NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabel:mainText];
   self.mainLabel.attributedText = mainTextLabelAttributedString;
 
   self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -82,20 +68,21 @@
   ]];
 
   self.subLabel = [[UILabel alloc] init];
-  NSAttributedString *subTextLabelAttributedString = [[TypographyLegacy get] makeProfileTableViewCellSubTextLabel:subText];
+  NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabel:subText];
   self.subLabel.attributedText = subTextLabelAttributedString;
 
   self.subLabel.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.subLabel];
 
   [NSLayoutConstraint activateConstraints:@[
-  [self.subLabel.trailingAnchor constraintEqualToAnchor:self.chevronImageView.leadingAnchor constant:-8],
+  [self.subLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-8],
   [self.subLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
   [self.subLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.mainLabel.trailingAnchor constant:8]
   ]];
 }
 
 - (void)prepareAuthCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText {
+  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
   self.iconImageView = [[UIImageView alloc] init];
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -114,21 +101,8 @@
 
   self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height / 2;
 
-  UIImage *chevron = [UIImage imageNamed:@"chevron-right"];
-  //UIImage *chevron = [[UIImage named:@"chevron-right"] withTintColor:[[Colors get].subText colorWithAlphaComponent:0.6]];
-  self.chevronImageView = [[UIImageView alloc] initWithImage: chevron];
-  self.chevronImageView.translatesAutoresizingMaskIntoConstraints = NO;
-
-  [self.contentView addSubview:self.chevronImageView];
-
-  [NSLayoutConstraint activateConstraints:@[
-  [self.chevronImageView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0],
-  [self.chevronImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-  [self.chevronImageView.widthAnchor constraintEqualToAnchor:self.chevronImageView.heightAnchor]
-  ]];
-
   self.mainLabel = [[UILabel alloc] init];
-  NSAttributedString *mainTextLabelAttributedString = [[TypographyLegacy get] makeProfileTableViewCellMainTextLabel:mainText];
+  NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabel:mainText];
   self.mainLabel.attributedText = mainTextLabelAttributedString;
 
   self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -137,12 +111,12 @@
   [NSLayoutConstraint activateConstraints:@[
   [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:13.0],
   [self.mainLabel.topAnchor constraintEqualToAnchor:self.iconImageView.topAnchor],
-  [self.mainLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-24.0]
+  [self.mainLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0]
   ]];
 
   self.subLabel = [[UILabel alloc] init];
   self.subLabel.numberOfLines = 2;
-  NSAttributedString *subTextLabelAttributedString = [[TypographyLegacy get] makeProfileTableViewCellSubTextLabel:subText];
+  NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabel:subText];
   self.subLabel.attributedText = subTextLabelAttributedString;
 
   self.subLabel.translatesAutoresizingMaskIntoConstraints = NO;

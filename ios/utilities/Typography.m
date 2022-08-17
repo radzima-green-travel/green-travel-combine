@@ -57,6 +57,16 @@ static Typography *instance;
                                                                       UIFontWeightRegular)];
 }
 
+- (NSAttributedString *)makeProfileTableViewCellMainTextLabel:(NSString *)input {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes([Colors get].mainText, 17.0, UIFontWeightRegular)];
+}
+
+- (NSAttributedString *)makeProfileTableViewCellSubTextLabel:(NSString *)input {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes([[Colors get].subText colorWithAlphaComponent:0.6], 17.0, UIFontWeightThin)];
+}
+
 
 + (instancetype)get {
     if (instance) {
