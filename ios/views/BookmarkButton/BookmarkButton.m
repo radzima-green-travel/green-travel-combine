@@ -34,16 +34,12 @@
   return self;
 }
 
-- (void)layoutSubviews {
-  [super layoutSubviews];
-}
-
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
   [super traitCollectionDidChange:previousTraitCollection];
   if (@available(iOS 13.0, *)) {
     UITraitCollection *currentTraitCollection = [[UITraitCollection alloc] init];
     currentTraitCollection = [UITraitCollection currentTraitCollection];
-    if (previousTraitCollection.userInterfaceStyle != [currentTraitCollection userInterfaceStyle]) {
+    if (previousTraitCollection.userInterfaceStyle != currentTraitCollection.userInterfaceStyle) {
       [self setUpImages];
     }
   }
