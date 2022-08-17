@@ -269,6 +269,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
   [self.timeTracer traceStart];
 }
 
@@ -278,6 +279,11 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
     AnalyticsEventsParamCardName: self.item.title,
     AnalyticsEventsParamCardCategory: self.item.category.title,
   }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+  [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
