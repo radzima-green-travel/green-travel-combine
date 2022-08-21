@@ -21,8 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)formHeader:(NSString *)input;
 - (NSAttributedString *)codeConfirmationHint:(NSString *)input;
 - (NSAttributedString *)textButtonLabel:(NSString *)input;
-- (NSAttributedString *)makeProfileTableViewCellMainTextLabel:(NSString *)input;
-- (NSAttributedString *)makeProfileTableViewCellSubTextLabel:(NSString *)input;
+- (NSAttributedString *)makeProfileTableViewCellMainTextLabelForSettingsCell:(NSString *)input;
+- (NSAttributedString *)makeProfileTableViewCellSubTextLabelForSettingsCell:(NSString *)input;
+- (NSAttributedString *)makeProfileTableViewCellMainTextLabelForAuthCell:(NSString *)input;
+- (NSAttributedString *)makeProfileTableViewCellSubTextLabelForAuthCell:(NSString *)input;
 
 @end
 

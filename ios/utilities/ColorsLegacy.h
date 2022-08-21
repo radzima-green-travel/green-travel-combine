@@ -36,8 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIColor *alabaster;
 @property (strong, nonatomic) UIColor *boulder;
 @property (strong, nonatomic) UIColor *persimmon;
-
-- (UIColor *)getLightGreyColorWithAlpha:(NSNumber*)alpha;
   
 + (instancetype)get;
 

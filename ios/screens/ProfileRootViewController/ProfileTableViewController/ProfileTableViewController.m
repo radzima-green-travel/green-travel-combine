@@ -25,6 +25,7 @@
 
 static const CGFloat kSettingsRowHeight = 44.0;
 static const CGFloat kAuthRowHeight = 96.0;
+static NSString *const kProfileCell = @"ProfileCell";
 
 @implementation ProfileTableViewController
 
@@ -40,7 +41,15 @@ static const CGFloat kAuthRowHeight = 96.0;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [self configureTableViewCells];
+  [self.userModel addUserModelObserver:self];
+  [self onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
+
+  if (self.userModel.signedIn) {
+    [self configureSignedInTableViewCells];
+  } else {
+    [self configureBaseTableViewCells];
+  }
+
   [self prepareView];
 }
 
@@ -53,7 +62,7 @@ static const CGFloat kAuthRowHeight = 96.0;
   }
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
-  [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:@"ProfileCell"];
+  [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:kProfileCell];
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
   self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -79,7 +88,7 @@ static const CGFloat kAuthRowHeight = 96.0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   NSMutableArray<SettingsTableViewCellModel *> *models = self.models[indexPath.section].cellmodels;
   SettingsTableViewCellModel *model = models[indexPath.row];
-  ProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ProfileCell" forIndexPath:indexPath];
+  ProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProfileCell forIndexPath:indexPath];
 
   if (indexPath.section == 0) {
     [cell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
@@ -91,6 +100,7 @@ static const CGFloat kAuthRowHeight = 96.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   SettingsTableViewCellModel *model = self.models[indexPath.section].cellmodels[indexPath.row];
   model.handler();
 }
@@ -98,17 +108,20 @@ static const CGFloat kAuthRowHeight = 96.0;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.section == 0) {
     return kAuthRowHeight;
-  } else {
-    return kSettingsRowHeight;
   }
+    return kSettingsRowHeight;
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
-  [self.tableView reloadData];
+  if (currentState == UserModelStateFetched) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self.tableView reloadData];
+    });
+  }
 }
 
 #pragma mark - Configure cells
-- (void)configureTableViewCells {
+- (void)configureBaseTableViewCells {
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
                                           initWithTitle:NSLocalizedString(@"ProfileTableViewCellAuthMainTitle", @"")
                                           subTitle:NSLocalizedString(@"ProfileTableViewCellAuthSubTitle", @"")
@@ -116,6 +129,54 @@ static const CGFloat kAuthRowHeight = 96.0;
                                           handler:^{
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:self.userController model:self.userModel];
     [self.navigationController pushViewController:loginViewController animated:YES];
+  }];
+
+  SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]
+                                                    initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelDataAndStorage", @"")
+                                                    subTitle:@""
+                                                    image:[UIImage imageNamed:@"dataAndStorage"]
+                                                    handler:^{
+    NSLog(@"DataAndStorageCell Tapped");
+  }];
+
+  SettingsTableViewCellModel *languageCell = [[SettingsTableViewCellModel alloc]
+                                              initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelLanguage", @"")
+                                              subTitle:NSLocale.currentLocale.languageCode
+                                              image:[UIImage imageNamed:@"language"]
+                                              handler:^{
+    NSLog(@"LanguageCell Tapped");
+  }];
+
+  SettingsTableViewCellModel *themeCell = [[SettingsTableViewCellModel alloc]
+                                           initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelTheme", @"")
+                                           subTitle:@"Light"
+                                           image:[UIImage imageNamed:@"theme"]
+                                           handler:^{
+    NSLog(@"ThemeCell Tapped");
+  }];
+
+  NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
+  ProfileSection *authSection = [[ProfileSection alloc]
+                                 initWithTitle:@""
+                                 cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
+
+  ProfileSection *settingsSection = [[ProfileSection alloc]
+                                     initWithTitle:NSLocalizedString(@"ProfileTableViewSettingsSection", @"")
+                                     cellModels:settingCellModels];
+
+  self.models = [[NSMutableArray alloc] initWithArray:@[authSection, settingsSection]];
+}
+
+- (void)configureSignedInTableViewCells {
+
+  NSString *userName = @"NAME";
+
+  SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
+                                          initWithTitle:userName
+                                          subTitle:@""
+                                          image:[UIImage imageNamed:@"accountPhoto"]
+                                          handler:^{
+    NSLog(@"User Settings Tapped");
   }];
 
   SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]
