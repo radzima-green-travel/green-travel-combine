@@ -62,7 +62,7 @@ static BOOL kSignUpEnabled = YES;
 @property (strong, nonatomic) UINavigationController *indexViewControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
-@property (strong, nonatomic) ProfileRootViewController *profileRootController;
+@property (strong, nonatomic) ProfileTableViewController *profileRootController;
 
 @end
 
@@ -177,7 +177,7 @@ static BOOL kSignUpEnabled = YES;
 
 #pragma mark - ProfileRootViewController
   self.profileRootController =
-  [[ProfileRootViewController alloc] initWithController:userController model:userModel];
+  [[ProfileTableViewController alloc] initWithController:userController model:userModel];
 
   UIImage *profileImage;
   profileImage = [UIImage imageNamed:@"user"];
