@@ -112,23 +112,20 @@ static const CGFloat kSubLabelTopAnchor = 2.0;
   self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height / 2;
 
   self.mainLabel = [[UILabel alloc] init];
-  self.mainLabel.textAlignment = NSTextAlignmentCenter;
   self.mainLabel.adjustsFontSizeToFitWidth = YES;
   NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:mainText];
   self.mainLabel.attributedText = mainTextLabelAttributedString;
+  [self.mainLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
 
   self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.mainLabel];
 
-
   [NSLayoutConstraint activateConstraints:@[
-  [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
   [self.mainLabel.topAnchor constraintEqualToAnchor:self.iconImageView.topAnchor],
-  [self.mainLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor]
+  [self.mainLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor]
   ]];
 
   self.subLabel = [[UILabel alloc] init];
-  self.subLabel.textAlignment = NSTextAlignmentCenter;
   self.subLabel.numberOfLines = 0;
   NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:subText];
   self.subLabel.attributedText = subTextLabelAttributedString;
