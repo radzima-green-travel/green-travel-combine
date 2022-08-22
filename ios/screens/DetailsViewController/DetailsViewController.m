@@ -86,6 +86,7 @@
 @property (assign, nonatomic) CGFloat initialImageHeight;
 @property (assign, nonatomic) CGFloat prevContentOffsetY;
 @property (strong, nonatomic) UIImageView *currentImageView;
+@property (assign, nonatomic) BOOL showingSafariViewController;
 
 @end
 
@@ -275,6 +276,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
+  self.showingSafariViewController = NO;
   [[AnalyticsEvents get] logEvent:AnalyticsEventsScreenDetails withParams:@{
     AnalyticsEventsParamCardName: self.item.title,
     AnalyticsEventsParamCardCategory: self.item.category.title,
@@ -283,7 +285,9 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 - (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
-  [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+  if (self.showingSafariViewController) {
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+  }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -449,6 +453,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
                                              label:NSLocalizedString(@"DetailsScreenReferences", @"")
                                          cellClass:ReferenceContentTableViewCell.class
                                            onPress:^(NSObject * _Nonnull obj) {
+    weakSelf.showingSafariViewController = YES;
     InformationReference *reference = (InformationReference *) obj;
     openURL(weakSelf, reference.url);
   }];
