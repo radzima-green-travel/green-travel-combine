@@ -62,7 +62,7 @@ static BOOL kSignUpEnabled = YES;
 @property (strong, nonatomic) UINavigationController *indexViewControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
-@property (strong, nonatomic) ProfileTableViewController *profileRootController;
+@property (strong, nonatomic) UINavigationController *profileControllerControllerWithNavigation;
 
 @end
 
@@ -176,19 +176,20 @@ static BOOL kSignUpEnabled = YES;
     [TypographyLegacy get].navigationSemiboldAttributes;
 
 #pragma mark - ProfileRootViewController
-  self.profileRootController =
-  [[ProfileTableViewController alloc] initWithController:userController model:userModel];
+  ProfileTableViewController *profileTableViewController = [[ProfileTableViewController alloc] initWithController:userController model:userModel];
+  profileTableViewController.title = NSLocalizedString(@"ProfileTitle", @"");
+  self.profileControllerControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
 
   UIImage *profileImage;
   profileImage = [UIImage imageNamed:@"user"];
   self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage,
                                             AccessibilityIdentifiersTabBarProfile);
 
-  self.profileRootController.tabBarItem = self.profileTabBarItem;
+  self.profileControllerControllerWithNavigation.tabBarItem = self.profileTabBarItem;
 
   if (kSignUpEnabled) {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
-                             self.bookmarksControllerWithNavigation, self.profileRootController];
+                             self.bookmarksControllerWithNavigation, self.profileControllerControllerWithNavigation];
   } else {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
                              self.bookmarksControllerWithNavigation];

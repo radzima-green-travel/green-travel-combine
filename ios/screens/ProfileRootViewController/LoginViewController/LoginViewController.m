@@ -17,6 +17,7 @@
 #import "CodeConfirmationViewController.h"
 #import "UserModelConstants.h"
 #import "ResetPasswordEMailViewController.h"
+#import "ProfileTableViewController.h"
 
 @interface LoginViewController ()
 
@@ -187,7 +188,8 @@ static const CGFloat kTopOffset = 90.0;
         return;
       }
       if (prevState == UserModelStateSignInInProgress && currentState == UserModelStateSignedIn) {
-        // Handler in ProfileRootViewController.
+        [self enableLoadingIndicator:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
         return;
       }
       
