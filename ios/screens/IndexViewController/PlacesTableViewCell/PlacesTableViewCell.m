@@ -25,6 +25,7 @@ static CGFloat kSwipeThresholdVelocity = 0.5;
 static CGFloat kDurationMax = 0.5;
 static CGFloat kDurationMin = 0.1;
 static CGFloat kRatioDivider = 1.09;
+static NSUInteger kButtonLongLength = 4;
 
 @interface PlacesTableViewCell ()
 
@@ -70,11 +71,7 @@ static CGFloat kRatioDivider = 1.09;
   [super layoutSubviews];
   self.collectionView.backgroundColor = [Colors get].background;
   self.backgroundColor = [Colors get].background;
-  
-  [self.allButton setAttributedTitle:[[TypographyLegacy get]
-                                      makeSubtitle1Semibold:NSLocalizedString(@"IndexAll", @"")
-                                      color:[Colors get].buttonAll]
-                            forState:UIControlStateNormal];
+
   self.headerLabel.attributedText = [[TypographyLegacy get] makeSubtitle1Semibold:[self.item.title uppercaseString]
                                      color:[Colors get].categoryTitleText];
   
@@ -112,21 +109,36 @@ static CGFloat kRatioDivider = 1.09;
         [self.collectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:0.0],
         [self.collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:0.0],
     ]];
-    
-    self.allButton = [[UIButton alloc] init];
+  
+  self.allButton = [[UIButton alloc] init];
+  [self.allButton setAttributedTitle:[[TypographyLegacy get]
+                                      makeSubtitle1Semibold:NSLocalizedString(@"IndexAll", @"")
+                                      color:[Colors get].buttonAll]
+                            forState:UIControlStateNormal];
     [self.contentView addSubview:self.allButton];
     [self.allButton.titleLabel setFont:[UIFont fontWithName:@"Montserrat-SemiBold" size:14.0]];
     
     [self.allButton addTarget:self action:@selector(onAllButtonPress:) forControlEvents:UIControlEventTouchUpInside];
     
     self.allButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
+
+    if (self.allButton.titleLabel.text.length >= kButtonLongLength) {
+      self.allButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+      [NSLayoutConstraint activateConstraints:@[
         [self.allButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-16.0],
         [self.allButton.centerYAnchor constraintEqualToAnchor:self.headerLabel.centerYAnchor],
-        [self.allButton.widthAnchor constraintEqualToConstant:44.0],
         [self.allButton.heightAnchor constraintEqualToConstant:44.0],
-    ]];
-    
+      ]];
+    } else {
+      self.allButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+      [NSLayoutConstraint activateConstraints:@[
+        [self.allButton.centerXAnchor constraintEqualToAnchor:self.trailingAnchor constant:-26.0],
+        [self.allButton.centerYAnchor constraintEqualToAnchor:self.headerLabel.centerYAnchor],
+                     [self.allButton.widthAnchor constraintEqualToConstant:44.0],
+        [self.allButton.heightAnchor constraintEqualToConstant:44.0],
+      ]];
+    }
+      
 #pragma mark - Subscribe to orientation change
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceOrientationChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
