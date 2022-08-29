@@ -63,18 +63,18 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
 
 NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* controller) {
   
-  NSString *userNameTitle = [[NSString alloc] init];
-  if (userNameTitle != nil) {
-    userNameTitle = controller.userModel.email;
-  } else {
-    userNameTitle = @"";
-  }
+  NSString *userNameTitle = @"";
   
-  NSString *userSubTitle = @"";
+  NSString *userNameSubTitle = [[NSString alloc] init];
+  if (userNameSubTitle != nil) {
+    userNameSubTitle = controller.userModel.email;
+  } else {
+    userNameSubTitle = @"";
+  }
   
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
                                           initWithTitle:userNameTitle
-                                          subTitle:userSubTitle
+                                          subTitle:userNameSubTitle
                                           image:[UIImage imageNamed:@"accountPhoto"]
                                           handler:^{
     NSLog(@"User Settings Tapped");
