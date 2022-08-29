@@ -84,10 +84,10 @@ static const CGFloat kTopOffset = 90.0;
     self.loadingView = [[UIActivityIndicatorView alloc] init];
   }
   self.loadingView.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.scrollView addSubview:self.loadingView];
+  [self.view addSubview:self.loadingView];
   [NSLayoutConstraint activateConstraints:@[
-    [self.loadingView.centerXAnchor constraintEqualToAnchor:self.scrollView.centerXAnchor],
-    [self.loadingView.centerYAnchor constraintEqualToAnchor:self.scrollView.centerYAnchor],
+    [self.loadingView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+    [self.loadingView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
   ]];
 }
 

@@ -9,6 +9,7 @@
 import Amplify
 import AmplifyPlugins
 import Foundation
+import UIKit
 
 @objc
 class AmplifyBridge: NSObject {
@@ -72,6 +73,24 @@ class AmplifyBridge: NSObject {
           }
         }
         completion(customError)
+      }
+    }
+  }
+  
+  @objc public func fetchUserAttributes(complition: @escaping (_ userEmail: String?) -> Void) {
+    Amplify.Auth.fetchUserAttributes() { result in
+      switch result {
+      case .success(let attributes):
+        print("User attributes is: \(attributes)")
+        var attributeEmail: String?
+        attributes.forEach { attribute in
+          if attribute.key == AuthUserAttributeKey.email {
+          attributeEmail = attribute.value
+          }
+        }
+        complition(attributeEmail)
+      case .failure(let error):
+        print(error.localizedDescription)
       }
     }
   }

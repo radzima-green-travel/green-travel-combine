@@ -32,7 +32,6 @@
 #import "AnalyticsEvents.h"
 #import "StyleUtils.h"
 #import "MapViewControllerConstants.h"
-#import "ProfileRootViewController.h"
 #import "ProfileTableViewController.h"
 #import "LoginViewController.h"
 #import "UserController.h"
@@ -109,6 +108,7 @@ static BOOL kSignUpEnabled = YES;
 			dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
 				[bridge initialize];
 				[userController fetchCurrentAuthSession];
+				[userController fetchUserAttributes];
 			});
     }
 

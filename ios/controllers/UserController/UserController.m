@@ -41,6 +41,14 @@
   }];
 }
 
+- (void)fetchUserAttributes {
+  __weak typeof(self) weakSelf = self;
+  [self.authService fetchUserAttributes:^(NSString * _Nonnull userEmail) {
+    __weak typeof(weakSelf) strongSelf = weakSelf;
+    [strongSelf.model setEmail:userEmail];
+  }];
+}
+
 - (void)initiateSignIn:(NSString *)username password:(NSString *)password {
   [self.model setState:UserModelStateSignInInProgress];
   __weak typeof(self) weakSelf = self;
