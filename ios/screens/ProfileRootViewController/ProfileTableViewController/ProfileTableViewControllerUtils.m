@@ -66,7 +66,7 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
   NSString *userNameTitle = @"";
   
   NSString *userNameSubTitle = [[NSString alloc] init];
-  if (userNameSubTitle != nil) {
+  if (controller.userModel.email != nil) {
     userNameSubTitle = controller.userModel.email;
   } else {
     userNameSubTitle = @"";
