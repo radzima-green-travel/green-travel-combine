@@ -77,7 +77,7 @@ class AmplifyBridge: NSObject {
     }
   }
   
-  @objc public func fetchUserAttributes(complition: @escaping (_ userEmail: String?) -> Void) {
+  @objc public func fetchUserAttributes(complition: @escaping (_ userEmail: String?, _ error: NSError?) -> Void) {
     Amplify.Auth.fetchUserAttributes() { result in
       switch result {
       case .success(let attributes):
@@ -87,9 +87,10 @@ class AmplifyBridge: NSObject {
           attributeEmail = attribute.value
           }
         }
-        complition(attributeEmail)
+        complition(attributeEmail, nil)
       case .failure(let error):
         print(error.localizedDescription)
+        complition(nil, error as NSError)
       }
     }
   }

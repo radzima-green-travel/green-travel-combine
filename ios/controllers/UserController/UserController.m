@@ -37,15 +37,24 @@
   [self.authService fetchCurrentAuthSession:^(NSError * _Nullable error, BOOL signedIn) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     [strongSelf.model setSignedIn:signedIn];
-    [strongSelf.model setState:UserModelStateFetched];
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateNotFetched];
+      return;
+    }
+    [self fetchUserAttributesAndSetUserState:UserModelStateFetched];
   }];
 }
 
-- (void)fetchUserAttributes {
+- (void)fetchUserAttributesAndSetUserState:(NSInteger)state{
   __weak typeof(self) weakSelf = self;
-  [self.authService fetchUserAttributes:^(NSString * _Nonnull userEmail) {
+  [self.authService fetchUserAttributes:^(NSString * _Nonnull userEmail, NSError * _Nonnull error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateNotFetched];
+      return;
+    }
     [strongSelf.model setEmail:userEmail];
+    [strongSelf.model setState:state];
   }];
 }
 
@@ -57,9 +66,10 @@
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateFetched];
+      [strongSelf fetchUserAttributes];
       return;
     }
-    [strongSelf.model setState:UserModelStateSignedIn];
+    [self fetchUserAttributesAndSetUserState:UserModelStateSignedIn];
   }];
 }
 
@@ -94,7 +104,7 @@
   [self.model setPasswordNew:newPassword];
   [self.model setConfirmationCode:code];
   [self.model setState:UserModelStatePasswordResetConfirmCodeInProgress];
-
+  
   [self.model setError:nil];
   __weak typeof(self) weakSelf = self;
   [self.authService resetPasswordConfirm:username code:code
@@ -106,7 +116,7 @@
       [strongSelf.model setError:error];
       return;
     }
-
+    
     [strongSelf.model setError:nil];
     [self signIn:strongSelf.model.emailResetPassword
         password:strongSelf.model.passwordNew
@@ -173,7 +183,7 @@
     }
     __weak typeof(strongSelf) weakSelf = strongSelf;
     [strongSelf signIn:strongSelf.model.email password:strongSelf.model.password
-      completion:^(NSError * _Nullable error){
+            completion:^(NSError * _Nullable error){
       __weak typeof(weakSelf) strongSelf = weakSelf;
       if (error != nil) {
         if (error.code == AmplifyBridgeErrorAuthErrorNotAuthorized) {
