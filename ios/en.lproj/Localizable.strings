@@ -69,6 +69,7 @@
 "ProfileTableViewCellLabelDataAndStorage" = "Data and Storage";
 "ProfileTableViewCellLabelLanguage" = "Language";
 "ProfileTableViewCellLabelTheme" = "Theme";
+"ProfileTableViewCellSignedMainTitleLabel" = "You are authorized";
 
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";

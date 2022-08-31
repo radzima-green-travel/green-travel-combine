@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (Extension)
 
 - (UIImage *)tintedImage:(UIColor *)color;
+- (UIImage *)drawText:(NSString*)text;
+- (UIImage *)getAccountImageWithChar:(NSString*)character;
 + (UIImage *)named:(NSString *)imageName withTintColor:(UIColor *)color;
 
 @end

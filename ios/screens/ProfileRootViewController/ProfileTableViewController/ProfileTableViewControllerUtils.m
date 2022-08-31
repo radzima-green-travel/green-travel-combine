@@ -13,6 +13,7 @@
 #import "LoginViewController.h"
 #import "ProfileSection.h"
 #import "UserModel.h"
+#import "UIImage+extensions.h"
 
 NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controller) {
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
@@ -63,19 +64,24 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
 
 NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* controller) {
   
-  NSString *userNameTitle = @"";
+  NSString *userNameTitle = NSLocalizedString(@"ProfileTableViewCellSignedMainTitleLabel", @"");
   
   NSString *userNameSubTitle = [[NSString alloc] init];
+  NSString *userImageText = [[NSString alloc] init];
   if (controller.userModel.email != nil) {
     userNameSubTitle = controller.userModel.email;
+    userImageText = [userNameSubTitle substringToIndex:1];
   } else {
     userNameSubTitle = @"";
+    userImageText = @"";
   }
+  
+  UIImage *userImage = [[UIImage alloc] getAccountImageWithChar:userImageText];
   
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
                                           initWithTitle:userNameTitle
                                           subTitle:userNameSubTitle
-                                          image:[UIImage imageNamed:@"accountPhoto"]
+                                          image:userImage
                                           handler:^{
     NSLog(@"User Settings Tapped");
   }];

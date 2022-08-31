@@ -64,6 +64,17 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *buttonTextTint;
 @property (strong, nonatomic) UIColor *areaOutline;
 @property (strong, nonatomic) UIColor *areaFill;
+@property (strong, nonatomic) UIColor *accountImageBlue;
+@property (strong, nonatomic) UIColor *accountImageFireOrange;
+@property (strong, nonatomic) UIColor *accountImageGreen;
+@property (strong, nonatomic) UIColor *accountImageLightBlue;
+@property (strong, nonatomic) UIColor *accountImageMustard;
+@property (strong, nonatomic) UIColor *accountImageOrange;
+@property (strong, nonatomic) UIColor *accountImagePink;
+@property (strong, nonatomic) UIColor *accountImagePurple;
+@property (strong, nonatomic) UIColor *accountImageRed;
+
+
 + (instancetype)get;
 
 @end

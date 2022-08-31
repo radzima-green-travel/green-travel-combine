@@ -69,6 +69,7 @@
 "ProfileTableViewCellLabelDataAndStorage" = "Данные и память";
 "ProfileTableViewCellLabelLanguage" = "Язык";
 "ProfileTableViewCellLabelTheme" = "Тема";
+"ProfileTableViewCellSignedMainTitleLabel" = "Вы авторизованы";
 
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenHeader" = "Подтвердите регистрацию";

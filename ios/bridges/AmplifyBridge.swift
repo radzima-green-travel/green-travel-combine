@@ -81,7 +81,6 @@ class AmplifyBridge: NSObject {
     Amplify.Auth.fetchUserAttributes() { result in
       switch result {
       case .success(let attributes):
-        print("User attributes is: \(attributes)")
         var attributeEmail: String?
         attributes.forEach { attribute in
           if attribute.key == AuthUserAttributeKey.email {
