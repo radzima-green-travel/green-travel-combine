@@ -8,16 +8,15 @@ export const themeLayerStyles = {
     iconOffset: [0, -16],
   } as StyleProp<SymbolLayerStyle>,
   direction: {
-    lineColor: {
-      light: COLORS.logCabin,
-      dark: COLORS.white,
-    },
+    lineColor: COLORS.cornflowerBlue,
     lineCap: 'round',
-    lineWidth: 2,
-    lineOpacity: 0.84,
-    lineDasharray: [2, 4],
-  } as StyleProp<LineLayerStyle>,
-
+    lineWidth: 6,
+  } as unknown as StyleProp<LineLayerStyle>,
+  directionBackground: {
+    lineColor: COLORS.darkBlue,
+    lineCap: 'round',
+    lineWidth: 8,
+  } as unknown as StyleProp<LineLayerStyle>,
   route: {
     lineColor: {
       light: COLORS.forestGreen,
@@ -26,7 +25,7 @@ export const themeLayerStyles = {
     lineCap: 'round',
     lineWidth: 3,
     lineOpacity: 1,
-  } as StyleProp<LineLayerStyle>,
+  } as unknown as StyleProp<LineLayerStyle>,
 
   area: {
     fillColor: COLORS.apple,
