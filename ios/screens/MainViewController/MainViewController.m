@@ -178,6 +178,15 @@ static BOOL kSignUpEnabled = YES;
 #pragma mark - ProfileRootViewController
   ProfileTableViewController *profileTableViewController = [[ProfileTableViewController alloc] initWithController:userController model:userModel];
   profileTableViewController.title = NSLocalizedString(@"ProfileTitle", @"");
+  profileTableViewController.bookmarksGroupModel = bookmarksGroupsModel;
+  profileTableViewController.indexModel = self.indexModel;
+  profileTableViewController.apiService = self.apiService;
+  profileTableViewController.coreDataService = self.coreDataService;
+  profileTableViewController.mapService = self.mapService;
+  profileTableViewController.mapModel = mapModel;
+  profileTableViewController.searchModel = searchModel;
+  profileTableViewController.detailsModel = detailsModel;
+  profileTableViewController.locationModel = locationModel;
   self.profileControllerControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
 
   UIImage *profileImage;

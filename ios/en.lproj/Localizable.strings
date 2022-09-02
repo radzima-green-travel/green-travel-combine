@@ -64,11 +64,17 @@
 "ProfileScreenButtonLabelForgotPassword" = "Forgot password?";
 
 "ProfileTableViewSettingsSection" = "Settings";
+
 "ProfileTableViewCellAuthMainTitle" = "You are not authorized";
 "ProfileTableViewCellAuthSubTitle" = "Authorize or Sign up";
 "ProfileTableViewCellLabelDataAndStorage" = "Data and Storage";
 "ProfileTableViewCellLabelLanguage" = "Language";
 "ProfileTableViewCellLabelTheme" = "Theme";
+"ProfileTableViewCellBookmark" = "Saved";
+"ProfileTableViewCellSettings" = "Settings";
+"ProfileTableViewCellTryToAuthMainTitle" = "Authorization";
+"ProfileTableViewCellTryToAuthSubTitle" = "Wait while the login is being verified";
+
 "ProfileTableViewCellSignedMainTitleLabel" = "You are authorized";
 
 "CodeConfirmationScreenTitle" = "Email confirmation";

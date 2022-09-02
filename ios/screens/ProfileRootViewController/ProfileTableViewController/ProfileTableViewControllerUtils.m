@@ -14,6 +14,7 @@
 #import "ProfileSection.h"
 #import "UserModel.h"
 #import "UIImage+extensions.h"
+#import "BookmarksViewController.h"
 
 NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controller) {
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
@@ -86,6 +87,56 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
     NSLog(@"User Settings Tapped");
   }];
   
+  SettingsTableViewCellModel *bookmarkCell = [[SettingsTableViewCellModel alloc]
+                                              initWithTitle:NSLocalizedString(@"ProfileTableViewCellBookmark", @"")
+                                              subTitle:@""
+                                              image:[UIImage imageNamed:@"bookmarkSettings"]
+                                              handler:^{
+    BookmarksViewController *bookmarksViewController = [[BookmarksViewController alloc]
+                                                        initWithModel:controller.bookmarksGroupModel
+                                                        indexModel:controller.indexModel
+                                                        apiService:controller.apiService
+                                                        coreDataService:controller.coreDataService
+                                                        mapService:controller.mapService
+                                                        mapModel:controller.mapModel
+                                                        searchModel:controller.searchModel
+                                                        detailsModel:controller.detailsModel
+                                                        locationModel:controller.locationModel];
+    
+    [controller.navigationController pushViewController:bookmarksViewController animated:YES];
+  }];
+  
+  SettingsTableViewCellModel *settingsCell = [[SettingsTableViewCellModel alloc]
+                                              initWithTitle:NSLocalizedString(@"ProfileTableViewCellSettings", @"")
+                                              subTitle:@""
+                                              image:[UIImage imageNamed:@"settings"]
+                                              handler:^{
+    NSLog(@"SettingsCell tapped");
+  }];
+  
+  NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:bookmarkCell, settingsCell, nil];
+  ProfileSection *authSection = [[ProfileSection alloc]
+                                 initWithTitle:@""
+                                 cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
+  
+  ProfileSection *settingsSection = [[ProfileSection alloc]
+                                     initWithTitle:@""
+                                     cellModels:settingCellModels];
+  
+  NSMutableArray *models = [[NSMutableArray alloc] initWithArray:@[authSection, settingsSection]];
+  return models;
+}
+
+NSMutableArray* configureTryToSignInTableViewCells(ProfileTableViewController *controller) {
+  
+  SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
+                                          initWithTitle:NSLocalizedString(@"ProfileTableViewCellTryToAuthMainTitle", @"")
+                                          subTitle:NSLocalizedString(@"ProfileTableViewCellTryToAuthSubTitle", @"")
+                                          image:[UIImage imageNamed:@"accountPhoto"]
+                                          handler:^{
+    NSLog(@"User Settings Tapped");
+  }];
+  
   SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]
                                                     initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelDataAndStorage", @"")
                                                     subTitle:@""
@@ -109,6 +160,7 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
                                            handler:^{
     NSLog(@"ThemeCell Tapped");
   }];
+  
   
   NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
   ProfileSection *authSection = [[ProfileSection alloc]

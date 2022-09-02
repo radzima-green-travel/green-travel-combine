@@ -10,3 +10,5 @@
 
 NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controller);
 NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* controller);
+NSMutableArray* configureTryToSignInTableViewCells(ProfileTableViewController *controller);
+

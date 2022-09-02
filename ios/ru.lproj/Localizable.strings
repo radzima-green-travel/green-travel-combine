@@ -64,11 +64,17 @@
 "ProfileScreenButtonLabelForgotPassword" = "Забыли пароль?";
 
 "ProfileTableViewSettingsSection" = "Настройки";
+
 "ProfileTableViewCellAuthMainTitle" = "Вы не авторизованы";
 "ProfileTableViewCellAuthSubTitle" = "Авторизуйтесь или зарегистрируйтесь";
 "ProfileTableViewCellLabelDataAndStorage" = "Данные и память";
 "ProfileTableViewCellLabelLanguage" = "Язык";
 "ProfileTableViewCellLabelTheme" = "Тема";
+"ProfileTableViewCellBookmark" = "Избранное";
+"ProfileTableViewCellSettings" = "Настройки";
+"ProfileTableViewCellTryToAuthMainTitle" = "Авторизация";
+"ProfileTableViewCellTryToAuthSubTitle" = "Дождитесь, пока идет проверка логина";
+
 "ProfileTableViewCellSignedMainTitleLabel" = "Вы авторизованы";
 
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
