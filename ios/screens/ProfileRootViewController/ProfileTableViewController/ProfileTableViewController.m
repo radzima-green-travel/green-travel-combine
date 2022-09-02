@@ -91,8 +91,7 @@ static NSString *const kProfileCell = @"ProfileCell";
   ProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProfileCell forIndexPath:indexPath];
 
   if (indexPath.section == 0) {
-    [cell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
-    [cell onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
+    [cell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle fetchingInProgress:model.fetchingInProgress];
   } else {
     [cell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
   }

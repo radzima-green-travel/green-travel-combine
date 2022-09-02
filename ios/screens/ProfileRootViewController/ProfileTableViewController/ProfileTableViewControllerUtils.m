@@ -133,6 +133,7 @@ NSMutableArray* configureTryToSignInTableViewCells(ProfileTableViewController *c
                                           initWithTitle:NSLocalizedString(@"ProfileTableViewCellTryToAuthMainTitle", @"")
                                           subTitle:NSLocalizedString(@"ProfileTableViewCellTryToAuthSubTitle", @"")
                                           image:[UIImage imageNamed:@"accountPhoto"]
+                                          fetchingInProgress: YES
                                           handler:^{
     NSLog(@"User Settings Tapped");
   }];
