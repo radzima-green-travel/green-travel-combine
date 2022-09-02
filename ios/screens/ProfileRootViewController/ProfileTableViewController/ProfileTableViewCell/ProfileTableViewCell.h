@@ -6,13 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserModelObserver.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProfileTableViewCell : UITableViewCell
+@interface ProfileTableViewCell : UITableViewCell<UserModelObserver>
 
 - (void)prepareSettingsCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText;
 - (void)prepareAuthCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText;
+
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState;
 
 @end
 
