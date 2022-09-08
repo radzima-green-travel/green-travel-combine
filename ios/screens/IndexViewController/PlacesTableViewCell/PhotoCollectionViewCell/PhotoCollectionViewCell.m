@@ -17,6 +17,7 @@
 #import "ImageUtils.h"
 #import "TypographyLegacy.h"
 #import "BookmarkButton.h"
+#import "UIImage+extensions.h"
 
 @interface PhotoCollectionViewCell ()
 
@@ -50,12 +51,12 @@ static const CGFloat kGradientOffset = 50.0;
   [self updateOverlayAndShadow];
   self.layer.borderColor = [[Colors get].photoCollectionViewCellBorder CGColor];
   if (self.item != nil && ![self coverIsPresent]) {
-    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
+    self.favoritesButton.imageView.image = [self.favoritesButton.imageView.image tintedImage: [Colors get].bookmarkTintEmptyCell];
     self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:self.item.title
                                                              color:[Colors get].cardPlaceholderText];
     return;
   }
-  [self.favoritesButton setTintColor:[Colors get].bookmarkTintFullCell];
+  self.favoritesButton.imageView.image = [self.favoritesButton.imageView.image tintedImage: [Colors get].bookmarkTintFullCell];
 }
 
 - (void)setUp {
