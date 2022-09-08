@@ -23,6 +23,7 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
                                           image:[UIImage imageNamed:@"accountPhoto"]
                                           handler:^{
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:controller.userController model:controller.userModel];
+    loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
     [controller.navigationController pushViewController:loginViewController animated:YES];
   }];
   

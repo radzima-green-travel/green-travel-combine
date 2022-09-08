@@ -25,6 +25,7 @@
 
 "SavedTitle" = "Saved";
 "ProfileTitle" = "Profile";
+"LogInTitle" = "Enter or create account";
 
 "SearchHistory" = "Search history";
 "SearchNotFound" = "Unfortunately, no results match this search";
