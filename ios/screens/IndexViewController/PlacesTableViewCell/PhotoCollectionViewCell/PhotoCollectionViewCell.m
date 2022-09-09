@@ -51,7 +51,6 @@ static const CGFloat kGradientOffset = 50.0;
   [self updateOverlayAndShadow];
   self.layer.borderColor = [[Colors get].photoCollectionViewCellBorder CGColor];
   if (self.item != nil && ![self coverIsPresent]) {
-    self.favoritesButton.imageView.image = [self.favoritesButton.imageView.image tintedImage: [Colors get].bookmarkTintEmptyCell];
     self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:self.item.title
                                                              color:[Colors get].cardPlaceholderText];
     return;
@@ -210,7 +209,7 @@ static const CGFloat kGradientOffset = 50.0;
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.loadImageOperation cancel];
-    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
+    self.favoritesButton.imageView.image = [self.favoritesButton.imageView.image tintedImage:[Colors get].bookmarkTintEmptyCell];
     [self.placeholder setImage:nil];
     [self.overlayView setHidden:YES];
     self.headerLabel.text = @"";
