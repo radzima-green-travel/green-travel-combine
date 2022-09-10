@@ -2,7 +2,7 @@ import {ApiService} from 'services/ApiService';
 import config from 'react-native-ultimate-config';
 import {sentryService} from 'services/SentryService';
 
-export class NativeApiService extends ApiService {
+export class MapBoxApiService extends ApiService {
   constructor(baseURL: string) {
     super(baseURL);
     this.axiosInstance.interceptors.response.use(
@@ -15,4 +15,4 @@ export class NativeApiService extends ApiService {
   }
 }
 
-export const mapBoxApi = new NativeApiService(config.MAP_BOX_CLIENT_URL);
+export const mapBoxApi = new MapBoxApiService(config.MAP_BOX_CLIENT_URL);

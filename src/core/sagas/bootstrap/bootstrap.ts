@@ -12,6 +12,7 @@ import {useAuthHubChannel} from 'core/hooks';
 
 import {initAppLocaleSaga} from './initAppLocaleSaga';
 import {ILabelError} from 'core/types';
+import {resetEtagsStorage} from 'storage';
 
 export function* bootstrapSaga() {
   const channel = yield call(useAuthHubChannel);
@@ -27,6 +28,7 @@ export function* bootstrapSaga() {
       const isLocaledUpdated = yield call(initAppLocaleSaga);
 
       if (isLocaledUpdated) {
+        yield call(resetEtagsStorage);
         yield put(getInitialHomeDataRequest());
       } else {
         yield put(getHomeData());

@@ -353,8 +353,6 @@ PODS:
     - glog
   - react-native-blur (0.8.0):
     - React
-  - react-native-geolocation-service (5.0.0):
-    - React
   - react-native-mapbox-gl (8.4.0):
     - Mapbox-iOS-SDK (~> 6.3)
     - React
@@ -547,7 +545,6 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
-  - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - "react-native-mapbox-gl (from `../node_modules/@react-native-mapbox-gl/maps`)"
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
@@ -662,8 +659,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-blur:
     :path: "../node_modules/@react-native-community/blur"
-  react-native-geolocation-service:
-    :path: "../node_modules/react-native-geolocation-service"
   react-native-mapbox-gl:
     :path: "../node_modules/@react-native-mapbox-gl/maps"
   react-native-netinfo:
@@ -783,7 +778,6 @@ SPEC CHECKSUMS:
   React-jsinspector: 8c0517dee5e8c70cd6c3066f20213ff7ce54f176
   React-logger: bfddd3418dc1d45b77b822958f3e31422e2c179b
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
-  react-native-geolocation-service: 141e33bdb179bcba10b216ee13962611e21f2be4
   react-native-mapbox-gl: e8129634c0f91c74a9342e4f018885e143172015
   react-native-netinfo: c9b0719bce3b436cd30a3c879fd59de3f6d72476
   react-native-pager-view: b1914469643f40042e65d78cbf3d3dfebd6fb0d9

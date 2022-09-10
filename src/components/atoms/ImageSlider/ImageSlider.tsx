@@ -33,7 +33,6 @@ export const ImageSlider = ({images, onScroll, width, height}: IProps) => {
       initialNumToRender={1}
       maxToRenderPerBatch={1}
       renderItem={({item}) => {
-        console.log(item);
         return (
           <FastImage
             style={[styles.image as unknown as StyleProp<ImageStyle>, {width}]}
