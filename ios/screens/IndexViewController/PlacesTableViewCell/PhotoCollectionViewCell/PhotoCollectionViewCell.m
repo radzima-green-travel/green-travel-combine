@@ -17,6 +17,7 @@
 #import "ImageUtils.h"
 #import "TypographyLegacy.h"
 #import "BookmarkButton.h"
+#import "UIImage+extensions.h"
 
 @interface PhotoCollectionViewCell ()
 
@@ -32,8 +33,25 @@
 
 static const CGFloat kHeaderLabelTop = 16.0;
 static const CGFloat kGradientOffset = 50.0;
+static NSCache *imageCache = nil;
 
 @implementation PhotoCollectionViewCell
+
++ (UIImage *)imageForType:(PhotoCollectionViewCellImageType)imageType
+                baseImage:(nonnull UIImage *)baseImage {
+  if (imageCache == nil) {
+    imageCache = [NSCache new];
+  }
+  if ([imageCache objectForKey:@(imageType)] == nil) {
+    UIColor *color = imageType == PhotoCollectionViewCellImageTypeLight ?
+    [Colors get].bookmarkTintFullCell :
+    [Colors get].bookmarkTintEmptyCell;
+
+    UIImage *image = [baseImage tintedImage:color];
+    [imageCache setObject:image forKey:@(imageType)];
+  }
+  return [imageCache objectForKey:@(imageType)];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -50,52 +68,56 @@ static const CGFloat kGradientOffset = 50.0;
   [self updateOverlayAndShadow];
   self.layer.borderColor = [[Colors get].photoCollectionViewCellBorder CGColor];
   if (self.item != nil && ![self coverIsPresent]) {
-    [self.favoritesButton setTintColor:[Colors get].bookmarkTintEmptyCell];
+    self.favoritesButton.imageView.image =
+    [PhotoCollectionViewCell imageForType:PhotoCollectionViewCellImageTypeDark
+                                baseImage:self.favoritesButton.imageView.image];
     self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:self.item.title
-                                                             color:[Colors get].cardPlaceholderText];
+                                                                   color:[Colors get].cardPlaceholderText];
     return;
   }
-  [self.favoritesButton setTintColor:[Colors get].bookmarkTintFullCell];
+  self.favoritesButton.imageView.image =
+  [PhotoCollectionViewCell imageForType:PhotoCollectionViewCellImageTypeLight
+                              baseImage:self.favoritesButton.imageView.image];
 }
 
 - (void)setUp {
 #pragma mark - Image
     self.placeholder = [[UIImageView alloc] init];
     self.overlayView = [[GradientOverlayView alloc] initWithFrame:CGRectZero];
-    
+
     [self addSubview:self.placeholder];
-    
+
     self.placeholder.contentMode = UIViewContentModeScaleAspectFill;
     self.placeholder.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
     self.placeholder.layer.cornerRadius = 4.0;
     self.placeholder.layer.masksToBounds = YES;
-  
+
     self.layer.cornerRadius = 4.0;
     self.layer.masksToBounds = YES;
     self.layer.borderWidth = 1.0;
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.placeholder.topAnchor constraintEqualToAnchor:self.topAnchor],
         [self.placeholder.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [self.placeholder.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
         [self.placeholder.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
-    
-    
+
+
 #pragma mark - Header label
     self.headerLabel = [[UILabel alloc] init];
     [self addSubview:self.headerLabel];
-    
+
     self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self.headerLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:15.0]];
      [self.headerLabel setNumberOfLines:0];
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.headerLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:kHeaderLabelTop],
         [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:16.0],
     ]];
-  
+
   [self.placeholder addSubview:self.overlayView];
   self.overlayView.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
@@ -107,16 +129,16 @@ static const CGFloat kGradientOffset = 50.0;
 #pragma mark - Favorites button
     __weak typeof(self) weakSelf = self;
     self.favoritesButton = [[BookmarkButton alloc] initWithFlavor:BookmarkButtonFlavorIndex
-                                                  onBookmarkPress:^(BOOL selected) { 
+                                                  onBookmarkPress:^(BOOL selected) {
       weakSelf.item.onFavoriteButtonPress();
     }];
     self.favoritesButton.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     self.favoritesButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    
+
     [self addSubview:self.favoritesButton];
-    
+
     self.favoritesButton.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.favoritesButton.topAnchor constraintEqualToAnchor:self.topAnchor],
         [self.favoritesButton.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.headerLabel.trailingAnchor constant:16.0],
@@ -124,13 +146,13 @@ static const CGFloat kGradientOffset = 50.0;
         [self.favoritesButton.widthAnchor constraintEqualToConstant:44.0],
         [self.favoritesButton.heightAnchor constraintEqualToConstant:44.0],
     ]];
-    
+
     UIImageView *favoritesButtonImageView = self.favoritesButton.imageView;
     favoritesButtonImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [favoritesButtonImageView.topAnchor constraintEqualToAnchor:self.headerLabel.topAnchor],
     ]];
-    
+
     [self.overlayView setHidden:YES];
 }
 
@@ -139,7 +161,7 @@ static const CGFloat kGradientOffset = 50.0;
 }
 
 - (void)onPlaceButtonPress:(id)sender {
-    
+
 }
 
 - (BOOL)coverIsPresent {
@@ -164,7 +186,7 @@ static const CGFloat kGradientOffset = 50.0;
     } else {
         [self.placeholder setImage:nil];
     }
-    
+
     [self updateOverlayAndShadow];
 }
 

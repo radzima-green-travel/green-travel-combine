@@ -96,8 +96,10 @@
     UserModel *userModel = [[UserModel alloc] init];
     UserController *userController = [[UserController alloc] initWithModel:userModel authService:authService];
 
-    [bridge initialize];
-    [userController fetchCurrentAuthSession];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+      [bridge initialize];
+      [userController fetchCurrentAuthSession];
+    });
 
 #pragma mark - IndexViewController
 

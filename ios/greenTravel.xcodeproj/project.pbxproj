@@ -1290,9 +1290,9 @@
 		5A775D9F26077A7C00CEFC78 /* PhotoCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				5A775DA426077A7C00CEFC78 /* PhotoCollectionViewCell.h */,
 				5A775DA026077A7C00CEFC78 /* PhotoCollectionViewCell.m */,
 				5A775DA126077A7C00CEFC78 /* GradientOverlayView */,
-				5A775DA426077A7C00CEFC78 /* PhotoCollectionViewCell.h */,
 			);
 			path = PhotoCollectionViewCell;
 			sourceTree = "<group>";
@@ -2485,7 +2485,7 @@
 				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2524,7 +2524,7 @@
 				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
@@ -2620,7 +2620,7 @@
 				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = K36CA7QL4T;
 				ENABLE_BITCODE = NO;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
