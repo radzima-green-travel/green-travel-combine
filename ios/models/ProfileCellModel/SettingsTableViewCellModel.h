@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL fetchingInProgress;
 @property (copy, nonatomic) void (^handler)(void);
 
-- (instancetype)initWithTitle:(NSString *)title subTitle:(NSString *)subtitle image:(UIImage *)image handler:(void (^)(void))handler;
+- (instancetype)initWithTitle:(NSString *)title subTitle:(NSString *)subtitle image:(nullable UIImage *)image handler:(void (^)(void))handler;
 - (instancetype)initWithTitle:(NSString *)title subTitle:(NSString *)subtitle image:(UIImage *)image fetchingInProgress:(BOOL)fetchingInProgress handler:(void (^)(void))handler;
 
 @end

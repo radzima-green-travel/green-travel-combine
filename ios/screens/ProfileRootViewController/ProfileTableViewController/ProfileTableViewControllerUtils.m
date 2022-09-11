@@ -15,6 +15,7 @@
 #import "UserModel.h"
 #import "UIImage+extensions.h"
 #import "BookmarksViewController.h"
+#import "UserSettingsViewController.h"
 
 NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controller) {
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
@@ -85,12 +86,28 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
                                           subTitle:userNameSubTitle
                                           image:userImage
                                           handler:^{
-    NSLog(@"User Settings Tapped");
+//    NSLog(@"User Settings Tapped");
+    UserSettingsViewController *userSettingViewController = [[UserSettingsViewController alloc]
+                                                             initWithController:controller.userController
+                                                             model:controller.userModel];
+    userSettingViewController.bookmarksGroupModel = controller.bookmarksGroupModel;
+    userSettingViewController.indexModel = controller.indexModel;
+    userSettingViewController.apiService = controller.apiService;
+    userSettingViewController.coreDataService = controller.coreDataService;
+    userSettingViewController.mapService = controller.mapService;
+    userSettingViewController.mapModel = controller.mapModel;
+    userSettingViewController.searchModel = controller.searchModel;
+    userSettingViewController.detailsModel = controller.detailsModel;
+    userSettingViewController.locationModel = controller.locationModel;
+    
+    [controller.navigationController pushViewController:userSettingViewController animated:YES];
   }];
+  
+  NSUInteger bookmarksCount = (controller.bookmarksGroupModel.bookmarkItems.count);
   
   SettingsTableViewCellModel *bookmarkCell = [[SettingsTableViewCellModel alloc]
                                               initWithTitle:NSLocalizedString(@"ProfileTableViewCellBookmark", @"")
-                                              subTitle:@""
+                                              subTitle:@(bookmarksCount).stringValue
                                               image:[UIImage imageNamed:@"bookmarkSettings"]
                                               handler:^{
     BookmarksViewController *bookmarksViewController = [[BookmarksViewController alloc]

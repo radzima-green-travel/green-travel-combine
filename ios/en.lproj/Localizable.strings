@@ -66,6 +66,11 @@
 
 "ProfileTableViewSettingsSection" = "Settings";
 
+"UserSettingsTableViewCellTermsOfUseMainLabel" = "Terms of Use";
+"UserSettingsTableViewCellPrivacyPolicyMainLabel" = "Privacy Policy";
+"UserSettingsTableViewCellLogOutMainLabel" = "Log out";
+"UserSettingsTableViewCellDeleteUserMainLabel" = "Delete account";
+
 "ProfileTableViewCellAuthMainTitle" = "You are not authorized";
 "ProfileTableViewCellAuthSubTitle" = "Authorize or Sign up";
 "ProfileTableViewCellLabelDataAndStorage" = "Data and Storage";

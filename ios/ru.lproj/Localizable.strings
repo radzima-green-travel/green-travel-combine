@@ -78,6 +78,11 @@
 
 "ProfileTableViewCellSignedMainTitleLabel" = "Вы авторизованы";
 
+"UserSettingsTableViewCellTermsOfUseMainLabel" = "Условия использования";
+"UserSettingsTableViewCellPrivacyPolicyMainLabel" = "Политика конфиденциальности";
+"UserSettingsTableViewCellLogOutMainLabel" = "Выйти";
+"UserSettingsTableViewCellDeleteUserMainLabel" = "Удалить аккаунт";
+
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenHeader" = "Подтвердите регистрацию";
 "CodeConfirmationScreenHint" = "введите цифры из письма, высланного на электронную почту %@";
