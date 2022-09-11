@@ -22,6 +22,7 @@
 @end
 
 static NSString *const kProfileCell = @"UserSettingCell";
+static const CGFloat kSettingsRowHeight = 44.0;
 
 @implementation UserSettingsViewController
 
@@ -72,6 +73,10 @@ static NSString *const kProfileCell = @"UserSettingCell";
   return self.cellModels[section].title;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return kSettingsRowHeight;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   NSMutableArray<SettingsTableViewCellModel *> *models = self.cellModels[indexPath.section].cellmodels;
   SettingsTableViewCellModel *model = models[indexPath.row];
@@ -80,6 +85,12 @@ static NSString *const kProfileCell = @"UserSettingCell";
   [cell prepareSettingsCellWithMainTextLabelText:model.title subTextLabelText:model.subTitle withChevron:NO];
   
   return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+  SettingsTableViewCellModel *model = self.cellModels[indexPath.section].cellmodels[indexPath.row];
+  model.handler();
 }
 
 @end

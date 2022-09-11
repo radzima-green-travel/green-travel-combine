@@ -91,7 +91,8 @@ NSMutableArray* configureSettingsTableViewCells(UserSettingsViewController* cont
                                             subTitle:@""
                                             image:nil
                                             handler:^{
-    NSLog(@"LOGOUT");
+    [controller.userController initiateSignOut];
+    [controller.navigationController popToRootViewControllerAnimated:YES];
   }];
   
   SettingsTableViewCellModel *deleteUserCell = [[SettingsTableViewCellModel alloc]

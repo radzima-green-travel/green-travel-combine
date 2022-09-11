@@ -86,7 +86,6 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
                                           subTitle:userNameSubTitle
                                           image:userImage
                                           handler:^{
-//    NSLog(@"User Settings Tapped");
     UserSettingsViewController *userSettingViewController = [[UserSettingsViewController alloc]
                                                              initWithController:controller.userController
                                                              model:controller.userModel];
