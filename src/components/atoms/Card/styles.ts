@@ -17,7 +17,10 @@ export const themeStyles = {
       dark: 0,
     },
     borderRadius: 4,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: {
+      light: '#FAFAFA',
+      dark: COLORS.fiord,
+    },
     borderColor: {
       light: 'transparent',
       dark: COLORS.altoForDark,
@@ -43,7 +46,10 @@ export const themeStyles = {
   emptyCardTitle: {
     flex: 1,
     ...FONTS_STYLES.bold15,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.alabaster,
+    },
   },
   gradient: {
     ...StyleSheet.absoluteFillObject,
@@ -58,7 +64,7 @@ export const themeStyles = {
   emptyCardIcon: {
     color: {
       light: COLORS.logCabin,
-      dark: COLORS.logCabin,
+      dark: COLORS.alabaster,
     },
   },
 };
