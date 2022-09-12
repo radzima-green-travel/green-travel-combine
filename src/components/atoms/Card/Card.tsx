@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import FastImage, {ImageStyle} from 'react-native-fast-image';
+import { useState } from 'react';
 export const ratio = 324 / 144;
 
 interface IProps {
@@ -42,7 +43,7 @@ export const Card = memo(
     onRemoveAnimationEnd,
     onFavoriteChanged,
   }: IProps) => {
-    const isImageProvided = Boolean(imageUri);
+    const [isImageProvided, setIsImageProvided] = useState(false)
     const styles = useThemeStyles(themeStyles);
     const dimensions = useMemo(() => {
       return {width, height: width / ratio};
@@ -63,7 +64,7 @@ export const Card = memo(
         <FastImage
           style={styles.image as unknown as StyleProp<ImageStyle>}
           source={normalizedSource}
-          onError={() => {}}
+          onLoad={() => setIsImageProvided(true)}
         />
         {isImageProvided ? (
           <LinearGradient {...gradientConfig} style={styles.gradient} />
