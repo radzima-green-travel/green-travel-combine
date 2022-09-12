@@ -25,7 +25,7 @@ static CGFloat kSwipeThresholdVelocity = 0.5;
 static CGFloat kDurationMax = 0.5;
 static CGFloat kDurationMin = 0.1;
 static CGFloat kRatioDivider = 1.09;
-static NSUInteger kButtonLongLength = 4;
+static CGFloat kAllButtonSize = 44.0;
 
 @interface PlacesTableViewCell ()
 
@@ -110,8 +110,8 @@ static NSUInteger kButtonLongLength = 4;
         [self.collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:0.0],
     ]];
   
-  self.allButton = [[UIButton alloc] init];
-  [self.allButton setAttributedTitle:[[TypographyLegacy get]
+    self.allButton = [[UIButton alloc] init];
+    [self.allButton setAttributedTitle:[[TypographyLegacy get]
                                       makeSubtitle1Semibold:NSLocalizedString(@"IndexAll", @"")
                                       color:[Colors get].buttonAll]
                             forState:UIControlStateNormal];
@@ -122,21 +122,28 @@ static NSUInteger kButtonLongLength = 4;
     
     self.allButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-    if (self.allButton.titleLabel.text.length >= kButtonLongLength) {
-      self.allButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-      [NSLayoutConstraint activateConstraints:@[
-        [self.allButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-16.0],
+    NSMutableArray<NSLayoutConstraint *> *buttonCostraints = [@[
         [self.allButton.centerYAnchor constraintEqualToAnchor:self.headerLabel.centerYAnchor],
-        [self.allButton.heightAnchor constraintEqualToConstant:44.0],
-      ]];
+        [self.allButton.heightAnchor constraintEqualToConstant: kAllButtonSize]
+    ] mutableCopy];
+
+    NSArray<NSLayoutConstraint *> *longButtonConstraints = @[
+        [self.allButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant: -16.0]
+    ];
+
+    NSArray<NSLayoutConstraint *> *shortButtonConstraints = @[
+        [self.allButton.centerXAnchor constraintEqualToAnchor:self.trailingAnchor constant: -26.0],
+        [self.allButton.widthAnchor constraintEqualToConstant: kAllButtonSize]
+    ];
+
+    if (self.allButton.titleLabel.intrinsicContentSize.width > kAllButtonSize) {
+      self.allButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+      [buttonCostraints addObjectsFromArray:longButtonConstraints];
+      [NSLayoutConstraint activateConstraints: buttonCostraints];
     } else {
       self.allButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-      [NSLayoutConstraint activateConstraints:@[
-        [self.allButton.centerXAnchor constraintEqualToAnchor:self.trailingAnchor constant:-26.0],
-        [self.allButton.centerYAnchor constraintEqualToAnchor:self.headerLabel.centerYAnchor],
-                     [self.allButton.widthAnchor constraintEqualToConstant:44.0],
-        [self.allButton.heightAnchor constraintEqualToConstant:44.0],
-      ]];
+      [buttonCostraints addObjectsFromArray:shortButtonConstraints];
+      [NSLayoutConstraint activateConstraints: buttonCostraints];
     }
       
 #pragma mark - Subscribe to orientation change
