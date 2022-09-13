@@ -125,8 +125,8 @@ static CGFloat kTrailingInset = -26.0;
 
     NSMutableArray<NSLayoutConstraint *> *constraints = [[NSMutableArray alloc] init];
     [constraints addObjectsFromArray:@[
-      [self.allButton.centerYAnchor constraintEqualToAnchor:self.headerLabel.centerYAnchor],
-      [self.allButton.heightAnchor constraintEqualToConstant:kThresholdWidth]
+        [self.allButton.centerYAnchor constraintEqualToAnchor:self.headerLabel.centerYAnchor],
+        [self.allButton.heightAnchor constraintEqualToConstant:kThresholdWidth]
     ]];
 
     NSArray<NSLayoutConstraint *> *longButtonConstraints = @[
