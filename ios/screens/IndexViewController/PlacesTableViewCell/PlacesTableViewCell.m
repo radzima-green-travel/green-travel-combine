@@ -25,7 +25,8 @@ static CGFloat kSwipeThresholdVelocity = 0.5;
 static CGFloat kDurationMax = 0.5;
 static CGFloat kDurationMin = 0.1;
 static CGFloat kRatioDivider = 1.09;
-static CGFloat kAllButtonSize = 44.0;
+static CGFloat kThresholdWidth = 44.0;
+static CGFloat kTrailingInset = -26.0;
 
 @interface PlacesTableViewCell ()
 
@@ -122,28 +123,29 @@ static CGFloat kAllButtonSize = 44.0;
     
     self.allButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-    NSMutableArray<NSLayoutConstraint *> *buttonCostraints = [@[
-        [self.allButton.centerYAnchor constraintEqualToAnchor:self.headerLabel.centerYAnchor],
-        [self.allButton.heightAnchor constraintEqualToConstant: kAllButtonSize]
-    ] mutableCopy];
+    NSMutableArray<NSLayoutConstraint *> *constraints = [[NSMutableArray alloc] init];
+    [constraints addObjectsFromArray:@[
+      [self.allButton.centerYAnchor constraintEqualToAnchor:self.headerLabel.centerYAnchor],
+      [self.allButton.heightAnchor constraintEqualToConstant:kThresholdWidth]
+    ]];
 
     NSArray<NSLayoutConstraint *> *longButtonConstraints = @[
-        [self.allButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant: -16.0]
+        [self.allButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-16.0]
     ];
 
     NSArray<NSLayoutConstraint *> *shortButtonConstraints = @[
-        [self.allButton.centerXAnchor constraintEqualToAnchor:self.trailingAnchor constant: -26.0],
-        [self.allButton.widthAnchor constraintEqualToConstant: kAllButtonSize]
+        [self.allButton.centerXAnchor constraintEqualToAnchor:self.trailingAnchor constant:kTrailingInset],
+        [self.allButton.widthAnchor constraintEqualToConstant:kThresholdWidth]
     ];
 
-    if (self.allButton.titleLabel.intrinsicContentSize.width > kAllButtonSize) {
+    if (self.allButton.titleLabel.intrinsicContentSize.width > kThresholdWidth) {
       self.allButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-      [buttonCostraints addObjectsFromArray:longButtonConstraints];
-      [NSLayoutConstraint activateConstraints: buttonCostraints];
+      [constraints addObjectsFromArray:longButtonConstraints];
+      [NSLayoutConstraint activateConstraints:constraints];
     } else {
       self.allButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-      [buttonCostraints addObjectsFromArray:shortButtonConstraints];
-      [NSLayoutConstraint activateConstraints: buttonCostraints];
+      [constraints addObjectsFromArray:shortButtonConstraints];
+      [NSLayoutConstraint activateConstraints:constraints];
     }
       
 #pragma mark - Subscribe to orientation change
