@@ -1,4 +1,4 @@
-import React, {memo, useMemo} from 'react';
+import React, {memo, useCallback, useMemo} from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {Icon} from 'atoms';
 import {themeStyles, gradientConfig} from './styles';
@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import FastImage, {ImageStyle} from 'react-native-fast-image';
-import { useState } from 'react';
+import {useState} from 'react';
 export const ratio = 324 / 144;
 
 interface IProps {
@@ -43,7 +43,7 @@ export const Card = memo(
     onRemoveAnimationEnd,
     onFavoriteChanged,
   }: IProps) => {
-    const [isImageProvided, setIsImageProvided] = useState(false)
+    const [isImageProvided, setIsImageProvided] = useState(false);
     const styles = useThemeStyles(themeStyles);
     const dimensions = useMemo(() => {
       return {width, height: width / ratio};
@@ -55,6 +55,10 @@ export const Card = memo(
       });
     }, [imageUri]);
 
+    const onLoadHandler = useCallback(() => {
+      setIsImageProvided(true);
+    }, []);
+
     return (
       <TouchableOpacity
         onPress={onPress}
@@ -64,7 +68,7 @@ export const Card = memo(
         <FastImage
           style={styles.image as unknown as StyleProp<ImageStyle>}
           source={normalizedSource}
-          onLoad={() => setIsImageProvided(true)}
+          onLoad={onLoadHandler}
         />
         {isImageProvided ? (
           <LinearGradient {...gradientConfig} style={styles.gradient} />
