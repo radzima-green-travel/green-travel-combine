@@ -1,15 +1,16 @@
 import {call, delay, put, select} from 'redux-saga/effects';
 
-import {getAllAppData} from 'api/graphql/methods';
+import {getAllAppDataFromIndex} from 'api/rest';
 import {ListMobileDataQuery} from 'api/graphql/types';
 import {
   getHomeDataUpdatesFailure,
   getHomeDataUpdatesSuccess,
 } from '../../reducers';
 import {selectHomeUpdatedData} from '../../selectors';
-import {saveHomeDataVersionSaga} from './homeDataVersion';
+
 import {languageService} from 'services/LanguageService';
-import {SupportedLocales} from 'core/types';
+import {ILabelError, SupportedLocales} from 'core/types';
+import {saveLocalEtagsToStorage} from 'api/rest/interceptors';
 
 export function* getHomeDataUpdatesSaga() {
   try {
@@ -17,21 +18,33 @@ export function* getHomeDataUpdatesSaga() {
       languageService,
       languageService.getCurrentLanguage,
     ]);
-    const data: ListMobileDataQuery = yield call(getAllAppData, {
+    const data: ListMobileDataQuery = yield call(getAllAppDataFromIndex, {
       locale: currentAppLocale,
     });
-    yield call(saveHomeDataVersionSaga, data);
 
-    yield put(getHomeDataUpdatesSuccess({data: data}));
+    const updatedData = yield select(selectHomeUpdatedData);
+    if (data) {
+      yield put(getHomeDataUpdatesSuccess({data: data}));
+
+      yield call(saveLocalEtagsToStorage);
+    } else if (updatedData) {
+      yield delay(700);
+
+      yield put(getHomeDataUpdatesSuccess({data: updatedData}));
+      yield call(saveLocalEtagsToStorage);
+    } else {
+      yield delay(700);
+      yield put(getHomeDataUpdatesSuccess({data: null}));
+    }
   } catch (e) {
     const updatedData = yield select(selectHomeUpdatedData);
     if (updatedData) {
       yield delay(700);
 
       yield put(getHomeDataUpdatesSuccess({data: updatedData}));
-      yield call(saveHomeDataVersionSaga, updatedData);
+      yield call(saveLocalEtagsToStorage);
     } else {
-      yield put(getHomeDataUpdatesFailure(e));
+      yield put(getHomeDataUpdatesFailure(e as ILabelError));
     }
   }
 }

@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, select, takeEvery} from 'redux-saga/effects';
 
 import {
   userAuthorizedRequest,
@@ -12,21 +12,30 @@ import {useAuthHubChannel} from 'core/hooks';
 
 import {initAppLocaleSaga} from './initAppLocaleSaga';
 import {ILabelError} from 'core/types';
+import {resetEtagsStorage} from 'storage';
+import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
 
 export function* bootstrapSaga() {
-  const channel = yield call(useAuthHubChannel);
+  const isMyProfileFeatureEnabled: ReturnType<
+    typeof selectIsMyProfileFeatureEnabled
+  > = yield select(selectIsMyProfileFeatureEnabled);
 
-  yield takeEvery(channel, function* (eventName: string) {
-    if (eventName === 'signIn' || eventName === 'signOut') {
-      yield put(userAuthorizedRequest());
-    }
-  });
+  if (isMyProfileFeatureEnabled) {
+    const channel = yield call(useAuthHubChannel);
+
+    yield takeEvery(channel, function* (eventName: string) {
+      if (eventName === 'signIn' || eventName === 'signOut') {
+        yield put(userAuthorizedRequest());
+      }
+    });
+  }
 
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
     try {
       const isLocaledUpdated = yield call(initAppLocaleSaga);
 
       if (isLocaledUpdated) {
+        yield call(resetEtagsStorage);
         yield put(getInitialHomeDataRequest());
       } else {
         yield put(getHomeData());

@@ -1,7 +1,5 @@
 import {call, put} from 'redux-saga/effects';
-import {getAllAppMetadata, getAllAppData} from 'api/graphql/methods';
 import {ListMobileDataQuery} from 'api/graphql/types';
-import {ListMobileMetadata} from 'api/graphql/customTypes';
 import {
   getHomeDataUpdateAvailableFailure,
   getHomeDataUpdateAvailableSuccess,
@@ -9,9 +7,9 @@ import {
   getInitialHomeDataRequest,
 } from '../../reducers';
 import {loadingSaga} from '../loading';
-import {checkIfHomeDataVersionChanged} from './homeDataVersion';
 import {languageService} from 'services/LanguageService';
-import {SupportedLocales} from 'core/types';
+import {ILabelError, SupportedLocales} from 'core/types';
+import {getAllAppDataFromIndex} from 'api/rest';
 
 export function* checkHomeDataUpdatesAvailabilitySaga() {
   try {
@@ -19,6 +17,7 @@ export function* checkHomeDataUpdatesAvailabilitySaga() {
       languageService,
       languageService.getCurrentLanguage,
     ]);
+
     const updateDataLoading = yield call(
       loadingSaga,
       getHomeDataUpdatesRequest,
@@ -30,29 +29,16 @@ export function* checkHomeDataUpdatesAvailabilitySaga() {
 
     const loading = updateDataLoading || getInitialDataLoading;
 
-    let updatedData: ListMobileDataQuery | null = null;
-
-    if (!loading) {
-      const metaData: ListMobileMetadata = yield call(getAllAppMetadata);
-      const isHomeDataVersionChanged = yield call(
-        checkIfHomeDataVersionChanged,
-        metaData,
-      );
-
-      if (isHomeDataVersionChanged) {
-        const data: ListMobileDataQuery = yield call(getAllAppData, {
-          locale: currentAppLocale,
-        });
-        updatedData = data;
-      }
-    }
+    const data: ListMobileDataQuery | null = loading
+      ? null
+      : yield call(getAllAppDataFromIndex, {locale: currentAppLocale});
 
     yield put(
       getHomeDataUpdateAvailableSuccess({
-        updatedData: updatedData,
+        updatedData: data,
       }),
     );
   } catch (e) {
-    yield put(getHomeDataUpdateAvailableFailure(e));
+    yield put(getHomeDataUpdateAvailableFailure(e as ILabelError));
   }
 }

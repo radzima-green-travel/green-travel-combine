@@ -1,5 +1,5 @@
 import {call, put} from 'redux-saga/effects';
-import {getAllAppData} from 'api/graphql/methods';
+import {getAllAppDataFromIndex} from 'api/rest';
 import {ListMobileDataQuery} from 'api/graphql/types';
 import {
   getInitialHomeDataSuccess,
@@ -7,7 +7,7 @@ import {
 } from '../../reducers';
 import {saveHomeDataVersionSaga} from './homeDataVersion';
 import {languageService} from 'services/LanguageService';
-import {SupportedLocales} from 'core/types';
+import {ILabelError, SupportedLocales} from 'core/types';
 
 export function* getInitialHomeDataSaga() {
   try {
@@ -15,13 +15,13 @@ export function* getInitialHomeDataSaga() {
       languageService,
       languageService.getCurrentLanguage,
     ]);
-    const data: ListMobileDataQuery = yield call(getAllAppData, {
+    const data: ListMobileDataQuery = yield call(getAllAppDataFromIndex, {
       locale: currentAppLocale,
     });
 
     yield call(saveHomeDataVersionSaga, data);
     yield put(getInitialHomeDataSuccess({data: data}));
   } catch (e) {
-    yield put(getInitialHomeDataFailure(e));
+    yield put(getInitialHomeDataFailure(e as ILabelError));
   }
 }

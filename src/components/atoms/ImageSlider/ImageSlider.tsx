@@ -41,7 +41,7 @@ export const ImageSlider = ({images, onScroll, width, height, defaultPhoto}: IPr
                 uri: item,
               }
             : item
-  
+
         return (
           <FastImage
             style={[styles.image as unknown as StyleProp<ImageStyle>, {width}]}

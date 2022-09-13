@@ -290,7 +290,13 @@ export const ObjectDetailsMap = ({route}: IProps) => {
             id="directionSource"
             shape={direction as unknown as LineString}>
             <MapBox.LineLayer
+              id="directionFillBackground"
+              belowLayerID="singlePoint"
+              style={layersStyles.directionBackground as StyleProp<LineLayerStyle>}
+            />
+            <MapBox.LineLayer
               id="directionFill"
+              belowLayerID="singlePoint"
               style={layersStyles.direction as StyleProp<LineLayerStyle>}
             />
           </MapBox.ShapeSource>
@@ -348,7 +354,7 @@ export const ObjectDetailsMap = ({route}: IProps) => {
           bottomInset={bottom}
           onButtonPress={onMenuButtonPress}
           loading={loading}
-          isDirectionShowed={isDirectionShowed}
+          isDirectionShowed={!!isDirectionShowed}
         />
       </BottomMenu>
       <BackCircleButton onPress={onBackPress} />

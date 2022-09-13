@@ -38,10 +38,10 @@ target 'greenTravel' do
     $RNMBGL.pre_install(installer)
     Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
     $static_framework = ['react-native-ultimate-config', 'react-native-blur', 'react-native-webview',
-    'RNSVG', 'BVLinearGradient', 'RNCMaskedView']
+    'RNSVG', 'BVLinearGradient', 'RNCMaskedView', 'RNPermissions']
 
     installer.pod_targets.each do |pod|
-      if $static_framework.include?(pod.name)
+      if $static_framework.include?(pod.name) || pod.name.start_with?('Permission-')
         def pod.build_type
           Pod::BuildType.static_library
         end

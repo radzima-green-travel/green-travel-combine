@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {ColorSchemeName, TouchableOpacity} from 'react-native';
 import {Icon} from 'atoms';
 import {FONTS_STYLES} from 'assets/fonts';
