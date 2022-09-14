@@ -27,6 +27,7 @@ static CGFloat kDurationMin = 0.1;
 static CGFloat kRatioDivider = 1.09;
 static CGFloat kThresholdWidth = 44.0;
 static CGFloat kTrailingInset = -26.0;
+static CGFloat kTrailingInsetLongButton = -16.0;
 
 @interface PlacesTableViewCell ()
 
@@ -75,7 +76,7 @@ static CGFloat kTrailingInset = -26.0;
 
   self.headerLabel.attributedText = [[TypographyLegacy get] makeSubtitle1Semibold:[self.item.title uppercaseString]
                                      color:[Colors get].categoryTitleText];
-  
+
     NSUInteger safeIndex = [self indexOfMostExposedCell];
     UICollectionViewCell *cell =
     [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:safeIndex inSection:0]];
@@ -86,13 +87,13 @@ static CGFloat kTrailingInset = -26.0;
     self.headerLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.headerLabel];
     [self.headerLabel setFont:[UIFont fontWithName:@"Montserrat-SemiBold" size:14.0]];
-    
+
     self.headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [self.headerLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:16.0],
         [self.headerLabel.topAnchor constraintEqualToAnchor:self.topAnchor constant:24.0]
     ]];
-    
+
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
@@ -101,7 +102,7 @@ static CGFloat kTrailingInset = -26.0;
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceHorizontal = YES;
     self.collectionView.showsHorizontalScrollIndicator = NO;
-    
+
     [self.contentView addSubview:self.collectionView];
     self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -110,7 +111,7 @@ static CGFloat kTrailingInset = -26.0;
         [self.collectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:0.0],
         [self.collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:0.0],
     ]];
-  
+
     self.allButton = [[UIButton alloc] init];
     [self.allButton setAttributedTitle:[[TypographyLegacy get]
                                       makeSubtitle1Semibold:NSLocalizedString(@"IndexAll", @"")
@@ -118,9 +119,9 @@ static CGFloat kTrailingInset = -26.0;
                             forState:UIControlStateNormal];
     [self.contentView addSubview:self.allButton];
     [self.allButton.titleLabel setFont:[UIFont fontWithName:@"Montserrat-SemiBold" size:14.0]];
-    
+
     [self.allButton addTarget:self action:@selector(onAllButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     self.allButton.translatesAutoresizingMaskIntoConstraints = NO;
 
     NSMutableArray<NSLayoutConstraint *> *constraints = [[NSMutableArray alloc] init];
@@ -130,7 +131,7 @@ static CGFloat kTrailingInset = -26.0;
     ]];
 
     NSArray<NSLayoutConstraint *> *longButtonConstraints = @[
-        [self.allButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-16.0]
+        [self.allButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:kTrailingInsetLongButton]
     ];
 
     NSArray<NSLayoutConstraint *> *shortButtonConstraints = @[
@@ -147,7 +148,7 @@ static CGFloat kTrailingInset = -26.0;
       [constraints addObjectsFromArray:shortButtonConstraints];
       [NSLayoutConstraint activateConstraints:constraints];
     }
-      
+
 #pragma mark - Subscribe to orientation change
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceOrientationChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
@@ -213,7 +214,7 @@ static CGFloat kTrailingInset = -26.0;
         category.onPlaceCellPress();
         return;
     }
-    
+
     PlaceItem *item = self.dataSourceItems[indexPath.row];
     item.onPlaceCellPress();
 }
@@ -334,7 +335,7 @@ static const CGFloat kSpacing = 16.0;
   self.maxDragDistanceFromRight = fmax(self.collectionView.contentOffset.x -
                                        self.initialContentOffsetX,
                                        self.maxDragDistanceFromRight);
-  
+
   NSUInteger index = self.indexOfMostExposedCellBeforeDragging;
   UICollectionViewCell *cell =
   [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
