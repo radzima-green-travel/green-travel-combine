@@ -38,6 +38,12 @@
 #import "AmplifyBridge.h"
 #import "AuthService.h"
 
+#if PROD
+static BOOL kSignUpEnabled = NO;
+#else
+static BOOL kSignUpEnabled = YES;
+#endif
+
 @interface MainViewController ()
 
 @property (strong, nonatomic) id<IndexLoader> apiService;
@@ -96,10 +102,12 @@
     UserModel *userModel = [[UserModel alloc] init];
     UserController *userController = [[UserController alloc] initWithModel:userModel authService:authService];
 
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
-      [bridge initialize];
-      [userController fetchCurrentAuthSession];
-    });
+		if (kSignUpEnabled) {
+			dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+				[bridge initialize];
+				[userController fetchCurrentAuthSession];
+			});
+    }
 
 #pragma mark - IndexViewController
 
@@ -172,8 +180,13 @@
 
   self.profileRootController.tabBarItem = self.profileTabBarItem;
 
-  self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
-                           self.bookmarksControllerWithNavigation, self.profileRootController];
+  if (kSignUpEnabled) {
+    self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
+                             self.bookmarksControllerWithNavigation, self.profileRootController];
+  } else {
+    self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
+                             self.bookmarksControllerWithNavigation];
+  }
 
   self.selectedIndex = 0;
 
