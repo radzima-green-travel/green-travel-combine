@@ -15,7 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, PhotoCollectionViewCellImageType) {
   PhotoCollectionViewCellImageTypeLight = 0,
-  PhotoCollectionViewCellImageTypeDark = 1
+  PhotoCollectionViewCellImageTypeDark = 1,
+  PhotoCollectionViewCellImageTypeLightSelected = 2,
+  PhotoCollectionViewCellImageTypeDarkSelected = 3
 };
 
 @interface PhotoCollectionViewCell : UICollectionViewCell

@@ -43,7 +43,8 @@ static NSCache *imageCache = nil;
     imageCache = [NSCache new];
   }
   if ([imageCache objectForKey:@(imageType)] == nil) {
-    UIColor *color = imageType == PhotoCollectionViewCellImageTypeLight ?
+    UIColor *color = (imageType == PhotoCollectionViewCellImageTypeLight ||
+                      imageType == PhotoCollectionViewCellImageTypeLightSelected) ?
     [Colors get].bookmarkTintFullCell :
     [Colors get].bookmarkTintEmptyCell;
 
@@ -67,16 +68,22 @@ static NSCache *imageCache = nil;
   [super layoutSubviews];
   [self updateOverlayAndShadow];
   self.layer.borderColor = [[Colors get].photoCollectionViewCellBorder CGColor];
+  BOOL bookmarkSelected = self.favoritesButton.selected;
   if (self.item != nil && ![self coverIsPresent]) {
+    PhotoCollectionViewCellImageType imageType = bookmarkSelected ?
+    PhotoCollectionViewCellImageTypeDarkSelected : PhotoCollectionViewCellImageTypeDark;
     self.favoritesButton.imageView.image =
-    [PhotoCollectionViewCell imageForType:PhotoCollectionViewCellImageTypeDark
+    [PhotoCollectionViewCell imageForType:imageType
                                 baseImage:self.favoritesButton.imageView.image];
     self.headerLabel.attributedText = [[TypographyLegacy get] makeTitle2:self.item.title
                                                                    color:[Colors get].cardPlaceholderText];
     return;
   }
+  
+  PhotoCollectionViewCellImageType imageType = bookmarkSelected ?
+  PhotoCollectionViewCellImageTypeLightSelected : PhotoCollectionViewCellImageTypeLight;
   self.favoritesButton.imageView.image =
-  [PhotoCollectionViewCell imageForType:PhotoCollectionViewCellImageTypeLight
+  [PhotoCollectionViewCell imageForType:imageType
                               baseImage:self.favoritesButton.imageView.image];
 }
 
