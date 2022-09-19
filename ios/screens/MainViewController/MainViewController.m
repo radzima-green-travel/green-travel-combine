@@ -41,7 +41,7 @@
 #if PROD
 static BOOL kSignUpEnabled = NO;
 #else
-static BOOL kSignUpEnabled = NO;
+static BOOL kSignUpEnabled = YES;
 #endif
 
 @interface MainViewController ()
