@@ -65,7 +65,7 @@
 
 "ProfileTableViewSettingsSection" = "Настройки";
 "ProfileTableViewCellAuthMainTitle" = "Вы не авторизованы";
-"ProfileTableViewCellAuthSubTitle" = "Авторизуйтесь или зарегестрируйтесь";
+"ProfileTableViewCellAuthSubTitle" = "Авторизуйтесь или зарегистрируйтесь";
 "ProfileTableViewCellLabelDataAndStorage" = "Данные и память";
 "ProfileTableViewCellLabelLanguage" = "Язык";
 "ProfileTableViewCellLabelTheme" = "Тема";
