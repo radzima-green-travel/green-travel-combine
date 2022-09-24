@@ -63,12 +63,12 @@
 "ProfileScreenButtonLabelSignIn" = "ВОЙТИ";
 "ProfileScreenButtonLabelForgotPassword" = "Забыли пароль?";
 
-"ProfileTableViewSettingsSection" = "Settings";
-"ProfileTableViewCellAuthMainTitle" = "You are not authorized";
-"ProfileTableViewCellAuthSubTitle" = "Authorized or Sign up";
-"ProfileTableViewCellLabelDataAndStorage" = "Data and Storage";
-"ProfileTableViewCellLabelLanguage" = "Language";
-"ProfileTableViewCellLabelTheme" = "Theme";
+"ProfileTableViewSettingsSection" = "设置";
+"ProfileTableViewCellAuthMainTitle" = "您没有权限";
+"ProfileTableViewCellAuthSubTitle" = "授权或注册";
+"ProfileTableViewCellLabelDataAndStorage" = "数据和存储";
+"ProfileTableViewCellLabelLanguage" = "语";
+"ProfileTableViewCellLabelTheme" = "主题";
 
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenTitle" = "Email confirmation";
