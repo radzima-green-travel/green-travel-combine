@@ -36,9 +36,9 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
+
   self.title = NSLocalizedString(@"ResetPasswordPassCodeScreenTitle", @"");
-  
+
   self.titleLabel = [[UILabel alloc] init];
   NSAttributedString *header = [[Typography get] formHeader:NSLocalizedString(@"ResetPasswordPassCodeScreenHeader", @"")];
   [self.titleLabel setAttributedText:header];
@@ -46,14 +46,14 @@
   [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
   [self.contentView addSubview:self.titleLabel];
   self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
   [NSLayoutConstraint activateConstraints:@[
     [self.titleLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.titleLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor],
     [self.titleLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor],
     [self.titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:150.0],
   ]];
-  
+
   self.hintLabel = [[UILabel alloc] init];
   NSAttributedString *hint = [[Typography get] codeConfirmationHint:[NSString stringWithFormat:NSLocalizedString(@"ResetPasswordPassCodeScreenHint", @""), self.userModel.emailResetPassword]];
   [self.hintLabel setAttributedText:hint];
@@ -61,43 +61,43 @@
   [self.hintLabel setTextAlignment:NSTextAlignmentCenter];
   [self.contentView addSubview:self.hintLabel];
   self.hintLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  
+
   [NSLayoutConstraint activateConstraints:@[
     [self.hintLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.hintLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.leadingAnchor],
     [self.hintLabel.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor],
     [self.hintLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:20.0],
   ]];
-  
+
   self.passCodeField = [[PassCodeTextField alloc] init];
   self.passCodeField.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.passCodeField];
-  
+
   [NSLayoutConstraint activateConstraints:@[
     [self.passCodeField.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.passCodeField.topAnchor constraintEqualToAnchor:self.hintLabel.bottomAnchor constant:20.0],
   ]];
-  
+
   self.buttonSubmit = [[CommonButton alloc] initWithTarget:self
                                                     action:@selector(onSubmit:)
                                                      label:NSLocalizedString(@"CodeConfirmationScreenSubmit", @"")];
   self.buttonSubmit.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.buttonSubmit];
-  
+
   [NSLayoutConstraint activateConstraints:@[
     [self.buttonSubmit.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.buttonSubmit.topAnchor constraintEqualToAnchor:self.passCodeField.bottomAnchor constant:25.0]
   ]];
-  
+
   self.buttonRetry = [[UIButtonHighlightable alloc] init];
   self.buttonRetry.translatesAutoresizingMaskIntoConstraints = NO;
   [self.buttonRetry setTintColor:[Colors get].buttonTextTint];
   NSAttributedString *label = [[Typography get] textButtonLabel:NSLocalizedString(@"CodeConfirmationScreenRetry", @"")];
   [self.buttonRetry setAttributedTitle:label forState:UIControlStateNormal];
   [self.buttonRetry addTarget:self action:@selector(onRetry:) forControlEvents:UIControlEventTouchUpInside];
-  
+
   [self.contentView addSubview:self.buttonRetry];
-  
+
   [NSLayoutConstraint activateConstraints:@[
     [self.buttonRetry.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
     [self.buttonRetry.topAnchor constraintEqualToAnchor:self.buttonSubmit.bottomAnchor constant:25.0],
@@ -144,11 +144,12 @@
 
 - (void)onSubmit:(CommonButton *)sender {
   [self.userModel setConfirmationCode:self.passCodeField.text];
-  
+
   ResetPasswordNewPasswordViewController *resetPasswordNewPasswordViewController =
   [[ResetPasswordNewPasswordViewController alloc] initWithController:self.userController model:self.userModel];
   [self.navigationController pushViewController:resetPasswordNewPasswordViewController animated:YES];
   [self.view endEditing:YES];
+  [self.passCodeField setText:@""];
 }
 
 - (void)onRetry:(UIButton *)sender {
