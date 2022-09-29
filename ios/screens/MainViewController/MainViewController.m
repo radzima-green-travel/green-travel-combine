@@ -108,7 +108,6 @@ static BOOL kSignUpEnabled = YES;
 			dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
 				[bridge initialize];
 				[userController fetchCurrentAuthSession];
-				[userController fetchUserAttributes];
 			});
     }
 

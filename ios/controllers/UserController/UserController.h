@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithModel:(UserModel *)model authService:(AuthService *)authService;
 - (void)fetchCurrentAuthSession;
-- (void)fetchUserAttributes;
+//- (void)fetchUserAttributes;
 - (void)initiateSignIn:(NSString *)username
               password:(NSString *)password;
 - (void)initiateResetPassword:(NSString *)username;

@@ -212,12 +212,15 @@
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		5AFB8FD928F9608B009E729E /* AccessibilityIdentifiers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB8FD828F9608B009E729E /* AccessibilityIdentifiers.m */; };
-		5AFFD0F12850E4BD009E5AB8 /* ProfileRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */; };
 		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
 		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
-		5EAE433E28A6C45600042455 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE433C28A6C45500042455 /* ProfileTableViewCell.m */; };
-		5EAE433F28A6C45600042455 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE433D28A6C45600042455 /* ProfileTableViewController.m */; };
+		5EA9408828E6169800E90014 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408528E6169800E90014 /* ProfileTableViewCell.m */; };
+		5EA9408928E6169800E90014 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408628E6169800E90014 /* ProfileTableViewController.m */; };
+		5EA9408A28E6169800E90014 /* ProfileTableViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408728E6169800E90014 /* ProfileTableViewControllerUtils.m */; };
+		5EA9409428E6175400E90014 /* UserSettingsViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408D28E6175400E90014 /* UserSettingsViewControllerUtils.m */; };
+		5EA9409528E6175400E90014 /* UserSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9409128E6175400E90014 /* UserSettingsTableViewCell.m */; };
+		5EA9409628E6175400E90014 /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9409328E6175400E90014 /* UserSettingsViewController.m */; };
 		5EAE434328A6C5E200042455 /* SettingsTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE434128A6C5E200042455 /* SettingsTableViewCellModel.m */; };
 		5EAE434628A6C66800042455 /* ProfileSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE434428A6C66800042455 /* ProfileSection.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
@@ -639,18 +642,24 @@
 		5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryImagePlaceholder.h; sourceTree = "<group>"; };
 		5AFB8FD728F9608B009E729E /* AccessibilityIdentifiers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityIdentifiers.h; sourceTree = "<group>"; };
 		5AFB8FD828F9608B009E729E /* AccessibilityIdentifiers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessibilityIdentifiers.m; sourceTree = "<group>"; };
-		5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileRootViewController.h; sourceTree = "<group>"; };
-		5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileRootViewController.m; sourceTree = "<group>"; };
 		5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		5AFFD0F82851FE88009E5AB8 /* UserFetchProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchProgressViewController.h; sourceTree = "<group>"; };
 		5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchProgressViewController.m; sourceTree = "<group>"; };
 		5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchErrorViewController.h; sourceTree = "<group>"; };
 		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
-		5EAE433928A6C45500042455 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
-		5EAE433B28A6C45500042455 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
-		5EAE433C28A6C45500042455 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
-		5EAE433D28A6C45600042455 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
+		5EA9408128E6169700E90014 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
+		5EA9408228E6169700E90014 /* ProfileTableViewControllerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewControllerUtils.h; sourceTree = "<group>"; };
+		5EA9408428E6169800E90014 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
+		5EA9408528E6169800E90014 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
+		5EA9408628E6169800E90014 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
+		5EA9408728E6169800E90014 /* ProfileTableViewControllerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewControllerUtils.m; sourceTree = "<group>"; };
+		5EA9408D28E6175400E90014 /* UserSettingsViewControllerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewControllerUtils.m; sourceTree = "<group>"; };
+		5EA9408E28E6175400E90014 /* UserSettingsViewControllerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsViewControllerUtils.h; sourceTree = "<group>"; };
+		5EA9408F28E6175400E90014 /* UserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsViewController.h; sourceTree = "<group>"; };
+		5EA9409128E6175400E90014 /* UserSettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsTableViewCell.m; sourceTree = "<group>"; };
+		5EA9409228E6175400E90014 /* UserSettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsTableViewCell.h; sourceTree = "<group>"; };
+		5EA9409328E6175400E90014 /* UserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewController.m; sourceTree = "<group>"; };
 		5EAE434128A6C5E200042455 /* SettingsTableViewCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewCellModel.m; sourceTree = "<group>"; };
 		5EAE434228A6C5E200042455 /* SettingsTableViewCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCellModel.h; sourceTree = "<group>"; };
 		5EAE434428A6C66800042455 /* ProfileSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSection.m; sourceTree = "<group>"; };
@@ -1803,9 +1812,8 @@
 		5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5EAE433828A6C45500042455 /* ProfileTableViewController */,
-				5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */,
-				5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */,
+				5EA9408B28E6175400E90014 /* UserSettingsViewController */,
+				5EA9408028E6169700E90014 /* ProfileTableViewController */,
 				5AFFD0F72851FE6D009E5AB8 /* UserFetchProgressViewController */,
 				5AFFD0F62851FE54009E5AB8 /* UserFetchErrorViewController */,
 				5A98894128424A1B0000271B /* CodeConfirmationController */,
@@ -1847,23 +1855,55 @@
 			path = UserFetchProgressViewController;
 			sourceTree = "<group>";
 		};
-		5EAE433828A6C45500042455 /* ProfileTableViewController */ = {
+		5EA9408028E6169700E90014 /* ProfileTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5EAE433928A6C45500042455 /* ProfileTableViewController.h */,
-				5EAE433A28A6C45500042455 /* ProfileTableViewCell */,
-				5EAE433D28A6C45600042455 /* ProfileTableViewController.m */,
+				5EA9408128E6169700E90014 /* ProfileTableViewController.h */,
+				5EA9408228E6169700E90014 /* ProfileTableViewControllerUtils.h */,
+				5EA9408328E6169800E90014 /* ProfileTableViewCell */,
+				5EA9408628E6169800E90014 /* ProfileTableViewController.m */,
+				5EA9408728E6169800E90014 /* ProfileTableViewControllerUtils.m */,
 			);
-			path = ProfileTableViewController;
+			name = ProfileTableViewController;
+			path = ../../../../../../Downloads/ProfileTableViewController;
 			sourceTree = "<group>";
 		};
-		5EAE433A28A6C45500042455 /* ProfileTableViewCell */ = {
+		5EA9408328E6169800E90014 /* ProfileTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5EAE433B28A6C45500042455 /* ProfileTableViewCell.h */,
-				5EAE433C28A6C45500042455 /* ProfileTableViewCell.m */,
+				5EA9408428E6169800E90014 /* ProfileTableViewCell.h */,
+				5EA9408528E6169800E90014 /* ProfileTableViewCell.m */,
 			);
 			path = ProfileTableViewCell;
+			sourceTree = "<group>";
+		};
+		5EA9408B28E6175400E90014 /* UserSettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9408C28E6175400E90014 /* UserSettingsViewControllerUtils */,
+				5EA9408F28E6175400E90014 /* UserSettingsViewController.h */,
+				5EA9409028E6175400E90014 /* UserSettingsTableViewCell */,
+				5EA9409328E6175400E90014 /* UserSettingsViewController.m */,
+			);
+			path = UserSettingsViewController;
+			sourceTree = "<group>";
+		};
+		5EA9408C28E6175400E90014 /* UserSettingsViewControllerUtils */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9408D28E6175400E90014 /* UserSettingsViewControllerUtils.m */,
+				5EA9408E28E6175400E90014 /* UserSettingsViewControllerUtils.h */,
+			);
+			path = UserSettingsViewControllerUtils;
+			sourceTree = "<group>";
+		};
+		5EA9409028E6175400E90014 /* UserSettingsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9409128E6175400E90014 /* UserSettingsTableViewCell.m */,
+				5EA9409228E6175400E90014 /* UserSettingsTableViewCell.h */,
+			);
+			path = UserSettingsTableViewCell;
 			sourceTree = "<group>";
 		};
 		5EAE434028A6C5E200042455 /* ProfileCellModel */ = {
@@ -2170,8 +2210,6 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
-				"${BUILT_PRODUCTS_DIR}/Permission-LocationAlways/Permission_LocationAlways.framework",
-				"${BUILT_PRODUCTS_DIR}/Permission-LocationWhenInUse/Permission_LocationWhenInUse.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/RCT-Folly/folly.framework",
 				"${BUILT_PRODUCTS_DIR}/RCTTypeSafety/RCTTypeSafety.framework",
@@ -2182,7 +2220,6 @@
 				"${BUILT_PRODUCTS_DIR}/RNFastImage/RNFastImage.framework",
 				"${BUILT_PRODUCTS_DIR}/RNGestureHandler/RNGestureHandler.framework",
 				"${BUILT_PRODUCTS_DIR}/RNLocalize/RNLocalize.framework",
-				"${BUILT_PRODUCTS_DIR}/RNPermissions/RNPermissions.framework",
 				"${BUILT_PRODUCTS_DIR}/RNReactNativeHapticFeedback/RNReactNativeHapticFeedback.framework",
 				"${BUILT_PRODUCTS_DIR}/RNReanimated/RNReanimated.framework",
 				"${BUILT_PRODUCTS_DIR}/RNScreens/RNScreens.framework",
@@ -2213,7 +2250,6 @@
 				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
 				"${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-geolocation-service/react_native_geolocation_service.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-mapbox-gl/react_native_mapbox_gl.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework",
 				"${BUILT_PRODUCTS_DIR}/react-native-pager-view/react_native_pager_view.framework",
@@ -2244,8 +2280,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Permission_LocationAlways.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Permission_LocationWhenInUse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTTypeSafety.framework",
@@ -2256,7 +2290,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNFastImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNGestureHandler.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNLocalize.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNPermissions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNReactNativeHapticFeedback.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNReanimated.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNScreens.framework",
@@ -2287,7 +2320,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_geolocation_service.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_mapbox_gl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_netinfo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_pager_view.framework",
@@ -2342,8 +2374,6 @@
 				5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */,
 				5A775E0F26077A7D00CEFC78 /* SlideCollectionViewCell.m in Sources */,
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
-				5EAE433F28A6C45600042455 /* ProfileTableViewController.m in Sources */,
-				5EAE433E28A6C45600042455 /* ProfileTableViewCell.m in Sources */,
 				5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
 				5AD347F22837FD5900235E96 /* SignInFormView.m in Sources */,
@@ -2352,7 +2382,6 @@
 				5A775DFA26077A7D00CEFC78 /* PhotoCollectionViewCell.m in Sources */,
 				5AB4AFCF27B5B20E00C74857 /* StoredPlaceDetails+CoreDataClass.m in Sources */,
 				5ADF034B283CED3200D98E9A /* UserState.m in Sources */,
-				5AFFD0F12850E4BD009E5AB8 /* ProfileRootViewController.m in Sources */,
 				5A1FFB29267626A400E31162 /* Colors.m in Sources */,
 				5A775DF726077A7D00CEFC78 /* RefreshButton.m in Sources */,
 				5A2315D928E0A428004CB989 /* ApiServiceBase.m in Sources */,
@@ -2372,6 +2401,7 @@
 				5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */,
 				5A2315CD28E0A354004CB989 /* UIImage+extensions.m in Sources */,
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
+				5EA9408928E6169800E90014 /* ProfileTableViewController.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
 				5A12E89827C51F9C004FD8C6 /* DetailsScreenModel.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
@@ -2396,6 +2426,7 @@
 				5A775B5B26064C9000CEFC78 /* PathItem.m in Sources */,
 				5A775B2226064C9000CEFC78 /* StoredSearchItem+CoreDataProperties.m in Sources */,
 				5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */,
+				5EA9408A28E6169800E90014 /* ProfileTableViewControllerUtils.m in Sources */,
 				5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */,
 				5A2315E228FCA8E3004CB989 /* AccessibilityUtils.m in Sources */,
 				5AB4AFD527C27B2B00C74857 /* DetailsScreenController.m in Sources */,
@@ -2406,11 +2437,13 @@
 				5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */,
 				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
+				5EA9408828E6169800E90014 /* ProfileTableViewCell.m in Sources */,
 				5ACDFCDC285DFA2A0079C8EC /* CommonFormConstants.m in Sources */,
 				5A53584B27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m in Sources */,
 				5A21445C2663E9A700582901 /* AlertUtils.m in Sources */,
 				5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */,
 				5A775B1D26064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataProperties.m in Sources */,
+				5EA9409528E6175400E90014 /* UserSettingsTableViewCell.m in Sources */,
 				5A775B5426064C9000CEFC78 /* DetailsModel.m in Sources */,
 				5AB4AFB627B0311800C74857 /* InformationReference.m in Sources */,
 				5A775B8A26064C9000CEFC78 /* ImageUtils.m in Sources */,
@@ -2425,6 +2458,7 @@
 				5A5E2B09275D5AB600A20489 /* ViewUtils.m in Sources */,
 				5A775DFE26077A7D00CEFC78 /* CategoriesFilterSpacerCollectionViewCell.m in Sources */,
 				5A6685E5285A36BC008E193E /* ResetPasswordViewController.m in Sources */,
+				5EA9409428E6175400E90014 /* UserSettingsViewControllerUtils.m in Sources */,
 				5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
@@ -2467,6 +2501,7 @@
 				5EAE434628A6C66800042455 /* ProfileSection.m in Sources */,
 				5A775E0B26077A7D00CEFC78 /* DetailsViewController.m in Sources */,
 				5A775E1126077A7D00CEFC78 /* PlacesViewController.m in Sources */,
+				5EA9409628E6175400E90014 /* UserSettingsViewController.m in Sources */,
 				5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */,
 				5A775B5926064C9000CEFC78 /* PlaceCategory.m in Sources */,
 				5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */,
