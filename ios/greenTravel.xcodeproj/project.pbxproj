@@ -1864,8 +1864,7 @@
 				5EA9408628E6169800E90014 /* ProfileTableViewController.m */,
 				5EA9408728E6169800E90014 /* ProfileTableViewControllerUtils.m */,
 			);
-			name = ProfileTableViewController;
-			path = ../../../../../../Downloads/ProfileTableViewController;
+			path = ProfileTableViewController;
 			sourceTree = "<group>";
 		};
 		5EA9408328E6169800E90014 /* ProfileTableViewCell */ = {
