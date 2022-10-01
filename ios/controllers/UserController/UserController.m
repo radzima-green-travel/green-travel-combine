@@ -66,7 +66,6 @@
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateFetched];
-//      [strongSelf fetchUserAttributes];
       return;
     }
     [self fetchUserAttributesAndSetUserState:UserModelStateSignedIn];
