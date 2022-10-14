@@ -35,6 +35,7 @@
 		5A2315DA28E0A428004CB989 /* ApiServiceIndexFileLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315D428E0A428004CB989 /* ApiServiceIndexFileLegacy.m */; };
 		5A2315DB28E0A428004CB989 /* ApiServiceIndexFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315D728E0A428004CB989 /* ApiServiceIndexFile.m */; };
 		5A2315DF28E0A484004CB989 /* ResetPasswordRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315DD28E0A484004CB989 /* ResetPasswordRequestViewController.m */; };
+		5A2315E228FCA8E3004CB989 /* AccessibilityUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315E128FCA8E3004CB989 /* AccessibilityUtils.m */; };
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148626E3B893004AD6F3 /* UIButtonHighlightable.m */; };
 		5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */; };
@@ -210,6 +211,7 @@
 		5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF0351284524B000D98E9A /* NumberViewConstants.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
+		5AFB8FD928F9608B009E729E /* AccessibilityIdentifiers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB8FD828F9608B009E729E /* AccessibilityIdentifiers.m */; };
 		5AFFD0F12850E4BD009E5AB8 /* ProfileRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */; };
 		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
@@ -277,6 +279,8 @@
 		5A2315D728E0A428004CB989 /* ApiServiceIndexFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiServiceIndexFile.m; sourceTree = "<group>"; };
 		5A2315DD28E0A484004CB989 /* ResetPasswordRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordRequestViewController.m; sourceTree = "<group>"; };
 		5A2315DE28E0A484004CB989 /* ResetPasswordRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordRequestViewController.h; sourceTree = "<group>"; };
+		5A2315E028FCA8E3004CB989 /* AccessibilityUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtils.h; sourceTree = "<group>"; };
+		5A2315E128FCA8E3004CB989 /* AccessibilityUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessibilityUtils.m; sourceTree = "<group>"; };
 		5A238821267A57DA0004BF0A /* IndexPeeks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexPeeks.h; sourceTree = "<group>"; };
 		5A238822267A57DA0004BF0A /* IndexPeeks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexPeeks.m; sourceTree = "<group>"; };
 		5A246AC826429689003C6E5B /* BookmarkButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButton.h; sourceTree = "<group>"; };
@@ -633,6 +637,8 @@
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
 		5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryImagePlaceholder.h; sourceTree = "<group>"; };
+		5AFB8FD728F9608B009E729E /* AccessibilityIdentifiers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityIdentifiers.h; sourceTree = "<group>"; };
+		5AFB8FD828F9608B009E729E /* AccessibilityIdentifiers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessibilityIdentifiers.m; sourceTree = "<group>"; };
 		5AFFD0EF2850E4BD009E5AB8 /* ProfileRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileRootViewController.h; sourceTree = "<group>"; };
 		5AFFD0F02850E4BD009E5AB8 /* ProfileRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileRootViewController.m; sourceTree = "<group>"; };
 		5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -1210,6 +1216,8 @@
 		5A775B0B26064C9000CEFC78 /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5A2315E028FCA8E3004CB989 /* AccessibilityUtils.h */,
+				5A2315E128FCA8E3004CB989 /* AccessibilityUtils.m */,
 				5A5FF6B2269BA98500540CE4 /* CoordinateUtils.h */,
 				5A5FF6B3269BA98500540CE4 /* CoordinateUtils.m */,
 				5A006D182783565A00010D63 /* URLUtils.h */,
@@ -1229,11 +1237,11 @@
 				5A775B1026064C9000CEFC78 /* TextUtils.m */,
 				5A775B1326064C9000CEFC78 /* CategoryUtils.h */,
 				5A775B0D26064C9000CEFC78 /* CategoryUtils.m */,
-				5A775B0F26064C9000CEFC78 /* StyleUtils.h */,
 				5A775B1226064C9000CEFC78 /* SizeUtils.h */,
 				5A775B1426064C9000CEFC78 /* ImageUtils.h */,
 				5A775B0C26064C9000CEFC78 /* ImageUtils.m */,
 				5A775B1626064C9000CEFC78 /* SizeUtils.m */,
+				5A775B0F26064C9000CEFC78 /* StyleUtils.h */,
 				5A775B1926064C9000CEFC78 /* StyleUtils.m */,
 				5A21445A2663E9A700582901 /* AlertUtils.h */,
 				5A21445B2663E9A700582901 /* AlertUtils.m */,
@@ -1241,6 +1249,8 @@
 				5A5DCEAD2687E5E7003025F5 /* ArrayUtils.m */,
 				5A5FF70C26A46EDC00540CE4 /* AnalyticsEvents.h */,
 				5A5FF70D26A46EDC00540CE4 /* AnalyticsEvents.m */,
+				5AFB8FD728F9608B009E729E /* AccessibilityIdentifiers.h */,
+				5AFB8FD828F9608B009E729E /* AccessibilityIdentifiers.m */,
 				5AD6BF1326BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.h */,
 				5AD6BF1426BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m */,
 				5AD6BF1826C030B100DD3F2B /* AnalyticsTimeTracer.h */,
@@ -2387,6 +2397,7 @@
 				5A775B2226064C9000CEFC78 /* StoredSearchItem+CoreDataProperties.m in Sources */,
 				5A775B8C26064C9000CEFC78 /* TextUtils.m in Sources */,
 				5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */,
+				5A2315E228FCA8E3004CB989 /* AccessibilityUtils.m in Sources */,
 				5AB4AFD527C27B2B00C74857 /* DetailsScreenController.m in Sources */,
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */,
@@ -2484,6 +2495,7 @@
 				5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */,
 				5A775B4E26064C9000CEFC78 /* LocationModel.m in Sources */,
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
+				5AFB8FD928F9608B009E729E /* AccessibilityIdentifiers.m in Sources */,
 				5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */,
 				5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */,
 				5A105FEC265FD9E300511256 /* Directions.m in Sources */,

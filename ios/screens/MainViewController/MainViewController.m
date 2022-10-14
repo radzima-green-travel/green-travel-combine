@@ -38,6 +38,8 @@
 #import "UserController.h"
 #import "AmplifyBridge.h"
 #import "AuthService.h"
+#import "AccessibilityIdentifiers.h"
+#import "AccessibilityUtils.h"
 
 #if PROD
 static BOOL kSignUpEnabled = NO;
@@ -117,7 +119,8 @@ static BOOL kSignUpEnabled = YES;
     self.indexViewControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:indexController];
     UIImage *indexImage;
     indexImage = [UIImage imageNamed:@"home"];
-    self.indexTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMain", @""), 0, indexImage);
+    self.indexTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMain", @""), 0, indexImage,
+                                            AccessibilityIdentifiersTabBarMain);
 
     self.indexViewControllerWithNavigation.tabBarItem = self.indexTabBarItem;
 
@@ -141,7 +144,8 @@ static BOOL kSignUpEnabled = YES;
     self.mapControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:mapController];
     UIImage *mapImage;
     mapImage = [UIImage imageNamed:@"map"];
-    self.mapTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMap", @""), 0, mapImage);
+    self.mapTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarMap", @""), 0, mapImage,
+                                          AccessibilityIdentifiersTabBarMap);
 
     self.mapControllerWithNavigation.tabBarItem = self.mapTabBarItem;
     self.mapControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
@@ -164,8 +168,8 @@ static BOOL kSignUpEnabled = YES;
     self.bookmarksControllerWithNavigation = [[UINavigationController alloc ] initWithRootViewController:bookmarksController];
     UIImage *bookmarksImage;
     bookmarksImage = [UIImage imageNamed:@"bookmark-index"];
-    self.bookmarksTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarSaved", @""), 0, bookmarksImage);
-
+    self.bookmarksTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarSaved", @""), 0, bookmarksImage,
+                                                AccessibilityIdentifiersTabBarFavorites);
     self.bookmarksControllerWithNavigation.tabBarItem = self.bookmarksTabBarItem;
     self.bookmarksControllerWithNavigation.navigationBar.barTintColor = [ColorsLegacy get].green;
     self.bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
@@ -177,7 +181,8 @@ static BOOL kSignUpEnabled = YES;
 
   UIImage *profileImage;
   profileImage = [UIImage imageNamed:@"user"];
-  self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage);
+  self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage,
+                                            AccessibilityIdentifiersTabBarProfile);
 
   self.profileRootController.tabBarItem = self.profileTabBarItem;
 
@@ -197,12 +202,20 @@ static BOOL kSignUpEnabled = YES;
                                          selector:@selector(onLocaleChange:) name:NSCurrentLocaleDidChangeNotification object:nil];
 }
 
-UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image) {
+#pragma mark - viewWillAppear
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  populateWithAccessibilityIDs(self.tabBar);
+}
+
+UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image,
+                               const NSString * _Nonnull accessibilityIdentifier) {
     UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image tag:tag];
     [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes
                                        forState:UIControlStateSelected];
     [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarAttributes
                                        forState:UIControlStateNormal];
+    [tabBarItem setAccessibilityIdentifier:accessibilityIdentifier];
     return tabBarItem;
 }
 
