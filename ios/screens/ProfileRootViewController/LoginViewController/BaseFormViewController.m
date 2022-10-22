@@ -19,8 +19,6 @@
 
 @interface BaseFormViewController ()
 
-//@property(strong, nonatomic) UIView *contentContainerView;
-
 @end
 
 static const CGFloat kMinContentInset = 23.5;
@@ -57,10 +55,10 @@ static const CGFloat kTopOffset = 90.0;
   self.scrollView.alwaysBounceVertical = YES;
   [self.view addSubview:self.scrollView];
   [NSLayoutConstraint activateConstraints:@[
-    [self.scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+    [self.scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
     [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
     [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-    [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
+    [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
   ]];
   
   self.contentView = [[UIView alloc] init];
@@ -136,7 +134,7 @@ static const CGFloat kTopOffset = 90.0;
 - (void)keyboardWasShown:(NSNotification*)aNotification {
   NSDictionary* info = [aNotification userInfo];
   CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-  UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+  UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height - self.view.safeAreaInsets.bottom, 0.0);
   self.scrollView.contentInset = contentInsets;
   self.scrollView.scrollIndicatorInsets = contentInsets;
 }

@@ -45,7 +45,7 @@
   }];
 }
 
-- (void)fetchUserAttributesAndSetUserState:(NSInteger)state{
+- (void)fetchUserAttributesAndSetUserState:(UserModelState)state{
   __weak typeof(self) weakSelf = self;
   [self.authService fetchUserAttributes:^(NSString * _Nonnull userEmail, NSError * _Nonnull error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;

@@ -56,7 +56,7 @@
     [Colors get].accountImageLightBlue,
     [Colors get].accountImageFireOrange
   ];
-  UIColor *randomColor = colorsSet[arc4random_uniform((int)[colorsSet count])];
+  UIColor *randomColor = colorsSet[arc4random_uniform((NSUInteger)[colorsSet count])];
   UIImage* accountImage = [[[UIImage imageNamed:@"accountPhoto"] tintedImage:randomColor] drawText:character];
   return accountImage;
 }

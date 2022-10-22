@@ -28,7 +28,6 @@ static const CGFloat kMainLabelLeadingAnchor = 16.0;
 static const CGFloat kMainLabelTrailingAnchor = -16.0;
 static const CGFloat kSubLabelTrailingAnchor = -16.0;
 static const CGFloat kSubLabelLeadingAnchor = 8.0;
-static const CGFloat kSubLabelTopAnchor = 2.0;
 
 @implementation ProfileTableViewCell
 
@@ -119,34 +118,35 @@ static const CGFloat kSubLabelTopAnchor = 2.0;
   
   
   self.mainLabel = [[UILabel alloc] init];
-  self.mainLabel.textAlignment = NSTextAlignmentCenter;
-  self.mainLabel.adjustsFontSizeToFitWidth = YES;
+  self.mainLabel.textAlignment = NSTextAlignmentLeft;
   NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:mainText];
   self.mainLabel.attributedText = mainTextLabelAttributedString;
   
   self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.contentView addSubview:self.mainLabel];
-  
-  [NSLayoutConstraint activateConstraints:@[
-  [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
-  [self.mainLabel.topAnchor constraintEqualToAnchor:self.iconImageView.topAnchor],
-  [self.mainLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor]
-  ]];
-
   
   self.subLabel = [[UILabel alloc] init];
-  self.subLabel.textAlignment = NSTextAlignmentCenter;
+  self.subLabel.textAlignment = NSTextAlignmentLeft;
   self.subLabel.numberOfLines = 0;
   NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:subText];
   self.subLabel.attributedText = subTextLabelAttributedString;
+  [self.subLabel sizeToFit];
   
   self.subLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.contentView addSubview:self.subLabel];
+  
+  UIStackView *labelStack = [[UIStackView alloc] init];
+  [labelStack addArrangedSubview:self.mainLabel];
+  [labelStack addArrangedSubview:self.subLabel];
+  labelStack.axis = UILayoutConstraintAxisVertical;
+  labelStack.distribution = UIStackViewDistributionFillProportionally;
+  labelStack.spacing = 4;
+  
+  labelStack.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:labelStack];
   
   [NSLayoutConstraint activateConstraints:@[
-  [self.subLabel.leadingAnchor constraintEqualToAnchor:self.mainLabel.leadingAnchor],
-  [self.subLabel.trailingAnchor constraintEqualToAnchor:self.mainLabel.trailingAnchor],
-  [self.subLabel.topAnchor constraintEqualToAnchor:self.mainLabel.bottomAnchor constant:kSubLabelTopAnchor]
+  [labelStack.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
+  [labelStack.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor],
+  [labelStack.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
   ]];
 }
 

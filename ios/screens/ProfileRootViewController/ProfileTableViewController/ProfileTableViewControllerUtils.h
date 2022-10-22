@@ -8,6 +8,6 @@
 #import "ProfileTableViewController.h"
 
 NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controller);
-NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* controller);
+NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* controller, BOOL fetching);
 NSMutableArray* configureTryToSignInTableViewCells(ProfileTableViewController *controller);
 

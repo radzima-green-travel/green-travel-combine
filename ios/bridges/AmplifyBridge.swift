@@ -9,7 +9,6 @@
 import Amplify
 import AmplifyPlugins
 import Foundation
-import UIKit
 
 @objc
 class AmplifyBridge: NSObject {

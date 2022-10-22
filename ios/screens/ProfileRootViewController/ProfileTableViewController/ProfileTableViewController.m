@@ -28,6 +28,7 @@
 static const CGFloat kSettingsRowHeight = 44.0;
 static const CGFloat kAuthRowHeight = 96.0;
 static NSString *const kProfileCell = @"ProfileCell";
+static NSString *const kAuthCell = @"AuthCell";
 
 @implementation ProfileTableViewController
 
@@ -52,7 +53,7 @@ static NSString *const kProfileCell = @"ProfileCell";
   [self onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
   [self prepareView];
   if (self.userModel.signedIn) {
-    self.cellModels = configureSignedInTableViewCells(self);
+    self.cellModels = configureSignedInTableViewCells(self, NO);
   } else {
     self.cellModels = configureBaseTableViewCells(self);
   }
@@ -68,6 +69,7 @@ static NSString *const kProfileCell = @"ProfileCell";
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:kProfileCell];
+  [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:kAuthCell];
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
   
   self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -80,7 +82,7 @@ static NSString *const kProfileCell = @"ProfileCell";
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return self.cellModels[section].cellmodels.count;
+  return self.cellModels[section].cellModels.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -92,22 +94,23 @@ static NSString *const kProfileCell = @"ProfileCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSMutableArray<SettingsTableViewCellModel *> *models = self.cellModels[indexPath.section].cellmodels;
+  NSMutableArray<SettingsTableViewCellModel *> *models = self.cellModels[indexPath.section].cellModels;
   SettingsTableViewCellModel *model = models[indexPath.row];
-  ProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProfileCell forIndexPath:indexPath];
+  ProfileTableViewCell *settingsCell = [self.tableView dequeueReusableCellWithIdentifier:kProfileCell];
+  ProfileTableViewCell *authCell = [self.tableView dequeueReusableCellWithIdentifier:kAuthCell];
   
   if (indexPath.section == 0) {
-    [cell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle fetchingInProgress:model.fetchingInProgress];
+    [authCell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle fetchingInProgress:model.fetchingInProgress];
+    return authCell;
   } else {
-    [cell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
+    [settingsCell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
+    return settingsCell;
   }
-  
-  return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-  SettingsTableViewCellModel *model = self.cellModels[indexPath.section].cellmodels[indexPath.row];
+  SettingsTableViewCellModel *model = self.cellModels[indexPath.section].cellModels[indexPath.row];
   model.handler();
 }
 
@@ -135,27 +138,27 @@ static NSString *const kProfileCell = @"ProfileCell";
       }
       BOOL signedIn = strongSelf.userModel.signedIn;
       if (fetched && signedIn) {
-        strongSelf.cellModels = configureSignedInTableViewCells(self);
+        strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
         [strongSelf.tableView reloadData];
         return;
       }
       if (prevState == UserModelStateConfirmCodeInProgress &&
           currentState == UserModelStateSignUpSuccess) {
-        strongSelf.cellModels = configureSignedInTableViewCells(self);
+        strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
         [strongSelf.tableView reloadData];
         [self.navigationController popToRootViewControllerAnimated:YES];
         return;
       }
       if (prevState == UserModelStateSignInInProgress &&
           currentState == UserModelStateSignedIn) {
-        strongSelf.cellModels = configureSignedInTableViewCells(self);
+        strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
         [strongSelf.tableView reloadData];
         [self.navigationController popToRootViewControllerAnimated:YES];
         return;
       }
       if (prevState == UserModelStatePasswordResetConfirmCodeInProgress &&
           currentState == UserModelStatePasswordResetSuccess) {
-        strongSelf.cellModels = configureSignedInTableViewCells(self);
+        strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
         [strongSelf.tableView reloadData];
         [strongSelf.navigationController popToRootViewControllerAnimated:YES];
         return;
@@ -169,7 +172,29 @@ static NSString *const kProfileCell = @"ProfileCell";
       if (currentState == UserModelStateSignInInProgress) {
         strongSelf.cellModels = configureTryToSignInTableViewCells(self);
         [strongSelf.tableView reloadData];
+      }
+      if (prevState == UserModelStateSignedIn &&
+          currentState == UserModelStateSignOutInProgress) {
+        strongSelf.cellModels = configureSignedInTableViewCells(self, YES);
+        [strongSelf.tableView reloadData];
         [strongSelf.navigationController popToRootViewControllerAnimated:YES];
+        return;
+      }
+      if (prevState == UserModelStateFetched &&
+          currentState == UserModelStateSignUpEmailInProgress) {
+        strongSelf.cellModels = configureTryToSignInTableViewCells(self);
+        [strongSelf.tableView reloadData];
+      }
+      if (prevState == UserModelStateSignUpEmailInProgress &&
+          currentState == UserModelStateFetched) {
+        strongSelf.cellModels = configureBaseTableViewCells(self);
+        [strongSelf.tableView reloadData];
+        return;
+      }
+      if (prevState == UserModelStateSignInInProgress && currentState == UserModelStateFetched) {
+        strongSelf.cellModels = configureBaseTableViewCells(self);
+        [strongSelf.tableView reloadData];
+        return;
       }
     });
   });

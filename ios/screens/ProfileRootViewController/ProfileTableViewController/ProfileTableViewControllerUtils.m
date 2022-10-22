@@ -65,7 +65,7 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
   return models;
 }
 
-NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* controller) {
+NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* controller, BOOL fetching) {
   
   NSString *userNameTitle = NSLocalizedString(@"ProfileTableViewCellSignedMainTitleLabel", @"");
   
@@ -81,10 +81,32 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
   
   UIImage *userImage = [[UIImage alloc] getAccountImageWithChar:userImageText];
   
+//  SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
+//                                          initWithTitle:userNameTitle
+//                                          subTitle:userNameSubTitle
+//                                          image:userImage
+//                                          handler:^{
+//    UserSettingsViewController *userSettingViewController = [[UserSettingsViewController alloc]
+//                                                             initWithController:controller.userController
+//                                                             model:controller.userModel];
+//    userSettingViewController.bookmarksGroupModel = controller.bookmarksGroupModel;
+//    userSettingViewController.indexModel = controller.indexModel;
+//    userSettingViewController.apiService = controller.apiService;
+//    userSettingViewController.coreDataService = controller.coreDataService;
+//    userSettingViewController.mapService = controller.mapService;
+//    userSettingViewController.mapModel = controller.mapModel;
+//    userSettingViewController.searchModel = controller.searchModel;
+//    userSettingViewController.detailsModel = controller.detailsModel;
+//    userSettingViewController.locationModel = controller.locationModel;
+//
+//    [controller.navigationController pushViewController:userSettingViewController animated:YES];
+//  }];
+  
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
-                                          initWithTitle:userNameTitle
-                                          subTitle:userNameSubTitle
-                                          image:userImage
+                                          initWithTitle: userNameTitle
+                                          subTitle: userNameSubTitle
+                                          image: userImage
+                                          fetchingInProgress: fetching
                                           handler:^{
     UserSettingsViewController *userSettingViewController = [[UserSettingsViewController alloc]
                                                              initWithController:controller.userController
@@ -98,7 +120,7 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
     userSettingViewController.searchModel = controller.searchModel;
     userSettingViewController.detailsModel = controller.detailsModel;
     userSettingViewController.locationModel = controller.locationModel;
-    
+
     [controller.navigationController pushViewController:userSettingViewController animated:YES];
   }];
   

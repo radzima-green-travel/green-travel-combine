@@ -62,7 +62,7 @@ static const CGFloat kSettingsRowHeight = 44.0;
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return self.cellModels[section].cellmodels.count;
+  return self.cellModels[section].cellModels.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -78,7 +78,7 @@ static const CGFloat kSettingsRowHeight = 44.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSMutableArray<SettingsTableViewCellModel *> *models = self.cellModels[indexPath.section].cellmodels;
+  NSMutableArray<SettingsTableViewCellModel *> *models = self.cellModels[indexPath.section].cellModels;
   SettingsTableViewCellModel *model = models[indexPath.row];
   UserSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProfileCell forIndexPath:indexPath];
   
@@ -89,7 +89,7 @@ static const CGFloat kSettingsRowHeight = 44.0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-  SettingsTableViewCellModel *model = self.cellModels[indexPath.section].cellmodels[indexPath.row];
+  SettingsTableViewCellModel *model = self.cellModels[indexPath.section].cellModels[indexPath.row];
   model.handler();
 }
 

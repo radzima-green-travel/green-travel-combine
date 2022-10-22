@@ -61,7 +61,7 @@ static BOOL kSignUpEnabled = YES;
 @property (strong, nonatomic) UINavigationController *indexViewControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
-@property (strong, nonatomic) UINavigationController *profileControllerControllerWithNavigation;
+@property (strong, nonatomic) UINavigationController *profileControllerWithNavigation;
 
 @end
 
@@ -186,18 +186,18 @@ static BOOL kSignUpEnabled = YES;
   profileTableViewController.searchModel = searchModel;
   profileTableViewController.detailsModel = detailsModel;
   profileTableViewController.locationModel = locationModel;
-  self.profileControllerControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
+  self.profileControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
 
   UIImage *profileImage;
   profileImage = [UIImage imageNamed:@"user"];
   self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage,
                                             AccessibilityIdentifiersTabBarProfile);
 
-  self.profileControllerControllerWithNavigation.tabBarItem = self.profileTabBarItem;
+  self.profileControllerWithNavigation.tabBarItem = self.profileTabBarItem;
 
   if (kSignUpEnabled) {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
-                             self.bookmarksControllerWithNavigation, self.profileControllerControllerWithNavigation];
+                             self.bookmarksControllerWithNavigation, self.profileControllerWithNavigation];
   } else {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
                              self.bookmarksControllerWithNavigation];

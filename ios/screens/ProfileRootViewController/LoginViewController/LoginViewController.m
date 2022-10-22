@@ -163,6 +163,15 @@ static const CGFloat kTopOffset = 90.0;
         [self enableLoadingIndicator:YES];
         return;
       }
+      if (currentState == UserModelStateSignInInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
+      if (prevState == UserModelStateSignInInProgress && currentState == UserModelStateFetched) {
+        [self enableLoadingIndicator:NO];
+        // TODO: catch error when user enter wrong password or email
+        return;
+      }
       if (prevState == UserModelStateConfirmCodeNotSent && currentState == UserModelStateSignUpEmailInProgress) {
         [self enableLoadingIndicator:YES];
         return;
@@ -185,12 +194,19 @@ static const CGFloat kTopOffset = 90.0;
         self.navigatedToCodeScreen = YES;
         return;
       }
-      if (prevState == UserModelStateSignUpEmailInProgress && currentState == UserModelStateConfirmCodeNotSent && self.navigatedToCodeScreen) {
+      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateConfirmCodeNotSent && self.navigatedToCodeScreen) {
         [self enableLoadingIndicator:NO];
         return;
       }
-      if (prevState == UserModelStateConfirmCodeInProgress && currentState == UserModelStateConfirmCodeNotSent && self.navigatedToCodeScreen) {
+      if (prevState == UserModelStateFetched &&
+          currentState == UserModelStateSignUpEmailInProgress) {
+        [self enableLoadingIndicator:YES];
+        return;
+      }
+      if (prevState == UserModelStateSignUpEmailInProgress &&
+          currentState == UserModelStateFetched) {
         [self enableLoadingIndicator:NO];
+        // TODO: catch errors handling and push to correct view
         return;
       }
     });
