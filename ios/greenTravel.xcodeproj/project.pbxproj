@@ -36,10 +36,13 @@
 		5A2315DB28E0A428004CB989 /* ApiServiceIndexFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315D728E0A428004CB989 /* ApiServiceIndexFile.m */; };
 		5A2315DF28E0A484004CB989 /* ResetPasswordRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315DD28E0A484004CB989 /* ResetPasswordRequestViewController.m */; };
 		5A2315E228FCA8E3004CB989 /* AccessibilityUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315E128FCA8E3004CB989 /* AccessibilityUtils.m */; };
+		5A2315EA29040606004CB989 /* Radzima_DevUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315E929040606004CB989 /* Radzima_DevUITests.m */; };
+		5A2315EC29040606004CB989 /* Radzima_DevUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2315EB29040606004CB989 /* Radzima_DevUITestsLaunchTests.m */; };
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148626E3B893004AD6F3 /* UIButtonHighlightable.m */; };
 		5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */; };
 		5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */; };
+		5A3691B2290569B6007666E0 /* AccessibilityIdentifiers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB8FD828F9608B009E729E /* AccessibilityIdentifiers.m */; };
 		5A39D6EF26B34C04008FC20C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A39D6F126B34C04008FC20C /* Localizable.strings */; };
 		5A53584827A999DC0017A40F /* IndexModelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A53584727A999DC0017A40F /* IndexModelData.m */; };
 		5A53584B27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A53584A27B4162A0017A40F /* LabelledButtonGroupTableViewCell.m */; };
@@ -231,6 +234,16 @@
 		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5A2315ED29040606004CB989 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = greenTravel;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Radzima Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Radzima Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +297,9 @@
 		5A2315DE28E0A484004CB989 /* ResetPasswordRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordRequestViewController.h; sourceTree = "<group>"; };
 		5A2315E028FCA8E3004CB989 /* AccessibilityUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtils.h; sourceTree = "<group>"; };
 		5A2315E128FCA8E3004CB989 /* AccessibilityUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessibilityUtils.m; sourceTree = "<group>"; };
+		5A2315E729040606004CB989 /* Radzima DevUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Radzima DevUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A2315E929040606004CB989 /* Radzima_DevUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Radzima_DevUITests.m; sourceTree = "<group>"; };
+		5A2315EB29040606004CB989 /* Radzima_DevUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Radzima_DevUITestsLaunchTests.m; sourceTree = "<group>"; };
 		5A238821267A57DA0004BF0A /* IndexPeeks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexPeeks.h; sourceTree = "<group>"; };
 		5A238822267A57DA0004BF0A /* IndexPeeks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexPeeks.m; sourceTree = "<group>"; };
 		5A246AC826429689003C6E5B /* BookmarkButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButton.h; sourceTree = "<group>"; };
@@ -688,6 +704,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5A2315E429040606004CB989 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -823,6 +846,15 @@
 				5A2315DE28E0A484004CB989 /* ResetPasswordRequestViewController.h */,
 			);
 			path = ResetPasswordRequestViewController;
+			sourceTree = "<group>";
+		};
+		5A2315E829040606004CB989 /* Radzima DevUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5A2315E929040606004CB989 /* Radzima_DevUITests.m */,
+				5A2315EB29040606004CB989 /* Radzima_DevUITestsLaunchTests.m */,
+			);
+			path = "Radzima DevUITests";
 			sourceTree = "<group>";
 		};
 		5A246AC72642966C003C6E5B /* BookmarkButton */ = {
@@ -1942,6 +1974,7 @@
 				624E38CE2519E467001D98E2 /* Resources */,
 				13B07FAE1A68108700A75B9A /* GreenTravel */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				5A2315E829040606004CB989 /* Radzima DevUITests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C11F5CD373D543CEFBB10130 /* Pods */,
@@ -1956,6 +1989,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* Radzima Dev.app */,
+				5A2315E729040606004CB989 /* Radzima DevUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1998,6 +2032,24 @@
 			productReference = 13B07F961A680F5B00A75B9A /* Radzima Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5A2315E629040606004CB989 /* Radzima DevUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A2315EF29040607004CB989 /* Build configuration list for PBXNativeTarget "Radzima DevUITests" */;
+			buildPhases = (
+				5A2315E329040606004CB989 /* Sources */,
+				5A2315E429040606004CB989 /* Frameworks */,
+				5A2315E529040606004CB989 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A2315EE29040606004CB989 /* PBXTargetDependency */,
+			);
+			name = "Radzima DevUITests";
+			productName = "Radzima DevUITests";
+			productReference = 5A2315E729040606004CB989 /* Radzima DevUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2010,6 +2062,12 @@
 						DevelopmentTeam = 53APD5F9YQ;
 						LastSwiftMigration = 1130;
 						ProvisioningStyle = Manual;
+					};
+					5A2315E629040606004CB989 = {
+						CreatedOnToolsVersion = 14.0;
+						DevelopmentTeam = NWSTPFC433;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 				};
 			};
@@ -2029,6 +2087,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* greenTravel */,
+				5A2315E629040606004CB989 /* Radzima DevUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -2082,6 +2141,13 @@
 				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
 				0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */,
 				5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A2315E529040606004CB989 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2550,7 +2616,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5A2315E329040606004CB989 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A2315EA29040606004CB989 /* Radzima_DevUITests.m in Sources */,
+				5A2315EC29040606004CB989 /* Radzima_DevUITestsLaunchTests.m in Sources */,
+				5A3691B2290569B6007666E0 /* AccessibilityIdentifiers.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5A2315EE29040606004CB989 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* greenTravel */;
+			targetProxy = 5A2315ED29040606004CB989 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5A39D6F126B34C04008FC20C /* Localizable.strings */ = {
@@ -2652,6 +2736,93 @@
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
+		};
+		5A2315F029040607004CB989 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.greentravel.Radzima-DevUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = greenTravel;
+			};
+			name = Debug;
+		};
+		5A2315F129040607004CB989 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.greentravel.Radzima-DevUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = greenTravel;
+			};
+			name = Release;
+		};
+		5A2315F229040607004CB989 /* ReleaseProduction */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.greentravel.Radzima-DevUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = greenTravel;
+			};
+			name = ReleaseProduction;
 		};
 		5AD2DA2C26FDC94A00876841 /* ReleaseProduction */ = {
 			isa = XCBuildConfiguration;
@@ -2870,6 +3041,16 @@
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
 				5AD2DA2D26FDC94A00876841 /* ReleaseProduction */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A2315EF29040607004CB989 /* Build configuration list for PBXNativeTarget "Radzima DevUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A2315F029040607004CB989 /* Debug */,
+				5A2315F129040607004CB989 /* Release */,
+				5A2315F229040607004CB989 /* ReleaseProduction */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
