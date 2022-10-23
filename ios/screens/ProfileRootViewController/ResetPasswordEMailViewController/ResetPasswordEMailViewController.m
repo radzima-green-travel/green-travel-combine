@@ -128,7 +128,7 @@
 }
 
 - (void)backToSignIn {
-  [self.navigationController popViewControllerAnimated:TRUE];
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {

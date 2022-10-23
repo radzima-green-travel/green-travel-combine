@@ -3,7 +3,7 @@
   greenTravel
 
   Created by Alex K on 7/29/21.
-  
+
 */
 
 "AlertCancel" = "取消";
@@ -15,7 +15,7 @@
 "TabBarMain" = "主页";
 "TabBarMap" = "地图";
 "TabBarSaved" = "最愛";
-"TabBarProfile" = "Profile";
+"TabBarProfile" = "形象";
 
 "IndexNewData" = "更新";
 "IndexAll" = "全部";

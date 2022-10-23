@@ -584,13 +584,14 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Amplify
     - AmplifyPlugins
-    - Amplitude
     - AWSAuthCore
     - AWSCognitoIdentityProvider
     - AWSCognitoIdentityProviderASF
     - AWSCore
     - AWSMobileClient
     - AWSPluginsCore
+  trunk:
+    - Amplitude
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
