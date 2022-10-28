@@ -39,6 +39,7 @@ static const CGFloat kTopOffset = 90.0;
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
   self.view.backgroundColor = [Colors get].background;
+  configureNavigationBar(self.navigationController.navigationBar);
 }
 
 - (void)viewDidLoad {
@@ -87,6 +88,8 @@ static const CGFloat kTopOffset = 90.0;
     [self.loadingView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
     [self.loadingView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
   ]];
+  
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -104,6 +107,10 @@ static const CGFloat kTopOffset = 90.0;
 - (void)viewDidLayoutSubviews {
   [super viewDidLayoutSubviews];
   self.view.backgroundColor = [Colors get].background;
+}
+
+-(void)onDonePress:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)dismissKeyboard:(id)sender {

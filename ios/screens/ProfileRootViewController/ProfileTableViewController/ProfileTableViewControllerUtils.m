@@ -25,7 +25,11 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
                                           handler:^{
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:controller.userController model:controller.userModel];
     loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
-    [controller.navigationController pushViewController:loginViewController animated:YES];
+    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    if (@available(iOS 13.0, *)) {
+      [loginViewControllerWithNavigation setModalInPresentation:YES];
+    }
+    [controller presentViewController:loginViewControllerWithNavigation animated:YES completion:^{}];
   }];
   
   SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]

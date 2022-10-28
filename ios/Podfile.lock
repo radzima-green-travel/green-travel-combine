@@ -30,8 +30,8 @@ PODS:
     - Amplify (= 1.23.1)
     - AWSCore (~> 2.27.0)
   - boost (1.76.0)
-  - BVLinearGradient (2.6.2):
-    - React-Core
+  - BVLinearGradient (2.5.6):
+    - React
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.66.1)
   - FBReactNativeSpec (0.66.1):
@@ -148,9 +148,9 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
-  - Permission-LocationAlways (3.6.1):
+  - Permission-LocationAlways (3.0.4):
     - RNPermissions
-  - Permission-LocationWhenInUse (3.6.1):
+  - Permission-LocationWhenInUse (3.0.4):
     - RNPermissions
   - PromisesObjC (2.0.0)
   - RCT-Folly (2021.06.28.00-v2):
@@ -462,7 +462,7 @@ PODS:
     - React-Core
   - RNLocalize (2.1.7):
     - React-Core
-  - RNPermissions (3.6.1):
+  - RNPermissions (3.0.4):
     - React-Core
   - RNReactNativeHapticFeedback (1.11.0):
     - React-Core
@@ -740,7 +740,7 @@ SPEC CHECKSUMS:
   AWSMobileClient: c9063df967681d42522c2e19804d6cfca45361e4
   AWSPluginsCore: e2c7787adb9c716c871b39ee1f64806d987a92c0
   boost: a7c83b31436843459a1961bfd74b96033dc77234
-  BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
+  BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: 500821d196c3d1bd10e7e828bc93ce075234080f
   FBReactNativeSpec: 74c869e2cffa2ffec685cd1bac6788c021da6005
@@ -762,8 +762,8 @@ SPEC CHECKSUMS:
   Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
   MapboxMobileEvents: b72b07268586c6fd1f53178f08df15f74070b188
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  Permission-LocationAlways: 8d99b025c9f73c696e0cdb367e42525f2e9a26f2
-  Permission-LocationWhenInUse: 3ba99e45c852763f730eabecec2870c2382b7bd4
+  Permission-LocationAlways: d3ac15e4bf8f4f5f4e224b4fea6f84b14fa19132
+  Permission-LocationWhenInUse: ebef6bf8a123d382f25e9990468cfc8a76fbadf5
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
   RCTRequired: 3cc065b52aa18db729268b9bd78a2feffb4d0f91
@@ -805,7 +805,7 @@ SPEC CHECKSUMS:
   RNFastImage: a7384db75df352500261e8e8f1ac2026def26102
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNLocalize: f567ea0e35116a641cdffe6683b0d212d568f32a
-  RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
+  RNPermissions: c46788f4cd402287425983e04a4c9bb4356036eb
   RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
   RNReanimated: b04ef2a4f0cb61b062bbcf033f84a9e470f4f60b
   RNScreens: 2a71d74b4e530f051f5684c8111d7591176722cf
