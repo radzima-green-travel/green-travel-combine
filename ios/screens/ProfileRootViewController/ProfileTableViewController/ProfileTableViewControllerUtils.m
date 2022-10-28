@@ -25,7 +25,11 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
                                           handler:^{
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:controller.userController model:controller.userModel];
     loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
-    [controller.navigationController pushViewController:loginViewController animated:YES];
+    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    if (@available(iOS 13.0, *)) {
+      [loginViewControllerWithNavigation setModalInPresentation:YES];
+    }
+    [controller presentViewController:loginViewControllerWithNavigation animated:YES completion:^{}];
   }];
   
   SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]
@@ -107,6 +111,7 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
                                           subTitle: userNameSubTitle
                                           image: userImage
                                           fetchingInProgress: fetching
+                                          signedIn:YES
                                           handler:^{
     UserSettingsViewController *userSettingViewController = [[UserSettingsViewController alloc]
                                                              initWithController:controller.userController
@@ -173,6 +178,7 @@ NSMutableArray* configureTryToSignInTableViewCells(ProfileTableViewController *c
                                           subTitle:NSLocalizedString(@"ProfileTableViewCellTryToAuthSubTitle", @"")
                                           image:[UIImage imageNamed:@"accountPhoto"]
                                           fetchingInProgress: YES
+                                          signedIn:NO
                                           handler:^{
     NSLog(@"User Settings Tapped");
   }];

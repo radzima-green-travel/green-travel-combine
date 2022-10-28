@@ -100,7 +100,7 @@ static NSString *const kAuthCell = @"AuthCell";
   ProfileTableViewCell *authCell = [self.tableView dequeueReusableCellWithIdentifier:kAuthCell];
   
   if (indexPath.section == 0) {
-    [authCell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle fetchingInProgress:model.fetchingInProgress];
+    [authCell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle fetchingInProgress:model.fetchingInProgress signedIn:model.signedIn];
     return authCell;
   } else {
     [settingsCell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
