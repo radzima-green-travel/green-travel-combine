@@ -24,6 +24,7 @@
                      subTitle:(NSString *)subtitle
                         image:(UIImage *)image
            fetchingInProgress:(BOOL)fetchingInProgress
+                     signedIn:(BOOL)signedIn
                       handler:(void (^)(void))handler {
   self = [super init];
   if (self) {
@@ -31,6 +32,7 @@
     _subTitle = subtitle;
     _image = image;
     _fetchingInProgress = fetchingInProgress;
+    _signedIn = signedIn;
     _handler = handler;
   }
   return self;

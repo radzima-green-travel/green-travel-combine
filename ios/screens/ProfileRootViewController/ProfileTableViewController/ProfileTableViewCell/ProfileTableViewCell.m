@@ -90,14 +90,25 @@ static const CGFloat kSubLabelLeadingAnchor = 8.0;
   ]];
 }
 
-- (void)prepareAuthCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText fetchingInProgress:(BOOL) fetchingInProgress {
+- (void)prepareAuthCellWithImage:(UIImage*)image
+               mainTextLabelText:(NSString*)mainText
+                subTextLabelText:(NSString*)subText
+              fetchingInProgress:(BOOL)fetchingInProgress
+              signedIn:(BOOL)signedIn {
   if (fetchingInProgress) {
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
     self.accessoryView = activityIndicator;
     [activityIndicator sizeToFit];
     [activityIndicator startAnimating];
-  } else {
-      self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    self.accessoryType = UITableViewCellAccessoryNone;
+  }
+  if (!fetchingInProgress && signedIn) {
+    self.accessoryView = nil;
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  }
+  if (!fetchingInProgress && !signedIn) {
+    self.accessoryView = nil;
+    self.accessoryType = UITableViewCellAccessoryNone;
   }
   
   self.iconImageView = [[UIImageView alloc] init];
@@ -114,8 +125,6 @@ static const CGFloat kSubLabelLeadingAnchor = 8.0;
     [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:kIconBottomAnchorAtAuthCell],
     [self.iconImageView.widthAnchor constraintEqualToAnchor:self.iconImageView.heightAnchor]
   ]];
-  
-  
   
   self.mainLabel = [[UILabel alloc] init];
   self.mainLabel.textAlignment = NSTextAlignmentLeft;

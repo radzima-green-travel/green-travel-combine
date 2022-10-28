@@ -15,10 +15,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *subTitle;
 @property (strong, nonatomic) UIImage *image;
 @property (assign, nonatomic) BOOL fetchingInProgress;
+@property (assign, nonatomic) BOOL signedIn;
 @property (copy, nonatomic) void (^handler)(void);
 
 - (instancetype)initWithTitle:(NSString *)title subTitle:(NSString *)subtitle image:(nullable UIImage *)image handler:(void (^)(void))handler;
-- (instancetype)initWithTitle:(NSString *)title subTitle:(NSString *)subtitle image:(UIImage *)image fetchingInProgress:(BOOL)fetchingInProgress handler:(void (^)(void))handler;
+- (instancetype)initWithTitle:(NSString *)title subTitle:(NSString *)subtitle
+                        image:(UIImage *)image
+           fetchingInProgress:(BOOL)fetchingInProgress
+                     signedIn:(BOOL)signedIn
+                      handler:(void (^)(void))handler;
 
 @end
 
