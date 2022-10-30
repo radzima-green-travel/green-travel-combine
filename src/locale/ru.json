@@ -96,5 +96,14 @@
     "send": "Отправить",
     "save": "Сохранить",
     "returnAndEnter": "Вернуться и войти"
+  },
+  "profile": {
+    "notAuthorrized": {
+      "title": "en_Вы не авторизованы",
+      "subtitle": "en_Авторизуйтесь\nили зарегистрируйтесь"
+    },
+    "authorrized": {
+      "title": "Вы авторизованы"     
+    }
   }
 }

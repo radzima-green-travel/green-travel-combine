@@ -77,5 +77,14 @@
     "password": "Password",
     "forgetPassword": "Forgot your password?",
     "restorePassword": "Restore password"
+  },
+  "profile": {
+    "notAuthorrized": {
+      "title": "en_Вы не авторизованы",
+      "subtitle": "en_Авторизуйтесь\nили зарегистрируйтесь"
+    },
+    "authorized": {
+      "title": "en_Вы авторизованы"     
+    }
   }
 }

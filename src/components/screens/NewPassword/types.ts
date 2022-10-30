@@ -1,14 +1,14 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
-import {ProfileNavigatorParamsList} from 'core/types';
+import {AuthNavigatorParamsList} from 'core/types';
 
 export type NewPasswordScreenNavigationProps = StackNavigationProp<
-  ProfileNavigatorParamsList,
+  AuthNavigatorParamsList,
   'NewPassword'
 >;
 
 export type NewPasswordScreenRouteProps = RouteProp<
-  ProfileNavigatorParamsList,
+  AuthNavigatorParamsList,
   'NewPassword'
 >;
 

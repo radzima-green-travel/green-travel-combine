@@ -61,5 +61,14 @@
     "all": "全部",
     "getMore": "了解更多",
     "routeLength": "{{km}} 公里, "
+  },
+  "profile": {
+    "notAuthorrized": {
+      "title": "zh_Вы не авторизованы",
+      "subtitle": "zh_Авторизуйтесь\nили зарегистрируйтесь"
+    },
+    "authorized": {
+      "title": "zh_Вы авторизованы"     
+    }
   }
 }

@@ -1,1 +1,1 @@
-export const selectIsMyProfileFeatureEnabled = () => false;
+export const selectIsMyProfileFeatureEnabled = () => true;

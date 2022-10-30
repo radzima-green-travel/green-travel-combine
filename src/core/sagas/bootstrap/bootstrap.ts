@@ -1,37 +1,29 @@
 import {call, put, select, takeEvery} from 'redux-saga/effects';
 
 import {
-  userAuthorizedRequest,
   getHomeData,
   getInitialHomeDataRequest,
   bootstrapSuccess,
   bootstrapFailure,
 } from 'core/reducers';
 import {ACTIONS} from 'core/constants';
-import {useAuthHubChannel} from 'core/hooks';
 
 import {initAppLocaleSaga} from './initAppLocaleSaga';
 import {ILabelError} from 'core/types';
 import {resetEtagsStorage} from 'storage';
 import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
+import {initUserAuthSaga} from './initUserAuth';
 
 export function* bootstrapSaga() {
-  const isMyProfileFeatureEnabled: ReturnType<
-    typeof selectIsMyProfileFeatureEnabled
-  > = yield select(selectIsMyProfileFeatureEnabled);
-
-  if (isMyProfileFeatureEnabled) {
-    const channel = yield call(useAuthHubChannel);
-
-    yield takeEvery(channel, function* (eventName: string) {
-      if (eventName === 'signIn' || eventName === 'signOut') {
-        yield put(userAuthorizedRequest());
-      }
-    });
-  }
-
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
     try {
+      const isMyProfileFeatureEnabled: ReturnType<
+        typeof selectIsMyProfileFeatureEnabled
+      > = yield select(selectIsMyProfileFeatureEnabled);
+      if (isMyProfileFeatureEnabled) {
+        yield call(initUserAuthSaga);
+      }
+
       const isLocaledUpdated = yield call(initAppLocaleSaga);
 
       if (isLocaledUpdated) {

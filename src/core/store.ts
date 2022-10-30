@@ -17,7 +17,7 @@ import {
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
-
+import logger from 'redux-logger';
 const AsyncStorage = reduxStorage;
 
 const searchPersistConfig = {
@@ -54,7 +54,9 @@ export type IState = StateType<typeof rootReducer>;
 
 export const store: Store<IState> = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(errorLabelMiddliware, sagaMiddleware)),
+  composeWithDevTools(
+    applyMiddleware(errorLabelMiddliware, sagaMiddleware, logger),
+  ),
 );
 
 export const persistor = persistStore(store);

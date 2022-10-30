@@ -23,3 +23,4 @@ export {Test} from './Test';
 export {TextElemets} from './TextElemets';
 export * from './Toast';
 export {ZoomableView} from './ZoomableView';
+export {SettingsSectionTitle} from './SettingsSectionTitle';

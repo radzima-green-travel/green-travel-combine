@@ -1,10 +1,14 @@
 import React, {useCallback, useState} from 'react';
-import {Keyboard, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {confirmNewPasswordRequest} from 'core/reducers';
-import {styles} from './styles';
-import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
-import {Button, FormInput} from 'atoms';
+import {
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTogglePasswordVisibility,
+  useTranslation,
+} from 'core/hooks';
+import {FormInput} from 'atoms';
+import {AuthForm} from 'organisms';
 import {IProps} from './types';
 
 export const NewPassword = ({navigation, route}: IProps) => {
@@ -13,7 +17,6 @@ export const NewPassword = ({navigation, route}: IProps) => {
   const {passwordVisibility, rightIcon, handlePasswordVisibility} =
     useTogglePasswordVisibility('eye');
   const buttonText = t('save').toUpperCase();
-
   const dispatch = useDispatch();
 
   const {
@@ -22,28 +25,31 @@ export const NewPassword = ({navigation, route}: IProps) => {
 
   const onConfirmNewPassword = useCallback(() => {
     dispatch(confirmNewPasswordRequest({email, code, newPassword}));
-    navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
-  }, [code, dispatch, email, navigation, newPassword]);
+  }, [code, dispatch, email, newPassword]);
+
+  const {loading} = useRequestLoading(confirmNewPasswordRequest);
+  useOnRequestSuccess(confirmNewPasswordRequest, () => {
+    navigation.getParent()?.goBack();
+  });
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <View style={styles.boxContainer}>
-          <Text style={styles.title}>{t('newPassword')}</Text>
-          <Text style={styles.text}>{t('passwordWarning')}</Text>
-          <FormInput
-            iconRightName={rightIcon}
-            iconLeftName={'lock'}
-            size={16}
-            placeholder={'password'}
-            secureTextEntry={passwordVisibility}
-            onRightIconPress={handlePasswordVisibility}
-            value={newPassword}
-            setValue={setNewPassword}
-          />
-        </View>
-        <Button onPress={onConfirmNewPassword}>{buttonText}</Button>
-      </View>
-    </TouchableWithoutFeedback>
+    <AuthForm
+      title={t('newPassword')}
+      text={t('passwordWarning')}
+      onSubmitPress={onConfirmNewPassword}
+      submitButtonText={buttonText}
+      isSubmitButtonDisabled={!newPassword}
+      submitButtonLoading={loading}>
+      <FormInput
+        iconRightName={rightIcon}
+        iconLeftName={'lock'}
+        size={16}
+        placeholder={'password'}
+        secureTextEntry={passwordVisibility}
+        onRightIconPress={handlePasswordVisibility}
+        value={newPassword}
+        setValue={setNewPassword}
+      />
+    </AuthForm>
   );
 };

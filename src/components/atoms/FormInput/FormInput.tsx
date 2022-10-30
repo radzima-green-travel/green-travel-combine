@@ -16,6 +16,7 @@ interface IProps {
   secureTextEntry?: boolean;
   dangerBorder?: boolean;
   onRightIconPress?: () => void;
+  autoFocus?: boolean;
 }
 
 export const FormInput = ({
@@ -28,6 +29,7 @@ export const FormInput = ({
   value,
   setValue,
   onRightIconPress,
+  autoFocus,
 }: IProps) => {
   const {t} = useTranslation('authentification');
   const styles = useThemeStyles(themeStyles);
@@ -55,6 +57,7 @@ export const FormInput = ({
         autoCorrect={false}
         value={value}
         onChangeText={setValue}
+        autoFocus={autoFocus}
       />
       {iconRightName ? (
         <Pressable

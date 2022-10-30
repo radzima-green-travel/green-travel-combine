@@ -1,46 +1,30 @@
 import React, {useCallback, useState} from 'react';
 import {View} from 'react-native';
-import {useDispatch} from 'react-redux';
 import {styles} from './styles';
-import {useTogglePasswordVisibility, useTranslation} from 'core/hooks';
+import {useTogglePasswordVisibility} from 'core/hooks';
 import {Button, FormInput} from 'atoms';
-import {signInRequest, signUpRequest} from 'core/reducers';
 
 interface IProps {
-  isSignUpScreen: boolean;
-  onPress?: (email: string) => void;
+  onSubmit: (data: {email: string; password: string}) => void;
+  buttonText: string;
+  loading?: boolean;
 }
 
-export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
+export const AuthForm = ({onSubmit, loading, buttonText}: IProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   /*  const [emailTip, setEmailTip] = useState('');
   const [passwordTip, setPasswordTip] = useState(''); */
 
-  const dispatch = useDispatch();
+  const onSubmitHandler = useCallback(() => {
+    onSubmit({
+      email,
+      password,
+    });
+  }, [email, onSubmit, password]);
 
-  const onSignUpSubmit = useCallback(() => {
-    dispatch(
-      signUpRequest({
-        username: email,
-        password,
-        attributes: {name: email, family_name: email},
-      }),
-    );
-
-    onPress!(email);
-  }, [dispatch, email, onPress, password]);
-
-  const onSignInSubmit = useCallback(() => {
-    dispatch(signInRequest({email, password}));
-  }, [dispatch, email, password]);
-
-  const {t} = useTranslation('authentification');
   const {passwordVisibility, rightIcon, handlePasswordVisibility} =
     useTogglePasswordVisibility('eye');
-  const buttonText = isSignUpScreen
-    ? t('signUpButton').toUpperCase()
-    : t('signInButton').toUpperCase();
 
   /* const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     const passwordMinLength = 8;
@@ -99,7 +83,7 @@ export const AuthForm = ({isSignUpScreen, onPress}: IProps) => {
         ) : null} */}
       </View>
 
-      <Button onPress={isSignUpScreen ? onSignUpSubmit : onSignInSubmit}>
+      <Button loading={loading} onPress={onSubmitHandler}>
         {buttonText}
       </Button>
     </>

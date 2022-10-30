@@ -24,3 +24,4 @@ export {SearchListItem} from './SearchListItem';
 export * from './AppMapBottomMenu';
 export * from './AppMapBottomSearchMenu';
 export * from './ObjectDetailsMapBottomMenu';
+export {GeneralListItem} from './GeneralListItem';

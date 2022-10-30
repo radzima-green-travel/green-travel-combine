@@ -21,4 +21,5 @@ export const COLORS = {
   plantation: '#286053',
   mirage: '#1A282F',
   oxfordBlue: '#30444E',
+  tuna: '#3c3c43',
 };

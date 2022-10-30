@@ -37,16 +37,7 @@ export type BookmarksNavigatorParamsList = {
 
 export type ProfileNavigatorParamsList = {
   Profile: undefined;
-  TabAuthNavigator: NestedNavigatorParams<TabAuthNavigatorParamsList>;
-  RestorePassword: undefined;
-  NewPassword: {
-    email: string;
-    code: string;
-  };
-  EmailValidation: {
-    email: string;
-    isSignUp: boolean;
-  };
+  ProfileDetails: undefined;
 };
 
 export type AppMapNavigatorParamsList = {
@@ -68,6 +59,7 @@ export type MainNavigatorParamsList = {
   ErrorScreen: undefined;
   Splash: undefined;
   ObjectDetailsMap: {objectId: string; categoryId: string};
+  AuthNavigator: NestedNavigatorParams<AuthNavigatorParamsList>;
 };
 
 export type TabNavigatorParamsList = {
@@ -77,7 +69,22 @@ export type TabNavigatorParamsList = {
   ProfileNavigator: NestedNavigatorParams<ProfileNavigatorParamsList>;
 };
 
-export type TabAuthNavigatorParamsList = {
-  SignIn: undefined;
-  SignUp: undefined;
+export type AuthNavigatorParamsList = {
+  CheckEmail: undefined;
+  SignInPassword: {
+    email: string;
+  };
+  SignUpForm: {
+    email: string;
+  };
+  CodeVerification: {email: string; isSignUp: true};
+  RestorePassword: undefined;
+  NewPassword: {
+    email: string;
+    code: string;
+  };
+  EmailValidation: {
+    email: string;
+    isSignUp: boolean;
+  };
 };

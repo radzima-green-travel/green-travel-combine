@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'stretch',
   },
   text: {
     ...FONTS_STYLES.semibold14,

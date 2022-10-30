@@ -22,7 +22,7 @@ export function useScreenOptions(): NativeStackNavigationOptions {
       backgroundColor:
         colorScheme === 'light' ? COLORS.white : COLORS.background,
     },
-    header: ({back, navigation, route, options}) => {
+    header: ({navigation, route, options}) => {
       const {title, ...restOptions} = options;
       const titleText = title || route.name;
       return (
@@ -34,7 +34,7 @@ export function useScreenOptions(): NativeStackNavigationOptions {
           }
           headerTitleAlign="center"
           headerLeft={() => {
-            return back ? (
+            return navigation.canGoBack() ? (
               <TouchableOpacity
                 hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
                 activeOpacity={0.8}
@@ -49,7 +49,8 @@ export function useScreenOptions(): NativeStackNavigationOptions {
           }}
           modal={false}
           headerStyle={{
-            backgroundColor: colorScheme === 'light' ? COLORS.apple : COLORS.background,
+            backgroundColor:
+              colorScheme === 'light' ? COLORS.apple : COLORS.background,
             shadowOpacity: 0,
             elevation: 0,
           }}

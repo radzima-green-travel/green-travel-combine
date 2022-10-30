@@ -1,32 +1,25 @@
 import React, {useCallback, useState} from 'react';
-import {
-  Keyboard,
-  Pressable,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+
 import {useDispatch} from 'react-redux';
 import {
   confirmSignUpRequest,
   forgotPasswordRequest,
   resendSignUpCodeRequest,
 } from 'core/reducers';
-import {themeStyles} from './styles';
 import {
-  useThemeStyles,
   useOnRequestSuccess,
   useRequestLoading,
   useTranslation,
 } from 'core/hooks';
-import {Button, OneTimeCode} from 'atoms';
+import {AuthForm} from 'organisms';
+import {OneTimeCode} from 'atoms';
 import {IProps} from './types';
 
 export const EmailValidation = ({navigation, route}: IProps) => {
   const [isCodeFull, setIsCodeFull] = useState(false);
   const [code, setCode] = useState('');
   const {t} = useTranslation('authentification');
-  const styles = useThemeStyles(themeStyles);
+
   const buttonText = t('ready').toUpperCase();
 
   const dispatch = useDispatch();
@@ -43,16 +36,16 @@ export const EmailValidation = ({navigation, route}: IProps) => {
   const {loading} = useRequestLoading(confirmSignUpRequest);
 
   useOnRequestSuccess(confirmSignUpRequest, () => {
-    navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
+    navigation.getParent()?.goBack();
   });
 
   const onConfirmSignUp = useCallback(() => {
-    dispatch(confirmSignUpRequest({email, code}));
-  }, [dispatch, email, code]);
-
-  const onConfirmForgotPassword = () => {
-    navigation.navigate('NewPassword', {email, code});
-  };
+    if (isSignUp) {
+      dispatch(confirmSignUpRequest({email, code}));
+    } else {
+      navigation.navigate('NewPassword', {email, code});
+    }
+  }, [isSignUp, dispatch, email, code, navigation]);
 
   const onResendSignUpCodetoEmail = useCallback(() => {
     dispatch(resendSignUpCodeRequest(email));
@@ -63,32 +56,20 @@ export const EmailValidation = ({navigation, route}: IProps) => {
   }, [dispatch, email]);
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <View style={styles.boxContainer}>
-          <Text style={styles.title}>
-            {isSignUp ? t('signUpValidationTitle') : t('emailValidationTitle')}
-          </Text>
-          <Text style={styles.text}>
-            {t('signUpValidationText')} {email}
-          </Text>
-          <OneTimeCode onCodeInput={getEmailCode} />
-        </View>
-        <Button
-          style={!isCodeFull ? styles.notActivated : null}
-          onPress={isSignUp ? onConfirmSignUp : onConfirmForgotPassword}
-          loading={loading}>
-          {buttonText}
-        </Button>
-        <Pressable
-          onPress={
-            isSignUp
-              ? onResendSignUpCodetoEmail
-              : onResendRestorePasswordCodetoEmail
-          }>
-          <Text style={styles.repeatText}>{t('repeatAttempt')}</Text>
-        </Pressable>
-      </View>
-    </TouchableWithoutFeedback>
+    <AuthForm
+      title={isSignUp ? t('signUpValidationTitle') : t('emailValidationTitle')}
+      text={t('signUpValidationText') + ' ' + email}
+      onSubmitPress={onConfirmSignUp}
+      submitButtonText={buttonText}
+      isSubmitButtonDisabled={!isCodeFull}
+      submitButtonLoading={loading}
+      onSecondaryButtonPress={
+        isSignUp
+          ? onResendSignUpCodetoEmail
+          : onResendRestorePasswordCodetoEmail
+      }
+      secondaryButtonText={t('repeatAttempt')}>
+      <OneTimeCode onCodeInput={getEmailCode} />
+    </AuthForm>
   );
 };

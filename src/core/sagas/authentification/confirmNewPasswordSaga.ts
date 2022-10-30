@@ -6,14 +6,21 @@ import {
   confirmNewPasswordSuccess,
   confirmNewPasswordFailure,
 } from 'core/reducers';
+import {CognitoUserWithAttributes} from '../../types';
 
 export function* confirmNewPasswordSaga({
   payload: {email, code, newPassword},
 }: ActionType<typeof confirmNewPasswordRequest>) {
   try {
-    yield call([Auth, 'forgotPasswordSubmit'], email, code, newPassword);
+    yield call([Auth, Auth.forgotPasswordSubmit], email, code, newPassword);
 
-    yield put(confirmNewPasswordSuccess());
+    const {attributes}: CognitoUserWithAttributes = yield call(
+      [Auth, Auth.signIn],
+      email,
+      newPassword,
+    );
+
+    yield put(confirmNewPasswordSuccess(attributes));
   } catch (e) {
     yield put(confirmNewPasswordFailure(e as Error));
   }

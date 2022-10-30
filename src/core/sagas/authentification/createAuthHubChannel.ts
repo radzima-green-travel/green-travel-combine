@@ -1,10 +1,10 @@
 import {eventChannel} from 'redux-saga';
 import {Hub} from 'aws-amplify';
 
-export function useAuthHubChannel() {
+export function createAuthHubChannel() {
   return eventChannel(emitter => {
     const signListener = data => {
-      emitter(data.payload.event);
+      emitter(data);
     };
     Hub.listen('auth', signListener);
 

@@ -1,6 +1,4 @@
 export {AppMap as AppMapScreen} from './AppMap';
-export {SignIn as SignInScreen} from './SignIn';
-export {SignUp as SignUpScreen} from './SignUp';
 export {Bookmarks as BookmarksScreen} from './Bookmarks';
 export {BookmarksList as BookmarksListScreen} from './BookmarksList';
 export {CategoriesList as CategoriesListScreen} from './CategoriesList';
@@ -15,3 +13,7 @@ export {Profile as ProfileScreen} from './Profile';
 export {RestorePassword as RestorePasswordScreen} from './RestorePassword';
 export {Search as SearchScreen} from './Search';
 export {Splash as SplashScreen} from './Splash';
+export {ProfileDetails} from './ProfileDetails';
+export {CheckEmail as CheckEmailScreen} from './CheckEmail';
+export {SignInPassword as SignInPasswordScreen} from './SignInPassword';
+export {SignUpForm as SignUpFormScreen} from './SignUpForm';

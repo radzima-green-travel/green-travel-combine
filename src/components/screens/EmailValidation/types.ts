@@ -1,14 +1,14 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
-import {ProfileNavigatorParamsList} from 'core/types';
+import {AuthNavigatorParamsList} from 'core/types';
 
 export type EmailValidationScreenNavigationProps = StackNavigationProp<
-  ProfileNavigatorParamsList,
+  AuthNavigatorParamsList,
   'EmailValidation'
 >;
 
 export type EmailValidationScreenRouteProps = RouteProp<
-  ProfileNavigatorParamsList,
+  AuthNavigatorParamsList,
   'EmailValidation'
 >;
 

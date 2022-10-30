@@ -8,6 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';
 import {isIOS} from 'services/PlatformService';
 import {StatusBar} from 'react-native';
+import {AuthNavigator} from './AuthNavigator';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
@@ -63,6 +64,13 @@ export function MainNavigator() {
         options={{
           headerShown: false,
           animation: 'fade',
+        }}
+      />
+      <Stack.Screen
+        name="AuthNavigator"
+        component={AuthNavigator}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

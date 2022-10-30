@@ -1,35 +1,31 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {
-  Keyboard,
-  Pressable,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+
 import {useDispatch} from 'react-redux';
-import {themeStyles} from './styles';
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import {
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTranslation,
+} from 'core/hooks';
 import {forgotPasswordRequest} from 'core/reducers';
-import {Button, FormInput} from 'atoms';
+import {FormInput} from 'atoms';
 import {IProps} from './types';
+import {AuthForm} from 'organisms';
 
 export const RestorePassword = ({navigation}: IProps) => {
   const [email, setEmail] = useState('');
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
   const {t} = useTranslation('authentification');
-  const styles = useThemeStyles(themeStyles);
   const buttonText = t('send').toUpperCase();
 
   const dispatch = useDispatch();
 
   const navigateToSignIn = () => {
-    navigation.navigate('TabAuthNavigator', {screen: 'SignIn'});
+    navigation.popToTop();
   };
 
   const onResendPassword = useCallback(() => {
     dispatch(forgotPasswordRequest({email}));
-    navigation.navigate('EmailValidation', {email, isSignUp: false});
-  }, [dispatch, email, navigation]);
+  }, [dispatch, email]);
 
   useEffect(() => {
     const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -41,29 +37,30 @@ export const RestorePassword = ({navigation}: IProps) => {
     }
   }, [email]);
 
+  const {loading} = useRequestLoading(forgotPasswordRequest);
+
+  useOnRequestSuccess(forgotPasswordRequest, () => {
+    navigation.navigate('EmailValidation', {email, isSignUp: false});
+  });
+
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <View style={styles.boxContainer}>
-          <Text style={styles.title}>{t('restorePassword')}</Text>
-          <Text style={styles.text}>{t('restorePasswordInstruction')}</Text>
-          <FormInput
-            iconLeftName={'email'}
-            size={16}
-            placeholder={'email'}
-            value={email}
-            setValue={setEmail}
-          />
-        </View>
-        <Button
-          style={!isEmailCorrect ? styles.notActivated : null}
-          onPress={onResendPassword}>
-          {buttonText}
-        </Button>
-        <Pressable onPress={navigateToSignIn}>
-          <Text style={styles.returnText}>{t('returnAndEnter')}</Text>
-        </Pressable>
-      </View>
-    </TouchableWithoutFeedback>
+    <AuthForm
+      title={t('restorePassword')}
+      text={t('restorePasswordInstruction')}
+      onSubmitPress={onResendPassword}
+      submitButtonText={buttonText}
+      isSubmitButtonDisabled={!isEmailCorrect}
+      submitButtonLoading={loading}
+      secondaryButtonText="Вернуться и войти"
+      onSecondaryButtonPress={navigateToSignIn}>
+      <FormInput
+        iconLeftName={'email'}
+        size={16}
+        placeholder={'email'}
+        value={email}
+        setValue={setEmail}
+        // dangerBorder={!!emailTip}
+      />
+    </AuthForm>
   );
 };

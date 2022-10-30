@@ -1,6 +1,6 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
 import {ACTIONS} from '../constants';
-import {CognitoUser} from '@aws-amplify/auth';
+import {CognitoUserAttributes} from '../types';
 
 export const signInRequest = createAction(ACTIONS.SIGNIN_REQUEST)<{
   email: string;
@@ -8,8 +8,19 @@ export const signInRequest = createAction(ACTIONS.SIGNIN_REQUEST)<{
 }>();
 export const signInSuccess = createAction(ACTIONS.SIGNIN_SUCCESS)<{
   email: string;
+  userAttributes: CognitoUserAttributes;
 }>();
 export const signInFailure = createAction(ACTIONS.SIGNIN_FAILURE)<Error>();
+
+export const signOutRequest = createAction(ACTIONS.SIGNOUT_REQUEST)();
+export const signOutSuccess = createAction(ACTIONS.SIGNOUT_SUCCESS)();
+export const signOutFailure = createAction(ACTIONS.SIGNOUT_FAILURE)<Error>();
+
+export const deleteUserRequest = createAction(ACTIONS.DELETE_USER_REQUEST)();
+export const deleteUserSuccess = createAction(ACTIONS.DELETE_USER_SUCCESS)();
+export const deleteUserFailure = createAction(
+  ACTIONS.DELETE_USER_FAILURE,
+)<Error>();
 
 export const forgotPasswordRequest = createAction(
   ACTIONS.FORGOT_PASSWORD_REQUEST,
@@ -32,32 +43,20 @@ export const confirmNewPasswordRequest = createAction(
 }>();
 export const confirmNewPasswordSuccess = createAction(
   ACTIONS.CONFIRM_NEW_PASSWORD_SUCCESS,
-)();
+)<CognitoUserAttributes>();
 export const confirmNewPasswordFailure = createAction(
   ACTIONS.CONFIRM_NEW_PASSWORD_FAILURE,
 )<Error>();
 
-export const userAuthorizedRequest = createAction(
-  ACTIONS.USER_AUTHORIZED_REQUEST,
-)();
-export const userAuthorizedSuccess = createAction(
-  ACTIONS.USER_AUTHORIZED_SUCCESS,
-)<{
-  userAuthorized: CognitoUser;
-}>();
-export const userAuthorizedFailure = createAction(
-  ACTIONS.USER_AUTHORIZED_FAILURE,
-)<Error>();
+export const setUserAuthData =
+  createAction('SET_USER_AUTH_DATA')<CognitoUserAttributes>();
+export const clearUserAuthData = createAction('CLEAR_USER_AUTH_DATA')();
 
 export const signUpRequest = createAction(ACTIONS.SIGNUP_REQUEST)<{
-  username: string;
+  email: string;
   password: string;
-  attributes: {
-    name: string;
-    family_name: string;
-  };
 }>();
-export const signUpSuccess = createAction(ACTIONS.SIGNUP_SUCCESS)();
+export const signUpSuccess = createAction(ACTIONS.SIGNUP_SUCCESS)<string>();
 export const signUpFailure = createAction(ACTIONS.SIGNUP_FAILURE)<Error>();
 
 export const confirmSignUpRequest = createAction(
@@ -68,7 +67,7 @@ export const confirmSignUpRequest = createAction(
 }>();
 export const confirmSignUpSuccess = createAction(
   ACTIONS.CONFIRM_SIGNUP_SUCCESS,
-)();
+)<CognitoUserAttributes | null>();
 export const confirmSignUpFailure = createAction(
   ACTIONS.CONFIRM_SIGNUP_FAILURE,
 )<Error>();
@@ -83,14 +82,28 @@ export const resendSignUpCodeFailure = createAction(
   ACTIONS.RESEND_SIGNUP_CODE_FAILURE,
 )<Error>();
 
+export const checkUserEmailRequest = createAction(
+  ACTIONS.CHECK_USER_EMAIL_REQUEST,
+)<string>();
+
+export const checkUserEmailSuccess = createAction(
+  ACTIONS.CHECK_USER_EMAIL_SUCCESS,
+)<{
+  exist: boolean;
+  isConfirmed: boolean;
+}>();
+export const checkUserEmailFailure = createAction(
+  ACTIONS.CHECK_USER_EMAIL_FAILURE,
+)<Error>();
+
 interface IAuth {
   email: string;
-  userAuthorized: CognitoUser | null | undefined;
+  userAttributes: CognitoUserAttributes | null;
 }
 
 const defaultState: IAuth = {
   email: '',
-  userAuthorized: undefined,
+  userAttributes: null,
 };
 
 const actions = {
@@ -103,9 +116,6 @@ const actions = {
   confirmNewPasswordRequest,
   confirmNewPasswordSuccess,
   confirmNewPasswordFailure,
-  userAuthorizedRequest,
-  userAuthorizedSuccess,
-  userAuthorizedFailure,
   signUpRequest,
   signUpSuccess,
   signUpFailure,
@@ -115,17 +125,25 @@ const actions = {
   resendSignUpCodeRequest,
   resendSignUpCodeSuccess,
   resendSignUpCodeFailure,
+  setUserAuthData,
+  clearUserAuthData,
+  signOutSuccess,
+  deleteUserSuccess,
 };
 
 type Actions = ActionType<typeof actions>;
 
 export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
-  .handleAction(actions.signInSuccess, (state, {payload: {email}}) => {
-    return {
-      ...state,
-      email,
-    };
-  })
+  .handleAction(
+    actions.signInSuccess,
+    (state, {payload: {email, userAttributes}}) => {
+      return {
+        ...state,
+        email,
+        userAttributes: userAttributes,
+      };
+    },
+  )
   .handleAction(
     [actions.forgotPasswordSuccess, actions.forgotPasswordFailure],
     state => {
@@ -134,26 +152,40 @@ export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
       };
     },
   )
-  .handleAction(
-    [actions.confirmNewPasswordSuccess, actions.confirmNewPasswordFailure],
-    state => {
-      return {
-        ...state,
-      };
-    },
-  )
-  .handleAction(
-    actions.userAuthorizedSuccess,
-    (state, {payload: {userAuthorized}}) => {
-      return {
-        ...defaultState,
-        userAuthorized: userAuthorized ?? null,
-      };
-    },
-  )
-  .handleAction(actions.userAuthorizedFailure, () => {
+
+  .handleAction(actions.setUserAuthData, (state, {payload}) => {
     return {
-      ...defaultState,
-      userAuthorized: null,
+      ...state,
+      userAttributes: payload,
+    };
+  })
+  .handleAction(actions.clearUserAuthData, state => {
+    return {
+      ...state,
+      userAttributes: null,
+    };
+  })
+  .handleAction(actions.signOutSuccess, state => {
+    return {
+      ...state,
+      userAttributes: null,
+    };
+  })
+  .handleAction(actions.deleteUserSuccess, state => {
+    return {
+      ...state,
+      userAttributes: null,
+    };
+  })
+  .handleAction(actions.confirmSignUpSuccess, (state, {payload}) => {
+    return {
+      ...state,
+      userAttributes: payload,
+    };
+  })
+  .handleAction(actions.confirmNewPasswordSuccess, (state, {payload}) => {
+    return {
+      ...state,
+      userAttributes: payload,
     };
   });

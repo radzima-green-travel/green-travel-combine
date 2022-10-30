@@ -1,14 +1,14 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
-import {ProfileNavigatorParamsList} from 'core/types';
+import {AuthNavigatorParamsList} from 'core/types';
 
 export type RestorePasswordScreenNavigationProps = StackNavigationProp<
-  ProfileNavigatorParamsList,
+  AuthNavigatorParamsList,
   'RestorePassword'
 >;
 
 export type RestorePasswordScreenRouteProps = RouteProp<
-  ProfileNavigatorParamsList,
+  AuthNavigatorParamsList,
   'RestorePassword'
 >;
 

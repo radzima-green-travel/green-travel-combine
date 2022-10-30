@@ -15,6 +15,7 @@ export const themeStyles = {
       light: COLORS.white,
       dark: COLORS.mirage,
     },
+    alignSelf: 'stretch',
   },
   dangerBorder: {
     borderColor: COLORS.persimmon,

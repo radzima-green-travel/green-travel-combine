@@ -1,24 +1,24 @@
 import {COLORS, FONTS_STYLES} from 'assets';
+import {PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
   container: {
-    marginHorizontal: 24,
-    marginTop: '20%',
-  },
-  boxContainer: {
+    paddingTop: 52,
     alignItems: 'center',
-    marginBottom: 12,
+    paddingHorizontal: PADDING_HORIZONTAL,
+    flex: 1,
   },
   title: {
     ...FONTS_STYLES.semibold20,
-    marginBottom: 20,
+    color: COLORS.logCabin,
   },
   text: {
     ...FONTS_STYLES.regular15,
     textAlign: 'center',
-    marginBottom: 20,
+    marginTop: 24,
+    color: COLORS.boulder,
   },
-  returnText: {
+  secondaryButtonText: {
     ...FONTS_STYLES.regular16,
     color: {
       light: COLORS.apple,
@@ -27,10 +27,10 @@ export const themeStyles = {
     textAlign: 'center',
     marginTop: 25,
   },
-  notActivated: {
-    backgroundColor: {
-      light: COLORS.alto,
-      dark: COLORS.silver,
-    },
+  formFieldsContainer: {
+    marginTop: 20,
+    marginBottom: 12,
+    alignSelf: 'stretch',
+    alignItems: 'center',
   },
 };

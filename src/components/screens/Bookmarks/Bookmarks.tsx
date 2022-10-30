@@ -48,7 +48,7 @@ export const Bookmarks = ({navigation}: IProps) => {
       ) : (
         <ScrollView style={styles.container}>
           <View style={styles.boxContainer}>
-            {bookmarksCategories!.map((category, index, items) => (
+            {bookmarksCategories?.map((category, index, items) => (
               <BookmarkItem
                 key={category.categoryId}
                 item={category}
