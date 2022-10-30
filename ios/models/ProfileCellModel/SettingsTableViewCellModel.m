@@ -20,4 +20,20 @@
   return self;
 }
 
+- (instancetype)initWithTitle:(NSString *)title
+                     subTitle:(NSString *)subtitle
+                        image:(UIImage *)image
+           fetchingInProgress:(BOOL)fetchingInProgress
+                      handler:(void (^)(void))handler {
+  self = [super init];
+  if (self) {
+    _title = title;
+    _subTitle = subtitle;
+    _image = image;
+    _fetchingInProgress = fetchingInProgress;
+    _handler = handler;
+  }
+  return self;
+}
+
 @end

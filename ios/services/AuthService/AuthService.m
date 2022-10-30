@@ -30,6 +30,12 @@
   }];
 }
 
+- (void)fetchUserAttributes:(void (^)(NSString * _Nullable userEmail, NSError * _Nullable error))completion {
+  [self.amplifyBridge fetchUserAttributesWithCompletion:^(NSString * _Nullable userEmail, NSError * _Nullable error) {
+      completion(userEmail, error);
+  }];
+}
+
 - (void)signInWithUsername:(NSString *)username password:(NSString *)password
                 completion:(void (^)(NSError * _Nullable))completion {
   [self.amplifyBridge signInUsername:username password:password completion:^(NSError * _Nullable error) {

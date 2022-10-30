@@ -3,7 +3,7 @@
   greenTravel
 
   Created by Alex K on 7/29/21.
-  
+
 */
 
 "AlertCancel" = "取消";
@@ -14,8 +14,8 @@
 
 "TabBarMain" = "主页";
 "TabBarMap" = "地图";
-"TabBarSaved" = "收藏";
-"TabBarProfile" = "Profile";
+"TabBarSaved" = "最愛";
+"TabBarProfile" = "形象";
 
 "IndexNewData" = "更新";
 "IndexAll" = "全部";
@@ -23,8 +23,9 @@
 
 "MapTitle" = "地图";
 
-"SavedTitle" = "收藏";
+"SavedTitle" = "最愛";
 "ProfileTitle" = "Profile";
+"LogInTitle" = "Enter or create account";
 
 "SearchHistory" = "历史记录";
 "SearchNotFound" = "抱歉，未找到相关结果";
@@ -51,6 +52,7 @@
 "NoDataText" = "抱歉，出了点问题";
 "NoDataActionLabel" = "再试一次";
 
+"ProfileScreenTitle" = "形象";
 "ProfileScreenChoiceSignUp" = "Sign Up";
 "ProfileScreenChoiceSignIn" = "Sign In";
 "ProfileScreenLabelCreateAccount" = "建立新帐户";
@@ -75,18 +77,22 @@
 "CodeConfirmationScreenHeader" = "Confirm sign up";
 "CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";
 "CodeConfirmationScreenRetry" = "Retry";
-"CodeConfirmationScreenSubmit" = "Done";
+"CodeConfirmationScreenSubmit" = "SEND";
+"CodeConfirmationScreenDone" = "DONE";
+"CodeConfirmationScreenSave" = "SAVE";
 
 "ResetPasswordEMailScreenTitle" = "Восстановить пароль";
 "ResetPasswordEMailScreenHeader" = "Восстановить пароль";
 "ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+"ResetPasswordBackToSignInButtonTitle" = "返回并登录";
 
-"ResetPasswordPassCodeScreenTitle" = "Reset password";
-"ResetPasswordPassCodeScreenHeader" = "Reset password";
+
+"ResetPasswordPassCodeScreenTitle" = "形象";
+"ResetPasswordPassCodeScreenHeader" = "确认电子邮件地址";
 "ResetPasswordPassCodeScreenHint" = "enter confirmation code from e-mail %@";
 
-"ResetPasswordNewPasswordScreenTitle" = "Reset password";
-"ResetPasswordNewPasswordScreenHeader" = "New password";
+"ResetPasswordNewPasswordScreenTitle" = "恢复密码";
+"ResetPasswordNewPasswordScreenHeader" = "新密码";
 "ResetPasswordNewPasswordScreenHint" = "New password must be different from the previous ones";
 
 "ResetPasswordRequestScreenTitle" = "更改密码";

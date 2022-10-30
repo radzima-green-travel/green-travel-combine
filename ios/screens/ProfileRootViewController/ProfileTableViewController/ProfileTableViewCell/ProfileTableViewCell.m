@@ -16,7 +16,6 @@
 @property (strong, nonatomic)UIImageView *iconImageView;
 @property (strong, nonatomic)UILabel *mainLabel;
 @property (strong, nonatomic)UILabel *subLabel;
-@property (assign, nonatomic)BOOL isAuthCell;
 
 @end
 
@@ -29,16 +28,11 @@ static const CGFloat kMainLabelLeadingAnchor = 16.0;
 static const CGFloat kMainLabelTrailingAnchor = -16.0;
 static const CGFloat kSubLabelTrailingAnchor = -16.0;
 static const CGFloat kSubLabelLeadingAnchor = 8.0;
-static const CGFloat kSubLabelTopAnchor = 2.0;
 
 @implementation ProfileTableViewCell
 
 - (void)layoutSubviews {
   [super layoutSubviews];
-  if (self.isAuthCell) {
-  CGFloat accessoryViewWidth = self.frame.size.width - self.contentView.frame.size.width;
-  [[self.mainLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor constant: accessoryViewWidth] setActive:YES];
-  }
 }
 
 - (void)prepareForReuse {
@@ -50,12 +44,12 @@ static const CGFloat kSubLabelTopAnchor = 2.0;
 
 - (void)prepareTableViewCell {
   self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+  
   self.iconImageView = [[UIImageView alloc] init];
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
-
+  
   [self.contentView addSubview:self.iconImageView];
-
+  
   [NSLayoutConstraint activateConstraints:@[
   [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kIconLeadingAnchor],
   [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
@@ -67,31 +61,28 @@ static const CGFloat kSubLabelTopAnchor = 2.0;
 
 - (void)prepareSettingsCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText {
   [self prepareTableViewCell];
-
-  self.isAuthCell = NO;
+  
   self.iconImageView.image = image;
-
+  
   self.mainLabel = [[UILabel alloc] init];
   NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForSettingsCell:mainText];
   self.mainLabel.attributedText = mainTextLabelAttributedString;
-  self.mainLabel.textAlignment = NSTextAlignmentLeft;
-
+  
   self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.mainLabel];
-
+  
   [NSLayoutConstraint activateConstraints:@[
   [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
   [self.mainLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
   ]];
-
+  
   self.subLabel = [[UILabel alloc] init];
   NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForSettingsCell:subText];
   self.subLabel.attributedText = subTextLabelAttributedString;
-  self.subLabel.textAlignment = NSTextAlignmentLeft;
-
+  
   self.subLabel.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.subLabel];
-
+  
   [NSLayoutConstraint activateConstraints:@[
   [self.subLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kSubLabelTrailingAnchor],
   [self.subLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
@@ -99,18 +90,23 @@ static const CGFloat kSubLabelTopAnchor = 2.0;
   ]];
 }
 
-- (void)prepareAuthCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText {
-  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-  self.isAuthCell = YES;
-
+- (void)prepareAuthCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText fetchingInProgress:(BOOL) fetchingInProgress {
+  if (fetchingInProgress) {
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
+    self.accessoryView = activityIndicator;
+    [activityIndicator sizeToFit];
+    [activityIndicator startAnimating];
+  } else {
+      self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  }
+  
   self.iconImageView = [[UIImageView alloc] init];
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
-
+  
   [self.contentView addSubview:self.iconImageView];
-
+  
   self.iconImageView.image = image;
-
+  
   [NSLayoutConstraint activateConstraints:@[
     [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kIconLeadingAnchor],
     [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
@@ -118,37 +114,39 @@ static const CGFloat kSubLabelTopAnchor = 2.0;
     [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:kIconBottomAnchorAtAuthCell],
     [self.iconImageView.widthAnchor constraintEqualToAnchor:self.iconImageView.heightAnchor]
   ]];
-
-  self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height / 2;
-
+  
+  
+  
   self.mainLabel = [[UILabel alloc] init];
-  self.mainLabel.adjustsFontSizeToFitWidth = YES;
+  self.mainLabel.textAlignment = NSTextAlignmentLeft;
   NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:mainText];
   self.mainLabel.attributedText = mainTextLabelAttributedString;
-  [self.mainLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-
+  
   self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.contentView addSubview:self.mainLabel];
-
-
-
-  [NSLayoutConstraint activateConstraints:@[
-  [self.mainLabel.topAnchor constraintEqualToAnchor:self.iconImageView.topAnchor],
-  [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:8]
-  ]];
-
+  
   self.subLabel = [[UILabel alloc] init];
+  self.subLabel.textAlignment = NSTextAlignmentLeft;
   self.subLabel.numberOfLines = 0;
   NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:subText];
   self.subLabel.attributedText = subTextLabelAttributedString;
-
+  [self.subLabel sizeToFit];
+  
   self.subLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.contentView addSubview:self.subLabel];
-
+  
+  UIStackView *labelStack = [[UIStackView alloc] init];
+  [labelStack addArrangedSubview:self.mainLabel];
+  [labelStack addArrangedSubview:self.subLabel];
+  labelStack.axis = UILayoutConstraintAxisVertical;
+  labelStack.distribution = UIStackViewDistributionFillProportionally;
+  labelStack.spacing = 4;
+  
+  labelStack.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:labelStack];
+  
   [NSLayoutConstraint activateConstraints:@[
-  [self.subLabel.leadingAnchor constraintEqualToAnchor:self.mainLabel.leadingAnchor],
-  [self.subLabel.trailingAnchor constraintEqualToAnchor:self.mainLabel.trailingAnchor],
-  [self.subLabel.topAnchor constraintEqualToAnchor:self.mainLabel.bottomAnchor constant:kSubLabelTopAnchor]
+  [labelStack.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
+  [labelStack.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor],
+  [labelStack.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
   ]];
 }
 

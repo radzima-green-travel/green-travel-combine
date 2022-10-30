@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ProfileTableViewCell : UITableViewCell
 
 - (void)prepareSettingsCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText;
-- (void)prepareAuthCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText;
+- (void)prepareAuthCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText fetchingInProgress:(BOOL) fetchingInProgress;
 
 @end
 

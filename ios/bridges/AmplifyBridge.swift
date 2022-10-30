@@ -76,6 +76,24 @@ class AmplifyBridge: NSObject {
     }
   }
   
+  @objc public func fetchUserAttributes(completion: @escaping (_ userEmail: String?, _ error: NSError?) -> Void) {
+    Amplify.Auth.fetchUserAttributes() { result in
+      switch result {
+      case .success(let attributes):
+        var attributeEmail: String?
+        attributes.forEach { attribute in
+          if attribute.key == AuthUserAttributeKey.email {
+          attributeEmail = attribute.value
+          }
+        }
+        completion(attributeEmail, nil)
+      case .failure(let error):
+        print(error.localizedDescription)
+        completion(nil, error as NSError)
+      }
+    }
+  }
+  
   @objc public func resetPassword(username: String,
                                   completion: @escaping (_ err: NSError?) -> Void) {
     Amplify.Auth.resetPassword(for: username) { result in

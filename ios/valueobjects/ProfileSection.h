@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ProfileSection: NSObject
 
 @property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSMutableArray<SettingsTableViewCellModel *> *cellmodels;
+@property (strong, nonatomic) NSMutableArray<SettingsTableViewCellModel *> *cellModels;
 
 - (instancetype)initWithTitle:(NSString *)title cellModels:(NSMutableArray<SettingsTableViewCellModel *>*)cellModels;
 

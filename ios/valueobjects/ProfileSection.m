@@ -13,7 +13,7 @@
   self = [super init];
   if (self) {
     _title = title;
-    _cellmodels = cellModels;
+    _cellModels = cellModels;
   }
   return self;
 }

@@ -75,6 +75,16 @@ static Colors *instance;
     self.buttonTextTint = [UIColor colorNamed:@"buttonTextTint"];
     self.areaOutline = [UIColor colorNamed:@"areaOutline"];
     self.areaFill = [UIColor colorNamed:@"areaFill"];
+    self.accountImageBlue = [UIColor colorNamed:@"accountImageBlue"];
+    self.accountImageRed = [UIColor colorNamed:@"accountImageRed"];
+    self.accountImagePink = [UIColor colorNamed:@"accountImagePink"];
+    self.accountImageGreen = [UIColor colorNamed:@"accountImageGreen"];
+    self.accountImageOrange = [UIColor colorNamed:@"accountImageOrange"];
+    self.accountImageMustard = [UIColor colorNamed:@"accountImageMustard"];
+    self.accountImagePurple = [UIColor colorNamed:@"accountImagePurple"];
+    self.accountImageLightBlue = [UIColor colorNamed:@"accountImageLightBlue"];
+    self.accountImageFireOrange = [UIColor colorNamed:@"accountImageFireOrange"];
+    
   }
   return self;
 }

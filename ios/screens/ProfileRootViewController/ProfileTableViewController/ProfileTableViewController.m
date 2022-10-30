@@ -12,20 +12,23 @@
 #import "ProfileSection.h"
 #import "LoginViewController.h"
 #import "UserModel.h"
-
-
+#import "StyleUtils.h"
+#import "CommonButton.h"
+#import "UserController.h"
+#import "ProfileTableViewControllerUtils.h"
+#import "UserFetchErrorViewController.h"
 
 @interface ProfileTableViewController ()
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (assign, nonatomic) CGFloat tableViewHeight;
-@property (strong, nonatomic) NSMutableArray<ProfileSection *> *models;
+@property (strong, nonatomic) NSMutableArray<ProfileSection *> *cellModels;
 
 @end
 
 static const CGFloat kSettingsRowHeight = 44.0;
 static const CGFloat kAuthRowHeight = 96.0;
 static NSString *const kProfileCell = @"ProfileCell";
+static NSString *const kAuthCell = @"AuthCell";
 
 @implementation ProfileTableViewController
 
@@ -38,19 +41,22 @@ static NSString *const kProfileCell = @"ProfileCell";
   return self;
 }
 
+- (void)viewWillLayoutSubviews {
+  [super viewWillLayoutSubviews];
+  configureNavigationBar(self.navigationController.navigationBar);
+}
+
 
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self.userModel addUserModelObserver:self];
   [self onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
-
-  if (self.userModel.signedIn) {
-    [self configureSignedInTableViewCells];
-  } else {
-    [self configureBaseTableViewCells];
-  }
-
   [self prepareView];
+  if (self.userModel.signedIn) {
+    self.cellModels = configureSignedInTableViewCells(self, NO);
+  } else {
+    self.cellModels = configureBaseTableViewCells(self);
+  }
 }
 
 - (void)prepareView {
@@ -63,45 +69,48 @@ static NSString *const kProfileCell = @"ProfileCell";
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:kProfileCell];
+  [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:kAuthCell];
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-
+  
   self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-
+  
   [self.view addSubview:self.tableView];
   self.tableView.frame = self.view.bounds;
 }
 
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return self.models[section].cellmodels.count;
+  return self.cellModels[section].cellModels.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return self.models.count;
+  return self.cellModels.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-  return self.models[section].title;
+  return self.cellModels[section].title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSMutableArray<SettingsTableViewCellModel *> *models = self.models[indexPath.section].cellmodels;
+  NSMutableArray<SettingsTableViewCellModel *> *models = self.cellModels[indexPath.section].cellModels;
   SettingsTableViewCellModel *model = models[indexPath.row];
-  ProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProfileCell forIndexPath:indexPath];
-
+  ProfileTableViewCell *settingsCell = [self.tableView dequeueReusableCellWithIdentifier:kProfileCell];
+  ProfileTableViewCell *authCell = [self.tableView dequeueReusableCellWithIdentifier:kAuthCell];
+  
   if (indexPath.section == 0) {
-    [cell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
+    [authCell prepareAuthCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle fetchingInProgress:model.fetchingInProgress];
+    return authCell;
   } else {
-    [cell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
+    [settingsCell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
+    return settingsCell;
   }
-
-  return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-  SettingsTableViewCellModel *model = self.models[indexPath.section].cellmodels[indexPath.row];
+  SettingsTableViewCellModel *model = self.cellModels[indexPath.section].cellModels[indexPath.row];
   model.handler();
 }
 
@@ -109,110 +118,86 @@ static NSString *const kProfileCell = @"ProfileCell";
   if (indexPath.section == 0) {
     return kAuthRowHeight;
   }
-    return kSettingsRowHeight;
+  return kSettingsRowHeight;
 }
 
-- (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
-  if (currentState == UserModelStateFetched) {
+#pragma mark - Observe User state
+
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
+                        toCurrentState:(UserModelState)currentState {
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
-      [self.tableView reloadData];
+      __weak typeof(self) strongSelf = weakSelf;
+      BOOL fetched = prevState == UserModelStateFetchingInProgress &&
+      currentState == UserModelStateFetched;
+      if (fetched && strongSelf.userModel.error != nil) {
+        UserFetchErrorViewController *errorViewController = [[UserFetchErrorViewController alloc] initWithController:self.userController model:self.userModel];
+        [self.navigationController pushViewController:errorViewController animated:YES];
+        return;
+      }
+      BOOL signedIn = strongSelf.userModel.signedIn;
+      if (fetched && signedIn) {
+        strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
+        [strongSelf.tableView reloadData];
+        return;
+      }
+      if (prevState == UserModelStateConfirmCodeInProgress &&
+          currentState == UserModelStateSignUpSuccess) {
+        strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
+        [strongSelf.tableView reloadData];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return;
+      }
+      if (prevState == UserModelStateSignInInProgress &&
+          currentState == UserModelStateSignedIn) {
+        strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
+        [strongSelf.tableView reloadData];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return;
+      }
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress &&
+          currentState == UserModelStatePasswordResetSuccess) {
+        strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
+        [strongSelf.tableView reloadData];
+        [strongSelf.navigationController popToRootViewControllerAnimated:YES];
+        return;
+      }
+      if (prevState == UserModelStateSignOutInProgress &&
+          currentState == UserModelStateFetched) {
+        strongSelf.cellModels = configureBaseTableViewCells(self);
+        [strongSelf.tableView reloadData];
+        return;
+      }
+      if (currentState == UserModelStateSignInInProgress) {
+        strongSelf.cellModels = configureTryToSignInTableViewCells(self);
+        [strongSelf.tableView reloadData];
+      }
+      if (prevState == UserModelStateSignedIn &&
+          currentState == UserModelStateSignOutInProgress) {
+        strongSelf.cellModels = configureSignedInTableViewCells(self, YES);
+        [strongSelf.tableView reloadData];
+        [strongSelf.navigationController popToRootViewControllerAnimated:YES];
+        return;
+      }
+      if (prevState == UserModelStateFetched &&
+          currentState == UserModelStateSignUpEmailInProgress) {
+        strongSelf.cellModels = configureTryToSignInTableViewCells(self);
+        [strongSelf.tableView reloadData];
+      }
+      if (prevState == UserModelStateSignUpEmailInProgress &&
+          currentState == UserModelStateFetched) {
+        strongSelf.cellModels = configureBaseTableViewCells(self);
+        [strongSelf.tableView reloadData];
+        return;
+      }
+      if (prevState == UserModelStateSignInInProgress && currentState == UserModelStateFetched) {
+        strongSelf.cellModels = configureBaseTableViewCells(self);
+        [strongSelf.tableView reloadData];
+        return;
+      }
     });
-  }
-}
-
-#pragma mark - Configure cells
-- (void)configureBaseTableViewCells {
-  SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
-                                          initWithTitle:NSLocalizedString(@"ProfileTableViewCellAuthMainTitle", @"")
-                                          subTitle:NSLocalizedString(@"ProfileTableViewCellAuthSubTitle", @"")
-                                          image:[UIImage imageNamed:@"accountPhoto"]
-                                          handler:^{
-    LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:self.userController model:self.userModel];
-    [self.navigationController pushViewController:loginViewController animated:YES];
-  }];
-
-  SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]
-                                                    initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelDataAndStorage", @"")
-                                                    subTitle:@""
-                                                    image:[UIImage imageNamed:@"dataAndStorage"]
-                                                    handler:^{
-    NSLog(@"DataAndStorageCell Tapped");
-  }];
-
-  SettingsTableViewCellModel *languageCell = [[SettingsTableViewCellModel alloc]
-                                              initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelLanguage", @"")
-                                              subTitle:NSLocale.currentLocale.languageCode
-                                              image:[UIImage imageNamed:@"language"]
-                                              handler:^{
-    NSLog(@"LanguageCell Tapped");
-  }];
-
-  SettingsTableViewCellModel *themeCell = [[SettingsTableViewCellModel alloc]
-                                           initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelTheme", @"")
-                                           subTitle:@"Light"
-                                           image:[UIImage imageNamed:@"theme"]
-                                           handler:^{
-    NSLog(@"ThemeCell Tapped");
-  }];
-
-  NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
-  ProfileSection *authSection = [[ProfileSection alloc]
-                                 initWithTitle:@""
-                                 cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
-
-  ProfileSection *settingsSection = [[ProfileSection alloc]
-                                     initWithTitle:NSLocalizedString(@"ProfileTableViewSettingsSection", @"")
-                                     cellModels:settingCellModels];
-
-  self.models = [[NSMutableArray alloc] initWithArray:@[authSection, settingsSection]];
-}
-
-- (void)configureSignedInTableViewCells {
-
-  NSString *userName = @"NAME";
-
-  SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
-                                          initWithTitle:userName
-                                          subTitle:@""
-                                          image:[UIImage imageNamed:@"accountPhoto"]
-                                          handler:^{
-    NSLog(@"User Settings Tapped");
-  }];
-
-  SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]
-                                                    initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelDataAndStorage", @"")
-                                                    subTitle:@""
-                                                    image:[UIImage imageNamed:@"dataAndStorage"]
-                                                    handler:^{
-    NSLog(@"DataAndStorageCell Tapped");
-  }];
-
-  SettingsTableViewCellModel *languageCell = [[SettingsTableViewCellModel alloc]
-                                              initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelLanguage", @"")
-                                              subTitle:NSLocale.currentLocale.languageCode
-                                              image:[UIImage imageNamed:@"language"]
-                                              handler:^{
-    NSLog(@"LanguageCell Tapped");
-  }];
-
-  SettingsTableViewCellModel *themeCell = [[SettingsTableViewCellModel alloc]
-                                           initWithTitle:NSLocalizedString(@"ProfileTableViewCellLabelTheme", @"")
-                                           subTitle:@"Light"
-                                           image:[UIImage imageNamed:@"theme"]
-                                           handler:^{
-    NSLog(@"ThemeCell Tapped");
-  }];
-
-  NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
-  ProfileSection *authSection = [[ProfileSection alloc]
-                                 initWithTitle:@""
-                                 cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
-
-  ProfileSection *settingsSection = [[ProfileSection alloc]
-                                     initWithTitle:NSLocalizedString(@"ProfileTableViewSettingsSection", @"")
-                                     cellModels:settingCellModels];
-
-  self.models = [[NSMutableArray alloc] initWithArray:@[authSection, settingsSection]];
+  });
 }
 
 @end

@@ -25,6 +25,7 @@
 
 "SavedTitle" = "Избранное";
 "ProfileTitle" = "Профиль";
+"LogInTitle" = "Войти или создать аккаунт";
 
 "SearchHistory" = "История поиска";
 "SearchNotFound" = "К сожалению, по вашему запросу ничего не найдено";
@@ -51,6 +52,7 @@
 "NoDataText" = "Что-то пошло не так...";
 "NoDataActionLabel" = "Попробовать еще раз";
 
+"ProfileScreenTitle" = "Профиль";
 "ProfileScreenChoiceSignUp" = "Создать аккаунт";
 "ProfileScreenChoiceSignIn" = "Войти";
 "ProfileScreenLabelCreateAccount" = "Создать новый аккаунт";
@@ -64,28 +66,43 @@
 "ProfileScreenButtonLabelForgotPassword" = "Забыли пароль?";
 
 "ProfileTableViewSettingsSection" = "Настройки";
+
 "ProfileTableViewCellAuthMainTitle" = "Вы не авторизованы";
 "ProfileTableViewCellAuthSubTitle" = "Авторизуйтесь или зарегистрируйтесь";
 "ProfileTableViewCellLabelDataAndStorage" = "Данные и память";
 "ProfileTableViewCellLabelLanguage" = "Язык";
 "ProfileTableViewCellLabelTheme" = "Тема";
+"ProfileTableViewCellBookmark" = "Избранное";
+"ProfileTableViewCellSettings" = "Настройки";
+"ProfileTableViewCellTryToAuthMainTitle" = "Авторизация";
+"ProfileTableViewCellTryToAuthSubTitle" = "Дождитесь, пока идет проверка логина";
+
+"ProfileTableViewCellSignedMainTitleLabel" = "Вы авторизованы";
+
+"UserSettingsTableViewCellTermsOfUseMainLabel" = "Условия использования";
+"UserSettingsTableViewCellPrivacyPolicyMainLabel" = "Политика конфиденциальности";
+"UserSettingsTableViewCellLogOutMainLabel" = "Выйти";
+"UserSettingsTableViewCellDeleteUserMainLabel" = "Удалить аккаунт";
 
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenHeader" = "Подтвердите регистрацию";
 "CodeConfirmationScreenHint" = "введите цифры из письма, высланного на электронную почту %@";
 "CodeConfirmationScreenRetry" = "Повторить отправку";
-"CodeConfirmationScreenSubmit" = "ГОТОВО";
+"CodeConfirmationScreenSubmit" = "ОТПРАВИТЬ";
+"CodeConfirmationScreenDone" = "ГОТОВО";
+"CodeConfirmationScreenSave" = "СОХРАНИТЬ";
 
-"ResetPasswordEMailScreenTitle" = "Сбросить пароль";
-"ResetPasswordEMailScreenHeader" = "Reset password";
+
+"ResetPasswordEMailScreenTitle" = "Восстановить пароль";
+"ResetPasswordEMailScreenHeader" = "Восстановить пароль";
 "ResetPasswordEMailScreenHint" = "Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля";
-"ResetPasswordEMailScreenHint" = "Enter e-mail you've used for sign-up and we'll send you the steps to restore password";
+"ResetPasswordBackToSignInButtonTitle" = "Вернуться и войти";
 
-"ResetPasswordPassCodeScreenTitle" = "Сбросить пароль";
-"ResetPasswordPassCodeScreenHeader" = "Reset password";
+"ResetPasswordPassCodeScreenTitle" = "Профиль";
+"ResetPasswordPassCodeScreenHeader" = "Подтвердите электронный адрес";
 "ResetPasswordPassCodeScreenHint" = "введите цифры из письма, высланного на  электронную почту %@";
 
-"ResetPasswordNewPasswordScreenTitle" = "Сбросить пароль";
+"ResetPasswordNewPasswordScreenTitle" = "Восстановить пароль";
 "ResetPasswordNewPasswordScreenHeader" = "Новый пароль";
 "ResetPasswordNewPasswordScreenHint" = "Ваш новый пароль должен отличаться от используемых ранее паролей";
 
