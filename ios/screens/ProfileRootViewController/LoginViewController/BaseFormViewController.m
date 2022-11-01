@@ -110,7 +110,10 @@ static const CGFloat kTopOffset = 90.0;
 }
 
 -(void)onDonePress:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
+  __weak typeof(self) weakSelf = self;
+  [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    [weakSelf.userController reset];
+  }];
 }
 
 - (void)dismissKeyboard:(id)sender {
