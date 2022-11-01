@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
                             code:(NSString *)code;
 - (void)resendSignUpCodeForEMail:(NSString *)email;
 - (void)initiateSignOut;
+- (void)reset;
 
 @end
 

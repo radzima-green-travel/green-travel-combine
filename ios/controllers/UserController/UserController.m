@@ -225,4 +225,8 @@
   }];
 }
 
+- (void)reset {
+  [self.model setState:UserModelStateFetched];
+}
+
 @end

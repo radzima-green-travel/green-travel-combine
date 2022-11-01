@@ -153,14 +153,12 @@ static NSString *const kAuthCell = @"AuthCell";
           currentState == UserModelStateSignedIn) {
         strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
         [strongSelf.tableView reloadData];
-        [self.navigationController popToRootViewControllerAnimated:YES];
         return;
       }
       if (prevState == UserModelStatePasswordResetConfirmCodeInProgress &&
           currentState == UserModelStatePasswordResetSuccess) {
         strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
         [strongSelf.tableView reloadData];
-        [strongSelf.navigationController popToRootViewControllerAnimated:YES];
         return;
       }
       if (prevState == UserModelStateSignOutInProgress &&
@@ -169,31 +167,26 @@ static NSString *const kAuthCell = @"AuthCell";
         [strongSelf.tableView reloadData];
         return;
       }
-      if (currentState == UserModelStateSignInInProgress) {
+      if (prevState == UserModelStateNotFetched && currentState == UserModelStateFetchingInProgress) {
         strongSelf.cellModels = configureTryToSignInTableViewCells(self);
         [strongSelf.tableView reloadData];
+        return;
+      }
+      if (prevState == UserModelStateFetchingInProgress && currentState == UserModelStateFetched) {
+        strongSelf.cellModels = configureBaseTableViewCells(self);
+        [strongSelf.tableView reloadData];
+        return;
+      }
+      if (prevState == UserModelStateFetchingInProgress && currentState == UserModelStateNotFetched) {
+        strongSelf.cellModels = configureBaseTableViewCells(self);
+        [strongSelf.tableView reloadData];
+        return;
       }
       if (prevState == UserModelStateSignedIn &&
           currentState == UserModelStateSignOutInProgress) {
         strongSelf.cellModels = configureSignedInTableViewCells(self, YES);
         [strongSelf.tableView reloadData];
         [strongSelf.navigationController popToRootViewControllerAnimated:YES];
-        return;
-      }
-      if (prevState == UserModelStateFetched &&
-          currentState == UserModelStateSignUpEmailInProgress) {
-        strongSelf.cellModels = configureTryToSignInTableViewCells(self);
-        [strongSelf.tableView reloadData];
-      }
-      if (prevState == UserModelStateSignUpEmailInProgress &&
-          currentState == UserModelStateFetched) {
-        strongSelf.cellModels = configureBaseTableViewCells(self);
-        [strongSelf.tableView reloadData];
-        return;
-      }
-      if (prevState == UserModelStateSignInInProgress && currentState == UserModelStateFetched) {
-        strongSelf.cellModels = configureBaseTableViewCells(self);
-        [strongSelf.tableView reloadData];
         return;
       }
     });

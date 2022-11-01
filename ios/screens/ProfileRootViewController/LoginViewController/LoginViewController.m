@@ -193,6 +193,7 @@ static const CGFloat kTopOffset = 90.0;
                                                              model:self.userModel];
         [self.navigationController pushViewController:codeConfirmationViewController
                                              animated:YES];
+        [self enableLoadingIndicator:NO];
         self.navigatedToCodeScreen = YES;
         return;
       }
