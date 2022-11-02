@@ -41,16 +41,22 @@
       [strongSelf.model setState:UserModelStateNotFetched];
       return;
     }
-    [self fetchUserAttributesAndSetUserState:UserModelStateFetched];
+    if (!signedIn) {
+      [strongSelf.model setState:UserModelStateFetched];
+      return;
+    }
+    [self fetchUserAttributesAndSetUserState:UserModelStateFetched
+                               fallbackState:UserModelStateNotFetched];
   }];
 }
 
-- (void)fetchUserAttributesAndSetUserState:(UserModelState)state{
+- (void)fetchUserAttributesAndSetUserState:(UserModelState)state
+                             fallbackState:(UserModelState)fallbackState {
   __weak typeof(self) weakSelf = self;
   [self.authService fetchUserAttributes:^(NSString * _Nonnull userEmail, NSError * _Nonnull error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
-      [strongSelf.model setState:UserModelStateNotFetched];
+      [strongSelf.model setState:fallbackState];
       return;
     }
     [strongSelf.model setEmail:userEmail];
@@ -68,7 +74,8 @@
       [strongSelf.model setState:UserModelStateFetched];
       return;
     }
-    [self fetchUserAttributesAndSetUserState:UserModelStateSignedIn];
+    [self fetchUserAttributesAndSetUserState:UserModelStateSignedIn
+                               fallbackState:UserModelStateFetched];
   }];
 }
 
