@@ -233,7 +233,21 @@
 }
 
 - (void)reset {
-  [self.model setState:UserModelStateFetched];
+  __weak typeof(self) weakSelf = self;
+  [self.authService fetchCurrentAuthSession:^(NSError * _Nullable error, BOOL signedIn) {
+    __weak typeof(weakSelf) strongSelf = weakSelf;
+    [strongSelf.model setSignedIn:signedIn];
+    if (error != nil) {
+      [strongSelf.model setState:UserModelStateNotFetched];
+      return;
+    }
+    if (!signedIn) {
+      [strongSelf.model setState:UserModelStateFetched];
+      return;
+    }
+    [self fetchUserAttributesAndSetUserState:UserModelStateSignedIn
+                               fallbackState:UserModelStateFetched];
+  }];
 }
 
 @end
