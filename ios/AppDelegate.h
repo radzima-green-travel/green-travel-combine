@@ -1,19 +1,12 @@
-//
-//  AppDelegate.h
-//  GreenTravel
-//
-//  Created by Alex K on 8/15/20.
-//  Copyright © 2020 Alex K. All rights reserved.
-//
-
+#import <React/RCTBridgeDelegate.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate>
 
-@property (readonly, strong) NSPersistentContainer *persistentContainer;
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
 @property (assign, nonatomic) UIInterfaceOrientationMask orientationLock;
+@property (readonly, strong) NSPersistentContainer *persistentContainer;
 
 - (void)saveContext;
 
