@@ -1,4 +1,4 @@
-import {AppRegistry, Platform, UIManager} from 'react-native';
+import {AppRegistry} from 'react-native';
 
 import {enableScreens} from 'react-native-screens';
 import 'react-native-gesture-handler';
@@ -19,12 +19,6 @@ amplifyApiService.init({
 });
 
 enableScreens();
-
-if (Platform.OS === 'android') {
-  if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
-}
 
 MapBox.setAccessToken(config.MAP_ACCESS_TOKEN);
 sentryService.init();
