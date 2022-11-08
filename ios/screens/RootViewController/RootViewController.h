@@ -19,8 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showNativeViewController;
 - (void)loadCategories;
 - (void)initRNBootSplash;
-- (bool)getIsNativeControllerShouldBeLaunched;
-
 @end
 
 NS_ASSUME_NONNULL_END

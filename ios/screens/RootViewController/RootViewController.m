@@ -15,6 +15,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "RNBootSplash.h"
 #import "RotationLockUtility.h"
 #import "UserDefaultsServiceConstants.h"
 @import Amplitude;
@@ -70,10 +71,10 @@
   
   self.view.backgroundColor = UIColor.whiteColor;
   
-  [self initAppBasedOnDefaults];
+  [self showAppBasedOnDefaults];
 }
 
-- (void)initAppBasedOnDefaults {
+- (void)showAppBasedOnDefaults {
   NSString *framework = [self.userDefaultsService loadFrameworkValue];
   if (framework == nil || [UserDefaultsServiceConstantsFrameworkRandom isEqualToString:
                           framework]) {
@@ -87,15 +88,52 @@
   }
   
   [self saveVersion];
-}
-
-- (bool)getIsNativeControllerShouldBeLaunched {
+  
   if ([UserDefaultsServiceConstantsFrameworkReact isEqualToString:
        [self.userDefaultsService loadFrameworkValue]]) {
-    return false;
+    [self showRNViewController];
+    return;
+  }
+  [self showNativeViewController];
+}
+
+- (void)showRNViewController {
+  // #ifdef FB_SONARKIT_ENABLED
+  //   InitializeFlipper(self.application);
+  // #endif
+  
+  UIViewController *rnViewController = [[UIViewController alloc] init];
+  RCTBridge *bridge =
+  [[RCTBridge alloc] initWithDelegate:self launchOptions:self.launchOptions];
+  self.reactRootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                   moduleName:@"greenTravel"
+                                            initialProperties:nil];
+  if (@available(iOS 13.0, *)) {
+    self.reactRootView.backgroundColor = [UIColor systemBackgroundColor];
+  } else {
+    self.reactRootView.backgroundColor = [UIColor whiteColor];
   }
   
-  return true;
+  
+  rnViewController.view = self.reactRootView;
+  
+  [self addChildViewController:rnViewController];
+  rnViewController.view.frame = self.view.bounds;
+  [self.view addSubview:rnViewController.view];
+  [rnViewController didMoveToParentViewController:self];
+  
+  [self.current willMoveToParentViewController:nil];
+  [self.current.view removeFromSuperview];
+  [self.current removeFromParentViewController];
+  
+  self.current = rnViewController;
+  [RotationLockUtility lockToPortrait];
+}
+
+- (void)initRNBootSplash {
+  if(self.reactRootView != nil) {
+    [RNBootSplash initWithStoryboard:@"BootSplash" rootView: self.reactRootView];
+  }
 }
 
 - (void)showNativeViewController {
@@ -116,6 +154,14 @@
   [self.current removeFromParentViewController];
   
   self.current = mainViewController;
+}
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {
+#if DEBUG
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#endif
 }
 
 - (void)saveVersion {
