@@ -7,7 +7,7 @@ import {
   SignUpFormScreen,
   RestorePasswordScreen,
   NewPasswordScreen,
-} from 'screens';
+} from '../../screens';
 
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';

@@ -29,7 +29,7 @@ import {
 import {IProps} from './types';
 import {COLORS} from 'assets';
 import {useFocusEffect, useIsFocused} from '@react-navigation/core';
-import {ErrorToast} from '../../molecules';
+import {ErrorToast} from '../../components/molecules';
 import {screenOptions} from './screenOptions';
 import {IObject, ITransformedCategory} from 'core/types';
 

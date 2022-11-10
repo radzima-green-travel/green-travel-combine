@@ -1,5 +1,5 @@
 import React from 'react';
-import {ProfileScreen, ProfileDetails} from 'screens';
+import {ProfileScreen, ProfileDetails} from '../../screens';
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
 import {ProfileNavigatorParamsList} from 'core/types';
