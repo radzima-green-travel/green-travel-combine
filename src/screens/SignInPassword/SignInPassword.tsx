@@ -1,40 +1,21 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 
-import {
-  useOnRequestSuccess,
-  useRequestLoading,
-  useTogglePasswordVisibility,
-} from 'core/hooks';
 import {FormInput} from 'atoms';
 import {AuthForm} from 'organisms';
-import {signInRequest} from 'core/reducers';
-import {useDispatch} from 'react-redux';
-import {useRoute} from '@react-navigation/native';
-import {SignInPasswordScreenRouteProps} from './types';
+import {useSignInPassword} from './hooks';
 
-export const SignInPassword = ({navigation}) => {
-  const dispatch = useDispatch();
-
+export const SignInPassword = () => {
   const {
-    params: {email},
-  } = useRoute<SignInPasswordScreenRouteProps>();
-  const [password, setPassword] = useState('');
-
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
-
-  const navigateToRestorePassword = useCallback(() => {
-    navigation.navigate('RestorePassword');
-  }, [navigation]);
-
-  const signIn = useCallback(() => {
-    dispatch(signInRequest({email, password}));
-  }, [dispatch, email, password]);
-
-  const {loading} = useRequestLoading(signInRequest);
-  useOnRequestSuccess(signInRequest, () => {
-    navigation.getParent()?.goBack();
-  });
+    email,
+    signIn,
+    loading,
+    navigateToRestorePassword,
+    rightIcon,
+    passwordVisibility,
+    handlePasswordVisibility,
+    password,
+    setPassword,
+  } = useSignInPassword();
 
   return (
     <AuthForm
