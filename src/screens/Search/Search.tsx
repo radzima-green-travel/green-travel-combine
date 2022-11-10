@@ -1,49 +1,17 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import {screenOptions} from './screenOptions';
 
-import {IObject} from 'core/types';
-import {IProps} from './types';
 import {SearchList} from 'organisms';
-import {useSearchList} from 'core/hooks';
-import {Keyboard} from 'react-native';
+import {useSearch} from './hooks';
 
-export const Search = ({navigation}: IProps) => {
+export const Search = () => {
   const {
-    data,
     isHistoryVisible,
-    addToHistory,
-    deleteFromHistory,
-    deleteAllFromHistory,
-    clearInput,
-  } = useSearchList();
-
-  const navigateToObjectDetails = useCallback(
-    (searchItem: IObject) => {
-      Keyboard.dismiss();
-      addToHistory(searchItem);
-      navigation.navigate('ObjectDetails', {
-        objectId: searchItem.id,
-      });
-    },
-    [addToHistory, navigation],
-  );
-
-  const deleteItem = useCallback(
-    (searchItem: IObject) => {
-      deleteFromHistory(searchItem);
-    },
-    [deleteFromHistory],
-  );
-
-  const deleteAllItems = useCallback(() => {
-    deleteAllFromHistory();
-  }, [deleteAllFromHistory]);
-
-  useEffect(() => {
-    return () => {
-      clearInput();
-    };
-  }, [clearInput]);
+    data,
+    navigateToObjectDetails,
+    deleteItem,
+    deleteAllItems,
+  } = useSearch();
 
   return (
     <SearchList
