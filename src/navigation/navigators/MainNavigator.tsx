@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 
-import {ErrorScreen, ObjectDetailsMapScreen, SplashScreen} from 'screens';
+import {ErrorScreen, ObjectDetailsMapScreen, SplashScreen} from '../../screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';

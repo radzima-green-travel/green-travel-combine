@@ -7,7 +7,7 @@ import {
   ObjectsListScreen,
   CategoriesListScreen,
   SearchScreen,
-} from 'screens';
+} from '../../screens';
 
 import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';

@@ -1,6 +1,10 @@
 import React from 'react';
 
-import {AppMapScreen, ObjectDetailsScreen, ObjectsListScreen} from 'screens';
+import {
+  AppMapScreen,
+  ObjectDetailsScreen,
+  ObjectsListScreen,
+} from '../../screens';
 
 import {useScreenOptions} from '../screenOptions';
 import {AppMapNavigatorParamsList} from 'core/types';

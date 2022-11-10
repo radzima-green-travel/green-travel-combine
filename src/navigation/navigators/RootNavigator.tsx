@@ -6,7 +6,7 @@ import {useDispatch} from 'react-redux';
 import {bootstrapRequest} from 'core/reducers';
 import {StatusBar} from 'react-native';
 
-import {SplashScreen} from 'screens';
+import {SplashScreen} from '../../screens';
 import {isIOS} from 'services/PlatformService';
 import {PortalProvider} from '@gorhom/portal';
 import {useOnRequestSuccess, useRequestError} from 'react-redux-help-kit';
