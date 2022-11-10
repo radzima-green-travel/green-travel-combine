@@ -1,42 +1,23 @@
-import React, {useCallback, useState} from 'react';
-import {
-  useOnRequestSuccess,
-  useRequestLoading,
-  useTogglePasswordVisibility,
-} from 'core/hooks';
+import React from 'react';
+import {useOnRequestSuccess} from 'core/hooks';
 import {FormInput} from 'atoms';
-
-import {useDispatch} from 'react-redux';
 import {signUpRequest} from 'core/reducers';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import {AuthForm} from 'organisms';
-import {
-  SignUpFormScreenRouteProps,
-  SignUpFormScreenNavigationProps,
-} from './types';
+import {useSignUpForm} from './hooks';
 
 export const SignUpForm = () => {
-  const dispatch = useDispatch();
   const {
-    params: {email},
-  } = useRoute<SignUpFormScreenRouteProps>();
-  const navigation = useNavigation<SignUpFormScreenNavigationProps>();
+    loading,
+    email,
+    password,
+    setPassword,
+    passwordVisibility,
+    rightIcon,
+    handlePasswordVisibility,
+    navigateToEmailValidation,
+    signUp,
+  } = useSignUpForm();
 
-  const [password, setPassword] = useState('');
-
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
-
-  const navigateToEmailValidation = useCallback(() => {
-    navigation.navigate('CodeVerification', {email, isSignUp: true});
-  }, [email, navigation]);
-
-  const signUp = useCallback(() => {
-    console.log(email, password);
-    dispatch(signUpRequest({email, password}));
-  }, [dispatch, email, password]);
-
-  const {loading} = useRequestLoading(signUpRequest);
   useOnRequestSuccess(signUpRequest, navigateToEmailValidation);
 
   return (
