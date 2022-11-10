@@ -1,0 +1,1 @@
+export {useProfileDetails} from './useProfileDetails'

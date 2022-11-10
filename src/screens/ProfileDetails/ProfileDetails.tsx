@@ -1,42 +1,13 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {GeneralListItem} from 'molecules';
 import {Icon} from 'atoms';
 import {screenOptions} from './screenOptions';
-import {useNavigation} from '@react-navigation/native';
-import {ProfileDetailsScreenNavigationProps} from './types';
-import {
-  useOnRequestSuccess,
-  useRequestLoading,
-  useThemeStyles,
-  useTranslation,
-} from 'core/hooks';
-import {themeStyles} from './styles';
-import {useDispatch} from 'react-redux';
-import {deleteUserRequest, signOutRequest} from 'core/reducers';
+import {useProfileDetails} from './hooks';
 
 export const ProfileDetails = () => {
-  const styles = useThemeStyles(themeStyles);
-  const {t} = useTranslation('profile');
-  const dispatch = useDispatch();
-  const navigation = useNavigation<ProfileDetailsScreenNavigationProps>();
-  const {loading} = useRequestLoading(signOutRequest);
-  const {loading: deleting} = useRequestLoading(deleteUserRequest);
-  const onSignOutPress = useCallback(() => {
-    dispatch(signOutRequest());
-  }, [dispatch]);
-
-  const onDeleteUserPress = useCallback(() => {
-    dispatch(deleteUserRequest());
-  }, [dispatch]);
-
-  useOnRequestSuccess(signOutRequest, () => {
-    navigation.goBack();
-  });
-
-  useOnRequestSuccess(deleteUserRequest, () => {
-    navigation.goBack();
-  });
+  const {t, styles, loading, onSignOutPress, deleting, onDeleteUserPress} =
+    useProfileDetails();
 
   return (
     <View style={styles.container}>

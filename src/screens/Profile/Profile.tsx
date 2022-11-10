@@ -1,31 +1,13 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {GeneralListItem} from 'molecules';
 import {Icon, SettingsSectionTitle} from 'atoms';
 import {screenOptions} from './screenOptions';
-import {useNavigation} from '@react-navigation/native';
-import {ProfileScreenNavigationProps} from './types';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles} from './styles';
-import {useSelector} from 'react-redux';
-import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
+import {useProfile} from './hooks';
 
 export const Profile = () => {
-  const styles = useThemeStyles(themeStyles);
-  const navigation = useNavigation<ProfileScreenNavigationProps>();
-  const {t} = useTranslation('profile');
-  const isAuthorized = useSelector(selectUserAuthorized);
-  const userEmail = useSelector(selectUserEmail);
-
-  const onAuthorisationItemPress = useCallback(() => {
-    if (isAuthorized) {
-      navigation.navigate('ProfileDetails');
-    } else {
-      navigation.navigate('AuthNavigator', {
-        screen: 'CheckEmail',
-      });
-    }
-  }, [isAuthorized, navigation]);
+  const {t, styles, onAuthorisationItemPress, isAuthorized, userEmail} =
+    useProfile();
 
   return (
     <View style={styles.container}>

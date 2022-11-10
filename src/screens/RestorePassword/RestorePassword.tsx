@@ -1,47 +1,21 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React from 'react';
 
-import {useDispatch} from 'react-redux';
-import {
-  useOnRequestSuccess,
-  useRequestLoading,
-  useTranslation,
-} from 'core/hooks';
-import {forgotPasswordRequest} from 'core/reducers';
 import {FormInput} from 'atoms';
-import {IProps} from './types';
 import {AuthForm} from 'organisms';
+import {useRestorePassword} from './hooks';
 
-export const RestorePassword = ({navigation}: IProps) => {
-  const [email, setEmail] = useState('');
-  const [isEmailCorrect, setIsEmailCorrect] = useState(false);
-  const {t} = useTranslation('authentification');
-  const buttonText = t('send').toUpperCase();
-
-  const dispatch = useDispatch();
-
-  const navigateToSignIn = () => {
-    navigation.popToTop();
-  };
-
-  const onResendPassword = useCallback(() => {
-    dispatch(forgotPasswordRequest({email}));
-  }, [dispatch, email]);
-
-  useEffect(() => {
-    const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-    if (regexForEmail.test(email)) {
-      setIsEmailCorrect(true);
-    } else {
-      setIsEmailCorrect(false);
-    }
-  }, [email]);
-
-  const {loading} = useRequestLoading(forgotPasswordRequest);
-
-  useOnRequestSuccess(forgotPasswordRequest, () => {
-    navigation.navigate('EmailValidation', {email, isSignUp: false});
-  });
+export const RestorePassword = () => {
+  const {
+    t,
+    email,
+    onResendPassword,
+    buttonText,
+    isEmailCorrect,
+    loading,
+    navigateToSignIn,
+    setEmail,
+    
+  } = useRestorePassword();
 
   return (
     <AuthForm
