@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {StatusBar, Animated} from 'react-native';
 
 import {useColorScheme} from 'core/hooks';
-import {IMAGE_HEIGHT} from './styles';
+import {IMAGE_HEIGHT} from '../styles';
 import {useIsFocused} from '@react-navigation/native';
 
 export function useObjectDetailsStatusBar(animatedValue: Animated.Value) {

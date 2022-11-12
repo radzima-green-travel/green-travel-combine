@@ -1,6 +1,5 @@
-import React, {useMemo, useLayoutEffect, useCallback, useState} from 'react';
+import React, {useLayoutEffect} from 'react';
 import {View, Animated} from 'react-native';
-import Clipboard from '@react-native-community/clipboard';
 
 import {
   ClipboardToast,
@@ -10,38 +9,37 @@ import {
   ObjectDetailsPager,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
-import {useToast, Button, ImageSlider, ZoomableView} from 'atoms';
-import {IProps} from './types';
-import {
-  useTranslation,
-  useObject,
-  useImageSlider,
-  useDetailsPageAnalytics,
-  useUpdateEffect,
-} from 'core/hooks';
-import {debounce, isEmpty} from 'lodash';
+import {Button, ImageSlider, ZoomableView} from 'atoms';
+import {useUpdateEffect} from 'core/hooks';
+import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useObjectDetailsStatusBar} from './hooks';
+import {useObjectDetailsStatusBar, useObjectDetails} from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
 
-export const ObjectDetails = ({route, navigation}: IProps) => {
+export const ObjectDetails = () => {
   const {
-    params: {objectId},
-  } = route;
-
-  const [animatedValue] = useState(() => new Animated.Value(0));
-
-  const {t} = useTranslation('objectDetails');
-  const data = useObject(objectId)!;
-
-  const {sendOpenMapEvent, sendSwitchPhotosEvent, sendScrollEvent} =
-    useDetailsPageAnalytics({
-      name: data.name,
-      category: data.category.name,
-    });
+    t,
+    data,
+    animatedValue,
+    page,
+    sendSwitchPhotosEvent,
+    sendScrollEvent,
+    isJustOneImage,
+    pagesAmount,
+    copyLocationToClipboard,
+    navigateToObjectsMap,
+    navigateToObjectsListDebounced,
+    defaultPhoto,
+    onScroll,
+    top,
+    toastProps,
+    buttonsOpacity,
+    opacity,
+    objectId,
+    navigation,
+  } = useObjectDetails();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -49,75 +47,11 @@ export const ObjectDetails = ({route, navigation}: IProps) => {
     });
   }, [navigation, data]);
 
-  const {show: showToast, ...toastProps} = useToast();
-
-  const copyLocationToClipboard = useCallback(
-    (location: string) => {
-      Clipboard.setString(location);
-      showToast();
-    },
-    [showToast],
-  );
-
-  const navigateToObjectsList = useCallback(
-    ({id, name, objects}: {id: string; name: string; objects: string[]}) => {
-      if (objects.length === 1) {
-        navigation.push('ObjectDetails', {
-          objectId: objects[0],
-        });
-      } else {
-        navigation.push('ObjectsList', {
-          categoryId: id,
-          title: name,
-          objectsIds: objects,
-        });
-      }
-    },
-    [navigation],
-  );
-
-  const navigateToObjectsMap = useCallback(() => {
-    if (data) {
-      navigation.navigate('ObjectDetailsMap', {
-        categoryId: data.category.id,
-        objectId: data.id,
-      });
-
-      sendOpenMapEvent();
-    }
-  }, [data, navigation, sendOpenMapEvent]);
-
-  const navigateToObjectsListDebounced = useMemo(
-    () =>
-      debounce(navigateToObjectsList, 300, {leading: true, trailing: false}),
-    [navigateToObjectsList],
-  );
-
   useObjectDetailsStatusBar(animatedValue);
-
-  const {onScroll, page, pagesAmount} = useImageSlider(
-    data?.images?.length || 0,
-  );
-
-  const {top} = useSafeAreaInsets();
-
-  const isJustOneImage = pagesAmount < 2;
 
   useUpdateEffect(() => {
     sendSwitchPhotosEvent();
   }, [page, sendSwitchPhotosEvent]);
-
-  const opacity = animatedValue.interpolate({
-    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
-    outputRange: [0, 0, 1],
-  });
-
-  const buttonsOpacity = animatedValue.interpolate({
-    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
-    outputRange: [1, 1, 0],
-  });
-
-  const defaultPhoto = require('./img/objectDetailsDefaultPhoto.png');
 
   return data ? (
     <View style={styles.container}>
