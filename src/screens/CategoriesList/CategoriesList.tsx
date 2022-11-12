@@ -1,34 +1,17 @@
-import React, {useLayoutEffect, useCallback} from 'react';
+import React, {useLayoutEffect} from 'react';
 import {FlatList} from 'react-native';
 import {CategoryCard} from 'molecules';
 import {styles} from './styles';
-import {IProps} from './types';
 
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
-import {ITransformedCategory} from 'core/types';
-import {useCategoryChildren, useCategoryListAnalytics} from 'core/hooks';
+import {useCategoriesList} from './hooks';
+
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
-export const CategoriesList = ({
-  route,
-  navigation: {setOptions, navigate},
-}: IProps) => {
-  const {
-    params: {categoryId, title},
-  } = route;
-
-  const listData = useCategoryChildren(categoryId);
-
-  const {sendSelectCardEvent} = useCategoryListAnalytics();
-
-  const navigateToObjectDetails = useCallback(
-    ({id, name}: ITransformedCategory) => {
-      navigate('ObjectsList', {categoryId: id, title: name});
-      sendSelectCardEvent(name, title);
-    },
-    [navigate, sendSelectCardEvent, title],
-  );
+export const CategoriesList = () => {
+  const {setOptions, title, listData, navigateToObjectDetails} =
+    useCategoriesList();
 
   useLayoutEffect(() => {
     setOptions({
