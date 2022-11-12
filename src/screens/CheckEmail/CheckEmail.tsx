@@ -1,17 +1,20 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {useOnRequestSuccess, useRequestLoading} from 'core/hooks';
+import React, {useCallback, useEffect} from 'react';
+import {useOnRequestSuccess} from 'core/hooks';
 import {FormInput} from 'atoms';
 import {checkUserEmailRequest} from 'core/reducers';
-import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
 import {AuthForm} from 'organisms';
-import {CheckEmailScreenNavigationProps} from './types';
+import {useCheckEmail} from './hooks';
 
 export const CheckEmail = () => {
-  const navigation = useNavigation<CheckEmailScreenNavigationProps>();
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [isEmailCorrect, setIsEmailCorrect] = useState(false);
+  const {
+    navigation,
+    email,
+    setIsEmailCorrect,
+    dispatch,
+    isEmailCorrect,
+    loading,
+    setEmail,
+  } = useCheckEmail();
 
   useEffect(() => {
     const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -21,13 +24,11 @@ export const CheckEmail = () => {
     } else {
       setIsEmailCorrect(false);
     }
-  }, [email]);
+  }, [email, setIsEmailCorrect]);
 
   const checkEmail = useCallback(() => {
     dispatch(checkUserEmailRequest(email));
   }, [dispatch, email]);
-
-  const {loading} = useRequestLoading(checkUserEmailRequest);
 
   useOnRequestSuccess(checkUserEmailRequest, data => {
     if (!data.exist) {

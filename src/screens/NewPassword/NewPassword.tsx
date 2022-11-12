@@ -1,33 +1,24 @@
-import React, {useCallback, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React from 'react';
 import {confirmNewPasswordRequest} from 'core/reducers';
-import {
-  useOnRequestSuccess,
-  useRequestLoading,
-  useTogglePasswordVisibility,
-  useTranslation,
-} from 'core/hooks';
+import {useOnRequestSuccess} from 'core/hooks';
 import {FormInput} from 'atoms';
 import {AuthForm} from 'organisms';
-import {IProps} from './types';
+import {useNewPassword} from './hooks';
 
-export const NewPassword = ({navigation, route}: IProps) => {
-  const [newPassword, setNewPassword] = useState('');
-  const {t} = useTranslation('authentification');
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
-  const buttonText = t('save').toUpperCase();
-  const dispatch = useDispatch();
-
+export const NewPassword = () => {
   const {
-    params: {email, code},
-  } = route;
+    t,
+    navigation,
+    buttonText,
+    onConfirmNewPassword,
+    newPassword,
+    loading,
+    rightIcon,
+    passwordVisibility,
+    handlePasswordVisibility,
+    setNewPassword,
+  } = useNewPassword();
 
-  const onConfirmNewPassword = useCallback(() => {
-    dispatch(confirmNewPasswordRequest({email, code, newPassword}));
-  }, [code, dispatch, email, newPassword]);
-
-  const {loading} = useRequestLoading(confirmNewPasswordRequest);
   useOnRequestSuccess(confirmNewPasswordRequest, () => {
     navigation.getParent()?.goBack();
   });
