@@ -4,6 +4,7 @@ import {
   useOnRequestSuccess,
   useRequestLoading,
   useTogglePasswordVisibility,
+  useTranslation,
 } from 'core/hooks';
 import {signInRequest} from 'core/reducers';
 import {useDispatch} from 'react-redux';
@@ -16,6 +17,7 @@ import {
 export const useSignInPassword = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<SignInPasswordScreenNavigationProps>();
+  const {t} = useTranslation('authentification');
 
   const {
     params: {email},
@@ -39,6 +41,7 @@ export const useSignInPassword = () => {
   });
 
   return {
+    t,
     email,
     signIn,
     loading,

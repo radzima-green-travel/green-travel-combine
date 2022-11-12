@@ -10,16 +10,18 @@ import {useScreenOptions} from '../screenOptions';
 import {AppMapNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';
+import {useTranslation} from 'react-i18next';
 
 const Stack = createNativeStackNavigator<AppMapNavigatorParamsList>();
 
 export function AppMapNavigatior() {
   const screenOptions = useScreenOptions();
+  const {t} = useTranslation('common');
   return (
     <Stack.Navigator
       screenOptions={{
         ...screenOptions,
-        title: 'Карта',
+        title: t('tabs.map'),
         animation: defaultTransition,
       }}>
       <Stack.Screen

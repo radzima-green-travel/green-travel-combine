@@ -7,6 +7,7 @@ import {useCheckEmail} from './hooks';
 
 export const CheckEmail = () => {
   const {
+    t,
     navigation,
     email,
     setIsEmailCorrect,
@@ -47,10 +48,10 @@ export const CheckEmail = () => {
 
   return (
     <AuthForm
-      title="Введите электронный адрес"
-      text="Давайте проверим есть ли у Вас аккаунт..."
+      title={t('enterEmailAddress')}
+      text={t('checkAccount')}
       onSubmitPress={checkEmail}
-      submitButtonText="Проверить"
+      submitButtonText={t('check')}
       isSubmitButtonDisabled={!isEmailCorrect}
       submitButtonLoading={loading}>
       <FormInput
