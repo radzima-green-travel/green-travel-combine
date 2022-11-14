@@ -14,7 +14,8 @@
       "bookmarks": "Избранное",
       "home": "Главная",
       "map": "Карта",
-      "profile": "Профиль"
+      "profile": "Профиль",
+      "login/Register": "Войти/Зарегестироваться"
     },
     "tryAgain": "Попробовать еще раз",
     "coppied": "Скопировано",
@@ -95,7 +96,13 @@
     "ready": "Готово",
     "send": "Отправить",
     "save": "Сохранить",
-    "returnAndEnter": "Вернуться и войти"
+    "returnAndEnter": "Вернуться и войти",
+    "inputPassword": "Введите пароль",
+    "createPasswordFor": "Придумайте пароль для",
+    "weKnowYou": "Похоже мы уже знаем Вас",
+    "enterEmailAddress": "Введите электронный адрес",
+    "checkAccount": "Давайте проверим есть ли у Вас аккаунт...",
+    "check": "Проверить"
   },
   "profile": {
     "notAuthorrized": {
@@ -103,7 +110,12 @@
       "subtitle": "en_Авторизуйтесь\nили зарегистрируйтесь"
     },
     "authorrized": {
-      "title": "Вы авторизованы"     
-    }
+      "title": "Вы авторизованы"
+    },
+    "goOut": "Выйти",
+    "delete": "Удалить",
+    "dataAndMemory": "Данные и память",
+    "language": "Язык",
+    "theme": "Тема"
   }
 }

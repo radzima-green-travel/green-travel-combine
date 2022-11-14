@@ -7,6 +7,7 @@ import {useSignUpForm} from './hooks';
 
 export const SignUpForm = () => {
   const {
+    t,
     loading,
     email,
     password,
@@ -25,7 +26,7 @@ export const SignUpForm = () => {
       title="Введите пароль"
       text={`Придумайте пароль для ${email}`}
       onSubmitPress={signUp}
-      submitButtonText="Отправить"
+      submitButtonText={t('send')}
       isSubmitButtonDisabled={false}
       submitButtonLoading={loading}>
       <FormInput

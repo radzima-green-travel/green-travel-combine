@@ -14,7 +14,6 @@ export const RestorePassword = () => {
     loading,
     navigateToSignIn,
     setEmail,
-    
   } = useRestorePassword();
 
   return (
@@ -25,7 +24,7 @@ export const RestorePassword = () => {
       submitButtonText={buttonText}
       isSubmitButtonDisabled={!isEmailCorrect}
       submitButtonLoading={loading}
-      secondaryButtonText="Вернуться и войти"
+      secondaryButtonText={t('returnAndEnter')}
       onSecondaryButtonPress={navigateToSignIn}>
       <FormInput
         iconLeftName={'email'}

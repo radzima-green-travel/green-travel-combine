@@ -26,19 +26,19 @@ export const Profile = () => {
       <GeneralListItem
         position="top"
         onPress={() => {}}
-        title="Данные и память"
+        title={t('dataAndMemory')}
         renderLeftElement={<Icon name="memoryNData" size={30} />}
       />
       <GeneralListItem
         position="middle"
         onPress={() => {}}
-        title="Язык"
+        title={t('language')}
         renderLeftElement={<Icon name="language" size={30} />}
       />
       <GeneralListItem
         position="bottom"
         onPress={() => {}}
-        title="Тема"
+        title={t('theme')}
         renderLeftElement={<Icon name="theme" size={30} />}
       />
     </View>

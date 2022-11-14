@@ -26,7 +26,7 @@ export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
     } else {
       animateAndroid(onFadeStart, onAnimationEnd);
     }
-  }, [animateAndroid, animateIOS]);
+  }, [animateAndroid, animateIOS, onAnimationEnd, onFadeStart]);
 
   return (
     <Animated.View style={[containerAnimatedStyle, styles.container]}>

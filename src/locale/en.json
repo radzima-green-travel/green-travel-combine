@@ -14,7 +14,8 @@
       "home": "Main",
       "bookmarks": "Favorites",
       "map": "Map",
-      "profile": "Profile"
+      "profile": "Profile",
+      "login/Register": "Sign In/Sign Up"
     },
     "tryAgain": "Try again",
     "coppied": "Copied",
@@ -75,8 +76,33 @@
     "email": "Email",
     "userName": "Username",
     "password": "Password",
+    "messageTips": {
+      "emptyEmail": "en_Укажите вашу электронную почту",
+      "wrongEmail": "en_Неверный формат электроной почты",
+      "repeatingEmail": "en_Электронный адрес уже зарегистрирован",
+      "emptyUserName": "en_Укажите имя",
+      "emptyPassword": "en_Придумайте пароль из 8 символов",
+      "repeatingUserName": "en_Пользователь с таким именем уже существует"
+    },
     "forgetPassword": "Forgot your password?",
-    "restorePassword": "Restore password"
+    "restorePassword": "Restore password",
+    "newPassword": "en_Новый пароль",
+    "passwordWarning": "en_Ваш новый пароль должен отличаться от используемых ранее паролей",
+    "restorePasswordInstruction": "en_Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля",
+    "signUpValidationTitle": "en_Подтвердите регистрацию",
+    "emailValidationTitle": "en_Подтвердите электронный адрес",
+    "signUpValidationText": "en_введите цифры из письма, высланного на электронную почту",
+    "repeatAttempt": "en_Повторить отправку",
+    "ready": "en_Готово",
+    "send": "en_Отправить",
+    "save": "en_Сохранить",
+    "returnAndEnter": "en_Вернуться и войти",
+    "inputPassword": "en_Введите пароль",
+    "createPasswordFor": "en_Придумайте пароль для",
+    "weKnowYou": "en_Похоже мы уже знаем Вас",
+    "enterEmailAddress": "en_Введите электронный адрес",
+    "checkAccount": "en_Давайте проверим есть ли у Вас аккаунт...",
+    "check": "en_Проверить"
   },
   "profile": {
     "notAuthorrized": {
@@ -84,7 +110,12 @@
       "subtitle": "en_Авторизуйтесь\nили зарегистрируйтесь"
     },
     "authorized": {
-      "title": "en_Вы авторизованы"     
-    }
+      "title": "en_Вы авторизованы"
+    },
+    "goOut": "en_Выйти",
+    "delete": "en_Удалить",
+    "dataAndMemory": "en_Данные и память",
+    "language": "en_Язык",
+    "theme": "en_Тема"
   }
 }
