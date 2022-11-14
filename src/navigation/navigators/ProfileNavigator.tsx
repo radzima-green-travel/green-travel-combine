@@ -22,12 +22,12 @@ export function ProfileNavigator() {
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={ProfileScreen.screenOptions}
+        options={screenOptions}
       />
       <Stack.Screen
         name="ProfileDetails"
         component={ProfileDetails}
-        options={ProfileDetails.screenOptions}
+        options={screenOptions}
       />
     </Stack.Navigator>
   );

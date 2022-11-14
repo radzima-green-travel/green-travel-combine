@@ -14,7 +14,21 @@ export const themeStyles = {
     alignSelf: 'stretch',
     flexDirection: 'row',
     paddingLeft: 16,
-    backgroundColor: COLORS.white,
+    shadowColor: 'rgb(21, 39, 2)',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: {
+      light: 0.3,
+      dark: 0,
+    },
+    shadowRadius: 4,
+    elevation: {
+      light: 5,
+      dark: 0,
+    },
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.mirage,
+    },
   },
   containerM: {
     height: heightM,
@@ -46,15 +60,24 @@ export const themeStyles = {
   textContainer: {},
   title: {
     ...FONTS_STYLES.regular17,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   titleM: {
     ...FONTS_STYLES.regular22,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   subtitle: {
     ...FONTS_STYLES.regular13,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   leftElementContainer: {
     marginRight: 16,
