@@ -21,6 +21,10 @@ export const themeStyles = {
     borderColor: COLORS.persimmon,
   },
   inputField: {
+    color: {
+      light: COLORS.black,
+      dark: COLORS.white,
+    },
     flex: 1,
   },
   color: {

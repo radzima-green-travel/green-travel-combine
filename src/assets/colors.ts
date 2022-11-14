@@ -12,6 +12,7 @@ export const COLORS = {
   cerulean: '#85E6C9',
   alto: '#D9D9D9',
   persimmon: '#FF565E',
+  black: '#000000',
 
   oceanGreen: '#36B56F',
   background: '#23343C',

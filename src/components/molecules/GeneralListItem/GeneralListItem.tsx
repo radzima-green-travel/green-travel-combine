@@ -1,7 +1,7 @@
 import {COLORS} from 'assets';
 import {Icon, LoadingView} from 'atoms';
 import {hexWithAlpha} from 'core/helpers';
-import {useThemeStyles} from 'core/hooks';
+import {useColorScheme, useThemeStyles} from 'core/hooks';
 import React, {memo, ReactNode, useCallback, useMemo} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {themeStyles} from './styles';
@@ -35,6 +35,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
   subtitle,
 }: IProps & onPressProps<T>) => {
   const styles = useThemeStyles(themeStyles);
+  const theme = useColorScheme();
 
   const containerStyle = useMemo(() => {
     const style = [styles.container];
@@ -73,12 +74,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
           {renderLeftElement}
         </View>
       ) : null}
-      <View
-        style={[
-          styles.contentWrapper,
-          (position === 'top' || position === 'middle') &&
-            styles.withContentBorder,
-        ]}>
+      <View style={styles.contentWrapper}>
         <View style={styles.contentContainer}>
           <View style={styles.textContainer}>
             <Text style={size === 'S' ? styles.title : styles.titleM}>
@@ -91,7 +87,11 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
           <View>
             <Icon
               style={loading && styles.loading}
-              color={hexWithAlpha(COLORS.tuna, 0.3)}
+              color={
+                theme === 'light'
+                  ? hexWithAlpha(COLORS.tuna, 0.3)
+                  : hexWithAlpha(COLORS.altoForDark, 0.3)
+              }
               width={7}
               height={12}
               name="chevronRight"
