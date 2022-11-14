@@ -22,6 +22,10 @@ export const themeStyles = {
   },
   inputField: {
     flex: 1,
+    color: {
+      light: COLORS.boulder,
+      dark: COLORS.altoForDark,
+    },
   },
   iconContainer: {
     width: 40,
