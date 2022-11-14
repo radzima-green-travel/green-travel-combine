@@ -58,6 +58,7 @@ export const FormInput = ({
         value={value}
         onChangeText={setValue}
         autoFocus={autoFocus}
+        placeholderTextColor={colorScheme === 'light' ? COLORS.logCabin : COLORS.cullGrey}
       />
       {iconRightName ? (
         <Pressable

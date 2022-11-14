@@ -2,7 +2,6 @@ import React from 'react';
 import {View} from 'react-native';
 import {GeneralListItem} from 'molecules';
 import {Icon, SettingsSectionTitle} from 'atoms';
-import {screenOptions} from './screenOptions';
 import {useProfile} from './hooks';
 
 export const Profile = () => {
@@ -45,5 +44,3 @@ export const Profile = () => {
     </View>
   );
 };
-
-Profile.screenOptions = screenOptions;

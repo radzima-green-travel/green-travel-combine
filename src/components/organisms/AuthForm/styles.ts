@@ -10,13 +10,19 @@ export const themeStyles = {
   },
   title: {
     ...FONTS_STYLES.semibold20,
-    color: COLORS.logCabin,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   text: {
     ...FONTS_STYLES.regular15,
     textAlign: 'center',
     marginTop: 24,
-    color: COLORS.boulder,
+    color: {
+      light: COLORS.boulder,
+      dark: COLORS.altoForDark,
+    },
   },
   secondaryButtonText: {
     ...FONTS_STYLES.regular16,
