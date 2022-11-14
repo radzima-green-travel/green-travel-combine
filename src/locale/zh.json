@@ -14,7 +14,8 @@
       "home": "主页",
       "bookmarks": "最愛",
       "map": "地图",
-      "profile": "輪廓"
+      "profile": "輪廓",
+      "login/Register": "zh_Войти/Зарегестироваться"
     },
     "tryAgain": "再试一次",
     "coppied": "已復制",
@@ -62,13 +63,59 @@
     "getMore": "了解更多",
     "routeLength": "{{km}} 公里, "
   },
+  "authentification": {
+    "signInTab": "zh_Войти",
+    "signUpTab": "zh_Создать аккаунт",
+    "signUpButton": "zh_Создать",
+    "signInButton": "zh_Войти",
+    "signUpTitle": "zh_Создать новый аккаунт",
+    "signInTitle": "zh_Войдите в свой аккаунт",
+    "signInWith": "zh_или войдите через",
+    "or": "zh_или",
+    "registrationWarning": "zh_Создавая или входя в аккаунт, вы соглашаетесь с нашими <linkStyle>Правилами использования</linkStyle> и <linkStyle>Политикой конфиденциальности</linkStyle>",
+    "email": "zh_Электронная почта",
+    "userName": "zh_Имя пользователя",
+    "password": "zh_Пароль",
+    "messageTips": {
+      "emptyEmail": "zh_Укажите вашу электронную почту",
+      "wrongEmail": "zh_Неверный формат электроной почты",
+      "repeatingEmail": "zh_Электронный адрес уже зарегистрирован",
+      "emptyUserName": "zh_Укажите имя",
+      "emptyPassword": "zh_Придумайте пароль из 8 символов",
+      "repeatingUserName": "zh_Пользователь с таким именем уже существует"
+    },
+    "forgetPassword": "zh_Забыли пароль?",
+    "restorePassword": "zh_Восстановить пароль",
+    "newPassword": "zh_Новый пароль",
+    "passwordWarning": "zh_Ваш новый пароль должен отличаться от используемых ранее паролей",
+    "restorePasswordInstruction": "zh_Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля",
+    "signUpValidationTitle": "zh_Подтвердите регистрацию",
+    "emailValidationTitle": "zh_Подтвердите электронный адрес",
+    "signUpValidationText": "zh_введите цифры из письма, высланного на электронную почту",
+    "repeatAttempt": "zh_Повторить отправку",
+    "ready": "zh_Готово",
+    "send": "zh_Отправить",
+    "save": "zh_Сохранить",
+    "returnAndEnter": "zh_Вернуться и войти",
+    "inputPassword": "zh_Введите пароль",
+    "createPasswordFor": "zh_Придумайте пароль для",
+    "weKnowYou": "zh_Похоже мы уже знаем Вас",
+    "enterEmailAddress": "zh_Введите электронный адрес",
+    "checkAccount": "zh_Давайте проверим есть ли у Вас аккаунт...",
+    "check": "zh_Проверить"
+  },
   "profile": {
     "notAuthorrized": {
       "title": "zh_Вы не авторизованы",
       "subtitle": "zh_Авторизуйтесь\nили зарегистрируйтесь"
     },
     "authorized": {
-      "title": "zh_Вы авторизованы"     
-    }
+      "title": "zh_Вы авторизованы"
+    },
+    "goOut": "zh_Выйти",
+    "delete": "zh_Удалить",
+    "dataAndMemory": "zh_Данные и память",
+    "language": "zh_Язык",
+    "theme": "zh_Тема"
   }
 }

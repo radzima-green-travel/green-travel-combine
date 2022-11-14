@@ -15,14 +15,14 @@ export const ProfileDetails = () => {
         loading={loading}
         position="single"
         onPress={onSignOutPress}
-        title="Выйти"
+        title={t('goOut')}
         renderLeftElement={<Icon name="theme" size={30} />}
       />
       <GeneralListItem
         loading={deleting}
         position="single"
         onPress={onDeleteUserPress}
-        title="Удалить"
+        title={t('delete')}
         renderLeftElement={<Icon name="theme" size={30} />}
       />
     </View>

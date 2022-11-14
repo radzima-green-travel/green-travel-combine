@@ -6,6 +6,7 @@ import {useSignInPassword} from './hooks';
 
 export const SignInPassword = () => {
   const {
+    t,
     email,
     signIn,
     loading,
@@ -19,13 +20,13 @@ export const SignInPassword = () => {
 
   return (
     <AuthForm
-      title="Введите пароль"
-      text={`Похоже мы уже знаем Вас ${email}`}
+      title={t('inputPassword')}
+      text={`${t('weKnowYou')} ${email}`}
       onSubmitPress={signIn}
-      submitButtonText="Отправить"
+      submitButtonText={t('send')}
       isSubmitButtonDisabled={false}
       submitButtonLoading={loading}
-      secondaryButtonText="Забыли пароль?"
+      secondaryButtonText={t('forgetPassword')}
       onSecondaryButtonPress={navigateToRestorePassword}>
       <FormInput
         iconRightName={rightIcon}

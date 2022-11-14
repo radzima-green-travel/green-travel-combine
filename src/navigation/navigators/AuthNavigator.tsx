@@ -25,7 +25,7 @@ export function AuthNavigator() {
     <Stack.Navigator
       screenOptions={{
         ...screenOptions,
-        title: 'Войти/Зарегестироваться',
+        title: t('login/Register'),
         animation: defaultTransition,
       }}>
       <Stack.Screen name="CheckEmail" component={CheckEmailScreen} />
