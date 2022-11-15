@@ -5,9 +5,9 @@
 //  Created by Vitali Nabarouski on 12.08.22.
 //
 
-#import "ProfileSection.h"
+#import "SettingsSection.h"
 
-@implementation ProfileSection
+@implementation SettingsSection
 
 - (instancetype)initWithTitle:(NSString *)title cellModels:(NSMutableArray<SettingsTableViewCellModel *>*)cellModels {
   self = [super init];

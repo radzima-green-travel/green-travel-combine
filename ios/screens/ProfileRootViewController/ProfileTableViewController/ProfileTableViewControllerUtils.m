@@ -11,7 +11,7 @@
 #import "ProfileTableViewControllerUtils.h"
 #import "SettingsTableViewCellModel.h"
 #import "LoginViewController.h"
-#import "ProfileSection.h"
+#import "SettingsSection.h"
 #import "UserModel.h"
 #import "UIImage+extensions.h"
 #import "BookmarksViewController.h"
@@ -57,11 +57,11 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
   }];
   
   NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
-  ProfileSection *authSection = [[ProfileSection alloc]
+  SettingsSection *authSection = [[SettingsSection alloc]
                                  initWithTitle:@""
                                  cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
   
-  ProfileSection *settingsSection = [[ProfileSection alloc]
+  SettingsSection *settingsSection = [[SettingsSection alloc]
                                      initWithTitle:NSLocalizedString(@"ProfileTableViewSettingsSection", @"")
                                      cellModels:settingCellModels];
   
@@ -159,11 +159,11 @@ NSMutableArray* configureSignedInTableViewCells(ProfileTableViewController* cont
   }];
   
   NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:bookmarkCell, settingsCell, nil];
-  ProfileSection *authSection = [[ProfileSection alloc]
+  SettingsSection *authSection = [[SettingsSection alloc]
                                  initWithTitle:@""
                                  cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
   
-  ProfileSection *settingsSection = [[ProfileSection alloc]
+  SettingsSection *settingsSection = [[SettingsSection alloc]
                                      initWithTitle:@""
                                      cellModels:settingCellModels];
   
@@ -209,11 +209,11 @@ NSMutableArray* configureTryToSignInTableViewCells(ProfileTableViewController *c
   
   
   NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:dataAndStorageCell, languageCell, themeCell, nil];
-  ProfileSection *authSection = [[ProfileSection alloc]
+  SettingsSection *authSection = [[SettingsSection alloc]
                                  initWithTitle:@""
                                  cellModels:[[NSMutableArray alloc]initWithObjects:authCell, nil]];
   
-  ProfileSection *settingsSection = [[ProfileSection alloc]
+  SettingsSection *settingsSection = [[SettingsSection alloc]
                                      initWithTitle:NSLocalizedString(@"ProfileTableViewSettingsSection", @"")
                                      cellModels:settingCellModels];
   

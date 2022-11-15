@@ -270,6 +270,15 @@ UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image,
       [[AnalyticsEvents get] logEvent:AnalyticsEventsNaviBookmarks];
       return;
     }
+    if (viewController == self.profileControllerWithNavigation) {
+      if ([topController isKindOfClass:ProfileTableViewController.class]) {
+        ProfileTableViewController *profile = (ProfileTableViewController *) topController;
+        if ([profile.tapObserver.timer isValid] == false && profile.tapObserver != nil) {
+          [profile.tapObserver timerFired];
+        }
+        profile.tapObserver.tapCount += 1;
+      }
+    }
   }
 }
 

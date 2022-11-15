@@ -14,6 +14,7 @@
 #import "MapModel.h"
 #import "SearchModel.h"
 #import "DetailsModel.h"
+#import "DeveloperSettinsTapObserver.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) SearchModel *searchModel;
 @property (strong, nonatomic) DetailsModel *detailsModel;
 @property (strong, nonatomic) LocationModel *locationModel;
+@property (strong, nonatomic, nullable) DeveloperSettinsTapObserver *tapObserver;
 
 - (instancetype)initWithController:(UserController *)controller model:(UserModel *)model;
 

@@ -9,7 +9,7 @@
 #import "ProfileTableViewCell.h"
 #import "Colors.h"
 #import "SettingsTableViewCellModel.h"
-#import "ProfileSection.h"
+#import "SettingsSection.h"
 #import "LoginViewController.h"
 #import "UserModel.h"
 #import "StyleUtils.h"
@@ -17,11 +17,12 @@
 #import "UserController.h"
 #import "ProfileTableViewControllerUtils.h"
 #import "UserFetchErrorViewController.h"
+#import "DeveloperSettingsTableViewController.h"
 
 @interface ProfileTableViewController ()
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray<ProfileSection *> *cellModels;
+@property (strong, nonatomic) NSMutableArray<SettingsSection *> *cellModels;
 
 @end
 
@@ -57,6 +58,25 @@ static NSString *const kAuthCell = @"AuthCell";
   } else {
     self.cellModels = configureBaseTableViewCells(self);
   }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  if (self.tapObserver == nil) {
+    self.tapObserver = [[DeveloperSettinsTapObserver alloc] init];
+    __weak typeof(self) weakSelf = self;
+    self.tapObserver.devSettingsHandler = ^{
+      __strong typeof(weakSelf) strongSelf = weakSelf;
+      NSLog(@"GoToDevSettingsController");
+      DeveloperSettingsTableViewController *devSettingsController = [[DeveloperSettingsTableViewController alloc] init];
+      [strongSelf.navigationController pushViewController:devSettingsController animated:YES];
+    };
+  } 
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  self.tapObserver = nil;
 }
 
 - (void)prepareView {

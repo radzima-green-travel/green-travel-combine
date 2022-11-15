@@ -1,44 +1,31 @@
 //
-//  UserSettingsViewController.m
+//  DeveloperSettingsTableViewController.m
 //  greenTravel
 //
-//  Created by Vitali Nabarouski on 11.09.22.
+//  Created by Vitali Nabarouski on 15.11.22.
 //
 
-#import "UserSettingsViewController.h"
-#import "UserSettingsTableViewCell.h"
+#import "DeveloperSettingsTableViewController+Utils.h"
+#import "SettingsSection.h"
 #import "ProfileTableViewCell.h"
 #import "Colors.h"
-#import "SettingsTableViewCellModel.h"
-#import "SettingsSection.h"
-#import "UserSettingsViewControllerUtils.h"
 
-
-@interface UserSettingsViewController ()
+@interface DeveloperSettingsTableViewController ()
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<SettingsSection *> *cellModels;
 
 @end
 
-static NSString *const kProfileCell = @"UserSettingCell";
+static NSString *const kDevSettingsCell = @"DevSettingsCell";
 static const CGFloat kSettingsRowHeight = 44.0;
 
-@implementation UserSettingsViewController
-
-- (instancetype)initWithController:(UserController *)controller model:(UserModel *)model {
-  self = [super init];
-  if (self) {
-    _userController = controller;
-    _userModel = model;
-  }
-  return self;
-}
+@implementation DeveloperSettingsTableViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self prepareView];
-  self.cellModels = configureSettingsTableViewCells(self);
+  self.cellModels = configureDevSettingsTableViewCells(self);
 }
 
 - (void)prepareView {
@@ -50,7 +37,7 @@ static const CGFloat kSettingsRowHeight = 44.0;
   }
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
-  [self.tableView registerClass:UserSettingsTableViewCell.self forCellReuseIdentifier:kProfileCell];
+  [self.tableView registerClass:ProfileTableViewCell.self forCellReuseIdentifier:kDevSettingsCell];
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
   
   self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -73,18 +60,12 @@ static const CGFloat kSettingsRowHeight = 44.0;
   return self.cellModels[section].title;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return kSettingsRowHeight;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   NSMutableArray<SettingsTableViewCellModel *> *models = self.cellModels[indexPath.section].cellModels;
   SettingsTableViewCellModel *model = models[indexPath.row];
-  UserSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProfileCell forIndexPath:indexPath];
-  
-  [cell prepareSettingsCellWithMainTextLabelText:model.title subTextLabelText:model.subTitle withChevron:NO];
-  
-  return cell;
+  ProfileTableViewCell *settingsCell = [self.tableView dequeueReusableCellWithIdentifier:kDevSettingsCell];
+  [settingsCell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
+  return settingsCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -92,5 +73,10 @@ static const CGFloat kSettingsRowHeight = 44.0;
   SettingsTableViewCellModel *model = self.cellModels[indexPath.section].cellModels[indexPath.row];
   model.handler();
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return kSettingsRowHeight;
+}
+
 
 @end

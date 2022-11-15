@@ -8,7 +8,7 @@
 #import "UserSettingsViewControllerUtils.h"
 #import "SettingsTableViewCellModel.h"
 #import "LoginViewController.h"
-#import "ProfileSection.h"
+#import "SettingsSection.h"
 #import "UserModel.h"
 #import "UIImage+extensions.h"
 #import "BookmarksViewController.h"
@@ -105,19 +105,19 @@ NSMutableArray* configureSettingsTableViewCells(UserSettingsViewController* cont
   
   
   NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:bookmarksCell, mockCell1, mockCell2, mockCell3, mockCell4, nil];
-  ProfileSection *settingsSection = [[ProfileSection alloc]
+  SettingsSection *settingsSection = [[SettingsSection alloc]
                                      initWithTitle:@""
                                      cellModels:settingCellModels];
   
-  ProfileSection *termsAndConditionsSection = [[ProfileSection alloc]
+  SettingsSection *termsAndConditionsSection = [[SettingsSection alloc]
                                                initWithTitle:@""
                                                cellModels:[[NSMutableArray alloc]initWithObjects:termsAndConditionsCell, privacyPolicyCell, nil]];
   
-  ProfileSection *logOutSection = [[ProfileSection alloc]
+  SettingsSection *logOutSection = [[SettingsSection alloc]
                                    initWithTitle:@""
                                    cellModels:[[NSMutableArray alloc]initWithObjects:logOutCell, nil]];
   
-  ProfileSection *deleteUserSection = [[ProfileSection alloc]
+  SettingsSection *deleteUserSection = [[SettingsSection alloc]
                                    initWithTitle:@""
                                    cellModels:[[NSMutableArray alloc]initWithObjects:deleteUserCell, nil]];
   

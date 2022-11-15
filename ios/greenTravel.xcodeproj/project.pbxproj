@@ -215,6 +215,7 @@
 		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
 		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
+		5E3121CC2922D615006DFE6E /* DeveloperSettinsTapObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3121CB2922D615006DFE6E /* DeveloperSettinsTapObserver.m */; };
 		5EA9408828E6169800E90014 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408528E6169800E90014 /* ProfileTableViewCell.m */; };
 		5EA9408928E6169800E90014 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408628E6169800E90014 /* ProfileTableViewController.m */; };
 		5EA9408A28E6169800E90014 /* ProfileTableViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408728E6169800E90014 /* ProfileTableViewControllerUtils.m */; };
@@ -222,7 +223,9 @@
 		5EA9409528E6175400E90014 /* UserSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9409128E6175400E90014 /* UserSettingsTableViewCell.m */; };
 		5EA9409628E6175400E90014 /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9409328E6175400E90014 /* UserSettingsViewController.m */; };
 		5EAE434328A6C5E200042455 /* SettingsTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE434128A6C5E200042455 /* SettingsTableViewCellModel.m */; };
-		5EAE434628A6C66800042455 /* ProfileSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE434428A6C66800042455 /* ProfileSection.m */; };
+		5EAE434628A6C66800042455 /* SettingsSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EAE434428A6C66800042455 /* SettingsSection.m */; };
+		5EF9EE8A2924327800316DFF /* DeveloperSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9EE892924327800316DFF /* DeveloperSettingsTableViewController.m */; };
+		5EF9EE8C292434F600316DFF /* DeveloperSettingsTableViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF9EE8B292434F600316DFF /* DeveloperSettingsTableViewController+Utils.m */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -648,6 +651,8 @@
 		5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchProgressViewController.m; sourceTree = "<group>"; };
 		5AFFD0FB2851FE99009E5AB8 /* UserFetchErrorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFetchErrorViewController.h; sourceTree = "<group>"; };
 		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
+		5E3121CA2922D615006DFE6E /* DeveloperSettinsTapObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeveloperSettinsTapObserver.h; sourceTree = "<group>"; };
+		5E3121CB2922D615006DFE6E /* DeveloperSettinsTapObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeveloperSettinsTapObserver.m; sourceTree = "<group>"; };
 		5EA9408128E6169700E90014 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
 		5EA9408228E6169700E90014 /* ProfileTableViewControllerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewControllerUtils.h; sourceTree = "<group>"; };
 		5EA9408428E6169800E90014 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
@@ -662,8 +667,12 @@
 		5EA9409328E6175400E90014 /* UserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewController.m; sourceTree = "<group>"; };
 		5EAE434128A6C5E200042455 /* SettingsTableViewCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewCellModel.m; sourceTree = "<group>"; };
 		5EAE434228A6C5E200042455 /* SettingsTableViewCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCellModel.h; sourceTree = "<group>"; };
-		5EAE434428A6C66800042455 /* ProfileSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSection.m; sourceTree = "<group>"; };
-		5EAE434528A6C66800042455 /* ProfileSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSection.h; sourceTree = "<group>"; };
+		5EAE434428A6C66800042455 /* SettingsSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSection.m; sourceTree = "<group>"; };
+		5EAE434528A6C66800042455 /* SettingsSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSection.h; sourceTree = "<group>"; };
+		5EF9EE882924327800316DFF /* DeveloperSettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeveloperSettingsTableViewController.h; sourceTree = "<group>"; };
+		5EF9EE892924327800316DFF /* DeveloperSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeveloperSettingsTableViewController.m; sourceTree = "<group>"; };
+		5EF9EE8B292434F600316DFF /* DeveloperSettingsTableViewController+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DeveloperSettingsTableViewController+Utils.m"; sourceTree = "<group>"; };
+		5EF9EE8D2924350C00316DFF /* DeveloperSettingsTableViewController+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DeveloperSettingsTableViewController+Utils.h"; sourceTree = "<group>"; };
 		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -1148,8 +1157,8 @@
 				5A775A8826064C8F00CEFC78 /* FeedItem.m */,
 				5A775A8926064C8F00CEFC78 /* PathDetails.m */,
 				5A775A8B26064C8F00CEFC78 /* MapItem.m */,
-				5EAE434528A6C66800042455 /* ProfileSection.h */,
-				5EAE434428A6C66800042455 /* ProfileSection.m */,
+				5EAE434528A6C66800042455 /* SettingsSection.h */,
+				5EAE434428A6C66800042455 /* SettingsSection.m */,
 				5A775A8C26064C8F00CEFC78 /* PlaceItem.h */,
 				5A775A8D26064C8F00CEFC78 /* CategoryUUIDToRelatedItemUUIDs.h */,
 				5A775A8E26064C8F00CEFC78 /* PathItem.h */,
@@ -1812,6 +1821,8 @@
 		5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5EF9EE87292431A700316DFF /* DeveloperSettingsTableViewController */,
+				5E3121C92922D60C006DFE6E /* DeveloperSettinsTapObserver */,
 				5EA9408B28E6175400E90014 /* UserSettingsViewController */,
 				5EA9408028E6169700E90014 /* ProfileTableViewController */,
 				5AFFD0F72851FE6D009E5AB8 /* UserFetchProgressViewController */,
@@ -1853,6 +1864,15 @@
 				5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */,
 			);
 			path = UserFetchProgressViewController;
+			sourceTree = "<group>";
+		};
+		5E3121C92922D60C006DFE6E /* DeveloperSettinsTapObserver */ = {
+			isa = PBXGroup;
+			children = (
+				5E3121CA2922D615006DFE6E /* DeveloperSettinsTapObserver.h */,
+				5E3121CB2922D615006DFE6E /* DeveloperSettinsTapObserver.m */,
+			);
+			path = DeveloperSettinsTapObserver;
 			sourceTree = "<group>";
 		};
 		5EA9408028E6169700E90014 /* ProfileTableViewController */ = {
@@ -1912,6 +1932,17 @@
 				5EAE434228A6C5E200042455 /* SettingsTableViewCellModel.h */,
 			);
 			path = ProfileCellModel;
+			sourceTree = "<group>";
+		};
+		5EF9EE87292431A700316DFF /* DeveloperSettingsTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5EF9EE882924327800316DFF /* DeveloperSettingsTableViewController.h */,
+				5EF9EE892924327800316DFF /* DeveloperSettingsTableViewController.m */,
+				5EF9EE8D2924350C00316DFF /* DeveloperSettingsTableViewController+Utils.h */,
+				5EF9EE8B292434F600316DFF /* DeveloperSettingsTableViewController+Utils.m */,
+			);
+			path = DeveloperSettingsTableViewController;
 			sourceTree = "<group>";
 		};
 		624E38CE2519E467001D98E2 /* Resources */ = {
@@ -2284,6 +2315,7 @@
 				5A775E1426077A7D00CEFC78 /* UISearchControllerNoCancel.m in Sources */,
 				5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */,
 				5A6685D52858898C008E193E /* AuthErrors.swift in Sources */,
+				5EF9EE8C292434F600316DFF /* DeveloperSettingsTableViewController+Utils.m in Sources */,
 				5A775B5A26064C9000CEFC78 /* BookmarkItem.m in Sources */,
 				5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */,
 				5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */,
@@ -2326,6 +2358,7 @@
 				5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */,
 				5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */,
 				5AD347E72837C2EE00235E96 /* UserModel.m in Sources */,
+				5E3121CC2922D615006DFE6E /* DeveloperSettinsTapObserver.m in Sources */,
 				5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */,
 				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
@@ -2390,7 +2423,7 @@
 				5EAE434328A6C5E200042455 /* SettingsTableViewCellModel.m in Sources */,
 				5A775DFC26077A7D00CEFC78 /* IndexViewControllerConstants.m in Sources */,
 				5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */,
-				5EAE434628A6C66800042455 /* ProfileSection.m in Sources */,
+				5EAE434628A6C66800042455 /* SettingsSection.m in Sources */,
 				5A775E0B26077A7D00CEFC78 /* DetailsViewController.m in Sources */,
 				5A775E1126077A7D00CEFC78 /* PlacesViewController.m in Sources */,
 				5EA9409628E6175400E90014 /* UserSettingsViewController.m in Sources */,
@@ -2415,6 +2448,7 @@
 				5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */,
 				5A775E0926077A7D00CEFC78 /* LinkedCategoriesView.m in Sources */,
 				5A105FF1266001AB00511256 /* MapService.m in Sources */,
+				5EF9EE8A2924327800316DFF /* DeveloperSettingsTableViewController.m in Sources */,
 				5A775E0126077A7D00CEFC78 /* CategoriesFilterModel.m in Sources */,
 				5A775E0426077A7D00CEFC78 /* MapPinView.m in Sources */,
 				5A775B5326064C9000CEFC78 /* MapModel.m in Sources */,
