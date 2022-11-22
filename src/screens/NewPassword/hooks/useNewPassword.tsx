@@ -1,11 +1,7 @@
 import {useCallback, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-import {
-  useRequestLoading,
-  useTogglePasswordVisibility,
-  useTranslation,
-} from 'core/hooks';
+import {useRequestLoading} from 'core/hooks';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {confirmNewPasswordRequest} from 'core/reducers';
 import {
@@ -15,10 +11,6 @@ import {
 
 export const useNewPassword = () => {
   const [newPassword, setNewPassword] = useState('');
-  const {t} = useTranslation('authentification');
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
-  const buttonText = t('save').toUpperCase();
   const dispatch = useDispatch();
   const navigation = useNavigation<NewPasswordScreenNavigationProps>();
   const {
@@ -32,15 +24,10 @@ export const useNewPassword = () => {
   const {loading} = useRequestLoading(confirmNewPasswordRequest);
 
   return {
-    t,
     navigation,
-    buttonText,
     onConfirmNewPassword,
     newPassword,
     loading,
-    rightIcon,
-    passwordVisibility,
-    handlePasswordVisibility,
     setNewPassword,
   };
 };

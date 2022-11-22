@@ -1,17 +1,9 @@
-import {useMemo, useCallback, useState} from 'react';
-import {Animated} from 'react-native';
+import {useMemo, useCallback} from 'react';
 import Clipboard from '@react-native-community/clipboard';
 
 import {useToast} from 'atoms';
-import {IMAGE_HEIGHT} from '../styles';
-import {
-  useTranslation,
-  useObject,
-  useImageSlider,
-  useDetailsPageAnalytics,
-} from 'core/hooks';
+import {useObject, useDetailsPageAnalytics} from 'core/hooks';
 import {debounce} from 'lodash';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
   ObjectDetailsScreenNavigationProps,
   ObjectDetailsScreenRouteProps,
@@ -24,9 +16,6 @@ export const useObjectDetails = () => {
     params: {objectId},
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
-  const [animatedValue] = useState(() => new Animated.Value(0));
-
-  const {t} = useTranslation('objectDetails');
   const data = useObject(objectId)!;
 
   const {sendOpenMapEvent, sendSwitchPhotosEvent, sendScrollEvent} =
@@ -79,44 +68,14 @@ export const useObjectDetails = () => {
     [navigateToObjectsList],
   );
 
-  const {onScroll, page, pagesAmount} = useImageSlider(
-    data?.images?.length || 0,
-  );
-
-  const {top} = useSafeAreaInsets();
-
-  const isJustOneImage = pagesAmount < 2;
-
-  const opacity = animatedValue.interpolate({
-    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
-    outputRange: [0, 0, 1],
-  });
-
-  const buttonsOpacity = animatedValue.interpolate({
-    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
-    outputRange: [1, 1, 0],
-  });
-
-  const defaultPhoto = require('../img/objectDetailsDefaultPhoto.png');
-
   return {
-    t,
     data,
-    animatedValue,
-    page,
     sendSwitchPhotosEvent,
     sendScrollEvent,
-    isJustOneImage,
-    pagesAmount,
     copyLocationToClipboard,
     navigateToObjectsMap,
     navigateToObjectsListDebounced,
-    defaultPhoto,
-    onScroll,
-    top,
     toastProps,
-    buttonsOpacity,
-    opacity,
     objectId,
     navigation,
   };

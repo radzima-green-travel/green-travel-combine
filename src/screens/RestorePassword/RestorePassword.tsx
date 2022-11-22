@@ -3,18 +3,20 @@ import React from 'react';
 import {FormInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useRestorePassword} from './hooks';
+import {useTranslation} from 'react-i18next';
 
 export const RestorePassword = () => {
+  const {t} = useTranslation('authentification');
   const {
-    t,
     email,
     onResendPassword,
-    buttonText,
     isEmailCorrect,
     loading,
     navigateToSignIn,
     setEmail,
   } = useRestorePassword();
+
+  const buttonText = t('send').toUpperCase();
 
   return (
     <AuthForm

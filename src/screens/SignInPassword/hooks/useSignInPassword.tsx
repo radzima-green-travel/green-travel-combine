@@ -1,11 +1,6 @@
 import {useCallback, useState} from 'react';
 
-import {
-  useOnRequestSuccess,
-  useRequestLoading,
-  useTogglePasswordVisibility,
-  useTranslation,
-} from 'core/hooks';
+import {useOnRequestSuccess, useRequestLoading} from 'core/hooks';
 import {signInRequest} from 'core/reducers';
 import {useDispatch} from 'react-redux';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -15,7 +10,6 @@ import {
 } from '../types';
 
 export const useSignInPassword = () => {
-  const {t} = useTranslation('authentification');
   const dispatch = useDispatch();
   const navigation = useNavigation<SignInPasswordScreenNavigationProps>();
 
@@ -23,9 +17,6 @@ export const useSignInPassword = () => {
     params: {email},
   } = useRoute<SignInPasswordScreenRouteProps>();
   const [password, setPassword] = useState('');
-
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
 
   const navigateToRestorePassword = useCallback(() => {
     navigation.navigate('RestorePassword');
@@ -36,19 +27,16 @@ export const useSignInPassword = () => {
   }, [dispatch, email, password]);
 
   const {loading} = useRequestLoading(signInRequest);
+
   useOnRequestSuccess(signInRequest, () => {
     navigation.getParent()?.goBack();
   });
 
   return {
-    t,
     email,
     signIn,
     loading,
     navigateToRestorePassword,
-    rightIcon,
-    passwordVisibility,
-    handlePasswordVisibility,
     password,
     setPassword,
   };

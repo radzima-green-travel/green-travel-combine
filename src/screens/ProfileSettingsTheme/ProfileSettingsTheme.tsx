@@ -5,13 +5,21 @@ import {GeneralListItem} from 'molecules';
 import {View} from 'react-native';
 import {useProfileSettingsTheme} from './hooks';
 import {THEMES} from 'core/constants';
+import {useTranslation} from 'react-i18next';
+import {useThemeStyles} from 'core/hooks';
+import {themeStyles} from './styles';
+import {useSelector} from 'react-redux';
+import {selectAppTheme} from 'core/selectors';
 
 export const ProfileSettingsTheme = () => {
-  const {t, styles, currentTheme, changeTheme} = useProfileSettingsTheme();
+  const {t} = useTranslation('profile');
+  const styles = useThemeStyles(themeStyles);
+  const currentTheme = useSelector(selectAppTheme);
+
+  const {changeTheme} = useProfileSettingsTheme();
 
   return (
     <View style={styles.container}>
-      {/* {currentTheme ? ( */}
       <GeneralListItem
         position="top"
         onPress={() => changeTheme(THEMES.SYSTEM)}
@@ -22,7 +30,6 @@ export const ProfileSettingsTheme = () => {
           )
         }
       />
-      {/* ) : null} */}
       <GeneralListItem
         position="middle"
         onPress={() => changeTheme(THEMES.LIGHT)}

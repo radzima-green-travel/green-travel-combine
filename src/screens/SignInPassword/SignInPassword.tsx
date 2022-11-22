@@ -3,20 +3,22 @@ import React from 'react';
 import {FormInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useSignInPassword} from './hooks';
+import {useTranslation} from 'react-i18next';
+import {useTogglePasswordVisibility} from 'core/hooks';
 
 export const SignInPassword = () => {
+  const {t} = useTranslation('authentification');
   const {
-    t,
     email,
     signIn,
     loading,
     navigateToRestorePassword,
-    rightIcon,
-    passwordVisibility,
-    handlePasswordVisibility,
     password,
     setPassword,
   } = useSignInPassword();
+
+  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
+    useTogglePasswordVisibility('eye');
 
   return (
     <AuthForm

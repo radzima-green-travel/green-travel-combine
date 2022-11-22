@@ -1,10 +1,6 @@
 import {useState, useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {
-  useRequestLoading,
-  useTogglePasswordVisibility,
-  useTranslation,
-} from 'core/hooks';
+import {useRequestLoading} from 'core/hooks';
 import {
   SignUpFormScreenRouteProps,
   SignUpFormScreenNavigationProps,
@@ -15,7 +11,6 @@ import {signUpRequest} from 'core/reducers';
 export const useSignUpForm = () => {
   const dispatch = useDispatch();
   const [password, setPassword] = useState('');
-  const {t} = useTranslation('authentification');
 
   const {
     params: {email},
@@ -30,22 +25,13 @@ export const useSignUpForm = () => {
     dispatch(signUpRequest({email, password}));
   }, [dispatch, email, password]);
 
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
-
   const {loading} = useRequestLoading(signUpRequest);
 
   return {
-    t,
-    dispatch,
     loading,
     email,
     password,
     setPassword,
-    navigation,
-    passwordVisibility,
-    rightIcon,
-    handlePasswordVisibility,
     navigateToEmailValidation,
     signUp,
   };

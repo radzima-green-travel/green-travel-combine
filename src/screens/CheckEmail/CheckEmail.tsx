@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect} from 'react';
-import {useOnRequestSuccess} from 'core/hooks';
+import {useOnRequestSuccess, useTranslation} from 'core/hooks';
 import {FormInput} from 'atoms';
 import {checkUserEmailRequest} from 'core/reducers';
 import {AuthForm} from 'organisms';
 import {useCheckEmail} from './hooks';
 
 export const CheckEmail = () => {
+  const {t} = useTranslation('authentification');
   const {
-    t,
     navigation,
     email,
     setIsEmailCorrect,

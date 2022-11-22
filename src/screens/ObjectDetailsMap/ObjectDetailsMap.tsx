@@ -1,5 +1,5 @@
 import {BottomMenu, ClusterMap} from 'atoms';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {InteractionManager, StyleProp, View} from 'react-native';
 import MapBox, {
   FillLayerStyle,
@@ -7,9 +7,12 @@ import MapBox, {
   SymbolLayerStyle,
 } from '@react-native-mapbox-gl/maps';
 import {
+  useColorScheme,
+  useObjectBelongsToSubtitle,
   useOnRequestSuccess,
   useRequestErrorAlert,
   useStatusBar,
+  useThemeStyles,
 } from 'core/hooks';
 import {
   BackCircleButton,
@@ -25,6 +28,12 @@ import {
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {FeatureCollection, LineString, Point} from '@turf/helpers';
 import {useObjectDetailsMap} from './hooks';
+import {themeLayerStyles} from './styles';
+import {
+  createMarkerFromDetailsObject,
+  selectMapDirection,
+} from 'core/selectors';
+import {useSelector} from 'react-redux';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -34,31 +43,49 @@ const images = {
 
 export const ObjectDetailsMap = () => {
   const {
-    theme,
-    direction,
     bottom,
     top,
     camera,
     data,
     openMenu,
     dispatch,
-    centerCoordinate,
     unfocusUserLocation,
     onMarkerPress,
     bounds,
     map,
     userLocationProps,
-    layersStyles,
-    dataShapeSource,
     menuProps,
     onShowLocationPress,
     isUserLocationFocused,
-    belongsToSubtitle,
     onMenuButtonPress,
     loading,
     isDirectionShowed,
     onBackPress,
   } = useObjectDetailsMap();
+
+  const direction = useSelector(selectMapDirection);
+
+  const layersStyles = useThemeStyles(themeLayerStyles, {
+    disableStyleSheet: true,
+  });
+  const theme = useColorScheme();
+
+  const dataShapeSource = useMemo(
+    () => (data ? createMarkerFromDetailsObject(data) : data),
+    [data],
+  );
+
+  const belongsToSubtitle = useObjectBelongsToSubtitle(
+    data?.belongsTo?.[0]?.objects,
+  );
+
+  const centerCoordinate = useMemo(() => {
+    if (data) {
+      return [data.location?.lon!, data.location?.lat!];
+    }
+
+    return null;
+  }, [data]);
 
   useStatusBar(theme);
 

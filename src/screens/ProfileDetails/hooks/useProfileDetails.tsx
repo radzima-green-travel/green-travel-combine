@@ -5,21 +5,19 @@ import {ProfileDetailsScreenNavigationProps} from '../types';
 import {
   useOnRequestSuccess,
   useRequestLoading,
-  useThemeStyles,
   useTranslation,
 } from 'core/hooks';
-import {themeStyles} from '../styles';
 import {useDispatch} from 'react-redux';
 import {deleteUserRequest, signOutRequest} from 'core/reducers';
 import {Alert} from 'react-native';
 
 export const useProfileDetails = () => {
-  const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('profile');
   const dispatch = useDispatch();
   const navigation = useNavigation<ProfileDetailsScreenNavigationProps>();
   const {loading} = useRequestLoading(signOutRequest);
   const {loading: deleting} = useRequestLoading(deleteUserRequest);
+
   const onSignOutPress = useCallback(() => {
     Alert.alert(t('exitAccount'), t('notCancaled'), [
       {
@@ -48,5 +46,5 @@ export const useProfileDetails = () => {
     navigation.goBack();
   });
 
-  return {t, styles, loading, onSignOutPress, deleting, onDeleteUserPress};
+  return {loading, onSignOutPress, deleting, onDeleteUserPress};
 };

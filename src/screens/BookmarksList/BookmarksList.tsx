@@ -6,18 +6,32 @@ import {styles} from './styles';
 import {isAndroid, isIOS, SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useBookmarksList} from './hooks';
+import {useRoute} from '@react-navigation/native';
+import {BookmarksListScreenRouteProps} from './types';
+import {useBookmarksObjects} from 'core/hooks';
+import {orderBy} from 'lodash';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
 export const BookmarksList = () => {
   const {
     setOptions,
-    sortedListData,
     goBack,
-    title,
     navigateToObjectDetails,
     sendIsFavoriteChangedEvent,
   } = useBookmarksList();
+
+  const {
+    params: {title, categoryId},
+  } = useRoute<BookmarksListScreenRouteProps>();
+
+  const listData = useBookmarksObjects(categoryId);
+
+  const sortedListData = useMemo(() => {
+    return listData
+      ? orderBy(listData, [({name}) => name.toLowerCase()], 'asc')
+      : null;
+  }, [listData]);
 
   useLayoutEffect(() => {
     setOptions({
