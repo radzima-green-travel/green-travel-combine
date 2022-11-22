@@ -42,7 +42,7 @@ const bookmarksPersistConfig = {
 const themePersistConfig = {
   key: 'theme',
   storage: AsyncStorage,
-  whitelist: ['currentTheme'],
+  whitelist: ['theme'],
 };
 
 const rootReducer = combineReducers({

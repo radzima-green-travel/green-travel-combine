@@ -11,10 +11,9 @@ import {
 import {ACTIONS} from 'core/constants';
 
 import {initAppLocaleSaga} from './initAppLocaleSaga';
-import {initAppThemeSaga} from './initAppThemeSaga';
 import {ILabelError} from 'core/types';
 import {resetEtagsStorage} from 'storage';
-import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
+import {selectAppTheme, selectIsMyProfileFeatureEnabled} from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
 
 export function* bootstrapSaga() {
@@ -27,14 +26,17 @@ export function* bootstrapSaga() {
         yield call(initUserAuthSaga);
       }
 
-      const isLocaledUpdated = yield call(initAppLocaleSaga);
-      const appThemeSaga = yield call(initAppThemeSaga);
+      const appThemeSaga: ReturnType<typeof selectAppTheme> = yield select(
+        selectAppTheme,
+      );
 
       if (!appThemeSaga) {
         yield put(setDefaultTheme());
       } else {
         yield put(setTheme(appThemeSaga));
       }
+
+      const isLocaledUpdated = yield call(initAppLocaleSaga);
 
       if (isLocaledUpdated) {
         yield call(resetEtagsStorage);

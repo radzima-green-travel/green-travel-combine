@@ -13,6 +13,7 @@ export const COLORS = {
   alto: '#D9D9D9',
   persimmon: '#FF565E',
   black: '#000000',
+  red: '#FF575E',
 
   oceanGreen: '#36B56F',
   background: '#23343C',
