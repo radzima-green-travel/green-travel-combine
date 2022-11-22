@@ -1,9 +1,10 @@
 import {useEffect} from 'react';
 
-import {ColorSchemeName, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
+import {THEMES} from 'core/constants';
 
-export function useStatusBar(theme: ColorSchemeName) {
+export function useStatusBar(theme: THEMES) {
   const isFocused = useIsFocused();
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {View, Animated} from 'react-native';
 
 import {
@@ -10,36 +10,50 @@ import {
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
 import {Button, ImageSlider, ZoomableView} from 'atoms';
-import {useUpdateEffect} from 'core/hooks';
+import {useImageSlider, useTranslation, useUpdateEffect} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {useObjectDetailsStatusBar, useObjectDetails} from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const ObjectDetails = () => {
+  const {t} = useTranslation('objectDetails');
   const {
-    t,
     data,
-    animatedValue,
-    page,
     sendSwitchPhotosEvent,
     sendScrollEvent,
-    isJustOneImage,
-    pagesAmount,
     copyLocationToClipboard,
     navigateToObjectsMap,
     navigateToObjectsListDebounced,
-    defaultPhoto,
-    onScroll,
-    top,
     toastProps,
-    buttonsOpacity,
-    opacity,
     objectId,
     navigation,
   } = useObjectDetails();
+
+  const [animatedValue] = useState(() => new Animated.Value(0));
+
+  const {onScroll, page, pagesAmount} = useImageSlider(
+    data?.images?.length || 0,
+  );
+
+  const {top} = useSafeAreaInsets();
+
+  const isJustOneImage = pagesAmount < 2;
+
+  const opacity = animatedValue.interpolate({
+    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
+    outputRange: [0, 0, 1],
+  });
+
+  const buttonsOpacity = animatedValue.interpolate({
+    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
+    outputRange: [1, 1, 0],
+  });
+
+  const defaultPhoto = require('./img/objectDetailsDefaultPhoto.png');
 
   useLayoutEffect(() => {
     navigation.setOptions({

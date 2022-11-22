@@ -1,6 +1,5 @@
 import {useCallback} from 'react';
-import {selectBookmarksCardsData} from 'core/selectors';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {
   useRequestError,
   useRequestLoading,
@@ -13,7 +12,6 @@ import {ObjectsListScreenNavigationProps} from '../types';
 
 export const useBookmarks = () => {
   const navigation = useNavigation<ObjectsListScreenNavigationProps>();
-  const bookmarksCategories = useSelector(selectBookmarksCardsData);
   const dispatch = useDispatch();
   const {sendSelectSavedCategoryEvent} = useBookmarksAnalytics();
 
@@ -37,7 +35,6 @@ export const useBookmarks = () => {
 
   return {
     getHomeData,
-    bookmarksCategories,
     loading,
     error,
     navigateToBookmarksList,

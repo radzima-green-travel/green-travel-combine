@@ -1,30 +1,16 @@
 import {useMemo, useCallback} from 'react';
 
-import {
-  useCategoryObjects,
-  useObjects,
-  useObjectsListAnalytics,
-} from 'core/hooks';
+import {useObjectsListAnalytics} from 'core/hooks';
 import {IObject} from 'core/types';
-import {debounce, orderBy} from 'lodash';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {
-  ObjectsListScreenNavigationProps,
-  ObjectsListScreenRouteProps,
-} from '../types';
+import {debounce} from 'lodash';
+import {useNavigation} from '@react-navigation/native';
+import {ObjectsListScreenNavigationProps} from '../types';
 
 export const useObjectsList = () => {
   const {push, setOptions} = useNavigation<ObjectsListScreenNavigationProps>();
-  const {
-    params: {categoryId, title, objectsIds},
-  } = useRoute<ObjectsListScreenRouteProps>();
 
   const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
     useObjectsListAnalytics();
-
-  const listData = useCategoryObjects(categoryId);
-
-  const listDataByIds = useObjects(objectsIds || []);
 
   const navigateToObjectDetails = useCallback(
     ({id, name, category}: IObject) => {
@@ -32,17 +18,6 @@ export const useObjectsList = () => {
       sendSelectCardEvent(name, category.name);
     },
     [push, sendSelectCardEvent],
-  );
-
-  const sortedListData = useMemo(() => {
-    const data = objectsIds ? listDataByIds : listData;
-    return data ? orderBy(data, [({name}) => name.toLowerCase()], 'asc') : null;
-  }, [listData, listDataByIds, objectsIds]);
-
-  const navigateToObjectDetailsDebounced = useMemo(
-    () =>
-      debounce(navigateToObjectDetails, 300, {leading: true, trailing: false}),
-    [navigateToObjectDetails],
   );
 
   const sendIsFavoriteChangedEvent = useCallback(
@@ -56,9 +31,13 @@ export const useObjectsList = () => {
     [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
+  const navigateToObjectDetailsDebounced = useMemo(
+    () =>
+      debounce(navigateToObjectDetails, 300, {leading: true, trailing: false}),
+    [navigateToObjectDetails],
+  );
+
   return {
-    title,
-    sortedListData,
     navigateToObjectDetailsDebounced,
     sendIsFavoriteChangedEvent,
     setOptions,

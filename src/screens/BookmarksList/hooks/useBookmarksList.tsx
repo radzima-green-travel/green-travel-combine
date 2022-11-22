@@ -1,31 +1,16 @@
-import {useCallback, useMemo} from 'react';
+import {useCallback} from 'react';
 
-import {useBookmarksObjects, useBookmarksListAnalytics} from 'core/hooks';
+import {useBookmarksListAnalytics} from 'core/hooks';
 import {IObject} from 'core/types';
-import {orderBy} from 'lodash';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {
-  BookmarksListScreenNavigationProps,
-  BookmarksListScreenRouteProps,
-} from '../types';
+import {useNavigation} from '@react-navigation/native';
+import {BookmarksListScreenNavigationProps} from '../types';
 
 export const useBookmarksList = () => {
   const {navigate, setOptions, goBack} =
     useNavigation<BookmarksListScreenNavigationProps>();
-  const {
-    params: {title, categoryId},
-  } = useRoute<BookmarksListScreenRouteProps>();
-
-  const listData = useBookmarksObjects(categoryId);
 
   const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
     useBookmarksListAnalytics();
-
-  const sortedListData = useMemo(() => {
-    return listData
-      ? orderBy(listData, [({name}) => name.toLowerCase()], 'asc')
-      : null;
-  }, [listData]);
 
   const navigateToObjectDetails = useCallback(
     ({id, name, category}: IObject) => {
@@ -48,9 +33,7 @@ export const useBookmarksList = () => {
 
   return {
     setOptions,
-    sortedListData,
     goBack,
-    title,
     navigateToObjectDetails,
     sendIsFavoriteChangedEvent,
   };

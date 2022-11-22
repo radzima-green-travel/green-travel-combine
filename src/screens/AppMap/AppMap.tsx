@@ -1,6 +1,6 @@
 import React, {useLayoutEffect, useEffect} from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
-import {createMarkerFromObject} from 'core/selectors';
+import {createMarkerFromObject, selectMapFilters} from 'core/selectors';
 import {StyleProp, View} from 'react-native';
 
 import {styles, selectedPointStyle} from './styles';
@@ -11,7 +11,12 @@ import {
   AppMapFilters,
   AppMapButtons,
 } from 'molecules';
-import {useBackHandler} from 'core/hooks';
+import {
+  useAppMapAnalytics,
+  useBackHandler,
+  useColorScheme,
+  useStatusBar,
+} from 'core/hooks';
 
 import {FeatureCollection, Point} from '@turf/helpers';
 
@@ -19,6 +24,8 @@ type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {WINDOW_HEIGHT} from 'services/PlatformService';
 import {useAppMap} from './hooks';
+import {useSelector} from 'react-redux';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const AppMap = () => {
   const {
@@ -43,7 +50,6 @@ export const AppMap = () => {
     selectedMarker,
     onMenuHideEnd,
     menuProps,
-    bottom,
     navigateToObjectDetails,
     searchMenuProps,
     onDeleteAllItems,
@@ -59,8 +65,15 @@ export const AppMap = () => {
     onFilterSelect,
     resetFilters,
     selectedFilters,
-    mapFilters,
   } = useAppMap();
+
+  const sheme = useColorScheme();
+  const mapFilters = useSelector(selectMapFilters);
+
+  const {bottom} = useSafeAreaInsets();
+  useStatusBar(sheme);
+
+  useAppMapAnalytics();
 
   useLayoutEffect(() => {
     if (bounds) {
@@ -70,7 +83,7 @@ export const AppMap = () => {
         ignoreFitBounds.current = false;
       }
     }
-  }, [bounds]);
+  }, [bounds, camera, ignoreFitBounds]);
 
   useEffect(() => {
     if (selectedObject) {

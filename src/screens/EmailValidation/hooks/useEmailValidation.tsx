@@ -6,7 +6,7 @@ import {
   forgotPasswordRequest,
   resendSignUpCodeRequest,
 } from 'core/reducers';
-import {useRequestLoading, useTranslation} from 'core/hooks';
+import {useRequestLoading} from 'core/hooks';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   EmailValidationScreenNavigationProps,
@@ -16,14 +16,11 @@ import {
 export const useEmailValidation = () => {
   const [isCodeFull, setIsCodeFull] = useState(false);
   const [code, setCode] = useState('');
-  const {t} = useTranslation('authentification');
 
   const navigation = useNavigation<EmailValidationScreenNavigationProps>();
   const {
     params: {email, isSignUp},
   } = useRoute<EmailValidationScreenRouteProps>();
-
-  const buttonText = t('ready').toUpperCase();
 
   const dispatch = useDispatch();
 
@@ -51,12 +48,10 @@ export const useEmailValidation = () => {
   }, [dispatch, email]);
 
   return {
-    t,
     navigation,
     isSignUp,
     email,
     onConfirmSignUp,
-    buttonText,
     isCodeFull,
     loading,
     onResendSignUpCodetoEmail,

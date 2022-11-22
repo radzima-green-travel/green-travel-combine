@@ -4,10 +4,20 @@ import {GeneralListItem} from 'molecules';
 import {Icon} from 'atoms';
 import {screenOptions} from './screenOptions';
 import {useProfileDetails} from './hooks';
+import {useTranslation} from 'react-i18next';
+import {useThemeStyles} from 'core/hooks';
+import {themeStyles} from './styles';
+import {useSelector} from 'react-redux';
+import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
 
 export const ProfileDetails = () => {
-  const {t, styles, loading, onSignOutPress, deleting, onDeleteUserPress} =
+  const {t} = useTranslation('profile');
+  const styles = useThemeStyles(themeStyles);
+  const {loading, onSignOutPress, deleting, onDeleteUserPress} =
     useProfileDetails();
+
+  const isAuthorized = useSelector(selectUserAuthorized);
+  const userEmail = useSelector(selectUserEmail);
 
   return (
     <View style={styles.container}>
@@ -16,7 +26,7 @@ export const ProfileDetails = () => {
         loading={loading}
         position="single"
         onPress={() => {}}
-        title={'example@example.com'}
+        title={isAuthorized ? userEmail : t('notAuthorrized.subtitle')}
         renderLeftElement={<Icon name="defaultAcc" size={50} />}
       />
       <View>

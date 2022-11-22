@@ -1,37 +1,19 @@
 import {useCallback} from 'react';
-import {useToast} from 'atoms';
 import {AppStateStatus} from 'react-native';
 
-import {themeStyles} from '../styles';
 import {
   getHomeDataUpdatesRequest,
   getInitialHomeDataRequest,
   getHomeDataUpdateAvailableRequest,
 } from 'core/reducers';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
-import {
-  useRequestError,
-  useRequestLoading,
-  useTranslation,
-  useColorScheme,
-  useThemeStyles,
-  useHomeAnalytics,
-} from 'core/hooks';
-import {useIsFocused} from '@react-navigation/core';
+import {useDispatch} from 'react-redux';
+import {useRequestError, useRequestLoading, useHomeAnalytics} from 'core/hooks';
 import {IObject, ITransformedCategory} from 'core/types';
 import {HomeScreenNavigationProps} from '../types';
 import {useNavigation} from '@react-navigation/native';
 
 export const useHome = () => {
-  const {t} = useTranslation('home');
-  const styles = useThemeStyles(themeStyles);
   const dispatch = useDispatch();
-  const theme = useColorScheme();
-  const homeData = useSelector(selectHomeData);
-  const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
-  const {ref, show: showToast} = useToast();
-  const isFocused = useIsFocused();
   const {navigate} = useNavigation<HomeScreenNavigationProps>();
 
   const {
@@ -116,27 +98,19 @@ export const useHome = () => {
   );
 
   return {
-    t,
     updateError,
-    showToast,
     checkUpdates,
     dispatch,
     loading,
-    homeData,
     error,
     listRef,
     getInitialData,
-    styles,
-    theme,
     refreshing,
-    isFocused,
     getData,
     navigateToObjectDetails,
     onCategoryPress,
     onAllObjectsPress,
     navigateToCategoriesList,
     sendIsFavoriteChangedEvent,
-    isUpdatesAvailable,
-    ref,
   };
 };

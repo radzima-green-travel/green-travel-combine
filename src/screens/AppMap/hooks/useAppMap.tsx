@@ -1,7 +1,6 @@
 import {useRef, useState, useCallback, useMemo} from 'react';
 import {
   createMarkerFromObject,
-  selectMapFilters,
   selectTransformedData,
   getMapMarkers,
 } from 'core/selectors';
@@ -13,12 +12,9 @@ import MapBox, {
   RegionPayload,
 } from '@react-native-mapbox-gl/maps';
 import {
-  useStatusBar,
   useSearchList,
   useFocusToUserLocation,
-  useColorScheme,
   useTransformedData,
-  useAppMapAnalytics,
   useBottomMenu,
   useFindZoomForObjectInCluster,
   useStaticCallback,
@@ -37,8 +33,6 @@ type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 export const useAppMap = () => {
   const navigation = useNavigation<ObjectsListScreenNavigationProps>();
-  const sheme = useColorScheme();
-  const mapFilters = useSelector(selectMapFilters);
   const appData = useSelector(selectTransformedData);
 
   const camera = useRef<MapBox.Camera>(null);
@@ -71,7 +65,6 @@ export const useAppMap = () => {
     return null;
   }, [markers, top]);
 
-  const {bottom} = useSafeAreaInsets();
   const {
     data,
     isHistoryVisible,
@@ -82,10 +75,6 @@ export const useAppMap = () => {
     inputValue,
     clearInput,
   } = useSearchList({withLocation: true});
-
-  useStatusBar(sheme);
-
-  useAppMapAnalytics();
 
   const {openMenu, closeMenu, isMenuOpened, ...menuProps} = useBottomMenu();
   const {
@@ -325,7 +314,6 @@ export const useAppMap = () => {
     selectedMarker,
     onMenuHideEnd,
     menuProps,
-    bottom,
     navigateToObjectDetails,
     searchMenuProps,
     onDeleteAllItems,
@@ -341,6 +329,5 @@ export const useAppMap = () => {
     onFilterSelect,
     resetFilters,
     selectedFilters,
-    mapFilters,
   };
 };

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 import {View} from 'react-native';
-import Animated from 'react-native-reanimated';
+import Animated, {interpolate, useAnimatedStyle} from 'react-native-reanimated';
 import {isIOS} from 'services/PlatformService';
 import {useSplash} from './hooks';
 import {styles} from './styles';
@@ -12,13 +12,33 @@ interface IProps {
 }
 
 export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
-  const {
-    animateIOS,
-    animateAndroid,
-    containerAnimatedStyle,
-    imageAnimatedStyle,
-    textAnimatedStyle,
-  } = useSplash();
+  const {opacity, animatedValue, animateIOS, animateAndroid} = useSplash();
+
+  const containerAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
+
+  const imageAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {translateX: interpolate(animatedValue.value, [0, 1], [0, -90])},
+      ],
+    };
+  });
+
+  const textAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: animatedValue.value,
+      transform: [
+        {scale: animatedValue.value},
+        {
+          translateX: interpolate(animatedValue.value, [0, 1], [0, 35]),
+        },
+      ],
+    };
+  });
 
   useEffect(() => {
     if (isIOS) {

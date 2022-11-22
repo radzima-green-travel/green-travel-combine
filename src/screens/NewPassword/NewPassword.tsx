@@ -1,23 +1,27 @@
 import React from 'react';
 import {confirmNewPasswordRequest} from 'core/reducers';
-import {useOnRequestSuccess} from 'core/hooks';
+import {
+  useOnRequestSuccess,
+  useTogglePasswordVisibility,
+  useTranslation,
+} from 'core/hooks';
 import {FormInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useNewPassword} from './hooks';
 
 export const NewPassword = () => {
+  const {t} = useTranslation('authentification');
   const {
-    t,
     navigation,
-    buttonText,
     onConfirmNewPassword,
     newPassword,
     loading,
-    rightIcon,
-    passwordVisibility,
-    handlePasswordVisibility,
     setNewPassword,
   } = useNewPassword();
+
+  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
+    useTogglePasswordVisibility('eye');
+  const buttonText = t('save').toUpperCase();
 
   useOnRequestSuccess(confirmNewPasswordRequest, () => {
     navigation.getParent()?.goBack();
