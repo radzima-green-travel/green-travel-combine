@@ -5,10 +5,13 @@ import {
   getInitialHomeDataRequest,
   bootstrapSuccess,
   bootstrapFailure,
+  setTheme,
+  setDefaultTheme,
 } from 'core/reducers';
 import {ACTIONS} from 'core/constants';
 
 import {initAppLocaleSaga} from './initAppLocaleSaga';
+import {initAppThemeSaga} from './initAppThemeSaga';
 import {ILabelError} from 'core/types';
 import {resetEtagsStorage} from 'storage';
 import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
@@ -25,6 +28,13 @@ export function* bootstrapSaga() {
       }
 
       const isLocaledUpdated = yield call(initAppLocaleSaga);
+      const appThemeSaga = yield call(initAppThemeSaga);
+
+      if (!appThemeSaga) {
+        yield put(setDefaultTheme());
+      } else {
+        yield put(setTheme(appThemeSaga));
+      }
 
       if (isLocaledUpdated) {
         yield call(resetEtagsStorage);

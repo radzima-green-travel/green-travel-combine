@@ -5,8 +5,14 @@ import {Icon, SettingsSectionTitle} from 'atoms';
 import {useProfile} from './hooks';
 
 export const Profile = () => {
-  const {t, styles, onAuthorisationItemPress, isAuthorized, userEmail} =
-    useProfile();
+  const {
+    t,
+    styles,
+    onAuthorisationItemPress,
+    navigateToProfileSettingsTheme,
+    isAuthorized,
+    userEmail,
+  } = useProfile();
 
   return (
     <View style={styles.container}>
@@ -19,6 +25,7 @@ export const Profile = () => {
           }
           subtitle={isAuthorized ? userEmail : t('notAuthorrized.subtitle')}
           renderLeftElement={<Icon name="defaultAcc" size={60} />}
+          renderRightArrow
         />
       </View>
 
@@ -28,18 +35,21 @@ export const Profile = () => {
         onPress={() => {}}
         title={t('dataAndMemory')}
         renderLeftElement={<Icon name="memoryNData" size={30} />}
+        renderRightArrow
       />
       <GeneralListItem
         position="middle"
         onPress={() => {}}
         title={t('language')}
         renderLeftElement={<Icon name="language" size={30} />}
+        renderRightArrow
       />
       <GeneralListItem
         position="bottom"
-        onPress={() => {}}
+        onPress={navigateToProfileSettingsTheme}
         title={t('theme')}
         renderLeftElement={<Icon name="theme" size={30} />}
+        renderRightArrow
       />
     </View>
   );

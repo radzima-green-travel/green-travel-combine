@@ -17,6 +17,7 @@ export const ProfileDetails = () => {
         onPress={onSignOutPress}
         title={t('goOut')}
         renderLeftElement={<Icon name="theme" size={30} />}
+        renderRightArrow
       />
       <GeneralListItem
         loading={deleting}
@@ -24,6 +25,7 @@ export const ProfileDetails = () => {
         onPress={onDeleteUserPress}
         title={t('delete')}
         renderLeftElement={<Icon name="theme" size={30} />}
+        renderRightArrow
       />
     </View>
   );

@@ -112,10 +112,14 @@
     "authorrized": {
       "title": "Вы авторизованы"
     },
+    "profile": "Профиль",
     "goOut": "Выйти",
     "delete": "Удалить",
     "dataAndMemory": "Данные и память",
     "language": "Язык",
-    "theme": "Тема"
+    "theme": "Тема",
+    "system": "Системная",
+    "light": "Светлая",
+    "dark": "Темная"
   }
 }

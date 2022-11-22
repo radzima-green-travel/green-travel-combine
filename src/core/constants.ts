@@ -72,6 +72,9 @@ export const enum ACTIONS {
   CHECK_USER_EMAIL_REQUEST = 'CHECK_USER_EMAIL_REQUEST',
   CHECK_USER_EMAIL_SUCCESS = 'CHECK_USER_EMAIL_SUCCESS',
   CHECK_USER_EMAIL_FAILURE = 'CHECK_USER_EMAIL_FAILURE',
+
+  SET_THEME = 'SET_THEME',
+  SET_DEFAULT_THEME = 'SET_DEFAULT_THEME',
 }
 
 export const DEFAULT_BOUNDS = {
@@ -133,3 +136,9 @@ export const DARK_ICONS_MATCHER = {
 export const MAP_BOTTOM_MENU_HEIGHT = 185;
 
 export const DEFAULT_LOCALE = 'ru';
+
+export const enum THEMES {
+  SYSTEM = 'system',
+  LIGHT = 'light',
+  DARK = 'dark',
+}

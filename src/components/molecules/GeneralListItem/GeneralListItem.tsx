@@ -8,7 +8,7 @@ import {themeStyles} from './styles';
 
 interface IProps {
   renderLeftElement?: ReactNode;
-  renderRightElement?: ReactNode;
+  renderRightArrow?: boolean;
   position?: 'single' | 'top' | 'middle' | 'bottom';
   size?: 'S' | 'M';
   loading?: boolean;
@@ -25,7 +25,7 @@ export type onPressProps<TItem> = TItem extends undefined
 
 const GeneralListItemComponent = <T extends unknown = undefined>({
   renderLeftElement,
-  renderRightElement,
+  renderRightArrow,
   position = 'single',
   size = 'S',
   loading,
@@ -84,21 +84,23 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
               <Text style={styles.subtitle}>{subtitle}</Text>
             ) : null}
           </View>
-          <View>
-            <Icon
-              style={loading && styles.loading}
-              color={
-                theme === 'light'
-                  ? hexWithAlpha(COLORS.tuna, 0.3)
-                  : hexWithAlpha(COLORS.altoForDark, 0.3)
-              }
-              width={7}
-              height={12}
-              name="chevronRight"
-            />
+          {renderRightArrow ? (
+            <View>
+              <Icon
+                style={loading && styles.loading}
+                color={
+                  theme === 'light'
+                    ? hexWithAlpha(COLORS.tuna, 0.3)
+                    : hexWithAlpha(COLORS.altoForDark, 0.3)
+                }
+                width={7}
+                height={12}
+                name="chevronRight"
+              />
 
-            {loading ? <LoadingView size="small" /> : null}
-          </View>
+              {loading ? <LoadingView size="small" /> : null}
+            </View>
+          ) : null}
         </View>
       </View>
     </TouchableOpacity>

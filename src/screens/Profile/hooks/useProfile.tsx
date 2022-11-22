@@ -24,5 +24,16 @@ export const useProfile = () => {
     }
   }, [isAuthorized, navigation]);
 
-  return {t, styles, onAuthorisationItemPress, isAuthorized, userEmail};
+  const navigateToProfileSettingsTheme = useCallback(() => {
+    navigation.navigate('ProfileSettingsTheme');
+  }, [navigation]);
+
+  return {
+    t,
+    styles,
+    onAuthorisationItemPress,
+    navigateToProfileSettingsTheme,
+    isAuthorized,
+    userEmail,
+  };
 };
