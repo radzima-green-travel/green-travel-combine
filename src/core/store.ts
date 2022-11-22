@@ -14,6 +14,7 @@ import {
   objectDetailsMapReducer,
   searchReducer,
   authenticationReducer,
+  themeReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -38,6 +39,12 @@ const bookmarksPersistConfig = {
   whitelist: ['bookmarksIds'],
 };
 
+const themePersistConfig = {
+  key: 'theme',
+  storage: AsyncStorage,
+  whitelist: ['currentTheme'],
+};
+
 const rootReducer = combineReducers({
   ...asyncReducers,
   bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
@@ -46,6 +53,7 @@ const rootReducer = combineReducers({
   objectDetailsMap: objectDetailsMapReducer,
   search: persistReducer(searchPersistConfig, searchReducer),
   authentication: authenticationReducer,
+  theme: persistReducer(themePersistConfig, themeReducer),
 });
 
 const sagaMiddleware = createSagaMiddleware();

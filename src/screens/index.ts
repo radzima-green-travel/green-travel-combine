@@ -14,6 +14,7 @@ export {RestorePassword as RestorePasswordScreen} from './RestorePassword';
 export {Search as SearchScreen} from './Search';
 export {Splash as SplashScreen} from './Splash';
 export {ProfileDetails} from './ProfileDetails';
+export {ProfileSettingsTheme} from './ProfileSettingsTheme';
 export {CheckEmail as CheckEmailScreen} from './CheckEmail';
 export {SignInPassword as SignInPasswordScreen} from './SignInPassword';
 export {SignUpForm as SignUpFormScreen} from './SignUpForm';

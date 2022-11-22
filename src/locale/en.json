@@ -112,10 +112,14 @@
     "authorized": {
       "title": "en_Вы авторизованы"
     },
+    "profile": "Profile",
     "goOut": "en_Выйти",
     "delete": "en_Удалить",
     "dataAndMemory": "en_Данные и память",
     "language": "en_Язык",
-    "theme": "en_Тема"
+    "theme": "en_Тема",
+    "system": "en_Системная",
+    "light": "en_Светлая",
+    "dark": "en_Темная"
   }
 }

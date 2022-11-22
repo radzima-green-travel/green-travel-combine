@@ -1,5 +1,9 @@
 import React from 'react';
-import {ProfileScreen, ProfileDetails} from '../../screens';
+import {
+  ProfileScreen,
+  ProfileDetails,
+  ProfileSettingsTheme,
+} from '../../screens';
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
 import {ProfileNavigatorParamsList} from 'core/types';
@@ -10,13 +14,13 @@ const Stack = createNativeStackNavigator<ProfileNavigatorParamsList>();
 
 export function ProfileNavigator() {
   const screenOptions = useScreenOptions();
-  const {t} = useTranslation(['common', 'authentification']);
+  const {t} = useTranslation('profile');
 
   return (
     <Stack.Navigator
       screenOptions={{
         ...screenOptions,
-        title: t('tabs.profile'),
+        title: t('profile'),
         animation: defaultTransition,
       }}>
       <Stack.Screen
@@ -28,6 +32,11 @@ export function ProfileNavigator() {
         name="ProfileDetails"
         component={ProfileDetails}
         options={screenOptions}
+      />
+      <Stack.Screen
+        name="ProfileSettingsTheme"
+        component={ProfileSettingsTheme}
+        options={{...screenOptions, title: t('theme')}}
       />
     </Stack.Navigator>
   );

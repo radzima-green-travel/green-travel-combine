@@ -112,10 +112,14 @@
     "authorized": {
       "title": "zh_Вы авторизованы"
     },
+    "profile": "zh_Profile",
     "goOut": "zh_Выйти",
     "delete": "zh_Удалить",
     "dataAndMemory": "zh_Данные и память",
     "language": "zh_Язык",
-    "theme": "zh_Тема"
+    "theme": "zh_Тема",
+    "system": "zh_Системная",
+    "light": "zh_Светлая",
+    "dark": "zh_Темная"
   }
 }

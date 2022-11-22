@@ -38,6 +38,7 @@ export type BookmarksNavigatorParamsList = {
 export type ProfileNavigatorParamsList = {
   Profile: undefined;
   ProfileDetails: undefined;
+  ProfileSettingsTheme: undefined;
 };
 
 export type AppMapNavigatorParamsList = {
