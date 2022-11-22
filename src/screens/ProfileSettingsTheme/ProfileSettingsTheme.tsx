@@ -11,25 +11,25 @@ export const ProfileSettingsTheme = () => {
 
   return (
     <View style={styles.container}>
-      {currentTheme ? (
-        <GeneralListItem
-          position="top"
-          onPress={() => changeTheme(THEMES.SYSTEM)}
-          title={t('system')}
-          renderLeftElement={
-            currentTheme === THEMES.SYSTEM && (
-              <Icon color={COLORS.apple} name="check" size={30} />
-            )
-          }
-        />
-      ) : null}
+      {/* {currentTheme ? ( */}
+      <GeneralListItem
+        position="top"
+        onPress={() => changeTheme(THEMES.SYSTEM)}
+        title={t('system')}
+        renderLeftElement={
+          currentTheme === THEMES.SYSTEM && (
+            <Icon color={COLORS.apple} name="check" size={16} />
+          )
+        }
+      />
+      {/* ) : null} */}
       <GeneralListItem
         position="middle"
         onPress={() => changeTheme(THEMES.LIGHT)}
         title={t('light')}
         renderLeftElement={
           currentTheme === THEMES.LIGHT && (
-            <Icon color={COLORS.apple} name="check" size={30} />
+            <Icon color={COLORS.apple} name="check" size={16} />
           )
         }
       />
@@ -39,7 +39,7 @@ export const ProfileSettingsTheme = () => {
         title={t('dark')}
         renderLeftElement={
           currentTheme === THEMES.DARK && (
-            <Icon color={COLORS.apple} name="check" size={30} />
+            <Icon color={COLORS.apple} name="check" size={16} />
           )
         }
       />

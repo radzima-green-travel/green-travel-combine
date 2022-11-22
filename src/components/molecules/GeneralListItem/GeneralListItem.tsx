@@ -14,6 +14,7 @@ interface IProps {
   loading?: boolean;
   title: string;
   subtitle?: string;
+  red?: boolean;
 }
 
 export type onPressProps<TItem> = TItem extends undefined
@@ -33,6 +34,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
   item,
   title,
   subtitle,
+  red,
 }: IProps & onPressProps<T>) => {
   const styles = useThemeStyles(themeStyles);
   const theme = useColorScheme();
@@ -74,10 +76,18 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
           {renderLeftElement}
         </View>
       ) : null}
-      <View style={styles.contentWrapper}>
+      <View style={[
+          styles.contentWrapper,
+          (position === 'top' || position === 'middle') &&
+            styles.withContentBorder,
+        ]}>
         <View style={styles.contentContainer}>
           <View style={styles.textContainer}>
-            <Text style={size === 'S' ? styles.title : styles.titleM}>
+            <Text
+              style={[
+                size === 'S' ? styles.title : styles.titleM,
+                red && styles.titleRed,
+              ]}>
               {title}
             </Text>
             {size === 'M' && subtitle ? (

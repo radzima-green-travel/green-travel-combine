@@ -12,21 +12,31 @@ export const ProfileDetails = () => {
   return (
     <View style={styles.container}>
       <GeneralListItem
+        size="M"
         loading={loading}
         position="single"
-        onPress={onSignOutPress}
-        title={t('goOut')}
-        renderLeftElement={<Icon name="theme" size={30} />}
-        renderRightArrow
+        onPress={() => {}}
+        title={'example@example.com'}
+        renderLeftElement={<Icon name="defaultAcc" size={50} />}
       />
-      <GeneralListItem
-        loading={deleting}
-        position="single"
-        onPress={onDeleteUserPress}
-        title={t('delete')}
-        renderLeftElement={<Icon name="theme" size={30} />}
-        renderRightArrow
-      />
+      <View>
+        <View style={styles.itemContainer}>
+          <GeneralListItem
+            loading={loading}
+            position="single"
+            onPress={onSignOutPress}
+            title={t('goOut')}
+            red
+          />
+        </View>
+        <GeneralListItem
+          loading={deleting}
+          position="single"
+          onPress={onDeleteUserPress}
+          title={t('delete')}
+          red
+        />
+      </View>
     </View>
   );
 };

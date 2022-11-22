@@ -1,13 +1,12 @@
-import {setAppPrevThemeToStorage} from 'storage';
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
 import {ACTIONS, THEMES} from '../constants';
 
 interface IDefaultState {
-  theme: THEMES;
+  theme: THEMES | null;
 }
 
 const defaultState = {
-  theme: THEMES.SYSTEM,
+  theme: null,
 };
 
 export const setTheme = createAction(ACTIONS.SET_THEME)<THEMES>();
@@ -23,14 +22,11 @@ export const themeReducer = createReducer<
   ActionType<typeof actions>
 >(defaultState)
   .handleAction(setTheme, (state, {payload}) => {
-    setAppPrevThemeToStorage(payload);
-
     return {
       ...state,
       theme: payload,
     };
   })
-  .handleAction(setDefaultTheme, state => ({
-    ...state,
-    theme: THEMES.SYSTEM,
-  }));
+  .handleAction(setDefaultTheme, state => {
+    return {...state, theme: THEMES.SYSTEM};
+  });

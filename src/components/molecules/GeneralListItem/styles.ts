@@ -1,5 +1,6 @@
 import {COLORS, FONTS_STYLES} from 'assets';
 import {hexWithAlpha} from 'core/helpers';
+import {StyleSheet} from 'react-native';
 
 export const heightS = 44;
 export const heightM = 95;
@@ -13,20 +14,9 @@ export const themeStyles = {
     alignSelf: 'stretch',
     flexDirection: 'row',
     paddingLeft: 16,
-    shadowColor: 'rgb(21, 39, 2)',
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: {
-      light: 0.3,
-      dark: 0,
-    },
-    shadowRadius: 4,
-    elevation: {
-      light: 5,
-      dark: 0,
-    },
     backgroundColor: {
       light: COLORS.white,
-      dark: COLORS.mirage,
+      dark: COLORS.background,
     },
   },
   containerM: {
@@ -35,11 +25,6 @@ export const themeStyles = {
   topContainer: {
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    borderBottomWidth: 1,
-    borderColor: {
-      light: hexWithAlpha(COLORS.tuna, 0),
-      dark: hexWithAlpha(COLORS.altoForDark, 0.1),
-    },
   },
   bottomContainer: {
     borderTopLeftRadius: 0,
@@ -56,6 +41,13 @@ export const themeStyles = {
     height: '100%',
     justifyContent: 'center',
     paddingRight: 16,
+  },
+  withContentBorder: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: {
+      light: hexWithAlpha(COLORS.tuna, 0.36),
+      dark: hexWithAlpha(COLORS.altoForDark, 0.1),
+    },
   },
   textContainer: {},
   title: {
@@ -87,5 +79,8 @@ export const themeStyles = {
   },
   loading: {
     opacity: 0,
+  },
+  titleRed: {
+    color: COLORS.red,
   },
 };
