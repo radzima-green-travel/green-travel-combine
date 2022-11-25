@@ -63,6 +63,7 @@ export function TabNavigator() {
           },
         }}
         options={{
+          tabBarTestID: 'tabBarItemMain',
           tabBarLabel: t('tabs.home'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -85,6 +86,7 @@ export function TabNavigator() {
           },
         }}
         options={{
+          tabBarTestID: 'tabBarItemMap',
           tabBarLabel: t('tabs.map'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -107,6 +109,7 @@ export function TabNavigator() {
           },
         }}
         options={{
+          tabBarTestID: 'tabBarItemFavorites',
           tabBarLabel: t('tabs.bookmarks'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -127,6 +130,7 @@ export function TabNavigator() {
             },
           }}
           options={{
+            tabBarTestID: 'tabBarItemProfile',
             tabBarLabel: t('tabs.profile'),
             tabBarIcon: ({color, focused}) => (
               <Icon
