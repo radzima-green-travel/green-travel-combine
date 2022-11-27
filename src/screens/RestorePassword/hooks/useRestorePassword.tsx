@@ -1,12 +1,13 @@
 import {useCallback, useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import {useRequestLoading} from 'core/hooks';
+import {useRequestLoading, useTranslation} from 'core/hooks';
 import {useNavigation} from '@react-navigation/native';
 import {forgotPasswordRequest} from 'core/reducers';
 import {useOnRequestSuccess} from 'core/hooks';
 import {RestorePasswordScreenNavigationProps} from '../types';
 
 export const useRestorePassword = () => {
+  const {t} = useTranslation('authentification');
   const [email, setEmail] = useState('');
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
   const dispatch = useDispatch();
@@ -37,6 +38,8 @@ export const useRestorePassword = () => {
     navigation.navigate('EmailValidation', {email, isSignUp: false});
   });
 
+  const buttonText = t('send').toUpperCase();
+
   return {
     email,
     onResendPassword,
@@ -44,5 +47,6 @@ export const useRestorePassword = () => {
     loading,
     navigateToSignIn,
     setEmail,
+    buttonText,
   };
 };

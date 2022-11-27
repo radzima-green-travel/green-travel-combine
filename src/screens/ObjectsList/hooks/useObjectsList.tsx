@@ -1,10 +1,16 @@
-import {useMemo, useCallback} from 'react';
+import {useMemo, useCallback, useLayoutEffect} from 'react';
 
 import {useObjectsListAnalytics} from 'core/hooks';
 import {IObject} from 'core/types';
 import {debounce} from 'lodash';
 import {useNavigation} from '@react-navigation/native';
-import {ObjectsListScreenNavigationProps} from '../types';
+import {
+  ObjectsListScreenNavigationProps,
+  ObjectsListScreenRouteProps,
+} from '../types';
+import {useCategoryObjects, useObjects} from 'core/hooks';
+import {useRoute} from '@react-navigation/native';
+import {orderBy} from 'lodash';
 
 export const useObjectsList = () => {
   const {push, setOptions} = useNavigation<ObjectsListScreenNavigationProps>();
@@ -37,9 +43,28 @@ export const useObjectsList = () => {
     [navigateToObjectDetails],
   );
 
+  const {
+    params: {categoryId, title, objectsIds},
+  } = useRoute<ObjectsListScreenRouteProps>();
+
+  const listData = useCategoryObjects(categoryId);
+
+  const listDataByIds = useObjects(objectsIds || []);
+
+  const sortedListData = useMemo(() => {
+    const data = objectsIds ? listDataByIds : listData;
+    return data ? orderBy(data, [({name}) => name.toLowerCase()], 'asc') : null;
+  }, [listData, listDataByIds, objectsIds]);
+
+  useLayoutEffect(() => {
+    setOptions({
+      title: title,
+    });
+  }, [setOptions, title]);
+
   return {
+    sortedListData,
     navigateToObjectDetailsDebounced,
     sendIsFavoriteChangedEvent,
-    setOptions,
   };
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {confirmSignUpRequest} from 'core/reducers';
-import {useOnRequestSuccess, useTranslation} from 'core/hooks';
+import {useTranslation} from 'core/hooks';
 import {AuthForm} from 'organisms';
 import {OneTimeCode} from 'atoms';
 import {useEmailValidation} from './hooks';
@@ -9,7 +8,6 @@ import {useEmailValidation} from './hooks';
 export const EmailValidation = () => {
   const {t} = useTranslation('authentification');
   const {
-    navigation,
     isSignUp,
     email,
     onConfirmSignUp,
@@ -18,13 +16,8 @@ export const EmailValidation = () => {
     onResendSignUpCodetoEmail,
     onResendRestorePasswordCodetoEmail,
     getEmailCode,
+    buttonText,
   } = useEmailValidation();
-
-  const buttonText = t('ready').toUpperCase();
-
-  useOnRequestSuccess(confirmSignUpRequest, () => {
-    navigation.getParent()?.goBack();
-  });
 
   return (
     <AuthForm

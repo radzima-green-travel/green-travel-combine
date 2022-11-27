@@ -6,7 +6,11 @@ import {
   forgotPasswordRequest,
   resendSignUpCodeRequest,
 } from 'core/reducers';
-import {useRequestLoading} from 'core/hooks';
+import {
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTranslation,
+} from 'core/hooks';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   EmailValidationScreenNavigationProps,
@@ -14,6 +18,7 @@ import {
 } from '../types';
 
 export const useEmailValidation = () => {
+  const {t} = useTranslation('authentification');
   const [isCodeFull, setIsCodeFull] = useState(false);
   const [code, setCode] = useState('');
 
@@ -47,8 +52,13 @@ export const useEmailValidation = () => {
     dispatch(forgotPasswordRequest({email}));
   }, [dispatch, email]);
 
+  const buttonText = t('ready').toUpperCase();
+
+  useOnRequestSuccess(confirmSignUpRequest, () => {
+    navigation.getParent()?.goBack();
+  });
+
   return {
-    navigation,
     isSignUp,
     email,
     onConfirmSignUp,
@@ -57,5 +67,6 @@ export const useEmailValidation = () => {
     onResendSignUpCodetoEmail,
     onResendRestorePasswordCodetoEmail,
     getEmailCode,
+    buttonText,
   };
 };

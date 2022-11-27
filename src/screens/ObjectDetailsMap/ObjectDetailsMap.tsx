@@ -1,39 +1,21 @@
+import React from 'react';
 import {BottomMenu, ClusterMap} from 'atoms';
-import React, {useCallback, useEffect, useMemo} from 'react';
-import {InteractionManager, StyleProp, View} from 'react-native';
+import {StyleProp, View} from 'react-native';
 import MapBox, {
   FillLayerStyle,
   LineLayerStyle,
   SymbolLayerStyle,
 } from '@react-native-mapbox-gl/maps';
-import {
-  useColorScheme,
-  useObjectBelongsToSubtitle,
-  useOnRequestSuccess,
-  useRequestErrorAlert,
-  useStatusBar,
-  useThemeStyles,
-} from 'core/hooks';
+import {useThemeStyles} from 'core/hooks';
 import {
   BackCircleButton,
   ObjectDetailsMapButtons,
   ObjectDetailsMapBottomMenu,
 } from 'molecules';
-import {mapService} from 'services/MapService';
 
-import {
-  clearObjectDetailsMapDirection,
-  showObjectDetailsMapDirectionRequest,
-} from 'core/reducers';
-import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {FeatureCollection, LineString, Point} from '@turf/helpers';
 import {useObjectDetailsMap} from './hooks';
 import {themeLayerStyles} from './styles';
-import {
-  createMarkerFromDetailsObject,
-  selectMapDirection,
-} from 'core/selectors';
-import {useSelector} from 'react-redux';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -44,11 +26,8 @@ const images = {
 export const ObjectDetailsMap = () => {
   const {
     bottom,
-    top,
     camera,
     data,
-    openMenu,
-    dispatch,
     unfocusUserLocation,
     onMarkerPress,
     bounds,
@@ -61,64 +40,15 @@ export const ObjectDetailsMap = () => {
     loading,
     isDirectionShowed,
     onBackPress,
+    centerCoordinate,
+    direction,
+    dataShapeSource,
+    belongsToSubtitle,
   } = useObjectDetailsMap();
-
-  const direction = useSelector(selectMapDirection);
 
   const layersStyles = useThemeStyles(themeLayerStyles, {
     disableStyleSheet: true,
   });
-  const theme = useColorScheme();
-
-  const dataShapeSource = useMemo(
-    () => (data ? createMarkerFromDetailsObject(data) : data),
-    [data],
-  );
-
-  const belongsToSubtitle = useObjectBelongsToSubtitle(
-    data?.belongsTo?.[0]?.objects,
-  );
-
-  const centerCoordinate = useMemo(() => {
-    if (data) {
-      return [data.location?.lon!, data.location?.lat!];
-    }
-
-    return null;
-  }, [data]);
-
-  useStatusBar(theme);
-
-  useRequestErrorAlert(showObjectDetailsMapDirectionRequest, 'common');
-
-  useOnRequestSuccess(showObjectDetailsMapDirectionRequest, () => {
-    const directionBounds = mapService.getBoundsFromGeoJSON(direction, {
-      bottom: 200 + bottom,
-      top: 30 + top,
-    });
-    camera.current?.fitBounds(...directionBounds);
-  });
-
-  useOnRequestSuccess(
-    showObjectDetailsMapDirectionRequest,
-    useCallback(() => {
-      hapticFeedbackService.trigger('notificationSuccess');
-    }, []),
-  );
-
-  useEffect(() => {
-    if (data) {
-      InteractionManager.runAfterInteractions(() => {
-        openMenu();
-      });
-    }
-  }, [data, openMenu]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearObjectDetailsMapDirection());
-    };
-  }, [dispatch]);
 
   return (
     <View style={{flex: 1}}>

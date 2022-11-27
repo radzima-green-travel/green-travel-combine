@@ -6,19 +6,16 @@ import {useProfile} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
-import {useSelector} from 'react-redux';
-import {selectUserEmail} from 'core/selectors';
 
 export const Profile = () => {
   const {t} = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
   const {
+    userEmail,
     isAuthorized,
     onAuthorisationItemPress,
     navigateToProfileSettingsTheme,
   } = useProfile();
-
-  const userEmail = useSelector(selectUserEmail);
 
   return (
     <View style={styles.container}>

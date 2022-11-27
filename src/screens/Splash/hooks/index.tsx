@@ -1,1 +1,0 @@
-export {useSplash} from './useSplash';

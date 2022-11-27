@@ -1,6 +1,10 @@
 import {useState, useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {useRequestLoading} from 'core/hooks';
+import {
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTogglePasswordVisibility,
+} from 'core/hooks';
 import {
   SignUpFormScreenRouteProps,
   SignUpFormScreenNavigationProps,
@@ -27,12 +31,19 @@ export const useSignUpForm = () => {
 
   const {loading} = useRequestLoading(signUpRequest);
 
+  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
+    useTogglePasswordVisibility('eye');
+
+  useOnRequestSuccess(signUpRequest, navigateToEmailValidation);
+
   return {
     loading,
     email,
     password,
     setPassword,
-    navigateToEmailValidation,
     signUp,
+    passwordVisibility,
+    rightIcon,
+    handlePasswordVisibility,
   };
 };

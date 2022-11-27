@@ -14,9 +14,8 @@ export const RestorePassword = () => {
     loading,
     navigateToSignIn,
     setEmail,
+    buttonText,
   } = useRestorePassword();
-
-  const buttonText = t('send').toUpperCase();
 
   return (
     <AuthForm

@@ -7,9 +7,10 @@ import {
   useRequestLoading,
   useTranslation,
 } from 'core/hooks';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {deleteUserRequest, signOutRequest} from 'core/reducers';
 import {Alert} from 'react-native';
+import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
 
 export const useProfileDetails = () => {
   const {t} = useTranslation('profile');
@@ -38,6 +39,9 @@ export const useProfileDetails = () => {
     ]);
   }, [t, dispatch]);
 
+  const isAuthorized = useSelector(selectUserAuthorized);
+  const userEmail = useSelector(selectUserEmail);
+
   useOnRequestSuccess(signOutRequest, () => {
     navigation.goBack();
   });
@@ -46,5 +50,12 @@ export const useProfileDetails = () => {
     navigation.goBack();
   });
 
-  return {loading, onSignOutPress, deleting, onDeleteUserPress};
+  return {
+    loading,
+    onSignOutPress,
+    deleting,
+    onDeleteUserPress,
+    isAuthorized,
+    userEmail,
+  };
 };

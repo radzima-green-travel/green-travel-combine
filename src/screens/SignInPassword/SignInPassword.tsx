@@ -4,7 +4,6 @@ import {FormInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useSignInPassword} from './hooks';
 import {useTranslation} from 'react-i18next';
-import {useTogglePasswordVisibility} from 'core/hooks';
 
 export const SignInPassword = () => {
   const {t} = useTranslation('authentification');
@@ -15,10 +14,10 @@ export const SignInPassword = () => {
     navigateToRestorePassword,
     password,
     setPassword,
+    passwordVisibility,
+    rightIcon,
+    handlePasswordVisibility,
   } = useSignInPassword();
-
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
 
   return (
     <AuthForm
