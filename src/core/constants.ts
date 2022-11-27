@@ -137,8 +137,4 @@ export const MAP_BOTTOM_MENU_HEIGHT = 185;
 
 export const DEFAULT_LOCALE = 'ru';
 
-export const enum THEMES {
-  SYSTEM = 'system',
-  LIGHT = 'light',
-  DARK = 'dark',
-}
+export type THEME_TYPE = 'light' | 'dark';

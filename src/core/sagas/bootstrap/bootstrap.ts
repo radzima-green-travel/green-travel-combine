@@ -5,15 +5,13 @@ import {
   getInitialHomeDataRequest,
   bootstrapSuccess,
   bootstrapFailure,
-  setTheme,
-  setDefaultTheme,
 } from 'core/reducers';
 import {ACTIONS} from 'core/constants';
 
 import {initAppLocaleSaga} from './initAppLocaleSaga';
 import {ILabelError} from 'core/types';
 import {resetEtagsStorage} from 'storage';
-import {selectAppTheme, selectIsMyProfileFeatureEnabled} from 'core/selectors';
+import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
 
 export function* bootstrapSaga() {
@@ -24,16 +22,6 @@ export function* bootstrapSaga() {
       > = yield select(selectIsMyProfileFeatureEnabled);
       if (isMyProfileFeatureEnabled) {
         yield call(initUserAuthSaga);
-      }
-
-      const appThemeSaga: ReturnType<typeof selectAppTheme> = yield select(
-        selectAppTheme,
-      );
-
-      if (!appThemeSaga) {
-        yield put(setDefaultTheme());
-      } else {
-        yield put(setTheme(appThemeSaga));
       }
 
       const isLocaledUpdated = yield call(initAppLocaleSaga);
