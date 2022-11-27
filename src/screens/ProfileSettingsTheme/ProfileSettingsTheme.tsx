@@ -4,7 +4,6 @@ import {Icon} from 'atoms';
 import {GeneralListItem} from 'molecules';
 import {View} from 'react-native';
 import {useProfileSettingsTheme} from './hooks';
-import {THEMES} from 'core/constants';
 import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
@@ -14,7 +13,7 @@ import {selectAppTheme} from 'core/selectors';
 export const ProfileSettingsTheme = () => {
   const {t} = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
-  const currentTheme = useSelector(selectAppTheme);
+  const userTheme = useSelector(selectAppTheme);
 
   const {changeTheme} = useProfileSettingsTheme();
 
@@ -22,30 +21,28 @@ export const ProfileSettingsTheme = () => {
     <View style={styles.container}>
       <GeneralListItem
         position="top"
-        onPress={() => changeTheme(THEMES.SYSTEM)}
+        onPress={() => changeTheme(null)}
         title={t('system')}
         renderLeftElement={
-          currentTheme === THEMES.SYSTEM && (
-            <Icon color={COLORS.apple} name="check" size={16} />
-          )
+          !userTheme && <Icon color={COLORS.apple} name="check" size={16} />
         }
       />
       <GeneralListItem
         position="middle"
-        onPress={() => changeTheme(THEMES.LIGHT)}
+        onPress={() => changeTheme('light')}
         title={t('light')}
         renderLeftElement={
-          currentTheme === THEMES.LIGHT && (
+          userTheme === 'light' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
         }
       />
       <GeneralListItem
         position="bottom"
-        onPress={() => changeTheme(THEMES.DARK)}
+        onPress={() => changeTheme('dark')}
         title={t('dark')}
         renderLeftElement={
-          currentTheme === THEMES.DARK && (
+          userTheme === 'dark' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
         }
