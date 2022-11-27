@@ -1,20 +1,29 @@
-import {useMemo, useCallback} from 'react';
+import {useMemo, useCallback, useLayoutEffect} from 'react';
 import Clipboard from '@react-native-community/clipboard';
 
 import {useToast} from 'atoms';
-import {useObject, useDetailsPageAnalytics} from 'core/hooks';
+import {
+  useObject,
+  useDetailsPageAnalytics,
+  useImageSlider,
+  useUpdateEffect,
+} from 'core/hooks';
 import {debounce} from 'lodash';
 import {
   ObjectDetailsScreenNavigationProps,
   ObjectDetailsScreenRouteProps,
 } from '../types';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {useObjectDetailsStatusBar} from './useObjectDetailsStatusBar';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
   const {
     params: {objectId},
   } = useRoute<ObjectDetailsScreenRouteProps>();
+
+  const {top} = useSafeAreaInsets();
 
   const data = useObject(objectId)!;
 
@@ -68,15 +77,37 @@ export const useObjectDetails = () => {
     [navigateToObjectsList],
   );
 
+  const {onScroll, page, pagesAmount} = useImageSlider(
+    data?.images?.length || 0,
+  );
+
+  const isJustOneImage = pagesAmount < 2;
+
+  const defaultPhoto = require('../img/objectDetailsDefaultPhoto.png');
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: data?.name,
+    });
+  }, [navigation, data]);
+
+  useUpdateEffect(() => {
+    sendSwitchPhotosEvent();
+  }, [page, sendSwitchPhotosEvent]);
+
   return {
     data,
-    sendSwitchPhotosEvent,
     sendScrollEvent,
     copyLocationToClipboard,
     navigateToObjectsMap,
     navigateToObjectsListDebounced,
     toastProps,
     objectId,
-    navigation,
+    isJustOneImage,
+    defaultPhoto,
+    onScroll,
+    top,
+    pagesAmount,
+    page,
   };
 };

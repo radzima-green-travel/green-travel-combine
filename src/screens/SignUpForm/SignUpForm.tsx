@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  useOnRequestSuccess,
-  useTogglePasswordVisibility,
-  useTranslation,
-} from 'core/hooks';
+import {useTranslation} from 'core/hooks';
 import {FormInput} from 'atoms';
-import {signUpRequest} from 'core/reducers';
 import {AuthForm} from 'organisms';
 import {useSignUpForm} from './hooks';
 
@@ -16,14 +11,11 @@ export const SignUpForm = () => {
     email,
     password,
     setPassword,
-    navigateToEmailValidation,
     signUp,
+    passwordVisibility,
+    rightIcon,
+    handlePasswordVisibility,
   } = useSignUpForm();
-
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
-
-  useOnRequestSuccess(signUpRequest, navigateToEmailValidation);
 
   return (
     <AuthForm

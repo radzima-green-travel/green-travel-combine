@@ -1,8 +1,16 @@
-import {useRef, useState, useCallback, useMemo} from 'react';
+import {
+  useRef,
+  useState,
+  useCallback,
+  useMemo,
+  useLayoutEffect,
+  useEffect,
+} from 'react';
 import {
   createMarkerFromObject,
   selectTransformedData,
   getMapMarkers,
+  selectMapFilters,
 } from 'core/selectors';
 import {useSelector} from 'react-redux';
 import bbox from '@turf/bbox';
@@ -18,7 +26,12 @@ import {
   useBottomMenu,
   useFindZoomForObjectInCluster,
   useStaticCallback,
+  useAppMapAnalytics,
+  useBackHandler,
+  useColorScheme,
+  useStatusBar,
 } from 'core/hooks';
+
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Feature, Geometry, Point, Position} from '@turf/helpers';
 
@@ -292,17 +305,50 @@ export const useAppMap = () => {
     [setIsUserLocationFocused],
   );
 
+  const sheme = useColorScheme();
+  const mapFilters = useSelector(selectMapFilters);
+
+  const {bottom} = useSafeAreaInsets();
+  useStatusBar(sheme);
+
+  useAppMapAnalytics();
+
+  useLayoutEffect(() => {
+    if (bounds) {
+      if (!ignoreFitBounds.current) {
+        camera.current?.fitBounds(...bounds);
+      } else {
+        ignoreFitBounds.current = false;
+      }
+    }
+  }, [bounds, camera, ignoreFitBounds]);
+
+  useEffect(() => {
+    if (selectedObject) {
+      openMenu();
+    }
+  }, [openMenu, selectedObject]);
+
+  useBackHandler(() => {
+    if (isMenuOpened()) {
+      unselectObject();
+      return true;
+    }
+
+    if (isSearchMenuOpened()) {
+      closeSearchMenu();
+      clearInput();
+      return true;
+    }
+
+    return false;
+  });
+
   return {
     bounds,
-    ignoreFitBounds,
     camera,
     selectedObject,
-    openMenu,
-    isMenuOpened,
-    unselectObject,
-    isSearchMenuOpened,
     closeSearchMenu,
-    clearInput,
     map,
     unfocusUserLocation,
     onShapePress,
@@ -329,5 +375,7 @@ export const useAppMap = () => {
     onFilterSelect,
     resetFilters,
     selectedFilters,
+    bottom,
+    mapFilters,
   };
 };

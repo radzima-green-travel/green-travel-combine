@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React from 'react';
 import {FlatList} from 'react-native';
 import {CategoryCard} from 'molecules';
 import {styles} from './styles';
@@ -10,14 +10,7 @@ import {useCategoriesList} from './hooks';
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
 export const CategoriesList = () => {
-  const {setOptions, title, listData, navigateToObjectDetails} =
-    useCategoriesList();
-
-  useLayoutEffect(() => {
-    setOptions({
-      title: title,
-    });
-  }, [setOptions, title]);
+  const {listData, navigateToObjectDetails} = useCategoriesList();
 
   return (
     <FlatList

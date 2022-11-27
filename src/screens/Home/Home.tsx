@@ -1,33 +1,20 @@
-import React, {useEffect, useCallback} from 'react';
-import {RefreshPageReminder, SuspenseView, useToast} from 'atoms';
+import React from 'react';
+import {RefreshPageReminder, SuspenseView} from 'atoms';
 import {HomeSectionBar} from 'organisms';
-import {FlatList, InteractionManager, RefreshControl, View} from 'react-native';
+import {FlatList, RefreshControl, View} from 'react-native';
 
-import {getHomeDataUpdateAvailableRequest} from 'core/reducers';
-
-import {
-  useAppState,
-  useColorScheme,
-  useThemeStyles,
-  useTranslation,
-} from 'core/hooks';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
-import {useFocusEffect} from '@react-navigation/core';
 import {ErrorToast} from '../../components/molecules';
 import {screenOptions} from './screenOptions';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
-import {useSelector} from 'react-redux';
-import {useIsFocused} from '@react-navigation/native';
-import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
 
 export const Home = () => {
   const {t} = useTranslation('home');
   const styles = useThemeStyles(themeStyles);
   const {
     updateError,
-    checkUpdates,
-    dispatch,
     loading,
     error,
     listRef,
@@ -39,32 +26,12 @@ export const Home = () => {
     onAllObjectsPress,
     navigateToCategoriesList,
     sendIsFavoriteChangedEvent,
+    homeData,
+    theme,
+    isFocused,
+    isUpdatesAvailable,
+    ref,
   } = useHome();
-
-  const theme = useColorScheme();
-  const homeData = useSelector(selectHomeData);
-  const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
-  const isFocused = useIsFocused();
-  const {ref, show: showToast} = useToast();
-
-  useEffect(() => {
-    if (updateError) {
-      showToast();
-    }
-  }, [showToast, updateError]);
-
-  useAppState(checkUpdates);
-
-  useFocusEffect(
-    useCallback(
-      () => () => {
-        InteractionManager.runAfterInteractions(() => {
-          dispatch(getHomeDataUpdateAvailableRequest());
-        });
-      },
-      [dispatch],
-    ),
-  );
 
   return (
     <View style={{overflow: 'hidden', flex: 1}}>

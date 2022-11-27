@@ -3,7 +3,7 @@ import {useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProps} from '../types';
 import {useSelector} from 'react-redux';
-import {selectUserAuthorized} from 'core/selectors';
+import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
 
 export const useProfile = () => {
   const navigation = useNavigation<ProfileScreenNavigationProps>();
@@ -23,7 +23,10 @@ export const useProfile = () => {
     navigation.navigate('ProfileSettingsTheme');
   }, [navigation]);
 
+  const userEmail = useSelector(selectUserEmail);
+
   return {
+    userEmail,
     isAuthorized,
     onAuthorisationItemPress,
     navigateToProfileSettingsTheme,

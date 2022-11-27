@@ -1,16 +1,28 @@
-import {useCallback} from 'react';
-import {AppStateStatus} from 'react-native';
+import {useCallback, useEffect} from 'react';
+import {AppStateStatus, InteractionManager} from 'react-native';
 
 import {
   getHomeDataUpdatesRequest,
   getInitialHomeDataRequest,
   getHomeDataUpdateAvailableRequest,
 } from 'core/reducers';
-import {useDispatch} from 'react-redux';
-import {useRequestError, useRequestLoading, useHomeAnalytics} from 'core/hooks';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  useRequestError,
+  useRequestLoading,
+  useHomeAnalytics,
+  useColorScheme,
+  useAppState,
+} from 'core/hooks';
 import {IObject, ITransformedCategory} from 'core/types';
 import {HomeScreenNavigationProps} from '../types';
-import {useNavigation} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
+import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
+import {useToast} from '../../../components/atoms';
 
 export const useHome = () => {
   const dispatch = useDispatch();
@@ -97,10 +109,33 @@ export const useHome = () => {
     [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
+  const theme = useColorScheme();
+  const homeData = useSelector(selectHomeData);
+  const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
+  const isFocused = useIsFocused();
+  const {ref, show: showToast} = useToast();
+
+  useEffect(() => {
+    if (updateError) {
+      showToast();
+    }
+  }, [showToast, updateError]);
+
+  useAppState(checkUpdates);
+
+  useFocusEffect(
+    useCallback(
+      () => () => {
+        InteractionManager.runAfterInteractions(() => {
+          dispatch(getHomeDataUpdateAvailableRequest());
+        });
+      },
+      [dispatch],
+    ),
+  );
+
   return {
     updateError,
-    checkUpdates,
-    dispatch,
     loading,
     error,
     listRef,
@@ -112,5 +147,10 @@ export const useHome = () => {
     onAllObjectsPress,
     navigateToCategoriesList,
     sendIsFavoriteChangedEvent,
+    homeData,
+    theme,
+    isFocused,
+    isUpdatesAvailable,
+    ref,
   };
 };

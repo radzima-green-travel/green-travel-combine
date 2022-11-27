@@ -1,6 +1,10 @@
 import {useCallback, useState} from 'react';
 
-import {useOnRequestSuccess, useRequestLoading} from 'core/hooks';
+import {
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTogglePasswordVisibility,
+} from 'core/hooks';
 import {signInRequest} from 'core/reducers';
 import {useDispatch} from 'react-redux';
 import {useNavigation, useRoute} from '@react-navigation/native';
@@ -28,6 +32,9 @@ export const useSignInPassword = () => {
 
   const {loading} = useRequestLoading(signInRequest);
 
+  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
+    useTogglePasswordVisibility('eye');
+
   useOnRequestSuccess(signInRequest, () => {
     navigation.getParent()?.goBack();
   });
@@ -39,5 +46,8 @@ export const useSignInPassword = () => {
     navigateToRestorePassword,
     password,
     setPassword,
+    passwordVisibility,
+    rightIcon,
+    handlePasswordVisibility,
   };
 };

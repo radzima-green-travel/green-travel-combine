@@ -1,4 +1,5 @@
-import {useCallback, useMemo, useRef} from 'react';
+import {InteractionManager} from 'react-native';
+import {useCallback, useMemo, useRef, useEffect} from 'react';
 import MapBox, {RegionPayload} from '@react-native-mapbox-gl/maps';
 import {selectIsDirectionShowed} from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,12 +10,26 @@ import {
   useRequestLoading,
   useTranslation,
   useTransformedData,
+  useObjectBelongsToSubtitle,
+  useOnRequestSuccess,
+  useRequestErrorAlert,
+  useColorScheme,
+  useStatusBar,
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IBounds, IObject} from 'core/types';
 import {showLocation} from 'react-native-map-link';
 import {mapService} from 'services/MapService';
-import {showObjectDetailsMapDirectionRequest} from 'core/reducers';
+import {
+  clearObjectDetailsMapDirection,
+  showObjectDetailsMapDirectionRequest,
+} from 'core/reducers';
+
+import {hapticFeedbackService} from 'services/HapticFeedbackService';
+import {
+  createMarkerFromDetailsObject,
+  selectMapDirection,
+} from 'core/selectors';
 
 import {
   Feature,
@@ -176,6 +191,48 @@ export const useObjectDetailsMap = () => {
     focusToUserLocation(directionBounds, currentZoom);
   };
 
+  const direction = useSelector(selectMapDirection);
+
+  const dataShapeSource = useMemo(
+    () => (data ? createMarkerFromDetailsObject(data) : data),
+    [data],
+  );
+
+  const belongsToSubtitle = useObjectBelongsToSubtitle(
+    data?.belongsTo?.[0]?.objects,
+  );
+
+  useRequestErrorAlert(showObjectDetailsMapDirectionRequest, 'common');
+
+  useOnRequestSuccess(showObjectDetailsMapDirectionRequest, () => {
+    const directionBounds = mapService.getBoundsFromGeoJSON(direction, {
+      bottom: 200 + bottom,
+      top: 30 + top,
+    });
+    camera.current?.fitBounds(...directionBounds);
+  });
+
+  useOnRequestSuccess(
+    showObjectDetailsMapDirectionRequest,
+    useCallback(() => {
+      hapticFeedbackService.trigger('notificationSuccess');
+    }, []),
+  );
+
+  useEffect(() => {
+    if (data) {
+      InteractionManager.runAfterInteractions(() => {
+        openMenu();
+      });
+    }
+  }, [data, openMenu]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearObjectDetailsMapDirection());
+    };
+  }, [dispatch]);
+
   const unfocusUserLocation = useCallback(
     (feature: Feature<Point, RegionPayload>) => {
       const {
@@ -192,13 +249,14 @@ export const useObjectDetailsMap = () => {
     closeMenu();
   }, [closeMenu]);
 
+  const theme = useColorScheme();
+
+  useStatusBar(theme);
+
   return {
     bottom,
-    top,
     camera,
     data,
-    openMenu,
-    dispatch,
     unfocusUserLocation,
     onMarkerPress,
     bounds,
@@ -211,5 +269,9 @@ export const useObjectDetailsMap = () => {
     loading,
     isDirectionShowed,
     onBackPress,
+    centerCoordinate,
+    direction,
+    dataShapeSource,
+    belongsToSubtitle,
   };
 };

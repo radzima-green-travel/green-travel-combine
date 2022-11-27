@@ -1,6 +1,6 @@
-import React, {useLayoutEffect, useEffect} from 'react';
+import React from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
-import {createMarkerFromObject, selectMapFilters} from 'core/selectors';
+import {createMarkerFromObject} from 'core/selectors';
 import {StyleProp, View} from 'react-native';
 
 import {styles, selectedPointStyle} from './styles';
@@ -11,12 +11,6 @@ import {
   AppMapFilters,
   AppMapButtons,
 } from 'molecules';
-import {
-  useAppMapAnalytics,
-  useBackHandler,
-  useColorScheme,
-  useStatusBar,
-} from 'core/hooks';
 
 import {FeatureCollection, Point} from '@turf/helpers';
 
@@ -24,21 +18,13 @@ type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {WINDOW_HEIGHT} from 'services/PlatformService';
 import {useAppMap} from './hooks';
-import {useSelector} from 'react-redux';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const AppMap = () => {
   const {
     bounds,
-    ignoreFitBounds,
     camera,
     selectedObject,
-    openMenu,
-    isMenuOpened,
-    unselectObject,
-    isSearchMenuOpened,
     closeSearchMenu,
-    clearInput,
     map,
     unfocusUserLocation,
     onShapePress,
@@ -65,46 +51,9 @@ export const AppMap = () => {
     onFilterSelect,
     resetFilters,
     selectedFilters,
+    bottom,
+    mapFilters,
   } = useAppMap();
-
-  const sheme = useColorScheme();
-  const mapFilters = useSelector(selectMapFilters);
-
-  const {bottom} = useSafeAreaInsets();
-  useStatusBar(sheme);
-
-  useAppMapAnalytics();
-
-  useLayoutEffect(() => {
-    if (bounds) {
-      if (!ignoreFitBounds.current) {
-        camera.current?.fitBounds(...bounds);
-      } else {
-        ignoreFitBounds.current = false;
-      }
-    }
-  }, [bounds, camera, ignoreFitBounds]);
-
-  useEffect(() => {
-    if (selectedObject) {
-      openMenu();
-    }
-  }, [openMenu, selectedObject]);
-
-  useBackHandler(() => {
-    if (isMenuOpened()) {
-      unselectObject();
-      return true;
-    }
-
-    if (isSearchMenuOpened()) {
-      closeSearchMenu();
-      clearInput();
-      return true;
-    }
-
-    return false;
-  });
 
   return (
     <View style={styles.container}>

@@ -1,9 +1,16 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useMemo} from 'react';
 
 import {useBookmarksListAnalytics} from 'core/hooks';
 import {IObject} from 'core/types';
 import {useNavigation} from '@react-navigation/native';
-import {BookmarksListScreenNavigationProps} from '../types';
+import {
+  BookmarksListScreenNavigationProps,
+  BookmarksListScreenRouteProps,
+} from '../types';
+import {useRoute} from '@react-navigation/native';
+import {useBookmarksObjects} from 'core/hooks';
+import {orderBy} from 'lodash';
+import {isAndroid} from 'services/PlatformService';
 
 export const useBookmarksList = () => {
   const {navigate, setOptions, goBack} =
@@ -31,9 +38,39 @@ export const useBookmarksList = () => {
     [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
+  const {
+    params: {title, categoryId},
+  } = useRoute<BookmarksListScreenRouteProps>();
+
+  const listData = useBookmarksObjects(categoryId);
+
+  const sortedListData = useMemo(() => {
+    return listData
+      ? orderBy(listData, [({name}) => name.toLowerCase()], 'asc')
+      : null;
+  }, [listData]);
+
+  useLayoutEffect(() => {
+    setOptions({
+      title: title,
+    });
+  }, [setOptions, title]);
+
+  const onLastObjectRemoveAnimationEnd = useCallback(() => {
+    if (sortedListData?.length === 1) {
+      goBack();
+    }
+  }, [goBack, sortedListData]);
+
+  useEffect(() => {
+    if (isAndroid && sortedListData?.length === 0) {
+      goBack();
+    }
+  }, [goBack, onLastObjectRemoveAnimationEnd, sortedListData]);
+
   return {
-    setOptions,
-    goBack,
+    sortedListData,
+    onLastObjectRemoveAnimationEnd,
     navigateToObjectDetails,
     sendIsFavoriteChangedEvent,
   };

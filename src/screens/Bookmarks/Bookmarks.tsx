@@ -5,13 +5,15 @@ import {BookmarkItem, SuspenseView} from 'atoms';
 import {isEmpty} from 'lodash';
 import {BookmarksEmptyView} from 'molecules';
 import {useBookmarks} from './hooks';
-import {useSelector} from 'react-redux';
-import {selectBookmarksCardsData} from 'core/selectors';
 
 export const Bookmarks = () => {
-  const {getHomeData, loading, error, navigateToBookmarksList} = useBookmarks();
-
-  const bookmarksCategories = useSelector(selectBookmarksCardsData);
+  const {
+    bookmarksCategories,
+    getHomeData,
+    loading,
+    error,
+    navigateToBookmarksList,
+  } = useBookmarks();
 
   return (
     <SuspenseView

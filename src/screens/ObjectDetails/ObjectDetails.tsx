@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Animated} from 'react-native';
 
 import {
@@ -10,38 +10,33 @@ import {
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
 import {Button, ImageSlider, ZoomableView} from 'atoms';
-import {useImageSlider, useTranslation, useUpdateEffect} from 'core/hooks';
+import {useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
-import {useObjectDetailsStatusBar, useObjectDetails} from './hooks';
+import {useObjectDetails, useObjectDetailsStatusBar} from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
   const {
     data,
-    sendSwitchPhotosEvent,
     sendScrollEvent,
     copyLocationToClipboard,
     navigateToObjectsMap,
     navigateToObjectsListDebounced,
     toastProps,
     objectId,
-    navigation,
+    isJustOneImage,
+    defaultPhoto,
+    onScroll,
+    top,
+    pagesAmount,
+    page,
   } = useObjectDetails();
 
   const [animatedValue] = useState(() => new Animated.Value(0));
-
-  const {onScroll, page, pagesAmount} = useImageSlider(
-    data?.images?.length || 0,
-  );
-
-  const {top} = useSafeAreaInsets();
-
-  const isJustOneImage = pagesAmount < 2;
 
   const opacity = animatedValue.interpolate({
     inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
@@ -53,19 +48,7 @@ export const ObjectDetails = () => {
     outputRange: [1, 1, 0],
   });
 
-  const defaultPhoto = require('./img/objectDetailsDefaultPhoto.png');
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: data?.name,
-    });
-  }, [navigation, data]);
-
   useObjectDetailsStatusBar(animatedValue);
-
-  useUpdateEffect(() => {
-    sendSwitchPhotosEvent();
-  }, [page, sendSwitchPhotosEvent]);
 
   return data ? (
     <View style={styles.container}>

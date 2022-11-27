@@ -7,15 +7,12 @@ import {useProfileSettingsTheme} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
-import {useSelector} from 'react-redux';
-import {selectAppTheme} from 'core/selectors';
 
 export const ProfileSettingsTheme = () => {
   const {t} = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
-  const userTheme = useSelector(selectAppTheme);
 
-  const {changeTheme} = useProfileSettingsTheme();
+  const {changeTheme, userTheme} = useProfileSettingsTheme();
 
   return (
     <View style={styles.container}>

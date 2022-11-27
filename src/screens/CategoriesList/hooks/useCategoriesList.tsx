@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useLayoutEffect} from 'react';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useCategoryChildren, useCategoryListAnalytics} from 'core/hooks';
@@ -26,6 +26,12 @@ export const useCategoriesList = () => {
     },
     [navigate, sendSelectCardEvent, title],
   );
+
+  useLayoutEffect(() => {
+    setOptions({
+      title: title,
+    });
+  }, [setOptions, title]);
 
   return {setOptions, title, listData, navigateToObjectDetails};
 };
