@@ -31,7 +31,7 @@ export const Profile = () => {
           }
           subtitle={isAuthorized ? userEmail : t('notAuthorrized.subtitle')}
           renderLeftElement={<Icon name="defaultAcc" size={60} />}
-          renderRightArrow
+          withChevron
         />
       </View>
 
@@ -41,21 +41,21 @@ export const Profile = () => {
         onPress={() => {}}
         title={t('dataAndMemory')}
         renderLeftElement={<Icon name="memoryNData" size={30} />}
-        renderRightArrow
+        withChevron
       />
       <GeneralListItem
         position="middle"
         onPress={() => {}}
         title={t('language')}
         renderLeftElement={<Icon name="language" size={30} />}
-        renderRightArrow
+        withChevron
       />
       <GeneralListItem
         position="bottom"
         onPress={navigateToProfileSettingsTheme}
         title={t('theme')}
         renderLeftElement={<Icon name="theme" size={30} />}
-        renderRightArrow
+        withChevron
       />
     </View>
   );

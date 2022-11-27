@@ -8,7 +8,8 @@ import {themeStyles} from './styles';
 
 interface IProps {
   renderLeftElement?: ReactNode;
-  renderRightArrow?: boolean;
+  renderRightElement?: ReactNode;
+  withChevron?: boolean;
   position?: 'single' | 'top' | 'middle' | 'bottom';
   size?: 'S' | 'M';
   loading?: boolean;
@@ -26,7 +27,8 @@ export type onPressProps<TItem> = TItem extends undefined
 
 const GeneralListItemComponent = <T extends unknown = undefined>({
   renderLeftElement,
-  renderRightArrow,
+  renderRightElement,
+  withChevron,
   position = 'single',
   size = 'S',
   loading,
@@ -57,6 +59,33 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
     return style;
   }, [position, styles, size]);
 
+  const renderRightComponent = () => {
+    if (renderRightElement) {
+      return renderRightElement;
+    }
+    if (withChevron) {
+      return (
+        <View>
+          <Icon
+            style={loading && styles.loading}
+            color={
+              theme === 'light'
+                ? hexWithAlpha(COLORS.tuna, 0.3)
+                : hexWithAlpha(COLORS.altoForDark, 0.3)
+            }
+            width={7}
+            height={12}
+            name="chevronRight"
+          />
+
+          {loading ? <LoadingView size="small" /> : null}
+        </View>
+      );
+    }
+
+    return null;
+  };
+
   const onPressHandler = useCallback(() => {
     onPress(item);
   }, [item, onPress]);
@@ -76,7 +105,8 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
           {renderLeftElement}
         </View>
       ) : null}
-      <View style={[
+      <View
+        style={[
           styles.contentWrapper,
           (position === 'top' || position === 'middle') &&
             styles.withContentBorder,
@@ -94,23 +124,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
               <Text style={styles.subtitle}>{subtitle}</Text>
             ) : null}
           </View>
-          {renderRightArrow ? (
-            <View>
-              <Icon
-                style={loading && styles.loading}
-                color={
-                  theme === 'light'
-                    ? hexWithAlpha(COLORS.tuna, 0.3)
-                    : hexWithAlpha(COLORS.altoForDark, 0.3)
-                }
-                width={7}
-                height={12}
-                name="chevronRight"
-              />
-
-              {loading ? <LoadingView size="small" /> : null}
-            </View>
-          ) : null}
+          {renderRightComponent()}
         </View>
       </View>
     </TouchableOpacity>
