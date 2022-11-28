@@ -4,7 +4,7 @@ import {useColorScheme as nativeUseColorScheme} from 'react-native';
 import {useSelector} from 'react-redux';
 
 export function useColorScheme() {
-  let theme = useSelector(selectAppTheme);
+  const theme = useSelector(selectAppTheme);
   const systemTheme = (nativeUseColorScheme() || 'light') as THEME_TYPE;
 
   if (!theme) {
