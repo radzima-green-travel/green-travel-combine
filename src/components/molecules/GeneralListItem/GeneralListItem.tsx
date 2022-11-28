@@ -77,8 +77,6 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
             height={12}
             name="chevronRight"
           />
-
-          {loading ? <LoadingView size="small" /> : null}
         </View>
       );
     }
@@ -125,6 +123,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
             ) : null}
           </View>
           {renderRightComponent()}
+          {loading ? <LoadingView size="small" /> : null}
         </View>
       </View>
     </TouchableOpacity>
