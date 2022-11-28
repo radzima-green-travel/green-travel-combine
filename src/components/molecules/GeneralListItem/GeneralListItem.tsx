@@ -65,19 +65,17 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
     }
     if (withChevron) {
       return (
-        <View>
-          <Icon
-            style={loading && styles.loading}
-            color={
-              theme === 'light'
-                ? hexWithAlpha(COLORS.tuna, 0.3)
-                : hexWithAlpha(COLORS.altoForDark, 0.3)
-            }
-            width={7}
-            height={12}
-            name="chevronRight"
-          />
-        </View>
+        <Icon
+          style={loading && styles.loading}
+          color={
+            theme === 'light'
+              ? hexWithAlpha(COLORS.tuna, 0.3)
+              : hexWithAlpha(COLORS.altoForDark, 0.3)
+          }
+          width={7}
+          height={12}
+          name="chevronRight"
+        />
       );
     }
 
@@ -122,8 +120,10 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
               <Text style={styles.subtitle}>{subtitle}</Text>
             ) : null}
           </View>
-          {renderRightComponent()}
-          {loading ? <LoadingView size="small" /> : null}
+          <View>
+            {renderRightComponent()}
+            {loading ? <LoadingView size="small" /> : null}
+          </View>
         </View>
       </View>
     </TouchableOpacity>
