@@ -38,4 +38,20 @@
   return self;
 }
 
+- (instancetype)initWithTitle:(NSString *)title
+                     subTitle:(NSString *)subTitle
+                     cellType:(NSUInteger) cellType
+                        image:(nullable UIImage *)image
+                      handler:(void (^)(void))handler {
+  self = [super init];
+  if (self) {
+    _title = title;
+    _subTitle = subTitle;
+    _cellType = cellType;
+    _image = image;
+    _handler = handler;
+  }
+  return self;
+}
+
 @end

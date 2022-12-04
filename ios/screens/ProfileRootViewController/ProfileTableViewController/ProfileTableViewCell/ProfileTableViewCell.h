@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingsTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,11 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)prepareSettingsCellWithImage:(UIImage*)image
                    mainTextLabelText:(NSString*)mainText
                     subTextLabelText:(NSString*)subText;
+
 - (void)prepareAuthCellWithImage:(UIImage*)image
                mainTextLabelText:(NSString*)mainText
                 subTextLabelText:(NSString*)subText
               fetchingInProgress:(BOOL)fetchingInProgress
                         signedIn:(BOOL)signedIn;
+
+- (void)prepareDevSettingCellWithModel:(SettingsTableViewCellModel *)model;
 
 @end
 

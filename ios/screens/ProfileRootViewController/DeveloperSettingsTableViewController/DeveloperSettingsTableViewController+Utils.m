@@ -9,19 +9,72 @@
 #import "DeveloperSettingsTableViewController+Utils.h"
 #import "SettingsTableViewCellModel.h"
 #import "SettingsSection.h"
+#import "SDImageCache.h"
 
 NSMutableArray* configureDevSettingsTableViewCells(DeveloperSettingsTableViewController* controller) {
   
-  SettingsTableViewCellModel *cell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Title"
-                                                                              subTitle:@"SubTitle"
-                                                                                 image:[UIImage imageNamed:@"accountPhoto"]
-                                                                    fetchingInProgress:NO
-                                                                              signedIn:NO
-                                                                               handler:^{
-    // cell handler
+  SettingsTableViewCellModel *crashCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Crash"
+                                                                              subTitle:@""
+                                                                              cellType:DevSettingsCellTypeButtonCell
+                                                                                 image:Nil
+                                                                                    handler:^{
+    // Crashlytics cell
+  }];
+  SettingsTableViewCellModel *crachWhenSlowCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Crash when slow"
+                                                                                       subTitle:@""
+                                                                                       cellType:DevSettingsCellTypeToggleCell
+                                                                                          image:Nil
+                                                                                        handler:^{
+    // Crash when cell
+    NSLog(@"----------------");
+    NSLog(@"Value changed");
+    NSLog(@"----------------");
+  }];
+  SettingsTableViewCellModel *switchPlatformCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Switch platform"
+                                                                                        subTitle:@""
+                                                                                        cellType:DevSettingsCellTypePushToSelectionCell
+                                                                                           image:Nil
+                                                                                         handler:^{
+    // Switch platform cell
+  }];
+  SettingsTableViewCellModel *clearDataBaseCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Clear Data base"
+                                                                                           subTitle:@""
+                                                                                           cellType:DevSettingsCellTypeButtonCell
+                                                                                              image:Nil
+                                                                                            handler:^{
+    // Clear data base
   }];
   
-  NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:cell, cell, cell, nil];
+  SettingsTableViewCellModel *clearCacheCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Clear cache"
+                                                                                        subTitle:@""
+                                                                                        cellType:DevSettingsCellTypeButtonCell
+                                                                                           image:Nil
+                                                                                         handler:^{
+    // Clear cache
+    
+    [SDImageCache.sharedImageCache clearWithCacheType:SDImageCacheTypeAll completion:^{
+      NSLog(@"----------------");
+      NSLog(@"Cache cleared");
+      NSLog(@"----------------");
+    }];
+  }];
+  
+  SettingsTableViewCellModel *themeCell = [[SettingsTableViewCellModel alloc] initWithTitle:@"Theme"
+                                                                                   subTitle:@"Current theme"
+                                                                                   cellType:DevSettingsCellTypePushToSelectionCell
+                                                                                      image:Nil
+                                                                                    handler:^{
+    // Choose theme
+  }];
+  
+  NSMutableArray *settingCellModels = [[NSMutableArray alloc] initWithObjects:
+                                       crashCell,
+                                       crachWhenSlowCell,
+                                       switchPlatformCell,
+                                       clearDataBaseCell,
+                                       clearCacheCell,
+                                       themeCell,
+                                       nil];
   
   SettingsSection *settingsSection = [[SettingsSection alloc]
                                      initWithTitle:@""

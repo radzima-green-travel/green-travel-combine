@@ -10,12 +10,15 @@
 #import "Colors.h"
 #import "SettingsTableViewCellModel.h"
 #import "UIImage+extensions.h"
+#import "UIKit+MMEMobileEvents.h"
 
 @interface ProfileTableViewCell ()
 
 @property (strong, nonatomic)UIImageView *iconImageView;
 @property (strong, nonatomic)UILabel *mainLabel;
 @property (strong, nonatomic)UILabel *subLabel;
+@property (strong, nonatomic)UISwitch *toggle;
+@property (strong, nonatomic)SettingsTableViewCellModel *model;
 
 @end
 
@@ -157,6 +160,70 @@ static const CGFloat kSubLabelLeadingAnchor = 8.0;
   [labelStack.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor],
   [labelStack.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
   ]];
+}
+
+- (void)prepareDevSettingCellWithModel:(SettingsTableViewCellModel *)model {
+  
+  self.model = model;
+  
+  switch (model.cellType) {
+    case DevSettingsCellTypeToggleCell:
+      self.toggle = [[UISwitch alloc] init];
+      [self.toggle addTarget:self action:@selector(handleToggle) forControlEvents:UIControlEventValueChanged];
+      [self.toggle sizeToFit];
+      self.accessoryView = self.toggle;
+      self.accessoryType = UITableViewCellAccessoryNone;
+      break;
+    case DevSettingsCellTypePushToSelectionCell:
+      self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+      break;
+    default:
+      self.accessoryType = UITableViewCellAccessoryNone;
+      break;
+  }
+  
+  self.iconImageView = [[UIImageView alloc] init];
+  self.iconImageView.image = model.image;
+  self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
+  
+  [self.contentView addSubview:self.iconImageView];
+  
+  [NSLayoutConstraint activateConstraints:@[
+  [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kIconLeadingAnchor],
+  [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+  [self.iconImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kIconTopAnchor],
+  [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:kIconBottomAnchor],
+  [self.iconImageView.widthAnchor constraintEqualToAnchor:self.iconImageView.heightAnchor]
+  ]];
+  
+  self.mainLabel = [[UILabel alloc] init];
+  NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForSettingsCell:model.title];
+  self.mainLabel.attributedText = mainTextLabelAttributedString;
+  
+  self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:self.mainLabel];
+  
+  [NSLayoutConstraint activateConstraints:@[
+  [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
+  [self.mainLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
+  ]];
+  
+  self.subLabel = [[UILabel alloc] init];
+  NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForSettingsCell:model.subTitle];
+  self.subLabel.attributedText = subTextLabelAttributedString;
+  
+  self.subLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:self.subLabel];
+  
+  [NSLayoutConstraint activateConstraints:@[
+  [self.subLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kSubLabelTrailingAnchor],
+  [self.subLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+  [self.subLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.mainLabel.trailingAnchor constant:kSubLabelLeadingAnchor]
+  ]];
+}
+
+- (void)handleToggle {
+  self.model.handler();
 }
 
 @end

@@ -216,6 +216,7 @@
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
 		5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */; };
 		5E3121CC2922D615006DFE6E /* DeveloperSettinsTapObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3121CB2922D615006DFE6E /* DeveloperSettinsTapObserver.m */; };
+		5E701837293D34B600F51AD6 /* UIViewController+extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E701836293D34B600F51AD6 /* UIViewController+extensions.m */; };
 		5EA9408828E6169800E90014 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408528E6169800E90014 /* ProfileTableViewCell.m */; };
 		5EA9408928E6169800E90014 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408628E6169800E90014 /* ProfileTableViewController.m */; };
 		5EA9408A28E6169800E90014 /* ProfileTableViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9408728E6169800E90014 /* ProfileTableViewControllerUtils.m */; };
@@ -653,6 +654,8 @@
 		5AFFD0FC2851FE99009E5AB8 /* UserFetchErrorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFetchErrorViewController.m; sourceTree = "<group>"; };
 		5E3121CA2922D615006DFE6E /* DeveloperSettinsTapObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeveloperSettinsTapObserver.h; sourceTree = "<group>"; };
 		5E3121CB2922D615006DFE6E /* DeveloperSettinsTapObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeveloperSettinsTapObserver.m; sourceTree = "<group>"; };
+		5E701835293D33D100F51AD6 /* UIViewController+extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+extensions.h"; sourceTree = "<group>"; };
+		5E701836293D34B600F51AD6 /* UIViewController+extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+extensions.m"; sourceTree = "<group>"; };
 		5EA9408128E6169700E90014 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
 		5EA9408228E6169700E90014 /* ProfileTableViewControllerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewControllerUtils.h; sourceTree = "<group>"; };
 		5EA9408428E6169800E90014 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
@@ -805,6 +808,8 @@
 				5A2315C928E0A354004CB989 /* UIImage+extensions.h */,
 				5A2315CA28E0A354004CB989 /* UIButton+extensions.m */,
 				5A2315CB28E0A354004CB989 /* UIImage+extensions.m */,
+				5E701835293D33D100F51AD6 /* UIViewController+extensions.h */,
+				5E701836293D34B600F51AD6 /* UIViewController+extensions.m */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2387,6 +2392,7 @@
 				5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
+				5E701837293D34B600F51AD6 /* UIViewController+extensions.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
 				5A6685E2285A36AC008E193E /* ResetPasswordEMailViewController.m in Sources */,

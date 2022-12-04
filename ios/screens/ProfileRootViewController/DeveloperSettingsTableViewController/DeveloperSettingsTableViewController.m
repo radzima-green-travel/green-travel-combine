@@ -6,6 +6,7 @@
 //
 
 #import "DeveloperSettingsTableViewController+Utils.h"
+#import "UIViewController+extensions.h"
 #import "SettingsSection.h"
 #import "ProfileTableViewCell.h"
 #import "Colors.h"
@@ -64,14 +65,26 @@ static const CGFloat kSettingsRowHeight = 44.0;
   NSMutableArray<SettingsTableViewCellModel *> *models = self.cellModels[indexPath.section].cellModels;
   SettingsTableViewCellModel *model = models[indexPath.row];
   ProfileTableViewCell *settingsCell = [self.tableView dequeueReusableCellWithIdentifier:kDevSettingsCell];
-  [settingsCell prepareSettingsCellWithImage:model.image mainTextLabelText:model.title subTextLabelText:model.subTitle];
+  [settingsCell prepareDevSettingCellWithModel:model];
   return settingsCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   SettingsTableViewCellModel *model = self.cellModels[indexPath.section].cellModels[indexPath.row];
-  model.handler();
+  switch (model.cellType) {
+    case DevSettingsCellTypePushToSelectionCell:
+      model.handler();
+      break;
+    case DevSettingsCellTypeButtonCell:
+      [self showAlertWith:model.title message:nil handler:^(NSString * _Nonnull actionU) {
+        //TODO: make enum for type of actions and switch actions type.
+        if (actionU == @"OK") {
+          model.handler();
+        }
+      }];
+      break;
+  }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
