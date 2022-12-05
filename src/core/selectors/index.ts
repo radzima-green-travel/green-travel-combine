@@ -5,4 +5,5 @@ export * from './homeSelectors';
 export * from './mapSelectors';
 export * from './search';
 export * from './app';
+export * from './languageSelectors';
 export * from './themeSelectors';

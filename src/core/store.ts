@@ -14,6 +14,7 @@ import {
   objectDetailsMapReducer,
   searchReducer,
   authenticationReducer,
+  languageReducer,
   themeReducer,
 } from './reducers';
 // @ts-ignore
@@ -39,6 +40,12 @@ const bookmarksPersistConfig = {
   whitelist: ['bookmarksIds'],
 };
 
+const languagePersistConfig = {
+  key: 'lang',
+  storage: AsyncStorage,
+  whitelist: ['lang'],
+};
+
 const themePersistConfig = {
   key: 'theme',
   storage: AsyncStorage,
@@ -53,6 +60,7 @@ const rootReducer = combineReducers({
   objectDetailsMap: objectDetailsMapReducer,
   search: persistReducer(searchPersistConfig, searchReducer),
   authentication: authenticationReducer,
+  lang: persistReducer(languagePersistConfig, languageReducer),
   theme: persistReducer(themePersistConfig, themeReducer),
 });
 

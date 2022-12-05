@@ -7,4 +7,4 @@ export type StorageOptions = {
 
 export type StorageResponse = string | null | undefined;
 
-export type StorageKeys = 'allAppDataVersion' | 'appPrevLocale' | 'etag';
+export type StorageKeys = 'allAppDataVersion' | 'etag';

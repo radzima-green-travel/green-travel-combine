@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ProfileScreen,
   ProfileDetails,
+  ProfileSettingsLanguage,
   ProfileSettingsTheme,
 } from '../../screens';
 import {useTranslation} from 'react-i18next';
@@ -32,6 +33,11 @@ export function ProfileNavigator() {
       }}>
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+      <Stack.Screen
+        name="ProfileSettingsLanguage"
+        component={ProfileSettingsLanguage}
+        options={{title: t('language')}}
+      />
       <Stack.Screen
         name="ProfileSettingsTheme"
         component={ProfileSettingsTheme}

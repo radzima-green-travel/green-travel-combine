@@ -14,6 +14,7 @@ export const Profile = () => {
     userEmail,
     isAuthorized,
     onAuthorisationItemPress,
+    navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,
   } = useProfile();
 
@@ -42,7 +43,7 @@ export const Profile = () => {
       />
       <GeneralListItem
         position="middle"
-        onPress={() => {}}
+        onPress={navigateToProfileSettingsLanguage}
         title={t('language')}
         renderLeftElement={<Icon name="language" size={30} />}
         withChevron
