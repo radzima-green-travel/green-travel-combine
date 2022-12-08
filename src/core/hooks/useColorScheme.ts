@@ -1,5 +1,5 @@
 import {THEME_TYPE} from 'core/constants';
-import {selectAppTheme} from 'core/selectors/themeSelectors';
+import {selectAppTheme} from 'core/selectors/settingsSelectors';
 import {useColorScheme as nativeUseColorScheme} from 'react-native';
 import {useSelector} from 'react-redux';
 

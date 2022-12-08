@@ -14,12 +14,11 @@ import {
   objectDetailsMapReducer,
   searchReducer,
   authenticationReducer,
-  languageReducer,
-  themeReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
 import logger from 'redux-logger';
+import {settingsReducer} from './reducers/SettingsReducer';
 const AsyncStorage = reduxStorage;
 
 const searchPersistConfig = {
@@ -40,16 +39,10 @@ const bookmarksPersistConfig = {
   whitelist: ['bookmarksIds'],
 };
 
-const languagePersistConfig = {
-  key: 'lang',
+const settingsPeristConfig = {
+  key: 'settings',
   storage: AsyncStorage,
-  whitelist: ['lang'],
-};
-
-const themePersistConfig = {
-  key: 'theme',
-  storage: AsyncStorage,
-  whitelist: ['theme'],
+  whitelist: ['theme', 'language'],
 };
 
 const rootReducer = combineReducers({
@@ -60,8 +53,7 @@ const rootReducer = combineReducers({
   objectDetailsMap: objectDetailsMapReducer,
   search: persistReducer(searchPersistConfig, searchReducer),
   authentication: authenticationReducer,
-  lang: persistReducer(languagePersistConfig, languageReducer),
-  theme: persistReducer(themePersistConfig, themeReducer),
+  settings: persistReducer(settingsPeristConfig, settingsReducer),
 });
 
 const sagaMiddleware = createSagaMiddleware();
