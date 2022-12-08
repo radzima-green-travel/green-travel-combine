@@ -16,7 +16,7 @@ export const changeLanguageRequest = createAction(
   ACTIONS.CHANGE_LANGUAGE_REQUEST,
 )<SupportedLocales>();
 export const changeLanguageSuccess = createAction(
-  ACTIONS.CHANGE_LANGUAGE_SUCESS,
+  ACTIONS.CHANGE_LANGUAGE_SUCCESS,
 )<SupportedLocales>();
 export const changeLanguageFailure = createAction(
   ACTIONS.CHANGE_LANGUAGE_FAILURE,
