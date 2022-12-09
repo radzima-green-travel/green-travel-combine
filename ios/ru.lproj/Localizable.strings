@@ -110,3 +110,5 @@
 "ResetPasswordRequestScreenHeader" = "Изменить пароль";
 "ResetPasswordRequestScreenHint" = "В целях улучшения безопасности мы просим Вас изменить пароль. На почту %@ будут отправлены инструкции для изменения пароля";
 "ResetPasswordRequestScreenSubmit" = "ОТПРАВИТЬ";
+
+"ContinueWith" = "Продолжить с ";

@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)signInWithUsername:(NSString *)username
                   password:(NSString *)password
                           completion:(void(^)(NSError * _Nullable))completion;
+-(void)initiateAppleSignIn:(UIWindow *)window;
 - (void)resetPassword:(NSString *)username
            completion:(void(^)(NSError * _Nullable))completion;
 - (void)resetPasswordConfirm:(NSString *)username

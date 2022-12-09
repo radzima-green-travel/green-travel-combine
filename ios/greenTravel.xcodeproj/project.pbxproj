@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D21BC95293A455C0064F686 /* SocialLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D21BC94293A455C0064F686 /* SocialLoginService.swift */; };
+		0DD4EBD72940D0E800A989AE /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */; };
 		0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -226,13 +228,17 @@
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
-		6281F7E124C9E40D00C51231 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6281F7E024C9E40D00C51231 /* empty.swift */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
 		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		0D21BC94293A455C0064F686 /* SocialLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginService.swift; sourceTree = "<group>"; };
+		0D21BC96293A47540064F686 /* greenTravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravel.entitlements; path = greenTravel/greenTravel.entitlements; sourceTree = "<group>"; };
+		0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
+		0DD4EBD82940DF5100A989AE /* SocialLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
+		0DD4EBDB2942489400A989AE /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Radzima Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Radzima Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = greenTravel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
@@ -668,8 +674,6 @@
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		628194D025F213BD00491FDF /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = greenTravel/BootSplash.storyboard; sourceTree = "<group>"; };
-		6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
-		6281F7E024C9E40D00C51231 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
 		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		745C34F067A2EA32BDC236BD /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
@@ -719,8 +723,7 @@
 				5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */,
-				6281F7E024C9E40D00C51231 /* empty.swift */,
-				6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */,
+				0DD4EBDB2942489400A989AE /* greenTravel-Bridging-Header.h */,
 				5A39D6F126B34C04008FC20C /* Localizable.strings */,
 			);
 			name = GreenTravel;
@@ -757,6 +760,8 @@
 				5A95F1FA2847F39500CCA852 /* BaseFormViewController.m */,
 				5ACDFCDA285DFA2A0079C8EC /* CommonFormConstants.h */,
 				5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */,
+				0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */,
+				0DD4EBD82940DF5100A989AE /* SocialLoginViewController.h */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
@@ -1776,6 +1781,7 @@
 			children = (
 				5ADF034D283D1C3700D98E9A /* AuthService.h */,
 				5ADF034E283D1C3700D98E9A /* AuthService.m */,
+				0D21BC94293A455C0064F686 /* SocialLoginService.swift */,
 			);
 			path = AuthService;
 			sourceTree = "<group>";
@@ -1939,6 +1945,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				0D21BC96293A47540064F686 /* greenTravel.entitlements */,
 				624E38CE2519E467001D98E2 /* Resources */,
 				13B07FAE1A68108700A75B9A /* GreenTravel */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -2008,7 +2015,7 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 53APD5F9YQ;
+						DevelopmentTeam = K36CA7QL4T;
 						LastSwiftMigration = 1130;
 						ProvisioningStyle = Manual;
 					};
@@ -2307,7 +2314,6 @@
 				5A6DC5D2265AAB3900A2D37B /* RoutesSheetController.m in Sources */,
 				5A775DFB26077A7D00CEFC78 /* GradientOverlayView.m in Sources */,
 				5A775E0626077A7D00CEFC78 /* FullMapViewController.m in Sources */,
-				6281F7E124C9E40D00C51231 /* empty.swift in Sources */,
 				5A95F1FB2847F39500CCA852 /* BaseFormViewController.m in Sources */,
 				5A775E0026077A7D00CEFC78 /* FilterOption.m in Sources */,
 				5A775E1026077A7D00CEFC78 /* BannerView.m in Sources */,
@@ -2393,6 +2399,7 @@
 				5EAE434628A6C66800042455 /* ProfileSection.m in Sources */,
 				5A775E0B26077A7D00CEFC78 /* DetailsViewController.m in Sources */,
 				5A775E1126077A7D00CEFC78 /* PlacesViewController.m in Sources */,
+				0D21BC95293A455C0064F686 /* SocialLoginService.swift in Sources */,
 				5EA9409628E6175400E90014 /* UserSettingsViewController.m in Sources */,
 				5A98894428424A980000271B /* CodeConfirmationViewController.m in Sources */,
 				5A775B5926064C9000CEFC78 /* PlaceCategory.m in Sources */,
@@ -2409,6 +2416,7 @@
 				5A775B2C26064C9000CEFC78 /* StoredPlaceItem+CoreDataClass.m in Sources */,
 				5A775E1626077A7D00CEFC78 /* SearchCellConfiguration.m in Sources */,
 				5A775B2626064C9000CEFC78 /* StoredCategoryUUIDToRelatedItemUUIDs+CoreDataProperties.m in Sources */,
+				0DD4EBD72940D0E800A989AE /* SocialLoginViewController.swift in Sources */,
 				5A775B1F26064C9000CEFC78 /* StoredPlaceItem+CoreDataProperties.m in Sources */,
 				5A775B8F26064C9000CEFC78 /* ColorsLegacy.m in Sources */,
 				5A775DF526077A7D00CEFC78 /* BookmarksViewController.m in Sources */,
@@ -2475,10 +2483,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K36CA7QL4T;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2500,6 +2510,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "EPAM Radzima App Store Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2513,10 +2524,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K36CA7QL4T;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",
 					"PROD=0",
@@ -2540,6 +2553,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "EPAM Radzima App Store Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2607,10 +2621,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = K36CA7QL4T;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K36CA7QL4T;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",
 					"PROD=1",
@@ -2634,6 +2650,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = app.radzima;
 				PRODUCT_NAME = Radzima;
 				PROVISIONING_PROFILE_SPECIFIER = "EPAM Radzima Distribution AppStore";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "EPAM Radzima App Store Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

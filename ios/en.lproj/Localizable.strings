@@ -110,4 +110,4 @@
 "ResetPasswordRequestScreenHint" = "In order to improve security, we kindly ask you to change your password. We'll send you the steps explaining how to do it to the e-mail %@";
 "ResetPasswordRequestScreenSubmit" = "SEND";
 
-
+"ContinueWith" = "Continue with ";

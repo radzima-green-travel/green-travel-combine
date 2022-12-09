@@ -16,6 +16,7 @@
 #import "UIImage+extensions.h"
 #import "BookmarksViewController.h"
 #import "UserSettingsViewController.h"
+#import "SocialLoginViewController.h"
 
 NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controller) {
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
@@ -25,7 +26,9 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
                                           handler:^{
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:controller.userController model:controller.userModel];
     loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
-    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    
+    SocialLoginViewController *socialLoginVC = [SocialLoginViewController alloc];
+    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:socialLoginVC];
     if (@available(iOS 13.0, *)) {
       [loginViewControllerWithNavigation setModalInPresentation:YES];
     }

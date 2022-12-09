@@ -403,12 +403,8 @@ PODS:
     - React-Core
   - react-native-render-html (6.2.0):
     - React-Core
-  - react-native-safe-area-context (4.4.1):
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
+  - react-native-safe-area-context (3.3.2):
     - React-Core
-    - ReactCommon/turbomodule/core
   - react-native-ultimate-config (4.0.0):
     - React
   - react-native-webview (11.23.0):
@@ -838,7 +834,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: c9b0719bce3b436cd30a3c879fd59de3f6d72476
   react-native-pager-view: b1914469643f40042e65d78cbf3d3dfebd6fb0d9
   react-native-render-html: 1c3a2f91dc19d0ec9ec2a8c09d7919c721d0a75d
-  react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-ultimate-config: ff96eb4a4e7b8595814dbc7f1ae8e1291770f591
   react-native-webview: e771bc375f789ebfa02a26939a57dbc6fa897336
   React-perflogger: 5e41b01b35d97cc1b0ea177181eb33b5c77623b6

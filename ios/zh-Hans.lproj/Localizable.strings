@@ -99,3 +99,5 @@
 "ResetPasswordRequestScreenHeader" = "更改密码";
 "ResetPasswordRequestScreenHint" = "为了提高安全性，我们要求您更改密码。 更改密码的说明将发送至 %@";
 "ResetPasswordRequestScreenSubmit" = "SEND";
+
+"ContinueWith" = "Continue with ";
