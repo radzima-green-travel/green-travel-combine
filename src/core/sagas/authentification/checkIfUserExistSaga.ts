@@ -1,13 +1,13 @@
-import {Auth} from 'aws-amplify';
 import {call} from 'redux-saga/effects';
+import {amplifyApi} from 'api/amplify';
+import {RequestError} from 'core/errors';
 
 export function* checkIfUserExistSaga(email: string) {
   try {
-    yield call([Auth, Auth.signIn], email, '000');
+    yield call(amplifyApi.signIn, email, '000');
   } catch (e) {
-    console.log('error', e);
-
-    if (e?.code === 'PasswordResetRequiredException') {
+    const requestError = e as RequestError;
+    if (requestError.error_code === 'PASSWORD_RESET_REQUIRED') {
       return {
         exist: true,
         isConfirmed: false,
@@ -15,7 +15,7 @@ export function* checkIfUserExistSaga(email: string) {
       };
     }
 
-    if (e?.code === 'UserNotConfirmedException') {
+    if (requestError.error_code === 'USER_NOT_CONFIRMED') {
       return {
         exist: true,
         isConfirmed: false,
@@ -23,7 +23,7 @@ export function* checkIfUserExistSaga(email: string) {
       };
     }
 
-    if (e?.code === 'NotAuthorizedException') {
+    if (requestError.error_code === 'NOT_AUTHORIZED') {
       return {
         exist: true,
         isConfirmed: true,
@@ -31,10 +31,14 @@ export function* checkIfUserExistSaga(email: string) {
       };
     }
 
-    return {
-      exist: false,
-      isConfirmed: false,
-      isPasswordReset: false,
-    };
+    if (requestError.error_code === 'USER_NOT_FOUND') {
+      return {
+        exist: false,
+        isConfirmed: false,
+        isPasswordReset: false,
+      };
+    }
+
+    throw e;
   }
 }

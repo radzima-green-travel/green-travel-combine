@@ -1,12 +1,13 @@
 import {useMemo, useCallback, useLayoutEffect} from 'react';
 import Clipboard from '@react-native-community/clipboard';
 
-import {useToast} from 'atoms';
+import {useSnackbar} from 'atoms';
 import {
   useObject,
   useDetailsPageAnalytics,
   useImageSlider,
   useUpdateEffect,
+  useTranslation,
 } from 'core/hooks';
 import {debounce} from 'lodash';
 import {
@@ -14,8 +15,9 @@ import {
   ObjectDetailsScreenRouteProps,
 } from '../types';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useObjectDetailsStatusBar} from './useObjectDetailsStatusBar';
+
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {COLORS} from 'assets';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
@@ -26,6 +28,7 @@ export const useObjectDetails = () => {
   const {top} = useSafeAreaInsets();
 
   const data = useObject(objectId)!;
+  const {t} = useTranslation();
 
   const {sendOpenMapEvent, sendSwitchPhotosEvent, sendScrollEvent} =
     useDetailsPageAnalytics({
@@ -33,14 +36,24 @@ export const useObjectDetails = () => {
       category: data.category.name,
     });
 
-  const {show: showToast, ...toastProps} = useToast();
+  const {show, ...snackBarProps} = useSnackbar();
 
   const copyLocationToClipboard = useCallback(
     (location: string) => {
       Clipboard.setString(location);
-      showToast();
+      show({
+        type: 'positive',
+        title: t('common:coppied'),
+        timeoutMs: 1000,
+        iconProps: {
+          color: COLORS.apple,
+          name: 'check',
+          width: 16,
+          height: 11,
+        },
+      });
     },
-    [showToast],
+    [show, t],
   );
 
   const navigateToObjectsList = useCallback(
@@ -101,7 +114,7 @@ export const useObjectDetails = () => {
     copyLocationToClipboard,
     navigateToObjectsMap,
     navigateToObjectsListDebounced,
-    toastProps,
+    snackBarProps,
     objectId,
     isJustOneImage,
     defaultPhoto,

@@ -1,6 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
-import {NetworkError} from 'core/errors';
-export class ApiService {
+import {provideCustomError} from './interceptors';
+
+export class RestApiEngine {
   protected axiosInstance: AxiosInstance;
 
   constructor(baseURL: string) {
@@ -10,15 +11,13 @@ export class ApiService {
       validateStatus: status => status < 400,
     });
 
-    this.axiosInstance.interceptors.response.use(
-      resp => resp,
-      error => {
-        if (error.message === 'Network Error') {
-          return Promise.reject(new NetworkError(error.message));
-        }
+    this.applyInterceptors();
+  }
 
-        return Promise.reject(error);
-      },
+  applyInterceptors() {
+    this.axiosInstance.interceptors.response.use(
+      response => response,
+      provideCustomError,
     );
   }
 

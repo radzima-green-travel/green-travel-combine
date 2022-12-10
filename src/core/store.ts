@@ -3,7 +3,6 @@ import createSagaMiddleware from 'redux-saga';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {StateType} from 'typesafe-actions';
 import {rootSaga} from './rootSaga';
-import {errorLabelMiddliware} from 'services/ErrorLabelService';
 import {persistStore, persistReducer} from 'redux-persist';
 import {asyncReducers} from 'react-redux-help-kit';
 import {combineReducers} from 'redux';
@@ -62,9 +61,7 @@ export type IState = StateType<typeof rootReducer>;
 
 export const store: Store<IState> = createStore(
   rootReducer,
-  composeWithDevTools(
-    applyMiddleware(errorLabelMiddliware, sagaMiddleware, logger),
-  ),
+  composeWithDevTools(applyMiddleware(sagaMiddleware, logger)),
 );
 
 export const persistor = persistStore(store);

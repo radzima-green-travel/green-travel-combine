@@ -18,7 +18,7 @@ export const RouteMetrics = ({data = mockData, containerStyle = {}}) => {
         ...styles.container,
         ...containerStyle,
       }}>
-      {data.map((item) => (
+      {data.map(item => (
         <RouteMetric key={item.metric} item={item} />
       ))}
     </View>

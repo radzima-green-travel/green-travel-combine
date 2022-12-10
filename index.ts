@@ -10,10 +10,10 @@ import awsConfig from './src/aws-exports';
 import {name as appName} from './app.json';
 import {sentryService} from 'services/SentryService';
 import {analyticsService} from 'services/AnalyticsService';
-import {amplifyApiService} from 'services/AmplifyApiService';
 import {languageService} from 'services/LanguageService';
+import {Amplify} from 'aws-amplify';
 
-amplifyApiService.init({
+Amplify.configure({
   ...awsConfig,
   aws_appsync_authenticationType: 'API_KEY',
 });

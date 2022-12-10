@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback} from 'react';
 import {AppStateStatus, InteractionManager} from 'react-native';
 
 import {
@@ -13,6 +13,7 @@ import {
   useHomeAnalytics,
   useColorScheme,
   useAppState,
+  useOnRequestError,
 } from 'core/hooks';
 import {IObject, ITransformedCategory} from 'core/types';
 import {HomeScreenNavigationProps} from '../types';
@@ -22,7 +23,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
-import {useToast} from '../../../components/atoms';
+import {useSnackbar} from 'atoms';
 
 export const useHome = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,6 @@ export const useHome = () => {
   const {error} = useRequestError(getInitialHomeDataRequest);
 
   const {loading: refreshing} = useRequestLoading(getHomeDataUpdatesRequest);
-  const {error: updateError} = useRequestError(getHomeDataUpdatesRequest);
 
   const checkUpdates = useCallback(
     (state: AppStateStatus, prevState: AppStateStatus) => {
@@ -113,13 +113,14 @@ export const useHome = () => {
   const homeData = useSelector(selectHomeData);
   const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
   const isFocused = useIsFocused();
-  const {ref, show: showToast} = useToast();
+  const {show, ...snackBarProps} = useSnackbar();
 
-  useEffect(() => {
-    if (updateError) {
-      showToast();
-    }
-  }, [showToast, updateError]);
+  useOnRequestError(getHomeDataUpdatesRequest, 'home', errorLabel => {
+    show({
+      title: errorLabel.text,
+      type: 'error',
+    });
+  });
 
   useAppState(checkUpdates);
 
@@ -135,7 +136,6 @@ export const useHome = () => {
   );
 
   return {
-    updateError,
     loading,
     error,
     listRef,
@@ -151,6 +151,6 @@ export const useHome = () => {
     theme,
     isFocused,
     isUpdatesAvailable,
-    ref,
+    snackBarProps,
   };
 };

@@ -33,7 +33,7 @@ export const SignUpForm = () => {
         secureTextEntry={passwordVisibility}
         onRightIconPress={handlePasswordVisibility}
         value={password}
-        setValue={setPassword}
+        onChange={setPassword}
       />
     </AuthForm>
   );

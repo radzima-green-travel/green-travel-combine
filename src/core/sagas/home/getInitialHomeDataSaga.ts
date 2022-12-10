@@ -1,5 +1,5 @@
 import {call, put} from 'redux-saga/effects';
-import {getAllAppDataFromIndex} from 'api/rest';
+import {restAPI} from 'api/rest';
 import {ListMobileDataQuery} from 'api/graphql/types';
 import {
   getInitialHomeDataSuccess,
@@ -15,9 +15,12 @@ export function* getInitialHomeDataSaga() {
       languageService,
       languageService.getCurrentLanguage,
     ]);
-    const data: ListMobileDataQuery = yield call(getAllAppDataFromIndex, {
-      locale: currentAppLocale,
-    });
+    const data: ListMobileDataQuery = yield call(
+      [restAPI, restAPI.getAllAppDataFromIndex],
+      {
+        locale: currentAppLocale,
+      },
+    );
 
     yield call(saveHomeDataVersionSaga, data);
     yield put(getInitialHomeDataSuccess({data: data}));
