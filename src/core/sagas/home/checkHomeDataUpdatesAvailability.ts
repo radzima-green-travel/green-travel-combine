@@ -9,7 +9,7 @@ import {
 import {loadingSaga} from '../loading';
 import {languageService} from 'services/LanguageService';
 import {ILabelError, SupportedLocales} from 'core/types';
-import {getAllAppDataFromIndex} from 'api/rest';
+import {restAPI} from 'api/rest';
 
 export function* checkHomeDataUpdatesAvailabilitySaga() {
   try {
@@ -31,7 +31,9 @@ export function* checkHomeDataUpdatesAvailabilitySaga() {
 
     const data: ListMobileDataQuery | null = loading
       ? null
-      : yield call(getAllAppDataFromIndex, {locale: currentAppLocale});
+      : yield call([restAPI, restAPI.getAllAppDataFromIndex], {
+          locale: currentAppLocale,
+        });
 
     yield put(
       getHomeDataUpdateAvailableSuccess({

@@ -37,7 +37,7 @@ export const SignInPassword = () => {
         secureTextEntry={passwordVisibility}
         onRightIconPress={handlePasswordVisibility}
         value={password}
-        setValue={setPassword}
+        onChange={setPassword}
       />
     </AuthForm>
   );

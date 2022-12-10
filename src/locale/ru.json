@@ -63,7 +63,16 @@
     "getMore": "Узнать больше",
     "routeLength": "{{km}} км, "
   },
-  "authentification": {
+  "authentification": {    
+    "validation": {
+      "invalidEmail": "Неверный формат электроной почты",
+      "emptyEmail": "Укажите вашу электронную почту"
+    },
+    "errors": {
+      "-1": {
+        "text": "Отсутствует подключение к Интернету"
+      }
+    },
     "signInTab": "Войти",
     "signUpTab": "Создать аккаунт",
     "signUpButton": "Создать",
@@ -109,7 +118,7 @@
       "title": "en_Вы не авторизованы",
       "subtitle": "en_Авторизуйтесь\nили зарегистрируйтесь"
     },
-    "authorrized": {
+    "authorized": {
       "title": "Вы авторизованы"
     },
     "profile": "Профиль",

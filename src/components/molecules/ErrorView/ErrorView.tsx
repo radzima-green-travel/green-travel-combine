@@ -15,7 +15,7 @@ interface IProps {
   onTryAgainPress?: () => void;
 }
 
-export const ErrorView = memo(({error, onTryAgainPress}: IProps) => {
+export const ErrorView = memo(({onTryAgainPress}: IProps) => {
   const {t} = useTranslation('common');
   const styles = useThemeStyles(themeStyles);
   return (

@@ -17,9 +17,15 @@ interface IProps {
   defaultPhoto?: number;
 }
 
-export const ImageSlider = ({images, onScroll, width, height, defaultPhoto}: IProps) => {
+export const ImageSlider = ({
+  images,
+  onScroll,
+  width,
+  height,
+  defaultPhoto,
+}: IProps) => {
   const styles = useThemeStyles(themeStyles);
-  const [isImgDownloaded, setIsImgDownloaded] = useState(true)
+  const [isImgDownloaded, setIsImgDownloaded] = useState(true);
 
   return (
     <FlatList
@@ -40,7 +46,7 @@ export const ImageSlider = ({images, onScroll, width, height, defaultPhoto}: IPr
             ? {
                 uri: item,
               }
-            : item
+            : item;
 
         return (
           <FastImage

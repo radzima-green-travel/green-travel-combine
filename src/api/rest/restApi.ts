@@ -1,25 +1,35 @@
-import {ApiService} from 'services/ApiService';
+import {RestApiEngine} from '../engines';
 import config from 'react-native-ultimate-config';
-import {sentryService} from 'services/SentryService';
 import {
   etagCachingRequestInterceptor,
   etagCachingRespnseInterceptor,
 } from './interceptors';
+import {SupportedLocales} from 'core/types';
+import {ListMobileDataQuery} from '../graphql/types';
 
-export class NativeApiService extends ApiService {
+export class RestAPI extends RestApiEngine {
   constructor(baseURL: string) {
     super(baseURL);
+  }
+
+  applyInterceptors(): void {
+    super.applyInterceptors();
     this.axiosInstance.interceptors.request.use(etagCachingRequestInterceptor);
     this.axiosInstance.interceptors.response.use(etagCachingRespnseInterceptor);
-    this.axiosInstance.interceptors.response.use(
-      res => res,
-      error => {
-        sentryService.logResponseError(error);
-        return Promise.reject(error);
-      },
-    );
+  }
+
+  async getAllAppDataFromIndex({
+    locale,
+  }: {
+    locale: SupportedLocales;
+  }): Promise<ListMobileDataQuery | null> {
+    const data = await this.get(`/objects_v1_${locale}.json`);
+
+    if (!data) {
+      return null;
+    }
+
+    return {listMobileData: data};
   }
 }
-export const restApi = new NativeApiService(
-  config.NATIVE_CLIENT_INDEX_FILE_BASE_URL,
-);
+export const restAPI = new RestAPI(config.NATIVE_CLIENT_INDEX_FILE_BASE_URL);

@@ -1,6 +1,5 @@
 import {call, delay, put, select} from 'redux-saga/effects';
 
-import {getAllAppDataFromIndex} from 'api/rest';
 import {ListMobileDataQuery} from 'api/graphql/types';
 import {
   getHomeDataUpdatesFailure,
@@ -10,6 +9,7 @@ import {selectHomeUpdatedData} from '../../selectors';
 
 import {languageService} from 'services/LanguageService';
 import {ILabelError, SupportedLocales} from 'core/types';
+import {restAPI} from 'api/rest';
 import {saveLocalEtagsToStorage} from 'api/rest/interceptors';
 
 export function* getHomeDataUpdatesSaga() {
@@ -18,9 +18,12 @@ export function* getHomeDataUpdatesSaga() {
       languageService,
       languageService.getCurrentLanguage,
     ]);
-    const data: ListMobileDataQuery = yield call(getAllAppDataFromIndex, {
-      locale: currentAppLocale,
-    });
+    const data: ListMobileDataQuery = yield call(
+      [restAPI, restAPI.getAllAppDataFromIndex],
+      {
+        locale: currentAppLocale,
+      },
+    );
 
     const updatedData = yield select(selectHomeUpdatedData);
     if (data) {

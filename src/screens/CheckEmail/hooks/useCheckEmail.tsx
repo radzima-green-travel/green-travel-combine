@@ -1,52 +1,71 @@
-import {useCallback, useEffect, useState} from 'react';
-import {useOnRequestSuccess, useRequestLoading} from 'core/hooks';
+import {useCallback} from 'react';
+import {
+  useOnRequestSuccess,
+  useRequestLoading,
+  useOnRequestError,
+} from 'core/hooks';
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {checkUserEmailRequest} from 'core/reducers';
 import {CheckEmailScreenNavigationProps} from '../types';
+import {useSnackbar} from 'atoms';
+import {useFormik} from 'formik';
+import {CheckEmailFormModel} from 'core/types';
+import {validationSchema} from './validation';
 
 export const useCheckEmail = () => {
   const navigation = useNavigation<CheckEmailScreenNavigationProps>();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [isEmailCorrect, setIsEmailCorrect] = useState(false);
 
   const {loading} = useRequestLoading(checkUserEmailRequest);
 
-  useEffect(() => {
-    const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const checkEmail = useCallback(
+    ({email}: CheckEmailFormModel) => {
+      dispatch(checkUserEmailRequest(email));
+    },
+    [dispatch],
+  );
 
-    if (regexForEmail.test(email)) {
-      setIsEmailCorrect(true);
-    } else {
-      setIsEmailCorrect(false);
-    }
-  }, [email, setIsEmailCorrect]);
+  const formik = useFormik<CheckEmailFormModel>({
+    initialValues: {
+      email: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: checkEmail,
+  });
 
-  const checkEmail = useCallback(() => {
-    dispatch(checkUserEmailRequest(email));
-  }, [dispatch, email]);
+  const {values} = formik;
 
   useOnRequestSuccess(checkUserEmailRequest, data => {
     if (!data.exist) {
-      navigation.navigate('SignUpForm', {email});
+      navigation.navigate('SignUpForm', {email: values.email});
     } else if (data.exist) {
       if (data.isConfirmed) {
-        navigation.navigate('SignInPassword', {email});
+        navigation.navigate('SignInPassword', {email: values.email});
       } else {
         navigation.navigate('EmailValidation', {
-          email,
+          email: values.email,
           isSignUp: data.isPasswordReset ? false : true,
         });
       }
     }
   });
 
+  const {show, ...snackBarProps} = useSnackbar();
+
+  useOnRequestError(checkUserEmailRequest, 'authentification', errorLabel => {
+    show({
+      type: 'error',
+      title: errorLabel.text,
+    });
+  });
+
   return {
-    email,
-    isEmailCorrect,
     loading,
-    setEmail,
     checkEmail,
+    snackBarProps,
+    formik,
+    isSubmitButtonDisabled: !formik.values.email,
+    submitForm: formik.handleSubmit,
   };
 };

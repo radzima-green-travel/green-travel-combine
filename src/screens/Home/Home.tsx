@@ -1,20 +1,17 @@
 import React from 'react';
-import {RefreshPageReminder, SuspenseView} from 'atoms';
+import {RefreshPageReminder, SuspenseView, SnackBar} from 'atoms';
 import {HomeSectionBar} from 'organisms';
 import {FlatList, RefreshControl, View} from 'react-native';
 
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import {useThemeStyles} from 'core/hooks';
 import {COLORS} from 'assets';
-import {ErrorToast} from '../../components/molecules';
 import {screenOptions} from './screenOptions';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
 
 export const Home = () => {
-  const {t} = useTranslation('home');
   const styles = useThemeStyles(themeStyles);
   const {
-    updateError,
     loading,
     error,
     listRef,
@@ -30,7 +27,7 @@ export const Home = () => {
     theme,
     isFocused,
     isUpdatesAvailable,
-    ref,
+    snackBarProps,
   } = useHome();
 
   return (
@@ -66,14 +63,7 @@ export const Home = () => {
           )}
         />
         {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null}
-        <ErrorToast
-          ref={ref}
-          text={
-            updateError?.message?.textPaths
-              ? t(updateError?.message?.textPaths)
-              : ''
-          }
-        />
+        <SnackBar isOnTop {...snackBarProps} />
       </SuspenseView>
     </View>
   );

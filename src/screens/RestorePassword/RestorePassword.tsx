@@ -32,7 +32,7 @@ export const RestorePassword = () => {
         size={16}
         placeholder={'email'}
         value={email}
-        setValue={setEmail}
+        onChange={setEmail}
         // dangerBorder={!!emailTip}
       />
     </AuthForm>

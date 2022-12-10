@@ -64,6 +64,15 @@
     "routeLength": "{{km}} 公里, "
   },
   "authentification": {
+    "validation": {
+      "invalidEmail": "zh_Неверный формат электроной почты",
+      "emptyEmail": "zh_Укажите вашу электронную почту"
+    },
+    "errors": {
+      "-1": {
+        "text": "沒有網絡連接"
+      }
+    },
     "signInTab": "zh_Войти",
     "signUpTab": "zh_Создать аккаунт",
     "signUpButton": "zh_Создать",

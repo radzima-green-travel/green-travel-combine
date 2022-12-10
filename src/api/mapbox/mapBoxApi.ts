@@ -1,18 +1,19 @@
-import {ApiService} from 'services/ApiService';
 import config from 'react-native-ultimate-config';
-import {sentryService} from 'services/SentryService';
+import {RestApiEngine} from '../engines';
+import {ICoordinates, IObject} from 'core/types';
 
-export class MapBoxApiService extends ApiService {
-  constructor(baseURL: string) {
-    super(baseURL);
-    this.axiosInstance.interceptors.response.use(
-      res => res,
-      error => {
-        sentryService.logMapBoxError(error);
-        return Promise.reject(error);
-      },
+export class MapBoxAPI extends RestApiEngine {
+  getDirections({
+    from,
+    to,
+  }: {
+    from: ICoordinates;
+    to: ICoordinates;
+  }): Promise<IObject> {
+    return this.get(
+      `/directions/v5/mapbox/driving/${from};${to}?access_token=${config.MAP_ACCESS_TOKEN}&geometries=geojson`,
     );
   }
 }
 
-export const mapBoxApi = new MapBoxApiService(config.MAP_BOX_CLIENT_URL);
+export const mapBoxApi = new MapBoxAPI(config.MAP_BOX_CLIENT_URL);

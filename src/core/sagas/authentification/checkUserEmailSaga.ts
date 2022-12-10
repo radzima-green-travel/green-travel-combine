@@ -18,6 +18,6 @@ export function* checkUserEmailSaga({
 
     yield put(checkUserEmailSuccess(data));
   } catch (e) {
-    yield put(checkUserEmailFailure(e));
+    yield put(checkUserEmailFailure(e as Error));
   }
 }

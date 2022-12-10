@@ -1,31 +1,36 @@
 import React from 'react';
 import {useTranslation} from 'core/hooks';
-import {FormInput} from 'atoms';
+import {FormInput, SnackBar, WithFormikInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useCheckEmail} from './hooks';
+import {FormikProvider} from 'formik';
 
 export const CheckEmail = () => {
   const {t} = useTranslation('authentification');
-  const {email, isEmailCorrect, loading, setEmail, checkEmail} =
+  const {loading, formik, snackBarProps, isSubmitButtonDisabled, submitForm} =
     useCheckEmail();
-
   return (
-    <AuthForm
-      title={t('enterEmailAddress')}
-      text={t('checkAccount')}
-      onSubmitPress={checkEmail}
-      submitButtonText={t('check')}
-      isSubmitButtonDisabled={!isEmailCorrect}
-      submitButtonLoading={loading}>
-      <FormInput
-        iconLeftName={'email'}
-        size={16}
-        placeholder={'email'}
-        value={email}
-        setValue={setEmail}
-        autoFocus
-        // dangerBorder={!!emailTip}
-      />
-    </AuthForm>
+    <FormikProvider value={formik}>
+      <AuthForm
+        title={t('enterEmailAddress')}
+        text={t('checkAccount')}
+        onSubmitPress={submitForm}
+        submitButtonText={t('check')}
+        isSubmitButtonDisabled={isSubmitButtonDisabled}
+        submitButtonLoading={loading}>
+        <WithFormikInput<string> name="email">
+          {({messageText, ...inputProps}) => (
+            <FormInput
+              iconLeftName={'email'}
+              size={16}
+              placeholder={'email'}
+              messageText={messageText ? t(messageText) : undefined}
+              {...inputProps}
+            />
+          )}
+        </WithFormikInput>
+      </AuthForm>
+      <SnackBar {...snackBarProps} />
+    </FormikProvider>
   );
 };

@@ -64,6 +64,15 @@
     "routeLength": "{{km}} km, "
   },
   "authentification": {
+    "validation": {
+      "invalidEmail": "en_Неверный формат электроной почты",
+      "emptyEmail": "en_Укажите вашу электронную почту"
+    },
+    "errors": {
+      "-1": {
+        "text": "Internet connection lost"
+      }
+    },
     "signInTab": "Log in",
     "signUpTab": "Create an account",
     "signUpButton": "Sign Up",

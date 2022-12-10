@@ -7,7 +7,6 @@ export {BackCircleButton} from './BackCircleButton';
 export {BikeRentalWidget} from './BikeRentalWidget';
 export {BookmarksEmptyView} from './BookmarksEmptyView';
 export {CategoryCard} from './CategoryCard';
-export {ClipboardToast} from './ClipboardToast';
 export {DetailsPageCapture} from './DetailsPageCapture';
 export {ErrorToast} from './ErrorToast';
 export {ErrorView} from './ErrorView';

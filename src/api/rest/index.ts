@@ -1,1 +1,1 @@
-export {getAllAppDataFromIndex} from './getAllAppDataFromIndex';
+export {restAPI} from './RestAPI';
