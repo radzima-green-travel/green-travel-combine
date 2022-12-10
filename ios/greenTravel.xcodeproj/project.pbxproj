@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0D21BC95293A455C0064F686 /* SocialLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D21BC94293A455C0064F686 /* SocialLoginService.swift */; };
+		0D8DBB5529448F93005C9DE1 /* UIControl+action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */; };
+		0D8DBB5729448FBD005C9DE1 /* UIView+layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */; };
+		0D8DBB5929449015005C9DE1 /* AppAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */; };
 		0DD4EBD72940D0E800A989AE /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */; };
 		0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -236,6 +239,9 @@
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		0D21BC94293A455C0064F686 /* SocialLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginService.swift; sourceTree = "<group>"; };
 		0D21BC96293A47540064F686 /* greenTravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravel.entitlements; path = greenTravel/greenTravel.entitlements; sourceTree = "<group>"; };
+		0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+action.swift"; sourceTree = "<group>"; };
+		0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layout.swift"; sourceTree = "<group>"; };
+		0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthProvider.swift; sourceTree = "<group>"; };
 		0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		0DD4EBD82940DF5100A989AE /* SocialLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		0DD4EBDB2942489400A989AE /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -762,6 +768,7 @@
 				5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */,
 				0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */,
 				0DD4EBD82940DF5100A989AE /* SocialLoginViewController.h */,
+				0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
@@ -801,6 +808,8 @@
 				5A2315C928E0A354004CB989 /* UIImage+extensions.h */,
 				5A2315CA28E0A354004CB989 /* UIButton+extensions.m */,
 				5A2315CB28E0A354004CB989 /* UIImage+extensions.m */,
+				0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */,
+				0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -2286,6 +2295,7 @@
 				5A2315D928E0A428004CB989 /* ApiServiceBase.m in Sources */,
 				5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */,
 				5A775E1226077A7D00CEFC78 /* SearchViewController.m in Sources */,
+				0D8DBB5729448FBD005C9DE1 /* UIView+layout.swift in Sources */,
 				5A2144B1266B988700582901 /* MapViewState.m in Sources */,
 				5A775B6026064C9000CEFC78 /* MapItem.m in Sources */,
 				5A775E1426077A7D00CEFC78 /* UISearchControllerNoCancel.m in Sources */,
@@ -2348,6 +2358,7 @@
 				5A775B5126064C9000CEFC78 /* IndexModel.m in Sources */,
 				5A775E0D26077A7D00CEFC78 /* GalleryPageControl.m in Sources */,
 				5A6EDF9226C9671C001307DC /* BottomSheetTouchForwardingView.m in Sources */,
+				0D8DBB5529448F93005C9DE1 /* UIControl+action.swift in Sources */,
 				5A006D1A2783565A00010D63 /* URLUtils.m in Sources */,
 				5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */,
 				5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */,
@@ -2370,6 +2381,7 @@
 				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
 				5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */,
+				0D8DBB5929449015005C9DE1 /* AppAuthProvider.swift in Sources */,
 				5A775B5E26064C9000CEFC78 /* PathDetails.m in Sources */,
 				5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */,
 				5A775E0226077A7D00CEFC78 /* CategoriesFilterCollectionViewCell.m in Sources */,

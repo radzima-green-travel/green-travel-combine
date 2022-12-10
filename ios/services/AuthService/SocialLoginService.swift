@@ -9,23 +9,40 @@ import Amplify
 import AuthenticationServices
 import AWSMobileClient
 
-class SocialLoginService: NSObject {
+final class SocialLoginService: NSObject {
   
-  var window: UIWindow?
+  private var window: UIWindow?
   
-  @available(iOS 13.0, *)
-  func handleAuthorizationAppleIDButtonPress() {
-    let appleIDProvider = ASAuthorizationAppleIDProvider()
-    let request = appleIDProvider.createRequest()
-    request.requestedScopes = [.fullName, .email]
-    
-    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-    authorizationController.delegate = self
-    authorizationController.presentationContextProvider = self
-    authorizationController.performRequests()
+  func handleSocialSignIn(provider: AppAuthProvider, on window: UIWindow?) {
+    self.window = window
+    switch provider {
+    case .apple:
+      handleAppleSignIn()
+    case .facebook:
+      socialSignInWithWebUI(provider: .facebook)
+    case .google:
+      socialSignInWithWebUI(provider: .google)
+    case .email:
+      break
+    }
   }
   
-  func socialSignInWithWebUI(provider: AuthProvider) {
+  private func handleAppleSignIn() {
+    if #available(iOS 13.0, *) {
+      let appleIDProvider = ASAuthorizationAppleIDProvider()
+      let request = appleIDProvider.createRequest()
+      request.requestedScopes = [.fullName, .email]
+      
+      let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+      authorizationController.delegate = self
+      authorizationController.presentationContextProvider = self
+      authorizationController.performRequests()
+    } else {
+      socialSignInWithWebUI(provider: .apple)
+    }
+  }
+  
+  private func socialSignInWithWebUI(provider: AuthProvider) {
     _ = Amplify.Auth.signInWithWebUI(for: provider, presentationAnchor: window ?? UIWindow()) { result in
       switch result {
       case .success(_):
@@ -40,7 +57,7 @@ class SocialLoginService: NSObject {
 @available(iOS 13.0, *)
 extension SocialLoginService: ASAuthorizationControllerDelegate {
   public func authorizationController(controller: ASAuthorizationController,
-                               didCompleteWithAuthorization authorization: ASAuthorization) {
+                                      didCompleteWithAuthorization authorization: ASAuthorization) {
     guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
           let identityTokenData = appleIDCredential.identityToken else {
       print("🍏 No token available")

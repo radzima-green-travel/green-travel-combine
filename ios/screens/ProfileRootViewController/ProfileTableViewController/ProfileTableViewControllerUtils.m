@@ -24,15 +24,13 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
                                           subTitle:NSLocalizedString(@"ProfileTableViewCellAuthSubTitle", @"")
                                           image:[UIImage imageNamed:@"accountPhoto"]
                                           handler:^{
-    LoginViewController *loginViewController = [[LoginViewController alloc] initWithController:controller.userController model:controller.userModel];
-    loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
-    
-    SocialLoginViewController *socialLoginVC = [SocialLoginViewController alloc];
-    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:socialLoginVC];
+    SocialLoginViewController *socialLoginVC = [[SocialLoginViewController alloc] initWithController:controller.userController model:controller.userModel];
+    socialLoginVC.title = NSLocalizedString(@"LogInTitle", @"");
+    UINavigationController *socialLoginVCWithNavigation = [[UINavigationController alloc] initWithRootViewController:socialLoginVC];
     if (@available(iOS 13.0, *)) {
-      [loginViewControllerWithNavigation setModalInPresentation:YES];
+      [socialLoginVCWithNavigation setModalInPresentation:YES];
     }
-    [controller presentViewController:loginViewControllerWithNavigation animated:YES completion:^{}];
+    [controller presentViewController:socialLoginVCWithNavigation animated:YES completion:^{}];
   }];
   
   SettingsTableViewCellModel *dataAndStorageCell = [[SettingsTableViewCellModel alloc]

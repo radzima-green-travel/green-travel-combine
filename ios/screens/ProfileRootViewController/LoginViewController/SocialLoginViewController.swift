@@ -5,81 +5,16 @@
 //  Created by Aleksei Permiakov on 07.12.2022.
 //
 
-import AuthenticationServices
 import UIKit
 
-struct Text {
-  let text: String
-  let font: UIFont
-  let color: UIColor
-  
-  init(text: String,
-       font: UIFont = .systemFont(ofSize: 16, weight: .regular),
-       color: UIColor = .white) {
-    self.text = text
-    self.font = font
-    self.color = color
-  }
-}
-
-struct Border {
-  let color: CGColor
-  let width: CGFloat
-}
-
-enum AppAuthProvider: String, CaseIterable {
-  case apple
-  case facebook
-  case google
-  case email
-  
-  var text: Text {
-    switch self {
-    case .apple, .facebook, .google:
-      return .init(text: NSLocalizedString("ContinueWith", comment: "") + rawValue.capitalized)
-    case .email:
-//      return .init(text: NSLocalizedString("ProfileScreenPlaceholderEMail", comment: ""),
-      return .init(text: NSLocalizedString("ContinueWith", comment: "") + rawValue.capitalized,
-                   color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.85))
-    }
-  }
-  
-  var image: UIImage {
-    UIImage(named: "\(rawValue)-logo")?.withRenderingMode(.alwaysOriginal) ?? UIImage()
-  }
-  
-  var color: UIColor {
-    switch self {
-    case .apple:
-      return UIColor(red: 0.033, green: 0.033, blue: 0.033, alpha: 1)
-    case .facebook:
-      return UIColor(red: 0.035, green: 0.427, blue: 0.851, alpha: 1)
-    case .google:
-      return UIColor(red: 1, green: 0.337, blue: 0.369, alpha: 1)
-    case .email:
-       return .white
-    }
-  }
-  
-  var border: Border? {
-    switch self {
-    case .email:
-      return .init(color: UIColor(red: 0.225, green: 0.225, blue: 0.225, alpha: 1).cgColor,
-                   width: 2)
-    default:
-      return nil
-    }
-  }
-}
-
-final class SocialLoginViewController: UIViewController {
-  private lazy var appleSignInService = SocialLoginService.init()
+final class SocialLoginViewController: BaseFormViewController {
+  private lazy var loginService = SocialLoginService()
   
   private lazy var headerLabel: UILabel = {
     let label = UILabel()
     label.text = NSLocalizedString("ProfileScreenChoiceSignIn", comment: "")
     label.font = .systemFont(ofSize: 20, weight: .medium)
-    label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.85)
+    label.textColor = Colors().mainText
     return label
   }()
   
@@ -93,11 +28,14 @@ final class SocialLoginViewController: UIViewController {
   
   private lazy var disclaimerView: UITextView = {
     let textView = UITextView()
-    textView.text = "Disclaimer"
-    textView.font = .systemFont(ofSize: 20, weight: .medium)
-    textView.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.85)
+    textView.linkTextAttributes = [.foregroundColor: Colors().mainTextLink]
+    textView.attributedText = makeDisclaimerAttributedString()
+    textView.backgroundColor = nil
+    textView.textAlignment = .center
+    textView.delegate = self
+    textView.isSelectable = true
     textView.isEditable = false
-    textView.sizeToFit()
+    textView.delaysContentTouches = false
     textView.isScrollEnabled = false
     return textView
   }()
@@ -107,27 +45,69 @@ final class SocialLoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.modalPresentationStyle = .fullScreen
+    makeProviderButtons()
+    setupViews()
+  }
+  
+  private func handleButtonTap(provider: AppAuthProvider) {
+    switch provider {
+    case .email:
+      pushEmailLoginPath()
+    case .apple, .facebook, .google:
+      loginService.handleSocialSignIn(provider: provider, on: view.window)
+    }
+  }
+  
+  private func pushEmailLoginPath() {
+    let vc = LoginViewController(controller: userController, model: userModel)
+    show(vc, sender: self)
+  }
+  
+  private func makeDisclaimerAttributedString() -> NSMutableAttributedString {
+    let text = NSLocalizedString("DisclaimerText", comment: "")
+    let terms = NSLocalizedString("UsageTermsText", comment: "")
+    let privacy = NSLocalizedString("PrivacyPolicyText", comment: "")
+    let termsLink = NSLocalizedString("UsageTermsLink", comment: "")
+    let privacyLink = NSLocalizedString("PrivacyPolicyLink", comment: "")
     
-    title = NSLocalizedString("ProfileScreenTitle", comment: "")
-    navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-    navigationController?.navigationBar.barTintColor = Colors().navigationBarColor
-    view.backgroundColor = .white
-    
-    view.addAutolayoutSubviews(headerLabel, buttonsStackView, disclaimerView)
-    
+    let attributedString = NSMutableAttributedString(string: text)
+    attributedString.addAttribute(.link, value: termsLink, range: (attributedString.string as NSString).range(of: terms))
+    attributedString.addAttribute(.link, value: privacyLink, range: (attributedString.string as NSString).range(of: privacy))
+    attributedString.addAttributes(
+      [
+        .foregroundColor: Colors().auxiliaryText,
+        .font: UIFont.systemFont(ofSize: 12),
+        .backgroundColor: UIColor.clear
+      ],
+      range: NSMakeRange(0, text.count))
+    return attributedString
+  }
+}
+
+extension SocialLoginViewController: UITextViewDelegate {
+  func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+    return true
+  }
+}
+
+// Layout
+extension SocialLoginViewController {
+  private func makeProviderButtons() {
     AppAuthProvider.allCases.forEach { provider in
       let button = self.makeButton(backgroundColor: provider.color,
-                              image: provider.image,
-                              text: provider.text,
-                              border: provider.border)
+                                   image: provider.image,
+                                   text: provider.text,
+                                   border: provider.border)
       button.addAction { [unowned self] in
         self.handleButtonTap(provider: provider)
       }
       self.buttons[provider] = button
       self.buttonsStackView.addArrangedSubview(button)
     }
-
+  }
+  
+  private func setupViews() {
+    view.addAutolayoutSubviews(headerLabel, buttonsStackView, disclaimerView)
     NSLayoutConstraint.activate([
       headerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64),
       headerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -136,38 +116,16 @@ final class SocialLoginViewController: UIViewController {
       buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
       
-      disclaimerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      disclaimerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+      disclaimerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
       disclaimerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
     ])
   }
   
-  func handleButtonTap(provider: AppAuthProvider) {
-    appleSignInService.window = view.window
-    switch provider {
-    case .apple:
-      if #available(iOS 13.0, *) {
-        self.appleSignInService.handleAuthorizationAppleIDButtonPress()
-      } else {
-        self.appleSignInService.socialSignInWithWebUI(provider: .apple)
-      }
-    case .facebook:
-      self.appleSignInService.socialSignInWithWebUI(provider: .facebook)
-    case .google:
-      self.appleSignInService.socialSignInWithWebUI(provider: .google)
-    case .email:
-      pushEmailLoginPath()
-    }
-  }
-  
-  func pushEmailLoginPath() {
-    let vc = LoginViewController()
-    show(vc, sender: self)
-  }
-  
-  func makeButton(backgroundColor: UIColor,
-                  image: UIImage,
-                  text: Text,
-                  border: Border? = nil) -> UIButton {
+  private func makeButton(backgroundColor: UIColor,
+                          image: UIImage,
+                          text: Text,
+                          border: Border? = nil) -> UIButton {
     let button = UIButton()
     button.backgroundColor = backgroundColor
     button.setTitle(text.text, for: .normal)
@@ -191,40 +149,9 @@ final class SocialLoginViewController: UIViewController {
       button.layer.borderWidth = border.width
     }
     button.layer.cornerRadius = 12
-
+    
     button.translatesAutoresizingMaskIntoConstraints = false
     button.heightAnchor.constraint(equalToConstant: 48).isActive = true
     return button
-  }
-}
-
-
-extension UIView {
-  func addAutolayoutSubview(_ view: UIView) {
-    view.translatesAutoresizingMaskIntoConstraints = false
-    addSubview(view)
-  }
-  
-  func addAutolayoutSubviews(_ views: UIView...) {
-    views.forEach { addAutolayoutSubview($0) }
-  }
-}
-
-extension UIStackView {
-  func addArrangedSubviews(_ views: UIView...) {
-    views.forEach { addArrangedSubview($0) }
-  }
-}
-
-extension UIControl {
-  func addAction(for controlEvents: UIControl.Event = .touchUpInside, _ closure: @escaping () -> Void) {
-    @objc class ClosureSleeve: NSObject {
-      let closure: () -> Void
-      init(_ closure: @escaping () -> Void) { self.closure = closure }
-      @objc func invoke() { closure() }
-    }
-    let sleeve = ClosureSleeve(closure)
-    addTarget(sleeve, action: #selector(ClosureSleeve.invoke), for: controlEvents)
-    objc_setAssociatedObject(self, "\(UUID())", sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
   }
 }
