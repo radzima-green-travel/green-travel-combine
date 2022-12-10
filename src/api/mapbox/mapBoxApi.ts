@@ -2,7 +2,7 @@ import config from 'react-native-ultimate-config';
 import {RestApiEngine} from '../engines';
 import {ICoordinates, IObject} from 'core/types';
 
-export class MapBoxAPI extends RestApiEngine {
+class MapBoxAPI extends RestApiEngine {
   getDirections({
     from,
     to,
