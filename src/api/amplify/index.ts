@@ -1,1 +1,0 @@
-export {amplifyApi} from './AmplifyAPI';
