@@ -1,6 +1,6 @@
 import React from 'react';
 import {COLORS} from 'assets';
-import {Icon, SuspenseView} from 'atoms';
+import {Icon} from 'atoms';
 import {GeneralListItem} from 'molecules';
 import {View} from 'react-native';
 import {useProfileSettingsLanguage} from './hooks';
@@ -12,42 +12,55 @@ export const ProfileSettingsLanguage = () => {
   const {t} = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
 
-  const {changeLanguage, appLanguage, loading} = useProfileSettingsLanguage();
+  const {changeLanguage, appLanguage, loading, itemLanguage} =
+    useProfileSettingsLanguage();
 
   return (
-    <SuspenseView loading={!appLanguage && loading}>
-      <View style={styles.container}>
-        <GeneralListItem
-          position="top"
-          onPress={() => changeLanguage('en')}
-          title={t('English')}
-          renderLeftElement={
-            appLanguage === 'en' && (
-              <Icon color={COLORS.apple} name="check" size={16} />
-            )
-          }
-        />
-        <GeneralListItem
-          position="middle"
-          onPress={() => changeLanguage('ru')}
-          title={t('Русский')}
-          renderLeftElement={
-            appLanguage === 'ru' && (
-              <Icon color={COLORS.apple} name="check" size={16} />
-            )
-          }
-        />
-        <GeneralListItem
-          position="bottom"
-          onPress={() => changeLanguage('zh')}
-          title={t('zh')}
-          renderLeftElement={
-            appLanguage === 'zh' && (
-              <Icon color={COLORS.apple} name="check" size={16} />
-            )
-          }
-        />
-      </View>
-    </SuspenseView>
+    <View style={styles.container}>
+      <GeneralListItem
+        position="top"
+        loading={!itemLanguage && loading}
+        onPress={() => changeLanguage(null)}
+        title={t('System')}
+        renderLeftElement={
+          appLanguage === null && (
+            <Icon color={COLORS.apple} name="check" size={16} />
+          )
+        }
+      />
+      <GeneralListItem
+        position="middle"
+        loading={itemLanguage === 'en' && loading}
+        onPress={() => changeLanguage('en')}
+        title={t('English')}
+        renderLeftElement={
+          appLanguage === 'en' && (
+            <Icon color={COLORS.apple} name="check" size={16} />
+          )
+        }
+      />
+      <GeneralListItem
+        position="middle"
+        loading={itemLanguage === 'ru' && loading}
+        onPress={() => changeLanguage('ru')}
+        title={t('Русский')}
+        renderLeftElement={
+          appLanguage === 'ru' && (
+            <Icon color={COLORS.apple} name="check" size={16} />
+          )
+        }
+      />
+      <GeneralListItem
+        position="bottom"
+        loading={itemLanguage === 'zh' && loading}
+        onPress={() => changeLanguage('zh')}
+        title={t('zh')}
+        renderLeftElement={
+          appLanguage === 'zh' && (
+            <Icon color={COLORS.apple} name="check" size={16} />
+          )
+        }
+      />
+    </View>
   );
 };

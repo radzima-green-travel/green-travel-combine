@@ -14,10 +14,10 @@ const defaultState = {
 
 export const changeLanguageRequest = createAction(
   ACTIONS.CHANGE_LANGUAGE_REQUEST,
-)<SupportedLocales>();
+)<SupportedLocales | null>();
 export const changeLanguageSuccess = createAction(
   ACTIONS.CHANGE_LANGUAGE_SUCCESS,
-)<SupportedLocales>();
+)<SupportedLocales | null>();
 export const changeLanguageFailure = createAction(
   ACTIONS.CHANGE_LANGUAGE_FAILURE,
 )<ILabelError>();
@@ -35,21 +35,10 @@ export const settingsReducer = createReducer<
   IDefaultState,
   ActionType<typeof actions>
 >(defaultState)
-  .handleAction(changeLanguageRequest, state => {
-    return {
-      ...state,
-      language: null,
-    };
-  })
   .handleAction(changeLanguageSuccess, (state, {payload}) => {
     return {
       ...state,
       language: payload,
-    };
-  })
-  .handleAction(changeLanguageFailure, state => {
-    return {
-      ...state,
     };
   })
   .handleAction(setTheme, (state, {payload}) => {

@@ -8,15 +8,14 @@ import {
   changeLanguageSuccess,
   changeLanguageFailure,
   getInitialHomeDataRequest,
-  getHomeData,
 } from '../../reducers';
-import {ILabelError} from 'core/types';
+import {ILabelError, SupportedLocales} from 'core/types';
 
 export function* changeAppLanguageSaga({
   payload: language,
 }: ActionType<typeof changeLanguageRequest>) {
   try {
-    const currentAppLocale = yield call([
+    const currentAppLocale: SupportedLocales = yield call([
       languageService,
       languageService.getCurrentLanguage,
     ]);
@@ -25,9 +24,21 @@ export function* changeAppLanguageSaga({
 
     if (isLocaledUpdated) {
       yield call(resetEtagsStorage);
-      yield put(getInitialHomeDataRequest());
-    } else {
-      yield put(getHomeData());
+      yield call(getInitialHomeDataRequest);
+    }
+
+    if (!language) {
+      const systemLanguage: SupportedLocales = yield call([
+        languageService,
+        languageService.getSystemLanguage,
+      ]);
+
+      yield call(
+        [languageService, languageService.setTranslationsCurrentLanguage],
+        systemLanguage,
+      );
+
+      return yield put(changeLanguageSuccess(null));
     }
 
     yield call(
