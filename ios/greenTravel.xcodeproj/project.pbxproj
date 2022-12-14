@@ -13,6 +13,7 @@
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
 		5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* LoginViewController.m */; };
+		5A0E709329488D9100009B1C /* SettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E709229488D9100009B1C /* SettingsModel.m */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
@@ -37,6 +38,10 @@
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148626E3B893004AD6F3 /* UIButtonHighlightable.m */; };
 		5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */; };
+		5A2C9056295723D6008D8C7E /* SettingsEntryAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2C9055295723D6008D8C7E /* SettingsEntryAction.m */; };
+		5A2C90592957244D008D8C7E /* SettingsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2C90582957244D008D8C7E /* SettingsScreen.m */; };
+		5A2C905C2957248F008D8C7E /* SettingsEntryNavigate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2C905B2957248F008D8C7E /* SettingsEntryNavigate.m */; };
+		5A2C989C29520FEE007A822F /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2C989B29520FEE007A822F /* SettingsController.m */; };
 		5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */; };
 		5A39D6EF26B34C04008FC20C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A39D6F126B34C04008FC20C /* Localizable.strings */; };
 		5A53584827A999DC0017A40F /* IndexModelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A53584727A999DC0017A40F /* IndexModelData.m */; };
@@ -168,6 +173,10 @@
 		5A775E1726077A7D00CEFC78 /* WeRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775DF226077A7D00CEFC78 /* WeRecommendCell.m */; };
 		5A775E792607E0A100CEFC78 /* GreenTravel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */; };
 		5A775E7C26092B8100CEFC78 /* Settings_Debug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */; };
+		5A78A4E629572E5B007749F3 /* SettingsEntryToggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A78A4E529572E5B007749F3 /* SettingsEntryToggle.m */; };
+		5A78A4E929572E72007749F3 /* SettingsEntrySelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A78A4E829572E72007749F3 /* SettingsEntrySelect.m */; };
+		5A78A4EC29573040007749F3 /* SettingsGroupSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A78A4EB29573040007749F3 /* SettingsGroupSelect.m */; };
+		5A78A4F029587549007749F3 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A78A4EF29587549007749F3 /* SettingsViewController.m */; };
 		5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB19C264E7DB000333F1E /* BaseMapViewController.m */; };
 		5A8EB1A1264E7DF000333F1E /* ItemDetailsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EB1A0264E7DF000333F1E /* ItemDetailsMapViewController.m */; };
 		5A95F1FB2847F39500CCA852 /* BaseFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A95F1FA2847F39500CCA852 /* BaseFormViewController.m */; };
@@ -176,6 +185,7 @@
 		5A98894C2843AA030000271B /* NumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A98894B2843AA030000271B /* NumberView.m */; };
 		5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D706C26EE447B00F4799D /* CommonButtonWithProgress.m */; };
 		5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */; };
+		5AA72544294C618900D9889C /* SettingsGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA72543294C618900D9889C /* SettingsGroup.m */; };
 		5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB227B016D000C74857 /* LocaleUtils.m */; };
 		5AB4AFB627B0311800C74857 /* InformationReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB527B0311800C74857 /* InformationReference.m */; };
 		5AB4AFB927B31D8300C74857 /* LabelledButtonGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4AFB827B31D8300C74857 /* LabelledButtonGroup.m */; };
@@ -187,9 +197,11 @@
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
+		5AC7EA30294A2596001C0A3E /* settings-unauthenticated.json in Resources */ = {isa = PBXBuildFile; fileRef = 5AC7EA2F294A2596001C0A3E /* settings-unauthenticated.json */; };
 		5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A99283948CA008E302D /* CommonTextField.m */; };
 		5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A9D283969F7008E302D /* SecureTextField.m */; };
 		5ACDFCDC285DFA2A0079C8EC /* CommonFormConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */; };
+		5AD1F3842948C7F400ED288D /* SettingsEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1F3832948C7E900ED288D /* SettingsEntry.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
 		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
 		5AD347E02837B2B100235E96 /* AmplifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347DF2837B2B100235E96 /* AmplifyAuth.m */; };
@@ -240,6 +252,9 @@
 		5A05E8532821787E00017BA0 /* AmplifyBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyBridge.swift; sourceTree = "<group>"; };
 		5A096AFB2836A20F000FADB2 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5A096AFC2836A20F000FADB2 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		5A0E709129488D9100009B1C /* SettingsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModel.h; sourceTree = "<group>"; };
+		5A0E709229488D9100009B1C /* SettingsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsModel.m; sourceTree = "<group>"; };
+		5A0E709429488DAC00009B1C /* SettingsModelObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelObservable.h; sourceTree = "<group>"; };
 		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
 		5A105EE326501FA000511256 /* RotationLockUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationLockUtility.m; sourceTree = "<group>"; };
 		5A105FE9265FD99100511256 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
@@ -290,6 +305,14 @@
 		5A29148926E4F7AB004AD6F3 /* UIButtonWithFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIButtonWithFeedback.h; sourceTree = "<group>"; };
 		5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIButtonWithFeedback.m; sourceTree = "<group>"; };
 		5A29148D26E5031D004AD6F3 /* BookmarkButtonConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButtonConstants.h; sourceTree = "<group>"; };
+		5A2C9054295723D6008D8C7E /* SettingsEntryAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryAction.h; sourceTree = "<group>"; };
+		5A2C9055295723D6008D8C7E /* SettingsEntryAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryAction.m; sourceTree = "<group>"; };
+		5A2C90572957244D008D8C7E /* SettingsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsScreen.h; sourceTree = "<group>"; };
+		5A2C90582957244D008D8C7E /* SettingsScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsScreen.m; sourceTree = "<group>"; };
+		5A2C905A2957248F008D8C7E /* SettingsEntryNavigate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryNavigate.h; sourceTree = "<group>"; };
+		5A2C905B2957248F008D8C7E /* SettingsEntryNavigate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryNavigate.m; sourceTree = "<group>"; };
+		5A2C989A29520FEE007A822F /* SettingsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		5A2C989B29520FEE007A822F /* SettingsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		5A333C59273C551100F95180 /* SearchViewControllerUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewControllerUtils.h; sourceTree = "<group>"; };
 		5A333C5A273C55A400F95180 /* SearchViewControllerUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewControllerUtils.m; sourceTree = "<group>"; };
 		5A333C5C273DC89A00F95180 /* GreenTravelV3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV3.xcdatamodel; sourceTree = "<group>"; };
@@ -549,6 +572,14 @@
 		5A775DF426077A7D00CEFC78 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravel.xcdatamodel; sourceTree = "<group>"; };
 		5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Debug.bundle; sourceTree = "<group>"; };
+		5A78A4E429572E5B007749F3 /* SettingsEntryToggle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryToggle.h; sourceTree = "<group>"; };
+		5A78A4E529572E5B007749F3 /* SettingsEntryToggle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryToggle.m; sourceTree = "<group>"; };
+		5A78A4E729572E72007749F3 /* SettingsEntrySelect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntrySelect.h; sourceTree = "<group>"; };
+		5A78A4E829572E72007749F3 /* SettingsEntrySelect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntrySelect.m; sourceTree = "<group>"; };
+		5A78A4EA29573040007749F3 /* SettingsGroupSelect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsGroupSelect.h; sourceTree = "<group>"; };
+		5A78A4EB29573040007749F3 /* SettingsGroupSelect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsGroupSelect.m; sourceTree = "<group>"; };
+		5A78A4EE29587549007749F3 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		5A78A4EF29587549007749F3 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		5A8EB19B264E7DB000333F1E /* BaseMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseMapViewController.h; sourceTree = "<group>"; };
 		5A8EB19C264E7DB000333F1E /* BaseMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseMapViewController.m; sourceTree = "<group>"; };
 		5A8EB19F264E7DF000333F1E /* ItemDetailsMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemDetailsMapViewController.h; sourceTree = "<group>"; };
@@ -568,6 +599,8 @@
 		5A9D707026EE7F4200F4799D /* BottomSheetViewDetailedMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetViewDetailedMap.h; sourceTree = "<group>"; };
 		5A9D707126EE7F4200F4799D /* BottomSheetViewDetailedMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetViewDetailedMap.m; sourceTree = "<group>"; };
 		5AA3DB3E284EB5B4009D506E /* UserModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModelConstants.h; sourceTree = "<group>"; };
+		5AA72542294C618900D9889C /* SettingsGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsGroup.h; sourceTree = "<group>"; };
+		5AA72543294C618900D9889C /* SettingsGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsGroup.m; sourceTree = "<group>"; };
 		5AB4AFB127B016D000C74857 /* LocaleUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocaleUtils.h; sourceTree = "<group>"; };
 		5AB4AFB227B016D000C74857 /* LocaleUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaleUtils.m; sourceTree = "<group>"; };
 		5AB4AFB427B0311800C74857 /* InformationReference.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationReference.h; sourceTree = "<group>"; };
@@ -588,12 +621,17 @@
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
+		5AC7EA2F294A2596001C0A3E /* settings-unauthenticated.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "settings-unauthenticated.json"; sourceTree = "<group>"; };
 		5ACC9A98283948CA008E302D /* CommonTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonTextField.h; sourceTree = "<group>"; };
 		5ACC9A99283948CA008E302D /* CommonTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonTextField.m; sourceTree = "<group>"; };
 		5ACC9A9C283969F7008E302D /* SecureTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecureTextField.h; sourceTree = "<group>"; };
 		5ACC9A9D283969F7008E302D /* SecureTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecureTextField.m; sourceTree = "<group>"; };
 		5ACDFCDA285DFA2A0079C8EC /* CommonFormConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonFormConstants.h; sourceTree = "<group>"; };
 		5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonFormConstants.m; sourceTree = "<group>"; };
+		5AD1F3802948BD2400ED288D /* SettingsModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelConstants.h; sourceTree = "<group>"; };
+		5AD1F3812948C4A100ED288D /* SettingsModelObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelObserver.h; sourceTree = "<group>"; };
+		5AD1F3822948C7E900ED288D /* SettingsEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntry.h; sourceTree = "<group>"; };
+		5AD1F3832948C7E900ED288D /* SettingsEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntry.m; sourceTree = "<group>"; };
 		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
 		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AD2DA352701D88300876841 /* MapViewToStateIntermediary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewToStateIntermediary.h; sourceTree = "<group>"; };
@@ -756,6 +794,34 @@
 			path = LoginViewController;
 			sourceTree = "<group>";
 		};
+		5A0E709029488D7800009B1C /* SettingsModel */ = {
+			isa = PBXGroup;
+			children = (
+				5A0E709129488D9100009B1C /* SettingsModel.h */,
+				5A0E709229488D9100009B1C /* SettingsModel.m */,
+				5A0E709429488DAC00009B1C /* SettingsModelObservable.h */,
+				5AD1F3802948BD2400ED288D /* SettingsModelConstants.h */,
+				5AD1F3812948C4A100ED288D /* SettingsModelObserver.h */,
+				5AD1F3822948C7E900ED288D /* SettingsEntry.h */,
+				5AD1F3832948C7E900ED288D /* SettingsEntry.m */,
+				5A78A4E429572E5B007749F3 /* SettingsEntryToggle.h */,
+				5A78A4E529572E5B007749F3 /* SettingsEntryToggle.m */,
+				5A78A4E729572E72007749F3 /* SettingsEntrySelect.h */,
+				5A78A4E829572E72007749F3 /* SettingsEntrySelect.m */,
+				5A2C905A2957248F008D8C7E /* SettingsEntryNavigate.h */,
+				5A2C905B2957248F008D8C7E /* SettingsEntryNavigate.m */,
+				5A2C9054295723D6008D8C7E /* SettingsEntryAction.h */,
+				5A2C9055295723D6008D8C7E /* SettingsEntryAction.m */,
+				5AA72542294C618900D9889C /* SettingsGroup.h */,
+				5AA72543294C618900D9889C /* SettingsGroup.m */,
+				5A78A4EA29573040007749F3 /* SettingsGroupSelect.h */,
+				5A78A4EB29573040007749F3 /* SettingsGroupSelect.m */,
+				5A2C90572957244D008D8C7E /* SettingsScreen.h */,
+				5A2C90582957244D008D8C7E /* SettingsScreen.m */,
+			);
+			path = SettingsModel;
+			sourceTree = "<group>";
+		};
 		5A105FEE2660018C00511256 /* MapService */ = {
 			isa = PBXGroup;
 			children = (
@@ -848,6 +914,15 @@
 			path = UIButtonWithFeedback;
 			sourceTree = "<group>";
 		};
+		5A2C989929520FD8007A822F /* SettingsController */ = {
+			isa = PBXGroup;
+			children = (
+				5A2C989A29520FEE007A822F /* SettingsController.h */,
+				5A2C989B29520FEE007A822F /* SettingsController.m */,
+			);
+			path = SettingsController;
+			sourceTree = "<group>";
+		};
 		5A5E2AFA27524E5B00A20489 /* NoDataView */ = {
 			isa = PBXGroup;
 			children = (
@@ -915,6 +990,7 @@
 		5A6CC8DD279D9A9300EE6E35 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5A2C989929520FD8007A822F /* SettingsController */,
 				5AD347E82837C2F400235E96 /* IndexController */,
 				5AD347E92837C2FD00235E96 /* UserController */,
 			);
@@ -1032,6 +1108,7 @@
 		5A775A5126064C8F00CEFC78 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				5A0E709029488D7800009B1C /* SettingsModel */,
 				5EAE434028A6C5E200042455 /* ProfileCellModel */,
 				5AD347E42837C2CE00235E96 /* UserModel */,
 				5A775A5226064C8F00CEFC78 /* LocationModel */,
@@ -1171,6 +1248,7 @@
 		5A775A9826064C8F00CEFC78 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				5A78A4ED295873C5007749F3 /* SettingsViewController */,
 				5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */,
 				5A775D83260775EA00CEFC78 /* RootViewController */,
 				5A775D9026077A7C00CEFC78 /* BookmarksViewController */,
@@ -1592,6 +1670,15 @@
 			path = WeRecommendCell;
 			sourceTree = "<group>";
 		};
+		5A78A4ED295873C5007749F3 /* SettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A78A4EE29587549007749F3 /* SettingsViewController.h */,
+				5A78A4EF29587549007749F3 /* SettingsViewController.m */,
+			);
+			path = SettingsViewController;
+			sourceTree = "<group>";
+		};
 		5A94AF8D263EBB7300AC4E7B /* MapButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1920,6 +2007,7 @@
 				5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */,
 				5A6CC8DB279D930C00EE6E35 /* index-tag.graphql */,
 				5A12E89427BEA68E004FD8C6 /* details.html */,
+				5AC7EA2F294A2596001C0A3E /* settings-unauthenticated.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2075,6 +2163,7 @@
 				5A12E89527BEA68E004FD8C6 /* details.html in Resources */,
 				5A775B4826064C9000CEFC78 /* Montserrat-Italic.ttf in Resources */,
 				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
+				5AC7EA30294A2596001C0A3E /* settings-unauthenticated.json in Resources */,
 				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
 				5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */,
 			);
@@ -2308,6 +2397,7 @@
 				5EA9408928E6169800E90014 /* ProfileTableViewController.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
 				5A12E89827C51F9C004FD8C6 /* DetailsScreenModel.m in Sources */,
+				5AD1F3842948C7F400ED288D /* SettingsEntry.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				5A775B9A26064F6F00CEFC78 /* RootViewController.m in Sources */,
 				5A5FF6B5269BA98500540CE4 /* CoordinateUtils.m in Sources */,
@@ -2333,11 +2423,15 @@
 				5A6DC5012655B1D900A2D37B /* StoredCoordinateCollection+CoreDataProperties.m in Sources */,
 				5A2315E228FCA8E3004CB989 /* AccessibilityUtils.m in Sources */,
 				5AB4AFD527C27B2B00C74857 /* DetailsScreenController.m in Sources */,
+				5AA72544294C618900D9889C /* SettingsGroup.m in Sources */,
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
 				5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */,
+				5A78A4E929572E72007749F3 /* SettingsEntrySelect.m in Sources */,
 				5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */,
 				5AD347E72837C2EE00235E96 /* UserModel.m in Sources */,
 				5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */,
+				5A78A4EC29573040007749F3 /* SettingsGroupSelect.m in Sources */,
+				5A0E709329488D9100009B1C /* SettingsModel.m in Sources */,
 				5A5FF70E26A46EDD00540CE4 /* AnalyticsEvents.m in Sources */,
 				5A775E0A26077A7D00CEFC78 /* CategoryLinkCell.m in Sources */,
 				5EA9408828E6169800E90014 /* ProfileTableViewCell.m in Sources */,
@@ -2357,6 +2451,7 @@
 				5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */,
 				5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */,
 				5AB4AFD127B5B20E00C74857 /* StoredPlaceDetails+CoreDataProperties.m in Sources */,
+				5A2C90592957244D008D8C7E /* SettingsScreen.m in Sources */,
 				5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */,
 				5A5E2B09275D5AB600A20489 /* ViewUtils.m in Sources */,
 				5A775DFE26077A7D00CEFC78 /* CategoriesFilterSpacerCollectionViewCell.m in Sources */,
@@ -2410,12 +2505,14 @@
 				5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */,
 				5A775DFD26077A7D00CEFC78 /* IndexViewController.m in Sources */,
 				5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */,
+				5A2C905C2957248F008D8C7E /* SettingsEntryNavigate.m in Sources */,
 				5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */,
 				5A2315DF28E0A484004CB989 /* ResetPasswordRequestViewController.m in Sources */,
 				5A53584827A999DC0017A40F /* IndexModelData.m in Sources */,
 				5A775B5D26064C9000CEFC78 /* FeedItem.m in Sources */,
 				5A775DF826077A7D00CEFC78 /* PlacesTableViewCell.m in Sources */,
 				5A775B5C26064C9000CEFC78 /* SearchItem.m in Sources */,
+				5A2C9056295723D6008D8C7E /* SettingsEntryAction.m in Sources */,
 				5A775B5026064C9000CEFC78 /* BookmarksGroupModel.m in Sources */,
 				5A775B2C26064C9000CEFC78 /* StoredPlaceItem+CoreDataClass.m in Sources */,
 				5A775E1626077A7D00CEFC78 /* SearchCellConfiguration.m in Sources */,
@@ -2425,14 +2522,17 @@
 				5A775DF526077A7D00CEFC78 /* BookmarksViewController.m in Sources */,
 				5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */,
 				5A775E0926077A7D00CEFC78 /* LinkedCategoriesView.m in Sources */,
+				5A78A4F029587549007749F3 /* SettingsViewController.m in Sources */,
 				5A105FF1266001AB00511256 /* MapService.m in Sources */,
 				5A775E0126077A7D00CEFC78 /* CategoriesFilterModel.m in Sources */,
 				5A775E0426077A7D00CEFC78 /* MapPinView.m in Sources */,
 				5A775B5326064C9000CEFC78 /* MapModel.m in Sources */,
 				5A6DC5052655B1DA00A2D37B /* StoredArea+CoreDataClass.m in Sources */,
+				5A2C989C29520FEE007A822F /* SettingsController.m in Sources */,
 				5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */,
 				5A775B4E26064C9000CEFC78 /* LocationModel.m in Sources */,
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
+				5A78A4E629572E5B007749F3 /* SettingsEntryToggle.m in Sources */,
 				5AFB8FD928F9608B009E729E /* AccessibilityIdentifiers.m in Sources */,
 				5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */,
 				5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */,

@@ -1,0 +1,46 @@
+[
+  {
+    "type": "group",
+    "name": "auth",
+    "cells": [
+      {
+        "type": "action",
+        "key": "auth"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "name": "general",
+    "cells": [
+      {
+        "type": "action",
+        "key": "language"
+      },
+      {
+        "type": "action",
+        "key": "clear_cache"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "name": "favorites",
+    "cells": [
+      {
+        "type": "action",
+        "key": "favorites"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "name": "about",
+    "cells": [
+      {
+        "type": "action",
+        "key": "about"
+      }
+    ]
+  }
+]
