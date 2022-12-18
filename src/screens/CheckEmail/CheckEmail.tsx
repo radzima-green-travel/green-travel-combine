@@ -23,14 +23,14 @@ export const CheckEmail = () => {
             <FormInput
               iconLeftName={'email'}
               size={16}
-              placeholder={'email'}
+              placeholder={t('email')}
               messageText={messageText ? t(messageText) : undefined}
               {...inputProps}
             />
           )}
         </WithFormikInput>
       </AuthForm>
-      <SnackBar {...snackBarProps} />
+      <SnackBar isOnTop {...snackBarProps} />
     </FormikProvider>
   );
 };

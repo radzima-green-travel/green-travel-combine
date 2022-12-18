@@ -1,6 +1,7 @@
-import {useState, useCallback} from 'react';
+import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {
+  useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
   useTogglePasswordVisibility,
@@ -11,10 +12,13 @@ import {
 } from '../types';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {signUpRequest} from 'core/reducers';
+import {useFormik} from 'formik';
+import {SignUpFormModel} from 'core/types';
+import {validationSchema} from './validation';
+import {useSnackbar} from 'atoms';
 
 export const useSignUpForm = () => {
   const dispatch = useDispatch();
-  const [password, setPassword] = useState('');
 
   const {
     params: {email},
@@ -25,9 +29,20 @@ export const useSignUpForm = () => {
     navigation.navigate('CodeVerification', {email, isSignUp: true});
   }, [email, navigation]);
 
-  const signUp = useCallback(() => {
-    dispatch(signUpRequest({email, password}));
-  }, [dispatch, email, password]);
+  const signUp = useCallback(
+    ({password}: SignUpFormModel) => {
+      dispatch(signUpRequest({email, password}));
+    },
+    [dispatch, email],
+  );
+
+  const formik = useFormik<SignUpFormModel>({
+    initialValues: {
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: signUp,
+  });
 
   const {loading} = useRequestLoading(signUpRequest);
 
@@ -36,14 +51,25 @@ export const useSignUpForm = () => {
 
   useOnRequestSuccess(signUpRequest, navigateToEmailValidation);
 
+  const {show, ...snackBarProps} = useSnackbar();
+
+  useOnRequestError(signUpRequest, 'authentification', errorLabel => {
+    show({
+      type: 'error',
+      title: errorLabel.text,
+    });
+  });
+
   return {
     loading,
     email,
-    password,
-    setPassword,
+    formik,
     signUp,
     passwordVisibility,
     rightIcon,
     handlePasswordVisibility,
+    isSubmitButtonDisabled: !formik.values.password,
+    submitForm: formik.handleSubmit,
+    snackBarProps,
   };
 };

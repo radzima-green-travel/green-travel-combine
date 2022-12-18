@@ -14,21 +14,18 @@ import {useScreenOptions} from '../screenOptions';
 import {AuthNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator<AuthNavigatorParamsList>();
 
 export function AuthNavigator() {
-  const screenOptions = useScreenOptions();
+  const screenOptions = useScreenOptions({withBottomInset: true});
   const {t} = useTranslation('common');
-  const {bottom} = useSafeAreaInsets();
 
   return (
     <Stack.Navigator
       screenOptions={{
         ...screenOptions,
         title: t('login/Register'),
-        contentStyle: {marginBottom: bottom},
         animation: defaultTransition,
       }}>
       <Stack.Screen name="CheckEmail" component={CheckEmailScreen} />

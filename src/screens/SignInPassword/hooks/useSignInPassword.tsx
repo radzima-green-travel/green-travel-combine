@@ -1,6 +1,7 @@
-import {useCallback, useState} from 'react';
+import {useCallback} from 'react';
 
 import {
+  useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
   useTogglePasswordVisibility,
@@ -12,6 +13,10 @@ import {
   SignInPasswordScreenNavigationProps,
   SignInPasswordScreenRouteProps,
 } from '../types';
+import {useFormik} from 'formik';
+import {IRequestError, SignInFormModel} from 'core/types';
+import {validationSchema} from './validation';
+import {useSnackbar} from 'atoms';
 
 export const useSignInPassword = () => {
   const dispatch = useDispatch();
@@ -20,15 +25,25 @@ export const useSignInPassword = () => {
   const {
     params: {email},
   } = useRoute<SignInPasswordScreenRouteProps>();
-  const [password, setPassword] = useState('');
 
   const navigateToRestorePassword = useCallback(() => {
     navigation.navigate('RestorePassword');
   }, [navigation]);
 
-  const signIn = useCallback(() => {
-    dispatch(signInRequest({email, password}));
-  }, [dispatch, email, password]);
+  const signIn = useCallback(
+    ({password}: SignInFormModel) => {
+      dispatch(signInRequest({email, password}));
+    },
+    [dispatch, email],
+  );
+
+  const formik = useFormik<SignInFormModel>({
+    initialValues: {
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: signIn,
+  });
 
   const {loading} = useRequestLoading(signInRequest);
 
@@ -39,15 +54,35 @@ export const useSignInPassword = () => {
     navigation.getParent()?.goBack();
   });
 
+  const {show, ...snackBarProps} = useSnackbar();
+
+  useOnRequestError(signInRequest, 'authentification', errorLabel => {
+    if (
+      (errorLabel.originalError as IRequestError).status === 400 &&
+      ['NOT_AUTHORIZED', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
+        (errorLabel.originalError as IRequestError).error_code,
+      )
+    ) {
+      formik.setFieldError('password', errorLabel.text);
+    } else {
+      show({
+        type: 'error',
+        title: errorLabel.text,
+      });
+    }
+  });
+
   return {
     email,
     signIn,
     loading,
     navigateToRestorePassword,
-    password,
-    setPassword,
+    formik,
     passwordVisibility,
     rightIcon,
     handlePasswordVisibility,
+    isSubmitButtonDisabled: !formik.values.password,
+    submitForm: formik.handleSubmit,
+    snackBarProps,
   };
 };

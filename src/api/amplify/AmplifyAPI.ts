@@ -11,6 +11,7 @@ class AmplifyApi extends AmplifyApiEngine {
         context: Auth,
         method: Auth.signIn,
         errorMap: (e: AmplifyError) => {
+          console.log(e);
           if (e.code === 'PasswordResetRequiredException') {
             return {
               code: 'PASSWORD_RESET_REQUIRED',
@@ -24,6 +25,13 @@ class AmplifyApi extends AmplifyApiEngine {
             };
           }
           if (e.code === 'NotAuthorizedException') {
+            if (e.message === 'Password attempts exceeded') {
+              return {
+                code: 'PASSWORD_ATTEMPTS_EXCEEDED',
+                status: 400,
+              };
+            }
+
             return {
               code: 'NOT_AUTHORIZED',
               status: 400,

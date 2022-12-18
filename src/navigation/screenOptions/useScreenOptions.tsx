@@ -13,14 +13,17 @@ export interface IOptions {
   colorScheme: ColorSchemeName;
 }
 
-export function useScreenOptions(): NativeStackNavigationOptions {
+export function useScreenOptions({
+  withBottomInset = false,
+}: {withBottomInset?: boolean} = {}): NativeStackNavigationOptions {
   const colorScheme = useColorScheme();
-  const {top} = useSafeAreaInsets();
+  const {top, bottom} = useSafeAreaInsets();
 
   return {
     contentStyle: {
       backgroundColor:
         colorScheme === 'light' ? COLORS.white : COLORS.background,
+      ...(withBottomInset ? {marginBottom: bottom} : {}),
     },
     header: ({navigation, route, options}) => {
       const {title, ...restOptions} = options;
