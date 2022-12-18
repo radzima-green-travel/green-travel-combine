@@ -5,7 +5,8 @@ export type RequestErrorCodes =
   | 'PASSWORD_RESET_REQUIRED'
   | 'USER_NOT_CONFIRMED'
   | 'NOT_AUTHORIZED'
-  | 'USER_NOT_FOUND';
+  | 'USER_NOT_FOUND'
+  | 'PASSWORD_ATTEMPTS_EXCEEDED';
 
 export interface IRequestError extends Error {
   timestamp: number;
