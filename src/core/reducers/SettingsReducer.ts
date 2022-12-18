@@ -5,19 +5,21 @@ import {ACTIONS, THEME_TYPE} from '../constants';
 interface IDefaultState {
   language: SupportedLocales | null;
   theme: THEME_TYPE | null;
+  isSystemLanguage: boolean;
 }
 
 const defaultState = {
   language: null,
   theme: null,
+  isSystemLanguage: false,
 };
 
 export const changeLanguageRequest = createAction(
   ACTIONS.CHANGE_LANGUAGE_REQUEST,
-)<SupportedLocales | null>();
+)<{language: SupportedLocales | null; isSystemLanguage: boolean}>();
 export const changeLanguageSuccess = createAction(
   ACTIONS.CHANGE_LANGUAGE_SUCCESS,
-)<SupportedLocales | null>();
+)<{language: SupportedLocales | null; isSystemLanguage: boolean}>();
 export const changeLanguageFailure = createAction(
   ACTIONS.CHANGE_LANGUAGE_FAILURE,
 )<ILabelError>();
@@ -38,7 +40,8 @@ export const settingsReducer = createReducer<
   .handleAction(changeLanguageSuccess, (state, {payload}) => {
     return {
       ...state,
-      language: payload,
+      language: payload.language,
+      isSystemLanguage: payload.isSystemLanguage,
     };
   })
   .handleAction(setTheme, (state, {payload}) => {

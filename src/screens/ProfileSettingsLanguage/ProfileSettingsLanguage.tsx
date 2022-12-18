@@ -12,7 +12,7 @@ export const ProfileSettingsLanguage = () => {
   const {t} = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
 
-  const {changeLanguage, appLanguage, loading, itemLanguage} =
+  const {changeLanguage, userLanguage, loading, itemLanguage} =
     useProfileSettingsLanguage();
 
   return (
@@ -23,9 +23,7 @@ export const ProfileSettingsLanguage = () => {
         onPress={() => changeLanguage(null)}
         title={t('System')}
         renderLeftElement={
-          appLanguage === null && (
-            <Icon color={COLORS.apple} name="check" size={16} />
-          )
+          !userLanguage && <Icon color={COLORS.apple} name="check" size={16} />
         }
       />
       <GeneralListItem
@@ -34,7 +32,7 @@ export const ProfileSettingsLanguage = () => {
         onPress={() => changeLanguage('en')}
         title={t('English')}
         renderLeftElement={
-          appLanguage === 'en' && (
+          userLanguage === 'en' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
         }
@@ -45,7 +43,7 @@ export const ProfileSettingsLanguage = () => {
         onPress={() => changeLanguage('ru')}
         title={t('Русский')}
         renderLeftElement={
-          appLanguage === 'ru' && (
+          userLanguage === 'ru' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
         }
@@ -56,7 +54,7 @@ export const ProfileSettingsLanguage = () => {
         onPress={() => changeLanguage('zh')}
         title={t('zh')}
         renderLeftElement={
-          appLanguage === 'zh' && (
+          userLanguage === 'zh' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
         }

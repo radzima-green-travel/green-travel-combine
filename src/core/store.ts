@@ -41,7 +41,7 @@ const bookmarksPersistConfig = {
 const settingsPeristConfig = {
   key: 'settings',
   storage: AsyncStorage,
-  whitelist: ['theme', 'language'],
+  whitelist: ['theme', 'language', 'isSystemLanguage'],
 };
 
 const rootReducer = combineReducers({

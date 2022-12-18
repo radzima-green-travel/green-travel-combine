@@ -5,23 +5,20 @@ import {
   getHomeDataUpdatesFailure,
   getHomeDataUpdatesSuccess,
 } from '../../reducers';
-import {selectHomeUpdatedData} from '../../selectors';
+import {selectAppLanguage, selectHomeUpdatedData} from '../../selectors';
 
-import {languageService} from 'services/LanguageService';
-import {ILabelError, SupportedLocales} from 'core/types';
+import {ILabelError} from 'core/types';
 import {restAPI} from 'api/rest';
 import {saveLocalEtagsToStorage} from 'api/rest/interceptors';
 
 export function* getHomeDataUpdatesSaga() {
   try {
-    const currentAppLocale: SupportedLocales = yield call([
-      languageService,
-      languageService.getCurrentLanguage,
-    ]);
+    const language = yield select(selectAppLanguage);
+
     const data: ListMobileDataQuery = yield call(
       [restAPI, restAPI.getAllAppDataFromIndex],
       {
-        locale: currentAppLocale,
+        locale: language,
       },
     );
 
