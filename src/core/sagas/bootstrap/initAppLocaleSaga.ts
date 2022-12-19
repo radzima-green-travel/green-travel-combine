@@ -26,5 +26,10 @@ export function* initAppLocaleSaga() {
     }),
   );
 
+  yield call(
+    [languageService, languageService.setTranslationsCurrentLanguage],
+    language,
+  );
+
   return isLocaledUpdated;
 }
