@@ -1,7 +1,6 @@
 import * as RNLocalize from 'react-native-localize';
 import {initReactI18next} from 'react-i18next';
 import i18n from 'i18next';
-// import {Platform, NativeModules} from 'react-native';
 
 import ruTranslations from '../locale/ru.json';
 import enTranslations from '../locale/en.json';
@@ -25,27 +24,13 @@ class LanguageService {
   }
 
   public getPreferredLanguage(): string {
-    const localLanguage = RNLocalize.getLocales()?.[0]
+    const systemSettingsLanguage = RNLocalize.getLocales()?.[0]
       ?.languageCode as SupportedLocales;
 
-    return this.getSupportedLanguages().includes(localLanguage)
-      ? localLanguage
+    return this.getSupportedLanguages().includes(systemSettingsLanguage)
+      ? systemSettingsLanguage
       : DEFAULT_LOCALE;
   }
-
-  // getSystemLanguage() {
-  //   let deviceLanguage =
-  //     Platform.OS === 'android'
-  //       ? NativeModules.I18nManager.localeIdentifier
-  //       : NativeModules.SettingsManager.settings.AppleLocale ||
-  //         NativeModules.SettingsManager.settings.AppleLanguages[0];
-
-  //   deviceLanguage = deviceLanguage.slice(0, 2) as SupportedLocales;
-
-  //   return this.getSupportedLanguages().includes(deviceLanguage)
-  //     ? deviceLanguage
-  //     : DEFAULT_LOCALE;
-  // }
 
   setTranslationsCurrentLanguage(locale: SupportedLocales) {
     i18n.changeLanguage(locale);
