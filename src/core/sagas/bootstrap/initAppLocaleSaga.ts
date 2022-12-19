@@ -1,29 +1,30 @@
 import {call, put, select} from 'redux-saga/effects';
 
-import {SupportedLocales} from 'core/types';
 import {languageService} from 'services/LanguageService';
 import {selectAppLanguage, selectIsSystemLanguage} from 'core/selectors';
-import {changeLanguageRequest} from 'core/reducers';
+import {setLanguage} from 'core/reducers';
 
 export function* initAppLocaleSaga() {
   let isLocaledUpdated = false;
-  const language = yield select(selectAppLanguage);
-  const isSystemLanguage = yield select(selectIsSystemLanguage);
+  let language = yield select(selectAppLanguage);
+  let isSystemLanguage = yield select(selectIsSystemLanguage);
+
+  if (!language || isSystemLanguage) {
+    const newLanguage = yield call([
+      languageService,
+      languageService.getCurrentLanguage,
+    ]);
+    isLocaledUpdated = Boolean(language) && language !== newLanguage;
+    language = newLanguage;
+    isSystemLanguage = true;
+  }
 
   yield put(
-    changeLanguageRequest({
+    setLanguage({
       language,
       isSystemLanguage,
     }),
   );
-
-  if (isSystemLanguage) {
-    const currentAppLocale: SupportedLocales = yield call([
-      languageService,
-      languageService.getCurrentLanguage,
-    ]);
-    isLocaledUpdated = language !== currentAppLocale;
-  }
 
   return isLocaledUpdated;
 }

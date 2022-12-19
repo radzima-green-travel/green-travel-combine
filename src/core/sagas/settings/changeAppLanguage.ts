@@ -16,17 +16,15 @@ export function* changeAppLanguageSaga({
   payload: {language, isSystemLanguage},
 }: ActionType<typeof changeLanguageRequest>) {
   let nextLanguage = language;
-  let nextIsSystemLanguage = isSystemLanguage;
 
   try {
     const prevLanguage = yield select(selectAppLanguage);
 
-    if (!language || isSystemLanguage) {
+    if (isSystemLanguage) {
       nextLanguage = yield call([
         languageService,
         languageService.getCurrentLanguage,
       ]);
-      nextIsSystemLanguage = true;
     }
 
     yield call(
@@ -37,7 +35,7 @@ export function* changeAppLanguageSaga({
     yield put(
       changeLanguageSuccess({
         language: nextLanguage,
-        isSystemLanguage: nextIsSystemLanguage,
+        isSystemLanguage,
       }),
     );
 

@@ -24,7 +24,7 @@ export const useProfileSettingsLanguage = () => {
       dispatch(
         changeLanguageRequest({
           language,
-          isSystemLanguage: language ? false : true,
+          isSystemLanguage: !language,
         }),
       );
     },
