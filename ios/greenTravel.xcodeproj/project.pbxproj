@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
@@ -17,7 +16,6 @@
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
-		5A1102252833FCC700FC967A /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A1102232833FCC600FC967A /* awsconfiguration.json */; };
 		5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A1102242833FCC600FC967A /* amplifyconfiguration.json */; };
 		5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */; };
 		5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */; };
@@ -226,7 +224,6 @@
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
-		6281F7E124C9E40D00C51231 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6281F7E024C9E40D00C51231 /* empty.swift */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
 		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
 /* End PBXBuildFile section */
@@ -669,7 +666,6 @@
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		628194D025F213BD00491FDF /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = greenTravel/BootSplash.storyboard; sourceTree = "<group>"; };
 		6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
-		6281F7E024C9E40D00C51231 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
 		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		745C34F067A2EA32BDC236BD /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
@@ -719,7 +715,6 @@
 				5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */,
-				6281F7E024C9E40D00C51231 /* empty.swift */,
 				6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */,
 				5A39D6F126B34C04008FC20C /* Localizable.strings */,
 			);
@@ -1979,6 +1974,7 @@
 			buildPhases = (
 				456AD5FC5952504A811CAABD /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
+				79C2CCE52951B59A00855E1D /* swiftlint */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				5AD2DA2E26FDCCEC00876841 /* Add Settings.bundle */,
@@ -2005,7 +2001,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 53APD5F9YQ;
@@ -2063,7 +2059,6 @@
 				5A775B4326064C9000CEFC78 /* Montserrat-ExtraBold.ttf in Resources */,
 				5A775B4626064C9000CEFC78 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				5A775B4226064C9000CEFC78 /* Montserrat-ExtraLightItalic.ttf in Resources */,
-				5A1102252833FCC700FC967A /* awsconfiguration.json in Resources */,
 				5A775B4D26064C9000CEFC78 /* Montserrat-ExtraBoldItalic.ttf in Resources */,
 				5A775B3C26064C9000CEFC78 /* Montserrat-MediumItalic.ttf in Resources */,
 				5AD71D9D274D5CDA00F205AD /* InfoPlist.strings in Resources */,
@@ -2081,7 +2076,6 @@
 				5A775B4826064C9000CEFC78 /* Montserrat-Italic.ttf in Resources */,
 				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
 				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
-				0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */,
 				5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2180,6 +2174,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmkdir \"${PROJECT_DIR}/Settings.bundle/\"\nif [ \"${CONFIGURATION}\" != \"ReleaseProduction\" ]; then\ncp -R \"${PROJECT_DIR}/Settings_Debug.bundle/\" \"${PROJECT_DIR}/Settings.bundle/\"\necho \"Debug settings bundle copied\"\nfi\nif [ \"${CONFIGURATION}\" == \"ReleaseProduction\" ]; then\ncp -R \"${PROJECT_DIR}/Settings_ReleaseProduction.bundle/\" \"${PROJECT_DIR}/Settings.bundle/\"\necho \"ReleaseProduction settings bundle copied\"\nfi\n";
+		};
+		79C2CCE52951B59A00855E1D /* swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" > /dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		A13C2C709536C127C37EA3BF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2307,7 +2319,6 @@
 				5A6DC5D2265AAB3900A2D37B /* RoutesSheetController.m in Sources */,
 				5A775DFB26077A7D00CEFC78 /* GradientOverlayView.m in Sources */,
 				5A775E0626077A7D00CEFC78 /* FullMapViewController.m in Sources */,
-				6281F7E124C9E40D00C51231 /* empty.swift in Sources */,
 				5A95F1FB2847F39500CCA852 /* BaseFormViewController.m in Sources */,
 				5A775E0026077A7D00CEFC78 /* FilterOption.m in Sources */,
 				5A775E1026077A7D00CEFC78 /* BannerView.m in Sources */,
@@ -2490,7 +2501,7 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = greenTravel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2530,7 +2541,7 @@
 					"PB_ENABLE_MALLOC=1",
 				);
 				INFOPLIST_FILE = greenTravel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2587,7 +2598,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",
@@ -2597,6 +2608,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = ReleaseProduction;
@@ -2624,7 +2636,7 @@
 					"PB_ENABLE_MALLOC=1",
 				);
 				INFOPLIST_FILE = greenTravel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2688,7 +2700,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",
@@ -2743,7 +2755,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/lib/swift",
@@ -2753,6 +2765,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

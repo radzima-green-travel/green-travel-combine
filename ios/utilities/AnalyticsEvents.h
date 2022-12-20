@@ -18,68 +18,68 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsUserPropertyFramework;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsUserPropertyFramework;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsNaviMain;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsNaviMap;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsNaviBookmarks;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsNaviMain;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsNaviMap;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsNaviBookmarks;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenHome;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenMapItem;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenBookmarks;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenMapFull;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsScreenDetails;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamCardName;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamCardCategory;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsScreenHome;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsScreenMapItem;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsScreenBookmarks;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsScreenMapFull;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsScreenDetails;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamCardName;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamCardCategory;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsPressCard;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsSaveCard;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsUnsaveCard;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsSeeAll;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsPressCard;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsSaveCard;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsUnsaveCard;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsSeeAll;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSavedCategory;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsPressCardSaved;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamCategoryName;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsPressSavedCategory;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsPressCardSaved;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamCategoryName;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsSearchType;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsPressSearchResult;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamSearchQuery;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsSearchType;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsPressSearchResult;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamSearchQuery;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsTimeSpentInActiveState;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsTimeSpentInActiveState;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsSave;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsUnsave;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsOpenMap;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsScrollToEnd;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsPressCoords;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsDetailsBack;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamLinkType;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsDetailsSave;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsDetailsUnsave;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsDetailsOpenMap;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsDetailsScrollToEnd;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsPressCoords;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsDetailsBack;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamLinkType;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterAll;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterTerritories;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterArchitecture;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterReligion;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterNature;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterMuseums;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterWarMemorials;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterOther;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterFoot;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterBike;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapFilterWater;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterAll;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterTerritories;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterArchitecture;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterReligion;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterNature;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterMuseums;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterWarMemorials;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterOther;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterFoot;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterBike;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapFilterWater;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapSearch;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapInteraction;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamMapInteractionSave;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamMapInteractionLearnMore;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapSearchType;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsMapPressSearchResult;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamMapFilterCheck;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapSearch;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapInteraction;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamMapInteractionSave;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamMapInteractionLearnMore;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapSearchType;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsMapPressSearchResult;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamMapFilterCheck;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsLifeTimeHomeScreen;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsLifeTimeDetailsScreen;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsLifeTimeFullMapScreen;
-FOUNDATION_EXPORT const NSString* AnalyticsEventsParamTimeInterval;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsLifeTimeHomeScreen;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsLifeTimeDetailsScreen;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsLifeTimeFullMapScreen;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsParamTimeInterval;
 
-FOUNDATION_EXPORT const NSString* AnalyticsEventsGalleryPictureView;
+FOUNDATION_EXPORT NSString * const AnalyticsEventsGalleryPictureView;
 
 NS_ASSUME_NONNULL_END

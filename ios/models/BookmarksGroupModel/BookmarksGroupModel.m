@@ -48,6 +48,8 @@
 
 - (void)onCategoriesNewDataAvailable {}
 
+- (void)onDetailsLoading:(BOOL)loading {}
+
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark { 
     [self fillBookmarkItemsFromCategories:self.indexModel.categories];
     [self notifyObservers];

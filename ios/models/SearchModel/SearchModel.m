@@ -60,6 +60,8 @@
 
 - (void)onCategoriesNewDataAvailable {}
 
+- (void)onDetailsLoading:(BOOL)loading {}
+
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {}
 
 - (void)fillSearchItemsFromCategories:(NSArray<PlaceCategory *>*)categories {

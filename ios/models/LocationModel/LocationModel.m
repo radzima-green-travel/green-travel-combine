@@ -18,8 +18,11 @@ static const NSUInteger kTimeWaitForLocationUpdate = 3;
 
 @end
 
-
 @implementation LocationModel
+
+@synthesize authorizationStatus;
+@synthesize delegate;
+@synthesize headingOrientation;
 
 - (instancetype)init
 {
@@ -98,5 +101,21 @@ static const NSUInteger kTimeWaitForLocationUpdate = 3;
     }
     [self notifyObservers];
 }
+
+#pragma mark - MGLLocationManager
+
+- (void)dismissHeadingCalibrationDisplay {}
+
+- (void)requestAlwaysAuthorization {}
+
+- (void)requestWhenInUseAuthorization {}
+
+- (void)startUpdatingHeading {}
+
+- (void)startUpdatingLocation {}
+
+- (void)stopUpdatingHeading {}
+
+- (void)stopUpdatingLocation {}
 
 @end

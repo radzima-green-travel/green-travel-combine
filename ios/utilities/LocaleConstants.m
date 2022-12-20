@@ -7,6 +7,6 @@
 
 #import "LocaleConstants.h"
 
-const NSString * LocaleLanguageCodeLegacy = @"ru";
-const NSString * LocaleLanguageCodeDefault = @"en";
-const NSString * SupportedLanguageCodes = @"en,ru,zh";
+NSString * const LocaleLanguageCodeLegacy = @"ru";
+NSString * const LocaleLanguageCodeDefault = @"en";
+NSString * const SupportedLanguageCodes = @"en,ru,zh";

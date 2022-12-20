@@ -7,8 +7,7 @@
 
 #import "AccessibilityIdentifiers.h"
 
-const NSString* AccessibilityIdentifiersTabBarMain = @"tabBarItemMain";
-const NSString* AccessibilityIdentifiersTabBarMap = @"tabBarItemMap";
-const NSString* AccessibilityIdentifiersTabBarFavorites = @"tabBarItemFavorites";
-const NSString* AccessibilityIdentifiersTabBarProfile = @"tabBarItemProfile";
-
+NSString * const AccessibilityIdentifiersTabBarMain = @"tabBarItemMain";
+NSString * const AccessibilityIdentifiersTabBarMap = @"tabBarItemMap";
+NSString * const AccessibilityIdentifiersTabBarFavorites = @"tabBarItemFavorites";
+NSString * const AccessibilityIdentifiersTabBarProfile = @"tabBarItemProfile";

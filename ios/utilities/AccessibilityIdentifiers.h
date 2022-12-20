@@ -9,10 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT const NSString* AccessibilityIdentifiersTabBarMain;
-FOUNDATION_EXPORT const NSString* AccessibilityIdentifiersTabBarMap;
-FOUNDATION_EXPORT const NSString* AccessibilityIdentifiersTabBarFavorites;
-FOUNDATION_EXPORT const NSString* AccessibilityIdentifiersTabBarProfile;
-
+FOUNDATION_EXPORT NSString * const AccessibilityIdentifiersTabBarMain;
+FOUNDATION_EXPORT NSString * const AccessibilityIdentifiersTabBarMap;
+FOUNDATION_EXPORT NSString * const AccessibilityIdentifiersTabBarFavorites;
+FOUNDATION_EXPORT NSString * const AccessibilityIdentifiersTabBarProfile;
 
 NS_ASSUME_NONNULL_END

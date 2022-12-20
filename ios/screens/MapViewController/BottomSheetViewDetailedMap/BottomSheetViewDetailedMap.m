@@ -66,4 +66,6 @@
   [self.detailsButton setLabel:NSLocalizedString(@"ButtonBuildRouteLabel", @"")];
 }
 
+- (void)onNavigationPress {}
+
 @end

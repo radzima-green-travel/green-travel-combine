@@ -76,10 +76,6 @@ static CGFloat kTrailingInsetLongButton = -16.0;
 
   self.headerLabel.attributedText = [[TypographyLegacy get] makeSubtitle1Semibold:[self.item.title uppercaseString]
                                      color:[Colors get].categoryTitleText];
-
-    NSUInteger safeIndex = [self indexOfMostExposedCell];
-    UICollectionViewCell *cell =
-    [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:safeIndex inSection:0]];
 }
 
 - (void)setUp {

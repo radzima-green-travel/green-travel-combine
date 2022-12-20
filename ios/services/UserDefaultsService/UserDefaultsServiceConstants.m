@@ -7,6 +7,6 @@
 
 #import "UserDefaultsServiceConstants.h"
 
-const NSString * UserDefaultsServiceConstantsFrameworkRandom = @"random";
-const NSString * UserDefaultsServiceConstantsFrameworkReact = @"react";
-const NSString * UserDefaultsServiceConstantsFrameworkUIKit = @"uikit";
+NSString * const UserDefaultsServiceConstantsFrameworkRandom = @"random";
+NSString * const UserDefaultsServiceConstantsFrameworkReact = @"react";
+NSString * const UserDefaultsServiceConstantsFrameworkUIKit = @"uikit";
