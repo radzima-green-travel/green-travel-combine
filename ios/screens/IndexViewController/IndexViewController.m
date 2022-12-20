@@ -41,14 +41,12 @@
 @property (strong, nonatomic) MapModel *mapModel;
 @property (strong, nonatomic) CoreDataService *coreDataService;
 @property (strong, nonatomic) MapService *mapService;
-@property (strong, nonatomic) NoDataView *noDataView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UIBarButtonItem *originalBackButtonItem;
 @property (strong, nonatomic) UIImageView *placeholderImageView;
 @property (strong, nonatomic) UILabel *somethingIsWrongLabel;
 @property (strong, nonatomic) CommonButton *retryButton;
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) UIView *placeholder;
 @property (strong, nonatomic) RefreshButton *refreshButton;
 @property (strong, nonatomic) NSLayoutConstraint *yPosition;
@@ -60,7 +58,6 @@
 
 static NSString * const kCollectionCellId = @"collectionCellId";
 static CGFloat kDeltaCoverAndBounds = 50.0;
-static CGFloat kMinHeightOfPlaceholderView = 500.0;
 static CGFloat kNewDataButtonOffScreenOffsetY = 0.0;
 static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
 
@@ -286,6 +283,8 @@ static CGFloat kNewDataButtonOnScreenOffsetY = 50.0;
         });
     }
 }
+
+- (void)onDetailsLoading:(BOOL)loading {}
 
 #pragma mark - Bookmarks update
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {

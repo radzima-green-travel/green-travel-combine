@@ -13,7 +13,7 @@
 #import "UIButtonHighlightable.h"
 #import "Typography.h"
 
-@interface SignInFormView()
+@interface SignInFormView() <UITextFieldDelegate>
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIButtonHighlightable *forgotPasswordButton;

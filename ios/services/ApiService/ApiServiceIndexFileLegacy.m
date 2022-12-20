@@ -66,7 +66,7 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
     }
     NSLog(@"Error when loading categories: %@", error);
     NSArray<PlaceCategory *> *mappedCategories = [[weakSelf mapCategoriesFromJSON:categories] copy];
-    indexModelData.categoryTree = mappedCategories;
+    indexModelData.categoryTree = [NSMutableArray arrayWithArray:mappedCategories];
     completion(indexModelData, @[], updatedHash);
   }];
   [task resume];
@@ -76,8 +76,8 @@ static NSString * const kGetDetailsBaseURL = @"http://ecsc00a0916b.epam.com:3001
   NSMutableArray<PlaceCategory *> *mappedCategories = [[NSMutableArray alloc] init];
   [categories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     PlaceCategory *category = [[PlaceCategory alloc] init];
-    category.categories = [self mapCategoriesFromJSON:obj[@"children"]];
-    category.items = [self mapItemsFromJSON:obj[@"objects"] category:category];
+    category.categories = [NSMutableArray arrayWithArray:[self mapCategoriesFromJSON:obj[@"children"]]];
+    category.items = [NSMutableArray arrayWithArray:[self mapItemsFromJSON:obj[@"objects"] category:category]];
     if ([self categoryIsValid:category rawCategory:obj]) {
       category.title = obj[@"name"];
       category.cover = getFullImageURL(obj[@"cover"]);
@@ -187,7 +187,7 @@ NSMutableArray* categoryIdToItemsFromJSON(NSObject *relations) {
     NSArray<NSString *> *linkedItemIds = [obj[@"objects"] copy];
     CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
     categoryUUIDToRelatedItemUUIDs.categoryUUID = categoryId;
-    categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:linkedItemIds];
+    categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSMutableOrderedSet alloc] initWithArray:linkedItemIds];
     [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
   }];
   return categoryIdToItems;
@@ -213,7 +213,7 @@ NSMutableArray* categoryIdToItemsFromJSON(NSObject *relations) {
             NSArray<NSString *> *linkedItemIds = [obj[1] copy];
             CategoryUUIDToRelatedItemUUIDs *categoryUUIDToRelatedItemUUIDs = [[CategoryUUIDToRelatedItemUUIDs alloc] init];
             categoryUUIDToRelatedItemUUIDs.categoryUUID = categoryId;
-            categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSOrderedSet alloc] initWithArray:linkedItemIds];
+            categoryUUIDToRelatedItemUUIDs.relatedItemUUIDs = [[NSMutableOrderedSet alloc] initWithArray:linkedItemIds];
             [categoryIdToItems addObject:categoryUUIDToRelatedItemUUIDs];
         }];
         parsedDetails.categoryIdToItems = categoryIdToItems;

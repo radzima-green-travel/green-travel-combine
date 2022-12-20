@@ -7,7 +7,7 @@
 
 #import "ViewUtils.h"
 
-UIWindow* getCurrentWindow() {
+UIWindow* getCurrentWindow(void) {
   UIWindow *currentWindow = [UIApplication.sharedApplication.windows filteredArrayUsingPredicate:
                              [NSPredicate predicateWithBlock:^BOOL(UIWindow * _Nullable window, NSDictionary<NSString *,id> * _Nullable bindings) {
     return window.isKeyWindow;

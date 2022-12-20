@@ -547,6 +547,7 @@ PODS:
   - Sentry (6.0.9):
     - Sentry/Core (= 6.0.9)
   - Sentry/Core (6.0.9)
+  - SwiftLint (0.50.3)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -618,22 +619,20 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
+  - SwiftLint
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Amplify
     - AmplifyPlugins
+    - Amplitude
     - AWSAuthCore
     - AWSCognitoIdentityProvider
     - AWSCognitoIdentityProviderASF
     - AWSCore
     - AWSMobileClient
     - AWSPluginsCore
-    - fmt
-    - libevent
-  trunk:
-    - Amplitude
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -643,9 +642,11 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebasePerformance
     - FirebaseRemoteConfig
+    - fmt
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - libevent
     - libwebp
     - Mapbox-iOS-SDK
     - MapboxMobileEvents
@@ -654,6 +655,7 @@ SPEC REPOS:
     - SDWebImage
     - SDWebImageWebPCoder
     - Sentry
+    - SwiftLint
 
 EXTERNAL SOURCES:
   amplitude-react-native:
@@ -871,8 +873,9 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   Sentry: 388c9dc093b2fd3a264466a5c5b21e25959610a9
+  SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
 
-PODFILE CHECKSUM: 5b1a536eff81c2f2d8c5b6bd0f29758f2bd2f91c
+PODFILE CHECKSUM: ca1cbff5e10f8866fbfee73776a66207e77d8988
 
 COCOAPODS: 1.11.3

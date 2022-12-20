@@ -30,8 +30,13 @@
   if (self.progressIndicator != nil) {
     return self.progressIndicator;
   }
-  self.progressIndicator = [[UIActivityIndicatorView alloc]
-                                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+  if (@available(iOS 13.0, *)) {
+    self.progressIndicator = [[UIActivityIndicatorView alloc]
+                              initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+  } else {
+    self.progressIndicator = [[UIActivityIndicatorView alloc]
+                              initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+  }
   self.progressIndicator.color = [ColorsLegacy get].white;
   return self.progressIndicator;
 }
@@ -48,8 +53,6 @@
 - (void)setInProgress:(BOOL)inProgress {
   _inProgress = inProgress;
   if (inProgress) {
-    UIActivityIndicatorView *progressIndicator = [[UIActivityIndicatorView alloc]
-                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
     self.labelBackup = self.currentTitle;
     [self setLabel:@""];
     [self addActivityIndicator];

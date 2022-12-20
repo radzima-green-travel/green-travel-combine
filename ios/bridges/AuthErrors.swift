@@ -7,6 +7,7 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name
 @objc enum AmplifyBridgeError: Int {
   case AuthErrorFetchSessionFailed = 1
   case AuthErrorSignInFailed

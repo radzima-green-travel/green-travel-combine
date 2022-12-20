@@ -20,9 +20,9 @@
 
 @end
 
-static const NSString * kQueryGetTag = @"index-tag";
-static const NSString * kQueryGetIndexLocaleAny = @"index-locale-any";
-static const NSString * kQueryGetIndexLocaleLegacy = @"index-locale-legacy";
+static NSString * const kQueryGetTag = @"index-tag";
+static NSString * const kQueryGetIndexLocaleAny = @"index-locale-any";
+static NSString * const kQueryGetIndexLocaleLegacy = @"index-locale-legacy";
 
 @implementation GraphQLApiService
 

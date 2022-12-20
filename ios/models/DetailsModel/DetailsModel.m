@@ -60,6 +60,8 @@
 
 - (void)onCategoriesNewDataAvailable {}
 
+- (void)onDetailsLoading:(BOOL)loading {}
+
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
 }
 
@@ -96,6 +98,8 @@
         }];
     }];
 }
+
+- (void)setDetailsAllInProgress:(BOOL)inProgress {}
 
 - (void)updateDetails:(PlaceDetails * _Nullable)details
                 error:(NSError * _Nullable)error

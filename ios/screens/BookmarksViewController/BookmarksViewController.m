@@ -210,7 +210,6 @@ static const CGFloat kInsetVertical = 24.0;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize layoutGuide = [self.view.safeAreaLayoutGuide layoutFrame].size;
     CGFloat baseWidth = self.collectionView.bounds.size.width;
     NSLog(@"Base width: %f", self.collectionView.bounds.size.width);
     NSLog(@"Bounds: %@", @(self.collectionView.bounds));

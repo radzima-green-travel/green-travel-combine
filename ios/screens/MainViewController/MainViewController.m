@@ -218,7 +218,7 @@ static BOOL kSignUpEnabled = YES;
 }
 
 UITabBarItem* createTabBarItem(NSString *title, NSUInteger tag, UIImage *image,
-                               const NSString * _Nonnull accessibilityIdentifier) {
+                               NSString * const _Nonnull accessibilityIdentifier) {
     UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image tag:tag];
     [tabBarItem setTitleTextAttributes:[TypographyLegacy get].tabBarSelectedAttributes
                                        forState:UIControlStateSelected];
