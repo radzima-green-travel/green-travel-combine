@@ -7,14 +7,15 @@
 
 import UIKit
 
-struct Text {
+// helper style structs
+struct StyledText {
   let text: String
   let font: UIFont
   let color: UIColor
   
   init(text: String,
        font: UIFont = .systemFont(ofSize: 16, weight: .regular),
-       color: UIColor = .white) {
+       color: UIColor = Colors().buttonNewDataText) {
     self.text = text
     self.font = font
     self.color = color
@@ -31,42 +32,52 @@ enum AppAuthProvider: String, CaseIterable {
   case facebook
   case google
   case email
-  
-  var text: Text {
+}
+
+// contains style properties and data for corresponding buttons
+extension AppAuthProvider {
+  var text: StyledText {
+    let continueText = NSLocalizedString("ContinueWith", comment: "")
     switch self {
-    case .apple, .facebook, .google:
-      return .init(text: NSLocalizedString("ContinueWith", comment: "") + rawValue.capitalized)
+    case .apple:
+      return .init(text: continueText + rawValue.capitalized,
+                   color: Colors.get().whiteAndBlack)
+    case .facebook, .google:
+      return .init(text: continueText + rawValue.capitalized,
+                   color: Colors.get().blackAndWhite)
     case .email:
-      return .init(text: NSLocalizedString("ContinueWith", comment: "") + rawValue.capitalized,
-                   color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.85))
+      return .init(text: continueText + NSLocalizedString("EmailButton", comment: ""),
+                   color: Colors.get().blackAndWhite)
     }
   }
   
   var image: UIImage {
-    UIImage(named: "\(rawValue)-logo")?.withRenderingMode(.alwaysOriginal) ?? UIImage()
+    let image = UIImage(named: "logo-\(rawValue)")?.withRenderingMode(.alwaysOriginal) ?? UIImage()
+    switch self {
+    case .apple:
+      return image.imageWithColor(color: Colors.get().whiteAndBlack) ?? UIImage()
+    case .facebook, .google:
+      return image
+    case .email:
+      return image.imageWithColor(color: Colors.get().blackAndWhite) ?? UIImage()
+    }
   }
   
   var color: UIColor {
     switch self {
     case .apple:
-      return UIColor(red: 0.033, green: 0.033, blue: 0.033, alpha: 1)
-    case .facebook:
-      return UIColor(red: 0.035, green: 0.427, blue: 0.851, alpha: 1)
-    case .google:
-      return UIColor(red: 1, green: 0.337, blue: 0.369, alpha: 1)
-    case .email:
-      return .white
+      return Colors.get().blackAndWhite
+    default:
+      return Colors.get().loginButtonBackground
     }
   }
   
   var border: Border? {
     switch self {
-    case .email:
-      return .init(color: UIColor(red: 0.225, green: 0.225, blue: 0.225, alpha: 1).cgColor,
-                   width: 2)
-    default:
+    case .apple:
       return nil
+    default:
+      return .init(color: Colors.get().loginButtonBorder.cgColor, width: 2)
     }
   }
 }
-

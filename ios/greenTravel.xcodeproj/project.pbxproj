@@ -11,6 +11,9 @@
 		0D8DBB5529448F93005C9DE1 /* UIControl+action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */; };
 		0D8DBB5729448FBD005C9DE1 /* UIView+layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */; };
 		0D8DBB5929449015005C9DE1 /* AppAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */; };
+		0D8E2E11295254AF00978F5C /* UIImage+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8E2E10295254AF00978F5C /* UIImage+color.swift */; };
+		0D8E2E132952580700978F5C /* DividerWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8E2E122952580700978F5C /* DividerWithTextView.swift */; };
+		0D8E2E152952586600978F5C /* UILabel+StyledText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8E2E142952586600978F5C /* UILabel+StyledText.swift */; };
 		0DD4EBD72940D0E800A989AE /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */; };
 		0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -239,9 +242,13 @@
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		0D21BC94293A455C0064F686 /* SocialLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginService.swift; sourceTree = "<group>"; };
 		0D21BC96293A47540064F686 /* greenTravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravel.entitlements; path = greenTravel/greenTravel.entitlements; sourceTree = "<group>"; };
+		0D3B911D294B16D900EE8F31 /* greenTravelDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelDebug.entitlements; path = greenTravel/greenTravelDebug.entitlements; sourceTree = "<group>"; };
 		0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+action.swift"; sourceTree = "<group>"; };
 		0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layout.swift"; sourceTree = "<group>"; };
 		0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthProvider.swift; sourceTree = "<group>"; };
+		0D8E2E10295254AF00978F5C /* UIImage+color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+color.swift"; sourceTree = "<group>"; };
+		0D8E2E122952580700978F5C /* DividerWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerWithTextView.swift; sourceTree = "<group>"; };
+		0D8E2E142952586600978F5C /* UILabel+StyledText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+StyledText.swift"; sourceTree = "<group>"; };
 		0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		0DD4EBD82940DF5100A989AE /* SocialLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		0DD4EBDB2942489400A989AE /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -810,6 +817,8 @@
 				5A2315CB28E0A354004CB989 /* UIImage+extensions.m */,
 				0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */,
 				0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */,
+				0D8E2E10295254AF00978F5C /* UIImage+color.swift */,
+				0D8E2E142952586600978F5C /* UILabel+StyledText.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1811,6 +1820,7 @@
 				5A29148C26E4F7F6004AD6F3 /* UIButtonWithFeedback */,
 				5A9D706E26EE448000F4799D /* CommonButtonWithProgress */,
 				5AB4AFBA27B31D8C00C74857 /* LabelledButtonGroup */,
+				0D8E2E122952580700978F5C /* DividerWithTextView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1954,6 +1964,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				0D3B911D294B16D900EE8F31 /* greenTravelDebug.entitlements */,
 				0D21BC96293A47540064F686 /* greenTravel.entitlements */,
 				624E38CE2519E467001D98E2 /* Resources */,
 				13B07FAE1A68108700A75B9A /* GreenTravel */,
@@ -2024,7 +2035,7 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = K36CA7QL4T;
+						DevelopmentTeam = 53APD5F9YQ;
 						LastSwiftMigration = 1130;
 						ProvisioningStyle = Manual;
 					};
@@ -2309,6 +2320,7 @@
 				5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */,
 				5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */,
 				5A2315CD28E0A354004CB989 /* UIImage+extensions.m in Sources */,
+				0D8E2E152952586600978F5C /* UILabel+StyledText.swift in Sources */,
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5EA9408928E6169800E90014 /* ProfileTableViewController.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
@@ -2359,6 +2371,7 @@
 				5A775E0D26077A7D00CEFC78 /* GalleryPageControl.m in Sources */,
 				5A6EDF9226C9671C001307DC /* BottomSheetTouchForwardingView.m in Sources */,
 				0D8DBB5529448F93005C9DE1 /* UIControl+action.swift in Sources */,
+				0D8E2E132952580700978F5C /* DividerWithTextView.swift in Sources */,
 				5A006D1A2783565A00010D63 /* URLUtils.m in Sources */,
 				5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */,
 				5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */,
@@ -2444,6 +2457,7 @@
 				5A775DF926077A7D00CEFC78 /* PlacesTableViewCellConstants.m in Sources */,
 				5AFB8FD928F9608B009E729E /* AccessibilityIdentifiers.m in Sources */,
 				5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */,
+				0D8E2E11295254AF00978F5C /* UIImage+color.swift in Sources */,
 				5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */,
 				5A105FEC265FD9E300511256 /* Directions.m in Sources */,
 				5A6DC50B2655B28900A2D37B /* StoredArea+CoreDataProperties.m in Sources */,
@@ -2495,12 +2509,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravel.entitlements;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K36CA7QL4T;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2522,7 +2536,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "EPAM Radzima App Store Distribution";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "EPM_SLR_In-House";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

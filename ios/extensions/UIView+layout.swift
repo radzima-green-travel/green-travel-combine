@@ -8,18 +8,20 @@
 import UIKit
 
 extension UIView {
+  func enableAutolayout() {
+    translatesAutoresizingMaskIntoConstraints = false
+  }
+  
+  func disableAutolayout() {
+    translatesAutoresizingMaskIntoConstraints = true
+  }
+  
   func addAutolayoutSubview(_ view: UIView) {
-    view.translatesAutoresizingMaskIntoConstraints = false
+    view.enableAutolayout()
     addSubview(view)
   }
   
   func addAutolayoutSubviews(_ views: UIView...) {
     views.forEach { addAutolayoutSubview($0) }
-  }
-}
-
-extension UIStackView {
-  func addArrangedSubviews(_ views: UIView...) {
-    views.forEach { addArrangedSubview($0) }
   }
 }

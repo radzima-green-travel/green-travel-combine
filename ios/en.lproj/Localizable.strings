@@ -111,3 +111,11 @@
 "ResetPasswordRequestScreenSubmit" = "SEND";
 
 "ContinueWith" = "Continue with ";
+"EmailButton" = "Email";
+"DividerText" = "or";
+
+"DisclaimerText" = "By creating or logging into an account, you agree to our Terms of Use and Privacy Policy";
+"UsageTermsText" = "Terms of Use";
+"PrivacyPolicyText" = "Privacy Policy";
+"UsageTermsLink" = "https://radzima.app";
+"PrivacyPolicyLink" = "https://www.epam.com/privacy-policy";

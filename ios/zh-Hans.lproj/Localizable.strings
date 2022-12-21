@@ -25,7 +25,7 @@
 
 "SavedTitle" = "最愛";
 "ProfileTitle" = "Profile";
-"LogInTitle" = "Enter or create account";
+"LogInTitle" = "登录或者创建一个帐户";
 
 "SearchHistory" = "历史记录";
 "SearchNotFound" = "抱歉，未找到相关结果";
@@ -100,4 +100,12 @@
 "ResetPasswordRequestScreenHint" = "为了提高安全性，我们要求您更改密码。 更改密码的说明将发送至 %@";
 "ResetPasswordRequestScreenSubmit" = "SEND";
 
-"ContinueWith" = "Continue with ";
+"ContinueWith" = "继续 ";
+"EmailButton" = "Email";
+"DividerText" = "要么";
+
+"DisclaimerText" = "通过创建或登录帐户，您同意我们的使用条款和隐私政策";
+"UsageTermsText" = "使用条款";
+"PrivacyPolicyText" = "隐私政策";
+"UsageTermsLink" = "https://radzima.app";
+"PrivacyPolicyLink" = "https://www.epam.com/privacy-policy";

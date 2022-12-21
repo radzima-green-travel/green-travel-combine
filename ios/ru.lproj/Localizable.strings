@@ -112,10 +112,11 @@
 "ResetPasswordRequestScreenSubmit" = "ОТПРАВИТЬ";
 
 "ContinueWith" = "Продолжить с ";
+"EmailButton" = "Эл. почтой";
+"DividerText" = "или";
 
 "DisclaimerText" = "Создавая или входя в аккаунт, вы соглашаетесь с нашими Правилами использования и Политикой конфиденциальности";
 "UsageTermsText" = "Правилами использования";
 "PrivacyPolicyText" = "Политикой конфиденциальности";
 "UsageTermsLink" = "https://radzima.app";
 "PrivacyPolicyLink" = "https://www.epam.com/privacy-policy";
-

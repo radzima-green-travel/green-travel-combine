@@ -13,16 +13,16 @@ final class SocialLoginService: NSObject {
   
   private var window: UIWindow?
   
-  func handleSocialSignIn(provider: AppAuthProvider, on window: UIWindow?) {
+  func handleSocialSignIn(provider: String, on window: UIWindow?) {
     self.window = window
     switch provider {
-    case .apple:
+    case "apple":
       handleAppleSignIn()
-    case .facebook:
+    case "facebook":
       socialSignInWithWebUI(provider: .facebook)
-    case .google:
+    case "google":
       socialSignInWithWebUI(provider: .google)
-    case .email:
+    default:
       break
     }
   }
@@ -43,10 +43,11 @@ final class SocialLoginService: NSObject {
   }
   
   private func socialSignInWithWebUI(provider: AuthProvider) {
-    _ = Amplify.Auth.signInWithWebUI(for: provider, presentationAnchor: window ?? UIWindow()) { result in
+    Amplify.Auth.signInWithWebUI(for: provider, presentationAnchor: window ?? UIWindow()) { result in
       switch result {
-      case .success(_):
-        print("Sign in succeeded")
+      case .success(let signInFlow):
+        print("Next step: \(signInFlow.nextStep)")
+        print("Sign in succeeded: \(signInFlow.isSignedIn)")
       case .failure(let error):
         print("Sign in failed \(error)")
       }
@@ -96,4 +97,3 @@ extension SocialLoginService: ASAuthorizationControllerPresentationContextProvid
     window ?? UIWindow()
   }
 }
-

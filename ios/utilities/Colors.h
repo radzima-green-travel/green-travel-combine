@@ -73,7 +73,14 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *accountImagePink;
 @property (strong, nonatomic) UIColor *accountImagePurple;
 @property (strong, nonatomic) UIColor *accountImageRed;
-
+@property (strong, nonatomic) UIColor *whiteAndBlack;
+@property (strong, nonatomic) UIColor *blackAndWhite;
+@property (strong, nonatomic) UIColor *loginButtonBackground;
+@property (strong, nonatomic) UIColor *loginButtonBorder;
+@property (strong, nonatomic) UIColor *disclaimerText;
+@property (strong, nonatomic) UIColor *dividerWithText;
+@property (strong, nonatomic) UIColor *dividerText;
+@property (strong, nonatomic) UIColor *loginNavBar;
 
 + (instancetype)get;
 

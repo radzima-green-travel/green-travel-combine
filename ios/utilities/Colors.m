@@ -84,7 +84,14 @@ static Colors *instance;
     self.accountImagePurple = [UIColor colorNamed:@"accountImagePurple"];
     self.accountImageLightBlue = [UIColor colorNamed:@"accountImageLightBlue"];
     self.accountImageFireOrange = [UIColor colorNamed:@"accountImageFireOrange"];
-    
+    self.whiteAndBlack = [UIColor colorNamed:@"whiteAndBlack"];
+    self.blackAndWhite = [UIColor colorNamed:@"blackAndWhite"];
+    self.loginButtonBackground = [UIColor colorNamed:@"loginButtonBackground"];
+    self.loginButtonBorder = [UIColor colorNamed:@"loginButtonBorder"];
+    self.disclaimerText = [UIColor colorNamed:@"disclaimerText"];
+    self.dividerWithText = [UIColor colorNamed:@"dividerWithText"];
+    self.dividerText = [UIColor colorNamed:@"dividerText"];
+    self.loginNavBar = [UIColor colorNamed:@"loginNavBar"];
   }
   return self;
 }

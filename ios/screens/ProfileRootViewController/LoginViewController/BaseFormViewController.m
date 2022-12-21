@@ -89,7 +89,7 @@ static const CGFloat kTopOffset = 90.0;
     [self.loadingView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
   ]];
   
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDonePress:)];
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onDonePress:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

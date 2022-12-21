@@ -25,7 +25,6 @@ NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controll
                                           image:[UIImage imageNamed:@"accountPhoto"]
                                           handler:^{
     SocialLoginViewController *socialLoginVC = [[SocialLoginViewController alloc] initWithController:controller.userController model:controller.userModel];
-    socialLoginVC.title = NSLocalizedString(@"LogInTitle", @"");
     UINavigationController *socialLoginVCWithNavigation = [[UINavigationController alloc] initWithRootViewController:socialLoginVC];
     if (@available(iOS 13.0, *)) {
       [socialLoginVCWithNavigation setModalInPresentation:YES];
