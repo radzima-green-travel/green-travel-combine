@@ -12,14 +12,15 @@ export const ProfileSettingsLanguage = () => {
   const {t} = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
 
-  const {changeLanguage, userLanguage, loading, itemLanguage} =
+  const {changeLanguage, userLanguage, getItemDisabled, getItemLoading} =
     useProfileSettingsLanguage();
 
   return (
     <View style={styles.container}>
       <GeneralListItem
         position="top"
-        loading={!itemLanguage && loading}
+        loading={getItemLoading(null)}
+        disabled={getItemDisabled(null)}
         onPress={() => changeLanguage(null)}
         title={t('System')}
         renderLeftElement={
@@ -28,7 +29,8 @@ export const ProfileSettingsLanguage = () => {
       />
       <GeneralListItem
         position="middle"
-        loading={itemLanguage === 'en' && loading}
+        loading={getItemLoading('en')}
+        disabled={getItemDisabled('en')}
         onPress={() => changeLanguage('en')}
         title={t('English')}
         renderLeftElement={
@@ -39,7 +41,8 @@ export const ProfileSettingsLanguage = () => {
       />
       <GeneralListItem
         position="middle"
-        loading={itemLanguage === 'ru' && loading}
+        loading={getItemLoading('ru')}
+        disabled={getItemDisabled('ru')}
         onPress={() => changeLanguage('ru')}
         title={t('Русский')}
         renderLeftElement={
@@ -50,7 +53,8 @@ export const ProfileSettingsLanguage = () => {
       />
       <GeneralListItem
         position="bottom"
-        loading={itemLanguage === 'zh' && loading}
+        loading={getItemLoading('zh')}
+        disabled={getItemDisabled('zh')}
         onPress={() => changeLanguage('zh')}
         title={t('zh')}
         renderLeftElement={

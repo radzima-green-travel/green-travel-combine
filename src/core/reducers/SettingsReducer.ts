@@ -23,7 +23,7 @@ export const changeLanguageRequest = createAction(
 )<{language: SupportedLocales | null; isSystemLanguage: boolean}>();
 export const changeLanguageSuccess = createAction(
   ACTIONS.CHANGE_LANGUAGE_SUCCESS,
-)<{language: SupportedLocales | null; isSystemLanguage: boolean}>();
+)();
 export const changeLanguageFailure = createAction(
   ACTIONS.CHANGE_LANGUAGE_FAILURE,
 )<ILabelError>();
@@ -43,13 +43,6 @@ export const settingsReducer = createReducer<
   ActionType<typeof actions>
 >(defaultState)
   .handleAction(setLanguage, (state, {payload}) => {
-    return {
-      ...state,
-      language: payload.language,
-      isSystemLanguage: payload.isSystemLanguage,
-    };
-  })
-  .handleAction(changeLanguageSuccess, (state, {payload}) => {
     return {
       ...state,
       language: payload.language,

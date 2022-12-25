@@ -1,5 +1,9 @@
 import {AxiosResponse, AxiosRequestConfig} from 'axios';
-import {getEtagsFromStorage, setEtagsToStorage} from 'storage';
+import {
+  getEtagsFromStorage,
+  setEtagsToStorage,
+  resetEtagsStorage,
+} from 'storage';
 
 let isAppJustLaunched = true;
 
@@ -46,4 +50,9 @@ export const etagCachingRespnseInterceptor = (response: AxiosResponse<any>) => {
 
 export function saveLocalEtagsToStorage() {
   return setEtagsToStorage(etagsCache);
+}
+
+export function resetEtags() {
+  etagsCache = {};
+  return resetEtagsStorage();
 }

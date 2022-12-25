@@ -16,6 +16,7 @@ interface IProps {
   title: string;
   subtitle?: string;
   red?: boolean;
+  disabled?: boolean;
 }
 
 export type onPressProps<TItem> = TItem extends undefined
@@ -37,6 +38,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
   title,
   subtitle,
   red,
+  disabled,
 }: IProps & onPressProps<T>) => {
   const styles = useThemeStyles(themeStyles);
   const theme = useColorScheme();
@@ -89,8 +91,8 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
   return (
     <TouchableOpacity
       onPress={onPressHandler}
-      disabled={loading}
       style={containerStyle}
+      disabled={disabled || loading}
       activeOpacity={0.8}>
       {renderLeftElement ? (
         <View
@@ -120,7 +122,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
               <Text style={styles.subtitle}>{subtitle}</Text>
             ) : null}
           </View>
-          <View>
+          <View style={styles.rightElementContainer}>
             {renderRightComponent()}
             {loading ? <LoadingView size="small" /> : null}
           </View>

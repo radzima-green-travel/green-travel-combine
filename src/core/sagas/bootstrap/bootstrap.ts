@@ -12,7 +12,7 @@ import {initAppLocaleSaga} from './initAppLocaleSaga';
 import {ILabelError} from 'core/types';
 import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
-import {resetEtagsStorage} from 'storage';
+import {resetEtags} from 'api/rest/interceptors';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
@@ -27,7 +27,7 @@ export function* bootstrapSaga() {
       const isLocaledUpdated = yield call(initAppLocaleSaga);
 
       if (isLocaledUpdated) {
-        yield call(resetEtagsStorage);
+        yield call(resetEtags);
         yield put(getInitialHomeDataRequest());
       } else {
         yield put(getHomeData());

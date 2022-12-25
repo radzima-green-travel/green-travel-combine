@@ -9,3 +9,7 @@ export interface SignUpFormModel {
 export interface SignInFormModel {
   password: string;
 }
+
+export interface ForgotPasswordEmailFormModel {
+  email: string;
+}

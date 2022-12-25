@@ -80,6 +80,9 @@
         },
         "PASSWORD_ATTEMPTS_EXCEEDED": {
           "text": "Превышено количество попыток входа. Попробуйте позже"
+        },
+        "USER_TO_RESTORE_NOT_FOUND": {
+          "text": "Пользователь не найден"   
         }
       }
     },

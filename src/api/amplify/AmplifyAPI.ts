@@ -66,6 +66,25 @@ class AmplifyApi extends AmplifyApiEngine {
       ...args,
     );
   };
+
+  forgotPassword = async (...args: Parameters<typeof Auth.forgotPassword>) => {
+    return this.invoke(
+      {
+        context: Auth,
+        method: Auth.forgotPassword,
+        errorMap: (e: AmplifyError) => {
+          if (e.code === 'UserNotFoundException') {
+            return {
+              code: 'USER_TO_RESTORE_NOT_FOUND',
+              status: 400,
+            };
+          }
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
 }
 
 export const amplifyApi = new AmplifyApi();

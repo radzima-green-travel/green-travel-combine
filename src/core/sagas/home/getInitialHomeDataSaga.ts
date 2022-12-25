@@ -5,9 +5,9 @@ import {
   getInitialHomeDataSuccess,
   getInitialHomeDataFailure,
 } from '../../reducers';
-import {saveHomeDataVersionSaga} from './homeDataVersion';
 import {ILabelError} from 'core/types';
 import {selectAppLanguage} from 'core/selectors';
+import {saveLocalEtagsToStorage} from 'api/rest/interceptors';
 
 export function* getInitialHomeDataSaga() {
   try {
@@ -20,7 +20,7 @@ export function* getInitialHomeDataSaga() {
       },
     );
 
-    yield call(saveHomeDataVersionSaga, data);
+    yield call(saveLocalEtagsToStorage);
     yield put(getInitialHomeDataSuccess({data: data}));
   } catch (e) {
     yield put(getInitialHomeDataFailure(e as ILabelError));

@@ -79,6 +79,9 @@
         },
         "PASSWORD_ATTEMPTS_EXCEEDED": {
           "text": "zh_Превышено количество попыток входа. Попробуйте позже"
+        },
+        "USER_TO_RESTORE_NOT_FOUND": {
+          "text": "zh_Пользователь не найден"   
         }
       }
     },

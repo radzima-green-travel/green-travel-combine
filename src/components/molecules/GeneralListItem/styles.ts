@@ -83,4 +83,8 @@ export const themeStyles = {
   titleRed: {
     color: COLORS.red,
   },
+  rightElementContainer: {
+    minHeight: 20,
+    minWidth: 20,
+  },
 };
