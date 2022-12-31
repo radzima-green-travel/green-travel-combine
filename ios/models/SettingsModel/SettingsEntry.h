@@ -14,9 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsEntry : NSObject<NSCopying>
 
-@property (assign, nonatomic) SettingsModelEntryKey key;
+@property (strong, nonatomic) NSUUID uid;
 @property (strong, nonatomic) NSString *name;
 @property (weak, nonatomic) SettingsGroup *parentGroup;
+
+- (instancetype)initWithName:(NSString *)name
+                 parentGroup:(SettingsGroup *)parentGroup;
 
 @end
 

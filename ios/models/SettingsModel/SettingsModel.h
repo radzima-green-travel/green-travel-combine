@@ -14,6 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserModel;
+@class UserController;
 @class SettingsEntry;
 @class SettingsGroup;
 
@@ -22,7 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray<SettingsGroup *> *tree;
 @property (strong, nonatomic) NSMutableArray<id<SettingsModelObserver>> *settingsModelObservers;
 
-- (instancetype)initWithUserModel:(UserModel *)userModel;
+- (instancetype)initWithUserController:(UserController *)userController
+                             userModel:(UserModel *)userModel;
 - (void)updateEntry:(SettingsEntry *)updatedEntry;
 - (void)updateGroup:(SettingsGroup *)updatedGroup;
 

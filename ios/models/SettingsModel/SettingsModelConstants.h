@@ -18,7 +18,8 @@ typedef NS_ENUM(NSInteger, SettingsModelEntryKey) {
 typedef NS_ENUM(NSInteger, SettingsModelEntryType) {
   SettingsModelEntryTypeToggle,
   SettingsModelEntryTypeMultiVal,
-  SettingsModelEntryTypeAction
+  SettingsModelEntryTypeAction,
+  SettingsModelEntryTypeToggle
 };
 
 typedef NS_ENUM(NSInteger, SettingsModelGroupKey) {

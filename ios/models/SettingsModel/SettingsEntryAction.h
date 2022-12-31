@@ -9,9 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UIViewController;
+
 @interface SettingsEntryAction : SettingsEntry
 
-@property (nonatomic, copy, nonnull) void (^doAction)(void); 
+@property (nonatomic, copy, nonnull) void (^doAction)(UIViewController *);
 
 @end
 

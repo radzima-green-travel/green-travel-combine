@@ -9,12 +9,21 @@
 
 @implementation SettingsGroup
 
+- (instancetype)initWithName:(NSString *)name
+                     entries:(NSArray<SettingsEntry *>)entries {
+  if (self = [super init]) {
+    _entries = entries;
+    _name = name;
+  }
+  return self;
+}
+
 - (instancetype)copyWithZone:(NSZone *)zone {
-	SettingsGroup *copy = [[SettingsGroup alloc] init];
+	SettingsGroup *copy = [[SettingsGroup allocWithZone:zone] init];
 	copy.title = self.title;
-	copy.cells = [NSMutableArray new];
-	self.cells enumerateObjectsUsingBlock:^(SettingsCell * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-		[copy.cells addObject:[obj copy]];
+	copy.entries = [NSMutableArray new];
+	[self.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
+		[copy.entries addObject:[entry copy]];
 	}];
 	return copy;
 }

@@ -14,9 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsGroup : NSObject<NSCopying>
 
-@property (assign, nonatomic) SettingsModelGroupKey key;
+@property (assign, nonatomic) NSUUID uid;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSArray<SettingsEntry *> *cells;
+@property (strong, nonatomic) NSArray<SettingsEntry *> *entries;
+
+- (instancetype)initWithName:(NSString *)name
+                     entries:(NSArray<SettingsEntry *>)entries;
 
 @end
 

@@ -10,9 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SettingsScreen;
+
 @interface SettingsEntryNavigate : SettingsEntry
 
 @property (assign, nonatomic) SettingsModelScreenKey *screenKey;
+@property (strong, nonatomic) SettingsScreen *screen;
+
+- (instancetype)initWithName:(NSString *)name
+                 parentGroup:(SettingsGroup *)parentGroup
+                      screen:(SettingsScreen *)screen;
 
 @end
 

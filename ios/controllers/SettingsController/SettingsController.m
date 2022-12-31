@@ -43,7 +43,7 @@
     }
     if ([entry isKindOfClass:[SettingsEntryAction class]]) {
         SettingsEntryAction *entryAction = (SettingsEntryAction *)entry;
-        entryAction.doAction();
+        entryAction.doAction(viewController);
         return;
     }
     if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {

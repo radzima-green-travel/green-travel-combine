@@ -10,11 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SettingsGroup;
+
 @interface SettingsScreen : NSObject
 
-@property (assign, nonatomic) SettingsModelGroupKey key;
+@property (strong, nonatomic) NSUUID uid;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSArray<SettingsEntry *> *cells;
+@property (strong, nonatomic) NSArray<SettingsGroup *> *groups;
+
+- (instancetype)iniWithName:(NSString *)name
+                     groups:(NSArray<SettingsGroup *>)groups;
 
 @end
 

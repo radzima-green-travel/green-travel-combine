@@ -10,39 +10,82 @@
 #import "SettingsModelObserver.h"
 #import "SettingsGroup.h"
 #import "SettingsEntry.h"
+#import "SettingsEntryAction.h"
+#import "SettingsScreen.h"
 #import "UserModel.h"
+#import <UIKit/UIKit.h>
+#import "ProfileTableViewController.h"
+#import <SDWebImage/SDWebImage.h>
 
 @interface SettingsModel()
 
 @property (strong, nonatomic) UserModel *userModel;
+@property (strong, nonatomic) UserController *userController;
 
 @end
 
 @implementation SettingsModel
 
-- (instancetype)initWithUserModel:(UserModel *)userModel {
+- (instancetype)initWithUserController:(id)userController
+                             userModel:(UserModel *)userModel {
   self = [super init];
   if (self) {
     _settingsModelObservers = [[NSMutableArray alloc] init];
     _tree = [NSMutableArray new];
     _userModel = userModel;
+    _userController = userController;
   }
   return self;
 }
 
 - (void)setUp {
-  SettingsEntry *authEntry = [SettingsEntry new];
-  authEntry.key = SettingsModelEntryKeyClearCache;
-  authEntry.name = @"auth";
-  
-  SettingsGroup *authGroup = [SettingsGroup new];
-  authGroup.key = SettingsModelGroupKeyAuth;
-  authGroup.name = @"auth";
-  authGroup.cells = @[authEntry];
-  
-  SettingsGroup *generalGroup = [SettingsGroup new];
-  
-  self.tree;
+  __weak typeof(self) weakSelf = self;
+#pragma mark - Auth group
+  SettingsEntryAction *authEntry = [SettingsEntryAction new];
+  authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
+  authEntry.doAction = ^void(UIViewController *activeViewController) {
+    ProfileTableViewController profileTableViewController = (ProfileTableViewController *)activeViewController;
+    LoginViewController *loginViewController =
+    [[LoginViewController alloc] initWithController:profileTableViewController.userController
+                                              model:profileTableViewController.userModel];
+    loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
+    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    if (@available(iOS 13.0, *)) {
+      [loginViewControllerWithNavigation setModalInPresentation:YES];
+    }
+    [activeViewController presentViewController:loginViewControllerWithNavigation animated:YES completion:^{}];
+  };
+
+  SettingsGroup *authGroup =
+  [[SettingsGroup alloc] initWithName:@"" entries:@[authEntry]];
+#pragma mark - General group
+  SettingsEntryAction *languageEntry = [SettingsEntryAction new];
+  languageEntry.name = NSLocalizedString(@"Language", @"");
+  languageEntry.doAction = ^void(UIViewController *activeViewController) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
+                                       options:@{} completionHandler:^(BOOL success) {}];
+  };
+
+  SettingsEntryAction *clearCacheEntry = [SettingsEntryAction new];
+  clearCacheEntry.name = NSLocalizedString(@"Language", @"");
+  clearCacheEntry.doAction = ^void(UIViewController *activeViewController) {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ProfileTableViewAlertClearCacheMessageHeader", @"")
+                                        message:NSLocalizedString(@"ProfileTableViewAlertClearCacheMessageBody", @"")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{}]
+    }]];
+    [activeViewController presentViewController:alert animated:YES completion:^{}];
+  };
+  SettingsGroup *authGroup =
+  [[SettingsGroup alloc] initWithName:@"" entries:@[languageEntry, clearCacheEntry]];
+
+#pragma mark - Assembling to root
+  SettingsScreen *root =
+  [[SettingsScreen alloc] initWithName:NSLocalizedString(@"ProfileScreenTitle", @"")];
+  root.groups = @[authGroup];
 }
 
 - (void)updateEntry:(SettingsEntry *)updatedEntry {
@@ -87,7 +130,7 @@
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
                         toCurrentState:(UserModelState)currentState {
-  
+
 }
 
 
