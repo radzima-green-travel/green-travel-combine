@@ -2590,6 +2590,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2611,6 +2612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "EPM_SLR_In-House";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

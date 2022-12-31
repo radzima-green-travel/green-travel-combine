@@ -81,6 +81,8 @@
 "ProfileTableViewCellSettings" = "Settings";
 "ProfileTableViewCellTryToAuthMainTitle" = "Authorization";
 "ProfileTableViewCellTryToAuthSubTitle" = "Wait while the login is being verified";
+"ProfileTableViewAlertClearCacheMessageHeader" = "Clear cache?";
+"ProfileTableViewAlertClearCacheMessageBody" = "Cached images will be cleared, after this they won't be available for offline view";
 
 "ProfileTableViewCellSignedMainTitleLabel" = "You are authorized";
 

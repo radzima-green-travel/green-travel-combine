@@ -9,4 +9,13 @@
 
 @implementation SettingsEntryNavigate
 
+- (instancetype)initWithName:(NSString *)name
+                 parentGroup:(SettingsGroup *)parentGroup
+                      screen:(SettingsScreen *)screen {
+  if (self = [super initWithName:name parentGroup:parentGroup]) {
+    _screen = screen;
+  }
+  return self;
+}
+
 @end
