@@ -11,6 +11,7 @@
 #import "SettingsGroup.h"
 #import "SettingsEntry.h"
 #import "SettingsEntryAction.h"
+#import "SettingsEntryNavigate.h"
 #import "SettingsScreen.h"
 #import "UserModel.h"
 #import <UIKit/UIKit.h>
@@ -79,13 +80,31 @@
     }]];
     [activeViewController presentViewController:alert animated:YES completion:^{}];
   };
-  SettingsGroup *authGroup =
+  SettingsGroup *generalGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[languageEntry, clearCacheEntry]];
+#pragma mark - About group
+  SettingsEntryAction *aboutTextEntry = [SettingsEntryAction new];
+  aboutTextEntry.name = NSLocalizedString(@"Language", @"");
+  aboutTextEntry.doAction = ^void(UIViewController *activeViewController) {};
+  
+  SettingsGroup *aboutTextGroup =
+  [[SettingsGroup alloc] initWithName:@"" entries:@[aboutTextEntry]];
+  
+  SettingsScreen *screenAbout = [SettingsScreen new];
+  screenAbout.name = @"";
+  screenAbout.groups = @[aboutTextGroup];
+  
+  SettingsEntryNavigate *aboutEntry = [SettingsEntryNavigate new];
+  aboutEntry.name = NSLocalizedString(@"Language", @"");
+  aboutEntry.screen = SettingsScreen
+  
+  SettingsGroup *aboutGroup =
+  [[SettingsGroup alloc] initWithName:@"" entries:@[aboutEntry]];
 
 #pragma mark - Assembling to root
   SettingsScreen *root =
   [[SettingsScreen alloc] initWithName:NSLocalizedString(@"ProfileScreenTitle", @"")];
-  root.groups = @[authGroup];
+  root.groups = @[authGroup, generalGroup, aboutGroup];
 }
 
 - (void)updateEntry:(SettingsEntry *)updatedEntry {
