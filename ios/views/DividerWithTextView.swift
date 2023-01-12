@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DiviverWithTextView: UIView {
+final class DividerWithTextView: UIView {
   
   struct PresentationModel {
     let lineColor: UIColor
@@ -47,7 +47,12 @@ final class DiviverWithTextView: UIView {
   }
   
   private func setupViews() {
-    addAutolayoutSubviews(leftLine, textLabel, rightLine)
+    [leftLine, textLabel, rightLine]
+      .forEach {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        addSubview($0)
+      }
+    
     NSLayoutConstraint.activate([
       leftLine.leadingAnchor.constraint(equalTo: leadingAnchor),
       leftLine.centerYAnchor.constraint(equalTo: centerYAnchor),

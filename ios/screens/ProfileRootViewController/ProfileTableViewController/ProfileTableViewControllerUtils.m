@@ -18,6 +18,12 @@
 #import "UserSettingsViewController.h"
 #import "SocialLoginViewController.h"
 
+#if PROD
+#import "Radzima-Swift.h"
+#else
+#import "Radzima_Dev-Swift.h"
+#endif
+
 NSMutableArray* configureBaseTableViewCells(ProfileTableViewController* controller) {
   SettingsTableViewCellModel *authCell = [[SettingsTableViewCellModel alloc]
                                           initWithTitle:NSLocalizedString(@"ProfileTableViewCellAuthMainTitle", @"")

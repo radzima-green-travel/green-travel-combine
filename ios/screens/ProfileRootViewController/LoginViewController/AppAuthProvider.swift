@@ -15,7 +15,7 @@ struct StyledText {
   
   init(text: String,
        font: UIFont = .systemFont(ofSize: 16, weight: .regular),
-       color: UIColor = Colors().buttonNewDataText) {
+       color: UIColor = Colors.get().buttonNewDataText) {
     self.text = text
     self.font = font
     self.color = color
@@ -37,7 +37,7 @@ enum AppAuthProvider: String, CaseIterable {
 // contains style properties and data for corresponding buttons
 extension AppAuthProvider {
   var text: StyledText {
-    let continueText = NSLocalizedString("ContinueWith", comment: "")
+    let continueText = NSLocalizedString("AuthProviderChoiceScreenContinueWith", comment: "")
     switch self {
     case .apple:
       return .init(text: continueText + rawValue.capitalized,
@@ -46,7 +46,7 @@ extension AppAuthProvider {
       return .init(text: continueText + rawValue.capitalized,
                    color: Colors.get().blackAndWhite)
     case .email:
-      return .init(text: continueText + NSLocalizedString("EmailButton", comment: ""),
+      return .init(text: continueText + NSLocalizedString("AuthProviderChoiceScreenEmailButton", comment: ""),
                    color: Colors.get().blackAndWhite)
     }
   }

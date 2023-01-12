@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0D21BC95293A455C0064F686 /* SocialLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D21BC94293A455C0064F686 /* SocialLoginService.swift */; };
-		0D8DBB5529448F93005C9DE1 /* UIControl+action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */; };
-		0D8DBB5729448FBD005C9DE1 /* UIView+layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */; };
 		0D8DBB5929449015005C9DE1 /* AppAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */; };
 		0D8E2E11295254AF00978F5C /* UIImage+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8E2E10295254AF00978F5C /* UIImage+color.swift */; };
 		0D8E2E132952580700978F5C /* DividerWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8E2E122952580700978F5C /* DividerWithTextView.swift */; };
@@ -243,8 +241,6 @@
 		0D21BC94293A455C0064F686 /* SocialLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginService.swift; sourceTree = "<group>"; };
 		0D21BC96293A47540064F686 /* greenTravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravel.entitlements; path = greenTravel/greenTravel.entitlements; sourceTree = "<group>"; };
 		0D3B911D294B16D900EE8F31 /* greenTravelDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelDebug.entitlements; path = greenTravel/greenTravelDebug.entitlements; sourceTree = "<group>"; };
-		0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+action.swift"; sourceTree = "<group>"; };
-		0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layout.swift"; sourceTree = "<group>"; };
 		0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthProvider.swift; sourceTree = "<group>"; };
 		0D8E2E10295254AF00978F5C /* UIImage+color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+color.swift"; sourceTree = "<group>"; };
 		0D8E2E122952580700978F5C /* DividerWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerWithTextView.swift; sourceTree = "<group>"; };
@@ -815,8 +811,6 @@
 				5A2315C928E0A354004CB989 /* UIImage+extensions.h */,
 				5A2315CA28E0A354004CB989 /* UIButton+extensions.m */,
 				5A2315CB28E0A354004CB989 /* UIImage+extensions.m */,
-				0D8DBB5429448F93005C9DE1 /* UIControl+action.swift */,
-				0D8DBB5629448FBD005C9DE1 /* UIView+layout.swift */,
 				0D8E2E10295254AF00978F5C /* UIImage+color.swift */,
 				0D8E2E142952586600978F5C /* UILabel+StyledText.swift */,
 			);
@@ -2306,7 +2300,6 @@
 				5A2315D928E0A428004CB989 /* ApiServiceBase.m in Sources */,
 				5AB4AFB327B016D000C74857 /* LocaleUtils.m in Sources */,
 				5A775E1226077A7D00CEFC78 /* SearchViewController.m in Sources */,
-				0D8DBB5729448FBD005C9DE1 /* UIView+layout.swift in Sources */,
 				5A2144B1266B988700582901 /* MapViewState.m in Sources */,
 				5A775B6026064C9000CEFC78 /* MapItem.m in Sources */,
 				5A775E1426077A7D00CEFC78 /* UISearchControllerNoCancel.m in Sources */,
@@ -2370,7 +2363,6 @@
 				5A775B5126064C9000CEFC78 /* IndexModel.m in Sources */,
 				5A775E0D26077A7D00CEFC78 /* GalleryPageControl.m in Sources */,
 				5A6EDF9226C9671C001307DC /* BottomSheetTouchForwardingView.m in Sources */,
-				0D8DBB5529448F93005C9DE1 /* UIControl+action.swift in Sources */,
 				0D8E2E132952580700978F5C /* DividerWithTextView.swift in Sources */,
 				5A006D1A2783565A00010D63 /* URLUtils.m in Sources */,
 				5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */,

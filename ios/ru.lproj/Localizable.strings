@@ -111,12 +111,12 @@
 "ResetPasswordRequestScreenHint" = "В целях улучшения безопасности мы просим Вас изменить пароль. На почту %@ будут отправлены инструкции для изменения пароля";
 "ResetPasswordRequestScreenSubmit" = "ОТПРАВИТЬ";
 
-"ContinueWith" = "Продолжить с ";
-"EmailButton" = "Эл. почтой";
-"DividerText" = "или";
+"AuthProviderChoiceScreenContinueWith" = "Продолжить с ";
+"AuthProviderChoiceScreenEmailButton" = "Эл. почтой";
+"AuthProviderChoiceScreenDividerText" = "или";
 
-"DisclaimerText" = "Создавая или входя в аккаунт, вы соглашаетесь с нашими Правилами использования и Политикой конфиденциальности";
-"UsageTermsText" = "Правилами использования";
-"PrivacyPolicyText" = "Политикой конфиденциальности";
-"UsageTermsLink" = "https://radzima.app";
-"PrivacyPolicyLink" = "https://www.epam.com/privacy-policy";
+"AuthProviderChoiceScreenDisclaimerText" = "Создавая или входя в аккаунт, вы соглашаетесь с нашими Правилами использования и Политикой конфиденциальности";
+"AuthProviderChoiceScreenUsageTermsText" = "Правилами использования";
+"AuthProviderChoiceScreenPrivacyPolicyText" = "Политикой конфиденциальности";
+"AuthProviderChoiceScreenUsageTermsLink" = "https://radzima.app";
+"AuthProviderChoiceScreenPrivacyPolicyLink" = "https://www.epam.com/privacy-policy";

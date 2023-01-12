@@ -1,5 +1,5 @@
 //
-//  UILabel+StyledText.swift
+//  UILabel+styledText.swift
 //  greenTravel
 //
 //  Created by Aleksei Permiakov on 20.12.2022.

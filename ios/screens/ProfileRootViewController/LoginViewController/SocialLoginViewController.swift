@@ -9,27 +9,22 @@ import UIKit
 
 final class SocialLoginViewController: BaseFormViewController {
   private enum UIConst {
-    static let headerLabelText: StyledText = .init(text: NSLocalizedString("LogInTitle", comment: ""),
-                                             font: .systemFont(ofSize: 20, weight: .medium),
-                                             color: Colors.get().blackAndWhite)
+    static let headerLabelText: StyledText = .init(text: NSLocalizedString("AuthProviderChoiceScreenLogInTitle", comment: ""),
+                                                   font: .systemFont(ofSize: 20, weight: .medium),
+                                                   color: Colors.get().blackAndWhite)
     static let buttonsStackSpacing: CGFloat = 16
     static let headerLabelTopInset: CGFloat = 64
     static let buttonsStackTopInset: CGFloat = 24
-    static let buttonsStackSideInset: CGFloat = 16
     static let disclaimerSideInset: CGFloat = 24
     static let disclaimerBottomInset: CGFloat = 8
-    static let buttonImageInset: CGFloat = 18
-    static let buttonImageSize: CGSize = .init(width: 20, height: 20)
-    static let buttonCornerRadius: CGFloat = 12
-    static let buttonHeight: CGFloat = 48
     static let dividerHeight: CGFloat = 56
     
     static var disclaimerAttributedString: NSMutableAttributedString {
-      let text = NSLocalizedString("DisclaimerText", comment: "")
-      let terms = NSLocalizedString("UsageTermsText", comment: "")
-      let privacy = NSLocalizedString("PrivacyPolicyText", comment: "")
-      let termsLink = NSLocalizedString("UsageTermsLink", comment: "")
-      let privacyLink = NSLocalizedString("PrivacyPolicyLink", comment: "")
+      let text = NSLocalizedString("AuthProviderChoiceScreenDisclaimerText", comment: "")
+      let terms = NSLocalizedString("AuthProviderChoiceScreenUsageTermsText", comment: "")
+      let privacy = NSLocalizedString("AuthProviderChoiceScreenPrivacyPolicyText", comment: "")
+      let termsLink = NSLocalizedString("AuthProviderChoiceScreenUsageTermsLink", comment: "")
+      let privacyLink = NSLocalizedString("AuthProviderChoiceScreenPrivacyPolicyLink", comment: "")
       
       let attributedString = NSMutableAttributedString(string: text)
       attributedString.addAttribute(.link,
@@ -45,10 +40,10 @@ final class SocialLoginViewController: BaseFormViewController {
       return attributedString
     }
     
-    static let dividerModel = DiviverWithTextView.PresentationModel(
+    static let dividerModel = DividerWithTextView.PresentationModel(
       lineColor: Colors.get().dividerWithText,
       lineWidth: 1,
-      text: .init(text: NSLocalizedString("DividerText", comment: ""),
+      text: .init(text: NSLocalizedString("AuthProviderChoiceScreenDividerText", comment: ""),
                   font: .systemFont(ofSize: 14, weight: .regular),
                   color: Colors.get().dividerText))
   }
@@ -84,9 +79,9 @@ final class SocialLoginViewController: BaseFormViewController {
     return textView
   }()
   
-  private lazy var dividerWithText = DiviverWithTextView()
+  private lazy var dividerWithText = DividerWithTextView()
   
-  private lazy var buttons: [AppAuthProvider: UIButton] = [:]
+  private lazy var buttons: [AppAuthProvider: ButtonWithImageAndText] = [:]
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -124,11 +119,13 @@ extension SocialLoginViewController: UITextViewDelegate {
 extension SocialLoginViewController {
   private func makeProviderButtons() {
     AppAuthProvider.allCases.forEach { provider in
-      let button = self.makeButton(backgroundColor: provider.color,
-                                   image: provider.image,
-                                   text: provider.text,
-                                   border: provider.border)
-      button.addAction { [unowned self] in
+      let button = ButtonWithImageAndText()
+      button.configure(backgroundColor: provider.color,
+                       image: provider.image,
+                       text: provider.text,
+                       border: provider.border,
+                       uiConst: ButtonWithImageAndText.UIConst())
+      button.onAction = { [unowned self] in
         self.handleButtonTap(provider: provider)
       }
       self.buttons[provider] = button
@@ -139,73 +136,35 @@ extension SocialLoginViewController {
   private func setupViews() {
     
     if buttonsStackView.arrangedSubviews.count > 1 {
-      dividerWithText.enableAutolayout()
+      dividerWithText.translatesAutoresizingMaskIntoConstraints = false
       dividerWithText.heightAnchor.constraint(equalToConstant: UIConst.dividerHeight).isActive = true
       dividerWithText.configureWith(UIConst.dividerModel)
       buttonsStackView.insertArrangedSubview(dividerWithText, at: 1)
     }
     
-    view.addAutolayoutSubviews(headerLabel, buttonsStackView, disclaimerView)
+    [headerLabel, buttonsStackView, disclaimerView]
+      .forEach {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview($0)
+      }
     
     NSLayoutConstraint.activate([
-      headerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+      headerLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor,
                                        constant: UIConst.headerLabelTopInset),
-      headerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      headerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
       
       buttonsStackView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor,
                                             constant: UIConst.buttonsStackTopInset),
-      buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                constant: UIConst.buttonsStackSideInset),
-      buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                 constant: -UIConst.buttonsStackSideInset),
+      buttonsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      buttonsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
       
-      disclaimerView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+      disclaimerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                               constant: UIConst.disclaimerSideInset),
-      disclaimerView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+      disclaimerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
                                                constant: -UIConst.disclaimerSideInset),
-      disclaimerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+      disclaimerView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor,
                                              constant: -UIConst.disclaimerBottomInset)
     ])
-  }
-  
-  private func makeButton(backgroundColor: UIColor,
-                          image: UIImage,
-                          text: StyledText,
-                          border: Border? = nil) -> UIButton {
-    let button = UIButton()
-    button.backgroundColor = backgroundColor
-    button.setTitle(text.text, for: .normal)
-    button.titleLabel?.font = text.font
-    button.setTitleColor(text.color, for: .normal)
-    button.setImage(image, for: .normal)
-    button.titleLabel?.textAlignment = .center
-    
-    if let imageView = button.imageView,
-       let titleLabel = button.titleLabel {
-      imageView.enableAutolayout()
-      titleLabel.enableAutolayout()
-      imageView.contentMode = .scaleAspectFit
-      NSLayoutConstraint.activate([
-        imageView.leadingAnchor.constraint(equalTo: button.leadingAnchor,
-                                           constant: UIConst.buttonImageInset),
-        imageView.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-        imageView.heightAnchor.constraint(equalToConstant: UIConst.buttonImageSize.height),
-        imageView.widthAnchor.constraint(equalToConstant: UIConst.buttonImageSize.width),
-        
-        titleLabel.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-        titleLabel.centerXAnchor.constraint(equalTo: button.centerXAnchor)
-      ])
-    }
-    
-    if let border = border {
-      button.layer.borderColor = border.color
-      button.layer.borderWidth = border.width
-    }
-    button.layer.cornerRadius = UIConst.buttonCornerRadius
-    
-    button.enableAutolayout()
-    button.heightAnchor.constraint(equalToConstant: UIConst.buttonHeight).isActive = true
-    return button
   }
   
   // update buttons borders and images when toggle the appearance
@@ -221,5 +180,62 @@ extension SocialLoginViewController {
         }
       }
     }
+  }
+}
+
+class ButtonWithImageAndText: UIButton {
+  
+  struct UIConst {
+    var buttonImageInset: CGFloat = 18
+    var buttonImageSize: CGSize = .init(width: 20, height: 20)
+    var buttonCornerRadius: CGFloat = 12
+    var buttonHeight: CGFloat = 48
+  }
+  
+  var onAction: (() -> Void)?
+  
+  func configure(backgroundColor: UIColor,
+                 image: UIImage,
+                 text: StyledText,
+                 border: Border? = nil,
+                 uiConst: UIConst) {
+    self.backgroundColor = backgroundColor
+    setTitle(text.text, for: .normal)
+    titleLabel?.font = text.font
+    setTitleColor(text.color, for: .normal)
+    setImage(image, for: .normal)
+    titleLabel?.textAlignment = .center
+    
+    if let imageView = imageView,
+       let titleLabel = titleLabel {
+      imageView.translatesAutoresizingMaskIntoConstraints = false
+      titleLabel.translatesAutoresizingMaskIntoConstraints = false
+      imageView.contentMode = .scaleAspectFit
+      NSLayoutConstraint.activate([
+        imageView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                           constant: uiConst.buttonImageInset),
+        imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+        imageView.heightAnchor.constraint(equalToConstant: uiConst.buttonImageSize.height),
+        imageView.widthAnchor.constraint(equalToConstant: uiConst.buttonImageSize.width),
+        
+        titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+      ])
+    }
+    
+    if let border = border {
+      layer.borderColor = border.color
+      layer.borderWidth = border.width
+    }
+    layer.cornerRadius = uiConst.buttonCornerRadius
+    
+    translatesAutoresizingMaskIntoConstraints = false
+    heightAnchor.constraint(equalToConstant: uiConst.buttonHeight).isActive = true
+    
+    addTarget(self, action: #selector(onTap), for: .touchUpInside)
+  }
+  
+  @objc func onTap() {
+    onAction?()
   }
 }
