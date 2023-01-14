@@ -6,18 +6,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SettingsModelConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class SettingsController;
 @class SettingsModel;
+@class SettingsScreen;
 
 @interface SettingsViewController : UITableViewController
 
 - (instancetype)initWithSettingsController:(SettingsController *)settingsController
                              settingsModel:(SettingsModel *)settingsModel
-                         settingsScreenKey:(SettingsModelScreenKey)settingsScreenKey;
+                            settingsScreen:(SettingsScreen *)settingsScreen;
 
 @end
 

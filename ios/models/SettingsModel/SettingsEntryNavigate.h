@@ -6,7 +6,6 @@
 //
 
 #import "SettingsEntry.h"
-#import "SettingsModelConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsEntryNavigate : SettingsEntry
 
-@property (assign, nonatomic) SettingsModelScreenKey *screenKey;
 @property (strong, nonatomic) SettingsScreen *screen;
 
 - (instancetype)initWithName:(NSString *)name

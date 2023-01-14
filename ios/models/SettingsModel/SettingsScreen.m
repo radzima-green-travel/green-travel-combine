@@ -10,7 +10,7 @@
 
 @implementation SettingsScreen
 
-- (instancetype)iniWithName:(NSString *)name
+- (instancetype)initWithName:(NSString *)name
                      groups:(NSArray<SettingsGroup *> *)groups {
 	self = [super init];
 	if (self) {
@@ -26,10 +26,12 @@
 	copy.name = self.name;
 	copy.uid = [self.uid copy];
   copy.groups = [self.groups copy];
+  NSMutableArray *groups = [NSMutableArray new];
   [self.groups enumerateObjectsUsingBlock:^(SettingsGroup * _Nonnull origGroup,
                                             NSUInteger idx, BOOL * _Nonnull stop) {
-		[copy.groups addObject:[origGroup copy]];
+		[groups addObject:[origGroup copy]];
 	}];
+  copy.groups = groups;
 	return copy;
 }
 
