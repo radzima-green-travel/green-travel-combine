@@ -201,6 +201,10 @@
 		5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A99283948CA008E302D /* CommonTextField.m */; };
 		5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A9D283969F7008E302D /* SecureTextField.m */; };
 		5ACDFCDC285DFA2A0079C8EC /* CommonFormConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */; };
+		5AD1B2C12972D300005CED4E /* SettingsActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2C02972D300005CED4E /* SettingsActionTableViewCell.m */; };
+		5AD1B2C52972D319005CED4E /* SettingsToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2C42972D319005CED4E /* SettingsToggleTableViewCell.m */; };
+		5AD1B2C92972D33E005CED4E /* SettingsSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2C82972D33E005CED4E /* SettingsSelectTableViewCell.m */; };
+		5AD1B2CD2972D353005CED4E /* SettingsNavigateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2CC2972D353005CED4E /* SettingsNavigateTableViewCell.m */; };
 		5AD1F3842948C7F400ED288D /* SettingsEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1F3832948C7E900ED288D /* SettingsEntry.m */; };
 		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
 		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
@@ -628,7 +632,14 @@
 		5ACC9A9D283969F7008E302D /* SecureTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecureTextField.m; sourceTree = "<group>"; };
 		5ACDFCDA285DFA2A0079C8EC /* CommonFormConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonFormConstants.h; sourceTree = "<group>"; };
 		5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonFormConstants.m; sourceTree = "<group>"; };
-		5AD1F3802948BD2400ED288D /* SettingsModelConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelConstants.h; sourceTree = "<group>"; };
+		5AD1B2BF2972D300005CED4E /* SettingsActionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsActionTableViewCell.h; sourceTree = "<group>"; };
+		5AD1B2C02972D300005CED4E /* SettingsActionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsActionTableViewCell.m; sourceTree = "<group>"; };
+		5AD1B2C32972D319005CED4E /* SettingsToggleTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsToggleTableViewCell.h; sourceTree = "<group>"; };
+		5AD1B2C42972D319005CED4E /* SettingsToggleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsToggleTableViewCell.m; sourceTree = "<group>"; };
+		5AD1B2C72972D33E005CED4E /* SettingsSelectTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsSelectTableViewCell.h; sourceTree = "<group>"; };
+		5AD1B2C82972D33E005CED4E /* SettingsSelectTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsSelectTableViewCell.m; sourceTree = "<group>"; };
+		5AD1B2CB2972D353005CED4E /* SettingsNavigateTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsNavigateTableViewCell.h; sourceTree = "<group>"; };
+		5AD1B2CC2972D353005CED4E /* SettingsNavigateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsNavigateTableViewCell.m; sourceTree = "<group>"; };
 		5AD1F3812948C4A100ED288D /* SettingsModelObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelObserver.h; sourceTree = "<group>"; };
 		5AD1F3822948C7E900ED288D /* SettingsEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntry.h; sourceTree = "<group>"; };
 		5AD1F3832948C7E900ED288D /* SettingsEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntry.m; sourceTree = "<group>"; };
@@ -800,7 +811,6 @@
 				5A0E709129488D9100009B1C /* SettingsModel.h */,
 				5A0E709229488D9100009B1C /* SettingsModel.m */,
 				5A0E709429488DAC00009B1C /* SettingsModelObservable.h */,
-				5AD1F3802948BD2400ED288D /* SettingsModelConstants.h */,
 				5AD1F3812948C4A100ED288D /* SettingsModelObserver.h */,
 				5AD1F3822948C7E900ED288D /* SettingsEntry.h */,
 				5AD1F3832948C7E900ED288D /* SettingsEntry.m */,
@@ -1675,6 +1685,10 @@
 			children = (
 				5A78A4EE29587549007749F3 /* SettingsViewController.h */,
 				5A78A4EF29587549007749F3 /* SettingsViewController.m */,
+				5AD1B2BE2972D2DF005CED4E /* SettingsActionTableViewCell */,
+				5AD1B2C62972D325005CED4E /* SettingsSelectTableViewCell */,
+				5AD1B2C22972D309005CED4E /* SettingsToggleTableViewCell */,
+				5AD1B2CA2972D347005CED4E /* SettingsNavigateTableViewCell */,
 			);
 			path = SettingsViewController;
 			sourceTree = "<group>";
@@ -1789,6 +1803,42 @@
 				5ACC9A9D283969F7008E302D /* SecureTextField.m */,
 			);
 			path = SecureTextField;
+			sourceTree = "<group>";
+		};
+		5AD1B2BE2972D2DF005CED4E /* SettingsActionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5AD1B2BF2972D300005CED4E /* SettingsActionTableViewCell.h */,
+				5AD1B2C02972D300005CED4E /* SettingsActionTableViewCell.m */,
+			);
+			path = SettingsActionTableViewCell;
+			sourceTree = "<group>";
+		};
+		5AD1B2C22972D309005CED4E /* SettingsToggleTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5AD1B2C32972D319005CED4E /* SettingsToggleTableViewCell.h */,
+				5AD1B2C42972D319005CED4E /* SettingsToggleTableViewCell.m */,
+			);
+			path = SettingsToggleTableViewCell;
+			sourceTree = "<group>";
+		};
+		5AD1B2C62972D325005CED4E /* SettingsSelectTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5AD1B2C72972D33E005CED4E /* SettingsSelectTableViewCell.h */,
+				5AD1B2C82972D33E005CED4E /* SettingsSelectTableViewCell.m */,
+			);
+			path = SettingsSelectTableViewCell;
+			sourceTree = "<group>";
+		};
+		5AD1B2CA2972D347005CED4E /* SettingsNavigateTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5AD1B2CB2972D353005CED4E /* SettingsNavigateTableViewCell.h */,
+				5AD1B2CC2972D353005CED4E /* SettingsNavigateTableViewCell.m */,
+			);
+			path = SettingsNavigateTableViewCell;
 			sourceTree = "<group>";
 		};
 		5AD347DD2837B28100235E96 /* bridges */ = {
@@ -2364,8 +2414,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AD1B2C92972D33E005CED4E /* SettingsSelectTableViewCell.m in Sources */,
 				5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */,
 				5A775E0F26077A7D00CEFC78 /* SlideCollectionViewCell.m in Sources */,
+				5AD1B2C12972D300005CED4E /* SettingsActionTableViewCell.m in Sources */,
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
 				5AFFD0FD2851FE99009E5AB8 /* UserFetchErrorViewController.m in Sources */,
 				5A775E0C26077A7D00CEFC78 /* DotSizes.m in Sources */,
@@ -2450,6 +2502,7 @@
 				5A006D1A2783565A00010D63 /* URLUtils.m in Sources */,
 				5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */,
 				5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */,
+				5AD1B2C52972D319005CED4E /* SettingsToggleTableViewCell.m in Sources */,
 				5AB4AFD127B5B20E00C74857 /* StoredPlaceDetails+CoreDataProperties.m in Sources */,
 				5A2C90592957244D008D8C7E /* SettingsScreen.m in Sources */,
 				5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */,
@@ -2507,6 +2560,7 @@
 				5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */,
 				5A2C905C2957248F008D8C7E /* SettingsEntryNavigate.m in Sources */,
 				5A9D706D26EE447B00F4799D /* CommonButtonWithProgress.m in Sources */,
+				5AD1B2CD2972D353005CED4E /* SettingsNavigateTableViewCell.m in Sources */,
 				5A2315DF28E0A484004CB989 /* ResetPasswordRequestViewController.m in Sources */,
 				5A53584827A999DC0017A40F /* IndexModelData.m in Sources */,
 				5A775B5D26064C9000CEFC78 /* FeedItem.m in Sources */,

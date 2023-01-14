@@ -6,13 +6,12 @@
 //
 
 #import "SettingsGroup.h"
-#import "SettingsModelConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsGroupSelect : SettingsGroup
 
-@property (assign, nonatomic) SettingsModelEntryKey *selectedKey;
+@property (assign, nonatomic) NSUInteger *selectedIndex;
 
 @end
 

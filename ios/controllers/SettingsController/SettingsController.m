@@ -7,7 +7,6 @@
 
 #import "SettingsController.h"
 #import "SettingsModel.h"
-#import "SettingsModelConstants.h"
 #import "SettingsEntry.h"
 #import "SettingsGroup.h"
 #import "SettingsEntryToggle.h"
@@ -38,7 +37,7 @@
         SettingsEntryToggle *entryToggleUpdated = [SettingsEntryToggle new];
         SettingsEntryToggle *entryToggle = (SettingsEntryToggle *)entry;
         entryToggleUpdated.enabled = !entryToggle.enabled;
-        [model updateEntry:entryToggleUpdated];
+        [self.model updateEntry:entryToggleUpdated];
         return;
     }
     if ([entry isKindOfClass:[SettingsEntryAction class]]) {
@@ -51,24 +50,25 @@
         SettingsViewController *settingsViewController =
         [[SettingsViewController alloc] initWithSettingsController:self
                                                      settingsModel:self.model
-                                                 settingsScreenKey:entryNavigate.key];
+                                                 settingsScreen:entryNavigate.screen];
         [viewController.navigationController pushViewController:settingsViewController animated:YES];
         return;
     }
     if ([entry isKindOfClass:[SettingsEntrySelect class]]) {
         SettingsEntrySelect *entrySelect = (SettingsEntrySelect *)entry;
-        SettingsEntrySelect *entrySelectUpdated = [SettingsEntrySelect new];
+        BOOL selected = entrySelect.selected;
         SettingsGroup *groupUpdated = [entrySelect.parentGroup copy];
-        entrySelectUpdated.selected = entrySelect.selected;
-        [groupUpdated.cells enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull cell, NSUInteger idx, BOOL * _Nonnull stop) {
-            SettingsEntrySelect *cellSelect = (SettingsEntrySelect *)cell;
-            if (cell.key == entrySelectUpdated.key) {
-                cellSelect.selected = entrySelect.selected;
+      
+        [groupUpdated.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry,
+                                                           NSUInteger idx, BOOL * _Nonnull stop) {
+            SettingsEntrySelect *entrySelectUpdated = (SettingsEntrySelect *)entry;
+            if ([entrySelectUpdated.uid isEqual:entrySelect.uid]) {
+                entrySelectUpdated.selected = selected;
                 return;
             }
-            cellSelect.selected = NO;
+            entrySelectUpdated.selected = NO;
         }];
-        [model updateGroup:groupUpdated];
+        [self.model updateGroup:groupUpdated];
         return;
     }
 }

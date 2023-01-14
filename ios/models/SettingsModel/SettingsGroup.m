@@ -6,11 +6,12 @@
 //
 
 #import "SettingsGroup.h"
+#import "SettingsEntry.h"
 
 @implementation SettingsGroup
 
 - (instancetype)initWithName:(NSString *)name
-                     entries:(NSArray<SettingsEntry *>)entries {
+                     entries:(NSArray<SettingsEntry *>*)entries {
   if (self = [super init]) {
     _entries = entries;
     _name = name;
@@ -20,11 +21,12 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
 	SettingsGroup *copy = [[SettingsGroup allocWithZone:zone] init];
-	copy.title = self.title;
-	copy.entries = [NSMutableArray new];
+	copy.name = self.name;
+  NSMutableArray *entries = [NSMutableArray new];
 	[self.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
-		[copy.entries addObject:[entry copy]];
+		[entries addObject:[entry copy]];
 	}];
+  copy.entries = entries;
 	return copy;
 }
 

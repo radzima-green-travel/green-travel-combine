@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SettingsModelConstants.h"
 #import "SettingsModelObserver.h"
 #import "SettingsModelObservable.h"
 #import "UserModelObserver.h"
@@ -17,16 +16,18 @@ NS_ASSUME_NONNULL_BEGIN
 @class UserController;
 @class SettingsEntry;
 @class SettingsGroup;
+@class SettingsScreen;
 
 @interface SettingsModel : NSObject<SettingsModelObservable, UserModelObserver>
 
-@property (strong, nonatomic) NSMutableArray<SettingsGroup *> *tree;
+@property (strong, nonatomic) SettingsScreen *tree;
 @property (strong, nonatomic) NSMutableArray<id<SettingsModelObserver>> *settingsModelObservers;
 
 - (instancetype)initWithUserController:(UserController *)userController
                              userModel:(UserModel *)userModel;
 - (void)updateEntry:(SettingsEntry *)updatedEntry;
 - (void)updateGroup:(SettingsGroup *)updatedGroup;
+- (SettingsScreen *)findScreenByID:(NSUUID *)uuid;
 
 @end
 

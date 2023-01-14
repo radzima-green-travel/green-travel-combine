@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SettingsModelConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsEntry : NSObject<NSCopying>
 
-@property (strong, nonatomic) NSUUID uid;
+@property (strong, nonatomic) NSUUID *uid;
 @property (strong, nonatomic) NSString *name;
 @property (weak, nonatomic) SettingsGroup *parentGroup;
 

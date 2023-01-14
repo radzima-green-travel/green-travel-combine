@@ -14,12 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsScreen : NSObject
 
-@property (strong, nonatomic) NSUUID uid;
+@property (strong, nonatomic) NSUUID *uid;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSArray<SettingsGroup *> *groups;
 
-- (instancetype)iniWithName:(NSString *)name
-                     groups:(NSArray<SettingsGroup *>)groups;
+- (instancetype)initWithName:(NSString *)name
+                     groups:(NSArray<SettingsGroup *>*)groups;
 
 @end
 

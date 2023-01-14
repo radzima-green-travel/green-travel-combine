@@ -6,16 +6,17 @@
 //
 
 #import "SettingsModel.h"
-#import "SettingsModelConstants.h"
 #import "SettingsModelObserver.h"
 #import "SettingsGroup.h"
 #import "SettingsEntry.h"
+#import "SettingsScreen.h"
 #import "SettingsEntryAction.h"
 #import "SettingsEntryNavigate.h"
 #import "SettingsScreen.h"
 #import "UserModel.h"
 #import <UIKit/UIKit.h>
 #import "ProfileTableViewController.h"
+#import "LoginViewController.h"
 #import <SDWebImage/SDWebImage.h>
 
 @interface SettingsModel()
@@ -45,7 +46,7 @@
   SettingsEntryAction *authEntry = [SettingsEntryAction new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
   authEntry.doAction = ^void(UIViewController *activeViewController) {
-    ProfileTableViewController profileTableViewController = (ProfileTableViewController *)activeViewController;
+    ProfileTableViewController *profileTableViewController = (ProfileTableViewController *)activeViewController;
     LoginViewController *loginViewController =
     [[LoginViewController alloc] initWithController:profileTableViewController.userController
                                               model:profileTableViewController.userModel];
@@ -76,7 +77,7 @@
                                  preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{}]
+      [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{}];
     }]];
     [activeViewController presentViewController:alert animated:YES completion:^{}];
   };
@@ -86,25 +87,24 @@
   SettingsEntryAction *aboutTextEntry = [SettingsEntryAction new];
   aboutTextEntry.name = NSLocalizedString(@"Language", @"");
   aboutTextEntry.doAction = ^void(UIViewController *activeViewController) {};
-  
+
   SettingsGroup *aboutTextGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[aboutTextEntry]];
-  
+
   SettingsScreen *screenAbout = [SettingsScreen new];
   screenAbout.name = @"";
   screenAbout.groups = @[aboutTextGroup];
-  
+
   SettingsEntryNavigate *aboutEntry = [SettingsEntryNavigate new];
   aboutEntry.name = NSLocalizedString(@"Language", @"");
-  aboutEntry.screen = SettingsScreen
-  
+  aboutEntry.screen = nil;
+
   SettingsGroup *aboutGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[aboutEntry]];
 
 #pragma mark - Assembling to root
-  SettingsScreen *root =
-  [[SettingsScreen alloc] initWithName:NSLocalizedString(@"ProfileScreenTitle", @"")];
-  root.groups = @[authGroup, generalGroup, aboutGroup];
+  SettingsScreen *root = [[SettingsScreen alloc] initWithName:NSLocalizedString(@"ProfileScreenTitle", @"")
+                                                       groups:@[authGroup, generalGroup, aboutGroup]];
 }
 
 - (void)updateEntry:(SettingsEntry *)updatedEntry {
@@ -147,10 +147,37 @@
   [self.settingsModelObservers removeObject:observer];
 }
 
-- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
-                        toCurrentState:(UserModelState)currentState {
-
+- (SettingsScreen *)findScreenByID:(NSUUID *)uuid forTree:(SettingsScreen *>)tree {
+  if ([screen.uuid isEqual:uuid]) {
+    *stop = YES;
+    return screen;
+  }
+  SettingsScreen *foundScreen = nil
+  [screen.groups enumerateObjectsUsingBlock:^(SettingsGroup * _Nonnull group, NSUInteger idx, BOOL * _Nonnull stop) {
+    [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
+      if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+        SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
+        foundScreen = [self findScreenByID:uuid forTree:entryNavigate.screen];
+      }
+    }];
+  }];
+  return foundScreen;
 }
 
+- (SettingsScreen *)findScreenByID:(NSUUID *)uuid {
+  [self findScreenByID:(NSUUID *)uuid forTree:self.tree];
+}
+
+- (SettingsScreen *)findScreenByID:(NSUUID *)uuid inGroup:(SettingsGroup *)group {
+	[group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
+		if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+			SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
+			if ([entryNavigate.screen.uuid isEqual:uuid]) {
+				*stop = YES;
+				return entryNavigate.screen;
+			}
+		}
+	}];
+}
 
 @end

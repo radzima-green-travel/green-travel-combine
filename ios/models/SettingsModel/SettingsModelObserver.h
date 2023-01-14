@@ -12,7 +12,6 @@
 #endif /* SettingsModelObserver_h */
 
 #import <Foundation/Foundation.h>
-#import "SettingsModelConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
