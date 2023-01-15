@@ -311,6 +311,6 @@ export function getScreenTimeSec(startMs: number, endMs: number) {
   return Math.floor((endMs - startMs) / 1000);
 }
 
-export function getTestID(testID: TestIDs, index: number) {
+export function composeTestID(testID: TestIDs, index: number) {
   return `${testID}_${index + 1}`;
-  }
+}
