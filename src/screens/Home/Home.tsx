@@ -9,7 +9,7 @@ import {screenOptions} from './screenOptions';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
 import {TestIDs} from 'core/types';
-import {getTestID} from 'core/helpers';
+import {composeTestID} from 'core/helpers';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
@@ -53,21 +53,17 @@ export const Home = () => {
           }
           data={homeData}
           keyExtractor={item => item.id}
-          renderItem={({item, index}) => {
-            const allButtonTestID = getTestID(TestIDs.AllButton, index);
-
-            return (
-              <HomeSectionBar
-                onObjectPress={navigateToObjectDetails}
-                onCategoryPress={onCategoryPress}
-                onAllObjectsPress={onAllObjectsPress}
-                onAllCategoriesPress={navigateToCategoriesList}
-                item={item}
-                allButtonTestID={allButtonTestID}
-                onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
-              />
-            );
-          }}
+          renderItem={({item, index}) => (
+            <HomeSectionBar
+              onObjectPress={navigateToObjectDetails}
+              onCategoryPress={onCategoryPress}
+              onAllObjectsPress={onAllObjectsPress}
+              onAllCategoriesPress={navigateToCategoriesList}
+              item={item}
+              allButtonTestID={composeTestID(TestIDs.AllButton, index)}
+              onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
+            />
+          )}
         />
         {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null}
         <SnackBar isOnTop {...snackBarProps} />
