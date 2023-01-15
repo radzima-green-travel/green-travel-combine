@@ -1,6 +1,6 @@
 import React from 'react';
 import {ColorSchemeName, TouchableOpacity} from 'react-native';
-import {Icon} from 'atoms';
+import {Icon, HeaderTitle} from 'atoms';
 import {FONTS_STYLES} from 'assets/fonts';
 import {COLORS} from 'assets';
 import {Header} from '@react-navigation/elements';
@@ -61,7 +61,7 @@ export function useScreenOptions({
           headerTitleContainerStyle={{maxWidth: SCREEN_WIDTH * 0.7}}
           headerLeftContainerStyle={{paddingLeft: 16}}
           headerRightContainerStyle={{paddingRight: 16}}
-          title={titleText}
+          headerTitle={() => <HeaderTitle title={titleText} />}
           {...restOptions}
         />
       );

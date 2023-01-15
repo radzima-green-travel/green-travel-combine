@@ -154,3 +154,29 @@ export type CategoryAndObjectI18n =
   | Array<CategoryI18n | ObjectI18n | null>
   | null
   | undefined;
+
+export enum TestIDs {
+  TabBarItemMain = 'tabBarItemMain',
+  TabBarItemMap = 'tabBarItemMap',
+  TabBarItemFavorites = 'tabBarItemFavorites',
+  TabBarItemProfile = 'tabBarItemProfile',
+  SearchButton = 'searchButton',
+  HeaderScreenTitle = 'headerScreenTitle',
+  HeaderBookmarkButton = 'headerBookmarkButton',
+  HeaderBackButton = 'headerBackButton',
+  AllButton = 'allButton',
+  SeeOnTheMapButton = 'seeOnTheMapButton',
+  ObjectDetailsTitle = 'objectDetailsTitle',
+  ObjectDetailsAddress = 'objectDetailsAddress',
+  ObjectDetailsLocation = 'objectDetailsLocation',
+  ObjectDetailsDescription = 'objectDetailsDescription',
+  ObjectDetailsReferencesTitle = 'objectDetailsReferencesTitle',
+  ObjectDetailsReferencesItem = 'objectDetailsReferencesItem',
+  ObjectDetailsOfficialSiteLink = 'objectDetailsOfficialSiteLink',
+  ObjectDetailsLinkedTitle = 'objectDetailsLinkedTitle',
+  ObjectDetailsLinkedObject = 'objectDetailsLinkedObject',
+  HeaderSearchInput = 'headerSearchInput',
+  HeaderClearButton = 'headerClearButton',
+  SearchResultItem = 'searchResultItem',
+  FavoritesCard = 'favoritesCard',
+}

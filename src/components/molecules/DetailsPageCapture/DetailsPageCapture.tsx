@@ -1,6 +1,6 @@
 import React, {memo, useMemo, useCallback} from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
-import {ICoordinates} from 'core/types';
+import {ICoordinates, TestIDs} from 'core/types';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 
@@ -59,13 +59,21 @@ export const DetailsPageCapture = memo(
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitleText}</Text>
+        <Text style={styles.title} testID={TestIDs.ObjectDetailsTitle}>
+          {title}
+        </Text>
+        <Text style={styles.subtitle} testID={TestIDs.ObjectDetailsAddress}>
+          {subtitleText}
+        </Text>
         {location ? (
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={onCoordinatesPressHandler}>
-            <Text style={styles.location}>{location}</Text>
+            <Text
+              style={styles.location}
+              testID={TestIDs.ObjectDetailsLocation}>
+              {location}
+            </Text>
           </TouchableOpacity>
         ) : null}
       </View>

@@ -10,6 +10,7 @@ import {useScrollToTop} from '@react-navigation/native';
 
 interface Props {
   item: ITransformedCategory;
+  allButtonTestID: string;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
   onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
   onObjectPress: (options: IObject) => void;
@@ -30,6 +31,7 @@ export const HomeSectionBar = memo(
     onObjectPress,
     onCategoryPress,
     onObjectCardIsFavoriteChanged,
+    allButtonTestID,
     item,
   }: Props) => {
     const {t} = useTranslation('home');
@@ -84,7 +86,9 @@ export const HomeSectionBar = memo(
           <Text style={styles.sectionTitle}>{sectionTitle}</Text>
           {!isLessThenTwoItems ? (
             <TouchableOpacity activeOpacity={0.8} onPress={onAllPressHandler}>
-              <Text style={styles.all}>{t('all')}</Text>
+              <Text style={styles.all} testID={allButtonTestID}>
+                {t('all')}
+              </Text>
             </TouchableOpacity>
           ) : null}
         </View>

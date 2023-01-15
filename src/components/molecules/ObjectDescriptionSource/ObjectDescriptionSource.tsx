@@ -4,6 +4,8 @@ import {useThemeStyles, useTranslation} from 'core/hooks';
 import {IOrigins} from 'core/types';
 import {tryOpenURL} from 'core/helpers';
 import {themeStyles} from './styles';
+import {TestIDs} from 'core/types';
+
 interface IProps {
   origins?: IOrigins[];
   siteLink?: string;
@@ -18,13 +20,17 @@ export const ObjectDescriptionSource = memo(({origins, siteLink}: IProps) => {
   }, [t]);
 
   const sourceData = origins
-    ? origins.map(origin => {
+    ? origins.map((origin, index) => {
+        const testID = `${TestIDs.ObjectDetailsReferencesItem}_${index + 1}`;
+
         return (
           <TouchableOpacity
             key={origin.name}
             activeOpacity={0.8}
             onPress={() => Linking.openURL(origin.value)}>
-            <Text style={styles.link}>{origin.name}</Text>
+            <Text style={styles.link} testID={testID}>
+              {origin.name}
+            </Text>
           </TouchableOpacity>
         );
       })
@@ -32,9 +38,14 @@ export const ObjectDescriptionSource = memo(({origins, siteLink}: IProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{sourceTitle}</Text>
+      <Text style={styles.text} testID={TestIDs.ObjectDetailsReferencesTitle}>
+        {sourceTitle}
+      </Text>
       {siteLink ? (
-        <Text onPress={() => tryOpenURL(siteLink)} style={styles.link}>
+        <Text
+          onPress={() => tryOpenURL(siteLink)}
+          style={styles.link}
+          testID={TestIDs.ObjectDetailsOfficialSiteLink}>
           {t('offSite')}
         </Text>
       ) : null}

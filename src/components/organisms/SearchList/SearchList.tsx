@@ -13,7 +13,7 @@ import {Icon} from 'atoms';
 import {COLORS} from 'assets';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
-import {IObject} from 'core/types';
+import {IObject, TestIDs} from 'core/types';
 
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 interface IProps {
@@ -70,15 +70,25 @@ export const SearchList = memo(
                 </View>
               ) : null
             }
-            renderItem={({item}) => {
+            renderItem={({item, index}) => {
+              const testID = `${TestIDs.SearchResultItem}_${index + 1}`;
+
               return isHistoryVisible && onDeletePress ? (
                 <SwipeToDeleteContainer
                   data={item}
                   onDeletePress={onDeletePress}>
-                  <SearchListItem onPress={onItemPress} data={item} />
+                  <SearchListItem
+                    onPress={onItemPress}
+                    data={item}
+                    testID={testID}
+                  />
                 </SwipeToDeleteContainer>
               ) : (
-                <SearchListItem onPress={onItemPress} data={item} />
+                <SearchListItem
+                  onPress={onItemPress}
+                  data={item}
+                  testID={testID}
+                />
               );
             }}
           />

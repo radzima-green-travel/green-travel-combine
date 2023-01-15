@@ -24,3 +24,4 @@ export * from './SnackBar';
 export {ZoomableView} from './ZoomableView';
 export {SettingsSectionTitle} from './SettingsSectionTitle';
 export {WithFormikInput} from './WithFormikInput';
+export {HeaderTitle} from './HeaderTitle';
