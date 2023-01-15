@@ -7,7 +7,7 @@ import {ProfileNavigator} from './ProfileNavigator';
 import {Icon} from 'atoms';
 import {IconsNames} from 'atoms/Icon';
 import {HomeNavigator} from './HomeNavigator';
-import {TabNavigatorParamsList} from 'core/types';
+import {TabNavigatorParamsList, TestIDs} from 'core/types';
 import {COLORS} from 'assets';
 import {analyticsService} from 'services/AnalyticsService';
 import {useSelector} from 'react-redux';
@@ -63,7 +63,7 @@ export function TabNavigator() {
           },
         }}
         options={{
-          tabBarTestID: 'tabBarItemMain',
+          tabBarTestID: TestIDs.TabBarItemMain,
           tabBarLabel: t('tabs.home'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -86,7 +86,7 @@ export function TabNavigator() {
           },
         }}
         options={{
-          tabBarTestID: 'tabBarItemMap',
+          tabBarTestID: TestIDs.TabBarItemMap,
           tabBarLabel: t('tabs.map'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -109,7 +109,7 @@ export function TabNavigator() {
           },
         }}
         options={{
-          tabBarTestID: 'tabBarItemFavorites',
+          tabBarTestID: TestIDs.TabBarItemFavorites,
           tabBarLabel: t('tabs.bookmarks'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -130,7 +130,7 @@ export function TabNavigator() {
             },
           }}
           options={{
-            tabBarTestID: 'tabBarItemProfile',
+            tabBarTestID: TestIDs.TabBarItemProfile,
             tabBarLabel: t('tabs.profile'),
             tabBarIcon: ({color, focused}) => (
               <Icon

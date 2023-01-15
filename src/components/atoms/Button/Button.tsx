@@ -19,6 +19,7 @@ type Props = PropsWithChildren<{
   theme?: ButtonThemes;
   loading?: boolean;
   disabled?: boolean;
+  testID?: string;
 }>;
 
 export const Button = memo(
@@ -28,6 +29,7 @@ export const Button = memo(
     loading = false,
     disabled = false,
     style,
+    testID,
     theme = 'green',
   }: Props) => {
     const buttonThemeStyles = useThemeStyles(BUTTON_THEMES[theme]);
@@ -53,7 +55,8 @@ export const Button = memo(
           disabled && buttonThemeStyles.disabled,
           isActive && buttonThemeStyles.active,
           style,
-        ]}>
+        ]}
+        testID={testID}>
         {loading ? (
           <ActivityIndicator
             size="small"
