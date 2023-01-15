@@ -32,6 +32,7 @@ import {
   SupportedLocales,
   CategoryI18n,
   ObjectI18n,
+  TestIDs,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {ListMobileDataQuery} from 'api/graphql/types';
@@ -309,3 +310,7 @@ export function isLocationExist(object: IObject) {
 export function getScreenTimeSec(startMs: number, endMs: number) {
   return Math.floor((endMs - startMs) / 1000);
 }
+
+export function getTestID(testID: TestIDs, index: number) {
+  return `${testID}_${index + 1}`;
+  }

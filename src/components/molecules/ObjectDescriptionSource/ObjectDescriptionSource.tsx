@@ -2,7 +2,7 @@ import React, {memo, useMemo} from 'react';
 import {View, Text, Linking, TouchableOpacity} from 'react-native';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {IOrigins} from 'core/types';
-import {tryOpenURL} from 'core/helpers';
+import {getTestID, tryOpenURL} from 'core/helpers';
 import {themeStyles} from './styles';
 import {TestIDs} from 'core/types';
 
@@ -21,7 +21,7 @@ export const ObjectDescriptionSource = memo(({origins, siteLink}: IProps) => {
 
   const sourceData = origins
     ? origins.map((origin, index) => {
-        const testID = `${TestIDs.ObjectDetailsReferencesItem}_${index + 1}`;
+        const testID = getTestID(TestIDs.ObjectDetailsReferencesItem, index);
 
         return (
           <TouchableOpacity

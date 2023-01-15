@@ -9,6 +9,7 @@ import {screenOptions} from './screenOptions';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
 import {TestIDs} from 'core/types';
+import {getTestID} from 'core/helpers';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
@@ -53,7 +54,7 @@ export const Home = () => {
           data={homeData}
           keyExtractor={item => item.id}
           renderItem={({item, index}) => {
-            const allButtonTestID = `${TestIDs.AllButton}_${index + 1}`;
+            const allButtonTestID = getTestID(TestIDs.AllButton, index);
 
             return (
               <HomeSectionBar

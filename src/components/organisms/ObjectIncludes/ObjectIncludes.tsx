@@ -4,6 +4,7 @@ import {View, Text} from 'react-native';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {IInclude, TestIDs} from 'core/types';
+import { getTestID } from 'core/helpers';
 
 interface IProps {
   data: IInclude[];
@@ -23,7 +24,7 @@ export const ObjectIncludes = memo(({data, title, onIncludePress}: IProps) => {
         {title}
       </Text>
       {data.map((item, index) => {
-        const testID = `${TestIDs.ObjectDetailsLinkedObject}_${index + 1}`;
+        const testID = getTestID(TestIDs.ObjectDetailsLinkedObject, index);
 
         return (
           <ObjectInlcudesItem
