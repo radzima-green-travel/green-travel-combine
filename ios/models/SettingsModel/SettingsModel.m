@@ -147,13 +147,13 @@
   [self.settingsModelObservers removeObject:observer];
 }
 
-- (SettingsScreen *)findScreenByID:(NSUUID *)uuid forTree:(SettingsScreen *>)tree {
-  if ([screen.uuid isEqual:uuid]) {
-    *stop = YES;
-    return screen;
+- (SettingsScreen *)findScreenByID:(NSUUID *)uuid forTree:(SettingsScreen *)tree {
+  if ([tree.uid isEqual:uuid]) {
+    return tree;
   }
-  SettingsScreen *foundScreen = nil
-  [screen.groups enumerateObjectsUsingBlock:^(SettingsGroup * _Nonnull group, NSUInteger idx, BOOL * _Nonnull stop) {
+  __block SettingsScreen *foundScreen;
+  
+  [tree.groups enumerateObjectsUsingBlock:^(SettingsGroup * _Nonnull group, NSUInteger idx, BOOL * _Nonnull stop) {
     [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
       if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
         SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
@@ -165,19 +165,7 @@
 }
 
 - (SettingsScreen *)findScreenByID:(NSUUID *)uuid {
-  [self findScreenByID:(NSUUID *)uuid forTree:self.tree];
-}
-
-- (SettingsScreen *)findScreenByID:(NSUUID *)uuid inGroup:(SettingsGroup *)group {
-	[group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
-		if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
-			SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
-			if ([entryNavigate.screen.uuid isEqual:uuid]) {
-				*stop = YES;
-				return entryNavigate.screen;
-			}
-		}
-	}];
+  return [self findScreenByID:(NSUUID *)uuid forTree:self.tree];
 }
 
 @end
