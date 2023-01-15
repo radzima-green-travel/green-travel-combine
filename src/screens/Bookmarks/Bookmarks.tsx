@@ -6,6 +6,7 @@ import {isEmpty} from 'lodash';
 import {BookmarksEmptyView} from 'molecules';
 import {useBookmarks} from './hooks';
 import {TestIDs} from 'core/types';
+import { getTestID } from 'core/helpers';
 
 export const Bookmarks = () => {
   const {
@@ -27,7 +28,7 @@ export const Bookmarks = () => {
         <ScrollView style={styles.container}>
           <View style={styles.boxContainer}>
             {bookmarksCategories?.map((category, index, items) => {
-              const testID = `${TestIDs.FavoritesCard}_${index + 1}`;
+              const testID = getTestID(TestIDs.FavoritesCard, index);
 
               return (
                 <BookmarkItem

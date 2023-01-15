@@ -16,6 +16,7 @@ import {useThemeStyles, useTranslation} from 'core/hooks';
 import {IObject, TestIDs} from 'core/types';
 
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import { getTestID } from 'core/helpers';
 interface IProps {
   data: IObject[];
   onItemPress: (object: IObject) => void;
@@ -71,7 +72,7 @@ export const SearchList = memo(
               ) : null
             }
             renderItem={({item, index}) => {
-              const testID = `${TestIDs.SearchResultItem}_${index + 1}`;
+              const testID = getTestID(TestIDs.SearchResultItem, index);
 
               return isHistoryVisible && onDeletePress ? (
                 <SwipeToDeleteContainer
