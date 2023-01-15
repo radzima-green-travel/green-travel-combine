@@ -16,6 +16,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useObjectDetails, useObjectDetailsStatusBar} from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
+import {TestIDs} from 'core/types';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
@@ -87,7 +88,10 @@ export const ObjectDetails = () => {
             onCoordinatesPress={copyLocationToClipboard}
           />
           {isLocationExist(data) ? (
-            <Button style={styles.button} onPress={navigateToObjectsMap}>
+            <Button
+              style={styles.button}
+              onPress={navigateToObjectsMap}
+              testID={TestIDs.SeeOnTheMapButton}>
               {t('seeOnTheMap')}
             </Button>
           ) : null}

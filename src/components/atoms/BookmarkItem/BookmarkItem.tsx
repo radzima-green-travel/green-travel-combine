@@ -18,10 +18,11 @@ interface IProps {
   count: number | undefined;
   item: IBookmarkItem;
   onPress: (item: IBookmarkItem) => void;
+  testID?: string;
 }
 
 export const BookmarkItem = memo(
-  ({isOdd, isLast, count, onPress, item}: IProps) => {
+  ({isOdd, isLast, count, onPress, item, testID}: IProps) => {
     const onPressHandler = useCallback(() => {
       onPress(item);
     }, [item, onPress]);
@@ -34,7 +35,8 @@ export const BookmarkItem = memo(
           styles.box,
           {width: width, height: height},
           isOdd && {marginRight: isLast ? width + marginRight : marginRight},
-        ]}>
+        ]}
+        testID={testID}>
         <Text style={styles.text}>{item.categoryName}</Text>
         <Text style={styles.count}>{count || 0}</Text>
       </TouchableOpacity>

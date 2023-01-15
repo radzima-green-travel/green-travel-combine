@@ -10,9 +10,10 @@ import {IInclude} from 'core/types';
 interface IProps {
   onPress: (config: {id: string; name: string; objects: string[]}) => void;
   data: IInclude;
+  testID?: string;
 }
 
-export const ObjectInlcudesItem = memo(({data, onPress}: IProps) => {
+export const ObjectInlcudesItem = memo(({data, onPress, testID}: IProps) => {
   const styles = useThemeStyles(themeStyles);
   const theme = useColorScheme();
   const {icon, name, objects, id} = data;
@@ -27,7 +28,8 @@ export const ObjectInlcudesItem = memo(({data, onPress}: IProps) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPressHandler}
-      style={styles.container}>
+      style={styles.container}
+      testID={testID}>
       <Icon width={44} height={44} name={iconName} />
       <Text style={styles.text}>{name}</Text>
       <Icon

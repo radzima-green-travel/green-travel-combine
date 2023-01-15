@@ -11,9 +11,10 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 interface IProps {
   data: IObject;
   onPress: (item: IObject) => void;
+  testID?: string;
 }
 
-export const SearchListItem = memo(({data, onPress}: IProps) => {
+export const SearchListItem = memo(({data, testID, onPress}: IProps) => {
   const {
     name,
     category: {icon, name: categoryName},
@@ -30,7 +31,8 @@ export const SearchListItem = memo(({data, onPress}: IProps) => {
     <TouchableOpacity
       onPress={onPressHandler}
       activeOpacity={1}
-      style={styles.container}>
+      style={styles.container}
+      testID={testID}>
       <Icon
         style={styles.icon}
         name={

@@ -5,6 +5,7 @@ import {useThemeStyles} from 'core/hooks';
 import React, {memo} from 'react';
 import {themeStyles} from './styles';
 import {Animated, View} from 'react-native';
+import {TestIDs} from 'core/types';
 
 interface IProps {
   objectId: string;
@@ -30,6 +31,7 @@ export const AnimatedHeaderBookmarkButton = memo(
                 height={18}
                 color={COLORS.logCabin}
                 name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
+                testID={TestIDs.HeaderBookmarkButton}
               />
             </View>
           </>

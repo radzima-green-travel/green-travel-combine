@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as Icons from './icons';
 
-import {StyleProp, TextStyle} from 'react-native';
+import {StyleProp, TextStyle, View} from 'react-native';
 import {IconsNames} from './IconsNames';
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
   size?: number;
   style?: StyleProp<TextStyle>;
   additionalColor?: string;
+  testID?: string;
 }
 
 const IconsMap: {[key: string]: any} = Icons;
@@ -25,6 +26,7 @@ export const Icon = ({
   size,
   style = {},
   additionalColor,
+  testID,
 }: Props) => {
   const IconComponent = IconsMap[name];
 
@@ -51,12 +53,14 @@ export const Icon = ({
     24;
 
   return (
-    <IconComponent
-      width={iconWidth}
-      height={iconHeight}
-      style={iconStyle}
-      color={iconColor || color || 'white'}
-      additionalColor={additionalColor}
-    />
+    <View testID={testID}>
+      <IconComponent
+        width={iconWidth}
+        height={iconHeight}
+        style={iconStyle}
+        color={iconColor || color || 'white'}
+        additionalColor={additionalColor}
+      />
+    </View>
   );
 };

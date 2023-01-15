@@ -13,6 +13,7 @@ import {
 import {Icon} from '../Icon';
 
 import {themeStyles, crossHitClop} from './styles';
+import {TestIDs} from 'core/types';
 
 interface Props {
   onChange: Function;
@@ -58,16 +59,24 @@ export const HeaderSearchbar = memo(
           }
           onChangeText={onChangeText}
           style={[styles.input, inputStyle]}
+          testID={TestIDs.HeaderSearchInput}
         />
         {value ? (
           <TouchableOpacity
             onPress={clear}
             hitSlop={crossHitClop}
-            style={styles.icon}>
+            style={styles.icon}
+            testID={TestIDs.HeaderClearButton}>
             <Icon style={styles.icon} name="cross" size={24} />
           </TouchableOpacity>
         ) : (
-          <Icon style={styles.icon} name={'search'} width={24} height={24} />
+          <Icon
+            style={styles.icon}
+            name={'search'}
+            width={24}
+            height={24}
+            testID={TestIDs.SearchButton}
+          />
         )}
       </View>
     );
