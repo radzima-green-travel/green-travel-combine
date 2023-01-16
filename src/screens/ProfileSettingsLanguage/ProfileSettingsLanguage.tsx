@@ -22,7 +22,7 @@ export const ProfileSettingsLanguage = () => {
         loading={getItemLoading(null)}
         disabled={getItemDisabled(null)}
         onPress={() => changeLanguage(null)}
-        title={t('System')}
+        title={t('systemLanguage')}
         renderLeftElement={
           !userLanguage && <Icon color={COLORS.apple} name="check" size={16} />
         }
@@ -56,7 +56,7 @@ export const ProfileSettingsLanguage = () => {
         loading={getItemLoading('zh')}
         disabled={getItemDisabled('zh')}
         onPress={() => changeLanguage('zh')}
-        title={t('zh')}
+        title={t('中國人')}
         renderLeftElement={
           userLanguage === 'zh' && (
             <Icon color={COLORS.apple} name="check" size={16} />

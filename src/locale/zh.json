@@ -14,8 +14,7 @@
       "home": "主页",
       "bookmarks": "最愛",
       "map": "地图",
-      "profile": "輪廓",
-      "login/Register": "zh_Войти/Зарегестироваться"
+      "profile": "輪廓"
     },
     "tryAgain": "再试一次",
     "coppied": "已復制",
@@ -65,9 +64,10 @@
   },
   "authentification": {
     "validation": {
-      "invalidEmail": "zh_Неверный формат электроной почты",
-      "emptyPassword": "zh_Укажите ваш пароль",
-      "emptyEmail": "zh_Укажите вашу электронную почту"
+      "invalidEmail": "電子郵件格式無效",
+      "emptyPassword": "輸入您的密碼",
+      "emptyEmail": "輸入你的電子郵箱",
+      "password": "密碼應至少包含8個字符、1個特殊字符、1個大寫字母和1個數字"
     },
     "errors": {
       "-1": {
@@ -75,70 +75,71 @@
       },
       "400": {
         "NOT_AUTHORIZED": {
-          "text": "zh_Неверный пароль"
+          "text": "密碼錯誤"
         },
         "PASSWORD_ATTEMPTS_EXCEEDED": {
-          "text": "zh_Превышено количество попыток входа. Попробуйте позже"
+          "text": "超過登錄嘗試次數。等會再試"
         },
         "USER_TO_RESTORE_NOT_FOUND": {
-          "text": "zh_Пользователь не найден"   
+          "text": "未找到用戶"
         }
       }
     },
-    "signInTab": "zh_Войти",
-    "signUpTab": "zh_Создать аккаунт",
-    "signUpButton": "zh_Создать",
-    "signInButton": "zh_Войти",
-    "signUpTitle": "zh_Создать новый аккаунт",
-    "signInTitle": "zh_Войдите в свой аккаунт",
-    "signInWith": "zh_или войдите через",
-    "or": "zh_или",
-    "registrationWarning": "zh_Создавая или входя в аккаунт, вы соглашаетесь с нашими <linkStyle>Правилами использования</linkStyle> и <linkStyle>Политикой конфиденциальности</linkStyle>",
-    "email": "zh_Электронная почта",
-    "userName": "zh_Имя пользователя",
-    "password": "zh_Пароль",
-    "forgetPassword": "zh_Забыли пароль?",
-    "restorePassword": "zh_Восстановить пароль",
-    "newPassword": "zh_Новый пароль",
-    "passwordWarning": "zh_Ваш новый пароль должен отличаться от используемых ранее паролей",
-    "restorePasswordInstruction": "zh_Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля",
-    "signUpValidationTitle": "zh_Подтвердите регистрацию",
-    "emailValidationTitle": "zh_Подтвердите электронный адрес",
-    "signUpValidationText": "zh_введите цифры из письма, высланного на электронную почту",
-    "repeatAttempt": "zh_Повторить отправку",
-    "ready": "zh_Готово",
-    "send": "zh_Отправить",
-    "save": "zh_Сохранить",
-    "returnAndEnter": "zh_Вернуться и войти",
-    "inputPassword": "zh_Введите пароль",
-    "createPasswordFor": "zh_Придумайте пароль для",
-    "weKnowYou": "zh_Похоже мы уже знаем Вас",
-    "enterEmailAddress": "zh_Введите электронный адрес",
-    "checkAccount": "zh_Давайте проверим есть ли у Вас аккаунт...",
-    "check": "zh_Проверить"
+    "login/Register": "登錄/註冊",
+    "signInTab": "進來",
+    "signUpTab": "創建賬戶",
+    "signUpButton": "註冊",
+    "signInButton": "登錄",
+    "signUpTitle": "創建新賬戶",
+    "signInTitle": "登錄",
+    "signInWith": "或通過輸入",
+    "or": "或",
+    "registrationWarning": "點擊註冊即表示您同意我們的<linkStyle>使用條款</linkStyle>和<linkStyle>隱私政策</linkStyle>",
+    "email": "電子郵件",
+    "用戶名": "用戶名",
+    "密碼": "密碼",
+    "forgetPassword": "忘記密碼了？",
+    "restorePassword": "恢復密碼",
+    "newPassword": "新密碼",
+    "passwordWarning": "您的新密碼必須與之前使用的密碼不同",
+    "restorePasswordInstruction": "輸入您在註冊時使用的電子郵件地址，我們將發送重置密碼的說明",
+    "signUpValidationTitle": "確認註冊",
+    "emailValidationTitle": "確認郵箱地址",
+    "signUpValidationText": "輸入發送到您電子郵箱的信件中的數字",
+    "repeatAttempt": "重新發送",
+    "ready": "完成",
+    "send": "發送",
+    "save": "保存",
+    "returnAndEnter": "返回並登錄",
+    "inputPassword": "輸入密碼",
+    "createPasswordFor": "創建密碼",
+    "weKnowYou": "看起來我們已經認識你了",
+    "enterEmailAddress": "輸入您的電子郵件地址",
+    "checkAccount": "讓我們檢查一下您是否有帳戶...",
+    "check": "檢查"
   },
   "profile": {
     "notAuthorrized": {
-      "title": "zh_Вы не авторизованы",
-      "subtitle": "zh_Авторизуйтесь\nили зарегистрируйтесь",
-      "password": "zh_Пароль должен содержать не менее 8 символов, 1 специальный символ, 1 заглавную букву и 1 цифру"
+      "title": "你沒有被授權",
+      "subtitle": "授權或註冊"
     },
     "authorized": {
-      "title": "zh_Вы авторизованы"
+      "title": "您已登錄"
     },
-    "profile": "zh_Profile",
-    "goOut": "zh_Выйти",
-    "delete": "zh_Удалить",
-    "dataAndMemory": "zh_Данные и память",
-    "language": "zh_Язык",
-    "theme": "zh_Тема",
-    "system": "zh_Системная",
-    "light": "zh_Светлая",
-    "dark": "zh_Темная",
-    "exitAccount": "zh_Вы уверены, что хотите выйти из аккаунт?",
-    "notCancaled": "zh_Это действие нельзя отменить",
-    "ok": "zh_ОК",
-    "cancel": "zh_Отмена",
-    "deleteAccount": "zh_Вы уверены, что хотите удалить аккаунт?"
+    "profile": "個人資料",
+    "goOut": "退出",
+    "delete": "刪除",
+    "dataAndMemory": "數據和存儲",
+    "language": "語言",
+    "theme": "主題",
+    "systemTheme": "系統",
+    "systemLanguage": "系統語言",
+    "light": "光",
+    "dark": "黑暗",
+    "exitAccount": "您確定要退出您的賬戶嗎？",
+    "notCancaled": "此操作無法撤消",
+    "ok": "好的好的",
+    "cancel": "取消",
+    "deleteAccount": "您確定要刪除您的帳戶嗎？"
   }
 }

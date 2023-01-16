@@ -19,7 +19,7 @@ export const ProfileSettingsTheme = () => {
       <GeneralListItem
         position="top"
         onPress={() => changeTheme(null)}
-        title={t('system')}
+        title={t('systemTheme')}
         renderLeftElement={
           !userTheme && <Icon color={COLORS.apple} name="check" size={16} />
         }
