@@ -28,10 +28,10 @@
 
 @end
 
-static const NSString * kActionCellId = @"actionCellId";
-static const NSString * kToggleCellId = @"toggleCellId";
-static const NSString * kSelectCellId = @"selectCellId";
-static const NSString * kNavigateCellId = @"navigateCellId";
+static NSString * const kActionCellId = @"actionCellId";
+static NSString * const kToggleCellId = @"toggleCellId";
+static NSString * const kSelectCellId = @"selectCellId";
+static NSString * const kNavigateCellId = @"navigateCellId";
 
 @implementation SettingsViewController
 
