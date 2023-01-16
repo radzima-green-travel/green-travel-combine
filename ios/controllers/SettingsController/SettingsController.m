@@ -14,7 +14,6 @@
 #import "SettingsEntryAction.h"
 #import "SettingsEntryNavigate.h"
 #import "SettingsViewController.h"
-#import <UIKit/UIKit.h>
 
 @interface SettingsController()
 

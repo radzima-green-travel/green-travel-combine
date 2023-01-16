@@ -22,17 +22,17 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-	SettingsScreen *copy = [[SettingsScreen allocWithZone:zone] init];
-	copy.name = self.name;
-	copy.uid = [self.uid copy];
+  SettingsScreen *copy = [[SettingsScreen allocWithZone:zone] init];
+  copy.name = self.name;
+  copy.uid = [self.uid copy];
   copy.groups = [self.groups copy];
   NSMutableArray *groups = [NSMutableArray new];
   [self.groups enumerateObjectsUsingBlock:^(SettingsGroup * _Nonnull origGroup,
                                             NSUInteger idx, BOOL * _Nonnull stop) {
-		[groups addObject:[origGroup copy]];
-	}];
+    [groups addObject:[origGroup copy]];
+  }];
   copy.groups = groups;
-	return copy;
+  return copy;
 }
 
 @end

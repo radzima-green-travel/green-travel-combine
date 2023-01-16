@@ -5,12 +5,6 @@
 //  Created by Alex K on 13.12.22.
 //
 
-#ifndef SettingsModelObservable_h
-#define SettingsModelObservable_h
-
-
-#endif /* SettingsModelObservable_h */
-
 @protocol SettingsModelObserver;
 @class SettingsEntry;
 @class SettingsGroup;
