@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator<AuthNavigatorParamsList>();
 
 export function AuthNavigator() {
   const screenOptions = useScreenOptions({withBottomInset: true});
-  const {t} = useTranslation('common');
+  const {t} = useTranslation('authentification');
 
   return (
     <Stack.Navigator

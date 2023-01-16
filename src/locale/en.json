@@ -14,8 +14,7 @@
       "home": "Main",
       "bookmarks": "Favorites",
       "map": "Map",
-      "profile": "Profile",
-      "login/Register": "Sign In/Sign Up"
+      "profile": "Profile"
     },
     "tryAgain": "Try again",
     "coppied": "Copied",
@@ -65,9 +64,9 @@
   },
   "authentification": {
     "validation": {
-      "invalidEmail": "en_Неверный формат электроной почты",
-      "emptyEmail": "en_Укажите вашу электронную почту",
-      "emptyPassword": "en_Укажите ваш пароль",
+      "invalidEmail": "Invalid email format",
+      "emptyEmail": "Enter your email",
+      "emptyPassword": "Enter your password",
       "password": "The password should include at least 8 characters, 1 special character, 1 uppercase and 1 number"
     },
     "errors": {
@@ -79,13 +78,14 @@
           "text": "Wrong password"
         },
         "PASSWORD_ATTEMPTS_EXCEEDED": {
-          "text": "en_Превышено количество попыток входа. Попробуйте позже"
+          "text": "Exceeded number of login attempts. Try later"
         },
         "USER_TO_RESTORE_NOT_FOUND": {
-          "text": "en_Пользователь не найден"   
+          "text": "User is not found"
         }
       }
     },
+    "login/Register": "Sign In/Sign Up",
     "signInTab": "Log in",
     "signUpTab": "Create an account",
     "signUpButton": "Sign Up",
@@ -100,45 +100,46 @@
     "password": "Password",
     "forgetPassword": "Forgot your password?",
     "restorePassword": "Restore password",
-    "newPassword": "en_Новый пароль",
-    "passwordWarning": "en_Ваш новый пароль должен отличаться от используемых ранее паролей",
-    "restorePasswordInstruction": "en_Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля",
-    "signUpValidationTitle": "en_Подтвердите регистрацию",
-    "emailValidationTitle": "en_Подтвердите электронный адрес",
-    "signUpValidationText": "en_введите цифры из письма, высланного на электронную почту",
-    "repeatAttempt": "en_Повторить отправку",
-    "ready": "en_Готово",
-    "send": "en_Отправить",
-    "save": "en_Сохранить",
-    "returnAndEnter": "en_Вернуться и войти",
-    "inputPassword": "en_Введите пароль",
-    "createPasswordFor": "en_Придумайте пароль для",
-    "weKnowYou": "en_Похоже мы уже знаем Вас",
-    "enterEmailAddress": "en_Введите электронный адрес",
-    "checkAccount": "en_Давайте проверим есть ли у Вас аккаунт...",
-    "check": "en_Проверить"
+    "newPassword": "New password",
+    "passwordWarning": "Your new password must be different from previously used passwords",
+    "restorePasswordInstruction": "Enter the email address you used when registering and we will send instructions to reset your password",
+    "signUpValidationTitle": "Confirm registration",
+    "emailValidationTitle": "Confirm email address",
+    "signUpValidationText": "Enter the numbers from the letter sent to your email",
+    "repeatAttempt": "Resend",
+    "ready": "Done",
+    "send": "Send",
+    "save": "Save",
+    "returnAndEnter": "Return and login",
+    "inputPassword": "Enter password",
+    "createPasswordFor": "Create a password for",
+    "weKnowYou": "Looks like we already know you",
+    "enterEmailAddress": "Enter your email address",
+    "checkAccount": "Let's check if you have an account...",
+    "check": "Check"
   },
   "profile": {
     "notAuthorrized": {
-      "title": "en_Вы не авторизованы",
-      "subtitle": "en_Авторизуйтесь\nили зарегистрируйтесь"
+      "title": "You are not authorized",
+      "subtitle": "Authorized or Sign up"
     },
     "authorized": {
-      "title": "en_Вы авторизованы"
+      "title": "You are logged in"
     },
     "profile": "Profile",
-    "goOut": "en_Выйти",
-    "delete": "en_Удалить",
-    "dataAndMemory": "en_Данные и память",
-    "language": "en_Язык",
-    "theme": "en_Тема",
-    "system": "en_Системная",
-    "light": "en_Светлая",
-    "dark": "en_Темная",
-    "exitAccount": "en_Вы уверены, что хотите выйти из аккаунт?",
-    "notCancaled": "en_Это действие нельзя отменить",
-    "ok": "en_ОК",
-    "cancel": "en_Отмена",
-    "deleteAccount": "en_Вы уверены, что хотите удалить аккаунт?"
+    "goOut": "Sign out",
+    "delete": "Delete",
+    "dataAndMemory": "Data and Storage",
+    "language": "Language",
+    "theme": "Theme",
+    "systemTheme": "System",
+    "systemLanguage": "System",
+    "light": "Light",
+    "dark": "Dark",
+    "exitAccount": "Are you sure you want to log out of your account?",
+    "notCancaled": "This action cannot be undone",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "deleteAccount": "Are you sure you want to delete your account?"
   }
 }
