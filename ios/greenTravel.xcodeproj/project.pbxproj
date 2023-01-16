@@ -197,7 +197,6 @@
 		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		5AC2C2A3263EC2E700CCBE63 /* BottomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A94AF3F263EB76F00AC4E7B /* BottomSheetView.m */; };
 		5AC7B3A426FFB58200531FB3 /* BottomSheetPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */; };
-		5AC7EA30294A2596001C0A3E /* settings-unauthenticated.json in Resources */ = {isa = PBXBuildFile; fileRef = 5AC7EA2F294A2596001C0A3E /* settings-unauthenticated.json */; };
 		5ACC9A9A283948CA008E302D /* CommonTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A99283948CA008E302D /* CommonTextField.m */; };
 		5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC9A9D283969F7008E302D /* SecureTextField.m */; };
 		5ACDFCDC285DFA2A0079C8EC /* CommonFormConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */; };
@@ -625,7 +624,6 @@
 		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AC7B3A226FFB58200531FB3 /* BottomSheetPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomSheetPresentationController.h; sourceTree = "<group>"; };
 		5AC7B3A326FFB58200531FB3 /* BottomSheetPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomSheetPresentationController.m; sourceTree = "<group>"; };
-		5AC7EA2F294A2596001C0A3E /* settings-unauthenticated.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "settings-unauthenticated.json"; sourceTree = "<group>"; };
 		5ACC9A98283948CA008E302D /* CommonTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonTextField.h; sourceTree = "<group>"; };
 		5ACC9A99283948CA008E302D /* CommonTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonTextField.m; sourceTree = "<group>"; };
 		5ACC9A9C283969F7008E302D /* SecureTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecureTextField.h; sourceTree = "<group>"; };
@@ -2057,7 +2055,6 @@
 				5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */,
 				5A6CC8DB279D930C00EE6E35 /* index-tag.graphql */,
 				5A12E89427BEA68E004FD8C6 /* details.html */,
-				5AC7EA2F294A2596001C0A3E /* settings-unauthenticated.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2213,7 +2210,6 @@
 				5A12E89527BEA68E004FD8C6 /* details.html in Resources */,
 				5A775B4826064C9000CEFC78 /* Montserrat-Italic.ttf in Resources */,
 				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
-				5AC7EA30294A2596001C0A3E /* settings-unauthenticated.json in Resources */,
 				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
 				5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */,
 			);
