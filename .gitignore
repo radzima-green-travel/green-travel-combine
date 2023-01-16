@@ -77,7 +77,6 @@ ios/Settings.bundle
 s.sh
 
 aws-exports.js
-vendor/
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend

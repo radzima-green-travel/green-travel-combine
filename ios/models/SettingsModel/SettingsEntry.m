@@ -11,7 +11,7 @@
 
 - (instancetype)initWithName:(NSString *)name
                  parentGroup:(SettingsGroup *)parentGroup {
-  if (self = [super self]) {
+  if (self = [super init]) {
     _uid = [NSUUID UUID];
     _parentGroup = parentGroup;
     _name = name;

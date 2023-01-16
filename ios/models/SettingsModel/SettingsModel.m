@@ -28,12 +28,13 @@
 
 @implementation SettingsModel
 
-- (instancetype)initWithUserController:(id)userController
+- (instancetype)initWithUserController:(UserController *)userController
                              userModel:(UserModel *)userModel {
   self = [super init];
   if (self) {
     _settingsModelObservers = [[NSMutableArray alloc] init];
-    _tree = [NSMutableArray new];
+    _tree = [[SettingsScreen alloc] initWithName:NSLocalizedString(@"ProfileScreenTitle", @"")
+                                          groups:@[]];
     _userModel = userModel;
     _userController = userController;
   }
@@ -41,7 +42,6 @@
 }
 
 - (void)setUp {
-  __weak typeof(self) weakSelf = self;
 #pragma mark - Auth group
   SettingsEntryAction *authEntry = [SettingsEntryAction new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
@@ -97,14 +97,13 @@
 
   SettingsEntryNavigate *aboutEntry = [SettingsEntryNavigate new];
   aboutEntry.name = NSLocalizedString(@"Language", @"");
-  aboutEntry.screen = nil;
+  aboutEntry.screen = [SettingsScreen new];
 
   SettingsGroup *aboutGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[aboutEntry]];
 
 #pragma mark - Assembling to root
-  SettingsScreen *root = [[SettingsScreen alloc] initWithName:NSLocalizedString(@"ProfileScreenTitle", @"")
-                                                       groups:@[authGroup, generalGroup, aboutGroup]];
+  self.tree.groups = @[authGroup, generalGroup, aboutGroup];
 }
 
 - (void)updateEntry:(SettingsEntry *)updatedEntry {
@@ -166,6 +165,9 @@
 
 - (SettingsScreen *)findScreenByID:(NSUUID *)uuid {
   return [self findScreenByID:(NSUUID *)uuid forTree:self.tree];
+}
+
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
 }
 
 @end

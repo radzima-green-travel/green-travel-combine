@@ -5,12 +5,6 @@
 //  Created by Alex K on 24.05.22.
 //
 
-#ifndef SettingsModelObserver_h
-#define SettingsModelObserver_h
-
-
-#endif /* SettingsModelObserver_h */
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
