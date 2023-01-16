@@ -5,11 +5,12 @@ import {
   ITransformedData,
   IObejctsMap,
   ICategoriesMap,
+  SupportedLocales,
 } from 'core/types';
 import {isEmpty, map, shuffle} from 'lodash';
 import {transformQueryData} from 'core/helpers';
 import {ListMobileDataQuery} from 'api/graphql/types';
-import {languageService} from 'services/LanguageService';
+import {selectAppLanguage} from './settingsSelectors';
 
 export const selectIsUpdatesAvailable = (state: IState) =>
   state.home.isUpdatesAvailable;
@@ -23,10 +24,9 @@ export const selectTransformedData = createSelector<
   ITransformedData | null
 >(
   state => state.home.currentData,
-  data =>
-    data
-      ? transformQueryData(data, languageService.getCurrentLanguage())
-      : null,
+  selectAppLanguage,
+  (data: ListMobileDataQuery, language: SupportedLocales) =>
+    data ? transformQueryData(data, language) : null,
 );
 
 export const selectHomeData = createSelector<
@@ -41,7 +41,7 @@ export const selectHomeData = createSelector<
     return {
       ...category,
       objects: shuffle(category.objects).slice(0, 10),
-      children: category.children.filter(id => {
+      children: category.children.filter((id: string | number) => {
         return !isEmpty(transformedData.categoriesMap[id].objects);
       }),
     };

@@ -1,5 +1,5 @@
-import React, {Dispatch, SetStateAction} from 'react';
-import {Pressable, TextInput, View} from 'react-native';
+import React, {useCallback} from 'react';
+import {Pressable, TextInput, View, Text} from 'react-native';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
 import {Icon} from 'atoms';
@@ -11,12 +11,15 @@ interface IProps {
   iconRightName?: IconsNames;
   size: number;
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  onChange: (value: string) => void;
   placeholder: string;
   secureTextEntry?: boolean;
-  dangerBorder?: boolean;
   onRightIconPress?: () => void;
   autoFocus?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  messageText?: string;
+  error?: boolean;
 }
 
 export const FormInput = ({
@@ -25,54 +28,78 @@ export const FormInput = ({
   size,
   placeholder,
   secureTextEntry = false,
-  dangerBorder = false,
+
   value,
-  setValue,
+  onChange,
   onRightIconPress,
   autoFocus,
+  onFocus,
+  onBlur,
+  messageText,
+  error,
 }: IProps) => {
   const {t} = useTranslation('authentification');
   const styles = useThemeStyles(themeStyles);
   const colorScheme = useColorScheme();
 
+  const onFocusHandler = useCallback(() => {
+    if (onFocus) {
+      onFocus();
+    }
+  }, [onFocus]);
+
+  const onBlurHandler = useCallback(() => {
+    if (onBlur) {
+      onBlur();
+    }
+  }, [onBlur]);
+
   return (
-    <View
-      style={[
-        styles.inputFieldContainer,
-        dangerBorder ? styles.dangerBorder : null,
-      ]}>
-      {iconLeftName ? (
-        <Icon
-          name={iconLeftName}
-          size={size}
-          color={colorScheme === 'light' ? COLORS.logCabin : COLORS.white}
-          style={styles.icon}
-        />
-      ) : null}
-      <TextInput
-        style={styles.inputField}
-        placeholder={t(placeholder)}
-        secureTextEntry={secureTextEntry}
-        autoCapitalize="none"
-        autoCorrect={false}
-        value={value}
-        onChangeText={setValue}
-        autoFocus={autoFocus}
-        placeholderTextColor={colorScheme === 'light' ? COLORS.logCabin : COLORS.cullGrey}
-      />
-      {iconRightName ? (
-        <Pressable
-          style={[
-            styles.iconContainer,
-            dangerBorder ? styles.dangerBorder : null,
-          ]}
-          onPress={onRightIconPress}>
+    <View style={styles.container}>
+      <View
+        style={[
+          styles.inputFieldContainer,
+          error ? styles.dangerBorder : null,
+        ]}>
+        {iconLeftName ? (
           <Icon
-            name={iconRightName}
-            size={16}
+            name={iconLeftName}
+            size={size}
             color={colorScheme === 'light' ? COLORS.logCabin : COLORS.white}
+            style={styles.icon}
           />
-        </Pressable>
+        ) : null}
+        <TextInput
+          style={styles.inputField}
+          placeholder={t(placeholder)}
+          secureTextEntry={secureTextEntry}
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={value}
+          onChangeText={onChange}
+          autoFocus={autoFocus}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
+          placeholderTextColor={
+            colorScheme === 'light' ? COLORS.logCabin : COLORS.cullGrey
+          }
+        />
+        {iconRightName ? (
+          <Pressable
+            style={[styles.iconContainer, error ? styles.dangerBorder : null]}
+            onPress={onRightIconPress}>
+            <Icon
+              name={iconRightName}
+              size={16}
+              color={colorScheme === 'light' ? COLORS.logCabin : COLORS.white}
+            />
+          </Pressable>
+        ) : null}
+      </View>
+      {messageText ? (
+        <Text style={[styles.messageText, error && styles.messageErrorText]}>
+          {messageText}
+        </Text>
       ) : null}
     </View>
   );

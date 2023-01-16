@@ -64,6 +64,27 @@
     "routeLength": "{{km}} 公里, "
   },
   "authentification": {
+    "validation": {
+      "invalidEmail": "zh_Неверный формат электроной почты",
+      "emptyPassword": "zh_Укажите ваш пароль",
+      "emptyEmail": "zh_Укажите вашу электронную почту"
+    },
+    "errors": {
+      "-1": {
+        "text": "沒有網絡連接"
+      },
+      "400": {
+        "NOT_AUTHORIZED": {
+          "text": "zh_Неверный пароль"
+        },
+        "PASSWORD_ATTEMPTS_EXCEEDED": {
+          "text": "zh_Превышено количество попыток входа. Попробуйте позже"
+        },
+        "USER_TO_RESTORE_NOT_FOUND": {
+          "text": "zh_Пользователь не найден"   
+        }
+      }
+    },
     "signInTab": "zh_Войти",
     "signUpTab": "zh_Создать аккаунт",
     "signUpButton": "zh_Создать",
@@ -76,14 +97,6 @@
     "email": "zh_Электронная почта",
     "userName": "zh_Имя пользователя",
     "password": "zh_Пароль",
-    "messageTips": {
-      "emptyEmail": "zh_Укажите вашу электронную почту",
-      "wrongEmail": "zh_Неверный формат электроной почты",
-      "repeatingEmail": "zh_Электронный адрес уже зарегистрирован",
-      "emptyUserName": "zh_Укажите имя",
-      "emptyPassword": "zh_Придумайте пароль из 8 символов",
-      "repeatingUserName": "zh_Пользователь с таким именем уже существует"
-    },
     "forgetPassword": "zh_Забыли пароль?",
     "restorePassword": "zh_Восстановить пароль",
     "newPassword": "zh_Новый пароль",
@@ -107,7 +120,8 @@
   "profile": {
     "notAuthorrized": {
       "title": "zh_Вы не авторизованы",
-      "subtitle": "zh_Авторизуйтесь\nили зарегистрируйтесь"
+      "subtitle": "zh_Авторизуйтесь\nили зарегистрируйтесь",
+      "password": "zh_Пароль должен содержать не менее 8 символов, 1 специальный символ, 1 заглавную букву и 1 цифру"
     },
     "authorized": {
       "title": "zh_Вы авторизованы"

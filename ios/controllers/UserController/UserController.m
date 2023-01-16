@@ -133,7 +133,8 @@
         [strongSelf.model setError:error];
         return;
       }
-      [strongSelf.model setState:UserModelStatePasswordResetSuccess];
+      [strongSelf fetchUserAttributesAndSetUserState:UserModelStatePasswordResetSuccess
+                                       fallbackState:UserModelStateFetched];
     }];
   }];
 }

@@ -118,6 +118,8 @@
   self.current = mainViewController;
 }
 
+- (void)showRNViewController {}
+
 - (void)saveVersion {
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
@@ -131,5 +133,7 @@
     [(MainViewController *) self.current loadCategories];
   }
 }
+
+- (void)initRNBootSplash {}
 
 @end

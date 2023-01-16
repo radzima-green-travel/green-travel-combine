@@ -1,11 +1,9 @@
 import {MultiPolygon, LineString} from '@turf/helpers';
+import {IRequestError} from './errors';
 export interface ILabelError {
-  message: {
-    titlePaths: string[];
-    textPaths: string[];
-  };
-  status?: number;
-  originalMessage: string;
+  text: string;
+  title: string;
+  originalError: IRequestError | Error;
 }
 
 export type ICoordinates = Array<number>;

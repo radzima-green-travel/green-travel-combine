@@ -64,6 +64,28 @@
     "routeLength": "{{km}} km, "
   },
   "authentification": {
+    "validation": {
+      "invalidEmail": "en_Неверный формат электроной почты",
+      "emptyEmail": "en_Укажите вашу электронную почту",
+      "emptyPassword": "en_Укажите ваш пароль",
+      "password": "The password should include at least 8 characters, 1 special character, 1 uppercase and 1 number"
+    },
+    "errors": {
+      "-1": {
+        "text": "Internet connection lost"
+      },
+      "400": {
+        "NOT_AUTHORIZED": {
+          "text": "Wrong password"
+        },
+        "PASSWORD_ATTEMPTS_EXCEEDED": {
+          "text": "en_Превышено количество попыток входа. Попробуйте позже"
+        },
+        "USER_TO_RESTORE_NOT_FOUND": {
+          "text": "en_Пользователь не найден"   
+        }
+      }
+    },
     "signInTab": "Log in",
     "signUpTab": "Create an account",
     "signUpButton": "Sign Up",
@@ -76,14 +98,6 @@
     "email": "Email",
     "userName": "Username",
     "password": "Password",
-    "messageTips": {
-      "emptyEmail": "en_Укажите вашу электронную почту",
-      "wrongEmail": "en_Неверный формат электроной почты",
-      "repeatingEmail": "en_Электронный адрес уже зарегистрирован",
-      "emptyUserName": "en_Укажите имя",
-      "emptyPassword": "en_Придумайте пароль из 8 символов",
-      "repeatingUserName": "en_Пользователь с таким именем уже существует"
-    },
     "forgetPassword": "Forgot your password?",
     "restorePassword": "Restore password",
     "newPassword": "en_Новый пароль",

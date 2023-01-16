@@ -13,16 +13,19 @@ export interface IOptions {
   colorScheme: ColorSchemeName;
 }
 
-export function useScreenOptions(): NativeStackNavigationOptions {
+export function useScreenOptions({
+  withBottomInset = false,
+}: {withBottomInset?: boolean} = {}): NativeStackNavigationOptions {
   const colorScheme = useColorScheme();
-  const {top} = useSafeAreaInsets();
+  const {top, bottom} = useSafeAreaInsets();
 
   return {
     contentStyle: {
       backgroundColor:
         colorScheme === 'light' ? COLORS.white : COLORS.background,
+      ...(withBottomInset ? {marginBottom: bottom} : {}),
     },
-    header: ({navigation, route, options}) => {
+    header: ({navigation, route, options, back}) => {
       const {title, ...restOptions} = options;
       const titleText = title || route.name;
       return (
@@ -34,14 +37,12 @@ export function useScreenOptions(): NativeStackNavigationOptions {
           }
           headerTitleAlign="center"
           headerLeft={() => {
-            return navigation.canGoBack() ? (
+            return back ? (
               <TouchableOpacity
                 hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
                 activeOpacity={0.8}
                 onPress={() => {
-                  if (navigation.canGoBack()) {
-                    navigation.goBack();
-                  }
+                  navigation.goBack();
                 }}>
                 <Icon name="chevron" color="white" size={24} />
               </TouchableOpacity>

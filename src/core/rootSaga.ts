@@ -4,6 +4,7 @@ import {
   bootstrapSaga,
   homeSaga,
   objectDetailsMapSaga,
+  settingsSaga,
 } from './sagas';
 
 export function* rootSaga() {
@@ -12,5 +13,6 @@ export function* rootSaga() {
     bootstrapSaga(),
     homeSaga(),
     objectDetailsMapSaga(),
+    settingsSaga(),
   ]);
 }

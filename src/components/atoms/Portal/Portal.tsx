@@ -37,7 +37,7 @@ export class Portal extends React.Component<Props> {
 
     return (
       <PortalContext.Consumer>
-        {(manager) => (
+        {manager => (
           <PortalConsumer manager={manager as PortalMethods}>
             {children}
           </PortalConsumer>

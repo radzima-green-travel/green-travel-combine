@@ -64,6 +64,8 @@ static const CLLocationDistance kLocationAccuracy = 500.0;
 
 - (void)onCategoriesNewDataAvailable {}
 
+- (void)onDetailsLoading:(BOOL)loading {}
+
 - (void)onBookmarkUpdate:(nonnull PlaceItem *)item bookmark:(BOOL)bookmark {
 }
 

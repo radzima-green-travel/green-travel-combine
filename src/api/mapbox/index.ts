@@ -1,1 +1,1 @@
-export {getDirections} from './getDirections';
+export {mapBoxApi} from './MapBoxAPI';

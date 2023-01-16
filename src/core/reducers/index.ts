@@ -4,4 +4,4 @@ export * from './HomeReducer';
 export * from './ObjectDetailsMapReducer';
 export * from './SearchReducer';
 export * from './AuthenticationReducer';
-export * from './ThemeReducer';
+export * from './SettingsReducer';

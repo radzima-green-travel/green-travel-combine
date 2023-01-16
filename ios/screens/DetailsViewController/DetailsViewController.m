@@ -90,7 +90,6 @@
 
 @end
 
-static const CGFloat kDistanceDescriptionToBottom = 26.0;
 static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 @implementation DetailsViewController
@@ -601,6 +600,8 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 - (void)onCategoriesNewDataAvailable {}
 
+- (void)onDetailsLoading:(BOOL)loading {}
+
 - (void)onDetailsUpdate:(NSMutableDictionary<NSString *,PlaceDetails *> *)itemUUIDToDetails
        itemUUIDToStatus:(NSMutableDictionary<NSString *,NSNumber *> *)itemUUIDToStatus {
   PlaceDetails *details = itemUUIDToDetails[self.item.uuid];
@@ -733,7 +734,6 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-  CGFloat prevContentOffsetY = self.prevContentOffsetY;
   CGFloat contentOffsetY = self.dataView.contentOffset.y;
   self.prevContentOffsetY = contentOffsetY;
 

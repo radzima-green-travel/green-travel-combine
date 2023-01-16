@@ -63,6 +63,8 @@
     
 }
 
+- (void)onDetailsLoading:(BOOL)loading {}
+
 - (NSArray<FeedItem *>*)mapCategoriesToFeedItems:(NSArray<PlaceCategory *>*)categories {
     return @[];
 }

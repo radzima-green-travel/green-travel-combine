@@ -1,6 +1,9 @@
-import {COLORS} from 'assets';
+import {COLORS, FONTS_STYLES} from 'assets';
 
 export const themeStyles = {
+  container: {
+    alignSelf: 'stretch',
+  },
   inputFieldContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -45,5 +48,15 @@ export const themeStyles = {
   icon: {
     marginLeft: 12,
     marginRight: 8,
+  },
+  messageText: {
+    ...FONTS_STYLES.regular14,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
+  },
+  messageErrorText: {
+    color: COLORS.persimmon,
   },
 };

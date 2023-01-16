@@ -11,9 +11,9 @@
 
 @end
 
-static const NSString * kDetailsTemplateName = @"details.html";
-static const NSString * kDetailsTemplateCacheKey = @"detailsTemplateId";
-NSCache<NSString *, NSMutableString *> *htmlTemplateCache;
+static NSString * const kDetailsTemplateName = @"details.html";
+static NSString * const kDetailsTemplateCacheKey = @"detailsTemplateId";
+NSCache<NSString *, NSString *> *htmlTemplateCache;
 
 NSMutableAttributedString* loadDetailsTemplate(NSString *body) {
   NSError *error;

@@ -1,6 +1,6 @@
 import {call, put} from 'redux-saga/effects';
 import {ActionType} from 'typesafe-actions';
-import {Auth} from 'aws-amplify';
+import {amplifyApi} from 'api/amplify';
 import {
   forgotPasswordRequest,
   forgotPasswordSuccess,
@@ -11,7 +11,7 @@ export function* forgotPasswordSaga({
   payload: {email},
 }: ActionType<typeof forgotPasswordRequest>) {
   try {
-    yield call([Auth, 'forgotPassword'], email);
+    yield call([amplifyApi, amplifyApi.forgotPassword], email);
 
     yield put(forgotPasswordSuccess());
   } catch (e) {

@@ -94,6 +94,8 @@ static IndexModel *instance;
     }
 }
 
+- (void)loadCategoriesRemote:(BOOL)visible {}
+
 #pragma mark - Load remote data
 - (void)loadCategoriesRemote:(BOOL)visible
                 forceRefresh:(BOOL)forceRefresh {
@@ -257,8 +259,8 @@ static IndexModel *instance;
       flatCategories[category.uuid] = category;
       if (level == 0) {
         PlaceCategory *categoryRandomized = [category copyWithZone:nil];
-        categoryRandomized.items = shuffledArray(category.items);
-        categoryRandomized.categories = slice(category.categories);
+        categoryRandomized.items = [NSMutableArray arrayWithArray:shuffledArray(category.items)];
+        categoryRandomized.categories = [NSMutableArray arrayWithArray:slice(category.categories)];
         [randomizedCategories addObject:categoryRandomized];
       }
     }

@@ -5,7 +5,7 @@ import {
   showObjectDetailsMapDirectionFailure,
 } from 'core/reducers';
 import {ActionType} from 'typesafe-actions';
-import {getDirections} from 'api/mapbox';
+import {mapBoxApi} from 'api/mapbox';
 import {lineString as makeLineString} from '@turf/helpers';
 import {ACTIONS} from 'core/constants';
 
@@ -13,7 +13,7 @@ export function* getDirectionSaga({
   payload,
 }: ActionType<typeof showObjectDetailsMapDirectionRequest>) {
   try {
-    const data = yield call(getDirections, payload);
+    const data = yield call([mapBoxApi, mapBoxApi.getDirections], payload);
     const lineStringGeoJSON: ReturnType<typeof makeLineString> = yield call(
       makeLineString,
       data.routes[0]?.geometry?.coordinates || [],

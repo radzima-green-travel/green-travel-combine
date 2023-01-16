@@ -1,15 +1,17 @@
-import {useCallback, useState, useEffect} from 'react';
+import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {useRequestLoading, useTranslation} from 'core/hooks';
+import {useOnRequestError, useRequestLoading, useTranslation} from 'core/hooks';
 import {useNavigation} from '@react-navigation/native';
 import {forgotPasswordRequest} from 'core/reducers';
 import {useOnRequestSuccess} from 'core/hooks';
 import {RestorePasswordScreenNavigationProps} from '../types';
+import {useFormik} from 'formik';
+import {ForgotPasswordEmailFormModel} from 'core/types';
+import {validationSchema} from './validation';
+import {useSnackbar} from 'atoms';
 
 export const useRestorePassword = () => {
   const {t} = useTranslation('authentification');
-  const [email, setEmail] = useState('');
-  const [isEmailCorrect, setIsEmailCorrect] = useState(false);
   const dispatch = useDispatch();
 
   const navigation = useNavigation<RestorePasswordScreenNavigationProps>();
@@ -18,35 +20,48 @@ export const useRestorePassword = () => {
     navigation.popToTop();
   };
 
-  const onResendPassword = useCallback(() => {
-    dispatch(forgotPasswordRequest({email}));
-  }, [dispatch, email]);
+  const onResendPassword = useCallback(
+    ({email}: ForgotPasswordEmailFormModel) => {
+      dispatch(forgotPasswordRequest({email}));
+    },
+    [dispatch],
+  );
 
-  useEffect(() => {
-    const regexForEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-    if (regexForEmail.test(email)) {
-      setIsEmailCorrect(true);
-    } else {
-      setIsEmailCorrect(false);
-    }
-  }, [email]);
+  const formik = useFormik<ForgotPasswordEmailFormModel>({
+    initialValues: {
+      email: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: onResendPassword,
+  });
 
   const {loading} = useRequestLoading(forgotPasswordRequest);
 
   useOnRequestSuccess(forgotPasswordRequest, () => {
-    navigation.navigate('EmailValidation', {email, isSignUp: false});
+    navigation.navigate('EmailValidation', {
+      email: formik.values.email,
+      isSignUp: false,
+    });
   });
 
   const buttonText = t('send').toUpperCase();
 
+  const {show, ...snackBarProps} = useSnackbar();
+
+  useOnRequestError(forgotPasswordRequest, 'authentification', errorLabel => {
+    show({
+      type: 'error',
+      title: errorLabel.text,
+    });
+  });
+
   return {
-    email,
-    onResendPassword,
-    isEmailCorrect,
     loading,
     navigateToSignIn,
-    setEmail,
     buttonText,
+    formik,
+    isSubmitButtonDisabled: !formik.values.email,
+    submitForm: formik.handleSubmit,
+    snackBarProps,
   };
 };

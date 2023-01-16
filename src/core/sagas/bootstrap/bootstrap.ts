@@ -1,18 +1,18 @@
 import {call, put, select, takeEvery} from 'redux-saga/effects';
 
 import {
-  getHomeData,
-  getInitialHomeDataRequest,
   bootstrapSuccess,
   bootstrapFailure,
+  getInitialHomeDataRequest,
+  getHomeData,
 } from 'core/reducers';
 import {ACTIONS} from 'core/constants';
 
 import {initAppLocaleSaga} from './initAppLocaleSaga';
 import {ILabelError} from 'core/types';
-import {resetEtagsStorage} from 'storage';
 import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
+import {resetEtags} from 'api/rest/interceptors';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
@@ -27,7 +27,7 @@ export function* bootstrapSaga() {
       const isLocaledUpdated = yield call(initAppLocaleSaga);
 
       if (isLocaledUpdated) {
-        yield call(resetEtagsStorage);
+        yield call(resetEtags);
         yield put(getInitialHomeDataRequest());
       } else {
         yield put(getHomeData());

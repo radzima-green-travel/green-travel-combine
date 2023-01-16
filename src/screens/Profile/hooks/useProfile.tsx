@@ -19,6 +19,10 @@ export const useProfile = () => {
     }
   }, [isAuthorized, navigation]);
 
+  const navigateToProfileSettingsLanguage = useCallback(() => {
+    navigation.navigate('ProfileSettingsLanguage');
+  }, [navigation]);
+
   const navigateToProfileSettingsTheme = useCallback(() => {
     navigation.navigate('ProfileSettingsTheme');
   }, [navigation]);
@@ -29,6 +33,7 @@ export const useProfile = () => {
     userEmail,
     isAuthorized,
     onAuthorisationItemPress,
+    navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,
   };
 };

@@ -5,6 +5,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
 
+inhibit_all_warnings!
+
 use_frameworks! :linkage => :static
 
 target 'greenTravel' do
@@ -17,6 +19,8 @@ target 'greenTravel' do
   
   pod 'Amplify'
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
+
+  pod 'SwiftLint'
   
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
@@ -67,5 +71,11 @@ target 'greenTravel' do
       :mac_catalyst_enabled => false
     )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+        config.build_settings.delete 'ARCHS'
+      end
+    end
   end
 end

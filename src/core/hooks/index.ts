@@ -16,7 +16,6 @@ export {useObjectBelongsToSubtitle} from './useObjectBelongsToSubtitle';
 export {useObjects} from './useObjects';
 export {useRequestErrorAlert} from './useRequestErrorAlert';
 export {useSearchList} from './useSearchList';
-export {useStaticCallback} from './useStaticCallback';
 export {useStatusBar} from './useStatusBar';
 export {useTask} from './useTask';
 export {useThemeStyles} from './useThemeStyles';
@@ -25,10 +24,12 @@ export {useTogglePasswordVisibility} from './useTogglePasswordVisibility';
 export {useTransformedData} from './useTransformedData';
 export {useTranslation} from 'react-i18next';
 export {useUpdateEffect} from './useUpdateEffect';
+export {useOnRequestError} from './useOnRequestError';
 export * from './analytics';
 export {
   useOnRequestSuccess,
   useRequestError,
   useRequestLoading,
+  useStaticCallback,
   IError,
 } from 'react-redux-help-kit';

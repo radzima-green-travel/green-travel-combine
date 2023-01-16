@@ -1,1 +1,1 @@
-export {useSignUpForm} from './useSignUpForm'
+export {useSignUpForm} from './useSignUpForm';

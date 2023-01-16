@@ -61,9 +61,8 @@ class PermissionsService {
     }
 
     if (status === RESULTS.GRANTED) {
-      const {
-        gps,
-      } = await NativeModules.LocationProvidersModule.getAvailableLocationProviders();
+      const {gps} =
+        await NativeModules.LocationProvidersModule.getAvailableLocationProviders();
 
       if (!gps) {
         Alert.alert('', i18n.t('common:locationPermissionText'));

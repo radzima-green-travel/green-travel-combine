@@ -1,1 +1,2 @@
-export {NetworkError} from './NetworkError';
+export {RequestError} from './RequestError';
+export * from './presets';

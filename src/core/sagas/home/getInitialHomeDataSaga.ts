@@ -1,25 +1,26 @@
-import {call, put} from 'redux-saga/effects';
-import {getAllAppDataFromIndex} from 'api/rest';
+import {call, put, select} from 'redux-saga/effects';
+import {restAPI} from 'api/rest';
 import {ListMobileDataQuery} from 'api/graphql/types';
 import {
   getInitialHomeDataSuccess,
   getInitialHomeDataFailure,
 } from '../../reducers';
-import {saveHomeDataVersionSaga} from './homeDataVersion';
-import {languageService} from 'services/LanguageService';
-import {ILabelError, SupportedLocales} from 'core/types';
+import {ILabelError} from 'core/types';
+import {selectAppLanguage} from 'core/selectors';
+import {saveLocalEtagsToStorage} from 'api/rest/interceptors';
 
 export function* getInitialHomeDataSaga() {
   try {
-    const currentAppLocale: SupportedLocales = yield call([
-      languageService,
-      languageService.getCurrentLanguage,
-    ]);
-    const data: ListMobileDataQuery = yield call(getAllAppDataFromIndex, {
-      locale: currentAppLocale,
-    });
+    const language = yield select(selectAppLanguage);
 
-    yield call(saveHomeDataVersionSaga, data);
+    const data: ListMobileDataQuery = yield call(
+      [restAPI, restAPI.getAllAppDataFromIndex],
+      {
+        locale: language,
+      },
+    );
+
+    yield call(saveLocalEtagsToStorage);
     yield put(getInitialHomeDataSuccess({data: data}));
   } catch (e) {
     yield put(getInitialHomeDataFailure(e as ILabelError));

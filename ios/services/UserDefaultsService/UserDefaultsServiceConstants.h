@@ -13,6 +13,6 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT const NSString * UserDefaultsServiceConstantsFrameworkRandom;
-FOUNDATION_EXPORT const NSString * UserDefaultsServiceConstantsFrameworkReact;
-FOUNDATION_EXPORT const NSString * UserDefaultsServiceConstantsFrameworkUIKit;
+FOUNDATION_EXPORT NSString * const UserDefaultsServiceConstantsFrameworkRandom;
+FOUNDATION_EXPORT NSString * const UserDefaultsServiceConstantsFrameworkReact;
+FOUNDATION_EXPORT NSString * const UserDefaultsServiceConstantsFrameworkUIKit;

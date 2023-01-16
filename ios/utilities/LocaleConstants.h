@@ -7,6 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT const NSString * LocaleLanguageCodeLegacy;
-FOUNDATION_EXPORT const NSString * LocaleLanguageCodeDefault;
-FOUNDATION_EXPORT const NSString * SupportedLanguageCodes;
+FOUNDATION_EXPORT NSString * const LocaleLanguageCodeLegacy;
+FOUNDATION_EXPORT NSString * const LocaleLanguageCodeDefault;
+FOUNDATION_EXPORT NSString * const SupportedLanguageCodes;

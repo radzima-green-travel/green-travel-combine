@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import {View, Animated} from 'react-native';
 
 import {
-  ClipboardToast,
   DetailsPageCapture,
   ObjectDescription,
   ObjectDescriptionSource,
   ObjectDetailsPager,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
-import {Button, ImageSlider, ZoomableView} from 'atoms';
+import {Button, ImageSlider, ZoomableView, SnackBar} from 'atoms';
 import {useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
@@ -26,7 +25,7 @@ export const ObjectDetails = () => {
     copyLocationToClipboard,
     navigateToObjectsMap,
     navigateToObjectsListDebounced,
-    toastProps,
+    snackBarProps,
     objectId,
     isJustOneImage,
     defaultPhoto,
@@ -151,7 +150,7 @@ export const ObjectDetails = () => {
         {...gradientConfig}
         style={[styles.gradient, {height: top}]}
       />
-      <ClipboardToast {...toastProps} />
+      <SnackBar {...snackBarProps} />
       <ObjectDetailsHeader
         buttonsOpacity={buttonsOpacity}
         opacity={opacity}

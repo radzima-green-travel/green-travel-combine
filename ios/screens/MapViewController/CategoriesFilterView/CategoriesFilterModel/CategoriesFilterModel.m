@@ -37,7 +37,7 @@
         self.selectedCategoryUUIDs = [[NSMutableSet alloc] init];
         self.categoryUUIDs = [[NSMutableSet alloc] init];
         self.filterOptions = [[NSMutableArray alloc] init];
-        self.categoriesFilterObservers = [[NSMutableArray alloc] init];
+        self.categoriesFilterObservers = (NSMutableArray<CategoriesFilterObserver> *)[[NSMutableArray alloc] init];
         [self fillFilterOptionsFromCategories];
     }
     return self;
@@ -53,6 +53,8 @@
 - (void)onCategoriesUpdate:(nonnull NSArray<PlaceCategory *> *)categories {
     
 }
+
+- (void)onDetailsLoading:(BOOL)loading {}
 
 - (void)onMapItemsUpdate:(nonnull NSArray<MapItem *> *)mapItems {
     [self fillFilterOptionsFromCategories];

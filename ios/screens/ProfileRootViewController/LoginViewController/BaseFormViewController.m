@@ -22,8 +22,6 @@
 @end
 
 static const CGFloat kMinContentInset = 23.5;
-static const CGFloat kMaxContentWidth = 328.0;
-static const CGFloat kTopOffset = 90.0;
 
 @implementation BaseFormViewController
 
@@ -182,5 +180,7 @@ static const CGFloat kTopOffset = 90.0;
   textField.text = [textField.text stringByTrimmingCharactersInSet:
                [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
+
+- (void)onUserStateUpdate:(nonnull UserState *)emailSendingState {}
 
 @end

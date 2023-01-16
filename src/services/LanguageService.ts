@@ -24,11 +24,11 @@ class LanguageService {
   }
 
   public getPreferredLanguage(): string {
-    const deviceLanguage = RNLocalize.getLocales()?.[0]
+    const systemSettingsLanguage = RNLocalize.getLocales()?.[0]
       ?.languageCode as SupportedLocales;
 
-    return this.getSupportedLanguages().includes(deviceLanguage)
-      ? deviceLanguage
+    return this.getSupportedLanguages().includes(systemSettingsLanguage)
+      ? systemSettingsLanguage
       : DEFAULT_LOCALE;
   }
 

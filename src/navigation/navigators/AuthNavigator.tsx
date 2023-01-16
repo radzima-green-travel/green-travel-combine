@@ -18,7 +18,7 @@ import {defaultTransition} from '../transition';
 const Stack = createNativeStackNavigator<AuthNavigatorParamsList>();
 
 export function AuthNavigator() {
-  const screenOptions = useScreenOptions();
+  const screenOptions = useScreenOptions({withBottomInset: true});
   const {t} = useTranslation('common');
 
   return (
