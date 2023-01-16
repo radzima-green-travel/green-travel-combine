@@ -8,7 +8,6 @@
 import UIKit
 
 final class DividerWithTextView: UIView {
-  
   struct PresentationModel {
     let lineColor: UIColor
     let lineWidth: CGFloat

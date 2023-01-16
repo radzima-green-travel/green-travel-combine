@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1AD0802975B30C00C4F367 /* ButtonWithImageAndText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1AD07F2975B30C00C4F367 /* ButtonWithImageAndText.swift */; };
 		0D21BC95293A455C0064F686 /* SocialLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D21BC94293A455C0064F686 /* SocialLoginService.swift */; };
 		0D8DBB5929449015005C9DE1 /* AppAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */; };
 		0D8E2E11295254AF00978F5C /* UIImage+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8E2E10295254AF00978F5C /* UIImage+color.swift */; };
 		0D8E2E132952580700978F5C /* DividerWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8E2E122952580700978F5C /* DividerWithTextView.swift */; };
 		0D8E2E152952586600978F5C /* UILabel+StyledText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8E2E142952586600978F5C /* UILabel+StyledText.swift */; };
 		0DD4EBD72940D0E800A989AE /* SocialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */; };
-		0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
@@ -237,6 +237,7 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		0D1AD07F2975B30C00C4F367 /* ButtonWithImageAndText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWithImageAndText.swift; sourceTree = "<group>"; };
 		0D21BC94293A455C0064F686 /* SocialLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginService.swift; sourceTree = "<group>"; };
 		0D21BC96293A47540064F686 /* greenTravel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravel.entitlements; path = greenTravel/greenTravel.entitlements; sourceTree = "<group>"; };
 		0D3B911D294B16D900EE8F31 /* greenTravelDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelDebug.entitlements; path = greenTravel/greenTravelDebug.entitlements; sourceTree = "<group>"; };
@@ -246,7 +247,6 @@
 		0D8E2E142952586600978F5C /* UILabel+StyledText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+StyledText.swift"; sourceTree = "<group>"; };
 		0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
 		0DD4EBD82940DF5100A989AE /* SocialLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
-		0DD4EBDB2942489400A989AE /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Radzima Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Radzima Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = greenTravel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
@@ -731,7 +731,6 @@
 				5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */,
-				6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */,
 				5A39D6F126B34C04008FC20C /* Localizable.strings */,
 			);
 			name = GreenTravel;
@@ -1814,6 +1813,7 @@
 				5A9D706E26EE448000F4799D /* CommonButtonWithProgress */,
 				5AB4AFBA27B31D8C00C74857 /* LabelledButtonGroup */,
 				0D8E2E122952580700978F5C /* DividerWithTextView.swift */,
+				0D1AD07F2975B30C00C4F367 /* ButtonWithImageAndText.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -2427,6 +2427,7 @@
 				5A775B2526064C9000CEFC78 /* StoredCategory+CoreDataProperties.m in Sources */,
 				5A2315DA28E0A428004CB989 /* ApiServiceIndexFileLegacy.m in Sources */,
 				5EAE434328A6C5E200042455 /* SettingsTableViewCellModel.m in Sources */,
+				0D1AD0802975B30C00C4F367 /* ButtonWithImageAndText.swift in Sources */,
 				5A775DFC26077A7D00CEFC78 /* IndexViewControllerConstants.m in Sources */,
 				5A5DCEAE2687E5E7003025F5 /* ArrayUtils.m in Sources */,
 				5EAE434628A6C66800042455 /* ProfileSection.m in Sources */,

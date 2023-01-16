@@ -79,7 +79,7 @@
                           framework]) {
     u_int32_t randomNumber = arc4random_uniform(UINT32_MAX);
     u_int32_t pivot = UINT32_MAX / 2;
-    if (true) {//(randomNumber > pivot) {
+    if (randomNumber > pivot) {
       [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkUIKit];
     } else {
       [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkReact];

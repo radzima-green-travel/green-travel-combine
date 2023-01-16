@@ -9,7 +9,7 @@ import UIKit
 
 final class SocialLoginViewController: BaseFormViewController {
   private enum UIConst {
-    static let headerLabelText: StyledText = .init(text: NSLocalizedString("AuthProviderChoiceScreenLogInTitle", comment: ""),
+    static let headerLabelText: StyledText = .init(text: NSLocalizedString("LogInTitle", comment: ""),
                                                    font: .systemFont(ofSize: 20, weight: .medium),
                                                    color: Colors.get().blackAndWhite)
     static let buttonsStackSpacing: CGFloat = 16
@@ -149,7 +149,7 @@ extension SocialLoginViewController {
       }
     
     NSLayoutConstraint.activate([
-      headerLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor,
+      headerLabel.topAnchor.constraint(equalTo: contentView.topAnchor,
                                        constant: UIConst.headerLabelTopInset),
       headerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
       
@@ -158,11 +158,13 @@ extension SocialLoginViewController {
       buttonsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
       buttonsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
       
+      disclaimerView.topAnchor.constraint(greaterThanOrEqualTo: buttonsStackView.bottomAnchor,
+                                          constant: UIConst.dividerHeight),
       disclaimerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                               constant: UIConst.disclaimerSideInset),
       disclaimerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
                                                constant: -UIConst.disclaimerSideInset),
-      disclaimerView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor,
+      disclaimerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
                                              constant: -UIConst.disclaimerBottomInset)
     ])
   }
@@ -180,62 +182,5 @@ extension SocialLoginViewController {
         }
       }
     }
-  }
-}
-
-class ButtonWithImageAndText: UIButton {
-  
-  struct UIConst {
-    var buttonImageInset: CGFloat = 18
-    var buttonImageSize: CGSize = .init(width: 20, height: 20)
-    var buttonCornerRadius: CGFloat = 12
-    var buttonHeight: CGFloat = 48
-  }
-  
-  var onAction: (() -> Void)?
-  
-  func configure(backgroundColor: UIColor,
-                 image: UIImage,
-                 text: StyledText,
-                 border: Border? = nil,
-                 uiConst: UIConst) {
-    self.backgroundColor = backgroundColor
-    setTitle(text.text, for: .normal)
-    titleLabel?.font = text.font
-    setTitleColor(text.color, for: .normal)
-    setImage(image, for: .normal)
-    titleLabel?.textAlignment = .center
-    
-    if let imageView = imageView,
-       let titleLabel = titleLabel {
-      imageView.translatesAutoresizingMaskIntoConstraints = false
-      titleLabel.translatesAutoresizingMaskIntoConstraints = false
-      imageView.contentMode = .scaleAspectFit
-      NSLayoutConstraint.activate([
-        imageView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                           constant: uiConst.buttonImageInset),
-        imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-        imageView.heightAnchor.constraint(equalToConstant: uiConst.buttonImageSize.height),
-        imageView.widthAnchor.constraint(equalToConstant: uiConst.buttonImageSize.width),
-        
-        titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
-      ])
-    }
-    
-    if let border = border {
-      layer.borderColor = border.color
-      layer.borderWidth = border.width
-    }
-    layer.cornerRadius = uiConst.buttonCornerRadius
-    
-    translatesAutoresizingMaskIntoConstraints = false
-    heightAnchor.constraint(equalToConstant: uiConst.buttonHeight).isActive = true
-    
-    addTarget(self, action: #selector(onTap), for: .touchUpInside)
-  }
-  
-  @objc func onTap() {
-    onAction?()
   }
 }

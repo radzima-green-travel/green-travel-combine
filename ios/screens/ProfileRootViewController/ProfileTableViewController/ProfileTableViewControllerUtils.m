@@ -16,7 +16,6 @@
 #import "UIImage+extensions.h"
 #import "BookmarksViewController.h"
 #import "UserSettingsViewController.h"
-#import "SocialLoginViewController.h"
 
 #if PROD
 #import "Radzima-Swift.h"
