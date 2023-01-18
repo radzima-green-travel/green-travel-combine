@@ -11,14 +11,14 @@
 @implementation SettingsScreen
 
 - (instancetype)initWithName:(NSString *)name
-                     groups:(NSArray<SettingsGroup *> *)groups {
-	self = [super init];
-	if (self) {
-		_name = name;
-		_uid = [NSUUID UUID];
-		_groups = [NSMutableArray<SettingsGroup *> new];
-	}
-	return self;
+                      groups:(NSArray<SettingsGroup *> *)groups {
+  self = [super init];
+  if (self) {
+    _name = name;
+    _uid = [NSUUID UUID];
+    _groups = [NSMutableArray<SettingsGroup *> new];
+  }
+  return self;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
