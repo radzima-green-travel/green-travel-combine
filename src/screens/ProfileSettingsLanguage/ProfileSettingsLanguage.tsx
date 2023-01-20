@@ -32,7 +32,7 @@ export const ProfileSettingsLanguage = () => {
         loading={getItemLoading('en')}
         disabled={getItemDisabled('en')}
         onPress={() => changeLanguage('en')}
-        title={t('English')}
+        title={'English'}
         renderLeftElement={
           userLanguage === 'en' && (
             <Icon color={COLORS.apple} name="check" size={16} />
@@ -44,7 +44,7 @@ export const ProfileSettingsLanguage = () => {
         loading={getItemLoading('ru')}
         disabled={getItemDisabled('ru')}
         onPress={() => changeLanguage('ru')}
-        title={t('Русский')}
+        title={'Русский'}
         renderLeftElement={
           userLanguage === 'ru' && (
             <Icon color={COLORS.apple} name="check" size={16} />
@@ -56,7 +56,7 @@ export const ProfileSettingsLanguage = () => {
         loading={getItemLoading('zh')}
         disabled={getItemDisabled('zh')}
         onPress={() => changeLanguage('zh')}
-        title={t('中國人')}
+        title={'中國人'}
         renderLeftElement={
           userLanguage === 'zh' && (
             <Icon color={COLORS.apple} name="check" size={16} />
