@@ -15,10 +15,15 @@
 #import "SettingsEntrySelect.h"
 #import "SettingsEntryAction.h"
 #import "SettingsEntryNavigate.h"
+#import "SettingsEntryAuth.h"
 #import "SettingsActionTableViewCell.h"
 #import "SettingsNavigateTableViewCell.h"
 #import "SettingsSelectTableViewCell.h"
 #import "SettingsToggleTableViewCell.h"
+#import "SettingsBaseTableViewCell.h"
+#import "SettingsBaseTableViewCellConfig.h"
+#import "Colors.h"
+#import "StyleUtils.h"
 
 @interface SettingsViewController ()
 
@@ -28,10 +33,13 @@
 
 @end
 
+static const CGFloat kSettingsRowHeight = 44.0;
+static const CGFloat kAuthRowHeight = 96.0;
 static NSString * const kActionCellId = @"actionCellId";
 static NSString * const kToggleCellId = @"toggleCellId";
 static NSString * const kSelectCellId = @"selectCellId";
 static NSString * const kNavigateCellId = @"navigateCellId";
+static NSString * const kBaseCellId = @"baseCellId";
 
 @implementation SettingsViewController
 
@@ -46,13 +54,30 @@ static NSString * const kNavigateCellId = @"navigateCellId";
   return self;
 }
 
+- (void)viewWillLayoutSubviews {
+  [super viewWillLayoutSubviews];
+  configureNavigationBar(self.navigationController.navigationBar);
+  self.view.backgroundColor = [Colors get].backgroundProfileScreen;
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  if (@available(iOS 13.0, *)) {
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
+  } else {
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+  }
+  
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
   [self.tableView registerClass:SettingsActionTableViewCell.self forCellReuseIdentifier:kActionCellId];
   [self.tableView registerClass:SettingsToggleTableViewCell.self forCellReuseIdentifier:kToggleCellId];
   [self.tableView registerClass:SettingsSelectTableViewCell.self forCellReuseIdentifier:kSelectCellId];
   [self.tableView registerClass:SettingsNavigateTableViewCell.self forCellReuseIdentifier:kNavigateCellId];
+  [self.tableView registerClass:SettingsBaseTableViewCell.self forCellReuseIdentifier:kBaseCellId];
+  
+  [self.settingsModel addSettingsModelObserver:self];
 }
 
 #pragma mark - Table view data source
@@ -70,19 +95,46 @@ static NSString * const kNavigateCellId = @"navigateCellId";
   
   if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kToggleCellId forIndexPath:indexPath];
-    return (SettingsToggleTableViewCell *) cell;
-  }
-  if ([entry isKindOfClass:[SettingsEntryAction class]]) {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kActionCellId forIndexPath:indexPath];
-    return (SettingsActionTableViewCell *) cell;
-  }
-  if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kNavigateCellId forIndexPath:indexPath];
-    return (SettingsNavigateTableViewCell *) cell;
+    SettingsToggleTableViewCell *cellToggle = (SettingsToggleTableViewCell *) cell;
+    SettingsEntryToggle *entryToggle = (SettingsEntryToggle *) entry;
+    __weak typeof(self) weakSelf = self;
+    [cellToggle update:entry.name enabled:entryToggle.enabled onToggle:^(BOOL enabled) {
+      [weakSelf.settingsController interactWithSetting:entry onViewController:weakSelf];
+    }];
   }
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSelectCellId forIndexPath:indexPath];
-  return (SettingsSelectTableViewCell *) cell;
+  SettingsBaseTableViewCell *baseCell = [tableView dequeueReusableCellWithIdentifier:kBaseCellId forIndexPath:indexPath];
+  SettingsBaseTableViewCellConfig *config = [[SettingsBaseTableViewCellConfig alloc] initWithTitle:entry.name
+                                                                                  subTitle:entry.value
+                                                                                  iconName:entry.iconName
+                                                                                  chevron:entry.chevron];
+  [baseCell update:config];
+  return baseCell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.section];
+  if ([entry isKindOfClass:[SettingsEntryAuth class]]) {
+    return kAuthRowHeight;
+  }
+  return kSettingsRowHeight;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.section];
+  if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
+    return;
+  }
+  [self.settingsController interactWithSetting:entry onViewController:self];
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.section];
+  if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
+    return NO;
+  }
+  return YES;
 }
 
 /*
@@ -128,5 +180,17 @@ static NSString * const kNavigateCellId = @"navigateCellId";
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)onSettingsModelEntryChange:(nonnull SettingsEntry *)entry {
+  [self.tableView reloadData];
+}
+
+- (void)onSettingsModelGroupChange:(nonnull SettingsGroup *)group {
+  [self.tableView reloadData];
+}
+
+- (void)onSettingsModelTreeChange:(nonnull NSMutableArray<SettingsGroup *> *)tree {
+  [self.tableView reloadData];
+}
 
 @end

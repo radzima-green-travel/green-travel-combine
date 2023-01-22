@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSUUID *uid;
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *value;
+@property (assign, nonatomic) BOOL chevron;
+@property (strong, nonatomic) NSString *iconName;
 @property (weak, nonatomic) SettingsGroup *parentGroup;
 
 - (instancetype)initWithName:(NSString *)name
