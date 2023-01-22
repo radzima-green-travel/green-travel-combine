@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingsModelObserver.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SettingsModel;
 @class SettingsScreen;
 
-@interface SettingsViewController : UITableViewController
+@interface SettingsViewController : UITableViewController<SettingsModelObserver>
 
 - (instancetype)initWithSettingsController:(SettingsController *)settingsController
                              settingsModel:(SettingsModel *)settingsModel
