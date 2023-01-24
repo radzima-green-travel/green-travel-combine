@@ -5,8 +5,8 @@
 //  Created by Alex K on 21.01.23.
 //
 
-#import "SettingsEntryAuth.h"
+#import "SettingsEntryAuthLoggedOut.h"
 
-@implementation SettingsEntryAuth
+@implementation SettingsEntryAuthLoggedOut
 
 @end

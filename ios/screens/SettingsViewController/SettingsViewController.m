@@ -15,12 +15,15 @@
 #import "SettingsEntrySelect.h"
 #import "SettingsEntryAction.h"
 #import "SettingsEntryNavigate.h"
-#import "SettingsEntryAuth.h"
+#import "SettingsEntryAuthLoggedOut.h"
+#import "SettingsEntryAuthLoggedIn.h"
 #import "SettingsActionTableViewCell.h"
 #import "SettingsNavigateTableViewCell.h"
 #import "SettingsSelectTableViewCell.h"
 #import "SettingsToggleTableViewCell.h"
 #import "SettingsBaseTableViewCell.h"
+#import "AuthLoggedInTableViewCell.h"
+#import "AuthLoggedOutTableViewCell.h"
 #import "SettingsBaseTableViewCellConfig.h"
 #import "Colors.h"
 #import "StyleUtils.h"
@@ -40,6 +43,8 @@ static NSString * const kToggleCellId = @"toggleCellId";
 static NSString * const kSelectCellId = @"selectCellId";
 static NSString * const kNavigateCellId = @"navigateCellId";
 static NSString * const kBaseCellId = @"baseCellId";
+static NSString * const kAuthLoggedOutCellId = @"authLoggedOutCellId";
+static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
 
 @implementation SettingsViewController
 
@@ -101,6 +106,15 @@ static NSString * const kBaseCellId = @"baseCellId";
     [cellToggle update:entry.name enabled:entryToggle.enabled onToggle:^(BOOL enabled) {
       [weakSelf.settingsController interactWithSetting:entry onViewController:weakSelf];
     }];
+    return cellToggle;
+  }
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthLoggedOutCellId forIndexPath:indexPath];
+    return cell;
+  }
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedIn class]]) {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthLoggedInCellId forIndexPath:indexPath];
+    return cell;
   }
   
   SettingsBaseTableViewCell *baseCell = [tableView dequeueReusableCellWithIdentifier:kBaseCellId forIndexPath:indexPath];
@@ -114,7 +128,7 @@ static NSString * const kBaseCellId = @"baseCellId";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
   SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.section];
-  if ([entry isKindOfClass:[SettingsEntryAuth class]]) {
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
     return kAuthRowHeight;
   }
   return kSettingsRowHeight;

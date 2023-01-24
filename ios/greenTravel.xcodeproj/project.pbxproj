@@ -206,7 +206,7 @@
 		5AD1B2C52972D319005CED4E /* SettingsToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2C42972D319005CED4E /* SettingsToggleTableViewCell.m */; };
 		5AD1B2C92972D33E005CED4E /* SettingsSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2C82972D33E005CED4E /* SettingsSelectTableViewCell.m */; };
 		5AD1B2CD2972D353005CED4E /* SettingsNavigateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2CC2972D353005CED4E /* SettingsNavigateTableViewCell.m */; };
-		5AD1B2D0297C1DD2005CED4E /* SettingsEntryAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2CF297C1DD2005CED4E /* SettingsEntryAuth.m */; };
+		5AD1B2D0297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2CF297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.m */; };
 		5AD1B2D3297C1F4D005CED4E /* SettingsEntryLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2D2297C1F4D005CED4E /* SettingsEntryLink.m */; };
 		5AD1B2D7297C3AF8005CED4E /* SettingsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2D6297C3AF8005CED4E /* SettingsBaseTableViewCell.m */; };
 		5AD1F3842948C7F400ED288D /* SettingsEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1F3832948C7E900ED288D /* SettingsEntry.m */; };
@@ -222,6 +222,9 @@
 		5AD6BF1A26C030B100DD3F2B /* AnalyticsTimeTracer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD6BF1926C030B100DD3F2B /* AnalyticsTimeTracer.m */; };
 		5AD71D9D274D5CDA00F205AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AD71D9F274D5CDA00F205AD /* InfoPlist.strings */; };
 		5ADBAC3F27243A7D0006A8C1 /* Typography.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADBAC3E27243A7D0006A8C1 /* Typography.m */; };
+		5ADCF6032980452A0005B06A /* SettingsEntryAuthLoggedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADCF6022980452A0005B06A /* SettingsEntryAuthLoggedIn.m */; };
+		5ADCF6082981806B0005B06A /* AuthLoggedInTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADCF6072981806B0005B06A /* AuthLoggedInTableViewCell.m */; };
+		5ADCF60B298180800005B06A /* AuthLoggedOutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADCF60A298180800005B06A /* AuthLoggedOutTableViewCell.m */; };
 		5ADD30CD26A6E2C900551408 /* UserDefaultsServiceConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */; };
 		5ADD30EA26AB200300551408 /* IconNameToAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD30E926AB200300551408 /* IconNameToAnalyticsEvent.m */; };
 		5ADF034B283CED3200D98E9A /* UserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034A283CED3200D98E9A /* UserState.m */; };
@@ -645,8 +648,8 @@
 		5AD1B2C82972D33E005CED4E /* SettingsSelectTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsSelectTableViewCell.m; sourceTree = "<group>"; };
 		5AD1B2CB2972D353005CED4E /* SettingsNavigateTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsNavigateTableViewCell.h; sourceTree = "<group>"; };
 		5AD1B2CC2972D353005CED4E /* SettingsNavigateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsNavigateTableViewCell.m; sourceTree = "<group>"; };
-		5AD1B2CE297C1DD2005CED4E /* SettingsEntryAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryAuth.h; sourceTree = "<group>"; };
-		5AD1B2CF297C1DD2005CED4E /* SettingsEntryAuth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryAuth.m; sourceTree = "<group>"; };
+		5AD1B2CE297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryAuthLoggedOut.h; sourceTree = "<group>"; };
+		5AD1B2CF297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryAuthLoggedOut.m; sourceTree = "<group>"; };
 		5AD1B2D1297C1F4D005CED4E /* SettingsEntryLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryLink.h; sourceTree = "<group>"; };
 		5AD1B2D2297C1F4D005CED4E /* SettingsEntryLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryLink.m; sourceTree = "<group>"; };
 		5AD1B2D5297C3AF8005CED4E /* SettingsBaseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsBaseTableViewCell.h; sourceTree = "<group>"; };
@@ -678,6 +681,12 @@
 		5AD71DA0274D5CE000F205AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5ADBAC3D27243A7D0006A8C1 /* Typography.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Typography.h; sourceTree = "<group>"; };
 		5ADBAC3E27243A7D0006A8C1 /* Typography.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Typography.m; sourceTree = "<group>"; };
+		5ADCF6012980452A0005B06A /* SettingsEntryAuthLoggedIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryAuthLoggedIn.h; sourceTree = "<group>"; };
+		5ADCF6022980452A0005B06A /* SettingsEntryAuthLoggedIn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryAuthLoggedIn.m; sourceTree = "<group>"; };
+		5ADCF6062981806B0005B06A /* AuthLoggedInTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthLoggedInTableViewCell.h; sourceTree = "<group>"; };
+		5ADCF6072981806B0005B06A /* AuthLoggedInTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthLoggedInTableViewCell.m; sourceTree = "<group>"; };
+		5ADCF609298180800005B06A /* AuthLoggedOutTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthLoggedOutTableViewCell.h; sourceTree = "<group>"; };
+		5ADCF60A298180800005B06A /* AuthLoggedOutTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthLoggedOutTableViewCell.m; sourceTree = "<group>"; };
 		5ADD30CB26A6E29F00551408 /* UserDefaultsServiceConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsServiceConstants.h; sourceTree = "<group>"; };
 		5ADD30CC26A6E2BC00551408 /* UserDefaultsServiceConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsServiceConstants.m; sourceTree = "<group>"; };
 		5ADD30E826AB200300551408 /* IconNameToAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IconNameToAnalyticsEvent.h; sourceTree = "<group>"; };
@@ -842,8 +851,10 @@
 				5A2C905B2957248F008D8C7E /* SettingsEntryNavigate.m */,
 				5A2C9054295723D6008D8C7E /* SettingsEntryAction.h */,
 				5A2C9055295723D6008D8C7E /* SettingsEntryAction.m */,
-				5AD1B2CE297C1DD2005CED4E /* SettingsEntryAuth.h */,
-				5AD1B2CF297C1DD2005CED4E /* SettingsEntryAuth.m */,
+				5AD1B2CE297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.h */,
+				5AD1B2CF297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.m */,
+				5ADCF6012980452A0005B06A /* SettingsEntryAuthLoggedIn.h */,
+				5ADCF6022980452A0005B06A /* SettingsEntryAuthLoggedIn.m */,
 				5AD1B2D1297C1F4D005CED4E /* SettingsEntryLink.h */,
 				5AD1B2D2297C1F4D005CED4E /* SettingsEntryLink.m */,
 				5AA72542294C618900D9889C /* SettingsGroup.h */,
@@ -1707,6 +1718,8 @@
 		5A78A4ED295873C5007749F3 /* SettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5ADCF60529817AEF0005B06A /* AuthLoggedInTableViewCell */,
+				5ADCF60429817A4F0005B06A /* AuthLoggedOutTableViewCell */,
 				5A78A4EE29587549007749F3 /* SettingsViewController.h */,
 				5A78A4EF29587549007749F3 /* SettingsViewController.m */,
 				5AD1B2D4297C3AC9005CED4E /* SettingsBaseTableViewCell */,
@@ -1937,6 +1950,24 @@
 				5AD347EE2837FD2800235E96 /* SignUpFormView.m */,
 			);
 			path = SignUpFormView;
+			sourceTree = "<group>";
+		};
+		5ADCF60429817A4F0005B06A /* AuthLoggedOutTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5ADCF609298180800005B06A /* AuthLoggedOutTableViewCell.h */,
+				5ADCF60A298180800005B06A /* AuthLoggedOutTableViewCell.m */,
+			);
+			path = AuthLoggedOutTableViewCell;
+			sourceTree = "<group>";
+		};
+		5ADCF60529817AEF0005B06A /* AuthLoggedInTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5ADCF6062981806B0005B06A /* AuthLoggedInTableViewCell.h */,
+				5ADCF6072981806B0005B06A /* AuthLoggedInTableViewCell.m */,
+			);
+			path = AuthLoggedInTableViewCell;
 			sourceTree = "<group>";
 		};
 		5ADF034C283D1C2700D98E9A /* AuthService */ = {
@@ -2511,6 +2542,7 @@
 				5A775E0026077A7D00CEFC78 /* FilterOption.m in Sources */,
 				5A775E1026077A7D00CEFC78 /* BannerView.m in Sources */,
 				5A775E0326077A7D00CEFC78 /* CategoriesFilterView.m in Sources */,
+				5ADCF60B298180800005B06A /* AuthLoggedOutTableViewCell.m in Sources */,
 				5A775B5226064C9000CEFC78 /* FeedModel.m in Sources */,
 				5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */,
 				5A5E2B05275CE3AB00A20489 /* ZoomableImageCollectionViewCell.m in Sources */,
@@ -2523,6 +2555,7 @@
 				5AB4AFD527C27B2B00C74857 /* DetailsScreenController.m in Sources */,
 				5AA72544294C618900D9889C /* SettingsGroup.m in Sources */,
 				5A775E1326077A7D00CEFC78 /* UISearchBarNoCancel.m in Sources */,
+				5ADCF6032980452A0005B06A /* SettingsEntryAuthLoggedIn.m in Sources */,
 				5AD6BF1526BEACA000DD3F2B /* AnalyticsUIScrollViewDelegate.m in Sources */,
 				5A78A4E929572E72007749F3 /* SettingsEntrySelect.m in Sources */,
 				5A8EB19D264E7DB000333F1E /* BaseMapViewController.m in Sources */,
@@ -2560,7 +2593,7 @@
 				5A9D707226EE7F4200F4799D /* BottomSheetViewDetailedMap.m in Sources */,
 				5A775E0826077A7D00CEFC78 /* DescriptionView.m in Sources */,
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
-				5AD1B2D0297C1DD2005CED4E /* SettingsEntryAuth.m in Sources */,
+				5AD1B2D0297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
 				5A6685E2285A36AC008E193E /* ResetPasswordEMailViewController.m in Sources */,
@@ -2587,6 +2620,7 @@
 				5AB4AFD227B5B20E00C74857 /* StoredInformationReference+CoreDataProperties.m in Sources */,
 				5A775B2126064C9000CEFC78 /* StoredRelatedItemUUID+CoreDataClass.m in Sources */,
 				5AB4AFD027B5B20E00C74857 /* StoredInformationReference+CoreDataClass.m in Sources */,
+				5ADCF6082981806B0005B06A /* AuthLoggedInTableViewCell.m in Sources */,
 				5A775E1526077A7D00CEFC78 /* SearchCell.m in Sources */,
 				5A775DF626077A7D00CEFC78 /* BookmarkCell.m in Sources */,
 				5A775B5826064C9000CEFC78 /* CategoryUUIDToRelatedItemUUIDs.m in Sources */,
