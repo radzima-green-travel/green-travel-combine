@@ -75,16 +75,20 @@
 
 - (void)initAppBasedOnDefaults {
   NSString *framework = [self.userDefaultsService loadFrameworkValue];
-  if (framework == nil || [UserDefaultsServiceConstantsFrameworkRandom isEqualToString:
+  if (framework == nil) {
+    framework = DEFAULT_FRAMEWORK;
+  }
+  if ([UserDefaultsServiceConstantsFrameworkRandom isEqualToString:
                           framework]) {
     u_int32_t randomNumber = arc4random_uniform(UINT32_MAX);
     u_int32_t pivot = UINT32_MAX / 2;
     if (randomNumber > pivot) {
-      [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkUIKit];
+      framework = UserDefaultsServiceConstantsFrameworkUIKit;
     } else {
-      [self.userDefaultsService saveFrameworkValue:UserDefaultsServiceConstantsFrameworkReact];
+      framework = UserDefaultsServiceConstantsFrameworkReact;
     }
   }
+  [self.userDefaultsService saveFrameworkValue:framework];
   
   [self saveVersion];
 }
