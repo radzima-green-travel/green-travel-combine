@@ -167,7 +167,8 @@
   return [self findScreenByID:(NSUUID *)uuid forTree:self.tree];
 }
 
-- (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
+                        toCurrentState:(UserModelState)currentState {
 }
 
 @end

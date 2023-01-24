@@ -5,11 +5,11 @@
 //  Created by Alex K on 21.01.23.
 //
 
-#import "SettingsEntry.h"
+#import "SettingsEntryAction.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SettingsEntryAuth : SettingsEntry
+@interface SettingsEntryAuthLoggedOut : SettingsEntryAction
 
 @end
 
