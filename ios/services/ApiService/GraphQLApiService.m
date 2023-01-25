@@ -15,9 +15,8 @@
 #import "LocaleConstants.h"
 
 @interface GraphQLApiService()
-
 @property (strong, nonatomic) NSCache<NSString *, NSMutableString *> *queryCache;
-
+@property (strong, nonatomic) NSURLSession *session;
 @end
 
 static NSString * const kQueryGetTag = @"index-tag";
@@ -25,6 +24,14 @@ static NSString * const kQueryGetIndexLocaleAny = @"index-locale-any";
 static NSString * const kQueryGetIndexLocaleLegacy = @"index-locale-legacy";
 
 @implementation GraphQLApiService
+
+- (instancetype)initWithSession:(NSURLSession *)session {
+    self = [super init];
+    if (self) {
+        _session = session;
+    }
+    return self;
+}
 
 - (NSString *)categoriesURL {
   return [NSString stringWithFormat:@"%@", NATIVE_CLIENT_GRAPHQL_URL];

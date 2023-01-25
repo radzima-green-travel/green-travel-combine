@@ -6,12 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ApiServiceBase.h"
+#import "IndexLoader.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GraphQLApiService : ApiServiceBase
-
+@interface GraphQLApiService: NSObject<IndexLoader>
+- (instancetype)initWithSession:(NSURLSession *)session;
 @end
 
 NS_ASSUME_NONNULL_END
