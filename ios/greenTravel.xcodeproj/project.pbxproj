@@ -246,7 +246,6 @@
 		0D8E2E122952580700978F5C /* DividerWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerWithTextView.swift; sourceTree = "<group>"; };
 		0D8E2E142952586600978F5C /* UILabel+StyledText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+StyledText.swift"; sourceTree = "<group>"; };
 		0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginViewController.swift; sourceTree = "<group>"; };
-		0DD4EBD82940DF5100A989AE /* SocialLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Radzima Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Radzima Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = greenTravel/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = greenTravel/Info.plist; sourceTree = "<group>"; };
@@ -768,7 +767,6 @@
 				5ACDFCDA285DFA2A0079C8EC /* CommonFormConstants.h */,
 				5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */,
 				0DD4EBD62940D0E800A989AE /* SocialLoginViewController.swift */,
-				0DD4EBD82940DF5100A989AE /* SocialLoginViewController.h */,
 				0D8DBB5829449015005C9DE1 /* AppAuthProvider.swift */,
 			);
 			path = LoginViewController;
