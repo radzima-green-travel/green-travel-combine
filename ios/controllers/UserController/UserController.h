@@ -11,8 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class UserModel;
 @class AuthService;
+@class SocialLoginService;
 
 @interface UserController : NSObject
+@property(strong, nonatomic) AuthService *authService;
 
 - (instancetype)initWithModel:(UserModel *)model authService:(AuthService *)authService;
 - (void)fetchCurrentAuthSession;

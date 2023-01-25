@@ -12,10 +12,15 @@
 #import "UserState.h"
 #import "UserModelConstants.h"
 
+#if PROD
+#import "Radzima-Swift.h"
+#else
+#import "Radzima_Dev-Swift.h"
+#endif
+
 @interface UserController()
 
 @property(strong, nonatomic) UserModel *model;
-@property(strong, nonatomic) AuthService *authService;
 
 @end
 
@@ -28,6 +33,12 @@
     _model = model;
     _authService = authService;
   }
+  __weak typeof(self) weakSelf = self;
+  _authService.socialLoginService.signedInCallback = ^{
+    [weakSelf fetchUserAttributesAndSetUserState:UserModelStateSignedIn
+                               fallbackState:UserModelStateFetched];
+  };
+  
   return self;
 }
 

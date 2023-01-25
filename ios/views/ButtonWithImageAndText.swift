@@ -21,7 +21,7 @@ public final class ButtonWithImageAndText: UIButton {
   func configure(backgroundColor: UIColor,
                  image: UIImage,
                  text: StyledText,
-                 border: Border? = nil,
+                 border: ButtonBorder? = nil,
                  uiConst: UIConst) {
     self.backgroundColor = backgroundColor
     setTitle(text.text, for: .normal)

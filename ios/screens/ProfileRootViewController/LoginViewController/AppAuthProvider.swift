@@ -22,7 +22,7 @@ struct StyledText {
   }
 }
 
-struct Border {
+struct ButtonBorder {
   let color: CGColor
   let width: CGFloat
 }
@@ -72,7 +72,7 @@ extension AppAuthProvider {
     }
   }
   
-  var border: Border? {
+  var border: ButtonBorder? {
     switch self {
     case .apple:
       return nil

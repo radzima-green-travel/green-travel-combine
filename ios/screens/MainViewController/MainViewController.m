@@ -100,7 +100,9 @@ static BOOL kSignUpEnabled = YES;
     MapModel *mapModel = [[MapModel alloc] initWithIndexModel:self.indexModel locationModel:locationModel];
     BookmarksGroupModel *bookmarksGroupsModel = [[BookmarksGroupModel alloc] initWithIndexModel:self.indexModel];
     AmplifyBridge *bridge = [AmplifyBridge new];
-    AuthService *authService = [[AuthService alloc] initWithAmplifyBridge:bridge];
+    SocialLoginService *socialLoginService = [SocialLoginService new];
+    AuthService *authService = [[AuthService alloc] initWithAmplifyBridge:bridge
+                                                       socialLoginservice:socialLoginService];
     UserModel *userModel = [[UserModel alloc] init];
     UserController *userController = [[UserController alloc] initWithModel:userModel authService:authService];
 

@@ -48,8 +48,6 @@ final class SocialLoginViewController: BaseFormViewController {
                   color: Colors.get().dividerText))
   }
   
-  private lazy var loginService = SocialLoginService()
-  
   private lazy var headerLabel: UILabel = {
     let label = UILabel()
     label.configureWith(UIConst.headerLabelText)
@@ -95,13 +93,13 @@ final class SocialLoginViewController: BaseFormViewController {
     case .email:
       pushEmailLoginPath()
     case .apple, .facebook, .google:
-      loginService.handleSocialSignIn(provider: provider.rawValue, on: view.window)
+      userController.authService.socialLoginService.handleSocialSignIn(provider: provider.rawValue, on: view.window)
     }
   }
   
   private func pushEmailLoginPath() {
-    let vc = LoginViewController(controller: userController, model: userModel)
-    show(vc, sender: self)
+    let loginVC = LoginViewController(controller: userController, model: userModel)
+    show(loginVC, sender: self)
   }
 }
 

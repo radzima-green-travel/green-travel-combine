@@ -16,10 +16,12 @@
 
 @implementation AuthService
 
-- (instancetype)initWithAmplifyBridge:(AmplifyBridge *)amplifyBridge {
+- (instancetype)initWithAmplifyBridge:(AmplifyBridge *)amplifyBridge
+                   socialLoginservice: (SocialLoginService *) socialLoginService {
   self = [super init];
   if (self) {
     _amplifyBridge = amplifyBridge;
+    _socialLoginService = socialLoginService;
   }
   return self;
 }

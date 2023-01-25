@@ -11,6 +11,8 @@ import AWSMobileClient
 
 final class SocialLoginService: NSObject {
   
+  @objc var signedInCallback: (() -> Void)?
+  
   private var window: UIWindow?
   
   func handleSocialSignIn(provider: String, on window: UIWindow?) {
@@ -43,13 +45,14 @@ final class SocialLoginService: NSObject {
   }
   
   private func socialSignInWithWebUI(provider: AuthProvider) {
-    Amplify.Auth.signInWithWebUI(for: provider, presentationAnchor: window ?? UIWindow()) { result in
+    Amplify.Auth.signInWithWebUI(for: provider, presentationAnchor: window ?? UIWindow()) { [weak self] result in
       switch result {
       case .success(let signInFlow):
-        print("Next step: \(signInFlow.nextStep)")
-        print("Sign in succeeded: \(signInFlow.isSignedIn)")
+        if signInFlow.isSignedIn {
+          self?.signedInCallback?()
+        }
       case .failure(let error):
-        print("Sign in failed \(error)")
+        print("Social sign in with WebUI failed \(error)")
       }
     }
   }
@@ -71,7 +74,7 @@ extension SocialLoginService: ASAuthorizationControllerDelegate {
     }
     
     AWSMobileClient.default().federatedSignIn(providerName: IdentityProvider.apple.rawValue,
-                                              token: identityToken) { userState, error in
+                                              token: identityToken) { [weak self] userState, error in
       if let error = error {
         print("🍏 Error in federatedSignIn: \(error)")
         return
@@ -83,6 +86,9 @@ extension SocialLoginService: ASAuthorizationControllerDelegate {
       }
       
       print("🍏 federatedSignIn successful: \(userState)")
+      if userState == .signedIn {
+        self?.signedInCallback?()
+      }
     }
   }
   

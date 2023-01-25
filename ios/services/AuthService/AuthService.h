@@ -10,10 +10,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class AmplifyBridge;
+@class SocialLoginService;
 
 @interface AuthService : NSObject
+@property(strong, nonatomic) SocialLoginService *socialLoginService;
 
-- (instancetype)initWithAmplifyBridge:(AmplifyBridge *)amplifyBridge;
+- (instancetype)initWithAmplifyBridge:(AmplifyBridge *)amplifyBridge
+                   socialLoginservice: (SocialLoginService *) socialLoginService;
 - (void)fetchCurrentAuthSession:(void(^)(NSError * _Nonnull, BOOL))completion;
 - (void)fetchUserAttributes:(void (^)(NSString * _Nullable userEmail, NSError * _Nullable error))completion;
 - (void)signInWithUsername:(NSString *)username
