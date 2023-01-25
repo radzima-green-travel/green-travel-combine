@@ -12,9 +12,21 @@
 #import <react-native-ultimate-config/ConfigValues.h>
 #import "CategoryUtils.h"
 
+@interface ApiServiceIndexFile()
+@property (strong, nonatomic) NSURLSession *session;
+@end
+
 @implementation ApiServiceIndexFile
 
 static const NSString * kAPIVersion = @"v1";
+
+- (instancetype)initWithSession:(NSURLSession *)session {
+    self = [super init];
+    if (self) {
+        _session = session;
+    }
+    return self;
+}
 
 - (NSString *)categoriesURL {
   NSString *lang = getCurrentLocaleLanguageCode();
