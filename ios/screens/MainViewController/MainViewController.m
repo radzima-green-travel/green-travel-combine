@@ -41,7 +41,7 @@
 #import "AccessibilityUtils.h"
 
 #if PROD
-static BOOL kSignUpEnabled = NO;
+static BOOL kSignUpEnabled = YES;
 #else
 static BOOL kSignUpEnabled = YES;
 #endif
