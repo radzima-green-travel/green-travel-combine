@@ -2797,7 +2797,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPAM Radzima Distribution AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "EPAM Radzima App Store Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
