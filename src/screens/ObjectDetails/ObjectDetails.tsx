@@ -91,9 +91,9 @@ export const ObjectDetails = () => {
             <Button
               style={styles.button}
               onPress={navigateToObjectsMap}
-              testID={TestIDs.SeeOnTheMapButton}>
-              {t('seeOnTheMap')}
-            </Button>
+              testID={TestIDs.SeeOnTheMapButton}
+              text={t('seeOnTheMap')}
+            />
           ) : null}
         </View>
         <ObjectDescription description={data.description} />

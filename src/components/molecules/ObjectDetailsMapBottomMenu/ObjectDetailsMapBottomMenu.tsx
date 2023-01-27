@@ -90,9 +90,9 @@ export const ObjectDetailsMapBottomMenu = memo(
             loading={loading}
             onPress={() => {
               onButtonPress(data);
-            }}>
-            {t(isDirectionShowed ? 'go' : 'show direction')}
-          </Button>
+            }}
+            text={t(isDirectionShowed ? 'go' : 'show direction')}
+          />
         </View>
       </View>
     );

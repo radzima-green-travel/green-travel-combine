@@ -22,9 +22,11 @@ export const ErrorView = memo(({onTryAgainPress}: IProps) => {
     <View style={styles.container}>
       <Icon style={styles.icon} name="error" width={width} height={height} />
       <Text style={styles.text}>{t('errors.default.text')}</Text>
-      <Button style={styles.buttonContainer} onPress={onTryAgainPress}>
-        {t('tryAgain')}
-      </Button>
+      <Button
+        style={styles.buttonContainer}
+        onPress={onTryAgainPress}
+        text={t('tryAgain')}
+      />
     </View>
   );
 });

@@ -12,4 +12,8 @@ export const styles = StyleSheet.create({
   text: {
     ...FONTS_STYLES.semibold14,
   },
+  leftIconWrapper: {
+    position: 'absolute',
+    left: 18,
+  },
 });

@@ -43,9 +43,9 @@ export const AuthForm = memo(
         <Button
           loading={submitButtonLoading}
           disabled={isSubmitButtonDisabled}
-          onPress={onSubmitPress}>
-          {submitButtonText}
-        </Button>
+          onPress={onSubmitPress}
+          text={submitButtonText}
+        />
         {secondaryButtonText ? (
           <Pressable onPress={onSecondaryButtonPress}>
             <Text style={styles.secondaryButtonText}>

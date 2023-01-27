@@ -6,6 +6,7 @@ import {
   ViewStyle,
   ActivityIndicator,
   Pressable,
+  View,
 } from 'react-native';
 
 import {BUTTON_THEMES} from './constants';
@@ -13,19 +14,21 @@ import {styles} from './styles';
 import {ButtonThemes} from './types';
 
 type Props = PropsWithChildren<{
-  children: string;
+  text: string;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   theme?: ButtonThemes;
   loading?: boolean;
   disabled?: boolean;
+  leftIcon?: React.FC<any>;
   testID?: string;
 }>;
 
 export const Button = memo(
   ({
     onPress,
-    children,
+    text,
+    leftIcon: LeftIcon,
     loading = false,
     disabled = false,
     style,
@@ -64,14 +67,19 @@ export const Button = memo(
             color={buttonThemeStyles.text?.color}
           />
         ) : (
-          <Text
-            style={[
-              styles.text,
-              buttonThemeStyles.text,
-              disabled && buttonThemeStyles.disabledText,
-            ]}>
-            {children}
-          </Text>
+          <>
+            <View style={styles.leftIconWrapper}>
+              {LeftIcon && <LeftIcon />}
+            </View>
+            <Text
+              style={[
+                styles.text,
+                buttonThemeStyles.text,
+                disabled && buttonThemeStyles.disabledText,
+              ]}>
+              {text}
+            </Text>
+          </>
         )}
       </Pressable>
     );
