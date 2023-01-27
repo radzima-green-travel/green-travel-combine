@@ -22,4 +22,37 @@ export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
       color: COLORS.white,
     },
   },
+  blackAndWhite: {
+    container: {
+      backgroundColor: {
+        light: COLORS.black,
+        dark: COLORS.white,
+      },
+    },
+    text: {
+      color: {
+        light: COLORS.white,
+        dark: COLORS.black,
+      },
+    },
+  },
+  bordered: {
+    container: {
+      backgroundColor: {
+        light: 'transparent',
+        dark: COLORS.mirage,
+      },
+      borderWidth: 1,
+      borderColor: {
+        light: COLORS.boulder,
+        dark: COLORS.silver,
+      },
+    },
+    text: {
+      color: {
+        light: COLORS.balticSea,
+        dark: COLORS.white,
+      },
+    },
+  },
 };

@@ -20,6 +20,7 @@ export type IconsNames =
   | 'defaultAcc'
   | 'delete'
   | 'email'
+  | 'emailAuth'
   | 'error'
   | 'eye'
   | 'eyeOff'

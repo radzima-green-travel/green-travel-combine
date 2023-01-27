@@ -1,5 +1,6 @@
 {
   "common": {
+    "or": "или",
     "errors": {
       "-1": {
         "title": "Ошибка сети",
@@ -116,7 +117,12 @@
     "weKnowYou": "Похоже мы уже знаем Вас",
     "enterEmailAddress": "Введите электронный адрес",
     "checkAccount": "Давайте проверим есть ли у Вас аккаунт...",
-    "check": "Проверить"
+    "check": "Проверить",
+    "authSelectionTitle": "Войти или создать аккаунт",
+    "facebookAuth": "Продолжить с Facebook",
+    "googleAuth": "Продолжить с Google",
+    "emailAuth": "Продолжить с Эл. почтой",
+    "appleAuth": "Продолжить с Apple"
   },
   "profile": {
     "notAuthorrized": {

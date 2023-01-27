@@ -68,3 +68,4 @@ export {default as strokeWaterRouteDark} from './strokeWaterRouteDark.svg';
 export {default as theme} from './theme.svg';
 export {default as warMonuments} from './warMonuments.svg';
 export {default as wave} from './wave.svg';
+export {default as emailAuth} from './emailAuth.svg';

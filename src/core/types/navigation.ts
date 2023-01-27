@@ -89,4 +89,5 @@ export type AuthNavigatorParamsList = {
     email: string;
     isSignUp: boolean;
   };
+  AuthMethodSelection: undefined;
 };

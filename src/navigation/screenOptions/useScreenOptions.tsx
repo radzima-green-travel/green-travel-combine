@@ -23,7 +23,7 @@ export function useScreenOptions({
     contentStyle: {
       backgroundColor:
         colorScheme === 'light' ? COLORS.white : COLORS.background,
-      ...(withBottomInset ? {marginBottom: bottom} : {}),
+      ...(withBottomInset ? {paddingBottom: bottom} : {}),
     },
     header: ({navigation, route, options, back}) => {
       const {title, ...restOptions} = options;

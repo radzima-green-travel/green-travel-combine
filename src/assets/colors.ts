@@ -24,4 +24,5 @@ export const COLORS = {
   mirage: '#1A282F',
   oxfordBlue: '#30444E',
   tuna: '#3c3c43',
+  balticSea: '#262626',
 };

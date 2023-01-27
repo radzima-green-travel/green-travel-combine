@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  AuthMethodSelectionScreen,
   CheckEmailScreen,
   EmailValidationScreen,
   SignInPasswordScreen,
@@ -29,6 +30,10 @@ export function AuthNavigator() {
         animation: defaultTransition,
       }}>
       <Stack.Screen name="CheckEmail" component={CheckEmailScreen} />
+      <Stack.Screen
+        name="AuthMethodSelection"
+        component={AuthMethodSelectionScreen}
+      />
       <Stack.Screen name="SignInPassword" component={SignInPasswordScreen} />
       <Stack.Screen name="SignUpForm" component={SignUpFormScreen} />
       <Stack.Screen name="CodeVerification" component={EmailValidationScreen} />

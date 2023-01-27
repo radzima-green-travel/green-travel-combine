@@ -72,9 +72,9 @@ export const AppMapBottomMenu = memo(
             style={[styles.button, !bottomInset && {marginBottom: 16}]}
             onPress={() => {
               onGetMorePress(data);
-            }}>
-            {t('getMore')}
-          </Button>
+            }}
+            text={t('getMore')}
+          />
         </View>
       </View>
     );

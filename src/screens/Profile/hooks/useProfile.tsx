@@ -14,7 +14,7 @@ export const useProfile = () => {
       navigation.navigate('ProfileDetails');
     } else {
       navigation.navigate('AuthNavigator', {
-        screen: 'CheckEmail',
+        screen: 'AuthMethodSelection',
       });
     }
   }, [isAuthorized, navigation]);

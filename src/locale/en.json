@@ -1,5 +1,6 @@
 {
   "common": {
+    "or": "or",
     "errors": {
       "-1": {
         "title": "Route cannot be built, sorry",
@@ -116,7 +117,12 @@
     "weKnowYou": "Looks like we already know you",
     "enterEmailAddress": "Enter your email address",
     "checkAccount": "Let's check if you have an account...",
-    "check": "Check"
+    "check": "Check",
+    "authSelectionTitle": "en_Войти или создать аккаунт",
+    "facebookAuth": "en_Продолжить с Facebook",
+    "googleAuth": "en_Продолжить с Google",
+    "emailAuth": "en_Продолжить с Эл. почтой",
+    "appleAuth": "en_Продолжить с Apple"
   },
   "profile": {
     "notAuthorrized": {
