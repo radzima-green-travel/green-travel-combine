@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
                              userModel:(UserModel *)userModel;
 - (void)updateEntry:(SettingsEntry *)updatedEntry;
 - (void)updateGroup:(SettingsGroup *)updatedGroup;
+- (void)updateScreen:(SettingsScreen *)updatedScreen;
 - (SettingsScreen *)findScreenByID:(NSUUID *)uuid;
 
 @end

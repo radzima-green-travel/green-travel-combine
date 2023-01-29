@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSUUID *uid;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSArray<SettingsGroup *> *groups;
+@property (strong, nonatomic) NSMutableArray<SettingsGroup *> *groups;
 
 - (instancetype)initWithName:(NSString *)name
                      groups:(NSArray<SettingsGroup *>*)groups;
