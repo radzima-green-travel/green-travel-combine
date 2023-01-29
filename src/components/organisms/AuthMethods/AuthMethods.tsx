@@ -3,7 +3,6 @@ import {View, Text} from 'react-native';
 import {Button, Icon} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
 import {isIOS} from 'services/PlatformService';
-
 import {themeStyles} from './styles';
 import {useTranslation} from 'react-i18next';
 
