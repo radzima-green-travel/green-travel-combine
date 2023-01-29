@@ -9,9 +9,10 @@ import {
   setLanguage,
 } from '../../reducers';
 import {ILabelError, SupportedLocales} from 'core/types';
-import {selectAppLanguage} from 'core/selectors';
+import {selectAppLanguage, selectUserAuthorized} from 'core/selectors';
 import {getInitialHomeDataSaga} from '../home/getInitialHomeDataSaga';
 import {resetEtags} from 'api/rest/interceptors';
+import {Auth} from 'aws-amplify';
 
 export function* changeAppLanguageSaga({
   payload: {language, isSystemLanguage},
@@ -20,6 +21,7 @@ export function* changeAppLanguageSaga({
 
   try {
     const prevLanguage = yield select(selectAppLanguage);
+    const isUserAuthorized = yield select(selectUserAuthorized);
 
     if (isSystemLanguage) {
       nextLanguage = yield call([
@@ -45,6 +47,14 @@ export function* changeAppLanguageSaga({
     if (isLocaledUpdated) {
       yield call(resetEtags);
       yield call(getInitialHomeDataSaga);
+    }
+
+    if (isUserAuthorized) {
+      const user = yield call([Auth, Auth.currentAuthenticatedUser]);
+
+      yield call([Auth, Auth.updateUserAttributes], user, {
+        'custom:locale': language,
+      });
     }
 
     yield put(changeLanguageSuccess());
