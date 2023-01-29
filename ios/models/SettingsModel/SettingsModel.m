@@ -11,6 +11,8 @@
 #import "SettingsEntry.h"
 #import "SettingsScreen.h"
 #import "SettingsEntryAction.h"
+#import "SettingsEntryAuthLoggedOut.h"
+#import "SettingsEntryAuthLoggedIn.h"
 #import "SettingsEntryNavigate.h"
 #import "SettingsScreen.h"
 #import "UserModel.h"
@@ -43,7 +45,7 @@
 
 - (void)setUp {
 #pragma mark - Auth group
-  SettingsEntryAction *authEntry = [SettingsEntryAction new];
+  SettingsEntryAuthLoggedOut *authEntry = [SettingsEntryAuthLoggedOut new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
   authEntry.doAction = ^void(UIViewController *activeViewController) {
     ProfileTableViewController *profileTableViewController = (ProfileTableViewController *)activeViewController;
@@ -57,7 +59,7 @@
     }
     [activeViewController presentViewController:loginViewControllerWithNavigation animated:YES completion:^{}];
   };
-
+  
   SettingsGroup *authGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[authEntry]];
 #pragma mark - General group
@@ -67,7 +69,7 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
                                        options:@{} completionHandler:^(BOOL success) {}];
   };
-
+  
   SettingsEntryAction *clearCacheEntry = [SettingsEntryAction new];
   clearCacheEntry.name = NSLocalizedString(@"Language", @"");
   clearCacheEntry.doAction = ^void(UIViewController *activeViewController) {
@@ -87,31 +89,99 @@
   SettingsEntryAction *aboutTextEntry = [SettingsEntryAction new];
   aboutTextEntry.name = NSLocalizedString(@"Language", @"");
   aboutTextEntry.doAction = ^void(UIViewController *activeViewController) {};
-
+  
   SettingsGroup *aboutTextGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[aboutTextEntry]];
-
+  
   SettingsScreen *screenAbout = [SettingsScreen new];
   screenAbout.name = @"";
   screenAbout.groups = @[aboutTextGroup];
-
+  
   SettingsEntryNavigate *aboutEntry = [SettingsEntryNavigate new];
   aboutEntry.name = NSLocalizedString(@"Language", @"");
   aboutEntry.screen = [SettingsScreen new];
-
+  
   SettingsGroup *aboutGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[aboutEntry]];
-
+  
 #pragma mark - Assembling to root
-  self.tree.groups = @[authGroup, generalGroup, aboutGroup];
+  self.tree.groups =
+  [[NSMutableArray alloc] initWithArray:@[authGroup, generalGroup, aboutGroup]];
 }
 
+- (void)updateEntry:(SettingsEntry *)updatedEntry
+            forTree:(SettingsScreen *)tree {
+  for (NSUInteger i = 0; i < [tree.groups count]; i++) {
+    SettingsGroup *group = tree.groups[i];
+    for (NSUInteger j = 0; j < [group.entries count]; j++) {
+      if ([updatedEntry.uid isEqual:group.entries[i].uid]) {
+        group.entries[i] = updatedEntry;
+        break;
+      }
+    }
+    [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
+      if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+        SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
+        [self updateEntry:updatedEntry forTree:entryNavigate.screen];
+      }
+    }];
+  }
+}
+
+- (void)updateGroup:(SettingsGroup *)updatedGroup
+            forTree:(SettingsScreen *)tree {
+  for (NSUInteger i = 0; i < [tree.groups count]; i++) {
+    SettingsGroup *group = tree.groups[i];
+    if ([updatedGroup.uid isEqual:tree.groups[i].uid]) {
+      tree.groups[i] = updatedGroup;
+      break;
+    }
+    [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
+      if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+        SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
+        [self updateGroup:updatedGroup forTree:entryNavigate.screen];
+      }
+    }];
+  }
+}
+
+- (void)updateScreen:(SettingsScreen *)updatedScreen
+            forTree:(SettingsScreen *)tree {
+  for (NSUInteger i = 0; i < [tree.groups count]; i++) {
+    SettingsGroup *group = tree.groups[i];
+    for (NSUInteger j = 0; j < [group.entries count]; j++) {
+      SettingsEntry *entry = group.entries[j];
+      if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+        SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
+        if ([entryNavigate.screen.uid isEqual:updatedScreen.uid]) {
+          entryNavigate.screen = updatedScreen;
+          return;
+        }
+        [self updateScreen:updatedScreen forTree:tree];
+      }
+    }
+  }
+}
+
+#pragma mark - update entities
 - (void)updateEntry:(SettingsEntry *)updatedEntry {
+  [self updateEntry:updatedEntry forTree:self.tree];
   [self notifySettingsModelObserversOnEntryChange:updatedEntry];
 }
 
 - (void)updateGroup:(SettingsGroup *)updatedGroup {
+  [self updateGroup:updatedGroup forTree:self.tree];
   [self notifySettingsModelObserversOnGroupChange:updatedGroup];
+}
+
+- (void)updateScreen:(SettingsScreen *)updatedScreen {
+  if ([updatedScreen.uid isEqual:self.tree.uid]) {
+    self.tree = updatedScreen;
+    [self notifySettingsModelObserversOnScreenChange:updatedScreen];
+    return;
+  }
+  [self updateScreen:updatedScreen forTree:self.tree];
+  [self notifySettingsModelObserversOnScreenChange:updatedScreen];
 }
 
 - (void)addSettingsModelObserver:(id<SettingsModelObserver>)observer {
@@ -139,6 +209,13 @@
   [self.settingsModelObservers enumerateObjectsUsingBlock:^(id<SettingsModelObserver>  _Nonnull observer,
                                                             NSUInteger idx, BOOL * _Nonnull stop) {
     [observer onSettingsModelGroupChange:group];
+  }];
+}
+
+- (void)notifySettingsModelObserversOnScreenChange:(SettingsScreen *)screen {
+  [self.settingsModelObservers enumerateObjectsUsingBlock:^(id<SettingsModelObserver>  _Nonnull observer,
+                                                            NSUInteger idx, BOOL * _Nonnull stop) {
+    [observer onSettingsModelScreenChange:screen];
   }];
 }
 

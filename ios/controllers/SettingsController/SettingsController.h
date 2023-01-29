@@ -6,15 +6,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserModelObserver.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class SettingsEntry;
 @class SettingsModel;
+@class UserModel;
+@class UserController;
 
-@interface SettingsController : NSObject
+@interface SettingsController : NSObject<UserModelObserver>
 
-- (instancetype)initWithModel:(SettingsModel *)settingsModel;
+- (instancetype)initWithModel:(SettingsModel *)settingsModel
+               userController:(UserController *)userController
+                             userModel:(UserModel *)userModel;
 
 - (void)interactWithSetting:(SettingsEntry *)entry
            onViewController:(UIViewController *)viewController;
