@@ -20,7 +20,7 @@ type Props = PropsWithChildren<{
   theme?: ButtonThemes;
   loading?: boolean;
   disabled?: boolean;
-  leftIcon?: React.FC<any>;
+  leftIcon?: React.FC;
   testID?: string;
 }>;
 
