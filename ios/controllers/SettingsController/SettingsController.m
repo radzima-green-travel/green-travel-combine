@@ -92,7 +92,6 @@
   // Find 4th tab controller in application.
   UITabBarController *tabController = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
   SettingsViewController *settingsViewController = (SettingsViewController *)tabController.viewControllers[3];
-  BOOL root = settingsViewController == self;
   
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
@@ -169,7 +168,7 @@
   };
   
   SettingsGroup *authGroup = [self.model.tree.groups[0] copy];
-  authGroup.entries = @[authEntry];
+  authGroup.entries = [[NSMutableArray alloc] initWithArray:@[authEntry]];
   
   [self.model updateGroup:authGroup];
 }
@@ -192,7 +191,8 @@
 #pragma mark - Profile screen
   SettingsScreen *screenProfile = [SettingsScreen new];
   screenProfile.name = @"";
-  screenProfile.groups = @[logoutGroup, deleteAccountGroup];
+  screenProfile.groups =
+  [[NSMutableArray alloc] initWithArray:@[logoutGroup, deleteAccountGroup]];
   
   
 #pragma mark - Auth group
@@ -201,7 +201,7 @@
   authEntry.screen = screenProfile;
   
   SettingsGroup *authGroup = [self.model.tree.groups[0] copy];
-  authGroup.entries = @[authEntry];
+  authGroup.entries = [[NSMutableArray alloc] initWithArray:@[authEntry]];
   
   [self.model updateGroup:authGroup];
 }

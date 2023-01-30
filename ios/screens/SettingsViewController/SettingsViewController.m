@@ -207,4 +207,24 @@ static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
   [self.tableView reloadData];
 }
 
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
+                        toCurrentState:(UserModelState)currentState {
+  // Find 4th tab controller in application.
+  UITabBarController *tabController = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+  SettingsViewController *settingsViewController = (SettingsViewController *)tabController.viewControllers[3];
+  BOOL root = settingsViewController == self;
+  
+  __weak typeof(self) weakSelf = self;
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      __weak typeof(self) strongSelf = weakSelf;
+      if (prevState == UserModelStateSignedIn &&
+          currentState == UserModelStateSignOutInProgress && !root) {
+        [strongSelf.navigationController popToRootViewControllerAnimated:YES];
+        return;
+      }
+    });
+  });
+}
+
 @end
