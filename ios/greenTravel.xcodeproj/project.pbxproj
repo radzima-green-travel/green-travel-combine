@@ -39,6 +39,7 @@
 		5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A246AC926429689003C6E5B /* BookmarkButton.m */; };
 		5A29148726E3B893004AD6F3 /* UIButtonHighlightable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148626E3B893004AD6F3 /* UIButtonHighlightable.m */; };
 		5A29148B26E4F7AB004AD6F3 /* UIButtonWithFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */; };
+		5A295C262989388A00A109F0 /* SettingsAuthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A295C252989388A00A109F0 /* SettingsAuthTableViewCell.m */; };
 		5A2C9056295723D6008D8C7E /* SettingsEntryAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2C9055295723D6008D8C7E /* SettingsEntryAction.m */; };
 		5A2C90592957244D008D8C7E /* SettingsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2C90582957244D008D8C7E /* SettingsScreen.m */; };
 		5A2C905C2957248F008D8C7E /* SettingsEntryNavigate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2C905B2957248F008D8C7E /* SettingsEntryNavigate.m */; };
@@ -316,6 +317,8 @@
 		5A29148926E4F7AB004AD6F3 /* UIButtonWithFeedback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIButtonWithFeedback.h; sourceTree = "<group>"; };
 		5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIButtonWithFeedback.m; sourceTree = "<group>"; };
 		5A29148D26E5031D004AD6F3 /* BookmarkButtonConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkButtonConstants.h; sourceTree = "<group>"; };
+		5A295C242989388A00A109F0 /* SettingsAuthTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsAuthTableViewCell.h; sourceTree = "<group>"; };
+		5A295C252989388A00A109F0 /* SettingsAuthTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsAuthTableViewCell.m; sourceTree = "<group>"; };
 		5A2C9054295723D6008D8C7E /* SettingsEntryAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryAction.h; sourceTree = "<group>"; };
 		5A2C9055295723D6008D8C7E /* SettingsEntryAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryAction.m; sourceTree = "<group>"; };
 		5A2C90572957244D008D8C7E /* SettingsScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsScreen.h; sourceTree = "<group>"; };
@@ -957,6 +960,15 @@
 				5A29148A26E4F7AB004AD6F3 /* UIButtonWithFeedback.m */,
 			);
 			path = UIButtonWithFeedback;
+			sourceTree = "<group>";
+		};
+		5A295C23298937B900A109F0 /* SettingsAuthTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5A295C242989388A00A109F0 /* SettingsAuthTableViewCell.h */,
+				5A295C252989388A00A109F0 /* SettingsAuthTableViewCell.m */,
+			);
+			path = SettingsAuthTableViewCell;
 			sourceTree = "<group>";
 		};
 		5A2C989929520FD8007A822F /* SettingsController */ = {
@@ -1718,6 +1730,7 @@
 		5A78A4ED295873C5007749F3 /* SettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5A295C23298937B900A109F0 /* SettingsAuthTableViewCell */,
 				5ADCF60529817AEF0005B06A /* AuthLoggedInTableViewCell */,
 				5ADCF60429817A4F0005B06A /* AuthLoggedOutTableViewCell */,
 				5A78A4EE29587549007749F3 /* SettingsViewController.h */,
@@ -2545,6 +2558,7 @@
 				5ADCF60B298180800005B06A /* AuthLoggedOutTableViewCell.m in Sources */,
 				5A775B5226064C9000CEFC78 /* FeedModel.m in Sources */,
 				5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */,
+				5A295C262989388A00A109F0 /* SettingsAuthTableViewCell.m in Sources */,
 				5A5E2B05275CE3AB00A20489 /* ZoomableImageCollectionViewCell.m in Sources */,
 				5A775B5B26064C9000CEFC78 /* PathItem.m in Sources */,
 				5A775B2226064C9000CEFC78 /* StoredSearchItem+CoreDataProperties.m in Sources */,
