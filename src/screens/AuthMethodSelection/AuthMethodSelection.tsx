@@ -1,11 +1,15 @@
 import React from 'react';
-import {View} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
+import {View, Text, Linking} from 'react-native';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {AuthMethods} from 'organisms';
 import {useAuthMethodSelection} from './hooks';
 import {themeStyles} from './styles';
+import {EPAM_PRIVACY_POLICY_URL, RADZIMA_URL} from 'core/constants';
 
 export const AuthMethodSelection = () => {
+  const {t} = useTranslation('authentification');
+  const {t: tCommon} = useTranslation('common');
+
   const styles = useThemeStyles(themeStyles);
 
   const {
@@ -23,6 +27,20 @@ export const AuthMethodSelection = () => {
         onFacebookButtonPress={handleFacebookButtonPress}
         onGoogleButtonPress={handleGoogleButtonPress}
       />
+      <Text style={styles.text}>
+        {`${t('termsAndPolicyInfo')} `}
+        <Text
+          style={styles.linkText}
+          onPress={() => Linking.openURL(RADZIMA_URL)}>
+          {t('termsOfUse')}
+        </Text>
+        {` ${tCommon('and')} `}
+        <Text
+          style={styles.linkText}
+          onPress={() => Linking.openURL(EPAM_PRIVACY_POLICY_URL)}>
+          {t('privacyPolicy')}
+        </Text>
+      </Text>
     </View>
   );
 };

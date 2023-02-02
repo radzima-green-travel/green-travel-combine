@@ -1,6 +1,7 @@
 {
   "common": {
     "or": "или",
+    "and": "и",
     "errors": {
       "-1": {
         "title": "Ошибка сети",
@@ -122,7 +123,10 @@
     "facebookAuth": "Продолжить с Facebook",
     "googleAuth": "Продолжить с Google",
     "emailAuth": "Продолжить с Эл. почтой",
-    "appleAuth": "Продолжить с Apple"
+    "appleAuth": "Продолжить с Apple",
+    "termsAndPolicyInfo": "Создавая или входя в аккаунт, вы соглашаетесь с нашими",
+    "termsOfUse": "Правилами использования",
+    "privacyPolicy": "Политикой конфиденциальности"
   },
   "profile": {
     "notAuthorrized": {

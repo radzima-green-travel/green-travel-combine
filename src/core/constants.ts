@@ -143,3 +143,7 @@ export const MAP_BOTTOM_MENU_HEIGHT = 185;
 export const DEFAULT_LOCALE = 'ru';
 
 export type THEME_TYPE = 'light' | 'dark';
+
+export const RADZIMA_URL = 'https://radzima.app';
+
+export const EPAM_PRIVACY_POLICY_URL = 'https://www.epam.com/privacy-policy';
