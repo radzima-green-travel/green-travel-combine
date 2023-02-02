@@ -1,6 +1,7 @@
 {
   "common": {
     "or": "or",
+    "and": "and",
     "errors": {
       "-1": {
         "title": "Route cannot be built, sorry",
@@ -118,11 +119,14 @@
     "enterEmailAddress": "Enter your email address",
     "checkAccount": "Let's check if you have an account...",
     "check": "Check",
-    "authSelectionTitle": "en_Войти или создать аккаунт",
-    "facebookAuth": "en_Продолжить с Facebook",
-    "googleAuth": "en_Продолжить с Google",
-    "emailAuth": "en_Продолжить с Эл. почтой",
-    "appleAuth": "en_Продолжить с Apple"
+    "authSelectionTitle": "Sign In or Create new account",
+    "facebookAuth": "Continue with Facebook",
+    "googleAuth": "Continue with Google",
+    "emailAuth": "Continue with Email",
+    "appleAuth": "Continue with Apple",
+    "termsAndPolicyInfo": "By creating or logging into an account, you agree to our",
+    "termsOfUse": "Terms Of Use",
+    "privacyPolicy": "Privacy Policy"
   },
   "profile": {
     "notAuthorrized": {

@@ -1,6 +1,7 @@
 {
   "common": {
-    "or": "zh_или",
+    "or": "或者",
+    "and": "和",
     "errors": {
       "-1": {
         "title": "網絡錯誤",
@@ -118,11 +119,14 @@
     "enterEmailAddress": "輸入您的電子郵件地址",
     "checkAccount": "讓我們檢查一下您是否有帳戶...",
     "check": "檢查",
-    "authSelectionTitle": "zh_Войти или создать аккаунт",
-    "facebookAuth": "zh_Продолжить с Facebook",
-    "googleAuth": "zh_Продолжить с Google",
-    "emailAuth": "zh_Продолжить с Эл. почтой",
-    "appleAuth": "zh_Продолжить с Apple"
+    "authSelectionTitle": "登录或者创建一个帐户",
+    "facebookAuth": "继续 Facebook",
+    "googleAuth": "继续 Google",
+    "emailAuth": "继续 Email",
+    "appleAuth": "继续 Apple",
+    "termsAndPolicyInfo": "通过创建或登录帐户，您同意我们的",
+    "termsOfUse": "使用条款",
+    "privacyPolicy": "隐私政策"
   },
   "profile": {
     "notAuthorrized": {
