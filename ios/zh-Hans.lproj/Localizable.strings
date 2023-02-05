@@ -72,6 +72,14 @@
 "ProfileTableViewCellLabelLanguage" = "语";
 "ProfileTableViewCellLabelTheme" = "主题";
 
+//SettingsViewController
+"SettingsViewControllerAuthCellTitleAuthorized" = "您已获得授权";
+"SettingsViewControllerAuthCellTitleAuthorizedNot" = "你没有被授权";
+"SettingsViewControllerAuthCellTitleAuthorizedProgress" = "正在授权";
+
+"SettingsViewControllerAuthCellSubTitleAuthorizedNot" = "授权或注册";
+"SettingsViewControllerAuthCellTitleAuthorizedProgress" = "等待登录验证";
+
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";

@@ -86,6 +86,15 @@
 
 "ProfileTableViewCellSignedMainTitleLabel" = "You are authorized";
 
+//SettingsViewController
+"SettingsViewControllerAuthCellTitleAuthorized" = "You are authorized";
+"SettingsViewControllerAuthCellTitleAuthorizedNot" = "You are not authorized";
+"SettingsViewControllerAuthCellTitleAuthorizedProgress" = "Authorizing";
+
+"SettingsViewControllerAuthCellSubTitleAuthorizedNot" = "Authorize or Sign up";
+"SettingsViewControllerAuthCellTitleAuthorizedProgress" = "Wait while the login is being verified";
+
+
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";
 "CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";

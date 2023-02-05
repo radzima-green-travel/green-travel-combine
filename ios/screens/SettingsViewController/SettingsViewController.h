@@ -15,11 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class SettingsModel;
 @class SettingsScreen;
 
-@interface SettingsViewController : UITableViewController<SettingsModelObserver, UserModelObserver>
+@interface SettingsViewController : UIViewController<SettingsModelObserver, UserModelObserver, UITableViewDelegate, UITableViewDataSource>
 
 - (instancetype)initWithSettingsController:(SettingsController *)settingsController
                              settingsModel:(SettingsModel *)settingsModel
                             settingsScreen:(SettingsScreen *)settingsScreen;
+
+- (instancetype)initWithSettingsController:(SettingsController *)settingsController
+                             settingsModel:(SettingsModel *)settingsModel;
 
 @end
 

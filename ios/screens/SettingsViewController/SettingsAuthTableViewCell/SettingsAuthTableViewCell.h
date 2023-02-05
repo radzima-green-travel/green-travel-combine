@@ -11,6 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsAuthTableViewCell : UITableViewCell
 
+- (void)updateWithSubTitle:(NSString*)subText
+        fetchingInProgress:(BOOL)fetchingInProgress
+                  signedIn:(BOOL)signedIn;
+
 @end
 
 NS_ASSUME_NONNULL_END

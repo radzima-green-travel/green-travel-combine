@@ -6,14 +6,28 @@
 //
 
 #import "SettingsAuthTableViewCell.h"
+#import "CacheService.h"
+#import "Typography.h"
+#import "Colors.h"
+#import "UIImage+extensions.h""
 
-@implementation SettingsAuthTableViewCell()
+@interface SettingsAuthTableViewCell()
 
-@property (strong, nonatomic)UIImageView *iconImageView;
-@property (strong, nonatomic)UILabel *mainLabel;
-@property (strong, nonatomic)UILabel *subLabel;
+@property (strong, nonatomic) UIImageView *iconImageView;
+@property (strong, nonatomic) UILabel *mainLabel;
+@property (strong, nonatomic) UILabel *subLabel;
 
 @end
+
+static const CGFloat kIconLeadingAnchor = 16.0;
+static const CGFloat kIconTopAnchor = 8.0;
+static const CGFloat kIconBottomAnchor = -8.0;
+static const CGFloat kIconTopAnchorAtAuthCell = 18.0;
+static const CGFloat kIconBottomAnchorAtAuthCell = -18.0;
+static const CGFloat kMainLabelLeadingAnchor = 16.0;
+static const CGFloat kMainLabelTrailingAnchor = -16.0;
+
+static NSString * const kAvatarCacheKey = @"avatarImage";
 
 @implementation SettingsAuthTableViewCell
 
@@ -56,62 +70,20 @@
   ]];
 }
 
-- (void)prepareSettingsCellWithImage:(UIImage*)image mainTextLabelText:(NSString*)mainText subTextLabelText:(NSString*)subText {
-  [self prepareTableViewCell];
-  
-  self.iconImageView.image = image;
-  
-  self.mainLabel = [[UILabel alloc] init];
-  NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForSettingsCell:mainText];
-  self.mainLabel.attributedText = mainTextLabelAttributedString;
-  
-  self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.contentView addSubview:self.mainLabel];
-  
-  [NSLayoutConstraint activateConstraints:@[
-  [self.mainLabel.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
-  [self.mainLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
-  ]];
-  
-  self.subLabel = [[UILabel alloc] init];
-  NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForSettingsCell:subText];
-  self.subLabel.attributedText = subTextLabelAttributedString;
-  
-  self.subLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.contentView addSubview:self.subLabel];
-  
-  [NSLayoutConstraint activateConstraints:@[
-  [self.subLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kSubLabelTrailingAnchor],
-  [self.subLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-  [self.subLabel.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.mainLabel.trailingAnchor constant:kSubLabelLeadingAnchor]
-  ]];
-}
-
-- (void)prepareAuthCellWithImage:(UIImage*)image
-               mainTextLabelText:(NSString*)mainText
-                subTextLabelText:(NSString*)subText
-              fetchingInProgress:(BOOL)fetchingInProgress
-              signedIn:(BOOL)signedIn {
-  if (fetchingInProgress) {
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.accessoryView = activityIndicator;
-    [activityIndicator sizeToFit];
-    [activityIndicator startAnimating];
-    self.accessoryType = UITableViewCellAccessoryNone;
-  }
-  if (!fetchingInProgress && signedIn) {
-    self.accessoryView = nil;
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-  }
-  if (!fetchingInProgress && !signedIn) {
-    self.accessoryView = nil;
-    self.accessoryType = UITableViewCellAccessoryNone;
-  }
-  
+- (void)updateWithSubTitle:(NSString*)subText
+        fetchingInProgress:(BOOL)fetchingInProgress
+                  signedIn:(BOOL)signedIn {
   self.iconImageView = [[UIImageView alloc] init];
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
   
   [self.contentView addSubview:self.iconImageView];
+  
+#pragma mark - Avatar
+  UIImage *image = [[CacheService get].cache objectForKey:kAvatarCacheKey];
+  if (image == nil) {
+    image = [[UIImage alloc] getAccountImageWithChar:[subText substringToIndex:1]];
+    [[CacheService get].cache setObject:image forKey:kAvatarCacheKey];
+  }
   
   self.iconImageView.image = image;
   
@@ -122,19 +94,17 @@
     [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:kIconBottomAnchorAtAuthCell],
     [self.iconImageView.widthAnchor constraintEqualToAnchor:self.iconImageView.heightAnchor]
   ]];
-  
+#pragma mark - Main label
   self.mainLabel = [[UILabel alloc] init];
   self.mainLabel.textAlignment = NSTextAlignmentLeft;
-  NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:mainText];
-  self.mainLabel.attributedText = mainTextLabelAttributedString;
+ 
   
   self.mainLabel.translatesAutoresizingMaskIntoConstraints = NO;
   
   self.subLabel = [[UILabel alloc] init];
   self.subLabel.textAlignment = NSTextAlignmentLeft;
   self.subLabel.numberOfLines = 0;
-  NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:subText];
-  self.subLabel.attributedText = subTextLabelAttributedString;
+  
   [self.subLabel sizeToFit];
   
   self.subLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -154,10 +124,44 @@
   [labelStack.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor],
   [labelStack.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
   ]];
+  
+  if (fetchingInProgress) {
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
+    self.accessoryView = activityIndicator;
+    [activityIndicator sizeToFit];
+    [activityIndicator startAnimating];
+    self.accessoryType = UITableViewCellAccessoryNone;
+    NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellTitleAuthorizedProgress", @"")];
+    [self.mainLabel setAttributedText:mainTextLabelAttributedString];
+    NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellSubTitleAuthorizedProgress", @"")];
+    [self.subLabel setAttributedText:subTextLabelAttributedString];
+  }
+  if (!fetchingInProgress && signedIn) {
+    self.accessoryView = nil;
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellTitleAuthorized", @"")];
+    [self.mainLabel setAttributedText:mainTextLabelAttributedString];
+    NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:subText];
+    [self.subLabel setAttributedText:subTextLabelAttributedString];
+  }
+  if (!fetchingInProgress && !signedIn) {
+    self.accessoryView = nil;
+    self.accessoryType = UITableViewCellAccessoryNone;
+    NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellTitleAuthorizedNot", @"")];
+    [self.mainLabel setAttributedText:mainTextLabelAttributedString];
+    NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellSubTitleAuthorizedNot", @"")];
+    [self.subLabel setAttributedText:subTextLabelAttributedString];
+  }
 }
 
 - (void)prepareForReuse {
+  [super prepareForReuse];
+  self.accessoryType = UITableViewCellAccessoryNone;
   
+  [self.iconImageView removeFromSuperview];
+  [self.mainLabel removeFromSuperview];
+  [self.subLabel removeFromSuperview];
+
 }
 
 @end
