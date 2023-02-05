@@ -13,7 +13,7 @@
 - (instancetype)initWithName:(NSString *)name
                      entries:(NSArray<SettingsEntry *>*)entries {
   if (self = [super init]) {
-    _entries = entries;
+    _entries = [[NSMutableArray alloc] initWithArray:entries];
     _name = name;
   }
   return self;

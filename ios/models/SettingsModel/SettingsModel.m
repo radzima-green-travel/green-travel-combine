@@ -39,6 +39,7 @@
                                           groups:@[]];
     _userModel = userModel;
     _userController = userController;
+    [self setUp];
   }
   return self;
 }
@@ -95,7 +96,7 @@
   
   SettingsScreen *screenAbout = [SettingsScreen new];
   screenAbout.name = @"";
-  screenAbout.groups = @[aboutTextGroup];
+  screenAbout.groups = [[NSMutableArray alloc] initWithArray:@[aboutTextGroup]];
   
   SettingsEntryNavigate *aboutEntry = [SettingsEntryNavigate new];
   aboutEntry.name = NSLocalizedString(@"Language", @"");

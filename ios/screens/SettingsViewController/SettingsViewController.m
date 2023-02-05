@@ -22,6 +22,7 @@
 #import "SettingsSelectTableViewCell.h"
 #import "SettingsToggleTableViewCell.h"
 #import "SettingsBaseTableViewCell.h"
+#import "SettingsAuthTableViewCell.h"
 #import "AuthLoggedInTableViewCell.h"
 #import "AuthLoggedOutTableViewCell.h"
 #import "SettingsBaseTableViewCellConfig.h"
@@ -30,6 +31,7 @@
 
 @interface SettingsViewController ()
 
+@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) SettingsModel *settingsModel;
 @property (strong, nonatomic) SettingsController *settingsController;
 @property (strong, nonatomic) SettingsScreen *root;
@@ -43,8 +45,7 @@ static NSString * const kToggleCellId = @"toggleCellId";
 static NSString * const kSelectCellId = @"selectCellId";
 static NSString * const kNavigateCellId = @"navigateCellId";
 static NSString * const kBaseCellId = @"baseCellId";
-static NSString * const kAuthLoggedOutCellId = @"authLoggedOutCellId";
-static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
+static NSString * const kAuthCellId = @"authCellId";
 
 @implementation SettingsViewController
 
@@ -59,6 +60,16 @@ static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
   return self;
 }
 
+- (instancetype)initWithSettingsController:(SettingsController *)settingsController
+                             settingsModel:(SettingsModel *)settingsModel{
+  if (self = [super init]) {
+    _settingsModel = settingsModel;
+    _settingsController = settingsController;
+    _root = settingsModel.tree;
+  }
+  return self;
+}
+
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
   configureNavigationBar(self.navigationController.navigationBar);
@@ -67,12 +78,20 @@ static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
+  [self.settingsModel addSettingsModelObserver:self];
   if (@available(iOS 13.0, *)) {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
   } else {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
   }
+  [self.view addSubview:self.tableView];
+  self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.tableView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+    [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+    [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+    [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+  ]];
   
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
@@ -81,14 +100,15 @@ static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
   [self.tableView registerClass:SettingsSelectTableViewCell.self forCellReuseIdentifier:kSelectCellId];
   [self.tableView registerClass:SettingsNavigateTableViewCell.self forCellReuseIdentifier:kNavigateCellId];
   [self.tableView registerClass:SettingsBaseTableViewCell.self forCellReuseIdentifier:kBaseCellId];
-  
-  [self.settingsModel addSettingsModelObserver:self];
+  [self.tableView registerClass:SettingsAuthTableViewCell.self forCellReuseIdentifier:kAuthCellId];
+  [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.root.groups[section].entries count];
+  NSUInteger count = [self.root.groups[section].entries count];
+  return count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -109,11 +129,11 @@ static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
     return cellToggle;
   }
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthLoggedOutCellId forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthCellId forIndexPath:indexPath];
     return cell;
   }
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedIn class]]) {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthLoggedInCellId forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthCellId forIndexPath:indexPath];
     return cell;
   }
   
@@ -151,50 +171,6 @@ static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
   return YES;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (void)onSettingsModelEntryChange:(nonnull SettingsEntry *)entry {
   [self.tableView reloadData];
 }
@@ -205,6 +181,10 @@ static NSString * const kAuthLoggedInCellId = @"authLoggedInCellId";
 
 - (void)onSettingsModelTreeChange:(nonnull NSMutableArray<SettingsGroup *> *)tree {
   [self.tableView reloadData];
+}
+
+- (void)onSettingsModelScreenChange:(nonnull SettingsScreen *)screen {
+  
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState

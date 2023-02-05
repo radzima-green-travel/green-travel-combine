@@ -34,7 +34,9 @@
   [super layoutSubviews];
   self.backgroundColor = [Colors get].background;
   [self.title setAttributedText:[[Typography get] settingsCellTitle:self.config.title]];
-  [self.title setAttributedText:[[Typography get] settingsCellSubTitle:self.config.subTitle]];
+  if (self.config.subTitle != nil) {
+    [self.title setAttributedText:[[Typography get] settingsCellSubTitle:self.config.subTitle]];
+  }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -119,7 +121,9 @@
   [self setUp];
   self.config = entry;
   [self.title setAttributedText:[[Typography get] settingsCellTitle:self.config.title]];
-  [self.title setAttributedText:[[Typography get] settingsCellSubTitle:self.config.subTitle]];
+  if (self.config.subTitle != nil) {
+    [self.title setAttributedText:[[Typography get] settingsCellSubTitle:self.config.subTitle]];
+  }
 }
 
 - (void)prepareForReuse {

@@ -79,6 +79,15 @@
 
 "ProfileTableViewCellSignedMainTitleLabel" = "Вы авторизованы";
 
+//SettingsViewController
+"SettingsViewControllerAuthCellTitleAuthorized" = "Вы авторизованы";
+"SettingsViewControllerAuthCellTitleAuthorizedNot" = "Вы не авторизованы";
+"SettingsViewControllerAuthCellTitleAuthorizedProgress" = "Авторизация";
+
+"SettingsViewControllerAuthCellSubTitleAuthorizedNot" = "Авторизуйтесь или зарегистрируйтесь";
+"SettingsViewControllerAuthCellTitleAuthorizedProgress" = "Дождитесь, пока идет проверка логина";
+
+
 "UserSettingsTableViewCellTermsOfUseMainLabel" = "Условия использования";
 "UserSettingsTableViewCellPrivacyPolicyMainLabel" = "Политика конфиденциальности";
 "UserSettingsTableViewCellLogOutMainLabel" = "Выйти";
