@@ -65,6 +65,7 @@ static BOOL kSignUpEnabled = YES;
 @property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *profileControllerWithNavigation;
+@property (strong, nonatomic) UINavigationController *settingsViewControllerWithNavigation;
 
 @end
 
@@ -177,14 +178,28 @@ static BOOL kSignUpEnabled = YES;
     self.bookmarksControllerWithNavigation.navigationBar.titleTextAttributes =
     [TypographyLegacy get].navigationSemiboldAttributes;
 
+#pragma mark - ProfileRootViewController
+  ProfileTableViewController *profileTableViewController = [[ProfileTableViewController alloc] initWithController:userController model:userModel];
+  profileTableViewController.title = NSLocalizedString(@"ProfileTitle", @"");
+  profileTableViewController.bookmarksGroupModel = bookmarksGroupsModel;
+  profileTableViewController.indexModel = self.indexModel;
+  profileTableViewController.apiService = self.apiService;
+  profileTableViewController.coreDataService = self.coreDataService;
+  profileTableViewController.mapService = self.mapService;
+  profileTableViewController.mapModel = mapModel;
+  profileTableViewController.searchModel = searchModel;
+  profileTableViewController.detailsModel = detailsModel;
+  profileTableViewController.locationModel = locationModel;
+  self.profileControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
 #pragma mark - SettingsViewController
-  SettingsModel *settingsModel = [[SettingsModel alloc] initWithUserController:userController userModel:userModel];
-  SettingsController *settingsController = [[SettingsController alloc] initWithModel:settingsModel userController:userController userModel:userModel];
+  if (/* DISABLES CODE */ (NO)) {
+  	SettingsModel *settingsModel = [[SettingsModel alloc] initWithUserController:userController userModel:userModel];
+    SettingsController *settingsController = [[SettingsController alloc] initWithModel:settingsModel userController:userController userModel:userModel];
 
-  SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithSettingsController:settingsController settingsModel:settingsModel];
-  settingsViewController.title = NSLocalizedString(@"ProfileTitle", @"");
-  
-  self.profileControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithSettingsController:settingsController settingsModel:settingsModel];
+    settingsViewController.title = NSLocalizedString(@"ProfileTitle", @"");
+  	self.settingsViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+  }
 
   UIImage *profileImage;
   profileImage = [UIImage imageNamed:@"user"];
