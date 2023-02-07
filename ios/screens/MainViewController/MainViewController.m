@@ -192,7 +192,7 @@ static BOOL kSignUpEnabled = YES;
   profileTableViewController.locationModel = locationModel;
   self.profileControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
 #pragma mark - SettingsViewController
-  if (/* DISABLES CODE */ (NO)) {
+  if (/* DISABLES CODE */ (YES)) {
   	SettingsModel *settingsModel = [[SettingsModel alloc] initWithUserController:userController userModel:userModel];
     SettingsController *settingsController = [[SettingsController alloc] initWithModel:settingsModel userController:userController userModel:userModel];
 
@@ -210,7 +210,7 @@ static BOOL kSignUpEnabled = YES;
 
   if (kSignUpEnabled) {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
-                             self.bookmarksControllerWithNavigation, self.profileControllerWithNavigation];
+                             self.bookmarksControllerWithNavigation, self.settingsViewControllerWithNavigation];
   } else {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
                              self.bookmarksControllerWithNavigation];

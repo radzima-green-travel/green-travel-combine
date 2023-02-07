@@ -92,7 +92,7 @@ static NSString * const kAuthCellId = @"authCellId";
     [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
     [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
   ]];
-  
+
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   [self.tableView registerClass:SettingsActionTableViewCell.self forCellReuseIdentifier:kActionCellId];
@@ -117,7 +117,7 @@ static NSString * const kAuthCellId = @"authCellId";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.row];
-  
+
   if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kToggleCellId forIndexPath:indexPath];
     SettingsToggleTableViewCell *cellToggle = (SettingsToggleTableViewCell *) cell;
@@ -130,13 +130,17 @@ static NSString * const kAuthCellId = @"authCellId";
   }
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthCellId forIndexPath:indexPath];
+    SettingsAuthTableViewCell *cellAuth = (SettingsAuthTableViewCell *)cell;
+    [cellAuth updateWithSubTitle:@"a" fetchingInProgress:NO signedIn:NO];
     return cell;
   }
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedIn class]]) {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthCellId forIndexPath:indexPath];
+    SettingsAuthTableViewCell *cellAuth = (SettingsAuthTableViewCell *)cell;
+    [cellAuth updateWithSubTitle:@"a" fetchingInProgress:NO signedIn:YES];
     return cell;
   }
-  
+
   SettingsBaseTableViewCell *baseCell = [tableView dequeueReusableCellWithIdentifier:kBaseCellId forIndexPath:indexPath];
   SettingsBaseTableViewCellConfig *config = [[SettingsBaseTableViewCellConfig alloc] initWithTitle:entry.name
                                                                                   subTitle:entry.value
@@ -147,7 +151,7 @@ static NSString * const kAuthCellId = @"authCellId";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.section];
+  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.row];
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
     return kAuthRowHeight;
   }
@@ -156,7 +160,7 @@ static NSString * const kAuthCellId = @"authCellId";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.section];
+  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.row];
   if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
     return;
   }
@@ -164,7 +168,7 @@ static NSString * const kAuthCellId = @"authCellId";
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.section];
+  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.row];
   if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
     return NO;
   }
@@ -184,7 +188,7 @@ static NSString * const kAuthCellId = @"authCellId";
 }
 
 - (void)onSettingsModelScreenChange:(nonnull SettingsScreen *)screen {
-  
+
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
@@ -193,7 +197,7 @@ static NSString * const kAuthCellId = @"authCellId";
   UITabBarController *tabController = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
   SettingsViewController *settingsViewController = (SettingsViewController *)tabController.viewControllers[3];
   BOOL root = settingsViewController == self;
-  
+
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{

@@ -79,13 +79,7 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
   [self.contentView addSubview:self.iconImageView];
   
 #pragma mark - Avatar
-  UIImage *image = [[CacheService get].cache objectForKey:kAvatarCacheKey];
-  if (image == nil) {
-    image = [[UIImage alloc] getAccountImageWithChar:[subText substringToIndex:1]];
-    [[CacheService get].cache setObject:image forKey:kAvatarCacheKey];
-  }
-  
-  self.iconImageView.image = image;
+  [self setUpAvatar:subText signedIn:YES];
   
   [NSLayoutConstraint activateConstraints:@[
     [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kIconLeadingAnchor],
@@ -152,6 +146,21 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
     NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellSubTitleAuthorizedNot", @"")];
     [self.subLabel setAttributedText:subTextLabelAttributedString];
   }
+}
+
+- (void)setUpAvatar:(NSString *)subText signedIn:(BOOL)signedIn {
+  if (!signedIn) {
+    self.iconImageView.image = [UIImage imageNamed:@"accountPhoto"];
+    return;
+  }
+  
+  UIImage *image = [[CacheService get].cache objectForKey:kAvatarCacheKey];
+  if (image == nil) {
+    image = [[UIImage alloc] getAccountImageWithChar:[subText substringToIndex:1]];
+    [[CacheService get].cache setObject:image forKey:kAvatarCacheKey];
+  }
+  
+  self.iconImageView.image = image;
 }
 
 - (void)prepareForReuse {
