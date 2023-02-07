@@ -20,6 +20,7 @@
 #import "ProfileTableViewController.h"
 #import "LoginViewController.h"
 #import <SDWebImage/SDWebImage.h>
+#import "SettingsViewController.h"
 
 @interface SettingsModel()
 
@@ -48,11 +49,11 @@
 #pragma mark - Auth group
   SettingsEntryAuthLoggedOut *authEntry = [SettingsEntryAuthLoggedOut new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
+  __weak typeof(self) weakSelf = self;
   authEntry.doAction = ^void(UIViewController *activeViewController) {
-    ProfileTableViewController *profileTableViewController = (ProfileTableViewController *)activeViewController;
     LoginViewController *loginViewController =
-    [[LoginViewController alloc] initWithController:profileTableViewController.userController
-                                              model:profileTableViewController.userModel];
+    [[LoginViewController alloc] initWithController:weakSelf.userController
+                                              model:weakSelf.userModel];
     loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
     UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
     if (@available(iOS 13.0, *)) {
