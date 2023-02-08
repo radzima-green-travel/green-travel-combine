@@ -234,6 +234,7 @@
 		5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF0351284524B000D98E9A /* NumberViewConstants.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
+		5AFA7C792993E305005C413F /* SettingsScreenRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFA7C782993E305005C413F /* SettingsScreenRoot.m */; };
 		5AFB8FD928F9608B009E729E /* AccessibilityIdentifiers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFB8FD828F9608B009E729E /* AccessibilityIdentifiers.m */; };
 		5AFFD0F52850E81A009E5AB8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F42850E81A009E5AB8 /* ProfileViewController.m */; };
 		5AFFD0FA2851FE88009E5AB8 /* UserFetchProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFD0F92851FE88009E5AB8 /* UserFetchProgressViewController.m */; };
@@ -712,6 +713,8 @@
 		5AF8D58A260C7D8A001CE702 /* CommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonButton.h; sourceTree = "<group>"; };
 		5AF8D58B260C7D8A001CE702 /* CommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonButton.m; sourceTree = "<group>"; };
 		5AF8D58C260C7D8A001CE702 /* GalleryImagePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryImagePlaceholder.h; sourceTree = "<group>"; };
+		5AFA7C772993E305005C413F /* SettingsScreenRoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsScreenRoot.h; sourceTree = "<group>"; };
+		5AFA7C782993E305005C413F /* SettingsScreenRoot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsScreenRoot.m; sourceTree = "<group>"; };
 		5AFB8FD728F9608B009E729E /* AccessibilityIdentifiers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityIdentifiers.h; sourceTree = "<group>"; };
 		5AFB8FD828F9608B009E729E /* AccessibilityIdentifiers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccessibilityIdentifiers.m; sourceTree = "<group>"; };
 		5AFFD0F32850E81A009E5AB8 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -869,6 +872,8 @@
 				5A78A4EB29573040007749F3 /* SettingsGroupSelect.m */,
 				5A2C90572957244D008D8C7E /* SettingsScreen.h */,
 				5A2C90582957244D008D8C7E /* SettingsScreen.m */,
+				5AFA7C772993E305005C413F /* SettingsScreenRoot.h */,
+				5AFA7C782993E305005C413F /* SettingsScreenRoot.m */,
 			);
 			path = SettingsModel;
 			sourceTree = "<group>";
@@ -2510,6 +2515,7 @@
 			files = (
 				5AD1B2C92972D33E005CED4E /* SettingsSelectTableViewCell.m in Sources */,
 				5A775B8626064C9000CEFC78 /* CoreDataService.m in Sources */,
+				5AFA7C792993E305005C413F /* SettingsScreenRoot.m in Sources */,
 				5A775E0F26077A7D00CEFC78 /* SlideCollectionViewCell.m in Sources */,
 				5AD1B2C12972D300005CED4E /* SettingsActionTableViewCell.m in Sources */,
 				5A775DFF26077A7D00CEFC78 /* CategoriesFilterViewConstants.m in Sources */,
