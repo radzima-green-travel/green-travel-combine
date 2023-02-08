@@ -191,6 +191,13 @@ static BOOL kSignUpEnabled = YES;
   profileTableViewController.detailsModel = detailsModel;
   profileTableViewController.locationModel = locationModel;
   self.profileControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
+  
+  UIImage *profileImage;
+  profileImage = [UIImage imageNamed:@"user"];
+  self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage,
+                                            AccessibilityIdentifiersTabBarProfile);
+
+  self.profileControllerWithNavigation.tabBarItem = self.profileTabBarItem;
 #pragma mark - SettingsViewController
   if (/* DISABLES CODE */ (YES)) {
   	SettingsModel *settingsModel = [[SettingsModel alloc] initWithUserController:userController userModel:userModel];
@@ -199,14 +206,8 @@ static BOOL kSignUpEnabled = YES;
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithSettingsController:settingsController settingsModel:settingsModel];
     settingsViewController.title = NSLocalizedString(@"ProfileTitle", @"");
   	self.settingsViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    self.settingsViewControllerWithNavigation.tabBarItem = self.profileTabBarItem;
   }
-
-  UIImage *profileImage;
-  profileImage = [UIImage imageNamed:@"user"];
-  self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage,
-                                            AccessibilityIdentifiersTabBarProfile);
-
-  self.profileControllerWithNavigation.tabBarItem = self.profileTabBarItem;
 
   if (kSignUpEnabled) {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
