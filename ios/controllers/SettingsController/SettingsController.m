@@ -65,6 +65,7 @@
     [[SettingsViewController alloc] initWithSettingsController:self
                                                  settingsModel:self.model
                                                 settingsScreen:entryNavigate.screen];
+    settingsViewController.title = entryNavigate.name;
     [viewController.navigationController pushViewController:settingsViewController animated:YES];
     return;
   }

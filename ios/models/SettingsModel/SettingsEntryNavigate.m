@@ -9,12 +9,19 @@
 
 @implementation SettingsEntryNavigate
 
+- (instancetype)init {
+  if (self = [super init]) {
+    [super setChevron:YES];
+  }
+  return self;
+}
 - (instancetype)initWithName:(NSString *)name
                  parentGroup:(SettingsGroup *)parentGroup
                       screen:(SettingsScreen *)screen {
   if (self = [super initWithName:name parentGroup:parentGroup]) {
     _screen = screen;
   }
+  self.chevron = YES;
   return self;
 }
 

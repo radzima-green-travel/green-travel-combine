@@ -87,6 +87,17 @@
 "SettingsViewControllerAuthCellSubTitleAuthorizedNot" = "Авторизуйтесь или зарегистрируйтесь";
 "SettingsViewControllerAuthCellTitleAuthorizedProgress" = "Дождитесь, пока идет проверка логина";
 
+"SettingsViewControllerLanguageCellTitle" = "Язык";
+"SettingsViewControllerLanguageCellValueEnglish" = "Английский";
+"SettingsViewControllerLanguageCellValueRussian" = "Русский";
+"SettingsViewControllerLanguageCellValueChineseSimplified" = "Китайский";
+
+"SettingsViewControllerCacheCellTitle" = "Очистить кэш";
+"SettingsViewControllerCacheAlertMessageHeader" = "Очистить кэш?";
+"SettingsViewControllerCacheAlertMessageBody" = "Это уменьшит размер приложения";
+
+"SettingsViewControllerTermsCellTitle" = "Условия использования";
+"SettingsViewControllerPrivacyCellTitle" = "Политика безопасности";
 
 "UserSettingsTableViewCellTermsOfUseMainLabel" = "Условия использования";
 "UserSettingsTableViewCellPrivacyPolicyMainLabel" = "Политика конфиденциальности";
