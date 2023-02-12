@@ -56,18 +56,22 @@
   [[SettingsGroup alloc] initWithName:@"" entries:@[authEntry]];
 #pragma mark - General group
   SettingsEntryAction *languageEntry = [SettingsEntryAction new];
-  languageEntry.name = NSLocalizedString(@"Language", @"");
+  languageEntry.name = NSLocalizedString(@"SettingsViewControllerLanguageCellTitle", @"");
+  languageEntry.value = @"Русский";
+  languageEntry.chevron = YES;
+  languageEntry.iconName = @"language";
   languageEntry.doAction = ^void(UIViewController *activeViewController) {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
                                        options:@{} completionHandler:^(BOOL success) {}];
   };
   
   SettingsEntryAction *clearCacheEntry = [SettingsEntryAction new];
-  clearCacheEntry.name = NSLocalizedString(@"Language", @"");
+  clearCacheEntry.name = NSLocalizedString(@"SettingsViewControllerCacheCellTitle", @"");
+  clearCacheEntry.iconName = @"dataAndStorage";
   clearCacheEntry.doAction = ^void(UIViewController *activeViewController) {
     UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ProfileTableViewAlertClearCacheMessageHeader", @"")
-                                        message:NSLocalizedString(@"ProfileTableViewAlertClearCacheMessageBody", @"")
+    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SettingsViewControllerCacheAlertMessageHeader", @"")
+                                        message:NSLocalizedString(@"SettingsViewControllerCacheAlertMessageBody", @"")
                                  preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -77,24 +81,17 @@
   };
   SettingsGroup *generalGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[languageEntry, clearCacheEntry]];
-#pragma mark - About group
-  SettingsEntryAction *aboutTextEntry = [SettingsEntryAction new];
-  aboutTextEntry.name = NSLocalizedString(@"Language", @"");
-  aboutTextEntry.doAction = ^void(UIViewController *activeViewController) {};
+#pragma mark - About group  
+  SettingsEntryNavigate *termsEntry = [SettingsEntryNavigate new];
+  termsEntry.name = NSLocalizedString(@"SettingsViewControllerTermsCellTitle", @"");
+  termsEntry.screen = [SettingsScreen new];
   
-  SettingsGroup *aboutTextGroup =
-  [[SettingsGroup alloc] initWithName:@"" entries:@[aboutTextEntry]];
-  
-  SettingsScreen *screenAbout = [SettingsScreen new];
-  screenAbout.name = @"";
-  screenAbout.groups = [[NSMutableArray alloc] initWithArray:@[aboutTextGroup]];
-  
-  SettingsEntryNavigate *aboutEntry = [SettingsEntryNavigate new];
-  aboutEntry.name = NSLocalizedString(@"Language", @"");
-  aboutEntry.screen = [SettingsScreen new];
+  SettingsEntryNavigate *privacyEntry = [SettingsEntryNavigate new];
+  privacyEntry.name = NSLocalizedString(@"SettingsViewControllerPrivacyCellTitle", @"");
+  privacyEntry.screen = [SettingsScreen new];
   
   SettingsGroup *aboutGroup =
-  [[SettingsGroup alloc] initWithName:@"" entries:@[aboutEntry]];
+  [[SettingsGroup alloc] initWithName:@"" entries:@[termsEntry, privacyEntry]];
   
 #pragma mark - Assembling to root
   self.groups =

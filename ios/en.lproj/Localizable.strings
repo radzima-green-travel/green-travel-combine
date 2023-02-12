@@ -94,6 +94,17 @@
 "SettingsViewControllerAuthCellSubTitleAuthorizedNot" = "Authorize or Sign up";
 "SettingsViewControllerAuthCellTitleAuthorizedProgress" = "Wait while the login is being verified";
 
+"SettingsViewControllerLanguageCellTitle" = "Language";
+"SettingsViewControllerLanguageCellValueEnglish" = "English";
+"SettingsViewControllerLanguageCellValueRussian" = "Russian";
+"SettingsViewControllerLanguageCellValueChineseSimplified" = "Chinese Simplified";
+
+"SettingsViewControllerCacheCellTitle" = "Clear cache";
+"SettingsViewControllerCacheAlertMessageHeader" = "Clear cache?";
+"SettingsViewControllerCacheAlertMessageBody" = "This will reduce app size";
+
+"SettingsViewControllerTermsCellTitle" = "Terms and Conditions";
+"SettingsViewControllerPrivacyCellTitle" = "Privacy Policy";
 
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";
