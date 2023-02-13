@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) SettingsScreen *screen;
 
-- (instancetype)init;
 - (instancetype)initWithName:(NSString *)name
                  parentGroup:(SettingsGroup *)parentGroup
                       screen:(SettingsScreen *)screen;
