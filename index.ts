@@ -12,9 +12,11 @@ import {sentryService} from 'services/SentryService';
 import {analyticsService} from 'services/AnalyticsService';
 import {languageService} from 'services/LanguageService';
 import {Amplify} from 'aws-amplify';
+import {urlOpener} from 'core/helpers';
 
 Amplify.configure({
   ...awsConfig,
+  urlOpener,
   aws_appsync_authenticationType: 'API_KEY',
 });
 

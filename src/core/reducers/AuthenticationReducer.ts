@@ -1,6 +1,7 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
 import {ACTIONS} from '../constants';
 import {CognitoUserAttributes} from '../types';
+import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 
 export const signInRequest = createAction(ACTIONS.SIGNIN_REQUEST)<{
   email: string;
@@ -11,6 +12,16 @@ export const signInSuccess = createAction(ACTIONS.SIGNIN_SUCCESS)<{
   userAttributes: CognitoUserAttributes;
 }>();
 export const signInFailure = createAction(ACTIONS.SIGNIN_FAILURE)<Error>();
+
+export const socialSignInRequest = createAction(
+  ACTIONS.SOCIAL_SIGNIN_REQUEST,
+)<CognitoHostedUIIdentityProvider>();
+export const socialSignInSuccess = createAction(ACTIONS.SOCIAL_SIGNIN_SUCCESS)<{
+  userAttributes: CognitoUserAttributes;
+}>();
+export const socialSignInFailure = createAction(
+  ACTIONS.SOCIAL_SIGNIN_FAILURE,
+)<Error>();
 
 export const signOutRequest = createAction(ACTIONS.SIGNOUT_REQUEST)();
 export const signOutSuccess = createAction(ACTIONS.SIGNOUT_SUCCESS)();

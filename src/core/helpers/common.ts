@@ -36,6 +36,7 @@ import {
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {ListMobileDataQuery} from 'api/graphql/types';
+import InAppBrowser, {RedirectResult} from 'react-native-inappbrowser-reborn';
 
 export const extractThemeStyles = (
   styles: Object,
@@ -317,3 +318,18 @@ export function getScreenTimeSec(startMs: number, endMs: number) {
 export function composeTestID(testID: TestIDs, index: number) {
   return `${testID}_${index + 1}`;
 }
+
+// custom urlOpener allows us to open the link in a modal window
+export const urlOpener = async (url, redirectUrl) => {
+  await InAppBrowser.isAvailable();
+  const {type, url: newUrl} = (await InAppBrowser.openAuth(url, redirectUrl, {
+    showTitle: false,
+    enableUrlBarHiding: true,
+    enableDefaultShare: false,
+    ephemeralWebSession: false,
+  })) as RedirectResult;
+
+  if (type === 'success') {
+    Linking.openURL(newUrl);
+  }
+};

@@ -1,5 +1,7 @@
 import {AmplifyError, CognitoUserWithAttributes} from 'core/types';
 import {Auth} from 'aws-amplify';
+import {ICredentials} from '@aws-amplify/core';
+import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 import {AmplifyApiEngine} from '../engines';
 
 class AmplifyApi extends AmplifyApiEngine {
@@ -47,6 +49,56 @@ class AmplifyApi extends AmplifyApiEngine {
         },
       },
       ...args,
+    );
+    return user;
+  };
+
+  socialSignIn = async (
+    provider: CognitoHostedUIIdentityProvider,
+  ): Promise<ICredentials> => {
+    const user = await this.invoke(
+      {
+        context: Auth,
+        method: Auth.federatedSignIn,
+        errorMap: (e: AmplifyError) => {
+          // TODO: check if these errors are valid
+          console.log(e);
+          if (e.code === 'PasswordResetRequiredException') {
+            return {
+              code: 'PASSWORD_RESET_REQUIRED',
+              status: 400,
+            };
+          }
+          if (e.code === 'UserNotConfirmedException') {
+            return {
+              code: 'USER_NOT_CONFIRMED',
+              status: 400,
+            };
+          }
+          if (e.code === 'NotAuthorizedException') {
+            if (e.message === 'Password attempts exceeded') {
+              return {
+                code: 'PASSWORD_ATTEMPTS_EXCEEDED',
+                status: 400,
+              };
+            }
+
+            return {
+              code: 'NOT_AUTHORIZED',
+              status: 400,
+            };
+          }
+          if (e.code === 'UserNotFoundException') {
+            return {
+              code: 'USER_NOT_FOUND',
+              status: 400,
+            };
+          }
+
+          return {};
+        },
+      },
+      {provider},
     );
     return user;
   };

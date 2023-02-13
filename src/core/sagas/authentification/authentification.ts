@@ -10,6 +10,7 @@ import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
 import {signInOutSaga} from './signInOutSaga';
 import {deleteUserSaga} from './deleteUserSaga';
 import {checkUserEmailSaga} from './checkUserEmailSaga';
+import {socialSignInSaga} from './socialSignInSaga';
 
 export function* authentificationSaga() {
   const isMyProfileFeatureEnabled: ReturnType<
@@ -25,6 +26,7 @@ export function* authentificationSaga() {
     yield takeEvery(ACTIONS.FORGOT_PASSWORD_REQUEST, forgotPasswordSaga);
     yield takeEvery(ACTIONS.RESEND_SIGNUP_CODE_REQUEST, resendSignUpCodeSaga);
     yield takeEvery(ACTIONS.SIGNIN_REQUEST, signInSaga);
+    yield takeEvery(ACTIONS.SOCIAL_SIGNIN_REQUEST, socialSignInSaga);
     yield takeEvery(ACTIONS.SIGNUP_REQUEST, signUpSaga);
     yield takeEvery(ACTIONS.SIGNOUT_REQUEST, signInOutSaga);
     yield takeEvery(ACTIONS.DELETE_USER_REQUEST, deleteUserSaga);
