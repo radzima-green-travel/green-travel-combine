@@ -15,6 +15,7 @@
 #import "SettingsScreen.h"
 #import "LoginViewController.h"
 #import <SDWebImage/SDWebImage.h>
+#import "LocaleUtils.h"
 
 @interface SettingsScreenRoot()
 
@@ -57,7 +58,7 @@
 #pragma mark - General group
   SettingsEntryAction *languageEntry = [SettingsEntryAction new];
   languageEntry.name = NSLocalizedString(@"SettingsViewControllerLanguageCellTitle", @"");
-  languageEntry.value = @"Русский";
+  languageEntry.value = getCurrentLocaleFriendlyName();
   languageEntry.chevron = YES;
   languageEntry.iconName = @"language";
   languageEntry.doAction = ^void(UIViewController *activeViewController) {
