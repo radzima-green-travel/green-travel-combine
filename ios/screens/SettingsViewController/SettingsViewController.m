@@ -140,6 +140,15 @@ static NSString * const kAuthCellId = @"authCellId";
     [cellAuth updateWithSubTitle:@"a" fetchingInProgress:NO signedIn:YES];
     return cell;
   }
+  if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+    SettingsBaseTableViewCell *baseCell = [tableView dequeueReusableCellWithIdentifier:kBaseCellId forIndexPath:indexPath];
+    SettingsBaseTableViewCellConfig *config = [[SettingsBaseTableViewCellConfig alloc] initWithTitle:entry.name
+                                                                                    subTitle:entry.value
+                                                                                    iconName:entry.iconName
+                                                                                    chevron:YES];
+    [baseCell update:config];
+    return baseCell;
+  }
 
   SettingsBaseTableViewCell *baseCell = [tableView dequeueReusableCellWithIdentifier:kBaseCellId forIndexPath:indexPath];
   SettingsBaseTableViewCellConfig *config = [[SettingsBaseTableViewCellConfig alloc] initWithTitle:entry.name
