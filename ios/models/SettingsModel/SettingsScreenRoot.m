@@ -40,6 +40,7 @@
 #pragma mark - Auth group
   SettingsEntryAuthLoggedOut *authEntry = [SettingsEntryAuthLoggedOut new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
+  authEntry.inProgress = NO;
   __weak typeof(self) weakSelf = self;
   authEntry.doAction = ^void(UIViewController *activeViewController) {
     LoginViewController *loginViewController =
@@ -97,6 +98,23 @@
 #pragma mark - Assembling to root
   self.groups =
   [[NSMutableArray alloc] initWithArray:@[authGroup, generalGroup, aboutGroup]];
+}
+
+- (void)startSignIn {
+  SettingsEntryAuthLoggedOut *authEntry = (SettingsEntryAuthLoggedOut *)self.groups[0].entries[0];
+  authEntry.inProgress = YES;
+}
+
+- (void)finishSignIn {
+  SettingsScreen *screen = [SettingsScreen new];
+  screen.name = @"";
+  
+  
+  SettingsEntryAuthLoggedIn *authEntry = [SettingsEntryAuthLoggedIn new];
+  authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
+  authEntry.inProgress = NO;
+  __weak typeof(self) weakSelf = self;
+  authEntry.screen;
 }
 
 @end

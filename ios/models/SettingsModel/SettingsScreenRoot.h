@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithUserController:(UserController *)userController
                              userModel:(UserModel *)userModel;
 
+- (void)startSignIn;
+- (void)finishSignIn;
+- (void)startSignOut;
+- (void)finishSignOut;
+
 @end
 
 NS_ASSUME_NONNULL_END
