@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsEntryAuthLoggedOut : SettingsEntryAction
 
+@property (assign, nonatomic) BOOL inProgress;
+
 @end
 
 NS_ASSUME_NONNULL_END

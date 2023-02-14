@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsEntryAuthLoggedIn : SettingsEntryNavigate
 
+@property (assign, nonatomic) BOOL inProgress;
+
 @end
 
 NS_ASSUME_NONNULL_END
