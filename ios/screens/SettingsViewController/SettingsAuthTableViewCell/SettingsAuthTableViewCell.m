@@ -9,7 +9,7 @@
 #import "CacheService.h"
 #import "Typography.h"
 #import "Colors.h"
-#import "UIImage+extensions.h""
+#import "UIImage+extensions.h"
 
 @interface SettingsAuthTableViewCell()
 
