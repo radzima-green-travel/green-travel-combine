@@ -114,9 +114,9 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
   [self.contentView addSubview:labelStack];
   
   [NSLayoutConstraint activateConstraints:@[
-  [labelStack.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
-  [labelStack.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor],
-  [labelStack.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
+    [labelStack.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
+    [labelStack.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor],
+    [labelStack.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
   ]];
   
   if (fetchingInProgress) {
