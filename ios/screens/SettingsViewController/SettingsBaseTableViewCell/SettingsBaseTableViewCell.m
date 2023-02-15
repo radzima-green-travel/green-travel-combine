@@ -25,11 +25,6 @@
 
 @implementation SettingsBaseTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
 - (void)layoutSubviews {
   [super layoutSubviews];
   self.backgroundColor = [Colors get].background;
