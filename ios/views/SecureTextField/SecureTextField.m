@@ -38,9 +38,9 @@
   
   
   self.secureModeButton = [[UIButton alloc] initWithFrame:CGRectZero];
-  [self.secureModeButton setImage:[UIImage imageNamed:@"eye-crossed"]
-                         forState:UIControlStateNormal];
   [self.secureModeButton setImage:[UIImage imageNamed:@"eye"]
+                         forState:UIControlStateNormal];
+  [self.secureModeButton setImage:[UIImage imageNamed:@"eye-crossed"]
                          forState:UIControlStateSelected];
   [self.secureModeButton addTarget:self action:@selector(onSecureModeToggle:)
                   forControlEvents:UIControlEventTouchUpInside];
