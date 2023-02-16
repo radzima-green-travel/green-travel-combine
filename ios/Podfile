@@ -72,9 +72,7 @@ target 'greenTravel' do
   end
 
   post_install do |installer|
-    installer.pods_project.build_configurations.each do |config|
-      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-    end
+   
     $RNMBGL.post_install(installer)
     react_native_post_install(
       installer,
@@ -87,6 +85,13 @@ target 'greenTravel' do
       target.build_configurations.each do |config|
         config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
         config.build_settings.delete 'ARCHS'
+      end
+    end
+    installer.pods_project.targets.each do |target|
+      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+        target.build_configurations.each do |config|
+            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
       end
     end
   end
