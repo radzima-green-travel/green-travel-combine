@@ -5,10 +5,5 @@ module.exports = {
         android: null,
       },
     },
-    'react-native-mmkv': {
-      platforms: {
-        ios: null,
-      },
-    },
   },
 };

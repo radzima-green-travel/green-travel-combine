@@ -11613,6 +11613,7 @@ export type ListMobileDataQuery = {
           coordinates: Array< Array< Array< Array< number | null > | null > | null > | null >,
         } | null,
         cover?: string | null,
+        blurhash?: string | null,
         categoryId: string,
         owner?: string | null,
         createdBy?: string | null,

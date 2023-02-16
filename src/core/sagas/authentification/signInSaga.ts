@@ -17,7 +17,6 @@ export function* signInSaga({
 
     yield put(signInSuccess({email, userAttributes: attributes}));
   } catch (e) {
-    console.log(e);
     yield put(signInFailure(e as Error));
   }
 }

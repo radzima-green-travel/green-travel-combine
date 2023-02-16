@@ -10,6 +10,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
+		2DE0007B799E8DAF75A65893 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81064F557E001E9E478D73E8 /* ExpoModulesProvider.swift */; };
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
 		5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* LoginViewController.m */; };
@@ -715,6 +716,7 @@
 		6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		745C34F067A2EA32BDC236BD /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		81064F557E001E9E478D73E8 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-greenTravel/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E864D96B10ABCD37BAAAE8 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
@@ -775,6 +777,14 @@
 				5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */,
 			);
 			name = AmplifyConfig;
+			sourceTree = "<group>";
+		};
+		244CB61978412BE338F39965 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				85FC59C3FCCCED7631603DDD /* greenTravel */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -2076,6 +2086,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C11F5CD373D543CEFBB10130 /* Pods */,
 				15C907380D85C2A4462F18A4 /* AmplifyConfig */,
+				244CB61978412BE338F39965 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -2088,6 +2099,14 @@
 				13B07F961A680F5B00A75B9A /* Radzima Dev.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		85FC59C3FCCCED7631603DDD /* greenTravel */ = {
+			isa = PBXGroup;
+			children = (
+				81064F557E001E9E478D73E8 /* ExpoModulesProvider.swift */,
+			);
+			name = greenTravel;
 			sourceTree = "<group>";
 		};
 		C11F5CD373D543CEFBB10130 /* Pods */ = {
@@ -2358,11 +2377,13 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-greenTravel/Pods-greenTravel-resources.sh",
 				"${PODS_ROOT}/Amplitude/Sources/Amplitude/Resources/ComodoRsaDomainValidationCA.der",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ComodoRsaDomainValidationCA.der",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2601,6 +2622,7 @@
 				5A2315DB28E0A428004CB989 /* ApiServiceIndexFile.m in Sources */,
 				5A6DC56C2655B5C500A2D37B /* StoredCoordinate+CoreDataProperties.m in Sources */,
 				5A775E792607E0A100CEFC78 /* GreenTravel.xcdatamodeld in Sources */,
+				2DE0007B799E8DAF75A65893 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2652,13 +2674,14 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = greenTravel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
@@ -2693,13 +2716,14 @@
 					"PB_ENABLE_MALLOC=1",
 				);
 				INFOPLIST_FILE = greenTravel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.greentravel.radzima;
 				PRODUCT_NAME = "Radzima Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "EPM_SLR_In-House";
@@ -2788,13 +2812,14 @@
 					"PB_ENABLE_MALLOC=1",
 				);
 				INFOPLIST_FILE = greenTravel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = app.radzima;
 				PRODUCT_NAME = Radzima;
 				PROVISIONING_PROFILE_SPECIFIER = "EPAM Radzima App Store Distribution";

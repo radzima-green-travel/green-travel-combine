@@ -5,7 +5,7 @@ import {signUpRequest, signUpSuccess, signUpFailure} from 'core/reducers';
 
 export function* signUpSaga({payload}: ActionType<typeof signUpRequest>) {
   try {
-    const data = yield call([Auth, Auth.signUp], {
+    yield call([Auth, Auth.signUp], {
       username: payload.email,
       password: payload.password,
       attributes: {
@@ -17,8 +17,6 @@ export function* signUpSaga({payload}: ActionType<typeof signUpRequest>) {
         enabled: true,
       },
     });
-
-    console.log(data);
 
     yield put(signUpSuccess(payload.email));
   } catch (e) {

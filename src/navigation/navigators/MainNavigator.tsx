@@ -50,7 +50,7 @@ export function MainNavigator() {
       <Stack.Screen
         name="TabNavigator"
         component={TabNavigator}
-        options={{headerShown: false}}
+        options={{headerShown: false, animation: 'fade'}}
       />
       <Stack.Screen
         name="ObjectDetailsMap"
@@ -71,6 +71,7 @@ export function MainNavigator() {
         component={AuthNavigator}
         options={{
           headerShown: false,
+          presentation: 'modal',
         }}
       />
     </Stack.Navigator>

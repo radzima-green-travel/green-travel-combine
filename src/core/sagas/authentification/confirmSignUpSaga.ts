@@ -1,6 +1,5 @@
 import {all, call, put, take} from 'redux-saga/effects';
 import {ActionType} from 'typesafe-actions';
-import {Auth} from 'aws-amplify';
 import {
   confirmSignUpRequest,
   confirmSignUpSuccess,
@@ -8,6 +7,7 @@ import {
 } from 'core/reducers';
 import {createAuthHubChannel} from './createAuthHubChannel';
 import {CognitoUserWithAttributes} from 'core/types';
+import {amplifyApi} from 'api/amplify';
 
 export function* confirmSignUpSaga({
   payload: {email, code},
@@ -28,7 +28,7 @@ export function* confirmSignUpSaga({
           }
         }
       }),
-      call([Auth, Auth.confirmSignUp], email, code),
+      call(amplifyApi.confirmSignUp, email, code),
     ]);
 
     yield put(

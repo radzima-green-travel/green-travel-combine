@@ -1,6 +1,5 @@
 import {applyMiddleware, createStore, Store} from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import {composeWithDevTools} from 'redux-devtools-extension';
 import {StateType} from 'typesafe-actions';
 import {rootSaga} from './rootSaga';
 import {persistStore, persistReducer} from 'redux-persist';
@@ -61,7 +60,7 @@ export type IState = StateType<typeof rootReducer>;
 
 export const store: Store<IState> = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware, logger)),
+  applyMiddleware(sagaMiddleware, logger),
 );
 
 export const persistor = persistStore(store);

@@ -2,38 +2,55 @@ import React from 'react';
 
 import {useTranslation} from 'core/hooks';
 import {AuthForm} from 'organisms';
-import {OneTimeCode} from 'atoms';
+import {OneTimeCode, SnackBar, WithFormikInput} from 'atoms';
 import {useEmailValidation} from './hooks';
+import {FormikProvider} from 'formik';
 
 export const EmailValidation = () => {
   const {t} = useTranslation('authentification');
   const {
     isSignUp,
     email,
-    onConfirmSignUp,
-    isCodeFull,
     loading,
     onResendSignUpCodetoEmail,
     onResendRestorePasswordCodetoEmail,
-    getEmailCode,
     buttonText,
+
+    formik,
+    isSubmitButtonDisabled,
+    submitForm,
+    snackBarProps,
+    codeLength,
   } = useEmailValidation();
 
   return (
-    <AuthForm
-      title={isSignUp ? t('signUpValidationTitle') : t('emailValidationTitle')}
-      text={t('signUpValidationText') + ' ' + email}
-      onSubmitPress={onConfirmSignUp}
-      submitButtonText={buttonText}
-      isSubmitButtonDisabled={!isCodeFull}
-      submitButtonLoading={loading}
-      onSecondaryButtonPress={
-        isSignUp
-          ? onResendSignUpCodetoEmail
-          : onResendRestorePasswordCodetoEmail
-      }
-      secondaryButtonText={t('repeatAttempt')}>
-      <OneTimeCode onCodeInput={getEmailCode} />
-    </AuthForm>
+    <FormikProvider value={formik}>
+      <AuthForm
+        title={
+          isSignUp ? t('signUpValidationTitle') : t('emailValidationTitle')
+        }
+        text={t('signUpValidationText') + ' ' + email}
+        onSubmitPress={submitForm}
+        submitButtonText={buttonText}
+        isSubmitButtonDisabled={isSubmitButtonDisabled}
+        submitButtonLoading={loading}
+        onSecondaryButtonPress={
+          isSignUp
+            ? onResendSignUpCodetoEmail
+            : onResendRestorePasswordCodetoEmail
+        }
+        secondaryButtonText={t('repeatAttempt')}>
+        <WithFormikInput<string> name="code">
+          {({messageText, ...inputProps}) => (
+            <OneTimeCode
+              messageText={messageText ? t(messageText) : undefined}
+              codeLength={codeLength}
+              {...inputProps}
+            />
+          )}
+        </WithFormikInput>
+      </AuthForm>
+      <SnackBar isOnTop {...snackBarProps} />
+    </FormikProvider>
   );
 };

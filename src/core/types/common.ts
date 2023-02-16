@@ -69,6 +69,7 @@ export interface IObject {
   origins?: IOrigins[];
   routes?: LineString;
   length: number | null;
+  blurhash?: string;
 }
 
 export interface ICategory {

@@ -22,7 +22,7 @@ export const ObjectCard = memo(
     onRemoveAnimationEnd,
     onFavoriteChanged,
   }: IProps) => {
-    const {id, name, cover} = data;
+    const {id, name, cover, blurhash} = data;
 
     const onPressHandler = useCallback(() => {
       onPress(data);
@@ -47,6 +47,7 @@ export const ObjectCard = memo(
         imageUri={cover}
         containerStyle={containerStyle}
         onFavoriteChanged={onFavoriteChangedHandler}
+        blurhash={blurhash}
       />
     );
   },

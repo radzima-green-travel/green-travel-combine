@@ -17,6 +17,7 @@ export const CategoryCard = memo(
     const onPressHandler = useCallback(() => {
       onPress(data);
     }, [data, onPress]);
+
     return (
       <Card
         containerStyle={containerStyle}
@@ -24,6 +25,7 @@ export const CategoryCard = memo(
         onPress={onPressHandler}
         title={name}
         imageUri={cover || undefined}
+        isCat
       />
     );
   },

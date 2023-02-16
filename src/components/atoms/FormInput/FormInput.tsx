@@ -1,10 +1,11 @@
 import React, {useCallback} from 'react';
-import {Pressable, TextInput, View, Text} from 'react-native';
+import {Pressable, TextInput, View} from 'react-native';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
-import {Icon} from 'atoms';
+import {Icon} from '../Icon';
 import {IconsNames} from 'atoms/Icon/IconsNames';
 import {COLORS} from 'assets';
+import {HelperText} from '../HelperText';
 
 interface IProps {
   iconLeftName?: IconsNames;
@@ -96,11 +97,7 @@ export const FormInput = ({
           </Pressable>
         ) : null}
       </View>
-      {messageText ? (
-        <Text style={[styles.messageText, error && styles.messageErrorText]}>
-          {messageText}
-        </Text>
-      ) : null}
+      <HelperText messageText={messageText} error={error} />
     </View>
   );
 };

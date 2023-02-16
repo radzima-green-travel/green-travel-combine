@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react';
+import {useCallback} from 'react';
 
 import {useDispatch} from 'react-redux';
 import {
@@ -7,6 +7,7 @@ import {
   resendSignUpCodeRequest,
 } from 'core/reducers';
 import {
+  useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
   useTranslation,
@@ -16,11 +17,13 @@ import {
   EmailValidationScreenNavigationProps,
   EmailValidationScreenRouteProps,
 } from '../types';
+import {useFormik} from 'formik';
+import {ValidationCodeFormModel} from 'core/types';
+import {useSnackbar} from 'atoms';
 
 export const useEmailValidation = () => {
   const {t} = useTranslation('authentification');
-  const [isCodeFull, setIsCodeFull] = useState(false);
-  const [code, setCode] = useState('');
+  const codeLength = 6;
 
   const navigation = useNavigation<EmailValidationScreenNavigationProps>();
   const {
@@ -29,20 +32,26 @@ export const useEmailValidation = () => {
 
   const dispatch = useDispatch();
 
-  const getEmailCode = (emailCode, isCode) => {
-    setIsCodeFull(isCode);
-    setCode(emailCode);
-  };
+  const onConfirmSignUp = useCallback(
+    ({code}: {code: string}) => {
+      if (isSignUp) {
+        dispatch(confirmSignUpRequest({email, code}));
+      } else {
+        navigation.navigate('NewPassword', {email, code});
+      }
+    },
+    [isSignUp, dispatch, email, navigation],
+  );
+
+  const formik = useFormik<ValidationCodeFormModel>({
+    initialValues: {
+      code: '',
+    },
+    onSubmit: onConfirmSignUp,
+  });
+  const {show, ...snackBarProps} = useSnackbar();
 
   const {loading} = useRequestLoading(confirmSignUpRequest);
-
-  const onConfirmSignUp = useCallback(() => {
-    if (isSignUp) {
-      dispatch(confirmSignUpRequest({email, code}));
-    } else {
-      navigation.navigate('NewPassword', {email, code});
-    }
-  }, [isSignUp, dispatch, email, code, navigation]);
 
   const onResendSignUpCodetoEmail = useCallback(() => {
     dispatch(resendSignUpCodeRequest(email));
@@ -58,15 +67,31 @@ export const useEmailValidation = () => {
     navigation.getParent()?.goBack();
   });
 
+  useOnRequestError(confirmSignUpRequest, 'authentification', errorLabel => {
+    show({
+      type: 'error',
+      title: errorLabel.text,
+    });
+  });
+  useOnRequestError(resendSignUpCodeRequest, 'authentification', errorLabel => {
+    show({
+      type: 'error',
+      title: errorLabel.text,
+    });
+  });
+
   return {
     isSignUp,
     email,
-    onConfirmSignUp,
-    isCodeFull,
     loading,
     onResendSignUpCodetoEmail,
     onResendRestorePasswordCodetoEmail,
-    getEmailCode,
     buttonText,
+
+    formik,
+    isSubmitButtonDisabled: formik.values.code.length !== codeLength,
+    submitForm: formik.handleSubmit,
+    snackBarProps,
+    codeLength,
   };
 };

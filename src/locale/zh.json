@@ -84,6 +84,9 @@
         },
         "USER_TO_RESTORE_NOT_FOUND": {
           "text": "未找到用戶"
+        },
+        "VERIFICATION_CODE_MISMATCH": {
+          "text": "驗證碼錯誤"
         }
       }
     },

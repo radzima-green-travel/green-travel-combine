@@ -5,8 +5,8 @@ import {
   NativeScrollEvent,
   StyleProp,
 } from 'react-native';
+import {Image} from 'expo-image';
 
-import FastImage, {ImageStyle} from 'react-native-fast-image';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 interface IProps {
@@ -49,10 +49,10 @@ export const ImageSlider = ({
             : item;
 
         return (
-          <FastImage
+          <Image
             style={[styles.image as unknown as StyleProp<ImageStyle>, {width}]}
             resizeMode="cover"
-            source={isImgDownloaded ? imageSourse : defaultPhoto ?? imageSourse}
+            source={imageSourse.uri}
             onError={() => setIsImgDownloaded(false)}
           />
         );

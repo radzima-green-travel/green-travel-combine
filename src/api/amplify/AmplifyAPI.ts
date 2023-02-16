@@ -11,7 +11,6 @@ class AmplifyApi extends AmplifyApiEngine {
         context: Auth,
         method: Auth.signIn,
         errorMap: (e: AmplifyError) => {
-          console.log(e);
           if (e.code === 'PasswordResetRequiredException') {
             return {
               code: 'PASSWORD_RESET_REQUIRED',
@@ -79,6 +78,63 @@ class AmplifyApi extends AmplifyApiEngine {
               status: 400,
             };
           }
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
+
+  confirmSignUp = async (...args: Parameters<typeof Auth.confirmSignUp>) => {
+    return this.invoke(
+      {
+        context: Auth,
+        method: Auth.confirmSignUp,
+        errorMap: (e: AmplifyError) => {
+          if (e.code === 'CodeMismatchException') {
+            return {
+              code: 'VERIFICATION_CODE_MISMATCH',
+              status: 400,
+            };
+          }
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
+
+  resendSignUp = async (...args: Parameters<typeof Auth.resendSignUp>) => {
+    return this.invoke(
+      {
+        context: Auth,
+        method: Auth.resendSignUp,
+        errorMap: () => {
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
+  deleteUser = async (...args: Parameters<typeof Auth.deleteUser>) => {
+    return this.invoke(
+      {
+        context: Auth,
+        method: Auth.deleteUser,
+        errorMap: () => {
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
+
+  signOut = async (...args: Parameters<typeof Auth.signOut>) => {
+    return this.invoke(
+      {
+        context: Auth,
+        method: Auth.signOut,
+        errorMap: () => {
           return {};
         },
       },

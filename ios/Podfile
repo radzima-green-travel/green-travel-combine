@@ -1,8 +1,9 @@
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '12.4'
+platform :ios, '13.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 inhibit_all_warnings!
@@ -26,7 +27,15 @@ target 'greenTravel' do
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   $ReactNativeMapboxGLIOSVersion = '~> 6.3'
-  config = use_native_modules!
+  use_expo_modules!
+  post_integrate do |installer|
+    begin
+      expo_patch_react_imports!(installer)
+      rescue => e
+      Pod::UI.warn e
+    end
+  end
+    config = use_native_modules!
 
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -63,6 +72,9 @@ target 'greenTravel' do
   end
 
   post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+    end
     $RNMBGL.post_install(installer)
     react_native_post_install(
       installer,

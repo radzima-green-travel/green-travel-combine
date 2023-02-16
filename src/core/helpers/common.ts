@@ -155,7 +155,7 @@ export function transformQueryData(
             path: '',
             icon: category.icon || '',
             cover: category.cover
-              ? imagesService.getImageProxy(category.cover)
+              ? imagesService.getOriginalImage(category.cover)
               : null,
             parent: category.parent || undefined,
             updatedAt: category.updatedAt,
@@ -256,11 +256,12 @@ export function transformQueryData(
               singularName: objectCategory?.singularName || '',
             },
             cover: object.cover
-              ? imagesService.getImageProxy(object.cover)
+              ? imagesService.getOriginalImage(object.cover)
               : '',
+            blurhash: object.blurhash || '',
             images: compact(
               map(object.images, img =>
-                img ? imagesService.getImageProxy(img) : img,
+                img ? imagesService.getOriginalImage(img) : img,
               ),
             ),
 

@@ -1,4 +1,4 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS} from 'assets';
 
 export const themeStyles = {
   container: {
@@ -48,15 +48,5 @@ export const themeStyles = {
   icon: {
     marginLeft: 12,
     marginRight: 8,
-  },
-  messageText: {
-    ...FONTS_STYLES.regular14,
-    color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
-    },
-  },
-  messageErrorText: {
-    color: COLORS.persimmon,
   },
 };

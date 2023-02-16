@@ -1,11 +1,11 @@
 import {call, put} from 'redux-saga/effects';
-import {Auth} from 'aws-amplify';
+import {amplifyApi} from 'api/amplify';
 
 import {signOutFailure, signOutSuccess} from 'core/reducers';
 
 export function* signInOutSaga() {
   try {
-    yield call([Auth, Auth.signOut]);
+    yield call(amplifyApi.signOut);
 
     yield put(signOutSuccess());
   } catch (e) {

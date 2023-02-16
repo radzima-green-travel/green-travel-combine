@@ -13,3 +13,7 @@ export interface SignInFormModel {
 export interface ForgotPasswordEmailFormModel {
   email: string;
 }
+
+export interface ValidationCodeFormModel {
+  code: string;
+}

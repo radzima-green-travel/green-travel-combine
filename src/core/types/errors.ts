@@ -7,7 +7,8 @@ export type RequestErrorCodes =
   | 'NOT_AUTHORIZED'
   | 'USER_NOT_FOUND'
   | 'PASSWORD_ATTEMPTS_EXCEEDED'
-  | 'USER_TO_RESTORE_NOT_FOUND';
+  | 'USER_TO_RESTORE_NOT_FOUND'
+  | 'VERIFICATION_CODE_MISMATCH';
 
 export interface IRequestError extends Error {
   timestamp: number;

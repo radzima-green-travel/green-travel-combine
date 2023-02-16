@@ -1,11 +1,11 @@
 import {call, put} from 'redux-saga/effects';
-import {Auth} from 'aws-amplify';
+import {amplifyApi} from 'api/amplify';
 
 import {deleteUserSuccess, deleteUserFailure} from 'core/reducers';
 
 export function* deleteUserSaga() {
   try {
-    yield call([Auth, Auth.deleteUser]);
+    yield call(amplifyApi.deleteUser);
 
     yield put(deleteUserSuccess());
   } catch (e) {

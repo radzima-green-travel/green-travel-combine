@@ -25,3 +25,4 @@ export {ZoomableView} from './ZoomableView';
 export {SettingsSectionTitle} from './SettingsSectionTitle';
 export {WithFormikInput} from './WithFormikInput';
 export {HeaderTitle} from './HeaderTitle';
+export {HelperText} from './HelperText';

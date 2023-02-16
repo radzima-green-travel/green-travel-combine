@@ -142,6 +142,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 29
         versionName "1.4.6"
+        multiDexEnabled true
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
         if (isNewArchitectureEnabled()) {
             // We configure the CMake build only if you decide to opt-in for the New Architecture.

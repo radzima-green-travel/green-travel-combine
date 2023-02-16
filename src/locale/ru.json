@@ -84,6 +84,9 @@
         },
         "USER_TO_RESTORE_NOT_FOUND": {
           "text": "Пользователь не найден"
+        },
+        "VERIFICATION_CODE_MISMATCH": {
+          "text": "Неверный проверочный код"
         }
       }
     },

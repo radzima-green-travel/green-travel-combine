@@ -84,6 +84,9 @@
         },
         "USER_TO_RESTORE_NOT_FOUND": {
           "text": "User is not found"
+        },
+        "VERIFICATION_CODE_MISMATCH": {
+          "text": "Wrong verification code"
         }
       }
     },
