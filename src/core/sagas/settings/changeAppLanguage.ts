@@ -1,4 +1,4 @@
-import {call, put, select} from 'redux-saga/effects';
+import {call, put, select, spawn} from 'redux-saga/effects';
 
 import {languageService} from 'services/LanguageService';
 import {ActionType} from 'typesafe-actions';
@@ -12,7 +12,7 @@ import {ILabelError, SupportedLocales} from 'core/types';
 import {selectAppLanguage, selectUserAuthorized} from 'core/selectors';
 import {getInitialHomeDataSaga} from '../home/getInitialHomeDataSaga';
 import {resetEtags} from 'api/rest/interceptors';
-import {Auth} from 'aws-amplify';
+import {updateUserAttributesSaga} from '../authentification/updateUserAttributesSaga';
 
 export function* changeAppLanguageSaga({
   payload: {language, isSystemLanguage},
@@ -48,12 +48,9 @@ export function* changeAppLanguageSaga({
       yield call(resetEtags);
       yield call(getInitialHomeDataSaga);
     }
-
     if (isUserAuthorized) {
-      const user = yield call([Auth, Auth.currentAuthenticatedUser]);
-
-      yield call([Auth, Auth.updateUserAttributes], user, {
-        'custom:locale': language,
+      yield spawn(updateUserAttributesSaga, {
+        locale: language as SupportedLocales,
       });
     }
 
