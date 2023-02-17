@@ -199,6 +199,7 @@ static BOOL kSignUpEnabled = YES;
 
   self.profileControllerWithNavigation.tabBarItem = self.profileTabBarItem;
 #pragma mark - SettingsViewController
+  //TODO: will be enabled after completion of #603.
   if (/* DISABLES CODE */ (YES)) {
   	SettingsModel *settingsModel = [[SettingsModel alloc] initWithUserController:userController userModel:userModel];
     SettingsController *settingsController = [[SettingsController alloc] initWithModel:settingsModel userController:userController userModel:userModel];
