@@ -3,7 +3,7 @@ require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '13.0'
+platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
 
 inhibit_all_warnings!
@@ -85,13 +85,6 @@ target 'greenTravel' do
       target.build_configurations.each do |config|
         config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
         config.build_settings.delete 'ARCHS'
-      end
-    end
-    installer.pods_project.targets.each do |target|
-      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
-        target.build_configurations.each do |config|
-            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
-        end
       end
     end
   end
