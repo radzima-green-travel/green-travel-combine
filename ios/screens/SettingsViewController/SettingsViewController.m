@@ -204,6 +204,9 @@ static NSString * const kAuthCellId = @"authCellId";
                         toCurrentState:(UserModelState)currentState {
   // Find 4th tab controller in application.
   UITabBarController *tabController = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+  if (tabController.viewControllers.count < 4) {
+    return;
+  }
   SettingsViewController *settingsViewController = (SettingsViewController *)tabController.viewControllers[3];
   BOOL root = settingsViewController == self;
 
