@@ -87,5 +87,28 @@ target 'greenTravel' do
         config.build_settings.delete 'ARCHS'
       end
     end
+
+    dev_team_id = ""
+  project = installer.aggregate_targets[0].user_project
+  project.targets.each do |target|
+    target.build_configurations.each do |config|
+      if dev_team_id.empty? and !config.build_settings['DEVELOPMENT_TEAM'].nil?
+        dev_team_id = config.build_settings['DEVELOPMENT_TEAM']
+      end
+    end
+  end
+
+  # Reconfigure the pods, update deployment target and signing settings
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      if target.respond_to?(:product_type) and target.product_type == 'com.apple.product-type.bundle'
+        config.build_settings['DEVELOPMENT_TEAM'] = dev_team_id
+        config.build_settings['CODE_SIGN_IDENTITY'] = 'Apple Distribution';
+        config.build_settings['CODE_SIGN_STYLE'] = 'Manual';
+      end if
+
+      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+    end
+  end
   end
 end
