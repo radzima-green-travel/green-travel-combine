@@ -36,8 +36,15 @@
   return self;
 }
 
+#pragma mark - Assembling to root
 - (void)setUp {
+  self.groups = [[NSMutableArray alloc] initWithArray:@[[self setUpAuthGroup],
+                                                        [self setUpGeneralGroup],
+                                                        [self setUpAboutGroup]]];
+}
+
 #pragma mark - Auth group
+- (SettingsGroup *)setUpAuthGroup {
   SettingsEntryAuthLoggedOut *authEntry = [SettingsEntryAuthLoggedOut new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
   authEntry.inProgress = NO;
@@ -56,7 +63,11 @@
   
   SettingsGroup *authGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[authEntry]];
+  return authGroup;
+}
+
 #pragma mark - General group
+- (SettingsGroup *)setUpGeneralGroup {
   SettingsEntryAction *languageEntry = [SettingsEntryAction new];
   languageEntry.name = NSLocalizedString(@"SettingsViewControllerLanguageCellTitle", @"");
   languageEntry.value = getCurrentLocaleFriendlyName();
@@ -83,7 +94,11 @@
   };
   SettingsGroup *generalGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[languageEntry, clearCacheEntry]];
-#pragma mark - About group  
+  return generalGroup;
+}
+
+#pragma mark - About group
+- (SettingsGroup *)setUpAboutGroup {
   SettingsEntryNavigate *termsEntry = [SettingsEntryNavigate new];
   termsEntry.name = NSLocalizedString(@"SettingsViewControllerTermsCellTitle", @"");
   termsEntry.screen = [SettingsScreen new];
@@ -94,10 +109,7 @@
   
   SettingsGroup *aboutGroup =
   [[SettingsGroup alloc] initWithName:@"" entries:@[termsEntry, privacyEntry]];
-  
-#pragma mark - Assembling to root
-  self.groups =
-  [[NSMutableArray alloc] initWithArray:@[authGroup, generalGroup, aboutGroup]];
+  return aboutGroup;
 }
 
 - (void)startSignIn {
@@ -113,8 +125,6 @@
   SettingsEntryAuthLoggedIn *authEntry = [SettingsEntryAuthLoggedIn new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
   authEntry.inProgress = NO;
-  __weak typeof(self) weakSelf = self;
-  authEntry.screen;
 }
 
 @end
