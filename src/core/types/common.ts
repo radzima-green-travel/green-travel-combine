@@ -84,6 +84,7 @@ export interface ICategory {
   fields: string[];
   objects: IObject[];
   children: ICategory[];
+  blurhash?: string;
 }
 
 export interface ITransformedCategory

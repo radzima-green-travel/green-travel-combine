@@ -12,7 +12,7 @@ interface IProps {
 
 export const CategoryCard = memo(
   ({data, width, onPress, containerStyle}: IProps) => {
-    const {name, cover} = data;
+    const {name, cover, blurhash} = data;
 
     const onPressHandler = useCallback(() => {
       onPress(data);
@@ -25,7 +25,7 @@ export const CategoryCard = memo(
         onPress={onPressHandler}
         title={name}
         imageUri={cover || undefined}
-        isCat
+        blurhash={blurhash}
       />
     );
   },

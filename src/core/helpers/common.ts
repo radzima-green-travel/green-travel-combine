@@ -157,6 +157,8 @@ export function transformQueryData(
             cover: category.cover
               ? imagesService.getOriginalImage(category.cover)
               : null,
+            blurhash: category.blurhash || '',
+
             parent: category.parent || undefined,
             updatedAt: category.updatedAt,
             fields: compact(category.fields),

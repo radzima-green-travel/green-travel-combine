@@ -110,6 +110,7 @@ export type Category = {
   cover?: string | null,
   index?: number | null,
   i18n?:  Array<CategoryI18n | null > | null,
+  blurhash?: string | null,
 };
 
 export type CategoryI18n = {
@@ -11668,6 +11669,7 @@ export type ListMobileDataQuery = {
           fields?: Array< string | null > | null,
           parent?: string | null,
           cover?: string | null,
+          blurhash?: string | null,
           index?: number | null,
           i18n?:  Array< {
             __typename: "CategoryI18n",
