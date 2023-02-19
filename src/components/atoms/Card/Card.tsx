@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useMemo} from 'react';
+import React, {memo, useMemo} from 'react';
 import {
   View,
   Text,
@@ -13,9 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import {Image} from 'expo-image';
-import {useState} from 'react';
 export const ratio = 324 / 144;
-
 interface IProps {
   imageUri?: string;
   title: string;
@@ -44,15 +42,10 @@ export const Card = memo(
     onFavoriteChanged,
     blurhash,
   }: IProps) => {
-    const [isImageProvided, setIsImageProvided] = useState(false);
     const styles = useThemeStyles(themeStyles);
     const dimensions = useMemo(() => {
       return {width, height: width / ratio};
     }, [width]);
-
-    const onLoadHandler = useCallback(() => {
-      setIsImageProvided(true);
-    }, []);
 
     return (
       <TouchableOpacity
@@ -63,12 +56,10 @@ export const Card = memo(
         <Image
           style={styles.image as ImageStyle}
           source={imageUri}
-          onLoad={onLoadHandler}
           placeholder={blurhash}
+          transition={200}
         />
-        {isImageProvided ? (
-          <LinearGradient {...gradientConfig} style={styles.gradient} />
-        ) : null}
+        <LinearGradient {...gradientConfig} style={styles.gradient} />
         <View style={styles.cardContentContainer}>
           <Text style={styles.title}>{title}</Text>
           {isFavoriteBlockVisible ? (
