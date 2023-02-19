@@ -39,36 +39,12 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
     return self;
 }
 
-- (void)setUp {}
-
-- (void)prepareTableViewCell {
-  self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-  
+- (void)setUp {
   self.iconImageView = [[UIImageView alloc] init];
   self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
   
   [self.contentView addSubview:self.iconImageView];
-  
-  [NSLayoutConstraint activateConstraints:@[
-  [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kIconLeadingAnchor],
-  [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-  [self.iconImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kIconTopAnchor],
-  [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:kIconBottomAnchor],
-  [self.iconImageView.widthAnchor constraintEqualToAnchor:self.iconImageView.heightAnchor]
-  ]];
-}
-
-- (void)updateWithSubTitle:(NSString*)subText
-        fetchingInProgress:(BOOL)fetchingInProgress
-                  signedIn:(BOOL)signedIn {
-  self.iconImageView = [[UIImageView alloc] init];
-  self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
-  
-  [self.contentView addSubview:self.iconImageView];
-  
 #pragma mark - Avatar
-  [self setUpAvatar:subText signedIn:YES];
-  
   [NSLayoutConstraint activateConstraints:@[
     [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kIconLeadingAnchor],
     [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
@@ -106,7 +82,11 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
     [labelStack.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor],
     [labelStack.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
   ]];
-  
+}
+
+- (void)updateWithSubTitle:(NSString*)subText
+        fetchingInProgress:(BOOL)fetchingInProgress
+                  signedIn:(BOOL)signedIn {
   if (fetchingInProgress) {
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
     self.accessoryView = activityIndicator;
@@ -134,6 +114,7 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
     NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellSubTitleAuthorizedNot", @"")];
     [self.subLabel setAttributedText:subTextLabelAttributedString];
   }
+  [self setUpAvatar:subText signedIn:YES];
 }
 
 - (void)setUpAvatar:(NSString *)subText signedIn:(BOOL)signedIn {
