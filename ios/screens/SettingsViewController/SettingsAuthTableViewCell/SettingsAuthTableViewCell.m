@@ -119,7 +119,7 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
 
 - (void)setUpAvatar:(NSString *)subText signedIn:(BOOL)signedIn {
   if (!signedIn) {
-    self.iconImageView.image = [UIImage imageNamed:@"accountPhoto"];
+    self.iconImageVie3w.image = [UIImage imageNamed:@"accountPhoto"];
     return;
   }
   
