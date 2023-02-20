@@ -20,6 +20,9 @@
 @property (strong, nonatomic) UIView *separatorView;
 @property (strong, nonatomic) UIStackView *labelStack;
 @property (strong, nonatomic) SettingsBaseTableViewCellConfig *config;
+@property (strong, nonatomic) NSArray<NSLayoutConstraint *> *iconConstraints;
+@property (strong, nonatomic) NSLayoutConstraint *leadingWithIcon;
+@property (strong, nonatomic) NSLayoutConstraint *leadingNoIcon;
 
 @end
 
@@ -49,74 +52,85 @@
 }
 
 - (void)setUp {
-  UIView *prevView = nil;
 #pragma mark - Icon
-  [self.iconView removeFromSuperview];
-  if (self.config.iconName != nil && ![self.config.iconName isEqualToString:@""]) {
-    self.iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.config.iconName]];
-    self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView addSubview:self.iconView];
-    [NSLayoutConstraint activateConstraints:@[
-      [self.iconView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0],
-      [self.iconView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-      [self.iconView.widthAnchor constraintEqualToConstant:30.0],
-      [self.iconView.heightAnchor constraintEqualToConstant:30.0],
-    ]];
-    prevView = self.iconView;
-  }
+  self.iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.config.iconName]];
+  self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:self.iconView];
+  
+  self.iconConstraints = @[
+    [self.iconView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0],
+    [self.iconView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+    [self.iconView.widthAnchor constraintEqualToConstant:30.0],
+    [self.iconView.heightAnchor constraintEqualToConstant:30.0],
+  ];
 #pragma mark - Title
-    [self.title removeFromSuperview];
-    self.title = [[UILabel alloc] init];
-    [self.contentView addSubview:self.title];
-    self.title.numberOfLines = 1;
-    self.title.adjustsFontSizeToFitWidth = NO;
-    [self.title setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-    [self.title setLineBreakMode:NSLineBreakByTruncatingTail];
-    self.title.translatesAutoresizingMaskIntoConstraints = NO;
-    NSLayoutConstraint *leading;
-    if (prevView != nil) {
-      leading = [self.title.leadingAnchor constraintEqualToAnchor:prevView.trailingAnchor constant:16.0];
-    } else {
-      leading = [self.title.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0];
-    }
-    [NSLayoutConstraint activateConstraints:@[
-      [self.title.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-      leading,
-    ]];
-    prevView = self.title;
+  self.title = [[UILabel alloc] init];
+  [self.contentView addSubview:self.title];
+  self.title.numberOfLines = 1;
+  self.title.adjustsFontSizeToFitWidth = NO;
+  [self.title setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+  [self.title setLineBreakMode:NSLineBreakByTruncatingTail];
+  self.title.translatesAutoresizingMaskIntoConstraints = NO;
 #pragma mark - Sub title
-    [self.subTitle removeFromSuperview];
-    
-    self.subTitle = [[UILabel alloc] init];
-    [self.contentView addSubview:self.subTitle];
-    self.subTitle.numberOfLines = 1;
-    self.subTitle.adjustsFontSizeToFitWidth = NO;
-    [self.subTitle setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    self.subTitle.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-      [self.subTitle.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-      [self.subTitle.leadingAnchor
-       constraintGreaterThanOrEqualToAnchor:prevView.trailingAnchor constant:16.0],
-    ]];
-    prevView = self.subTitle;
+  self.subTitle = [[UILabel alloc] init];
+  [self.contentView addSubview:self.subTitle];
+  self.subTitle.numberOfLines = 1;
+  self.subTitle.adjustsFontSizeToFitWidth = NO;
+  [self.subTitle setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+  self.subTitle.translatesAutoresizingMaskIntoConstraints = NO;
 #pragma mark - Accessory view
-    if (self.config.chevron) {
-      self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
-      self.accessoryType = UITableViewCellAccessoryNone;
-    }
-    [NSLayoutConstraint activateConstraints:@[[prevView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0]]];
+  self.accessoryType = UITableViewCellAccessoryNone;
 }
 
 - (void)update:(SettingsBaseTableViewCellConfig *)entry {
   self.config = entry;
-  [self setUp];
-  [self.title setAttributedText:[[Typography get] settingsCellTitle:self.config.title]];
+  
   if (self.config.subTitle != nil) {
     [self.subTitle setAttributedText:[[Typography get] settingsCellSubTitle:self.config.subTitle]];
     return;
   }
   [self.subTitle setAttributedText:[[Typography get] settingsCellSubTitle:@""]];
+  
+  UIView *prevView = nil;
+#pragma mark - Icon
+  if (self.config.iconName != nil && ![self.config.iconName isEqualToString:@""]) {
+    [self.iconView setImage:[UIImage imageNamed:self.config.iconName]];
+    [NSLayoutConstraint activateConstraints:self.iconConstraints];
+    [self.iconView setHidden:NO];
+    prevView = self.iconView;
+  } else {
+    [NSLayoutConstraint deactivateConstraints:self.iconConstraints];
+    [self.iconView setHidden:YES];
+  }
+#pragma mark - Title
+  [self.title setAttributedText:[[Typography get] settingsCellTitle:self.config.title]];
+  [NSLayoutConstraint deactivateConstraints:@[self.leadingWithIcon, self.leadingNoIcon]];
+  NSLayoutConstraint *leading;
+  if (prevView != nil) {
+    leading = self.leadingWithIcon = [self.title.leadingAnchor constraintEqualToAnchor:prevView.trailingAnchor constant:16.0];
+  } else {
+    leading = self.leadingNoIcon = [self.title.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16.0];
+  }
+  [NSLayoutConstraint activateConstraints:@[
+    [self.title.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+    leading,
+  ]];
+  prevView = self.title;
+#pragma mark - Sub title
+  [NSLayoutConstraint activateConstraints:@[
+    [self.subTitle.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+    [self.subTitle.leadingAnchor
+     constraintGreaterThanOrEqualToAnchor:prevView.trailingAnchor constant:16.0],
+  ]];
+  prevView = self.subTitle;
+#pragma mark - Accessory view
+  if (self.config.chevron) {
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  } else {
+    self.accessoryType = UITableViewCellAccessoryNone;
+  }
+  [NSLayoutConstraint activateConstraints:@[[prevView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-16.0]]];
+  
 }
 
 - (void)prepareForReuse {
