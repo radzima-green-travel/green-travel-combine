@@ -22,6 +22,7 @@
 @property (strong, nonatomic) SettingsBaseTableViewCellConfig *config;
 @property (strong, nonatomic) NSLayoutConstraint *titleLeading;
 @property (strong, nonatomic) NSLayoutConstraint *titleTrailing;
+@property (strong, nonatomic) NSLayoutConstraint *subTitleTrailing;
 
 @end
 
@@ -68,7 +69,7 @@ static const CGFloat kSpacing = 16.0;
   self.subTitle.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
     [self.subTitle.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-    [self.subTitle.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor]
+    self.subTitleTrailing = [self.subTitle.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-kSpacing]
   ]];
 #pragma mark - Title
   self.title = [[UILabel alloc] init];
@@ -83,7 +84,7 @@ static const CGFloat kSpacing = 16.0;
     [self.title.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
     self.titleLeading = [self.title.leadingAnchor constraintEqualToAnchor:self.iconView.trailingAnchor constant:kSpacing],
     self.titleTrailing = [self.title.trailingAnchor
-                             constraintGreaterThanOrEqualToAnchor:self.subTitle.leadingAnchor constant:-kSpacing],
+                             constraintLessThanOrEqualToAnchor:self.subTitle.leadingAnchor constant:-kSpacing],
   ]];
 #pragma mark - Accessory view
   self.accessoryType = UITableViewCellAccessoryNone;
@@ -104,15 +105,17 @@ static const CGFloat kSpacing = 16.0;
   BOOL subTitleIsPresent = self.config.subTitle != nil;
   if (subTitleIsPresent) {
     [self.subTitle setAttributedText:[[Typography get] settingsCellSubTitle:self.config.subTitle]];
-    return;
+    [self.subTitle setHidden:NO];
+  } else {
+    [self.subTitle setAttributedText:[[Typography get] settingsCellSubTitle:@""]];
+    [self.subTitle setHidden:YES];
   }
-  [self.subTitle setAttributedText:[[Typography get] settingsCellSubTitle:@""]];
 #pragma mark - Title
   [self.title setAttributedText:[[Typography get] settingsCellTitle:self.config.title]];
   if (iconIsPresent) {
     self.titleLeading.constant = kSpacing;
   } else {
-    self.titleLeading.constant = -kSpacing - kIconSize;
+    self.titleLeading.constant = -2 * kSpacing;
   }
   if (subTitleIsPresent) {
     self.titleTrailing.constant = -kSpacing;
