@@ -93,7 +93,8 @@
     [activeViewController presentViewController:alert animated:YES completion:^{}];
   };
   SettingsGroup *generalGroup =
-  [[SettingsGroup alloc] initWithName:@"" entries:@[languageEntry, clearCacheEntry]];
+  [[SettingsGroup alloc] initWithName:NSLocalizedString(@"SettingsViewControllerGeneralGroupTitle", @"")
+                              entries:@[languageEntry, clearCacheEntry]];
   return generalGroup;
 }
 
@@ -108,7 +109,8 @@
   privacyEntry.screen = [SettingsScreen new];
   
   SettingsGroup *aboutGroup =
-  [[SettingsGroup alloc] initWithName:@"" entries:@[termsEntry, privacyEntry]];
+  [[SettingsGroup alloc] initWithName:NSLocalizedString(@"SettingsViewControllerAboutGroupTitle", @"")
+                              entries:@[termsEntry, privacyEntry]];
   return aboutGroup;
 }
 

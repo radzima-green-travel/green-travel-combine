@@ -80,6 +80,7 @@
 "SettingsViewControllerAuthCellSubTitleAuthorizedNot" = "授权或注册";
 "SettingsViewControllerAuthCellTitleAuthorizedProgress" = "等待登录验证";
 
+"SettingsViewControllerGeneralGroupTitle" = "设置";
 "SettingsViewControllerLanguageCellTitle" = "语言";
 "SettingsViewControllerLanguageCellValueEnglish" = "英语";
 "SettingsViewControllerLanguageCellValueRussian" = "俄语";
@@ -89,6 +90,7 @@
 "SettingsViewControllerCacheAlertMessageHeader" = "清除缓存？";
 "SettingsViewControllerCacheAlertMessageBody" = "这将减少应用程序的大小";
 
+"SettingsViewControllerAboutGroupTitle" = "信息";
 "SettingsViewControllerTermsCellTitle" = "条款和条件";
 "SettingsViewControllerPrivacyCellTitle" = "隐私政策";
 
