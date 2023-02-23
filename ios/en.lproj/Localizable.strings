@@ -94,6 +94,7 @@
 "SettingsViewControllerAuthCellSubTitleAuthorizedNot" = "Authorize or Sign up";
 "SettingsViewControllerAuthCellTitleAuthorizedProgress" = "Wait while the login is being verified";
 
+"SettingsViewControllerGeneralGroupTitle" = "Settings";
 "SettingsViewControllerLanguageCellTitle" = "Language";
 "SettingsViewControllerLanguageCellValueEnglish" = "English";
 "SettingsViewControllerLanguageCellValueRussian" = "Russian";
@@ -103,6 +104,7 @@
 "SettingsViewControllerCacheAlertMessageHeader" = "Clear cache?";
 "SettingsViewControllerCacheAlertMessageBody" = "This will reduce app size";
 
+"SettingsViewControllerAboutGroupTitle" = "Information";
 "SettingsViewControllerTermsCellTitle" = "Terms and Conditions";
 "SettingsViewControllerPrivacyCellTitle" = "Privacy Policy";
 

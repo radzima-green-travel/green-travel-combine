@@ -184,6 +184,11 @@ static NSString * const kAuthCellId = @"authCellId";
   return YES;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+  SettingsGroup *group = self.root.groups[section];
+  return group.name;
+}
+
 - (void)onSettingsModelEntryChange:(nonnull SettingsEntry *)entry {
   [self.tableView reloadData];
 }
