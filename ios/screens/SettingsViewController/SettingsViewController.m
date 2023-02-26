@@ -28,6 +28,7 @@
 #import "SettingsBaseTableViewCellConfig.h"
 #import "Colors.h"
 #import "StyleUtils.h"
+#import "SettingsUtils.h"
 
 @interface SettingsViewController ()
 
@@ -190,19 +191,34 @@ static NSString * const kAuthCellId = @"authCellId";
 }
 
 - (void)onSettingsModelEntryChange:(nonnull SettingsEntry *)entry {
-  [self.tableView reloadData];
+  if (!treeContainsScreen(self.settingsModel.tree, self.root)) {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    return;
+  }
+  //TODO: For toggle and select entries - apply change to individual cell.
+  if ([self.root isEqual:entry.parentGroup.parentScreen]) {
+    [self.tableView reloadData];
+  }
 }
 
 - (void)onSettingsModelGroupChange:(nonnull SettingsGroup *)group {
-  [self.tableView reloadData];
-}
-
-- (void)onSettingsModelTreeChange:(nonnull NSMutableArray<SettingsGroup *> *)tree {
-  [self.tableView reloadData];
+  if (!treeContainsScreen(self.settingsModel.tree, self.root)) {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    return;
+  }
+  if ([self.root isEqual:group.parentScreen]) {
+    [self.tableView reloadData];
+  }
 }
 
 - (void)onSettingsModelScreenChange:(nonnull SettingsScreen *)screen {
-
+  if (!treeContainsScreen(self.settingsModel.tree, self.root)) {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    return;
+  }
+  if ([self.root isEqual:tree]) {
+    [self.tableView reloadData];
+  }
 }
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
