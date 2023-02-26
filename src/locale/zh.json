@@ -153,6 +153,7 @@
     "notCancaled": "此操作無法撤消",
     "ok": "好的好的",
     "cancel": "取消",
-    "deleteAccount": "您確定要刪除您的帳戶嗎？"
+    "deleteAccount": "您確定要刪除您的帳戶嗎？",
+    "settings": "設置"
   }
 }

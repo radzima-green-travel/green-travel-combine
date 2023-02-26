@@ -33,7 +33,7 @@ export const Profile = () => {
         />
       </View>
 
-      <SettingsSectionTitle text="Настройки" />
+      <SettingsSectionTitle text={t('settings')} />
       <GeneralListItem
         position="top"
         onPress={() => {}}

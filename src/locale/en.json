@@ -153,6 +153,7 @@
     "notCancaled": "This action cannot be undone",
     "ok": "OK",
     "cancel": "Cancel",
-    "deleteAccount": "Are you sure you want to delete your account?"
+    "deleteAccount": "Are you sure you want to delete your account?",
+    "settings": "Settings"
   }
 }
