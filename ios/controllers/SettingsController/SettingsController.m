@@ -48,10 +48,9 @@
 - (void)interactWithSetting:(SettingsEntry *)entry
            onViewController:(UIViewController *)viewController {
   if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
-    SettingsEntryToggle *entryToggleUpdated = [SettingsEntryToggle new];
     SettingsEntryToggle *entryToggle = (SettingsEntryToggle *)entry;
-    entryToggleUpdated.enabled = !entryToggle.enabled;
-    [self.model updateEntry:entryToggleUpdated];
+    entryToggle.enabled = !entryToggle.enabled;
+    [self.model notifyAboutEntryUpdate:entryToggle];
     return;
   }
   if ([entry isKindOfClass:[SettingsEntryAction class]]) {
@@ -71,10 +70,9 @@
   }
   if ([entry isKindOfClass:[SettingsEntrySelect class]]) {
     SettingsEntrySelect *entrySelect = (SettingsEntrySelect *)entry;
+    SettingsGroup *group = entrySelect.parentGroup
     BOOL selected = entrySelect.selected;
-    SettingsGroup *groupUpdated = [entrySelect.parentGroup copy];
-    
-    [groupUpdated.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry,
+    [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry,
                                                        NSUInteger idx, BOOL * _Nonnull stop) {
       SettingsEntrySelect *entrySelectUpdated = (SettingsEntrySelect *)entry;
       if ([entrySelectUpdated.uid isEqual:entrySelect.uid]) {
@@ -83,7 +81,7 @@
       }
       entrySelectUpdated.selected = NO;
     }];
-    [self.model updateGroup:groupUpdated];
+    [self.model notifyAboutGroupUpdate:group];
     return;
   }
 }
@@ -174,7 +172,7 @@
   SettingsGroup *authGroup = [self.model.tree.groups[0] copy];
   authGroup.entries = [[NSMutableArray alloc] initWithArray:@[authEntry]];
   
-  [self.model updateGroup:authGroup];
+  [self.model notifyAboutGroupUpdate:authGroup];
 }
 
 - (void)updateAuthGroupWhenLoggedIn:(BOOL)progress{
@@ -207,7 +205,7 @@
   SettingsGroup *authGroup = [self.model.tree.groups[0] copy];
   authGroup.entries = [[NSMutableArray alloc] initWithArray:@[authEntry]];
   
-  [self.model updateGroup:authGroup];
+  [self.model notifyAboutGroupUpdate:authGroup];
 }
 
 @end

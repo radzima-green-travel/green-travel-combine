@@ -25,9 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithUserController:(UserController *)userController
                              userModel:(UserModel *)userModel;
-- (void)updateEntry:(SettingsEntry *)updatedEntry;
-- (void)updateGroup:(SettingsGroup *)updatedGroup;
-- (void)updateScreen:(SettingsScreen *)updatedScreen;
+- (void)notifyAboutEntryUpdate:(SettingsEntry *)updatedEntry;
+- (void)notifyAboutGroupUpdate:(SettingsGroup *)updatedGroup;
+- (void)notifyAboutScreenUpdate:(SettingsScreen *)updatedScreen;
 - (SettingsScreen *)findScreenByID:(NSUUID *)uuid;
 
 @end

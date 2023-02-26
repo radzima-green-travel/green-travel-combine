@@ -100,23 +100,15 @@
 }
 
 #pragma mark - update entities
-- (void)updateEntry:(SettingsEntry *)updatedEntry {
-  [self updateEntry:updatedEntry forTree:self.tree];
+- (void)notifyAboutEntryUpdate:(SettingsEntry *)updatedEntry {
   [self notifySettingsModelObserversOnEntryChange:updatedEntry];
 }
 
-- (void)updateGroup:(SettingsGroup *)updatedGroup {
-  [self updateGroup:updatedGroup forTree:self.tree];
+- (void)notifyAboutGroupUpdate:(SettingsGroup *)updatedGroup {
   [self notifySettingsModelObserversOnGroupChange:updatedGroup];
 }
 
-- (void)updateScreen:(SettingsScreen *)updatedScreen {
-  if ([updatedScreen.uid isEqual:self.tree.uid]) {
-    self.tree = updatedScreen;
-    [self notifySettingsModelObserversOnScreenChange:updatedScreen];
-    return;
-  }
-  [self updateScreen:updatedScreen forTree:self.tree];
+- (void)notifyAboutScreenUpdate:(SettingsScreen *)updatedScreen {
   [self notifySettingsModelObserversOnScreenChange:updatedScreen];
 }
 
