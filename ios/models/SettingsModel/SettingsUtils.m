@@ -9,6 +9,7 @@
 #import "SettingsScreen.h"
 #import "SettingsGroup.h"
 #import "SettingsEntry.h"
+#import "SettingsEntryNavigate.h"
 
 void traverseSettingsTree(SettingsScreen *root,
                           void (^onVisit)(SettingsScreen *, SettingsGroup *,
@@ -16,7 +17,7 @@ void traverseSettingsTree(SettingsScreen *root,
   BOOL stop = NO;
   
   for (NSUInteger i = 0; i < [root.groups count]; i++) {
-    SettingsGroup *group = tree.groups[i];
+    SettingsGroup *group = root.groups[i];
     for (NSUInteger j = 0; j < [group.entries count]; j++) {
       SettingsEntry *entry = group.entries[j];
       onVisit(root, group, entry, &stop);
@@ -25,18 +26,14 @@ void traverseSettingsTree(SettingsScreen *root,
       }
       if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
         SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
-        if ([entryNavigate.screen.uid isEqual:updatedScreen.uid]) {
-          entryNavigate.screen = updatedScreen;
-          return;
-        }
-        traverseSettingsTree(updatedScreen, onVisit);
+        traverseSettingsTree(entryNavigate.screen, onVisit);
       }
     }
   }
 }
 
 BOOL treeContainsScreen(SettingsScreen *tree, SettingsScreen *screen) {
-  BOOL found = NO;
+  __block BOOL found = NO;
   traverseSettingsTree(tree, ^(SettingsScreen *scr, SettingsGroup *gr,
                                SettingsEntry *entry, BOOL *stop) {
     if ([scr isEqual:screen]) {

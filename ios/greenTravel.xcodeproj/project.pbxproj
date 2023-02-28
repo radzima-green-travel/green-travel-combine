@@ -233,6 +233,8 @@
 		5ADF034B283CED3200D98E9A /* UserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034A283CED3200D98E9A /* UserState.m */; };
 		5ADF034F283D1C3700D98E9A /* AuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF034E283D1C3700D98E9A /* AuthService.m */; };
 		5ADF0352284524B000D98E9A /* NumberViewConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF0351284524B000D98E9A /* NumberViewConstants.m */; };
+		5AE9926D29B37C360092C5B8 /* SettingsScreenProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE9926C29B37C360092C5B8 /* SettingsScreenProfile.m */; };
+		5AE9927029B3873D0092C5B8 /* SettingsEntryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE9926F29B3873D0092C5B8 /* SettingsEntryInfo.m */; };
 		5AF8D58D260C7D8A001CE702 /* GalleryImagePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */; };
 		5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF8D58B260C7D8A001CE702 /* CommonButton.m */; };
 		5AFA7C792993E305005C413F /* SettingsScreenRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFA7C782993E305005C413F /* SettingsScreenRoot.m */; };
@@ -710,6 +712,10 @@
 		5ADF0350284524B000D98E9A /* NumberViewConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberViewConstants.h; sourceTree = "<group>"; };
 		5ADF0351284524B000D98E9A /* NumberViewConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberViewConstants.m; sourceTree = "<group>"; };
 		5ADFE5C52732F64C00410FFD /* GreenTravelV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravelV2.xcdatamodel; sourceTree = "<group>"; };
+		5AE9926B29B37C360092C5B8 /* SettingsScreenProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsScreenProfile.h; sourceTree = "<group>"; };
+		5AE9926C29B37C360092C5B8 /* SettingsScreenProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsScreenProfile.m; sourceTree = "<group>"; };
+		5AE9926E29B3873D0092C5B8 /* SettingsEntryInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryInfo.h; sourceTree = "<group>"; };
+		5AE9926F29B3873D0092C5B8 /* SettingsEntryInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryInfo.m; sourceTree = "<group>"; };
 		5AED944B27773DF60053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5AED944C27773DF70053C825 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5AF8D588260C7D8A001CE702 /* GalleryImagePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryImagePlaceholder.m; sourceTree = "<group>"; };
@@ -863,6 +869,8 @@
 				5A2C905B2957248F008D8C7E /* SettingsEntryNavigate.m */,
 				5A2C9054295723D6008D8C7E /* SettingsEntryAction.h */,
 				5A2C9055295723D6008D8C7E /* SettingsEntryAction.m */,
+				5AE9926E29B3873D0092C5B8 /* SettingsEntryInfo.h */,
+				5AE9926F29B3873D0092C5B8 /* SettingsEntryInfo.m */,
 				5AD1B2CE297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.h */,
 				5AD1B2CF297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.m */,
 				5ADCF6012980452A0005B06A /* SettingsEntryAuthLoggedIn.h */,
@@ -877,6 +885,8 @@
 				5A2C90582957244D008D8C7E /* SettingsScreen.m */,
 				5AFA7C772993E305005C413F /* SettingsScreenRoot.h */,
 				5AFA7C782993E305005C413F /* SettingsScreenRoot.m */,
+				5AE9926B29B37C360092C5B8 /* SettingsScreenProfile.h */,
+				5AE9926C29B37C360092C5B8 /* SettingsScreenProfile.m */,
 				5AAD04F029AB969C0028CDA8 /* SettingsUtils.h */,
 				5AAD04F129AB969C0028CDA8 /* SettingsUtils.m */,
 			);
@@ -2554,6 +2564,7 @@
 				5A333C5B273C55A400F95180 /* SearchViewControllerUtils.m in Sources */,
 				5EA9408928E6169800E90014 /* ProfileTableViewController.m in Sources */,
 				5A2144B8266BF3B300582901 /* MapViewControllerConstants.m in Sources */,
+				5AE9926D29B37C360092C5B8 /* SettingsScreenProfile.m in Sources */,
 				5A12E89827C51F9C004FD8C6 /* DetailsScreenModel.m in Sources */,
 				5AD1F3842948C7F400ED288D /* SettingsEntry.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
@@ -2626,6 +2637,7 @@
 				5A775B9026064C9000CEFC78 /* StyleUtils.m in Sources */,
 				5AD1B2D0297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
+				5AE9927029B3873D0092C5B8 /* SettingsEntryInfo.m in Sources */,
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
 				5A6685E2285A36AC008E193E /* ResetPasswordEMailViewController.m in Sources */,
 				5AD347E32837C2C500235E96 /* UserController.m in Sources */,

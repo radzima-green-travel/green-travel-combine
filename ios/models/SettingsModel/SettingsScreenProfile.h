@@ -1,27 +1,21 @@
 //
-//  SettingsScreenRoot.h
+//  SettingsScreenProfile.h
 //  greenTravel
 //
-//  Created by Alex K on 8.02.23.
+//  Created by Alex K on 4.03.23.
 //
 
 #import "SettingsScreen.h"
-#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserController;
 @class UserModel;
 
-@interface SettingsScreenRoot : SettingsScreen
+@interface SettingsScreenProfile : SettingsScreen
 
 - (instancetype)initWithUserController:(UserController *)userController
                              userModel:(UserModel *)userModel;
-
-- (void)startSignIn;
-- (void)completeSignIn;
-- (void)startSignOut;
-- (void)completeSignOut;
 
 @end
 

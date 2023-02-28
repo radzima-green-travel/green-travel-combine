@@ -45,7 +45,7 @@ PODS:
     - ExpoModulesCore
   - Expo (47.0.13):
     - ExpoModulesCore
-  - ExpoImage (1.0.0-beta.4):
+  - ExpoImage (1.0.0):
     - ExpoModulesCore
     - SDWebImage (~> 5.15.0)
     - SDWebImageAVIFCoder (~> 0.9.4)
@@ -858,7 +858,7 @@ SPEC CHECKSUMS:
   Amplify: e420feae21071215f3170ead85745a658b75ae41
   AmplifyPlugins: b2bd45a64ef2f8c842272c85bf7775a3974f34aa
   Amplitude: 263118b9e691e73a1c864b05bb08a3aff3636d16
-  amplitude-react-native: 9369759dc6d01590aeb6261f714d53beaebc7e6f
+  amplitude-react-native: 833a4bd7f656f826bda1de01a7b8593b58842209
   AWSAuthCore: 039a730c4608a862e114a7eabcf09e1451335a75
   AWSCognitoIdentityProvider: b8d5b7a15d1b418658e591fce2aec82091254f0e
   AWSCognitoIdentityProviderASF: 70269c1a788f3705d98e31dc8c8cebfa32535103
@@ -868,15 +868,15 @@ SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
-  EXApplication: 034b1c40a8e9fe1bff76a1e511ee90dff64ad834
-  EXConstants: 3c86653c422dd77e40d10cbbabb3025003977415
-  EXErrorRecovery: ae43433feb0608a64dc5b1c8363b3e7769a9ea24
-  EXFileSystem: 60602b6eefa6873f97172c684b7537c9760b50d6
-  EXFont: 319606bfe48c33b5b5063fb0994afdc496befe80
-  Expo: b9fa98bf260992312ee3c424400819fb9beadafe
-  ExpoImage: 8b2a2b95aba7fe8c6d917e6605b9a180c29dfef6
-  ExpoKeepAwake: 69b59d0a8d2b24de9f82759c39b3821fec030318
-  ExpoModulesCore: 485dff3a59b036a33b6050c0a5aea3cf1037fdd1
+  EXApplication: 097fc9f58dd3921d7ce3f64157978a3523652a84
+  EXConstants: dc7a16230c5815fa80ed70b3a09aa7f2e2a94be3
+  EXErrorRecovery: 2f378e5c9aaaab8b09179da65080d958721f8a36
+  EXFileSystem: 509903f11b97b25b54d8f449d5c1fc49cb2172f4
+  EXFont: 955655aa111e20756af96d7c5c0b23add0cdc303
+  Expo: bdf852f46647982fbda24197e648a9d490759be9
+  ExpoImage: 4c757fc67d98f28476655160fabe4b99bdee86e4
+  ExpoKeepAwake: f8aae9b3d48116f253418cde831cf71af424d563
+  ExpoModulesCore: 3ce34db9fb6549a5bc62ce37559462e6e96e9704
   FBLazyVector: 48289402952f4f7a4e235de70a9a590aa0b79ef4
   FBReactNativeSpec: dd1186fd05255e3457baa2f4ca65e94c2cd1e3ac
   Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
@@ -904,8 +904,8 @@ SPEC CHECKSUMS:
   MMKV: 7f34558bbb5a33b0eaefae2de4b6a20a2ffdad6f
   MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  Permission-LocationAlways: 8d99b025c9f73c696e0cdb367e42525f2e9a26f2
-  Permission-LocationWhenInUse: 3ba99e45c852763f730eabecec2870c2382b7bd4
+  Permission-LocationAlways: cf23adac902686cd4f3f11826ea1ede821e2fcfd
+  Permission-LocationWhenInUse: 667dfff996a63375d7f2ba3522ae841aa1f7aaf3
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: e1866f61af7049eb3d8e08e8b133abd38bc1ca7a
@@ -924,13 +924,13 @@ SPEC CHECKSUMS:
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-mapbox-gl: e8129634c0f91c74a9342e4f018885e143172015
-  react-native-mmkv: 69b9c003f10afdd01addf7c6ee784ce42ee2eff3
-  react-native-netinfo: c9b0719bce3b436cd30a3c879fd59de3f6d72476
-  react-native-pager-view: b1914469643f40042e65d78cbf3d3dfebd6fb0d9
-  react-native-render-html: 1c3a2f91dc19d0ec9ec2a8c09d7919c721d0a75d
-  react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-mmkv: 074beb030997530637030e244ce399d7ae31a1ba
+  react-native-netinfo: 8703a7d37d18198c5bf9a40ead6e39e56b8f11c3
+  react-native-pager-view: 15ae71c52a8a40bd8a10505b5c64fb129fc437e2
+  react-native-render-html: c5d35044ff75e5c5adee142e8c5b7c56c9fea478
+  react-native-safe-area-context: ec0d85aca8110dae9327430a9541fec165352dab
   react-native-ultimate-config: ff96eb4a4e7b8595814dbc7f1ae8e1291770f591
-  react-native-webview: e771bc375f789ebfa02a26939a57dbc6fa897336
+  react-native-webview: c09ea739796b91286ae1f581d2db536b48c33911
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595
   React-RCTActionSheet: 7316773acabb374642b926c19aef1c115df5c466
   React-RCTAnimation: 5341e288375451297057391227f691d9b2326c3d
@@ -944,14 +944,14 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 15437b576139df27635400de0599d9844f1ab817
   ReactCommon: 349be31adeecffc7986a0de875d7fb0dcf4e251c
   RNAWSCognito: fd5136ee9e4db912be13a84fa00cd849137e0d3c
-  RNBootSplash: 5f346163977573d6b2aeba1b25df9d2245c0d73c
-  RNCAsyncStorage: ea6b5c280997b2b32a587793163b1f10e580c4f7
-  RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
-  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
+  RNBootSplash: 2233a30eb15ad4c40dd493c76141b7e547558194
+  RNCAsyncStorage: 4b6538222ce3f01f61011f512226ba3aaa0dc336
+  RNCClipboard: 5e299c6df8e0c98f3d7416b86ae563d3a9f768a3
+  RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
-  RNLocalize: f567ea0e35116a641cdffe6683b0d212d568f32a
-  RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
+  RNLocalize: b8980509fc4db6895953aa95b90c8d81cb984603
+  RNPermissions: 79d0c889562fd792329821bea3155fe6eb54d359
   RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
   RNReanimated: 2a91e85fcd343f8af3c58d3425b99fdd285590a5
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d

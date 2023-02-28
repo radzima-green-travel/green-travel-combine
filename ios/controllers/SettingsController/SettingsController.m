@@ -70,7 +70,7 @@
   }
   if ([entry isKindOfClass:[SettingsEntrySelect class]]) {
     SettingsEntrySelect *entrySelect = (SettingsEntrySelect *)entry;
-    SettingsGroup *group = entrySelect.parentGroup
+    SettingsGroup *group = entrySelect.parentGroup;
     BOOL selected = entrySelect.selected;
     [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry,
                                                        NSUInteger idx, BOOL * _Nonnull stop) {
