@@ -16,6 +16,7 @@
 #import "LoginViewController.h"
 #import <SDWebImage/SDWebImage.h>
 #import "LocaleUtils.h"
+#import "SettingsScreenProfile.h"
 
 @interface SettingsScreenRoot()
 
@@ -114,19 +115,30 @@
   return aboutGroup;
 }
 
+#pragma mark - rebuilding of tree depending on signed in state
 - (void)startSignIn {
   SettingsEntryAuthLoggedOut *authEntry = (SettingsEntryAuthLoggedOut *)self.groups[0].entries[0];
   authEntry.inProgress = YES;
 }
 
-- (void)finishSignIn {
-  SettingsScreen *screen = [SettingsScreen new];
-  screen.name = @"";
-  
+- (void)completeSignIn {
+  SettingsScreen *profileScreen = [[SettingsScreenProfile alloc] initWithUserController:self.userController userModel:self.userModel];
   
   SettingsEntryAuthLoggedIn *authEntry = [SettingsEntryAuthLoggedIn new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
   authEntry.inProgress = NO;
+  authEntry.screen = profileScreen;
+  
+  self.groups[0].entries[0] = authEntry;
 }
+
+- (void)startSignOut {
+  
+}
+
+- (void)completeSignOut {
+  
+}
+
 
 @end

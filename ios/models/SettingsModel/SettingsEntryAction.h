@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SettingsEntryAction : SettingsEntry
 
 @property (nonatomic, copy, nonnull) void (^doAction)(UIViewController *);
+@property (nonatomic, assign) BOOL dangerous;
 
 @end
 
