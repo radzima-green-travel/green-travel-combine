@@ -17,3 +17,8 @@ export interface ForgotPasswordEmailFormModel {
 export interface ValidationCodeFormModel {
   code: string;
 }
+
+export interface NewPasswordFormModel {
+  code: string;
+  password: string;
+}

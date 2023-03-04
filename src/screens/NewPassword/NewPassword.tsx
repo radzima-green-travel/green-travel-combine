@@ -1,40 +1,49 @@
 import React from 'react';
 import {useTranslation} from 'core/hooks';
-import {FormInput} from 'atoms';
+import {FormInput, SnackBar, WithFormikInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useNewPassword} from './hooks';
+import {FormikProvider} from 'formik';
 
 export const NewPassword = () => {
   const {t} = useTranslation('authentification');
   const {
-    onConfirmNewPassword,
-    newPassword,
+    formik,
     loading,
-    setNewPassword,
     buttonText,
     rightIcon,
     passwordVisibility,
     handlePasswordVisibility,
+    isSubmitButtonDisabled,
+    submitForm,
+    snackBarProps,
   } = useNewPassword();
 
   return (
-    <AuthForm
-      title={t('newPassword')}
-      text={t('passwordWarning')}
-      onSubmitPress={onConfirmNewPassword}
-      submitButtonText={buttonText}
-      isSubmitButtonDisabled={!newPassword}
-      submitButtonLoading={loading}>
-      <FormInput
-        iconRightName={rightIcon}
-        iconLeftName={'lock'}
-        size={16}
-        placeholder={'password'}
-        secureTextEntry={passwordVisibility}
-        onRightIconPress={handlePasswordVisibility}
-        value={newPassword}
-        setValue={setNewPassword}
-      />
-    </AuthForm>
+    <FormikProvider value={formik}>
+      <AuthForm
+        title={t('newPassword')}
+        text={t('passwordWarning')}
+        onSubmitPress={submitForm}
+        submitButtonText={buttonText}
+        isSubmitButtonDisabled={isSubmitButtonDisabled}
+        submitButtonLoading={loading}>
+        <WithFormikInput<string> name="password">
+          {({messageText, ...inputProps}) => (
+            <FormInput
+              iconRightName={rightIcon}
+              iconLeftName={'lock'}
+              size={16}
+              placeholder={t('password')}
+              secureTextEntry={passwordVisibility}
+              onRightIconPress={handlePasswordVisibility}
+              messageText={messageText ? t(messageText) : undefined}
+              {...inputProps}
+            />
+          )}
+        </WithFormikInput>
+      </AuthForm>
+      <SnackBar isOnTop {...snackBarProps} />
+    </FormikProvider>
   );
 };

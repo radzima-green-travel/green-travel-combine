@@ -87,6 +87,9 @@
         },
         "VERIFICATION_CODE_MISMATCH": {
           "text": "Wrong verification code"
+        },
+        "VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED": {
+          "text": "Exceeded number of code confirmation attempts. Try later"
         }
       }
     },

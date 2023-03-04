@@ -38,7 +38,7 @@ export const confirmNewPasswordRequest = createAction(
   ACTIONS.CONFIRM_NEW_PASSWORD_REQUEST,
 )<{
   email: string;
-  code: string;
+  tempPassword: string;
   newPassword: string;
 }>();
 export const confirmNewPasswordSuccess = createAction(
@@ -94,6 +94,22 @@ export const checkUserEmailSuccess = createAction(
 }>();
 export const checkUserEmailFailure = createAction(
   ACTIONS.CHECK_USER_EMAIL_FAILURE,
+)<Error>();
+
+export const forgotPasswordCodeSubmitRequest = createAction(
+  ACTIONS.FORGOT_PASSWORD_CODE_SUBMIT_REQUEST,
+)<{
+  email: string;
+  code: string;
+}>();
+
+export const forgotPasswordCodeSubmitSuccess = createAction(
+  ACTIONS.FORGOT_PASSWORD_CODE_SUBMIT_SUCCESS,
+)<{
+  tempPassword: string;
+}>();
+export const forgotPasswordCodeSubmitFailure = createAction(
+  ACTIONS.FORGOT_PASSWORD_CODE_SUBMIT_FAILURE,
 )<Error>();
 
 interface IAuth {

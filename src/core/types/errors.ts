@@ -8,7 +8,8 @@ export type RequestErrorCodes =
   | 'USER_NOT_FOUND'
   | 'PASSWORD_ATTEMPTS_EXCEEDED'
   | 'USER_TO_RESTORE_NOT_FOUND'
-  | 'VERIFICATION_CODE_MISMATCH';
+  | 'VERIFICATION_CODE_MISMATCH'
+  | 'VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED';
 
 export interface IRequestError extends Error {
   timestamp: number;

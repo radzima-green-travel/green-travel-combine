@@ -87,6 +87,9 @@
         },
         "VERIFICATION_CODE_MISMATCH": {
           "text": "驗證碼錯誤"
+        },
+        "VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED": {
+          "text": "zh_Превышено количество попыток проверки кода. Попробуйте позже"
         }
       }
     },

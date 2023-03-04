@@ -5,6 +5,7 @@ import {
   confirmSignUpRequest,
   forgotPasswordRequest,
   resendSignUpCodeRequest,
+  forgotPasswordCodeSubmitRequest,
 } from 'core/reducers';
 import {
   useOnRequestError,
@@ -37,10 +38,10 @@ export const useEmailValidation = () => {
       if (isSignUp) {
         dispatch(confirmSignUpRequest({email, code}));
       } else {
-        navigation.navigate('NewPassword', {email, code});
+        dispatch(forgotPasswordCodeSubmitRequest({email, code}));
       }
     },
-    [isSignUp, dispatch, email, navigation],
+    [isSignUp, dispatch, email],
   );
 
   const formik = useFormik<ValidationCodeFormModel>({
@@ -52,6 +53,9 @@ export const useEmailValidation = () => {
   const {show, ...snackBarProps} = useSnackbar();
 
   const {loading} = useRequestLoading(confirmSignUpRequest);
+  const {loading: forgotPasswordCodeSumbitLoading} = useRequestLoading(
+    forgotPasswordCodeSubmitRequest,
+  );
 
   const onResendSignUpCodetoEmail = useCallback(() => {
     dispatch(resendSignUpCodeRequest(email));
@@ -67,12 +71,31 @@ export const useEmailValidation = () => {
     navigation.getParent()?.goBack();
   });
 
+  useOnRequestSuccess(
+    forgotPasswordCodeSubmitRequest,
+    ({tempPassword}: {tempPassword: string}) => {
+      navigation.navigate('NewPassword', {email, tempPassword});
+    },
+  );
+
+  useOnRequestError(
+    forgotPasswordCodeSubmitRequest,
+    'authentification',
+    errorLabel => {
+      show({
+        type: 'error',
+        title: errorLabel.text,
+      });
+    },
+  );
+
   useOnRequestError(confirmSignUpRequest, 'authentification', errorLabel => {
     show({
       type: 'error',
       title: errorLabel.text,
     });
   });
+
   useOnRequestError(resendSignUpCodeRequest, 'authentification', errorLabel => {
     show({
       type: 'error',
@@ -83,7 +106,7 @@ export const useEmailValidation = () => {
   return {
     isSignUp,
     email,
-    loading,
+    loading: loading || forgotPasswordCodeSumbitLoading,
     onResendSignUpCodetoEmail,
     onResendRestorePasswordCodetoEmail,
     buttonText,

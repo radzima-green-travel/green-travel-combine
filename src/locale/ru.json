@@ -87,6 +87,9 @@
         },
         "VERIFICATION_CODE_MISMATCH": {
           "text": "Неверный проверочный код"
+        },
+        "VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED": {
+          "text": "Превышено количество попыток проверки кода. Попробуйте позже"
         }
       }
     },

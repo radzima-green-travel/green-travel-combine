@@ -58,7 +58,19 @@ class AmplifyApi extends AmplifyApiEngine {
       {
         context: Auth,
         method: Auth.forgotPasswordSubmit,
-        errorMap: () => {
+        errorMap: (e: AmplifyError) => {
+          if (e.code === 'CodeMismatchException') {
+            return {
+              code: 'VERIFICATION_CODE_MISMATCH',
+              status: 400,
+            };
+          }
+          if (e.code === 'LimitExceededException') {
+            return {
+              code: 'VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED',
+              status: 400,
+            };
+          }
           return {};
         },
       },
@@ -134,6 +146,19 @@ class AmplifyApi extends AmplifyApiEngine {
       {
         context: Auth,
         method: Auth.signOut,
+        errorMap: () => {
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
+
+  changePassword = async (...args: Parameters<typeof Auth.changePassword>) => {
+    return this.invoke(
+      {
+        context: Auth,
+        method: Auth.changePassword,
         errorMap: () => {
           return {};
         },

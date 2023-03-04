@@ -9,16 +9,18 @@ import {CognitoUserWithAttributes} from '../../types';
 import {amplifyApi} from 'api/amplify';
 
 export function* confirmNewPasswordSaga({
-  payload: {email, code, newPassword},
+  payload: {email, tempPassword, newPassword},
 }: ActionType<typeof confirmNewPasswordRequest>) {
   try {
-    yield call(amplifyApi.forgotPasswordSubmit, email, code, newPassword);
-
-    const {attributes}: CognitoUserWithAttributes = yield call(
+    const user: CognitoUserWithAttributes = yield call(
       amplifyApi.signIn,
       email,
-      newPassword,
+      tempPassword,
     );
+
+    const {attributes} = user;
+
+    yield call(amplifyApi.changePassword, user, tempPassword, newPassword);
 
     yield put(confirmNewPasswordSuccess(attributes));
   } catch (e) {

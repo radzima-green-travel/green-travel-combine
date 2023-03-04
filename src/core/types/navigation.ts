@@ -83,7 +83,7 @@ export type AuthNavigatorParamsList = {
   RestorePassword: undefined;
   NewPassword: {
     email: string;
-    code: string;
+    tempPassword: string;
   };
   EmailValidation: {
     email: string;
