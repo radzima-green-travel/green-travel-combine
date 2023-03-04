@@ -39,6 +39,9 @@
 #import "AuthService.h"
 #import "AccessibilityIdentifiers.h"
 #import "AccessibilityUtils.h"
+#import "SettingsViewController.h"
+#import "SettingsModel.h"
+#import "SettingsController.h"
 
 #if PROD
 static BOOL kSignUpEnabled = YES;
@@ -62,6 +65,7 @@ static BOOL kSignUpEnabled = YES;
 @property (strong, nonatomic) UINavigationController *mapControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *bookmarksControllerWithNavigation;
 @property (strong, nonatomic) UINavigationController *profileControllerWithNavigation;
+@property (strong, nonatomic) UINavigationController *settingsViewControllerWithNavigation;
 
 @end
 
@@ -187,17 +191,28 @@ static BOOL kSignUpEnabled = YES;
   profileTableViewController.detailsModel = detailsModel;
   profileTableViewController.locationModel = locationModel;
   self.profileControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:profileTableViewController];
-
+  
   UIImage *profileImage;
   profileImage = [UIImage imageNamed:@"user"];
   self.profileTabBarItem = createTabBarItem(NSLocalizedString(@"TabBarProfile", @""), 0, profileImage,
                                             AccessibilityIdentifiersTabBarProfile);
 
   self.profileControllerWithNavigation.tabBarItem = self.profileTabBarItem;
+#pragma mark - SettingsViewController
+  //TODO: will be enabled after completion of #603.
+  if (/* DISABLES CODE */ (YES)) {
+  	SettingsModel *settingsModel = [[SettingsModel alloc] initWithUserController:userController userModel:userModel];
+    SettingsController *settingsController = [[SettingsController alloc] initWithModel:settingsModel userController:userController userModel:userModel];
+
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithSettingsController:settingsController settingsModel:settingsModel];
+    settingsViewController.title = NSLocalizedString(@"ProfileTitle", @"");
+  	self.settingsViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    self.settingsViewControllerWithNavigation.tabBarItem = self.profileTabBarItem;
+  }
 
   if (kSignUpEnabled) {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
-                             self.bookmarksControllerWithNavigation, self.profileControllerWithNavigation];
+                             self.bookmarksControllerWithNavigation, self.settingsViewControllerWithNavigation];
   } else {
     self.viewControllers = @[self.indexViewControllerWithNavigation, self.mapControllerWithNavigation,
                              self.bookmarksControllerWithNavigation];

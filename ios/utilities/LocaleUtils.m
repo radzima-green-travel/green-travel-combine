@@ -29,6 +29,16 @@ NSString* getCurrentLocaleLanguageCode() {
   return shortCode;
 }
 
+NSString* getCurrentLocaleFriendlyName() {
+  NSDictionary *codeToFriendlyName = @{
+    @"ru": NSLocalizedString(@"SettingsViewControllerLanguageCellValueRussian", @""),
+    @"en": NSLocalizedString(@"SettingsViewControllerLanguageCellValueEnglish", @""),
+    @"zh": NSLocalizedString(@"SettingsViewControllerLanguageCellValueChineseSimplified", @""),
+  };
+  NSString *code = getCurrentLocaleLanguageCode();
+  return codeToFriendlyName[code];
+}
+
 BOOL isCurrentLanguageCodeLegacy() {
   return [LocaleLanguageCodeLegacy isEqualToString:getCurrentLocaleLanguageCode()];
 }

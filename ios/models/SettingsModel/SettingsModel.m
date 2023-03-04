@@ -8,16 +8,14 @@
 #import "SettingsModel.h"
 #import "SettingsModelObserver.h"
 #import "SettingsGroup.h"
-#import "SettingsEntry.h"
-#import "SettingsScreen.h"
-#import "SettingsEntryAction.h"
 #import "SettingsEntryNavigate.h"
-#import "SettingsScreen.h"
+#import "SettingsScreenRoot.h"
 #import "UserModel.h"
 #import <UIKit/UIKit.h>
 #import "ProfileTableViewController.h"
 #import "LoginViewController.h"
-#import <SDWebImage/SDWebImage.h>
+
+#import "SettingsViewController.h"
 
 @interface SettingsModel()
 
@@ -37,81 +35,89 @@
                                           groups:@[]];
     _userModel = userModel;
     _userController = userController;
+    [self setUp];
   }
   return self;
 }
 
 - (void)setUp {
-#pragma mark - Auth group
-  SettingsEntryAction *authEntry = [SettingsEntryAction new];
-  authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
-  authEntry.doAction = ^void(UIViewController *activeViewController) {
-    ProfileTableViewController *profileTableViewController = (ProfileTableViewController *)activeViewController;
-    LoginViewController *loginViewController =
-    [[LoginViewController alloc] initWithController:profileTableViewController.userController
-                                              model:profileTableViewController.userModel];
-    loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
-    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    if (@available(iOS 13.0, *)) {
-      [loginViewControllerWithNavigation setModalInPresentation:YES];
-    }
-    [activeViewController presentViewController:loginViewControllerWithNavigation animated:YES completion:^{}];
-  };
-
-  SettingsGroup *authGroup =
-  [[SettingsGroup alloc] initWithName:@"" entries:@[authEntry]];
-#pragma mark - General group
-  SettingsEntryAction *languageEntry = [SettingsEntryAction new];
-  languageEntry.name = NSLocalizedString(@"Language", @"");
-  languageEntry.doAction = ^void(UIViewController *activeViewController) {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
-                                       options:@{} completionHandler:^(BOOL success) {}];
-  };
-
-  SettingsEntryAction *clearCacheEntry = [SettingsEntryAction new];
-  clearCacheEntry.name = NSLocalizedString(@"Language", @"");
-  clearCacheEntry.doAction = ^void(UIViewController *activeViewController) {
-    UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ProfileTableViewAlertClearCacheMessageHeader", @"")
-                                        message:NSLocalizedString(@"ProfileTableViewAlertClearCacheMessageBody", @"")
-                                 preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{}];
-    }]];
-    [activeViewController presentViewController:alert animated:YES completion:^{}];
-  };
-  SettingsGroup *generalGroup =
-  [[SettingsGroup alloc] initWithName:@"" entries:@[languageEntry, clearCacheEntry]];
-#pragma mark - About group
-  SettingsEntryAction *aboutTextEntry = [SettingsEntryAction new];
-  aboutTextEntry.name = NSLocalizedString(@"Language", @"");
-  aboutTextEntry.doAction = ^void(UIViewController *activeViewController) {};
-
-  SettingsGroup *aboutTextGroup =
-  [[SettingsGroup alloc] initWithName:@"" entries:@[aboutTextEntry]];
-
-  SettingsScreen *screenAbout = [SettingsScreen new];
-  screenAbout.name = @"";
-  screenAbout.groups = @[aboutTextGroup];
-
-  SettingsEntryNavigate *aboutEntry = [SettingsEntryNavigate new];
-  aboutEntry.name = NSLocalizedString(@"Language", @"");
-  aboutEntry.screen = [SettingsScreen new];
-
-  SettingsGroup *aboutGroup =
-  [[SettingsGroup alloc] initWithName:@"" entries:@[aboutEntry]];
-
 #pragma mark - Assembling to root
-  self.tree.groups = @[authGroup, generalGroup, aboutGroup];
+  self.tree = [[SettingsScreenRoot alloc] initWithUserController:self.userController userModel:self.userModel];
 }
 
+- (void)updateEntry:(SettingsEntry *)updatedEntry
+            forTree:(SettingsScreen *)tree {
+  for (NSUInteger i = 0; i < [tree.groups count]; i++) {
+    SettingsGroup *group = tree.groups[i];
+    for (NSUInteger j = 0; j < [group.entries count]; j++) {
+      if ([updatedEntry.uid isEqual:group.entries[i].uid]) {
+        group.entries[i] = updatedEntry;
+        break;
+      }
+    }
+    [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
+      if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+        SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
+        [self updateEntry:updatedEntry forTree:entryNavigate.screen];
+      }
+    }];
+  }
+}
+
+- (void)updateGroup:(SettingsGroup *)updatedGroup
+            forTree:(SettingsScreen *)tree {
+  for (NSUInteger i = 0; i < [tree.groups count]; i++) {
+    SettingsGroup *group = tree.groups[i];
+    if ([updatedGroup.uid isEqual:tree.groups[i].uid]) {
+      tree.groups[i] = updatedGroup;
+      break;
+    }
+    [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry, NSUInteger idx, BOOL * _Nonnull stop) {
+      if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+        SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
+        [self updateGroup:updatedGroup forTree:entryNavigate.screen];
+      }
+    }];
+  }
+}
+
+- (void)updateScreen:(SettingsScreen *)updatedScreen
+            forTree:(SettingsScreen *)tree {
+  for (NSUInteger i = 0; i < [tree.groups count]; i++) {
+    SettingsGroup *group = tree.groups[i];
+    for (NSUInteger j = 0; j < [group.entries count]; j++) {
+      SettingsEntry *entry = group.entries[j];
+      if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
+        SettingsEntryNavigate *entryNavigate = (SettingsEntryNavigate *)entry;
+        if ([entryNavigate.screen.uid isEqual:updatedScreen.uid]) {
+          entryNavigate.screen = updatedScreen;
+          return;
+        }
+        [self updateScreen:updatedScreen forTree:tree];
+      }
+    }
+  }
+}
+
+#pragma mark - update entities
 - (void)updateEntry:(SettingsEntry *)updatedEntry {
+  [self updateEntry:updatedEntry forTree:self.tree];
   [self notifySettingsModelObserversOnEntryChange:updatedEntry];
 }
 
 - (void)updateGroup:(SettingsGroup *)updatedGroup {
+  [self updateGroup:updatedGroup forTree:self.tree];
   [self notifySettingsModelObserversOnGroupChange:updatedGroup];
+}
+
+- (void)updateScreen:(SettingsScreen *)updatedScreen {
+  if ([updatedScreen.uid isEqual:self.tree.uid]) {
+    self.tree = updatedScreen;
+    [self notifySettingsModelObserversOnScreenChange:updatedScreen];
+    return;
+  }
+  [self updateScreen:updatedScreen forTree:self.tree];
+  [self notifySettingsModelObserversOnScreenChange:updatedScreen];
 }
 
 - (void)addSettingsModelObserver:(id<SettingsModelObserver>)observer {
@@ -142,6 +148,13 @@
   }];
 }
 
+- (void)notifySettingsModelObserversOnScreenChange:(SettingsScreen *)screen {
+  [self.settingsModelObservers enumerateObjectsUsingBlock:^(id<SettingsModelObserver>  _Nonnull observer,
+                                                            NSUInteger idx, BOOL * _Nonnull stop) {
+    [observer onSettingsModelScreenChange:screen];
+  }];
+}
+
 - (void)removeSettingsModelObserver:(id<SettingsModelObserver>)observer {
   [self.settingsModelObservers removeObject:observer];
 }
@@ -167,7 +180,8 @@
   return [self findScreenByID:(NSUUID *)uuid forTree:self.tree];
 }
 
-- (void)onUserModelStateTransitionFrom:(UserModelState)prevState toCurrentState:(UserModelState)currentState {
+- (void)onUserModelStateTransitionFrom:(UserModelState)prevState
+                        toCurrentState:(UserModelState)currentState {
 }
 
 @end

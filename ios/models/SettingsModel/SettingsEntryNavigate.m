@@ -15,6 +15,7 @@
   if (self = [super initWithName:name parentGroup:parentGroup]) {
     _screen = screen;
   }
+  self.chevron = YES;
   return self;
 }
 

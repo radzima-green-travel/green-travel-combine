@@ -28,7 +28,7 @@
 
 - (void)setUp {
     self.backgroundColor = [ColorsLegacy get].alabaster;
-    UIImageView *placeHolderViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"camera"]];
+    UIImageView *placeHolderViewImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photoPlaceholder"]];
     placeHolderViewImage.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:placeHolderViewImage];
     [NSLayoutConstraint activateConstraints:@[

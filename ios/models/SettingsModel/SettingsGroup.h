@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign, nonatomic) NSUUID *uid;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSArray<SettingsEntry *> *entries;
+@property (strong, nonatomic) NSMutableArray<SettingsEntry *> *entries;
 
 - (instancetype)initWithName:(NSString *)name
                      entries:(NSArray<SettingsEntry *>*)entries;

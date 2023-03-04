@@ -72,6 +72,28 @@
 "ProfileTableViewCellLabelLanguage" = "语";
 "ProfileTableViewCellLabelTheme" = "主题";
 
+//SettingsViewController
+"SettingsViewControllerAuthCellTitleAuthorized" = "您已获得授权";
+"SettingsViewControllerAuthCellTitleAuthorizedNot" = "你没有被授权";
+"SettingsViewControllerAuthCellTitleAuthorizedProgress" = "正在授权";
+
+"SettingsViewControllerAuthCellSubTitleAuthorizedNot" = "授权或注册";
+"SettingsViewControllerAuthCellTitleAuthorizedProgress" = "等待登录验证";
+
+"SettingsViewControllerGeneralGroupTitle" = "设置";
+"SettingsViewControllerLanguageCellTitle" = "语言";
+"SettingsViewControllerLanguageCellValueEnglish" = "英语";
+"SettingsViewControllerLanguageCellValueRussian" = "俄语";
+"SettingsViewControllerLanguageCellValueChineseSimplified" = "简体中文";
+
+"SettingsViewControllerCacheCellTitle" = "清除缓存";
+"SettingsViewControllerCacheAlertMessageHeader" = "清除缓存？";
+"SettingsViewControllerCacheAlertMessageBody" = "这将减少应用程序的大小";
+
+"SettingsViewControllerAboutGroupTitle" = "信息";
+"SettingsViewControllerTermsCellTitle" = "条款和条件";
+"SettingsViewControllerPrivacyCellTitle" = "隐私政策";
+
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";
