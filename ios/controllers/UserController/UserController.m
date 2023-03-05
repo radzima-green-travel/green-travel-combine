@@ -237,17 +237,19 @@
   __weak typeof(self) weakSelf = self;
   [self.authService fetchCurrentAuthSession:^(NSError * _Nullable error, BOOL signedIn) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
+    UserModelState fallbackState = strongSelf.model.state == UserModelStateNotFetched ?
+      UserModelStateNotFetched : UserModelStateFetched;
     [strongSelf.model setSignedInNoAttributes:signedIn];
     if (error != nil) {
       [strongSelf.model setState:UserModelStateNotFetched];
       return;
     }
     if (!signedIn) {
-      [strongSelf.model setState:UserModelStateFetched];
+      [strongSelf.model setState:fallbackState];
       return;
     }
     [self fetchUserAttributesAndSetUserState:UserModelStateSignedIn
-                               fallbackState:UserModelStateFetched];
+                               fallbackState:fallbackState];
   }];
 }
 
