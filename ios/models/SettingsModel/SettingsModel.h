@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) SettingsScreen *tree;
 @property (strong, nonatomic) NSMutableArray<id<SettingsModelObserver>> *settingsModelObservers;
+@property (strong, nonatomic) NSString *userEmail;
 
 - (instancetype)initWithUserController:(UserController *)userController
                              userModel:(UserModel *)userModel;

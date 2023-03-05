@@ -43,7 +43,6 @@
 
 @interface RootViewController ()
 
-@property (strong, nonatomic) UIViewController *current;
 @property (weak, nonatomic) UIApplication *application;
 @property (strong, nonatomic) NSDictionary *launchOptions;
 @property (strong, nonatomic) UserDefaultsService *userDefaultsService;

@@ -172,6 +172,11 @@ static const CGFloat kMinContentInset = 23.5;
         [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
         return;
       }
+      if (prevState == UserModelStatePasswordResetConfirmCodeInProgress &&
+          currentState == UserModelStateFetched) {
+        // TODO: show error of resetting password.
+        return;
+      }
     });
   });
 }

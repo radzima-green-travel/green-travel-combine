@@ -123,13 +123,20 @@
 
 - (void)completeSignIn {
   SettingsScreen *profileScreen = [[SettingsScreenProfile alloc] initWithUserController:self.userController userModel:self.userModel];
+  BOOL signedIn = self.userModel.signedIn;
   
-  SettingsEntryAuthLoggedIn *authEntry = [SettingsEntryAuthLoggedIn new];
+  if (signedIn) {
+    SettingsEntryAuthLoggedIn *authEntry = [SettingsEntryAuthLoggedIn new];
+    authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
+    authEntry.inProgress = NO;
+    authEntry.screen = profileScreen;
+    self.groups[0].entries[0] = authEntry;
+    return;
+  }
+  
+  SettingsEntryAuthLoggedOut *authEntry = [SettingsEntryAuthLoggedOut new];
   authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
   authEntry.inProgress = NO;
-  authEntry.screen = profileScreen;
-  
-  self.groups[0].entries[0] = authEntry;
 }
 
 - (void)startSignOut {

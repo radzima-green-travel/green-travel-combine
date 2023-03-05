@@ -132,9 +132,9 @@ static const CGFloat kSpacing = 16.0;
 
 - (void)prepareForReuse {
   [super prepareForReuse];
-  [self.iconView removeFromSuperview];
+  [self.iconView setHidden:YES];
   self.accessoryType = UITableViewCellAccessoryNone;
-  [self.subTitle removeFromSuperview];
+  [self.subTitle setHidden:YES];
   [self.title setAttributedText:[[Typography get] settingsCellTitle:@""]];
   [self.subTitle setAttributedText:[[Typography get] settingsCellTitle:@""]];
 }

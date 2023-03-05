@@ -132,13 +132,14 @@ static NSString * const kAuthCellId = @"authCellId";
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthCellId forIndexPath:indexPath];
     SettingsAuthTableViewCell *cellAuth = (SettingsAuthTableViewCell *)cell;
-    [cellAuth updateWithSubTitle:@"a" fetchingInProgress:NO signedIn:NO];
+    [cellAuth updateWithSubTitle:@"" fetchingInProgress:NO signedIn:NO];
     return cell;
   }
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedIn class]]) {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthCellId forIndexPath:indexPath];
     SettingsAuthTableViewCell *cellAuth = (SettingsAuthTableViewCell *)cell;
-    [cellAuth updateWithSubTitle:@"a" fetchingInProgress:NO signedIn:YES];
+    [cellAuth updateWithSubTitle:self.settingsModel.userEmail
+              fetchingInProgress:NO signedIn:YES];
     return cell;
   }
   if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
