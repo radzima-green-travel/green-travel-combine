@@ -41,8 +41,7 @@ export const SocialLoginInAppBrowser = () => {
         }}
         source={{uri: url}}
         originWhitelist={['*']}
-        load
-        incognito
+        viewportContent={'width=device-width, user-scalable=no'}
         userAgent={
           Platform.OS === 'android'
             ? 'Chrome/18.0.1025.133 Mobile Safari/535.19'
