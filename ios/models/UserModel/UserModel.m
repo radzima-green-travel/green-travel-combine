@@ -47,4 +47,8 @@
   [self.userModelObservers removeObject:observer];
 }
 
+- (BOOL)signedIn {
+  return self.signedInNoAttributes && self.state == UserModelStateFetched;
+}
+
 @end

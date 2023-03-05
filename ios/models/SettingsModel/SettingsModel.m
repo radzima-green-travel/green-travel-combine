@@ -176,4 +176,8 @@
                         toCurrentState:(UserModelState)currentState {
 }
 
+- (NSString *)userEmail {
+  return self.userModel.email;
+}
+
 @end

@@ -114,7 +114,7 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
     NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellSubTitleAuthorizedNot", @"")];
     [self.subLabel setAttributedText:subTextLabelAttributedString];
   }
-  [self setUpAvatar:subText signedIn:YES];
+  [self setUpAvatar:subText signedIn:signedIn];
 }
 
 - (void)setUpAvatar:(NSString *)subText signedIn:(BOOL)signedIn {

@@ -22,6 +22,9 @@
 #import "UserFetchErrorViewController.h"
 #import "ProfileTableViewController.h"
 #import "LoginViewController.h"
+#import "RootViewController.h"
+#import "MainViewController.h"
+#import "SettingsScreenRoot.h"
 
 @interface SettingsController()
 
@@ -41,6 +44,7 @@
     _model = settingsModel;
     _userController = userController;
     _userModel = userModel;
+    [_userModel addUserModelObserver:self];
   }
   return self;
 }
@@ -73,7 +77,7 @@
     SettingsGroup *group = entrySelect.parentGroup;
     BOOL selected = entrySelect.selected;
     [group.entries enumerateObjectsUsingBlock:^(SettingsEntry * _Nonnull entry,
-                                                       NSUInteger idx, BOOL * _Nonnull stop) {
+                                                NSUInteger idx, BOOL * _Nonnull stop) {
       SettingsEntrySelect *entrySelectUpdated = (SettingsEntrySelect *)entry;
       if ([entrySelectUpdated.uid isEqual:entrySelect.uid]) {
         entrySelectUpdated.selected = selected;
@@ -88,68 +92,90 @@
 
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
                         toCurrentState:(UserModelState)currentState {
-  // Find 4th tab controller in application.
-  UITabBarController *tabController = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-  if (tabController.viewControllers.count < 4) {
-    return;
-  }
-  SettingsViewController *settingsViewController = (SettingsViewController *)tabController.viewControllers[3];
-  
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
+      // Find 4th tab controller in application.
+      RootViewController *rootViewController = (RootViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+      MainViewController *tabController = (MainViewController *) rootViewController.current;
+      if (tabController.viewControllers.count < 4) {
+        return;
+      }
+      SettingsViewController *settingsViewController = (SettingsViewController *)tabController.viewControllers[3];
       __weak typeof(self) strongSelf = weakSelf;
       BOOL fetched = prevState == UserModelStateFetchingInProgress &&
       currentState == UserModelStateFetched;
+      SettingsScreenRoot *root = (SettingsScreenRoot *) self.model.tree;
       if (fetched && strongSelf.userModel.error != nil) {
         UserFetchErrorViewController *errorViewController = [[UserFetchErrorViewController alloc] initWithController:self.userController model:self.userModel];
         [settingsViewController.navigationController pushViewController:errorViewController animated:YES];
         return;
       }
       BOOL signedIn = strongSelf.userModel.signedIn;
-      if (fetched && signedIn) {
-        [self updateAuthGroupWhenLoggedIn:NO];
+      if (signedIn) {
+        [root completeSignIn];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
       if (prevState == UserModelStateConfirmCodeInProgress &&
           currentState == UserModelStateSignUpSuccess) {
-        [self updateAuthGroupWhenLoggedIn:NO];
+        [root completeSignIn];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
       if (prevState == UserModelStateSignInInProgress &&
           currentState == UserModelStateSignedIn) {
-        [self updateAuthGroupWhenLoggedIn:NO];
+        [root completeSignIn];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
       if (prevState == UserModelStatePasswordResetConfirmCodeInProgress &&
           currentState == UserModelStatePasswordResetSuccess) {
-        [self updateAuthGroupWhenLoggedIn:NO];
+        [root completeSignIn];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
       if (prevState == UserModelStateSignOutInProgress &&
           currentState == UserModelStateFetched) {
-        [self updateAuthGroupWhenLoggedOut:NO];
+        [root completeSignOut];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
       if (prevState == UserModelStateNotFetched && currentState == UserModelStateFetchingInProgress) {
-        [self updateAuthGroupWhenLoggedOut:YES];
+        [root startSignIn];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
       if (prevState == UserModelStateFetchingInProgress && currentState == UserModelStateFetched) {
-        [self updateAuthGroupWhenLoggedOut:NO];
+        [root completeSignIn];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
       if (prevState == UserModelStateFetchingInProgress && currentState == UserModelStateNotFetched) {
-        [self updateAuthGroupWhenLoggedOut:NO];
+        [root completeSignIn];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
       if (prevState == UserModelStateSignedIn &&
           currentState == UserModelStateSignOutInProgress) {
-        [self updateAuthGroupWhenLoggedIn:YES];
+        [root startSignOut];
+        [self.model notifyAboutScreenUpdate:root];
         return;
       }
     });
   });
+}
+
+- (void)updateAuthGroupWhenSignedIn:(BOOL)signedIn
+                           progress:(BOOL)progress {
+  SettingsScreenRoot *root = (SettingsScreenRoot *) self.model.tree;
+  if (!signedIn && progress) {
+    [root startSignIn];
+  }
+  if (signedIn && !progress) {
+    [root completeSignIn];
+  }
+  [self.model notifyAboutScreenUpdate:self.model.tree];
 }
 
 - (void)updateAuthGroupWhenLoggedOut:(BOOL)progress {

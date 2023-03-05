@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RootViewController : UIViewController<RCTBridgeDelegate>
 
+@property (strong, nonatomic) UIViewController *current;
+
 - (instancetype)initWithApplication:(UIApplication *)application
                       launchOptions:(NSDictionary *)launchOptions;
 - (void)showRNViewController;
