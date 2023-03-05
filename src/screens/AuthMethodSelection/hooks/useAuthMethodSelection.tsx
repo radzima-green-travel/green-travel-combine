@@ -1,21 +1,20 @@
 import {useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {
-  AuthMethodSelectionScreenRouteProps,
-  AuthMethodSelectionScreenNavigationProps,
-} from '../types';
+import {AuthMethodSelectionScreenNavigationProps} from '../types';
+
+import {useDispatch} from 'react-redux';
+import {googleSigninRequest} from 'core/reducers';
 
 export const useAuthMethodSelection = () => {
   const navigation = useNavigation<AuthMethodSelectionScreenNavigationProps>();
-
+  const dispatch = useDispatch();
   const handleEmailButtonPress = useCallback(() => {
-    navigation.navigate('AuthNavigator', {
-      screen: 'CheckEmail',
-    });
+    navigation.navigate('CheckEmail');
   }, [navigation]);
 
-  // TODO
-  const handleGoogleButtonPress = () => {};
+  const handleGoogleButtonPress = () => {
+    dispatch(googleSigninRequest());
+  };
   const handleFacebookButtonPress = () => {};
   const handleAppleButtonPress = () => {};
 

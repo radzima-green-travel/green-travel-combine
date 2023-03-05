@@ -16,21 +16,19 @@ import {COLORS} from 'assets';
 const Stack = createNativeStackNavigator<ProfileNavigatorParamsList>();
 
 export function ProfileNavigator() {
-  const screenOptions = useScreenOptions();
   const colorScheme = useColorScheme();
   const {t} = useTranslation('profile');
+  const screenOptions = useScreenOptions({
+    title: t('profile'),
+    animation: defaultTransition,
+    contentStyle: {
+      backgroundColor:
+        colorScheme === 'light' ? COLORS.alabaster : COLORS.mirage,
+    },
+  });
 
   return (
-    <Stack.Navigator
-      screenOptions={{
-        ...screenOptions,
-        title: t('profile'),
-        animation: defaultTransition,
-        contentStyle: {
-          backgroundColor:
-            colorScheme === 'light' ? COLORS.alabaster : COLORS.mirage,
-        },
-      }}>
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
       <Stack.Screen

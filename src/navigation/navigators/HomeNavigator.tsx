@@ -19,14 +19,12 @@ const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 export function HomeNavigator() {
   const {t} = useTranslation('home');
 
-  const screenOptions = useScreenOptions();
+  const screenOptions = useScreenOptions({
+    title: t('headerTitle'),
+    animation: defaultTransition,
+  });
   return (
-    <Stack.Navigator
-      screenOptions={{
-        ...screenOptions,
-        title: t('headerTitle'),
-        animation: defaultTransition,
-      }}>
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}

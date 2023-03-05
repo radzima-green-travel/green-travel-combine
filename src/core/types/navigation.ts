@@ -90,4 +90,5 @@ export type AuthNavigatorParamsList = {
     isSignUp: boolean;
   };
   AuthMethodSelection: undefined;
+  SocialLoginInAppBrowser: {url: string};
 };

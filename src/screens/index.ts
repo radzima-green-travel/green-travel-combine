@@ -20,3 +20,4 @@ export {CheckEmail as CheckEmailScreen} from './CheckEmail';
 export {SignInPassword as SignInPasswordScreen} from './SignInPassword';
 export {SignUpForm as SignUpFormScreen} from './SignUpForm';
 export {AuthMethodSelection as AuthMethodSelectionScreen} from './AuthMethodSelection';
+export {SocialLoginInAppBrowser as SocialLoginInAppBrowserScreen} from './SocialLoginInAppBrowser';

@@ -5,7 +5,6 @@ import {AppMapNavigatior} from './AppMapNavigatior';
 import {BookmarksNavigator} from './BookmarksNavigator';
 import {ProfileNavigator} from './ProfileNavigator';
 import {Icon} from 'atoms';
-import {IconsNames} from 'atoms/Icon';
 import {HomeNavigator} from './HomeNavigator';
 import {TabNavigatorParamsList, TestIDs} from 'core/types';
 import {COLORS} from 'assets';
@@ -14,13 +13,6 @@ import {useSelector} from 'react-redux';
 import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
 
 const Tab = createBottomTabNavigator<TabNavigatorParamsList>();
-
-type RouteParams = {
-  name: string;
-  icon: IconsNames;
-  label: string;
-  component: React.ComponentType<any>;
-};
 
 export function TabNavigator() {
   const {t} = useTranslation('common');

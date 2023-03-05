@@ -16,7 +16,7 @@ export const themeStyles = {
     shadowColor: 'rgb(0, 0, 0)',
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 0.25,
-    shadowRadius: 5,
+    shadowRadius: 2,
     elevation: 5,
   },
 

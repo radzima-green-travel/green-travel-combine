@@ -1,70 +1,53 @@
 import React from 'react';
 import {ColorSchemeName, TouchableOpacity} from 'react-native';
 import {Icon, HeaderTitle} from 'atoms';
-import {FONTS_STYLES} from 'assets/fonts';
 import {COLORS} from 'assets';
-import {Header} from '@react-navigation/elements';
 import {useColorScheme} from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
-import {SCREEN_WIDTH} from 'services/PlatformService';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
 }
 
+type IScreeOptions = {
+  withBottomInset?: boolean;
+} & Partial<NativeStackNavigationOptions>;
+
 export function useScreenOptions({
   withBottomInset = false,
-}: {withBottomInset?: boolean} = {}): NativeStackNavigationOptions {
+  ...customOptions
+}: IScreeOptions = {}) {
   const colorScheme = useColorScheme();
-  const {top, bottom} = useSafeAreaInsets();
+  const {bottom} = useSafeAreaInsets();
 
-  return {
-    contentStyle: {
-      backgroundColor:
-        colorScheme === 'light' ? COLORS.white : COLORS.background,
-      ...(withBottomInset ? {paddingBottom: bottom} : {}),
-    },
-    header: ({navigation, route, options, back}) => {
-      const {title, ...restOptions} = options;
-      const titleText = title || route.name;
-      return (
-        <Header
-          headerBackTitleVisible={false}
-          headerStatusBarHeight={top}
-          headerTintColor={
-            colorScheme === 'light' ? COLORS.white : COLORS.altoForDark
-          }
-          headerTitleAlign="center"
-          headerLeft={() => {
-            return back ? (
-              <TouchableOpacity
-                hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
-                activeOpacity={0.8}
-                onPress={() => {
-                  navigation.goBack();
-                }}>
-                <Icon name="chevron" color="white" size={24} />
-              </TouchableOpacity>
-            ) : undefined;
-          }}
-          modal={false}
-          headerStyle={{
-            backgroundColor:
-              colorScheme === 'light' ? COLORS.apple : COLORS.background,
-            shadowOpacity: 0,
-            elevation: 0,
-          }}
-          headerTitleStyle={{
-            ...FONTS_STYLES.semibold16,
-          }}
-          headerTitleContainerStyle={{maxWidth: SCREEN_WIDTH * 0.7}}
-          headerLeftContainerStyle={{paddingLeft: 16}}
-          headerRightContainerStyle={{paddingRight: 16}}
-          headerTitle={() => <HeaderTitle title={titleText} />}
-          {...restOptions}
-        />
-      );
-    },
-  };
+  return ({navigation}) =>
+    ({
+      contentStyle: {
+        backgroundColor:
+          colorScheme === 'light' ? COLORS.white : COLORS.background,
+        ...(withBottomInset ? {paddingBottom: bottom} : {}),
+      },
+      headerBackTitleVisible: false,
+      headerTintColor:
+        colorScheme === 'light' ? COLORS.white : COLORS.altoForDark,
+      headerStyle: {
+        backgroundColor:
+          colorScheme === 'light' ? COLORS.apple : COLORS.background,
+      },
+      headerShadowVisible: false,
+      headerBackVisible: false,
+      headerTitleAlign: 'center',
+      headerLeft: props =>
+        props.canGoBack ? (
+          <TouchableOpacity
+            hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}>
+            <Icon name="chevron" color="white" size={24} />
+          </TouchableOpacity>
+        ) : null,
+      headerTitle: props => <HeaderTitle title={props.children} />,
+      ...customOptions,
+    } as NativeStackNavigationOptions);
 }

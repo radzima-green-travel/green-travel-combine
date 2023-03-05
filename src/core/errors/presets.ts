@@ -34,3 +34,23 @@ export const createAmplifyErrorPreset = ({
   path: `amplify/${methodName}`,
   requestId: '',
 });
+
+export const createSocialLoginCancelErrorPreset = () => ({
+  message: 'Social login cancelled',
+  timestamp: Date.now(),
+  status: -3,
+  error_code: 'SOCILAL_LOGIN_CANCELLED' as RequestErrorCodes,
+  error: 'Social login cancelled',
+  path: '',
+  requestId: '',
+});
+
+export const createSocialLoginErrorPreset = () => ({
+  message: 'Social login error',
+  timestamp: Date.now(),
+  status: -3,
+  error_code: 'SOCIAL_LOGIN_ERROR' as RequestErrorCodes,
+  error: 'Social login error',
+  path: '',
+  requestId: '',
+});

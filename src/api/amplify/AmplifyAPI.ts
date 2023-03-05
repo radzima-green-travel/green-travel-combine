@@ -166,6 +166,36 @@ class AmplifyApi extends AmplifyApiEngine {
       ...args,
     );
   };
+
+  currentAuthenticatedUser = async (
+    ...args: Parameters<typeof Auth.currentAuthenticatedUser>
+  ) => {
+    return this.invoke(
+      {
+        context: Auth,
+        method: Auth.currentAuthenticatedUser,
+        errorMap: () => {
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
+
+  federatedSignIn = async (
+    ...args: Parameters<typeof Auth.federatedSignIn>
+  ) => {
+    return this.invoke(
+      {
+        context: Auth,
+        method: Auth.federatedSignIn,
+        errorMap: () => {
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
 }
 
 export const amplifyApi = new AmplifyApi();

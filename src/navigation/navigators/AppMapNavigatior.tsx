@@ -15,15 +15,14 @@ import {useTranslation} from 'react-i18next';
 const Stack = createNativeStackNavigator<AppMapNavigatorParamsList>();
 
 export function AppMapNavigatior() {
-  const screenOptions = useScreenOptions();
   const {t} = useTranslation('common');
+
+  const screenOptions = useScreenOptions({
+    title: t('tabs.map'),
+    animation: defaultTransition,
+  });
   return (
-    <Stack.Navigator
-      screenOptions={{
-        ...screenOptions,
-        title: t('tabs.map'),
-        animation: defaultTransition,
-      }}>
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
         options={{headerShown: false}}
         name="AppMap"

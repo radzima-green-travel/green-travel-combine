@@ -7,6 +7,7 @@
 #import "RootViewController.h"
 #import "Firebase/Firebase.h"
 #import "RotationLockUtility.h"
+#import <React/RCTLinkingManager.h>
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
@@ -132,6 +133,14 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   return RCTAppSetupDefaultModuleFromClass(moduleClass);
 }
 #endif
+
+- (BOOL)application:(UIApplication *)application
+   openURL:(NSURL *)url
+   options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
+
 
 
 // Native app methods start

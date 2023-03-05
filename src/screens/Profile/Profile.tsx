@@ -16,6 +16,7 @@ export const Profile = () => {
     onAuthorisationItemPress,
     navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,
+    loading,
   } = useProfile();
 
   return (
@@ -30,6 +31,7 @@ export const Profile = () => {
           subtitle={isAuthorized ? userEmail : t('notAuthorrized.subtitle')}
           renderLeftElement={<Icon name="defaultAcc" size={60} />}
           withChevron
+          loading={loading}
         />
       </View>
 

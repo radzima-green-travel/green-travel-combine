@@ -11,6 +11,7 @@ import {signInOutSaga} from './signInOutSaga';
 import {deleteUserSaga} from './deleteUserSaga';
 import {checkUserEmailSaga} from './checkUserEmailSaga';
 import {forgotPasswordCodeSubmitSaga} from './forgotPasswordCodeSubmitSaga';
+import {googleSignInSaga} from './googleSignInSaga';
 
 export function* authentificationSaga() {
   const isMyProfileFeatureEnabled: ReturnType<
@@ -34,5 +35,6 @@ export function* authentificationSaga() {
       ACTIONS.FORGOT_PASSWORD_CODE_SUBMIT_REQUEST,
       forgotPasswordCodeSubmitSaga,
     );
+    yield takeEvery(ACTIONS.GOOGLE_SIGNIN_REQUEST, googleSignInSaga);
   }
 }

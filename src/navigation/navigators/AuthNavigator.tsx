@@ -8,6 +8,7 @@ import {
   SignUpFormScreen,
   RestorePasswordScreen,
   NewPasswordScreen,
+  SocialLoginInAppBrowserScreen,
 } from '../../screens';
 
 import {useTranslation} from 'react-i18next';
@@ -19,16 +20,16 @@ import {defaultTransition} from '../transition';
 const Stack = createNativeStackNavigator<AuthNavigatorParamsList>();
 
 export function AuthNavigator() {
-  const screenOptions = useScreenOptions({withBottomInset: true});
   const {t} = useTranslation('authentification');
 
+  const screenOptions = useScreenOptions({
+    withBottomInset: true,
+    title: t('login/Register'),
+    animation: defaultTransition,
+  });
+
   return (
-    <Stack.Navigator
-      screenOptions={{
-        ...screenOptions,
-        title: t('login/Register'),
-        animation: defaultTransition,
-      }}>
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="CheckEmail" component={CheckEmailScreen} />
       <Stack.Screen
         name="AuthMethodSelection"
@@ -48,6 +49,10 @@ export function AuthNavigator() {
         name="NewPassword"
         component={NewPasswordScreen}
         options={{title: t('restorePassword', {ns: 'authentification'})}}
+      />
+      <Stack.Screen
+        name="SocialLoginInAppBrowser"
+        component={SocialLoginInAppBrowserScreen}
       />
     </Stack.Navigator>
   );

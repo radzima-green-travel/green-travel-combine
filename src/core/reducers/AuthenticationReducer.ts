@@ -112,6 +112,19 @@ export const forgotPasswordCodeSubmitFailure = createAction(
   ACTIONS.FORGOT_PASSWORD_CODE_SUBMIT_FAILURE,
 )<Error>();
 
+export const googleSigninRequest = createAction(
+  ACTIONS.GOOGLE_SIGNIN_REQUEST,
+)();
+
+export const googleSigninSuccess = createAction(
+  ACTIONS.GOOGLE_SIGNIN_SUCCESS,
+)<CognitoUserAttributes>();
+export const googleSigninFailure = createAction(
+  ACTIONS.GOOGLE_SIGNIN_FAILURE,
+)<Error>();
+
+export const canselSocialSignin = createAction(ACTIONS.CANCLE_SOCIAL_SIGNIN)();
+
 interface IAuth {
   email: string;
   userAttributes: CognitoUserAttributes | null;
@@ -145,6 +158,7 @@ const actions = {
   clearUserAuthData,
   signOutSuccess,
   deleteUserSuccess,
+  googleSigninSuccess,
 };
 
 type Actions = ActionType<typeof actions>;
@@ -169,39 +183,31 @@ export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
     },
   )
 
-  .handleAction(actions.setUserAuthData, (state, {payload}) => {
-    return {
-      ...state,
-      userAttributes: payload,
-    };
-  })
-  .handleAction(actions.clearUserAuthData, state => {
-    return {
-      ...state,
-      userAttributes: null,
-    };
-  })
-  .handleAction(actions.signOutSuccess, state => {
-    return {
-      ...state,
-      userAttributes: null,
-    };
-  })
-  .handleAction(actions.deleteUserSuccess, state => {
-    return {
-      ...state,
-      userAttributes: null,
-    };
-  })
-  .handleAction(actions.confirmSignUpSuccess, (state, {payload}) => {
-    return {
-      ...state,
-      userAttributes: payload,
-    };
-  })
-  .handleAction(actions.confirmNewPasswordSuccess, (state, {payload}) => {
-    return {
-      ...state,
-      userAttributes: payload,
-    };
-  });
+  .handleAction(
+    [
+      actions.clearUserAuthData,
+      actions.signOutSuccess,
+      actions.deleteUserSuccess,
+    ],
+    state => {
+      return {
+        ...state,
+        userAttributes: null,
+      };
+    },
+  )
+
+  .handleAction(
+    [
+      actions.setUserAuthData,
+      actions.confirmSignUpSuccess,
+      actions.confirmNewPasswordSuccess,
+      actions.googleSigninSuccess,
+    ],
+    (state, {payload}) => {
+      return {
+        ...state,
+        userAttributes: payload,
+      };
+    },
+  );

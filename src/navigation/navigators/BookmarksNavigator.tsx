@@ -16,16 +16,15 @@ import {defaultTransition} from '../transition';
 const Stack = createNativeStackNavigator<BookmarksNavigatorParamsList>();
 
 export function BookmarksNavigator() {
-  const screenOptions = useScreenOptions();
   const {t} = useTranslation('common');
 
+  const screenOptions = useScreenOptions({
+    title: t('tabs.bookmarks'),
+    animation: defaultTransition,
+  });
+
   return (
-    <Stack.Navigator
-      screenOptions={{
-        ...screenOptions,
-        title: t('tabs.bookmarks'),
-        animation: defaultTransition,
-      }}>
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Bookmarks" component={BookmarksScreen} />
       <Stack.Screen name="BookmarksList" component={BookmarksListScreen} />
       <Stack.Screen

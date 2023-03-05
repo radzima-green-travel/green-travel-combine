@@ -4,6 +4,8 @@ import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProps} from '../types';
 import {useSelector} from 'react-redux';
 import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
+import {useRequestLoading} from 'react-redux-help-kit';
+import {googleSigninRequest} from 'core/reducers';
 
 export const useProfile = () => {
   const navigation = useNavigation<ProfileScreenNavigationProps>();
@@ -29,11 +31,14 @@ export const useProfile = () => {
 
   const userEmail = useSelector(selectUserEmail);
 
+  const {loading} = useRequestLoading(googleSigninRequest);
+
   return {
     userEmail,
     isAuthorized,
     onAuthorisationItemPress,
     navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,
+    loading,
   };
 };
