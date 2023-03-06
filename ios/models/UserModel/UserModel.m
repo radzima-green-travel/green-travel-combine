@@ -48,7 +48,9 @@
 }
 
 - (BOOL)signedIn {
-  return self.signedInNoAttributes && self.state == UserModelStateFetched;
+  return self.signedInWithoutAttributes && (self.state == UserModelStateFetched ||
+                                       self.state == UserModelStateSignedIn ||
+                                       self.state == UserModelStatePasswordResetSuccess);
 }
 
 @end

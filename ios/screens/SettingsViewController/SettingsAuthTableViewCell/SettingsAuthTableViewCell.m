@@ -136,9 +136,8 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
   [super prepareForReuse];
   self.accessoryType = UITableViewCellAccessoryNone;
   
-  [self.iconImageView removeFromSuperview];
-  [self.mainLabel removeFromSuperview];
-  [self.subLabel removeFromSuperview];
+  [self.mainLabel setText:@""];
+  [self.subLabel setText:@""];
 
 }
 
