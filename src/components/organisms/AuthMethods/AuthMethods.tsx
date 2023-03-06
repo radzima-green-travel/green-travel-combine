@@ -11,6 +11,9 @@ interface IProps {
   onGoogleButtonPress: () => void;
   onFacebookButtonPress: () => void;
   onAppleButtonPress: () => void;
+  googleLoading?: boolean;
+  facebookLoading?: boolean;
+  appleLoading?: boolean;
 }
 
 export const AuthMethods = memo(
@@ -19,6 +22,9 @@ export const AuthMethods = memo(
     onGoogleButtonPress,
     onFacebookButtonPress,
     onAppleButtonPress,
+    googleLoading,
+    facebookLoading,
+    appleLoading,
   }: IProps) => {
     const {t} = useTranslation('authentification');
     const {t: tCommon} = useTranslation('common');
@@ -31,6 +37,8 @@ export const AuthMethods = memo(
         onPress={onAppleButtonPress}
         text={t('appleAuth')}
         leftIcon={() => <Icon name={'appleAuth'} style={styles.appleIcon} />}
+        loading={appleLoading}
+        disabled={googleLoading || facebookLoading}
       />
     );
 
@@ -69,6 +77,8 @@ export const AuthMethods = memo(
           style={styles.otherOptionsButton}
           onPress={onFacebookButtonPress}
           text={t('facebookAuth')}
+          disabled={googleLoading || facebookLoading}
+          loading={facebookLoading}
           leftIcon={() => <Icon name={'facebookAuth'} />}
         />
         <Button
@@ -77,6 +87,8 @@ export const AuthMethods = memo(
           onPress={onGoogleButtonPress}
           text={t('googleAuth')}
           leftIcon={() => <Icon name={'googleAuth'} />}
+          loading={googleLoading}
+          disabled={appleLoading || facebookLoading}
         />
         {isIOS && EmailButton({isOtherOption: true})}
       </View>

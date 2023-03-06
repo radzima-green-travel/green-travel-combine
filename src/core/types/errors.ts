@@ -12,7 +12,8 @@ export type RequestErrorCodes =
   | 'VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED'
   | 'SOCILAL_LOGIN_CANCELLED'
   | 'SOCIAL_LOGIN_ERROR'
-  | 'SOCIAL_LOGOUT_ERROR';
+  | 'SOCIAL_LOGOUT_ERROR'
+  | 'SOCILAL_LOGOUT_CANCELLED';
 
 export interface IRequestError extends Error {
   timestamp: number;

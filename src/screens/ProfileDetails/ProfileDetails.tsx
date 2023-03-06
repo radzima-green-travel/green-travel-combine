@@ -24,7 +24,6 @@ export const ProfileDetails = () => {
     <View style={styles.container}>
       <GeneralListItem
         size="M"
-        loading={loading}
         position="single"
         onPress={() => {}}
         title={isAuthorized ? userEmail : t('notAuthorrized.subtitle')}

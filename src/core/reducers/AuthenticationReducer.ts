@@ -123,7 +123,12 @@ export const googleSigninFailure = createAction(
   ACTIONS.GOOGLE_SIGNIN_FAILURE,
 )<Error>();
 
-export const canselSocialSignin = createAction(ACTIONS.CANCLE_SOCIAL_SIGNIN)();
+export const inAppBrowserCancelOperation = createAction(
+  ACTIONS.IN_APP_BROWSER_CANCEL_OPERATION,
+)();
+export const inAppBrowserSuccessOperation = createAction(
+  ACTIONS.IN_APP_BROWSER_SUCCESS_OPERATION,
+)();
 
 interface IAuth {
   email: string;

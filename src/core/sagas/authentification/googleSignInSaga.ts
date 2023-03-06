@@ -2,7 +2,7 @@ import {call, put, take, race} from 'redux-saga/effects';
 import {
   googleSigninSuccess,
   googleSigninFailure,
-  canselSocialSignin,
+  inAppBrowserCancelOperation,
 } from 'core/reducers';
 import {createAuthHubChannel} from './createAuthHubChannel';
 import {CognitoUserWithAttributes} from 'core/types';
@@ -15,9 +15,9 @@ import {
 import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 
 export function* googleSignInSaga() {
-  try {
-    const channel = createAuthHubChannel();
+  const channel = createAuthHubChannel();
 
+  try {
     yield call(amplifyApi.federatedSignIn, {
       customProvider: CognitoHostedUIIdentityProvider.Google,
     });
@@ -44,7 +44,7 @@ export function* googleSignInSaga() {
         }
       }),
       cancel: call(function* () {
-        yield take(canselSocialSignin);
+        yield take(inAppBrowserCancelOperation);
         throw new RequestError(createSocialLoginCancelErrorPreset());
       }),
     });
@@ -52,5 +52,7 @@ export function* googleSignInSaga() {
     yield put(googleSigninSuccess(user.attributes));
   } catch (e) {
     yield put(googleSigninFailure(e as Error));
+  } finally {
+    channel.close();
   }
 }

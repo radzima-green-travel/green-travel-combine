@@ -13,9 +13,15 @@ import {analyticsService} from 'services/AnalyticsService';
 import {languageService} from 'services/LanguageService';
 import {Amplify} from 'aws-amplify';
 import InAppBrowser, {RedirectResult} from 'react-native-inappbrowser-reborn';
+import {store} from 'core/store';
+import {
+  inAppBrowserSuccessOperation,
+  inAppBrowserCancelOperation,
+} from 'core/reducers';
 
 async function urlOpener(url, redirectUrl) {
   await InAppBrowser.isAvailable();
+
   const {type, url: newUrl} = (await InAppBrowser.openAuth(url, redirectUrl, {
     showTitle: false,
     enableUrlBarHiding: true,
@@ -25,6 +31,9 @@ async function urlOpener(url, redirectUrl) {
 
   if (type === 'success') {
     Linking.openURL(newUrl);
+    store.dispatch(inAppBrowserSuccessOperation());
+  } else if (type === 'cancel') {
+    store.dispatch(inAppBrowserCancelOperation());
   }
 }
 

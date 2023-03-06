@@ -4,7 +4,7 @@ import {AuthMethodSelectionScreenNavigationProps} from '../types';
 
 import {useDispatch} from 'react-redux';
 import {googleSigninRequest} from 'core/reducers';
-import {useOnRequestSuccess} from 'react-redux-help-kit';
+import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 
 export const useAuthMethodSelection = () => {
   const navigation = useNavigation<AuthMethodSelectionScreenNavigationProps>();
@@ -23,10 +23,13 @@ export const useAuthMethodSelection = () => {
     navigation.goBack();
   });
 
+  const {loading} = useRequestLoading(googleSigninRequest);
+
   return {
     handleEmailButtonPress,
     handleGoogleButtonPress,
     handleFacebookButtonPress,
     handleAppleButtonPress,
+    loading,
   };
 };
