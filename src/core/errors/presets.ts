@@ -54,3 +54,13 @@ export const createSocialLoginErrorPreset = () => ({
   path: '',
   requestId: '',
 });
+
+export const createSocialLogoutErrorPreset = () => ({
+  message: 'Social logout error',
+  timestamp: Date.now(),
+  status: -3,
+  error_code: 'SOCIAL_LOGOUT_ERROR' as RequestErrorCodes,
+  error: 'Social logout error',
+  path: '',
+  requestId: '',
+});

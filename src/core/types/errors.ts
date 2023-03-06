@@ -11,7 +11,8 @@ export type RequestErrorCodes =
   | 'VERIFICATION_CODE_MISMATCH'
   | 'VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED'
   | 'SOCILAL_LOGIN_CANCELLED'
-  | 'SOCIAL_LOGIN_ERROR';
+  | 'SOCIAL_LOGIN_ERROR'
+  | 'SOCIAL_LOGOUT_ERROR';
 
 export interface IRequestError extends Error {
   timestamp: number;

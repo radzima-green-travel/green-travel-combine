@@ -1,4 +1,4 @@
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Linking, Platform} from 'react-native';
 
 import {enableScreens} from 'react-native-screens';
 import 'react-native-gesture-handler';
@@ -12,18 +12,24 @@ import {sentryService} from 'services/SentryService';
 import {analyticsService} from 'services/AnalyticsService';
 import {languageService} from 'services/LanguageService';
 import {Amplify} from 'aws-amplify';
-import {navigate} from 'services/NavigationService';
+import InAppBrowser, {RedirectResult} from 'react-native-inappbrowser-reborn';
 
-async function urlOpener(url: string) {
-  if (!url.includes('logout')) {
-    navigate('SocialLoginInAppBrowser', {url: url});
+async function urlOpener(url, redirectUrl) {
+  await InAppBrowser.isAvailable();
+  const {type, url: newUrl} = (await InAppBrowser.openAuth(url, redirectUrl, {
+    showTitle: false,
+    enableUrlBarHiding: true,
+    enableDefaultShare: false,
+    ephemeralWebSession: false,
+  })) as RedirectResult;
+
+  if (type === 'success') {
+    Linking.openURL(newUrl);
   }
 }
 
 const signInUrls = awsConfig.oauth.redirectSignIn.split(',');
 const signOutUrls = awsConfig.oauth.redirectSignOut.split(',');
-
-console.log();
 
 Amplify.configure({
   ...awsConfig,
@@ -32,7 +38,7 @@ Amplify.configure({
     ...awsConfig.oauth,
     redirectSignIn: signInUrls[2],
     redirectSignOut: signOutUrls[2],
-    urlOpener,
+    urlOpener: Platform.OS === 'ios' ? urlOpener : undefined,
   },
 });
 
