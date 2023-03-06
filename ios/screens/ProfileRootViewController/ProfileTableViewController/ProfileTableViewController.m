@@ -52,7 +52,7 @@ static NSString *const kAuthCell = @"AuthCell";
   [self.userModel addUserModelObserver:self];
   [self onUserModelStateTransitionFrom:self.userModel.prevState toCurrentState:self.userModel.state];
   [self prepareView];
-  if (self.userModel.signedInNoAttributes) {
+  if (self.userModel.signedInWithoutAttributes) {
     self.cellModels = configureSignedInTableViewCells(self, NO);
   } else {
     self.cellModels = configureBaseTableViewCells(self);
@@ -136,7 +136,7 @@ static NSString *const kAuthCell = @"AuthCell";
         [self.navigationController pushViewController:errorViewController animated:YES];
         return;
       }
-      BOOL signedIn = strongSelf.userModel.signedInNoAttributes;
+      BOOL signedIn = strongSelf.userModel.signedInWithoutAttributes;
       if (fetched && signedIn) {
         strongSelf.cellModels = configureSignedInTableViewCells(self, NO);
         [strongSelf.tableView reloadData];
