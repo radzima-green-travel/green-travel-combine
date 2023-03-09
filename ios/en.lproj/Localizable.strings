@@ -108,6 +108,15 @@
 "SettingsViewControllerTermsCellTitle" = "Terms and Conditions";
 "SettingsViewControllerPrivacyCellTitle" = "Privacy Policy";
 
+"SettingsViewControllerResetEmailCellTitle" = "E-mail";
+"SettingsViewControllerResetPasswordCellTitle" = "Reset password";
+"SettingsViewControllerDeleteAccCellTitle" = "Delete account";
+"SettingsViewControllerDeleteAccAlertMessageHeader" = "Delete account?";
+"SettingsViewControllerDeleteAccAlertMessageBody" = "The account and data will be irreversibly deleted";
+"SettingsViewControllerLogoutCellTitle" = "Log out";
+"SettingsViewControllerLogoutAlertMessageHeader" = "Log out?";
+"SettingsViewControllerLogoutAlertMessageBody" = "You can sign in later";
+
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";
 "CodeConfirmationScreenHint" = "enter confirmation code from e-mail %@";

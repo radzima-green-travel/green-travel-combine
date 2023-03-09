@@ -43,6 +43,7 @@
 - (SettingsGroup *)setEmailGroup {
   SettingsEntryInfo *emailEntry = [SettingsEntryInfo new];
   emailEntry.name = NSLocalizedString(@"SettingsViewControllerResetEmailCellTitle", @"");
+  emailEntry.value = self.userModel.email;
   
   SettingsGroup *emailGroup =
   [[SettingsGroup alloc] initWithName:@""
@@ -68,29 +69,29 @@
   deleteAccEntry.name = NSLocalizedString(@"SettingsViewControllerDeleteAccCellTitle", @"");
   deleteAccEntry.doAction = ^void(UIViewController *activeViewController) {
     UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SettingsViewControllerCacheAlertMessageHeader", @"")
-                                        message:NSLocalizedString(@"SettingsViewControllerCacheAlertMessageBody", @"")
+    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageHeader", @"")
+                                        message:NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageBody", @"")
                                  preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      
+      // TODO: implement delete account
     }]];
     [activeViewController presentViewController:alert animated:YES completion:^{}];
-    // TODO: implement delete account
   };
   
   SettingsEntryAction *logoutEntry = [SettingsEntryAction new];
   logoutEntry.name = NSLocalizedString(@"SettingsViewControllerLogoutCellTitle", @"");
+  __weak typeof(self) weakSelf = self;
   logoutEntry.doAction = ^void(UIViewController *activeViewController) {
     UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SettingsViewControllerCacheAlertMessageHeader", @"")
-                                        message:NSLocalizedString(@"SettingsViewControllerCacheAlertMessageBody", @"")
+    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageHeader", @"")
+                                        message:NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageBody", @"")
                                  preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [weakSelf.userController initiateSignOut];
     }]];
     [activeViewController presentViewController:alert animated:YES completion:^{}];
-    // TODO: implement delete account
   };
   
   SettingsGroup *dangerGroup =

@@ -28,3 +28,7 @@ void showAlertCantPlotRoute(UIViewController *presenter) {
   }]];
   [presenter presentViewController:alert animated:YES completion:^{}];
 }
+
+void showAlertGeneric(UIViewController *presenter) {
+  
+}

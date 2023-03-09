@@ -14,6 +14,7 @@
 #import "SettingsEntryToggle.h"
 #import "SettingsEntrySelect.h"
 #import "SettingsEntryAction.h"
+#import "SettingsEntryInfo.h"
 #import "SettingsEntryNavigate.h"
 #import "SettingsEntryAuthLoggedOut.h"
 #import "SettingsEntryAuthLoggedIn.h"
@@ -161,12 +162,24 @@ static NSString * const kAuthCellId = @"authCellId";
   return baseCell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView
+estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
   SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.row];
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
     return kAuthRowHeight;
   }
   return kSettingsRowHeight;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.row];
+  if ([entry isKindOfClass:[SettingsEntryInfo class]]) {
+    return NO;
+  }
+  if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
+    return NO;
+  }
+  return YES;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -176,14 +189,6 @@ static NSString * const kAuthCellId = @"authCellId";
     return;
   }
   [self.settingsController interactWithSetting:entry onViewController:self];
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-  SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.row];
-  if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
-    return NO;
-  }
-  return YES;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
