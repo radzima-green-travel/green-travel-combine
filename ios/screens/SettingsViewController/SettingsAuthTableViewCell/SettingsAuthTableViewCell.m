@@ -40,18 +40,6 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
 }
 
 - (void)setUp {
-  self.iconImageView = [[UIImageView alloc] init];
-  self.iconImageView.translatesAutoresizingMaskIntoConstraints = NO;
-  
-  [self.contentView addSubview:self.iconImageView];
-#pragma mark - Avatar
-  [NSLayoutConstraint activateConstraints:@[
-    [self.iconImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kIconLeadingAnchor],
-    [self.iconImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-    [self.iconImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kIconTopAnchorAtAuthCell],
-    [self.iconImageView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:kIconBottomAnchorAtAuthCell],
-    [self.iconImageView.widthAnchor constraintEqualToAnchor:self.iconImageView.heightAnchor]
-  ]];
 #pragma mark - Main label
   self.mainLabel = [[UILabel alloc] init];
   self.mainLabel.textAlignment = NSTextAlignmentLeft;
@@ -78,9 +66,10 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
   [self.contentView addSubview:labelStack];
   
   [NSLayoutConstraint activateConstraints:@[
-    [labelStack.leadingAnchor constraintEqualToAnchor:self.iconImageView.trailingAnchor constant:kMainLabelLeadingAnchor],
+    [labelStack.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:kMainLabelLeadingAnchor],
     [labelStack.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:kMainLabelTrailingAnchor],
-    [labelStack.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
+    [labelStack.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:14.0],
+    [labelStack.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-15.0],
   ]];
 }
 
@@ -114,22 +103,6 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
     NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellSubTitleAuthorizedNot", @"")];
     [self.subLabel setAttributedText:subTextLabelAttributedString];
   }
-  [self setUpAvatar:subText signedIn:signedIn];
-}
-
-- (void)setUpAvatar:(NSString *)subText signedIn:(BOOL)signedIn {
-  if (!signedIn) {
-    self.iconImageView.image = [UIImage imageNamed:@"accountPhoto"];
-    return;
-  }
-  
-  UIImage *image = [[CacheService get].cache objectForKey:kAvatarCacheKey];
-  if (image == nil) {
-    image = [[UIImage alloc] getAccountImageWithChar:[subText substringToIndex:1]];
-    [[CacheService get].cache setObject:image forKey:kAvatarCacheKey];
-  }
-  
-  self.iconImageView.image = image;
 }
 
 - (void)prepareForReuse {
@@ -138,7 +111,6 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
   
   [self.mainLabel setText:@""];
   [self.subLabel setText:@""];
-
 }
 
 @end

@@ -101,6 +101,15 @@
 "SettingsViewControllerTermsCellTitle" = "Условия использования";
 "SettingsViewControllerPrivacyCellTitle" = "Политика безопасности";
 
+"SettingsViewControllerResetEmailCellTitle" = "Почта";
+"SettingsViewControllerResetPasswordCellTitle" = "Сбросить пароль";
+"SettingsViewControllerDeleteAccCellTitle" = "Удалить учетную запись";
+"SettingsViewControllerDeleteAccAlertMessageHeader" = "Удалить учетную запись?";
+"SettingsViewControllerDeleteAccAlertMessageBody" = "Учетная запись и данные будут безвозвратно удалены";
+"SettingsViewControllerLogoutCellTitle" = "Выйти";
+"SettingsViewControllerLogoutAlertMessageHeader" = "Выйти?";
+"SettingsViewControllerLogoutAlertMessageBody" = "Вы можете войти позже";
+
 "UserSettingsTableViewCellTermsOfUseMainLabel" = "Условия использования";
 "UserSettingsTableViewCellPrivacyPolicyMainLabel" = "Политика конфиденциальности";
 "UserSettingsTableViewCellLogOutMainLabel" = "Выйти";

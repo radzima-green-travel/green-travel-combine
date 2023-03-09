@@ -94,6 +94,15 @@
 "SettingsViewControllerTermsCellTitle" = "条款和条件";
 "SettingsViewControllerPrivacyCellTitle" = "隐私政策";
 
+"SettingsViewControllerResetEmailCellTitle" = "电子邮件";
+"SettingsViewControllerResetPasswordCellTitle" = "重置密码";
+"SettingsViewControllerDeleteAccCellTitle" = "删除账户";
+"SettingsViewControllerDeleteAccAlertMessageHeader" = "删除账户？";
+"SettingsViewControllerDeleteAccAlertMessageBody" = "账号和数据将被不可逆删除";
+"SettingsViewControllerLogoutCellTitle" = "注销";
+"SettingsViewControllerLogoutAlertMessageHeader" = "注销？";
+"SettingsViewControllerLogoutAlertMessageBody" = "您可以稍后登录";
+
 "CodeConfirmationScreenTitle" = "Подтверждение почты";
 "CodeConfirmationScreenTitle" = "Email confirmation";
 "CodeConfirmationScreenHeader" = "Confirm sign up";
