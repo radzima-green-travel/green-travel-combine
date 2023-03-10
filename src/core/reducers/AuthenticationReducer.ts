@@ -123,6 +123,17 @@ export const googleSigninFailure = createAction(
   ACTIONS.GOOGLE_SIGNIN_FAILURE,
 )<Error>();
 
+export const facebookSigninRequest = createAction(
+  ACTIONS.FACEBOOK_SIGNIN_REQUEST,
+)();
+
+export const facebookSigninSuccess = createAction(
+  ACTIONS.FACEBOOK_SIGNIN_SUCCESS,
+)<CognitoUserAttributes>();
+export const facebookSigninFailure = createAction(
+  ACTIONS.FACEBOOK_SIGNIN_FAILURE,
+)<Error>();
+
 export const inAppBrowserCancelOperation = createAction(
   ACTIONS.IN_APP_BROWSER_CANCEL_OPERATION,
 )();

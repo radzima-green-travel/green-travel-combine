@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {AuthMethodSelectionScreenNavigationProps} from '../types';
 
 import {useDispatch} from 'react-redux';
-import {googleSigninRequest} from 'core/reducers';
+import {facebookSigninRequest, googleSigninRequest} from 'core/reducers';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 
 export const useAuthMethodSelection = () => {
@@ -16,20 +16,24 @@ export const useAuthMethodSelection = () => {
   const handleGoogleButtonPress = () => {
     dispatch(googleSigninRequest());
   };
-  const handleFacebookButtonPress = () => {};
+  const handleFacebookButtonPress = () => {
+    dispatch(facebookSigninRequest());
+  };
   const handleAppleButtonPress = () => {};
 
   useOnRequestSuccess(googleSigninRequest, () => {
     navigation.goBack();
   });
 
-  const {loading} = useRequestLoading(googleSigninRequest);
+  const {loading: googleLoading} = useRequestLoading(googleSigninRequest);
+  const {loading: facebookLoading} = useRequestLoading(facebookSigninRequest);
 
   return {
     handleEmailButtonPress,
     handleGoogleButtonPress,
     handleFacebookButtonPress,
     handleAppleButtonPress,
-    loading,
+    googleLoading,
+    facebookLoading,
   };
 };

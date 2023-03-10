@@ -5,7 +5,7 @@ import {ProfileScreenNavigationProps} from '../types';
 import {useSelector} from 'react-redux';
 import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
 import {useRequestLoading} from 'react-redux-help-kit';
-import {googleSigninRequest} from 'core/reducers';
+import {googleSigninRequest, facebookSigninRequest} from 'core/reducers';
 
 export const useProfile = () => {
   const navigation = useNavigation<ProfileScreenNavigationProps>();
@@ -31,7 +31,8 @@ export const useProfile = () => {
 
   const userEmail = useSelector(selectUserEmail);
 
-  const {loading} = useRequestLoading(googleSigninRequest);
+  const {loading: googleLoading} = useRequestLoading(googleSigninRequest);
+  const {loading: facebookLoading} = useRequestLoading(facebookSigninRequest);
 
   return {
     userEmail,
@@ -39,6 +40,6 @@ export const useProfile = () => {
     onAuthorisationItemPress,
     navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,
-    loading,
+    loading: googleLoading || facebookLoading,
   };
 };

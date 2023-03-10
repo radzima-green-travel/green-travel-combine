@@ -23,7 +23,9 @@ export function* signInOutSaga() {
       call(function* () {
         if (userData?.identities) {
           const parsedIdentities = JSON.parse(userData.identities);
-          if (parsedIdentities?.[0]?.providerName === 'Google') {
+          if (
+            ['Google', 'Facebook'].includes(parsedIdentities?.[0]?.providerName)
+          ) {
             yield take([
               inAppBrowserCancelOperation,
               inAppBrowserSuccessOperation,

@@ -17,7 +17,8 @@ export const AuthMethodSelection = () => {
     handleGoogleButtonPress,
     handleFacebookButtonPress,
     handleAppleButtonPress,
-    loading,
+    googleLoading,
+    facebookLoading,
   } = useAuthMethodSelection();
 
   return (
@@ -27,7 +28,8 @@ export const AuthMethodSelection = () => {
         onAppleButtonPress={handleAppleButtonPress}
         onFacebookButtonPress={handleFacebookButtonPress}
         onGoogleButtonPress={handleGoogleButtonPress}
-        googleLoading={loading}
+        googleLoading={googleLoading}
+        facebookLoading={facebookLoading}
       />
       <Text style={styles.text}>
         {`${t('termsAndPolicyInfo')} `}
