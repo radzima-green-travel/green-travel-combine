@@ -25,6 +25,10 @@ export const useAuthMethodSelection = () => {
     navigation.goBack();
   });
 
+  useOnRequestSuccess(facebookSigninRequest, () => {
+    navigation.goBack();
+  });
+
   const {loading: googleLoading} = useRequestLoading(googleSigninRequest);
   const {loading: facebookLoading} = useRequestLoading(facebookSigninRequest);
 

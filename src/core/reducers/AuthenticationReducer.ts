@@ -175,6 +175,7 @@ const actions = {
   signOutSuccess,
   deleteUserSuccess,
   googleSigninSuccess,
+  facebookSigninSuccess,
 };
 
 type Actions = ActionType<typeof actions>;
@@ -219,6 +220,7 @@ export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
       actions.confirmSignUpSuccess,
       actions.confirmNewPasswordSuccess,
       actions.googleSigninSuccess,
+      actions.facebookSigninSuccess,
     ],
     (state, {payload}) => {
       return {
