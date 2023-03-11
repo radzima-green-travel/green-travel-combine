@@ -139,7 +139,7 @@
 }
 
 - (void)completeSignOut {
-  
+  self.groups[0] = [self setUpAuthGroup];
 }
 
 

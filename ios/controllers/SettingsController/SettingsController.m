@@ -156,8 +156,7 @@
         [self.model notifyAboutScreenUpdate:root];
         return;
       }
-      if (prevState == UserModelStateSignedIn &&
-          currentState == UserModelStateSignOutInProgress) {
+      if (currentState == UserModelStateSignOutInProgress) {
         [root startSignOut];
         [self.model notifyAboutScreenUpdate:root];
         return;

@@ -45,7 +45,7 @@
       [strongSelf.model setState:UserModelStateFetched];
       return;
     }
-    [self fetchUserAttributesAndSetUserState:UserModelStateFetched
+    [self fetchUserAttributesAndSetUserState:UserModelStateSignedIn
                                fallbackState:UserModelStateNotFetched];
   }];
 }
@@ -204,7 +204,8 @@
         [strongSelf.model setState:UserModelStateConfirmCodeNotSent];
         return;
       }
-      [strongSelf.model setState:UserModelStateSignUpSuccess];
+      [strongSelf fetchUserAttributesAndSetUserState:UserModelStateSignUpSuccess
+                                 fallbackState:UserModelStateConfirmCodeNotSent];
     }];
   }];
 }
@@ -231,6 +232,7 @@
       [strongSelf.model setState:UserModelStateSignUpSuccess];
       return;
     }
+    [strongSelf.model setSignedInWithoutAttributes:NO];
     [strongSelf.model setState:UserModelStateFetched];
   }];
 }
