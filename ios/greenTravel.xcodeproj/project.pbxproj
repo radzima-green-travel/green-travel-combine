@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
@@ -254,6 +255,7 @@
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
+		8A494F3334BC232F48BAB377 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A1102232833FCC600FC967A /* awsconfiguration.json */; };
 		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
 /* End PBXBuildFile section */
 
@@ -814,6 +816,7 @@
 			children = (
 				745C34F067A2EA32BDC236BD /* awsconfiguration.json */,
 				5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */,
+				5A1102232833FCC600FC967A /* awsconfiguration.json */,
 			);
 			name = AmplifyConfig;
 			sourceTree = "<group>";
@@ -2328,6 +2331,8 @@
 				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
 				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
 				5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */,
+				8A494F3334BC232F48BAB377 /* awsconfiguration.json in Resources */,
+				0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
