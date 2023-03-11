@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)makeProfileTableViewCellMainTextLabelForAuthCell:(NSString *)input;
 - (NSAttributedString *)makeProfileTableViewCellSubTextLabelForAuthCell:(NSString *)input;
 - (NSAttributedString *)settingsCellTitle:(NSString *)input;
+- (NSAttributedString *)settingsCellTitleDanger:(NSString *)input;
 - (NSAttributedString *)settingsCellSubTitle:(NSString *)input;
 
 @end

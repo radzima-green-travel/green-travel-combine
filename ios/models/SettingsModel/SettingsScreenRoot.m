@@ -98,11 +98,11 @@
 - (SettingsGroup *)setUpAboutGroup {
   SettingsEntryNavigate *termsEntry = [SettingsEntryNavigate new];
   termsEntry.name = NSLocalizedString(@"SettingsViewControllerTermsCellTitle", @"");
-  termsEntry.screen = [SettingsScreen new];
+  termsEntry.screen = [[SettingsScreen alloc] initWithName:@"terms" groups:@[]];
   
   SettingsEntryNavigate *privacyEntry = [SettingsEntryNavigate new];
   privacyEntry.name = NSLocalizedString(@"SettingsViewControllerPrivacyCellTitle", @"");
-  privacyEntry.screen = [SettingsScreen new];
+  privacyEntry.screen = [[SettingsScreen alloc] initWithName:@"privacy" groups:@[]];
   
   SettingsGroup *aboutGroup =
   [[SettingsGroup alloc] initWithName:NSLocalizedString(@"SettingsViewControllerAboutGroupTitle", @"")

@@ -103,7 +103,7 @@ static NSString * const kAuthCellId = @"authCellId";
   [self.tableView registerClass:SettingsNavigateTableViewCell.self forCellReuseIdentifier:kNavigateCellId];
   [self.tableView registerClass:SettingsBaseTableViewCell.self forCellReuseIdentifier:kBaseCellId];
   [self.tableView registerClass:SettingsAuthTableViewCell.self forCellReuseIdentifier:kAuthCellId];
-  [self.tableView reloadData];
+  [self onSettingsModelScreenChange:self.settingsModel.tree];
 }
 
 #pragma mark - Table view data source
@@ -149,6 +149,17 @@ static NSString * const kAuthCellId = @"authCellId";
                                                                                     subTitle:entry.value
                                                                                     iconName:entry.iconName
                                                                                     chevron:YES];
+    [baseCell update:config];
+    return baseCell;
+  }
+  if ([entry isKindOfClass:[SettingsEntryAction class]]) {
+    SettingsEntryAction *entryAction = (SettingsEntryAction *)entry;
+    SettingsBaseTableViewCell *baseCell = [tableView dequeueReusableCellWithIdentifier:kBaseCellId forIndexPath:indexPath];
+    SettingsBaseTableViewCellConfig *config = [[SettingsBaseTableViewCellConfig alloc] initWithTitle:entry.name
+                                                                                    subTitle:entry.value
+                                                                                    iconName:entry.iconName
+                                                                                    chevron:entry.chevron];
+    config.danger = entryAction.dangerous;
     [baseCell update:config];
     return baseCell;
   }
@@ -217,6 +228,10 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
   [self.tableView reloadData];
 }
 
+- (void)onSettingsModelTreeChange:(nonnull NSMutableArray<SettingsGroup *> *)tree {
+  
+}
+
 - (void)onUserModelStateTransitionFrom:(UserModelState)prevState
                         toCurrentState:(UserModelState)currentState {
   // Find 4th tab controller in application.
@@ -226,7 +241,7 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
   }
   SettingsViewController *settingsViewController = (SettingsViewController *)tabController.viewControllers[3];
   BOOL root = settingsViewController == self;
-
+  
   __weak typeof(self) weakSelf = self;
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -239,5 +254,6 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     });
   });
 }
+
 
 @end

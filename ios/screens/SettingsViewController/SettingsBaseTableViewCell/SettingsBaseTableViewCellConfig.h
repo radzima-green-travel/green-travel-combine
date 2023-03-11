@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *iconName;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *subTitle;
+@property (assign, nonatomic) BOOL danger;
 
 - (instancetype)initWithTitle:(NSString *)title
                      subTitle:(NSString *)subTitle

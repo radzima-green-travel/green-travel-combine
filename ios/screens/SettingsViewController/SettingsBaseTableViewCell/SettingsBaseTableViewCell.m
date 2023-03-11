@@ -111,7 +111,11 @@ static const CGFloat kSpacing = 16.0;
     [self.subTitle setHidden:YES];
   }
 #pragma mark - Title
-  [self.title setAttributedText:[[Typography get] settingsCellTitle:self.config.title]];
+  if (entry.danger) {
+    [self.title setAttributedText:[[Typography get] settingsCellTitleDanger:self.config.title]];
+  } else {
+    [self.title setAttributedText:[[Typography get] settingsCellTitle:self.config.title]];
+  }
   if (iconIsPresent) {
     self.titleLeading.constant = kSpacing;
   } else {

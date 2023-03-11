@@ -82,6 +82,11 @@ static Typography *instance;
                                          attributes:getTextAttributes([Colors get].mainText, 17.0, UIFontWeightRegular)];
 }
 
+- (NSAttributedString *)settingsCellTitleDanger:(NSString *)input {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes([Colors get].mainText, 17.0, UIFontWeightRegular)];
+}
+
 - (NSAttributedString *)settingsCellSubTitle:(NSString *)input {
   return [[NSAttributedString alloc] initWithString:input
                                          attributes:getTextAttributes([Colors get].subText, 17.0, UIFontWeightRegular)];
