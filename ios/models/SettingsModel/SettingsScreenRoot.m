@@ -17,6 +17,7 @@
 #import <SDWebImage/SDWebImage.h>
 #import "LocaleUtils.h"
 #import "SettingsScreenProfile.h"
+#import "AlertUtils.h"
 
 @interface SettingsScreenRoot()
 
@@ -83,15 +84,9 @@
   clearCacheEntry.name = NSLocalizedString(@"SettingsViewControllerCacheCellTitle", @"");
   clearCacheEntry.iconName = @"dataAndStorage";
   clearCacheEntry.doAction = ^void(UIViewController *activeViewController) {
-    UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SettingsViewControllerCacheAlertMessageHeader", @"")
-                                        message:NSLocalizedString(@"SettingsViewControllerCacheAlertMessageBody", @"")
-                                 preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerCacheAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerCacheAlertMessageBody", @""), ^{
       [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{}];
-    }]];
-    [activeViewController presentViewController:alert animated:YES completion:^{}];
+    });
   };
   SettingsGroup *generalGroup =
   [[SettingsGroup alloc] initWithName:NSLocalizedString(@"SettingsViewControllerGeneralGroupTitle", @"")
