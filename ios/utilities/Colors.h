@@ -73,6 +73,7 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *accountImagePink;
 @property (strong, nonatomic) UIColor *accountImagePurple;
 @property (strong, nonatomic) UIColor *accountImageRed;
+@property (strong, nonatomic) UIColor *actionDangerous;
 
 
 + (instancetype)get;

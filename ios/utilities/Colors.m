@@ -84,7 +84,7 @@ static Colors *instance;
     self.accountImagePurple = [UIColor colorNamed:@"accountImagePurple"];
     self.accountImageLightBlue = [UIColor colorNamed:@"accountImageLightBlue"];
     self.accountImageFireOrange = [UIColor colorNamed:@"accountImageFireOrange"];
-    
+    self.actionDangerous = [UIColor colorNamed:@"actionDangerous"];
   }
   return self;
 }

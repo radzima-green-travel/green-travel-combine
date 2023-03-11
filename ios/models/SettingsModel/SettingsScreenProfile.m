@@ -73,6 +73,7 @@
       // TODO: implement delete account
     });
   };
+  deleteAccEntry.dangerous = YES;
   
   SettingsEntryAction *logoutEntry = [SettingsEntryAction new];
   logoutEntry.name = NSLocalizedString(@"SettingsViewControllerLogoutCellTitle", @"");

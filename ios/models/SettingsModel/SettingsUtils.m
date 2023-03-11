@@ -15,7 +15,7 @@ void traverseSettingsTree(SettingsScreen *root,
                           void (^onVisit)(SettingsScreen *, SettingsGroup *,
                                           SettingsEntry *, BOOL *)) {
   BOOL stop = NO;
-  
+  onVisit(root, nil, nil, &stop);
   for (NSUInteger i = 0; i < [root.groups count]; i++) {
     SettingsGroup *group = root.groups[i];
     for (NSUInteger j = 0; j < [group.entries count]; j++) {

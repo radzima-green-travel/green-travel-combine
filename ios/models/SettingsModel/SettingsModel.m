@@ -122,7 +122,7 @@
 - (void)notifySettingsModelObserversOnTreeChange:(NSMutableArray<SettingsGroup *> *)tree {
   [self.settingsModelObservers enumerateObjectsUsingBlock:^(id<SettingsModelObserver> _Nonnull observer,
                                                             NSUInteger idx, BOOL * _Nonnull stop) {
-    [observer onSettingsModelTreeChange:tree];
+    [observer onSettingsModelScreenChange:tree];
   }];
 }
 
