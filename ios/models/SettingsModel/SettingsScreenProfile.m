@@ -12,6 +12,7 @@
 #import "UserController.h"
 #import "SettingsGroup.h"
 #import <UIKit/UIKit.h>
+#import "AlertUtils.h"
 
 @interface SettingsScreenProfile()
 
@@ -68,30 +69,18 @@
   SettingsEntryAction *deleteAccEntry = [SettingsEntryAction new];
   deleteAccEntry.name = NSLocalizedString(@"SettingsViewControllerDeleteAccCellTitle", @"");
   deleteAccEntry.doAction = ^void(UIViewController *activeViewController) {
-    UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageHeader", @"")
-                                        message:NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageBody", @"")
-                                 preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageBody", @""), ^{
       // TODO: implement delete account
-    }]];
-    [activeViewController presentViewController:alert animated:YES completion:^{}];
+    });
   };
   
   SettingsEntryAction *logoutEntry = [SettingsEntryAction new];
   logoutEntry.name = NSLocalizedString(@"SettingsViewControllerLogoutCellTitle", @"");
   __weak typeof(self) weakSelf = self;
   logoutEntry.doAction = ^void(UIViewController *activeViewController) {
-    UIAlertController *alert =
-    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageHeader", @"")
-                                        message:NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageBody", @"")
-                                 preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageBody", @""), ^{
       [weakSelf.userController initiateSignOut];
-    }]];
-    [activeViewController presentViewController:alert animated:YES completion:^{}];
+    });
   };
   
   SettingsGroup *dangerGroup =
