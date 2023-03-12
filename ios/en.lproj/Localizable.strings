@@ -110,6 +110,8 @@
 
 "SettingsViewControllerResetEmailCellTitle" = "E-mail";
 "SettingsViewControllerResetPasswordCellTitle" = "Reset password";
+"SettingsViewControllerResetPasswordAlertMessageHeader" = "Reset password?";
+"SettingsViewControllerResetPasswordAlertMessageBody" = "You will be signed out of the profile";
 "SettingsViewControllerDeleteAccCellTitle" = "Delete account";
 "SettingsViewControllerDeleteAccAlertMessageHeader" = "Delete account?";
 "SettingsViewControllerDeleteAccAlertMessageBody" = "The account and data will be irreversibly deleted";

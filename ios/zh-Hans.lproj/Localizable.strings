@@ -96,6 +96,8 @@
 
 "SettingsViewControllerResetEmailCellTitle" = "电子邮件";
 "SettingsViewControllerResetPasswordCellTitle" = "重置密码";
+"SettingsViewControllerResetPasswordAlertMessageHeader" = "重置密码？";
+"SettingsViewControllerResetPasswordAlertMessageBody" = "您将退出个人资料";
 "SettingsViewControllerDeleteAccCellTitle" = "删除账户";
 "SettingsViewControllerDeleteAccAlertMessageHeader" = "删除账户？";
 "SettingsViewControllerDeleteAccAlertMessageBody" = "账号和数据将被不可逆删除";

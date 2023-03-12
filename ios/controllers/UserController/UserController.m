@@ -205,7 +205,7 @@
         return;
       }
       [strongSelf fetchUserAttributesAndSetUserState:UserModelStateSignUpSuccess
-                                 fallbackState:UserModelStateConfirmCodeNotSent];
+                                       fallbackState:UserModelStateConfirmCodeNotSent];
     }];
   }];
 }
@@ -224,16 +224,22 @@
 }
 
 - (void)initiateSignOut {
+  [self signOutWithCompletion:^(NSError * _Nullable) {}];
+}
+
+- (void)signOutWithCompletion:(void (^)(NSError * _Nullable))completion {
   [self.model setState:UserModelStateSignOutInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService signOutWithCompletion:^(NSError * _Nullable error) {
     __weak typeof(weakSelf) strongSelf = weakSelf;
     if (error != nil) {
       [strongSelf.model setState:UserModelStateSignUpSuccess];
+      completion(error);
       return;
     }
     [strongSelf.model setSignedInWithoutAttributes:NO];
     [strongSelf.model setState:UserModelStateFetched];
+    completion(nil);
   }];
 }
 
