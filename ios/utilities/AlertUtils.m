@@ -30,13 +30,15 @@ void showAlertCantPlotRoute(UIViewController *presenter) {
 }
 
 void showAlertGeneric(UIViewController *presenter, NSString *messageHeader,
-                      NSString *messageBody, void(^onOK)(void)) {
+                      NSString *messageBody, BOOL dangerousAction, void(^onOK)(void)) {
   UIAlertController *alert =
   [UIAlertController alertControllerWithTitle:messageHeader
                                       message:messageBody
                                preferredStyle:UIAlertControllerStyleAlert];
   [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){}]];
-  [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"AlertOK", @"")
+                                            style:dangerousAction ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault
+                                          handler:^(UIAlertAction * _Nonnull action) {
     onOK();
   }]];
   [presenter presentViewController:alert animated:YES completion:^{}];

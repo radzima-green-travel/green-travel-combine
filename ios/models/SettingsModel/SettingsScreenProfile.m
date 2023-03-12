@@ -69,7 +69,7 @@
   SettingsEntryAction *deleteAccEntry = [SettingsEntryAction new];
   deleteAccEntry.name = NSLocalizedString(@"SettingsViewControllerDeleteAccCellTitle", @"");
   deleteAccEntry.doAction = ^void(UIViewController *activeViewController) {
-    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageBody", @""), ^{
+    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerDeleteAccAlertMessageBody", @""), YES, ^{
       // TODO: implement delete account
     });
   };
@@ -79,7 +79,7 @@
   logoutEntry.name = NSLocalizedString(@"SettingsViewControllerLogoutCellTitle", @"");
   __weak typeof(self) weakSelf = self;
   logoutEntry.doAction = ^void(UIViewController *activeViewController) {
-    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageBody", @""), ^{
+    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerLogoutAlertMessageBody", @""), YES, ^{
       [weakSelf.userController initiateSignOut];
     });
   };
