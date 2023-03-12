@@ -84,7 +84,7 @@
   clearCacheEntry.name = NSLocalizedString(@"SettingsViewControllerCacheCellTitle", @"");
   clearCacheEntry.iconName = @"dataAndStorage";
   clearCacheEntry.doAction = ^void(UIViewController *activeViewController) {
-    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerCacheAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerCacheAlertMessageBody", @""), ^{
+    showAlertGeneric(activeViewController, NSLocalizedString(@"SettingsViewControllerCacheAlertMessageHeader", @""), NSLocalizedString(@"SettingsViewControllerCacheAlertMessageBody", @""), NO, ^{
       [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{}];
     });
   };
