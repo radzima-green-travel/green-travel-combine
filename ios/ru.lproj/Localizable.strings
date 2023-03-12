@@ -103,6 +103,8 @@
 
 "SettingsViewControllerResetEmailCellTitle" = "Почта";
 "SettingsViewControllerResetPasswordCellTitle" = "Сбросить пароль";
+"SettingsViewControllerResetPasswordAlertMessageHeader" = "Сбросить пароль?";
+"SettingsViewControllerResetPasswordAlertMessageBody" = "Будет произведен выход из профиля";
 "SettingsViewControllerDeleteAccCellTitle" = "Удалить учетную запись";
 "SettingsViewControllerDeleteAccAlertMessageHeader" = "Удалить учетную запись?";
 "SettingsViewControllerDeleteAccAlertMessageBody" = "Учетная запись и данные будут безвозвратно удалены";
