@@ -33,7 +33,6 @@ static const CGFloat kSpacing = 16.0;
 
 - (void)layoutSubviews {
   [super layoutSubviews];
-  self.backgroundColor = [Colors get].background;
   if (self.config.danger) {
     [self.title setAttributedText:[[Typography get] settingsCellTitleDanger:self.config.title]];
   } else {
