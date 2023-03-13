@@ -76,28 +76,14 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
 - (void)updateWithSubTitle:(NSString*)subText
         fetchingInProgress:(BOOL)fetchingInProgress
                   signedIn:(BOOL)signedIn {
-  if (fetchingInProgress) {
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
-    self.accessoryView = activityIndicator;
-    [activityIndicator sizeToFit];
-    [activityIndicator startAnimating];
-    self.accessoryType = UITableViewCellAccessoryNone;
-    NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellTitleAuthorizedProgress", @"")];
-    [self.mainLabel setAttributedText:mainTextLabelAttributedString];
-    NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellSubTitleAuthorizedProgress", @"")];
-    [self.subLabel setAttributedText:subTextLabelAttributedString];
-  }
-  if (!fetchingInProgress && signedIn) {
-    self.accessoryView = nil;
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  if (signedIn) {
+    [self showIndicator:signedIn loading:fetchingInProgress];
     NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellTitleAuthorized", @"")];
     [self.mainLabel setAttributedText:mainTextLabelAttributedString];
     NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:subText];
     [self.subLabel setAttributedText:subTextLabelAttributedString];
-  }
-  if (!fetchingInProgress && !signedIn) {
-    self.accessoryView = nil;
-    self.accessoryType = UITableViewCellAccessoryNone;
+  } else {
+    [self showIndicator:signedIn loading:fetchingInProgress];
     NSAttributedString *mainTextLabelAttributedString = [[Typography get] makeProfileTableViewCellMainTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellTitleAuthorizedNot", @"")];
     [self.mainLabel setAttributedText:mainTextLabelAttributedString];
     NSAttributedString *subTextLabelAttributedString = [[Typography get] makeProfileTableViewCellSubTextLabelForAuthCell:NSLocalizedString(@"SettingsViewControllerAuthCellSubTitleAuthorizedNot", @"")];
@@ -105,10 +91,28 @@ static NSString * const kAvatarCacheKey = @"avatarImage";
   }
 }
 
+- (void)showIndicator:(BOOL)signedIn loading:(BOOL)loading {
+  if (loading) {
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
+    self.accessoryView = activityIndicator;
+    [activityIndicator sizeToFit];
+    [activityIndicator startAnimating];
+    self.accessoryType = UITableViewCellAccessoryNone;
+    return;
+  }
+  if (signedIn) {
+    self.accessoryView = nil;
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    return;
+  }
+  self.accessoryView = nil;
+  self.accessoryType = UITableViewCellAccessoryNone;
+}
+
 - (void)prepareForReuse {
   [super prepareForReuse];
   self.accessoryType = UITableViewCellAccessoryNone;
-  
+  self.accessoryView = nil;
   [self.mainLabel setText:@""];
   [self.subLabel setText:@""];
 }

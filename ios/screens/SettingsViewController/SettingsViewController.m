@@ -131,16 +131,19 @@ static NSString * const kAuthCellId = @"authCellId";
     return cellToggle;
   }
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
+    SettingsEntryAuthLoggedOut *entryAuth = (SettingsEntryAuthLoggedOut *)entry;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthCellId forIndexPath:indexPath];
     SettingsAuthTableViewCell *cellAuth = (SettingsAuthTableViewCell *)cell;
-    [cellAuth updateWithSubTitle:@"" fetchingInProgress:NO signedIn:NO];
+    [cellAuth updateWithSubTitle:@"" fetchingInProgress:entryAuth.inProgress
+                        signedIn:NO];
     return cell;
   }
   if ([entry isKindOfClass:[SettingsEntryAuthLoggedIn class]]) {
+    SettingsEntryAuthLoggedIn *entryAuth = (SettingsEntryAuthLoggedIn *)entry;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAuthCellId forIndexPath:indexPath];
     SettingsAuthTableViewCell *cellAuth = (SettingsAuthTableViewCell *)cell;
     [cellAuth updateWithSubTitle:self.settingsModel.userEmail
-              fetchingInProgress:NO signedIn:YES];
+              fetchingInProgress:entryAuth.inProgress signedIn:YES];
     return cell;
   }
   if ([entry isKindOfClass:[SettingsEntryNavigate class]]) {
@@ -190,6 +193,18 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
   if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
     return NO;
   }
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
+    SettingsEntryAuthLoggedOut *entryAuth = (SettingsEntryAuthLoggedOut *)entry;
+    if (entryAuth.inProgress) {
+      return NO;
+    }
+  }
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
+    SettingsEntryAuthLoggedOut *entryAuth = (SettingsEntryAuthLoggedOut *)entry;
+    if (entryAuth.inProgress) {
+      return NO;
+    }
+  }
   return YES;
 }
 
@@ -198,6 +213,18 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
   SettingsEntry *entry = self.root.groups[indexPath.section].entries[indexPath.row];
   if ([entry isKindOfClass:[SettingsEntryToggle class]]) {
     return;
+  }
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
+    SettingsEntryAuthLoggedOut *entryAuth = (SettingsEntryAuthLoggedOut *)entry;
+    if (entryAuth.inProgress) {
+      return;
+    }
+  }
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
+    SettingsEntryAuthLoggedOut *entryAuth = (SettingsEntryAuthLoggedOut *)entry;
+    if (entryAuth.inProgress) {
+      return;
+    }
   }
   [self.settingsController interactWithSetting:entry onViewController:self];
 }

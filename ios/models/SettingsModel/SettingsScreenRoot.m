@@ -129,13 +129,12 @@
     return;
   }
   
-  SettingsEntryAuthLoggedOut *authEntry = [SettingsEntryAuthLoggedOut new];
-  authEntry.name = NSLocalizedString(@"ProfileScreenTitle", @"");
-  authEntry.inProgress = NO;
+  self.groups[0] = [self setUpAuthGroup];
 }
 
 - (void)startSignOut {
-  
+  SettingsEntryAuthLoggedIn *authEntry = (SettingsEntryAuthLoggedIn *)self.groups[0].entries[0];
+  authEntry.inProgress = YES;
 }
 
 - (void)completeSignOut {
