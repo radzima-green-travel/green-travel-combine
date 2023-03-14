@@ -224,10 +224,10 @@
 }
 
 - (void)initiateSignOut {
-  [self signOutWithCompletion:^(NSError * _Nullable) {}];
+  [self signOutWithCompletion:^(NSError * _Nullable error) {}];
 }
 
-- (void)signOutWithCompletion:(void (^)(NSError * _Nullable))completion {
+- (void)signOutWithCompletion:(void (^)(NSError * _Nullable error))completion {
   [self.model setState:UserModelStateSignOutInProgress];
   __weak typeof(self) weakSelf = self;
   [self.authService signOutWithCompletion:^(NSError * _Nullable error) {

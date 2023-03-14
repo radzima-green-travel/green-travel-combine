@@ -199,8 +199,8 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
       return NO;
     }
   }
-  if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
-    SettingsEntryAuthLoggedOut *entryAuth = (SettingsEntryAuthLoggedOut *)entry;
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedIn class]]) {
+    SettingsEntryAuthLoggedIn *entryAuth = (SettingsEntryAuthLoggedIn *)entry;
     if (entryAuth.inProgress) {
       return NO;
     }
@@ -220,8 +220,8 @@ estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
       return;
     }
   }
-  if ([entry isKindOfClass:[SettingsEntryAuthLoggedOut class]]) {
-    SettingsEntryAuthLoggedOut *entryAuth = (SettingsEntryAuthLoggedOut *)entry;
+  if ([entry isKindOfClass:[SettingsEntryAuthLoggedIn class]]) {
+    SettingsEntryAuthLoggedIn *entryAuth = (SettingsEntryAuthLoggedIn *)entry;
     if (entryAuth.inProgress) {
       return;
     }
