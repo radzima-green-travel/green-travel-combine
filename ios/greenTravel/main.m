@@ -4,6 +4,11 @@
 
 int main(int argc, char * argv[]) {
   @autoreleasepool {
-    return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    Class testingAppDelegateClass = NSClassFromString(@"TestingAppDelegate");
+    if (testingAppDelegateClass == nil) {
+      return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    } else {
+      return UIApplicationMain(argc, argv, nil, @"TestingAppDelegate");
+    }
   }
 }

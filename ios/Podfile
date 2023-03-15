@@ -2,9 +2,8 @@ require File.join(File.dirname(`node --print "require.resolve('expo/package.json
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '13'
-install! 'cocoapods', :deterministic_uuids => false
+install! 'cocoapods', :deterministic_uuids => false, :warn_for_unused_master_specs_repo => false
 
 inhibit_all_warnings!
 

@@ -1,0 +1,31 @@
+default_platform(:ios)
+
+platform :ios do
+
+    before_all do |lane, options|
+        ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
+    end
+
+    lane :tests do
+        Dir.chdir("../ios") do
+            sh("rm -fr Tests")
+        end
+        Dir.chdir("../ios/greenTravel") do
+            scan(
+                workspace: "greenTravel.xcworkspace",
+                scheme: "GreenTravelTests",
+                configuration: "Debug",
+                skip_detect_devices: "true",
+                device: "iPhone 14 Pro",
+                code_coverage: "true",
+                output_directory: "./Tests",
+                result_bundle: "true",
+                derived_data_path: "./DerivedData",
+                number_of_retries: 3,
+                skip_build: "false",
+                clean: "true"
+            )
+        end
+    end
+
+end
