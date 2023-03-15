@@ -4,6 +4,8 @@ excluded:
   - ${PWD}/Carthage
   - ${PWD}/Pods
   - ${PWD}/DerivedData
+  - ${PWD}/GreenTravelTests/**
+  - ${PWD}/**/Tests/**
 
 disabled_rules:
   - discarded_notification_center_observer

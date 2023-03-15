@@ -1,9 +1,7 @@
-name: SwiftLint
-
 on:
   pull_request:
     paths:
-      - '.github/workflows/swiftlint.yml'
+      - '.github/workflows/ios-swiftlint.yml'
       - './ios/.swiftlint.yml'
       - './ios/*.swift'
 
@@ -15,4 +13,6 @@ jobs:
       - name: GitHub Action for SwiftLint
         uses: norio-nomura/action-swiftlint@master
         with:
-          args: --strict
+          args: 
+            --strict
+            --config ./ios/.swiftlint.yml

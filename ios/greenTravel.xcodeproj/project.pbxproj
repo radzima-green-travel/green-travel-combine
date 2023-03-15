@@ -252,8 +252,23 @@
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
 		7931796429ACAC07009729A4 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
+		7933816929CB9BC900D2935F /* TestAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933816629CB9BC900D2935F /* TestAppDelegate.swift */; };
+		7933816A29CB9BC900D2935F /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933816729CB9BC900D2935F /* TestingViewController.swift */; };
+		7933816B29CB9BC900D2935F /* TestingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933816829CB9BC900D2935F /* TestingSceneDelegate.swift */; };
+		7933817129CB9BEF00D2935F /* BookmarkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933816F29CB9BEF00D2935F /* BookmarkService.swift */; };
+		7933817229CB9BF200D2935F /* BookmarkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933816E29CB9BEF00D2935F /* BookmarkServiceTests.swift */; };
 		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7933815D29CB9BA700D2935F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = greenTravel;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -747,6 +762,12 @@
 		6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		745C34F067A2EA32BDC236BD /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		7933815929CB9BA700D2935F /* GreenTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GreenTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7933816629CB9BC900D2935F /* TestAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAppDelegate.swift; sourceTree = "<group>"; };
+		7933816729CB9BC900D2935F /* TestingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
+		7933816829CB9BC900D2935F /* TestingSceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestingSceneDelegate.swift; sourceTree = "<group>"; };
+		7933816E29CB9BEF00D2935F /* BookmarkServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkServiceTests.swift; sourceTree = "<group>"; };
+		7933816F29CB9BEF00D2935F /* BookmarkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkService.swift; sourceTree = "<group>"; };
 		81064F557E001E9E478D73E8 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-greenTravel/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
 		99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -762,6 +783,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7933815629CB9BA700D2935F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1336,6 +1364,7 @@
 			children = (
 				5A2315CE28E0A428004CB989 /* ApiService */,
 				5ADF034C283D1C2700D98E9A /* AuthService */,
+				7933816C29CB9BEF00D2935F /* BookmarkService */,
 				5A105FEE2660018C00511256 /* MapService */,
 				5A6DC5BC2659266E00A2D37B /* CacheService */,
 				5A775B0026064C9000CEFC78 /* CoreDataService */,
@@ -2153,6 +2182,41 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		7933815A29CB9BA700D2935F /* GreenTravelTests */ = {
+			isa = PBXGroup;
+			children = (
+				7933816529CB9BC900D2935F /* Setup */,
+			);
+			path = GreenTravelTests;
+			sourceTree = "<group>";
+		};
+		7933816529CB9BC900D2935F /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				7933816629CB9BC900D2935F /* TestAppDelegate.swift */,
+				7933816729CB9BC900D2935F /* TestingViewController.swift */,
+				7933816829CB9BC900D2935F /* TestingSceneDelegate.swift */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		7933816C29CB9BEF00D2935F /* BookmarkService */ = {
+			isa = PBXGroup;
+			children = (
+				7933816D29CB9BEF00D2935F /* Tests */,
+				7933816F29CB9BEF00D2935F /* BookmarkService.swift */,
+			);
+			path = BookmarkService;
+			sourceTree = "<group>";
+		};
+		7933816D29CB9BEF00D2935F /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7933816E29CB9BEF00D2935F /* BookmarkServiceTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -2166,6 +2230,7 @@
 				624E38CE2519E467001D98E2 /* Resources */,
 				13B07FAE1A68108700A75B9A /* GreenTravel */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				7933815A29CB9BA700D2935F /* GreenTravelTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C11F5CD373D543CEFBB10130 /* Pods */,
@@ -2181,6 +2246,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* Radzima Dev.app */,
+				7933815929CB9BA700D2935F /* GreenTravelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2233,18 +2299,42 @@
 			productReference = 13B07F961A680F5B00A75B9A /* Radzima Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7933815829CB9BA700D2935F /* GreenTravelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7933815F29CB9BA700D2935F /* Build configuration list for PBXNativeTarget "GreenTravelTests" */;
+			buildPhases = (
+				7933815529CB9BA700D2935F /* Sources */,
+				7933815629CB9BA700D2935F /* Frameworks */,
+				7933815729CB9BA700D2935F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7933815E29CB9BA700D2935F /* PBXTargetDependency */,
+			);
+			name = GreenTravelTests;
+			productName = GreenTravelTests;
+			productReference = 7933815929CB9BA700D2935F /* GreenTravelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 53APD5F9YQ;
 						LastSwiftMigration = 1130;
 						ProvisioningStyle = Manual;
+					};
+					7933815829CB9BA700D2935F = {
+						CreatedOnToolsVersion = 14.2;
+						ProvisioningStyle = Manual;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 				};
 			};
@@ -2264,6 +2354,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* greenTravel */,
+				7933815829CB9BA700D2935F /* GreenTravelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -2315,6 +2406,13 @@
 				5A775B4826064C9000CEFC78 /* Montserrat-Italic.ttf in Resources */,
 				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
 				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7933815729CB9BA700D2935F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2630,6 +2728,7 @@
 				5AD347EF2837FD2800235E96 /* SignUpFormView.m in Sources */,
 				5A2315CC28E0A354004CB989 /* UIButton+extensions.m in Sources */,
 				5A6685DC285A3687008E193E /* ResetPasswordNewPasswordViewController.m in Sources */,
+				7933817129CB9BEF00D2935F /* BookmarkService.swift in Sources */,
 				5A6EDF8E26C9421D001307DC /* BottomSheetPresentationControllerTransitioningDelegate.m in Sources */,
 				5A246ACA26429689003C6E5B /* BookmarkButton.m in Sources */,
 				5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */,
@@ -2721,7 +2820,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7933815529CB9BA700D2935F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7933816B29CB9BC900D2935F /* TestingSceneDelegate.swift in Sources */,
+				7933816929CB9BC900D2935F /* TestAppDelegate.swift in Sources */,
+				7933816A29CB9BC900D2935F /* TestingViewController.swift in Sources */,
+				7933817229CB9BF200D2935F /* BookmarkServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7933815E29CB9BA700D2935F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* greenTravel */;
+			targetProxy = 7933815D29CB9BA700D2935F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5A39D6F126B34C04008FC20C /* Localizable.strings */ = {
@@ -2924,6 +3042,103 @@
 			};
 			name = ReleaseProduction;
 		};
+		7933816029CB9BA700D2935F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = app.radzima.GreenTravelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Radzima Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Radzima Dev";
+			};
+			name = Debug;
+		};
+		7933816129CB9BA700D2935F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = app.radzima.GreenTravelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Radzima Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Radzima Dev";
+			};
+			name = Release;
+		};
+		7933816229CB9BA700D2935F /* ReleaseProduction */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = app.radzima.GreenTravelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Radzima Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Radzima Dev";
+			};
+			name = ReleaseProduction;
+		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3051,6 +3266,16 @@
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
 				5AD2DA2D26FDC94A00876841 /* ReleaseProduction */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7933815F29CB9BA700D2935F /* Build configuration list for PBXNativeTarget "GreenTravelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7933816029CB9BA700D2935F /* Debug */,
+				7933816129CB9BA700D2935F /* Release */,
+				7933816229CB9BA700D2935F /* ReleaseProduction */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

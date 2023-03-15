@@ -31,3 +31,7 @@ Settings.bundle
 
 # CocoaPods
 Pods/
+
+# Fastlane
+Tests
+DerivedData
