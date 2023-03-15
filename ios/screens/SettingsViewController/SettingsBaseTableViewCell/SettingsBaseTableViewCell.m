@@ -68,7 +68,7 @@ static const CGFloat kSpacing = 16.0;
   [self.contentView addSubview:self.subTitle];
   self.subTitle.numberOfLines = 1;
   self.subTitle.adjustsFontSizeToFitWidth = NO;
-  [self.subTitle setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+  [self.subTitle setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
   self.subTitle.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
     [self.subTitle.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
@@ -79,7 +79,7 @@ static const CGFloat kSpacing = 16.0;
   [self.contentView addSubview:self.title];
   self.title.numberOfLines = 1;
   self.title.adjustsFontSizeToFitWidth = NO;
-  [self.title setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+  [self.title setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
   [self.title setLineBreakMode:NSLineBreakByTruncatingTail];
   self.title.translatesAutoresizingMaskIntoConstraints = NO;
   
