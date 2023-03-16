@@ -27,6 +27,13 @@ export const changeLanguageSuccess = createAction(
 export const changeLanguageFailure = createAction(
   ACTIONS.CHANGE_LANGUAGE_FAILURE,
 )<ILabelError>();
+export const clearCacheRequest = createAction(ACTIONS.CLEAR_CACHE_REQUEST)();
+export const clearCacheRequestSuccess = createAction(
+  ACTIONS.CLEAR_CACHE_SUCCESS,
+)();
+export const clearCacheRequestFailure = createAction(
+  ACTIONS.CLEAR_CACHE_FAILURE,
+)<ILabelError>();
 
 export const setTheme = createAction(ACTIONS.SET_THEME)<THEME_TYPE | null>();
 

@@ -145,7 +145,6 @@
     "profile": "Profile",
     "goOut": "Sign out",
     "delete": "Delete",
-    "dataAndMemory": "Data and Storage",
     "language": "Language",
     "theme": "Theme",
     "systemTheme": "System",
@@ -156,6 +155,11 @@
     "notCancaled": "This action cannot be undone",
     "ok": "OK",
     "cancel": "Cancel",
-    "deleteAccount": "Are you sure you want to delete your account?"
+    "deleteAccount": "Are you sure you want to delete your account?",
+    "clear": "Clear",
+    "clearCache": "Clear cache",
+    "clearCacheAlert": "Clear cache?",
+    "deletedPhotos": "Uploaded photos will be deleted.",
+    "cacheCleared": "Cache cleared"
   }
 }
