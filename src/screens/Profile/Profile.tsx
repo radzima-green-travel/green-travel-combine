@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {GeneralListItem} from 'molecules';
-import {Icon, SettingsSectionTitle} from 'atoms';
+import {Icon, SettingsSectionTitle, SnackBar} from 'atoms';
 import {useProfile} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
@@ -17,6 +17,8 @@ export const Profile = () => {
     navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,
     loading,
+    onClearCachePress,
+    snackBarProps,
   } = useProfile();
 
   return (
@@ -38,25 +40,26 @@ export const Profile = () => {
       <SettingsSectionTitle text="Настройки" />
       <GeneralListItem
         position="top"
-        onPress={() => {}}
-        title={t('dataAndMemory')}
-        renderLeftElement={<Icon name="memoryNData" size={30} />}
-        withChevron
-      />
-      <GeneralListItem
-        position="middle"
         onPress={navigateToProfileSettingsLanguage}
         title={t('language')}
         renderLeftElement={<Icon name="language" size={30} />}
         withChevron
       />
       <GeneralListItem
-        position="bottom"
+        position="middle"
         onPress={navigateToProfileSettingsTheme}
         title={t('theme')}
         renderLeftElement={<Icon name="theme" size={30} />}
         withChevron
       />
+      <GeneralListItem
+        position="bottom"
+        onPress={onClearCachePress}
+        title={t('clearCache')}
+        renderLeftElement={<Icon name="memoryNData" size={30} />}
+        withChevron
+      />
+      <SnackBar {...snackBarProps} />
     </View>
   );
 };

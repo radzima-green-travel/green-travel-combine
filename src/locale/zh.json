@@ -145,7 +145,6 @@
     "profile": "個人資料",
     "goOut": "退出",
     "delete": "刪除",
-    "dataAndMemory": "數據和存儲",
     "language": "語言",
     "theme": "主題",
     "systemTheme": "系統",
@@ -156,6 +155,11 @@
     "notCancaled": "此操作無法撤消",
     "ok": "好的好的",
     "cancel": "取消",
-    "deleteAccount": "您確定要刪除您的帳戶嗎？"
+    "deleteAccount": "您確定要刪除您的帳戶嗎？",
+    "clear": "清除",
+    "clearCache": "清除緩存",
+    "clearCacheAlert": "清除緩存？",
+    "deletedPhotos": "上傳的照片將被刪除。",
+    "cacheCleared": "緩存已清除"
   }
 }
