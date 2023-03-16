@@ -8,10 +8,8 @@ import {
   inAppBrowserSuccessOperation,
 } from 'core/reducers';
 import {selectUserAuthorizedData} from 'core/selectors';
-import {createAuthHubChannel} from './createAuthHubChannel';
 
 export function* signInOutSaga() {
-  const channel = createAuthHubChannel();
   try {
     const userData: ReturnType<typeof selectUserAuthorizedData> = yield select(
       selectUserAuthorizedData,
@@ -23,6 +21,7 @@ export function* signInOutSaga() {
       call(function* () {
         if (userData?.identities) {
           const parsedIdentities = JSON.parse(userData.identities);
+
           if (
             ['Google', 'Facebook'].includes(parsedIdentities?.[0]?.providerName)
           ) {
@@ -38,7 +37,5 @@ export function* signInOutSaga() {
     yield put(signOutSuccess());
   } catch (e) {
     yield put(signOutFailure(e as Error));
-  } finally {
-    channel.close();
   }
 }

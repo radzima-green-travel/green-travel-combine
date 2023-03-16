@@ -13,7 +13,8 @@ export type RequestErrorCodes =
   | 'SOCILAL_LOGIN_CANCELLED'
   | 'SOCIAL_LOGIN_ERROR'
   | 'SOCIAL_LOGOUT_ERROR'
-  | 'SOCILAL_LOGOUT_CANCELLED';
+  | 'SOCILAL_LOGOUT_CANCELLED'
+  | 'SIGNUP_CANCELED';
 
 export interface IRequestError extends Error {
   timestamp: number;

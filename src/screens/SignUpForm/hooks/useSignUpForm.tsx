@@ -26,7 +26,7 @@ export const useSignUpForm = () => {
   const navigation = useNavigation<SignUpFormScreenNavigationProps>();
 
   const navigateToEmailValidation = useCallback(() => {
-    navigation.navigate('CodeVerification', {email, isSignUp: true});
+    navigation.replace('CodeVerification', {email, isSignUp: true});
   }, [email, navigation]);
 
   const signUp = useCallback(

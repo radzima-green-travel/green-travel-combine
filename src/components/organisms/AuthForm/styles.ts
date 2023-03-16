@@ -31,7 +31,12 @@ export const themeStyles = {
       dark: COLORS.oceanGreen,
     },
     textAlign: 'center',
+  },
+  secondaryButtonTextContainer: {
     marginTop: 25,
+  },
+  invisible: {
+    opacity: 0,
   },
   formFieldsContainer: {
     marginTop: 20,

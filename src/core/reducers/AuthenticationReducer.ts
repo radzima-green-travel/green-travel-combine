@@ -72,6 +72,10 @@ export const confirmSignUpFailure = createAction(
   ACTIONS.CONFIRM_SIGNUP_FAILURE,
 )<Error>();
 
+export const confirmSignUpCancel = createAction(
+  ACTIONS.CONFIRM_SIGNUP_CANCEL,
+)();
+
 export const resendSignUpCodeRequest = createAction(
   ACTIONS.RESEND_SIGNUP_CODE_REQUEST,
 )<string>();

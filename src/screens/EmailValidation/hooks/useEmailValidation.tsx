@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 
 import {useDispatch} from 'react-redux';
 import {
@@ -6,6 +6,7 @@ import {
   forgotPasswordRequest,
   resendSignUpCodeRequest,
   forgotPasswordCodeSubmitRequest,
+  confirmSignUpCancel,
 } from 'core/reducers';
 import {
   useOnRequestError,
@@ -19,7 +20,7 @@ import {
   EmailValidationScreenRouteProps,
 } from '../types';
 import {useFormik} from 'formik';
-import {ValidationCodeFormModel} from 'core/types';
+import {IRequestError, ValidationCodeFormModel} from 'core/types';
 import {useSnackbar} from 'atoms';
 
 export const useEmailValidation = () => {
@@ -57,6 +58,10 @@ export const useEmailValidation = () => {
     forgotPasswordCodeSubmitRequest,
   );
 
+  const {loading: resendCodeLoading} = useRequestLoading(
+    resendSignUpCodeRequest,
+  );
+
   const onResendSignUpCodetoEmail = useCallback(() => {
     dispatch(resendSignUpCodeRequest(email));
   }, [dispatch, email]);
@@ -89,11 +94,22 @@ export const useEmailValidation = () => {
     },
   );
 
+  useEffect(() => {
+    return () => {
+      dispatch(confirmSignUpCancel());
+    };
+  }, [dispatch]);
+
   useOnRequestError(confirmSignUpRequest, 'authentification', errorLabel => {
-    show({
-      type: 'error',
-      title: errorLabel.text,
-    });
+    if (
+      (errorLabel.originalError as IRequestError).error_code !==
+      'SIGNUP_CANCELED'
+    ) {
+      show({
+        type: 'error',
+        title: errorLabel.text,
+      });
+    }
   });
 
   useOnRequestError(resendSignUpCodeRequest, 'authentification', errorLabel => {
@@ -116,5 +132,6 @@ export const useEmailValidation = () => {
     submitForm: formik.handleSubmit,
     snackBarProps,
     codeLength,
+    resendCodeLoading,
   };
 };

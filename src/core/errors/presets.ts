@@ -74,3 +74,13 @@ export const createSocialLogoutCancelErrorPreset = () => ({
   path: '',
   requestId: '',
 });
+
+export const createSignupCancelErrorPreset = () => ({
+  message: 'Signup cancelled',
+  timestamp: Date.now(),
+  status: -3,
+  error_code: 'SIGNUP_CANCELED' as RequestErrorCodes,
+  error: 'Signup cancelled',
+  path: '',
+  requestId: '',
+});

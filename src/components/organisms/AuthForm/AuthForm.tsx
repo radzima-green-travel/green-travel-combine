@@ -1,6 +1,6 @@
 import React, {memo, PropsWithChildren} from 'react';
 import {View, Text, Pressable, Keyboard} from 'react-native';
-import {Button} from 'atoms';
+import {Button, LoadingView} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
 
 import {themeStyles} from './styles';
@@ -14,6 +14,7 @@ interface IProps {
   submitButtonLoading?: boolean;
   onSecondaryButtonPress?: () => void;
   secondaryButtonText?: string;
+  secondaryButtonLoading?: boolean;
 }
 
 export const AuthForm = memo(
@@ -27,6 +28,7 @@ export const AuthForm = memo(
     secondaryButtonText,
     children,
     submitButtonLoading,
+    secondaryButtonLoading,
   }: PropsWithChildren<IProps>) => {
     const styles = useThemeStyles(themeStyles);
 
@@ -47,10 +49,18 @@ export const AuthForm = memo(
           text={submitButtonText}
         />
         {secondaryButtonText ? (
-          <Pressable onPress={onSecondaryButtonPress}>
-            <Text style={styles.secondaryButtonText}>
+          <Pressable
+            onPress={onSecondaryButtonPress}
+            disabled={secondaryButtonLoading}
+            style={styles.secondaryButtonTextContainer}>
+            <Text
+              style={[
+                styles.secondaryButtonText,
+                secondaryButtonLoading && styles.invisible,
+              ]}>
               {secondaryButtonText}
             </Text>
+            {secondaryButtonLoading ? <LoadingView size={'small'} /> : null}
           </Pressable>
         ) : null}
       </View>
