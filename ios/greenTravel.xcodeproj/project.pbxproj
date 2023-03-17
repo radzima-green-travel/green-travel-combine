@@ -19,7 +19,6 @@
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
-		5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A1102242833FCC600FC967A /* amplifyconfiguration.json */; };
 		5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */; };
 		5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */; };
 		5A12E89327BBC991004FD8C6 /* LocaleConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E89227BBC991004FD8C6 /* LocaleConstants.m */; };
@@ -255,7 +254,6 @@
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
-		8A494F3334BC232F48BAB377 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A1102232833FCC600FC967A /* awsconfiguration.json */; };
 		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
 /* End PBXBuildFile section */
 
@@ -280,8 +278,6 @@
 		5A105FEA265FD99100511256 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
 		5A105FEF266001AB00511256 /* MapService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapService.h; sourceTree = "<group>"; };
 		5A105FF0266001AB00511256 /* MapService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapService.m; sourceTree = "<group>"; };
-		5A1102232833FCC600FC967A /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
-		5A1102242833FCC600FC967A /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		5A12E88C27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReferenceContentTableViewCell.h; sourceTree = "<group>"; };
 		5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReferenceContentTableViewCell.m; sourceTree = "<group>"; };
 		5A12E88F27BA9A32004FD8C6 /* index-locale-legacy.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = "index-locale-legacy.graphql"; sourceTree = "<group>"; };
@@ -780,8 +776,6 @@
 		13B07FAE1A68108700A75B9A /* GreenTravel */ = {
 			isa = PBXGroup;
 			children = (
-				5A1102242833FCC600FC967A /* amplifyconfiguration.json */,
-				5A1102232833FCC600FC967A /* awsconfiguration.json */,
 				5A775A3426064C8E00CEFC78 /* fonts */,
 				5A775A0326064C8E00CEFC78 /* managedobjects */,
 				5A775A5126064C8F00CEFC78 /* models */,
@@ -816,7 +810,6 @@
 			children = (
 				745C34F067A2EA32BDC236BD /* awsconfiguration.json */,
 				5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */,
-				5A1102232833FCC600FC967A /* awsconfiguration.json */,
 			);
 			name = AmplifyConfig;
 			sourceTree = "<group>";
@@ -2330,8 +2323,6 @@
 				5A775B4826064C9000CEFC78 /* Montserrat-Italic.ttf in Resources */,
 				5A12E89027BA9A32004FD8C6 /* index-locale-legacy.graphql in Resources */,
 				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
-				5A1102262833FCC700FC967A /* amplifyconfiguration.json in Resources */,
-				8A494F3334BC232F48BAB377 /* awsconfiguration.json in Resources */,
 				0F3FCDA6FF62EE2E303ACF4F /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
