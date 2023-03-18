@@ -98,7 +98,7 @@ static const CGFloat kMinContentInset = 23.5;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
+  [super viewDidDisappear:animated];
   [self.userModel removeUserModelObserver:self];
 }
 

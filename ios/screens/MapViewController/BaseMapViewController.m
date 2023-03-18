@@ -172,6 +172,7 @@ static CGFloat const kLocateMeZoomLevel = 10.0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
   [self saveMapCoordinates];
 }
 

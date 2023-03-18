@@ -290,7 +290,7 @@ static const CGFloat kDistanceScreenEdgeToTextContent = 16.0;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
+  [super viewDidDisappear:animated];
   [[AnalyticsEvents get] logEvent:AnalyticsEventsDetailsBack withParams:@{
     AnalyticsEventsParamCardName: self.item.title,
     AnalyticsEventsParamCardCategory: self.item.category.title
