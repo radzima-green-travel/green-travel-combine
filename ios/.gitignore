@@ -20,3 +20,14 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+.xcode.env.local
+
+# Google Analytics and Firebase
+GoogleService-Info.plist
+
+# Default settings bundle
+Settings.bundle
+
+# CocoaPods
+Pods/

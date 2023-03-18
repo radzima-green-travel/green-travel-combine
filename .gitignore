@@ -60,17 +60,8 @@ buck-out/
 # Bundle artifact
 *.jsbundle
 
-# CocoaPods
-/ios/Pods/
-
 # react-native-ultimate-config
 rnuc.xcconfig
-
-# Google Analytics and Firebase
-ios/GoogleService-Info.plist
-
-# Default settings bundle
-ios/Settings.bundle
 
 # ENV
 /*.env
