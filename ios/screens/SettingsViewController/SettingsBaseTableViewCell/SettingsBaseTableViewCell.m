@@ -53,7 +53,11 @@ static const CGFloat kSpacing = 16.0;
 
 - (void)setUp {
 #pragma mark - Icon
-  self.iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.config.iconName]];
+  UIImage *image = nil;
+  if (self.config.iconName) {
+    image = [UIImage imageNamed:self.config.iconName];
+  }
+  self.iconView = [[UIImageView alloc] initWithImage:image];
   self.iconView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.contentView addSubview:self.iconView];
   
