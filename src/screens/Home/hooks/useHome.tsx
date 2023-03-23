@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {AppStateStatus, InteractionManager} from 'react-native';
+import {InteractionManager} from 'react-native';
 
 import {
   getHomeDataUpdatesRequest,
@@ -12,7 +12,6 @@ import {
   useRequestLoading,
   useHomeAnalytics,
   useColorScheme,
-  useAppState,
   useOnRequestError,
 } from 'core/hooks';
 import {IObject, ITransformedCategory} from 'core/types';
@@ -49,15 +48,6 @@ export const useHome = () => {
   const {error} = useRequestError(getInitialHomeDataRequest);
 
   const {loading: refreshing} = useRequestLoading(getHomeDataUpdatesRequest);
-
-  const checkUpdates = useCallback(
-    (state: AppStateStatus, prevState: AppStateStatus) => {
-      if (state === 'active' && prevState === 'background') {
-        dispatch(getHomeDataUpdateAvailableRequest());
-      }
-    },
-    [dispatch],
-  );
 
   const navigateToObjectsList = useCallback(
     ({categoryId, title}: {categoryId: string; title: string}) => {
@@ -121,8 +111,6 @@ export const useHome = () => {
       type: 'error',
     });
   });
-
-  useAppState(checkUpdates);
 
   useFocusEffect(
     useCallback(

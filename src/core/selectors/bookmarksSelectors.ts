@@ -2,7 +2,7 @@ import {createSelector} from 'reselect';
 import {reduce} from 'lodash';
 import {IState} from 'core/store';
 import {ITransformedData, IBookmarksIds, IBookmarkItem} from 'core/types';
-import {selectBookmarksIds} from './common';
+import {selectBookmarksIdsFromFavorites} from './favorites';
 import {selectTransformedData} from './homeSelectors';
 
 export const selectBookmarksCardsData = createSelector<
@@ -12,7 +12,7 @@ export const selectBookmarksCardsData = createSelector<
   IBookmarkItem[] | null
 >(
   selectTransformedData,
-  selectBookmarksIds,
+  selectBookmarksIdsFromFavorites,
   (transformedData, bookmarksIds) => {
     if (!transformedData) {
       return null;

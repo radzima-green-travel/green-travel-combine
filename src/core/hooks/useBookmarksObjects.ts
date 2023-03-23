@@ -1,10 +1,13 @@
-import {selectObjectsMap, selectBookmarksIds} from 'core/selectors';
+import {
+  selectObjectsMap,
+  selectBookmarksIdsFromFavorites,
+} from 'core/selectors';
 import {IObject} from 'core/types';
 import {reduce} from 'lodash';
 import {useSelector} from 'react-redux';
 
 export function useBookmarksObjects(categoryId: string) {
-  const bookmarksIds = useSelector(selectBookmarksIds);
+  const bookmarksIds = useSelector(selectBookmarksIdsFromFavorites);
   const objectsMap = useSelector(selectObjectsMap);
   return objectsMap
     ? reduce(

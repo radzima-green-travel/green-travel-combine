@@ -6,6 +6,7 @@ import {
   signOutSuccess,
   inAppBrowserCancelOperation,
   inAppBrowserSuccessOperation,
+  clearFavorites,
 } from 'core/reducers';
 import {selectUserAuthorizedData} from 'core/selectors';
 
@@ -35,6 +36,7 @@ export function* signInOutSaga() {
     ]);
 
     yield put(signOutSuccess());
+    yield put(clearFavorites());
   } catch (e) {
     yield put(signOutFailure(e as Error));
   }

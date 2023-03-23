@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {addToFavorite, removeFromFavorite} from 'core/reducers';
+import {updateFavoritesRequest} from 'core/reducers';
 import {LayoutAnimation} from 'react-native';
 
 const onAnimationEndDefault = () => {};
@@ -14,7 +14,12 @@ export function useToggleFavorite({
   return useCallback(
     ({objectId, needToAdd}: {objectId: string; needToAdd: boolean}) => {
       if (needToAdd) {
-        dispatch(addToFavorite(objectId));
+        dispatch(
+          updateFavoritesRequest({
+            objectId,
+            data: {timestamp: Date.now(), status: true},
+          }),
+        );
       } else {
         if (removeWithAnimation) {
           LayoutAnimation.configureNext(
@@ -32,8 +37,12 @@ export function useToggleFavorite({
             onAnimationEnd,
           );
         }
-
-        dispatch(removeFromFavorite(objectId));
+        dispatch(
+          updateFavoritesRequest({
+            objectId,
+            data: {timestamp: Date.now(), status: false},
+          }),
+        );
       }
     },
     [dispatch, removeWithAnimation, onAnimationEnd],

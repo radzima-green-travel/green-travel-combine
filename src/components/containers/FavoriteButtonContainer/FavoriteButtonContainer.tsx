@@ -2,7 +2,7 @@ import {useToggleFavorite} from 'core/hooks';
 import React, {memo, useCallback, useMemo} from 'react';
 import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import {useSelector} from 'react-redux';
-import {selectBookmarksIds} from 'core/selectors';
+import {selectBookmarksIdsFromFavorites} from 'core/selectors';
 import {find} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 const onAnimationEndDefault = () => {};
@@ -25,7 +25,7 @@ export const FavoriteButtonContainer = memo(
     onAnimationEnd = onAnimationEndDefault,
     onFavoriteToggle,
   }: IProps) => {
-    const bookmarksIds = useSelector(selectBookmarksIds);
+    const bookmarksIds = useSelector(selectBookmarksIdsFromFavorites);
 
     const isFavorite = useMemo(
       () => (objectId ? find(bookmarksIds, id => id === objectId) : false),

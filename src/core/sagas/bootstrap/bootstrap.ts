@@ -13,6 +13,10 @@ import {ILabelError} from 'core/types';
 import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
 import {resetEtags} from 'api/rest/interceptors';
+import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
+import {takeEveryMulticast} from '../utils';
+import {appStateChannel} from '../channels';
+import {listenAppStateChangesSaga} from '../app';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
@@ -33,9 +37,13 @@ export function* bootstrapSaga() {
         yield put(getHomeData());
       }
 
+      yield call(syncAndGetFavoritesSaga);
+
       yield put(bootstrapSuccess());
     } catch (e) {
       yield put(bootstrapFailure(e as ILabelError));
     }
   });
+
+  yield takeEveryMulticast(appStateChannel, listenAppStateChangesSaga);
 }
