@@ -1,38 +1,76 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
 import {ACTIONS} from '../constants';
-import {IBookmarksIds} from '../types';
+import {IBookmarksIds, Favorites, UpdateFavoritesBody} from '../types';
 
-export const addToFavorite = createAction(ACTIONS.ADD_TO_FAVORITE)<string>();
-export const removeFromFavorite = createAction(
-  ACTIONS.REMOVE_FROM_FAVORITE,
-)<string>();
+export const syncAndGetFavoritesRequst = createAction(
+  ACTIONS.SYNC_AND_GET_FAVORITES_REQUEST,
+)();
+export const syncAndGetFavoritesSuccess = createAction(
+  ACTIONS.SYNC_AND_GET_FAVORITES_SUCCESS,
+)<Favorites>();
+export const syncAndGetFavoritesFailure = createAction(
+  ACTIONS.SYNC_AND_GET_FAVORITES_FAILURE,
+)<Error>();
+
+export const updateFavoritesRequest = createAction(
+  ACTIONS.UPDATE_FAVORITES_REQUEST,
+)<{objectId: string; data: UpdateFavoritesBody}>();
+
+export const updateFavoritesSuccess = createAction(
+  ACTIONS.UPDATE_FAVORITES_SUCCESS,
+)();
+
+export const updateFavoritesFailure = createAction(
+  ACTIONS.UPDATE_FAVORITES_FAILURE,
+)<Error>();
+
+export const cleareLegacyBookmarksIds = createAction(
+  ACTIONS.CLEAR_LEGACY_BOOKMARKS_IDS,
+)();
+
+export const clearFavorites = createAction(ACTIONS.CLEAR_FAVORITES)();
 
 interface IDefaultState {
   bookmarksIds: IBookmarksIds;
+  favorites: Favorites;
 }
 
 const defaultState = {
   bookmarksIds: [],
+  favorites: {},
 };
 
 const actions = {
-  addToFavorite,
-  removeFromFavorite,
+  updateFavoritesRequest,
+  syncAndGetFavoritesSuccess,
+  clearFavorites,
+  cleareLegacyBookmarksIds,
 };
 
 export const bookmarksReducer = createReducer<
   IDefaultState,
   ActionType<typeof actions>
 >(defaultState)
-  .handleAction(addToFavorite, (state, {payload}) => {
+  .handleAction(syncAndGetFavoritesSuccess, (state, {payload}) => {
     return {
       ...state,
-      bookmarksIds: [...state.bookmarksIds, payload],
+      favorites: payload,
     };
   })
-  .handleAction(removeFromFavorite, (state, {payload}) => {
+  .handleAction(updateFavoritesRequest, (state, {payload}) => {
     return {
       ...state,
-      bookmarksIds: state.bookmarksIds.filter(id => id !== payload),
+      favorites: {
+        ...state.favorites,
+        [payload.objectId]: [payload.data.status, payload.data.timestamp],
+      },
     };
-  });
+  })
+  .handleAction(clearFavorites, state => ({
+    ...state,
+    favorites: {},
+  }))
+  .handleAction(cleareLegacyBookmarksIds, state => ({
+    ...state,
+    bookmarksIds: [],
+  }));

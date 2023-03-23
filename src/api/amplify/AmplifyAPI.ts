@@ -1,8 +1,21 @@
-import {AmplifyError, CognitoUserWithAttributes} from 'core/types';
+import {
+  AmplifyError,
+  CognitoUserWithAttributes,
+  GetFavoritesResponse,
+  UpdateFavoritesBody,
+  BulkUpdateFavoritesBody,
+} from 'core/types';
 import {Auth} from 'aws-amplify';
 import {AmplifyApiEngine} from '../engines';
 
 class AmplifyApi extends AmplifyApiEngine {
+  async getHeaders() {
+    const token = (await Auth.currentSession()).getAccessToken().getJwtToken();
+    return {
+      Authorization: `${token}`,
+    };
+  }
+
   signIn = async (
     ...args: Parameters<typeof Auth.signIn>
   ): Promise<CognitoUserWithAttributes> => {
@@ -195,6 +208,24 @@ class AmplifyApi extends AmplifyApiEngine {
       },
       ...args,
     );
+  };
+
+  getUserFavorites = async (): Promise<GetFavoritesResponse> => {
+    return this.getByApi('apiac472374', '/bookmark');
+  };
+
+  updateUserFavorites = async ({
+    objectId,
+    data,
+  }: {
+    objectId: string;
+    data: UpdateFavoritesBody;
+  }) => {
+    return this.postByApi('apiac472374', `/bookmark/${objectId}`, data);
+  };
+
+  bulkUpdateUserFavorites = async (data: BulkUpdateFavoritesBody) => {
+    return this.postByApi('apiac472374', '/bookmark', data);
   };
 }
 

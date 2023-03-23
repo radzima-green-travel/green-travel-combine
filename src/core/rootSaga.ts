@@ -5,6 +5,7 @@ import {
   homeSaga,
   objectDetailsMapSaga,
   settingsSaga,
+  favoritesSaga,
 } from './sagas';
 
 export function* rootSaga() {
@@ -14,5 +15,6 @@ export function* rootSaga() {
     homeSaga(),
     objectDetailsMapSaga(),
     settingsSaga(),
+    favoritesSaga(),
   ]);
 }

@@ -1,3 +1,4 @@
+import {API} from 'aws-amplify';
 import {
   RequestError,
   createAmplifyErrorPreset,
@@ -6,6 +7,10 @@ import {
 import {AmplifyError, AmplifyErrorPresetParams} from 'core/types';
 
 export class AmplifyApiEngine {
+  async getHeaders() {
+    return {};
+  }
+
   async invoke<A extends any[], T extends (...args: A) => ReturnType<T>>(
     {
       context,
@@ -42,5 +47,19 @@ export class AmplifyApiEngine {
       );
       return Promise.reject(customError);
     }
+  }
+
+  async getByApi(apiName: string, path: string, params?: Record<string, any>) {
+    return API.get(apiName, path, {
+      headers: await this.getHeaders(),
+      queryStringParameters: params,
+    });
+  }
+
+  async postByApi(apiName: string, path: string, body: Record<string, any>) {
+    return API.post(apiName, path, {
+      body,
+      headers: await this.getHeaders(),
+    });
   }
 }

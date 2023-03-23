@@ -48,9 +48,9 @@ export const confirmNewPasswordFailure = createAction(
   ACTIONS.CONFIRM_NEW_PASSWORD_FAILURE,
 )<Error>();
 
-export const setUserAuthData =
-  createAction('SET_USER_AUTH_DATA')<CognitoUserAttributes>();
-export const clearUserAuthData = createAction('CLEAR_USER_AUTH_DATA')();
+export const setUserAuthData = createAction(
+  ACTIONS.SET_USER_AUTH_DATA,
+)<CognitoUserAttributes>();
 
 export const signUpRequest = createAction(ACTIONS.SIGNUP_REQUEST)<{
   email: string;
@@ -175,7 +175,6 @@ const actions = {
   resendSignUpCodeSuccess,
   resendSignUpCodeFailure,
   setUserAuthData,
-  clearUserAuthData,
   signOutSuccess,
   deleteUserSuccess,
   googleSigninSuccess,
@@ -204,19 +203,12 @@ export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
     },
   )
 
-  .handleAction(
-    [
-      actions.clearUserAuthData,
-      actions.signOutSuccess,
-      actions.deleteUserSuccess,
-    ],
-    state => {
-      return {
-        ...state,
-        userAttributes: null,
-      };
-    },
-  )
+  .handleAction([actions.signOutSuccess, actions.deleteUserSuccess], state => {
+    return {
+      ...state,
+      userAttributes: null,
+    };
+  })
 
   .handleAction(
     [
