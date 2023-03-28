@@ -6,11 +6,7 @@ import {ProfileScreenNavigationProps} from '../types';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-import {
-  googleSigninRequest,
-  facebookSigninRequest,
-  clearCacheRequest,
-} from 'core/reducers';
+import {clearCacheRequest, signInRequest} from 'core/reducers';
 import {useTranslation} from 'core/hooks';
 import {useSnackbar} from '../../../components/atoms';
 
@@ -49,8 +45,7 @@ export const useProfile = () => {
     ]);
   }, [t, dispatch]);
 
-  const {loading: googleLoading} = useRequestLoading(googleSigninRequest);
-  const {loading: facebookLoading} = useRequestLoading(facebookSigninRequest);
+  const {loading} = useRequestLoading(signInRequest);
 
   const {show, ...snackBarProps} = useSnackbar();
 
@@ -68,7 +63,7 @@ export const useProfile = () => {
     navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,
     onClearCachePress,
-    loading: googleLoading || facebookLoading,
+    loading: loading,
     snackBarProps,
   };
 };

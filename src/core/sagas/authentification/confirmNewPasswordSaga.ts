@@ -7,6 +7,7 @@ import {
 } from 'core/reducers';
 import {CognitoUserWithAttributes} from '../../types';
 import {amplifyApi} from 'api/amplify';
+import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
 
 export function* confirmNewPasswordSaga({
   payload: {email, tempPassword, newPassword},
@@ -21,6 +22,7 @@ export function* confirmNewPasswordSaga({
     const {attributes} = user;
 
     yield call(amplifyApi.changePassword, user, tempPassword, newPassword);
+    yield call(syncAndGetFavoritesSaga);
 
     yield put(confirmNewPasswordSuccess(attributes));
   } catch (e) {

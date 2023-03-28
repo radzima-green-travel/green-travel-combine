@@ -1,6 +1,7 @@
 import {IState} from 'core/store';
 import {reduce} from 'lodash';
 import {createSelector} from 'reselect';
+import {selectTransformedData} from './homeSelectors';
 
 export const selectFavoritesData = (state: IState) => state.bookmarks.favorites;
 export const selectLegacyBookmarksIds = (state: IState) =>
@@ -8,12 +9,14 @@ export const selectLegacyBookmarksIds = (state: IState) =>
 
 export const selectBookmarksIdsFromFavorites = createSelector(
   selectFavoritesData,
-  favorites => {
+  selectTransformedData,
+  (favorites, transformedData) => {
     return reduce(
       favorites,
       (acc, value, objectId) => {
         const [status] = value;
-        if (status) {
+
+        if (status && transformedData?.objectsMap[objectId]) {
           acc.push(objectId);
         }
 

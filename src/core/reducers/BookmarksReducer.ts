@@ -24,9 +24,9 @@ export const updateFavoritesFailure = createAction(
   ACTIONS.UPDATE_FAVORITES_FAILURE,
 )<Error>();
 
-export const cleareLegacyBookmarksIds = createAction(
-  ACTIONS.CLEAR_LEGACY_BOOKMARKS_IDS,
-)();
+export const setMigratedFavoritesAndClearLegacyIds = createAction(
+  ACTIONS.SET_MIGRATED_FAVORITES_AND_CLEAR_LEGACY_IDS,
+)<Favorites>();
 
 export const clearFavorites = createAction(ACTIONS.CLEAR_FAVORITES)();
 
@@ -44,7 +44,7 @@ const actions = {
   updateFavoritesRequest,
   syncAndGetFavoritesSuccess,
   clearFavorites,
-  cleareLegacyBookmarksIds,
+  setMigratedFavoritesAndClearLegacyIds,
 };
 
 export const bookmarksReducer = createReducer<
@@ -70,7 +70,8 @@ export const bookmarksReducer = createReducer<
     ...state,
     favorites: {},
   }))
-  .handleAction(cleareLegacyBookmarksIds, state => ({
+  .handleAction(setMigratedFavoritesAndClearLegacyIds, (state, {payload}) => ({
     ...state,
     bookmarksIds: [],
+    favorites: payload,
   }));

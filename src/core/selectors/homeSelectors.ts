@@ -18,15 +18,10 @@ export const selectHomeUpdatedData = (state: IState) => state.home.updatedData;
 export const selectIsHomeDataExists = (state: IState) =>
   Boolean(state.home.currentData);
 
-export const selectTransformedData = createSelector<
-  IState,
-  ListMobileDataQuery | null,
-  ITransformedData | null
->(
+export const selectTransformedData = createSelector(
   state => state.home.currentData,
   selectAppLanguage,
-  (data: ListMobileDataQuery, language: SupportedLocales) =>
-    data ? transformQueryData(data, language) : null,
+  (data, language) => (data ? transformQueryData(data, language) : null),
 );
 
 export const selectHomeData = createSelector<

@@ -1,16 +1,10 @@
 import {createSelector} from 'reselect';
 import {reduce} from 'lodash';
-import {IState} from 'core/store';
-import {ITransformedData, IBookmarksIds, IBookmarkItem} from 'core/types';
+import {IBookmarkItem} from 'core/types';
 import {selectBookmarksIdsFromFavorites} from './favorites';
 import {selectTransformedData} from './homeSelectors';
 
-export const selectBookmarksCardsData = createSelector<
-  IState,
-  ITransformedData | null,
-  IBookmarksIds,
-  IBookmarkItem[] | null
->(
+export const selectBookmarksCardsData = createSelector(
   selectTransformedData,
   selectBookmarksIdsFromFavorites,
   (transformedData, bookmarksIds) => {

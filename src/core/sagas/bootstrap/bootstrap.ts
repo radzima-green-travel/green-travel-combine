@@ -10,10 +10,14 @@ import {ACTIONS} from 'core/constants';
 
 import {initAppLocaleSaga} from './initAppLocaleSaga';
 import {ILabelError} from 'core/types';
-import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
+import {
+  selectIsMyProfileFeatureEnabled,
+  selectUserAuthorized,
+} from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
 import {resetEtags} from 'api/rest/interceptors';
 import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
+import {migrateToNewFavoritesTypeSaga} from '../favorites/migrateToNewFavoritesTypeSaga';
 import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
@@ -21,9 +25,11 @@ import {listenAppStateChangesSaga} from '../app';
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
     try {
-      const isMyProfileFeatureEnabled: ReturnType<
-        typeof selectIsMyProfileFeatureEnabled
-      > = yield select(selectIsMyProfileFeatureEnabled);
+      const isMyProfileFeatureEnabled: boolean = yield select(
+        selectIsMyProfileFeatureEnabled,
+      );
+      const isAuthorized = yield select(selectUserAuthorized);
+
       if (isMyProfileFeatureEnabled) {
         yield call(initUserAuthSaga);
       }
@@ -37,7 +43,10 @@ export function* bootstrapSaga() {
         yield put(getHomeData());
       }
 
-      yield call(syncAndGetFavoritesSaga);
+      yield call(migrateToNewFavoritesTypeSaga);
+      if (isAuthorized) {
+        yield call(syncAndGetFavoritesSaga);
+      }
 
       yield put(bootstrapSuccess());
     } catch (e) {

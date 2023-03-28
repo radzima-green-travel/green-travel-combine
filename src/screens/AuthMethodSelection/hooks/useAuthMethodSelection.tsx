@@ -3,8 +3,9 @@ import {useNavigation} from '@react-navigation/native';
 import {AuthMethodSelectionScreenNavigationProps} from '../types';
 
 import {useDispatch} from 'react-redux';
-import {facebookSigninRequest, googleSigninRequest} from 'core/reducers';
+import {signInRequest} from 'core/reducers';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
+import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 
 export const useAuthMethodSelection = () => {
   const navigation = useNavigation<AuthMethodSelectionScreenNavigationProps>();
@@ -14,30 +15,33 @@ export const useAuthMethodSelection = () => {
   }, [navigation]);
 
   const handleGoogleButtonPress = () => {
-    dispatch(googleSigninRequest());
+    dispatch(
+      signInRequest({socialProvider: CognitoHostedUIIdentityProvider.Google}),
+    );
   };
   const handleFacebookButtonPress = () => {
-    dispatch(facebookSigninRequest());
+    dispatch(
+      signInRequest({socialProvider: CognitoHostedUIIdentityProvider.Facebook}),
+    );
   };
   const handleAppleButtonPress = () => {};
 
-  useOnRequestSuccess(googleSigninRequest, () => {
+  useOnRequestSuccess(signInRequest, () => {
     navigation.goBack();
   });
 
-  useOnRequestSuccess(facebookSigninRequest, () => {
-    navigation.goBack();
-  });
-
-  const {loading: googleLoading} = useRequestLoading(googleSigninRequest);
-  const {loading: facebookLoading} = useRequestLoading(facebookSigninRequest);
+  const {getLoadingStateByEntityId} = useRequestLoading(signInRequest);
 
   return {
     handleEmailButtonPress,
     handleGoogleButtonPress,
     handleFacebookButtonPress,
     handleAppleButtonPress,
-    googleLoading,
-    facebookLoading,
+    googleLoading: getLoadingStateByEntityId(
+      CognitoHostedUIIdentityProvider.Google,
+    ),
+    facebookLoading: getLoadingStateByEntityId(
+      CognitoHostedUIIdentityProvider.Facebook,
+    ),
   };
 };

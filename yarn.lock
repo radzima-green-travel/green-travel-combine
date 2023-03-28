@@ -13970,10 +13970,10 @@ react-native@0.70.6:
     whatwg-fetch "^3.0.0"
     ws "^6.1.4"
 
-react-redux-help-kit@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/react-redux-help-kit/-/react-redux-help-kit-1.6.3.tgz#aebbe6b60d7f03cdbfb06a64d22c98b45070f414"
-  integrity sha512-yQ1cRXaR9S4jMgplzixLUQxDitOsuv/avp9BAYpO9kDM9p6+vfzdhJNuad1angDj24mrVUvEaJXVva/LgrvFQg==
+react-redux-help-kit@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/react-redux-help-kit/-/react-redux-help-kit-1.7.0.tgz#688731740fe938bc3142d1b97f0b6c8de465ff07"
+  integrity sha512-oLMTTCxBm8UE8OBMNInsZz/5AfrLqYW2d1W0aZRq0csCbofbVTra24xcHKCMBymFdfvtEdbciX3DW+xfqXJpGw==
 
 react-redux@7.2.0:
   version "7.2.0"

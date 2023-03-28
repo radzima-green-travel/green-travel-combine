@@ -1,16 +1,25 @@
 import {createAction, createReducer, ActionType} from 'typesafe-actions';
 import {ACTIONS} from '../constants';
 import {CognitoUserAttributes} from '../types';
+import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 
-export const signInRequest = createAction(ACTIONS.SIGNIN_REQUEST)<{
-  email: string;
-  password: string;
-}>();
-export const signInSuccess = createAction(ACTIONS.SIGNIN_SUCCESS)<{
-  email: string;
-  userAttributes: CognitoUserAttributes;
-}>();
-export const signInFailure = createAction(ACTIONS.SIGNIN_FAILURE)<Error>();
+export const signInRequest = createAction(
+  ACTIONS.SIGNIN_REQUEST,
+  (payload: {
+    email?: string;
+    password?: string;
+    socialProvider?: CognitoHostedUIIdentityProvider;
+  }) => payload,
+  payload => ({entityId: payload?.socialProvider}),
+)();
+export const signInSuccess = createAction(ACTIONS.SIGNIN_SUCCESS)<
+  CognitoUserAttributes | null,
+  {entityId?: CognitoHostedUIIdentityProvider}
+>();
+export const signInFailure = createAction(ACTIONS.SIGNIN_FAILURE)<
+  Error,
+  {entityId?: CognitoHostedUIIdentityProvider}
+>();
 
 export const signOutRequest = createAction(ACTIONS.SIGNOUT_REQUEST)();
 export const signOutSuccess = createAction(ACTIONS.SIGNOUT_SUCCESS)();
@@ -116,28 +125,6 @@ export const forgotPasswordCodeSubmitFailure = createAction(
   ACTIONS.FORGOT_PASSWORD_CODE_SUBMIT_FAILURE,
 )<Error>();
 
-export const googleSigninRequest = createAction(
-  ACTIONS.GOOGLE_SIGNIN_REQUEST,
-)();
-
-export const googleSigninSuccess = createAction(
-  ACTIONS.GOOGLE_SIGNIN_SUCCESS,
-)<CognitoUserAttributes>();
-export const googleSigninFailure = createAction(
-  ACTIONS.GOOGLE_SIGNIN_FAILURE,
-)<Error>();
-
-export const facebookSigninRequest = createAction(
-  ACTIONS.FACEBOOK_SIGNIN_REQUEST,
-)();
-
-export const facebookSigninSuccess = createAction(
-  ACTIONS.FACEBOOK_SIGNIN_SUCCESS,
-)<CognitoUserAttributes>();
-export const facebookSigninFailure = createAction(
-  ACTIONS.FACEBOOK_SIGNIN_FAILURE,
-)<Error>();
-
 export const inAppBrowserCancelOperation = createAction(
   ACTIONS.IN_APP_BROWSER_CANCEL_OPERATION,
 )();
@@ -146,12 +133,10 @@ export const inAppBrowserSuccessOperation = createAction(
 )();
 
 interface IAuth {
-  email: string;
   userAttributes: CognitoUserAttributes | null;
 }
 
 const defaultState: IAuth = {
-  email: '',
   userAttributes: null,
 };
 
@@ -177,23 +162,11 @@ const actions = {
   setUserAuthData,
   signOutSuccess,
   deleteUserSuccess,
-  googleSigninSuccess,
-  facebookSigninSuccess,
 };
 
 type Actions = ActionType<typeof actions>;
 
 export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
-  .handleAction(
-    actions.signInSuccess,
-    (state, {payload: {email, userAttributes}}) => {
-      return {
-        ...state,
-        email,
-        userAttributes: userAttributes,
-      };
-    },
-  )
   .handleAction(
     [actions.forgotPasswordSuccess, actions.forgotPasswordFailure],
     state => {
@@ -212,11 +185,10 @@ export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
 
   .handleAction(
     [
+      actions.signInSuccess,
       actions.setUserAuthData,
       actions.confirmSignUpSuccess,
       actions.confirmNewPasswordSuccess,
-      actions.googleSigninSuccess,
-      actions.facebookSigninSuccess,
     ],
     (state, {payload}) => {
       return {

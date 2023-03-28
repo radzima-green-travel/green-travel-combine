@@ -10,6 +10,7 @@ import {createAuthHubChannel} from './createAuthHubChannel';
 import {CognitoUserWithAttributes} from 'core/types';
 import {amplifyApi} from 'api/amplify';
 import {createSignupCancelErrorPreset, RequestError} from 'core/errors';
+import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
 
 export function* confirmSignUpSaga({
   payload: {email, code},
@@ -38,6 +39,10 @@ export function* confirmSignUpSaga({
       }),
       call(amplifyApi.confirmSignUp, email, code),
     ]);
+
+    if (userData) {
+      yield call(syncAndGetFavoritesSaga);
+    }
 
     yield put(
       confirmSignUpSuccess(

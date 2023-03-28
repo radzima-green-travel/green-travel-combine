@@ -34,7 +34,7 @@ const homePersistConfig = {
 const bookmarksPersistConfig = {
   key: 'bookmarks',
   storage: AsyncStorage,
-  whitelist: ['bookmarksIds'],
+  whitelist: ['bookmarksIds', 'favorites'],
 };
 
 const settingsPeristConfig = {
