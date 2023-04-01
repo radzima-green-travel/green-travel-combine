@@ -13,11 +13,15 @@ type Props = {
 };
 
 export const LoadingView = memo<Props>(
-  ({transparent = true, size = 'large', color}: Props) => {
+  ({transparent = true, size = 'large', color, containerStyle}: Props) => {
     const styles = useThemeStyles(themeStyles);
     return (
       <View
-        style={[styles.loadingContainer, transparent && styles.transparent]}>
+        style={[
+          styles.loadingContainer,
+          transparent && styles.transparent,
+          containerStyle,
+        ]}>
         <ActivityIndicator color={color || COLORS.forestGreen} size={size} />
       </View>
     );

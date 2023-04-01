@@ -55,14 +55,17 @@ export const FavoriteButtonContainer = memo(
 
     return (
       <View>
-        <TouchableOpacity
-          hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
-          style={[style, loading && styles.opaque]}
-          onPress={onPress}
-          disabled={loading}
-          activeOpacity={0.8}>
-          {children(Boolean(isFavorite))}
-        </TouchableOpacity>
+        <View style={loading && styles.opaque}>
+          <TouchableOpacity
+            hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
+            style={style}
+            onPress={onPress}
+            disabled={loading}
+            activeOpacity={0.8}>
+            {children(Boolean(isFavorite))}
+          </TouchableOpacity>
+        </View>
+
         {loading ? (
           <LoadingView
             size="small"
