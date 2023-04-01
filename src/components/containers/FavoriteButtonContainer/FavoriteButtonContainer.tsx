@@ -1,10 +1,14 @@
-import {useToggleFavorite} from 'core/hooks';
+import {useRequestLoading, useToggleFavorite} from 'core/hooks';
 import React, {memo, useCallback, useMemo} from 'react';
-import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
+import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {useSelector} from 'react-redux';
 import {selectBookmarksIdsFromFavorites} from 'core/selectors';
 import {find} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
+import {syncAndGetFavoritesRequest} from 'core/reducers';
+import {LoadingView} from 'atoms';
+import {COLORS} from 'assets';
+import {styles} from './styles';
 const onAnimationEndDefault = () => {};
 
 interface IProps {
@@ -14,6 +18,7 @@ interface IProps {
   removeWithAnimation?: boolean;
   onAnimationEnd?: () => void;
   onFavoriteToggle?: (nextIsFavorite: boolean) => void;
+  loadingIndicatorColor?: string;
 }
 
 export const FavoriteButtonContainer = memo(
@@ -24,8 +29,10 @@ export const FavoriteButtonContainer = memo(
     removeWithAnimation = false,
     onAnimationEnd = onAnimationEndDefault,
     onFavoriteToggle,
+    loadingIndicatorColor = COLORS.white,
   }: IProps) => {
     const bookmarksIds = useSelector(selectBookmarksIdsFromFavorites);
+    const {loading} = useRequestLoading(syncAndGetFavoritesRequest);
 
     const isFavorite = useMemo(
       () => (objectId ? find(bookmarksIds, id => id === objectId) : false),
@@ -47,13 +54,23 @@ export const FavoriteButtonContainer = memo(
     }, [isFavorite, objectId, onFavoriteToggle, toggleFavorite]);
 
     return (
-      <TouchableOpacity
-        hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
-        style={style}
-        onPress={onPress}
-        activeOpacity={0.8}>
-        {children(Boolean(isFavorite))}
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
+          style={[style, loading && styles.opaque]}
+          onPress={onPress}
+          disabled={loading}
+          activeOpacity={0.8}>
+          {children(Boolean(isFavorite))}
+        </TouchableOpacity>
+        {loading ? (
+          <LoadingView
+            size="small"
+            color={loadingIndicatorColor}
+            containerStyle={styles.loadingContainer}
+          />
+        ) : null}
+      </View>
     );
   },
 );

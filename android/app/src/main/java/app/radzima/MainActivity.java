@@ -15,6 +15,7 @@ import android.view.View;
  import com.facebook.react.ReactActivityDelegate;
  import com.facebook.react.ReactRootView;
  import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+ import com.proyecto26.inappbrowser.RNInAppBrowserModule;
 public class MainActivity extends ReactActivity {
 
   @Override
@@ -25,6 +26,12 @@ public class MainActivity extends ReactActivity {
 
 
     }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    RNInAppBrowserModule.onStart(this);
+  } 
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule

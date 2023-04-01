@@ -2,7 +2,7 @@ import {createAction, createReducer, ActionType} from 'typesafe-actions';
 import {ACTIONS} from '../constants';
 import {IBookmarksIds, Favorites, UpdateFavoritesBody} from '../types';
 
-export const syncAndGetFavoritesRequst = createAction(
+export const syncAndGetFavoritesRequest = createAction(
   ACTIONS.SYNC_AND_GET_FAVORITES_REQUEST,
 )();
 export const syncAndGetFavoritesSuccess = createAction(

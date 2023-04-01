@@ -24,7 +24,9 @@ export function* signInOutSaga() {
           const parsedIdentities = JSON.parse(userData.identities);
 
           if (
-            ['Google', 'Facebook'].includes(parsedIdentities?.[0]?.providerName)
+            ['Google', 'Facebook', 'SignInWithApple'].includes(
+              parsedIdentities?.[0]?.providerName,
+            )
           ) {
             yield take([
               inAppBrowserCancelOperation,

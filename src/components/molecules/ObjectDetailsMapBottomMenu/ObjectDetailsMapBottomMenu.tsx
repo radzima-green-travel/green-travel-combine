@@ -1,5 +1,5 @@
 import React, {memo, useMemo} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TextStyle} from 'react-native';
 import {themeStyles} from './styles';
 
 import {Button, Icon} from 'atoms';
@@ -68,7 +68,11 @@ export const ObjectDetailsMapBottomMenu = memo(
             <View style={styles.textContainer}>
               <Text style={styles.text}>{name}</Text>
 
-              <FavoriteButtonContainer objectId={id}>
+              <FavoriteButtonContainer
+                loadingIndicatorColor={
+                  (styles.icon as TextStyle).color as string
+                }
+                objectId={id}>
                 {isFavorite => (
                   <Icon
                     name={isFavorite ? 'bookmarkFilled' : 'bookmark'}

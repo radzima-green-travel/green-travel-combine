@@ -27,6 +27,7 @@ async function urlOpener(url, redirectUrl) {
     enableUrlBarHiding: true,
     enableDefaultShare: false,
     ephemeralWebSession: false,
+    forceCloseOnRedirection: true,
   })) as RedirectResult;
 
   if (type === 'success') {
@@ -47,7 +48,7 @@ Amplify.configure({
     ...awsConfig.oauth,
     redirectSignIn: signInUrls[2],
     redirectSignOut: signOutUrls[2],
-    urlOpener: Platform.OS === 'ios' ? urlOpener : undefined,
+    urlOpener: urlOpener,
   },
 });
 

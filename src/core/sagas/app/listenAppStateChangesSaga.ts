@@ -1,6 +1,6 @@
 import {
   getHomeDataUpdateAvailableRequest,
-  syncAndGetFavoritesRequst,
+  syncAndGetFavoritesRequest,
 } from 'core/reducers';
 import {selectUserAuthorized} from 'core/selectors';
 import {AppStateStatus} from 'react-native';
@@ -17,7 +17,7 @@ export function* listenAppStateChangesSaga({
   if (state === 'active' && prevSate === 'background') {
     yield put(getHomeDataUpdateAvailableRequest());
     if (isAuthorized) {
-      yield put(syncAndGetFavoritesRequst());
+      yield put(syncAndGetFavoritesRequest());
     }
   }
 }

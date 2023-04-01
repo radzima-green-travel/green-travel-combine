@@ -4,7 +4,7 @@ import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import React, {memo} from 'react';
 import {themeStyles} from './styles';
-import {Animated, View} from 'react-native';
+import {Animated, TextStyle, View} from 'react-native';
 import {TestIDs} from 'core/types';
 
 interface IProps {
@@ -20,6 +20,7 @@ export const AnimatedHeaderBookmarkButton = memo(
     return (
       <FavoriteButtonContainer
         onFavoriteToggle={onFavoriteToggle}
+        loadingIndicatorColor={(styles.icon as TextStyle).color as string}
         objectId={objectId}>
         {isFavorite => (
           <>

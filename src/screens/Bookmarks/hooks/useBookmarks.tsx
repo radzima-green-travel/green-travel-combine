@@ -1,11 +1,14 @@
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  useRequestError,
   useRequestLoading,
   useBookmarksAnalytics,
+  useOnRequestError,
 } from 'core/hooks';
-import {getInitialHomeDataRequest} from 'core/reducers';
+import {
+  getInitialHomeDataRequest,
+  syncAndGetFavoritesRequest,
+} from 'core/reducers';
 import {IBookmarkItem} from 'core/types';
 import {useNavigation} from '@react-navigation/native';
 import {ObjectsListScreenNavigationProps} from '../types';
@@ -23,7 +26,10 @@ export const useBookmarks = () => {
   }, [dispatch]);
 
   const {loading} = useRequestLoading(getInitialHomeDataRequest);
-  const {error} = useRequestError(getInitialHomeDataRequest);
+  const {loading: syncFavoritesLoading} = useRequestLoading(
+    syncAndGetFavoritesRequest,
+  );
+  const {errorTexts} = useOnRequestError(getInitialHomeDataRequest, '');
 
   const navigateToBookmarksList = useCallback(
     ({categoryName, categoryId}: IBookmarkItem) => {
@@ -40,7 +46,8 @@ export const useBookmarks = () => {
     bookmarksCategories,
     getHomeData,
     loading,
-    error,
+    error: errorTexts,
     navigateToBookmarksList,
+    syncFavoritesLoading,
   };
 };

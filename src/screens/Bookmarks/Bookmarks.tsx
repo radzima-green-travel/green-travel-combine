@@ -15,12 +15,13 @@ export const Bookmarks = () => {
     loading,
     error,
     navigateToBookmarksList,
+    syncFavoritesLoading,
   } = useBookmarks();
 
   return (
     <SuspenseView
       retryCallback={getHomeData}
-      loading={!bookmarksCategories && loading}
+      loading={(!bookmarksCategories && loading) || syncFavoritesLoading}
       error={bookmarksCategories ? null : error}>
       {isEmpty(bookmarksCategories) ? (
         <BookmarksEmptyView />

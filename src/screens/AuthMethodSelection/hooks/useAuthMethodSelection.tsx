@@ -24,7 +24,11 @@ export const useAuthMethodSelection = () => {
       signInRequest({socialProvider: CognitoHostedUIIdentityProvider.Facebook}),
     );
   };
-  const handleAppleButtonPress = () => {};
+  const handleAppleButtonPress = () => {
+    dispatch(
+      signInRequest({socialProvider: CognitoHostedUIIdentityProvider.Apple}),
+    );
+  };
 
   useOnRequestSuccess(signInRequest, () => {
     navigation.goBack();
@@ -42,6 +46,9 @@ export const useAuthMethodSelection = () => {
     ),
     facebookLoading: getLoadingStateByEntityId(
       CognitoHostedUIIdentityProvider.Facebook,
+    ),
+    appleLoading: getLoadingStateByEntityId(
+      CognitoHostedUIIdentityProvider.Apple,
     ),
   };
 };
