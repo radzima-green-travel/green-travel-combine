@@ -10,7 +10,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteUserRequest, signOutRequest} from 'core/reducers';
 import {Alert} from 'react-native';
-import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
+import {selectFullUserName, selectUserAuthorized} from 'core/selectors';
 
 export const useProfileDetails = () => {
   const {t} = useTranslation('profile');
@@ -40,7 +40,7 @@ export const useProfileDetails = () => {
   }, [t, dispatch]);
 
   const isAuthorized = useSelector(selectUserAuthorized);
-  const userEmail = useSelector(selectUserEmail);
+  const userName = useSelector(selectFullUserName);
 
   useOnRequestSuccess(signOutRequest, () => {
     navigation.goBack();
@@ -56,6 +56,6 @@ export const useProfileDetails = () => {
     deleting,
     onDeleteUserPress,
     isAuthorized,
-    userEmail,
+    userName,
   };
 };

@@ -17,7 +17,7 @@ export const ProfileDetails = () => {
     deleting,
     onDeleteUserPress,
     isAuthorized,
-    userEmail,
+    userName,
   } = useProfileDetails();
 
   return (
@@ -26,7 +26,7 @@ export const ProfileDetails = () => {
         size="M"
         position="single"
         onPress={() => {}}
-        title={isAuthorized ? userEmail : t('notAuthorrized.subtitle')}
+        title={isAuthorized ? userName : t('notAuthorrized.subtitle')}
         renderLeftElement={<Icon name="defaultAcc" size={50} />}
       />
       <View>

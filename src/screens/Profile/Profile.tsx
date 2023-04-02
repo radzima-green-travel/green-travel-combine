@@ -11,7 +11,7 @@ export const Profile = () => {
   const {t} = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
   const {
-    userEmail,
+    userName,
     isAuthorized,
     onAuthorisationItemPress,
     navigateToProfileSettingsLanguage,
@@ -30,7 +30,7 @@ export const Profile = () => {
           title={
             isAuthorized ? t('authorized.title') : t('notAuthorrized.title')
           }
-          subtitle={isAuthorized ? userEmail : t('notAuthorrized.subtitle')}
+          subtitle={isAuthorized ? userName : t('notAuthorrized.subtitle')}
           renderLeftElement={<Icon name="defaultAcc" size={60} />}
           withChevron
           loading={loading}

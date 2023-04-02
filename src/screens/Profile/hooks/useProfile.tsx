@@ -4,7 +4,7 @@ import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProps} from '../types';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectUserAuthorized, selectUserEmail} from 'core/selectors';
+import {selectUserAuthorized, selectFullUserName} from 'core/selectors';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {clearCacheRequest, signInRequest} from 'core/reducers';
 import {useTranslation} from 'core/hooks';
@@ -15,7 +15,7 @@ export const useProfile = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<ProfileScreenNavigationProps>();
   const isAuthorized = useSelector(selectUserAuthorized);
-  const userEmail = useSelector(selectUserEmail);
+  const userName = useSelector(selectFullUserName);
 
   const onAuthorisationItemPress = useCallback(() => {
     if (isAuthorized) {
@@ -57,7 +57,7 @@ export const useProfile = () => {
   });
 
   return {
-    userEmail,
+    userName,
     isAuthorized,
     onAuthorisationItemPress,
     navigateToProfileSettingsLanguage,
