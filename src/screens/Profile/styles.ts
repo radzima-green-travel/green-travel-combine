@@ -9,4 +9,7 @@ export const themeStyles = {
   authItemContainer: {
     marginBottom: 24,
   },
+  settingsItemContainer: {
+    marginBottom: 24,
+  },
 };

@@ -137,14 +137,16 @@
   "profile": {
     "notAuthorrized": {
       "title": "你沒有被授權",
-      "subtitle": "授權或註冊"
+      "subtitle": "登錄或註冊"
     },
     "authorized": {
-      "title": "您已登錄"
+      "title": "您已登錄",
+      "email": "電子郵件"
     },
     "profile": "個人資料",
     "goOut": "退出",
-    "delete": "刪除",
+    "delete": "刪除帳戶",
+    "changePassword": "更改密碼",
     "language": "語言",
     "theme": "主題",
     "systemTheme": "系統",
@@ -156,10 +158,14 @@
     "ok": "好的好的",
     "cancel": "取消",
     "deleteAccount": "您確定要刪除您的帳戶嗎？",
+    "settings": "設置",
     "clear": "清除",
     "clearCache": "清除緩存",
     "clearCacheAlert": "清除緩存？",
     "deletedPhotos": "上傳的照片將被刪除。",
-    "cacheCleared": "緩存已清除"
+    "cacheCleared": "緩存已清除",
+    "info": "信息",
+    "policyPrivacy": "隱私政策",
+    "termsOfUse": "使用條款"
   }
 }

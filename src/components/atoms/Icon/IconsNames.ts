@@ -17,7 +17,6 @@ export type IconsNames =
   | 'church'
   | 'compass'
   | 'cross'
-  | 'defaultAcc'
   | 'delete'
   | 'email'
   | 'emailAuth'
@@ -69,4 +68,5 @@ export type IconsNames =
   | 'strokeWaterRouteDark'
   | 'theme'
   | 'warMonuments'
-  | 'wave';
+  | 'wave'
+  | 'clearCashe';

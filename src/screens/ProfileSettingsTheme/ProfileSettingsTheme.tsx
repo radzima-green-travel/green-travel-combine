@@ -20,7 +20,7 @@ export const ProfileSettingsTheme = () => {
         position="top"
         onPress={() => changeTheme(null)}
         title={t('systemTheme')}
-        renderLeftElement={
+        renderRightElement={
           !userTheme && <Icon color={COLORS.apple} name="check" size={16} />
         }
       />
@@ -28,7 +28,7 @@ export const ProfileSettingsTheme = () => {
         position="middle"
         onPress={() => changeTheme('light')}
         title={t('light')}
-        renderLeftElement={
+        renderRightElement={
           userTheme === 'light' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
@@ -38,7 +38,7 @@ export const ProfileSettingsTheme = () => {
         position="bottom"
         onPress={() => changeTheme('dark')}
         title={t('dark')}
-        renderLeftElement={
+        renderRightElement={
           userTheme === 'dark' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
