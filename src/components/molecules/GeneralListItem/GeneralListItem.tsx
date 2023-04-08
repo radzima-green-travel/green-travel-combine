@@ -67,17 +67,19 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
     }
     if (withChevron) {
       return (
-        <Icon
-          style={loading && styles.loading}
-          color={
-            theme === 'light'
-              ? hexWithAlpha(COLORS.tuna, 0.3)
-              : hexWithAlpha(COLORS.altoForDark, 0.3)
-          }
-          width={7}
-          height={12}
-          name="chevronRight"
-        />
+        <View style={styles.chevronContainer}>
+          <Icon
+            style={loading && styles.loading}
+            color={
+              theme === 'light'
+                ? hexWithAlpha(COLORS.tuna, 0.3)
+                : hexWithAlpha(COLORS.altoForDark, 0.3)
+            }
+            width={7}
+            height={12}
+            name="chevronRight"
+          />
+        </View>
       );
     }
 
@@ -94,23 +96,23 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
       style={containerStyle}
       disabled={disabled || loading}
       activeOpacity={0.8}>
-      {renderLeftElement ? (
-        <View
-          style={[
-            styles.leftElementContainer,
-            size === 'M' && styles.leftElementContainerM,
-          ]}>
-          {renderLeftElement}
-        </View>
-      ) : null}
       <View
         style={[
           styles.contentWrapper,
           (position === 'top' || position === 'middle') &&
             styles.withContentBorder,
         ]}>
+        {renderLeftElement ? (
+          <View
+            style={[
+              styles.leftElementContainer,
+              size === 'M' && styles.leftElementContainerM,
+            ]}>
+            {renderLeftElement}
+          </View>
+        ) : null}
         <View style={styles.contentContainer}>
-          <View style={styles.textContainer}>
+          <View style={[styles.textContainer]}>
             <Text
               style={[
                 size === 'S' ? styles.title : styles.titleM,
@@ -119,7 +121,9 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
               {title}
             </Text>
             {size === 'M' && subtitle ? (
-              <Text style={styles.subtitle}>{subtitle}</Text>
+              <Text style={styles.subtitle} numberOfLines={1}>
+                {subtitle}
+              </Text>
             ) : null}
           </View>
           <View style={styles.rightElementContainer}>

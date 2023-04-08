@@ -137,14 +137,16 @@
   "profile": {
     "notAuthorrized": {
       "title": "You are not authorized",
-      "subtitle": "Authorized or Sign up"
+      "subtitle": "Login or Sign up"
     },
     "authorized": {
-      "title": "You are logged in"
+      "title": "You are logged in",
+      "email": "E-mail"
     },
     "profile": "Profile",
     "goOut": "Sign out",
-    "delete": "Delete",
+    "delete": "Delete account",
+    "changePassword": "Change password",
     "language": "Language",
     "theme": "Theme",
     "systemTheme": "System",
@@ -156,10 +158,14 @@
     "ok": "OK",
     "cancel": "Cancel",
     "deleteAccount": "Are you sure you want to delete your account?",
+    "settings": "Settings",
     "clear": "Clear",
     "clearCache": "Clear cache",
     "clearCacheAlert": "Clear cache?",
     "deletedPhotos": "Uploaded photos will be deleted.",
-    "cacheCleared": "Cache cleared"
+    "cacheCleared": "Cache cleared",
+    "info": "Info",
+    "policyPrivacy": "Policy Privacy",
+    "termsOfUse": "Terms Of Use"
   }
 }

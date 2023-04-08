@@ -1,7 +1,6 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {GeneralListItem} from 'molecules';
-import {Icon} from 'atoms';
 import {screenOptions} from './screenOptions';
 import {useProfileDetails} from './hooks';
 import {useTranslation} from 'react-i18next';
@@ -22,31 +21,36 @@ export const ProfileDetails = () => {
 
   return (
     <View style={styles.container}>
-      <GeneralListItem
-        size="M"
-        position="single"
-        onPress={() => {}}
-        title={isAuthorized ? userName : t('notAuthorrized.subtitle')}
-        renderLeftElement={<Icon name="defaultAcc" size={50} />}
-      />
-      <View>
-        <View style={styles.itemContainer}>
-          <GeneralListItem
-            loading={loading}
-            position="single"
-            onPress={onSignOutPress}
-            title={t('goOut')}
-            red
-          />
-        </View>
+      <View style={styles.itemContainer}>
         <GeneralListItem
-          loading={deleting}
           position="single"
-          onPress={onDeleteUserPress}
-          title={t('delete')}
-          red
+          onPress={() => {}}
+          title={
+            isAuthorized ? t('authorized.email') : t('notAuthorrized.subtitle')
+          }
+          renderRightElement={isAuthorized && <Text>{userName}</Text>}
         />
       </View>
+      <View style={styles.itemContainer}>
+        <GeneralListItem
+          position="single"
+          onPress={() => {}}
+          title={t('changePassword')}
+        />
+      </View>
+      <GeneralListItem
+        loading={deleting}
+        position="top"
+        onPress={onDeleteUserPress}
+        title={t('delete')}
+        red
+      />
+      <GeneralListItem
+        loading={loading}
+        position="bottom"
+        onPress={onSignOutPress}
+        title={t('goOut')}
+      />
     </View>
   );
 };

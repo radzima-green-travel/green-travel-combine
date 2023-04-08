@@ -34,13 +34,13 @@ export const themeStyles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    flex: 1,
+    paddingRight: 10,
   },
   contentWrapper: {
     flex: 1,
     height: '100%',
-    justifyContent: 'center',
-    paddingRight: 16,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   withContentBorder: {
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -49,7 +49,9 @@ export const themeStyles = {
       dark: hexWithAlpha(COLORS.altoForDark, 0.1),
     },
   },
-  textContainer: {},
+  textContainer: {
+    flex: 1,
+  },
   title: {
     ...FONTS_STYLES.regular17,
     color: {
@@ -86,5 +88,11 @@ export const themeStyles = {
   rightElementContainer: {
     minHeight: 20,
     minWidth: 20,
+    justifyContent: 'center',
+  },
+  chevronContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 };

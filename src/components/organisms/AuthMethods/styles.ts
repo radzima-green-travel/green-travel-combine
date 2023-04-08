@@ -16,9 +16,6 @@ export const themeStyles = {
       dark: COLORS.black,
     },
   },
-  emailIconFirstOption: {
-    color: COLORS.white,
-  },
   emailIconOtherOption: {
     color: {
       light: COLORS.balticSea,
@@ -27,13 +24,14 @@ export const themeStyles = {
   },
   otherOptionsButton: {
     marginBottom: 16,
+    borderRadius: 14,
   },
   separatorSection: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    marginVertical: 32,
+    marginTop: 16,
+    marginBottom: 32,
   },
   separator: {
     height: 1,
@@ -44,7 +42,7 @@ export const themeStyles = {
     flex: 1,
   },
   separatorText: {
-    marginHorizontal: 20,
+    marginHorizontal: 8,
     ...FONTS_STYLES.regular14,
     color: {
       light: COLORS.boulder,

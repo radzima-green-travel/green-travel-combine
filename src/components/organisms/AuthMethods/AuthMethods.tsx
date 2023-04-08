@@ -34,6 +34,7 @@ export const AuthMethods = memo(
     const AppleButton = () => (
       <Button
         theme={'blackAndWhite'}
+        style={styles.otherOptionsButton}
         onPress={onAppleButtonPress}
         text={t('appleAuth')}
         leftIcon={() => <Icon name={'appleAuth'} style={styles.appleIcon} />}
@@ -42,26 +43,19 @@ export const AuthMethods = memo(
       />
     );
 
-    const EmailButton = ({isOtherOption}: {isOtherOption?: boolean}) => (
+    const GmailButton = () => (
       <Button
-        theme={isOtherOption ? 'bordered' : 'green'}
-        style={isOtherOption && styles.otherOptionsButton}
-        onPress={onEmailButtonPress}
-        text={t('emailAuth')}
-        leftIcon={() => (
-          <Icon
-            name={'emailAuth'}
-            style={
-              isOtherOption
-                ? styles.emailIconOtherOption
-                : styles.emailIconFirstOption
-            }
-          />
-        )}
+        theme={'bordered'}
+        style={styles.otherOptionsButton}
+        onPress={onGoogleButtonPress}
+        text={t('googleAuth')}
+        leftIcon={() => <Icon name={'googleAuth'} />}
+        loading={googleLoading}
+        disabled={appleLoading || facebookLoading}
       />
     );
 
-    const FirstButton = isIOS ? AppleButton : EmailButton;
+    const FirstButton = isIOS ? AppleButton : GmailButton;
 
     return (
       <View style={styles.container}>
@@ -81,16 +75,16 @@ export const AuthMethods = memo(
           loading={facebookLoading}
           leftIcon={() => <Icon name={'facebookAuth'} />}
         />
+        {isIOS && <GmailButton />}
         <Button
           theme={'bordered'}
           style={styles.otherOptionsButton}
-          onPress={onGoogleButtonPress}
-          text={t('googleAuth')}
-          leftIcon={() => <Icon name={'googleAuth'} />}
-          loading={googleLoading}
-          disabled={appleLoading || facebookLoading}
+          onPress={onEmailButtonPress}
+          text={t('emailAuth')}
+          leftIcon={() => (
+            <Icon name={'emailAuth'} style={styles.emailIconOtherOption} />
+          )}
         />
-        {isIOS && EmailButton({isOtherOption: true})}
       </View>
     );
   },

@@ -23,7 +23,7 @@ export const ProfileSettingsLanguage = () => {
         disabled={getItemDisabled(null)}
         onPress={() => changeLanguage(null)}
         title={t('systemLanguage')}
-        renderLeftElement={
+        renderRightElement={
           !userLanguage && <Icon color={COLORS.apple} name="check" size={16} />
         }
       />
@@ -33,7 +33,7 @@ export const ProfileSettingsLanguage = () => {
         disabled={getItemDisabled('en')}
         onPress={() => changeLanguage('en')}
         title={'English'}
-        renderLeftElement={
+        renderRightElement={
           userLanguage === 'en' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
@@ -45,7 +45,7 @@ export const ProfileSettingsLanguage = () => {
         disabled={getItemDisabled('ru')}
         onPress={() => changeLanguage('ru')}
         title={'Русский'}
-        renderLeftElement={
+        renderRightElement={
           userLanguage === 'ru' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )
@@ -57,7 +57,7 @@ export const ProfileSettingsLanguage = () => {
         disabled={getItemDisabled('zh')}
         onPress={() => changeLanguage('zh')}
         title={'中國人'}
-        renderLeftElement={
+        renderRightElement={
           userLanguage === 'zh' && (
             <Icon color={COLORS.apple} name="check" size={16} />
           )

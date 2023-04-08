@@ -31,34 +31,50 @@ export const Profile = () => {
             isAuthorized ? t('authorized.title') : t('notAuthorrized.title')
           }
           subtitle={isAuthorized ? userName : t('notAuthorrized.subtitle')}
-          renderLeftElement={<Icon name="defaultAcc" size={60} />}
           withChevron
           loading={loading}
         />
       </View>
 
-      <SettingsSectionTitle text="Настройки" />
+      <View style={styles.settingsItemContainer}>
+        <SettingsSectionTitle text={t('settings')} />
+        <GeneralListItem
+          position="top"
+          onPress={navigateToProfileSettingsLanguage}
+          title={t('language')}
+          renderLeftElement={<Icon name="language" size={30} />}
+          withChevron
+        />
+        <GeneralListItem
+          position="middle"
+          onPress={navigateToProfileSettingsTheme}
+          title={t('theme')}
+          renderLeftElement={<Icon name="theme" size={30} />}
+          withChevron
+        />
+        <GeneralListItem
+          position="bottom"
+          onPress={onClearCachePress}
+          title={t('clearCache')}
+          renderLeftElement={<Icon name="clearCashe" size={30} />}
+          withChevron
+        />
+      </View>
+
+      <SettingsSectionTitle text={t('info')} />
       <GeneralListItem
         position="top"
-        onPress={navigateToProfileSettingsLanguage}
-        title={t('language')}
-        renderLeftElement={<Icon name="language" size={30} />}
-        withChevron
-      />
-      <GeneralListItem
-        position="middle"
-        onPress={navigateToProfileSettingsTheme}
-        title={t('theme')}
-        renderLeftElement={<Icon name="theme" size={30} />}
+        onPress={() => {}}
+        title={t('policyPrivacy')}
         withChevron
       />
       <GeneralListItem
         position="bottom"
-        onPress={onClearCachePress}
-        title={t('clearCache')}
-        renderLeftElement={<Icon name="memoryNData" size={30} />}
+        onPress={() => {}}
+        title={t('termsOfUse')}
         withChevron
       />
+
       <SnackBar {...snackBarProps} />
     </View>
   );

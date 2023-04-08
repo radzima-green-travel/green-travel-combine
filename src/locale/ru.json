@@ -137,14 +137,16 @@
   "profile": {
     "notAuthorrized": {
       "title": "Вы не авторизованы",
-      "subtitle": "Авторизуйтесь\nили зарегистрируйтесь"
+      "subtitle": "Войдите или зарегистрируйтесь"
     },
     "authorized": {
-      "title": "Вы авторизованы"
+      "title": "Вы авторизованы",
+      "email": "E-mail"
     },
     "profile": "Профиль",
     "goOut": "Выйти",
-    "delete": "Удалить",
+    "delete": "Удалить аккаунт",
+    "changePassword": "Сменить пароль",
     "language": "Язык",
     "theme": "Тема",
     "systemTheme": "Системная",
@@ -156,10 +158,14 @@
     "ok": "ОК",
     "cancel": "Отмена",
     "deleteAccount": "Вы уверены, что хотите удалить аккаунт?",
+    "settings": "Настройки",
     "clear": "Очистить",
     "clearCache": "Очистить кэш",
     "clearCacheAlert": "Очистить кэш?",
     "deletedPhotos": "Будут удалены загруженные фото.",
-    "cacheCleared": "Кэш очищен"
+    "cacheCleared": "Кэш очищен",
+    "info": "Информация",
+    "policyPrivacy": "Политика конфиденциальности",
+    "termsOfUse": "Правила использования"
   }
 }
