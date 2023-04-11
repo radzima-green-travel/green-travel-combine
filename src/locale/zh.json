@@ -23,7 +23,8 @@
     "locationPermissionFirstRequest": "允許 Radzima 應用訪問設備位置數據",
     "locationPermissionText": "在設置中授予對地理位置的訪問權限以確定您的位置",
     "locationPermissionCancel": "取消",
-    "locationPermissionSetttings": "设置"
+    "locationPermissionSetttings": "设置",
+    "cancel": "取消"
   },
   "home": {
     "headerTitle": "主页",

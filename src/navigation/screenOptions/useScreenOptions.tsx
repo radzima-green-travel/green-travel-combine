@@ -38,15 +38,17 @@ export function useScreenOptions({
       headerShadowVisible: false,
       headerBackVisible: false,
       headerTitleAlign: 'center',
-      headerLeft: props =>
-        props.canGoBack ? (
+      headerLeft: props => {
+        console.log('props', props);
+        return props.canGoBack ? (
           <TouchableOpacity
             hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
             activeOpacity={0.8}
             onPress={() => navigation.goBack()}>
             <Icon name="chevron" color="white" size={24} />
           </TouchableOpacity>
-        ) : null,
+        ) : null;
+      },
       headerTitle: props => <HeaderTitle title={props.children} />,
       ...customOptions,
     } as NativeStackNavigationOptions);

@@ -5,7 +5,7 @@ import {AuthMethods} from 'organisms';
 import {useAuthMethodSelection} from './hooks';
 import {themeStyles} from './styles';
 import {EPAM_PRIVACY_POLICY_URL, RADZIMA_URL} from 'core/constants';
-
+import {screenOptions} from './screenOptions';
 export const AuthMethodSelection = () => {
   const {t} = useTranslation('authentification');
   const {t: tCommon} = useTranslation('common');
@@ -50,3 +50,5 @@ export const AuthMethodSelection = () => {
     </View>
   );
 };
+
+AuthMethodSelection.screenOptions = screenOptions;

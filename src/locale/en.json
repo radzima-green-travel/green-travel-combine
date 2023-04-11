@@ -23,7 +23,8 @@
     "locationPermissionFirstRequest": "Allow the Radzima app to access device location data",
     "locationPermissionText": "Grant access to Geolocation in settings to determine your position",
     "locationPermissionCancel": "Cancel",
-    "locationPermissionSetttings": "Settings"
+    "locationPermissionSetttings": "Settings",
+    "cancel": "Cancel"
   },
   "home": {
     "headerTitle": "Main",

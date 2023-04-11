@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 
 import {
   AuthMethodSelectionScreen,
@@ -10,22 +10,29 @@ import {
   NewPasswordScreen,
   SocialLoginInAppBrowserScreen,
 } from '../../screens';
+import {HeaderCancelButton} from 'atoms';
 
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
 import {AuthNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';
+import {useNavigation} from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator<AuthNavigatorParamsList>();
 
 export function AuthNavigator() {
   const {t} = useTranslation('authentification');
+  const navigation = useNavigation();
+  const onHeaderRightPress = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   const screenOptions = useScreenOptions({
     withBottomInset: true,
-    title: t('login/Register'),
+    title: '',
     animation: defaultTransition,
+    headerRight: () => <HeaderCancelButton onPress={onHeaderRightPress} />,
   });
 
   return (
@@ -34,6 +41,7 @@ export function AuthNavigator() {
       <Stack.Screen
         name="AuthMethodSelection"
         component={AuthMethodSelectionScreen}
+        options={AuthMethodSelectionScreen.screenOptions}
       />
       <Stack.Screen name="SignInPassword" component={SignInPasswordScreen} />
       <Stack.Screen name="SignUpForm" component={SignUpFormScreen} />
