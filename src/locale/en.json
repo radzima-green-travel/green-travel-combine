@@ -70,7 +70,7 @@
       "invalidEmail": "Invalid email format",
       "emptyEmail": "Enter your email",
       "emptyPassword": "Enter your password",
-      "password": "The password should include at least 8 characters, 1 special character, 1 uppercase and 1 number"
+      "password": "The password should include at least 8 characters, 1 special character, 1 uppercase, 1 lowercase and 1 number"
     },
     "errors": {
       "-1": {
@@ -121,7 +121,7 @@
     "save": "Save",
     "returnAndEnter": "Return and login",
     "inputPassword": "Enter password",
-    "createPasswordFor": "Create a password for",
+    "createPasswordFor": "Create a password for {{email}}",
     "weKnowYou": "Looks like we already know you",
     "enterEmailAddress": "Enter your email address",
     "checkAccount": "Let's check if you have an account...",

@@ -70,7 +70,7 @@
       "invalidEmail": "電子郵件格式無效",
       "emptyPassword": "輸入您的密碼",
       "emptyEmail": "輸入你的電子郵箱",
-      "password": "密碼應至少包含8個字符、1個特殊字符、1個大寫字母和1個數字"
+      "password": "密碼應至少包含8個字符，1個特殊字符，1個大寫字母，1個小寫字母和1個數字"
     },
     "errors": {
       "-1": {
@@ -121,7 +121,7 @@
     "save": "保存",
     "returnAndEnter": "返回並登錄",
     "inputPassword": "輸入密碼",
-    "createPasswordFor": "創建密碼",
+    "createPasswordFor": "創建密碼 {{email}}",
     "weKnowYou": "看起來我們已經認識你了",
     "enterEmailAddress": "輸入您的電子郵件地址",
     "checkAccount": "讓我們檢查一下您是否有帳戶...",
