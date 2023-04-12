@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {Pressable, TextInput, View} from 'react-native';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
@@ -6,6 +6,8 @@ import {Icon} from '../Icon';
 import {IconsNames} from 'atoms/Icon/IconsNames';
 import {COLORS} from 'assets';
 import {HelperText} from '../HelperText';
+import {isIOS} from 'services/PlatformService';
+import {useNavigation} from '@react-navigation/native';
 
 interface IProps {
   iconLeftName?: IconsNames;
@@ -42,6 +44,7 @@ export const FormInput = ({
   const {t} = useTranslation('authentification');
   const styles = useThemeStyles(themeStyles);
   const colorScheme = useColorScheme();
+  const ref = useRef<TextInput>(null);
 
   const onFocusHandler = useCallback(() => {
     if (onFocus) {
@@ -54,6 +57,19 @@ export const FormInput = ({
       onBlur();
     }
   }, [onBlur]);
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (autoFocus && isIOS) {
+      // @ts-ignore
+      const unsubscribe = navigation.addListener('transitionEnd', () => {
+        ref.current?.focus();
+      });
+
+      return unsubscribe;
+    }
+  }, [autoFocus, navigation]);
 
   return (
     <View style={styles.container}>
@@ -71,6 +87,7 @@ export const FormInput = ({
           />
         ) : null}
         <TextInput
+          ref={ref}
           style={styles.inputField}
           placeholder={t(placeholder)}
           secureTextEntry={secureTextEntry}
@@ -78,11 +95,11 @@ export const FormInput = ({
           autoCorrect={false}
           value={value}
           onChangeText={onChange}
-          autoFocus={autoFocus}
+          autoFocus={isIOS ? undefined : autoFocus}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
           placeholderTextColor={
-            colorScheme === 'light' ? COLORS.logCabin : COLORS.cullGrey
+            colorScheme === 'light' ? COLORS.silver : COLORS.cullGrey
           }
         />
         {iconRightName ? (

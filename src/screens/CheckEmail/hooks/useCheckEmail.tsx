@@ -32,6 +32,7 @@ export const useCheckEmail = () => {
     },
     validationSchema: validationSchema,
     onSubmit: checkEmail,
+    validateOnBlur: false,
   });
 
   const {values} = formik;
