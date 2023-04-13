@@ -14,6 +14,7 @@
 		5A006D1A2783565A00010D63 /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A006D192783565A00010D63 /* URLUtils.m */; };
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
 		5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* LoginViewController.m */; };
+		5A0BA11E29E84EF100348973 /* SocialProvidersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BA11D29E84EF100348973 /* SocialProvidersViewController.m */; };
 		5A0E709329488D9100009B1C /* SettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E709229488D9100009B1C /* SettingsModel.m */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
@@ -282,6 +283,8 @@
 		5A05E8532821787E00017BA0 /* AmplifyBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyBridge.swift; sourceTree = "<group>"; };
 		5A096AFB2836A20F000FADB2 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5A096AFC2836A20F000FADB2 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		5A0BA11C29E84EF100348973 /* SocialProvidersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialProvidersViewController.h; sourceTree = "<group>"; };
+		5A0BA11D29E84EF100348973 /* SocialProvidersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocialProvidersViewController.m; sourceTree = "<group>"; };
 		5A0E709129488D9100009B1C /* SettingsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModel.h; sourceTree = "<group>"; };
 		5A0E709229488D9100009B1C /* SettingsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsModel.m; sourceTree = "<group>"; };
 		5A0E709429488DAC00009B1C /* SettingsModelObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelObservable.h; sourceTree = "<group>"; };
@@ -869,6 +872,15 @@
 				5ACDFCDB285DFA2A0079C8EC /* CommonFormConstants.m */,
 			);
 			path = LoginViewController;
+			sourceTree = "<group>";
+		};
+		5A0BA11B29E84ED300348973 /* SocialProvidersViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A0BA11C29E84EF100348973 /* SocialProvidersViewController.h */,
+				5A0BA11D29E84EF100348973 /* SocialProvidersViewController.m */,
+			);
+			path = SocialProvidersViewController;
 			sourceTree = "<group>";
 		};
 		5A0E709029488D7800009B1C /* SettingsModel */ = {
@@ -2065,6 +2077,7 @@
 		5AFFD0EE2850E4A2009E5AB8 /* ProfileRootViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5A0BA11B29E84ED300348973 /* SocialProvidersViewController */,
 				5EA9408B28E6175400E90014 /* UserSettingsViewController */,
 				5EA9408028E6169700E90014 /* ProfileTableViewController */,
 				5AFFD0F72851FE6D009E5AB8 /* UserFetchProgressViewController */,
@@ -2668,6 +2681,7 @@
 				5A775E1026077A7D00CEFC78 /* BannerView.m in Sources */,
 				5A775E0326077A7D00CEFC78 /* CategoriesFilterView.m in Sources */,
 				5ADCF60B298180800005B06A /* AuthLoggedOutTableViewCell.m in Sources */,
+				5A0BA11E29E84EF100348973 /* SocialProvidersViewController.m in Sources */,
 				5A775B5226064C9000CEFC78 /* FeedModel.m in Sources */,
 				5ACC9A9E283969F7008E302D /* SecureTextField.m in Sources */,
 				5A295C262989388A00A109F0 /* SettingsAuthTableViewCell.m in Sources */,

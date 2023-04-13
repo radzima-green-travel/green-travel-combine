@@ -18,6 +18,7 @@
 #import "LocaleUtils.h"
 #import "SettingsScreenProfile.h"
 #import "AlertUtils.h"
+#import "SocialProvidersViewController.h"
 
 @interface SettingsScreenRoot()
 
@@ -52,11 +53,11 @@
   authEntry.inProgress = NO;
   __weak typeof(self) weakSelf = self;
   authEntry.doAction = ^void(UIViewController *activeViewController) {
-    LoginViewController *loginViewController =
-    [[LoginViewController alloc] initWithController:weakSelf.userController
+    SocialProvidersViewController *socialProvidersViewController =
+    [[SocialProvidersViewController alloc] initWithController:weakSelf.userController
                                               model:weakSelf.userModel];
-    loginViewController.title = NSLocalizedString(@"LogInTitle", @"");
-    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    socialProvidersViewController.title = NSLocalizedString(@"LogInTitle", @"");
+    UINavigationController *loginViewControllerWithNavigation = [[UINavigationController alloc] initWithRootViewController:socialProvidersViewController];
     if (@available(iOS 13.0, *)) {
       [loginViewControllerWithNavigation setModalInPresentation:YES];
     }
