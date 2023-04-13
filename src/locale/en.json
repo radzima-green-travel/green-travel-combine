@@ -70,7 +70,7 @@
       "invalidEmail": "Invalid email format",
       "emptyEmail": "Enter your email",
       "emptyPassword": "Enter your password",
-      "password": "The password should include at least 8 characters, 1 special character, 1 uppercase, 1 lowercase and 1 number"
+      "password": "The password should include at least 6 characters, 1 special character, 1 uppercase, 1 lowercase and 1 number"
     },
     "errors": {
       "-1": {
