@@ -15,6 +15,8 @@
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
 		5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* LoginViewController.m */; };
 		5A0BA11E29E84EF100348973 /* SocialProvidersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BA11D29E84EF100348973 /* SocialProvidersViewController.m */; };
+		5A0BA12229E9212A00348973 /* SocialProviderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BA12129E9212A00348973 /* SocialProviderButton.m */; };
+		5A0BA12629E95F0C00348973 /* TermsAndPrivacyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BA12529E95F0C00348973 /* TermsAndPrivacyView.m */; };
 		5A0E709329488D9100009B1C /* SettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E709229488D9100009B1C /* SettingsModel.m */; };
 		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
@@ -285,6 +287,10 @@
 		5A096AFC2836A20F000FADB2 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5A0BA11C29E84EF100348973 /* SocialProvidersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialProvidersViewController.h; sourceTree = "<group>"; };
 		5A0BA11D29E84EF100348973 /* SocialProvidersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocialProvidersViewController.m; sourceTree = "<group>"; };
+		5A0BA12029E9212A00348973 /* SocialProviderButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocialProviderButton.h; sourceTree = "<group>"; };
+		5A0BA12129E9212A00348973 /* SocialProviderButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocialProviderButton.m; sourceTree = "<group>"; };
+		5A0BA12429E95F0C00348973 /* TermsAndPrivacyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TermsAndPrivacyView.h; sourceTree = "<group>"; };
+		5A0BA12529E95F0C00348973 /* TermsAndPrivacyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TermsAndPrivacyView.m; sourceTree = "<group>"; };
 		5A0E709129488D9100009B1C /* SettingsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModel.h; sourceTree = "<group>"; };
 		5A0E709229488D9100009B1C /* SettingsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsModel.m; sourceTree = "<group>"; };
 		5A0E709429488DAC00009B1C /* SettingsModelObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelObservable.h; sourceTree = "<group>"; };
@@ -877,10 +883,30 @@
 		5A0BA11B29E84ED300348973 /* SocialProvidersViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5A0BA12329E95EEB00348973 /* TermsAndPrivacyView */,
+				5A0BA11F29E920D000348973 /* SocialLoginButton */,
 				5A0BA11C29E84EF100348973 /* SocialProvidersViewController.h */,
 				5A0BA11D29E84EF100348973 /* SocialProvidersViewController.m */,
 			);
 			path = SocialProvidersViewController;
+			sourceTree = "<group>";
+		};
+		5A0BA11F29E920D000348973 /* SocialLoginButton */ = {
+			isa = PBXGroup;
+			children = (
+				5A0BA12029E9212A00348973 /* SocialProviderButton.h */,
+				5A0BA12129E9212A00348973 /* SocialProviderButton.m */,
+			);
+			path = SocialLoginButton;
+			sourceTree = "<group>";
+		};
+		5A0BA12329E95EEB00348973 /* TermsAndPrivacyView */ = {
+			isa = PBXGroup;
+			children = (
+				5A0BA12429E95F0C00348973 /* TermsAndPrivacyView.h */,
+				5A0BA12529E95F0C00348973 /* TermsAndPrivacyView.m */,
+			);
+			path = TermsAndPrivacyView;
 			sourceTree = "<group>";
 		};
 		5A0E709029488D7800009B1C /* SettingsModel */ = {
@@ -2723,6 +2749,7 @@
 				5A775B8B26064C9000CEFC78 /* CategoryUtils.m in Sources */,
 				5AF8D58E260C7D8A001CE702 /* CommonButton.m in Sources */,
 				5AD1B2C52972D319005CED4E /* SettingsToggleTableViewCell.m in Sources */,
+				5A0BA12229E9212A00348973 /* SocialProviderButton.m in Sources */,
 				5AB4AFD127B5B20E00C74857 /* StoredPlaceDetails+CoreDataProperties.m in Sources */,
 				5A2C90592957244D008D8C7E /* SettingsScreen.m in Sources */,
 				5A6DC56B2655B5C500A2D37B /* StoredCoordinate+CoreDataClass.m in Sources */,
@@ -2736,6 +2763,7 @@
 				5AD1B2D0297C1DD2005CED4E /* SettingsEntryAuthLoggedOut.m in Sources */,
 				5A775B5F26064C9000CEFC78 /* IconNameToImageNameMap.m in Sources */,
 				5AE9927029B3873D0092C5B8 /* SettingsEntryInfo.m in Sources */,
+				5A0BA12629E95F0C00348973 /* TermsAndPrivacyView.m in Sources */,
 				5A775B8E26064C9000CEFC78 /* SizeUtils.m in Sources */,
 				5A6685E2285A36AC008E193E /* ResetPasswordEMailViewController.m in Sources */,
 				5AD347E32837C2C500235E96 /* UserController.m in Sources */,

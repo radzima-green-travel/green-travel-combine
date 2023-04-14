@@ -7,10 +7,11 @@
 
 #import "SocialProvidersViewController.h"
 #import "LoginViewController.h"
+#import "SocialProviderButton.h"
+#import "TermsAndPrivacyView.h"
 
 @interface SocialProvidersViewController ()
 
-@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIStackView *stackView;
 @property (nonatomic, strong) UIButton *appleButton;
 @property (nonatomic, strong) UIButton *googleButton;
@@ -47,97 +48,152 @@
   [super viewDidLoad];
   
   self.view.backgroundColor = [UIColor whiteColor];
+  self.title = @"Sign in";
   
-  self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
-  self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.scrollView.alwaysBounceHorizontal = YES;
-  [self.view addSubview:self.scrollView];
+  // Add social buttons
+  NSArray *socialProviders = @[
+    @{
+      @"title": @"Continue with Apple",
+      @"logo": [UIImage imageNamed:@"apple_logo"],
+      @"bgColor": [UIColor blackColor],
+      @"borderColor": [UIColor blackColor],
+      @"onTap": ^{
+        // Handle Apple sign in
+      }
+    },
+    @{
+      @"title": @"Continue with Facebook",
+      @"logo": [UIImage imageNamed:@"facebook_logo"],
+      @"bgColor": [UIColor colorWithRed:0.23 green:0.35 blue:0.6 alpha:1.0],
+      @"borderColor": [UIColor colorWithRed:0.23 green:0.35 blue:0.6 alpha:1.0],
+      @"onTap": ^{
+        // Handle Facebook sign in
+      }
+    },
+    @{
+      @"title": @"Continue with Google",
+      @"logo": [UIImage imageNamed:@"google_logo"],
+      @"bgColor": [UIColor whiteColor],
+      @"borderColor": [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0],
+      @"onTap": ^{
+        // Handle Google sign in
+      }
+    },
+    @{
+      @"title": @"Continue with Email",
+      @"logo": [UIImage imageNamed:@"mail_logo"],
+      @"bgColor": [UIColor whiteColor],
+      @"borderColor": [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0],
+      @"onTap": ^{
+        // Handle Google sign in
+      }
+    },
+  ];
   
-  self.stackView = [[UIStackView alloc] initWithFrame:CGRectZero];
-  self.stackView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.stackView.axis = UILayoutConstraintAxisVertical;
-  self.stackView.spacing = 20.0;
-  [self.scrollView addSubview:self.stackView];
+  CGFloat buttonHeight = 50.0;
+  CGFloat spacing = 20.0;
+  CGFloat topOffset = 20.0;
   
-  self.appleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.appleButton.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.appleButton setTitle:@"Continue with Apple" forState:UIControlStateNormal];
-  [self.appleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-  [self.appleButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-  [self.appleButton setImage:[UIImage imageNamed:@"apple_logo"] forState:UIControlStateNormal];
-  self.appleButton.backgroundColor = [UIColor blackColor];
-  self.appleButton.layer.cornerRadius = 22.0;
-  self.appleButton.layer.masksToBounds = YES;
-  [self.appleButton addTarget:self action:@selector(appleButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-  [self.stackView addArrangedSubview:self.appleButton];
+#pragma mark - apple sign in button
+  SocialProviderButton *appleButton = [[SocialProviderButton alloc] initWithFrame:CGRectZero];
+  appleButton.layer.masksToBounds = YES;
+  appleButton.layer.cornerRadius = buttonHeight / 2;
+  appleButton.clipsToBounds = YES;
+  appleButton.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
+  NSDictionary *appleProvider = socialProviders[0];
+  appleButton.title = appleProvider[@"title"];
+  appleButton.borderColor = appleProvider[@"borderColor"];
+  appleButton.bgColor = appleProvider[@"bgColor"];
+  appleButton.logoImage = appleProvider[@"logo"];
+  appleButton.onTap = appleProvider[@"onTap"];
+  [self.contentView addSubview:appleButton];
   
-  self.googleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.googleButton.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.googleButton setTitle:@"Continue with Google" forState:UIControlStateNormal];
-  [self.googleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-  [self.googleButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-  [self.googleButton setImage:[UIImage imageNamed:@"google_logo"] forState:UIControlStateNormal];
-  self.googleButton.backgroundColor = [UIColor whiteColor];
-  self.googleButton.layer.cornerRadius = 22.0;
-  self.googleButton.layer.masksToBounds = YES;
-  [self.googleButton addTarget:self action:@selector(googleButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-  [self.stackView addArrangedSubview:self.googleButton];
+  // Add constraints for email sign in button
+  appleButton.translatesAutoresizingMaskIntoConstraints = NO;
+  [appleButton.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
+  [appleButton.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor constant:-spacing * 2].active = YES;
+  [appleButton.heightAnchor constraintEqualToConstant:buttonHeight].active = YES;
+  [appleButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:spacing].active = YES;
   
-  self.facebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.facebookButton.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.facebookButton setTitle:@"Continue with Facebook" forState:UIControlStateNormal];
-  [self.facebookButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-  [self.facebookButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-  [self.facebookButton setImage:[UIImage imageNamed:@"facebook_logo"] forState:UIControlStateNormal];
-  self.facebookButton.backgroundColor = [UIColor colorWithRed:0.23 green:0.35 blue:0.6 alpha:1.0];
-  self.facebookButton.layer.cornerRadius = 22.0;
-  self.facebookButton.layer.masksToBounds = YES;
-  [self.facebookButton addTarget:self action:@selector(facebookButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-  [self.stackView addArrangedSubview:self.facebookButton];
+#pragma mark - divider view and "or" label
+  UIView *dividerView = [[UIView alloc] initWithFrame:CGRectZero];
+  dividerView.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+  [self.contentView addSubview:dividerView];
   
-  self.emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.emailButton.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.emailButton setTitle:@"Continue with Email" forState:UIControlStateNormal];
-  [self.emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-  [self.emailButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-  [self.emailButton setImage:[UIImage imageNamed:@"email_icon"] forState:UIControlStateNormal];
-  self.emailButton.backgroundColor = [UIColor whiteColor];
-  self.emailButton.layer.cornerRadius = 22.0;
-  self.emailButton.layer.masksToBounds = YES;
-  [self.emailButton addTarget:self action:@selector(emailButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-  [self.stackView addArrangedSubview:self.emailButton];
+  UILabel *orLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+  orLabel.text = @"or";
+  orLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular];
+  orLabel.textColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+  orLabel.backgroundColor = [UIColor whiteColor];
+  orLabel.textAlignment = NSTextAlignmentCenter;
+  [self.contentView addSubview:orLabel];
   
-  UILayoutGuide *frameGuide = self.scrollView.frameLayoutGuide;
-  UILayoutGuide *contentGuide = self.scrollView.contentLayoutGuide;
+  // Add constraints for divider view and "or" label
+  CGFloat dividerHeight = 1.0 / [UIScreen mainScreen].scale;
+  CGFloat orLabelWidth = 40.0;
   
-  [NSLayoutConstraint activateConstraints:@[
-    [self.scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-    [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-    [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-    [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+  dividerView.translatesAutoresizingMaskIntoConstraints = NO;
+  [dividerView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
+  [dividerView.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor constant:-spacing * 2].active = YES;
+  [dividerView.heightAnchor constraintEqualToConstant:dividerHeight].active = YES;
+  [dividerView.topAnchor constraintEqualToAnchor:appleButton.bottomAnchor constant:spacing].active = YES;
+  
+  orLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  [orLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
+  [orLabel.widthAnchor constraintEqualToConstant:orLabelWidth].active = YES;
+  [orLabel.centerYAnchor constraintEqualToAnchor:dividerView.centerYAnchor].active = YES;
+  
+  UIView *previousView = nil;
+#pragma mark - other social buttons
+  for (NSUInteger i = 1; i < socialProviders.count; i++) {
+    NSDictionary *provider = socialProviders[i];
+    SocialProviderButton *button = [[SocialProviderButton alloc] initWithFrame:CGRectZero];
+    button.layer.masksToBounds = YES;
+    button.layer.cornerRadius = buttonHeight / 2;
+    button.clipsToBounds = YES;
+    button.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
+    button.title = provider[@"title"];
+    button.borderColor = provider[@"borderColor"];
+    button.bgColor = provider[@"bgColor"];
+    button.logoImage = provider[@"logo"];
+    button.onTap = provider[@"onTap"];
+    [self.contentView addSubview:button];
     
-    [self.stackView.topAnchor constraintEqualToAnchor:contentGuide.topAnchor constant:20.0],
-    [self.stackView.leadingAnchor constraintEqualToAnchor:frameGuide.leadingAnchor constant:20.0],
-    [self.stackView.trailingAnchor constraintEqualToAnchor:frameGuide.trailingAnchor constant:-20.0],
-    [self.stackView.bottomAnchor constraintEqualToAnchor:contentGuide.bottomAnchor constant:-20.0],
+    // Add constraints
+    button.translatesAutoresizingMaskIntoConstraints = NO;
+    [button.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
+    [button.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor constant:-spacing * 2].active = YES;
+    [button.heightAnchor constraintEqualToConstant:buttonHeight].active = YES;
+    if (previousView) {
+      [button.topAnchor constraintEqualToAnchor:previousView.bottomAnchor constant:spacing].active = YES;
+    } else {
+      [button.topAnchor constraintEqualToAnchor:dividerView.bottomAnchor constant:topOffset].active = YES;
+    }
     
-    [self.appleButton.heightAnchor constraintEqualToConstant:44.0],
-    [self.googleButton.heightAnchor constraintEqualToConstant:44.0],
-    [self.facebookButton.heightAnchor constraintEqualToConstant:44.0],
-    [self.emailButton.heightAnchor constraintEqualToConstant:44.0]
-  ]];
+    previousView = button;
+  }
+  
+  TermsAndPrivacyView *termsAndPrivacyView = [[TermsAndPrivacyView alloc] init];
+  termsAndPrivacyView.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.contentView addSubview:termsAndPrivacyView];
+    
+  // Add bottom constraint to scroll view
+  [termsAndPrivacyView.topAnchor constraintEqualToAnchor:previousView.bottomAnchor constant:spacing].active = YES;
+  [termsAndPrivacyView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.bottomAnchor constant:topOffset].active = YES;
+  [termsAndPrivacyView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:10.0].active = YES;
+  [termsAndPrivacyView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-10.0].active = YES;
 }
 
 - (void)appleButtonTapped {
-// Handle Apple button tap
+  // Handle Apple button tap
 }
 
 - (void)googleButtonTapped {
-// Handle Google button tap
+  // Handle Google button tap
 }
 
 - (void)facebookButtonTapped {
-// Handle Facebook button tap
+  // Handle Facebook button tap
 }
 
 - (void)emailButtonTapped {
