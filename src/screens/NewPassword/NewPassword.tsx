@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTranslation} from 'core/hooks';
-import {FormInput, SnackBar, WithFormikInput} from 'atoms';
+import {FormInput, PasswordHint, SnackBar, WithFormikInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useNewPassword} from './hooks';
 import {FormikProvider} from 'formik';
@@ -38,7 +38,9 @@ export const NewPassword = () => {
               secureTextEntry={passwordVisibility}
               onRightIconPress={handlePasswordVisibility}
               messageText={messageText ? t(messageText) : undefined}
+              helperText={<PasswordHint passwordValue={inputProps.value} />}
               {...inputProps}
+              error={false}
             />
           )}
         </WithFormikInput>

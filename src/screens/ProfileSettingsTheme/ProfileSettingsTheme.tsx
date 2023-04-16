@@ -21,7 +21,7 @@ export const ProfileSettingsTheme = () => {
         onPress={() => changeTheme(null)}
         title={t('systemTheme')}
         renderRightElement={
-          !userTheme && <Icon color={COLORS.apple} name="check" size={16} />
+          !userTheme && <Icon color={COLORS.apple} name="CheckXL" size={24} />
         }
       />
       <GeneralListItem
@@ -30,7 +30,7 @@ export const ProfileSettingsTheme = () => {
         title={t('light')}
         renderRightElement={
           userTheme === 'light' && (
-            <Icon color={COLORS.apple} name="check" size={16} />
+            <Icon color={COLORS.apple} name="CheckXL" size={24} />
           )
         }
       />
@@ -40,7 +40,7 @@ export const ProfileSettingsTheme = () => {
         title={t('dark')}
         renderRightElement={
           userTheme === 'dark' && (
-            <Icon color={COLORS.apple} name="check" size={16} />
+            <Icon color={COLORS.apple} name="CheckXL" size={24} />
           )
         }
       />

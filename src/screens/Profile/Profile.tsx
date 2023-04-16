@@ -42,21 +42,27 @@ export const Profile = () => {
           position="top"
           onPress={navigateToProfileSettingsLanguage}
           title={t('language')}
-          renderLeftElement={<Icon name="language" size={30} />}
+          renderLeftElement={
+            <Icon style={styles.icon} name="language" size={30} />
+          }
           withChevron
         />
         <GeneralListItem
           position="middle"
           onPress={navigateToProfileSettingsTheme}
           title={t('theme')}
-          renderLeftElement={<Icon name="theme" size={30} />}
+          renderLeftElement={
+            <Icon style={styles.icon} name="theme" size={30} />
+          }
           withChevron
         />
         <GeneralListItem
           position="bottom"
           onPress={onClearCachePress}
           title={t('clearCache')}
-          renderLeftElement={<Icon name="clearCashe" size={30} />}
+          renderLeftElement={
+            <Icon style={styles.icon} name="clearCache" size={30} />
+          }
           withChevron
         />
       </View>

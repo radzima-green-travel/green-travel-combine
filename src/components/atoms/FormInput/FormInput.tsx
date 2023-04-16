@@ -1,4 +1,10 @@
-import React, {ReactElement, useCallback, useEffect, useRef} from 'react';
+import React, {
+  ComponentProps,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
 import {Pressable, TextInput, View} from 'react-native';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
@@ -27,6 +33,7 @@ interface IProps {
   maxLength?: number;
   invalidChars?: RegExp;
   allowedChars?: RegExp;
+  keyboardType?: ComponentProps<typeof TextInput>['keyboardType'];
 }
 
 export const FormInput = ({
@@ -48,6 +55,7 @@ export const FormInput = ({
   maxLength,
   invalidChars,
   allowedChars,
+  keyboardType,
 }: IProps) => {
   const {t} = useTranslation('authentification');
   const styles = useThemeStyles(themeStyles);
@@ -115,6 +123,7 @@ export const FormInput = ({
           placeholder={t(placeholder)}
           secureTextEntry={secureTextEntry}
           autoCapitalize="none"
+          keyboardType={keyboardType}
           autoCorrect={false}
           value={value}
           maxLength={maxLength}

@@ -24,7 +24,9 @@ export const ProfileSettingsLanguage = () => {
         onPress={() => changeLanguage(null)}
         title={t('systemLanguage')}
         renderRightElement={
-          !userLanguage && <Icon color={COLORS.apple} name="check" size={16} />
+          !userLanguage && (
+            <Icon color={COLORS.apple} name="CheckXL" size={24} />
+          )
         }
       />
       <GeneralListItem
@@ -35,7 +37,7 @@ export const ProfileSettingsLanguage = () => {
         title={'English'}
         renderRightElement={
           userLanguage === 'en' && (
-            <Icon color={COLORS.apple} name="check" size={16} />
+            <Icon color={COLORS.apple} name="CheckXL" size={24} />
           )
         }
       />
@@ -47,7 +49,7 @@ export const ProfileSettingsLanguage = () => {
         title={'Русский'}
         renderRightElement={
           userLanguage === 'ru' && (
-            <Icon color={COLORS.apple} name="check" size={16} />
+            <Icon color={COLORS.apple} name="CheckXL" size={24} />
           )
         }
       />
@@ -59,7 +61,7 @@ export const ProfileSettingsLanguage = () => {
         title={'中國人'}
         renderRightElement={
           userLanguage === 'zh' && (
-            <Icon color={COLORS.apple} name="check" size={16} />
+            <Icon color={COLORS.apple} name="CheckXL" size={24} />
           )
         }
       />

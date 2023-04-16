@@ -24,6 +24,7 @@ export const themeStyles = {
     borderColor: COLORS.persimmon,
   },
   inputField: {
+    height: 40,
     color: {
       light: COLORS.black,
       dark: COLORS.white,

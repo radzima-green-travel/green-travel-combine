@@ -138,7 +138,7 @@
     "minPasswordChars": "{{amount}} characters",
     "oneUpperChar": "1 uppercase letter",
     "oneLowerCase": "1 lowercase letter",
-    "oneSpecialSymbol": "one special character",
+    "oneSpecialSymbol": "1 special character",
     "oneNumber": "one number"
   },
   "profile": {

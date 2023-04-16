@@ -24,6 +24,7 @@ export const CheckEmail = () => {
               iconLeftName={'email'}
               size={16}
               placeholder={t('email')}
+              keyboardType="email-address"
               messageText={messageText ? t(messageText) : undefined}
               {...inputProps}
             />

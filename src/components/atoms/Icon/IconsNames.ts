@@ -1,4 +1,5 @@
 export type IconsNames =
+  | 'CheckXL'
   | 'appleAuth'
   | 'avatar'
   | 'avatarFilled'

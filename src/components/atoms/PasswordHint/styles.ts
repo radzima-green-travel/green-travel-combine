@@ -22,4 +22,5 @@ export const themeStyles = {
       dark: COLORS.oceanGreen,
     },
   },
+  hintsContainer: {},
 };

@@ -1,3 +1,4 @@
+import {COLORS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
@@ -11,5 +12,11 @@ export const themeStyles = {
   },
   settingsItemContainer: {
     marginBottom: 24,
+  },
+  icon: {
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
 };

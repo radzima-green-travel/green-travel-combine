@@ -1,3 +1,4 @@
+export {default as CheckXL} from './CheckXL.svg';
 export {default as appleAuth} from './appleAuth.svg';
 export {default as avatar} from './avatar.svg';
 export {default as avatarFilled} from './avatarFilled.svg';
