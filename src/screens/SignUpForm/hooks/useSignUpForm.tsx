@@ -42,6 +42,7 @@ export const useSignUpForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: signUp,
+    validateOnMount: true,
   });
 
   const {loading} = useRequestLoading(signUpRequest);

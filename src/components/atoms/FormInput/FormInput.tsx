@@ -14,6 +14,7 @@ import {COLORS} from 'assets';
 import {HelperText} from '../HelperText';
 import {isIOS} from 'services/PlatformService';
 import {useNavigation} from '@react-navigation/native';
+import {useHandleKeyboardInput} from '../HandleKeyboard';
 
 interface IProps {
   iconLeftName?: IconsNames;
@@ -62,11 +63,16 @@ export const FormInput = ({
   const colorScheme = useColorScheme();
   const ref = useRef<TextInput>(null);
 
+  const {handleContainerNode, containerToHandleRef, inputRef} =
+    useHandleKeyboardInput(ref);
+
   const onFocusHandler = useCallback(() => {
     if (onFocus) {
       onFocus();
     }
-  }, [onFocus]);
+
+    handleContainerNode();
+  }, [handleContainerNode, onFocus]);
 
   const onBlurHandler = useCallback(() => {
     if (onBlur) {
@@ -103,7 +109,7 @@ export const FormInput = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} ref={containerToHandleRef}>
       <View
         style={[
           styles.inputFieldContainer,
@@ -118,7 +124,7 @@ export const FormInput = ({
           />
         ) : null}
         <TextInput
-          ref={ref}
+          ref={inputRef}
           style={styles.inputField}
           placeholder={t(placeholder)}
           secureTextEntry={secureTextEntry}

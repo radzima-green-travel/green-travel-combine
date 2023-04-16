@@ -127,6 +127,7 @@ export const enum MAP_PINS {
 export const PADDING_HORIZONTAL = 16;
 
 import {IconsNames} from 'atoms/Icon/IconsNames';
+import {KeyboardEventName, Platform} from 'react-native';
 
 export const ICONS_MATCHER = {
   [MAP_PINS.BICYCLE_ROUTE]: 'strokeBike' as IconsNames,
@@ -165,3 +166,10 @@ export type THEME_TYPE = 'light' | 'dark';
 export const RADZIMA_URL = 'https://radzima.app';
 
 export const EPAM_PRIVACY_POLICY_URL = 'https://www.epam.com/privacy-policy';
+
+export const KEYBOARD_SHOW_EVENT: KeyboardEventName =
+  Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
+export const KEYBOARD_HIDE_EVENT: KeyboardEventName =
+  Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
+export const KEYBOARD_FRAME_CHANGE_EVENT: KeyboardEventName =
+  Platform.OS === 'ios' ? 'keyboardWillChangeFrame' : 'keyboardDidChangeFrame';
