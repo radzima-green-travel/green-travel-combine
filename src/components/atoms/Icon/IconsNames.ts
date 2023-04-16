@@ -15,8 +15,11 @@ export type IconsNames =
   | 'chevron'
   | 'chevronRight'
   | 'church'
+  | 'clearCache'
+  | 'close'
   | 'compass'
   | 'cross'
+  | 'defaultAcc'
   | 'delete'
   | 'email'
   | 'emailAuth'
@@ -68,5 +71,4 @@ export type IconsNames =
   | 'strokeWaterRouteDark'
   | 'theme'
   | 'warMonuments'
-  | 'wave'
-  | 'clearCashe';
+  | 'wave';

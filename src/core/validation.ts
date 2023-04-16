@@ -3,6 +3,11 @@ export const EMAIL_VALIDATE_REGEX =
 
 export const UPPER_CASE_REGEX = /[A-Z]+/;
 export const LOWER_CASE_REGEX = /[a-z]+/;
-export const MIN_PASSWORD_LENGTH = 6;
+export const MIN_PASSWORD_LENGTH = 8;
 export const NUMBER_REGEX = /[0-9]+/;
-export const SPECIAL_CHAR_REGEX = /[\^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+-]/;
+export const SPECIAL_CHAR_REGEX = /[\^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+-]+/;
+
+export const PASSWORD_REGEX =
+  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[\^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+-])^\S*$/;
+
+export const noSpaceChars = /\s/;

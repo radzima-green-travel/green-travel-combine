@@ -68,7 +68,7 @@ export const useSignUpForm = () => {
     passwordVisibility,
     rightIcon,
     handlePasswordVisibility,
-    isSubmitButtonDisabled: !formik.values.password,
+    isSubmitButtonDisabled: !formik.isValid,
     submitForm: formik.handleSubmit,
     snackBarProps,
   };

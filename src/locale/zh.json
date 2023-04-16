@@ -133,7 +133,13 @@
     "appleAuth": "继续 Apple",
     "termsAndPolicyInfo": "通过创建或登录帐户，您同意我们的",
     "termsOfUse": "使用条款",
-    "privacyPolicy": "隐私政策"
+    "privacyPolicy": "隐私政策",
+    "passwordMustContain": "密碼必須至少包含：",
+     "minPasswordChars": "{{amount}} 個字符",
+     "oneUpperChar": "1個大寫字母",
+     "oneLowerCase": "1個小寫字母",
+     "oneSpecialSymbol": "一個特殊字符",
+     "oneNumber": "一個數字"
   },
   "profile": {
     "notAuthorrized": {

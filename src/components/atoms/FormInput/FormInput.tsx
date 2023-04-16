@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {ReactElement, useCallback, useEffect, useRef} from 'react';
 import {Pressable, TextInput, View} from 'react-native';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
@@ -23,6 +23,10 @@ interface IProps {
   onBlur?: () => void;
   messageText?: string;
   error?: boolean;
+  helperText?: ReactElement;
+  maxLength?: number;
+  invalidChars?: RegExp;
+  allowedChars?: RegExp;
 }
 
 export const FormInput = ({
@@ -40,6 +44,10 @@ export const FormInput = ({
   onBlur,
   messageText,
   error,
+  helperText,
+  maxLength,
+  invalidChars,
+  allowedChars,
 }: IProps) => {
   const {t} = useTranslation('authentification');
   const styles = useThemeStyles(themeStyles);
@@ -71,6 +79,21 @@ export const FormInput = ({
     }
   }, [autoFocus, navigation]);
 
+  const isInputValueValid = (valueToCheck: string) => {
+    const isInvalidValue =
+      valueToCheck.length &&
+      ((invalidChars instanceof RegExp && !invalidChars.test(valueToCheck)) ||
+        (allowedChars instanceof RegExp && allowedChars.test(valueToCheck)));
+
+    return !isInvalidValue;
+  };
+
+  const onChangeHandler = (nextValue: string) => {
+    if (isInputValueValid(nextValue)) {
+      onChange(nextValue);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View
@@ -94,7 +117,8 @@ export const FormInput = ({
           autoCapitalize="none"
           autoCorrect={false}
           value={value}
-          onChangeText={onChange}
+          maxLength={maxLength}
+          onChangeText={onChangeHandler}
           autoFocus={isIOS ? undefined : autoFocus}
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
@@ -114,7 +138,7 @@ export const FormInput = ({
           </Pressable>
         ) : null}
       </View>
-      <HelperText messageText={messageText} error={error} />
+      {helperText || <HelperText messageText={messageText} error={error} />}
     </View>
   );
 };

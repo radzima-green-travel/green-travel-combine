@@ -48,8 +48,7 @@ export const useObjectDetails = () => {
         iconProps: {
           color: COLORS.apple,
           name: 'check',
-          width: 16,
-          height: 11,
+          size: 20,
         },
       });
     },

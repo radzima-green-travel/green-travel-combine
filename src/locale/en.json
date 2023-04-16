@@ -133,7 +133,13 @@
     "appleAuth": "Continue with Apple",
     "termsAndPolicyInfo": "By creating or logging into an account, you agree to our",
     "termsOfUse": "Terms Of Use",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "passwordMustContain": "Password must contain at least:",
+    "minPasswordChars": "{{amount}} characters",
+    "oneUpperChar": "1 uppercase letter",
+    "oneLowerCase": "1 lowercase letter",
+    "oneSpecialSymbol": "one special character",
+    "oneNumber": "one number"
   },
   "profile": {
     "notAuthorrized": {

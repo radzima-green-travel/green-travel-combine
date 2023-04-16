@@ -27,3 +27,4 @@ export {WithFormikInput} from './WithFormikInput';
 export {HeaderTitle} from './HeaderTitle';
 export {HelperText} from './HelperText';
 export {HeaderCancelButton} from './HeaderCancelButton';
+export {PasswordHint} from './PasswordHint';

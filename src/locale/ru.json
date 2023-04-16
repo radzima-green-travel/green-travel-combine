@@ -133,7 +133,13 @@
     "appleAuth": "Продолжить с Apple",
     "termsAndPolicyInfo": "Создавая или входя в аккаунт, вы соглашаетесь с нашими",
     "termsOfUse": "Правилами использования",
-    "privacyPolicy": "Политикой конфиденциальности"
+    "privacyPolicy": "Политикой конфиденциальности",
+    "passwordMustContain": "Пароль должен содержать как минимум:",
+    "minPasswordChars": "{{amount}} символов",
+    "oneUpperChar": "1 заглавную букву",
+    "oneLowerCase": "1 строчную букву",
+    "oneSpecialSymbol": "1 специальный символ",
+    "oneNumber": "1 цифру"
   },
   "profile": {
     "notAuthorrized": {
