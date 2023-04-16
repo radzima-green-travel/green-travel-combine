@@ -6,6 +6,7 @@
 //
 
 #import "TermsAndPrivacyView.h"
+#import "Typography.h"
 
 @interface TermsAndPrivacyView () <UITextViewDelegate>
 @property (nonatomic, strong) UITextView *textView;
@@ -22,11 +23,12 @@
 }
 
 - (void)setup {
-    NSString *text = @"Создавая или входя в аккаунт, вы соглашаетесь с нашими %@ и %@";
-    NSString *termsAndConditions = @"Условиями использования";
+    NSString *termsAndConditions = @"Условиями использования приложения";
     NSString *privacyPolicy = @"Политикой конфиденциальности";
+    NSString *text = [NSString stringWithFormat:@"Создавая или входя в аккаунт, вы соглашаетесь с нашими %@ и %@", termsAndConditions, privacyPolicy];
     
-    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text];
+    NSMutableAttributedString *attributedText =
+    [[NSMutableAttributedString alloc] initWithAttributedString:[[Typography get] termsAndContitionsText:text]];
     NSRange range1 = [text rangeOfString:termsAndConditions];
     NSRange range2 = [text rangeOfString:privacyPolicy];
     [attributedText addAttribute:NSLinkAttributeName value:@"terms" range:range1];

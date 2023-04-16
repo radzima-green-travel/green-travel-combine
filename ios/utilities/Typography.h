@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)formHeader:(NSString *)input;
 - (NSAttributedString *)codeConfirmationHint:(NSString *)input;
 - (NSAttributedString *)textButtonLabel:(NSString *)input;
+- (NSAttributedString *)socialButtonLabel:(NSString *)input lightColor:(BOOL)lightColor;
 - (NSAttributedString *)makeProfileTableViewCellMainTextLabelForSettingsCell:(NSString *)input;
 - (NSAttributedString *)makeProfileTableViewCellSubTextLabelForSettingsCell:(NSString *)input;
 - (NSAttributedString *)makeProfileTableViewCellMainTextLabelForAuthCell:(NSString *)input;
@@ -28,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)settingsCellTitle:(NSString *)input;
 - (NSAttributedString *)settingsCellTitleDanger:(NSString *)input;
 - (NSAttributedString *)settingsCellSubTitle:(NSString *)input;
+- (NSAttributedString *)termsAndContitionsText:(NSString *)input;
 
 @end
 

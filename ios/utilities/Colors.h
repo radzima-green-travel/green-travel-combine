@@ -74,6 +74,13 @@ NSString* UIColorToHEX(UIColor *color);
 @property (strong, nonatomic) UIColor *accountImagePurple;
 @property (strong, nonatomic) UIColor *accountImageRed;
 @property (strong, nonatomic) UIColor *actionDangerous;
+@property (strong, nonatomic) UIColor *socialButtonText;
+@property (strong, nonatomic) UIColor *socialButtonTextInverted;
+@property (strong, nonatomic) UIColor *socialButtonBorder;
+@property (strong, nonatomic) UIColor *socialButtonBackground;
+@property (strong, nonatomic) UIColor *appleButtonBorder;
+@property (strong, nonatomic) UIColor *appleButtonBackground;
+@property (strong, nonatomic) UIColor *termsAndConditionsText;
 
 
 + (instancetype)get;

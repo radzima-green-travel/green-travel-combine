@@ -85,6 +85,13 @@ static Colors *instance;
     self.accountImageLightBlue = [UIColor colorNamed:@"accountImageLightBlue"];
     self.accountImageFireOrange = [UIColor colorNamed:@"accountImageFireOrange"];
     self.actionDangerous = [UIColor colorNamed:@"actionDangerous"];
+    self.socialButtonText = [UIColor colorNamed:@"socialButtonText"];
+    self.socialButtonTextInverted = [UIColor colorNamed:@"socialButtonTextInverted"];
+    self.socialButtonBorder = [UIColor colorNamed:@"socialButtonBorder"];
+    self.socialButtonBackground = [UIColor colorNamed:@"socialButtonBackground"];
+    self.appleButtonBorder = [UIColor colorNamed:@"appleButtonBorder"];
+    self.appleButtonBackground = [UIColor colorNamed:@"appleButtonBackground"];
+    self.termsAndConditionsText = [UIColor colorNamed:@"termsAndConditionsText"];
   }
   return self;
 }

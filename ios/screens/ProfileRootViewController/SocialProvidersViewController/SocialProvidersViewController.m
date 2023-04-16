@@ -9,6 +9,8 @@
 #import "LoginViewController.h"
 #import "SocialProviderButton.h"
 #import "TermsAndPrivacyView.h"
+#import "Typography.h"
+#import "Colors.h"
 
 @interface SocialProvidersViewController ()
 
@@ -19,6 +21,12 @@
 @property (nonatomic, strong) UIButton *emailButton;
 
 @end
+
+static const CGFloat kButtonHeight = 50.0;
+static const CGFloat kButtonCornerRadius = 16.0;
+static const CGFloat kSpacing = 16.0;
+static const CGFloat kHorizontalSpacing = 16.0;
+static const CGFloat kTopOffset = 20.0;
 
 @implementation SocialProvidersViewController
 
@@ -50,58 +58,53 @@
   self.view.backgroundColor = [UIColor whiteColor];
   self.title = @"Sign in";
   
+  __weak typeof(self) weakSelf = self;
   // Add social buttons
   NSArray *socialProviders = @[
     @{
-      @"title": @"Continue with Apple",
+      @"title": [[Typography get] socialButtonLabel:@"Продолжить с Apple" lightColor:NO],
       @"logo": [UIImage imageNamed:@"apple_logo"],
-      @"bgColor": [UIColor blackColor],
-      @"borderColor": [UIColor blackColor],
+      @"bgColor": [Colors get].appleButtonBackground,
+      @"borderColor": [Colors get].appleButtonBorder,
       @"onTap": ^{
         // Handle Apple sign in
       }
     },
     @{
-      @"title": @"Continue with Facebook",
+      @"title": [[Typography get] socialButtonLabel:@"Continue with Facebook" lightColor:YES],
       @"logo": [UIImage imageNamed:@"facebook_logo"],
-      @"bgColor": [UIColor colorWithRed:0.23 green:0.35 blue:0.6 alpha:1.0],
-      @"borderColor": [UIColor colorWithRed:0.23 green:0.35 blue:0.6 alpha:1.0],
+      @"bgColor": [Colors get].socialButtonBackground,
+      @"borderColor": [Colors get].socialButtonBorder,
       @"onTap": ^{
         // Handle Facebook sign in
       }
     },
     @{
-      @"title": @"Continue with Google",
+      @"title": [[Typography get] socialButtonLabel:@"Continue with Google" lightColor:YES],
       @"logo": [UIImage imageNamed:@"google_logo"],
-      @"bgColor": [UIColor whiteColor],
-      @"borderColor": [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0],
+      @"bgColor": [Colors get].socialButtonBackground,
+      @"borderColor": [Colors get].socialButtonBorder,
       @"onTap": ^{
         // Handle Google sign in
       }
     },
     @{
-      @"title": @"Continue with Email",
+      @"title": [[Typography get] socialButtonLabel:@"Continue with Email" lightColor:YES],
       @"logo": [UIImage imageNamed:@"mail_logo"],
-      @"bgColor": [UIColor whiteColor],
-      @"borderColor": [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0],
+      @"bgColor": [Colors get].socialButtonBackground,
+      @"borderColor": [Colors get].socialButtonBorder,
       @"onTap": ^{
-        // Handle Google sign in
+        [weakSelf emailButtonTapped];
       }
     },
   ];
-  
-  CGFloat buttonHeight = 50.0;
-  CGFloat spacing = 20.0;
-  CGFloat topOffset = 20.0;
-  
 #pragma mark - apple sign in button
   SocialProviderButton *appleButton = [[SocialProviderButton alloc] initWithFrame:CGRectZero];
   appleButton.layer.masksToBounds = YES;
-  appleButton.layer.cornerRadius = buttonHeight / 2;
+  appleButton.layer.cornerRadius = kButtonCornerRadius;
   appleButton.clipsToBounds = YES;
-  appleButton.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
   NSDictionary *appleProvider = socialProviders[0];
-  appleButton.title = appleProvider[@"title"];
+  [appleButton setAttributedTitle:appleProvider[@"title"] forState:UIControlStateNormal];
   appleButton.borderColor = appleProvider[@"borderColor"];
   appleButton.bgColor = appleProvider[@"bgColor"];
   appleButton.logoImage = appleProvider[@"logo"];
@@ -111,9 +114,9 @@
   // Add constraints for email sign in button
   appleButton.translatesAutoresizingMaskIntoConstraints = NO;
   [appleButton.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
-  [appleButton.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor constant:-spacing * 2].active = YES;
-  [appleButton.heightAnchor constraintEqualToConstant:buttonHeight].active = YES;
-  [appleButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:spacing].active = YES;
+  [appleButton.widthAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.widthAnchor constant:-kHorizontalSpacing * 2].active = YES;
+  [appleButton.heightAnchor constraintEqualToConstant:kButtonHeight].active = YES;
+  [appleButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kSpacing].active = YES;
   
 #pragma mark - divider view and "or" label
   UIView *dividerView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -134,9 +137,9 @@
   
   dividerView.translatesAutoresizingMaskIntoConstraints = NO;
   [dividerView.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
-  [dividerView.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor constant:-spacing * 2].active = YES;
+  [dividerView.widthAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.widthAnchor constant:-kHorizontalSpacing * 2].active = YES;
   [dividerView.heightAnchor constraintEqualToConstant:dividerHeight].active = YES;
-  [dividerView.topAnchor constraintEqualToAnchor:appleButton.bottomAnchor constant:spacing].active = YES;
+  [dividerView.topAnchor constraintEqualToAnchor:appleButton.bottomAnchor constant:kSpacing].active = YES;
   
   orLabel.translatesAutoresizingMaskIntoConstraints = NO;
   [orLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
@@ -149,10 +152,9 @@
     NSDictionary *provider = socialProviders[i];
     SocialProviderButton *button = [[SocialProviderButton alloc] initWithFrame:CGRectZero];
     button.layer.masksToBounds = YES;
-    button.layer.cornerRadius = buttonHeight / 2;
+    button.layer.cornerRadius = kButtonCornerRadius;
     button.clipsToBounds = YES;
-    button.titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
-    button.title = provider[@"title"];
+    [button setAttributedTitle:provider[@"title"] forState:UIControlStateNormal];
     button.borderColor = provider[@"borderColor"];
     button.bgColor = provider[@"bgColor"];
     button.logoImage = provider[@"logo"];
@@ -162,12 +164,12 @@
     // Add constraints
     button.translatesAutoresizingMaskIntoConstraints = NO;
     [button.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
-    [button.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor constant:-spacing * 2].active = YES;
-    [button.heightAnchor constraintEqualToConstant:buttonHeight].active = YES;
+    [button.widthAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.widthAnchor constant:-kHorizontalSpacing * 2].active = YES;
+    [button.heightAnchor constraintEqualToConstant:kButtonHeight].active = YES;
     if (previousView) {
-      [button.topAnchor constraintEqualToAnchor:previousView.bottomAnchor constant:spacing].active = YES;
+      [button.topAnchor constraintEqualToAnchor:previousView.bottomAnchor constant:kSpacing].active = YES;
     } else {
-      [button.topAnchor constraintEqualToAnchor:dividerView.bottomAnchor constant:topOffset].active = YES;
+      [button.topAnchor constraintEqualToAnchor:dividerView.bottomAnchor constant:kTopOffset].active = YES;
     }
     
     previousView = button;
@@ -178,10 +180,10 @@
   [self.contentView addSubview:termsAndPrivacyView];
     
   // Add bottom constraint to scroll view
-  [termsAndPrivacyView.topAnchor constraintEqualToAnchor:previousView.bottomAnchor constant:spacing].active = YES;
-  [termsAndPrivacyView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.bottomAnchor constant:topOffset].active = YES;
-  [termsAndPrivacyView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:10.0].active = YES;
-  [termsAndPrivacyView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-10.0].active = YES;
+  [termsAndPrivacyView.topAnchor constraintEqualToAnchor:previousView.bottomAnchor constant:kSpacing].active = YES;
+  [termsAndPrivacyView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.bottomAnchor constant:kTopOffset].active = YES;
+  [termsAndPrivacyView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:32.0].active = YES;
+  [termsAndPrivacyView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-32.0].active = YES;
 }
 
 - (void)appleButtonTapped {

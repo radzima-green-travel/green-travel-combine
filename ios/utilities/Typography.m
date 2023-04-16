@@ -57,6 +57,16 @@ static Typography *instance;
                                                                       UIFontWeightRegular)];
 }
 
+- (NSAttributedString *)socialButtonLabel:(NSString *)input
+                               lightColor:(BOOL)lightColor {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes(lightColor ?
+                                                                      [Colors get].socialButtonText :
+                                                                      [Colors get].socialButtonTextInverted,
+                                                                      16.0,
+                                                                      UIFontWeightRegular)];
+}
+
 - (NSAttributedString *)makeProfileTableViewCellMainTextLabelForSettingsCell:(NSString *)input {
   return [[NSAttributedString alloc] initWithString:input
                                          attributes:getTextAttributes([Colors get].mainText, 17.0, UIFontWeightRegular)];
@@ -90,6 +100,11 @@ static Typography *instance;
 - (NSAttributedString *)settingsCellSubTitle:(NSString *)input {
   return [[NSAttributedString alloc] initWithString:input
                                          attributes:getTextAttributes([Colors get].subText, 17.0, UIFontWeightRegular)];
+}
+
+- (NSAttributedString *)termsAndContitionsText:(NSString *)input {
+  return [[NSAttributedString alloc] initWithString:input
+                                         attributes:getTextAttributes([Colors get].subText, 12.0, UIFontWeightRegular)];
 }
 
 + (instancetype)get {
