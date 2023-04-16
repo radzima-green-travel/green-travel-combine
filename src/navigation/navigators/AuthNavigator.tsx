@@ -33,6 +33,7 @@ export function AuthNavigator() {
     title: '',
     animation: defaultTransition,
     headerRight: () => <HeaderCancelButton onPress={onHeaderRightPress} />,
+    orientation: 'portrait',
   });
 
   return (
