@@ -12,6 +12,7 @@ import {
 import {BUTTON_THEMES} from './constants';
 import {styles} from './styles';
 import {ButtonThemes} from './types';
+import {getPlatformsTestID} from 'core/helpers';
 
 type Props = PropsWithChildren<{
   text: string;
@@ -59,7 +60,7 @@ export const Button = memo(
           isActive && buttonThemeStyles.active,
           style,
         ]}
-        testID={testID}>
+        {...getPlatformsTestID(testID)}>
         {loading ? (
           <ActivityIndicator
             size="small"

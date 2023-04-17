@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {IInclude, TestIDs} from 'core/types';
-import {composeTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   data: IInclude[];
@@ -20,7 +20,9 @@ export const ObjectIncludes = memo(({data, title, onIncludePress}: IProps) => {
   const styles = useThemeStyles(themeStyles);
   return (
     <View style={styles.container}>
-      <Text style={styles.title} testID={TestIDs.ObjectDetailsLinkedTitle}>
+      <Text
+        style={styles.title}
+        {...getPlatformsTestID(TestIDs.ObjectDetailsLinkedTitle)}>
         {title}
       </Text>
       {data.map((item, index) => (

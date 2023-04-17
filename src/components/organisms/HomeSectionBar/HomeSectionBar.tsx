@@ -7,6 +7,7 @@ import {IObject, ITransformedCategory} from 'core/types';
 import {isEmpty} from 'lodash';
 import {useCategories, useObjects, useThemeStyles} from 'core/hooks';
 import {useScrollToTop} from '@react-navigation/native';
+import {getPlatformsTestID} from 'core/helpers';
 
 interface Props {
   item: ITransformedCategory;
@@ -86,7 +87,7 @@ export const HomeSectionBar = memo(
           <Text style={styles.sectionTitle}>{sectionTitle}</Text>
           {!isLessThenTwoItems ? (
             <TouchableOpacity activeOpacity={0.8} onPress={onAllPressHandler}>
-              <Text style={styles.all} testID={allButtonTestID}>
+              <Text style={styles.all} {...getPlatformsTestID(allButtonTestID)}>
                 {t('all')}
               </Text>
             </TouchableOpacity>

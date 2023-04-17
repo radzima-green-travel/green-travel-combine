@@ -6,6 +6,7 @@ import {useColorScheme, useThemeStyles} from 'core/hooks';
 import {COLORS} from 'assets';
 import {ICONS_MATCHER, DARK_ICONS_MATCHER} from 'core/constants';
 import {IInclude} from 'core/types';
+import {getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   onPress: (config: {id: string; name: string; objects: string[]}) => void;
@@ -29,7 +30,7 @@ export const ObjectInlcudesItem = memo(({data, onPress, testID}: IProps) => {
       activeOpacity={0.8}
       onPress={onPressHandler}
       style={styles.container}
-      testID={testID}>
+      {...getPlatformsTestID(testID)}>
       <Icon width={44} height={44} name={iconName} />
       <Text style={styles.text}>{name}</Text>
       <Icon

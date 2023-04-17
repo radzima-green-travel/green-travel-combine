@@ -2,7 +2,7 @@ import React, {memo, useMemo} from 'react';
 import {View, Text, Linking, TouchableOpacity} from 'react-native';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {IOrigins} from 'core/types';
-import {composeTestID, tryOpenURL} from 'core/helpers';
+import {composeTestID, getPlatformsTestID, tryOpenURL} from 'core/helpers';
 import {themeStyles} from './styles';
 import {TestIDs} from 'core/types';
 
@@ -27,7 +27,9 @@ export const ObjectDescriptionSource = memo(({origins, siteLink}: IProps) => {
           onPress={() => Linking.openURL(origin.value)}>
           <Text
             style={styles.link}
-            testID={composeTestID(TestIDs.ObjectDetailsReferencesItem, index)}>
+            {...getPlatformsTestID(
+              composeTestID(TestIDs.ObjectDetailsReferencesItem, index),
+            )}>
             {origin.name}
           </Text>
         </TouchableOpacity>
@@ -36,14 +38,16 @@ export const ObjectDescriptionSource = memo(({origins, siteLink}: IProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text} testID={TestIDs.ObjectDetailsReferencesTitle}>
+      <Text
+        style={styles.text}
+        {...getPlatformsTestID(TestIDs.ObjectDetailsReferencesTitle)}>
         {sourceTitle}
       </Text>
       {siteLink ? (
         <Text
           onPress={() => tryOpenURL(siteLink)}
           style={styles.link}
-          testID={TestIDs.ObjectDetailsOfficialSiteLink}>
+          {...getPlatformsTestID(TestIDs.ObjectDetailsOfficialSiteLink)}>
           {t('offSite')}
         </Text>
       ) : null}

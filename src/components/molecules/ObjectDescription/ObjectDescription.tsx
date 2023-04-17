@@ -3,7 +3,7 @@ import React, {memo} from 'react';
 import HTML, {MixedStyleDeclaration} from 'react-native-render-html';
 import {themeStyles, systemFonts} from './styles';
 import {useWindowDimensions, View} from 'react-native';
-import {tryOpenURL} from 'core/helpers';
+import {getPlatformsTestID, tryOpenURL} from 'core/helpers';
 import {TestIDs} from 'core/types';
 
 interface IProps {
@@ -15,7 +15,7 @@ export const ObjectDescription = memo(({description}: IProps) => {
 
   const {width} = useWindowDimensions();
   return (
-    <View testID={TestIDs.ObjectDetailsDescription}>
+    <View {...getPlatformsTestID(TestIDs.ObjectDetailsDescription)}>
       <HTML
         contentWidth={width}
         systemFonts={systemFonts}

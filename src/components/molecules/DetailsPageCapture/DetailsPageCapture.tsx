@@ -3,6 +3,7 @@ import {TouchableOpacity, Text, View} from 'react-native';
 import {ICoordinates, TestIDs} from 'core/types';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
+import {getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   title: string;
@@ -59,10 +60,14 @@ export const DetailsPageCapture = memo(
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title} testID={TestIDs.ObjectDetailsTitle}>
+        <Text
+          style={styles.title}
+          {...getPlatformsTestID(TestIDs.ObjectDetailsTitle)}>
           {title}
         </Text>
-        <Text style={styles.subtitle} testID={TestIDs.ObjectDetailsAddress}>
+        <Text
+          style={styles.subtitle}
+          {...getPlatformsTestID(TestIDs.ObjectDetailsAddress)}>
           {subtitleText}
         </Text>
         {location ? (
@@ -71,7 +76,7 @@ export const DetailsPageCapture = memo(
             onPress={onCoordinatesPressHandler}>
             <Text
               style={styles.location}
-              testID={TestIDs.ObjectDetailsLocation}>
+              {...getPlatformsTestID(TestIDs.ObjectDetailsLocation)}>
               {location}
             </Text>
           </TouchableOpacity>

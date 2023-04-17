@@ -4,6 +4,7 @@ import * as Icons from './icons';
 
 import {StyleProp, TextStyle, View} from 'react-native';
 import {IconsNames} from './IconsNames';
+import {getPlatformsTestID} from 'core/helpers';
 
 interface Props {
   name: IconsNames;
@@ -53,7 +54,7 @@ export const Icon = ({
     24;
 
   return (
-    <View testID={testID}>
+    <View {...getPlatformsTestID(testID)}>
       <IconComponent
         width={iconWidth}
         height={iconHeight}

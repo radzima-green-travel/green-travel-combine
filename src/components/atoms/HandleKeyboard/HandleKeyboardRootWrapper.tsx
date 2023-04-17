@@ -10,6 +10,7 @@ import {KEYBOARD_SHOW_EVENT, KEYBOARD_HIDE_EVENT} from 'core/constants';
 
 import {View, StyleSheet, Keyboard} from 'react-native';
 import {isIOS} from 'services/PlatformService';
+import {getPlatformsTestID} from 'core/helpers';
 
 type Props = {
   children: ReactNode;
@@ -60,7 +61,7 @@ export const HandleKeyboardRootWrapper = memo<Props>(
         <View
           onLayout={setAppHeight}
           style={StyleSheet.absoluteFillObject}
-          testID={testID}
+          {...getPlatformsTestID(testID)}
         />
         <View style={style}>{children}</View>
       </>

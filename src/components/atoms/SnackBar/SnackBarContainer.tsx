@@ -21,6 +21,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {themeStyles} from './styles';
 import {useStaticCallback, useThemeStyles} from 'core/hooks';
+import {getPlatformsTestID} from 'core/helpers';
 
 export interface SnackBarContainerProps {
   isOnTop?: boolean;
@@ -134,7 +135,7 @@ export const SnackBarContainer = memo(
 
       return (
         <Animated.View
-          testID={`bottom_menu_${testID}`}
+          {...getPlatformsTestID(`bottom_menu_${testID}`)}
           onLayout={calculateToastHeight}
           style={[
             isOnTop ? styles.topContainer : styles.bottomContainer,

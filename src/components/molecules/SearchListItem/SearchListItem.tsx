@@ -7,6 +7,7 @@ import {useThemeStyles, useColorScheme} from 'core/hooks';
 import {IObject} from 'core/types';
 import {DARK_ICONS_MATCHER, ICONS_MATCHER} from 'core/constants';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   data: IObject;
@@ -32,7 +33,7 @@ export const SearchListItem = memo(({data, testID, onPress}: IProps) => {
       onPress={onPressHandler}
       activeOpacity={1}
       style={styles.container}
-      testID={testID}>
+      {...getPlatformsTestID(testID)}>
       <Icon
         style={styles.icon}
         name={
