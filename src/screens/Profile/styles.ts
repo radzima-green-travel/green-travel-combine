@@ -1,4 +1,4 @@
-import {COLORS} from 'assets';
+import {COLORS, FONTS_STYLES} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
@@ -16,6 +16,13 @@ export const themeStyles = {
   icon: {
     color: {
       light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
+  },
+  rightText: {
+    ...FONTS_STYLES.regular17,
+    color: {
+      light: COLORS.cullGrey,
       dark: COLORS.altoForDark,
     },
   },

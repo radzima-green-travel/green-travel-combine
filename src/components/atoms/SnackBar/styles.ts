@@ -16,13 +16,21 @@ export const themeStyles = {
   },
   container: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    height: 60,
+    height: 50,
+    marginVertical: 13,
+    marginHorizontal: 20,
+    paddingHorizontal: 20,
+    borderRadius: 4,
+    shadowColor: COLORS.black,
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 3,
   },
   positiveContainer: {
     backgroundColor: {
-      light: hexWithAlpha(COLORS.alto, 0.9),
+      light: hexWithAlpha(COLORS.tuna, 0.9),
       dark: hexWithAlpha(COLORS.logCabin, 0.9),
     },
   },
@@ -37,7 +45,8 @@ export const themeStyles = {
   },
   positiveText: {
     color: {
-      light: COLORS.logCabin,
+      // should be changed after dark theme design update
+      light: COLORS.white,
       dark: COLORS.white,
     },
   },

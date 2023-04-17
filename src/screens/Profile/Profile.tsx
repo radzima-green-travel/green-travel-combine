@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {GeneralListItem} from 'molecules';
 import {Icon, SettingsSectionTitle, SnackBar} from 'atoms';
 import {useProfile} from './hooks';
@@ -13,6 +13,8 @@ export const Profile = () => {
   const {
     userName,
     isAuthorized,
+    language,
+    theme,
     onAuthorisationItemPress,
     navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,
@@ -45,6 +47,7 @@ export const Profile = () => {
           renderLeftElement={
             <Icon style={styles.icon} name="language" size={30} />
           }
+          renderRightElement={<Text style={styles.rightText}>{language}</Text>}
           withChevron
         />
         <GeneralListItem
@@ -54,6 +57,7 @@ export const Profile = () => {
           renderLeftElement={
             <Icon style={styles.icon} name="theme" size={30} />
           }
+          renderRightElement={<Text style={styles.rightText}>{theme}</Text>}
           withChevron
         />
         <GeneralListItem
@@ -63,7 +67,6 @@ export const Profile = () => {
           renderLeftElement={
             <Icon style={styles.icon} name="clearCache" size={30} />
           }
-          withChevron
         />
       </View>
 
