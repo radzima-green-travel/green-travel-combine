@@ -4,11 +4,17 @@ import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProps} from '../types';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectUserAuthorized, selectFullUserName} from 'core/selectors';
+import {
+  selectUserAuthorized,
+  selectFullUserName,
+  selectAppLanguage,
+  selectAppTheme,
+} from 'core/selectors';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {clearCacheRequest, signInRequest} from 'core/reducers';
 import {useTranslation} from 'core/hooks';
 import {useSnackbar} from '../../../components/atoms';
+import {getLanguageByLocale} from 'core/helpers';
 
 export const useProfile = () => {
   const {t} = useTranslation('profile');
@@ -16,6 +22,8 @@ export const useProfile = () => {
   const navigation = useNavigation<ProfileScreenNavigationProps>();
   const isAuthorized = useSelector(selectUserAuthorized);
   const userName = useSelector(selectFullUserName);
+  const appLanguage = useSelector(selectAppLanguage);
+  const appTheme = useSelector(selectAppTheme);
 
   const onAuthorisationItemPress = useCallback(() => {
     if (isAuthorized) {
@@ -45,6 +53,10 @@ export const useProfile = () => {
     ]);
   }, [t, dispatch]);
 
+  const language = getLanguageByLocale(appLanguage);
+
+  const theme = appTheme ? t(`${appTheme}`) : t('systemTheme');
+
   const {loading} = useRequestLoading(signInRequest);
 
   const {show, ...snackBarProps} = useSnackbar();
@@ -59,6 +71,8 @@ export const useProfile = () => {
   return {
     userName,
     isAuthorized,
+    language,
+    theme,
     onAuthorisationItemPress,
     navigateToProfileSettingsLanguage,
     navigateToProfileSettingsTheme,

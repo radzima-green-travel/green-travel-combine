@@ -62,23 +62,24 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
   }, [position, styles, size]);
 
   const renderRightComponent = () => {
-    if (renderRightElement) {
-      return renderRightElement;
-    }
-    if (withChevron) {
+    if (renderRightElement || withChevron) {
       return (
-        <View style={styles.chevronContainer}>
-          <Icon
-            style={loading && styles.loading}
-            color={
-              theme === 'light'
-                ? hexWithAlpha(COLORS.tuna, 0.3)
-                : hexWithAlpha(COLORS.altoForDark, 0.3)
-            }
-            width={7}
-            height={12}
-            name="chevronRight"
-          />
+        <View style={[styles.contentContainer, loading && styles.loading]}>
+          {renderRightElement ? renderRightElement : null}
+          {withChevron ? (
+            <View style={styles.chevronContainer}>
+              <Icon
+                color={
+                  theme === 'light'
+                    ? hexWithAlpha(COLORS.tuna, 0.3)
+                    : hexWithAlpha(COLORS.altoForDark, 0.3)
+                }
+                width={7}
+                height={12}
+                name="chevronRight"
+              />
+            </View>
+          ) : null}
         </View>
       );
     }
@@ -102,17 +103,17 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
           (position === 'top' || position === 'middle') &&
             styles.withContentBorder,
         ]}>
-        {renderLeftElement ? (
-          <View
-            style={[
-              styles.leftElementContainer,
-              size === 'M' && styles.leftElementContainerM,
-            ]}>
-            {renderLeftElement}
-          </View>
-        ) : null}
-        <View style={styles.contentContainer}>
-          <View style={[styles.textContainer]}>
+        <View style={[styles.contentContainer]}>
+          {renderLeftElement ? (
+            <View
+              style={[
+                styles.leftElementContainer,
+                size === 'M' && styles.leftElementContainerM,
+              ]}>
+              {renderLeftElement}
+            </View>
+          ) : null}
+          <View>
             <Text
               style={[
                 size === 'S' ? styles.title : styles.titleM,
@@ -126,10 +127,10 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
               </Text>
             ) : null}
           </View>
-          <View style={styles.rightElementContainer}>
-            {renderRightComponent()}
-            {loading ? <LoadingView size="small" /> : null}
-          </View>
+        </View>
+        <View style={styles.rightElementContainer}>
+          {renderRightComponent()}
+          {loading ? <LoadingView size="small" /> : null}
         </View>
       </View>
     </TouchableOpacity>

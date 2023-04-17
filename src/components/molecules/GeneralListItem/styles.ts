@@ -33,14 +33,13 @@ export const themeStyles = {
   contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingRight: 10,
   },
   contentWrapper: {
     flex: 1,
     height: '100%',
     alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   withContentBorder: {
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -48,9 +47,6 @@ export const themeStyles = {
       light: hexWithAlpha(COLORS.tuna, 0.36),
       dark: hexWithAlpha(COLORS.altoForDark, 0.1),
     },
-  },
-  textContainer: {
-    flex: 1,
   },
   title: {
     ...FONTS_STYLES.regular17,
@@ -74,7 +70,7 @@ export const themeStyles = {
     },
   },
   leftElementContainer: {
-    marginRight: 16,
+    marginRight: 10,
   },
   leftElementContainerM: {
     marginRight: 13,
@@ -86,13 +82,9 @@ export const themeStyles = {
     color: COLORS.red,
   },
   rightElementContainer: {
-    minHeight: 20,
-    minWidth: 20,
-    justifyContent: 'center',
+    marginRight: 16,
   },
   chevronContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginLeft: 12,
   },
 };
