@@ -59,12 +59,17 @@ static Typography *instance;
 
 - (NSAttributedString *)socialButtonLabel:(NSString *)input
                                lightColor:(BOOL)lightColor {
-  return [[NSAttributedString alloc] initWithString:input
+  NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:input
                                          attributes:getTextAttributes(lightColor ?
                                                                       [Colors get].socialButtonText :
                                                                       [Colors get].socialButtonTextInverted,
                                                                       16.0,
                                                                       UIFontWeightRegular)];
+  NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+  [paragraphStyle setAlignment:NSTextAlignmentCenter];
+  NSRange textRange = NSMakeRange(0, text.length);
+  [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:textRange];
+  return [text copy];
 }
 
 - (NSAttributedString *)makeProfileTableViewCellMainTextLabelForSettingsCell:(NSString *)input {

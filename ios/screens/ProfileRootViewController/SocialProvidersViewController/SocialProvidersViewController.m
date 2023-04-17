@@ -59,7 +59,7 @@ static const CGFloat kTopOffset = 20.0;
   self.title = @"Sign in";
   
   __weak typeof(self) weakSelf = self;
-  // Add social buttons
+#pragma mark - social buttons config
   NSArray *socialProviders = @[
     @{
       @"title": [[Typography get] socialButtonLabel:@"Продолжить с Apple" lightColor:NO],
@@ -98,6 +98,15 @@ static const CGFloat kTopOffset = 20.0;
       }
     },
   ];
+#pragma mark - header label
+  UILabel *titleLabel = [[UILabel alloc] init];
+  [titleLabel setAttributedText:[[Typography get] formHeader:@"Войти или создать аккаунт"]];
+  [self.contentView addSubview:titleLabel];
+  titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:24.0],
+    [titleLabel.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor],
+  ]];
 #pragma mark - apple sign in button
   SocialProviderButton *appleButton = [[SocialProviderButton alloc] initWithFrame:CGRectZero];
   appleButton.layer.masksToBounds = YES;
@@ -116,7 +125,7 @@ static const CGFloat kTopOffset = 20.0;
   [appleButton.centerXAnchor constraintEqualToAnchor:self.contentView.centerXAnchor].active = YES;
   [appleButton.widthAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.widthAnchor constant:-kHorizontalSpacing * 2].active = YES;
   [appleButton.heightAnchor constraintEqualToConstant:kButtonHeight].active = YES;
-  [appleButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:kSpacing].active = YES;
+  [appleButton.topAnchor constraintEqualToAnchor:titleLabel.bottomAnchor constant:24.0].active = YES;
   
 #pragma mark - divider view and "or" label
   UIView *dividerView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -181,7 +190,7 @@ static const CGFloat kTopOffset = 20.0;
     
   // Add bottom constraint to scroll view
   [termsAndPrivacyView.topAnchor constraintEqualToAnchor:previousView.bottomAnchor constant:kSpacing].active = YES;
-  [termsAndPrivacyView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.contentView.bottomAnchor constant:kTopOffset].active = YES;
+  [termsAndPrivacyView.bottomAnchor constraintLessThanOrEqualToAnchor:self.contentView.bottomAnchor constant:-kTopOffset].active = YES;
   [termsAndPrivacyView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:32.0].active = YES;
   [termsAndPrivacyView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-32.0].active = YES;
 }
