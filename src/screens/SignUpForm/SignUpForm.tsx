@@ -11,7 +11,6 @@ import {
 import {AuthForm} from 'organisms';
 import {useSignUpForm} from './hooks';
 import {FormikProvider} from 'formik';
-import {noSpaceChars} from 'core/validation';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const HandleKeyboardScrollView =
@@ -57,7 +56,6 @@ export const SignUpForm = () => {
                       <PasswordHint passwordValue={inputProps.value} />
                     }
                     maxLength={99}
-                    allowedChars={noSpaceChars}
                     {...inputProps}
                     error={false}
                   />

@@ -3,14 +3,16 @@ import {COLORS, FONTS_STYLES} from 'assets';
 export const themeStyles = {
   container: {
     alignItems: 'flex-start',
+    paddingTop: 5,
   },
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    marginRight: 7,
   },
   text: {
-    ...FONTS_STYLES.regular14,
+    ...FONTS_STYLES.regular12,
     color: {light: COLORS.boulder, dark: COLORS.altoForDark},
   },
   icon: {
@@ -22,5 +24,8 @@ export const themeStyles = {
       dark: COLORS.oceanGreen,
     },
   },
-  hintsContainer: {},
+  hintsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
 };

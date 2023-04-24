@@ -9,6 +9,7 @@ import {
   UPPER_CASE_REGEX,
   SPECIAL_CHAR_REGEX,
   NUMBER_REGEX,
+  NO_SPACES_REGEX,
 } from 'core/validation';
 
 interface IProps {
@@ -23,7 +24,7 @@ export const PasswordHint = memo(({passwordValue}: IProps) => {
       <View style={styles.rowContainer}>
         <Icon
           name={isCompleted ? 'check' : 'close'}
-          size={20}
+          size={15}
           style={isCompleted ? styles.successIcon : styles.icon}
         />
         <Text style={styles.text}>{text}</Text>
@@ -32,7 +33,6 @@ export const PasswordHint = memo(({passwordValue}: IProps) => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{t('passwordMustContain')}</Text>
       <View style={styles.hintsContainer}>
         {renderHint(
           t('minPasswordChars', {amount: MIN_PASSWORD_LENGTH}),
@@ -42,9 +42,13 @@ export const PasswordHint = memo(({passwordValue}: IProps) => {
           t('oneSpecialSymbol'),
           SPECIAL_CHAR_REGEX.test(passwordValue),
         )}
+        {renderHint(t('oneNumber'), NUMBER_REGEX.test(passwordValue))}
         {renderHint(t('oneUpperChar'), UPPER_CASE_REGEX.test(passwordValue))}
         {renderHint(t('oneLowerCase'), LOWER_CASE_REGEX.test(passwordValue))}
-        {renderHint(t('oneNumber'), NUMBER_REGEX.test(passwordValue))}
+        {renderHint(
+          t('noSpaces'),
+          NO_SPACES_REGEX.test(passwordValue) && Boolean(passwordValue.length),
+        )}
       </View>
     </View>
   );

@@ -10,4 +10,4 @@ export const SPECIAL_CHAR_REGEX = /[\^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+-]+/;
 export const PASSWORD_REGEX =
   /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[\^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+-])^\S*$/;
 
-export const noSpaceChars = /\s/;
+export const NO_SPACES_REGEX = /^\S*$/;

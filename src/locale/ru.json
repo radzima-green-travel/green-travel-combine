@@ -139,7 +139,8 @@
     "oneUpperChar": "1 заглавную букву",
     "oneLowerCase": "1 строчную букву",
     "oneSpecialSymbol": "1 специальный символ",
-    "oneNumber": "1 цифру"
+    "oneNumber": "1 цифру",
+    "noSpaces": "без пробелов"
   },
   "profile": {
     "notAuthorrized": {

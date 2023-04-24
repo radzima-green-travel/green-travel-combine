@@ -138,8 +138,9 @@
      "minPasswordChars": "{{amount}} 個字符",
      "oneUpperChar": "1個大寫字母",
      "oneLowerCase": "1個小寫字母",
-     "oneSpecialSymbol": "一個特殊字符",
-     "oneNumber": "一個數字"
+     "oneSpecialSymbol": "1個特殊字符",
+     "oneNumber": "1個號碼",
+     "noSpaces": "沒有空間"
   },
   "profile": {
     "notAuthorrized": {
