@@ -15,7 +15,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import "RotationLockUtility.h"
+
 #import "UserDefaultsServiceConstants.h"
 @import Amplitude;
 #import <react-native-ultimate-config/ConfigValues.h>

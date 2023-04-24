@@ -15,7 +15,6 @@
 		5A05E8542821787E00017BA0 /* AmplifyBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A05E8532821787E00017BA0 /* AmplifyBridge.swift */; };
 		5A096AFD2836A20F000FADB2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A096AFC2836A20F000FADB2 /* LoginViewController.m */; };
 		5A0E709329488D9100009B1C /* SettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E709229488D9100009B1C /* SettingsModel.m */; };
-		5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105EE326501FA000511256 /* RotationLockUtility.m */; };
 		5A105FEC265FD9E300511256 /* Directions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FEA265FD99100511256 /* Directions.m */; };
 		5A105FF1266001AB00511256 /* MapService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A105FF0266001AB00511256 /* MapService.m */; };
 		5A12E88E27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E88D27B6BFB0004FD8C6 /* ReferenceContentTableViewCell.m */; };
@@ -285,8 +284,6 @@
 		5A0E709129488D9100009B1C /* SettingsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModel.h; sourceTree = "<group>"; };
 		5A0E709229488D9100009B1C /* SettingsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsModel.m; sourceTree = "<group>"; };
 		5A0E709429488DAC00009B1C /* SettingsModelObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelObservable.h; sourceTree = "<group>"; };
-		5A105EE226501FA000511256 /* RotationLockUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationLockUtility.h; sourceTree = "<group>"; };
-		5A105EE326501FA000511256 /* RotationLockUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotationLockUtility.m; sourceTree = "<group>"; };
 		5A105FE9265FD99100511256 /* Directions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Directions.h; sourceTree = "<group>"; };
 		5A105FEA265FD99100511256 /* Directions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Directions.m; sourceTree = "<group>"; };
 		5A105FEF266001AB00511256 /* MapService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapService.h; sourceTree = "<group>"; };
@@ -1452,8 +1449,6 @@
 			children = (
 				5A775B9826064F6F00CEFC78 /* RootViewController.h */,
 				5A775B9926064F6F00CEFC78 /* RootViewController.m */,
-				5A105EE226501FA000511256 /* RotationLockUtility.h */,
-				5A105EE326501FA000511256 /* RotationLockUtility.m */,
 			);
 			path = RootViewController;
 			sourceTree = "<group>";
@@ -2740,7 +2735,6 @@
 				5A775B6126064C9000CEFC78 /* PlaceDetails.m in Sources */,
 				5A6CC8E0279D9AB700EE6E35 /* IndexController.m in Sources */,
 				5A775B8926064C9000CEFC78 /* UserDefaultsService.m in Sources */,
-				5A105EE426501FA000511256 /* RotationLockUtility.m in Sources */,
 				5A775B2826064C9000CEFC78 /* StoredCategory+CoreDataClass.m in Sources */,
 				5A775E0E26077A7D00CEFC78 /* GalleryView.m in Sources */,
 				5AAD04F229AB969C0028CDA8 /* SettingsUtils.m in Sources */,
