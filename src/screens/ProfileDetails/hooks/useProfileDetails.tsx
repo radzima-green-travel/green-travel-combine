@@ -10,7 +10,11 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteUserRequest, signOutRequest} from 'core/reducers';
 import {Alert} from 'react-native';
-import {selectFullUserName, selectUserAuthorized} from 'core/selectors';
+import {
+  selectFullUserName,
+  selectIsAuthorizedWithSocialProviders,
+  selectUserAuthorized,
+} from 'core/selectors';
 
 export const useProfileDetails = () => {
   const {t} = useTranslation('profile');
@@ -42,6 +46,16 @@ export const useProfileDetails = () => {
   const isAuthorized = useSelector(selectUserAuthorized);
   const userName = useSelector(selectFullUserName);
 
+  const onChangePasswordPress = useCallback(() => {
+    navigation.navigate('AuthNavigator', {
+      screen: 'ChangePassword',
+    });
+  }, [navigation]);
+
+  const isAuthorizedWithSocialProviders = useSelector(
+    selectIsAuthorizedWithSocialProviders,
+  );
+
   useOnRequestSuccess(signOutRequest, () => {
     navigation.goBack();
   });
@@ -57,5 +71,7 @@ export const useProfileDetails = () => {
     onDeleteUserPress,
     isAuthorized,
     userName,
+    onChangePasswordPress,
+    isChangePasswordAvailable: !isAuthorizedWithSocialProviders,
   };
 };

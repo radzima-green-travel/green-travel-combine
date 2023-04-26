@@ -29,3 +29,18 @@ export const selectFullUserName = createSelector(
     return split(email, '@')[0] || '';
   },
 );
+
+export const selectIsAuthorizedWithSocialProviders = createSelector(
+  selectUserAuthorizedData,
+  userData => {
+    if (userData?.identities) {
+      const parsedIdentities = JSON.parse(userData.identities);
+
+      return ['Google', 'Facebook', 'SignInWithApple'].includes(
+        parsedIdentities?.[0]?.providerName,
+      );
+    }
+
+    return false;
+  },
+);

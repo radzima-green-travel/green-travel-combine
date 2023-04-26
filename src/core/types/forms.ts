@@ -22,3 +22,8 @@ export interface NewPasswordFormModel {
   code: string;
   password: string;
 }
+
+export interface ChangePasswordFormModel {
+  oldPassword: string;
+  newPassword: string;
+}

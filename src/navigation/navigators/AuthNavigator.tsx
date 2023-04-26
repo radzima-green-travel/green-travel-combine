@@ -9,6 +9,7 @@ import {
   RestorePasswordScreen,
   NewPasswordScreen,
   SocialLoginInAppBrowserScreen,
+  ChangePasswordScreen,
 } from '../../screens';
 import {HeaderCancelButton} from 'atoms';
 
@@ -62,6 +63,12 @@ export function AuthNavigator() {
       <Stack.Screen
         name="SocialLoginInAppBrowser"
         component={SocialLoginInAppBrowserScreen}
+      />
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePasswordScreen}
+        options={ChangePasswordScreen.screenOptions}
+        initialParams={{email: ''}}
       />
     </Stack.Navigator>
   );

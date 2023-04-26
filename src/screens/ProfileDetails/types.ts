@@ -1,10 +1,18 @@
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RouteProp} from '@react-navigation/native';
-import {ProfileNavigatorParamsList} from 'core/types';
-
-export type ProfileDetailsScreenNavigationProps = StackNavigationProp<
+import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
+import {
   ProfileNavigatorParamsList,
-  'ProfileDetails'
+  MainNavigatorParamsList,
+  TabNavigatorParamsList,
+} from 'core/types';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+
+export type ProfileDetailsScreenNavigationProps = CompositeNavigationProp<
+  NativeStackNavigationProp<ProfileNavigatorParamsList, 'ProfileDetails'>,
+  CompositeNavigationProp<
+    BottomTabNavigationProp<TabNavigatorParamsList>,
+    NativeStackNavigationProp<MainNavigatorParamsList>
+  >
 >;
 
 export type ProfileDetailsScreenRouteProps = RouteProp<

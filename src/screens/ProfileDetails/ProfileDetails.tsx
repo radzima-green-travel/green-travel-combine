@@ -17,6 +17,8 @@ export const ProfileDetails = () => {
     onDeleteUserPress,
     isAuthorized,
     userName,
+    onChangePasswordPress,
+    isChangePasswordAvailable,
   } = useProfileDetails();
 
   return (
@@ -31,13 +33,15 @@ export const ProfileDetails = () => {
           renderRightElement={isAuthorized && <Text>{userName}</Text>}
         />
       </View>
-      <View style={styles.itemContainer}>
-        <GeneralListItem
-          position="single"
-          onPress={() => {}}
-          title={t('changePassword')}
-        />
-      </View>
+      {isChangePasswordAvailable ? (
+        <View style={styles.itemContainer}>
+          <GeneralListItem
+            position="single"
+            onPress={onChangePasswordPress}
+            title={t('changePassword')}
+          />
+        </View>
+      ) : null}
       <GeneralListItem
         loading={deleting}
         position="top"

@@ -132,6 +132,19 @@ export const inAppBrowserSuccessOperation = createAction(
   ACTIONS.IN_APP_BROWSER_SUCCESS_OPERATION,
 )();
 
+export const changePasswordRequest = createAction(
+  ACTIONS.CHANGE_PASSWORD_REQUEST,
+)<{
+  oldPassword: string;
+  newPassword: string;
+}>();
+export const changePasswordSuccess = createAction(
+  ACTIONS.CHANGE_PASSWORD_SUCCESS,
+)();
+export const changePasswordFailure = createAction(
+  ACTIONS.CHANGE_PASSWORD_FAILURE,
+)<Error>();
+
 interface IAuth {
   userAttributes: CognitoUserAttributes | null;
 }

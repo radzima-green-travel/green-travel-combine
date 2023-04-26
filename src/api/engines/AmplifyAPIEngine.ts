@@ -28,7 +28,7 @@ export class AmplifyApiEngine {
       return res;
     } catch (e) {
       const amplifyError = e as AmplifyError;
-
+      console.log(amplifyError);
       if (amplifyError.code === 'NetworkError') {
         return Promise.reject(
           new RequestError(

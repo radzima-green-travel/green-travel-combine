@@ -1,12 +1,12 @@
 import {useThemeStyles} from 'core/hooks';
-import React, {memo, PropsWithChildren, useState, useCallback} from 'react';
+import React, {memo, PropsWithChildren} from 'react';
 import {
   Text,
   StyleProp,
   ViewStyle,
   ActivityIndicator,
-  Pressable,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
 import {BUTTON_THEMES} from './constants';
@@ -38,26 +38,15 @@ export const Button = memo(
   }: Props) => {
     const buttonThemeStyles = useThemeStyles(BUTTON_THEMES[theme]);
 
-    const [isActive, setIsActive] = useState(false);
-
-    const setActive = useCallback(() => {
-      setIsActive(true);
-    }, []);
-
-    const setInactive = useCallback(() => {
-      setIsActive(false);
-    }, []);
-
     return (
-      <Pressable
-        onPressIn={setActive}
-        onPressOut={setInactive}
+      <TouchableOpacity
         onPress={onPress}
+        activeOpacity={0.8}
+        disabled={disabled || loading}
         style={[
           styles.container,
           buttonThemeStyles.container,
           disabled && buttonThemeStyles.disabled,
-          isActive && buttonThemeStyles.active,
           style,
         ]}
         {...getPlatformsTestID(testID)}>
@@ -82,7 +71,7 @@ export const Button = memo(
             </Text>
           </>
         )}
-      </Pressable>
+      </TouchableOpacity>
     );
   },
 );

@@ -91,4 +91,5 @@ export type AuthNavigatorParamsList = {
   };
   AuthMethodSelection: undefined;
   SocialLoginInAppBrowser: {url: string};
+  ChangePassword: undefined;
 };

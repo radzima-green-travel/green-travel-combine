@@ -172,7 +172,22 @@ class AmplifyApi extends AmplifyApiEngine {
       {
         context: Auth,
         method: Auth.changePassword,
-        errorMap: () => {
+        errorMap: (e: AmplifyError) => {
+          if (e.code === 'NotAuthorizedException') {
+            if (e.message === 'Incorrect username or password.') {
+              return {
+                code: 'WRONG_PASSWORD',
+                status: 400,
+              };
+            }
+          }
+
+          if (e.code === 'LimitExceededException') {
+            return {
+              code: 'PASSWORD_ATTEMPTS_EXCEEDED',
+              status: 400,
+            };
+          }
           return {};
         },
       },

@@ -91,6 +91,9 @@
         },
         "VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED": {
           "text": "Exceeded number of code confirmation attempts. Try later"
+        },
+        "WRONG_PASSWORD": {
+          "text": "Wrong password"
         }
       }
     },
@@ -109,7 +112,6 @@
     "password": "Password",
     "forgetPassword": "Forgot your password?",
     "restorePassword": "Restore password",
-    "newPassword": "New password",
     "passwordWarning": "Your new password must be different from previously used passwords",
     "restorePasswordInstruction": "Enter the email address you used when registering and we will send instructions to reset your password",
     "signUpValidationTitle": "Confirm registration",
@@ -140,7 +142,14 @@
     "oneLowerCase": "1 lowercase letter",
     "oneSpecialSymbol": "1 special character",
     "oneNumber": "1 number",
-    "noSpaces": "no spaces"
+    "noSpaces": "no spaces",
+    "title": "Change Password",
+    "description": "Your new password must be different from previous passwords",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "updatePassword": "Update password",
+    "oldPasswordPlaceholder": "Enter old password",
+    "newPasswordPlaceholder": "Enter a new password"
   },
   "profile": {
     "notAuthorrized": {

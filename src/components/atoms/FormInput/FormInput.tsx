@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
-import {Pressable, TextInput, View} from 'react-native';
+import {Pressable, Text, TextInput, View} from 'react-native';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
 import {Icon} from '../Icon';
@@ -35,6 +35,10 @@ interface IProps {
   invalidChars?: RegExp;
   allowedChars?: RegExp;
   keyboardType?: ComponentProps<typeof TextInput>['keyboardType'];
+  onSubmitEditing?: ComponentProps<typeof TextInput>['onSubmitEditing'];
+  returnKeyType?: ComponentProps<typeof TextInput>['returnKeyType'];
+  title?: string;
+  focusNextFieldOnSubmit?: boolean;
 }
 
 export const FormInput = ({
@@ -57,13 +61,17 @@ export const FormInput = ({
   invalidChars,
   allowedChars,
   keyboardType,
+  title,
+  onSubmitEditing,
+  focusNextFieldOnSubmit,
+  returnKeyType,
 }: IProps) => {
   const {t} = useTranslation('authentification');
   const styles = useThemeStyles(themeStyles);
   const colorScheme = useColorScheme();
   const ref = useRef<TextInput>(null);
 
-  const {handleContainerNode, containerToHandleRef, inputRef} =
+  const {handleContainerNode, containerToHandleRef, inputRef, focusNextInput} =
     useHandleKeyboardInput(ref);
 
   const onFocusHandler = useCallback(() => {
@@ -108,8 +116,18 @@ export const FormInput = ({
     }
   };
 
+  const onSubmitEditingHandler = e => {
+    if (onSubmitEditing) {
+      onSubmitEditing(e);
+    }
+    if (focusNextFieldOnSubmit) {
+      focusNextInput();
+    }
+  };
+
   return (
     <View style={styles.container} ref={containerToHandleRef}>
+      {title ? <Text style={styles.title}>{title}</Text> : null}
       <View
         style={[
           styles.inputFieldContainer,
@@ -140,6 +158,8 @@ export const FormInput = ({
           placeholderTextColor={
             colorScheme === 'light' ? COLORS.silver : COLORS.cullGrey
           }
+          onSubmitEditing={onSubmitEditingHandler}
+          returnKeyType={returnKeyType}
         />
         {iconRightName ? (
           <Pressable

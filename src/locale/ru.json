@@ -91,6 +91,9 @@
         },
         "VERIFICATION_CODE_CONFIRMATION_ATTEMPTS_EXCEEDED": {
           "text": "Превышено количество попыток проверки кода. Попробуйте позже"
+        },
+        "WRONG_PASSWORD": {
+          "text": "Неверный пароль"
         }
       }
     },
@@ -109,7 +112,6 @@
     "password": "Пароль",
     "forgetPassword": "Забыли пароль?",
     "restorePassword": "Восстановить пароль",
-    "newPassword": "Новый пароль",
     "passwordWarning": "Ваш новый пароль должен отличаться от используемых ранее паролей",
     "restorePasswordInstruction": "Укажите адрес почты, который вы использовали при регистрации, и мы отправим инструкции для восстановления пароля",
     "signUpValidationTitle": "Подтвердите регистрацию",
@@ -136,11 +138,18 @@
     "privacyPolicy": "Политикой конфиденциальности",
     "passwordMustContain": "Пароль должен содержать как минимум:",
     "minPasswordChars": "{{amount}} символов",
-    "oneUpperChar": "1 заглавную букву",
-    "oneLowerCase": "1 строчную букву",
+    "oneUpperChar": "1 заглавная букву",
+    "oneLowerCase": "1 строчная букву",
     "oneSpecialSymbol": "1 специальный символ",
-    "oneNumber": "1 цифру",
-    "noSpaces": "без пробелов"
+    "oneNumber": "1 цифра",
+    "noSpaces": "без пробелов",
+    "title": "Смена пароля",
+    "description": "Ваш новый пароль должен отличаться от используемых ранее паролей",
+    "oldPassword": "Старый пароль",
+    "newPassword": "Новый пароль",
+    "updatePassword": "Обновить пароль",
+    "oldPasswordPlaceholder": "Введите старый пароль",
+    "newPasswordPlaceholder": "Введите новый пароль"
   },
   "profile": {
     "notAuthorrized": {

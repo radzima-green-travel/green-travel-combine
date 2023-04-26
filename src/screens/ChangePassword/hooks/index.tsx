@@ -1,0 +1,1 @@
+export {useChangePassword} from './useChangePassword';
