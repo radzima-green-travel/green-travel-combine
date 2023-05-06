@@ -6,6 +6,7 @@ import {useDispatch} from 'react-redux';
 import {signInRequest} from 'core/reducers';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
+import {useNavigateToPrivacyPolicyAndTnC} from 'core/hooks';
 
 export const useAuthMethodSelection = () => {
   const navigation = useNavigation<AuthMethodSelectionScreenNavigationProps>();
@@ -13,6 +14,9 @@ export const useAuthMethodSelection = () => {
   const handleEmailButtonPress = useCallback(() => {
     navigation.navigate('CheckEmail');
   }, [navigation]);
+
+  const {navigateToPrivacyPolicy, navigateToTermsAndConditions} =
+    useNavigateToPrivacyPolicyAndTnC();
 
   const handleGoogleButtonPress = () => {
     dispatch(
@@ -50,5 +54,7 @@ export const useAuthMethodSelection = () => {
     appleLoading: getLoadingStateByEntityId(
       CognitoHostedUIIdentityProvider.Apple,
     ),
+    navigateToPrivacyPolicy,
+    navigateToTermsAndConditions,
   };
 };

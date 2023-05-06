@@ -4,6 +4,7 @@ import {
   ProfileDetails,
   ProfileSettingsLanguage,
   ProfileSettingsTheme,
+  InAppWebViewScreen,
 } from '../../screens';
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../screenOptions';
@@ -41,6 +42,7 @@ export function ProfileNavigator() {
         component={ProfileSettingsTheme}
         options={{title: t('theme')}}
       />
+      <Stack.Screen name="InAppWebView" component={InAppWebViewScreen} />
     </Stack.Navigator>
   );
 }

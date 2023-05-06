@@ -8,13 +8,18 @@ import {
   useTranslation,
 } from 'core/hooks';
 import {useDispatch, useSelector} from 'react-redux';
-import {deleteUserRequest, signOutRequest} from 'core/reducers';
+import {
+  changePasswordRequest,
+  deleteUserRequest,
+  signOutRequest,
+} from 'core/reducers';
 import {Alert} from 'react-native';
 import {
-  selectFullUserName,
   selectIsAuthorizedWithSocialProviders,
   selectUserAuthorized,
+  selectUserEmail,
 } from 'core/selectors';
+import {useSnackbar} from 'atoms';
 
 export const useProfileDetails = () => {
   const {t} = useTranslation('profile');
@@ -44,7 +49,7 @@ export const useProfileDetails = () => {
   }, [t, dispatch]);
 
   const isAuthorized = useSelector(selectUserAuthorized);
-  const userName = useSelector(selectFullUserName);
+  const userName = useSelector(selectUserEmail);
 
   const onChangePasswordPress = useCallback(() => {
     navigation.navigate('AuthNavigator', {
@@ -56,12 +61,21 @@ export const useProfileDetails = () => {
     selectIsAuthorizedWithSocialProviders,
   );
 
+  const {show, ...snackBarProps} = useSnackbar();
+
   useOnRequestSuccess(signOutRequest, () => {
     navigation.goBack();
   });
 
   useOnRequestSuccess(deleteUserRequest, () => {
     navigation.goBack();
+  });
+
+  useOnRequestSuccess(changePasswordRequest, () => {
+    show({
+      type: 'positive',
+      title: t('passwordChanged'),
+    });
   });
 
   return {
@@ -73,5 +87,6 @@ export const useProfileDetails = () => {
     userName,
     onChangePasswordPress,
     isChangePasswordAvailable: !isAuthorizedWithSocialProviders,
+    snackBarProps,
   };
 };

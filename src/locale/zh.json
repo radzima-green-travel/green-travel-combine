@@ -24,7 +24,9 @@
     "locationPermissionText": "在設置中授予對地理位置的訪問權限以確定您的位置",
     "locationPermissionCancel": "取消",
     "locationPermissionSetttings": "设置",
-    "cancel": "取消"
+    "cancel": "取消",
+    "privacyPolicy": "隱私政策",
+    "termsAndConditions": "申請條款"
   },
   "home": {
     "headerTitle": "主页",
@@ -134,13 +136,11 @@
     "emailAuth": "继续 Email",
     "appleAuth": "继续 Apple",
     "termsAndPolicyInfo": "通过创建或登录帐户，您同意我们的",
-    "termsOfUse": "使用条款",
-    "privacyPolicy": "隐私政策",
     "passwordMustContain": "密碼必須至少包含：",
     "minPasswordChars": "{{amount}} 個字符",
     "oneUpperChar": "1個大寫字母",
     "oneLowerCase": "1個小寫字母",
-    "oneSpecialSymbol": "1個特殊字符",
+    "oneSpecialSymbol": "1個特殊字符 (!, #, $, % 或其他)",
     "oneNumber": "1個號碼",
     "noSpaces": "沒有空間",
     "title": "修改密碼",
@@ -158,6 +158,7 @@
     },
     "authorized": {
       "title": "您已登錄",
+      "subtitle": "帳號設定",
       "email": "電子郵件"
     },
     "profile": "個人資料",
@@ -182,7 +183,6 @@
     "deletedPhotos": "上傳的照片將被刪除。",
     "cacheCleared": "緩存已清除",
     "info": "信息",
-    "policyPrivacy": "隱私政策",
-    "termsOfUse": "使用條款"
+    "passwordChanged": "密碼已更改"
   }
 }

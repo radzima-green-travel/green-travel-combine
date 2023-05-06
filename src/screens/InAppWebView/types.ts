@@ -4,12 +4,12 @@ import {AuthNavigatorParamsList} from 'core/types';
 
 export type SocialLoginInAppBrowserScreenNavigationProps = StackNavigationProp<
   AuthNavigatorParamsList,
-  'SocialLoginInAppBrowser'
+  'InAppWebView'
 >;
 
 export type SocialLoginInAppBrowserScreenRouteProps = RouteProp<
   AuthNavigatorParamsList,
-  'SocialLoginInAppBrowser'
+  'InAppWebView'
 >;
 
 export interface IProps {

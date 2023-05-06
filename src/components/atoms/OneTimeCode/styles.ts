@@ -28,6 +28,10 @@ export const themeStyles = {
   digit: {
     textAlign: 'center',
     fontSize: 24,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
   placeholder: {
     borderTopWidth: 1,

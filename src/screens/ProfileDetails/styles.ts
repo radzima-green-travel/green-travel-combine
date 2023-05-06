@@ -1,3 +1,4 @@
+import {COLORS, FONTS_STYLES} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
@@ -10,5 +11,12 @@ export const themeStyles = {
   },
   itemContainer: {
     marginBottom: 24,
+  },
+  email: {
+    ...FONTS_STYLES.regular17,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
   },
 };

@@ -6,6 +6,7 @@ import {useProfileDetails} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
+import {SnackBar} from 'atoms';
 
 export const ProfileDetails = () => {
   const {t} = useTranslation('profile');
@@ -19,6 +20,7 @@ export const ProfileDetails = () => {
     userName,
     onChangePasswordPress,
     isChangePasswordAvailable,
+    snackBarProps,
   } = useProfileDetails();
 
   return (
@@ -30,7 +32,9 @@ export const ProfileDetails = () => {
           title={
             isAuthorized ? t('authorized.email') : t('notAuthorrized.subtitle')
           }
-          renderRightElement={isAuthorized && <Text>{userName}</Text>}
+          renderRightElement={
+            isAuthorized && <Text style={styles.email}>{userName}</Text>
+          }
         />
       </View>
       {isChangePasswordAvailable ? (
@@ -55,6 +59,7 @@ export const ProfileDetails = () => {
         onPress={onSignOutPress}
         title={t('goOut')}
       />
+      <SnackBar {...snackBarProps} />
     </View>
   );
 };

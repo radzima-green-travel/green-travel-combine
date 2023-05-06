@@ -9,9 +9,10 @@ import {themeStyles} from './styles';
 
 export const Profile = () => {
   const {t} = useTranslation('profile');
+  const {t: tCommon} = useTranslation('common');
+
   const styles = useThemeStyles(themeStyles);
   const {
-    userName,
     isAuthorized,
     language,
     theme,
@@ -21,6 +22,8 @@ export const Profile = () => {
     loading,
     onClearCachePress,
     snackBarProps,
+    navigateToPrivacyPolicy,
+    navigateToTermsAndConditions,
   } = useProfile();
 
   return (
@@ -32,7 +35,11 @@ export const Profile = () => {
           title={
             isAuthorized ? t('authorized.title') : t('notAuthorrized.title')
           }
-          subtitle={isAuthorized ? userName : t('notAuthorrized.subtitle')}
+          subtitle={
+            isAuthorized
+              ? t('authorized.subtitle')
+              : t('notAuthorrized.subtitle')
+          }
           withChevron
           loading={loading}
         />
@@ -73,14 +80,14 @@ export const Profile = () => {
       <SettingsSectionTitle text={t('info')} />
       <GeneralListItem
         position="top"
-        onPress={() => {}}
-        title={t('policyPrivacy')}
+        onPress={navigateToPrivacyPolicy}
+        title={tCommon('privacyPolicy')}
         withChevron
       />
       <GeneralListItem
         position="bottom"
-        onPress={() => {}}
-        title={t('termsOfUse')}
+        onPress={navigateToTermsAndConditions}
+        title={tCommon('termsAndConditions')}
         withChevron
       />
 

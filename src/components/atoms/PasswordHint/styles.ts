@@ -9,7 +9,7 @@ export const themeStyles = {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginRight: 7,
+    marginRight: 12,
   },
   text: {
     ...FONTS_STYLES.regular12,

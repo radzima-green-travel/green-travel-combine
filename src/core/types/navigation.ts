@@ -40,6 +40,7 @@ export type ProfileNavigatorParamsList = {
   ProfileDetails: undefined;
   ProfileSettingsLanguage: undefined;
   ProfileSettingsTheme: undefined;
+  InAppWebView: {url: string; title: string};
 };
 
 export type AppMapNavigatorParamsList = {
@@ -90,6 +91,6 @@ export type AuthNavigatorParamsList = {
     isSignUp: boolean;
   };
   AuthMethodSelection: undefined;
-  SocialLoginInAppBrowser: {url: string};
+  InAppWebView: {url: string; title: string};
   ChangePassword: undefined;
 };

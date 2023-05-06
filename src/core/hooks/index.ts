@@ -33,3 +33,4 @@ export {
   useStaticCallback,
   IError,
 } from 'react-redux-help-kit';
+export {useNavigateToPrivacyPolicyAndTnC} from './useNavigateToPrivacyPolicyAndTnC';

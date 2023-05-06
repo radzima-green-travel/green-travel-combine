@@ -24,7 +24,9 @@
     "locationPermissionText": "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию",
     "locationPermissionCancel": "Отменить",
     "locationPermissionSetttings": "Настройки",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "privacyPolicy": "Политика конфиденциальности",
+    "termsAndConditions": "Условия использования"
   },
   "home": {
     "headerTitle": "Главная",
@@ -134,14 +136,12 @@
     "emailAuth": "Продолжить с Эл. почтой",
     "appleAuth": "Продолжить с Apple",
     "termsAndPolicyInfo": "Создавая или входя в аккаунт, вы соглашаетесь с нашими",
-    "termsOfUse": "Правилами использования",
-    "privacyPolicy": "Политикой конфиденциальности",
     "passwordMustContain": "Пароль должен содержать как минимум:",
     "minPasswordChars": "{{amount}} символов",
-    "oneUpperChar": "1 заглавная букву",
-    "oneLowerCase": "1 строчная букву",
-    "oneSpecialSymbol": "1 специальный символ",
-    "oneNumber": "1 цифра",
+    "oneUpperChar": "1 заглавную букву",
+    "oneLowerCase": "1 строчную букву",
+    "oneSpecialSymbol": "1 специальный символ (напр. !, #, $, % или другие)",
+    "oneNumber": "1 цифру",
     "noSpaces": "без пробелов",
     "title": "Смена пароля",
     "description": "Ваш новый пароль должен отличаться от используемых ранее паролей",
@@ -158,6 +158,7 @@
     },
     "authorized": {
       "title": "Вы авторизованы",
+      "subtitle": "Настройки аккаунта",
       "email": "E-mail"
     },
     "profile": "Профиль",
@@ -182,7 +183,6 @@
     "deletedPhotos": "Будут удалены загруженные фото.",
     "cacheCleared": "Кэш очищен",
     "info": "Информация",
-    "policyPrivacy": "Политика конфиденциальности",
-    "termsOfUse": "Правила использования"
+    "passwordChanged": "Пароль изменен"
   }
 }

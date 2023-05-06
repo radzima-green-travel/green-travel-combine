@@ -1,1 +1,0 @@
-export {SocialLoginInAppBrowser} from './SocialLoginInAppBrowser';

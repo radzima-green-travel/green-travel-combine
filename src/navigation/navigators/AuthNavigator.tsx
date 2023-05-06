@@ -8,7 +8,7 @@ import {
   SignUpFormScreen,
   RestorePasswordScreen,
   NewPasswordScreen,
-  SocialLoginInAppBrowserScreen,
+  InAppWebViewScreen,
   ChangePasswordScreen,
 } from '../../screens';
 import {HeaderCancelButton} from 'atoms';
@@ -60,15 +60,11 @@ export function AuthNavigator() {
         component={NewPasswordScreen}
         options={{title: t('restorePassword', {ns: 'authentification'})}}
       />
-      <Stack.Screen
-        name="SocialLoginInAppBrowser"
-        component={SocialLoginInAppBrowserScreen}
-      />
+      <Stack.Screen name="InAppWebView" component={InAppWebViewScreen} />
       <Stack.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
         options={ChangePasswordScreen.screenOptions}
-        initialParams={{email: ''}}
       />
     </Stack.Navigator>
   );

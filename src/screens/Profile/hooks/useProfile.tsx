@@ -6,13 +6,12 @@ import {ProfileScreenNavigationProps} from '../types';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   selectUserAuthorized,
-  selectFullUserName,
   selectAppLanguage,
   selectAppTheme,
 } from 'core/selectors';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {clearCacheRequest, signInRequest} from 'core/reducers';
-import {useTranslation} from 'core/hooks';
+import {useNavigateToPrivacyPolicyAndTnC, useTranslation} from 'core/hooks';
 import {useSnackbar} from '../../../components/atoms';
 import {getLanguageByLocale} from 'core/helpers';
 
@@ -21,7 +20,6 @@ export const useProfile = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<ProfileScreenNavigationProps>();
   const isAuthorized = useSelector(selectUserAuthorized);
-  const userName = useSelector(selectFullUserName);
   const appLanguage = useSelector(selectAppLanguage);
   const appTheme = useSelector(selectAppTheme);
 
@@ -42,6 +40,9 @@ export const useProfile = () => {
   const navigateToProfileSettingsTheme = useCallback(() => {
     navigation.navigate('ProfileSettingsTheme');
   }, [navigation]);
+
+  const {navigateToPrivacyPolicy, navigateToTermsAndConditions} =
+    useNavigateToPrivacyPolicyAndTnC();
 
   const onClearCachePress = useCallback(() => {
     Alert.alert(t('clearCacheAlert'), t('deletedPhotos'), [
@@ -69,7 +70,6 @@ export const useProfile = () => {
   });
 
   return {
-    userName,
     isAuthorized,
     language,
     theme,
@@ -79,5 +79,7 @@ export const useProfile = () => {
     onClearCachePress,
     loading: loading,
     snackBarProps,
+    navigateToPrivacyPolicy,
+    navigateToTermsAndConditions,
   };
 };

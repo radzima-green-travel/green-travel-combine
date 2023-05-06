@@ -24,7 +24,9 @@
     "locationPermissionText": "Grant access to Geolocation in settings to determine your position",
     "locationPermissionCancel": "Cancel",
     "locationPermissionSetttings": "Settings",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "privacyPolicy": "Privacy Policy",
+    "termsAndConditions": "Terms And Conditions"
   },
   "home": {
     "headerTitle": "Main",
@@ -134,13 +136,11 @@
     "emailAuth": "Continue with Email",
     "appleAuth": "Continue with Apple",
     "termsAndPolicyInfo": "By creating or logging into an account, you agree to our",
-    "termsOfUse": "Terms Of Use",
-    "privacyPolicy": "Privacy Policy",
     "passwordMustContain": "Password must contain at least:",
     "minPasswordChars": "{{amount}} characters",
     "oneUpperChar": "1 uppercase letter",
     "oneLowerCase": "1 lowercase letter",
-    "oneSpecialSymbol": "1 special character",
+    "oneSpecialSymbol": "1 special character (i.e. !, #, $, % and others)",
     "oneNumber": "1 number",
     "noSpaces": "no spaces",
     "title": "Change Password",
@@ -154,10 +154,11 @@
   "profile": {
     "notAuthorrized": {
       "title": "You are not authorized",
-      "subtitle": "Login or Sign up"
+      "subtitle": "Account settings"
     },
     "authorized": {
       "title": "You are logged in",
+      "subtitle": "Account settings",
       "email": "E-mail"
     },
     "profile": "Profile",
@@ -182,7 +183,6 @@
     "deletedPhotos": "Uploaded photos will be deleted.",
     "cacheCleared": "Cache cleared",
     "info": "Info",
-    "policyPrivacy": "Policy Privacy",
-    "termsOfUse": "Terms Of Use"
+    "passwordChanged": "Password changed"
   }
 }

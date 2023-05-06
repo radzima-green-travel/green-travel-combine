@@ -10,7 +10,7 @@ import {
   SignUpFormScreenRouteProps,
   SignUpFormScreenNavigationProps,
 } from '../types';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {changePasswordRequest} from 'core/reducers';
 import {useFormik} from 'formik';
 import {ChangePasswordFormModel, IRequestError} from 'core/types';
@@ -20,9 +20,6 @@ import {useSnackbar} from 'atoms';
 export const useChangePassword = () => {
   const dispatch = useDispatch();
 
-  const {
-    params: {email},
-  } = useRoute<SignUpFormScreenRouteProps>();
   const navigation = useNavigation<SignUpFormScreenNavigationProps>();
 
   const navigateToEmailValidation = useCallback(() => {
@@ -74,7 +71,6 @@ export const useChangePassword = () => {
 
   return {
     loading,
-    email,
     formik,
     signUp,
     oldPasswordVisibility,
