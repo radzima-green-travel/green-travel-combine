@@ -154,7 +154,7 @@
   "profile": {
     "notAuthorrized": {
       "title": "You are not authorized",
-      "subtitle": "Account settings"
+      "subtitle": "Login or Sign up"
     },
     "authorized": {
       "title": "You are logged in",

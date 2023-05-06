@@ -1,5 +1,6 @@
 import {COLORS, FONTS_STYLES} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
+import {hexWithAlpha} from 'core/helpers';
 
 export const themeStyles = {
   container: {
@@ -15,7 +16,7 @@ export const themeStyles = {
   email: {
     ...FONTS_STYLES.regular17,
     color: {
-      light: COLORS.logCabin,
+      light: hexWithAlpha(COLORS.tuna, 0.6),
       dark: COLORS.altoForDark,
     },
   },
