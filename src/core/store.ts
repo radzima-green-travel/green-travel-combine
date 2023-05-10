@@ -58,9 +58,15 @@ const sagaMiddleware = createSagaMiddleware();
 
 export type IState = StateType<typeof rootReducer>;
 
+const middlewares = [sagaMiddleware];
+
+if (__DEV__) {
+  middlewares.push(logger);
+}
+
 export const store: Store<IState> = createStore(
   rootReducer,
-  applyMiddleware(sagaMiddleware, logger),
+  applyMiddleware(...middlewares),
 );
 
 export const persistor = persistStore(store);
