@@ -44,6 +44,7 @@ const signOutUrls = awsConfig.oauth.redirectSignOut.split(',');
 Amplify.configure({
   ...awsConfig,
   aws_appsync_authenticationType: 'API_KEY',
+  aws_user_pools_web_client_id: config.AWS_USER_POOLS_WEB_CLIENT_ID,
   oauth: {
     ...awsConfig.oauth,
     redirectSignIn: signInUrls[2],
