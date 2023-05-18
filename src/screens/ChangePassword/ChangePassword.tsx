@@ -36,7 +36,6 @@ export const ChangePassword = () => {
         <HandleContainer>
           <AuthForm
             title={t('title')}
-            text={t('description')}
             onSubmitPress={submitForm}
             submitButtonText={t('updatePassword')}
             isSubmitButtonDisabled={isSubmitButtonDisabled}

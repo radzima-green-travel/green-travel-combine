@@ -7,7 +7,7 @@ import {themeStyles} from './styles';
 
 interface IProps {
   title: string;
-  text: string;
+  text?: string;
   isSubmitButtonDisabled: boolean;
   onSubmitPress: () => void;
   submitButtonText: string;
@@ -40,7 +40,7 @@ export const AuthForm = memo(
         }}
         style={styles.container}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.text}>{text}</Text>
+        {text ? <Text style={styles.text}>{text}</Text> : null}
         <View style={styles.formFieldsContainer}>{children}</View>
         <Button
           loading={submitButtonLoading}

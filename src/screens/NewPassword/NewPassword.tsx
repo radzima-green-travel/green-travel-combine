@@ -23,7 +23,6 @@ export const NewPassword = () => {
     <FormikProvider value={formik}>
       <AuthForm
         title={t('newPassword')}
-        text={t('passwordWarning')}
         onSubmitPress={submitForm}
         submitButtonText={buttonText}
         isSubmitButtonDisabled={isSubmitButtonDisabled}
