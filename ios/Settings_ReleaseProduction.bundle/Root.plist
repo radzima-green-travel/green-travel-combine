@@ -16,21 +16,11 @@
             <key>Type</key>
             <string>PSTitleValueSpecifier</string>
             <key>Title</key>
-            <string>App framework</string>
-            <key>Key</key>
-            <string>framework</string>
-            <key>DefaultValue</key>
-            <string></string>
-        </dict>
-        <dict>
-            <key>Type</key>
-            <string>PSTitleValueSpecifier</string>
-            <key>Title</key>
             <string>Build number</string>
             <key>Key</key>
             <string>buildNumber</string>
             <key>DefaultValue</key>
-            <string></string>
+            <string>33</string>
         </dict>
         <dict>
             <key>Type</key>
@@ -40,7 +30,7 @@
             <key>Key</key>
             <string>version</string>
       <key>DefaultValue</key>
-      <string></string>
+      <string>1.5.3</string>
         </dict>
     </array>
 </dict>
