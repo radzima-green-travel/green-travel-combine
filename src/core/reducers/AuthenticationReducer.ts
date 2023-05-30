@@ -145,6 +145,8 @@ export const changePasswordFailure = createAction(
   ACTIONS.CHANGE_PASSWORD_FAILURE,
 )<Error>();
 
+export const resetUserAuthData = createAction(ACTIONS.RESET_USER_AUTH_DATA)();
+
 interface IAuth {
   userAttributes: CognitoUserAttributes | null;
 }
@@ -154,47 +156,31 @@ const defaultState: IAuth = {
 };
 
 const actions = {
-  signInRequest,
   signInSuccess,
-  signInFailure,
-  forgotPasswordRequest,
-  forgotPasswordSuccess,
-  forgotPasswordFailure,
-  confirmNewPasswordRequest,
   confirmNewPasswordSuccess,
-  confirmNewPasswordFailure,
-  signUpRequest,
-  signUpSuccess,
-  signUpFailure,
-  confirmSignUpRequest,
   confirmSignUpSuccess,
-  confirmSignUpFailure,
-  resendSignUpCodeRequest,
-  resendSignUpCodeSuccess,
-  resendSignUpCodeFailure,
   setUserAuthData,
   signOutSuccess,
   deleteUserSuccess,
+  resetUserAuthData,
 };
 
 type Actions = ActionType<typeof actions>;
 
 export const authenticationReducer = createReducer<IAuth, Actions>(defaultState)
   .handleAction(
-    [actions.forgotPasswordSuccess, actions.forgotPasswordFailure],
+    [
+      actions.signOutSuccess,
+      actions.deleteUserSuccess,
+      actions.resetUserAuthData,
+    ],
     state => {
       return {
         ...state,
+        userAttributes: null,
       };
     },
   )
-
-  .handleAction([actions.signOutSuccess, actions.deleteUserSuccess], state => {
-    return {
-      ...state,
-      userAttributes: null,
-    };
-  })
 
   .handleAction(
     [

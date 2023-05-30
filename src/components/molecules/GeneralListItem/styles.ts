@@ -9,7 +9,7 @@ export const themeStyles = {
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: heightS,
+    minHeight: heightS,
     borderRadius: 14,
     alignSelf: 'stretch',
     flexDirection: 'row',

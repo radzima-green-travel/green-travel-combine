@@ -3,7 +3,7 @@ import {Icon, LoadingView} from 'atoms';
 import {hexWithAlpha} from 'core/helpers';
 import {useColorScheme, useThemeStyles} from 'core/hooks';
 import React, {memo, ReactNode, useCallback, useMemo} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {StyleProp, Text, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {themeStyles} from './styles';
 
 interface IProps {
@@ -17,6 +17,8 @@ interface IProps {
   subtitle?: string;
   red?: boolean;
   disabled?: boolean;
+  rightElementContainerStyle?: StyleProp<ViewStyle>;
+  rightElementContentContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export type onPressProps<TItem> = TItem extends undefined
@@ -39,6 +41,8 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
   subtitle,
   red,
   disabled,
+  rightElementContainerStyle,
+  rightElementContentContainerStyle,
 }: IProps & onPressProps<T>) => {
   const styles = useThemeStyles(themeStyles);
   const theme = useColorScheme();
@@ -64,7 +68,12 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
   const renderRightComponent = () => {
     if (renderRightElement || withChevron) {
       return (
-        <View style={[styles.contentContainer, loading && styles.loading]}>
+        <View
+          style={[
+            styles.contentContainer,
+            loading && styles.loading,
+            rightElementContentContainerStyle,
+          ]}>
           {renderRightElement ? renderRightElement : null}
           {withChevron ? (
             <View style={styles.chevronContainer}>
@@ -128,7 +137,8 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
             ) : null}
           </View>
         </View>
-        <View style={styles.rightElementContainer}>
+        <View
+          style={[styles.rightElementContainer, rightElementContainerStyle]}>
           {renderRightComponent()}
           {loading ? <LoadingView size="small" /> : null}
         </View>

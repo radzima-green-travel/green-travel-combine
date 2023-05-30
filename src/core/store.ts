@@ -43,6 +43,12 @@ const settingsPeristConfig = {
   whitelist: ['theme', 'language', 'isSystemLanguage'],
 };
 
+const authenticationPersistConfig = {
+  key: 'authentication',
+  storage: AsyncStorage,
+  whitelist: ['userAttributes'],
+};
+
 const rootReducer = combineReducers({
   ...asyncReducers,
   bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
@@ -50,7 +56,10 @@ const rootReducer = combineReducers({
   home: persistReducer(homePersistConfig, homeReducer),
   objectDetailsMap: objectDetailsMapReducer,
   search: persistReducer(searchPersistConfig, searchReducer),
-  authentication: authenticationReducer,
+  authentication: persistReducer(
+    authenticationPersistConfig,
+    authenticationReducer,
+  ),
   settings: persistReducer(settingsPeristConfig, settingsReducer),
 });
 

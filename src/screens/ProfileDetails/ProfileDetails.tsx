@@ -35,6 +35,8 @@ export const ProfileDetails = () => {
           renderRightElement={
             isAuthorized && <Text style={styles.email}>{userName}</Text>
           }
+          rightElementContainerStyle={styles.emailContainerStyle}
+          rightElementContentContainerStyle={styles.emailContentContainerStyle}
         />
       </View>
       {isChangePasswordAvailable ? (
