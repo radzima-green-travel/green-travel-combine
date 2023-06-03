@@ -19,7 +19,11 @@ export const themeStyles = {
       light: hexWithAlpha(COLORS.tuna, 0.6),
       dark: COLORS.altoForDark,
     },
-    paddingHorizontal: 5,
+  },
+  emailTextContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingLeft: 10,
     paddingVertical: 5,
     marginLeft: 'auto',
   },

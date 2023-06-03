@@ -2867,7 +2867,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
@@ -2883,7 +2883,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.4;
+				MARKETING_VERSION = 1.5.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2909,7 +2909,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",
@@ -2926,7 +2926,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.4;
+				MARKETING_VERSION = 1.5.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -3005,10 +3005,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 34;
-				DEVELOPMENT_TEAM = K36CA7QL4T;
+				CURRENT_PROJECT_VERSION = 35;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K36CA7QL4T;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",
 					"PROD=1",
@@ -3024,7 +3026,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.4;
+				MARKETING_VERSION = 1.5.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -3033,7 +3035,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = app.radzima;
 				PRODUCT_NAME = Radzima;
-				PROVISIONING_PROFILE_SPECIFIER = "EPAM Radzima App Store Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "EPAM Radzima App Store Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

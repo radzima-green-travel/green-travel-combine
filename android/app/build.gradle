@@ -140,8 +140,8 @@ android {
         applicationId "app.radzima"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 34
-        versionName "1.5.4"
+        versionCode 35
+        versionName "1.5.5"
         multiDexEnabled true
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
         if (isNewArchitectureEnabled()) {

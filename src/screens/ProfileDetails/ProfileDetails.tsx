@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {SnackBar} from 'atoms';
+import {map} from 'lodash';
 
 export const ProfileDetails = () => {
   const {t} = useTranslation('profile');
@@ -33,7 +34,15 @@ export const ProfileDetails = () => {
             isAuthorized ? t('authorized.email') : t('notAuthorrized.subtitle')
           }
           renderRightElement={
-            isAuthorized && <Text style={styles.email}>{userName}</Text>
+            isAuthorized && (
+              <View style={styles.emailTextContainer}>
+                {map(userName, letter => (
+                  <View>
+                    <Text style={styles.email}>{letter}</Text>
+                  </View>
+                ))}
+              </View>
+            )
           }
           rightElementContainerStyle={styles.emailContainerStyle}
           rightElementContentContainerStyle={styles.emailContentContainerStyle}
