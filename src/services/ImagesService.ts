@@ -2,7 +2,7 @@ import config from 'react-native-ultimate-config';
 import base64 from 'react-native-base64';
 class ImagesService {
   getOriginalImage(cover: string) {
-    return `${config.NATIVE_CLIENT_IMAGE_URL}/public/${cover}`;
+    return `${config.NATIVE_CLIENT_IMAGE_URL}/public/${encodeURI(cover)}`;
   }
 
   getImageProxy(cover: string, width?: number) {
