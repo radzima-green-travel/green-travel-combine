@@ -171,7 +171,6 @@
 		5A775E1626077A7D00CEFC78 /* SearchCellConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775DF026077A7D00CEFC78 /* SearchCellConfiguration.m */; };
 		5A775E1726077A7D00CEFC78 /* WeRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A775DF226077A7D00CEFC78 /* WeRecommendCell.m */; };
 		5A775E792607E0A100CEFC78 /* GreenTravel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */; };
-		5A775E7C26092B8100CEFC78 /* Settings_Debug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */; };
 		5A78A4E629572E5B007749F3 /* SettingsEntryToggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A78A4E529572E5B007749F3 /* SettingsEntryToggle.m */; };
 		5A78A4E929572E72007749F3 /* SettingsEntrySelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A78A4E829572E72007749F3 /* SettingsEntrySelect.m */; };
 		5A78A4EC29573040007749F3 /* SettingsGroupSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A78A4EB29573040007749F3 /* SettingsGroupSelect.m */; };
@@ -209,8 +208,6 @@
 		5AD1B2D3297C1F4D005CED4E /* SettingsEntryLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2D2297C1F4D005CED4E /* SettingsEntryLink.m */; };
 		5AD1B2D7297C3AF8005CED4E /* SettingsBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1B2D6297C3AF8005CED4E /* SettingsBaseTableViewCell.m */; };
 		5AD1F3842948C7F400ED288D /* SettingsEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD1F3832948C7E900ED288D /* SettingsEntry.m */; };
-		5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */; };
-		5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2DA3326FDED7B00876841 /* Settings.bundle */; };
 		5AD347E02837B2B100235E96 /* AmplifyAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347DF2837B2B100235E96 /* AmplifyAuth.m */; };
 		5AD347E32837C2C500235E96 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347E22837C2C500235E96 /* UserController.m */; };
 		5AD347E72837C2EE00235E96 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD347E62837C2EE00235E96 /* UserModel.m */; };
@@ -596,7 +593,6 @@
 		5A775DF326077A7D00CEFC78 /* WeRecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeRecommendCell.h; sourceTree = "<group>"; };
 		5A775DF426077A7D00CEFC78 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		5A775E782607E0A000CEFC78 /* GreenTravel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GreenTravel.xcdatamodel; sourceTree = "<group>"; };
-		5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_Debug.bundle; sourceTree = "<group>"; };
 		5A78A4E429572E5B007749F3 /* SettingsEntryToggle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntryToggle.h; sourceTree = "<group>"; };
 		5A78A4E529572E5B007749F3 /* SettingsEntryToggle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntryToggle.m; sourceTree = "<group>"; };
 		5A78A4E729572E72007749F3 /* SettingsEntrySelect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntrySelect.h; sourceTree = "<group>"; };
@@ -673,8 +669,6 @@
 		5AD1F3812948C4A100ED288D /* SettingsModelObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsModelObserver.h; sourceTree = "<group>"; };
 		5AD1F3822948C7E900ED288D /* SettingsEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsEntry.h; sourceTree = "<group>"; };
 		5AD1F3832948C7E900ED288D /* SettingsEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsEntry.m; sourceTree = "<group>"; };
-		5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings_ReleaseProduction.bundle; sourceTree = "<group>"; };
-		5AD2DA3326FDED7B00876841 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AD2DA352701D88300876841 /* MapViewToStateIntermediary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewToStateIntermediary.h; sourceTree = "<group>"; };
 		5AD347DE2837B2B100235E96 /* AmplifyAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AmplifyAuth.h; sourceTree = "<group>"; };
 		5AD347DF2837B2B100235E96 /* AmplifyAuth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmplifyAuth.m; sourceTree = "<group>"; };
@@ -814,9 +808,6 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */,
-				5AD2DA3326FDED7B00876841 /* Settings.bundle */,
-				5AD2DA2F26FDD55800876841 /* Settings_ReleaseProduction.bundle */,
-				5A775E7B26092B8100CEFC78 /* Settings_Debug.bundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				5A775E772607E0A000CEFC78 /* GreenTravel.xcdatamodeld */,
 				6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */,
@@ -2359,7 +2350,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AD2DA3026FDD55900876841 /* Settings_ReleaseProduction.bundle in Resources */,
 				5A775B3626064C9000CEFC78 /* Montserrat-Light.ttf in Resources */,
 				5A775B3926064C9000CEFC78 /* Montserrat-Thin.ttf in Resources */,
 				5A775B4426064C9000CEFC78 /* OpenSans-Bold.ttf in Resources */,
@@ -2369,7 +2359,6 @@
 				5A775B3526064C9000CEFC78 /* Montserrat-BoldItalic.ttf in Resources */,
 				628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */,
 				5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */,
-				5A775E7C26092B8100CEFC78 /* Settings_Debug.bundle in Resources */,
 				5A775B4A26064C9000CEFC78 /* OpenSans-Regular.ttf in Resources */,
 				5A775B4B26064C9000CEFC78 /* OpenSans-BoldItalic.ttf in Resources */,
 				5A6CC8DC279D930C00EE6E35 /* index-tag.graphql in Resources */,
@@ -2388,7 +2377,6 @@
 				5AD71D9D274D5CDA00F205AD /* InfoPlist.strings in Resources */,
 				5A775B3226064C9000CEFC78 /* Montserrat-LightItalic.ttf in Resources */,
 				624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */,
-				5AD2DA3426FDED7B00876841 /* Settings.bundle in Resources */,
 				5A6CC8DA279C2C4500EE6E35 /* index-locale-any.graphql in Resources */,
 				7931796429ACAC07009729A4 /* amplifyconfiguration.json in Resources */,
 				5A775B3D26064C9000CEFC78 /* OpenSans-Italic.ttf in Resources */,
@@ -2867,7 +2855,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
@@ -2883,7 +2871,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.5;
+				MARKETING_VERSION = 1.5.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2909,7 +2897,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",
@@ -2926,7 +2914,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.5;
+				MARKETING_VERSION = 1.5.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -3008,7 +2996,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K36CA7QL4T;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
@@ -3026,7 +3014,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.5.5;
+				MARKETING_VERSION = 1.5.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
