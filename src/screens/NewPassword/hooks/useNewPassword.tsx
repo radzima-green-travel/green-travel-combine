@@ -74,7 +74,7 @@ export const useNewPassword = () => {
     rightIcon,
     passwordVisibility,
     handlePasswordVisibility,
-    isSubmitButtonDisabled: !formik.values.password,
+    isSubmitButtonDisabled: !formik.isValid,
     submitForm: formik.handleSubmit,
     snackBarProps,
   };
