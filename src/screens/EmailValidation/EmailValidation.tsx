@@ -20,7 +20,7 @@ export const EmailValidation = () => {
     submitForm,
     snackBarProps,
     codeLength,
-    resendCodeLoading,
+    seconadaryLoading,
   } = useEmailValidation();
 
   return (
@@ -34,7 +34,7 @@ export const EmailValidation = () => {
         submitButtonText={buttonText}
         isSubmitButtonDisabled={isSubmitButtonDisabled}
         submitButtonLoading={loading}
-        secondaryButtonLoading={resendCodeLoading}
+        secondaryButtonLoading={seconadaryLoading}
         onSecondaryButtonPress={
           isSignUp
             ? onResendSignUpCodetoEmail

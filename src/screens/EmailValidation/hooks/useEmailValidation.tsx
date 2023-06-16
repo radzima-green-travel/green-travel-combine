@@ -58,8 +58,12 @@ export const useEmailValidation = () => {
     forgotPasswordCodeSubmitRequest,
   );
 
-  const {loading: resendCodeLoading} = useRequestLoading(
+  const {loading: resendSignUpCodeLoading} = useRequestLoading(
     resendSignUpCodeRequest,
+  );
+
+  const {loading: resendRestorePasswordCodeLoading} = useRequestLoading(
+    forgotPasswordRequest,
   );
 
   const onResendSignUpCodetoEmail = useCallback(() => {
@@ -132,6 +136,7 @@ export const useEmailValidation = () => {
     submitForm: formik.handleSubmit,
     snackBarProps,
     codeLength,
-    resendCodeLoading,
+    seconadaryLoading:
+      resendSignUpCodeLoading || resendRestorePasswordCodeLoading,
   };
 };
