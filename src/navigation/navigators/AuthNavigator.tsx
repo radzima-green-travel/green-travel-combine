@@ -25,7 +25,7 @@ const Stack = createNativeStackNavigator<AuthNavigatorParamsList>();
 export function AuthNavigator() {
   const {t} = useTranslation('authentification');
   const navigation = useNavigation();
-  const onHeaderRightPress = useCallback(() => {
+  const onCancel = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
 
@@ -33,7 +33,7 @@ export function AuthNavigator() {
     withBottomInset: true,
     title: '',
     animation: defaultTransition,
-    headerRight: () => <HeaderCancelButton onPress={onHeaderRightPress} />,
+    headerRight: () => <HeaderCancelButton onPress={onCancel} />,
     orientation: 'portrait',
   });
 
@@ -58,7 +58,7 @@ export function AuthNavigator() {
       <Stack.Screen
         name="NewPassword"
         component={NewPasswordScreen}
-        options={{title: t('restorePassword', {ns: 'authentification'})}}
+        options={NewPasswordScreen.screenOptions(onCancel)}
       />
       <Stack.Screen name="InAppWebView" component={InAppWebViewScreen} />
       <Stack.Screen

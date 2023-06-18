@@ -4,6 +4,7 @@ import {FormInput, PasswordHint, SnackBar, WithFormikInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useNewPassword} from './hooks';
 import {FormikProvider} from 'formik';
+import {screenOptions} from './screenOptions';
 
 export const NewPassword = () => {
   const {t} = useTranslation('authentification');
@@ -48,3 +49,5 @@ export const NewPassword = () => {
     </FormikProvider>
   );
 };
+
+NewPassword.screenOptions = screenOptions;
