@@ -83,7 +83,7 @@ export const useEmailValidation = () => {
   useOnRequestSuccess(
     forgotPasswordCodeSubmitRequest,
     ({tempPassword}: {tempPassword: string}) => {
-      navigation.navigate('NewPassword', {email, tempPassword});
+      navigation.replace('NewPassword', {email, tempPassword});
     },
   );
 
