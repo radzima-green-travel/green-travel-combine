@@ -6,7 +6,7 @@ import {
   ObjectsListScreen,
 } from '../../screens';
 
-import {useScreenOptions} from '../screenOptions';
+import {useScreenOptions} from '../hooks';
 import {AppMapNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';

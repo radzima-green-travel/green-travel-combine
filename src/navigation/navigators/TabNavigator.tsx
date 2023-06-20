@@ -11,6 +11,8 @@ import {COLORS} from 'assets';
 import {analyticsService} from 'services/AnalyticsService';
 import {useSelector} from 'react-redux';
 import {selectIsMyProfileFeatureEnabled} from 'core/selectors';
+import {isAndroid} from 'services/PlatformService';
+import {useAndroidBottomBarOffset} from '../hooks';
 
 const Tab = createBottomTabNavigator<TabNavigatorParamsList>();
 
@@ -21,8 +23,12 @@ export function TabNavigator() {
     selectIsMyProfileFeatureEnabled,
   );
 
+  const {tabBar, safeAreaInsets, tabBarStyle} = useAndroidBottomBarOffset();
+
   return (
     <Tab.Navigator
+      tabBar={isAndroid ? props => tabBar(props) : undefined}
+      safeAreaInsets={isAndroid ? safeAreaInsets : undefined}
       sceneContainerStyle={{
         backgroundColor: theme === 'light' ? COLORS.white : COLORS.background,
       }}
@@ -44,6 +50,7 @@ export function TabNavigator() {
                 shadowOpacity: 0.15,
                 shadowRadius: 6,
               }),
+          ...(isAndroid ? tabBarStyle : {}),
         },
       }}>
       <Tab.Screen
