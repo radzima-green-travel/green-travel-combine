@@ -14,7 +14,7 @@ import {
 import {HeaderCancelButton} from 'atoms';
 
 import {useTranslation} from 'react-i18next';
-import {useScreenOptions} from '../screenOptions';
+import {useScreenOptions} from '../hooks';
 import {AuthNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';

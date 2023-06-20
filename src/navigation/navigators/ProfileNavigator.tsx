@@ -7,7 +7,7 @@ import {
   InAppWebViewScreen,
 } from '../../screens';
 import {useTranslation} from 'react-i18next';
-import {useScreenOptions} from '../screenOptions';
+import {useScreenOptions} from '../hooks';
 import {ProfileNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';

@@ -11,7 +11,7 @@ import {
 
 import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
-import {useScreenOptions} from '../screenOptions';
+import {useScreenOptions} from '../hooks';
 import {defaultTransition} from '../transition';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
