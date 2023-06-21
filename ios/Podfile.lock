@@ -45,10 +45,10 @@ PODS:
     - ExpoModulesCore
   - Expo (47.0.13):
     - ExpoModulesCore
-  - ExpoImage (1.2.0):
+  - ExpoImage (1.2.3):
     - ExpoModulesCore
     - SDWebImage (~> 5.15.0)
-    - SDWebImageAVIFCoder (~> 0.9.4)
+    - SDWebImageAVIFCoder (~> 0.10.0)
     - SDWebImageSVGCoder (~> 1.6.1)
     - SDWebImageWebPCoder (~> 0.9.1)
   - ExpoKeepAwake (11.0.1):
@@ -155,16 +155,16 @@ PODS:
   - GoogleUtilities/UserDefaults (7.5.2):
     - GoogleUtilities/Logger
   - hermes-engine (0.70.6)
-  - libaom (2.0.2):
-    - libvmaf
-  - libavif (0.10.1):
-    - libavif/libaom (= 0.10.1)
-  - libavif/core (0.10.1)
-  - libavif/libaom (0.10.1):
+  - libaom (3.0.0):
+    - libvmaf (>= 2.2.0)
+  - libavif (0.11.1):
+    - libavif/libaom (= 0.11.1)
+  - libavif/core (0.11.1)
+  - libavif/libaom (0.11.1):
     - libaom (>= 2.0.0)
     - libavif/core
   - libevent (2.1.12)
-  - libvmaf (2.2.0)
+  - libvmaf (2.3.1)
   - libwebp (1.2.4):
     - libwebp/demux (= 1.2.4)
     - libwebp/mux (= 1.2.4)
@@ -575,8 +575,8 @@ PODS:
   - SDWebImage (5.15.2):
     - SDWebImage/Core (= 5.15.2)
   - SDWebImage/Core (5.15.2)
-  - SDWebImageAVIFCoder (0.9.5):
-    - libavif (>= 0.9.1)
+  - SDWebImageAVIFCoder (0.10.0):
+    - libavif (>= 0.11.0)
     - SDWebImage (~> 5.10)
   - SDWebImageSVGCoder (1.6.1):
     - SDWebImage/Core (~> 5.6)
@@ -874,7 +874,7 @@ SPEC CHECKSUMS:
   EXFileSystem: 60602b6eefa6873f97172c684b7537c9760b50d6
   EXFont: 319606bfe48c33b5b5063fb0994afdc496befe80
   Expo: b9fa98bf260992312ee3c424400819fb9beadafe
-  ExpoImage: a9cf96bffbb3f16eafbcb1288e9b1faca8c3c093
+  ExpoImage: 60f8d8182e8e13b5f5c2bb6bc860c933b2fe6c25
   ExpoKeepAwake: 69b59d0a8d2b24de9f82759c39b3821fec030318
   ExpoModulesCore: 485dff3a59b036a33b6050c0a5aea3cf1037fdd1
   FBLazyVector: 48289402952f4f7a4e235de70a9a590aa0b79ef4
@@ -894,10 +894,10 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
   hermes-engine: 2af7b7a59128f250adfd86f15aa1d5a2ecd39995
-  libaom: 9bb51e0f8f9192245e3ca2a1c9e4375d9cbccc52
-  libavif: e242998ccec1c83bcba0bbdc256f460ad5077348
+  libaom: 144606b1da4b5915a1054383c3a4459ccdb3c661
+  libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  libvmaf: 8d61aabc2f4ed3e6591cf7406fa00a223ec11289
+  libvmaf: 27f523f1e63c694d14d534cd0fddd2fab0ae8711
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
   Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
   MapboxMobileEvents: b72b07268586c6fd1f53178f08df15f74070b188
@@ -958,7 +958,7 @@ SPEC CHECKSUMS:
   RNSentry: 6b46b6fc1d715a378fbaa5d7d43bc9ce99b500e5
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   SDWebImage: 8ab87d4b3e5cc4927bd47f78db6ceb0b94442577
-  SDWebImageAVIFCoder: d759e21cf4efb640cc97250566aa556ad8bb877c
+  SDWebImageAVIFCoder: 4aeea8fdf65af5c18525ecb5bdd8b8ed9bb45019
   SDWebImageSVGCoder: 6fc109f9c2a82ab44510fff410b88b1a6c271ee8
   SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
   Sentry: 388c9dc093b2fd3a264466a5c5b21e25959610a9

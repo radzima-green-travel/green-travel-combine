@@ -9520,10 +9520,10 @@ expo-font@~11.0.1:
   dependencies:
     fontfaceobserver "^2.1.0"
 
-expo-image@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/expo-image/-/expo-image-1.2.0.tgz#c63d95f0e67407746db67d7251f0d9286642a38a"
-  integrity sha512-LMGFKBh31rW6e5TkxKMKfPK1uxvDNA3d5bdPUe3UpdzmZIhk/cUplCDiBqinJ2D+5GcpDkgeWnnqkP5lqUcBmQ==
+expo-image@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/expo-image/-/expo-image-1.2.3.tgz#f3582d725ffb7437f8ce946ad44fe33f0aa0603d"
+  integrity sha512-+Mnx6rcneWSUGfHkUDV3cQ3R4lVwoIDFs/tcXVqnlxyNJdNxpW2cge9pS2Hpj3UDoZVhZPLR8LHS8E9wEaC0NA==
 
 expo-keep-awake@~11.0.1:
   version "11.0.1"
