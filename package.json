@@ -40,6 +40,7 @@
     "deprecated-react-native-prop-types": "^2.3.0",
     "expo": "^47.0.13",
     "expo-image": "^1.2.3",
+    "expo-navigation-bar": "^2.1.1",
     "formik": "^2.2.9",
     "husky": "^8.0.1",
     "i18next": "19.5.1",

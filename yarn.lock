@@ -9549,6 +9549,14 @@ expo-modules-core@1.1.1:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-navigation-bar@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/expo-navigation-bar/-/expo-navigation-bar-2.1.1.tgz#ebd4cb1179b21caadc95a2aec7953a1a6fc5af60"
+  integrity sha512-UXTfK5Uv65qCFEro9XJY1gxViaqKFB4996OkC3HChGeitGWolCtd7VzVBYKDyfn4EqryDMedrNIqYNWLEFjIZw==
+  dependencies:
+    "@react-native/normalize-color" "^2.0.0"
+    debug "^4.3.2"
+
 expo@^47.0.13:
   version "47.0.13"
   resolved "https://registry.yarnpkg.com/expo/-/expo-47.0.13.tgz#f53f82e7f9e209f8a8b25f2493f58439958368cb"
