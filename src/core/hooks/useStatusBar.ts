@@ -2,9 +2,9 @@ import {useEffect} from 'react';
 
 import {StatusBar} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
-import {THEMES} from 'core/constants';
+import {THEME_TYPE} from 'core/constants';
 
-export function useStatusBar(theme: THEMES) {
+export function useStatusBar(theme: THEME_TYPE) {
   const isFocused = useIsFocused();
 
   useEffect(() => {

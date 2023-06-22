@@ -9,11 +9,15 @@ import {defaultTransition} from '../transition';
 import {isIOS} from 'services/PlatformService';
 import {StatusBar} from 'react-native';
 import {AuthNavigator} from './AuthNavigator';
+import {useAndroidNavbarStyle} from 'navigation/hooks';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
 export function MainNavigator() {
   const [splashVisible, setSplashVisible] = useState(true);
+
+  useAndroidNavbarStyle();
+
   const onAnimationEnd = useCallback(() => {
     setSplashVisible(false);
 
