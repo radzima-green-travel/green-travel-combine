@@ -2624,6 +2624,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = K36CA7QL4T;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = K36CA7QL4T;
 				ENABLE_BITCODE = NO;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",
@@ -2649,6 +2650,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = app.radzima;
 				PRODUCT_NAME = Radzima;
 				PROVISIONING_PROFILE_SPECIFIER = "EPAM Radzima Distribution AppStore";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "EPAM Radzima App Store Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "greenTravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
