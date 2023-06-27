@@ -2485,7 +2485,7 @@
 				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2500,6 +2500,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2524,7 +2525,7 @@
 				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 53APD5F9YQ;
 				ENABLE_BITCODE = NO;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
@@ -2542,6 +2543,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2620,7 +2622,7 @@
 				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = K36CA7QL4T;
 				ENABLE_BITCODE = NO;
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
@@ -2638,6 +2640,7 @@
 				INFOPLIST_FILE = greenTravel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
