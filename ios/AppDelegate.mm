@@ -4,7 +4,6 @@
 #import <React/RCTRootView.h>
 #import <React/RCTAppSetupUtils.h>
 #import "RNBootSplash.h"
-#import "RootViewController.h"
 #import "Firebase/Firebase.h"
 #import <React/RCTLinkingManager.h>
 
@@ -47,7 +46,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
     rootView.backgroundColor = [UIColor whiteColor];
   }
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [self.reactDelegate createRootViewController];
+  UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
