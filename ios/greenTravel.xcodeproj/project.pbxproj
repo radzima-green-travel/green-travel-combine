@@ -9,16 +9,13 @@
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		24E15160D5632E665C362965 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 745C34F067A2EA32BDC236BD /* awsconfiguration.json */; };
 		2DE0007B799E8DAF75A65893 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81064F557E001E9E478D73E8 /* ExpoModulesProvider.swift */; };
 		5A775A0126064C6A00CEFC78 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A7759FF26064C6900CEFC78 /* AppDelegate.mm */; };
-		5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
 		62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */; };
-		7931796429ACAC07009729A4 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */; };
-		E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */; };
+		6426599BAE50171078DEC6AD /* libPods-greenTravel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BA9252156304BE59D439CC0 /* libPods-greenTravel.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,18 +38,15 @@
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A7759FF26064C6900CEFC78 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		5A775D2F2607741F00CEFC78 /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		628194D025F213BD00491FDF /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = greenTravel/BootSplash.storyboard; sourceTree = "<group>"; };
 		6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "greenTravel-Bridging-Header.h"; sourceTree = "<group>"; };
 		62CDE1E12579291F00554C1E /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
-		745C34F067A2EA32BDC236BD /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		6BA9252156304BE59D439CC0 /* libPods-greenTravel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-greenTravel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7933815929CB9BA700D2935F /* GreenTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GreenTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81064F557E001E9E478D73E8 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-greenTravel/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		90CFDA5F6334163334123761 /* Pods-greenTravel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.debug.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.debug.xcconfig"; sourceTree = "<group>"; };
-		99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greenTravel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E864D96B10ABCD37BAAAE8 /* Pods-greenTravel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greenTravel.release.xcconfig"; path = "Target Support Files/Pods-greenTravel/Pods-greenTravel.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -63,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E11DF168135D9B2623DB17C0 /* Pods_greenTravel.framework in Frameworks */,
+				6426599BAE50171078DEC6AD /* libPods-greenTravel.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,20 +79,10 @@
 				628194D025F213BD00491FDF /* BootSplash.storyboard */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				5ABCA31126B97D68001CDF74 /* GoogleService-Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				6281F7DF24C9E40D00C51231 /* greenTravel-Bridging-Header.h */,
 			);
 			name = GreenTravel;
-			sourceTree = "<group>";
-		};
-		15C907380D85C2A4462F18A4 /* AmplifyConfig */ = {
-			isa = PBXGroup;
-			children = (
-				745C34F067A2EA32BDC236BD /* awsconfiguration.json */,
-				5F62A26B8B4960729F8B3D98 /* amplifyconfiguration.json */,
-			);
-			name = AmplifyConfig;
 			sourceTree = "<group>";
 		};
 		244CB61978412BE338F39965 /* ExpoModulesProviders */ = {
@@ -115,7 +99,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5A775D2F2607741F00CEFC78 /* libSDWebImage.a */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				99067FDBAF94D93561F2FC63 /* Pods_greenTravel.framework */,
+				6BA9252156304BE59D439CC0 /* libPods-greenTravel.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -155,7 +139,6 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C11F5CD373D543CEFBB10130 /* Pods */,
-				15C907380D85C2A4462F18A4 /* AmplifyConfig */,
 				244CB61978412BE338F39965 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
@@ -199,15 +182,12 @@
 			buildPhases = (
 				456AD5FC5952504A811CAABD /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
-				79C2CCE52951B59A00855E1D /* swiftlint */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				5AD2DA2E26FDCCEC00876841 /* Add Settings.bundle */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				A6F1B229AF36466B86D337BD /* Upload Debug Symbols to Sentry */,
-				5A0FAF6826BC09880041101C /* Upload Debug Symbols to Crashlytics */,
-				5A4BCB7C270A059500098511 /* Delete en and zh locales */,
 				A13C2C709536C127C37EA3BF /* [CP] Embed Pods Frameworks */,
 				A3D828DBBADB265B9138D6CF /* [CP] Copy Pods Resources */,
 			);
@@ -286,13 +266,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */,
-				5ABCA31226B97D68001CDF74 /* GoogleService-Info.plist in Resources */,
 				624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */,
 				624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */,
-				7931796429ACAC07009729A4 /* amplifyconfiguration.json in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */,
-				24E15160D5632E665C362965 /* awsconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,44 +319,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5A0FAF6826BC09880041101C /* Upload Debug Symbols to Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "Upload Debug Symbols to Crashlytics";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
-		};
-		5A4BCB7C270A059500098511 /* Delete en and zh locales */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Delete en and zh locales";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# if [ \"${CONFIGURATION}\" == \"ReleaseProduction\" ]; then\nif false; then\nrm -r \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/en.lproj\"\nrm -r \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/zh-Hans.lproj\"\necho \"Removed localization for production builds.\"\nfi \n";
-		};
 		5AD2DA2E26FDCCEC00876841 /* Add Settings.bundle */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,24 +336,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmkdir \"${PROJECT_DIR}/Settings.bundle/\"\nif [ \"${CONFIGURATION}\" != \"ReleaseProduction\" ]; then\ncp -R \"${PROJECT_DIR}/Settings_Debug.bundle/\" \"${PROJECT_DIR}/Settings.bundle/\"\necho \"Debug settings bundle copied\"\nfi\nif [ \"${CONFIGURATION}\" == \"ReleaseProduction\" ]; then\ncp -R \"${PROJECT_DIR}/Settings_ReleaseProduction.bundle/\" \"${PROJECT_DIR}/Settings.bundle/\"\necho \"ReleaseProduction settings bundle copied\"\nfi\n";
-		};
-		79C2CCE52951B59A00855E1D /* swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = swiftlint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" > /dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		A13C2C709536C127C37EA3BF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

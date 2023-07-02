@@ -4,7 +4,7 @@
 #import <React/RCTRootView.h>
 #import <React/RCTAppSetupUtils.h>
 #import "RNBootSplash.h"
-#import "Firebase/Firebase.h"
+
 #import <React/RCTLinkingManager.h>
 
 #if RCT_NEW_ARCH_ENABLED
