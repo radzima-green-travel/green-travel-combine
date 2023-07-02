@@ -7,21 +7,8 @@ install! 'cocoapods', :deterministic_uuids => false, :warn_for_unused_master_spe
 
 inhibit_all_warnings!
 
-use_frameworks! :linkage => :static
 
-target 'greenTravel' do
-  pod 'Firebase/AnalyticsWithoutAdIdSupport'
-  # add pods for any other desired Firebase products
-  # https://firebase.google.com/docs/ios/setup#available-pods
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Performance'
-  pod 'Amplitude', '~> 8.2.0'
-  
-  pod 'Amplify'
-  pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
-
-  pod 'SwiftLint'
-  
+target 'greenTravel' do  
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
