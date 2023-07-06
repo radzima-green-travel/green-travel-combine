@@ -38,6 +38,9 @@
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A7759FF26064C6900CEFC78 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		5A775D2F2607741F00CEFC78 /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		62280A922A574398006C6FB3 /* greenTravelDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelDebug.entitlements; path = greenTravel/greenTravelDebug.entitlements; sourceTree = "<group>"; };
+		62280A932A574464006C6FB3 /* greenTravelRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelRelease.entitlements; path = greenTravel/greenTravelRelease.entitlements; sourceTree = "<group>"; };
+		62280A942A57446D006C6FB3 /* greenTravelReleaseProduction.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelReleaseProduction.entitlements; path = greenTravel/greenTravelReleaseProduction.entitlements; sourceTree = "<group>"; };
 		624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../android/app/src/main/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		628194D025F213BD00491FDF /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = greenTravel/BootSplash.storyboard; sourceTree = "<group>"; };
@@ -133,6 +136,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				62280A942A57446D006C6FB3 /* greenTravelReleaseProduction.entitlements */,
+				62280A932A574464006C6FB3 /* greenTravelRelease.entitlements */,
+				62280A922A574398006C6FB3 /* greenTravelDebug.entitlements */,
 				624E38CE2519E467001D98E2 /* Resources */,
 				13B07FAE1A68108700A75B9A /* GreenTravel */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -451,6 +457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 36;
@@ -493,6 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelRelease.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 36;
@@ -591,6 +599,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = greenTravel/greenTravelReleaseProduction.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
