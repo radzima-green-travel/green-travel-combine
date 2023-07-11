@@ -13,6 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import {Image} from 'expo-image';
+import {getPlatformsTestID} from 'core/helpers';
 export const ratio = 324 / 144;
 interface IProps {
   imageUri?: string;
@@ -26,6 +27,7 @@ interface IProps {
   onRemoveAnimationEnd?: () => void;
   onFavoriteChanged?: (nextIsFavorite: boolean) => void;
   blurhash?: string;
+  testID?: string;
 }
 
 export const Card = memo(
@@ -41,6 +43,7 @@ export const Card = memo(
     onRemoveAnimationEnd,
     onFavoriteChanged,
     blurhash,
+    testID,
   }: IProps) => {
     const styles = useThemeStyles(themeStyles);
     const dimensions = useMemo(() => {
@@ -52,7 +55,8 @@ export const Card = memo(
         onPress={onPress}
         disabled={!onPress}
         activeOpacity={0.8}
-        style={[styles.cardContainer, containerStyle, dimensions]}>
+        style={[styles.cardContainer, containerStyle, dimensions]}
+        {...getPlatformsTestID(testID)}>
         <Image
           style={styles.image as ImageStyle}
           source={imageUri}

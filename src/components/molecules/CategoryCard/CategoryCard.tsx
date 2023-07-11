@@ -7,11 +7,12 @@ interface IProps {
   data: ITransformedCategory;
   onPress: (item: ITransformedCategory) => void;
   width: number;
+  testID?: string;
   containerStyle?: StyleProp<ViewStyle>;
 }
 
 export const CategoryCard = memo(
-  ({data, width, onPress, containerStyle}: IProps) => {
+  ({data, width, onPress, containerStyle, testID}: IProps) => {
     const {name, cover, blurhash} = data;
 
     const onPressHandler = useCallback(() => {
@@ -26,6 +27,7 @@ export const CategoryCard = memo(
         title={name}
         imageUri={cover || undefined}
         blurhash={blurhash}
+        testID={testID}
       />
     );
   },

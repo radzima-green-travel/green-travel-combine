@@ -13,6 +13,7 @@ import {styles} from './styles';
 import {isIOS} from 'services/PlatformService';
 import {useColorScheme} from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {getPlatformsTestID} from 'core/helpers';
 
 export const ClusterMap = memo(
   forwardRef<MapboxGL.MapView, Props>(
@@ -26,6 +27,7 @@ export const ClusterMap = memo(
         cameraRef,
         attributionPosition,
         onRegionWillChange,
+        testID,
       }: Props,
       ref,
     ) => {
@@ -121,7 +123,8 @@ export const ClusterMap = memo(
         <View
           onResponderStart={onResponderStart}
           onStartShouldSetResponder={() => true}
-          style={styles.container}>
+          style={styles.container}
+          {...getPlatformsTestID(testID)}>
           <MapboxGL.MapView
             ref={map}
             onPress={onMapPress}

@@ -153,6 +153,7 @@ export const ObjectDetails = () => {
                 images={data.images || [defaultPhoto]}
                 onScroll={onScroll}
                 defaultPhoto={defaultPhoto}
+                imageTestID={TestIDs.ObjectDetailsImage}
               />
             </ZoomableView>
           </Animated.View>

@@ -10,6 +10,7 @@ interface IProps {
   removeFavoriteWithAnimation?: boolean;
   onRemoveAnimationEnd?: () => void;
   onFavoriteChanged?: (item: IObject, nextIsFavorite: boolean) => void;
+  testID?: string;
 }
 
 export const ObjectCard = memo(
@@ -21,6 +22,7 @@ export const ObjectCard = memo(
     removeFavoriteWithAnimation,
     onRemoveAnimationEnd,
     onFavoriteChanged,
+    testID,
   }: IProps) => {
     const {id, name, cover, blurhash} = data;
 
@@ -48,6 +50,7 @@ export const ObjectCard = memo(
         containerStyle={containerStyle}
         onFavoriteChanged={onFavoriteChangedHandler}
         blurhash={blurhash}
+        testID={testID}
       />
     );
   },
