@@ -73,6 +73,10 @@ export const SearchList = memo(
             }
             renderItem={({item, index}) => {
               const testID = composeTestID(TestIDs.SearchResultItem, index);
+              const titleTestID = composeTestID(
+                TestIDs.SearchResultItemTitle,
+                index,
+              );
 
               return isHistoryVisible && onDeletePress ? (
                 <SwipeToDeleteContainer
@@ -82,6 +86,7 @@ export const SearchList = memo(
                     onPress={onItemPress}
                     data={item}
                     testID={testID}
+                    titleTestID={titleTestID}
                   />
                 </SwipeToDeleteContainer>
               ) : (

@@ -6,7 +6,8 @@ import {Button, Icon} from 'atoms';
 import {FavoriteButtonContainer} from 'containers';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
-import {IObject} from 'core/types';
+import {IObject, TestIDs} from 'core/types';
+import {getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   data: IObject | null;
@@ -67,7 +68,10 @@ export const AppMapBottomMenu = memo(
               </FavoriteButtonContainer>
             </View>
             {subtitleText ? (
-              <Text allowFontScaling={false} style={styles.subtitle}>
+              <Text
+                allowFontScaling={false}
+                style={styles.subtitle}
+                {...getPlatformsTestID(TestIDs.MapItemDetailsSubtitle)}>
                 {subtitleText}
               </Text>
             ) : null}

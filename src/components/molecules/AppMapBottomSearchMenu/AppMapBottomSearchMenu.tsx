@@ -3,10 +3,11 @@ import {Keyboard, Pressable, View} from 'react-native';
 import {themeStyles} from './styles';
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {useThemeStyles, useColorScheme} from 'core/hooks';
-import {IObject} from 'core/types';
+import {IObject, TestIDs} from 'core/types';
 import {SearchList} from 'organisms';
 import {HeaderSearchbar, Icon} from 'atoms';
 import {COLORS} from 'assets';
+import {getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   data: IObject[];
@@ -53,7 +54,8 @@ export const AppMapBottomSearchMenu = memo(
             onPress={() => {
               onTextChange('');
               onBackPress();
-            }}>
+            }}
+            {...getPlatformsTestID(TestIDs.MapSearchBackButton)}>
             <Icon
               style={styles.icon}
               name="chevron"

@@ -13,4 +13,5 @@ export type Props = {
   onRegionWillChange?: React.ComponentProps<
     typeof MapboxGL.MapView
   >['onRegionWillChange'];
+  testID?: string;
 };

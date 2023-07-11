@@ -5,6 +5,7 @@ import {COLORS} from 'assets';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {useThemeStyles} from 'core/hooks';
 import {SCREEN_HEIGHT} from 'services/PlatformService';
+import {TestIDs} from 'core/types';
 
 interface IProps {
   onSearchPress: () => void;
@@ -43,7 +44,9 @@ export const AppMapButtons = memo(
           )
         }
         style={[styles.container, animatedStyles]}>
-        <MapButtonContainer onPress={onSearchPress}>
+        <MapButtonContainer
+          onPress={onSearchPress}
+          testID={TestIDs.MapSearchButton}>
           <Icon style={styles.icon} name="search" width={22} height={22} />
         </MapButtonContainer>
         <MapButtonContainer

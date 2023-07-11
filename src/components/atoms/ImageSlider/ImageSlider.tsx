@@ -9,11 +9,15 @@ import {Image} from 'expo-image';
 
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import {TestIDs} from 'core/types';
+
 interface IProps {
   images?: string[];
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   width: number;
   height: number;
+  imageTestID: TestIDs;
   defaultPhoto?: number;
 }
 
@@ -22,6 +26,7 @@ export const ImageSlider = ({
   onScroll,
   width,
   height,
+  imageTestID,
   defaultPhoto,
 }: IProps) => {
   const styles = useThemeStyles(themeStyles);
@@ -40,7 +45,7 @@ export const ImageSlider = ({
       data={images}
       initialNumToRender={1}
       maxToRenderPerBatch={1}
-      renderItem={({item}) => {
+      renderItem={({item, index}) => {
         const imageSourse =
           typeof item === 'string'
             ? {
@@ -54,6 +59,7 @@ export const ImageSlider = ({
             resizeMode="cover"
             source={imageSourse.uri}
             onError={() => setIsImgDownloaded(false)}
+            {...getPlatformsTestID(composeTestID(imageTestID, index))}
           />
         );
       }}

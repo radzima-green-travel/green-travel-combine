@@ -13,6 +13,7 @@ import {
 } from 'molecules';
 
 import {FeatureCollection, Point} from '@turf/helpers';
+import {TestIDs} from 'core/types';
 
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
@@ -63,7 +64,8 @@ export const AppMap = () => {
         cameraRef={camera}
         onRegionWillChange={unfocusUserLocation}
         onShapePress={onShapePress}
-        onPress={onMapPress}>
+        onPress={onMapPress}
+        testID={TestIDs.MapOverview}>
         {userLocationProps.visible ? (
           <MapBox.UserLocation renderMode="native" {...userLocationProps} />
         ) : null}
