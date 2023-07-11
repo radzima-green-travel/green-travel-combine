@@ -8,6 +8,8 @@ import {
   useImageSlider,
   useUpdateEffect,
   useTranslation,
+  useRequestLoading,
+  useOnRequestError,
 } from 'core/hooks';
 import {debounce} from 'lodash';
 import {
@@ -18,6 +20,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS} from 'assets';
+import {getInitialHomeDataRequest} from 'core/reducers';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
@@ -27,14 +30,11 @@ export const useObjectDetails = () => {
 
   const {top} = useSafeAreaInsets();
 
-  const data = useObject(objectId)!;
+  const data = useObject(objectId);
   const {t} = useTranslation();
 
   const {sendOpenMapEvent, sendSwitchPhotosEvent, sendScrollEvent} =
-    useDetailsPageAnalytics({
-      name: data.name,
-      category: data.category.name,
-    });
+    useDetailsPageAnalytics(objectId);
 
   const {show, ...snackBarProps} = useSnackbar();
 
@@ -107,6 +107,9 @@ export const useObjectDetails = () => {
     sendSwitchPhotosEvent();
   }, [page, sendSwitchPhotosEvent]);
 
+  const {loading} = useRequestLoading(getInitialHomeDataRequest);
+  const {errorTexts} = useOnRequestError(getInitialHomeDataRequest, '');
+
   return {
     data,
     sendScrollEvent,
@@ -121,5 +124,7 @@ export const useObjectDetails = () => {
     top,
     pagesAmount,
     page,
+    loading,
+    errorTexts,
   };
 };

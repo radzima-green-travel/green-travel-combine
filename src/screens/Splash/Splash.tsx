@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 
 import {View} from 'react-native';
 import Animated, {interpolate, useAnimatedStyle} from 'react-native-reanimated';
-import {isIOS} from 'services/PlatformService';
+
 import {
   useSharedValue,
   withTiming,
@@ -20,28 +20,8 @@ interface IProps {
 export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
   const opacity = useSharedValue(1);
   const animatedValue = useSharedValue(0);
-
-  const animateIOS = useCallback(
-    onAnimationEnd => {
-      setTimeout(() => {
-        RNBootSplash.hide().then(() => {
-          animatedValue.value = withTiming(
-            1,
-            {
-              duration: 300,
-              easing: Easing.out(Easing.ease),
-            },
-            () => {
-              if (onAnimationEnd) {
-                runOnJS(onAnimationEnd)();
-              }
-            },
-          );
-        });
-      }, 10);
-    },
-    [animatedValue],
-  );
+  const [bootSplashLogoIsLoaded, setBootSplashLogoIsLoaded] =
+    React.useState(false);
 
   const animateAndroid = useCallback(
     (onFadeStart, onAnimationEnd) => {
@@ -104,18 +84,17 @@ export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
   });
 
   useEffect(() => {
-    if (isIOS) {
-      animateIOS(onAnimationEnd);
-    } else {
+    if (bootSplashLogoIsLoaded) {
       animateAndroid(onFadeStart, onAnimationEnd);
     }
-  }, [animateAndroid, animateIOS, onAnimationEnd, onFadeStart]);
+  }, [animateAndroid, bootSplashLogoIsLoaded, onAnimationEnd, onFadeStart]);
 
   return (
     <Animated.View style={[containerAnimatedStyle, styles.container]}>
       <Animated.Image
         style={imageAnimatedStyle}
         source={require('./img/icon.png')}
+        onLoadEnd={() => setBootSplashLogoIsLoaded(true)}
       />
 
       <View style={styles.textContainer}>

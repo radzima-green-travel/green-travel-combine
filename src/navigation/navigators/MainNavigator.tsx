@@ -1,56 +1,24 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 
-import {ErrorScreen, ObjectDetailsMapScreen, SplashScreen} from '../../screens';
+import {ErrorScreen, ObjectDetailsMapScreen} from '../../screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';
-import {isIOS} from 'services/PlatformService';
-import {StatusBar} from 'react-native';
 import {AuthNavigator} from './AuthNavigator';
 import {useAndroidNavbarStyle} from 'navigation/hooks';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
 export function MainNavigator() {
-  const [splashVisible, setSplashVisible] = useState(true);
-
   useAndroidNavbarStyle();
-
-  const onAnimationEnd = useCallback(() => {
-    setSplashVisible(false);
-
-    StatusBar.pushStackEntry({
-      barStyle: 'light-content',
-      animated: true,
-    });
-  }, []);
-
-  const showSplashForIOS = () => {
-    if (isIOS) {
-      return splashVisible ? (
-        <Stack.Screen
-          name="Splash"
-          options={{
-            headerShown: false,
-            animation: 'fade',
-            contentStyle: {backgroundColor: 'white'},
-          }}>
-          {() => <SplashScreen onAnimationEnd={onAnimationEnd} />}
-        </Stack.Screen>
-      ) : null;
-    }
-
-    return null;
-  };
 
   return (
     <Stack.Navigator
       screenOptions={{
         animation: defaultTransition,
       }}>
-      {showSplashForIOS()}
       <Stack.Screen
         name="TabNavigator"
         component={TabNavigator}

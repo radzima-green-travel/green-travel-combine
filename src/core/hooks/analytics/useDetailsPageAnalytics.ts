@@ -1,29 +1,33 @@
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect, useMemo, useRef} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {analyticsService} from 'services/AnalyticsService';
 import {NativeSyntheticEvent, NativeScrollEvent} from 'react-native';
 import {getScreenTimeSec} from 'core/helpers';
+import {useObject} from '../useObject';
 
-export function useDetailsPageHeaderAnalytics({
-  name,
-  category,
-}: {
-  name: string;
-  category: string;
-}) {
+export function useDetailsPageHeaderAnalytics(objectId: string) {
+  const data = useObject(objectId);
+
+  const analyticsData = useMemo(() => {
+    return data
+      ? {
+          param_card_name: data.name,
+          param_card_category: data.category.name,
+        }
+      : null;
+  }, [data]);
+
   const sendSaveObjectDeatailsEvent = useCallback(() => {
-    analyticsService.logEvent('card_details_save_event', {
-      param_card_name: name,
-      param_card_category: category,
-    });
-  }, [category, name]);
+    if (analyticsData) {
+      analyticsService.logEvent('card_details_save_event', analyticsData);
+    }
+  }, [analyticsData]);
 
   const sendUnsaveObjectDeatailsEvent = useCallback(() => {
-    analyticsService.logEvent('card_details_unsave_event', {
-      param_card_name: name,
-      param_card_category: category,
-    });
-  }, [category, name]);
+    if (analyticsData) {
+      analyticsService.logEvent('card_details_unsave_event', analyticsData);
+    }
+  }, [analyticsData]);
 
   return {
     sendSaveObjectDeatailsEvent,
@@ -31,65 +35,66 @@ export function useDetailsPageHeaderAnalytics({
   };
 }
 
-export function useDetailsPageAnalytics({
-  name,
-  category,
-}: {
-  name: string;
-  category: string;
-}) {
+export function useDetailsPageAnalytics(objectId: string) {
+  const data = useObject(objectId);
+
+  const analyticsData = useMemo(() => {
+    return data
+      ? {
+          param_card_name: data.name,
+          param_card_category: data.category.name,
+        }
+      : null;
+  }, [data]);
+
   useFocusEffect(
     useCallback(() => {
       const startTime = Date.now();
 
       return () => {
         const timeInSec = getScreenTimeSec(startTime, Date.now());
-
-        analyticsService.logEvent('card_details_lifetime', {
-          param_card_name: name,
-          param_card_category: category,
-          param_time_interval: timeInSec,
-        });
+        if (analyticsData) {
+          analyticsService.logEvent('card_details_lifetime', {
+            ...analyticsData,
+            param_time_interval: timeInSec,
+          });
+        }
       };
-    }, [category, name]),
+    }, [analyticsData]),
   );
 
   useFocusEffect(
     useCallback(() => {
-      analyticsService.logEvent('view_details_event', {
-        param_card_name: name,
-        param_card_category: category,
-      });
-    }, [category, name]),
+      if (analyticsData) {
+        analyticsService.logEvent('view_details_event', analyticsData);
+      }
+    }, [analyticsData]),
   );
 
   useEffect(() => {
     return () => {
-      analyticsService.logEvent('card_details_close_event', {
-        param_card_name: name,
-        param_card_category: category,
-      });
+      if (analyticsData) {
+        analyticsService.logEvent('card_details_close_event', analyticsData);
+      }
     };
-  }, [category, name]);
+  }, [analyticsData]);
 
   const sendOpenMapEvent = useCallback(() => {
-    analyticsService.logEvent('card_details_map_event', {
-      param_card_name: name,
-      param_card_category: category,
-    });
-  }, [category, name]);
+    if (analyticsData) {
+      analyticsService.logEvent('card_details_map_event', analyticsData);
+    }
+  }, [analyticsData]);
 
   const sendSwitchPhotosEvent = useCallback(() => {
-    analyticsService.logEvent('card_details_switch_photo', {
-      param_card_name: name,
-      param_card_category: category,
-    });
-  }, [category, name]);
+    if (analyticsData) {
+      analyticsService.logEvent('card_details_switch_photo', analyticsData);
+    }
+  }, [analyticsData]);
 
   const isScrollEventFired = useRef(false);
   const sendScrollEvent = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-      if (isScrollEventFired.current) {
+      if (isScrollEventFired.current || !analyticsData) {
         return;
       }
 
@@ -100,13 +105,10 @@ export function useDetailsPageAnalytics({
       if (isCloseToBottom) {
         isScrollEventFired.current = true;
 
-        analyticsService.logEvent('card_details_scroll', {
-          param_card_name: name,
-          param_card_category: category,
-        });
+        analyticsService.logEvent('card_details_scroll', analyticsData);
       }
     },
-    [category, name],
+    [analyticsData],
   );
 
   return {

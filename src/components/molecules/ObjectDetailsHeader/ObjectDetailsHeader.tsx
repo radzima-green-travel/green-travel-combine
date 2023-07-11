@@ -12,7 +12,7 @@ import {
 import React, {useCallback} from 'react';
 import {Animated, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {COLORS} from 'assets';
-import {useDetailsPageHeaderAnalytics, useObject} from 'core/hooks';
+import {useDetailsPageHeaderAnalytics} from 'core/hooks';
 import {useNavigation} from '@react-navigation/core';
 
 const HeaderLeftButton = ({
@@ -22,13 +22,8 @@ const HeaderLeftButton = ({
   opacity: Animated.AnimatedInterpolation;
   objectId: string;
 }) => {
-  const data = useObject(objectId)!;
-
   const {sendSaveObjectDeatailsEvent, sendUnsaveObjectDeatailsEvent} =
-    useDetailsPageHeaderAnalytics({
-      name: data.name,
-      category: data.category.name,
-    });
+    useDetailsPageHeaderAnalytics(objectId);
 
   const sendIsFavoriteChangedEvent = useCallback(
     (nextIsFavoriteStatus: boolean) => {

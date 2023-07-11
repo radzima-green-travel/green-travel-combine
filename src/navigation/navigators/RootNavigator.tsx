@@ -7,9 +7,27 @@ import {bootstrapRequest} from 'core/reducers';
 import {StatusBar} from 'react-native';
 
 import {SplashScreen} from '../../screens';
-import {isIOS} from 'services/PlatformService';
+
 import {PortalProvider} from '@gorhom/portal';
 import {useOnRequestSuccess, useRequestError} from 'react-redux-help-kit';
+
+const linking = {
+  prefixes: ['https://d1u39lnww2smbf.cloudfront.net'],
+  config: {
+    screens: {
+      TabNavigator: {
+        screens: {
+          HomeNavigator: {
+            initialRouteName: 'Home',
+            screens: {
+              ObjectDetails: 'object/:objectId',
+            },
+          },
+        },
+      },
+    },
+  },
+};
 
 export function RootNavigator() {
   const dispatch = useDispatch();
@@ -49,7 +67,7 @@ export function RootNavigator() {
   }, []);
 
   const showSplashForAndroid = () => {
-    if (!isIOS && isReady) {
+    if (isReady) {
       return splashTransitionFinished ? null : (
         <SplashScreen
           onFadeStart={onFadeStart}
@@ -62,7 +80,10 @@ export function RootNavigator() {
   };
 
   return (
-    <NavigationContainer onReady={() => setIsReady(true)} ref={navigationRef}>
+    <NavigationContainer
+      linking={linking}
+      onReady={() => setIsReady(true)}
+      ref={navigationRef}>
       <PortalProvider>
         {bootstrapFinished ? (
           <>
