@@ -21,7 +21,8 @@ export const AnimatedHeaderBookmarkButton = memo(
       <FavoriteButtonContainer
         onFavoriteToggle={onFavoriteToggle}
         loadingIndicatorColor={(styles.icon as TextStyle).color as string}
-        objectId={objectId}>
+        objectId={objectId}
+        testID={TestIDs.HeaderBookmarkButton}>
         {isFavorite => (
           <>
             <Animated.View style={[styles.iconContainer, {opacity}]} />
@@ -32,7 +33,6 @@ export const AnimatedHeaderBookmarkButton = memo(
                 height={18}
                 color={COLORS.logCabin}
                 name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                testID={TestIDs.HeaderBookmarkButton}
               />
             </View>
           </>
