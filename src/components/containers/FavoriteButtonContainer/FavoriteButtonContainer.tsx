@@ -9,6 +9,7 @@ import {syncAndGetFavoritesRequest} from 'core/reducers';
 import {LoadingView} from 'atoms';
 import {COLORS} from 'assets';
 import {styles} from './styles';
+import {getPlatformsTestID} from 'core/helpers';
 const onAnimationEndDefault = () => {};
 
 interface IProps {
@@ -19,6 +20,7 @@ interface IProps {
   onAnimationEnd?: () => void;
   onFavoriteToggle?: (nextIsFavorite: boolean) => void;
   loadingIndicatorColor?: string;
+  testID?: string;
 }
 
 export const FavoriteButtonContainer = memo(
@@ -29,6 +31,7 @@ export const FavoriteButtonContainer = memo(
     removeWithAnimation = false,
     onAnimationEnd = onAnimationEndDefault,
     onFavoriteToggle,
+    testID,
     loadingIndicatorColor = COLORS.white,
   }: IProps) => {
     const bookmarksIds = useSelector(selectBookmarksIdsFromFavorites);
@@ -54,7 +57,7 @@ export const FavoriteButtonContainer = memo(
     }, [isFavorite, objectId, onFavoriteToggle, toggleFavorite]);
 
     return (
-      <View>
+      <View {...getPlatformsTestID(testID)}>
         <View style={loading && styles.opaque}>
           <TouchableOpacity
             hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
