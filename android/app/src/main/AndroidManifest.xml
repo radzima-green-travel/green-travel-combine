@@ -129,7 +129,7 @@
           <category android:name="android.intent.category.BROWSABLE" />
           <data android:scheme="http" />
           <data android:scheme="https" />
-          <data android:host="wwww.d1u39lnww2smbf.cloudfront.net" />
+          <data android:host="${DEEP_LINK_DOMAIN}" />
         </intent-filter>
       </activity>
     </application>

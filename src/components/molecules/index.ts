@@ -1,4 +1,3 @@
-export {AnimatedBackCircleButton} from './AnimatedBackCircleButton';
 export {AnimatedHeaderBookmarkButton} from './AnimatedHeaderBookmarkButton';
 export {AppMapFilters} from './AppMapFilters';
 export {AppMapButtons} from './AppMapButtons';
@@ -24,3 +23,4 @@ export * from './AppMapBottomMenu';
 export * from './AppMapBottomSearchMenu';
 export * from './ObjectDetailsMapBottomMenu';
 export {GeneralListItem} from './GeneralListItem';
+export {AnimatedCircleButton} from './AnimatedCircleButton';

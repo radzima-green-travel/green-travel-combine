@@ -1,10 +1,5 @@
 import {Animated} from 'react-native';
-
-export type NestedNavigatorParams<ParamList> = {
-  [K in keyof ParamList]: undefined extends ParamList[K]
-    ? {screen: K; params?: ParamList[K]}
-    : {screen: K; params: ParamList[K]};
-}[keyof ParamList];
+import {NavigatorScreenParams} from '@react-navigation/native';
 
 export type HomeNavigatorParamsList = {
   Home: undefined;
@@ -57,19 +52,19 @@ export type AppMapNavigatorParamsList = {
 };
 
 export type MainNavigatorParamsList = {
-  TabNavigator: NestedNavigatorParams<TabNavigatorParamsList>;
+  TabNavigator: NavigatorScreenParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
   ErrorScreen: undefined;
   Splash: undefined;
   ObjectDetailsMap: {objectId: string; categoryId: string};
-  AuthNavigator: NestedNavigatorParams<AuthNavigatorParamsList>;
+  AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList>;
 };
 
 export type TabNavigatorParamsList = {
-  HomeNavigator: NestedNavigatorParams<HomeNavigatorParamsList>;
-  AppMapNavigator: NestedNavigatorParams<AppMapNavigatorParamsList>;
-  BookmarksNavigator: NestedNavigatorParams<BookmarksNavigatorParamsList>;
-  ProfileNavigator: NestedNavigatorParams<ProfileNavigatorParamsList>;
+  HomeNavigator: NavigatorScreenParams<HomeNavigatorParamsList>;
+  AppMapNavigator: NavigatorScreenParams<AppMapNavigatorParamsList>;
+  BookmarksNavigator: NavigatorScreenParams<BookmarksNavigatorParamsList>;
+  ProfileNavigator: NavigatorScreenParams<ProfileNavigatorParamsList>;
 };
 
 export type AuthNavigatorParamsList = {

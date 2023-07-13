@@ -46,6 +46,7 @@ export type IconsNames =
   | 'otherMonuments'
   | 'paw'
   | 'search'
+  | 'share'
   | 'showLocation'
   | 'showLocationFilled'
   | 'strokeBike'

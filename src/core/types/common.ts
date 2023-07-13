@@ -166,6 +166,7 @@ export enum TestIDs {
   HeaderScreenTitle = 'headerScreenTitle',
   HeaderBookmarkButton = 'headerBookmarkButton',
   HeaderBackButton = 'headerBackButton',
+  HeaderShareButton = 'HeaderShareButton',
   AllButton = 'allButton',
   SeeOnTheMapButton = 'seeOnTheMapButton',
   ObjectDetailsTitle = 'objectDetailsTitle',

@@ -17,6 +17,7 @@ import {
   ObjectDetailsScreenRouteProps,
 } from '../types';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {shareService} from 'services/ShareService';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS} from 'assets';
@@ -110,6 +111,12 @@ export const useObjectDetails = () => {
   const {loading} = useRequestLoading(getInitialHomeDataRequest);
   const {errorTexts} = useOnRequestError(getInitialHomeDataRequest, '');
 
+  const shareObjectLink = useCallback(() => {
+    if (data?.name) {
+      shareService.shareObject(objectId, data?.name);
+    }
+  }, [data?.name, objectId]);
+
   return {
     data,
     sendScrollEvent,
@@ -126,5 +133,6 @@ export const useObjectDetails = () => {
     page,
     loading,
     errorTexts,
+    shareObjectLink,
   };
 };

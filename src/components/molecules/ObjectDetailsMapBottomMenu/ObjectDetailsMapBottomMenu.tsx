@@ -76,8 +76,8 @@ export const ObjectDetailsMapBottomMenu = memo(
                 {isFavorite => (
                   <Icon
                     name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                    width={20}
-                    height={20}
+                    width={24}
+                    height={24}
                     color={COLORS.logCabin}
                     style={styles.icon}
                   />

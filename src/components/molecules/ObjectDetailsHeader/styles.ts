@@ -17,4 +17,10 @@ export const themeStyles = {
     ...StyleSheet.absoluteFillObject,
     opacity: 0.97,
   },
+  rightButtonsContainer: {
+    flexDirection: 'row',
+  },
+  shareButtonContainer: {
+    marginRight: 16,
+  },
 };

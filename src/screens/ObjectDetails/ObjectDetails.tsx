@@ -36,6 +36,7 @@ export const ObjectDetails = () => {
     page,
     loading,
     errorTexts,
+    shareObjectLink,
   } = useObjectDetails();
 
   const [animatedValue] = useState(() => new Animated.Value(0));
@@ -167,6 +168,7 @@ export const ObjectDetails = () => {
             buttonsOpacity={buttonsOpacity}
             opacity={opacity}
             objecId={objectId}
+            onSharePress={shareObjectLink}
           />
         </View>
       ) : null}

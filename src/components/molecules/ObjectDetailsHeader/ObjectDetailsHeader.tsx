@@ -5,15 +5,13 @@ import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles} from 'core/hooks';
 
 import {BlurView} from '@react-native-community/blur';
-import {
-  AnimatedBackCircleButton,
-  AnimatedHeaderBookmarkButton,
-} from 'molecules';
+import {AnimatedHeaderBookmarkButton, AnimatedCircleButton} from 'molecules';
 import React, {useCallback} from 'react';
 import {Animated, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {COLORS} from 'assets';
 import {useDetailsPageHeaderAnalytics} from 'core/hooks';
 import {useNavigation} from '@react-navigation/core';
+import {TestIDs} from 'core/types';
 
 const HeaderLeftButton = ({
   opacity,
@@ -49,12 +47,14 @@ interface IProps {
   buttonsOpacity: Animated.AnimatedInterpolation;
   opacity: Animated.AnimatedInterpolation;
   objecId: string;
+  onSharePress: () => void;
 }
 
 export const ObjectDetailsHeader = ({
   opacity,
   buttonsOpacity,
   objecId,
+  onSharePress,
 }: IProps) => {
   const navigation = useNavigation();
   const styles = useThemeStyles(themeStyles);
@@ -106,10 +106,26 @@ export const ObjectDetailsHeader = ({
               navigation.goBack();
             }
           }}>
-          <AnimatedBackCircleButton opacity={buttonsOpacity} />
+          <AnimatedCircleButton
+            iconName="chevron"
+            testID={TestIDs.HeaderBackButton}
+            opacity={buttonsOpacity}
+          />
         </TouchableOpacity>
+        <View style={styles.rightButtonsContainer}>
+          <TouchableOpacity
+            style={styles.shareButtonContainer}
+            activeOpacity={0.8}
+            onPress={onSharePress}>
+            <AnimatedCircleButton
+              opacity={buttonsOpacity}
+              iconName="share"
+              testID={TestIDs.HeaderShareButton}
+            />
+          </TouchableOpacity>
 
-        <HeaderLeftButton opacity={buttonsOpacity} objectId={objecId} />
+          <HeaderLeftButton opacity={buttonsOpacity} objectId={objecId} />
+        </View>
       </View>
     </View>
   );

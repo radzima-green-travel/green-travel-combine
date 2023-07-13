@@ -75,8 +75,8 @@ export const Card = memo(
               {isFavorite => (
                 <Icon
                   name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                  width={20}
-                  height={20}
+                  width={24}
+                  height={24}
                   style={[styles.icon]}
                 />
               )}

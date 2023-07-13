@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:d1u39lnww2smbf.cloudfront.net</string>
+		<string>applinks:${DEEP_LINK_DOMAIN}</string>
 	</array>
 </dict>
 </plist>

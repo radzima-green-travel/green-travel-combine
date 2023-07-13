@@ -5,29 +5,12 @@ import {MainNavigator} from './MainNavigator';
 import {useDispatch} from 'react-redux';
 import {bootstrapRequest} from 'core/reducers';
 import {StatusBar} from 'react-native';
-
+import config from 'react-native-ultimate-config';
 import {SplashScreen} from '../../screens';
 
 import {PortalProvider} from '@gorhom/portal';
 import {useOnRequestSuccess, useRequestError} from 'react-redux-help-kit';
-
-const linking = {
-  prefixes: ['https://d1u39lnww2smbf.cloudfront.net'],
-  config: {
-    screens: {
-      TabNavigator: {
-        screens: {
-          HomeNavigator: {
-            initialRouteName: 'Home',
-            screens: {
-              ObjectDetails: 'object/:objectId',
-            },
-          },
-        },
-      },
-    },
-  },
-};
+import {MainNavigatorParamsList} from 'core/types';
 
 export function RootNavigator() {
   const dispatch = useDispatch();
@@ -80,8 +63,24 @@ export function RootNavigator() {
   };
 
   return (
-    <NavigationContainer
-      linking={linking}
+    <NavigationContainer<MainNavigatorParamsList>
+      linking={{
+        prefixes: [`https://${config.DEEP_LINK_DOMAIN}`],
+        config: {
+          screens: {
+            TabNavigator: {
+              screens: {
+                HomeNavigator: {
+                  initialRouteName: 'Home' as unknown as undefined,
+                  screens: {
+                    ObjectDetails: 'object/:objectId',
+                  },
+                },
+              },
+            },
+          },
+        },
+      }}
       onReady={() => setIsReady(true)}
       ref={navigationRef}>
       <PortalProvider>

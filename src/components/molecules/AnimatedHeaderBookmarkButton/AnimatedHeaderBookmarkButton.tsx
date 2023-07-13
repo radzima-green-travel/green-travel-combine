@@ -28,8 +28,8 @@ export const AnimatedHeaderBookmarkButton = memo(
             <View style={styles.iconWrapper}>
               <Icon
                 style={styles.icon}
-                width={14}
-                height={18}
+                width={24}
+                height={24}
                 color={COLORS.logCabin}
                 name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
                 testID={TestIDs.HeaderBookmarkButton}

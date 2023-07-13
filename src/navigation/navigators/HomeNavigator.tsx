@@ -24,7 +24,7 @@ export function HomeNavigator() {
     animation: defaultTransition,
   });
   return (
-    <Stack.Navigator screenOptions={screenOptions}>
+    <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}

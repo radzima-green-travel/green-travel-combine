@@ -11,6 +11,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DE0007B799E8DAF75A65893 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81064F557E001E9E478D73E8 /* ExpoModulesProvider.swift */; };
 		5A775A0126064C6A00CEFC78 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A7759FF26064C6900CEFC78 /* AppDelegate.mm */; };
+		620EB65C2A60198900CFF0E6 /* rnuc.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 620EB65B2A60198900CFF0E6 /* rnuc.xcconfig */; };
+		620EB65D2A60198900CFF0E6 /* rnuc.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 620EB65B2A60198900CFF0E6 /* rnuc.xcconfig */; };
 		624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38CF2519E4B4001D98E2 /* Montserrat-SemiBold.ttf */; };
 		624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 624E38D02519E4B4001D98E2 /* Montserrat-Bold.ttf */; };
 		628194D125F213BD00491FDF /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628194D025F213BD00491FDF /* BootSplash.storyboard */; };
@@ -38,6 +40,7 @@
 		5A7759FC26064C6900CEFC78 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A7759FF26064C6900CEFC78 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		5A775D2F2607741F00CEFC78 /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		620EB65B2A60198900CFF0E6 /* rnuc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = rnuc.xcconfig; sourceTree = "<group>"; };
 		62280A922A574398006C6FB3 /* greenTravelDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelDebug.entitlements; path = greenTravel/greenTravelDebug.entitlements; sourceTree = "<group>"; };
 		62280A932A574464006C6FB3 /* greenTravelRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelRelease.entitlements; path = greenTravel/greenTravelRelease.entitlements; sourceTree = "<group>"; };
 		62280A942A57446D006C6FB3 /* greenTravelReleaseProduction.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = greenTravelReleaseProduction.entitlements; path = greenTravel/greenTravelReleaseProduction.entitlements; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				620EB65B2A60198900CFF0E6 /* rnuc.xcconfig */,
 				62280A942A57446D006C6FB3 /* greenTravelReleaseProduction.entitlements */,
 				62280A932A574464006C6FB3 /* greenTravelRelease.entitlements */,
 				62280A922A574398006C6FB3 /* greenTravelDebug.entitlements */,
@@ -275,6 +279,7 @@
 				624E38D42519E4B4001D98E2 /* Montserrat-Bold.ttf in Resources */,
 				624E38D32519E4B4001D98E2 /* Montserrat-SemiBold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				620EB65C2A60198900CFF0E6 /* rnuc.xcconfig in Resources */,
 				62CDE1E22579291F00554C1E /* Montserrat-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				620EB65D2A60198900CFF0E6 /* rnuc.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +544,7 @@
 		};
 		5AD2DA2C26FDC94A00876841 /* ReleaseProduction */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 620EB65B2A60198900CFF0E6 /* rnuc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -740,6 +747,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 620EB65B2A60198900CFF0E6 /* rnuc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -803,6 +811,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 620EB65B2A60198900CFF0E6 /* rnuc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
