@@ -8,7 +8,7 @@ class ShareService {
     this.deepLinkDomain = deepLinkDomain;
   }
   shareObject(objectId: string, title: string) {
-    const url = `https//:${this.deepLinkDomain}/object/${objectId}`;
+    const url = `https://${this.deepLinkDomain}/object/${objectId}`;
     return Share.share({
       ...(isIOS
         ? {
