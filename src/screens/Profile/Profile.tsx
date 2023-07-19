@@ -6,10 +6,13 @@ import {useProfile} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
+import {getAppVersion} from 'core/helpers';
 
 export const Profile = () => {
   const {t} = useTranslation('profile');
   const {t: tCommon} = useTranslation('common');
+
+  const appVersion = getAppVersion();
 
   const styles = useThemeStyles(themeStyles);
   const {
@@ -90,6 +93,12 @@ export const Profile = () => {
         title={tCommon('termsAndConditions')}
         withChevron
       />
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{tCommon('appVersion')}</Text>
+        <View style={styles.withBorder}>
+          <Text style={styles.text}>{appVersion}</Text>
+        </View>
+      </View>
 
       <SnackBar {...snackBarProps} />
     </View>

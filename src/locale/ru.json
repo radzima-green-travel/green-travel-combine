@@ -26,7 +26,8 @@
     "locationPermissionSetttings": "Настройки",
     "cancel": "Отмена",
     "privacyPolicy": "Политика конфиденциальности",
-    "termsAndConditions": "Условия использования"
+    "termsAndConditions": "Условия использования",
+    "appVersion": "Версия приложения:"
   },
   "home": {
     "headerTitle": "Главная",
