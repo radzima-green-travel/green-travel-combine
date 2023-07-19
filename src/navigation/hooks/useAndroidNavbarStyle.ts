@@ -7,10 +7,12 @@ export const useAndroidNavbarStyle = () => {
   const theme = useColorScheme();
 
   useEffect(() => {
-    if (isAndroid && theme === 'light') {
-      NavigationBar.setButtonStyleAsync('dark');
-    } else {
-      NavigationBar.setButtonStyleAsync('light');
+    if (isAndroid) {
+      if (theme === 'light') {
+        NavigationBar.setButtonStyleAsync('dark');
+      } else {
+        NavigationBar.setButtonStyleAsync('light');
+      }
     }
   }, [theme]);
 };

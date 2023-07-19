@@ -14,6 +14,7 @@ export const COLORS = {
   persimmon: '#FF565E',
   black: '#000000',
   red: '#FF575E',
+  dimGrey: '#767676',
 
   oceanGreen: '#36B56F',
   background: '#23343C',
