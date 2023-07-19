@@ -26,7 +26,8 @@
     "locationPermissionSetttings": "Settings",
     "cancel": "Cancel",
     "privacyPolicy": "Privacy Policy",
-    "termsAndConditions": "Terms And Conditions"
+    "termsAndConditions": "Terms And Conditions",
+    "appVersion": "Application version:"
   },
   "home": {
     "headerTitle": "Main",

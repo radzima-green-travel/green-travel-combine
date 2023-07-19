@@ -22,7 +22,28 @@ export const themeStyles = {
   rightText: {
     ...FONTS_STYLES.regular17,
     color: {
-      light: COLORS.cullGrey,
+      light: COLORS.dimGrey,
+      dark: COLORS.altoForDark,
+    },
+  },
+  text: {
+    ...FONTS_STYLES.regular12,
+    color: {
+      light: COLORS.dimGrey,
+      dark: COLORS.altoForDark,
+    },
+  },
+  textContainer: {
+    marginTop: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  withBorder: {
+    height: 16,
+    marginLeft: 2,
+    borderBottomWidth: 1,
+    borderColor: {
+      light: COLORS.dimGrey,
       dark: COLORS.altoForDark,
     },
   },
