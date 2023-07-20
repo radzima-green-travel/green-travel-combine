@@ -4,9 +4,22 @@ import {LoadingView} from '../LoadingView';
 import {Props} from './types';
 
 export const SuspenseView = memo<Props>(
-  ({loading, error, retryCallback, children, cover = false}: Props) => {
+  ({
+    loading,
+    error,
+    retryCallback,
+    children,
+    cover = false,
+    buttonText,
+  }: Props) => {
     if (error) {
-      return <ErrorView onTryAgainPress={retryCallback} error={error} />;
+      return (
+        <ErrorView
+          onButtonPress={retryCallback}
+          error={error}
+          buttonText={buttonText}
+        />
+      );
     }
 
     if (loading && !cover) {

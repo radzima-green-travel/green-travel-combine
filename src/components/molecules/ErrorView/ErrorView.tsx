@@ -11,21 +11,23 @@ const ratio = 281 / 373;
 const width = SCREEN_WIDTH;
 const height = width * ratio;
 interface IProps {
-  error: ILabelError;
-  onTryAgainPress?: () => void;
+  error: Pick<ILabelError, 'text' | 'title'>;
+  buttonText?: string;
+  onButtonPress?: () => void;
 }
 
-export const ErrorView = memo(({onTryAgainPress}: IProps) => {
+export const ErrorView = memo(({onButtonPress, error, buttonText}: IProps) => {
   const {t} = useTranslation('common');
   const styles = useThemeStyles(themeStyles);
   return (
     <View style={styles.container}>
       <Icon style={styles.icon} name="error" width={width} height={height} />
-      <Text style={styles.text}>{t('errors.default.text')}</Text>
+      {error.title ? <Text style={styles.title}>{error.title}</Text> : null}
+      <Text style={styles.text}>{error.text}</Text>
       <Button
         style={styles.buttonContainer}
-        onPress={onTryAgainPress}
-        text={t('tryAgain')}
+        onPress={onButtonPress}
+        text={buttonText || t('tryAgain')}
       />
     </View>
   );

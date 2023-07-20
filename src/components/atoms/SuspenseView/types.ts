@@ -3,9 +3,10 @@ import {ILabelError} from 'core/types';
 
 export type Props = {
   loading?: boolean;
-  error?: ILabelError | null;
+  error?: Pick<ILabelError, 'text' | 'title'> | null;
   darkBackground?: boolean;
   retryCallback?: () => void;
   children: ReactNode;
   cover?: boolean;
+  buttonText?: string;
 };

@@ -5,19 +5,19 @@ import {
 import {RouteProp} from '@react-navigation/native';
 import {MainNavigatorParamsList} from 'core/types';
 
-export type ObjectsListScreenNavigationProps = StackNavigationProp<
+export type PageNotFoundErrorScreenNavigationProps = StackNavigationProp<
   MainNavigatorParamsList,
-  'ErrorScreen'
+  'PageNotFoundErrorScreen'
 >;
 
-export type ObjectsListScreenRouteProps = RouteProp<
+export type PageNotFoundErrorScreenRouteProps = RouteProp<
   MainNavigatorParamsList,
-  'ErrorScreen'
+  'PageNotFoundErrorScreen'
 >;
 
 export interface IProps {
-  navigation: ObjectsListScreenNavigationProps;
-  route: ObjectsListScreenRouteProps;
+  navigation: PageNotFoundErrorScreenNavigationProps;
+  route: PageNotFoundErrorScreenRouteProps;
 }
 
 export type ScreenOptions = (props: IProps) => StackNavigationOptions;

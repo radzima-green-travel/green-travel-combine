@@ -8,8 +8,6 @@ import {
   useImageSlider,
   useUpdateEffect,
   useTranslation,
-  useRequestLoading,
-  useOnRequestError,
 } from 'core/hooks';
 import {debounce} from 'lodash';
 import {
@@ -21,7 +19,6 @@ import {shareService} from 'services/ShareService';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {COLORS} from 'assets';
-import {getInitialHomeDataRequest} from 'core/reducers';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
@@ -108,9 +105,6 @@ export const useObjectDetails = () => {
     sendSwitchPhotosEvent();
   }, [page, sendSwitchPhotosEvent]);
 
-  const {loading} = useRequestLoading(getInitialHomeDataRequest);
-  const {errorTexts} = useOnRequestError(getInitialHomeDataRequest, '');
-
   const shareObjectLink = useCallback(() => {
     if (data?.name) {
       shareService.shareObject(objectId, data?.name);
@@ -131,8 +125,6 @@ export const useObjectDetails = () => {
     top,
     pagesAmount,
     page,
-    loading,
-    errorTexts,
     shareObjectLink,
   };
 };

@@ -3,7 +3,7 @@ export {Bookmarks as BookmarksScreen} from './Bookmarks';
 export {BookmarksList as BookmarksListScreen} from './BookmarksList';
 export {CategoriesList as CategoriesListScreen} from './CategoriesList';
 export {EmailValidation as EmailValidationScreen} from './EmailValidation';
-export {ErrorScreen} from './ErrorScreen';
+export {PageNotFoundErrorScreen} from './PageNotFoundErrorScreen';
 export {Home as HomeScreen} from './Home';
 export {NewPassword as NewPasswordScreen} from './NewPassword';
 export {ObjectDetails as ObjectDetailsScreen} from './ObjectDetails';

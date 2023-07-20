@@ -52,7 +52,10 @@
     "routeLength": "{{km}} км, ",
     "includes": "Чем заняться",
     "belongs": "Входит в...",
-    "sources": "Ссылки"
+    "sources": "Ссылки",
+    "objectNotFoundTitle": "Объект не найдет",
+    "objectNotFoundText": "Попробуйте найти объект с помощью главной страницы.",
+    "objectNotFoundButtonText": "Перейти на главную"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"
@@ -182,5 +185,10 @@
     "cacheCleared": "Кэш очищен",
     "info": "Информация",
     "passwordChanged": "Пароль изменен"
-  }
+  },
+  "notFoundPage": {
+    "title": "Страница не найдена",
+    "text": "Страница которую вы ищете была изменена или удалена.",
+    "buttonText": "Перейти на главную"
+ }
 }

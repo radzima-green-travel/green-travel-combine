@@ -54,7 +54,7 @@ export type AppMapNavigatorParamsList = {
 export type MainNavigatorParamsList = {
   TabNavigator: NavigatorScreenParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
-  ErrorScreen: undefined;
+  PageNotFoundErrorScreen: undefined;
   Splash: undefined;
   ObjectDetailsMap: {objectId: string; categoryId: string};
   AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList>;

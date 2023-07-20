@@ -67,7 +67,9 @@ export function RootNavigator() {
       linking={{
         prefixes: [`https://${config.DEEP_LINK_DOMAIN}`],
         config: {
+          initialRouteName: 'TabNavigator',
           screens: {
+            PageNotFoundErrorScreen: '*',
             TabNavigator: {
               screens: {
                 HomeNavigator: {

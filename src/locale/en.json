@@ -52,7 +52,10 @@
     "routeLength": "{{km}} km, ",
     "includes": "Activities",
     "belongs": "Part of...",
-    "sources": "References"
+    "sources": "References",
+    "objectNotFoundTitle": "Object not found",
+    "objectNotFoundText": "Try to search object on the Main page.",
+    "objectNotFoundButtonText": "Go to Main page"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"
@@ -182,5 +185,10 @@
     "cacheCleared": "Cache cleared",
     "info": "Info",
     "passwordChanged": "Password changed"
+  },
+  "notFoundPage": {
+     "title": "Page not found",
+     "text": "The page you're looking for was changed or removed.",
+     "buttonText": "Go to Main page"
   }
 }

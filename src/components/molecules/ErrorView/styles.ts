@@ -17,6 +17,15 @@ export const themeStyles = {
     marginTop: 32,
     alignSelf: 'stretch',
   },
+  title: {
+    ...FONTS_STYLES.regular24,
+    textAlign: 'center',
+    marginBottom: 16,
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
+  },
   text: {
     ...FONTS_STYLES.regular15,
     textAlign: 'center',

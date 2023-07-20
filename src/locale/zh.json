@@ -52,7 +52,10 @@
     "routeLength": "{{km}} 公里, ",
     "includes": "活动",
     "belongs": "位于在……",
-    "sources": "來源"
+    "sources": "來源",
+    "objectNotFoundTitle": "未找到對象",
+    "objectNotFoundText": "嘗試在主頁上搜索對象。",
+    "objectNotFoundButtonText": "前往主頁"
   },
   "bookmarks": {
     "emptyText": "暂时没有添加书签"
@@ -182,5 +185,10 @@
     "cacheCleared": "緩存已清除",
     "info": "信息",
     "passwordChanged": "密碼已更改"
-  }
+  },
+  "notFoundPage": {
+    "title": "找不到網頁",
+    "text": "您要查找的頁面已更改或刪除。",
+    "buttonText": "前往主頁"
+ }
 }

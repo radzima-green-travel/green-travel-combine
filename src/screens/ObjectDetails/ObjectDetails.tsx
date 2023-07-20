@@ -13,7 +13,11 @@ import {useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
-import {useObjectDetails, useObjectDetailsStatusBar} from './hooks';
+import {
+  useObjectDetails,
+  useObjectDetailsStatusBar,
+  useObjectDetailsDeepLinking,
+} from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
 import {TestIDs} from 'core/types';
@@ -34,10 +38,11 @@ export const ObjectDetails = () => {
     top,
     pagesAmount,
     page,
-    loading,
-    errorTexts,
+
     shareObjectLink,
   } = useObjectDetails();
+  const {loading, errorTexts, objectNotFoundErrorProps, onTryAgainPress} =
+    useObjectDetailsDeepLinking();
 
   const [animatedValue] = useState(() => new Animated.Value(0));
 
@@ -54,7 +59,11 @@ export const ObjectDetails = () => {
   useObjectDetailsStatusBar(animatedValue);
 
   return (
-    <SuspenseView loading={loading} error={errorTexts}>
+    <SuspenseView
+      retryCallback={onTryAgainPress}
+      loading={loading}
+      error={errorTexts}
+      {...objectNotFoundErrorProps}>
       {data ? (
         <View style={styles.container}>
           <Animated.ScrollView

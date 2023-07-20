@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ErrorScreen, ObjectDetailsMapScreen} from '../../screens';
+import {PageNotFoundErrorScreen, ObjectDetailsMapScreen} from '../../screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
@@ -31,11 +31,11 @@ export function MainNavigator() {
       />
 
       <Stack.Screen
-        name="ErrorScreen"
-        component={ErrorScreen}
+        name="PageNotFoundErrorScreen"
+        component={PageNotFoundErrorScreen}
         options={{
           headerShown: false,
-          animation: 'fade',
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen

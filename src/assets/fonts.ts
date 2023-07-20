@@ -95,7 +95,13 @@ export const FONTS_STYLES = StyleSheet.create({
     fontSize: 22,
     fontWeight: '400',
     fontFamily: 'System',
-    lineHeight: 28,
+    lineHeight: 24,
     letterSpacing: 0.35,
+  },
+  regular24: {
+    fontSize: 24,
+    fontWeight: '700',
+    fontFamily: 'System',
+    lineHeight: 28,
   },
 });
