@@ -1,15 +1,17 @@
 import Animated from 'react-native-reanimated';
 import {themeStyles} from './styles';
-import {Keyboard} from 'react-native';
+import {Keyboard, TouchableOpacity, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
+import {Icon} from 'atoms';
+import {COLORS} from 'assets';
 
-import BottomSheet, { BottomSheetModal,
-
+import BottomSheet, {
   useBottomSheetDynamicSnapPoints,
   BottomSheetView,
+  BottomSheetBackdrop,
 } from '@gorhom/bottom-sheet';
 
-import { Portal } from '@gorhom/portal'
+import {Portal} from '@gorhom/portal';
 
 import React, {
   forwardRef,
@@ -23,10 +25,13 @@ import React, {
 
 interface IProps {
   onHideEnd?: () => void;
-  onHideStart?: () => void
+  onHideStart?: () => void;
   menuHeight?: number;
   animatedPosition?: Animated.SharedValue<number>;
   showDragIndicator?: boolean;
+  initialIndex?: number;
+  isPanDownEnabled?: boolean;
+  withBackdrop?: boolean;
 }
 
 export interface IBottomMenuRef {
@@ -35,110 +40,137 @@ export interface IBottomMenuRef {
   isOpened: () => boolean;
 }
 
-export const BottomMenu = memo(forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
-  (
-    {
-      children,
-      onHideEnd,
-      onHideStart,
-      menuHeight,
-      animatedPosition,
-      showDragIndicator = true,
-    },
-    ref,
-  ) => {  
-    const initialSnapPoints = useMemo(() => ['CONTENT_HEIGHT'], []);
-
-    const {
-      animatedHandleHeight,
-      animatedSnapPoints,
-      animatedContentHeight,
-      handleContentLayout,
-    } = useBottomSheetDynamicSnapPoints(initialSnapPoints);  
-
-    const styles = useThemeStyles(themeStyles);
-    const isOpened = useRef(false);
-    const bottomSheetRef = useRef<BottomSheet>(null);
-
-    const snapPoints = useMemo(() => [menuHeight], [menuHeight]);
-
-    const show = useCallback(() => {
-      bottomSheetRef.current?.expand();
-    }, []);
-
-    const hide = useCallback(() => {
-      bottomSheetRef.current?.close();
-    }, [])
-
-    useImperativeHandle(ref, () => ({
-      show: show,
-      hide: hide,
-      isOpened: () => {
-        return isOpened.current;
+export const BottomMenu = memo(
+  forwardRef<IBottomMenuRef, PropsWithChildren<IProps>>(
+    (
+      {
+        children,
+        onHideEnd,
+        onHideStart,
+        menuHeight,
+        animatedPosition,
+        showDragIndicator = true,
+        initialIndex = 0,
+        isPanDownEnabled = true,
+        withBackdrop = false,
       },
-    }));
+      ref,
+    ) => {
+      const initialSnapPoints = useMemo(() => ['CONTENT_HEIGHT'], []);
 
-    const onChange = useCallback(
-      (index: number) => {
-        isOpened.current = index === 0;
-        
-        if(index  === -1) {
-          onHideEnd?.()
-        } 
-      },
-      [onHideEnd],
-    );
+      const {
+        animatedHandleHeight,
+        animatedSnapPoints,
+        animatedContentHeight,
+        handleContentLayout,
+      } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
 
-    const onAnimate = useCallback((fromIndex: number) => {
-      if (fromIndex === 0) {
-        onHideStart?.()
-        Keyboard.dismiss();
+      const styles = useThemeStyles(themeStyles);
+      const isOpened = useRef(false);
+      const bottomSheetRef = useRef<BottomSheet>(null);
+
+      const snapPoints = useMemo(() => [menuHeight], [menuHeight]);
+
+      const show = useCallback(() => {
+        bottomSheetRef.current?.expand();
+      }, []);
+
+      const hide = useCallback(() => {
+        bottomSheetRef.current?.close();
+      }, []);
+
+      useImperativeHandle(ref, () => ({
+        show: show,
+        hide: hide,
+        isOpened: () => {
+          return isOpened.current;
+        },
+      }));
+
+      const onChange = useCallback(
+        (index: number) => {
+          isOpened.current = index === 0;
+
+          if (index === -1) {
+            onHideEnd?.();
+          }
+        },
+        [onHideEnd],
+      );
+
+      const onAnimate = useCallback(
+        (fromIndex: number) => {
+          if (fromIndex === 0) {
+            onHideStart?.();
+            Keyboard.dismiss();
+          }
+        },
+        [onHideStart],
+      );
+
+      const renderBackdrop = useCallback(props => {
+        return (
+          <BottomSheetBackdrop
+            {...props}
+            disappearsOnIndex={-1}
+            appearsOnIndex={0}
+          />
+        );
+      }, []);
+
+      if (menuHeight) {
+        return (
+          <Portal>
+            <BottomSheet
+              backdropComponent={withBackdrop ? renderBackdrop : null}
+              handleComponent={showDragIndicator ? undefined : null}
+              ref={bottomSheetRef}
+              handleStyle={styles.handleStyles}
+              backgroundStyle={styles.bgStyle}
+              handleIndicatorStyle={styles.touchIndicator}
+              index={-1}
+              snapPoints={snapPoints as [number]}
+              enablePanDownToClose={isPanDownEnabled}
+              onAnimate={onAnimate}
+              onChange={onChange}>
+              {children}
+            </BottomSheet>
+          </Portal>
+        );
       }
-    }, [onHideStart]);
 
-    if (menuHeight ) {
       return (
         <Portal>
           <BottomSheet
+            backdropComponent={withBackdrop ? renderBackdrop : null}
             handleComponent={showDragIndicator ? undefined : null}
+            animatedPosition={animatedPosition}
             ref={bottomSheetRef}
             handleStyle={styles.handleStyles}
             backgroundStyle={styles.bgStyle}
             handleIndicatorStyle={styles.touchIndicator}
-            index={-1}     
-            snapPoints={snapPoints as [number]}
-            enablePanDownToClose
+            index={initialIndex}
+            snapPoints={animatedSnapPoints}
+            handleHeight={animatedHandleHeight}
+            contentHeight={animatedContentHeight}
+            enablePanDownToClose={isPanDownEnabled}
             onAnimate={onAnimate}
             onChange={onChange}>
-            {children}
+            <BottomSheetView onLayout={handleContentLayout}>
+              <>
+                {!showDragIndicator ? (
+                  <View style={styles.crossContainer}>
+                    <TouchableOpacity onPress={hide}>
+                      <Icon name="cross" size={24} color={COLORS.black} />
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
+                {children}
+              </>
+            </BottomSheetView>
           </BottomSheet>
-      </Portal>
-
+        </Portal>
       );
-    }
-
-    return (
-      <Portal>
-        <BottomSheet
-          handleComponent={showDragIndicator ? undefined : null}       
-          animatedPosition={animatedPosition}
-          ref={bottomSheetRef}
-          handleStyle={styles.handleStyles}
-          backgroundStyle={styles.bgStyle}
-          handleIndicatorStyle={styles.touchIndicator}
-          index={0}
-          snapPoints={animatedSnapPoints}
-          handleHeight={animatedHandleHeight}
-          contentHeight={animatedContentHeight}
-          enablePanDownToClose
-          onAnimate={onAnimate}
-          onChange={onChange}>
-          <BottomSheetView onLayout={handleContentLayout}>
-            {children}
-          </BottomSheetView>
-        </BottomSheet>
-      </Portal>
-
-    );
-  },
-))
+    },
+  ),
+);
