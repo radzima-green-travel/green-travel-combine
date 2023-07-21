@@ -1,0 +1,1 @@
+export {UpdateBottomMenu} from './UpdateBottomMenu';

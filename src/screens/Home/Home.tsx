@@ -1,5 +1,5 @@
 import React from 'react';
-import {RefreshPageReminder, SuspenseView, SnackBar} from 'atoms';
+import {RefreshPageReminder, SuspenseView, SnackBar, BottomMenu} from 'atoms';
 import {HomeSectionBar} from 'organisms';
 import {FlatList, RefreshControl, View} from 'react-native';
 
@@ -10,6 +10,7 @@ import {useHome} from './hooks';
 import {themeStyles} from './styles';
 import {TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
+import {UpdateBottomMenu} from 'molecules';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
@@ -30,10 +31,12 @@ export const Home = () => {
     isFocused,
     isUpdatesAvailable,
     snackBarProps,
+    menuProps,
+    bottom,
   } = useHome();
 
   return (
-    <View style={{overflow: 'hidden', flex: 1}}>
+    <View style={styles.container}>
       <SuspenseView
         loading={loading}
         error={homeData ? null : error}
@@ -68,6 +71,19 @@ export const Home = () => {
         {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null}
         <SnackBar isOnTop {...snackBarProps} />
       </SuspenseView>
+      <BottomMenu
+        withBackdrop
+        initialIndex={-1}
+        isPanDownEnabled={false}
+        showDragIndicator={false}
+        {...menuProps}>
+        <UpdateBottomMenu
+          onUpdate={() => {}}
+          onRemind={() => {}}
+          onSkip={() => {}}
+          bottomInset={bottom}
+        />
+      </BottomMenu>
     </View>
   );
 };

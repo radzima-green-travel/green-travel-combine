@@ -23,4 +23,8 @@ export const themeStyles = {
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
+  crossContainer: {
+    padding: 16,
+    alignItems: 'flex-end',
+  },
 };

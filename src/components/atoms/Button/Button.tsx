@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   View,
   TouchableOpacity,
+  TextStyle,
 } from 'react-native';
 
 import {BUTTON_THEMES} from './constants';
@@ -18,6 +19,7 @@ type Props = PropsWithChildren<{
   text: string;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   theme?: ButtonThemes;
   loading?: boolean;
   disabled?: boolean;
@@ -33,8 +35,9 @@ export const Button = memo(
     loading = false,
     disabled = false,
     style,
+    textStyle,
     testID,
-    theme = 'green',
+    theme = 'primary',
   }: Props) => {
     const buttonThemeStyles = useThemeStyles(BUTTON_THEMES[theme]);
 
@@ -66,6 +69,7 @@ export const Button = memo(
                 styles.text,
                 buttonThemeStyles.text,
                 disabled && buttonThemeStyles.disabledText,
+                textStyle,
               ]}>
               {text}
             </Text>

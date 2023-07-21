@@ -24,3 +24,5 @@ export * from './AppMapBottomSearchMenu';
 export * from './ObjectDetailsMapBottomMenu';
 export {GeneralListItem} from './GeneralListItem';
 export {AnimatedCircleButton} from './AnimatedCircleButton';
+export {UpdateBottomMenu} from './UpdateBottomMenu';
+export {UpdateView} from './UpdateView';
