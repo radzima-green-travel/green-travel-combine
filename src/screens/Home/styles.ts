@@ -1,6 +1,10 @@
 import {COLORS} from 'assets';
 
 export const themeStyles = {
+  container: {
+    flex: 1,
+    overflow: 'hidden',
+  },
   list: {
     flex: 1,
   },

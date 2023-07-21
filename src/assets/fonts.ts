@@ -26,6 +26,13 @@ export const FONTS_STYLES = StyleSheet.create({
     letterSpacing: -0.3,
     lineHeight: 22,
   },
+  semibold18: {
+    fontSize: 18,
+    fontWeight: '600',
+    fontFamily: 'System',
+    letterSpacing: -0.3,
+    lineHeight: 20,
+  },
   semibold16: {
     fontSize: 16,
     fontWeight: '600',

@@ -73,4 +73,5 @@ export type IconsNames =
   | 'strokeWaterRouteDark'
   | 'theme'
   | 'warMonuments'
-  | 'wave';
+  | 'wave'
+  | 'ILSVersionUpdate';
