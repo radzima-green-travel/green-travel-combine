@@ -38,7 +38,7 @@
     "aws-amplify-react-native": "^6.0.5",
     "axios": "0.19.2",
     "deprecated-react-native-prop-types": "^2.3.0",
-    "expo": "^47.0.13",
+    "expo": "^49.0.4",
     "expo-image": "^1.2.3",
     "expo-navigation-bar": "^2.1.1",
     "formik": "^2.2.9",
