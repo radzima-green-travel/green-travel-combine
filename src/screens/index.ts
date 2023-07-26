@@ -22,4 +22,5 @@ export {SignUpForm as SignUpFormScreen} from './SignUpForm';
 export {AuthMethodSelection as AuthMethodSelectionScreen} from './AuthMethodSelection';
 export {ChangePassword as ChangePasswordScreen} from './ChangePassword';
 export {InAppWebView as InAppWebViewScreen} from './InAppWebView';
-export {UpdateVersion as UpdateVersionScreen} from './UpdateVersion';
+export {OptionalUpdate as OptionalUpdateScreen} from './OptionalUpdate';
+export {ForceUpdate as ForceUpdateScreen} from './ForceUpdate';
