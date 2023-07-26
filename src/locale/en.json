@@ -193,13 +193,13 @@
     "buttonText": "Go to Main page"
   },
   "updateVersion": {
-    "updateRequired": "en_Требуется обновление приложения",
-    "updateAvailable": "en_Доступно обновление приложения",
-    "properWork": "en_Для правильной работы приложения вам необходимо обновить его.",
-    "improveWork": "en_Улучшили стабильность и функционал приложения, чтобы ваши путешествия стали ещё лучше.",
-    "update": "en_Обновить",
-    "updateApp": "en_Обновить приложение",
-    "remindLater": "en_Напомнить позже",
-    "dontUpdate": "en_Не обновлять"
+    "updateRequired": "Application update required",
+    "updateAvailable": "Application update available",
+    "properWork": "For the application to work correctly, it needs to be updated.",
+    "improveWork": "Improved app stability and functionality to make your journey even better.",
+    "update": "Update",
+    "updateApp": "Update App",
+    "remindLater": "Remind later",
+    "dontUpdate": "Don't update"
   }
 }

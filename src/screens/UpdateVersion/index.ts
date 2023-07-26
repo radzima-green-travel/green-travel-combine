@@ -1,1 +1,0 @@
-export {UpdateVersion} from './UpdateVersion';

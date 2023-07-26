@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {Button, Icon} from 'atoms';
-import {StatusBar, StyleProp, Text, TextStyle, View} from 'react-native';
+import {StyleProp, Text, TextStyle, View} from 'react-native';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 
@@ -25,7 +25,6 @@ export const UpdateView = memo(
 
     return (
       <View style={styles.container}>
-        <StatusBar hidden />
         <Text style={styles.title}>{title}</Text>
         <Text style={[styles.desc, subTitleStyle]}>{subTitle}</Text>
         <Icon
