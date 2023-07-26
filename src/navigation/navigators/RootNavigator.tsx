@@ -6,7 +6,7 @@ import {useDispatch} from 'react-redux';
 import {bootstrapRequest} from 'core/reducers';
 import {StatusBar} from 'react-native';
 import config from 'react-native-ultimate-config';
-import {SplashScreen} from '../../screens';
+import {ForceUpdateScreen, SplashScreen} from '../../screens';
 
 import {PortalProvider} from '@gorhom/portal';
 import {useOnRequestSuccess, useRequestError} from 'react-redux-help-kit';
@@ -62,6 +62,10 @@ export function RootNavigator() {
     return null;
   };
 
+  const showForceUpdateScreen = () => {
+    return <ForceUpdateScreen />;
+  };
+
   return (
     <NavigationContainer<MainNavigatorParamsList>
       linking={{
@@ -90,6 +94,7 @@ export function RootNavigator() {
           <>
             <MainNavigator />
             {showSplashForAndroid()}
+            {showForceUpdateScreen()}
           </>
         ) : null}
       </PortalProvider>

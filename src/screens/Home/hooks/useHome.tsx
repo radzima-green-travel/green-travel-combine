@@ -13,7 +13,6 @@ import {
   useHomeAnalytics,
   useColorScheme,
   useOnRequestError,
-  useBottomMenu,
 } from 'core/hooks';
 import {IObject, ITransformedCategory} from 'core/types';
 import {HomeScreenNavigationProps} from '../types';
@@ -24,7 +23,6 @@ import {
 } from '@react-navigation/native';
 import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
 import {useSnackbar} from 'atoms';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const useHome = () => {
   const dispatch = useDispatch();
@@ -37,10 +35,6 @@ export const useHome = () => {
     sendSaveCardEvent,
     sendUnsaveCardEvent,
   } = useHomeAnalytics();
-
-  const {...menuProps} = useBottomMenu();
-
-  const {bottom} = useSafeAreaInsets();
 
   const getData = useCallback(() => {
     dispatch(getHomeDataUpdatesRequest());
@@ -146,7 +140,5 @@ export const useHome = () => {
     isFocused,
     isUpdatesAvailable,
     snackBarProps,
-    menuProps,
-    bottom,
   };
 };

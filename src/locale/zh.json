@@ -186,19 +186,19 @@
     "info": "信息",
     "passwordChanged": "密碼已更改"
   },
-  "notFoundPage": {
+"notFoundPage": {
     "title": "找不到網頁",
     "text": "您要查找的頁面已更改或刪除。",
     "buttonText": "前往主頁"
   },
   "updateVersion": {
-    "updateRequired": "zh_Требуется обновление приложения",
-    "updateAvailable": "zh_Доступно обновление приложения",
-    "properWork": "zh_Для правильной работы приложения вам необходимо обновить его.",
-    "improveWork": "zh_Улучшили стабильность и функционал приложения, чтобы ваши путешествия стали ещё лучше.",
-    "update": "zh_Обновить",
-    "updateApp": "zh_Обновить приложение",
-    "remindLater": "zh_Напомнить позже",
-    "dontUpdate": "zh_Не обновлять"
+    "updateRequired": "需要更新應用程序",
+    "updateAvailable": "應用程序更新可用",
+    "properWork": "為了使應用程序正常工作，需要對其進行更新。",
+    "improveWork": "改進了應用程序穩定性和功能，讓您的旅程更加美好。",
+    "update": "更新",
+    "updateApp": "更新應用程序",
+    "remindLater": "稍後提醒",
+    "dontUpdate": "不更新"
   }
 }
