@@ -6,13 +6,21 @@ import {
   BulkUpdateFavoritesBody,
 } from 'core/types';
 import {Auth} from 'aws-amplify';
-import {AmplifyApiEngine} from '../engines';
+import {AmplifyApiEngine, CustomApiRequestConfig} from '../engines';
 
 class AmplifyApi extends AmplifyApiEngine {
-  async getHeaders() {
-    const token = (await Auth.currentSession()).getAccessToken().getJwtToken();
+  async getHeaders(config?: CustomApiRequestConfig) {
+    const {headers, withAuth = true} = config || {};
+    const authHeaders = withAuth
+      ? {
+          Authorization: (await Auth.currentSession())
+            .getAccessToken()
+            .getJwtToken(),
+        }
+      : {};
     return {
-      Authorization: `${token}`,
+      ...authHeaders,
+      ...(headers || {}),
     };
   }
 
@@ -236,11 +244,11 @@ class AmplifyApi extends AmplifyApiEngine {
     objectId: string;
     data: UpdateFavoritesBody;
   }) => {
-    return this.postByApi('apiac472374', `/bookmark/${objectId}`, data);
+    return this.postByApi('apiac472374', `/bookmark/${objectId}`, {body: data});
   };
 
   bulkUpdateUserFavorites = async (data: BulkUpdateFavoritesBody) => {
-    return this.postByApi('apiac472374', '/bookmark', data);
+    return this.postByApi('apiac472374', '/bookmark', {body: data});
   };
 }
 

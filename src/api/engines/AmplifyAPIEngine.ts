@@ -6,8 +6,15 @@ import {
 } from 'core/errors';
 import {AmplifyError, AmplifyErrorPresetParams} from 'core/types';
 
+export interface CustomApiRequestConfig {
+  withAuth?: boolean;
+  params?: Record<string, any>;
+  headers?: Record<string, string | number>;
+  body?: any;
+}
+
 export class AmplifyApiEngine {
-  async getHeaders() {
+  async getHeaders(_config?: CustomApiRequestConfig) {
     return {};
   }
 
@@ -28,7 +35,7 @@ export class AmplifyApiEngine {
       return res;
     } catch (e) {
       const amplifyError = e as AmplifyError;
-      console.log(amplifyError);
+
       if (amplifyError.code === 'NetworkError') {
         return Promise.reject(
           new RequestError(
@@ -49,17 +56,28 @@ export class AmplifyApiEngine {
     }
   }
 
-  async getByApi(apiName: string, path: string, params?: Record<string, any>) {
-    return API.get(apiName, path, {
-      headers: await this.getHeaders(),
-      queryStringParameters: params,
+  async getByApi(
+    apiName: string,
+    path: string,
+    config?: CustomApiRequestConfig,
+  ) {
+    const test = API.get(apiName, path, {
+      headers: await this.getHeaders(config),
+      queryStringParameters: config?.params,
     });
+
+    test.then(a => console.log('getByApi', a));
+    return test;
   }
 
-  async postByApi(apiName: string, path: string, body: Record<string, any>) {
+  async postByApi(
+    apiName: string,
+    path: string,
+    config?: CustomApiRequestConfig,
+  ) {
     return API.post(apiName, path, {
-      body,
-      headers: await this.getHeaders(),
+      body: config?.body,
+      headers: await this.getHeaders(config),
     });
   }
 }
