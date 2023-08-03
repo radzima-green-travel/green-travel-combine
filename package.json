@@ -37,6 +37,7 @@
     "aws-amplify": "^4.3.37",
     "aws-amplify-react-native": "^6.0.5",
     "axios": "0.19.2",
+    "compare-versions": "^6.0.0",
     "deprecated-react-native-prop-types": "^2.3.0",
     "expo": "^47.0.13",
     "expo-image": "^1.2.3",

@@ -29,7 +29,6 @@ interface IProps {
   menuHeight?: number;
   animatedPosition?: Animated.SharedValue<number>;
   showDragIndicator?: boolean;
-  initialIndex?: number;
   isPanDownEnabled?: boolean;
   withBackdrop?: boolean;
 }
@@ -50,7 +49,6 @@ export const BottomMenu = memo(
         menuHeight,
         animatedPosition,
         showDragIndicator = true,
-        initialIndex = 0,
         isPanDownEnabled = true,
         withBackdrop = false,
       },
@@ -149,7 +147,7 @@ export const BottomMenu = memo(
             handleStyle={styles.handleStyles}
             backgroundStyle={styles.bgStyle}
             handleIndicatorStyle={styles.touchIndicator}
-            index={initialIndex}
+            index={0}
             snapPoints={animatedSnapPoints}
             handleHeight={animatedHandleHeight}
             contentHeight={animatedContentHeight}

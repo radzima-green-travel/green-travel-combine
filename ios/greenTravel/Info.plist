@@ -57,6 +57,7 @@
 		<string>gett</string>
 		<string>nmap</string>
 		<string>dgis</string>
+		<string>itms-apps</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

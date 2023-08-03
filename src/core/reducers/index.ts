@@ -5,3 +5,4 @@ export * from './ObjectDetailsMapReducer';
 export * from './SearchReducer';
 export * from './AuthenticationReducer';
 export * from './SettingsReducer';
+export * from './AppConfigurationReducer';

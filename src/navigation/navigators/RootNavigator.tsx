@@ -2,18 +2,30 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from 'services/NavigationService';
 import {MainNavigator} from './MainNavigator';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {bootstrapRequest} from 'core/reducers';
 import {StatusBar} from 'react-native';
 import config from 'react-native-ultimate-config';
-import {ForceUpdateScreen, SplashScreen} from '../../screens';
+import {
+  ForceUpdateScreen,
+  OptionalUpdateScreen,
+  SplashScreen,
+} from '../../screens';
 
 import {PortalProvider} from '@gorhom/portal';
 import {useOnRequestSuccess, useRequestError} from 'react-redux-help-kit';
 import {MainNavigatorParamsList} from 'core/types';
+import {
+  selectUpdatesAvailable,
+  selectUpdatesMandatory,
+  selectUpdatesSkipped,
+} from 'core/selectors';
 
 export function RootNavigator() {
   const dispatch = useDispatch();
+  const isUpdatesMandatory = useSelector(selectUpdatesMandatory);
+  const isUpdatesAvailable = useSelector(selectUpdatesAvailable);
+  const isUpdatesSkipped = useSelector(selectUpdatesSkipped);
   const [splashTransitionFinished, setSplashTransitionFinished] =
     useState(false);
   const [bootstrapFinished, setBootstrapFinished] = useState(false);
@@ -62,8 +74,14 @@ export function RootNavigator() {
     return null;
   };
 
-  const showForceUpdateScreen = () => {
-    return <ForceUpdateScreen />;
+  const showUpdateScreen = () => {
+    if (isUpdatesMandatory) {
+      return <ForceUpdateScreen />;
+    } else if (isUpdatesAvailable && !isUpdatesSkipped) {
+      return <OptionalUpdateScreen />;
+    }
+
+    return null;
   };
 
   return (
@@ -93,8 +111,8 @@ export function RootNavigator() {
         {bootstrapFinished ? (
           <>
             <MainNavigator />
+            {showUpdateScreen()}
             {showSplashForAndroid()}
-            {showForceUpdateScreen()}
           </>
         ) : null}
       </PortalProvider>

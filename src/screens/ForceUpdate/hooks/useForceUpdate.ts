@@ -1,13 +1,12 @@
-import {useBottomMenu} from 'core/hooks';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useCallback} from 'react';
+import {updateService} from 'services/UpdateService';
 
 export const useForceUpdate = () => {
-  const {...menuProps} = useBottomMenu();
-
-  const {bottom} = useSafeAreaInsets();
+  const onUpdate = useCallback(async () => {
+    updateService.openApplicationMarketplace();
+  }, []);
 
   return {
-    menuProps,
-    bottom,
+    onUpdate,
   };
 };

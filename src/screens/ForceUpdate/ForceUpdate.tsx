@@ -1,24 +1,23 @@
 import React from 'react';
-import {BottomMenu} from 'atoms';
-import {UpdateBottomMenu} from 'molecules';
+import {View} from 'react-native';
+import {themeStyles} from './styles';
+import {useThemeStyles, useTranslation} from 'core/hooks';
+import {UpdateView} from 'molecules';
 import {useForceUpdate} from './hooks';
 
 export const ForceUpdate = () => {
-  const {menuProps, bottom} = useForceUpdate();
+  const {t} = useTranslation('updateVersion');
+  const styles = useThemeStyles(themeStyles);
+  const {onUpdate} = useForceUpdate();
 
   return (
-    <BottomMenu
-      withBackdrop
-      initialIndex={-1}
-      isPanDownEnabled={false}
-      showDragIndicator={false}
-      {...menuProps}>
-      <UpdateBottomMenu
-        onUpdate={() => {}}
-        onRemind={() => {}}
-        onSkip={() => {}}
-        bottomInset={bottom}
+    <View style={styles.contentContainer}>
+      <UpdateView
+        title={t('updateRequired')}
+        subTitle={t('properWork')}
+        buttonText={t('update')}
+        onUpdate={onUpdate}
       />
-    </BottomMenu>
+    </View>
   );
 };

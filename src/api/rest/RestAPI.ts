@@ -4,7 +4,7 @@ import {
   etagCachingRequestInterceptor,
   etagCachingRespnseInterceptor,
 } from './interceptors';
-import {SupportedLocales} from 'core/types';
+import {AppConfiguration, SupportedLocales} from 'core/types';
 import {ListMobileDataQuery} from '../graphql/types';
 
 export class RestAPI extends RestApiEngine {
@@ -32,12 +32,11 @@ export class RestAPI extends RestApiEngine {
     return {listMobileData: data};
   }
 
-  async getAppFeConfiguration(): Promise<ListMobileDataQuery | null> {
+  async getAppFeConfiguration(): Promise<AppConfiguration> {
     const data = await this.get('/dev', {
-      baseURL:
-        'https://hyy6w3shah.execute-api.eu-central-1.amazonaws.com/default/config',
+      baseURL: config.CONFIG_API_URL,
       headers: {
-        'x-api-key': '',
+        'x-api-key': config.CONFIG_API_KEY,
         version: 5,
       },
     });
@@ -46,10 +45,3 @@ export class RestAPI extends RestApiEngine {
   }
 }
 export const restAPI = new RestAPI(config.NATIVE_CLIENT_INDEX_FILE_BASE_URL);
-
-// 1) Add getAppFeConfiguration to RestAPI
-// 2) add new env variables i.e. CONFIG_API_URL, CONFIG_API_KEY
-// 3) create saga getAppFeConfigurationSaga, create reducer AppReducer - configuration
-// 4) create selectors, selecteIsUpdateRequired, selecteIsUpdateAvailable -> compare(currentVersopn, versionFromConfig).lib
-// 5) read values in your screen and based on it show corresponding pop up
-// 6) add persisted value to skip optional update

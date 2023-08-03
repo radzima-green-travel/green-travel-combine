@@ -7,5 +7,10 @@ export const getAppVersion = () => {
   const appVersion = Application.nativeApplicationVersion;
   const buildNumber = Application.nativeBuildVersion;
 
-  return isDevEnv ? `${appVersion}(${buildNumber})` : `${appVersion}`;
+  return {
+    currentAppVersion: appVersion,
+    appVersionWithBuildNumber: isDevEnv
+      ? `${appVersion}(${buildNumber})`
+      : `${appVersion}`,
+  };
 };

@@ -5,6 +5,7 @@ import {
   bootstrapFailure,
   getInitialHomeDataRequest,
   getHomeData,
+  getAppConfigurationRequest,
 } from 'core/reducers';
 import {ACTIONS} from 'core/constants';
 
@@ -33,6 +34,7 @@ export function* bootstrapSaga() {
       if (isMyProfileFeatureEnabled) {
         yield call(initUserAuthSaga);
       }
+      yield put(getAppConfigurationRequest());
 
       const isLocaledUpdated = yield call(initAppLocaleSaga);
 

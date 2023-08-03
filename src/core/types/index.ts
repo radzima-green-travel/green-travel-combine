@@ -5,3 +5,4 @@ export * from './auth';
 export * from './errors';
 export * from './forms';
 export * from './favorites';
+export * from './app';

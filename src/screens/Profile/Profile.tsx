@@ -12,7 +12,7 @@ export const Profile = () => {
   const {t} = useTranslation('profile');
   const {t: tCommon} = useTranslation('common');
 
-  const appVersion = getAppVersion();
+  const {appVersionWithBuildNumber} = getAppVersion();
 
   const styles = useThemeStyles(themeStyles);
   const {
@@ -96,7 +96,7 @@ export const Profile = () => {
       <View style={styles.textContainer}>
         <Text style={styles.text}>{tCommon('appVersion')}</Text>
         <View style={styles.withBorder}>
-          <Text style={styles.text}>{appVersion}</Text>
+          <Text style={styles.text}>{appVersionWithBuildNumber}</Text>
         </View>
       </View>
 

@@ -12,6 +12,7 @@ import {
   objectDetailsMapReducer,
   searchReducer,
   authenticationReducer,
+  appConfigurationReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -49,6 +50,12 @@ const authenticationPersistConfig = {
   whitelist: ['userAttributes'],
 };
 
+const appConfigurationPersistConfig = {
+  key: 'appConfiguration',
+  storage: AsyncStorage,
+  whitelist: ['skipUpdate'],
+};
+
 const rootReducer = combineReducers({
   ...asyncReducers,
   bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
@@ -61,6 +68,10 @@ const rootReducer = combineReducers({
     authenticationReducer,
   ),
   settings: persistReducer(settingsPeristConfig, settingsReducer),
+  configuration: persistReducer(
+    appConfigurationPersistConfig,
+    appConfigurationReducer,
+  ),
 });
 
 const sagaMiddleware = createSagaMiddleware();

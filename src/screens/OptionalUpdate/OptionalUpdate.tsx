@@ -1,21 +1,24 @@
 import React from 'react';
-import {View} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {UpdateView} from 'molecules';
+import {BottomMenu} from 'atoms';
+import {UpdateBottomMenu} from 'molecules';
+import {useOptionalUpdate} from './hooks';
 
 export const OptionalUpdate = () => {
-  const {t} = useTranslation('updateVersion');
-  const styles = useThemeStyles(themeStyles);
+  const {onUpdate, onRemindLater, onSkipUpdate, menuProps, bottom} =
+    useOptionalUpdate();
 
   return (
-    <View style={styles.contentContainer}>
-      <UpdateView
-        title={t('updateRequired')}
-        subTitle={t('properWork')}
-        buttonText={t('update')}
-        onUpdate={() => {}}
+    <BottomMenu
+      withBackdrop
+      isPanDownEnabled={false}
+      showDragIndicator={false}
+      {...menuProps}>
+      <UpdateBottomMenu
+        onUpdate={onUpdate}
+        onRemind={onRemindLater}
+        onSkip={onSkipUpdate}
+        bottomInset={bottom}
       />
-    </View>
+    </BottomMenu>
   );
 };
