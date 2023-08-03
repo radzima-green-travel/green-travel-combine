@@ -56,18 +56,11 @@ export class AmplifyApiEngine {
     }
   }
 
-  async getByApi(
-    apiName: string,
-    path: string,
-    config?: CustomApiRequestConfig,
-  ) {
-    const test = API.get(apiName, path, {
-      headers: await this.getHeaders(config),
-      queryStringParameters: config?.params,
+  async getByApi(apiName: string, path: string, params?: Record<string, any>) {
+    return API.get(apiName, path, {
+      headers: await this.getHeaders(),
+      queryStringParameters: params,
     });
-
-    test.then(a => console.log('getByApi', a));
-    return test;
   }
 
   async postByApi(

@@ -30,7 +30,7 @@ export const selectAvailableAppVersion = createSelector(
 export const selectUpdatesAvailable = createSelector(
   selectAvailableAppVersion,
   availableAppVersion => {
-    const {currentAppVersion} = getAppVersion();
+    const currentAppVersion = getAppVersion();
 
     return currentAppVersion && availableAppVersion
       ? compare(currentAppVersion, availableAppVersion, '<=')
@@ -41,7 +41,7 @@ export const selectUpdatesAvailable = createSelector(
 export const selectUpdatesMandatory = createSelector(
   selectMandatoryAppVersion,
   mandatoryAppVersion => {
-    const {currentAppVersion} = getAppVersion();
+    const currentAppVersion = getAppVersion();
 
     return currentAppVersion && mandatoryAppVersion
       ? compare(currentAppVersion, mandatoryAppVersion, '<=')

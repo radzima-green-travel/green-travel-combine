@@ -6,13 +6,13 @@ import {useProfile} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
-import {getAppVersion} from 'core/helpers';
+import {getAppSettingsApplicationVersion} from 'core/helpers';
 
 export const Profile = () => {
   const {t} = useTranslation('profile');
   const {t: tCommon} = useTranslation('common');
 
-  const {appVersionWithBuildNumber} = getAppVersion();
+  const appSettingsVersion = getAppSettingsApplicationVersion();
 
   const styles = useThemeStyles(themeStyles);
   const {
@@ -96,7 +96,7 @@ export const Profile = () => {
       <View style={styles.textContainer}>
         <Text style={styles.text}>{tCommon('appVersion')}</Text>
         <View style={styles.withBorder}>
-          <Text style={styles.text}>{appVersionWithBuildNumber}</Text>
+          <Text style={styles.text}>{appSettingsVersion}</Text>
         </View>
       </View>
 

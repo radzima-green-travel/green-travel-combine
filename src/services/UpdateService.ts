@@ -1,14 +1,11 @@
-import {Linking} from 'react-native';
 import {isIOS} from './PlatformService';
 import config from 'react-native-ultimate-config';
+import {tryOpenURL} from 'core/helpers';
 
 class UpdateService {
-  async openApplicationMarketplace() {
+  openApplicationMarketplace() {
     const url = isIOS ? config.APP_STORE_URL_IOS : config.APP_STORE_URL_ANDROID;
-    const canOpen = await Linking.canOpenURL(url);
-    if (canOpen) {
-      await Linking.openURL(url);
-    }
+    tryOpenURL(url);
   }
 }
 
