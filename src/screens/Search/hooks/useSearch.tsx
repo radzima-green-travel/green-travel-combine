@@ -14,6 +14,7 @@ export const useSearch = () => {
     deleteFromHistory,
     deleteAllFromHistory,
     clearInput,
+    inputValue,
   } = useSearchList();
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
@@ -52,5 +53,6 @@ export const useSearch = () => {
     navigateToObjectDetails,
     deleteItem,
     deleteAllItems,
+    isSearchQueryEmpty: !inputValue,
   };
 };

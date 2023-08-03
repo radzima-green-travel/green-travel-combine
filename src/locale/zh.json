@@ -64,7 +64,8 @@
   "search": {
     "searchTitle": "历史记录",
     "notFound": "抱歉，未找到相关结果",
-    "clearAll": "清除所有"
+    "clearAll": "清除所有",
+    "emptySearchPlaceholder": "在输入字段中输入搜索查询以开始搜索。"
   },
   "map": {
     "all": "全部",

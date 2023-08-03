@@ -28,6 +28,7 @@ export function BookmarksNavigator() {
       <Stack.Screen name="Bookmarks" component={BookmarksScreen} />
       <Stack.Screen name="BookmarksList" component={BookmarksListScreen} />
       <Stack.Screen
+        getId={({params}) => params.objectId}
         name="ObjectDetails"
         component={ObjectDetailsScreen}
         options={{headerShown: false}}

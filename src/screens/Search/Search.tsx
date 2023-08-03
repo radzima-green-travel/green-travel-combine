@@ -11,6 +11,7 @@ export const Search = () => {
     navigateToObjectDetails,
     deleteItem,
     deleteAllItems,
+    isSearchQueryEmpty,
   } = useSearch();
 
   return (
@@ -20,6 +21,7 @@ export const Search = () => {
       onItemPress={navigateToObjectDetails}
       onDeletePress={deleteItem}
       onDeleteAllPress={deleteAllItems}
+      isSearchQueryEmpty={isSearchQueryEmpty}
     />
   );
 };

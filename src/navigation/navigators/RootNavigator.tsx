@@ -5,12 +5,12 @@ import {MainNavigator} from './MainNavigator';
 import {useDispatch} from 'react-redux';
 import {bootstrapRequest} from 'core/reducers';
 import {StatusBar} from 'react-native';
-import config from 'react-native-ultimate-config';
 import {ForceUpdateScreen, SplashScreen} from '../../screens';
 
 import {PortalProvider} from '@gorhom/portal';
 import {useOnRequestSuccess, useRequestError} from 'react-redux-help-kit';
 import {MainNavigatorParamsList} from 'core/types';
+import {linkingService} from 'services/LinkingService';
 
 export function RootNavigator() {
   const dispatch = useDispatch();
@@ -68,25 +68,7 @@ export function RootNavigator() {
 
   return (
     <NavigationContainer<MainNavigatorParamsList>
-      linking={{
-        prefixes: [`https://${config.DEEP_LINK_DOMAIN}`],
-        config: {
-          initialRouteName: 'TabNavigator',
-          screens: {
-            PageNotFoundErrorScreen: '*',
-            TabNavigator: {
-              screens: {
-                HomeNavigator: {
-                  initialRouteName: 'Home' as unknown as undefined,
-                  screens: {
-                    ObjectDetails: 'object/:objectId',
-                  },
-                },
-              },
-            },
-          },
-        },
-      }}
+      linking={linkingService.getInitialLinkingData()}
       onReady={() => setIsReady(true)}
       ref={navigationRef}>
       <PortalProvider>

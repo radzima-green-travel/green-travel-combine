@@ -5,6 +5,8 @@ import {
   ProfileSettingsLanguage,
   ProfileSettingsTheme,
   InAppWebViewScreen,
+  ObjectDetailsScreen,
+  ObjectsListScreen,
 } from '../../screens';
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../hooks';
@@ -43,6 +45,13 @@ export function ProfileNavigator() {
         options={{title: t('theme')}}
       />
       <Stack.Screen name="InAppWebView" component={InAppWebViewScreen} />
+      <Stack.Screen
+        getId={({params}) => params.objectId}
+        name="ObjectDetails"
+        component={ObjectDetailsScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>
   );
 }

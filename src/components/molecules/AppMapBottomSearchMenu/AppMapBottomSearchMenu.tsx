@@ -82,6 +82,7 @@ export const AppMapBottomSearchMenu = memo(
             onDeletePress={onDeletePress}
             isHistoryVisible={isHistoryVisible}
             data={data}
+            isSearchQueryEmpty={!inputValue}
           />
         </View>
       </View>

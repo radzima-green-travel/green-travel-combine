@@ -36,6 +36,15 @@ export type ProfileNavigatorParamsList = {
   ProfileSettingsLanguage: undefined;
   ProfileSettingsTheme: undefined;
   InAppWebView: {url: string; title: string};
+  ObjectDetails: {
+    objectId: string;
+    animatedValue?: Animated.Value;
+  };
+  ObjectsList: {
+    categoryId: string;
+    title: string;
+    objectsIds?: string[];
+  };
 };
 
 export type AppMapNavigatorParamsList = {
@@ -58,6 +67,10 @@ export type MainNavigatorParamsList = {
   Splash: undefined;
   ObjectDetailsMap: {objectId: string; categoryId: string};
   AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList>;
+  ObjectDetails: {
+    objectId: string;
+    animatedValue?: Animated.Value;
+  };
 };
 
 export type TabNavigatorParamsList = {

@@ -1,4 +1,5 @@
 export {default as CheckXL} from './CheckXL.svg';
+export {default as ILSVersionUpdate} from './ILSVersionUpdate.svg';
 export {default as appleAuth} from './appleAuth.svg';
 export {default as avatar} from './avatar.svg';
 export {default as avatarFilled} from './avatarFilled.svg';
@@ -23,6 +24,7 @@ export {default as defaultAcc} from './defaultAcc.svg';
 export {default as delete} from './delete.svg';
 export {default as email} from './email.svg';
 export {default as emailAuth} from './emailAuth.svg';
+export {default as emptySearch} from './emptySearch.svg';
 export {default as error} from './error.svg';
 export {default as eye} from './eye.svg';
 export {default as eyeOff} from './eyeOff.svg';
@@ -73,4 +75,3 @@ export {default as strokeWaterRouteDark} from './strokeWaterRouteDark.svg';
 export {default as theme} from './theme.svg';
 export {default as warMonuments} from './warMonuments.svg';
 export {default as wave} from './wave.svg';
-export {default as ILSVersionUpdate} from './ILS VersionUpdate.svg';
