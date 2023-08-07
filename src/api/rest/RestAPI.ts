@@ -6,6 +6,7 @@ import {
 } from './interceptors';
 import {AppConfiguration, SupportedLocales} from 'core/types';
 import {ListMobileDataQuery} from '../graphql/types';
+import {getAppVersion} from 'core/helpers';
 
 export class RestAPI extends RestApiEngine {
   constructor(baseURL: string) {
@@ -33,11 +34,12 @@ export class RestAPI extends RestApiEngine {
   }
 
   async getAppFeConfiguration(): Promise<AppConfiguration> {
+    const appVersion = getAppVersion();
     const data = await this.get('/dev', {
       baseURL: config.CONFIG_API_URL,
       headers: {
         'x-api-key': config.CONFIG_API_KEY,
-        version: 5,
+        version: appVersion,
       },
     });
 
