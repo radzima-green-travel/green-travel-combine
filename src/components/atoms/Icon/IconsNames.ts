@@ -1,5 +1,6 @@
 export type IconsNames =
   | 'CheckXL'
+  | 'ILSVersionUpdate'
   | 'appleAuth'
   | 'avatar'
   | 'avatarFilled'
@@ -24,6 +25,7 @@ export type IconsNames =
   | 'delete'
   | 'email'
   | 'emailAuth'
+  | 'emptySearch'
   | 'error'
   | 'eye'
   | 'eyeOff'
@@ -73,5 +75,4 @@ export type IconsNames =
   | 'strokeWaterRouteDark'
   | 'theme'
   | 'warMonuments'
-  | 'wave'
-  | 'ILSVersionUpdate';
+  | 'wave';

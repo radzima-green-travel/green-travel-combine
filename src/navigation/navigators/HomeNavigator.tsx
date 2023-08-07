@@ -39,6 +39,7 @@ export function HomeNavigator() {
         }}
       />
       <Stack.Screen
+        getId={({params}) => params.objectId}
         name="ObjectDetails"
         component={ObjectDetailsScreen}
         options={{headerShown: false}}

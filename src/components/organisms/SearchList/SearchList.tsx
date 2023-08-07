@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {SearchListItem} from 'molecules';
+import {SearchEmptyView, SearchListItem} from 'molecules';
 import {SwipeToDeleteContainer} from '../../containers';
 import {Icon} from 'atoms';
 import {COLORS} from 'assets';
@@ -17,6 +17,7 @@ import {IObject, TestIDs} from 'core/types';
 
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {composeTestID} from 'core/helpers';
+
 interface IProps {
   data: IObject[];
   onItemPress: (object: IObject) => void;
@@ -24,6 +25,7 @@ interface IProps {
   onDeleteAllPress: () => void;
   isHistoryVisible: boolean;
   FlatListComponent?: typeof FlatList | typeof BottomSheetFlatList;
+  isSearchQueryEmpty: boolean;
 }
 
 export const SearchList = memo(
@@ -34,6 +36,7 @@ export const SearchList = memo(
     onDeletePress,
     onDeleteAllPress,
     onItemPress,
+    isSearchQueryEmpty,
   }: IProps) => {
     const {t} = useTranslation('search');
 
@@ -98,6 +101,8 @@ export const SearchList = memo(
               );
             }}
           />
+        ) : isSearchQueryEmpty ? (
+          <SearchEmptyView />
         ) : null}
       </>
     );

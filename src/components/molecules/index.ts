@@ -26,3 +26,4 @@ export {GeneralListItem} from './GeneralListItem';
 export {AnimatedCircleButton} from './AnimatedCircleButton';
 export {UpdateBottomMenu} from './UpdateBottomMenu';
 export {UpdateView} from './UpdateView';
+export {SearchEmptyView} from './SearchEmptyView';
