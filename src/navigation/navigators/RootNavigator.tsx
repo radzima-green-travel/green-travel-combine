@@ -95,7 +95,6 @@ export function RootNavigator() {
             <MainNavigator />
             {showUpdateScreen()}
             {showSplashForAndroid()}
-            {showUpdateScreen()}
           </>
         ) : null}
       </PortalProvider>
