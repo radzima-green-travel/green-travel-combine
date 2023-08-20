@@ -35,7 +35,7 @@ export class RestAPI extends RestApiEngine {
 
   async getAppFeConfiguration(): Promise<AppConfiguration> {
     const appVersion = getAppVersion();
-    const data = await this.get('/dev', {
+    const data = await this.get('', {
       baseURL: config.CONFIG_API_URL,
       headers: {
         'x-api-key': config.CONFIG_API_KEY,
