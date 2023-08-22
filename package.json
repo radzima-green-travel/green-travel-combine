@@ -39,7 +39,7 @@
     "axios": "0.19.2",
     "compare-versions": "^6.0.0",
     "deprecated-react-native-prop-types": "^2.3.0",
-    "expo": "^47.0.13",
+    "expo": "^49.0.8",
     "expo-image": "^1.2.3",
     "expo-navigation-bar": "^2.1.1",
     "formik": "^2.2.9",
