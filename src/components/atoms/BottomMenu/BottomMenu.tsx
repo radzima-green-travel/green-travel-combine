@@ -159,7 +159,7 @@ export const BottomMenu = memo(
                 {!showDragIndicator ? (
                   <View style={styles.crossContainer}>
                     <TouchableOpacity onPress={hide}>
-                      <Icon name="cross" size={24} color={COLORS.black} />
+                      <Icon name="cross" size={24} style={styles.bgStyle} />
                     </TouchableOpacity>
                   </View>
                 ) : null}

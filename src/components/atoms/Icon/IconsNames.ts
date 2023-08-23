@@ -1,6 +1,7 @@
 export type IconsNames =
   | 'CheckXL'
   | 'ILSVersionUpdate'
+  | 'ILSVersionUpdateDark'
   | 'appleAuth'
   | 'avatar'
   | 'avatarFilled'

@@ -14,7 +14,12 @@ export const themeStyles = {
       dark: COLORS.background,
     },
   },
-
+  closeIcon: {
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
+  },
   handleStyles: {
     backgroundColor: {
       light: COLORS.white,

@@ -2,10 +2,10 @@ String mapBoxDownloadsToken = System.getenv("NETRC_PASSWORD") as String ?: Syste
 
 buildscript {
     ext {
-        buildToolsVersion = "31.0.0"
-        minSdkVersion = 21
-        compileSdkVersion = 31
-        targetSdkVersion = 31
+        buildToolsVersion = "33.0.1"
+        minSdkVersion = 24
+        compileSdkVersion = 33
+        targetSdkVersion = 33
         if (System.properties['os.arch'] == "aarch64") {
             // For M1 Users we need to use the NDK 24 which added support for aarch64
             ndkVersion = "24.0.8215888"

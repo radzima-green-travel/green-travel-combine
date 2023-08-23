@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {Button, Icon} from 'atoms';
 import {StyleProp, Text, TextStyle, View} from 'react-native';
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 
 interface UpdateBottomMenuProps {
@@ -21,6 +21,7 @@ export const UpdateView = memo(
     onUpdate,
   }: UpdateBottomMenuProps) => {
     const styles = useThemeStyles(themeStyles);
+    const theme = useColorScheme();
     const {t} = useTranslation('updateVersion');
 
     return (
@@ -28,7 +29,7 @@ export const UpdateView = memo(
         <Text style={styles.title}>{title}</Text>
         <Text style={[styles.desc, subTitleStyle]}>{subTitle}</Text>
         <Icon
-          name={'ILSVersionUpdate'}
+          name={theme === 'dark' ? 'ILSVersionUpdateDark' : 'ILSVersionUpdate'}
           width={159}
           height={180}
           style={styles.icon}

@@ -1,5 +1,6 @@
 export {default as CheckXL} from './CheckXL.svg';
 export {default as ILSVersionUpdate} from './ILSVersionUpdate.svg';
+export {default as ILSVersionUpdateDark} from './ILSVersionUpdateDark.svg';
 export {default as appleAuth} from './appleAuth.svg';
 export {default as avatar} from './avatar.svg';
 export {default as avatarFilled} from './avatarFilled.svg';

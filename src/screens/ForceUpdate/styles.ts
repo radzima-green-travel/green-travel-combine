@@ -7,6 +7,9 @@ export const themeStyles = {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     paddingHorizontal: PADDING_HORIZONTAL,
-    backgroundColor: COLORS.white,
+    backgroundColor: {
+      light: COLORS.white,
+      dark: COLORS.background,
+    },
   },
 };
