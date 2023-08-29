@@ -11,8 +11,16 @@ class LinkingService {
         return getStateFromPath(path, {
           initialRouteName: 'TabNavigator',
           screens: {
-            PageNotFoundErrorScreen: '*',
-            ...this.getObjectLinkingData(),
+            TabNavigator: {
+              screens: {
+                HomeNavigator: {
+                  screens: {
+                    Home: '*',
+                  },
+                },
+                ...this.getObjectLinkingData(),
+              },
+            },
           },
         });
       },
@@ -22,16 +30,12 @@ class LinkingService {
   getObjectLinkingData() {
     const currentTabName = getCurrentTabName();
     return {
-      TabNavigator: {
+      [currentTabName || ('HomeNavigator' as const)]: {
+        initialRouteName: currentTabName
+          ? undefined
+          : ('Home' as unknown as undefined),
         screens: {
-          [currentTabName || ('HomeNavigator' as const)]: {
-            initialRouteName: currentTabName
-              ? undefined
-              : ('Home' as unknown as undefined),
-            screens: {
-              ObjectDetails: 'object/:objectId',
-            },
-          },
+          ObjectDetails: 'object/:objectId',
         },
       },
     };
