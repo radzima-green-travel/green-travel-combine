@@ -30,10 +30,10 @@ export function getCurrentTabName() {
   const currentTabName = reduce(
     state?.routes,
     (acc, route) => {
-      if (route.name === 'TabNavigator' && route.state) {
+      if (route.name === 'TabNavigator' && route.state?.routeNames) {
         const tabRouteState =
           route.state as NavigationState<TabNavigatorParamsList>;
-        return tabRouteState.routeNames[tabRouteState.index];
+        return tabRouteState.routeNames[tabRouteState.index] || null;
       }
 
       return acc;
