@@ -110,6 +110,10 @@
     "react-test-renderer": "18.1.0",
     "typescript": "^4.8.4"
   },
+  "resolutions": {
+    "@babel/preset-typescript": "^7.12.17",
+    "@babel/core": "7.19.1"
+  },
   "jest": {
     "preset": "react-native",
     "moduleFileExtensions": [
