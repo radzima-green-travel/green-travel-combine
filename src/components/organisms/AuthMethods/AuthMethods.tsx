@@ -5,6 +5,8 @@ import {useThemeStyles} from 'core/hooks';
 import {isIOS} from 'services/PlatformService';
 import {themeStyles} from './styles';
 import {useTranslation} from 'react-i18next';
+import {getPlatformsTestID} from 'core/helpers';
+import {TestIDs} from 'core/types';
 
 interface IProps {
   onEmailButtonPress: () => void;
@@ -33,6 +35,7 @@ export const AuthMethods = memo(
 
     const AppleButton = () => (
       <Button
+        {...getPlatformsTestID(TestIDs.AppleAuthButton)}
         theme={'blackAndWhite'}
         style={styles.otherOptionsButton}
         onPress={onAppleButtonPress}
@@ -45,6 +48,7 @@ export const AuthMethods = memo(
 
     const GmailButton = () => (
       <Button
+        {...getPlatformsTestID(TestIDs.GoogleAuthButton)}
         theme={'bordered'}
         style={styles.otherOptionsButton}
         onPress={onGoogleButtonPress}
@@ -67,6 +71,7 @@ export const AuthMethods = memo(
           <View style={styles.separator} />
         </View>
         <Button
+          {...getPlatformsTestID(TestIDs.FacebookAuthButton)}
           theme={'bordered'}
           style={styles.otherOptionsButton}
           onPress={onFacebookButtonPress}
@@ -77,6 +82,7 @@ export const AuthMethods = memo(
         />
         {isIOS && <GmailButton />}
         <Button
+          {...getPlatformsTestID(TestIDs.EmailAuthButton)}
           theme={'bordered'}
           style={styles.otherOptionsButton}
           onPress={onEmailButtonPress}

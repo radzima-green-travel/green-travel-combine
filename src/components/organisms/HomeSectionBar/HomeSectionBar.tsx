@@ -3,15 +3,16 @@ import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
 import {themeStyles, cardWidth, SNAP_INTERVAL} from './styles';
 import {useTranslation} from 'react-i18next';
-import {IObject, ITransformedCategory} from 'core/types';
+import {IObject, ITransformedCategory, TestIDs} from 'core/types';
 import {isEmpty} from 'lodash';
 import {useCategories, useObjects, useThemeStyles} from 'core/hooks';
 import {useScrollToTop} from '@react-navigation/native';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface Props {
   item: ITransformedCategory;
   allButtonTestID: string;
+  categoryTitleTestID: string;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
   onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
   onObjectPress: (options: IObject) => void;
@@ -33,6 +34,7 @@ export const HomeSectionBar = memo(
     onCategoryPress,
     onObjectCardIsFavoriteChanged,
     allButtonTestID,
+    categoryTitleTestID,
     item,
   }: Props) => {
     const {t} = useTranslation('home');
@@ -84,7 +86,11 @@ export const HomeSectionBar = memo(
     return (
       <View>
         <View style={styles.sectionTitleContainer}>
-          <Text style={styles.sectionTitle}>{sectionTitle}</Text>
+          <Text
+            style={styles.sectionTitle}
+            {...getPlatformsTestID(categoryTitleTestID)}>
+            {sectionTitle}
+          </Text>
           {!isLessThenTwoItems ? (
             <TouchableOpacity activeOpacity={0.8} onPress={onAllPressHandler}>
               <Text style={styles.all} {...getPlatformsTestID(allButtonTestID)}>
@@ -104,12 +110,13 @@ export const HomeSectionBar = memo(
             contentContainerStyle={styles.contentContainer}
             data={childrenData}
             horizontal
-            renderItem={({item: category}) => (
+            renderItem={({item: category, index}) => (
               <CategoryCard
                 containerStyle={styles.objectCardContainer}
                 width={cardWidth}
                 onPress={onCategoryPressHandler}
                 data={category}
+                testID={composeTestID(TestIDs.CategoryCard, index)}
               />
             )}
             showsHorizontalScrollIndicator={false}

@@ -14,6 +14,8 @@ import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import {Image} from 'expo-image';
 import {getPlatformsTestID} from 'core/helpers';
+import {TestIDs} from 'core/types';
+
 export const ratio = 324 / 144;
 interface IProps {
   imageUri?: string;
@@ -65,7 +67,11 @@ export const Card = memo(
         />
         <LinearGradient {...gradientConfig} style={styles.gradient} />
         <View style={styles.cardContentContainer}>
-          <Text style={styles.title}>{title}</Text>
+          <Text
+            {...getPlatformsTestID(TestIDs.SubCategoryTitle)}
+            style={styles.title}>
+            {title}
+          </Text>
           {isFavoriteBlockVisible ? (
             <FavoriteButtonContainer
               onFavoriteToggle={onFavoriteChanged}

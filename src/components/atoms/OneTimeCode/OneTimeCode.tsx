@@ -3,6 +3,8 @@ import {Pressable, Text, TextInput, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {HelperText} from '../HelperText';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import {TestIDs} from 'core/types';
 
 interface IProp {
   onChange: (code: string, isCodeFull: boolean) => void;
@@ -51,6 +53,7 @@ export const OneTimeCode = ({
 
     return (
       <View
+        {...getPlatformsTestID(composeTestID(TestIDs.CodeInput, index))}
         key={index}
         style={[
           styles.digitContainer,
