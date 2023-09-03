@@ -61,6 +61,7 @@ export const Home = () => {
               onAllCategoriesPress={navigateToCategoriesList}
               item={item}
               allButtonTestID={composeTestID(TestIDs.AllButton, index)}
+              categoryTitleTestID={composeTestID(TestIDs.CategoryTitle, index)}
               onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
             />
           )}

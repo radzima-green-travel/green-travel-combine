@@ -2,6 +2,8 @@ import React, {memo, PropsWithChildren} from 'react';
 import {View, Text, Pressable, Keyboard} from 'react-native';
 import {Button, LoadingView} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
+import {getPlatformsTestID} from 'core/helpers';
+import {TestIDs} from 'core/types';
 
 import {themeStyles} from './styles';
 
@@ -43,6 +45,7 @@ export const AuthForm = memo(
         {text ? <Text style={styles.text}>{text}</Text> : null}
         <View style={styles.formFieldsContainer}>{children}</View>
         <Button
+          {...getPlatformsTestID(TestIDs.SendButton)}
           loading={submitButtonLoading}
           disabled={isSubmitButtonDisabled}
           onPress={onSubmitPress}
