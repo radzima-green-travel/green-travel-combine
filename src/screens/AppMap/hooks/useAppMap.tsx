@@ -15,10 +15,9 @@ import {
 import {useSelector} from 'react-redux';
 import bbox from '@turf/bbox';
 import {IMapFilter, IObject} from 'core/types';
-import MapBox, {
-  OnPressEvent,
-  RegionPayload,
-} from '@react-native-mapbox-gl/maps';
+
+import {ShapeSource, Camera, MapView} from '@rnmapbox/maps';
+
 import {
   useSearchList,
   useFocusToUserLocation,
@@ -33,7 +32,7 @@ import {
 } from 'core/hooks';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Feature, Geometry, Point, Position} from '@turf/helpers';
+import {Feature, Point, Position} from '@turf/helpers';
 
 import {mapService} from 'services/MapService';
 import Supercluster from 'supercluster';
@@ -44,13 +43,34 @@ import {ObjectsListScreenNavigationProps} from '../types';
 
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
+interface RegionPayload {
+  zoomLevel: number;
+  heading: number;
+  animated: boolean;
+  isUserInteraction: boolean;
+  visibleBounds: Position[];
+  pitch: number;
+}
+
+type OnPressEvent = {
+  features: Array<GeoJSON.Feature>;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  point: {
+    x: number;
+    y: number;
+  };
+};
+
 export const useAppMap = () => {
   const navigation = useNavigation<ObjectsListScreenNavigationProps>();
   const appData = useSelector(selectTransformedData);
 
-  const camera = useRef<MapBox.Camera>(null);
-  const map = useRef<MapBox.MapView>(null);
-  const shapeSourceRef = useRef<MapBox.ShapeSource>(null);
+  const camera = useRef<Camera>(null);
+  const map = useRef<MapView>(null);
+  const shapeSourceRef = useRef<ShapeSource>(null);
   const ignoreFitBounds = useRef(false);
 
   const [selectedObject, setSelectedObject] = useState<null | IObject>(null);
@@ -132,19 +152,26 @@ export const useAppMap = () => {
   }, []);
 
   const onShapePress = useCallback(
-    async (objectId: string) => {
-      const itemData = getObject(objectId);
+    async (objectId: string | null) => {
+      if (objectId) {
+        const itemData = getObject(objectId);
 
-      if (itemData) {
-        const currentZoom = await map.current?.getZoom();
+        if (itemData) {
+          const currentZoom = await map.current?.getZoom();
 
-        const coordinates = [itemData.location!.lon!, itemData.location!.lat!];
-        camera.current?.setCamera({
-          centerCoordinate: coordinates,
-          zoomLevel: currentZoom,
-          animationDuration: 500,
-        });
-        selectObjectAndOpenMenu(itemData);
+          const coordinates = [
+            itemData.location!.lon!,
+            itemData.location!.lat!,
+          ];
+
+          camera.current?.setCamera({
+            centerCoordinate: coordinates,
+            zoomLevel: currentZoom,
+            animationDuration: 500,
+            animationMode: 'easeTo',
+          });
+          selectObjectAndOpenMenu(itemData);
+        }
       }
     },
     [getObject, selectObjectAndOpenMenu],
@@ -266,23 +293,25 @@ export const useAppMap = () => {
     ...userLocationProps
   } = useFocusToUserLocation(camera);
 
-  const fitToClusterLeaves = useCallback(async (event: OnPressEvent) => {
+  const fitToClusterLeaves = useCallback((event: OnPressEvent) => {
     const {features} = event;
     const isCluster = features[0]?.properties?.cluster;
 
     if (isCluster) {
-      const cluster = features[0] as Feature<Geometry, {cluster_id: number}>;
+      const cluster = features[0] as GeoJSON.Feature<
+        GeoJSON.Point,
+        {cluster_id: number}
+      >;
       const {
         geometry: {coordinates},
       } = cluster;
 
-      const zoom = await shapeSourceRef.current?.getClusterExpansionZoom(
-        cluster,
-      );
-      camera.current?.setCamera({
-        centerCoordinate: coordinates as Position,
-        zoomLevel: zoom,
-        animationDuration: 200,
+      shapeSourceRef.current?.getClusterExpansionZoom(cluster).then(zoom => {
+        camera.current?.setCamera({
+          centerCoordinate: coordinates as Position,
+          zoomLevel: zoom,
+          animationDuration: 200,
+        });
       });
     }
   }, []);
@@ -298,6 +327,7 @@ export const useAppMap = () => {
       const {
         properties: {isUserInteraction},
       } = feature;
+
       if (isUserInteraction) {
         setIsUserLocationFocused(false);
       }

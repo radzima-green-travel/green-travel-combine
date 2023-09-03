@@ -1,4 +1,4 @@
-import {SymbolLayerStyle} from '@react-native-mapbox-gl/maps';
+import {SymbolLayerStyle} from '@rnmapbox/maps';
 import {MAP_PINS} from 'core/constants';
 export const layerStyles = {
   singlePoint: {

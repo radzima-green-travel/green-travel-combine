@@ -1,8 +1,8 @@
-import {AppRegistry, Linking, Platform} from 'react-native';
+import {AppRegistry, Linking} from 'react-native';
 
 import {enableScreens} from 'react-native-screens';
 import 'react-native-gesture-handler';
-import MapBox from '@react-native-mapbox-gl/maps';
+import MapBox from '@rnmapbox/maps';
 import config from 'react-native-ultimate-config';
 
 import App from './App';

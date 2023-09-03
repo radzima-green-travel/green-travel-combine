@@ -1,4 +1,4 @@
-import MapBox from '@react-native-mapbox-gl/maps';
+import {Camera, Location} from '@rnmapbox/maps';
 import {IBounds} from 'core/types';
 
 import React, {useRef, useCallback, useState, useEffect} from 'react';
@@ -6,7 +6,7 @@ import {permissionsService} from 'services/PermissionsService';
 import {useTask} from './useTask';
 
 export function useFocusToUserLocation(
-  cameraRef: React.RefObject<MapBox.Camera | null>,
+  cameraRef: React.RefObject<Camera | null>,
 ) {
   const [isUserLocationFocused, setIsUserLocationFocused] = useState(false);
   const [userLocation, setUserLocation] = useState<number[] | null>(null);
@@ -71,7 +71,7 @@ export function useFocusToUserLocation(
   }, [userLocation, userLocationVisible, finishAllTasks]);
 
   const saveUserLocation = useCallback(
-    (event: MapBox.Location) => {
+    (event: Location) => {
       if (!userLocationVisible) {
         setUserLocationVisible(true);
       }

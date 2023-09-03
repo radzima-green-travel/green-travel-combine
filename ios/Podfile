@@ -7,12 +7,13 @@ install! 'cocoapods', :deterministic_uuids => false, :warn_for_unused_master_spe
 
 inhibit_all_warnings!
 
+$RNMapboxMapsImpl = 'mapbox'
 
 target 'greenTravel' do  
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
-  $ReactNativeMapboxGLIOSVersion = '~> 6.3'
+
   use_expo_modules!
   post_integrate do |installer|
     begin
@@ -43,23 +44,12 @@ target 'greenTravel' do
   )
 
   pre_install do |installer|
-    $RNMBGL.pre_install(installer)
-    Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
-    $static_framework = ['react-native-ultimate-config', 'react-native-blur', 'react-native-webview',
-    'RNSVG', 'BVLinearGradient', 'RNCMaskedView', 'RNPermissions']
-
-    installer.pod_targets.each do |pod|
-      if $static_framework.include?(pod.name) || pod.name.start_with?('Permission-')
-        def pod.build_type
-          Pod::BuildType.static_library
-        end
-      end
-    end
+    $RNMapboxMaps.pre_install(installer)
   end
 
   post_install do |installer|
    
-    $RNMBGL.post_install(installer)
+    $RNMapboxMaps.post_install(installer)
     react_native_post_install(
       installer,
       # Set `mac_catalyst_enabled` to `true` in order to apply patches

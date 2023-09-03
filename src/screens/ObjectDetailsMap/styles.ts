@@ -1,5 +1,5 @@
 import {StyleProp} from 'react-native';
-import {LineLayerStyle, SymbolLayerStyle} from '@react-native-mapbox-gl/maps';
+import {LineLayerStyle, SymbolLayerStyle} from '@rnmapbox/maps';
 import {COLORS} from 'assets';
 
 export const themeLayerStyles = {

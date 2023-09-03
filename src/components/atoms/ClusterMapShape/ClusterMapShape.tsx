@@ -1,4 +1,4 @@
-import MapboxGL, {OnPressEvent} from '@react-native-mapbox-gl/maps';
+import {ShapeSource, SymbolLayer} from '@rnmapbox/maps';
 import React, {ComponentProps, memo, forwardRef} from 'react';
 import {layerStyles} from './styles';
 
@@ -6,13 +6,13 @@ import {FeatureCollection, Geometry, Properties} from '@turf/helpers';
 
 export interface IProps {
   markers: FeatureCollection<Geometry, Properties>;
-  onShapePress?: (event: OnPressEvent) => void;
+  onShapePress?: ComponentProps<typeof ShapeSource>['onPress'];
 }
 
 export const ClusterMapShape = memo(
-  forwardRef<MapboxGL.ShapeSource, IProps>(({markers, onShapePress}, ref) => {
+  forwardRef<ShapeSource, IProps>(({markers, onShapePress}, ref) => {
     return (
-      <MapboxGL.ShapeSource
+      <ShapeSource
         id={'earthquakes'}
         hitbox={{width: 20, height: 20}}
         cluster
@@ -20,23 +20,20 @@ export const ClusterMapShape = memo(
         onPress={onShapePress}
         clusterRadius={40}
         clusterMaxZoomLevel={14}
-        shape={markers as ComponentProps<typeof MapboxGL.ShapeSource>['shape']}>
-        <MapboxGL.SymbolLayer
-          id={'pointCount'}
-          style={layerStyles.clusterCount}
-        />
-        <MapboxGL.SymbolLayer
+        shape={markers as ComponentProps<typeof ShapeSource>['shape']}>
+        <SymbolLayer id={'pointCount'} style={layerStyles.clusterCount} />
+        <SymbolLayer
           id={'clusteredPoints'}
           belowLayerID={'pointCount'}
           filter={['has', 'point_count']}
           style={layerStyles.clusteredPoints}
         />
-        <MapboxGL.SymbolLayer
+        <SymbolLayer
           id={'singlePoint'}
           filter={['!', ['has', 'point_count']]}
           style={layerStyles.singlePoint}
         />
-      </MapboxGL.ShapeSource>
+      </ShapeSource>
     );
   }),
 );

@@ -301,6 +301,12 @@ android {
 
         }
     }
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+    }
 }
 
 dependencies {
@@ -332,7 +338,6 @@ dependencies {
         implementation jscFlavor
     }
 
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0'
     implementation 'com.facebook.fresco:webpsupport:2.0.0'
 }
 

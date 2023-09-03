@@ -1,6 +1,8 @@
 import {InteractionManager} from 'react-native';
 import {useCallback, useMemo, useRef, useEffect} from 'react';
-import MapBox, {RegionPayload} from '@react-native-mapbox-gl/maps';
+import {MapView, Camera} from '@rnmapbox/maps';
+import {Position} from '@turf/helpers';
+
 import {selectIsDirectionShowed} from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -44,6 +46,15 @@ import {
 import {useRoute} from '@react-navigation/native';
 import {ObjectDetailsMapScreenRouteProps} from '../types';
 
+interface RegionPayload {
+  zoomLevel: number;
+  heading: number;
+  animated: boolean;
+  isUserInteraction: boolean;
+  visibleBounds: Position[];
+  pitch: number;
+}
+
 export const useObjectDetailsMap = () => {
   const {t} = useTranslation('objectDetails');
   const {
@@ -55,8 +66,8 @@ export const useObjectDetailsMap = () => {
   const data = useObject(objectId);
   const {getObject} = useTransformedData();
 
-  const map = useRef<MapBox.MapView>(null);
-  const camera = useRef<MapBox.Camera>(null);
+  const map = useRef<MapView>(null);
+  const camera = useRef<Camera>(null);
 
   const dispatch = useDispatch();
 

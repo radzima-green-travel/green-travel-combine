@@ -1,11 +1,19 @@
 import React from 'react';
 import {BottomMenu, ClusterMap} from 'atoms';
 import {StyleProp, View} from 'react-native';
-import MapBox, {
+
+import {
   FillLayerStyle,
   LineLayerStyle,
   SymbolLayerStyle,
-} from '@react-native-mapbox-gl/maps';
+  ShapeSource,
+  LineLayer,
+  UserLocation,
+  UserLocationRenderMode,
+  FillLayer,
+  SymbolLayer,
+  Images,
+} from '@rnmapbox/maps';
 import {useThemeStyles} from 'core/hooks';
 import {
   BackCircleButton,
@@ -55,73 +63,73 @@ export const ObjectDetailsMap = () => {
       <ClusterMap
         attributionPosition={{bottom: 40, right: 30}}
         centerCoordinate={centerCoordinate}
-        onRegionWillChange={unfocusUserLocation}
+        onRegionIsChanging={unfocusUserLocation}
         onShapePress={onMarkerPress}
         bounds={bounds}
         ref={map}
         cameraRef={camera}>
         {userLocationProps.visible ? (
-          <MapBox.UserLocation
-            renderMode="native"
+          <UserLocation
+            renderMode={UserLocationRenderMode.Native}
             minDisplacement={10}
             {...userLocationProps}
           />
         ) : null}
 
         {direction ? (
-          <MapBox.ShapeSource
+          <ShapeSource
             id="directionSource"
             shape={direction as unknown as LineString}>
-            <MapBox.LineLayer
+            <LineLayer
               id="directionFillBackground"
               belowLayerID="singlePoint"
               style={
                 layersStyles.directionBackground as StyleProp<LineLayerStyle>
               }
             />
-            <MapBox.LineLayer
+            <LineLayer
               id="directionFill"
               belowLayerID="singlePoint"
               style={layersStyles.direction as StyleProp<LineLayerStyle>}
             />
-          </MapBox.ShapeSource>
+          </ShapeSource>
         ) : null}
 
         {data?.area ? (
-          <MapBox.ShapeSource id="area" shape={data?.area}>
-            <MapBox.FillLayer
+          <ShapeSource id="area" shape={data?.area}>
+            <FillLayer
               id="areaFill"
               style={layersStyles.area as StyleProp<FillLayerStyle>}
             />
-            <MapBox.LineLayer
+            <LineLayer
               id="areaStroke"
               style={layersStyles.areaStroke as StyleProp<LineLayerStyle>}
             />
-          </MapBox.ShapeSource>
+          </ShapeSource>
         ) : null}
 
         {data?.routes ? (
-          <MapBox.ShapeSource id="routeSource" shape={data?.routes}>
-            <MapBox.LineLayer
+          <ShapeSource id="routeSource" shape={data?.routes}>
+            <LineLayer
               id="routeFill"
               style={layersStyles.route as StyleProp<LineLayerStyle>}
             />
-          </MapBox.ShapeSource>
+          </ShapeSource>
         ) : null}
 
         {dataShapeSource ? (
           <>
-            <MapBox.Images images={images} />
-            <MapBox.ShapeSource
+            <Images images={images} />
+            <ShapeSource
               id="objectPinSource"
               shape={dataShapeSource as FeatureCollection<Point>}>
-              <MapBox.SymbolLayer
+              <SymbolLayer
                 id="singlePoint"
                 style={
                   layersStyles.objectDetailsPin as StyleProp<SymbolLayerStyle>
                 }
               />
-            </MapBox.ShapeSource>
+            </ShapeSource>
           </>
         ) : null}
       </ClusterMap>

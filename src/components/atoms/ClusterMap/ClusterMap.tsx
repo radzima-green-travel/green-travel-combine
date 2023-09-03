@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import {View, PixelRatio, GestureResponderEvent} from 'react-native';
-import MapboxGL from '@react-native-mapbox-gl/maps';
+import {MapView, Camera} from '@rnmapbox/maps';
 import {Props} from './types';
 import {styles} from './styles';
 import {isIOS} from 'services/PlatformService';
@@ -16,7 +16,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getPlatformsTestID} from 'core/helpers';
 
 export const ClusterMap = memo(
-  forwardRef<MapboxGL.MapView, Props>(
+  forwardRef<MapView, Props>(
     (
       {
         onPress,
@@ -26,14 +26,14 @@ export const ClusterMap = memo(
         centerCoordinate,
         cameraRef,
         attributionPosition,
-        onRegionWillChange,
+        onRegionIsChanging,
         testID,
       }: Props,
       ref,
     ) => {
       const onShapePressed = useRef(false);
       const {top} = useSafeAreaInsets();
-      const map = useRef<MapboxGL.MapView>(null);
+      const map = useRef<MapView>(null);
 
       useEffect(() => {
         if (ref) {
@@ -97,11 +97,11 @@ export const ClusterMap = memo(
               locY = locationY * PixelRatio.get();
             }
 
-            const {features} = await map.current?.queryRenderedFeaturesAtPoint(
+            const {features} = (await map.current?.queryRenderedFeaturesAtPoint(
               [locX, locY],
               undefined,
               ['singlePoint', 'areaFill'],
-            );
+            )) || {features: []};
 
             if (features[0]?.properties?.objectId) {
               onShapePressed.current = true;
@@ -125,10 +125,10 @@ export const ClusterMap = memo(
           onStartShouldSetResponder={() => true}
           style={styles.container}
           {...getPlatformsTestID(testID)}>
-          <MapboxGL.MapView
+          <MapView
             ref={map}
             onPress={onMapPress}
-            onRegionWillChange={onRegionWillChange}
+            onRegionIsChanging={onRegionIsChanging}
             style={styles.container}
             styleURL={
               theme === 'light'
@@ -140,10 +140,12 @@ export const ClusterMap = memo(
               attributionPosition || {bottom: isIOS ? 90 : 100, right: 30}
             }
             compassEnabled={true}
-            compassViewMargins={{y: top > 20 ? top : top + 10, x: 16}}>
-            <MapboxGL.Camera {...initialBounds} ref={cameraRef} />
+            compassFadeWhenNorth
+            compassPosition={{top: top > 20 ? 0 : 10, right: 16}}
+            scaleBarEnabled={false}>
+            <Camera {...initialBounds} ref={cameraRef} />
             {children}
-          </MapboxGL.MapView>
+          </MapView>
         </View>
       );
     },

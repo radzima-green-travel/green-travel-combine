@@ -1,10 +1,15 @@
 import React from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
-import {createMarkerFromObject} from 'core/selectors';
 import {StyleProp, View} from 'react-native';
 
 import {styles, selectedPointStyle} from './styles';
-import MapBox, {SymbolLayerStyle} from '@react-native-mapbox-gl/maps';
+import {
+  SymbolLayerStyle,
+  ShapeSource,
+  SymbolLayer,
+  UserLocation,
+  UserLocationRenderMode,
+} from '@rnmapbox/maps';
 import {
   AppMapBottomMenu,
   AppMapBottomSearchMenu,
@@ -14,8 +19,6 @@ import {
 
 import {FeatureCollection, Point} from '@turf/helpers';
 import {TestIDs} from 'core/types';
-
-type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
 import {WINDOW_HEIGHT} from 'services/PlatformService';
 import {useAppMap} from './hooks';
@@ -62,12 +65,15 @@ export const AppMap = () => {
         bounds={bounds}
         ref={map}
         cameraRef={camera}
-        onRegionWillChange={unfocusUserLocation}
+        onRegionIsChanging={unfocusUserLocation}
         onShapePress={onShapePress}
         onPress={onMapPress}
         testID={TestIDs.MapOverview}>
         {userLocationProps.visible ? (
-          <MapBox.UserLocation renderMode="native" {...userLocationProps} />
+          <UserLocation
+            renderMode={UserLocationRenderMode.Native}
+            {...userLocationProps}
+          />
         ) : null}
         {markers ? (
           <ClusterMapShape
@@ -78,14 +84,14 @@ export const AppMap = () => {
         ) : null}
 
         {selectedMarker ? (
-          <MapBox.ShapeSource
+          <ShapeSource
             id={'selectedPointShapeSource'}
             shape={selectedMarker as FeatureCollection<Point>}>
-            <MapBox.SymbolLayer
+            <SymbolLayer
               id={'selectedPoint'}
               style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
             />
-          </MapBox.ShapeSource>
+          </ShapeSource>
         ) : null}
       </ClusterMap>
       <BottomMenu onHideEnd={onMenuHideEnd} {...menuProps}>
