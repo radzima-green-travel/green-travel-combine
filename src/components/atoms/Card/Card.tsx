@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import {Image} from 'expo-image';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {TestIDs} from 'core/types';
 
 export const ratio = 324 / 144;
@@ -68,7 +68,9 @@ export const Card = memo(
         <LinearGradient {...gradientConfig} style={styles.gradient} />
         <View style={styles.cardContentContainer}>
           <Text
-            {...getPlatformsTestID(TestIDs.SubCategoryTitle)}
+            {...getPlatformsTestID(
+              composeTestID(TestIDs.SubCategoryTitle, title),
+            )}
             style={styles.title}>
             {title}
           </Text>

@@ -12,7 +12,6 @@ import {composeTestID, getPlatformsTestID} from 'core/helpers';
 interface Props {
   item: ITransformedCategory;
   allButtonTestID: string;
-  categoryTitleTestID: string;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
   onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
   onObjectPress: (options: IObject) => void;
@@ -34,7 +33,6 @@ export const HomeSectionBar = memo(
     onCategoryPress,
     onObjectCardIsFavoriteChanged,
     allButtonTestID,
-    categoryTitleTestID,
     item,
   }: Props) => {
     const {t} = useTranslation('home');
@@ -88,7 +86,9 @@ export const HomeSectionBar = memo(
         <View style={styles.sectionTitleContainer}>
           <Text
             style={styles.sectionTitle}
-            {...getPlatformsTestID(categoryTitleTestID)}>
+            {...getPlatformsTestID(
+              composeTestID(TestIDs.CategoryTitle, sectionTitle),
+            )}>
             {sectionTitle}
           </Text>
           {!isLessThenTwoItems ? (
@@ -110,13 +110,13 @@ export const HomeSectionBar = memo(
             contentContainerStyle={styles.contentContainer}
             data={childrenData}
             horizontal
-            renderItem={({item: category, index}) => (
+            renderItem={({item: category}) => (
               <CategoryCard
                 containerStyle={styles.objectCardContainer}
                 width={cardWidth}
                 onPress={onCategoryPressHandler}
                 data={category}
-                testID={composeTestID(TestIDs.CategoryCard, index)}
+                testID={composeTestID(TestIDs.CategoryCardTitle, category.name)}
               />
             )}
             showsHorizontalScrollIndicator={false}
@@ -139,6 +139,7 @@ export const HomeSectionBar = memo(
                 onPress={onObjectPressHandler}
                 data={object}
                 onFavoriteChanged={onObjectCardIsFavoriteChanged}
+                testID={composeTestID(TestIDs.ObjectTitle, object.name)}
               />
             )}
             showsHorizontalScrollIndicator={false}
