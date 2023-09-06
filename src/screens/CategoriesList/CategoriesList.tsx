@@ -19,8 +19,8 @@ export const CategoriesList = () => {
       data={listData}
       contentContainerStyle={styles.contentContainer}
       keyExtractor={item => item.id}
-      renderItem={({item, index}) => {
-        const testID = composeTestID(TestIDs.SubCategory, index);
+      renderItem={({item}) => {
+        const testID = composeTestID(TestIDs.SubCategory, item.name);
 
         return (
           <CategoryCard
