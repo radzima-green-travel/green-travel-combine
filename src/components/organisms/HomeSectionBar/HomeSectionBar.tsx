@@ -116,7 +116,7 @@ export const HomeSectionBar = memo(
                 width={cardWidth}
                 onPress={onCategoryPressHandler}
                 data={category}
-                testID={composeTestID(TestIDs.CategoryCardTitle, category.name)}
+                testID={TestIDs.CategoryCardTitle}
               />
             )}
             showsHorizontalScrollIndicator={false}
@@ -139,7 +139,7 @@ export const HomeSectionBar = memo(
                 onPress={onObjectPressHandler}
                 data={object}
                 onFavoriteChanged={onObjectCardIsFavoriteChanged}
-                testID={composeTestID(TestIDs.ObjectTitle, object.name)}
+                testID={TestIDs.ObjectTitle}
               />
             )}
             showsHorizontalScrollIndicator={false}

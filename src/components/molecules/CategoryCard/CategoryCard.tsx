@@ -7,7 +7,7 @@ interface IProps {
   data: ITransformedCategory;
   onPress: (item: ITransformedCategory) => void;
   width: number;
-  testID?: string;
+  testID: string;
   containerStyle?: StyleProp<ViewStyle>;
 }
 

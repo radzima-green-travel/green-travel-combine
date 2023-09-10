@@ -314,7 +314,10 @@ export function getScreenTimeSec(startMs: number, endMs: number) {
   return Math.floor((endMs - startMs) / 1000);
 }
 
-export function composeTestID(testID: TestIDs, secondId: string | number) {
+export function composeTestID(
+  testID: TestIDs | string,
+  secondId: string | number,
+) {
   return typeof secondId === 'string'
     ? `${testID}_${secondId}`
     : `${testID}_${secondId + 1}`;
