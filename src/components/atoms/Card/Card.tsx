@@ -29,7 +29,7 @@ interface IProps {
   onRemoveAnimationEnd?: () => void;
   onFavoriteChanged?: (nextIsFavorite: boolean) => void;
   blurhash?: string;
-  testID?: string;
+  testID: string;
 }
 
 export const Card = memo(
@@ -58,7 +58,7 @@ export const Card = memo(
         disabled={!onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}
-        {...getPlatformsTestID(testID)}>
+        {...getPlatformsTestID(composeTestID(testID, title))}>
         <Image
           style={styles.image as ImageStyle}
           source={imageUri}

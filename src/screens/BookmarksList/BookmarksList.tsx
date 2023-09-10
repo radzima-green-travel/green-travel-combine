@@ -6,7 +6,6 @@ import {styles} from './styles';
 import {isIOS, SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useBookmarksList} from './hooks';
-import {composeTestID} from 'core/helpers';
 import {TestIDs} from 'core/types';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
@@ -33,7 +32,7 @@ export const BookmarksList = () => {
           width={cardWidth}
           onPress={navigateToObjectDetails}
           onFavoriteChanged={sendIsFavoriteChangedEvent}
-          testID={composeTestID(TestIDs.ObjectTitle, item.name)}
+          testID={TestIDs.ObjectTitle}
         />
       )}
     />
