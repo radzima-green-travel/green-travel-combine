@@ -190,7 +190,6 @@ export enum TestIDs {
   MapSearchButton = 'mapSearchButton',
   CategoryTitle = 'categoryTitle',
   CategoryCardTitle = 'categoryCardTitle',
-  SubCategory = 'subCategory',
   SubCategoryTitle = 'subCategoryTitle',
   ObjectTitle = 'objectTitle',
   SubObject = 'subObject',
