@@ -68,9 +68,7 @@ export const Card = memo(
         <LinearGradient {...gradientConfig} style={styles.gradient} />
         <View style={styles.cardContentContainer}>
           <Text
-            {...getPlatformsTestID(
-              composeTestID(TestIDs.SubCategoryTitle, title),
-            )}
+            {...getPlatformsTestID(composeTestID(TestIDs.ObjectTitle, title))}
             style={styles.title}>
             {title}
           </Text>

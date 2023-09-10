@@ -20,7 +20,7 @@ export const CategoriesList = () => {
       contentContainerStyle={styles.contentContainer}
       keyExtractor={item => item.id}
       renderItem={({item}) => {
-        const testID = composeTestID(TestIDs.SubCategory, item.name);
+        const testID = composeTestID(TestIDs.SubCategoryTitle, item.name);
 
         return (
           <CategoryCard
