@@ -199,4 +199,5 @@ export enum TestIDs {
   AppleAuthButton = 'appleAuthButton',
   SendButton = 'sendButton',
   CodeInput = 'codeInput',
+  Card = 'card',
 }

@@ -58,7 +58,7 @@ export const Card = memo(
         disabled={!onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}
-        {...getPlatformsTestID(composeTestID(testID, title))}>
+        {...getPlatformsTestID(composeTestID(TestIDs.Card, title))}>
         <Image
           style={styles.image as ImageStyle}
           source={imageUri}
@@ -68,7 +68,7 @@ export const Card = memo(
         <LinearGradient {...gradientConfig} style={styles.gradient} />
         <View style={styles.cardContentContainer}>
           <Text
-            {...getPlatformsTestID(composeTestID(TestIDs.ObjectTitle, title))}
+            {...getPlatformsTestID(composeTestID(testID, title))}
             style={styles.title}>
             {title}
           </Text>
