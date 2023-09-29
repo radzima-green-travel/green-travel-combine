@@ -58,7 +58,7 @@ export const Card = memo(
         disabled={!onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}
-        {...getPlatformsTestID(composeTestID(TestIDs.Card, title))}>
+        testID={composeTestID(TestIDs.Card, title)}>
         <Image
           style={styles.image as ImageStyle}
           source={imageUri}
