@@ -4,14 +4,12 @@ import i18n from 'i18next';
 
 import ruTranslations from '../locale/ru.json';
 import enTranslations from '../locale/en.json';
-import zhTranslations from '../locale/zh.json';
 import {SupportedLocales} from 'core/types';
 import {DEFAULT_LOCALE} from 'core/constants';
 
 const RESOURCES = new Map([
   ['ru' as const, ruTranslations],
   ['en' as const, enTranslations],
-  ['zh' as const, zhTranslations],
 ]);
 
 class LanguageService {
@@ -23,11 +21,15 @@ class LanguageService {
     return this.getPreferredLanguage();
   }
 
+  isLanguageSupported(locale: SupportedLocales) {
+    return this.getSupportedLanguages().includes(locale);
+  }
+
   public getPreferredLanguage(): string {
     const systemSettingsLanguage = RNLocalize.getLocales()?.[0]
       ?.languageCode as SupportedLocales;
 
-    return this.getSupportedLanguages().includes(systemSettingsLanguage)
+    return this.isLanguageSupported(systemSettingsLanguage)
       ? systemSettingsLanguage
       : DEFAULT_LOCALE;
   }

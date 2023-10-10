@@ -16,6 +16,7 @@ import {updateUserAttributesSaga} from '../authentification/updateUserAttributes
 
 export function* changeAppLanguageSaga({
   payload: {language, isSystemLanguage},
+  meta: {entityId},
 }: ActionType<typeof changeLanguageRequest>) {
   let nextLanguage = language;
 
@@ -54,8 +55,8 @@ export function* changeAppLanguageSaga({
       });
     }
 
-    yield put(changeLanguageSuccess());
+    yield put(changeLanguageSuccess(undefined, {entityId: entityId}));
   } catch (e) {
-    yield put(changeLanguageFailure(e as ILabelError));
+    yield put(changeLanguageFailure(e as ILabelError, {entityId: entityId}));
   }
 }

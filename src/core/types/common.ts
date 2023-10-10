@@ -127,7 +127,7 @@ export interface IGetHomeDataResponse {
   data: {listMobileObjects: ICategory[]; getObjectsMetadata: {value: string}};
 }
 
-export type SupportedLocales = 'ru' | 'en' | 'zh';
+export type SupportedLocales = 'ru' | 'en';
 
 export type CategoryI18n =
   | ({

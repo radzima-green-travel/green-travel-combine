@@ -9,7 +9,12 @@ export function* initAppLocaleSaga() {
   let language = yield select(selectAppLanguage);
   let isSystemLanguage = yield select(selectIsSystemLanguage);
 
-  if (!language || isSystemLanguage) {
+  const isLanguageSupported = yield call(
+    [languageService, languageService.isLanguageSupported],
+    language,
+  );
+
+  if (!language || (language && !isLanguageSupported) || isSystemLanguage) {
     const newLanguage = yield call([
       languageService,
       languageService.getCurrentLanguage,

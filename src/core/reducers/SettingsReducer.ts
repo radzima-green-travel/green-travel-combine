@@ -18,15 +18,19 @@ export const setLanguage = createAction(ACTIONS.SET_LANGUAGE)<{
   language: SupportedLocales | null;
   isSystemLanguage: boolean;
 }>();
+
 export const changeLanguageRequest = createAction(
   ACTIONS.CHANGE_LANGUAGE_REQUEST,
-)<{language: SupportedLocales | null; isSystemLanguage: boolean}>();
+)<
+  {language: SupportedLocales | null; isSystemLanguage: boolean},
+  {entityId: string}
+>();
 export const changeLanguageSuccess = createAction(
   ACTIONS.CHANGE_LANGUAGE_SUCCESS,
-)();
+)<void, {entityId: string}>();
 export const changeLanguageFailure = createAction(
   ACTIONS.CHANGE_LANGUAGE_FAILURE,
-)<ILabelError>();
+)<ILabelError, {entityId: string}>();
 export const clearCacheRequest = createAction(ACTIONS.CLEAR_CACHE_REQUEST)();
 export const clearCacheRequestSuccess = createAction(
   ACTIONS.CLEAR_CACHE_SUCCESS,

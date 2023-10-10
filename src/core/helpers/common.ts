@@ -328,7 +328,7 @@ export function getLanguageByLocale(lang: SupportedLocales | null) {
     return 'English';
   } else if (lang === 'ru') {
     return 'Русский';
-  } else if (lang === 'zh') {
-    return '中國人';
   }
+
+  return null;
 }

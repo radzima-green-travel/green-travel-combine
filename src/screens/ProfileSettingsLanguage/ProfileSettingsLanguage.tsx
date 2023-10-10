@@ -12,15 +12,15 @@ export const ProfileSettingsLanguage = () => {
   const {t} = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
 
-  const {changeLanguage, userLanguage, getItemDisabled, getItemLoading} =
+  const {changeLanguage, userLanguage, getLoadingStateByEntityId} =
     useProfileSettingsLanguage();
 
   return (
     <View style={styles.container}>
       <GeneralListItem
         position="top"
-        loading={getItemLoading(null)}
-        disabled={getItemDisabled(null)}
+        loading={getLoadingStateByEntityId('defaultLocale')}
+        disabled={getLoadingStateByEntityId('defaultLocale')}
         onPress={() => changeLanguage(null)}
         title={t('systemLanguage')}
         renderRightElement={
@@ -31,8 +31,8 @@ export const ProfileSettingsLanguage = () => {
       />
       <GeneralListItem
         position="middle"
-        loading={getItemLoading('en')}
-        disabled={getItemDisabled('en')}
+        loading={getLoadingStateByEntityId('en')}
+        disabled={getLoadingStateByEntityId('en')}
         onPress={() => changeLanguage('en')}
         title={'English'}
         renderRightElement={
@@ -42,25 +42,13 @@ export const ProfileSettingsLanguage = () => {
         }
       />
       <GeneralListItem
-        position="middle"
-        loading={getItemLoading('ru')}
-        disabled={getItemDisabled('ru')}
+        position="bottom"
+        loading={getLoadingStateByEntityId('ru')}
+        disabled={getLoadingStateByEntityId('ru')}
         onPress={() => changeLanguage('ru')}
         title={'Русский'}
         renderRightElement={
           userLanguage === 'ru' && (
-            <Icon color={COLORS.apple} name="CheckXL" size={24} />
-          )
-        }
-      />
-      <GeneralListItem
-        position="bottom"
-        loading={getItemLoading('zh')}
-        disabled={getItemDisabled('zh')}
-        onPress={() => changeLanguage('zh')}
-        title={'中國人'}
-        renderRightElement={
-          userLanguage === 'zh' && (
             <Icon color={COLORS.apple} name="CheckXL" size={24} />
           )
         }
