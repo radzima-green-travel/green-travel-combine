@@ -4,6 +4,7 @@ import {enableScreens} from 'react-native-screens';
 import 'react-native-gesture-handler';
 import MapBox from '@rnmapbox/maps';
 import config from 'react-native-ultimate-config';
+import * as Sentry from '@sentry/react-native';
 
 import App from './App';
 import awsConfig from './src/aws-exports';
@@ -62,4 +63,6 @@ languageService.init();
 
 analyticsService.init(config.AMPLITUDE_KEY);
 
-AppRegistry.registerComponent(appName, () => App);
+const AppWithSentry = Sentry.wrap(App);
+
+AppRegistry.registerComponent(appName, () => AppWithSentry);

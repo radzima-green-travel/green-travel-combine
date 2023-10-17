@@ -1,6 +1,6 @@
 import {Platform} from 'react-native';
 import {StyleSheet} from 'react-native';
-import {COLORS} from 'assets';
+import {COLORS} from './colors';
 
 const boxShadow =
   Platform.OS === 'ios'

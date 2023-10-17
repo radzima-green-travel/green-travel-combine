@@ -16,7 +16,7 @@ import {
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import {settingsReducer} from './reducers/SettingsReducer';
 const AsyncStorage = reduxStorage;
 
@@ -80,9 +80,9 @@ export type IState = StateType<typeof rootReducer>;
 
 const middlewares = [sagaMiddleware];
 
-if (__DEV__) {
-  middlewares.push(logger);
-}
+// if (__DEV__) {
+//   middlewares.push(logger);
+// }
 
 export const store: Store<IState> = createStore(
   rootReducer,

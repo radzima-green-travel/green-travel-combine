@@ -20,9 +20,11 @@ import {
   selectUpdatesSkipped,
 } from 'core/selectors';
 import {linkingService} from 'services/LinkingService';
+import {useColorScheme} from 'core/hooks';
 
 export function RootNavigator() {
   const dispatch = useDispatch();
+  const theme = useColorScheme();
   const isUpdatesMandatory = useSelector(selectUpdatesMandatory);
   const isUpdatesAvailable = useSelector(selectUpdatesAvailable);
   const isUpdatesSkipped = useSelector(selectUpdatesSkipped);
@@ -98,6 +100,12 @@ export function RootNavigator() {
           </>
         ) : null}
       </PortalProvider>
+
+      <StatusBar
+        animated
+        barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
+        backgroundColor="transparent"
+      />
     </NavigationContainer>
   );
 }

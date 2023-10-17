@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 
 import {View} from 'react-native';
 import Animated, {interpolate, useAnimatedStyle} from 'react-native-reanimated';
@@ -10,52 +10,58 @@ import {
   runOnJS,
 } from 'react-native-reanimated';
 import RNBootSplash from 'react-native-bootsplash';
-import {styles} from './styles';
+import {themeStyles} from './styles';
+import {useColorScheme, useThemeStyles} from '../../core/hooks';
 
 interface IProps {
   onAnimationEnd?: () => void;
   onFadeStart?: () => void;
 }
 
+const logoSrc = require('../../assets/bootsplash/bootsplash_logo.png');
+const darkLogoSrc = require('../../assets/bootsplash/bootsplash_logo_dark.png');
+const manifest = require('../../assets/bootsplash/bootsplash_manifest.json');
+
 export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
   const opacity = useSharedValue(1);
   const animatedValue = useSharedValue(0);
-  const [bootSplashLogoIsLoaded, setBootSplashLogoIsLoaded] =
-    React.useState(false);
-
-  const animateAndroid = useCallback(
-    (onFadeStart, onAnimationEnd) => {
-      setTimeout(() => {
-        RNBootSplash.hide().then(() => {
-          animatedValue.value = withTiming(
-            1,
+  const theme = useColorScheme();
+  const styles = useThemeStyles(themeStyles);
+  const {container, logo} = RNBootSplash.useHideAnimation({
+    manifest: {
+      ...manifest,
+      background:
+        theme === 'light' ? manifest.background : manifest.darkBackground,
+      darkBackground: undefined,
+    },
+    logo: theme === 'light' ? logoSrc : darkLogoSrc,
+    animate: () => {
+      animatedValue.value = withTiming(
+        1,
+        {
+          duration: 400,
+          easing: Easing.out(Easing.ease),
+        },
+        () => {
+          if (onFadeStart) {
+            runOnJS(onFadeStart)();
+          }
+          opacity.value = withTiming(
+            0,
             {
-              duration: 400,
+              duration: 300,
               easing: Easing.out(Easing.ease),
             },
             () => {
-              if (onFadeStart) {
-                runOnJS(onFadeStart)();
+              if (onAnimationEnd) {
+                runOnJS(onAnimationEnd)();
               }
-              opacity.value = withTiming(
-                0,
-                {
-                  duration: 300,
-                  easing: Easing.out(Easing.ease),
-                },
-                () => {
-                  if (onAnimationEnd) {
-                    runOnJS(onAnimationEnd)();
-                  }
-                },
-              );
             },
           );
-        });
-      }, 300);
+        },
+      );
     },
-    [animatedValue, opacity],
-  );
+  });
 
   const containerAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -83,19 +89,11 @@ export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
     };
   });
 
-  useEffect(() => {
-    if (bootSplashLogoIsLoaded) {
-      animateAndroid(onFadeStart, onAnimationEnd);
-    }
-  }, [animateAndroid, bootSplashLogoIsLoaded, onAnimationEnd, onFadeStart]);
-
   return (
-    <Animated.View style={[containerAnimatedStyle, styles.container]}>
-      <Animated.Image
-        style={imageAnimatedStyle}
-        source={require('./img/icon.png')}
-        onLoadEnd={() => setBootSplashLogoIsLoaded(true)}
-      />
+    <Animated.View
+      {...container}
+      style={[containerAnimatedStyle, container.style]}>
+      <Animated.Image {...logo} style={imageAnimatedStyle} />
 
       <View style={styles.textContainer}>
         <Animated.Text style={[textAnimatedStyle, styles.text]}>

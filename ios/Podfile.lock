@@ -391,7 +391,7 @@ PODS:
     - React-perflogger (= 0.70.6)
   - RNAWSCognito (5.2.3):
     - React-Core
-  - RNBootSplash (4.3.2):
+  - RNBootSplash (5.0.4):
     - React-Core
   - RNCAsyncStorage (1.15.14):
     - React-Core
@@ -450,9 +450,9 @@ PODS:
   - RNScreens (3.18.2):
     - React-Core
     - React-RCTImage
-  - RNSentry (2.1.1):
+  - RNSentry (5.11.1):
     - React-Core
-    - Sentry (= 6.0.9)
+    - Sentry/HybridSDK (= 8.13.0)
   - RNSVG (12.1.0):
     - React
   - SDWebImage (5.15.8):
@@ -466,9 +466,9 @@ PODS:
   - SDWebImageWebPCoder (0.9.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.13)
-  - Sentry (6.0.9):
-    - Sentry/Core (= 6.0.9)
-  - Sentry/Core (6.0.9)
+  - Sentry/HybridSDK (8.13.0):
+    - SentryPrivate (= 8.13.0)
+  - SentryPrivate (8.13.0)
   - Turf (2.7.0)
   - Yoga (1.14.0)
 
@@ -566,6 +566,7 @@ SPEC REPOS:
     - SDWebImageSVGCoder
     - SDWebImageWebPCoder
     - Sentry
+    - SentryPrivate
     - Turf
 
 EXTERNAL SOURCES:
@@ -779,7 +780,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 15437b576139df27635400de0599d9844f1ab817
   ReactCommon: 349be31adeecffc7986a0de875d7fb0dcf4e251c
   RNAWSCognito: fd5136ee9e4db912be13a84fa00cd849137e0d3c
-  RNBootSplash: 5f346163977573d6b2aeba1b25df9d2245c0d73c
+  RNBootSplash: 334668c563e44287ca39d03aa3f738a3c35a74a6
   RNCAsyncStorage: ea6b5c280997b2b32a587793163b1f10e580c4f7
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
@@ -791,13 +792,14 @@ SPEC CHECKSUMS:
   RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
   RNReanimated: 2a91e85fcd343f8af3c58d3425b99fdd285590a5
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
-  RNSentry: 6b46b6fc1d715a378fbaa5d7d43bc9ce99b500e5
+  RNSentry: e668d4e68fe09d475dc084bab81f02c3be2db173
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   SDWebImage: cb032eba469c54e0000e78bcb0a13cdde0a52798
   SDWebImageAVIFCoder: 4aeea8fdf65af5c18525ecb5bdd8b8ed9bb45019
   SDWebImageSVGCoder: 6fc109f9c2a82ab44510fff410b88b1a6c271ee8
   SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
-  Sentry: 388c9dc093b2fd3a264466a5c5b21e25959610a9
+  Sentry: a067ca1db308066097314d8478e9682f3b575dee
+  SentryPrivate: 917c91aeb0f199cd079404fab2b50c83e4bad25c
   Turf: 13d1a92d969ca0311bbc26e8356cca178ce95da2
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
 

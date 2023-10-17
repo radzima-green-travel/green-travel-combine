@@ -1,10 +1,9 @@
 import {COLORS, FONTS} from 'assets';
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: COLORS.white,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -14,8 +13,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: '#444444',
+    color: {
+      light: COLORS.logCabin,
+      dark: COLORS.altoForDark,
+    },
     fontSize: 36,
     fontFamily: FONTS.secondarySemibold,
   },
-});
+};
