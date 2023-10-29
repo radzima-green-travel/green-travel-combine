@@ -4,6 +4,7 @@ import {ICoordinates, TestIDs} from 'core/types';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {getPlatformsTestID} from 'core/helpers';
+import {Icon} from 'atoms';
 
 interface IProps {
   title: string;
@@ -27,7 +28,7 @@ export const DetailsPageCapture = memo(
 
     const styles = useThemeStyles(themeStyles);
     const location = useMemo(() => {
-      const stringCoordinates = coordinates?.map(number => number.toFixed(7));
+      const stringCoordinates = coordinates?.map(number => number.toFixed(6));
 
       return stringCoordinates ? stringCoordinates.reverse().join(', ') : null;
     }, [coordinates]);
@@ -65,19 +66,34 @@ export const DetailsPageCapture = memo(
           {...getPlatformsTestID(TestIDs.ObjectDetailsTitle)}>
           {title}
         </Text>
-        <Text
-          style={styles.subtitle}
-          {...getPlatformsTestID(TestIDs.ObjectDetailsAddress)}>
-          {subtitleText}
-        </Text>
+        {subtitleText ? (
+          <Text
+            style={styles.subtitle}
+            {...getPlatformsTestID(TestIDs.ObjectDetailsAddress)}>
+            {subtitleText}
+          </Text>
+        ) : null}
         {location ? (
           <TouchableOpacity
-            activeOpacity={0.8}
+            activeOpacity={0.9}
+            style={styles.locationContainer}
             onPress={onCoordinatesPressHandler}>
             <Text
               style={styles.location}
               {...getPlatformsTestID(TestIDs.ObjectDetailsLocation)}>
               {location}
+            </Text>
+            <Icon
+              style={styles.copyIcon}
+              color="red"
+              name="contentCopy"
+              size={16}
+            />
+
+            <Text
+              style={[styles.location, styles.copyLocation]}
+              {...getPlatformsTestID(TestIDs.ObjectDetailsLocation)}>
+              {'Copy location'}
             </Text>
           </TouchableOpacity>
         ) : null}

@@ -15,8 +15,8 @@ export const themeStyles = {
       dark: hexWithAlpha(COLORS.altoForDark, 0.2),
     },
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.oxfordBlue,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
   },
 };

@@ -1,10 +1,11 @@
 import React, {memo, useMemo} from 'react';
-import {View, Text, Linking, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {IOrigins} from 'core/types';
 import {composeTestID, getPlatformsTestID, tryOpenURL} from 'core/helpers';
 import {themeStyles} from './styles';
 import {TestIDs} from 'core/types';
+import {LinkItem} from './components';
 
 interface IProps {
   origins?: IOrigins[];
@@ -19,37 +20,36 @@ export const ObjectDescriptionSource = memo(({origins, siteLink}: IProps) => {
     return t('sources');
   }, [t]);
 
+  tryOpenURL;
+
   const sourceData = origins
     ? origins.map((origin, index) => (
-        <TouchableOpacity
+        <LinkItem
+          name={origin.name}
+          link={origin.value}
+          {...getPlatformsTestID(
+            composeTestID(TestIDs.ObjectDetailsReferencesItem, index),
+          )}
+          onPress={tryOpenURL}
           key={origin.name}
-          activeOpacity={0.8}
-          onPress={() => Linking.openURL(origin.value)}>
-          <Text
-            style={styles.link}
-            {...getPlatformsTestID(
-              composeTestID(TestIDs.ObjectDetailsReferencesItem, index),
-            )}>
-            {origin.name}
-          </Text>
-        </TouchableOpacity>
+        />
       ))
     : null;
 
   return (
     <View style={styles.container}>
       <Text
-        style={styles.text}
+        style={styles.title}
         {...getPlatformsTestID(TestIDs.ObjectDetailsReferencesTitle)}>
         {sourceTitle}
       </Text>
       {siteLink ? (
-        <Text
-          onPress={() => tryOpenURL(siteLink)}
-          style={styles.link}
-          {...getPlatformsTestID(TestIDs.ObjectDetailsOfficialSiteLink)}>
-          {t('offSite')}
-        </Text>
+        <LinkItem
+          name={t('offSite')}
+          link={siteLink}
+          {...getPlatformsTestID(TestIDs.ObjectDetailsOfficialSiteLink)}
+          onPress={tryOpenURL}
+        />
       ) : null}
       {sourceData}
     </View>

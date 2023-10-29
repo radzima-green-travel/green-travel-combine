@@ -5,8 +5,8 @@ export const themeStyles = {
   listContainer: {
     flex: 1,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
   },
   contentContainer: {

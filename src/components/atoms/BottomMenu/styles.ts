@@ -10,8 +10,8 @@ export const themeStyles = {
 
   bgStyle: {
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
   },
   closeIcon: {
@@ -22,8 +22,8 @@ export const themeStyles = {
   },
   handleStyles: {
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,

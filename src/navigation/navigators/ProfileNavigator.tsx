@@ -26,7 +26,9 @@ export function ProfileNavigator() {
     animation: defaultTransition,
     contentStyle: {
       backgroundColor:
-        colorScheme === 'light' ? COLORS.alabaster : COLORS.mirage,
+        colorScheme === 'light'
+          ? COLORS.light.background.secondary
+          : COLORS.dark.background.secondary,
     },
   });
 

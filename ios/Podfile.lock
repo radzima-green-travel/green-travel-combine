@@ -399,7 +399,7 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNGestureHandler (1.10.3):
+  - RNGestureHandler (2.12.0):
     - React-Core
   - RNInAppBrowser (3.7.0):
     - React-Core
@@ -784,7 +784,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: ea6b5c280997b2b32a587793163b1f10e580c4f7
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNGestureHandler: dec4645026e7401a0899f2846d864403478ff6a5
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: f567ea0e35116a641cdffe6683b0d212d568f32a
   rnmapbox-maps: 3afcd9081d3cc5a53af23bbbf908d087b951023b

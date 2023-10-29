@@ -6,8 +6,8 @@ export const themeStyles = {
     alignItems: 'center',
     height: 32,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.mirage,
+      light: COLORS.light.other.search,
+      dark: COLORS.dark.other.search,
     },
     borderRadius: 4,
     marginBottom: 2,
@@ -36,8 +36,8 @@ export const themeStyles = {
       dark: COLORS.white,
     },
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.mirage,
+      light: COLORS.light.other.search,
+      dark: COLORS.dark.other.search,
     },
   },
   icon: {

@@ -111,4 +111,65 @@ export const FONTS_STYLES = StyleSheet.create({
     fontFamily: 'System',
     lineHeight: 28,
   },
+
+  headlineRegular: {
+    fontSize: 18,
+    fontWeight: '400',
+    fontFamily: 'System',
+    lineHeight: 24,
+  },
+  title3Bold: {
+    fontSize: 24,
+    fontWeight: '600',
+    fontFamily: 'System',
+    lineHeight: 32,
+  },
+  subtitle: {
+    fontSize: 14,
+    fontWeight: '400',
+    fontFamily: 'System',
+    lineHeight: 24,
+  },
+  text_12_20_400: {
+    fontSize: 12,
+    fontWeight: '400',
+    fontFamily: 'System',
+    lineHeight: 20,
+  },
+  subheadline: {
+    fontSize: 16,
+    fontWeight: '700',
+    fontFamily: 'System',
+    lineHeight: 24,
+  },
+  text_16_24_400: {
+    fontSize: 16,
+    fontWeight: '400',
+    fontFamily: 'System',
+    lineHeight: 24,
+  },
+  text_14_20_500: {
+    fontSize: 14,
+    fontWeight: '500',
+    fontFamily: 'System',
+    lineHeight: 20,
+  },
+  text_12_16_400: {
+    fontSize: 12,
+    fontWeight: '400',
+    fontFamily: 'System',
+    lineHeight: 16,
+  },
+  text_14_24_400: {
+    fontSize: 14,
+    fontWeight: '400',
+    fontFamily: 'System',
+    lineHeight: 24,
+  },
+  text_15_24_400: {
+    fontSize: 15,
+    fontWeight: '400',
+    fontFamily: 'System',
+    lineHeight: 24,
+  },
 });

@@ -1,26 +1,29 @@
-import React, {useState} from 'react';
-import {View, Animated} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
 
 import {
   DetailsPageCapture,
   ObjectDescription,
   ObjectDescriptionSource,
   ObjectDetailsPager,
+  ObjectDetailsBottomButtons,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
-import {Button, ImageSlider, ZoomableView, SnackBar, SuspenseView} from 'atoms';
-import {useTranslation} from 'core/hooks';
+import {ImageSlider, SnackBar, SuspenseView} from 'atoms';
+import {useFavorite, useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   useObjectDetails,
-  useObjectDetailsStatusBar,
+  useObjectDetailsAnimation,
   useObjectDetailsDeepLinking,
 } from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
 import {TestIDs} from 'core/types';
+import Animated from 'react-native-reanimated';
+import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
@@ -44,19 +47,16 @@ export const ObjectDetails = () => {
   const {loading, errorTexts, objectNotFoundErrorProps, onTryAgainPress} =
     useObjectDetailsDeepLinking();
 
-  const [animatedValue] = useState(() => new Animated.Value(0));
+  const {favoritesSynchronizing, toggleFavoriteHandler, isFavorite} =
+    useFavorite({objectId});
 
-  const opacity = animatedValue.interpolate({
-    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
-    outputRange: [0, 0, 1],
-  });
+  const {scrollHandler, imageSliderContainerAnimatedStyle, translationY} =
+    useObjectDetailsAnimation({
+      imageHeight: IMAGE_HEIGHT,
+      onScrollEndReached: sendScrollEvent,
+    });
 
-  const buttonsOpacity = animatedValue.interpolate({
-    inputRange: [0, IMAGE_HEIGHT - 80, IMAGE_HEIGHT],
-    outputRange: [1, 1, 0],
-  });
-
-  useObjectDetailsStatusBar(animatedValue);
+  const locationExist = Boolean(data && isLocationExist(data));
 
   return (
     <SuspenseView
@@ -69,48 +69,25 @@ export const ObjectDetails = () => {
           <Animated.ScrollView
             scrollEventThrottle={16}
             showsVerticalScrollIndicator={false}
-            onScroll={Animated.event(
-              [
-                {
-                  nativeEvent: {contentOffset: {y: animatedValue}},
-                },
-              ],
-              {
-                useNativeDriver: true,
-                listener: sendScrollEvent,
-              },
-            )}
+            onScroll={scrollHandler}
             contentContainerStyle={styles.listContentContainer}>
-            {isJustOneImage ? null : (
-              <ObjectDetailsPager pagesAmount={pagesAmount} page={page} />
-            )}
-
-            <View
-              style={[
-                styles.contentContainer,
-                isJustOneImage && styles.withoutPagerContentContainer,
-              ]}>
+            <View style={[styles.contentContainer]}>
               <DetailsPageCapture
                 routeLength={data.length}
                 title={data.name}
                 subtitle={data.address}
                 coordinates={
-                  isLocationExist(data)
+                  locationExist
                     ? [data.location!.lon!, data.location!.lat!]
                     : undefined
                 }
                 onCoordinatesPress={copyLocationToClipboard}
               />
-              {isLocationExist(data) ? (
-                <Button
-                  style={styles.button}
-                  onPress={navigateToObjectsMap}
-                  testID={TestIDs.SeeOnTheMapButton}
-                  text={t('seeOnTheMap')}
-                />
-              ) : null}
             </View>
-            <ObjectDescription description={data.description} />
+            <ObjectDescription
+              isRoute={Boolean(data.routes)}
+              description={data.description}
+            />
             {(data.origins && data.origins.length) || data.url ? (
               <ObjectDescriptionSource
                 origins={data.origins}
@@ -137,35 +114,22 @@ export const ObjectDetails = () => {
           <Animated.View
             style={[
               styles.imageSliderContainer,
-              {
-                transform: [
-                  {
-                    translateY: animatedValue.interpolate({
-                      inputRange: [0, IMAGE_HEIGHT],
-                      outputRange: [0, -IMAGE_HEIGHT],
-                      extrapolate: 'clamp',
-                    }),
-                  },
-                  {
-                    scale: animatedValue.interpolate({
-                      inputRange: [-IMAGE_HEIGHT * 2, 0],
-                      outputRange: [5, 1],
-                      extrapolate: 'clamp',
-                    }),
-                  },
-                ],
-              },
+              imageSliderContainerAnimatedStyle,
             ]}>
-            <ZoomableView width={IMAGE_WIDTH} height={IMAGE_HEIGHT}>
+            <PinchToZoomProvider scrollYOffsetAnimatedValue={translationY}>
               <ImageSlider
                 width={IMAGE_WIDTH}
                 height={IMAGE_HEIGHT}
                 images={data.images || [defaultPhoto]}
                 onScroll={onScroll}
-                defaultPhoto={defaultPhoto}
                 imageTestID={TestIDs.ObjectDetailsImage}
+                activePage={page}
               />
-            </ZoomableView>
+            </PinchToZoomProvider>
+
+            {isJustOneImage ? null : (
+              <ObjectDetailsPager pagesAmount={pagesAmount} page={page} />
+            )}
           </Animated.View>
           <LinearGradient
             pointerEvents={'none'}
@@ -174,10 +138,17 @@ export const ObjectDetails = () => {
           />
           <SnackBar {...snackBarProps} />
           <ObjectDetailsHeader
-            buttonsOpacity={buttonsOpacity}
-            opacity={opacity}
-            objecId={objectId}
+            animatedValue={translationY}
+            objectName={data.name}
+            pivotHegightToAnimate={IMAGE_HEIGHT}
+          />
+          <ObjectDetailsBottomButtons
+            onBookmarkPress={toggleFavoriteHandler}
             onSharePress={shareObjectLink}
+            onShowOnMapPress={navigateToObjectsMap}
+            isFavorite={Boolean(isFavorite)}
+            isFavoriteLoading={favoritesSynchronizing}
+            showOnMapButtonEnabled={locationExist}
           />
         </View>
       ) : null}

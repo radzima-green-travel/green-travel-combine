@@ -4,21 +4,21 @@ export const themeStyles = {
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   text: {
-    ...FONTS_STYLES.regular15,
+    ...FONTS_STYLES.text_15_24_400,
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
-    marginLeft: 12,
+    marginLeft: 10,
     marginRight: 'auto',
   },
   icon: {
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.icon.primary,
+      dark: COLORS.dark.icon.primary,
     },
   },
 };

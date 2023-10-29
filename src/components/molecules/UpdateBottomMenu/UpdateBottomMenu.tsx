@@ -35,7 +35,7 @@ export const UpdateBottomMenu = memo(
         />
         <Button
           textStyle={styles.buttonText}
-          theme={'tertiary'}
+          theme={'secondary'}
           onPress={onSkip}
           text={t('dontUpdate')}
           style={styles.button}

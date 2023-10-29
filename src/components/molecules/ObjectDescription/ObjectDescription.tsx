@@ -1,21 +1,26 @@
-import {useThemeStyles} from 'core/hooks';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import React, {memo} from 'react';
 import HTML, {MixedStyleDeclaration} from 'react-native-render-html';
 import {themeStyles, systemFonts} from './styles';
-import {useWindowDimensions, View} from 'react-native';
+import {useWindowDimensions, View, Text} from 'react-native';
 import {getPlatformsTestID, tryOpenURL} from 'core/helpers';
 import {TestIDs} from 'core/types';
 
 interface IProps {
   description: string;
+  isRoute: boolean;
 }
 
-export const ObjectDescription = memo(({description}: IProps) => {
+export const ObjectDescription = memo(({description, isRoute}: IProps) => {
   const styles = useThemeStyles(themeStyles, {disableStyleSheet: true});
+  const {t} = useTranslation('objectDetails');
 
   const {width} = useWindowDimensions();
   return (
     <View {...getPlatformsTestID(TestIDs.ObjectDetailsDescription)}>
+      <Text style={styles.descrioptionHeadline}>
+        {isRoute ? t('aboutRoute') : t('aboutObject')}
+      </Text>
       <HTML
         contentWidth={width}
         systemFonts={systemFonts}

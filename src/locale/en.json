@@ -44,7 +44,7 @@
     }
   },
   "objectDetails": {
-    "seeOnTheMap": "See on map",
+    "seeOnTheMap": "Show on map",
     "offSite": "Official site",
     "go": "Navigate",
     "show direction": "Get directions",
@@ -53,10 +53,12 @@
     "routeLength": "{{km}} km, ",
     "includes": "Activities",
     "belongs": "Part of...",
-    "sources": "References",
+    "sources": "Links",
     "objectNotFoundTitle": "Object not found",
     "objectNotFoundText": "Try to search object on the Main page.",
-    "objectNotFoundButtonText": "Go to Main page"
+    "objectNotFoundButtonText": "Go to Main page",
+    "aboutRoute": "About route",
+    "aboutObject": "About place"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

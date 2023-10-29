@@ -10,7 +10,7 @@ interface IProps {
   removeFavoriteWithAnimation?: boolean;
   onRemoveAnimationEnd?: () => void;
   onFavoriteChanged?: (item: IObject, nextIsFavorite: boolean) => void;
-  testID?: string;
+  testID: string;
 }
 
 export const ObjectCard = memo(

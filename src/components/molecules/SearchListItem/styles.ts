@@ -6,8 +6,8 @@ export const themeStyles = {
     flexDirection: 'row',
     paddingTop: 8,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
     paddingLeft: 16,
   },

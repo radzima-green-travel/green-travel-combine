@@ -6,21 +6,22 @@ export const TOP = 15;
 export const LEFT_RATIO = 16 / 375;
 
 export const themeStyles = {
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   iconContainer: {
-    width: 38,
-    height: 38,
-    borderRadius: 38,
+    width: 32,
+    height: 32,
+    borderRadius: 12,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.oxfordBlue,
+      light: COLORS.light.background.secondary,
+      dark: COLORS.dark.background.secondary,
     },
-    borderWidth: 1,
     borderColor: {
       light: COLORS.alto,
       dark: hexWithAlpha(COLORS.altoForDark, 0.2),
     },
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   iconWrapper: {
     ...StyleSheet.absoluteFillObject,
@@ -29,8 +30,8 @@ export const themeStyles = {
   },
   icon: {
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
   },
 };

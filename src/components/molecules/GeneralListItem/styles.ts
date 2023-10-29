@@ -15,8 +15,8 @@ export const themeStyles = {
     flexDirection: 'row',
     paddingLeft: 16,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
   },
   containerM: {

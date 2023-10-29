@@ -9,8 +9,8 @@ export const themeStyles = {
     paddingHorizontal: 14,
     borderRadius: 4,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.oxfordBlue,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
     marginLeft: 16,
     borderWidth: 1,
@@ -21,8 +21,8 @@ export const themeStyles = {
   },
   selectedContainer: {
     backgroundColor: {
-      light: COLORS.apple,
-      dark: COLORS.oceanGreen,
+      light: COLORS.light.background.accent,
+      dark: COLORS.dark.background.accent,
     },
   },
 

@@ -3,14 +3,15 @@ import React, {useEffect, useCallback, useMemo, useState, memo} from 'react';
 import {styles} from './styles';
 
 import {Animated, View} from 'react-native';
-import {AnimatedDot} from '../AnimatedDot';
-import {PAGES_AMOUNT_WITHOUT_ANIMATION, DOT_OFFSET} from '../../constants';
+import {AnimatedDot} from './components';
+import {DOT_OFFSET, PAGES_AMOUNT_WITHOUT_ANIMATION} from './constants';
 
 interface IProps {
   currentPage: number;
   pagesAmount: number;
 }
 
+DOT_OFFSET;
 export const Pager = memo(({currentPage, pagesAmount}: IProps) => {
   const [pivotIndex, setPivotIndex] = useState(0);
   const pageIndex = currentPage - 1;

@@ -1,7 +1,6 @@
 import {useCallback, useEffect, useMemo, useRef} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {analyticsService} from 'services/AnalyticsService';
-import {NativeSyntheticEvent, NativeScrollEvent} from 'react-native';
 import {getScreenTimeSec} from 'core/helpers';
 import {useObject} from '../useObject';
 
@@ -92,19 +91,15 @@ export function useDetailsPageAnalytics(objectId: string) {
   }, [analyticsData]);
 
   const isScrollEventFired = useRef(false);
+
   const sendScrollEvent = useCallback(
-    (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    (isScrollCloseToBottom: boolean) => {
       if (isScrollEventFired.current || !analyticsData) {
         return;
       }
 
-      const {layoutMeasurement, contentOffset, contentSize} = e.nativeEvent;
-      const isCloseToBottom =
-        layoutMeasurement.height + contentOffset.y >= contentSize.height;
-
-      if (isCloseToBottom) {
+      if (isScrollCloseToBottom) {
         isScrollEventFired.current = true;
-
         analyticsService.logEvent('card_details_scroll', analyticsData);
       }
     },

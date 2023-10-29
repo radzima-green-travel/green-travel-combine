@@ -3,8 +3,8 @@ import {COLORS} from 'assets';
 export const themeStyles = {
   container: {
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
     flex: 1,
     borderTopLeftRadius: 15,
@@ -17,8 +17,8 @@ export const themeStyles = {
     shadowOpacity: 0,
     elevation: 0,
     backgroundColor: {
-      light: COLORS.alabaster,
-      dark: COLORS.mirage,
+      light: COLORS.light.other.search,
+      dark: COLORS.dark.other.search,
     },
     borderRadius: 8,
   },
@@ -28,8 +28,8 @@ export const themeStyles = {
       dark: COLORS.altoForDark,
     },
     backgroundColor: {
-      light: COLORS.alabaster,
-      dark: COLORS.mirage,
+      light: COLORS.light.other.search,
+      dark: COLORS.dark.other.search,
     },
   },
   searchBarContatiner: {

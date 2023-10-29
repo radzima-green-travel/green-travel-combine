@@ -6,8 +6,8 @@ export const themeStyles = {
   container: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
     justifyContent: 'center',
     alignItems: 'center',
@@ -37,8 +37,8 @@ export const themeStyles = {
   },
   icon: {
     color: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
   },
 };

@@ -5,8 +5,8 @@ export const themeStyles = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
   },
   text: {

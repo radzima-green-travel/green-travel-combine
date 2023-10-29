@@ -1,8 +1,9 @@
 import {AppRegistry, Linking} from 'react-native';
 
 import {enableScreens} from 'react-native-screens';
-import 'react-native-gesture-handler';
 import MapBox from '@rnmapbox/maps';
+import 'react-native-gesture-handler';
+
 import config from 'react-native-ultimate-config';
 import * as Sentry from '@sentry/react-native';
 

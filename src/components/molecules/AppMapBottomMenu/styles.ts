@@ -5,8 +5,8 @@ export const themeStyles = {
   container: {
     minHeight: MAP_BOTTOM_MENU_HEIGHT,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
     paddingHorizontal: 16,
     flex: 1,

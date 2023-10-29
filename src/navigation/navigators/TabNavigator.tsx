@@ -24,17 +24,27 @@ export function TabNavigator() {
   return (
     <Tab.Navigator
       sceneContainerStyle={{
-        backgroundColor: theme === 'light' ? COLORS.white : COLORS.background,
+        backgroundColor:
+          theme === 'light'
+            ? COLORS.light.background.primary
+            : COLORS.dark.background.primary,
       }}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor:
-          theme === 'light' ? COLORS.apple : COLORS.oceanGreen,
+          theme === 'light'
+            ? COLORS.light.text.accent
+            : COLORS.dark.text.accent,
         tabBarInactiveTintColor:
-          theme === 'light' ? COLORS.boulder : COLORS.cullGrey,
+          theme === 'light'
+            ? COLORS.light.text.secondary
+            : COLORS.dark.text.secondary,
 
         tabBarStyle: {
-          backgroundColor: theme === 'light' ? COLORS.white : COLORS.oxfordBlue,
+          backgroundColor:
+            theme === 'light'
+              ? COLORS.light.background.tabBar
+              : COLORS.dark.background.tabBar,
           ...(theme === 'light'
             ? {}
             : {
@@ -60,9 +70,6 @@ export function TabNavigator() {
           tabBarLabel: t('tabs.home'),
           tabBarIcon: ({color, focused}) => (
             <Icon
-              additionalColor={
-                theme === 'light' ? COLORS.white : COLORS.oxfordBlue
-              }
               name={focused ? 'homeFilled' : 'home'}
               color={color}
               size={24}
@@ -84,9 +91,6 @@ export function TabNavigator() {
           tabBarLabel: t('tabs.map'),
           tabBarIcon: ({color, focused}) => (
             <Icon
-              additionalColor={
-                theme === 'light' ? COLORS.white : COLORS.oxfordBlue
-              }
               name={focused ? 'markerFilled' : 'marker'}
               color={color}
               size={24}
@@ -130,9 +134,6 @@ export function TabNavigator() {
             tabBarLabel: t('tabs.profile'),
             tabBarIcon: ({color, focused}) => (
               <Icon
-                additionalColor={
-                  theme === 'light' ? COLORS.white : COLORS.oxfordBlue
-                }
                 name={focused ? 'avatarFilled' : 'avatar'}
                 color={color}
                 size={24}

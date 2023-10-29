@@ -44,7 +44,7 @@
     }
   },
   "objectDetails": {
-    "seeOnTheMap": "ПОСМОТРЕТЬ НА КАРТЕ",
+    "seeOnTheMap": "Показать на карте",
     "offSite": "Официальный сайт",
     "go": "В путь",
     "show direction": "Проложить маршрут",
@@ -56,7 +56,9 @@
     "sources": "Ссылки",
     "objectNotFoundTitle": "Объект не найдет",
     "objectNotFoundText": "Попробуйте найти объект с помощью главной страницы.",
-    "objectNotFoundButtonText": "Перейти на главную"
+    "objectNotFoundButtonText": "Перейти на главную",
+    "aboutRoute": "О маршруте",
+    "aboutObject": "О месте"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

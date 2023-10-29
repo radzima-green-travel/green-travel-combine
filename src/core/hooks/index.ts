@@ -34,3 +34,4 @@ export {
   IError,
 } from 'react-redux-help-kit';
 export {useNavigateToPrivacyPolicyAndTnC} from './useNavigateToPrivacyPolicyAndTnC';
+export {useFavorite} from './useFavorite';

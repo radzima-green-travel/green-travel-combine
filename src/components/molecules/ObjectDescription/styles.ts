@@ -4,22 +4,31 @@ export const systemFonts = Object.values(FONTS);
 
 export const themeStyles = {
   container: {
-    marginTop: 32,
     marginHorizontal: PADDING_HORIZONTAL,
   },
-  headline: {
-    ...FONTS_STYLES.semibold20,
+  descrioptionHeadline: {
+    ...FONTS_STYLES.subheadline,
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
-    marginBottom: 12,
+    paddingHorizontal: PADDING_HORIZONTAL,
+    marginBottom: 8,
+    marginTop: 16,
+  },
+  headline: {
+    ...FONTS_STYLES.subheadline,
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
+    marginBottom: 8,
   },
   text: {
-    ...FONTS_STYLES.regular15,
+    ...FONTS_STYLES.text_16_24_400,
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
     fontStyle: 'normal',
     textDecorationLine: 'none',
@@ -28,15 +37,10 @@ export const themeStyles = {
   },
 
   link: {
-    ...FONTS_STYLES.regular15,
+    ...FONTS_STYLES.text_16_24_400,
     color: {
-      light: COLORS.cornflowerBlue,
-      dark: COLORS.cornflowerBlue,
+      light: COLORS.light.text.accent,
+      dark: COLORS.dark.text.accent,
     },
-    textDecorationLine: 'underline',
-  },
-  ul: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
   },
 };

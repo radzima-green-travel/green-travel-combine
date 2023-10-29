@@ -2,7 +2,7 @@ import {COLORS} from 'assets';
 import {StyleSheet} from 'react-native';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 
-const ratio = 310 / 375;
+const ratio = 273 / 375;
 export const IMAGE_WIDTH = SCREEN_WIDTH;
 export const IMAGE_HEIGHT = IMAGE_WIDTH * ratio;
 
@@ -11,11 +11,9 @@ export const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 16,
   },
-  withoutPagerContentContainer: {
-    marginTop: 16,
-  },
+
   listContentContainer: {
-    paddingBottom: 16,
+    paddingBottom: 80,
     paddingTop: IMAGE_HEIGHT,
   },
   button: {

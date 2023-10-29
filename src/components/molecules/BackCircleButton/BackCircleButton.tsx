@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/core';
-import {COLORS} from 'assets';
-import {Icon} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
 import React, {memo} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {themeStyles, TOP} from './styles';
+import {AnimatedCircleButton} from '../AnimatedCircleButton';
+import {TestIDs} from 'core/types';
 
 interface IProps {
   onPress: () => void;
@@ -18,21 +18,17 @@ export const BackCircleButton = memo(({onPress}: IProps) => {
   const {top} = useSafeAreaInsets();
 
   return (
-    <TouchableOpacity
-      onPress={() => {
-        if (onPress) {
-          onPress();
-        }
-        navigation.goBack();
-      }}
-      activeOpacity={0.8}
-      style={[styles.iconContainer, {top: TOP + top}]}>
-      <Icon
-        style={styles.icon}
-        size={24}
-        color={COLORS.logCabin}
-        name="chevron"
+    <View style={[styles.iconContainer, {top: TOP + top}]}>
+      <AnimatedCircleButton
+        iconName="chevron"
+        testID={TestIDs.HeaderBackButton}
+        onPress={() => {
+          if (navigation.canGoBack()) {
+            navigation.goBack();
+          }
+          onPress?.();
+        }}
       />
-    </TouchableOpacity>
+    </View>
   );
 });

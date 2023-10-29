@@ -8,8 +8,8 @@ export const themeStyles = {
     justifyContent: 'center',
     paddingHorizontal: PADDING_HORIZONTAL,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.background,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
   },
 };

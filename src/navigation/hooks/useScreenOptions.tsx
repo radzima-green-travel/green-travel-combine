@@ -25,7 +25,9 @@ export function useScreenOptions({
     ({
       contentStyle: {
         backgroundColor:
-          colorScheme === 'light' ? COLORS.white : COLORS.background,
+          colorScheme === 'light'
+            ? COLORS.light.background.primary
+            : COLORS.dark.background.primary,
         ...(withBottomInset ? {paddingBottom: bottom} : {}),
       },
       headerBackTitleVisible: false,
@@ -33,19 +35,20 @@ export function useScreenOptions({
         colorScheme === 'light' ? COLORS.white : COLORS.altoForDark,
       headerStyle: {
         backgroundColor:
-          colorScheme === 'light' ? COLORS.apple : COLORS.background,
+          colorScheme === 'light'
+            ? COLORS.light.background.navBar
+            : COLORS.dark.background.navBar,
       },
       headerShadowVisible: false,
       headerBackVisible: false,
       headerTitleAlign: 'center',
       headerLeft: props => {
-        console.log('props', props);
         return props.canGoBack ? (
           <TouchableOpacity
             hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
             activeOpacity={0.8}
             onPress={() => navigation.goBack()}>
-            <Icon name="chevron" color="white" size={24} />
+            <Icon name="chevron" color="white" size={20} />
           </TouchableOpacity>
         ) : null;
       },

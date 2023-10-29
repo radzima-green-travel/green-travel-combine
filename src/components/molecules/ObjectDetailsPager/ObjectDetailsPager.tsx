@@ -1,4 +1,4 @@
-import {Pager} from '../../atoms/ImageSlider/components';
+import {NumPager} from 'atoms';
 import React, {memo} from 'react';
 import {View} from 'react-native';
 import {styles} from './styles';
@@ -11,7 +11,7 @@ interface IProps {
 export const ObjectDetailsPager = memo(({pagesAmount, page}: IProps) => {
   return (
     <View style={styles.pagerContainer}>
-      <Pager currentPage={page} pagesAmount={pagesAmount} />
+      <NumPager currentPage={page} pagesAmount={pagesAmount} />
     </View>
   );
 });

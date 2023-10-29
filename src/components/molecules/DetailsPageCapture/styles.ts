@@ -1,29 +1,50 @@
 import {COLORS, FONTS_STYLES} from 'assets';
 
 export const themeStyles = {
-  container: {},
+  container: {
+    paddingTop: 16,
+  },
   title: {
-    ...FONTS_STYLES.semibold20,
+    ...FONTS_STYLES.title3Bold,
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
-    marginBottom: 4,
   },
 
   subtitle: {
-    ...FONTS_STYLES.regular13,
+    ...FONTS_STYLES.subtitle,
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
+    marginTop: 8,
   },
 
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
   location: {
-    ...FONTS_STYLES.regular13,
+    ...FONTS_STYLES.text_12_20_400,
     color: {
-      light: COLORS.cornflowerBlue,
-      dark: COLORS.cornflowerBlue,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
+  },
+  copyLocation: {
+    color: {
+      light: COLORS.light.text.accent,
+      dark: COLORS.dark.text.accent,
+    },
+  },
+  copyIcon: {
+    color: {
+      light: COLORS.light.text.accent,
+      dark: COLORS.dark.text.accent,
+    },
+    marginLeft: 8,
+    marginRight: 2,
   },
 };

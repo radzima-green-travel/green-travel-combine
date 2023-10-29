@@ -1,132 +1,87 @@
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getDefaultHeaderHeight} from '@react-navigation/elements';
-import {SCREEN_HEIGHT, SCREEN_WIDTH, isIOS} from 'services/PlatformService';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'services/PlatformService';
 import {themeStyles} from './styles';
-import {useColorScheme, useThemeStyles} from 'core/hooks';
+import {useThemeStyles} from 'core/hooks';
 
-import {BlurView} from '@react-native-community/blur';
-import {AnimatedHeaderBookmarkButton, AnimatedCircleButton} from 'molecules';
-import React, {useCallback} from 'react';
-import {Animated, View, StyleSheet, TouchableOpacity} from 'react-native';
-import {COLORS} from 'assets';
-import {useDetailsPageHeaderAnalytics} from 'core/hooks';
+import {AnimatedCircleButton} from 'molecules';
+import React, {memo} from 'react';
+import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TestIDs} from 'core/types';
-
-const HeaderLeftButton = ({
-  opacity,
-  objectId,
-}: {
-  opacity: Animated.AnimatedInterpolation;
-  objectId: string;
-}) => {
-  const {sendSaveObjectDeatailsEvent, sendUnsaveObjectDeatailsEvent} =
-    useDetailsPageHeaderAnalytics(objectId);
-
-  const sendIsFavoriteChangedEvent = useCallback(
-    (nextIsFavoriteStatus: boolean) => {
-      if (nextIsFavoriteStatus) {
-        sendSaveObjectDeatailsEvent();
-      } else {
-        sendUnsaveObjectDeatailsEvent();
-      }
-    },
-    [sendSaveObjectDeatailsEvent, sendUnsaveObjectDeatailsEvent],
-  );
-
-  return (
-    <AnimatedHeaderBookmarkButton
-      onFavoriteToggle={sendIsFavoriteChangedEvent}
-      opacity={opacity}
-      objectId={objectId}
-    />
-  );
-};
+import Animated, {
+  SharedValue,
+  interpolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 
 interface IProps {
-  buttonsOpacity: Animated.AnimatedInterpolation;
-  opacity: Animated.AnimatedInterpolation;
-  objecId: string;
-  onSharePress: () => void;
+  objectName: string;
+  animatedValue: SharedValue<number>;
+  pivotHegightToAnimate: number;
 }
 
-export const ObjectDetailsHeader = ({
-  opacity,
-  buttonsOpacity,
-  objecId,
-  onSharePress,
-}: IProps) => {
-  const navigation = useNavigation();
-  const styles = useThemeStyles(themeStyles);
-  const theme = useColorScheme();
-  const {top} = useSafeAreaInsets();
-  const height = getDefaultHeaderHeight(
-    {
-      height: SCREEN_HEIGHT,
-      width: SCREEN_WIDTH,
-    },
-    false,
-    top,
-  );
+export const ObjectDetailsHeader = memo(
+  ({objectName, animatedValue, pivotHegightToAnimate}: IProps) => {
+    const navigation = useNavigation();
+    const styles = useThemeStyles(themeStyles);
+    const {top} = useSafeAreaInsets();
 
-  return (
-    <View pointerEvents="box-none" style={[styles.container, {height}]}>
-      <Animated.View
-        pointerEvents="none"
-        style={[
-          StyleSheet.absoluteFill,
-          {
-            opacity: opacity,
-          },
-        ]}>
-        {isIOS ? (
-          <BlurView
-            blurType={
-              theme === 'light' ? 'chromeMaterialLight' : 'chromeMaterialDark'
-            }
-            style={StyleSheet.absoluteFill}
-          />
-        ) : (
-          <View
-            style={[
-              styles.andoridHeaderBG,
-              {
-                backgroundColor:
-                  theme === 'light' ? COLORS.white : COLORS.background,
-              },
-            ]}
-          />
-        )}
-      </Animated.View>
-      <View style={styles.content} pointerEvents="box-none">
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            if (navigation.canGoBack()) {
-              navigation.goBack();
-            }
-          }}>
+    const height = getDefaultHeaderHeight(
+      {
+        height: SCREEN_HEIGHT,
+        width: SCREEN_WIDTH,
+      },
+      false,
+      top,
+    );
+
+    const hideStyle = useAnimatedStyle(() => {
+      return {
+        opacity: interpolate(
+          animatedValue.value,
+          [0, pivotHegightToAnimate - 80, pivotHegightToAnimate],
+          [0, 0, 1],
+        ),
+      };
+    });
+
+    const buttonStyle = useAnimatedStyle(() => {
+      return {
+        opacity: interpolate(
+          animatedValue.value,
+          [0, pivotHegightToAnimate - 80, pivotHegightToAnimate],
+          [1, 1, 0],
+        ),
+      };
+    });
+
+    return (
+      <View pointerEvents="box-none" style={[styles.container, {height}]}>
+        <Animated.View
+          pointerEvents="none"
+          style={[StyleSheet.absoluteFill, hideStyle]}>
+          <View style={styles.headerBG} />
+        </Animated.View>
+        <View style={styles.content} pointerEvents="box-none">
           <AnimatedCircleButton
             iconName="chevron"
             testID={TestIDs.HeaderBackButton}
-            opacity={buttonsOpacity}
+            style={buttonStyle}
+            onPress={() => {
+              if (navigation.canGoBack()) {
+                navigation.goBack();
+              }
+            }}
           />
-        </TouchableOpacity>
-        <View style={styles.rightButtonsContainer}>
-          <TouchableOpacity
-            style={styles.shareButtonContainer}
-            activeOpacity={0.8}
-            onPress={onSharePress}>
-            <AnimatedCircleButton
-              opacity={buttonsOpacity}
-              iconName="share"
-              testID={TestIDs.HeaderShareButton}
-            />
-          </TouchableOpacity>
-
-          <HeaderLeftButton opacity={buttonsOpacity} objectId={objecId} />
+          <View style={styles.titleContainer}>
+            <Animated.Text numberOfLines={1} style={[styles.title, hideStyle]}>
+              {objectName}
+            </Animated.Text>
+          </View>
+          <View style={styles.rightPlaceholder} />
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  },
+);

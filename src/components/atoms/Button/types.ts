@@ -3,7 +3,6 @@ import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 export type ButtonThemes =
   | 'primary'
   | 'secondary'
-  | 'tertiary'
   | 'blackAndWhite'
   | 'bordered';
 

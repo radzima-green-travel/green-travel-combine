@@ -3,7 +3,6 @@ import {Text, TouchableOpacity} from 'react-native';
 import {Icon} from 'atoms';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles} from 'core/hooks';
-import {COLORS} from 'assets';
 import {ICONS_MATCHER, DARK_ICONS_MATCHER} from 'core/constants';
 import {IInclude} from 'core/types';
 import {getPlatformsTestID} from 'core/helpers';
@@ -11,7 +10,7 @@ import {getPlatformsTestID} from 'core/helpers';
 interface IProps {
   onPress: (config: {id: string; name: string; objects: string[]}) => void;
   data: IInclude;
-  testID?: string;
+  testID: string;
 }
 
 export const ObjectInlcudesItem = memo(({data, onPress, testID}: IProps) => {
@@ -31,15 +30,9 @@ export const ObjectInlcudesItem = memo(({data, onPress, testID}: IProps) => {
       onPress={onPressHandler}
       style={styles.container}
       {...getPlatformsTestID(testID)}>
-      <Icon width={44} height={44} name={iconName} />
+      <Icon size={32} name={iconName} />
       <Text style={styles.text}>{name}</Text>
-      <Icon
-        style={styles.icon}
-        color={COLORS.logCabin}
-        width={6}
-        height={12}
-        name="chevronRight"
-      />
+      <Icon style={styles.icon} size={24} name="chevronRight" />
     </TouchableOpacity>
   );
 });

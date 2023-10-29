@@ -19,8 +19,8 @@ export const themeStyles = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.mirage,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
     borderRadius: 4,
     marginBottom: 16,

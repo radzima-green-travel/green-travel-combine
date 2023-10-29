@@ -1,12 +1,10 @@
-import {COLORS} from 'assets';
 import {StyleSheet} from 'react-native';
 
 export const themeStyles = {
   container: {
-    backgroundColor: {
-      light: COLORS.alabaster,
-      dark: COLORS.mirage,
-    },
+    borderBottomRightRadius: 12,
+    borderBottomLeftRadius: 12,
+    overflow: 'hidden',
   },
   image: {
     height: '100%',
