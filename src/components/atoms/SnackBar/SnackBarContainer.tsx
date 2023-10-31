@@ -27,6 +27,7 @@ export interface SnackBarContainerProps {
   isOnTop?: boolean;
   testID?: string;
   timeoutMs?: number;
+  offset?: number;
 }
 
 export interface SnackBarContainerRef {
@@ -36,7 +37,10 @@ export interface SnackBarContainerRef {
 
 export const SnackBarContainer = memo(
   forwardRef<SnackBarContainerRef, PropsWithChildren<SnackBarContainerProps>>(
-    ({children, testID, isOnTop = false, timeoutMs = 3000}, ref) => {
+    (
+      {children, testID, isOnTop = false, timeoutMs = 3000, offset = 0},
+      ref,
+    ) => {
       const {height: SCREEN_HEIGHT} = useWindowDimensions();
       const styles = useThemeStyles(themeStyles);
       const animatedValue = useSharedValue(0);
@@ -121,12 +125,17 @@ export const SnackBarContainer = memo(
 
       const animatedStyles = useAnimatedStyle(() => {
         return {
+          opacity: interpolate(animatedValue.value, [0, 0.9, 1], [0, 0, 1]),
           transform: [
             {
               translateY: interpolate(
                 animatedValue.value,
                 [0, 1],
-                [(isOnTop ? -1 : 1) * (toastHeight || SCREEN_HEIGHT), 0],
+                [
+                  (isOnTop ? -1 : 1) *
+                    (toastHeight ? toastHeight + offset : SCREEN_HEIGHT),
+                  -offset,
+                ],
               ),
             },
           ],

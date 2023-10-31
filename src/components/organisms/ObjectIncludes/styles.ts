@@ -9,7 +9,7 @@ export const themeStyles = createThemeStyles({
       light: COLORS.light.text.primary,
       dark: COLORS.dark.text.primary,
     },
-    marginBottom: 8,
+    marginBottom: 16,
   },
   container: {
     paddingHorizontal: PADDING_HORIZONTAL,

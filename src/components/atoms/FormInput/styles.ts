@@ -15,8 +15,8 @@ export const themeStyles = {
       dark: COLORS.oxfordBlue,
     },
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.mirage,
+      light: COLORS.light.other.search,
+      dark: COLORS.dark.other.search,
     },
     alignSelf: 'stretch',
   },

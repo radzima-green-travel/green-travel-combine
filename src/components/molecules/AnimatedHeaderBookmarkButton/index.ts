@@ -1,1 +1,0 @@
-export {AnimatedHeaderBookmarkButton} from './AnimatedHeaderBookmarkButton';

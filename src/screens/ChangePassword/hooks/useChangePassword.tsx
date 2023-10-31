@@ -6,10 +6,7 @@ import {
   useRequestLoading,
   useTogglePasswordVisibility,
 } from 'core/hooks';
-import {
-  SignUpFormScreenRouteProps,
-  SignUpFormScreenNavigationProps,
-} from '../types';
+import {SignUpFormScreenNavigationProps} from '../types';
 import {useNavigation} from '@react-navigation/native';
 import {changePasswordRequest} from 'core/reducers';
 import {useFormik} from 'formik';

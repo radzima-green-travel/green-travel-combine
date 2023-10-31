@@ -13,12 +13,20 @@ export interface SnackBarProps {
   type?: 'positive' | 'error';
   iconProps?: ComponentProps<typeof Icon>;
   timeoutMs?: number;
+  offset?: number;
 }
 
 export const SnackBar = memo(
   forwardRef<SnackBarContainerRef, SnackBarProps>(
     (
-      {title = '', isOnTop = false, iconProps, type = 'error', timeoutMs},
+      {
+        title = '',
+        isOnTop = false,
+        iconProps,
+        type = 'error',
+        timeoutMs,
+        offset,
+      },
       ref,
     ) => {
       const styles = useThemeStyles(themeStyles);
@@ -31,7 +39,11 @@ export const SnackBar = memo(
       }, [styles, type]);
 
       return (
-        <SnackBarContainer isOnTop={isOnTop} ref={ref} timeoutMs={timeoutMs}>
+        <SnackBarContainer
+          offset={offset}
+          isOnTop={isOnTop}
+          ref={ref}
+          timeoutMs={timeoutMs}>
           <View style={[styles.container, typeSpecificStyles.container]}>
             <Text style={[styles.text, typeSpecificStyles.text]}>{title}</Text>
             {iconProps ? <Icon style={styles.icon} {...iconProps} /> : null}

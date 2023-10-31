@@ -136,7 +136,7 @@ export const ObjectDetails = () => {
             {...gradientConfig}
             style={[styles.gradient, {height: top}]}
           />
-          <SnackBar {...snackBarProps} />
+          <SnackBar offset={80} {...snackBarProps} />
           <ObjectDetailsHeader
             animatedValue={translationY}
             objectName={data.name}

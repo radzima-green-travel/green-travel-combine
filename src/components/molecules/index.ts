@@ -1,4 +1,3 @@
-export {AnimatedHeaderBookmarkButton} from './AnimatedHeaderBookmarkButton';
 export {AppMapFilters} from './AppMapFilters';
 export {AppMapButtons} from './AppMapButtons';
 export {AuthSocial} from './AuthSocial';

@@ -14,8 +14,8 @@ export const themeStyles = {
     justifyContent: 'center',
     marginHorizontal: 8,
     backgroundColor: {
-      light: COLORS.white,
-      dark: COLORS.mirage,
+      light: COLORS.light.other.search,
+      dark: COLORS.dark.other.search,
     },
     borderWidth: 1,
     borderColor: COLORS.alto,

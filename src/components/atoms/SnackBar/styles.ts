@@ -33,6 +33,11 @@ export const themeStyles = {
       light: hexWithAlpha(COLORS.tuna, 0.9),
       dark: hexWithAlpha(COLORS.logCabin, 0.9),
     },
+    borderWidth: 1,
+    borderColor: {
+      light: COLORS.dark.stroke.border,
+      dark: COLORS.dark.stroke.border,
+    },
   },
   errorContainer: {
     backgroundColor: COLORS.persimmon,
