@@ -71,6 +71,10 @@ export type MainNavigatorParamsList = {
     objectId: string;
     animatedValue?: Animated.Value;
   };
+  ImagesGallery: {
+    images: string[];
+    initialIndex: number;
+  };
 };
 
 export type TabNavigatorParamsList = {

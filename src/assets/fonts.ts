@@ -172,4 +172,10 @@ export const FONTS_STYLES = StyleSheet.create({
     fontFamily: 'System',
     lineHeight: 24,
   },
+  text_16_20_600: {
+    fontSize: 16,
+    fontWeight: '600',
+    fontFamily: 'System',
+    lineHeight: 20,
+  },
 });

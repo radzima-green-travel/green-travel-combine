@@ -8,10 +8,12 @@ interface ThemeViewStyle extends Omit<ViewStyle, 'backgroundColor'> {
 }
 
 interface ThemeTextStyle extends Omit<TextStyle, 'color'> {
-  color?: {
-    light: ColorValue;
-    dark: ColorValue;
-  };
+  color?:
+    | {
+        light: ColorValue;
+        dark: ColorValue;
+      }
+    | ColorValue;
 }
 
 interface ThemeImageStyle extends Omit<ImageStyle, 'backgroundColor'> {

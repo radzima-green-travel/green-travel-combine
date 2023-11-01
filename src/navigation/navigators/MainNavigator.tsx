@@ -1,6 +1,10 @@
 import React from 'react';
 
-import {PageNotFoundErrorScreen, ObjectDetailsMapScreen} from '../../screens';
+import {
+  PageNotFoundErrorScreen,
+  ObjectDetailsMapScreen,
+  ImagesGalleryScreen,
+} from '../../screens';
 
 import {TabNavigator} from './TabNavigator';
 import {MainNavigatorParamsList} from 'core/types';
@@ -44,6 +48,14 @@ export function MainNavigator() {
         options={{
           headerShown: false,
           presentation: 'modal',
+        }}
+      />
+      <Stack.Screen
+        name="ImagesGallery"
+        component={ImagesGalleryScreen}
+        options={{
+          headerShown: false,
+          animation: 'fade',
         }}
       />
     </Stack.Navigator>

@@ -4,6 +4,7 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
   ImageStyle,
+  Pressable,
 } from 'react-native';
 import {Image} from 'expo-image';
 
@@ -19,6 +20,7 @@ interface IProps {
   height: number;
   imageTestID: TestIDs;
   activePage: number;
+  onImagePress?: () => void;
 }
 
 export const ImageSlider = ({
@@ -28,6 +30,7 @@ export const ImageSlider = ({
   height,
   imageTestID,
   activePage,
+  onImagePress,
 }: IProps) => {
   const activePageIndex = Math.max(0, activePage - 1);
   const styles = useThemeStyles(themeStyles);
@@ -41,12 +44,14 @@ export const ImageSlider = ({
         : item;
 
     return (
-      <Image
-        style={[styles.image as ImageStyle, {width}]}
-        resizeMode="cover"
-        source={imageSourse.uri}
-        {...getPlatformsTestID(composeTestID(imageTestID, index))}
-      />
+      <Pressable onPress={onImagePress}>
+        <Image
+          style={[styles.image as ImageStyle, {width}]}
+          resizeMode="cover"
+          source={imageSourse.uri}
+          {...getPlatformsTestID(composeTestID(imageTestID, index))}
+        />
+      </Pressable>
     );
   };
 
@@ -70,7 +75,7 @@ export const ImageSlider = ({
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
-        bounces={false}
+        // bounces={false}
         style={styles.container}
         keyExtractor={(_item, index) => String(_item || index)}
         onScroll={onScroll}

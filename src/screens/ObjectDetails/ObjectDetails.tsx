@@ -41,9 +41,10 @@ export const ObjectDetails = () => {
     top,
     pagesAmount,
     page,
-
+    goToImageGallery,
     shareObjectLink,
   } = useObjectDetails();
+
   const {loading, errorTexts, objectNotFoundErrorProps, onTryAgainPress} =
     useObjectDetailsDeepLinking();
 
@@ -124,6 +125,7 @@ export const ObjectDetails = () => {
                 onScroll={onScroll}
                 imageTestID={TestIDs.ObjectDetailsImage}
                 activePage={page}
+                onImagePress={goToImageGallery}
               />
             </PinchToZoomProvider>
 

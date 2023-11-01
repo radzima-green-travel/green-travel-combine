@@ -111,6 +111,15 @@ export const useObjectDetails = () => {
     }
   }, [data?.name, objectId]);
 
+  const goToImageGallery = useCallback(() => {
+    if (data?.images) {
+      navigation.navigate('ImagesGallery', {
+        images: data.images,
+        initialIndex: page - 1,
+      });
+    }
+  }, [data, navigation, page]);
+
   return {
     data,
     sendScrollEvent,
@@ -126,5 +135,6 @@ export const useObjectDetails = () => {
     pagesAmount,
     page,
     shareObjectLink,
+    goToImageGallery,
   };
 };
