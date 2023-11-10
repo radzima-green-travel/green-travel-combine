@@ -46,7 +46,9 @@ export function TabNavigator() {
               ? COLORS.light.background.tabBar
               : COLORS.dark.background.tabBar,
           ...(theme === 'light'
-            ? {}
+            ? {
+                borderTopWidth: 0,
+              }
             : {
                 borderTopWidth: 0,
                 shadowColor: COLORS.logCabin,

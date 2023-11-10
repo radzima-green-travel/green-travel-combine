@@ -3,7 +3,14 @@ import {Icon, LoadingView} from 'atoms';
 import {hexWithAlpha} from 'core/helpers';
 import {useColorScheme, useThemeStyles} from 'core/hooks';
 import React, {memo, ReactNode, useCallback, useMemo} from 'react';
-import {StyleProp, Text, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {
+  GestureResponderEvent,
+  StyleProp,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {themeStyles} from './styles';
 
 interface IProps {
@@ -22,10 +29,10 @@ interface IProps {
 }
 
 export type onPressProps<TItem> = TItem extends undefined
-  ? {onPress: () => void}
+  ? {onPress: (item: null, event: GestureResponderEvent) => void}
   : {
       item: TItem;
-      onPress: (item: TItem) => void;
+      onPress: (item: TItem, event: GestureResponderEvent) => void;
     };
 
 const GeneralListItemComponent = <T extends unknown = undefined>({
@@ -96,9 +103,12 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
     return null;
   };
 
-  const onPressHandler = useCallback(() => {
-    onPress(item);
-  }, [item, onPress]);
+  const onPressHandler = useCallback(
+    (event: GestureResponderEvent) => {
+      onPress(item, event);
+    },
+    [item, onPress],
+  );
 
   return (
     <TouchableOpacity
@@ -106,42 +116,42 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
       style={containerStyle}
       disabled={disabled || loading}
       activeOpacity={0.8}>
-      <View
-        style={[
-          styles.contentWrapper,
-          (position === 'top' || position === 'middle') &&
-            styles.withContentBorder,
-        ]}>
-        <View style={[styles.contentContainer]}>
-          {renderLeftElement ? (
-            <View
-              style={[
-                styles.leftElementContainer,
-                size === 'M' && styles.leftElementContainerM,
-              ]}>
-              {renderLeftElement}
-            </View>
-          ) : null}
-          <View>
-            <Text
-              style={[
-                size === 'S' ? styles.title : styles.titleM,
-                red && styles.titleRed,
-              ]}>
-              {title}
-            </Text>
-            {size === 'M' && subtitle ? (
-              <Text style={styles.subtitle} numberOfLines={1}>
-                {subtitle}
-              </Text>
+      <View style={styles.wrapper}>
+        <View style={styles.contentWrapper}>
+          <View style={[styles.contentContainer]}>
+            {renderLeftElement ? (
+              <View
+                style={[
+                  styles.leftElementContainer,
+                  size === 'M' && styles.leftElementContainerM,
+                ]}>
+                {renderLeftElement}
+              </View>
             ) : null}
+            <View>
+              <Text
+                style={[
+                  size === 'S' ? styles.title : styles.titleM,
+                  red && styles.titleRed,
+                ]}>
+                {title}
+              </Text>
+              {size === 'M' && subtitle ? (
+                <Text style={styles.subtitle} numberOfLines={1}>
+                  {subtitle}
+                </Text>
+              ) : null}
+            </View>
+          </View>
+          <View
+            style={[styles.rightElementContainer, rightElementContainerStyle]}>
+            {renderRightComponent()}
+            {loading ? <LoadingView size="small" /> : null}
           </View>
         </View>
-        <View
-          style={[styles.rightElementContainer, rightElementContainerStyle]}>
-          {renderRightComponent()}
-          {loading ? <LoadingView size="small" /> : null}
-        </View>
+        {position === 'top' || position === 'middle' ? (
+          <View style={styles.border} />
+        ) : null}
       </View>
     </TouchableOpacity>
   );

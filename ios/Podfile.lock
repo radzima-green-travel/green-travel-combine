@@ -319,6 +319,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-theme-switch-animation (0.4.1):
+    - React-Core
   - react-native-ultimate-config (4.0.0):
     - React
   - react-native-webview (11.23.0):
@@ -515,6 +517,7 @@ DEPENDENCIES:
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-render-html (from `../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-theme-switch-animation (from `../node_modules/react-native-theme-switch-animation`)
   - react-native-ultimate-config (from `../node_modules/react-native-ultimate-config`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -650,6 +653,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-render-html"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-theme-switch-animation:
+    :path: "../node_modules/react-native-theme-switch-animation"
   react-native-ultimate-config:
     :path: "../node_modules/react-native-ultimate-config"
   react-native-webview:
@@ -765,6 +770,7 @@ SPEC CHECKSUMS:
   react-native-pager-view: b1914469643f40042e65d78cbf3d3dfebd6fb0d9
   react-native-render-html: 1c3a2f91dc19d0ec9ec2a8c09d7919c721d0a75d
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-theme-switch-animation: a2c1a5976d37fa473c0198734ca2f32965b2986b
   react-native-ultimate-config: ff96eb4a4e7b8595814dbc7f1ae8e1291770f591
   react-native-webview: e771bc375f789ebfa02a26939a57dbc6fa897336
   React-perflogger: 8c79399b0500a30ee8152d0f9f11beae7fc36595

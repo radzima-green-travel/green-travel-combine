@@ -1,5 +1,4 @@
 import {COLORS, FONTS_STYLES} from 'assets';
-import {hexWithAlpha} from 'core/helpers';
 import {StyleSheet} from 'react-native';
 
 export const heightS = 44;
@@ -41,13 +40,18 @@ export const themeStyles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  withContentBorder: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: {
-      light: hexWithAlpha(COLORS.tuna, 0.36),
-      dark: hexWithAlpha(COLORS.altoForDark, 0.1),
+  wrapper: {
+    flex: 1,
+  },
+  border: {
+    width: '100%',
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: {
+      light: COLORS.light.stroke.border,
+      dark: COLORS.dark.stroke.border,
     },
   },
+
   title: {
     ...FONTS_STYLES.regular17,
     color: {

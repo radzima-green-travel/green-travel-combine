@@ -18,7 +18,7 @@ export const ProfileSettingsTheme = () => {
     <View style={styles.container}>
       <GeneralListItem
         position="top"
-        onPress={() => changeTheme(null)}
+        onPress={(_, event) => changeTheme(null, event)}
         title={t('systemTheme')}
         renderRightElement={
           !userTheme && <Icon color={COLORS.apple} name="CheckXL" size={24} />
@@ -26,7 +26,7 @@ export const ProfileSettingsTheme = () => {
       />
       <GeneralListItem
         position="middle"
-        onPress={() => changeTheme('light')}
+        onPress={(_, event) => changeTheme('light', event)}
         title={t('light')}
         renderRightElement={
           userTheme === 'light' && (
@@ -36,7 +36,7 @@ export const ProfileSettingsTheme = () => {
       />
       <GeneralListItem
         position="bottom"
-        onPress={() => changeTheme('dark')}
+        onPress={(_, event) => changeTheme('dark', event)}
         title={t('dark')}
         renderRightElement={
           userTheme === 'dark' && (

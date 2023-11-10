@@ -71,6 +71,7 @@
     "react-native-svg": "12.1.0",
     "react-native-svg-transformer": "0.14.3",
     "react-native-tab-view": "^3.3.0",
+    "react-native-theme-switch-animation": "^0.4.1",
     "react-native-ultimate-config": "4.0.0",
     "react-native-version": "^4.0.0",
     "react-native-webview": "11.23.0",
