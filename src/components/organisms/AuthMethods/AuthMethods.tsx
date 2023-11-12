@@ -50,13 +50,14 @@ export const AuthMethods = memo(
     const GmailButton = () => (
       <Button
         {...getPlatformsTestID(TestIDs.GoogleAuthButton)}
-        theme={'bordered'}
+        theme={'secondary'}
         style={styles.otherOptionsButton}
         onPress={onGoogleButtonPress}
         text={t('googleAuth')}
         icon={() => <Icon name={'googleAuth'} />}
         loading={googleLoading}
         disabled={appleLoading || facebookLoading}
+        textStyle={styles.otherButtonText}
         iconPostion="left"
       />
     );
@@ -74,8 +75,9 @@ export const AuthMethods = memo(
         </View>
         <Button
           {...getPlatformsTestID(TestIDs.FacebookAuthButton)}
-          theme={'bordered'}
+          theme={'secondary'}
           style={styles.otherOptionsButton}
+          textStyle={styles.otherButtonText}
           onPress={onFacebookButtonPress}
           text={t('facebookAuth')}
           disabled={googleLoading || facebookLoading}
@@ -86,7 +88,8 @@ export const AuthMethods = memo(
         {isIOS && <GmailButton />}
         <Button
           {...getPlatformsTestID(TestIDs.EmailAuthButton)}
-          theme={'bordered'}
+          theme={'secondary'}
+          textStyle={styles.otherButtonText}
           style={styles.otherOptionsButton}
           onPress={onEmailButtonPress}
           text={t('emailAuth')}

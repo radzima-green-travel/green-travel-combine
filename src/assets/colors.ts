@@ -34,6 +34,7 @@ export const COLORS = {
       accent: '#1F865B',
       tabBar: 'rgba(255, 255, 255, 1)',
       navBar: 'rgba(31, 134, 91, 1)',
+      constant: '#090909',
     },
     stroke: {
       border: '#D6D6D6',
@@ -43,11 +44,11 @@ export const COLORS = {
       accent: '#1F865B',
       constant: '#ffffff',
       link: 'rgba(2, 100, 212, 1)',
-      secondary: 'rgba(118, 118, 118, 1)',
+      secondary: '#767676',
     },
     icon: {
       primary: 'rgba(9, 9, 9, 1)',
-      secondary: 'rgba(118, 118, 118, 1)',
+      secondary: '#767676',
     },
     other: {
       search: 'rgba(245, 245, 245, 1)',
@@ -61,20 +62,21 @@ export const COLORS = {
       accent: '#35B47F',
       tabBar: 'rgba(31, 31, 31, 1)',
       navBar: 'rgba(19, 19, 19, 1)',
+      constant: '#ffffff',
     },
     stroke: {
       border: '#3D3D3D',
     },
     text: {
       primary: '#D6D6D6',
-      secondary: 'rgba(118, 118, 118, 1)',
+      secondary: '#767676',
       accent: '#35B47F',
       constant: '#ffffff',
       link: 'rgba(89, 163, 246, 1)',
     },
     icon: {
       primary: 'rgba(184, 184, 184, 1)',
-      secondary: 'rgba(118, 118, 118, 1)',
+      secondary: '#767676',
     },
     other: {
       search: 'rgba(31, 31, 31, 1)',

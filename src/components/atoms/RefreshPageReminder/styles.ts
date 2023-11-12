@@ -40,12 +40,12 @@ export const themeStyles = {
     ...positionStyles,
     ...buttonStyles,
     backgroundColor: {
-      light: COLORS.apple,
-      dark: COLORS.mirage,
+      light: COLORS.light.background.accent,
+      dark: COLORS.dark.background.primary,
     },
     borderColor: {
-      light: 'transparent',
-      dark: hexWithAlpha(COLORS.altoForDark, 0.6),
+      light: COLORS.light.background.accent,
+      dark: COLORS.dark.text.constant,
     },
     borderWidth: {
       light: 0,

@@ -10,7 +10,10 @@ export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
       },
     },
     disabled: {
-      backgroundColor: COLORS.silver,
+      backgroundColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
     },
     text: {
       color: {
@@ -19,8 +22,10 @@ export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
       },
     },
     disabledText: {
-      light: COLORS.light.text.constant,
-      dark: COLORS.light.text.constant,
+      color: {
+        light: COLORS.light.text.secondary,
+        dark: COLORS.dark.text.secondary,
+      },
     },
   },
   secondary: {
@@ -35,10 +40,26 @@ export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
         dark: COLORS.dark.background.accent,
       },
     },
+    disabled: {
+      borderColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
+      backgroundColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
+    },
     text: {
       color: {
         light: COLORS.light.background.accent,
         dark: COLORS.dark.background.accent,
+      },
+    },
+    disabledText: {
+      color: {
+        light: COLORS.light.text.secondary,
+        dark: COLORS.dark.text.secondary,
       },
     },
   },
@@ -53,25 +74,6 @@ export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
       color: {
         light: COLORS.white,
         dark: COLORS.black,
-      },
-    },
-  },
-  bordered: {
-    container: {
-      backgroundColor: {
-        light: 'transparent',
-        dark: COLORS.mirage,
-      },
-      borderWidth: 1,
-      borderColor: {
-        light: COLORS.boulder,
-        dark: COLORS.silver,
-      },
-    },
-    text: {
-      color: {
-        light: COLORS.balticSea,
-        dark: COLORS.white,
       },
     },
   },

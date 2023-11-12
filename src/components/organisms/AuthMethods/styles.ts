@@ -25,6 +25,16 @@ export const themeStyles = {
   otherOptionsButton: {
     marginBottom: 16,
     borderRadius: 14,
+    borderColor: {
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
+    },
+  },
+  otherButtonText: {
+    color: {
+      light: COLORS.light.background.constant,
+      dark: COLORS.dark.background.constant,
+    },
   },
   separatorSection: {
     flexDirection: 'row',

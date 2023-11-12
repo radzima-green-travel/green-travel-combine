@@ -24,7 +24,7 @@ type Props = PropsWithChildren<{
   loading?: boolean;
   disabled?: boolean;
   icon?: (textStyle: StyleProp<TextStyle>) => React.ReactElement;
-  testID?: string;
+  testID: string;
   iconPostion?: 'left' | 'center';
   isIconOnlyButton?: boolean;
 }>;

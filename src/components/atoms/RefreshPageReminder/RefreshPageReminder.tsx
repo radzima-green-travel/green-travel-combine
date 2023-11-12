@@ -65,23 +65,6 @@ export const RefreshPageReminder = memo<Props>(({onPress}: Props) => {
           },
         ]}>
         <Text style={styles.reminderWidthPusher}>{t('updatesAvailable')}</Text>
-        {theme === 'light' ? (
-          <Animated.View
-            pointerEvents="box-none"
-            style={[
-              styles.background,
-              {
-                opacity: animatedValue.interpolate(opacityInterpolation),
-              },
-            ]}>
-            <LinearGradient
-              style={styles.background}
-              start={{x: 0.0, y: 0.0}}
-              end={{x: 1.0, y: 0.0}}
-              colors={['#50A021', '#35C7A4']}
-            />
-          </Animated.View>
-        ) : null}
       </Animated.View>
 
       <Animated.View

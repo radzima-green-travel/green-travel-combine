@@ -1,10 +1,6 @@
 import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 
-export type ButtonThemes =
-  | 'primary'
-  | 'secondary'
-  | 'blackAndWhite'
-  | 'bordered';
+export type ButtonThemes = 'primary' | 'secondary' | 'blackAndWhite';
 
 export interface ThemeData {
   container: StyleProp<ViewStyle>;
