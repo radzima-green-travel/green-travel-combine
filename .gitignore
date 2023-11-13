@@ -30,6 +30,9 @@ local.properties
 *.iml
 *.hprof
 
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
+
 # Visual Studio Code
 #
 .vscode/
@@ -41,8 +44,6 @@ npm-debug.log
 yarn-error.log
 
 # BUCK
-buck-out/
-\.buckd/
 *.keystore
 !debug.keystore
 
@@ -92,3 +93,8 @@ amplifytools.xcconfig
 **.sample
 #amplify-do-not-edit-end
 vendor
+
+# Expo
+.expo
+dist/
+web-build/
