@@ -64,7 +64,7 @@ export const useProfile = () => {
 
   useOnRequestSuccess(clearCacheRequest, () => {
     show({
-      type: 'positive',
+      type: 'success',
       title: t('cacheCleared'),
     });
   });

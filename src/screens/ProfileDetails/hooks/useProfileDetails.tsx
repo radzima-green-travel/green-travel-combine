@@ -73,7 +73,7 @@ export const useProfileDetails = () => {
 
   useOnRequestSuccess(changePasswordRequest, () => {
     show({
-      type: 'positive',
+      type: 'success',
       title: t('passwordChanged'),
     });
   });

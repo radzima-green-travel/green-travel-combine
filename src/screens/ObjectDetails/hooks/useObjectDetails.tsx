@@ -40,14 +40,9 @@ export const useObjectDetails = () => {
     (location: string) => {
       Clipboard.setString(location);
       show({
-        type: 'positive',
+        type: 'success',
         title: t('common:coppied'),
         timeoutMs: 1000,
-        iconProps: {
-          color: COLORS.apple,
-          name: 'check',
-          size: 20,
-        },
       });
     },
     [show, t],

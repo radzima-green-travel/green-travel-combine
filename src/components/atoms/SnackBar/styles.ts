@@ -1,5 +1,4 @@
 import {COLORS, FONTS_STYLES} from 'assets';
-import {hexWithAlpha} from 'core/helpers';
 
 export const themeStyles = {
   bottomContainer: {
@@ -17,50 +16,56 @@ export const themeStyles = {
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 50,
+    justifyContent: 'space-between',
+    height: 48,
     marginVertical: 13,
     marginHorizontal: 20,
-    paddingHorizontal: 20,
-    borderRadius: 4,
+    paddingLeft: 16,
+    borderRadius: 8,
     shadowColor: COLORS.black,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.3,
     shadowRadius: 3,
     elevation: 3,
   },
-  positiveContainer: {
+  successContainer: {
     backgroundColor: {
-      light: hexWithAlpha(COLORS.tuna, 0.9),
-      dark: hexWithAlpha(COLORS.logCabin, 0.9),
-    },
-    borderWidth: 1,
-    borderColor: {
-      light: COLORS.dark.stroke.border,
-      dark: COLORS.dark.stroke.border,
+      light: COLORS.light.background.success,
+      dark: COLORS.dark.background.success,
     },
   },
   errorContainer: {
-    backgroundColor: COLORS.persimmon,
+    backgroundColor: {
+      light: COLORS.light.background.negative,
+      dark: COLORS.dark.background.negative,
+    },
+  },
+  neutralContainer: {
+    backgroundColor: {
+      light: COLORS.light.background.secondaryContrast,
+      dark: COLORS.dark.background.secondaryContrast,
+    },
   },
   text: {
-    ...FONTS_STYLES.regular15,
-  },
-  icon: {
-    marginLeft: 12,
-  },
-  positiveText: {
+    ...FONTS_STYLES.regular14,
     color: {
-      // should be changed after dark theme design update
       light: COLORS.white,
       dark: COLORS.white,
     },
   },
-
-  errorText: {
-    ...FONTS_STYLES.semibold15,
+  neutralText: {
     color: {
-      light: COLORS.white,
-      dark: COLORS.white,
+      light: COLORS.light.text.tertiary,
+      dark: COLORS.dark.text.tertiary,
+    },
+  },
+  icon: {
+    backgroundColor: 'transparent',
+  },
+  closeIcon: {
+    color: {
+      light: COLORS.light.icon.tertiary,
+      dark: COLORS.dark.icon.tertiary,
     },
   },
 };
