@@ -40,7 +40,7 @@ export const useObjectDetails = () => {
     (location: string) => {
       Clipboard.setString(location);
       show({
-        type: 'success',
+        type: 'neutral',
         title: t('common:coppied'),
         timeoutMs: 1000,
       });
