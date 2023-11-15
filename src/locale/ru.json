@@ -58,7 +58,8 @@
     "objectNotFoundText": "Попробуйте найти объект с помощью главной страницы.",
     "objectNotFoundButtonText": "Перейти на главную",
     "aboutRoute": "О маршруте",
-    "aboutObject": "О месте"
+    "aboutObject": "О месте",
+    "copyLocation": "Скопировать координаты"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

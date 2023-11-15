@@ -93,7 +93,7 @@ export const DetailsPageCapture = memo(
             <Text
               style={[styles.location, styles.copyLocation]}
               {...getPlatformsTestID(TestIDs.ObjectDetailsLocation)}>
-              {'Copy location'}
+              {t('copyLocation')}
             </Text>
           </TouchableOpacity>
         ) : null}

@@ -58,7 +58,8 @@
     "objectNotFoundText": "Try to search object on the Main page.",
     "objectNotFoundButtonText": "Go to Main page",
     "aboutRoute": "About route",
-    "aboutObject": "About place"
+    "aboutObject": "About place",
+    "copyLocation": "Copy location"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"
