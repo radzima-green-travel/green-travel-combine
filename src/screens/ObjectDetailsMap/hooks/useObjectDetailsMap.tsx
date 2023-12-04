@@ -3,7 +3,7 @@ import {useCallback, useMemo, useRef, useEffect} from 'react';
 import {MapView, Camera} from '@rnmapbox/maps';
 import {Position} from '@turf/helpers';
 
-import {selectIsDirectionShowed} from 'core/selectors';
+import {selectAppLanguage, selectIsDirectionShowed} from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   useBottomMenu,
@@ -60,6 +60,7 @@ export const useObjectDetailsMap = () => {
   const {
     params: {objectId},
   } = useRoute<ObjectDetailsMapScreenRouteProps>();
+  const currentLocale = useSelector(selectAppLanguage);
 
   const {openMenu, closeMenu, ...menuProps} = useBottomMenu();
 
@@ -284,5 +285,6 @@ export const useObjectDetailsMap = () => {
     direction,
     dataShapeSource,
     belongsToSubtitle,
+    currentLocale,
   };
 };

@@ -57,6 +57,7 @@ export const AppMap = () => {
     selectedFilters,
     bottom,
     mapFilters,
+    currentLocale,
   } = useAppMap();
 
   return (
@@ -68,6 +69,7 @@ export const AppMap = () => {
         onRegionIsChanging={unfocusUserLocation}
         onShapePress={onShapePress}
         onPress={onMapPress}
+        locale={currentLocale}
         testID={TestIDs.MapOverview}>
         {userLocationProps.visible ? (
           <UserLocation
