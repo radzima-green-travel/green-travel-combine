@@ -44,7 +44,7 @@ export const useRestorePassword = () => {
     });
   });
 
-  const buttonText = t('send').toUpperCase();
+  const buttonText = t('send');
 
   const {show, ...snackBarProps} = useSnackbar();
 

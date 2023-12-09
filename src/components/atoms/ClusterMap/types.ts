@@ -13,5 +13,5 @@ export type Props = {
   onRegionIsChanging?: React.ComponentProps<
     typeof MapView
   >['onRegionIsChanging'];
-  testID?: string;
+  testID: string;
 };

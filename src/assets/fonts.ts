@@ -179,3 +179,132 @@ export const FONTS_STYLES = StyleSheet.create({
     lineHeight: 20,
   },
 });
+
+export const FONTS_PRESETS = StyleSheet.create({
+  largeTitleRegular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 48,
+    lineHeight: 56,
+  },
+  largeTitleBold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 48,
+    lineHeight: 56,
+  },
+  title1Regular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 34,
+    lineHeight: 44,
+  },
+  title2Regular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 32,
+    lineHeight: 40,
+  },
+  title2Bold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 32,
+    lineHeight: 40,
+  },
+  title3Regular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 24,
+    lineHeight: 32,
+  },
+  title3Bold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 24,
+    lineHeight: 32,
+  },
+  headlineRegular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 18,
+    lineHeight: 24,
+  },
+  headlineBold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 18,
+    lineHeight: 24,
+  },
+  subheadlineRegular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  subheadlineBold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  bodyRegular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  bodyBold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  calloutRegular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  calloutBold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  footnoteRegular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  footnoteBold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  caption1Regular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 12,
+    lineHeight: 16,
+  },
+  caption1Bold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 12,
+    lineHeight: 16,
+  },
+  caption2Regular: {
+    fontWeight: '400',
+    fontFamily: 'System',
+    fontSize: 11,
+    lineHeight: 13,
+  },
+  caption2Bold: {
+    fontWeight: '700',
+    fontFamily: 'System',
+    fontSize: 11,
+    lineHeight: 13,
+  },
+});

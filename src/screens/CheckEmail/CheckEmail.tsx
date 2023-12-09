@@ -21,9 +21,8 @@ export const CheckEmail = () => {
         <WithFormikInput<string> name="email">
           {({messageText, ...inputProps}) => (
             <FormInput
-              iconLeftName={'email'}
-              size={16}
-              placeholder={t('email')}
+              autoFocus
+              label={t('email')}
               keyboardType="email-address"
               messageText={messageText ? t(messageText) : undefined}
               {...inputProps}

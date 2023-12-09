@@ -121,8 +121,10 @@ export const ClusterMap = memo(
 
       return (
         <View
-          onResponderStart={onResponderStart}
-          onStartShouldSetResponder={() => true}
+          onStartShouldSetResponderCapture={event => {
+            onResponderStart(event);
+            return false;
+          }}
           style={styles.container}
           {...getPlatformsTestID(testID)}>
           <MapView

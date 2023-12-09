@@ -35,10 +35,11 @@ export const SignInPassword = () => {
         <WithFormikInput<string> name="password">
           {({messageText, ...inputProps}) => (
             <FormInput
-              iconRightName={rightIcon}
-              iconLeftName={'lock'}
-              size={16}
-              placeholder={t('password')}
+              autoFocus
+              iconRight={{
+                name: rightIcon,
+              }}
+              label={t('password')}
               secureTextEntry={passwordVisibility}
               onRightIconPress={handlePasswordVisibility}
               messageText={messageText ? t(messageText) : undefined}

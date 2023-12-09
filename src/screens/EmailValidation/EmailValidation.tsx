@@ -44,6 +44,7 @@ export const EmailValidation = () => {
         <WithFormikInput<string> name="code">
           {({messageText, ...inputProps}) => (
             <OneTimeCode
+              autoFocus
               messageText={messageText ? t(messageText) : undefined}
               codeLength={codeLength}
               {...inputProps}

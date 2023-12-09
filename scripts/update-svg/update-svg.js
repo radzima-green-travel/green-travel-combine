@@ -9,10 +9,10 @@ const index = {};
 
 const logFail = (...arg) => console.log('\x1b[31m', ...arg, '\n\x1b[0m');
 
-const indexFiles = (directoryPath) => {
+const indexFiles = directoryPath => {
   const files = fs.readdirSync(directoryPath);
 
-  files.forEach((file) => {
+  files.forEach(file => {
     const nestedFilePath = `${directoryPath}/${file}`;
     if (fs.statSync(nestedFilePath).isDirectory()) {
       return indexFiles(nestedFilePath);
@@ -48,7 +48,7 @@ const names = Object.keys(index);
 fs.writeFileSync(
   `${rootDirectory}/index.ts`,
   `${names
-    .map((file) => `export {default as ${file}} from '${index[file]}'`)
+    .map(file => `export {default as ${file}} from '${index[file]}'`)
     .join(';\n')};\n`,
 );
 

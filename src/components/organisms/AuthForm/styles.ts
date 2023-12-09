@@ -1,46 +1,42 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
   container: {
-    paddingTop: 52,
+    paddingTop: 32,
     alignItems: 'center',
     paddingHorizontal: PADDING_HORIZONTAL,
     flex: 1,
   },
   title: {
-    ...FONTS_STYLES.semibold20,
+    ...FONTS_PRESETS.headlineBold,
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.primary,
+      dark: COLORS.light.text.primary,
     },
+  },
+  titleSingle: {
+    ...FONTS_PRESETS.title3Bold,
   },
   text: {
-    ...FONTS_STYLES.regular15,
+    ...FONTS_PRESETS.footnoteRegular,
     textAlign: 'center',
-    marginTop: 24,
+    marginTop: 8,
     color: {
-      light: COLORS.boulder,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
     },
   },
-  secondaryButtonText: {
-    ...FONTS_STYLES.regular16,
-    color: {
-      light: COLORS.apple,
-      dark: COLORS.oceanGreen,
-    },
-    textAlign: 'center',
+  secondaryButton: {
+    marginTop: 16,
   },
-  secondaryButtonTextContainer: {
-    marginTop: 25,
-  },
+
   invisible: {
     opacity: 0,
   },
   formFieldsContainer: {
-    marginTop: 20,
-    marginBottom: 12,
+    marginTop: 24,
+    marginBottom: 16,
     alignSelf: 'stretch',
     alignItems: 'center',
   },

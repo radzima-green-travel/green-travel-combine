@@ -1,4 +1,4 @@
-import {COLORS, SHADOWS} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
 
 export const themeStyles = {
   container: {
@@ -12,31 +12,47 @@ export const themeStyles = {
     width: 36,
     height: 48,
     justifyContent: 'center',
-    marginHorizontal: 8,
+    marginHorizontal: 4,
     backgroundColor: {
-      light: COLORS.light.other.search,
-      dark: COLORS.dark.other.search,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
+    borderColor: {
+      light: COLORS.light.stroke.border,
+      dark: COLORS.dark.stroke.border,
     },
     borderWidth: 1,
-    borderColor: COLORS.alto,
-    borderRadius: 4,
+    borderRadius: 12,
   },
   digitContainerFocused: {
-    ...SHADOWS.boxShadow,
-    borderColor: COLORS.cerulean,
-  },
-  digit: {
-    textAlign: 'center',
-    fontSize: 24,
-    color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+    borderColor: {
+      light: COLORS.light.background.success,
+      dark: COLORS.dark.background.success,
     },
   },
+  digit: {
+    ...FONTS_PRESETS.title3Regular,
+    textAlign: 'center',
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
+  },
+  placeholderContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 7,
+  },
   placeholder: {
-    borderTopWidth: 1,
-    marginHorizontal: 10,
-    marginTop: 10,
+    ...FONTS_PRESETS.title3Regular,
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
   },
   hiddenCodeInput: {
     position: 'absolute',

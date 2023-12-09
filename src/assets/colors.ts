@@ -38,17 +38,19 @@ export const COLORS = {
       negative: '#FF3B30',
       success: '#35B47F',
       secondaryContrast: '#1F1F1F',
+      transparent: 'rgba(0, 0, 0, 0)',
     },
     stroke: {
-      border: '#D6D6D6',
+      border: '#E5E5E5',
     },
     text: {
-      primary: '#1D1B20',
+      primary: '#090909',
       accent: '#1F865B',
       constant: '#ffffff',
       link: 'rgba(2, 100, 212, 1)',
       secondary: '#767676',
       tertiary: '#999999',
+      negative: '#CC0B00',
     },
     icon: {
       primary: 'rgba(9, 9, 9, 1)',
@@ -71,6 +73,7 @@ export const COLORS = {
       negative: '#FF5147',
       success: '#35B47F',
       secondaryContrast: '#F5F5F5',
+      transparent: 'rgba(0, 0, 0, 0)',
     },
     stroke: {
       border: '#3D3D3D',
@@ -82,6 +85,7 @@ export const COLORS = {
       constant: '#ffffff',
       link: 'rgba(89, 163, 246, 1)',
       tertiary: '#5C5C5C',
+      negative: '#FF5147',
     },
     icon: {
       primary: 'rgba(184, 184, 184, 1)',

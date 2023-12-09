@@ -5,6 +5,7 @@ import {themeStyles} from './styles';
 import {HelperText} from '../HelperText';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {TestIDs} from 'core/types';
+import {useTextInputAutoFocus} from 'core/hooks';
 
 interface IProp {
   onChange: (code: string, isCodeFull: boolean) => void;
@@ -12,6 +13,7 @@ interface IProp {
   messageText?: string;
   error?: boolean;
   codeLength?: number;
+  autoFocus?: boolean;
 }
 
 export const OneTimeCode = ({
@@ -20,6 +22,7 @@ export const OneTimeCode = ({
   error,
   codeLength = 6,
   value,
+  autoFocus = false,
 }: IProp) => {
   const styles = useThemeStyles(themeStyles);
   const [containerIsFocused, setContainerIsFocused] = useState(false);
@@ -35,12 +38,15 @@ export const OneTimeCode = ({
   );
 
   const onCodeDigitPress = () => {
-    setContainerIsFocused(true);
     codeRef?.current?.focus();
   };
 
   const onCodeDigitBlur = () => {
     setContainerIsFocused(false);
+  };
+
+  const onCodeDigitFocus = () => {
+    setContainerIsFocused(true);
   };
 
   const toDigitInput = (_, index: number) => {
@@ -63,11 +69,15 @@ export const OneTimeCode = ({
         ]}>
         <Text style={styles.digit}>{codeDigit}</Text>
         {containerIsFocused && isDigitFocused && isLastDigitEmpty ? (
-          <Text style={styles.placeholder} />
+          <View style={styles.placeholderContainer}>
+            <Text style={styles.placeholder}>_</Text>
+          </View>
         ) : null}
       </View>
     );
   };
+
+  const textInputAutoFocus = useTextInputAutoFocus(codeRef, autoFocus);
 
   return (
     <View style={styles.container}>
@@ -81,8 +91,10 @@ export const OneTimeCode = ({
         maxLength={codeLength}
         value={value}
         onChangeText={onCodeChangeHandler}
+        onFocus={onCodeDigitFocus}
         onBlur={onCodeDigitBlur}
         onSubmitEditing={onCodeDigitBlur}
+        autoFocus={textInputAutoFocus}
       />
       <HelperText messageText={messageText} error={error} />
     </View>

@@ -1,6 +1,6 @@
 import React, {memo, PropsWithChildren} from 'react';
-import {View, Text, Pressable, Keyboard} from 'react-native';
-import {Button, LoadingView} from 'atoms';
+import {View, Text, Keyboard} from 'react-native';
+import {Button} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
 import {getPlatformsTestID} from 'core/helpers';
 import {TestIDs} from 'core/types';
@@ -41,7 +41,7 @@ export const AuthForm = memo(
           return false;
         }}
         style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={text ? styles.title : styles.titleSingle}>{title}</Text>
         {text ? <Text style={styles.text}>{text}</Text> : null}
         <View style={styles.formFieldsContainer}>{children}</View>
         <Button
@@ -52,19 +52,15 @@ export const AuthForm = memo(
           text={submitButtonText}
         />
         {secondaryButtonText ? (
-          <Pressable
-            onPress={onSecondaryButtonPress}
+          <Button
+            {...getPlatformsTestID(TestIDs.SendButton)}
+            loading={secondaryButtonLoading}
             disabled={secondaryButtonLoading}
-            style={styles.secondaryButtonTextContainer}>
-            <Text
-              style={[
-                styles.secondaryButtonText,
-                secondaryButtonLoading && styles.invisible,
-              ]}>
-              {secondaryButtonText}
-            </Text>
-            {secondaryButtonLoading ? <LoadingView size={'small'} /> : null}
-          </Pressable>
+            onPress={onSecondaryButtonPress}
+            text={secondaryButtonText}
+            style={styles.secondaryButton}
+            theme="tertiary"
+          />
         ) : null}
       </View>
     );

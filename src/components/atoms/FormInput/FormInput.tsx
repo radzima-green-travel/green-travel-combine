@@ -2,27 +2,30 @@ import React, {
   ComponentProps,
   ReactElement,
   useCallback,
-  useEffect,
   useRef,
+  useState,
 } from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
+import {Pressable, TextInput, TextStyle, View} from 'react-native';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import {themeStyles} from './styles';
-import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
+import {useThemeStyles} from 'core/hooks';
 import {Icon} from '../Icon';
-import {IconsNames} from 'atoms/Icon/IconsNames';
-import {COLORS} from 'assets';
+import {IconProps} from 'atoms/Icon';
 import {HelperText} from '../HelperText';
-import {isIOS} from 'services/PlatformService';
-import {useNavigation} from '@react-navigation/native';
 import {useHandleKeyboardInput} from '../HandleKeyboard';
+import {useTextInputAutoFocus} from 'core/hooks';
 
 interface IProps {
-  iconLeftName?: IconsNames;
-  iconRightName?: IconsNames;
-  size: number;
+  iconLeft?: IconProps;
+  iconRight?: IconProps;
   value: string;
   onChange: (value: string) => void;
-  placeholder: string;
   secureTextEntry?: boolean;
   onRightIconPress?: () => void;
   autoFocus?: boolean;
@@ -37,17 +40,14 @@ interface IProps {
   keyboardType?: ComponentProps<typeof TextInput>['keyboardType'];
   onSubmitEditing?: ComponentProps<typeof TextInput>['onSubmitEditing'];
   returnKeyType?: ComponentProps<typeof TextInput>['returnKeyType'];
-  title?: string;
+  label?: string;
   focusNextFieldOnSubmit?: boolean;
 }
 
 export const FormInput = ({
-  iconLeftName,
-  iconRightName,
-  size,
-  placeholder,
+  iconLeft,
+  iconRight,
   secureTextEntry = false,
-
   value,
   onChange,
   onRightIconPress,
@@ -61,45 +61,35 @@ export const FormInput = ({
   invalidChars,
   allowedChars,
   keyboardType,
-  title,
+  label,
   onSubmitEditing,
   focusNextFieldOnSubmit,
   returnKeyType,
 }: IProps) => {
-  const {t} = useTranslation('authentification');
   const styles = useThemeStyles(themeStyles);
-  const colorScheme = useColorScheme();
   const ref = useRef<TextInput>(null);
+  const isInputEmty = !value.length;
+  const isFocused = useSharedValue(false);
+
+  const [labelWidth, setLabelWidth] = useState(0);
 
   const {handleContainerNode, containerToHandleRef, inputRef, focusNextInput} =
     useHandleKeyboardInput(ref);
 
   const onFocusHandler = useCallback(() => {
+    isFocused.value = true;
     if (onFocus) {
       onFocus();
     }
-
     handleContainerNode();
-  }, [handleContainerNode, onFocus]);
+  }, [handleContainerNode, isFocused, onFocus]);
 
   const onBlurHandler = useCallback(() => {
+    isFocused.value = false;
     if (onBlur) {
       onBlur();
     }
-  }, [onBlur]);
-
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    if (autoFocus && isIOS) {
-      // @ts-ignore
-      const unsubscribe = navigation.addListener('transitionEnd', () => {
-        ref.current?.focus();
-      });
-
-      return unsubscribe;
-    }
-  }, [autoFocus, navigation]);
+  }, [isFocused, onBlur]);
 
   const isInputValueValid = (valueToCheck: string) => {
     const isInvalidValue =
@@ -125,54 +115,112 @@ export const FormInput = ({
     }
   };
 
+  const textInputAutofocus = useTextInputAutoFocus(ref, autoFocus);
+
+  const translateY = useDerivedValue(() => {
+    return withTiming(isFocused.value || !isInputEmty ? 1 : 0, {duration: 200});
+  }, [isInputEmty]);
+
+  const labelAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      // fontSize: interpolate(translateY.value, [0, 1], [16, 12]),
+      // lineHeight: interpolate(translateY.value, [0, 1], [24, 16]),
+      transform: [
+        {
+          scale: interpolate(translateY.value, [0, 1], [1, 0.8]),
+        },
+      ],
+    };
+  });
+
+  const labelContainerStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolate(translateY.value, [0, 1], [0, -13]),
+        },
+        {
+          translateX: interpolate(
+            translateY.value,
+            [0, 1],
+            [0, -labelWidth * 0.1],
+          ),
+        },
+      ],
+    };
+  }, [labelWidth]);
+
+  const inputContainerStyle = useAnimatedStyle(() => {
+    const inactiveColor = styles.inputFieldContainer.borderColor as string;
+    const activeColor = styles.activeFieldContainer.borderColor as string;
+    const errorColor = styles.errorFieldContainer.borderColor as string;
+    if (error) {
+      return {
+        borderColor: withTiming(errorColor),
+      };
+    }
+    return {
+      borderColor: withTiming(isFocused.value ? activeColor : inactiveColor),
+    };
+  }, [error]);
+
+  const renderLabel = () => {
+    return (
+      <Animated.View
+        style={[styles.labelContainer, labelContainerStyle]}
+        pointerEvents="none">
+        <Animated.Text
+          onLayout={event => {
+            setLabelWidth(event.nativeEvent.layout.width);
+          }}
+          style={[styles.label, labelAnimatedStyle]}>
+          {label}
+        </Animated.Text>
+      </Animated.View>
+    );
+  };
+
   return (
     <View style={styles.container} ref={containerToHandleRef}>
-      {title ? <Text style={styles.title}>{title}</Text> : null}
-      <View
-        style={[
-          styles.inputFieldContainer,
-          error ? styles.dangerBorder : null,
-        ]}>
-        {iconLeftName ? (
+      <Animated.View style={[styles.inputFieldContainer, inputContainerStyle]}>
+        {iconLeft ? (
           <Icon
-            name={iconLeftName}
-            size={size}
-            color={colorScheme === 'light' ? COLORS.logCabin : COLORS.white}
-            style={styles.icon}
+            style={[styles.icon, styles.leftIcon]}
+            {...iconLeft}
+            size={24}
           />
         ) : null}
-        <TextInput
-          ref={inputRef}
-          style={styles.inputField}
-          placeholder={t(placeholder)}
-          secureTextEntry={secureTextEntry}
-          autoCapitalize="none"
-          keyboardType={keyboardType}
-          autoCorrect={false}
-          value={value}
-          maxLength={maxLength}
-          onChangeText={onChangeHandler}
-          autoFocus={isIOS ? undefined : autoFocus}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          placeholderTextColor={
-            colorScheme === 'light' ? COLORS.silver : COLORS.cullGrey
-          }
-          onSubmitEditing={onSubmitEditingHandler}
-          returnKeyType={returnKeyType}
-        />
-        {iconRightName ? (
-          <Pressable
-            style={[styles.iconContainer, error ? styles.dangerBorder : null]}
-            onPress={onRightIconPress}>
+        <View style={styles.inputFieldWrapper}>
+          {renderLabel()}
+          <TextInput
+            ref={inputRef}
+            style={styles.inputField}
+            secureTextEntry={secureTextEntry}
+            autoCapitalize="none"
+            keyboardType={keyboardType}
+            autoCorrect={false}
+            value={value}
+            maxLength={maxLength}
+            onChangeText={onChangeHandler}
+            autoFocus={textInputAutofocus}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onSubmitEditing={onSubmitEditingHandler}
+            returnKeyType={returnKeyType}
+            cursorColor={(styles.inputField as TextStyle).color}
+            selectionColor={(styles.inputField as TextStyle).color}
+          />
+        </View>
+        {iconRight ? (
+          <Pressable onPress={onRightIconPress}>
             <Icon
-              name={iconRightName}
-              size={16}
-              color={colorScheme === 'light' ? COLORS.logCabin : COLORS.white}
+              style={[styles.icon, styles.rightIcon]}
+              {...iconRight}
+              size={24}
             />
           </Pressable>
         ) : null}
-      </View>
+      </Animated.View>
       {helperText || <HelperText messageText={messageText} error={error} />}
     </View>
   );

@@ -74,7 +74,7 @@ export const useEmailValidation = () => {
     dispatch(forgotPasswordRequest({email}));
   }, [dispatch, email]);
 
-  const buttonText = t('ready').toUpperCase();
+  const buttonText = t('ready');
 
   useOnRequestSuccess(confirmSignUpRequest, () => {
     navigation.getParent()?.goBack();

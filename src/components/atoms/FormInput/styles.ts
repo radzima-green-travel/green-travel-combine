@@ -1,61 +1,83 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_STYLES, FONTS_PRESETS} from 'assets';
+import {createThemeStyles} from 'core/helpers/styles';
+import {StyleSheet} from 'react-native';
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   container: {
     alignSelf: 'stretch',
   },
   inputFieldContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 40,
+    height: 48,
+
     borderWidth: 1,
-    borderRadius: 2,
+    borderRadius: 12,
     borderColor: {
-      light: COLORS.silver,
-      dark: COLORS.oxfordBlue,
+      light: COLORS.light.stroke.border,
+      dark: COLORS.dark.stroke.border,
     },
     backgroundColor: {
-      light: COLORS.light.other.search,
-      dark: COLORS.dark.other.search,
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
     alignSelf: 'stretch',
+    paddingHorizontal: 12,
+  },
+
+  activeFieldContainer: {
+    borderColor: {
+      light: COLORS.light.background.success,
+      dark: COLORS.dark.background.success,
+    },
+  },
+  errorFieldContainer: {
+    borderColor: {
+      light: COLORS.light.background.negative,
+      dark: COLORS.dark.background.negative,
+    },
   },
   dangerBorder: {
     borderColor: COLORS.persimmon,
   },
+  inputFieldWrapper: {
+    flex: 1,
+    marginVertical: 4,
+  },
   inputField: {
-    height: 40,
+    ...FONTS_PRESETS.bodyRegular,
+    margin: 0,
+    padding: 0,
+    lineHeight: 20,
+    paddingTop: 14,
     color: {
-      light: COLORS.black,
-      dark: COLORS.white,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
     flex: 1,
   },
-  color: {
-    light: COLORS.boulder,
-    dark: COLORS.altoForDark,
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderLeftWidth: 1,
-    borderColor: {
-      light: COLORS.silver,
-      dark: COLORS.oxfordBlue,
+  icon: {
+    color: {
+      light: COLORS.light.icon.tertiary,
+      dark: COLORS.dark.icon.tertiary,
     },
   },
-  icon: {
-    marginLeft: 12,
+  leftIcon: {
     marginRight: 8,
   },
-  title: {
-    ...FONTS_STYLES.semibold14,
-    marginBottom: 4,
+  rightIcon: {
+    marginLeft: 8,
+  },
+  labelContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  label: {
+    ...FONTS_PRESETS.bodyRegular,
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
     },
   },
-};
+});

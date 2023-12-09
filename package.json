@@ -10,7 +10,7 @@
     "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
     "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
     "update-svg": "node scripts/update-svg/update-svg.js",
-    "postinstall": "patch-package && yarn husky install",
+    "postinstall": "yarn husky install",
     "postversion": "react-native-version"
   },
   "dependencies": {
@@ -39,6 +39,7 @@
     "axios": "0.19.2",
     "compare-versions": "^6.0.0",
     "deprecated-react-native-prop-types": "^2.3.0",
+    "eslint-plugin-jest": "^27.6.0",
     "expo": "^49.0.18",
     "expo-image": "1.3.4",
     "expo-navigation-bar": "^2.1.1",

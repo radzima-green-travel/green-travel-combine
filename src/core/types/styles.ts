@@ -1,6 +1,11 @@
 import {ColorValue, ImageStyle, TextStyle, ViewStyle} from 'react-native';
 
-interface ThemeViewStyle extends Omit<ViewStyle, 'backgroundColor'> {
+interface ThemeViewStyle
+  extends Omit<ViewStyle, 'backgroundColor' | 'borderColor'> {
+  borderColor?: {
+    light: ColorValue;
+    dark: ColorValue;
+  };
   backgroundColor?: {
     light: ColorValue;
     dark: ColorValue;

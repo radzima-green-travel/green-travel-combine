@@ -6,7 +6,7 @@ import {StyleProp, TextStyle, View} from 'react-native';
 import {IconsNames} from './IconsNames';
 import {getPlatformsTestID} from 'core/helpers';
 
-interface Props {
+export interface Props {
   name: IconsNames;
   width?: number | string;
   height?: number | string;

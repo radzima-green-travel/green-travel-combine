@@ -30,3 +30,4 @@ export {HeaderCancelButton} from './HeaderCancelButton';
 export {PasswordHint} from './PasswordHint';
 export * from './HandleKeyboard';
 export {NumPager} from './NumPager';
+export * from './ComponentSandbox';

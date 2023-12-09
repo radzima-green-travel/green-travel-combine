@@ -6,13 +6,14 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-
+// import {ComponentSandbox} from 'atoms';
 // TODO: fix analytics details page, fix input color, fix snacbars position and color
 
 const App = () => {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <Provider store={store}>
+        {/* <ComponentSandbox> */}
         <BottomSheetModalProvider>
           <PersistGate loading={null} persistor={persistor}>
             <SafeAreaProvider>
@@ -20,6 +21,7 @@ const App = () => {
             </SafeAreaProvider>
           </PersistGate>
         </BottomSheetModalProvider>
+        {/* </ComponentSandbox> */}
       </Provider>
     </GestureHandlerRootView>
   );

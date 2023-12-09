@@ -1,14 +1,18 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
 
 export const themeStyles = {
   messageText: {
-    ...FONTS_STYLES.regular14,
+    ...FONTS_PRESETS.caption1Regular,
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
     },
   },
   messageErrorText: {
-    color: COLORS.persimmon,
+    ...FONTS_PRESETS.footnoteRegular,
+    color: {
+      light: COLORS.light.text.negative,
+      dark: COLORS.dark.text.negative,
+    },
   },
 };

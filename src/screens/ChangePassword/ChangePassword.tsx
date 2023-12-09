@@ -43,11 +43,11 @@ export const ChangePassword = () => {
             <WithFormikInput<string> name="oldPassword">
               {({messageText, ...inputProps}) => (
                 <FormInput
-                  iconRightName={oldPasswordVisibility.rightIcon}
-                  iconLeftName={'lock'}
-                  size={16}
-                  title={t('oldPassword')}
-                  placeholder={t('oldPasswordPlaceholder')}
+                  autoFocus
+                  iconRight={{
+                    name: oldPasswordVisibility.rightIcon,
+                  }}
+                  label={t('oldPasswordPlaceholder')}
                   secureTextEntry={oldPasswordVisibility.passwordVisibility}
                   onRightIconPress={
                     oldPasswordVisibility.handlePasswordVisibility
@@ -64,11 +64,10 @@ export const ChangePassword = () => {
               <WithFormikInput<string> name="newPassword">
                 {({messageText, ...inputProps}) => (
                   <FormInput
-                    iconRightName={newPasswordVisibility.rightIcon}
-                    iconLeftName={'lock'}
-                    size={16}
-                    title={t('newPassword')}
-                    placeholder={t('newPasswordPlaceholder')}
+                    iconRight={{
+                      name: newPasswordVisibility.rightIcon,
+                    }}
+                    label={t('newPasswordPlaceholder')}
                     secureTextEntry={newPasswordVisibility.passwordVisibility}
                     onRightIconPress={
                       newPasswordVisibility.handlePasswordVisibility

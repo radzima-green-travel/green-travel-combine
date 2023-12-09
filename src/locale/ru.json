@@ -154,8 +154,8 @@
     "oldPassword": "Старый пароль",
     "newPassword": "Новый пароль",
     "updatePassword": "Обновить пароль",
-    "oldPasswordPlaceholder": "Введите старый пароль",
-    "newPasswordPlaceholder": "Введите новый пароль"
+    "oldPasswordPlaceholder": "Текущий пароль",
+    "newPasswordPlaceholder": "Новый пароль"
   },
   "profile": {
     "notAuthorrized": {
