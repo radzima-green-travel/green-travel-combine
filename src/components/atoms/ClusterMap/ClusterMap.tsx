@@ -14,6 +14,7 @@ import {isIOS} from 'services/PlatformService';
 import {useColorScheme} from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getPlatformsTestID} from 'core/helpers';
+import {DEFAULT_LOCALE} from 'core/constants';
 
 export const ClusterMap = memo(
   forwardRef<MapView, Props>(
@@ -27,6 +28,7 @@ export const ClusterMap = memo(
         cameraRef,
         attributionPosition,
         onRegionIsChanging,
+        locale,
         testID,
       }: Props,
       ref,
@@ -141,6 +143,7 @@ export const ClusterMap = memo(
             attributionPosition={
               attributionPosition || {bottom: isIOS ? 90 : 100, right: 30}
             }
+            localizeLabels={{locale: locale ?? DEFAULT_LOCALE}}
             compassEnabled={true}
             compassFadeWhenNorth
             compassPosition={{top: top > 20 ? 0 : 10, right: 16}}

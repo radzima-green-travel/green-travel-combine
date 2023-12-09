@@ -52,6 +52,7 @@ export const ObjectDetailsMap = () => {
     direction,
     dataShapeSource,
     belongsToSubtitle,
+    currentLocale,
   } = useObjectDetailsMap();
 
   const layersStyles = useThemeStyles(themeLayerStyles, {
@@ -67,7 +68,8 @@ export const ObjectDetailsMap = () => {
         onShapePress={onMarkerPress}
         bounds={bounds}
         ref={map}
-        cameraRef={camera}>
+        cameraRef={camera}
+        locale={currentLocale}>
         {userLocationProps.visible ? (
           <UserLocation
             renderMode={UserLocationRenderMode.Native}

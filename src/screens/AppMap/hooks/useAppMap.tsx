@@ -11,6 +11,7 @@ import {
   selectTransformedData,
   getMapMarkers,
   selectMapFilters,
+  selectAppLanguage,
 } from 'core/selectors';
 import {useSelector} from 'react-redux';
 import bbox from '@turf/bbox';
@@ -67,6 +68,7 @@ type OnPressEvent = {
 export const useAppMap = () => {
   const navigation = useNavigation<ObjectsListScreenNavigationProps>();
   const appData = useSelector(selectTransformedData);
+  const currentLocale = useSelector(selectAppLanguage);
 
   const camera = useRef<Camera>(null);
   const map = useRef<MapView>(null);
@@ -407,5 +409,6 @@ export const useAppMap = () => {
     selectedFilters,
     bottom,
     mapFilters,
+    currentLocale,
   };
 };

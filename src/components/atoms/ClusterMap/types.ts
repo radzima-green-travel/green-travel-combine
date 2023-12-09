@@ -1,5 +1,5 @@
 import {Camera, MapView} from '@rnmapbox/maps';
-import {IBounds, ICoordinates} from 'core/types';
+import {IBounds, ICoordinates, SupportedLocales} from 'core/types';
 import * as React from 'react';
 
 export type Props = {
@@ -14,4 +14,5 @@ export type Props = {
     typeof MapView
   >['onRegionIsChanging'];
   testID: string;
+  locale: SupportedLocales | null;
 };
