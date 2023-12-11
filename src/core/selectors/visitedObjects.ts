@@ -6,7 +6,7 @@ import {reduce} from 'lodash';
 export const selectVisitedData = (state: IState) =>
   state.visited.data;
 
-export const selectVisitedIdsFromVisited = createSelector(
+export const selectVisitedIds = createSelector(
   selectVisitedData,
   selectTransformedData,
   (visited, transformedData) => {

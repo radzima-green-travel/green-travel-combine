@@ -12,6 +12,7 @@ import {deleteUserSaga} from './deleteUserSaga';
 import {checkUserEmailSaga} from './checkUserEmailSaga';
 import {forgotPasswordCodeSubmitSaga} from './forgotPasswordCodeSubmitSaga';
 import {changePasswordSaga} from './changePasswordSaga';
+import {clearUserDataSaga} from './clearUserDataSaga';
 
 export function* authentificationSaga() {
   const isMyProfileFeatureEnabled: ReturnType<
@@ -36,5 +37,6 @@ export function* authentificationSaga() {
       forgotPasswordCodeSubmitSaga,
     );
     yield takeEvery(ACTIONS.CHANGE_PASSWORD_REQUEST, changePasswordSaga);
+    yield takeEvery(ACTIONS.CLEAR_USER_DATA, clearUserDataSaga);
   }
 }

@@ -6,10 +6,10 @@ import {
   deleteUserFailure,
   inAppBrowserCancelOperation,
   inAppBrowserSuccessOperation,
+  clearUserData,
 } from 'core/reducers';
 
 import {selectIsAuthorizedWithSocialProviders} from 'core/selectors';
-import {clearObjectAttributesSaga} from '../objectDetails';
 
 export function* deleteUserSaga() {
   try {
@@ -31,7 +31,7 @@ export function* deleteUserSaga() {
     ]);
 
     yield put(deleteUserSuccess());
-    yield call(clearObjectAttributesSaga);
+    yield put(clearUserData());
   } catch (e) {
     yield put(deleteUserFailure(e as Error));
   }

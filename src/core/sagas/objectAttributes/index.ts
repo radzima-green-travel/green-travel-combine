@@ -1,0 +1,1 @@
+export {getObjectAttributesSaga} from './getObjectAttributesSaga';

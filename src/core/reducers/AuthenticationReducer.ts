@@ -147,6 +147,8 @@ export const changePasswordFailure = createAction(
 
 export const resetUserAuthData = createAction(ACTIONS.RESET_USER_AUTH_DATA)();
 
+export const clearUserData = createAction(ACTIONS.CLEAR_USER_DATA)();
+
 interface IAuth {
   userAttributes: CognitoUserAttributes | null;
 }

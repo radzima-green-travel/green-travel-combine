@@ -21,7 +21,7 @@ import {migrateToNewFavoritesTypeSaga} from '../favorites/migrateToNewFavoritesT
 import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
-import {getObjectAttributesSaga} from '../objectDetails';
+import {getObjectAttributesSaga} from '../objectAttributes';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {

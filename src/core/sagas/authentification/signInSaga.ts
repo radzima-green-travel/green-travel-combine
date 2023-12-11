@@ -8,7 +8,7 @@ import {CognitoUserWithAttributes, SupportedLocales} from '../../types';
 import {socialSignInSaga} from './socialSignInSaga';
 import {selectAppLanguage} from 'core/selectors';
 import {updateUserAttributesSaga} from './updateUserAttributesSaga';
-import {getObjectAttributesSaga} from '../objectDetails';
+import {getObjectAttributesSaga} from '../objectAttributes';
 
 export function* signInSaga({
   payload: {email, password, socialProvider},

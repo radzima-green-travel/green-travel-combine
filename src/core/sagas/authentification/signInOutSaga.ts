@@ -6,9 +6,9 @@ import {
   signOutSuccess,
   inAppBrowserCancelOperation,
   inAppBrowserSuccessOperation,
+  clearUserData,
 } from 'core/reducers';
 import {selectIsAuthorizedWithSocialProviders} from 'core/selectors';
-import {clearObjectAttributesSaga} from '../objectDetails';
 
 export function* signInOutSaga() {
   try {
@@ -30,7 +30,7 @@ export function* signInOutSaga() {
     ]);
 
     yield put(signOutSuccess());
-    yield call(clearObjectAttributesSaga);
+    yield put(clearUserData());
   } catch (e) {
     yield put(signOutFailure(e as Error));
   }

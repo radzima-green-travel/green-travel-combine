@@ -6,4 +6,4 @@ export * from './search';
 export * from './app';
 export * from './settingsSelectors';
 export * from './favorites';
-export * from './visited';
+export * from './visitedObjects';
