@@ -4,7 +4,7 @@ import {
 import {selectUserAuthorized} from 'core/selectors';
 import {AppStateStatus} from 'react-native';
 import {call, put, select} from 'redux-saga/effects';
-import {getObjectAttributesSaga} from '../objectDetails';
+import {getObjectAttributesSaga} from '../objectAttributes';
 
 export function* listenAppStateChangesSaga({
   state,

@@ -7,7 +7,7 @@ import {
 } from 'core/reducers';
 import {CognitoUserWithAttributes} from '../../types';
 import {amplifyApi} from 'api/amplify';
-import {getObjectAttributesSaga} from '../objectDetails';
+import {getObjectAttributesSaga} from '../objectAttributes';
 
 export function* confirmNewPasswordSaga({
   payload: {email, tempPassword, newPassword},

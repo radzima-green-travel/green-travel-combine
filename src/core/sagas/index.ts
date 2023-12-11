@@ -6,4 +6,4 @@ export {settingsSaga} from './settings';
 export {favoritesSaga} from './favorites';
 export {appSaga} from './app';
 export {visitedSaga} from './visited';
-export {getObjectAttributesSaga} from './objectDetails';
+export {getObjectAttributesSaga} from './objectAttributes';
