@@ -17,12 +17,11 @@ import {
 } from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
 import {resetEtags} from 'api/rest/interceptors';
-import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
 import {migrateToNewFavoritesTypeSaga} from '../favorites/migrateToNewFavoritesTypeSaga';
 import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
-import {getVisitedSaga} from '../visited/getVisitedSaga';
+import {getObjectAttributesSaga} from '../objectDetails';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
@@ -48,8 +47,7 @@ export function* bootstrapSaga() {
 
       yield call(migrateToNewFavoritesTypeSaga);
       if (isAuthorized) {
-        yield call(syncAndGetFavoritesSaga);
-        yield call(getVisitedSaga);
+        yield call(getObjectAttributesSaga);
       }
 
       yield put(bootstrapSuccess());

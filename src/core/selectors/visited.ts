@@ -4,7 +4,7 @@ import {selectTransformedData} from './homeSelectors';
 import {reduce} from 'lodash';
 
 export const selectVisitedData = (state: IState) =>
-  state.visited.visited;
+  state.visited.data;
 
 export const selectVisitedIdsFromVisited = createSelector(
   selectVisitedData,

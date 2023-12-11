@@ -10,7 +10,7 @@ import {
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
 import {ImageSlider, SnackBar, SuspenseView, Button, Icon} from 'atoms';
-import {useFavorite, useTranslation, useVisited} from 'core/hooks';
+import {useFavorite, useTranslation, useVisitedObject} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
@@ -55,9 +55,9 @@ export const ObjectDetails = () => {
     isAuthorized,
     isVisited,
     markAsVisited,
-    updateVisitedLoading,
-    snackBarPropsVisited,
-  } = useVisited({
+    addVisitedObjectLoading,
+    snackBarPropsVisitedObject,
+  } = useVisitedObject({
     objectId,
   });
 
@@ -101,7 +101,7 @@ export const ObjectDetails = () => {
                   text={isVisited ? t('visitedObject') : t('markAsVisited')}
                   theme={'secondary'}
                   style={styles.visitedButton}
-                  loading={updateVisitedLoading}
+                  loading={addVisitedObjectLoading}
                 />
               ) : null}
             </View>
@@ -174,7 +174,7 @@ export const ObjectDetails = () => {
           />
         </View>
       ) : null}
-      <SnackBar offset={-top} {...snackBarPropsVisited} isOnTop />
+      <SnackBar offset={-top} {...snackBarPropsVisitedObject} isOnTop />
     </SuspenseView>
   );
 };

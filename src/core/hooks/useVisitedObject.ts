@@ -1,7 +1,7 @@
 import {useCallback, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
-import {addVisitedRequest} from 'core/reducers';
+import {addVisitedObjectRequest} from 'core/reducers';
 import {
   selectUserAuthorized,
   selectVisitedIdsFromVisited,
@@ -10,13 +10,14 @@ import {useSnackbar} from 'atoms';
 import {find, isEqual} from 'lodash';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 
-export const useVisited = ({objectId}: {objectId: string}) => {
+export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const dispatch = useDispatch();
   const visitedIds = useSelector(selectVisitedIdsFromVisited);
   const isAuthorized = useSelector(selectUserAuthorized);
   const {t} = useTranslation('objectDetails');
 
-  const {show: showVisited, ...snackBarPropsVisited} = useSnackbar();
+  const {show: showVisitedObjectSnackbar, ...snackBarPropsVisitedObject} =
+    useSnackbar();
 
   const isVisited = useMemo(
     () => (objectId ? find(visitedIds, id => isEqual(id, objectId)) : false),
@@ -24,18 +25,21 @@ export const useVisited = ({objectId}: {objectId: string}) => {
   );
 
   const markAsVisited = useCallback(() => {
-    dispatch(
-      addVisitedRequest({
-        objectId,
-        data: {timestamp: Date.now()},
-      }),
-    );
+    if (isAuthorized) {
+      dispatch(
+        addVisitedObjectRequest({
+          objectId,
+          data: {timestamp: Date.now()},
+        }),
+      );
+    }
   }, []);
 
-  const {loading: updateVisitedLoading} = useRequestLoading(addVisitedRequest);
+  const {loading: addVisitedObjectLoading} =
+    useRequestLoading(addVisitedObjectRequest);
 
-  useOnRequestSuccess(addVisitedRequest, () =>
-    showVisited({
+  useOnRequestSuccess(addVisitedObjectRequest, () =>
+    showVisitedObjectSnackbar({
       type: 'success',
       title: t('markedAsVisited'),
       timeoutMs: 1000,
@@ -46,7 +50,7 @@ export const useVisited = ({objectId}: {objectId: string}) => {
     isAuthorized,
     isVisited,
     markAsVisited,
-    updateVisitedLoading,
-    snackBarPropsVisited,
+    addVisitedObjectLoading,
+    snackBarPropsVisitedObject,
   };
 };
