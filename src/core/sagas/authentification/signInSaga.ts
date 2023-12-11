@@ -6,10 +6,9 @@ import {createAuthHubChannel} from './createAuthHubChannel';
 import {signInRequest, signInSuccess, signInFailure} from 'core/reducers';
 import {CognitoUserWithAttributes, SupportedLocales} from '../../types';
 import {socialSignInSaga} from './socialSignInSaga';
-import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
 import {selectAppLanguage} from 'core/selectors';
 import {updateUserAttributesSaga} from './updateUserAttributesSaga';
-import {getVisitedSaga} from '../visited/getVisitedSaga';
+import {getObjectAttributesSaga} from '../objectDetails';
 
 export function* signInSaga({
   payload: {email, password, socialProvider},
@@ -31,8 +30,7 @@ export function* signInSaga({
       if (user.attributes.email_verified) {
         yield spawn(updateUserAttributesSaga, {locale});
       }
-      yield call(syncAndGetFavoritesSaga);
-      yield call(getVisitedSaga);
+      yield call(getObjectAttributesSaga);
     }
     yield put(
       signInSuccess(user?.attributes || null, {entityId: socialProvider}),

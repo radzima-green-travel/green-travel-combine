@@ -2,12 +2,11 @@ import {Auth} from 'aws-amplify';
 import {
   setUserAuthData,
   resetUserAuthData,
-  clearFavorites,
-  clearVisited,
 } from 'core/reducers';
 import {selectUserAuthorized} from 'core/selectors';
 import {CognitoUserWithAttributes} from 'core/types';
 import {call, put, select} from 'redux-saga/effects';
+import {clearObjectAttributesSaga} from '../objectDetails';
 
 export function* initUserAuthSaga() {
   try {
@@ -23,8 +22,7 @@ export function* initUserAuthSaga() {
     const isAuthorized = yield select(selectUserAuthorized);
     if (isAuthorized) {
       yield put(resetUserAuthData());
-      yield put(clearFavorites());
-      yield put(clearVisited());
+      yield call(clearObjectAttributesSaga);
     }
 
     console.log('error', e);

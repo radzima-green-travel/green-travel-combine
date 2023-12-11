@@ -4,13 +4,12 @@ import {amplifyApi} from 'api/amplify';
 import {
   deleteUserSuccess,
   deleteUserFailure,
-  clearFavorites,
   inAppBrowserCancelOperation,
   inAppBrowserSuccessOperation,
-  clearVisited,
 } from 'core/reducers';
 
 import {selectIsAuthorizedWithSocialProviders} from 'core/selectors';
+import {clearObjectAttributesSaga} from '../objectDetails';
 
 export function* deleteUserSaga() {
   try {
@@ -32,8 +31,7 @@ export function* deleteUserSaga() {
     ]);
 
     yield put(deleteUserSuccess());
-    yield put(clearFavorites());
-    yield put(clearVisited());
+    yield call(clearObjectAttributesSaga);
   } catch (e) {
     yield put(deleteUserFailure(e as Error));
   }

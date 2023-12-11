@@ -1,9 +1,9 @@
 import {takeEvery, takeLatest} from 'redux-saga/effects';
 import {ACTIONS} from 'core/constants';
-import {getVisitedSaga} from './getVisitedSaga';
-import {addVisitedSaga} from './addVisitedSaga';
+import {getVisitedObjectsSaga} from './getVisitedObjectsSaga';
+import {addVisitedObjectSaga} from './addVisitedObjectSaga';
 
 export function* visitedSaga() {
-  yield takeEvery(ACTIONS.GET_VISITED_REQUEST, getVisitedSaga);
-  yield takeLatest(ACTIONS.ADD_VISITED_REQUEST, addVisitedSaga);
+  yield takeEvery(ACTIONS.GET_VISITED_OBJECTS_REQUEST, getVisitedObjectsSaga);
+  yield takeLatest(ACTIONS.ADD_VISITED_OBJECT_REQUEST, addVisitedObjectSaga);
 }
