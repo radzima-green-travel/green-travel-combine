@@ -5,3 +5,4 @@ export {objectDetailsMapSaga} from './objectDetailsMap';
 export {settingsSaga} from './settings';
 export {favoritesSaga} from './favorites';
 export {appSaga} from './app';
+export {visitedSaga} from './visited';

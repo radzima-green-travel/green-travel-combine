@@ -13,6 +13,7 @@ import {
   searchReducer,
   authenticationReducer,
   appConfigurationReducer,
+  visitedReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -38,6 +39,12 @@ const bookmarksPersistConfig = {
   whitelist: ['bookmarksIds', 'favorites'],
 };
 
+const visitedPersistConfig = {
+  key: 'visited',
+  storage: AsyncStorage,
+  whitelist: ['visited'],
+}
+
 const settingsPeristConfig = {
   key: 'settings',
   storage: AsyncStorage,
@@ -59,6 +66,7 @@ const appConfigurationPersistConfig = {
 const rootReducer = combineReducers({
   ...asyncReducers,
   bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
+  visited: persistReducer(visitedPersistConfig, visitedReducer),
   bootsrap: bootstrapReducer,
   home: persistReducer(homePersistConfig, homeReducer),
   objectDetailsMap: objectDetailsMapReducer,

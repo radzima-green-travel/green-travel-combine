@@ -3,6 +3,7 @@ import {
   setUserAuthData,
   resetUserAuthData,
   clearFavorites,
+  clearVisited,
 } from 'core/reducers';
 import {selectUserAuthorized} from 'core/selectors';
 import {CognitoUserWithAttributes} from 'core/types';
@@ -23,6 +24,7 @@ export function* initUserAuthSaga() {
     if (isAuthorized) {
       yield put(resetUserAuthData());
       yield put(clearFavorites());
+      yield put(clearVisited());
     }
 
     console.log('error', e);

@@ -59,7 +59,10 @@
     "objectNotFoundButtonText": "Перейти на главную",
     "aboutRoute": "О маршруте",
     "aboutObject": "О месте",
-    "copyLocation": "Скопировать координаты"
+    "copyLocation": "Скопировать координаты",
+    "visitedObject": "Вы посетили его!",
+    "markAsVisited": "Отметить как посещенный",
+    "markedAsVisited": "Место отмечено как посещённое!"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

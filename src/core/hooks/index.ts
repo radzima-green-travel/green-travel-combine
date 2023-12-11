@@ -36,3 +36,4 @@ export {
 export {useNavigateToPrivacyPolicyAndTnC} from './useNavigateToPrivacyPolicyAndTnC';
 export {useFavorite} from './useFavorite';
 export {useTextInputAutoFocus} from './useTextInputAutoFocus';
+export {useVisited} from './useVisited';

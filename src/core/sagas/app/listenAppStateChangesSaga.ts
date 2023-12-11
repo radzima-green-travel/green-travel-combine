@@ -1,5 +1,6 @@
 import {
   getHomeDataUpdateAvailableRequest,
+  getVisitedRequest,
   syncAndGetFavoritesRequest,
 } from 'core/reducers';
 import {selectUserAuthorized} from 'core/selectors';
@@ -18,6 +19,7 @@ export function* listenAppStateChangesSaga({
     yield put(getHomeDataUpdateAvailableRequest());
     if (isAuthorized) {
       yield put(syncAndGetFavoritesRequest());
+      yield put(getVisitedRequest());
     }
   }
 }

@@ -6,3 +6,4 @@ export * from './SearchReducer';
 export * from './AuthenticationReducer';
 export * from './SettingsReducer';
 export * from './AppConfigurationReducer';
+export * from './VisitedReducer';

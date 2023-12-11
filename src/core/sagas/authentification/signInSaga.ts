@@ -9,6 +9,7 @@ import {socialSignInSaga} from './socialSignInSaga';
 import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
 import {selectAppLanguage} from 'core/selectors';
 import {updateUserAttributesSaga} from './updateUserAttributesSaga';
+import {getVisitedSaga} from '../visited/getVisitedSaga';
 
 export function* signInSaga({
   payload: {email, password, socialProvider},
@@ -31,6 +32,7 @@ export function* signInSaga({
         yield spawn(updateUserAttributesSaga, {locale});
       }
       yield call(syncAndGetFavoritesSaga);
+      yield call(getVisitedSaga);
     }
     yield put(
       signInSuccess(user?.attributes || null, {entityId: socialProvider}),

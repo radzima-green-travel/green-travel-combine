@@ -7,6 +7,7 @@ import {
   settingsSaga,
   favoritesSaga,
   appSaga,
+  visitedSaga,
 } from './sagas';
 
 export function* rootSaga() {
@@ -18,5 +19,6 @@ export function* rootSaga() {
     settingsSaga(),
     favoritesSaga(),
     appSaga(),
+    visitedSaga(),
   ]);
 }

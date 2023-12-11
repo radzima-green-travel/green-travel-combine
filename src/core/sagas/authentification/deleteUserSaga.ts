@@ -7,6 +7,7 @@ import {
   clearFavorites,
   inAppBrowserCancelOperation,
   inAppBrowserSuccessOperation,
+  clearVisited,
 } from 'core/reducers';
 
 import {selectIsAuthorizedWithSocialProviders} from 'core/selectors';
@@ -32,6 +33,7 @@ export function* deleteUserSaga() {
 
     yield put(deleteUserSuccess());
     yield put(clearFavorites());
+    yield put(clearVisited());
   } catch (e) {
     yield put(deleteUserFailure(e as Error));
   }

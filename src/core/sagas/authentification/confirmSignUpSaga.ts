@@ -11,6 +11,7 @@ import {CognitoUserWithAttributes} from 'core/types';
 import {amplifyApi} from 'api/amplify';
 import {createSignupCancelErrorPreset, RequestError} from 'core/errors';
 import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
+import {getVisitedSaga} from '../visited/getVisitedSaga';
 
 export function* confirmSignUpSaga({
   payload: {email, code},
@@ -42,6 +43,7 @@ export function* confirmSignUpSaga({
 
     if (userData) {
       yield call(syncAndGetFavoritesSaga);
+      yield call(getVisitedSaga);
     }
 
     yield put(
