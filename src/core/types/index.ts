@@ -6,3 +6,4 @@ export * from './errors';
 export * from './forms';
 export * from './favorites';
 export * from './app';
+export * from './visited'

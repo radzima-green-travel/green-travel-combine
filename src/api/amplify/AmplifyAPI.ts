@@ -4,6 +4,8 @@ import {
   GetFavoritesResponse,
   UpdateFavoritesBody,
   BulkUpdateFavoritesBody,
+  GetVisitedResponse,
+  AddVisitedBody,
 } from 'core/types';
 import {Auth} from 'aws-amplify';
 import {AmplifyApiEngine, CustomApiRequestConfig} from '../engines';
@@ -249,6 +251,22 @@ class AmplifyApi extends AmplifyApiEngine {
 
   bulkUpdateUserFavorites = async (data: BulkUpdateFavoritesBody) => {
     return this.postByApi('apiac472374', '/bookmark', {body: data});
+  };
+
+  getUserVisitedObjects = async (): Promise<GetVisitedResponse> => {
+    return this.getByApi('apiac472374', '/visited-objects');
+  };
+
+  addUserVisitedObject = async ({
+    objectId,
+    data,
+  }: {
+    objectId: string;
+    data: AddVisitedBody;
+  }) => {
+    return this.postByApi('apiac472374', `/visited-objects/${objectId}`, {
+      body: data,
+    });
   };
 }
 

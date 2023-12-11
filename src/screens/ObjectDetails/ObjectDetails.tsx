@@ -9,8 +9,8 @@ import {
   ObjectDetailsBottomButtons,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
-import {ImageSlider, SnackBar, SuspenseView} from 'atoms';
-import {useFavorite, useTranslation} from 'core/hooks';
+import {ImageSlider, SnackBar, SuspenseView, Button, Icon} from 'atoms';
+import {useFavorite, useTranslation, useVisited} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
@@ -51,6 +51,16 @@ export const ObjectDetails = () => {
   const {favoritesSynchronizing, toggleFavoriteHandler, isFavorite} =
     useFavorite({objectId});
 
+  const {
+    isAuthorized,
+    isVisited,
+    markAsVisited,
+    updateVisitedLoading,
+    snackBarPropsVisited,
+  } = useVisited({
+    objectId,
+  });
+
   const {scrollHandler, imageSliderContainerAnimatedStyle, translationY} =
     useObjectDetailsAnimation({
       imageHeight: IMAGE_HEIGHT,
@@ -84,6 +94,16 @@ export const ObjectDetails = () => {
                 }
                 onCoordinatesPress={copyLocationToClipboard}
               />
+              {isAuthorized ? (
+                <Button
+                  icon={() => (isVisited ? <Icon name={'check'} /> : <></>)}
+                  onPress={markAsVisited}
+                  text={isVisited ? t('visitedObject') : t('markAsVisited')}
+                  theme={'secondary'}
+                  style={styles.visitedButton}
+                  loading={updateVisitedLoading}
+                />
+              ) : null}
             </View>
             <ObjectDescription
               isRoute={Boolean(data.routes)}
@@ -154,6 +174,7 @@ export const ObjectDetails = () => {
           />
         </View>
       ) : null}
+      <SnackBar offset={-top} {...snackBarPropsVisited} isOnTop />
     </SuspenseView>
   );
 };

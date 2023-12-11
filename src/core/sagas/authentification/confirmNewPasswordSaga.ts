@@ -8,6 +8,7 @@ import {
 import {CognitoUserWithAttributes} from '../../types';
 import {amplifyApi} from 'api/amplify';
 import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
+import {getVisitedSaga} from '../visited/getVisitedSaga';
 
 export function* confirmNewPasswordSaga({
   payload: {email, tempPassword, newPassword},
@@ -23,6 +24,7 @@ export function* confirmNewPasswordSaga({
 
     yield call(amplifyApi.changePassword, user, tempPassword, newPassword);
     yield call(syncAndGetFavoritesSaga);
+    yield call(getVisitedSaga);
 
     yield put(confirmNewPasswordSuccess(attributes));
   } catch (e) {

@@ -22,6 +22,7 @@ import {migrateToNewFavoritesTypeSaga} from '../favorites/migrateToNewFavoritesT
 import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
+import {getVisitedSaga} from '../visited/getVisitedSaga';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
@@ -48,6 +49,7 @@ export function* bootstrapSaga() {
       yield call(migrateToNewFavoritesTypeSaga);
       if (isAuthorized) {
         yield call(syncAndGetFavoritesSaga);
+        yield call(getVisitedSaga);
       }
 
       yield put(bootstrapSuccess());

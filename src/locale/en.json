@@ -59,7 +59,10 @@
     "objectNotFoundButtonText": "Go to Main page",
     "aboutRoute": "About route",
     "aboutObject": "About place",
-    "copyLocation": "Copy location"
+    "copyLocation": "Copy location",
+    "visitedObject": "You’ve visited it!",
+    "markAsVisited": "Mark as visited",
+    "markedAsVisited": "Place marked as visited!"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

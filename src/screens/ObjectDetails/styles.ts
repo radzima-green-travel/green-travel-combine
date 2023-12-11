@@ -16,8 +16,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 80,
     paddingTop: IMAGE_HEIGHT,
   },
-  button: {
-    marginTop: 24,
+  visitedButton: {
+    marginTop: 14,
   },
 
   emptyContatiner: {
