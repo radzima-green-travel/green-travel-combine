@@ -3,15 +3,15 @@ import {createSelector} from 'reselect';
 import {selectTransformedData} from './homeSelectors';
 import {reduce} from 'lodash';
 
-export const selectVisitedData = (state: IState) =>
-  state.visited.data;
+export const selectVisitedObjectsData = (state: IState) =>
+  state.visitedObjects.data;
 
-export const selectVisitedIds = createSelector(
-  selectVisitedData,
+export const selectVisitedObjectsIds = createSelector(
+  selectVisitedObjectsData,
   selectTransformedData,
-  (visited, transformedData) => {
+  (visitedObjectsData, transformedData) => {
     return reduce(
-      visited,
+      visitedObjectsData,
       (acc, value) => {
         const {id} = value;
 

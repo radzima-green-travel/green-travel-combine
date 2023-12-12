@@ -1,7 +1,7 @@
 import {put} from 'redux-saga/effects';
-import {clearFavorites, clearVisited} from 'core/reducers';
+import {clearFavorites, clearVisitedObjects} from 'core/reducers';
 
 export function* clearUserDataSaga() {
   yield put(clearFavorites());
-  yield put(clearVisited());
+  yield put(clearVisitedObjects());
 }

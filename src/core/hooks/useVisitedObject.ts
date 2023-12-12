@@ -2,14 +2,14 @@ import {useCallback, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {addVisitedObjectRequest} from 'core/reducers';
-import {selectUserAuthorized, selectVisitedIds} from 'core/selectors';
+import {selectUserAuthorized, selectVisitedObjectsIds} from 'core/selectors';
 import {useSnackbar} from 'atoms';
-import {includes} from 'lodash';
+import {some, isEqual} from 'lodash';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 
 export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const dispatch = useDispatch();
-  const visitedIds = useSelector(selectVisitedIds);
+  const visitedObjectsIds = useSelector(selectVisitedObjectsIds);
   const isAuthorized = useSelector(selectUserAuthorized);
   const {t} = useTranslation('objectDetails');
 
@@ -17,8 +17,8 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     useSnackbar();
 
   const isVisited = useMemo(
-    () => includes(visitedIds, objectId),
-    [visitedIds, objectId],
+    () => some(visitedObjectsIds, id => isEqual(id, objectId)),
+    [visitedObjectsIds, objectId],
   );
 
   const markAsVisited = useCallback(() => {

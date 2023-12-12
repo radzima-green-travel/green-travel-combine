@@ -60,7 +60,7 @@ const appConfigurationPersistConfig = {
 const rootReducer = combineReducers({
   ...asyncReducers,
   bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
-  visited: visitedObjectsReducer,
+  visitedObjects: visitedObjectsReducer,
   bootsrap: bootstrapReducer,
   home: persistReducer(homePersistConfig, homeReducer),
   objectDetailsMap: objectDetailsMapReducer,
