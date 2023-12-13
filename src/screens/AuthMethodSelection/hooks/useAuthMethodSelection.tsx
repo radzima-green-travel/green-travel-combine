@@ -20,9 +20,9 @@ export const useAuthMethodSelection = () => {
   }, [navigation]);
 
   useEffect(() => {
-    const visitedObject = params?.visitedObject;
+    const visitedObject = params?.visitedObject ?? null;
 
-    dispatch(setPreparedVisitedObject(visitedObject ? visitedObject : null));
+    dispatch(setPreparedVisitedObject(visitedObject));
   }, [params]);
 
   const {navigateToPrivacyPolicy, navigateToTermsAndConditions} =
