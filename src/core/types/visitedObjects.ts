@@ -7,7 +7,7 @@ export interface VisitedObject {
   sub?: string;
 }
 
-export type VisitedObjectsData = VisitedObject[]
+export type VisitedObjectsData = VisitedObject[];
 
 export interface GetVisitedObjectsResponse {
   data: VisitedObjectsData;
@@ -17,4 +17,9 @@ export interface AddVisitedObjectBody {
   timestamp: number;
   spentTime?: number;
   rating?: number;
+}
+
+export interface AddVisitedObjectRequestBody {
+  objectId: string;
+  data: AddVisitedObjectBody;
 }

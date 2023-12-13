@@ -6,9 +6,18 @@ import {selectUserAuthorized, selectVisitedObjectsIds} from 'core/selectors';
 import {useSnackbar} from 'atoms';
 import {some, isEqual} from 'lodash';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
+import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
+import {MainNavigatorParamsList, ProfileNavigatorParamsList} from 'core/types';
+import {StackNavigationProp} from '@react-navigation/stack';
+
+export type NavigationProps = CompositeNavigationProp<
+  StackNavigationProp<ProfileNavigatorParamsList, 'Profile'>,
+  StackNavigationProp<MainNavigatorParamsList>
+>;
 
 export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const dispatch = useDispatch();
+  const navigation = useNavigation<NavigationProps>();
   const visitedObjectsIds = useSelector(selectVisitedObjectsIds);
   const isAuthorized = useSelector(selectUserAuthorized);
   const {t} = useTranslation('objectDetails');
@@ -22,15 +31,22 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   );
 
   const markAsVisited = useCallback(() => {
-    if (!isVisited && isAuthorized) {
-      dispatch(
-        addVisitedObjectRequest({
-          objectId,
-          data: {timestamp: Date.now()},
-        }),
-      );
+    const visitedObject = {
+      objectId,
+      data: {timestamp: Date.now()},
+    };
+
+    if (isAuthorized) {
+      dispatch(addVisitedObjectRequest(visitedObject));
+    } else {
+      navigation.navigate('AuthNavigator', {
+        screen: 'AuthMethodSelection',
+        params: {
+          visitedObject,
+        },
+      });
     }
-  }, [isVisited, isAuthorized]);
+  }, [objectId, isAuthorized]);
 
   const {loading: addVisitedObjectLoading} = useRequestLoading(
     addVisitedObjectRequest,
@@ -48,7 +64,7 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     isAuthorized,
     isVisited,
     markAsVisited,
-    addVisitedObjectLoading,
+    visitedObjectLoading: addVisitedObjectLoading,
     snackBarPropsVisitedObject,
   };
 };

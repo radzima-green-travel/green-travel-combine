@@ -1,5 +1,6 @@
 import {Animated} from 'react-native';
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {AddVisitedObjectRequestBody} from './visitedObjects';
 
 export type HomeNavigatorParamsList = {
   Home: undefined;
@@ -102,7 +103,11 @@ export type AuthNavigatorParamsList = {
     email: string;
     isSignUp: boolean;
   };
-  AuthMethodSelection: undefined;
+  AuthMethodSelection:
+    | {
+        visitedObject: AddVisitedObjectRequestBody;
+      }
+    | undefined;
   InAppWebView: {url: string; title: string};
   ChangePassword: undefined;
 };
