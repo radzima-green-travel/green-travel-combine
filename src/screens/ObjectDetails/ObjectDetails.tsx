@@ -52,10 +52,9 @@ export const ObjectDetails = () => {
     useFavorite({objectId});
 
   const {
-    isAuthorized,
     isVisited,
     markAsVisited,
-    addVisitedObjectLoading,
+    visitedObjectLoading,
     snackBarPropsVisitedObject,
   } = useVisitedObject({
     objectId,
@@ -94,16 +93,14 @@ export const ObjectDetails = () => {
                 }
                 onCoordinatesPress={copyLocationToClipboard}
               />
-              {isAuthorized ? (
-                <Button
-                  icon={() => (isVisited ? <Icon name={'check'} /> : <></>)}
-                  onPress={markAsVisited}
-                  text={isVisited ? t('visitedObject') : t('markAsVisited')}
-                  theme={'secondary'}
-                  style={styles.visitedButton}
-                  loading={addVisitedObjectLoading}
-                />
-              ) : null}
+              <Button
+                icon={() => (isVisited ? <Icon name={'check'} /> : <></>)}
+                onPress={markAsVisited}
+                text={isVisited ? t('visitedObject') : t('markAsVisited')}
+                theme={'secondary'}
+                style={styles.visitedButton}
+                loading={visitedObjectLoading}
+              />
             </View>
             <ObjectDescription
               isRoute={Boolean(data.routes)}
