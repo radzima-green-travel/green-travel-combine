@@ -5,28 +5,35 @@ import {
   AuthMethodSelectionScreenRouteProps,
 } from '../types';
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setPreparedVisitedObject, signInRequest} from 'core/reducers';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 import {useNavigateToPrivacyPolicyAndTnC} from 'core/hooks';
+import {selectPreparedVisitedObject} from 'core/selectors';
 
 export const useAuthMethodSelection = () => {
   const navigation = useNavigation<AuthMethodSelectionScreenNavigationProps>();
   const {params} = useRoute<AuthMethodSelectionScreenRouteProps>();
   const dispatch = useDispatch();
-  const handleEmailButtonPress = useCallback(() => {
-    navigation.navigate('CheckEmail');
-  }, [navigation]);
+  const preparedVisitedObject = useSelector(selectPreparedVisitedObject);
 
   useEffect(() => {
-    const visitedObject = params?.visitedObject ?? null;
+    const visitedObject = params?.visitedObject;
 
-    dispatch(setPreparedVisitedObject(visitedObject));
+    if (visitedObject) {
+      dispatch(setPreparedVisitedObject(visitedObject));
+    } else if (preparedVisitedObject) {
+      dispatch(setPreparedVisitedObject(null));
+    }
   }, [params]);
 
   const {navigateToPrivacyPolicy, navigateToTermsAndConditions} =
     useNavigateToPrivacyPolicyAndTnC();
+
+  const handleEmailButtonPress = useCallback(() => {
+    navigation.navigate('CheckEmail');
+  }, [navigation]);
 
   const handleGoogleButtonPress = () => {
     dispatch(
