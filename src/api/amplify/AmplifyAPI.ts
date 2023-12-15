@@ -268,6 +268,10 @@ class AmplifyApi extends AmplifyApiEngine {
       body: data,
     });
   };
+  
+  deleteUserVisitedObject = async ({objectId}: {objectId: string}) => {
+    return this.deleteByApi('apiac472374', `/visited-objects/${objectId}`);
+  };
 }
 
 export const amplifyApi = new AmplifyApi();

@@ -62,7 +62,10 @@
     "copyLocation": "Скопировать координаты",
     "visitedObject": "Вы посетили его!",
     "markAsVisited": "Отметить как посещенный",
-    "markedAsVisited": "Место отмечено как посещённое!"
+    "markedAsVisited": "Место отмечено как посещённое!",
+    "deleteVisitedObjectAlert": "Удалить посещенный объект?",
+    "deletedVisitedObject": "Посещенный объект будет удален.",
+    "delete": "Удалить"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"
