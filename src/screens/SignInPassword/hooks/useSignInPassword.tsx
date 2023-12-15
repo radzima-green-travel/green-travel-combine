@@ -1,6 +1,7 @@
 import {useCallback} from 'react';
 
 import {
+  useOnSuccessSignIn,
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
@@ -26,6 +27,8 @@ export const useSignInPassword = () => {
     params: {email},
   } = useRoute<SignInPasswordScreenRouteProps>();
 
+  const {onSuccessSignIn} = useOnSuccessSignIn();
+
   const navigateToRestorePassword = useCallback(() => {
     navigation.navigate('RestorePassword');
   }, [navigation]);
@@ -50,9 +53,7 @@ export const useSignInPassword = () => {
   const {passwordVisibility, rightIcon, handlePasswordVisibility} =
     useTogglePasswordVisibility('eye');
 
-  useOnRequestSuccess(signInRequest, () => {
-    navigation.getParent()?.goBack();
-  });
+  useOnRequestSuccess(signInRequest, onSuccessSignIn);
 
   const {show, ...snackBarProps} = useSnackbar();
 

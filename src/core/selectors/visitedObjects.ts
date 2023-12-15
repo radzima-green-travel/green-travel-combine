@@ -25,6 +25,3 @@ export const selectVisitedObjectsIds = createSelector(
     );
   },
 );
-
-export const selectPreparedVisitedObject = (state: IState) =>
-  state.visitedObjects.preparedVisitedObject;

@@ -7,11 +7,11 @@ import {useSnackbar} from 'atoms';
 import {some, isEqual} from 'lodash';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {MainNavigatorParamsList, ProfileNavigatorParamsList} from 'core/types';
+import {AuthNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 export type NavigationProps = CompositeNavigationProp<
-  StackNavigationProp<ProfileNavigatorParamsList, 'Profile'>,
+  StackNavigationProp<AuthNavigatorParamsList>,
   StackNavigationProp<MainNavigatorParamsList>
 >;
 
@@ -30,23 +30,28 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     [visitedObjectsIds, objectId],
   );
 
-  const markAsVisited = useCallback(() => {
-    const visitedObject = {
+  const visitedObject = useMemo(
+    () => ({
       objectId,
       data: {timestamp: Date.now()},
-    };
+    }),
+    [objectId],
+  );
 
+  const addVisitedObject = useCallback(() => {
+    dispatch(addVisitedObjectRequest(visitedObject));
+  }, [dispatch, visitedObject]);
+
+  const markAsVisited = useCallback(() => {
     if (isAuthorized) {
-      dispatch(addVisitedObjectRequest(visitedObject));
+      addVisitedObject();
     } else {
       navigation.navigate('AuthNavigator', {
         screen: 'AuthMethodSelection',
-        params: {
-          visitedObject,
-        },
+        onSuccessSignIn: addVisitedObject,
       });
     }
-  }, [objectId, isAuthorized]);
+  }, [isAuthorized]);
 
   const {loading: addVisitedObjectLoading} = useRequestLoading(
     addVisitedObjectRequest,

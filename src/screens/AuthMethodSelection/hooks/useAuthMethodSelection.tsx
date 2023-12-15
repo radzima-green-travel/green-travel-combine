@@ -1,35 +1,24 @@
-import {useCallback, useEffect} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {
-  AuthMethodSelectionScreenNavigationProps,
-  AuthMethodSelectionScreenRouteProps,
-} from '../types';
+import {useCallback} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {AuthMethodSelectionScreenNavigationProps} from '../types';
 
-import {useDispatch, useSelector} from 'react-redux';
-import {setPreparedVisitedObject, signInRequest} from 'core/reducers';
+import {useDispatch} from 'react-redux';
+import {signInRequest} from 'core/reducers';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
-import {useNavigateToPrivacyPolicyAndTnC} from 'core/hooks';
-import {selectPreparedVisitedObject} from 'core/selectors';
+import {
+  useNavigateToPrivacyPolicyAndTnC,
+  useOnSuccessSignIn,
+} from 'core/hooks';
 
 export const useAuthMethodSelection = () => {
   const navigation = useNavigation<AuthMethodSelectionScreenNavigationProps>();
-  const {params} = useRoute<AuthMethodSelectionScreenRouteProps>();
   const dispatch = useDispatch();
-  const preparedVisitedObject = useSelector(selectPreparedVisitedObject);
-
-  useEffect(() => {
-    const visitedObject = params?.visitedObject;
-
-    if (visitedObject) {
-      dispatch(setPreparedVisitedObject(visitedObject));
-    } else if (preparedVisitedObject) {
-      dispatch(setPreparedVisitedObject(null));
-    }
-  }, [params]);
 
   const {navigateToPrivacyPolicy, navigateToTermsAndConditions} =
     useNavigateToPrivacyPolicyAndTnC();
+
+  const {onSuccessSignIn} = useOnSuccessSignIn();
 
   const handleEmailButtonPress = useCallback(() => {
     navigation.navigate('CheckEmail');
@@ -51,9 +40,7 @@ export const useAuthMethodSelection = () => {
     );
   };
 
-  useOnRequestSuccess(signInRequest, () => {
-    navigation.goBack();
-  });
+  useOnRequestSuccess(signInRequest, onSuccessSignIn);
 
   const {getLoadingStateByEntityId} = useRequestLoading(signInRequest);
 

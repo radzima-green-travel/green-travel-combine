@@ -9,6 +9,7 @@ import {
   confirmSignUpCancel,
 } from 'core/reducers';
 import {
+  useOnSuccessSignIn,
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
@@ -33,6 +34,8 @@ export const useEmailValidation = () => {
   } = useRoute<EmailValidationScreenRouteProps>();
 
   const dispatch = useDispatch();
+
+  const {onSuccessSignIn} = useOnSuccessSignIn();
 
   const onConfirmSignUp = useCallback(
     ({code}: {code: string}) => {
@@ -76,9 +79,7 @@ export const useEmailValidation = () => {
 
   const buttonText = t('ready');
 
-  useOnRequestSuccess(confirmSignUpRequest, () => {
-    navigation.getParent()?.goBack();
-  });
+  useOnRequestSuccess(confirmSignUpRequest, onSuccessSignIn);
 
   useOnRequestSuccess(
     forgotPasswordCodeSubmitRequest,
