@@ -1,6 +1,7 @@
 import {ActionType, createAction, createReducer} from 'typesafe-actions';
 import {AddVisitedObjectBody, VisitedObjectsData} from 'core/types';
 import {ACTIONS} from '../constants';
+import {filter, isEqual} from 'lodash';
 
 export const getVisitedObjectsRequest = createAction(
   ACTIONS.GET_VISITED_OBJECTS_REQUEST,
@@ -25,6 +26,18 @@ export const addVisitedObjectFailure = createAction(
   ACTIONS.ADD_VISITED_OBJECT_FAILURE,
 )<Error>();
 
+export const deleteVisitedObjectRequest = createAction(
+  ACTIONS.DELETE_VISITED_OBJECT_REQUEST,
+)<{
+  objectId: string;
+}>();
+export const deleteVisitedObjectSuccess = createAction(
+  ACTIONS.DELETE_VISITED_OBJECT_SUCCESS,
+)();
+export const deleteVisitedObjectFailure = createAction(
+  ACTIONS.DELETE_VISITED_OBJECT_FAILURE,
+)<Error>();
+
 export const clearVisitedObjects = createAction(
   ACTIONS.CLEAR_VISITED_OBJECTS,
 )();
@@ -40,6 +53,7 @@ const defaultState = {
 const actions = {
   getVisitedObjectsSuccess,
   addVisitedObjectRequest,
+  deleteVisitedObjectRequest,
   clearVisitedObjects,
 };
 
@@ -62,6 +76,14 @@ export const visitedObjectsReducer = createReducer<
           id: payload.objectId,
           timestamp: payload.data.timestamp,
         },
+      ],
+    };
+  })
+  .handleAction(deleteVisitedObjectRequest, (state, {payload}) => {
+    return {
+      ...state,
+      data: [
+        ...filter(state.data, object => !isEqual(object.id, payload.objectId)),
       ],
     };
   })

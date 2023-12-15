@@ -73,4 +73,15 @@ export class AmplifyApiEngine {
       headers: await this.getHeaders(config),
     });
   }
+
+  async deleteByApi(
+    apiName: string,
+    path: string,
+    params?: Record<string, any>
+  ) {
+    return API.del(apiName, path, {
+      headers: await this.getHeaders(),
+      queryStringParameters: params,
+    });
+  }
 }

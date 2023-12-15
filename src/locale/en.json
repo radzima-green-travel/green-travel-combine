@@ -62,7 +62,10 @@
     "copyLocation": "Copy location",
     "visitedObject": "You’ve visited it!",
     "markAsVisited": "Mark as visited",
-    "markedAsVisited": "Place marked as visited!"
+    "markedAsVisited": "Place marked as visited!",
+    "deleteVisitedObjectAlert": "Remove visited object?",
+    "deletedVisitedObject": "Visited object will be removed.",
+    "delete": "Remove"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"
