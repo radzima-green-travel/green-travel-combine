@@ -18,8 +18,3 @@ export interface AddVisitedObjectBody {
   spentTime?: number;
   rating?: number;
 }
-
-export interface AddVisitedObjectRequestBody {
-  objectId: string;
-  data: AddVisitedObjectBody;
-}

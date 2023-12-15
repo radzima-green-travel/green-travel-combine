@@ -1,5 +1,5 @@
 import {ActionType, createAction, createReducer} from 'typesafe-actions';
-import {AddVisitedObjectRequestBody, VisitedObjectsData} from 'core/types';
+import {AddVisitedObjectBody, VisitedObjectsData} from 'core/types';
 import {ACTIONS} from '../constants';
 
 export const getVisitedObjectsRequest = createAction(
@@ -14,7 +14,10 @@ export const getVisitedObjectsFailure = createAction(
 
 export const addVisitedObjectRequest = createAction(
   ACTIONS.ADD_VISITED_OBJECT_REQUEST,
-)<AddVisitedObjectRequestBody>();
+)<{
+  objectId: string;
+  data: AddVisitedObjectBody;
+}>();
 export const addVisitedObjectSuccess = createAction(
   ACTIONS.ADD_VISITED_OBJECT_SUCCESS,
 )();
@@ -22,28 +25,21 @@ export const addVisitedObjectFailure = createAction(
   ACTIONS.ADD_VISITED_OBJECT_FAILURE,
 )<Error>();
 
-export const setPreparedVisitedObject = createAction(
-  ACTIONS.SET_PREPARED_VISITED_OBJECT,
-)<AddVisitedObjectRequestBody | null>();
-
 export const clearVisitedObjects = createAction(
   ACTIONS.CLEAR_VISITED_OBJECTS,
 )();
 
 interface IDefaultState {
   data: VisitedObjectsData;
-  preparedVisitedObject: AddVisitedObjectRequestBody | null;
 }
 
 const defaultState = {
   data: [],
-  preparedVisitedObject: null,
 };
 
 const actions = {
   getVisitedObjectsSuccess,
   addVisitedObjectRequest,
-  setPreparedVisitedObject,
   clearVisitedObjects,
 };
 
@@ -67,15 +63,9 @@ export const visitedObjectsReducer = createReducer<
           timestamp: payload.data.timestamp,
         },
       ],
-      preparedVisitedObject: null,
     };
   })
-  .handleAction(setPreparedVisitedObject, (state, {payload}) => {
-    return {
-      ...state,
-      preparedVisitedObject: payload,
-    };
-  })
-  .handleAction(clearVisitedObjects, () => ({
-    ...defaultState,
+  .handleAction(clearVisitedObjects, state => ({
+    ...state,
+    data: [],
   }));

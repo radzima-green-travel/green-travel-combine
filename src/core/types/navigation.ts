@@ -1,6 +1,5 @@
 import {Animated} from 'react-native';
 import {NavigatorScreenParams} from '@react-navigation/native';
-import {AddVisitedObjectRequestBody} from './visitedObjects';
 
 export type HomeNavigatorParamsList = {
   Home: undefined;
@@ -67,7 +66,9 @@ export type MainNavigatorParamsList = {
   PageNotFoundErrorScreen: undefined;
   Splash: undefined;
   ObjectDetailsMap: {objectId: string; categoryId: string};
-  AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList>;
+  AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList> & {
+    onSuccessSignIn?: () => void;
+  };
   ObjectDetails: {
     objectId: string;
     animatedValue?: Animated.Value;
@@ -103,11 +104,7 @@ export type AuthNavigatorParamsList = {
     email: string;
     isSignUp: boolean;
   };
-  AuthMethodSelection:
-    | {
-        visitedObject: AddVisitedObjectRequestBody;
-      }
-    | undefined;
+  AuthMethodSelection: undefined;
   InAppWebView: {url: string; title: string};
   ChangePassword: undefined;
 };
