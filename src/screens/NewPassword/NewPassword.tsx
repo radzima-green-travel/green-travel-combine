@@ -4,6 +4,7 @@ import {FormInput, PasswordHint, SnackBar, WithFormikInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useNewPassword} from './hooks';
 import {FormikProvider} from 'formik';
+import {TestIDs} from 'core/types';
 
 export const NewPassword = () => {
   const {t} = useTranslation('authentification');
@@ -30,6 +31,7 @@ export const NewPassword = () => {
         <WithFormikInput<string> name="password">
           {({messageText, ...inputProps}) => (
             <FormInput
+              testID={TestIDs.PasswordInput}
               autoFocus
               iconRight={{
                 name: rightIcon,

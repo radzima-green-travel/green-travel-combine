@@ -12,6 +12,7 @@ import {AuthForm} from 'organisms';
 import {useSignUpForm} from './hooks';
 import {FormikProvider} from 'formik';
 import {ScrollView} from 'react-native-gesture-handler';
+import {TestIDs} from 'core/types';
 
 const HandleKeyboardScrollView =
   createHandleKeyboardScrollComponent(ScrollView);
@@ -45,6 +46,7 @@ export const SignUpForm = () => {
               {({messageText, ...inputProps}) => (
                 <>
                   <FormInput
+                    testID={TestIDs.PasswordInput}
                     autoFocus
                     iconRight={{
                       name: rightIcon,
