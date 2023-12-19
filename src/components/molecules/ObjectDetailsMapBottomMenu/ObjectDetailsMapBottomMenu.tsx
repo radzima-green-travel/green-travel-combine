@@ -6,7 +6,7 @@ import {Button, Icon} from 'atoms';
 import {FavoriteButtonContainer} from 'containers';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
-import {IObject} from 'core/types';
+import {IObject, TestIDs} from 'core/types';
 
 export type ObjectDetailsMapBottomMenuRef = {
   show: () => void;
@@ -69,6 +69,7 @@ export const ObjectDetailsMapBottomMenu = memo(
               <Text style={styles.text}>{name}</Text>
 
               <FavoriteButtonContainer
+                testID={TestIDs.FavoriteButton}
                 loadingIndicatorColor={
                   (styles.icon as TextStyle).color as string
                 }

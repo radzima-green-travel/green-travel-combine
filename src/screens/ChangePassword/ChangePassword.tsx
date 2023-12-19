@@ -15,6 +15,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {styles} from './styles';
 import {View} from 'react-native';
 import {screenOptions} from './screenOptions';
+import {TestIDs} from 'core/types';
 const HandleKeyboardScrollView =
   createHandleKeyboardScrollComponent(ScrollView);
 
@@ -43,6 +44,7 @@ export const ChangePassword = () => {
             <WithFormikInput<string> name="oldPassword">
               {({messageText, ...inputProps}) => (
                 <FormInput
+                  testID={TestIDs.OldPasswordInput}
                   autoFocus
                   iconRight={{
                     name: oldPasswordVisibility.rightIcon,
@@ -64,6 +66,7 @@ export const ChangePassword = () => {
               <WithFormikInput<string> name="newPassword">
                 {({messageText, ...inputProps}) => (
                   <FormInput
+                    testID={TestIDs.NewPasswordInput}
                     iconRight={{
                       name: newPasswordVisibility.rightIcon,
                     }}

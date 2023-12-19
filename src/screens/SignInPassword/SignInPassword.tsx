@@ -5,6 +5,7 @@ import {AuthForm} from 'organisms';
 import {useSignInPassword} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {FormikProvider} from 'formik';
+import {TestIDs} from 'core/types';
 
 export const SignInPassword = () => {
   const {t} = useTranslation('authentification');
@@ -35,6 +36,7 @@ export const SignInPassword = () => {
         <WithFormikInput<string> name="password">
           {({messageText, ...inputProps}) => (
             <FormInput
+              testID={TestIDs.PasswordInput}
               autoFocus
               iconRight={{
                 name: rightIcon,

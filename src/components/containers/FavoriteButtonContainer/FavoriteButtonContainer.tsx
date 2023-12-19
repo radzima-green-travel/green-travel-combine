@@ -15,7 +15,7 @@ interface IProps {
   onAnimationEnd?: () => void;
   onFavoriteToggle?: (nextIsFavorite: boolean) => void;
   loadingIndicatorColor?: string;
-  testID?: string;
+  testID: string;
 }
 
 export const FavoriteButtonContainer = memo(

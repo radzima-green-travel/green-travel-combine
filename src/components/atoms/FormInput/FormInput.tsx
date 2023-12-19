@@ -20,6 +20,8 @@ import {IconProps} from 'atoms/Icon';
 import {HelperText} from '../HelperText';
 import {useHandleKeyboardInput} from '../HandleKeyboard';
 import {useTextInputAutoFocus} from 'core/hooks';
+import {TestIDs} from 'core/types';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   iconLeft?: IconProps;
@@ -42,6 +44,7 @@ interface IProps {
   returnKeyType?: ComponentProps<typeof TextInput>['returnKeyType'];
   label?: string;
   focusNextFieldOnSubmit?: boolean;
+  testID: string;
 }
 
 export const FormInput = ({
@@ -65,6 +68,7 @@ export const FormInput = ({
   onSubmitEditing,
   focusNextFieldOnSubmit,
   returnKeyType,
+  testID,
 }: IProps) => {
   const styles = useThemeStyles(themeStyles);
   const ref = useRef<TextInput>(null);
@@ -193,6 +197,7 @@ export const FormInput = ({
         <View style={styles.inputFieldWrapper}>
           {renderLabel()}
           <TextInput
+            testID={testID}
             ref={inputRef}
             style={styles.inputField}
             secureTextEntry={secureTextEntry}
@@ -214,6 +219,7 @@ export const FormInput = ({
         {iconRight ? (
           <Pressable onPress={onRightIconPress}>
             <Icon
+              testID={composeTestID(testID, TestIDs.Icon)}
               style={[styles.icon, styles.rightIcon]}
               {...iconRight}
               size={24}

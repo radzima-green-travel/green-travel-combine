@@ -2,7 +2,6 @@ import React, {memo, PropsWithChildren} from 'react';
 import {View, Text, Keyboard} from 'react-native';
 import {Button} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
-import {getPlatformsTestID} from 'core/helpers';
 import {TestIDs} from 'core/types';
 
 import {themeStyles} from './styles';
@@ -45,7 +44,7 @@ export const AuthForm = memo(
         {text ? <Text style={styles.text}>{text}</Text> : null}
         <View style={styles.formFieldsContainer}>{children}</View>
         <Button
-          {...getPlatformsTestID(TestIDs.SendButton)}
+          testID={TestIDs.SubmitButton}
           loading={submitButtonLoading}
           disabled={isSubmitButtonDisabled}
           onPress={onSubmitPress}
@@ -53,7 +52,7 @@ export const AuthForm = memo(
         />
         {secondaryButtonText ? (
           <Button
-            {...getPlatformsTestID(TestIDs.SendButton)}
+            testID={TestIDs.SecondaryButton}
             loading={secondaryButtonLoading}
             disabled={secondaryButtonLoading}
             onPress={onSecondaryButtonPress}

@@ -4,6 +4,7 @@ import {FormInput, SnackBar, WithFormikInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useCheckEmail} from './hooks';
 import {FormikProvider} from 'formik';
+import {TestIDs} from 'core/types';
 
 export const CheckEmail = () => {
   const {t} = useTranslation('authentification');
@@ -21,6 +22,7 @@ export const CheckEmail = () => {
         <WithFormikInput<string> name="email">
           {({messageText, ...inputProps}) => (
             <FormInput
+              testID={TestIDs.EmailInput}
               autoFocus
               label={t('email')}
               keyboardType="email-address"
