@@ -14,7 +14,6 @@ import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import {Image} from 'expo-image';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {TestIDs} from 'core/types';
 
 export const ratio = 324 / 144;
 interface IProps {
@@ -74,7 +73,6 @@ export const Card = memo(
           </Text>
           {isFavoriteBlockVisible ? (
             <FavoriteButtonContainer
-              testID={TestIDs.FavoriteButton}
               onFavoriteToggle={onFavoriteChanged}
               removeWithAnimation={removeFavoriteWithAnimation}
               onAnimationEnd={onRemoveAnimationEnd}

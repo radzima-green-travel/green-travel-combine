@@ -5,6 +5,7 @@ import {COLORS} from 'assets';
 import {styles} from './styles';
 import {getPlatformsTestID} from 'core/helpers';
 import {useFavorite} from 'core/hooks';
+import {TestIDs} from 'core/types';
 const onAnimationEndDefault = () => {};
 
 interface IProps {
@@ -15,7 +16,7 @@ interface IProps {
   onAnimationEnd?: () => void;
   onFavoriteToggle?: (nextIsFavorite: boolean) => void;
   loadingIndicatorColor?: string;
-  testID: string;
+  testID?: string;
 }
 
 export const FavoriteButtonContainer = memo(
@@ -41,6 +42,7 @@ export const FavoriteButtonContainer = memo(
       <View {...getPlatformsTestID(testID)}>
         <View style={favoritesSynchronizing && styles.opaque}>
           <TouchableOpacity
+            testID={TestIDs.FavoriteButton}
             hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
             style={style}
             onPress={toggleFavoriteHandler}

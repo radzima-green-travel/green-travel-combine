@@ -52,7 +52,6 @@ export const AppMapBottomMenu = memo(
               </Text>
 
               <FavoriteButtonContainer
-                testID={TestIDs.FavoriteButton}
                 loadingIndicatorColor={
                   (styles.icon as TextStyle).color as string
                 }
