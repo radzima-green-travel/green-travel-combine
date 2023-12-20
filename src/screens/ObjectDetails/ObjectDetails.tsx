@@ -55,7 +55,9 @@ export const ObjectDetails = () => {
     isVisited,
     markAsVisited,
     visitedObjectLoading,
-    snackBarPropsVisitedObject,
+    animationRef,
+    iconAnimatedStyle,
+    textAnimatedStyle,
   } = useVisitedObject({
     objectId,
   });
@@ -100,6 +102,9 @@ export const ObjectDetails = () => {
                 theme={'secondary'}
                 style={styles.visitedButton}
                 loading={visitedObjectLoading}
+                animationRef={animationRef}
+                iconAnimatedStyle={iconAnimatedStyle}
+                textAnimatedStyle={textAnimatedStyle}
               />
             </View>
             <ObjectDescription
@@ -171,7 +176,6 @@ export const ObjectDetails = () => {
           />
         </View>
       ) : null}
-      <SnackBar offset={-top} {...snackBarPropsVisitedObject} isOnTop />
     </SuspenseView>
   );
 };
