@@ -63,9 +63,9 @@
     "visitedObject": "You’ve visited it!",
     "markAsVisited": "Mark as visited",
     "markedAsVisited": "Place marked as visited!",
-    "deleteVisitedObjectAlert": "Remove visited object?",
-    "deletedVisitedObject": "Visited object will be removed.",
-    "delete": "Remove"
+    "deleteVisitedObjectAlert": "Unmark place as visited?",
+    "deletedVisitedObject": "Are you sure that you want to unmark place as visited?",
+    "delete": "Unmark"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

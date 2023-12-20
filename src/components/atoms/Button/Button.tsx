@@ -9,11 +9,14 @@ import {
   TouchableOpacity,
   TextStyle,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
+import Animated from 'react-native-reanimated';
 
 import {BUTTON_THEMES} from './constants';
 import {styles} from './styles';
 import {ButtonThemes} from './types';
 import {getPlatformsTestID} from 'core/helpers';
+import {animations} from 'assets';
 
 type Props = PropsWithChildren<{
   text?: string;
@@ -27,6 +30,9 @@ type Props = PropsWithChildren<{
   testID: string;
   iconPostion?: 'left' | 'center';
   isIconOnlyButton?: boolean;
+  animationRef?: React.RefObject<LottieView>;
+  iconAnimatedStyle?: StyleProp<ViewStyle>;
+  textAnimatedStyle?: StyleProp<TextStyle>;
 }>;
 
 export const Button = memo(
@@ -42,6 +48,9 @@ export const Button = memo(
     theme = 'primary',
     iconPostion = 'center',
     isIconOnlyButton,
+    animationRef,
+    iconAnimatedStyle,
+    textAnimatedStyle,
   }: Props) => {
     const buttonThemeStyles = useThemeStyles(BUTTON_THEMES[theme]);
 
@@ -64,17 +73,29 @@ export const Button = memo(
 
       return (
         <View style={styles.contentContainer}>
+          {animationRef ? (
+            <LottieView
+              source={animations['Confetti']}
+              ref={animationRef}
+              style={styles.animationContainer}
+              loop={false}
+            />
+          ) : null}
           {icon ? (
-            <View
+            <Animated.View
               style={[
                 !isIconOnlyButton && styles.iconContainer,
                 iconPostion === 'left' && styles.leftIconContainer,
+                iconAnimatedStyle && iconAnimatedStyle,
               ]}>
               {icon(textThemeStyles)}
-            </View>
+            </Animated.View>
           ) : null}
           {text && !isIconOnlyButton ? (
-            <Text style={finalTextStyle}>{text}</Text>
+            <Animated.Text
+              style={[finalTextStyle, textAnimatedStyle && textAnimatedStyle]}>
+              {text}
+            </Animated.Text>
           ) : null}
         </View>
       );

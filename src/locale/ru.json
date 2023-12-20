@@ -63,9 +63,9 @@
     "visitedObject": "Вы посетили его!",
     "markAsVisited": "Отметить как посещенный",
     "markedAsVisited": "Место отмечено как посещённое!",
-    "deleteVisitedObjectAlert": "Удалить посещенный объект?",
-    "deletedVisitedObject": "Посещенный объект будет удален.",
-    "delete": "Удалить"
+    "deleteVisitedObjectAlert": "Снять пометку с посещенного места?",
+    "deletedVisitedObject": "Вы уверены, что хотите снять пометку с посещенного места?",
+    "delete": "Снять отметку"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"
