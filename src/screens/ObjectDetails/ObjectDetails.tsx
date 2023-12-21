@@ -9,7 +9,14 @@ import {
   ObjectDetailsBottomButtons,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
-import {ImageSlider, SnackBar, SuspenseView, Button, Icon} from 'atoms';
+import {
+  ImageSlider,
+  SnackBar,
+  SuspenseView,
+  Button,
+  Icon,
+  LottieAnimation,
+} from 'atoms';
 import {useFavorite, useTranslation, useVisitedObject} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
@@ -56,8 +63,9 @@ export const ObjectDetails = () => {
     markAsVisited,
     visitedObjectLoading,
     animationRef,
-    iconAnimatedStyle,
-    textAnimatedStyle,
+    onButtonLabelLayout,
+    iconContainerAnimatedStyle,
+    labelAnimatedStyle,
   } = useVisitedObject({
     objectId,
   });
@@ -95,16 +103,21 @@ export const ObjectDetails = () => {
                 }
                 onCoordinatesPress={copyLocationToClipboard}
               />
+              <LottieAnimation ref={animationRef} name={'Confetti'} />
               <Button
                 icon={() => (isVisited ? <Icon name={'check'} /> : <></>)}
                 onPress={markAsVisited}
                 text={isVisited ? t('visitedObject') : t('markAsVisited')}
                 theme={'secondary'}
-                style={styles.visitedButton}
+                style={[
+                  styles.visitedButton,
+                  isVisited && styles.markedVisitedButtonContainer,
+                ]}
+                textStyle={styles.visitedButtonText}
                 loading={visitedObjectLoading}
-                animationRef={animationRef}
-                iconAnimatedStyle={iconAnimatedStyle}
-                textAnimatedStyle={textAnimatedStyle}
+                onButtonLabelLayout={onButtonLabelLayout}
+                iconContainerAnimatedStyle={iconContainerAnimatedStyle}
+                labelAnimatedStyle={labelAnimatedStyle}
               />
             </View>
             <ObjectDescription

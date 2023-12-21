@@ -29,10 +29,4 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  animationContainer: {
-    position: 'absolute',
-    width: 200,
-    height: 200,
-    bottom: -50,
-  },
 });

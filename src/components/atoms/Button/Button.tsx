@@ -1,22 +1,20 @@
 import {useThemeStyles} from 'core/hooks';
 import React, {memo, PropsWithChildren} from 'react';
 import {
-  Text,
   StyleProp,
   ViewStyle,
   ActivityIndicator,
   View,
   TouchableOpacity,
   TextStyle,
+  LayoutChangeEvent,
 } from 'react-native';
-import LottieView from 'lottie-react-native';
 import Animated from 'react-native-reanimated';
 
 import {BUTTON_THEMES} from './constants';
 import {styles} from './styles';
 import {ButtonThemes} from './types';
 import {getPlatformsTestID} from 'core/helpers';
-import {animations} from 'assets';
 
 type Props = PropsWithChildren<{
   text?: string;
@@ -30,9 +28,9 @@ type Props = PropsWithChildren<{
   testID: string;
   iconPostion?: 'left' | 'center';
   isIconOnlyButton?: boolean;
-  animationRef?: React.RefObject<LottieView>;
-  iconAnimatedStyle?: StyleProp<ViewStyle>;
-  textAnimatedStyle?: StyleProp<TextStyle>;
+  onButtonLabelLayout?: (event: LayoutChangeEvent) => void;
+  iconContainerAnimatedStyle?: StyleProp<ViewStyle>;
+  labelAnimatedStyle?: StyleProp<TextStyle>;
 }>;
 
 export const Button = memo(
@@ -48,9 +46,9 @@ export const Button = memo(
     theme = 'primary',
     iconPostion = 'center',
     isIconOnlyButton,
-    animationRef,
-    iconAnimatedStyle,
-    textAnimatedStyle,
+    onButtonLabelLayout,
+    iconContainerAnimatedStyle,
+    labelAnimatedStyle,
   }: Props) => {
     const buttonThemeStyles = useThemeStyles(BUTTON_THEMES[theme]);
 
@@ -73,27 +71,20 @@ export const Button = memo(
 
       return (
         <View style={styles.contentContainer}>
-          {animationRef ? (
-            <LottieView
-              source={animations['Confetti']}
-              ref={animationRef}
-              style={styles.animationContainer}
-              loop={false}
-            />
-          ) : null}
           {icon ? (
             <Animated.View
               style={[
                 !isIconOnlyButton && styles.iconContainer,
                 iconPostion === 'left' && styles.leftIconContainer,
-                iconAnimatedStyle && iconAnimatedStyle,
+                iconContainerAnimatedStyle,
               ]}>
               {icon(textThemeStyles)}
             </Animated.View>
           ) : null}
           {text && !isIconOnlyButton ? (
             <Animated.Text
-              style={[finalTextStyle, textAnimatedStyle && textAnimatedStyle]}>
+              style={[finalTextStyle, labelAnimatedStyle]}
+              onLayout={onButtonLabelLayout}>
               {text}
             </Animated.Text>
           ) : null}
