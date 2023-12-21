@@ -19,11 +19,14 @@ export const styles = StyleSheet.create({
   visitedButton: {
     marginTop: 14,
   },
-  markedVisitedButtonContainer: {
-    paddingLeft: 32,
-  },
   visitedButtonText: {
     position: 'absolute',
+  },
+  animationContainer: {
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: -50,
+    zIndex: 1,
   },
 
   emptyContatiner: {

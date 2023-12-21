@@ -1,21 +1,32 @@
 import {forwardRef, memo} from 'react';
+import {StyleProp, View, ViewStyle} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {animations} from 'assets';
 import {AnimationName} from 'core/types';
-import {styles} from './styles';
-import {View} from 'react-native';
+
+interface IProps {
+  name: AnimationName;
+  width: number;
+  height: number;
+  containerStyle?: StyleProp<ViewStyle>;
+}
 
 export const LottieAnimation = memo(
-  forwardRef<LottieView, {name: AnimationName}>(({name}, ref) => {
-    return (
-      <View pointerEvents={'none'} style={styles.container}>
-        <LottieView
-          ref={ref}
-          source={animations[name]}
-          style={styles.animationContainer}
-          loop={false}
-        />
-      </View>
-    );
-  }),
+  forwardRef<LottieView, IProps>(
+    ({name, width, height, containerStyle}, ref) => {
+      return (
+        <View pointerEvents={'none'} style={containerStyle}>
+          <LottieView
+            ref={ref}
+            source={animations[name]}
+            style={{
+              width,
+              height,
+            }}
+            loop={false}
+          />
+        </View>
+      );
+    },
+  ),
 );

@@ -13,7 +13,12 @@ export const useMarkAsVisitedButtonAnimation = () => {
   const animatedValue = useSharedValue(1);
   const [labelWidth, setLabelWidth] = useState(0);
 
-  const onAddVisitedObjectSuccess = useCallback(() => {
+  const resetAnimation = useCallback(() => {
+    animationRef.current?.reset();
+    animatedValue.value = 0;
+  }, [animatedValue]);
+
+  const runSuccessAnimation = useCallback(() => {
     animatedValue.value = withTiming(1, {
       duration: 300,
     });
@@ -28,12 +33,13 @@ export const useMarkAsVisitedButtonAnimation = () => {
 
   const iconContainerAnimatedStyle = useAnimatedStyle(() => {
     return {
+      marginRight: 0,
       transform: [
         {
           translateX: interpolate(
             animatedValue.value,
             [0, 1],
-            [0, -labelWidth / 2 - 8],
+            [0, -labelWidth / 2],
           ),
         },
       ],
@@ -43,15 +49,21 @@ export const useMarkAsVisitedButtonAnimation = () => {
   const labelAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: animatedValue.value,
+      transform: [
+        {
+          translateX: interpolate(animatedValue.value, [0, 1], [0, 16]),
+        },
+      ],
     };
   });
 
   return {
     animatedValue,
     animationRef,
+    resetAnimation,
     onButtonLabelLayout,
     iconContainerAnimatedStyle,
     labelAnimatedStyle,
-    onAddVisitedObjectSuccess,
+    runSuccessAnimation,
   };
 };
