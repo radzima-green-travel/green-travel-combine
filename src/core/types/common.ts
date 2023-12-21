@@ -1,5 +1,6 @@
 import {MultiPolygon, LineString} from '@turf/helpers';
 import {IRequestError} from './errors';
+import {animations} from 'assets';
 export interface ILabelError {
   text: string;
   title: string;
@@ -128,6 +129,8 @@ export interface IGetHomeDataResponse {
 }
 
 export type SupportedLocales = 'ru' | 'en';
+
+export type AnimationName = keyof typeof animations;
 
 export type CategoryI18n =
   | ({

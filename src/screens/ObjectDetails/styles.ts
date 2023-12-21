@@ -19,6 +19,12 @@ export const styles = StyleSheet.create({
   visitedButton: {
     marginTop: 14,
   },
+  markedVisitedButtonContainer: {
+    paddingLeft: 32,
+  },
+  visitedButtonText: {
+    position: 'absolute',
+  },
 
   emptyContatiner: {
     height: IMAGE_HEIGHT,

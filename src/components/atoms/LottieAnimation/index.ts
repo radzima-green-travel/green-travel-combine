@@ -1,0 +1,1 @@
+export {LottieAnimation} from './LottieAnimation';
