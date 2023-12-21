@@ -103,21 +103,26 @@ export const ObjectDetails = () => {
                 }
                 onCoordinatesPress={copyLocationToClipboard}
               />
-              <LottieAnimation ref={animationRef} name={'Confetti'} />
+              <LottieAnimation
+                ref={animationRef}
+                name={'Confetti'}
+                width={200}
+                height={200}
+                containerStyle={styles.animationContainer}
+              />
               <Button
                 icon={() => (isVisited ? <Icon name={'check'} /> : <></>)}
                 onPress={markAsVisited}
                 text={isVisited ? t('visitedObject') : t('markAsVisited')}
                 theme={'secondary'}
-                style={[
-                  styles.visitedButton,
-                  isVisited && styles.markedVisitedButtonContainer,
-                ]}
+                style={styles.visitedButton}
                 textStyle={styles.visitedButtonText}
                 loading={visitedObjectLoading}
                 onButtonLabelLayout={onButtonLabelLayout}
-                iconContainerAnimatedStyle={iconContainerAnimatedStyle}
-                labelAnimatedStyle={labelAnimatedStyle}
+                iconContainerAnimatedStyle={
+                  isVisited && iconContainerAnimatedStyle
+                }
+                labelAnimatedStyle={isVisited && labelAnimatedStyle}
               />
             </View>
             <ObjectDescription

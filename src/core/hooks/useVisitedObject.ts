@@ -27,10 +27,10 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const isAuthorized = useSelector(selectUserAuthorized);
 
   const {
-    animatedValue,
     animationRef,
+    resetAnimation,
     onButtonLabelLayout,
-    onAddVisitedObjectSuccess,
+    runSuccessAnimation,
     iconContainerAnimatedStyle,
     labelAnimatedStyle,
   } = useMarkAsVisitedButtonAnimation();
@@ -49,7 +49,7 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   );
 
   const addVisitedObject = useCallback(() => {
-    animatedValue.value = 0;
+    resetAnimation();
     dispatch(addVisitedObjectRequest(visitedObject));
   }, [dispatch, visitedObject]);
 
@@ -82,7 +82,7 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     deleteVisitedObjectRequest,
   );
 
-  useOnRequestSuccess(addVisitedObjectRequest, onAddVisitedObjectSuccess);
+  useOnRequestSuccess(addVisitedObjectRequest, runSuccessAnimation);
 
   return {
     isAuthorized,
