@@ -1,0 +1,1 @@
+export {AnimatedStar} from './AnimatedStar';
