@@ -1,36 +1,46 @@
 import {memo, useEffect, useRef} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import LottieView from 'lottie-react-native';
-import {LottieAnimation} from '../LottieAnimation';
+import {Icon, LottieAnimation} from 'atoms';
 import {styles} from './styles';
 
 interface IProps {
-  onPress: (point: number) => void;
   value: number;
-  showAnimation: boolean;
+  marked: boolean;
+  onPress?: (point: number) => void;
 }
 
-export const AnimatedStar = memo(({onPress, value, showAnimation}: IProps) => {
+export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
   const animationRef = useRef<LottieView>(null);
 
   useEffect(() => {
-    showAnimation
-      ? animationRef.current?.play()
-      : animationRef.current?.reset();
-  }, [showAnimation, animationRef]);
+    marked ? animationRef.current?.play() : animationRef.current?.reset();
+  }, [marked, animationRef]);
 
   const handlePress = () => {
-    onPress(value);
+    onPress?.(value);
   };
 
+  const renderIcon = () => (
+    <Icon name={marked ? 'markedStar' : 'star'} size={42} />
+  );
+
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.container}>
-      <LottieAnimation
-        ref={animationRef}
-        name={'Star'}
-        width={42}
-        height={42}
-      />
-    </TouchableOpacity>
+    <View style={styles.container}>
+      {onPress ? (
+        <TouchableOpacity onPress={handlePress}>
+          <LottieAnimation
+            ref={animationRef}
+            name={'Star'}
+            width={42}
+            height={42}
+            containerStyle={styles.animationContainer}
+          />
+          {renderIcon()}
+        </TouchableOpacity>
+      ) : (
+        renderIcon()
+      )}
+    </View>
   );
 });
