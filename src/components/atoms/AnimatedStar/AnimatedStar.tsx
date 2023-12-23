@@ -1,4 +1,4 @@
-import {memo, useEffect, useRef} from 'react';
+import {memo, useCallback, useEffect, useRef} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Icon, LottieAnimation} from 'atoms';
@@ -21,8 +21,9 @@ export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
     onPress?.(value);
   };
 
-  const renderIcon = () => (
-    <Icon name={marked ? 'markedStar' : 'star'} size={42} />
+  const renderIcon = useCallback(
+    () => <Icon name={marked ? 'markedStar' : 'star'} size={42} />,
+    [marked],
   );
 
   return (
