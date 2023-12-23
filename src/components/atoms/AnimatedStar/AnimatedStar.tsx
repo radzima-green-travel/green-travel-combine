@@ -1,13 +1,13 @@
-import {memo, useCallback, useEffect, useRef} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {memo, useEffect, useRef} from 'react';
+import {TouchableOpacity} from 'react-native';
 import LottieView from 'lottie-react-native';
-import {Icon, LottieAnimation} from 'atoms';
+import {LottieAnimation} from '../LottieAnimation';
 import {styles} from './styles';
 
 interface IProps {
   value: number;
   marked: boolean;
-  onPress?: (point: number) => void;
+  onPress: (point: number) => void;
 }
 
 export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
@@ -18,30 +18,17 @@ export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
   }, [marked, animationRef]);
 
   const handlePress = () => {
-    onPress?.(value);
+    onPress(value);
   };
 
-  const renderIcon = useCallback(
-    () => <Icon name={marked ? 'markedStar' : 'star'} size={42} />,
-    [marked],
-  );
-
   return (
-    <View style={styles.container}>
-      {onPress ? (
-        <TouchableOpacity onPress={handlePress}>
-          <LottieAnimation
-            ref={animationRef}
-            name={'Star'}
-            width={42}
-            height={42}
-            containerStyle={styles.animationContainer}
-          />
-          {renderIcon()}
-        </TouchableOpacity>
-      ) : (
-        renderIcon()
-      )}
-    </View>
+    <TouchableOpacity onPress={handlePress} style={styles.container}>
+      <LottieAnimation
+        ref={animationRef}
+        name={'Star'}
+        width={32}
+        height={32}
+      />
+    </TouchableOpacity>
   );
 });

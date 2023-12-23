@@ -5,4 +5,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
+  icon: {
+    marginHorizontal: 5,
+  },
 });
