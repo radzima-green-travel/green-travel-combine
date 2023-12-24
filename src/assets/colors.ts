@@ -42,6 +42,7 @@ export const COLORS = {
     },
     stroke: {
       border: '#E5E5E5',
+      borderAlhpa: 'rgba(9, 9, 9, 0.12)',
     },
     text: {
       primary: '#090909',
@@ -56,6 +57,7 @@ export const COLORS = {
       primary: 'rgba(9, 9, 9, 1)',
       secondary: '#767676',
       tertiary: '#999999',
+      constant: '#ffffff',
     },
     other: {
       search: 'rgba(245, 245, 245, 1)',
@@ -77,6 +79,7 @@ export const COLORS = {
     },
     stroke: {
       border: '#3D3D3D',
+      borderAlhpa: 'rgba(9, 9, 9, 0.12)',
     },
     text: {
       primary: '#D6D6D6',
@@ -91,6 +94,7 @@ export const COLORS = {
       primary: 'rgba(184, 184, 184, 1)',
       secondary: '#767676',
       tertiary: '#7D7D7E',
+      constant: '#ffffff',
     },
     other: {
       search: 'rgba(31, 31, 31, 1)',
