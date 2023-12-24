@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {View, Text, ViewStyle, StyleProp} from 'react-native';
 import {Slider} from '@miblanchard/react-native-slider';
 import {thumbSize, themeStyles} from './styles';
@@ -26,7 +26,7 @@ export const RangePickSlider = memo(
   }: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
-    const [containerWidth, setContainerWidth] = React.useState(0);
+    const [containerWidth, setContainerWidth] = useState(0);
 
     const partWidth = (containerWidth - thumbSize) / markSteps;
 
@@ -37,6 +37,7 @@ export const RangePickSlider = memo(
             const isEven = index % 2 === 0;
             return (
               <View
+                key={index}
                 style={[
                   styles.markContainer,
                   {
@@ -44,7 +45,7 @@ export const RangePickSlider = memo(
                   },
                 ]}>
                 <View style={styles.mark} />
-                {isEven ? <Text>{index}</Text> : null}
+                {isEven ? <Text style={styles.markText}>{index}</Text> : null}
               </View>
             );
           })}
