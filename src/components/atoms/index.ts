@@ -33,3 +33,4 @@ export {NumPager} from './NumPager';
 export * from './ComponentSandbox';
 export {LottieAnimation} from './LottieAnimation';
 export {RangePickSlider} from './RangePickSlider';
+export {AnimatedStar} from './AnimatedStar';

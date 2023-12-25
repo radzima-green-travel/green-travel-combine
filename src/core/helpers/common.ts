@@ -332,3 +332,7 @@ export function getLanguageByLocale(lang: SupportedLocales | null) {
 
   return null;
 }
+
+export const createNumericArray = (length: number) => {
+  return Array.from({length}, (_, index) => index + 1);
+};
