@@ -210,7 +210,7 @@ export const ObjectDetails = () => {
         }}>
         <MarkAsVisitedBottomMenu
           onTimeSpentChange={() => {
-            hapticFeedbackService.trigger();
+            hapticFeedbackService.trigger('selection');
           }}
         />
       </BottomMenu>
