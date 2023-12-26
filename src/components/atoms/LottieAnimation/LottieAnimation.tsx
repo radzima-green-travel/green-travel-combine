@@ -9,11 +9,12 @@ interface IProps {
   width: number;
   height: number;
   containerStyle?: StyleProp<ViewStyle>;
+  speed?: number;
 }
 
 export const LottieAnimation = memo(
   forwardRef<LottieView, IProps>(
-    ({name, width, height, containerStyle}, ref) => {
+    ({name, width, height, containerStyle, speed}, ref) => {
       return (
         <View pointerEvents={'none'} style={containerStyle}>
           <LottieView
@@ -24,6 +25,7 @@ export const LottieAnimation = memo(
               height,
             }}
             loop={false}
+            speed={speed}
           />
         </View>
       );
