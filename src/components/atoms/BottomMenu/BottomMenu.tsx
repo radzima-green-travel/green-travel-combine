@@ -1,9 +1,7 @@
 import Animated from 'react-native-reanimated';
 import {themeStyles} from './styles';
-import {Keyboard, TouchableOpacity, View} from 'react-native';
+import {Keyboard, Text, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
-import {Icon} from 'atoms';
-import {COLORS} from 'assets';
 
 import BottomSheet, {
   useBottomSheetDynamicSnapPoints,
@@ -22,6 +20,8 @@ import React, {
   useMemo,
   memo,
 } from 'react';
+import {AnimatedCircleButton} from 'molecules';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   onHideEnd?: () => void;
@@ -31,6 +31,16 @@ interface IProps {
   showDragIndicator?: boolean;
   isPanDownEnabled?: boolean;
   withBackdrop?: boolean;
+  header?: {
+    title?: string;
+    subtitle?: string;
+    onBackPress?: () => void;
+    onClosePress?: () => void;
+    closeButtonVisible?: boolean;
+    backButtonVisible?: boolean;
+  };
+  testID: string;
+  initialIndex?: number;
 }
 
 export interface IBottomMenuRef {
@@ -51,6 +61,9 @@ export const BottomMenu = memo(
         showDragIndicator = true,
         isPanDownEnabled = true,
         withBackdrop = false,
+        header,
+        testID,
+        initialIndex = -1,
       },
       ref,
     ) => {
@@ -116,6 +129,56 @@ export const BottomMenu = memo(
         );
       }, []);
 
+      const renderMenuHeader = () => {
+        if (!header) {
+          return null;
+        }
+
+        const {title, subtitle, onBackPress, onClosePress, closeButtonVisible} =
+          header;
+
+        const buttonsVisible =
+          onBackPress || onClosePress || closeButtonVisible;
+        return (
+          <View>
+            {buttonsVisible ? (
+              <View style={styles.headerButtonsContainer}>
+                {onBackPress ? (
+                  <AnimatedCircleButton
+                    icon={{
+                      name: 'chevronMediumLeft',
+                    }}
+                    testID={composeTestID(testID, 'backButton')}
+                    onPress={hide}
+                  />
+                ) : (
+                  <View />
+                )}
+                {closeButtonVisible || onClosePress ? (
+                  <AnimatedCircleButton
+                    icon={{
+                      name: 'close',
+                    }}
+                    testID={composeTestID(testID, 'closeButton')}
+                    onPress={onClosePress || hide}
+                  />
+                ) : (
+                  <View />
+                )}
+              </View>
+            ) : null}
+            {title ? (
+              <View style={styles.headerTextContainer}>
+                {title ? <Text style={styles.headerTitle}>{title}</Text> : null}
+                {subtitle && title ? (
+                  <Text style={styles.headerSubtitle}>{subtitle}</Text>
+                ) : null}
+              </View>
+            ) : null}
+          </View>
+        );
+      };
+
       if (menuHeight) {
         return (
           <Portal>
@@ -131,7 +194,10 @@ export const BottomMenu = memo(
               enablePanDownToClose={isPanDownEnabled}
               onAnimate={onAnimate}
               onChange={onChange}>
-              {children}
+              <>
+                {renderMenuHeader()}
+                {children}
+              </>
             </BottomSheet>
           </Portal>
         );
@@ -147,7 +213,7 @@ export const BottomMenu = memo(
             handleStyle={styles.handleStyles}
             backgroundStyle={styles.bgStyle}
             handleIndicatorStyle={styles.touchIndicator}
-            index={0}
+            index={initialIndex}
             snapPoints={animatedSnapPoints}
             handleHeight={animatedHandleHeight}
             contentHeight={animatedContentHeight}
@@ -156,15 +222,7 @@ export const BottomMenu = memo(
             onChange={onChange}>
             <BottomSheetView onLayout={handleContentLayout}>
               <>
-                {!showDragIndicator ? (
-                  <View style={styles.crossContainer}>
-                    <TouchableOpacity
-                      onPress={hide}
-                      hitSlop={{top: 15, left: 15, right: 15, bottom: 15}}>
-                      <Icon name="cross" size={24} style={styles.closeIcon} />
-                    </TouchableOpacity>
-                  </View>
-                ) : null}
+                {renderMenuHeader()}
                 {children}
               </>
             </BottomSheetView>

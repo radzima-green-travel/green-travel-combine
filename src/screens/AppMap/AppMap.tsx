@@ -96,7 +96,10 @@ export const AppMap = () => {
           </ShapeSource>
         ) : null}
       </ClusterMap>
-      <BottomMenu onHideEnd={onMenuHideEnd} {...menuProps}>
+      <BottomMenu
+        testID={TestIDs.AppMapSearchBottomMenu}
+        onHideEnd={onMenuHideEnd}
+        {...menuProps}>
         <AppMapBottomMenu
           data={selectedObject}
           bottomInset={bottom}
@@ -106,7 +109,8 @@ export const AppMap = () => {
 
       <BottomMenu
         showDragIndicator={false}
-        menuHeight={WINDOW_HEIGHT * 0.95}
+        menuHeight={WINDOW_HEIGHT * 0.9}
+        testID={TestIDs.AppMapObjectBottomMenu}
         {...searchMenuProps}>
         <AppMapBottomSearchMenu
           onBackPress={closeSearchMenu}

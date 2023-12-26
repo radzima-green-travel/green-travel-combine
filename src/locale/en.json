@@ -65,7 +65,12 @@
     "markedAsVisited": "Place marked as visited!",
     "deleteVisitedObjectAlert": "Unmark place as visited?",
     "deletedVisitedObject": "Are you sure that you want to unmark place as visited?",
-    "delete": "Unmark"
+    "delete": "Unmark",
+    "markAsVisitedMenuTitle": "How was your experience with\n{{objectName}}?",
+    "markAsVisitedMenuSubtitle": "Your input helps other travelers",
+    "markAsVisitedMenuRatingTitle": "Rate your experience",
+    "markAsVisitedMenuTimeSpentTitle": "How much time you spent?",
+    "markAsVisitedMenuTime": "{{hours}} h {{minutes}} mins"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

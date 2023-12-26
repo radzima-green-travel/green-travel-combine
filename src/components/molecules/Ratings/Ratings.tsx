@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import React, {memo} from 'react';
 import {View} from 'react-native';
 import {AnimatedStar, Icon} from 'atoms';
 import {map} from 'lodash';

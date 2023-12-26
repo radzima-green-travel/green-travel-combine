@@ -50,7 +50,7 @@ export function useScreenOptions({
             hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
             activeOpacity={0.8}
             onPress={() => navigation.goBack()}>
-            <Icon name="chevron" color="white" size={20} />
+            <Icon name="chevronMediumLeft" color="white" size={20} />
           </TouchableOpacity>
         ) : null;
       },

@@ -18,7 +18,6 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {shareService} from 'services/ShareService';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {COLORS} from 'assets';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();

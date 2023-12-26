@@ -65,7 +65,9 @@ export const ObjectDetailsHeader = memo(
         </Animated.View>
         <View style={styles.content} pointerEvents="box-none">
           <AnimatedCircleButton
-            iconName="chevron"
+            icon={{
+              name: 'chevronMediumLeft',
+            }}
             testID={TestIDs.HeaderBackButton}
             style={buttonStyle}
             onPress={() => {

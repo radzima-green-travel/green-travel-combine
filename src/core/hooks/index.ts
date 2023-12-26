@@ -36,5 +36,4 @@ export {
 export {useNavigateToPrivacyPolicyAndTnC} from './useNavigateToPrivacyPolicyAndTnC';
 export {useFavorite} from './useFavorite';
 export {useTextInputAutoFocus} from './useTextInputAutoFocus';
-export {useVisitedObject} from './useVisitedObject';
 export {useOnSuccessSignIn} from './useOnSuccessSignIn';

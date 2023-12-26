@@ -65,7 +65,12 @@
     "markedAsVisited": "Место отмечено как посещённое!",
     "deleteVisitedObjectAlert": "Снять пометку с посещенного места?",
     "deletedVisitedObject": "Вы уверены, что хотите снять пометку с посещенного места?",
-    "delete": "Снять отметку"
+    "delete": "Снять отметку",
+    "markAsVisitedMenuTitle": "Каков ваш опыт с\n{{objectName}}?",
+    "markAsVisitedMenuSubtitle": "Ваш отзыв поможет другим путешественникам",
+    "markAsVisitedMenuRatingTitle": "Оцените Ваш опыт",
+    "markAsVisitedMenuTimeSpentTitle": "Сколько Вы провели времени",
+    "markAsVisitedMenuTime": "{{hours}} ч {{minutes}} мин"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

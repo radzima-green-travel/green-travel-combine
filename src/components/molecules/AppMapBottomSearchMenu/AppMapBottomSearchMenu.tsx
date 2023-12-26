@@ -58,7 +58,7 @@ export const AppMapBottomSearchMenu = memo(
             {...getPlatformsTestID(TestIDs.MapSearchBackButton)}>
             <Icon
               style={styles.icon}
-              name="chevron"
+              name="chevronMediumLeft"
               color={COLORS.logCabin}
               size={24}
             />

@@ -13,6 +13,8 @@ import {AuthNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Alert} from 'react-native';
 import {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
+import {useBottomMenu} from 'core/hooks';
+import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 export type NavigationProps = CompositeNavigationProp<
   StackNavigationProp<AuthNavigatorParamsList>,
@@ -51,7 +53,7 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const addVisitedObject = useCallback(() => {
     resetAnimation();
     dispatch(addVisitedObjectRequest(visitedObject));
-  }, [dispatch, visitedObject]);
+  }, [dispatch, resetAnimation, visitedObject]);
 
   const deleteVisitedObject = useCallback(() => {
     Alert.alert(t('deleteVisitedObjectAlert'), t('deletedVisitedObject'), [
@@ -61,7 +63,7 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
       },
       {text: t('cancel'), style: 'cancel'},
     ]);
-  }, [t, dispatch]);
+  }, [t, dispatch, objectId]);
 
   const markAsVisited = useCallback(() => {
     if (isAuthorized) {
@@ -72,7 +74,13 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
         onSuccessSignIn: addVisitedObject,
       });
     }
-  }, [isAuthorized, isVisited]);
+  }, [
+    addVisitedObject,
+    deleteVisitedObject,
+    isAuthorized,
+    isVisited,
+    navigation,
+  ]);
 
   const {loading: addVisitedObjectLoading} = useRequestLoading(
     addVisitedObjectRequest,
@@ -82,7 +90,15 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     deleteVisitedObjectRequest,
   );
 
-  useOnRequestSuccess(addVisitedObjectRequest, runSuccessAnimation);
+  useOnRequestSuccess(addVisitedObjectRequest, () => {
+    runSuccessAnimation();
+    setTimeout(() => {
+      hapticFeedbackService.trigger('notificationSuccess');
+      openMenu();
+    }, 1500);
+  });
+
+  const {openMenu, ...bottomMenuProps} = useBottomMenu();
 
   return {
     isAuthorized,
@@ -93,5 +109,6 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     onButtonLabelLayout,
     iconContainerAnimatedStyle,
     labelAnimatedStyle,
+    bottomMenuProps,
   };
 };

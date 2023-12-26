@@ -4,7 +4,7 @@ import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
 export const themeStyles = {
   container: {
     minHeight: MAP_BOTTOM_MENU_HEIGHT,
-
+    paddingTop: 16,
     backgroundColor: {
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
