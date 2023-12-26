@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useRef} from 'react';
+import React, {memo, useLayoutEffect, useRef} from 'react';
 import {TouchableOpacity} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {LottieAnimation} from '../LottieAnimation';
@@ -13,8 +13,9 @@ interface IProps {
 export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
   const animationRef = useRef<LottieView>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (marked) {
+      animationRef.current?.reset();
       animationRef.current?.play();
     } else {
       animationRef.current?.reset();
@@ -22,6 +23,8 @@ export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
   }, [marked, animationRef]);
 
   const handlePress = () => {
+    animationRef.current?.reset();
+    animationRef.current?.play();
     onPress(value);
   };
 
