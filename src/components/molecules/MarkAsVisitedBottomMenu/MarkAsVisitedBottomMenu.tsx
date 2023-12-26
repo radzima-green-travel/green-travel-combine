@@ -4,6 +4,7 @@ import {useThemeStyles, useTranslation} from 'core/hooks';
 import {RangePickSlider} from 'atoms';
 import {Ratings} from 'molecules';
 import {themeStyles} from './styles';
+import {useUpdateEffect} from 'react-redux-help-kit';
 
 interface IProps {
   onTimeSpentChange: () => void;
@@ -18,9 +19,12 @@ export const MarkAsVisitedBottomMenu = memo(({onTimeSpentChange}: IProps) => {
   const hours = Math.floor(range);
   const minutes = Math.ceil((range - hours) * 60);
 
+  useUpdateEffect(() => {
+    onTimeSpentChange();
+  }, [hours, minutes]);
+
   const onTimeSpentChangeHanlder = (value: number) => {
     setRange(value);
-    onTimeSpentChange();
   };
 
   return (
