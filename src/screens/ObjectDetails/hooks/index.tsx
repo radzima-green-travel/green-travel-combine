@@ -2,3 +2,5 @@ export {useObjectDetails} from './useObjectDetails';
 export {useObjectDetailsStatusBar} from './useObjectDetailsStatusBar';
 export {useObjectDetailsDeepLinking} from './useObjectDetailsDeepLinking';
 export {useObjectDetailsAnimation} from './useObjectDetailsAnimation';
+export {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
+export {useVisitedObject} from './useVisitedObject';

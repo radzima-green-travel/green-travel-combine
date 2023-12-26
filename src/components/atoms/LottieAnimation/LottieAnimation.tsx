@@ -1,4 +1,4 @@
-import {forwardRef, memo} from 'react';
+import React, {forwardRef, memo} from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {animations} from 'assets';

@@ -14,7 +14,7 @@ export {default as bookmarksEmpty} from './bookmarksEmpty.svg';
 export {default as camera} from './camera.svg';
 export {default as castles} from './castles.svg';
 export {default as check} from './check.svg';
-export {default as chevron} from './chevron.svg';
+export {default as chevronMediumLeft} from './chevronMediumLeft.svg';
 export {default as chevronRight} from './chevronRight.svg';
 export {default as church} from './church.svg';
 export {default as clearCache} from './clearCache.svg';
@@ -81,4 +81,3 @@ export {default as strokeWaterRouteDark} from './strokeWaterRouteDark.svg';
 export {default as theme} from './theme.svg';
 export {default as warMonuments} from './warMonuments.svg';
 export {default as wave} from './wave.svg';
-

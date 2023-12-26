@@ -24,6 +24,7 @@ import {
 import {FeatureCollection, LineString, Point} from '@turf/helpers';
 import {useObjectDetailsMap} from './hooks';
 import {themeLayerStyles} from './styles';
+import {TestIDs} from 'core/types';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -141,7 +142,10 @@ export const ObjectDetailsMap = () => {
         isUserLocationFocused={isUserLocationFocused}
         botttomInset={bottom}
       />
-      <BottomMenu {...menuProps}>
+      <BottomMenu
+        {...menuProps}
+        testID={TestIDs.AppMapObjectBottomMenu}
+        initialIndex={0}>
         <ObjectDetailsMapBottomMenu
           data={data}
           belongsToSubtitle={belongsToSubtitle}

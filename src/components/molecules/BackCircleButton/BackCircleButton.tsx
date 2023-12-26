@@ -20,7 +20,9 @@ export const BackCircleButton = memo(({onPress}: IProps) => {
   return (
     <View style={[styles.iconContainer, {top: TOP + top}]}>
       <AnimatedCircleButton
-        iconName="chevron"
+        icon={{
+          name: 'chevronMediumLeft',
+        }}
         testID={TestIDs.HeaderBackButton}
         onPress={() => {
           if (navigation.canGoBack()) {

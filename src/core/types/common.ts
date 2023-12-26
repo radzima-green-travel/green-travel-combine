@@ -210,4 +210,8 @@ export enum TestIDs {
   NewPasswordInput = 'newPasswordInput',
   Icon = 'icon',
   Card = 'card',
+  AppUpdateBottomMenu = 'appUpdateBottomMenu',
+  AppMapSearchBottomMenu = 'appMapSearchBottomMenu',
+  AppMapObjectBottomMenu = 'appMapObjectBottomMenu',
+  ObjectDetailsMarkAsVisitedBottomMenu = 'objectDetailsMarkAsVisitedBottomMenu',
 }
