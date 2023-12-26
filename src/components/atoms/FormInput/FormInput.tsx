@@ -44,6 +44,8 @@ interface IProps {
   returnKeyType?: ComponentProps<typeof TextInput>['returnKeyType'];
   label?: string;
   focusNextFieldOnSubmit?: boolean;
+  multiline?: boolean;
+  placeholder?: string;
   testID: string;
 }
 
@@ -68,6 +70,8 @@ export const FormInput = ({
   onSubmitEditing,
   focusNextFieldOnSubmit,
   returnKeyType,
+  multiline,
+  placeholder,
   testID,
 }: IProps) => {
   const styles = useThemeStyles(themeStyles);
@@ -186,7 +190,12 @@ export const FormInput = ({
 
   return (
     <View style={styles.container} ref={containerToHandleRef}>
-      <Animated.View style={[styles.inputFieldContainer, inputContainerStyle]}>
+      <Animated.View
+        style={[
+          styles.inputFieldContainer,
+          multiline && styles.multilineInputWrapper,
+          inputContainerStyle,
+        ]}>
         {iconLeft ? (
           <Icon
             style={[styles.icon, styles.leftIcon]}
@@ -194,17 +203,23 @@ export const FormInput = ({
             size={24}
           />
         ) : null}
-        <View style={styles.inputFieldWrapper}>
-          {renderLabel()}
+        <View
+          style={[
+            styles.inputFieldWrapper,
+            multiline && styles.multilineInputFieldWrapper,
+          ]}>
+          {label ? renderLabel() : null}
           <TextInput
             testID={testID}
             ref={inputRef}
-            style={styles.inputField}
+            style={[styles.inputField, multiline && styles.multilineInputField]}
             secureTextEntry={secureTextEntry}
             autoCapitalize="none"
             keyboardType={keyboardType}
             autoCorrect={false}
             value={value}
+            multiline={multiline}
+            placeholder={placeholder}
             maxLength={maxLength}
             onChangeText={onChangeHandler}
             autoFocus={textInputAutofocus}
@@ -214,6 +229,7 @@ export const FormInput = ({
             returnKeyType={returnKeyType}
             cursorColor={(styles.inputField as TextStyle).color}
             selectionColor={(styles.inputField as TextStyle).color}
+            placeholderTextColor={(styles.placeholderText as TextStyle).color}
           />
         </View>
         {iconRight ? (

@@ -1,4 +1,4 @@
-import {COLORS, FONTS_STYLES, FONTS_PRESETS} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
 import {createThemeStyles} from 'core/helpers/styles';
 import {StyleSheet} from 'react-native';
 
@@ -75,6 +75,25 @@ export const themeStyles = createThemeStyles({
   },
   label: {
     ...FONTS_PRESETS.bodyRegular,
+    color: {
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
+    },
+  },
+  multilineInputWrapper: {
+    height: 90,
+    paddingHorizontal: 0,
+  },
+  multilineInputFieldWrapper: {
+    marginVertical: 0,
+  },
+  multilineInputField: {
+    paddingTop: 12,
+    paddingBottom: 12,
+    textAlignVertical: 'top',
+    paddingHorizontal: 12,
+  },
+  placeholderText: {
     color: {
       light: COLORS.light.text.secondary,
       dark: COLORS.dark.text.secondary,
