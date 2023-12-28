@@ -70,7 +70,8 @@
     "markAsVisitedMenuSubtitle": "Your input helps other travelers",
     "markAsVisitedMenuRatingTitle": "Rate your experience",
     "markAsVisitedMenuTimeSpentTitle": "How much time you spent?",
-    "markAsVisitedMenuTime": "{{hours}} h {{minutes}} mins"
+    "hours": "h",
+    "minutes": "mins"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

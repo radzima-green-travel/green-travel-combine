@@ -70,7 +70,8 @@
     "markAsVisitedMenuSubtitle": "Ваш отзыв поможет другим путешественникам",
     "markAsVisitedMenuRatingTitle": "Оцените Ваш опыт",
     "markAsVisitedMenuTimeSpentTitle": "Сколько Вы провели времени",
-    "markAsVisitedMenuTime": "{{hours}} ч {{minutes}} мин"
+    "hours": "ч",
+    "minutes": "мин"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

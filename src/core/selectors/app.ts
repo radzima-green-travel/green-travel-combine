@@ -43,7 +43,7 @@ export const selectUpdatesMandatory = createSelector(
   mandatoryAppVersion => {
     const currentAppVersion = getAppVersion();
 
-    return mandatoryAppVersion && currentAppVersion
+    return false
       ? compare(currentAppVersion, mandatoryAppVersion, '<=')
       : false;
   },

@@ -29,14 +29,22 @@ export const themeStyles = createThemeStyles({
     marginBottom: 8,
     marginTop: 24,
   },
+  timeSpentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 12,
+    marginBottom: 8,
+  },
   timeText: {
     ...FONTS_PRESETS.headlineBold,
     color: {
       light: COLORS.light.text.primary,
       dark: COLORS.dark.text.primary,
     },
-    paddingVertical: 12,
     textAlign: 'center',
-    marginBottom: 8,
+  },
+  time: {
+    width: 30,
   },
 });

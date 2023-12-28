@@ -28,7 +28,7 @@ const ComponentSandboxComponent = forwardRef(({children}, ref) => {
             ...StyleSheet.absoluteFillObject,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'grey',
+            backgroundColor: 'white',
           }}>
           {component}
         </View>

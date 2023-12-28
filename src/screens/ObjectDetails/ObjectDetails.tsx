@@ -34,7 +34,6 @@ import {ObjectDetailsHeader} from 'molecules';
 import {TestIDs} from 'core/types';
 import Animated from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
-import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
@@ -71,6 +70,7 @@ export const ObjectDetails = () => {
     iconContainerAnimatedStyle,
     labelAnimatedStyle,
     bottomMenuProps,
+    addHapticFeedback,
   } = useVisitedObject({
     objectId,
   });
@@ -82,7 +82,6 @@ export const ObjectDetails = () => {
     });
 
   const locationExist = Boolean(data && isLocationExist(data));
-
   return (
     <SuspenseView
       retryCallback={onTryAgainPress}
@@ -208,11 +207,7 @@ export const ObjectDetails = () => {
           title: t('markAsVisitedMenuTitle', {objectName: 'Test Object'}),
           subtitle: t('markAsVisitedMenuSubtitle'),
         }}>
-        <MarkAsVisitedBottomMenu
-          onTimeSpentChange={() => {
-            hapticFeedbackService.trigger('selection');
-          }}
-        />
+        <MarkAsVisitedBottomMenu onTimeSpentChange={addHapticFeedback} />
       </BottomMenu>
     </SuspenseView>
   );

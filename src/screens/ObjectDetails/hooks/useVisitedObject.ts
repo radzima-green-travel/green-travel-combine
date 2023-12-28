@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react';
+import {useCallback, useMemo, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {
@@ -24,6 +24,7 @@ export type NavigationProps = CompositeNavigationProp<
 export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const {t} = useTranslation('objectDetails');
   const dispatch = useDispatch();
+  const startTime = useRef(Date.now());
   const navigation = useNavigation<NavigationProps>();
   const visitedObjectsIds = useSelector(selectVisitedObjectsIds);
   const isAuthorized = useSelector(selectUserAuthorized);
@@ -100,6 +101,20 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
 
   const {openMenu, ...bottomMenuProps} = useBottomMenu();
 
+  const addHapticFeedback = useCallback((hours: number, minutes: number) => {
+    if (minutes % 30 === 0) {
+      hapticFeedbackService.trigger('selection');
+      startTime.current = Date.now();
+    } else {
+      const timeGap = Date.now() - startTime.current;
+
+      if (timeGap > 50) {
+        hapticFeedbackService.trigger('selection');
+      }
+      startTime.current = Date.now();
+    }
+  }, []);
+
   return {
     isAuthorized,
     isVisited,
@@ -110,5 +125,6 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     iconContainerAnimatedStyle,
     labelAnimatedStyle,
     bottomMenuProps,
+    addHapticFeedback,
   };
 };

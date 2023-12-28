@@ -7,7 +7,7 @@ import {themeStyles} from './styles';
 import {useUpdateEffect} from 'react-redux-help-kit';
 
 interface IProps {
-  onTimeSpentChange: () => void;
+  onTimeSpentChange: (hours: number, minutes: number) => void;
 }
 
 export const MarkAsVisitedBottomMenu = memo(({onTimeSpentChange}: IProps) => {
@@ -20,7 +20,7 @@ export const MarkAsVisitedBottomMenu = memo(({onTimeSpentChange}: IProps) => {
   const minutes = Math.ceil((range - hours) * 60);
 
   useUpdateEffect(() => {
-    onTimeSpentChange();
+    onTimeSpentChange(hours, minutes);
   }, [hours, minutes]);
 
   const onTimeSpentChangeHanlder = (value: number) => {
@@ -36,9 +36,14 @@ export const MarkAsVisitedBottomMenu = memo(({onTimeSpentChange}: IProps) => {
       <Text style={styles.timeSpentTitle}>
         {t('markAsVisitedMenuTimeSpentTitle')}
       </Text>
-      <Text style={styles.timeText}>
-        {t('markAsVisitedMenuTime', {hours: hours, minutes: minutes})}
-      </Text>
+
+      <View style={styles.timeSpentContainer}>
+        <Text style={[styles.timeText, styles.time]}>{hours}</Text>
+        <Text style={styles.timeText}>h</Text>
+        <Text style={[styles.timeText, styles.time]}>{minutes}</Text>
+        <Text style={styles.timeText}>mins</Text>
+      </View>
+
       <RangePickSlider
         minValue={0}
         maxValue={12}
