@@ -8,6 +8,7 @@ export {CategoryCard} from './CategoryCard';
 export {DetailsPageCapture} from './DetailsPageCapture';
 export {ErrorToast} from './ErrorToast';
 export {ErrorView} from './ErrorView';
+export {ListItem} from './ListItem';
 export {ObjectCard} from './ObjectCard';
 export {ObjectDescription} from './ObjectDescription';
 export {ObjectDescriptionSource} from './ObjectDescriptionSource';
