@@ -10,7 +10,7 @@
     "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
     "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
     "update-svg": "node scripts/update-svg/update-svg.js",
-    "postinstall": "yarn husky install"
+    "postinstall": "patch-package && yarn husky install"
   },
   "dependencies": {
     "@amplitude/react-native": "2.3.3",
@@ -41,6 +41,8 @@
     "i18next": "19.5.1",
     "lodash": "4.17.21",
     "lottie-react-native": "6.4.1",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "react": "18.2.0",
     "react-i18next": "11.18.3",
     "react-native": "0.72.6",
