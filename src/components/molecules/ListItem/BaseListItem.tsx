@@ -29,7 +29,7 @@ export const BaseListItem = memo(
           {label ? <Text style={styles.label}>{label}</Text> : null}
           {withNavigationIcon ? (
             <Icon
-              name={'chevronRight'}
+              name={'chevronMediumRight'}
               size={24}
               style={styles.navigationIcon}
             />

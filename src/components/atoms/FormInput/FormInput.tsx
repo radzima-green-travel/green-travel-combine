@@ -1,8 +1,8 @@
 import React, {
   ComponentProps,
   ReactElement,
+  forwardRef,
   useCallback,
-  useRef,
   useState,
 } from 'react';
 import {Pressable, TextInput, TextStyle, View} from 'react-native';
@@ -22,7 +22,7 @@ import {useHandleKeyboardInput} from '../HandleKeyboard';
 import {useTextInputAutoFocus} from 'core/hooks';
 import {TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
-
+import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 interface IProps {
   iconLeft?: IconProps;
   iconRight?: IconProps;
@@ -47,203 +47,216 @@ interface IProps {
   multiline?: boolean;
   placeholder?: string;
   testID: string;
+  TextInputComponent: typeof TextInput | typeof BottomSheetTextInput;
 }
 
-export const FormInput = ({
-  iconLeft,
-  iconRight,
-  secureTextEntry = false,
-  value,
-  onChange,
-  onRightIconPress,
-  autoFocus,
-  onFocus,
-  onBlur,
-  messageText,
-  error,
-  helperText,
-  maxLength,
-  invalidChars,
-  allowedChars,
-  keyboardType,
-  label,
-  onSubmitEditing,
-  focusNextFieldOnSubmit,
-  returnKeyType,
-  multiline,
-  placeholder,
-  testID,
-}: IProps) => {
-  const styles = useThemeStyles(themeStyles);
-  const ref = useRef<TextInput>(null);
-  const isInputEmty = !value.length;
-  const isFocused = useSharedValue(false);
+export const FormInput = forwardRef(
+  (
+    {
+      iconLeft,
+      iconRight,
+      secureTextEntry = false,
+      value,
+      onChange,
+      onRightIconPress,
+      autoFocus,
+      onFocus,
+      onBlur,
+      messageText,
+      error,
+      helperText,
+      maxLength,
+      invalidChars,
+      allowedChars,
+      keyboardType,
+      label,
+      onSubmitEditing,
+      focusNextFieldOnSubmit,
+      returnKeyType,
+      multiline,
+      placeholder,
+      testID,
+      TextInputComponent = TextInput,
+    }: IProps,
+    ref,
+  ) => {
+    const styles = useThemeStyles(themeStyles);
+    const isInputEmty = !value.length;
+    const isFocused = useSharedValue(false);
 
-  const [labelWidth, setLabelWidth] = useState(0);
+    const [labelWidth, setLabelWidth] = useState(0);
 
-  const {handleContainerNode, containerToHandleRef, inputRef, focusNextInput} =
-    useHandleKeyboardInput(ref);
+    const {
+      handleContainerNode,
+      containerToHandleRef,
+      inputRef,
+      focusNextInput,
+    } = useHandleKeyboardInput(ref);
 
-  const onFocusHandler = useCallback(() => {
-    isFocused.value = true;
-    if (onFocus) {
-      onFocus();
-    }
-    handleContainerNode();
-  }, [handleContainerNode, isFocused, onFocus]);
+    const onFocusHandler = useCallback(() => {
+      isFocused.value = true;
+      if (onFocus) {
+        onFocus();
+      }
+      handleContainerNode();
+    }, [handleContainerNode, isFocused, onFocus]);
 
-  const onBlurHandler = useCallback(() => {
-    isFocused.value = false;
-    if (onBlur) {
-      onBlur();
-    }
-  }, [isFocused, onBlur]);
+    const onBlurHandler = useCallback(() => {
+      isFocused.value = false;
+      if (onBlur) {
+        onBlur();
+      }
+    }, [isFocused, onBlur]);
 
-  const isInputValueValid = (valueToCheck: string) => {
-    const isInvalidValue =
-      valueToCheck.length &&
-      ((invalidChars instanceof RegExp && !invalidChars.test(valueToCheck)) ||
-        (allowedChars instanceof RegExp && allowedChars.test(valueToCheck)));
+    const isInputValueValid = (valueToCheck: string) => {
+      const isInvalidValue =
+        valueToCheck.length &&
+        ((invalidChars instanceof RegExp && !invalidChars.test(valueToCheck)) ||
+          (allowedChars instanceof RegExp && allowedChars.test(valueToCheck)));
 
-    return !isInvalidValue;
-  };
-
-  const onChangeHandler = (nextValue: string) => {
-    if (isInputValueValid(nextValue)) {
-      onChange(nextValue);
-    }
-  };
-
-  const onSubmitEditingHandler = e => {
-    if (onSubmitEditing) {
-      onSubmitEditing(e);
-    }
-    if (focusNextFieldOnSubmit) {
-      focusNextInput();
-    }
-  };
-
-  const textInputAutofocus = useTextInputAutoFocus(ref, autoFocus);
-
-  const translateY = useDerivedValue(() => {
-    return withTiming(isFocused.value || !isInputEmty ? 1 : 0, {duration: 200});
-  }, [isInputEmty]);
-
-  const labelAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      // fontSize: interpolate(translateY.value, [0, 1], [16, 12]),
-      // lineHeight: interpolate(translateY.value, [0, 1], [24, 16]),
-      transform: [
-        {
-          scale: interpolate(translateY.value, [0, 1], [1, 0.8]),
-        },
-      ],
+      return !isInvalidValue;
     };
-  });
 
-  const labelContainerStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: interpolate(translateY.value, [0, 1], [0, -13]),
-        },
-        {
-          translateX: interpolate(
-            translateY.value,
-            [0, 1],
-            [0, -labelWidth * 0.1],
-          ),
-        },
-      ],
+    const onChangeHandler = (nextValue: string) => {
+      if (isInputValueValid(nextValue)) {
+        onChange(nextValue);
+      }
     };
-  }, [labelWidth]);
 
-  const inputContainerStyle = useAnimatedStyle(() => {
-    const inactiveColor = styles.inputFieldContainer.borderColor as string;
-    const activeColor = styles.activeFieldContainer.borderColor as string;
-    const errorColor = styles.errorFieldContainer.borderColor as string;
-    if (error) {
+    const onSubmitEditingHandler = e => {
+      if (onSubmitEditing) {
+        onSubmitEditing(e);
+      }
+      if (focusNextFieldOnSubmit) {
+        focusNextInput();
+      }
+    };
+
+    const textInputAutofocus = useTextInputAutoFocus(inputRef, autoFocus);
+
+    const translateY = useDerivedValue(() => {
+      return withTiming(isFocused.value || !isInputEmty ? 1 : 0, {
+        duration: 200,
+      });
+    }, [isInputEmty]);
+
+    const labelAnimatedStyle = useAnimatedStyle(() => {
       return {
-        borderColor: withTiming(errorColor),
+        transform: [
+          {
+            scale: interpolate(translateY.value, [0, 1], [1, 0.8]),
+          },
+        ],
       };
-    }
-    return {
-      borderColor: withTiming(isFocused.value ? activeColor : inactiveColor),
+    });
+
+    const labelContainerStyle = useAnimatedStyle(() => {
+      return {
+        transform: [
+          {
+            translateY: interpolate(translateY.value, [0, 1], [0, -13]),
+          },
+          {
+            translateX: interpolate(
+              translateY.value,
+              [0, 1],
+              [0, -labelWidth * 0.1],
+            ),
+          },
+        ],
+      };
+    }, [labelWidth]);
+
+    const inputContainerStyle = useAnimatedStyle(() => {
+      const inactiveColor = styles.inputFieldContainer.borderColor as string;
+      const activeColor = styles.activeFieldContainer.borderColor as string;
+      const errorColor = styles.errorFieldContainer.borderColor as string;
+      if (error) {
+        return {
+          borderColor: withTiming(errorColor),
+        };
+      }
+      return {
+        borderColor: withTiming(isFocused.value ? activeColor : inactiveColor),
+      };
+    }, [error]);
+
+    const renderLabel = () => {
+      return (
+        <Animated.View
+          style={[styles.labelContainer, labelContainerStyle]}
+          pointerEvents="none">
+          <Animated.Text
+            onLayout={event => {
+              setLabelWidth(event.nativeEvent.layout.width);
+            }}
+            style={[styles.label, labelAnimatedStyle]}>
+            {label}
+          </Animated.Text>
+        </Animated.View>
+      );
     };
-  }, [error]);
 
-  const renderLabel = () => {
     return (
-      <Animated.View
-        style={[styles.labelContainer, labelContainerStyle]}
-        pointerEvents="none">
-        <Animated.Text
-          onLayout={event => {
-            setLabelWidth(event.nativeEvent.layout.width);
-          }}
-          style={[styles.label, labelAnimatedStyle]}>
-          {label}
-        </Animated.Text>
-      </Animated.View>
-    );
-  };
-
-  return (
-    <View style={styles.container} ref={containerToHandleRef}>
-      <Animated.View
-        style={[
-          styles.inputFieldContainer,
-          multiline && styles.multilineInputWrapper,
-          inputContainerStyle,
-        ]}>
-        {iconLeft ? (
-          <Icon
-            style={[styles.icon, styles.leftIcon]}
-            {...iconLeft}
-            size={24}
-          />
-        ) : null}
-        <View
+      <View style={styles.container} ref={containerToHandleRef}>
+        <Animated.View
           style={[
-            styles.inputFieldWrapper,
-            multiline && styles.multilineInputFieldWrapper,
+            styles.inputFieldContainer,
+            multiline && styles.multilineInputWrapper,
+            inputContainerStyle,
           ]}>
-          {label ? renderLabel() : null}
-          <TextInput
-            testID={testID}
-            ref={inputRef}
-            style={[styles.inputField, multiline && styles.multilineInputField]}
-            secureTextEntry={secureTextEntry}
-            autoCapitalize="none"
-            keyboardType={keyboardType}
-            autoCorrect={false}
-            value={value}
-            multiline={multiline}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            onChangeText={onChangeHandler}
-            autoFocus={textInputAutofocus}
-            onFocus={onFocusHandler}
-            onBlur={onBlurHandler}
-            onSubmitEditing={onSubmitEditingHandler}
-            returnKeyType={returnKeyType}
-            cursorColor={(styles.inputField as TextStyle).color}
-            selectionColor={(styles.inputField as TextStyle).color}
-            placeholderTextColor={(styles.placeholderText as TextStyle).color}
-          />
-        </View>
-        {iconRight ? (
-          <Pressable onPress={onRightIconPress}>
+          {iconLeft ? (
             <Icon
-              testID={composeTestID(testID, TestIDs.Icon)}
-              style={[styles.icon, styles.rightIcon]}
-              {...iconRight}
+              style={[styles.icon, styles.leftIcon]}
+              {...iconLeft}
               size={24}
             />
-          </Pressable>
-        ) : null}
-      </Animated.View>
-      {helperText || <HelperText messageText={messageText} error={error} />}
-    </View>
-  );
-};
+          ) : null}
+          <View
+            style={[
+              styles.inputFieldWrapper,
+              multiline && styles.multilineInputFieldWrapper,
+            ]}>
+            {label ? renderLabel() : null}
+            <TextInputComponent
+              testID={testID}
+              ref={inputRef}
+              style={[
+                styles.inputField,
+                multiline && styles.multilineInputField,
+              ]}
+              secureTextEntry={secureTextEntry}
+              autoCapitalize="none"
+              keyboardType={keyboardType}
+              autoCorrect={false}
+              value={value}
+              multiline={multiline}
+              placeholder={placeholder}
+              maxLength={maxLength}
+              onChangeText={onChangeHandler}
+              autoFocus={textInputAutofocus}
+              onFocus={onFocusHandler}
+              onBlur={onBlurHandler}
+              onSubmitEditing={onSubmitEditingHandler}
+              returnKeyType={returnKeyType}
+              cursorColor={(styles.inputField as TextStyle).color}
+              selectionColor={(styles.inputField as TextStyle).color}
+              placeholderTextColor={(styles.placeholderText as TextStyle).color}
+            />
+          </View>
+          {iconRight ? (
+            <Pressable onPress={onRightIconPress}>
+              <Icon
+                testID={composeTestID(testID, TestIDs.Icon)}
+                style={[styles.icon, styles.rightIcon]}
+                {...iconRight}
+                size={24}
+              />
+            </Pressable>
+          ) : null}
+        </Animated.View>
+        {helperText || <HelperText messageText={messageText} error={error} />}
+      </View>
+    );
+  },
+);

@@ -1,6 +1,6 @@
 import Animated from 'react-native-reanimated';
 import {themeStyles} from './styles';
-import {Keyboard, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 
 import BottomSheet, {
@@ -8,8 +8,6 @@ import BottomSheet, {
   BottomSheetView,
   BottomSheetBackdrop,
 } from '@gorhom/bottom-sheet';
-
-import {Portal} from '@gorhom/portal';
 
 import React, {
   forwardRef,
@@ -37,16 +35,18 @@ interface IProps {
     onBackPress?: () => void;
     onClosePress?: () => void;
     closeButtonVisible?: boolean;
-    backButtonVisible?: boolean;
   };
   testID: string;
   initialIndex?: number;
+  bottomInset?: number;
 }
 
 export interface IBottomMenuRef {
   show: () => void;
   hide: () => void;
   isOpened: () => boolean;
+  isOpening: () => boolean;
+  isClosed: () => boolean;
 }
 
 export const BottomMenu = memo(
@@ -64,6 +64,7 @@ export const BottomMenu = memo(
         header,
         testID,
         initialIndex = -1,
+        bottomInset,
       },
       ref,
     ) => {
@@ -78,6 +79,7 @@ export const BottomMenu = memo(
 
       const styles = useThemeStyles(themeStyles);
       const isOpened = useRef(false);
+      const isOpening = useRef(false);
       const bottomSheetRef = useRef<BottomSheet>(null);
 
       const snapPoints = useMemo(() => [menuHeight], [menuHeight]);
@@ -96,6 +98,12 @@ export const BottomMenu = memo(
         isOpened: () => {
           return isOpened.current;
         },
+        isOpening: () => {
+          return isOpening.current;
+        },
+        isClosed: () => {
+          return !isOpening.current && !isOpened.current;
+        },
       }));
 
       const onChange = useCallback(
@@ -113,8 +121,9 @@ export const BottomMenu = memo(
         (fromIndex: number) => {
           if (fromIndex === 0) {
             onHideStart?.();
-            Keyboard.dismiss();
           }
+
+          isOpening.current = fromIndex === -1;
         },
         [onHideStart],
       );
@@ -149,7 +158,7 @@ export const BottomMenu = memo(
                       name: 'chevronMediumLeft',
                     }}
                     testID={composeTestID(testID, 'backButton')}
-                    onPress={hide}
+                    onPress={onBackPress}
                   />
                 ) : (
                   <View />
@@ -169,8 +178,8 @@ export const BottomMenu = memo(
             ) : null}
             {title ? (
               <View style={styles.headerTextContainer}>
-                {title ? <Text style={styles.headerTitle}>{title}</Text> : null}
-                {subtitle && title ? (
+                {<Text style={styles.headerTitle}>{title}</Text>}
+                {subtitle ? (
                   <Text style={styles.headerSubtitle}>{subtitle}</Text>
                 ) : null}
               </View>
@@ -181,53 +190,50 @@ export const BottomMenu = memo(
 
       if (menuHeight) {
         return (
-          <Portal>
-            <BottomSheet
-              backdropComponent={withBackdrop ? renderBackdrop : null}
-              handleComponent={showDragIndicator ? undefined : null}
-              ref={bottomSheetRef}
-              handleStyle={styles.handleStyles}
-              backgroundStyle={styles.bgStyle}
-              handleIndicatorStyle={styles.touchIndicator}
-              index={-1}
-              snapPoints={snapPoints as [number]}
-              enablePanDownToClose={isPanDownEnabled}
-              onAnimate={onAnimate}
-              onChange={onChange}>
-              <>
-                {renderMenuHeader()}
-                {children}
-              </>
-            </BottomSheet>
-          </Portal>
-        );
-      }
-
-      return (
-        <Portal>
           <BottomSheet
             backdropComponent={withBackdrop ? renderBackdrop : null}
             handleComponent={showDragIndicator ? undefined : null}
-            animatedPosition={animatedPosition}
             ref={bottomSheetRef}
             handleStyle={styles.handleStyles}
             backgroundStyle={styles.bgStyle}
             handleIndicatorStyle={styles.touchIndicator}
-            index={initialIndex}
-            snapPoints={animatedSnapPoints}
-            handleHeight={animatedHandleHeight}
-            contentHeight={animatedContentHeight}
+            index={-1}
+            snapPoints={snapPoints as [number]}
             enablePanDownToClose={isPanDownEnabled}
             onAnimate={onAnimate}
             onChange={onChange}>
-            <BottomSheetView onLayout={handleContentLayout}>
-              <>
-                {renderMenuHeader()}
-                {children}
-              </>
-            </BottomSheetView>
+            <>
+              {renderMenuHeader()}
+              {children}
+            </>
           </BottomSheet>
-        </Portal>
+        );
+      }
+
+      return (
+        <BottomSheet
+          backdropComponent={withBackdrop ? renderBackdrop : null}
+          handleComponent={showDragIndicator ? undefined : null}
+          animatedPosition={animatedPosition}
+          ref={bottomSheetRef}
+          handleStyle={styles.handleStyles}
+          backgroundStyle={styles.bgStyle}
+          handleIndicatorStyle={styles.touchIndicator}
+          index={initialIndex}
+          snapPoints={animatedSnapPoints}
+          handleHeight={animatedHandleHeight}
+          contentHeight={animatedContentHeight}
+          enablePanDownToClose={isPanDownEnabled}
+          onAnimate={onAnimate}
+          bottomInset={bottomInset}
+          onChange={onChange}>
+          <BottomSheetView onLayout={handleContentLayout}>
+            <>
+              {renderMenuHeader()}
+              {children}
+            </>
+          </BottomSheetView>
+        </BottomSheet>
       );
     },
   ),

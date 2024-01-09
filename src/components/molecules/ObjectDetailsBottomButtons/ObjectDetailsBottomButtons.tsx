@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {View} from 'react-native';
-import {Button, Icon} from 'atoms';
+import React, {memo, useMemo} from 'react';
+import {Icon} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 import {isIOS} from 'services/PlatformService';
 import {TestIDs} from 'core/types';
+import {ButtonsGroup} from '../ButtonsGroup';
 
 interface IProps {
   onShowOnMapPress: () => void;
@@ -24,47 +24,62 @@ export const ObjectDetailsBottomButtons = memo(
     isFavoriteLoading,
     showOnMapButtonEnabled,
   }: IProps) => {
-    const styles = useThemeStyles(themeStyles);
     const {t} = useTranslation('objectDetails');
-    return (
-      <View style={styles.container}>
-        <Button
-          style={[styles.showOnMapButton, styles.button]}
-          onPress={onShowOnMapPress}
-          theme="primary"
-          testID={TestIDs.SeeOnTheMapButton}
-          text={t('seeOnTheMap')}
-          disabled={!showOnMapButtonEnabled}
-        />
-        <Button
-          style={styles.button}
-          onPress={onBookmarkPress}
-          theme="secondary"
-          isIconOnlyButton
-          loading={isFavoriteLoading}
-          testID={TestIDs.HeaderBookmarkButton}
-          icon={textStyle => (
+    const styles = useThemeStyles(themeStyles);
+
+    const buttons = useMemo(() => {
+      return [
+        {
+          onPress: onShowOnMapPress,
+          theme: 'primary' as const,
+          testID: TestIDs.SeeOnTheMapButton,
+          text: t('seeOnTheMap'),
+          disabled: !showOnMapButtonEnabled,
+        },
+        {
+          onPress: onBookmarkPress,
+          theme: 'secondary' as const,
+          isIconOnlyButton: true,
+          loading: isFavoriteLoading,
+          testID: TestIDs.HeaderBookmarkButton,
+          icon: textStyle => (
             <Icon
               name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
               size={24}
               style={textStyle}
             />
-          )}
-        />
-        <Button
-          style={styles.button}
-          theme="secondary"
-          onPress={onSharePress}
-          isIconOnlyButton
-          icon={textStyle => (
+          ),
+        },
+        {
+          onPress: onSharePress,
+          theme: 'secondary' as const,
+          isIconOnlyButton: true,
+          testID: TestIDs.HeaderShareButton,
+          icon: textStyle => (
             <Icon
               name={isIOS ? 'shareIos' : 'shareAndroid'}
               size={24}
               style={textStyle}
             />
-          )}
-        />
-      </View>
+          ),
+        },
+      ];
+    }, [
+      isFavorite,
+      isFavoriteLoading,
+      onBookmarkPress,
+      onSharePress,
+      onShowOnMapPress,
+      showOnMapButtonEnabled,
+      t,
+    ]);
+
+    return (
+      <ButtonsGroup
+        containerStyle={styles.container}
+        buttons={buttons}
+        withShadow
+      />
     );
   },
 );

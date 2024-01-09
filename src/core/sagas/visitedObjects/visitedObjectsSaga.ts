@@ -1,8 +1,9 @@
-import {takeEvery, takeLatest} from 'redux-saga/effects';
+import {takeEvery, takeLatest, takeLeading} from 'redux-saga/effects';
 import {ACTIONS} from 'core/constants';
 import {getVisitedObjectsSaga} from './getVisitedObjectsSaga';
 import {addVisitedObjectSaga} from './addVisitedObjectSaga';
 import {deleteVisitedObjectSaga} from './deleteVisitedObjectSaga';
+import {scheduleShareExperienceMenuSaga} from './scheduleShareExperienceMenuSaga';
 
 export function* visitedObjectsSaga() {
   yield takeEvery(ACTIONS.GET_VISITED_OBJECTS_REQUEST, getVisitedObjectsSaga);
@@ -10,5 +11,10 @@ export function* visitedObjectsSaga() {
   yield takeLatest(
     ACTIONS.DELETE_VISITED_OBJECT_REQUEST,
     deleteVisitedObjectSaga,
+  );
+
+  yield takeLeading(
+    ACTIONS.SCHEDULE_OPEN_SHARE_EXPERIENCE_MENU,
+    scheduleShareExperienceMenuSaga,
   );
 }

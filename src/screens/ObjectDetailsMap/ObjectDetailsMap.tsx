@@ -25,6 +25,7 @@ import {FeatureCollection, LineString, Point} from '@turf/helpers';
 import {useObjectDetailsMap} from './hooks';
 import {themeLayerStyles} from './styles';
 import {TestIDs} from 'core/types';
+import {Portal} from '@gorhom/portal';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -142,20 +143,23 @@ export const ObjectDetailsMap = () => {
         isUserLocationFocused={isUserLocationFocused}
         botttomInset={bottom}
       />
-      <BottomMenu
-        {...menuProps}
-        testID={TestIDs.AppMapObjectBottomMenu}
-        initialIndex={0}>
-        <ObjectDetailsMapBottomMenu
-          data={data}
-          belongsToSubtitle={belongsToSubtitle}
-          onHideEnd={() => {}}
-          bottomInset={bottom}
-          onButtonPress={onMenuButtonPress}
-          loading={loading}
-          isDirectionShowed={!!isDirectionShowed}
-        />
-      </BottomMenu>
+      <Portal>
+        <BottomMenu
+          {...menuProps}
+          testID={TestIDs.AppMapObjectBottomMenu}
+          initialIndex={0}>
+          <ObjectDetailsMapBottomMenu
+            data={data}
+            belongsToSubtitle={belongsToSubtitle}
+            onHideEnd={() => {}}
+            bottomInset={bottom}
+            onButtonPress={onMenuButtonPress}
+            loading={loading}
+            isDirectionShowed={!!isDirectionShowed}
+          />
+        </BottomMenu>
+      </Portal>
+
       <BackCircleButton onPress={onBackPress} />
     </View>
   );

@@ -1,5 +1,5 @@
 import {useThemeStyles} from 'core/hooks';
-import React, {memo, PropsWithChildren} from 'react';
+import React, {memo} from 'react';
 import {
   StyleProp,
   ViewStyle,
@@ -16,7 +16,7 @@ import {styles} from './styles';
 import {ButtonThemes} from './types';
 import {getPlatformsTestID} from 'core/helpers';
 
-type Props = PropsWithChildren<{
+export type Props = {
   text?: string;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -31,7 +31,7 @@ type Props = PropsWithChildren<{
   onButtonLabelLayout?: (event: LayoutChangeEvent) => void;
   iconContainerAnimatedStyle?: StyleProp<ViewStyle>;
   labelAnimatedStyle?: StyleProp<TextStyle>;
-}>;
+};
 
 export const Button = memo(
   ({

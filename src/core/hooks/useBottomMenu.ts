@@ -19,5 +19,21 @@ export function useBottomMenu() {
     return menuRef.current?.isOpened();
   }, []);
 
-  return {openMenu, closeMenu, isMenuOpened, ref: menuRef, animatedPosition};
+  const isMenuOpening = useCallback(() => {
+    return menuRef.current?.isOpening();
+  }, []);
+
+  const isMenuClosed = useCallback(() => {
+    return menuRef.current?.isClosed();
+  }, []);
+
+  return {
+    openMenu,
+    closeMenu,
+    isMenuOpened,
+    ref: menuRef,
+    animatedPosition,
+    isMenuOpening,
+    isMenuClosed,
+  };
 }

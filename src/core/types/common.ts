@@ -213,5 +213,10 @@ export enum TestIDs {
   AppUpdateBottomMenu = 'appUpdateBottomMenu',
   AppMapSearchBottomMenu = 'appMapSearchBottomMenu',
   AppMapObjectBottomMenu = 'appMapObjectBottomMenu',
-  ObjectDetailsMarkAsVisitedBottomMenu = 'objectDetailsMarkAsVisitedBottomMenu',
+  ObjectShareExperienceMenu = 'objectShareExperienceMenu',
+  ObjectShareExperienceMenuContent = 'objectShareExperienceMenuContent',
+  ObjectReportinaccuraciesMenu = 'objectReportinaccuraciesMenu',
+  ObjectReportinaccuraciesMenuContent = 'objectReportinaccuraciesMenuContent',
+  ObjectShareExperienceSuccessMenu = 'objectShareExperienceSuccessMenu',
+  ObjectShareExperienceSuccessMenuContent = 'objectShareExperienceSuccessMenuContent',
 }

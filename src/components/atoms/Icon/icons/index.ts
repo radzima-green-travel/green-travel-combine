@@ -15,6 +15,7 @@ export {default as camera} from './camera.svg';
 export {default as castles} from './castles.svg';
 export {default as check} from './check.svg';
 export {default as chevronMediumLeft} from './chevronMediumLeft.svg';
+export {default as chevronMediumRight} from './chevronMediumRight.svg';
 export {default as chevronRight} from './chevronRight.svg';
 export {default as church} from './church.svg';
 export {default as clearCache} from './clearCache.svg';

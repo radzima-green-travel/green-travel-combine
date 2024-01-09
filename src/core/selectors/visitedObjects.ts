@@ -6,6 +6,9 @@ import {reduce} from 'lodash';
 export const selectVisitedObjectsData = (state: IState) =>
   state.visitedObjects.data;
 
+export const selectObjectShareExperienceData = (state: IState) =>
+  state.visitedObjects.shareExperienceData;
+
 export const selectVisitedObjectsIds = createSelector(
   selectVisitedObjectsData,
   selectTransformedData,

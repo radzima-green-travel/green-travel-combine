@@ -1,6 +1,6 @@
 import React from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
-import {StyleProp, View} from 'react-native';
+import {Keyboard, StyleProp, View} from 'react-native';
 
 import {styles, selectedPointStyle} from './styles';
 import {
@@ -22,6 +22,7 @@ import {TestIDs} from 'core/types';
 
 import {WINDOW_HEIGHT} from 'services/PlatformService';
 import {useAppMap} from './hooks';
+import {Portal} from '@gorhom/portal';
 
 export const AppMap = () => {
   const {
@@ -96,34 +97,37 @@ export const AppMap = () => {
           </ShapeSource>
         ) : null}
       </ClusterMap>
-      <BottomMenu
-        testID={TestIDs.AppMapSearchBottomMenu}
-        onHideEnd={onMenuHideEnd}
-        {...menuProps}>
-        <AppMapBottomMenu
-          data={selectedObject}
-          bottomInset={bottom}
-          onGetMorePress={navigateToObjectDetails}
-        />
-      </BottomMenu>
+      <Portal>
+        <BottomMenu
+          testID={TestIDs.AppMapSearchBottomMenu}
+          onHideEnd={onMenuHideEnd}
+          {...menuProps}>
+          <AppMapBottomMenu
+            data={selectedObject}
+            bottomInset={bottom}
+            onGetMorePress={navigateToObjectDetails}
+          />
+        </BottomMenu>
 
-      <BottomMenu
-        showDragIndicator={false}
-        menuHeight={WINDOW_HEIGHT * 0.9}
-        testID={TestIDs.AppMapObjectBottomMenu}
-        {...searchMenuProps}>
-        <AppMapBottomSearchMenu
-          onBackPress={closeSearchMenu}
-          onDeleteAllPress={onDeleteAllItems}
-          onDeletePress={onDeleteItem}
-          inputValue={inputValue}
-          isHistoryVisible={isHistoryVisible}
-          data={data}
-          onItemPress={onSearchItemPress}
-          onTextChange={onTextChange}
-          bottomInset={bottom}
-        />
-      </BottomMenu>
+        <BottomMenu
+          onHideStart={Keyboard.dismiss}
+          showDragIndicator={false}
+          menuHeight={WINDOW_HEIGHT * 0.9}
+          testID={TestIDs.AppMapObjectBottomMenu}
+          {...searchMenuProps}>
+          <AppMapBottomSearchMenu
+            onBackPress={closeSearchMenu}
+            onDeleteAllPress={onDeleteAllItems}
+            onDeletePress={onDeleteItem}
+            inputValue={inputValue}
+            isHistoryVisible={isHistoryVisible}
+            data={data}
+            onItemPress={onSearchItemPress}
+            onTextChange={onTextChange}
+            bottomInset={bottom}
+          />
+        </BottomMenu>
+      </Portal>
 
       <AppMapButtons
         isUserLocationFocused={isUserLocationFocused}

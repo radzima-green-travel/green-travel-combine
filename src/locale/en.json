@@ -66,12 +66,21 @@
     "deleteVisitedObjectAlert": "Unmark place as visited?",
     "deletedVisitedObject": "Are you sure that you want to unmark place as visited?",
     "delete": "Unmark",
-    "markAsVisitedMenuTitle": "How was your experience with\n{{objectName}}?",
+    "markAsVisitedMenuTitle": "Tell us about your experience",
     "markAsVisitedMenuSubtitle": "Your input helps other travelers",
     "markAsVisitedMenuRatingTitle": "Rate your experience",
     "markAsVisitedMenuTimeSpentTitle": "How much time you spent?",
     "hours": "h",
-    "minutes": "mins"
+    "minutes": "mins",
+    "skip": "Skip",
+    "submit": "Submit",
+    "send": "Send",
+    "anyInnacurateInfo": "Any inaccurate information?",
+    "missedDetails": "Any missed details?",
+    "gotIt": "Got it",
+    "shareExperienceSuccessTitle": "Thank you for sharing!",
+    "shareExperienceSuccessSubtitle": "Your input helps other travelers organize their trip well!",
+    "reportInaccuraciesMenuTitle": "Report inaccurate information"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

@@ -1,5 +1,9 @@
 import {ActionType, createAction, createReducer} from 'typesafe-actions';
-import {AddVisitedObjectBody, VisitedObjectsData} from 'core/types';
+import {
+  AddVisitedObjectBody,
+  VisitedObjectsData,
+  ShareExperienceInitialData,
+} from 'core/types';
 import {ACTIONS} from '../constants';
 import {filter, isEqual} from 'lodash';
 
@@ -42,12 +46,26 @@ export const clearVisitedObjects = createAction(
   ACTIONS.CLEAR_VISITED_OBJECTS,
 )();
 
+export const scheduleShareExperienceMenu = createAction(
+  ACTIONS.SCHEDULE_OPEN_SHARE_EXPERIENCE_MENU,
+)<{delayMs: number; data: ShareExperienceInitialData}>();
+
+export const setShareExperienceData = createAction(
+  ACTIONS.SET_SHARE_EXPERIENCE_DATA,
+)<ShareExperienceInitialData>();
+
+export const clearShareExperienceData = createAction(
+  ACTIONS.CLEAR_SHARE_EXPERIENCE_DATA,
+)();
+
 interface IDefaultState {
   data: VisitedObjectsData;
+  shareExperienceData: ShareExperienceInitialData | null;
 }
 
 const defaultState = {
   data: [],
+  shareExperienceData: null,
 };
 
 const actions = {
@@ -55,6 +73,8 @@ const actions = {
   addVisitedObjectRequest,
   deleteVisitedObjectRequest,
   clearVisitedObjects,
+  setShareExperienceData,
+  clearShareExperienceData,
 };
 
 export const visitedObjectsReducer = createReducer<
@@ -90,4 +110,12 @@ export const visitedObjectsReducer = createReducer<
   .handleAction(clearVisitedObjects, state => ({
     ...state,
     data: [],
+  }))
+  .handleAction(setShareExperienceData, (state, {payload}) => ({
+    ...state,
+    shareExperienceData: payload,
+  }))
+  .handleAction(clearShareExperienceData, state => ({
+    ...state,
+    shareExperienceData: null,
   }));

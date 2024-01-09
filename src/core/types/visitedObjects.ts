@@ -18,3 +18,7 @@ export interface AddVisitedObjectBody {
   spentTime?: number;
   rating?: number;
 }
+
+export type ShareExperienceInitialData = {
+  objectId: string;
+};

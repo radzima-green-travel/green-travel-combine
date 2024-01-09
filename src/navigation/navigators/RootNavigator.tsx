@@ -7,6 +7,7 @@ import {bootstrapRequest} from 'core/reducers';
 import {StatusBar} from 'react-native';
 import {
   ForceUpdateScreen,
+  ObjectDetailsShareExperienceScreen,
   OptionalUpdateScreen,
   SplashScreen,
 } from '../../screens';
@@ -18,6 +19,7 @@ import {
   selectUpdatesAvailable,
   selectUpdatesMandatory,
   selectUpdatesSkipped,
+  selectObjectShareExperienceData,
 } from 'core/selectors';
 import {linkingService} from 'services/LinkingService';
 import {useColorScheme} from 'core/hooks';
@@ -28,6 +30,9 @@ export function RootNavigator() {
   const isUpdatesMandatory = useSelector(selectUpdatesMandatory);
   const isUpdatesAvailable = useSelector(selectUpdatesAvailable);
   const isUpdatesSkipped = useSelector(selectUpdatesSkipped);
+  const objectShareExperienceData = useSelector(
+    selectObjectShareExperienceData,
+  );
   const [splashTransitionFinished, setSplashTransitionFinished] =
     useState(false);
   const [bootstrapFinished, setBootstrapFinished] = useState(false);
@@ -98,6 +103,9 @@ export function RootNavigator() {
             {showUpdateScreen()}
             {showSplashForAndroid()}
           </>
+        ) : null}
+        {objectShareExperienceData ? (
+          <ObjectDetailsShareExperienceScreen />
         ) : null}
       </PortalProvider>
 

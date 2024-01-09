@@ -6,7 +6,6 @@ export const themeStyles = createThemeStyles({
   container: {
     paddingHorizontal: PADDING_HORIZONTAL,
     paddingVertical: 8,
-    marginBottom: 100,
   },
   rateContainer: {
     height: 60,
@@ -43,8 +42,19 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.primary,
     },
     textAlign: 'center',
+    paddingVertical: 12,
+    marginBottom: 8,
   },
   time: {
     width: 30,
+  },
+  buttonsContainer: {
+    paddingHorizontal: 0,
+  },
+  rangePicker: {
+    marginBottom: 24,
+  },
+  listItem: {
+    marginBottom: 8,
   },
 });

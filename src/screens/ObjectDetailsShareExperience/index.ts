@@ -1,0 +1,1 @@
+export {ObjectDetailsShareExperience} from './ObjectDetailsShareExperience';

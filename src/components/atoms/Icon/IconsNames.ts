@@ -16,6 +16,7 @@ export type IconsNames =
   | 'castles'
   | 'check'
   | 'chevronMediumLeft'
+  | 'chevronMediumRight'
   | 'chevronRight'
   | 'church'
   | 'clearCache'

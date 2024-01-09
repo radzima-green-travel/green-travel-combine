@@ -25,3 +25,4 @@ export {InAppWebView as InAppWebViewScreen} from './InAppWebView';
 export {OptionalUpdate as OptionalUpdateScreen} from './OptionalUpdate';
 export {ForceUpdate as ForceUpdateScreen} from './ForceUpdate';
 export {ImagesGallery as ImagesGalleryScreen} from './ImagesGallery';
+export {ObjectDetailsShareExperience as ObjectDetailsShareExperienceScreen} from './ObjectDetailsShareExperience';

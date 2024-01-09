@@ -29,4 +29,7 @@ export {UpdateView} from './UpdateView';
 export {SearchEmptyView} from './SearchEmptyView';
 export {ObjectDetailsBottomButtons} from './ObjectDetailsBottomButtons';
 export {Ratings} from './Ratings';
-export {MarkAsVisitedBottomMenu} from './MarkAsVisitedBottomMenu';
+export {ObjectShareExperienceMenu} from './ObjectShareExperienceMenu';
+export {ButtonsGroup} from './ButtonsGroup';
+export * from './ObjectReportinaccuraciesMenu';
+export {ObjectShareExperienceSuccessMenu} from './ObjectShareExperienceSuccessMenu';

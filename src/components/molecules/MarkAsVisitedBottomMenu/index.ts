@@ -1,1 +1,0 @@
-export {MarkAsVisitedBottomMenu} from './MarkAsVisitedBottomMenu';

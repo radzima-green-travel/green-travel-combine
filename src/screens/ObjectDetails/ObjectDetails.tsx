@@ -7,7 +7,6 @@ import {
   ObjectDescriptionSource,
   ObjectDetailsPager,
   ObjectDetailsBottomButtons,
-  MarkAsVisitedBottomMenu,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
 import {
@@ -17,7 +16,6 @@ import {
   Button,
   Icon,
   LottieAnimation,
-  BottomMenu,
 } from 'atoms';
 import {useFavorite, useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
@@ -34,7 +32,6 @@ import {ObjectDetailsHeader} from 'molecules';
 import {TestIDs} from 'core/types';
 import Animated from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
-
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
   const {
@@ -69,8 +66,6 @@ export const ObjectDetails = () => {
     onButtonLabelLayout,
     iconContainerAnimatedStyle,
     labelAnimatedStyle,
-    bottomMenuProps,
-    addHapticFeedback,
   } = useVisitedObject({
     objectId,
   });
@@ -82,6 +77,7 @@ export const ObjectDetails = () => {
     });
 
   const locationExist = Boolean(data && isLocationExist(data));
+
   return (
     <SuspenseView
       retryCallback={onTryAgainPress}
@@ -198,17 +194,6 @@ export const ObjectDetails = () => {
           />
         </View>
       ) : null}
-
-      <BottomMenu
-        withBackdrop
-        testID={TestIDs.ObjectDetailsMarkAsVisitedBottomMenu}
-        {...bottomMenuProps}
-        header={{
-          title: t('markAsVisitedMenuTitle', {objectName: 'Test Object'}),
-          subtitle: t('markAsVisitedMenuSubtitle'),
-        }}>
-        <MarkAsVisitedBottomMenu onTimeSpentChange={addHapticFeedback} />
-      </BottomMenu>
     </SuspenseView>
   );
 };
