@@ -1,5 +1,5 @@
-import {BottomMenu} from 'atoms';
-import {useTranslation} from 'core/hooks';
+import {BottomMenu, SnackBar} from 'atoms';
+import {useOnRequestSuccess, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types/common';
 import {
   ObjectShareExperienceMenu,
@@ -9,8 +9,14 @@ import {
 import React, {useCallback, useMemo} from 'react';
 import {useShareExperienceMenu, useShareExperienceData} from './hooks';
 import {Keyboard} from 'react-native';
+import {updateVisitedObjectRequest} from 'core/reducers';
+import {Portal} from '@gorhom/portal';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const ObjectDetailsShareExperience = () => {
+  const {t} = useTranslation('objectDetails');
+  const {top} = useSafeAreaInsets();
+
   const {
     onSendPress,
     onSubmitPress,
@@ -18,6 +24,7 @@ export const ObjectDetailsShareExperience = () => {
     sumbitLoading,
     isReportSent,
     clearInitialData,
+    snackBarProps,
   } = useShareExperienceData();
 
   const {
@@ -33,7 +40,14 @@ export const ObjectDetailsShareExperience = () => {
     openInnacurateInfoSuccessMenu,
     getIsAllMenusClosed,
     innaccuraciesMenuRef,
+    hours,
+    minutes,
   } = useShareExperienceMenu();
+
+  useOnRequestSuccess(
+    updateVisitedObjectRequest,
+    openInnacurateInfoSuccessMenu,
+  );
 
   const onHideEnd = useCallback(() => {
     if (getIsAllMenusClosed()) {
@@ -41,10 +55,9 @@ export const ObjectDetailsShareExperience = () => {
     }
   }, [clearInitialData, getIsAllMenusClosed]);
 
-  const {t} = useTranslation('objectDetails');
-
-  const hours = Math.floor(range);
-  const minutes = Math.ceil((range - hours) * 60);
+  const onSubmitPressHander = useCallback(() => {
+    onSubmitPress({rating, hours, minutes});
+  }, [hours, onSubmitPress, rating, minutes]);
 
   const header = useMemo(
     () => ({
@@ -63,7 +76,7 @@ export const ObjectDetailsShareExperience = () => {
   );
 
   return (
-    <>
+    <Portal>
       <BottomMenu
         withBackdrop
         onHideEnd={onHideEnd}
@@ -74,7 +87,7 @@ export const ObjectDetailsShareExperience = () => {
         <ObjectShareExperienceMenu
           testID={TestIDs.ObjectShareExperienceMenuContent}
           timeString={`${hours} ${t('hours')} ${minutes} ${t('minutes')}`}
-          onSubmitPress={onSubmitPress}
+          onSubmitPress={onSubmitPressHander}
           rating={rating}
           timeRange={range}
           onRatingChange={setRating}
@@ -98,7 +111,6 @@ export const ObjectDetailsShareExperience = () => {
           testID={TestIDs.ObjectShareExperienceSuccessMenuContent}
           onGotItPress={() => {
             reportInnacurateInfoSuccessMenuProps.closeMenu();
-            shareExperienceMenuProps.openMenu();
           }}
         />
       </BottomMenu>
@@ -117,6 +129,8 @@ export const ObjectDetailsShareExperience = () => {
           testID={TestIDs.ObjectReportinaccuraciesMenuContent}
         />
       </BottomMenu>
-    </>
+
+      <SnackBar offset={-top} isOnTop {...snackBarProps} />
+    </Portal>
   );
 };

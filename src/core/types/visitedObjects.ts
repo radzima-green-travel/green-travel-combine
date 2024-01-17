@@ -15,8 +15,8 @@ export interface GetVisitedObjectsResponse {
 
 export interface AddVisitedObjectBody {
   timestamp: number;
-  spentTime?: number;
-  rating?: number;
+  spentTime?: number | null;
+  rating?: number | null;
 }
 
 export type ShareExperienceInitialData = {

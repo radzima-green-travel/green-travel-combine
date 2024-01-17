@@ -78,5 +78,7 @@ export function useShareExperienceMenu() {
     innaccuraciesMenuRef,
     reportInnacurateInfoSuccessMenuProps,
     openInnacurateInfoSuccessMenu,
+    minutes,
+    hours,
   };
 }

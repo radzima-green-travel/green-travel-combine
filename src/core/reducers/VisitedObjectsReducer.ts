@@ -58,6 +58,19 @@ export const clearShareExperienceData = createAction(
   ACTIONS.CLEAR_SHARE_EXPERIENCE_DATA,
 )();
 
+export const updateVisitedObjectRequest = createAction(
+  ACTIONS.UPDATE_VISITED_OBJECT_REQUEST,
+)<{
+  objectId: string;
+  data: AddVisitedObjectBody;
+}>();
+export const updateVisitedObjectSuccess = createAction(
+  ACTIONS.UPDATE_VISITED_OBJECT_SUCCESS,
+)();
+export const updateVisitedObjectFailure = createAction(
+  ACTIONS.UPDATE_VISITED_OBJECT_FAILURE,
+)<Error>();
+
 interface IDefaultState {
   data: VisitedObjectsData;
   shareExperienceData: ShareExperienceInitialData | null;
