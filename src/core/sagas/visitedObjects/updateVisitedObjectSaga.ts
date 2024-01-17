@@ -16,6 +16,7 @@ export function* updateVisitedObjectSaga({
     yield call(amplifyApi.addUserVisitedObject, {
       objectId,
       data: {
+        timestamp: data.timestamp,
         spentTime: data.spentTime || null,
         rating: data.rating || null,
       },
