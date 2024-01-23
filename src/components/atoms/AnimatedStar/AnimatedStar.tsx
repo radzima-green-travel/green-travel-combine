@@ -3,6 +3,7 @@ import {TouchableOpacity} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {LottieAnimation} from '../LottieAnimation';
 import {styles} from './styles';
+import {useColorScheme} from 'core/hooks';
 
 interface IProps {
   value: number;
@@ -12,6 +13,8 @@ interface IProps {
 
 export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
   const animationRef = useRef<LottieView>(null);
+
+  const theme = useColorScheme();
 
   useLayoutEffect(() => {
     if (marked) {
@@ -36,7 +39,7 @@ export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
       style={styles.container}>
       <LottieAnimation
         ref={animationRef}
-        name={'Star'}
+        name={theme === 'light' ? 'Star' : 'StarDark'}
         width={32}
         height={32}
         speed={1.5}

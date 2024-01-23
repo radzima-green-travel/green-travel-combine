@@ -1,4 +1,4 @@
-import {useBottomMenu, useStaticCallback, useUpdateEffect} from 'core/hooks';
+import {useBottomMenu, useStaticCallback} from 'core/hooks';
 import {useCallback, useRef, useState} from 'react';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {ObjectReportinaccuraciesMenuRef} from 'molecules';
@@ -11,7 +11,6 @@ export function useShareExperienceMenu() {
   const reportInnacurateInfoMenuProps = useBottomMenu();
   const reportInnacurateInfoSuccessMenuProps = useBottomMenu();
 
-  const [range, setRange] = useState(0);
   const [rating, setRating] = useState(0);
 
   const backToInitialMenu = useStaticCallback(() => {
@@ -30,10 +29,7 @@ export function useShareExperienceMenu() {
     reportInnacurateInfoSuccessMenuProps.openMenu();
   }, [shareExperienceMenuProps, reportInnacurateInfoMenuProps]);
 
-  const hours = Math.floor(range);
-  const minutes = Math.ceil((range - hours) * 60);
-
-  const addHapticFeedback = useCallback(() => {
+  const addHapticFeedback = useCallback((_: number, minutes: number) => {
     if (minutes % 30 === 0) {
       hapticFeedbackService.trigger('selection');
       startTime.current = Date.now();
@@ -45,11 +41,7 @@ export function useShareExperienceMenu() {
       }
       startTime.current = Date.now();
     }
-  }, [minutes]);
-
-  useUpdateEffect(() => {
-    addHapticFeedback();
-  }, [addHapticFeedback]);
+  }, []);
 
   const getIsAllMenusClosed = useStaticCallback(() => {
     const isShareExperienceMenuClosed = shareExperienceMenuProps.isMenuClosed();
@@ -68,8 +60,6 @@ export function useShareExperienceMenu() {
   return {
     backToInitialMenu,
     openInnacurateInfoMenu,
-    range,
-    setRange,
     rating,
     setRating,
     shareExperienceMenuProps,
@@ -78,7 +68,6 @@ export function useShareExperienceMenu() {
     innaccuraciesMenuRef,
     reportInnacurateInfoSuccessMenuProps,
     openInnacurateInfoSuccessMenu,
-    minutes,
-    hours,
+    addHapticFeedback,
   };
 }

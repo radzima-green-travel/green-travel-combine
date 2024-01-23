@@ -21,4 +21,5 @@ export interface AddVisitedObjectBody {
 
 export type ShareExperienceInitialData = {
   objectId: string;
+  objectName: string;
 };

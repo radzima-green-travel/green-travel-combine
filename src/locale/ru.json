@@ -80,7 +80,9 @@
     "gotIt": "Понятно",
     "shareExperienceSuccessTitle": "Спасибо за отзыв!",
     "shareExperienceSuccessSubtitle": "Ваш отзыв поможет другим путешественникам организовать свою поездку!",
-    "reportInaccuraciesMenuTitle": "Сообщить об ошибке"
+    "reportInaccuraciesMenuTitle": "Сообщить об ошибке",
+    "inaccuraciesEmailSubject": "{{objectName}}: Неточность/ошибка в описании",
+    "sent": "Отправлено"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

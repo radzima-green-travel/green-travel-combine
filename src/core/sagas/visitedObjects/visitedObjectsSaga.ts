@@ -5,6 +5,7 @@ import {addVisitedObjectSaga} from './addVisitedObjectSaga';
 import {deleteVisitedObjectSaga} from './deleteVisitedObjectSaga';
 import {scheduleShareExperienceMenuSaga} from './scheduleShareExperienceMenuSaga';
 import {updateVisitedObjectSaga} from './updateVisitedObjectSaga';
+import {sendInaccuraciesEmailSaga} from './sendInaccuraciesEmailSaga';
 
 export function* visitedObjectsSaga() {
   yield takeEvery(ACTIONS.GET_VISITED_OBJECTS_REQUEST, getVisitedObjectsSaga);
@@ -21,5 +22,9 @@ export function* visitedObjectsSaga() {
   yield takeLeading(
     ACTIONS.UPDATE_VISITED_OBJECT_REQUEST,
     updateVisitedObjectSaga,
+  );
+  yield takeLeading(
+    ACTIONS.SEND_INACCURACIES_EMAIL_REQUEST,
+    sendInaccuraciesEmailSaga,
   );
 }

@@ -1,4 +1,4 @@
-import React, {memo, useMemo} from 'react';
+import React, {memo, useCallback, useMemo, useState} from 'react';
 import {View, Text} from 'react-native';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {RangePickSlider} from 'atoms';
@@ -6,22 +6,24 @@ import {ListItem, Ratings} from 'molecules';
 import {themeStyles} from './styles';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {composeTestID} from 'core/helpers';
+import {useUpdateEffect} from 'react-redux-help-kit';
 
 interface IProps {
-  onSubmitPress: () => void;
+  onSubmitPress: (data: {
+    rating: number;
+    hours: number;
+    minutes: number;
+  }) => void;
   onSkipPress: () => void;
   rating: number;
   onRatingChange: (rating: number) => void;
-  timeRange: number;
-  onTimeRangeChange: (timeRange: number) => void;
-  timeString: string;
-  isSubmitButtonDisabled: boolean;
   isSubmitButtonLoading: boolean;
   onReportInformationPress: () => void;
   testID: string;
   isReportSent: boolean;
   isReportSending: boolean;
-  onMissedDetailsPress: () => void;
+  onMissedDetailsPress?: () => void;
+  onTimeChange: (hours: number, minutes: number) => void;
 }
 
 export const ObjectShareExperienceMenu = memo(
@@ -30,19 +32,31 @@ export const ObjectShareExperienceMenu = memo(
     onSkipPress,
     rating,
     onRatingChange,
-    timeRange,
-    onTimeRangeChange,
-    timeString,
-    isSubmitButtonDisabled,
     isSubmitButtonLoading,
     onReportInformationPress,
     testID,
     isReportSent,
     isReportSending,
-    onMissedDetailsPress,
+    onTimeChange,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
+    const [range, setRange] = useState(0);
+
+    const hours = Math.floor(range);
+    const minutes = Math.ceil((range - hours) * 60);
+
+    const timeString = `${hours} ${t('hours')} ${minutes} ${t('minutes')}`;
+
+    useUpdateEffect(() => {
+      onTimeChange(hours, minutes);
+    }, [minutes, hours, onTimeChange]);
+
+    const onSubmitPressHandler = useCallback(() => {
+      onSubmitPress({minutes, hours, rating});
+    }, [hours, minutes, onSubmitPress, rating]);
+
+    const isSubmitButtonDisabled = !rating && !range;
 
     const buttons = useMemo(() => {
       return [
@@ -54,7 +68,7 @@ export const ObjectShareExperienceMenu = memo(
           disabled: false,
         },
         {
-          onPress: onSubmitPress,
+          onPress: onSubmitPressHandler,
           theme: 'primary' as const,
           testID: composeTestID(testID, 'submitButton'),
           text: t('submit'),
@@ -63,12 +77,12 @@ export const ObjectShareExperienceMenu = memo(
         },
       ];
     }, [
+      onSkipPress,
       testID,
       t,
-      onSubmitPress,
+      onSubmitPressHandler,
       isSubmitButtonLoading,
       isSubmitButtonDisabled,
-      onSkipPress,
     ]);
 
     return (
@@ -90,26 +104,26 @@ export const ObjectShareExperienceMenu = memo(
           maxValue={12}
           steps={72}
           markSteps={12}
-          value={timeRange}
+          value={range}
           containerStyle={styles.rangePicker}
-          onChangeValue={onTimeRangeChange}
+          onChangeValue={setRange}
         />
         <ListItem
           testID={composeTestID(testID, 'reportInnacurateInfoButton')}
           containerStyle={styles.listItem}
-          withNavigationIcon
+          withNavigationIcon={!isReportSent}
           disabled={isReportSent || isReportSending}
           title={t('anyInnacurateInfo')}
           onPress={onReportInformationPress}
           label={isReportSent ? t('sent') : undefined}
         />
-        <ListItem
+        {/* <ListItem
           testID={composeTestID(testID, 'missedDetailsButton')}
           containerStyle={styles.listItem}
           withNavigationIcon
           title={t('missedDetails')}
           onPress={onMissedDetailsPress}
-        />
+        /> */}
         <ButtonsGroup
           withBottomInset
           containerStyle={styles.buttonsContainer}

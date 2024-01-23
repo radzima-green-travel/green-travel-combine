@@ -1,20 +1,34 @@
 import {useSnackbar} from 'atoms';
-import {useOnRequestError} from 'core/hooks';
+import {useOnRequestError, useTranslation} from 'core/hooks';
 import {
   clearShareExperienceData,
   updateVisitedObjectRequest,
+  sendInaccuraciesEmailRequest,
 } from 'core/reducers';
 import {selectObjectShareExperienceData} from 'core/selectors';
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useRequestLoading} from 'react-redux-help-kit';
+import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 
 export function useShareExperienceData() {
   const dispatch = useDispatch();
-  const {objectId} = useSelector(selectObjectShareExperienceData) || {};
+  const {t} = useTranslation('objectDetails');
+  const [isReportSent, setIsReportSent] = useState(false);
+  const {objectId, objectName} =
+    useSelector(selectObjectShareExperienceData) || {};
   const {show, ...snackBarProps} = useSnackbar();
 
-  const onSendPress = useCallback(() => {}, []);
+  const onSendPress = useCallback(
+    (message: string) => {
+      dispatch(
+        sendInaccuraciesEmailRequest({
+          subject: t('inaccuraciesEmailSubject', {objectName}),
+          message: message,
+        }),
+      );
+    },
+    [dispatch, objectName, t],
+  );
   const onSubmitPress = useCallback(
     ({
       rating,
@@ -44,9 +58,26 @@ export function useShareExperienceData() {
       title: errorLabel.text,
     });
   });
+  useOnRequestError(
+    sendInaccuraciesEmailRequest,
+    'objectDetails',
+    errorLabel => {
+      show({
+        type: 'error',
+        title: errorLabel.text,
+      });
+    },
+  );
+
+  useOnRequestSuccess(sendInaccuraciesEmailRequest, () => {
+    setIsReportSent(true);
+  });
 
   const {loading: sumbitLoading} = useRequestLoading(
     updateVisitedObjectRequest,
+  );
+  const {loading: sendLoading} = useRequestLoading(
+    sendInaccuraciesEmailRequest,
   );
 
   const clearInitialData = useCallback(() => {
@@ -56,9 +87,9 @@ export function useShareExperienceData() {
   return {
     onSendPress,
     onSubmitPress,
-    sendLoading: false,
+    sendLoading: sendLoading,
     sumbitLoading: sumbitLoading,
-    isReportSent: false,
+    isReportSent: isReportSent,
     clearInitialData,
     snackBarProps,
   };

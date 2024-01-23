@@ -71,6 +71,19 @@ export const updateVisitedObjectFailure = createAction(
   ACTIONS.UPDATE_VISITED_OBJECT_FAILURE,
 )<Error>();
 
+export const sendInaccuraciesEmailRequest = createAction(
+  ACTIONS.SEND_INACCURACIES_EMAIL_REQUEST,
+)<{
+  subject: string;
+  message: string;
+}>();
+export const sendInaccuraciesEmailSuccess = createAction(
+  ACTIONS.SEND_INACCURACIES_EMAIL_SUCCESS,
+)();
+export const sendInaccuraciesEmailFailure = createAction(
+  ACTIONS.UPDATE_VISITED_OBJECT_FAILURE,
+)<Error>();
+
 interface IDefaultState {
   data: VisitedObjectsData;
   shareExperienceData: ShareExperienceInitialData | null;

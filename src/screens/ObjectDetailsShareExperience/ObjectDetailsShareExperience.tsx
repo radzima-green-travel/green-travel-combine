@@ -9,7 +9,10 @@ import {
 import React, {useCallback, useMemo} from 'react';
 import {useShareExperienceMenu, useShareExperienceData} from './hooks';
 import {Keyboard} from 'react-native';
-import {updateVisitedObjectRequest} from 'core/reducers';
+import {
+  sendInaccuraciesEmailRequest,
+  updateVisitedObjectRequest,
+} from 'core/reducers';
 import {Portal} from '@gorhom/portal';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -30,8 +33,6 @@ export const ObjectDetailsShareExperience = () => {
   const {
     backToInitialMenu,
     openInnacurateInfoMenu,
-    range,
-    setRange,
     rating,
     setRating,
     shareExperienceMenuProps,
@@ -40,8 +41,7 @@ export const ObjectDetailsShareExperience = () => {
     openInnacurateInfoSuccessMenu,
     getIsAllMenusClosed,
     innaccuraciesMenuRef,
-    hours,
-    minutes,
+    addHapticFeedback,
   } = useShareExperienceMenu();
 
   useOnRequestSuccess(
@@ -49,15 +49,13 @@ export const ObjectDetailsShareExperience = () => {
     openInnacurateInfoSuccessMenu,
   );
 
+  useOnRequestSuccess(sendInaccuraciesEmailRequest, backToInitialMenu);
+
   const onHideEnd = useCallback(() => {
     if (getIsAllMenusClosed()) {
       clearInitialData();
     }
   }, [clearInitialData, getIsAllMenusClosed]);
-
-  const onSubmitPressHander = useCallback(() => {
-    onSubmitPress({rating, hours, minutes});
-  }, [hours, onSubmitPress, rating, minutes]);
 
   const header = useMemo(
     () => ({
@@ -86,19 +84,16 @@ export const ObjectDetailsShareExperience = () => {
         header={header}>
         <ObjectShareExperienceMenu
           testID={TestIDs.ObjectShareExperienceMenuContent}
-          timeString={`${hours} ${t('hours')} ${minutes} ${t('minutes')}`}
-          onSubmitPress={onSubmitPressHander}
+          onSubmitPress={onSubmitPress}
           rating={rating}
-          timeRange={range}
           onRatingChange={setRating}
-          onTimeRangeChange={setRange}
           isSubmitButtonLoading={sumbitLoading}
-          isSubmitButtonDisabled={!rating && !range}
           onReportInformationPress={openInnacurateInfoMenu}
           isReportSending={sendLoading}
           isReportSent={isReportSent}
           onSkipPress={shareExperienceMenuProps.closeMenu}
           onMissedDetailsPress={openInnacurateInfoSuccessMenu}
+          onTimeChange={addHapticFeedback}
         />
       </BottomMenu>
 

@@ -272,6 +272,20 @@ class AmplifyApi extends AmplifyApiEngine {
   deleteUserVisitedObject = async ({objectId}: {objectId: string}) => {
     return this.deleteByApi('apiac472374', `/visited-objects/${objectId}`);
   };
+  sendEmail = async ({
+    message,
+    subject,
+  }: {
+    message: string;
+    subject: string;
+  }) => {
+    return this.postByApi('apiac472374', '/send', {
+      body: {
+        message: message,
+        subject: subject,
+      },
+    });
+  };
 }
 
 export const amplifyApi = new AmplifyApi();

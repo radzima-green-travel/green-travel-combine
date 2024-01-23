@@ -69,7 +69,7 @@
     "markAsVisitedMenuTitle": "Tell us about your experience",
     "markAsVisitedMenuSubtitle": "Your input helps other travelers",
     "markAsVisitedMenuRatingTitle": "Rate your experience",
-    "markAsVisitedMenuTimeSpentTitle": "How much time you spent?",
+    "markAsVisitedMenuTimeSpentTitle": "How much time did you spend?",
     "hours": "h",
     "minutes": "mins",
     "skip": "Skip",
@@ -80,7 +80,9 @@
     "gotIt": "Got it",
     "shareExperienceSuccessTitle": "Thank you for sharing!",
     "shareExperienceSuccessSubtitle": "Your input helps other travelers organize their trip well!",
-    "reportInaccuraciesMenuTitle": "Report inaccurate information"
+    "reportInaccuraciesMenuTitle": "Report inaccurate information",
+    "inaccuraciesEmailSubject": "{{objectName}}: Inaccuracy/Error in Description",
+    "sent": "Sent"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"
