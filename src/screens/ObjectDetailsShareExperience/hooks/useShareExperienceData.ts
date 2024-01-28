@@ -20,14 +20,17 @@ export function useShareExperienceData() {
 
   const onSendPress = useCallback(
     (message: string) => {
-      dispatch(
-        sendInaccuraciesEmailRequest({
-          subject: t('inaccuraciesEmailSubject', {objectName}),
-          message: message,
-        }),
-      );
+      if (objectId) {
+        dispatch(
+          sendInaccuraciesEmailRequest({
+            subject: t('inaccuraciesEmailSubject', {objectName}),
+            message: message,
+            objectId,
+          }),
+        );
+      }
     },
-    [dispatch, objectName, t],
+    [dispatch, objectName, t, objectId],
   );
   const onSubmitPress = useCallback(
     ({

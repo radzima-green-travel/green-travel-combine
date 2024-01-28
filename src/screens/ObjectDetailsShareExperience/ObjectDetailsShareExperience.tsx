@@ -8,7 +8,7 @@ import {
 } from 'molecules';
 import React, {useCallback, useMemo} from 'react';
 import {useShareExperienceMenu, useShareExperienceData} from './hooks';
-import {Keyboard} from 'react-native';
+
 import {
   sendInaccuraciesEmailRequest,
   updateVisitedObjectRequest,
@@ -65,7 +65,7 @@ export const ObjectDetailsShareExperience = () => {
     [t],
   );
 
-  const header2 = useMemo(
+  const reportInnacuraciesHeader = useMemo(
     () => ({
       onBackPress: backToInitialMenu,
       title: t('reportInaccuraciesMenuTitle'),
@@ -113,10 +113,10 @@ export const ObjectDetailsShareExperience = () => {
       <BottomMenu
         onHideEnd={onHideEnd}
         testID={TestIDs.ObjectReportinaccuraciesMenu}
-        onHideStart={Keyboard.dismiss}
         withBackdrop
+        onBackdropPress={backToInitialMenu}
         {...reportInnacurateInfoMenuProps}
-        header={header2}>
+        header={reportInnacuraciesHeader}>
         <ObjectReportinaccuraciesMenu
           ref={innaccuraciesMenuRef}
           onSendPress={onSendPress}

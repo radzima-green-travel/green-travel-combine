@@ -39,6 +39,7 @@ interface IProps {
   testID: string;
   initialIndex?: number;
   bottomInset?: number;
+  onBackdropPress?: () => void;
 }
 
 export interface IBottomMenuRef {
@@ -65,6 +66,7 @@ export const BottomMenu = memo(
         testID,
         initialIndex = -1,
         bottomInset,
+        onBackdropPress,
       },
       ref,
     ) => {
@@ -128,15 +130,19 @@ export const BottomMenu = memo(
         [onHideStart],
       );
 
-      const renderBackdrop = useCallback(props => {
-        return (
-          <BottomSheetBackdrop
-            {...props}
-            disappearsOnIndex={-1}
-            appearsOnIndex={0}
-          />
-        );
-      }, []);
+      const renderBackdrop = useCallback(
+        props => {
+          return (
+            <BottomSheetBackdrop
+              {...props}
+              disappearsOnIndex={-1}
+              appearsOnIndex={0}
+              {...(onBackdropPress ? {onPress: onBackdropPress} : {})}
+            />
+          );
+        },
+        [onBackdropPress],
+      );
 
       const renderMenuHeader = () => {
         if (!header) {

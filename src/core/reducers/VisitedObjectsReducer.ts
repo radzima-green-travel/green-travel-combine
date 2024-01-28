@@ -76,6 +76,7 @@ export const sendInaccuraciesEmailRequest = createAction(
 )<{
   subject: string;
   message: string;
+  objectId: string;
 }>();
 export const sendInaccuraciesEmailSuccess = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_SUCCESS,

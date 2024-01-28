@@ -111,7 +111,10 @@ export const ObjectDetails = () => {
                 containerStyle={styles.animationContainer}
               />
               <Button
-                icon={() => (isVisited ? <Icon name={'check'} /> : <></>)}
+                testID={TestIDs.MarkAsVisitedButton}
+                icon={textStyle =>
+                  isVisited ? <Icon style={textStyle} name={'check'} /> : <></>
+                }
                 onPress={markAsVisited}
                 text={isVisited ? t('visitedObject') : t('markAsVisited')}
                 theme={'secondary'}

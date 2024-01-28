@@ -275,14 +275,17 @@ class AmplifyApi extends AmplifyApiEngine {
   sendEmail = async ({
     message,
     subject,
+    objectId,
   }: {
     message: string;
     subject: string;
+    objectId: string;
   }) => {
     return this.postByApi('apiac472374', '/send', {
       body: {
-        message: message,
-        subject: subject,
+        message,
+        subject,
+        objectId,
       },
     });
   };

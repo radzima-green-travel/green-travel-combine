@@ -2,6 +2,7 @@ import {useBottomMenu, useStaticCallback} from 'core/hooks';
 import {useCallback, useRef, useState} from 'react';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {ObjectReportinaccuraciesMenuRef} from 'molecules';
+import {Keyboard} from 'react-native';
 
 export function useShareExperienceMenu() {
   const startTime = useRef(Date.now());
@@ -14,6 +15,7 @@ export function useShareExperienceMenu() {
   const [rating, setRating] = useState(0);
 
   const backToInitialMenu = useStaticCallback(() => {
+    Keyboard.dismiss();
     shareExperienceMenuProps.openMenu();
     reportInnacurateInfoMenuProps.closeMenu();
   }, [shareExperienceMenuProps, reportInnacurateInfoMenuProps]);

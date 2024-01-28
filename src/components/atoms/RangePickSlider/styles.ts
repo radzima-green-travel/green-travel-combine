@@ -7,7 +7,7 @@ export const thumbSize = 28;
 
 export const themeStyles = createThemeStyles({
   container: {
-    height: 50,
+    height: 52,
     alignItems: 'center',
     overflow: 'hidden',
   },
@@ -73,6 +73,7 @@ export const themeStyles = createThemeStyles({
     height: 4,
     width: 1,
     borderRadius: 1,
+    marginBottom: 3,
     backgroundColor: {
       light: COLORS.light.text.primary,
       dark: COLORS.dark.text.primary,

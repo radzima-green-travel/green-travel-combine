@@ -66,6 +66,8 @@ export const ObjectReportinaccuraciesMenu = memo(
         ];
       }, [isSendLoading, onSendPressHandler, t, testID, value.length]);
 
+      const [withBottomInset, setWithBottomInset] = useState(false);
+
       return (
         <View testID={testID} style={styles.container}>
           <View style={styles.fieldContainer}>
@@ -74,12 +76,18 @@ export const ObjectReportinaccuraciesMenu = memo(
               ref={textInputRef}
               value={value}
               onChange={setValue}
+              onFocus={() => {
+                setWithBottomInset(false);
+              }}
+              onBlur={() => {
+                setWithBottomInset(true);
+              }}
               TextInputComponent={BottomSheetTextInput}
               multiline
             />
           </View>
           <ButtonsGroup
-            withBottomInset
+            withBottomInset={withBottomInset}
             containerStyle={styles.buttonsContainer}
             buttons={buttons}
           />
