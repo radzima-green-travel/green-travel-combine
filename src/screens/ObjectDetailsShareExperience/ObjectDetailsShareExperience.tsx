@@ -15,6 +15,7 @@ import {
 } from 'core/reducers';
 import {Portal} from '@gorhom/portal';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Backdrop} from './components/Backdrop';
 
 export const ObjectDetailsShareExperience = () => {
   const {t} = useTranslation('objectDetails');
@@ -42,6 +43,10 @@ export const ObjectDetailsShareExperience = () => {
     getIsAllMenusClosed,
     innaccuraciesMenuRef,
     addHapticFeedback,
+    backdropAnimatedIndex,
+    shareExperienceMenuAnimatedIndex,
+    shareExperienceSuccessMenuAnimatedIndex,
+    onBackdropPress,
   } = useShareExperienceMenu();
 
   useOnRequestSuccess(
@@ -75,10 +80,15 @@ export const ObjectDetailsShareExperience = () => {
 
   return (
     <Portal>
+      <Backdrop
+        animatedIndex={backdropAnimatedIndex}
+        onPress={onBackdropPress}
+      />
+
       <BottomMenu
-        withBackdrop
         onHideEnd={onHideEnd}
         initialIndex={0}
+        animatedIndex={shareExperienceMenuAnimatedIndex}
         testID={TestIDs.ObjectShareExperienceMenu}
         {...shareExperienceMenuProps}
         header={header}>
@@ -99,8 +109,8 @@ export const ObjectDetailsShareExperience = () => {
 
       <BottomMenu
         onHideEnd={onHideEnd}
+        animatedIndex={shareExperienceSuccessMenuAnimatedIndex}
         testID={TestIDs.ObjectShareExperienceSuccessMenu}
-        withBackdrop
         {...reportInnacurateInfoSuccessMenuProps}>
         <ObjectShareExperienceSuccessMenu
           testID={TestIDs.ObjectShareExperienceSuccessMenuContent}
@@ -113,8 +123,6 @@ export const ObjectDetailsShareExperience = () => {
       <BottomMenu
         onHideEnd={onHideEnd}
         testID={TestIDs.ObjectReportinaccuraciesMenu}
-        withBackdrop
-        onBackdropPress={backToInitialMenu}
         {...reportInnacurateInfoMenuProps}
         header={reportInnacuraciesHeader}>
         <ObjectReportinaccuraciesMenu

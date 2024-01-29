@@ -1,4 +1,4 @@
-import Animated from 'react-native-reanimated';
+import Animated, {SharedValue} from 'react-native-reanimated';
 import {themeStyles} from './styles';
 import {Text, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
@@ -26,6 +26,7 @@ interface IProps {
   onHideStart?: () => void;
   menuHeight?: number;
   animatedPosition?: Animated.SharedValue<number>;
+  animatedIndex?: SharedValue<number>;
   showDragIndicator?: boolean;
   isPanDownEnabled?: boolean;
   withBackdrop?: boolean;
@@ -67,6 +68,7 @@ export const BottomMenu = memo(
         initialIndex = -1,
         bottomInset,
         onBackdropPress,
+        animatedIndex,
       },
       ref,
     ) => {
@@ -225,6 +227,7 @@ export const BottomMenu = memo(
           handleStyle={styles.handleStyles}
           backgroundStyle={styles.bgStyle}
           handleIndicatorStyle={styles.touchIndicator}
+          animatedIndex={animatedIndex}
           index={initialIndex}
           snapPoints={animatedSnapPoints}
           handleHeight={animatedHandleHeight}
