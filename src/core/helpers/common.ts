@@ -8,6 +8,7 @@ import {
   orderBy,
   some,
   find,
+  keyBy,
 } from 'lodash';
 
 import {
@@ -33,9 +34,12 @@ import {
   CategoryI18n,
   ObjectI18n,
   TestIDs,
+  ISpotsMap,
+  SpotI18n,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {ListMobileDataQuery} from 'api/graphql/types';
+import transliterate from './transliterate';
 
 export const extractThemeStyles = (
   styles: Object,
@@ -120,6 +124,20 @@ function getObjectTranslation(
   };
 }
 
+function getSpotTranslation(
+  spot: {i18n?: SpotI18n; value: string},
+  currentLocale: SupportedLocales,
+): string {
+  const i18nObject = find(
+    spot.i18n,
+    translate => translate?.locale === currentLocale,
+  );
+
+  const value = currentLocale === 'ru' ? spot.value : i18nObject?.value;
+
+  return value || '';
+}
+
 export function transformQueryData(
   dataQuery: ListMobileDataQuery,
   currentLocale: SupportedLocales,
@@ -133,7 +151,7 @@ export function transformQueryData(
   const {listMobileData} = dataQuery;
 
   if (listMobileData) {
-    const {categories, objects} = listMobileData;
+    const {categories, objects, spots} = listMobileData;
 
     const sortedCategories = orderBy(categories, ['index'], ['asc']);
 
@@ -184,11 +202,13 @@ export function transformQueryData(
       {} as ICategoriesMap,
     );
 
+    const spotsMap = keyBy(spots, 'id') as ISpotsMap;
+
     const objectsMap = reduce(
       objects?.items,
       (acc, object) => {
         if (object) {
-          const {address, name, description} = getObjectTranslation(
+          const {name, description} = getObjectTranslation(
             object,
             currentLocale,
           );
@@ -237,11 +257,43 @@ export function transformQueryData(
             );
           }
 
+          function getObjectAddress(): string {
+            const address: string[] = [];
+            const [
+              {
+                regionId = '',
+                subRegionId = '',
+                municipalityId = '',
+                street = '',
+              } = {},
+            ] = object?.addresses?.items ?? [];
+
+            [regionId, subRegionId, municipalityId].forEach(id => {
+              if (id && spotsMap[id]) {
+                const spotName = getSpotTranslation(
+                  spotsMap[id],
+                  currentLocale,
+                );
+
+                spotName && address.push(spotName);
+              }
+            });
+
+            if (street) {
+              address.push(
+                // TODO: temporary workaround. Replace with translation once available
+                currentLocale === 'ru' ? street : transliterate(street),
+              );
+            }
+
+            return address.join(', ');
+          }
+
           const objectData: IObject = {
             id: object.id,
             name,
             description,
-            address,
+            address: getObjectAddress(),
             area: (object.area as MultiPolygon) || null,
             location:
               object.location?.lat && object.location?.lon
