@@ -82,7 +82,8 @@
     "shareExperienceSuccessSubtitle": "Your input helps other travelers organize their trip well!",
     "reportInaccuraciesMenuTitle": "Report inaccurate information",
     "inaccuraciesEmailSubject": "{{objectName}}: Inaccuracy/Error in Description",
-    "sent": "Sent"
+    "sent": "Sent",
+    "reportInaccuracies": "Report inaccurate information"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {View} from 'react-native';
 
 import {
@@ -7,6 +7,8 @@ import {
   ObjectDescriptionSource,
   ObjectDetailsPager,
   ObjectDetailsBottomButtons,
+  ObjectReportinaccuraciesMenu,
+  ObjectShareExperienceSuccessMenu,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
 import {
@@ -16,6 +18,7 @@ import {
   Button,
   Icon,
   LottieAnimation,
+  BottomMenu,
 } from 'atoms';
 import {useFavorite, useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
@@ -26,12 +29,14 @@ import {
   useObjectDetailsAnimation,
   useObjectDetailsDeepLinking,
   useVisitedObject,
+  useReportInaccuracies,
 } from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
 import {TestIDs} from 'core/types';
 import Animated from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
+import {Portal} from '@gorhom/portal';
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
   const {
@@ -76,7 +81,21 @@ export const ObjectDetails = () => {
       onScrollEndReached: sendScrollEvent,
     });
 
+  const {
+    reportInnacurateInfoMenuProps,
+    innaccuraciesMenuRef,
+    openInnacurateInfoMenu,
+    reportInnacurateInfoSuccessMenuProps,
+    openInnacurateInfoSuccessMenu,
+  } = useReportInaccuracies();
+
   const locationExist = Boolean(data && isLocationExist(data));
+  const reportInaccuraciesMenuHeader = useMemo(
+    () => ({
+      title: t('reportInaccuraciesMenuTitle'),
+    }),
+    [t],
+  );
 
   return (
     <SuspenseView
@@ -153,6 +172,15 @@ export const ObjectDetails = () => {
                 onIncludePress={navigateToObjectsListDebounced}
               />
             )}
+
+            <Button
+              style={styles.reportInaccuraciesButton}
+              onPress={openInnacurateInfoMenu}
+              icon={textStyle => <Icon style={textStyle} name="mail" />}
+              theme="tertiary"
+              text={t('reportInaccuracies')}
+              testID={TestIDs.ObjectDetailsReportInaccuraciesButton}
+            />
           </Animated.ScrollView>
 
           <Animated.View
@@ -195,6 +223,32 @@ export const ObjectDetails = () => {
             isFavoriteLoading={favoritesSynchronizing}
             showOnMapButtonEnabled={locationExist}
           />
+
+          <Portal>
+            <BottomMenu
+              withBackdrop
+              testID={TestIDs.ObjectReportinaccuraciesMenu}
+              header={reportInaccuraciesMenuHeader}
+              {...reportInnacurateInfoMenuProps}>
+              <ObjectReportinaccuraciesMenu
+                ref={innaccuraciesMenuRef}
+                onSendPress={openInnacurateInfoSuccessMenu}
+                isSendLoading={false}
+                testID={TestIDs.ObjectReportinaccuraciesMenuContent}
+              />
+            </BottomMenu>
+            <BottomMenu
+              withBackdrop
+              testID={TestIDs.ObjectShareExperienceSuccessMenu}
+              {...reportInnacurateInfoSuccessMenuProps}>
+              <ObjectShareExperienceSuccessMenu
+                testID={TestIDs.ObjectShareExperienceSuccessMenuContent}
+                onGotItPress={() => {
+                  reportInnacurateInfoSuccessMenuProps.closeMenu();
+                }}
+              />
+            </BottomMenu>
+          </Portal>
         </View>
       ) : null}
     </SuspenseView>

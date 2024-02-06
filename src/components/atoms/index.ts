@@ -1,5 +1,5 @@
 export {BookmarkItem} from './BookmarkItem';
-export {BottomMenu} from './BottomMenu';
+export {BottomMenu, Backdrop} from './BottomMenu';
 export {Button} from './Button';
 export {Card} from './Card';
 export {ClusterMap} from './ClusterMap';

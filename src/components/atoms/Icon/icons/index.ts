@@ -40,6 +40,7 @@ export {default as home} from './home.svg';
 export {default as homeFilled} from './homeFilled.svg';
 export {default as language} from './language.svg';
 export {default as lock} from './lock.svg';
+export {default as mail} from './mail.svg';
 export {default as mapMarkerGray} from './mapMarkerGray.svg';
 export {default as markedStar} from './markedStar.svg';
 export {default as marker} from './marker.svg';

@@ -52,6 +52,10 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     opacity: 0.97,
   },
+  reportInaccuraciesButton: {
+    marginTop: 16,
+    marginBottom: 8,
+  },
 });
 
 export const gradientConfig = {

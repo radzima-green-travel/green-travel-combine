@@ -41,6 +41,7 @@ export type IconsNames =
   | 'homeFilled'
   | 'language'
   | 'lock'
+  | 'mail'
   | 'mapMarkerGray'
   | 'markedStar'
   | 'marker'

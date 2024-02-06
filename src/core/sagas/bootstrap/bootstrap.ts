@@ -1,4 +1,4 @@
-import {call, put, select, takeEvery} from 'redux-saga/effects';
+import {call, put, select, spawn, takeEvery} from 'redux-saga/effects';
 
 import {
   bootstrapSuccess,
@@ -47,7 +47,7 @@ export function* bootstrapSaga() {
 
       yield call(migrateToNewFavoritesTypeSaga);
       if (isAuthorized) {
-        yield call(getObjectAttributesSaga);
+        yield spawn(getObjectAttributesSaga);
       }
 
       yield put(bootstrapSuccess());

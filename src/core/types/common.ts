@@ -220,4 +220,6 @@ export enum TestIDs {
   ObjectShareExperienceSuccessMenu = 'objectShareExperienceSuccessMenu',
   ObjectShareExperienceSuccessMenuContent = 'objectShareExperienceSuccessMenuContent',
   MarkAsVisitedButton = 'markAsVisitedButton',
+  ObjectDetailsBottomButtons = 'objectDetailsBottomButtons',
+  ObjectDetailsReportInaccuraciesButton = 'objectDetailsReportInaccuraciesButton',
 }

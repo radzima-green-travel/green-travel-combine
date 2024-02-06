@@ -1,6 +1,4 @@
-import {
-  getHomeDataUpdateAvailableRequest,
-} from 'core/reducers';
+import {getHomeDataUpdateAvailableRequest} from 'core/reducers';
 import {selectUserAuthorized} from 'core/selectors';
 import {AppStateStatus} from 'react-native';
 import {call, put, select} from 'redux-saga/effects';

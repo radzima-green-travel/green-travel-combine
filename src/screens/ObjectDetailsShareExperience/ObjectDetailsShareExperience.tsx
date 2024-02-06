@@ -1,4 +1,4 @@
-import {BottomMenu, SnackBar} from 'atoms';
+import {BottomMenu, SnackBar, Backdrop} from 'atoms';
 import {useOnRequestSuccess, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types/common';
 import {
@@ -15,7 +15,6 @@ import {
 } from 'core/reducers';
 import {Portal} from '@gorhom/portal';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Backdrop} from './components/Backdrop';
 
 export const ObjectDetailsShareExperience = () => {
   const {t} = useTranslation('objectDetails');

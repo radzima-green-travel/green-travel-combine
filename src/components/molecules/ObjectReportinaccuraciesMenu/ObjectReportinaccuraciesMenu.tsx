@@ -68,6 +68,13 @@ export const ObjectReportinaccuraciesMenu = memo(
 
       const [withBottomInset, setWithBottomInset] = useState(false);
 
+      const onFocus = useCallback(() => {
+        setWithBottomInset(false);
+      }, []);
+      const onBlur = useCallback(() => {
+        setWithBottomInset(true);
+      }, []);
+
       return (
         <View testID={testID} style={styles.container}>
           <View style={styles.fieldContainer}>
@@ -76,12 +83,8 @@ export const ObjectReportinaccuraciesMenu = memo(
               ref={textInputRef}
               value={value}
               onChange={setValue}
-              onFocus={() => {
-                setWithBottomInset(false);
-              }}
-              onBlur={() => {
-                setWithBottomInset(true);
-              }}
+              onFocus={onFocus}
+              onBlur={onBlur}
               TextInputComponent={BottomSheetTextInput}
               multiline
             />

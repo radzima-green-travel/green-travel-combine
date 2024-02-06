@@ -4,3 +4,4 @@ export {useObjectDetailsDeepLinking} from './useObjectDetailsDeepLinking';
 export {useObjectDetailsAnimation} from './useObjectDetailsAnimation';
 export {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
 export {useVisitedObject} from './useVisitedObject';
+export {useReportInaccuracies} from './useReportInaccuracies';

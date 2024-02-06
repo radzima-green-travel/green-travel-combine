@@ -17,9 +17,11 @@ import React, {
   useRef,
   useMemo,
   memo,
+  useState,
 } from 'react';
 import {AnimatedCircleButton} from 'molecules';
 import {composeTestID} from 'core/helpers';
+import {uniqueId} from 'lodash';
 
 interface IProps {
   onHideEnd?: () => void;
@@ -110,11 +112,14 @@ export const BottomMenu = memo(
         },
       }));
 
+      const [key, setKey] = useState(() => uniqueId());
+
       const onChange = useCallback(
         (index: number) => {
           isOpened.current = index === 0;
 
           if (index === -1) {
+            setKey(uniqueId());
             onHideEnd?.();
           }
         },
@@ -139,7 +144,7 @@ export const BottomMenu = memo(
               {...props}
               disappearsOnIndex={-1}
               appearsOnIndex={0}
-              {...(onBackdropPress ? {onPress: onBackdropPress} : {})}
+              onPress={onBackdropPress ?? undefined}
             />
           );
         },
@@ -236,7 +241,7 @@ export const BottomMenu = memo(
           onAnimate={onAnimate}
           bottomInset={bottomInset}
           onChange={onChange}>
-          <BottomSheetView onLayout={handleContentLayout}>
+          <BottomSheetView key={key} onLayout={handleContentLayout}>
             <>
               {renderMenuHeader()}
               {children}
