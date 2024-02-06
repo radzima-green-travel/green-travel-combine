@@ -73,6 +73,11 @@ export interface IObject {
   blurhash?: string;
 }
 
+export interface ISpot {
+  id: string;
+  value: string;
+}
+
 export interface ICategory {
   id: string;
   path: string;
@@ -104,6 +109,11 @@ export interface IObejctsMap {
 export interface IObejctsToCategoryMap {
   [key: string]: string;
 }
+
+export interface ISpotsMap {
+  [key: string]: ISpot;
+}
+
 export interface ITransformedData {
   categories: ITransformedCategory[];
   objectsMap: IObejctsMap;
@@ -157,6 +167,15 @@ export type ObjectI18n =
   | undefined;
 export type CategoryAndObjectI18n =
   | Array<CategoryI18n | ObjectI18n | null>
+  | null
+  | undefined;
+
+export type SpotI18n =
+  | ({
+      __typename: 'SpotI18n';
+      locale: string;
+      value?: string | null | undefined;
+    } | null)[]
   | null
   | undefined;
 
