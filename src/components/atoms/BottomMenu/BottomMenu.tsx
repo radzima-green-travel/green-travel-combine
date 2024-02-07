@@ -26,6 +26,7 @@ import {uniqueId} from 'lodash';
 interface IProps {
   onHideEnd?: () => void;
   onHideStart?: () => void;
+  onOpenEnd?: () => void;
   menuHeight?: number;
   animatedPosition?: Animated.SharedValue<number>;
   animatedIndex?: SharedValue<number>;
@@ -71,6 +72,7 @@ export const BottomMenu = memo(
         bottomInset,
         onBackdropPress,
         animatedIndex,
+        onOpenEnd,
       },
       ref,
     ) => {
@@ -118,12 +120,16 @@ export const BottomMenu = memo(
         (index: number) => {
           isOpened.current = index === 0;
 
+          if (index === 0) {
+            onOpenEnd?.();
+          }
+
           if (index === -1) {
             setKey(uniqueId());
             onHideEnd?.();
           }
         },
-        [onHideEnd],
+        [onHideEnd, onOpenEnd],
       );
 
       const onAnimate = useCallback(

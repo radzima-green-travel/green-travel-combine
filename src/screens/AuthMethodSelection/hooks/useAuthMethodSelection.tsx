@@ -6,10 +6,7 @@ import {useDispatch} from 'react-redux';
 import {signInRequest} from 'core/reducers';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
-import {
-  useNavigateToPrivacyPolicyAndTnC,
-  useOnSuccessSignIn,
-} from 'core/hooks';
+import {useNavigateToPrivacyPolicyAndTnC, useOnSuccessSignIn} from 'core/hooks';
 
 export const useAuthMethodSelection = () => {
   const navigation = useNavigation<AuthMethodSelectionScreenNavigationProps>();

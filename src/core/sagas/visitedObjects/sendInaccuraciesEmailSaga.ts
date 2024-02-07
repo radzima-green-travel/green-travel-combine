@@ -10,12 +10,14 @@ import {amplifyApi} from 'api/amplify';
 
 export function* sendInaccuraciesEmailSaga({
   payload,
+  meta,
 }: ReturnType<typeof sendInaccuraciesEmailRequest>) {
+  const {entityId} = meta || {};
   try {
     yield call(amplifyApi.sendEmail, payload);
 
-    yield put(sendInaccuraciesEmailSuccess());
+    yield put(sendInaccuraciesEmailSuccess(undefined, {entityId}));
   } catch (e) {
-    yield put(sendInaccuraciesEmailFailure(e as Error));
+    yield put(sendInaccuraciesEmailFailure(e as Error, {entityId}));
   }
 }

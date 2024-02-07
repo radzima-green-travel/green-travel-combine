@@ -11,6 +11,8 @@ import {useCallback, useRef} from 'react';
 import {Keyboard, TextInput} from 'react-native';
 import {useDispatch} from 'react-redux';
 
+const entityIdObjectDetails = 'objectDetails';
+
 export function useReportInaccuracies({
   objectId,
   objectName,
@@ -39,13 +41,15 @@ export function useReportInaccuracies({
   const onSendPress = useCallback(
     (message: string) => {
       if (objectId) {
-        console.log('objectId', objectId, message, objectName);
         dispatch(
-          sendInaccuraciesEmailRequest({
-            subject: t('inaccuraciesEmailSubject', {objectName}),
-            message: message,
-            objectId,
-          }),
+          sendInaccuraciesEmailRequest(
+            {
+              subject: t('inaccuraciesEmailSubject', {objectName}),
+              message: message,
+              objectId,
+            },
+            {entityId: entityIdObjectDetails},
+          ),
         );
       }
     },
@@ -57,7 +61,10 @@ export function useReportInaccuracies({
   useOnRequestError(
     sendInaccuraciesEmailRequest,
     'objectDetails',
-    errorLabel => {
+    (errorLabel, entityId) => {
+      if (entityId !== entityIdObjectDetails) {
+        return;
+      }
       show({
         type: 'error',
         title: errorLabel.text,
@@ -65,10 +72,12 @@ export function useReportInaccuracies({
     },
   );
 
-  useOnRequestSuccess(
-    sendInaccuraciesEmailRequest,
-    openInnacurateInfoSuccessMenu,
-  );
+  useOnRequestSuccess(sendInaccuraciesEmailRequest, (_, entityId) => {
+    if (entityId !== entityIdObjectDetails) {
+      return;
+    }
+    openInnacurateInfoSuccessMenu();
+  });
 
   const {loading: sendInaccuraciesLoading} = useRequestLoading(
     sendInaccuraciesEmailRequest,

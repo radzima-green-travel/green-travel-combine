@@ -73,17 +73,20 @@ export const updateVisitedObjectFailure = createAction(
 
 export const sendInaccuraciesEmailRequest = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_REQUEST,
-)<{
-  subject: string;
-  message: string;
-  objectId: string;
-}>();
+)<
+  {
+    subject: string;
+    message: string;
+    objectId: string;
+  },
+  {entityId: string} | void
+>();
 export const sendInaccuraciesEmailSuccess = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_SUCCESS,
-)();
+)<void, {entityId?: string} | void>();
 export const sendInaccuraciesEmailFailure = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_FAILURE,
-)<Error>();
+)<Error, {entityId?: string} | void>();
 
 interface IDefaultState {
   data: VisitedObjectsData;

@@ -11572,10 +11572,10 @@ react-native-permissions@3.6.1:
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.6.1.tgz#73adcc1cef8cd57a9ef167b4507405f4ff5749c4"
   integrity sha512-fzPpPQXeD34inUccqtoResSwYubfrwUguP4qrVUUv8+KSMjYSaHGoS5HaIJLZHlN9gO+TvLJZ2L5ZljTsb6qnQ==
 
-react-native-reanimated@^3.5.1:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.5.4.tgz#a6c2b0c43b6dad246f5d276213974afedb8e3fc7"
-  integrity sha512-8we9LLDO1o4Oj9/DICeEJ2K1tjfqkJagqQUglxeUAkol/HcEJ6PGxIrpBcNryLqCDYEcu6FZWld/FzizBIw6bg==
+react-native-reanimated@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.6.2.tgz#8a48c37251cbd3b665a659444fa9778f5b510356"
+  integrity sha512-IIMREMOrxhtK35drfpzh2UhxNqAOHnuvGgtMofj7yHcMj16tmWZR2zFvMUf6z2MfmXv+aVgFQ6TRZ6yKYf7LNA==
   dependencies:
     "@babel/plugin-transform-object-assign" "^7.16.7"
     "@babel/preset-typescript" "^7.16.7"
@@ -11709,10 +11709,10 @@ react-native@0.72.6:
     ws "^6.2.2"
     yargs "^17.6.2"
 
-react-redux-help-kit@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/react-redux-help-kit/-/react-redux-help-kit-1.7.0.tgz#688731740fe938bc3142d1b97f0b6c8de465ff07"
-  integrity sha512-oLMTTCxBm8UE8OBMNInsZz/5AfrLqYW2d1W0aZRq0csCbofbVTra24xcHKCMBymFdfvtEdbciX3DW+xfqXJpGw==
+react-redux-help-kit@2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/react-redux-help-kit/-/react-redux-help-kit-2.1.4.tgz#d153ed587a5627fd3d7ef26e88e2311344853c47"
+  integrity sha512-iWHCmkFxug3ORfXkicLVHx+lTA3oQTkdUMUd0OePGKEg2qRcXVabBc8JXRvwLur9dY/PDXZfXAE4zkDChAWYFg==
 
 react-redux@7.2.0:
   version "7.2.0"

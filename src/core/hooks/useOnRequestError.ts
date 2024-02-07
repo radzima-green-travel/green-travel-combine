@@ -14,12 +14,12 @@ import {ILabelError} from 'core/types';
 export function useOnRequestError(
   action: Action,
   translationsNameSpace: string,
-  callback?: (errorTexts: ILabelError) => void,
+  callback?: (errorTexts: ILabelError, entityId: string | null) => void,
   autoClear = true,
 ): {errorTexts: ILabelError | null; clearError: () => void} {
   const {t} = useTranslation();
 
-  const {error, clearError} = useRequestError(action);
+  const {error, clearError, entityId} = useRequestError(action);
 
   const errorTexts = useMemo(() => {
     if (!error) {
@@ -50,9 +50,9 @@ export function useOnRequestError(
       if (autoClear) {
         clearError();
       }
-      callback(errorTexts);
+      callback(errorTexts, entityId);
     }
-  }, [autoClear, callback, clearError, errorTexts]);
+  }, [autoClear, callback, clearError, errorTexts, entityId]);
 
   useUpdateEffect(() => {
     if (errorTexts) {
