@@ -33,6 +33,7 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
       }),
       [t],
     );
+
     return (
       <Portal>
         <BottomMenu

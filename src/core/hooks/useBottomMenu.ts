@@ -2,6 +2,7 @@ import {useCallback, useRef} from 'react';
 import {IBottomMenuRef} from 'atoms/BottomMenu/BottomMenu';
 import {useSharedValue} from 'react-native-reanimated';
 import {SCREEN_HEIGHT} from 'services/PlatformService';
+import {useBackHandler} from './useBackHandler';
 
 export function useBottomMenu() {
   const menuRef = useRef<IBottomMenuRef>(null);
@@ -26,6 +27,15 @@ export function useBottomMenu() {
   const isMenuClosed = useCallback(() => {
     return menuRef.current?.isClosed();
   }, []);
+
+  useBackHandler(() => {
+    if (isMenuOpened()) {
+      closeMenu();
+      return true;
+    }
+
+    return false;
+  });
 
   return {
     openMenu,
