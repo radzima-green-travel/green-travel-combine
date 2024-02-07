@@ -7,7 +7,6 @@ import {
 import {AmplifyError, AmplifyErrorPresetParams} from 'core/types';
 
 export interface CustomApiRequestConfig {
-  withAuth?: boolean;
   params?: Record<string, any>;
   headers?: Record<string, string | number>;
   body?: any;
@@ -77,7 +76,7 @@ export class AmplifyApiEngine {
   async deleteByApi(
     apiName: string,
     path: string,
-    params?: Record<string, any>
+    params?: Record<string, any>,
   ) {
     return API.del(apiName, path, {
       headers: await this.getHeaders(),

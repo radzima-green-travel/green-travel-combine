@@ -4,7 +4,7 @@ import {TestIDs} from 'core/types/common';
 import {
   ObjectShareExperienceMenu,
   ObjectReportinaccuraciesMenu,
-  ObjectShareExperienceSuccessMenu,
+  ObjectSuccessMenu,
 } from 'molecules';
 import React, {useCallback, useMemo} from 'react';
 import {useShareExperienceMenu, useShareExperienceData} from './hooks';
@@ -111,11 +111,12 @@ export const ObjectDetailsShareExperience = () => {
         animatedIndex={shareExperienceSuccessMenuAnimatedIndex}
         testID={TestIDs.ObjectShareExperienceSuccessMenu}
         {...reportInnacurateInfoSuccessMenuProps}>
-        <ObjectShareExperienceSuccessMenu
+        <ObjectSuccessMenu
           testID={TestIDs.ObjectShareExperienceSuccessMenuContent}
-          onGotItPress={() => {
-            reportInnacurateInfoSuccessMenuProps.closeMenu();
-          }}
+          title={t('shareExperienceSuccessTitle')}
+          subtitle={t('shareExperienceSuccessSubtitle')}
+          buttonText={t('gotIt')}
+          onPress={reportInnacurateInfoSuccessMenuProps.closeMenu}
         />
       </BottomMenu>
 

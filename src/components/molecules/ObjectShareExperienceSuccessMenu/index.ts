@@ -1,1 +1,0 @@
-export {ObjectShareExperienceSuccessMenu} from './ObjectShareExperienceSuccessMenu';

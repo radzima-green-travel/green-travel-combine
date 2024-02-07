@@ -33,8 +33,8 @@ export const useObjectDetails = () => {
   const {sendOpenMapEvent, sendSwitchPhotosEvent, sendScrollEvent} =
     useDetailsPageAnalytics(objectId);
 
-  const {show, ...snackBarProps} = useSnackbar();
-
+  const snackBarProps = useSnackbar();
+  const {show} = snackBarProps;
   const copyLocationToClipboard = useCallback(
     (location: string) => {
       Clipboard.setString(location);

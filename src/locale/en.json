@@ -83,7 +83,10 @@
     "reportInaccuraciesMenuTitle": "Report inaccurate information",
     "inaccuraciesEmailSubject": "{{objectName}}: Inaccuracy/Error in Description",
     "sent": "Sent",
-    "reportInaccuracies": "Report inaccurate information"
+    "reportInaccuracies": "Report inaccurate information",
+    "reportInaccuraciesSuccessTitle": "Thank you for sharing!",
+    "reportInaccuraciesSuccessSubtitle": "Your feedback sent",
+    "cool": "Cool!"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

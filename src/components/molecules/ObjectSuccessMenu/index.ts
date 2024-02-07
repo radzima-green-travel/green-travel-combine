@@ -1,0 +1,1 @@
+export {ObjectSuccessMenu} from './ObjectSuccessMenu';

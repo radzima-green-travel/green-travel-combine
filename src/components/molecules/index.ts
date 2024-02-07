@@ -32,4 +32,4 @@ export {Ratings} from './Ratings';
 export {ObjectShareExperienceMenu} from './ObjectShareExperienceMenu';
 export {ButtonsGroup} from './ButtonsGroup';
 export * from './ObjectReportinaccuraciesMenu';
-export {ObjectShareExperienceSuccessMenu} from './ObjectShareExperienceSuccessMenu';
+export {ObjectSuccessMenu} from './ObjectSuccessMenu';

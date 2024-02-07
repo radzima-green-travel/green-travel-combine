@@ -82,7 +82,7 @@ export const sendInaccuraciesEmailSuccess = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_SUCCESS,
 )();
 export const sendInaccuraciesEmailFailure = createAction(
-  ACTIONS.UPDATE_VISITED_OBJECT_FAILURE,
+  ACTIONS.SEND_INACCURACIES_EMAIL_FAILURE,
 )<Error>();
 
 interface IDefaultState {

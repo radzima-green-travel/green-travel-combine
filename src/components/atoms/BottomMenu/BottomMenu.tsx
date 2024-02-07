@@ -139,6 +139,7 @@ export const BottomMenu = memo(
 
       const renderBackdrop = useCallback(
         props => {
+          console.log('renderBackdrop');
           return (
             <BottomSheetBackdrop
               {...props}

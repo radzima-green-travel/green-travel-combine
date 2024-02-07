@@ -2,32 +2,34 @@ import React, {memo, useMemo} from 'react';
 import {View, Text, StyleProp, ImageStyle} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {composeTestID} from 'core/helpers';
-import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
+import {useColorScheme, useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 
 import {Image} from 'expo-image';
 
 interface IProps {
   testID: string;
-  onGotItPress: () => void;
+  onPress: () => void;
+  title: string;
+  subtitle: string;
+  buttonText: string;
 }
 
-export const ObjectShareExperienceSuccessMenu = memo(
-  ({testID, onGotItPress}: IProps) => {
+export const ObjectSuccessMenu = memo(
+  ({testID, onPress, title, subtitle, buttonText}: IProps) => {
     const theme = useColorScheme();
     const styles = useThemeStyles(themeStyles);
-    const {t} = useTranslation('objectDetails');
 
     const buttons = useMemo(() => {
       return [
         {
-          onPress: onGotItPress,
+          onPress: onPress,
           theme: 'primary' as const,
           testID: composeTestID(testID, 'gotItButton'),
-          text: t('gotIt'),
+          text: buttonText,
         },
       ];
-    }, [onGotItPress, t, testID]);
+    }, [buttonText, onPress, testID]);
 
     return (
       <View testID={testID} style={styles.container}>
@@ -39,10 +41,8 @@ export const ObjectShareExperienceSuccessMenu = memo(
           }
           style={styles.image as StyleProp<ImageStyle>}
         />
-        <Text style={styles.title}>{t('shareExperienceSuccessTitle')}</Text>
-        <Text style={styles.subtitle}>
-          {t('shareExperienceSuccessSubtitle')}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
         <ButtonsGroup
           withBottomInset
           containerStyle={styles.buttonsContainer}

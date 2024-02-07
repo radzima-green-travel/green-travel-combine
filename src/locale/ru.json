@@ -83,7 +83,10 @@
     "reportInaccuraciesMenuTitle": "Сообщить об ошибке",
     "inaccuraciesEmailSubject": "{{objectName}}: Неточность/ошибка в описании",
     "sent": "Отправлено",
-    "reportInaccuracies": "Сообщить об ошибке"
+    "reportInaccuracies": "Сообщить об ошибке",
+    "reportInaccuraciesSuccessTitle": "Спасибо за отзыв!",
+    "reportInaccuraciesSuccessSubtitle": "Ваш отзыв отправлен",
+    "cool": "Круто!"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

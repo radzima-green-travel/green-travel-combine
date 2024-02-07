@@ -12,14 +12,16 @@ import {AmplifyApiEngine, CustomApiRequestConfig} from '../engines';
 
 class AmplifyApi extends AmplifyApiEngine {
   async getHeaders(config?: CustomApiRequestConfig) {
-    const {headers, withAuth = true} = config || {};
-    const authHeaders = withAuth
-      ? {
-          Authorization: (await Auth.currentSession())
-            .getAccessToken()
-            .getJwtToken(),
-        }
-      : {};
+    const {headers} = config || {};
+    let authHeaders = {};
+
+    try {
+      const session = await Auth.currentSession();
+      authHeaders = {
+        Authorization: session.getAccessToken().getJwtToken(),
+      };
+    } catch (e) {}
+
     return {
       ...authHeaders,
       ...(headers || {}),
