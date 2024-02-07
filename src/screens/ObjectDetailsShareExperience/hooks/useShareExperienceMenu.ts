@@ -1,4 +1,4 @@
-import {useBottomMenu, useStaticCallback} from 'core/hooks';
+import {useBackHandler, useBottomMenu, useStaticCallback} from 'core/hooks';
 import {useCallback, useRef, useState} from 'react';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {ObjectReportinaccuraciesMenuRef} from 'molecules';
@@ -104,6 +104,15 @@ export function useShareExperienceMenu() {
     reportInnacurateInfoSuccessMenuProps,
     shareExperienceMenuProps,
   ]);
+
+  useBackHandler(() => {
+    if (reportInnacurateInfoMenuProps.isMenuOpened()) {
+      backToInitialMenu();
+      return true;
+    }
+
+    return false;
+  });
 
   return {
     backToInitialMenu,
