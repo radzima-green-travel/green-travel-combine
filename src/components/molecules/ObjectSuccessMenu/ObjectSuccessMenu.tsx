@@ -2,10 +2,11 @@ import React, {memo, useMemo} from 'react';
 import {View, Text, StyleProp, ImageStyle} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {composeTestID} from 'core/helpers';
-import {useColorScheme, useThemeStyles} from 'core/hooks';
+import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 
 import {Image} from 'expo-image';
+import {images} from 'assets/images';
 
 interface IProps {
   testID: string;
@@ -13,11 +14,11 @@ interface IProps {
   title: string;
   subtitle: string;
   buttonText: string;
+  imageAsset: keyof typeof images;
 }
 
 export const ObjectSuccessMenu = memo(
-  ({testID, onPress, title, subtitle, buttonText}: IProps) => {
-    const theme = useColorScheme();
+  ({testID, onPress, title, subtitle, buttonText, imageAsset}: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     const buttons = useMemo(() => {
@@ -34,11 +35,7 @@ export const ObjectSuccessMenu = memo(
     return (
       <View testID={testID} style={styles.container}>
         <Image
-          source={
-            theme === 'light'
-              ? require('assets/images/imageRatingLight.png')
-              : require('assets/images/imageRatingDark.png')
-          }
+          source={images[imageAsset]}
           style={styles.image as StyleProp<ImageStyle>}
         />
         <Text style={styles.title}>{title}</Text>

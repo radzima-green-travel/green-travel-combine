@@ -7,6 +7,18 @@ import {
 } from 'core/reducers';
 
 import {amplifyApi} from 'api/amplify';
+import {CognitoUserWithAttributes} from 'core/types';
+
+export function* getUserIdSaga() {
+  try {
+    const {username}: CognitoUserWithAttributes = yield call(
+      amplifyApi.currentAuthenticatedUser,
+    );
+    return username;
+  } catch (e) {
+    return null;
+  }
+}
 
 export function* sendInaccuraciesEmailSaga({
   payload,
@@ -14,7 +26,8 @@ export function* sendInaccuraciesEmailSaga({
 }: ReturnType<typeof sendInaccuraciesEmailRequest>) {
   const {entityId} = meta || {};
   try {
-    yield call(amplifyApi.sendEmail, payload);
+    const userId = yield call(getUserIdSaga);
+    yield call(amplifyApi.sendEmail, {...payload, userId: userId});
 
     yield put(sendInaccuraciesEmailSuccess(undefined, {entityId}));
   } catch (e) {

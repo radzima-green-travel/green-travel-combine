@@ -1,5 +1,5 @@
 import {BottomMenu, SnackBar, Backdrop} from 'atoms';
-import {useOnRequestSuccess, useTranslation} from 'core/hooks';
+import {useColorScheme, useOnRequestSuccess, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types/common';
 import {
   ObjectShareExperienceMenu,
@@ -19,6 +19,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 export const ObjectDetailsShareExperience = () => {
   const {t} = useTranslation('objectDetails');
   const {top} = useSafeAreaInsets();
+  const theme = useColorScheme();
 
   const {
     onSendPress,
@@ -117,6 +118,9 @@ export const ObjectDetailsShareExperience = () => {
           subtitle={t('shareExperienceSuccessSubtitle')}
           buttonText={t('gotIt')}
           onPress={reportInnacurateInfoSuccessMenuProps.closeMenu}
+          imageAsset={
+            theme === 'light' ? 'imageRatingLight' : 'imageRatingDark'
+          }
         />
       </BottomMenu>
 

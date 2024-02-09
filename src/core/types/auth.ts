@@ -5,9 +5,11 @@ export type CognitoUserAttributes = {
   identities?: string;
   family_name?: string;
   name?: string;
+  sub?: string;
 };
 export type CognitoUserWithAttributes = CognitoUser & {
   attributes: CognitoUserAttributes;
+  username: string;
 };
 
 export type AmplifyError = {

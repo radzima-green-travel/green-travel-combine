@@ -12,7 +12,9 @@ export const selectUserAuthorized = createSelector(
 
 export const selectUserEmail = createSelector(
   selectUserAuthorizedData,
-  data => data?.email || '',
+  data => {
+    return data?.email || '';
+  },
 );
 
 export const selectFullUserName = createSelector(

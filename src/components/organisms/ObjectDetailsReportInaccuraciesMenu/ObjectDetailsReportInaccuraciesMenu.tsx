@@ -1,7 +1,7 @@
 import {Portal} from '@gorhom/portal';
 import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
 import {ObjectReportinaccuraciesMenu, ObjectSuccessMenu} from 'molecules';
-import {useBottomMenu, useTranslation} from 'core/hooks';
+import {useBottomMenu, useColorScheme, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types/common';
 import React, {memo, useMemo, RefObject, useRef} from 'react';
 import {Keyboard, TextInput} from 'react-native';
@@ -24,6 +24,7 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
     onSendPress,
     sendInaccuraciesLoading,
   }: IProps) => {
+    const theme = useColorScheme();
     const ref = useRef<TextInput>(null);
     const {top} = useSafeAreaInsets();
     const {t} = useTranslation('objectDetails');
@@ -62,6 +63,9 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
             title={t('reportInaccuraciesSuccessTitle')}
             subtitle={t('reportInaccuraciesSuccessSubtitle')}
             buttonText={t('cool')}
+            imageAsset={
+              theme === 'light' ? 'imageSuccessLight' : 'imageSuccessDark'
+            }
           />
         </BottomMenu>
         <SnackBar isOnTop offset={-top} {...reportInaccuraciesSnackBarProps} />
