@@ -1,8 +1,15 @@
 import {COLORS, FONTS_STYLES} from 'assets';
+import {PADDING_HORIZONTAL} from 'core/constants';
+import {createThemeStyles} from 'core/helpers/styles';
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   container: {
     paddingTop: 16,
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
+    paddingHorizontal: PADDING_HORIZONTAL,
   },
   title: {
     ...FONTS_STYLES.title3Bold,
@@ -47,4 +54,4 @@ export const themeStyles = {
     marginLeft: 8,
     marginRight: 2,
   },
-};
+});

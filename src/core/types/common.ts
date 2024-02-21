@@ -45,6 +45,8 @@ export interface IObjectCategory {
   name: string;
   parent: string | null;
   singularName: string;
+  imcompletedFieldsNames: string[];
+  percentageOfCompletion: number;
 }
 
 export interface IOrigins {
@@ -71,6 +73,8 @@ export interface IObject {
   routes?: LineString;
   length: number | null;
   blurhash?: string;
+  phoneNumber?: string;
+  workingHours?: string;
 }
 
 export interface ISpot {
@@ -91,6 +95,7 @@ export interface ICategory {
   objects: IObject[];
   children: ICategory[];
   blurhash?: string;
+  completenessFields: string[];
 }
 
 export interface ITransformedCategory
@@ -241,4 +246,6 @@ export enum TestIDs {
   MarkAsVisitedButton = 'markAsVisitedButton',
   ObjectDetailsBottomButtons = 'objectDetailsBottomButtons',
   ObjectDetailsReportInaccuraciesButton = 'objectDetailsReportInaccuraciesButton',
+  ObjectDetailsCompletenessBlock = 'objectDetailsCompletenessBlock',
+  objectDetailsCompletenessBlockSmall = 'objectDetailsCompletenessBlockSmall',
 }

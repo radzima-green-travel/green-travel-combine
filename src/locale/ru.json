@@ -27,7 +27,12 @@
     "cancel": "Отмена",
     "privacyPolicy": "Политикой конфиденциальности",
     "termsAndConditions": "Условиями использования",
-    "appVersion": "Версия приложения:"
+    "appVersion": "Версия приложения:",
+    "objectFieldsLables": {
+      "phoneNumber": "Контактный телефон",
+      "url": "Официальный сайт",
+      "workingHours": "Режим работы"
+    }
   },
   "home": {
     "headerTitle": "Главная",
@@ -86,7 +91,10 @@
     "reportInaccuracies": "Сообщить об ошибке",
     "reportInaccuraciesSuccessTitle": "Спасибо за отзыв!",
     "reportInaccuraciesSuccessSubtitle": "Ваш отзыв отправлен",
-    "cool": "Круто!"
+    "cool": "Круто!",
+    "addInformation": "Добавить информацию",
+    "helpUsToComplete": "Помогите нам дополнить информацию об объекте",
+    "readyOn": "Готово на {{percentage}}%"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

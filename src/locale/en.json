@@ -27,7 +27,12 @@
     "cancel": "Cancel",
     "privacyPolicy": "Privacy Policy",
     "termsAndConditions": "Terms And Conditions",
-    "appVersion": "Application version:"
+    "appVersion": "Application version:",
+    "objectFieldsLables": {
+      "phoneNumber": "Phone number",
+      "url": "Official site",
+      "workingHours": "Working hours"
+    }
   },
   "home": {
     "headerTitle": "Main",
@@ -86,7 +91,10 @@
     "reportInaccuracies": "Report inaccurate information",
     "reportInaccuraciesSuccessTitle": "Thank you for sharing!",
     "reportInaccuraciesSuccessSubtitle": "Your feedback sent",
-    "cool": "Cool!"
+    "cool": "Cool!",
+    "addInformation": "Add information",
+    "helpUsToComplete": "Help us to complete object info",
+    "readyOn": "Ready on {{percentage}}%"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

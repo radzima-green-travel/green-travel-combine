@@ -1,4 +1,6 @@
-import {COLORS} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
+import {PADDING_HORIZONTAL} from 'core/constants';
+import {createThemeStyles} from 'core/helpers/styles';
 import {StyleSheet} from 'react-native';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 
@@ -6,18 +8,40 @@ const ratio = 273 / 375;
 export const IMAGE_WIDTH = SCREEN_WIDTH;
 export const IMAGE_HEIGHT = IMAGE_WIDTH * ratio;
 
-export const styles = StyleSheet.create({
-  container: {flex: 1},
-  contentContainer: {
-    paddingHorizontal: 16,
+export const themeStyles = createThemeStyles({
+  container: {
+    flex: 1,
+    backgroundColor: {
+      light: COLORS.light.background.secondary,
+      dark: COLORS.dark.background.secondary,
+    },
   },
+  contentContainer: {},
 
   listContentContainer: {
     paddingBottom: 80,
     paddingTop: IMAGE_HEIGHT,
   },
-  visitedButton: {
-    marginTop: 14,
+
+  sectionTitle: {
+    ...FONTS_PRESETS.headlineBold,
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
+    margin: PADDING_HORIZONTAL,
+  },
+
+  vistedButtonContainer: {
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
+    paddingHorizontal: PADDING_HORIZONTAL,
+    paddingTop: 14,
+    paddingBottom: PADDING_HORIZONTAL,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
   visitedButtonText: {
     position: 'absolute',
@@ -27,14 +51,6 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     bottom: -50,
     zIndex: 1,
-  },
-
-  emptyContatiner: {
-    height: IMAGE_HEIGHT,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.alabaster,
-    marginBottom: 24,
   },
   imageSliderContainer: {
     ...StyleSheet.absoluteFillObject,

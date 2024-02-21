@@ -1,21 +1,20 @@
 import {COLORS, FONTS_STYLES, FONTS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
+import {createThemeStyles} from 'core/helpers/styles';
 export const systemFonts = Object.values(FONTS);
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   container: {
     marginHorizontal: PADDING_HORIZONTAL,
-  },
-  descrioptionHeadline: {
-    ...FONTS_STYLES.subheadline,
-    color: {
-      light: COLORS.light.text.primary,
-      dark: COLORS.dark.text.primary,
+    padding: PADDING_HORIZONTAL,
+    borderRadius: 21,
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
-    paddingHorizontal: PADDING_HORIZONTAL,
-    marginBottom: 8,
-    marginTop: 16,
+    marginBottom: PADDING_HORIZONTAL,
   },
+
   headline: {
     ...FONTS_STYLES.subheadline,
     color: {
@@ -43,4 +42,4 @@ export const themeStyles = {
       dark: COLORS.dark.text.accent,
     },
   },
-};
+});

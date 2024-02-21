@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 
 import {
   DetailsPageCapture,
@@ -7,6 +8,8 @@ import {
   ObjectDescriptionSource,
   ObjectDetailsPager,
   ObjectDetailsBottomButtons,
+  ObjectDetailsCompletenessBlock,
+  ObjectDetailsCompletenessSmallBlock,
 } from 'molecules';
 import {ObjectIncludes} from 'organisms';
 import {
@@ -17,9 +20,9 @@ import {
   Icon,
   LottieAnimation,
 } from 'atoms';
-import {useFavorite, useTranslation} from 'core/hooks';
+import {useFavorite, useThemeStyles, useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
-import {styles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
+import {themeStyles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   useObjectDetails,
@@ -27,6 +30,7 @@ import {
   useObjectDetailsDeepLinking,
   useVisitedObject,
   useReportInaccuracies,
+  useObjectCompletnessData,
 } from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
@@ -37,6 +41,7 @@ import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
+  const styles = useThemeStyles(themeStyles);
   const {
     data,
     sendScrollEvent,
@@ -85,6 +90,15 @@ export const ObjectDetails = () => {
       objectName: data?.name || '',
     });
 
+  const {
+    incompleteFields,
+    percentage,
+    scrollRef,
+    elementRef,
+    scrollToElement,
+    isCompletnessBlockVisible,
+  } = useObjectCompletnessData({objectId});
+
   const locationExist = Boolean(data && isLocationExist(data));
 
   return (
@@ -97,6 +111,7 @@ export const ObjectDetails = () => {
         <View style={styles.container}>
           <Animated.ScrollView
             scrollEventThrottle={16}
+            ref={scrollRef}
             showsVerticalScrollIndicator={false}
             onScroll={scrollHandler}
             contentContainerStyle={styles.listContentContainer}>
@@ -119,28 +134,51 @@ export const ObjectDetails = () => {
                 height={200}
                 containerStyle={styles.animationContainer}
               />
-              <Button
-                testID={TestIDs.MarkAsVisitedButton}
-                icon={textStyle =>
-                  isVisited ? <Icon style={textStyle} name={'check'} /> : <></>
-                }
-                onPress={markAsVisited}
-                text={isVisited ? t('visitedObject') : t('markAsVisited')}
-                theme={'secondary'}
-                style={styles.visitedButton}
-                textStyle={styles.visitedButtonText}
-                loading={visitedObjectLoading}
-                onButtonLabelLayout={onButtonLabelLayout}
-                iconContainerAnimatedStyle={
-                  isVisited && iconContainerAnimatedStyle
-                }
-                labelAnimatedStyle={isVisited && labelAnimatedStyle}
-              />
+              <View style={styles.vistedButtonContainer}>
+                <Button
+                  testID={TestIDs.MarkAsVisitedButton}
+                  icon={textStyle =>
+                    isVisited ? (
+                      <Icon style={textStyle} name={'check'} />
+                    ) : (
+                      <></>
+                    )
+                  }
+                  onPress={markAsVisited}
+                  text={isVisited ? t('visitedObject') : t('markAsVisited')}
+                  theme={'secondary'}
+                  textStyle={styles.visitedButtonText}
+                  loading={visitedObjectLoading}
+                  onButtonLabelLayout={onButtonLabelLayout}
+                  iconContainerAnimatedStyle={
+                    isVisited && iconContainerAnimatedStyle
+                  }
+                  labelAnimatedStyle={isVisited && labelAnimatedStyle}
+                />
+              </View>
             </View>
-            <ObjectDescription
-              isRoute={Boolean(data.routes)}
-              description={data.description}
-            />
+            <Text style={styles.sectionTitle}>About this experience</Text>
+
+            {isCompletnessBlockVisible ? (
+              <ObjectDetailsCompletenessSmallBlock
+                onPress={scrollToElement}
+                percentage={percentage}
+                testID={TestIDs.objectDetailsCompletenessBlockSmall}
+              />
+            ) : null}
+            <ObjectDescription description={data.description} />
+            <Text style={styles.sectionTitle}>Additional details</Text>
+            {isCompletnessBlockVisible ? (
+              <View ref={elementRef}>
+                <ObjectDetailsCompletenessBlock
+                  incompleteFields={incompleteFields}
+                  percentage={percentage}
+                  testID={TestIDs.ObjectDetailsCompletenessBlock}
+                  onAddInformationPress={() => {}}
+                />
+              </View>
+            ) : null}
+
             {(data.origins && data.origins.length) || data.url ? (
               <ObjectDescriptionSource
                 origins={data.origins}

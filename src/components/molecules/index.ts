@@ -33,3 +33,7 @@ export {ObjectShareExperienceMenu} from './ObjectShareExperienceMenu';
 export {ButtonsGroup} from './ButtonsGroup';
 export * from './ObjectReportinaccuraciesMenu';
 export {ObjectSuccessMenu} from './ObjectSuccessMenu';
+export {
+  ObjectDetailsCompletenessBlock,
+  ObjectDetailsCompletenessSmallBlock,
+} from './ObjectDetailsCompletenessBlock';

@@ -9,6 +9,7 @@ import {
   some,
   find,
   keyBy,
+  filter,
 } from 'lodash';
 
 import {
@@ -38,7 +39,10 @@ import {
   SpotI18n,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
-import {ListMobileDataQuery} from 'api/graphql/types';
+import {
+  ListMobileDataQuery,
+  ListMobileDataQueryObject,
+} from 'api/graphql/types';
 import transliterate from './transliterate';
 
 export const extractThemeStyles = (
@@ -138,6 +142,53 @@ function getSpotTranslation(
   return value || '';
 }
 
+const getRootCategory = ({
+  categoryId,
+  categoriesMap,
+}: {
+  categoryId: string;
+  categoriesMap: ICategoriesMap;
+}): ITransformedCategory | null => {
+  const category = categoriesMap[categoryId];
+  if (!category) {
+    return null;
+  }
+
+  const parentId = category.parent;
+
+  return parentId
+    ? getRootCategory({categoryId: parentId, categoriesMap})
+    : category;
+};
+
+const objectCompletnessInfo = (
+  object: ListMobileDataQueryObject | null,
+  objectRootCategory: ITransformedCategory | null,
+) => {
+  const imcompletedFieldsNames = filter(
+    objectRootCategory?.completenessFields,
+    fieldName => {
+      return !object?.[fieldName];
+    },
+  );
+
+  const amountOfImcompletedFields = imcompletedFieldsNames.length;
+  const amountOfCompletenessFields =
+    objectRootCategory?.completenessFields?.length || 0;
+  const percentageOfCompletion =
+    amountOfCompletenessFields &&
+    amountOfCompletenessFields >= amountOfImcompletedFields
+      ? Math.round(
+          (1 - amountOfImcompletedFields / amountOfCompletenessFields) * 100,
+        )
+      : 0;
+
+  return {
+    imcompletedFieldsNames,
+    percentageOfCompletion,
+  };
+};
+
 export function transformQueryData(
   dataQuery: ListMobileDataQuery,
   currentLocale: SupportedLocales,
@@ -180,6 +231,7 @@ export function transformQueryData(
             parent: category.parent || undefined,
             updatedAt: category.updatedAt,
             fields: compact(category.fields),
+            completenessFields: compact(category.completenessFields),
             children: reduce(
               sortedCategories,
               (acc, cat) =>
@@ -216,6 +268,10 @@ export function transformQueryData(
           objectsToCategoryMap[object.id] = object.categoryId;
 
           const objectCategory = categoriesMap[object.categoryId];
+          const objectRootCategory = getRootCategory({
+            categoryId: object.categoryId,
+            categoriesMap,
+          });
 
           function getObjectRelatedData(
             objectIds?: Array<string | null> | null,
@@ -289,6 +345,9 @@ export function transformQueryData(
             return address.join(', ');
           }
 
+          const {percentageOfCompletion, imcompletedFieldsNames} =
+            objectCompletnessInfo(object, objectRootCategory);
+
           const objectData: IObject = {
             id: object.id,
             name,
@@ -308,6 +367,8 @@ export function transformQueryData(
               name: objectCategory?.name,
               parent: objectCategory?.parent || null,
               singularName: objectCategory?.singularName || '',
+              imcompletedFieldsNames: imcompletedFieldsNames,
+              percentageOfCompletion: percentageOfCompletion,
             },
             cover: object.cover
               ? imagesService.getOriginalImage(object.cover)
@@ -325,6 +386,9 @@ export function transformQueryData(
             routes: (object.routes as LineString) || undefined,
             length: object.length || null,
             origins: (object.origins as IOrigins[]) || null,
+            phoneNumber: object.phoneNumber || undefined,
+            workingHours: object.workingHours || undefined,
+            visitedObject: 'You’ve visited it!',
           };
 
           return {

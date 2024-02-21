@@ -5,8 +5,6 @@ import {
   featureCollection,
   point,
   Geometry,
-  Feature,
-  LineString,
 } from '@turf/helpers';
 import {MAP_PINS} from '../constants';
 import {IObject, IMapFilter, ITransformedData} from '../types';
@@ -17,38 +15,37 @@ import {isLocationExist} from 'core/helpers';
 export const selectObjectDetailsMapOjects = (state: IState) =>
   state.objectDetailsMap.objects;
 
-export const selectMapFilters = createSelector<
-  IState,
-  ITransformedData | null,
-  IMapFilter[]
->(selectTransformedData, transformedData => {
-  return transformedData
-    ? reduce(
-        Object.values(transformedData.categoriesMap),
-        (acc, category) => {
-          if (
-            !isEmpty(category.objects) &&
-            some(category.objects, id =>
-              isLocationExist(transformedData.objectsMap[id]),
-            )
-          ) {
-            const {name, id, icon} = category;
-            return [
-              ...acc,
-              {
-                title: name,
-                icon,
-                categoryId: id,
-              },
-            ];
-          }
+export const selectMapFilters = createSelector(
+  selectTransformedData,
+  transformedData => {
+    return transformedData
+      ? reduce(
+          Object.values(transformedData.categoriesMap),
+          (acc, category) => {
+            if (
+              !isEmpty(category.objects) &&
+              some(category.objects, id =>
+                isLocationExist(transformedData.objectsMap[id]),
+              )
+            ) {
+              const {name, id, icon} = category;
+              return [
+                ...acc,
+                {
+                  title: name,
+                  icon,
+                  categoryId: id,
+                },
+              ];
+            }
 
-          return acc;
-        },
-        [] as IMapFilter[],
-      )
-    : [];
-});
+            return acc;
+          },
+          [] as IMapFilter[],
+        )
+      : [];
+  },
+);
 
 export const getMapMarkers = (
   transformedData: ITransformedData | null,
@@ -105,11 +102,10 @@ export const selectMapDirection = (state: IState) =>
 export const selectMapDirectionDistance = (state: IState) =>
   state.objectDetailsMap.distance;
 
-export const selectIsDirectionShowed = createSelector<
-  IState,
-  Feature<LineString, unknown> | null,
-  boolean
->(selectMapDirection, Boolean);
+export const selectIsDirectionShowed = createSelector(
+  selectMapDirection,
+  Boolean,
+);
 
 export const createMarkerFromDetailsObject = (
   data: IObject | null,

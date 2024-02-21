@@ -3,16 +3,7 @@ import {PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
   container: {
-    marginTop: 16,
     marginHorizontal: PADDING_HORIZONTAL,
-  },
-  title: {
-    ...FONTS_STYLES.subheadline,
-    color: {
-      light: COLORS.light.text.primary,
-      dark: COLORS.dark.text.primary,
-    },
-    marginBottom: 8,
   },
 
   link: {

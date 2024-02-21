@@ -1,5 +1,5 @@
-import React, {memo, useMemo} from 'react';
-import {View, Text} from 'react-native';
+import React, {memo} from 'react';
+import {View} from 'react-native';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {IOrigins} from 'core/types';
 import {composeTestID, getPlatformsTestID, tryOpenURL} from 'core/helpers';
@@ -15,12 +15,6 @@ interface IProps {
 export const ObjectDescriptionSource = memo(({origins, siteLink}: IProps) => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('objectDetails');
-
-  const sourceTitle = useMemo(() => {
-    return t('sources');
-  }, [t]);
-
-  tryOpenURL;
 
   const sourceData = origins
     ? origins.map((origin, index) => (
@@ -38,11 +32,6 @@ export const ObjectDescriptionSource = memo(({origins, siteLink}: IProps) => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={styles.title}
-        {...getPlatformsTestID(TestIDs.ObjectDetailsReferencesTitle)}>
-        {sourceTitle}
-      </Text>
       {siteLink ? (
         <LinkItem
           name={t('offSite')}
