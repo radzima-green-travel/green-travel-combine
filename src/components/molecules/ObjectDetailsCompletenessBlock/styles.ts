@@ -16,7 +16,6 @@ export const themeStyles = createThemeStyles({
   containerSmall: {
     flexDirection: 'row',
     borderRadius: 12,
-    height: 40,
     backgroundColor: {
       light: COLORS.light.background.success,
       dark: COLORS.dark.background.success,
@@ -24,11 +23,12 @@ export const themeStyles = createThemeStyles({
     marginHorizontal: PADDING_HORIZONTAL,
     marginBottom: 12,
     alignItems: 'center',
+    paddingVertical: 10,
   },
   icon: {
     color: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
+      light: COLORS.light.text.constant,
+      dark: COLORS.dark.text.constant,
     },
     marginRight: 12,
     marginLeft: 8,
@@ -70,5 +70,9 @@ export const themeStyles = createThemeStyles({
   button: {
     marginHorizontal: PADDING_HORIZONTAL,
     borderWidth: 0,
+    backgroundColor: {
+      light: COLORS.light.other.constantWhite,
+      dark: COLORS.dark.other.constantWhite,
+    },
   },
 });

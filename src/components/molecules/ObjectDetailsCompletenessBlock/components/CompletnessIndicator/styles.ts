@@ -21,8 +21,8 @@ export const themeStyles = createThemeStyles({
     alignSelf: 'flex-start',
     paddingVertical: 3,
     backgroundColor: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
+      light: COLORS.light.other.constantWhite,
+      dark: COLORS.dark.other.constantWhite,
     },
     borderRadius: calloutBorderRadius,
     alignItems: 'center',
@@ -52,8 +52,8 @@ export const themeStyles = createThemeStyles({
     width: calloutArrowWidth,
     height: 12,
     backgroundColor: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
+      light: COLORS.light.other.constantWhite,
+      dark: COLORS.dark.other.constantWhite,
     },
     transform: [{translateX: -calloutArrowWidth / 2}],
   },
