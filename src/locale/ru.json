@@ -29,9 +29,32 @@
     "termsAndConditions": "Условиями использования",
     "appVersion": "Версия приложения:",
     "objectFieldsLables": {
+      "upcomingEvents": "Ближайшие события",
       "phoneNumber": "Контактный телефон",
+      "address": "Адрес",
+      "name": "Название",
+      "location": "Расположение",
+      "dinnerPlaces": "Ближайшее место покушать",
+      "accommodationPlace": "Ближайшее место для проживания",
       "url": "Официальный сайт",
-      "workingHours": "Режим работы"
+      "length": "Протяженность, км",
+      "duration": "Продолжительность",
+      "workingHours": "Рабочие часы",
+      "permissions": "Важно знать",
+      "childServices": "Услуги для детей",
+      "renting": "Прокат",
+      "notes": "Заметки",
+      "author": "Автор",
+      "description": "Описание",
+      "belongsTo": "Принадлежит к",
+      "include": "Включает",
+      "area": "Полигон",
+      "origins": "Источники",
+      "attendanceTime": "Среднее время посещения объекта",
+      "googlePlaceId": "Google place id",
+      "googleRating": "Google рейтинг",
+      "googleRatingsTotal": "Общее количество оценок",
+      "routes": "Маршрут"
     }
   },
   "home": {
@@ -93,7 +116,7 @@
     "reportInaccuraciesSuccessSubtitle": "Ваш отзыв отправлен",
     "cool": "Круто!",
     "addInformation": "Добавить информацию",
-    "helpUsToComplete": "Помогите нам дополнить информацию об объекте",
+    "helpUsToComplete": "Помогите нам заполнить\nинформацию",
     "readyOn": "Готово на {{percentage}}%"
   },
   "bookmarks": {

@@ -10,8 +10,8 @@ export const themeStyles = createThemeStyles({
   progressContainer: {
     height: 6,
     backgroundColor: {
-      light: '#86D2B2',
-      dark: '#86D2B2',
+      light: COLORS.light.background.accentLight,
+      dark: COLORS.dark.background.accentLight,
     },
     flexDirection: 'row',
     borderRadius: 4,
@@ -29,8 +29,8 @@ export const themeStyles = createThemeStyles({
     top: 0,
     bottom: 0,
     backgroundColor: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
+      light: COLORS.light.other.constantWhite,
+      dark: COLORS.dark.other.constantWhite,
     },
   },
 
@@ -46,8 +46,8 @@ export const themeStyles = createThemeStyles({
     borderRadius: thubSize,
     borderWidth: thubSize / 4,
     borderColor: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
+      light: COLORS.light.other.constantWhite,
+      dark: COLORS.dark.other.constantWhite,
     },
     top: '50%',
     transform: [{translateY: -thubSize / 2}, {translateX: -thubSize / 2}],

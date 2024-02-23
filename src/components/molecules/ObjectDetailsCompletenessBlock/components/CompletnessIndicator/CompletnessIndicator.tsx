@@ -33,10 +33,6 @@ export const CompletnessIndicator = memo(
             ? containerWidth - calloutWidth + calloutBorderRadius
             : containerWidth - calloutWidth;
 
-        if (size === 's') {
-          return Math.min(maxValue, left);
-        }
-
         const minValue =
           percentageWidth < calloutBorderRadius
             ? percentageWidth - calloutBorderRadius

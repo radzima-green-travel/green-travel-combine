@@ -39,6 +39,7 @@ export const COLORS = {
       success: '#35B47F',
       secondaryContrast: '#1F1F1F',
       transparent: 'rgba(0, 0, 0, 0)',
+      accentLight: '#86D2B2',
     },
     stroke: {
       border: '#E5E5E5',
@@ -61,6 +62,7 @@ export const COLORS = {
     },
     other: {
       search: 'rgba(245, 245, 245, 1)',
+      constantWhite: '#ffffff',
     },
   },
 
@@ -76,6 +78,7 @@ export const COLORS = {
       success: '#35B47F',
       secondaryContrast: '#F5F5F5',
       transparent: 'rgba(0, 0, 0, 0)',
+      accentLight: '#86D2B2',
     },
     stroke: {
       border: '#3D3D3D',
@@ -98,6 +101,7 @@ export const COLORS = {
     },
     other: {
       search: 'rgba(31, 31, 31, 1)',
+      constantWhite: '#ffffff',
     },
   },
 };
