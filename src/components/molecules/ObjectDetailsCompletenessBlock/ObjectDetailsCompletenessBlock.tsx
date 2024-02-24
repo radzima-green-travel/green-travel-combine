@@ -31,16 +31,28 @@ export const ObjectDetailsCompletenessBlock = memo(
             <Text
               testID={composeTestID(testID, 'listItemTextLeft')}
               style={styles.listItem}>
-              {'  •  ' + leftItem.label}
+              {'  •  '}
+            </Text>
+            <Text
+              testID={composeTestID(testID, 'listItemTextLeft')}
+              style={styles.listItem}>
+              {leftItem.label}
             </Text>
           </View>
           <View style={styles.listRowCell}>
             {rightItem ? (
-              <Text
-                testID={composeTestID(testID, 'listItemTextRight')}
-                style={styles.listItem}>
-                {'  •  ' + rightItem.label}
-              </Text>
+              <>
+                <Text
+                  testID={composeTestID(testID, 'listItemTextRight')}
+                  style={styles.listItem}>
+                  {'  •  '}
+                </Text>
+                <Text
+                  testID={composeTestID(testID, 'listItemTextRight')}
+                  style={styles.listItem}>
+                  {rightItem.label}
+                </Text>
+              </>
             ) : null}
           </View>
         </View>

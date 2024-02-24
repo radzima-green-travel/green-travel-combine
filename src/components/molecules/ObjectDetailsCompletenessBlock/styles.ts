@@ -66,6 +66,7 @@ export const themeStyles = createThemeStyles({
   },
   listRowCell: {
     flex: 1,
+    flexDirection: 'row',
   },
   button: {
     marginHorizontal: PADDING_HORIZONTAL,
