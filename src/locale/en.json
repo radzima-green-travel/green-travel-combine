@@ -28,7 +28,7 @@
     "privacyPolicy": "Privacy Policy",
     "termsAndConditions": "Terms And Conditions",
     "appVersion": "Application version:",
-    "objectFieldsLables": {
+    "objectFieldsLabels": {
       "upcomingEvents": "Nearest events",
       "phoneNumber": "Phone number",
       "address": "Address",
@@ -55,7 +55,9 @@
       "googleRating": "Google rating",
       "googleRatingsTotal": "Total number of ratings",
       "routes": "Route"
-    }
+    },
+    "hours": "h",
+    "minutes": "mins"
   },
   "home": {
     "headerTitle": "Main",
@@ -98,8 +100,6 @@
     "markAsVisitedMenuSubtitle": "Your input helps other travelers",
     "markAsVisitedMenuRatingTitle": "Rate your experience",
     "markAsVisitedMenuTimeSpentTitle": "How much time did you spend?",
-    "hours": "h",
-    "minutes": "mins",
     "skip": "Skip",
     "submit": "Submit",
     "send": "Send",
@@ -118,6 +118,24 @@
     "addInformation": "Add information",
     "helpUsToComplete": "Help us to complete object info",
     "readyOn": "Ready on {{percentage}}%"
+  },
+  "objectDetailsAddInfo": {
+    "headerTitle": "Adding object information",
+    "send": "Send",
+    "ready": "Done",
+    "prompts": {
+      "upcomingEvents": "Please provide its name, date and website",
+      "dinnerPlaces": "The nearest place to have a dinner",
+      "accommodationPlace": "Please provide its name, Google Maps link or its website",
+      "workingHours": "Please enter working hours",
+      "childServices": "Which services for kids are available?",
+      "renting": "What is for rent here?",
+      "attendanceTime": "How much time did you spend?"
+    },
+    "addInfoEmailSubject": "{{objectName}} new information {{fields}}",
+    "addInfoSuccessTitle": "Thank you for sharing!",
+    "addInfoSuccessSubtitle": "You feedback sent.",
+    "cool": "Cool!"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

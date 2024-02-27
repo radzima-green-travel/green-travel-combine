@@ -18,11 +18,11 @@ import Animated, {
 interface IProps {
   objectName: string;
   animatedValue: SharedValue<number>;
-  pivotHegightToAnimate: number;
+  pivotHeightToAnimate: number;
 }
 
 export const ObjectDetailsHeader = memo(
-  ({objectName, animatedValue, pivotHegightToAnimate}: IProps) => {
+  ({objectName, animatedValue, pivotHeightToAnimate}: IProps) => {
     const navigation = useNavigation();
     const styles = useThemeStyles(themeStyles);
     const {top} = useSafeAreaInsets();
@@ -40,7 +40,7 @@ export const ObjectDetailsHeader = memo(
       return {
         opacity: interpolate(
           animatedValue.value,
-          [0, pivotHegightToAnimate - 80, pivotHegightToAnimate],
+          [0, pivotHeightToAnimate - 80, pivotHeightToAnimate],
           [0, 0, 1],
         ),
       };
@@ -50,7 +50,7 @@ export const ObjectDetailsHeader = memo(
       return {
         opacity: interpolate(
           animatedValue.value,
-          [0, pivotHegightToAnimate - 80, pivotHegightToAnimate],
+          [0, pivotHeightToAnimate - 80, pivotHeightToAnimate],
           [1, 1, 0],
         ),
       };

@@ -1,6 +1,8 @@
 import {MultiPolygon, LineString} from '@turf/helpers';
 import {IRequestError} from './errors';
 import {animations} from 'assets';
+import {ObjectField} from 'core/constants';
+
 export interface ILabelError {
   text: string;
   title: string;
@@ -45,7 +47,7 @@ export interface IObjectCategory {
   name: string;
   parent: string | null;
   singularName: string;
-  imcompletedFieldsNames: string[];
+  imcompletedFieldsNames: ObjectField[];
   percentageOfCompletion: number;
 }
 
@@ -117,6 +119,11 @@ export interface IObejctsToCategoryMap {
 
 export interface ISpotsMap {
   [key: string]: ISpot;
+}
+
+export interface IObjectIncompleteField {
+  id: ObjectField;
+  label: string;
 }
 
 export interface ITransformedData {
@@ -248,4 +255,10 @@ export enum TestIDs {
   ObjectDetailsReportInaccuraciesButton = 'objectDetailsReportInaccuraciesButton',
   ObjectDetailsCompletenessBlock = 'objectDetailsCompletenessBlock',
   objectDetailsCompletenessBlockSmall = 'objectDetailsCompletenessBlockSmall',
+  ObjectDetailsAddInfoList = 'objectDetailsAddInfoList',
+  ObjectDetailsAddInfoSubmitButton = 'objectDetailsAddInfoSubmitButton',
+  ObjectDetailsAddInfoMenu = 'objectDetailsAddInfoMenu',
+  ObjectDetailsAddInfoMenuContent = 'objectDetailsAddInfoMenuContent',
+  ObjectDetailsAddInfoSuccessMenu = 'objectDetailsAddInfoSuccessMenu',
+  ObjectDetailsAddInfoSuccessMenuContent = 'objectDetailsAddInfoSuccessMenuContent',
 }

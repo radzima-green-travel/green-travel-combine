@@ -223,6 +223,7 @@ export const FormInput = forwardRef(
               ref={inputRef}
               style={[
                 styles.inputField,
+                !!label && styles.labelInputField,
                 multiline && styles.multilineInputField,
               ]}
               secureTextEntry={secureTextEntry}

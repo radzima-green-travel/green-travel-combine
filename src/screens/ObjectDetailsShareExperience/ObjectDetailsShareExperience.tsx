@@ -42,7 +42,6 @@ export const ObjectDetailsShareExperience = () => {
     openInnacurateInfoSuccessMenu,
     getIsAllMenusClosed,
     innaccuraciesMenuRef,
-    addHapticFeedback,
     backdropAnimatedIndex,
     shareExperienceMenuAnimatedIndex,
     shareExperienceSuccessMenuAnimatedIndex,
@@ -103,7 +102,6 @@ export const ObjectDetailsShareExperience = () => {
           isReportSent={isReportSent}
           onSkipPress={shareExperienceMenuProps.closeMenu}
           onMissedDetailsPress={openInnacurateInfoSuccessMenu}
-          onTimeChange={addHapticFeedback}
         />
       </BottomMenu>
 

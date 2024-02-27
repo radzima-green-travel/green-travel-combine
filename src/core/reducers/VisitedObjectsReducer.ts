@@ -88,6 +88,20 @@ export const sendInaccuraciesEmailFailure = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_FAILURE,
 )<Error, {entityId?: string} | void>();
 
+export const sendAddInfoEmailRequest = createAction(
+  ACTIONS.SEND_ADD_INFO_EMAIL_REQUEST,
+)<{
+  subject: string;
+  message: string;
+  objectId: string;
+}>();
+export const sendAddInfoEmailSuccess = createAction(
+  ACTIONS.SEND_ADD_INFO_EMAIL_SUCCESS,
+)();
+export const sendAddInfoEmailFailure = createAction(
+  ACTIONS.SEND_ADD_INFO_EMAIL_FAILURE,
+)<Error>();
+
 interface IDefaultState {
   data: VisitedObjectsData;
   shareExperienceData: ShareExperienceInitialData | null;

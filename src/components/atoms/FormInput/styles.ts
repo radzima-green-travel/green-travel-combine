@@ -49,7 +49,6 @@ export const themeStyles = createThemeStyles({
     margin: 0,
     padding: 0,
     lineHeight: 20,
-    paddingTop: 14,
     color: {
       light: COLORS.light.text.primary,
       dark: COLORS.dark.text.primary,
@@ -86,6 +85,9 @@ export const themeStyles = createThemeStyles({
   },
   multilineInputFieldWrapper: {
     marginVertical: 0,
+  },
+  labelInputField: {
+    paddingTop: 14,
   },
   multilineInputField: {
     paddingTop: 12,

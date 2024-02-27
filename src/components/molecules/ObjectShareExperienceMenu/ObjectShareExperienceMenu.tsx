@@ -1,12 +1,11 @@
 import React, {memo, useCallback, useMemo, useState} from 'react';
 import {View, Text} from 'react-native';
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import {useThemeStyles, useTranslation, useTimeRange} from 'core/hooks';
 import {RangePickSlider} from 'atoms';
 import {ListItem, Ratings} from 'molecules';
 import {themeStyles} from './styles';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {composeTestID} from 'core/helpers';
-import {useUpdateEffect} from 'react-redux-help-kit';
 
 interface IProps {
   onSubmitPress: (data: {
@@ -23,7 +22,6 @@ interface IProps {
   isReportSent: boolean;
   isReportSending: boolean;
   onMissedDetailsPress?: () => void;
-  onTimeChange: (hours: number, minutes: number) => void;
 }
 
 export const ObjectShareExperienceMenu = memo(
@@ -37,20 +35,11 @@ export const ObjectShareExperienceMenu = memo(
     testID,
     isReportSent,
     isReportSending,
-    onTimeChange,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
     const [range, setRange] = useState(0);
-
-    const hours = Math.floor(range);
-    const minutes = Math.ceil((range - hours) * 60);
-
-    const timeString = `${hours} ${t('hours')} ${minutes} ${t('minutes')}`;
-
-    useUpdateEffect(() => {
-      onTimeChange(hours, minutes);
-    }, [minutes, hours, onTimeChange]);
+    const {timeString, hours, minutes} = useTimeRange(range);
 
     const onSubmitPressHandler = useCallback(() => {
       onSubmitPress({minutes, hours, rating});

@@ -1,9 +1,11 @@
 import {createThemeStyles} from 'core/helpers/styles';
 import {Platform} from 'react-native';
 
+export const PADDING = 16;
+
 export const themeStyles = createThemeStyles({
   container: {
-    padding: 16,
+    padding: PADDING,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

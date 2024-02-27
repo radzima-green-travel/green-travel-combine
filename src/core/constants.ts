@@ -137,6 +137,10 @@ export const enum ACTIONS {
   SEND_INACCURACIES_EMAIL_REQUEST = 'SEND_INACCURACIES_EMAIL_REQUEST',
   SEND_INACCURACIES_EMAIL_SUCCESS = 'SEND_INACCURACIES_EMAIL_SUCCESS',
   SEND_INACCURACIES_EMAIL_FAILURE = 'SEND_INACCURACIES_EMAIL_FAILURE',
+
+  SEND_ADD_INFO_EMAIL_REQUEST = 'SEND_ADD_INFO_EMAIL_REQUEST',
+  SEND_ADD_INFO_EMAIL_SUCCESS = 'SEND_ADD_INFO_EMAIL_SUCCESS',
+  SEND_ADD_INFO_EMAIL_FAILURE = 'SEND_ADD_INFO_EMAIL_FAILURE',
 }
 
 export const DEFAULT_BOUNDS = {
@@ -212,3 +216,45 @@ export const KEYBOARD_HIDE_EVENT: KeyboardEventName =
   Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
 export const KEYBOARD_FRAME_CHANGE_EVENT: KeyboardEventName =
   Platform.OS === 'ios' ? 'keyboardWillChangeFrame' : 'keyboardDidChangeFrame';
+
+export enum ObjectField {
+  upcomingEvents = 'upcomingEvents',
+  phoneNumber = 'phoneNumber',
+  address = 'address',
+  name = 'name',
+  location = 'location',
+  dinnerPlaces = 'dinnerPlaces',
+  accommodationPlace = 'accommodationPlace',
+  url = 'url',
+  length = 'length',
+  duration = 'duration',
+  workingHours = 'workingHours',
+  permissions = 'permissions',
+  childServices = 'childServices',
+  renting = 'renting',
+  notes = 'note',
+  author = 'author',
+  description = 'description',
+  belongsTo = 'belongsTo',
+  include = 'include',
+  area = 'area',
+  origins = 'origins',
+  attendanceTime = 'attendanceTime',
+  googlePlaceId = 'googlePlaceId ',
+  googleRating = 'googleRating',
+  googleRatingsTotal = 'googleRatingsTotal',
+  routes = 'routes',
+}
+
+export const OBJECT_ALLOWED_EDIT_FIELDS = new Set([
+  ObjectField.phoneNumber,
+  ObjectField.accommodationPlace,
+  ObjectField.attendanceTime,
+  ObjectField.childServices,
+  ObjectField.dinnerPlaces,
+  ObjectField.renting,
+  ObjectField.upcomingEvents,
+  ObjectField.workingHours,
+]);
+
+export const TIME_PICKER_FIELDS = new Set([ObjectField.attendanceTime]);

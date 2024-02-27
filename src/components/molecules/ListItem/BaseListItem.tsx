@@ -15,6 +15,8 @@ export const BaseListItem = memo(
     label,
     withNavigationIcon,
     containerStyle,
+    leadIcon,
+    subtitle,
   }: BaseListItemProps) => {
     const styles = useThemeStyles(themeStyles);
 
@@ -24,7 +26,24 @@ export const BaseListItem = memo(
         onPress={onPress}
         disabled={disabled}
         containerStyle={containerStyle}>
-        <Text style={styles.title}>{title}</Text>
+        <View style={styles.titleContainer}>
+          {leadIcon && (
+            <Icon name={leadIcon} size={20} style={styles.leadIcon} />
+          )}
+          <View>
+            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+              {title}
+            </Text>
+            {!!subtitle && (
+              <Text
+                style={styles.subtitle}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {subtitle}
+              </Text>
+            )}
+          </View>
+        </View>
         <View style={styles.rightContainer}>
           {label ? <Text style={styles.label}>{label}</Text> : null}
           {withNavigationIcon ? (

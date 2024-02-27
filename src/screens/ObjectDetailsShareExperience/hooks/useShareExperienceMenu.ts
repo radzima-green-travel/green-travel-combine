@@ -1,12 +1,10 @@
 import {useBackHandler, useBottomMenu, useStaticCallback} from 'core/hooks';
 import {useCallback, useRef, useState} from 'react';
-import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {ObjectReportinaccuraciesMenuRef} from 'molecules';
 import {Keyboard} from 'react-native';
 import {useDerivedValue, useSharedValue} from 'react-native-reanimated';
 
 export function useShareExperienceMenu() {
-  const startTime = useRef(Date.now());
   const innaccuraciesMenuRef = useRef<ObjectReportinaccuraciesMenuRef>(null);
 
   const shareExperienceMenuProps = useBottomMenu();
@@ -54,20 +52,6 @@ export function useShareExperienceMenu() {
     shareExperienceMenuProps.closeMenu();
     reportInnacurateInfoSuccessMenuProps.openMenu();
   }, [shareExperienceMenuProps, reportInnacurateInfoMenuProps]);
-
-  const addHapticFeedback = useCallback((_: number, minutes: number) => {
-    if (minutes % 30 === 0) {
-      hapticFeedbackService.trigger('selection');
-      startTime.current = Date.now();
-    } else {
-      const timeGap = Date.now() - startTime.current;
-
-      if (timeGap > 50) {
-        hapticFeedbackService.trigger('selection');
-      }
-      startTime.current = Date.now();
-    }
-  }, []);
 
   const getIsAllMenusClosed = useStaticCallback(() => {
     const isShareExperienceMenuClosed = shareExperienceMenuProps.isMenuClosed();
@@ -125,7 +109,6 @@ export function useShareExperienceMenu() {
     innaccuraciesMenuRef,
     reportInnacurateInfoSuccessMenuProps,
     openInnacurateInfoSuccessMenu,
-    addHapticFeedback,
     shareExperienceMenuAnimatedIndex,
     shareExperienceSuccessMenuAnimatedIndex,
     backdropAnimatedIndex,

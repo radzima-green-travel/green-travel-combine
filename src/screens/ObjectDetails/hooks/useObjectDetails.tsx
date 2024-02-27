@@ -75,6 +75,12 @@ export const useObjectDetails = () => {
     }
   }, [data, navigation, sendOpenMapEvent]);
 
+  const navigateToAddInfo = useCallback(() => {
+    if (data) {
+      navigation.navigate('ObjectDetailsAddInfo', {objectId: data.id});
+    }
+  }, [data, navigation]);
+
   const navigateToObjectsListDebounced = useMemo(
     () =>
       debounce(navigateToObjectsList, 300, {leading: true, trailing: false}),
@@ -120,6 +126,7 @@ export const useObjectDetails = () => {
     copyLocationToClipboard,
     navigateToObjectsMap,
     navigateToObjectsListDebounced,
+    navigateToAddInfo,
     snackBarProps,
     objectId,
     isJustOneImage,
