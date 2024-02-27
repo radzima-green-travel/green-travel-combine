@@ -26,7 +26,7 @@ export type Props = {
   disabled?: boolean;
   icon?: (textStyle: StyleProp<TextStyle>) => React.ReactElement;
   testID: string;
-  iconPostion?: 'left' | 'center';
+  iconPosition?: 'left' | 'center';
   isIconOnlyButton?: boolean;
   onButtonLabelLayout?: (event: LayoutChangeEvent) => void;
   iconContainerAnimatedStyle?: StyleProp<ViewStyle>;
@@ -44,7 +44,7 @@ export const Button = memo(
     textStyle,
     testID,
     theme = 'primary',
-    iconPostion = 'center',
+    iconPosition = 'center',
     isIconOnlyButton,
     onButtonLabelLayout,
     iconContainerAnimatedStyle,
@@ -75,7 +75,7 @@ export const Button = memo(
             <Animated.View
               style={[
                 !isIconOnlyButton && styles.iconContainer,
-                iconPostion === 'left' && styles.leftIconContainer,
+                iconPosition === 'left' && styles.leftIconContainer,
                 iconContainerAnimatedStyle,
               ]}>
               {icon(textThemeStyles)}

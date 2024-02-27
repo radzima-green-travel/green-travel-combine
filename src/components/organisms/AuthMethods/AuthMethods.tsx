@@ -43,7 +43,7 @@ export const AuthMethods = memo(
         icon={() => <Icon name={'appleAuth'} style={styles.appleIcon} />}
         loading={appleLoading}
         disabled={googleLoading || facebookLoading}
-        iconPostion="left"
+        iconPosition="left"
       />
     );
 
@@ -58,7 +58,7 @@ export const AuthMethods = memo(
         loading={googleLoading}
         disabled={appleLoading || facebookLoading}
         textStyle={styles.otherButtonText}
-        iconPostion="left"
+        iconPosition="left"
       />
     );
 
@@ -83,7 +83,7 @@ export const AuthMethods = memo(
           disabled={googleLoading || facebookLoading}
           loading={facebookLoading}
           icon={() => <Icon name={'facebookAuth'} />}
-          iconPostion="left"
+          iconPosition="left"
         />
         {isIOS && <GmailButton />}
         <Button
@@ -96,7 +96,7 @@ export const AuthMethods = memo(
           icon={() => (
             <Icon name={'emailAuth'} style={styles.emailIconOtherOption} />
           )}
-          iconPostion="left"
+          iconPosition="left"
         />
       </View>
     );

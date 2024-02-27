@@ -28,7 +28,7 @@
     "privacyPolicy": "Политикой конфиденциальности",
     "termsAndConditions": "Условиями использования",
     "appVersion": "Версия приложения:",
-    "objectFieldsLables": {
+    "objectFieldsLabels": {
       "upcomingEvents": "Ближайшие мероприятия",
       "phoneNumber": "Контактный телефон",
       "address": "Адрес",
@@ -55,7 +55,9 @@
       "googleRating": "Google рейтинг",
       "googleRatingsTotal": "Общее количество оценок",
       "routes": "Маршрут"
-    }
+    },
+    "hours": "ч",
+    "minutes": "мин"
   },
   "home": {
     "headerTitle": "Главная",
@@ -98,8 +100,6 @@
     "markAsVisitedMenuSubtitle": "Ваш отзыв поможет другим путешественникам",
     "markAsVisitedMenuRatingTitle": "Оцените Ваш опыт",
     "markAsVisitedMenuTimeSpentTitle": "Сколько Вы провели времени",
-    "hours": "ч",
-    "minutes": "мин",
     "skip": "Пропустить",
     "submit": "Отправить",
     "send": "Отправить",
@@ -118,6 +118,24 @@
     "addInformation": "Добавить информацию",
     "helpUsToComplete": "Помогите нам заполнить\nинформацию",
     "readyOn": "Готово на {{percentage}}%"
+  },
+  "objectDetailsAddInfo": {
+    "headerTitle": "Добавление информации объекту",
+    "send": "Отправить",
+    "ready": "Готово",
+    "prompts": {
+      "upcomingEvents": "Поделитесь названием, датой мероприятия, а также прикрепите ссылку на его веб-сайт",
+      "dinnerPlaces": "Поделитесь названием, ссылкой на место или веб-сайт, где можно поесть",
+      "accommodationPlace": "Поделитесь названием, ссылкой на место или веб-сайт, где можно переночевать",
+      "workingHours": "Пожалуйста, укажите все, что вам известно, о режиме работы",
+      "childServices": "Какие услуги доступны для детей?",
+      "renting": "Какой инвентарь здесь можно арендовать?",
+      "attendanceTime": "Сколько времени вы потратили?"
+    },
+    "addInfoEmailSubject": "{{objectName}} новая информация {{fields}}",
+    "addInfoSuccessTitle": "Спасибо за информацию!",
+    "addInfoSuccessSubtitle": "Ваш отзыв отправлен.",
+    "cool": "Супер!"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

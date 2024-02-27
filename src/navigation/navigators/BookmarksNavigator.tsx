@@ -3,6 +3,7 @@ import React from 'react';
 import {
   BookmarksListScreen,
   BookmarksScreen,
+  ObjectDetailsAddInfoScreen,
   ObjectDetailsScreen,
   ObjectsListScreen,
 } from '../../screens';
@@ -32,6 +33,11 @@ export function BookmarksNavigator() {
         name="ObjectDetails"
         component={ObjectDetailsScreen}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ObjectDetailsAddInfo"
+        component={ObjectDetailsAddInfoScreen}
+        options={{headerShown: false, presentation: 'modal'}}
       />
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>

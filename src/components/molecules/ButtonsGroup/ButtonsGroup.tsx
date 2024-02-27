@@ -3,7 +3,7 @@ import type {Props as ButtonProps} from 'atoms/Button/Button';
 import {Button} from 'atoms';
 import {StyleProp, View, ViewStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
+import {PADDING, themeStyles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 interface IProps {
   buttons: Array<ButtonProps>;
@@ -22,7 +22,7 @@ export const ButtonsGroup = memo(
         style={[
           styles.container,
           containerStyle,
-          withBottomInset && {paddingBottom: bottom},
+          withBottomInset && {paddingBottom: bottom || PADDING},
         ]}>
         {buttons.map((buttonProps, index) => {
           const style = [

@@ -37,3 +37,4 @@ export {
   ObjectDetailsCompletenessBlock,
   ObjectDetailsCompletenessSmallBlock,
 } from './ObjectDetailsCompletenessBlock';
+export {ObjectAddInfoMenu} from './ObjectAddInfoMenu';

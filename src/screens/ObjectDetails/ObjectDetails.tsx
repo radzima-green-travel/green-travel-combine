@@ -11,7 +11,7 @@ import {
   ObjectDetailsCompletenessBlock,
   ObjectDetailsCompletenessSmallBlock,
 } from 'molecules';
-import {ObjectIncludes} from 'organisms';
+import {ObjectDetailsAddInfoSuccessMenu, ObjectIncludes} from 'organisms';
 import {
   ImageSlider,
   SnackBar,
@@ -31,6 +31,7 @@ import {
   useVisitedObject,
   useReportInaccuracies,
   useObjectCompletnessData,
+  useAddInfoSuccessMenu,
 } from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
@@ -48,6 +49,7 @@ export const ObjectDetails = () => {
     copyLocationToClipboard,
     navigateToObjectsMap,
     navigateToObjectsListDebounced,
+    navigateToAddInfo,
     snackBarProps,
     objectId,
     isJustOneImage,
@@ -99,6 +101,8 @@ export const ObjectDetails = () => {
     isCompletnessBlockVisible,
   } = useObjectCompletnessData({objectId});
 
+  const addInfoSuccessMenuProps = useAddInfoSuccessMenu();
+
   const locationExist = Boolean(data && isLocationExist(data));
 
   return (
@@ -134,7 +138,7 @@ export const ObjectDetails = () => {
                 height={200}
                 containerStyle={styles.animationContainer}
               />
-              <View style={styles.vistedButtonContainer}>
+              <View style={styles.visitedButtonContainer}>
                 <Button
                   testID={TestIDs.MarkAsVisitedButton}
                   icon={textStyle =>
@@ -174,7 +178,7 @@ export const ObjectDetails = () => {
                   incompleteFields={incompleteFields}
                   percentage={percentage}
                   testID={TestIDs.ObjectDetailsCompletenessBlock}
-                  onAddInformationPress={() => {}}
+                  onAddInformationPress={navigateToAddInfo}
                 />
               </View>
             ) : null}
@@ -241,7 +245,7 @@ export const ObjectDetails = () => {
           <ObjectDetailsHeader
             animatedValue={translationY}
             objectName={data.name}
-            pivotHegightToAnimate={IMAGE_HEIGHT}
+            pivotHeightToAnimate={IMAGE_HEIGHT}
           />
           <ObjectDetailsBottomButtons
             onBookmarkPress={toggleFavoriteHandler}
@@ -254,6 +258,10 @@ export const ObjectDetails = () => {
 
           <ObjectDetailsReportInaccuraciesMenu
             {...reportInaccuraciesMenuProps}
+          />
+
+          <ObjectDetailsAddInfoSuccessMenu
+            addInfoSuccessMenuProps={addInfoSuccessMenuProps}
           />
         </View>
       ) : null}

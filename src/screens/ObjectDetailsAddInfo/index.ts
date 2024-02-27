@@ -1,0 +1,1 @@
+export {ObjectDetailsAddInfo} from './ObjectDetailsAddInfo';

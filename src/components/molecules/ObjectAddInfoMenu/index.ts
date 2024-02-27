@@ -1,0 +1,1 @@
+export {ObjectAddInfoMenu} from './ObjectAddInfoMenu';

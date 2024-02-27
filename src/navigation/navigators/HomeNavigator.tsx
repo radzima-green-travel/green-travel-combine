@@ -7,6 +7,7 @@ import {
   ObjectsListScreen,
   CategoriesListScreen,
   SearchScreen,
+  ObjectDetailsAddInfoScreen,
 } from '../../screens';
 
 import {useTranslation} from 'core/hooks';
@@ -23,6 +24,7 @@ export function HomeNavigator() {
     title: t('headerTitle'),
     animation: defaultTransition,
   });
+
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions}>
       <Stack.Screen
@@ -46,6 +48,11 @@ export function HomeNavigator() {
       />
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
       <Stack.Screen name="CategoriesList" component={CategoriesListScreen} />
+      <Stack.Screen
+        name="ObjectDetailsAddInfo"
+        component={ObjectDetailsAddInfoScreen}
+        options={{headerShown: false, presentation: 'modal'}}
+      />
     </Stack.Navigator>
   );
 }

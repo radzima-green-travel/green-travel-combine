@@ -32,7 +32,7 @@ export const themeStyles = createThemeStyles({
     margin: PADDING_HORIZONTAL,
   },
 
-  vistedButtonContainer: {
+  visitedButtonContainer: {
     backgroundColor: {
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
