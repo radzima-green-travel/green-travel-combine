@@ -1,4 +1,36 @@
 {
-  "name": "greenTravel",
-  "displayName": "greenTravel"
+  "expo": {
+    "name": "greenTravel",
+    "ios": {
+      "bundleIdentifier": "greenTravel",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "app.radzima"
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "splash": {
+      "image": "src/assets/bootsplash/bootsplash_logo.png",
+      "backgroundColor": "#FEF9B0"
+    },
+    "plugins": [
+      [
+      "expo-location",  
+      {
+        "locationWhenInUsePermission": "This will let to pinpoint your exact location."
+      }
+      ],
+      ["expo-localization"],
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsVersion": "11.1.0",
+          "RNMapboxMapsDownloadToken": ""          
+        }
+      ]
+    ]
+  }
 }

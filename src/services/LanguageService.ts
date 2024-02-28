@@ -1,4 +1,4 @@
-import * as RNLocalize from 'react-native-localize';
+import {getLocales} from 'expo-localization';
 import {initReactI18next} from 'react-i18next';
 import i18n from 'i18next';
 
@@ -26,7 +26,7 @@ class LanguageService {
   }
 
   public getPreferredLanguage(): string {
-    const systemSettingsLanguage = RNLocalize.getLocales()?.[0]
+    const systemSettingsLanguage = getLocales()?.[0]
       ?.languageCode as SupportedLocales;
 
     return this.isLanguageSupported(systemSettingsLanguage)

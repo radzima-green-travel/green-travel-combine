@@ -1,5 +1,4 @@
 import {Share} from 'react-native';
-import config from 'react-native-ultimate-config';
 import {isIOS} from './PlatformService';
 
 class ShareService {
@@ -22,4 +21,6 @@ class ShareService {
   }
 }
 
-export const shareService = new ShareService(config.DEEP_LINK_DOMAIN);
+export const shareService = new ShareService(
+  process.env.EXPO_PUBLIC_DEEP_LINK_DOMAIN as string,
+);

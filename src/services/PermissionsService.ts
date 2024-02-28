@@ -1,66 +1,28 @@
 import {Alert, Linking, NativeModules} from 'react-native';
-import {
-  PERMISSIONS,
-  request,
-  check,
-  RESULTS,
-  openSettings,
-} from 'react-native-permissions';
+import * as Location from 'expo-location';
+
 import {isIOS} from './PlatformService';
 import i18n from 'i18next';
 
 class PermissionsService {
   async checkLocationPermissionIOS() {
-    let status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+    let {status} = await Location.requestForegroundPermissionsAsync();
 
-    if (status === RESULTS.BLOCKED || status === RESULTS.UNAVAILABLE) {
-      if (status === RESULTS.BLOCKED) {
-        Alert.alert(i18n.t('common:locationPermissionText'), '', [
-          {
-            text: i18n.t('common:locationPermissionCancel'),
-            style: 'cancel',
-          },
-          {
-            text: i18n.t('common:locationPermissionSetttings'),
-            onPress: () => {
-              Linking.openURL('app-settings:');
-            },
-          },
-        ]);
-      }
-
-      if (status === RESULTS.UNAVAILABLE) {
-        Alert.alert(i18n.t('common:locationPermissionText'));
-      }
-
+    if (status !== 'granted') {
+      this.handleLocationPermissionDenied();
       return false;
-    } else {
-      status = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
-
-      return status === RESULTS.GRANTED;
     }
+
+    return true;
   }
 
   async checkLocationPermissionAndroid() {
-    const status = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-    if (status === 'blocked') {
-      Alert.alert('', i18n.t('common:locationPermissionText'), [
-        {
-          text: i18n.t('common:locationPermissionCancel'),
-          style: 'cancel',
-        },
-        {
-          text: i18n.t('common:locationPermissionSetttings'),
-          onPress: () => {
-            openSettings();
-          },
-        },
-      ]);
+    let {status} = await Location.requestForegroundPermissionsAsync();
 
+    if (status !== 'granted') {
+      this.handleLocationPermissionDenied();
       return false;
-    }
-
-    if (status === RESULTS.GRANTED) {
+    } else {
       const {gps} =
         await NativeModules.LocationProvidersModule.getAvailableLocationProviders();
 
@@ -71,7 +33,26 @@ class PermissionsService {
       }
       return true;
     }
-    return false;
+  }
+
+  handleLocationPermissionDenied() {
+    Alert.alert(i18n.t('common:locationPermissionText'), '', [
+      {
+        text: i18n.t('common:locationPermissionCancel'),
+        style: 'cancel',
+      },
+      {
+        text: i18n.t('common:locationPermissionSettings'),
+        onPress: async () => {
+          const supported = await Linking.canOpenURL('app-settings:');
+          if (supported) {
+            Linking.openURL('app-settings:');
+          } else {
+            console.log('Failed to open app settings.');
+          }
+        },
+      },
+    ]);
   }
 
   async checkLocationPermission() {
