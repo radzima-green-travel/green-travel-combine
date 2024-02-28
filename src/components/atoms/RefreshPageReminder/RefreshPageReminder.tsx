@@ -1,6 +1,5 @@
 import React, {memo, useLayoutEffect, useMemo} from 'react';
 import {View, Animated, Text, TouchableOpacity} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 

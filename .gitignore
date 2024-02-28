@@ -98,3 +98,7 @@ vendor
 .expo
 dist/
 web-build/
+
+
+android/
+ios/

@@ -22,7 +22,6 @@ Travel app, has native iOS ([UIKit](https://developer.apple.com/documentation/ui
    3. `amplifyconfiguration.json` - put into `./ios` folder.
    4. `awsconfiguration.json` - put into `./ios` folder.
    5. `GoogleService-Info.plist` - put into `./ios` folder.
-10. On project root execute `yarn rnuc .env`.
 
 ## Setup - React Native specific
 1. Add line below in your `.bashrc`/`.zshrc` file:

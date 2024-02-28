@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Config from 'react-native-ultimate-config';
 
 import {Alert} from 'react-native';
 import config from './config';
@@ -45,7 +44,11 @@ class Storage {
       );
       return this.parseResponse(response);
     } catch (e) {
-      if (['development', 'staging'].indexOf(Config.ENVIRONMENT) !== -1) {
+      if (
+        ['development', 'staging'].indexOf(
+          process.env.EXPO_PUBLIC_ENVIRONMENT as string,
+        ) !== -1
+      ) {
         Alert.alert('', (e as Error)?.message || 'Storage process error');
       }
     }
