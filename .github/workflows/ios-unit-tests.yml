@@ -67,8 +67,5 @@ jobs:
           path: ./ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
 
-      - name: rnuc env
-        run: yarn rnuc .env
-
       - name: Fastlane tests
         run: bundle exec fastlane tests
