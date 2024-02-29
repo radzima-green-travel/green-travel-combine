@@ -1,14 +1,9 @@
-import {AppRegistry, Linking} from 'react-native';
+import {Linking} from 'react-native';
 
 import {enableScreens} from 'react-native-screens';
 import MapBox from '@rnmapbox/maps';
 import 'react-native-gesture-handler';
-
-import * as Sentry from '@sentry/react-native';
-
-import App from './App';
 import awsConfig from './src/aws-exports';
-import * as expoConfig from './app.json';
 import {sentryService} from 'services/SentryService';
 import {analyticsService} from 'services/AnalyticsService';
 import {languageService} from 'services/LanguageService';
@@ -68,6 +63,3 @@ languageService.init();
 
 analyticsService.init(process.env.EXPO_PUBLIC_AMPLITUDE_KEY as string);
 
-const AppWithSentry = Sentry.wrap(App);
-
-AppRegistry.registerComponent(expoConfig.expo.name, () => AppWithSentry);
