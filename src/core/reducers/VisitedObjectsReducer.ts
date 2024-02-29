@@ -73,13 +73,24 @@ export const updateVisitedObjectFailure = createAction(
 
 export const sendInaccuraciesEmailRequest = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_REQUEST,
+  (payload, __?) => payload,
+  (__, meta?) => ({
+    ...meta,
+    success: () =>
+      sendInaccuraciesEmailSuccess(undefined, {entityId: meta?.entityId}),
+    failure: (e: Error) =>
+      sendInaccuraciesEmailFailure(e, {entityId: meta?.entityId}),
+  }),
 )<
   {
     subject: string;
     message: string;
     objectId: string;
   },
-  {entityId: string} | void
+  {
+    success: typeof sendInaccuraciesEmailSuccess;
+    failure: typeof sendInaccuraciesEmailFailure;
+  } & ({entityId: string} | void)
 >();
 export const sendInaccuraciesEmailSuccess = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_SUCCESS,
@@ -90,11 +101,22 @@ export const sendInaccuraciesEmailFailure = createAction(
 
 export const sendAddInfoEmailRequest = createAction(
   ACTIONS.SEND_ADD_INFO_EMAIL_REQUEST,
-)<{
-  subject: string;
-  message: string;
-  objectId: string;
-}>();
+  payload => payload,
+  __ => ({
+    success: sendAddInfoEmailSuccess,
+    failure: sendAddInfoEmailFailure,
+  }),
+)<
+  {
+    subject: string;
+    message: string;
+    objectId: string;
+  },
+  {
+    success: typeof sendAddInfoEmailSuccess;
+    failure: typeof sendAddInfoEmailFailure;
+  }
+>();
 export const sendAddInfoEmailSuccess = createAction(
   ACTIONS.SEND_ADD_INFO_EMAIL_SUCCESS,
 )();

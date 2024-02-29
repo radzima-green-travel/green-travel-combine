@@ -2,6 +2,10 @@ import {call, put} from 'redux-saga/effects';
 
 import {amplifyApi} from 'api/amplify';
 import {CognitoUserWithAttributes} from 'core/types';
+import {
+  sendAddInfoEmailRequest,
+  sendInaccuraciesEmailRequest,
+} from 'core/reducers';
 
 export function* getUserIdSaga() {
   try {
@@ -14,14 +18,19 @@ export function* getUserIdSaga() {
   }
 }
 
-export function* sendEmailSaga({payload, successAction, failureAction}) {
+export function* sendEmailSaga({
+  payload,
+  meta: {success, failure},
+}: ReturnType<
+  typeof sendInaccuraciesEmailRequest | typeof sendAddInfoEmailRequest
+>) {
   try {
     const userId = yield call(getUserIdSaga);
 
     yield call(amplifyApi.sendEmail, {...payload, userId});
 
-    yield put(successAction());
-  } catch (e) {
-    yield put(failureAction(e));
+    yield put(success());
+  } catch (e: any) {
+    yield put(failure(e));
   }
 }

@@ -52,10 +52,14 @@ export const useObjectInfoForm = (
     (id: ObjectField) => {
       let value = form[id];
 
-      if (TIME_PICKER_FIELDS.has(id) && typeof value === 'number' && value) {
-        const hours = Math.floor(value);
-        const minutes = Math.ceil((value - hours) * 60);
-        value = `${hours} ${t('hours')} ${minutes} ${t('minutes')}`;
+      if (value) {
+        if (typeof value === 'string') {
+          return value.trim().replace(/[\n\t\s]+/gm, ' ');
+        } else if (TIME_PICKER_FIELDS.has(id)) {
+          const hours = Math.floor(value);
+          const minutes = Math.ceil((value - hours) * 60);
+          return `${hours} ${t('hours')} ${minutes} ${t('minutes')}`;
+        }
       }
 
       return value;

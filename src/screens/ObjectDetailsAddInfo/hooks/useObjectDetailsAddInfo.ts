@@ -16,7 +16,7 @@ import {Keyboard} from 'react-native';
 import {useObjectInfoForm} from './useObjectInfoForm';
 import {useDispatch} from 'react-redux';
 import {sendAddInfoEmailRequest} from 'core/reducers';
-import {reduce} from 'lodash';
+import reduce from 'lodash/reduce';
 import {useSnackbar} from 'atoms';
 import {IObjectIncompleteField} from 'core/types';
 
@@ -71,7 +71,7 @@ export const useObjectDetailsAddInfo = () => {
           acc.fields ||= label;
 
           if (acc.message !== change) {
-            acc.message += '\n' + change;
+            acc.message += '<br>' + change;
           }
 
           if (acc.fields !== label) {
