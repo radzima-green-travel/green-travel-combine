@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "greenTravel",
+    "slug": "greenTravel",
     "ios": {
       "bundleIdentifier": "greenTravel",
       "supportsTablet": true

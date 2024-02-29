@@ -6,6 +6,14 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {AppRegistry} from 'react-native';
+import './index.ts';
+import 'react-native-gesture-handler';
+import * as expoConfig from './app.json';
+
+import * as Sentry from '@sentry/react-native';
+
+
 // import {ComponentSandbox} from 'atoms';
 // TODO: fix analytics details page, fix input color, fix snacbars position and color
 
@@ -26,5 +34,8 @@ const App = () => {
     </GestureHandlerRootView>
   );
 };
+
+const AppWithSentry = Sentry.wrap(App);
+AppRegistry.registerComponent(expoConfig.expo.name, () => AppWithSentry);
 
 export default App;
