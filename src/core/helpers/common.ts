@@ -28,8 +28,8 @@ import {
   ICategoriesMap,
   IInclude,
   IBelongsTo,
-  IObejctsMap,
-  IObejctsToCategoryMap,
+  IObjectsMap,
+  IObjectsToCategoryMap,
   IOrigins,
   SupportedLocales,
   CategoryI18n,
@@ -206,7 +206,7 @@ export function transformQueryData(
 
     const sortedCategories = orderBy(categories, ['index'], ['asc']);
 
-    const objectsToCategoryMap: IObejctsToCategoryMap = {};
+    const objectsToCategoryMap: IObjectsToCategoryMap = {};
 
     const categoriesMap = reduce(
       sortedCategories,
@@ -399,7 +399,7 @@ export function transformQueryData(
 
         return acc;
       },
-      {} as IObejctsMap,
+      {} as IObjectsMap,
     );
 
     return {

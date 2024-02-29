@@ -110,10 +110,10 @@ export interface ICategoriesMap {
   [key: string]: ITransformedCategory;
 }
 
-export interface IObejctsMap {
+export interface IObjectsMap {
   [key: string]: IObject;
 }
-export interface IObejctsToCategoryMap {
+export interface IObjectsToCategoryMap {
   [key: string]: string;
 }
 
@@ -128,9 +128,9 @@ export interface IObjectIncompleteField {
 
 export interface ITransformedData {
   categories: ITransformedCategory[];
-  objectsMap: IObejctsMap;
+  objectsMap: IObjectsMap;
   categoriesMap: ICategoriesMap;
-  objectsToCategoryMap: IObejctsToCategoryMap;
+  objectsToCategoryMap: IObjectsToCategoryMap;
 }
 
 export interface IBookmarkCategory {
