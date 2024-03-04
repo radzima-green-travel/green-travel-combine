@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback} from 'react';
 import {Portal} from '@gorhom/portal';
 import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
 import {useMemo} from 'react';
-import {Keyboard, TextInput} from 'react-native';
+import {Keyboard, StyleSheet, View} from 'react-native';
 import {useBottomMenu} from 'core/hooks';
 import {ObjectAddInfoMenu} from 'molecules';
 import {IObjectIncompleteField, TestIDs} from 'core/types';
 import {ObjectField} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {selectForPlatform} from 'services/PlatformService';
+import {isIOS, selectForPlatform} from 'services/PlatformService';
+import {FullWindowOverlay} from 'react-native-screens';
 
 interface IProps {
-  currentField: IObjectIncompleteField | null;
+  currentField: IObjectIncompleteField;
   onHideEnd: () => void;
   addInfoMenuProps: ReturnType<typeof useBottomMenu>;
   onChange: (field: ObjectField, value: string | number) => void;
@@ -29,7 +30,6 @@ export const ObjectDetailsAddInfoMenu = ({
   snackBarProps,
 }: IProps) => {
   const {top} = useSafeAreaInsets();
-  const textInputRef = useRef<TextInput>(null);
   const menuHeader = useMemo(
     () => ({
       title: currentField?.label ?? '',
@@ -46,35 +46,45 @@ export const ObjectDetailsAddInfoMenu = ({
     [addInfoMenuProps, onChange],
   );
 
-  const onOpenEnd = useCallback(() => {
-    textInputRef.current?.focus();
-  }, []);
-
-  return (
-    <Portal>
-      <BottomMenu
-        withBackdrop
-        onHideEnd={onHideEnd}
-        onOpenEnd={onOpenEnd}
-        onBackdropPress={Keyboard.dismiss}
-        testID={TestIDs.ObjectDetailsAddInfoMenu}
-        header={menuHeader}
-        {...addInfoMenuProps}>
-        {currentField && (
+  const renderContent = () => {
+    return (
+      <>
+        <BottomMenu
+          withBackdrop
+          initialIndex={0}
+          onHideEnd={onHideEnd}
+          onBackdropPress={Keyboard.dismiss}
+          testID={TestIDs.ObjectDetailsAddInfoMenu}
+          header={menuHeader}
+          {...addInfoMenuProps}>
           <ObjectAddInfoMenu
             testID={TestIDs.ObjectDetailsAddInfoMenuContent}
-            ref={textInputRef}
             currentField={currentField.id}
             onSubmit={onClose}
             value={value}
           />
-        )}
-      </BottomMenu>
-      <SnackBar
-        isOnTop
-        offset={selectForPlatform(0, -top)}
-        {...snackBarProps}
-      />
+        </BottomMenu>
+
+        <SnackBar
+          isOnTop
+          offset={selectForPlatform(0, -top)}
+          {...snackBarProps}
+        />
+      </>
+    );
+  };
+
+  return (
+    <Portal>
+      {isIOS ? (
+        <FullWindowOverlay>
+          <View pointerEvents="box-none" style={StyleSheet.absoluteFillObject}>
+            {renderContent()}
+          </View>
+        </FullWindowOverlay>
+      ) : (
+        renderContent()
+      )}
     </Portal>
   );
 };

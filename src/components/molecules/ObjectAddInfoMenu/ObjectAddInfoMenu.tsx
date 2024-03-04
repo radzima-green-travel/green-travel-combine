@@ -1,8 +1,9 @@
 import React, {
-  forwardRef,
+  memo,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import {TextInput, View} from 'react-native';
@@ -26,13 +27,19 @@ interface IProps {
   testID: string;
 }
 
-export const ObjectAddInfoMenu = forwardRef<TextInput, IProps>(
-  ({currentField, onSubmit, value: formValue, testID}, ref) => {
+export const ObjectAddInfoMenu = memo(
+  ({currentField, onSubmit, value: formValue, testID}: IProps) => {
     const {t} = useTranslation('objectDetailsAddInfo');
     const styles = useThemeStyles(themeStyles);
     const isTimePickerField = TIME_PICKER_FIELDS.has(currentField);
     const [withBottomInset, setWithBottomInset] = useState(isTimePickerField);
     const [value, setValue] = useState(formValue);
+
+    const inputRef = useRef<TextInput>(null);
+
+    useEffect(() => {
+      inputRef.current?.focus();
+    }, []);
 
     useEffect(() => {
       setValue(formValue);
@@ -65,7 +72,7 @@ export const ObjectAddInfoMenu = forwardRef<TextInput, IProps>(
 
       return (
         <Input
-          ref={ref}
+          ref={inputRef}
           {...sharedProps}
           value={value as string}
           onFocus={onFocus}

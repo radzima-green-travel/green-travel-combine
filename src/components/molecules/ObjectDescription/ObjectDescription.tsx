@@ -22,6 +22,7 @@ export const ObjectDescription = memo(({description}: IProps) => {
         contentWidth={width}
         systemFonts={systemFonts}
         enableCSSInlineProcessing={false}
+        baseStyle={styles.text as MixedStyleDeclaration}
         source={{html: description}}
         tagsStyles={{
           h1: styles.headline as MixedStyleDeclaration,

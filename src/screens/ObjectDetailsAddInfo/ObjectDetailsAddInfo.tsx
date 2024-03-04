@@ -68,47 +68,46 @@ export const ObjectDetailsAddInfo = () => {
   useOnRequestSuccess(sendAddInfoEmailRequest, navigateBack);
 
   return (
-    // Prioritizes bottom menu over modal screen
-    <BottomSheetModalProvider>
-      <View style={styles.container}>
-        <View
-          style={[
-            styles.header,
-            selectForPlatform(
-              {marginTop: MARGIN_TOP},
-              {marginTop: Math.max(top, MARGIN_TOP * 2)},
-            ),
-          ]}>
-          <AnimatedCircleButton
-            icon={{name: 'chevronMediumLeft'}}
-            testID={TestIDs.HeaderBackButton}
-            onPress={navigateBack}
-          />
-        </View>
-        {!!name && (
-          <>
-            <Text style={styles.title}>
-              <Text>{`${t('headerTitle')} `}</Text>
-              <Text style={styles.objectName}>{name}</Text>
-            </Text>
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.list}>
-              {incompleteFields.map(field => (
-                <ListItem
-                  key={field.id}
-                  testID={composeTestID(
-                    TestIDs.ObjectDetailsAddInfoList,
-                    `${field.id} button`,
-                  )}
-                  subtitle={getDisplayValue(field.id)}
-                  leadIcon={ICONS_MAP[field.id]}
-                  title={field.label}
-                  onPress={onItemPress(field)}
-                  withNavigationIcon
-                />
-              ))}
-            </ScrollView>
+    <View style={styles.container}>
+      <View
+        style={[
+          styles.header,
+          selectForPlatform(
+            {marginTop: MARGIN_TOP},
+            {marginTop: Math.max(top, MARGIN_TOP * 2)},
+          ),
+        ]}>
+        <AnimatedCircleButton
+          icon={{name: 'chevronMediumLeft'}}
+          testID={TestIDs.HeaderBackButton}
+          onPress={navigateBack}
+        />
+      </View>
+      {!!name && (
+        <>
+          <Text style={styles.title}>
+            <Text>{`${t('headerTitle')} `}</Text>
+            <Text style={styles.objectName}>{name}</Text>
+          </Text>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.list}>
+            {incompleteFields.map(field => (
+              <ListItem
+                key={field.id}
+                testID={composeTestID(
+                  TestIDs.ObjectDetailsAddInfoList,
+                  `${field.id} button`,
+                )}
+                subtitle={getDisplayValue(field.id)}
+                leadIcon={ICONS_MAP[field.id]}
+                title={field.label}
+                onPress={onItemPress(field)}
+                withNavigationIcon
+              />
+            ))}
+          </ScrollView>
+          {currentField ? (
             <ObjectDetailsAddInfoMenu
               currentField={currentField}
               onHideEnd={onItemPress(null)}
@@ -117,14 +116,14 @@ export const ObjectDetailsAddInfo = () => {
               value={value}
               snackBarProps={snackBarProps}
             />
-          </>
-        )}
-        <ButtonsGroup
-          withBottomInset={selectForPlatform(true)}
-          buttons={buttons}
-          containerStyle={styles.buttonContainer}
-        />
-      </View>
-    </BottomSheetModalProvider>
+          ) : null}
+        </>
+      )}
+      <ButtonsGroup
+        withBottomInset={selectForPlatform(true)}
+        buttons={buttons}
+        containerStyle={styles.buttonContainer}
+      />
+    </View>
   );
 };
