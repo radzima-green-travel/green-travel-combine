@@ -1,10 +1,10 @@
-import React, {forwardRef, useImperativeHandle, useRef} from 'react';
+import React, {forwardRef} from 'react';
 import {Text} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {FormInput} from 'atoms';
 import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
-import {View, TextInput, KeyboardType} from 'react-native';
+import {View, KeyboardType} from 'react-native';
 import {composeTestID} from 'core/helpers';
 
 interface IProps {
@@ -28,19 +28,6 @@ export interface ObjectAddInfoMenuRef {
 export const Input = forwardRef<ObjectAddInfoMenuRef, IProps>(
   ({prompt, testID, ...props}, ref) => {
     const styles = useThemeStyles(themeStyles);
-    const textInputRef = useRef<TextInput>(null);
-
-    useImperativeHandle(ref, () => ({
-      focus: () => {
-        textInputRef.current?.focus();
-      },
-      blur: () => {
-        textInputRef.current?.blur();
-      },
-      clear: () => {
-        textInputRef.current?.clear();
-      },
-    }));
 
     return (
       <>
@@ -48,7 +35,7 @@ export const Input = forwardRef<ObjectAddInfoMenuRef, IProps>(
         <View style={styles.fieldContainer}>
           <FormInput
             {...props}
-            ref={textInputRef}
+            ref={ref}
             testID={composeTestID(testID, 'formInput')}
             TextInputComponent={BottomSheetTextInput}
           />
