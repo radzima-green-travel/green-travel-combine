@@ -142,25 +142,6 @@ function getSpotTranslation(
   return value || '';
 }
 
-const getRootCategory = ({
-  categoryId,
-  categoriesMap,
-}: {
-  categoryId: string;
-  categoriesMap: ICategoriesMap;
-}): ITransformedCategory | null => {
-  const category = categoriesMap[categoryId];
-  if (!category) {
-    return null;
-  }
-
-  const parentId = category.parent;
-
-  return parentId
-    ? getRootCategory({categoryId: parentId, categoriesMap})
-    : category;
-};
-
 const objectCompletnessInfo = (
   object: ListMobileDataQueryObject | null,
   objectRootCategory: ITransformedCategory | null,
@@ -268,10 +249,6 @@ export function transformQueryData(
           objectsToCategoryMap[object.id] = object.categoryId;
 
           const objectCategory = categoriesMap[object.categoryId];
-          const objectRootCategory = getRootCategory({
-            categoryId: object.categoryId,
-            categoriesMap,
-          });
 
           function getObjectRelatedData(
             objectIds?: Array<string | null> | null,
@@ -346,7 +323,7 @@ export function transformQueryData(
           }
 
           const {percentageOfCompletion, imcompletedFieldsNames} =
-            objectCompletnessInfo(object, objectRootCategory);
+            objectCompletnessInfo(object, objectCategory);
 
           const objectData: IObject = {
             id: object.id,
