@@ -10,6 +10,7 @@ import {
   find,
   keyBy,
   filter,
+  isEmpty,
 } from 'lodash';
 
 import {
@@ -149,7 +150,9 @@ const objectCompletnessInfo = (
   const imcompletedFieldsNames = filter(
     objectRootCategory?.completenessFields,
     fieldName => {
-      return !object?.[fieldName];
+      const value = object?.[fieldName];
+
+      return isEmpty(value) || value?.items ? isEmpty(value?.items) : false;
     },
   );
 
