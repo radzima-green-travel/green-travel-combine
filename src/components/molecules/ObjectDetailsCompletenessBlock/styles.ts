@@ -61,6 +61,9 @@ export const themeStyles = createThemeStyles({
     },
     marginVertical: 4,
   },
+  listItemText: {
+    flex: 1,
+  },
   listRow: {
     flexDirection: 'row',
   },

@@ -1,17 +1,17 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {PADDING_HORIZONTAL} from 'core/constants';
+import {COLORS, FONTS_PRESETS} from 'assets';
 
 export const themeStyles = {
   container: {
-    marginHorizontal: PADDING_HORIZONTAL,
+    marginTop: 12,
   },
-
-  link: {
-    ...FONTS_STYLES.regular15,
+  title: {
+    ...FONTS_PRESETS.footnoteBold,
     color: {
-      light: COLORS.cornflowerBlue,
-      dark: COLORS.cornflowerBlue,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
-    textDecorationLine: 'underline',
+  },
+  link: {
+    marginTop: 8,
   },
 };

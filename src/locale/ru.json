@@ -117,7 +117,9 @@
     "cool": "Круто!",
     "addInformation": "Добавить информацию",
     "helpUsToComplete": "Помогите нам заполнить\nинформацию",
-    "readyOn": "Готово на {{percentage}}%"
+    "readyOn": "Готово на {{percentage}}%",
+    "showMore": "Показать больше",
+    "showLess": "Скрыть"
   },
   "objectDetailsAddInfo": {
     "headerTitle": "Добавление информации объекту",

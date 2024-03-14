@@ -1,7 +1,10 @@
-import {COLORS, FONTS_STYLES, FONTS} from 'assets';
+import {COLORS, FONTS_STYLES, FONTS, FONTS_PRESETS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
+import {hexWithAlpha} from 'core/helpers';
 import {createThemeStyles} from 'core/helpers/styles';
 export const systemFonts = Object.values(FONTS);
+
+export const TEXT_COLLAPSE_HEIGHT = 192;
 
 export const themeStyles = createThemeStyles({
   container: {
@@ -15,6 +18,18 @@ export const themeStyles = createThemeStyles({
     marginBottom: PADDING_HORIZONTAL,
   },
 
+  descriptionContainer: {
+    height: TEXT_COLLAPSE_HEIGHT,
+    overflow: 'hidden',
+  },
+
+  descriptionContent: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+
   headline: {
     ...FONTS_STYLES.subheadline,
     color: {
@@ -24,7 +39,7 @@ export const themeStyles = createThemeStyles({
     marginBottom: 8,
   },
   text: {
-    ...FONTS_STYLES.text_16_24_400,
+    ...FONTS_PRESETS.bodyRegular,
     color: {
       light: COLORS.light.text.primary,
       dark: COLORS.dark.text.primary,
@@ -36,10 +51,42 @@ export const themeStyles = createThemeStyles({
   },
 
   link: {
-    ...FONTS_STYLES.text_16_24_400,
+    ...FONTS_PRESETS.bodyRegular,
     color: {
-      light: COLORS.light.text.accent,
-      dark: COLORS.dark.text.accent,
+      light: COLORS.light.text.link,
+      dark: COLORS.dark.text.link,
     },
   },
+
+  gradient: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 25,
+  },
+
+  bottomBar: {
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
+    flexDirection: 'row',
+  },
 });
+
+export const gradientColorsLight = [
+  COLORS.light.linearGradient,
+  hexWithAlpha(COLORS.light.linearGradient, 0.4),
+  hexWithAlpha(COLORS.light.linearGradient, 0),
+];
+export const gradientColorsDark = [
+  COLORS.dark.linearGradient,
+  hexWithAlpha(COLORS.dark.linearGradient, 0.4),
+  hexWithAlpha(COLORS.dark.linearGradient, 0),
+];
+
+export const gradientConfig = {
+  start: {x: 0.0, y: 0.8},
+  end: {x: 0.0, y: 0},
+};

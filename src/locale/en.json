@@ -117,7 +117,9 @@
     "cool": "Cool!",
     "addInformation": "Add information",
     "helpUsToComplete": "Help us to complete object info",
-    "readyOn": "Ready on {{percentage}}%"
+    "readyOn": "Ready on {{percentage}}%",
+    "showMore": "Show more",
+    "showLess": "Show less"
   },
   "objectDetailsAddInfo": {
     "headerTitle": "Adding object information",

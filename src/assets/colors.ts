@@ -28,6 +28,7 @@ export const COLORS = {
   balticSea: '#262626',
 
   light: {
+    linearGradient: '#FFFFFF',
     background: {
       secondary: '#F5F5F5',
       primary: '#FFFFFF',
@@ -49,7 +50,7 @@ export const COLORS = {
       primary: '#090909',
       accent: '#1F865B',
       constant: '#ffffff',
-      link: 'rgba(2, 100, 212, 1)',
+      link: '#1F865B',
       secondary: '#767676',
       tertiary: '#999999',
       negative: '#CC0B00',
@@ -67,6 +68,7 @@ export const COLORS = {
   },
 
   dark: {
+    linearGradient: '#131313',
     background: {
       primary: '#131313',
       secondary: '#1F1F1F',
@@ -89,7 +91,7 @@ export const COLORS = {
       secondary: '#767676',
       accent: '#35B47F',
       constant: '#ffffff',
-      link: 'rgba(89, 163, 246, 1)',
+      link: '#35B47F',
       tertiary: '#5C5C5C',
       negative: '#FF5147',
     },

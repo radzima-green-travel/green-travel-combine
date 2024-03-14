@@ -1,7 +1,6 @@
 import React, {memo, useLayoutEffect, useMemo} from 'react';
 import {View, Animated, Text, TouchableOpacity} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 
 type Props = {
@@ -24,7 +23,6 @@ const opacityInterpolation = {
 };
 
 export const RefreshPageReminder = memo<Props>(({onPress}: Props) => {
-  const theme = useColorScheme();
   const {t} = useTranslation('home');
   const styles = useThemeStyles(themeStyles);
   const animatedValue = useMemo(() => new Animated.Value(0), []);

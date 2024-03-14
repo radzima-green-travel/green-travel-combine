@@ -35,7 +35,7 @@ export const ObjectDetailsCompletenessBlock = memo(
             </Text>
             <Text
               testID={composeTestID(testID, 'listItemTextLeft')}
-              style={styles.listItem}>
+              style={[styles.listItem, styles.listItemText]}>
               {leftItem.label}
             </Text>
           </View>
@@ -49,7 +49,7 @@ export const ObjectDetailsCompletenessBlock = memo(
                 </Text>
                 <Text
                   testID={composeTestID(testID, 'listItemTextRight')}
-                  style={styles.listItem}>
+                  style={[styles.listItem, styles.listItemText]}>
                   {rightItem.label}
                 </Text>
               </>

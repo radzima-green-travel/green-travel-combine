@@ -170,7 +170,11 @@ export const ObjectDetails = () => {
                 testID={TestIDs.objectDetailsCompletenessBlockSmall}
               />
             ) : null}
-            <ObjectDescription description={data.description} />
+            <ObjectDescription
+              testID={TestIDs.ObjectDetailsDescription}
+              origins={data.origins}
+              description={data.description}
+            />
             <Text style={styles.sectionTitle}>Additional details</Text>
             {isCompletnessBlockVisible ? (
               <View ref={elementRef}>
@@ -183,12 +187,6 @@ export const ObjectDetails = () => {
               </View>
             ) : null}
 
-            {(data.origins && data.origins.length) || data.url ? (
-              <ObjectDescriptionSource
-                origins={data.origins}
-                siteLink={data.url}
-              />
-            ) : null}
             {isEmpty(data.include) ? null : (
               <ObjectIncludes
                 title={t('includes')}
