@@ -24,7 +24,6 @@ export class RestAPI extends RestApiEngine {
     locale: SupportedLocales;
   }): Promise<ListMobileDataQuery | null> {
     const data = await this.get(`/objects_v1_${locale}.json`);
-
     if (!data) {
       return null;
     }

@@ -15,7 +15,6 @@ function useFirstMountState(): boolean {
 export const useUpdateEffect: typeof useEffect = (effect, deps) => {
   const isFirstCall = useFirstMountState();
 
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (!isFirstCall) {
       return effect();

@@ -13,7 +13,6 @@ import * as expoConfig from './app.json';
 
 import * as Sentry from '@sentry/react-native';
 
-
 // import {ComponentSandbox} from 'atoms';
 // TODO: fix analytics details page, fix input color, fix snacbars position and color
 
