@@ -8,7 +8,8 @@ import {sentryService} from 'services/SentryService';
 import {analyticsService} from 'services/AnalyticsService';
 import {languageService} from 'services/LanguageService';
 import {Amplify} from 'aws-amplify';
-import InAppBrowser, {RedirectResult} from 'react-native-inappbrowser-reborn';
+import * as WebBrowser from 'expo-web-browser';
+
 import {store} from 'core/store';
 import {
   inAppBrowserSuccessOperation,
@@ -20,20 +21,20 @@ if (__DEV__) {
 }
 
 async function urlOpener(url, redirectUrl) {
-  await InAppBrowser.isAvailable();
+  // await InAppBrowser.isAvailable();
 
-  const {type, url: newUrl} = (await InAppBrowser.openAuth(url, redirectUrl, {
+  const result = await WebBrowser.openAuthSessionAsync(url, redirectUrl, {
     showTitle: false,
-    enableUrlBarHiding: true,
-    enableDefaultShare: false,
-    ephemeralWebSession: false,
-    forceCloseOnRedirection: true,
-  })) as RedirectResult;
+    // enableUrlBarHiding: true,
+    enableDefaultShareMenuItem: false,
+    // ephemeralWebSession: false,
+    // forceCloseOnRedirection: true,
+  });
 
-  if (type === 'success') {
-    Linking.openURL(newUrl);
+  if (result.type === 'success') {
+    Linking.openURL(result.url);
     store.dispatch(inAppBrowserSuccessOperation());
-  } else if (type === 'cancel') {
+  } else if (result.type === 'cancel') {
     store.dispatch(inAppBrowserCancelOperation());
   }
 }
@@ -62,4 +63,3 @@ sentryService.init();
 languageService.init();
 
 analyticsService.init(process.env.EXPO_PUBLIC_AMPLITUDE_KEY as string);
-

@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* eslint-disable */
+
 // this is an auto generated file. This will be overwritten
 
 export const listMobileObjects = /* GraphQL */ `
@@ -2080,10 +2080,7 @@ export const searchByBounds = /* GraphQL */ `
   }
 `;
 export const listMobileData = /* GraphQL */ `
-  query ListMobileData(  
-      $limit: Int
-      $nextToken: String
-    ) {
+  query ListMobileData($limit: Int, $nextToken: String) {
     listMobileData {
       categories {
         id
@@ -2105,10 +2102,7 @@ export const listMobileData = /* GraphQL */ `
           singularName
         }
       }
-      objects(
-        limit: $limit
-        nextToken: $nextToken
-      ) {
+      objects(limit: $limit, nextToken: $nextToken) {
         items {
           id
           name
