@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {Icon} from 'atoms';
 import {ListItemWrapper} from './ListItemWrapper';
@@ -17,42 +17,94 @@ export const BaseListItem = memo(
     containerStyle,
     leadIcon,
     subtitle,
+    contentStylingType = 'primary',
+    onSubtitlePress,
+    leadIconStyle,
+    position = 'single',
   }: BaseListItemProps) => {
     const styles = useThemeStyles(themeStyles);
+
+    const renderSubtitle = () => {
+      if (subtitle) {
+        return (
+          <Text style={styles.subtitle} numberOfLines={1} ellipsizeMode="tail">
+            {subtitle}
+          </Text>
+        );
+      }
+
+      return null;
+    };
+
+    const renderTitle = () => {
+      const titleNode = (
+        <Text
+          style={[
+            styles.title,
+            contentStylingType === 'secondary' && styles.titleSecondary,
+            onSubtitlePress && styles.titleLink,
+          ]}
+          numberOfLines={1}
+          ellipsizeMode="tail">
+          {title}
+        </Text>
+      );
+
+      if (onSubtitlePress) {
+        return (
+          <TouchableOpacity activeOpacity={0.9} onPress={onSubtitlePress}>
+            {titleNode}
+          </TouchableOpacity>
+        );
+      }
+
+      return titleNode;
+    };
 
     return (
       <ListItemWrapper
         testID={testID}
         onPress={onPress}
         disabled={disabled}
-        containerStyle={containerStyle}>
-        <View style={styles.titleContainer}>
+        containerStyle={containerStyle}
+        position={position}>
+        <View style={styles.contentContainer}>
           {leadIcon && (
-            <Icon name={leadIcon} size={20} style={styles.leadIcon} />
+            <View style={styles.leadIconContainer}>
+              <Icon
+                name={leadIcon}
+                size={24}
+                style={[styles.leadIcon, leadIconStyle]}
+              />
+            </View>
           )}
-          <View>
-            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-              {title}
-            </Text>
-            {!!subtitle && (
-              <Text
-                style={styles.subtitle}
-                numberOfLines={1}
-                ellipsizeMode="tail">
-                {subtitle}
-              </Text>
-            )}
+          <View
+            style={[
+              styles.titleContainer,
+              contentStylingType === 'secondary' &&
+                styles.titleContainerSecondary,
+              (position === 'top' || position === 'middle') &&
+                styles.titleContainerSeparator,
+            ]}>
+            <View
+              style={
+                contentStylingType === 'secondary' &&
+                styles.secondaryContentContainer
+              }>
+              {renderTitle()}
+              {renderSubtitle()}
+            </View>
           </View>
-        </View>
-        <View style={styles.rightContainer}>
-          {label ? <Text style={styles.label}>{label}</Text> : null}
-          {withNavigationIcon ? (
-            <Icon
-              name={'chevronMediumRight'}
-              size={24}
-              style={styles.navigationIcon}
-            />
-          ) : null}
+          <View style={styles.rightContainer}>
+            {label ? <Text style={styles.label}>{label}</Text> : null}
+            {withNavigationIcon ? (
+              <Icon
+                name={'chevronMediumRight'}
+                size={24}
+                style={styles.navigationIcon}
+              />
+            ) : null}
+          </View>
         </View>
       </ListItemWrapper>
     );

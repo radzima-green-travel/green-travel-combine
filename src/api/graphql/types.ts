@@ -49,8 +49,20 @@ export type ListMobileDataQueryObject = {
   } | null> | null;
   notes?: string | null;
   url?: string | null;
-  phoneNumber?: string | null;
+  phoneNumber?: string[] | null;
   workingHours?: string | null;
+  attendanceTime?: number | null;
+  calculatedProperties?: {
+    averageRating: number;
+    averageSpentTime: number;
+    createdAt: string;
+    id: string;
+    objectId: string;
+    totalRatings: number;
+    totalSpentTimes: number;
+    totalVisits: number;
+    updatedAt: string;
+  };
   routes?: {
     __typename: 'Route';
     type: string;

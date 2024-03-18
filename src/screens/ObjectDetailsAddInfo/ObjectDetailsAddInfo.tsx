@@ -6,7 +6,6 @@ import {MARGIN_TOP, themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useObjectDetailsAddInfo} from './hooks';
 import {ObjectDetailsAddInfoMenu} from 'organisms';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {ObjectField} from 'core/constants';
 import {sendAddInfoEmailRequest} from 'core/reducers';
 import {IObjectIncompleteField, TestIDs} from 'core/types';

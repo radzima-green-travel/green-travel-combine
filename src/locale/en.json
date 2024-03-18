@@ -119,7 +119,13 @@
     "helpUsToComplete": "Help us to complete object info",
     "readyOn": "Ready on {{percentage}}%",
     "showMore": "Show more",
-    "showLess": "Show less"
+    "showLess": "Show less",
+    "time": {
+      "hour": "{{hours}} hour",
+      "minutes": "{{minutes}} minutes",
+      "hours": "{{hours}} hours",
+      "hoursAfter4": "{{hours}} hours"
+    }
   },
   "objectDetailsAddInfo": {
     "headerTitle": "Adding object information",

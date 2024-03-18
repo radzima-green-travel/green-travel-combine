@@ -1,6 +1,6 @@
 import {IconsNames} from 'components/atoms/Icon';
 import {ReactNode} from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
+import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 export interface BaseListItemProps {
   testID: string;
@@ -12,6 +12,10 @@ export interface BaseListItemProps {
   containerStyle?: StyleProp<ViewStyle>;
   leadIcon?: IconsNames;
   subtitle?: string | number;
+  contentStylingType?: 'primary' | 'secondary';
+  onSubtitlePress?: () => void;
+  leadIconStyle?: StyleProp<TextStyle>;
+  position?: 'top' | 'middle' | 'bottom' | 'single';
 }
 
 export interface ListItemWrapperProps {
@@ -20,4 +24,5 @@ export interface ListItemWrapperProps {
   onPress?: () => void;
   disabled?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
+  position: 'top' | 'middle' | 'bottom' | 'single';
 }

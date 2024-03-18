@@ -72,6 +72,19 @@ export const themeStyles = createThemeStyles({
     marginTop: 16,
     marginBottom: 8,
   },
+  listItemIcon: {
+    color: {
+      light: COLORS.light.icon.accentLight,
+      dark: COLORS.dark.icon.accentLight,
+    },
+  },
+  listItemContainer: {
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
+    marginHorizontal: PADDING_HORIZONTAL,
+  },
 });
 
 export const gradientConfig = {

@@ -1,5 +1,5 @@
-import React, {memo} from 'react';
-import {TouchableOpacity} from 'react-native';
+import React, {memo, useMemo} from 'react';
+import {TouchableOpacity, ViewStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {ListItemWrapperProps} from './types';
 import {themeStyles} from './styles';
@@ -11,8 +11,27 @@ export const ListItemWrapper = memo(
     onPress,
     disabled,
     containerStyle,
+    position,
   }: ListItemWrapperProps) => {
     const styles = useThemeStyles(themeStyles);
+
+    const containerStyles = useMemo(() => {
+      const style = [styles.container];
+
+      if (position === 'top' || position === 'middle') {
+        style.push(styles.topContainer);
+      }
+
+      if (position === 'bottom' || position === 'middle') {
+        style.push(styles.bottomContainer);
+      }
+
+      if (containerStyle) {
+        style.push(containerStyle as ViewStyle);
+      }
+
+      return style;
+    }, [containerStyle, position, styles]);
 
     return (
       <TouchableOpacity
@@ -20,7 +39,7 @@ export const ListItemWrapper = memo(
         activeOpacity={0.8}
         onPress={onPress}
         disabled={!onPress || disabled}
-        style={[styles.container, containerStyle]}>
+        style={containerStyles}>
         {children}
       </TouchableOpacity>
     );

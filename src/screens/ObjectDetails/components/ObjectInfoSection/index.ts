@@ -1,0 +1,1 @@
+export {ObjectInfoSection} from './ObjectInfoSection';

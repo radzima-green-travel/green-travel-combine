@@ -119,7 +119,13 @@
     "helpUsToComplete": "Помогите нам заполнить\nинформацию",
     "readyOn": "Готово на {{percentage}}%",
     "showMore": "Показать больше",
-    "showLess": "Скрыть"
+    "showLess": "Скрыть",
+    "time": {
+      "hour": "{{hours}} час",
+      "minutes": "{{minutes}} минут",
+      "hours": "{{hours}} часа",
+      "hoursAfter4": "{{hours}} часов"
+    }
   },
   "objectDetailsAddInfo": {
     "headerTitle": "Добавление информации объекту",

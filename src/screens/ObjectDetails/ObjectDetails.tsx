@@ -5,7 +5,6 @@ import {Text, View} from 'react-native';
 import {
   DetailsPageCapture,
   ObjectDescription,
-  ObjectDescriptionSource,
   ObjectDetailsPager,
   ObjectDetailsBottomButtons,
   ObjectDetailsCompletenessBlock,
@@ -32,6 +31,7 @@ import {
   useReportInaccuracies,
   useObjectCompletnessData,
   useAddInfoSuccessMenu,
+  useObjectDetailsInfo,
 } from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
@@ -39,6 +39,7 @@ import {ObjectDetailsReportInaccuraciesMenu} from 'organisms';
 import {TestIDs} from 'core/types';
 import Animated from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
+import {ObjectInfoSection} from './components';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
@@ -102,6 +103,8 @@ export const ObjectDetails = () => {
   } = useObjectCompletnessData({objectId});
 
   const addInfoSuccessMenuProps = useAddInfoSuccessMenu();
+
+  const {mainInfoSections} = useObjectDetailsInfo();
 
   const locationExist = Boolean(data && isLocationExist(data));
 
@@ -169,6 +172,10 @@ export const ObjectDetails = () => {
                 percentage={percentage}
                 testID={TestIDs.objectDetailsCompletenessBlockSmall}
               />
+            ) : null}
+
+            {mainInfoSections.length ? (
+              <ObjectInfoSection items={mainInfoSections} />
             ) : null}
             <ObjectDescription
               testID={TestIDs.ObjectDetailsDescription}

@@ -75,8 +75,9 @@ export interface IObject {
   routes?: LineString;
   length: number | null;
   blurhash?: string;
-  phoneNumber?: string;
-  workingHours?: string;
+  phoneNumber?: string | null;
+  workingHours?: string | null;
+  attendanceTime?: number | null;
 }
 
 export interface ISpot {

@@ -366,9 +366,13 @@ export function transformQueryData(
             routes: (object.routes as LineString) || undefined,
             length: object.length || null,
             origins: (object.origins as IOrigins[]) || null,
-            phoneNumber: object.phoneNumber || undefined,
+            phoneNumber: object.phoneNumber?.[0] || null,
             workingHours: object.workingHours || undefined,
             visitedObject: 'You’ve visited it!',
+            attendanceTime:
+              object.calculatedProperties?.averageSpentTime ||
+              object.attendanceTime ||
+              null,
           };
 
           return {

@@ -3,3 +3,4 @@ export * from './getRequestErrorLabels';
 export * from './generatePassword';
 export * from './getPlatformsTestID';
 export * from './getAppVersion';
+export * from './date';
