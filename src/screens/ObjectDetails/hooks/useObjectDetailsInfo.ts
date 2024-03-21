@@ -4,7 +4,11 @@ import {useBottomMenu, useObject, useTranslation} from 'core/hooks';
 import {ObjectDetailsScreenRouteProps} from '../types';
 import {useRoute} from '@react-navigation/native';
 
-import {msToHoursAndMinutes, tryOpenURL} from 'core/helpers';
+import {
+  msToHoursAndMinutes,
+  sanitizePhoneNumber,
+  tryOpenURL,
+} from 'core/helpers';
 import type {Item} from '../components/ObjectInfoSection/ObjectInfoSection';
 import {compact} from 'lodash';
 import {TestIDs} from 'core/types';
@@ -39,7 +43,7 @@ export function useObjectDetailsInfo() {
 
   const onTelephonePress = useCallback(() => {
     if (phoneNumber) {
-      tryOpenURL(`tel:${phoneNumber}`);
+      tryOpenURL(`tel:${sanitizePhoneNumber(phoneNumber)}`);
     }
   }, [phoneNumber]);
 
