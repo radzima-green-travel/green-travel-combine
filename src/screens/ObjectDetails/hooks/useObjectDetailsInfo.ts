@@ -124,7 +124,7 @@ export function useObjectDetailsInfo() {
 
   const additionalDetailsSection = useMemo(() => {
     return compact([
-      childServices && {
+      childServices?.length && {
         title: t('objectFieldsLabels.childServices'),
         subtitle: childServices.join(', '),
         icon: 'deck',
@@ -132,7 +132,7 @@ export function useObjectDetailsInfo() {
         contentStylingType: 'primary',
         boldTitle: false,
       },
-      renting && {
+      renting?.length && {
         title: t('objectFieldsLabels.renting'),
         subtitle: renting.join(', '),
         icon: 'sportsTennis',
