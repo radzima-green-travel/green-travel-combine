@@ -33,15 +33,17 @@ export const themeStyles = createThemeStyles({
     paddingVertical: 16,
     paddingRight: 32,
   },
-  titleContainerSecondary: {
-    paddingBottom: 8,
-  },
   titleContainerSeparator: {
+    paddingBottom: 8,
     borderBottomWidth: 1,
     borderColor: {
       light: COLORS.light.stroke.dividerLight,
       dark: COLORS.dark.stroke.dividerLight,
     },
+  },
+
+  titleContainerBottomMiddle: {
+    paddingTop: 8,
   },
   title: {
     ...FONTS_PRESETS.bodyBold,
@@ -50,6 +52,7 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.primary,
     },
   },
+
   titleSecondary: {
     ...FONTS_PRESETS.bodyRegular,
   },
@@ -62,9 +65,11 @@ export const themeStyles = createThemeStyles({
   secondaryContentContainer: {
     flexDirection: 'column-reverse',
   },
+  subtitleOffset: {
+    height: 2,
+  },
   subtitle: {
     ...FONTS_PRESETS.caption1Regular,
-    marginTop: 2,
     color: {
       light: COLORS.light.text.secondary,
       dark: COLORS.dark.text.secondary,
@@ -81,8 +86,8 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.secondary,
     },
   },
-  navigationIcon: {
-    marginLeft: 12,
+  tailIcon: {
+    marginLeft: 4,
     color: {
       light: COLORS.light.icon.tertiary,
       dark: COLORS.dark.icon.tertiary,

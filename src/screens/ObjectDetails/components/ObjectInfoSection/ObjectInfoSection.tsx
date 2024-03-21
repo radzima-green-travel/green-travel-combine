@@ -1,6 +1,6 @@
 import React, {ComponentProps, memo} from 'react';
 import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {View} from 'react-native';
 import {IconsNames} from 'atoms/Icon';
 import {ListItem} from 'molecules';
@@ -11,6 +11,12 @@ export type Item = {
   onSubtitlePress?: () => void;
   testID: string;
   icon: IconsNames;
+  titleNumberOfLines?: number;
+  withDropdown?: boolean;
+  onPress?: () => void;
+  contentStylingType?: 'primary' | 'secondary';
+  isTitleBold?: boolean;
+  boldTitle?: boolean;
 };
 
 interface IProps {
@@ -19,9 +25,21 @@ interface IProps {
 
 export const ObjectInfoSection = memo(({items}: IProps) => {
   const styles = useThemeStyles(themeStyles);
+  const {t} = useTranslation('objectDetails');
 
   const renderSectionItem = (item: Item, index: number) => {
-    const {title, subtitle, onSubtitlePress, icon, testID} = item;
+    const {
+      title,
+      subtitle,
+      onSubtitlePress,
+      icon,
+      testID,
+      titleNumberOfLines,
+      withDropdown,
+      onPress,
+      contentStylingType = 'secondary',
+      boldTitle,
+    } = item;
     let position: ComponentProps<typeof ListItem>['position'] = 'single';
 
     if (items.length - 1 !== 0) {
@@ -37,7 +55,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
     return (
       <ListItem
         containerStyle={styles.listItemContainer}
-        contentStylingType="secondary"
+        contentStylingType={contentStylingType}
         title={title}
         subtitle={subtitle}
         onSubtitlePress={onSubtitlePress}
@@ -45,6 +63,13 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
         position={position}
         leadIconStyle={styles.listItemIcon}
         testID={testID}
+        titleNumberOfLines={titleNumberOfLines}
+        tailIconStyle={withDropdown ? styles.dropdownTextStyle : undefined}
+        labelStyle={withDropdown ? styles.dropdownTextStyle : undefined}
+        tailIcon={withDropdown ? 'chevronShortDown' : undefined}
+        label={withDropdown ? t('details') : undefined}
+        onPress={onPress}
+        boldTitle={boldTitle}
       />
     );
   };

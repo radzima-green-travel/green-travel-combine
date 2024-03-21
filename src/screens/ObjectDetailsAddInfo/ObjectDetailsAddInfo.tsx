@@ -102,7 +102,7 @@ export const ObjectDetailsAddInfo = () => {
                 leadIcon={ICONS_MAP[field.id]}
                 title={field.label}
                 onPress={onItemPress(field)}
-                withNavigationIcon
+                tailIcon="chevronMediumRight"
               />
             ))}
           </ScrollView>

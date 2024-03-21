@@ -125,7 +125,11 @@
       "minutes": "{{minutes}} минут",
       "hours": "{{hours}} часа",
       "hoursAfter4": "{{hours}} часов"
-    }
+    },
+    "workHours": "Режим работы",
+    "details": "Подробнее",
+    "aboutThisExperience": "Об этом месте",
+    "additionalDetails": "Дополнительная информация"
   },
   "objectDetailsAddInfo": {
     "headerTitle": "Добавление информации объекту",

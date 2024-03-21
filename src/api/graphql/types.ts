@@ -1,3 +1,45 @@
+interface DefaultI18n {
+  __typename: 'ObjectI18n';
+  locale: string;
+}
+
+export type i18nType<T extends string> = {
+  [key in T]: string | null;
+} & DefaultI18n;
+
+export interface RentingItem {
+  id: string;
+  objectId: string;
+  rentingId: string;
+  renting: {
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    createdBy: string;
+    updatedBy: string;
+    i18n: Array<i18nType<'name'>>;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+export interface ChildServicesItem {
+  id: string;
+  objectId: string;
+  childServiceId: string;
+  childService: {
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    createdBy: string;
+    updatedBy: string;
+    i18n: Array<i18nType<'name'>>;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type ListMobileDataQueryObject = {
   __typename: 'ObjectMobile';
   id: string;
@@ -52,6 +94,8 @@ export type ListMobileDataQueryObject = {
   phoneNumber?: string[] | null;
   workingHours?: string | null;
   attendanceTime?: number | null;
+  renting: {items: RentingItem[]};
+  childServices: {items: ChildServicesItem[]};
   calculatedProperties?: {
     averageRating: number;
     averageSpentTime: number;
@@ -70,16 +114,7 @@ export type ListMobileDataQueryObject = {
   } | null;
   include?: Array<string | null> | null;
   belongsTo?: Array<string | null> | null;
-  i18n?: Array<{
-    __typename: 'ObjectI18n';
-    locale: string;
-    name?: string | null;
-    description?: string | null;
-    governanceType?: string | null;
-    author?: string | null;
-    address?: string | null;
-    notes?: string | null;
-  } | null> | null;
+  i18n?: Array<i18nType<'name' | 'description'> | null> | null;
   category?: {
     __typename: 'Category';
     id: string;

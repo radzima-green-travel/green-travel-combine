@@ -1,0 +1,1 @@
+export {ObjectDetailsShowWorkingHoursInfoMenu} from './ObjectDetailsShowWorkingHoursInfoMenu';

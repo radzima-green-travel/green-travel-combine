@@ -13,7 +13,6 @@ export const BaseListItem = memo(
     onPress,
     disabled,
     label,
-    withNavigationIcon,
     containerStyle,
     leadIcon,
     subtitle,
@@ -21,15 +20,26 @@ export const BaseListItem = memo(
     onSubtitlePress,
     leadIconStyle,
     position = 'single',
+    titleNumberOfLines = 1,
+    tailIcon,
+    tailIconStyle,
+    labelStyle,
+    boldTitle = true,
   }: BaseListItemProps) => {
     const styles = useThemeStyles(themeStyles);
 
     const renderSubtitle = () => {
       if (subtitle) {
         return (
-          <Text style={styles.subtitle} numberOfLines={1} ellipsizeMode="tail">
-            {subtitle}
-          </Text>
+          <>
+            <View style={styles.subtitleOffset} />
+            <Text
+              style={styles.subtitle}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {subtitle}
+            </Text>
+          </>
         );
       }
 
@@ -41,10 +51,11 @@ export const BaseListItem = memo(
         <Text
           style={[
             styles.title,
-            contentStylingType === 'secondary' && styles.titleSecondary,
+            (contentStylingType === 'secondary' || !boldTitle) &&
+              styles.titleSecondary,
             onSubtitlePress && styles.titleLink,
           ]}
-          numberOfLines={1}
+          numberOfLines={titleNumberOfLines}
           ellipsizeMode="tail">
           {title}
         </Text>
@@ -81,10 +92,10 @@ export const BaseListItem = memo(
           <View
             style={[
               styles.titleContainer,
-              contentStylingType === 'secondary' &&
-                styles.titleContainerSecondary,
               (position === 'top' || position === 'middle') &&
                 styles.titleContainerSeparator,
+              (position === 'bottom' || position === 'middle') &&
+                styles.titleContainerBottomMiddle,
             ]}>
             <View
               style={
@@ -96,12 +107,14 @@ export const BaseListItem = memo(
             </View>
           </View>
           <View style={styles.rightContainer}>
-            {label ? <Text style={styles.label}>{label}</Text> : null}
-            {withNavigationIcon ? (
+            {label ? (
+              <Text style={[styles.label, labelStyle]}>{label}</Text>
+            ) : null}
+            {tailIcon ? (
               <Icon
-                name={'chevronMediumRight'}
+                name={tailIcon}
                 size={24}
-                style={styles.navigationIcon}
+                style={[styles.tailIcon, tailIconStyle]}
               />
             ) : null}
           </View>

@@ -78,6 +78,8 @@ export interface IObject {
   phoneNumber?: string | null;
   workingHours?: string | null;
   attendanceTime?: number | null;
+  renting: string[];
+  childServices: string[];
 }
 
 export interface ISpot {
@@ -262,4 +264,10 @@ export enum TestIDs {
   ObjectDetailsAddInfoMenuContent = 'objectDetailsAddInfoMenuContent',
   ObjectDetailsAddInfoSuccessMenu = 'objectDetailsAddInfoSuccessMenu',
   ObjectDetailsAddInfoSuccessMenuContent = 'objectDetailsAddInfoSuccessMenuContent',
+  ObjectDetailsOfficialWebsite = 'objectDetailsOfficialWebsite',
+  ObjectDetailsPhoneNumber = 'objectDetailsPhoneNumber',
+  ObjectDetailsAttendanceTime = 'objectDetailsAttendanceTime',
+  ObjectDetailsWorkingHours = 'objectDetailsWorkingHours',
+  ObjectDetailsRenting = 'objectDetailsRenting',
+  ObjectDetailsChildService = 'objectDetailsChildService',
 }

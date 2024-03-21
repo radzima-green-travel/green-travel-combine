@@ -19,4 +19,11 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.background.primary,
     },
   },
+
+  dropdownTextStyle: {
+    color: {
+      light: COLORS.light.text.accent,
+      dark: COLORS.dark.text.accent,
+    },
+  },
 });

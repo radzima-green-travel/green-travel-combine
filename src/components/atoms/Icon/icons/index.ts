@@ -17,6 +17,7 @@ export {default as check} from './check.svg';
 export {default as chevronMediumLeft} from './chevronMediumLeft.svg';
 export {default as chevronMediumRight} from './chevronMediumRight.svg';
 export {default as chevronRight} from './chevronRight.svg';
+export {default as chevronShortDown} from './chevronShortDown.svg';
 export {default as chevronShortRight} from './chevronShortRight.svg';
 export {default as church} from './church.svg';
 export {default as clearCache} from './clearCache.svg';

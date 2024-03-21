@@ -8,14 +8,18 @@ export interface BaseListItemProps {
   onPress?: () => void;
   disabled?: boolean;
   label?: string;
-  withNavigationIcon?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   leadIcon?: IconsNames;
+  tailIcon?: IconsNames;
   subtitle?: string | number;
   contentStylingType?: 'primary' | 'secondary';
   onSubtitlePress?: () => void;
   leadIconStyle?: StyleProp<TextStyle>;
+  tailIconStyle?: StyleProp<TextStyle>;
+  labelStyle?: StyleProp<TextStyle>;
   position?: 'top' | 'middle' | 'bottom' | 'single';
+  titleNumberOfLines?: number;
+  boldTitle?: boolean;
 }
 
 export interface ListItemWrapperProps {

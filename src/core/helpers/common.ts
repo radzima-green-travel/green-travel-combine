@@ -41,6 +41,7 @@ import {
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {
+  i18nType,
   ListMobileDataQuery,
   ListMobileDataQueryObject,
 } from 'api/graphql/types';
@@ -141,6 +142,30 @@ function getSpotTranslation(
   const value = currentLocale === 'ru' ? spot.value : i18nObject?.value;
 
   return value || '';
+}
+
+function getTranslationsForProperties<T extends string>(
+  originalValues: Record<T, string>,
+  i18n: Array<i18nType<T>>,
+  currentLocale: SupportedLocales,
+): Record<T, string> {
+  const i18nObject = find(
+    i18n,
+    translate => translate?.locale === currentLocale,
+  );
+
+  return reduce(
+    Object.keys(originalValues),
+    (acc, property) => {
+      const value =
+        currentLocale === 'ru'
+          ? originalValues[property]
+          : i18nObject?.[property];
+
+      return {...acc, [property]: value || ''};
+    },
+    {} as Record<T, string>,
+  );
 }
 
 const objectCompletnessInfo = (
@@ -373,6 +398,24 @@ export function transformQueryData(
               object.calculatedProperties?.averageSpentTime ||
               object.attendanceTime ||
               null,
+            renting: map(object.renting.items, item => {
+              const translatedProperties = getTranslationsForProperties(
+                {name: item.renting.name},
+                item.renting.i18n,
+                currentLocale,
+              );
+
+              return translatedProperties.name;
+            }),
+            childServices: map(object.childServices?.items, item => {
+              const translatedProperties = getTranslationsForProperties(
+                {name: item.childService.name},
+                item.childService.i18n,
+                currentLocale,
+              );
+
+              return translatedProperties.name;
+            }),
           };
 
           return {

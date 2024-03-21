@@ -125,7 +125,11 @@
       "minutes": "{{minutes}} minutes",
       "hours": "{{hours}} hours",
       "hoursAfter4": "{{hours}} hours"
-    }
+    },
+    "workHours": "Working hours",
+    "details": "Details",
+    "aboutThisExperience": "About this experience",
+    "additionalDetails": "Additional details"
   },
   "objectDetailsAddInfo": {
     "headerTitle": "Adding object information",

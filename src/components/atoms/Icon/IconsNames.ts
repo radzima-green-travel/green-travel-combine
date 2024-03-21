@@ -18,6 +18,7 @@ export type IconsNames =
   | 'chevronMediumLeft'
   | 'chevronMediumRight'
   | 'chevronRight'
+  | 'chevronShortDown'
   | 'chevronShortRight'
   | 'church'
   | 'clearCache'

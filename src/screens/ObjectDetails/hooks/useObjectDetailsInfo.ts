@@ -1,12 +1,13 @@
 import {useMemo, useCallback} from 'react';
 
-import {useObject, useTranslation} from 'core/hooks';
+import {useBottomMenu, useObject, useTranslation} from 'core/hooks';
 import {ObjectDetailsScreenRouteProps} from '../types';
 import {useRoute} from '@react-navigation/native';
 
 import {msToHoursAndMinutes, tryOpenURL} from 'core/helpers';
 import type {Item} from '../components/ObjectInfoSection/ObjectInfoSection';
 import {compact} from 'lodash';
+import {TestIDs} from 'core/types';
 
 export function useObjectDetailsInfo() {
   const {
@@ -17,7 +18,14 @@ export function useObjectDetailsInfo() {
 
   const data = useObject(objectId);
 
-  const {url: officialWibsiteUrl, phoneNumber, attendanceTime} = data || {};
+  const {
+    url: officialWibsiteUrl,
+    phoneNumber,
+    attendanceTime,
+    workingHours,
+    childServices,
+    renting,
+  } = data || {};
 
   const onWebLinkPress = useCallback((url: string | undefined) => {
     if (url) {
@@ -34,6 +42,8 @@ export function useObjectDetailsInfo() {
       tryOpenURL(`tel:${phoneNumber}`);
     }
   }, [phoneNumber]);
+
+  const workingHoursMenuProps = useBottomMenu();
 
   const getAttendaceStringTime = (() => {
     if (attendanceTime) {
@@ -64,24 +74,27 @@ export function useObjectDetailsInfo() {
     return null;
   })();
 
-  const mainInfoSections = useMemo(() => {
+  const mainInfoSection = useMemo(() => {
     return compact([
       officialWibsiteUrl && {
         subtitle: t('objectFieldsLabels.url'),
         title: officialWibsiteUrl,
         onSubtitlePress: onOfficialWebLinkPress,
         icon: 'globe',
+        testID: TestIDs.ObjectDetailsOfficialWebsite,
       },
       getAttendaceStringTime && {
         subtitle: t('objectFieldsLabels.attendanceTime'),
         title: getAttendaceStringTime,
         icon: 'hourglass',
+        testID: TestIDs.ObjectDetailsAttendanceTime,
       },
       phoneNumber && {
         subtitle: t('objectFieldsLabels.phoneNumber'),
         title: phoneNumber,
         icon: 'telephone',
         onSubtitlePress: onTelephonePress,
+        testID: TestIDs.ObjectDetailsPhoneNumber,
       },
     ] as Item[]);
   }, [
@@ -93,7 +106,48 @@ export function useObjectDetailsInfo() {
     t,
   ]);
 
+  const {openMenu} = workingHoursMenuProps;
+
+  const workingHoursSection = useMemo(() => {
+    return compact([
+      workingHours && {
+        subtitle: t('objectFieldsLabels.workingHours'),
+        title: workingHours,
+        onPress: openMenu,
+        icon: 'globe',
+        titleNumberOfLines: 2,
+        testID: TestIDs.ObjectDetailsWorkingHours,
+        withDropdown: true,
+      },
+    ] as Item[]);
+  }, [workingHours, t, openMenu]);
+
+  const additionalDetailsSection = useMemo(() => {
+    return compact([
+      childServices && {
+        title: t('objectFieldsLabels.childServices'),
+        subtitle: childServices.join(', '),
+        icon: 'deck',
+        testID: TestIDs.ObjectDetailsOfficialWebsite,
+        contentStylingType: 'primary',
+        boldTitle: false,
+      },
+      renting && {
+        title: t('objectFieldsLabels.renting'),
+        subtitle: renting.join(', '),
+        icon: 'sportsTennis',
+        testID: TestIDs.ObjectDetailsRenting,
+        contentStylingType: 'primary',
+        boldTitle: false,
+      },
+    ] as Item[]);
+  }, [t, renting, childServices]);
+
   return {
-    mainInfoSections,
+    mainInfoSection,
+    workingHoursSection,
+    workingHoursMenuProps,
+    workingHours,
+    additionalDetailsSection,
   };
 }

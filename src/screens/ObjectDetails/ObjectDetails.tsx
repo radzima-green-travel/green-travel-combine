@@ -10,7 +10,11 @@ import {
   ObjectDetailsCompletenessBlock,
   ObjectDetailsCompletenessSmallBlock,
 } from 'molecules';
-import {ObjectDetailsAddInfoSuccessMenu, ObjectIncludes} from 'organisms';
+import {
+  ObjectDetailsAddInfoSuccessMenu,
+  ObjectIncludes,
+  ObjectDetailsShowWorkingHoursInfoMenu,
+} from 'organisms';
 import {
   ImageSlider,
   SnackBar,
@@ -104,7 +108,13 @@ export const ObjectDetails = () => {
 
   const addInfoSuccessMenuProps = useAddInfoSuccessMenu();
 
-  const {mainInfoSections} = useObjectDetailsInfo();
+  const {
+    mainInfoSection,
+    workingHoursSection,
+    workingHoursMenuProps,
+    workingHours,
+    additionalDetailsSection,
+  } = useObjectDetailsInfo();
 
   const locationExist = Boolean(data && isLocationExist(data));
 
@@ -164,8 +174,7 @@ export const ObjectDetails = () => {
                 />
               </View>
             </View>
-            <Text style={styles.sectionTitle}>About this experience</Text>
-
+            <Text style={styles.sectionTitle}>{t('aboutThisExperience')}</Text>
             {isCompletnessBlockVisible ? (
               <ObjectDetailsCompletenessSmallBlock
                 onPress={scrollToElement}
@@ -174,15 +183,22 @@ export const ObjectDetails = () => {
               />
             ) : null}
 
-            {mainInfoSections.length ? (
-              <ObjectInfoSection items={mainInfoSections} />
+            {mainInfoSection.length ? (
+              <ObjectInfoSection items={mainInfoSection} />
+            ) : null}
+            {workingHoursSection.length ? (
+              <ObjectInfoSection items={workingHoursSection} />
             ) : null}
             <ObjectDescription
               testID={TestIDs.ObjectDetailsDescription}
               origins={data.origins}
               description={data.description}
             />
-            <Text style={styles.sectionTitle}>Additional details</Text>
+            <Text style={styles.sectionTitle}>{t('additionalDetails')}</Text>
+
+            {additionalDetailsSection.length ? (
+              <ObjectInfoSection items={additionalDetailsSection} />
+            ) : null}
             {isCompletnessBlockVisible ? (
               <View ref={elementRef}>
                 <ObjectDetailsCompletenessBlock
@@ -268,6 +284,13 @@ export const ObjectDetails = () => {
           <ObjectDetailsAddInfoSuccessMenu
             addInfoSuccessMenuProps={addInfoSuccessMenuProps}
           />
+
+          {workingHours ? (
+            <ObjectDetailsShowWorkingHoursInfoMenu
+              description={workingHours}
+              workingHoursMenuProps={workingHoursMenuProps}
+            />
+          ) : null}
         </View>
       ) : null}
     </SuspenseView>

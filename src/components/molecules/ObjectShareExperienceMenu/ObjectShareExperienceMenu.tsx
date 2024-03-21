@@ -100,7 +100,7 @@ export const ObjectShareExperienceMenu = memo(
         <ListItem
           testID={composeTestID(testID, 'reportInnacurateInfoButton')}
           containerStyle={styles.listItem}
-          withNavigationIcon={!isReportSent}
+          tailIcon={isReportSent ? undefined : 'chevronMediumRight'}
           disabled={isReportSent || isReportSending}
           title={t('anyInnacurateInfo')}
           onPress={onReportInformationPress}
