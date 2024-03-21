@@ -59,7 +59,10 @@ export const extractThemeStyles = (
 };
 
 export const sanitizePhoneNumber = (phoneNumber: string) => {
-  return phoneNumber.replace(/\D/g, '');
+  const plus = phoneNumber.startsWith('+') ? '+' : '';
+  const digits = phoneNumber.replace(/\D/g, '');
+
+  return `${plus}${digits}`;
 };
 
 export function hexWithAlpha(hex: string, alpha: number): string {
