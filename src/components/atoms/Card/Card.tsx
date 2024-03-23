@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Icon} from 'atoms';
 import {themeStyles, gradientConfig} from './styles';
-import LinearGradient from 'react-native-linear-gradient';
+import {LinearGradient} from 'expo-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';
 import {useThemeStyles} from 'core/hooks';
 import {Image} from 'expo-image';

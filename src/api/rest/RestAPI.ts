@@ -1,5 +1,4 @@
 import {RestApiEngine} from '../engines';
-import config from 'react-native-ultimate-config';
 import {
   etagCachingRequestInterceptor,
   etagCachingRespnseInterceptor,
@@ -25,7 +24,6 @@ export class RestAPI extends RestApiEngine {
     locale: SupportedLocales;
   }): Promise<ListMobileDataQuery | null> {
     const data = await this.get(`/objects_v1_${locale}.json`);
-
     if (!data) {
       return null;
     }
@@ -36,9 +34,9 @@ export class RestAPI extends RestApiEngine {
   async getAppFeConfiguration(): Promise<AppConfiguration> {
     const appVersion = getAppVersion();
     const data = await this.get('', {
-      baseURL: config.CONFIG_API_URL,
+      baseURL: process.env.EXPO_PUBLIC_CONFIG_API_URL,
       headers: {
-        'x-api-key': config.CONFIG_API_KEY,
+        'x-api-key': process.env.EXPO_PUBLIC_CONFIG_API_KEY,
         version: appVersion,
       },
     });
@@ -46,4 +44,6 @@ export class RestAPI extends RestApiEngine {
     return data;
   }
 }
-export const restAPI = new RestAPI(config.NATIVE_CLIENT_INDEX_FILE_BASE_URL);
+export const restAPI = new RestAPI(
+  process.env.EXPO_PUBLIC_NATIVE_CLIENT_INDEX_FILE_BASE_URL as string,
+);

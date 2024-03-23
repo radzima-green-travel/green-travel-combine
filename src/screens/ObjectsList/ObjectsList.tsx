@@ -1,3 +1,4 @@
+import React from 'react';
 import {FlatList} from 'react-native';
 import {ObjectCard} from 'molecules';
 import {styles} from './styles';

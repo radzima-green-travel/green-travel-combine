@@ -1,4 +1,4 @@
-import {Identify, Amplitude} from '@amplitude/react-native';
+// import {Identify, Amplitude} from '@amplitude/react-native';
 
 type TabEvents =
   | 'navi_bookmarks_event'
@@ -46,22 +46,22 @@ type Params = {
 };
 
 class AnalyticsService {
-  instance: Amplitude;
+  // instance: Amplitude;
 
   constructor() {
-    this.instance = Amplitude.getInstance();
+    // this.instance = Amplitude.getInstance();
   }
 
   init(apiKey: string) {
-    this.instance.trackingSessionEvents(true);
-    this.instance.init(apiKey);
-    const identify = new Identify();
-    identify.set('user_property_framework', 'react');
-    this.instance.identify(identify);
+    // this.instance.trackingSessionEvents(true);
+    // this.instance.init(apiKey);
+    // const identify = new Identify();
+    // identify.set('user_property_framework', 'react');
+    // this.instance.identify(identify);
   }
 
   logEvent(eventType: Events, params?: Partial<Params>): Promise<boolean> {
-    return this.instance.logEvent(eventType, params);
+    // return this.instance.logEvent(eventType, params);
   }
 }
 

@@ -31,11 +31,12 @@ export const useOnSuccessSignIn = () => {
 
   const onSuccessSignIn = useCallback(() => {
     if (parentParams?.onSuccessSignIn) {
-      parentParams?.onSuccessSignIn()
+      parentParams?.onSuccessSignIn();
     }
 
-    navigation.getParent()?.goBack()
-  }, [])
+    navigation.getParent()?.goBack();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     onSuccessSignIn,

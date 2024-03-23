@@ -1,5 +1,5 @@
 import {useMemo, useCallback, useLayoutEffect} from 'react';
-import Clipboard from '@react-native-community/clipboard';
+import Clipboard from 'expo-clipboard';
 
 import {useSnackbar} from 'atoms';
 import {
@@ -36,8 +36,8 @@ export const useObjectDetails = () => {
   const snackBarProps = useSnackbar();
   const {show} = snackBarProps;
   const copyLocationToClipboard = useCallback(
-    (location: string) => {
-      Clipboard.setString(location);
+    async (location: string) => {
+      await Clipboard.setStringAsync(location);
       show({
         type: 'neutral',
         title: t('common:coppied'),

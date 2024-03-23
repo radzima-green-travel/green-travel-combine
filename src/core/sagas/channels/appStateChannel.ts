@@ -2,8 +2,10 @@ import {AppState, AppStateStatus} from 'react-native';
 import {multicastChannel} from 'redux-saga';
 
 function createAppStateChannel() {
-  const chan =
-    multicastChannel<{state: AppStateStatus; prevSate: AppStateStatus}>();
+  const chan = multicastChannel<{
+    state: AppStateStatus;
+    prevSate: AppStateStatus;
+  }>();
 
   let prevSate: AppStateStatus = AppState.currentState;
 
@@ -12,10 +14,10 @@ function createAppStateChannel() {
     prevSate = state;
   };
 
-  AppState.addEventListener('change', listener);
+  const subscription = AppState.addEventListener('change', listener);
 
   const close = () => {
-    AppState.removeEventListener('change', listener);
+    subscription.remove();
   };
 
   return {
