@@ -405,6 +405,16 @@ export function transformQueryData(
               object.calculatedProperties?.averageSpentTime ||
               object.attendanceTime ||
               null,
+
+            usersRating:
+              object.calculatedProperties?.averageRating &&
+              object.calculatedProperties?.totalRatings > 2
+                ? object.calculatedProperties?.averageRating
+                : null,
+            usersRatingsTotal:
+              object.calculatedProperties?.totalRatings || null,
+            googleRating: object.googleRating || null,
+            googleRatingsTotal: object.googleRatingsTotal || null,
             renting: map(object.renting.items, item => {
               const translatedProperties = getTranslationsForProperties(
                 {name: item.renting.name},

@@ -143,6 +143,10 @@ export const ObjectDetails = () => {
                     : undefined
                 }
                 onCoordinatesPress={copyLocationToClipboard}
+                usersRating={data.usersRating}
+                googleRating={data.googleRating}
+                usersRatingsTotal={data.usersRatingsTotal}
+                googleRatingTotal={data.googleRatingTotal}
               />
               <LottieAnimation
                 ref={animationRef}

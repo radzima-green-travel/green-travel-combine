@@ -5,6 +5,7 @@ import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {getPlatformsTestID} from 'core/helpers';
 import {Icon} from 'atoms';
+import {RatingBadge} from 'molecules';
 
 interface IProps {
   title: string;
@@ -13,6 +14,11 @@ interface IProps {
   onCoordinatesPress: (location: string) => void;
   routeLength: number | null;
   belongsToSubtitle?: string | null;
+
+  usersRating: number | null;
+  googleRating: number | null;
+  usersRatingsTotal: number | null;
+  googleRatingTotal: number | null;
 }
 
 export const DetailsPageCapture = memo(
@@ -23,6 +29,10 @@ export const DetailsPageCapture = memo(
     onCoordinatesPress,
     routeLength,
     belongsToSubtitle,
+    usersRating,
+    googleRating,
+    usersRatingsTotal,
+    googleRatingTotal,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
 
@@ -59,6 +69,8 @@ export const DetailsPageCapture = memo(
       return result;
     }, [belongsToSubtitle, routeLength, subtitle, t]);
 
+    const isRatingsExist = usersRating || googleRating;
+
     return (
       <View style={styles.container}>
         <Text
@@ -66,6 +78,24 @@ export const DetailsPageCapture = memo(
           {...getPlatformsTestID(TestIDs.ObjectDetailsTitle)}>
           {title}
         </Text>
+        {isRatingsExist ? (
+          <View style={styles.ratings}>
+            {usersRating && usersRatingsTotal ? (
+              <RatingBadge
+                rating={usersRating}
+                label={t('usersRating', {rating: usersRatingsTotal})}
+                iconName="starSmall"
+              />
+            ) : null}
+            {googleRating && googleRatingTotal ? (
+              <RatingBadge
+                rating={googleRating}
+                label={t('googleRating', {rating: googleRatingTotal})}
+                iconName="googleIconSmall"
+              />
+            ) : null}
+          </View>
+        ) : null}
         {subtitleText ? (
           <Text
             style={styles.subtitle}

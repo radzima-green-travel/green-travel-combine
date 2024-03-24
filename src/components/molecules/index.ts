@@ -38,3 +38,4 @@ export {
   ObjectDetailsCompletenessSmallBlock,
 } from './ObjectDetailsCompletenessBlock';
 export {ObjectAddInfoMenu} from './ObjectAddInfoMenu';
+export {RatingBadge} from './RatingBadge';

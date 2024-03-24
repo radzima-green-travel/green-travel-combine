@@ -80,6 +80,10 @@ export interface IObject {
   attendanceTime?: number | null;
   renting: string[];
   childServices: string[];
+  usersRating: number | null;
+  googleRating: number | null;
+  usersRatingsTotal: number | null;
+  googleRatingTotal: number | null;
 }
 
 export interface ISpot {

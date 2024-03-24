@@ -129,7 +129,9 @@
     "workHours": "Режим работы",
     "details": "Подробнее",
     "aboutThisExperience": "Об этом месте",
-    "additionalDetails": "Дополнительная информация"
+    "additionalDetails": "Дополнительная информация",
+    "usersRating": "Radzima ({{rating}})",
+    "googleRating": "Google ({{rating}})"
   },
   "objectDetailsAddInfo": {
     "headerTitle": "Добавление информации объекту",

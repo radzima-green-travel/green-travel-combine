@@ -107,6 +107,8 @@ export type ListMobileDataQueryObject = {
     totalVisits: number;
     updatedAt: string;
   };
+  googleRating: number | null;
+  googleRatingsTotal: number | null;
   routes?: {
     __typename: 'Route';
     type: string;

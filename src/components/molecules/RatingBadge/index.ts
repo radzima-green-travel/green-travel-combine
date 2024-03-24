@@ -1,0 +1,1 @@
+export {RatingBadge} from './RatingBadge';

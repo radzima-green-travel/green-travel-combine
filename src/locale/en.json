@@ -129,7 +129,9 @@
     "workHours": "Working hours",
     "details": "Details",
     "aboutThisExperience": "About this experience",
-    "additionalDetails": "Additional details"
+    "additionalDetails": "Additional details",
+    "usersRating": "Radzima ({{rating}})",
+    "googleRating": "Google ({{rating}})"
   },
   "objectDetailsAddInfo": {
     "headerTitle": "Adding object information",
