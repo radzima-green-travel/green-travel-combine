@@ -18,7 +18,7 @@ interface IProps {
   usersRating: number | null;
   googleRating: number | null;
   usersRatingsTotal: number | null;
-  googleRatingTotal: number | null;
+  googleRatingsTotal: number | null;
 }
 
 export const DetailsPageCapture = memo(
@@ -32,7 +32,7 @@ export const DetailsPageCapture = memo(
     usersRating,
     googleRating,
     usersRatingsTotal,
-    googleRatingTotal,
+    googleRatingsTotal,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
 
@@ -87,10 +87,10 @@ export const DetailsPageCapture = memo(
                 iconName="starSmall"
               />
             ) : null}
-            {googleRating && googleRatingTotal ? (
+            {googleRating && googleRatingsTotal ? (
               <RatingBadge
                 rating={googleRating}
-                label={t('googleRating', {rating: googleRatingTotal})}
+                label={t('googleRating', {rating: googleRatingsTotal})}
                 iconName="googleIconSmall"
               />
             ) : null}

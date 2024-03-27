@@ -146,7 +146,7 @@ export const ObjectDetails = () => {
                 usersRating={data.usersRating}
                 googleRating={data.googleRating}
                 usersRatingsTotal={data.usersRatingsTotal}
-                googleRatingTotal={data.googleRatingTotal}
+                googleRatingsTotal={data.googleRatingsTotal}
               />
               <LottieAnimation
                 ref={animationRef}

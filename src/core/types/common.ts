@@ -83,7 +83,7 @@ export interface IObject {
   usersRating: number | null;
   googleRating: number | null;
   usersRatingsTotal: number | null;
-  googleRatingTotal: number | null;
+  googleRatingsTotal: number | null;
 }
 
 export interface ISpot {
