@@ -8,6 +8,7 @@ import {StatusBar} from 'react-native';
 import {
   ForceUpdateScreen,
   OptionalUpdateScreen,
+  SplashScreen,
 } from '../../screens';
 
 import {PortalProvider} from '@gorhom/portal';
@@ -28,8 +29,8 @@ export function RootNavigator() {
   const isUpdatesAvailable = useSelector(selectUpdatesAvailable);
   const isUpdatesSkipped = useSelector(selectUpdatesSkipped);
 
-  // const [splashTransitionFinished, setSplashTransitionFinished] =
-  //   useState(false);
+  const [splashTransitionFinished, setSplashTransitionFinished] =
+    useState(false);
   const [bootstrapFinished, setBootstrapFinished] = useState(false);
 
   const [isReady, setIsReady] = useState(false);
@@ -38,9 +39,9 @@ export function RootNavigator() {
     dispatch(bootstrapRequest());
   }, [dispatch]);
 
-  // const onAnimationEnd = useCallback(() => {
-  //   setSplashTransitionFinished(true);
-  // }, []);
+  const onAnimationEnd = useCallback(() => {
+    setSplashTransitionFinished(true);
+  }, []);
 
   const finishBootstrap = useCallback(() => {
     setBootstrapFinished(true);
@@ -56,25 +57,25 @@ export function RootNavigator() {
     }
   }, [clearError, error, finishBootstrap]);
 
-  // const onFadeStart = useCallback(() => {
-  //   StatusBar.pushStackEntry({
-  //     barStyle: 'light-content',
-  //     animated: true,
-  //   });
-  // }, []);
+  const onFadeStart = useCallback(() => {
+    StatusBar.pushStackEntry({
+      barStyle: 'light-content',
+      animated: true,
+    });
+  }, []);
 
-  // const showSplashForAndroid = () => {
-  //   if (isReady) {
-  //     return splashTransitionFinished ? null : (
-  //       <SplashScreen
-  //         onFadeStart={onFadeStart}
-  //         onAnimationEnd={onAnimationEnd}
-  //       />
-  //     );
-  //   }
+  const showSplashForAndroid = () => {
+    if (isReady) {
+      return splashTransitionFinished ? null : (
+        <SplashScreen
+          onFadeStart={onFadeStart}
+          onAnimationEnd={onAnimationEnd}
+        />
+      );
+    }
 
-  //   return null;
-  // };
+    return null;
+  };
 
   const showUpdateScreen = () => {
     if (isUpdatesMandatory) {
@@ -100,7 +101,6 @@ export function RootNavigator() {
           </>
         ) : null}
       </PortalProvider>
-
       <StatusBar
         animated
         barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
