@@ -4,19 +4,36 @@
     "slug": "greenTravel",
     "ios": {
       "bundleIdentifier": "greenTravel",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "splash": {
+        "image": "src/assets/bootsplash/bootsplash_logo.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#ffffff",
+        "dark": {
+            "image": "src/assets/bootsplash/bootsplash_logo_dark.png",
+            "resizeMode": "cover",
+            "backgroundColor": "#000000"
+        }
+      }
     },
     "android": {
-      "package": "app.radzima"
+      "package": "app.radzima",
+      "splash": {
+        "image": "src/assets/bootsplash/bootsplash_logo@3x.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#ffffff",
+        "dark": {
+            "image": "src/assets/bootsplash/bootsplash_logo_dark@3x.png",
+            "resizeMode": "cover",
+            "backgroundColor": "#000000"
+        }
+      }
     },
     "platforms": [
       "ios",
       "android"
     ],
-    "splash": {
-      "image": "src/assets/bootsplash/bootsplash_logo.png",
-      "backgroundColor": "#FEF9B0"
-    },
+    "icon": "src/assets/Icon-1024.png",
     "plugins": [
       [
       "expo-location",  
@@ -33,5 +50,5 @@
         }
       ]
     ]
-  }
+  }    
 }
