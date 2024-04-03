@@ -29,6 +29,9 @@ export function useObjectDetailsInfo() {
     workingHours,
     childServices,
     renting,
+    accommodationPlace,
+    upcomingEvents,
+    dinnerPlaces,
   } = data || {};
 
   const onWebLinkPress = useCallback((url: string | undefined) => {
@@ -153,5 +156,8 @@ export function useObjectDetailsInfo() {
     workingHoursMenuProps,
     workingHours,
     additionalDetailsSection,
+    accommodationPlace,
+    upcomingEvents,
+    dinnerPlaces,
   };
 }

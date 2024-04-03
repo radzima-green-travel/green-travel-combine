@@ -56,6 +56,13 @@ export interface IOrigins {
   value: string;
 }
 
+export interface IObjectAddititonalInfoItem {
+  name: string;
+  date?: string;
+  link?: string;
+  googleLink?: string;
+}
+
 export interface IObject {
   id: string;
   name: string;
@@ -84,6 +91,9 @@ export interface IObject {
   googleRating: number | null;
   usersRatingsTotal: number | null;
   googleRatingsTotal: number | null;
+  upcomingEvents: IObjectAddititonalInfoItem[];
+  accommodationPlace: IObjectAddititonalInfoItem[];
+  dinnerPlaces: IObjectAddititonalInfoItem[];
 }
 
 export interface ISpot {
@@ -274,4 +284,7 @@ export enum TestIDs {
   ObjectDetailsWorkingHours = 'objectDetailsWorkingHours',
   ObjectDetailsRenting = 'objectDetailsRenting',
   ObjectDetailsChildService = 'objectDetailsChildService',
+  ObjectDetailsAccommodationPlace = 'objectDetailsAccommodationPlace',
+  ObjectDetailsUpcomingEvents = 'objectDetailsUpcomingEvents',
+  ObjectDetailsDinnerPlaces = 'objectDetailsDinnerPlaces',
 }

@@ -50,6 +50,7 @@ export type IconsNames =
   | 'hotel'
   | 'hourglass'
   | 'language'
+  | 'location'
   | 'lock'
   | 'mail'
   | 'mapMarkerGray'

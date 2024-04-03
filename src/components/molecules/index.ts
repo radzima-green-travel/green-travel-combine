@@ -39,3 +39,4 @@ export {
 } from './ObjectDetailsCompletenessBlock';
 export {ObjectAddInfoMenu} from './ObjectAddInfoMenu';
 export {RatingBadge} from './RatingBadge';
+export {Card} from './Card';

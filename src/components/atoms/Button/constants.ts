@@ -98,6 +98,32 @@ export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
       },
     },
   },
+  quarterly: {
+    container: {
+      backgroundColor: {
+        light: COLORS.light.background.quarterly,
+        dark: COLORS.dark.background.quarterly,
+      },
+    },
+    disabled: {
+      backgroundColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
+    },
+    text: {
+      color: {
+        light: COLORS.light.text.accent,
+        dark: COLORS.light.text.accent,
+      },
+    },
+    disabledText: {
+      color: {
+        light: COLORS.light.text.secondary,
+        dark: COLORS.dark.text.secondary,
+      },
+    },
+  },
   blackAndWhite: {
     container: {
       backgroundColor: {

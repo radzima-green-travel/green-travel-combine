@@ -43,10 +43,11 @@ import {ObjectDetailsReportInaccuraciesMenu} from 'organisms';
 import {TestIDs} from 'core/types';
 import Animated from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
-import {ObjectInfoSection} from './components';
+import {ObjectInfoCardItemsSection, ObjectInfoSection} from './components';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
+  const {t: tCommon} = useTranslation('common');
   const styles = useThemeStyles(themeStyles);
   const {
     data,
@@ -114,6 +115,9 @@ export const ObjectDetails = () => {
     workingHoursMenuProps,
     workingHours,
     additionalDetailsSection,
+    accommodationPlace,
+    upcomingEvents,
+    dinnerPlaces,
   } = useObjectDetailsInfo();
 
   const locationExist = Boolean(data && isLocationExist(data));
@@ -212,6 +216,32 @@ export const ObjectDetails = () => {
                   onAddInformationPress={navigateToAddInfo}
                 />
               </View>
+            ) : null}
+
+            {accommodationPlace?.length ? (
+              <ObjectInfoCardItemsSection
+                testID={TestIDs.ObjectDetailsAccommodationPlace}
+                items={accommodationPlace}
+                title={tCommon('objectFieldsLabels.accommodationPlace')}
+                type="accommodation"
+              />
+            ) : null}
+            {dinnerPlaces?.length ? (
+              <ObjectInfoCardItemsSection
+                testID={TestIDs.ObjectDetailsDinnerPlaces}
+                items={dinnerPlaces}
+                title={tCommon('objectFieldsLabels.dinnerPlaces')}
+                type="placeToEat"
+              />
+            ) : null}
+
+            {upcomingEvents?.length ? (
+              <ObjectInfoCardItemsSection
+                testID={TestIDs.ObjectDetailsUpcomingEvents}
+                items={upcomingEvents}
+                title={tCommon('objectFieldsLabels.upcomingEvents')}
+                type="event"
+              />
             ) : null}
 
             {isEmpty(data.include) ? null : (

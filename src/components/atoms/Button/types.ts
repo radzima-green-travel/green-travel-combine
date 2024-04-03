@@ -4,7 +4,8 @@ export type ButtonThemes =
   | 'primary'
   | 'secondary'
   | 'blackAndWhite'
-  | 'tertiary';
+  | 'tertiary'
+  | 'quarterly';
 
 export interface ThemeData {
   container: StyleProp<ViewStyle>;

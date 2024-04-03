@@ -49,6 +49,7 @@ export {default as homeFilled} from './homeFilled.svg';
 export {default as hotel} from './hotel.svg';
 export {default as hourglass} from './hourglass.svg';
 export {default as language} from './language.svg';
+export {default as location} from './location.svg';
 export {default as lock} from './lock.svg';
 export {default as mail} from './mail.svg';
 export {default as mapMarkerGray} from './mapMarkerGray.svg';

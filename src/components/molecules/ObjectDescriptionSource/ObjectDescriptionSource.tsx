@@ -5,7 +5,7 @@ import {IOrigins} from 'core/types';
 import {composeTestID, getPlatformsTestID, tryOpenURL} from 'core/helpers';
 import {themeStyles} from './styles';
 import {TestIDs} from 'core/types';
-import {LinkItem} from './components';
+import {Link} from 'atoms';
 
 interface IProps {
   origins: IOrigins[];
@@ -16,7 +16,7 @@ export const ObjectDescriptionSource = memo(({origins}: IProps) => {
   const {t} = useTranslation('objectDetails');
 
   const sourceData = origins.map((origin, index) => (
-    <LinkItem
+    <Link
       style={styles.link}
       name={origin.name}
       link={origin.value}

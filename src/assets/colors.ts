@@ -41,6 +41,7 @@ export const COLORS = {
       secondaryContrast: '#1F1F1F',
       transparent: 'rgba(0, 0, 0, 0)',
       accentLight: '#86D2B2',
+      quarterly: '#ECF4F1',
     },
     stroke: {
       border: '#E5E5E5',
@@ -83,6 +84,7 @@ export const COLORS = {
       secondaryContrast: '#F5F5F5',
       transparent: 'rgba(0, 0, 0, 0)',
       accentLight: '#86D2B2',
+      quarterly: '#1F1F1F',
     },
     stroke: {
       border: '#3D3D3D',

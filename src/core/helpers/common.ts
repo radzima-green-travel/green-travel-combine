@@ -38,14 +38,19 @@ import {
   TestIDs,
   ISpotsMap,
   SpotI18n,
+  IObjectAddititonalInfoItem,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {
+  AccommodationPlaceItem,
+  DinnerPlacesItem,
   i18nType,
   ListMobileDataQuery,
   ListMobileDataQueryObject,
+  UpcomingEventsItem,
 } from 'api/graphql/types';
 import transliterate from './transliterate';
+import {dateToReadableString} from './date';
 
 export const extractThemeStyles = (
   styles: Object,
@@ -204,6 +209,31 @@ const objectCompletnessInfo = (
     percentageOfCompletion,
   };
 };
+
+export function prepareObjectAdditionalInfoItems(
+  items: Array<AccommodationPlaceItem | DinnerPlacesItem | UpcomingEventsItem>,
+  currentLocale: SupportedLocales,
+): IObjectAddititonalInfoItem[] {
+  return map(items, item => {
+    const translatedProperties = getTranslationsForProperties(
+      {name: item.name},
+      item.i18n,
+      currentLocale,
+    );
+
+    const placeItem = item as AccommodationPlaceItem | DinnerPlacesItem;
+    const eventItem = item as UpcomingEventsItem;
+
+    return {
+      name: translatedProperties.name,
+      date: eventItem.date
+        ? dateToReadableString(eventItem.date, currentLocale)
+        : '',
+      link: placeItem.messengerLink || eventItem.link,
+      googleLink: placeItem.googleMapLink,
+    };
+  });
+}
 
 export function transformQueryData(
   dataQuery: ListMobileDataQuery,
@@ -433,6 +463,18 @@ export function transformQueryData(
 
               return translatedProperties.name;
             }),
+            upcomingEvents: prepareObjectAdditionalInfoItems(
+              object.upcomingEvents.items,
+              currentLocale,
+            ),
+            accommodationPlace: prepareObjectAdditionalInfoItems(
+              object.accommodationPlace.items,
+              currentLocale,
+            ),
+            dinnerPlaces: prepareObjectAdditionalInfoItems(
+              object.dinnerPlaces.items,
+              currentLocale,
+            ),
           };
 
           return {

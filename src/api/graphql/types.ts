@@ -7,6 +7,46 @@ export type i18nType<T extends string> = {
   [key in T]: string | null;
 } & DefaultI18n;
 
+export interface AccommodationPlaceItem {
+  id: string;
+  objectId: string;
+  name: string;
+  googleMapLink: string;
+  messengerLink: string;
+  duration: number;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string | null;
+  updatedBy: string | null;
+  i18n: Array<i18nType<'name'>>;
+}
+
+export interface DinnerPlacesItem {
+  id: string;
+  objectId: string;
+  name: string;
+  googleMapLink: string;
+  messengerLink: string;
+  duration: number;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string | null;
+  updatedBy: string | null;
+  i18n: Array<i18nType<'name'>>;
+}
+
+export interface UpcomingEventsItem {
+  id: string;
+  objectId: string;
+  name: string;
+  link: string;
+  date: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string | null;
+  updatedBy: string | null;
+  i18n: Array<i18nType<'name'>>;
+}
 export interface RentingItem {
   id: string;
   objectId: string;
@@ -117,6 +157,15 @@ export type ListMobileDataQueryObject = {
   include?: Array<string | null> | null;
   belongsTo?: Array<string | null> | null;
   i18n?: Array<i18nType<'name' | 'description'> | null> | null;
+  upcomingEvents: {
+    items: UpcomingEventsItem[];
+  };
+  accommodationPlace: {
+    items: AccommodationPlaceItem[];
+  };
+  dinnerPlaces: {
+    items: DinnerPlacesItem[];
+  };
   category?: {
     __typename: 'Category';
     id: string;

@@ -19,7 +19,7 @@ interface IProps {
   count: number | undefined;
   item: IBookmarkItem;
   onPress: (item: IBookmarkItem) => void;
-  testID?: string;
+  testID: string;
 }
 
 export const BookmarkItem = memo(
