@@ -32,7 +32,10 @@ export const ObjectBelongsTo = memo(
       }
 
       return (
-        <ScrollView horizontal contentContainerStyle={styles.listContainer}>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          contentContainerStyle={styles.listContainer}>
           {data.map(item => (
             <View style={styles.listItem} key={item.objectId}>
               <ObjectBelongsToItem

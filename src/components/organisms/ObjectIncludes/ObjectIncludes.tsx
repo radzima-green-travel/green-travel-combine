@@ -27,7 +27,10 @@ export const ObjectIncludes = memo(
           {...getPlatformsTestID(composeTestID(testID, 'title'))}>
           {title}
         </Text>
-        <ScrollView horizontal contentContainerStyle={styles.listContainer}>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          contentContainerStyle={styles.listContainer}>
           {data.map(item => (
             <ObjectInlcudesItem
               key={item.categoryId}
