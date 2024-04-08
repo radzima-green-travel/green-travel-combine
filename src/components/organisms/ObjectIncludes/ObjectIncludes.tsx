@@ -1,9 +1,9 @@
 import React, {memo} from 'react';
 import {ObjectInlcudesItem} from 'molecules';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
-import {IInclude, TestIDs} from 'core/types';
+import {IInclude} from 'core/types';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
@@ -14,25 +14,30 @@ interface IProps {
     objects: string[];
   }) => void;
   title: string;
+  testID: string;
 }
 
-export const ObjectIncludes = memo(({data, title, onIncludePress}: IProps) => {
-  const styles = useThemeStyles(themeStyles);
-  return (
-    <View style={styles.container}>
-      <Text
-        style={styles.title}
-        {...getPlatformsTestID(TestIDs.ObjectDetailsLinkedTitle)}>
-        {title}
-      </Text>
-      {data.map((item, index) => (
-        <ObjectInlcudesItem
-          key={item.id}
-          onPress={onIncludePress}
-          data={item}
-          testID={composeTestID(TestIDs.ObjectDetailsLinkedObject, index)}
-        />
-      ))}
-    </View>
-  );
-});
+export const ObjectIncludes = memo(
+  ({data, title, onIncludePress, testID}: IProps) => {
+    const styles = useThemeStyles(themeStyles);
+    return (
+      <View {...getPlatformsTestID(testID)} style={styles.container}>
+        <Text
+          style={styles.title}
+          {...getPlatformsTestID(composeTestID(testID, 'title'))}>
+          {title}
+        </Text>
+        <ScrollView horizontal contentContainerStyle={styles.listContainer}>
+          {data.map(item => (
+            <ObjectInlcudesItem
+              key={item.categoryId}
+              onPress={onIncludePress}
+              data={item}
+              testID={composeTestID(testID, 'item')}
+            />
+          ))}
+        </ScrollView>
+      </View>
+    );
+  },
+);

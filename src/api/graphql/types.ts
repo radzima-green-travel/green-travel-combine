@@ -156,7 +156,7 @@ export type ListMobileDataQueryObject = {
   } | null;
   include?: Array<string | null> | null;
   belongsTo?: Array<string | null> | null;
-  i18n?: Array<i18nType<'name' | 'description'> | null> | null;
+  i18n: Array<i18nType<'name' | 'description'>>;
   upcomingEvents: {
     items: UpcomingEventsItem[];
   };

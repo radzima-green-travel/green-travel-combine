@@ -48,8 +48,12 @@ export const useObjectDetails = () => {
   );
 
   const navigateToObjectsList = useCallback(
-    ({id, name, objects}: {id: string; name: string; objects: string[]}) => {
-      if (objects.length === 1) {
+    ({id, name, objects}: {id: string; name: string; objects?: string[]}) => {
+      if (!objects) {
+        navigation.push('ObjectDetails', {
+          objectId: id,
+        });
+      } else if (objects.length === 1) {
         navigation.push('ObjectDetails', {
           objectId: objects[0],
         });

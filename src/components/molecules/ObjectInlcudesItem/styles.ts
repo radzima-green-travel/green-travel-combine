@@ -1,24 +1,24 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
+import {createThemeStyles} from 'core/helpers/styles';
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
+    marginRight: 12,
+    width: 120,
   },
+
+  image: {
+    height: 120,
+    width: 120,
+    borderRadius: 20,
+  },
+
   text: {
-    ...FONTS_STYLES.text_15_24_400,
+    ...FONTS_PRESETS.calloutRegular,
     color: {
       light: COLORS.light.text.primary,
       dark: COLORS.dark.text.primary,
     },
-    marginLeft: 10,
-    marginRight: 'auto',
+    marginTop: 8,
   },
-  icon: {
-    color: {
-      light: COLORS.light.icon.primary,
-      dark: COLORS.dark.icon.primary,
-    },
-  },
-};
+});

@@ -1,0 +1,1 @@
+export {ObjectBelongsToItem} from './ObjectBelongsToItem';

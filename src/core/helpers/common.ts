@@ -34,7 +34,6 @@ import {
   IOrigins,
   SupportedLocales,
   CategoryI18n,
-  ObjectI18n,
   TestIDs,
   ISpotsMap,
   SpotI18n,
@@ -51,6 +50,7 @@ import {
 } from 'api/graphql/types';
 import transliterate from './transliterate';
 import {dateToReadableString} from './date';
+import {ObjectField} from 'core/constants';
 
 export const extractThemeStyles = (
   styles: Object,
@@ -114,34 +114,6 @@ function getCategoryTranslation(
   };
 }
 
-function getObjectTranslation(
-  object: {
-    i18n?: ObjectI18n;
-    name?: string;
-    description?: string | null;
-    address?: string | null;
-  },
-  currentLocale: SupportedLocales,
-): {name: string; description: string; address: string} {
-  const i18nObject = find(
-    object.i18n,
-    translate => translate?.locale === currentLocale,
-  );
-
-  const name = currentLocale === 'ru' ? object.name : i18nObject?.name;
-
-  const description =
-    currentLocale === 'ru' ? object.description : i18nObject?.description;
-
-  const address = currentLocale === 'ru' ? object.address : i18nObject?.address;
-
-  return {
-    name: name || '',
-    description: description || '',
-    address: address || '',
-  };
-}
-
 function getSpotTranslation(
   spot: {i18n?: SpotI18n; value: string},
   currentLocale: SupportedLocales,
@@ -191,7 +163,7 @@ const objectCompletnessInfo = (
 
       return isEmpty(value) || value?.items ? isEmpty(value?.items) : false;
     },
-  );
+  ) as ObjectField[];
 
   const amountOfImcompletedFields = imcompletedFieldsNames.length;
   const amountOfCompletenessFields =
@@ -233,6 +205,83 @@ export function prepareObjectAdditionalInfoItems(
       googleLink: placeItem.googleMapLink,
     };
   });
+}
+
+export function prepareObjectInclude(
+  objectIds: Array<string | null> | null | undefined,
+  objectItems: Array<ListMobileDataQueryObject | null> | null,
+  categoriesMap: ICategoriesMap,
+): IInclude[] {
+  return reduce(
+    objectIds,
+    (relatedAcc, objectId) => {
+      if (objectId) {
+        const objectCategoryId = find(objectItems, {id: objectId})?.categoryId;
+        if (objectCategoryId) {
+          const categoryData = categoriesMap[objectCategoryId];
+
+          if (
+            some(relatedAcc, ({categoryId}) => categoryId === objectCategoryId)
+          ) {
+            return map(relatedAcc, item => {
+              return item.categoryId === objectCategoryId
+                ? {
+                    ...item,
+                    objects: [...item.objects, objectId],
+                  }
+                : item;
+            });
+          } else if (categoryData) {
+            relatedAcc.push({
+              categoryId: categoryData.id,
+              image: categoryData.cover || '',
+              name: categoryData.name,
+              objects: [objectId],
+            });
+          }
+        }
+      }
+      return relatedAcc;
+    },
+    [] as IInclude[],
+  );
+}
+
+export function prepareObjectBelongsTo(
+  objectIds: Array<string | null> | null | undefined,
+  objectItems: Array<ListMobileDataQueryObject | null> | null,
+  categoriesMap: ICategoriesMap,
+  currentLocale: SupportedLocales,
+): IBelongsTo[] {
+  return reduce(
+    objectIds,
+    (relatedAcc, objectId) => {
+      if (objectId) {
+        const object = find(objectItems, {id: objectId});
+        if (object) {
+          const {categoryId, id, cover} = object;
+          const {name} = getTranslationsForProperties(
+            {name: object.name, description: object.description || ''},
+            object.i18n,
+            currentLocale,
+          );
+
+          const categoryData = categoriesMap[categoryId];
+
+          if (categoryData) {
+            relatedAcc.push({
+              objectId: id,
+              image: cover ? imagesService.getOriginalImage(cover) : '',
+              name: name,
+              categoryName: categoryData.name,
+            });
+          }
+        }
+      }
+      return relatedAcc;
+    },
+    [] as IBelongsTo[],
+  );
 }
 
 export function transformQueryData(
@@ -306,54 +355,15 @@ export function transformQueryData(
       objects?.items,
       (acc, object) => {
         if (object) {
-          const {name, description} = getObjectTranslation(
-            object,
+          const {name, description} = getTranslationsForProperties(
+            {name: object.name, description: object.description || ''},
+            object.i18n,
             currentLocale,
           );
 
           objectsToCategoryMap[object.id] = object.categoryId;
 
           const objectCategory = categoriesMap[object.categoryId];
-
-          function getObjectRelatedData(
-            objectIds?: Array<string | null> | null,
-          ): IInclude[] | IBelongsTo[] {
-            return reduce(
-              objectIds,
-              (relatedAcc, objectId) => {
-                const categoryId: string | undefined = objects?.items?.find(
-                  el => el?.id === objectId,
-                )?.categoryId;
-
-                if (categoryId && objectId) {
-                  const categoryData = categoriesMap[categoryId];
-                  if (some(relatedAcc, ({id}) => id === categoryId)) {
-                    return map(relatedAcc, item => {
-                      return item.id === categoryId
-                        ? {
-                            ...item,
-                            objects: [...item.objects, objectId],
-                          }
-                        : item;
-                    });
-                  } else if (categoryData) {
-                    return [
-                      ...relatedAcc,
-                      {
-                        id: categoryData.id,
-                        name: categoryData.name,
-                        icon: categoryData.icon,
-                        objects: [objectId],
-                      },
-                    ];
-                  }
-                }
-
-                return relatedAcc;
-              },
-              [] as IInclude[] | IBelongsTo[],
-            );
-          }
 
           function getObjectAddress(): string {
             const address: string[] = [];
@@ -422,15 +432,23 @@ export function transformQueryData(
               ),
             ),
 
-            include: getObjectRelatedData(object.include),
-            belongsTo: getObjectRelatedData(object.belongsTo),
+            include: prepareObjectInclude(
+              object.include,
+              objects?.items || [],
+              categoriesMap,
+            ),
+            belongsTo: prepareObjectBelongsTo(
+              object.belongsTo,
+              objects?.items || [],
+              categoriesMap,
+              currentLocale,
+            ),
             url: object.url || undefined,
             routes: (object.routes as LineString) || undefined,
             length: object.length || null,
             origins: (object.origins as IOrigins[]) || null,
             phoneNumber: object.phoneNumber?.[0] || null,
             workingHours: object.workingHours || undefined,
-            visitedObject: 'You’ve visited it!',
             attendanceTime:
               object.calculatedProperties?.averageSpentTime ||
               object.attendanceTime ||

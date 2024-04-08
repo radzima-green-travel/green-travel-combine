@@ -29,16 +29,16 @@ export interface IProhibition {
 }
 
 export interface IInclude {
-  id: string;
+  categoryId: string;
   name: string;
-  icon: string;
+  image: string;
   objects: string[];
 }
 export interface IBelongsTo {
-  id: string;
+  objectId: string;
   name: string;
-  icon: string;
-  objects: string[];
+  categoryName: string;
+  image: string;
 }
 
 export interface IObjectCategory {
@@ -287,4 +287,6 @@ export enum TestIDs {
   ObjectDetailsAccommodationPlace = 'objectDetailsAccommodationPlace',
   ObjectDetailsUpcomingEvents = 'objectDetailsUpcomingEvents',
   ObjectDetailsDinnerPlaces = 'objectDetailsDinnerPlaces',
+  ObjectDetailsIncludes = 'objectDetailsIncludes',
+  ObjectDetailsBelongsTo = 'objectDetailsBelongsTo',
 }

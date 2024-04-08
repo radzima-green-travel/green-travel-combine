@@ -13,6 +13,7 @@ import {
 import {
   ObjectDetailsAddInfoSuccessMenu,
   ObjectIncludes,
+  ObjectBelongsTo,
   ObjectDetailsShowWorkingHoursInfoMenu,
 } from 'organisms';
 import {
@@ -244,19 +245,21 @@ export const ObjectDetails = () => {
               />
             ) : null}
 
+            {isEmpty(data.belongsTo) ? null : (
+              <ObjectBelongsTo
+                title={t('belongs')}
+                data={data.belongsTo}
+                onBelongsToItemPress={navigateToObjectsListDebounced}
+                testID={TestIDs.ObjectDetailsBelongsTo}
+              />
+            )}
+
             {isEmpty(data.include) ? null : (
               <ObjectIncludes
                 title={t('includes')}
                 data={data.include}
                 onIncludePress={navigateToObjectsListDebounced}
-              />
-            )}
-
-            {isEmpty(data.belongsTo) ? null : (
-              <ObjectIncludes
-                title={t('belongs')}
-                data={data.belongsTo}
-                onIncludePress={navigateToObjectsListDebounced}
+                testID={TestIDs.ObjectDetailsIncludes}
               />
             )}
 

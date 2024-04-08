@@ -1,11 +1,10 @@
 import React, {memo, useCallback} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import {Icon} from 'atoms';
+import {ImageStyle, Text, TouchableOpacity} from 'react-native';
 import {themeStyles} from './styles';
-import {useColorScheme, useThemeStyles} from 'core/hooks';
-import {ICONS_MATCHER, DARK_ICONS_MATCHER} from 'core/constants';
+import {useThemeStyles} from 'core/hooks';
 import {IInclude} from 'core/types';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import {Image} from 'expo-image';
 
 interface IProps {
   onPress: (config: {id: string; name: string; objects: string[]}) => void;
@@ -15,14 +14,11 @@ interface IProps {
 
 export const ObjectInlcudesItem = memo(({data, onPress, testID}: IProps) => {
   const styles = useThemeStyles(themeStyles);
-  const theme = useColorScheme();
-  const {icon, name, objects, id} = data;
-  const iconName =
-    theme === 'light' ? ICONS_MATCHER[icon] : DARK_ICONS_MATCHER[icon];
+  const {image, name, objects, categoryId} = data;
 
   const onPressHandler = useCallback(() => {
-    onPress({id: id, objects, name});
-  }, [objects, id, onPress, name]);
+    onPress({id: categoryId, objects, name});
+  }, [onPress, categoryId, objects, name]);
 
   return (
     <TouchableOpacity
@@ -30,9 +26,17 @@ export const ObjectInlcudesItem = memo(({data, onPress, testID}: IProps) => {
       onPress={onPressHandler}
       style={styles.container}
       {...getPlatformsTestID(testID)}>
-      <Icon size={32} name={iconName} />
-      <Text style={styles.text}>{name}</Text>
-      <Icon style={styles.icon} size={24} name="chevronRight" />
+      <Image
+        {...getPlatformsTestID(composeTestID(testID, 'image'))}
+        style={styles.image as ImageStyle}
+        source={{uri: image}}
+      />
+      <Text
+        numberOfLines={2}
+        {...getPlatformsTestID(composeTestID(testID, 'name'))}
+        style={styles.text}>
+        {name}
+      </Text>
     </TouchableOpacity>
   );
 });
