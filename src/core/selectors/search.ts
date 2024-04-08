@@ -1,9 +1,9 @@
 import {createSelector} from 'reselect';
-import {ITransformedData, IObject} from '../types';
+import {IObject} from '../types';
 import {IState} from 'core/store';
 import {filter, orderBy, reduce} from 'lodash';
 import {selectTransformedData} from './homeSelectors';
-import {isLocationExist} from 'core/helpers';
+import {isLocationExist, removePunctuation} from 'core/helpers';
 
 export const selectSearchInputValue = (state: IState) =>
   state.search.inputValue;
@@ -18,69 +18,65 @@ export const selectIsHistoryVisible = createSelector(
   inputValue => !inputValue,
 );
 
-export const selectSearchHistory = createSelector<
-  IState,
-  string[],
-  ITransformedData | null,
-  IObject[]
->(
+const orderByName = (objects: IObject[]) => {
+  return orderBy(objects, [({name}) => name.toLowerCase()], 'asc');
+};
+
+export const selectSearchHistory = createSelector(
   (state: IState) => state.search.history,
   selectTransformedData,
-  (history, transformedData) =>
-    transformedData
-      ? orderBy(
-          reduce(
-            history,
-            (acc, id) => {
-              if (transformedData.objectsMap[id]) {
-                return [...acc, transformedData.objectsMap[id]];
-              }
+  (history, transformedData) => {
+    if (!transformedData) {
+      return [];
+    }
 
-              return acc;
-            },
-            [] as IObject[],
-          ),
-          [({name}) => name.toLowerCase()],
-          'asc',
-        )
-      : [],
-);
+    const objects = reduce(
+      history,
+      (acc, id) => {
+        if (id in transformedData.objectsMap) {
+          acc.push(transformedData.objectsMap[id]);
+        }
 
-export const selectSearchResults = createSelector<
-  IState,
-  ITransformedData | null,
-  string,
-  IObject[]
->(
-  selectTransformedData,
-  selectSearchInputForSearch,
-  (transformedData, inputValue) => {
-    return transformedData
-      ? orderBy(
-          filter(
-            Object.values(transformedData.objectsMap),
-            object =>
-              object.name.toLowerCase().includes(inputValue.toLowerCase()) ||
-              (Boolean(object.address) &&
-                object.address
-                  .toLowerCase()
-                  .includes(inputValue.toLowerCase())),
-          ),
-          [({name}) => name.toLowerCase()],
-          'asc',
-        )
-      : [];
+        return acc;
+      },
+      [] as IObject[],
+    );
+
+    return orderByName(objects);
   },
 );
 
-export const selectSearchResultsWithLocation = createSelector<
-  IState,
-  IObject[],
-  IObject[]
->(selectSearchResults, searchResults => filter(searchResults, isLocationExist));
+export const selectSearchResults = createSelector(
+  selectTransformedData,
+  selectSearchInputForSearch,
+  (transformedData, inputValue) => {
+    if (!transformedData) {
+      return [];
+    }
 
-export const selectSearchHistoryWithLocation = createSelector<
-  IState,
-  IObject[],
-  IObject[]
->(selectSearchHistory, history => filter(history, isLocationExist));
+    const objects = filter(
+      Object.values(transformedData.objectsMap),
+      object => {
+        const {name, address} = object;
+        const lowerInput = removePunctuation(inputValue.toLowerCase());
+        return (
+          removePunctuation(name.toLowerCase()).includes(lowerInput) ||
+          (!!address &&
+            removePunctuation(address.toLowerCase()).includes(lowerInput))
+        );
+      },
+    );
+
+    return orderByName(objects);
+  },
+);
+
+export const selectSearchResultsWithLocation = createSelector(
+  selectSearchResults,
+  searchResults => filter(searchResults, isLocationExist),
+);
+
+export const selectSearchHistoryWithLocation = createSelector(
+  selectSearchHistory,
+  history => filter(history, isLocationExist),
+);
