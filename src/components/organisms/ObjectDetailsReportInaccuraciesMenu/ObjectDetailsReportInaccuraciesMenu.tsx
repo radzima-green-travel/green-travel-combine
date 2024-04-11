@@ -23,6 +23,7 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
     reportInaccuraciesSnackBarProps,
     onSendPress,
     sendInaccuraciesLoading,
+    inputRef,
   }: IProps) => {
     const theme = useColorScheme();
     const ref = useRef<TextInput>(null);
@@ -40,15 +41,13 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
         <BottomMenu
           adjustIOSKeyboardFrameDrops
           withBackdrop
-          onOpenStart={() => {
-            ref.current?.focus();
-          }}
           onBackdropPress={Keyboard.dismiss}
           testID={TestIDs.ObjectReportinaccuraciesMenu}
           header={reportInaccuraciesMenuHeader}
           {...reportInnacurateInfoMenuProps}>
           <ObjectReportinaccuraciesMenu
-            ref={ref}
+            ref={inputRef}
+            openMenu={reportInnacurateInfoMenuProps.openMenu}
             onSendPress={onSendPress}
             isSendLoading={sendInaccuraciesLoading}
             testID={TestIDs.ObjectReportinaccuraciesMenuContent}

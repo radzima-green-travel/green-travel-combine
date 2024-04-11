@@ -6,13 +6,15 @@ import React, {
   useState,
   useMemo,
   useCallback,
+  useEffect,
 } from 'react';
-import {View, TextInput} from 'react-native';
+import {View, TextInput, Keyboard} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {FormInput} from 'atoms';
 import {composeTestID} from 'core/helpers';
 import {
   useBottomSheetHandleKeyboard,
+  useStaticCallback,
   useThemeStyles,
   useTranslation,
 } from 'core/hooks';
@@ -33,7 +35,7 @@ export interface ObjectReportinaccuraciesMenuRef {
 
 export const ObjectReportinaccuraciesMenu = memo(
   forwardRef<ObjectReportinaccuraciesMenuRef, IProps>(
-    ({testID, onSendPress, isSendLoading}, ref) => {
+    ({testID, onSendPress, isSendLoading, openMenu}, ref) => {
       const styles = useThemeStyles(themeStyles);
       const {t} = useTranslation('objectDetails');
       const textInputRef = useRef<TextInput>(null);
@@ -67,23 +69,46 @@ export const ObjectReportinaccuraciesMenu = memo(
           },
         ];
       }, [isSendLoading, onSendPressHandler, t, testID, value.length]);
-      const {bottomInset, onFocus, onBlur} = useBottomSheetHandleKeyboard();
+      // const {bottomInset, onFocus, onBlur} = useBottomSheetHandleKeyboard();
+
+      const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+      useEffect(() => {
+        Keyboard.addListener('keyboardWillShow', event => {
+          setKeyboardHeight(event.endCoordinates.height + 16);
+        });
+      }, []);
+
+      const timer = useRef(null);
+
+      const onLayout = useStaticCallback(() => {
+        if (timer.current) {
+          clearTimeout(timer.current);
+        }
+
+        timer.current = setTimeout(() => {
+          if (keyboardHeight) {
+            // console.log('here');
+            openMenu();
+          }
+        }, 10);
+      }, [keyboardHeight, openMenu]);
 
       return (
-        <View testID={testID} style={styles.container}>
+        <View testID={testID} onLayout={onLayout} style={styles.container}>
           <View style={styles.fieldContainer}>
             <FormInput
               testID={composeTestID(testID, 'formInput')}
               ref={textInputRef}
               value={value}
               onChange={setValue}
-              onFocus={onFocus}
-              onBlur={onBlur}
+              // onFocus={onFocus}
+              // onBlur={onBlur}
               multiline
             />
           </View>
           <ButtonsGroup
-            bottomInset={bottomInset}
+            bottomInset={keyboardHeight}
             containerStyle={styles.buttonsContainer}
             buttons={buttons}
           />

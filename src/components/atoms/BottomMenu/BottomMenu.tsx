@@ -1,9 +1,4 @@
-import Animated, {
-  SharedValue,
-  useDerivedValue,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
+import Animated, {SharedValue} from 'react-native-reanimated';
 import {themeStyles} from './styles';
 import {Text, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
@@ -23,12 +18,10 @@ import React, {
   useMemo,
   memo,
   useState,
-  ComponentProps,
 } from 'react';
 import {AnimatedCircleButton} from 'molecules';
 import {composeTestID} from 'core/helpers';
 import {uniqueId} from 'lodash';
-import {isIOS} from 'services/PlatformService';
 
 interface IProps {
   onHideEnd?: () => void;
@@ -54,34 +47,6 @@ interface IProps {
   onBackdropPress?: () => void;
   adjustIOSKeyboardFrameDrops?: boolean;
 }
-
-const CustomBackdrop = memo(
-  ({
-    adjustIOSKeyboardFrameDrops,
-    ...props
-  }: ComponentProps<typeof BottomSheetBackdrop> & {
-    adjustIOSKeyboardFrameDrops: boolean;
-  }) => {
-    const prevValue = useSharedValue(-1);
-    const {appearsOnIndex} = props;
-    const animatedIndex = useDerivedValue(() => {
-      if (!adjustIOSKeyboardFrameDrops || !isIOS) {
-        return props.animatedIndex.value;
-      }
-      const isOpening = prevValue.value < props.animatedIndex.value;
-
-      const isOpened = prevValue.value === appearsOnIndex;
-
-      prevValue.value = props.animatedIndex.value;
-      if (isOpening || isOpened) {
-        return withSpring(appearsOnIndex || 0);
-      }
-      return props.animatedIndex.value;
-    }, []);
-
-    return <BottomSheetBackdrop {...props} animatedIndex={animatedIndex} />;
-  },
-);
 
 export interface IBottomMenuRef {
   show: () => void;
@@ -189,7 +154,7 @@ export const BottomMenu = memo(
       const renderBackdrop = useCallback(
         props => {
           return (
-            <CustomBackdrop
+            <BottomSheetBackdrop
               {...props}
               disappearsOnIndex={-1}
               appearsOnIndex={0}
