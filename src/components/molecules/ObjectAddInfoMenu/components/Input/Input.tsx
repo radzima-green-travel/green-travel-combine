@@ -3,7 +3,6 @@ import {Text} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {FormInput} from 'atoms';
-import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 import {View, KeyboardType} from 'react-native';
 import {composeTestID} from 'core/helpers';
 
@@ -37,7 +36,6 @@ export const Input = forwardRef<ObjectAddInfoMenuRef, IProps>(
             {...props}
             ref={ref}
             testID={composeTestID(testID, 'formInput')}
-            TextInputComponent={BottomSheetTextInput}
           />
         </View>
       </>

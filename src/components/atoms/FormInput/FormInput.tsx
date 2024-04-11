@@ -22,7 +22,6 @@ import {useHandleKeyboardInput} from '../HandleKeyboard';
 import {useTextInputAutoFocus} from 'core/hooks';
 import {TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
-import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 interface IProps {
   iconLeft?: IconProps;
   iconRight?: IconProps;
@@ -47,7 +46,6 @@ interface IProps {
   multiline?: boolean;
   placeholder?: string;
   testID: string;
-  TextInputComponent: typeof TextInput | typeof BottomSheetTextInput;
 }
 
 export const FormInput = forwardRef(
@@ -76,7 +74,6 @@ export const FormInput = forwardRef(
       multiline,
       placeholder,
       testID,
-      TextInputComponent = TextInput,
     }: IProps,
     ref,
   ) => {
@@ -218,7 +215,7 @@ export const FormInput = forwardRef(
               multiline && styles.multilineInputFieldWrapper,
             ]}>
             {label ? renderLabel() : null}
-            <TextInputComponent
+            <TextInput
               testID={testID}
               ref={inputRef}
               style={[

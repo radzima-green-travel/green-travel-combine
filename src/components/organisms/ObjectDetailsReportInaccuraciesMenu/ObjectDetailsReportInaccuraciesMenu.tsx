@@ -39,7 +39,7 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
       <Portal>
         <BottomMenu
           withBackdrop
-          onOpenEnd={() => {
+          onOpenStart={() => {
             ref.current?.focus();
           }}
           onBackdropPress={Keyboard.dismiss}

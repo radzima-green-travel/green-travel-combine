@@ -41,3 +41,4 @@ export {useHeaderHeight} from './useHeaderHeight';
 export {useScrollScrollViewScrollToElement} from './useScrollScrollViewScrollToElement';
 export {useTimeRange} from './useTimeRange';
 export {useObjectIncompleteFields} from './useObjectIncompleteFields';
+export {useBottomSheetHandleKeyboard} from './useBottomSheetHandleKeyboard';

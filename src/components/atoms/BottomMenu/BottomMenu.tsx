@@ -27,6 +27,7 @@ interface IProps {
   onHideEnd?: () => void;
   onHideStart?: () => void;
   onOpenEnd?: () => void;
+  onOpenStart?: () => void;
   menuHeight?: number;
   animatedPosition?: Animated.SharedValue<number>;
   animatedIndex?: SharedValue<number>;
@@ -73,6 +74,7 @@ export const BottomMenu = memo(
         onBackdropPress,
         animatedIndex,
         onOpenEnd,
+        onOpenStart,
       },
       ref,
     ) => {
@@ -138,14 +140,18 @@ export const BottomMenu = memo(
             onHideStart?.();
           }
 
+          if (fromIndex === -1) {
+            onOpenStart?.();
+          }
+
           isOpening.current = fromIndex === -1;
         },
-        [onHideStart],
+        [onHideStart, onOpenStart],
       );
 
       const renderBackdrop = useCallback(
         props => {
-          console.log('renderBackdrop');
+          console.log('renderBackdrop', props);
           return (
             <BottomSheetBackdrop
               {...props}

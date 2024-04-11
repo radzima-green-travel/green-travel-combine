@@ -4,25 +4,24 @@ import {Button} from 'atoms';
 import {StyleProp, View, ViewStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {PADDING, themeStyles} from './styles';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 interface IProps {
   buttons: Array<ButtonProps>;
   withShadow?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
-  withBottomInset?: boolean;
+  bottomInset?: number;
 }
 
 export const ButtonsGroup = memo(
-  ({buttons, withShadow, containerStyle, withBottomInset}: IProps) => {
+  ({buttons, withShadow, containerStyle, bottomInset}: IProps) => {
     const styles = useThemeStyles(themeStyles);
-    const {bottom} = useSafeAreaInsets();
 
     return (
       <View
         style={[
           styles.container,
           containerStyle,
-          withBottomInset && {paddingBottom: bottom || PADDING},
+          {paddingBottom: bottomInset || PADDING},
         ]}>
         {buttons.map((buttonProps, index) => {
           const style = [

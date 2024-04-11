@@ -6,6 +6,7 @@ import {ListItem, Ratings} from 'molecules';
 import {themeStyles} from './styles';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {composeTestID} from 'core/helpers';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IProps {
   onSubmitPress: (data: {
@@ -74,6 +75,8 @@ export const ObjectShareExperienceMenu = memo(
       isSubmitButtonDisabled,
     ]);
 
+    const {bottom} = useSafeAreaInsets();
+
     return (
       <View style={styles.container}>
         <Text style={styles.rateTitle}>
@@ -114,7 +117,7 @@ export const ObjectShareExperienceMenu = memo(
           onPress={onMissedDetailsPress}
         /> */}
         <ButtonsGroup
-          withBottomInset
+          bottomInset={bottom}
           containerStyle={styles.buttonsContainer}
           buttons={buttons}
         />

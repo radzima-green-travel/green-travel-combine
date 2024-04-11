@@ -11,10 +11,12 @@ import {View, TextInput} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {FormInput} from 'atoms';
 import {composeTestID} from 'core/helpers';
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import {
+  useBottomSheetHandleKeyboard,
+  useThemeStyles,
+  useTranslation,
+} from 'core/hooks';
 import {themeStyles} from './styles';
-
-import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 
 interface IProps {
   testID: string;
@@ -65,15 +67,7 @@ export const ObjectReportinaccuraciesMenu = memo(
           },
         ];
       }, [isSendLoading, onSendPressHandler, t, testID, value.length]);
-
-      const [withBottomInset, setWithBottomInset] = useState(false);
-
-      const onFocus = useCallback(() => {
-        setWithBottomInset(false);
-      }, []);
-      const onBlur = useCallback(() => {
-        setWithBottomInset(true);
-      }, []);
+      const {bottomInset, onFocus, onBlur} = useBottomSheetHandleKeyboard();
 
       return (
         <View testID={testID} style={styles.container}>
@@ -85,12 +79,11 @@ export const ObjectReportinaccuraciesMenu = memo(
               onChange={setValue}
               onFocus={onFocus}
               onBlur={onBlur}
-              TextInputComponent={BottomSheetTextInput}
               multiline
             />
           </View>
           <ButtonsGroup
-            withBottomInset={withBottomInset}
+            bottomInset={bottomInset}
             containerStyle={styles.buttonsContainer}
             buttons={buttons}
           />

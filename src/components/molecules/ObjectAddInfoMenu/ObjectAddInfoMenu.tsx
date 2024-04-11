@@ -8,7 +8,11 @@ import React, {
 } from 'react';
 import {TextInput, View} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import {
+  useBottomSheetHandleKeyboard,
+  useThemeStyles,
+  useTranslation,
+} from 'core/hooks';
 import {themeStyles} from './styles';
 import {Input, TimePicker} from './components';
 import {
@@ -32,10 +36,12 @@ export const ObjectAddInfoMenu = memo(
     const {t} = useTranslation('objectDetailsAddInfo');
     const styles = useThemeStyles(themeStyles);
     const isTimePickerField = TIME_PICKER_FIELDS.has(currentField);
-    const [withBottomInset, setWithBottomInset] = useState(isTimePickerField);
+
     const [value, setValue] = useState(formValue);
 
     const inputRef = useRef<TextInput>(null);
+
+    const {bottomInset, onFocus, onBlur} = useBottomSheetHandleKeyboard();
 
     useEffect(() => {
       inputRef.current?.focus();
@@ -44,14 +50,6 @@ export const ObjectAddInfoMenu = memo(
     useEffect(() => {
       setValue(formValue);
     }, [formValue]);
-
-    const onFocus = useCallback(() => {
-      setWithBottomInset(false);
-    }, []);
-
-    const onBlur = useCallback(() => {
-      setWithBottomInset(true);
-    }, []);
 
     const renderContent = () => {
       if (!currentField) {
@@ -103,7 +101,7 @@ export const ObjectAddInfoMenu = memo(
       <View testID={testID} style={styles.container}>
         {renderContent()}
         <ButtonsGroup
-          withBottomInset={withBottomInset}
+          bottomInset={bottomInset}
           containerStyle={styles.buttonsContainer}
           buttons={buttons}
         />

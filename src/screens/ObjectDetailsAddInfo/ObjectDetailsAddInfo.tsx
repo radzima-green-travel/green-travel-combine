@@ -10,7 +10,7 @@ import {ObjectField} from 'core/constants';
 import {sendAddInfoEmailRequest} from 'core/reducers';
 import {IObjectIncompleteField, TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
-import {selectForPlatform} from 'services/PlatformService';
+import {isAndroid, selectForPlatform} from 'services/PlatformService';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const ICONS_MAP = {
@@ -65,6 +65,7 @@ export const ObjectDetailsAddInfo = () => {
   }, [isFormValid, isSendLoading, onSendPress, t]);
 
   useOnRequestSuccess(sendAddInfoEmailRequest, navigateBack);
+  const {bottom} = useSafeAreaInsets();
 
   return (
     <View style={styles.container}>
@@ -119,7 +120,7 @@ export const ObjectDetailsAddInfo = () => {
         </>
       )}
       <ButtonsGroup
-        withBottomInset={selectForPlatform(true)}
+        bottomInset={isAndroid ? 0 : bottom}
         buttons={buttons}
         containerStyle={styles.buttonContainer}
       />

@@ -7,6 +7,7 @@ import {themeStyles} from './styles';
 
 import {Image} from 'expo-image';
 import {images} from 'assets/images';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IProps {
   testID: string;
@@ -31,6 +32,7 @@ export const ObjectSuccessMenu = memo(
         },
       ];
     }, [buttonText, onPress, testID]);
+    const {bottom} = useSafeAreaInsets();
 
     return (
       <View testID={testID} style={styles.container}>
@@ -41,7 +43,7 @@ export const ObjectSuccessMenu = memo(
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
         <ButtonsGroup
-          withBottomInset
+          bottomInset={bottom}
           containerStyle={styles.buttonsContainer}
           buttons={buttons}
         />
