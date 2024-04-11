@@ -14,7 +14,8 @@ export interface Props {
   size?: number;
   style?: StyleProp<TextStyle>;
   additionalColor?: string;
-  testID?: string;
+  testID: string;
+  checked?: boolean;
 }
 
 const IconsMap: {[key: string]: any} = Icons;
@@ -28,6 +29,7 @@ export const Icon = ({
   style = {},
   additionalColor,
   testID,
+  checked = false,
 }: Props) => {
   const IconComponent = IconsMap[name];
 
@@ -54,7 +56,7 @@ export const Icon = ({
     24;
 
   return (
-    <View {...getPlatformsTestID(testID)}>
+    <View {...getPlatformsTestID(testID)} accessibilityState={{checked}}>
       <IconComponent
         width={iconWidth}
         height={iconHeight}

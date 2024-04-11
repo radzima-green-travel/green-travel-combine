@@ -42,6 +42,7 @@ export const ObjectDetailsBottomButtons = memo(
           isIconOnlyButton: true,
           loading: isFavoriteLoading,
           testID: TestIDs.HeaderBookmarkButton,
+          checked: isFavorite,
           icon: textStyle => (
             <Icon
               name={isFavorite ? 'bookmarkFilled' : 'bookmark'}

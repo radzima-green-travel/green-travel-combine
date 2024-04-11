@@ -13,8 +13,8 @@ export const NewPassword = () => {
     loading,
     buttonText,
     rightIcon,
-    passwordVisibility,
-    handlePasswordVisibility,
+    passwordHidden,
+    handlePasswordHidden,
     isSubmitButtonDisabled,
     submitForm,
     snackBarProps,
@@ -35,10 +35,11 @@ export const NewPassword = () => {
               autoFocus
               iconRight={{
                 name: rightIcon,
+                checked: !passwordHidden,
               }}
               label={t('password')}
-              secureTextEntry={passwordVisibility}
-              onRightIconPress={handlePasswordVisibility}
+              secureTextEntry={passwordHidden}
+              onRightIconPress={handlePasswordHidden}
               messageText={messageText ? t(messageText) : undefined}
               helperText={<PasswordHint passwordValue={inputProps.value} />}
               {...inputProps}

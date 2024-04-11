@@ -71,7 +71,8 @@ export const ObjectDetailsMap = () => {
         bounds={bounds}
         ref={map}
         cameraRef={camera}
-        locale={currentLocale}>
+        locale={currentLocale}
+        testID={TestIDs.MapOverview}>
         {userLocationProps.visible ? (
           <UserLocation
             renderMode={UserLocationRenderMode.Native}

@@ -22,9 +22,10 @@ import {useHandleKeyboardInput} from '../HandleKeyboard';
 import {useTextInputAutoFocus} from 'core/hooks';
 import {TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
+
 interface IProps {
   iconLeft?: IconProps;
-  iconRight?: IconProps;
+  iconRight?: Omit<IconProps, 'testID'>;
   value: string;
   onChange: (value: string) => void;
   secureTextEntry?: boolean;

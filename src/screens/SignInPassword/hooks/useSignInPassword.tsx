@@ -5,7 +5,7 @@ import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
-  useTogglePasswordVisibility,
+  useTogglePasswordHidden,
 } from 'core/hooks';
 import {signInRequest} from 'core/reducers';
 import {useDispatch} from 'react-redux';
@@ -50,8 +50,8 @@ export const useSignInPassword = () => {
 
   const {loading} = useRequestLoading(signInRequest);
 
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
+  const {passwordHidden, rightIcon, handlePasswordHidden} =
+    useTogglePasswordHidden();
 
   useOnRequestSuccess(signInRequest, onSuccessSignIn);
 
@@ -79,9 +79,9 @@ export const useSignInPassword = () => {
     loading,
     navigateToRestorePassword,
     formik,
-    passwordVisibility,
+    passwordHidden,
     rightIcon,
-    handlePasswordVisibility,
+    handlePasswordHidden,
     isSubmitButtonDisabled: !formik.values.password,
     submitForm: formik.handleSubmit,
     snackBarProps,

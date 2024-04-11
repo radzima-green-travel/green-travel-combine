@@ -24,9 +24,9 @@ export const SignUpForm = () => {
     email,
     submitForm,
     isSubmitButtonDisabled,
-    passwordVisibility,
+    passwordHidden,
     rightIcon,
-    handlePasswordVisibility,
+    handlePasswordHidden,
     formik,
     snackBarProps,
   } = useSignUpForm();
@@ -44,25 +44,22 @@ export const SignUpForm = () => {
             submitButtonLoading={loading}>
             <WithFormikInput<string> name="password">
               {({messageText, ...inputProps}) => (
-                <>
-                  <FormInput
-                    testID={TestIDs.PasswordInput}
-                    autoFocus
-                    iconRight={{
-                      name: rightIcon,
-                    }}
-                    label={t('password')}
-                    secureTextEntry={passwordVisibility}
-                    onRightIconPress={handlePasswordVisibility}
-                    messageText={messageText ? t(messageText) : undefined}
-                    helperText={
-                      <PasswordHint passwordValue={inputProps.value} />
-                    }
-                    maxLength={99}
-                    {...inputProps}
-                    error={false}
-                  />
-                </>
+                <FormInput
+                  testID={TestIDs.PasswordInput}
+                  autoFocus
+                  iconRight={{
+                    name: rightIcon,
+                    checked: !passwordHidden,
+                  }}
+                  label={t('password')}
+                  secureTextEntry={passwordHidden}
+                  onRightIconPress={handlePasswordHidden}
+                  messageText={messageText ? t(messageText) : undefined}
+                  helperText={<PasswordHint passwordValue={inputProps.value} />}
+                  maxLength={99}
+                  {...inputProps}
+                  error={false}
+                />
               )}
             </WithFormikInput>
           </AuthForm>
