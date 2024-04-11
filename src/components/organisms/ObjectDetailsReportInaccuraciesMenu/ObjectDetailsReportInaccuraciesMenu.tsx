@@ -38,6 +38,7 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
     return (
       <Portal>
         <BottomMenu
+          adjustIOSKeyboardFrameDrops
           withBackdrop
           onOpenStart={() => {
             ref.current?.focus();

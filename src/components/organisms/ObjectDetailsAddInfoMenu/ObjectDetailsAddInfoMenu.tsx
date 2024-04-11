@@ -55,6 +55,7 @@ export const ObjectDetailsAddInfoMenu = ({
           onHideEnd={onHideEnd}
           onBackdropPress={Keyboard.dismiss}
           testID={TestIDs.ObjectDetailsAddInfoMenu}
+          adjustIOSKeyboardFrameDrops
           header={menuHeader}
           {...addInfoMenuProps}>
           <ObjectAddInfoMenu
