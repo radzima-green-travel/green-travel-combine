@@ -16,9 +16,9 @@ export const SignInPassword = () => {
     formik,
     isSubmitButtonDisabled,
     submitForm,
-    passwordVisibility,
+    passwordHidden,
     rightIcon,
-    handlePasswordVisibility,
+    handlePasswordHidden,
     snackBarProps,
   } = useSignInPassword();
 
@@ -40,10 +40,11 @@ export const SignInPassword = () => {
               autoFocus
               iconRight={{
                 name: rightIcon,
+                checked: !passwordHidden,
               }}
               label={t('password')}
-              secureTextEntry={passwordVisibility}
-              onRightIconPress={handlePasswordVisibility}
+              secureTextEntry={passwordHidden}
+              onRightIconPress={handlePasswordHidden}
               messageText={messageText ? t(messageText) : undefined}
               {...inputProps}
             />

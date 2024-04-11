@@ -20,7 +20,7 @@ export {useStatusBar} from './useStatusBar';
 export {useTask} from './useTask';
 export {useThemeStyles} from './useThemeStyles';
 export {useToggleFavorite} from './useToggleFavorite';
-export {useTogglePasswordVisibility} from './useTogglePasswordVisibility';
+export {useTogglePasswordHidden} from './useTogglePasswordHidden';
 export {useTransformedData} from './useTransformedData';
 export {useTranslation} from 'react-i18next';
 export {useUpdateEffect} from './useUpdateEffect';

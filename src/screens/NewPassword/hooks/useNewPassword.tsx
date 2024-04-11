@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux';
 import {
   useRequestLoading,
   useOnRequestSuccess,
-  useTogglePasswordVisibility,
+  useTogglePasswordHidden,
   useTranslation,
   useOnRequestError,
   useOnSuccessSignIn,
@@ -47,8 +47,8 @@ export const useNewPassword = () => {
 
   const {show, ...snackBarProps} = useSnackbar();
 
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
+  const {passwordHidden, rightIcon, handlePasswordHidden} =
+    useTogglePasswordHidden();
   const buttonText = t('save').toUpperCase();
 
   useOnRequestSuccess(confirmNewPasswordRequest, onSuccessSignIn);
@@ -69,8 +69,8 @@ export const useNewPassword = () => {
     loading,
     buttonText,
     rightIcon,
-    passwordVisibility,
-    handlePasswordVisibility,
+    passwordHidden,
+    handlePasswordHidden,
     isSubmitButtonDisabled: !formik.isValid || !formik.values.password,
     submitForm: formik.handleSubmit,
     snackBarProps,

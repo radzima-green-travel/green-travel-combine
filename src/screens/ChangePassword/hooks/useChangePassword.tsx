@@ -4,7 +4,7 @@ import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
-  useTogglePasswordVisibility,
+  useTogglePasswordHidden,
 } from 'core/hooks';
 import {SignUpFormScreenNavigationProps} from '../types';
 import {useNavigation} from '@react-navigation/native';
@@ -42,9 +42,9 @@ export const useChangePassword = () => {
 
   const {loading} = useRequestLoading(changePasswordRequest);
 
-  const oldPasswordVisibility = useTogglePasswordVisibility('eye');
+  const oldPasswordHidden = useTogglePasswordHidden();
 
-  const newPasswordVisibility = useTogglePasswordVisibility('eye');
+  const newPasswordHidden = useTogglePasswordHidden();
 
   useOnRequestSuccess(changePasswordRequest, navigateToEmailValidation);
 
@@ -70,8 +70,8 @@ export const useChangePassword = () => {
     loading,
     formik,
     signUp,
-    oldPasswordVisibility,
-    newPasswordVisibility,
+    oldPasswordHidden,
+    newPasswordHidden,
     isSubmitButtonDisabled: !formik.isValid || !formik.values.oldPassword,
     submitForm: formik.handleSubmit,
     snackBarProps,

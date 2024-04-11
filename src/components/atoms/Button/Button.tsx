@@ -24,6 +24,7 @@ export type Props = {
   theme?: ButtonThemes;
   loading?: boolean;
   disabled?: boolean;
+  checked?: boolean;
   icon?: (textStyle: StyleProp<TextStyle>) => React.ReactElement;
   testID: string;
   iconPosition?: 'left' | 'center';
@@ -40,6 +41,7 @@ export const Button = memo(
     icon,
     loading = false,
     disabled = false,
+    checked = false,
     style,
     textStyle,
     testID,
@@ -104,7 +106,8 @@ export const Button = memo(
           style,
           isIconOnlyButton && styles.iconButton,
         ]}
-        {...getPlatformsTestID(testID)}>
+        {...getPlatformsTestID(testID)}
+        accessibilityState={{checked, disabled, busy: loading}}>
         {renderContent()}
       </TouchableOpacity>
     );

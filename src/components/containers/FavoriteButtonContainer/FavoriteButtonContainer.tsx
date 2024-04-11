@@ -16,7 +16,7 @@ interface IProps {
   onAnimationEnd?: () => void;
   onFavoriteToggle?: (nextIsFavorite: boolean) => void;
   loadingIndicatorColor?: string;
-  testID?: string;
+  testID: string;
 }
 
 export const FavoriteButtonContainer = memo(
@@ -47,7 +47,8 @@ export const FavoriteButtonContainer = memo(
             style={style}
             onPress={toggleFavoriteHandler}
             disabled={favoritesSynchronizing}
-            activeOpacity={0.8}>
+            activeOpacity={0.8}
+            accessibilityState={{checked: !!isFavorite}}>
             {children(Boolean(isFavorite))}
           </TouchableOpacity>
         </View>

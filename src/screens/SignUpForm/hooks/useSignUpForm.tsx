@@ -4,7 +4,7 @@ import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
-  useTogglePasswordVisibility,
+  useTogglePasswordHidden,
 } from 'core/hooks';
 import {
   SignUpFormScreenRouteProps,
@@ -47,8 +47,8 @@ export const useSignUpForm = () => {
 
   const {loading} = useRequestLoading(signUpRequest);
 
-  const {passwordVisibility, rightIcon, handlePasswordVisibility} =
-    useTogglePasswordVisibility('eye');
+  const {passwordHidden, rightIcon, handlePasswordHidden} =
+    useTogglePasswordHidden();
 
   useOnRequestSuccess(signUpRequest, navigateToEmailValidation);
 
@@ -66,9 +66,9 @@ export const useSignUpForm = () => {
     email,
     formik,
     signUp,
-    passwordVisibility,
+    passwordHidden,
     rightIcon,
-    handlePasswordVisibility,
+    handlePasswordHidden,
     isSubmitButtonDisabled: !formik.isValid,
     submitForm: formik.handleSubmit,
     snackBarProps,

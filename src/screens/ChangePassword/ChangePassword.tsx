@@ -16,6 +16,7 @@ import {styles} from './styles';
 import {View} from 'react-native';
 import {screenOptions} from './screenOptions';
 import {TestIDs} from 'core/types';
+
 const HandleKeyboardScrollView =
   createHandleKeyboardScrollComponent(ScrollView);
 
@@ -25,8 +26,8 @@ export const ChangePassword = () => {
     loading,
     submitForm,
     isSubmitButtonDisabled,
-    oldPasswordVisibility,
-    newPasswordVisibility,
+    oldPasswordHidden,
+    newPasswordHidden,
     formik,
     snackBarProps,
   } = useChangePassword();
@@ -47,13 +48,12 @@ export const ChangePassword = () => {
                   testID={TestIDs.OldPasswordInput}
                   autoFocus
                   iconRight={{
-                    name: oldPasswordVisibility.rightIcon,
+                    name: oldPasswordHidden.rightIcon,
+                    checked: !oldPasswordHidden.passwordHidden,
                   }}
                   label={t('oldPasswordPlaceholder')}
-                  secureTextEntry={oldPasswordVisibility.passwordVisibility}
-                  onRightIconPress={
-                    oldPasswordVisibility.handlePasswordVisibility
-                  }
+                  secureTextEntry={oldPasswordHidden.passwordHidden}
+                  onRightIconPress={oldPasswordHidden.handlePasswordHidden}
                   messageText={messageText ? t(messageText) : undefined}
                   maxLength={99}
                   focusNextFieldOnSubmit
@@ -68,13 +68,12 @@ export const ChangePassword = () => {
                   <FormInput
                     testID={TestIDs.NewPasswordInput}
                     iconRight={{
-                      name: newPasswordVisibility.rightIcon,
+                      name: newPasswordHidden.rightIcon,
+                      checked: !newPasswordHidden.passwordHidden,
                     }}
                     label={t('newPasswordPlaceholder')}
-                    secureTextEntry={newPasswordVisibility.passwordVisibility}
-                    onRightIconPress={
-                      newPasswordVisibility.handlePasswordVisibility
-                    }
+                    secureTextEntry={newPasswordHidden.passwordHidden}
+                    onRightIconPress={newPasswordHidden.handlePasswordHidden}
                     messageText={messageText ? t(messageText) : undefined}
                     helperText={
                       <PasswordHint passwordValue={inputProps.value} />
