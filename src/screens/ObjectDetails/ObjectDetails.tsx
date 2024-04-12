@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {useRef} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
 
 import {
@@ -122,8 +122,6 @@ export const ObjectDetails = () => {
   } = useObjectDetailsInfo();
 
   const locationExist = Boolean(data && isLocationExist(data));
-
-  const ref = useRef(null);
 
   return (
     <SuspenseView
@@ -267,9 +265,7 @@ export const ObjectDetails = () => {
 
             <Button
               style={styles.reportInaccuraciesButton}
-              onPress={() => {
-                ref.current?.focus();
-              }}
+              onPress={openInnacurateInfoMenu}
               icon={textStyle => <Icon style={textStyle} name="mail" />}
               theme="tertiary"
               text={t('reportInaccuracies')}
@@ -319,7 +315,6 @@ export const ObjectDetails = () => {
           />
 
           <ObjectDetailsReportInaccuraciesMenu
-            inputRef={ref}
             {...reportInaccuraciesMenuProps}
           />
 

@@ -46,6 +46,7 @@ export const ObjectDetailsAddInfoMenu = ({
     [addInfoMenuProps, onChange],
   );
 
+  const {textInputRef, keyboardHeight} = addInfoMenuProps;
   const renderContent = () => {
     return (
       <>
@@ -59,7 +60,9 @@ export const ObjectDetailsAddInfoMenu = ({
           header={menuHeader}
           {...addInfoMenuProps}>
           <ObjectAddInfoMenu
+            ref={textInputRef}
             testID={TestIDs.ObjectDetailsAddInfoMenuContent}
+            keyboardHeight={keyboardHeight}
             currentField={currentField.id}
             onSubmit={onClose}
             value={value}

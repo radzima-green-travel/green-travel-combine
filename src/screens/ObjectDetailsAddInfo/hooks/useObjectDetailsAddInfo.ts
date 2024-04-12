@@ -19,6 +19,7 @@ import {sendAddInfoEmailRequest} from 'core/reducers';
 import reduce from 'lodash/reduce';
 import {useSnackbar} from 'atoms';
 import {IObjectIncompleteField} from 'core/types';
+import {TIME_PICKER_FIELDS} from 'core/constants';
 
 export const useObjectDetailsAddInfo = () => {
   const navigation = useNavigation<ObjectDetailsAddInfoScreenNavigationProps>();
@@ -44,7 +45,11 @@ export const useObjectDetailsAddInfo = () => {
     (menu: IObjectIncompleteField | null) => {
       setCurrentField(menu);
       if (menu) {
-        bottomMenuProps.openMenu();
+        if (TIME_PICKER_FIELDS.has(menu.id)) {
+          bottomMenuProps.openMenu();
+        } else {
+          bottomMenuProps.openMenuWithInputAutoFocus();
+        }
       }
     },
     [bottomMenuProps],

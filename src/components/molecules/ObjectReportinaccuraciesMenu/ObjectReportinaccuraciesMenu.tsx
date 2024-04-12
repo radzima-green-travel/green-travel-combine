@@ -1,30 +1,23 @@
-import React, {
-  memo,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-  useEffect,
-} from 'react';
-import {View, TextInput, Keyboard} from 'react-native';
+import React, {memo, forwardRef, useState, useMemo, useCallback} from 'react';
+import {View, StatusBar} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {FormInput} from 'atoms';
 import {composeTestID} from 'core/helpers';
 import {
   useBottomSheetHandleKeyboard,
-  useStaticCallback,
   useThemeStyles,
   useTranslation,
 } from 'core/hooks';
 import {themeStyles} from './styles';
+import {PADDING_HORIZONTAL} from 'core/constants';
 
 interface IProps {
   testID: string;
   initialValue?: string;
   onSendPress: (value: string) => void;
   isSendLoading: boolean;
+  keyboardHeight?: number | null;
+  autoHandleKeyboard?: boolean;
 }
 
 export interface ObjectReportinaccuraciesMenuRef {
@@ -35,23 +28,19 @@ export interface ObjectReportinaccuraciesMenuRef {
 
 export const ObjectReportinaccuraciesMenu = memo(
   forwardRef<ObjectReportinaccuraciesMenuRef, IProps>(
-    ({testID, onSendPress, isSendLoading, openMenu}, ref) => {
+    (
+      {
+        testID,
+        onSendPress,
+        isSendLoading,
+        keyboardHeight,
+        autoHandleKeyboard = false,
+      },
+      ref,
+    ) => {
       const styles = useThemeStyles(themeStyles);
       const {t} = useTranslation('objectDetails');
-      const textInputRef = useRef<TextInput>(null);
       const [value, setValue] = useState<string>('');
-
-      useImperativeHandle(ref, () => ({
-        focus: () => {
-          textInputRef.current?.focus();
-        },
-        blur: () => {
-          textInputRef.current?.blur();
-        },
-        clear: () => {
-          textInputRef.current?.clear();
-        },
-      }));
 
       const onSendPressHandler = useCallback(() => {
         onSendPress(value);
@@ -69,46 +58,41 @@ export const ObjectReportinaccuraciesMenu = memo(
           },
         ];
       }, [isSendLoading, onSendPressHandler, t, testID, value.length]);
-      // const {bottomInset, onFocus, onBlur} = useBottomSheetHandleKeyboard();
 
-      const [keyboardHeight, setKeyboardHeight] = useState(0);
+      const {onFocus, onBlur, bottomInset} = useBottomSheetHandleKeyboard();
 
-      useEffect(() => {
-        Keyboard.addListener('keyboardWillShow', event => {
-          setKeyboardHeight(event.endCoordinates.height + 16);
-        });
-      }, []);
-
-      const timer = useRef(null);
-
-      const onLayout = useStaticCallback(() => {
-        if (timer.current) {
-          clearTimeout(timer.current);
+      const onFocusHandler = useCallback(() => {
+        if (autoHandleKeyboard) {
+          onFocus();
         }
+      }, [onFocus, autoHandleKeyboard]);
 
-        timer.current = setTimeout(() => {
-          if (keyboardHeight) {
-            // console.log('here');
-            openMenu();
-          }
-        }, 10);
-      }, [keyboardHeight, openMenu]);
+      const onBlurHandler = useCallback(() => {
+        if (autoHandleKeyboard) {
+          onBlur();
+        }
+      }, [onBlur, autoHandleKeyboard]);
 
       return (
-        <View testID={testID} onLayout={onLayout} style={styles.container}>
+        <View testID={testID} style={styles.container}>
           <View style={styles.fieldContainer}>
             <FormInput
               testID={composeTestID(testID, 'formInput')}
-              ref={textInputRef}
+              ref={ref}
               value={value}
+              onBlur={onBlurHandler}
+              onFocus={onFocusHandler}
               onChange={setValue}
-              // onFocus={onFocus}
-              // onBlur={onBlur}
               multiline
             />
           </View>
           <ButtonsGroup
-            bottomInset={keyboardHeight}
+            bottomInset={
+              bottomInset ||
+              Number(keyboardHeight) +
+                PADDING_HORIZONTAL +
+                Number(StatusBar?.currentHeight)
+            }
             containerStyle={styles.buttonsContainer}
             buttons={buttons}
           />

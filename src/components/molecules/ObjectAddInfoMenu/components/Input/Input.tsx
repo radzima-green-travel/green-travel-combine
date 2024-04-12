@@ -7,8 +7,6 @@ import {View, KeyboardType} from 'react-native';
 import {composeTestID} from 'core/helpers';
 
 interface IProps {
-  onFocus: () => void;
-  onBlur: () => void;
   onChange: (value: string) => void;
   multiline: boolean | undefined;
   prompt: string;

@@ -3,12 +3,11 @@ import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
 import {ObjectReportinaccuraciesMenu, ObjectSuccessMenu} from 'molecules';
 import {useBottomMenu, useColorScheme, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types/common';
-import React, {memo, useMemo, RefObject, useRef} from 'react';
-import {Keyboard, TextInput} from 'react-native';
+import React, {memo, useMemo} from 'react';
+import {Keyboard} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IProps {
-  innaccuraciesMenuInputRef: RefObject<TextInput>;
   onSendPress: (value: string) => void;
   sendInaccuraciesLoading: boolean;
   reportInaccuraciesSnackBarProps: ReturnType<typeof useSnackbar>;
@@ -23,10 +22,8 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
     reportInaccuraciesSnackBarProps,
     onSendPress,
     sendInaccuraciesLoading,
-    inputRef,
   }: IProps) => {
     const theme = useColorScheme();
-    const ref = useRef<TextInput>(null);
     const {top} = useSafeAreaInsets();
     const {t} = useTranslation('objectDetails');
     const reportInaccuraciesMenuHeader = useMemo(
@@ -35,6 +32,8 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
       }),
       [t],
     );
+
+    const {textInputRef, keyboardHeight} = reportInnacurateInfoMenuProps;
 
     return (
       <Portal>
@@ -46,8 +45,8 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
           header={reportInaccuraciesMenuHeader}
           {...reportInnacurateInfoMenuProps}>
           <ObjectReportinaccuraciesMenu
-            ref={inputRef}
-            openMenu={reportInnacurateInfoMenuProps.openMenu}
+            ref={textInputRef}
+            keyboardHeight={keyboardHeight}
             onSendPress={onSendPress}
             isSendLoading={sendInaccuraciesLoading}
             testID={TestIDs.ObjectReportinaccuraciesMenuContent}

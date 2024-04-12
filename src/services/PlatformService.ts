@@ -17,3 +17,12 @@ export function selectForPlatform<T>(
 ): T | undefined {
   return Platform.select<T>({ios: forIOS, android: forAndroid});
 }
+let keyboardHeight: number | null = null;
+
+export const getDeviceKeyuboardHeight = () => {
+  return keyboardHeight;
+};
+
+export const setDeviceKeyboardHeight = (height: number) => {
+  keyboardHeight = height;
+};

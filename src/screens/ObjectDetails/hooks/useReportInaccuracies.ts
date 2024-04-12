@@ -7,8 +7,8 @@ import {
   useTranslation,
 } from 'core/hooks';
 import {sendInaccuraciesEmailRequest} from 'core/reducers';
-import {useCallback, useRef} from 'react';
-import {Keyboard, TextInput} from 'react-native';
+import {useCallback} from 'react';
+import {Keyboard} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 const entityIdObjectDetails = 'objectDetails';
@@ -22,14 +22,12 @@ export function useReportInaccuracies({
 }) {
   const dispatch = useDispatch();
   const {t} = useTranslation('objectDetails');
-  const innaccuraciesMenuInputRef = useRef<TextInput>(null);
   const reportInnacurateInfoMenuProps = useBottomMenu();
   const reportInnacurateInfoSuccessMenuProps = useBottomMenu();
   const snackBarProps = useSnackbar();
 
   const openInnacurateInfoMenu = useCallback(() => {
-    innaccuraciesMenuInputRef.current?.focus();
-    reportInnacurateInfoMenuProps.openMenu();
+    reportInnacurateInfoMenuProps.openMenuWithInputAutoFocus();
   }, [reportInnacurateInfoMenuProps]);
 
   const openInnacurateInfoSuccessMenu = useCallback(() => {
@@ -89,7 +87,6 @@ export function useReportInaccuracies({
     reportInnacurateInfoMenuProps,
     reportInnacurateInfoSuccessMenuProps,
     reportInaccuraciesSnackBarProps: snackBarProps,
-    innaccuraciesMenuInputRef,
     onSendPress,
     sendInaccuraciesLoading,
   };

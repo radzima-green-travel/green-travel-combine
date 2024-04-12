@@ -130,6 +130,7 @@ export const ObjectDetailsShareExperience = () => {
         <ObjectReportinaccuraciesMenu
           ref={innaccuraciesMenuRef}
           onSendPress={onSendPress}
+          autoHandleKeyboard
           isSendLoading={sendLoading}
           testID={TestIDs.ObjectReportinaccuraciesMenuContent}
         />
