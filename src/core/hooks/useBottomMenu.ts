@@ -50,6 +50,7 @@ export function useBottomMenu() {
   useEffect(() => {
     if (keyboardHeight && isNeedToOpenMenu.current) {
       openMenu();
+      isNeedToOpenMenu.current = false;
     }
   }, [keyboardHeight, openMenu]);
 

@@ -14,7 +14,6 @@ export type HomeNavigatorParamsList = {
     title: string;
   };
   ObjectDetails: {objectId: string; animatedValue?: Animated.Value};
-  ObjectDetailsAddInfo: {objectId: string};
 };
 
 export type BookmarksNavigatorParamsList = {
@@ -24,7 +23,6 @@ export type BookmarksNavigatorParamsList = {
     objectId: string;
     animatedValue?: Animated.Value;
   };
-  ObjectDetailsAddInfo: {objectId: string};
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -42,7 +40,6 @@ export type ProfileNavigatorParamsList = {
     objectId: string;
     animatedValue?: Animated.Value;
   };
-  ObjectDetailsAddInfo: {objectId: string};
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -56,7 +53,6 @@ export type AppMapNavigatorParamsList = {
     objectId: string;
     animatedValue?: Animated.Value;
   };
-  ObjectDetailsAddInfo: {objectId: string};
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -77,7 +73,7 @@ export type MainNavigatorParamsList = {
     objectId: string;
     animatedValue?: Animated.Value;
   };
-  ObjectDetailsAddInfo: {objectId: string};
+  ObjectDetailsAddInfo: {objectId: string; showSuccessMenu?: boolean};
   ImagesGallery: {
     images: string[];
     initialIndex: number;

@@ -7,7 +7,6 @@ import {
   InAppWebViewScreen,
   ObjectDetailsScreen,
   ObjectsListScreen,
-  ObjectDetailsAddInfoScreen,
 } from '../../screens';
 import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../hooks';
@@ -54,11 +53,7 @@ export function ProfileNavigator() {
         component={ObjectDetailsScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="ObjectDetailsAddInfo"
-        component={ObjectDetailsAddInfoScreen}
-        options={{headerShown: false, presentation: 'modal'}}
-      />
+
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>
   );

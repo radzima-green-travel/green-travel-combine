@@ -12,16 +12,16 @@ export function useKeyboardHeight() {
   );
 
   useEffect(() => {
-    if (!keyboardHeight) {
-      const listener = Keyboard.addListener(KEYBOARD_SHOW_EVENT, event => {
+    const listener = Keyboard.addListener(KEYBOARD_SHOW_EVENT, event => {
+      if (keyboardHeight !== event.endCoordinates.height) {
         setKeyboardHeight(event.endCoordinates.height);
         setDeviceKeyboardHeight(event.endCoordinates.height);
-      });
+      }
+    });
 
-      return () => {
-        listener.remove();
-      };
-    }
+    return () => {
+      listener.remove();
+    };
   }, [keyboardHeight]);
 
   return {

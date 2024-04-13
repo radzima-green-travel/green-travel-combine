@@ -1,21 +1,13 @@
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {
-  HomeNavigatorParamsList,
-  MainNavigatorParamsList,
-  TabNavigatorParamsList,
-} from 'core/types';
+import {MainNavigatorParamsList} from 'core/types';
 
-export type ObjectDetailsAddInfoScreenNavigationProps = CompositeNavigationProp<
-  StackNavigationProp<HomeNavigatorParamsList, 'ObjectDetailsAddInfo'>,
-  CompositeNavigationProp<
-    BottomTabNavigationProp<TabNavigatorParamsList>,
-    StackNavigationProp<MainNavigatorParamsList>
-  >
+export type ObjectDetailsAddInfoScreenNavigationProps = StackNavigationProp<
+  MainNavigatorParamsList,
+  'ObjectDetailsAddInfo'
 >;
 
 export type ObjectDetailsAddInfoScreenRouteProps = RouteProp<
-  HomeNavigatorParamsList,
+  MainNavigatorParamsList,
   'ObjectDetailsAddInfo'
 >;

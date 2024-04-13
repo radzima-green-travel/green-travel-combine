@@ -86,6 +86,7 @@ export const sendInaccuraciesEmailRequest = createAction(
     subject: string;
     message: string;
     objectId: string;
+    showSuccessMenu?: boolean;
   },
   {
     success: typeof sendInaccuraciesEmailSuccess;
@@ -94,7 +95,7 @@ export const sendInaccuraciesEmailRequest = createAction(
 >();
 export const sendInaccuraciesEmailSuccess = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_SUCCESS,
-)<void, {entityId?: string} | void>();
+)<boolean | void, {entityId?: string} | void>();
 export const sendInaccuraciesEmailFailure = createAction(
   ACTIONS.SEND_INACCURACIES_EMAIL_FAILURE,
 )<Error, {entityId?: string} | void>();
@@ -111,6 +112,7 @@ export const sendAddInfoEmailRequest = createAction(
     subject: string;
     message: string;
     objectId: string;
+    showSuccessMenu?: boolean;
   },
   {
     success: typeof sendAddInfoEmailSuccess;
@@ -119,7 +121,7 @@ export const sendAddInfoEmailRequest = createAction(
 >();
 export const sendAddInfoEmailSuccess = createAction(
   ACTIONS.SEND_ADD_INFO_EMAIL_SUCCESS,
-)();
+)<boolean>();
 export const sendAddInfoEmailFailure = createAction(
   ACTIONS.SEND_ADD_INFO_EMAIL_FAILURE,
 )<Error>();

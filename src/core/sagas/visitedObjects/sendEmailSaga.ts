@@ -24,12 +24,13 @@ export function* sendEmailSaga({
 }: ReturnType<
   typeof sendInaccuraciesEmailRequest | typeof sendAddInfoEmailRequest
 >) {
+  const {showSuccessMenu = true, ...emailData} = payload;
   try {
     const userId = yield call(getUserIdSaga);
 
-    yield call(amplifyApi.sendEmail, {...payload, userId});
+    yield call(amplifyApi.sendEmail, {...emailData, userId});
 
-    yield put(success());
+    yield put(success(showSuccessMenu));
   } catch (e: any) {
     yield put(failure(e));
   }

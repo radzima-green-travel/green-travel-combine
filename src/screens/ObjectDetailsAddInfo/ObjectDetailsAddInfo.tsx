@@ -10,7 +10,7 @@ import {ObjectField} from 'core/constants';
 import {sendAddInfoEmailRequest} from 'core/reducers';
 import {IObjectIncompleteField, TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
-import {isAndroid, selectForPlatform} from 'services/PlatformService';
+import {selectForPlatform} from 'services/PlatformService';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const ICONS_MAP = {
@@ -120,7 +120,7 @@ export const ObjectDetailsAddInfo = () => {
         </>
       )}
       <ButtonsGroup
-        bottomInset={isAndroid ? 0 : bottom}
+        bottomInset={bottom}
         buttons={buttons}
         containerStyle={styles.buttonContainer}
       />

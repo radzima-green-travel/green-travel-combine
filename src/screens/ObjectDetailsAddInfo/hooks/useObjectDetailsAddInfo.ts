@@ -24,7 +24,7 @@ import {TIME_PICKER_FIELDS} from 'core/constants';
 export const useObjectDetailsAddInfo = () => {
   const navigation = useNavigation<ObjectDetailsAddInfoScreenNavigationProps>();
   const {
-    params: {objectId},
+    params: {objectId, showSuccessMenu},
   } = useRoute<ObjectDetailsAddInfoScreenRouteProps>();
   const {t} = useTranslation('objectDetailsAddInfo');
   const objectData = useObject(objectId);
@@ -101,10 +101,11 @@ export const useObjectDetailsAddInfo = () => {
           subject: t('addInfoEmailSubject', {objectName, fields}),
           message,
           objectId,
+          showSuccessMenu,
         }),
       );
     }
-  }, [objectId, getEmailContents, dispatch, t, objectName]);
+  }, [objectId, objectName, getEmailContents, dispatch, t, showSuccessMenu]);
 
   const {loading: isSendLoading} = useRequestLoading(sendAddInfoEmailRequest);
 

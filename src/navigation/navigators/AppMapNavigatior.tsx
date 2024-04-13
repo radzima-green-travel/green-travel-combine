@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
   AppMapScreen,
-  ObjectDetailsAddInfoScreen,
   ObjectDetailsScreen,
   ObjectsListScreen,
 } from '../../screens';
@@ -35,11 +34,7 @@ export function AppMapNavigatior() {
         component={ObjectDetailsScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="ObjectDetailsAddInfo"
-        component={ObjectDetailsAddInfoScreen}
-        options={{headerShown: false, presentation: 'modal'}}
-      />
+
       <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>
   );

@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import {useSnackbar} from 'atoms';
 import {useOnRequestError, useTranslation} from 'core/hooks';
 import {
@@ -9,11 +10,13 @@ import {selectObjectShareExperienceData} from 'core/selectors';
 import {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-
+import {ObjectDetailsShareExperienceScreenNavigationProps} from '../types';
 export function useShareExperienceData() {
   const dispatch = useDispatch();
   const {t} = useTranslation('objectDetails');
   const [isReportSent, setIsReportSent] = useState(false);
+  const navigation =
+    useNavigation<ObjectDetailsShareExperienceScreenNavigationProps>();
   const {objectId, objectName} =
     useSelector(selectObjectShareExperienceData) || {};
   const {show, ...snackBarProps} = useSnackbar();
@@ -32,6 +35,16 @@ export function useShareExperienceData() {
     },
     [dispatch, objectName, t, objectId],
   );
+
+  const onMissedDetailsPress = useCallback(() => {
+    if (objectId) {
+      navigation.navigate('ObjectDetailsAddInfo', {
+        objectId: objectId,
+        showSuccessMenu: false,
+      });
+    }
+  }, [navigation, objectId]);
+
   const onSubmitPress = useCallback(
     ({
       rating,
@@ -95,5 +108,6 @@ export function useShareExperienceData() {
     isReportSent: isReportSent,
     clearInitialData,
     snackBarProps,
+    onMissedDetailsPress,
   };
 }
