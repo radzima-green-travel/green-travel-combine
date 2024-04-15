@@ -13,7 +13,6 @@ import {
   sendInaccuraciesEmailRequest,
   updateVisitedObjectRequest,
 } from 'core/reducers';
-import {Portal} from '@gorhom/portal';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const ObjectDetailsShareExperience = () => {
@@ -79,7 +78,7 @@ export const ObjectDetailsShareExperience = () => {
   );
 
   return (
-    <Portal>
+    <>
       <Backdrop
         animatedIndex={backdropAnimatedIndex}
         onPress={onBackdropPress}
@@ -138,6 +137,6 @@ export const ObjectDetailsShareExperience = () => {
       </BottomMenu>
 
       <SnackBar offset={-top} isOnTop {...snackBarProps} />
-    </Portal>
+    </>
   );
 };

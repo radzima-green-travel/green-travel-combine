@@ -29,7 +29,7 @@
     "termsAndConditions": "Terms And Conditions",
     "appVersion": "Application version:",
     "objectFieldsLabels": {
-      "upcomingEvents": "Nearest events",
+      "upcomingEvents": "Upcoming events",
       "phoneNumber": "Phone number",
       "address": "Address",
       "name": "Name",

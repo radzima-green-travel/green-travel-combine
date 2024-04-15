@@ -5,6 +5,7 @@ import {
   ObjectDetailsMapScreen,
   ImagesGalleryScreen,
   ObjectDetailsAddInfoScreen,
+  ObjectDetailsShareExperienceScreen,
 } from '../../screens';
 
 import {TabNavigator} from './TabNavigator';
@@ -13,6 +14,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {defaultTransition} from '../transition';
 import {AuthNavigator} from './AuthNavigator';
 import {useAndroidNavbarStyle, useScreenOptions} from 'navigation/hooks';
+import {useSelector} from 'react-redux';
+import {selectObjectShareExperienceData} from 'core/selectors';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
@@ -23,13 +26,25 @@ export function MainNavigator() {
     animation: defaultTransition,
   });
 
+  const objectShareExperienceData = useSelector(
+    selectObjectShareExperienceData,
+  );
+
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
         name="TabNavigator"
-        component={TabNavigator}
-        options={{headerShown: false, animation: 'fade'}}
-      />
+        options={{headerShown: false, animation: 'fade'}}>
+        {() => (
+          <>
+            <TabNavigator />
+
+            {objectShareExperienceData ? (
+              <ObjectDetailsShareExperienceScreen />
+            ) : null}
+          </>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="ObjectDetailsMap"
         component={ObjectDetailsMapScreen}
@@ -64,7 +79,11 @@ export function MainNavigator() {
       <Stack.Screen
         name="ObjectDetailsAddInfo"
         component={ObjectDetailsAddInfoScreen}
-        options={{...screenOptions, headerShown: false, presentation: 'modal'}}
+        options={{
+          ...screenOptions,
+          headerShown: false,
+          presentation: 'transparentModal',
+        }}
       />
     </Stack.Navigator>
   );

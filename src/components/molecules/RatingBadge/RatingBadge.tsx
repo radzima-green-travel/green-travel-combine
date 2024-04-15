@@ -17,7 +17,7 @@ export const RatingBadge = memo(({rating, label, iconName}: IProps) => {
   return (
     <View style={styles.container}>
       <Icon name={iconName} size={16} style={styles.icon} />
-      <Text style={styles.countLabel}>{rating}</Text>
+      <Text style={styles.countLabel}>{rating.toFixed(1)}</Text>
       <Text style={styles.label}>{label}</Text>
     </View>
   );
