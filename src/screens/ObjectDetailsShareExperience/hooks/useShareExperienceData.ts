@@ -1,6 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import {useSnackbar} from 'atoms';
-import {useOnRequestError, useTranslation} from 'core/hooks';
+import {
+  useObject,
+  useObjectIncompleteFields,
+  useOnRequestError,
+  useTranslation,
+} from 'core/hooks';
 import {
   clearShareExperienceData,
   updateVisitedObjectRequest,
@@ -19,6 +24,11 @@ export function useShareExperienceData() {
     useNavigation<ObjectDetailsShareExperienceScreenNavigationProps>();
   const {objectId, objectName} =
     useSelector(selectObjectShareExperienceData) || {};
+
+  const object = useObject(objectId || '');
+  const incompleteFields = useObjectIncompleteFields(
+    object?.category.imcompletedFieldsNames ?? [],
+  );
   const {show, ...snackBarProps} = useSnackbar();
 
   const onSendPress = useCallback(
@@ -109,5 +119,6 @@ export function useShareExperienceData() {
     clearInitialData,
     snackBarProps,
     onMissedDetailsPress,
+    isMissedDetailsButtonVisible: Boolean(incompleteFields.length),
   };
 }

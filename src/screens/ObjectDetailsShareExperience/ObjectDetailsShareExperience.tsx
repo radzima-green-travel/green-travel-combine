@@ -29,6 +29,7 @@ export const ObjectDetailsShareExperience = () => {
     clearInitialData,
     snackBarProps,
     onMissedDetailsPress,
+    isMissedDetailsButtonVisible,
   } = useShareExperienceData();
 
   const {
@@ -102,6 +103,7 @@ export const ObjectDetailsShareExperience = () => {
           isReportSent={isReportSent}
           onSkipPress={shareExperienceMenuProps.closeMenu}
           onMissedDetailsPress={onMissedDetailsPress}
+          isMissedDetailsButtonVisible={isMissedDetailsButtonVisible}
         />
       </BottomMenu>
 

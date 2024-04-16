@@ -21,7 +21,7 @@ const ICONS_MAP = {
   [ObjectField.accommodationPlace]: 'hotel',
   [ObjectField.dinnerPlaces]: 'restaurant',
   [ObjectField.renting]: 'deck',
-  [ObjectField.upcomingEvents]: 'hiking',
+  [ObjectField.upcomingEvents]: 'calendar',
 };
 
 export const ObjectDetailsAddInfo = () => {

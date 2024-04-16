@@ -11,6 +11,6 @@ export const images = {
   eventDark: require('./eventDark.png'),
   placeToEatLight: require('./placeToEatLight.png'),
   placeToEatDark: require('./placeToEatDark.png'),
-  handshakeDark: require('./handshakeDark.png'),
-  handshakeLight: require('./handshakeLight.png'),
+  handshakeDark: require('./handshake.png'),
+  handshakeLight: require('./handshake.png'),
 };

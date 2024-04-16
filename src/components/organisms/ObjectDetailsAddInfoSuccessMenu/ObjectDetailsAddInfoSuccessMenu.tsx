@@ -29,7 +29,7 @@ export const ObjectDetailsAddInfoSuccessMenu = ({
           subtitle={t('addInfoSuccessSubtitle')}
           buttonText={t('cool')}
           imageAsset={theme === 'light' ? 'handshakeLight' : 'handshakeLight'}
-          imageStyle={{width: 181, height: 124}}
+          imageStyle={{width: 240, height: 124}}
         />
       </BottomMenu>
     </Portal>

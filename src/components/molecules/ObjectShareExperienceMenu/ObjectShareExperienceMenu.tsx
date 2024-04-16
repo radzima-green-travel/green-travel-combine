@@ -23,6 +23,7 @@ interface IProps {
   isReportSent: boolean;
   isReportSending: boolean;
   onMissedDetailsPress: () => void;
+  isMissedDetailsButtonVisible: boolean;
 }
 
 export const ObjectShareExperienceMenu = memo(
@@ -37,6 +38,7 @@ export const ObjectShareExperienceMenu = memo(
     isReportSent,
     isReportSending,
     onMissedDetailsPress,
+    isMissedDetailsButtonVisible,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
@@ -110,13 +112,15 @@ export const ObjectShareExperienceMenu = memo(
           onPress={onReportInformationPress}
           label={isReportSent ? t('sent') : undefined}
         />
-        <ListItem
-          testID={composeTestID(testID, 'missedDetailsButton')}
-          containerStyle={styles.listItem}
-          tailIcon={'chevronMediumRight'}
-          title={t('missedDetails')}
-          onPress={onMissedDetailsPress}
-        />
+        {isMissedDetailsButtonVisible ? (
+          <ListItem
+            testID={composeTestID(testID, 'missedDetailsButton')}
+            containerStyle={styles.listItem}
+            tailIcon={'chevronMediumRight'}
+            title={t('missedDetails')}
+            onPress={onMissedDetailsPress}
+          />
+        ) : null}
         <ButtonsGroup
           bottomInset={bottom}
           containerStyle={styles.buttonsContainer}
