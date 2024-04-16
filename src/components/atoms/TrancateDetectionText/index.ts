@@ -1,0 +1,1 @@
+export {TrancateDetectionText} from './TrancateDetectionText';

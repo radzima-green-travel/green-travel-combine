@@ -20,6 +20,7 @@ export interface BaseListItemProps {
   position?: 'top' | 'middle' | 'bottom' | 'single';
   titleNumberOfLines?: number;
   boldTitle?: boolean;
+  onTitleTruncate?: (isTruncated: boolean) => void;
 }
 
 export interface ListItemWrapperProps {

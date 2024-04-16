@@ -1,4 +1,4 @@
-import React, {ComponentProps, memo} from 'react';
+import React, {ComponentProps, memo, useState} from 'react';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {View} from 'react-native';
@@ -26,6 +26,7 @@ interface IProps {
 export const ObjectInfoSection = memo(({items}: IProps) => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('objectDetails');
+  const [isTitleTrunctated, setIsTitleTruncated] = useState(false);
 
   const renderSectionItem = (item: Item, index: number) => {
     const {
@@ -40,6 +41,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
       contentStylingType = 'secondary',
       boldTitle,
     } = item;
+
     let position: ComponentProps<typeof ListItem>['position'] = 'single';
 
     if (items.length - 1 !== 0) {
@@ -66,10 +68,13 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
         titleNumberOfLines={titleNumberOfLines}
         tailIconStyle={withDropdown ? styles.dropdownTextStyle : undefined}
         labelStyle={withDropdown ? styles.dropdownTextStyle : undefined}
-        tailIcon={withDropdown ? 'chevronShortDown' : undefined}
-        label={withDropdown ? t('details') : undefined}
+        tailIcon={
+          withDropdown && isTitleTrunctated ? 'chevronShortDown' : undefined
+        }
+        label={withDropdown && isTitleTrunctated ? t('details') : undefined}
         onPress={onPress}
         boldTitle={boldTitle}
+        onTitleTruncate={withDropdown ? setIsTitleTruncated : undefined}
       />
     );
   };

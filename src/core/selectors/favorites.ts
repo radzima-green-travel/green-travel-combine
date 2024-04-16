@@ -16,7 +16,12 @@ export const selectBookmarksIdsFromFavorites = createSelector(
       (acc, value, objectId) => {
         const [status] = value;
 
-        if (status && transformedData?.objectsMap[objectId]) {
+        const categoryId = transformedData?.objectsToCategoryMap[objectId];
+        const category = categoryId
+          ? transformedData?.categoriesMap?.[categoryId]
+          : null;
+
+        if (status && transformedData?.objectsMap[objectId] && category) {
           acc.push(objectId);
         }
 

@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
-import {Icon} from 'atoms';
+import {Icon, TrancateDetectionText} from 'atoms';
 import {ListItemWrapper} from './ListItemWrapper';
 import {themeStyles} from './styles';
 import {BaseListItemProps} from './types';
@@ -25,6 +25,7 @@ export const BaseListItem = memo(
     tailIconStyle,
     labelStyle,
     boldTitle = true,
+    onTitleTruncate,
   }: BaseListItemProps) => {
     const styles = useThemeStyles(themeStyles);
 
@@ -47,8 +48,10 @@ export const BaseListItem = memo(
     };
 
     const renderTitle = () => {
+      const TextComponent = onTitleTruncate ? TrancateDetectionText : Text;
+
       const titleNode = (
-        <Text
+        <TextComponent
           style={[
             styles.title,
             (contentStylingType === 'secondary' || !boldTitle) &&
@@ -56,9 +59,10 @@ export const BaseListItem = memo(
             onSubtitlePress && styles.titleLink,
           ]}
           numberOfLines={titleNumberOfLines}
-          ellipsizeMode="tail">
+          ellipsizeMode="tail"
+          onTruncate={onTitleTruncate}>
           {title}
-        </Text>
+        </TextComponent>
       );
 
       if (onSubtitlePress) {
