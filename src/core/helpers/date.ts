@@ -6,6 +6,10 @@ export function msToHoursAndMinutes(ms: number) {
   return {hours, minutes};
 }
 
+export function isDateInThePast(date: string) {
+  return new Date(date) < new Date();
+}
+
 export function dateToReadableString(
   dateString: string,
   locale: SupportedLocales,
@@ -21,10 +25,5 @@ export function dateToReadableString(
     dayAndMonthName = `${day} ${monthName}`;
   }
 
-  const time = date.toLocaleString(locale, {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-
-  return `${dayAndMonthName} ${time}`;
+  return dayAndMonthName;
 }

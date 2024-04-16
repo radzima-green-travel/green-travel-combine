@@ -16,10 +16,19 @@ interface IProps {
   subtitle: string;
   buttonText: string;
   imageAsset: keyof typeof images;
+  imageStyle?: StyleProp<ImageStyle>;
 }
 
 export const ObjectSuccessMenu = memo(
-  ({testID, onPress, title, subtitle, buttonText, imageAsset}: IProps) => {
+  ({
+    testID,
+    onPress,
+    title,
+    subtitle,
+    buttonText,
+    imageAsset,
+    imageStyle,
+  }: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     const buttons = useMemo(() => {
@@ -38,7 +47,7 @@ export const ObjectSuccessMenu = memo(
       <View testID={testID} style={styles.container}>
         <Image
           source={images[imageAsset]}
-          style={styles.image as StyleProp<ImageStyle>}
+          style={[styles.image as StyleProp<ImageStyle>, imageStyle]}
         />
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>

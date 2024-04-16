@@ -49,7 +49,7 @@ import {
   UpcomingEventsItem,
 } from 'api/graphql/types';
 import transliterate from './transliterate';
-import {dateToReadableString} from './date';
+import {dateToReadableString, isDateInThePast} from './date';
 import {ObjectField} from 'core/constants';
 
 export const extractThemeStyles = (
@@ -191,25 +191,35 @@ export function prepareObjectAdditionalInfoItems(
   items: Array<AccommodationPlaceItem | DinnerPlacesItem | UpcomingEventsItem>,
   currentLocale: SupportedLocales,
 ): IObjectAddititonalInfoItem[] {
-  return map(items, item => {
-    const translatedProperties = getTranslationsForProperties(
-      {name: item.name},
-      item.i18n,
-      currentLocale,
-    );
+  return reduce(
+    items,
+    (acc, item) => {
+      const translatedProperties = getTranslationsForProperties(
+        {name: item.name},
+        item.i18n,
+        currentLocale,
+      );
 
-    const placeItem = item as AccommodationPlaceItem | DinnerPlacesItem;
-    const eventItem = item as UpcomingEventsItem;
+      const placeItem = item as AccommodationPlaceItem | DinnerPlacesItem;
+      const eventItem = item as UpcomingEventsItem;
 
-    return {
-      name: translatedProperties.name,
-      date: eventItem.date
-        ? dateToReadableString(eventItem.date, currentLocale)
-        : '',
-      link: placeItem.messengerLink || eventItem.link,
-      googleLink: placeItem.googleMapLink,
-    };
-  });
+      if (eventItem.date && isDateInThePast(eventItem.date)) {
+        return acc;
+      }
+
+      acc.push({
+        name: translatedProperties.name,
+        date: eventItem.date
+          ? dateToReadableString(eventItem.date, currentLocale)
+          : '',
+        link: placeItem.messengerLink || eventItem.link,
+        googleLink: placeItem.googleMapLink,
+      });
+
+      return acc;
+    },
+    [] as IObjectAddititonalInfoItem[],
+  );
 }
 
 export function prepareObjectInclude(

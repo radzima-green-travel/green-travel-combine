@@ -1,4 +1,4 @@
-import {useThemeStyles} from 'core/hooks';
+import {useColorScheme, useThemeStyles} from 'core/hooks';
 import React, {memo} from 'react';
 import {Text, View} from 'react-native';
 import {themeStyles} from './styles';
@@ -6,7 +6,7 @@ import {composeTestID, tryOpenURL} from 'core/helpers';
 import {Card} from 'molecules';
 import {IObjectAddititonalInfoItem} from 'core/types';
 import {images} from 'assets/images';
-import {map} from 'lodash';
+import {capitalize, map} from 'lodash';
 
 interface IProps {
   items: IObjectAddititonalInfoItem[];
@@ -18,6 +18,9 @@ interface IProps {
 export const ObjectInfoCardItemsSection = memo(
   ({items, testID, type, title}: IProps) => {
     const styles = useThemeStyles(themeStyles);
+    const scheme = useColorScheme();
+
+    const colorThemeSufix = capitalize(scheme) as 'Light' | 'Dark';
 
     const renderCards = () =>
       map(items, (item, index) => {
@@ -33,7 +36,7 @@ export const ObjectInfoCardItemsSection = memo(
             onRightButtonPress={
               googleLink ? () => tryOpenURL(googleLink) : undefined
             }
-            leftImageAsset={images[type]}
+            leftImageAsset={images[type + colorThemeSufix]}
             testID={composeTestID(testID, 'item')}
           />
         );

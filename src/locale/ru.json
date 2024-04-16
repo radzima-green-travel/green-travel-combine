@@ -147,8 +147,8 @@
       "attendanceTime": "Сколько времени вы потратили?"
     },
     "addInfoEmailSubject": "{{objectName}} новая информация {{fields}}",
-    "addInfoSuccessTitle": "Спасибо за информацию!",
-    "addInfoSuccessSubtitle": "Ваш отзыв отправлен.",
+    "addInfoSuccessTitle": "Спасибо за помощь!",
+    "addInfoSuccessSubtitle": "Наша команда проверит информацию",
     "cool": "Супер!"
   },
   "bookmarks": {

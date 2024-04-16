@@ -147,8 +147,8 @@
       "attendanceTime": "How much time did you spend?"
     },
     "addInfoEmailSubject": "{{objectName}} new information {{fields}}",
-    "addInfoSuccessTitle": "Thank you for sharing!",
-    "addInfoSuccessSubtitle": "You feedback sent.",
+    "addInfoSuccessTitle": "Thanks for your help!",
+    "addInfoSuccessSubtitle": "Our team will check the information",
     "cool": "Cool!"
   },
   "bookmarks": {

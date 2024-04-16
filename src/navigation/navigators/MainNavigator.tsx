@@ -82,7 +82,7 @@ export function MainNavigator() {
         options={{
           ...screenOptions,
           headerShown: false,
-          presentation: 'transparentModal',
+          presentation: 'modal',
         }}
       />
     </Stack.Navigator>
