@@ -72,7 +72,9 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
           withDropdown && isTitleTrunctated ? 'chevronShortDown' : undefined
         }
         label={withDropdown && isTitleTrunctated ? t('details') : undefined}
-        onPress={onPress}
+        onPress={
+          withDropdown ? (isTitleTrunctated ? onPress : undefined) : onPress
+        }
         boldTitle={boldTitle}
         onTitleTruncate={withDropdown ? setIsTitleTruncated : undefined}
       />
