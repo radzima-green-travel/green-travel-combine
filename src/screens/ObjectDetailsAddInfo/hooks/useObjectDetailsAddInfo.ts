@@ -107,6 +107,8 @@ export const useObjectDetailsAddInfo = () => {
     if (objectId && objectName) {
       const {message, fields} = getEmailContents();
 
+      confirmBottomMenuProps.closeMenu();
+
       dispatch(
         sendAddInfoEmailRequest({
           subject: t('addInfoEmailSubject', {objectName, fields}),
@@ -116,7 +118,15 @@ export const useObjectDetailsAddInfo = () => {
         }),
       );
     }
-  }, [objectId, objectName, getEmailContents, dispatch, t, showSuccessMenu]);
+  }, [
+    objectId,
+    objectName,
+    getEmailContents,
+    dispatch,
+    t,
+    showSuccessMenu,
+    confirmBottomMenuProps,
+  ]);
 
   const {loading: isSendLoading} = useRequestLoading(sendAddInfoEmailRequest);
 
