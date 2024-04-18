@@ -32,6 +32,7 @@ export const useObjectDetailsAddInfo = () => {
     objectData?.category.imcompletedFieldsNames ?? [],
   );
   const bottomMenuProps = useBottomMenu();
+  const confirmBottomMenuProps = useBottomMenu();
   const [currentField, setCurrentField] =
     useState<IObjectIncompleteField | null>(null);
   const {form, onChangeField, isFormValid, getDisplayValue} =
@@ -92,6 +93,16 @@ export const useObjectDetailsAddInfo = () => {
     return contents;
   }, [form, getDisplayValue, incompleteFields]);
 
+  const checkForUnsavedFields = useCallback(() => {
+    const {fields} = getEmailContents();
+
+    if (fields) {
+      confirmBottomMenuProps.openMenu();
+      return;
+    }
+    navigateBack();
+  }, [confirmBottomMenuProps, getEmailContents, navigateBack]);
+
   const onSendPress = useCallback(() => {
     if (objectId && objectName) {
       const {message, fields} = getEmailContents();
@@ -135,5 +146,7 @@ export const useObjectDetailsAddInfo = () => {
     onSendPress,
     isSendLoading,
     snackBarProps,
+    checkForUnsavedFields,
+    confirmMenuProps: confirmBottomMenuProps,
   };
 };

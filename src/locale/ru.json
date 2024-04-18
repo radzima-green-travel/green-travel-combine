@@ -149,7 +149,11 @@
     "addInfoEmailSubject": "{{objectName}} новая информация {{fields}}",
     "addInfoSuccessTitle": "Спасибо за помощь!",
     "addInfoSuccessSubtitle": "Наша команда проверит информацию",
-    "cool": "Супер!"
+    "cool": "Супер!",
+    "confirmAddedInfoTitle": "Сохранить добавленную информацию?",
+    "confirmAddedInfoSubtitle": "Если вы уйдете сейчас, то введенная информация не будет отправлена и вы не сможете нам помочь.",
+    "confirmAddedInfoSubmit": "Да, сохранить",
+    "confirmAddedInfoDecline": "Не сохранять"
   },
   "bookmarks": {
     "emptyText": "Вы пока ничего сюда не добавили"

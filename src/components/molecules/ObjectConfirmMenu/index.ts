@@ -1,0 +1,1 @@
+export {ObjectConfirmMenu} from './ObjectConfirmMenu';
