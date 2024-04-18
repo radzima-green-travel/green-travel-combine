@@ -149,7 +149,11 @@
     "addInfoEmailSubject": "{{objectName}} new information {{fields}}",
     "addInfoSuccessTitle": "Thanks for your help!",
     "addInfoSuccessSubtitle": "Our team will check the information",
-    "cool": "Cool!"
+    "cool": "Cool!",
+    "confirmAddedInfoTitle": "Save the added information?",
+    "confirmAddedInfoSubtitle": "If you leave now, the entered information will not be submitted and you will not help us.",
+    "confirmAddedInfoSubmit": "Yes, save",
+    "confirmAddedInfoDecline": "Do not save"
   },
   "bookmarks": {
     "emptyText": "Nothing is saved for now"

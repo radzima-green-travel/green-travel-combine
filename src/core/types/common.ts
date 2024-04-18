@@ -289,4 +289,6 @@ export enum TestIDs {
   ObjectDetailsDinnerPlaces = 'objectDetailsDinnerPlaces',
   ObjectDetailsIncludes = 'objectDetailsIncludes',
   ObjectDetailsBelongsTo = 'objectDetailsBelongsTo',
+  ObjectDetailsAddInfoConfirmMenu = 'objectDetailsAddInfoConfirmMenu',
+  ObjectDetailsAddInfoConfirmContent = 'objectDetailsAddInfoConfirmContent',
 }

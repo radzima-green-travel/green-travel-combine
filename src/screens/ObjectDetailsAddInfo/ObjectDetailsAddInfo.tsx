@@ -7,6 +7,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useObjectDetailsAddInfo} from './hooks';
 import {ObjectDetailsAddInfoMenu} from 'organisms';
 import {ObjectField} from 'core/constants';
+import {BottomMenu} from 'atoms';
+import {ObjectConfirmMenu} from 'molecules';
 import {sendAddInfoEmailRequest} from 'core/reducers';
 import {IObjectIncompleteField, TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
@@ -42,6 +44,8 @@ export const ObjectDetailsAddInfo = () => {
     onSendPress,
     isSendLoading,
     snackBarProps,
+    checkForUnsavedFields,
+    confirmMenuProps,
   } = useObjectDetailsAddInfo();
 
   const onItemPress = useCallback(
@@ -80,7 +84,7 @@ export const ObjectDetailsAddInfo = () => {
         <AnimatedCircleButton
           icon={{name: 'chevronMediumLeft'}}
           testID={TestIDs.HeaderBackButton}
-          onPress={navigateBack}
+          onPress={checkForUnsavedFields}
         />
       </View>
       {!!name && (
@@ -124,6 +128,20 @@ export const ObjectDetailsAddInfo = () => {
         buttons={buttons}
         containerStyle={styles.buttonContainer}
       />
+      <BottomMenu
+        withBackdrop
+        testID={TestIDs.ObjectDetailsAddInfoConfirmMenu}
+        {...confirmMenuProps}>
+        <ObjectConfirmMenu
+          testID={TestIDs.ObjectDetailsAddInfoConfirmContent}
+          title={t('confirmAddedInfoTitle')}
+          subtitle={t('confirmAddedInfoSubtitle')}
+          buttonConfirmText={t('confirmAddedInfoSubmit')}
+          buttonDeclineText={t('confirmAddedInfoDecline')}
+          onConfirmPress={onSendPress}
+          onDeclinePress={navigateBack}
+        />
+      </BottomMenu>
     </View>
   );
 };
