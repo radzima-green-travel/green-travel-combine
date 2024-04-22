@@ -55,8 +55,14 @@ export const ConfirmMenu = memo(
 
     return (
       <View testID={testID} style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <Text testID={composeTestID(testID, 'title')} style={styles.title}>
+          {title}
+        </Text>
+        <Text
+          testID={composeTestID(testID, 'subtitle')}
+          style={styles.subtitle}>
+          {subtitle}
+        </Text>
         <ButtonsGroup
           bottomInset={bottom}
           containerStyle={styles.buttonsContainer}
