@@ -107,15 +107,6 @@ export const useObjectDetailsAddInfo = () => {
     }
   };
 
-  useBackHandler(() => {
-    if (getIsDataCanBeLost() && confirmBottomMenuProps.isMenuClosed()) {
-      confirmBottomMenuProps.openMenu();
-      return true;
-    }
-
-    return false;
-  });
-
   const onSendPress = useCallback(() => {
     if (objectId && objectName) {
       const {message, fields} = getEmailContents();
@@ -153,6 +144,19 @@ export const useObjectDetailsAddInfo = () => {
       });
     },
   );
+
+  useBackHandler(() => {
+    if (isSendLoading) {
+      return true;
+    }
+
+    if (getIsDataCanBeLost() && confirmBottomMenuProps.isMenuClosed()) {
+      confirmBottomMenuProps.openMenu();
+      return true;
+    }
+
+    return false;
+  });
 
   return {
     name: objectName,

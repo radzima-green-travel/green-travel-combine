@@ -72,7 +72,9 @@ export const ObjectDetailsAddInfo = () => {
   const {bottom} = useSafeAreaInsets();
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      pointerEvents={isSendLoading ? 'none' : 'auto'}>
       <View
         style={[
           styles.header,
