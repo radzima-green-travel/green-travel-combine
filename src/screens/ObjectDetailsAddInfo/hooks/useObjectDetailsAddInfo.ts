@@ -43,6 +43,11 @@ export const useObjectDetailsAddInfo = () => {
   const snackBarProps = useSnackbar();
   const objectName = objectData?.name;
 
+  const getIsDataCanBeLost = () => {
+    const {fields} = getEmailContents();
+    return !!fields;
+  };
+
   const toggleMenu = useCallback(
     (menu: IObjectIncompleteField | null) => {
       setCurrentField(menu);
@@ -94,23 +99,21 @@ export const useObjectDetailsAddInfo = () => {
     return contents;
   }, [form, getDisplayValue, incompleteFields]);
 
-  const openConfirmMenu = useCallback(() => {
-    const {fields} = getEmailContents();
-
-    if (fields) {
+  const onBackPress = () => {
+    if (getIsDataCanBeLost()) {
       confirmBottomMenuProps.openMenu();
-      return;
+    } else {
+      navigateBack();
     }
-    navigateBack();
-  }, [confirmBottomMenuProps, getEmailContents, navigateBack]);
+  };
 
   useBackHandler(() => {
-    if (!confirmBottomMenuProps.isMenuOpened()) {
-      openConfirmMenu();
-    } else {
-      confirmBottomMenuProps.closeMenu();
+    if (getIsDataCanBeLost() && confirmBottomMenuProps.isMenuClosed()) {
+      confirmBottomMenuProps.openMenu();
+      return true;
     }
-    return true;
+
+    return false;
   });
 
   const onSendPress = useCallback(() => {
@@ -166,7 +169,7 @@ export const useObjectDetailsAddInfo = () => {
     onSendPress,
     isSendLoading,
     snackBarProps,
-    openConfirmMenu,
+    onBackPress,
     confirmMenuProps: confirmBottomMenuProps,
   };
 };
