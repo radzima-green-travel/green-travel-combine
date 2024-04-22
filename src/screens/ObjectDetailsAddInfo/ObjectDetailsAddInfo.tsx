@@ -8,7 +8,7 @@ import {useObjectDetailsAddInfo} from './hooks';
 import {ObjectDetailsAddInfoMenu} from 'organisms';
 import {ObjectField} from 'core/constants';
 import {BottomMenu} from 'atoms';
-import {ObjectConfirmMenu} from 'molecules';
+import {ConfirmMenu} from 'molecules';
 import {sendAddInfoEmailRequest} from 'core/reducers';
 import {IObjectIncompleteField, TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
@@ -44,7 +44,7 @@ export const ObjectDetailsAddInfo = () => {
     onSendPress,
     isSendLoading,
     snackBarProps,
-    checkForUnsavedFields,
+    openConfirmMenu,
     confirmMenuProps,
   } = useObjectDetailsAddInfo();
 
@@ -84,7 +84,7 @@ export const ObjectDetailsAddInfo = () => {
         <AnimatedCircleButton
           icon={{name: 'chevronMediumLeft'}}
           testID={TestIDs.HeaderBackButton}
-          onPress={checkForUnsavedFields}
+          onPress={openConfirmMenu}
         />
       </View>
       {!!name && (
@@ -132,7 +132,7 @@ export const ObjectDetailsAddInfo = () => {
         withBackdrop
         testID={TestIDs.ObjectDetailsAddInfoConfirmMenu}
         {...confirmMenuProps}>
-        <ObjectConfirmMenu
+        <ConfirmMenu
           testID={TestIDs.ObjectDetailsAddInfoConfirmContent}
           title={t('confirmAddedInfoTitle')}
           subtitle={t('confirmAddedInfoSubtitle')}
