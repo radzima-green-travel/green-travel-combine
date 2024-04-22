@@ -97,10 +97,6 @@ export const useObjectDetailsAddInfo = () => {
   const openConfirmMenu = useCallback(() => {
     const {fields} = getEmailContents();
 
-    if (confirmBottomMenuProps.isMenuOpened()) {
-      return;
-    }
-
     if (fields) {
       confirmBottomMenuProps.openMenu();
       return;
@@ -109,8 +105,11 @@ export const useObjectDetailsAddInfo = () => {
   }, [confirmBottomMenuProps, getEmailContents, navigateBack]);
 
   useBackHandler(() => {
-    openConfirmMenu();
-    return true;
+    if (confirmBottomMenuProps.isMenuOpened()) {
+      openConfirmMenu();
+      return true;
+    }
+    return false;
   });
 
   const onSendPress = useCallback(() => {
