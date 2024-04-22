@@ -107,9 +107,10 @@ export const useObjectDetailsAddInfo = () => {
   useBackHandler(() => {
     if (!confirmBottomMenuProps.isMenuOpened()) {
       openConfirmMenu();
-      return true;
+    } else {
+      confirmBottomMenuProps.closeMenu();
     }
-    return false;
+    return true;
   });
 
   const onSendPress = useCallback(() => {
