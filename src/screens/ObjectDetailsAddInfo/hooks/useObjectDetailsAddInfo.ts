@@ -105,7 +105,7 @@ export const useObjectDetailsAddInfo = () => {
   }, [confirmBottomMenuProps, getEmailContents, navigateBack]);
 
   useBackHandler(() => {
-    if (confirmBottomMenuProps.isMenuOpened()) {
+    if (!confirmBottomMenuProps.isMenuOpened()) {
       openConfirmMenu();
       return true;
     }
