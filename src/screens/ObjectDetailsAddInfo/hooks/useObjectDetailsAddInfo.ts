@@ -1,8 +1,4 @@
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   ObjectDetailsAddInfoScreenNavigationProps,
   ObjectDetailsAddInfoScreenRouteProps,
@@ -14,9 +10,10 @@ import {
   useOnRequestError,
   useRequestLoading,
   useTranslation,
+  useBackHandler,
 } from 'core/hooks';
 import {useCallback, useState} from 'react';
-import {Keyboard, BackHandler} from 'react-native';
+import {Keyboard} from 'react-native';
 import {useObjectInfoForm} from './useObjectInfoForm';
 import {useDispatch} from 'react-redux';
 import {sendAddInfoEmailRequest} from 'core/reducers';
@@ -111,21 +108,10 @@ export const useObjectDetailsAddInfo = () => {
     navigateBack();
   }, [confirmBottomMenuProps, getEmailContents, navigateBack]);
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        openConfirmMenu();
-        return true;
-      };
-
-      const subscription = BackHandler.addEventListener(
-        'hardwareBackPress',
-        onBackPress,
-      );
-
-      return () => subscription.remove();
-    }, [openConfirmMenu]),
-  );
+  useBackHandler(() => {
+    openConfirmMenu();
+    return true;
+  });
 
   const onSendPress = useCallback(() => {
     if (objectId && objectName) {
