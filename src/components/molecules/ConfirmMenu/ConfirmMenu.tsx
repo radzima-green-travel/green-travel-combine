@@ -1,7 +1,7 @@
 import React, {memo, useMemo} from 'react';
 import {View, Text} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
-import {composeTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 
@@ -54,12 +54,14 @@ export const ConfirmMenu = memo(
     const {bottom} = useSafeAreaInsets();
 
     return (
-      <View testID={testID} style={styles.container}>
-        <Text testID={composeTestID(testID, 'title')} style={styles.title}>
+      <View {...getPlatformsTestID(testID)} style={styles.container}>
+        <Text
+          {...getPlatformsTestID(composeTestID(testID, 'title'))}
+          style={styles.title}>
           {title}
         </Text>
         <Text
-          testID={composeTestID(testID, 'subtitle')}
+          {...getPlatformsTestID(composeTestID(testID, 'subtitle'))}
           style={styles.subtitle}>
           {subtitle}
         </Text>

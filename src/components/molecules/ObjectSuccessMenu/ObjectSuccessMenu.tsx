@@ -1,7 +1,7 @@
 import React, {memo, useMemo} from 'react';
 import {View, Text, StyleProp, ImageStyle} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
-import {composeTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 
@@ -44,13 +44,22 @@ export const ObjectSuccessMenu = memo(
     const {bottom} = useSafeAreaInsets();
 
     return (
-      <View testID={testID} style={styles.container}>
+      <View {...getPlatformsTestID(testID)} style={styles.container}>
         <Image
+          {...getPlatformsTestID(composeTestID(testID, 'image'))}
           source={images[imageAsset]}
           style={[styles.image as StyleProp<ImageStyle>, imageStyle]}
         />
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <Text
+          {...getPlatformsTestID(composeTestID(testID, 'title'))}
+          style={styles.title}>
+          {title}
+        </Text>
+        <Text
+          {...getPlatformsTestID(composeTestID(testID, 'subtitle'))}
+          style={styles.subtitle}>
+          {subtitle}
+        </Text>
         <ButtonsGroup
           bottomInset={bottom}
           containerStyle={styles.buttonsContainer}
