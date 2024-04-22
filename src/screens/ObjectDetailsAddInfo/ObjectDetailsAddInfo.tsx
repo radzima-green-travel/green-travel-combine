@@ -44,7 +44,7 @@ export const ObjectDetailsAddInfo = () => {
     onSendPress,
     isSendLoading,
     snackBarProps,
-    openConfirmMenu,
+    onBackPress,
     confirmMenuProps,
   } = useObjectDetailsAddInfo();
 
@@ -84,7 +84,7 @@ export const ObjectDetailsAddInfo = () => {
         <AnimatedCircleButton
           icon={{name: 'chevronMediumLeft'}}
           testID={TestIDs.HeaderBackButton}
-          onPress={openConfirmMenu}
+          onPress={onBackPress}
         />
       </View>
       {!!name && (
