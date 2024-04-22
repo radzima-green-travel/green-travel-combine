@@ -11,7 +11,7 @@ import {
   useRequestLoading,
   useTranslation,
 } from 'core/hooks';
-import {useCallback, useState} from 'react';
+import {useCallback, useState, useEffect} from 'react';
 import {Keyboard} from 'react-native';
 import {useObjectInfoForm} from './useObjectInfoForm';
 import {useDispatch} from 'react-redux';
@@ -93,7 +93,7 @@ export const useObjectDetailsAddInfo = () => {
     return contents;
   }, [form, getDisplayValue, incompleteFields]);
 
-  const checkForUnsavedFields = useCallback(() => {
+  const openConfirmMenu = useCallback(() => {
     const {fields} = getEmailContents();
 
     if (fields) {
@@ -128,6 +128,14 @@ export const useObjectDetailsAddInfo = () => {
     confirmBottomMenuProps,
   ]);
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', () => {
+      openConfirmMenu();
+    });
+
+    return unsubscribe;
+  }, [navigation, openConfirmMenu]);
+
   const {loading: isSendLoading} = useRequestLoading(sendAddInfoEmailRequest);
 
   useOnRequestError(
@@ -156,7 +164,7 @@ export const useObjectDetailsAddInfo = () => {
     onSendPress,
     isSendLoading,
     snackBarProps,
-    checkForUnsavedFields,
+    openConfirmMenu,
     confirmMenuProps: confirmBottomMenuProps,
   };
 };

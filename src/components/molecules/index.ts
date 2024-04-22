@@ -28,7 +28,7 @@ export {UpdateBottomMenu} from './UpdateBottomMenu';
 export {UpdateView} from './UpdateView';
 export {SearchEmptyView} from './SearchEmptyView';
 export {ObjectDetailsBottomButtons} from './ObjectDetailsBottomButtons';
-export {ObjectConfirmMenu} from './ObjectConfirmMenu';
+export {ConfirmMenu} from './ConfirmMenu';
 export {Ratings} from './Ratings';
 export {ObjectShareExperienceMenu} from './ObjectShareExperienceMenu';
 export {ButtonsGroup} from './ButtonsGroup';

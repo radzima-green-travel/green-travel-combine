@@ -17,7 +17,7 @@ interface IProps {
   buttonDeclineText: string;
 }
 
-export const ObjectConfirmMenu = memo(
+export const ConfirmMenu = memo(
   ({
     testID,
     onConfirmPress,
