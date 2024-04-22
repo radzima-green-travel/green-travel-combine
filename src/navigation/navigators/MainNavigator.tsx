@@ -83,6 +83,7 @@ export function MainNavigator() {
           ...screenOptions,
           headerShown: false,
           presentation: 'modal',
+          gestureEnabled: false,
         }}
       />
     </Stack.Navigator>
