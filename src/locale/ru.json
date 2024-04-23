@@ -119,7 +119,7 @@
     "helpUsToComplete": "Помогите нам заполнить\nинформацию",
     "readyOn": "Готово на {{percentage}}%",
     "showMore": "Показать больше",
-    "showLess": "Скрыть",
+    "showLess": "Показать меньше",
     "time": {
       "hour": "{{hours}} час",
       "minutes": "{{minutes}} минут",
