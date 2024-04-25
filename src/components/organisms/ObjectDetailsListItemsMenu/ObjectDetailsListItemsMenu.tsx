@@ -16,7 +16,7 @@ interface IProps {
 
 const MenuItem = memo(
   ({
-    title = '',
+    title,
     subtitle = '',
     onSubtitlePress,
     leadIcon,
