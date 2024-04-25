@@ -109,20 +109,19 @@ export function useObjectDetailsInfo() {
         leadIcon: 'hourglass',
         testID: TestIDs.ObjectDetailsAttendanceTime,
       },
-      phoneNumbers &&
-        phoneNumbers.length && {
-          subtitle: t('objectFieldsLabels.phoneNumber'),
-          title: phoneNumbers[0],
-          leadIcon: 'telephone',
-          onSubtitlePress: () => onTelephonePress(phoneNumbers[0]),
-          testID: TestIDs.ObjectDetailsPhoneNumber,
-          label: t('objectFieldsLabels.phoneNumberMore', {
-            amount: phoneNumbers?.length - 1,
-          }),
-          withDropdown: areSeveralPhoneNumbers,
-          isAlwaysTrunctated: true,
-          onRightLabelPress: openPhoneNumbersMenu,
-        },
+      phoneNumbers?.length && {
+        subtitle: t('objectFieldsLabels.phoneNumber'),
+        title: phoneNumbers[0],
+        leadIcon: 'telephone',
+        onSubtitlePress: () => onTelephonePress(phoneNumbers[0]),
+        testID: TestIDs.ObjectDetailsPhoneNumber,
+        label: t('objectFieldsLabels.phoneNumberMore', {
+          amount: phoneNumbers?.length - 1,
+        }),
+        withDropdown: areSeveralPhoneNumbers,
+        isAlwaysTrunctated: true,
+        onRightLabelPress: openPhoneNumbersMenu,
+      },
     ] as Item[]);
   }, [
     getAttendaceStringTime,
