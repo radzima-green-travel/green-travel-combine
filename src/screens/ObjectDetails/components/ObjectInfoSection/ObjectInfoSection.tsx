@@ -7,11 +7,11 @@ import {ListItem} from 'molecules';
 import {StyleProp, ViewStyle} from 'react-native';
 
 export type Item = {
-  title?: string;
+  title: string;
   subtitle?: string;
   onSubtitlePress?: () => void;
   testID: string;
-  icon: IconsNames;
+  leadIcon: IconsNames;
   titleNumberOfLines?: number;
   withDropdown?: boolean;
   onPress?: () => void;
@@ -42,7 +42,7 @@ export const ObjectInfoSection = memo(
         title = '',
         subtitle = '',
         onSubtitlePress,
-        icon,
+        leadIcon,
         testID,
         titleNumberOfLines,
         withDropdown,
@@ -84,7 +84,7 @@ export const ObjectInfoSection = memo(
           subtitle={subtitle}
           onSubtitlePress={onSubtitlePress}
           onRightLabelPress={onRightLabelPress}
-          leadIcon={icon}
+          leadIcon={leadIcon}
           position={position}
           leadIconStyle={styles.listItemIcon}
           titleContainerStyle={titleContainerStyle}

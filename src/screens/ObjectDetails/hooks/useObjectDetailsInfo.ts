@@ -1,6 +1,11 @@
 import {useMemo, useCallback} from 'react';
 
-import {useBottomMenu, useObject, useTranslation} from 'core/hooks';
+import {
+  useBottomMenu,
+  useObject,
+  useThemeStyles,
+  useTranslation,
+} from 'core/hooks';
 import {ObjectDetailsScreenRouteProps} from '../types';
 import {useRoute} from '@react-navigation/native';
 
@@ -10,8 +15,9 @@ import {
   tryOpenURL,
 } from 'core/helpers';
 import type {Item} from '../components/ObjectInfoSection/ObjectInfoSection';
-import {compact} from 'lodash';
+import {compact, map} from 'lodash';
 import {TestIDs} from 'core/types';
+import {themeStyles} from '../styles';
 
 export function useObjectDetailsInfo() {
   const {
@@ -19,6 +25,7 @@ export function useObjectDetailsInfo() {
   } = useRoute<ObjectDetailsScreenRouteProps>();
   const {t} = useTranslation('common');
   const {t: objectDetailsT} = useTranslation('objectDetails');
+  const styles = useThemeStyles(themeStyles);
 
   const data = useObject(objectId);
 
@@ -93,28 +100,29 @@ export function useObjectDetailsInfo() {
         subtitle: t('objectFieldsLabels.url'),
         title: officialWibsiteUrl,
         onSubtitlePress: onOfficialWebLinkPress,
-        icon: 'globe',
+        leadIcon: 'globe',
         testID: TestIDs.ObjectDetailsOfficialWebsite,
       },
       getAttendaceStringTime && {
         subtitle: t('objectFieldsLabels.attendanceTime'),
         title: getAttendaceStringTime,
-        icon: 'hourglass',
+        leadIcon: 'hourglass',
         testID: TestIDs.ObjectDetailsAttendanceTime,
       },
-      phoneNumbers && {
-        subtitle: t('objectFieldsLabels.phoneNumber'),
-        title: phoneNumbers[0],
-        icon: 'telephone',
-        onSubtitlePress: () => onTelephonePress(phoneNumbers[0]),
-        testID: TestIDs.ObjectDetailsPhoneNumber,
-        label: t('objectFieldsLabels.phoneNumberMore', {
-          amount: phoneNumbers?.length - 1,
-        }),
-        withDropdown: areSeveralPhoneNumbers,
-        isAlwaysTrunctated: true,
-        onRightLabelPress: openPhoneNumbersMenu,
-      },
+      phoneNumbers &&
+        phoneNumbers.length && {
+          subtitle: t('objectFieldsLabels.phoneNumber'),
+          title: phoneNumbers[0],
+          leadIcon: 'telephone',
+          onSubtitlePress: () => onTelephonePress(phoneNumbers[0]),
+          testID: TestIDs.ObjectDetailsPhoneNumber,
+          label: t('objectFieldsLabels.phoneNumberMore', {
+            amount: phoneNumbers?.length - 1,
+          }),
+          withDropdown: areSeveralPhoneNumbers,
+          isAlwaysTrunctated: true,
+          onRightLabelPress: openPhoneNumbersMenu,
+        },
     ] as Item[]);
   }, [
     getAttendaceStringTime,
@@ -128,17 +136,19 @@ export function useObjectDetailsInfo() {
   ]);
 
   const phoneNumberMenuItems = useMemo(() => {
-    return (phoneNumbers || []).map(phone => {
+    return map(phoneNumbers, phone => {
       return {
         title: phone,
-        icon: 'telephone',
+        leadIcon: 'telephone',
         onSubtitlePress: () => onTelephonePress(phone),
         testID: TestIDs.ObjectDetailsPhoneNumber,
         containerStyle: {paddingVertical: 6},
         titleContainerStyle: {paddingBottom: 16},
+        leadIconStyle: styles.listItemIcon,
+        position: 'middle',
       } as Item;
     });
-  }, [onTelephonePress, phoneNumbers]);
+  }, [onTelephonePress, phoneNumbers, styles.listItemIcon]);
 
   const workingHoursSection = useMemo(() => {
     return compact([
@@ -146,7 +156,7 @@ export function useObjectDetailsInfo() {
         subtitle: t('objectFieldsLabels.workingHours'),
         title: workingHours,
         onPress: openWorkingHoursMenu,
-        icon: 'globe',
+        leadIcon: 'globe',
         titleNumberOfLines: 2,
         testID: TestIDs.ObjectDetailsWorkingHours,
         withDropdown: true,
@@ -159,7 +169,7 @@ export function useObjectDetailsInfo() {
       childServices?.length && {
         title: t('objectFieldsLabels.childServices'),
         subtitle: childServices.join(', '),
-        icon: 'deck',
+        leadIcon: 'deck',
         testID: TestIDs.ObjectDetailsOfficialWebsite,
         contentStylingType: 'primary',
         boldTitle: false,
@@ -167,7 +177,7 @@ export function useObjectDetailsInfo() {
       renting?.length && {
         title: t('objectFieldsLabels.renting'),
         subtitle: renting.join(', '),
-        icon: 'sportsTennis',
+        leadIcon: 'sportsTennis',
         testID: TestIDs.ObjectDetailsRenting,
         contentStylingType: 'primary',
         boldTitle: false,
