@@ -82,7 +82,7 @@ export interface IObject {
   routes?: LineString;
   length: number | null;
   blurhash?: string;
-  phoneNumber?: string | null;
+  phoneNumbers?: string[] | null;
   workingHours?: string | null;
   attendanceTime?: number | null;
   renting: string[];
@@ -277,6 +277,7 @@ export enum TestIDs {
   ObjectDetailsAddInfoMenu = 'objectDetailsAddInfoMenu',
   ObjectDetailsAddInfoMenuContent = 'objectDetailsAddInfoMenuContent',
   ObjectDetailsAddInfoSuccessMenu = 'objectDetailsAddInfoSuccessMenu',
+  ObjectDetailsPhoneNumberssMenu = 'objectDetailsPhoneNumberssMenu',
   ObjectDetailsAddInfoSuccessMenuContent = 'objectDetailsAddInfoSuccessMenuContent',
   ObjectDetailsOfficialWebsite = 'objectDetailsOfficialWebsite',
   ObjectDetailsPhoneNumber = 'objectDetailsPhoneNumber',

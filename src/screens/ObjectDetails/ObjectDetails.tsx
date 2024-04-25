@@ -44,7 +44,11 @@ import {ObjectDetailsReportInaccuraciesMenu} from 'organisms';
 import {TestIDs} from 'core/types';
 import Animated from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
-import {ObjectInfoCardItemsSection, ObjectInfoSection} from './components';
+import {
+  ObjectInfoCardItemsSection,
+  ObjectInfoSection,
+  ObjectInfoPhoneNumbersMenu,
+} from './components';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
@@ -114,6 +118,9 @@ export const ObjectDetails = () => {
     mainInfoSection,
     workingHoursSection,
     workingHoursMenuProps,
+    phoneNumbersMenuProps,
+    areSeveralPhoneNumbers,
+    phoneNumberMenuItems,
     workingHours,
     additionalDetailsSection,
     accommodationPlace,
@@ -326,6 +333,13 @@ export const ObjectDetails = () => {
             <ObjectDetailsShowWorkingHoursInfoMenu
               description={workingHours}
               workingHoursMenuProps={workingHoursMenuProps}
+            />
+          ) : null}
+
+          {areSeveralPhoneNumbers ? (
+            <ObjectInfoPhoneNumbersMenu
+              phoneNumberMenuItems={phoneNumberMenuItems}
+              phoneNumbersMenuProps={phoneNumbersMenuProps}
             />
           ) : null}
         </View>

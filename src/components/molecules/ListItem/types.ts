@@ -14,9 +14,11 @@ export interface BaseListItemProps {
   subtitle?: string | number;
   contentStylingType?: 'primary' | 'secondary';
   onSubtitlePress?: () => void;
+  onRightLabelPress?: () => void;
   leadIconStyle?: StyleProp<TextStyle>;
   tailIconStyle?: StyleProp<TextStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  titleContainerStyle?: StyleProp<TextStyle>;
   position?: 'top' | 'middle' | 'bottom' | 'single';
   titleNumberOfLines?: number;
   boldTitle?: boolean;

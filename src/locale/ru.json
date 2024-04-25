@@ -31,6 +31,7 @@
     "objectFieldsLabels": {
       "upcomingEvents": "Ближайшие мероприятия",
       "phoneNumber": "Контактный телефон",
+      "phoneNumberMore": "Еще {{amount}}",
       "address": "Адрес",
       "name": "Название",
       "location": "Расположение",
