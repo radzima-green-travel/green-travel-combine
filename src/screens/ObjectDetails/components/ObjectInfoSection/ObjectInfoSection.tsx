@@ -36,7 +36,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
 
   const renderSectionItem = (item: Item, index: number) => {
     const {
-      title = '',
+      title,
       subtitle = '',
       onSubtitlePress,
       leadIcon,
