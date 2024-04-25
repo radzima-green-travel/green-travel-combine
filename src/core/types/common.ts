@@ -277,7 +277,7 @@ export enum TestIDs {
   ObjectDetailsAddInfoMenu = 'objectDetailsAddInfoMenu',
   ObjectDetailsAddInfoMenuContent = 'objectDetailsAddInfoMenuContent',
   ObjectDetailsAddInfoSuccessMenu = 'objectDetailsAddInfoSuccessMenu',
-  ObjectDetailsPhoneNumberssMenu = 'objectDetailsPhoneNumberssMenu',
+  ObjectDetailsPhoneNumbersMenu = 'objectDetailsPhoneNumbersMenu',
   ObjectDetailsAddInfoSuccessMenuContent = 'objectDetailsAddInfoSuccessMenuContent',
   ObjectDetailsOfficialWebsite = 'objectDetailsOfficialWebsite',
   ObjectDetailsPhoneNumber = 'objectDetailsPhoneNumber',

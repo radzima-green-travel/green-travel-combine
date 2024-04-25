@@ -1,1 +1,0 @@
-export {ObjectInfoPhoneNumbersMenu} from './ObjectInfoPhoneNumbersMenu';
