@@ -462,7 +462,7 @@ export function transformQueryData(
             routes: (object.routes as LineString) || undefined,
             length: object.length || null,
             origins: (object.origins as IOrigins[]) || null,
-            phoneNumber: object.phoneNumber?.[0] || null,
+            phoneNumbers: object.phoneNumber,
             workingHours: object.workingHours || undefined,
             attendanceTime:
               object.calculatedProperties?.averageSpentTime ||

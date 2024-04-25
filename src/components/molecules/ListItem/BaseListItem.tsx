@@ -18,12 +18,14 @@ export const BaseListItem = memo(
     subtitle,
     contentStylingType = 'primary',
     onSubtitlePress,
+    onRightLabelPress,
     leadIconStyle,
     position = 'single',
     titleNumberOfLines = 1,
     tailIcon,
     tailIconStyle,
     labelStyle,
+    titleContainerStyle,
     boldTitle = true,
     onTitleTruncate,
   }: BaseListItemProps) => {
@@ -76,6 +78,33 @@ export const BaseListItem = memo(
       return titleNode;
     };
 
+    const renderRightLabel = () => {
+      const rightLabelNode = (
+        <View style={styles.rightContainer}>
+          {label ? (
+            <Text style={[styles.label, labelStyle]}>{label}</Text>
+          ) : null}
+          {tailIcon ? (
+            <Icon
+              name={tailIcon}
+              size={24}
+              style={[styles.tailIcon, tailIconStyle]}
+            />
+          ) : null}
+        </View>
+      );
+
+      if (onRightLabelPress) {
+        return (
+          <TouchableOpacity activeOpacity={0.9} onPress={onRightLabelPress}>
+            {rightLabelNode}
+          </TouchableOpacity>
+        );
+      }
+
+      return rightLabelNode;
+    };
+
     return (
       <ListItemWrapper
         testID={testID}
@@ -100,6 +129,7 @@ export const BaseListItem = memo(
                 styles.titleContainerSeparator,
               (position === 'bottom' || position === 'middle') &&
                 styles.titleContainerBottomMiddle,
+              titleContainerStyle,
             ]}>
             <View
               style={
@@ -110,18 +140,7 @@ export const BaseListItem = memo(
               {renderSubtitle()}
             </View>
           </View>
-          <View style={styles.rightContainer}>
-            {label ? (
-              <Text style={[styles.label, labelStyle]}>{label}</Text>
-            ) : null}
-            {tailIcon ? (
-              <Icon
-                name={tailIcon}
-                size={24}
-                style={[styles.tailIcon, tailIconStyle]}
-              />
-            ) : null}
-          </View>
+          {renderRightLabel()}
         </View>
       </ListItemWrapper>
     );

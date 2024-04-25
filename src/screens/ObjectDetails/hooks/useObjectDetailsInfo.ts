@@ -24,7 +24,7 @@ export function useObjectDetailsInfo() {
 
   const {
     url: officialWibsiteUrl,
-    phoneNumber,
+    phoneNumbers,
     attendanceTime,
     workingHours,
     childServices,
@@ -44,13 +44,19 @@ export function useObjectDetailsInfo() {
     onWebLinkPress(officialWibsiteUrl);
   }, [onWebLinkPress, officialWibsiteUrl]);
 
-  const onTelephonePress = useCallback(() => {
+  const onTelephonePress = useCallback((phoneNumber: string) => {
     if (phoneNumber) {
       tryOpenURL(`tel:${sanitizePhoneNumber(phoneNumber)}`);
     }
-  }, [phoneNumber]);
+  }, []);
 
   const workingHoursMenuProps = useBottomMenu();
+  const phoneNumbersMenuProps = useBottomMenu();
+
+  const {openMenu: openWorkingHoursMenu} = workingHoursMenuProps;
+  const {openMenu: openPhoneNumbersMenu} = phoneNumbersMenuProps;
+
+  const areSeveralPhoneNumbers = phoneNumbers && phoneNumbers?.length > 1;
 
   const getAttendaceStringTime = (() => {
     if (attendanceTime) {
@@ -96,12 +102,18 @@ export function useObjectDetailsInfo() {
         icon: 'hourglass',
         testID: TestIDs.ObjectDetailsAttendanceTime,
       },
-      phoneNumber && {
+      phoneNumbers && {
         subtitle: t('objectFieldsLabels.phoneNumber'),
-        title: phoneNumber,
+        title: phoneNumbers[0],
         icon: 'telephone',
-        onSubtitlePress: onTelephonePress,
+        onSubtitlePress: () => onTelephonePress(phoneNumbers[0]),
         testID: TestIDs.ObjectDetailsPhoneNumber,
+        label: t('objectFieldsLabels.phoneNumberMore', {
+          amount: phoneNumbers?.length - 1,
+        }),
+        withDropdown: areSeveralPhoneNumbers,
+        isAlwaysTrunctated: true,
+        onRightLabelPress: openPhoneNumbersMenu,
       },
     ] as Item[]);
   }, [
@@ -109,25 +121,38 @@ export function useObjectDetailsInfo() {
     officialWibsiteUrl,
     onOfficialWebLinkPress,
     onTelephonePress,
-    phoneNumber,
+    phoneNumbers,
+    areSeveralPhoneNumbers,
+    openPhoneNumbersMenu,
     t,
   ]);
 
-  const {openMenu} = workingHoursMenuProps;
+  const phoneNumberMenuItems = useMemo(() => {
+    return (phoneNumbers || []).map(phone => {
+      return {
+        title: phone,
+        icon: 'telephone',
+        onSubtitlePress: () => onTelephonePress(phone),
+        testID: TestIDs.ObjectDetailsPhoneNumber,
+        containerStyle: {paddingVertical: 6},
+        titleContainerStyle: {paddingBottom: 16},
+      } as Item;
+    });
+  }, [onTelephonePress, phoneNumbers]);
 
   const workingHoursSection = useMemo(() => {
     return compact([
       workingHours && {
         subtitle: t('objectFieldsLabels.workingHours'),
         title: workingHours,
-        onPress: openMenu,
+        onPress: openWorkingHoursMenu,
         icon: 'globe',
         titleNumberOfLines: 2,
         testID: TestIDs.ObjectDetailsWorkingHours,
         withDropdown: true,
       },
     ] as Item[]);
-  }, [workingHours, t, openMenu]);
+  }, [workingHours, t, openWorkingHoursMenu]);
 
   const additionalDetailsSection = useMemo(() => {
     return compact([
@@ -154,7 +179,10 @@ export function useObjectDetailsInfo() {
     mainInfoSection,
     workingHoursSection,
     workingHoursMenuProps,
+    phoneNumbersMenuProps,
+    phoneNumberMenuItems,
     workingHours,
+    areSeveralPhoneNumbers,
     additionalDetailsSection,
     accommodationPlace,
     upcomingEvents,

@@ -1,9 +1,8 @@
 import {Portal} from '@gorhom/portal';
 import {BottomMenu} from 'atoms';
-import {ObjectSuccessMenu} from 'molecules';
 import {useBottomMenu, useThemeStyles, useTranslation} from 'core/hooks';
 import React from 'react';
-import {Text, useColorScheme} from 'react-native';
+import {Text} from 'react-native';
 import {TestIDs} from 'core/types';
 import {themeStyles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
