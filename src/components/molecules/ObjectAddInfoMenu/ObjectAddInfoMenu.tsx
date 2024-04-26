@@ -89,9 +89,10 @@ export const ObjectAddInfoMenu = memo(
             theme: 'primary' as const,
             testID: composeTestID(testID, 'submitButton'),
             text: t('ready'),
+            disabled: !value,
           },
         ];
-      }, [onSubmitForm, t, testID]);
+      }, [onSubmitForm, t, testID, value]);
 
       const {bottom} = useSafeAreaInsets();
 
