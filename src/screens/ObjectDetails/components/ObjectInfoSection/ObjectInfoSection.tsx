@@ -1,6 +1,6 @@
 import React, {ComponentProps, memo, useState} from 'react';
 import {themeStyles} from './styles';
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import {useThemeStyles} from 'core/hooks';
 import {View} from 'react-native';
 import {IconsNames} from 'atoms/Icon';
 import {ListItem} from 'molecules';
@@ -21,7 +21,6 @@ export type Item = {
   label?: string;
   isAlwaysTrunctated?: boolean;
   onRightLabelPress?: () => void;
-  containerStyle?: StyleProp<ViewStyle>;
   titleContainerStyle?: StyleProp<ViewStyle>;
 };
 
@@ -31,7 +30,6 @@ interface IProps {
 
 export const ObjectInfoSection = memo(({items}: IProps) => {
   const styles = useThemeStyles(themeStyles);
-  const {t} = useTranslation('objectDetails');
   const [isTitleTrunctated, setIsTitleTruncated] = useState(false);
 
   const renderSectionItem = (item: Item, index: number) => {
@@ -46,10 +44,9 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
       onPress,
       contentStylingType = 'secondary',
       boldTitle,
-      label = t('details'),
+      label,
       isAlwaysTrunctated,
       onRightLabelPress,
-      containerStyle,
       titleContainerStyle,
     } = item;
 
@@ -69,7 +66,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
 
     return (
       <ListItem
-        containerStyle={[styles.listItemContainer, containerStyle]}
+        containerStyle={styles.listItemContainer}
         contentStylingType={contentStylingType}
         title={title}
         subtitle={subtitle}
