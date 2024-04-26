@@ -18,8 +18,8 @@ export type Item = {
   contentStylingType?: 'primary' | 'secondary';
   isTitleBold?: boolean;
   boldTitle?: boolean;
-  label?: string;
-  isAlwaysTrunctated?: boolean;
+  rightLabel?: string;
+  hideRightLabelIfTitleTruncated?: boolean;
   onRightLabelPress?: () => void;
   titleContainerStyle?: StyleProp<ViewStyle>;
 };
@@ -44,13 +44,14 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
       onPress,
       contentStylingType = 'secondary',
       boldTitle,
-      label,
-      isAlwaysTrunctated,
+      rightLabel,
+      hideRightLabelIfTitleTruncated = false,
       onRightLabelPress,
       titleContainerStyle,
     } = item;
 
-    const isNeedToTruncate = isTitleTrunctated || isAlwaysTrunctated;
+    const isNeedToTruncate =
+      isTitleTrunctated || hideRightLabelIfTitleTruncated;
 
     let position: ComponentProps<typeof ListItem>['position'] = 'single';
 
@@ -83,7 +84,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
         tailIcon={
           withDropdown && isNeedToTruncate ? 'chevronShortDown' : undefined
         }
-        label={withDropdown && isNeedToTruncate ? label : undefined}
+        label={withDropdown && isNeedToTruncate ? rightLabel : undefined}
         onPress={
           withDropdown ? (isNeedToTruncate ? onPress : undefined) : onPress
         }

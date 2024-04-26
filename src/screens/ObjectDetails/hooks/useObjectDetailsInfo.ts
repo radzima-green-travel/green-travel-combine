@@ -116,11 +116,11 @@ export function useObjectDetailsInfo() {
         leadIcon: 'telephone',
         onSubtitlePress: () => onTelephonePress(phoneNumbers[0]),
         testID: TestIDs.ObjectDetailsPhoneNumber,
-        label: t('objectFieldsLabels.phoneNumberMore', {
+        rightLabel: t('objectFieldsLabels.phoneNumberMore', {
           amount: amountOfPhoneNumbers - 1,
         }),
         withDropdown: areSeveralPhoneNumbers,
-        isAlwaysTrunctated: true,
+        hideRightLabelIfTitleTruncated: true,
         onRightLabelPress: openPhoneNumbersMenu,
       },
     ] as Item[]);
@@ -166,7 +166,7 @@ export function useObjectDetailsInfo() {
         titleNumberOfLines: 2,
         testID: TestIDs.ObjectDetailsWorkingHours,
         withDropdown: true,
-        label: t('details'),
+        rightLabel: t('details'),
       },
     ] as Item[]);
   }, [workingHours, t, openWorkingHoursMenu]);
