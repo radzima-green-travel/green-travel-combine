@@ -64,6 +64,7 @@ export function useObjectDetailsInfo() {
   const {openMenu: openPhoneNumbersMenu} = phoneNumbersMenuProps;
 
   const areSeveralPhoneNumbers = phoneNumbers && phoneNumbers?.length > 1;
+  const amountOfPhoneNumbers = (phoneNumbers && phoneNumbers?.length) || 0;
 
   const getAttendaceStringTime = (() => {
     if (attendanceTime) {
@@ -116,7 +117,7 @@ export function useObjectDetailsInfo() {
         onSubtitlePress: () => onTelephonePress(phoneNumbers[0]),
         testID: TestIDs.ObjectDetailsPhoneNumber,
         label: t('objectFieldsLabels.phoneNumberMore', {
-          amount: phoneNumbers?.length - 1,
+          amount: amountOfPhoneNumbers - 1,
         }),
         withDropdown: areSeveralPhoneNumbers,
         isAlwaysTrunctated: true,
@@ -129,13 +130,14 @@ export function useObjectDetailsInfo() {
     onOfficialWebLinkPress,
     onTelephonePress,
     phoneNumbers,
+    amountOfPhoneNumbers,
     areSeveralPhoneNumbers,
     openPhoneNumbersMenu,
     t,
   ]);
 
   const phoneNumberMenuItems = useMemo(() => {
-    return map(phoneNumbers, phone => {
+    return map(phoneNumbers, (phone, index) => {
       return {
         title: phone,
         leadIcon: 'telephone',
@@ -144,10 +146,15 @@ export function useObjectDetailsInfo() {
         containerStyle: {paddingVertical: 6},
         titleContainerStyle: {paddingBottom: 16},
         leadIconStyle: styles.listItemIcon,
-        position: 'middle',
+        position: index === amountOfPhoneNumbers - 1 ? 'bottom' : 'middle',
       } as Item;
     });
-  }, [onTelephonePress, phoneNumbers, styles.listItemIcon]);
+  }, [
+    onTelephonePress,
+    phoneNumbers,
+    styles.listItemIcon,
+    amountOfPhoneNumbers,
+  ]);
 
   const workingHoursSection = useMemo(() => {
     return compact([
@@ -159,6 +166,7 @@ export function useObjectDetailsInfo() {
         titleNumberOfLines: 2,
         testID: TestIDs.ObjectDetailsWorkingHours,
         withDropdown: true,
+        label: t('details'),
       },
     ] as Item[]);
   }, [workingHours, t, openWorkingHoursMenu]);
