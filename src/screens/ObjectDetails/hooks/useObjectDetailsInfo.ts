@@ -166,10 +166,10 @@ export function useObjectDetailsInfo() {
         titleNumberOfLines: 2,
         testID: TestIDs.ObjectDetailsWorkingHours,
         withDropdown: true,
-        rightLabel: t('details'),
+        rightLabel: objectDetailsT('details'),
       },
     ] as Item[]);
-  }, [workingHours, t, openWorkingHoursMenu]);
+  }, [workingHours, t, openWorkingHoursMenu, objectDetailsT]);
 
   const additionalDetailsSection = useMemo(() => {
     return compact([
