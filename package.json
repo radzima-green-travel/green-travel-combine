@@ -38,7 +38,7 @@
     "expo": "^50.0.7",
     "expo-application": "5.8.3",
     "expo-clipboard": "~5.0.1",
-    "expo-dev-client": "~3.3.9",
+    "expo-dev-client": "~3.3.11",
     "expo-haptics": "~12.8.1",
     "expo-image": "1.10.6",
     "expo-linear-gradient": "~12.7.2",
@@ -125,5 +125,12 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "expo": {
+    "autolinking": {
+      "ios": {
+        "exclude": ["expo-notifications"]
+      }
+    }
   }
 }
