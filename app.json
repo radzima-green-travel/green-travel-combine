@@ -3,16 +3,16 @@
     "name": "greenTravel",
     "slug": "greenTravel",
     "ios": {
-      "bundleIdentifier": "greenTravel",
+      "bundleIdentifier": "com.greentravel.radzima.expo.go",
       "supportsTablet": true,
-      "splash": {
+      "sp`lash": {
         "image": "src/assets/bootsplash/bootsplash_logo.png",
         "resizeMode": "cover",
         "backgroundColor": "#ffffff",
         "dark": {
-            "image": "src/assets/bootsplash/bootsplash_logo_dark.png",
-            "resizeMode": "cover",
-            "backgroundColor": "#000000"
+          "image": "src/assets/bootsplash/bootsplash_logo_dark.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#000000"
         }
       }
     },
@@ -23,11 +23,15 @@
         "resizeMode": "cover",
         "backgroundColor": "#ffffff",
         "dark": {
-            "image": "src/assets/bootsplash/bootsplash_logo_dark@3x.png",
-            "resizeMode": "cover",
-            "backgroundColor": "#000000"
+          "image": "src/assets/bootsplash/bootsplash_logo_dark@3x.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#000000"
         }
-      }
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "platforms": [
       "ios",
@@ -36,19 +40,26 @@
     "icon": "src/assets/Icon-1024.png",
     "plugins": [
       [
-      "expo-location",  
-      {
-        "locationWhenInUsePermission": "This will let to pinpoint your exact location."
-      }
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "This will let to pinpoint your exact location."
+        }
       ],
-      ["expo-localization"],
+      [
+        "expo-localization"
+      ],
       [
         "@rnmapbox/maps",
         {
           "RNMapboxMapsVersion": "11.1.0",
-          "RNMapboxMapsDownloadToken": ""          
+          "RNMapboxMapsDownloadToken": ""
         }
       ]
-    ]
-  }    
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e51feb59-6254-4001-bc5a-d7a5df40dbcb"
+      }
+    }
+  }
 }
