@@ -3,13 +3,13 @@ import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
 import {Keyboard, StyleProp, View} from 'react-native';
 
 import {styles, selectedPointStyle} from './styles';
-import {
-  SymbolLayerStyle,
-  ShapeSource,
-  SymbolLayer,
-  UserLocation,
-  UserLocationRenderMode,
-} from '@rnmapbox/maps';
+// import {
+//   SymbolLayerStyle,
+//   ShapeSource,
+//   SymbolLayer,
+//   UserLocation,
+//   UserLocationRenderMode,
+// } from '@rnmapbox/maps';
 import {
   AppMapBottomMenu,
   AppMapBottomSearchMenu,
@@ -72,12 +72,12 @@ export const AppMap = () => {
         onPress={onMapPress}
         locale={currentLocale}
         testID={TestIDs.MapOverview}>
-        {userLocationProps.visible ? (
+        {/* {userLocationProps.visible ? (
           <UserLocation
             renderMode={UserLocationRenderMode.Native}
             {...userLocationProps}
           />
-        ) : null}
+        ) : null} */}
         {markers ? (
           <ClusterMapShape
             ref={shapeSourceRef}
@@ -86,7 +86,7 @@ export const AppMap = () => {
           />
         ) : null}
 
-        {selectedMarker ? (
+        {/* {selectedMarker ? (
           <ShapeSource
             id={'selectedPointShapeSource'}
             shape={selectedMarker as FeatureCollection<Point>}>
@@ -95,7 +95,7 @@ export const AppMap = () => {
               style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
             />
           </ShapeSource>
-        ) : null}
+        ) : null} */}
       </ClusterMap>
       <Portal>
         <BottomMenu

@@ -10,7 +10,7 @@
     "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
     "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
     "update-svg": "node scripts/update-svg/update-svg.js",
-    "postinstall": "patch-package && yarn husky install"
+    "postinstall": "patch-package && yarn husky install && yarn rnuc .env"
   },
   "dependencies": {
     "@amplitude/react-native": "2.3.3",
@@ -26,8 +26,8 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "@react-navigation/stack": "^6.3.4",
-    "@rnmapbox/maps": "^10.0.12",
     "@sentry/react-native": "5.11.1",
+    "@turf/bbox": "^6.5.0",
     "@turf/distance": "^6.5.0",
     "amazon-cognito-identity-js": "^5.2.3",
     "aws-amplify": "^4.3.37",

@@ -1,6 +1,5 @@
 import {InteractionManager} from 'react-native';
 import {useCallback, useMemo, useRef, useEffect} from 'react';
-import {MapView, Camera} from '@rnmapbox/maps';
 import {Position} from '@turf/helpers';
 
 import {selectAppLanguage, selectIsDirectionShowed} from 'core/selectors';
@@ -67,8 +66,8 @@ export const useObjectDetailsMap = () => {
   const data = useObject(objectId);
   const {getObject} = useTransformedData();
 
-  const map = useRef<MapView>(null);
-  const camera = useRef<Camera>(null);
+  const map = useRef(null);
+  const camera = useRef(null);
 
   const dispatch = useDispatch();
 

@@ -70,15 +70,6 @@ PODS:
   - lottie-react-native (6.4.1):
     - lottie-ios (~> 4.3.3)
     - React-Core
-  - MapboxCommon (23.8.4)
-  - MapboxCoreMaps (10.16.2):
-    - MapboxCommon (~> 23.8)
-  - MapboxMaps (10.16.2):
-    - MapboxCommon (= 23.8.4)
-    - MapboxCoreMaps (= 10.16.2)
-    - MapboxMobileEvents (= 1.0.10)
-    - Turf (~> 2.0)
-  - MapboxMobileEvents (1.0.10)
   - MMKV (1.3.1):
     - MMKVCore (~> 1.3.1)
   - MMKVCore (1.3.1)
@@ -532,17 +523,6 @@ PODS:
     - React-Core
   - RNLocalize (3.0.3):
     - React-Core
-  - rnmapbox-maps (10.0.15):
-    - MapboxMaps (~> 10.16.0)
-    - React
-    - React-Core
-    - rnmapbox-maps/DynamicLibrary (= 10.0.15)
-    - Turf
-  - rnmapbox-maps/DynamicLibrary (10.0.15):
-    - MapboxMaps (~> 10.16.0)
-    - React
-    - React-Core
-    - Turf
   - RNPermissions (3.6.1):
     - React-Core
   - RNReactNativeHapticFeedback (1.11.0):
@@ -574,7 +554,6 @@ PODS:
     - SentryPrivate (= 8.13.0)
   - SentryPrivate (8.13.0)
   - SocketRocket (0.6.1)
-  - Turf (2.7.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -647,7 +626,6 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNLocalize (from `../node_modules/react-native-localize`)
-  - "rnmapbox-maps (from `../node_modules/@rnmapbox/maps`)"
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -666,10 +644,6 @@ SPEC REPOS:
     - libvmaf
     - libwebp
     - lottie-ios
-    - MapboxCommon
-    - MapboxCoreMaps
-    - MapboxMaps
-    - MapboxMobileEvents
     - MMKV
     - MMKVCore
     - SDWebImage
@@ -679,7 +653,6 @@ SPEC REPOS:
     - Sentry
     - SentryPrivate
     - SocketRocket
-    - Turf
 
 EXTERNAL SOURCES:
   amplitude-react-native:
@@ -817,8 +790,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-inappbrowser-reborn"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
-  rnmapbox-maps:
-    :path: "../node_modules/@rnmapbox/maps"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
   RNReactNativeHapticFeedback:
@@ -837,7 +808,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Amplitude: 263118b9e691e73a1c864b05bb08a3aff3636d16
   amplitude-react-native: 9369759dc6d01590aeb6261f714d53beaebc7e6f
-  boost: 57d2868c099736d80fcd648bf211b4431e51a558
+  boost: 7dcd2de282d72e344012f7d6564d024930a6a440
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   EXApplication: 042aa2e3f05258a16962ea1a9914bf288db9c9a1
@@ -860,10 +831,6 @@ SPEC CHECKSUMS:
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   lottie-ios: 3d98679b41fa6fd6aff2352b3953dbd3df8a397e
   lottie-react-native: a2ae9c27c273b060b2affff2957bc0ff7fdca353
-  MapboxCommon: 23deb9c2abe05897a3ade46aac391c9d2ada396e
-  MapboxCoreMaps: b6921145ffe26eff2ec0fa84edb99496a189ea53
-  MapboxMaps: f7a24f57ee25ea6eb9d195c9b0273bb8776fcbc1
-  MapboxMobileEvents: de50b3a4de180dd129c326e09cd12c8adaaa46d6
   MMKV: 5a07930c70c70b86cd87761a42c8f3836fb681d7
   MMKVCore: e50135dbd33235b6ab390635991bab437ab873c0
   Permission-LocationAlways: 8d99b025c9f73c696e0cdb367e42525f2e9a26f2
@@ -916,7 +883,6 @@ SPEC CHECKSUMS:
   RNGestureHandler: 32a01c29ecc9bb0b5bf7bc0a33547f61b4dc2741
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 7ce27517894956a226aa6d614786802d253a0a0a
-  rnmapbox-maps: b6219b7432508ae2cea169365116a811f822612e
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
   RNReanimated: ce6bef77caeee09d7f022532cee0c8d9bad09c9a
@@ -930,9 +896,8 @@ SPEC CHECKSUMS:
   Sentry: a067ca1db308066097314d8478e9682f3b575dee
   SentryPrivate: 917c91aeb0f199cd079404fab2b50c83e4bad25c
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  Turf: 13d1a92d969ca0311bbc26e8356cca178ce95da2
   Yoga: b76f1acfda8212aa16b7e26bcce3983230c82603
 
-PODFILE CHECKSUM: 9084757599316b62ac7a448961736cc2d37ad837
+PODFILE CHECKSUM: 673f89cdc470c0d88ffdb6fccd322a789fd4557c
 
 COCOAPODS: 1.15.2

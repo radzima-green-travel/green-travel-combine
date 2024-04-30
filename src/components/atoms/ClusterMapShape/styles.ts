@@ -1,11 +1,11 @@
-import {SymbolLayerStyle} from '@rnmapbox/maps';
+// import {SymbolLayerStyle} from '@rnmapbox/maps';
 import {MAP_PINS} from 'core/constants';
 export const layerStyles = {
   singlePoint: {
     iconImage: ['get', 'icon_image'],
     iconSize: 1,
     iconAllowOverlap: true,
-  } as SymbolLayerStyle,
+  },
 
   clusteredPoints: {
     iconImage: [
@@ -17,7 +17,7 @@ export const layerStyles = {
     ],
     iconSize: 1,
     iconAllowOverlap: true,
-  } as SymbolLayerStyle,
+  },
 
   clusterCount: {
     textField: [
@@ -31,5 +31,5 @@ export const layerStyles = {
     textColor: '#000',
     iconAllowOverlap: true,
     textAllowOverlap: true,
-  } as SymbolLayerStyle,
+  },
 };

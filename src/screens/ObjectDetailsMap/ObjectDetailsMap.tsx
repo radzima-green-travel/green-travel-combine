@@ -2,18 +2,6 @@ import React from 'react';
 import {BottomMenu, ClusterMap} from 'atoms';
 import {StyleProp, View} from 'react-native';
 
-import {
-  FillLayerStyle,
-  LineLayerStyle,
-  SymbolLayerStyle,
-  ShapeSource,
-  LineLayer,
-  UserLocation,
-  UserLocationRenderMode,
-  FillLayer,
-  SymbolLayer,
-  Images,
-} from '@rnmapbox/maps';
 import {useThemeStyles} from 'core/hooks';
 import {
   BackCircleButton,
@@ -72,15 +60,15 @@ export const ObjectDetailsMap = () => {
         ref={map}
         cameraRef={camera}
         locale={currentLocale}>
-        {userLocationProps.visible ? (
+        {/* {userLocationProps.visible ? (
           <UserLocation
             renderMode={UserLocationRenderMode.Native}
             minDisplacement={10}
             {...userLocationProps}
           />
-        ) : null}
+        ) : null} */}
 
-        {direction ? (
+        {/* {direction ? (
           <ShapeSource
             id="directionSource"
             shape={direction as unknown as LineString}>
@@ -97,9 +85,9 @@ export const ObjectDetailsMap = () => {
               style={layersStyles.direction as StyleProp<LineLayerStyle>}
             />
           </ShapeSource>
-        ) : null}
+        ) : null} */}
 
-        {data?.area ? (
+        {/* {data?.area ? (
           <ShapeSource id="area" shape={data?.area}>
             <FillLayer
               id="areaFill"
@@ -110,18 +98,18 @@ export const ObjectDetailsMap = () => {
               style={layersStyles.areaStroke as StyleProp<LineLayerStyle>}
             />
           </ShapeSource>
-        ) : null}
+        ) : null} */}
 
-        {data?.routes ? (
+        {/* {data?.routes ? (
           <ShapeSource id="routeSource" shape={data?.routes}>
             <LineLayer
               id="routeFill"
               style={layersStyles.route as StyleProp<LineLayerStyle>}
             />
           </ShapeSource>
-        ) : null}
+        ) : null} */}
 
-        {dataShapeSource ? (
+        {/* {dataShapeSource ? (
           <>
             <Images images={images} />
             <ShapeSource
@@ -135,7 +123,7 @@ export const ObjectDetailsMap = () => {
               />
             </ShapeSource>
           </>
-        ) : null}
+        ) : null} */}
       </ClusterMap>
       <ObjectDetailsMapButtons
         bottomMenuPosition={menuProps.animatedPosition}

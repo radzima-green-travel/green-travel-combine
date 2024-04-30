@@ -1,7 +1,7 @@
 import {AppRegistry, Linking} from 'react-native';
 
 import {enableScreens} from 'react-native-screens';
-import MapBox from '@rnmapbox/maps';
+// import MapBox from '@rnmapbox/maps';
 import 'react-native-gesture-handler';
 
 import config from 'react-native-ultimate-config';
@@ -44,24 +44,23 @@ async function urlOpener(url, redirectUrl) {
   }
 }
 
-const signInUrls = awsConfig.oauth.redirectSignIn.split(',');
-const signOutUrls = awsConfig.oauth.redirectSignOut.split(',');
+const signInUrls = awsConfig?.oauth?.redirectSignIn?.split?.(',');
+const signOutUrls = awsConfig?.oauth?.redirectSignOut?.split?.(',');
 
-Amplify.configure({
-  ...awsConfig,
-  aws_appsync_authenticationType: 'API_KEY',
-  aws_user_pools_web_client_id: config.AWS_USER_POOLS_WEB_CLIENT_ID,
-  oauth: {
-    ...awsConfig.oauth,
-    redirectSignIn: signInUrls[2],
-    redirectSignOut: signOutUrls[2],
-    urlOpener: urlOpener,
-  },
-});
+// Amplify.configure({
+//   ...awsConfig,
+//   aws_appsync_authenticationType: 'API_KEY',
+//   aws_user_pools_web_client_id: config.AWS_USER_POOLS_WEB_CLIENT_ID,
+//   oauth: {
+//     ...awsConfig?.oauth,
+//     redirectSignIn: signInUrls[2],
+//     redirectSignOut: signOutUrls[2],
+//   },
+// });
 
 enableScreens();
 
-MapBox.setAccessToken(config.MAP_ACCESS_TOKEN);
+// MapBox.setAccessToken(config.MAP_ACCESS_TOKEN);
 sentryService.init();
 
 languageService.init();

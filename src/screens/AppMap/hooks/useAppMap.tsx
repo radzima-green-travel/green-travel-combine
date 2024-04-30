@@ -14,10 +14,10 @@ import {
   selectAppLanguage,
 } from 'core/selectors';
 import {useSelector} from 'react-redux';
-import bbox from '@turf/bbox';
+// import bbox from '@turf/bbox';
 import {IMapFilter, IObject} from 'core/types';
 
-import {ShapeSource, Camera, MapView} from '@rnmapbox/maps';
+// import {ShapeSource, Camera, MapView} from '@rnmapbox/maps';
 
 import {
   useSearchList,
@@ -240,13 +240,13 @@ export const useAppMap = () => {
       }
 
       closeSearchMenu();
-      const clusterBounds = bbox(newMarkers);
+      // const clusterBounds = bbox(newMarkers);
       const cluster = new Supercluster({
         radius: 40,
         maxZoom: 14,
       }).load(newMarkers?.features!);
 
-      moveCameraToSearchedObject(object, cluster, clusterBounds);
+      // moveCameraToSearchedObject(object, cluster, clusterBounds);
 
       addToHistory(object);
       selectObjectAndOpenMenu(object);

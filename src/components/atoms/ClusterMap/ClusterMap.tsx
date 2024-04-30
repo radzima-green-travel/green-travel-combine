@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import {View, PixelRatio, GestureResponderEvent} from 'react-native';
-import {MapView, Camera} from '@rnmapbox/maps';
+// import {MapView, Camera} from '@rnmapbox/maps';
 import {Props} from './types';
 import {styles} from './styles';
 import {isIOS} from 'services/PlatformService';
@@ -129,7 +129,7 @@ export const ClusterMap = memo(
           }}
           style={styles.container}
           {...getPlatformsTestID(testID)}>
-          <MapView
+          {/* <MapView
             ref={map}
             onPress={onMapPress}
             onRegionIsChanging={onRegionIsChanging}
@@ -150,7 +150,7 @@ export const ClusterMap = memo(
             scaleBarEnabled={false}>
             <Camera {...initialBounds} ref={cameraRef} />
             {children}
-          </MapView>
+          </MapView> */}
         </View>
       );
     },

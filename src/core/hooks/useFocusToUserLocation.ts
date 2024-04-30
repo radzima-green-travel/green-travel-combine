@@ -1,13 +1,11 @@
-import {Camera, Location} from '@rnmapbox/maps';
+// import {Camera, Location} from '@rnmapbox/maps';
 import {IBounds} from 'core/types';
 
 import React, {useRef, useCallback, useState, useEffect} from 'react';
 import {permissionsService} from 'services/PermissionsService';
 import {useTask} from './useTask';
 
-export function useFocusToUserLocation(
-  cameraRef: React.RefObject<Camera | null>,
-) {
+export function useFocusToUserLocation(cameraRef: React.RefObject<null>) {
   const [isUserLocationFocused, setIsUserLocationFocused] = useState(false);
   const [userLocation, setUserLocation] = useState<number[] | null>(null);
   const [userLocationVisible, setUserLocationVisible] = useState(false);
@@ -71,7 +69,7 @@ export function useFocusToUserLocation(
   }, [userLocation, userLocationVisible, finishAllTasks]);
 
   const saveUserLocation = useCallback(
-    (event: Location) => {
+    event => {
       if (!userLocationVisible) {
         setUserLocationVisible(true);
       }
