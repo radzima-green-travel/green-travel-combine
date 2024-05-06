@@ -11,6 +11,7 @@ import {useRoute} from '@react-navigation/native';
 import {useBookmarksObjects} from 'core/hooks';
 import {orderBy} from 'lodash';
 import {isAndroid} from 'services/PlatformService';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
 
 export const useBookmarksList = () => {
   const {navigate, setOptions, goBack} =
@@ -21,7 +22,12 @@ export const useBookmarksList = () => {
 
   const navigateToObjectDetails = useCallback(
     ({id, name, category}: IObject) => {
-      navigate('ObjectDetails', {objectId: id});
+      navigate('ObjectDetails', {
+        objectId: id,
+        analytics: {
+          fromScreenName: getAnalyticsNavigationScreenName(),
+        },
+      });
       sendSelectCardEvent(name, category.name);
     },
     [navigate, sendSelectCardEvent],

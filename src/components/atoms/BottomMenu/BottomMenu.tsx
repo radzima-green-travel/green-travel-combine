@@ -129,8 +129,8 @@ export const BottomMenu = memo(
           }
 
           if (index === -1) {
-            setKey(uniqueId());
             onHideEnd?.();
+            setKey(uniqueId());
           }
         },
         [onHideEnd, onOpenEnd],

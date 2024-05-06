@@ -1,1 +1,4 @@
-export {ObjectInfoCardItemsSection} from './ObjectInfoCardItemsSection';
+export {
+  ObjectInfoCardItemsSection,
+  type CardType,
+} from './ObjectInfoCardItemsSection';

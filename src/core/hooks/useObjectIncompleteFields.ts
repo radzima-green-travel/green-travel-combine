@@ -15,7 +15,9 @@ export const useObjectIncompleteFields = (
         categoryIncompleteFields,
         (fields, fieldName) => [
           ...fields,
-          ...(OBJECT_ALLOWED_EDIT_FIELDS.has(fieldName)
+          ...(OBJECT_ALLOWED_EDIT_FIELDS.includes(
+            fieldName as (typeof OBJECT_ALLOWED_EDIT_FIELDS)[number],
+          )
             ? [{id: fieldName, label: t(`objectFieldsLabels.${fieldName}`)}]
             : []),
         ],

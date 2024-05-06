@@ -12,7 +12,7 @@ import {
   useTranslation,
   useBackHandler,
 } from 'core/hooks';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Keyboard} from 'react-native';
 import {useObjectInfoForm} from './useObjectInfoForm';
 import {useDispatch} from 'react-redux';
@@ -20,7 +20,9 @@ import {sendAddInfoEmailRequest} from 'core/reducers';
 import reduce from 'lodash/reduce';
 import {useSnackbar} from 'atoms';
 import {IObjectIncompleteField} from 'core/types';
-import {TIME_PICKER_FIELDS} from 'core/constants';
+import {ObjectField, TIME_PICKER_FIELDS} from 'core/constants';
+import {useObjectAddInfoAnalytics} from './useObjectAddInfoAnalytics';
+import {filter} from 'lodash';
 
 export const useObjectDetailsAddInfo = () => {
   const navigation = useNavigation<ObjectDetailsAddInfoScreenNavigationProps>();
@@ -43,6 +45,21 @@ export const useObjectDetailsAddInfo = () => {
   const snackBarProps = useSnackbar();
   const objectName = objectData?.name;
 
+  const {
+    sendAddInfoModalViewEvent,
+    sendAddInfoModalAnyFieldViewEvent,
+    sendAddInfoModalSendAllEvent,
+    sendAddInfoModalConfirmSaveYesButtonClickEvent,
+    sendAddInfoModalConfirmSaveNoButtonClickEvent,
+    sendAddInfoModalAnyFieldInputSubmitEvent,
+    sendAddInfoModalAnyFieldInputCloseEvent,
+    saveCurrentFieldValueForAnalytics,
+  } = useObjectAddInfoAnalytics();
+
+  useEffect(() => {
+    sendAddInfoModalViewEvent();
+  }, [sendAddInfoModalViewEvent]);
+
   const getIsDataCanBeLost = () => {
     const {fields} = getEmailContents();
     return !!fields;
@@ -52,6 +69,7 @@ export const useObjectDetailsAddInfo = () => {
     (menu: IObjectIncompleteField | null) => {
       setCurrentField(menu);
       if (menu) {
+        sendAddInfoModalAnyFieldViewEvent(menu.id);
         if (TIME_PICKER_FIELDS.has(menu.id)) {
           bottomMenuProps.openMenu();
         } else {
@@ -59,7 +77,7 @@ export const useObjectDetailsAddInfo = () => {
         }
       }
     },
-    [bottomMenuProps],
+    [bottomMenuProps, sendAddInfoModalAnyFieldViewEvent],
   );
 
   const closeMenu = useCallback(() => {
@@ -107,7 +125,7 @@ export const useObjectDetailsAddInfo = () => {
     }
   };
 
-  const onSendPress = useCallback(() => {
+  const sendFilledData = useCallback(() => {
     if (objectId && objectName) {
       const {message, fields} = getEmailContents();
 
@@ -126,11 +144,18 @@ export const useObjectDetailsAddInfo = () => {
     objectId,
     objectName,
     getEmailContents,
+    confirmBottomMenuProps,
     dispatch,
     t,
     showSuccessMenu,
-    confirmBottomMenuProps,
   ]);
+
+  const onSendPress = useCallback(() => {
+    sendFilledData();
+    sendAddInfoModalSendAllEvent(
+      filter(incompleteFields, field => Boolean(form[field.id])),
+    );
+  }, [form, incompleteFields, sendAddInfoModalSendAllEvent, sendFilledData]);
 
   const {loading: isSendLoading} = useRequestLoading(sendAddInfoEmailRequest);
 
@@ -158,6 +183,43 @@ export const useObjectDetailsAddInfo = () => {
     return false;
   });
 
+  const onConfirmMenuConfirmPress = useCallback(() => {
+    sendAddInfoModalConfirmSaveYesButtonClickEvent(
+      filter(incompleteFields, field => Boolean(form[field.id])),
+    );
+    sendFilledData();
+  }, [
+    form,
+    incompleteFields,
+    sendFilledData,
+    sendAddInfoModalConfirmSaveYesButtonClickEvent,
+  ]);
+
+  const onConfirmMenuDeclinePress = useCallback(() => {
+    sendAddInfoModalConfirmSaveNoButtonClickEvent(
+      filter(incompleteFields, field => Boolean(form[field.id])),
+    );
+    navigateBack();
+  }, [
+    form,
+    incompleteFields,
+    navigateBack,
+    sendAddInfoModalConfirmSaveNoButtonClickEvent,
+  ]);
+
+  const onChange = useCallback(
+    (field: ObjectField, fieldValue: string | number) => {
+      sendAddInfoModalAnyFieldInputSubmitEvent(field);
+      onChangeField(field, fieldValue);
+    },
+    [onChangeField, sendAddInfoModalAnyFieldInputSubmitEvent],
+  );
+
+  const onMenuHideEnd = useCallback(() => {
+    sendAddInfoModalAnyFieldInputCloseEvent();
+    toggleMenu(null);
+  }, [sendAddInfoModalAnyFieldInputCloseEvent, toggleMenu]);
+
   return {
     name: objectName,
     navigateBack,
@@ -166,7 +228,7 @@ export const useObjectDetailsAddInfo = () => {
     toggleMenu,
     closeMenu,
     incompleteFields,
-    onChange: onChangeField,
+    onChange: onChange,
     value,
     isFormValid,
     getDisplayValue,
@@ -175,5 +237,9 @@ export const useObjectDetailsAddInfo = () => {
     snackBarProps,
     onBackPress,
     confirmMenuProps: confirmBottomMenuProps,
+    onConfirmMenuConfirmPress,
+    onConfirmMenuDeclinePress,
+    onMenuHideEnd,
+    saveCurrentFieldValueForAnalytics,
   };
 };

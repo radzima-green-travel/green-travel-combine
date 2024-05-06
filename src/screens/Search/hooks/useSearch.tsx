@@ -5,6 +5,7 @@ import {useSearchList} from 'core/hooks';
 import {Keyboard} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SearchScreenNavigationProps} from '../types';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
 
 export const useSearch = () => {
   const {
@@ -25,6 +26,9 @@ export const useSearch = () => {
       addToHistory(searchItem);
       navigation.navigate('ObjectDetails', {
         objectId: searchItem.id,
+        analytics: {
+          fromScreenName: getAnalyticsNavigationScreenName(),
+        },
       });
     },
     [addToHistory, navigation],

@@ -67,5 +67,10 @@ export const useObjectInfoForm = (
     [form, t],
   );
 
-  return {form, onChangeField, isFormValid, getDisplayValue};
+  return {
+    form,
+    onChangeField,
+    isFormValid,
+    getDisplayValue,
+  };
 };

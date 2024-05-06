@@ -8,3 +8,4 @@ export {useReportInaccuracies} from './useReportInaccuracies';
 export {useObjectCompletnessData} from './useObjectCompletnessData';
 export {useAddInfoSuccessMenu} from './useAddInfoSuccessMenu';
 export {useObjectDetailsInfo} from './useObjectDetailsInfo';
+export {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';

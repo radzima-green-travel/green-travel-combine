@@ -22,6 +22,14 @@ export function getCurrentStateData() {
   }
 }
 
+export function getCurrentRouteName() {
+  if (navigationRef?.isReady()) {
+    return navigationRef.getCurrentRoute()?.name || '';
+  }
+
+  return '';
+}
+
 export function getCurrentTabName() {
   const state = getCurrentStateData() as
     | NavigationState<MainNavigatorParamsList>

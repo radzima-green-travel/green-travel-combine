@@ -8,11 +8,7 @@ import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   data: IInclude[];
-  onIncludePress: (config: {
-    id: string;
-    name: string;
-    objects: string[];
-  }) => void;
+  onIncludePress: (item: IInclude) => void;
   title: string;
   testID: string;
 }

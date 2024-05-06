@@ -30,6 +30,10 @@ export const ObjectDetailsShareExperience = () => {
     snackBarProps,
     onMissedDetailsPress,
     isMissedDetailsButtonVisible,
+    onReportInnacuranceFieldValueChange,
+    sendReportInaccuranceCloseEvent,
+    sendVisitedModalCloseEvent,
+    saveRangeForAnalytics,
   } = useShareExperienceData();
 
   const {
@@ -59,9 +63,19 @@ export const ObjectDetailsShareExperience = () => {
   const onHideEnd = useCallback(() => {
     if (getIsAllMenusClosed()) {
       clearInitialData();
+      sendVisitedModalCloseEvent(rating);
     }
-  }, [clearInitialData, getIsAllMenusClosed]);
+  }, [
+    clearInitialData,
+    getIsAllMenusClosed,
+    rating,
+    sendVisitedModalCloseEvent,
+  ]);
 
+  const onReportInnacuranceMenuHide = useCallback(() => {
+    sendReportInaccuranceCloseEvent();
+    onHideEnd();
+  }, [onHideEnd, sendReportInaccuranceCloseEvent]);
   const header = useMemo(
     () => ({
       title: t('markAsVisitedMenuTitle'),
@@ -104,6 +118,7 @@ export const ObjectDetailsShareExperience = () => {
           onSkipPress={shareExperienceMenuProps.closeMenu}
           onMissedDetailsPress={onMissedDetailsPress}
           isMissedDetailsButtonVisible={isMissedDetailsButtonVisible}
+          onRangeChange={saveRangeForAnalytics}
         />
       </BottomMenu>
 
@@ -125,13 +140,14 @@ export const ObjectDetailsShareExperience = () => {
       </BottomMenu>
 
       <BottomMenu
-        onHideEnd={onHideEnd}
+        onHideEnd={onReportInnacuranceMenuHide}
         testID={TestIDs.ObjectReportinaccuraciesMenu}
         {...reportInnacurateInfoMenuProps}
         header={reportInnacuraciesHeader}>
         <ObjectReportinaccuraciesMenu
           ref={innaccuraciesMenuRef}
           onSendPress={onSendPress}
+          onInputValueChange={onReportInnacuranceFieldValueChange}
           autoHandleKeyboard
           isSendLoading={sendLoading}
           testID={TestIDs.ObjectReportinaccuraciesMenuContent}

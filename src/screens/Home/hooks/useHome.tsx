@@ -23,6 +23,7 @@ import {
 } from '@react-navigation/native';
 import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
 import {useSnackbar} from 'atoms';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
 
 export const useHome = () => {
   const dispatch = useDispatch();
@@ -82,7 +83,13 @@ export const useHome = () => {
 
   const navigateToObjectDetails = useCallback(
     ({id, name, category}: IObject) => {
-      navigate('ObjectDetails', {objectId: id});
+      navigate('ObjectDetails', {
+        objectId: id,
+
+        analytics: {
+          fromScreenName: getAnalyticsNavigationScreenName(),
+        },
+      });
       sendSelectCardEvent(name, category.name);
     },
     [navigate, sendSelectCardEvent],

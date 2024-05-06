@@ -8,7 +8,7 @@ import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   data: IBelongsTo[];
-  onBelongsToItemPress: (config: {id: string; name: string}) => void;
+  onBelongsToItemPress: (item: IBelongsTo) => void;
   title: string;
   testID: string;
 }

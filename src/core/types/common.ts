@@ -33,12 +33,19 @@ export interface IInclude {
   name: string;
   image: string;
   objects: string[];
+  analyticsMetadata: {
+    name: string;
+  };
 }
 export interface IBelongsTo {
   objectId: string;
   name: string;
   categoryName: string;
   image: string;
+  analyticsMetadata: {
+    name: string;
+    categgoryName: string;
+  };
 }
 
 export interface IObjectCategory {
@@ -94,6 +101,10 @@ export interface IObject {
   upcomingEvents: IObjectAddititonalInfoItem[];
   accommodationPlace: IObjectAddititonalInfoItem[];
   dinnerPlaces: IObjectAddititonalInfoItem[];
+  analyticsMetadata: {
+    name: string;
+    categoryName: string;
+  };
 }
 
 export interface ISpot {
@@ -115,6 +126,9 @@ export interface ICategory {
   children: ICategory[];
   blurhash?: string;
   completenessFields: string[];
+  analyticsMetadata: {
+    name: string;
+  };
 }
 
 export interface ITransformedCategory

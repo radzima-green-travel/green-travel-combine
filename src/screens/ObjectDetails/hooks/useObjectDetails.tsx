@@ -1,4 +1,4 @@
-import {useMemo, useCallback, useLayoutEffect} from 'react';
+import {useCallback, useLayoutEffect, useEffect} from 'react';
 import Clipboard from '@react-native-community/clipboard';
 
 import {useSnackbar} from 'atoms';
@@ -9,7 +9,6 @@ import {
   useUpdateEffect,
   useTranslation,
 } from 'core/hooks';
-import {debounce} from 'lodash';
 import {
   ObjectDetailsScreenNavigationProps,
   ObjectDetailsScreenRouteProps,
@@ -18,6 +17,9 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {shareService} from 'services/ShareService';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
+import {IBelongsTo, IInclude} from 'core/types';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
@@ -30,13 +32,29 @@ export const useObjectDetails = () => {
   const data = useObject(objectId);
   const {t} = useTranslation();
 
-  const {sendOpenMapEvent, sendSwitchPhotosEvent, sendScrollEvent} =
+  const {sendSwitchPhotosEvent, sendScrollEvent} =
+    // TODO: legacy. Will be removed after migration to new analytics
     useDetailsPageAnalytics(objectId);
+
+  const {
+    sendObjectScreenViewEvent,
+    sendLocationLabelClickEvent,
+    sendAddInfoButtonClickEvent,
+    sendBelongsToNavigateEvent,
+    sendActivitiesNavigateEvent,
+    sendShowOnMapButtonClickEvent,
+    sendObjectShareEvent,
+  } = useObjectDetailsAnalytics();
+
+  useEffect(() => {
+    sendObjectScreenViewEvent();
+  }, [sendObjectScreenViewEvent]);
 
   const snackBarProps = useSnackbar();
   const {show} = snackBarProps;
   const copyLocationToClipboard = useCallback(
     (location: string) => {
+      sendLocationLabelClickEvent();
       Clipboard.setString(location);
       show({
         type: 'neutral',
@@ -44,28 +62,44 @@ export const useObjectDetails = () => {
         timeoutMs: 1000,
       });
     },
-    [show, t],
+    [sendLocationLabelClickEvent, show, t],
   );
 
-  const navigateToObjectsList = useCallback(
-    ({id, name, objects}: {id: string; name: string; objects?: string[]}) => {
-      if (!objects) {
-        navigation.push('ObjectDetails', {
-          objectId: id,
-        });
-      } else if (objects.length === 1) {
+  const navigateToBelongsToObject = useCallback(
+    ({objectId: belongsToObjectId, analyticsMetadata}: IBelongsTo) => {
+      sendBelongsToNavigateEvent({
+        objectName: analyticsMetadata.name,
+        categoryName: analyticsMetadata.categgoryName,
+      });
+      navigation.push('ObjectDetails', {
+        objectId: belongsToObjectId,
+        analytics: {
+          fromScreenName: getAnalyticsNavigationScreenName(),
+        },
+      });
+    },
+    [navigation, sendBelongsToNavigateEvent],
+  );
+
+  const navigateToIncludesObjectListOrPage = useCallback(
+    ({objects, categoryId, name, analyticsMetadata}: IInclude) => {
+      sendActivitiesNavigateEvent(analyticsMetadata.name);
+      if (objects.length === 1) {
         navigation.push('ObjectDetails', {
           objectId: objects[0],
+          analytics: {
+            fromScreenName: getAnalyticsNavigationScreenName(),
+          },
         });
       } else {
         navigation.push('ObjectsList', {
-          categoryId: id,
+          categoryId: categoryId,
           title: name,
           objectsIds: objects,
         });
       }
     },
-    [navigation],
+    [navigation, sendActivitiesNavigateEvent],
   );
 
   const navigateToObjectsMap = useCallback(() => {
@@ -75,21 +109,21 @@ export const useObjectDetails = () => {
         objectId: data.id,
       });
 
-      sendOpenMapEvent();
+      sendShowOnMapButtonClickEvent();
     }
-  }, [data, navigation, sendOpenMapEvent]);
+  }, [data, navigation, sendShowOnMapButtonClickEvent]);
 
   const navigateToAddInfo = useCallback(() => {
     if (data) {
-      navigation.navigate('ObjectDetailsAddInfo', {objectId: data.id});
+      sendAddInfoButtonClickEvent();
+      navigation.navigate('ObjectDetailsAddInfo', {
+        objectId: data.id,
+        analytics: {
+          fromScreenName: 'ObjectScreen',
+        },
+      });
     }
-  }, [data, navigation]);
-
-  const navigateToObjectsListDebounced = useMemo(
-    () =>
-      debounce(navigateToObjectsList, 300, {leading: true, trailing: false}),
-    [navigateToObjectsList],
-  );
+  }, [data, navigation, sendAddInfoButtonClickEvent]);
 
   const {onScroll, page, pagesAmount} = useImageSlider(
     data?.images?.length || 0,
@@ -111,9 +145,10 @@ export const useObjectDetails = () => {
 
   const shareObjectLink = useCallback(() => {
     if (data?.name) {
+      sendObjectShareEvent();
       shareService.shareObject(objectId, data?.name);
     }
-  }, [data?.name, objectId]);
+  }, [data?.name, objectId, sendObjectShareEvent]);
 
   const goToImageGallery = useCallback(() => {
     if (data?.images) {
@@ -129,7 +164,6 @@ export const useObjectDetails = () => {
     sendScrollEvent,
     copyLocationToClipboard,
     navigateToObjectsMap,
-    navigateToObjectsListDebounced,
     navigateToAddInfo,
     snackBarProps,
     objectId,
@@ -141,5 +175,7 @@ export const useObjectDetails = () => {
     page,
     shareObjectLink,
     goToImageGallery,
+    navigateToBelongsToObject,
+    navigateToIncludesObjectListOrPage,
   };
 };

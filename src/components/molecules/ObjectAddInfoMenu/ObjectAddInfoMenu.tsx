@@ -31,12 +31,20 @@ interface IProps {
   value: string | number;
   testID: string;
   keyboardHeight: number | null;
+  onInputValueChange?: (field: ObjectField, value: string | number) => void;
 }
 
 export const ObjectAddInfoMenu = memo(
   forwardRef<TextInput, IProps>(
     (
-      {currentField, onSubmit, value: formValue, testID, keyboardHeight},
+      {
+        currentField,
+        onSubmit,
+        value: formValue,
+        testID,
+        keyboardHeight,
+        onInputValueChange,
+      },
       ref,
     ) => {
       const {t} = useTranslation('objectDetailsAddInfo');
@@ -48,6 +56,10 @@ export const ObjectAddInfoMenu = memo(
       useEffect(() => {
         setValue(formValue);
       }, [formValue]);
+
+      useEffect(() => {
+        onInputValueChange?.(currentField, value);
+      }, [currentField, onInputValueChange, value]);
 
       const renderContent = () => {
         if (!currentField) {

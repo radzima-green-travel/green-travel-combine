@@ -7,10 +7,14 @@ import {
 
 import {View} from 'react-native';
 import Animated from 'react-native-reanimated';
+import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
+import {useCallback} from 'react';
 
 export function useObjectCompletnessData({objectId}: {objectId: string}) {
   const objectData = useObject(objectId);
   const headerHeight = useHeaderHeight();
+  const {sendAddInfoBannerClickEvent} = useObjectDetailsAnalytics();
+
   const {scrollRef, elementRef, scrollToElement} =
     useScrollScrollViewScrollToElement<View, Animated.ScrollView>(
       headerHeight * 2,
@@ -19,12 +23,17 @@ export function useObjectCompletnessData({objectId}: {objectId: string}) {
     objectData?.category.imcompletedFieldsNames ?? [],
   );
 
+  const scrollToElementHandler = useCallback(() => {
+    sendAddInfoBannerClickEvent();
+    scrollToElement();
+  }, [scrollToElement, sendAddInfoBannerClickEvent]);
+
   return {
     incompleteFields,
     percentage: objectData?.category.percentageOfCompletion || 0,
     scrollRef,
     elementRef,
-    scrollToElement,
+    scrollToElement: scrollToElementHandler,
     isCompletnessBlockVisible: Boolean(incompleteFields.length),
   };
 }

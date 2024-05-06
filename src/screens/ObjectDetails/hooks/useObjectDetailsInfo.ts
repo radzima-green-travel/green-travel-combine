@@ -18,6 +18,8 @@ import type {Item} from '../components/ObjectInfoSection/ObjectInfoSection';
 import {compact, map} from 'lodash';
 import {TestIDs} from 'core/types';
 import {themeStyles} from '../styles';
+import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
+import {CardType} from '../components';
 
 export function useObjectDetailsInfo() {
   const {
@@ -26,6 +28,19 @@ export function useObjectDetailsInfo() {
   const {t} = useTranslation('common');
   const {t: objectDetailsT} = useTranslation('objectDetails');
   const styles = useThemeStyles(themeStyles);
+  const {
+    sendOfficialSiteUrlClickEvent,
+    sendMorePhonesViewEvent,
+    sendFullWorkHoursViewEvent,
+    sendDescriptionShowLessClickEvent,
+    sendDescriptionShowMoreClickEvent,
+    sendDescriptionLicksClickEvent,
+    sendSleepPlaceMapViewEvent,
+    sendSleepPlaceSiteNavigateEvent,
+    sendEatPlaceMapViewEvent,
+    sendEatPlaceSiteNavigateEvent,
+    sendUpcomingEventSiteNavigateEvent,
+  } = useObjectDetailsAnalytics();
 
   const data = useObject(objectId);
 
@@ -48,14 +63,34 @@ export function useObjectDetailsInfo() {
   }, []);
 
   const onOfficialWebLinkPress = useCallback(() => {
+    sendOfficialSiteUrlClickEvent();
     onWebLinkPress(officialWibsiteUrl);
-  }, [onWebLinkPress, officialWibsiteUrl]);
+  }, [onWebLinkPress, officialWibsiteUrl, sendOfficialSiteUrlClickEvent]);
+
+  const onToggleDescriptionVisibility = useCallback(
+    isExpanded => {
+      if (isExpanded) {
+        sendDescriptionShowMoreClickEvent();
+      } else {
+        sendDescriptionShowLessClickEvent();
+      }
+    },
+    [sendDescriptionShowLessClickEvent, sendDescriptionShowMoreClickEvent],
+  );
 
   const onTelephonePress = useCallback((phoneNumber: string) => {
     if (phoneNumber) {
       tryOpenURL(`tel:${sanitizePhoneNumber(phoneNumber)}`);
     }
   }, []);
+
+  const onDescriptionLinkPress = useCallback(
+    (url: string) => {
+      sendDescriptionLicksClickEvent(url);
+      tryOpenURL(url);
+    },
+    [sendDescriptionLicksClickEvent],
+  );
 
   const workingHoursMenuProps = useBottomMenu();
   const phoneNumbersMenuProps = useBottomMenu();
@@ -121,19 +156,23 @@ export function useObjectDetailsInfo() {
         }),
         withDropdown: areSeveralPhoneNumbers,
         hideRightLabelIfTitleTruncated: true,
-        onRightLabelPress: openPhoneNumbersMenu,
+        onRightLabelPress: () => {
+          openPhoneNumbersMenu();
+          sendMorePhonesViewEvent();
+        },
       },
     ] as Item[]);
   }, [
-    getAttendaceStringTime,
     officialWibsiteUrl,
+    t,
     onOfficialWebLinkPress,
-    onTelephonePress,
+    getAttendaceStringTime,
     phoneNumbers,
     amountOfPhoneNumbers,
     areSeveralPhoneNumbers,
+    onTelephonePress,
     openPhoneNumbersMenu,
-    t,
+    sendMorePhonesViewEvent,
   ]);
 
   const phoneNumberMenuItems = useMemo(() => {
@@ -161,7 +200,10 @@ export function useObjectDetailsInfo() {
       workingHours && {
         subtitle: t('objectFieldsLabels.workingHours'),
         title: workingHours,
-        onPress: openWorkingHoursMenu,
+        onPress: () => {
+          sendFullWorkHoursViewEvent();
+          openWorkingHoursMenu();
+        },
         leadIcon: 'globe',
         titleNumberOfLines: 2,
         testID: TestIDs.ObjectDetailsWorkingHours,
@@ -169,7 +211,13 @@ export function useObjectDetailsInfo() {
         rightLabel: objectDetailsT('details'),
       },
     ] as Item[]);
-  }, [workingHours, t, openWorkingHoursMenu, objectDetailsT]);
+  }, [
+    workingHours,
+    t,
+    objectDetailsT,
+    sendFullWorkHoursViewEvent,
+    openWorkingHoursMenu,
+  ]);
 
   const additionalDetailsSection = useMemo(() => {
     return compact([
@@ -192,6 +240,43 @@ export function useObjectDetailsInfo() {
     ] as Item[]);
   }, [t, renting, childServices]);
 
+  const onInfoCardRightButtonPress = useCallback(
+    (link: string, type: CardType) => {
+      switch (type) {
+        case 'accommodation':
+          sendSleepPlaceMapViewEvent();
+          break;
+        case 'placeToEat':
+          sendEatPlaceMapViewEvent();
+          break;
+      }
+      tryOpenURL(link);
+    },
+    [sendEatPlaceMapViewEvent, sendSleepPlaceMapViewEvent],
+  );
+
+  const onInfoCardLinkPress = useCallback(
+    (url: string, type: CardType) => {
+      switch (type) {
+        case 'accommodation':
+          sendSleepPlaceSiteNavigateEvent();
+          break;
+        case 'placeToEat':
+          sendEatPlaceSiteNavigateEvent();
+          break;
+        case 'event':
+          sendUpcomingEventSiteNavigateEvent();
+          break;
+      }
+      tryOpenURL(url);
+    },
+    [
+      sendEatPlaceSiteNavigateEvent,
+      sendSleepPlaceSiteNavigateEvent,
+      sendUpcomingEventSiteNavigateEvent,
+    ],
+  );
+
   return {
     mainInfoSection,
     workingHoursSection,
@@ -204,5 +289,9 @@ export function useObjectDetailsInfo() {
     accommodationPlace,
     upcomingEvents,
     dinnerPlaces,
+    onToggleDescriptionVisibility,
+    onDescriptionLinkPress,
+    onInfoCardRightButtonPress,
+    onInfoCardLinkPress,
   };
 }

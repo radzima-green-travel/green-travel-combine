@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, {useCallback} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {Portal} from '@gorhom/portal';
 import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
 import {useMemo} from 'react';
@@ -19,6 +19,7 @@ interface IProps {
   onChange: (field: ObjectField, value: string | number) => void;
   value: string | number;
   snackBarProps: ReturnType<typeof useSnackbar>;
+  onInputValueChange?: (field: ObjectField, value: string | number) => void;
 }
 
 export const ObjectDetailsAddInfoMenu = ({
@@ -28,6 +29,7 @@ export const ObjectDetailsAddInfoMenu = ({
   onChange,
   value,
   snackBarProps,
+  onInputValueChange,
 }: IProps) => {
   const {top} = useSafeAreaInsets();
   const menuHeader = useMemo(
@@ -65,6 +67,7 @@ export const ObjectDetailsAddInfoMenu = ({
             keyboardHeight={keyboardHeight}
             currentField={currentField.id}
             onSubmit={onClose}
+            onInputValueChange={onInputValueChange}
             value={value}
           />
         </BottomMenu>

@@ -10,6 +10,7 @@ import {sendInaccuraciesEmailRequest} from 'core/reducers';
 import {useCallback} from 'react';
 import {Keyboard} from 'react-native';
 import {useDispatch} from 'react-redux';
+import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 
 const entityIdObjectDetails = 'objectDetails';
 
@@ -22,13 +23,20 @@ export function useReportInaccuracies({
 }) {
   const dispatch = useDispatch();
   const {t} = useTranslation('objectDetails');
+  const {
+    onReportInnacuranceFieldValueChange,
+    sendReportInaccuranceCloseEvent,
+    sendReportInaccuranceSendEvent,
+    sendReportInaccuranceViewEvent,
+  } = useObjectDetailsAnalytics();
   const reportInnacurateInfoMenuProps = useBottomMenu();
   const reportInnacurateInfoSuccessMenuProps = useBottomMenu();
   const snackBarProps = useSnackbar();
 
   const openInnacurateInfoMenu = useCallback(() => {
+    sendReportInaccuranceViewEvent();
     reportInnacurateInfoMenuProps.openMenuWithInputAutoFocus();
-  }, [reportInnacurateInfoMenuProps]);
+  }, [reportInnacurateInfoMenuProps, sendReportInaccuranceViewEvent]);
 
   const openInnacurateInfoSuccessMenu = useCallback(() => {
     Keyboard.dismiss();
@@ -39,6 +47,7 @@ export function useReportInaccuracies({
   const onSendPress = useCallback(
     (message: string) => {
       if (objectId) {
+        sendReportInaccuranceSendEvent();
         dispatch(
           sendInaccuraciesEmailRequest(
             {
@@ -51,7 +60,7 @@ export function useReportInaccuracies({
         );
       }
     },
-    [dispatch, objectId, objectName, t],
+    [dispatch, objectId, objectName, sendReportInaccuranceSendEvent, t],
   );
 
   const {show} = snackBarProps;
@@ -81,13 +90,18 @@ export function useReportInaccuracies({
     sendInaccuraciesEmailRequest,
   );
 
+  const onMenuHide = useCallback(() => {
+    sendReportInaccuranceCloseEvent();
+  }, [sendReportInaccuranceCloseEvent]);
+
   return {
     openInnacurateInfoMenu,
-
     reportInnacurateInfoMenuProps,
     reportInnacurateInfoSuccessMenuProps,
     reportInaccuraciesSnackBarProps: snackBarProps,
     onSendPress,
     sendInaccuraciesLoading,
+    onInputValueChange: onReportInnacuranceFieldValueChange,
+    onMenuHide,
   };
 }

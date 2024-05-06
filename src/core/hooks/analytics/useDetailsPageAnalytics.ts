@@ -1,38 +1,8 @@
-import {useCallback, useEffect, useMemo, useRef} from 'react';
+import {useCallback, useMemo, useRef} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {analyticsService} from 'services/AnalyticsService';
 import {getScreenTimeSec} from 'core/helpers';
 import {useObject} from '../useObject';
-
-export function useDetailsPageHeaderAnalytics(objectId: string) {
-  const data = useObject(objectId);
-
-  const analyticsData = useMemo(() => {
-    return data
-      ? {
-          param_card_name: data.name,
-          param_card_category: data.category.name,
-        }
-      : null;
-  }, [data]);
-
-  const sendSaveObjectDeatailsEvent = useCallback(() => {
-    if (analyticsData) {
-      analyticsService.logEvent('card_details_save_event', analyticsData);
-    }
-  }, [analyticsData]);
-
-  const sendUnsaveObjectDeatailsEvent = useCallback(() => {
-    if (analyticsData) {
-      analyticsService.logEvent('card_details_unsave_event', analyticsData);
-    }
-  }, [analyticsData]);
-
-  return {
-    sendSaveObjectDeatailsEvent,
-    sendUnsaveObjectDeatailsEvent,
-  };
-}
 
 export function useDetailsPageAnalytics(objectId: string) {
   const data = useObject(objectId);
@@ -62,28 +32,6 @@ export function useDetailsPageAnalytics(objectId: string) {
     }, [analyticsData]),
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      if (analyticsData) {
-        analyticsService.logEvent('view_details_event', analyticsData);
-      }
-    }, [analyticsData]),
-  );
-
-  useEffect(() => {
-    return () => {
-      if (analyticsData) {
-        analyticsService.logEvent('card_details_close_event', analyticsData);
-      }
-    };
-  }, [analyticsData]);
-
-  const sendOpenMapEvent = useCallback(() => {
-    if (analyticsData) {
-      analyticsService.logEvent('card_details_map_event', analyticsData);
-    }
-  }, [analyticsData]);
-
   const sendSwitchPhotosEvent = useCallback(() => {
     if (analyticsData) {
       analyticsService.logEvent('card_details_switch_photo', analyticsData);
@@ -107,7 +55,6 @@ export function useDetailsPageAnalytics(objectId: string) {
   );
 
   return {
-    sendOpenMapEvent,
     sendSwitchPhotosEvent,
     sendScrollEvent,
   };

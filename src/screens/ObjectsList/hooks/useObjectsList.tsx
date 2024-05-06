@@ -11,6 +11,7 @@ import {
 import {useCategoryObjects, useObjects} from 'core/hooks';
 import {useRoute} from '@react-navigation/native';
 import {orderBy} from 'lodash';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
 
 export const useObjectsList = () => {
   const {push, setOptions} = useNavigation<ObjectsListScreenNavigationProps>();
@@ -20,7 +21,12 @@ export const useObjectsList = () => {
 
   const navigateToObjectDetails = useCallback(
     ({id, name, category}: IObject) => {
-      push('ObjectDetails', {objectId: id});
+      push('ObjectDetails', {
+        objectId: id,
+        analytics: {
+          fromScreenName: getAnalyticsNavigationScreenName(),
+        },
+      });
       sendSelectCardEvent(name, category.name);
     },
     [push, sendSelectCardEvent],

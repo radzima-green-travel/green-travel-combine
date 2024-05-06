@@ -13,6 +13,8 @@ interface IProps {
   reportInaccuraciesSnackBarProps: ReturnType<typeof useSnackbar>;
   reportInnacurateInfoMenuProps: ReturnType<typeof useBottomMenu>;
   reportInnacurateInfoSuccessMenuProps: ReturnType<typeof useBottomMenu>;
+  onInputValueChange?: (value: string) => void;
+  onMenuHide?: () => void;
 }
 
 export const ObjectDetailsReportInaccuraciesMenu = memo(
@@ -22,6 +24,8 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
     reportInaccuraciesSnackBarProps,
     onSendPress,
     sendInaccuraciesLoading,
+    onInputValueChange,
+    onMenuHide,
   }: IProps) => {
     const theme = useColorScheme();
     const {top} = useSafeAreaInsets();
@@ -38,6 +42,7 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
     return (
       <Portal>
         <BottomMenu
+          onHideEnd={onMenuHide}
           adjustIOSKeyboardFrameDrops
           withBackdrop
           onBackdropPress={Keyboard.dismiss}
@@ -50,6 +55,7 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
             onSendPress={onSendPress}
             isSendLoading={sendInaccuraciesLoading}
             testID={TestIDs.ObjectReportinaccuraciesMenuContent}
+            onInputValueChange={onInputValueChange}
           />
         </BottomMenu>
         <BottomMenu

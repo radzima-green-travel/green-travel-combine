@@ -5,7 +5,7 @@ import React, {memo} from 'react';
 import {Text, View, ImageStyle, StyleProp, ViewStyle} from 'react-native';
 import {themeStyles} from './styles';
 import {Button, Icon, Link} from 'atoms';
-import {composeTestID, tryOpenURL} from 'core/helpers';
+import {composeTestID} from 'core/helpers';
 import {IconsNames} from 'atoms/Icon';
 
 interface IProps {
@@ -17,6 +17,7 @@ interface IProps {
   testID: string;
   link?: string;
   containerStyle?: StyleProp<ViewStyle>;
+  onLinkPress: (url: string) => void;
 }
 
 export const Card = memo(
@@ -29,6 +30,7 @@ export const Card = memo(
     testID,
     link,
     containerStyle,
+    onLinkPress,
   }: IProps) => {
     const styles = useThemeStyles(themeStyles);
     return (
@@ -53,7 +55,7 @@ export const Card = memo(
           {link && (
             <Link
               name={link}
-              onPress={tryOpenURL}
+              onPress={onLinkPress}
               testID={composeTestID(testID, 'link')}
               style={styles.link}
               link={link}

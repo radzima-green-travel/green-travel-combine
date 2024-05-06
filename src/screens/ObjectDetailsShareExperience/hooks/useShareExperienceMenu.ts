@@ -3,9 +3,12 @@ import {useCallback, useRef, useState} from 'react';
 import {ObjectReportinaccuraciesMenuRef} from 'molecules';
 import {Keyboard} from 'react-native';
 import {useDerivedValue, useSharedValue} from 'react-native-reanimated';
+import {useObjectShareExperienceAnalytics} from './useObjectShareExperienceAnalytics';
 
 export function useShareExperienceMenu() {
   const innaccuraciesMenuRef = useRef<ObjectReportinaccuraciesMenuRef>(null);
+
+  const {sendReportInaccuranceViewEvent} = useObjectShareExperienceAnalytics();
 
   const shareExperienceMenuProps = useBottomMenu();
   const reportInnacurateInfoMenuProps = useBottomMenu();
@@ -40,6 +43,7 @@ export function useShareExperienceMenu() {
   }, [shareExperienceMenuProps, reportInnacurateInfoMenuProps]);
 
   const openInnacurateInfoMenu = useStaticCallback(() => {
+    sendReportInaccuranceViewEvent();
     isMenuTransition.value = true;
     shareExperienceMenuProps.closeMenu();
     reportInnacurateInfoMenuProps.openMenu();

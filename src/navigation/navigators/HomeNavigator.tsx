@@ -42,6 +42,11 @@ export function HomeNavigator() {
       <Stack.Screen
         getId={({params}) => params.objectId}
         name="ObjectDetails"
+        initialParams={{
+          analytics: {
+            fromScreenName: 'DeepLink',
+          },
+        }}
         component={ObjectDetailsScreen}
         options={{headerShown: false}}
       />

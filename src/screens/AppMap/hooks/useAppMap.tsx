@@ -41,6 +41,7 @@ import {xorBy} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {useNavigation} from '@react-navigation/native';
 import {ObjectsListScreenNavigationProps} from '../types';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
 
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
@@ -182,7 +183,12 @@ export const useAppMap = () => {
   const navigateToObjectDetails = useCallback(
     ({id}: IObject) => {
       unselectObject();
-      navigation.push('ObjectDetails', {objectId: id});
+      navigation.push('ObjectDetails', {
+        objectId: id,
+        analytics: {
+          fromScreenName: getAnalyticsNavigationScreenName(),
+        },
+      });
     },
     [unselectObject, navigation],
   );

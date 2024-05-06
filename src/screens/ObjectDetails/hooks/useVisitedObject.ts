@@ -15,6 +15,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {Alert} from 'react-native';
 import {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
 import {useObject} from 'core/hooks';
+import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 
 export type NavigationProps = CompositeNavigationProp<
   StackNavigationProp<AuthNavigatorParamsList>,
@@ -28,6 +29,13 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const visitedObjectsIds = useSelector(selectVisitedObjectsIds);
   const isAuthorized = useSelector(selectUserAuthorized);
   const data = useObject(objectId);
+
+  const {
+    sendMarkVisitedButtonClickEvent,
+    sendUnmarkVisitedButtonClickEvent,
+    sendCancelOptionClickEvent,
+    sendUnmarkOptionClickEvent,
+  } = useObjectDetailsAnalytics();
 
   const {
     animationRef,
@@ -52,19 +60,36 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   );
 
   const addVisitedObject = useCallback(() => {
+    sendMarkVisitedButtonClickEvent();
     resetAnimation();
     dispatch(addVisitedObjectRequest(visitedObject));
-  }, [dispatch, resetAnimation, visitedObject]);
+  }, [
+    dispatch,
+    resetAnimation,
+    sendMarkVisitedButtonClickEvent,
+    visitedObject,
+  ]);
 
   const deleteVisitedObject = useCallback(() => {
+    sendUnmarkVisitedButtonClickEvent();
     Alert.alert(t('deleteVisitedObjectAlert'), t('deletedVisitedObject'), [
       {
         text: t('delete'),
-        onPress: () => dispatch(deleteVisitedObjectRequest({objectId})),
+        onPress: () => {
+          sendUnmarkOptionClickEvent(),
+            dispatch(deleteVisitedObjectRequest({objectId}));
+        },
       },
-      {text: t('cancel'), style: 'cancel'},
+      {text: t('cancel'), style: 'cancel', onPress: sendCancelOptionClickEvent},
     ]);
-  }, [t, dispatch, objectId]);
+  }, [
+    sendUnmarkVisitedButtonClickEvent,
+    t,
+    sendCancelOptionClickEvent,
+    sendUnmarkOptionClickEvent,
+    dispatch,
+    objectId,
+  ]);
 
   const markAsVisited = useCallback(() => {
     if (isAuthorized) {

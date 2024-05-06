@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import {Text, View} from 'react-native';
 import {AnimatedCircleButton, ButtonsGroup, ListItem} from 'molecules';
 import {useOnRequestSuccess, useThemeStyles, useTranslation} from 'core/hooks';
@@ -10,7 +10,7 @@ import {ObjectField} from 'core/constants';
 import {BottomMenu} from 'atoms';
 import {ConfirmMenu} from 'molecules';
 import {sendAddInfoEmailRequest} from 'core/reducers';
-import {IObjectIncompleteField, TestIDs} from 'core/types';
+import {TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
 import {selectForPlatform} from 'services/PlatformService';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -46,14 +46,11 @@ export const ObjectDetailsAddInfo = () => {
     snackBarProps,
     onBackPress,
     confirmMenuProps,
+    onConfirmMenuConfirmPress,
+    onConfirmMenuDeclinePress,
+    onMenuHideEnd,
+    saveCurrentFieldValueForAnalytics,
   } = useObjectDetailsAddInfo();
-
-  const onItemPress = useCallback(
-    (field: IObjectIncompleteField | null) => () => {
-      toggleMenu(field);
-    },
-    [toggleMenu],
-  );
 
   const buttons = useMemo(() => {
     return [
@@ -108,7 +105,7 @@ export const ObjectDetailsAddInfo = () => {
                 subtitle={getDisplayValue(field.id)}
                 leadIcon={ICONS_MAP[field.id]}
                 title={field.label}
-                onPress={onItemPress(field)}
+                onPress={() => toggleMenu(field)}
                 tailIcon="chevronMediumRight"
               />
             ))}
@@ -116,11 +113,12 @@ export const ObjectDetailsAddInfo = () => {
           {currentField ? (
             <ObjectDetailsAddInfoMenu
               currentField={currentField}
-              onHideEnd={onItemPress(null)}
+              onHideEnd={onMenuHideEnd}
               addInfoMenuProps={addInfoMenuProps}
               onChange={onChange}
               value={value}
               snackBarProps={snackBarProps}
+              onInputValueChange={saveCurrentFieldValueForAnalytics}
             />
           ) : null}
         </>
@@ -140,8 +138,8 @@ export const ObjectDetailsAddInfo = () => {
           subtitle={t('confirmAddedInfoSubtitle')}
           buttonConfirmText={t('confirmAddedInfoSubmit')}
           buttonDeclineText={t('confirmAddedInfoDecline')}
-          onConfirmPress={onSendPress}
-          onDeclinePress={navigateBack}
+          onConfirmPress={onConfirmMenuConfirmPress}
+          onDeclinePress={onConfirmMenuDeclinePress}
         />
       </BottomMenu>
     </View>

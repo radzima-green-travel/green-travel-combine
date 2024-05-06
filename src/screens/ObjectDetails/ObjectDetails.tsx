@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Text, View} from 'react-native';
 
 import {
@@ -38,6 +38,7 @@ import {
   useObjectCompletnessData,
   useAddInfoSuccessMenu,
   useObjectDetailsInfo,
+  useObjectDetailsAnalytics,
 } from './hooks';
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
@@ -56,7 +57,6 @@ export const ObjectDetails = () => {
     sendScrollEvent,
     copyLocationToClipboard,
     navigateToObjectsMap,
-    navigateToObjectsListDebounced,
     navigateToAddInfo,
     snackBarProps,
     objectId,
@@ -68,13 +68,29 @@ export const ObjectDetails = () => {
     page,
     goToImageGallery,
     shareObjectLink,
+    navigateToBelongsToObject,
+    navigateToIncludesObjectListOrPage,
   } = useObjectDetails();
 
   const {loading, errorTexts, objectNotFoundErrorProps, onTryAgainPress} =
     useObjectDetailsDeepLinking();
 
+  const {sendBookmarksAddEvent, sendBookmarksRemoveEvent} =
+    useObjectDetailsAnalytics();
+
+  const sendToggleFavoriteEvent = useCallback(
+    (addingToFavorite: boolean) => {
+      if (addingToFavorite) {
+        sendBookmarksAddEvent();
+      } else {
+        sendBookmarksRemoveEvent();
+      }
+    },
+    [sendBookmarksAddEvent, sendBookmarksRemoveEvent],
+  );
+
   const {favoritesSynchronizing, toggleFavoriteHandler, isFavorite} =
-    useFavorite({objectId});
+    useFavorite({objectId, onFavoriteToggle: sendToggleFavoriteEvent});
 
   const {
     isVisited,
@@ -123,6 +139,10 @@ export const ObjectDetails = () => {
     accommodationPlace,
     upcomingEvents,
     dinnerPlaces,
+    onToggleDescriptionVisibility,
+    onDescriptionLinkPress,
+    onInfoCardRightButtonPress,
+    onInfoCardLinkPress,
   } = useObjectDetailsInfo();
 
   const locationExist = Boolean(data && isLocationExist(data));
@@ -206,6 +226,8 @@ export const ObjectDetails = () => {
               testID={TestIDs.ObjectDetailsDescription}
               origins={data.origins}
               description={data.description}
+              onToggleDescription={onToggleDescriptionVisibility}
+              onLinkPress={onDescriptionLinkPress}
             />
             <Text style={styles.sectionTitle}>{t('additionalDetails')}</Text>
 
@@ -229,6 +251,8 @@ export const ObjectDetails = () => {
                 items={accommodationPlace}
                 title={tCommon('objectFieldsLabels.accommodationPlace')}
                 type="accommodation"
+                onRightButtonPress={onInfoCardRightButtonPress}
+                onLinkPress={onInfoCardLinkPress}
               />
             ) : null}
             {dinnerPlaces?.length ? (
@@ -237,6 +261,8 @@ export const ObjectDetails = () => {
                 items={dinnerPlaces}
                 title={tCommon('objectFieldsLabels.dinnerPlaces')}
                 type="placeToEat"
+                onRightButtonPress={onInfoCardRightButtonPress}
+                onLinkPress={onInfoCardLinkPress}
               />
             ) : null}
 
@@ -246,6 +272,8 @@ export const ObjectDetails = () => {
                 items={upcomingEvents}
                 title={tCommon('objectFieldsLabels.upcomingEvents')}
                 type="event"
+                onRightButtonPress={onInfoCardRightButtonPress}
+                onLinkPress={onInfoCardLinkPress}
               />
             ) : null}
 
@@ -253,7 +281,7 @@ export const ObjectDetails = () => {
               <ObjectBelongsTo
                 title={t('belongs')}
                 data={data.belongsTo}
-                onBelongsToItemPress={navigateToObjectsListDebounced}
+                onBelongsToItemPress={navigateToBelongsToObject}
                 testID={TestIDs.ObjectDetailsBelongsTo}
               />
             )}
@@ -262,7 +290,7 @@ export const ObjectDetails = () => {
               <ObjectIncludes
                 title={t('includes')}
                 data={data.include}
-                onIncludePress={navigateToObjectsListDebounced}
+                onIncludePress={navigateToIncludesObjectListOrPage}
                 testID={TestIDs.ObjectDetailsIncludes}
               />
             )}

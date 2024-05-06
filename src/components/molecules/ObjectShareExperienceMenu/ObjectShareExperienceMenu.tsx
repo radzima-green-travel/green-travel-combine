@@ -17,6 +17,7 @@ interface IProps {
   onSkipPress: () => void;
   rating: number;
   onRatingChange: (rating: number) => void;
+  onRangeChange?: (range: number) => void;
   isSubmitButtonLoading: boolean;
   onReportInformationPress: () => void;
   testID: string;
@@ -39,6 +40,7 @@ export const ObjectShareExperienceMenu = memo(
     isReportSending,
     onMissedDetailsPress,
     isMissedDetailsButtonVisible,
+    onRangeChange,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
@@ -80,6 +82,16 @@ export const ObjectShareExperienceMenu = memo(
 
     const {bottom} = useSafeAreaInsets();
 
+    const onRangeChangeHandler = useCallback(
+      (nextRange: number) => {
+        if (onRangeChange) {
+          onRangeChange(nextRange);
+        }
+        setRange(nextRange);
+      },
+      [onRangeChange],
+    );
+
     return (
       <View style={styles.container}>
         <Text style={styles.rateTitle}>
@@ -101,7 +113,7 @@ export const ObjectShareExperienceMenu = memo(
           markSteps={12}
           value={range}
           containerStyle={styles.rangePicker}
-          onChangeValue={setRange}
+          onChangeValue={onRangeChangeHandler}
         />
         <ListItem
           testID={composeTestID(testID, 'reportInnacurateInfoButton')}

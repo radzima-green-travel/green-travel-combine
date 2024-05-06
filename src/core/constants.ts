@@ -141,6 +141,8 @@ export const enum ACTIONS {
   SEND_ADD_INFO_EMAIL_REQUEST = 'SEND_ADD_INFO_EMAIL_REQUEST',
   SEND_ADD_INFO_EMAIL_SUCCESS = 'SEND_ADD_INFO_EMAIL_SUCCESS',
   SEND_ADD_INFO_EMAIL_FAILURE = 'SEND_ADD_INFO_EMAIL_FAILURE',
+
+  SEND_ANALYTICS_EVENT = 'SEND_ANALYTICS_EVENT',
 }
 
 export const DEFAULT_BOUNDS = {
@@ -171,6 +173,12 @@ export const PADDING_HORIZONTAL = 16;
 
 import {IconsNames} from 'atoms/Icon/IconsNames';
 import {KeyboardEventName, Platform} from 'react-native';
+import {} from './types/analytics';
+import {
+  NavigationRoutes,
+  AnalyticsNavigationScreenNames,
+  AnalyticsAddInfoFieldsNames,
+} from './types';
 
 export const ICONS_MATCHER = {
   [MAP_PINS.BICYCLE_ROUTE]: 'strokeBike' as IconsNames,
@@ -246,7 +254,7 @@ export enum ObjectField {
   routes = 'routes',
 }
 
-export const OBJECT_ALLOWED_EDIT_FIELDS = new Set([
+export const OBJECT_ALLOWED_EDIT_FIELDS = [
   ObjectField.phoneNumber,
   ObjectField.accommodationPlace,
   ObjectField.attendanceTime,
@@ -255,6 +263,33 @@ export const OBJECT_ALLOWED_EDIT_FIELDS = new Set([
   ObjectField.renting,
   ObjectField.upcomingEvents,
   ObjectField.workingHours,
-]);
+] as const;
+
+// export const OBJECT_ALLOWED_EDIT_FIELDS = new Set(
+//   OBJECT_ALLOWED_EDIT_FIELDS_ARRAY,
+// );
+
+export const AnalyticScreensNames: Partial<
+  Record<NavigationRoutes, AnalyticsNavigationScreenNames>
+> = {
+  ObjectDetails: 'ObjectScreen',
+  Home: 'HomeScreen',
+  BookmarksList: 'BookmarksListScreen',
+  ObjectsList: 'ObjectListScreen',
+};
+
+export const AnalyticsAllowedEditFields: Record<
+  (typeof OBJECT_ALLOWED_EDIT_FIELDS)[number],
+  AnalyticsAddInfoFieldsNames
+> = {
+  [ObjectField.phoneNumber]: 'phone',
+  [ObjectField.accommodationPlace]: 'sleep_place',
+  [ObjectField.attendanceTime]: 'work_hours',
+  [ObjectField.childServices]: 'child_service',
+  [ObjectField.dinnerPlaces]: 'eat_place',
+  [ObjectField.renting]: 'rent_service',
+  [ObjectField.upcomingEvents]: 'upcoming_events',
+  [ObjectField.workingHours]: 'work_hours',
+};
 
 export const TIME_PICKER_FIELDS = new Set([ObjectField.attendanceTime]);

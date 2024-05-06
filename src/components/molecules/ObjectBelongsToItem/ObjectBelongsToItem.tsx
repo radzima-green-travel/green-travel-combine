@@ -7,18 +7,18 @@ import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {Image} from 'expo-image';
 
 interface IProps {
-  onPress: (config: {id: string; name: string}) => void;
+  onPress: (item: IBelongsTo) => void;
   data: IBelongsTo;
   testID: string;
 }
 
 export const ObjectBelongsToItem = memo(({data, onPress, testID}: IProps) => {
   const styles = useThemeStyles(themeStyles);
-  const {image, name, categoryName, objectId} = data;
+  const {image, name, categoryName} = data;
 
   const onPressHandler = useCallback(() => {
-    onPress({id: objectId, name});
-  }, [onPress, objectId, name]);
+    onPress(data);
+  }, [onPress, data]);
 
   return (
     <TouchableOpacity

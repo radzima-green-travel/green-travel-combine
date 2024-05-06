@@ -1,5 +1,15 @@
 import {Animated} from 'react-native';
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {AnalyticsNavigationScreenNames} from './analytics';
+import {FromScreenName} from './analytics/objectDetails';
+
+type ObjectDetailsParams = {
+  objectId: string;
+  animatedValue?: Animated.Value;
+  analytics?: {
+    fromScreenName: AnalyticsNavigationScreenNames;
+  };
+};
 
 export type HomeNavigatorParamsList = {
   Home: undefined;
@@ -13,16 +23,13 @@ export type HomeNavigatorParamsList = {
     categoryId: string;
     title: string;
   };
-  ObjectDetails: {objectId: string; animatedValue?: Animated.Value};
+  ObjectDetails: ObjectDetailsParams;
 };
 
 export type BookmarksNavigatorParamsList = {
   Bookmarks: undefined;
   BookmarksList: {title: string; categoryId: string};
-  ObjectDetails: {
-    objectId: string;
-    animatedValue?: Animated.Value;
-  };
+  ObjectDetails: ObjectDetailsParams;
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -36,10 +43,7 @@ export type ProfileNavigatorParamsList = {
   ProfileSettingsLanguage: undefined;
   ProfileSettingsTheme: undefined;
   InAppWebView: {url: string; title: string};
-  ObjectDetails: {
-    objectId: string;
-    animatedValue?: Animated.Value;
-  };
+  ObjectDetails: ObjectDetailsParams;
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -49,10 +53,7 @@ export type ProfileNavigatorParamsList = {
 
 export type AppMapNavigatorParamsList = {
   AppMap: undefined;
-  ObjectDetails: {
-    objectId: string;
-    animatedValue?: Animated.Value;
-  };
+  ObjectDetails: ObjectDetailsParams;
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -69,11 +70,14 @@ export type MainNavigatorParamsList = {
   AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList> & {
     onSuccessSignIn?: () => void;
   };
-  ObjectDetails: {
+  ObjectDetails: ObjectDetailsParams;
+  ObjectDetailsAddInfo: {
     objectId: string;
-    animatedValue?: Animated.Value;
+    showSuccessMenu?: boolean;
+    analytics?: {
+      fromScreenName: FromScreenName;
+    };
   };
-  ObjectDetailsAddInfo: {objectId: string; showSuccessMenu?: boolean};
   ImagesGallery: {
     images: string[];
     initialIndex: number;
@@ -109,3 +113,12 @@ export type AuthNavigatorParamsList = {
   InAppWebView: {url: string; title: string};
   ChangePassword: undefined;
 };
+
+export type NavigationRoutes =
+  | keyof MainNavigatorParamsList
+  | keyof TabNavigatorParamsList
+  | keyof AuthNavigatorParamsList
+  | keyof HomeNavigatorParamsList
+  | keyof BookmarksNavigatorParamsList
+  | keyof ProfileNavigatorParamsList
+  | keyof AppMapNavigatorParamsList;

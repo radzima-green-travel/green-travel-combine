@@ -1,6 +1,6 @@
 import {ActionType, createAction, createReducer} from 'typesafe-actions';
 import {ACTIONS} from '../constants';
-import {AppConfiguration} from 'core/types';
+import {AppConfiguration, EventsPayload} from 'core/types';
 
 export const getAppConfigurationRequest = createAction(
   ACTIONS.GET_APP_CONFIGURATION_REQUEST,
@@ -12,6 +12,9 @@ export const getAppConfigurationFailure = createAction(
   ACTIONS.GET_APP_CONFIGURATION_FAILURE,
 )<Error>();
 export const setSkipAppUpdate = createAction(ACTIONS.SET_SKIP_APP_UPDATE)();
+export const sendAnalyticsEvent = createAction(
+  ACTIONS.SEND_ANALYTICS_EVENT,
+)<EventsPayload>();
 
 interface IDefaultState {
   data: AppConfiguration | null;

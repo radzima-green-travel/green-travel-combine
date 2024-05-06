@@ -10,7 +10,7 @@ import {
   TEXT_COLLAPSE_HEIGHT,
 } from './styles';
 import {useWindowDimensions, View} from 'react-native';
-import {composeTestID, getPlatformsTestID, tryOpenURL} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import LinearGradient from 'react-native-linear-gradient';
 import {IOrigins} from 'core/types';
 import {Button} from 'atoms';
@@ -20,10 +20,18 @@ interface IProps {
   description: string;
   testID: string;
   origins?: IOrigins[];
+  onToggleDescription?: (nextIsExpanded: boolean) => void;
+  onLinkPress: (url: string) => void;
 }
 
 export const ObjectDescription = memo(
-  ({description, testID, origins}: IProps) => {
+  ({
+    description,
+    testID,
+    origins,
+    onToggleDescription,
+    onLinkPress,
+  }: IProps) => {
     const styles = useThemeStyles(themeStyles, {disableStyleSheet: true});
     const {t} = useTranslation('objectDetails');
     const theme = useColorScheme();
@@ -68,7 +76,7 @@ export const ObjectDescription = memo(
               }}
               renderersProps={{
                 a: {
-                  onPress: (_, href) => tryOpenURL(href),
+                  onPress: (_, href) => onLinkPress(href),
                 },
                 ol: {
                   markerTextStyle: {
@@ -85,7 +93,10 @@ export const ObjectDescription = memo(
               }}
             />
             {origins?.length ? (
-              <ObjectDescriptionSource origins={origins} />
+              <ObjectDescriptionSource
+                onLinkPress={onLinkPress}
+                origins={origins}
+              />
             ) : null}
           </View>
 
@@ -105,7 +116,11 @@ export const ObjectDescription = memo(
           <View style={styles.bottomBar}>
             <Button
               onPress={() => {
-                setIsExpanded(prev => !prev);
+                setIsExpanded(prev => {
+                  const nextValue = !prev;
+                  onToggleDescription?.(nextValue);
+                  return nextValue;
+                });
               }}
               testID={composeTestID(testID, 'showMoreButton')}
               text={isExpanded ? t('showLess') : t('showMore')}

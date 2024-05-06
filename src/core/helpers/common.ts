@@ -251,6 +251,9 @@ export function prepareObjectInclude(
               categoryId: categoryData.id,
               image: categoryData.cover || '',
               name: categoryData.name,
+              analyticsMetadata: {
+                name: categoryData.analyticsMetadata.name,
+              },
               objects: [objectId],
             });
           }
@@ -289,6 +292,10 @@ export function prepareObjectBelongsTo(
               image: cover ? imagesService.getOriginalImage(cover) : '',
               name: name,
               categoryName: categoryData.name,
+              analyticsMetadata: {
+                name: object.name,
+                categgoryName: categoryData.analyticsMetadata.name,
+              },
             });
           }
         }
@@ -356,6 +363,9 @@ export function transformQueryData(
                   : acc,
               [] as string[],
             ),
+            analyticsMetadata: {
+              name: category.name,
+            },
           };
         }
 
@@ -508,6 +518,10 @@ export function transformQueryData(
               object.dinnerPlaces.items,
               currentLocale,
             ),
+            analyticsMetadata: {
+              name: object.name,
+              categoryName: objectCategory.analyticsMetadata.name,
+            },
           };
 
           return {

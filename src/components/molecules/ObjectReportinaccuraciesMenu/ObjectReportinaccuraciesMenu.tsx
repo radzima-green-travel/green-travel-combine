@@ -1,4 +1,11 @@
-import React, {memo, forwardRef, useState, useMemo, useCallback} from 'react';
+import React, {
+  memo,
+  forwardRef,
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+} from 'react';
 import {View, StatusBar} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {FormInput} from 'atoms';
@@ -18,6 +25,7 @@ interface IProps {
   isSendLoading: boolean;
   keyboardHeight?: number | null;
   autoHandleKeyboard?: boolean;
+  onInputValueChange?: (value: string) => void;
 }
 
 export interface ObjectReportinaccuraciesMenuRef {
@@ -35,6 +43,7 @@ export const ObjectReportinaccuraciesMenu = memo(
         isSendLoading,
         keyboardHeight,
         autoHandleKeyboard = false,
+        onInputValueChange,
       },
       ref,
     ) => {
@@ -45,6 +54,10 @@ export const ObjectReportinaccuraciesMenu = memo(
       const onSendPressHandler = useCallback(() => {
         onSendPress(value);
       }, [onSendPress, value]);
+
+      useEffect(() => {
+        onInputValueChange?.(value);
+      }, [onInputValueChange, value]);
 
       const buttons = useMemo(() => {
         return [

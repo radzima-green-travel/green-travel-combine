@@ -16,6 +16,7 @@ import {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {ObjectDetailsShareExperienceScreenNavigationProps} from '../types';
+import {useObjectShareExperienceAnalytics} from './useObjectShareExperienceAnalytics';
 export function useShareExperienceData() {
   const dispatch = useDispatch();
   const {t} = useTranslation('objectDetails');
@@ -31,9 +32,19 @@ export function useShareExperienceData() {
   );
   const {show, ...snackBarProps} = useSnackbar();
 
+  const {
+    sendVisitedModalSendEvent,
+    sendReportInaccuranceSendEvent,
+    onReportInnacuranceFieldValueChange,
+    sendReportInaccuranceCloseEvent,
+    sendVisitedModalCloseEvent,
+    saveRangeForAnalytics,
+  } = useObjectShareExperienceAnalytics();
+
   const onSendPress = useCallback(
     (message: string) => {
       if (objectId) {
+        sendReportInaccuranceSendEvent();
         dispatch(
           sendInaccuraciesEmailRequest({
             subject: t('inaccuraciesEmailSubject', {objectName}),
@@ -43,7 +54,7 @@ export function useShareExperienceData() {
         );
       }
     },
-    [dispatch, objectName, t, objectId],
+    [objectId, sendReportInaccuranceSendEvent, dispatch, t, objectName],
   );
 
   const onMissedDetailsPress = useCallback(() => {
@@ -51,6 +62,9 @@ export function useShareExperienceData() {
       navigation.navigate('ObjectDetailsAddInfo', {
         objectId: objectId,
         showSuccessMenu: false,
+        analytics: {
+          fromScreenName: 'VisitedModal',
+        },
       });
     }
   }, [navigation, objectId]);
@@ -67,6 +81,11 @@ export function useShareExperienceData() {
     }) => {
       if (objectId) {
         const spentTime = (hours * 60 + minutes) * 60 * 1000;
+
+        sendVisitedModalSendEvent({
+          visitedRating: rating,
+          averageTime: `${hours}.${minutes}`,
+        });
         dispatch(
           updateVisitedObjectRequest({
             objectId,
@@ -75,7 +94,7 @@ export function useShareExperienceData() {
         );
       }
     },
-    [dispatch, objectId],
+    [dispatch, objectId, sendVisitedModalSendEvent],
   );
 
   useOnRequestError(updateVisitedObjectRequest, 'objectDetails', errorLabel => {
@@ -120,5 +139,9 @@ export function useShareExperienceData() {
     snackBarProps,
     onMissedDetailsPress,
     isMissedDetailsButtonVisible: Boolean(incompleteFields.length),
+    onReportInnacuranceFieldValueChange,
+    sendReportInaccuranceCloseEvent,
+    sendVisitedModalCloseEvent,
+    saveRangeForAnalytics,
   };
 }

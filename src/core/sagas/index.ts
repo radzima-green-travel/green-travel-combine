@@ -7,3 +7,4 @@ export {favoritesSaga} from './favorites';
 export {appSaga} from './app';
 export {visitedObjectsSaga} from './visitedObjects';
 export {getObjectAttributesSaga} from './objectAttributes';
+export {analytics} from './analytics';
