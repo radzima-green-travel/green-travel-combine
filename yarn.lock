@@ -4643,10 +4643,10 @@
   resolved "https://registry.yarnpkg.com/@redux-saga/types/-/types-1.2.1.tgz#9403f51c17cae37edf870c6bc0c81c1ece5ccef8"
   integrity sha512-1dgmkh+3so0+LlBWRhGA33ua4MYr7tUOj+a9Si28vUi0IUFNbff1T3sgpeDJI/LaC75bBYnQ0A3wXjn0OrRNBA==
 
-"@rnmapbox/maps@^10.0.12":
-  version "10.0.15"
-  resolved "https://registry.yarnpkg.com/@rnmapbox/maps/-/maps-10.0.15.tgz#cf63c8eb6beffb22451718f148c2bea655a3cdb6"
-  integrity sha512-2diBwMF+e7gR6keZ1AEI3xw8U7Cu9+xhv8ce75Bw7flg9aTk+d0KgWv4VDQn4wSphD23EroUgFprVymHvVzZGQ==
+"@rnmapbox/maps@^10.1.23":
+  version "10.1.23"
+  resolved "https://registry.yarnpkg.com/@rnmapbox/maps/-/maps-10.1.23.tgz#05301c737e85abb2f9585c63141fedde736eca7e"
+  integrity sha512-XVV8yoHZpm72RsZVMHYGlPU+MO6QyKWLdZ2uKWeXHk6rBrltEe6kboknd1gtzqEWp48qsUInLxCOxeUZLP5/Wg==
   dependencies:
     "@turf/along" "6.5.0"
     "@turf/distance" "6.5.0"
