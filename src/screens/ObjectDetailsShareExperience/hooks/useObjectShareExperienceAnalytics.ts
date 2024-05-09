@@ -85,7 +85,7 @@ export function useObjectShareExperienceAnalytics() {
   }, []);
 
   const sendReportInaccuranceCloseEvent = useCallback(() => {
-    if (analyticsMetadata) {
+    if (analyticsMetadata && reportInnacuranceFieldValue.current !== null) {
       dispatch(
         sendAnalyticsEvent({
           name: 'Report_inaccurance_close',

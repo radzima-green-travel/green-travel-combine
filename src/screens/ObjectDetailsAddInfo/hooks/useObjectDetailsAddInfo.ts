@@ -175,6 +175,11 @@ export const useObjectDetailsAddInfo = () => {
       return true;
     }
 
+    if (bottomMenuProps.isMenuOpened()) {
+      bottomMenuProps.closeMenu();
+      return true;
+    }
+
     if (getIsDataCanBeLost() && confirmBottomMenuProps.isMenuClosed()) {
       confirmBottomMenuProps.openMenu();
       return true;

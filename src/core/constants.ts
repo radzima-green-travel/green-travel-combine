@@ -276,6 +276,8 @@ export const AnalyticScreensNames: Partial<
   Home: 'HomeScreen',
   BookmarksList: 'BookmarksListScreen',
   ObjectsList: 'ObjectListScreen',
+  Search: 'SearchScreen',
+  AppMap: 'AppMapScreen',
 };
 
 export const AnalyticsAllowedEditFields: Record<
@@ -284,7 +286,7 @@ export const AnalyticsAllowedEditFields: Record<
 > = {
   [ObjectField.phoneNumber]: 'phone',
   [ObjectField.accommodationPlace]: 'sleep_place',
-  [ObjectField.attendanceTime]: 'work_hours',
+  [ObjectField.attendanceTime]: 'avg_visit_time',
   [ObjectField.childServices]: 'child_service',
   [ObjectField.dinnerPlaces]: 'eat_place',
   [ObjectField.renting]: 'rent_service',

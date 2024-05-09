@@ -4,6 +4,8 @@ import {useDispatch} from 'react-redux';
 import {ObjectDetailsScreenRouteProps} from '../types';
 import {useRoute} from '@react-navigation/native';
 import {useObject} from 'core/hooks';
+import {getObjectDetailsAnalyticsIncompleteFieldName} from 'core/helpers';
+import {map} from 'lodash';
 
 export function useObjectDetailsAnalytics() {
   const dispatch = useDispatch();
@@ -204,7 +206,10 @@ export function useObjectDetailsAnalytics() {
             object_name: analyticsMetadata.name,
             object_category: analyticsMetadata?.categoryName,
             info_readiness_value: `${category.percentageOfCompletion}%`,
-            missed_fields: category.imcompletedFieldsNames,
+            missed_fields: map(
+              category.imcompletedFieldsNames,
+              getObjectDetailsAnalyticsIncompleteFieldName,
+            ),
           },
         }),
       );

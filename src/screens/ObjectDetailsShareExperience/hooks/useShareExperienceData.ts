@@ -84,7 +84,7 @@ export function useShareExperienceData() {
 
         sendVisitedModalSendEvent({
           visitedRating: rating,
-          averageTime: `${hours}.${minutes}`,
+          averageTime: `${hours}.${Math.floor((minutes / 60) * 100)}`,
         });
         dispatch(
           updateVisitedObjectRequest({
