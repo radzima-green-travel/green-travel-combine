@@ -140,7 +140,7 @@
     "ready": "Done",
     "prompts": {
       "upcomingEvents": "Please provide its name, date and website",
-      "dinnerPlaces": "The nearest place to have a dinner",
+      "dinnerPlaces": "Please provide its name, Google Maps link or its website",
       "accommodationPlace": "Please provide its name, Google Maps link or its website",
       "workingHours": "Please enter working hours",
       "childServices": "Which services for kids are available?",
