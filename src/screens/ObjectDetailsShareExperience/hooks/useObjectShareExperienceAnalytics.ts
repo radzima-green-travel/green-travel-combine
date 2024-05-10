@@ -15,7 +15,7 @@ export function useObjectShareExperienceAnalytics() {
   const ignoreCloseEvent = useRef(false);
 
   const sendVisitedModalCloseEvent = useCallback(
-    (fieldValue: number) => {
+    (atLeastOneFieldFilled: boolean) => {
       if (analyticsMetadata && !ignoreCloseEvent.current) {
         dispatch(
           sendAnalyticsEvent({
@@ -23,7 +23,7 @@ export function useObjectShareExperienceAnalytics() {
             data: {
               object_name: analyticsMetadata.name,
               object_category: analyticsMetadata.categoryName,
-              at_least_one_field_filled: Boolean(fieldValue),
+              at_least_one_field_filled: atLeastOneFieldFilled,
             },
           }),
         );
