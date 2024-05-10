@@ -43,10 +43,6 @@ export function useShareExperienceMenu() {
     reportInnacurateInfoMenuProps.closeMenu();
   }, [shareExperienceMenuProps, reportInnacurateInfoMenuProps]);
 
-  const onRangeChangeHandler = (nextRange: number) => {
-    setRange(nextRange);
-  };
-
   const openInnacurateInfoMenu = useStaticCallback(() => {
     sendReportInaccuranceViewEvent();
     isMenuTransition.value = true;
@@ -113,7 +109,7 @@ export function useShareExperienceMenu() {
     rating,
     setRating,
     range,
-    onRangeChangeHandler,
+    onRangeChangeHandler: setRange,
     shareExperienceMenuProps,
     reportInnacurateInfoMenuProps,
     getIsAllMenusClosed,

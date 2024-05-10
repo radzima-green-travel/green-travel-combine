@@ -121,9 +121,7 @@ export const ObjectDetailsShareExperience = () => {
           onSkipPress={shareExperienceMenuProps.closeMenu}
           onMissedDetailsPress={onMissedDetailsPress}
           isMissedDetailsButtonVisible={isMissedDetailsButtonVisible}
-          onRangeChange={nextRange => {
-            onRangeChangeHandler(nextRange);
-          }}
+          onRangeChange={onRangeChangeHandler}
         />
       </BottomMenu>
 
