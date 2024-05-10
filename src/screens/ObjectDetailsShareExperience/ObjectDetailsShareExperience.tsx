@@ -64,7 +64,7 @@ export const ObjectDetailsShareExperience = () => {
   const onHideEnd = useCallback(() => {
     if (getIsAllMenusClosed()) {
       clearInitialData();
-      sendVisitedModalCloseEvent(range || rating);
+      sendVisitedModalCloseEvent(Boolean(range || rating));
     }
   }, [
     clearInitialData,
