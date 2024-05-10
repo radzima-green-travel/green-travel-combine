@@ -11,16 +11,11 @@ export function useObjectShareExperienceAnalytics() {
 
   const object = useObject(objectId || '');
   const {analyticsMetadata} = object || {};
-  const range = useRef(0);
-
-  const saveRangeForAnalytics = useCallback((value: number) => {
-    range.current = value;
-  }, []);
 
   const ignoreCloseEvent = useRef(false);
 
   const sendVisitedModalCloseEvent = useCallback(
-    (rating: number) => {
+    (fieldValue: number) => {
       if (analyticsMetadata && !ignoreCloseEvent.current) {
         dispatch(
           sendAnalyticsEvent({
@@ -28,7 +23,7 @@ export function useObjectShareExperienceAnalytics() {
             data: {
               object_name: analyticsMetadata.name,
               object_category: analyticsMetadata.categoryName,
-              at_least_one_field_filled: Boolean(range.current || rating),
+              at_least_one_field_filled: Boolean(fieldValue),
             },
           }),
         );
@@ -118,7 +113,6 @@ export function useObjectShareExperienceAnalytics() {
   }, [analyticsMetadata, dispatch]);
 
   return {
-    saveRangeForAnalytics,
     sendVisitedModalCloseEvent,
     sendVisitedModalSendEvent,
     sendReportInaccuranceViewEvent,

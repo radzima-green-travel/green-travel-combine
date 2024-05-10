@@ -38,7 +38,6 @@ export function useShareExperienceData() {
     onReportInnacuranceFieldValueChange,
     sendReportInaccuranceCloseEvent,
     sendVisitedModalCloseEvent,
-    saveRangeForAnalytics,
   } = useObjectShareExperienceAnalytics();
 
   const onSendPress = useCallback(
@@ -142,6 +141,5 @@ export function useShareExperienceData() {
     onReportInnacuranceFieldValueChange,
     sendReportInaccuranceCloseEvent,
     sendVisitedModalCloseEvent,
-    saveRangeForAnalytics,
   };
 }

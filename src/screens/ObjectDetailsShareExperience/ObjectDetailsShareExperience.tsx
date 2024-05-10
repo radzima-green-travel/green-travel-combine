@@ -33,7 +33,6 @@ export const ObjectDetailsShareExperience = () => {
     onReportInnacuranceFieldValueChange,
     sendReportInaccuranceCloseEvent,
     sendVisitedModalCloseEvent,
-    saveRangeForAnalytics,
   } = useShareExperienceData();
 
   const {
@@ -65,12 +64,13 @@ export const ObjectDetailsShareExperience = () => {
   const onHideEnd = useCallback(() => {
     if (getIsAllMenusClosed()) {
       clearInitialData();
-      sendVisitedModalCloseEvent(rating);
+      sendVisitedModalCloseEvent(range || rating);
     }
   }, [
     clearInitialData,
     getIsAllMenusClosed,
     rating,
+    range,
     sendVisitedModalCloseEvent,
   ]);
 
@@ -122,7 +122,6 @@ export const ObjectDetailsShareExperience = () => {
           onMissedDetailsPress={onMissedDetailsPress}
           isMissedDetailsButtonVisible={isMissedDetailsButtonVisible}
           onRangeChange={nextRange => {
-            saveRangeForAnalytics(nextRange);
             onRangeChangeHandler(nextRange);
           }}
         />
