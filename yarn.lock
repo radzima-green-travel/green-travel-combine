@@ -4205,10 +4205,10 @@
     css-to-react-native "^3.0.0"
     csstype "^3.0.8"
 
-"@native-html/transient-render-engine@11.2.1":
-  version "11.2.1"
-  resolved "https://registry.yarnpkg.com/@native-html/transient-render-engine/-/transient-render-engine-11.2.1.tgz#2fc9d5886289bc98c2c6bd2601bba0d5ffcde36a"
-  integrity sha512-j4jg4izTSmvqpKoYzqkTT2BTEd+J+Jmtvc2IUnv8YG68cnfGGjz45BmH+lTgYuMJi5T4l0IP/0+4/JVsfqQjEQ==
+"@native-html/transient-render-engine@11.2.3":
+  version "11.2.3"
+  resolved "https://registry.yarnpkg.com/@native-html/transient-render-engine/-/transient-render-engine-11.2.3.tgz#e4de0e7c8c023224a2dc27f3bd2b30d3984d94a4"
+  integrity sha512-zXwgA3gPUEmFs3I3syfnvDvS6WiUHXEE6jY09OBzK+trq7wkweOSFWIoyXiGkbXrozGYG0KY90YgPyr8Tg8Uyg==
   dependencies:
     "@native-html/css-processor" "1.11.0"
     "@types/ramda" "^0.27.44"
@@ -4217,7 +4217,7 @@
     domhandler "^4.2.2"
     domutils "^2.8.0"
     htmlparser2 "^7.1.2"
-    ramda "^0.27.1"
+    ramda "^0.27.2"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
@@ -11394,7 +11394,7 @@ quickselect@^2.0.0:
   resolved "https://registry.yarnpkg.com/quickselect/-/quickselect-2.0.0.tgz#f19680a486a5eefb581303e023e98faaf25dd018"
   integrity sha512-RKJ22hX8mHe3Y6wH/N3wCM6BWtjaxIyyUIkpHOvfFnxdI4yD4tBXEBKSbriGujF6jnSVkJrffuo6vxACiSSxIw==
 
-ramda@^0.27.1:
+ramda@^0.27.2:
   version "0.27.2"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.2.tgz#84463226f7f36dc33592f6f4ed6374c48306c3f1"
   integrity sha512-SbiLPU40JuJniHexQSAgad32hfwd+DRUdwF2PlVuI5RZD0/vahUco7R8vD86J/tcEKKF9vZrUVwgtmGCqlCKyA==
@@ -11601,18 +11601,18 @@ react-native-redash@^16.0.8:
     normalize-svg-path "^1.0.1"
     parse-svg-path "^0.1.2"
 
-react-native-render-html@6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-6.2.0.tgz#f578f631c975ead0d5dba2c57b7e35e8e7257d58"
-  integrity sha512-czqetQvnlPszsc2bUWnBzIkssYmuMHc0PpQEw+XzxT3t12tF7trrpN+/cX8vtk6J6HmONJP/HtAs7v32o2Gkhg==
+react-native-render-html@6.3.4:
+  version "6.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-6.3.4.tgz#01684897bed2de84829e540a1dbb3a7bdf9d0e57"
+  integrity sha512-H2jSMzZjidE+Wo3qCWPUMU1nm98Vs2SGCvQCz/i6xf0P3Y9uVtG/b0sDbG/cYFir2mSYBYCIlS1Dv0WC1LjYig==
   dependencies:
     "@jsamr/counter-style" "^2.0.1"
     "@jsamr/react-native-li" "^2.3.0"
-    "@native-html/transient-render-engine" "11.2.1"
+    "@native-html/transient-render-engine" "11.2.3"
     "@types/ramda" "^0.27.40"
     "@types/urijs" "^1.19.15"
     prop-types "^15.5.7"
-    ramda "^0.27.1"
+    ramda "^0.27.2"
     stringify-entities "^3.1.0"
     urijs "^1.19.6"
 
