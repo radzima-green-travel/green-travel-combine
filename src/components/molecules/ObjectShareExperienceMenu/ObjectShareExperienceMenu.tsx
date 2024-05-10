@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useMemo, useState} from 'react';
+import React, {memo, useCallback, useMemo} from 'react';
 import {View, Text} from 'react-native';
 import {useThemeStyles, useTranslation, useTimeRange} from 'core/hooks';
 import {RangePickSlider} from 'atoms';
@@ -16,8 +16,9 @@ interface IProps {
   }) => void;
   onSkipPress: () => void;
   rating: number;
+  range: number;
   onRatingChange: (rating: number) => void;
-  onRangeChange?: (range: number) => void;
+  onRangeChange: (range: number) => void;
   isSubmitButtonLoading: boolean;
   onReportInformationPress: () => void;
   testID: string;
@@ -37,6 +38,7 @@ export const ObjectShareExperienceMenu = memo(
     onReportInformationPress,
     testID,
     isReportSent,
+    range,
     isReportSending,
     onMissedDetailsPress,
     isMissedDetailsButtonVisible,
@@ -44,7 +46,6 @@ export const ObjectShareExperienceMenu = memo(
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
-    const [range, setRange] = useState(0);
     const {timeString, hours, minutes} = useTimeRange(range);
 
     const onSubmitPressHandler = useCallback(() => {
@@ -82,16 +83,6 @@ export const ObjectShareExperienceMenu = memo(
 
     const {bottom} = useSafeAreaInsets();
 
-    const onRangeChangeHandler = useCallback(
-      (nextRange: number) => {
-        if (onRangeChange) {
-          onRangeChange(nextRange);
-        }
-        setRange(nextRange);
-      },
-      [onRangeChange],
-    );
-
     return (
       <View style={styles.container}>
         <Text style={styles.rateTitle}>
@@ -113,7 +104,7 @@ export const ObjectShareExperienceMenu = memo(
           markSteps={12}
           value={range}
           containerStyle={styles.rangePicker}
-          onChangeValue={onRangeChangeHandler}
+          onChangeValue={onRangeChange}
         />
         <ListItem
           testID={composeTestID(testID, 'reportInnacurateInfoButton')}
