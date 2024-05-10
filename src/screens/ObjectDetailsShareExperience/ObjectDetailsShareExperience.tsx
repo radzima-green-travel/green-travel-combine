@@ -41,6 +41,8 @@ export const ObjectDetailsShareExperience = () => {
     openInnacurateInfoMenu,
     rating,
     setRating,
+    range,
+    onRangeChangeHandler,
     shareExperienceMenuProps,
     reportInnacurateInfoMenuProps,
     reportInnacurateInfoSuccessMenuProps,
@@ -110,6 +112,7 @@ export const ObjectDetailsShareExperience = () => {
           testID={TestIDs.ObjectShareExperienceMenuContent}
           onSubmitPress={onSubmitPress}
           rating={rating}
+          range={range}
           onRatingChange={setRating}
           isSubmitButtonLoading={sumbitLoading}
           onReportInformationPress={openInnacurateInfoMenu}
@@ -118,7 +121,10 @@ export const ObjectDetailsShareExperience = () => {
           onSkipPress={shareExperienceMenuProps.closeMenu}
           onMissedDetailsPress={onMissedDetailsPress}
           isMissedDetailsButtonVisible={isMissedDetailsButtonVisible}
-          onRangeChange={saveRangeForAnalytics}
+          onRangeChange={nextRange => {
+            saveRangeForAnalytics(nextRange);
+            onRangeChangeHandler(nextRange);
+          }}
         />
       </BottomMenu>
 

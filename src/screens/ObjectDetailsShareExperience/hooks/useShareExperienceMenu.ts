@@ -35,12 +35,17 @@ export function useShareExperienceMenu() {
   });
 
   const [rating, setRating] = useState(0);
+  const [range, setRange] = useState(0);
 
   const backToInitialMenu = useStaticCallback(() => {
     Keyboard.dismiss();
     shareExperienceMenuProps.openMenu();
     reportInnacurateInfoMenuProps.closeMenu();
   }, [shareExperienceMenuProps, reportInnacurateInfoMenuProps]);
+
+  const onRangeChangeHandler = (nextRange: number) => {
+    setRange(nextRange);
+  };
 
   const openInnacurateInfoMenu = useStaticCallback(() => {
     sendReportInaccuranceViewEvent();
@@ -107,6 +112,8 @@ export function useShareExperienceMenu() {
     openInnacurateInfoMenu,
     rating,
     setRating,
+    range,
+    onRangeChangeHandler,
     shareExperienceMenuProps,
     reportInnacurateInfoMenuProps,
     getIsAllMenusClosed,
