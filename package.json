@@ -29,7 +29,7 @@
     "@rnmapbox/maps": "^10.1.23",
     "@sentry/react-native": "5.11.1",
     "@turf/distance": "^6.5.0",
-    "amazon-cognito-identity-js": "^5.2.3",
+    "amazon-cognito-identity-js": "^6.3.12",
     "aws-amplify": "^4.3.37",
     "aws-amplify-react-native": "^6.0.5",
     "axios": "0.19.2",
