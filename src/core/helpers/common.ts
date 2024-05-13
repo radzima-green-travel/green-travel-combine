@@ -481,7 +481,7 @@ export function transformQueryData(
 
             usersRating:
               object.calculatedProperties?.averageRating &&
-              object.calculatedProperties?.totalRatings > 2
+              object.calculatedProperties?.totalRatings > 1
                 ? object.calculatedProperties?.averageRating
                 : null,
             usersRatingsTotal:
