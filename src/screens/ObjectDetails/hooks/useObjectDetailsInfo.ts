@@ -139,12 +139,6 @@ export function useObjectDetailsInfo() {
         leadIcon: 'globe',
         testID: TestIDs.ObjectDetailsOfficialWebsite,
       },
-      getAttendaceStringTime && {
-        subtitle: t('objectFieldsLabels.attendanceTime'),
-        title: getAttendaceStringTime,
-        leadIcon: 'hourglass',
-        testID: TestIDs.ObjectDetailsAttendanceTime,
-      },
       phoneNumbers?.length && {
         subtitle: t('objectFieldsLabels.phoneNumber'),
         title: phoneNumbers[0],
@@ -160,6 +154,12 @@ export function useObjectDetailsInfo() {
           openPhoneNumbersMenu();
           sendMorePhonesViewEvent();
         },
+      },
+      getAttendaceStringTime && {
+        subtitle: t('objectFieldsLabels.attendanceTime'),
+        title: getAttendaceStringTime,
+        leadIcon: 'hourglass',
+        testID: TestIDs.ObjectDetailsAttendanceTime,
       },
     ] as Item[]);
   }, [
