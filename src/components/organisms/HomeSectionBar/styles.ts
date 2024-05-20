@@ -3,7 +3,10 @@ import {PADDING_HORIZONTAL} from 'core/constants';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {ratio} from 'atoms/Card/Card';
 
-export const cardWidth = (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945;
+export const cardWidth = Math.round(
+  (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945,
+);
+
 export const cardHeihgt = cardWidth / ratio;
 export const SNAP_INTERVAL = cardWidth + PADDING_HORIZONTAL;
 
@@ -13,6 +16,7 @@ export const themeStyles = {
     marginTop: 16,
   },
   contentContainer: {
+    paddingLeft: 1,
     paddingRight: 16,
     paddingBottom: 24,
     height: cardHeihgt + 24,
