@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import {TextInput, View, StatusBar} from 'react-native';
@@ -52,6 +53,7 @@ export const ObjectAddInfoMenu = memo(
       const isTimePickerField = TIME_PICKER_FIELDS.has(currentField);
 
       const [value, setValue] = useState(formValue);
+      const initialValue = useRef(formValue);
 
       useEffect(() => {
         setValue(formValue);
@@ -101,7 +103,7 @@ export const ObjectAddInfoMenu = memo(
             theme: 'primary' as const,
             testID: composeTestID(testID, 'submitButton'),
             text: t('ready'),
-            disabled: !value,
+            disabled: !value && !initialValue.current,
           },
         ];
       }, [onSubmitForm, t, testID, value]);
