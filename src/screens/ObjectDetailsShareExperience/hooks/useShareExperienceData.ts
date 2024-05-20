@@ -28,7 +28,7 @@ export function useShareExperienceData() {
 
   const object = useObject(objectId || '');
   const incompleteFields = useObjectIncompleteFields(
-    object?.category.imcompletedFieldsNames ?? [],
+    object?.category.incompleteFieldsNames ?? [],
   );
   const {show, ...snackBarProps} = useSnackbar();
 

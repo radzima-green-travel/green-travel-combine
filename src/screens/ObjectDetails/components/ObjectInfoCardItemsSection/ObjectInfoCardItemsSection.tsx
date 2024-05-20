@@ -4,12 +4,12 @@ import {Text, View} from 'react-native';
 import {themeStyles} from './styles';
 import {composeTestID} from 'core/helpers';
 import {Card} from 'molecules';
-import {IObjectAddititonalInfoItem} from 'core/types';
+import {IObjectAdditionalInfoItem} from 'core/types';
 import {images} from 'assets/images';
 import {capitalize, map} from 'lodash';
 export type CardType = 'accommodation' | 'placeToEat' | 'event';
 interface IProps {
-  items: IObjectAddititonalInfoItem[];
+  items: IObjectAdditionalInfoItem[];
   title: string;
   testID: string;
   type: CardType;

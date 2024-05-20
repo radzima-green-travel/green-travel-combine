@@ -37,7 +37,7 @@ import {
   TestIDs,
   ISpotsMap,
   SpotI18n,
-  IObjectAddititonalInfoItem,
+  IObjectAdditionalInfoItem,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {
@@ -157,32 +157,41 @@ function getTranslationsForProperties<T extends string>(
   );
 }
 
-const objectCompletnessInfo = (
+const isValueOrItemsEmpty = (value: any): boolean => {
+  return isEmpty(value) || value?.items ? isEmpty(value?.items) : false;
+};
+
+const objectCompletenessInfo = (
   object: ListMobileDataQueryObject | null,
   objectRootCategory: ITransformedCategory | null,
 ) => {
-  const imcompletedFieldsNames = filter(
+  const incompleteFieldsNames = filter(
     objectRootCategory?.completenessFields,
     fieldName => {
       const value = object?.[fieldName];
+      const isValueEmpty = isValueOrItemsEmpty(value);
 
-      return isEmpty(value) || value?.items ? isEmpty(value?.items) : false;
+      if (fieldName === ObjectField.attendanceTime && isValueEmpty) {
+        return !object?.calculatedProperties?.averageSpentTime;
+      }
+
+      return isValueEmpty;
     },
   ) as ObjectField[];
 
-  const amountOfImcompletedFields = imcompletedFieldsNames.length;
+  const amountOfIncompleteFields = incompleteFieldsNames.length;
   const amountOfCompletenessFields =
     objectRootCategory?.completenessFields?.length || 0;
   const percentageOfCompletion =
     amountOfCompletenessFields &&
-    amountOfCompletenessFields >= amountOfImcompletedFields
+    amountOfCompletenessFields >= amountOfIncompleteFields
       ? Math.round(
-          (1 - amountOfImcompletedFields / amountOfCompletenessFields) * 100,
+          (1 - amountOfIncompleteFields / amountOfCompletenessFields) * 100,
         )
       : 0;
 
   return {
-    imcompletedFieldsNames,
+    incompleteFieldsNames,
     percentageOfCompletion,
   };
 };
@@ -190,7 +199,7 @@ const objectCompletnessInfo = (
 export function prepareObjectAdditionalInfoItems(
   items: Array<AccommodationPlaceItem | DinnerPlacesItem | UpcomingEventsItem>,
   currentLocale: SupportedLocales,
-): IObjectAddititonalInfoItem[] {
+): IObjectAdditionalInfoItem[] {
   return reduce(
     items,
     (acc, item) => {
@@ -218,7 +227,7 @@ export function prepareObjectAdditionalInfoItems(
 
       return acc;
     },
-    [] as IObjectAddititonalInfoItem[],
+    [] as IObjectAdditionalInfoItem[],
   );
 }
 
@@ -294,7 +303,7 @@ export function prepareObjectBelongsTo(
               categoryName: categoryData.name,
               analyticsMetadata: {
                 name: object.name,
-                categgoryName: categoryData.analyticsMetadata.name,
+                categoryName: categoryData.analyticsMetadata.name,
               },
             });
           }
@@ -422,8 +431,8 @@ export function transformQueryData(
             return address.join(', ');
           }
 
-          const {percentageOfCompletion, imcompletedFieldsNames} =
-            objectCompletnessInfo(object, objectCategory);
+          const {percentageOfCompletion, incompleteFieldsNames} =
+            objectCompletenessInfo(object, objectCategory);
 
           const objectData: IObject = {
             id: object.id,
@@ -444,7 +453,7 @@ export function transformQueryData(
               name: objectCategory?.name,
               parent: objectCategory?.parent || null,
               singularName: objectCategory?.singularName || '',
-              imcompletedFieldsNames: imcompletedFieldsNames,
+              incompleteFieldsNames: incompleteFieldsNames,
               percentageOfCompletion: percentageOfCompletion,
             },
             cover: object.cover
