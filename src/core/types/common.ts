@@ -44,7 +44,7 @@ export interface IBelongsTo {
   image: string;
   analyticsMetadata: {
     name: string;
-    categgoryName: string;
+    categoryName: string;
   };
 }
 
@@ -54,7 +54,7 @@ export interface IObjectCategory {
   name: string;
   parent: string | null;
   singularName: string;
-  imcompletedFieldsNames: ObjectField[];
+  incompleteFieldsNames: ObjectField[];
   percentageOfCompletion: number;
 }
 
@@ -63,7 +63,7 @@ export interface IOrigins {
   value: string;
 }
 
-export interface IObjectAddititonalInfoItem {
+export interface IObjectAdditionalInfoItem {
   name: string;
   date?: string;
   link?: string;
@@ -98,9 +98,9 @@ export interface IObject {
   googleRating: number | null;
   usersRatingsTotal: number | null;
   googleRatingsTotal: number | null;
-  upcomingEvents: IObjectAddititonalInfoItem[];
-  accommodationPlace: IObjectAddititonalInfoItem[];
-  dinnerPlaces: IObjectAddititonalInfoItem[];
+  upcomingEvents: IObjectAdditionalInfoItem[];
+  accommodationPlace: IObjectAdditionalInfoItem[];
+  dinnerPlaces: IObjectAdditionalInfoItem[];
   analyticsMetadata: {
     name: string;
     categoryName: string;

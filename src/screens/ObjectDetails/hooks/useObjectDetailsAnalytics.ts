@@ -207,7 +207,7 @@ export function useObjectDetailsAnalytics() {
             object_category: analyticsMetadata?.categoryName,
             info_readiness_value: `${category.percentageOfCompletion}%`,
             missed_fields: map(
-              category.imcompletedFieldsNames,
+              category.incompleteFieldsNames,
               getObjectDetailsAnalyticsIncompleteFieldName,
             ),
           },

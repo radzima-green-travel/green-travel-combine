@@ -32,7 +32,7 @@ export const useObjectDetailsAddInfo = () => {
   const {t} = useTranslation('objectDetailsAddInfo');
   const objectData = useObject(objectId);
   const incompleteFields = useObjectIncompleteFields(
-    objectData?.category.imcompletedFieldsNames ?? [],
+    objectData?.category.incompleteFieldsNames ?? [],
   );
   const bottomMenuProps = useBottomMenu();
   const confirmBottomMenuProps = useBottomMenu();

@@ -20,7 +20,7 @@ export function useObjectCompletnessData({objectId}: {objectId: string}) {
       headerHeight * 2,
     );
   const incompleteFields = useObjectIncompleteFields(
-    objectData?.category.imcompletedFieldsNames ?? [],
+    objectData?.category.incompleteFieldsNames ?? [],
   );
 
   const scrollToElementHandler = useCallback(() => {

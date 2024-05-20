@@ -69,7 +69,7 @@ export const useObjectDetails = () => {
     ({objectId: belongsToObjectId, analyticsMetadata}: IBelongsTo) => {
       sendBelongsToNavigateEvent({
         objectName: analyticsMetadata.name,
-        categoryName: analyticsMetadata.categgoryName,
+        categoryName: analyticsMetadata.categoryName,
       });
       navigation.push('ObjectDetails', {
         objectId: belongsToObjectId,
