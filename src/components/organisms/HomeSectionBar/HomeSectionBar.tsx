@@ -1,7 +1,7 @@
 import React, {memo, useCallback, useRef, useEffect} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
-import {themeStyles, cardWidth, SNAP_INTERVAL} from './styles';
+import {themeStyles, cardWidth, getSnapToOffsets} from './styles';
 import {useTranslation} from 'react-i18next';
 import {IObject, ITransformedCategory, TestIDs} from 'core/types';
 import {isEmpty} from 'lodash';
@@ -102,7 +102,7 @@ export const HomeSectionBar = memo(
         {isCategoriesList ? (
           <FlatList
             ref={listRef}
-            snapToInterval={SNAP_INTERVAL}
+            snapToOffsets={getSnapToOffsets(childrenData)}
             snapToStart={false}
             decelerationRate="fast"
             keyExtractor={({id}) => id}
@@ -125,7 +125,7 @@ export const HomeSectionBar = memo(
           <FlatList
             ref={listRef}
             keyExtractor={({id}) => id}
-            snapToInterval={SNAP_INTERVAL}
+            snapToOffsets={getSnapToOffsets(objectsData)}
             snapToStart={false}
             decelerationRate="fast"
             style={styles.container}
