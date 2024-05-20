@@ -8,13 +8,7 @@ export const cardWidth = Math.round(
 );
 
 export const cardHeihgt = cardWidth / ratio;
-const SNAP_INTERVAL = cardWidth + PADDING_HORIZONTAL;
-
-export const getSnapToOffsets = data => {
-  return data.map((_, index) => {
-    return index * SNAP_INTERVAL - 8;
-  });
-};
+export const SNAP_INTERVAL = cardWidth + PADDING_HORIZONTAL;
 
 export const themeStyles = {
   container: {

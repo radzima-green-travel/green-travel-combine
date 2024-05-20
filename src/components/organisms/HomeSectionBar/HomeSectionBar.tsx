@@ -1,7 +1,7 @@
 import React, {memo, useCallback, useRef, useEffect, useMemo} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
-import {themeStyles, cardWidth, getSnapToOffsets} from './styles';
+import {themeStyles, cardWidth, SNAP_INTERVAL} from './styles';
 import {useTranslation} from 'react-i18next';
 import {IObject, ITransformedCategory, TestIDs} from 'core/types';
 import {isEmpty} from 'lodash';
@@ -81,13 +81,12 @@ export const HomeSectionBar = memo(
       listRef.current?.scrollToOffset({animated: true, offset: 0});
     }, [childrenData, objectsData]);
 
-    const snapToOffsetsForChildrenData = useMemo(() => {
-      return getSnapToOffsets(childrenData);
-    }, [childrenData]);
-
     const snapToOffsets = useMemo(() => {
-      return getSnapToOffsets(objectsData);
-    }, [objectsData]);
+      const data = isCategoriesList ? childrenData : objectsData;
+      return data.map((_, index) => {
+        return index * SNAP_INTERVAL - 8;
+      });
+    }, [childrenData, isCategoriesList, objectsData]);
 
     return (
       <View>
@@ -110,7 +109,7 @@ export const HomeSectionBar = memo(
         {isCategoriesList ? (
           <FlatList
             ref={listRef}
-            snapToOffsets={snapToOffsetsForChildrenData}
+            snapToOffsets={snapToOffsets}
             snapToStart={false}
             decelerationRate="fast"
             keyExtractor={({id}) => id}
