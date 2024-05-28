@@ -56,6 +56,7 @@ export const COLORS = {
       secondary: '#767676',
       tertiary: '#999999',
       negative: '#CC0B00',
+      disable: '#B8B8B8',
     },
     icon: {
       primary: 'rgba(9, 9, 9, 1)',
@@ -63,6 +64,7 @@ export const COLORS = {
       tertiary: '#999999',
       constant: '#ffffff',
       accentLight: '#35B47F',
+      disable: '#B8B8B8',
     },
     other: {
       search: 'rgba(245, 245, 245, 1)',
@@ -99,6 +101,7 @@ export const COLORS = {
       link: '#35B47F',
       tertiary: '#5C5C5C',
       negative: '#FF5147',
+      disable: '#3D3D3D',
     },
     icon: {
       primary: 'rgba(184, 184, 184, 1)',
@@ -106,6 +109,7 @@ export const COLORS = {
       tertiary: '#7D7D7E',
       constant: '#ffffff',
       accentLight: '#35B47F',
+      disable: '#3D3D3D',
     },
     other: {
       search: 'rgba(31, 31, 31, 1)',
