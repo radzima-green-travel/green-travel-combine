@@ -9,6 +9,10 @@ export const CHIP_THEMES: {[key in ChipThemes]: {[key: string]: object}} = {
         light: COLORS.light.background.secondary,
         dark: COLORS.dark.background.secondary,
       },
+      borderColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
     },
     text: {
       color: {
@@ -27,7 +31,10 @@ export const CHIP_THEMES: {[key in ChipThemes]: {[key: string]: object}} = {
         light: COLORS.light.background.secondary,
         dark: COLORS.dark.background.secondary,
       },
-      borderWidth: 0,
+      borderColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
     },
     disabledText: {
       color: {
@@ -46,7 +53,10 @@ export const CHIP_THEMES: {[key in ChipThemes]: {[key: string]: object}} = {
         light: COLORS.light.background.accent,
         dark: COLORS.dark.background.accent,
       },
-      borderWidth: 0,
+      borderColor: {
+        light: COLORS.light.background.accent,
+        dark: COLORS.dark.background.accent,
+      },
     },
     activeText: {
       color: {
@@ -65,7 +75,6 @@ export const CHIP_THEMES: {[key in ChipThemes]: {[key: string]: object}} = {
         light: COLORS.light.background.accent,
         dark: COLORS.dark.background.accent,
       },
-      borderWidth: 2,
     },
   },
 };
