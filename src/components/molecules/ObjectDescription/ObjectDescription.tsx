@@ -11,7 +11,7 @@ import {
 } from './styles';
 import {useWindowDimensions, View} from 'react-native';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import LinearGradient from 'react-native-linear-gradient';
+import {LinearGradient} from 'expo-linear-gradient';
 import {IOrigins} from 'core/types';
 import {Button} from 'atoms';
 import {ObjectDescriptionSource} from '../ObjectDescriptionSource';
