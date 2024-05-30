@@ -5,7 +5,7 @@
     "ios": {
       "bundleIdentifier": "com.greentravel.radzima.expo.go",
       "supportsTablet": true,
-      "sp`lash": {
+      "splash": {
         "image": "src/assets/bootsplash/bootsplash_logo.png",
         "resizeMode": "cover",
         "backgroundColor": "#ffffff",
