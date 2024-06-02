@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from 'services/NavigationService';
+import * as SplashScreen from 'expo-splash-screen';
 import {MainNavigator} from './MainNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {bootstrapRequest} from 'core/reducers';
@@ -8,7 +9,7 @@ import {StatusBar} from 'react-native';
 import {
   ForceUpdateScreen,
   OptionalUpdateScreen,
-  SplashScreen,
+  SplashScreen as CustomSplashScreen,
 } from '../../screens';
 
 import {PortalProvider} from '@gorhom/portal';
@@ -21,6 +22,8 @@ import {
 } from 'core/selectors';
 import {linkingService} from 'services/LinkingService';
 import {useColorScheme} from 'core/hooks';
+
+SplashScreen.preventAutoHideAsync();
 
 export function RootNavigator() {
   const dispatch = useDispatch();
@@ -64,10 +67,10 @@ export function RootNavigator() {
     });
   }, []);
 
-  const showSplashForAndroid = () => {
+  const showSplash = () => {
     if (isReady) {
       return splashTransitionFinished ? null : (
-        <SplashScreen
+        <CustomSplashScreen
           onFadeStart={onFadeStart}
           onAnimationEnd={onAnimationEnd}
         />
@@ -78,7 +81,9 @@ export function RootNavigator() {
   };
 
   const showUpdateScreen = () => {
-    if (isUpdatesMandatory) {
+    if (!splashTransitionFinished) {
+      return null;
+    } else if (isUpdatesMandatory) {
       return <ForceUpdateScreen />;
     } else if (isUpdatesAvailable && !isUpdatesSkipped) {
       return <OptionalUpdateScreen />;
@@ -97,7 +102,7 @@ export function RootNavigator() {
           <>
             <MainNavigator />
             {showUpdateScreen()}
-            {/* {showSplashForAndroid()} */}
+            {showSplash()}
           </>
         ) : null}
       </PortalProvider>

@@ -2,30 +2,37 @@
   "expo": {
     "name": "greenTravel",
     "slug": "greenTravel",
+    "userInterfaceStyle": "automatic",
     "ios": {
-      "bundleIdentifier": "com.greentravel.radzima.expo.go",
+      "bundleIdentifier": "com.greentravel.radzima",
       "supportsTablet": true,
+      "userInterfaceStyle": "automatic",
       "splash": {
-        "image": "src/assets/bootsplash/bootsplash_logo.png",
+        "image": "src/assets/splash/SplashLight.png",
         "resizeMode": "cover",
         "backgroundColor": "#ffffff",
         "dark": {
-          "image": "src/assets/bootsplash/bootsplash_logo_dark.png",
+          "image": "src/assets/splash/SplashDark.png",
           "resizeMode": "cover",
-          "backgroundColor": "#000000"
+          "backgroundColor": "#1F1F1F"
         }
       }
     },
     "android": {
       "package": "app.radzima",
+      "userInterfaceStyle": "automatic",
+      "adaptiveIcon": {
+        "foregroundImage": "src/assets/app/AndroidAdaptiveIcon.png",
+        "backgroundColor": "#ffffff"
+      },
       "splash": {
-        "image": "src/assets/bootsplash/bootsplash_logo@3x.png",
+        "image": "src/assets/splash/SplashLight.png",
         "resizeMode": "cover",
         "backgroundColor": "#ffffff",
         "dark": {
-          "image": "src/assets/bootsplash/bootsplash_logo_dark@3x.png",
+          "image": "src/assets/splash/SplashDark.png",
           "resizeMode": "cover",
-          "backgroundColor": "#000000"
+          "backgroundColor": "#1F1F1F"
         }
       },
       "permissions": [
@@ -37,7 +44,7 @@
       "ios",
       "android"
     ],
-    "icon": "src/assets/Icon-1024.png",
+    "icon": "src/assets/app/Icon.png",
     "plugins": [
       [
         "expo-location",
