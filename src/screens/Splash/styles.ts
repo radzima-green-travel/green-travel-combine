@@ -3,6 +3,10 @@ import {StyleSheet} from 'react-native';
 
 export const themeStyles = {
   container: {
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.secondary,
+    },
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
