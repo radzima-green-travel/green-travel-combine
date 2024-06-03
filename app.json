@@ -54,14 +54,7 @@
       ],
       [
         "expo-localization"
-      ],
-      [
-        "@rnmapbox/maps",
-        {
-          "RNMapboxMapsVersion": "11.1.0",
-          "RNMapboxMapsDownloadToken": ""
-        }
-      ]
+      ]     
     ],
     "extra": {
       "eas": {
