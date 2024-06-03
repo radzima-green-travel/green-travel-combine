@@ -1,4 +1,4 @@
-import {FONTS_STYLES} from 'assets';
+import {FONTS_PRESETS} from 'assets';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
   },
   text: {
-    ...FONTS_STYLES.text_16_24_400,
+    ...FONTS_PRESETS.bodyRegular,
   },
   iconContainer: {
     width: 24,

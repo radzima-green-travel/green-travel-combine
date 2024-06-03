@@ -7,8 +7,8 @@ import {
   TextStyle,
   LayoutChangeEvent,
   View,
+  Text,
 } from 'react-native';
-import Animated from 'react-native-reanimated';
 
 import {CHIP_THEMES} from './constants';
 import {styles} from './styles';
@@ -30,8 +30,6 @@ export type Props = {
   iconPosition?: 'left' | 'center';
   isIconOnlyButton?: boolean;
   onButtonLabelLayout?: (event: LayoutChangeEvent) => void;
-  iconContainerAnimatedStyle?: StyleProp<ViewStyle>;
-  labelAnimatedStyle?: StyleProp<TextStyle>;
 };
 
 export const Chip = memo(
@@ -48,8 +46,6 @@ export const Chip = memo(
     testID,
     style,
     onButtonLabelLayout,
-    iconContainerAnimatedStyle,
-    labelAnimatedStyle,
   }: Props) => {
     const chipThemeStyles = useThemeStyles(CHIP_THEMES.default);
 
@@ -71,21 +67,17 @@ export const Chip = memo(
       return (
         <View style={styles.contentContainer}>
           {leftIcon ? (
-            <Animated.View
-              style={[styles.iconContainer, iconContainerAnimatedStyle]}>
+            <View style={[styles.iconContainer]}>
               {leftIcon(iconThemeStyles)}
-            </Animated.View>
+            </View>
           ) : null}
-          <Animated.Text
-            style={[finalTextStyle, labelAnimatedStyle]}
-            onLayout={onButtonLabelLayout}>
+          <Text style={[finalTextStyle]} onLayout={onButtonLabelLayout}>
             {text}
-          </Animated.Text>
+          </Text>
           {rightIcon ? (
-            <Animated.View
-              style={[styles.iconContainer, iconContainerAnimatedStyle]}>
+            <View style={[styles.iconContainer]}>
               {rightIcon(iconThemeStyles)}
-            </Animated.View>
+            </View>
           ) : null}
         </View>
       );
