@@ -35,4 +35,5 @@ export {LottieAnimation} from './LottieAnimation';
 export {RangePickSlider} from './RangePickSlider';
 export {AnimatedStar} from './AnimatedStar';
 export {Link} from './Link';
+export {Chip} from './Chip';
 export {TrancateDetectionText} from './TrancateDetectionText';
