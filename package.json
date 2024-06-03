@@ -13,6 +13,8 @@
     "lint-fix": "yarn run eslint --fix './src/**/*.{ts,tsx,js}'",
     "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
     "update-svg": "node scripts/update-svg/update-svg.js",
+    "build-ios": "eas build --profile production --platform ios --local",
+    "build-dev-client-ios": "eas build --profile development --platform ios --local",
     "postinstall": "patch-package && yarn husky install"
   },
   "dependencies": {
@@ -59,6 +61,7 @@
     "react-native-awesome-gallery": "^0.3.6",
     "react-native-gesture-handler": "2.14.0",
     "react-native-map-link": "2.7.25",
+    "react-native-mmkv": "^2.12.2",
     "react-native-reanimated": "^3.6.2",
     "react-native-render-html": "6.2.0",
     "react-native-safe-area-context": "4.8.2",
