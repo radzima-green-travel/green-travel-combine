@@ -37,3 +37,4 @@ export {AnimatedStar} from './AnimatedStar';
 export {Link} from './Link';
 export {Chip} from './Chip';
 export {TrancateDetectionText} from './TrancateDetectionText';
+export {Checkbox} from './Checkbox';
