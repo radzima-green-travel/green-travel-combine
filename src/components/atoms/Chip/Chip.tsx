@@ -5,14 +5,17 @@ import {
   ViewStyle,
   TouchableOpacity,
   TextStyle,
-  LayoutChangeEvent,
   View,
   Text,
+  Pressable,
+  GestureResponderEvent,
 } from 'react-native';
+import {TestIDs} from 'core/types';
 
 import {CHIP_THEMES} from './constants';
 import {styles} from './styles';
-import {getPlatformsTestID} from 'core/helpers';
+import {getPlatformsTestID, composeTestID} from 'core/helpers';
+import {Icon} from '../Icon';
 
 export type Props = {
   text: string;
@@ -25,19 +28,17 @@ export type Props = {
   active?: boolean;
   outlined?: boolean;
   leftIcon?: (textStyle: StyleProp<TextStyle>) => React.ReactElement;
-  rightIcon?: (textStyle: StyleProp<TextStyle>) => React.ReactElement;
   testID: string;
-  iconPosition?: 'left' | 'center';
-  isIconOnlyButton?: boolean;
-  onButtonLabelLayout?: (event: LayoutChangeEvent) => void;
+  isShowCloseIcon?: boolean;
+  onClosePress?: (event: GestureResponderEvent) => void;
 };
 
 export const Chip = memo(
   ({
     onPress,
+    onClosePress,
     text,
     leftIcon,
-    rightIcon,
     disabled = false,
     checked = false,
     active = false,
@@ -45,7 +46,7 @@ export const Chip = memo(
     textStyle,
     testID,
     style,
-    onButtonLabelLayout,
+    isShowCloseIcon,
   }: Props) => {
     const chipThemeStyles = useThemeStyles(CHIP_THEMES.default);
 
@@ -71,13 +72,15 @@ export const Chip = memo(
               {leftIcon(iconThemeStyles)}
             </View>
           ) : null}
-          <Text style={[finalTextStyle]} onLayout={onButtonLabelLayout}>
-            {text}
-          </Text>
-          {rightIcon ? (
-            <View style={[styles.iconContainer]}>
-              {rightIcon(iconThemeStyles)}
-            </View>
+          <Text style={[finalTextStyle]}>{text}</Text>
+          {isShowCloseIcon ? (
+            <Pressable style={[styles.iconContainer]} onPress={onClosePress}>
+              <Icon
+                style={iconThemeStyles}
+                name={'close'}
+                testID={composeTestID(testID, TestIDs.Icon)}
+              />
+            </Pressable>
           ) : null}
         </View>
       );
