@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 7.8.4"
+    "version": ">= 7.8.4",
+    "promptToConfigurePushNotifications": false
   },
   "build": {
     "development": {
@@ -11,7 +12,10 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "credentialsSource": "local",
+      "distribution": "internal"
+    }
   },
   "submit": {
     "production": {}
