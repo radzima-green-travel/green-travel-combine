@@ -1,0 +1,52 @@
+import React, {memo} from 'react';
+import {ScrollView, Text, TouchableOpacity} from 'react-native';
+import {useThemeStyles} from 'core/hooks';
+import {MULTISWITCH_THEMES} from './constants';
+import {styles} from './styles';
+import {getPlatformsTestID} from 'core/helpers';
+
+interface IProps {
+  multiswitchItems: string[];
+  onItemPress: () => void;
+  testID: string;
+}
+
+export const Multiswitch = memo(
+  ({multiswitchItems, onItemPress, testID}: IProps) => {
+    const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
+
+    return (
+      <ScrollView
+        contentContainerStyle={[styles.container, multiswitchStyles.container]}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        {...getPlatformsTestID(testID)}>
+        {multiswitchItems.map((item, index) => {
+          // TODO: temporarily. Will be removed after adding Multiswitch to the filter screen
+          const active = index === 0;
+
+          return (
+            <TouchableOpacity
+              style={[
+                styles.item,
+                multiswitchStyles.nonActive,
+                active && multiswitchStyles.active,
+              ]}
+              key={index}
+              onPress={onItemPress}
+              {...getPlatformsTestID(`${testID}-${item}`)}>
+              <Text
+                style={[
+                  styles.text,
+                  multiswitchStyles.nonActiveText,
+                  active && multiswitchStyles.activeText,
+                ]}>
+                {item}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
+    );
+  },
+);
