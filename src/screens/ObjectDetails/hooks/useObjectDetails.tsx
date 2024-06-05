@@ -1,5 +1,5 @@
 import {useCallback, useLayoutEffect, useEffect} from 'react';
-import Clipboard from 'expo-clipboard';
+import * as Clipboard from 'expo-clipboard';
 
 import {useSnackbar} from 'atoms';
 import {
