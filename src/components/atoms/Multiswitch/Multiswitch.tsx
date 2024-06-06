@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {ScrollView, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {MULTISWITCH_THEMES} from './constants';
 import {styles} from './styles';
@@ -16,10 +16,8 @@ export const Multiswitch = memo(
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
     return (
-      <ScrollView
-        contentContainerStyle={[styles.container, multiswitchStyles.container]}
-        horizontal
-        showsHorizontalScrollIndicator={false}
+      <View
+        style={[styles.container, multiswitchStyles.container]}
         {...getPlatformsTestID(testID)}>
         {multiswitchItems.map((item, index) => {
           // TODO: temporarily. Will be removed after adding Multiswitch to the filter screen
@@ -46,7 +44,7 @@ export const Multiswitch = memo(
             </TouchableOpacity>
           );
         })}
-      </ScrollView>
+      </View>
     );
   },
 );
