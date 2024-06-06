@@ -42,11 +42,13 @@ export const COLORS = {
       transparent: 'rgba(0, 0, 0, 0)',
       accentLight: '#86D2B2',
       quarterly: '#ECF4F1',
+      disable: '#E5E5E5',
     },
     stroke: {
       border: '#E5E5E5',
       borderAlhpa: 'rgba(9, 9, 9, 0.12)',
       dividerLight: '#F5F5F5',
+      tertiary: '#999999',
     },
     text: {
       primary: '#090909',
@@ -87,11 +89,13 @@ export const COLORS = {
       transparent: 'rgba(0, 0, 0, 0)',
       accentLight: '#86D2B2',
       quarterly: '#1F1F1F',
+      disable: '#3D3D3D',
     },
     stroke: {
       border: '#3D3D3D',
       borderAlhpa: 'rgba(9, 9, 9, 0.12)',
       dividerLight: '#1F1F1F',
+      tertiary: '#7D7D7E',
     },
     text: {
       primary: '#D6D6D6',
