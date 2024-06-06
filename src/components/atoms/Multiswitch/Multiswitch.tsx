@@ -16,34 +16,34 @@ export const Multiswitch = memo(
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
     return (
-      <View
-        style={[styles.container, multiswitchStyles.container]}
-        {...getPlatformsTestID(testID)}>
-        {multiswitchItems.map((item, index) => {
-          // TODO: temporarily. Will be removed after adding Multiswitch to the filter screen
-          const active = index === 0;
+      <View style={[styles.container]} {...getPlatformsTestID(testID)}>
+        <View style={[styles.container, multiswitchStyles.container]}>
+          {multiswitchItems.map((item, index) => {
+            // TODO: temporarily. Will be removed after adding Multiswitch to the filter screen
+            const active = index === 0;
 
-          return (
-            <TouchableOpacity
-              style={[
-                styles.item,
-                multiswitchStyles.nonActive,
-                active && multiswitchStyles.active,
-              ]}
-              key={index}
-              onPress={onItemPress}
-              {...getPlatformsTestID(`${testID}-${item}`)}>
-              <Text
+            return (
+              <TouchableOpacity
                 style={[
-                  styles.text,
-                  multiswitchStyles.nonActiveText,
-                  active && multiswitchStyles.activeText,
-                ]}>
-                {item}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+                  styles.item,
+                  multiswitchStyles.nonActive,
+                  active && multiswitchStyles.active,
+                ]}
+                key={index}
+                onPress={onItemPress}
+                {...getPlatformsTestID(`${testID}-${item}`)}>
+                <Text
+                  style={[
+                    styles.text,
+                    multiswitchStyles.nonActiveText,
+                    active && multiswitchStyles.activeText,
+                  ]}>
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
       </View>
     );
   },
