@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {MULTISWITCH_THEMES} from './constants';
 import {styles} from './styles';
@@ -9,14 +9,15 @@ interface IProps {
   multiswitchItems: string[];
   onItemPress: () => void;
   testID: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const Multiswitch = memo(
-  ({multiswitchItems, onItemPress, testID}: IProps) => {
+  ({multiswitchItems, onItemPress, testID, style}: IProps) => {
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
     return (
-      <View style={[styles.container]} {...getPlatformsTestID(testID)}>
+      <View style={[styles.container, style]} {...getPlatformsTestID(testID)}>
         <View style={[styles.container, multiswitchStyles.container]}>
           {multiswitchItems.map((item, index) => {
             // TODO: temporarily. Will be removed after adding Multiswitch to the filter screen
