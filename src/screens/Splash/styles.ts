@@ -1,4 +1,4 @@
-import {COLORS, FONTS} from 'assets';
+import {COLORS} from 'assets';
 import {StyleSheet} from 'react-native';
 
 export const themeStyles = {
@@ -22,6 +22,6 @@ export const themeStyles = {
       dark: COLORS.altoForDark,
     },
     fontSize: 36,
-    fontFamily: FONTS.secondarySemibold,
+    fontWeight: '600',
   },
 };

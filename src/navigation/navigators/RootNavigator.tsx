@@ -5,7 +5,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import {MainNavigator} from './MainNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {bootstrapRequest} from 'core/reducers';
-import {StatusBar} from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import {
   ForceUpdateScreen,
   OptionalUpdateScreen,
@@ -24,6 +25,7 @@ import {linkingService} from 'services/LinkingService';
 import {useColorScheme} from 'core/hooks';
 
 SplashScreen.preventAutoHideAsync();
+ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
 
 export function RootNavigator() {
   const dispatch = useDispatch();
@@ -37,6 +39,10 @@ export function RootNavigator() {
   const [bootstrapFinished, setBootstrapFinished] = useState(false);
 
   const [isReady, setIsReady] = useState(false);
+  const [splashFadingStarted, setSplashFadingStarted] = useState(false);
+
+  const statusBarThemedStyle = theme === 'dark' ? 'light' : 'dark';
+  const statusBarStyle = splashFadingStarted ? 'light' : statusBarThemedStyle;
 
   useEffect(() => {
     dispatch(bootstrapRequest());
@@ -61,10 +67,7 @@ export function RootNavigator() {
   }, [clearError, error, finishBootstrap]);
 
   const onFadeStart = useCallback(() => {
-    StatusBar.pushStackEntry({
-      barStyle: 'light-content',
-      animated: true,
-    });
+    setSplashFadingStarted(true);
   }, []);
 
   const showSplash = () => {
@@ -108,7 +111,7 @@ export function RootNavigator() {
       </PortalProvider>
       <StatusBar
         animated
-        barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
+        style={statusBarStyle}
         backgroundColor="transparent"
       />
     </NavigationContainer>

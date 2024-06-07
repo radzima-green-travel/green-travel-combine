@@ -1,8 +1,7 @@
-import {COLORS, FONTS_STYLES, FONTS, FONTS_PRESETS} from 'assets';
+import {COLORS, FONTS_STYLES, FONTS_PRESETS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {hexWithAlpha} from 'core/helpers';
 import {createThemeStyles} from 'core/helpers/styles';
-export const systemFonts = Object.values(FONTS);
 
 export const TEXT_COLLAPSE_HEIGHT = 192;
 
