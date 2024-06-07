@@ -3,7 +3,6 @@ import React, {memo, useState} from 'react';
 import HTML, {MixedStyleDeclaration} from 'react-native-render-html';
 import {
   themeStyles,
-  systemFonts,
   gradientConfig,
   gradientColorsLight,
   gradientColorsDark,
@@ -58,7 +57,6 @@ export const ObjectDescription = memo(
             style={styles.descriptionContent}>
             <HTML
               contentWidth={width}
-              systemFonts={systemFonts}
               enableCSSInlineProcessing={false}
               baseStyle={styles.text as MixedStyleDeclaration}
               source={{html: description}}

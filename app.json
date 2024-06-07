@@ -18,6 +18,9 @@
         }
       }
     },
+    "androidStatusBar": {
+      "hidden": true
+    },
     "android": {
       "package": "app.radzima",
       "userInterfaceStyle": "automatic",
@@ -54,7 +57,13 @@
       ],
       [
         "expo-localization"
-      ]     
+      ],
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "PORTRAIT_UP"
+        }
+      ]
     ],
     "extra": {
       "eas": {

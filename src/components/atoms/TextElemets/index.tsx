@@ -1,24 +1,20 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
-import {FONTS} from 'assets';
 
 const styles = StyleSheet.create({
   h1: {
-    fontFamily: FONTS.primary,
     fontStyle: 'normal',
     fontWeight: '600',
     fontSize: 22,
     lineHeight: 26,
   },
   h2: {
-    fontFamily: FONTS.primary,
     fontStyle: 'normal',
     fontWeight: '600',
     fontSize: 20,
     lineHeight: 22,
   },
   h3: {
-    fontFamily: FONTS.primary,
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: 19,

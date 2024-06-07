@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import {View, useWindowDimensions} from 'react-native';
 import Animated, {
   interpolate,
@@ -11,6 +11,8 @@ import Animated, {
 import * as SplashScreen from 'expo-splash-screen';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles} from 'core/hooks';
+import {isAndroid} from 'services/PlatformService';
+import {setStatusBarHidden} from 'expo-status-bar';
 
 interface IProps {
   onAnimationEnd?: () => void;
@@ -94,6 +96,7 @@ export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
     // Timeout is needed to prevent onLoad flickering on Android
     setTimeout(() => {
       SplashScreen.hideAsync().finally(() => {
+        isAndroid && setStatusBarHidden(false, 'fade');
         animateSplash();
       });
     }, 200);

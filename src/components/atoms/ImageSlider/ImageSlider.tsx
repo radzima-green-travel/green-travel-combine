@@ -47,7 +47,7 @@ export const ImageSlider = ({
       <Pressable onPress={onImagePress}>
         <Image
           style={[styles.image as ImageStyle, {width}]}
-          resizeMode="cover"
+          contentFit="cover"
           source={imageSourse.uri}
           {...getPlatformsTestID(composeTestID(imageTestID, index))}
         />
