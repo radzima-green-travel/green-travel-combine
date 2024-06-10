@@ -1,7 +1,7 @@
 import {API} from 'aws-amplify';
 import {
   RequestError,
-  createAmplifyErrorPreset,
+  createErrorPreset,
   createInternetConnectionErrorPreset,
 } from 'core/errors';
 import {AmplifyError, AmplifyErrorPresetParams} from 'core/types';
@@ -43,7 +43,7 @@ export class AmplifyApiEngine {
         );
       }
       const customError = new RequestError(
-        createAmplifyErrorPreset({
+        createErrorPreset({
           message: amplifyError.message,
           code: 'UNKNOWN_ERROR',
           status: 0,

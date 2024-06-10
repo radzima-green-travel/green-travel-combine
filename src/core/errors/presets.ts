@@ -20,7 +20,7 @@ export const createInternetConnectionErrorPreset = (message: string) => ({
   requestId: '',
 });
 
-export const createAmplifyErrorPreset = ({
+export const createErrorPreset = ({
   message,
   methodName,
   status,

@@ -120,3 +120,16 @@ export function getListMobileData(locale: SupportedLocales) {
   }
 `;
 }
+
+export const searchObjects = `
+query SearchObjects($limit: Int, $nextToken: String) {
+		searchObjects(limit: $limit, nextToken: $nextToken) {
+				items {
+						id
+						name
+						address
+				}
+				nextToken
+		}
+}
+`;

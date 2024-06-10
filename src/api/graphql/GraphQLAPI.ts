@@ -1,35 +1,9 @@
-import {GraphQLResult} from '@aws-amplify/api-graphql';
-import {graphqlOperation, API} from 'aws-amplify';
-import {listMobileMetadata} from './customQueries';
+import {GraphQLAPIEngine} from './GraphQLAPIEngine';
+import {listMobileMetadata, searchObjects} from './customQueries';
 
-class GraphQLAPI {
-  async _executeQuery(query: string, variables?: any) {
-    try {
-      const response = (await API.graphql(
-        graphqlOperation(query, variables),
-      )) as GraphQLResult<any>;
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return {};
-    }
-  }
-
+class GraphQLAPI extends GraphQLAPIEngine {
   async searchObjects({limit = 10, nextToken = null} = {}) {
-    const query = `
-      query SearchObjects($limit: Int, $nextToken: String) {
-        searchObjects(limit: $limit, nextToken: $nextToken) {
-          items {
-            id
-            name
-            address
-          }
-          nextToken
-        }
-      }
-    `;
-
-    return await this._executeQuery(query, {limit, nextToken});
+    return await this._executeQuery(searchObjects, {limit, nextToken});
   }
 
   async listMobileData() {
@@ -37,4 +11,4 @@ class GraphQLAPI {
   }
 }
 
-export const graphqlAPI = new GraphQLAPI();
+export const graphQLAPI = new GraphQLAPI();

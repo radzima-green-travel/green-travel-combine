@@ -1,1 +1,2 @@
-export {graphqlAPI} from './GraphQLAPI';
+export {GraphQLAPIEngine} from './GraphQLAPIEngine';
+export {graphQLAPI} from './GraphQLAPI';
