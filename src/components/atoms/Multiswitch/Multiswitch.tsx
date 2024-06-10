@@ -32,7 +32,7 @@ export const Multiswitch = memo(
                 ]}
                 key={index}
                 onPress={onItemPress}
-                testID={composeTestID(testID, 'item')}>
+                {...getPlatformsTestID(composeTestID(testID, 'item'))}>
                 <Text
                   style={[
                     styles.text,
