@@ -1,10 +1,11 @@
 {
-  "expo": {
-    "name": "greenTravel",
-    "slug": "greenTravel",
+  "expo": { 
+    "slug": "radzima",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "bundleIdentifier": "com.greentravel.radzima",
+      "appStoreUrl": "https://apps.apple.com/ru/app/radzima/id1587158874",
+      "publishBundlePath": "./build",
+      "associatedDomains": ["applinks:d1u39lnww2smbf.cloudfront.net"],
       "supportsTablet": true,
       "userInterfaceStyle": "automatic",
       "splash": {
@@ -22,7 +23,8 @@
       "hidden": true
     },
     "android": {
-      "package": "app.radzima",
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=app.radzima",
+      "publishBundlePath": "./build",
       "userInterfaceStyle": "automatic",
       "adaptiveIcon": {
         "foregroundImage": "src/assets/app/AndroidAdaptiveIcon.png",
