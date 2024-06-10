@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {MULTISWITCH_THEMES} from './constants';
 import {styles} from './styles';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   multiswitchItems: string[];
@@ -32,7 +32,7 @@ export const Multiswitch = memo(
                 ]}
                 key={index}
                 onPress={onItemPress}
-                {...getPlatformsTestID(`${testID}-${item}`)}>
+                testID={composeTestID(testID, 'item')}>
                 <Text
                   style={[
                     styles.text,
