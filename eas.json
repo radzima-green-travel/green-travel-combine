@@ -7,18 +7,15 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "credentialsSource": "local",
-      "buildArtifactPaths": ["./build"]
+      "credentialsSource": "local"
     },
     "preview": {
       "distribution": "internal",
-      "credentialsSource": "local",
-      "buildArtifactPaths": ["./build"]
+      "credentialsSource": "local"
     },
     "production": {
       "credentialsSource": "local",
-      "distribution": "internal",
-      "buildArtifactPaths": ["./build"]
+      "distribution": "internal"
     }
   },
   "submit": {
