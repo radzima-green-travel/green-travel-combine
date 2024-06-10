@@ -24,9 +24,9 @@ export class GraphQLAPIEngine {
       )) as GraphQLResult<any>;
       return response.data;
     } catch (error) {
-      const graphQLError = error as GraphQLError;
+      const graphQLError = error as any;
 
-      if (graphQLError.message.includes('Network error')) {
+      if (graphQLError.message?.includes('Network error')) {
         return Promise.reject(
           new RequestError(
             createInternetConnectionErrorPreset(graphQLError.message),
@@ -36,10 +36,10 @@ export class GraphQLAPIEngine {
 
       const customError = new RequestError(
         createErrorPreset({
-          message: graphQLError.message,
-          code: graphQLError.extensions?.code || 'UNKNOWN_ERROR',
-          status: graphQLError.extensions?.status || 0,
-          methodName: graphQLError.path?.join('.') || '',
+          message: graphQLError?.errors[0].message,
+          code: graphQLError?.errors[0]?.code || 'UNKNOWN_ERROR',
+          status: graphQLError?.errors[0]?.status || 0,
+          methodName: query.trim().split(' ')[0] || '',
           ...((errorMap && errorMap(graphQLError)) || {}),
         }),
       );
