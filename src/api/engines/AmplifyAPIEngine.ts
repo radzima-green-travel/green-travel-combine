@@ -4,7 +4,7 @@ import {
   createErrorPreset,
   createInternetConnectionErrorPreset,
 } from 'core/errors';
-import {AmplifyError, AmplifyErrorPresetParams} from 'core/types';
+import {AmplifyError, ErrorPresetParams} from 'core/types';
 
 export interface CustomApiRequestConfig {
   params?: Record<string, any>;
@@ -25,7 +25,7 @@ export class AmplifyApiEngine {
     }: {
       context: any;
       method: T;
-      errorMap: (e: AmplifyError) => Partial<AmplifyErrorPresetParams>;
+      errorMap: (e: AmplifyError) => Partial<ErrorPresetParams>;
     },
     ...args: A
   ): Promise<ReturnType<T>> {

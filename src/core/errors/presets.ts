@@ -1,4 +1,4 @@
-import {RequestErrorCodes, AmplifyErrorPresetParams} from 'core/types';
+import {RequestErrorCodes, ErrorPresetParams} from 'core/types';
 
 export const createPermissionErrorPreset = (path: string, message: string) => ({
   message: message,
@@ -25,7 +25,7 @@ export const createErrorPreset = ({
   methodName,
   status,
   code,
-}: AmplifyErrorPresetParams) => ({
+}: ErrorPresetParams) => ({
   message: message,
   timestamp: Date.now(),
   status: status,

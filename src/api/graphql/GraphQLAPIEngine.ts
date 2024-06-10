@@ -6,12 +6,21 @@ import {
   createErrorPreset,
   createInternetConnectionErrorPreset,
 } from 'core/errors';
+import {ErrorPresetParams} from 'core/types';
 
 export class GraphQLAPIEngine {
-  async _executeQuery(query: string, variables?: any) {
+  async executeQuery({
+    query,
+    params,
+    errorMap,
+  }: {
+    query: string;
+    params?: any;
+    errorMap?: (e: GraphQLError) => Partial<ErrorPresetParams>;
+  }) {
     try {
       const response = (await API.graphql(
-        graphqlOperation(query, variables),
+        graphqlOperation(query, params),
       )) as GraphQLResult<any>;
       return response.data;
     } catch (error) {
@@ -31,6 +40,7 @@ export class GraphQLAPIEngine {
           code: graphQLError.extensions?.code || 'UNKNOWN_ERROR',
           status: graphQLError.extensions?.status || 0,
           methodName: graphQLError.path?.join('.') || '',
+          ...((errorMap && errorMap(graphQLError)) || {}),
         }),
       );
       return Promise.reject(customError);

@@ -27,7 +27,7 @@ export interface IRequestError extends Error {
   error: string;
 }
 
-export type AmplifyErrorPresetParams = {
+export type ErrorPresetParams = {
   message: string;
   methodName: string;
   status: number;
