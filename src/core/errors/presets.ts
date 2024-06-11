@@ -31,7 +31,7 @@ export const createErrorPreset = ({
   status: status,
   error_code: code,
   error: message,
-  path: `amplify/${methodName}`,
+  path: methodName ? `amplify/${methodName}` : '',
   requestId: '',
 });
 

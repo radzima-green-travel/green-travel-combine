@@ -31,7 +31,7 @@ export interface IRequestError extends Error {
 
 export type ErrorPresetParams = {
   message: string;
-  methodName: string;
   status: number;
   code: RequestErrorCodes;
+  methodName?: string;
 };

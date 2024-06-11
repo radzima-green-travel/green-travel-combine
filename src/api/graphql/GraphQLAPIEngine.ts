@@ -52,7 +52,6 @@ export class GraphQLAPIEngine {
           message: errorMessage,
           code: 'UNKNOWN_ERROR',
           status: graphQLError?.errors[0]?.status || 0,
-          methodName: query.trim().split(' ')[0] || '',
           ...((errorMap && errorMap(graphQLError)) || {}),
         }),
       );
