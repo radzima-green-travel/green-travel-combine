@@ -5,6 +5,8 @@ import {
   RequestError,
   createErrorPreset,
   createInternetConnectionErrorPreset,
+  createInvalidVariableErrorPreset,
+  createValidationErrorPreset,
 } from 'core/errors';
 import {ErrorPresetParams} from 'core/types';
 
@@ -25,19 +27,30 @@ export class GraphQLAPIEngine {
       return response.data;
     } catch (error) {
       const graphQLError = error as any;
+      const errorMessage = graphQLError?.errors[0].message || '';
 
-      if (graphQLError.message?.includes('Network error')) {
+      if (errorMessage.includes('Network Error')) {
         return Promise.reject(
-          new RequestError(
-            createInternetConnectionErrorPreset(graphQLError.message),
-          ),
+          new RequestError(createInternetConnectionErrorPreset(errorMessage)),
+        );
+      }
+
+      if (errorMessage.includes('invalid value')) {
+        return Promise.reject(
+          new RequestError(createInvalidVariableErrorPreset(errorMessage)),
+        );
+      }
+
+      if (errorMessage.includes('Validation error')) {
+        return Promise.reject(
+          new RequestError(createValidationErrorPreset(errorMessage)),
         );
       }
 
       const customError = new RequestError(
         createErrorPreset({
-          message: graphQLError?.errors[0].message,
-          code: graphQLError?.errors[0]?.code || 'UNKNOWN_ERROR',
+          message: errorMessage,
+          code: 'UNKNOWN_ERROR',
           status: graphQLError?.errors[0]?.status || 0,
           methodName: query.trim().split(' ')[0] || '',
           ...((errorMap && errorMap(graphQLError)) || {}),

@@ -84,3 +84,23 @@ export const createSignupCancelErrorPreset = () => ({
   path: '',
   requestId: '',
 });
+
+export const createInvalidVariableErrorPreset = message => ({
+  message: message,
+  timestamp: Date.now(),
+  status: 0,
+  error_code: 'INVALID_VARIABLE' as RequestErrorCodes,
+  error: 'Invalid variable',
+  path: '',
+  requestId: '',
+});
+
+export const createValidationErrorPreset = message => ({
+  message: message,
+  timestamp: Date.now(),
+  status: 0,
+  error_code: 'VALIDATION_ERROR' as RequestErrorCodes,
+  error: 'Validation error',
+  path: '',
+  requestId: '',
+});
