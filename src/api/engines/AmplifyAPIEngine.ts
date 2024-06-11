@@ -1,10 +1,10 @@
 import {API} from 'aws-amplify';
 import {
   RequestError,
-  createAmplifyErrorPreset,
+  createErrorPreset,
   createInternetConnectionErrorPreset,
 } from 'core/errors';
-import {AmplifyError, AmplifyErrorPresetParams} from 'core/types';
+import {AmplifyError, ErrorPresetParams} from 'core/types';
 
 export interface CustomApiRequestConfig {
   params?: Record<string, any>;
@@ -25,7 +25,7 @@ export class AmplifyApiEngine {
     }: {
       context: any;
       method: T;
-      errorMap: (e: AmplifyError) => Partial<AmplifyErrorPresetParams>;
+      errorMap: (e: AmplifyError) => Partial<ErrorPresetParams>;
     },
     ...args: A
   ): Promise<ReturnType<T>> {
@@ -43,7 +43,7 @@ export class AmplifyApiEngine {
         );
       }
       const customError = new RequestError(
-        createAmplifyErrorPreset({
+        createErrorPreset({
           message: amplifyError.message,
           code: 'UNKNOWN_ERROR',
           status: 0,

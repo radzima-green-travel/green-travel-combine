@@ -1,4 +1,4 @@
-import {RequestErrorCodes, AmplifyErrorPresetParams} from 'core/types';
+import {RequestErrorCodes, ErrorPresetParams} from 'core/types';
 
 export const createPermissionErrorPreset = (path: string, message: string) => ({
   message: message,
@@ -20,18 +20,18 @@ export const createInternetConnectionErrorPreset = (message: string) => ({
   requestId: '',
 });
 
-export const createAmplifyErrorPreset = ({
+export const createErrorPreset = ({
   message,
   methodName,
   status,
   code,
-}: AmplifyErrorPresetParams) => ({
+}: ErrorPresetParams) => ({
   message: message,
   timestamp: Date.now(),
   status: status,
   error_code: code,
   error: message,
-  path: `amplify/${methodName}`,
+  path: methodName ? `amplify/${methodName}` : '',
   requestId: '',
 });
 
@@ -81,6 +81,26 @@ export const createSignupCancelErrorPreset = () => ({
   status: -3,
   error_code: 'SIGNUP_CANCELED' as RequestErrorCodes,
   error: 'Signup cancelled',
+  path: '',
+  requestId: '',
+});
+
+export const createInvalidVariableErrorPreset = message => ({
+  message: message,
+  timestamp: Date.now(),
+  status: 0,
+  error_code: 'INVALID_VARIABLE' as RequestErrorCodes,
+  error: 'Invalid variable',
+  path: '',
+  requestId: '',
+});
+
+export const createValidationErrorPreset = message => ({
+  message: message,
+  timestamp: Date.now(),
+  status: 0,
+  error_code: 'VALIDATION_ERROR' as RequestErrorCodes,
+  error: 'Validation error',
   path: '',
   requestId: '',
 });

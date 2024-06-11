@@ -15,7 +15,9 @@ export type RequestErrorCodes =
   | 'SOCIAL_LOGOUT_ERROR'
   | 'SOCILAL_LOGOUT_CANCELLED'
   | 'SIGNUP_CANCELED'
-  | 'WRONG_PASSWORD';
+  | 'WRONG_PASSWORD'
+  | 'INVALID_VARIABLE'
+  | 'VALIDATION_ERROR';
 
 export interface IRequestError extends Error {
   timestamp: number;
@@ -27,9 +29,9 @@ export interface IRequestError extends Error {
   error: string;
 }
 
-export type AmplifyErrorPresetParams = {
+export type ErrorPresetParams = {
   message: string;
-  methodName: string;
   status: number;
   code: RequestErrorCodes;
+  methodName?: string;
 };
