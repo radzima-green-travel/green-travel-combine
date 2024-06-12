@@ -100,3 +100,4 @@ web-build/
 
 android/
 ios/
+aws-exports.js
