@@ -10,7 +10,8 @@
       "credentialsSource": "local"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "credentialsSource": "local"
     },
     "production": {
       "credentialsSource": "local",

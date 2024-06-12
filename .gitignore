@@ -68,7 +68,6 @@ rnuc.xcconfig
 /*.env
 s.sh
 
-aws-exports.js
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
@@ -80,7 +79,6 @@ amplify/backend/.temp
 build/
 dist/
 node_modules/
-aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
 awsconfiguration.json.backup
@@ -102,3 +100,4 @@ web-build/
 
 android/
 ios/
+aws-exports.js
