@@ -63,11 +63,10 @@
 // Rework
 
 //✅ "react-native-bars": "2.3.0" - do we use it somewhere in project?
-// TODO ❌ expo-splash-screen  -> "react-native-bootsplash": "5.0.4",
+//✅ expo-splash-screen  -> "react-native-bootsplash": "5.0.4",
 //✅ "react-native-ultimate-config": "6.0.1",
 
-// TODO:
-// AnalyticsService.ts (@amplitude/react-native)
-// RootNavigator.tsx (expo-splash-screen)
-// Splash.tsx (expo-splash-screen)
-// reduxStorage.ts (react-native-mmkv)
+// ✅ AnalyticsService.ts (@amplitude/react-native) -> @amplitude/analytics-react-native
+// ✅ RootNavigator.tsx (expo-splash-screen)
+// ✅ Splash.tsx (expo-splash-screen)
+// ✅ reduxStorage.ts (react-native-mmkv)
