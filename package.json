@@ -18,6 +18,7 @@
     "postinstall": "patch-package && yarn husky install"
   },
   "dependencies": {
+    "@amplitude/analytics-react-native": "^1.4.9",
     "@expo/webpack-config": "~19.0.1",
     "@gorhom/bottom-sheet": "4.6.0",
     "@gorhom/portal": "^1.0.11",
