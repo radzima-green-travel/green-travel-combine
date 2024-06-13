@@ -1,1 +1,5 @@
-Open these links from mobile device:<br>radzima.ipa=>https://app.bitrise.io/app/dad7735308af242c/build/33888f4d-1390-42c4-9356-a3a73918a32e/artifact/b6fe9ae612d63729/p/95ebb50d69f49e706678dd7a5ec0faa8|radzima.apk=>https://app.bitrise.io/app/dad7735308af242c/build/33888f4d-1390-42c4-9356-a3a73918a32e/artifact/7ecc08a58a4b5f47/p/f5faa646207ff7a532b2e5a41ceba489
+Open these links from mobile device:<br>
+[radzima.ipa](https://app.bitrise.io/app/dad7735308af242c/build/ed448a83-ab65-4389-a4cd-598cbb04e642/artifact/7a95e627c901ba87/p/fb59118a5312cb30cf827014ba0ef9ce)
+
+[radzima.apk](https://app.bitrise.io/app/dad7735308af242c/build/ed448a83-ab65-4389-a4cd-598cbb04e642/artifact/48a7ffef09f72213/p/4982211e44831c91d7d23d71e12b2384)
+
