@@ -1,1 +1,1 @@
-Your content here
+Open this from mobile phone \n Your content here
