@@ -1,1 +1,1 @@
-Open from mobile device:<br>test
+Open from mobile device:<br>radzima.ipa=>https://app.bitrise.io/app/dad7735308af242c/build/0393c3f5-ba17-4cdf-a6e3-35df40fb81f3/artifact/3a812dcedb321f1e/p/4dccac8355a4f554ceb00a613e79cf45|radzima.apk=>https://app.bitrise.io/app/dad7735308af242c/build/0393c3f5-ba17-4cdf-a6e3-35df40fb81f3/artifact/bea1e92ab851e58f/p/89534219b5617ceb405a3c711f85c8ac
