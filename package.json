@@ -5,7 +5,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "npx expo start",
-    "prebuild": "npx expo prebuild",
+    "start-dev-client": "npx expo start --dev-client",
     "android": "npx expo run:android",
     "ios": "npx expo run:ios",
     "test": "jest",
