@@ -1,12 +1,11 @@
 import {LinkingOptions, getStateFromPath} from '@react-navigation/native';
 import {MainNavigatorParamsList} from 'core/types';
-import config from 'react-native-ultimate-config';
 import {getCurrentTabName} from './NavigationService';
 
 class LinkingService {
   getInitialLinkingData(): LinkingOptions<MainNavigatorParamsList> {
     return {
-      prefixes: [`https://${config.DEEP_LINK_DOMAIN}`],
+      prefixes: [`https://${process.env.EXPO_PUBLIC_DEEP_LINK_DOMAIN}`],
       getStateFromPath: path => {
         return getStateFromPath(path, {
           initialRouteName: 'TabNavigator',

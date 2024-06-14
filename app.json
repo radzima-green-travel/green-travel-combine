@@ -1,4 +1,77 @@
 {
-  "name": "greenTravel",
-  "displayName": "greenTravel"
+  "expo": { 
+    "slug": "greenTravel",
+    "scheme": "radzima",    
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "appStoreUrl": "https://apps.apple.com/ru/app/radzima/id1587158874",
+      "publishBundlePath": "./build",
+      "associatedDomains": ["applinks:d1u39lnww2smbf.cloudfront.net"],
+      "supportsTablet": true,
+      "userInterfaceStyle": "automatic",
+      "splash": {
+        "image": "src/assets/splash/SplashLight.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#ffffff",
+        "dark": {
+          "image": "src/assets/splash/SplashDark.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#1F1F1F"
+        }
+      }
+    },
+    "androidStatusBar": {
+      "hidden": true
+    },
+    "android": {
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=app.radzima",
+      "publishBundlePath": "./build",
+      "userInterfaceStyle": "automatic",
+      "adaptiveIcon": {
+        "foregroundImage": "src/assets/app/AndroidAdaptiveIcon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "splash": {
+        "image": "src/assets/splash/SplashLight.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#ffffff",
+        "dark": {
+          "image": "src/assets/splash/SplashDark.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#1F1F1F"
+        }
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "icon": "src/assets/app/Icon.png",
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "This will let to pinpoint your exact location."
+        }
+      ],
+      [
+        "expo-localization"
+      ],
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "PORTRAIT_UP"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e51feb59-6254-4001-bc5a-d7a5df40dbcb"
+      }
+    }
+  }
 }

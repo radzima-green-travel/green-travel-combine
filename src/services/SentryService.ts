@@ -1,11 +1,10 @@
 import * as Sentry from '@sentry/react-native';
-import config from 'react-native-ultimate-config';
 
 class SentryService {
   init() {
     Sentry.init({
-      dsn: config.SENTRY_DSN,
-      environment: config.ENVIRONMENT,
+      dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+      environment: process.env.EXPO_PUBLIC_ENVIRONMENT,
       attachStacktrace: true,
       enableNative: true,
     });

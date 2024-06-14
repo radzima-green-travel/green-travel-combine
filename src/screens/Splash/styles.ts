@@ -1,8 +1,12 @@
-import {COLORS, FONTS} from 'assets';
+import {COLORS} from 'assets';
 import {StyleSheet} from 'react-native';
 
 export const themeStyles = {
   container: {
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.secondary,
+    },
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
@@ -18,6 +22,6 @@ export const themeStyles = {
       dark: COLORS.altoForDark,
     },
     fontSize: 36,
-    fontFamily: FONTS.secondarySemibold,
+    fontWeight: '600',
   },
 };

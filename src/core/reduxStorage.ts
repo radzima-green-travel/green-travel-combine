@@ -10,6 +10,7 @@ export const reduxStorage: Storage = {
   },
   getItem: key => {
     const value = storage.getString(key);
+
     return Promise.resolve(value);
   },
   removeItem: key => {

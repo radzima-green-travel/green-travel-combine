@@ -3,7 +3,6 @@ import React, {memo, useState} from 'react';
 import HTML, {MixedStyleDeclaration} from 'react-native-render-html';
 import {
   themeStyles,
-  systemFonts,
   gradientConfig,
   gradientColorsLight,
   gradientColorsDark,
@@ -11,7 +10,7 @@ import {
 } from './styles';
 import {useWindowDimensions, View} from 'react-native';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import LinearGradient from 'react-native-linear-gradient';
+import {LinearGradient} from 'expo-linear-gradient';
 import {IOrigins} from 'core/types';
 import {Button} from 'atoms';
 import {ObjectDescriptionSource} from '../ObjectDescriptionSource';
@@ -58,7 +57,6 @@ export const ObjectDescription = memo(
             style={styles.descriptionContent}>
             <HTML
               contentWidth={width}
-              systemFonts={systemFonts}
               enableCSSInlineProcessing={false}
               baseStyle={styles.text as MixedStyleDeclaration}
               source={{html: description}}

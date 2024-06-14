@@ -1,5 +1,4 @@
 import {COLORS, FONTS_STYLES} from 'assets';
-import {hexWithAlpha} from 'core/helpers';
 import {StyleSheet, ViewStyle} from 'react-native';
 
 const buttonStyles: ViewStyle = {

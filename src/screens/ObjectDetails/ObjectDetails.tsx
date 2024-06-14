@@ -28,7 +28,7 @@ import {
 import {useFavorite, useThemeStyles, useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {themeStyles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
-import LinearGradient from 'react-native-linear-gradient';
+import {LinearGradient} from 'expo-linear-gradient';
 import {
   useObjectDetails,
   useObjectDetailsAnimation,
