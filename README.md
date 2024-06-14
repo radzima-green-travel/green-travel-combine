@@ -38,7 +38,7 @@
 
 ## Running on a Device
 
-1. Download the [corresponding development client](./DEV_CLIENT.MD).
+1. Download the [corresponding development client](./DEV_CLIENT.md).
 2. Start the development client:
    ```sh
    yarn start-dev-client
