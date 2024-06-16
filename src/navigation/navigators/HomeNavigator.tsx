@@ -13,6 +13,8 @@ import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
 import {useScreenOptions} from '../hooks';
 import {defaultTransition} from '../transition';
+import {View} from 'react-native';
+import {Text} from 'react-native';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
@@ -34,11 +36,21 @@ export function HomeNavigator() {
       <Stack.Screen
         name="Search"
         component={SearchScreen}
-        options={{
-          ...SearchScreen.screenOptions,
+        options={props => ({
+          ...SearchScreen.screenOptions(props),
           animation: 'fade',
-        }}
+        })}
       />
+      <Stack.Group screenOptions={{presentation: 'modal'}}>
+        <Stack.Screen
+          name="Filter"
+          component={() => (
+            <View>
+              <Text>TEST</Text>
+            </View>
+          )}
+        />
+      </Stack.Group>
       <Stack.Screen
         getId={({params}) => params.objectId}
         name="ObjectDetails"

@@ -228,6 +228,7 @@ export enum TestIDs {
   TabBarItemFavorites = 'tabBarItemFavorites',
   TabBarItemProfile = 'tabBarItemProfile',
   SearchButton = 'searchButton',
+  FilterButton = 'filterButton',
   HeaderScreenTitle = 'headerScreenTitle',
   HeaderBookmarkButton = 'headerBookmarkButton',
   HeaderBackButton = 'headerBackButton',
