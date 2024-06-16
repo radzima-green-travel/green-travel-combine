@@ -15,7 +15,7 @@ export function useTimeRange(range: number) {
     const timeGap = currentTime - startTime.current;
 
     if (minutes % 30 === 0 || timeGap > 50) {
-      hapticFeedbackService.trigger('selection');
+      hapticFeedbackService.select();
     }
 
     startTime.current = Date.now();

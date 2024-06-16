@@ -227,7 +227,7 @@ export const useObjectDetailsMap = () => {
   useOnRequestSuccess(
     showObjectDetailsMapDirectionRequest,
     useCallback(() => {
-      hapticFeedbackService.trigger('notificationSuccess');
+      hapticFeedbackService.notify();
     }, []),
   );
 
