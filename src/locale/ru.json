@@ -170,6 +170,12 @@
     "getMore": "Узнать больше",
     "routeLength": "{{km}} км, "
   },
+  "filters": {
+    "title": "Фильтры",
+    "allCategories": "Все категории",
+    "whereToLook": "Где искать",
+    "ratingGoogle": "Рейтинг Google"
+  },
   "authentification": {
     "validation": {
       "invalidEmail": "Неверный формат электронной почты",

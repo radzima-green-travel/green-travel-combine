@@ -170,6 +170,12 @@
     "getMore": "More info",
     "routeLength": "{{km}} km, "
   },
+  "filters": {
+    "title": "Filters",
+    "allCategories": "All categories",
+    "whereToLook": "Where to look",
+    "ratingGoogle": "Google rating"
+  },
   "authentification": {
     "validation": {
       "invalidEmail": "Invalid email format",
