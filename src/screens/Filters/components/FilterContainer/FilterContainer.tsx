@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {View, Text} from 'react-native';
 import {ReactNode} from 'react';
 import {themeStyles} from '../../styles';
@@ -9,7 +9,7 @@ export type Props = {
   filterName: string;
 };
 
-export const FilterContainer = memo(({children, filterName}: Props) => {
+export const FilterContainer = ({children, filterName}: Props) => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('filters');
 
@@ -19,4 +19,4 @@ export const FilterContainer = memo(({children, filterName}: Props) => {
       {children}
     </View>
   );
-});
+};
