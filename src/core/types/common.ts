@@ -308,4 +308,5 @@ export enum TestIDs {
   ObjectDetailsBelongsTo = 'objectDetailsBelongsTo',
   ObjectDetailsAddInfoConfirmMenu = 'objectDetailsAddInfoConfirmMenu',
   ObjectDetailsAddInfoConfirmContent = 'objectDetailsAddInfoConfirmContent',
+  FiltersMultySwitch = 'filtersMultySwitch',
 }

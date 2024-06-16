@@ -41,7 +41,25 @@ export const themeStyles = {
       dark: COLORS.dark.icon.primary,
     },
   },
-  buttonContainer: {
+  lineItemContainer: {
+    width: '100%',
+    paddingVertical: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  lineItemName: {
+    ...FONTS_PRESETS.subheadlineRegular,
+    paddingVertical: 8,
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
+  },
+  hideVisitContainer: {
+    paddingVertical: 0,
+  },
+  closeButtonContainer: {
     width: 32,
     height: 32,
     borderRadius: 12,

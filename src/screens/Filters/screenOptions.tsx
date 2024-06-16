@@ -14,7 +14,7 @@ const HeaderRight = ({navigation}: IProps) => {
       hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
       activeOpacity={0.8}
       onPress={() => navigation.goBack()}
-      style={styles.buttonContainer}>
+      style={styles.closeButtonContainer}>
       <Icon
         name="close"
         style={styles.icon}

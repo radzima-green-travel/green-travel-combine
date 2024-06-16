@@ -174,7 +174,11 @@
     "title": "Filters",
     "allCategories": "All categories",
     "whereToLook": "Where to look",
-    "ratingGoogle": "Google rating"
+    "ratingGoogle": "Google rating",
+    "settlements": "Settlements",
+    "geolocation": "Geolocation",
+    "considerDistance": "Consider the distance",
+    "hideVisit": "Hide visit"
   },
   "authentification": {
     "validation": {

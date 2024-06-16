@@ -1,13 +1,14 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {Chip, SuspenseView} from 'atoms';
+import {Chip, Multiswitch, SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
-import {FilterContainer} from './components';
+import {FilterContainer, LineItemContainer} from './components';
+import {TestIDs} from 'core/types';
 
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
@@ -31,11 +32,28 @@ export const Filters = () => {
             </View>
           </FilterContainer>
           <FilterContainer filterName="whereToLook">
-            <View />
+            <LineItemContainer itemName="settlements">
+              <Text>Test</Text>
+            </LineItemContainer>
+            <LineItemContainer itemName="geolocation">
+              <Text>Test</Text>
+            </LineItemContainer>
+            <LineItemContainer itemName="considerDistance">
+              <Text>Test</Text>
+            </LineItemContainer>
           </FilterContainer>
           <FilterContainer filterName="ratingGoogle">
-            <View />
+            <Multiswitch
+              multiswitchItems={['Any', '3,5+', '4+', '4,5+']}
+              onItemPress={() => {}}
+              testID={TestIDs.FiltersMultySwitch}
+            />
           </FilterContainer>
+          <LineItemContainer
+            itemName="hideVisit"
+            style={styles.hideVisitContainer}>
+            <Text>Test</Text>
+          </LineItemContainer>
         </ScrollView>
       </SuspenseView>
     </View>

@@ -174,7 +174,11 @@
     "title": "Фильтры",
     "allCategories": "Все категории",
     "whereToLook": "Где искать",
-    "ratingGoogle": "Рейтинг Google"
+    "ratingGoogle": "Рейтинг Google",
+    "settlements": "Населенные пункты",
+    "geolocation": "Геопозиция",
+    "considerDistance": "Учитывать дистанцию",
+    "hideVisit": "Скрыть посещенное"
   },
   "authentification": {
     "validation": {
