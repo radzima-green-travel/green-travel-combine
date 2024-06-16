@@ -7,7 +7,7 @@ import {
   ObjectsListScreen,
   CategoriesListScreen,
   SearchScreen,
-  FilterScreen,
+  FiltersScreen,
 } from '../../screens';
 import {useColorScheme} from 'core/hooks';
 import {useTranslation} from 'core/hooks';
@@ -57,9 +57,9 @@ export function HomeNavigator() {
         })}>
         <Stack.Screen
           name="Filter"
-          component={FilterScreen}
+          component={FiltersScreen}
           options={props => ({
-            ...FilterScreen.screenOptions(props),
+            ...FiltersScreen.screenOptions(props),
           })}
         />
       </Stack.Group>

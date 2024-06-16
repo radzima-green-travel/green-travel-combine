@@ -6,7 +6,7 @@ import {useThemeStyles} from 'core/hooks';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 
-export const Filter = () => {
+export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
 
   return (
@@ -16,4 +16,4 @@ export const Filter = () => {
   );
 };
 
-Filter.screenOptions = screenOptions;
+Filters.screenOptions = screenOptions;
