@@ -233,6 +233,7 @@ export enum TestIDs {
   HeaderBookmarkButton = 'headerBookmarkButton',
   HeaderBackButton = 'headerBackButton',
   HeaderShareButton = 'HeaderShareButton',
+  HeaderCloseButton = 'HeaderCloseButton',
   AllButton = 'allButton',
   SeeOnTheMapButton = 'seeOnTheMapButton',
   ObjectDetailsTitle = 'objectDetailsTitle',

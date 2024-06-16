@@ -7,19 +7,28 @@ import {
   ObjectsListScreen,
   CategoriesListScreen,
   SearchScreen,
+  FilterScreen,
 } from '../../screens';
-
+import {useColorScheme} from 'core/hooks';
 import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
 import {useScreenOptions} from '../hooks';
 import {defaultTransition} from '../transition';
-import {View} from 'react-native';
-import {Text} from 'react-native';
+import {COLORS} from 'assets';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
 export function HomeNavigator() {
   const {t} = useTranslation('home');
+  const colorScheme = useColorScheme();
+  const screenModalOptions = useScreenOptions({
+    headerStyle: {
+      backgroundColor:
+        colorScheme === 'light'
+          ? COLORS.light.background.primary
+          : COLORS.dark.background.primary,
+    },
+  });
 
   const screenOptions = useScreenOptions({
     title: t('headerTitle'),
@@ -41,14 +50,17 @@ export function HomeNavigator() {
           animation: 'fade',
         })}
       />
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
+      <Stack.Group
+        screenOptions={props => ({
+          ...screenModalOptions(props),
+          presentation: 'modal',
+        })}>
         <Stack.Screen
           name="Filter"
-          component={() => (
-            <View>
-              <Text>TEST</Text>
-            </View>
-          )}
+          component={FilterScreen}
+          options={props => ({
+            ...FilterScreen.screenOptions(props),
+          })}
         />
       </Stack.Group>
       <Stack.Screen

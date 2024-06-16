@@ -4,7 +4,7 @@ import {selectSearchInputValue} from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
-import {styles, themeStyles} from './styles';
+import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {TouchableOpacity} from 'react-native';
 import {Icon} from 'atoms';
@@ -13,6 +13,7 @@ import {TestIDs} from 'core/types';
 const HeaderTitle = () => {
   const dispatch = useDispatch();
   const inputValue = useSelector(selectSearchInputValue);
+  const styles = useThemeStyles(themeStyles);
 
   const setInputValue = useCallback(
     (text: string) => {
@@ -31,7 +32,7 @@ const HeaderTitle = () => {
 };
 
 const HeaderRight = ({navigation}: IProps) => {
-  const themesStyle = useThemeStyles(themeStyles);
+  const styles = useThemeStyles(themeStyles);
 
   return (
     <TouchableOpacity
@@ -40,7 +41,7 @@ const HeaderRight = ({navigation}: IProps) => {
       onPress={() => navigation.navigate('Filter')}>
       <Icon
         name="tune"
-        style={themesStyle.icon}
+        style={styles.icon}
         size={24}
         testID={TestIDs.FilterButton}
       />

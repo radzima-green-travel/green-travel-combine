@@ -1,13 +1,9 @@
-import {StyleSheet} from 'react-native';
 import {COLORS} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   headerTitleContainer: {
     width: '80%',
   },
-});
-
-export const themeStyles = {
   icon: {
     color: {
       light: COLORS.white,
