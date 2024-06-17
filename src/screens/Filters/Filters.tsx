@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Text, View, Switch} from 'react-native';
+import {Text, View, Switch, TouchableOpacity} from 'react-native';
 import {Chip, Multiswitch, SuspenseView, Button, Icon} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {ButtonsGroup} from 'molecules';
@@ -14,7 +14,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('filters');
-  const {caregoriesData} = useFilters();
+  const {caregoriesData, ratingGoogle} = useFilters();
   const {bottom} = useSafeAreaInsets();
 
   const buttons = useMemo(() => {
@@ -50,14 +50,16 @@ export const Filters = () => {
           </FilterContainer>
           <FilterContainer filterName="whereToLook">
             <LineItemContainer itemName="settlements">
-              <View style={styles.settlementsContainer}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.settlementsContainer}>
                 <Text style={styles.settlementsLabel}>{t('any')}</Text>
                 <Icon
                   name="chevronMediumRight"
                   size={24}
                   style={styles.settlementsLabel}
                 />
-              </View>
+              </TouchableOpacity>
             </LineItemContainer>
             <LineItemContainer itemName="geolocation">
               <Button
@@ -77,7 +79,7 @@ export const Filters = () => {
           </FilterContainer>
           <FilterContainer filterName="ratingGoogle">
             <Multiswitch
-              multiswitchItems={['Any', '3,5+', '4+', '4,5+']}
+              multiswitchItems={ratingGoogle}
               onItemPress={() => {}}
               testID={TestIDs.FiltersMultySwitch}
             />
