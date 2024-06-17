@@ -178,7 +178,11 @@
     "settlements": "Settlements",
     "geolocation": "Geolocation",
     "considerDistance": "Consider the distance",
-    "hideVisit": "Hide visit"
+    "choose": "Choose",
+    "any": "Any",
+    "clear": "Clear",
+    "showAll": "Show {{amount}} objects",
+    "showFiltered": "Show {{amount}}"
   },
   "authentification": {
     "validation": {

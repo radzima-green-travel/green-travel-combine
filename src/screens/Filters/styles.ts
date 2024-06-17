@@ -1,10 +1,11 @@
 import {COLORS, FONTS_PRESETS} from 'assets';
+import {PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
   container: {
     flex: 1,
     overflow: 'hidden',
-    paddingHorizontal: 16,
+    marginHorizontal: PADDING_HORIZONTAL,
   },
   title: {
     ...FONTS_PRESETS.title3Bold,
@@ -69,5 +70,31 @@ export const themeStyles = {
       light: COLORS.light.background.secondary,
       dark: COLORS.dark.background.secondary,
     },
+  },
+  chooseButtonContainer: {
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    height: 40,
+  },
+  chooseButtonLabel: {
+    ...FONTS_PRESETS.footnoteBold,
+  },
+  settlementsContainer: {
+    height: 40,
+    minWidth: 91,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  settlementsLabel: {
+    ...FONTS_PRESETS.subheadlineRegular,
+    color: {
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
+    },
+  },
+  buttonsGroupContainer: {
+    paddingHorizontal: 0,
+    marginHorizontal: 0,
   },
 };

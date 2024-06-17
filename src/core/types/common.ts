@@ -309,4 +309,5 @@ export enum TestIDs {
   ObjectDetailsAddInfoConfirmMenu = 'objectDetailsAddInfoConfirmMenu',
   ObjectDetailsAddInfoConfirmContent = 'objectDetailsAddInfoConfirmContent',
   FiltersMultySwitch = 'filtersMultySwitch',
+  FiltersChooseButton = 'filtersChooseButton',
 }

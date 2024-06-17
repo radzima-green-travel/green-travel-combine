@@ -6,6 +6,7 @@ export const styles = createThemeStyles({
     flexDirection: 'row',
     paddingVertical: 4,
     borderRadius: 12,
+    justifyContent: 'center',
   },
   item: {
     height: 40,
