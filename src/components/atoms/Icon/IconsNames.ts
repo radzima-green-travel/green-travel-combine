@@ -99,4 +99,6 @@ export type IconsNames =
   | 'telephone'
   | 'theme'
   | 'warMonuments'
-  | 'wave';
+  | 'wave'
+  | 'ellipse'
+  | 'minus';
