@@ -1,4 +1,4 @@
-import React, {memo, useState, useImperativeHandle} from 'react';
+import React, {memo} from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {MULTISWITCH_THEMES} from './constants';
@@ -7,28 +7,27 @@ import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   multiswitchItems: string[];
+  onItemPress: () => void;
   testID: string;
-  ref?: any;
+  activeItem?: string;
   style?: StyleProp<ViewStyle>;
 }
 
 export const Multiswitch = memo(
-  ({multiswitchItems, testID, style, ref}: IProps) => {
+  ({
+    multiswitchItems,
+    onItemPress,
+    activeItem = multiswitchItems[0],
+    testID,
+    style,
+  }: IProps) => {
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
-
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    useImperativeHandle(ref, () => ({
-      setActiveIndex,
-      getActiveIndex: () => activeIndex,
-    }));
 
     return (
       <View style={[styles.container, style]} {...getPlatformsTestID(testID)}>
         <View style={[styles.container, multiswitchStyles.container]}>
           {multiswitchItems.map((item, index) => {
-            // TODO: temporarily. Will be removed after adding Multiswitch to the filter screen
-            const active = index === activeIndex;
+            const active = item === activeItem;
 
             return (
               <TouchableOpacity
@@ -38,9 +37,7 @@ export const Multiswitch = memo(
                   active && multiswitchStyles.active,
                 ]}
                 key={index}
-                onPress={() => {
-                  setActiveIndex(index);
-                }}
+                onPress={onItemPress}
                 {...getPlatformsTestID(composeTestID(testID, 'item'))}>
                 <Text
                   style={[
