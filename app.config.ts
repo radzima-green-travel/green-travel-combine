@@ -9,13 +9,13 @@ export default ({config}: Dict) => {
     ios: {
       ...(config.ios ?? {}),
       bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.greentravel.radzima',
-      buildNumber: process.env.BUILD_NUMBER ?? 1,
+      buildNumber: process.env.BUILD_NUMBER ?? '1',
       associatedDomains: [`applinks:${process.env.DEEP_LINK_DOMAIN}`],
     },
     android: {
       ...(config.android ?? {}),
       package: process.env.ANDROID_BUNDLE_ID ?? 'app.radzima.dev',
-      versionCode: process.env.BUILD_NUMBER ?? 1,
+      versionCode: process.env.BUILD_NUMBER ?? '1',
       intentFilters: [
         {
           autoVerify: true,

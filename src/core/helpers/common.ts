@@ -529,7 +529,7 @@ export function transformQueryData(
             ),
             analyticsMetadata: {
               name: object.name,
-              categoryName: objectCategory.analyticsMetadata.name,
+              categoryName: objectCategory?.analyticsMetadata.name,
             },
           };
 

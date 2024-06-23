@@ -16,6 +16,34 @@ class HapticFeedbackService {
         await ExpoHaptics.impactAsync(ExpoHaptics.ImpactFeedbackStyle.Light);
     }
   }
+
+  async notify(notificationType = 'success') {
+    switch (notificationType) {
+      case 'success':
+        await ExpoHaptics.notificationAsync(
+          ExpoHaptics.NotificationFeedbackType.Success,
+        );
+        break;
+      case 'warning':
+        await ExpoHaptics.notificationAsync(
+          ExpoHaptics.NotificationFeedbackType.Warning,
+        );
+        break;
+      case 'error':
+        await ExpoHaptics.notificationAsync(
+          ExpoHaptics.NotificationFeedbackType.Error,
+        );
+        break;
+      default:
+        await ExpoHaptics.notificationAsync(
+          ExpoHaptics.NotificationFeedbackType.Success,
+        );
+    }
+  }
+
+  async select() {
+    await ExpoHaptics.selectionAsync();
+  }
 }
 
 export const hapticFeedbackService = new HapticFeedbackService();

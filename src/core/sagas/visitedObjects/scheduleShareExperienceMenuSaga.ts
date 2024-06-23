@@ -10,9 +10,6 @@ export function* scheduleShareExperienceMenuSaga({
   payload: {delayMs, data},
 }: ReturnType<typeof scheduleShareExperienceMenu>) {
   yield delay(delayMs);
-  yield call(
-    [hapticFeedbackService, hapticFeedbackService.trigger],
-    'notificationSuccess',
-  );
+  yield call([hapticFeedbackService, hapticFeedbackService.notify]);
   yield put(setShareExperienceData(data));
 }
