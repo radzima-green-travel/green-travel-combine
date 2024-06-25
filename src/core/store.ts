@@ -14,6 +14,7 @@ import {
   authenticationReducer,
   appConfigurationReducer,
   visitedObjectsReducer,
+  homePageReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -74,6 +75,7 @@ const rootReducer = combineReducers({
     appConfigurationPersistConfig,
     appConfigurationReducer,
   ),
+  homePage: homePageReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

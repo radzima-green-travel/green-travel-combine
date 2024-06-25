@@ -2,6 +2,7 @@ import {MultiPolygon, LineString} from '@turf/helpers';
 import {IRequestError} from './errors';
 import {animations} from 'assets';
 import {ObjectField} from 'core/constants';
+import {CategoryShortDTO, ExtractI18nKeys, ObjectShortDTO} from './api';
 
 export interface ILabelError {
   text: string;
@@ -221,6 +222,24 @@ export type SpotI18n =
     } | null)[]
   | null
   | undefined;
+
+export interface CategoryShort extends CategoryShortDTO {
+  analyticsMetadata: Record<ExtractI18nKeys<ObjectShortDTO>, string>;
+}
+
+export interface ObjectShort extends ObjectShortDTO {
+  analyticsMetadata: Record<ExtractI18nKeys<ObjectShortDTO>, string>;
+}
+export interface CardItem {
+  name: string;
+  cover: string;
+  blurhash: string;
+  id: string;
+  analyticsMetadata: {
+    categoryName: string;
+    objectName?: string;
+  };
+}
 
 export enum TestIDs {
   TabBarItemMain = 'tabBarItemMain',

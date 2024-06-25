@@ -1,33 +1,26 @@
 import {useCallback} from 'react';
-import {InteractionManager} from 'react-native';
 
-import {
-  getHomeDataUpdatesRequest,
-  getInitialHomeDataRequest,
-  getHomeDataUpdateAvailableRequest,
-} from 'core/reducers';
+import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  useRequestError,
   useRequestLoading,
   useHomeAnalytics,
   useColorScheme,
   useOnRequestError,
 } from 'core/hooks';
-import {IObject, ITransformedCategory} from 'core/types';
-import {HomeScreenNavigationProps} from '../types';
-import {
-  useFocusEffect,
-  useIsFocused,
-  useNavigation,
-} from '@react-navigation/native';
-import {selectHomeData, selectIsUpdatesAvailable} from 'core/selectors';
-import {useSnackbar} from 'atoms';
+import {CardItem} from 'core/types';
+import {selectHomePageData} from 'core/selectors';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {getHomePageDataRequest, refreshHomePageDataRequest} from 'core/actions';
+import {HomeScreenNavigationProps} from '../types';
+import {useSnackbar} from 'atoms';
 
 export const useHome = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation<HomeScreenNavigationProps>();
+  const theme = useColorScheme();
+  const homeData = useSelector(selectHomePageData);
+  const {show, ...snackBarProps} = useSnackbar();
 
   const {
     listRef,
@@ -37,18 +30,18 @@ export const useHome = () => {
     sendUnsaveCardEvent,
   } = useHomeAnalytics();
 
-  const getData = useCallback(() => {
-    dispatch(getHomeDataUpdatesRequest());
+  const {loading} = useRequestLoading(getHomePageDataRequest);
+  const {errorTexts} = useOnRequestError(getHomePageDataRequest, '');
+
+  const {loading: refreshing} = useRequestLoading(refreshHomePageDataRequest);
+
+  const getHomePageData = useCallback(() => {
+    dispatch(getHomePageDataRequest());
   }, [dispatch]);
 
-  const getInitialData = useCallback(() => {
-    dispatch(getInitialHomeDataRequest());
+  const refreshHomePageData = useCallback(() => {
+    dispatch(refreshHomePageDataRequest());
   }, [dispatch]);
-
-  const {loading} = useRequestLoading(getInitialHomeDataRequest);
-  const {error} = useRequestError(getInitialHomeDataRequest);
-
-  const {loading: refreshing} = useRequestLoading(getHomeDataUpdatesRequest);
 
   const navigateToObjectsList = useCallback(
     ({categoryId, title}: {categoryId: string; title: string}) => {
@@ -58,7 +51,7 @@ export const useHome = () => {
   );
 
   const onCategoryPress = useCallback(
-    (category: ITransformedCategory, parentCategoryName: string) => {
+    (category: CardItem, parentCategoryName: string) => {
       navigateToObjectsList({categoryId: category.id, title: category.name});
       sendSelectCardEvent(category.name, parentCategoryName);
     },
@@ -82,7 +75,7 @@ export const useHome = () => {
   );
 
   const navigateToObjectDetails = useCallback(
-    ({id, name, category}: IObject) => {
+    ({id, name, analyticsMetadata}: CardItem) => {
       navigate('ObjectDetails', {
         objectId: id,
 
@@ -90,53 +83,42 @@ export const useHome = () => {
           fromScreenName: getAnalyticsNavigationScreenName(),
         },
       });
-      sendSelectCardEvent(name, category.name);
+      sendSelectCardEvent(name, analyticsMetadata.categoryName);
     },
     [navigate, sendSelectCardEvent],
   );
 
   const sendIsFavoriteChangedEvent = useCallback(
-    ({name, category}: IObject, nextIsFavoriteStatus: boolean) => {
-      if (nextIsFavoriteStatus) {
-        sendSaveCardEvent(name, category.name);
+    ({
+      object: {name, analyticsMetadata},
+      nextIsFavorite,
+    }: {
+      object: CardItem;
+      nextIsFavorite: boolean;
+    }) => {
+      if (nextIsFavorite) {
+        sendSaveCardEvent(name, analyticsMetadata.categoryName);
       } else {
-        sendUnsaveCardEvent(name, category.name);
+        sendUnsaveCardEvent(name, analyticsMetadata.categoryName);
       }
     },
     [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
-  const theme = useColorScheme();
-  const homeData = useSelector(selectHomeData);
-  const isUpdatesAvailable = useSelector(selectIsUpdatesAvailable);
-  const isFocused = useIsFocused();
-  const {show, ...snackBarProps} = useSnackbar();
-
-  useOnRequestError(getHomeDataUpdatesRequest, 'home', errorLabel => {
+  useOnRequestError(refreshHomePageDataRequest, 'home', errorLabel => {
     show({
       title: errorLabel.text,
       type: 'error',
     });
   });
 
-  useFocusEffect(
-    useCallback(
-      () => () => {
-        InteractionManager.runAfterInteractions(() => {
-          dispatch(getHomeDataUpdateAvailableRequest());
-        });
-      },
-      [dispatch],
-    ),
-  );
-
   return {
     loading,
-    error,
+    errorTexts,
     listRef,
-    getInitialData,
+    getHomePageData,
+    refreshHomePageData,
     refreshing,
-    getData,
     navigateToObjectDetails,
     onCategoryPress,
     onAllObjectsPress,
@@ -144,8 +126,6 @@ export const useHome = () => {
     sendIsFavoriteChangedEvent,
     homeData,
     theme,
-    isFocused,
-    isUpdatesAvailable,
     snackBarProps,
   };
 };

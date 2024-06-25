@@ -2,16 +2,22 @@ import {createAction, createReducer, ActionType} from 'typesafe-actions';
 import {ILabelError} from '../types';
 import {ACTIONS} from '../constants';
 import {ListMobileDataQuery} from 'api/graphql/types';
+import type {CategoryShortDTO, ObjectShortDTO} from 'core/types/api';
 interface IDefaultState {
   currentData: ListMobileDataQuery | null;
   updatedData: ListMobileDataQuery | null;
   isUpdatesAvailable: boolean;
+  categoriesList: Array<CategoryShortDTO>;
+  objectsByCategory: Record<string, ObjectShortDTO>;
 }
 
 const initialState: IDefaultState = {
   currentData: null,
   updatedData: null,
   isUpdatesAvailable: false,
+
+  categoriesList: [],
+  objectsByCategory: {},
 };
 
 export const getInitialHomeDataRequest = createAction(

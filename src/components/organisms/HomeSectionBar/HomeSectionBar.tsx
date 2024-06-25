@@ -3,26 +3,22 @@ import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
 import {themeStyles, cardWidth, SNAP_INTERVAL} from './styles';
 import {useTranslation} from 'react-i18next';
-import {IObject, ITransformedCategory, TestIDs} from 'core/types';
-import {isEmpty} from 'lodash';
-import {useCategories, useObjects, useThemeStyles} from 'core/hooks';
+import {CardItem, HomeSectionBarItem, TestIDs} from 'core/types';
+import {useThemeStyles} from 'core/hooks';
 import {useScrollToTop} from '@react-navigation/native';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface Props {
-  item: ITransformedCategory;
+  item: HomeSectionBarItem;
   allButtonTestID: string;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
   onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
-  onObjectPress: (options: IObject) => void;
-  onCategoryPress: (
-    options: ITransformedCategory,
-    parentCategoryName: string,
-  ) => void;
-  onObjectCardIsFavoriteChanged: (
-    options: IObject,
-    nextIsFavorite: boolean,
-  ) => void;
+  onObjectPress: (options: CardItem) => void;
+  onCategoryPress: (options: CardItem, parentCategoryName: string) => void;
+  onObjectCardIsFavoriteChanged: (data: {
+    object: CardItem;
+    nextIsFavorite: boolean;
+  }) => void;
 }
 
 export const HomeSectionBar = memo(
@@ -37,56 +33,95 @@ export const HomeSectionBar = memo(
   }: Props) => {
     const {t} = useTranslation('home');
     const styles = useThemeStyles(themeStyles);
-    const {id: categoryId, name: sectionTitle, objects, children} = item;
+    const {items, isCategoryItems, title, categoryId} = item;
 
-    const isLessThenTwoItems = objects.length < 2 && children.length < 2;
-    const isCategoriesList = isEmpty(objects);
-
-    const objectsData = useObjects(objects);
-    const childrenData = useCategories(children);
+    const isLessThenTwoItems = items.length < 2;
 
     const listRef = useRef<FlatList>(null);
 
     const onAllPressHandler = useCallback(() => {
-      if (isCategoriesList) {
-        onAllCategoriesPress({categoryId, title: sectionTitle});
+      if (isCategoryItems) {
+        onAllCategoriesPress({categoryId, title});
       } else {
-        onAllObjectsPress({categoryId, title: sectionTitle});
+        onAllObjectsPress({categoryId, title});
       }
     }, [
-      isCategoriesList,
-      onAllCategoriesPress,
       categoryId,
-      sectionTitle,
+      isCategoryItems,
+      onAllCategoriesPress,
       onAllObjectsPress,
+      title,
     ]);
 
     const onObjectPressHandler = useCallback(
-      (object: IObject) => {
+      (object: CardItem) => {
         onObjectPress(object);
       },
       [onObjectPress],
     );
 
     const onCategoryPressHandler = useCallback(
-      (category: ITransformedCategory) => {
-        onCategoryPress(category, sectionTitle);
+      (category: CardItem) => {
+        onCategoryPress(category, title);
       },
-      [onCategoryPress, sectionTitle],
+      [onCategoryPress, title],
+    );
+
+    const onObjectCardIsFavoriteChangedHandler = useCallback(
+      (object: CardItem, nextIsFavorite: boolean) => {
+        onObjectCardIsFavoriteChanged({
+          object,
+          nextIsFavorite,
+        });
+      },
+      [onObjectCardIsFavoriteChanged],
     );
 
     useScrollToTop(listRef);
 
     useEffect(() => {
       listRef.current?.scrollToOffset({animated: true, offset: 0});
-    }, [childrenData, objectsData]);
+    }, []);
 
     const snapToOffsets = useMemo(() => {
-      const data = isCategoriesList ? childrenData : objectsData;
-      return data.map((_, index) => {
+      return items.map((_, index) => {
         return index * SNAP_INTERVAL - 8;
       });
-    }, [childrenData, isCategoriesList, objectsData]);
+    }, [items]);
+
+    const renderItem = useCallback(
+      ({item: data}: {item: CardItem}) => {
+        if (isCategoryItems) {
+          return (
+            <CategoryCard
+              containerStyle={styles.objectCardContainer}
+              width={cardWidth}
+              onPress={onCategoryPressHandler}
+              data={data}
+              testID={TestIDs.CategoryCardTitle}
+            />
+          );
+        }
+
+        return (
+          <ObjectCard
+            containerStyle={styles.objectCardContainer}
+            width={cardWidth}
+            onPress={onObjectPressHandler}
+            data={data}
+            onFavoriteChanged={onObjectCardIsFavoriteChangedHandler}
+            testID={TestIDs.ObjectTitle}
+          />
+        );
+      },
+      [
+        isCategoryItems,
+        onCategoryPressHandler,
+        onObjectCardIsFavoriteChangedHandler,
+        onObjectPressHandler,
+        styles.objectCardContainer,
+      ],
+    );
 
     return (
       <View>
@@ -94,9 +129,9 @@ export const HomeSectionBar = memo(
           <Text
             style={styles.sectionTitle}
             {...getPlatformsTestID(
-              composeTestID(TestIDs.CategoryTitle, sectionTitle),
+              composeTestID(TestIDs.CategoryTitle, title),
             )}>
-            {sectionTitle}
+            {title}
           </Text>
           {!isLessThenTwoItems ? (
             <TouchableOpacity activeOpacity={0.8} onPress={onAllPressHandler}>
@@ -106,7 +141,7 @@ export const HomeSectionBar = memo(
             </TouchableOpacity>
           ) : null}
         </View>
-        {isCategoriesList ? (
+        {isCategoryItems ? (
           <FlatList
             ref={listRef}
             snapToOffsets={snapToOffsets}
@@ -115,17 +150,9 @@ export const HomeSectionBar = memo(
             keyExtractor={({id}) => id}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
-            data={childrenData}
+            data={items}
             horizontal
-            renderItem={({item: category}) => (
-              <CategoryCard
-                containerStyle={styles.objectCardContainer}
-                width={cardWidth}
-                onPress={onCategoryPressHandler}
-                data={category}
-                testID={TestIDs.CategoryCardTitle}
-              />
-            )}
+            renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
           />
         ) : (
@@ -137,18 +164,9 @@ export const HomeSectionBar = memo(
             decelerationRate="fast"
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
-            data={objectsData}
+            data={items}
             horizontal
-            renderItem={({item: object}) => (
-              <ObjectCard
-                containerStyle={styles.objectCardContainer}
-                width={cardWidth}
-                onPress={onObjectPressHandler}
-                data={object}
-                onFavoriteChanged={onObjectCardIsFavoriteChanged}
-                testID={TestIDs.ObjectTitle}
-              />
-            )}
+            renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
           />
         )}

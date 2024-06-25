@@ -19,7 +19,7 @@ import React, {
   memo,
   useState,
 } from 'react';
-import {AnimatedCircleButton} from 'molecules';
+import {AnimatedCircleButton} from 'molecules/AnimatedCircleButton';
 import {composeTestID} from 'core/helpers';
 import {uniqueId} from 'lodash';
 

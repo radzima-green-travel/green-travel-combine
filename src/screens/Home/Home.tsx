@@ -1,5 +1,5 @@
 import React from 'react';
-import {RefreshPageReminder, SuspenseView, SnackBar} from 'atoms';
+import {SuspenseView, SnackBar} from 'atoms';
 import {HomeSectionBar} from 'organisms';
 import {FlatList, RefreshControl, View} from 'react-native';
 
@@ -15,11 +15,9 @@ export const Home = () => {
   const styles = useThemeStyles(themeStyles);
   const {
     loading,
-    error,
+    errorTexts,
     listRef,
-    getInitialData,
     refreshing,
-    getData,
     navigateToObjectDetails,
     onCategoryPress,
     onAllObjectsPress,
@@ -27,8 +25,8 @@ export const Home = () => {
     sendIsFavoriteChangedEvent,
     homeData,
     theme,
-    isFocused,
-    isUpdatesAvailable,
+    getHomePageData,
+    refreshHomePageData,
     snackBarProps,
   } = useHome();
 
@@ -36,8 +34,8 @@ export const Home = () => {
     <View style={styles.container}>
       <SuspenseView
         loading={loading}
-        error={homeData ? null : error}
-        retryCallback={getInitialData}>
+        error={homeData ? null : errorTexts}
+        retryCallback={getHomePageData}>
         <FlatList
           ref={listRef}
           style={styles.list}
@@ -47,8 +45,8 @@ export const Home = () => {
             <RefreshControl
               tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
               colors={[COLORS.forestGreen]}
-              refreshing={refreshing && isFocused}
-              onRefresh={getData}
+              refreshing={refreshing}
+              onRefresh={refreshHomePageData}
             />
           }
           data={homeData}
@@ -65,7 +63,7 @@ export const Home = () => {
             />
           )}
         />
-        {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null}
+        {/* {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null} */}
         <SnackBar isOnTop {...snackBarProps} />
       </SuspenseView>
     </View>
