@@ -1,6 +1,6 @@
 import {CategoryShort, HomeSectionBarItem, ObjectShort} from 'core/types';
 import {
-  CategoryShortDTO,
+  CategoriesAggregationsByObjectsResponseDTO,
   ListShortObjectsResponseDTO,
   ObjectShortDTO,
 } from 'core/types/api';
@@ -11,36 +11,23 @@ import {
 } from './common';
 
 export function getCategoriesWithObjects(
-  categoriesList: Array<CategoryShortDTO>,
+  categoriesAggreagions: CategoriesAggregationsByObjectsResponseDTO,
 ) {
-  const parentSet = reduce(
-    categoriesList,
-    (acc, category) => {
-      if (category.parent) {
-        acc.add(category.parent);
-      }
-      return acc;
-    },
-    new Set<string>(),
-  );
-
-  return filter(categoriesList, category => {
-    return !parentSet.has(category.id);
-  });
+  return filter(categoriesAggreagions, category => category.doc_count !== 0);
 }
 
 export function getObjectByCategories(
-  categoriesList: Array<CategoryShortDTO>,
+  categoriesAggreagions: CategoriesAggregationsByObjectsResponseDTO,
   objectsCollectionResponse: Array<ListShortObjectsResponseDTO>,
 ) {
   const objectsCollection = map(objectsCollectionResponse, 'items');
   return reduce(
-    categoriesList,
+    categoriesAggreagions,
     (acc, category, index) => {
       const objects = objectsCollection[index];
 
       if (objects) {
-        acc[category.id] = objects;
+        acc[category.key] = objects;
       }
 
       return acc;

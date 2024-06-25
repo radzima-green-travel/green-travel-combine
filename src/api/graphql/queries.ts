@@ -33,3 +33,20 @@ export const listObjectsShortQuery = `query MyQuery($limit: Int = 10, $filter: S
   }
 }
 `;
+
+export const getCategoriesAggregationsByObjectsQuery = `query MyQuery {
+  filterLandingObjects(filter: {statuses: "published"}) {
+    aggregations {
+      categories {
+        doc_count
+        facets {
+          buckets {
+            doc_count
+            key
+          }
+        }
+      }
+    }
+  }
+}
+`;

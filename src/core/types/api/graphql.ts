@@ -32,6 +32,11 @@ export interface ObjectShortDTO {
   categoryId: string;
 }
 
+export interface CategoryAggregationsByObjectsDTO {
+  doc_count: number;
+  key: string;
+}
+
 export interface ListCategoriesResponseDTO {
   items: Array<CategoryShortDTO>;
 }
@@ -39,3 +44,6 @@ export interface ListCategoriesResponseDTO {
 export interface ListShortObjectsResponseDTO {
   items: Array<ObjectShortDTO>;
 }
+
+export type CategoriesAggregationsByObjectsResponseDTO =
+  Array<CategoryAggregationsByObjectsDTO>;

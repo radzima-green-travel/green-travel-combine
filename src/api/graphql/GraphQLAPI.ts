@@ -1,9 +1,14 @@
 import {
+  CategoriesAggregationsByObjectsResponseDTO,
   ListCategoriesResponseDTO,
   ListShortObjectsResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
-import {listCategoriesQuery, listObjectsShortQuery} from './queries';
+import {
+  listCategoriesQuery,
+  listObjectsShortQuery,
+  getCategoriesAggregationsByObjectsQuery,
+} from './queries';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getListCategories(): Promise<ListCategoriesResponseDTO> {
@@ -31,6 +36,14 @@ class GraphQLAPI extends GraphQLAPIEngine {
       },
     });
     return response.searchObjects;
+  }
+
+  async getCategoriesAggregationsByObjects(): Promise<CategoriesAggregationsByObjectsResponseDTO> {
+    const response = await this.executeQuery({
+      query: getCategoriesAggregationsByObjectsQuery,
+    });
+    return response.filterLandingObjects?.aggregations?.categories?.facets
+      ?.buckets;
   }
 }
 

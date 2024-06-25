@@ -12,6 +12,7 @@ import {
 import type {
   ListCategoriesResponseDTO,
   ListShortObjectsResponseDTO,
+  CategoriesAggregationsByObjectsResponseDTO,
 } from 'core/types/api';
 import {map} from 'lodash';
 
@@ -21,19 +22,22 @@ export function* getHomePageDataSaga({
   typeof getHomePageDataRequest | typeof refreshHomePageDataRequest
 >) {
   try {
-    const {items: categoriesListItems}: ListCategoriesResponseDTO = yield call([
-      graphQLAPI,
-      graphQLAPI.getListCategories,
+    const [{items: categoriesListItems}, aggregations]: [
+      ListCategoriesResponseDTO,
+      CategoriesAggregationsByObjectsResponseDTO,
+    ] = yield all([
+      call([graphQLAPI, graphQLAPI.getListCategories]),
+      call([graphQLAPI, graphQLAPI.getCategoriesAggregationsByObjects]),
     ]);
 
     const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
-      yield call(getCategoriesWithObjects, categoriesListItems);
+      yield call(getCategoriesWithObjects, aggregations);
 
     const objectsResponseCollection: Array<ListShortObjectsResponseDTO> =
       yield all(
         map(categoriesWithObjects, category => {
           return call([graphQLAPI, graphQLAPI.getShortObjectList], {
-            categoryId: category.id,
+            categoryId: category.key,
           });
         }),
       );
