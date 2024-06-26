@@ -11,8 +11,8 @@ import {
 } from 'core/transformators/homePage';
 import type {
   ListCategoriesResponseDTO,
-  ListShortObjectsResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
+  ObjectsForCategoriesResponseDTO,
 } from 'core/types/api';
 import {map} from 'lodash';
 
@@ -33,20 +33,16 @@ export function* getHomePageDataSaga({
     const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
       yield call(getCategoriesWithObjects, aggregations);
 
-    const objectsResponseCollection: Array<ListShortObjectsResponseDTO> =
-      yield all(
-        map(categoriesWithObjects, category => {
-          return call([graphQLAPI, graphQLAPI.getShortObjectList], {
-            categoryId: category.key,
-          });
-        }),
+    const objectForCategoriesResponse: ObjectsForCategoriesResponseDTO =
+      yield call(
+        [graphQLAPI, graphQLAPI.getObjectsForCategories],
+        map(categoriesWithObjects, 'key'),
       );
-
     const objectsByCategory: ReturnType<typeof getObjectByCategories> =
       yield call(
         getObjectByCategories,
         categoriesWithObjects,
-        objectsResponseCollection,
+        objectForCategoriesResponse,
       );
 
     yield put(

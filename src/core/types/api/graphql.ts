@@ -45,5 +45,9 @@ export interface ListShortObjectsResponseDTO {
   items: Array<ObjectShortDTO>;
 }
 
+export interface ObjectsForCategoriesResponseDTO {
+  [key: string]: ListShortObjectsResponseDTO;
+}
+
 export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;

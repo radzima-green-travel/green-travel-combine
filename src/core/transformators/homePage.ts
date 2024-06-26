@@ -1,7 +1,7 @@
 import {CategoryShort, HomeSectionBarItem, ObjectShort} from 'core/types';
 import {
   CategoriesAggregationsByObjectsResponseDTO,
-  ListShortObjectsResponseDTO,
+  ObjectsForCategoriesResponseDTO,
   ObjectShortDTO,
 } from 'core/types/api';
 import {filter, groupBy, isEmpty, map, orderBy, reduce} from 'lodash';
@@ -9,6 +9,7 @@ import {
   convertShortCategoryToCardItem,
   convertShortObjectToCardItem,
 } from './common';
+import {GRAPHQL_QUERY_CATEGORY_INDEX} from 'api/graphql';
 
 export function getCategoriesWithObjects(
   categoriesAggreagions: CategoriesAggregationsByObjectsResponseDTO,
@@ -18,13 +19,14 @@ export function getCategoriesWithObjects(
 
 export function getObjectByCategories(
   categoriesAggreagions: CategoriesAggregationsByObjectsResponseDTO,
-  objectsCollectionResponse: Array<ListShortObjectsResponseDTO>,
+  objectsForCategoriesResponse: ObjectsForCategoriesResponseDTO,
 ) {
-  const objectsCollection = map(objectsCollectionResponse, 'items');
   return reduce(
     categoriesAggreagions,
     (acc, category, index) => {
-      const objects = objectsCollection[index];
+      const objects =
+        objectsForCategoriesResponse[`${GRAPHQL_QUERY_CATEGORY_INDEX}${index}`]
+          ?.items;
 
       if (objects) {
         acc[category.key] = objects;

@@ -1,14 +1,14 @@
 import {
   CategoriesAggregationsByObjectsResponseDTO,
   ListCategoriesResponseDTO,
-  ListShortObjectsResponseDTO,
+  ObjectsForCategoriesResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {
   listCategoriesQuery,
-  listObjectsShortQuery,
   getCategoriesAggregationsByObjectsQuery,
 } from './queries';
+import {generateListObjectsShortQuery} from './queries/homePage';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getListCategories(): Promise<ListCategoriesResponseDTO> {
@@ -18,24 +18,12 @@ class GraphQLAPI extends GraphQLAPIEngine {
     return response.listCategories;
   }
 
-  async getShortObjectList({
-    categoryId,
-  }: {
-    categoryId: string;
-  }): Promise<ListShortObjectsResponseDTO> {
-    const response = await this.executeQuery({
-      query: listObjectsShortQuery,
-      params: {
-        limit: 10,
-        filter: {
-          status: {eq: 'published'},
-          categoryId: {
-            eq: categoryId,
-          },
-        },
-      },
+  async getObjectsForCategories(
+    categoryIds: string[],
+  ): Promise<ObjectsForCategoriesResponseDTO> {
+    return this.executeQuery({
+      query: generateListObjectsShortQuery(categoryIds),
     });
-    return response.searchObjects;
   }
 
   async getCategoriesAggregationsByObjects(): Promise<CategoriesAggregationsByObjectsResponseDTO> {
