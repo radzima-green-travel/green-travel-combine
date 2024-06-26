@@ -8,3 +8,4 @@ export {appSaga} from './app';
 export {visitedObjectsSaga} from './visitedObjects';
 export {getObjectAttributesSaga} from './objectAttributes';
 export {analytics} from './analytics';
+export {homePageSaga} from './homePage';

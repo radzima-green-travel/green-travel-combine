@@ -22,6 +22,7 @@ import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
 import {getObjectAttributesSaga} from '../objectAttributes';
+import {getHomePageDataRequest} from 'core/actions';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
@@ -31,6 +32,7 @@ export function* bootstrapSaga() {
       );
       const isAuthorized = yield select(selectUserAuthorized);
 
+      yield put(getHomePageDataRequest());
       if (isMyProfileFeatureEnabled) {
         yield call(initUserAuthSaga);
       }
