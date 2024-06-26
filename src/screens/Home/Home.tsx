@@ -34,7 +34,7 @@ export const Home = () => {
     <View style={styles.container}>
       <SuspenseView
         loading={loading}
-        error={homeData ? null : errorTexts}
+        error={errorTexts}
         retryCallback={getHomePageData}>
         <FlatList
           ref={listRef}

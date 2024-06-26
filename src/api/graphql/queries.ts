@@ -19,6 +19,7 @@ export const listObjectsShortQuery = `query MyQuery($limit: Int = 10, $filter: S
   searchObjects(limit: $limit, filter: $filter) {
     items {
       cover
+      blurhash
       category {
         name
       }

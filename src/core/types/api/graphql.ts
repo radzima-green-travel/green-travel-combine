@@ -15,7 +15,7 @@ export interface CategoryShortDTO {
   name: string;
   id: string;
   parent: string | null;
-  blurhash: string;
+  blurhash: string | null;
   index: number;
   owner: string | null;
 }
@@ -28,7 +28,7 @@ export interface ObjectShortDTO {
   i18n: Array<I18nType<'name'>>;
   name: string;
   id: string;
-  blurhash: string;
+  blurhash: string | null;
   categoryId: string;
 }
 

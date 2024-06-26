@@ -32,7 +32,6 @@ export const useHome = () => {
 
   const {loading} = useRequestLoading(getHomePageDataRequest);
   const {errorTexts} = useOnRequestError(getHomePageDataRequest, '');
-
   const {loading: refreshing} = useRequestLoading(refreshHomePageDataRequest);
 
   const getHomePageData = useCallback(() => {
