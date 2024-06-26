@@ -6,6 +6,7 @@ export const listCategoriesQuery = `query MyQuery($filter: ModelCategoryFilterIn
       index
       id
       cover
+      blurhash
       i18n {
         name
         locale
