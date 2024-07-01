@@ -7,3 +7,4 @@ export * from './app';
 export * from './settingsSelectors';
 export * from './favorites';
 export * from './visitedObjects';
+export * from './homePage';

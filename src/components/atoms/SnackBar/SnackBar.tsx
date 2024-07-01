@@ -5,7 +5,8 @@ import {themeStyles} from './styles';
 import {SnackBarContainer, SnackBarContainerRef} from './SnackBarContainer';
 
 import {useThemeStyles} from 'core/hooks';
-import {Button, Icon} from 'atoms';
+import {Button} from 'atoms/Button';
+import {Icon} from 'atoms/Icon';
 import {isEqual} from 'lodash';
 
 export interface SnackBarProps {

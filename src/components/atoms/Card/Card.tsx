@@ -7,7 +7,7 @@ import {
   ViewStyle,
   ImageStyle,
 } from 'react-native';
-import {Icon} from 'atoms';
+import {Icon} from 'atoms/Icon';
 import {themeStyles, gradientConfig} from './styles';
 import {LinearGradient} from 'expo-linear-gradient';
 import {FavoriteButtonContainer} from '../../containers';

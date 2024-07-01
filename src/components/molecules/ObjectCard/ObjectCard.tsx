@@ -1,15 +1,15 @@
 import {Card} from 'atoms';
-import {IObject} from 'core/types';
+import {CardItem} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 interface IProps {
-  data: IObject;
-  onPress: (item: IObject) => void;
+  data: CardItem;
+  onPress: (item: CardItem) => void;
   width: number;
   containerStyle?: StyleProp<ViewStyle>;
   removeFavoriteWithAnimation?: boolean;
   onRemoveAnimationEnd?: () => void;
-  onFavoriteChanged?: (item: IObject, nextIsFavorite: boolean) => void;
+  onFavoriteChanged?: (item: CardItem, nextIsFavorite: boolean) => void;
   testID: string;
 }
 

@@ -1,9 +1,8 @@
-import {Icon} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
 import React, {memo} from 'react';
 import {View, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {themeStyles} from './styles';
-import {IconProps} from 'atoms/Icon';
+import {IconProps, Icon} from 'atoms/Icon';
 import Animated from 'react-native-reanimated';
 interface IProps {
   style?: StyleProp<ViewStyle>;
