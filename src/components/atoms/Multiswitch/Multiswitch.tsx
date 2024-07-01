@@ -9,19 +9,25 @@ interface IProps {
   multiswitchItems: string[];
   onItemPress: () => void;
   testID: string;
+  activeItem?: string;
   style?: StyleProp<ViewStyle>;
 }
 
 export const Multiswitch = memo(
-  ({multiswitchItems, onItemPress, testID, style}: IProps) => {
+  ({
+    multiswitchItems,
+    onItemPress,
+    activeItem = multiswitchItems[0],
+    testID,
+    style,
+  }: IProps) => {
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
     return (
       <View style={[styles.container, style]} {...getPlatformsTestID(testID)}>
         <View style={[styles.container, multiswitchStyles.container]}>
           {multiswitchItems.map((item, index) => {
-            // TODO: temporarily. Will be removed after adding Multiswitch to the filter screen
-            const active = index === 0;
+            const active = item === activeItem;
 
             return (
               <TouchableOpacity

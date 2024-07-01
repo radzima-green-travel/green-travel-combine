@@ -10,17 +10,31 @@ import {TestIDs} from 'core/types';
 const HeaderRight = ({navigation}: IProps) => {
   const styles = useThemeStyles(themeStyles);
   return (
-    <TouchableOpacity
-      hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
-      activeOpacity={0.8}
-      onPress={() => navigation.navigate('Search')}>
-      <Icon
-        name={'search'}
-        style={styles.icon}
-        size={24}
-        testID={TestIDs.SearchButton}
-      />
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Search')}
+        style={styles.searchContainer}>
+        <Icon
+          name="search"
+          style={styles.icon}
+          size={24}
+          testID={TestIDs.SearchButton}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Filter')}>
+        <Icon
+          name="tune"
+          style={styles.icon}
+          size={24}
+          testID={TestIDs.FilterButton}
+        />
+      </TouchableOpacity>
+    </>
   );
 };
 
