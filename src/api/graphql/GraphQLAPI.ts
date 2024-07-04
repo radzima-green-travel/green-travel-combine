@@ -2,13 +2,16 @@ import {
   CategoriesAggregationsByObjectsResponseDTO,
   ListCategoriesResponseDTO,
   ObjectsForCategoriesResponseDTO,
+  RegionsList,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
+import {SearchSpotsParams} from './types';
 import {
   listCategoriesQuery,
   getCategoriesAggregationsByObjectsQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
+import {searchSpotsQuery} from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getListCategories(): Promise<ListCategoriesResponseDTO> {
@@ -32,6 +35,22 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
     return response.filterLandingObjects?.aggregations?.categories?.facets
       ?.buckets;
+  }
+
+  async getRegions(): Promise<RegionsList> {
+    const response = await this.executeQuery({
+      query: searchSpotsQuery(),
+      params: {
+        limit: 100,
+        filter: {
+          type: {
+            eq: 'REGION',
+          },
+        },
+      } as SearchSpotsParams,
+    });
+
+    return response.searchSpots.items;
   }
 }
 

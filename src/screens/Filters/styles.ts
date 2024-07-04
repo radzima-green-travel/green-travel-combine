@@ -36,6 +36,10 @@ export const themeStyles = {
     paddingVertical: 8,
     marginBottom: 4,
   },
+  subFilterName: {
+    ...FONTS_PRESETS.subheadlineBold,
+    paddingVertical: 8,
+  },
   icon: {
     color: {
       light: COLORS.light.icon.primary,

@@ -10,6 +10,7 @@ import {
   visitedObjectsSaga,
   analytics,
   homePageSaga,
+  filtersSaga,
 } from './sagas';
 
 export function* rootSaga() {
@@ -24,5 +25,6 @@ export function* rootSaga() {
     visitedObjectsSaga(),
     analytics(),
     homePageSaga(),
+    filtersSaga(),
   ]);
 }

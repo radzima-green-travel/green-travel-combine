@@ -183,7 +183,8 @@
     "any": "Любые",
     "clear": "Очистить",
     "showAll": "Показать {{amount}} объектов",
-    "showFiltered": "Показать ({{amount}})"
+    "showFiltered": "Показать ({{amount}})",
+    "regions": "Области"
   },
   "authentification": {
     "validation": {

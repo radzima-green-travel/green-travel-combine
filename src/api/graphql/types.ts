@@ -288,3 +288,8 @@ export const enum ObjectStatus {
   pending = 'pending',
   published = 'published',
 }
+
+export type SearchSpotsParams = {
+  limit?: number;
+  filter?: {type?: {eq?: 'REGION' | 'MUNICIPALITY'}};
+};

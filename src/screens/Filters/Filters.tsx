@@ -14,7 +14,14 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('filters');
-  const {caregoriesData, ratingGoogle} = useFilters();
+  const {
+    caregoriesData,
+    ratingGoogle,
+    regions,
+    getFiltersData,
+    loading,
+    errorTexts,
+  } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
   const buttons = useMemo(() => {
@@ -34,7 +41,10 @@ export const Filters = () => {
 
   return (
     <View style={styles.container}>
-      <SuspenseView loading={false} error={null} retryCallback={() => {}}>
+      <SuspenseView
+        loading={loading}
+        error={errorTexts}
+        retryCallback={getFiltersData}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{t('title')}</Text>
           <FilterContainer filterName="allCategories">
@@ -49,6 +59,16 @@ export const Filters = () => {
             </View>
           </FilterContainer>
           <FilterContainer filterName="whereToLook">
+            <Text style={styles.subFilterName}>{t('regions')}</Text>
+            <View style={styles.categoryList}>
+              {regions?.map(region => (
+                <Chip
+                  testID={region.id}
+                  text={region.value}
+                  style={styles.chipContainer}
+                />
+              ))}
+            </View>
             <LineItemContainer itemName="settlements">
               <TouchableOpacity
                 activeOpacity={0.8}

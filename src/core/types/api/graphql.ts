@@ -37,6 +37,11 @@ export interface CategoryAggregationsByObjectsDTO {
   key: string;
 }
 
+export interface RegionItem {
+  id: string;
+  value: string;
+}
+
 export interface ListCategoriesResponseDTO {
   items: Array<CategoryShortDTO>;
 }
@@ -51,3 +56,5 @@ export interface ObjectsForCategoriesResponseDTO {
 
 export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
+
+export type RegionsList = Array<RegionItem>;

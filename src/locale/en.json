@@ -182,7 +182,8 @@
     "any": "Any",
     "clear": "Clear",
     "showAll": "Show {{amount}} objects",
-    "showFiltered": "Show {{amount}}"
+    "showFiltered": "Show {{amount}}",
+    "regions": "Regions"
   },
   "authentification": {
     "validation": {
