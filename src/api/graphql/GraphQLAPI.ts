@@ -3,6 +3,7 @@ import {
   ListCategoriesResponseDTO,
   ObjectsForCategoriesResponseDTO,
   RegionsList,
+  SearchParams,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {SearchSpotsParams} from './types';
@@ -11,7 +12,7 @@ import {
   getCategoriesAggregationsByObjectsQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
-import {searchSpotsQuery} from './queries/common';
+import {searchSpotsQuery, filterLandingObjects} from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getListCategories(): Promise<ListCategoriesResponseDTO> {
@@ -39,7 +40,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
 
   async getRegions(): Promise<RegionsList> {
     const response = await this.executeQuery({
-      query: searchSpotsQuery(),
+      query: searchSpotsQuery,
       params: {
         limit: 100,
         filter: {
@@ -50,6 +51,14 @@ class GraphQLAPI extends GraphQLAPIEngine {
       } as SearchSpotsParams,
     });
 
+    return response.searchSpots.items;
+  }
+
+  async getFilterObjects(params: SearchParams): Promise<any> {
+    const response = await this.executeQuery({
+      query: filterLandingObjects,
+      params,
+    });
     return response.searchSpots.items;
   }
 }

@@ -58,3 +58,10 @@ export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
 export type RegionsList = Array<RegionItem>;
+
+export interface SearchParams {
+  categories?: string | string[];
+  googleRating?: string;
+  regions?: string | string[];
+  municipalities?: string | string[];
+}

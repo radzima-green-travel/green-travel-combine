@@ -1,17 +1,21 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 
-import {selectCategories, selectFiltersRegionsList} from 'core/selectors';
+import {selectCategories, selectFiltersState} from 'core/selectors';
 
 import {useOnRequestError, useRequestLoading} from 'react-redux-help-kit';
-import {getFiltersDataRequest, refreshFiltersDataRequest} from 'core/actions';
+import {
+  getFiltersDataRequest,
+  refreshFiltersDataRequest,
+  changeRatingGoogle,
+} from 'core/actions';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
 
   const caregoriesData = useSelector(selectCategories);
-  const regionsData = useSelector(selectFiltersRegionsList);
-  const ratingGoogle = ['Any', '3,5+', '4+', '4,5+'];
+  const {ratingGoogle, regionsList, activeRating} =
+    useSelector(selectFiltersState);
 
   const {loading} = useRequestLoading(getFiltersDataRequest);
 
@@ -23,6 +27,17 @@ export const useFilters = () => {
     dispatch(refreshFiltersDataRequest());
   }, [dispatch]);
 
+  const updateRatings = useCallback(
+    (newRatings: string) => {
+      dispatch(changeRatingGoogle(newRatings));
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    getFiltersData();
+  }, [getFiltersData]);
+
   useOnRequestError(getFiltersDataRequest, () => {});
 
   return {
@@ -32,6 +47,8 @@ export const useFilters = () => {
     refreshFiltersData,
     loading,
     errorTexts: null,
-    regions: regionsData,
+    regions: regionsList,
+    activeRating,
+    updateRatings,
   };
 };

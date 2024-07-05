@@ -1,4 +1,4 @@
-import {all, call, put} from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
 import {getFiltersDataRequest, refreshFiltersDataRequest} from 'core/actions';
 import {RequestError} from 'core/errors';
@@ -10,10 +10,10 @@ export function* getFiltersDataSaga({
 }: ReturnType<
   typeof getFiltersDataRequest | typeof refreshFiltersDataRequest
 >) {
-  console.log('test');
   try {
-    const [{items: regionsListItems}]: [{items: RegionsList}] = yield all([
-      call([graphQLAPI, graphQLAPI.getRegions]),
+    const regionsListItems: RegionsList = yield call([
+      graphQLAPI,
+      graphQLAPI.getRegions,
     ]);
 
     yield put(

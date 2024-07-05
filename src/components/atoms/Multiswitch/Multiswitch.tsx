@@ -7,7 +7,7 @@ import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   multiswitchItems: string[];
-  onItemPress: () => void;
+  onItemPress: (item: string) => void;
   testID: string;
   activeItem?: string;
   style?: StyleProp<ViewStyle>;
@@ -37,7 +37,7 @@ export const Multiswitch = memo(
                   active && multiswitchStyles.active,
                 ]}
                 key={index}
-                onPress={onItemPress}
+                onPress={() => onItemPress(item)}
                 {...getPlatformsTestID(composeTestID(testID, 'item'))}>
                 <Text
                   style={[

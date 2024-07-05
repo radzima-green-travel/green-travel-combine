@@ -2,20 +2,12 @@ import {IState} from 'core/store';
 import {createSelector} from 'reselect';
 import {selectAppLanguage} from './settingsSelectors';
 
-export const selectFiltersRegions = (state: IState) =>
-  state.filters.regionsList;
+export const selectFilters = (state: IState) => state.filters;
 
-export const selectFiltersRegionsList = createSelector(
-  selectFiltersRegions,
+export const selectFiltersState = createSelector(
+  selectFilters,
   selectAppLanguage,
-  regionsList => {
-    return regionsList;
-  },
-);
-
-export const selectFilterData = createSelector(
-  selectFiltersRegionsList,
-  regionsList => {
-    return regionsList;
+  filtersState => {
+    return filtersState;
   },
 );

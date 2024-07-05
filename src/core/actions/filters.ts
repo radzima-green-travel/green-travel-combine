@@ -1,4 +1,5 @@
 import {createAsyncAction} from 'core/helpers';
+import {createAction} from '@reduxjs/toolkit';
 import {RegionsList} from 'core/types/api';
 
 export const getFiltersDataRequest = createAsyncAction<
@@ -14,3 +15,7 @@ export const refreshFiltersDataRequest = createAsyncAction<
     regionsList: RegionsList;
   }
 >('REFRESH_FILTERS_DATA');
+
+export const changeRatingGoogle = createAction<string>(
+  'filters/changeRatingGoogle',
+);

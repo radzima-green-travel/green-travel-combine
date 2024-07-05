@@ -18,7 +18,9 @@ export const Filters = () => {
     caregoriesData,
     ratingGoogle,
     regions,
+    activeRating,
     getFiltersData,
+    updateRatings,
     loading,
     errorTexts,
   } = useFilters();
@@ -99,8 +101,9 @@ export const Filters = () => {
           </FilterContainer>
           <FilterContainer filterName="ratingGoogle">
             <Multiswitch
+              activeItem={activeRating}
               multiswitchItems={ratingGoogle}
-              onItemPress={() => {}}
+              onItemPress={updateRatings}
               testID={TestIDs.FiltersMultySwitch}
             />
           </FilterContainer>
