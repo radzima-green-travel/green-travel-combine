@@ -56,8 +56,8 @@ export const themeStyles = {
   },
   hiddenCodeInput: {
     position: 'absolute',
-    height: 0,
-    width: 0,
+    height: 1,
+    width: 1,
     opacity: 0,
   },
 };
