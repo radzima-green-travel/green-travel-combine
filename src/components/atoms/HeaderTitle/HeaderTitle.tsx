@@ -3,7 +3,7 @@ import React, {memo} from 'react';
 import {Text} from 'react-native';
 import {themeStyles} from './styles';
 import {TestIDs} from 'core/types';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ export const HeaderTitle = memo(({title}: Props) => {
   return (
     <Text
       style={styles.text}
-      {...getPlatformsTestID(TestIDs.HeaderScreenTitle)}>
+      {...getPlatformsTestID(composeTestID(TestIDs.HeaderScreenTitle, title))}>
       {title}
     </Text>
   );

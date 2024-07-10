@@ -57,7 +57,7 @@ export const Card = memo(
         disabled={!onPress}
         activeOpacity={0.8}
         style={[styles.cardContainer, containerStyle, dimensions]}
-        {...getPlatformsTestID(testID)}>
+        {...getPlatformsTestID(composeTestID(testID, title))}>
         <Image
           style={styles.image as ImageStyle}
           source={imageUri}
@@ -66,11 +66,7 @@ export const Card = memo(
         />
         <LinearGradient {...gradientConfig} style={styles.gradient} />
         <View style={styles.cardContentContainer}>
-          <Text
-            {...getPlatformsTestID(composeTestID(testID, title))}
-            style={styles.title}>
-            {title}
-          </Text>
+          <Text style={styles.title}>{title}</Text>
           {isFavoriteBlockVisible ? (
             <FavoriteButtonContainer
               onFavoriteToggle={onFavoriteChanged}
