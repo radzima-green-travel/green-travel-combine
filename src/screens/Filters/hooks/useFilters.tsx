@@ -1,35 +1,43 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useCallback, useEffect} from 'react';
 
-import {selectCategories, selectFiltersState} from 'core/selectors';
+import {selectCategories, selectFilters} from 'core/selectors';
 
-import {useOnRequestError, useRequestLoading} from 'react-redux-help-kit';
+import {useOnRequestError} from 'react-redux-help-kit';
 import {
   getFiltersDataRequest,
-  refreshFiltersDataRequest,
   changeRatingGoogle,
+  changeCategory,
 } from 'core/actions';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
 
   const caregoriesData = useSelector(selectCategories);
-  const {ratingGoogle, regionsList, activeRating} =
-    useSelector(selectFiltersState);
-
-  const {loading} = useRequestLoading(getFiltersDataRequest);
+  const {googleRatings, regionsList, activeRating, total, activeCategories} =
+    useSelector(selectFilters);
 
   const getFiltersData = useCallback(() => {
-    dispatch(getFiltersDataRequest());
-  }, [dispatch]);
-
-  const refreshFiltersData = useCallback(() => {
-    dispatch(refreshFiltersDataRequest());
-  }, [dispatch]);
+    dispatch(
+      getFiltersDataRequest({
+        filter: {
+          googleRating: activeRating,
+          categories: activeCategories,
+        },
+      }),
+    );
+  }, [dispatch, activeRating, activeCategories]);
 
   const updateRatings = useCallback(
-    (newRatings: string) => {
-      dispatch(changeRatingGoogle(newRatings));
+    (newRating: string) => {
+      dispatch(changeRatingGoogle(newRating === 'Any' ? null : newRating));
+    },
+    [dispatch],
+  );
+
+  const chooseCategory = useCallback(
+    (category: string) => {
+      dispatch(changeCategory(category));
     },
     [dispatch],
   );
@@ -42,13 +50,15 @@ export const useFilters = () => {
 
   return {
     caregoriesData,
-    ratingGoogle,
+    googleRatings,
     getFiltersData,
-    refreshFiltersData,
-    loading,
+    loading: false,
     errorTexts: null,
     regions: regionsList,
     activeRating,
+    activeCategories,
     updateRatings,
+    chooseCategory,
+    total,
   };
 };

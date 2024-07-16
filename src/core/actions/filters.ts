@@ -1,21 +1,17 @@
+import {SearchParams} from './../types/api/graphql';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
-import {RegionsList} from 'core/types/api';
 
-export const getFiltersDataRequest = createAsyncAction<
-  void,
-  {
-    regionsList: RegionsList;
-  }
->('GET_FILTERS_DATA');
+export const getFiltersDataRequest = createAsyncAction<SearchParams, any>(
+  'GET_FILTERS_DATA',
+);
 
-export const refreshFiltersDataRequest = createAsyncAction<
-  void,
-  {
-    regionsList: RegionsList;
-  }
->('REFRESH_FILTERS_DATA');
+export const refreshFiltersDataRequest = createAsyncAction<SearchParams, any>(
+  'REFRESH_FILTERS_DATA',
+);
 
-export const changeRatingGoogle = createAction<string>(
+export const changeRatingGoogle = createAction<string | null>(
   'filters/changeRatingGoogle',
 );
+
+export const changeCategory = createAction<string>('filters/changeCategory');

@@ -16,13 +16,16 @@ export const Filters = () => {
   const {t} = useTranslation('filters');
   const {
     caregoriesData,
-    ratingGoogle,
+    googleRatings,
     regions,
     activeRating,
+    activeCategories,
     getFiltersData,
     updateRatings,
+    chooseCategory,
     loading,
     errorTexts,
+    total,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -36,10 +39,10 @@ export const Filters = () => {
       {
         onPress: () => {},
         theme: 'primary' as const,
-        text: t('showFiltered', {amount: 100}),
+        text: t('showFiltered', {amount: total}),
       },
     ];
-  }, [t]);
+  }, [t, total]);
 
   return (
     <View style={styles.container}>
@@ -53,6 +56,9 @@ export const Filters = () => {
             <View style={styles.categoryList}>
               {caregoriesData?.map(category => (
                 <Chip
+                  active={activeCategories?.includes(category.id)}
+                  onPress={() => chooseCategory(category.id)}
+                  key={category.id}
                   testID={category.name}
                   text={category.name}
                   style={styles.chipContainer}
@@ -65,6 +71,7 @@ export const Filters = () => {
             <View style={styles.categoryList}>
               {regions?.map(region => (
                 <Chip
+                  key={region.id}
                   testID={region.id}
                   text={region.value}
                   style={styles.chipContainer}
@@ -102,7 +109,8 @@ export const Filters = () => {
           <FilterContainer filterName="ratingGoogle">
             <Multiswitch
               activeItem={activeRating}
-              multiswitchItems={ratingGoogle}
+              multiswitchItems={googleRatings}
+              defaultValue={{key: 'Any', value: t('any')}}
               onItemPress={updateRatings}
               testID={TestIDs.FiltersMultySwitch}
             />

@@ -57,9 +57,12 @@ class GraphQLAPI extends GraphQLAPIEngine {
   async getFilterObjects(params: SearchParams): Promise<any> {
     const response = await this.executeQuery({
       query: filterLandingObjects,
-      params,
+      params: {
+        filter: {statuses: ['published'], ...params.filter},
+      },
     });
-    return response.searchSpots.items;
+
+    return response.filterLandingObjects;
   }
 }
 

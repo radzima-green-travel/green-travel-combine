@@ -8,6 +8,9 @@ export const styles = createThemeStyles({
     borderRadius: 12,
     justifyContent: 'center',
   },
+  mainContainer: {
+    flex: 1,
+  },
   item: {
     height: 40,
     minWidth: 84,

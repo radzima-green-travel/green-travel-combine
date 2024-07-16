@@ -1,33 +1,53 @@
 import React, {memo} from 'react';
-import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+  ScrollView,
+} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {MULTISWITCH_THEMES} from './constants';
 import {styles} from './styles';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
-  multiswitchItems: string[];
+  multiswitchItems: {key: string; value: string}[];
   onItemPress: (item: string) => void;
   testID: string;
-  activeItem?: string;
+  activeItem?: string | null;
   style?: StyleProp<ViewStyle>;
+  defaultValue?: {key: string; value: string};
 }
 
 export const Multiswitch = memo(
   ({
     multiswitchItems,
     onItemPress,
-    activeItem = multiswitchItems[0],
+    activeItem,
     testID,
     style,
+    defaultValue,
   }: IProps) => {
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
+    const switchItems = defaultValue
+      ? [defaultValue, ...multiswitchItems]
+      : multiswitchItems;
+
     return (
-      <View style={[styles.container, style]} {...getPlatformsTestID(testID)}>
-        <View style={[styles.container, multiswitchStyles.container]}>
-          {multiswitchItems.map((item, index) => {
-            const active = item === activeItem;
+      <View
+        style={[styles.container, styles.mainContainer, style]}
+        {...getPlatformsTestID(testID)}>
+        <ScrollView
+          contentContainerStyle={[
+            styles.container,
+            multiswitchStyles.container,
+          ]}
+          horizontal>
+          {switchItems.map(item => {
+            const active = item.key === (activeItem ?? defaultValue?.key);
 
             return (
               <TouchableOpacity
@@ -36,8 +56,8 @@ export const Multiswitch = memo(
                   multiswitchStyles.nonActive,
                   active && multiswitchStyles.active,
                 ]}
-                key={index}
-                onPress={() => onItemPress(item)}
+                key={item.key}
+                onPress={() => onItemPress(item.key)}
                 {...getPlatformsTestID(composeTestID(testID, 'item'))}>
                 <Text
                   style={[
@@ -45,12 +65,12 @@ export const Multiswitch = memo(
                     multiswitchStyles.nonActiveText,
                     active && multiswitchStyles.activeText,
                   ]}>
-                  {item}
+                  {item.value}
                 </Text>
               </TouchableOpacity>
             );
           })}
-        </View>
+        </ScrollView>
       </View>
     );
   },

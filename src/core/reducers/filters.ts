@@ -1,21 +1,27 @@
 import {createReducer, isAnyOf, PayloadAction} from '@reduxjs/toolkit';
 import {
   changeRatingGoogle,
+  changeCategory,
   getFiltersDataRequest,
   refreshFiltersDataRequest,
 } from 'core/actions';
-import type {RegionsList} from 'core/types/api';
 
 interface FiltersState {
-  regionsList: RegionsList;
-  ratingGoogle: string[];
-  activeRating: string;
+  regionsList: any;
+  items: any;
+  googleRatings: {key: string; value: string}[];
+  activeRating: string | null;
+  activeCategories: string[] | null;
+  total: number;
 }
 
 const initialState: FiltersState = {
   regionsList: [],
-  ratingGoogle: ['Any', '3,5+', '4+', '4,5+'],
-  activeRating: 'Any',
+  googleRatings: [],
+  activeRating: null,
+  activeCategories: null,
+  total: 0,
+  items: [],
 };
 
 export const filtersReducer = createReducer(initialState, builder => {
@@ -29,6 +35,12 @@ export const filtersReducer = createReducer(initialState, builder => {
         return {
           ...state,
           regionsList: payload.regionsList,
+          total: payload.total,
+          items: payload.items,
+          googleRatings: payload.googleRatings.map(({key, from}) => ({
+            key: from,
+            value: key,
+          })),
         };
       },
     )
@@ -37,6 +49,26 @@ export const filtersReducer = createReducer(initialState, builder => {
         action.type === changeRatingGoogle.type,
       (state, {payload}) => {
         state.activeRating = payload;
+      },
+    )
+    .addMatcher(
+      (action): action is PayloadAction<string> =>
+        action.type === changeCategory.type,
+      (state, {payload}) => {
+        const activeCategories = state.activeCategories || [];
+
+        if (activeCategories.includes(payload)) {
+          if (activeCategories.length === 1) {
+            state.activeCategories = null;
+            return;
+          }
+          state.activeCategories = activeCategories.filter(
+            item => item !== payload,
+          );
+          return;
+        }
+
+        state.activeCategories = [...activeCategories, payload];
       },
     );
 });
