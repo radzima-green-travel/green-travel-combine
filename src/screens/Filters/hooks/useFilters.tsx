@@ -4,11 +4,8 @@ import {useCallback, useEffect} from 'react';
 import {selectCategories, selectFilters} from 'core/selectors';
 
 import {useOnRequestError} from 'react-redux-help-kit';
-import {
-  getFiltersDataRequest,
-  changeRatingGoogle,
-  changeCategory,
-} from 'core/actions';
+import {getFiltersDataRequest} from 'core/actions';
+import {changeCategory, changeRatingGoogle} from 'core/reducers';
 
 export const useFilters = () => {
   const dispatch = useDispatch();

@@ -8,6 +8,7 @@ import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
 import {TestIDs} from 'core/types';
+import {composeTestID} from 'core/helpers';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const Filters = () => {
@@ -32,13 +33,15 @@ export const Filters = () => {
     return [
       {
         onPress: () => {},
-        theme: 'secondary',
+        theme: 'secondary' as const,
         text: t('clear'),
+        testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
       },
       {
         onPress: () => {},
         theme: 'primary' as const,
         text: t('showFiltered', {amount: total}),
+        testID: composeTestID(TestIDs.FilterButton, 'showFiltered'),
       },
     ];
   }, [t, total]);
@@ -108,7 +111,7 @@ export const Filters = () => {
           <SectionContainer itemName={t('ratingGoogle')}>
             <Multiswitch
               activeItem={activeRating}
-              multiswitchItems={googleRatings}
+              items={googleRatings}
               defaultValue={{key: 'Any', value: t('any')}}
               onItemPress={updateRatings}
               testID={TestIDs.FiltersMultySwitch}

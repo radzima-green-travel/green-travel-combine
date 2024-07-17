@@ -1,14 +1,12 @@
 import {call, all, put} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
-import {getFiltersDataRequest, refreshFiltersDataRequest} from 'core/actions';
+import {getFiltersDataRequest} from 'core/actions';
 import {RequestError} from 'core/errors';
 
 export function* getFiltersDataSaga({
   meta: {failureAction, successAction},
   payload,
-}: ReturnType<
-  typeof getFiltersDataRequest | typeof refreshFiltersDataRequest
->) {
+}: ReturnType<typeof getFiltersDataRequest>) {
   try {
     const [regionsListItems, filtersResult] = yield all([
       call([graphQLAPI, graphQLAPI.getRegions]),

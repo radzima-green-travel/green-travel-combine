@@ -13,7 +13,7 @@ import {styles} from './styles';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
-  multiswitchItems: {key: string; value: string}[];
+  items: {key: string; value: string}[];
   onItemPress: (item: string) => void;
   testID: string;
   activeItem: string | null;
@@ -22,19 +22,10 @@ interface IProps {
 }
 
 export const Multiswitch = memo(
-  ({
-    multiswitchItems,
-    onItemPress,
-    activeItem,
-    testID,
-    style,
-    defaultValue,
-  }: IProps) => {
+  ({items, onItemPress, activeItem, testID, style, defaultValue}: IProps) => {
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
-    const switchItems = defaultValue
-      ? [defaultValue, ...multiswitchItems]
-      : multiswitchItems;
+    const switchItems = defaultValue ? [defaultValue, ...items] : items;
 
     return (
       <View

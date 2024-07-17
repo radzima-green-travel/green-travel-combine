@@ -1,13 +1,9 @@
-import {createReducer, isAnyOf, PayloadAction} from '@reduxjs/toolkit';
-import {
-  changeRatingGoogle,
-  changeCategory,
-  getFiltersDataRequest,
-  refreshFiltersDataRequest,
-} from 'core/actions';
+import {createReducer, isAnyOf, createAction} from '@reduxjs/toolkit';
+import {getFiltersDataRequest} from 'core/actions';
+import {ACTIONS} from '../constants';
 
 interface FiltersState {
-  regionsList: any;
+  regionsList: {id: string; value: string}[];
   items: any;
   googleRatings: {key: string; value: string}[];
   activeRating: string | null;
@@ -24,13 +20,37 @@ const initialState: FiltersState = {
   items: [],
 };
 
+export const changeRatingGoogle = createAction<string | null>(
+  ACTIONS.CHANGE_FILTER_RATING_GOOGLE,
+);
+
+export const changeCategory = createAction<string>(
+  ACTIONS.CHANGE_FILTER_CATEGORY,
+);
+
 export const filtersReducer = createReducer(initialState, builder => {
   builder
+    .addCase(changeRatingGoogle, (state, {payload}) => {
+      state.activeRating = payload;
+    })
+    .addCase(changeCategory, (state, {payload}) => {
+      const activeCategories = state.activeCategories || [];
+
+      if (activeCategories.includes(payload)) {
+        if (activeCategories.length === 1) {
+          state.activeCategories = null;
+          return;
+        }
+        state.activeCategories = activeCategories.filter(
+          item => item !== payload,
+        );
+        return;
+      }
+
+      state.activeCategories = [...activeCategories, payload];
+    })
     .addMatcher(
-      isAnyOf(
-        getFiltersDataRequest.meta.successAction,
-        refreshFiltersDataRequest.meta.successAction,
-      ),
+      isAnyOf(getFiltersDataRequest.meta.successAction),
       (state, {payload}) => {
         return {
           ...state,
@@ -42,33 +62,6 @@ export const filtersReducer = createReducer(initialState, builder => {
             value: key,
           })),
         };
-      },
-    )
-    .addMatcher(
-      (action): action is PayloadAction<string> =>
-        action.type === changeRatingGoogle.type,
-      (state, {payload}) => {
-        state.activeRating = payload;
-      },
-    )
-    .addMatcher(
-      (action): action is PayloadAction<string> =>
-        action.type === changeCategory.type,
-      (state, {payload}) => {
-        const activeCategories = state.activeCategories || [];
-
-        if (activeCategories.includes(payload)) {
-          if (activeCategories.length === 1) {
-            state.activeCategories = null;
-            return;
-          }
-          state.activeCategories = activeCategories.filter(
-            item => item !== payload,
-          );
-          return;
-        }
-
-        state.activeCategories = [...activeCategories, payload];
       },
     );
 });

@@ -22,7 +22,6 @@ export const searchSpotsQuery = `
      ) {
        items {
          id
-         type
          value
          i18n {
            locale
