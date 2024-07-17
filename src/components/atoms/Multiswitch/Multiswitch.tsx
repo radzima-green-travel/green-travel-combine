@@ -16,7 +16,7 @@ interface IProps {
   multiswitchItems: {key: string; value: string}[];
   onItemPress: (item: string) => void;
   testID: string;
-  activeItem?: string | null;
+  activeItem: string | null;
   style?: StyleProp<ViewStyle>;
   defaultValue?: {key: string; value: string};
 }

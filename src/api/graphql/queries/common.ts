@@ -15,14 +15,10 @@ export const shortCardQueryParameters = `
     }`;
 
 export const searchSpotsQuery = `
-   query SearchSpots($filter: SearchableSpotFilterInput, $sort: [SearchableSpotSortInput], $limit: Int, $nextToken: String, $from: Int, $aggregates: [SearchableSpotAggregationInput]) {
+   query SearchSpots($filter: SearchableSpotFilterInput, $limit: Int) {
      searchSpots(
        filter: $filter
-       sort: $sort
        limit: $limit
-       nextToken: $nextToken
-       from: $from
-       aggregates: $aggregates
      ) {
        items {
          id
@@ -53,23 +49,16 @@ export const searchSpotsQuery = `
    }
    `;
 
-export const filterLandingObjects = `query filterLandingObjects($filter: FacetLandingObjectFilterInput, $limit: Int, $query: String, $sort: SearchableObjectSortInput, $nextToken: String, $from: Int) {
+export const filterObjects = `query filterLandingObjects($filter: FacetLandingObjectFilterInput) {
   filterLandingObjects(
     filter: $filter
-    limit: $limit
-    query: $query
-    sort: $sort
-    nextToken: $nextToken
-    from: $from
   ) {
     aggregations {
       googleRatings {
         doc_count
         facets {
           buckets {
-            doc_count
             from
-            to
             key
           }
         }

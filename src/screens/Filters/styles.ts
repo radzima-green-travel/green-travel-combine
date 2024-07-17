@@ -16,9 +16,6 @@ export const themeStyles = {
     paddingTop: 4,
     paddingBottom: 8,
   },
-  filterContainer: {
-    marginBottom: 20,
-  },
   categoryList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -26,15 +23,6 @@ export const themeStyles = {
   },
   chipContainer: {
     margin: 4,
-  },
-  filterName: {
-    ...FONTS_PRESETS.headlineBold,
-    color: {
-      light: COLORS.light.text.primary,
-      dark: COLORS.dark.text.primary,
-    },
-    paddingVertical: 8,
-    marginBottom: 4,
   },
   subFilterName: {
     ...FONTS_PRESETS.subheadlineBold,
@@ -44,21 +32,6 @@ export const themeStyles = {
     color: {
       light: COLORS.light.icon.primary,
       dark: COLORS.dark.icon.primary,
-    },
-  },
-  lineItemContainer: {
-    width: '100%',
-    paddingVertical: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  lineItemName: {
-    ...FONTS_PRESETS.subheadlineRegular,
-    paddingVertical: 8,
-    color: {
-      light: COLORS.light.text.primary,
-      dark: COLORS.dark.text.primary,
     },
   },
   hideVisitContainer: {

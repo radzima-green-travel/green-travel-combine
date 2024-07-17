@@ -12,7 +12,7 @@ import {
   getCategoriesAggregationsByObjectsQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
-import {searchSpotsQuery, filterLandingObjects} from './queries/common';
+import {searchSpotsQuery, filterObjects} from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getListCategories(): Promise<ListCategoriesResponseDTO> {
@@ -56,7 +56,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
 
   async getFilterObjects(params: SearchParams): Promise<any> {
     const response = await this.executeQuery({
-      query: filterLandingObjects,
+      query: filterObjects,
       params: {
         filter: {statuses: ['published'], ...params.filter},
       },
