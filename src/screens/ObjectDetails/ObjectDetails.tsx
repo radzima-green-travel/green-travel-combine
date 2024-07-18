@@ -14,7 +14,7 @@ import {
   ObjectDetailsAddInfoSuccessMenu,
   ObjectIncludes,
   ObjectBelongsTo,
-  ObjectDetailsShowWorkingHoursInfoMenu,
+  ObjectDetailsShowInfoMenu,
   ObjectDetailsListItemsMenu,
 } from 'organisms';
 import {
@@ -136,6 +136,8 @@ export const ObjectDetails = () => {
     phoneNumberMenuItems,
     workingHours,
     additionalDetailsSection,
+    childServicesMenuProps,
+    childServices,
     accommodationPlace,
     upcomingEvents,
     dinnerPlaces,
@@ -355,9 +357,10 @@ export const ObjectDetails = () => {
           />
 
           {workingHours ? (
-            <ObjectDetailsShowWorkingHoursInfoMenu
+            <ObjectDetailsShowInfoMenu
+              title={t('workHours')}
               description={workingHours}
-              workingHoursMenuProps={workingHoursMenuProps}
+              menuProps={workingHoursMenuProps}
             />
           ) : null}
 
@@ -366,6 +369,14 @@ export const ObjectDetails = () => {
               menuItems={phoneNumberMenuItems}
               menuProps={phoneNumbersMenuProps}
               testID={TestIDs.ObjectDetailsPhoneNumbersMenu}
+            />
+          ) : null}
+
+          {childServices ? (
+            <ObjectDetailsShowInfoMenu
+              title={tCommon('objectFieldsLabels.childServices')}
+              description={childServices}
+              menuProps={childServicesMenuProps}
             />
           ) : null}
         </View>

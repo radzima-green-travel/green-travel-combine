@@ -1,0 +1,1 @@
+export {ObjectDetailsShowInfoMenu} from './ObjectDetailsShowInfoMenu';

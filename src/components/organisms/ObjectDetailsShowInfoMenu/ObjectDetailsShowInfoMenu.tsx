@@ -1,6 +1,6 @@
 import {Portal} from '@gorhom/portal';
 import {BottomMenu} from 'atoms';
-import {useBottomMenu, useThemeStyles, useTranslation} from 'core/hooks';
+import {useBottomMenu, useThemeStyles} from 'core/hooks';
 import React from 'react';
 import {Text} from 'react-native';
 import {TestIDs} from 'core/types';
@@ -8,17 +8,18 @@ import {themeStyles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IProps {
-  workingHoursMenuProps: ReturnType<typeof useBottomMenu>;
+  title: string;
+  menuProps: ReturnType<typeof useBottomMenu>;
   description: string;
 }
 
-export const ObjectDetailsShowWorkingHoursInfoMenu = ({
-  workingHoursMenuProps,
+export const ObjectDetailsShowInfoMenu = ({
+  title,
+  menuProps,
   description,
 }: IProps) => {
   const styles = useThemeStyles(themeStyles);
   const {bottom} = useSafeAreaInsets();
-  const {t} = useTranslation('objectDetails');
 
   return (
     <Portal>
@@ -26,9 +27,9 @@ export const ObjectDetailsShowWorkingHoursInfoMenu = ({
         testID={TestIDs.ObjectDetailsAddInfoSuccessMenu}
         withBackdrop
         header={{
-          title: t('workHours'),
+          title,
         }}
-        {...workingHoursMenuProps}>
+        {...menuProps}>
         <Text style={[styles.text, Boolean(bottom) && {paddingBottom: bottom}]}>
           {description}
         </Text>

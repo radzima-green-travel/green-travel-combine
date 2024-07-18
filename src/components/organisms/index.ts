@@ -6,6 +6,6 @@ export {AuthMethods} from './AuthMethods';
 export {ObjectDetailsReportInaccuraciesMenu} from './ObjectDetailsReportInaccuraciesMenu';
 export {ObjectDetailsAddInfoMenu} from './ObjectDetailsAddInfoMenu';
 export {ObjectDetailsAddInfoSuccessMenu} from './ObjectDetailsAddInfoSuccessMenu';
-export {ObjectDetailsShowWorkingHoursInfoMenu} from './ObjectDetailsShowWorkingHoursInfoMenu';
+export {ObjectDetailsShowInfoMenu} from './ObjectDetailsShowInfoMenu';
 export {ObjectBelongsTo} from './ObjectBelongsTo';
 export {ObjectDetailsListItemsMenu} from './ObjectDetailsListItemsMenu';
