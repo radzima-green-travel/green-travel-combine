@@ -110,9 +110,9 @@ export const Filters = () => {
           </SectionContainer>
           <SectionContainer itemName={t('ratingGoogle')}>
             <Multiswitch
-              activeItem={activeRating}
+              activeItemKey={activeRating}
               items={googleRatings}
-              defaultValue={{key: 'Any', value: t('any')}}
+              defaultValue={{key: 'Any', label: t('any')}}
               onItemPress={updateRatings}
               testID={TestIDs.FiltersMultySwitch}
             />

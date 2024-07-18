@@ -5,7 +5,7 @@ import {ACTIONS} from '../constants';
 interface FiltersState {
   regionsList: {id: string; value: string}[];
   items: any;
-  googleRatings: {key: string; value: string}[];
+  googleRatings: {key: string; label: string}[];
   activeRating: string | null;
   activeCategories: string[] | null;
   total: number;
@@ -59,7 +59,7 @@ export const filtersReducer = createReducer(initialState, builder => {
           items: payload.items,
           googleRatings: payload.googleRatings.map(({key, from}) => ({
             key: from,
-            value: key,
+            label: key,
           })),
         };
       },
