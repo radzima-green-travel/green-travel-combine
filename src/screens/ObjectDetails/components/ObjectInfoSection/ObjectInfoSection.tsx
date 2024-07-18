@@ -13,6 +13,7 @@ export type Item = {
   testID: string;
   leadIcon: IconsNames;
   titleNumberOfLines?: number;
+  subtitleNumberOfLines?: number;
   withDropdown?: boolean;
   onPress?: () => void;
   contentStylingType?: 'primary' | 'secondary';
@@ -30,7 +31,8 @@ interface IProps {
 
 export const ObjectInfoSection = memo(({items}: IProps) => {
   const styles = useThemeStyles(themeStyles);
-  const [isTitleTrunctated, setIsTitleTruncated] = useState(false);
+  const [isTitleTruncated, setIsTitleTruncated] = useState(false);
+  const [isSubtitleTruncated, setIsSubtitleTruncated] = useState(false);
 
   const renderSectionItem = (item: Item, index: number) => {
     const {
@@ -40,6 +42,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
       leadIcon,
       testID,
       titleNumberOfLines,
+      subtitleNumberOfLines,
       withDropdown,
       onPress,
       contentStylingType = 'secondary',
@@ -51,7 +54,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
     } = item;
 
     const isNeedToTruncate =
-      isTitleTrunctated || hideRightLabelIfTitleTruncated;
+      isTitleTruncated || isSubtitleTruncated || hideRightLabelIfTitleTruncated;
 
     let position: ComponentProps<typeof ListItem>['position'] = 'single';
 
@@ -79,6 +82,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
         titleContainerStyle={titleContainerStyle}
         testID={testID}
         titleNumberOfLines={titleNumberOfLines}
+        subTitleNumberOfLines={subtitleNumberOfLines}
         tailIconStyle={withDropdown ? styles.dropdownTextStyle : undefined}
         labelStyle={withDropdown ? styles.dropdownTextStyle : undefined}
         tailIcon={
@@ -90,6 +94,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
         }
         boldTitle={boldTitle}
         onTitleTruncate={withDropdown ? setIsTitleTruncated : undefined}
+        onSubtitleTruncate={withDropdown ? setIsSubtitleTruncated : undefined}
       />
     );
   };

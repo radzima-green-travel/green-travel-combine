@@ -15,7 +15,7 @@ import {
   tryOpenURL,
 } from 'core/helpers';
 import type {Item} from '../components/ObjectInfoSection/ObjectInfoSection';
-import {compact, map} from 'lodash';
+import {compact, join, map} from 'lodash';
 import {TestIDs} from 'core/types';
 import {themeStyles} from '../styles';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
@@ -49,12 +49,15 @@ export function useObjectDetailsInfo() {
     phoneNumbers,
     attendanceTime,
     workingHours,
-    childServices,
-    renting,
+    childServices: childServicesData,
+    renting: rentingData,
     accommodationPlace,
     upcomingEvents,
     dinnerPlaces,
   } = data || {};
+
+  const childServices = join(childServicesData, ', ');
+  const renting = join(rentingData, ', ');
 
   const onWebLinkPress = useCallback((url: string | undefined) => {
     if (url) {
@@ -94,9 +97,11 @@ export function useObjectDetailsInfo() {
 
   const workingHoursMenuProps = useBottomMenu();
   const phoneNumbersMenuProps = useBottomMenu();
+  const childServicesMenuProps = useBottomMenu();
 
   const {openMenu: openWorkingHoursMenu} = workingHoursMenuProps;
   const {openMenu: openPhoneNumbersMenu} = phoneNumbersMenuProps;
+  const {openMenu: openChildServicesMenu} = childServicesMenuProps;
 
   const areSeveralPhoneNumbers = phoneNumbers && phoneNumbers?.length > 1;
   const amountOfPhoneNumbers = (phoneNumbers && phoneNumbers?.length) || 0;
@@ -221,24 +226,28 @@ export function useObjectDetailsInfo() {
 
   const additionalDetailsSection = useMemo(() => {
     return compact([
-      childServices?.length && {
+      childServices && {
         title: t('objectFieldsLabels.childServices'),
-        subtitle: childServices.join(', '),
+        subtitle: childServices,
+        subtitleNumberOfLines: 2,
         leadIcon: 'deck',
         testID: TestIDs.ObjectDetailsOfficialWebsite,
         contentStylingType: 'primary',
         boldTitle: false,
+        withDropdown: true,
+        onRightLabelPress: openChildServicesMenu,
+        rightLabel: objectDetailsT('details'),
       },
-      renting?.length && {
+      renting && {
         title: t('objectFieldsLabels.renting'),
-        subtitle: renting.join(', '),
+        subtitle: renting,
         leadIcon: 'sportsTennis',
         testID: TestIDs.ObjectDetailsRenting,
         contentStylingType: 'primary',
         boldTitle: false,
       },
     ] as Item[]);
-  }, [t, renting, childServices]);
+  }, [childServices, objectDetailsT, openChildServicesMenu, renting, t]);
 
   const onInfoCardRightButtonPress = useCallback(
     (link: string, type: CardType) => {
@@ -286,6 +295,8 @@ export function useObjectDetailsInfo() {
     workingHours,
     areSeveralPhoneNumbers,
     additionalDetailsSection,
+    childServicesMenuProps,
+    childServices,
     accommodationPlace,
     upcomingEvents,
     dinnerPlaces,
