@@ -63,7 +63,7 @@ export interface SearchParams {
   filter: {
     categories?: string[] | null;
     googleRating?: string | null;
-    regions?: string | string[];
+    regions?: string[] | null;
     municipalities?: string | string[];
     statuses?: string | string[];
   };

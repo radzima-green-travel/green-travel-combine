@@ -19,10 +19,13 @@ export const Filters = () => {
     googleRatings,
     regions,
     activeRating,
+    activeRegions,
     activeCategories,
     getFiltersData,
     updateRatings,
     chooseCategory,
+    chooseRegion,
+    clearFilters,
     loading,
     errorTexts,
     total,
@@ -32,7 +35,7 @@ export const Filters = () => {
   const buttons = useMemo(() => {
     return [
       {
-        onPress: () => {},
+        onPress: clearFilters,
         theme: 'secondary' as const,
         text: t('clear'),
         testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
@@ -44,7 +47,7 @@ export const Filters = () => {
         testID: composeTestID(TestIDs.FilterButton, 'showFiltered'),
       },
     ];
-  }, [t, total]);
+  }, [t, total, clearFilters]);
 
   return (
     <View style={styles.container}>
@@ -74,7 +77,9 @@ export const Filters = () => {
               {regions?.map(region => (
                 <Chip
                   key={region.id}
+                  active={activeRegions?.includes(region.id)}
                   testID={region.id}
+                  onPress={() => chooseRegion(region.id)}
                   text={region.value}
                   style={styles.chipContainer}
                 />

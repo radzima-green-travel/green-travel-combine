@@ -8,6 +8,7 @@ interface FiltersState {
   googleRatings: {key: string; label: string}[];
   activeRating: string | null;
   activeCategories: string[] | null;
+  activeRegions: string[] | null;
   total: number;
 }
 
@@ -16,6 +17,7 @@ const initialState: FiltersState = {
   googleRatings: [],
   activeRating: null,
   activeCategories: null,
+  activeRegions: null,
   total: 0,
   items: [],
 };
@@ -28,10 +30,31 @@ export const changeCategory = createAction<string>(
   ACTIONS.CHANGE_FILTER_CATEGORY,
 );
 
+export const changeRegion = createAction<string>(ACTIONS.CHANGE_FILTER_REGION);
+
+export const clearFilters = createAction(ACTIONS.CLEAR_FILTERS);
+
 export const filtersReducer = createReducer(initialState, builder => {
   builder
     .addCase(changeRatingGoogle, (state, {payload}) => {
       state.activeRating = payload;
+    })
+    .addCase(clearFilters, () => {
+      return initialState;
+    })
+    .addCase(changeRegion, (state, {payload}) => {
+      const activeRegions = state.activeRegions || [];
+
+      if (activeRegions.includes(payload)) {
+        if (activeRegions.length === 1) {
+          state.activeRegions = null;
+          return;
+        }
+        state.activeRegions = activeRegions.filter(item => item !== payload);
+        return;
+      }
+
+      state.activeRegions = [...activeRegions, payload];
     })
     .addCase(changeCategory, (state, {payload}) => {
       const activeCategories = state.activeCategories || [];

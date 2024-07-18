@@ -62,6 +62,22 @@ export const filterObjects = `query filterLandingObjects($filter: FacetLandingOb
           }
         }
       }
+      categories {
+        facets {
+          buckets {
+            doc_count
+            key
+          }
+        }
+     }
+     regions {
+       facets {
+         buckets {
+           doc_count
+           key
+         }
+       }
+     }
     }
     items {
       id
