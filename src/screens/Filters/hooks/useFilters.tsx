@@ -3,8 +3,11 @@ import {useCallback, useEffect} from 'react';
 
 import {selectCategories, selectFilters} from 'core/selectors';
 
-import {useOnRequestError} from 'react-redux-help-kit';
-import {getFiltersDataRequest} from 'core/actions';
+import {useRequestLoading} from 'react-redux-help-kit';
+import {
+  getFiltersDataRequest,
+  getFiltersDataRequestDuringFirstLoad,
+} from 'core/actions';
 import {
   changeCategory,
   changeRatingGoogle,
@@ -23,7 +26,11 @@ export const useFilters = () => {
     total,
     activeCategories,
     activeRegions,
+    countOfItemsForCategories,
+    countOfItemsForRegions,
   } = useSelector(selectFilters);
+
+  const {loading} = useRequestLoading(getFiltersDataRequestDuringFirstLoad);
 
   const getFiltersData = useCallback(() => {
     dispatch(
@@ -63,10 +70,21 @@ export const useFilters = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    getFiltersData();
-  }, [getFiltersData]);
+    dispatch(
+      getFiltersDataRequestDuringFirstLoad({
+        filter: {
+          googleRating: activeRating,
+          categories: activeCategories,
+          regions: activeRegions,
+        },
+      }),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  useOnRequestError(getFiltersDataRequest, () => {});
+  useEffect(() => {
+    getFiltersData();
+  }, [dispatch, activeRating, activeCategories, activeRegions, getFiltersData]);
 
   return {
     caregoriesData,
@@ -74,7 +92,7 @@ export const useFilters = () => {
     getFiltersData,
     chooseRegion,
     clearFilters,
-    loading: false,
+    loading,
     errorTexts: null,
     regions: regionsList,
     activeRating,
@@ -83,5 +101,7 @@ export const useFilters = () => {
     updateRatings,
     chooseCategory,
     total,
+    countOfItemsForCategories,
+    countOfItemsForRegions,
   };
 };

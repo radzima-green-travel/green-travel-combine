@@ -1,5 +1,8 @@
 import {createReducer, isAnyOf, createAction} from '@reduxjs/toolkit';
-import {getFiltersDataRequest} from 'core/actions';
+import {
+  getFiltersDataRequest,
+  getFiltersDataRequestDuringFirstLoad,
+} from 'core/actions';
 import {ACTIONS} from '../constants';
 
 interface FiltersState {
@@ -10,6 +13,8 @@ interface FiltersState {
   activeCategories: string[] | null;
   activeRegions: string[] | null;
   total: number;
+  countOfItemsForCategories: {[key: string]: number};
+  countOfItemsForRegions: {[key: string]: number};
 }
 
 const initialState: FiltersState = {
@@ -20,6 +25,8 @@ const initialState: FiltersState = {
   activeRegions: null,
   total: 0,
   items: [],
+  countOfItemsForCategories: {},
+  countOfItemsForRegions: {},
 };
 
 export const changeRatingGoogle = createAction<string | null>(
@@ -34,56 +41,66 @@ export const changeRegion = createAction<string>(ACTIONS.CHANGE_FILTER_REGION);
 
 export const clearFilters = createAction(ACTIONS.CLEAR_FILTERS);
 
+const updateActiveList = (
+  list: string[] | null,
+  item: string,
+): string[] | null => {
+  if (!list) {
+    return [item];
+  }
+  const updatedList = list.includes(item)
+    ? list.filter(existingItem => existingItem !== item)
+    : [...list, item];
+  return updatedList.length ? updatedList : null;
+};
+
+const reduceCount = (
+  buckets: {key: string; doc_count: number}[],
+): {[key: string]: number} =>
+  buckets.reduce((acc, {key, doc_count}) => {
+    acc[key] = doc_count;
+    return acc;
+  }, {});
+
 export const filtersReducer = createReducer(initialState, builder => {
   builder
     .addCase(changeRatingGoogle, (state, {payload}) => {
       state.activeRating = payload;
     })
-    .addCase(clearFilters, () => {
-      return initialState;
+    .addCase(clearFilters, state => {
+      return {
+        ...initialState,
+        regionsList: state.regionsList,
+        googleRatings: state.googleRatings,
+      };
     })
     .addCase(changeRegion, (state, {payload}) => {
-      const activeRegions = state.activeRegions || [];
-
-      if (activeRegions.includes(payload)) {
-        if (activeRegions.length === 1) {
-          state.activeRegions = null;
-          return;
-        }
-        state.activeRegions = activeRegions.filter(item => item !== payload);
-        return;
-      }
-
-      state.activeRegions = [...activeRegions, payload];
+      state.activeRegions = updateActiveList(state.activeRegions, payload);
     })
     .addCase(changeCategory, (state, {payload}) => {
-      const activeCategories = state.activeCategories || [];
-
-      if (activeCategories.includes(payload)) {
-        if (activeCategories.length === 1) {
-          state.activeCategories = null;
-          return;
-        }
-        state.activeCategories = activeCategories.filter(
-          item => item !== payload,
-        );
-        return;
-      }
-
-      state.activeCategories = [...activeCategories, payload];
+      state.activeCategories = updateActiveList(
+        state.activeCategories,
+        payload,
+      );
     })
     .addMatcher(
-      isAnyOf(getFiltersDataRequest.meta.successAction),
+      isAnyOf(
+        getFiltersDataRequest.meta.successAction,
+        getFiltersDataRequestDuringFirstLoad.meta.successAction,
+      ),
       (state, {payload}) => {
         return {
           ...state,
-          regionsList: payload.regionsList,
+          regionsList:
+            'regionsList' in payload ? payload.regionsList : state.regionsList,
           total: payload.total,
           items: payload.items,
           googleRatings: payload.googleRatings.map(({key, from}) => ({
             key: from,
             label: key,
           })),
+          countOfItemsForCategories: reduceCount(payload.categoriesBuckets),
+          countOfItemsForRegions: reduceCount(payload.regionsBuckets),
         };
       },
     );
