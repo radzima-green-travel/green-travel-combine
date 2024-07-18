@@ -291,5 +291,5 @@ export const enum ObjectStatus {
 
 export type SearchSpotsParams = {
   limit?: number;
-  filter?: {type?: {eq?: 'REGION' | 'MUNICIPALITY'}};
+  filter?: {type?: {eq?: 'REGION'}};
 };
