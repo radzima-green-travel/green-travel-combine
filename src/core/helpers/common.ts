@@ -119,7 +119,7 @@ function getCategoryTranslation(
   };
 }
 
-function getSpotTranslation(
+export function getSpotTranslation(
   spot: {i18n?: SpotI18n; value: string},
   currentLocale: SupportedLocales,
 ): string {
