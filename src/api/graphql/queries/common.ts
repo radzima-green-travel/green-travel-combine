@@ -30,20 +30,6 @@ export const searchSpotsQuery = `
        }
        nextToken
        total
-       aggregateItems {
-         name
-         result {
-           ... on SearchableAggregateScalarResult {
-             value
-           }
-           ... on SearchableAggregateBucketResult {
-             buckets {
-               key
-               doc_count
-             }
-           }
-         }
-       }
      }
    }
    `;
