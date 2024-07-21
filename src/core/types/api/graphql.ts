@@ -97,3 +97,9 @@ export type CategoriesAggregationsByObjectsResponseDTO =
 
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
 export type AppMapObjectsResponseDTO = {items: Array<ObjectMapDTO>};
+
+export interface PaginatedList<T> {
+  data: Array<T>;
+  nextToken: string;
+  total: number;
+}

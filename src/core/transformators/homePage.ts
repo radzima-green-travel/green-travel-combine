@@ -1,4 +1,10 @@
-import {CategoryShort, HomeSectionBarItem, ObjectShort} from 'core/types';
+import {
+  CategoryShort,
+  CategoryShortDTO,
+  HomeSectionBarItem,
+  ObjectShort,
+  SupportedLocales,
+} from 'core/types';
 import {
   CategoriesAggregationsByObjectsResponseDTO,
   ObjectsForCategoriesResponseDTO,
@@ -8,6 +14,7 @@ import {filter, groupBy, isEmpty, map, orderBy, reduce} from 'lodash';
 import {
   convertShortCategoryToCardItem,
   convertShortObjectToCardItem,
+  translateAndProcessImagesForEntity,
 } from './common';
 import {GRAPHQL_QUERY_CATEGORY_INDEX} from 'api/graphql';
 
@@ -84,3 +91,34 @@ export function prepareHomePageData(
     [] as Array<HomeSectionBarItem>,
   );
 }
+
+export const prepareCategoriesListData = (
+  locale: SupportedLocales | null,
+  data?: Array<CategoryShortDTO>,
+) => {
+  if (!data) {
+    return [];
+  }
+
+  const processedData = map(data, category => {
+    return translateAndProcessImagesForEntity(category, locale);
+  });
+
+  const sortedData = orderBy(processedData, ['index'], ['asc']);
+
+  return map(sortedData, convertShortCategoryToCardItem);
+};
+
+export const prepareObjectsListData = (
+  locale: SupportedLocales | null,
+  data?: Array<ObjectShortDTO>,
+) => {
+  if (!data) {
+    return [];
+  }
+  const processedData = map(data, category =>
+    translateAndProcessImagesForEntity(category, locale),
+  );
+
+  return map(processedData, convertShortObjectToCardItem);
+};

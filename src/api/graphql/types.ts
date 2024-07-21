@@ -288,3 +288,20 @@ export const enum ObjectStatus {
   pending = 'pending',
   published = 'published',
 }
+
+export interface QueryParams {
+  limit?: number;
+  nextToken?: string;
+  filter?: {
+    parent?: {
+      eq?: string;
+    };
+    categoryId?: {
+      eq?: string;
+    };
+  };
+  sort?: {
+    direction?: 'asc' | 'desc';
+    field?: string;
+  };
+}

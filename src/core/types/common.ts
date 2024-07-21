@@ -253,7 +253,7 @@ export interface ObjectCategoryMap extends ObjectCategoryMapDTO {
 export interface CardItem {
   name: string;
   cover: string;
-  blurhash: string;
+  blurhash: string | null;
   id: string;
   analyticsMetadata: {
     categoryName: string;

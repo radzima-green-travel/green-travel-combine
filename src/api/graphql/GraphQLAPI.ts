@@ -3,6 +3,7 @@ import {
   AppMapObjectsResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
   ListCategoriesResponseDTO,
+  ListShortObjectsResponseDTO,
   ObjectsForCategoriesResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
@@ -10,8 +11,11 @@ import {
   listCategoriesQuery,
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
+  searchCategoriesQuery,
+  searchObjectsQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
+import {QueryParams} from 'api/graphql/types';
 import {getObjectsTotalCountQuery} from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
@@ -59,6 +63,28 @@ class GraphQLAPI extends GraphQLAPIEngine {
         from,
         limit,
       },
+    });
+
+    return response.searchObjects;
+  }
+
+  async getCategoriesList(
+    params: QueryParams,
+  ): Promise<ListCategoriesResponseDTO> {
+    const response = await this.executeQuery({
+      query: searchCategoriesQuery,
+      params,
+    });
+
+    return response.searchCategories;
+  }
+
+  async getObjectsList(
+    params: QueryParams,
+  ): Promise<ListShortObjectsResponseDTO> {
+    const response = await this.executeQuery({
+      query: searchObjectsQuery,
+      params,
     });
 
     return response.searchObjects;
