@@ -44,7 +44,7 @@ export function generateListObjectsShortQuery(categoriesIds: Array<string>) {
           (acc, id, index) => {
             return (
               acc +
-              `${GRAPHQL_QUERY_CATEGORY_INDEX}${index}: searchObjects(limit: 10, filter: {categoryId: {eq: "${id}"}}) {
+              `${GRAPHQL_QUERY_CATEGORY_INDEX}${index}: searchObjects(limit: 10, filter: {status: {eq: "published"}, categoryId: {eq: "${id}"}}) {
                 ${shortCardQueryParameters}
             }`
             );

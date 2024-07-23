@@ -1,28 +1,28 @@
 import {
   useRef,
+  useMemo,
   useState,
   useCallback,
-  useMemo,
   useLayoutEffect,
   useEffect,
 } from 'react';
+import {selectAppLanguage} from 'core/selectors';
+
 import {
-  createMarkerFromObject,
-  selectTransformedData,
+  selectAppMapObjects,
   getMapMarkers,
   selectMapFilters,
-  selectAppLanguage,
-} from 'core/selectors';
+  createMarkerFromObject,
+} from 'core/selectors/appMap';
 import {useSelector} from 'react-redux';
 import bbox from '@turf/bbox';
-import {IMapFilter, IObject} from 'core/types';
+import {IMapFilter, ObjectMap} from 'core/types';
 
 import {ShapeSource, Camera, MapView} from '@rnmapbox/maps';
 
 import {
   useSearchList,
   useFocusToUserLocation,
-  useTransformedData,
   useBottomMenu,
   useFindZoomForObjectInCluster,
   useStaticCallback,
@@ -30,6 +30,9 @@ import {
   useBackHandler,
   useColorScheme,
   useStatusBar,
+  useOnRequestSuccess,
+  useRequestLoading,
+  useOnRequestError,
 } from 'core/hooks';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -37,11 +40,13 @@ import {Feature, Point, Position} from '@turf/helpers';
 
 import {mapService} from 'services/MapService';
 import Supercluster from 'supercluster';
-import {xorBy} from 'lodash';
+import {xorBy, find} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {useNavigation} from '@react-navigation/native';
 import {ObjectsListScreenNavigationProps} from '../types';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {useDispatch} from 'react-redux';
+import {getAppMapObjectsRequest} from 'core/actions';
 
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
@@ -67,8 +72,10 @@ type OnPressEvent = {
 };
 
 export const useAppMap = () => {
+  const dispatch = useDispatch();
+
   const navigation = useNavigation<ObjectsListScreenNavigationProps>();
-  const appData = useSelector(selectTransformedData);
+  const objects = useSelector(selectAppMapObjects);
   const currentLocale = useSelector(selectAppLanguage);
 
   const camera = useRef<Camera>(null);
@@ -76,19 +83,38 @@ export const useAppMap = () => {
   const shapeSourceRef = useRef<ShapeSource>(null);
   const ignoreFitBounds = useRef(false);
 
-  const [selectedObject, setSelectedObject] = useState<null | IObject>(null);
+  const [selectedObject, setSelectedObject] = useState<null | ObjectMap>(null);
   const [selectedMarker, setSelectedMarker] = useState<SelecteMarker | null>(
     () => createMarkerFromObject(null),
   );
 
   const [selectedFilters, setSelectedFilters] = useState<IMapFilter[]>([]);
 
-  const [markers, setMarkers] = useState(() =>
-    getMapMarkers(appData, selectedFilters),
-  );
+  const isObjectsEmpty = !objects.length;
 
-  const {getObject} = useTransformedData();
+  const [markers, setMarkers] = useState(() => {
+    return !isObjectsEmpty ? getMapMarkers(objects, selectedFilters) : null;
+  });
+
   const {top} = useSafeAreaInsets();
+
+  const getAppMapObjects = useCallback(() => {
+    dispatch(getAppMapObjectsRequest());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isObjectsEmpty) {
+      getAppMapObjects();
+    }
+  }, [getAppMapObjects, isObjectsEmpty]);
+
+  useOnRequestSuccess(getAppMapObjectsRequest, () => {
+    setMarkers(getMapMarkers(objects, selectedFilters));
+  });
+
+  const {loading} = useRequestLoading(getAppMapObjectsRequest);
+
+  const {errorTexts} = useOnRequestError(getAppMapObjectsRequest, '');
 
   const bounds = useMemo(() => {
     if (markers) {
@@ -123,19 +149,19 @@ export const useAppMap = () => {
   const onFilterSelect = useCallback(
     (item: IMapFilter) => {
       const newSelectedFilters = xorBy(selectedFilters, [item], 'categoryId');
-      const newMarkers = getMapMarkers(appData, newSelectedFilters);
+      const newMarkers = getMapMarkers(objects, newSelectedFilters);
       setSelectedFilters(newSelectedFilters);
       setMarkers(newMarkers);
     },
-    [appData, selectedFilters],
+    [objects, selectedFilters, setMarkers],
   );
 
   const resetFilters = useCallback(() => {
     const newSelectedFilters = [];
-    const newMarkers = getMapMarkers(appData, newSelectedFilters);
+    const newMarkers = getMapMarkers(objects, newSelectedFilters);
     setSelectedFilters(newSelectedFilters);
     setMarkers(newMarkers);
-  }, [appData]);
+  }, [objects, setMarkers]);
 
   const unselectObject = useCallback(() => {
     closeMenu();
@@ -148,7 +174,7 @@ export const useAppMap = () => {
     }
   }, [isMenuOpened, unselectObject]);
 
-  const selectObjectAndOpenMenu = useCallback((object: IObject) => {
+  const selectObjectAndOpenMenu = useCallback((object: ObjectMap) => {
     hapticFeedbackService.trigger();
     setSelectedObject({...object});
     setSelectedMarker(createMarkerFromObject(object));
@@ -157,7 +183,7 @@ export const useAppMap = () => {
   const onShapePress = useCallback(
     async (objectId: string | null) => {
       if (objectId) {
-        const itemData = getObject(objectId);
+        const itemData = find(objects, {id: objectId});
 
         if (itemData) {
           const currentZoom = await map.current?.getZoom();
@@ -177,11 +203,11 @@ export const useAppMap = () => {
         }
       }
     },
-    [getObject, selectObjectAndOpenMenu],
+    [objects, selectObjectAndOpenMenu],
   );
 
   const navigateToObjectDetails = useCallback(
-    ({id}: IObject) => {
+    ({id}: ObjectMap) => {
       unselectObject();
       navigation.push('ObjectDetails', {
         objectId: id,
@@ -197,7 +223,7 @@ export const useAppMap = () => {
 
   const moveCameraToSearchedObject = useCallback(
     async (
-      object: IObject,
+      object: ObjectMap,
       cluster: Supercluster<Supercluster.AnyProps, Supercluster.AnyProps>,
       clusterBounds,
     ) => {
@@ -231,7 +257,7 @@ export const useAppMap = () => {
   );
 
   const onSearchItemPress = useCallback(
-    (object: IObject) => {
+    (object: ObjectMap) => {
       let newFitlters = selectedFilters;
       let newMarkers = markers;
 
@@ -239,7 +265,7 @@ export const useAppMap = () => {
         ignoreFitBounds.current = true;
 
         newFitlters = [];
-        newMarkers = getMapMarkers(appData, newFitlters);
+        newMarkers = getMapMarkers(objects, newFitlters);
 
         setSelectedFilters(newFitlters);
         setMarkers(newMarkers);
@@ -259,19 +285,20 @@ export const useAppMap = () => {
       clearInput();
     },
     [
-      addToHistory,
-      appData,
-      clearInput,
-      closeSearchMenu,
-      markers,
-      moveCameraToSearchedObject,
-      selectObjectAndOpenMenu,
       selectedFilters,
+      markers,
+      closeSearchMenu,
+      moveCameraToSearchedObject,
+      addToHistory,
+      selectObjectAndOpenMenu,
+      clearInput,
+      objects,
+      setMarkers,
     ],
   );
 
   const onDeleteItem = useCallback(
-    (searchItem: IObject) => {
+    (searchItem: ObjectMap) => {
       deleteFromHistory(searchItem);
     },
     [deleteFromHistory],
@@ -416,5 +443,8 @@ export const useAppMap = () => {
     bottom,
     mapFilters,
     currentLocale,
+    loading,
+    errorTexts,
+    getAppMapObjects,
   };
 };

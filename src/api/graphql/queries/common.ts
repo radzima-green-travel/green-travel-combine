@@ -13,3 +13,9 @@ export const shortCardQueryParameters = `
       categoryId
       id
     }`;
+
+export const getObjectsTotalCountQuery = `query MyQuery {
+  searchObjects(filter: {status: {eq: "published"}}) {
+    total
+  }
+}`;
