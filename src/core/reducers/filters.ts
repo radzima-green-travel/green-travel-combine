@@ -1,7 +1,7 @@
 import {createReducer, isAnyOf} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
-  getFiltersDataRequestDuringFirstLoad,
+  getRegionsList,
   changeCategory,
   changeRatingGoogle,
   changeRegion,
@@ -74,15 +74,19 @@ export const filtersReducer = createReducer(initialState, builder => {
       );
     })
     .addMatcher(
-      isAnyOf(
-        getFiltersDataRequest.meta.successAction,
-        getFiltersDataRequestDuringFirstLoad.meta.successAction,
-      ),
+      isAnyOf(getRegionsList.meta.successAction),
       (state, {payload}) => {
         return {
           ...state,
-          regionsList:
-            'regionsList' in payload ? payload.regionsList : state.regionsList,
+          regionsList: payload.regionsList,
+        };
+      },
+    )
+    .addMatcher(
+      isAnyOf(getFiltersDataRequest.meta.successAction),
+      (state, {payload}) => {
+        return {
+          ...state,
           total: payload.total,
           items: payload.items,
           googleRatings: payload.googleRatings,

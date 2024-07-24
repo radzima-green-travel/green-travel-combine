@@ -9,7 +9,7 @@ import {
 import {useRequestLoading} from 'react-redux-help-kit';
 import {
   getFiltersDataRequest,
-  getFiltersDataRequestDuringFirstLoad,
+  getRegionsList,
   changeCategory,
   changeRatingGoogle,
   changeRegion,
@@ -31,7 +31,7 @@ export const useFilters = () => {
     countOfItemsForRegions,
   } = useSelector(selectTransformedFilters);
 
-  const {loading} = useRequestLoading(getFiltersDataRequestDuringFirstLoad);
+  const {loading} = useRequestLoading(getRegionsList);
 
   const getFiltersData = useCallback(() => {
     dispatch(
@@ -71,17 +71,8 @@ export const useFilters = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(
-      getFiltersDataRequestDuringFirstLoad({
-        filter: {
-          googleRating: activeRating,
-          categories: activeCategories,
-          regions: activeRegions,
-        },
-      }),
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(getRegionsList());
+  }, [dispatch]);
 
   useEffect(() => {
     getFiltersData();

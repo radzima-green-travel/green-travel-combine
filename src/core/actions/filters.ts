@@ -15,10 +15,10 @@ export const getFiltersDataRequest = createAsyncAction<
   SuccessPayload
 >('GET_FILTERS_DATA');
 
-export const getFiltersDataRequestDuringFirstLoad = createAsyncAction<
-  SearchParams,
-  SuccessPayload & {regionsList: {id: string; value: string}[]}
->('GET_FILTERS_DATA_DURING_FIRST_LOAD');
+export const getRegionsList = createAsyncAction<
+  void,
+  {regionsList: {id: string; value: string}[]}
+>('GET_REGIONS_LIST');
 
 export const changeRatingGoogle = createAction<string | null>(
   'CHANGE_FILTER_RATING_GOOGLE',

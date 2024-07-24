@@ -1,9 +1,6 @@
 import {call, all, put} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
-import {
-  getFiltersDataRequest,
-  getFiltersDataRequestDuringFirstLoad,
-} from 'core/actions';
+import {getFiltersDataRequest, getRegionsList} from 'core/actions';
 import {RequestError} from 'core/errors';
 
 export function* getFiltersDataSaga({
@@ -12,22 +9,14 @@ export function* getFiltersDataSaga({
   type,
 }) {
   try {
-    if (type === getFiltersDataRequestDuringFirstLoad.type) {
-      const [regionsListItems, filtersResult] = yield all([
+    if (type === getRegionsList.type) {
+      const [regionsListItems] = yield all([
         call([graphQLAPI, graphQLAPI.getRegions]),
-        call([graphQLAPI, graphQLAPI.getFilterObjects], payload),
       ]);
 
       yield put(
         successAction({
           regionsList: regionsListItems,
-          total: filtersResult.total,
-          items: filtersResult.items,
-          googleRatings:
-            filtersResult.aggregations.googleRatings.facets.buckets,
-          categoriesBuckets:
-            filtersResult.aggregations.categories.facets.buckets,
-          regionsBuckets: filtersResult.aggregations.regions.facets.buckets,
         }),
       );
     } else if (type === getFiltersDataRequest.type) {
