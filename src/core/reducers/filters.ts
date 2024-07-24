@@ -3,7 +3,7 @@ import {
   getFiltersDataRequest,
   getRegionsList,
   setActiveFilter,
-  FilterSuccessPayload,
+  FiltersSuccessPayload,
   RegionsSuccessPayload,
   clearFilters,
 } from 'core/actions';
@@ -11,7 +11,7 @@ import {xor} from 'lodash';
 
 interface FiltersState {
   regionsList: RegionsSuccessPayload;
-  fitersData: FilterSuccessPayload;
+  fitersData: FiltersSuccessPayload;
   activeFilters: {
     googleRating: string | null;
     categories: string[] | null;

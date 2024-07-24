@@ -3,7 +3,7 @@ import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
 import {SpotI18n} from 'core/types';
 
-export interface FilterSuccessPayload {
+export interface FiltersSuccessPayload {
   total: number;
   items: any;
   googleRatings: {key: string; from: string}[];
@@ -35,7 +35,7 @@ export interface FilterSuccessPayload {
   };
 }
 
-export type SetFilterPayload =
+export type SetActiveFilterPayload =
   | {
       name: 'googleRating';
       value: string | null;
@@ -57,7 +57,7 @@ export type RegionsSuccessPayload = {
 
 export const getFiltersDataRequest = createAsyncAction<
   SearchParams,
-  FilterSuccessPayload
+  FiltersSuccessPayload
 >('GET_FILTERS_DATA');
 
 export const getRegionsList = createAsyncAction<void, RegionsSuccessPayload>(
@@ -65,6 +65,6 @@ export const getRegionsList = createAsyncAction<void, RegionsSuccessPayload>(
 );
 
 export const setActiveFilter =
-  createAction<SetFilterPayload>('SET_ACTIVE_FILTER');
+  createAction<SetActiveFilterPayload>('SET_ACTIVE_FILTER');
 
 export const clearFilters = createAction('CLEAR_FILTERS');
