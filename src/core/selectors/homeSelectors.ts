@@ -20,21 +20,6 @@ export const selectTransformedData = createSelector(
     data && language ? transformQueryData(data, language) : null,
 );
 
-export const selectCategories = createSelector(
-  selectTransformedData,
-  transformedData => {
-    if (!transformedData) {
-      return null;
-    }
-    return map(transformedData.categories, category => {
-      return {
-        name: category.name,
-        id: category.id,
-      };
-    });
-  },
-);
-
 export const selectHomeData = createSelector(
   selectTransformedData,
   transformedData => {

@@ -1,20 +1,16 @@
-import {call, all, put, select} from 'redux-saga/effects';
+import {call, all, put} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
 import {
   getFiltersDataRequest,
   getFiltersDataRequestDuringFirstLoad,
 } from 'core/actions';
 import {RequestError} from 'core/errors';
-import {getSpotTranslation} from 'core/helpers';
-import {selectAppLanguage} from '../../selectors';
 
 export function* getFiltersDataSaga({
   meta: {failureAction, successAction},
   payload,
   type,
 }) {
-  const language = yield select(selectAppLanguage);
-
   try {
     if (type === getFiltersDataRequestDuringFirstLoad.type) {
       const [regionsListItems, filtersResult] = yield all([
@@ -24,12 +20,7 @@ export function* getFiltersDataSaga({
 
       yield put(
         successAction({
-          regionsList: regionsListItems.map(item => {
-            return {
-              id: item.id,
-              value: getSpotTranslation(item, language),
-            };
-          }),
+          regionsList: regionsListItems,
           total: filtersResult.total,
           items: filtersResult.items,
           googleRatings:

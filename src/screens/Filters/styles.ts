@@ -1,7 +1,8 @@
 import {COLORS, FONTS_PRESETS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
+import {createThemeStyles} from 'core/helpers/styles';
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   container: {
     flex: 1,
     overflow: 'hidden',
@@ -74,4 +75,4 @@ export const themeStyles = {
     paddingHorizontal: 0,
     marginHorizontal: 0,
   },
-};
+});

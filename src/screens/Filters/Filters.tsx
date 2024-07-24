@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import {Text, View, Switch, TouchableOpacity} from 'react-native';
 import {Chip, Multiswitch, SuspenseView, Button, Icon} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
-import {ButtonsGroup, SectionContainer} from 'molecules';
+import {ButtonsGroup, FiltersSectionContainer} from 'molecules';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -59,7 +59,7 @@ export const Filters = () => {
         retryCallback={getFiltersData}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{t('title')}</Text>
-          <SectionContainer itemName={t('allCategories')}>
+          <FiltersSectionContainer itemName={t('allCategories')}>
             <View style={styles.categoryList}>
               {caregoriesData?.map(category => (
                 <Chip
@@ -73,8 +73,8 @@ export const Filters = () => {
                 />
               ))}
             </View>
-          </SectionContainer>
-          <SectionContainer itemName={t('whereToLook')}>
+          </FiltersSectionContainer>
+          <FiltersSectionContainer itemName={t('whereToLook')}>
             <Text style={styles.subFilterName}>{t('regions')}</Text>
             <View style={styles.categoryList}>
               {regions?.map(region => (
@@ -89,7 +89,7 @@ export const Filters = () => {
                 />
               ))}
             </View>
-            <SectionContainer isSubSection itemName={t('settlements')}>
+            <FiltersSectionContainer isSubSection itemName={t('settlements')}>
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.settlementsContainer}>
@@ -100,8 +100,8 @@ export const Filters = () => {
                   style={styles.settlementsLabel}
                 />
               </TouchableOpacity>
-            </SectionContainer>
-            <SectionContainer isSubSection itemName={t('geolocation')}>
+            </FiltersSectionContainer>
+            <FiltersSectionContainer isSubSection itemName={t('geolocation')}>
               <Button
                 text={t('choose')}
                 theme="quarterly"
@@ -112,12 +112,14 @@ export const Filters = () => {
                   <Icon name="marker" size={20} style={textStyle} />
                 )}
               />
-            </SectionContainer>
-            <SectionContainer isSubSection itemName={t('considerDistance')}>
+            </FiltersSectionContainer>
+            <FiltersSectionContainer
+              isSubSection
+              itemName={t('considerDistance')}>
               <Switch />
-            </SectionContainer>
-          </SectionContainer>
-          <SectionContainer itemName={t('ratingGoogle')}>
+            </FiltersSectionContainer>
+          </FiltersSectionContainer>
+          <FiltersSectionContainer itemName={t('ratingGoogle')}>
             <Multiswitch
               activeItemKey={activeRating}
               items={googleRatings}
@@ -125,13 +127,13 @@ export const Filters = () => {
               onItemPress={updateRatings}
               testID={TestIDs.FiltersMultySwitch}
             />
-          </SectionContainer>
-          <SectionContainer
+          </FiltersSectionContainer>
+          <FiltersSectionContainer
             isSubSection
             itemName={t('hideVisit')}
             style={styles.hideVisitContainer}>
             <Switch />
-          </SectionContainer>
+          </FiltersSectionContainer>
           <ButtonsGroup
             buttons={buttons}
             bottomInset={bottom}

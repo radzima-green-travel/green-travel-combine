@@ -1,6 +1,7 @@
 import {COLORS, FONTS_PRESETS} from 'assets';
+import {createThemeStyles} from 'core/helpers/styles';
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   sectionContainer: {
     marginBottom: 20,
   },
@@ -28,4 +29,4 @@ export const themeStyles = {
       dark: COLORS.dark.text.primary,
     },
   },
-};
+});

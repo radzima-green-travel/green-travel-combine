@@ -11,7 +11,7 @@ export type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export const SectionContainer = ({
+export const FiltersSectionContainer = ({
   children,
   itemName,
   style,

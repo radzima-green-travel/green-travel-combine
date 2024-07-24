@@ -1,14 +1,18 @@
-import {createReducer, isAnyOf, createAction} from '@reduxjs/toolkit';
+import {createReducer, isAnyOf} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
   getFiltersDataRequestDuringFirstLoad,
+  changeCategory,
+  changeRatingGoogle,
+  changeRegion,
+  clearFilters,
 } from 'core/actions';
-import {ACTIONS} from '../constants';
+import {xor} from 'lodash';
 
 interface FiltersState {
   regionsList: {id: string; value: string}[];
   items: any;
-  googleRatings: {key: string; label: string}[];
+  googleRatings: {key: string; from: string}[];
   activeRating: string | null;
   activeCategories: string[] | null;
   activeRegions: string[] | null;
@@ -29,18 +33,6 @@ const initialState: FiltersState = {
   countOfItemsForRegions: {},
 };
 
-export const changeRatingGoogle = createAction<string | null>(
-  ACTIONS.CHANGE_FILTER_RATING_GOOGLE,
-);
-
-export const changeCategory = createAction<string>(
-  ACTIONS.CHANGE_FILTER_CATEGORY,
-);
-
-export const changeRegion = createAction<string>(ACTIONS.CHANGE_FILTER_REGION);
-
-export const clearFilters = createAction(ACTIONS.CLEAR_FILTERS);
-
 const updateActiveList = (
   list: string[] | null,
   item: string,
@@ -48,9 +40,7 @@ const updateActiveList = (
   if (!list) {
     return [item];
   }
-  const updatedList = list.includes(item)
-    ? list.filter(existingItem => existingItem !== item)
-    : [...list, item];
+  const updatedList = xor(list, [item]);
   return updatedList.length ? updatedList : null;
 };
 
@@ -95,10 +85,7 @@ export const filtersReducer = createReducer(initialState, builder => {
             'regionsList' in payload ? payload.regionsList : state.regionsList,
           total: payload.total,
           items: payload.items,
-          googleRatings: payload.googleRatings.map(({key, from}) => ({
-            key: from,
-            label: key,
-          })),
+          googleRatings: payload.googleRatings,
           countOfItemsForCategories: reduceCount(payload.categoriesBuckets),
           countOfItemsForRegions: reduceCount(payload.regionsBuckets),
         };

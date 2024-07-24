@@ -1,24 +1,25 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useCallback, useEffect} from 'react';
 
-import {selectCategories, selectFilters} from 'core/selectors';
+import {
+  selectHomePageCategoriesList,
+  selectTransformedFilters,
+} from 'core/selectors';
 
 import {useRequestLoading} from 'react-redux-help-kit';
 import {
   getFiltersDataRequest,
   getFiltersDataRequestDuringFirstLoad,
-} from 'core/actions';
-import {
   changeCategory,
   changeRatingGoogle,
   changeRegion,
   clearFilters as clearFiltersAction,
-} from 'core/reducers';
+} from 'core/actions';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
 
-  const caregoriesData = useSelector(selectCategories);
+  const caregoriesData = useSelector(selectHomePageCategoriesList);
   const {
     googleRatings,
     regionsList,
@@ -28,7 +29,7 @@ export const useFilters = () => {
     activeRegions,
     countOfItemsForCategories,
     countOfItemsForRegions,
-  } = useSelector(selectFilters);
+  } = useSelector(selectTransformedFilters);
 
   const {loading} = useRequestLoading(getFiltersDataRequestDuringFirstLoad);
 
