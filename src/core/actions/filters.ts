@@ -1,31 +1,70 @@
 import {SearchParams} from './../types/api/graphql';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
+import {SpotI18n} from 'core/types';
 
-interface SuccessPayload {
+export interface FilterSuccessPayload {
+  total: number;
   items: any;
   googleRatings: {key: string; from: string}[];
-  total: number;
-  categoriesBuckets: {key: string; doc_count: number}[];
-  regionsBuckets: {key: string; doc_count: number}[];
+  aggregations: {
+    categories: {
+      facets: {
+        buckets: {
+          key: string;
+          doc_count: number;
+        }[];
+      };
+    };
+    regions: {
+      facets: {
+        buckets: {
+          key: string;
+          doc_count: number;
+        }[];
+      };
+    };
+    googleRatings: {
+      facets: {
+        buckets: {
+          key: string;
+          from: number;
+        }[];
+      };
+    };
+  };
 }
+
+export type SetFilterPayload =
+  | {
+      name: 'googleRating';
+      value: string | null;
+    }
+  | {
+      name: 'regions';
+      value: string;
+    }
+  | {
+      name: 'categories';
+      value: string;
+    };
+
+export type RegionsSuccessPayload = {
+  id: string;
+  value: string;
+  i18n: SpotI18n;
+}[];
 
 export const getFiltersDataRequest = createAsyncAction<
   SearchParams,
-  SuccessPayload
+  FilterSuccessPayload
 >('GET_FILTERS_DATA');
 
-export const getRegionsList = createAsyncAction<
-  void,
-  {regionsList: {id: string; value: string}[]}
->('GET_REGIONS_LIST');
-
-export const changeRatingGoogle = createAction<string | null>(
-  'CHANGE_FILTER_RATING_GOOGLE',
+export const getRegionsList = createAsyncAction<void, RegionsSuccessPayload>(
+  'GET_REGIONS_LIST',
 );
 
-export const changeCategory = createAction<string>('CHANGE_FILTER_CATEGORY');
-
-export const changeRegion = createAction<string>('CHANGE_FILTER_REGION');
+export const setActiveFilter =
+  createAction<SetFilterPayload>('SET_ACTIVE_FILTER');
 
 export const clearFilters = createAction('CLEAR_FILTERS');

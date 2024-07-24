@@ -10,9 +10,7 @@ import {useRequestLoading} from 'react-redux-help-kit';
 import {
   getFiltersDataRequest,
   getRegionsList,
-  changeCategory,
-  changeRatingGoogle,
-  changeRegion,
+  setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
 
@@ -23,10 +21,8 @@ export const useFilters = () => {
   const {
     googleRatings,
     regionsList,
-    activeRating,
+    activeFilters,
     total,
-    activeCategories,
-    activeRegions,
     countOfItemsForCategories,
     countOfItemsForRegions,
   } = useSelector(selectTransformedFilters);
@@ -36,32 +32,43 @@ export const useFilters = () => {
   const getFiltersData = useCallback(() => {
     dispatch(
       getFiltersDataRequest({
-        filter: {
-          googleRating: activeRating,
-          categories: activeCategories,
-          regions: activeRegions,
-        },
+        filter: activeFilters,
       }),
     );
-  }, [dispatch, activeRating, activeCategories, activeRegions]);
+  }, [dispatch, activeFilters]);
 
   const updateRatings = useCallback(
     (newRating: string) => {
-      dispatch(changeRatingGoogle(newRating === 'Any' ? null : newRating));
+      dispatch(
+        setActiveFilter({
+          name: 'googleRating',
+          value: newRating === 'Any' ? null : newRating,
+        }),
+      );
     },
     [dispatch],
   );
 
   const chooseCategory = useCallback(
     (categoryID: string) => {
-      dispatch(changeCategory(categoryID));
+      dispatch(
+        setActiveFilter({
+          name: 'categories',
+          value: categoryID,
+        }),
+      );
     },
     [dispatch],
   );
 
   const chooseRegion = useCallback(
     (regionID: string) => {
-      dispatch(changeRegion(regionID));
+      dispatch(
+        setActiveFilter({
+          name: 'regions',
+          value: regionID,
+        }),
+      );
     },
     [dispatch],
   );
@@ -76,7 +83,7 @@ export const useFilters = () => {
 
   useEffect(() => {
     getFiltersData();
-  }, [dispatch, activeRating, activeCategories, activeRegions, getFiltersData]);
+  }, [dispatch, getFiltersData]);
 
   return {
     caregoriesData,
@@ -87,9 +94,9 @@ export const useFilters = () => {
     loading,
     errorTexts: null,
     regions: regionsList,
-    activeRating,
-    activeRegions,
-    activeCategories,
+    activeRating: activeFilters.googleRating,
+    activeRegions: activeFilters.regions,
+    activeCategories: activeFilters.categories,
     updateRatings,
     chooseCategory,
     total,

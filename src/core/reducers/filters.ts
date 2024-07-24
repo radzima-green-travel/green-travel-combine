@@ -2,35 +2,52 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
   getRegionsList,
-  changeCategory,
-  changeRatingGoogle,
-  changeRegion,
+  setActiveFilter,
+  FilterSuccessPayload,
+  RegionsSuccessPayload,
   clearFilters,
 } from 'core/actions';
 import {xor} from 'lodash';
 
 interface FiltersState {
-  regionsList: {id: string; value: string}[];
-  items: any;
-  googleRatings: {key: string; from: string}[];
-  activeRating: string | null;
-  activeCategories: string[] | null;
-  activeRegions: string[] | null;
-  total: number;
-  countOfItemsForCategories: {[key: string]: number};
-  countOfItemsForRegions: {[key: string]: number};
+  regionsList: RegionsSuccessPayload;
+  fitersData: FilterSuccessPayload;
+  activeFilters: {
+    googleRating: string | null;
+    categories: string[] | null;
+    regions: string[] | null;
+  };
 }
 
 const initialState: FiltersState = {
   regionsList: [],
-  googleRatings: [],
-  activeRating: null,
-  activeCategories: null,
-  activeRegions: null,
-  total: 0,
-  items: [],
-  countOfItemsForCategories: {},
-  countOfItemsForRegions: {},
+  fitersData: {
+    total: 0,
+    items: [],
+    googleRatings: [],
+    aggregations: {
+      categories: {
+        facets: {
+          buckets: [],
+        },
+      },
+      regions: {
+        facets: {
+          buckets: [],
+        },
+      },
+      googleRatings: {
+        facets: {
+          buckets: [],
+        },
+      },
+    },
+  },
+  activeFilters: {
+    googleRating: null,
+    categories: null,
+    regions: null,
+  },
 };
 
 const updateActiveList = (
@@ -44,49 +61,35 @@ const updateActiveList = (
   return updatedList.length ? updatedList : null;
 };
 
-const reduceCount = (
-  buckets: {key: string; doc_count: number}[],
-): {[key: string]: number} =>
-  buckets.reduce((acc, {key, doc_count}) => {
-    acc[key] = doc_count;
-    return acc;
-  }, {});
-
 export const filtersReducer = createReducer(initialState, builder => {
   builder
-    .addCase(changeRatingGoogle, (state, {payload}) => {
-      state.activeRating = payload;
+    .addCase(setActiveFilter, (state, {payload}) => {
+      const newState =
+        payload.name === 'googleRating'
+          ? payload.value
+          : updateActiveList(state.activeFilters[payload.name], payload.value);
+
+      state.activeFilters = {
+        ...state.activeFilters,
+        [payload.name]: newState,
+      };
     })
     .addCase(clearFilters, state => {
       return {
-        ...initialState,
-        regionsList: state.regionsList,
-        googleRatings: state.googleRatings,
+        ...state,
+        activeFilters: initialState.activeFilters,
       };
-    })
-    .addCase(changeRegion, (state, {payload}) => {
-      state.activeRegions = updateActiveList(state.activeRegions, payload);
-    })
-    .addCase(changeCategory, (state, {payload}) => {
-      state.activeCategories = updateActiveList(
-        state.activeCategories,
-        payload,
-      );
     })
     .addCase(getRegionsList.meta.successAction, (state, {payload}) => {
       return {
         ...state,
-        regionsList: payload.regionsList,
+        regionsList: payload,
       };
     })
     .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
       return {
         ...state,
-        total: payload.total,
-        items: payload.items,
-        googleRatings: payload.googleRatings,
-        countOfItemsForCategories: reduceCount(payload.categoriesBuckets),
-        countOfItemsForRegions: reduceCount(payload.regionsBuckets),
+        fitersData: payload,
       };
     });
 });
