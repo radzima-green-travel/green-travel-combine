@@ -61,6 +61,7 @@ export const ClusterMap = memo(
             [paddingTop, paddingRight, paddingBottom, paddingLeft],
             duration,
           ] = bounds;
+
           return {
             animationDuration: duration,
             bounds: {
@@ -83,7 +84,6 @@ export const ClusterMap = memo(
 
         return {};
       });
-
       const onResponderStart = useCallback(
         async (event: GestureResponderEvent) => {
           try {

@@ -1,5 +1,5 @@
 import distance from '@turf/distance';
-import {IObject} from 'core/types';
+import {ObjectMap} from 'core/types';
 import {some, sortBy} from 'lodash';
 import {useCallback} from 'react';
 
@@ -9,7 +9,7 @@ import Supercluster from 'supercluster';
 
 function isFeaturesIncludesObject(
   features: Feature<Geometry, Properties>[],
-  object: IObject,
+  object: ObjectMap,
 ) {
   return some(features, feature => {
     return feature.properties?.objectId === object.id;
@@ -19,7 +19,7 @@ function isFeaturesIncludesObject(
 function findClosesClusterToObject(
   cluster: Supercluster<Supercluster.AnyProps, Supercluster.AnyProps>,
   features: Feature<Geometry, Properties>[],
-  object: IObject,
+  object: ObjectMap,
 ) {
   let closestCluster: Feature<Geometry, Properties> | null = null;
   const coordinates = object.location
@@ -67,7 +67,7 @@ export function useFindZoomForObjectInCluster() {
   const findZoomForObjectInCluster = useCallback(
     (
       cluster: Supercluster<Supercluster.AnyProps, Supercluster.AnyProps>,
-      object: IObject,
+      object: ObjectMap,
       features: Feature<Geometry, Properties>[],
       zoom: number,
     ) => {

@@ -6,13 +6,13 @@ import {Button, Icon} from 'atoms';
 import {FavoriteButtonContainer} from 'containers';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
-import {IObject, TestIDs} from 'core/types';
+import {ObjectMap, TestIDs} from 'core/types';
 import {getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
-  data: IObject | null;
+  data: ObjectMap | null;
   bottomInset: number;
-  onGetMorePress: (data: IObject) => void;
+  onGetMorePress: (data: ObjectMap) => void;
 }
 
 export const AppMapBottomMenu = memo(

@@ -15,6 +15,7 @@ import type {
   ObjectsForCategoriesResponseDTO,
 } from 'core/types/api';
 import {map} from 'lodash';
+import {getAppMapObjectsRequest} from 'core/actions';
 
 export function* getHomePageDataSaga({
   meta: {failureAction, successAction},
@@ -22,6 +23,8 @@ export function* getHomePageDataSaga({
   typeof getHomePageDataRequest | typeof refreshHomePageDataRequest
 >) {
   try {
+    yield put(getAppMapObjectsRequest());
+
     const [{items: categoriesListItems}, aggregations]: [
       ListCategoriesResponseDTO,
       CategoriesAggregationsByObjectsResponseDTO,
@@ -29,7 +32,6 @@ export function* getHomePageDataSaga({
       call([graphQLAPI, graphQLAPI.getListCategories]),
       call([graphQLAPI, graphQLAPI.getCategoriesAggregationsByObjects]),
     ]);
-
     const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
       yield call(getCategoriesWithObjects, aggregations);
 

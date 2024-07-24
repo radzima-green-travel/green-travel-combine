@@ -1,5 +1,5 @@
 import React from 'react';
-import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
+import {ClusterMap, ClusterMapShape, BottomMenu, SuspenseView} from 'atoms';
 import {Keyboard, StyleProp, View} from 'react-native';
 
 import {styles, selectedPointStyle} from './styles';
@@ -59,88 +59,98 @@ export const AppMap = () => {
     bottom,
     mapFilters,
     currentLocale,
+    loading,
+    errorTexts,
+    getAppMapObjects,
   } = useAppMap();
 
   return (
-    <View style={styles.container}>
-      <ClusterMap
-        bounds={bounds}
-        ref={map}
-        cameraRef={camera}
-        onRegionIsChanging={unfocusUserLocation}
-        onShapePress={onShapePress}
-        onPress={onMapPress}
-        locale={currentLocale}
-        testID={TestIDs.MapOverview}>
-        {userLocationProps.visible ? (
-          <UserLocation
-            renderMode={UserLocationRenderMode.Native}
-            {...userLocationProps}
-          />
-        ) : null}
-        {markers ? (
-          <ClusterMapShape
-            ref={shapeSourceRef}
-            onShapePress={fitToClusterLeaves}
-            markers={markers}
-          />
-        ) : null}
+    <SuspenseView
+      error={errorTexts}
+      loading={loading}
+      retryCallback={getAppMapObjects}>
+      {markers ? (
+        <View style={styles.container}>
+          <ClusterMap
+            bounds={bounds}
+            ref={map}
+            cameraRef={camera}
+            onRegionIsChanging={unfocusUserLocation}
+            onShapePress={onShapePress}
+            onPress={onMapPress}
+            locale={currentLocale}
+            testID={TestIDs.MapOverview}>
+            {userLocationProps.visible ? (
+              <UserLocation
+                renderMode={UserLocationRenderMode.Native}
+                {...userLocationProps}
+              />
+            ) : null}
+            {markers ? (
+              <ClusterMapShape
+                ref={shapeSourceRef}
+                onShapePress={fitToClusterLeaves}
+                markers={markers}
+              />
+            ) : null}
 
-        {selectedMarker ? (
-          <ShapeSource
-            id={'selectedPointShapeSource'}
-            shape={selectedMarker as FeatureCollection<Point>}>
-            <SymbolLayer
-              id={'selectedPoint'}
-              style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
-            />
-          </ShapeSource>
-        ) : null}
-      </ClusterMap>
-      <Portal>
-        <BottomMenu
-          testID={TestIDs.AppMapSearchBottomMenu}
-          onHideEnd={onMenuHideEnd}
-          {...menuProps}>
-          <AppMapBottomMenu
-            data={selectedObject}
-            bottomInset={bottom}
-            onGetMorePress={navigateToObjectDetails}
-          />
-        </BottomMenu>
+            {selectedMarker ? (
+              <ShapeSource
+                id={'selectedPointShapeSource'}
+                shape={selectedMarker as FeatureCollection<Point>}>
+                <SymbolLayer
+                  id={'selectedPoint'}
+                  style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
+                />
+              </ShapeSource>
+            ) : null}
+          </ClusterMap>
+          <Portal>
+            <BottomMenu
+              testID={TestIDs.AppMapSearchBottomMenu}
+              onHideEnd={onMenuHideEnd}
+              {...menuProps}>
+              <AppMapBottomMenu
+                data={selectedObject}
+                bottomInset={bottom}
+                onGetMorePress={navigateToObjectDetails}
+              />
+            </BottomMenu>
 
-        <BottomMenu
-          onHideStart={Keyboard.dismiss}
-          showDragIndicator={false}
-          menuHeight={WINDOW_HEIGHT * 0.9}
-          testID={TestIDs.AppMapObjectBottomMenu}
-          {...searchMenuProps}>
-          <AppMapBottomSearchMenu
-            onBackPress={closeSearchMenu}
-            onDeleteAllPress={onDeleteAllItems}
-            onDeletePress={onDeleteItem}
-            inputValue={inputValue}
-            isHistoryVisible={isHistoryVisible}
-            data={data}
-            onItemPress={onSearchItemPress}
-            onTextChange={onTextChange}
-            bottomInset={bottom}
-          />
-        </BottomMenu>
-      </Portal>
+            <BottomMenu
+              onHideStart={Keyboard.dismiss}
+              showDragIndicator={false}
+              menuHeight={WINDOW_HEIGHT * 0.9}
+              testID={TestIDs.AppMapObjectBottomMenu}
+              {...searchMenuProps}>
+              <AppMapBottomSearchMenu
+                onBackPress={closeSearchMenu}
+                onDeleteAllPress={onDeleteAllItems}
+                onDeletePress={onDeleteItem}
+                inputValue={inputValue}
+                isHistoryVisible={isHistoryVisible}
+                data={data}
+                onItemPress={onSearchItemPress}
+                onTextChange={onTextChange}
+                bottomInset={bottom}
+              />
+            </BottomMenu>
+          </Portal>
 
-      <AppMapButtons
-        isUserLocationFocused={isUserLocationFocused}
-        bottomMenuPosition={menuProps.animatedPosition}
-        onShowLocationPress={onShowLocationPress}
-        onSearchPress={openSearchMenuAndPersistData}
-      />
-      <AppMapFilters
-        onFilterSelect={onFilterSelect}
-        resetFilters={resetFilters}
-        selectedFilters={selectedFilters}
-        filters={mapFilters}
-      />
-    </View>
+          <AppMapButtons
+            isUserLocationFocused={isUserLocationFocused}
+            bottomMenuPosition={menuProps.animatedPosition}
+            onShowLocationPress={onShowLocationPress}
+            onSearchPress={openSearchMenuAndPersistData}
+          />
+          <AppMapFilters
+            onFilterSelect={onFilterSelect}
+            resetFilters={resetFilters}
+            selectedFilters={selectedFilters}
+            filters={mapFilters}
+          />
+        </View>
+      ) : null}
+    </SuspenseView>
   );
 };
