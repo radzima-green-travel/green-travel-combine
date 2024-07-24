@@ -1,4 +1,6 @@
 import {
+  AppMapObjectsTotalCountResponseDTO,
+  AppMapObjectsResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
   ListCategoriesResponseDTO,
   ObjectsForCategoriesResponseDTO,
@@ -10,9 +12,14 @@ import {SearchSpotsParams} from './types';
 import {
   listCategoriesQuery,
   getCategoriesAggregationsByObjectsQuery,
+  getAppMapObjectsQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
-import {searchSpotsQuery, filterObjects} from './queries/common';
+import {
+  searchSpotsQuery,
+  filterObjects,
+  getObjectsTotalCountQuery,
+} from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getListCategories(): Promise<ListCategoriesResponseDTO> {
@@ -63,6 +70,32 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
 
     return response.filterLandingObjects;
+  }
+
+  async getObjectsTotalCount(): Promise<AppMapObjectsTotalCountResponseDTO> {
+    const response = await this.executeQuery({
+      query: getObjectsTotalCountQuery,
+    });
+
+    return response.searchObjects;
+  }
+
+  async getAppMapObjects({
+    from,
+    limit,
+  }: {
+    from: number;
+    limit: number;
+  }): Promise<AppMapObjectsResponseDTO> {
+    const response = await this.executeQuery({
+      query: getAppMapObjectsQuery,
+      params: {
+        from,
+        limit,
+      },
+    });
+
+    return response.searchObjects;
   }
 }
 

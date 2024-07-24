@@ -22,26 +22,31 @@ export const BaseListItem = memo(
     leadIconStyle,
     position = 'single',
     titleNumberOfLines = 1,
+    subTitleNumberOfLines = 1,
     tailIcon,
     tailIconStyle,
     labelStyle,
     titleContainerStyle,
     boldTitle = true,
     onTitleTruncate,
+    onSubtitleTruncate,
   }: BaseListItemProps) => {
     const styles = useThemeStyles(themeStyles);
 
     const renderSubtitle = () => {
       if (subtitle) {
+        const TextComponent = onSubtitleTruncate ? TrancateDetectionText : Text;
+
         return (
           <>
             <View style={styles.subtitleOffset} />
-            <Text
+            <TextComponent
               style={styles.subtitle}
-              numberOfLines={1}
-              ellipsizeMode="tail">
+              numberOfLines={subTitleNumberOfLines}
+              ellipsizeMode="tail"
+              onTruncate={onSubtitleTruncate}>
               {subtitle}
-            </Text>
+            </TextComponent>
           </>
         );
       }

@@ -16,6 +16,7 @@ import {
   visitedObjectsReducer,
   homePageReducer,
   filtersReducer,
+  appMapReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -78,6 +79,7 @@ const rootReducer = combineReducers({
   ),
   homePage: homePageReducer,
   filters: filtersReducer,
+  appMap: appMapReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

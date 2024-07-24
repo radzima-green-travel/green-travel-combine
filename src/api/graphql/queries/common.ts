@@ -108,3 +108,9 @@ export const filterObjects = `query filterLandingObjects($filter: FacetLandingOb
   }
 }
 `;
+
+export const getObjectsTotalCountQuery = `query MyQuery {
+  searchObjects(filter: {status: {eq: "published"}}) {
+    total
+  }
+}`;

@@ -21,8 +21,10 @@ export interface BaseListItemProps {
   titleContainerStyle?: StyleProp<TextStyle>;
   position?: 'top' | 'middle' | 'bottom' | 'single';
   titleNumberOfLines?: number;
+  subTitleNumberOfLines?: number;
   boldTitle?: boolean;
   onTitleTruncate?: (isTruncated: boolean) => void;
+  onSubtitleTruncate?: (isTruncated: boolean) => void;
 }
 
 export interface ListItemWrapperProps {

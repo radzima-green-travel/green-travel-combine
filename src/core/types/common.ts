@@ -2,7 +2,14 @@ import {MultiPolygon, LineString} from '@turf/helpers';
 import {IRequestError} from './errors';
 import {animations} from 'assets';
 import {ObjectField} from 'core/constants';
-import {CategoryShortDTO, ExtractI18nKeys, ObjectShortDTO} from './api';
+import {
+  CategoryShortDTO,
+  ExtractI18nKeys,
+  MapSpotDTO,
+  ObjectCategoryMapDTO,
+  ObjectMapDTO,
+  ObjectShortDTO,
+} from './api';
 
 export interface ILabelError {
   text: string;
@@ -229,6 +236,19 @@ export interface CategoryShort extends CategoryShortDTO {
 
 export interface ObjectShort extends ObjectShortDTO {
   analyticsMetadata: Record<ExtractI18nKeys<ObjectShortDTO>, string>;
+}
+
+export interface ObjectMap extends ObjectMapDTO {
+  analyticsMetadata: Record<ExtractI18nKeys<ObjectMapDTO>, string>;
+  address: string;
+}
+
+export interface MapSpot extends MapSpotDTO {
+  analyticsMetadata: Record<ExtractI18nKeys<MapSpotDTO>, string>;
+}
+
+export interface ObjectCategoryMap extends ObjectCategoryMapDTO {
+  analyticsMetadata: Record<ExtractI18nKeys<ObjectCategoryMapDTO>, string>;
 }
 export interface CardItem {
   name: string;

@@ -32,6 +32,49 @@ export interface ObjectShortDTO {
   categoryId: string;
 }
 
+export interface LocationDTO {
+  lat: number;
+  lon: number;
+}
+
+export interface ObjectCategoryMapDTO {
+  id: string;
+  icon: string;
+  name: string;
+  singularName: string;
+  i18n: Array<I18nType<'name' | 'singularName'>>;
+}
+
+export interface AddressItemDTO {
+  region: {
+    value: string;
+    i18n: Array<I18nType<'value'>>;
+  };
+  municipality: {
+    value: string;
+    i18n: Array<I18nType<'value'>>;
+  };
+  subRegion: {
+    value: string;
+    i18n: Array<I18nType<'value'>>;
+  };
+  street: string;
+}
+
+export interface AddressessDTO {
+  items: Array<AddressItemDTO>;
+}
+
+export interface ObjectMapDTO {
+  location: LocationDTO | null;
+  name: string;
+  id: string;
+  i18n: Array<I18nType<'name'>>;
+  category: ObjectCategoryMapDTO;
+  addresses: AddressessDTO;
+  length: number | null;
+}
+
 export interface CategoryAggregationsByObjectsDTO {
   doc_count: number;
   key: string;
@@ -68,3 +111,7 @@ export interface SearchParams {
     statuses?: string | string[];
   };
 }
+
+export type AppMapObjectsTotalCountResponseDTO = {total: number};
+
+export type AppMapObjectsResponseDTO = {items: Array<ObjectMapDTO>};

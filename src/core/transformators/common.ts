@@ -1,3 +1,4 @@
+import transliterate from 'core/helpers/transliterate';
 import {
   CardItem,
   SupportedLocales,
@@ -5,6 +6,7 @@ import {
   ExtractI18nKeys,
   ObjectShort,
   CategoryShort,
+  AddressessDTO,
 } from 'core/types';
 import {compact, find, head, keys, map, omit, pick} from 'lodash';
 import {imagesService} from 'services/ImagesService';
@@ -13,7 +15,7 @@ export function convertShortObjectToCardItem(object: ObjectShort): CardItem {
   return {
     id: object.id,
     cover: object.cover,
-    blurhash: object.blurhash,
+    blurhash: object.blurhash || '',
     name: object.name,
     analyticsMetadata: {
       categoryName: object.category.name,
@@ -28,7 +30,7 @@ export function convertShortCategoryToCardItem(
   return {
     id: category.id,
     cover: category.cover,
-    blurhash: category.blurhash,
+    blurhash: category.blurhash || '',
     name: category.name,
     analyticsMetadata: {
       categoryName: category.analyticsMetadata.name,
@@ -96,4 +98,28 @@ export const translateAndProcessImagesForEntity = <
   );
 
   return processImagesUrls(entityWithEtxtractedLocaleData);
+};
+
+export const getObjectFullAddress = (
+  addressess: AddressessDTO,
+  locale: SupportedLocales | null,
+) => {
+  const {
+    region,
+    municipality,
+    subRegion,
+    street = '',
+  } = addressess.items[0] || {};
+
+  const translatedSpots = compact([region, municipality, subRegion]).map(
+    spot => {
+      return extractLocaleSpecificValues(spot, locale).value;
+    },
+  );
+
+  if (street) {
+    translatedSpots.push(locale === 'ru' ? street : transliterate(street));
+  }
+
+  return translatedSpots.join(', ');
 };
