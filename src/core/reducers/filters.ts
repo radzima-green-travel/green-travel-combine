@@ -1,4 +1,4 @@
-import {createReducer, isAnyOf} from '@reduxjs/toolkit';
+import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
   getRegionsList,
@@ -73,26 +73,20 @@ export const filtersReducer = createReducer(initialState, builder => {
         payload,
       );
     })
-    .addMatcher(
-      isAnyOf(getRegionsList.meta.successAction),
-      (state, {payload}) => {
-        return {
-          ...state,
-          regionsList: payload.regionsList,
-        };
-      },
-    )
-    .addMatcher(
-      isAnyOf(getFiltersDataRequest.meta.successAction),
-      (state, {payload}) => {
-        return {
-          ...state,
-          total: payload.total,
-          items: payload.items,
-          googleRatings: payload.googleRatings,
-          countOfItemsForCategories: reduceCount(payload.categoriesBuckets),
-          countOfItemsForRegions: reduceCount(payload.regionsBuckets),
-        };
-      },
-    );
+    .addCase(getRegionsList.meta.successAction, (state, {payload}) => {
+      return {
+        ...state,
+        regionsList: payload.regionsList,
+      };
+    })
+    .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
+      return {
+        ...state,
+        total: payload.total,
+        items: payload.items,
+        googleRatings: payload.googleRatings,
+        countOfItemsForCategories: reduceCount(payload.categoriesBuckets),
+        countOfItemsForRegions: reduceCount(payload.regionsBuckets),
+      };
+    });
 });
