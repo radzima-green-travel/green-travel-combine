@@ -8,12 +8,11 @@ import {
 } from 'react';
 import {selectAppLanguage} from 'core/selectors';
 
+import {selectAppMapObjects, selectMapFilters} from 'core/selectors/appMap';
 import {
-  selectAppMapObjects,
   getMapMarkers,
-  selectMapFilters,
   createMarkerFromObject,
-} from 'core/selectors/appMap';
+} from 'core/transformators/appMap';
 import {useSelector} from 'react-redux';
 import bbox from '@turf/bbox';
 import {IMapFilter, ObjectMap} from 'core/types';

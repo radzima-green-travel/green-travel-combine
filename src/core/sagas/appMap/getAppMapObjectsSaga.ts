@@ -2,7 +2,6 @@ import {call, put, all} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
 import {getAppMapObjectsRequest} from 'core/actions/appMap';
 import {RequestError} from 'core/errors';
-import {} from 'core/transformators/homePage';
 import type {
   AppMapObjectsTotalCountResponseDTO,
   AppMapObjectsResponseDTO,
