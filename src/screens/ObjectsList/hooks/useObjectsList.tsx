@@ -1,43 +1,54 @@
-import {useMemo, useCallback, useLayoutEffect} from 'react';
+import {useMemo, useCallback, useLayoutEffect, useEffect} from 'react';
 
-import {useObjectsListAnalytics} from 'core/hooks';
-import {IObject} from 'core/types';
+import {
+  useListPagination,
+  useObjectsListAnalytics,
+  useOnRequestError,
+  useRequestLoading,
+} from 'core/hooks';
+import {CardItem} from 'core/types';
 import {debounce} from 'lodash';
 import {useNavigation} from '@react-navigation/native';
 import {
   ObjectsListScreenNavigationProps,
   ObjectsListScreenRouteProps,
 } from '../types';
-import {useCategoryObjects, useObjects} from 'core/hooks';
 import {useRoute} from '@react-navigation/native';
-import {orderBy} from 'lodash';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectObjectsList} from 'selectors';
+import {
+  getObjectsListInitialDataRequest,
+  getObjectsListNextDataRequest,
+} from 'core/actions';
 
 export const useObjectsList = () => {
+  const dispatch = useDispatch();
+
   const {push, setOptions} = useNavigation<ObjectsListScreenNavigationProps>();
 
   const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
     useObjectsListAnalytics();
 
   const navigateToObjectDetails = useCallback(
-    ({id, name, category}: IObject) => {
+    ({id, name, analyticsMetadata}: CardItem) => {
       push('ObjectDetails', {
         objectId: id,
         analytics: {
           fromScreenName: getAnalyticsNavigationScreenName(),
         },
       });
-      sendSelectCardEvent(name, category.name);
+      sendSelectCardEvent(name, analyticsMetadata.categoryName);
     },
     [push, sendSelectCardEvent],
   );
 
   const sendIsFavoriteChangedEvent = useCallback(
-    ({name, category}: IObject, nextIsFavoriteStatus: boolean) => {
+    ({name, analyticsMetadata}: CardItem, nextIsFavoriteStatus: boolean) => {
       if (nextIsFavoriteStatus) {
-        sendSaveCardEvent(name, category.name);
+        sendSaveCardEvent(name, analyticsMetadata.categoryName);
       } else {
-        sendUnsaveCardEvent(name, category.name);
+        sendUnsaveCardEvent(name, analyticsMetadata.categoryName);
       }
     },
     [sendSaveCardEvent, sendUnsaveCardEvent],
@@ -53,14 +64,37 @@ export const useObjectsList = () => {
     params: {categoryId, title, objectsIds},
   } = useRoute<ObjectsListScreenRouteProps>();
 
-  const listData = useCategoryObjects(categoryId);
+  const listId = objectsIds?.length ? objectsIds.join(' ') : categoryId;
 
-  const listDataByIds = useObjects(objectsIds || []);
+  const {data: listData, total} = useSelector(selectObjectsList(listId));
 
-  const sortedListData = useMemo(() => {
-    const data = objectsIds ? listDataByIds : listData;
-    return data ? orderBy(data, [({name}) => name.toLowerCase()], 'asc') : null;
-  }, [listData, listDataByIds, objectsIds]);
+  const {loading: initialDataLoading} = useRequestLoading(
+    getObjectsListInitialDataRequest,
+  );
+  const {loading: nextDataLoading} = useRequestLoading(
+    getObjectsListNextDataRequest,
+  );
+  const {errorTexts} = useOnRequestError(getObjectsListInitialDataRequest, '');
+
+  const fetchListInitialData = useCallback(() => {
+    dispatch(getObjectsListInitialDataRequest({categoryId, objectsIds}));
+  }, [dispatch, categoryId, objectsIds]);
+
+  const fetchListNextData = useCallback(() => {
+    dispatch(getObjectsListNextDataRequest({categoryId, objectsIds}));
+  }, [dispatch, categoryId, objectsIds]);
+
+  const paginationProps = useListPagination({
+    isLoading: nextDataLoading,
+    loadMore: fetchListNextData,
+    hasMoreToLoad: listData.length < total,
+  });
+
+  useEffect(() => {
+    if (!listData.length) {
+      fetchListInitialData();
+    }
+  }, [listData.length, fetchListInitialData]);
 
   useLayoutEffect(() => {
     setOptions({
@@ -69,8 +103,12 @@ export const useObjectsList = () => {
   }, [setOptions, title]);
 
   return {
-    sortedListData,
     navigateToObjectDetailsDebounced,
     sendIsFavoriteChangedEvent,
+    initialDataLoading,
+    fetchListInitialData,
+    paginationProps,
+    errorTexts,
+    listData,
   };
 };

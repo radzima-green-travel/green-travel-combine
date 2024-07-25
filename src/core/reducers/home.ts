@@ -3,7 +3,7 @@ import {
   getHomePageDataRequest,
   refreshHomePageDataRequest,
 } from 'core/actions/home';
-import type {CategoryShortDTO, ObjectShortDTO} from 'core/types/api';
+import {CategoryShortDTO, ObjectShortDTO} from 'core/types/api';
 
 interface HomePageState {
   categoriesList: Array<CategoryShortDTO>;

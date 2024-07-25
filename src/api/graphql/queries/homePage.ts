@@ -1,24 +1,6 @@
 import {reduce} from 'lodash';
-import {shortCardQueryParameters} from './common';
+import {shortCardQueryParameters, categoryQueryParameters} from './common';
 import {GRAPHQL_QUERY_CATEGORY_INDEX} from '../constants';
-
-export const listCategoriesQuery = `query MyQuery($filter: ModelCategoryFilterInput = {}) {
-    listCategories(limit: 200, filter: $filter) {
-      items {
-        name
-        parent
-        index
-        id
-        cover
-        blurhash
-        i18n {
-          name
-          locale
-        }
-      }
-    }
-  }
-  `;
 
 export const getCategoriesAggregationsByObjectsQuery = `query MyQuery {
     filterLandingObjects(filter: {statuses: "published"}) {
@@ -54,3 +36,30 @@ export function generateListObjectsShortQuery(categoriesIds: Array<string>) {
 
     }`;
 }
+
+export const searchCategoriesQuery = `query MyQuery(
+  $filter: SearchableCategoryFilterInput = {},
+  $limit: Int,
+  $nextToken: String
+) {
+  searchCategories(limit: $limit, filter: $filter, nextToken: $nextToken) {
+    nextToken
+    total
+    ${categoryQueryParameters}
+  }
+}
+`;
+
+export const searchObjectsQuery = `query MyQuery(
+  $filter: SearchableObjectFilterInput = {},
+  $sort: [SearchableObjectSortInput],
+  $limit: Int,
+  $nextToken: String
+) {
+  searchObjects(limit: $limit, filter: $filter, sort: $sort, nextToken: $nextToken) {
+    nextToken
+    total
+    ${shortCardQueryParameters}
+  }
+}
+`;
