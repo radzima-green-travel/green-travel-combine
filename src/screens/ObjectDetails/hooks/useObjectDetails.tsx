@@ -1,4 +1,5 @@
 import {useCallback, useLayoutEffect, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import * as Clipboard from 'expo-clipboard';
 
 import {useSnackbar} from 'atoms';
@@ -8,6 +9,8 @@ import {
   useImageSlider,
   useUpdateEffect,
   useTranslation,
+  useRequestLoading,
+  useOnRequestError,
 } from 'core/hooks';
 import {
   ObjectDetailsScreenNavigationProps,
@@ -20,12 +23,21 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {IBelongsTo, IInclude} from 'core/types';
+import {
+  clearObjectDetails,
+  getObjectDetailsRequest,
+} from 'core/actions/objectDetails';
+import {useSelector} from 'react-redux';
+import {selectObjectDetails} from 'core/selectors/objectDetails';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
   const {
     params: {objectId},
   } = useRoute<ObjectDetailsScreenRouteProps>();
+
+  const dispatch = useDispatch();
+  const objectDetails = useSelector(selectObjectDetails);
 
   const {top} = useSafeAreaInsets();
 
@@ -139,6 +151,14 @@ export const useObjectDetails = () => {
     });
   }, [navigation, data]);
 
+  useEffect(() => {
+    dispatch(getObjectDetailsRequest({objectId}));
+
+    return () => {
+      dispatch(clearObjectDetails());
+    };
+  }, [dispatch, objectId]);
+
   useUpdateEffect(() => {
     sendSwitchPhotosEvent();
   }, [page, sendSwitchPhotosEvent]);
@@ -159,8 +179,19 @@ export const useObjectDetails = () => {
     }
   }, [data, navigation, page]);
 
+  const {loading} = useRequestLoading(getObjectDetailsRequest);
+
+  const {errorTexts} = useOnRequestError(getObjectDetailsRequest, '');
+
+  const onTryAgainPress = useCallback(() => {
+    dispatch(getObjectDetailsRequest({objectId}));
+  }, [dispatch, objectId]);
+
   return {
     data,
+    loading,
+    errorTexts,
+    onTryAgainPress,
     sendScrollEvent,
     copyLocationToClipboard,
     navigateToObjectsMap,

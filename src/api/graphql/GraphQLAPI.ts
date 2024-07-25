@@ -10,6 +10,7 @@ import {
   listCategoriesQuery,
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
+  geObjectDetailsByIdQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
 import {getObjectsTotalCountQuery} from './queries/common';
@@ -62,6 +63,13 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
 
     return response.searchObjects;
+  }
+
+  async getObjectDetailsById(objectId: string): Promise<any> {
+    const response = await this.executeQuery({
+      query: geObjectDetailsByIdQuery(objectId),
+    });
+    return response.getObject;
   }
 }
 

@@ -1,3 +1,5 @@
+import {SpotI18n} from 'core/types';
+
 interface DefaultI18n {
   __typename: 'ObjectI18n';
   locale: string;
@@ -80,6 +82,31 @@ export interface ChildServicesItem {
   updatedAt: string;
 }
 
+export interface IncludeItem {
+  include: {
+    id: string;
+    category: {
+      id: string;
+      cover: string;
+      name: string;
+      i18n: Array<i18nType<'name'>>;
+    };
+  };
+}
+
+export interface BelongsToItem {
+  belongsTo: {
+    id: string;
+    i18n: Array<i18nType<'name'>>;
+    cover: string;
+    name: string;
+    category: {
+      name: string;
+      i18n: Array<i18nType<'name'>>;
+    };
+  };
+}
+
 export type ListMobileDataQueryObject = {
   __typename: 'ObjectMobile';
   id: string;
@@ -120,6 +147,9 @@ export type ListMobileDataQueryObject = {
       regionId: string | null;
       subRegionId: string | null;
       municipalityId: string | null;
+      region: {i18n?: SpotI18n; value: string} | null;
+      subRegion: {i18n?: SpotI18n; value: string} | null;
+      municipality: {i18n?: SpotI18n; value: string} | null;
     }> | null;
   } | null;
   length?: number | null;
@@ -154,8 +184,8 @@ export type ListMobileDataQueryObject = {
     type: string;
     coordinates: Array<Array<number | null> | null>;
   } | null;
-  include?: Array<string | null> | null;
-  belongsTo?: Array<string | null> | null;
+  include?: Array<string | null> | null; // include: {items: IncludeItem[]};
+  belongsTo?: Array<string | null> | null; // belongsTo?: {items: BelongsToItem[]};
   i18n: Array<i18nType<'name' | 'description'>>;
   upcomingEvents: {
     items: UpcomingEventsItem[];
@@ -174,6 +204,7 @@ export type ListMobileDataQueryObject = {
     icon?: string | null;
     createdAt: string;
     updatedAt: string;
+    completenessFields: Array<string> | null;
     owner?: string | null;
     createdBy?: string | null;
     updatedBy?: string | null;

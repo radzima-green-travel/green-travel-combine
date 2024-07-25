@@ -30,12 +30,6 @@ export interface IArea {
   coordinates: ICoordinates[];
 }
 
-export interface IProhibition {
-  id: string;
-  name: string;
-  key: string;
-}
-
 export interface IInclude {
   categoryId: string;
   name: string;
@@ -88,7 +82,6 @@ export interface IObject {
   category: IObjectCategory;
   cover: string;
   images: string[];
-  prohibitions?: IProhibition[];
   include: IInclude[];
   belongsTo: IBelongsTo[];
   url?: string;

@@ -21,6 +21,7 @@ import {
 import {reduxStorage} from 'core/reduxStorage';
 // import logger from 'redux-logger';
 import {settingsReducer} from './reducers/SettingsReducer';
+import {objectDetailsReducer} from './reducers/objectDetails';
 const AsyncStorage = reduxStorage;
 
 const searchPersistConfig = {
@@ -78,6 +79,7 @@ const rootReducer = combineReducers({
   ),
   homePage: homePageReducer,
   appMap: appMapReducer,
+  objectDetails: objectDetailsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
