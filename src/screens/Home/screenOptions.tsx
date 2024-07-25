@@ -1,7 +1,6 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {IProps, ScreenOptions} from './types';
-
 import {Icon} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';

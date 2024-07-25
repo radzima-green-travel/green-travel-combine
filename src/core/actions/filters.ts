@@ -1,9 +1,9 @@
-import {SetActiveFilterPayload} from './../types/filters';
 import {
   FiltersParams,
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
-} from './../types/api/graphql';
+  SetActiveFilterPayload,
+} from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
 

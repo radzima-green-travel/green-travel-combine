@@ -10,3 +10,4 @@ export * from './visitedObjects';
 export * from './analytics';
 export * from './homePage';
 export * from './api';
+export * from './filters';

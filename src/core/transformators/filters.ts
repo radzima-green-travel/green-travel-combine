@@ -1,8 +1,6 @@
 import {map} from 'lodash';
 import {getSpotTranslation} from './common';
-import {SupportedLocales} from 'core/types';
-
-import {RegionsListResponseDTO} from './../types/api/graphql';
+import {SupportedLocales, RegionsListResponseDTO} from 'core/types';
 
 export const transformBucketsToCountMap = (
   buckets: {key: string; doc_count: number}[],

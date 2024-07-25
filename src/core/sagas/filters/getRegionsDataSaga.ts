@@ -1,11 +1,13 @@
-import {call, all, put} from 'redux-saga/effects';
+import {RegionsListResponseDTO} from 'core/types';
+import {call, put} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
 import {RequestError} from 'core/errors';
 
 export function* getRegionsDataSaga({meta: {failureAction, successAction}}) {
   try {
-    const [regionsListItems] = yield all([
-      call([graphQLAPI, graphQLAPI.getRegions]),
+    const regionsListItems: RegionsListResponseDTO = yield call([
+      graphQLAPI,
+      graphQLAPI.getRegions,
     ]);
 
     yield put(successAction(regionsListItems));

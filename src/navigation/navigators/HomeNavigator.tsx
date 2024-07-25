@@ -9,8 +9,8 @@ import {
   SearchScreen,
   FiltersScreen,
 } from '../../screens';
-import {useColorScheme} from 'core/hooks';
-import {useTranslation} from 'core/hooks';
+
+import {useTranslation, useColorScheme} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
 import {useScreenOptions} from '../hooks';
 import {defaultTransition} from '../transition';

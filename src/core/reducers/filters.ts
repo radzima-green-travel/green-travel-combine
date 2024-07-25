@@ -1,7 +1,8 @@
 import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
-} from './../types/api/graphql';
+  ActiveFilters,
+} from 'core/types';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
@@ -9,7 +10,6 @@ import {
   setActiveFilter,
   clearFilters,
 } from 'core/actions';
-import {ActiveFilters} from 'core/types/filters';
 import {xor} from 'lodash';
 
 interface FiltersState {

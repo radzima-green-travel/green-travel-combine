@@ -1,4 +1,5 @@
-import {SpotI18n} from './../common';
+import {SpotI18n} from 'core/types';
+
 interface DefaultI18n {
   locale: string;
 }
