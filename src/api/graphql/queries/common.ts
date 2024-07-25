@@ -19,3 +19,17 @@ export const getObjectsTotalCountQuery = `query MyQuery {
     total
   }
 }`;
+
+export const categoryQueryParameters = `
+    items {
+      name
+      id
+      parent
+      index
+      cover
+      blurhash
+      i18n {
+        name
+        locale
+      }
+   }`;

@@ -5,7 +5,6 @@ import {ObjectField} from 'core/constants';
 import {
   CategoryShortDTO,
   ExtractI18nKeys,
-  MapSpotDTO,
   ObjectCategoryMapDTO,
   ObjectMapDTO,
   ObjectShortDTO,
@@ -243,17 +242,13 @@ export interface ObjectMap extends ObjectMapDTO {
   address: string;
 }
 
-export interface MapSpot extends MapSpotDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<MapSpotDTO>, string>;
-}
-
 export interface ObjectCategoryMap extends ObjectCategoryMapDTO {
   analyticsMetadata: Record<ExtractI18nKeys<ObjectCategoryMapDTO>, string>;
 }
 export interface CardItem {
   name: string;
   cover: string;
-  blurhash: string;
+  blurhash: string | null;
   id: string;
   analyticsMetadata: {
     categoryName: string;

@@ -12,9 +12,9 @@ import {
 import {GRAPHQL_QUERY_CATEGORY_INDEX} from 'api/graphql';
 
 export function getCategoriesWithObjects(
-  categoriesAggreagions: CategoriesAggregationsByObjectsResponseDTO,
+  categoriesAggregations: CategoriesAggregationsByObjectsResponseDTO,
 ) {
-  return filter(categoriesAggreagions, category => category.doc_count !== 0);
+  return filter(categoriesAggregations, category => category.doc_count !== 0);
 }
 
 export function getObjectByCategories(

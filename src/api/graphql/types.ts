@@ -293,3 +293,32 @@ export type SearchSpotsParams = {
   limit?: number;
   filter?: {type?: {eq?: 'REGION'}};
 };
+
+export interface QueryParams {
+  limit: number;
+  nextToken: string;
+  filter: {
+    parent?: {
+      eq?: string;
+    };
+    categoryId?: {
+      eq?: string;
+    };
+  };
+  sort: {
+    direction?: 'asc' | 'desc';
+    field?: string;
+  };
+  from: number;
+}
+
+export type ObjectsListQueryParams = Pick<
+  QueryParams,
+  'limit' | 'filter' | 'nextToken' | 'sort'
+>;
+
+export type CategoriesListQueryParams = Partial<
+  Pick<QueryParams, 'limit' | 'filter' | 'nextToken' | 'sort'>
+>;
+
+export type AppMapObjectsQueryParams = Pick<QueryParams, 'limit' | 'from'>;

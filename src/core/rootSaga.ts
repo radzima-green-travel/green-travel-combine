@@ -12,6 +12,8 @@ import {
   homePageSaga,
   filtersSaga,
   appMapSaga,
+  objectsListSaga,
+  categoriesListSaga,
 } from './sagas';
 
 export function* rootSaga() {
@@ -28,5 +30,7 @@ export function* rootSaga() {
     homePageSaga(),
     filtersSaga(),
     appMapSaga(),
+    objectsListSaga(),
+    categoriesListSaga(),
   ]);
 }
