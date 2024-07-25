@@ -1,3 +1,4 @@
+import {SpotI18n} from './../common';
 interface DefaultI18n {
   locale: string;
 }
@@ -80,11 +81,6 @@ export interface CategoryAggregationsByObjectsDTO {
   key: string;
 }
 
-export interface RegionItem {
-  id: string;
-  value: string;
-}
-
 export interface ListCategoriesResponseDTO {
   items: Array<CategoryShortDTO>;
 }
@@ -100,9 +96,7 @@ export interface ObjectsForCategoriesResponseDTO {
 export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
-export type RegionsList = Array<RegionItem>;
-
-export interface SearchParams {
+export interface FiltersParams {
   filter: {
     categories?: string[] | null;
     googleRating?: string | null;
@@ -111,6 +105,49 @@ export interface SearchParams {
     statuses?: string | string[];
   };
 }
+
+export interface ObjectFiltersDataDTO {
+  total: number;
+  googleRatings: {key: string; from: string}[];
+  aggregations: {
+    categories: {
+      facets: {
+        buckets: {
+          key: string;
+          doc_count: number;
+        }[];
+      };
+    };
+    regions: {
+      facets: {
+        buckets: {
+          key: string;
+          doc_count: number;
+        }[];
+      };
+    };
+    googleRatings: {
+      facets: {
+        buckets: {
+          key: string;
+          from: number;
+        }[];
+      };
+    };
+  };
+}
+
+export interface RegionItemDTO {
+  id: string;
+  value: string;
+  i18n: SpotI18n;
+}
+
+export type ObjectFiltersDataResponseDTO = {
+  filterLandingObjects: ObjectFiltersDataDTO;
+};
+
+export type RegionsListResponseDTO = Array<RegionItemDTO>;
 
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
 

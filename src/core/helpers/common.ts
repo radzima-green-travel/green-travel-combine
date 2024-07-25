@@ -121,7 +121,7 @@ function getCategoryTranslation(
   };
 }
 
-export function getSpotTranslation(
+function getSpotTranslation(
   spot: {i18n?: SpotI18n; value: string},
   currentLocale: SupportedLocales,
 ): string {
@@ -596,11 +596,3 @@ export function getLanguageByLocale(lang: SupportedLocales | null) {
 export const createNumericArray = (length: number) => {
   return Array.from({length}, (_, index) => index + 1);
 };
-
-export const reduceCount = (
-  buckets: {key: string; doc_count: number}[],
-): {[key: string]: number} =>
-  buckets.reduce((acc, {key, doc_count}) => {
-    acc[key] = doc_count;
-    return acc;
-  }, {});

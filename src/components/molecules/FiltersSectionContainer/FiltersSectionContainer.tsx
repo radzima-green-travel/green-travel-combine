@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text, StyleProp, ViewStyle} from 'react-native';
 import {ReactNode} from 'react';
 import {themeStyles} from './styles';
@@ -11,24 +11,21 @@ export type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export const FiltersSectionContainer = ({
-  children,
-  itemName,
-  style,
-  isSubSection,
-}: Props) => {
-  const styles = useThemeStyles(themeStyles);
+export const FiltersSectionContainer = memo(
+  ({children, itemName, style, isSubSection}: Props) => {
+    const styles = useThemeStyles(themeStyles);
 
-  return (
-    <View
-      style={[
-        isSubSection ? styles.subSectionContainer : styles.sectionContainer,
-        style,
-      ]}>
-      <Text style={isSubSection ? styles.subSectionName : styles.sectionName}>
-        {itemName}
-      </Text>
-      {children}
-    </View>
-  );
-};
+    return (
+      <View
+        style={[
+          isSubSection ? styles.subSectionContainer : styles.sectionContainer,
+          style,
+        ]}>
+        <Text style={isSubSection ? styles.subSectionName : styles.sectionName}>
+          {itemName}
+        </Text>
+        {children}
+      </View>
+    );
+  },
+);

@@ -29,8 +29,8 @@ export const Filters = () => {
     loading,
     errorTexts,
     total,
-    countOfItemsForCategories,
-    countOfItemsForRegions,
+    regionsWithNumberOfItems,
+    categoriesWithNumberOfItems,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -64,7 +64,7 @@ export const Filters = () => {
               {caregoriesData?.map(category => (
                 <Chip
                   active={activeCategories?.includes(category.id)}
-                  disabled={countOfItemsForCategories[category.id] === 0}
+                  disabled={categoriesWithNumberOfItems[category.id] === 0}
                   onPress={() => chooseCategory(category.id)}
                   key={category.id}
                   testID={category.name}
@@ -81,7 +81,7 @@ export const Filters = () => {
                 <Chip
                   key={region.id}
                   active={activeRegions?.includes(region.id)}
-                  disabled={countOfItemsForRegions[region.id] === 0}
+                  disabled={regionsWithNumberOfItems[region.id] === 0}
                   testID={region.id}
                   onPress={() => chooseRegion(region.id)}
                   text={region.value}

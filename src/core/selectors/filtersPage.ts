@@ -1,37 +1,39 @@
 import {createSelector} from '@reduxjs/toolkit';
 import {IState} from 'core/store';
 import {selectAppLanguage} from './settingsSelectors';
-import {getSpotTranslation, reduceCount} from 'core/helpers';
+import {
+  prepareRegionsObject,
+  prepareGoogleRatings,
+  prepareAggregationsWithNumberOfItems,
+} from 'core/transformators/filters';
 
-export const selectFilters = (state: IState) => state.filters;
+export const selectFiltersData = (state: IState) => state.filters.fitersData;
+export const selectRegions = (state: IState) => state.filters.regionsList;
+export const selectActiveFilters = (state: IState) =>
+  state.filters.activeFilters;
+export const selectFiltersTotal = (state: IState) =>
+  state.filters.fitersData?.total;
 
-export const selectTransformedFilters = createSelector(
-  selectFilters,
+export const selectTransformedRegions = createSelector(
+  selectRegions,
   selectAppLanguage,
-  (filters, locale) => ({
-    ...filters,
-    total: filters.fitersData.total,
-    items: filters.fitersData.items,
-    countOfItemsForCategories: reduceCount(
-      filters.fitersData.aggregations.categories.facets.buckets,
-    ),
-    countOfItemsForRegions: reduceCount(
-      filters.fitersData.aggregations.regions.facets.buckets,
-    ),
-    googleRatings:
-      filters.fitersData.aggregations.googleRatings.facets.buckets.map(
-        ({key, from}) => {
-          return {
-            key: from,
-            label: key,
-          };
-        },
-      ),
-    regionsList: filters.regionsList.map(item => {
-      return {
-        id: item.id,
-        value: getSpotTranslation(item, locale ?? 'en'),
-      };
-    }),
-  }),
+  (regions, locale) => {
+    return prepareRegionsObject(regions, locale);
+  },
+);
+
+export const selectTransformedGoogleRatings = createSelector(
+  selectFiltersData,
+  filtersData => {
+    return prepareGoogleRatings(
+      filtersData?.aggregations?.googleRatings?.facets?.buckets || [],
+    );
+  },
+);
+
+export const selectTransformedAggregationsWithNumberOfItems = createSelector(
+  selectFiltersData,
+  filtersData => {
+    return prepareAggregationsWithNumberOfItems(filtersData?.aggregations);
+  },
 );

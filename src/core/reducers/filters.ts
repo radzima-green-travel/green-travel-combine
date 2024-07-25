@@ -1,48 +1,26 @@
+import {
+  ObjectFiltersDataDTO,
+  RegionsListResponseDTO,
+} from './../types/api/graphql';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
   getRegionsList,
   setActiveFilter,
-  FiltersSuccessPayload,
-  RegionsSuccessPayload,
   clearFilters,
 } from 'core/actions';
+import {ActiveFilters} from 'core/types/filters';
 import {xor} from 'lodash';
 
 interface FiltersState {
-  regionsList: RegionsSuccessPayload;
-  fitersData: FiltersSuccessPayload;
-  activeFilters: {
-    googleRating: string | null;
-    categories: string[] | null;
-    regions: string[] | null;
-  };
+  regionsList: RegionsListResponseDTO;
+  fitersData: ObjectFiltersDataDTO | null;
+  activeFilters: ActiveFilters;
 }
 
 const initialState: FiltersState = {
   regionsList: [],
-  fitersData: {
-    total: 0,
-    items: [],
-    googleRatings: [],
-    aggregations: {
-      categories: {
-        facets: {
-          buckets: [],
-        },
-      },
-      regions: {
-        facets: {
-          buckets: [],
-        },
-      },
-      googleRatings: {
-        facets: {
-          buckets: [],
-        },
-      },
-    },
-  },
+  fitersData: null,
   activeFilters: {
     googleRating: null,
     categories: null,

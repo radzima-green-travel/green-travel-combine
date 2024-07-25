@@ -3,7 +3,11 @@ import {useCallback, useEffect} from 'react';
 
 import {
   selectHomePageCategoriesList,
-  selectTransformedFilters,
+  selectTransformedGoogleRatings,
+  selectTransformedRegions,
+  selectActiveFilters,
+  selectFiltersTotal,
+  selectTransformedAggregationsWithNumberOfItems,
 } from 'core/selectors';
 
 import {useRequestLoading} from 'react-redux-help-kit';
@@ -18,14 +22,13 @@ export const useFilters = () => {
   const dispatch = useDispatch();
 
   const caregoriesData = useSelector(selectHomePageCategoriesList);
-  const {
-    googleRatings,
-    regionsList,
-    activeFilters,
-    total,
-    countOfItemsForCategories,
-    countOfItemsForRegions,
-  } = useSelector(selectTransformedFilters);
+  const googleRatings = useSelector(selectTransformedGoogleRatings);
+  const regionsList = useSelector(selectTransformedRegions);
+  const activeFilters = useSelector(selectActiveFilters);
+  const total = useSelector(selectFiltersTotal);
+  const {categoriesWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
+    selectTransformedAggregationsWithNumberOfItems,
+  );
 
   const {loading} = useRequestLoading(getRegionsList);
 
@@ -100,7 +103,7 @@ export const useFilters = () => {
     updateRatings,
     chooseCategory,
     total,
-    countOfItemsForCategories,
-    countOfItemsForRegions,
+    categoriesWithNumberOfItems,
+    regionsWithNumberOfItems,
   };
 };

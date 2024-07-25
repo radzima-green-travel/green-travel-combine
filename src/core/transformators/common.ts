@@ -6,6 +6,7 @@ import {
   ExtractI18nKeys,
   ObjectShort,
   CategoryShort,
+  SpotI18n,
   AddressessDTO,
 } from 'core/types';
 import {compact, find, head, keys, map, omit, pick} from 'lodash';
@@ -123,3 +124,17 @@ export const getObjectFullAddress = (
 
   return translatedSpots.join(', ');
 };
+
+export function getSpotTranslation(
+  spot: {i18n?: SpotI18n; value: string},
+  currentLocale: SupportedLocales,
+): string {
+  const i18nObject = find(
+    spot.i18n,
+    translate => translate?.locale === currentLocale,
+  );
+
+  const value = currentLocale === 'ru' ? spot.value : i18nObject?.value;
+
+  return value || '';
+}
