@@ -1,11 +1,7 @@
-import {useCallback, useLayoutEffect} from 'react';
+import {useCallback, useEffect, useLayoutEffect} from 'react';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   useCategoryListAnalytics,
   useListPagination,
@@ -13,7 +9,10 @@ import {
   useRequestLoading,
 } from 'core/hooks';
 import {CardItem} from 'core/types';
-import {getCategoriesListDataRequest} from 'core/actions';
+import {
+  getCategoriesListInitialDataRequest,
+  getCategoriesListNextDataRequest,
+} from 'core/actions';
 import {selectCategoriesList} from 'selectors';
 import {
   CategoriesListScreenNavigationProps,
@@ -29,15 +28,31 @@ export const useCategoriesList = () => {
     params: {categoryId, title},
   } = useRoute<CategoriesListScreenRouteProps>();
 
-  const {data: listData, total} = useSelector(selectCategoriesList(categoryId));
+  const {
+    data: listData,
+    total,
+    requestedItemsCount,
+  } = useSelector(selectCategoriesList(categoryId));
 
-  const {loading} = useRequestLoading(getCategoriesListDataRequest);
-  const {errorTexts} = useOnRequestError(getCategoriesListDataRequest, '');
+  const {loading: initialDataLoading} = useRequestLoading(
+    getCategoriesListInitialDataRequest,
+  );
+  const {loading: nextDataLoading} = useRequestLoading(
+    getCategoriesListNextDataRequest,
+  );
+  const {errorTexts} = useOnRequestError(
+    getCategoriesListInitialDataRequest,
+    '',
+  );
 
   const {sendSelectCardEvent} = useCategoryListAnalytics();
 
-  const fetchListData = useCallback(() => {
-    dispatch(getCategoriesListDataRequest(categoryId));
+  const fetchListInitialData = useCallback(() => {
+    dispatch(getCategoriesListInitialDataRequest(categoryId));
+  }, [dispatch, categoryId]);
+
+  const fetchListNextData = useCallback(() => {
+    dispatch(getCategoriesListNextDataRequest(categoryId));
   }, [dispatch, categoryId]);
 
   const navigateToObjectDetails = useCallback(
@@ -48,23 +63,17 @@ export const useCategoriesList = () => {
     [navigate, sendSelectCardEvent, title],
   );
 
-  const suspenseViewLoading = !listData.length && loading;
-  const suspenseViewError =
-    !listData.length && !!errorTexts ? errorTexts : null;
-
   const paginationProps = useListPagination({
-    isLoading: loading,
-    loadMore: fetchListData,
-    hasMoreToLoad: listData.length < total,
+    isLoading: nextDataLoading,
+    loadMore: fetchListNextData,
+    hasMoreToLoad: requestedItemsCount < total,
   });
 
-  useFocusEffect(
-    useCallback(() => {
-      if (!listData.length) {
-        fetchListData();
-      }
-    }, [listData.length, fetchListData]),
-  );
+  useEffect(() => {
+    if (!listData.length) {
+      fetchListInitialData();
+    }
+  }, [listData.length, fetchListInitialData]);
 
   useLayoutEffect(() => {
     setOptions({
@@ -74,10 +83,10 @@ export const useCategoriesList = () => {
 
   return {
     navigateToObjectDetails,
-    suspenseViewLoading,
-    suspenseViewError,
+    fetchListInitialData,
+    initialDataLoading,
     paginationProps,
-    fetchListData,
+    errorTexts,
     listData,
   };
 };

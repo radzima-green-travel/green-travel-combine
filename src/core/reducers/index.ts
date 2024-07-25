@@ -9,3 +9,5 @@ export * from './AppConfigurationReducer';
 export * from './VisitedObjectsReducer';
 export * from './home';
 export * from './appMap';
+export * from './categoriesList';
+export * from './objectsList';

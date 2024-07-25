@@ -8,24 +8,30 @@ import {
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {
-  listCategoriesQuery,
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
   searchCategoriesQuery,
   searchObjectsQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
-import {QueryParams} from 'api/graphql/types';
+import {
+  AppMapObjectsQueryParams,
+  CategoriesListQueryParams,
+  ObjectsListQueryParams,
+} from 'api/graphql/types';
 import {getObjectsTotalCountQuery} from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
-  async getListCategories(): Promise<ListCategoriesResponseDTO> {
+  async getCategoriesList(
+    params: CategoriesListQueryParams,
+  ): Promise<ListCategoriesResponseDTO> {
     const response = await this.executeQuery({
-      query: listCategoriesQuery,
+      query: searchCategoriesQuery,
+      params,
     });
-    return response.listCategories;
-  }
 
+    return response.searchCategories;
+  }
   async getObjectsForCategories(
     categoryIds: string[],
   ): Promise<ObjectsForCategoriesResponseDTO> {
@@ -50,37 +56,19 @@ class GraphQLAPI extends GraphQLAPIEngine {
     return response.searchObjects;
   }
 
-  async getAppMapObjects({
-    from,
-    limit,
-  }: {
-    from: number;
-    limit: number;
-  }): Promise<AppMapObjectsResponseDTO> {
+  async getAppMapObjects(
+    params: AppMapObjectsQueryParams,
+  ): Promise<AppMapObjectsResponseDTO> {
     const response = await this.executeQuery({
       query: getAppMapObjectsQuery,
-      params: {
-        from,
-        limit,
-      },
+      params,
     });
 
     return response.searchObjects;
   }
 
-  async getCategoriesList(
-    params: QueryParams,
-  ): Promise<ListCategoriesResponseDTO> {
-    const response = await this.executeQuery({
-      query: searchCategoriesQuery,
-      params,
-    });
-
-    return response.searchCategories;
-  }
-
   async getObjectsList(
-    params: QueryParams,
+    params: ObjectsListQueryParams,
   ): Promise<ListShortObjectsResponseDTO> {
     const response = await this.executeQuery({
       query: searchObjectsQuery,

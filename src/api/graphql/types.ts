@@ -290,9 +290,9 @@ export const enum ObjectStatus {
 }
 
 export interface QueryParams {
-  limit?: number;
-  nextToken?: string;
-  filter?: {
+  limit: number;
+  nextToken: string;
+  filter: {
     parent?: {
       eq?: string;
     };
@@ -300,8 +300,20 @@ export interface QueryParams {
       eq?: string;
     };
   };
-  sort?: {
+  sort: {
     direction?: 'asc' | 'desc';
     field?: string;
   };
+  from: number;
 }
+
+export type ObjectsListQueryParams = Pick<
+  QueryParams,
+  'limit' | 'filter' | 'nextToken' | 'sort'
+>;
+
+export type CategoriesListQueryParams = Partial<
+  Pick<QueryParams, 'limit' | 'filter' | 'nextToken' | 'sort'>
+>;
+
+export type AppMapObjectsQueryParams = Pick<QueryParams, 'limit' | 'from'>;

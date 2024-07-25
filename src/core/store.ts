@@ -16,6 +16,8 @@ import {
   visitedObjectsReducer,
   homePageReducer,
   appMapReducer,
+  objectsListReducer,
+  categoriesListReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -78,6 +80,8 @@ const rootReducer = combineReducers({
   ),
   homePage: homePageReducer,
   appMap: appMapReducer,
+  objectsList: objectsListReducer,
+  categoriesList: categoriesListReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

@@ -2,13 +2,6 @@ import {reduce} from 'lodash';
 import {shortCardQueryParameters, categoryQueryParameters} from './common';
 import {GRAPHQL_QUERY_CATEGORY_INDEX} from '../constants';
 
-export const listCategoriesQuery = `query MyQuery($filter: ModelCategoryFilterInput = {}) {
-    listCategories(limit: 200, filter: $filter) {
-      ${categoryQueryParameters}
-    }
-  }
-  `;
-
 export const getCategoriesAggregationsByObjectsQuery = `query MyQuery {
     filterLandingObjects(filter: {statuses: "published"}) {
       aggregations {

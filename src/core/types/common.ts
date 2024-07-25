@@ -5,7 +5,6 @@ import {ObjectField} from 'core/constants';
 import {
   CategoryShortDTO,
   ExtractI18nKeys,
-  MapSpotDTO,
   ObjectCategoryMapDTO,
   ObjectMapDTO,
   ObjectShortDTO,
@@ -241,10 +240,6 @@ export interface ObjectShort extends ObjectShortDTO {
 export interface ObjectMap extends ObjectMapDTO {
   analyticsMetadata: Record<ExtractI18nKeys<ObjectMapDTO>, string>;
   address: string;
-}
-
-export interface MapSpot extends MapSpotDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<MapSpotDTO>, string>;
 }
 
 export interface ObjectCategoryMap extends ObjectCategoryMapDTO {

@@ -1,9 +1,5 @@
 import {IState} from 'core/store';
-import {
-  prepareCategoriesListData,
-  prepareHomePageData,
-  prepareObjectsListData,
-} from 'core/transformators/homePage';
+import {prepareHomePageData} from 'core/transformators/homePage';
 import {createSelector} from 'reselect';
 import {selectAppLanguage} from './settingsSelectors';
 import {translateAndProcessImagesForEntity} from 'core/transformators/common';
@@ -44,41 +40,3 @@ export const selectHomePageData = createSelector(
     return prepareHomePageData(categoriesList, objectsByCategories);
   },
 );
-
-export const selectCategoriesListsById = (state: IState) =>
-  state.homePage.categoriesListsById;
-
-export const selectCategoriesList = (categoryId: string) =>
-  createSelector(
-    selectCategoriesListsById,
-    selectAppLanguage,
-    (categoriesList, locale) => {
-      const list = categoriesList[categoryId];
-      const preparedList = prepareCategoriesListData(locale, list?.data);
-
-      return {
-        data: preparedList,
-        nextToken: list?.nextToken,
-        total: list?.total,
-      };
-    },
-  );
-
-export const selectObjectsListsById = (state: IState) =>
-  state.homePage.objectsListsById;
-
-export const selectObjectsList = (categoryId: string) =>
-  createSelector(
-    selectObjectsListsById,
-    selectAppLanguage,
-    (objectsList, locale) => {
-      const list = objectsList[categoryId];
-      const preparedList = prepareObjectsListData(locale, list?.data);
-
-      return {
-        data: preparedList,
-        nextToken: list?.nextToken,
-        total: list?.total,
-      };
-    },
-  );

@@ -1,14 +1,19 @@
 import {call, put, select} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
-import {getObjectsListDataRequest} from 'core/actions/home';
+import {
+  getObjectsListNextDataRequest,
+  getObjectsListInitialDataRequest,
+} from 'core/actions';
 import {RequestError} from 'core/errors';
 import {selectObjectsList} from 'selectors';
-import {QueryParams} from 'api/graphql/types';
+import {ObjectsListQueryParams} from 'api/graphql/types';
 
 export function* getObjectsListDataSaga({
   meta: {failureAction, successAction},
   payload,
-}: ReturnType<typeof getObjectsListDataRequest>) {
+}: ReturnType<
+  typeof getObjectsListInitialDataRequest | typeof getObjectsListNextDataRequest
+>) {
   try {
     const {categoryId, objectsIds} = payload;
 
@@ -18,15 +23,19 @@ export function* getObjectsListDataSaga({
 
     const objectsIdsDefined = !!objectsIds?.length;
 
+    const statusFilter = {
+      status: {eq: 'published'},
+    };
+
     const filter = objectsIdsDefined
       ? {id: {match: objectsIds.join(' ')}}
       : {categoryId: {eq: categoryId}};
 
-    const params: QueryParams = {
+    const params: ObjectsListQueryParams = {
       sort: {direction: 'asc', field: 'name'},
       nextToken: objectsIdsDefined ? null : prevNextToken,
       limit: objectsIdsDefined ? objectsIds.length : 10,
-      filter,
+      filter: {...filter, ...statusFilter},
     };
 
     const {items, nextToken, total} = yield call(

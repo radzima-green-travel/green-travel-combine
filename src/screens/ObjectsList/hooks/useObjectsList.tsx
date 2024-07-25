@@ -1,4 +1,4 @@
-import {useMemo, useCallback, useLayoutEffect} from 'react';
+import {useMemo, useCallback, useLayoutEffect, useEffect} from 'react';
 
 import {
   useListPagination,
@@ -8,7 +8,7 @@ import {
 } from 'core/hooks';
 import {CardItem} from 'core/types';
 import {debounce} from 'lodash';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {
   ObjectsListScreenNavigationProps,
   ObjectsListScreenRouteProps,
@@ -17,7 +17,10 @@ import {useRoute} from '@react-navigation/native';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectObjectsList} from 'selectors';
-import {getObjectsListDataRequest} from 'core/actions';
+import {
+  getObjectsListInitialDataRequest,
+  getObjectsListNextDataRequest,
+} from 'core/actions';
 
 export const useObjectsList = () => {
   const dispatch = useDispatch();
@@ -65,30 +68,33 @@ export const useObjectsList = () => {
 
   const {data: listData, total} = useSelector(selectObjectsList(listId));
 
-  const {loading} = useRequestLoading(getObjectsListDataRequest);
-  const {errorTexts} = useOnRequestError(getObjectsListDataRequest, '');
+  const {loading: initialDataLoading} = useRequestLoading(
+    getObjectsListInitialDataRequest,
+  );
+  const {loading: nextDataLoading} = useRequestLoading(
+    getObjectsListNextDataRequest,
+  );
+  const {errorTexts} = useOnRequestError(getObjectsListInitialDataRequest, '');
 
-  const fetchListData = useCallback(() => {
-    dispatch(getObjectsListDataRequest({categoryId, objectsIds}));
+  const fetchListInitialData = useCallback(() => {
+    dispatch(getObjectsListInitialDataRequest({categoryId, objectsIds}));
   }, [dispatch, categoryId, objectsIds]);
 
-  const suspenseViewLoading = !listData.length && loading;
-  const suspenseViewError =
-    !listData.length && !!errorTexts ? errorTexts : null;
+  const fetchListNextData = useCallback(() => {
+    dispatch(getObjectsListNextDataRequest({categoryId, objectsIds}));
+  }, [dispatch, categoryId, objectsIds]);
 
   const paginationProps = useListPagination({
-    isLoading: loading,
-    loadMore: fetchListData,
+    isLoading: nextDataLoading,
+    loadMore: fetchListNextData,
     hasMoreToLoad: listData.length < total,
   });
 
-  useFocusEffect(
-    useCallback(() => {
-      if (!listData.length) {
-        fetchListData();
-      }
-    }, [listData.length, fetchListData]),
-  );
+  useEffect(() => {
+    if (!listData.length) {
+      fetchListInitialData();
+    }
+  }, [listData.length, fetchListInitialData]);
 
   useLayoutEffect(() => {
     setOptions({
@@ -99,10 +105,10 @@ export const useObjectsList = () => {
   return {
     navigateToObjectDetailsDebounced,
     sendIsFavoriteChangedEvent,
-    suspenseViewLoading,
-    suspenseViewError,
+    initialDataLoading,
+    fetchListInitialData,
     paginationProps,
-    fetchListData,
+    errorTexts,
     listData,
   };
 };

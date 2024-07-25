@@ -14,18 +14,18 @@ const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 export const CategoriesList = () => {
   const {
     navigateToObjectDetails,
-    suspenseViewLoading,
-    suspenseViewError,
+    fetchListInitialData,
+    initialDataLoading,
     paginationProps,
-    fetchListData,
+    errorTexts,
     listData,
   } = useCategoriesList();
 
   return (
     <SuspenseView
-      loading={suspenseViewLoading}
-      error={suspenseViewError}
-      retryCallback={fetchListData}>
+      loading={initialDataLoading}
+      error={errorTexts}
+      retryCallback={fetchListInitialData}>
       <FlatList
         data={listData}
         contentContainerStyle={styles.contentContainer}
