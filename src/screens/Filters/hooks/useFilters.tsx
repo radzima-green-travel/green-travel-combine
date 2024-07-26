@@ -9,7 +9,6 @@ import {
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
 } from 'core/selectors';
-
 import {useRequestLoading} from 'react-redux-help-kit';
 import {
   getFiltersDataRequest,
@@ -17,6 +16,7 @@ import {
   setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
+import {isEqual} from 'lodash';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export const useFilters = () => {
   const caregoriesData = useSelector(selectHomePageCategoriesList);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectTransformedRegions);
-  const activeFilters = useSelector(selectActiveFilters);
+  const activeFilters = useSelector(selectActiveFilters, isEqual);
   const total = useSelector(selectFiltersTotal);
   const {categoriesWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
