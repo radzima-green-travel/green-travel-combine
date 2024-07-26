@@ -3,16 +3,18 @@ import {useCallback, useMemo, useRef, useEffect} from 'react';
 import {MapView, Camera} from '@rnmapbox/maps';
 import {Position} from '@turf/helpers';
 
-import {selectAppLanguage, selectIsDirectionShowed} from 'core/selectors';
+import {
+  selectAppLanguage,
+  selectIsDirectionShowed,
+  selectObjectDetails,
+} from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   useBottomMenu,
   useFocusToUserLocation,
-  useObject,
   useRequestLoading,
   useTranslation,
   useTransformedData,
-  useObjectBelongsToSubtitle,
   useOnRequestSuccess,
   useRequestErrorAlert,
   useColorScheme,
@@ -43,8 +45,6 @@ import {
   Point,
   point,
 } from '@turf/helpers';
-import {useRoute} from '@react-navigation/native';
-import {ObjectDetailsMapScreenRouteProps} from '../types';
 
 interface RegionPayload {
   zoomLevel: number;
@@ -57,14 +57,11 @@ interface RegionPayload {
 
 export const useObjectDetailsMap = () => {
   const {t} = useTranslation('objectDetails');
-  const {
-    params: {objectId},
-  } = useRoute<ObjectDetailsMapScreenRouteProps>();
   const currentLocale = useSelector(selectAppLanguage);
 
   const {openMenu, closeMenu, ...menuProps} = useBottomMenu();
 
-  const data = useObject(objectId);
+  const data = useSelector(selectObjectDetails);
   const {getObject} = useTransformedData();
 
   const map = useRef<MapView>(null);
@@ -210,9 +207,7 @@ export const useObjectDetailsMap = () => {
     [data],
   );
 
-  const belongsToSubtitle = useObjectBelongsToSubtitle(
-    data?.belongsTo?.[0]?.objects,
-  );
+  const belongsToSubtitle = data?.belongsTo?.[0]?.name ?? null;
 
   useRequestErrorAlert(showObjectDetailsMapDirectionRequest, 'common');
 

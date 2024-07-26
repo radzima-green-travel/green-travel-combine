@@ -75,12 +75,7 @@ export const ObjectDetails = () => {
     navigateToIncludesObjectListOrPage,
   } = useObjectDetails();
 
-  const {
-    // loading,
-    //  errorTexts,
-    objectNotFoundErrorProps,
-    //  onTryAgainPress
-  } = useObjectDetailsDeepLinking();
+  const {objectNotFoundErrorProps} = useObjectDetailsDeepLinking();
 
   const {sendBookmarksAddEvent, sendBookmarksRemoveEvent} =
     useObjectDetailsAnalytics();
@@ -130,7 +125,7 @@ export const ObjectDetails = () => {
     elementRef,
     scrollToElement,
     isCompletnessBlockVisible,
-  } = useObjectCompletnessData({objectId});
+  } = useObjectCompletnessData();
 
   const addInfoSuccessMenuProps = useAddInfoSuccessMenu();
 

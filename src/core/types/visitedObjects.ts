@@ -1,3 +1,5 @@
+import {ObjectField} from 'core/constants';
+
 export interface VisitedObject {
   id: string;
   timestamp: number;
@@ -22,4 +24,9 @@ export interface AddVisitedObjectBody {
 export type ShareExperienceInitialData = {
   objectId: string;
   objectName: string;
+  incompleteFieldsNames: ObjectField[];
+  analyticsMetadata: {
+    name: string;
+    categoryName: string;
+  };
 };

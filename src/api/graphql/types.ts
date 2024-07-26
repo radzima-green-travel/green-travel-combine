@@ -184,8 +184,8 @@ export type ListMobileDataQueryObject = {
     type: string;
     coordinates: Array<Array<number | null> | null>;
   } | null;
-  include?: Array<string | null> | null; // include: {items: IncludeItem[]};
-  belongsTo?: Array<string | null> | null; // belongsTo?: {items: BelongsToItem[]};
+  include: {items: IncludeItem[]};
+  belongsTo?: {items: BelongsToItem[]};
   i18n: Array<i18nType<'name' | 'description'>>;
   upcomingEvents: {
     items: UpcomingEventsItem[];

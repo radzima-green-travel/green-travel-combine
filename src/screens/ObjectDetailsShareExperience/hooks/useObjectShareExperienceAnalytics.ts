@@ -1,4 +1,3 @@
-import {useObject} from 'core/hooks';
 import {sendAnalyticsEvent} from 'core/reducers';
 import {selectObjectShareExperienceData} from 'core/selectors';
 import {useCallback, useRef} from 'react';
@@ -7,10 +6,8 @@ import {useDispatch, useSelector} from 'react-redux';
 export function useObjectShareExperienceAnalytics() {
   const dispatch = useDispatch();
 
-  const {objectId} = useSelector(selectObjectShareExperienceData) || {};
-
-  const object = useObject(objectId || '');
-  const {analyticsMetadata} = object || {};
+  const {analyticsMetadata} =
+    useSelector(selectObjectShareExperienceData) || {};
 
   const ignoreCloseEvent = useRef(false);
 

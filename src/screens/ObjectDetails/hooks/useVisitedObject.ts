@@ -14,8 +14,8 @@ import {AuthNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Alert} from 'react-native';
 import {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
-import {useObject} from 'core/hooks';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
+import {selectObjectDetails} from 'core/selectors/objectDetails';
 
 export type NavigationProps = CompositeNavigationProp<
   StackNavigationProp<AuthNavigatorParamsList>,
@@ -28,7 +28,7 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const navigation = useNavigation<NavigationProps>();
   const visitedObjectsIds = useSelector(selectVisitedObjectsIds);
   const isAuthorized = useSelector(selectUserAuthorized);
-  const data = useObject(objectId);
+  const data = useSelector(selectObjectDetails);
 
   const {
     sendMarkVisitedButtonClickEvent,
@@ -123,7 +123,15 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
       dispatch(
         scheduleShareExperienceMenu({
           delayMs: 1000,
-          data: {objectId, objectName: data.name},
+          data: {
+            objectId,
+            objectName: data.name,
+            incompleteFieldsNames: data.category.incompleteFieldsNames,
+            analyticsMetadata: {
+              name: data.name,
+              categoryName: data.category.name,
+            },
+          },
         }),
       );
     }

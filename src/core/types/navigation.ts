@@ -1,5 +1,6 @@
 import {Animated} from 'react-native';
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {IObjectIncompleteField} from './common';
 import {AnalyticsNavigationScreenNames} from './analytics';
 import {FromScreenName} from './analytics/objectDetails';
 
@@ -73,6 +74,8 @@ export type MainNavigatorParamsList = {
   ObjectDetails: ObjectDetailsParams;
   ObjectDetailsAddInfo: {
     objectId: string;
+    objectName: string;
+    incompleteFields: IObjectIncompleteField[];
     showSuccessMenu?: boolean;
     analytics?: {
       fromScreenName: FromScreenName;

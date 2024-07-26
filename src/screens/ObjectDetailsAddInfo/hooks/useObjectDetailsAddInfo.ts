@@ -5,8 +5,6 @@ import {
 } from '../types';
 import {
   useBottomMenu,
-  useObject,
-  useObjectIncompleteFields,
   useOnRequestError,
   useRequestLoading,
   useTranslation,
@@ -27,13 +25,9 @@ import {filter} from 'lodash';
 export const useObjectDetailsAddInfo = () => {
   const navigation = useNavigation<ObjectDetailsAddInfoScreenNavigationProps>();
   const {
-    params: {objectId, showSuccessMenu},
+    params: {objectId, objectName, incompleteFields, showSuccessMenu},
   } = useRoute<ObjectDetailsAddInfoScreenRouteProps>();
   const {t} = useTranslation('objectDetailsAddInfo');
-  const objectData = useObject(objectId);
-  const incompleteFields = useObjectIncompleteFields(
-    objectData?.category.incompleteFieldsNames ?? [],
-  );
   const bottomMenuProps = useBottomMenu();
   const confirmBottomMenuProps = useBottomMenu();
   const [currentField, setCurrentField] =
@@ -43,7 +37,6 @@ export const useObjectDetailsAddInfo = () => {
   const value = currentField ? form[currentField.id] : '';
   const dispatch = useDispatch();
   const snackBarProps = useSnackbar();
-  const objectName = objectData?.name;
 
   const {
     sendAddInfoModalViewEvent,

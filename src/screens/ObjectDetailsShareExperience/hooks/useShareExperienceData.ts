@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useSnackbar} from 'atoms';
 import {
-  useObject,
   useObjectIncompleteFields,
   useOnRequestError,
   useTranslation,
@@ -23,12 +22,11 @@ export function useShareExperienceData() {
   const [isReportSent, setIsReportSent] = useState(false);
   const navigation =
     useNavigation<ObjectDetailsShareExperienceScreenNavigationProps>();
-  const {objectId, objectName} =
+  const {objectId, objectName, incompleteFieldsNames} =
     useSelector(selectObjectShareExperienceData) || {};
 
-  const object = useObject(objectId || '');
   const incompleteFields = useObjectIncompleteFields(
-    object?.category.incompleteFieldsNames ?? [],
+    incompleteFieldsNames ?? [],
   );
   const {show, ...snackBarProps} = useSnackbar();
 
@@ -57,16 +55,18 @@ export function useShareExperienceData() {
   );
 
   const onMissedDetailsPress = useCallback(() => {
-    if (objectId) {
+    if (objectId && objectName && incompleteFields) {
       navigation.navigate('ObjectDetailsAddInfo', {
-        objectId: objectId,
+        objectId,
+        objectName,
+        incompleteFields,
         showSuccessMenu: false,
         analytics: {
           fromScreenName: 'VisitedModal',
         },
       });
     }
-  }, [navigation, objectId]);
+  }, [incompleteFields, navigation, objectId, objectName]);
 
   const onSubmitPress = useCallback(
     ({
@@ -137,7 +137,7 @@ export function useShareExperienceData() {
     clearInitialData,
     snackBarProps,
     onMissedDetailsPress,
-    isMissedDetailsButtonVisible: Boolean(incompleteFields.length),
+    isMissedDetailsButtonVisible: Boolean(incompleteFields?.length),
     onReportInnacuranceFieldValueChange,
     sendReportInaccuranceCloseEvent,
     sendVisitedModalCloseEvent,

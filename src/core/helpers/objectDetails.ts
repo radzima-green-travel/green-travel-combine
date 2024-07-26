@@ -16,7 +16,7 @@ import {
   SpotI18n,
   SupportedLocales,
 } from 'core/types';
-import {compact, filter, find, isEmpty, map, reduce} from 'lodash';
+import {compact, filter, find, forEach, isEmpty, map, reduce} from 'lodash';
 import {imagesService} from 'services/ImagesService';
 import transliterate from './transliterate';
 import {ObjectField} from 'core/constants';
@@ -214,24 +214,28 @@ export const transformObjectDetails = (
   );
 
   function getObjectAddress(): string {
+    if (isEmpty(object?.addresses?.items)) {
+      return '';
+    }
+
     const address: string[] = [];
-    const [{region, subRegion, municipality, street = ''}] =
-      object?.addresses?.items ?? [];
 
-    [region, subRegion, municipality].forEach(item => {
-      if (item) {
-        const spotName = getSpotTranslation(item, currentLocale);
+    forEach(object?.addresses?.items, item => {
+      const {region, subRegion, municipality, street} = item;
 
-        spotName && address.push(spotName);
+      forEach([region, subRegion, municipality], value => {
+        if (value) {
+          address.push(getSpotTranslation(value, currentLocale));
+        }
+      });
+
+      if (street) {
+        address.push(
+          // TODO: temporary workaround. Replace with translation once available
+          currentLocale === 'ru' ? street : transliterate(street),
+        );
       }
     });
-
-    if (street) {
-      address.push(
-        // TODO: temporary workaround. Replace with translation once available
-        currentLocale === 'ru' ? street : transliterate(street),
-      );
-    }
 
     return address.join(', ');
   }
@@ -269,13 +273,11 @@ export const transformObjectDetails = (
       ),
     ),
 
-    // include: prepareObjectInclude(object.include.items, currentLocale),
-    // belongsTo: prepareObjectBelongsTo(
-    //   object?.belongsTo?.items ?? [],
-    //   currentLocale,
-    // ),
-    include: [],
-    belongsTo: [],
+    include: prepareObjectInclude(object.include.items, currentLocale),
+    belongsTo: prepareObjectBelongsTo(
+      object?.belongsTo?.items ?? [],
+      currentLocale,
+    ),
     url: object.url || undefined,
     routes: (object.routes as LineString) || undefined,
     length: object.length || null,

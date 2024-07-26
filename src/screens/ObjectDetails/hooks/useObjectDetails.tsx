@@ -4,13 +4,13 @@ import * as Clipboard from 'expo-clipboard';
 
 import {useSnackbar} from 'atoms';
 import {
-  useObject,
   useDetailsPageAnalytics,
   useImageSlider,
   useUpdateEffect,
   useTranslation,
   useRequestLoading,
   useOnRequestError,
+  useObjectIncompleteFields,
 } from 'core/hooks';
 import {
   ObjectDetailsScreenNavigationProps,
@@ -37,16 +37,19 @@ export const useObjectDetails = () => {
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
   const dispatch = useDispatch();
-  const objectDetails = useSelector(selectObjectDetails);
+  const data = useSelector(selectObjectDetails);
 
   const {top} = useSafeAreaInsets();
 
-  const data = useObject(objectId);
   const {t} = useTranslation();
 
   const {sendSwitchPhotosEvent, sendScrollEvent} =
     // TODO: legacy. Will be removed after migration to new analytics
-    useDetailsPageAnalytics(objectId);
+    useDetailsPageAnalytics();
+
+  const incompleteFields = useObjectIncompleteFields(
+    data?.category.incompleteFieldsNames ?? [],
+  );
 
   const {
     sendObjectScreenViewEvent,
@@ -130,12 +133,14 @@ export const useObjectDetails = () => {
       sendAddInfoButtonClickEvent();
       navigation.navigate('ObjectDetailsAddInfo', {
         objectId: data.id,
+        objectName: data.name,
+        incompleteFields,
         analytics: {
           fromScreenName: 'ObjectScreen',
         },
       });
     }
-  }, [data, navigation, sendAddInfoButtonClickEvent]);
+  }, [data, incompleteFields, navigation, sendAddInfoButtonClickEvent]);
 
   const {onScroll, page, pagesAmount} = useImageSlider(
     data?.images?.length || 0,
