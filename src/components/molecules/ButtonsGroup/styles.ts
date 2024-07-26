@@ -13,6 +13,9 @@ export const themeStyles = createThemeStyles({
   button: {
     marginRight: 8,
   },
+  lastButton: {
+    marginRight: 0,
+  },
   nonIconButton: {
     flex: 1,
   },

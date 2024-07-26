@@ -14,6 +14,7 @@ type ObjectDetailsParams = {
 export type HomeNavigatorParamsList = {
   Home: undefined;
   Search: undefined;
+  Filter: undefined;
   ObjectsList: {
     categoryId: string;
     title: string;

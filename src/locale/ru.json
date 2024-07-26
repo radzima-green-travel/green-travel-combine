@@ -170,6 +170,22 @@
     "getMore": "Узнать больше",
     "routeLength": "{{km}} км, "
   },
+  "filters": {
+    "title": "Фильтры",
+    "allCategories": "Все категории",
+    "whereToLook": "Где искать",
+    "ratingGoogle": "Рейтинг Google",
+    "settlements": "Населенные пункты",
+    "geolocation": "Геопозиция",
+    "considerDistance": "Учитывать дистанцию",
+    "hideVisit": "Скрыть посещенное",
+    "choose": "Выбрать",
+    "any": "Любые",
+    "clear": "Очистить",
+    "showAll": "Показать {{amount}} объектов",
+    "showFiltered": "Показать ({{amount}})",
+    "regions": "Области"
+  },
   "authentification": {
     "validation": {
       "invalidEmail": "Неверный формат электронной почты",
