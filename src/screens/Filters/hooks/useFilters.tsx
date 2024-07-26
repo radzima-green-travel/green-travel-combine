@@ -16,7 +16,6 @@ import {
   setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
-import {isEqual} from 'lodash';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ export const useFilters = () => {
   const caregoriesData = useSelector(selectHomePageCategoriesList);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectTransformedRegions);
-  const activeFilters = useSelector(selectActiveFilters, isEqual);
+  const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
   const {categoriesWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
