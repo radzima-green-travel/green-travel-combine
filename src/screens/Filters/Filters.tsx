@@ -28,7 +28,7 @@ export const Filters = () => {
     chooseRegion,
     clearFilters,
     fullScreenLoading,
-    liltersDataLoading,
+    filtersDataLoading,
     errorTexts,
     total,
     regionsWithNumberOfItems,
@@ -49,11 +49,11 @@ export const Filters = () => {
         onPress: () => {},
         theme: 'primary' as const,
         text: t('showFiltered', {amount: total}),
-        loading: liltersDataLoading,
+        loading: filtersDataLoading,
         testID: composeTestID(TestIDs.FilterButton, 'showFiltered'),
       },
     ];
-  }, [t, total, clearFilters, liltersDataLoading, emptyActiveFilters]);
+  }, [t, total, clearFilters, filtersDataLoading, emptyActiveFilters]);
 
   return (
     <View style={styles.container}>
@@ -125,9 +125,9 @@ export const Filters = () => {
           </FiltersSectionContainer>
           <FiltersSectionContainer itemName={t('ratingGoogle')}>
             <Multiswitch
-              activeItemKey={activeRating}
+              activeItemId={activeRating}
               items={googleRatings}
-              defaultValue={{key: 'Any', label: t('any')}}
+              defaultValue={{id: 'Any', value: t('any')}}
               onItemPress={updateRatings}
               testID={TestIDs.FiltersMultySwitch}
             />

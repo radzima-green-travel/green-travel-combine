@@ -1,5 +1,3 @@
-import {SpotI18n} from 'core/types';
-
 interface DefaultI18n {
   locale: string;
 }
@@ -100,47 +98,43 @@ export type CategoriesAggregationsByObjectsResponseDTO =
 export interface FiltersParams {
   filter: {
     categories?: string[];
-    googleRating?: string | null;
+    googleRating?: string;
     regions?: string[];
     statuses?: string | string[];
   };
 }
 
+export type ObjectFiltersAggregationsDTO = {
+  categories: {
+    facets: {
+      buckets: CategoryAggregationsByObjectsDTO[];
+    };
+  };
+  regions: {
+    facets: {
+      buckets: CategoryAggregationsByObjectsDTO[];
+    };
+  };
+  googleRatings: {
+    facets: {
+      buckets: {
+        key: string;
+        from: number;
+      }[];
+    };
+  };
+};
+
 export interface ObjectFiltersDataDTO {
   total: number;
   googleRatings: {key: string; from: string}[];
-  aggregations: {
-    categories: {
-      facets: {
-        buckets: {
-          key: string;
-          doc_count: number;
-        }[];
-      };
-    };
-    regions: {
-      facets: {
-        buckets: {
-          key: string;
-          doc_count: number;
-        }[];
-      };
-    };
-    googleRatings: {
-      facets: {
-        buckets: {
-          key: string;
-          from: number;
-        }[];
-      };
-    };
-  };
+  aggregations: ObjectFiltersAggregationsDTO;
 }
 
 export interface RegionItemDTO {
   id: string;
   value: string;
-  i18n: SpotI18n;
+  i18n: Partial<I18nType<keyof RegionItemDTO>>[];
 }
 
 export type ObjectFiltersDataResponseDTO = {

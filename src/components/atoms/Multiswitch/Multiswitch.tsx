@@ -13,23 +13,16 @@ import {styles} from './styles';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
-  items: {key: string; label: string}[];
+  items: {id: string; value: string}[];
   onItemPress: (item: string) => void;
   testID: string;
-  activeItemKey: string | null;
+  activeItemId: string | null;
   style?: StyleProp<ViewStyle>;
-  defaultValue?: {key: string; label: string};
+  defaultValue?: {id: string; value: string};
 }
 
 export const Multiswitch = memo(
-  ({
-    items,
-    onItemPress,
-    activeItemKey,
-    testID,
-    style,
-    defaultValue,
-  }: IProps) => {
+  ({items, onItemPress, activeItemId, testID, style, defaultValue}: IProps) => {
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
     const switchItems = defaultValue ? [defaultValue, ...items] : items;
@@ -45,7 +38,7 @@ export const Multiswitch = memo(
           ]}
           horizontal>
           {switchItems.map(item => {
-            const active = item.key === (activeItemKey || defaultValue?.key);
+            const active = item.id === (activeItemId || defaultValue?.id);
 
             return (
               <TouchableOpacity
@@ -54,8 +47,8 @@ export const Multiswitch = memo(
                   multiswitchStyles.nonActive,
                   active && multiswitchStyles.active,
                 ]}
-                key={item.key}
-                onPress={() => onItemPress(item.key)}
+                key={item.id}
+                onPress={() => onItemPress(item.id)}
                 {...getPlatformsTestID(composeTestID(testID, 'item'))}>
                 <Text
                   style={[
@@ -63,7 +56,7 @@ export const Multiswitch = memo(
                     multiswitchStyles.nonActiveText,
                     active && multiswitchStyles.activeText,
                   ]}>
-                  {item.label}
+                  {item.value}
                 </Text>
               </TouchableOpacity>
             );

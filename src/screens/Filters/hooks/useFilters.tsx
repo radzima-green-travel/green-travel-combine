@@ -31,12 +31,12 @@ export const useFilters = () => {
   );
 
   const {loading: loadingRegions} = useRequestLoading(getRegionsList);
-  const {loading: liltersDataLoading} = useRequestLoading(
+  const {loading: filtersDataLoading} = useRequestLoading(
     getFiltersDataRequest,
   );
 
   const emptyActiveFilters = !Object.values(activeFilters).find(
-    value => value.length,
+    value => value?.length,
   );
 
   const getFiltersData = useCallback(() => {
@@ -98,7 +98,7 @@ export const useFilters = () => {
     chooseRegion,
     clearFilters,
     fullScreenLoading: loadingRegions,
-    liltersDataLoading,
+    filtersDataLoading,
     emptyActiveFilters,
     errorTexts: null,
     regions: regionsList,
