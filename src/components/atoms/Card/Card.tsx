@@ -27,7 +27,7 @@ interface IProps {
   removeFavoriteWithAnimation?: boolean;
   onRemoveAnimationEnd?: () => void;
   onFavoriteChanged?: (nextIsFavorite: boolean) => void;
-  blurhash?: string;
+  blurhash: string | null;
   testID: string;
 }
 

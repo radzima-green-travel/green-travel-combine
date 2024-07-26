@@ -10,4 +10,6 @@ export {getObjectAttributesSaga} from './objectAttributes';
 export {analytics} from './analytics';
 export {homePageSaga} from './homePage';
 export {appMapSaga} from './appMap';
+export {objectsListSaga} from './objectsList';
+export {categoriesListSaga} from './categoriesList';
 export {objectDetailsSaga} from './objectDetails';

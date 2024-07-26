@@ -29,7 +29,7 @@ export function* getHomePageDataSaga({
       ListCategoriesResponseDTO,
       CategoriesAggregationsByObjectsResponseDTO,
     ] = yield all([
-      call([graphQLAPI, graphQLAPI.getListCategories]),
+      call([graphQLAPI, graphQLAPI.getCategoriesList], {limit: 200}),
       call([graphQLAPI, graphQLAPI.getCategoriesAggregationsByObjects]),
     ]);
     const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
