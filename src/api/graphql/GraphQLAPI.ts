@@ -78,7 +78,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
         filter: {
           statuses: ['published'],
           ...filter,
-          googleRating: filter.googleRating?.length || null,
+          googleRating: filter.googleRating || null,
           categories: filter.categories?.length ? filter.categories : null,
           regions: filter.regions?.length ? filter.regions : null,
         },
