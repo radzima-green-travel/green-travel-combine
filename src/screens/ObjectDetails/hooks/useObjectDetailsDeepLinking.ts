@@ -1,6 +1,6 @@
 import {useRequestLoading, useTranslation} from 'core/hooks';
-import {getObjectDetailsRequest} from 'core/actions/objectDetails';
-import {selectObjectDetails} from 'core/selectors/objectDetails';
+import {getObjectDetailsRequest} from 'core/actions';
+import {selectObjectDetails} from 'core/selectors';
 import {useCallback, useMemo} from 'react';
 import {useSelector} from 'react-redux';
 import {ObjectDetailsScreenNavigationProps} from '../types';

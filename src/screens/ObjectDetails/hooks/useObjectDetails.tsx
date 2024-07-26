@@ -23,12 +23,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {IBelongsTo, IInclude} from 'core/types';
-import {
-  clearObjectDetails,
-  getObjectDetailsRequest,
-} from 'core/actions/objectDetails';
+import {clearObjectDetails, getObjectDetailsRequest} from 'core/actions';
 import {useSelector} from 'react-redux';
-import {selectObjectDetails} from 'core/selectors/objectDetails';
+import {selectObjectDetails} from 'core/selectors';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();

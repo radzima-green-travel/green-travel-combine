@@ -18,10 +18,10 @@ import {
 } from 'core/types';
 import {compact, filter, find, forEach, isEmpty, map, reduce} from 'lodash';
 import {imagesService} from 'services/ImagesService';
-import transliterate from './transliterate';
+import transliterate from 'core/helpers/transliterate';
 import {ObjectField} from 'core/constants';
 import {LineString, MultiPolygon} from 'geojson';
-import {dateToReadableString, isDateInThePast} from './date';
+import {dateToReadableString, isDateInThePast} from 'core/helpers';
 
 function getTranslationsForProperties<T extends string>(
   originalValues: Record<T, string>,

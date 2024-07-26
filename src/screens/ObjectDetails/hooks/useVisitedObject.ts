@@ -15,7 +15,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {Alert} from 'react-native';
 import {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
-import {selectObjectDetails} from 'core/selectors/objectDetails';
+import {selectObjectDetails} from 'core/selectors';
 
 export type NavigationProps = CompositeNavigationProp<
   StackNavigationProp<AuthNavigatorParamsList>,

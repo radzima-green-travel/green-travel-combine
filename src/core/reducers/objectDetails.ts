@@ -1,8 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {
-  clearObjectDetails,
-  getObjectDetailsRequest,
-} from 'core/actions/objectDetails';
+import {clearObjectDetails, getObjectDetailsRequest} from 'core/actions';
 import {IObject} from 'core/types';
 
 interface ObjectDetailsState {

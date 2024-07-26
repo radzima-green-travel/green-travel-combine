@@ -1,10 +1,10 @@
 import {call, put, select} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
 import {ListMobileDataQueryObject} from 'api/graphql/types';
-import {getObjectDetailsRequest} from 'core/actions/objectDetails';
+import {getObjectDetailsRequest} from 'core/actions';
 import {selectAppLanguage} from 'core/selectors';
 import {RequestError} from 'core/errors';
-import {transformObjectDetails} from 'core/helpers/objectDetails';
+import {transformObjectDetails} from 'core/transformators/objectDetails';
 
 export function* getObjectDetailsSaga({
   payload,
