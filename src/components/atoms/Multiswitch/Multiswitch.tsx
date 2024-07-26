@@ -48,7 +48,11 @@ export const Multiswitch = memo(
                   active && multiswitchStyles.active,
                 ]}
                 key={item.id}
-                onPress={() => onItemPress(item.id)}
+                onPress={() => {
+                  if (item.id !== activeItemId) {
+                    onItemPress(item.id);
+                  }
+                }}
                 {...getPlatformsTestID(composeTestID(testID, 'item'))}>
                 <Text
                   style={[

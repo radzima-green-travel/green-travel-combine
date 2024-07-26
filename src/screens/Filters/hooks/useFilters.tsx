@@ -9,7 +9,6 @@ import {
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
 } from 'core/selectors';
-
 import {useRequestLoading} from 'react-redux-help-kit';
 import {
   getFiltersDataRequest,
