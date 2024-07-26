@@ -1,19 +1,10 @@
 export type ActiveFilters = {
-  googleRating: string | null;
-  regions: string[] | null;
-  categories: string[] | null;
+  googleRating: string;
+  regions: string[];
+  categories: string[];
 };
 
-export type SetActiveFilterPayload =
-  | {
-      name: 'googleRating';
-      value: string | null;
-    }
-  | {
-      name: 'regions';
-      value: string;
-    }
-  | {
-      name: 'categories';
-      value: string;
-    };
+export type SetActiveFilterPayload = {
+  name: 'googleRating' | 'categories' | 'regions';
+  value: string;
+};

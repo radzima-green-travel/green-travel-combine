@@ -21,12 +21,14 @@ export const Filters = () => {
     activeRating,
     activeRegions,
     activeCategories,
+    emptyActiveFilters,
     getFiltersData,
     updateRatings,
     chooseCategory,
     chooseRegion,
     clearFilters,
-    loading,
+    fullScreenLoading,
+    liltersDataLoading,
     errorTexts,
     total,
     regionsWithNumberOfItems,
@@ -40,21 +42,23 @@ export const Filters = () => {
         onPress: clearFilters,
         theme: 'secondary' as const,
         text: t('clear'),
+        disabled: emptyActiveFilters,
         testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
       },
       {
         onPress: () => {},
         theme: 'primary' as const,
         text: t('showFiltered', {amount: total}),
+        loading: liltersDataLoading,
         testID: composeTestID(TestIDs.FilterButton, 'showFiltered'),
       },
     ];
-  }, [t, total, clearFilters]);
+  }, [t, total, clearFilters, liltersDataLoading, emptyActiveFilters]);
 
   return (
     <View style={styles.container}>
       <SuspenseView
-        loading={loading}
+        loading={fullScreenLoading}
         error={errorTexts}
         retryCallback={getFiltersData}>
         <ScrollView showsVerticalScrollIndicator={false}>

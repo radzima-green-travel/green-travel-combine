@@ -30,7 +30,14 @@ export const useFilters = () => {
     selectTransformedAggregationsWithNumberOfItems,
   );
 
-  const {loading} = useRequestLoading(getRegionsList);
+  const {loading: loadingRegions} = useRequestLoading(getRegionsList);
+  const {loading: liltersDataLoading} = useRequestLoading(
+    getFiltersDataRequest,
+  );
+
+  const emptyActiveFilters = !Object.values(activeFilters).find(
+    value => value.length,
+  );
 
   const getFiltersData = useCallback(() => {
     dispatch(
@@ -45,7 +52,7 @@ export const useFilters = () => {
       dispatch(
         setActiveFilter({
           name: 'googleRating',
-          value: newRating === 'Any' ? null : newRating,
+          value: newRating === 'Any' ? '' : newRating,
         }),
       );
     },
@@ -81,10 +88,6 @@ export const useFilters = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getRegionsList());
-  }, [dispatch]);
-
-  useEffect(() => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
 
@@ -94,7 +97,9 @@ export const useFilters = () => {
     getFiltersData,
     chooseRegion,
     clearFilters,
-    loading,
+    fullScreenLoading: loadingRegions,
+    liltersDataLoading,
+    emptyActiveFilters,
     errorTexts: null,
     regions: regionsList,
     activeRating: activeFilters.googleRating,

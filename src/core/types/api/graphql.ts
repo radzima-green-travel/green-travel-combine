@@ -99,10 +99,9 @@ export type CategoriesAggregationsByObjectsResponseDTO =
 
 export interface FiltersParams {
   filter: {
-    categories?: string[] | null;
+    categories?: string[];
     googleRating?: string | null;
-    regions?: string[] | null;
-    municipalities?: string | string[];
+    regions?: string[];
     statuses?: string | string[];
   };
 }

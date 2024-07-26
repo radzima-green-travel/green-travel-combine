@@ -45,7 +45,7 @@ export const Multiswitch = memo(
           ]}
           horizontal>
           {switchItems.map(item => {
-            const active = item.key === (activeItemKey ?? defaultValue?.key);
+            const active = item.key === (activeItemKey || defaultValue?.key);
 
             return (
               <TouchableOpacity

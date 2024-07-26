@@ -22,21 +22,10 @@ const initialState: FiltersState = {
   regionsList: [],
   fitersData: null,
   activeFilters: {
-    googleRating: null,
-    categories: null,
-    regions: null,
+    googleRating: '',
+    categories: [],
+    regions: [],
   },
-};
-
-const updateActiveList = (
-  list: string[] | null,
-  item: string,
-): string[] | null => {
-  if (!list) {
-    return [item];
-  }
-  const updatedList = xor(list, [item]);
-  return updatedList.length ? updatedList : null;
 };
 
 export const filtersReducer = createReducer(initialState, builder => {
@@ -45,7 +34,7 @@ export const filtersReducer = createReducer(initialState, builder => {
       const newState =
         payload.name === 'googleRating'
           ? payload.value
-          : updateActiveList(state.activeFilters[payload.name], payload.value);
+          : xor(state.activeFilters[payload.name], [payload.value]);
 
       state.activeFilters = {
         ...state.activeFilters,

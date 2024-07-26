@@ -69,13 +69,19 @@ class GraphQLAPI extends GraphQLAPIEngine {
     return response.searchSpots.items;
   }
 
-  async getFilterObjects(
-    params: FiltersParams,
-  ): Promise<ObjectFiltersDataResponseDTO> {
+  async getFilterObjects({
+    filter,
+  }: FiltersParams): Promise<ObjectFiltersDataResponseDTO> {
     const response = await this.executeQuery({
       query: filterObjects,
       params: {
-        filter: {statuses: ['published'], ...params.filter},
+        filter: {
+          statuses: ['published'],
+          ...filter,
+          googleRating: filter.googleRating?.length || null,
+          categories: filter.categories?.length ? filter.categories : null,
+          regions: filter.regions?.length ? filter.regions : null,
+        },
       },
     });
 
