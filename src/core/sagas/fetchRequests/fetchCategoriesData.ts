@@ -1,4 +1,3 @@
-// categoryHelpers.js
 import {all, call} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
 import {
