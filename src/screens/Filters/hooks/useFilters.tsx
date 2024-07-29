@@ -2,12 +2,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useCallback, useEffect} from 'react';
 
 import {
-  selectHomePageCategoriesList,
   selectTransformedGoogleRatings,
   selectTransformedRegions,
   selectActiveFilters,
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
+  selectHomePageData,
 } from 'core/selectors';
 import {useRequestLoading} from 'react-redux-help-kit';
 import {
@@ -20,7 +20,7 @@ import {
 export const useFilters = () => {
   const dispatch = useDispatch();
 
-  const caregoriesData = useSelector(selectHomePageCategoriesList);
+  const caregoriesData = useSelector(selectHomePageData);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectTransformedRegions);
   const activeFilters = useSelector(selectActiveFilters);

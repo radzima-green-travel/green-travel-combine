@@ -65,14 +65,14 @@ export const Filters = () => {
           <Text style={styles.title}>{t('title')}</Text>
           <FiltersSectionContainer itemName={t('allCategories')}>
             <View style={styles.categoryList}>
-              {caregoriesData?.map(category => (
+              {caregoriesData?.map(({categoryId, title}) => (
                 <Chip
-                  active={activeCategories?.includes(category.id)}
-                  disabled={categoriesWithNumberOfItems[category.id] === 0}
-                  onPress={() => chooseCategory(category.id)}
-                  key={category.id}
-                  testID={category.name}
-                  text={category.name}
+                  active={activeCategories?.includes(categoryId)}
+                  disabled={categoriesWithNumberOfItems[categoryId] === 0}
+                  onPress={() => chooseCategory(categoryId)}
+                  key={categoryId}
+                  testID={title}
+                  text={title}
                   style={styles.chipContainer}
                 />
               ))}
@@ -81,14 +81,14 @@ export const Filters = () => {
           <FiltersSectionContainer itemName={t('whereToLook')}>
             <Text style={styles.subFilterName}>{t('regions')}</Text>
             <View style={styles.categoryList}>
-              {regions?.map(region => (
+              {regions?.map(({regionId, title}) => (
                 <Chip
-                  key={region.id}
-                  active={activeRegions?.includes(region.id)}
-                  disabled={regionsWithNumberOfItems[region.id] === 0}
-                  testID={region.id}
-                  onPress={() => chooseRegion(region.id)}
-                  text={region.value}
+                  active={activeRegions?.includes(regionId)}
+                  disabled={regionsWithNumberOfItems[regionId] === 0}
+                  onPress={() => chooseRegion(regionId)}
+                  key={regionId}
+                  testID={title}
+                  text={title}
                   style={styles.chipContainer}
                 />
               ))}

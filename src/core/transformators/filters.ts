@@ -20,8 +20,8 @@ export function prepareRegionsObject(
 ) {
   return map(regions, item => {
     return {
-      id: item.id,
-      value: extractLocaleSpecificValues(item, locale).value,
+      regionId: item.id,
+      title: extractLocaleSpecificValues(item, locale).value,
     };
   });
 }
