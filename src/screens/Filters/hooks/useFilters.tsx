@@ -7,20 +7,23 @@ import {
   selectActiveFilters,
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
-  selectHomePageData,
+  selectTransformedFiltersCategories,
 } from 'core/selectors';
-import {useRequestLoading} from 'react-redux-help-kit';
+import {useOnRequestError, useRequestLoading} from 'core/hooks';
 import {
   getFiltersDataRequest,
   getRegionsList,
+  getFiltersCategories,
   setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
+import {useSnackbar} from 'components/atoms';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
+  const {show, ...snackBarProps} = useSnackbar();
 
-  const caregoriesData = useSelector(selectHomePageData);
+  const caregoriesData = useSelector(selectTransformedFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectTransformedRegions);
   const activeFilters = useSelector(selectActiveFilters);
@@ -30,9 +33,22 @@ export const useFilters = () => {
   );
 
   const {loading: loadingRegions} = useRequestLoading(getRegionsList);
+  const {errorTexts: errorTextsRegions} = useOnRequestError(
+    getRegionsList,
+    'filters',
+  );
+  const {loading: loadingCategories} = useRequestLoading(getFiltersCategories);
+  const {errorTexts: errorTextsCategories} = useOnRequestError(
+    getFiltersCategories,
+    'filters',
+  );
+
   const {loading: filtersDataLoading} = useRequestLoading(
     getFiltersDataRequest,
   );
+
+  const fullScreenLoading = loadingRegions || loadingCategories;
+  const fullScreenError = errorTextsRegions || errorTextsCategories;
 
   const emptyActiveFilters = !Object.values(activeFilters).find(
     value => value?.length,
@@ -90,16 +106,32 @@ export const useFilters = () => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
 
+  useEffect(() => {
+    if (!regionsList.length) {
+      dispatch(getRegionsList());
+    }
+    if (!caregoriesData.length) {
+      dispatch(getFiltersCategories());
+    }
+  }, [dispatch, regionsList, caregoriesData]);
+
+  useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
+    show({
+      title: errorLabel.text,
+      type: 'error',
+    });
+  });
+
   return {
     caregoriesData,
     googleRatings,
     getFiltersData,
     chooseRegion,
     clearFilters,
-    fullScreenLoading: loadingRegions,
+    fullScreenLoading,
+    errorTexts: fullScreenError,
     filtersDataLoading,
     emptyActiveFilters,
-    errorTexts: null,
     regions: regionsList,
     activeRating: activeFilters.googleRating,
     activeRegions: activeFilters.regions,
@@ -109,5 +141,6 @@ export const useFilters = () => {
     total,
     categoriesWithNumberOfItems,
     regionsWithNumberOfItems,
+    snackBarProps,
   };
 };

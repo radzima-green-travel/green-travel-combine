@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {Text, View, Switch, TouchableOpacity} from 'react-native';
-import {Chip, Multiswitch, SuspenseView, Button, Icon} from 'atoms';
+import {Chip, Multiswitch, SuspenseView, Button, Icon, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {ButtonsGroup, FiltersSectionContainer} from 'molecules';
 import {screenOptions} from './screenOptions';
@@ -33,6 +33,7 @@ export const Filters = () => {
     total,
     regionsWithNumberOfItems,
     categoriesWithNumberOfItems,
+    snackBarProps,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -144,6 +145,7 @@ export const Filters = () => {
             containerStyle={styles.buttonsGroupContainer}
           />
         </ScrollView>
+        <SnackBar isOnTop {...snackBarProps} />
       </SuspenseView>
     </View>
   );

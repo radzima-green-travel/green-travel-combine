@@ -2,10 +2,13 @@ import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
   ActiveFilters,
+  CategoryShortDTO,
+  ObjectShortDTO,
 } from 'core/types';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
+  getFiltersCategories,
   getRegionsList,
   setActiveFilter,
   clearFilters,
@@ -16,6 +19,10 @@ interface FiltersState {
   regionsList: RegionsListResponseDTO;
   fitersData: ObjectFiltersDataDTO | null;
   activeFilters: ActiveFilters;
+  categoriesData: {
+    categoriesList: Array<CategoryShortDTO>;
+    objectsByCategory: Record<string, ObjectShortDTO[]>;
+  };
 }
 
 const initialState: FiltersState = {
@@ -25,6 +32,10 @@ const initialState: FiltersState = {
     googleRating: '',
     categories: [],
     regions: [],
+  },
+  categoriesData: {
+    categoriesList: [],
+    objectsByCategory: {},
   },
 };
 
@@ -39,6 +50,12 @@ export const filtersReducer = createReducer(initialState, builder => {
       state.activeFilters = {
         ...state.activeFilters,
         [payload.name]: newState,
+      };
+    })
+    .addCase(getFiltersCategories.meta.successAction, (state, {payload}) => {
+      return {
+        ...state,
+        categoriesData: payload,
       };
     })
     .addCase(clearFilters, state => {
