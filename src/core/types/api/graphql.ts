@@ -80,8 +80,10 @@ export interface CategoryAggregationsByObjectsDTO {
   key: string;
 }
 
-export interface ListCategoriesResponseDTO {
+export interface CategoriesResponseDTO {
   items: Array<CategoryShortDTO>;
+  nextToken: string;
+  total: number;
 }
 
 export interface ListShortObjectsResponseDTO {
@@ -96,7 +98,7 @@ export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
 export interface FiltersParams {
-  filter: {
+  filter?: {
     categories?: string[];
     googleRating?: string;
     regions?: string[];

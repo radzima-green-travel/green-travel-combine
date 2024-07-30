@@ -14,8 +14,7 @@ import {HomeScreenNavigationProps} from '../types';
 import {useOnRequestError, useRequestLoading} from 'core/hooks';
 import {
   getFiltersDataRequest,
-  getRegionsList,
-  getFiltersCategories,
+  getInitialFilters,
   setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
@@ -35,14 +34,9 @@ export const useFilters = () => {
     selectTransformedAggregationsWithNumberOfItems,
   );
 
-  const {loading: loadingRegions} = useRequestLoading(getRegionsList);
-  const {errorTexts: errorTextsRegions} = useOnRequestError(
-    getRegionsList,
-    'filters',
-  );
-  const {loading: loadingCategories} = useRequestLoading(getFiltersCategories);
-  const {errorTexts: errorTextsCategories} = useOnRequestError(
-    getFiltersCategories,
+  const {loading: loadingInitialFilters} = useRequestLoading(getInitialFilters);
+  const {errorTexts: errorTextsInitialFilters} = useOnRequestError(
+    getInitialFilters,
     'filters',
   );
 
@@ -50,8 +44,8 @@ export const useFilters = () => {
     getFiltersDataRequest,
   );
 
-  const fullScreenLoading = loadingRegions || loadingCategories;
-  const fullScreenError = errorTextsRegions || errorTextsCategories;
+  const fullScreenLoading = loadingInitialFilters;
+  const fullScreenError = errorTextsInitialFilters;
 
   const emptyActiveFilters = !Object.values(activeFilters).find(
     value => value?.length,
@@ -64,6 +58,10 @@ export const useFilters = () => {
       }),
     );
   }, [dispatch, activeFilters]);
+
+  const retryToGetInitialFiltersData = useCallback(() => {
+    dispatch(getInitialFilters());
+  }, [dispatch]);
 
   const updateRatings = useCallback(
     (newRating: string) => {
@@ -113,15 +111,6 @@ export const useFilters = () => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
 
-  useEffect(() => {
-    if (!regionsList.length) {
-      dispatch(getRegionsList());
-    }
-    if (!caregoriesData.length) {
-      dispatch(getFiltersCategories());
-    }
-  }, [dispatch, regionsList, caregoriesData]);
-
   useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
     show({
       title: errorLabel.text,
@@ -133,6 +122,7 @@ export const useFilters = () => {
     caregoriesData,
     googleRatings,
     getFiltersData,
+    retryToGetInitialFiltersData,
     chooseRegion,
     clearFilters,
     navigateToSettlements,

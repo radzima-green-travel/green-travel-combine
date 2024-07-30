@@ -1,22 +1,10 @@
-import {
-  getFiltersDataRequest,
-  getRegionsList,
-  getFiltersCategories,
-  getSettlementsDataRequest,
-  getSettlementsInitialDataRequest,
-} from 'core/actions';
+import {getFiltersDataRequest, getInitialFilters} from 'core/actions';
 import {takeEvery, takeLeading} from 'redux-saga/effects';
 import {getFiltersDataSaga} from './getFiltersDataSaga';
-import {getRegionsDataSaga} from './getRegionsDataSaga';
-import {getFiltersCategorieDataSaga} from './getCategoriesDataSaga';
-import {getSettlementsDataSaga} from './getSettlementsDataSaga';
+
+import {getInitialFiltersSaga} from './getInitialFiltersSaga';
 
 export function* filtersSaga() {
-  yield takeLeading(
-    [getSettlementsDataRequest, getSettlementsInitialDataRequest],
-    getSettlementsDataSaga,
-  );
-  yield takeLeading([getRegionsList], getRegionsDataSaga);
-  yield takeLeading([getFiltersCategories], getFiltersCategorieDataSaga);
+  yield takeLeading([getInitialFilters], getInitialFiltersSaga);
   yield takeEvery([getFiltersDataRequest], getFiltersDataSaga);
 }

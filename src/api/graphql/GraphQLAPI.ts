@@ -2,7 +2,7 @@ import {
   AppMapObjectsTotalCountResponseDTO,
   AppMapObjectsResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
-  ListCategoriesResponseDTO,
+  CategoriesResponseDTO,
   ListShortObjectsResponseDTO,
   ObjectsForCategoriesResponseDTO,
   RegionsListResponseDTO,
@@ -29,7 +29,7 @@ import {searchSpotsQuery, filterObjects} from './queries/filters';
 class GraphQLAPI extends GraphQLAPIEngine {
   async getCategoriesList(
     params: CategoriesListQueryParams,
-  ): Promise<ListCategoriesResponseDTO> {
+  ): Promise<CategoriesResponseDTO> {
     const response = await this.executeQuery({
       query: searchCategoriesQuery,
       params,
@@ -89,7 +89,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
   }
 
   async getFilterObjects({
-    filter,
+    filter = {},
   }: FiltersParams): Promise<ObjectFiltersDataResponseDTO> {
     const response = await this.executeQuery({
       query: filterObjects,

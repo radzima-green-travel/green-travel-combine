@@ -25,17 +25,17 @@ export const getFiltersDataRequest = createAsyncAction<
   ObjectFiltersDataDTO
 >('GET_FILTERS_DATA');
 
-export const getRegionsList = createAsyncAction<void, RegionsListResponseDTO>(
-  'GET_REGIONS_LIST',
-);
-
-export const getFiltersCategories = createAsyncAction<
+export const getInitialFilters = createAsyncAction<
   void,
   {
-    categoriesList: Array<CategoryShortDTO>;
-    objectsByCategory: Record<string, ObjectShortDTO[]>;
+    filtersData: ObjectFiltersDataDTO;
+    regionsList: RegionsListResponseDTO;
+    categoriesData: {
+      categoriesList: Array<CategoryShortDTO>;
+      objectsByCategory: Record<string, ObjectShortDTO[]>;
+    };
   }
->('GET_FILTERS_CATEGORIES');
+>('GET_INITIAL_FILTERS');
 
 export const setActiveFilter =
   createAction<SetActiveFilterPayload>('SET_ACTIVE_FILTER');

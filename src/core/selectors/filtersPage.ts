@@ -8,6 +8,7 @@ import {
   prepareCategories,
 } from 'core/transformators/filters';
 
+export const selectFilters = (state: IState) => state.filters;
 export const selectFiltersData = (state: IState) => state.filters.fitersData;
 export const selectRegions = (state: IState) => state.filters.regionsList;
 export const selectActiveFilters = (state: IState) =>

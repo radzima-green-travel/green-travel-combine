@@ -1,0 +1,1 @@
+export {fetchCategoriesData} from './fetchCategoriesData';
