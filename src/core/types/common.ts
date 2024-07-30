@@ -344,4 +344,6 @@ export enum TestIDs {
   ObjectDetailsAddInfoConfirmContent = 'objectDetailsAddInfoConfirmContent',
   FiltersMultySwitch = 'filtersMultySwitch',
   FiltersChooseButton = 'filtersChooseButton',
+  ApplyButton = 'applyButton',
+  SearchBar = 'SearchBar',
 }

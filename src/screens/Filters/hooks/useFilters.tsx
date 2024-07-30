@@ -9,6 +9,8 @@ import {
   selectTransformedAggregationsWithNumberOfItems,
   selectTransformedFiltersCategories,
 } from 'core/selectors';
+import {useNavigation} from '@react-navigation/native';
+import {HomeScreenNavigationProps} from '../types';
 import {useOnRequestError, useRequestLoading} from 'core/hooks';
 import {
   getFiltersDataRequest,
@@ -22,6 +24,7 @@ import {useSnackbar} from 'components/atoms';
 export const useFilters = () => {
   const dispatch = useDispatch();
   const {show, ...snackBarProps} = useSnackbar();
+  const navigation = useNavigation<HomeScreenNavigationProps>();
 
   const caregoriesData = useSelector(selectTransformedFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
@@ -102,6 +105,10 @@ export const useFilters = () => {
     dispatch(clearFiltersAction());
   }, [dispatch]);
 
+  const navigateToSettlements = useCallback(() => {
+    navigation.navigate('Settlements');
+  }, [navigation]);
+
   useEffect(() => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
@@ -128,6 +135,7 @@ export const useFilters = () => {
     getFiltersData,
     chooseRegion,
     clearFilters,
+    navigateToSettlements,
     fullScreenLoading,
     errorTexts: fullScreenError,
     filtersDataLoading,

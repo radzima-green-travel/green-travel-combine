@@ -34,12 +34,15 @@ export function prepareGoogleRatings(
     from: number;
   }[],
 ) {
-  return map(ratings, ({from, key}) => {
-    return {
-      id: String(from),
-      value: key,
-    };
-  });
+  return map(
+    filter(ratings, ({from}) => from >= 3.5),
+    ({from, key}) => {
+      return {
+        id: String(from),
+        value: key,
+      };
+    },
+  );
 }
 
 export function prepareAggregationsWithNumberOfItems(

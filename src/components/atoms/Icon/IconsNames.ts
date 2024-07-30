@@ -100,4 +100,5 @@ export type IconsNames =
   | 'theme'
   | 'warMonuments'
   | 'wave'
-  | 'tune';
+  | 'tune'
+  | 'tuneSimplified';

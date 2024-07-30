@@ -1,12 +1,5 @@
 import React, {memo} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleProp,
-  ViewStyle,
-  ScrollView,
-} from 'react-native';
+import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {MULTISWITCH_THEMES} from './constants';
 import {styles} from './styles';
@@ -26,19 +19,15 @@ export const Multiswitch = memo(
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
     const switchItems = defaultValue ? [defaultValue, ...items] : items;
+    const activeId = activeItemId || defaultValue?.id;
 
     return (
       <View
         style={[styles.container, styles.mainContainer, style]}
         {...getPlatformsTestID(testID)}>
-        <ScrollView
-          contentContainerStyle={[
-            styles.container,
-            multiswitchStyles.container,
-          ]}
-          horizontal>
+        <View style={[styles.container, multiswitchStyles.container]}>
           {switchItems.map(item => {
-            const active = item.id === (activeItemId || defaultValue?.id);
+            const active = item.id === activeId;
 
             return (
               <TouchableOpacity
@@ -49,7 +38,7 @@ export const Multiswitch = memo(
                 ]}
                 key={item.id}
                 onPress={() => {
-                  if (item.id !== activeItemId) {
+                  if (item.id !== activeId) {
                     onItemPress(item.id);
                   }
                 }}
@@ -65,7 +54,7 @@ export const Multiswitch = memo(
               </TouchableOpacity>
             );
           })}
-        </ScrollView>
+        </View>
       </View>
     );
   },

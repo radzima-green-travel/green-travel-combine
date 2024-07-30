@@ -54,7 +54,9 @@ export function useScreenOptions({
           </TouchableOpacity>
         ) : null;
       },
-      headerTitle: props => <HeaderTitle title={props.children} />,
+      headerTitle: props => (
+        <HeaderTitle title={props.children} tintColor={props.tintColor} />
+      ),
       ...customOptions,
-    } as NativeStackNavigationOptions);
+    }) as NativeStackNavigationOptions;
 }

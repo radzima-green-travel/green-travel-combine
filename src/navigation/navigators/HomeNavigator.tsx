@@ -8,6 +8,7 @@ import {
   CategoriesListScreen,
   SearchScreen,
   FiltersScreen,
+  SettlementsScreen,
 } from '../../screens';
 
 import {useTranslation, useColorScheme} from 'core/hooks';
@@ -19,7 +20,8 @@ import {COLORS} from 'assets';
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
 export function HomeNavigator() {
-  const {t} = useTranslation('home');
+  const {t: tHome} = useTranslation('home');
+  const {t: tFiters} = useTranslation('filters');
   const colorScheme = useColorScheme();
   const screenModalOptions = useScreenOptions({
     headerStyle: {
@@ -31,7 +33,7 @@ export function HomeNavigator() {
   });
 
   const screenOptions = useScreenOptions({
-    title: t('headerTitle'),
+    title: tHome('headerTitle'),
     animation: defaultTransition,
   });
 
@@ -60,6 +62,18 @@ export function HomeNavigator() {
           component={FiltersScreen}
           options={props => ({
             ...FiltersScreen.screenOptions(props),
+          })}
+        />
+        <Stack.Screen
+          name="Settlements"
+          component={SettlementsScreen}
+          options={props => ({
+            ...SettlementsScreen.screenOptions(props),
+            title: tFiters('settlements.title'),
+            headerTintColor:
+              colorScheme === 'light'
+                ? COLORS.light.text.primary
+                : COLORS.dark.text.primary,
           })}
         />
       </Stack.Group>

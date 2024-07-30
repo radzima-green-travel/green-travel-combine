@@ -27,6 +27,7 @@ export const Filters = () => {
     chooseCategory,
     chooseRegion,
     clearFilters,
+    navigateToSettlements,
     fullScreenLoading,
     filtersDataLoading,
     errorTexts,
@@ -39,22 +40,36 @@ export const Filters = () => {
 
   const buttons = useMemo(() => {
     return [
-      {
-        onPress: clearFilters,
-        theme: 'secondary' as const,
-        text: t('clear'),
-        disabled: emptyActiveFilters,
-        testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
-      },
+      ...(!emptyActiveFilters
+        ? [
+            {
+              onPress: clearFilters,
+              theme: 'secondary' as const,
+              text: t('clear'),
+              textStyle: styles.button,
+              testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
+            },
+          ]
+        : []),
       {
         onPress: () => {},
         theme: 'primary' as const,
-        text: t('showFiltered', {amount: total}),
+        textStyle: styles.button,
+        text: t(emptyActiveFilters ? 'showAll' : 'showFiltered', {
+          amount: total,
+        }),
         loading: filtersDataLoading,
         testID: composeTestID(TestIDs.FilterButton, 'showFiltered'),
       },
     ];
-  }, [t, total, clearFilters, filtersDataLoading, emptyActiveFilters]);
+  }, [
+    emptyActiveFilters,
+    clearFilters,
+    t,
+    styles.button,
+    total,
+    filtersDataLoading,
+  ]);
 
   return (
     <View style={styles.container}>
@@ -94,10 +109,13 @@ export const Filters = () => {
                 />
               ))}
             </View>
-            <FiltersSectionContainer isSubSection itemName={t('settlements')}>
+            <FiltersSectionContainer
+              isSubSection
+              itemName={t('settlements.title')}>
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={styles.settlementsContainer}>
+                style={styles.settlementsContainer}
+                onPress={navigateToSettlements}>
                 <Text style={styles.settlementsLabel}>{t('any')}</Text>
                 <Icon
                   name="chevronMediumRight"

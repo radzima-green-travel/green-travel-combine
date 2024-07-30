@@ -175,7 +175,6 @@
     "allCategories": "Все категории",
     "whereToLook": "Где искать",
     "ratingGoogle": "Рейтинг Google",
-    "settlements": "Населенные пункты",
     "geolocation": "Геопозиция",
     "considerDistance": "Учитывать дистанцию",
     "hideVisit": "Скрыть посещенное",
@@ -184,7 +183,13 @@
     "clear": "Очистить",
     "showAll": "Показать {{amount}} объектов",
     "showFiltered": "Показать ({{amount}})",
-    "regions": "Области"
+    "regions": "Области",
+    "settlements": {
+      "title": "Населенные пункты",
+      "reset": "Сбросить",
+      "search": "Поиск",
+      "apply": "Применить"
+    }
   },
   "authentification": {
     "validation": {

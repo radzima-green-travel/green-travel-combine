@@ -59,7 +59,7 @@ export const themeStyles = createThemeStyles({
   },
   settlementsContainer: {
     height: 40,
-    minWidth: 91,
+    minWidth: 61,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -74,5 +74,8 @@ export const themeStyles = createThemeStyles({
   buttonsGroupContainer: {
     paddingHorizontal: 0,
     marginHorizontal: 0,
+  },
+  button: {
+    ...FONTS_PRESETS.footnoteBold,
   },
 });

@@ -175,7 +175,6 @@
     "allCategories": "All categories",
     "whereToLook": "Where to look",
     "ratingGoogle": "Google rating",
-    "settlements": "Settlements",
     "geolocation": "Geolocation",
     "considerDistance": "Consider the distance",
     "hideVisit": "Hide visit",
@@ -184,7 +183,13 @@
     "clear": "Clear",
     "showAll": "Show {{amount}} objects",
     "showFiltered": "Show {{amount}}",
-    "regions": "Regions"
+    "regions": "Regions",
+    "settlements": {
+      "title": "Settlements",
+      "reset": "Reset",
+      "search": "Search",
+      "apply": "Apply"
+    }
   },
   "authentification": {
     "validation": {
