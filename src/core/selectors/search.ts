@@ -1,19 +1,41 @@
 import {createSelector} from 'reselect';
 import {SearchObject} from '../types';
 import {IState} from 'core/store';
-import {filter, map, reduce} from 'lodash';
-import {isLocationExist} from 'core/helpers';
+import {map, reduce} from 'lodash';
 import {selectAppLanguage} from './settingsSelectors';
 import {selectSearchHistoryObjectsIds} from './user';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 
-export const selectSearchNextToken = (state: IState) => state.search.nextToken;
-export const selectSearchObjectsRawData = (state: IState) =>
-  state.search.searchObjects;
-export const selectSearchObjectsTotal = (state: IState) => state.search.total;
+const selectSearchState = createSelector(
+  (state: IState) => state.search,
+  (_: IState, reducerId: string) => reducerId,
+  (searchState, reducerId) => searchState[reducerId],
+);
 
-const selectSearchHistoryRawObjects = (state: IState) =>
-  state.search.searchHistoryObjects;
+export const selectSearchNextToken = createSelector(
+  selectSearchState,
+  search => search.nextToken,
+);
+
+export const selectSearchObjectsRawData = createSelector(
+  selectSearchState,
+  search => search.searchObjects,
+);
+
+export const selectSearchObjectsTotal = createSelector(
+  selectSearchState,
+  search => search.total,
+);
+
+export const selectSearchHistoryRawObjects = createSelector(
+  selectSearchState,
+  search => search.searchHistoryObjects,
+);
+
+export const selectSearchInputValue = createSelector(
+  selectSearchState,
+  search => search.inputValue,
+);
 
 export const selectSearchObjectsData = createSelector(
   selectSearchObjectsRawData,
@@ -39,9 +61,6 @@ export const selectSearchHistoryObjects = createSelector(
     }),
 );
 
-export const selectSearchInputValue = (state: IState) =>
-  state.search.inputValue;
-
 export const selectSearchInputForSearch = createSelector(
   selectSearchInputValue,
   inputValue => inputValue.trim(),
@@ -66,14 +85,4 @@ export const selectSearchHistory = createSelector(
       return historyObjectsMap[id];
     });
   },
-);
-
-export const selectSearchResultsWithLocation = createSelector(
-  selectSearchObjectsData,
-  searchResults => filter(searchResults, object => isLocationExist(object)),
-);
-
-export const selectSearchHistoryWithLocation = createSelector(
-  selectSearchHistory,
-  history => filter(history, isLocationExist),
 );

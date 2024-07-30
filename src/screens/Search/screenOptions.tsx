@@ -1,20 +1,21 @@
 import {HeaderSearchbar} from 'atoms';
-import {setSearchInputValue} from 'core/actions';
 import {selectSearchInputValue} from 'core/selectors';
 import React, {useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import {styles} from './styles';
+import {useSearchActions, useSearchSelector} from 'core/hooks';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
-  const inputValue = useSelector(selectSearchInputValue);
+  const inputValue = useSearchSelector(selectSearchInputValue);
+  const {setSearchInputValue} = useSearchActions();
 
   const setInputValue = useCallback(
     (text: string) => {
       dispatch(setSearchInputValue(text));
     },
-    [dispatch],
+    [dispatch, setSearchInputValue],
   );
 
   return (

@@ -11,7 +11,7 @@ import type {SearchObjectsResponseDTO} from 'core/types/api';
 export function* searchObjectsSaga({
   payload: {query},
   type,
-  meta: {successAction, failureAction},
+  meta: {successAction, failureAction, reducerId},
 }:
   | ReturnType<typeof searchObjectsRequest>
   | ReturnType<typeof searchMoreObjectsRequest>) {
@@ -19,6 +19,7 @@ export function* searchObjectsSaga({
     const isLoadingMoreAction = type === searchMoreObjectsRequest.type;
     const prevToken: ReturnType<typeof selectSearchNextToken> = yield select(
       selectSearchNextToken,
+      reducerId || '',
     );
 
     if (!query) {

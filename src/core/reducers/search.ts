@@ -7,12 +7,12 @@ import {
   addSearchObjectToHistory,
 } from 'core/actions';
 import type {SearchObjectDTO} from 'core/types/api';
+import {byIdReducer} from 'react-redux-help-kit';
 
 interface SearchState {
   searchObjects: Array<SearchObjectDTO>;
   nextToken: string | null;
   searchHistoryObjects: Array<SearchObjectDTO>;
-  history: string[];
   inputValue: string;
   total: number;
 }
@@ -20,12 +20,11 @@ interface SearchState {
 const initialState: SearchState = {
   searchObjects: [],
   searchHistoryObjects: [],
-  history: [],
   inputValue: '',
   nextToken: null,
   total: 0,
 };
-export const searchReducer = createReducer(initialState, builder => {
+export const reducer = createReducer(initialState, builder => {
   builder.addCase(
     getSearchObjectsHistoryRequest.meta.successAction,
     (state, {payload}) => ({
@@ -66,3 +65,5 @@ export const searchReducer = createReducer(initialState, builder => {
     }),
   );
 });
+
+export const searchReducer = byIdReducer<SearchState>('search')(reducer);

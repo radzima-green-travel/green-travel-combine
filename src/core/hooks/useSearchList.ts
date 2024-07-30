@@ -1,12 +1,4 @@
 import {
-  setSearchInputValue,
-  searchObjectsRequest,
-  getSearchObjectsHistoryRequest,
-  searchMoreObjectsRequest,
-  addSearchObjectToHistory,
-} from 'core/actions/search';
-
-import {
   addObjectIdToUserSearchHistory,
   deleteAllFromUserSearchHistory,
   deleteObjectIdFromUserSearchHistory,
@@ -15,8 +7,6 @@ import {
   selectSearchHistory,
   selectSearchInputValue,
   selectSearchObjectsData,
-  selectSearchResultsWithLocation,
-  selectSearchHistoryWithLocation,
   selectSearchObjectsTotal,
   selectSearchHistoryObjectsIds,
 } from 'core/selectors';
@@ -31,22 +21,26 @@ import {
 } from 'react-redux-help-kit';
 import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
+import {useSearchSelector} from './useSearchSelector';
+import {useSearchActions} from './useSearchActions';
 
-export function useSearchList({
-  withLocation = false,
-}: {withLocation?: boolean} = {}) {
+export function useSearchList() {
   const dispatch = useDispatch();
+  const {
+    setSearchInputValue,
+    searchObjectsRequest,
+    getSearchObjectsHistoryRequest,
+    searchMoreObjectsRequest,
+    addSearchObjectToHistory,
+  } = useSearchActions();
+
   const historyObjectsIds = useSelector(selectSearchHistoryObjectsIds);
-  const historyObjects = useSelector(
-    withLocation ? selectSearchHistoryWithLocation : selectSearchHistory,
-  );
+  const historyObjects = useSearchSelector(selectSearchHistory);
 
-  const searchResults = useSelector(
-    withLocation ? selectSearchResultsWithLocation : selectSearchObjectsData,
-  );
+  const searchResults = useSearchSelector(selectSearchObjectsData);
 
-  const searchResultsTotal = useSelector(selectSearchObjectsTotal);
-  const inputValue = useSelector(selectSearchInputValue);
+  const searchResultsTotal = useSearchSelector(selectSearchObjectsTotal);
+  const inputValue = useSearchSelector(selectSearchInputValue);
 
   const {loading} = useRequestLoading(searchObjectsRequest);
   const {errorTexts} = useOnRequestError(searchObjectsRequest, '');
@@ -65,18 +59,18 @@ export function useSearchList({
 
   const getSearchObjectsHistory = useCallback(() => {
     dispatch(getSearchObjectsHistoryRequest());
-  }, [dispatch]);
+  }, [dispatch, getSearchObjectsHistoryRequest]);
 
   const searchObjects = useCallback(
     (query: string) => {
       dispatch(searchObjectsRequest({query: query}));
     },
-    [dispatch],
+    [dispatch, searchObjectsRequest],
   );
 
   const searchMoreObjects = useCallback(() => {
     dispatch(searchMoreObjectsRequest({query: inputValue}));
-  }, [dispatch, inputValue]);
+  }, [dispatch, inputValue, searchMoreObjectsRequest]);
 
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
@@ -133,7 +127,7 @@ export function useSearchList({
       dispatch(addObjectIdToUserSearchHistory(object.id));
       dispatch(addSearchObjectToHistory({searchObject: object}));
     },
-    [dispatch],
+    [addSearchObjectToHistory, dispatch],
   );
 
   const deleteFromHistory = useCallback(
@@ -149,13 +143,13 @@ export function useSearchList({
 
   const clearInput = useCallback(() => {
     dispatch(setSearchInputValue(''));
-  }, [dispatch]);
+  }, [dispatch, setSearchInputValue]);
 
   const onTextChange = useCallback(
     (value: string) => {
       dispatch(setSearchInputValue(value));
     },
-    [dispatch],
+    [dispatch, setSearchInputValue],
   );
 
   const retryCallback = useCallback(() => {
