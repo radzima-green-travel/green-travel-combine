@@ -14,7 +14,7 @@ export const styles = createThemeStyles({
   item: {
     height: 40,
     minWidth: 84,
-    paddingHorizontal: 26,
+    paddingHorizontal: 25,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
