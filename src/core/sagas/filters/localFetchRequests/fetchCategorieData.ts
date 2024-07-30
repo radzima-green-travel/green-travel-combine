@@ -1,7 +1,7 @@
 import {CategoryAggregationsByObjectsDTO} from 'core/types';
 import {call} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
-import {fetchCategoriesData} from '../../fetchRequests/fetchCategoriesData';
+import {fetchCategoriesData} from '../../fetchRequests';
 import {getObjectByCategories} from 'core/transformators/homePage';
 import type {
   CategoriesResponseDTO,

@@ -1,7 +1,7 @@
 import {call, put} from 'redux-saga/effects';
 import {ObjectFiltersDataDTO} from 'core/types';
 import {RequestError} from 'core/errors';
-import {fetchFiltersData} from './fetchRequests/fetchFiltersData';
+import {fetchFiltersData} from './localFetchRequests';
 import {getFiltersDataRequest} from 'core/actions';
 
 export function* getFiltersDataSaga({

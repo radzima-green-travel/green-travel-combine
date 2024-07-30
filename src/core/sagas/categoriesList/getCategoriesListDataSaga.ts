@@ -10,7 +10,7 @@ import {
 import {RequestError} from 'core/errors';
 import {selectCategoriesList} from 'selectors';
 import {CategoriesListQueryParams} from 'api/graphql/types';
-import {fetchCategoriesData} from '../fetchRequests/fetchCategoriesData';
+import {fetchCategoriesData} from '../fetchRequests';
 import {filter} from 'lodash';
 
 export function* getCategoriesListDataSaga({

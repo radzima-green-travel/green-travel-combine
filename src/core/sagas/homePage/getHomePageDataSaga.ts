@@ -12,7 +12,7 @@ import type {
   CategoriesResponseDTO,
   ObjectsForCategoriesResponseDTO,
 } from 'core/types/api';
-import {fetchCategoriesData} from '../fetchRequests/fetchCategoriesData';
+import {fetchCategoriesData} from '../fetchRequests';
 import {map} from 'lodash';
 
 export function* getHomePageDataSaga({

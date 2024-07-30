@@ -1,8 +1,10 @@
 import {put, all, call, select} from 'redux-saga/effects';
 import {RequestError} from 'core/errors';
-import {fetchCategorieData} from './fetchRequests/fetchCategorieData';
-import {fetchRegionsData} from './fetchRequests/fetchRegionsData';
-import {fetchFiltersData} from './fetchRequests/fetchFiltersData';
+import {
+  fetchCategorieData,
+  fetchRegionsData,
+  fetchFiltersData,
+} from './localFetchRequests';
 import {selectFilters} from 'core/selectors';
 import {getInitialFilters} from 'core/actions';
 
@@ -17,8 +19,8 @@ export function* getInitialFiltersSaga({
     } = yield select(selectFilters);
 
     const [categoriesData, regionsList, filtersData] = yield all([
-      !categoriesDataStore.categoriesList?.length && call(fetchCategorieData),
-      !regionsListStore.length && call(fetchRegionsData),
+      !categoriesDataStore?.categoriesList?.length && call(fetchCategorieData),
+      !regionsListStore?.length && call(fetchRegionsData),
       !filtersDataStore && call(fetchFiltersData, {payload: {}}),
     ]);
 
