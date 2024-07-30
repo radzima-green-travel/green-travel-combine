@@ -131,17 +131,23 @@ export interface ObjectFiltersDataDTO {
   aggregations: ObjectFiltersAggregationsDTO;
 }
 
-export interface RegionItemDTO {
+export interface SpotItemDTO {
   id: string;
   value: string;
-  i18n: Partial<I18nType<keyof RegionItemDTO>>[];
+  i18n: Partial<I18nType<keyof SpotItemDTO>>[];
 }
 
 export type ObjectFiltersDataResponseDTO = {
   filterLandingObjects: ObjectFiltersDataDTO;
 };
 
-export type RegionsListResponseDTO = Array<RegionItemDTO>;
+export type RegionsListResponseDTO = Array<SpotItemDTO>;
+
+export type SettlementsResponseDTO = {
+  items: Array<SpotItemDTO>;
+  nextToken: string;
+  total: number;
+};
 
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
 

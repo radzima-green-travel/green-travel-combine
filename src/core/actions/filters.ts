@@ -5,9 +5,20 @@ import {
   SetActiveFilterPayload,
   CategoryShortDTO,
   ObjectShortDTO,
+  SettlementsData,
 } from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
+
+export const getSettlementsDataRequest = createAsyncAction<
+  string,
+  SettlementsData
+>('GET_SETTLEMENTS_DATA');
+
+export const getSettlementsInitialDataRequest = createAsyncAction<
+  string,
+  SettlementsData
+>('GET_SETTLEMENTS_INITIAL_DATA');
 
 export const getFiltersDataRequest = createAsyncAction<
   FiltersParams,

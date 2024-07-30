@@ -3,10 +3,13 @@ import {
   RegionsListResponseDTO,
   ActiveFilters,
   CategoryShortDTO,
+  SettlementsData,
   ObjectShortDTO,
 } from 'core/types';
-import {createReducer} from '@reduxjs/toolkit';
+import {createReducer, isAnyOf} from '@reduxjs/toolkit';
 import {
+  getSettlementsDataRequest,
+  getSettlementsInitialDataRequest,
   getFiltersDataRequest,
   getFiltersCategories,
   getRegionsList,
@@ -23,10 +26,17 @@ interface FiltersState {
     categoriesList: Array<CategoryShortDTO>;
     objectsByCategory: Record<string, ObjectShortDTO[]>;
   };
+  settlementsData: SettlementsData;
 }
 
 const initialState: FiltersState = {
   regionsList: [],
+  settlementsData: {
+    data: [],
+    requestedItemsCount: 0,
+    nextToken: '',
+    total: 0,
+  },
   fitersData: null,
   activeFilters: {
     googleRating: '',
@@ -75,5 +85,15 @@ export const filtersReducer = createReducer(initialState, builder => {
         ...state,
         fitersData: payload,
       };
-    });
+    })
+    .addMatcher(
+      isAnyOf(
+        getSettlementsDataRequest.meta.successAction,
+        getSettlementsInitialDataRequest.meta.successAction,
+      ),
+      (state, {payload}) => ({
+        ...state,
+        settlementsData: payload,
+      }),
+    );
 });

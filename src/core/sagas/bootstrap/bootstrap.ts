@@ -26,6 +26,7 @@ import {
   getHomePageDataRequest,
   getRegionsList,
   getFiltersCategories,
+  getSettlementsInitialDataRequest,
 } from 'core/actions';
 
 export function* bootstrapSaga() {
@@ -41,6 +42,7 @@ export function* bootstrapSaga() {
       yield all([
         yield put(getRegionsList()),
         yield put(getFiltersCategories()),
+        yield put(getSettlementsInitialDataRequest('')),
       ]);
 
       if (isMyProfileFeatureEnabled) {
