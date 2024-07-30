@@ -3,6 +3,7 @@ import {screenOptions} from './screenOptions';
 
 import {SearchList} from 'organisms';
 import {useSearch} from './hooks';
+import {SuspenseView} from 'atoms';
 
 export const Search = () => {
   const {
@@ -11,18 +12,26 @@ export const Search = () => {
     navigateToObjectDetails,
     deleteItem,
     deleteAllItems,
-    isSearchQueryEmpty,
+    isSearchPreviewVisible,
+    searchSuspenseProps,
+    searchHistorySuspenseProps,
+    listPaninationProps,
   } = useSearch();
 
   return (
-    <SearchList
-      isHistoryVisible={isHistoryVisible}
-      data={data}
-      onItemPress={navigateToObjectDetails}
-      onDeletePress={deleteItem}
-      onDeleteAllPress={deleteAllItems}
-      isSearchQueryEmpty={isSearchQueryEmpty}
-    />
+    <SuspenseView cover {...searchSuspenseProps}>
+      <SuspenseView cover {...searchHistorySuspenseProps}>
+        <SearchList
+          isHistoryVisible={isHistoryVisible}
+          data={data}
+          onItemPress={navigateToObjectDetails}
+          onDeletePress={deleteItem}
+          onDeleteAllPress={deleteAllItems}
+          isSearchPreviewVisible={isSearchPreviewVisible}
+          listPaninationProps={listPaninationProps}
+        />
+      </SuspenseView>
+    </SuspenseView>
   );
 };
 

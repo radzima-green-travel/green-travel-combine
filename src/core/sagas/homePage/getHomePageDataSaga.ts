@@ -15,7 +15,10 @@ import type {
   ObjectsForCategoriesResponseDTO,
 } from 'core/types/api';
 import {map} from 'lodash';
-import {getAppMapObjectsRequest} from 'core/actions';
+import {
+  getAppMapObjectsRequest,
+  getSearchObjectsHistoryRequest,
+} from 'core/actions';
 
 export function* getHomePageDataSaga({
   meta: {failureAction, successAction},
@@ -24,6 +27,7 @@ export function* getHomePageDataSaga({
 >) {
   try {
     yield put(getAppMapObjectsRequest());
+    yield put(getSearchObjectsHistoryRequest());
 
     const [{items: categoriesListItems}, aggregations]: [
       ListCategoriesResponseDTO,

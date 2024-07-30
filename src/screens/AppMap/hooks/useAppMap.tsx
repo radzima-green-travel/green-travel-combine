@@ -15,7 +15,7 @@ import {
 } from 'core/transformators/appMap';
 import {useSelector} from 'react-redux';
 import bbox from '@turf/bbox';
-import {IMapFilter, ObjectMap} from 'core/types';
+import {IMapFilter, ObjectMap, SearchObject} from 'core/types';
 
 import {ShapeSource, Camera, MapView} from '@rnmapbox/maps';
 
@@ -135,6 +135,7 @@ export const useAppMap = () => {
     deleteFromHistory,
     inputValue,
     clearInput,
+    ...searchListProps
   } = useSearchList({withLocation: true});
 
   const {openMenu, closeMenu, isMenuOpened, ...menuProps} = useBottomMenu();
@@ -173,11 +174,17 @@ export const useAppMap = () => {
     }
   }, [isMenuOpened, unselectObject]);
 
-  const selectObjectAndOpenMenu = useCallback((object: ObjectMap) => {
-    hapticFeedbackService.trigger();
-    setSelectedObject({...object});
-    setSelectedMarker(createMarkerFromObject(object));
-  }, []);
+  const selectObjectAndOpenMenu = useCallback(
+    (object: SearchObject) => {
+      hapticFeedbackService.trigger();
+      const objectMap = find(objects, {id: object.id});
+      if (objectMap) {
+        setSelectedObject({...objectMap});
+        setSelectedMarker(createMarkerFromObject(objectMap));
+      }
+    },
+    [objects],
+  );
 
   const onShapePress = useCallback(
     async (objectId: string | null) => {
@@ -222,7 +229,7 @@ export const useAppMap = () => {
 
   const moveCameraToSearchedObject = useCallback(
     async (
-      object: ObjectMap,
+      object: SearchObject,
       cluster: Supercluster<Supercluster.AnyProps, Supercluster.AnyProps>,
       clusterBounds,
     ) => {
@@ -256,7 +263,7 @@ export const useAppMap = () => {
   );
 
   const onSearchItemPress = useCallback(
-    (object: ObjectMap) => {
+    (object: SearchObject) => {
       let newFitlters = selectedFilters;
       let newMarkers = markers;
 
@@ -297,8 +304,8 @@ export const useAppMap = () => {
   );
 
   const onDeleteItem = useCallback(
-    (searchItem: ObjectMap) => {
-      deleteFromHistory(searchItem);
+    (searchItem: SearchObject) => {
+      deleteFromHistory(searchItem.id);
     },
     [deleteFromHistory],
   );
@@ -445,5 +452,6 @@ export const useAppMap = () => {
     loading,
     errorTexts,
     getAppMapObjects,
+    searchListProps,
   };
 };

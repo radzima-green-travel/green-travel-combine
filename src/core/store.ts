@@ -18,6 +18,7 @@ import {
   appMapReducer,
   objectsListReducer,
   categoriesListReducer,
+  userReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -25,16 +26,16 @@ import {reduxStorage} from 'core/reduxStorage';
 import {settingsReducer} from './reducers/SettingsReducer';
 const AsyncStorage = reduxStorage;
 
-const searchPersistConfig = {
-  key: 'search',
-  storage: AsyncStorage,
-  whitelist: ['history'],
-};
-
 const homePersistConfig = {
   key: 'home',
   storage: AsyncStorage,
   whitelist: ['currentData'],
+};
+
+const userPersistConfig = {
+  key: 'user',
+  storage: AsyncStorage,
+  whitelist: ['historyIds'],
 };
 
 const bookmarksPersistConfig = {
@@ -68,7 +69,7 @@ const rootReducer = combineReducers({
   bootsrap: bootstrapReducer,
   home: persistReducer(homePersistConfig, homeReducer),
   objectDetailsMap: objectDetailsMapReducer,
-  search: persistReducer(searchPersistConfig, searchReducer),
+  search: searchReducer,
   authentication: persistReducer(
     authenticationPersistConfig,
     authenticationReducer,
@@ -82,6 +83,7 @@ const rootReducer = combineReducers({
   appMap: appMapReducer,
   objectsList: objectsListReducer,
   categoriesList: categoriesListReducer,
+  user: persistReducer(userPersistConfig, userReducer),
 });
 
 const sagaMiddleware = createSagaMiddleware();

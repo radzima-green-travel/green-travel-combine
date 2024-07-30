@@ -13,6 +13,7 @@ import {
   appMapSaga,
   objectsListSaga,
   categoriesListSaga,
+  searchSaga,
 } from './sagas';
 
 export function* rootSaga() {
@@ -30,5 +31,6 @@ export function* rootSaga() {
     appMapSaga(),
     objectsListSaga(),
     categoriesListSaga(),
+    searchSaga(),
   ]);
 }

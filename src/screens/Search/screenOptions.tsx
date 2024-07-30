@@ -1,5 +1,5 @@
 import {HeaderSearchbar} from 'atoms';
-import {setSearchInputValue} from 'core/reducers';
+import {setSearchInputValue} from 'core/actions';
 import {selectSearchInputValue} from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
