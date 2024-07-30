@@ -8,9 +8,8 @@ import {
 import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
-  getFiltersCategories,
-  getRegionsList,
   setActiveFilter,
+  getInitialFilters,
   clearFilters,
 } from 'core/actions';
 import {xor} from 'lodash';
@@ -52,22 +51,16 @@ export const filtersReducer = createReducer(initialState, builder => {
         [payload.name]: newState,
       };
     })
-    .addCase(getFiltersCategories.meta.successAction, (state, {payload}) => {
-      return {
-        ...state,
-        categoriesData: payload,
-      };
-    })
     .addCase(clearFilters, state => {
       return {
         ...state,
         activeFilters: initialState.activeFilters,
       };
     })
-    .addCase(getRegionsList.meta.successAction, (state, {payload}) => {
+    .addCase(getInitialFilters.meta.successAction, (state, {payload}) => {
       return {
         ...state,
-        regionsList: payload,
+        ...payload,
       };
     })
     .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {

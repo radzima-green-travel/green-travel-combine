@@ -98,7 +98,7 @@ export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
 export interface FiltersParams {
-  filter: {
+  filter?: {
     categories?: string[];
     googleRating?: string;
     regions?: string[];

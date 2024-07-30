@@ -1,4 +1,4 @@
-import {call, put, select, all, spawn, takeEvery} from 'redux-saga/effects';
+import {call, put, select, spawn, takeEvery} from 'redux-saga/effects';
 
 import {
   bootstrapSuccess,
@@ -22,11 +22,7 @@ import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
 import {getObjectAttributesSaga} from '../objectAttributes';
-import {
-  getHomePageDataRequest,
-  getRegionsList,
-  getFiltersCategories,
-} from 'core/actions';
+import {getHomePageDataRequest, getInitialFilters} from 'core/actions';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
@@ -37,11 +33,7 @@ export function* bootstrapSaga() {
       const isAuthorized = yield select(selectUserAuthorized);
 
       yield put(getHomePageDataRequest());
-
-      yield all([
-        yield put(getRegionsList()),
-        yield put(getFiltersCategories()),
-      ]);
+      yield put(getInitialFilters());
 
       if (isMyProfileFeatureEnabled) {
         yield call(initUserAuthSaga);
