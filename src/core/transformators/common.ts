@@ -123,29 +123,3 @@ export const getObjectFullAddress = (
 
   return translatedSpots.join(', ');
 };
-
-// create generic type Test that support any number of types { name: string; age: any }
-
-type filters = {
-  a: string;
-  b: number;
-  c: number;
-};
-
-type setFilters = {
-  [K in keyof filters]: {name: K; value: filters[K]};
-} extends infer Values
-  ? Values[keyof Values]
-  : never;
-
-const asd: filters = {
-  a: 'a',
-  b: 5,
-  c: 3,
-};
-
-const test: setFilters = {name: 'b', value: 5};
-
-if (typeof test.value === 'number') {
-  asd[test.name] = test.value;
-}
