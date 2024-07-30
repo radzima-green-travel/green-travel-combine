@@ -14,7 +14,7 @@ import {Icon} from 'atoms';
 import {COLORS} from 'assets';
 import {themeStyles} from './styles';
 import {useListPagination, useThemeStyles, useTranslation} from 'core/hooks';
-import {SearchObject, TestIDs} from 'core/types';
+import {SearchObject} from 'core/types';
 
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {composeTestID} from 'core/helpers';

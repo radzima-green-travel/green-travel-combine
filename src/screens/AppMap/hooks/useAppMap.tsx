@@ -43,7 +43,7 @@ import {xorBy, find} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {useNavigation} from '@react-navigation/native';
 import {ObjectsListScreenNavigationProps} from '../types';
-import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {getAnalyticsNavigationScreenName, isLocationExist} from 'core/helpers';
 import {useDispatch} from 'react-redux';
 import {getAppMapObjectsRequest} from 'core/actions';
 
@@ -136,7 +136,7 @@ export const useAppMap = () => {
     inputValue,
     clearInput,
     ...searchListProps
-  } = useSearchList({withLocation: true});
+  } = useSearchList();
 
   const {openMenu, closeMenu, isMenuOpened, ...menuProps} = useBottomMenu();
   const {
@@ -264,31 +264,33 @@ export const useAppMap = () => {
 
   const onSearchItemPress = useCallback(
     (object: SearchObject) => {
-      let newFitlters = selectedFilters;
-      let newMarkers = markers;
+      if (isLocationExist(object)) {
+        let newFitlters = selectedFilters;
+        let newMarkers = markers;
 
-      if (selectedFilters.length) {
-        ignoreFitBounds.current = true;
+        if (selectedFilters.length) {
+          ignoreFitBounds.current = true;
 
-        newFitlters = [];
-        newMarkers = getMapMarkers(objects, newFitlters);
+          newFitlters = [];
+          newMarkers = getMapMarkers(objects, newFitlters);
 
-        setSelectedFilters(newFitlters);
-        setMarkers(newMarkers);
+          setSelectedFilters(newFitlters);
+          setMarkers(newMarkers);
+        }
+
+        closeSearchMenu();
+        const clusterBounds = bbox(newMarkers);
+        const cluster = new Supercluster({
+          radius: 40,
+          maxZoom: 14,
+        }).load(newMarkers?.features!);
+
+        moveCameraToSearchedObject(object, cluster, clusterBounds);
+
+        addToHistory(object);
+        selectObjectAndOpenMenu(object);
+        clearInput();
       }
-
-      closeSearchMenu();
-      const clusterBounds = bbox(newMarkers);
-      const cluster = new Supercluster({
-        radius: 40,
-        maxZoom: 14,
-      }).load(newMarkers?.features!);
-
-      moveCameraToSearchedObject(object, cluster, clusterBounds);
-
-      addToHistory(object);
-      selectObjectAndOpenMenu(object);
-      clearInput();
     },
     [
       selectedFilters,

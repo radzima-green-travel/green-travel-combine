@@ -156,6 +156,7 @@ export const AppMap = () => {
                       onDeletePress={onDeleteItem}
                       isHistoryVisible={isHistoryVisible}
                       data={data}
+                      testID={TestIDs.SearchResultList}
                       {...otherSearchListProps}
                     />
                   </SuspenseView>
