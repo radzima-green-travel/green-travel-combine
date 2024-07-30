@@ -1,5 +1,8 @@
-import {all, call, put, select} from 'redux-saga/effects';
-import {graphQLAPI} from 'api/graphql';
+import {call, put, select} from 'redux-saga/effects';
+import {
+  CategoryAggregationsByObjectsDTO,
+  CategoriesResponseDTO,
+} from 'core/types';
 import {
   getCategoriesListInitialDataRequest,
   getCategoriesListNextDataRequest,
@@ -7,7 +10,7 @@ import {
 import {RequestError} from 'core/errors';
 import {selectCategoriesList} from 'selectors';
 import {CategoriesListQueryParams} from 'api/graphql/types';
-import {getCategoriesWithObjects} from 'core/transformators/homePage';
+import {fetchCategoriesData} from '../fetchRequests/fetchCategoriesData';
 import {filter} from 'lodash';
 
 export function* getCategoriesListDataSaga({
@@ -32,13 +35,13 @@ export function* getCategoriesListDataSaga({
       },
     };
 
-    const [{items, nextToken, total}, aggregations] = yield all([
-      call([graphQLAPI, graphQLAPI.getCategoriesList], params),
-      call([graphQLAPI, graphQLAPI.getCategoriesAggregationsByObjects]),
-    ]);
-
-    const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
-      yield call(getCategoriesWithObjects, aggregations);
+    const {
+      categoriesData: {items, nextToken, total},
+      categoriesWithObjects,
+    }: {
+      categoriesData: CategoriesResponseDTO;
+      categoriesWithObjects: CategoryAggregationsByObjectsDTO[];
+    } = yield call(fetchCategoriesData, {payload: params});
 
     const filteredData = filter(items, item =>
       categoriesWithObjects.some(category => category.key === item.id),
