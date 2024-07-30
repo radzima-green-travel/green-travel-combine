@@ -284,7 +284,7 @@ export enum TestIDs {
   ObjectDetailsImage = 'objectDetailsImage',
   HeaderSearchInput = 'headerSearchInput',
   HeaderClearButton = 'headerClearButton',
-  SearchResultItem = 'searchResultItem',
+  SearchResultList = 'searchResultList',
   SearchResultItemTitle = 'searchResultItemTitle',
   FavoritesCard = 'favoritesCard',
   FavoriteButton = 'favoriteButton',
