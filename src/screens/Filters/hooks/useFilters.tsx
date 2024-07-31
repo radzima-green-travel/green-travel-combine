@@ -61,10 +61,6 @@ export const useFilters = () => {
     );
   }, [dispatch, activeFilters]);
 
-  const retryToGetInitialFiltersData = useCallback(() => {
-    dispatch(getInitialFilters());
-  }, [dispatch]);
-
   const updateRatings = useCallback(
     (newRating: string) => {
       dispatch(
@@ -124,7 +120,7 @@ export const useFilters = () => {
     caregoriesData,
     googleRatings,
     getFiltersData,
-    retryToGetInitialFiltersData,
+    getFiltersInitialData,
     chooseRegion,
     clearFilters,
     fullScreenLoading: loadingInitialFilters,
