@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo, PropsWithChildren, useCallback} from 'react';
 import {Keyboard, Pressable, View} from 'react-native';
 import {themeStyles} from './styles';
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
@@ -10,12 +10,7 @@ import {COLORS} from 'assets';
 import {getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
-  data: IObject[];
   bottomInset: number;
-  isHistoryVisible: boolean;
-  onItemPress: (object: IObject) => void;
-  onDeletePress?: (object: IObject) => void;
-  onDeleteAllPress: () => void;
   onTextChange: (value: string) => void;
   inputValue: string;
   onBackPress: () => void;
@@ -23,28 +18,14 @@ interface IProps {
 
 export const AppMapBottomSearchMenu = memo(
   ({
-    data,
     inputValue,
     bottomInset,
-    isHistoryVisible,
-    onItemPress,
-    onDeleteAllPress,
-    onDeletePress,
     onTextChange,
     onBackPress,
-  }: IProps) => {
+    children,
+  }: PropsWithChildren<IProps>) => {
     const styles = useThemeStyles(themeStyles);
     const theme = useColorScheme();
-
-    const onItemPressHandler = useCallback(
-      (object: IObject) => {
-        Keyboard.dismiss();
-        setTimeout(() => {
-          onItemPress(object);
-        }, 0);
-      },
-      [onItemPress],
-    );
 
     return (
       <View style={[styles.container, {paddingBottom: bottomInset}]}>
@@ -74,17 +55,7 @@ export const AppMapBottomSearchMenu = memo(
             }
           />
         </View>
-        <View style={styles.searchListConttainer}>
-          <SearchList
-            FlatListComponent={BottomSheetFlatList}
-            onItemPress={onItemPressHandler}
-            onDeleteAllPress={onDeleteAllPress}
-            onDeletePress={onDeletePress}
-            isHistoryVisible={isHistoryVisible}
-            data={data}
-            isSearchQueryEmpty={!inputValue}
-          />
-        </View>
+        <View style={styles.searchListConttainer}>{children}</View>
       </View>
     );
   },

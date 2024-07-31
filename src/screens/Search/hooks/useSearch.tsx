@@ -1,6 +1,6 @@
 import {useCallback, useEffect} from 'react';
 
-import {IObject} from 'core/types';
+import {SearchObject} from 'core/types';
 import {useSearchList} from 'core/hooks';
 import {Keyboard} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -15,13 +15,16 @@ export const useSearch = () => {
     deleteFromHistory,
     deleteAllFromHistory,
     clearInput,
-    inputValue,
+    searchSuspenseProps,
+    searchHistorySuspenseProps,
+    listPaninationProps,
+    isSearchPreviewVisible,
   } = useSearchList();
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
 
   const navigateToObjectDetails = useCallback(
-    (searchItem: IObject) => {
+    (searchItem: SearchObject) => {
       Keyboard.dismiss();
       addToHistory(searchItem);
       navigation.navigate('ObjectDetails', {
@@ -35,8 +38,8 @@ export const useSearch = () => {
   );
 
   const deleteItem = useCallback(
-    (searchItem: IObject) => {
-      deleteFromHistory(searchItem);
+    (searchItem: SearchObject) => {
+      deleteFromHistory(searchItem.id);
     },
     [deleteFromHistory],
   );
@@ -57,6 +60,9 @@ export const useSearch = () => {
     navigateToObjectDetails,
     deleteItem,
     deleteAllItems,
-    isSearchQueryEmpty: !inputValue,
+    searchSuspenseProps,
+    searchHistorySuspenseProps,
+    listPaninationProps,
+    isSearchPreviewVisible,
   };
 };

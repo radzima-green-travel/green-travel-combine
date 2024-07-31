@@ -5,6 +5,8 @@ import {
   CategoriesResponseDTO,
   ListShortObjectsResponseDTO,
   ObjectsForCategoriesResponseDTO,
+  SearchObjectsResponseDTO,
+  SearchObjectsHistoryResponseDTO,
   RegionsListResponseDTO,
   FiltersParams,
   ObjectFiltersDataResponseDTO,
@@ -17,6 +19,8 @@ import {
   getAppMapObjectsQuery,
   searchCategoriesQuery,
   searchObjectsQuery,
+  getSearchObjectsHistoryQuery,
+  getSearchObjectsQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
 import {
@@ -129,6 +133,39 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
 
     return response.searchCategories;
+  }
+
+  async getSearchObjects({
+    query,
+    nextToken,
+  }: {
+    query: string;
+    nextToken: string | null;
+  }): Promise<SearchObjectsResponseDTO> {
+    const response = await this.executeQuery({
+      query: getSearchObjectsQuery,
+      params: {
+        query,
+        nextToken,
+      },
+    });
+
+    return response.filterLandingObjects;
+  }
+
+  async getSearchObjectsHistory({
+    objectsIds,
+  }: {
+    objectsIds: string[];
+  }): Promise<SearchObjectsHistoryResponseDTO> {
+    const response = await this.executeQuery({
+      query: getSearchObjectsHistoryQuery,
+      params: {
+        match: objectsIds.join(' '),
+      },
+    });
+
+    return response.searchObjects;
   }
 }
 
