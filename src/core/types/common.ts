@@ -8,6 +8,7 @@ import {
   ObjectCategoryMapDTO,
   ObjectMapDTO,
   ObjectShortDTO,
+  SearchObjectDTO,
 } from './api';
 
 export interface ILabelError {
@@ -245,6 +246,9 @@ export interface ObjectMap extends ObjectMapDTO {
 export interface ObjectCategoryMap extends ObjectCategoryMapDTO {
   analyticsMetadata: Record<ExtractI18nKeys<ObjectCategoryMapDTO>, string>;
 }
+export interface SearchObject extends SearchObjectDTO {
+  analyticsMetadata: Record<ExtractI18nKeys<SearchObjectDTO>, string>;
+}
 export interface CardItem {
   name: string;
   cover: string;
@@ -282,7 +286,7 @@ export enum TestIDs {
   ObjectDetailsImage = 'objectDetailsImage',
   HeaderSearchInput = 'headerSearchInput',
   HeaderClearButton = 'headerClearButton',
-  SearchResultItem = 'searchResultItem',
+  SearchResultList = 'searchResultList',
   SearchResultItemTitle = 'searchResultItemTitle',
   FavoritesCard = 'favoritesCard',
   FavoriteButton = 'favoriteButton',

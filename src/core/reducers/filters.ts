@@ -2,9 +2,8 @@ import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
   ActiveFilters,
-  CategoryShortDTO,
   SettlementsData,
-  ObjectShortDTO,
+  CategoryFilterItemDTO,
 } from 'core/types';
 import {createReducer, isAnyOf} from '@reduxjs/toolkit';
 import {
@@ -12,7 +11,7 @@ import {
   getSettlementsInitialDataRequest,
   getFiltersDataRequest,
   setActiveFilter,
-  getInitialFilters,
+  getInitialFiltersRequest,
   clearFilters,
 } from 'core/actions';
 import {xor} from 'lodash';
@@ -21,11 +20,8 @@ interface FiltersState {
   regionsList: RegionsListResponseDTO;
   fitersData: ObjectFiltersDataDTO | null;
   activeFilters: ActiveFilters;
-  categoriesData: {
-    categoriesList: Array<CategoryShortDTO>;
-    objectsByCategory: Record<string, ObjectShortDTO[]>;
-  };
   settlementsData: SettlementsData;
+  categoriesList: CategoryFilterItemDTO[];
 }
 
 const initialState: FiltersState = {
@@ -42,10 +38,7 @@ const initialState: FiltersState = {
     categories: [],
     regions: [],
   },
-  categoriesData: {
-    categoriesList: [],
-    objectsByCategory: {},
-  },
+  categoriesList: [],
 };
 
 export const filtersReducer = createReducer(initialState, builder => {
@@ -67,12 +60,16 @@ export const filtersReducer = createReducer(initialState, builder => {
         activeFilters: initialState.activeFilters,
       };
     })
-    .addCase(getInitialFilters.meta.successAction, (state, {payload}) => {
-      return {
-        ...state,
-        ...payload,
-      };
-    })
+    .addCase(
+      getInitialFiltersRequest.meta.successAction,
+      (state, {payload: {regionsList, categoriesList}}) => {
+        return {
+          ...state,
+          regionsList,
+          categoriesList,
+        };
+      },
+    )
     .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
       return {
         ...state,

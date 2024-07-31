@@ -53,3 +53,20 @@ export const filterObjects = `query filterLandingObjects($filter: FacetLandingOb
   }
 }
 `;
+
+export const getFiltersCategoriesQuery = `query MyQuery(
+  $filter: SearchableCategoryFilterInput = {},
+) {
+  searchCategories(limit: 200, filter: $filter) {
+    items {
+      name
+      id
+      index
+      i18n {
+        name
+        locale
+      }
+   }
+  }
+}
+`;

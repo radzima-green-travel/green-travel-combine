@@ -38,8 +38,7 @@ import {
   ISpotsMap,
   SpotI18n,
   IObjectAdditionalInfoItem,
-  ObjectMap,
-  ObjectMapDTO,
+  LocationDTO,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {
@@ -566,7 +565,7 @@ export function transformQueryData(
   return transformedData;
 }
 
-export function isLocationExist(object: ObjectMapDTO | ObjectMap) {
+export function isLocationExist(object: {location: LocationDTO | null}) {
   return Boolean(object?.location?.lat && object.location.lon);
 }
 

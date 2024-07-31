@@ -1,38 +1,37 @@
-import {put, all, call, select} from 'redux-saga/effects';
-import {RequestError} from 'core/errors';
 import {
-  fetchCategorieData,
-  fetchRegionsData,
-  fetchFiltersData,
-} from './localFetchRequests';
-import {selectFilters} from 'core/selectors';
-import {getInitialFilters} from 'core/actions';
+  CategoriesAggregationsByObjectsResponseDTO,
+  FiltersCategoriesResponseDTO,
+  RegionsListResponseDTO,
+} from 'core/types';
+import {all, put, call} from 'redux-saga/effects';
+import {graphQLAPI} from 'api/graphql';
+import {RequestError} from 'core/errors';
+import {getCategoriesWithObjects} from 'core/transformators/homePage';
+import {filter} from 'lodash';
+import {getInitialFiltersRequest} from 'core/actions';
 
 export function* getInitialFiltersSaga({
   meta: {failureAction, successAction},
-}: ReturnType<typeof getInitialFilters>) {
+}: ReturnType<typeof getInitialFiltersRequest>) {
   try {
-    const {
-      filtersData: filtersDataStore,
-      regionsList: regionsListStore,
-      categoriesData: categoriesDataStore,
-    } = yield select(selectFilters);
-
-    const [categoriesData, regionsList, filtersData] = yield all([
-      !categoriesDataStore?.categoriesList?.length && call(fetchCategorieData),
-      !regionsListStore?.length && call(fetchRegionsData),
-      !filtersDataStore && call(fetchFiltersData, {payload: {}}),
+    const [filtersCategoriesResponse, regionsList, aggregations]: [
+      FiltersCategoriesResponseDTO,
+      RegionsListResponseDTO,
+      CategoriesAggregationsByObjectsResponseDTO,
+    ] = yield all([
+      call([graphQLAPI, graphQLAPI.getFiltersCategories]),
+      call([graphQLAPI, graphQLAPI.getRegions]),
+      call([graphQLAPI, graphQLAPI.getCategoriesAggregationsByObjects]),
     ]);
 
-    yield put(
-      successAction({
-        filtersData: filtersDataStore || filtersData,
-        regionsList: regionsListStore.length ? regionsListStore : regionsList,
-        categoriesData: categoriesDataStore.categoriesList?.length
-          ? categoriesDataStore
-          : categoriesData,
-      }),
+    const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
+      yield call(getCategoriesWithObjects, aggregations);
+
+    const categoriesList = filter(filtersCategoriesResponse.items, item =>
+      categoriesWithObjects.some(category => category.key === item.id),
     );
+
+    yield put(successAction({regionsList, categoriesList}));
   } catch (e) {
     yield put(failureAction(e as RequestError));
   }

@@ -3,18 +3,22 @@ import {useCallback, useEffect} from 'react';
 
 import {
   selectTransformedGoogleRatings,
-  selectTransformedRegions,
+  selectFiltersRegions,
   selectActiveFilters,
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
-  selectTransformedFiltersCategories,
+  selectFiltersCategories,
 } from 'core/selectors';
 import {useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProps} from '../types';
-import {useOnRequestError, useRequestLoading} from 'core/hooks';
+import {
+  useOnRequestError,
+  useRequestLoading,
+  useUpdateEffect,
+} from 'core/hooks';
 import {
   getFiltersDataRequest,
-  getInitialFilters,
+  getInitialFiltersRequest,
   setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
@@ -25,18 +29,20 @@ export const useFilters = () => {
   const {show, ...snackBarProps} = useSnackbar();
   const navigation = useNavigation<HomeScreenNavigationProps>();
 
-  const caregoriesData = useSelector(selectTransformedFiltersCategories);
+  const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
-  const regionsList = useSelector(selectTransformedRegions);
+  const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
   const {categoriesWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
   );
 
-  const {loading: loadingInitialFilters} = useRequestLoading(getInitialFilters);
+  const {loading: loadingInitialFilters} = useRequestLoading(
+    getInitialFiltersRequest,
+  );
   const {errorTexts: errorTextsInitialFilters} = useOnRequestError(
-    getInitialFilters,
+    getInitialFiltersRequest,
     'filters',
   );
 
@@ -44,12 +50,13 @@ export const useFilters = () => {
     getFiltersDataRequest,
   );
 
-  const fullScreenLoading = loadingInitialFilters;
-  const fullScreenError = errorTextsInitialFilters;
-
   const emptyActiveFilters = !Object.values(activeFilters).find(
     value => value?.length,
   );
+
+  const getFiltersInitialData = useCallback(() => {
+    dispatch(getInitialFiltersRequest());
+  }, [dispatch]);
 
   const getFiltersData = useCallback(() => {
     dispatch(
@@ -58,10 +65,6 @@ export const useFilters = () => {
       }),
     );
   }, [dispatch, activeFilters]);
-
-  const retryToGetInitialFiltersData = useCallback(() => {
-    dispatch(getInitialFilters());
-  }, [dispatch]);
 
   const updateRatings = useCallback(
     (newRating: string) => {
@@ -107,9 +110,13 @@ export const useFilters = () => {
     navigation.navigate('Settlements');
   }, [navigation]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
+
+  useEffect(() => {
+    getFiltersInitialData();
+  }, [getFiltersInitialData]);
 
   useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
     show({
@@ -122,12 +129,12 @@ export const useFilters = () => {
     caregoriesData,
     googleRatings,
     getFiltersData,
-    retryToGetInitialFiltersData,
+    getFiltersInitialData,
     chooseRegion,
     clearFilters,
     navigateToSettlements,
-    fullScreenLoading,
-    errorTexts: fullScreenError,
+    fullScreenLoading: loadingInitialFilters,
+    errorTexts: errorTextsInitialFilters,
     filtersDataLoading,
     emptyActiveFilters,
     regions: regionsList,

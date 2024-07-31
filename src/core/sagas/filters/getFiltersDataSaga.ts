@@ -1,7 +1,7 @@
 import {call, put} from 'redux-saga/effects';
 import {ObjectFiltersDataDTO} from 'core/types';
 import {RequestError} from 'core/errors';
-import {fetchFiltersData} from './localFetchRequests';
+import {graphQLAPI} from 'api/graphql';
 import {getFiltersDataRequest} from 'core/actions';
 
 export function* getFiltersDataSaga({
@@ -9,9 +9,10 @@ export function* getFiltersDataSaga({
   payload,
 }: ReturnType<typeof getFiltersDataRequest>) {
   try {
-    const filtersResult: ObjectFiltersDataDTO = yield call(fetchFiltersData, {
+    const filtersResult: ObjectFiltersDataDTO = yield call(
+      [graphQLAPI, graphQLAPI.getFilterObjects],
       payload,
-    });
+    );
 
     yield put(successAction(filtersResult));
   } catch (e) {

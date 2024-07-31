@@ -5,8 +5,18 @@ import type {
   CategoriesResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
 } from 'core/types/api';
+import {CategoriesListQueryParams} from 'api/graphql/types';
 
-export function* fetchCategoriesData({payload}) {
+interface FetchCategoriesDataReturn {
+  categoriesData: CategoriesResponseDTO;
+  categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects>;
+}
+
+export function* fetchCategoriesData({
+  payload,
+}: {
+  payload: CategoriesListQueryParams;
+}): Generator<any, FetchCategoriesDataReturn, any> {
   const [categoriesData, aggregations]: [
     CategoriesResponseDTO,
     CategoriesAggregationsByObjectsResponseDTO,
