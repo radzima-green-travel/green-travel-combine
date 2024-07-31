@@ -7,9 +7,13 @@ import {
   selectActiveFilters,
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
-  selectTransformedFiltersCategories,
+  selectFiltersCategories,
 } from 'core/selectors';
-import {useOnRequestError, useRequestLoading} from 'core/hooks';
+import {
+  useOnRequestError,
+  useRequestLoading,
+  useUpdateEffect,
+} from 'core/hooks';
 import {
   getFiltersDataRequest,
   getInitialFilters,
@@ -22,7 +26,7 @@ export const useFilters = () => {
   const dispatch = useDispatch();
   const {show, ...snackBarProps} = useSnackbar();
 
-  const caregoriesData = useSelector(selectTransformedFiltersCategories);
+  const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectTransformedRegions);
   const activeFilters = useSelector(selectActiveFilters);
@@ -47,6 +51,10 @@ export const useFilters = () => {
   const emptyActiveFilters = !Object.values(activeFilters).find(
     value => value?.length,
   );
+
+  const getFiltersInitialData = useCallback(() => {
+    dispatch(getInitialFilters());
+  }, [dispatch]);
 
   const getFiltersData = useCallback(() => {
     dispatch(
@@ -100,9 +108,13 @@ export const useFilters = () => {
     dispatch(clearFiltersAction());
   }, [dispatch]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
+
+  useEffect(() => {
+    getFiltersInitialData();
+  }, [getFiltersInitialData]);
 
   useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
     show({

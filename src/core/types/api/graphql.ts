@@ -139,11 +139,22 @@ export interface RegionItemDTO {
   i18n: Partial<I18nType<keyof RegionItemDTO>>[];
 }
 
+export interface CategoryFilterItemDTO {
+  i18n: Array<I18nType<'name'>>;
+  name: string;
+  id: string;
+  index: number;
+}
+
 export type ObjectFiltersDataResponseDTO = {
   filterLandingObjects: ObjectFiltersDataDTO;
 };
 
 export type RegionsListResponseDTO = Array<RegionItemDTO>;
+
+export type FiltersCategoriesResponseDTO = {
+  items: Array<CategoryFilterItemDTO>;
+};
 
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
 

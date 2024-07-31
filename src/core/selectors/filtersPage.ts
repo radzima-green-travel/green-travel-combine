@@ -8,15 +8,14 @@ import {
   prepareCategories,
 } from 'core/transformators/filters';
 
-export const selectFilters = (state: IState) => state.filters;
 export const selectFiltersData = (state: IState) => state.filters.fitersData;
 export const selectRegions = (state: IState) => state.filters.regionsList;
 export const selectActiveFilters = (state: IState) =>
   state.filters.activeFilters;
 export const selectFiltersTotal = (state: IState) =>
   state.filters.fitersData?.total;
-export const selectFiltersCategoriesData = (state: IState) =>
-  state.filters.categoriesData;
+export const selectCategoriesList = (state: IState) =>
+  state.filters.categoriesList;
 
 export const selectTransformedRegions = createSelector(
   selectRegions,
@@ -42,10 +41,10 @@ export const selectTransformedAggregationsWithNumberOfItems = createSelector(
   },
 );
 
-export const selectTransformedFiltersCategories = createSelector(
-  selectFiltersCategoriesData,
+export const selectFiltersCategories = createSelector(
+  selectCategoriesList,
   selectAppLanguage,
-  ({categoriesList, objectsByCategory}, locale) => {
-    return prepareCategories(categoriesList, objectsByCategory, locale);
+  (categoriesList, locale) => {
+    return prepareCategories(categoriesList, locale);
   },
 );

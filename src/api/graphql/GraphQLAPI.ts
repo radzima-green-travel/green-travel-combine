@@ -8,6 +8,7 @@ import {
   RegionsListResponseDTO,
   FiltersParams,
   ObjectFiltersDataResponseDTO,
+  FiltersCategoriesResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {SearchSpotsParams} from './types';
@@ -24,7 +25,11 @@ import {
   ObjectsListQueryParams,
 } from 'api/graphql/types';
 import {getObjectsTotalCountQuery} from './queries/common';
-import {searchSpotsQuery, filterObjects} from './queries/filters';
+import {
+  searchSpotsQuery,
+  filterObjects,
+  getFiltersCategoriesQuery,
+} from './queries/filters';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getCategoriesList(
@@ -116,6 +121,14 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
 
     return response.searchObjects;
+  }
+
+  async getFiltersCategories(): Promise<FiltersCategoriesResponseDTO> {
+    const response = await this.executeQuery({
+      query: getFiltersCategoriesQuery,
+    });
+
+    return response.searchCategories;
   }
 }
 

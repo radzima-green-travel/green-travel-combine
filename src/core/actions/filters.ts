@@ -3,8 +3,7 @@ import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
   SetActiveFilterPayload,
-  CategoryShortDTO,
-  ObjectShortDTO,
+  CategoryFilterItemDTO,
 } from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
@@ -17,12 +16,8 @@ export const getFiltersDataRequest = createAsyncAction<
 export const getInitialFilters = createAsyncAction<
   void,
   {
-    filtersData: ObjectFiltersDataDTO;
     regionsList: RegionsListResponseDTO;
-    categoriesData: {
-      categoriesList: Array<CategoryShortDTO>;
-      objectsByCategory: Record<string, ObjectShortDTO[]>;
-    };
+    categoriesList: CategoryFilterItemDTO[];
   }
 >('GET_INITIAL_FILTERS');
 

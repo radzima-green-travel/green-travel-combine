@@ -1,11 +1,10 @@
-import {map, reduce, orderBy, groupBy, filter, isEmpty} from 'lodash';
+import {map} from 'lodash';
 import {extractLocaleSpecificValues} from './common';
 import {
   SupportedLocales,
   RegionsListResponseDTO,
   ObjectFiltersAggregationsDTO,
-  CategoryShortDTO,
-  ObjectShortDTO,
+  CategoryFilterItemDTO,
 } from 'core/types';
 
 export const transformBucketsToCountMap = (
@@ -56,42 +55,11 @@ export function prepareAggregationsWithNumberOfItems(
 }
 
 export function prepareCategories(
-  categoriesList: Array<CategoryShortDTO>,
-  objectsByCategories: Record<string, ObjectShortDTO[]>,
+  categoriesList: Array<CategoryFilterItemDTO>,
   locale: SupportedLocales | null,
 ) {
-  const sortedCategories = orderBy(categoriesList, ['index'], ['asc']);
-
-  const {null: parentCategories, ...subcategoriesMap} = groupBy(
-    sortedCategories,
-    'parent',
-  );
-
-  return reduce(
-    parentCategories,
-    (acc, category) => {
-      let objects = objectsByCategories[category.id];
-
-      if (objects?.length && !category.parent) {
-        acc.push({
-          title: extractLocaleSpecificValues(category, locale).name,
-          categoryId: category.id,
-        });
-      } else {
-        const subCategories = subcategoriesMap[category.id];
-        const subCategoriesWithObjects = filter(subCategories, subCategory => {
-          return !isEmpty(objectsByCategories[subCategory.id]);
-        });
-        if (subCategoriesWithObjects?.length) {
-          acc.push({
-            title: extractLocaleSpecificValues(category, locale).name,
-            categoryId: category.id,
-          });
-        }
-      }
-
-      return acc;
-    },
-    [] as Array<{title: string; categoryId: string}>,
-  );
+  return map(categoriesList, category => ({
+    title: extractLocaleSpecificValues(category, locale).name,
+    categoryId: category.id,
+  }));
 }

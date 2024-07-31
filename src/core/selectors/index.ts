@@ -10,4 +10,3 @@ export * from './visitedObjects';
 export * from './homePage';
 export * from './filtersPage';
 export * from './objectsList';
-export * from './categoriesList';
