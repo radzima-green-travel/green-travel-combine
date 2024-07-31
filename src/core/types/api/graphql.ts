@@ -183,10 +183,6 @@ export type FiltersCategoriesResponseDTO = {
   items: Array<CategoryFilterItemDTO>;
 };
 
-export type FiltersCategoriesResponseDTO = {
-  items: Array<CategoryFilterItemDTO>;
-};
-
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
 
 export type AppMapObjectsResponseDTO = {items: Array<ObjectMapDTO>};
