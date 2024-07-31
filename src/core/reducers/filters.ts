@@ -2,11 +2,12 @@ import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
   ActiveFilters,
+  CategoryFilterItemDTO,
 } from 'core/types';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
-  getRegionsList,
+  getFiltersInitialDataRequest,
   setActiveFilter,
   clearFilters,
 } from 'core/actions';
@@ -14,12 +15,14 @@ import {xor} from 'lodash';
 
 interface FiltersState {
   regionsList: RegionsListResponseDTO;
+  categoriesList: CategoryFilterItemDTO[];
   fitersData: ObjectFiltersDataDTO | null;
   activeFilters: ActiveFilters;
 }
 
 const initialState: FiltersState = {
   regionsList: [],
+  categoriesList: [],
   fitersData: null,
   activeFilters: {
     googleRating: '',
@@ -47,12 +50,16 @@ export const filtersReducer = createReducer(initialState, builder => {
         activeFilters: initialState.activeFilters,
       };
     })
-    .addCase(getRegionsList.meta.successAction, (state, {payload}) => {
-      return {
-        ...state,
-        regionsList: payload,
-      };
-    })
+    .addCase(
+      getFiltersInitialDataRequest.meta.successAction,
+      (state, {payload: {regionsList, categoriesList}}) => {
+        return {
+          ...state,
+          regionsList,
+          categoriesList,
+        };
+      },
+    )
     .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
       return {
         ...state,

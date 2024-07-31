@@ -22,7 +22,7 @@ export const Filters = () => {
     activeRegions,
     activeCategories,
     emptyActiveFilters,
-    getFiltersData,
+    getFiltersInitialData,
     updateRatings,
     chooseCategory,
     chooseRegion,
@@ -60,7 +60,7 @@ export const Filters = () => {
       <SuspenseView
         loading={fullScreenLoading}
         error={errorTexts}
-        retryCallback={getFiltersData}>
+        retryCallback={getFiltersInitialData}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{t('title')}</Text>
           <FiltersSectionContainer itemName={t('allCategories')}>

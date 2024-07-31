@@ -1,4 +1,5 @@
 import {
+  CategoryFilterItemDTO,
   FiltersParams,
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
@@ -12,9 +13,10 @@ export const getFiltersDataRequest = createAsyncAction<
   ObjectFiltersDataDTO
 >('GET_FILTERS_DATA');
 
-export const getRegionsList = createAsyncAction<void, RegionsListResponseDTO>(
-  'GET_REGIONS_LIST',
-);
+export const getFiltersInitialDataRequest = createAsyncAction<
+  void,
+  {regionsList: RegionsListResponseDTO; categoriesList: CategoryFilterItemDTO[]}
+>('GET_FILTERS_INITIAL_DATA_REQUEST');
 
 export const setActiveFilter =
   createAction<SetActiveFilterPayload>('SET_ACTIVE_FILTER');

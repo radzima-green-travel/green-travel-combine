@@ -6,16 +6,31 @@ import {
   prepareGoogleRatings,
   prepareAggregationsWithNumberOfItems,
 } from 'core/transformators/filters';
+import {extractLocaleSpecificValues} from 'core/transformators/common';
+import {map} from 'lodash';
 
 export const selectFiltersData = (state: IState) => state.filters.fitersData;
-export const selectRegions = (state: IState) => state.filters.regionsList;
+export const selectRegionsRawData = (state: IState) =>
+  state.filters.regionsList;
+export const selectCategoriesRawData = (state: IState) =>
+  state.filters.categoriesList;
 export const selectActiveFilters = (state: IState) =>
   state.filters.activeFilters;
 export const selectFiltersTotal = (state: IState) =>
   state.filters.fitersData?.total;
 
+export const selectFiltersCategories = createSelector(
+  selectCategoriesRawData,
+  selectAppLanguage,
+  (categories, locale) => {
+    return map(categories, category =>
+      extractLocaleSpecificValues(category, locale),
+    );
+  },
+);
+
 export const selectTransformedRegions = createSelector(
-  selectRegions,
+  selectRegionsRawData,
   selectAppLanguage,
   (regions, locale) => {
     return prepareRegionsObject(regions, locale);

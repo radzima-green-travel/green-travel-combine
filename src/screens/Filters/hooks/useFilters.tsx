@@ -2,25 +2,26 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useCallback, useEffect} from 'react';
 
 import {
-  selectHomePageCategoriesList,
+  selectFiltersCategories,
   selectTransformedGoogleRatings,
   selectTransformedRegions,
   selectActiveFilters,
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
 } from 'core/selectors';
-import {useRequestLoading} from 'react-redux-help-kit';
+import {useRequestLoading, useUpdateEffect} from 'react-redux-help-kit';
 import {
   getFiltersDataRequest,
-  getRegionsList,
+  getFiltersInitialDataRequest,
   setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
+import {useOnRequestError} from 'core/hooks';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
 
-  const caregoriesData = useSelector(selectHomePageCategoriesList);
+  const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectTransformedRegions);
   const activeFilters = useSelector(selectActiveFilters);
@@ -29,7 +30,12 @@ export const useFilters = () => {
     selectTransformedAggregationsWithNumberOfItems,
   );
 
-  const {loading: loadingRegions} = useRequestLoading(getRegionsList);
+  const {loading: fullScreenLoading} = useRequestLoading(
+    getFiltersInitialDataRequest,
+  );
+
+  const {errorTexts} = useOnRequestError(getFiltersInitialDataRequest, '');
+
   const {loading: filtersDataLoading} = useRequestLoading(
     getFiltersDataRequest,
   );
@@ -86,20 +92,28 @@ export const useFilters = () => {
     dispatch(clearFiltersAction());
   }, [dispatch]);
 
-  useEffect(() => {
+  const getFiltersInitialData = useCallback(() => {
+    dispatch(getFiltersInitialDataRequest());
+  }, [dispatch]);
+
+  useUpdateEffect(() => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
+
+  useEffect(() => {
+    getFiltersInitialData();
+  }, [getFiltersInitialData]);
 
   return {
     caregoriesData,
     googleRatings,
-    getFiltersData,
+    getFiltersInitialData,
     chooseRegion,
     clearFilters,
-    fullScreenLoading: loadingRegions,
+    fullScreenLoading: fullScreenLoading,
     filtersDataLoading,
     emptyActiveFilters,
-    errorTexts: null,
+    errorTexts,
     regions: regionsList,
     activeRating: activeFilters.googleRating,
     activeRegions: activeFilters.regions,
