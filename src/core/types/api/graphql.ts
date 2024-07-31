@@ -109,7 +109,56 @@ export interface ObjectsForCategoriesResponseDTO {
 export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
+export interface FiltersParams {
+  filter: {
+    categories?: string[];
+    googleRating?: string;
+    regions?: string[];
+    statuses?: string | string[];
+  };
+}
+
+export type ObjectFiltersAggregationsDTO = {
+  categories: {
+    facets: {
+      buckets: CategoryAggregationsByObjectsDTO[];
+    };
+  };
+  regions: {
+    facets: {
+      buckets: CategoryAggregationsByObjectsDTO[];
+    };
+  };
+  googleRatings: {
+    facets: {
+      buckets: {
+        key: string;
+        from: number;
+      }[];
+    };
+  };
+};
+
+export interface ObjectFiltersDataDTO {
+  total: number;
+  googleRatings: {key: string; from: string}[];
+  aggregations: ObjectFiltersAggregationsDTO;
+}
+
+export interface RegionItemDTO {
+  id: string;
+  value: string;
+  i18n: Partial<I18nType<keyof RegionItemDTO>>[];
+}
+
+export type ObjectFiltersDataResponseDTO = {
+  filterLandingObjects: ObjectFiltersDataDTO;
+};
+
+export type RegionsListResponseDTO = Array<RegionItemDTO>;
+
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
+
 export type AppMapObjectsResponseDTO = {items: Array<ObjectMapDTO>};
 
 export interface PaginatedList<T> {

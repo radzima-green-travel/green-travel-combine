@@ -7,8 +7,12 @@ import {
   ObjectsForCategoriesResponseDTO,
   SearchObjectsResponseDTO,
   SearchObjectsHistoryResponseDTO,
+  RegionsListResponseDTO,
+  FiltersParams,
+  ObjectFiltersDataResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
+import {SearchSpotsParams} from './types';
 import {
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
@@ -24,6 +28,7 @@ import {
   ObjectsListQueryParams,
 } from 'api/graphql/types';
 import {getObjectsTotalCountQuery} from './queries/common';
+import {searchSpotsQuery, filterObjects} from './queries/filters';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getCategoriesList(
@@ -50,6 +55,41 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
     return response.filterLandingObjects?.aggregations?.categories?.facets
       ?.buckets;
+  }
+
+  async getRegions(): Promise<RegionsListResponseDTO> {
+    const response = await this.executeQuery({
+      query: searchSpotsQuery,
+      params: {
+        limit: 100,
+        filter: {
+          type: {
+            eq: 'REGION',
+          },
+        },
+      } as SearchSpotsParams,
+    });
+
+    return response.searchSpots.items;
+  }
+
+  async getFilterObjects({
+    filter,
+  }: FiltersParams): Promise<ObjectFiltersDataResponseDTO> {
+    const response = await this.executeQuery({
+      query: filterObjects,
+      params: {
+        filter: {
+          statuses: ['published'],
+          ...filter,
+          googleRating: filter.googleRating || null,
+          categories: filter.categories?.length ? filter.categories : null,
+          regions: filter.regions?.length ? filter.regions : null,
+        },
+      },
+    });
+
+    return response.filterLandingObjects;
   }
 
   async getObjectsTotalCount(): Promise<AppMapObjectsTotalCountResponseDTO> {

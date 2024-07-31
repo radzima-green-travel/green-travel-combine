@@ -7,6 +7,7 @@ export * from './SettingsReducer';
 export * from './AppConfigurationReducer';
 export * from './VisitedObjectsReducer';
 export * from './home';
+export * from './filters';
 export * from './appMap';
 export * from './categoriesList';
 export * from './objectsList';

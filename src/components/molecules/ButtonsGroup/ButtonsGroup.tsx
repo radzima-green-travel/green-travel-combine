@@ -27,6 +27,7 @@ export const ButtonsGroup = memo(
           const style = [
             styles.button,
             withShadow && styles.buttonShadow,
+            index === buttons.length - 1 && styles.lastButton,
             !buttonProps.isIconOnlyButton && styles.nonIconButton,
           ];
           return <Button style={style} key={index} {...buttonProps} />;
