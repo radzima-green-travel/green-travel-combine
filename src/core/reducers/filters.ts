@@ -17,7 +17,7 @@ import {xor} from 'lodash';
 
 interface FiltersState {
   regionsList: RegionsListResponseDTO;
-  fitersData: ObjectFiltersDataDTO | null;
+  filtersData: ObjectFiltersDataDTO | null;
   activeFilters: ActiveFilters;
   settlementsData: SettlementsData;
   categoriesList: CategoryFilterItemDTO[];
@@ -31,7 +31,7 @@ const initialState: FiltersState = {
     nextToken: '',
     total: 0,
   },
-  fitersData: null,
+  filtersData: null,
   activeFilters: {
     googleRating: '',
     categories: [],
@@ -61,18 +61,19 @@ export const filtersReducer = createReducer(initialState, builder => {
     })
     .addCase(
       getInitialFiltersRequest.meta.successAction,
-      (state, {payload: {regionsList, categoriesList}}) => {
+      (state, {payload: {regionsList, categoriesList, filtersData}}) => {
         return {
           ...state,
           regionsList,
           categoriesList,
+          filtersData,
         };
       },
     )
     .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
       return {
         ...state,
-        fitersData: payload,
+        filtersData: payload,
       };
     })
     .addCase(
