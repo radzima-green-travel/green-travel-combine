@@ -40,24 +40,19 @@ export const Filters = () => {
 
   const buttons = useMemo(() => {
     return [
-      ...(!emptyActiveFilters
-        ? [
-            {
-              onPress: clearFilters,
-              theme: 'secondary' as const,
-              text: t('clear'),
-              textStyle: styles.button,
-              testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
-            },
-          ]
-        : []),
+      {
+        onPress: clearFilters,
+        theme: 'secondary' as const,
+        text: t('clear'),
+        textStyle: styles.button,
+        disabled: emptyActiveFilters,
+        testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
+      },
       {
         onPress: () => {},
         theme: 'primary' as const,
         textStyle: styles.button,
-        text: t(emptyActiveFilters ? 'showAll' : 'showFiltered', {
-          amount: total,
-        }),
+        text: t('showFiltered', {amount: total}),
         loading: filtersDataLoading,
         testID: composeTestID(TestIDs.FilterButton, 'showFiltered'),
       },

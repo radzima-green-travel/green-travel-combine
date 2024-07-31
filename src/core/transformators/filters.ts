@@ -1,4 +1,4 @@
-import {map} from 'lodash';
+import {map, filter} from 'lodash';
 import {ObjectFiltersAggregationsDTO} from 'core/types';
 
 export const transformBucketsToCountMap = (

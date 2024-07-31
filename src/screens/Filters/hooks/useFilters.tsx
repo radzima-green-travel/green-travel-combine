@@ -110,7 +110,7 @@ export const useFilters = () => {
     navigation.navigate('Settlements');
   }, [navigation]);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
 
