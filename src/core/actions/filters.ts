@@ -14,11 +14,6 @@ export const getSettlementsDataRequest = createAsyncAction<
   SettlementsData
 >('GET_SETTLEMENTS_DATA');
 
-export const getSettlementsInitialDataRequest = createAsyncAction<
-  string,
-  SettlementsData
->('GET_SETTLEMENTS_INITIAL_DATA');
-
 export const getFiltersDataRequest = createAsyncAction<
   FiltersParams,
   ObjectFiltersDataDTO

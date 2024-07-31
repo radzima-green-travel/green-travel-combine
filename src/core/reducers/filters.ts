@@ -5,10 +5,9 @@ import {
   SettlementsData,
   CategoryFilterItemDTO,
 } from 'core/types';
-import {createReducer, isAnyOf} from '@reduxjs/toolkit';
+import {createReducer} from '@reduxjs/toolkit';
 import {
   getSettlementsDataRequest,
-  getSettlementsInitialDataRequest,
   getFiltersDataRequest,
   setActiveFilter,
   getInitialFiltersRequest,
@@ -76,11 +75,8 @@ export const filtersReducer = createReducer(initialState, builder => {
         fitersData: payload,
       };
     })
-    .addMatcher(
-      isAnyOf(
-        getSettlementsDataRequest.meta.successAction,
-        getSettlementsInitialDataRequest.meta.successAction,
-      ),
+    .addCase(
+      getSettlementsDataRequest.meta.successAction,
       (state, {payload}) => ({
         ...state,
         settlementsData: payload,
