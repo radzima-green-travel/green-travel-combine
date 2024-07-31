@@ -2,12 +2,13 @@ import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
   ActiveFilters,
+  CategoryFilterItemDTO,
 } from 'core/types';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
-  getRegionsList,
   setActiveFilter,
+  getInitialFiltersRequest,
   clearFilters,
 } from 'core/actions';
 import {xor} from 'lodash';
@@ -16,6 +17,7 @@ interface FiltersState {
   regionsList: RegionsListResponseDTO;
   fitersData: ObjectFiltersDataDTO | null;
   activeFilters: ActiveFilters;
+  categoriesList: CategoryFilterItemDTO[];
 }
 
 const initialState: FiltersState = {
@@ -26,6 +28,7 @@ const initialState: FiltersState = {
     categories: [],
     regions: [],
   },
+  categoriesList: [],
 };
 
 export const filtersReducer = createReducer(initialState, builder => {
@@ -47,12 +50,16 @@ export const filtersReducer = createReducer(initialState, builder => {
         activeFilters: initialState.activeFilters,
       };
     })
-    .addCase(getRegionsList.meta.successAction, (state, {payload}) => {
-      return {
-        ...state,
-        regionsList: payload,
-      };
-    })
+    .addCase(
+      getInitialFiltersRequest.meta.successAction,
+      (state, {payload: {regionsList, categoriesList}}) => {
+        return {
+          ...state,
+          regionsList,
+          categoriesList,
+        };
+      },
+    )
     .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
       return {
         ...state,

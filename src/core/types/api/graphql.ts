@@ -94,8 +94,10 @@ export interface CategoryAggregationsByObjectsDTO {
   key: string;
 }
 
-export interface ListCategoriesResponseDTO {
+export interface CategoriesResponseDTO {
   items: Array<CategoryShortDTO>;
+  nextToken: string;
+  total: number;
 }
 
 export interface ListShortObjectsResponseDTO {
@@ -110,7 +112,7 @@ export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
 export interface FiltersParams {
-  filter: {
+  filter?: {
     categories?: string[];
     googleRating?: string;
     regions?: string[];
@@ -151,11 +153,22 @@ export interface RegionItemDTO {
   i18n: Partial<I18nType<keyof RegionItemDTO>>[];
 }
 
+export interface CategoryFilterItemDTO {
+  i18n: Array<I18nType<'name'>>;
+  name: string;
+  id: string;
+  index: number;
+}
+
 export type ObjectFiltersDataResponseDTO = {
   filterLandingObjects: ObjectFiltersDataDTO;
 };
 
 export type RegionsListResponseDTO = Array<RegionItemDTO>;
+
+export type FiltersCategoriesResponseDTO = {
+  items: Array<CategoryFilterItemDTO>;
+};
 
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
 

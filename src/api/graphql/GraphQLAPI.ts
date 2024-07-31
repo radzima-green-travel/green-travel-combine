@@ -2,7 +2,7 @@ import {
   AppMapObjectsTotalCountResponseDTO,
   AppMapObjectsResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
-  ListCategoriesResponseDTO,
+  CategoriesResponseDTO,
   ListShortObjectsResponseDTO,
   ObjectsForCategoriesResponseDTO,
   SearchObjectsResponseDTO,
@@ -10,6 +10,7 @@ import {
   RegionsListResponseDTO,
   FiltersParams,
   ObjectFiltersDataResponseDTO,
+  FiltersCategoriesResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {SearchSpotsParams} from './types';
@@ -28,12 +29,16 @@ import {
   ObjectsListQueryParams,
 } from 'api/graphql/types';
 import {getObjectsTotalCountQuery} from './queries/common';
-import {searchSpotsQuery, filterObjects} from './queries/filters';
+import {
+  searchSpotsQuery,
+  filterObjects,
+  getFiltersCategoriesQuery,
+} from './queries/filters';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getCategoriesList(
     params: CategoriesListQueryParams,
-  ): Promise<ListCategoriesResponseDTO> {
+  ): Promise<CategoriesResponseDTO> {
     const response = await this.executeQuery({
       query: searchCategoriesQuery,
       params,
@@ -74,7 +79,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
   }
 
   async getFilterObjects({
-    filter,
+    filter = {},
   }: FiltersParams): Promise<ObjectFiltersDataResponseDTO> {
     const response = await this.executeQuery({
       query: filterObjects,
@@ -120,6 +125,14 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
 
     return response.searchObjects;
+  }
+
+  async getFiltersCategories(): Promise<FiltersCategoriesResponseDTO> {
+    const response = await this.executeQuery({
+      query: getFiltersCategoriesQuery,
+    });
+
+    return response.searchCategories;
   }
 
   async getSearchObjects({

@@ -1,10 +1,5 @@
 import {map} from 'lodash';
-import {extractLocaleSpecificValues} from './common';
-import {
-  SupportedLocales,
-  RegionsListResponseDTO,
-  ObjectFiltersAggregationsDTO,
-} from 'core/types';
+import {ObjectFiltersAggregationsDTO} from 'core/types';
 
 export const transformBucketsToCountMap = (
   buckets: {key: string; doc_count: number}[],
@@ -13,18 +8,6 @@ export const transformBucketsToCountMap = (
     acc[key] = doc_count;
     return acc;
   }, {});
-
-export function prepareRegionsObject(
-  regions: RegionsListResponseDTO,
-  locale: SupportedLocales | null,
-) {
-  return map(regions, item => {
-    return {
-      id: item.id,
-      value: extractLocaleSpecificValues(item, locale).value,
-    };
-  });
-}
 
 export function prepareGoogleRatings(
   ratings: {

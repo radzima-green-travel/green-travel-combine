@@ -2,34 +2,47 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useCallback, useEffect} from 'react';
 
 import {
-  selectHomePageCategoriesList,
   selectTransformedGoogleRatings,
-  selectTransformedRegions,
+  selectFiltersRegions,
   selectActiveFilters,
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
+  selectFiltersCategories,
 } from 'core/selectors';
-import {useRequestLoading} from 'react-redux-help-kit';
+import {
+  useOnRequestError,
+  useRequestLoading,
+  useUpdateEffect,
+} from 'core/hooks';
 import {
   getFiltersDataRequest,
-  getRegionsList,
+  getInitialFiltersRequest,
   setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
+import {useSnackbar} from 'components/atoms';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
+  const {show, ...snackBarProps} = useSnackbar();
 
-  const caregoriesData = useSelector(selectHomePageCategoriesList);
+  const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
-  const regionsList = useSelector(selectTransformedRegions);
+  const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
   const {categoriesWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
   );
 
-  const {loading: loadingRegions} = useRequestLoading(getRegionsList);
+  const {loading: loadingInitialFilters} = useRequestLoading(
+    getInitialFiltersRequest,
+  );
+  const {errorTexts: errorTextsInitialFilters} = useOnRequestError(
+    getInitialFiltersRequest,
+    'filters',
+  );
+
   const {loading: filtersDataLoading} = useRequestLoading(
     getFiltersDataRequest,
   );
@@ -37,6 +50,10 @@ export const useFilters = () => {
   const emptyActiveFilters = !Object.values(activeFilters).find(
     value => value?.length,
   );
+
+  const getFiltersInitialData = useCallback(() => {
+    dispatch(getInitialFiltersRequest());
+  }, [dispatch]);
 
   const getFiltersData = useCallback(() => {
     dispatch(
@@ -86,20 +103,32 @@ export const useFilters = () => {
     dispatch(clearFiltersAction());
   }, [dispatch]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     getFiltersData();
   }, [dispatch, getFiltersData]);
+
+  useEffect(() => {
+    getFiltersInitialData();
+  }, [getFiltersInitialData]);
+
+  useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
+    show({
+      title: errorLabel.text,
+      type: 'error',
+    });
+  });
 
   return {
     caregoriesData,
     googleRatings,
     getFiltersData,
+    getFiltersInitialData,
     chooseRegion,
     clearFilters,
-    fullScreenLoading: loadingRegions,
+    fullScreenLoading: loadingInitialFilters,
+    errorTexts: errorTextsInitialFilters,
     filtersDataLoading,
     emptyActiveFilters,
-    errorTexts: null,
     regions: regionsList,
     activeRating: activeFilters.googleRating,
     activeRegions: activeFilters.regions,
@@ -109,5 +138,6 @@ export const useFilters = () => {
     total,
     categoriesWithNumberOfItems,
     regionsWithNumberOfItems,
+    snackBarProps,
   };
 };

@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {Text, View, Switch, TouchableOpacity} from 'react-native';
-import {Chip, Multiswitch, SuspenseView, Button, Icon} from 'atoms';
+import {Chip, Multiswitch, SuspenseView, Button, Icon, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {ButtonsGroup, FiltersSectionContainer} from 'molecules';
 import {screenOptions} from './screenOptions';
@@ -22,7 +22,7 @@ export const Filters = () => {
     activeRegions,
     activeCategories,
     emptyActiveFilters,
-    getFiltersData,
+    getFiltersInitialData,
     updateRatings,
     chooseCategory,
     chooseRegion,
@@ -33,6 +33,7 @@ export const Filters = () => {
     total,
     regionsWithNumberOfItems,
     categoriesWithNumberOfItems,
+    snackBarProps,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -60,19 +61,19 @@ export const Filters = () => {
       <SuspenseView
         loading={fullScreenLoading}
         error={errorTexts}
-        retryCallback={getFiltersData}>
+        retryCallback={getFiltersInitialData}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{t('title')}</Text>
           <FiltersSectionContainer itemName={t('allCategories')}>
             <View style={styles.categoryList}>
-              {caregoriesData?.map(category => (
+              {caregoriesData?.map(({id, name}) => (
                 <Chip
-                  active={activeCategories?.includes(category.id)}
-                  disabled={categoriesWithNumberOfItems[category.id] === 0}
-                  onPress={() => chooseCategory(category.id)}
-                  key={category.id}
-                  testID={category.name}
-                  text={category.name}
+                  active={activeCategories?.includes(id)}
+                  disabled={categoriesWithNumberOfItems[id] === 0}
+                  onPress={() => chooseCategory(id)}
+                  key={id}
+                  testID={name}
+                  text={name}
                   style={styles.chipContainer}
                 />
               ))}
@@ -81,14 +82,14 @@ export const Filters = () => {
           <FiltersSectionContainer itemName={t('whereToLook')}>
             <Text style={styles.subFilterName}>{t('regions')}</Text>
             <View style={styles.categoryList}>
-              {regions?.map(region => (
+              {regions?.map(({id, value}) => (
                 <Chip
-                  key={region.id}
-                  active={activeRegions?.includes(region.id)}
-                  disabled={regionsWithNumberOfItems[region.id] === 0}
-                  testID={region.id}
-                  onPress={() => chooseRegion(region.id)}
-                  text={region.value}
+                  active={activeRegions?.includes(id)}
+                  disabled={regionsWithNumberOfItems[id] === 0}
+                  onPress={() => chooseRegion(id)}
+                  key={id}
+                  testID={value}
+                  text={value}
                   style={styles.chipContainer}
                 />
               ))}
@@ -144,6 +145,7 @@ export const Filters = () => {
             containerStyle={styles.buttonsGroupContainer}
           />
         </ScrollView>
+        <SnackBar isOnTop {...snackBarProps} />
       </SuspenseView>
     </View>
   );

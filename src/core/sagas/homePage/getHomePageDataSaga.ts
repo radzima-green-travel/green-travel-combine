@@ -1,21 +1,19 @@
-import {all, call, put} from 'redux-saga/effects';
-import {graphQLAPI} from 'api/graphql';
+import {call, put} from 'redux-saga/effects';
+import {CategoryAggregationsByObjectsDTO} from 'core/types';
 import {
   getHomePageDataRequest,
   refreshHomePageDataRequest,
 } from 'core/actions/home';
+import {graphQLAPI} from 'api/graphql';
 import {RequestError} from 'core/errors';
-import {
-  getCategoriesWithObjects,
-  getObjectByCategories,
-} from 'core/transformators/homePage';
+import {getAppMapObjectsRequest} from 'core/actions';
+import {getObjectByCategories} from 'core/transformators/homePage';
 import type {
-  ListCategoriesResponseDTO,
-  CategoriesAggregationsByObjectsResponseDTO,
+  CategoriesResponseDTO,
   ObjectsForCategoriesResponseDTO,
 } from 'core/types/api';
+import {fetchCategoriesData} from '../fetchRequests';
 import {map} from 'lodash';
-import {getAppMapObjectsRequest} from 'core/actions';
 
 export function* getHomePageDataSaga({
   meta: {failureAction, successAction},
@@ -25,21 +23,20 @@ export function* getHomePageDataSaga({
   try {
     yield put(getAppMapObjectsRequest());
 
-    const [{items: categoriesListItems}, aggregations]: [
-      ListCategoriesResponseDTO,
-      CategoriesAggregationsByObjectsResponseDTO,
-    ] = yield all([
-      call([graphQLAPI, graphQLAPI.getCategoriesList], {limit: 200}),
-      call([graphQLAPI, graphQLAPI.getCategoriesAggregationsByObjects]),
-    ]);
-    const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
-      yield call(getCategoriesWithObjects, aggregations);
+    const {
+      categoriesData: {items},
+      categoriesWithObjects,
+    }: {
+      categoriesData: CategoriesResponseDTO;
+      categoriesWithObjects: CategoryAggregationsByObjectsDTO[];
+    } = yield call(fetchCategoriesData, {payload: {limit: 200}});
 
     const objectForCategoriesResponse: ObjectsForCategoriesResponseDTO =
       yield call(
         [graphQLAPI, graphQLAPI.getObjectsForCategories],
         map(categoriesWithObjects, 'key'),
       );
+
     const objectsByCategory: ReturnType<typeof getObjectByCategories> =
       yield call(
         getObjectByCategories,
@@ -49,7 +46,7 @@ export function* getHomePageDataSaga({
 
     yield put(
       successAction({
-        categoriesList: categoriesListItems,
+        categoriesList: items,
         objectsByCategory: objectsByCategory,
       }),
     );
