@@ -14,7 +14,7 @@ export const selectActiveFilters = (state: IState) =>
   state.filters.activeFilters;
 export const selectFiltersTotal = (state: IState) =>
   state.filters.fitersData?.total;
-export const selectCategoriesList = (state: IState) =>
+export const selectFiltersCategoriesList = (state: IState) =>
   state.filters.categoriesList;
 
 export const selectFiltersRegions = createSelector(
@@ -26,7 +26,7 @@ export const selectFiltersRegions = createSelector(
 );
 
 export const selectFiltersCategories = createSelector(
-  selectCategoriesList,
+  selectFiltersCategoriesList,
   selectAppLanguage,
   (categories, locale) => {
     return map(categories, category =>
