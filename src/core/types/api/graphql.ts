@@ -75,6 +75,20 @@ export interface ObjectMapDTO {
   length: number | null;
 }
 
+export interface SearchObjetcCategoryDTO {
+  name: string;
+  icon: string;
+  i18n: Array<I18nType<'name'>>;
+}
+
+export interface SearchObjectDTO {
+  name: string;
+  id: string;
+  i18n: Array<I18nType<'name'>>;
+  category: SearchObjetcCategoryDTO;
+  location: LocationDTO | null;
+}
+
 export interface CategoryAggregationsByObjectsDTO {
   doc_count: number;
   key: string;
@@ -152,3 +166,12 @@ export interface PaginatedList<T> {
   nextToken: string;
   total: number;
 }
+export type SearchObjectsResponseDTO = {
+  items: Array<SearchObjectDTO>;
+  nextToken: string | null;
+  total: number;
+};
+
+export type SearchObjectsHistoryResponseDTO = {
+  items: Array<SearchObjectDTO>;
+};

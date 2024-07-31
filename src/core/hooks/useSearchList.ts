@@ -1,64 +1,160 @@
 import {
-  addObjectToSearchHistory,
-  deleteObjectFromSearchHistory,
-  deleteAllFromSearchHistory,
-  setSearchInputValue,
-} from 'core/reducers';
+  addObjectIdToUserSearchHistory,
+  deleteAllFromUserSearchHistory,
+  deleteObjectIdFromUserSearchHistory,
+} from 'core/actions';
 import {
   selectSearchHistory,
   selectSearchInputValue,
-  selectIsHistoryVisible,
-  selectSearchResults,
-  selectSearchResultsWithLocation,
-  selectSearchHistoryWithLocation,
+  selectSearchObjectsData,
+  selectSearchObjectsTotal,
+  selectSearchHistoryObjectsIds,
 } from 'core/selectors';
-import {IObject} from 'core/types';
-import {useCallback} from 'react';
+import {SearchObject} from 'core/types';
+import {debounce} from 'lodash';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {
+  useRequestLoading,
+  useStaticCallback,
+  useUpdateEffect,
+} from 'react-redux-help-kit';
+import {useOnRequestError} from './useOnRequestError';
+import {useListPagination} from './useListPagination';
+import {useSearchSelector} from './useSearchSelector';
+import {useSearchActions} from './useSearchActions';
 
-export function useSearchList({
-  withLocation = false,
-}: {withLocation?: boolean} = {}) {
+export function useSearchList() {
   const dispatch = useDispatch();
-  const history = useSelector(
-    withLocation ? selectSearchHistoryWithLocation : selectSearchHistory,
-  );
-  const searchResults = useSelector(
-    withLocation ? selectSearchResultsWithLocation : selectSearchResults,
-  );
-  const inputValue = useSelector(selectSearchInputValue);
+  const {
+    setSearchInputValue,
+    searchObjectsRequest,
+    getSearchObjectsHistoryRequest,
+    searchMoreObjectsRequest,
+    addSearchObjectToHistory,
+  } = useSearchActions();
 
-  const isHistoryVisible = useSelector(selectIsHistoryVisible);
-  const data = isHistoryVisible ? history : searchResults;
+  const historyObjectsIds = useSelector(selectSearchHistoryObjectsIds);
+  const historyObjects = useSearchSelector(selectSearchHistory);
+
+  const searchResults = useSearchSelector(selectSearchObjectsData);
+
+  const searchResultsTotal = useSearchSelector(selectSearchObjectsTotal);
+  const inputValue = useSearchSelector(selectSearchInputValue);
+
+  const {loading} = useRequestLoading(searchObjectsRequest);
+  const {errorTexts} = useOnRequestError(searchObjectsRequest, '');
+
+  const {loading: historyLoading} = useRequestLoading(
+    getSearchObjectsHistoryRequest,
+  );
+  const {errorTexts: historyLoadingError} = useOnRequestError(
+    getSearchObjectsHistoryRequest,
+    '',
+  );
+
+  const {loading: nextDataLoading} = useRequestLoading(
+    searchMoreObjectsRequest,
+  );
+
+  const getSearchObjectsHistory = useCallback(() => {
+    dispatch(getSearchObjectsHistoryRequest());
+  }, [dispatch, getSearchObjectsHistoryRequest]);
+
+  const searchObjects = useCallback(
+    (query: string) => {
+      dispatch(searchObjectsRequest({query: query}));
+    },
+    [dispatch, searchObjectsRequest],
+  );
+
+  const searchMoreObjects = useCallback(() => {
+    dispatch(searchMoreObjectsRequest({query: inputValue}));
+  }, [dispatch, inputValue, searchMoreObjectsRequest]);
+
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+  const isSearchEmpty = inputValue === '';
+
+  const setIsFirstLoadFalse = useStaticCallback(() => {
+    if (!isSearchEmpty) {
+      setIsFirstLoad(false);
+    }
+  }, [isSearchEmpty]);
+
+  useUpdateEffect(() => {
+    if (loading === false) {
+      setIsFirstLoadFalse();
+    }
+  }, [loading, setIsFirstLoadFalse]);
+
+  useEffect(() => {
+    if (isSearchEmpty) {
+      setIsFirstLoad(true);
+    }
+  }, [isSearchEmpty]);
+
+  const isHistoryVisible = isSearchEmpty || isFirstLoad;
+
+  const data = isHistoryVisible ? historyObjects : searchResults;
+
+  const needToLoadHistory =
+    Boolean(historyObjectsIds.length) && !historyObjects.length;
+
+  useEffect(() => {
+    if (needToLoadHistory) {
+      getSearchObjectsHistory();
+    }
+  }, [dispatch, needToLoadHistory, getSearchObjectsHistory]);
+
+  const listPaninationProps = useListPagination({
+    isLoading: nextDataLoading,
+    loadMore: searchMoreObjects,
+    hasMoreToLoad: !loading && searchResults.length < searchResultsTotal,
+  });
+
+  const searchObjectsDebounce = useMemo(
+    () => debounce(searchObjects, 350, {trailing: true, leading: false}),
+    [searchObjects],
+  );
+
+  useUpdateEffect(() => {
+    searchObjectsDebounce(inputValue);
+  }, [searchObjectsDebounce, inputValue]);
 
   const addToHistory = useCallback(
-    (object: IObject) => {
-      dispatch(addObjectToSearchHistory(object.id));
+    (object: SearchObject) => {
+      dispatch(addObjectIdToUserSearchHistory(object.id));
+      dispatch(addSearchObjectToHistory({searchObject: object}));
     },
-    [dispatch],
+    [addSearchObjectToHistory, dispatch],
   );
 
   const deleteFromHistory = useCallback(
-    (object: IObject) => {
-      dispatch(deleteObjectFromSearchHistory(object.id));
+    (objectId: string) => {
+      dispatch(deleteObjectIdFromUserSearchHistory(objectId));
     },
     [dispatch],
   );
 
   const deleteAllFromHistory = useCallback(() => {
-    dispatch(deleteAllFromSearchHistory());
+    dispatch(deleteAllFromUserSearchHistory());
   }, [dispatch]);
 
   const clearInput = useCallback(() => {
     dispatch(setSearchInputValue(''));
-  }, [dispatch]);
+  }, [dispatch, setSearchInputValue]);
 
   const onTextChange = useCallback(
     (value: string) => {
       dispatch(setSearchInputValue(value));
     },
-    [dispatch],
+    [dispatch, setSearchInputValue],
   );
+
+  const retryCallback = useCallback(() => {
+    searchObjects(inputValue);
+  }, [inputValue, searchObjects]);
 
   return {
     isHistoryVisible,
@@ -69,5 +165,18 @@ export function useSearchList({
     clearInput,
     onTextChange,
     inputValue,
+    listPaninationProps,
+    isFirstLoad,
+    isSearchPreviewVisible: isSearchEmpty || isFirstLoad,
+    searchSuspenseProps: {
+      loading,
+      error: errorTexts,
+      retryCallback: retryCallback,
+    },
+    searchHistorySuspenseProps: {
+      loading: historyLoading,
+      error: historyLoadingError,
+      retryCallback: getSearchObjectsHistory,
+    },
   };
 }

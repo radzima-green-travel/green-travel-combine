@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu, SuspenseView} from 'atoms';
 import {Keyboard, StyleProp, View} from 'react-native';
 
@@ -18,11 +18,13 @@ import {
 } from 'molecules';
 
 import {FeatureCollection, Point} from '@turf/helpers';
-import {TestIDs} from 'core/types';
+import {SearchObject, TestIDs} from 'core/types';
 
 import {WINDOW_HEIGHT} from 'services/PlatformService';
 import {useAppMap} from './hooks';
 import {Portal} from '@gorhom/portal';
+import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import {SearchList} from 'components/organisms';
 
 export const AppMap = () => {
   const {
@@ -62,7 +64,24 @@ export const AppMap = () => {
     loading,
     errorTexts,
     getAppMapObjects,
+    searchListProps,
   } = useAppMap();
+
+  const onItemPressHandler = useCallback(
+    (object: SearchObject) => {
+      Keyboard.dismiss();
+      setTimeout(() => {
+        onSearchItemPress(object);
+      }, 0);
+    },
+    [onSearchItemPress],
+  );
+
+  const {
+    searchSuspenseProps,
+    searchHistorySuspenseProps,
+    ...otherSearchListProps
+  } = searchListProps;
 
   return (
     <SuspenseView
@@ -125,15 +144,24 @@ export const AppMap = () => {
               {...searchMenuProps}>
               <AppMapBottomSearchMenu
                 onBackPress={closeSearchMenu}
-                onDeleteAllPress={onDeleteAllItems}
-                onDeletePress={onDeleteItem}
                 inputValue={inputValue}
-                isHistoryVisible={isHistoryVisible}
-                data={data}
-                onItemPress={onSearchItemPress}
                 onTextChange={onTextChange}
-                bottomInset={bottom}
-              />
+                bottomInset={bottom}>
+                <SuspenseView cover {...searchSuspenseProps}>
+                  <SuspenseView {...searchHistorySuspenseProps}>
+                    <SearchList
+                      FlatListComponent={BottomSheetFlatList}
+                      onItemPress={onItemPressHandler}
+                      onDeleteAllPress={onDeleteAllItems}
+                      onDeletePress={onDeleteItem}
+                      isHistoryVisible={isHistoryVisible}
+                      data={data}
+                      testID={TestIDs.SearchResultList}
+                      {...otherSearchListProps}
+                    />
+                  </SuspenseView>
+                </SuspenseView>
+              </AppMapBottomSearchMenu>
             </BottomMenu>
           </Portal>
 

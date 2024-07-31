@@ -1,25 +1,26 @@
 import {HeaderSearchbar} from 'atoms';
-import {setSearchInputValue} from 'core/reducers';
 import {selectSearchInputValue} from 'core/selectors';
 import React, {useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {TouchableOpacity} from 'react-native';
 import {Icon} from 'atoms';
 import {TestIDs} from 'core/types';
+import {useSearchActions, useSearchSelector} from 'core/hooks';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
-  const inputValue = useSelector(selectSearchInputValue);
+  const {setSearchInputValue} = useSearchActions();
+  const inputValue = useSearchSelector(selectSearchInputValue);
   const styles = useThemeStyles(themeStyles);
 
   const setInputValue = useCallback(
     (text: string) => {
       dispatch(setSearchInputValue(text));
     },
-    [dispatch],
+    [dispatch, setSearchInputValue],
   );
 
   return (
