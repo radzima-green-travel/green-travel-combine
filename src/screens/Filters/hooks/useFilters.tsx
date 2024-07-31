@@ -45,9 +45,6 @@ export const useFilters = () => {
     getFiltersDataRequest,
   );
 
-  const fullScreenLoading = loadingInitialFilters;
-  const fullScreenError = errorTextsInitialFilters;
-
   const emptyActiveFilters = !Object.values(activeFilters).find(
     value => value?.length,
   );
@@ -130,8 +127,8 @@ export const useFilters = () => {
     retryToGetInitialFiltersData,
     chooseRegion,
     clearFilters,
-    fullScreenLoading,
-    errorTexts: fullScreenError,
+    fullScreenLoading: loadingInitialFilters,
+    errorTexts: errorTextsInitialFilters,
     filtersDataLoading,
     emptyActiveFilters,
     regions: regionsList,
