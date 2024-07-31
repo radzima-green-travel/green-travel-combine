@@ -8,11 +8,11 @@ import {graphQLAPI} from 'api/graphql';
 import {RequestError} from 'core/errors';
 import {getCategoriesWithObjects} from 'core/transformators/homePage';
 import {filter} from 'lodash';
-import {getInitialFilters} from 'core/actions';
+import {getInitialFiltersRequest} from 'core/actions';
 
 export function* getInitialFiltersSaga({
   meta: {failureAction, successAction},
-}: ReturnType<typeof getInitialFilters>) {
+}: ReturnType<typeof getInitialFiltersRequest>) {
   try {
     const [filtersCategoriesResponse, regionsList, aggregations]: [
       FiltersCategoriesResponseDTO,

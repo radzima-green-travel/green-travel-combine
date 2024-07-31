@@ -13,7 +13,7 @@ export const getFiltersDataRequest = createAsyncAction<
   ObjectFiltersDataDTO
 >('GET_FILTERS_DATA');
 
-export const getInitialFilters = createAsyncAction<
+export const getInitialFiltersRequest = createAsyncAction<
   void,
   {
     regionsList: RegionsListResponseDTO;

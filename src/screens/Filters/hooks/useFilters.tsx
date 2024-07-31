@@ -3,7 +3,7 @@ import {useCallback, useEffect} from 'react';
 
 import {
   selectTransformedGoogleRatings,
-  selectTransformedRegions,
+  selectFiltersRegions,
   selectActiveFilters,
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
@@ -16,7 +16,7 @@ import {
 } from 'core/hooks';
 import {
   getFiltersDataRequest,
-  getInitialFilters,
+  getInitialFiltersRequest,
   setActiveFilter,
   clearFilters as clearFiltersAction,
 } from 'core/actions';
@@ -28,16 +28,18 @@ export const useFilters = () => {
 
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
-  const regionsList = useSelector(selectTransformedRegions);
+  const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
   const {categoriesWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
   );
 
-  const {loading: loadingInitialFilters} = useRequestLoading(getInitialFilters);
+  const {loading: loadingInitialFilters} = useRequestLoading(
+    getInitialFiltersRequest,
+  );
   const {errorTexts: errorTextsInitialFilters} = useOnRequestError(
-    getInitialFilters,
+    getInitialFiltersRequest,
     'filters',
   );
 
@@ -50,7 +52,7 @@ export const useFilters = () => {
   );
 
   const getFiltersInitialData = useCallback(() => {
-    dispatch(getInitialFilters());
+    dispatch(getInitialFiltersRequest());
   }, [dispatch]);
 
   const getFiltersData = useCallback(() => {

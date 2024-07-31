@@ -66,14 +66,14 @@ export const Filters = () => {
           <Text style={styles.title}>{t('title')}</Text>
           <FiltersSectionContainer itemName={t('allCategories')}>
             <View style={styles.categoryList}>
-              {caregoriesData?.map(({categoryId, title}) => (
+              {caregoriesData?.map(({id, name}) => (
                 <Chip
-                  active={activeCategories?.includes(categoryId)}
-                  disabled={categoriesWithNumberOfItems[categoryId] === 0}
-                  onPress={() => chooseCategory(categoryId)}
-                  key={categoryId}
-                  testID={title}
-                  text={title}
+                  active={activeCategories?.includes(id)}
+                  disabled={categoriesWithNumberOfItems[id] === 0}
+                  onPress={() => chooseCategory(id)}
+                  key={id}
+                  testID={name}
+                  text={name}
                   style={styles.chipContainer}
                 />
               ))}
@@ -82,14 +82,14 @@ export const Filters = () => {
           <FiltersSectionContainer itemName={t('whereToLook')}>
             <Text style={styles.subFilterName}>{t('regions')}</Text>
             <View style={styles.categoryList}>
-              {regions?.map(({regionId, title}) => (
+              {regions?.map(({id, value}) => (
                 <Chip
-                  active={activeRegions?.includes(regionId)}
-                  disabled={regionsWithNumberOfItems[regionId] === 0}
-                  onPress={() => chooseRegion(regionId)}
-                  key={regionId}
-                  testID={title}
-                  text={title}
+                  active={activeRegions?.includes(id)}
+                  disabled={regionsWithNumberOfItems[id] === 0}
+                  onPress={() => chooseRegion(id)}
+                  key={id}
+                  testID={value}
+                  text={value}
                   style={styles.chipContainer}
                 />
               ))}
