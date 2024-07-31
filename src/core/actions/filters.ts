@@ -18,6 +18,7 @@ export const getInitialFiltersRequest = createAsyncAction<
   {
     regionsList: RegionsListResponseDTO;
     categoriesList: CategoryFilterItemDTO[];
+    filtersData: ObjectFiltersDataDTO;
   }
 >('GET_INITIAL_FILTERS');
 
