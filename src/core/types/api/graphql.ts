@@ -160,6 +160,13 @@ export interface CategoryFilterItemDTO {
   index: number;
 }
 
+export interface CategoryFilterItemDTO {
+  i18n: Array<I18nType<'name'>>;
+  name: string;
+  id: string;
+  index: number;
+}
+
 export type ObjectFiltersDataResponseDTO = {
   filterLandingObjects: ObjectFiltersDataDTO;
 };
@@ -170,6 +177,10 @@ export type SettlementsResponseDTO = {
   items: Array<SpotItemDTO>;
   nextToken: string;
   total: number;
+};
+
+export type FiltersCategoriesResponseDTO = {
+  items: Array<CategoryFilterItemDTO>;
 };
 
 export type FiltersCategoriesResponseDTO = {
