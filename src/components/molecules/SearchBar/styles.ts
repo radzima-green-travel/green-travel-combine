@@ -11,7 +11,7 @@ export const themeStyles = {
     },
     borderRadius: 12,
     padding: 12,
-    marginTop: 16,
+    marginVertical: 16,
   },
   input: {
     ...FONTS_PRESETS.calloutRegular,

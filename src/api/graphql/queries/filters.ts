@@ -1,8 +1,12 @@
 export const searchSpotsQuery = `
-   query SearchSpots($filter: SearchableSpotFilterInput, $limit: Int) {
+   query SearchSpots($filter: SearchableSpotFilterInput, $sort: [SearchableSpotSortInput], $limit: Int, $nextToken: String, $from: Int, $aggregates: [SearchableSpotAggregationInput]) {
      searchSpots(
-       filter: $filter
-       limit: $limit
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+      aggregates: $aggregates
      ) {
        items {
          id

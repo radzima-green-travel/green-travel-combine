@@ -116,6 +116,7 @@ export interface FiltersParams {
     categories?: string[];
     googleRating?: string;
     regions?: string[];
+    municipalities?: string[];
     statuses?: string | string[];
   };
 }

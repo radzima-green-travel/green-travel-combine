@@ -188,7 +188,8 @@
       "title": "Settlements",
       "reset": "Reset",
       "search": "Search",
-      "apply": "Apply"
+      "apply": "Apply",
+      "applySeveral": "Apply ({{amount}})"
     }
   },
   "authentification": {

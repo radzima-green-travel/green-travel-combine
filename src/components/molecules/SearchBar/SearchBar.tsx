@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleProp,
-  ViewStyle,
   TextStyle,
 } from 'react-native';
 import {themeStyles} from './styles';
@@ -15,14 +14,13 @@ import {composeTestID} from 'core/helpers';
 
 interface Props {
   onChange: (text: string) => void;
-  containerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
   selectionColor?: string;
   value: string;
 }
 
 export const SearchBar = memo(
-  ({onChange, containerStyle, inputStyle, selectionColor, value}: Props) => {
+  ({onChange, inputStyle, selectionColor, value}: Props) => {
     const styles = useThemeStyles(themeStyles);
     const colorTheme = useColorScheme();
     const {t} = useTranslation('filters');
@@ -41,7 +39,7 @@ export const SearchBar = memo(
     );
 
     return (
-      <View style={[styles.searchContainer, containerStyle]}>
+      <View style={styles.searchContainer}>
         <Icon
           style={[styles.icon, styles.leftIcon]}
           name={'search'}

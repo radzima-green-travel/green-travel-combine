@@ -10,7 +10,7 @@ import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
 
 export const getSettlementsDataRequest = createAsyncAction<
-  string,
+  void,
   SettlementsData
 >('GET_SETTLEMENTS_DATA');
 
@@ -25,6 +25,7 @@ export const getInitialFiltersRequest = createAsyncAction<
     regionsList: RegionsListResponseDTO;
     categoriesList: CategoryFilterItemDTO[];
     filtersData: ObjectFiltersDataDTO;
+    settlementsData: SettlementsData;
   }
 >('GET_INITIAL_FILTERS');
 

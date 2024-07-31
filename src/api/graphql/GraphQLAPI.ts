@@ -69,6 +69,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
       query: searchSpotsQuery,
       params: {
         ...params,
+        nextToken: params.nextToken || null,
         filter: {
           ...params.filter,
           type: {
@@ -109,6 +110,9 @@ class GraphQLAPI extends GraphQLAPIEngine {
           googleRating: filter.googleRating || null,
           categories: filter.categories?.length ? filter.categories : null,
           regions: filter.regions?.length ? filter.regions : null,
+          municipalities: filter.municipalities?.length
+            ? filter.municipalities
+            : null,
         },
       },
     });

@@ -36,6 +36,7 @@ const initialState: FiltersState = {
     googleRating: '',
     categories: [],
     regions: [],
+    municipalities: [],
   },
   categoriesList: [],
 };
@@ -46,7 +47,9 @@ export const filtersReducer = createReducer(initialState, builder => {
       const newState =
         payload.name === 'googleRating'
           ? payload.value
-          : xor(state.activeFilters[payload.name], [payload.value]);
+          : typeof payload.value === 'string'
+            ? xor(state.activeFilters[payload.name], [payload.value])
+            : payload.value;
 
       state.activeFilters = {
         ...state.activeFilters,
@@ -61,12 +64,16 @@ export const filtersReducer = createReducer(initialState, builder => {
     })
     .addCase(
       getInitialFiltersRequest.meta.successAction,
-      (state, {payload: {regionsList, categoriesList, filtersData}}) => {
+      (
+        state,
+        {payload: {regionsList, categoriesList, filtersData, settlementsData}},
+      ) => {
         return {
           ...state,
           regionsList,
           categoriesList,
           filtersData,
+          settlementsData,
         };
       },
     )
@@ -78,9 +85,16 @@ export const filtersReducer = createReducer(initialState, builder => {
     })
     .addCase(
       getSettlementsDataRequest.meta.successAction,
-      (state, {payload}) => ({
+      (state, {payload: {data, total, nextToken, requestedItemsCount}}) => ({
         ...state,
-        settlementsData: payload,
+        settlementsData: {
+          ...state.settlementsData,
+          data: [...state.settlementsData.data, ...data],
+          requestedItemsCount:
+            state.settlementsData.requestedItemsCount + requestedItemsCount,
+          nextToken,
+          total,
+        },
       }),
     );
 });

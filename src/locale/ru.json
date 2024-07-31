@@ -188,7 +188,8 @@
       "title": "Населенные пункты",
       "reset": "Сбросить",
       "search": "Поиск",
-      "apply": "Применить"
+      "apply": "Применить",
+      "applySeveral": "Применить ({{amount}})"
     }
   },
   "authentification": {

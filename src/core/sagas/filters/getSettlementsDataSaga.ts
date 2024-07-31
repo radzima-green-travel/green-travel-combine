@@ -1,33 +1,16 @@
-import {all, call, put} from 'redux-saga/effects';
-import {graphQLAPI} from 'api/graphql';
+import {call, put} from 'redux-saga/effects';
 import {getSettlementsDataRequest} from 'core/actions';
+import {SettlementsData} from 'core/types';
 import {RequestError} from 'core/errors';
-import {SettlementsQueryParams} from 'api/graphql/types';
+import {fetchSettlementsData} from '../fetchRequests';
 
 export function* getSettlementsDataSaga({
   meta: {failureAction, successAction},
-  payload,
 }: ReturnType<typeof getSettlementsDataRequest>) {
   try {
-    const prevNextToken = payload;
+    const settlementsData: SettlementsData = yield call(fetchSettlementsData);
 
-    const params: SettlementsQueryParams = {
-      limit: 25,
-      nextToken: prevNextToken,
-    };
-
-    const [{items, nextToken, total}] = yield all([
-      call([graphQLAPI, graphQLAPI.getSettlements], params),
-    ]);
-
-    yield put(
-      successAction({
-        data: items,
-        requestedItemsCount: items.length,
-        nextToken,
-        total,
-      }),
-    );
+    yield put(successAction(settlementsData));
   } catch (e) {
     yield put(failureAction(e as RequestError));
   }

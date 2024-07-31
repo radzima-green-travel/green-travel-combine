@@ -28,4 +28,42 @@ export const themeStyles = createThemeStyles({
   button: {
     ...FONTS_PRESETS.footnoteBold,
   },
+  sectionHeaderContainer: {
+    height: 24,
+    paddingHorizontal: 16,
+    backgroundColor: {
+      light: COLORS.light.background.secondary,
+      dark: COLORS.dark.background.secondary,
+    },
+    justifyContent: 'center',
+    borderRadius: 12,
+  },
+  sectionHeaderText: {
+    ...FONTS_PRESETS.caption1Bold,
+    color: {
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
+    },
+  },
+  sectionHeaderWrapper: {
+    paddingVertical: 8,
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
+  },
+  sectionItemContainer: {
+    height: 40,
+    paddingVertical: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sectionItemText: {
+    ...FONTS_PRESETS.calloutRegular,
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
+    marginHorizontal: 12,
+  },
 });
