@@ -35,6 +35,7 @@ export const Filters = () => {
     regionsWithNumberOfItems,
     categoriesWithNumberOfItems,
     snackBarProps,
+    activeSettlements,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -111,11 +112,19 @@ export const Filters = () => {
                 activeOpacity={0.8}
                 style={styles.settlementsContainer}
                 onPress={navigateToSettlements}>
-                <Text style={styles.settlementsLabel}>{t('any')}</Text>
+                {activeSettlements.length ? (
+                  <View style={styles.activeSettlementsLabelContainer}>
+                    <Text style={styles.activeSettlementsLabel}>
+                      {activeSettlements.length}
+                    </Text>
+                  </View>
+                ) : (
+                  <Text style={styles.settlementsLabel}>{t('any')}</Text>
+                )}
                 <Icon
                   name="chevronMediumRight"
                   size={24}
-                  style={styles.settlementsLabel}
+                  style={[styles.settlementsLabel, styles.settlementsLabelIcon]}
                 />
               </TouchableOpacity>
             </FiltersSectionContainer>

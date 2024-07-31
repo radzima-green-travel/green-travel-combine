@@ -141,6 +141,7 @@ export const useFilters = () => {
     activeRating: activeFilters.googleRating,
     activeRegions: activeFilters.regions,
     activeCategories: activeFilters.categories,
+    activeSettlements: activeFilters.municipalities,
     updateRatings,
     chooseCategory,
     total,
