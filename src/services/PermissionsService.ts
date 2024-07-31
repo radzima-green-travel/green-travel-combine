@@ -1,4 +1,5 @@
-import {Alert, Linking, NativeModules} from 'react-native';
+import {Alert} from 'react-native';
+import * as Linking from 'expo-linking';
 import * as Location from 'expo-location';
 
 import {isIOS} from './PlatformService';
@@ -22,17 +23,9 @@ class PermissionsService {
     if (status !== 'granted') {
       this.handleLocationPermissionDenied();
       return false;
-    } else {
-      const {gps} =
-        await NativeModules.LocationProvidersModule.getAvailableLocationProviders();
-
-      if (!gps) {
-        Alert.alert('', i18n.t('common:locationPermissionText'));
-
-        return false;
-      }
-      return true;
     }
+
+    return true;
   }
 
   handleLocationPermissionDenied() {
@@ -43,14 +36,7 @@ class PermissionsService {
       },
       {
         text: i18n.t('common:locationPermissionSettings'),
-        onPress: async () => {
-          const supported = await Linking.canOpenURL('app-settings:');
-          if (supported) {
-            Linking.openURL('app-settings:');
-          } else {
-            console.log('Failed to open app settings.');
-          }
-        },
+        onPress: async () => await Linking.openSettings(),
       },
     ]);
   }

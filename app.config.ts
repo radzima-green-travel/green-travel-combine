@@ -1,4 +1,5 @@
 import withRemoveiOSNotificationEntitlement from './config-plugins/withRemoveiOSNotificationEntitlement';
+import withAndroidQueries from './config-plugins/withAndroidQueries';
 
 type Dict = {[key: string]: any};
 export default ({config}: Dict) => {
@@ -39,6 +40,7 @@ export default ({config}: Dict) => {
     plugins: [
       ...(config.plugins ?? []),
       [withRemoveiOSNotificationEntitlement],
+      [withAndroidQueries],
       [
         '@rnmapbox/maps',
         {
