@@ -80,7 +80,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
 
   async getFilterObjects({
     filter = {},
-  }: FiltersParams): Promise<ObjectFiltersDataResponseDTO> {
+  }: FiltersParams = {}): Promise<ObjectFiltersDataResponseDTO> {
     const response = await this.executeQuery({
       query: filterObjects,
       params: {
