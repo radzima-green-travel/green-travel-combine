@@ -42,6 +42,10 @@ export const useSettlements = () => {
     });
   }, []);
 
+  const resetSelectedSettlements = useCallback(() => {
+    setSelectedSettlements([]);
+  }, []);
+
   const paginationProps = useListPagination({
     isLoading: dataLoading,
     loadMore: getPaginationSettlementsData,
@@ -49,11 +53,13 @@ export const useSettlements = () => {
   });
 
   return {
+    navigation,
     paginationProps,
     settlementsSections,
     selectedSettlements,
     activeSettlements,
     chooseSettlement,
     applySettlements,
+    resetSelectedSettlements,
   };
 };

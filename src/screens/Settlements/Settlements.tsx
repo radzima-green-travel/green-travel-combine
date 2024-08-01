@@ -1,5 +1,5 @@
-import React, {useMemo, useCallback} from 'react';
-import {Text, View} from 'react-native';
+import React, {useCallback, useEffect} from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {SuspenseView, Button, ScreenContent, Checkbox} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types';
@@ -14,15 +14,17 @@ export const Settlements = () => {
   const {t} = useTranslation('filters');
 
   const {
+    navigation,
     paginationProps,
     settlementsSections,
     activeSettlements,
     selectedSettlements,
     chooseSettlement,
     applySettlements,
+    resetSelectedSettlements,
   } = useSettlements();
 
-  const renderItem = useCallback(
+  const renderSectionItem = useCallback(
     ({item}) => (
       <View style={styles.sectionItemContainer}>
         <Checkbox
@@ -41,7 +43,7 @@ export const Settlements = () => {
     ],
   );
 
-  const renderHeader = useCallback(
+  const renderSectionHeader = useCallback(
     ({section: {title}}) => (
       <View style={styles.sectionHeaderWrapper}>
         <View style={styles.sectionHeaderContainer}>
@@ -56,6 +58,22 @@ export const Settlements = () => {
     ],
   );
 
+  const renderHeaderRight = useCallback(
+    () =>
+      selectedSettlements.length ? (
+        <TouchableOpacity onPress={resetSelectedSettlements}>
+          <Text style={styles.resetButtonText}>{t('settlements.reset')}</Text>
+        </TouchableOpacity>
+      ) : null,
+    [styles.resetButtonText, t, selectedSettlements, resetSelectedSettlements],
+  );
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: renderHeaderRight,
+    });
+  }, [navigation, renderHeaderRight]);
+
   return (
     <View style={styles.container}>
       <SuspenseView>
@@ -65,13 +83,13 @@ export const Settlements = () => {
             showsVerticalScrollIndicator={false}
             sections={settlementsSections}
             keyExtractor={item => item.id}
-            renderItem={renderItem}
-            renderSectionHeader={renderHeader}
+            renderItem={renderSectionItem}
+            renderSectionHeader={renderSectionHeader}
             {...paginationProps}
           />
           <Button
             text={
-              selectedSettlements.length > 1
+              selectedSettlements.length
                 ? t('settlements.applySeveral', {
                     amount: selectedSettlements.length,
                   })

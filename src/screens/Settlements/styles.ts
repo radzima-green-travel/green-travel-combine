@@ -28,6 +28,13 @@ export const themeStyles = createThemeStyles({
   button: {
     ...FONTS_PRESETS.footnoteBold,
   },
+  resetButtonText: {
+    ...FONTS_PRESETS.calloutRegular,
+    color: {
+      light: COLORS.light.text.accent,
+      dark: COLORS.dark.text.accent,
+    },
+  },
   sectionHeaderContainer: {
     height: 24,
     paddingHorizontal: 16,
