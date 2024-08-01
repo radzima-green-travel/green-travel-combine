@@ -7,9 +7,16 @@ import i18n from 'i18next';
 
 class PermissionsService {
   async checkLocationPermissionIOS() {
-    let {status} = await Location.requestForegroundPermissionsAsync();
+    const {status} = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
+      const servicesEnabled = await Location.hasServicesEnabledAsync();
+
+      if (!servicesEnabled) {
+        this.handeLocationServicesDisabled();
+        return false;
+      }
+
       this.handleLocationPermissionDenied();
       return false;
     }
@@ -18,14 +25,21 @@ class PermissionsService {
   }
 
   async checkLocationPermissionAndroid() {
-    let {status} = await Location.requestForegroundPermissionsAsync();
+    const {status} = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
       this.handleLocationPermissionDenied();
       return false;
-    }
+    } else {
+      const servicesEnabled = await Location.hasServicesEnabledAsync();
 
-    return true;
+      if (!servicesEnabled) {
+        this.handeLocationServicesDisabled();
+        return false;
+      }
+
+      return true;
+    }
   }
 
   handleLocationPermissionDenied() {
@@ -39,6 +53,10 @@ class PermissionsService {
         onPress: async () => await Linking.openSettings(),
       },
     ]);
+  }
+
+  handeLocationServicesDisabled() {
+    Alert.alert('', i18n.t('common:locationPermissionText'));
   }
 
   async checkLocationPermission() {

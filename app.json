@@ -1,7 +1,7 @@
 {
-  "expo": { 
+  "expo": {
     "slug": "greenTravel",
-    "scheme": "radzima",    
+    "scheme": "radzima",
     "userInterfaceStyle": "automatic",
     "ios": {
       "appStoreUrl": "https://apps.apple.com/ru/app/radzima/id1587158874",
@@ -66,6 +66,9 @@
         {
           "initialOrientation": "PORTRAIT_UP"
         }
+      ],
+      [
+        "react-native-map-link"
       ]
     ],
     "extra": {
