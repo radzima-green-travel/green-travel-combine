@@ -189,7 +189,8 @@
       "reset": "Сбросить",
       "search": "Поиск",
       "apply": "Применить",
-      "applySeveral": "Применить ({{amount}})"
+      "applySeveral": "Применить ({{amount}})",
+      "nothingFound": "Ничего не найдено"
     }
   },
   "authentification": {

@@ -1,13 +1,17 @@
-import {map, filter} from 'lodash';
 import {ObjectFiltersAggregationsDTO, SpotItemDTO} from 'core/types';
+import {reduce} from 'lodash';
 
 export const transformBucketsToCountMap = (
   buckets: {key: string; doc_count: number}[],
 ): {[key: string]: number} =>
-  buckets.reduce((acc, {key, doc_count}) => {
-    acc[key] = doc_count;
-    return acc;
-  }, {});
+  reduce(
+    buckets,
+    (acc, {key, doc_count}) => {
+      acc[key] = doc_count;
+      return acc;
+    },
+    {},
+  );
 
 export function prepareGoogleRatings(
   ratings: {
@@ -15,14 +19,18 @@ export function prepareGoogleRatings(
     from: number;
   }[],
 ) {
-  return map(
-    filter(ratings, ({from}) => from >= 3.5),
-    ({from, key}) => {
-      return {
-        id: String(from),
-        value: key,
-      };
+  return reduce(
+    ratings,
+    (acc, {from, key}) => {
+      if (from >= 3.5) {
+        acc.push({
+          id: String(from),
+          value: key,
+        });
+      }
+      return acc;
     },
+    [] as {id: string; value: string}[],
   );
 }
 
@@ -40,14 +48,18 @@ export function prepareAggregationsWithNumberOfItems(
 }
 
 export function prepareFiltersSettlements(settlements: SpotItemDTO[]) {
-  const sections = settlements.reduce((acc, item) => {
-    const firstLetter = item.value[0];
-    if (!acc[firstLetter]) {
-      acc[firstLetter] = [];
-    }
-    acc[firstLetter].push(item);
-    return acc;
-  }, {});
+  const sections = reduce(
+    settlements,
+    (acc, item) => {
+      const firstLetter = item.value[0];
+      if (!acc[firstLetter]) {
+        acc[firstLetter] = [];
+      }
+      acc[firstLetter].push(item);
+      return acc;
+    },
+    {},
+  );
 
   return Object.keys(sections).map(key => ({
     title: key,

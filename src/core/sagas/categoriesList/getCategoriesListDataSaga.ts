@@ -10,7 +10,7 @@ import {
 import {RequestError} from 'core/errors';
 import {selectCategoriesList} from 'selectors';
 import {CategoriesListQueryParams} from 'api/graphql/types';
-import {fetchCategoriesData} from '../fetchRequests';
+import {getCategoriesData} from '../fetchRequests';
 import {filter} from 'lodash';
 
 export function* getCategoriesListDataSaga({
@@ -41,7 +41,7 @@ export function* getCategoriesListDataSaga({
     }: {
       categoriesData: CategoriesResponseDTO;
       categoriesWithObjects: CategoryAggregationsByObjectsDTO[];
-    } = yield call(fetchCategoriesData, {payload: params});
+    } = yield call(getCategoriesData, {payload: params});
 
     const filteredData = filter(items, item =>
       categoriesWithObjects.some(category => category.key === item.id),

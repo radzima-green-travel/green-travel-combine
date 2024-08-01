@@ -29,8 +29,6 @@ export const SearchBar = memo(
       onChange('');
     }, [onChange]);
 
-    const onOpenSettings = useCallback(() => {}, []);
-
     const onChangeText = useCallback(
       text => {
         onChange(text);
@@ -57,7 +55,7 @@ export const SearchBar = memo(
           testID={composeTestID(TestIDs.SearchBar, 'input')}
         />
         <TouchableOpacity
-          onPress={value ? onClear : onOpenSettings}
+          onPress={value ? onClear : () => {}}
           style={styles.icon}>
           <Icon
             style={[styles.icon, styles.rightIcon]}

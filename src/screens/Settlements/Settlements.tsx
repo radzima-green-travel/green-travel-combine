@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {SuspenseView, Button, ScreenContent, Checkbox} from 'atoms';
+import {SuspenseView, Button, ScreenContent, Checkbox, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types';
 import {screenOptions} from './screenOptions';
@@ -19,8 +19,14 @@ export const Settlements = () => {
     settlementsSections,
     activeSettlements,
     selectedSettlements,
+    fullScreenLoading,
+    searchValue,
+    errorTexts,
+    snackBarProps,
+    handleSearchValue,
     chooseSettlement,
     applySettlements,
+    getSettlementsData,
     resetSelectedSettlements,
   } = useSettlements();
 
@@ -68,6 +74,17 @@ export const Settlements = () => {
     [styles.resetButtonText, t, selectedSettlements, resetSelectedSettlements],
   );
 
+  const renderListEmptyComponent = useCallback(
+    () => (
+      <View style={styles.listEmptyContainer}>
+        <Text style={styles.listEmptyText}>
+          {t('settlements.nothingFound')}
+        </Text>
+      </View>
+    ),
+    [styles.listEmptyContainer, styles.listEmptyText, t],
+  );
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: renderHeaderRight,
@@ -76,14 +93,18 @@ export const Settlements = () => {
 
   return (
     <View style={styles.container}>
-      <SuspenseView>
+      <SuspenseView
+        loading={fullScreenLoading}
+        error={errorTexts}
+        retryCallback={getSettlementsData}>
         <ScreenContent>
-          <SearchBar onChange={() => {}} value="" />
+          <SearchBar onChange={handleSearchValue} value={searchValue} />
           <SectionList
             showsVerticalScrollIndicator={false}
             sections={settlementsSections}
             keyExtractor={item => item.id}
             renderItem={renderSectionItem}
+            ListEmptyComponent={renderListEmptyComponent}
             renderSectionHeader={renderSectionHeader}
             {...paginationProps}
           />
@@ -100,6 +121,7 @@ export const Settlements = () => {
             disabled={!selectedSettlements.length && !activeSettlements.length}
             onPress={applySettlements}
           />
+          <SnackBar isOnTop {...snackBarProps} />
         </ScreenContent>
       </SuspenseView>
     </View>

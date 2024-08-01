@@ -12,7 +12,7 @@ import type {
   CategoriesResponseDTO,
   ObjectsForCategoriesResponseDTO,
 } from 'core/types/api';
-import {fetchCategoriesData} from '../fetchRequests';
+import {getCategoriesData} from '../fetchRequests';
 import {map} from 'lodash';
 
 export function* getHomePageDataSaga({
@@ -29,7 +29,7 @@ export function* getHomePageDataSaga({
     }: {
       categoriesData: CategoriesResponseDTO;
       categoriesWithObjects: CategoryAggregationsByObjectsDTO[];
-    } = yield call(fetchCategoriesData, {payload: {limit: 200}});
+    } = yield call(getCategoriesData, {payload: {limit: 200}});
 
     const objectForCategoriesResponse: ObjectsForCategoriesResponseDTO =
       yield call(

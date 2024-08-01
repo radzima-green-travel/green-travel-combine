@@ -73,4 +73,16 @@ export const themeStyles = createThemeStyles({
     },
     marginHorizontal: 12,
   },
+  listEmptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  listEmptyText: {
+    ...FONTS_PRESETS.footnoteRegular,
+    color: {
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
+    },
+  },
 });

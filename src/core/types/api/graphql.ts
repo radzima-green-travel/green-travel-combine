@@ -121,6 +121,11 @@ export interface FiltersParams {
   };
 }
 
+export interface SettlementsParams {
+  nextToken?: string;
+  searchValue?: string;
+}
+
 export type ObjectFiltersAggregationsDTO = {
   categories: {
     facets: {

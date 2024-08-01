@@ -5,14 +5,25 @@ import {
   SetActiveFilterPayload,
   SettlementsData,
   CategoryFilterItemDTO,
+  SettlementsParams,
 } from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
 
 export const getSettlementsDataRequest = createAsyncAction<
-  void,
+  SettlementsParams,
   SettlementsData
 >('GET_SETTLEMENTS_DATA');
+
+export const getSearchSettlementsDataRequest = createAsyncAction<
+  SettlementsParams,
+  SettlementsData
+>('GET_SEARCH_SETTLEMENTS_DATA');
+
+export const getPaginationSettlementsDataRequest = createAsyncAction<
+  SettlementsParams,
+  SettlementsData
+>('GET_PAGINATION_SETTLEMENTS_DATA');
 
 export const getFiltersDataRequest = createAsyncAction<
   FiltersParams,
@@ -25,7 +36,6 @@ export const getInitialFiltersRequest = createAsyncAction<
     regionsList: RegionsListResponseDTO;
     categoriesList: CategoryFilterItemDTO[];
     filtersData: ObjectFiltersDataDTO;
-    settlementsData: SettlementsData;
   }
 >('GET_INITIAL_FILTERS');
 

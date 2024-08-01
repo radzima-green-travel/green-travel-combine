@@ -189,7 +189,8 @@
       "reset": "Reset",
       "search": "Search",
       "apply": "Apply",
-      "applySeveral": "Apply ({{amount}})"
+      "applySeveral": "Apply ({{amount}})",
+      "nothingFound": "Nothing found"
     }
   },
   "authentification": {

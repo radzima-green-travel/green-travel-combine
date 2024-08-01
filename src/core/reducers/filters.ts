@@ -5,10 +5,12 @@ import {
   SettlementsData,
   CategoryFilterItemDTO,
 } from 'core/types';
-import {createReducer} from '@reduxjs/toolkit';
+import {createReducer, isAnyOf} from '@reduxjs/toolkit';
 import {
   getSettlementsDataRequest,
   getFiltersDataRequest,
+  getPaginationSettlementsDataRequest,
+  getSearchSettlementsDataRequest,
   setActiveFilter,
   getInitialFiltersRequest,
   clearFilters,
@@ -64,16 +66,12 @@ export const filtersReducer = createReducer(initialState, builder => {
     })
     .addCase(
       getInitialFiltersRequest.meta.successAction,
-      (
-        state,
-        {payload: {regionsList, categoriesList, filtersData, settlementsData}},
-      ) => {
+      (state, {payload: {regionsList, categoriesList, filtersData}}) => {
         return {
           ...state,
           regionsList,
           categoriesList,
           filtersData,
-          settlementsData,
         };
       },
     )
@@ -84,7 +82,7 @@ export const filtersReducer = createReducer(initialState, builder => {
       };
     })
     .addCase(
-      getSettlementsDataRequest.meta.successAction,
+      getPaginationSettlementsDataRequest.meta.successAction,
       (state, {payload: {data, total, nextToken, requestedItemsCount}}) => ({
         ...state,
         settlementsData: {
@@ -96,5 +94,17 @@ export const filtersReducer = createReducer(initialState, builder => {
           total,
         },
       }),
+    )
+    .addMatcher(
+      isAnyOf(
+        getSettlementsDataRequest.meta.successAction,
+        getSearchSettlementsDataRequest.meta.successAction,
+      ),
+      (state, {payload}) => {
+        return {
+          ...state,
+          settlementsData: payload,
+        };
+      },
     );
 });
