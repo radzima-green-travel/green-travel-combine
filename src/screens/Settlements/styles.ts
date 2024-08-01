@@ -2,6 +2,8 @@ import {COLORS, FONTS_PRESETS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {createThemeStyles} from 'core/helpers/styles';
 
+export const ITEM_HEIGHT = 40;
+
 export const themeStyles = createThemeStyles({
   container: {
     flex: 1,
@@ -60,7 +62,7 @@ export const themeStyles = createThemeStyles({
     },
   },
   sectionItemContainer: {
-    height: 40,
+    height: ITEM_HEIGHT,
     paddingVertical: 2,
     flexDirection: 'row',
     alignItems: 'center',

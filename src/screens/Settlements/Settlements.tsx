@@ -4,10 +4,16 @@ import {SuspenseView, Button, ScreenContent, Checkbox, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types';
 import {screenOptions} from './screenOptions';
-import {themeStyles} from './styles';
+import {themeStyles, ITEM_HEIGHT} from './styles';
 import {SectionList} from 'react-native';
 import {SearchBar} from 'molecules';
 import {useSettlements} from './hooks';
+
+const getItemLayout = (_, index) => ({
+  length: ITEM_HEIGHT,
+  offset: ITEM_HEIGHT * index,
+  index,
+});
 
 export const Settlements = () => {
   const styles = useThemeStyles(themeStyles);
@@ -103,6 +109,7 @@ export const Settlements = () => {
             showsVerticalScrollIndicator={false}
             sections={settlementsSections}
             keyExtractor={item => item.id}
+            getItemLayout={getItemLayout}
             renderItem={renderSectionItem}
             ListEmptyComponent={renderListEmptyComponent}
             renderSectionHeader={renderSectionHeader}
