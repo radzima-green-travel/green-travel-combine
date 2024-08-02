@@ -1,5 +1,5 @@
 import {ObjectFiltersAggregationsDTO, SpotItemDTO} from 'core/types';
-import {reduce} from 'lodash';
+import {reduce, chain} from 'lodash';
 
 export const transformBucketsToCountMap = (
   buckets: {key: string; doc_count: number}[],
@@ -44,10 +44,18 @@ export function prepareAggregationsWithNumberOfItems(
     regionsWithNumberOfItems: transformBucketsToCountMap(
       aggregations?.regions?.facets?.buckets || [],
     ),
+    municipalitiesWithNumberOfItems: transformBucketsToCountMap(
+      aggregations?.municipalities?.facets?.buckets || [],
+    ),
   };
 }
 
-export function prepareFiltersSettlements(settlements: SpotItemDTO[]) {
+export function prepareFiltersSettlements(
+  settlements: SpotItemDTO[],
+  {
+    municipalitiesWithNumberOfItems,
+  }: {municipalitiesWithNumberOfItems: {[key: string]: number}},
+) {
   const sections = reduce(
     settlements,
     (acc, item) => {
@@ -55,14 +63,16 @@ export function prepareFiltersSettlements(settlements: SpotItemDTO[]) {
       if (!acc[firstLetter]) {
         acc[firstLetter] = [];
       }
-      acc[firstLetter].push(item);
+      if (municipalitiesWithNumberOfItems?.[item.id]) {
+        acc[firstLetter].push(item);
+      }
       return acc;
     },
-    {},
+    {} as {[key: string]: SpotItemDTO[]},
   );
 
-  return Object.keys(sections).map(key => ({
-    title: key,
-    data: sections[key],
-  }));
+  return chain(sections)
+    .pickBy(value => value.length)
+    .map((data, title) => ({title, data}))
+    .value();
 }

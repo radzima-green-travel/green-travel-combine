@@ -27,7 +27,7 @@ export function* getSettlementsDataSaga({
     }
 
     const params: SettlementsQueryParams = {
-      limit: 50,
+      limit: 75,
       nextToken: newToken,
       filter: {
         value: {

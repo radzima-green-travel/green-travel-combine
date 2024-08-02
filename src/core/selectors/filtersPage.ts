@@ -66,7 +66,11 @@ export const selectTransformedAggregationsWithNumberOfItems = createSelector(
 
 export const selectTransformedFiltersSettlements = createSelector(
   selectFiltersSettlements,
-  settlements => {
-    return prepareFiltersSettlements(settlements);
+  selectTransformedAggregationsWithNumberOfItems,
+  (settlements, aggregationsWithNumberOfItems) => {
+    return prepareFiltersSettlements(
+      settlements,
+      aggregationsWithNumberOfItems,
+    );
   },
 );

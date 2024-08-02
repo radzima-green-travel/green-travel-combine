@@ -52,6 +52,14 @@ export const filterObjects = `query filterLandingObjects($filter: FacetLandingOb
          }
        }
      }
+     municipalities {
+       facets {
+         buckets {
+           doc_count
+           key
+         }
+       }
+     }
     }
     total
   }

@@ -136,6 +136,11 @@ export type ObjectFiltersAggregationsDTO = {
       buckets: CategoryAggregationsByObjectsDTO[];
     };
   };
+  municipalities: {
+    facets: {
+      buckets: CategoryAggregationsByObjectsDTO[];
+    };
+  };
   googleRatings: {
     facets: {
       buckets: {
