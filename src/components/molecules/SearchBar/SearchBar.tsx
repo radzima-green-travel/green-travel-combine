@@ -56,6 +56,7 @@ export const SearchBar = memo(
         />
         <TouchableOpacity
           onPress={value ? onClear : () => {}}
+          disabled={!value}
           style={styles.icon}>
           <Icon
             style={[styles.icon, styles.rightIcon]}
