@@ -1,14 +1,14 @@
 import React, {memo, useCallback} from 'react';
 import {Animated, View} from 'react-native';
-import {IObject} from 'core/types';
+import {SearchObject} from 'core/types';
 import {Icon} from 'atoms';
 import {styles} from './styles';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 interface IProps {
-  data: IObject;
+  data: SearchObject;
   children: React.ReactNode;
-  onDeletePress: (object: IObject) => void;
+  onDeletePress: (object: SearchObject) => void;
 }
 
 export const SwipeToDeleteContainer = memo(

@@ -10,9 +10,11 @@ import {
   visitedObjectsSaga,
   analytics,
   homePageSaga,
+  filtersSaga,
   appMapSaga,
   objectsListSaga,
   categoriesListSaga,
+  searchSaga,
   objectDetailsSaga,
 } from './sagas';
 
@@ -28,9 +30,11 @@ export function* rootSaga() {
     visitedObjectsSaga(),
     analytics(),
     homePageSaga(),
+    filtersSaga(),
     appMapSaga(),
     objectsListSaga(),
     categoriesListSaga(),
+    searchSaga(),
     objectDetailsSaga(),
   ]);
 }

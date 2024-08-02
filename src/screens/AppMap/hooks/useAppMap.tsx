@@ -15,7 +15,7 @@ import {
 } from 'core/transformators/appMap';
 import {useSelector} from 'react-redux';
 import bbox from '@turf/bbox';
-import {IMapFilter, ObjectMap} from 'core/types';
+import {IMapFilter, ObjectMap, SearchObject} from 'core/types';
 
 import {ShapeSource, Camera, MapView} from '@rnmapbox/maps';
 
@@ -43,7 +43,7 @@ import {xorBy, find} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {useNavigation} from '@react-navigation/native';
 import {ObjectsListScreenNavigationProps} from '../types';
-import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {getAnalyticsNavigationScreenName, isLocationExist} from 'core/helpers';
 import {useDispatch} from 'react-redux';
 import {getAppMapObjectsRequest} from 'core/actions';
 
@@ -135,7 +135,8 @@ export const useAppMap = () => {
     deleteFromHistory,
     inputValue,
     clearInput,
-  } = useSearchList({withLocation: true});
+    ...searchListProps
+  } = useSearchList();
 
   const {openMenu, closeMenu, isMenuOpened, ...menuProps} = useBottomMenu();
   const {
@@ -173,11 +174,17 @@ export const useAppMap = () => {
     }
   }, [isMenuOpened, unselectObject]);
 
-  const selectObjectAndOpenMenu = useCallback((object: ObjectMap) => {
-    hapticFeedbackService.trigger();
-    setSelectedObject({...object});
-    setSelectedMarker(createMarkerFromObject(object));
-  }, []);
+  const selectObjectAndOpenMenu = useCallback(
+    (object: SearchObject) => {
+      hapticFeedbackService.trigger();
+      const objectMap = find(objects, {id: object.id});
+      if (objectMap) {
+        setSelectedObject({...objectMap});
+        setSelectedMarker(createMarkerFromObject(objectMap));
+      }
+    },
+    [objects],
+  );
 
   const onShapePress = useCallback(
     async (objectId: string | null) => {
@@ -222,7 +229,7 @@ export const useAppMap = () => {
 
   const moveCameraToSearchedObject = useCallback(
     async (
-      object: ObjectMap,
+      object: SearchObject,
       cluster: Supercluster<Supercluster.AnyProps, Supercluster.AnyProps>,
       clusterBounds,
     ) => {
@@ -256,32 +263,34 @@ export const useAppMap = () => {
   );
 
   const onSearchItemPress = useCallback(
-    (object: ObjectMap) => {
-      let newFitlters = selectedFilters;
-      let newMarkers = markers;
+    (object: SearchObject) => {
+      if (isLocationExist(object)) {
+        let newFitlters = selectedFilters;
+        let newMarkers = markers;
 
-      if (selectedFilters.length) {
-        ignoreFitBounds.current = true;
+        if (selectedFilters.length) {
+          ignoreFitBounds.current = true;
 
-        newFitlters = [];
-        newMarkers = getMapMarkers(objects, newFitlters);
+          newFitlters = [];
+          newMarkers = getMapMarkers(objects, newFitlters);
 
-        setSelectedFilters(newFitlters);
-        setMarkers(newMarkers);
+          setSelectedFilters(newFitlters);
+          setMarkers(newMarkers);
+        }
+
+        closeSearchMenu();
+        const clusterBounds = bbox(newMarkers);
+        const cluster = new Supercluster({
+          radius: 40,
+          maxZoom: 14,
+        }).load(newMarkers?.features!);
+
+        moveCameraToSearchedObject(object, cluster, clusterBounds);
+
+        addToHistory(object);
+        selectObjectAndOpenMenu(object);
+        clearInput();
       }
-
-      closeSearchMenu();
-      const clusterBounds = bbox(newMarkers);
-      const cluster = new Supercluster({
-        radius: 40,
-        maxZoom: 14,
-      }).load(newMarkers?.features!);
-
-      moveCameraToSearchedObject(object, cluster, clusterBounds);
-
-      addToHistory(object);
-      selectObjectAndOpenMenu(object);
-      clearInput();
     },
     [
       selectedFilters,
@@ -297,8 +306,8 @@ export const useAppMap = () => {
   );
 
   const onDeleteItem = useCallback(
-    (searchItem: ObjectMap) => {
-      deleteFromHistory(searchItem);
+    (searchItem: SearchObject) => {
+      deleteFromHistory(searchItem.id);
     },
     [deleteFromHistory],
   );
@@ -445,5 +454,6 @@ export const useAppMap = () => {
     loading,
     errorTexts,
     getAppMapObjects,
+    searchListProps,
   };
 };

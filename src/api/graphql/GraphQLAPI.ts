@@ -2,16 +2,25 @@ import {
   AppMapObjectsTotalCountResponseDTO,
   AppMapObjectsResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
-  ListCategoriesResponseDTO,
+  CategoriesResponseDTO,
   ListShortObjectsResponseDTO,
   ObjectsForCategoriesResponseDTO,
+  SearchObjectsResponseDTO,
+  SearchObjectsHistoryResponseDTO,
+  RegionsListResponseDTO,
+  FiltersParams,
+  ObjectFiltersDataResponseDTO,
+  FiltersCategoriesResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
+import {SearchSpotsParams} from './types';
 import {
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
   searchCategoriesQuery,
   searchObjectsQuery,
+  getSearchObjectsHistoryQuery,
+  getSearchObjectsQuery,
   geObjectDetailsByIdQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
@@ -21,11 +30,16 @@ import {
   ObjectsListQueryParams,
 } from 'api/graphql/types';
 import {getObjectsTotalCountQuery} from './queries/common';
+import {
+  searchSpotsQuery,
+  filterObjects,
+  getFiltersCategoriesQuery,
+} from './queries/filters';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getCategoriesList(
     params: CategoriesListQueryParams,
-  ): Promise<ListCategoriesResponseDTO> {
+  ): Promise<CategoriesResponseDTO> {
     const response = await this.executeQuery({
       query: searchCategoriesQuery,
       params,
@@ -47,6 +61,41 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
     return response.filterLandingObjects?.aggregations?.categories?.facets
       ?.buckets;
+  }
+
+  async getRegions(): Promise<RegionsListResponseDTO> {
+    const response = await this.executeQuery({
+      query: searchSpotsQuery,
+      params: {
+        limit: 100,
+        filter: {
+          type: {
+            eq: 'REGION',
+          },
+        },
+      } as SearchSpotsParams,
+    });
+
+    return response.searchSpots.items;
+  }
+
+  async getFilterObjects({
+    filter = {},
+  }: FiltersParams = {}): Promise<ObjectFiltersDataResponseDTO> {
+    const response = await this.executeQuery({
+      query: filterObjects,
+      params: {
+        filter: {
+          statuses: ['published'],
+          ...filter,
+          googleRating: filter.googleRating || null,
+          categories: filter.categories?.length ? filter.categories : null,
+          regions: filter.regions?.length ? filter.regions : null,
+        },
+      },
+    });
+
+    return response.filterLandingObjects;
   }
 
   async getObjectsTotalCount(): Promise<AppMapObjectsTotalCountResponseDTO> {
@@ -74,6 +123,47 @@ class GraphQLAPI extends GraphQLAPIEngine {
     const response = await this.executeQuery({
       query: searchObjectsQuery,
       params,
+    });
+
+    return response.searchObjects;
+  }
+
+  async getFiltersCategories(): Promise<FiltersCategoriesResponseDTO> {
+    const response = await this.executeQuery({
+      query: getFiltersCategoriesQuery,
+    });
+
+    return response.searchCategories;
+  }
+
+  async getSearchObjects({
+    query,
+    nextToken,
+  }: {
+    query: string;
+    nextToken: string | null;
+  }): Promise<SearchObjectsResponseDTO> {
+    const response = await this.executeQuery({
+      query: getSearchObjectsQuery,
+      params: {
+        query,
+        nextToken,
+      },
+    });
+
+    return response.filterLandingObjects;
+  }
+
+  async getSearchObjectsHistory({
+    objectsIds,
+  }: {
+    objectsIds: string[];
+  }): Promise<SearchObjectsHistoryResponseDTO> {
+    const response = await this.executeQuery({
+      query: getSearchObjectsHistoryQuery,
+      params: {
+        match: objectsIds.join(' '),
+      },
     });
 
     return response.searchObjects;

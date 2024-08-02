@@ -1,82 +1,88 @@
 import {createSelector} from 'reselect';
-import {IObject} from '../types';
+import {SearchObject} from '../types';
 import {IState} from 'core/store';
-import {filter, orderBy, reduce} from 'lodash';
-import {selectTransformedData} from './homeSelectors';
-import {isLocationExist, removePunctuation} from 'core/helpers';
+import {map, reduce} from 'lodash';
+import {selectAppLanguage} from './settingsSelectors';
+import {selectSearchHistoryObjectsIds} from './user';
+import {extractLocaleSpecificValues} from 'core/transformators/common';
 
-export const selectSearchInputValue = (state: IState) =>
-  state.search.inputValue;
+const selectSearchState = createSelector(
+  (state: IState) => state.search,
+  (_: IState, reducerId: string) => reducerId,
+  (searchState, reducerId) => searchState[reducerId],
+);
+
+export const selectSearchNextToken = createSelector(
+  selectSearchState,
+  search => search.nextToken,
+);
+
+export const selectSearchObjectsRawData = createSelector(
+  selectSearchState,
+  search => search.searchObjects,
+);
+
+export const selectSearchObjectsTotal = createSelector(
+  selectSearchState,
+  search => search.total,
+);
+
+export const selectSearchHistoryRawObjects = createSelector(
+  selectSearchState,
+  search => search.searchHistoryObjects,
+);
+
+export const selectSearchInputValue = createSelector(
+  selectSearchState,
+  search => search.inputValue,
+);
+
+export const selectSearchObjectsData = createSelector(
+  selectSearchObjectsRawData,
+  selectAppLanguage,
+  (searchObjects, locale) =>
+    map(searchObjects, object => {
+      return {
+        ...extractLocaleSpecificValues(object, locale),
+        category: extractLocaleSpecificValues(object.category, locale),
+      };
+    }),
+);
+
+export const selectSearchHistoryObjects = createSelector(
+  selectSearchHistoryRawObjects,
+  selectAppLanguage,
+  (searchObjects, locale) =>
+    map(searchObjects, object => {
+      return {
+        ...extractLocaleSpecificValues(object, locale),
+        category: extractLocaleSpecificValues(object.category, locale),
+      };
+    }),
+);
 
 export const selectSearchInputForSearch = createSelector(
   selectSearchInputValue,
   inputValue => inputValue.trim(),
 );
 
-export const selectIsHistoryVisible = createSelector(
-  selectSearchInputForSearch,
-  inputValue => !inputValue,
-);
-
-const orderByName = (objects: IObject[]) => {
-  return orderBy(objects, [({name}) => name.toLowerCase()], 'asc');
-};
-
 export const selectSearchHistory = createSelector(
-  (state: IState) => state.search.history,
-  selectTransformedData,
-  (history, transformedData) => {
-    if (!transformedData) {
+  selectSearchHistoryObjectsIds,
+  selectSearchHistoryObjects,
+  (ids, objects) => {
+    if (objects.length === 0) {
       return [];
     }
-
-    const objects = reduce(
-      history,
-      (acc, id) => {
-        if (id in transformedData.objectsMap) {
-          acc.push(transformedData.objectsMap[id]);
-        }
-
+    const historyObjectsMap = reduce(
+      objects,
+      (acc, object) => {
+        acc[object.id] = object;
         return acc;
       },
-      [] as IObject[],
+      {} as Record<string, SearchObject>,
     );
-
-    return orderByName(objects);
+    return map(ids, id => {
+      return historyObjectsMap[id];
+    });
   },
-);
-
-export const selectSearchResults = createSelector(
-  selectTransformedData,
-  selectSearchInputForSearch,
-  (transformedData, inputValue) => {
-    if (!transformedData) {
-      return [];
-    }
-
-    const objects = filter(
-      Object.values(transformedData.objectsMap),
-      object => {
-        const {name, address} = object;
-        const lowerInput = removePunctuation(inputValue.toLowerCase());
-        return (
-          removePunctuation(name.toLowerCase()).includes(lowerInput) ||
-          (!!address &&
-            removePunctuation(address.toLowerCase()).includes(lowerInput))
-        );
-      },
-    );
-
-    return orderByName(objects);
-  },
-);
-
-export const selectSearchResultsWithLocation = createSelector(
-  selectSearchResults,
-  searchResults => filter(searchResults, isLocationExist),
-);
-
-export const selectSearchHistoryWithLocation = createSelector(
-  selectSearchHistory,
-  history => filter(history, isLocationExist),
 );

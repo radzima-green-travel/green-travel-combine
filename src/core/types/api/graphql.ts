@@ -75,13 +75,29 @@ export interface ObjectMapDTO {
   length: number | null;
 }
 
+export interface SearchObjetcCategoryDTO {
+  name: string;
+  icon: string;
+  i18n: Array<I18nType<'name'>>;
+}
+
+export interface SearchObjectDTO {
+  name: string;
+  id: string;
+  i18n: Array<I18nType<'name'>>;
+  category: SearchObjetcCategoryDTO;
+  location: LocationDTO | null;
+}
+
 export interface CategoryAggregationsByObjectsDTO {
   doc_count: number;
   key: string;
 }
 
-export interface ListCategoriesResponseDTO {
+export interface CategoriesResponseDTO {
   items: Array<CategoryShortDTO>;
+  nextToken: string;
+  total: number;
 }
 
 export interface ListShortObjectsResponseDTO {
@@ -95,7 +111,67 @@ export interface ObjectsForCategoriesResponseDTO {
 export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
+export interface FiltersParams {
+  filter?: {
+    categories?: string[];
+    googleRating?: string;
+    regions?: string[];
+    statuses?: string | string[];
+  };
+}
+
+export type ObjectFiltersAggregationsDTO = {
+  categories: {
+    facets: {
+      buckets: CategoryAggregationsByObjectsDTO[];
+    };
+  };
+  regions: {
+    facets: {
+      buckets: CategoryAggregationsByObjectsDTO[];
+    };
+  };
+  googleRatings: {
+    facets: {
+      buckets: {
+        key: string;
+        from: number;
+      }[];
+    };
+  };
+};
+
+export interface ObjectFiltersDataDTO {
+  total: number;
+  googleRatings: {key: string; from: string}[];
+  aggregations: ObjectFiltersAggregationsDTO;
+}
+
+export interface RegionItemDTO {
+  id: string;
+  value: string;
+  i18n: Partial<I18nType<keyof RegionItemDTO>>[];
+}
+
+export interface CategoryFilterItemDTO {
+  i18n: Array<I18nType<'name'>>;
+  name: string;
+  id: string;
+  index: number;
+}
+
+export type ObjectFiltersDataResponseDTO = {
+  filterLandingObjects: ObjectFiltersDataDTO;
+};
+
+export type RegionsListResponseDTO = Array<RegionItemDTO>;
+
+export type FiltersCategoriesResponseDTO = {
+  items: Array<CategoryFilterItemDTO>;
+};
+
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
+
 export type AppMapObjectsResponseDTO = {items: Array<ObjectMapDTO>};
 
 export interface PaginatedList<T> {
@@ -103,3 +179,12 @@ export interface PaginatedList<T> {
   nextToken: string;
   total: number;
 }
+export type SearchObjectsResponseDTO = {
+  items: Array<SearchObjectDTO>;
+  nextToken: string | null;
+  total: number;
+};
+
+export type SearchObjectsHistoryResponseDTO = {
+  items: Array<SearchObjectDTO>;
+};

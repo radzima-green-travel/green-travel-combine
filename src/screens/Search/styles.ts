@@ -1,7 +1,13 @@
-import {StyleSheet} from 'react-native';
+import {COLORS} from 'assets';
 
-export const styles = StyleSheet.create({
+export const themeStyles = {
   headerTitleContainer: {
-    width: '90%',
+    width: '80%',
   },
-});
+  icon: {
+    color: {
+      light: COLORS.white,
+      dark: COLORS.altoForDark,
+    },
+  },
+};

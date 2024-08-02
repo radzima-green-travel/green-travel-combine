@@ -33,6 +33,7 @@ export function* bootstrapSaga() {
       const isAuthorized = yield select(selectUserAuthorized);
 
       yield put(getHomePageDataRequest());
+
       if (isMyProfileFeatureEnabled) {
         yield call(initUserAuthSaga);
       }

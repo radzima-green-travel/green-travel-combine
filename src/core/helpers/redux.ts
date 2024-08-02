@@ -11,11 +11,13 @@ export function createAsyncAction<
     successAction: createAction<SuccessPayload>(type + '_SUCCESS'),
     failureAction: createAction<FailurePayload>(type + '_FAILURE'),
   };
+
+  const metaWithReducerId = meta as typeof meta & {reducerId?: string};
   const asyncAction = createAction(
     type + '_REQUEST',
     (payload: RequestPayload) => ({
       payload,
-      meta,
+      meta: metaWithReducerId,
     }),
   );
 
@@ -26,7 +28,7 @@ export function createAsyncAction<
   }
   asyncActionWithStaticMeta.toString = asyncAction.toString;
   asyncActionWithStaticMeta.type = asyncAction.type;
-  asyncActionWithStaticMeta.meta = meta;
+  asyncActionWithStaticMeta.meta = metaWithReducerId;
 
   return asyncActionWithStaticMeta;
 }

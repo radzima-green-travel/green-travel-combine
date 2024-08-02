@@ -8,6 +8,7 @@ import {
   ObjectCategoryMapDTO,
   ObjectMapDTO,
   ObjectShortDTO,
+  SearchObjectDTO,
 } from './api';
 
 export interface ILabelError {
@@ -238,6 +239,9 @@ export interface ObjectMap extends ObjectMapDTO {
 export interface ObjectCategoryMap extends ObjectCategoryMapDTO {
   analyticsMetadata: Record<ExtractI18nKeys<ObjectCategoryMapDTO>, string>;
 }
+export interface SearchObject extends SearchObjectDTO {
+  analyticsMetadata: Record<ExtractI18nKeys<SearchObjectDTO>, string>;
+}
 export interface CardItem {
   name: string;
   cover: string;
@@ -255,10 +259,12 @@ export enum TestIDs {
   TabBarItemFavorites = 'tabBarItemFavorites',
   TabBarItemProfile = 'tabBarItemProfile',
   SearchButton = 'searchButton',
+  FilterButton = 'filterButton',
   HeaderScreenTitle = 'headerScreenTitle',
   HeaderBookmarkButton = 'headerBookmarkButton',
   HeaderBackButton = 'headerBackButton',
   HeaderShareButton = 'HeaderShareButton',
+  HeaderCloseButton = 'HeaderCloseButton',
   AllButton = 'allButton',
   SeeOnTheMapButton = 'seeOnTheMapButton',
   ObjectDetailsTitle = 'objectDetailsTitle',
@@ -273,7 +279,7 @@ export enum TestIDs {
   ObjectDetailsImage = 'objectDetailsImage',
   HeaderSearchInput = 'headerSearchInput',
   HeaderClearButton = 'headerClearButton',
-  SearchResultItem = 'searchResultItem',
+  SearchResultList = 'searchResultList',
   SearchResultItemTitle = 'searchResultItemTitle',
   FavoritesCard = 'favoritesCard',
   FavoriteButton = 'favoriteButton',
@@ -333,4 +339,6 @@ export enum TestIDs {
   ObjectDetailsBelongsTo = 'objectDetailsBelongsTo',
   ObjectDetailsAddInfoConfirmMenu = 'objectDetailsAddInfoConfirmMenu',
   ObjectDetailsAddInfoConfirmContent = 'objectDetailsAddInfoConfirmContent',
+  FiltersMultySwitch = 'filtersMultySwitch',
+  FiltersChooseButton = 'filtersChooseButton',
 }
