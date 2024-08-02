@@ -73,6 +73,6 @@ export function prepareFiltersSettlements(
 
   return chain(sections)
     .pickBy(value => value.length)
-    .map((data, title) => ({title, data}))
+    .map((data = [], title) => ({title, data}))
     .value();
 }

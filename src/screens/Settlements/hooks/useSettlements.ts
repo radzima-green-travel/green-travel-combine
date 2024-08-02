@@ -40,7 +40,7 @@ export const useSettlements = () => {
   );
   const {municipalities: activeSettlements} = useSelector(selectActiveFilters);
   const [selectedSettlements, setSelectedSettlements] =
-    useState<string[]>(activeSettlements);
+    useState(activeSettlements);
   const [searchValue, setSearchValue] = useState('');
   const [inputChangeLoading, setInputChangeLoading] = useState(false);
 
