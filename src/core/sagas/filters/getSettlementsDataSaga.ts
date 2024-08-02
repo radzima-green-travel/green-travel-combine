@@ -1,3 +1,4 @@
+import {SettlementsResponseDTO} from './../../types/api/graphql';
 import {call, put, select, all} from 'redux-saga/effects';
 import {
   getSettlementsDataRequest,
@@ -7,7 +8,6 @@ import {
 import {graphQLAPI} from 'api/graphql';
 import {selectSettlementsData} from 'selectors';
 import {SettlementsQueryParams} from 'api/graphql/types';
-import {filter} from 'lodash';
 import {RequestError} from 'core/errors';
 
 export function* getSettlementsDataSaga({
@@ -40,16 +40,13 @@ export function* getSettlementsDataSaga({
       },
     };
 
-    const [{items, nextToken, total}] = yield all([
+    const [{items, nextToken, total}]: [SettlementsResponseDTO] = yield all([
       call([graphQLAPI, graphQLAPI.getSettlements], params),
     ]);
 
-    //TODO: Filtering invalid values ​​(Most likely not relevant for prod)
-    const filteredData = filter(items, item => /[а-яА-ЯЁё]/.test(item.value));
-
     yield put(
       successAction({
-        data: filteredData,
+        data: items,
         requestedItemsCount: items.length,
         nextToken,
         total,
