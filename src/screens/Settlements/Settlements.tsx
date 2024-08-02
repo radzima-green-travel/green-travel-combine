@@ -9,6 +9,7 @@ import {SectionList} from 'react-native';
 import {SearchBar} from 'molecules';
 import {useSettlements} from './hooks';
 import {COLORS} from 'assets';
+import {composeTestID} from 'core/helpers';
 
 const getItemLayout = (_, index) => ({
   length: ITEM_HEIGHT,
@@ -40,11 +41,16 @@ export const Settlements = () => {
 
   const renderSectionItem = useCallback(
     ({item}) => (
-      <View style={styles.sectionItemContainer}>
+      <View
+        style={styles.sectionItemContainer}
+        testID={composeTestID(TestIDs.SettlementSectionListItem, item.value)}>
         <Checkbox
           selected={selectedSettlements?.includes(item.id)}
           onPress={() => chooseSettlement(item.id)}
-          testID={item.value}
+          testID={composeTestID(
+            TestIDs.SettlementSectionListItemCheckbox,
+            item.value,
+          )}
         />
         <Text style={styles.sectionItemText}>{item.value}</Text>
       </View>
@@ -60,7 +66,9 @@ export const Settlements = () => {
   const renderSectionHeader = useCallback(
     ({section: {title}}) => (
       <View style={styles.sectionHeaderWrapper}>
-        <View style={styles.sectionHeaderContainer}>
+        <View
+          style={styles.sectionHeaderContainer}
+          testID={composeTestID(TestIDs.SettlementSectionListHeader, title)}>
           <Text style={styles.sectionHeaderText}>{title}</Text>
         </View>
       </View>
@@ -75,7 +83,9 @@ export const Settlements = () => {
   const renderHeaderRight = useCallback(
     () =>
       selectedSettlements.length ? (
-        <TouchableOpacity onPress={resetSelectedSettlements}>
+        <TouchableOpacity
+          onPress={resetSelectedSettlements}
+          testID={TestIDs.HeaderResetButton}>
           <Text style={styles.resetButtonText}>{t('settlements.reset')}</Text>
         </TouchableOpacity>
       ) : null,
@@ -84,7 +94,7 @@ export const Settlements = () => {
 
   const renderListEmptyComponent = useCallback(
     () => (
-      <View style={styles.listEmptyContainer}>
+      <View style={styles.listEmptyContainer} testID={TestIDs.NotFound}>
         <Text style={styles.listEmptyText}>
           {t('settlements.nothingFound')}
         </Text>
