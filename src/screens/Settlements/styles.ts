@@ -87,4 +87,7 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.secondary,
     },
   },
+  sectionListContentContainer: {
+    flexGrow: 1,
+  },
 });

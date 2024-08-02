@@ -35,16 +35,20 @@ export const useSettlements = () => {
   const {loading: paginationLoading} = useRequestLoading(
     getPaginationSettlementsDataRequest,
   );
+  const {loading: searchLoading} = useRequestLoading(
+    getSearchSettlementsDataRequest,
+  );
   const {municipalities: activeSettlements} = useSelector(selectActiveFilters);
   const [selectedSettlements, setSelectedSettlements] =
     useState<string[]>(activeSettlements);
   const [searchValue, setSearchValue] = useState('');
+  const [inputChangeLoading, setInputChangeLoading] = useState(false);
 
   const {requestedItemsCount, total} = useSelector(selectSettlementsData);
   const settlementsSections = useSelector(selectTransformedFiltersSettlements);
 
   const getSettlementsData = useCallback(() => {
-    dispatch(getSettlementsDataRequest({nextToken: ''}));
+    dispatch(getSettlementsDataRequest());
   }, [dispatch]);
 
   const getPaginationSettlementsData = useCallback(() => {
@@ -83,16 +87,16 @@ export const useSettlements = () => {
 
   const debouncedFunction = useCallback(
     debounce(value => {
-      dispatch(
-        getSearchSettlementsDataRequest({nextToken: '', searchValue: value}),
-      );
-    }, 250),
+      dispatch(getSearchSettlementsDataRequest({searchValue: value}));
+      setInputChangeLoading(false);
+    }, 500),
     [],
   );
 
   const handleSearchValue = value => {
     setSearchValue(value);
     debouncedFunction(value);
+    setInputChangeLoading(true);
   };
 
   useOnRequestError(
@@ -124,6 +128,7 @@ export const useSettlements = () => {
     selectedSettlements,
     activeSettlements,
     fullScreenLoading,
+    searchLoading: searchLoading || inputChangeLoading,
     errorTexts: errorTextsInitial,
     searchValue,
     errorTextsInitial,

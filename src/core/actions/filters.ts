@@ -11,17 +11,17 @@ import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
 
 export const getSettlementsDataRequest = createAsyncAction<
-  SettlementsParams,
+  SettlementsParams | void,
   SettlementsData
 >('GET_SETTLEMENTS_DATA');
 
 export const getSearchSettlementsDataRequest = createAsyncAction<
-  SettlementsParams,
+  SettlementsParams | void,
   SettlementsData
 >('GET_SEARCH_SETTLEMENTS_DATA');
 
 export const getPaginationSettlementsDataRequest = createAsyncAction<
-  SettlementsParams,
+  SettlementsParams | void,
   SettlementsData
 >('GET_PAGINATION_SETTLEMENTS_DATA');
 

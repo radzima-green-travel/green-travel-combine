@@ -13,14 +13,18 @@ import {RequestError} from 'core/errors';
 export function* getSettlementsDataSaga({
   meta: {failureAction, successAction},
   payload,
+  type,
 }: ReturnType<
   | typeof getSettlementsDataRequest
   | typeof getPaginationSettlementsDataRequest
   | typeof getSearchSettlementsDataRequest
 >) {
   try {
-    const {nextToken: prevNextToken} = yield select(selectSettlementsData);
-    const newToken = payload?.nextToken ?? prevNextToken;
+    let newToken = '';
+    if (type === getPaginationSettlementsDataRequest.type) {
+      const {nextToken: prevNextToken} = yield select(selectSettlementsData);
+      newToken = prevNextToken;
+    }
 
     const params: SettlementsQueryParams = {
       limit: 50,

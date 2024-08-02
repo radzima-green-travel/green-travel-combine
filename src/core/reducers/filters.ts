@@ -46,13 +46,14 @@ const initialState: FiltersState = {
 export const filtersReducer = createReducer(initialState, builder => {
   builder
     .addCase(setActiveFilter, (state, {payload}) => {
-      const newState =
-        payload.name === 'googleRating'
-          ? payload.value
-          : typeof payload.value === 'string'
-            ? xor(state.activeFilters[payload.name], [payload.value])
-            : payload.value;
-
+      let newState;
+      if (payload.name === 'googleRating') {
+        newState = payload.value;
+      } else if (typeof payload.value === 'string') {
+        newState = xor(state.activeFilters[payload.name], [payload.value]);
+      } else {
+        newState = payload.value;
+      }
       state.activeFilters = {
         ...state.activeFilters,
         [payload.name]: newState,

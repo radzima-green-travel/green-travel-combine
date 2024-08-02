@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 import {SuspenseView, Button, ScreenContent, Checkbox, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types';
@@ -8,6 +8,7 @@ import {themeStyles, ITEM_HEIGHT} from './styles';
 import {SectionList} from 'react-native';
 import {SearchBar} from 'molecules';
 import {useSettlements} from './hooks';
+import {COLORS} from 'assets';
 
 const getItemLayout = (_, index) => ({
   length: ITEM_HEIGHT,
@@ -26,6 +27,7 @@ export const Settlements = () => {
     activeSettlements,
     selectedSettlements,
     fullScreenLoading,
+    searchLoading,
     searchValue,
     errorTexts,
     snackBarProps,
@@ -105,16 +107,27 @@ export const Settlements = () => {
         retryCallback={getSettlementsData}>
         <ScreenContent>
           <SearchBar onChange={handleSearchValue} value={searchValue} />
-          <SectionList
-            showsVerticalScrollIndicator={false}
-            sections={settlementsSections}
-            keyExtractor={item => item.id}
-            getItemLayout={getItemLayout}
-            renderItem={renderSectionItem}
-            ListEmptyComponent={renderListEmptyComponent}
-            renderSectionHeader={renderSectionHeader}
-            {...paginationProps}
-          />
+          {searchLoading ? (
+            <View style={styles.listEmptyContainer}>
+              <ActivityIndicator color={COLORS.forestGreen} />
+            </View>
+          ) : (
+            <>
+              <SectionList
+                contentContainerStyle={styles.sectionListContentContainer}
+                showsVerticalScrollIndicator={false}
+                sections={settlementsSections}
+                keyExtractor={item => item.id}
+                getItemLayout={getItemLayout}
+                renderItem={renderSectionItem}
+                ListEmptyComponent={renderListEmptyComponent}
+                renderSectionHeader={renderSectionHeader}
+                {...paginationProps}
+                initialNumToRender={15}
+                maxToRenderPerBatch={15}
+              />
+            </>
+          )}
           <Button
             text={
               selectedSettlements.length
