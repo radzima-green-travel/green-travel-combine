@@ -1,4 +1,5 @@
-import {Alert, Linking, NativeModules} from 'react-native';
+import {Alert} from 'react-native';
+import * as Linking from 'expo-linking';
 import * as Location from 'expo-location';
 
 import {isIOS} from './PlatformService';
@@ -6,9 +7,16 @@ import i18n from 'i18next';
 
 class PermissionsService {
   async checkLocationPermissionIOS() {
-    let {status} = await Location.requestForegroundPermissionsAsync();
+    const {status} = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
+      const servicesEnabled = await Location.hasServicesEnabledAsync();
+
+      if (!servicesEnabled) {
+        this.handeLocationServicesDisabled();
+        return false;
+      }
+
       this.handleLocationPermissionDenied();
       return false;
     }
@@ -17,20 +25,19 @@ class PermissionsService {
   }
 
   async checkLocationPermissionAndroid() {
-    let {status} = await Location.requestForegroundPermissionsAsync();
+    const {status} = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
       this.handleLocationPermissionDenied();
       return false;
     } else {
-      const {gps} =
-        await NativeModules.LocationProvidersModule.getAvailableLocationProviders();
+      const servicesEnabled = await Location.hasServicesEnabledAsync();
 
-      if (!gps) {
-        Alert.alert('', i18n.t('common:locationPermissionText'));
-
+      if (!servicesEnabled) {
+        this.handeLocationServicesDisabled();
         return false;
       }
+
       return true;
     }
   }
@@ -43,16 +50,13 @@ class PermissionsService {
       },
       {
         text: i18n.t('common:locationPermissionSettings'),
-        onPress: async () => {
-          const supported = await Linking.canOpenURL('app-settings:');
-          if (supported) {
-            Linking.openURL('app-settings:');
-          } else {
-            console.log('Failed to open app settings.');
-          }
-        },
+        onPress: async () => await Linking.openSettings(),
       },
     ]);
+  }
+
+  handeLocationServicesDisabled() {
+    Alert.alert('', i18n.t('common:locationPermissionText'));
   }
 
   async checkLocationPermission() {
