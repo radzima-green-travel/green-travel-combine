@@ -8753,6 +8753,13 @@ expo-constants@~15.4.0:
   dependencies:
     "@expo/config" "~8.5.0"
 
+expo-constants@~15.4.3:
+  version "15.4.6"
+  resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-15.4.6.tgz#d4e9b21b70c5602457962700f2e90a75356b487b"
+  integrity sha512-vizE69dww2Vl0PTWWvDmK0Jo2/J+WzdcMZlA05YEnEYofQuhKxTVsiuipf79mSOmFavt4UQYC1UnzptzKyfmiQ==
+  dependencies:
+    "@expo/config" "~8.5.0"
+
 expo-dev-client@~3.3.12:
   version "3.3.12"
   resolved "https://registry.yarnpkg.com/expo-dev-client/-/expo-dev-client-3.3.12.tgz#b6f4995daeb19046f3f03934765ccb0b7b9d72cb"
@@ -8831,6 +8838,14 @@ expo-linear-gradient@~12.7.2:
   version "12.7.2"
   resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-12.7.2.tgz#2ff9593eae8448ac5630be1a36ce6133c4a6f074"
   integrity sha512-Wwb2EF18ywgrlTodcXJ6Yt/UEcKitRMdXPNyP/IokmeKh4emoq9DxZJpZdkXm3HUTLlbRpi6/t32jrFVqXB9AQ==
+
+expo-linking@~6.2.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/expo-linking/-/expo-linking-6.2.2.tgz#b7e148068ae49fd9ad814428c16fdf7a236e8aca"
+  integrity sha512-FEe6lP4f7xFT/vjoHRG+tt6EPVtkEGaWNK1smpaUevmNdyCJKqW0PDB8o8sfG6y7fly8ULe8qg3HhKh5J7aqUQ==
+  dependencies:
+    expo-constants "~15.4.3"
+    invariant "^2.2.4"
 
 expo-localization@~14.8.4:
   version "14.8.4"
@@ -13292,7 +13307,7 @@ prompts@^2.0.1, prompts@^2.3.2, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.7, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.5.7, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -13492,13 +13507,6 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-native-animatable@^1.3.1:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.4.0.tgz#05a259e1566081ce7d3f6fba1e92edc65f5c6160"
-  integrity sha512-DZwaDVWm2NBvBxf7I0wXKXLKb/TxDnkV53sWhCvei1pRyTX3MVFpkvdYBknNBqPrxYuAIlPxEp7gJOidIauUkw==
-  dependencies:
-    prop-types "^15.8.1"
-
 react-native-awesome-gallery@^0.3.6:
   version "0.3.8"
   resolved "https://registry.yarnpkg.com/react-native-awesome-gallery/-/react-native-awesome-gallery-0.3.8.tgz#777177b881bce0e9f1414172b11a650d75a985ff"
@@ -13529,26 +13537,15 @@ react-native-get-random-values@^1.4.0:
   dependencies:
     fast-base64-decode "^1.0.0"
 
-react-native-map-link@2.7.25:
-  version "2.7.25"
-  resolved "https://registry.yarnpkg.com/react-native-map-link/-/react-native-map-link-2.7.25.tgz#4070f6f85bf1ff446a0f353468214f905cd26eab"
-  integrity sha512-iY90o0ZOw1yIxs+uftS81kqWEua3FZV4KKw9x45kikcGXU7cBXUrDfUbRDhTSXXIXd5SLL7i/UPROiBmQBeM8g==
-  dependencies:
-    prop-types "^15.7.2"
-    react-native-modal "^10.0.0"
+react-native-map-link@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-map-link/-/react-native-map-link-3.5.0.tgz#a047de649db08f3436115cc68fd1890605c1b124"
+  integrity sha512-5bY0YSfLUFnIqkwEzFZ+cvrOKwfSJYwHYxlGteGlpkJ57/CgQl8nSYexexC5ldVj29bgg335ji368h1cJ4sr0Q==
 
 react-native-mmkv@^2.12.2:
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.12.2.tgz#4bba0f5f04e2cf222494cce3a9794ba6a4894dee"
   integrity sha512-6058Aq0p57chPrUutLGe9fYoiDVDNMU2PKV+lLFUJ3GhoHvUrLdsS1PDSCLr00yqzL4WJQ7TTzH+V8cpyrNcfg==
-
-react-native-modal@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-10.0.0.tgz#1b0b15cc6cda9584f122cced106a9f9f37befc08"
-  integrity sha512-f0paVkkbQ/zNYnzEfqpJ+Xyqda/2mTzg1CL4ECpvRxlMOgTRezJabfEVJKTl+rZZELaaKyjB8FNoB8feC0E9pA==
-  dependencies:
-    prop-types "^15.6.2"
-    react-native-animatable "^1.3.1"
 
 react-native-reanimated@~3.6.2:
   version "3.6.3"

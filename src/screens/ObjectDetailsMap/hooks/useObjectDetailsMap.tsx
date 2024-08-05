@@ -104,6 +104,7 @@ export const useObjectDetailsMap = () => {
           dialogTitle: t('actionSheetTitle'),
           dialogMessage: name,
           cancelText: t('cancel'),
+          directionsMode: 'car',
         });
       } else if (centerCoordinate) {
         const usrLocation = await getUserLocation();
