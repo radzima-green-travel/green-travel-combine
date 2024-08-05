@@ -11,6 +11,7 @@ import {
   FiltersParams,
   ObjectFiltersDataResponseDTO,
   FiltersCategoriesResponseDTO,
+  ObjectDetailsResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {SearchSpotsParams} from './types';
@@ -169,7 +170,9 @@ class GraphQLAPI extends GraphQLAPIEngine {
     return response.searchObjects;
   }
 
-  async getObjectDetailsById(objectId: string): Promise<any> {
+  async getObjectDetailsById(
+    objectId: string,
+  ): Promise<ObjectDetailsResponseDTO> {
     const response = await this.executeQuery({
       query: geObjectDetailsByIdQuery(objectId),
     });

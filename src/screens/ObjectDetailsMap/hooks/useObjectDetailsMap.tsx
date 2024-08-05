@@ -34,6 +34,7 @@ import {
   createMarkerFromDetailsObject,
   selectMapDirection,
 } from 'core/selectors';
+import {useObjectDetailsSelector} from 'core/hooks';
 
 import {
   Feature,
@@ -61,7 +62,7 @@ export const useObjectDetailsMap = () => {
 
   const {openMenu, closeMenu, ...menuProps} = useBottomMenu();
 
-  const data = useSelector(selectObjectDetails);
+  const data = useObjectDetailsSelector(selectObjectDetails);
   const {getObject} = useTransformedData();
 
   const map = useRef<MapView>(null);

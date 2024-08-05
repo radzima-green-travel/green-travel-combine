@@ -2,9 +2,7 @@ import {
   AccommodationPlaceItem,
   BelongsToItem,
   DinnerPlacesItem,
-  i18nType,
   IncludeItem,
-  ListMobileDataQueryObject,
   UpcomingEventsItem,
 } from 'api/graphql/types';
 import {
@@ -12,62 +10,26 @@ import {
   IInclude,
   IObject,
   IObjectAdditionalInfoItem,
-  IOrigins,
-  SpotI18n,
+  ObjectDetailsResponseDTO,
   SupportedLocales,
 } from 'core/types';
-import {compact, filter, find, forEach, isEmpty, map, reduce} from 'lodash';
+import {filter, isEmpty, map, reduce} from 'lodash';
 import {imagesService} from 'services/ImagesService';
-import transliterate from 'core/helpers/transliterate';
 import {ObjectField} from 'core/constants';
-import {LineString, MultiPolygon} from 'geojson';
 import {dateToReadableString, isDateInThePast} from 'core/helpers';
-
-function getTranslationsForProperties<T extends string>(
-  originalValues: Record<T, string>,
-  i18n: Array<i18nType<T>>,
-  currentLocale: SupportedLocales,
-): Record<T, string> {
-  const i18nObject = find(
-    i18n,
-    translate => translate?.locale === currentLocale,
-  );
-
-  return reduce(
-    Object.keys(originalValues),
-    (acc, property) => {
-      const value =
-        currentLocale === 'ru'
-          ? originalValues[property]
-          : i18nObject?.[property];
-
-      return {...acc, [property]: value || ''};
-    },
-    {} as Record<T, string>,
-  );
-}
-
-function getSpotTranslation(
-  spot: {i18n?: SpotI18n; value: string},
-  currentLocale: SupportedLocales,
-): string {
-  const i18nObject = find(
-    spot.i18n,
-    translate => translate?.locale === currentLocale,
-  );
-
-  const value = currentLocale === 'ru' ? spot.value : i18nObject?.value;
-
-  return value || '';
-}
+import {
+  extractLocaleSpecificValues,
+  getObjectFullAddress,
+  processImagesUrls,
+} from './common';
 
 const isValueOrItemsEmpty = (value: any): boolean => {
   return isEmpty(value) || value?.items ? isEmpty(value?.items) : false;
 };
 
 function objectCompletenessInfo(
-  object: ListMobileDataQueryObject | null,
-  completenessFields?: string[] | null,
+  object: ObjectDetailsResponseDTO | null,
+  completenessFields: ObjectField[],
 ) {
   const incompleteFieldsNames = filter(completenessFields, fieldName => {
     const value = object?.[fieldName];
@@ -98,14 +60,13 @@ function objectCompletenessInfo(
 
 export function prepareObjectAdditionalInfoItems(
   items: Array<AccommodationPlaceItem | DinnerPlacesItem | UpcomingEventsItem>,
-  currentLocale: SupportedLocales,
+  currentLocale: SupportedLocales | null,
 ): IObjectAdditionalInfoItem[] {
   return reduce(
     items,
     (acc, item) => {
-      const translatedProperties = getTranslationsForProperties(
-        {name: item.name},
-        item.i18n,
+      const {name} = extractLocaleSpecificValues(
+        {name: item.name, i18n: item.i18n},
         currentLocale,
       );
 
@@ -117,10 +78,11 @@ export function prepareObjectAdditionalInfoItems(
       }
 
       acc.push({
-        name: translatedProperties.name,
-        date: eventItem.date
-          ? dateToReadableString(eventItem.date, currentLocale)
-          : '',
+        name,
+        date:
+          eventItem.date && currentLocale
+            ? dateToReadableString(eventItem.date, currentLocale)
+            : '',
         link: placeItem.messengerLink || eventItem.link,
         googleLink: placeItem.googleMapLink,
       });
@@ -133,7 +95,7 @@ export function prepareObjectAdditionalInfoItems(
 
 export function prepareObjectInclude(
   includeItems: IncludeItem[],
-  currentLocale: SupportedLocales,
+  currentLocale: SupportedLocales | null,
 ): IInclude[] {
   return includeItems.reduce((acc, item) => {
     const {
@@ -143,9 +105,8 @@ export function prepareObjectInclude(
       },
     } = item;
 
-    const {name: categoryName} = getTranslationsForProperties(
-      {name: name},
-      i18n,
+    const {name: categoryName} = extractLocaleSpecificValues(
+      {name, i18n},
       currentLocale,
     );
 
@@ -166,7 +127,7 @@ export function prepareObjectInclude(
 
 export function prepareObjectBelongsTo(
   belongsToItems: BelongsToItem[],
-  currentLocale: SupportedLocales,
+  currentLocale: SupportedLocales | null,
 ): IBelongsTo[] {
   if (belongsToItems.length === 0) {
     return [];
@@ -175,15 +136,13 @@ export function prepareObjectBelongsTo(
   return belongsToItems.reduce((acc, item) => {
     const {belongsTo} = item;
 
-    const {name} = getTranslationsForProperties(
-      {name: belongsTo.name},
-      belongsTo.i18n,
+    const {name} = extractLocaleSpecificValues(
+      {name: belongsTo.name, i18n: belongsTo.i18n},
       currentLocale,
     );
 
-    const {name: categoryName} = getTranslationsForProperties(
-      {name: belongsTo.category.name},
-      belongsTo.category.i18n,
+    const {name: categoryName} = extractLocaleSpecificValues(
+      {name: belongsTo.category.name, i18n: belongsTo.category.i18n},
       currentLocale,
     );
 
@@ -203,133 +162,118 @@ export function prepareObjectBelongsTo(
   }, [] as IBelongsTo[]);
 }
 
-export const transformObjectDetails = (
-  object: ListMobileDataQueryObject,
-  currentLocale: SupportedLocales,
-): IObject => {
-  const {name, description} = getTranslationsForProperties(
-    {name: object.name, description: object.description || ''},
-    object.i18n,
-    currentLocale,
-  );
-
-  function getObjectAddress(): string {
-    if (isEmpty(object?.addresses?.items)) {
-      return '';
-    }
-
-    const address: string[] = [];
-
-    forEach(object?.addresses?.items, item => {
-      const {region, subRegion, municipality, street} = item;
-
-      forEach([region, subRegion, municipality], value => {
-        if (value) {
-          address.push(getSpotTranslation(value, currentLocale));
-        }
-      });
-
-      if (street) {
-        address.push(
-          // TODO: temporary workaround. Replace with translation once available
-          currentLocale === 'ru' ? street : transliterate(street),
-        );
-      }
-    });
-
-    return address.join(', ');
+export const prepareObjectDetails = (
+  object: ObjectDetailsResponseDTO | null,
+  currentLocale: SupportedLocales | null,
+): IObject | null => {
+  if (!object) {
+    return null;
   }
+
+  const {
+    addresses,
+    area,
+    attendanceTime,
+    accommodationPlace,
+    calculatedProperties,
+    category,
+    googleRating,
+    googleRatingsTotal,
+    dinnerPlaces,
+    i18n,
+    id,
+    images,
+    include,
+    length,
+    location,
+    name,
+    description,
+    origins,
+    phoneNumber,
+    routes,
+    url,
+    workingHours,
+    upcomingEvents,
+    belongsTo,
+    childServices,
+    renting,
+  } = object;
+
+  const {averageSpentTime, averageRating, totalRatings} =
+    calculatedProperties ?? {
+      averageSpentTime: null,
+      averageRating: null,
+      totalRatings: null,
+    };
+
+  const {name: translatedName, description: translatedDescription} =
+    extractLocaleSpecificValues({name, description, i18n}, currentLocale);
+
+  const translatedAddress = getObjectFullAddress(addresses, currentLocale);
 
   const {percentageOfCompletion, incompleteFieldsNames} =
     objectCompletenessInfo(object, object?.category?.completenessFields);
 
+  const {images: convertedImages} = processImagesUrls({i18n, images});
+
   return {
-    id: object.id,
-    name,
-    description,
-    address: getObjectAddress(),
-    area: (object.area as MultiPolygon) || null,
-    location:
-      object.location?.lat && object.location?.lon
-        ? {
-            lat: object.location?.lat,
-            lon: object.location?.lon,
-          }
-        : null,
+    id,
+    name: translatedName,
+    description: translatedDescription,
+    address: translatedAddress,
+    area,
+    location,
     category: {
-      icon: object?.category?.icon || '',
-      id: object?.category?.id || '',
-      name: object?.category?.name || '',
-      parent: object?.category?.parent || null,
-      singularName: object?.category?.singularName || '',
+      ...category,
       incompleteFieldsNames: incompleteFieldsNames,
       percentageOfCompletion: percentageOfCompletion,
     },
-    cover: object.cover ? imagesService.getOriginalImage(object.cover) : '',
-    blurhash: object.blurhash || '',
-    images: compact(
-      map(object.images, img =>
-        img ? imagesService.getOriginalImage(img) : img,
-      ),
-    ),
-
-    include: prepareObjectInclude(object.include.items, currentLocale),
-    belongsTo: prepareObjectBelongsTo(
-      object?.belongsTo?.items ?? [],
-      currentLocale,
-    ),
-    url: object.url || undefined,
-    routes: (object.routes as LineString) || undefined,
-    length: object.length || null,
-    origins: (object.origins as IOrigins[]) || null,
-    phoneNumbers: object.phoneNumber,
-    workingHours: object.workingHours || undefined,
-    attendanceTime:
-      object.calculatedProperties?.averageSpentTime ||
-      object.attendanceTime ||
-      null,
-
+    images: convertedImages,
+    include: prepareObjectInclude(include.items ?? [], currentLocale),
+    belongsTo: prepareObjectBelongsTo(belongsTo.items ?? [], currentLocale),
+    url,
+    routes,
+    length,
+    origins,
+    phoneNumbers: phoneNumber,
+    workingHours,
+    attendanceTime: averageSpentTime || attendanceTime || null,
     usersRating:
-      object.calculatedProperties?.averageRating &&
-      object.calculatedProperties?.totalRatings > 1
-        ? object.calculatedProperties?.averageRating
-        : null,
-    usersRatingsTotal: object.calculatedProperties?.totalRatings || null,
-    googleRating: object.googleRating || null,
-    googleRatingsTotal: object.googleRatingsTotal || null,
-    renting: map(object.renting.items, item => {
-      const translatedProperties = getTranslationsForProperties(
-        {name: item.renting.name},
-        item.renting.i18n,
+      averageRating && totalRatings && totalRatings > 1 ? averageRating : null,
+    usersRatingsTotal: totalRatings,
+    googleRating,
+    googleRatingsTotal,
+    renting: map(renting.items, ({renting: rentingService}) => {
+      const {name: rentingServiceName} = extractLocaleSpecificValues(
+        {name: rentingService.name, i18n: rentingService.i18n},
         currentLocale,
       );
 
-      return translatedProperties.name;
+      return rentingServiceName;
     }),
-    childServices: map(object.childServices?.items, item => {
-      const translatedProperties = getTranslationsForProperties(
-        {name: item.childService.name},
-        item.childService.i18n,
+    childServices: map(childServices.items, ({childService}) => {
+      const {name: childServiceName} = extractLocaleSpecificValues(
+        {name: childService.name, i18n: childService.i18n},
         currentLocale,
       );
 
-      return translatedProperties.name;
+      return childServiceName;
     }),
     upcomingEvents: prepareObjectAdditionalInfoItems(
-      object.upcomingEvents.items,
+      upcomingEvents.items,
       currentLocale,
     ),
     accommodationPlace: prepareObjectAdditionalInfoItems(
-      object.accommodationPlace.items,
+      accommodationPlace.items,
       currentLocale,
     ),
     dinnerPlaces: prepareObjectAdditionalInfoItems(
-      object.dinnerPlaces.items,
+      dinnerPlaces.items,
       currentLocale,
     ),
     analyticsMetadata: {
-      name: object.name,
-      categoryName: object?.category?.name || '',
+      name,
+      categoryName: category.name,
     },
   };
 };

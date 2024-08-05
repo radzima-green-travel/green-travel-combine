@@ -1,3 +1,15 @@
+import {MultiPolygon, LineString} from '@turf/helpers';
+import {
+  AccommodationPlaceItem,
+  BelongsToItem,
+  DinnerPlacesItem,
+  IncludeItem,
+  UpcomingEventsItem,
+  ChildServicesItem,
+  RentingItem,
+} from 'api/graphql/types';
+import {ObjectField} from 'core/constants';
+
 interface DefaultI18n {
   locale: string;
 }
@@ -187,4 +199,67 @@ export type SearchObjectsResponseDTO = {
 
 export type SearchObjectsHistoryResponseDTO = {
   items: Array<SearchObjectDTO>;
+};
+
+export type CalculatedProperties = {
+  averageSpentTime: number | null;
+  averageRating: number | null;
+  totalRatings: number | null;
+};
+
+export type ObjectDetailsCategory = {
+  name: string;
+  parent: string | null;
+  id: string;
+  icon: string;
+  singularName: string;
+  completenessFields: ObjectField[];
+};
+
+export type Origin = {
+  name: string;
+  value: string;
+};
+
+export type ObjectDetailsResponseDTO = {
+  accommodationPlace: {
+    items: AccommodationPlaceItem[];
+  };
+  addresses: AddressessDTO;
+  area: MultiPolygon;
+  attendanceTime: number | null;
+  belongsTo: {
+    items: BelongsToItem[];
+  };
+  calculatedProperties: CalculatedProperties | null;
+  category: ObjectDetailsCategory;
+  childServices: {
+    items: ChildServicesItem[];
+  };
+  description: string;
+  dinnerPlaces: {
+    items: DinnerPlacesItem[];
+  };
+  name: string;
+  id: string;
+  workingHours: string | null;
+  googleRating: number | null;
+  googleRatingsTotal: number | null;
+  images: string[];
+  i18n: Array<I18nType<'name' | 'description'>>;
+  renting: {
+    items: RentingItem[];
+  };
+  length: number | null;
+  location: LocationDTO | null;
+  origins: Origin[];
+  phoneNumber: string[] | null;
+  routes: LineString | null;
+  include: {
+    items: IncludeItem[];
+  };
+  upcomingEvents: {
+    items: UpcomingEventsItem[];
+  };
+  url: string | null;
 };

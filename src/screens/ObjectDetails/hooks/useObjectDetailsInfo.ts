@@ -1,8 +1,8 @@
 import {useMemo, useCallback} from 'react';
-import {useSelector} from 'react-redux';
 
 import {useBottomMenu, useThemeStyles, useTranslation} from 'core/hooks';
 import {selectObjectDetails} from 'core/selectors';
+import {useObjectDetailsSelector} from 'core/hooks';
 import {
   msToHoursAndMinutes,
   sanitizePhoneNumber,
@@ -33,7 +33,7 @@ export function useObjectDetailsInfo() {
     sendUpcomingEventSiteNavigateEvent,
   } = useObjectDetailsAnalytics();
 
-  const data = useSelector(selectObjectDetails);
+  const data = useObjectDetailsSelector(selectObjectDetails);
 
   const {
     url: officialWibsiteUrl,

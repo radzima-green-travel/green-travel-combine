@@ -1,10 +1,10 @@
 import {createAsyncAction} from 'core/helpers';
-import {IObject} from 'core/types';
+import {ObjectDetailsResponseDTO} from 'core/types';
 
 export const getObjectDetailsRequest = createAsyncAction<
   {objectId: string},
   {
-    objectDetails: IObject;
+    objectDetails: ObjectDetailsResponseDTO;
   }
 >('GET_OBJECT_DETAILS');
 

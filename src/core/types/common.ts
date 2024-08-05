@@ -5,6 +5,7 @@ import {ObjectField} from 'core/constants';
 import {
   CategoryShortDTO,
   ExtractI18nKeys,
+  LocationDTO,
   ObjectCategoryMapDTO,
   ObjectMapDTO,
   ObjectShortDTO,
@@ -18,11 +19,6 @@ export interface ILabelError {
 }
 
 export type ICoordinates = Array<number>;
-
-export interface ILocationPoint {
-  lat: number | null;
-  lon: number | null;
-}
 
 export interface IArea {
   totalArea: number;
@@ -78,21 +74,19 @@ export interface IObject {
   description: string;
   address: string;
   area?: MultiPolygon;
-  location: ILocationPoint | null;
+  location: LocationDTO | null;
   category: IObjectCategory;
-  cover: string;
   images: string[];
   include: IInclude[];
   belongsTo: IBelongsTo[];
-  url?: string;
+  url: string | null;
   origin?: string;
   origins?: IOrigins[];
-  routes?: LineString;
+  routes: LineString | null;
   length: number | null;
-  blurhash?: string;
-  phoneNumbers?: string[] | null;
-  workingHours?: string | null;
-  attendanceTime?: number | null;
+  phoneNumbers: string[] | null;
+  workingHours: string | null;
+  attendanceTime: number | null;
   renting: string[];
   childServices: string[];
   usersRating: number | null;

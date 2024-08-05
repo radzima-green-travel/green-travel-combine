@@ -11,6 +11,7 @@ import {
   useRequestLoading,
   useOnRequestError,
   useObjectIncompleteFields,
+  useObjectDetailsActions,
 } from 'core/hooks';
 import {
   ObjectDetailsScreenNavigationProps,
@@ -23,9 +24,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {IBelongsTo, IInclude} from 'core/types';
-import {clearObjectDetails, getObjectDetailsRequest} from 'core/actions';
-import {useSelector} from 'react-redux';
 import {selectObjectDetails} from 'core/selectors';
+import {useObjectDetailsSelector} from 'core/hooks';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
@@ -34,7 +34,9 @@ export const useObjectDetails = () => {
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
   const dispatch = useDispatch();
-  const data = useSelector(selectObjectDetails);
+  const data = useObjectDetailsSelector(selectObjectDetails);
+  const {getObjectDetailsRequest, clearObjectDetails} =
+    useObjectDetailsActions();
 
   const {top} = useSafeAreaInsets();
 
@@ -159,7 +161,7 @@ export const useObjectDetails = () => {
     return () => {
       dispatch(clearObjectDetails());
     };
-  }, [dispatch, objectId]);
+  }, [clearObjectDetails, dispatch, getObjectDetailsRequest, objectId]);
 
   useUpdateEffect(() => {
     sendSwitchPhotosEvent();
@@ -187,7 +189,7 @@ export const useObjectDetails = () => {
 
   const onTryAgainPress = useCallback(() => {
     dispatch(getObjectDetailsRequest({objectId}));
-  }, [dispatch, objectId]);
+  }, [dispatch, getObjectDetailsRequest, objectId]);
 
   return {
     data,

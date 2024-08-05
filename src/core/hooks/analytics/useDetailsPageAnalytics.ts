@@ -1,12 +1,12 @@
 import {useCallback, useMemo, useRef} from 'react';
-import {useSelector} from 'react-redux';
 import {useFocusEffect} from '@react-navigation/native';
 import {analyticsService} from 'services/AnalyticsService';
 import {selectObjectDetails} from 'core/selectors';
 import {getScreenTimeSec} from 'core/helpers';
+import {useObjectDetailsSelector} from 'core/hooks';
 
 export function useDetailsPageAnalytics() {
-  const data = useSelector(selectObjectDetails);
+  const data = useObjectDetailsSelector(selectObjectDetails);
 
   const analyticsData = useMemo(() => {
     return data

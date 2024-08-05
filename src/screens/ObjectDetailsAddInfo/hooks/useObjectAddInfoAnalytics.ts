@@ -1,9 +1,10 @@
 import {sendAnalyticsEvent} from 'core/reducers';
 import {useCallback, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {ObjectDetailsAddInfoScreenRouteProps} from '../types';
 import {useRoute} from '@react-navigation/native';
 import {selectObjectDetails} from 'core/selectors';
+import {useObjectDetailsSelector} from 'core/hooks';
 import {ObjectField} from 'core/constants';
 import {
   getObjectDetailsAnalyticsIncompleteFieldName,
@@ -18,7 +19,7 @@ export function useObjectAddInfoAnalytics() {
     params: {analytics},
   } = useRoute<ObjectDetailsAddInfoScreenRouteProps>();
 
-  const data = useSelector(selectObjectDetails);
+  const data = useObjectDetailsSelector(selectObjectDetails);
 
   const {analyticsMetadata} = data || {};
 

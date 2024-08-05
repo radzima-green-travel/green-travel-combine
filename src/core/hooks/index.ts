@@ -43,3 +43,5 @@ export {useKeyboardHeight} from './useKeyboardHeight';
 export {useListPagination} from './useListPagination';
 export {useSearchActions} from './useSearchActions';
 export {useSearchSelector} from './useSearchSelector';
+export {useObjectDetailsActions} from './useObjectDetailsActions';
+export {useObjectDetailsSelector} from './useObjectDetailsSelector';

@@ -1,85 +1,38 @@
-import {SpotI18n} from 'core/types';
-
-interface DefaultI18n {
-  __typename: 'ObjectI18n';
-  locale: string;
-}
-
-export type i18nType<T extends string> = {
-  [key in T]: string | null;
-} & DefaultI18n;
-
+import {I18nType, SpotI18n} from 'core/types';
 export interface AccommodationPlaceItem {
-  id: string;
-  objectId: string;
   name: string;
   googleMapLink: string;
   messengerLink: string;
-  duration: number;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string | null;
-  updatedBy: string | null;
-  i18n: Array<i18nType<'name'>>;
+  i18n: Array<I18nType<'name'>>;
 }
 
 export interface DinnerPlacesItem {
-  id: string;
-  objectId: string;
   name: string;
   googleMapLink: string;
   messengerLink: string;
-  duration: number;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string | null;
-  updatedBy: string | null;
-  i18n: Array<i18nType<'name'>>;
+  i18n: Array<I18nType<'name'>>;
 }
 
 export interface UpcomingEventsItem {
-  id: string;
-  objectId: string;
   name: string;
   link: string;
   date: string;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string | null;
-  updatedBy: string | null;
-  i18n: Array<i18nType<'name'>>;
+  i18n: Array<I18nType<'name'>>;
 }
 export interface RentingItem {
-  id: string;
-  objectId: string;
-  rentingId: string;
   renting: {
-    id: string;
     name: string;
-    createdAt: string;
-    updatedAt: string;
-    createdBy: string;
-    updatedBy: string;
-    i18n: Array<i18nType<'name'>>;
+    locale: string;
+    i18n: Array<I18nType<'name'>>;
   };
-  createdAt: string;
-  updatedAt: string;
 }
 export interface ChildServicesItem {
-  id: string;
-  objectId: string;
-  childServiceId: string;
   childService: {
     id: string;
     name: string;
-    createdAt: string;
-    updatedAt: string;
-    createdBy: string;
-    updatedBy: string;
-    i18n: Array<i18nType<'name'>>;
+    locale: string;
+    i18n: Array<I18nType<'name'>>;
   };
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface IncludeItem {
@@ -89,7 +42,7 @@ export interface IncludeItem {
       id: string;
       cover: string;
       name: string;
-      i18n: Array<i18nType<'name'>>;
+      i18n: Array<I18nType<'name'>>;
     };
   };
 }
@@ -97,12 +50,12 @@ export interface IncludeItem {
 export interface BelongsToItem {
   belongsTo: {
     id: string;
-    i18n: Array<i18nType<'name'>>;
+    i18n: Array<I18nType<'name'>>;
     cover: string;
     name: string;
     category: {
       name: string;
-      i18n: Array<i18nType<'name'>>;
+      i18n: Array<I18nType<'name'>>;
     };
   };
 }
@@ -186,7 +139,7 @@ export type ListMobileDataQueryObject = {
   } | null;
   include: {items: IncludeItem[]};
   belongsTo?: {items: BelongsToItem[]};
-  i18n: Array<i18nType<'name' | 'description'>>;
+  i18n: Array<I18nType<'name' | 'description'>>;
   upcomingEvents: {
     items: UpcomingEventsItem[];
   };

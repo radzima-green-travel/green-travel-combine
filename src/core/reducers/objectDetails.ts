@@ -1,16 +1,17 @@
 import {createReducer} from '@reduxjs/toolkit';
+import {byIdReducer} from 'react-redux-help-kit';
 import {clearObjectDetails, getObjectDetailsRequest} from 'core/actions';
-import {IObject} from 'core/types';
+import {ObjectDetailsResponseDTO} from 'core/types';
 
 interface ObjectDetailsState {
-  objectDetails: IObject | null;
+  objectDetails: ObjectDetailsResponseDTO | null;
 }
 
 const initialState: ObjectDetailsState = {
   objectDetails: null,
 };
 
-export const objectDetailsReducer = createReducer(initialState, builder => {
+const reducer = createReducer(initialState, builder => {
   builder.addCase(
     getObjectDetailsRequest.meta.successAction,
     (state, {payload}) => ({
@@ -23,3 +24,6 @@ export const objectDetailsReducer = createReducer(initialState, builder => {
     objectDetails: null,
   }));
 });
+
+export const objectDetailsReducer =
+  byIdReducer<ObjectDetailsState>('objectDetails')(reducer);

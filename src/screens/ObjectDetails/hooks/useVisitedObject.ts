@@ -16,6 +16,7 @@ import {Alert} from 'react-native';
 import {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {selectObjectDetails} from 'core/selectors';
+import {useObjectDetailsSelector} from 'core/hooks';
 
 export type NavigationProps = CompositeNavigationProp<
   StackNavigationProp<AuthNavigatorParamsList>,
@@ -28,7 +29,7 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const navigation = useNavigation<NavigationProps>();
   const visitedObjectsIds = useSelector(selectVisitedObjectsIds);
   const isAuthorized = useSelector(selectUserAuthorized);
-  const data = useSelector(selectObjectDetails);
+  const data = useObjectDetailsSelector(selectObjectDetails);
 
   const {
     sendMarkVisitedButtonClickEvent,

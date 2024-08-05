@@ -49,7 +49,6 @@ export function geObjectDetailsByIdQuery(objectId: string) {
             name
             locale
           }
-          cover
           name
           category {
             name
@@ -62,7 +61,6 @@ export function geObjectDetailsByIdQuery(objectId: string) {
         }
       }
     }
-    blurhash
     calculatedProperties {
       averageSpentTime
       averageRating
@@ -76,7 +74,6 @@ export function geObjectDetailsByIdQuery(objectId: string) {
       singularName
       completenessFields
     }
-    cover
     childServices {
       items {
         childService {
@@ -125,6 +122,7 @@ export function geObjectDetailsByIdQuery(objectId: string) {
         }
       }
     }
+    length
     location {
       lat
       lon
