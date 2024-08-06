@@ -1,13 +1,4 @@
 import {MultiPolygon, LineString} from '@turf/helpers';
-import {
-  AccommodationPlaceItem,
-  BelongsToItem,
-  DinnerPlacesItem,
-  IncludeItem,
-  UpcomingEventsItem,
-  ChildServicesItem,
-  RentingItem,
-} from 'api/graphql/types';
 import {ObjectField} from 'core/constants';
 
 interface DefaultI18n {
@@ -201,45 +192,128 @@ export type SearchObjectsHistoryResponseDTO = {
   items: Array<SearchObjectDTO>;
 };
 
-export type CalculatedProperties = {
+export interface CalculatedProperties {
   averageSpentTime: number | null;
   averageRating: number | null;
   totalRatings: number | null;
-};
+}
 
-export type ObjectDetailsCategory = {
+export interface ObjectDetailsCategory {
   name: string;
   parent: string | null;
   id: string;
   icon: string;
   singularName: string;
   completenessFields: ObjectField[];
-};
+}
 
-export type Origin = {
+export interface Origin {
   name: string;
   value: string;
+}
+
+export interface AccommodationPlaceItemDTO {
+  name: string;
+  googleMapLink: string;
+  messengerLink: string;
+  i18n: Array<I18nType<'name'>>;
+}
+
+export type AccommodationPlaceDTO = {
+  items: Array<AccommodationPlaceItemDTO>;
+};
+
+export interface DinnerPlacesItemDTO {
+  name: string;
+  googleMapLink: string;
+  messengerLink: string;
+  i18n: Array<I18nType<'name'>>;
+}
+
+export type DinnerPlacesDTO = {
+  items: Array<DinnerPlacesItemDTO>;
+};
+
+export interface UpcomingEventsItemDTO {
+  name: string;
+  link: string;
+  date: string;
+  i18n: Array<I18nType<'name'>>;
+}
+
+export type UpcomingEventsDTO = {
+  items: Array<UpcomingEventsItemDTO>;
+};
+
+export interface RentingItemDTO {
+  renting: {
+    name: string;
+    locale: string;
+    i18n: Array<I18nType<'name'>>;
+  };
+}
+
+export type RentingDTO = {
+  items: Array<RentingItemDTO>;
+};
+
+export interface ChildServicesItemDTO {
+  childService: {
+    id: string;
+    name: string;
+    locale: string;
+    i18n: Array<I18nType<'name'>>;
+  };
+}
+
+export type ChildServicesDTO = {
+  items: Array<ChildServicesItemDTO>;
+};
+
+export interface IncludeItemDTO {
+  include: {
+    id: string;
+    category: {
+      id: string;
+      cover: string;
+      name: string;
+      i18n: Array<I18nType<'name'>>;
+    };
+  };
+}
+
+export type IncludeDTO = {
+  items: Array<IncludeItemDTO>;
+};
+
+export interface BelongsToItemDTO {
+  belongsTo: {
+    id: string;
+    i18n: Array<I18nType<'name'>>;
+    cover: string;
+    name: string;
+    category: {
+      name: string;
+      i18n: Array<I18nType<'name'>>;
+    };
+  };
+}
+
+export type BelongsToDTO = {
+  items: Array<BelongsToItemDTO>;
 };
 
 export type ObjectDetailsResponseDTO = {
-  accommodationPlace: {
-    items: AccommodationPlaceItem[];
-  };
+  accommodationPlace: AccommodationPlaceDTO;
   addresses: AddressessDTO;
   area: MultiPolygon;
   attendanceTime: number | null;
-  belongsTo: {
-    items: BelongsToItem[];
-  };
+  belongsTo: BelongsToDTO;
   calculatedProperties: CalculatedProperties | null;
   category: ObjectDetailsCategory;
-  childServices: {
-    items: ChildServicesItem[];
-  };
+  childServices: ChildServicesDTO;
   description: string;
-  dinnerPlaces: {
-    items: DinnerPlacesItem[];
-  };
+  dinnerPlaces: DinnerPlacesDTO;
   name: string;
   id: string;
   workingHours: string | null;
@@ -247,19 +321,13 @@ export type ObjectDetailsResponseDTO = {
   googleRatingsTotal: number | null;
   images: string[];
   i18n: Array<I18nType<'name' | 'description'>>;
-  renting: {
-    items: RentingItem[];
-  };
+  renting: RentingDTO;
   length: number | null;
   location: LocationDTO | null;
   origins: Origin[];
   phoneNumber: string[] | null;
   routes: LineString | null;
-  include: {
-    items: IncludeItem[];
-  };
-  upcomingEvents: {
-    items: UpcomingEventsItem[];
-  };
+  include: IncludeDTO;
+  upcomingEvents: UpcomingEventsDTO;
   url: string | null;
 };

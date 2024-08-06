@@ -1,64 +1,14 @@
-import {I18nType, SpotI18n} from 'core/types';
-export interface AccommodationPlaceItem {
-  name: string;
-  googleMapLink: string;
-  messengerLink: string;
-  i18n: Array<I18nType<'name'>>;
-}
-
-export interface DinnerPlacesItem {
-  name: string;
-  googleMapLink: string;
-  messengerLink: string;
-  i18n: Array<I18nType<'name'>>;
-}
-
-export interface UpcomingEventsItem {
-  name: string;
-  link: string;
-  date: string;
-  i18n: Array<I18nType<'name'>>;
-}
-export interface RentingItem {
-  renting: {
-    name: string;
-    locale: string;
-    i18n: Array<I18nType<'name'>>;
-  };
-}
-export interface ChildServicesItem {
-  childService: {
-    id: string;
-    name: string;
-    locale: string;
-    i18n: Array<I18nType<'name'>>;
-  };
-}
-
-export interface IncludeItem {
-  include: {
-    id: string;
-    category: {
-      id: string;
-      cover: string;
-      name: string;
-      i18n: Array<I18nType<'name'>>;
-    };
-  };
-}
-
-export interface BelongsToItem {
-  belongsTo: {
-    id: string;
-    i18n: Array<I18nType<'name'>>;
-    cover: string;
-    name: string;
-    category: {
-      name: string;
-      i18n: Array<I18nType<'name'>>;
-    };
-  };
-}
+import {
+  AccommodationPlaceItemDTO,
+  BelongsToItemDTO,
+  ChildServicesItemDTO,
+  DinnerPlacesItemDTO,
+  I18nType,
+  IncludeItemDTO,
+  RentingItemDTO,
+  SpotI18n,
+  UpcomingEventsItemDTO,
+} from 'core/types';
 
 export type ListMobileDataQueryObject = {
   __typename: 'ObjectMobile';
@@ -117,8 +67,8 @@ export type ListMobileDataQueryObject = {
   phoneNumber?: string[] | null;
   workingHours?: string | null;
   attendanceTime?: number | null;
-  renting: {items: RentingItem[]};
-  childServices: {items: ChildServicesItem[]};
+  renting: {items: RentingItemDTO[]};
+  childServices: {items: ChildServicesItemDTO[]};
   calculatedProperties?: {
     averageRating: number;
     averageSpentTime: number;
@@ -137,17 +87,17 @@ export type ListMobileDataQueryObject = {
     type: string;
     coordinates: Array<Array<number | null> | null>;
   } | null;
-  include: {items: IncludeItem[]};
-  belongsTo?: {items: BelongsToItem[]};
+  include: {items: IncludeItemDTO[]};
+  belongsTo?: {items: BelongsToItemDTO[]};
   i18n: Array<I18nType<'name' | 'description'>>;
   upcomingEvents: {
-    items: UpcomingEventsItem[];
+    items: UpcomingEventsItemDTO[];
   };
   accommodationPlace: {
-    items: AccommodationPlaceItem[];
+    items: AccommodationPlaceItemDTO[];
   };
   dinnerPlaces: {
-    items: DinnerPlacesItem[];
+    items: DinnerPlacesItemDTO[];
   };
   category?: {
     __typename: 'Category';

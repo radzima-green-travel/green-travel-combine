@@ -1,17 +1,15 @@
 import {
-  AccommodationPlaceItem,
-  BelongsToItem,
-  DinnerPlacesItem,
-  IncludeItem,
-  UpcomingEventsItem,
-} from 'api/graphql/types';
-import {
+  AccommodationPlaceItemDTO,
+  BelongsToItemDTO,
+  DinnerPlacesItemDTO,
   IBelongsTo,
   IInclude,
+  IncludeItemDTO,
   IObject,
   IObjectAdditionalInfoItem,
   ObjectDetailsResponseDTO,
   SupportedLocales,
+  UpcomingEventsItemDTO,
 } from 'core/types';
 import {filter, isEmpty, map, reduce} from 'lodash';
 import {imagesService} from 'services/ImagesService';
@@ -59,7 +57,9 @@ function objectCompletenessInfo(
 }
 
 export function prepareObjectAdditionalInfoItems(
-  items: Array<AccommodationPlaceItem | DinnerPlacesItem | UpcomingEventsItem>,
+  items: Array<
+    AccommodationPlaceItemDTO | DinnerPlacesItemDTO | UpcomingEventsItemDTO
+  >,
   currentLocale: SupportedLocales | null,
 ): IObjectAdditionalInfoItem[] {
   return reduce(
@@ -70,8 +70,8 @@ export function prepareObjectAdditionalInfoItems(
         currentLocale,
       );
 
-      const placeItem = item as AccommodationPlaceItem | DinnerPlacesItem;
-      const eventItem = item as UpcomingEventsItem;
+      const placeItem = item as AccommodationPlaceItemDTO | DinnerPlacesItemDTO;
+      const eventItem = item as UpcomingEventsItemDTO;
 
       if (eventItem.date && isDateInThePast(eventItem.date)) {
         return acc;
@@ -94,7 +94,7 @@ export function prepareObjectAdditionalInfoItems(
 }
 
 export function prepareObjectInclude(
-  includeItems: IncludeItem[],
+  includeItems: IncludeItemDTO[],
   currentLocale: SupportedLocales | null,
 ): IInclude[] {
   return includeItems.reduce((acc, item) => {
@@ -126,7 +126,7 @@ export function prepareObjectInclude(
 }
 
 export function prepareObjectBelongsTo(
-  belongsToItems: BelongsToItem[],
+  belongsToItems: BelongsToItemDTO[],
   currentLocale: SupportedLocales | null,
 ): IBelongsTo[] {
   if (belongsToItems.length === 0) {
