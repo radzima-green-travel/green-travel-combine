@@ -81,7 +81,7 @@ export const useSettlements = () => {
   const paginationProps = useListPagination({
     isLoading: paginationLoading,
     loadMore: getPaginationSettlementsData,
-    hasMoreToLoad: requestedItemsCount < total,
+    hasMoreToLoad: requestedItemsCount < total && !paginationLoading,
   });
 
   const debouncedFunction = useCallback(
