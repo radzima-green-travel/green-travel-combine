@@ -23,7 +23,7 @@
     "locationPermissionFirstRequest": "Разрешить приложению Radzima доступ к данным о местоположении устройства",
     "locationPermissionText": "Предоставьте доступ к Геолокации в настройках, чтобы определить Вашу позицию",
     "locationPermissionCancel": "Отменить",
-    "locationPermissionSetttings": "Настройки",
+    "locationPermissionSettings": "Настройки",
     "cancel": "Отмена",
     "privacyPolicy": "Политикой конфиденциальности",
     "termsAndConditions": "Условиями использования",
