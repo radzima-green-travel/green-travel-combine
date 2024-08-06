@@ -21,7 +21,7 @@ export default ({config}: Dict) => {
     android: {
       ...(config.android ?? {}),
       package: process.env.ANDROID_BUNDLE_ID ?? 'app.radzima.dev',
-      versionCode: process.env.BUILD_NUMBER ?? '1',
+      versionCode: process.env.BUILD_NUMBER ?? 1,
       intentFilters: [
         {
           autoVerify: true,
