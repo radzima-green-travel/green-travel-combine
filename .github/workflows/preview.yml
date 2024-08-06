@@ -25,7 +25,7 @@ jobs:
         uses: finnp/create-file-action@1.0.0
         env:
           FILE_NAME: "src/aws-exports.js"
-          FILE_DATA: ${{ secrets.AWS_EXPORTS }}
+          FILE_BASE64: ${{ secrets.AWS_EXPORTS }}
         
       - name: 📦 Install dependencies
         run: yarn install
