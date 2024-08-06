@@ -61,20 +61,6 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.background.primary,
     },
   },
-  sectionItemContainer: {
-    height: ITEM_HEIGHT,
-    paddingVertical: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  sectionItemText: {
-    ...FONTS_PRESETS.calloutRegular,
-    color: {
-      light: COLORS.light.text.primary,
-      dark: COLORS.dark.text.primary,
-    },
-    marginHorizontal: 12,
-  },
   listEmptyContainer: {
     flex: 1,
     justifyContent: 'center',

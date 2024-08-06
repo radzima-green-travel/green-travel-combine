@@ -12,7 +12,6 @@ import {
 } from 'core/hooks';
 import {
   getSettlementsDataRequest,
-  getSearchSettlementsDataRequest,
   getPaginationSettlementsDataRequest,
   setActiveFilter,
 } from 'core/actions';
@@ -28,15 +27,12 @@ export const useSettlements = () => {
   const {loading: fullScreenLoading} = useRequestLoading(
     getSettlementsDataRequest,
   );
-  const {errorTexts: errorTextsInitial} = useOnRequestError(
+  const {errorTexts} = useOnRequestError(
     getSettlementsDataRequest,
     'settlements',
   );
   const {loading: paginationLoading} = useRequestLoading(
     getPaginationSettlementsDataRequest,
-  );
-  const {loading: searchLoading} = useRequestLoading(
-    getSearchSettlementsDataRequest,
   );
   const {municipalities: activeSettlements} = useSelector(selectActiveFilters);
   const [selectedSettlements, setSelectedSettlements] =
@@ -47,9 +43,12 @@ export const useSettlements = () => {
   const {requestedItemsCount, total} = useSelector(selectSettlementsData);
   const settlementsSections = useSelector(selectTransformedFiltersSettlements);
 
-  const getSettlementsData = useCallback(() => {
-    dispatch(getSettlementsDataRequest());
-  }, [dispatch]);
+  const getSettlementsData = useCallback(
+    (value?: string) => {
+      dispatch(getSettlementsDataRequest({searchValue: value}));
+    },
+    [dispatch],
+  );
 
   const getPaginationSettlementsData = useCallback(() => {
     dispatch(getPaginationSettlementsDataRequest({searchValue}));
@@ -87,7 +86,7 @@ export const useSettlements = () => {
 
   const debouncedFunction = useCallback(
     debounce(value => {
-      dispatch(getSearchSettlementsDataRequest({searchValue: value}));
+      getSettlementsData(value);
       setInputChangeLoading(false);
     }, 500),
     [],
@@ -110,28 +109,15 @@ export const useSettlements = () => {
     },
   );
 
-  useOnRequestError(
-    getSearchSettlementsDataRequest,
-    'settlements',
-    errorLabel => {
-      show({
-        title: errorLabel.text,
-        type: 'error',
-      });
-    },
-  );
-
   return {
     navigation,
     paginationProps,
     settlementsSections,
     selectedSettlements,
     activeSettlements,
-    fullScreenLoading,
-    searchLoading: searchLoading || inputChangeLoading,
-    errorTexts: errorTextsInitial,
+    fullScreenLoading: fullScreenLoading || inputChangeLoading,
+    errorTexts,
     searchValue,
-    errorTextsInitial,
     snackBarProps,
     handleSearchValue,
     chooseSettlement,

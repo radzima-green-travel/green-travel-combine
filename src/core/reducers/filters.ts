@@ -5,12 +5,11 @@ import {
   SettlementsData,
   CategoryFilterItemDTO,
 } from 'core/types';
-import {createReducer, isAnyOf} from '@reduxjs/toolkit';
+import {createReducer} from '@reduxjs/toolkit';
 import {
   getSettlementsDataRequest,
   getFiltersDataRequest,
   getPaginationSettlementsDataRequest,
-  getSearchSettlementsDataRequest,
   setActiveFilter,
   getInitialFiltersRequest,
   clearFilters,
@@ -96,11 +95,8 @@ export const filtersReducer = createReducer(initialState, builder => {
         },
       }),
     )
-    .addMatcher(
-      isAnyOf(
-        getSettlementsDataRequest.meta.successAction,
-        getSearchSettlementsDataRequest.meta.successAction,
-      ),
+    .addCase(
+      getSettlementsDataRequest.meta.successAction,
       (state, {payload}) => {
         return {
           ...state,

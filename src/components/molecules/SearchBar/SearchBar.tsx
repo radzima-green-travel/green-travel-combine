@@ -15,62 +15,48 @@ import {composeTestID} from 'core/helpers';
 interface Props {
   onChange: (text: string) => void;
   inputStyle?: StyleProp<TextStyle>;
-  selectionColor?: string;
   value: string;
 }
 
-export const SearchBar = memo(
-  ({onChange, inputStyle, selectionColor, value}: Props) => {
-    const styles = useThemeStyles(themeStyles);
-    const colorTheme = useColorScheme();
-    const {t} = useTranslation('filters');
+export const SearchBar = memo(({onChange, inputStyle, value}: Props) => {
+  const styles = useThemeStyles(themeStyles);
+  const colorTheme = useColorScheme();
+  const {t} = useTranslation('filters');
 
-    const onClear = useCallback(() => {
-      onChange('');
-    }, [onChange]);
+  const onClear = useCallback(() => {
+    onChange('');
+  }, [onChange]);
 
-    const onChangeText = useCallback(
-      text => {
-        onChange(text);
-      },
-      [onChange],
-    );
-
-    return (
-      <View style={styles.searchContainer}>
+  return (
+    <View style={styles.searchContainer}>
+      <Icon
+        style={[styles.icon, styles.leftIcon]}
+        name={'search'}
+        width={24}
+        height={24}
+        testID={composeTestID(TestIDs.SearchBar, 'searchIcon')}
+      />
+      <TextInput
+        value={value}
+        selectionColor={styles.selectionColor[colorTheme]}
+        placeholder={t('settlements.search')}
+        onChangeText={onChange}
+        style={[styles.input, inputStyle]}
+        testID={composeTestID(TestIDs.SearchBar, 'input')}
+      />
+      <TouchableOpacity onPress={onClear} disabled={!value} style={styles.icon}>
         <Icon
-          style={[styles.icon, styles.leftIcon]}
-          name={'search'}
+          style={[styles.icon, styles.rightIcon]}
+          name={value ? 'close' : 'tuneSimplified'}
           width={24}
           height={24}
-          testID={composeTestID(TestIDs.SearchBar, 'searchIcon')}
+          testID={
+            value
+              ? composeTestID(TestIDs.SearchBar, 'clear')
+              : composeTestID(TestIDs.SearchBar, 'settings')
+          }
         />
-        <TextInput
-          autoFocus
-          value={value}
-          selectionColor={selectionColor || styles.selectionColor[colorTheme]}
-          placeholder={t('settlements.search')}
-          onChangeText={onChangeText}
-          style={[styles.input, inputStyle]}
-          testID={composeTestID(TestIDs.SearchBar, 'input')}
-        />
-        <TouchableOpacity
-          onPress={value ? onClear : () => {}}
-          disabled={!value}
-          style={styles.icon}>
-          <Icon
-            style={[styles.icon, styles.rightIcon]}
-            name={value ? 'close' : 'tuneSimplified'}
-            width={24}
-            height={24}
-            testID={
-              value
-                ? composeTestID(TestIDs.SearchBar, 'clear')
-                : composeTestID(TestIDs.SearchBar, 'settings')
-            }
-          />
-        </TouchableOpacity>
-      </View>
-    );
-  },
-);
+      </TouchableOpacity>
+    </View>
+  );
+});

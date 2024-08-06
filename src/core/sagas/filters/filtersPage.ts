@@ -3,7 +3,6 @@ import {
   getInitialFiltersRequest,
   getSettlementsDataRequest,
   getPaginationSettlementsDataRequest,
-  getSearchSettlementsDataRequest,
 } from 'core/actions';
 import {takeEvery, takeLeading} from 'redux-saga/effects';
 import {getFiltersDataSaga} from './getFiltersDataSaga';
@@ -13,11 +12,7 @@ import {getInitialFiltersSaga} from './getInitialFiltersSaga';
 export function* filtersSaga() {
   yield takeLeading(getInitialFiltersRequest, getInitialFiltersSaga);
   yield takeEvery(
-    [
-      getSettlementsDataRequest,
-      getPaginationSettlementsDataRequest,
-      getSearchSettlementsDataRequest,
-    ],
+    [getSettlementsDataRequest, getPaginationSettlementsDataRequest],
     getSettlementsDataSaga,
   );
   yield takeEvery([getFiltersDataRequest], getFiltersDataSaga);

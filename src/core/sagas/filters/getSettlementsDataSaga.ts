@@ -3,7 +3,6 @@ import {call, put, select, all} from 'redux-saga/effects';
 import {
   getSettlementsDataRequest,
   getPaginationSettlementsDataRequest,
-  getSearchSettlementsDataRequest,
 } from 'core/actions';
 import {graphQLAPI} from 'api/graphql';
 import {selectSettlementsData} from 'selectors';
@@ -15,9 +14,7 @@ export function* getSettlementsDataSaga({
   payload,
   type,
 }: ReturnType<
-  | typeof getSettlementsDataRequest
-  | typeof getPaginationSettlementsDataRequest
-  | typeof getSearchSettlementsDataRequest
+  typeof getSettlementsDataRequest | typeof getPaginationSettlementsDataRequest
 >) {
   try {
     let newToken = '';

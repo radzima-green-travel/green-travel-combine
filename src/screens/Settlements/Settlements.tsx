@@ -1,6 +1,12 @@
 import React, {useCallback, useEffect} from 'react';
-import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
-import {SuspenseView, Button, ScreenContent, Checkbox, SnackBar} from 'atoms';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {
+  SuspenseView,
+  Button,
+  ScreenContent,
+  SnackBar,
+  SectionSettlementItem,
+} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types';
 import {screenOptions} from './screenOptions';
@@ -8,7 +14,6 @@ import {themeStyles, ITEM_HEIGHT} from './styles';
 import {SectionList} from 'react-native';
 import {SearchBar} from 'molecules';
 import {useSettlements} from './hooks';
-import {COLORS} from 'assets';
 import {composeTestID} from 'core/helpers';
 
 const getItemLayout = (_, index) => ({
@@ -28,7 +33,6 @@ export const Settlements = () => {
     activeSettlements,
     selectedSettlements,
     fullScreenLoading,
-    searchLoading,
     searchValue,
     errorTexts,
     snackBarProps,
@@ -38,30 +42,6 @@ export const Settlements = () => {
     getSettlementsData,
     resetSelectedSettlements,
   } = useSettlements();
-
-  const renderSectionItem = useCallback(
-    ({item}) => (
-      <View
-        style={styles.sectionItemContainer}
-        testID={composeTestID(TestIDs.SettlementSectionListItem, item.value)}>
-        <Checkbox
-          selected={selectedSettlements?.includes(item.id)}
-          onPress={() => chooseSettlement(item.id)}
-          testID={composeTestID(
-            TestIDs.SettlementSectionListItemCheckbox,
-            item.value,
-          )}
-        />
-        <Text style={styles.sectionItemText}>{item.value}</Text>
-      </View>
-    ),
-    [
-      styles.sectionItemContainer,
-      styles.sectionItemText,
-      selectedSettlements,
-      chooseSettlement,
-    ],
-  );
 
   const renderSectionHeader = useCallback(
     ({section: {title}}) => (
@@ -111,33 +91,31 @@ export const Settlements = () => {
 
   return (
     <View style={styles.container}>
-      <SuspenseView
-        loading={fullScreenLoading}
-        error={errorTexts}
-        retryCallback={getSettlementsData}>
-        <ScreenContent>
-          <SearchBar onChange={handleSearchValue} value={searchValue} />
-          {searchLoading ? (
-            <View style={styles.listEmptyContainer}>
-              <ActivityIndicator color={COLORS.forestGreen} />
-            </View>
-          ) : (
-            <>
-              <SectionList
-                contentContainerStyle={styles.sectionListContentContainer}
-                showsVerticalScrollIndicator={false}
-                sections={settlementsSections}
-                keyExtractor={item => item.id}
-                getItemLayout={getItemLayout}
-                renderItem={renderSectionItem}
-                ListEmptyComponent={renderListEmptyComponent}
-                renderSectionHeader={renderSectionHeader}
-                {...paginationProps}
-                initialNumToRender={15}
-                maxToRenderPerBatch={15}
+      <ScreenContent>
+        <SearchBar onChange={handleSearchValue} value={searchValue} />
+        <SuspenseView
+          loading={fullScreenLoading}
+          error={errorTexts}
+          retryCallback={getSettlementsData}>
+          <SectionList
+            contentContainerStyle={styles.sectionListContentContainer}
+            showsVerticalScrollIndicator={false}
+            sections={settlementsSections}
+            keyExtractor={item => item.id}
+            getItemLayout={getItemLayout}
+            renderItem={({item}) => (
+              <SectionSettlementItem
+                item={item}
+                selectedSettlements={selectedSettlements}
+                chooseSettlement={chooseSettlement}
               />
-            </>
-          )}
+            )}
+            ListEmptyComponent={renderListEmptyComponent}
+            renderSectionHeader={renderSectionHeader}
+            {...paginationProps}
+            initialNumToRender={15}
+            maxToRenderPerBatch={15}
+          />
           <Button
             text={
               selectedSettlements.length
@@ -151,9 +129,9 @@ export const Settlements = () => {
             disabled={!selectedSettlements.length && !activeSettlements.length}
             onPress={applySettlements}
           />
-          <SnackBar isOnTop {...snackBarProps} />
-        </ScreenContent>
-      </SuspenseView>
+        </SuspenseView>
+        <SnackBar isOnTop {...snackBarProps} />
+      </ScreenContent>
     </View>
   );
 };

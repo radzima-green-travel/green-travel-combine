@@ -15,11 +15,6 @@ export const getSettlementsDataRequest = createAsyncAction<
   SettlementsData
 >('GET_SETTLEMENTS_DATA');
 
-export const getSearchSettlementsDataRequest = createAsyncAction<
-  SettlementsParams | void,
-  SettlementsData
->('GET_SEARCH_SETTLEMENTS_DATA');
-
 export const getPaginationSettlementsDataRequest = createAsyncAction<
   SettlementsParams | void,
   SettlementsData

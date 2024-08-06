@@ -21,6 +21,7 @@ export const Checkbox = memo(({onPress, style, testID, selected}: Props) => {
 
   return (
     <TouchableOpacity
+      disabled={!onPress}
       onPress={onPress}
       activeOpacity={0.9}
       style={[
