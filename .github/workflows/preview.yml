@@ -23,16 +23,10 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
           
       - name: Create env
-        uses: finnp/create-file-action@1.0.0
-        env:
-          FILE_NAME: ".env"
-          FILE_BASE64: ${{ secrets.DEV_ENV }}
+        run: echo "${{ secrets.DEV_ENV }}" > .env
           
       - name: Create aws file
-        uses: finnp/create-file-action@1.0.0
-        env:
-          FILE_NAME: "src/aws-exports.js"
-          FILE_BASE64: ${{ secrets.AWS_EXPORTS }}
+        run: echo "${{ secrets.AWS_EXPORTS }}" > src/aws-exports.js
         
       - name: 📦 Install dependencies
         run: yarn install
