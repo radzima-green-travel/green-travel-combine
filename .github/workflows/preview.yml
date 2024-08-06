@@ -21,6 +21,13 @@ jobs:
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
+          
+      - name: Create env
+        uses: finnp/create-file-action@1.0.0
+        env:
+          FILE_NAME: ".env"
+          FILE_BASE64: ${{ secrets.DEV_ENV }}
+          
       - name: Create aws file
         uses: finnp/create-file-action@1.0.0
         env:
