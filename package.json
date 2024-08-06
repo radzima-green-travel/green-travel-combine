@@ -53,6 +53,7 @@
     "expo-screen-orientation": "~6.4.1",
     "expo-splash-screen": "~0.26.5",
     "expo-status-bar": "~1.11.1",
+    "expo-updates": "~0.24.13",
     "expo-web-browser": "~12.8.2",
     "formik": "^2.2.9",
     "i18next": "19.5.1",
