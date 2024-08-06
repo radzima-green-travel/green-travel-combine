@@ -21,7 +21,12 @@ jobs:
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
-
+      - name: Create aws file
+        uses: finnp/create-file-action@1.0.0
+        env:
+          FILE_NAME: "src/aws-exports.js"
+          FILE_DATA: ${{ secrets.AWS_EXPORTS }}
+        
       - name: 📦 Install dependencies
         run: yarn install
 
