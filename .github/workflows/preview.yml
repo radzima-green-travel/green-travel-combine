@@ -26,7 +26,7 @@ jobs:
         run: echo "${{ secrets.DEV_ENV }}" > .env
           
       - name: Create aws file
-        run: echo "${{ secrets.AWS_EXPORTS }}" > src/aws-exports.js
+        run: echo "${{ secrets.AWS_EXPORTS }}" | base64 --decode > src/aws-exports.js
         
       - name: 📦 Install dependencies
         run: yarn install
