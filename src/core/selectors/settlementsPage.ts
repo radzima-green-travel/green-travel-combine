@@ -8,7 +8,7 @@ import {map} from 'lodash';
 export const selectSettlementsData = (state: IState) =>
   state.settlements.settlementsData;
 
-export const selectFiltersSettlements = createSelector(
+export const selectSettlements = createSelector(
   selectSettlementsData,
   selectAppLanguage,
   ({data}, locale) => {
@@ -21,6 +21,6 @@ export const selectFiltersSettlements = createSelector(
 export const selectSettlementsSections = (
   settlementsWithNumberOfItems?: Record<string, number>,
 ) =>
-  createSelector(selectFiltersSettlements, settlements => {
+  createSelector(selectSettlements, settlements => {
     return prepareFiltersSettlements(settlements, settlementsWithNumberOfItems);
   });

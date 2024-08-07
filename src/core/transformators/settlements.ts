@@ -20,7 +20,7 @@ export function prepareFiltersSettlements(
       }
       return acc;
     },
-    {} as {[key: string]: SpotItemDTO[]},
+    {} as Record<string, SpotItemDTO[]>,
   );
 
   return chain(sections)
