@@ -1,7 +1,7 @@
 import {SpotItemDTO} from 'core/types';
 import {reduce, chain} from 'lodash';
 
-export function prepareFiltersSettlements(
+export function prepareSettlementsSections(
   settlements: SpotItemDTO[],
   settlementsWithNumberOfItems?: Record<string, number>,
 ) {

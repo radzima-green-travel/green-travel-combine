@@ -1,7 +1,7 @@
 import {createSelector} from '@reduxjs/toolkit';
 import {IState} from 'core/store';
 import {selectAppLanguage} from './settingsSelectors';
-import {prepareFiltersSettlements} from 'core/transformators/settlements';
+import {prepareSettlementsSections} from 'core/transformators/settlements';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
 
@@ -22,5 +22,8 @@ export const selectSettlementsSections = (
   settlementsWithNumberOfItems?: Record<string, number>,
 ) =>
   createSelector(selectSettlements, settlements => {
-    return prepareFiltersSettlements(settlements, settlementsWithNumberOfItems);
+    return prepareSettlementsSections(
+      settlements,
+      settlementsWithNumberOfItems,
+    );
   });
