@@ -20,6 +20,7 @@ import {
   objectsListReducer,
   categoriesListReducer,
   userReducer,
+  settlementsReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -85,6 +86,7 @@ const rootReducer = combineReducers({
   appMap: appMapReducer,
   objectsList: objectsListReducer,
   categoriesList: categoriesListReducer,
+  settlements: settlementsReducer,
   user: persistReducer(userPersistConfig, userReducer),
 });
 

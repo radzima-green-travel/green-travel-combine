@@ -1,10 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect, useCallback} from 'react';
-import {
-  selectSettlementsData,
-  selectTransformedFiltersSettlements,
-  selectActiveFilters,
-} from 'core/selectors';
+import {selectSettlementsData, selectSettlementsSections} from 'core/selectors';
 import {
   useRequestLoading,
   useListPagination,
@@ -12,16 +8,19 @@ import {
 } from 'core/hooks';
 import {
   getSettlementsDataRequest,
-  getPaginationSettlementsDataRequest,
-  setActiveFilter,
+  getSettlementsNextDataRequest,
 } from 'core/actions';
 import {xor, debounce} from 'lodash';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useSnackbar} from 'components/atoms';
+import {SettlementsScreenRouteProps} from '../types';
 
 export const useSettlements = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const {
+    params: {activeSettlements, applySettlements, settlementsWithNumberOfItems},
+  } = useRoute<SettlementsScreenRouteProps>();
   const {show, ...snackBarProps} = useSnackbar();
 
   const {loading: fullScreenLoading} = useRequestLoading(
@@ -32,16 +31,17 @@ export const useSettlements = () => {
     'settlements',
   );
   const {loading: paginationLoading} = useRequestLoading(
-    getPaginationSettlementsDataRequest,
+    getSettlementsNextDataRequest,
   );
-  const {municipalities: activeSettlements} = useSelector(selectActiveFilters);
   const [selectedSettlements, setSelectedSettlements] =
     useState(activeSettlements);
   const [searchValue, setSearchValue] = useState('');
   const [inputChangeLoading, setInputChangeLoading] = useState(false);
 
-  const {requestedItemsCount, total} = useSelector(selectSettlementsData);
-  const settlementsSections = useSelector(selectTransformedFiltersSettlements);
+  const {total, data} = useSelector(selectSettlementsData);
+  const settlementsSections = useSelector(
+    selectSettlementsSections(settlementsWithNumberOfItems),
+  );
 
   const getSettlementsData = useCallback(
     (value?: string) => {
@@ -50,23 +50,18 @@ export const useSettlements = () => {
     [dispatch],
   );
 
-  const getPaginationSettlementsData = useCallback(() => {
-    dispatch(getPaginationSettlementsDataRequest({searchValue}));
+  const getSettlementsNextData = useCallback(() => {
+    dispatch(getSettlementsNextDataRequest({searchValue}));
   }, [dispatch, searchValue]);
 
   useEffect(() => {
     getSettlementsData();
   }, [getSettlementsData]);
 
-  const applySettlements = useCallback(() => {
-    dispatch(
-      setActiveFilter({
-        name: 'municipalities',
-        value: selectedSettlements,
-      }),
-    );
+  const applySettlementsItems = useCallback(() => {
+    applySettlements(selectedSettlements);
     navigation.goBack();
-  }, [dispatch, selectedSettlements, navigation]);
+  }, [applySettlements, selectedSettlements, navigation]);
 
   const chooseSettlement = useCallback((settlementID: string) => {
     setSelectedSettlements(prevState => {
@@ -80,8 +75,8 @@ export const useSettlements = () => {
 
   const paginationProps = useListPagination({
     isLoading: paginationLoading,
-    loadMore: getPaginationSettlementsData,
-    hasMoreToLoad: requestedItemsCount < total && !paginationLoading,
+    loadMore: getSettlementsNextData,
+    hasMoreToLoad: data.length < total && !paginationLoading,
   });
 
   const debouncedFunction = useCallback(
@@ -99,7 +94,7 @@ export const useSettlements = () => {
   };
 
   useOnRequestError(
-    getPaginationSettlementsDataRequest,
+    getSettlementsNextDataRequest,
     'settlements',
     errorLabel => {
       show({
@@ -121,7 +116,7 @@ export const useSettlements = () => {
     snackBarProps,
     handleSearchValue,
     chooseSettlement,
-    applySettlements,
+    applySettlements: applySettlementsItems,
     getSettlementsData,
     resetSelectedSettlements,
   };

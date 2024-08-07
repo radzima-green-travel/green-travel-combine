@@ -14,7 +14,6 @@ export type SetActiveFilterPayload = {
 
 export type SettlementsData = {
   data: SpotItemDTO[];
-  requestedItemsCount: number;
   nextToken: string;
   total: number;
 };

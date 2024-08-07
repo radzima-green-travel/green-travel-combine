@@ -14,3 +14,4 @@ export {appMapSaga} from './appMap';
 export {objectsListSaga} from './objectsList';
 export {categoriesListSaga} from './categoriesList';
 export {searchSaga} from './search';
+export {settlementsSaga} from './settlements';

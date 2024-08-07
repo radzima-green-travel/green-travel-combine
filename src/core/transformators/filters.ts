@@ -1,5 +1,5 @@
-import {ObjectFiltersAggregationsDTO, SpotItemDTO} from 'core/types';
-import {reduce, chain} from 'lodash';
+import {ObjectFiltersAggregationsDTO} from 'core/types';
+import {reduce} from 'lodash';
 
 export const transformBucketsToCountMap = (
   buckets: {key: string; doc_count: number}[],
@@ -44,35 +44,8 @@ export function prepareAggregationsWithNumberOfItems(
     regionsWithNumberOfItems: transformBucketsToCountMap(
       aggregations?.regions?.facets?.buckets || [],
     ),
-    municipalitiesWithNumberOfItems: transformBucketsToCountMap(
+    settlementsWithNumberOfItems: transformBucketsToCountMap(
       aggregations?.municipalities?.facets?.buckets || [],
     ),
   };
-}
-
-export function prepareFiltersSettlements(
-  settlements: SpotItemDTO[],
-  {
-    municipalitiesWithNumberOfItems,
-  }: {municipalitiesWithNumberOfItems: {[key: string]: number}},
-) {
-  const sections = reduce(
-    settlements,
-    (acc, item) => {
-      const firstLetter = item.value[0];
-      if (!acc[firstLetter]) {
-        acc[firstLetter] = [];
-      }
-      if (municipalitiesWithNumberOfItems?.[item.id]) {
-        acc[firstLetter].push(item);
-      }
-      return acc;
-    },
-    {} as {[key: string]: SpotItemDTO[]},
-  );
-
-  return chain(sections)
-    .pickBy(value => value.length)
-    .map((data = [], title) => ({title, data}))
-    .value();
 }

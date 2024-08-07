@@ -3,22 +3,10 @@ import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
   SetActiveFilterPayload,
-  SettlementsData,
   CategoryFilterItemDTO,
-  SettlementsParams,
 } from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
-
-export const getSettlementsDataRequest = createAsyncAction<
-  SettlementsParams | void,
-  SettlementsData
->('GET_SETTLEMENTS_DATA');
-
-export const getPaginationSettlementsDataRequest = createAsyncAction<
-  SettlementsParams | void,
-  SettlementsData
->('GET_PAGINATION_SETTLEMENTS_DATA');
 
 export const getFiltersDataRequest = createAsyncAction<
   FiltersParams,

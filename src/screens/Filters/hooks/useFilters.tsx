@@ -34,9 +34,11 @@ export const useFilters = () => {
   const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
-  const {categoriesWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
-    selectTransformedAggregationsWithNumberOfItems,
-  );
+  const {
+    categoriesWithNumberOfItems,
+    regionsWithNumberOfItems,
+    settlementsWithNumberOfItems,
+  } = useSelector(selectTransformedAggregationsWithNumberOfItems);
 
   const {loading: loadingInitialFilters} = useRequestLoading(
     getInitialFiltersRequest,
@@ -102,13 +104,34 @@ export const useFilters = () => {
     [dispatch],
   );
 
+  const chooseSettlements = useCallback(
+    (items: string[]) => {
+      dispatch(
+        setActiveFilter({
+          name: 'municipalities',
+          value: items,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
   const clearFilters = useCallback(() => {
     dispatch(clearFiltersAction());
   }, [dispatch]);
 
   const navigateToSettlements = useCallback(() => {
-    navigation.navigate('Settlements');
-  }, [navigation]);
+    navigation.navigate('Settlements', {
+      activeSettlements: activeFilters.municipalities,
+      applySettlements: chooseSettlements,
+      settlementsWithNumberOfItems: settlementsWithNumberOfItems,
+    });
+  }, [
+    activeFilters.municipalities,
+    chooseSettlements,
+    settlementsWithNumberOfItems,
+    navigation,
+  ]);
 
   useUpdateEffect(() => {
     getFiltersData();

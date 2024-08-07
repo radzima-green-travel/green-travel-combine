@@ -4,7 +4,6 @@ import {selectAppLanguage} from './settingsSelectors';
 import {
   prepareGoogleRatings,
   prepareAggregationsWithNumberOfItems,
-  prepareFiltersSettlements,
 } from 'core/transformators/filters';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
@@ -17,24 +16,12 @@ export const selectFiltersTotal = (state: IState) =>
   state.filters.filtersData?.total;
 export const selectFiltersCategoriesList = (state: IState) =>
   state.filters.categoriesList;
-export const selectSettlementsData = (state: IState) =>
-  state.filters.settlementsData;
 
 export const selectFiltersRegions = createSelector(
   selectRegions,
   selectAppLanguage,
   (regions, locale) => {
     return map(regions, region => extractLocaleSpecificValues(region, locale));
-  },
-);
-
-export const selectFiltersSettlements = createSelector(
-  selectSettlementsData,
-  selectAppLanguage,
-  ({data}, locale) => {
-    return map(data, settlement =>
-      extractLocaleSpecificValues(settlement, locale),
-    );
   },
 );
 
@@ -61,16 +48,5 @@ export const selectTransformedAggregationsWithNumberOfItems = createSelector(
   selectFiltersData,
   filtersData => {
     return prepareAggregationsWithNumberOfItems(filtersData?.aggregations);
-  },
-);
-
-export const selectTransformedFiltersSettlements = createSelector(
-  selectFiltersSettlements,
-  selectTransformedAggregationsWithNumberOfItems,
-  (settlements, aggregationsWithNumberOfItems) => {
-    return prepareFiltersSettlements(
-      settlements,
-      aggregationsWithNumberOfItems,
-    );
   },
 );

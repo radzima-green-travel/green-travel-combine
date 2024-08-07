@@ -16,14 +16,14 @@ export type HomeScreenNavigationProps = CompositeNavigationProp<
   >
 >;
 
-export type HomeScreenRouteProps = RouteProp<
+export type SettlementsScreenRouteProps = RouteProp<
   HomeNavigatorParamsList,
   'Settlements'
 >;
 
 export interface IProps {
   navigation: HomeScreenNavigationProps;
-  route: HomeScreenRouteProps;
+  route: SettlementsScreenRouteProps;
 }
 
 export type ScreenOptions = (props: IProps) => NativeStackNavigationOptions;

@@ -2,7 +2,7 @@ import {SettlementsResponseDTO} from './../../types/api/graphql';
 import {call, put, select, all} from 'redux-saga/effects';
 import {
   getSettlementsDataRequest,
-  getPaginationSettlementsDataRequest,
+  getSettlementsNextDataRequest,
 } from 'core/actions';
 import {graphQLAPI} from 'api/graphql';
 import {selectSettlementsData} from 'selectors';
@@ -14,11 +14,11 @@ export function* getSettlementsDataSaga({
   payload,
   type,
 }: ReturnType<
-  typeof getSettlementsDataRequest | typeof getPaginationSettlementsDataRequest
+  typeof getSettlementsDataRequest | typeof getSettlementsNextDataRequest
 >) {
   try {
     let newToken = '';
-    if (type === getPaginationSettlementsDataRequest.type) {
+    if (type === getSettlementsNextDataRequest.type) {
       const {nextToken: prevNextToken} = yield select(selectSettlementsData);
       newToken = prevNextToken;
     }
@@ -44,7 +44,6 @@ export function* getSettlementsDataSaga({
     yield put(
       successAction({
         data: items,
-        requestedItemsCount: items.length,
         nextToken,
         total,
       }),

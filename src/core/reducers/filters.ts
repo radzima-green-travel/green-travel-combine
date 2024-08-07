@@ -2,14 +2,11 @@ import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
   ActiveFilters,
-  SettlementsData,
   CategoryFilterItemDTO,
 } from 'core/types';
 import {createReducer} from '@reduxjs/toolkit';
 import {
-  getSettlementsDataRequest,
   getFiltersDataRequest,
-  getPaginationSettlementsDataRequest,
   setActiveFilter,
   getInitialFiltersRequest,
   clearFilters,
@@ -20,18 +17,11 @@ interface FiltersState {
   regionsList: RegionsListResponseDTO;
   filtersData: ObjectFiltersDataDTO | null;
   activeFilters: ActiveFilters;
-  settlementsData: SettlementsData;
   categoriesList: CategoryFilterItemDTO[];
 }
 
 const initialState: FiltersState = {
   regionsList: [],
-  settlementsData: {
-    data: [],
-    requestedItemsCount: 0,
-    nextToken: '',
-    total: 0,
-  },
   filtersData: null,
   activeFilters: {
     googleRating: '',
@@ -80,28 +70,5 @@ export const filtersReducer = createReducer(initialState, builder => {
         ...state,
         filtersData: payload,
       };
-    })
-    .addCase(
-      getPaginationSettlementsDataRequest.meta.successAction,
-      (state, {payload: {data, total, nextToken, requestedItemsCount}}) => ({
-        ...state,
-        settlementsData: {
-          ...state.settlementsData,
-          data: [...state.settlementsData.data, ...data],
-          requestedItemsCount:
-            state.settlementsData.requestedItemsCount + requestedItemsCount,
-          nextToken,
-          total,
-        },
-      }),
-    )
-    .addCase(
-      getSettlementsDataRequest.meta.successAction,
-      (state, {payload}) => {
-        return {
-          ...state,
-          settlementsData: payload,
-        };
-      },
-    );
+    });
 });
