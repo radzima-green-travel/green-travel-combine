@@ -40,4 +40,4 @@ export {TrancateDetectionText} from './TrancateDetectionText';
 export {Checkbox} from './Checkbox';
 export {Multiswitch} from './Multiswitch';
 export {SnackBar} from './SnackBar';
-export {SectionSettlementItem} from './SectionSettlementItem';
+export {CheckboxRowItem} from './CheckboxRowItem';

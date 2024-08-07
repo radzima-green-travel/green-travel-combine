@@ -18,7 +18,7 @@ interface Props {
   value: string;
 }
 
-export const SearchBar = memo(({onChange, inputStyle, value}: Props) => {
+export const SearchField = memo(({onChange, inputStyle, value}: Props) => {
   const styles = useThemeStyles(themeStyles);
   const colorTheme = useColorScheme();
   const {t} = useTranslation('filters');

@@ -6,23 +6,22 @@ import {SpotItemDTO, TestIDs} from 'core/types';
 import {themeStyles} from './styles';
 import {composeTestID} from 'core/helpers';
 
-export const SectionSettlementItem = memo(
+export const CheckboxRowItem = memo(
   ({
     item,
-    selectedSettlements,
-    chooseSettlement,
+    isSelected,
+    onPress,
   }: {
     item: SpotItemDTO;
-    selectedSettlements: string[];
-    chooseSettlement: (id: string) => void;
+    isSelected: boolean;
+    onPress: (id: string) => void;
   }) => {
-    const isSelected = selectedSettlements?.includes(item.id);
     const styles = useThemeStyles(themeStyles);
 
     return (
       <TouchableOpacity
         style={styles.sectionItemContainer}
-        onPress={() => chooseSettlement(item.id)}
+        onPress={() => onPress(item.id)}
         testID={composeTestID(TestIDs.SettlementSectionListItem, item.value)}>
         <Checkbox
           selected={isSelected}

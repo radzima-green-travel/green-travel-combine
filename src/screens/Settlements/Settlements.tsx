@@ -5,14 +5,14 @@ import {
   Button,
   ScreenContent,
   SnackBar,
-  SectionSettlementItem,
+  CheckboxRowItem,
 } from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types';
 import {screenOptions} from './screenOptions';
 import {themeStyles, ITEM_HEIGHT} from './styles';
 import {SectionList} from 'react-native';
-import {SearchBar} from 'molecules';
+import {SearchField} from 'molecules';
 import {useSettlements} from './hooks';
 import {composeTestID} from 'core/helpers';
 
@@ -92,7 +92,7 @@ export const Settlements = () => {
   return (
     <View style={styles.container}>
       <ScreenContent>
-        <SearchBar onChange={handleSearchValue} value={searchValue} />
+        <SearchField onChange={handleSearchValue} value={searchValue} />
         <SuspenseView
           loading={fullScreenLoading}
           error={errorTexts}
@@ -104,10 +104,10 @@ export const Settlements = () => {
             keyExtractor={item => item.id}
             getItemLayout={getItemLayout}
             renderItem={({item}) => (
-              <SectionSettlementItem
+              <CheckboxRowItem
                 item={item}
-                selectedSettlements={selectedSettlements}
-                chooseSettlement={chooseSettlement}
+                isSelected={selectedSettlements.includes(item.id)}
+                onPress={chooseSettlement}
               />
             )}
             ListEmptyComponent={renderListEmptyComponent}
