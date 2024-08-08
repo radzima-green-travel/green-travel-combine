@@ -7,34 +7,43 @@ import {isIOS, SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useBookmarksList} from './hooks';
 import {TestIDs} from 'core/types';
+import {SuspenseView} from 'atoms';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
 export const BookmarksList = () => {
   const {
-    sortedListData,
+    retryFetchListData,
+    errorTexts,
+    loading,
+    filteredListData,
     onLastObjectRemoveAnimationEnd,
     navigateToObjectDetails,
     sendIsFavoriteChangedEvent,
   } = useBookmarksList();
 
   return (
-    <FlatList
-      data={sortedListData}
-      contentContainerStyle={styles.contentContainer}
-      keyExtractor={item => item.id}
-      renderItem={({item}) => (
-        <ObjectCard
-          removeFavoriteWithAnimation={isIOS}
-          onRemoveAnimationEnd={onLastObjectRemoveAnimationEnd}
-          containerStyle={styles.cardContainer}
-          data={item}
-          width={cardWidth}
-          onPress={navigateToObjectDetails}
-          onFavoriteChanged={sendIsFavoriteChangedEvent}
-          testID={TestIDs.ObjectTitle}
-        />
-      )}
-    />
+    <SuspenseView
+      loading={loading}
+      retryCallback={retryFetchListData}
+      error={errorTexts}>
+      <FlatList
+        data={filteredListData}
+        contentContainerStyle={styles.contentContainer}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <ObjectCard
+            removeFavoriteWithAnimation={isIOS}
+            onRemoveAnimationEnd={onLastObjectRemoveAnimationEnd}
+            containerStyle={styles.cardContainer}
+            data={item}
+            width={cardWidth}
+            onPress={navigateToObjectDetails}
+            onFavoriteChanged={sendIsFavoriteChangedEvent}
+            testID={TestIDs.ObjectTitle}
+          />
+        )}
+      />
+    </SuspenseView>
   );
 };

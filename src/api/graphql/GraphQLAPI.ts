@@ -12,8 +12,10 @@ import {
   ObjectFiltersDataResponseDTO,
   FiltersCategoriesResponseDTO,
   ObjectDetailsResponseDTO,
+  BookmarksInitialObjectsDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
+import {BookmarksInitialObjectsParams} from './types';
 import {
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
@@ -36,6 +38,7 @@ import {
   filterObjects,
   getFiltersCategoriesQuery,
 } from './queries/filters';
+import {getBookmarksInitialObjectsDataQuery} from './queries/bookmarksDetails';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getCategoriesList(
@@ -198,6 +201,17 @@ class GraphQLAPI extends GraphQLAPIEngine {
       query: geObjectDetailsByIdQuery(objectId),
     });
     return response.getObject;
+  }
+
+  async getBookmarksInitialObjectsData(
+    params: BookmarksInitialObjectsParams,
+  ): Promise<BookmarksInitialObjectsDTO> {
+    const response = await this.executeQuery({
+      query: getBookmarksInitialObjectsDataQuery,
+      params,
+    });
+
+    return response.searchObjects.items;
   }
 }
 

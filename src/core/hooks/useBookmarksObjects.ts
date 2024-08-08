@@ -1,25 +1,36 @@
-import {
-  selectObjectsMap,
-  selectBookmarksIdsFromFavorites,
-} from 'core/selectors';
-import {IObject} from 'core/types';
-import {reduce} from 'lodash';
+import {selectBookmarksIds} from 'core/selectors';
 import {useSelector} from 'react-redux';
+import {useMemo} from 'react';
+import {selectBookmarksCategories} from 'core/selectors';
+import {CardItem} from 'core/types';
 
-export function useBookmarksObjects(categoryId: string) {
-  const bookmarksIds = useSelector(selectBookmarksIdsFromFavorites);
-  const objectsMap = useSelector(selectObjectsMap);
-  return objectsMap
-    ? reduce(
-        bookmarksIds,
-        (acc, objectId) => {
-          const object = objectsMap[objectId];
-          if (object?.category?.id === categoryId) {
-            return [...acc, object];
-          }
-          return acc;
-        },
-        [] as IObject[],
-      )
-    : [];
+export function useBookmarksObjects(listData: CardItem[], categoryId: string) {
+  const bookmarksCategories = useSelector(selectBookmarksCategories);
+  const bookmarksIds = useSelector(selectBookmarksIds);
+
+  const currentCategory = bookmarksCategories.find(
+    category => category.categoryId === categoryId,
+  );
+
+  const newBookmarksIds = useMemo(() => {
+    if (!listData.length) {
+      return [];
+    }
+    const listDataIds = listData.map(object => object.id);
+
+    return bookmarksIds.filter(
+      (id: string) =>
+        !listDataIds.includes(id) && currentCategory?.objectsIds?.includes(id),
+    );
+  }, [bookmarksIds, currentCategory?.objectsIds, listData]);
+
+  const filteredListData = useMemo(
+    () =>
+      listData
+        ? listData.filter(object => bookmarksIds.includes(object.id))
+        : [],
+    [bookmarksIds, listData],
+  );
+
+  return {filteredListData, newBookmarksIds, bookmarksIds};
 }

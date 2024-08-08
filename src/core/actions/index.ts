@@ -7,3 +7,4 @@ export * from './search';
 export * from './user';
 export * from './settlements';
 export * from './objectDetails';
+export * from './bookmarksDetails';

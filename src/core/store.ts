@@ -6,7 +6,7 @@ import {persistStore, persistReducer} from 'redux-persist';
 import {asyncReducers} from 'react-redux-help-kit';
 import {combineReducers} from 'redux';
 import {
-  bookmarksReducer,
+  bookmarksDetailsReducer,
   bootstrapReducer,
   homeReducer,
   objectDetailsMapReducer,
@@ -38,13 +38,7 @@ const homePersistConfig = {
 const userPersistConfig = {
   key: 'user',
   storage: AsyncStorage,
-  whitelist: ['historyIds'],
-};
-
-const bookmarksPersistConfig = {
-  key: 'bookmarks',
-  storage: AsyncStorage,
-  whitelist: ['bookmarksIds', 'favorites'],
+  whitelist: ['historyIds', 'bookmarks'],
 };
 
 const settingsPeristConfig = {
@@ -67,7 +61,7 @@ const appConfigurationPersistConfig = {
 
 const rootReducer = combineReducers({
   ...asyncReducers,
-  bookmarks: persistReducer(bookmarksPersistConfig, bookmarksReducer),
+  bookmarksDetails: bookmarksDetailsReducer,
   visitedObjects: visitedObjectsReducer,
   bootsrap: bootstrapReducer,
   home: persistReducer(homePersistConfig, homeReducer),

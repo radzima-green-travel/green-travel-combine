@@ -1,11 +1,12 @@
 import {createAsyncAction} from 'core/helpers';
 import {ObjectShortDTO} from 'core/types';
 
-interface CategoriesListSuccessPayload {
+export interface ObjectsListSuccessPayload {
   id: string;
   data: Array<ObjectShortDTO>;
   nextToken: string;
   total: number;
+  categoryId: string;
 }
 
 interface ObjectsListRequestPayload {
@@ -15,10 +16,10 @@ interface ObjectsListRequestPayload {
 
 export const getObjectsListInitialDataRequest = createAsyncAction<
   ObjectsListRequestPayload,
-  CategoriesListSuccessPayload
+  ObjectsListSuccessPayload
 >('GET_OBJECTS_LIST_INITIAL_DATA');
 
 export const getObjectsListNextDataRequest = createAsyncAction<
   ObjectsListRequestPayload,
-  CategoriesListSuccessPayload
+  ObjectsListSuccessPayload
 >('GET_OBJECTS_LIST_NEXT_DATA');

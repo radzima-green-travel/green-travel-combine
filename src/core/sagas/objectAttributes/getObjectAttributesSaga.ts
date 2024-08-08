@@ -1,7 +1,9 @@
-import {all} from 'redux-saga/effects';
-import {syncAndGetFavoritesSaga} from '../favorites/syncAndGetFavoritesSaga';
+import {call, put} from 'redux-saga/effects';
 import {getVisitedObjectsSaga} from '../visitedObjects/getVisitedObjectsSaga';
+import {syncAndGetBookmarksRequest} from 'core/actions';
 
 export function* getObjectAttributesSaga() {
-  yield all([syncAndGetFavoritesSaga(), getVisitedObjectsSaga()]);
+  yield put(syncAndGetBookmarksRequest());
+
+  yield call(getVisitedObjectsSaga);
 }
