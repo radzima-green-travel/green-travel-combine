@@ -7,14 +7,16 @@ import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface Props {
   title: string;
+  tintColor?: string;
 }
 
-export const HeaderTitle = memo(({title}: Props) => {
+export const HeaderTitle = memo(({title, tintColor}: Props) => {
   const styles = useThemeStyles(themeStyles);
+  const textColor = tintColor ? {color: tintColor} : {};
 
   return (
     <Text
-      style={styles.text}
+      style={[styles.text, textColor]}
       {...getPlatformsTestID(composeTestID(TestIDs.HeaderScreenTitle, title))}>
       {title}
     </Text>

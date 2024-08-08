@@ -43,3 +43,4 @@ export {RatingBadge} from './RatingBadge';
 export {Card} from './Card';
 export {ObjectBelongsToItem} from './ObjectBelongsToItem';
 export {FiltersSectionContainer} from './FiltersSectionContainer';
+export {SearchField} from './SearchField';

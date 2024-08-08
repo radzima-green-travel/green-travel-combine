@@ -28,3 +28,4 @@ export {ImagesGallery as ImagesGalleryScreen} from './ImagesGallery';
 export {ObjectDetailsShareExperience as ObjectDetailsShareExperienceScreen} from './ObjectDetailsShareExperience';
 export {ObjectDetailsAddInfo as ObjectDetailsAddInfoScreen} from './ObjectDetailsAddInfo';
 export {Filters as FiltersScreen} from './Filters';
+export {Settlements as SettlementsScreen} from './Settlements';

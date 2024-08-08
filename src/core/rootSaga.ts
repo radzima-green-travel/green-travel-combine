@@ -15,6 +15,7 @@ import {
   objectsListSaga,
   categoriesListSaga,
   searchSaga,
+  settlementsSaga,
 } from './sagas';
 
 export function* rootSaga() {
@@ -34,5 +35,6 @@ export function* rootSaga() {
     objectsListSaga(),
     categoriesListSaga(),
     searchSaga(),
+    settlementsSaga(),
   ]);
 }

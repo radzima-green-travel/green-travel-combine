@@ -12,3 +12,4 @@ export * from './filtersPage';
 export * from './objectsList';
 export * from './categoriesList';
 export * from './user';
+export * from './settlements';

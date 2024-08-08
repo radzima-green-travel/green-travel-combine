@@ -16,7 +16,7 @@ export const CHECKBOX_THEMES: {
         dark: COLORS.dark.stroke.border,
       },
     },
-    selected: {
+    checked: {
       backgroundColor: {
         light: COLORS.light.background.success,
         dark: COLORS.dark.background.success,

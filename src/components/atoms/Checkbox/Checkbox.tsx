@@ -12,26 +12,27 @@ import {Icon} from '../Icon';
 export type Props = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
-  selected?: boolean;
+  checked: boolean;
   testID: string;
 };
 
-export const Checkbox = memo(({onPress, style, testID, selected}: Props) => {
+export const Checkbox = memo(({onPress, style, testID, checked}: Props) => {
   const buttonThemeStyles = useThemeStyles(CHECKBOX_THEMES.default);
 
   return (
     <TouchableOpacity
+      disabled={!onPress}
       onPress={onPress}
       activeOpacity={0.9}
       style={[
         styles.container,
         buttonThemeStyles.container,
-        selected && buttonThemeStyles.selected,
+        checked && buttonThemeStyles.checked,
         style,
       ]}
       {...getPlatformsTestID(testID)}
-      accessibilityState={{selected}}>
-      {selected ? (
+      accessibilityState={{checked}}>
+      {checked ? (
         <Icon
           {...(buttonThemeStyles.icon as {color: string})}
           name="check"
