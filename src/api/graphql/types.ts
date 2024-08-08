@@ -223,11 +223,6 @@ export const enum ObjectStatus {
   published = 'published',
 }
 
-export type SearchSpotsParams = {
-  limit?: number;
-  filter?: {type?: {eq?: 'REGION'}};
-};
-
 export interface QueryParams {
   limit: number;
   nextToken: string;
@@ -250,6 +245,10 @@ export type ObjectsListQueryParams = Pick<
   QueryParams,
   'limit' | 'filter' | 'nextToken' | 'sort'
 >;
+
+export type SettlementsQueryParams = Partial<
+  Pick<QueryParams, 'limit' | 'sort' | 'from'>
+> & {filter?: {value?: {matchPhrasePrefix?: string}}};
 
 export type CategoriesListQueryParams = Partial<
   Pick<QueryParams, 'limit' | 'filter' | 'nextToken' | 'sort'>

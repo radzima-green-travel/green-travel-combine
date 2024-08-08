@@ -14,7 +14,6 @@ import {
   ObjectDetailsResponseDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
-import {SearchSpotsParams} from './types';
 import {
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
@@ -29,6 +28,7 @@ import {
   AppMapObjectsQueryParams,
   CategoriesListQueryParams,
   ObjectsListQueryParams,
+  SettlementsQueryParams,
 } from 'api/graphql/types';
 import {getObjectsTotalCountQuery} from './queries/common';
 import {
@@ -64,6 +64,24 @@ class GraphQLAPI extends GraphQLAPIEngine {
       ?.buckets;
   }
 
+  async getSettlements(
+    params?: SettlementsQueryParams,
+  ): Promise<RegionsListResponseDTO> {
+    const response = await this.executeQuery({
+      query: searchSpotsQuery,
+      params: {
+        ...params,
+        filter: {
+          type: {
+            eq: 'MUNICIPALITY',
+          },
+        },
+      },
+    });
+
+    return response.searchSpots;
+  }
+
   async getRegions(): Promise<RegionsListResponseDTO> {
     const response = await this.executeQuery({
       query: searchSpotsQuery,
@@ -74,7 +92,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
             eq: 'REGION',
           },
         },
-      } as SearchSpotsParams,
+      },
     });
 
     return response.searchSpots.items;
@@ -92,6 +110,9 @@ class GraphQLAPI extends GraphQLAPIEngine {
           googleRating: filter.googleRating || null,
           categories: filter.categories?.length ? filter.categories : null,
           regions: filter.regions?.length ? filter.regions : null,
+          municipalities: filter.municipalities?.length
+            ? filter.municipalities
+            : null,
         },
       },
     });

@@ -9,6 +9,8 @@ import {
   selectTransformedAggregationsWithNumberOfItems,
   selectFiltersCategories,
 } from 'core/selectors';
+import {useNavigation} from '@react-navigation/native';
+import {HomeScreenNavigationProps} from '../types';
 import {
   useOnRequestError,
   useRequestLoading,
@@ -21,19 +23,23 @@ import {
   clearFilters as clearFiltersAction,
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
+import {keys, pickBy} from 'lodash';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
   const {show, ...snackBarProps} = useSnackbar();
+  const navigation = useNavigation<HomeScreenNavigationProps>();
 
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
-  const {categoriesWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
-    selectTransformedAggregationsWithNumberOfItems,
-  );
+  const {
+    categoriesWithNumberOfItems,
+    regionsWithNumberOfItems,
+    settlementsWithNumberOfItems,
+  } = useSelector(selectTransformedAggregationsWithNumberOfItems);
 
   const {loading: loadingInitialFilters} = useRequestLoading(
     getInitialFiltersRequest,
@@ -99,9 +105,34 @@ export const useFilters = () => {
     [dispatch],
   );
 
+  const chooseSettlements = useCallback(
+    (items: string[]) => {
+      dispatch(
+        setActiveFilter({
+          name: 'municipalities',
+          value: items,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
   const clearFilters = useCallback(() => {
     dispatch(clearFiltersAction());
   }, [dispatch]);
+
+  const navigateToSettlements = useCallback(() => {
+    navigation.navigate('Settlements', {
+      initialSelectedSettlements: activeFilters.municipalities,
+      onApplySelection: chooseSettlements,
+      regionsToInclude: keys(pickBy(settlementsWithNumberOfItems, Boolean)),
+    });
+  }, [
+    activeFilters.municipalities,
+    chooseSettlements,
+    settlementsWithNumberOfItems,
+    navigation,
+  ]);
 
   useUpdateEffect(() => {
     getFiltersData();
@@ -125,6 +156,7 @@ export const useFilters = () => {
     getFiltersInitialData,
     chooseRegion,
     clearFilters,
+    navigateToSettlements,
     fullScreenLoading: loadingInitialFilters,
     errorTexts: errorTextsInitialFilters,
     filtersDataLoading,
@@ -133,6 +165,7 @@ export const useFilters = () => {
     activeRating: activeFilters.googleRating,
     activeRegions: activeFilters.regions,
     activeCategories: activeFilters.categories,
+    activeSettlements: activeFilters.municipalities,
     updateRatings,
     chooseCategory,
     total,

@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
-import {Icon, TrancateDetectionText} from 'atoms';
+import {TrancateDetectionText} from 'atoms';
 import {ListItemWrapper} from './ListItemWrapper';
 import {themeStyles} from './styles';
 import {BaseListItemProps} from './types';
@@ -11,25 +11,21 @@ export const BaseListItem = memo(
     testID,
     title,
     onPress,
-    disabled,
-    label,
-    containerStyle,
-    leadIcon,
     subtitle,
+
+    disabled,
+    containerStyle,
     contentStylingType = 'primary',
     onSubtitlePress,
-    onRightLabelPress,
-    leadIconStyle,
     position = 'single',
     titleNumberOfLines = 1,
     subTitleNumberOfLines = 1,
-    tailIcon,
-    tailIconStyle,
-    labelStyle,
     titleContainerStyle,
     boldTitle = true,
     onTitleTruncate,
     onSubtitleTruncate,
+    rightElement,
+    leftElement,
   }: BaseListItemProps) => {
     const styles = useThemeStyles(themeStyles);
 
@@ -83,31 +79,12 @@ export const BaseListItem = memo(
       return titleNode;
     };
 
-    const renderRightLabel = () => {
-      const rightLabelNode = (
-        <View style={styles.rightContainer}>
-          {label ? (
-            <Text style={[styles.label, labelStyle]}>{label}</Text>
-          ) : null}
-          {tailIcon ? (
-            <Icon
-              name={tailIcon}
-              size={24}
-              style={[styles.tailIcon, tailIconStyle]}
-            />
-          ) : null}
-        </View>
-      );
+    const renderRightElement = () => {
+      return rightElement;
+    };
 
-      if (onRightLabelPress) {
-        return (
-          <TouchableOpacity activeOpacity={0.9} onPress={onRightLabelPress}>
-            {rightLabelNode}
-          </TouchableOpacity>
-        );
-      }
-
-      return rightLabelNode;
+    const renderLeftElement = () => {
+      return leftElement;
     };
 
     return (
@@ -118,15 +95,8 @@ export const BaseListItem = memo(
         containerStyle={containerStyle}
         position={position}>
         <View style={styles.contentContainer}>
-          {leadIcon && (
-            <View style={styles.leadIconContainer}>
-              <Icon
-                name={leadIcon}
-                size={24}
-                style={[styles.leadIcon, leadIconStyle]}
-              />
-            </View>
-          )}
+          {renderLeftElement()}
+
           <View
             style={[
               styles.titleContainer,
@@ -145,7 +115,7 @@ export const BaseListItem = memo(
               {renderSubtitle()}
             </View>
           </View>
-          {renderRightLabel()}
+          {renderRightElement()}
         </View>
       </ListItemWrapper>
     );

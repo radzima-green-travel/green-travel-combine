@@ -1,5 +1,5 @@
 import {IconsNames} from 'components/atoms/Icon';
-import {ReactNode} from 'react';
+import {ReactElement, ReactNode} from 'react';
 import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 export interface BaseListItemProps {
@@ -7,17 +7,10 @@ export interface BaseListItemProps {
   title: string;
   onPress?: () => void;
   disabled?: boolean;
-  label?: string;
   containerStyle?: StyleProp<ViewStyle>;
-  leadIcon?: IconsNames;
-  tailIcon?: IconsNames;
   subtitle?: string | number;
   contentStylingType?: 'primary' | 'secondary';
   onSubtitlePress?: () => void;
-  onRightLabelPress?: () => void;
-  leadIconStyle?: StyleProp<TextStyle>;
-  tailIconStyle?: StyleProp<TextStyle>;
-  labelStyle?: StyleProp<TextStyle>;
   titleContainerStyle?: StyleProp<TextStyle>;
   position?: 'top' | 'middle' | 'bottom' | 'single';
   titleNumberOfLines?: number;
@@ -25,8 +18,26 @@ export interface BaseListItemProps {
   boldTitle?: boolean;
   onTitleTruncate?: (isTruncated: boolean) => void;
   onSubtitleTruncate?: (isTruncated: boolean) => void;
+  rightElement?: ReactElement;
+  leftElement?: ReactElement | null;
 }
 
+export interface ListItemProps extends BaseListItemProps {
+  label?: string;
+  tailIcon?: IconsNames;
+  onRightLabelPress?: () => void;
+  tailIconStyle?: StyleProp<TextStyle>;
+  labelStyle?: StyleProp<TextStyle>;
+  leadIcon?: IconsNames;
+  leadIconStyle?: StyleProp<TextStyle>;
+}
+type ItemProp<T> = T extends undefined ? {item?: never} : {item: T};
+
+export type ListItemCheckboxProps<T> = ItemProp<T> &
+  Omit<BaseListItemProps, 'onPress'> & {
+    checked: boolean;
+    onPress?: (item: ItemProp<T>['item']) => void;
+  };
 export interface ListItemWrapperProps {
   testID: string;
   children: ReactNode;

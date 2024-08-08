@@ -27,6 +27,7 @@ export const Filters = () => {
     chooseCategory,
     chooseRegion,
     clearFilters,
+    navigateToSettlements,
     fullScreenLoading,
     filtersDataLoading,
     errorTexts,
@@ -34,6 +35,7 @@ export const Filters = () => {
     regionsWithNumberOfItems,
     categoriesWithNumberOfItems,
     snackBarProps,
+    activeSettlements,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -43,18 +45,27 @@ export const Filters = () => {
         onPress: clearFilters,
         theme: 'secondary' as const,
         text: t('clear'),
+        textStyle: styles.button,
         disabled: emptyActiveFilters,
         testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
       },
       {
         onPress: () => {},
         theme: 'primary' as const,
+        textStyle: styles.button,
         text: t('showFiltered', {amount: total}),
         loading: filtersDataLoading,
         testID: composeTestID(TestIDs.FilterButton, 'showFiltered'),
       },
     ];
-  }, [t, total, clearFilters, filtersDataLoading, emptyActiveFilters]);
+  }, [
+    emptyActiveFilters,
+    clearFilters,
+    t,
+    styles.button,
+    total,
+    filtersDataLoading,
+  ]);
 
   return (
     <View style={styles.container}>
@@ -94,15 +105,26 @@ export const Filters = () => {
                 />
               ))}
             </View>
-            <FiltersSectionContainer isSubSection itemName={t('settlements')}>
+            <FiltersSectionContainer
+              isSubSection
+              itemName={t('settlements.title')}>
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={styles.settlementsContainer}>
-                <Text style={styles.settlementsLabel}>{t('any')}</Text>
+                style={styles.settlementsContainer}
+                onPress={navigateToSettlements}>
+                {activeSettlements.length ? (
+                  <View style={styles.activeSettlementsLabelContainer}>
+                    <Text style={styles.activeSettlementsLabel}>
+                      {activeSettlements.length}
+                    </Text>
+                  </View>
+                ) : (
+                  <Text style={styles.settlementsLabel}>{t('any')}</Text>
+                )}
                 <Icon
                   name="chevronMediumRight"
                   size={24}
-                  style={styles.settlementsLabel}
+                  style={[styles.settlementsLabel, styles.settlementsLabelIcon]}
                 />
               </TouchableOpacity>
             </FiltersSectionContainer>

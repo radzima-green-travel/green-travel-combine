@@ -16,6 +16,11 @@ export type HomeNavigatorParamsList = {
   Home: undefined;
   Search: undefined;
   Filter: undefined;
+  Settlements: {
+    initialSelectedSettlements: string[];
+    onApplySelection: (items: string[]) => void;
+    regionsToInclude: string[];
+  };
   ObjectsList: {
     categoryId: string;
     title: string;

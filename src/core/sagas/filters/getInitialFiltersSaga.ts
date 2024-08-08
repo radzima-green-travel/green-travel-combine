@@ -34,7 +34,13 @@ export function* getInitialFiltersSaga({
       categoriesWithObjects.some(category => category.key === item.id),
     );
 
-    yield put(successAction({regionsList, categoriesList, filtersData}));
+    yield put(
+      successAction({
+        regionsList,
+        categoriesList,
+        filtersData,
+      }),
+    );
   } catch (e) {
     yield put(failureAction(e as RequestError));
   }

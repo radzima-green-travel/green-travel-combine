@@ -259,6 +259,7 @@ export enum TestIDs {
   HeaderBackButton = 'headerBackButton',
   HeaderShareButton = 'HeaderShareButton',
   HeaderCloseButton = 'HeaderCloseButton',
+  HeaderResetButton = 'HeaderResetButton',
   AllButton = 'allButton',
   SeeOnTheMapButton = 'seeOnTheMapButton',
   ObjectDetailsTitle = 'objectDetailsTitle',
@@ -335,4 +336,10 @@ export enum TestIDs {
   ObjectDetailsAddInfoConfirmContent = 'objectDetailsAddInfoConfirmContent',
   FiltersMultySwitch = 'filtersMultySwitch',
   FiltersChooseButton = 'filtersChooseButton',
+  ApplyButton = 'applyButton',
+  SearchBar = 'SearchBar',
+  SettlementSectionListHeader = 'SettlementSectionListHeader',
+  SettlementSectionListItem = 'SettlementSectionListItem',
+  SettlementSectionListItemCheckbox = 'SettlementSectionListItemCheckbox',
+  NotFound = 'notFound',
 }

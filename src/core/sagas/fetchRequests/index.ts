@@ -1,1 +1,1 @@
-export {fetchCategoriesData} from './fetchCategoriesData';
+export {getCategoriesData} from './getCategoriesData';

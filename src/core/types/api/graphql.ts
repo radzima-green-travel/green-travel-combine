@@ -119,8 +119,13 @@ export interface FiltersParams {
     categories?: string[];
     googleRating?: string;
     regions?: string[];
+    municipalities?: string[];
     statuses?: string | string[];
   };
+}
+
+export interface SettlementsParams {
+  searchValue?: string;
 }
 
 export type ObjectFiltersAggregationsDTO = {
@@ -130,6 +135,11 @@ export type ObjectFiltersAggregationsDTO = {
     };
   };
   regions: {
+    facets: {
+      buckets: CategoryAggregationsByObjectsDTO[];
+    };
+  };
+  municipalities: {
     facets: {
       buckets: CategoryAggregationsByObjectsDTO[];
     };
@@ -150,10 +160,17 @@ export interface ObjectFiltersDataDTO {
   aggregations: ObjectFiltersAggregationsDTO;
 }
 
-export interface RegionItemDTO {
+export interface SpotItemDTO {
   id: string;
   value: string;
-  i18n: Partial<I18nType<keyof RegionItemDTO>>[];
+  i18n: Partial<I18nType<keyof SpotItemDTO>>[];
+}
+
+export interface CategoryFilterItemDTO {
+  i18n: Array<I18nType<'name'>>;
+  name: string;
+  id: string;
+  index: number;
 }
 
 export interface CategoryFilterItemDTO {
@@ -167,7 +184,13 @@ export type ObjectFiltersDataResponseDTO = {
   filterLandingObjects: ObjectFiltersDataDTO;
 };
 
-export type RegionsListResponseDTO = Array<RegionItemDTO>;
+export type RegionsListResponseDTO = Array<SpotItemDTO>;
+
+export type SettlementsResponseDTO = {
+  items: Array<SpotItemDTO>;
+  nextToken: string;
+  total: number;
+};
 
 export type FiltersCategoriesResponseDTO = {
   items: Array<CategoryFilterItemDTO>;

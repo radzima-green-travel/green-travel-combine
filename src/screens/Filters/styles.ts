@@ -59,7 +59,6 @@ export const themeStyles = createThemeStyles({
   },
   settlementsContainer: {
     height: 40,
-    minWidth: 91,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -71,8 +70,32 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.secondary,
     },
   },
+  settlementsLabelIcon: {
+    marginLeft: 12,
+  },
+  activeSettlementsLabelContainer: {
+    width: 24,
+    height: 24,
+    borderRadius: 50,
+    backgroundColor: {
+      light: COLORS.light.background.success,
+      dark: COLORS.dark.background.success,
+    },
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  activeSettlementsLabel: {
+    ...FONTS_PRESETS.footnoteBold,
+    color: {
+      light: COLORS.light.other.constantWhite,
+      dark: COLORS.dark.other.constantWhite,
+    },
+  },
   buttonsGroupContainer: {
     paddingHorizontal: 0,
     marginHorizontal: 0,
+  },
+  button: {
+    ...FONTS_PRESETS.footnoteBold,
   },
 });

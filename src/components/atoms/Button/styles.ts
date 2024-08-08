@@ -1,4 +1,4 @@
-import {FONTS_STYLES} from 'assets';
+import {FONTS_PRESETS} from 'assets';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     width: 48,
   },
   text: {
-    ...FONTS_STYLES.text_14_20_500,
+    ...FONTS_PRESETS.footnoteBold,
   },
   iconContainer: {
     marginRight: 8,
