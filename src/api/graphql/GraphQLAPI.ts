@@ -63,15 +63,13 @@ class GraphQLAPI extends GraphQLAPIEngine {
   }
 
   async getSettlements(
-    params: SettlementsQueryParams,
+    params?: SettlementsQueryParams,
   ): Promise<RegionsListResponseDTO> {
     const response = await this.executeQuery({
       query: searchSpotsQuery,
       params: {
         ...params,
-        nextToken: params.nextToken || null,
         filter: {
-          ...params.filter,
           type: {
             eq: 'MUNICIPALITY',
           },

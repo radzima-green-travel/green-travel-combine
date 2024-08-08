@@ -16,47 +16,51 @@ interface Props {
   onChange: (text: string) => void;
   inputStyle?: StyleProp<TextStyle>;
   value: string;
+  testID: string;
 }
 
-export const SearchField = memo(({onChange, inputStyle, value}: Props) => {
-  const styles = useThemeStyles(themeStyles);
-  const colorTheme = useColorScheme();
-  const {t} = useTranslation('filters');
+export const SearchField = memo(
+  ({onChange, inputStyle, value, testID}: Props) => {
+    const styles = useThemeStyles(themeStyles);
+    const colorTheme = useColorScheme();
+    const {t} = useTranslation('filters');
 
-  const onClear = useCallback(() => {
-    onChange('');
-  }, [onChange]);
+    const onClear = useCallback(() => {
+      onChange('');
+    }, [onChange]);
 
-  return (
-    <View style={styles.searchContainer}>
-      <Icon
-        style={[styles.icon, styles.leftIcon]}
-        name={'search'}
-        width={24}
-        height={24}
-        testID={composeTestID(TestIDs.SearchBar, 'searchIcon')}
-      />
-      <TextInput
-        value={value}
-        selectionColor={styles.selectionColor[colorTheme]}
-        placeholder={t('settlements.search')}
-        onChangeText={onChange}
-        style={[styles.input, inputStyle]}
-        testID={composeTestID(TestIDs.SearchBar, 'input')}
-      />
-      <TouchableOpacity onPress={onClear} disabled={!value} style={styles.icon}>
+    return (
+      <View style={styles.searchContainer}>
         <Icon
-          style={[styles.icon, styles.rightIcon]}
-          name={value ? 'close' : 'tuneSimplified'}
+          style={[styles.icon, styles.leftIcon]}
+          name={'search'}
           width={24}
           height={24}
-          testID={
-            value
-              ? composeTestID(TestIDs.SearchBar, 'clear')
-              : composeTestID(TestIDs.SearchBar, 'settings')
-          }
+          testID={composeTestID(TestIDs.SearchBar, 'searchIcon')}
         />
-      </TouchableOpacity>
-    </View>
-  );
-});
+        <TextInput
+          value={value}
+          selectionColor={styles.selectionColor[colorTheme]}
+          placeholder={t('settlements.search')}
+          onChangeText={onChange}
+          style={[styles.input, inputStyle]}
+          testID={composeTestID(TestIDs.SearchBar, 'input')}
+        />
+        {value ? (
+          <TouchableOpacity
+            onPress={onClear}
+            activeOpacity={0.9}
+            style={styles.icon}>
+            <Icon
+              style={[styles.icon, styles.rightIcon]}
+              name={'close'}
+              width={24}
+              height={24}
+              testID={composeTestID(testID, 'clear')}
+            />
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    );
+  },
+);

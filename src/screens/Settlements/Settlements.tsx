@@ -1,20 +1,16 @@
 import React, {useCallback, useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {
-  SuspenseView,
-  Button,
-  ScreenContent,
-  SnackBar,
-  CheckboxRowItem,
-} from 'atoms';
+import {SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {TestIDs} from 'core/types';
 import {screenOptions} from './screenOptions';
 import {themeStyles, ITEM_HEIGHT} from './styles';
 import {SectionList} from 'react-native';
-import {SearchField} from 'molecules';
+import {ButtonsGroup, SearchField} from 'molecules';
 import {useSettlements} from './hooks';
 import {composeTestID} from 'core/helpers';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {ListItemCheckbox} from 'molecules/ListItem';
 
 const getItemLayout = (_, index) => ({
   length: ITEM_HEIGHT,
@@ -28,20 +24,20 @@ export const Settlements = () => {
 
   const {
     navigation,
-    paginationProps,
     settlementsSections,
-    activeSettlements,
     selectedSettlements,
     fullScreenLoading,
     searchValue,
     errorTexts,
-    snackBarProps,
     handleSearchValue,
     chooseSettlement,
     applySettlements,
     getSettlementsData,
     resetSelectedSettlements,
+    isApplyButtonDisabled,
   } = useSettlements();
+
+  const {bottom} = useSafeAreaInsets();
 
   const renderSectionHeader = useCallback(
     ({section: {title}}) => (
@@ -91,47 +87,52 @@ export const Settlements = () => {
 
   return (
     <View style={styles.container}>
-      <ScreenContent>
-        <SearchField onChange={handleSearchValue} value={searchValue} />
-        <SuspenseView
-          loading={fullScreenLoading}
-          error={errorTexts}
-          retryCallback={getSettlementsData}>
-          <SectionList
-            contentContainerStyle={styles.sectionListContentContainer}
-            showsVerticalScrollIndicator={false}
-            sections={settlementsSections}
-            keyExtractor={item => item.id}
-            getItemLayout={getItemLayout}
-            renderItem={({item}) => (
-              <CheckboxRowItem
-                item={item}
-                isSelected={selectedSettlements.includes(item.id)}
-                onPress={chooseSettlement}
-              />
-            )}
-            ListEmptyComponent={renderListEmptyComponent}
-            renderSectionHeader={renderSectionHeader}
-            {...paginationProps}
-            initialNumToRender={15}
-            maxToRenderPerBatch={15}
-          />
-          <Button
-            text={
-              selectedSettlements.length
+      <SearchField
+        testID={TestIDs.SearchBar}
+        onChange={handleSearchValue}
+        value={searchValue}
+      />
+      <SuspenseView
+        loading={fullScreenLoading}
+        error={errorTexts}
+        retryCallback={getSettlementsData}>
+        <SectionList
+          contentContainerStyle={styles.sectionListContentContainer}
+          showsVerticalScrollIndicator={false}
+          sections={settlementsSections}
+          keyExtractor={item => item.id}
+          getItemLayout={getItemLayout}
+          renderItem={({item}) => (
+            <ListItemCheckbox
+              item={item}
+              key={item.id}
+              title={item.value}
+              checked={selectedSettlements.includes(item.id)}
+              onPress={chooseSettlement}
+              testID={TestIDs.SettlementSectionListItem}
+            />
+          )}
+          ListEmptyComponent={renderListEmptyComponent}
+          renderSectionHeader={renderSectionHeader}
+          initialNumToRender={15}
+          maxToRenderPerBatch={15}
+        />
+        <ButtonsGroup
+          bottomInset={bottom}
+          buttons={[
+            {
+              text: selectedSettlements.length
                 ? t('settlements.applySeveral', {
                     amount: selectedSettlements.length,
                   })
-                : t('settlements.apply')
-            }
-            textStyle={styles.button}
-            testID={TestIDs.ApplyButton}
-            disabled={!selectedSettlements.length && !activeSettlements.length}
-            onPress={applySettlements}
-          />
-        </SuspenseView>
-        <SnackBar isOnTop {...snackBarProps} />
-      </ScreenContent>
+                : t('settlements.apply'),
+              testID: TestIDs.ApplyButton,
+              disabled: isApplyButtonDisabled,
+              onPress: applySettlements,
+            },
+          ]}
+        />
+      </SuspenseView>
     </View>
   );
 };

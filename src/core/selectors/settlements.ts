@@ -5,8 +5,9 @@ import {prepareSettlementsSections} from 'core/transformators/settlements';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
 
-export const selectSettlementsData = (state: IState) =>
-  state.settlements.settlementsData;
+export const selectSettlementsData = (state: IState) => {
+  return state.settlements.settlementsData;
+};
 
 export const selectSettlements = createSelector(
   selectSettlementsData,
@@ -18,12 +19,20 @@ export const selectSettlements = createSelector(
   },
 );
 
-export const selectSettlementsSections = (
-  settlementsWithNumberOfItems?: Record<string, number>,
-) =>
-  createSelector(selectSettlements, settlements => {
+export const selectIsSettlementsLoaded = createSelector(
+  selectSettlements,
+  settlements => Boolean(settlements.length),
+);
+
+export const selectSettlementsSections = createSelector(
+  selectSettlements,
+  (_: IState, regionsToInclude: string[]) => regionsToInclude,
+  (_: IState, _1: string[], searchValue: string) => searchValue,
+  (settlements, regionsToInclude, searchValue) => {
     return prepareSettlementsSections(
       settlements,
-      settlementsWithNumberOfItems,
+      regionsToInclude,
+      searchValue,
     );
-  });
+  },
+);

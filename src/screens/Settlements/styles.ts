@@ -27,9 +27,7 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.icon.primary,
     },
   },
-  button: {
-    ...FONTS_PRESETS.footnoteBold,
-  },
+
   resetButtonText: {
     ...FONTS_PRESETS.calloutRegular,
     color: {

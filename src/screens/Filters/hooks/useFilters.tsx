@@ -23,6 +23,7 @@ import {
   clearFilters as clearFiltersAction,
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
+import {keys, pickBy} from 'lodash';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -122,9 +123,9 @@ export const useFilters = () => {
 
   const navigateToSettlements = useCallback(() => {
     navigation.navigate('Settlements', {
-      activeSettlements: activeFilters.municipalities,
-      applySettlements: chooseSettlements,
-      settlementsWithNumberOfItems: settlementsWithNumberOfItems,
+      initialSelectedSettlements: activeFilters.municipalities,
+      onApplySelection: chooseSettlements,
+      regionsToInclude: keys(pickBy(settlementsWithNumberOfItems, Boolean)),
     });
   }, [
     activeFilters.municipalities,

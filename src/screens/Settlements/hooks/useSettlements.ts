@@ -1,27 +1,23 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useState, useEffect, useCallback} from 'react';
-import {selectSettlementsData, selectSettlementsSections} from 'core/selectors';
+import {useState, useEffect, useCallback, useMemo} from 'react';
 import {
-  useRequestLoading,
-  useListPagination,
-  useOnRequestError,
-} from 'core/hooks';
-import {
-  getSettlementsDataRequest,
-  getSettlementsNextDataRequest,
-} from 'core/actions';
-import {xor, debounce} from 'lodash';
+  selectIsSettlementsLoaded,
+  selectSettlementsSections,
+} from 'core/selectors';
+import {useRequestLoading, useOnRequestError} from 'core/hooks';
+import {getSettlementsDataRequest} from 'core/actions';
+import {every, xor} from 'lodash';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useSnackbar} from 'components/atoms';
 import {SettlementsScreenRouteProps} from '../types';
+import {IState} from 'core/store';
+import {SpotItemDTO} from 'core/types';
 
 export const useSettlements = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {
-    params: {activeSettlements, applySettlements, settlementsWithNumberOfItems},
+    params: {initialSelectedSettlements, onApplySelection, regionsToInclude},
   } = useRoute<SettlementsScreenRouteProps>();
-  const {show, ...snackBarProps} = useSnackbar();
 
   const {loading: fullScreenLoading} = useRequestLoading(
     getSettlementsDataRequest,
@@ -30,42 +26,46 @@ export const useSettlements = () => {
     getSettlementsDataRequest,
     'settlements',
   );
-  const {loading: paginationLoading} = useRequestLoading(
-    getSettlementsNextDataRequest,
+
+  const [selectedSettlements, setSelectedSettlements] = useState(
+    initialSelectedSettlements,
   );
-  const [selectedSettlements, setSelectedSettlements] =
-    useState(activeSettlements);
+
+  const isApplyButtonDisabled = useMemo(() => {
+    if (initialSelectedSettlements.length === selectedSettlements.length) {
+      return every(initialSelectedSettlements, id =>
+        selectedSettlements.includes(id),
+      );
+    }
+
+    return false;
+  }, [initialSelectedSettlements, selectedSettlements]);
   const [searchValue, setSearchValue] = useState('');
-  const [inputChangeLoading, setInputChangeLoading] = useState(false);
 
-  const {total, data} = useSelector(selectSettlementsData);
-  const settlementsSections = useSelector(
-    selectSettlementsSections(settlementsWithNumberOfItems),
+  const settlementsSections = useSelector((state: IState) =>
+    selectSettlementsSections(state, regionsToInclude, searchValue),
   );
 
-  const getSettlementsData = useCallback(
-    (value?: string) => {
-      dispatch(getSettlementsDataRequest({searchValue: value}));
-    },
-    [dispatch],
-  );
+  const isDataLoaded = useSelector(selectIsSettlementsLoaded);
 
-  const getSettlementsNextData = useCallback(() => {
-    dispatch(getSettlementsNextDataRequest({searchValue}));
-  }, [dispatch, searchValue]);
+  const getSettlementsData = useCallback(() => {
+    dispatch(getSettlementsDataRequest());
+  }, [dispatch]);
 
   useEffect(() => {
-    getSettlementsData();
-  }, [getSettlementsData]);
+    if (!isDataLoaded) {
+      getSettlementsData();
+    }
+  }, [getSettlementsData, isDataLoaded]);
 
   const applySettlementsItems = useCallback(() => {
-    applySettlements(selectedSettlements);
+    onApplySelection(selectedSettlements);
     navigation.goBack();
-  }, [applySettlements, selectedSettlements, navigation]);
+  }, [onApplySelection, selectedSettlements, navigation]);
 
-  const chooseSettlement = useCallback((settlementID: string) => {
+  const chooseSettlement = useCallback((item: SpotItemDTO) => {
     setSelectedSettlements(prevState => {
-      return xor(prevState, [settlementID]);
+      return xor(prevState, [item.id]);
     });
   }, []);
 
@@ -73,51 +73,18 @@ export const useSettlements = () => {
     setSelectedSettlements([]);
   }, []);
 
-  const paginationProps = useListPagination({
-    isLoading: paginationLoading,
-    loadMore: getSettlementsNextData,
-    hasMoreToLoad: data.length < total && !paginationLoading,
-  });
-
-  const debouncedFunction = useCallback(
-    debounce(value => {
-      getSettlementsData(value);
-      setInputChangeLoading(false);
-    }, 500),
-    [],
-  );
-
-  const handleSearchValue = value => {
-    setSearchValue(value);
-    debouncedFunction(value);
-    setInputChangeLoading(true);
-  };
-
-  useOnRequestError(
-    getSettlementsNextDataRequest,
-    'settlements',
-    errorLabel => {
-      show({
-        title: errorLabel.text,
-        type: 'error',
-      });
-    },
-  );
-
   return {
     navigation,
-    paginationProps,
     settlementsSections,
     selectedSettlements,
-    activeSettlements,
-    fullScreenLoading: fullScreenLoading || inputChangeLoading,
+    fullScreenLoading: fullScreenLoading,
     errorTexts,
     searchValue,
-    snackBarProps,
-    handleSearchValue,
+    handleSearchValue: setSearchValue,
     chooseSettlement,
     applySettlements: applySettlementsItems,
     getSettlementsData,
     resetSelectedSettlements,
+    isApplyButtonDisabled,
   };
 };

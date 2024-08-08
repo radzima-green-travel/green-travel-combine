@@ -313,7 +313,7 @@ export type ObjectsListQueryParams = Pick<
 >;
 
 export type SettlementsQueryParams = Partial<
-  Pick<QueryParams, 'limit' | 'filter' | 'nextToken' | 'sort'>
+  Pick<QueryParams, 'limit' | 'sort' | 'from'>
 > & {filter?: {value?: {matchPhrasePrefix?: string}}};
 
 export type CategoriesListQueryParams = Partial<

@@ -1,22 +1,21 @@
 import {SpotItemDTO} from 'core/types';
-import {reduce, chain} from 'lodash';
+import {reduce, chain, includes, toLower} from 'lodash';
 
 export function prepareSettlementsSections(
   settlements: SpotItemDTO[],
-  settlementsWithNumberOfItems?: Record<string, number>,
+  regionsToInclude: string[],
+  searchValue: string,
 ) {
   const sections = reduce(
     settlements,
     (acc, item) => {
-      const firstLetter = item.value[0];
-      if (!acc[firstLetter]) {
-        acc[firstLetter] = [];
-      }
       if (
-        settlementsWithNumberOfItems?.[item.id] ||
-        !settlementsWithNumberOfItems
+        includes(regionsToInclude, item.id) &&
+        toLower(item.value).includes(toLower(searchValue))
       ) {
-        acc[firstLetter].push(item);
+        const firstLetter = item.value[0];
+
+        acc[firstLetter] = [...(acc[firstLetter] || []), item];
       }
       return acc;
     },

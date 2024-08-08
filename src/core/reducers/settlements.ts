@@ -1,9 +1,6 @@
 import {SettlementsData} from 'core/types';
 import {createReducer} from '@reduxjs/toolkit';
-import {
-  getSettlementsDataRequest,
-  getSettlementsNextDataRequest,
-} from 'core/actions';
+import {getSettlementsDataRequest} from 'core/actions';
 
 interface SettlementsState {
   settlementsData: SettlementsData;
@@ -12,32 +9,18 @@ interface SettlementsState {
 const initialState: SettlementsState = {
   settlementsData: {
     data: [],
-    nextToken: '',
     total: 0,
   },
 };
 
 export const settlementsReducer = createReducer(initialState, builder => {
-  builder
-    .addCase(
-      getSettlementsNextDataRequest.meta.successAction,
-      (state, {payload: {data, total, nextToken}}) => ({
+  builder.addCase(
+    getSettlementsDataRequest.meta.successAction,
+    (state, {payload}) => {
+      return {
         ...state,
-        settlementsData: {
-          ...state.settlementsData,
-          data: [...state.settlementsData.data, ...data],
-          nextToken,
-          total,
-        },
-      }),
-    )
-    .addCase(
-      getSettlementsDataRequest.meta.successAction,
-      (state, {payload}) => {
-        return {
-          ...state,
-          settlementsData: payload,
-        };
-      },
-    );
+        settlementsData: payload,
+      };
+    },
+  );
 });
