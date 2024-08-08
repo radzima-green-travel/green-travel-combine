@@ -50,7 +50,7 @@
     "expo-localization": "~14.8.4",
     "expo-location": "~16.5.3",
     "expo-navigation-bar": "^2.1.1",
-    "expo-screen-orientation": "~6.4.1",
+    "expo-screen-orientation": "~7.0.5",
     "expo-splash-screen": "~0.26.5",
     "expo-status-bar": "~1.11.1",
     "expo-updates": "~0.24.13",
