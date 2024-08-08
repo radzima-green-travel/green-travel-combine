@@ -1,35 +1,21 @@
+import {useCallback, useMemo} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {
-  useObject,
-  useOnRequestError,
   useRequestLoading,
   useTranslation,
+  useObjectDetailsActions,
 } from 'core/hooks';
-import {getInitialHomeDataRequest} from 'core/reducers';
-import {useCallback, useMemo} from 'react';
-import {useDispatch} from 'react-redux';
-import {
-  ObjectDetailsScreenNavigationProps,
-  ObjectDetailsScreenRouteProps,
-} from '../types';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {selectObjectDetails} from 'core/selectors';
+import {useObjectDetailsSelector} from 'core/hooks';
+import {ObjectDetailsScreenNavigationProps} from '../types';
 
 export function useObjectDetailsDeepLinking() {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
 
-  const dispatch = useDispatch();
-
-  const {
-    params: {objectId},
-  } = useRoute<ObjectDetailsScreenRouteProps>();
-
-  const data = useObject(objectId);
-
   const {t} = useTranslation('objectDetails');
-  const {loading} = useRequestLoading(getInitialHomeDataRequest);
-  const {errorTexts} = useOnRequestError(getInitialHomeDataRequest, '');
-  const onTryAgainPress = useCallback(() => {
-    dispatch(getInitialHomeDataRequest());
-  }, [dispatch]);
+  const data = useObjectDetailsSelector(selectObjectDetails);
+  const {getObjectDetailsRequest} = useObjectDetailsActions();
+  const {loading} = useRequestLoading(getObjectDetailsRequest);
 
   const navigateToMainPage = useCallback(() => {
     navigation.navigate('TabNavigator', {
@@ -56,9 +42,6 @@ export function useObjectDetailsDeepLinking() {
   }, [data, loading, navigateToMainPage, t]);
 
   return {
-    errorTexts,
     objectNotFoundErrorProps,
-    onTryAgainPress,
-    loading,
   };
 }

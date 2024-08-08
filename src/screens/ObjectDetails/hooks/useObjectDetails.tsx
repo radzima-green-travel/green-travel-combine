@@ -1,13 +1,17 @@
 import {useCallback, useLayoutEffect, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import * as Clipboard from 'expo-clipboard';
 
 import {useSnackbar} from 'atoms';
 import {
-  useObject,
   useDetailsPageAnalytics,
   useImageSlider,
   useUpdateEffect,
   useTranslation,
+  useRequestLoading,
+  useOnRequestError,
+  useObjectIncompleteFields,
+  useObjectDetailsActions,
 } from 'core/hooks';
 import {
   ObjectDetailsScreenNavigationProps,
@@ -20,6 +24,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {IBelongsTo, IInclude} from 'core/types';
+import {selectObjectDetails} from 'core/selectors';
+import {useObjectDetailsSelector} from 'core/hooks';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
@@ -27,14 +33,22 @@ export const useObjectDetails = () => {
     params: {objectId},
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
+  const dispatch = useDispatch();
+  const data = useObjectDetailsSelector(selectObjectDetails);
+  const {getObjectDetailsRequest, clearObjectDetails} =
+    useObjectDetailsActions();
+
   const {top} = useSafeAreaInsets();
 
-  const data = useObject(objectId);
   const {t} = useTranslation();
 
   const {sendSwitchPhotosEvent, sendScrollEvent} =
     // TODO: legacy. Will be removed after migration to new analytics
-    useDetailsPageAnalytics(objectId);
+    useDetailsPageAnalytics();
+
+  const incompleteFields = useObjectIncompleteFields(
+    data?.category.incompleteFieldsNames ?? [],
+  );
 
   const {
     sendObjectScreenViewEvent,
@@ -118,12 +132,14 @@ export const useObjectDetails = () => {
       sendAddInfoButtonClickEvent();
       navigation.navigate('ObjectDetailsAddInfo', {
         objectId: data.id,
+        objectName: data.name,
+        incompleteFields,
         analytics: {
           fromScreenName: 'ObjectScreen',
         },
       });
     }
-  }, [data, navigation, sendAddInfoButtonClickEvent]);
+  }, [data, incompleteFields, navigation, sendAddInfoButtonClickEvent]);
 
   const {onScroll, page, pagesAmount} = useImageSlider(
     data?.images?.length || 0,
@@ -138,6 +154,14 @@ export const useObjectDetails = () => {
       title: data?.name,
     });
   }, [navigation, data]);
+
+  useEffect(() => {
+    dispatch(getObjectDetailsRequest({objectId}));
+
+    return () => {
+      dispatch(clearObjectDetails());
+    };
+  }, [clearObjectDetails, dispatch, getObjectDetailsRequest, objectId]);
 
   useUpdateEffect(() => {
     sendSwitchPhotosEvent();
@@ -159,8 +183,19 @@ export const useObjectDetails = () => {
     }
   }, [data, navigation, page]);
 
+  const {loading} = useRequestLoading(getObjectDetailsRequest);
+
+  const {errorTexts} = useOnRequestError(getObjectDetailsRequest, '');
+
+  const onTryAgainPress = useCallback(() => {
+    dispatch(getObjectDetailsRequest({objectId}));
+  }, [dispatch, getObjectDetailsRequest, objectId]);
+
   return {
     data,
+    loading,
+    errorTexts,
+    onTryAgainPress,
     sendScrollEvent,
     copyLocationToClipboard,
     navigateToObjectsMap,

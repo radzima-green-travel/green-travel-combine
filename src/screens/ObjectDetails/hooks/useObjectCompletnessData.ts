@@ -1,17 +1,18 @@
 import {
-  useObject,
   useHeaderHeight,
   useScrollScrollViewScrollToElement,
   useObjectIncompleteFields,
 } from 'core/hooks';
+import {selectObjectDetails} from 'core/selectors';
+import {useObjectDetailsSelector} from 'core/hooks';
 
 import {View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {useCallback} from 'react';
 
-export function useObjectCompletnessData({objectId}: {objectId: string}) {
-  const objectData = useObject(objectId);
+export function useObjectCompletnessData() {
+  const objectData = useObjectDetailsSelector(selectObjectDetails);
   const headerHeight = useHeaderHeight();
   const {sendAddInfoBannerClickEvent} = useObjectDetailsAnalytics();
 

@@ -1,11 +1,12 @@
 import {useCallback, useMemo, useRef} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {analyticsService} from 'services/AnalyticsService';
+import {selectObjectDetails} from 'core/selectors';
 import {getScreenTimeSec} from 'core/helpers';
-import {useObject} from '../useObject';
+import {useObjectDetailsSelector} from 'core/hooks';
 
-export function useDetailsPageAnalytics(objectId: string) {
-  const data = useObject(objectId);
+export function useDetailsPageAnalytics() {
+  const data = useObjectDetailsSelector(selectObjectDetails);
 
   const analyticsData = useMemo(() => {
     return data

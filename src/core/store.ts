@@ -26,6 +26,7 @@ import {
 import {reduxStorage} from 'core/reduxStorage';
 // import logger from 'redux-logger';
 import {settingsReducer} from './reducers/SettingsReducer';
+import {objectDetailsReducer} from './reducers/objectDetails';
 const AsyncStorage = reduxStorage;
 
 const homePersistConfig = {
@@ -88,6 +89,7 @@ const rootReducer = combineReducers({
   categoriesList: categoriesListReducer,
   settlements: settlementsReducer,
   user: persistReducer(userPersistConfig, userReducer),
+  objectDetails: objectDetailsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

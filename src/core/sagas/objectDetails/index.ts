@@ -1,0 +1,1 @@
+export {objectDetailsSaga} from './objectDetails';

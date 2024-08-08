@@ -6,3 +6,4 @@ export * from './objectsList';
 export * from './search';
 export * from './user';
 export * from './settlements';
+export * from './objectDetails';

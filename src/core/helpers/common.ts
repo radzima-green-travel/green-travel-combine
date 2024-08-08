@@ -39,12 +39,12 @@ import {
   SpotI18n,
   IObjectAdditionalInfoItem,
   LocationDTO,
+  I18nType,
 } from 'core/types';
 import {imagesService} from 'services/ImagesService';
 import {
   AccommodationPlaceItem,
   DinnerPlacesItem,
-  i18nType,
   ListMobileDataQuery,
   ListMobileDataQueryObject,
   UpcomingEventsItem,
@@ -136,7 +136,7 @@ function getSpotTranslation(
 
 function getTranslationsForProperties<T extends string>(
   originalValues: Record<T, string>,
-  i18n: Array<i18nType<T>>,
+  i18n: Array<I18nType<T>>,
   currentLocale: SupportedLocales,
 ): Record<T, string> {
   const i18nObject = find(
@@ -478,7 +478,7 @@ export function transformQueryData(
               categoriesMap,
               currentLocale,
             ),
-            url: object.url || undefined,
+            url: object.url || null,
             routes: (object.routes as LineString) || undefined,
             length: object.length || null,
             origins: (object.origins as IOrigins[]) || null,

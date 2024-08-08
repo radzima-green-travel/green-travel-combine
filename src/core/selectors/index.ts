@@ -13,3 +13,4 @@ export * from './objectsList';
 export * from './categoriesList';
 export * from './user';
 export * from './settlements';
+export * from './objectDetails';

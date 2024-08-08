@@ -1,84 +1,14 @@
-interface DefaultI18n {
-  __typename: 'ObjectI18n';
-  locale: string;
-}
-
-export type i18nType<T extends string> = {
-  [key in T]: string | null;
-} & DefaultI18n;
-
-export interface AccommodationPlaceItem {
-  id: string;
-  objectId: string;
-  name: string;
-  googleMapLink: string;
-  messengerLink: string;
-  duration: number;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string | null;
-  updatedBy: string | null;
-  i18n: Array<i18nType<'name'>>;
-}
-
-export interface DinnerPlacesItem {
-  id: string;
-  objectId: string;
-  name: string;
-  googleMapLink: string;
-  messengerLink: string;
-  duration: number;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string | null;
-  updatedBy: string | null;
-  i18n: Array<i18nType<'name'>>;
-}
-
-export interface UpcomingEventsItem {
-  id: string;
-  objectId: string;
-  name: string;
-  link: string;
-  date: string;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string | null;
-  updatedBy: string | null;
-  i18n: Array<i18nType<'name'>>;
-}
-export interface RentingItem {
-  id: string;
-  objectId: string;
-  rentingId: string;
-  renting: {
-    id: string;
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-    createdBy: string;
-    updatedBy: string;
-    i18n: Array<i18nType<'name'>>;
-  };
-  createdAt: string;
-  updatedAt: string;
-}
-export interface ChildServicesItem {
-  id: string;
-  objectId: string;
-  childServiceId: string;
-  childService: {
-    id: string;
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-    createdBy: string;
-    updatedBy: string;
-    i18n: Array<i18nType<'name'>>;
-  };
-  createdAt: string;
-  updatedAt: string;
-}
+import {
+  AccommodationPlaceItemDTO,
+  BelongsToItemDTO,
+  ChildServicesItemDTO,
+  DinnerPlacesItemDTO,
+  I18nType,
+  IncludeItemDTO,
+  RentingItemDTO,
+  SpotI18n,
+  UpcomingEventsItemDTO,
+} from 'core/types';
 
 export type ListMobileDataQueryObject = {
   __typename: 'ObjectMobile';
@@ -120,6 +50,9 @@ export type ListMobileDataQueryObject = {
       regionId: string | null;
       subRegionId: string | null;
       municipalityId: string | null;
+      region: {i18n?: SpotI18n; value: string} | null;
+      subRegion: {i18n?: SpotI18n; value: string} | null;
+      municipality: {i18n?: SpotI18n; value: string} | null;
     }> | null;
   } | null;
   length?: number | null;
@@ -134,8 +67,8 @@ export type ListMobileDataQueryObject = {
   phoneNumber?: string[] | null;
   workingHours?: string | null;
   attendanceTime?: number | null;
-  renting: {items: RentingItem[]};
-  childServices: {items: ChildServicesItem[]};
+  renting: {items: RentingItemDTO[]};
+  childServices: {items: ChildServicesItemDTO[]};
   calculatedProperties?: {
     averageRating: number;
     averageSpentTime: number;
@@ -154,17 +87,17 @@ export type ListMobileDataQueryObject = {
     type: string;
     coordinates: Array<Array<number | null> | null>;
   } | null;
-  include?: Array<string | null> | null;
-  belongsTo?: Array<string | null> | null;
-  i18n: Array<i18nType<'name' | 'description'>>;
+  include: {items: IncludeItemDTO[]};
+  belongsTo?: {items: BelongsToItemDTO[]};
+  i18n: Array<I18nType<'name' | 'description'>>;
   upcomingEvents: {
-    items: UpcomingEventsItem[];
+    items: UpcomingEventsItemDTO[];
   };
   accommodationPlace: {
-    items: AccommodationPlaceItem[];
+    items: AccommodationPlaceItemDTO[];
   };
   dinnerPlaces: {
-    items: DinnerPlacesItem[];
+    items: DinnerPlacesItemDTO[];
   };
   category?: {
     __typename: 'Category';
@@ -174,6 +107,7 @@ export type ListMobileDataQueryObject = {
     icon?: string | null;
     createdAt: string;
     updatedAt: string;
+    completenessFields: Array<string> | null;
     owner?: string | null;
     createdBy?: string | null;
     updatedBy?: string | null;
