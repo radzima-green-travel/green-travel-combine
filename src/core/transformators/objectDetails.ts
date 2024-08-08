@@ -12,13 +12,13 @@ import {
   UpcomingEventsItemDTO,
 } from 'core/types';
 import {filter, isEmpty, map, reduce} from 'lodash';
-import {imagesService} from 'services/ImagesService';
 import {ObjectField} from 'core/constants';
 import {dateToReadableString, isDateInThePast} from 'core/helpers';
 import {
   extractLocaleSpecificValues,
   getObjectFullAddress,
   processImagesUrls,
+  translateAndProcessImagesForEntity,
 } from './common';
 
 const isValueOrItemsEmpty = (value: any): boolean => {
@@ -65,10 +65,7 @@ export function prepareObjectAdditionalInfoItems(
   return reduce(
     items,
     (acc, item) => {
-      const {name} = extractLocaleSpecificValues(
-        {name: item.name, i18n: item.i18n},
-        currentLocale,
-      );
+      const {name} = extractLocaleSpecificValues(item, currentLocale);
 
       const placeItem = item as AccommodationPlaceItemDTO | DinnerPlacesItemDTO;
       const eventItem = item as UpcomingEventsItemDTO;
@@ -99,26 +96,24 @@ export function prepareObjectInclude(
 ): IInclude[] {
   return includeItems.reduce((acc, item) => {
     const {
-      include: {
-        category: {cover, id, name, i18n},
-        id: objectId,
-      },
+      include: {category, id},
     } = item;
 
-    const {name: categoryName} = extractLocaleSpecificValues(
-      {name, i18n},
-      currentLocale,
-    );
+    const {
+      id: categoryId,
+      name,
+      cover,
+    } = translateAndProcessImagesForEntity(category, currentLocale);
 
     return [
       ...acc,
       {
-        categoryId: id,
-        name: categoryName,
-        image: imagesService.getOriginalImage(cover),
-        objects: [objectId, objectId],
+        categoryId,
+        name,
+        image: cover,
+        objects: [id],
         analyticsMetadata: {
-          name: categoryName,
+          name,
         },
       },
     ];
@@ -136,23 +131,24 @@ export function prepareObjectBelongsTo(
   return belongsToItems.reduce((acc, item) => {
     const {belongsTo} = item;
 
-    const {name} = extractLocaleSpecificValues(
-      {name: belongsTo.name, i18n: belongsTo.i18n},
-      currentLocale,
-    );
+    const {
+      id: objectId,
+      name,
+      cover,
+    } = translateAndProcessImagesForEntity(belongsTo, currentLocale);
 
     const {name: categoryName} = extractLocaleSpecificValues(
-      {name: belongsTo.category.name, i18n: belongsTo.category.i18n},
+      belongsTo.category,
       currentLocale,
     );
 
     return [
       ...acc,
       {
-        objectId: belongsTo.id,
+        objectId,
         name,
         categoryName,
-        image: imagesService.getOriginalImage(belongsTo.cover),
+        image: cover,
         analyticsMetadata: {
           name,
           categoryName,
@@ -175,8 +171,11 @@ export const prepareObjectDetails = (
     area,
     attendanceTime,
     accommodationPlace,
+    belongsTo,
     calculatedProperties,
     category,
+    childServices,
+    description,
     googleRating,
     googleRatingsTotal,
     dinnerPlaces,
@@ -187,16 +186,13 @@ export const prepareObjectDetails = (
     length,
     location,
     name,
-    description,
     origins,
     phoneNumber,
+    renting,
     routes,
-    url,
     workingHours,
     upcomingEvents,
-    belongsTo,
-    childServices,
-    renting,
+    url,
   } = object;
 
   const {averageSpentTime, averageRating, totalRatings} =
@@ -212,7 +208,7 @@ export const prepareObjectDetails = (
   const translatedAddress = getObjectFullAddress(addresses, currentLocale);
 
   const {percentageOfCompletion, incompleteFieldsNames} =
-    objectCompletenessInfo(object, object?.category?.completenessFields);
+    objectCompletenessInfo(object, category.completenessFields);
 
   const {images: convertedImages} = processImagesUrls({i18n, images});
 
@@ -245,7 +241,7 @@ export const prepareObjectDetails = (
     googleRatingsTotal,
     renting: map(renting.items, ({renting: rentingService}) => {
       const {name: rentingServiceName} = extractLocaleSpecificValues(
-        {name: rentingService.name, i18n: rentingService.i18n},
+        rentingService,
         currentLocale,
       );
 
@@ -253,7 +249,7 @@ export const prepareObjectDetails = (
     }),
     childServices: map(childServices.items, ({childService}) => {
       const {name: childServiceName} = extractLocaleSpecificValues(
-        {name: childService.name, i18n: childService.i18n},
+        childService,
         currentLocale,
       );
 

@@ -457,6 +457,10 @@ export function transformQueryData(
               incompleteFieldsNames: incompleteFieldsNames,
               percentageOfCompletion: percentageOfCompletion,
             },
+            cover: object.cover
+              ? imagesService.getOriginalImage(object.cover)
+              : '',
+            blurhash: object.blurhash || '',
             images: compact(
               map(object.images, img =>
                 img ? imagesService.getOriginalImage(img) : img,
