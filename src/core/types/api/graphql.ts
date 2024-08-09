@@ -354,3 +354,17 @@ export type ObjectDetailsResponseDTO = {
   upcomingEvents: UpcomingEventsDTO;
   url: string | null;
 };
+
+export type BookmarksCategory = Pick<
+  ObjectCategoryMapDTO,
+  'name' | 'i18n' | 'id'
+>;
+
+export interface BookmarksObjectDTO {
+  id: string;
+  category: BookmarksCategory;
+}
+
+export interface BookmarksInitialObjectsDTO {
+  items: Array<BookmarksObjectDTO>;
+}

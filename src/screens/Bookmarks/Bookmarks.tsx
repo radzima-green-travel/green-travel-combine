@@ -2,28 +2,26 @@ import React from 'react';
 import {View, ScrollView} from 'react-native';
 import {styles} from './styles';
 import {BookmarkItem, SuspenseView} from 'atoms';
-import {isEmpty} from 'lodash';
 import {BookmarksEmptyView} from 'molecules';
 import {useBookmarks} from './hooks';
 import {TestIDs} from 'core/types';
-import {composeTestID} from 'core/helpers';
 
 export const Bookmarks = () => {
   const {
+    showEmptyView,
     bookmarksCategories,
-    getHomeData,
+    fetchInitialObjectsData,
     loading,
     error,
     navigateToBookmarksList,
-    syncFavoritesLoading,
   } = useBookmarks();
 
   return (
     <SuspenseView
-      retryCallback={getHomeData}
-      loading={(!bookmarksCategories && loading) || syncFavoritesLoading}
-      error={bookmarksCategories ? null : error}>
-      {isEmpty(bookmarksCategories) ? (
+      retryCallback={fetchInitialObjectsData}
+      loading={loading}
+      error={error}>
+      {showEmptyView ? (
         <BookmarksEmptyView />
       ) : (
         <ScrollView style={styles.container}>
@@ -35,7 +33,7 @@ export const Bookmarks = () => {
                 isOdd={index % 2 === 0}
                 isLast={items.length - 1 === index}
                 count={category.objectsIds.length}
-                testID={composeTestID(TestIDs.FavoritesCard, index)}
+                testID={TestIDs.FavoritesCard}
                 onPress={navigateToBookmarksList}
               />
             ))}

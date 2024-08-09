@@ -5,7 +5,7 @@ import {
   homeSaga,
   objectDetailsMapSaga,
   settingsSaga,
-  favoritesSaga,
+  bookmarksDetails,
   appSaga,
   visitedObjectsSaga,
   analytics,
@@ -17,6 +17,7 @@ import {
   searchSaga,
   settlementsSaga,
   objectDetailsSaga,
+  userSaga,
 } from './sagas';
 
 export function* rootSaga() {
@@ -26,7 +27,7 @@ export function* rootSaga() {
     homeSaga(),
     objectDetailsMapSaga(),
     settingsSaga(),
-    favoritesSaga(),
+    bookmarksDetails(),
     appSaga(),
     visitedObjectsSaga(),
     analytics(),
@@ -38,5 +39,6 @@ export function* rootSaga() {
     searchSaga(),
     settlementsSaga(),
     objectDetailsSaga(),
+    userSaga(),
   ]);
 }

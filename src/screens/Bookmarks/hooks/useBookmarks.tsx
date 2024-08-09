@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   useRequestLoading,
@@ -6,48 +6,76 @@ import {
   useOnRequestError,
 } from 'core/hooks';
 import {
-  getInitialHomeDataRequest,
-  syncAndGetFavoritesRequest,
-} from 'core/reducers';
+  clearBookmarksInitialObjectsData,
+  getBookmarksInitialObjectsDataRequest,
+  syncAndGetBookmarksRequest,
+} from 'core/actions';
 import {IBookmarkItem} from 'core/types';
 import {useNavigation} from '@react-navigation/native';
 import {ObjectsListScreenNavigationProps} from '../types';
-import {selectBookmarksCardsData} from 'core/selectors';
+import {selectBookmarksIds, selectBookmarksCategories} from 'core/selectors';
 
 export const useBookmarks = () => {
   const navigation = useNavigation<ObjectsListScreenNavigationProps>();
   const dispatch = useDispatch();
   const {sendSelectSavedCategoryEvent} = useBookmarksAnalytics();
 
-  const bookmarksCategories = useSelector(selectBookmarksCardsData);
+  const bookmarksCategories = useSelector(selectBookmarksCategories);
 
-  const getHomeData = useCallback(() => {
-    dispatch(getInitialHomeDataRequest());
-  }, [dispatch]);
+  const bookmarksIds = useSelector(selectBookmarksIds);
 
-  const {loading} = useRequestLoading(getInitialHomeDataRequest);
-  const {loading: syncFavoritesLoading} = useRequestLoading(
-    syncAndGetFavoritesRequest,
+  const {loading: bookmarksObjectsLoading} = useRequestLoading(
+    getBookmarksInitialObjectsDataRequest,
   );
-  const {errorTexts} = useOnRequestError(getInitialHomeDataRequest, '');
+  const {loading: syncBookmarksLoading} = useRequestLoading(
+    syncAndGetBookmarksRequest,
+  );
+  const {errorTexts} = useOnRequestError(
+    getBookmarksInitialObjectsDataRequest,
+    '',
+  );
+
+  const loading =
+    (!bookmarksCategories.length && bookmarksObjectsLoading) ||
+    syncBookmarksLoading;
+
+  const showEmptyView = !bookmarksCategories.length;
+
+  const fetchInitialObjectsData = useCallback(() => {
+    if (bookmarksIds.length) {
+      dispatch(getBookmarksInitialObjectsDataRequest(bookmarksIds));
+    }
+  }, [dispatch, bookmarksIds]);
 
   const navigateToBookmarksList = useCallback(
-    ({categoryName, categoryId}: IBookmarkItem) => {
+    ({categoryName, categoryId, objectsIds}: IBookmarkItem) => {
       navigation.navigate('BookmarksList', {
         title: categoryName,
-        categoryId: categoryId,
+        categoryId,
+        objectsIds,
       });
       sendSelectSavedCategoryEvent(categoryName);
     },
     [navigation, sendSelectSavedCategoryEvent],
   );
 
+  useEffect(() => {
+    if (bookmarksCategories.length && !bookmarksIds.length) {
+      dispatch(clearBookmarksInitialObjectsData());
+    }
+  }, [dispatch, bookmarksCategories.length, bookmarksIds.length]);
+
+  useEffect(() => {
+    fetchInitialObjectsData();
+  }, [fetchInitialObjectsData]);
+
   return {
+    showEmptyView,
     bookmarksCategories,
-    getHomeData,
+    fetchInitialObjectsData,
     loading,
     error: errorTexts,
     navigateToBookmarksList,
-    syncFavoritesLoading,
+    syncBookmarksLoading,
   };
 };

@@ -1,4 +1,4 @@
-export * from './BookmarksReducer';
+export * from './bookmarksDetails';
 export * from './BootstrapReducer';
 export * from './HomeReducer';
 export * from './ObjectDetailsMapReducer';

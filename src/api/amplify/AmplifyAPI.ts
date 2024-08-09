@@ -1,9 +1,9 @@
 import {
   AmplifyError,
   CognitoUserWithAttributes,
-  GetFavoritesResponse,
-  UpdateFavoritesBody,
-  BulkUpdateFavoritesBody,
+  GetBookmarksResponse,
+  UpdateBookmarksBody,
+  BulkUpdateBookmarksBody,
   GetVisitedObjectsResponse,
   AddVisitedObjectBody,
 } from 'core/types';
@@ -237,21 +237,21 @@ class AmplifyApi extends AmplifyApiEngine {
     );
   };
 
-  getUserFavorites = async (): Promise<GetFavoritesResponse> => {
+  getUserBookmarks = async (): Promise<GetBookmarksResponse> => {
     return this.getByApi('apiac472374', '/bookmark');
   };
 
-  updateUserFavorites = async ({
+  updateUserBookmarks = async ({
     objectId,
     data,
   }: {
     objectId: string;
-    data: UpdateFavoritesBody;
+    data: UpdateBookmarksBody;
   }) => {
     return this.postByApi('apiac472374', `/bookmark/${objectId}`, {body: data});
   };
 
-  bulkUpdateUserFavorites = async (data: BulkUpdateFavoritesBody) => {
+  bulkUpdateUserBookmarks = async (data: BulkUpdateBookmarksBody) => {
     return this.postByApi('apiac472374', '/bookmark', {body: data});
   };
 

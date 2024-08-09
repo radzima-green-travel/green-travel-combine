@@ -3,8 +3,8 @@ import {useToggleFavorite} from './useToggleFavorite';
 import {useSelector} from 'react-redux';
 import {useCallback, useMemo} from 'react';
 import {find} from 'lodash';
-import {selectBookmarksIdsFromFavorites} from 'core/selectors';
-import {syncAndGetFavoritesRequest} from 'core/reducers';
+import {selectBookmarksIds} from 'core/selectors';
+import {syncAndGetBookmarksRequest} from 'core/actions';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 export function useFavorite({
@@ -18,9 +18,9 @@ export function useFavorite({
   removeWithAnimation?: boolean;
   onAnimationEnd?: () => void;
 }) {
-  const bookmarksIds = useSelector(selectBookmarksIdsFromFavorites);
+  const bookmarksIds = useSelector(selectBookmarksIds);
   const {loading: favoritesSynchronizing} = useRequestLoading(
-    syncAndGetFavoritesRequest,
+    syncAndGetBookmarksRequest,
   );
 
   const isFavorite = useMemo(

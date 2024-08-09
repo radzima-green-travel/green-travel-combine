@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {updateFavoritesRequest} from 'core/reducers';
+import {updateBookmarksRequest} from 'core/actions';
 import {LayoutAnimation} from 'react-native';
 
 const onAnimationEndDefault = () => {};
@@ -15,7 +15,7 @@ export function useToggleFavorite({
     ({objectId, needToAdd}: {objectId: string; needToAdd: boolean}) => {
       if (needToAdd) {
         dispatch(
-          updateFavoritesRequest({
+          updateBookmarksRequest({
             objectId,
             data: {timestamp: Date.now(), status: true},
           }),
@@ -38,7 +38,7 @@ export function useToggleFavorite({
           );
         }
         dispatch(
-          updateFavoritesRequest({
+          updateBookmarksRequest({
             objectId,
             data: {timestamp: Date.now(), status: false},
           }),

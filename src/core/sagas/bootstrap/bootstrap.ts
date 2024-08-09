@@ -17,7 +17,6 @@ import {
 } from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
 import {resetEtags} from 'api/rest/interceptors';
-import {migrateToNewFavoritesTypeSaga} from '../favorites/migrateToNewFavoritesTypeSaga';
 import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
@@ -48,7 +47,6 @@ export function* bootstrapSaga() {
         yield put(getHomeData());
       }
 
-      yield call(migrateToNewFavoritesTypeSaga);
       if (isAuthorized) {
         yield spawn(getObjectAttributesSaga);
       }
