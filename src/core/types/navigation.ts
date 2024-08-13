@@ -33,9 +33,15 @@ export type HomeNavigatorParamsList = {
   ObjectDetails: ObjectDetailsParams;
 };
 
+type BookmarksListParams = {
+  title: string;
+  categoryId: string;
+  objectsIds: string[];
+};
+
 export type BookmarksNavigatorParamsList = {
   Bookmarks: undefined;
-  BookmarksList: {title: string; categoryId: string};
+  BookmarksList: BookmarksListParams;
   ObjectDetails: ObjectDetailsParams;
   ObjectsList: {
     categoryId: string;

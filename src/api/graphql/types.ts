@@ -233,6 +233,9 @@ export interface QueryParams {
     categoryId?: {
       eq?: string;
     };
+    id?: {
+      match?: string;
+    };
   };
   sort: {
     direction?: 'asc' | 'desc';
@@ -255,3 +258,5 @@ export type CategoriesListQueryParams = Partial<
 >;
 
 export type AppMapObjectsQueryParams = Pick<QueryParams, 'limit' | 'from'>;
+
+export type BookmarksInitialObjectsParams = Pick<QueryParams, 'filter'>;

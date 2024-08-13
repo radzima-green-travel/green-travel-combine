@@ -3,6 +3,7 @@ import {graphQLAPI} from 'api/graphql';
 import {
   getObjectsListNextDataRequest,
   getObjectsListInitialDataRequest,
+  getBookmarksObjectsListRequest,
 } from 'core/actions';
 import {RequestError} from 'core/errors';
 import {selectObjectsList} from 'selectors';
@@ -12,7 +13,9 @@ export function* getObjectsListDataSaga({
   meta: {failureAction, successAction},
   payload,
 }: ReturnType<
-  typeof getObjectsListInitialDataRequest | typeof getObjectsListNextDataRequest
+  | typeof getObjectsListInitialDataRequest
+  | typeof getObjectsListNextDataRequest
+  | typeof getBookmarksObjectsListRequest
 >) {
   try {
     const {categoryId, objectsIds} = payload;
@@ -49,6 +52,7 @@ export function* getObjectsListDataSaga({
         data: items,
         nextToken,
         total,
+        categoryId,
       }),
     );
   } catch (e) {
