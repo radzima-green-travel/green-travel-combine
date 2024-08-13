@@ -8,6 +8,9 @@ export const themeStyles = createThemeStyles({
     overflow: 'hidden',
     marginHorizontal: PADDING_HORIZONTAL,
   },
+  content: {
+    flex: 1,
+  },
   title: {
     ...FONTS_PRESETS.title3Bold,
     color: {

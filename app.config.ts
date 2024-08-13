@@ -18,6 +18,11 @@ export default ({config}: Dict) => {
       bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.greentravel.radzima',
       buildNumber: process.env.BUILD_NUMBER ?? '1',
       associatedDomains: [`applinks:${process.env.DEEP_LINK_DOMAIN}`],
+      infoPlist: {
+        NSAppTransportSecurity: {
+          NSAllowsArbitraryLoads: process.env.EAS_BUILD_TYPE === 'development',
+        },
+      },
     },
     android: {
       ...(config.android ?? {}),
