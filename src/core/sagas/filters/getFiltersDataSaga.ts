@@ -1,4 +1,4 @@
-import {call, put} from 'redux-saga/effects';
+import {call, delay, put} from 'redux-saga/effects';
 import {ObjectFiltersDataDTO} from 'core/types';
 import {RequestError} from 'core/errors';
 import {graphQLAPI} from 'api/graphql';
@@ -13,6 +13,8 @@ export function* getFiltersDataSaga({
       [graphQLAPI, graphQLAPI.getFilterObjects],
       payload,
     );
+
+    yield delay(1000);
 
     yield put(successAction(filtersResult));
   } catch (e) {
