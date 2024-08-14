@@ -16,10 +16,6 @@ import {
   inAppBrowserCancelOperation,
 } from 'core/reducers';
 
-if (__DEV__) {
-  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
-}
-
 async function urlOpener(url, redirectUrl) {
   // await InAppBrowser.isAvailable();
 

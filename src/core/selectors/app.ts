@@ -4,16 +4,14 @@ import {IState} from 'core/store';
 import {createSelector} from 'reselect';
 import {isIOS} from 'services/PlatformService';
 
-export const selectIsMyProfileFeatureEnabled = () => true;
-
 export const selectGlobalConfiguration = (state: IState) =>
-  state.configuration.data;
+  state.appConfiguration.data;
 
 export const selectRequiredVersions = (state: IState) =>
-  state.configuration.data?.mandatoryAppUpdateVersion;
+  state.appConfiguration.data?.mandatoryAppUpdateVersion;
 
 export const selectAvailableVersions = (state: IState) =>
-  state.configuration.data?.optionalAppUpdateVersion;
+  state.appConfiguration.data?.optionalAppUpdateVersion;
 
 export const selectMandatoryAppVersion = createSelector(
   selectRequiredVersions,
@@ -50,4 +48,4 @@ export const selectUpdatesMandatory = createSelector(
 );
 
 export const selectUpdatesSkipped = (state: IState): boolean =>
-  state.configuration.skipUpdate;
+  state.appConfiguration.skipUpdate;
