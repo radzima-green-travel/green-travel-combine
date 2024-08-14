@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {Text, View, Switch, TouchableOpacity} from 'react-native';
 import {Chip, Multiswitch, SuspenseView, Button, Icon, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
@@ -38,6 +38,12 @@ export const Filters = () => {
     activeSettlements,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
+
+  useEffect(() => {
+    return () => {
+      clearFilters()
+    }
+  }, [clearFilters])
 
   const buttons = useMemo(() => {
     return [
