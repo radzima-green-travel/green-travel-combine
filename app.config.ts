@@ -6,7 +6,7 @@ export default ({config}: Dict) => {
     ...config,
     updates: {
       enabled: false,
-      url: 'https://u.expo.dev/e51feb59-6254-4001-bc5a-d7a5df40dbcb',
+      url: 'https://u.expo.dev/9352bb3a-6c9e-4b4f-91a7-fd62ee1dcdd5',
     },
     runtimeVersion: {
       policy: 'appVersion',
