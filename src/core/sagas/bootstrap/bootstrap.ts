@@ -1,22 +1,13 @@
 import {call, put, select, spawn, takeEvery} from 'redux-saga/effects';
 
-import {
-  bootstrapSuccess,
-  bootstrapFailure,
-  getInitialHomeDataRequest,
-  getHomeData,
-  getAppConfigurationRequest,
-} from 'core/reducers';
+import {bootstrapSuccess, bootstrapFailure} from 'core/reducers';
+
+import {getAppConfigurationRequest} from '../../actions';
 import {ACTIONS} from 'core/constants';
 
-import {initAppLocaleSaga} from './initAppLocaleSaga';
 import {ILabelError} from 'core/types';
-import {
-  selectIsMyProfileFeatureEnabled,
-  selectUserAuthorized,
-} from 'core/selectors';
+import {selectUserAuthorized} from 'core/selectors';
 import {initUserAuthSaga} from './initUserAuth';
-import {resetEtags} from 'api/rest/interceptors';
 import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
@@ -26,26 +17,12 @@ import {getHomePageDataRequest} from 'core/actions';
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
     try {
-      const isMyProfileFeatureEnabled: boolean = yield select(
-        selectIsMyProfileFeatureEnabled,
-      );
       const isAuthorized = yield select(selectUserAuthorized);
 
       yield put(getHomePageDataRequest());
 
-      if (isMyProfileFeatureEnabled) {
-        yield call(initUserAuthSaga);
-      }
+      yield call(initUserAuthSaga);
       yield put(getAppConfigurationRequest());
-
-      const isLocaledUpdated = yield call(initAppLocaleSaga);
-
-      if (isLocaledUpdated) {
-        yield call(resetEtags);
-        yield put(getInitialHomeDataRequest());
-      } else {
-        yield put(getHomeData());
-      }
 
       if (isAuthorized) {
         yield spawn(getObjectAttributesSaga);

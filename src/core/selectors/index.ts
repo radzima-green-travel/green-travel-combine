@@ -1,5 +1,4 @@
 export * from './authentificationSelectors';
-export * from './homeSelectors';
 export * from './mapSelectors';
 export * from './search';
 export * from './app';

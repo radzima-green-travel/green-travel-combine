@@ -13,9 +13,13 @@ import {
   FiltersCategoriesResponseDTO,
   ObjectDetailsResponseDTO,
   BookmarksInitialObjectsDTO,
+  BookmarksInitialObjectsParams,
+  AppMapObjectsQueryParams,
+  CategoriesListQueryParams,
+  ObjectsListQueryParams,
+  SettlementsQueryParams,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
-import {BookmarksInitialObjectsParams} from './types';
 import {
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
@@ -26,12 +30,7 @@ import {
   geObjectDetailsByIdQuery,
 } from './queries';
 import {generateListObjectsShortQuery} from './queries/homePage';
-import {
-  AppMapObjectsQueryParams,
-  CategoriesListQueryParams,
-  ObjectsListQueryParams,
-  SettlementsQueryParams,
-} from 'api/graphql/types';
+
 import {getObjectsTotalCountQuery} from './queries/common';
 import {
   searchSpotsQuery,

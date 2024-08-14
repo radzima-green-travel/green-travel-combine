@@ -1,6 +1,6 @@
 import {Animated} from 'react-native';
 import {NavigatorScreenParams} from '@react-navigation/native';
-import {IObjectIncompleteField} from './common';
+import {IObject, IObjectIncompleteField} from './common';
 import {AnalyticsNavigationScreenNames} from './analytics';
 import {FromScreenName} from './analytics/objectDetails';
 
@@ -79,7 +79,7 @@ export type MainNavigatorParamsList = {
   PlaceDetails: undefined;
   PageNotFoundErrorScreen: undefined;
   Splash: undefined;
-  ObjectDetailsMap: {objectId: string; categoryId: string};
+  ObjectDetailsMap: {object: IObject};
   AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList> & {
     onSuccessSignIn?: () => void;
   };

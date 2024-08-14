@@ -12,9 +12,9 @@ export function useAppState(
       prevState.current = state;
     };
 
-    AppState.addEventListener('change', listener);
+    const {remove} = AppState.addEventListener('change', listener);
     return () => {
-      AppState.removeEventListener('change', listener);
+      remove();
     };
   }, [callback]);
 }

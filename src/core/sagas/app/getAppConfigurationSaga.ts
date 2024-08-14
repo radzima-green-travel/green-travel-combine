@@ -1,20 +1,20 @@
 import {put, call} from 'redux-saga/effects';
-import {
-  getAppConfigurationSuccees,
-  getAppConfigurationFailure,
-} from '../../reducers';
+import {getAppConfigurationRequest} from '../../actions/appConfiguration';
 import {restAPI} from 'api/rest';
 import {AppConfiguration} from 'core/types';
+import {RequestError} from 'core/errors';
 
-export function* getAppConfigurationSaga() {
+export function* getAppConfigurationSaga({
+  meta: {successAction, failureAction},
+}: ReturnType<typeof getAppConfigurationRequest>) {
   try {
     const data: AppConfiguration = yield call([
       restAPI,
       restAPI.getAppFeConfiguration,
     ]);
 
-    yield put(getAppConfigurationSuccees(data));
+    yield put(successAction(data));
   } catch (e) {
-    yield put(getAppConfigurationFailure(e as Error));
+    yield put(failureAction(e as RequestError));
   }
 }

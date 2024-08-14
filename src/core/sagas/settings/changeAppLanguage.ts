@@ -9,9 +9,7 @@ import {
   setLanguage,
 } from '../../reducers';
 import {ILabelError, SupportedLocales} from 'core/types';
-import {selectAppLanguage, selectUserAuthorized} from 'core/selectors';
-import {getInitialHomeDataSaga} from '../home/getInitialHomeDataSaga';
-import {resetEtags} from 'api/rest/interceptors';
+import {selectUserAuthorized} from 'core/selectors';
 import {updateUserAttributesSaga} from '../authentification/updateUserAttributesSaga';
 
 export function* changeAppLanguageSaga({
@@ -21,7 +19,6 @@ export function* changeAppLanguageSaga({
   let nextLanguage = language;
 
   try {
-    const prevLanguage = yield select(selectAppLanguage);
     const isUserAuthorized = yield select(selectUserAuthorized);
 
     if (isSystemLanguage) {
@@ -36,8 +33,6 @@ export function* changeAppLanguageSaga({
       nextLanguage as SupportedLocales,
     );
 
-    const isLocaledUpdated = nextLanguage !== prevLanguage;
-
     yield put(
       setLanguage({
         language: nextLanguage,
@@ -45,10 +40,6 @@ export function* changeAppLanguageSaga({
       }),
     );
 
-    if (isLocaledUpdated) {
-      yield call(resetEtags);
-      yield call(getInitialHomeDataSaga);
-    }
     if (isUserAuthorized) {
       yield spawn(updateUserAttributesSaga, {
         locale: language as SupportedLocales,
