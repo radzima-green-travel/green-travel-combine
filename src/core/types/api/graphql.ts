@@ -1,6 +1,44 @@
 import {MultiPolygon, LineString} from '@turf/helpers';
 import {ObjectField} from 'core/constants';
 
+export interface QueryParams {
+  limit: number;
+  nextToken: string;
+  filter: {
+    parent?: {
+      eq?: string;
+    };
+    categoryId?: {
+      eq?: string;
+    };
+    id?: {
+      match?: string;
+    };
+  };
+  sort: {
+    direction?: 'asc' | 'desc';
+    field?: string;
+  };
+  from: number;
+}
+
+export type ObjectsListQueryParams = Pick<
+  QueryParams,
+  'limit' | 'filter' | 'nextToken' | 'sort'
+>;
+
+export type SettlementsQueryParams = Partial<
+  Pick<QueryParams, 'limit' | 'sort' | 'from'>
+> & {filter?: {value?: {matchPhrasePrefix?: string}}};
+
+export type CategoriesListQueryParams = Partial<
+  Pick<QueryParams, 'limit' | 'filter' | 'nextToken' | 'sort'>
+>;
+
+export type AppMapObjectsQueryParams = Pick<QueryParams, 'limit' | 'from'>;
+
+export type BookmarksInitialObjectsParams = Pick<QueryParams, 'filter'>;
+
 interface DefaultI18n {
   locale: string;
 }

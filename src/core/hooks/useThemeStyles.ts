@@ -14,7 +14,7 @@ export const useThemeStyles = function <T extends Object>(
 
   const styles = useMemo(() => {
     const processedStyles = mapValues(themeStyles, selectorStyles => {
-      return extractThemeStyles(selectorStyles, theme);
+      return extractThemeStyles(selectorStyles as Object, theme);
     });
     if (disableStyleSheet) {
       return processedStyles;

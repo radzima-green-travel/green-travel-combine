@@ -7,7 +7,7 @@ import {
 } from 'core/actions';
 import {RequestError} from 'core/errors';
 import {selectObjectsList} from 'selectors';
-import {ObjectsListQueryParams} from 'api/graphql/types';
+import {ObjectsListQueryParams} from 'core/types/api';
 
 export function* getObjectsListDataSaga({
   meta: {failureAction, successAction},

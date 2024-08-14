@@ -5,7 +5,7 @@ import type {
   CategoriesResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
 } from 'core/types/api';
-import {CategoriesListQueryParams} from 'api/graphql/types';
+import {CategoriesListQueryParams} from 'core/types/api';
 
 interface getCategoriesDataReturn {
   categoriesData: CategoriesResponseDTO;

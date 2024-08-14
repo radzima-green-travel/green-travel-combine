@@ -11,7 +11,7 @@ import {
   SupportedLocales,
   UpcomingEventsItemDTO,
 } from 'core/types';
-import {filter, isEmpty, map, reduce} from 'lodash';
+import {filter, isEmpty, map, reduce, some} from 'lodash';
 import {ObjectField} from 'core/constants';
 import {dateToReadableString, isDateInThePast} from 'core/helpers';
 import {
@@ -94,30 +94,44 @@ export function prepareObjectInclude(
   includeItems: IncludeItemDTO[],
   currentLocale: SupportedLocales | null,
 ): IInclude[] {
-  return includeItems.reduce((acc, item) => {
-    const {
-      include: {category, id},
-    } = item;
+  return reduce(
+    includeItems,
+    (acc, includeItem) => {
+      const {
+        include: {category, id},
+      } = includeItem;
 
-    const {
-      id: categoryId,
-      name,
-      cover,
-    } = translateAndProcessImagesForEntity(category, currentLocale);
-
-    return [
-      ...acc,
-      {
-        categoryId,
+      const {
+        id: categoryId,
         name,
-        image: cover,
-        objects: [id],
-        analyticsMetadata: {
+        cover,
+      } = translateAndProcessImagesForEntity(category, currentLocale);
+
+      if (some(acc, item => item.categoryId === categoryId)) {
+        return map(acc, item => {
+          return item.categoryId === categoryId
+            ? {
+                ...item,
+                objects: [...item.objects, id],
+              }
+            : item;
+        });
+      } else {
+        acc.push({
+          categoryId,
           name,
-        },
-      },
-    ];
-  }, [] as IInclude[]);
+          image: cover,
+          objects: [id],
+          analyticsMetadata: {
+            name,
+          },
+        });
+      }
+
+      return acc;
+    },
+    [] as IInclude[],
+  );
 }
 
 export function prepareObjectBelongsTo(
