@@ -3,18 +3,13 @@ import {useCallback, useMemo, useRef, useEffect} from 'react';
 import {MapView, Camera} from '@rnmapbox/maps';
 import {Position} from '@turf/helpers';
 
-import {
-  selectAppLanguage,
-  selectIsDirectionShowed,
-  selectObjectDetails,
-} from 'core/selectors';
+import {selectAppLanguage, selectIsDirectionShowed} from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   useBottomMenu,
   useFocusToUserLocation,
   useRequestLoading,
   useTranslation,
-  useTransformedData,
   useOnRequestSuccess,
   useRequestErrorAlert,
   useColorScheme,
@@ -34,7 +29,6 @@ import {
   createMarkerFromDetailsObject,
   selectMapDirection,
 } from 'core/selectors';
-import {useObjectDetailsSelector} from 'core/hooks';
 
 import {
   Feature,
@@ -46,6 +40,8 @@ import {
   Point,
   point,
 } from '@turf/helpers';
+import {useRoute} from '@react-navigation/native';
+import {ObjectDetailsMapScreenRouteProps} from '../types';
 
 interface RegionPayload {
   zoomLevel: number;
@@ -61,9 +57,9 @@ export const useObjectDetailsMap = () => {
   const currentLocale = useSelector(selectAppLanguage);
 
   const {openMenu, closeMenu, ...menuProps} = useBottomMenu();
-
-  const data = useObjectDetailsSelector(selectObjectDetails);
-  const {getObject} = useTransformedData();
+  const {
+    params: {object},
+  } = useRoute<ObjectDetailsMapScreenRouteProps>();
 
   const map = useRef<MapView>(null);
   const camera = useRef<Camera>(null);
@@ -71,12 +67,12 @@ export const useObjectDetailsMap = () => {
   const dispatch = useDispatch();
 
   const centerCoordinate = useMemo(() => {
-    if (data) {
-      return [data.location?.lon!, data.location?.lat!];
+    if (object) {
+      return [object.location?.lon!, object.location?.lat!];
     }
 
     return null;
-  }, [data]);
+  }, [object]);
 
   const isDirectionShowed = useSelector(selectIsDirectionShowed);
 
@@ -125,24 +121,24 @@ export const useObjectDetailsMap = () => {
   const {bottom, top} = useSafeAreaInsets();
 
   const bounds = useMemo(() => {
-    if (data) {
+    if (object) {
       const paddings = {
         bottom: 169 + bottom,
         top: 30 + top,
       };
 
-      if (data.area) {
-        return mapService.getBoundsFromGeoJSON(data.area, paddings);
+      if (object.area) {
+        return mapService.getBoundsFromGeoJSON(object.area, paddings);
       }
 
-      if (data.routes) {
-        return mapService.getBoundsFromGeoJSON(data.routes, paddings);
+      if (object.routes) {
+        return mapService.getBoundsFromGeoJSON(object.routes, paddings);
       }
 
       return null;
     }
     return null;
-  }, [bottom, data, top]);
+  }, [bottom, object, top]);
 
   const boundsToArea = useCallback(() => {
     if (bounds) {
@@ -153,25 +149,22 @@ export const useObjectDetailsMap = () => {
   const onMarkerPress = useCallback(
     (id: string | null) => {
       if (id) {
-        const object = getObject(id);
-        if (object) {
-          if (data?.area) {
-            boundsToArea();
-          } else {
-            const coordinates = [object.location?.lon!, object.location?.lat!];
-            camera.current?.setCamera({
-              centerCoordinate: coordinates,
-              zoomLevel: 8,
-              animationDuration: 500,
-            });
-          }
+        if (object?.area) {
+          boundsToArea();
+        } else {
+          const coordinates = [object.location?.lon!, object.location?.lat!];
+          camera.current?.setCamera({
+            centerCoordinate: coordinates,
+            zoomLevel: 8,
+            animationDuration: 500,
+          });
         }
       } else {
         boundsToArea();
       }
       openMenu();
     },
-    [boundsToArea, data?.area, getObject, openMenu],
+    [boundsToArea, object, openMenu],
   );
 
   const onShowLocationPress = async () => {
@@ -179,10 +172,10 @@ export const useObjectDetailsMap = () => {
 
     let objectFeature: Feature<MultiPolygon | LineString | Point> | null = null;
 
-    if (data?.area) {
-      objectFeature = multiPolygon(data.area.coordinates);
-    } else if (data?.routes) {
-      objectFeature = lineString(data.routes.coordinates);
+    if (object?.area) {
+      objectFeature = multiPolygon(object.area.coordinates);
+    } else if (object?.routes) {
+      objectFeature = lineString(object.routes.coordinates);
     } else if (centerCoordinate) {
       objectFeature = point(centerCoordinate);
     }
@@ -205,11 +198,11 @@ export const useObjectDetailsMap = () => {
   const direction = useSelector(selectMapDirection);
 
   const dataShapeSource = useMemo(
-    () => (data ? createMarkerFromDetailsObject(data) : data),
-    [data],
+    () => (object ? createMarkerFromDetailsObject(object) : object),
+    [object],
   );
 
-  const belongsToSubtitle = data?.belongsTo?.[0]?.name ?? null;
+  const belongsToSubtitle = object?.belongsTo?.[0]?.name ?? null;
 
   useRequestErrorAlert(showObjectDetailsMapDirectionRequest, 'common');
 
@@ -229,12 +222,12 @@ export const useObjectDetailsMap = () => {
   );
 
   useEffect(() => {
-    if (data) {
+    if (object) {
       InteractionManager.runAfterInteractions(() => {
         openMenu();
       });
     }
-  }, [data, openMenu]);
+  }, [object, openMenu]);
 
   useEffect(() => {
     return () => {
@@ -265,7 +258,7 @@ export const useObjectDetailsMap = () => {
   return {
     bottom,
     camera,
-    data,
+    data: object,
     unfocusUserLocation,
     onMarkerPress,
     bounds,

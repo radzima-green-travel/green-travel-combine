@@ -1,6 +1,5 @@
-import {applyMiddleware, createStore, Store} from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import {StateType} from 'typesafe-actions';
+import {configureStore, Tuple} from '@reduxjs/toolkit';
 import {rootSaga} from './rootSaga';
 import {persistStore, persistReducer} from 'redux-persist';
 import {asyncReducers} from 'react-redux-help-kit';
@@ -8,7 +7,6 @@ import {combineReducers} from 'redux';
 import {
   bookmarksDetailsReducer,
   bootstrapReducer,
-  homeReducer,
   objectDetailsMapReducer,
   searchReducer,
   authenticationReducer,
@@ -28,12 +26,6 @@ import {reduxStorage} from 'core/reduxStorage';
 import {settingsReducer} from './reducers/SettingsReducer';
 import {objectDetailsReducer} from './reducers/objectDetails';
 const AsyncStorage = reduxStorage;
-
-const homePersistConfig = {
-  key: 'home',
-  storage: AsyncStorage,
-  whitelist: ['currentData'],
-};
 
 const userPersistConfig = {
   key: 'user',
@@ -64,7 +56,6 @@ const rootReducer = combineReducers({
   bookmarksDetails: bookmarksDetailsReducer,
   visitedObjects: visitedObjectsReducer,
   bootsrap: bootstrapReducer,
-  home: persistReducer(homePersistConfig, homeReducer),
   objectDetailsMap: objectDetailsMapReducer,
   search: searchReducer,
   authentication: persistReducer(
@@ -72,7 +63,7 @@ const rootReducer = combineReducers({
     authenticationReducer,
   ),
   settings: persistReducer(settingsPeristConfig, settingsReducer),
-  configuration: persistReducer(
+  appConfiguration: persistReducer(
     appConfigurationPersistConfig,
     appConfigurationReducer,
   ),
@@ -88,18 +79,19 @@ const rootReducer = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-export type IState = StateType<typeof rootReducer>;
-
 const middlewares = [sagaMiddleware];
 
 // if (__DEV__) {
 //   middlewares.push(logger);
 // }
 
-export const store: Store<IState> = createStore(
-  rootReducer,
-  applyMiddleware(...middlewares),
-);
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: () => new Tuple(...middlewares),
+  devTools: false,
+});
+
+export type IState = ReturnType<typeof store.getState>;
 
 export const persistor = persistStore(store);
 

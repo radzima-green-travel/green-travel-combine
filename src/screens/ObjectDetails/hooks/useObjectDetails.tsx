@@ -119,8 +119,7 @@ export const useObjectDetails = () => {
   const navigateToObjectsMap = useCallback(() => {
     if (data) {
       navigation.navigate('ObjectDetailsMap', {
-        categoryId: data.category.id,
-        objectId: data.id,
+        object: data,
       });
 
       sendShowOnMapButtonClickEvent();
