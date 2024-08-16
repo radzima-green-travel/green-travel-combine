@@ -1,4 +1,4 @@
-import {sendAnalyticsEvent} from 'core/reducers';
+import {sendAnalyticsEvent} from '../../actions/appConfiguration';
 import {call} from 'redux-saga/effects';
 import {analyticsService} from 'services/AnalyticsService';
 

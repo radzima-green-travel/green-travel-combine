@@ -1,4 +1,4 @@
-import {sendAnalyticsEvent} from 'core/reducers';
+import {sendAnalyticsEvent} from 'core/actions/appConfiguration';
 import {selectObjectShareExperienceData} from 'core/selectors';
 import {useCallback, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';

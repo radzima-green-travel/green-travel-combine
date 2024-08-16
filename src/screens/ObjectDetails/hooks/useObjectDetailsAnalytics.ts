@@ -1,4 +1,4 @@
-import {sendAnalyticsEvent} from 'core/reducers';
+import {sendAnalyticsEvent} from 'core/actions/appConfiguration';
 import {useCallback, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {ObjectDetailsScreenRouteProps} from '../types';
