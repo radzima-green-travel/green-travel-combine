@@ -38,12 +38,6 @@ export function prepareAggregationsWithNumberOfItems(
   aggregations?: ObjectFiltersAggregationsDTO,
 ) {
   return {
-    categoriesWithNumberOfItems: transformBucketsToCountMap(
-      aggregations?.categories?.facets?.buckets || [],
-    ),
-    regionsWithNumberOfItems: transformBucketsToCountMap(
-      aggregations?.regions?.facets?.buckets || [],
-    ),
     settlementsWithNumberOfItems: transformBucketsToCountMap(
       aggregations?.municipalities?.facets?.buckets || [],
     ),
