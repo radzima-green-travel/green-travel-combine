@@ -35,11 +35,9 @@ export const useFilters = () => {
   const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
-  const {
-    categoriesWithNumberOfItems,
-    regionsWithNumberOfItems,
-    settlementsWithNumberOfItems,
-  } = useSelector(selectTransformedAggregationsWithNumberOfItems);
+  const {settlementsWithNumberOfItems} = useSelector(
+    selectTransformedAggregationsWithNumberOfItems,
+  );
 
   const {loading: loadingInitialFilters} = useRequestLoading(
     getInitialFiltersRequest,
@@ -169,8 +167,6 @@ export const useFilters = () => {
     updateRatings,
     chooseCategory,
     total,
-    categoriesWithNumberOfItems,
-    regionsWithNumberOfItems,
     snackBarProps,
   };
 };

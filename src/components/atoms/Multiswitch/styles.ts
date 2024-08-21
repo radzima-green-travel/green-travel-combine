@@ -20,6 +20,6 @@ export const styles = createThemeStyles({
     flex: 1,
   },
   text: {
-    ...FONTS_PRESETS.footnoteBold, 
+    ...FONTS_PRESETS.footnoteBold,
   },
 });

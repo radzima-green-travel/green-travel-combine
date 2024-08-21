@@ -31,8 +31,6 @@ export const Filters = () => {
     filtersDataLoading,
     errorTexts,
     total,
-    regionsWithNumberOfItems,
-    categoriesWithNumberOfItems,
     snackBarProps,
     activeSettlements,
   } = useFilters();
@@ -87,7 +85,6 @@ export const Filters = () => {
                 {caregoriesData?.map(({id, name}) => (
                   <Chip
                     active={activeCategories?.includes(id)}
-                    disabled={categoriesWithNumberOfItems[id] === 0}
                     onPress={() => chooseCategory(id)}
                     key={id}
                     testID={name}
@@ -103,7 +100,6 @@ export const Filters = () => {
                 {regions?.map(({id, value}) => (
                   <Chip
                     active={activeRegions?.includes(id)}
-                    disabled={regionsWithNumberOfItems[id] === 0}
                     onPress={() => chooseRegion(id)}
                     key={id}
                     testID={value}
