@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback} from 'react';
 import {Portal} from '@gorhom/portal';
 import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
 import {useMemo} from 'react';
 import {Keyboard, StyleSheet, View} from 'react-native';
 import {useBottomMenu} from 'core/hooks';
 import {ObjectAddInfoMenu} from 'molecules';
-import {IObjectIncompleteField, TestIDs} from 'core/types';
+import {IObjectIncompleteField} from 'core/types';
 import {ObjectField} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {isIOS, selectForPlatform} from 'services/PlatformService';
 import {FullWindowOverlay} from 'react-native-screens';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   currentField: IObjectIncompleteField;
@@ -20,6 +21,7 @@ interface IProps {
   value: string | number;
   snackBarProps: ReturnType<typeof useSnackbar>;
   onInputValueChange?: (field: ObjectField, value: string | number) => void;
+  testID: string;
 }
 
 export const ObjectDetailsAddInfoMenu = ({
@@ -30,6 +32,7 @@ export const ObjectDetailsAddInfoMenu = ({
   value,
   snackBarProps,
   onInputValueChange,
+  testID,
 }: IProps) => {
   const {top} = useSafeAreaInsets();
   const menuHeader = useMemo(
@@ -57,13 +60,13 @@ export const ObjectDetailsAddInfoMenu = ({
           initialIndex={0}
           onHideEnd={onHideEnd}
           onBackdropPress={Keyboard.dismiss}
-          testID={TestIDs.ObjectDetailsAddInfoMenu}
+          testID={composeTestID(testID, 'bottomMenu')}
           adjustIOSKeyboardFrameDrops
           header={menuHeader}
           {...addInfoMenuProps}>
           <ObjectAddInfoMenu
             ref={textInputRef}
-            testID={TestIDs.ObjectDetailsAddInfoMenuContent}
+            testID={composeTestID(testID, 'addInfoMenu')}
             keyboardHeight={keyboardHeight}
             currentField={currentField.id}
             onSubmit={onClose}
@@ -73,6 +76,7 @@ export const ObjectDetailsAddInfoMenu = ({
         </BottomMenu>
 
         <SnackBar
+          testID={composeTestID(testID, 'snackBar')}
           isOnTop
           offset={selectForPlatform(0, -top)}
           {...snackBarProps}

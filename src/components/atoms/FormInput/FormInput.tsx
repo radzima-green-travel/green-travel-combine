@@ -20,7 +20,6 @@ import {IconProps} from 'atoms/Icon';
 import {HelperText} from '../HelperText';
 import {useHandleKeyboardInput} from '../HandleKeyboard';
 import {useTextInputAutoFocus} from 'core/hooks';
-import {TestIDs} from 'core/types';
 import {composeTestID} from 'core/helpers';
 
 interface IProps {
@@ -49,7 +48,7 @@ interface IProps {
   testID: string;
 }
 
-export const FormInput = forwardRef(
+export const FormInput = forwardRef<TextInput, IProps>(
   (
     {
       iconLeft,
@@ -246,7 +245,7 @@ export const FormInput = forwardRef(
           {iconRight ? (
             <Pressable onPress={onRightIconPress}>
               <Icon
-                testID={composeTestID(testID, TestIDs.Icon)}
+                testID={composeTestID(testID, 'rightIcon')}
                 style={[styles.icon, styles.rightIcon]}
                 {...iconRight}
                 size={24}

@@ -6,16 +6,24 @@ import {styles} from './styles';
 import {IMapFilter} from 'core/types';
 import {useTranslation} from 'react-i18next';
 import {useScrollToTop} from '@react-navigation/native';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   filters: Array<IMapFilter>;
   selectedFilters: Array<IMapFilter>;
   onFilterSelect: (filter: IMapFilter) => void;
   resetFilters: () => void;
+  testID: string;
 }
 
 export const AppMapFilters = memo(
-  ({filters, selectedFilters, onFilterSelect, resetFilters}: IProps) => {
+  ({
+    filters,
+    selectedFilters,
+    onFilterSelect,
+    resetFilters,
+    testID,
+  }: IProps) => {
     const {t} = useTranslation('map');
 
     const listRef = useRef<FlatList>(null);
@@ -63,6 +71,7 @@ export const AppMapFilters = memo(
           contentContainerStyle={styles.contentContainer}
           ListHeaderComponent={
             <MapFilterItem
+              testID={composeTestID(testID, 'allFilterItem')}
               data={{categoryId: '', icon: '', title: t('all')}}
               onSelect={resetFilters}
               isSelected={isEmpty(selectedFilters)}
@@ -73,6 +82,7 @@ export const AppMapFilters = memo(
               <MapFilterItem
                 data={item}
                 onSelect={onFilterSelect}
+                testID={composeTestID(testID, 'filterItem')}
                 isSelected={some(
                   selectedFilters,
                   ({categoryId}) => categoryId === item.categoryId,

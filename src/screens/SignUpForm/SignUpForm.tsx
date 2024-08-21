@@ -12,7 +12,6 @@ import {AuthForm} from 'organisms';
 import {useSignUpForm} from './hooks';
 import {FormikProvider} from 'formik';
 import {ScrollView} from 'react-native-gesture-handler';
-import {TestIDs} from 'core/types';
 
 const HandleKeyboardScrollView =
   createHandleKeyboardScrollComponent(ScrollView);
@@ -36,6 +35,7 @@ export const SignUpForm = () => {
       <FormikProvider value={formik}>
         <HandleContainer>
           <AuthForm
+            testID="authForm"
             title={t('inputPassword')}
             text={t('createPasswordFor', {email})}
             onSubmitPress={submitForm}
@@ -45,7 +45,7 @@ export const SignUpForm = () => {
             <WithFormikInput<string> name="password">
               {({messageText, ...inputProps}) => (
                 <FormInput
-                  testID={TestIDs.PasswordInput}
+                  testID={'passwordFormInput'}
                   autoFocus
                   iconRight={{
                     name: rightIcon,
@@ -55,7 +55,12 @@ export const SignUpForm = () => {
                   secureTextEntry={passwordHidden}
                   onRightIconPress={handlePasswordHidden}
                   messageText={messageText ? t(messageText) : undefined}
-                  helperText={<PasswordHint passwordValue={inputProps.value} />}
+                  helperText={
+                    <PasswordHint
+                      testID="passwordFormInputHint"
+                      passwordValue={inputProps.value}
+                    />
+                  }
                   maxLength={99}
                   {...inputProps}
                   error={false}
@@ -64,7 +69,7 @@ export const SignUpForm = () => {
             </WithFormikInput>
           </AuthForm>
         </HandleContainer>
-        <SnackBar isOnTop {...snackBarProps} />
+        <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
       </FormikProvider>
     </HandleKeyboardScrollView>
   );

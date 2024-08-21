@@ -7,8 +7,8 @@ import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {TouchableOpacity} from 'react-native';
 import {Icon} from 'atoms';
-import {TestIDs} from 'core/types';
 import {useSearchActions, useSearchSelector} from 'core/hooks';
+import {composeTestID} from 'core/helpers';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const HeaderTitle = () => {
 
   return (
     <HeaderSearchbar
+      testID="headerSearchbar"
       containerStyle={styles.headerTitleContainer}
       value={inputValue}
       onChange={setInputValue}
@@ -32,19 +33,20 @@ const HeaderTitle = () => {
   );
 };
 
-const HeaderRight = ({navigation}: IProps) => {
+const HeaderRight = ({navigation, testID}: IProps) => {
   const styles = useThemeStyles(themeStyles);
 
   return (
     <TouchableOpacity
       hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
       activeOpacity={0.8}
+      testID={composeTestID(testID, 'filterButton')}
       onPress={() => navigation.navigate('Filter')}>
       <Icon
         name="tune"
         style={styles.icon}
         size={24}
-        testID={TestIDs.FilterButton}
+        testID={composeTestID(testID, 'filterIcon')}
       />
     </TouchableOpacity>
   );
@@ -52,5 +54,5 @@ const HeaderRight = ({navigation}: IProps) => {
 
 export const screenOptions: ScreenOptions = props => ({
   headerTitle: () => <HeaderTitle />,
-  headerRight: () => <HeaderRight {...props} />,
+  headerRight: () => <HeaderRight testID="headerRight" {...props} />,
 });

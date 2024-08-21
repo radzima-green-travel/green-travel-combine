@@ -13,11 +13,13 @@ export function useSnackbar() {
     ref.current?.hide(hideWithoutCallBack);
   }, []);
 
-  const [snackBarProps, setSnackbarProps] = useState<SnackBarProps>({});
+  const [snackBarProps, setSnackbarProps] = useState<
+    Omit<SnackBarProps, 'testID'>
+  >({});
 
   const showHandler = useCallback(
-    (snackBarProps: SnackBarProps) => {
-      setSnackbarProps(snackBarProps);
+    (props: Omit<SnackBarProps, 'testID'>) => {
+      setSnackbarProps(props);
       show();
     },
     [show],

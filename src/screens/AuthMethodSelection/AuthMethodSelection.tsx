@@ -33,6 +33,7 @@ export const AuthMethodSelection = () => {
         googleLoading={googleLoading}
         facebookLoading={facebookLoading}
         appleLoading={appleLoading}
+        testID="authMethods"
       />
       <Text style={styles.text}>
         {`${t('termsAndPolicyInfo')} `}

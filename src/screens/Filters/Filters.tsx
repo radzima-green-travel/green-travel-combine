@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React, {useEffect, useMemo} from 'react';
 import {Text, View, Switch, TouchableOpacity} from 'react-native';
 import {Chip, Multiswitch, SuspenseView, Button, Icon, SnackBar} from 'atoms';
@@ -7,8 +8,6 @@ import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
-import {TestIDs} from 'core/types';
-import {composeTestID} from 'core/helpers';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const Filters = () => {
@@ -41,9 +40,9 @@ export const Filters = () => {
 
   useEffect(() => {
     return () => {
-      clearFilters()
-    }
-  }, [clearFilters])
+      clearFilters();
+    };
+  }, [clearFilters]);
 
   const buttons = useMemo(() => {
     return [
@@ -53,7 +52,7 @@ export const Filters = () => {
         text: t('clear'),
         textStyle: styles.button,
         disabled: emptyActiveFilters,
-        testID: composeTestID(TestIDs.FilterButton, 'clearButton'),
+        testID: 'clearButton',
       },
       {
         onPress: () => {},
@@ -61,7 +60,7 @@ export const Filters = () => {
         textStyle: styles.button,
         text: t('showFiltered', {amount: total}),
         loading: filtersDataLoading,
-        testID: composeTestID(TestIDs.FilterButton, 'showFiltered'),
+        testID: 'showFiltered',
       },
     ];
   }, [
@@ -79,7 +78,8 @@ export const Filters = () => {
         <SuspenseView
           loading={fullScreenLoading}
           error={errorTexts}
-          retryCallback={getFiltersInitialData}>
+          retryCallback={getFiltersInitialData}
+          testID={'filtersSuspenseView'}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={styles.title}>{t('title')}</Text>
             <FiltersSectionContainer itemName={t('allCategories')}>
@@ -142,7 +142,7 @@ export const Filters = () => {
                 <Button
                   text={t('choose')}
                   theme="quarterly"
-                  testID={TestIDs.FiltersChooseButton}
+                  testID={'chooseButton'}
                   style={styles.chooseButtonContainer}
                   labelAnimatedStyle={styles.chooseButtonLabel}
                   icon={textStyle => (
@@ -162,7 +162,7 @@ export const Filters = () => {
                 items={googleRatings}
                 defaultValue={{id: 'Any', value: t('any')}}
                 onItemPress={updateRatings}
-                testID={TestIDs.FiltersMultySwitch}
+                testID={'googleRating'}
               />
             </FiltersSectionContainer>
             <FiltersSectionContainer
@@ -172,7 +172,7 @@ export const Filters = () => {
               <Switch />
             </FiltersSectionContainer>
           </ScrollView>
-          <SnackBar isOnTop {...snackBarProps} />
+          <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
         </SuspenseView>
       </View>
 

@@ -2,7 +2,6 @@ import React from 'react';
 import {BottomMenu} from 'atoms';
 import {UpdateBottomMenu} from 'molecules';
 import {useOptionalUpdate} from './hooks';
-import {TestIDs} from 'core/types';
 import {Portal} from '@gorhom/portal';
 
 export const OptionalUpdate = () => {
@@ -12,7 +11,7 @@ export const OptionalUpdate = () => {
   return (
     <Portal>
       <BottomMenu
-        testID={TestIDs.AppUpdateBottomMenu}
+        testID={'bottomMenu'}
         withBackdrop
         isPanDownEnabled={false}
         initialIndex={0}
@@ -22,6 +21,7 @@ export const OptionalUpdate = () => {
         showDragIndicator={false}
         {...menuProps}>
         <UpdateBottomMenu
+          testID="updateBottomMenu"
           onUpdate={onUpdate}
           onRemind={onRemindLater}
           onSkip={onSkipUpdate}

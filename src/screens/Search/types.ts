@@ -16,6 +16,9 @@ export type SearchScreenRouteProps = RouteProp<
 export interface IProps {
   navigation: SearchScreenNavigationProps;
   route: SearchScreenRouteProps;
+  testID: string;
 }
 
-export type ScreenOptions = (props: IProps) => NativeStackNavigationOptions;
+export type ScreenOptions = (
+  props: Omit<IProps, 'testID'>,
+) => NativeStackNavigationOptions;

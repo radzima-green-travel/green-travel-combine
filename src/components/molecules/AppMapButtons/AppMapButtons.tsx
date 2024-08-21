@@ -5,13 +5,14 @@ import {COLORS} from 'assets';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {useThemeStyles} from 'core/hooks';
 import {SCREEN_HEIGHT} from 'services/PlatformService';
-import {TestIDs} from 'core/types';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   onSearchPress: () => void;
   onShowLocationPress: () => void;
   bottomMenuPosition: Animated.SharedValue<number>;
   isUserLocationFocused: boolean;
+  testID: string;
 }
 
 export const AppMapButtons = memo(
@@ -20,6 +21,7 @@ export const AppMapButtons = memo(
     onShowLocationPress,
     bottomMenuPosition,
     isUserLocationFocused,
+    testID,
   }: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
@@ -46,10 +48,11 @@ export const AppMapButtons = memo(
         style={[styles.container, animatedStyles]}>
         <MapButtonContainer
           onPress={onSearchPress}
-          testID={TestIDs.MapSearchButton}>
+          testID={composeTestID(testID, 'mapButtonContainer')}>
           <Icon style={styles.icon} name="search" width={22} height={22} />
         </MapButtonContainer>
         <MapButtonContainer
+          testID={composeTestID(testID, 'showLocationButton')}
           style={styles.showLocationButton}
           onPress={onShowLocationPress}>
           <Icon

@@ -92,6 +92,7 @@ export const ObjectDescription = memo(
             />
             {origins?.length ? (
               <ObjectDescriptionSource
+                testID={composeTestID(testID, 'source')}
                 onLinkPress={onLinkPress}
                 origins={origins}
               />

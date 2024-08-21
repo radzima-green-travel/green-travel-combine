@@ -21,6 +21,7 @@ export const PageNotFoundErrorScreen = () => {
 
   return (
     <ErrorView
+      testID="errorView"
       onButtonPress={navigateToMainPage}
       buttonText={t('buttonText')}
       error={{

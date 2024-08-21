@@ -1,19 +1,17 @@
-import React, {memo, PropsWithChildren, useCallback} from 'react';
-import {Keyboard, Pressable, View} from 'react-native';
+import React, {memo, PropsWithChildren} from 'react';
+import {Pressable, View} from 'react-native';
 import {themeStyles} from './styles';
-import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {useThemeStyles, useColorScheme} from 'core/hooks';
-import {IObject, TestIDs} from 'core/types';
-import {SearchList} from 'organisms';
 import {HeaderSearchbar, Icon} from 'atoms';
 import {COLORS} from 'assets';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   bottomInset: number;
   onTextChange: (value: string) => void;
   inputValue: string;
   onBackPress: () => void;
+  testID: string;
 }
 
 export const AppMapBottomSearchMenu = memo(
@@ -23,6 +21,7 @@ export const AppMapBottomSearchMenu = memo(
     onTextChange,
     onBackPress,
     children,
+    testID,
   }: PropsWithChildren<IProps>) => {
     const styles = useThemeStyles(themeStyles);
     const theme = useColorScheme();
@@ -36,7 +35,7 @@ export const AppMapBottomSearchMenu = memo(
               onTextChange('');
               onBackPress();
             }}
-            {...getPlatformsTestID(TestIDs.MapSearchBackButton)}>
+            {...getPlatformsTestID(composeTestID(testID, 'backButton'))}>
             <Icon
               style={styles.icon}
               name="chevronMediumLeft"
@@ -45,6 +44,7 @@ export const AppMapBottomSearchMenu = memo(
             />
           </Pressable>
           <HeaderSearchbar
+            testID={composeTestID(testID, 'searchBar')}
             value={inputValue}
             inputStyle={styles.inputStyles}
             containerStyle={styles.searchBar}

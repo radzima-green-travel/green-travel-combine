@@ -15,7 +15,7 @@ export function* socialSignInSaga({
   authChannel,
 }: {
   provider: CognitoHostedUIIdentityProvider;
-  authChannel: EventChannel<unknown>;
+  authChannel: EventChannel<any>;
 }) {
   yield call(amplifyApi.federatedSignIn, {
     customProvider: provider,

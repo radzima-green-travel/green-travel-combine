@@ -4,7 +4,6 @@ import {screenOptions} from './screenOptions';
 import {SearchList} from 'organisms';
 import {useSearch} from './hooks';
 import {SuspenseView} from 'atoms';
-import {TestIDs} from 'core/types';
 
 export const Search = () => {
   const {
@@ -20,10 +19,13 @@ export const Search = () => {
   } = useSearch();
 
   return (
-    <SuspenseView cover {...searchSuspenseProps}>
-      <SuspenseView cover {...searchHistorySuspenseProps}>
+    <SuspenseView testID="searchSusspenseView" cover {...searchSuspenseProps}>
+      <SuspenseView
+        testID="searchSusspenseView"
+        cover
+        {...searchHistorySuspenseProps}>
         <SearchList
-          testID={TestIDs.SearchResultList}
+          testID={'searchList'}
           isHistoryVisible={isHistoryVisible}
           data={data}
           onItemPress={navigateToObjectDetails}

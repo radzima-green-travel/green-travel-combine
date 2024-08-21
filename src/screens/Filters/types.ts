@@ -21,6 +21,9 @@ export type HomeScreenRouteProps = RouteProp<HomeNavigatorParamsList, 'Filter'>;
 export interface IProps {
   navigation: HomeScreenNavigationProps;
   route: HomeScreenRouteProps;
+  testID: string;
 }
 
-export type ScreenOptions = (props: IProps) => NativeStackNavigationOptions;
+export type ScreenOptions = (
+  props: Omit<IProps, 'testID'>,
+) => NativeStackNavigationOptions;

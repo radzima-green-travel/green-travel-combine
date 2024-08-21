@@ -7,7 +7,7 @@ import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {AppRegistry} from 'react-native';
-import './index.ts';
+import './index';
 import 'react-native-gesture-handler';
 import * as expoConfig from './app.json';
 

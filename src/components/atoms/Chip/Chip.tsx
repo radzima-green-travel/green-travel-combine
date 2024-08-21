@@ -10,7 +10,6 @@ import {
   Pressable,
   GestureResponderEvent,
 } from 'react-native';
-import {TestIDs} from 'core/types';
 
 import {CHIP_THEMES} from './constants';
 import {styles} from './styles';
@@ -78,7 +77,7 @@ export const Chip = memo(
               <Icon
                 style={iconThemeStyles}
                 name={'close'}
-                testID={composeTestID(testID, TestIDs.Icon)}
+                testID={composeTestID(testID, 'closeIcon')}
               />
             </Pressable>
           ) : null}

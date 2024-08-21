@@ -8,8 +8,6 @@ import {COLORS} from 'assets';
 import {screenOptions} from './screenOptions';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
-import {TestIDs} from 'core/types';
-import {composeTestID} from 'core/helpers';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
@@ -35,7 +33,8 @@ export const Home = () => {
       <SuspenseView
         loading={loading}
         error={errorTexts}
-        retryCallback={getHomePageData}>
+        retryCallback={getHomePageData}
+        testID={'homeSuspenseView'}>
         <FlatList
           ref={listRef}
           style={styles.list}
@@ -51,20 +50,20 @@ export const Home = () => {
           }
           data={homeData}
           keyExtractor={item => item.id}
-          renderItem={({item, index}) => (
+          renderItem={({item}) => (
             <HomeSectionBar
+              testID="homeSectionBar"
               onObjectPress={navigateToObjectDetails}
               onCategoryPress={onCategoryPress}
               onAllObjectsPress={onAllObjectsPress}
               onAllCategoriesPress={navigateToCategoriesList}
               item={item}
-              allButtonTestID={composeTestID(TestIDs.AllButton, index)}
               onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
             />
           )}
         />
         {/* {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null} */}
-        <SnackBar isOnTop {...snackBarProps} />
+        <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
       </SuspenseView>
     </View>
   );

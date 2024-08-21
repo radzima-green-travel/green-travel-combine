@@ -100,7 +100,7 @@ export const Profile = () => {
         </View>
       </View>
 
-      <SnackBar {...snackBarProps} />
+      <SnackBar testID="snackBar" {...snackBarProps} />
     </View>
   );
 };

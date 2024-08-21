@@ -5,7 +5,6 @@ import {AuthForm} from 'organisms';
 import {useSignInPassword} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {FormikProvider} from 'formik';
-import {TestIDs} from 'core/types';
 
 export const SignInPassword = () => {
   const {t} = useTranslation('authentification');
@@ -25,6 +24,7 @@ export const SignInPassword = () => {
   return (
     <FormikProvider value={formik}>
       <AuthForm
+        testID="authForm"
         title={t('inputPassword')}
         text={`${t('weKnowYou')} ${email}`}
         onSubmitPress={submitForm}
@@ -36,7 +36,7 @@ export const SignInPassword = () => {
         <WithFormikInput<string> name="password">
           {({messageText, ...inputProps}) => (
             <FormInput
-              testID={TestIDs.PasswordInput}
+              testID={'passwordInput'}
               autoFocus
               iconRight={{
                 name: rightIcon,
@@ -51,7 +51,7 @@ export const SignInPassword = () => {
           )}
         </WithFormikInput>
       </AuthForm>
-      <SnackBar isOnTop {...snackBarProps} />
+      <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
     </FormikProvider>
   );
 };

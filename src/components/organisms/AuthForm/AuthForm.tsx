@@ -2,9 +2,9 @@ import React, {memo, PropsWithChildren} from 'react';
 import {View, Text, Keyboard} from 'react-native';
 import {Button} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
-import {TestIDs} from 'core/types';
 
 import {themeStyles} from './styles';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   title: string;
@@ -16,6 +16,7 @@ interface IProps {
   onSecondaryButtonPress?: () => void;
   secondaryButtonText?: string;
   secondaryButtonLoading?: boolean;
+  testID: string;
 }
 
 export const AuthForm = memo(
@@ -30,6 +31,7 @@ export const AuthForm = memo(
     children,
     submitButtonLoading,
     secondaryButtonLoading,
+    testID,
   }: PropsWithChildren<IProps>) => {
     const styles = useThemeStyles(themeStyles);
 
@@ -44,7 +46,7 @@ export const AuthForm = memo(
         {text ? <Text style={styles.text}>{text}</Text> : null}
         <View style={styles.formFieldsContainer}>{children}</View>
         <Button
-          testID={TestIDs.SubmitButton}
+          testID={composeTestID(testID, 'submitButton')}
           loading={submitButtonLoading}
           disabled={isSubmitButtonDisabled}
           onPress={onSubmitPress}
@@ -52,7 +54,7 @@ export const AuthForm = memo(
         />
         {secondaryButtonText ? (
           <Button
-            testID={TestIDs.SecondaryButton}
+            testID={composeTestID(testID, 'secondaryButton')}
             loading={secondaryButtonLoading}
             disabled={secondaryButtonLoading}
             onPress={onSecondaryButtonPress}

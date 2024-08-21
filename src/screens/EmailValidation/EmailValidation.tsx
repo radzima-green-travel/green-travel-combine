@@ -34,6 +34,7 @@ export const EmailValidation = () => {
         submitButtonText={buttonText}
         isSubmitButtonDisabled={isSubmitButtonDisabled}
         submitButtonLoading={loading}
+        testID="authForm"
         secondaryButtonLoading={seconadaryLoading}
         onSecondaryButtonPress={
           isSignUp
@@ -44,6 +45,7 @@ export const EmailValidation = () => {
         <WithFormikInput<string> name="code">
           {({messageText, ...inputProps}) => (
             <OneTimeCode
+              testID="codeInput"
               autoFocus
               messageText={messageText ? t(messageText) : undefined}
               codeLength={codeLength}
@@ -52,7 +54,7 @@ export const EmailValidation = () => {
           )}
         </WithFormikInput>
       </AuthForm>
-      <SnackBar isOnTop {...snackBarProps} />
+      <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
     </FormikProvider>
   );
 };

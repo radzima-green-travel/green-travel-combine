@@ -14,7 +14,7 @@ import {getPlatformsTestID} from 'core/helpers';
 
 type Props = {
   children: ReactNode;
-  testID?: string;
+  testID: string;
 };
 
 export const HandleKeyboardRootWrapper = memo<Props>(

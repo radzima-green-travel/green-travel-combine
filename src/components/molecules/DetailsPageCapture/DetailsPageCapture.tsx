@@ -1,9 +1,9 @@
 import React, {memo, useMemo, useCallback} from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
-import {ICoordinates, TestIDs} from 'core/types';
+import {ICoordinates} from 'core/types';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {Icon} from 'atoms';
 import {RatingBadge} from 'molecules';
 
@@ -19,6 +19,7 @@ interface IProps {
   googleRating: number | null;
   usersRatingsTotal: number | null;
   googleRatingsTotal: number | null;
+  testID: string;
 }
 
 export const DetailsPageCapture = memo(
@@ -33,6 +34,7 @@ export const DetailsPageCapture = memo(
     googleRating,
     usersRatingsTotal,
     googleRatingsTotal,
+    testID,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
 
@@ -75,7 +77,7 @@ export const DetailsPageCapture = memo(
       <View style={styles.container}>
         <Text
           style={styles.title}
-          {...getPlatformsTestID(TestIDs.ObjectDetailsTitle)}>
+          {...getPlatformsTestID(composeTestID(testID, 'title'))}>
           {title}
         </Text>
         {isRatingsExist ? (
@@ -99,7 +101,7 @@ export const DetailsPageCapture = memo(
         {subtitleText ? (
           <Text
             style={styles.subtitle}
-            {...getPlatformsTestID(TestIDs.ObjectDetailsAddress)}>
+            {...getPlatformsTestID(composeTestID(testID, 'address'))}>
             {subtitleText}
           </Text>
         ) : null}
@@ -110,7 +112,7 @@ export const DetailsPageCapture = memo(
             onPress={onCoordinatesPressHandler}>
             <Text
               style={styles.location}
-              {...getPlatformsTestID(TestIDs.ObjectDetailsLocation)}>
+              {...getPlatformsTestID(composeTestID(testID, 'location'))}>
               {location}
             </Text>
             <Icon
@@ -122,7 +124,7 @@ export const DetailsPageCapture = memo(
 
             <Text
               style={[styles.location, styles.copyLocation]}
-              {...getPlatformsTestID(TestIDs.ObjectDetailsLocation)}>
+              {...getPlatformsTestID(composeTestID(testID, 'copyLocation'))}>
               {t('copyLocation')}
             </Text>
           </TouchableOpacity>

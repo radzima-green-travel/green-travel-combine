@@ -7,7 +7,6 @@ import {styles} from './styles';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useObjectsList} from './hooks';
-import {TestIDs} from 'core/types';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 export const ObjectsList = () => {
@@ -25,6 +24,7 @@ export const ObjectsList = () => {
     <SuspenseView
       loading={initialDataLoading}
       error={errorTexts}
+      testID="objectsListSuspenseView"
       retryCallback={fetchListInitialData}>
       <FlatList
         data={listData}
@@ -37,7 +37,7 @@ export const ObjectsList = () => {
             data={item}
             width={cardWidth}
             onFavoriteChanged={sendIsFavoriteChangedEvent}
-            testID={TestIDs.SubObject}
+            testID={'objectCard'}
           />
         )}
         {...paginationProps}

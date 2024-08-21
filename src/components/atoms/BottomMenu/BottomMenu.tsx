@@ -18,6 +18,7 @@ import React, {
   useMemo,
   memo,
   useState,
+  ComponentProps,
 } from 'react';
 import {AnimatedCircleButton} from 'molecules/AnimatedCircleButton';
 import {composeTestID} from 'core/helpers';
@@ -184,6 +185,7 @@ export const BottomMenu = memo(
                   <AnimatedCircleButton
                     icon={{
                       name: 'chevronMediumLeft',
+                      testID: composeTestID(testID, 'backButtonIcon'),
                     }}
                     testID={composeTestID(testID, 'backButton')}
                     onPress={onBackPress}
@@ -194,6 +196,7 @@ export const BottomMenu = memo(
                 {closeButtonVisible || onClosePress ? (
                   <AnimatedCircleButton
                     icon={{
+                      testID: composeTestID(testID, 'closeButtonIcon'),
                       name: 'close',
                     }}
                     testID={composeTestID(testID, 'closeButton')}
@@ -249,7 +252,11 @@ export const BottomMenu = memo(
           handleIndicatorStyle={styles.touchIndicator}
           animatedIndex={animatedIndex}
           index={initialIndex}
-          snapPoints={animatedSnapPoints}
+          snapPoints={
+            animatedSnapPoints as ComponentProps<
+              typeof BottomSheet
+            >['snapPoints']
+          }
           handleHeight={animatedHandleHeight}
           contentHeight={animatedContentHeight}
           enablePanDownToClose={isPanDownEnabled}

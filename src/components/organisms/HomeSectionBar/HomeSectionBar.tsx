@@ -3,14 +3,13 @@ import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {ObjectCard, CategoryCard} from 'molecules';
 import {themeStyles, cardWidth, SNAP_INTERVAL} from './styles';
 import {useTranslation} from 'react-i18next';
-import {CardItem, HomeSectionBarItem, TestIDs} from 'core/types';
+import {CardItem, HomeSectionBarItem} from 'core/types';
 import {useThemeStyles} from 'core/hooks';
 import {useScrollToTop} from '@react-navigation/native';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface Props {
   item: HomeSectionBarItem;
-  allButtonTestID: string;
   onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
   onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
   onObjectPress: (options: CardItem) => void;
@@ -19,6 +18,7 @@ interface Props {
     object: CardItem;
     nextIsFavorite: boolean;
   }) => void;
+  testID: string;
 }
 
 export const HomeSectionBar = memo(
@@ -28,8 +28,8 @@ export const HomeSectionBar = memo(
     onObjectPress,
     onCategoryPress,
     onObjectCardIsFavoriteChanged,
-    allButtonTestID,
     item,
+    testID,
   }: Props) => {
     const {t} = useTranslation('home');
     const styles = useThemeStyles(themeStyles);
@@ -98,7 +98,7 @@ export const HomeSectionBar = memo(
               width={cardWidth}
               onPress={onCategoryPressHandler}
               data={data}
-              testID={TestIDs.CategoryCardTitle}
+              testID={composeTestID(testID, 'categoryCard')}
             />
           );
         }
@@ -110,7 +110,7 @@ export const HomeSectionBar = memo(
             onPress={onObjectPressHandler}
             data={data}
             onFavoriteChanged={onObjectCardIsFavoriteChangedHandler}
-            testID={TestIDs.ObjectTitle}
+            testID={composeTestID(testID, 'objectCard')}
           />
         );
       },
@@ -120,6 +120,7 @@ export const HomeSectionBar = memo(
         onObjectCardIsFavoriteChangedHandler,
         onObjectPressHandler,
         styles.objectCardContainer,
+        testID,
       ],
     );
 
@@ -128,14 +129,17 @@ export const HomeSectionBar = memo(
         <View style={styles.sectionTitleContainer}>
           <Text
             style={styles.sectionTitle}
-            {...getPlatformsTestID(
-              composeTestID(TestIDs.CategoryTitle, title),
-            )}>
+            {...getPlatformsTestID(composeTestID(testID, 'title'))}>
             {title}
           </Text>
           {!isLessThenTwoItems ? (
-            <TouchableOpacity activeOpacity={0.8} onPress={onAllPressHandler}>
-              <Text style={styles.all} {...getPlatformsTestID(allButtonTestID)}>
+            <TouchableOpacity
+              {...getPlatformsTestID(composeTestID(testID, 'allButton'))}
+              activeOpacity={0.8}
+              onPress={onAllPressHandler}>
+              <Text
+                style={styles.all}
+                {...getPlatformsTestID(composeTestID(testID, 'allButtonText'))}>
                 {t('all')}
               </Text>
             </TouchableOpacity>

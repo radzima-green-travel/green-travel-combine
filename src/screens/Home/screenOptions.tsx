@@ -4,9 +4,9 @@ import {IProps, ScreenOptions} from './types';
 import {Icon} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
-import {TestIDs} from 'core/types';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
-const HeaderRight = ({navigation}: IProps) => {
+const HeaderRight = ({navigation, testID}: IProps) => {
   const styles = useThemeStyles(themeStyles);
   return (
     <>
@@ -14,23 +14,25 @@ const HeaderRight = ({navigation}: IProps) => {
         hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
         activeOpacity={0.8}
         onPress={() => navigation.navigate('Search')}
+        {...getPlatformsTestID(composeTestID(testID, 'searchButton'))}
         style={styles.searchContainer}>
         <Icon
           name="search"
           style={styles.icon}
           size={24}
-          testID={TestIDs.SearchButton}
+          testID={composeTestID(testID, 'searchIcon')}
         />
       </TouchableOpacity>
       <TouchableOpacity
         hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
         activeOpacity={0.8}
+        {...getPlatformsTestID(composeTestID(testID, 'filterButton'))}
         onPress={() => navigation.navigate('Filter')}>
         <Icon
           name="tune"
           style={styles.icon}
           size={24}
-          testID={TestIDs.FilterButton}
+          testID={composeTestID(testID, 'tuneIcon')}
         />
       </TouchableOpacity>
     </>
@@ -38,5 +40,5 @@ const HeaderRight = ({navigation}: IProps) => {
 };
 
 export const screenOptions: ScreenOptions = props => ({
-  headerRight: () => <HeaderRight {...props} />,
+  headerRight: () => <HeaderRight {...props} testID="headerRight" />,
 });

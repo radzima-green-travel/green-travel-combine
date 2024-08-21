@@ -1,6 +1,5 @@
 import {BottomMenu, SnackBar, Backdrop} from 'atoms';
 import {useColorScheme, useOnRequestSuccess, useTranslation} from 'core/hooks';
-import {TestIDs} from 'core/types/common';
 import {
   ObjectShareExperienceMenu,
   ObjectReportinaccuraciesMenu,
@@ -105,11 +104,11 @@ export const ObjectDetailsShareExperience = () => {
         onHideEnd={onHideEnd}
         initialIndex={0}
         animatedIndex={shareExperienceMenuAnimatedIndex}
-        testID={TestIDs.ObjectShareExperienceMenu}
+        testID={'bottomMenu'}
         {...shareExperienceMenuProps}
         header={header}>
         <ObjectShareExperienceMenu
-          testID={TestIDs.ObjectShareExperienceMenuContent}
+          testID={'shareExperienceMenuContent'}
           onSubmitPress={onSubmitPress}
           rating={rating}
           range={range}
@@ -128,10 +127,10 @@ export const ObjectDetailsShareExperience = () => {
       <BottomMenu
         onHideEnd={onHideEnd}
         animatedIndex={shareExperienceSuccessMenuAnimatedIndex}
-        testID={TestIDs.ObjectShareExperienceSuccessMenu}
+        testID={'bottomMenu'}
         {...reportInnacurateInfoSuccessMenuProps}>
         <ObjectSuccessMenu
-          testID={TestIDs.ObjectShareExperienceSuccessMenuContent}
+          testID={'successMenuContent'}
           title={t('shareExperienceSuccessTitle')}
           subtitle={t('shareExperienceSuccessSubtitle')}
           buttonText={t('gotIt')}
@@ -144,7 +143,7 @@ export const ObjectDetailsShareExperience = () => {
 
       <BottomMenu
         onHideEnd={onReportInnacuranceMenuHide}
-        testID={TestIDs.ObjectReportinaccuraciesMenu}
+        testID={'bottomMenu'}
         {...reportInnacurateInfoMenuProps}
         header={reportInnacuraciesHeader}>
         <ObjectReportinaccuraciesMenu
@@ -153,11 +152,11 @@ export const ObjectDetailsShareExperience = () => {
           onInputValueChange={onReportInnacuranceFieldValueChange}
           autoHandleKeyboard
           isSendLoading={sendLoading}
-          testID={TestIDs.ObjectReportinaccuraciesMenuContent}
+          testID={'reportInaccuraciesMenu'}
         />
       </BottomMenu>
 
-      <SnackBar offset={-top} isOnTop {...snackBarProps} />
+      <SnackBar testID="snackBar" offset={-top} isOnTop {...snackBarProps} />
     </>
   );
 };

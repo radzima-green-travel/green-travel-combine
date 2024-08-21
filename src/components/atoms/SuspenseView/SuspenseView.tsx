@@ -2,6 +2,7 @@ import React, {memo} from 'react';
 import {ErrorView} from 'molecules';
 import {LoadingView} from '../LoadingView';
 import {Props} from './types';
+import {composeTestID} from 'core/helpers';
 
 export const SuspenseView = memo<Props>(
   ({
@@ -11,6 +12,7 @@ export const SuspenseView = memo<Props>(
     children,
     cover = false,
     buttonText,
+    testID,
   }: Props) => {
     if (error) {
       return (
@@ -18,6 +20,7 @@ export const SuspenseView = memo<Props>(
           onButtonPress={retryCallback}
           error={error}
           buttonText={buttonText}
+          testID={composeTestID(testID, 'errorView')}
         />
       );
     }

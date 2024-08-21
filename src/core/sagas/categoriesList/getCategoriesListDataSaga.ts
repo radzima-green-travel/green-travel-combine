@@ -9,7 +9,7 @@ import {
 } from 'core/actions';
 import {RequestError} from 'core/errors';
 import {selectCategoriesList} from 'selectors';
-import {CategoriesListQueryParams} from 'api/graphql/types';
+import {CategoriesListQueryParams} from '../../types';
 import {getCategoriesData} from '../fetchRequests';
 import {filter} from 'lodash';
 

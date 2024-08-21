@@ -69,12 +69,14 @@ export const Card = memo(
           <Text style={styles.title}>{title}</Text>
           {isFavoriteBlockVisible ? (
             <FavoriteButtonContainer
+              testID={composeTestID(testID, 'favoriteButton')}
               onFavoriteToggle={onFavoriteChanged}
               removeWithAnimation={removeFavoriteWithAnimation}
               onAnimationEnd={onRemoveAnimationEnd}
               objectId={id}>
               {isFavorite => (
                 <Icon
+                  testID={composeTestID(testID, 'favoriteIcon')}
                   name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
                   width={24}
                   height={24}

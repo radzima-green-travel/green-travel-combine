@@ -8,21 +8,22 @@ import {AnimatedCircleButton} from 'molecules';
 import React, {memo} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-import {TestIDs} from 'core/types';
 import Animated, {
   SharedValue,
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   objectName: string;
   animatedValue: SharedValue<number>;
   pivotHeightToAnimate: number;
+  testID: string;
 }
 
 export const ObjectDetailsHeader = memo(
-  ({objectName, animatedValue, pivotHeightToAnimate}: IProps) => {
+  ({objectName, animatedValue, pivotHeightToAnimate, testID}: IProps) => {
     const navigation = useNavigation();
     const styles = useThemeStyles(themeStyles);
     const {top} = useSafeAreaInsets();
@@ -68,7 +69,7 @@ export const ObjectDetailsHeader = memo(
             icon={{
               name: 'chevronMediumLeft',
             }}
-            testID={TestIDs.HeaderBackButton}
+            testID={composeTestID(testID, 'backButton')}
             style={buttonStyle}
             onPress={() => {
               if (navigation.canGoBack()) {

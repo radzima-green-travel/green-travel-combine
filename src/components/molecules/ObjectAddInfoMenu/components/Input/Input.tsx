@@ -1,5 +1,5 @@
 import React, {forwardRef} from 'react';
-import {Text} from 'react-native';
+import {Text, TextInput} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {FormInput} from 'atoms';
@@ -16,13 +16,7 @@ interface IProps {
   testID: string;
 }
 
-export interface ObjectAddInfoMenuRef {
-  focus: () => void;
-  blur: () => void;
-  clear: () => void;
-}
-
-export const Input = forwardRef<ObjectAddInfoMenuRef, IProps>(
+export const Input = forwardRef<TextInput, IProps>(
   ({prompt, testID, ...props}, ref) => {
     const styles = useThemeStyles(themeStyles);
 

@@ -8,7 +8,7 @@ import {
   Linking,
 } from 'react-native';
 
-import {SupportedLocales, TestIDs, LocationDTO} from 'core/types';
+import {SupportedLocales, LocationDTO} from 'core/types';
 
 export const extractThemeStyles = (
   styles: Object,
@@ -54,7 +54,7 @@ export async function tryOpenURL(url: string) {
       console.warn(`Don't know how to open URI: ${url}`);
     }
   } catch (e) {
-    console.warn(e.message);
+    console.warn((e as Error).message);
   }
 }
 
@@ -66,10 +66,7 @@ export function getScreenTimeSec(startMs: number, endMs: number) {
   return Math.floor((endMs - startMs) / 1000);
 }
 
-export function composeTestID(
-  testID: TestIDs | string,
-  secondId: string | number,
-) {
+export function composeTestID(testID: string, secondId: string | number) {
   return typeof secondId === 'string'
     ? `${testID}_${secondId}`
     : `${testID}_${secondId + 1}`;

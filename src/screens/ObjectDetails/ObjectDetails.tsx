@@ -43,7 +43,6 @@ import {
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
 import {ObjectDetailsReportInaccuraciesMenu} from 'organisms';
-import {TestIDs} from 'core/types';
 import Animated from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
 import {ObjectInfoCardItemsSection, ObjectInfoSection} from './components';
@@ -156,6 +155,7 @@ export const ObjectDetails = () => {
       retryCallback={onTryAgainPress}
       loading={loading}
       error={errorTexts}
+      testID={'objectDetailsSuspenseView'}
       {...objectNotFoundErrorProps}>
       {data ? (
         <View style={styles.container}>
@@ -167,6 +167,7 @@ export const ObjectDetails = () => {
             contentContainerStyle={styles.listContentContainer}>
             <View style={[styles.contentContainer]}>
               <DetailsPageCapture
+                testID="pageCapture"
                 routeLength={data.length}
                 title={data.name}
                 subtitle={data.address}
@@ -190,7 +191,7 @@ export const ObjectDetails = () => {
               />
               <View style={styles.visitedButtonContainer}>
                 <Button
-                  testID={TestIDs.MarkAsVisitedButton}
+                  testID={'markAsVisitedButton'}
                   icon={textStyle =>
                     isVisited ? (
                       <Icon style={textStyle} name={'check'} />
@@ -216,7 +217,7 @@ export const ObjectDetails = () => {
               <ObjectDetailsCompletenessSmallBlock
                 onPress={scrollToElement}
                 percentage={percentage}
-                testID={TestIDs.objectDetailsCompletenessBlockSmall}
+                testID={'completenessBlockSmall'}
               />
             ) : null}
 
@@ -227,7 +228,7 @@ export const ObjectDetails = () => {
               <ObjectInfoSection items={workingHoursSection} />
             ) : null}
             <ObjectDescription
-              testID={TestIDs.ObjectDetailsDescription}
+              testID={'description'}
               origins={data.origins}
               description={data.description}
               onToggleDescription={onToggleDescriptionVisibility}
@@ -243,7 +244,7 @@ export const ObjectDetails = () => {
                 <ObjectDetailsCompletenessBlock
                   incompleteFields={incompleteFields}
                   percentage={percentage}
-                  testID={TestIDs.ObjectDetailsCompletenessBlock}
+                  testID={'completenessBlock'}
                   onAddInformationPress={navigateToAddInfo}
                 />
               </View>
@@ -251,7 +252,7 @@ export const ObjectDetails = () => {
 
             {accommodationPlace?.length ? (
               <ObjectInfoCardItemsSection
-                testID={TestIDs.ObjectDetailsAccommodationPlace}
+                testID={'accommodationPlace'}
                 items={accommodationPlace}
                 title={tCommon('objectFieldsLabels.accommodationPlace')}
                 type="accommodation"
@@ -261,7 +262,7 @@ export const ObjectDetails = () => {
             ) : null}
             {dinnerPlaces?.length ? (
               <ObjectInfoCardItemsSection
-                testID={TestIDs.ObjectDetailsDinnerPlaces}
+                testID={'dinnerPlaces'}
                 items={dinnerPlaces}
                 title={tCommon('objectFieldsLabels.dinnerPlaces')}
                 type="placeToEat"
@@ -272,7 +273,7 @@ export const ObjectDetails = () => {
 
             {upcomingEvents?.length ? (
               <ObjectInfoCardItemsSection
-                testID={TestIDs.ObjectDetailsUpcomingEvents}
+                testID={'upcomingEvents'}
                 items={upcomingEvents}
                 title={tCommon('objectFieldsLabels.upcomingEvents')}
                 type="event"
@@ -286,7 +287,7 @@ export const ObjectDetails = () => {
                 title={t('belongs')}
                 data={data.belongsTo}
                 onBelongsToItemPress={navigateToBelongsToObject}
-                testID={TestIDs.ObjectDetailsBelongsTo}
+                testID={'belongsTo'}
               />
             )}
 
@@ -295,7 +296,7 @@ export const ObjectDetails = () => {
                 title={t('includes')}
                 data={data.include}
                 onIncludePress={navigateToIncludesObjectListOrPage}
-                testID={TestIDs.ObjectDetailsIncludes}
+                testID={'includes'}
               />
             )}
 
@@ -305,7 +306,7 @@ export const ObjectDetails = () => {
               icon={textStyle => <Icon style={textStyle} name="mail" />}
               theme="tertiary"
               text={t('reportInaccuracies')}
-              testID={TestIDs.ObjectDetailsReportInaccuraciesButton}
+              testID={'reportInaccuraciesButton'}
             />
           </Animated.ScrollView>
 
@@ -320,14 +321,18 @@ export const ObjectDetails = () => {
                 height={IMAGE_HEIGHT}
                 images={data.images || [defaultPhoto]}
                 onScroll={onScroll}
-                imageTestID={TestIDs.ObjectDetailsImage}
+                testID="imageSlider"
                 activePage={page}
                 onImagePress={goToImageGallery}
               />
             </PinchToZoomProvider>
 
             {isJustOneImage ? null : (
-              <ObjectDetailsPager pagesAmount={pagesAmount} page={page} />
+              <ObjectDetailsPager
+                testID="imagePager"
+                pagesAmount={pagesAmount}
+                page={page}
+              />
             )}
           </Animated.View>
           <LinearGradient
@@ -335,13 +340,15 @@ export const ObjectDetails = () => {
             {...gradientConfig}
             style={[styles.gradient, {height: top}]}
           />
-          <SnackBar offset={80} {...snackBarProps} />
+          <SnackBar testID={'snackBar'} offset={80} {...snackBarProps} />
           <ObjectDetailsHeader
+            testID="header"
             animatedValue={translationY}
             objectName={data.name}
             pivotHeightToAnimate={IMAGE_HEIGHT}
           />
           <ObjectDetailsBottomButtons
+            testID="bottomButtons"
             onBookmarkPress={toggleFavoriteHandler}
             onSharePress={shareObjectLink}
             onShowOnMapPress={navigateToObjectsMap}
@@ -351,15 +358,18 @@ export const ObjectDetails = () => {
           />
 
           <ObjectDetailsReportInaccuraciesMenu
+            testID="reportInaccuraciesMenu"
             {...reportInaccuraciesMenuProps}
           />
 
           <ObjectDetailsAddInfoSuccessMenu
+            testID="addInfoSuccessMenu"
             addInfoSuccessMenuProps={addInfoSuccessMenuProps}
           />
 
           {workingHours ? (
             <ObjectDetailsShowInfoMenu
+              testID="workingHoursMenu"
               title={t('workHours')}
               description={workingHours}
               menuProps={workingHoursMenuProps}
@@ -370,12 +380,13 @@ export const ObjectDetails = () => {
             <ObjectDetailsListItemsMenu
               menuItems={phoneNumberMenuItems}
               menuProps={phoneNumbersMenuProps}
-              testID={TestIDs.ObjectDetailsPhoneNumbersMenu}
+              testID={'phoneNumbersMenu'}
             />
           ) : null}
 
           {childServices ? (
             <ObjectDetailsShowInfoMenu
+              testID="childServicesMenu"
               title={tCommon('objectFieldsLabels.childServices')}
               description={childServices}
               menuProps={childServicesMenuProps}

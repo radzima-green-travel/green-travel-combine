@@ -6,17 +6,18 @@ import {Button, Icon} from 'atoms';
 import {FavoriteButtonContainer} from 'containers';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
-import {ObjectMap, TestIDs} from 'core/types';
-import {getPlatformsTestID} from 'core/helpers';
+import {ObjectMap} from 'core/types';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   data: ObjectMap | null;
   bottomInset: number;
   onGetMorePress: (data: ObjectMap) => void;
+  testID: string;
 }
 
 export const AppMapBottomMenu = memo(
-  ({data, bottomInset, onGetMorePress}: IProps) => {
+  ({data, bottomInset, onGetMorePress, testID}: IProps) => {
     const {t} = useTranslation('map');
     const styles = useThemeStyles(themeStyles);
 
@@ -52,6 +53,7 @@ export const AppMapBottomMenu = memo(
               </Text>
 
               <FavoriteButtonContainer
+                testID={composeTestID(testID, 'favoriteButton')}
                 loadingIndicatorColor={
                   (styles.icon as TextStyle).color as string
                 }
@@ -71,12 +73,13 @@ export const AppMapBottomMenu = memo(
               <Text
                 allowFontScaling={false}
                 style={styles.subtitle}
-                {...getPlatformsTestID(TestIDs.MapItemDetailsSubtitle)}>
+                {...getPlatformsTestID(composeTestID(testID, 'subitile'))}>
                 {subtitleText}
               </Text>
             ) : null}
           </View>
           <Button
+            testID={composeTestID(testID, 'getMoreButton')}
             style={[styles.button, !bottomInset && {marginBottom: 16}]}
             onPress={() => {
               onGetMorePress(data);

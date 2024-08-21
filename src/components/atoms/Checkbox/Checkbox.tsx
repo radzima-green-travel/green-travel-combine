@@ -5,7 +5,6 @@ import {StyleProp, ViewStyle, TouchableOpacity} from 'react-native';
 import {CHECKBOX_THEMES} from './constants';
 import {styles} from './styles';
 import {composeTestID} from 'core/helpers';
-import {TestIDs} from 'core/types';
 import {getPlatformsTestID} from 'core/helpers';
 import {Icon} from '../Icon';
 
@@ -36,7 +35,7 @@ export const Checkbox = memo(({onPress, style, testID, checked}: Props) => {
         <Icon
           {...(buttonThemeStyles.icon as {color: string})}
           name="check"
-          testID={composeTestID(testID, TestIDs.Icon)}
+          testID={composeTestID(testID, 'checkIcon')}
         />
       ) : null}
     </TouchableOpacity>

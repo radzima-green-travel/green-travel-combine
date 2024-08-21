@@ -9,4 +9,5 @@ export type Props = {
   children: ReactNode;
   cover?: boolean;
   buttonText?: string;
+  testID: string;
 };

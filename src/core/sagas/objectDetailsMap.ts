@@ -8,6 +8,7 @@ import {ActionType} from 'typesafe-actions';
 import {mapBoxApi} from 'api/mapbox';
 import {lineString as makeLineString} from '@turf/helpers';
 import {ACTIONS} from 'core/constants';
+import {ILabelError} from 'core/types';
 
 export function* getDirectionSaga({
   payload,
@@ -29,7 +30,7 @@ export function* getDirectionSaga({
       }),
     );
   } catch (e) {
-    yield put(showObjectDetailsMapDirectionFailure(e));
+    yield put(showObjectDetailsMapDirectionFailure(e as ILabelError));
   }
 }
 

@@ -1,3 +1,3 @@
 export {ListItem} from './ListItem';
-export {BaseListItemProps} from './types';
+export {BaseListItemProps, ListItemProps} from './types';
 export {ListItemCheckbox} from './components';

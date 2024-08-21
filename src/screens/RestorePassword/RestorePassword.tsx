@@ -5,7 +5,6 @@ import {AuthForm} from 'organisms';
 import {useRestorePassword} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {FormikProvider} from 'formik';
-import {TestIDs} from 'core/types';
 
 export const RestorePassword = () => {
   const {t} = useTranslation('authentification');
@@ -22,6 +21,7 @@ export const RestorePassword = () => {
   return (
     <FormikProvider value={formik}>
       <AuthForm
+        testID="authForm"
         title={t('restorePassword')}
         text={t('restorePasswordInstruction')}
         onSubmitPress={submitForm}
@@ -33,7 +33,7 @@ export const RestorePassword = () => {
         <WithFormikInput<string> name="email">
           {({messageText, ...inputProps}) => (
             <FormInput
-              testID={TestIDs.EmailInput}
+              testID={'emailFormInput'}
               autoFocus
               label={t('email')}
               keyboardType="email-address"
@@ -43,7 +43,7 @@ export const RestorePassword = () => {
           )}
         </WithFormikInput>
       </AuthForm>
-      <SnackBar isOnTop {...snackBarProps} />
+      <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
     </FormikProvider>
   );
 };

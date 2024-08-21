@@ -3,6 +3,7 @@ import {Button, Icon} from 'atoms';
 import {StyleProp, Text, TextStyle, View} from 'react-native';
 import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
+import {composeTestID} from 'core/helpers';
 
 interface UpdateBottomMenuProps {
   title: string;
@@ -10,6 +11,7 @@ interface UpdateBottomMenuProps {
   subTitleStyle?: StyleProp<TextStyle>;
   buttonText: string;
   onUpdate: () => void;
+  testID: string;
 }
 
 export const UpdateView = memo(
@@ -19,6 +21,7 @@ export const UpdateView = memo(
     subTitleStyle,
     buttonText,
     onUpdate,
+    testID,
   }: UpdateBottomMenuProps) => {
     const styles = useThemeStyles(themeStyles);
     const theme = useColorScheme();
@@ -38,6 +41,7 @@ export const UpdateView = memo(
           onPress={onUpdate}
           text={t(buttonText)}
           textStyle={styles.buttonText}
+          testID={composeTestID(testID, 'updateButton')}
         />
       </View>
     );

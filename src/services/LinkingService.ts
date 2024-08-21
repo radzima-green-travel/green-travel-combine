@@ -11,6 +11,7 @@ class LinkingService {
           initialRouteName: 'TabNavigator',
           screens: {
             TabNavigator: {
+              // @ts-expect-error
               screens: {
                 HomeNavigator: {
                   screens: {

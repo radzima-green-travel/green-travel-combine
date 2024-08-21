@@ -10,7 +10,6 @@ import {
 } from 'core/helpers';
 import type {Item} from '../components/ObjectInfoSection/ObjectInfoSection';
 import {compact, join, map} from 'lodash';
-import {TestIDs} from 'core/types';
 import {themeStyles} from '../styles';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {CardType} from '../components';
@@ -58,7 +57,9 @@ export function useObjectDetailsInfo() {
 
   const onOfficialWebLinkPress = useCallback(() => {
     sendOfficialSiteUrlClickEvent();
-    onWebLinkPress(officialWibsiteUrl);
+    if (officialWibsiteUrl) {
+      onWebLinkPress(officialWibsiteUrl);
+    }
   }, [onWebLinkPress, officialWibsiteUrl, sendOfficialSiteUrlClickEvent]);
 
   const onToggleDescriptionVisibility = useCallback(
@@ -133,14 +134,14 @@ export function useObjectDetailsInfo() {
         title: officialWibsiteUrl,
         onSubtitlePress: onOfficialWebLinkPress,
         leadIcon: 'globe',
-        testID: TestIDs.ObjectDetailsOfficialWebsite,
+        testID: 'ObjectDetailsOfficialWebsite',
       },
       phoneNumbers?.length && {
         subtitle: t('objectFieldsLabels.phoneNumber'),
         title: phoneNumbers[0],
         leadIcon: 'telephone',
         onSubtitlePress: () => onTelephonePress(phoneNumbers[0]),
-        testID: TestIDs.ObjectDetailsPhoneNumber,
+        testID: 'ObjectDetailsPhoneNumber',
         rightLabel: t('objectFieldsLabels.phoneNumberMore', {
           amount: amountOfPhoneNumbers - 1,
         }),
@@ -155,7 +156,7 @@ export function useObjectDetailsInfo() {
         subtitle: t('objectFieldsLabels.attendanceTime'),
         title: getAttendaceStringTime,
         leadIcon: 'hourglass',
-        testID: TestIDs.ObjectDetailsAttendanceTime,
+        testID: 'ObjectDetailsAttendanceTime',
       },
     ] as Item[]);
   }, [
@@ -177,7 +178,7 @@ export function useObjectDetailsInfo() {
         title: phone,
         leadIcon: 'telephone',
         onSubtitlePress: () => onTelephonePress(phone),
-        testID: TestIDs.ObjectDetailsPhoneNumber,
+        testID: 'ObjectDetailsPhoneNumber',
         containerStyle: {paddingVertical: 6},
         titleContainerStyle: {paddingBottom: 16},
         leadIconStyle: styles.listItemIcon,
@@ -202,7 +203,7 @@ export function useObjectDetailsInfo() {
         },
         leadIcon: 'globe',
         titleNumberOfLines: 2,
-        testID: TestIDs.ObjectDetailsWorkingHours,
+        testID: 'ObjectDetailsWorkingHours',
         withDropdown: true,
         rightLabel: objectDetailsT('details'),
       },
@@ -222,7 +223,7 @@ export function useObjectDetailsInfo() {
         subtitle: childServices,
         subtitleNumberOfLines: 2,
         leadIcon: 'deck',
-        testID: TestIDs.ObjectDetailsOfficialWebsite,
+        testID: 'ObjectDetailsOfficialWebsite',
         contentStylingType: 'primary',
         boldTitle: false,
         withDropdown: true,
@@ -233,7 +234,7 @@ export function useObjectDetailsInfo() {
         title: t('objectFieldsLabels.renting'),
         subtitle: renting,
         leadIcon: 'sportsTennis',
-        testID: TestIDs.ObjectDetailsRenting,
+        testID: 'ObjectDetailsRenting',
         contentStylingType: 'primary',
         boldTitle: false,
       },

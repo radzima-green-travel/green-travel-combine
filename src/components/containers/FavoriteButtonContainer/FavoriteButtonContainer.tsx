@@ -3,9 +3,8 @@ import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
 import {LoadingView} from 'atoms';
 import {COLORS} from 'assets';
 import {styles} from './styles';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {useFavorite} from 'core/hooks';
-import {TestIDs} from 'core/types';
 const onAnimationEndDefault = () => {};
 
 interface IProps {
@@ -42,7 +41,7 @@ export const FavoriteButtonContainer = memo(
       <View {...getPlatformsTestID(testID)}>
         <View style={favoritesSynchronizing && styles.opaque}>
           <TouchableOpacity
-            testID={TestIDs.FavoriteButton}
+            testID={composeTestID(testID, 'favoriteButton')}
             hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
             style={style}
             onPress={toggleFavoriteHandler}
