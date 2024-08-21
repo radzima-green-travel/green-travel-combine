@@ -13,7 +13,7 @@ import {
 import {Icon} from '../Icon';
 
 import {themeStyles, crossHitClop} from './styles';
-import {TestIDs} from 'core/types';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface Props {
   onChange: Function;
@@ -22,6 +22,7 @@ interface Props {
   inputStyle?: StyleProp<TextStyle>;
   selectionColor?: string;
   value: string;
+  testID: string;
 }
 
 export const HeaderSearchbar = memo(
@@ -32,6 +33,7 @@ export const HeaderSearchbar = memo(
     inputStyle,
     selectionColor,
     value,
+    testID,
   }: Props) => {
     const styles = useThemeStyles(themeStyles);
     const colorTheme = useColorScheme();
@@ -59,15 +61,20 @@ export const HeaderSearchbar = memo(
           }
           onChangeText={onChangeText}
           style={[styles.input, inputStyle]}
-          testID={TestIDs.HeaderSearchInput}
+          {...getPlatformsTestID(composeTestID(testID, 'input'))}
         />
         {value ? (
           <TouchableOpacity
+            {...getPlatformsTestID(composeTestID(testID, 'clearButton'))}
             onPress={clear}
             hitSlop={crossHitClop}
-            style={styles.icon}
-            testID={TestIDs.HeaderClearButton}>
-            <Icon style={styles.icon} name="cross" size={24} />
+            style={styles.icon}>
+            <Icon
+              testID={composeTestID(testID, 'crossIcon')}
+              style={styles.icon}
+              name="cross"
+              size={24}
+            />
           </TouchableOpacity>
         ) : (
           <Icon
@@ -75,7 +82,7 @@ export const HeaderSearchbar = memo(
             name={'search'}
             width={24}
             height={24}
-            testID={TestIDs.SearchButton}
+            testID={composeTestID(testID, 'searchIcon')}
           />
         )}
       </View>

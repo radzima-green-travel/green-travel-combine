@@ -8,9 +8,8 @@ import {
   TextStyle,
 } from 'react-native';
 import {themeStyles} from './styles';
-import {TestIDs} from 'core/types';
 import {Icon} from 'components/atoms';
-import {composeTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface Props {
   onChange: (text: string) => void;
@@ -36,7 +35,7 @@ export const SearchField = memo(
           name={'search'}
           width={24}
           height={24}
-          testID={composeTestID(TestIDs.SearchBar, 'searchIcon')}
+          testID={composeTestID(testID, 'searchIcon')}
         />
         <TextInput
           value={value}
@@ -44,7 +43,7 @@ export const SearchField = memo(
           placeholder={t('settlements.search')}
           onChangeText={onChange}
           style={[styles.input, inputStyle]}
-          testID={composeTestID(TestIDs.SearchBar, 'input')}
+          {...getPlatformsTestID(composeTestID(testID, 'input'))}
         />
         {value ? (
           <TouchableOpacity

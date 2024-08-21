@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useColorScheme, useTranslation} from 'core/hooks';
@@ -6,7 +7,7 @@ import {BookmarksNavigator} from './BookmarksNavigator';
 import {ProfileNavigator} from './ProfileNavigator';
 import {Icon} from 'atoms';
 import {HomeNavigator} from './HomeNavigator';
-import {TabNavigatorParamsList, TestIDs} from 'core/types';
+import {TabNavigatorParamsList} from 'core/types';
 import {COLORS} from 'assets';
 import {analyticsService} from 'services/AnalyticsService';
 
@@ -62,8 +63,8 @@ export function TabNavigator() {
           },
         }}
         options={{
-          tabBarTestID: TestIDs.TabBarItemMain,
-          tabBarAccessibilityLabel: TestIDs.TabBarItemMain,
+          tabBarTestID: 'tabBarItemMain',
+          tabBarAccessibilityLabel: 'tabBarItemMain',
           tabBarLabel: t('tabs.home'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -83,8 +84,8 @@ export function TabNavigator() {
           },
         }}
         options={{
-          tabBarTestID: TestIDs.TabBarItemMap,
-          tabBarAccessibilityLabel: TestIDs.TabBarItemMap,
+          tabBarTestID: 'tabBarItemMap',
+          tabBarAccessibilityLabel: 'tabBarItemMap',
           tabBarLabel: t('tabs.map'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -104,8 +105,8 @@ export function TabNavigator() {
           },
         }}
         options={{
-          tabBarTestID: TestIDs.TabBarItemFavorites,
-          tabBarAccessibilityLabel: TestIDs.TabBarItemFavorites,
+          tabBarTestID: 'tabBarItemFavorites',
+          tabBarAccessibilityLabel: 'tabBarItemFavorites',
           tabBarLabel: t('tabs.bookmarks'),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -125,8 +126,8 @@ export function TabNavigator() {
           },
         }}
         options={{
-          tabBarTestID: TestIDs.TabBarItemProfile,
-          tabBarAccessibilityLabel: TestIDs.TabBarItemProfile,
+          tabBarTestID: 'tabBarItemProfile',
+          tabBarAccessibilityLabel: 'tabBarItemProfile',
           tabBarLabel: t('tabs.profile'),
           tabBarIcon: ({color, focused}) => (
             <Icon

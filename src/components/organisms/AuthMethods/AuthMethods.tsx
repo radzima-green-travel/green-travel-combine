@@ -5,8 +5,7 @@ import {useThemeStyles} from 'core/hooks';
 import {isIOS} from 'services/PlatformService';
 import {themeStyles} from './styles';
 import {useTranslation} from 'react-i18next';
-import {getPlatformsTestID} from 'core/helpers';
-import {TestIDs} from 'core/types';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   onEmailButtonPress: () => void;
@@ -16,6 +15,7 @@ interface IProps {
   googleLoading?: boolean;
   facebookLoading?: boolean;
   appleLoading?: boolean;
+  testID: string;
 }
 
 export const AuthMethods = memo(
@@ -27,15 +27,16 @@ export const AuthMethods = memo(
     googleLoading,
     facebookLoading,
     appleLoading,
+    testID,
   }: IProps) => {
     const {t} = useTranslation('authentification');
     const {t: tCommon} = useTranslation('common');
 
     const styles = useThemeStyles(themeStyles);
 
-    const AppleButton = () => (
+    const getAppleButton = () => (
       <Button
-        {...getPlatformsTestID(TestIDs.AppleAuthButton)}
+        testID={composeTestID(testID, 'appleButton')}
         theme={'blackAndWhite'}
         style={styles.otherOptionsButton}
         onPress={onAppleButtonPress}
@@ -47,9 +48,9 @@ export const AuthMethods = memo(
       />
     );
 
-    const GmailButton = () => (
+    const getGmailButton = () => (
       <Button
-        {...getPlatformsTestID(TestIDs.GoogleAuthButton)}
+        testID={composeTestID(testID, 'googleButton')}
         theme={'secondary'}
         style={styles.otherOptionsButton}
         onPress={onGoogleButtonPress}
@@ -62,19 +63,17 @@ export const AuthMethods = memo(
       />
     );
 
-    const FirstButton = isIOS ? AppleButton : GmailButton;
-
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{t('authSelectionTitle')}</Text>
-        <FirstButton />
+        {isIOS ? getAppleButton() : getGmailButton()}
         <View style={styles.separatorSection}>
           <View style={styles.separator} />
           <Text style={styles.separatorText}>{tCommon('or')}</Text>
           <View style={styles.separator} />
         </View>
         <Button
-          {...getPlatformsTestID(TestIDs.FacebookAuthButton)}
+          testID={composeTestID(testID, 'facebookButton')}
           theme={'secondary'}
           style={styles.otherOptionsButton}
           textStyle={styles.otherButtonText}
@@ -85,9 +84,9 @@ export const AuthMethods = memo(
           icon={() => <Icon name={'facebookAuth'} />}
           iconPosition="left"
         />
-        {isIOS && <GmailButton />}
+        {isIOS && getGmailButton()}
         <Button
-          {...getPlatformsTestID(TestIDs.EmailAuthButton)}
+          testID={composeTestID(testID, 'emailButton')}
           theme={'secondary'}
           textStyle={styles.otherButtonText}
           style={styles.otherOptionsButton}

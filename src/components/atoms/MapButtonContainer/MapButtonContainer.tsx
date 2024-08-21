@@ -2,12 +2,11 @@ import {useThemeStyles} from 'core/hooks';
 import React, {memo, PropsWithChildren} from 'react';
 import {Pressable, StyleProp, ViewStyle} from 'react-native';
 import {themeStyles} from './styles';
-import {TestIDs} from 'core/types';
 import {getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   onPress: () => void;
-  testID?: TestIDs;
+  testID: string;
   style?: StyleProp<ViewStyle>;
 }
 

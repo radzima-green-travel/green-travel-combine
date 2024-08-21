@@ -70,7 +70,7 @@ export const ProfileDetails = () => {
         onPress={onSignOutPress}
         title={t('goOut')}
       />
-      <SnackBar {...snackBarProps} />
+      <SnackBar testID="snackBar" {...snackBarProps} />
     </View>
   );
 };

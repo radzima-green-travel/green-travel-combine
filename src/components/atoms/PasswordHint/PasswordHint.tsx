@@ -11,18 +11,23 @@ import {
   NUMBER_REGEX,
   NO_SPACES_REGEX,
 } from 'core/validation';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   passwordValue: string;
+  testID: string;
 }
 
-export const PasswordHint = memo(({passwordValue}: IProps) => {
+export const PasswordHint = memo(({passwordValue, testID}: IProps) => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('authentification');
   const renderHint = (text: string, isCompleted: boolean) => {
     return (
-      <View style={styles.rowContainer}>
+      <View
+        {...getPlatformsTestID(composeTestID(testID, 'hintItem'))}
+        style={styles.rowContainer}>
         <Icon
+          testID={composeTestID(testID, 'icon')}
           name={isCompleted ? 'check' : 'close'}
           size={20}
           style={isCompleted ? styles.successIcon : styles.icon}
@@ -32,7 +37,7 @@ export const PasswordHint = memo(({passwordValue}: IProps) => {
     );
   };
   return (
-    <View style={styles.container}>
+    <View {...getPlatformsTestID('hint')} style={styles.container}>
       <Text style={styles.text}>{t('passwordMustContain')}</Text>
       <View style={styles.hintsContainer}>
         {renderHint(

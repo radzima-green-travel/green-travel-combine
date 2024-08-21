@@ -11,14 +11,13 @@ import {Image} from 'expo-image';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {TestIDs} from 'core/types';
 import {ZoomableView} from '../ZoomableViewGlobal';
 interface IProps {
   images?: string[];
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   width: number;
   height: number;
-  imageTestID: TestIDs;
+  testID: string;
   activePage: number;
   onImagePress?: () => void;
 }
@@ -28,7 +27,7 @@ export const ImageSlider = ({
   onScroll,
   width,
   height,
-  imageTestID,
+  testID,
   activePage,
   onImagePress,
 }: IProps) => {
@@ -49,7 +48,7 @@ export const ImageSlider = ({
           style={[styles.image as ImageStyle, {width}]}
           contentFit="cover"
           source={imageSourse.uri}
-          {...getPlatformsTestID(composeTestID(imageTestID, index))}
+          {...getPlatformsTestID(composeTestID(testID, index))}
         />
       </Pressable>
     );

@@ -1,10 +1,11 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React, {memo, useMemo} from 'react';
 import {Icon} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 import {isIOS} from 'services/PlatformService';
-import {TestIDs} from 'core/types';
 import {ButtonsGroup} from '../ButtonsGroup';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   onShowOnMapPress: () => void;
@@ -13,6 +14,7 @@ interface IProps {
   isFavorite: boolean;
   isFavoriteLoading: boolean;
   showOnMapButtonEnabled: boolean;
+  testID: string;
 }
 
 export const ObjectDetailsBottomButtons = memo(
@@ -23,6 +25,7 @@ export const ObjectDetailsBottomButtons = memo(
     isFavorite,
     isFavoriteLoading,
     showOnMapButtonEnabled,
+    testID,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
@@ -32,7 +35,7 @@ export const ObjectDetailsBottomButtons = memo(
         {
           onPress: onShowOnMapPress,
           theme: 'primary' as const,
-          testID: TestIDs.SeeOnTheMapButton,
+          testID: composeTestID(testID, 'showOnMapButton'),
           text: t('seeOnTheMap'),
           disabled: !showOnMapButtonEnabled,
         },
@@ -41,7 +44,7 @@ export const ObjectDetailsBottomButtons = memo(
           theme: 'secondary' as const,
           isIconOnlyButton: true,
           loading: isFavoriteLoading,
-          testID: TestIDs.HeaderBookmarkButton,
+          testID: composeTestID(testID, 'bookmarkButton'),
           checked: isFavorite,
           icon: textStyle => (
             <Icon
@@ -55,7 +58,8 @@ export const ObjectDetailsBottomButtons = memo(
           onPress: onSharePress,
           theme: 'secondary' as const,
           isIconOnlyButton: true,
-          testID: TestIDs.HeaderShareButton,
+          testID: composeTestID(testID, 'shareButton'),
+
           icon: textStyle => (
             <Icon
               name={isIOS ? 'shareIos' : 'shareAndroid'}
@@ -73,6 +77,7 @@ export const ObjectDetailsBottomButtons = memo(
       onShowOnMapPress,
       showOnMapButtonEnabled,
       t,
+      testID,
     ]);
 
     return (

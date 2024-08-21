@@ -13,6 +13,7 @@ export const ForceUpdate = () => {
   return (
     <View style={styles.contentContainer}>
       <UpdateView
+        testID="updateView"
         title={t('updateRequired')}
         subTitle={t('properWork')}
         buttonText={t('update')}

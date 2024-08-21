@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React, {memo, forwardRef, useMemo} from 'react';
 import {View, Text} from 'react-native';
 
@@ -8,6 +9,7 @@ import {useThemeStyles} from 'core/hooks';
 import {Button} from 'atoms/Button';
 import {Icon} from 'atoms/Icon';
 import {isEqual} from 'lodash';
+import {composeTestID} from 'core/helpers';
 
 export interface SnackBarProps {
   isOnTop?: boolean;
@@ -17,6 +19,7 @@ export interface SnackBarProps {
   offset?: number;
   withCloseButton?: boolean;
   hide?: () => void;
+  testID: string;
 }
 
 export const SnackBar = memo(
@@ -30,6 +33,7 @@ export const SnackBar = memo(
         offset,
         withCloseButton = false,
         hide,
+        testID,
       },
       ref,
     ) => {
@@ -58,11 +62,17 @@ export const SnackBar = memo(
             </Text>
             {withCloseButton ? (
               <Button
+                testID={composeTestID(testID, 'closeButton')}
                 style={styles.icon}
                 onPress={hide}
                 isIconOnlyButton
                 icon={() => (
-                  <Icon name={'close'} size={24} style={styles.closeIcon} />
+                  <Icon
+                    testID={composeTestID(testID, 'closeIcon')}
+                    name={'close'}
+                    size={24}
+                    style={styles.closeIcon}
+                  />
                 )}
               />
             ) : null}

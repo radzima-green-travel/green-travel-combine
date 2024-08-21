@@ -5,7 +5,7 @@ import {COLORS} from 'assets';
 import {useColorScheme} from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
-import {TestIDs} from 'core/types';
+import {getPlatformsTestID} from 'core/helpers';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -46,7 +46,7 @@ export function useScreenOptions({
       headerLeft: props => {
         return props.canGoBack ? (
           <TouchableOpacity
-            testID={TestIDs.HeaderBackButton}
+            {...getPlatformsTestID('backButton')}
             hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
             activeOpacity={0.8}
             onPress={() => navigation.goBack()}>
@@ -55,7 +55,11 @@ export function useScreenOptions({
         ) : null;
       },
       headerTitle: props => (
-        <HeaderTitle title={props.children} tintColor={props.tintColor} />
+        <HeaderTitle
+          testID="headerTitle"
+          title={props.children}
+          tintColor={props.tintColor}
+        />
       ),
       ...customOptions,
     }) as NativeStackNavigationOptions;

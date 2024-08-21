@@ -4,7 +4,6 @@ import {FormInput, PasswordHint, SnackBar, WithFormikInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useNewPassword} from './hooks';
 import {FormikProvider} from 'formik';
-import {TestIDs} from 'core/types';
 
 export const NewPassword = () => {
   const {t} = useTranslation('authentification');
@@ -26,12 +25,13 @@ export const NewPassword = () => {
         title={t('newPassword')}
         onSubmitPress={submitForm}
         submitButtonText={buttonText}
+        testID="authForm"
         isSubmitButtonDisabled={isSubmitButtonDisabled}
         submitButtonLoading={loading}>
         <WithFormikInput<string> name="password">
           {({messageText, ...inputProps}) => (
             <FormInput
-              testID={TestIDs.PasswordInput}
+              testID={'passwordInput'}
               autoFocus
               iconRight={{
                 name: rightIcon,
@@ -41,14 +41,19 @@ export const NewPassword = () => {
               secureTextEntry={passwordHidden}
               onRightIconPress={handlePasswordHidden}
               messageText={messageText ? t(messageText) : undefined}
-              helperText={<PasswordHint passwordValue={inputProps.value} />}
+              helperText={
+                <PasswordHint
+                  testID="passwordInputHint"
+                  passwordValue={inputProps.value}
+                />
+              }
               {...inputProps}
               error={false}
             />
           )}
         </WithFormikInput>
       </AuthForm>
-      <SnackBar isOnTop {...snackBarProps} />
+      <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
     </FormikProvider>
   );
 };

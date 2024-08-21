@@ -7,6 +7,7 @@ import {FavoriteButtonContainer} from 'containers';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {COLORS} from 'assets';
 import {IObject} from 'core/types';
+import {composeTestID} from 'core/helpers';
 
 export type ObjectDetailsMapBottomMenuRef = {
   show: () => void;
@@ -21,6 +22,7 @@ interface IProps {
   loading: boolean;
   isDirectionShowed: boolean;
   belongsToSubtitle: string | null;
+  testID: string;
 }
 
 export const ObjectDetailsMapBottomMenu = memo(
@@ -31,6 +33,7 @@ export const ObjectDetailsMapBottomMenu = memo(
     loading,
     isDirectionShowed,
     belongsToSubtitle,
+    testID,
   }: IProps) => {
     const {t} = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
@@ -69,6 +72,7 @@ export const ObjectDetailsMapBottomMenu = memo(
               <Text style={styles.text}>{name}</Text>
 
               <FavoriteButtonContainer
+                testID={composeTestID(testID, 'favoriteButton')}
                 loadingIndicatorColor={
                   (styles.icon as TextStyle).color as string
                 }
@@ -90,6 +94,7 @@ export const ObjectDetailsMapBottomMenu = memo(
           </View>
 
           <Button
+            testID={composeTestID(testID, 'showDirectionButton')}
             style={[styles.button, !bottomInset && {marginBottom: 16}]}
             loading={loading}
             onPress={() => {

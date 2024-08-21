@@ -4,7 +4,6 @@ import {FormInput, SnackBar, WithFormikInput} from 'atoms';
 import {AuthForm} from 'organisms';
 import {useCheckEmail} from './hooks';
 import {FormikProvider} from 'formik';
-import {TestIDs} from 'core/types';
 
 export const CheckEmail = () => {
   const {t} = useTranslation('authentification');
@@ -18,11 +17,12 @@ export const CheckEmail = () => {
         onSubmitPress={submitForm}
         submitButtonText={t('check')}
         isSubmitButtonDisabled={isSubmitButtonDisabled}
+        testID="authForm"
         submitButtonLoading={loading}>
         <WithFormikInput<string> name="email">
           {({messageText, ...inputProps}) => (
             <FormInput
-              testID={TestIDs.EmailInput}
+              testID={'emailInput'}
               autoFocus
               label={t('email')}
               keyboardType="email-address"
@@ -32,7 +32,7 @@ export const CheckEmail = () => {
           )}
         </WithFormikInput>
       </AuthForm>
-      <SnackBar isOnTop {...snackBarProps} />
+      <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
     </FormikProvider>
   );
 };

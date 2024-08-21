@@ -70,6 +70,7 @@ export const SearchList = memo(
                   <SwipeToDeleteContainer
                     data={item}
                     key={item.id}
+                    testID={composeTestID(testID, 'swipeToDelete')}
                     onDeletePress={onDeletePress}>
                     <SearchListItem
                       onPress={onItemPress}

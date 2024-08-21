@@ -15,7 +15,6 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {styles} from './styles';
 import {View} from 'react-native';
 import {screenOptions} from './screenOptions';
-import {TestIDs} from 'core/types';
 
 const HandleKeyboardScrollView =
   createHandleKeyboardScrollComponent(ScrollView);
@@ -41,11 +40,12 @@ export const ChangePassword = () => {
             onSubmitPress={submitForm}
             submitButtonText={t('updatePassword')}
             isSubmitButtonDisabled={isSubmitButtonDisabled}
+            testID="authForm"
             submitButtonLoading={loading}>
             <WithFormikInput<string> name="oldPassword">
               {({messageText, ...inputProps}) => (
                 <FormInput
-                  testID={TestIDs.OldPasswordInput}
+                  testID={'oldPasswordInput'}
                   autoFocus
                   iconRight={{
                     name: oldPasswordHidden.rightIcon,
@@ -66,7 +66,7 @@ export const ChangePassword = () => {
               <WithFormikInput<string> name="newPassword">
                 {({messageText, ...inputProps}) => (
                   <FormInput
-                    testID={TestIDs.NewPasswordInput}
+                    testID={'newPasswordInput'}
                     iconRight={{
                       name: newPasswordHidden.rightIcon,
                       checked: !newPasswordHidden.passwordHidden,
@@ -76,7 +76,10 @@ export const ChangePassword = () => {
                     onRightIconPress={newPasswordHidden.handlePasswordHidden}
                     messageText={messageText ? t(messageText) : undefined}
                     helperText={
-                      <PasswordHint passwordValue={inputProps.value} />
+                      <PasswordHint
+                        testID="nesPasswordInputHint"
+                        passwordValue={inputProps.value}
+                      />
                     }
                     returnKeyType="done"
                     maxLength={99}
@@ -88,7 +91,7 @@ export const ChangePassword = () => {
             </View>
           </AuthForm>
         </HandleContainer>
-        <SnackBar isOnTop {...snackBarProps} />
+        <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
       </FormikProvider>
     </HandleKeyboardScrollView>
   );

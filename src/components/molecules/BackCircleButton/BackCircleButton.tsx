@@ -5,13 +5,14 @@ import {View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {themeStyles, TOP} from './styles';
 import {AnimatedCircleButton} from '../AnimatedCircleButton';
-import {TestIDs} from 'core/types';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   onPress: () => void;
+  testID: string;
 }
 
-export const BackCircleButton = memo(({onPress}: IProps) => {
+export const BackCircleButton = memo(({onPress, testID}: IProps) => {
   const navigation = useNavigation();
   const styles = useThemeStyles(themeStyles);
 
@@ -23,7 +24,7 @@ export const BackCircleButton = memo(({onPress}: IProps) => {
         icon={{
           name: 'chevronMediumLeft',
         }}
-        testID={TestIDs.HeaderBackButton}
+        testID={composeTestID(testID, 'backButton')}
         onPress={() => {
           if (navigation.canGoBack()) {
             navigation.goBack();

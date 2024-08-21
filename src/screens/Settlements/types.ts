@@ -24,6 +24,9 @@ export type SettlementsScreenRouteProps = RouteProp<
 export interface IProps {
   navigation: HomeScreenNavigationProps;
   route: SettlementsScreenRouteProps;
+  testID: string;
 }
 
-export type ScreenOptions = (props: IProps) => NativeStackNavigationOptions;
+export type ScreenOptions = (
+  props: Omit<IProps, 'testID'>,
+) => NativeStackNavigationOptions;

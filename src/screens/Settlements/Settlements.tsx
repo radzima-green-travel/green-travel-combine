@@ -2,13 +2,12 @@ import React, {useCallback, useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
-import {TestIDs} from 'core/types';
 import {screenOptions} from './screenOptions';
 import {themeStyles, ITEM_HEIGHT} from './styles';
 import {SectionList} from 'react-native';
 import {ButtonsGroup, SearchField} from 'molecules';
 import {useSettlements} from './hooks';
-import {composeTestID} from 'core/helpers';
+import {getPlatformsTestID} from 'core/helpers';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ListItemCheckbox} from 'molecules/ListItem';
 
@@ -44,7 +43,7 @@ export const Settlements = () => {
       <View style={styles.sectionHeaderWrapper}>
         <View
           style={styles.sectionHeaderContainer}
-          testID={composeTestID(TestIDs.SettlementSectionListHeader, title)}>
+          {...getPlatformsTestID('sectionHeader')}>
           <Text style={styles.sectionHeaderText}>{title}</Text>
         </View>
       </View>
@@ -61,7 +60,7 @@ export const Settlements = () => {
       selectedSettlements.length ? (
         <TouchableOpacity
           onPress={resetSelectedSettlements}
-          testID={TestIDs.HeaderResetButton}>
+          {...getPlatformsTestID('headerResetButton')}>
           <Text style={styles.resetButtonText}>{t('settlements.reset')}</Text>
         </TouchableOpacity>
       ) : null,
@@ -70,7 +69,9 @@ export const Settlements = () => {
 
   const renderListEmptyComponent = useCallback(
     () => (
-      <View style={styles.listEmptyContainer} testID={TestIDs.NotFound}>
+      <View
+        style={styles.listEmptyContainer}
+        {...getPlatformsTestID('emptyView')}>
         <Text style={styles.listEmptyText}>
           {t('settlements.nothingFound')}
         </Text>
@@ -88,11 +89,12 @@ export const Settlements = () => {
   return (
     <View style={styles.container}>
       <SearchField
-        testID={TestIDs.SearchBar}
+        testID={'searchField'}
         onChange={handleSearchValue}
         value={searchValue}
       />
       <SuspenseView
+        testID="suspenseView"
         loading={fullScreenLoading}
         error={errorTexts}
         retryCallback={getSettlementsData}>
@@ -109,7 +111,7 @@ export const Settlements = () => {
               title={item.value}
               checked={selectedSettlements.includes(item.id)}
               onPress={chooseSettlement}
-              testID={TestIDs.SettlementSectionListItem}
+              testID={'settlementsListItem'}
             />
           )}
           ListEmptyComponent={renderListEmptyComponent}
@@ -126,7 +128,7 @@ export const Settlements = () => {
                     amount: selectedSettlements.length,
                   })
                 : t('settlements.apply'),
-              testID: TestIDs.ApplyButton,
+              testID: 'applyButton',
               disabled: isApplyButtonDisabled,
               onPress: applySettlements,
             },

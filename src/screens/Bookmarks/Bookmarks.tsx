@@ -4,7 +4,6 @@ import {styles} from './styles';
 import {BookmarkItem, SuspenseView} from 'atoms';
 import {BookmarksEmptyView} from 'molecules';
 import {useBookmarks} from './hooks';
-import {TestIDs} from 'core/types';
 
 export const Bookmarks = () => {
   const {
@@ -20,7 +19,8 @@ export const Bookmarks = () => {
     <SuspenseView
       retryCallback={fetchInitialObjectsData}
       loading={loading}
-      error={error}>
+      error={error}
+      testID={'bookmarksSuspenseView'}>
       {showEmptyView ? (
         <BookmarksEmptyView />
       ) : (
@@ -33,7 +33,7 @@ export const Bookmarks = () => {
                 isOdd={index % 2 === 0}
                 isLast={items.length - 1 === index}
                 count={category.objectsIds.length}
-                testID={TestIDs.FavoritesCard}
+                testID={'bookmarksCard'}
                 onPress={navigateToBookmarksList}
               />
             ))}

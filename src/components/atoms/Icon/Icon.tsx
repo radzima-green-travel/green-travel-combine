@@ -14,7 +14,7 @@ export interface Props {
   size?: number;
   style?: StyleProp<TextStyle>;
   additionalColor?: string;
-  testID: string;
+  testID?: string;
   checked?: boolean;
 }
 
@@ -28,7 +28,7 @@ export const Icon = ({
   size,
   style = {},
   additionalColor,
-  testID,
+  testID = name,
   checked = false,
 }: Props) => {
   const IconComponent = IconsMap[name];

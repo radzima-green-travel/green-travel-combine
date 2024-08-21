@@ -4,15 +4,17 @@ import {SearchObject} from 'core/types';
 import {Icon} from 'atoms';
 import {styles} from './styles';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
   data: SearchObject;
   children: React.ReactNode;
   onDeletePress: (object: SearchObject) => void;
+  testID: string;
 }
 
 export const SwipeToDeleteContainer = memo(
-  ({children, data, onDeletePress}: IProps) => {
+  ({children, data, onDeletePress, testID}: IProps) => {
     const onPressDeleteHandler = useCallback(() => {
       onDeletePress(data);
     }, [onDeletePress, data]);
@@ -25,9 +27,15 @@ export const SwipeToDeleteContainer = memo(
       });
 
       return (
-        <View style={styles.rightDeleteActionBox}>
+        <View
+          {...getPlatformsTestID(composeTestID(testID, 'deleteButton'))}
+          style={styles.rightDeleteActionBox}>
           <Animated.View style={{opacity: opacity}}>
-            <Icon name="delete" size={36} />
+            <Icon
+              testID={composeTestID(testID, 'deleteIcon')}
+              name="delete"
+              size={36}
+            />
           </Animated.View>
         </View>
       );

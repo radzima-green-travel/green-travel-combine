@@ -6,7 +6,6 @@ import {styles} from './styles';
 import {isIOS, SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useBookmarksList} from './hooks';
-import {TestIDs} from 'core/types';
 import {SuspenseView} from 'atoms';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
@@ -26,6 +25,7 @@ export const BookmarksList = () => {
     <SuspenseView
       loading={loading}
       retryCallback={retryFetchListData}
+      testID={'bookmarksListSuspense'}
       error={errorTexts}>
       <FlatList
         data={filteredListData}
@@ -40,7 +40,7 @@ export const BookmarksList = () => {
             width={cardWidth}
             onPress={navigateToObjectDetails}
             onFavoriteChanged={sendIsFavoriteChangedEvent}
-            testID={TestIDs.ObjectTitle}
+            testID={'objectCard'}
           />
         )}
       />

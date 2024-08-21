@@ -1,5 +1,6 @@
 {
   "expo": {
+    "name": "Radzima",
     "slug": "radzima",
     "scheme": "radzima",
     "userInterfaceStyle": "automatic",

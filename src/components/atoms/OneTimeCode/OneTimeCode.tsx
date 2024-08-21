@@ -4,7 +4,6 @@ import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {HelperText} from '../HelperText';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {TestIDs} from 'core/types';
 import {useTextInputAutoFocus} from 'core/hooks';
 
 interface IProp {
@@ -14,6 +13,7 @@ interface IProp {
   error?: boolean;
   codeLength?: number;
   autoFocus?: boolean;
+  testID: string;
 }
 
 export const OneTimeCode = ({
@@ -23,6 +23,7 @@ export const OneTimeCode = ({
   codeLength = 6,
   value,
   autoFocus = false,
+  testID,
 }: IProp) => {
   const styles = useThemeStyles(themeStyles);
   const [containerIsFocused, setContainerIsFocused] = useState(false);
@@ -59,7 +60,7 @@ export const OneTimeCode = ({
 
     return (
       <View
-        {...getPlatformsTestID(composeTestID(TestIDs.CodeInput, index))}
+        {...getPlatformsTestID(composeTestID(testID, index))}
         key={index}
         style={[
           styles.digitContainer,

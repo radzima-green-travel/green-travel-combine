@@ -3,13 +3,14 @@ import {View, StyleProp, ViewStyle} from 'react-native';
 import {Portal} from '@gorhom/portal';
 import {BottomMenu} from 'atoms';
 import {ListItem} from 'molecules';
-import {BaseListItemProps} from 'molecules/ListItem';
+import {ListItemProps} from 'molecules/ListItem';
 import {useBottomMenu, useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
+import {composeTestID} from 'core/helpers';
 
 interface IProps {
   menuProps: ReturnType<typeof useBottomMenu>;
-  menuItems: BaseListItemProps[];
+  menuItems: ListItemProps[];
   containerListStyle?: StyleProp<ViewStyle>;
   testID: string;
 }
@@ -32,7 +33,7 @@ const MenuItem = memo(
     tailIcon,
     position,
     leadIconStyle,
-  }: BaseListItemProps) => {
+  }: ListItemProps) => {
     const styles = useThemeStyles(themeStyles);
 
     return (
@@ -71,7 +72,11 @@ export const ObjectDetailsListItemsMenu = ({
       <BottomMenu testID={testID} withBackdrop {...menuProps}>
         <View style={[styles.container, containerListStyle]}>
           {menuItems.map(item => (
-            <MenuItem key={item.title} {...item} />
+            <MenuItem
+              key={item.title}
+              {...item}
+              testID={composeTestID(testID, 'menuItem')}
+            />
           ))}
         </View>
       </BottomMenu>

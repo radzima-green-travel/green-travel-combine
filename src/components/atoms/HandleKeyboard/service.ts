@@ -1,4 +1,4 @@
-import {StatusBar, View, HostComponent, ScrollView} from 'react-native';
+import {StatusBar, View, ScrollView} from 'react-native';
 import {invoke, has} from 'lodash';
 import {isIOS} from 'services/PlatformService';
 
@@ -20,7 +20,7 @@ export const calculateAndAdjustKeyboard = ({
   additionalNodeOffset: number;
 }) => {
   nodeToHandle?.measureLayout(
-    scrollNode as unknown as HostComponent<unknown>,
+    scrollNode as unknown as number,
     (_nodeX: number, nodeY: number, _nodeWidth: number, nodeHeight: number) => {
       // @ts-ignore
       scrollNode?.measureInWindow(

@@ -6,12 +6,19 @@ import {styles} from './styles';
 interface IProps {
   pagesAmount: number;
   page: number;
+  testID: string;
 }
 
-export const ObjectDetailsPager = memo(({pagesAmount, page}: IProps) => {
-  return (
-    <View style={styles.pagerContainer}>
-      <NumPager currentPage={page} pagesAmount={pagesAmount} />
-    </View>
-  );
-});
+export const ObjectDetailsPager = memo(
+  ({pagesAmount, page, testID}: IProps) => {
+    return (
+      <View style={styles.pagerContainer}>
+        <NumPager
+          testID={testID}
+          currentPage={page}
+          pagesAmount={pagesAmount}
+        />
+      </View>
+    );
+  },
+);

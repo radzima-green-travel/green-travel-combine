@@ -17,6 +17,7 @@ import {
 } from 'core/hooks';
 import {themeStyles} from './styles';
 import {PADDING_HORIZONTAL} from 'core/constants';
+import {TextInput} from 'react-native';
 
 interface IProps {
   testID: string;
@@ -28,14 +29,8 @@ interface IProps {
   onInputValueChange?: (value: string) => void;
 }
 
-export interface ObjectReportinaccuraciesMenuRef {
-  focus: () => void;
-  blur: () => void;
-  clear: () => void;
-}
-
 export const ObjectReportinaccuraciesMenu = memo(
-  forwardRef<ObjectReportinaccuraciesMenuRef, IProps>(
+  forwardRef<TextInput, IProps>(
     (
       {
         testID,

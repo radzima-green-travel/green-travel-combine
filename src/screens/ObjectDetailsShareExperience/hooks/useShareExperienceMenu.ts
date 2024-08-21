@@ -1,12 +1,11 @@
 import {useBackHandler, useBottomMenu, useStaticCallback} from 'core/hooks';
 import {useCallback, useRef, useState} from 'react';
-import {ObjectReportinaccuraciesMenuRef} from 'molecules';
-import {Keyboard} from 'react-native';
+import {Keyboard, TextInput} from 'react-native';
 import {useDerivedValue, useSharedValue} from 'react-native-reanimated';
 import {useObjectShareExperienceAnalytics} from './useObjectShareExperienceAnalytics';
 
 export function useShareExperienceMenu() {
-  const innaccuraciesMenuRef = useRef<ObjectReportinaccuraciesMenuRef>(null);
+  const innaccuraciesMenuRef = useRef<TextInput>(null);
 
   const {sendReportInaccuranceViewEvent} = useObjectShareExperienceAnalytics();
 

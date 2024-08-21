@@ -1,5 +1,5 @@
 import {useBottomMenu} from 'core/hooks';
-import {setSkipAppUpdate} from 'core/reducers';
+import {setSkipAppUpdate} from 'core/actions';
 import {useCallback} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch} from 'react-redux';

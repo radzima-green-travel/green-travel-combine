@@ -10,8 +10,6 @@ import {ObjectField} from 'core/constants';
 import {BottomMenu} from 'atoms';
 import {ConfirmMenu} from 'molecules';
 import {sendAddInfoEmailRequest} from 'core/reducers';
-import {TestIDs} from 'core/types';
-import {composeTestID} from 'core/helpers';
 import {selectForPlatform} from 'services/PlatformService';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -57,7 +55,7 @@ export const ObjectDetailsAddInfo = () => {
       {
         onPress: onSendPress,
         theme: 'primary' as const,
-        testID: TestIDs.ObjectDetailsAddInfoSubmitButton,
+        testID: 'addInfoSubmitButton',
         text: t('send'),
         loading: isSendLoading,
         disabled: !isFormValid,
@@ -82,7 +80,7 @@ export const ObjectDetailsAddInfo = () => {
         ]}>
         <AnimatedCircleButton
           icon={{name: 'chevronMediumLeft'}}
-          testID={TestIDs.HeaderBackButton}
+          testID={'backButton'}
           onPress={onBackPress}
         />
       </View>
@@ -98,10 +96,7 @@ export const ObjectDetailsAddInfo = () => {
             {incompleteFields.map(field => (
               <ListItem
                 key={field.id}
-                testID={composeTestID(
-                  TestIDs.ObjectDetailsAddInfoList,
-                  `${field.id} button`,
-                )}
+                testID={'item'}
                 subtitle={getDisplayValue(field.id)}
                 leadIcon={ICONS_MAP[field.id]}
                 title={field.label}
@@ -114,6 +109,7 @@ export const ObjectDetailsAddInfo = () => {
             <ObjectDetailsAddInfoMenu
               currentField={currentField}
               onHideEnd={onMenuHideEnd}
+              testID="addInfoMenu"
               addInfoMenuProps={addInfoMenuProps}
               onChange={onChange}
               value={value}
@@ -128,12 +124,9 @@ export const ObjectDetailsAddInfo = () => {
         buttons={buttons}
         containerStyle={styles.buttonContainer}
       />
-      <BottomMenu
-        withBackdrop
-        testID={TestIDs.ObjectDetailsAddInfoConfirmMenu}
-        {...confirmMenuProps}>
+      <BottomMenu withBackdrop testID={'bottomMenu'} {...confirmMenuProps}>
         <ConfirmMenu
-          testID={TestIDs.ObjectDetailsAddInfoConfirmContent}
+          testID={'confirmMenu'}
           title={t('confirmAddedInfoTitle')}
           subtitle={t('confirmAddedInfoSubtitle')}
           buttonConfirmText={t('confirmAddedInfoSubmit')}

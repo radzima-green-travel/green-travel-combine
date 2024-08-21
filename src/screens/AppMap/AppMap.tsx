@@ -18,7 +18,7 @@ import {
 } from 'molecules';
 
 import {FeatureCollection, Point} from '@turf/helpers';
-import {SearchObject, TestIDs} from 'core/types';
+import {SearchObject} from 'core/types';
 
 import {WINDOW_HEIGHT} from 'services/PlatformService';
 import {useAppMap} from './hooks';
@@ -87,6 +87,7 @@ export const AppMap = () => {
     <SuspenseView
       error={errorTexts}
       loading={loading}
+      testID={'AppMapSuspenseView'}
       retryCallback={getAppMapObjects}>
       {markers ? (
         <View style={styles.container}>
@@ -98,7 +99,7 @@ export const AppMap = () => {
             onShapePress={onShapePress}
             onPress={onMapPress}
             locale={currentLocale}
-            testID={TestIDs.MapOverview}>
+            testID={'clusterMap'}>
             {userLocationProps.visible ? (
               <UserLocation
                 renderMode={UserLocationRenderMode.Native}
@@ -126,10 +127,11 @@ export const AppMap = () => {
           </ClusterMap>
           <Portal>
             <BottomMenu
-              testID={TestIDs.AppMapSearchBottomMenu}
+              testID={'bottomMenu'}
               onHideEnd={onMenuHideEnd}
               {...menuProps}>
               <AppMapBottomMenu
+                testID={'appMapBottomMenu'}
                 data={selectedObject}
                 bottomInset={bottom}
                 onGetMorePress={navigateToObjectDetails}
@@ -140,15 +142,21 @@ export const AppMap = () => {
               onHideStart={Keyboard.dismiss}
               showDragIndicator={false}
               menuHeight={WINDOW_HEIGHT * 0.9}
-              testID={TestIDs.AppMapObjectBottomMenu}
+              testID="bottomMenu"
               {...searchMenuProps}>
               <AppMapBottomSearchMenu
+                testID={'appMapBottomSearchMenu'}
                 onBackPress={closeSearchMenu}
                 inputValue={inputValue}
                 onTextChange={onTextChange}
                 bottomInset={bottom}>
-                <SuspenseView cover {...searchSuspenseProps}>
-                  <SuspenseView {...searchHistorySuspenseProps}>
+                <SuspenseView
+                  testID={'appMapSuspenseView'}
+                  cover
+                  {...searchSuspenseProps}>
+                  <SuspenseView
+                    testID={'appMapSuspenseView'}
+                    {...searchHistorySuspenseProps}>
                     <SearchList
                       FlatListComponent={BottomSheetFlatList}
                       onItemPress={onItemPressHandler}
@@ -156,7 +164,7 @@ export const AppMap = () => {
                       onDeletePress={onDeleteItem}
                       isHistoryVisible={isHistoryVisible}
                       data={data}
-                      testID={TestIDs.SearchResultList}
+                      testID="searchList"
                       {...otherSearchListProps}
                     />
                   </SuspenseView>
@@ -166,12 +174,14 @@ export const AppMap = () => {
           </Portal>
 
           <AppMapButtons
+            testID="appMapButtons"
             isUserLocationFocused={isUserLocationFocused}
             bottomMenuPosition={menuProps.animatedPosition}
             onShowLocationPress={onShowLocationPress}
             onSearchPress={openSearchMenuAndPersistData}
           />
           <AppMapFilters
+            testID={'appMapFilters'}
             onFilterSelect={onFilterSelect}
             resetFilters={resetFilters}
             selectedFilters={selectedFilters}
