@@ -6,20 +6,20 @@ export const styles = createThemeStyles({
     flexDirection: 'row',
     paddingVertical: 4,
     borderRadius: 12,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
   },
   mainContainer: {
     flex: 1,
   },
   item: {
     height: 40,
-    minWidth: 84,
-    paddingHorizontal: 25,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
+    flex: 1,
   },
   text: {
-    ...FONTS_PRESETS.footnoteBold,
+    ...FONTS_PRESETS.footnoteBold, 
   },
 });
