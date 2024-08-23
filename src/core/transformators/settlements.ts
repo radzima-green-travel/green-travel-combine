@@ -1,5 +1,5 @@
 import {SpotItemDTO} from 'core/types';
-import {reduce, chain, includes, toLower} from 'lodash';
+import {reduce, chain, includes, toLower, orderBy} from 'lodash';
 
 export function prepareSettlementsSections(
   settlements: SpotItemDTO[],
@@ -7,7 +7,7 @@ export function prepareSettlementsSections(
   searchValue: string,
 ) {
   const sections = reduce(
-    settlements,
+    orderBy(settlements, 'value'),
     (acc, item) => {
       if (
         includes(regionsToInclude, item.id) &&
