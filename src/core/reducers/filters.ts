@@ -68,7 +68,8 @@ export const filtersReducer = createReducer(initialState, builder => {
     .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
       return {
         ...state,
-        filtersData: payload,
+        filtersData: payload.filtersResult,
+        activeFilters: payload?.activeFilters ?? state.activeFilters,
       };
     });
 });

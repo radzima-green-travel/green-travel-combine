@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect} from 'react';
 
 import {
   selectTransformedGoogleRatings,
@@ -29,7 +29,6 @@ export const useFilters = () => {
   const dispatch = useDispatch();
   const {show, ...snackBarProps} = useSnackbar();
   const navigation = useNavigation<HomeScreenNavigationProps>();
-  const activeFiltersFiltered = useRef(false);
 
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
@@ -61,11 +60,6 @@ export const useFilters = () => {
   }, [dispatch]);
 
   const getFiltersData = useCallback(() => {
-    if (activeFiltersFiltered.current) {
-      activeFiltersFiltered.current = false;
-      return;
-    }
-
     dispatch(
       getFiltersDataRequest({
         filter: activeFilters,
@@ -145,20 +139,6 @@ export const useFilters = () => {
   useEffect(() => {
     getFiltersInitialData();
   }, [getFiltersInitialData]);
-
-  useEffect(() => {
-    const updatedMunicipalities = activeFilters.municipalities.filter(
-      item => settlementsWithNumberOfItems[item],
-    );
-    if (updatedMunicipalities.length !== activeFilters.municipalities.length) {
-      activeFiltersFiltered.current = true;
-      chooseSettlements(updatedMunicipalities);
-    }
-  }, [
-    activeFilters.municipalities,
-    chooseSettlements,
-    settlementsWithNumberOfItems,
-  ]);
 
   useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
     show({
