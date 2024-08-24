@@ -98,21 +98,23 @@ export function prepareObjectInclude(
     includeItems,
     (acc, includeItem) => {
       const {
-        include: {category, id},
+        include: {category, id, blurhash},
       } = includeItem;
+
+      const {cover: objectCover} = processImagesUrls(includeItem.include);
 
       const {
         id: categoryId,
         name,
         cover,
       } = translateAndProcessImagesForEntity(category, currentLocale);
-
+      const objectData = {id, cover: objectCover, blurhash};
       if (some(acc, item => item.categoryId === categoryId)) {
         return map(acc, item => {
           return item.categoryId === categoryId
             ? {
                 ...item,
-                objects: [...item.objects, id],
+                objects: [...item.objects, objectData],
               }
             : item;
         });
@@ -121,7 +123,8 @@ export function prepareObjectInclude(
           categoryId,
           name,
           image: cover,
-          objects: [id],
+
+          objects: [objectData],
           analyticsMetadata: {
             name,
           },
@@ -162,6 +165,7 @@ export function prepareObjectBelongsTo(
         objectId,
         name,
         categoryName,
+        blurhash: belongsTo.blurhash,
         image: cover,
         analyticsMetadata: {
           name,

@@ -28,9 +28,11 @@ export const useBookmarksList = () => {
     useBookmarksListAnalytics();
 
   const navigateToObjectDetails = useCallback(
-    ({id, name, analyticsMetadata}: CardItem) => {
+    ({id, name, cover, blurhash, analyticsMetadata}: CardItem) => {
       navigate('ObjectDetails', {
         objectId: id,
+        objectCoverImageUrl: cover,
+        objcetCoverBlurhash: blurhash,
         analytics: {
           fromScreenName: getAnalyticsNavigationScreenName(),
         },

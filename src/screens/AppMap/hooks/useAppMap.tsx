@@ -214,15 +214,21 @@ export const useAppMap = () => {
 
   const navigateToObjectDetails = useCallback(
     ({id}: ObjectMap) => {
+      const itemData = find(objects, {id: id});
+
       unselectObject();
-      navigation.push('ObjectDetails', {
-        objectId: id,
-        analytics: {
-          fromScreenName: getAnalyticsNavigationScreenName(),
-        },
-      });
+      if (itemData) {
+        navigation.push('ObjectDetails', {
+          objectId: id,
+          objectCoverImageUrl: itemData.cover,
+          objcetCoverBlurhash: itemData.blurhash,
+          analytics: {
+            fromScreenName: getAnalyticsNavigationScreenName(),
+          },
+        });
+      }
     },
-    [unselectObject, navigation],
+    [objects, unselectObject, navigation],
   );
 
   const {findZoomForObjectInCluster} = useFindZoomForObjectInCluster();

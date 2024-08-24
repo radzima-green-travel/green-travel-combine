@@ -30,13 +30,12 @@ import {useObjectDetailsSelector} from 'core/hooks';
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
   const {
-    params: {objectId},
+    params: {objectId, objectCoverImageUrl, objcetCoverBlurhash},
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
   const dispatch = useDispatch();
   const data = useObjectDetailsSelector(selectObjectDetails);
-  const {getObjectDetailsRequest, clearObjectDetails} =
-    useObjectDetailsActions();
+  const {getObjectDetailsRequest} = useObjectDetailsActions();
 
   const {top} = useSafeAreaInsets();
 
@@ -80,13 +79,20 @@ export const useObjectDetails = () => {
   );
 
   const navigateToBelongsToObject = useCallback(
-    ({objectId: belongsToObjectId, analyticsMetadata}: IBelongsTo) => {
+    ({
+      objectId: belongsToObjectId,
+      blurhash,
+      image,
+      analyticsMetadata,
+    }: IBelongsTo) => {
       sendBelongsToNavigateEvent({
         objectName: analyticsMetadata.name,
         categoryName: analyticsMetadata.categoryName,
       });
       navigation.push('ObjectDetails', {
         objectId: belongsToObjectId,
+        objectCoverImageUrl: image,
+        objcetCoverBlurhash: blurhash,
         analytics: {
           fromScreenName: getAnalyticsNavigationScreenName(),
         },
@@ -99,8 +105,11 @@ export const useObjectDetails = () => {
     ({objects, categoryId, name, analyticsMetadata}: IInclude) => {
       sendActivitiesNavigateEvent(analyticsMetadata.name);
       if (objects.length === 1) {
+        const {id, cover, blurhash} = objects[0];
         navigation.push('ObjectDetails', {
-          objectId: objects[0],
+          objectId: id,
+          objcetCoverBlurhash: blurhash,
+          objectCoverImageUrl: cover,
           analytics: {
             fromScreenName: getAnalyticsNavigationScreenName(),
           },
@@ -109,7 +118,7 @@ export const useObjectDetails = () => {
         navigation.push('ObjectsList', {
           categoryId: categoryId,
           title: name,
-          objectsIds: objects,
+          objectsIds: objects.map(({id}) => id),
         });
       }
     },
@@ -156,11 +165,7 @@ export const useObjectDetails = () => {
 
   useEffect(() => {
     dispatch(getObjectDetailsRequest({objectId}));
-
-    return () => {
-      dispatch(clearObjectDetails());
-    };
-  }, [clearObjectDetails, dispatch, getObjectDetailsRequest, objectId]);
+  }, [dispatch, getObjectDetailsRequest, objectId]);
 
   useUpdateEffect(() => {
     sendSwitchPhotosEvent();
@@ -211,5 +216,7 @@ export const useObjectDetails = () => {
     goToImageGallery,
     navigateToBelongsToObject,
     navigateToIncludesObjectListOrPage,
+    objectCoverImageUrl,
+    objcetCoverBlurhash,
   };
 };

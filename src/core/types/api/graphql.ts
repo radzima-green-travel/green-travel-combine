@@ -114,6 +114,8 @@ export interface ObjectMapDTO {
   category: ObjectCategoryMapDTO;
   addresses: AddressessDTO;
   length: number | null;
+  cover: string;
+  blurhash: string | null;
 }
 
 export interface SearchObjetcCategoryDTO {
@@ -125,6 +127,8 @@ export interface SearchObjetcCategoryDTO {
 export interface SearchObjectDTO {
   name: string;
   id: string;
+  cover: string;
+  blurhash: string | null;
   i18n: Array<I18nType<'name'>>;
   category: SearchObjetcCategoryDTO;
   location: LocationDTO | null;
@@ -333,6 +337,8 @@ export type ChildServicesDTO = {
 
 export interface IncludeItemDTO {
   include: {
+    cover: string;
+    blurhash: string | null;
     id: string;
     category: {
       id: string;
@@ -349,6 +355,7 @@ export type IncludeDTO = {
 
 export interface BelongsToItemDTO {
   belongsTo: {
+    blurhash: string | null;
     id: string;
     i18n: Array<I18nType<'name'>>;
     cover: string;

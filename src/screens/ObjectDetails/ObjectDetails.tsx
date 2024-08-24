@@ -32,7 +32,6 @@ import {LinearGradient} from 'expo-linear-gradient';
 import {
   useObjectDetails,
   useObjectDetailsAnimation,
-  useObjectDetailsDeepLinking,
   useVisitedObject,
   useReportInaccuracies,
   useObjectCompletnessData,
@@ -43,7 +42,7 @@ import {
 import {isLocationExist} from 'core/helpers';
 import {ObjectDetailsHeader} from 'molecules';
 import {ObjectDetailsReportInaccuraciesMenu} from 'organisms';
-import Animated from 'react-native-reanimated';
+import Animated, {FadeInDown} from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
 import {ObjectInfoCardItemsSection, ObjectInfoSection} from './components';
 
@@ -72,9 +71,10 @@ export const ObjectDetails = () => {
     shareObjectLink,
     navigateToBelongsToObject,
     navigateToIncludesObjectListOrPage,
-  } = useObjectDetails();
+    objectCoverImageUrl,
 
-  const {objectNotFoundErrorProps} = useObjectDetailsDeepLinking();
+    objcetCoverBlurhash,
+  } = useObjectDetails();
 
   const {sendBookmarksAddEvent, sendBookmarksRemoveEvent} =
     useObjectDetailsAnalytics();
@@ -152,20 +152,20 @@ export const ObjectDetails = () => {
 
   return (
     <SuspenseView
-      retryCallback={onTryAgainPress}
-      loading={loading}
+      testID="suspenseView"
       error={errorTexts}
-      testID={'objectDetailsSuspenseView'}
-      {...objectNotFoundErrorProps}>
-      {data ? (
-        <View style={styles.container}>
+      retryCallback={onTryAgainPress}>
+      <Animated.View style={styles.container}>
+        {data ? (
           <Animated.ScrollView
             scrollEventThrottle={16}
             ref={scrollRef}
             showsVerticalScrollIndicator={false}
             onScroll={scrollHandler}
             contentContainerStyle={styles.listContentContainer}>
-            <View style={[styles.contentContainer]}>
+            <Animated.View
+              entering={FadeInDown}
+              style={[styles.contentContainer]}>
               <DetailsPageCapture
                 testID="pageCapture"
                 routeLength={data.length}
@@ -202,6 +202,7 @@ export const ObjectDetails = () => {
                   onPress={markAsVisited}
                   text={isVisited ? t('visitedObject') : t('markAsVisited')}
                   theme={'secondary'}
+                  style={{backgroundColor: 'rgba(0, 0, 0, 0)'}}
                   textStyle={styles.visitedButtonText}
                   loading={visitedObjectLoading}
                   onButtonLabelLayout={onButtonLabelLayout}
@@ -211,189 +212,217 @@ export const ObjectDetails = () => {
                   labelAnimatedStyle={isVisited && labelAnimatedStyle}
                 />
               </View>
-            </View>
-            <Text style={styles.sectionTitle}>{t('aboutThisExperience')}</Text>
-            {isCompletnessBlockVisible ? (
-              <ObjectDetailsCompletenessSmallBlock
-                onPress={scrollToElement}
-                percentage={percentage}
-                testID={'completenessBlockSmall'}
-              />
-            ) : null}
-
-            {mainInfoSection.length ? (
-              <ObjectInfoSection items={mainInfoSection} />
-            ) : null}
-            {workingHoursSection.length ? (
-              <ObjectInfoSection items={workingHoursSection} />
-            ) : null}
-            <ObjectDescription
-              testID={'description'}
-              origins={data.origins}
-              description={data.description}
-              onToggleDescription={onToggleDescriptionVisibility}
-              onLinkPress={onDescriptionLinkPress}
-            />
-            <Text style={styles.sectionTitle}>{t('additionalDetails')}</Text>
-
-            {additionalDetailsSection.length ? (
-              <ObjectInfoSection items={additionalDetailsSection} />
-            ) : null}
-            {isCompletnessBlockVisible ? (
-              <View ref={elementRef}>
-                <ObjectDetailsCompletenessBlock
-                  incompleteFields={incompleteFields}
+            </Animated.View>
+            <Animated.View entering={FadeInDown.delay(200)}>
+              <Text style={styles.sectionTitle}>
+                {t('aboutThisExperience')}
+              </Text>
+              {isCompletnessBlockVisible ? (
+                <ObjectDetailsCompletenessSmallBlock
+                  onPress={scrollToElement}
                   percentage={percentage}
-                  testID={'completenessBlock'}
-                  onAddInformationPress={navigateToAddInfo}
+                  testID={'completenessBlockSmall'}
                 />
-              </View>
-            ) : null}
+              ) : null}
 
-            {accommodationPlace?.length ? (
-              <ObjectInfoCardItemsSection
-                testID={'accommodationPlace'}
-                items={accommodationPlace}
-                title={tCommon('objectFieldsLabels.accommodationPlace')}
-                type="accommodation"
-                onRightButtonPress={onInfoCardRightButtonPress}
-                onLinkPress={onInfoCardLinkPress}
+              {mainInfoSection.length ? (
+                <ObjectInfoSection items={mainInfoSection} />
+              ) : null}
+              {workingHoursSection.length ? (
+                <ObjectInfoSection items={workingHoursSection} />
+              ) : null}
+              <ObjectDescription
+                testID={'description'}
+                origins={data.origins}
+                description={data.description}
+                onToggleDescription={onToggleDescriptionVisibility}
+                onLinkPress={onDescriptionLinkPress}
               />
-            ) : null}
-            {dinnerPlaces?.length ? (
-              <ObjectInfoCardItemsSection
-                testID={'dinnerPlaces'}
-                items={dinnerPlaces}
-                title={tCommon('objectFieldsLabels.dinnerPlaces')}
-                type="placeToEat"
-                onRightButtonPress={onInfoCardRightButtonPress}
-                onLinkPress={onInfoCardLinkPress}
-              />
-            ) : null}
+              <Text style={styles.sectionTitle}>{t('additionalDetails')}</Text>
 
-            {upcomingEvents?.length ? (
-              <ObjectInfoCardItemsSection
-                testID={'upcomingEvents'}
-                items={upcomingEvents}
-                title={tCommon('objectFieldsLabels.upcomingEvents')}
-                type="event"
-                onRightButtonPress={onInfoCardRightButtonPress}
-                onLinkPress={onInfoCardLinkPress}
-              />
-            ) : null}
+              {additionalDetailsSection.length ? (
+                <ObjectInfoSection items={additionalDetailsSection} />
+              ) : null}
+              {isCompletnessBlockVisible ? (
+                <View ref={elementRef}>
+                  <ObjectDetailsCompletenessBlock
+                    incompleteFields={incompleteFields}
+                    percentage={percentage}
+                    testID={'completenessBlock'}
+                    onAddInformationPress={navigateToAddInfo}
+                  />
+                </View>
+              ) : null}
 
-            {isEmpty(data.belongsTo) ? null : (
-              <ObjectBelongsTo
-                title={t('belongs')}
-                data={data.belongsTo}
-                onBelongsToItemPress={navigateToBelongsToObject}
-                testID={'belongsTo'}
-              />
-            )}
+              {accommodationPlace?.length ? (
+                <ObjectInfoCardItemsSection
+                  testID={'accommodationPlace'}
+                  items={accommodationPlace}
+                  title={tCommon('objectFieldsLabels.accommodationPlace')}
+                  type="accommodation"
+                  onRightButtonPress={onInfoCardRightButtonPress}
+                  onLinkPress={onInfoCardLinkPress}
+                />
+              ) : null}
+              {dinnerPlaces?.length ? (
+                <ObjectInfoCardItemsSection
+                  testID={'dinnerPlaces'}
+                  items={dinnerPlaces}
+                  title={tCommon('objectFieldsLabels.dinnerPlaces')}
+                  type="placeToEat"
+                  onRightButtonPress={onInfoCardRightButtonPress}
+                  onLinkPress={onInfoCardLinkPress}
+                />
+              ) : null}
 
-            {isEmpty(data.include) ? null : (
-              <ObjectIncludes
-                title={t('includes')}
-                data={data.include}
-                onIncludePress={navigateToIncludesObjectListOrPage}
-                testID={'includes'}
-              />
-            )}
+              {upcomingEvents?.length ? (
+                <ObjectInfoCardItemsSection
+                  testID={'upcomingEvents'}
+                  items={upcomingEvents}
+                  title={tCommon('objectFieldsLabels.upcomingEvents')}
+                  type="event"
+                  onRightButtonPress={onInfoCardRightButtonPress}
+                  onLinkPress={onInfoCardLinkPress}
+                />
+              ) : null}
 
-            <Button
-              style={styles.reportInaccuraciesButton}
-              onPress={openInnacurateInfoMenu}
-              icon={textStyle => <Icon style={textStyle} name="mail" />}
-              theme="tertiary"
-              text={t('reportInaccuracies')}
-              testID={'reportInaccuraciesButton'}
-            />
+              {isEmpty(data.belongsTo) ? null : (
+                <ObjectBelongsTo
+                  title={t('belongs')}
+                  data={data.belongsTo}
+                  onBelongsToItemPress={navigateToBelongsToObject}
+                  testID={'belongsTo'}
+                />
+              )}
+
+              {isEmpty(data.include) ? null : (
+                <ObjectIncludes
+                  title={t('includes')}
+                  data={data.include}
+                  onIncludePress={navigateToIncludesObjectListOrPage}
+                  testID={'includes'}
+                />
+              )}
+
+              <Button
+                style={styles.reportInaccuraciesButton}
+                onPress={openInnacurateInfoMenu}
+                icon={textStyle => <Icon style={textStyle} name="mail" />}
+                theme="tertiary"
+                text={t('reportInaccuracies')}
+                testID={'reportInaccuraciesButton'}
+              />
+            </Animated.View>
           </Animated.ScrollView>
+        ) : null}
 
-          <Animated.View
-            style={[
-              styles.imageSliderContainer,
-              imageSliderContainerAnimatedStyle,
-            ]}>
-            <PinchToZoomProvider scrollYOffsetAnimatedValue={translationY}>
-              <ImageSlider
-                width={IMAGE_WIDTH}
-                height={IMAGE_HEIGHT}
-                images={data.images || [defaultPhoto]}
-                onScroll={onScroll}
-                testID="imageSlider"
-                activePage={page}
-                onImagePress={goToImageGallery}
-              />
-            </PinchToZoomProvider>
-
-            {isJustOneImage ? null : (
-              <ObjectDetailsPager
-                testID="imagePager"
-                pagesAmount={pagesAmount}
-                page={page}
-              />
-            )}
-          </Animated.View>
-          <LinearGradient
-            pointerEvents={'none'}
-            {...gradientConfig}
-            style={[styles.gradient, {height: top}]}
-          />
-          <SnackBar testID={'snackBar'} offset={80} {...snackBarProps} />
-          <ObjectDetailsHeader
-            testID="header"
-            animatedValue={translationY}
-            objectName={data.name}
-            pivotHeightToAnimate={IMAGE_HEIGHT}
-          />
-          <ObjectDetailsBottomButtons
-            testID="bottomButtons"
-            onBookmarkPress={toggleFavoriteHandler}
-            onSharePress={shareObjectLink}
-            onShowOnMapPress={navigateToObjectsMap}
-            isFavorite={Boolean(isFavorite)}
-            isFavoriteLoading={favoritesSynchronizing}
-            showOnMapButtonEnabled={locationExist}
-          />
-
-          <ObjectDetailsReportInaccuraciesMenu
-            testID="reportInaccuraciesMenu"
-            {...reportInaccuraciesMenuProps}
-          />
-
-          <ObjectDetailsAddInfoSuccessMenu
-            testID="addInfoSuccessMenu"
-            addInfoSuccessMenuProps={addInfoSuccessMenuProps}
-          />
-
-          {workingHours ? (
-            <ObjectDetailsShowInfoMenu
-              testID="workingHoursMenu"
-              title={t('workHours')}
-              description={workingHours}
-              menuProps={workingHoursMenuProps}
+        {loading ? (
+          <View
+            style={{
+              position: 'absolute',
+              top: IMAGE_HEIGHT,
+              bottom: 0,
+              left: 0,
+              right: 0,
+            }}>
+            <SuspenseView
+              testID="loadingSupsenseView"
+              loading={true}
+              loadingDelay={1000}
             />
-          ) : null}
+          </View>
+        ) : null}
 
-          {areSeveralPhoneNumbers ? (
-            <ObjectDetailsListItemsMenu
-              menuItems={phoneNumberMenuItems}
-              menuProps={phoneNumbersMenuProps}
-              testID={'phoneNumbersMenu'}
+        <Animated.View
+          style={[
+            styles.imageSliderContainer,
+            imageSliderContainerAnimatedStyle,
+          ]}>
+          <PinchToZoomProvider scrollYOffsetAnimatedValue={translationY}>
+            <ImageSlider
+              width={IMAGE_WIDTH}
+              height={IMAGE_HEIGHT}
+              images={
+                data?.images ||
+                (objectCoverImageUrl ? [objectCoverImageUrl] : [defaultPhoto])
+              }
+              onScroll={onScroll}
+              testID="imageSlider"
+              activePage={page}
+              previewImageBlurhash={objcetCoverBlurhash}
+              onImagePress={goToImageGallery}
             />
-          ) : null}
+          </PinchToZoomProvider>
 
-          {childServices ? (
-            <ObjectDetailsShowInfoMenu
-              testID="childServicesMenu"
-              title={tCommon('objectFieldsLabels.childServices')}
-              description={childServices}
-              menuProps={childServicesMenuProps}
+          {isJustOneImage ? null : (
+            <ObjectDetailsPager
+              testID="imagePager"
+              pagesAmount={pagesAmount}
+              page={page}
             />
-          ) : null}
-        </View>
-      ) : null}
+          )}
+        </Animated.View>
+
+        <LinearGradient
+          pointerEvents={'none'}
+          {...gradientConfig}
+          style={[styles.gradient, {height: top}]}
+        />
+        <SnackBar testID={'snackBar'} offset={80} {...snackBarProps} />
+        <ObjectDetailsHeader
+          testID="header"
+          animatedValue={translationY}
+          objectName={data?.name || ''}
+          pivotHeightToAnimate={IMAGE_HEIGHT}
+        />
+        {/* <Animated.View entering={FadeInDown.delay(250)}> */}
+        <ObjectDetailsBottomButtons
+          testID="bottomButtons"
+          onBookmarkPress={toggleFavoriteHandler}
+          onSharePress={shareObjectLink}
+          onShowOnMapPress={navigateToObjectsMap}
+          isFavorite={Boolean(isFavorite)}
+          isFavoriteLoading={favoritesSynchronizing}
+          showOnMapButtonEnabled={locationExist}
+        />
+        {/* </Animated.View> */}
+
+        <ObjectDetailsReportInaccuraciesMenu
+          testID="reportInaccuraciesMenu"
+          {...reportInaccuraciesMenuProps}
+        />
+
+        <ObjectDetailsAddInfoSuccessMenu
+          testID="addInfoSuccessMenu"
+          addInfoSuccessMenuProps={addInfoSuccessMenuProps}
+        />
+
+        {workingHours ? (
+          <ObjectDetailsShowInfoMenu
+            testID="workingHoursMenu"
+            title={t('workHours')}
+            description={workingHours}
+            menuProps={workingHoursMenuProps}
+          />
+        ) : null}
+
+        {areSeveralPhoneNumbers ? (
+          <ObjectDetailsListItemsMenu
+            menuItems={phoneNumberMenuItems}
+            menuProps={phoneNumbersMenuProps}
+            testID={'phoneNumbersMenu'}
+          />
+        ) : null}
+
+        {childServices ? (
+          <ObjectDetailsShowInfoMenu
+            testID="childServicesMenu"
+            title={tCommon('objectFieldsLabels.childServices')}
+            description={childServices}
+            menuProps={childServicesMenuProps}
+          />
+        ) : null}
+      </Animated.View>
     </SuspenseView>
   );
 };
