@@ -31,9 +31,11 @@ export const useObjectsList = () => {
     useObjectsListAnalytics();
 
   const navigateToObjectDetails = useCallback(
-    ({id, name, analyticsMetadata}: CardItem) => {
+    ({id, name, cover, blurhash, analyticsMetadata}: CardItem) => {
       push('ObjectDetails', {
         objectId: id,
+        objectCoverImageUrl: cover,
+        objcetCoverBlurhash: blurhash,
         analytics: {
           fromScreenName: getAnalyticsNavigationScreenName(),
         },

@@ -26,15 +26,20 @@ export const useSearch = () => {
   const navigateToObjectDetails = useCallback(
     (searchItem: SearchObject) => {
       Keyboard.dismiss();
-      addToHistory(searchItem);
+
+      if (!isHistoryVisible) {
+        addToHistory(searchItem);
+      }
       navigation.navigate('ObjectDetails', {
         objectId: searchItem.id,
+        objectCoverImageUrl: searchItem.cover,
+        objcetCoverBlurhash: searchItem.blurhash,
         analytics: {
           fromScreenName: getAnalyticsNavigationScreenName(),
         },
       });
     },
-    [addToHistory, navigation],
+    [addToHistory, isHistoryVisible, navigation],
   );
 
   const deleteItem = useCallback(

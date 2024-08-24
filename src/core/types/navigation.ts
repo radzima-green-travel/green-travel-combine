@@ -6,6 +6,8 @@ import {FromScreenName} from './analytics/objectDetails';
 
 type ObjectDetailsParams = {
   objectId: string;
+  objectCoverImageUrl: string;
+  objcetCoverBlurhash: string | null;
   animatedValue?: Animated.Value;
   analytics?: {
     fromScreenName: AnalyticsNavigationScreenNames;

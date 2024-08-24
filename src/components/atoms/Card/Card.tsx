@@ -62,6 +62,7 @@ export const Card = memo(
           style={styles.image as ImageStyle}
           source={imageUri}
           placeholder={blurhash}
+          cachePolicy="memory-disk"
           transition={200}
         />
         <LinearGradient {...gradientConfig} style={styles.gradient} />

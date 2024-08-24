@@ -4,7 +4,10 @@ import {IState} from 'core/store';
 import {map, reduce} from 'lodash';
 import {selectAppLanguage} from './settingsSelectors';
 import {selectSearchHistoryObjectsIds} from './user';
-import {extractLocaleSpecificValues} from 'core/transformators/common';
+import {
+  extractLocaleSpecificValues,
+  translateAndProcessImagesForEntity,
+} from 'core/transformators/common';
 
 const selectSearchState = createSelector(
   (state: IState) => state.search,
@@ -43,7 +46,7 @@ export const selectSearchObjectsData = createSelector(
   (searchObjects, locale) =>
     map(searchObjects, object => {
       return {
-        ...extractLocaleSpecificValues(object, locale),
+        ...translateAndProcessImagesForEntity(object, locale),
         category: extractLocaleSpecificValues(object.category, locale),
       };
     }),
@@ -55,7 +58,7 @@ export const selectSearchHistoryObjects = createSelector(
   (searchObjects, locale) =>
     map(searchObjects, object => {
       return {
-        ...extractLocaleSpecificValues(object, locale),
+        ...translateAndProcessImagesForEntity(object, locale),
         category: extractLocaleSpecificValues(object.category, locale),
       };
     }),
@@ -73,6 +76,7 @@ export const selectSearchHistory = createSelector(
     if (objects.length === 0) {
       return [];
     }
+
     const historyObjectsMap = reduce(
       objects,
       (acc, object) => {

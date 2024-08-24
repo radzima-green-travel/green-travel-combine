@@ -30,7 +30,7 @@ export interface IInclude {
   categoryId: string;
   name: string;
   image: string;
-  objects: string[];
+  objects: {id: string; cover: string; blurhash: string | null}[];
   analyticsMetadata: {
     name: string;
   };
@@ -39,6 +39,7 @@ export interface IBelongsTo {
   objectId: string;
   name: string;
   categoryName: string;
+  blurhash: string | null;
   image: string;
   analyticsMetadata: {
     name: string;

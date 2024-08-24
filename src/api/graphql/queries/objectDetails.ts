@@ -45,6 +45,8 @@ export function geObjectDetailsByIdQuery(objectId: string) {
     belongsTo {
       items {
         belongsTo {
+          blurhash
+          cover
           i18n {
             name
             locale
@@ -138,6 +140,8 @@ export function geObjectDetailsByIdQuery(objectId: string) {
     include {
       items {
         include {
+          cover
+          blurhash
           category {
             id
             cover

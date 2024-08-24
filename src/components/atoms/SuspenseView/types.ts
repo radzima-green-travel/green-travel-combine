@@ -6,8 +6,9 @@ export type Props = {
   error?: Pick<ILabelError, 'text' | 'title'> | null;
   darkBackground?: boolean;
   retryCallback?: () => void;
-  children: ReactNode;
+  children?: ReactNode;
   cover?: boolean;
   buttonText?: string;
   testID: string;
+  loadingDelay?: number;
 };

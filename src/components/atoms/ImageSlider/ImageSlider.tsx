@@ -20,6 +20,7 @@ interface IProps {
   testID: string;
   activePage: number;
   onImagePress?: () => void;
+  previewImageBlurhash?: string | null;
 }
 
 export const ImageSlider = ({
@@ -30,10 +31,10 @@ export const ImageSlider = ({
   testID,
   activePage,
   onImagePress,
+  previewImageBlurhash,
 }: IProps) => {
   const activePageIndex = Math.max(0, activePage - 1);
   const styles = useThemeStyles(themeStyles);
-
   const renderItem = ({item, index}) => {
     const imageSourse =
       typeof item === 'string'
@@ -47,7 +48,9 @@ export const ImageSlider = ({
         <Image
           style={[styles.image as ImageStyle, {width}]}
           contentFit="cover"
+          cachePolicy="memory-disk"
           source={imageSourse.uri}
+          placeholder={index === 0 ? previewImageBlurhash : undefined}
           {...getPlatformsTestID(composeTestID(testID, index))}
         />
       </Pressable>

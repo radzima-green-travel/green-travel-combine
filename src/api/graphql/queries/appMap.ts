@@ -5,6 +5,8 @@ export const getAppMapObjectsQuery = `query MyQuery($from: Int = 0, $limit: Int 
         lat
         lon
       }
+      cover
+      blurhash
       name
       id
       i18n {

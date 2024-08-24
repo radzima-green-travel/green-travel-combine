@@ -2,6 +2,8 @@ export const searchObjectQueryParameters = `
     items {
           id
           name
+          cover
+          blurhash
           i18n {
             locale
             name
