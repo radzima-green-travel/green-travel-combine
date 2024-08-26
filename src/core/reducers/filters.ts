@@ -12,6 +12,7 @@ import {
   clearFilters,
 } from 'core/actions';
 import {xor} from 'lodash';
+import {prepareAggregationsWithNumberOfItems} from 'core/transformators/filters';
 
 interface FiltersState {
   regionsList: RegionsListResponseDTO;
@@ -66,10 +67,26 @@ export const filtersReducer = createReducer(initialState, builder => {
       },
     )
     .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
+      const {settlementsWithNumberOfItems} =
+        prepareAggregationsWithNumberOfItems(payload.aggregations);
+
+      const municipalities = state.activeFilters.municipalities;
+
+      const updatedActiveFilters = {
+        ...state.activeFilters,
+        municipalities: municipalities.filter(
+          item => settlementsWithNumberOfItems[item],
+        ),
+      } as ActiveFilters;
+
       return {
         ...state,
-        filtersData: payload.filtersResult,
-        activeFilters: payload?.activeFilters ?? state.activeFilters,
+        filtersData: payload,
+        activeFilters:
+          JSON.stringify(updatedActiveFilters) ===
+          JSON.stringify(state.activeFilters)
+            ? state.activeFilters
+            : updatedActiveFilters,
       };
     });
 });
