@@ -4,7 +4,7 @@ import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 export interface BaseListItemProps {
   testID: string;
-  title: string;
+  title?: string;
   onPress?: () => void;
   disabled?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
@@ -20,6 +20,7 @@ export interface BaseListItemProps {
   onSubtitleTruncate?: (isTruncated: boolean) => void;
   rightElement?: ReactElement;
   leftElement?: ReactElement | null;
+  header?: ReactElement;
 }
 
 export interface ListItemProps extends BaseListItemProps {
