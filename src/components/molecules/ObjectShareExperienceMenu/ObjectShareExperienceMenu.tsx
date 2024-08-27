@@ -107,6 +107,7 @@ export const ObjectShareExperienceMenu = memo(
           onChangeValue={onRangeChange}
         />
         <ListItem
+          type='primary'
           testID={composeTestID(testID, 'reportInnacurateInfoButton')}
           containerStyle={styles.listItem}
           tailIcon={isReportSent ? undefined : 'chevronMediumRight'}
@@ -117,6 +118,7 @@ export const ObjectShareExperienceMenu = memo(
         />
         {isMissedDetailsButtonVisible ? (
           <ListItem
+            type='primary'
             testID={composeTestID(testID, 'missedDetailsButton')}
             containerStyle={styles.listItem}
             tailIcon={'chevronMediumRight'}

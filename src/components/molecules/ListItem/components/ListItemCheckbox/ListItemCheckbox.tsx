@@ -12,7 +12,7 @@ export const ListItemCheckboxComponent = <T extends any = undefined>({
   onPress,
   item,
   ...props
-}: ListItemCheckboxProps<T>) => {
+}: ListItemCheckboxProps<any>) => {
   const styles = useThemeStyles(themeStyles);
 
   const onPressHandler = useCallback(() => {

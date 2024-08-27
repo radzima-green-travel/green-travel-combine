@@ -38,9 +38,6 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.icon.primary,
     },
   },
-  hideVisitContainer: {
-    paddingVertical: 0,
-  },
   closeButtonContainer: {
     width: 32,
     height: 32,

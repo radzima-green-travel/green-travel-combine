@@ -75,6 +75,7 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.secondary,
     },
   },
+
   rightContainer: {
     flexDirection: 'row',
     alignItems: 'center',

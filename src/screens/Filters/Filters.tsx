@@ -9,6 +9,7 @@ import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { ListItem } from 'components/molecules';
 
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
@@ -146,11 +147,12 @@ export const Filters = () => {
                   )}
                 />
               </FiltersSectionContainer>
-              <FiltersSectionContainer
-                isSubSection
-                itemName={t('considerDistance')}>
-                <Switch />
-              </FiltersSectionContainer>
+              <ListItem
+                type='switch'
+                title={t('considerDistance')}
+                testID={'considerDistance'} 
+                switchProps={{value: true}}>
+              </ListItem>
             </FiltersSectionContainer>
             <FiltersSectionContainer itemName={t('ratingGoogle')}>
               <Multiswitch
@@ -161,12 +163,12 @@ export const Filters = () => {
                 testID={'googleRating'}
               />
             </FiltersSectionContainer>
-            <FiltersSectionContainer
-              isSubSection
-              itemName={t('hideVisit')}
-              style={styles.hideVisitContainer}>
-              <Switch />
-            </FiltersSectionContainer>
+            <ListItem
+                type='switch'
+                title={t('hideVisit')}
+                testID={'hideVisit'} 
+                switchProps={{value: false}}>
+            </ListItem>
           </ScrollView>
           <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
         </SuspenseView>
