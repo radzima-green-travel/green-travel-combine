@@ -26,6 +26,7 @@ export const BaseListItem = memo(
     onSubtitleTruncate,
     rightElement,
     leftElement,
+    header,
   }: BaseListItemProps) => {
     const styles = useThemeStyles(themeStyles);
 
@@ -51,6 +52,10 @@ export const BaseListItem = memo(
     };
 
     const renderTitle = () => {
+      if (header) {
+        return header;
+      }
+
       const TextComponent = onTitleTruncate ? TrancateDetectionText : Text;
 
       const titleNode = (

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {SuspenseView} from 'atoms';
+import {HighlightedText, SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {screenOptions} from './screenOptions';
 import {themeStyles, ITEM_HEIGHT} from './styles';
@@ -108,10 +108,10 @@ export const Settlements = () => {
             <ListItemCheckbox
               item={item}
               key={item.id}
-              title={item.value}
               checked={selectedSettlements.includes(item.id)}
               onPress={chooseSettlement}
               testID={'settlementsListItem'}
+              header={<HighlightedText text={item.value} query={searchValue} />}
             />
           )}
           ListEmptyComponent={renderListEmptyComponent}
