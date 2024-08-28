@@ -34,6 +34,7 @@ export const Settlements = () => {
     getSettlementsData,
     resetSelectedSettlements,
     isApplyButtonDisabled,
+    loading,
   } = useSettlements();
 
   const {bottom} = useSafeAreaInsets();
@@ -130,6 +131,7 @@ export const Settlements = () => {
                 : t('settlements.apply'),
               testID: 'applyButton',
               disabled: isApplyButtonDisabled,
+              loading,
               onPress: applySettlements,
             },
           ]}

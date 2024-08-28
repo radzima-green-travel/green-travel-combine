@@ -20,7 +20,6 @@ export type HomeNavigatorParamsList = {
   Filter: undefined;
   Settlements: {
     initialSelectedSettlements: string[];
-    onApplySelection: (items: string[]) => void;
     regionsToInclude: string[];
   };
   ObjectsList: {

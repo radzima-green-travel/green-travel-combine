@@ -41,5 +41,8 @@ export function prepareAggregationsWithNumberOfItems(
     settlementsWithNumberOfItems: transformBucketsToCountMap(
       aggregations?.municipalities?.facets?.buckets || [],
     ),
+    regionsWithNumberOfItems: transformBucketsToCountMap(
+      aggregations?.regions?.facets?.buckets || [],
+    ),
   };
 }
