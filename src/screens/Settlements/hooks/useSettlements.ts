@@ -19,10 +19,12 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {SettlementsScreenRouteProps} from '../types';
 import {IState} from 'core/store';
 import {SpotItemDTO} from 'core/types';
+import {useSnackbar} from 'atoms';
 
 export const useSettlements = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const snackBarProps = useSnackbar();
   const {
     params: {initialSelectedSettlements, regionsToInclude},
   } = useRoute<SettlementsScreenRouteProps>();
@@ -69,6 +71,13 @@ export const useSettlements = () => {
     navigation.goBack();
   });
 
+  useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
+    snackBarProps.show({
+      type: 'error',
+      title: errorLabel.text,
+    });
+  });
+
   const {loading} = useRequestLoading(getFiltersDataRequest);
   const getSettlementsData = useCallback(() => {
     dispatch(getSettlementsDataRequest());
@@ -104,5 +113,6 @@ export const useSettlements = () => {
     resetSelectedSettlements,
     isApplyButtonDisabled,
     loading,
+    snackBarProps,
   };
 };

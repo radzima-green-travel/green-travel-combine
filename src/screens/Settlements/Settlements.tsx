@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {HighlightedText, SuspenseView} from 'atoms';
+import {HighlightedText, SnackBar, SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {screenOptions} from './screenOptions';
 import {themeStyles, ITEM_HEIGHT} from './styles';
@@ -35,6 +35,7 @@ export const Settlements = () => {
     resetSelectedSettlements,
     isApplyButtonDisabled,
     loading,
+    snackBarProps,
   } = useSettlements();
 
   const {bottom} = useSafeAreaInsets();
@@ -137,6 +138,7 @@ export const Settlements = () => {
           ]}
         />
       </SuspenseView>
+      <SnackBar testID="snackBar" {...snackBarProps} />
     </View>
   );
 };
