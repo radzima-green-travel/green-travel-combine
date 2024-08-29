@@ -33,6 +33,7 @@ export const Filters = () => {
     total,
     snackBarProps,
     activeSettlements,
+    getIsRegionDisabled,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -101,6 +102,7 @@ export const Filters = () => {
                   <Chip
                     active={activeRegions?.includes(id)}
                     onPress={() => chooseRegion(id)}
+                    disabled={getIsRegionDisabled(id)}
                     key={id}
                     testID={value}
                     text={value}

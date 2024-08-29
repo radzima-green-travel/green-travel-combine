@@ -4,19 +4,29 @@ import {
   selectIsSettlementsLoaded,
   selectSettlementsSections,
 } from 'core/selectors';
-import {useRequestLoading, useOnRequestError} from 'core/hooks';
-import {getSettlementsDataRequest} from 'core/actions';
+import {
+  useRequestLoading,
+  useOnRequestError,
+  useOnRequestSuccess,
+} from 'core/hooks';
+import {
+  getFiltersDataRequest,
+  getSettlementsDataRequest,
+  setActiveFilter,
+} from 'core/actions';
 import {every, xor} from 'lodash';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {SettlementsScreenRouteProps} from '../types';
 import {IState} from 'core/store';
 import {SpotItemDTO} from 'core/types';
+import {useSnackbar} from 'atoms';
 
 export const useSettlements = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const snackBarProps = useSnackbar();
   const {
-    params: {initialSelectedSettlements, onApplySelection, regionsToInclude},
+    params: {initialSelectedSettlements, regionsToInclude},
   } = useRoute<SettlementsScreenRouteProps>();
 
   const {loading: fullScreenLoading} = useRequestLoading(
@@ -48,6 +58,27 @@ export const useSettlements = () => {
 
   const isDataLoaded = useSelector(selectIsSettlementsLoaded);
 
+  const applySettlements = useCallback(() => {
+    dispatch(
+      setActiveFilter({
+        name: 'municipalities',
+        value: selectedSettlements,
+      }),
+    );
+  }, [dispatch, selectedSettlements]);
+
+  useOnRequestSuccess(getFiltersDataRequest, () => {
+    navigation.goBack();
+  });
+
+  useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
+    snackBarProps.show({
+      type: 'error',
+      title: errorLabel.text,
+    });
+  });
+
+  const {loading} = useRequestLoading(getFiltersDataRequest);
   const getSettlementsData = useCallback(() => {
     dispatch(getSettlementsDataRequest());
   }, [dispatch]);
@@ -57,11 +88,6 @@ export const useSettlements = () => {
       getSettlementsData();
     }
   }, [getSettlementsData, isDataLoaded]);
-
-  const applySettlementsItems = useCallback(() => {
-    onApplySelection(selectedSettlements);
-    navigation.goBack();
-  }, [onApplySelection, selectedSettlements, navigation]);
 
   const chooseSettlement = useCallback((item: SpotItemDTO) => {
     setSelectedSettlements(prevState => {
@@ -82,9 +108,11 @@ export const useSettlements = () => {
     searchValue,
     handleSearchValue: setSearchValue,
     chooseSettlement,
-    applySettlements: applySettlementsItems,
+    applySettlements,
     getSettlementsData,
     resetSelectedSettlements,
     isApplyButtonDisabled,
+    loading,
+    snackBarProps,
   };
 };
