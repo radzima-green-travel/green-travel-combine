@@ -138,7 +138,7 @@ export const Settlements = () => {
           ]}
         />
       </SuspenseView>
-      <SnackBar testID="snackBar" {...snackBarProps} />
+      <SnackBar isOnTop testID="snackBar" {...snackBarProps} />
     </View>
   );
 };
