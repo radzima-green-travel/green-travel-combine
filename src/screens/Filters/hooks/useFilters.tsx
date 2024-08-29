@@ -9,7 +9,7 @@ import {
   selectTransformedAggregationsWithNumberOfItems,
   selectFiltersCategories,
 } from 'core/selectors';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProps} from '../types';
 import {
   useOnRequestError,
@@ -122,12 +122,21 @@ export const useFilters = () => {
     getFiltersInitialData();
   }, [getFiltersInitialData]);
 
-  useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
-    show({
-      title: errorLabel.text,
-      type: 'error',
-    });
-  });
+  const isFocused = useIsFocused();
+
+  useOnRequestError(
+    getFiltersDataRequest,
+    'filters',
+    errorLabel => {
+      if (isFocused) {
+        show({
+          title: errorLabel.text,
+          type: 'error',
+        });
+      }
+    },
+    false,
+  );
 
   const getIsRegionDisabled = useCallback(
     (regionID: string) => {
