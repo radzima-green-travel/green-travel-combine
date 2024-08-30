@@ -17,11 +17,6 @@ type ObjectDetailsParams = {
 export type HomeNavigatorParamsList = {
   Home: undefined;
   Search: undefined;
-  Filter: undefined;
-  Settlements: {
-    initialSelectedSettlements: string[];
-    regionsToInclude: string[];
-  };
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -83,6 +78,11 @@ export type MainNavigatorParamsList = {
   ObjectDetailsMap: {object: IObject};
   AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList> & {
     onSuccessSignIn?: () => void;
+  };
+  Filter: undefined;
+  Settlements: {
+    initialSelectedSettlements: string[];
+    regionsToInclude: string[];
   };
   ObjectDetails: ObjectDetailsParams;
   ObjectDetailsAddInfo: {
