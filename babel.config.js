@@ -31,6 +31,7 @@ module.exports = function (api) {
             'api/*': './src/api/*',
             storage: './src/storage',
             'storage/*': './src/storage/*',
+            preview: './src/components/atoms/Preview/Preview',
           },
         },
       ],
