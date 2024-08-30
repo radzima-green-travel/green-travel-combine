@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, {useEffect, useMemo} from 'react';
-import {Text, View, Switch, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import {Chip, Multiswitch, SuspenseView, Button, Icon, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {ButtonsGroup, FiltersSectionContainer} from 'molecules';
@@ -9,7 +9,7 @@ import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import { ListItem } from 'components/molecules';
+import {ListItem} from 'components/molecules';
 
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
@@ -148,11 +148,11 @@ export const Filters = () => {
                 />
               </FiltersSectionContainer>
               <ListItem
-                type='switch'
+                type="switch"
                 title={t('considerDistance')}
-                testID={'considerDistance'} 
-                switchProps={{value: false}}>
-              </ListItem>
+                testID={'considerDistance'}
+                switchProps={{value: false}}
+              />
             </FiltersSectionContainer>
             <FiltersSectionContainer itemName={t('ratingGoogle')}>
               <Multiswitch
@@ -164,11 +164,11 @@ export const Filters = () => {
               />
             </FiltersSectionContainer>
             <ListItem
-                type='switch'
-                title={t('hideVisit')}
-                testID={'hideVisit'} 
-                switchProps={{value: false}}>
-            </ListItem>
+              type="switch"
+              title={t('hideVisit')}
+              testID={'hideVisit'}
+              switchProps={{value: false}}
+            />
           </ScrollView>
           <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
         </SuspenseView>

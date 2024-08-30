@@ -38,7 +38,7 @@ const MenuItem = memo(
 
     return (
       <ListItem
-        type='primary'
+        type="primary"
         containerStyle={[styles.listItemContainer, containerStyle]}
         contentStylingType={contentStylingType}
         title={title}

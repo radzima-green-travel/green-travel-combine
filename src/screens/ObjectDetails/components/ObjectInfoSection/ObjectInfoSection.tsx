@@ -70,7 +70,7 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
 
     return (
       <ListItem
-        type='primary'
+        type="primary"
         containerStyle={styles.listItemContainer}
         contentStylingType={contentStylingType}
         title={title}

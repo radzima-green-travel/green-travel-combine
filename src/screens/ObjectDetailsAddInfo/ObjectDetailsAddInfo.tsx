@@ -95,7 +95,7 @@ export const ObjectDetailsAddInfo = () => {
             contentContainerStyle={styles.list}>
             {incompleteFields.map(field => (
               <ListItem
-                type='primary'
+                type="primary"
                 key={field.id}
                 testID={'item'}
                 subtitle={getDisplayValue(field.id)}

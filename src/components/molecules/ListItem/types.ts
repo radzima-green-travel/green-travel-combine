@@ -39,7 +39,7 @@ export type ListItemCheckboxProps<T> = ItemProp<T> &
     onPress?: T extends undefined ? () => void : (item: T) => void;
   };
 export interface ListItemSwitchProps extends BaseListItemProps {
-    switchProps: SwitchProps;
+  switchProps: SwitchProps;
 }
 export interface ListItemWrapperProps {
   testID: string;

@@ -4,7 +4,7 @@ import {ListItemPrimaryProps} from '../../types';
 import {TouchableOpacity, View, Text} from 'react-native';
 import {Icon} from 'atoms';
 import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles'
+import {themeStyles} from './styles';
 import {composeTestID} from 'core/helpers';
 
 export const ListItemPrimary = memo<ListItemPrimaryProps>(
