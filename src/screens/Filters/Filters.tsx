@@ -151,7 +151,7 @@ export const Filters = () => {
                 type='switch'
                 title={t('considerDistance')}
                 testID={'considerDistance'} 
-                switchProps={{value: true}}>
+                switchProps={{value: false}}>
               </ListItem>
             </FiltersSectionContainer>
             <FiltersSectionContainer itemName={t('ratingGoogle')}>
