@@ -9,7 +9,7 @@ import {ButtonsGroup, SearchField} from 'molecules';
 import {useSettlements} from './hooks';
 import {getPlatformsTestID} from 'core/helpers';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ListItemCheckbox} from 'molecules/ListItem';
+import {ListItem} from 'molecules/ListItem';
 
 const getItemLayout = (_, index) => ({
   length: ITEM_HEIGHT,
@@ -107,7 +107,8 @@ export const Settlements = () => {
           keyExtractor={item => item.id}
           getItemLayout={getItemLayout}
           renderItem={({item}) => (
-            <ListItemCheckbox
+            <ListItem
+              type={'checkbox'}
               item={item}
               key={item.id}
               checked={selectedSettlements.includes(item.id)}

@@ -3,14 +3,14 @@ import {View, StyleProp, ViewStyle} from 'react-native';
 import {Portal} from '@gorhom/portal';
 import {BottomMenu} from 'atoms';
 import {ListItem} from 'molecules';
-import {ListItemProps} from 'molecules/ListItem';
+import {ListItemPrimaryProps} from 'molecules/ListItem';
 import {useBottomMenu, useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {composeTestID} from 'core/helpers';
 
 interface IProps {
   menuProps: ReturnType<typeof useBottomMenu>;
-  menuItems: ListItemProps[];
+  menuItems: ListItemPrimaryProps[];
   containerListStyle?: StyleProp<ViewStyle>;
   testID: string;
 }
@@ -33,11 +33,12 @@ const MenuItem = memo(
     tailIcon,
     position,
     leadIconStyle,
-  }: ListItemProps) => {
+  }: ListItemPrimaryProps) => {
     const styles = useThemeStyles(themeStyles);
 
     return (
       <ListItem
+        type="primary"
         containerStyle={[styles.listItemContainer, containerStyle]}
         contentStylingType={contentStylingType}
         title={title}

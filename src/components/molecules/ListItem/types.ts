@@ -1,6 +1,6 @@
 import {IconsNames} from 'components/atoms/Icon';
 import {ReactElement, ReactNode} from 'react';
-import {StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {StyleProp, SwitchProps, TextStyle, ViewStyle} from 'react-native';
 
 export interface BaseListItemProps {
   testID: string;
@@ -23,7 +23,7 @@ export interface BaseListItemProps {
   header?: ReactElement;
 }
 
-export interface ListItemProps extends BaseListItemProps {
+export interface ListItemPrimaryProps extends BaseListItemProps {
   label?: string;
   tailIcon?: IconsNames;
   onRightLabelPress?: () => void;
@@ -37,8 +37,11 @@ type ItemProp<T> = T extends undefined ? {item?: never} : {item: T};
 export type ListItemCheckboxProps<T> = ItemProp<T> &
   Omit<BaseListItemProps, 'onPress'> & {
     checked: boolean;
-    onPress?: (item: ItemProp<T>['item']) => void;
+    onPress?: T extends undefined ? () => void : (item: T) => void;
   };
+export interface ListItemSwitchProps extends BaseListItemProps {
+  switchProps: SwitchProps;
+}
 export interface ListItemWrapperProps {
   testID: string;
   children: ReactNode;
