@@ -7,30 +7,16 @@ import {
   ObjectsListScreen,
   CategoriesListScreen,
   SearchScreen,
-  FiltersScreen,
-  SettlementsScreen,
 } from '../../screens';
-
-import {useTranslation, useColorScheme} from 'core/hooks';
+import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
 import {useScreenOptions} from '../hooks';
 import {defaultTransition} from '../transition';
-import {COLORS} from 'assets';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
 export function HomeNavigator() {
   const {t: tHome} = useTranslation('home');
-  const {t: tFiters} = useTranslation('filters');
-  const colorScheme = useColorScheme();
-  const screenModalOptions = useScreenOptions({
-    headerStyle: {
-      backgroundColor:
-        colorScheme === 'light'
-          ? COLORS.light.background.primary
-          : COLORS.dark.background.primary,
-    },
-  });
 
   const screenOptions = useScreenOptions({
     title: tHome('headerTitle'),
@@ -52,31 +38,6 @@ export function HomeNavigator() {
           animation: 'fade',
         })}
       />
-      <Stack.Group
-        screenOptions={props => ({
-          ...screenModalOptions(props),
-          presentation: 'modal',
-        })}>
-        <Stack.Screen
-          name="Filter"
-          component={FiltersScreen}
-          options={props => ({
-            ...FiltersScreen.screenOptions(props),
-          })}
-        />
-        <Stack.Screen
-          name="Settlements"
-          component={SettlementsScreen}
-          options={props => ({
-            ...SettlementsScreen.screenOptions(props),
-            title: tFiters('settlements.title'),
-            headerTintColor:
-              colorScheme === 'light'
-                ? COLORS.light.text.primary
-                : COLORS.dark.text.primary,
-          })}
-        />
-      </Stack.Group>
       <Stack.Screen
         getId={({params}) => params.objectId}
         name="ObjectDetails"
