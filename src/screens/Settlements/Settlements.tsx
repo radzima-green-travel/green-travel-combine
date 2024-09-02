@@ -111,10 +111,13 @@ export const Settlements = () => {
               type={'checkbox'}
               item={item}
               key={item.id}
+              title={item.value}
               checked={selectedSettlements.includes(item.id)}
               onPress={chooseSettlement}
               testID={'settlementsListItem'}
-              header={<HighlightedText text={item.value} query={searchValue} />}
+              renderTitle={props => {
+                return <HighlightedText {...props} query={searchValue} />;
+              }}
             />
           )}
           ListEmptyComponent={renderListEmptyComponent}

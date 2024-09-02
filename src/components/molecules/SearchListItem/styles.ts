@@ -1,42 +1,31 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {hexWithAlpha} from 'core/helpers';
+import {COLORS} from 'assets';
+import {createThemeStyles} from 'core/helpers/styles';
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   container: {
-    flexDirection: 'row',
-    paddingTop: 8,
     backgroundColor: {
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
     },
-    paddingLeft: 16,
+    borderRadius: undefined,
   },
-  textContainer: {
-    marginLeft: 8,
-    paddingBottom: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: {
-      light: COLORS.alto,
-      dark: hexWithAlpha(COLORS.altoForDark, 0.3),
-    },
-
-    flex: 1,
+  subtitleContainer: {
+    flexDirection: 'row',
   },
-  title: {
-    ...FONTS_STYLES.bold15,
+  subtitleHighlight: {
     color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
   },
-  subtitle: {
-    ...FONTS_STYLES.regular13,
-    color: {
-      light: COLORS.boulder,
-      dark: COLORS.altoForDark,
+  iconContainer: {
+    alignSelf: 'center',
+    backgroundColor: {
+      dark: COLORS.dark.background.quarterly,
+      light: COLORS.light.background.quarterly,
     },
+    borderRadius: 12,
+    padding: 8,
+    alignItems: 'center',
   },
-  icon: {
-    marginBottom: 'auto',
-  },
-};
+});

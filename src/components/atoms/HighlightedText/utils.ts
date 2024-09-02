@@ -3,17 +3,17 @@ export const getTextParts = ({
   textWithMarkup,
   query,
 }: {
-  textWithMarkup?: string;
-  text?: string;
+  textWithMarkup: boolean;
+  text: string;
   query?: string;
 }) => {
   if (textWithMarkup) {
-    const parts = textWithMarkup
-      .split(/(<span>.*?<\/span>)/)
-      .filter(part => part);
+    const parts = text.split(/(<em>.*?<\/em>)/).filter(part => part);
+    const htmlTagsRegex = /(<([^>]+)>|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;)/gi;
+
     return parts.map(part => ({
-      partText: part.replace(/<\/?span>/g, ''),
-      isBold: /<span>.*<\/span>/.test(part),
+      partText: part.replace(/<\/?em>/g, '').replace(htmlTagsRegex, ''),
+      isBold: /<em>.*<\/em>/.test(part),
     }));
   }
 

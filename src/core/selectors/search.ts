@@ -7,7 +7,8 @@ import {selectSearchHistoryObjectsIds} from './user';
 import {
   extractLocaleSpecificValues,
   translateAndProcessImagesForEntity,
-} from 'core/transformators/common';
+} from '../transformators/common';
+import {prepareSearchItems} from '../transformators/search';
 
 const selectSearchState = createSelector(
   (state: IState) => state.search,
@@ -23,6 +24,11 @@ export const selectSearchNextToken = createSelector(
 export const selectSearchObjectsRawData = createSelector(
   selectSearchState,
   search => search.searchObjects,
+);
+
+export const selectSearchObjectsHighlightRawData = createSelector(
+  selectSearchState,
+  search => search.highlight,
 );
 
 export const selectSearchObjectsTotal = createSelector(
@@ -42,14 +48,10 @@ export const selectSearchInputValue = createSelector(
 
 export const selectSearchObjectsData = createSelector(
   selectSearchObjectsRawData,
+  selectSearchObjectsHighlightRawData,
   selectAppLanguage,
-  (searchObjects, locale) =>
-    map(searchObjects, object => {
-      return {
-        ...translateAndProcessImagesForEntity(object, locale),
-        category: extractLocaleSpecificValues(object.category, locale),
-      };
-    }),
+  (searchObjects, highlight, locale) =>
+    prepareSearchItems(searchObjects, highlight, locale),
 );
 
 export const selectSearchHistoryObjects = createSelector(
