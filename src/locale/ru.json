@@ -176,7 +176,10 @@
     "whereToLook": "Где искать",
     "ratingGoogle": "Рейтинг Google",
     "geolocation": "Геопозиция",
-    "considerDistance": "Учитывать дистанцию",
+    "distance": {
+      "considerDistance": "Учитывать дистанцию",
+      "upTo": "До {{distance}} км"
+    },
     "hideVisit": "Скрыть посещенное",
     "choose": "Выбрать",
     "any": "Любые",

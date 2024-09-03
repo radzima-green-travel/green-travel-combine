@@ -7,7 +7,6 @@ export const thumbSize = 28;
 
 export const themeStyles = createThemeStyles({
   container: {
-    height: 52,
     alignItems: 'center',
     overflow: 'hidden',
   },
@@ -61,8 +60,6 @@ export const themeStyles = createThemeStyles({
     },
   },
   marksContainer: {
-    position: 'absolute',
-    bottom: 0,
     left: 0,
     right: 0,
     flexDirection: 'row',

@@ -1,1 +1,0 @@
-export {RangePickSlider} from './RangePickSlider';

@@ -1,3 +1,5 @@
+import {FilterDistance} from './FilterDistance';
+
 export {AppMapFilters} from './AppMapFilters';
 export {AppMapButtons} from './AppMapButtons';
 export {AuthSocial} from './AuthSocial';
@@ -40,3 +42,4 @@ export {Card} from './Card';
 export {ObjectBelongsToItem} from './ObjectBelongsToItem';
 export {FiltersSectionContainer} from './FiltersSectionContainer';
 export {SearchField} from './SearchField';
+export {FilterDistance} from './FilterDistance';

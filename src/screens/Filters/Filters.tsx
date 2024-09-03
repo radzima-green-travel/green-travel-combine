@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import {Chip, Multiswitch, SuspenseView, Button, Icon, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
@@ -9,7 +9,7 @@ import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ListItem} from 'components/molecules';
+import {ListItem, FilterDistance} from 'components/molecules';
 
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
@@ -42,6 +42,8 @@ export const Filters = () => {
       clearFilters();
     };
   }, [clearFilters]);
+
+  const [distance, setDistance] = useState(1);
 
   const buttons = useMemo(() => {
     return [
@@ -147,11 +149,10 @@ export const Filters = () => {
                   )}
                 />
               </FiltersSectionContainer>
-              <ListItem
-                type="switch"
-                title={t('considerDistance')}
-                testID={'considerDistance'}
-                switchProps={{value: false}}
+              <FilterDistance
+                enabled={true}
+                distance={distance}
+                onChange={setDistance}
               />
             </FiltersSectionContainer>
             <FiltersSectionContainer itemName={t('ratingGoogle')}>
