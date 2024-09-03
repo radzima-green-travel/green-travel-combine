@@ -26,6 +26,16 @@ export const searchObjectQueryParameters = `
 export const getSearchObjectsQuery = `query MyQuery($nextToken: String = null, $query: String = "") {
   filterLandingObjects(limit: 20, query: $query, filter: {statuses: "published"}, nextToken: $nextToken) {
     ${searchObjectQueryParameters}
+     highlight {
+      name {
+        value
+        id
+      }
+      description {
+        value
+        id
+      }
+    }
     nextToken
     total
   }

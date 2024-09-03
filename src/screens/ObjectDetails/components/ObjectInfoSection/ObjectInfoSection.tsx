@@ -5,6 +5,7 @@ import {View} from 'react-native';
 import {IconsNames} from 'atoms/Icon';
 import {ListItem} from 'molecules';
 import {StyleProp, ViewStyle} from 'react-native';
+import {TrancateDetectionText} from 'components/atoms';
 
 export type Item = {
   title: string;
@@ -94,8 +95,30 @@ export const ObjectInfoSection = memo(({items}: IProps) => {
           withDropdown ? (isNeedToTruncate ? onPress : undefined) : onPress
         }
         boldTitle={boldTitle}
-        onTitleTruncate={withDropdown ? setIsTitleTruncated : undefined}
-        onSubtitleTruncate={withDropdown ? setIsSubtitleTruncated : undefined}
+        renderSubtitle={
+          withDropdown
+            ? props => {
+                return (
+                  <TrancateDetectionText
+                    {...props}
+                    onTruncate={setIsSubtitleTruncated}
+                  />
+                );
+              }
+            : undefined
+        }
+        renderTitle={
+          withDropdown
+            ? props => {
+                return (
+                  <TrancateDetectionText
+                    {...props}
+                    onTruncate={setIsTitleTruncated}
+                  />
+                );
+              }
+            : undefined
+        }
       />
     );
   };

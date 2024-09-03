@@ -6,13 +6,15 @@ import {
   getSearchObjectsHistoryRequest,
   addSearchObjectToHistory,
 } from 'core/actions';
-import type {SearchObjectDTO} from 'core/types/api';
+import type {HighlightDTO, SearchObjectDTO} from 'core/types/api';
+import {mapValues} from 'lodash';
 import {byIdReducer} from 'react-redux-help-kit';
 
 interface SearchState {
   searchObjects: Array<SearchObjectDTO>;
   nextToken: string | null;
   searchHistoryObjects: Array<SearchObjectDTO>;
+  highlight: Record<string, HighlightDTO[]> | null;
   inputValue: string;
   total: number;
 }
@@ -20,6 +22,7 @@ interface SearchState {
 const initialState: SearchState = {
   searchObjects: [],
   searchHistoryObjects: [],
+  highlight: null,
   inputValue: '',
   nextToken: null,
   total: 0,
@@ -52,6 +55,7 @@ export const reducer = createReducer(initialState, builder => {
       searchObjects: payload.searchObjects,
       nextToken: payload.nextToken,
       total: payload.total,
+      highlight: payload.highlight,
     }),
   );
 
@@ -60,6 +64,10 @@ export const reducer = createReducer(initialState, builder => {
     (state, {payload}) => ({
       ...state,
       searchObjects: [...state.searchObjects, ...payload.searchObjects],
+      highlight: mapValues(state.highlight, (value, key) => {
+        const newValues = payload.highlight[key] || [];
+        return [...value, ...newValues];
+      }),
       nextToken: payload.nextToken,
       total: payload.total,
     }),

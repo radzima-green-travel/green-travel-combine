@@ -1,38 +1,37 @@
 import React from 'react';
-import {Text, TextProps, TextStyle} from 'react-native';
+import {StyleProp, Text, TextProps, TextStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {getTextParts} from './utils';
 import {themeStyles} from './styles';
 
-interface Props extends Omit<TextProps, 'style'> {
-  text?: string;
+interface Props extends TextProps {
   query?: string;
-  textWithMarkup?: string;
-  boldTextStyle?: TextStyle;
-  regularTextStyle?: TextStyle;
+  textWithMarkup?: boolean;
+  boldTextStyle?: StyleProp<TextStyle>;
 }
 
 export const HighlightedText: React.FC<Props> = ({
-  textWithMarkup,
-  text,
+  textWithMarkup = false,
   query,
+  style,
+  children,
   boldTextStyle,
-  regularTextStyle,
   ...props
 }) => {
   const styles = useThemeStyles(themeStyles);
 
-  const textParts = getTextParts({textWithMarkup, text, query});
+  const textParts = getTextParts({
+    textWithMarkup,
+    text: children as string,
+    query,
+  });
 
-  const getTextStyle = (isBold: boolean) =>
-    isBold
-      ? boldTextStyle ?? styles.boldText
-      : regularTextStyle ?? styles.regularText;
+  const textStyle = [styles.boldText, boldTextStyle];
 
   return (
-    <Text>
+    <Text {...props}>
       {textParts.map(({isBold, partText}, index) => (
-        <Text key={index} style={getTextStyle(isBold)} {...props}>
+        <Text key={index} style={[style, isBold && textStyle]}>
           {partText}
         </Text>
       ))}
