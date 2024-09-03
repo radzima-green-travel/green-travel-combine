@@ -1,7 +1,6 @@
 import React, {memo} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TextProps, TouchableOpacity, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
-import {TrancateDetectionText} from 'atoms';
 import {ListItemWrapper} from './ListItemWrapper';
 import {themeStyles} from './styles';
 import {BaseListItemProps} from './types';
@@ -12,7 +11,6 @@ export const BaseListItem = memo(
     title,
     onPress,
     subtitle,
-
     disabled,
     containerStyle,
     contentStylingType = 'primary',
@@ -22,27 +20,34 @@ export const BaseListItem = memo(
     subTitleNumberOfLines = 1,
     titleContainerStyle,
     boldTitle = true,
-    onTitleTruncate,
-    onSubtitleTruncate,
     rightElement,
     leftElement,
+    renderTitle,
+    renderSubtitle,
   }: BaseListItemProps) => {
     const styles = useThemeStyles(themeStyles);
 
-    const renderSubtitle = () => {
+    const renderSubtitleSection = () => {
       if (subtitle) {
-        const TextComponent = onSubtitleTruncate ? TrancateDetectionText : Text;
+        const textProps: TextProps = {
+          style: styles.subtitle,
+          numberOfLines: subTitleNumberOfLines,
+          ellipsizeMode: 'tail',
+
+          children: subtitle,
+        };
+        let subtitleNode: React.JSX.Element | null = null;
+
+        if (renderSubtitle) {
+          subtitleNode = renderSubtitle(textProps);
+        } else {
+          subtitleNode = <Text {...textProps} />;
+        }
 
         return (
           <>
             <View style={styles.subtitleOffset} />
-            <TextComponent
-              style={styles.subtitle}
-              numberOfLines={subTitleNumberOfLines}
-              ellipsizeMode="tail"
-              onTruncate={onSubtitleTruncate}>
-              {subtitle}
-            </TextComponent>
+            {subtitleNode}
           </>
         );
       }
@@ -50,23 +55,25 @@ export const BaseListItem = memo(
       return null;
     };
 
-    const renderTitle = () => {
-      const TextComponent = onTitleTruncate ? TrancateDetectionText : Text;
+    const renderTitleSection = () => {
+      const textProps: TextProps = {
+        style: [
+          styles.title,
+          (contentStylingType === 'secondary' || !boldTitle) &&
+            styles.titleSecondary,
+          onSubtitlePress && styles.titleLink,
+        ],
+        numberOfLines: titleNumberOfLines,
+        ellipsizeMode: 'tail',
+        children: title,
+      };
 
-      const titleNode = (
-        <TextComponent
-          style={[
-            styles.title,
-            (contentStylingType === 'secondary' || !boldTitle) &&
-              styles.titleSecondary,
-            onSubtitlePress && styles.titleLink,
-          ]}
-          numberOfLines={titleNumberOfLines}
-          ellipsizeMode="tail"
-          onTruncate={onTitleTruncate}>
-          {title}
-        </TextComponent>
-      );
+      let titleNode: React.JSX.Element | null = null;
+      if (renderTitle) {
+        titleNode = renderTitle(textProps);
+      } else {
+        titleNode = <Text {...textProps} />;
+      }
 
       if (onSubtitlePress) {
         return (
@@ -111,8 +118,8 @@ export const BaseListItem = memo(
                 contentStylingType === 'secondary' &&
                 styles.secondaryContentContainer
               }>
-              {renderTitle()}
-              {renderSubtitle()}
+              {renderTitleSection()}
+              {renderSubtitleSection()}
             </View>
           </View>
           {renderRightElement()}

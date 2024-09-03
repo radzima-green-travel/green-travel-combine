@@ -61,6 +61,11 @@ export interface CategoryShortDTO {
   owner: string | null;
 }
 
+export interface HighlightDTO {
+  id: string;
+  value: string;
+}
+
 export interface ObjectShortDTO {
   cover: string;
   category: {
@@ -249,6 +254,7 @@ export interface PaginatedList<T> {
 }
 export type SearchObjectsResponseDTO = {
   items: Array<SearchObjectDTO>;
+  highlight: Record<string, HighlightDTO[]>;
   nextToken: string | null;
   total: number;
 };

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import {Chip, Multiswitch, SuspenseView, Button, Icon, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
@@ -34,6 +34,7 @@ export const Filters = () => {
     total,
     snackBarProps,
     activeSettlements,
+    getIsRegionDisabled,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -104,6 +105,7 @@ export const Filters = () => {
                   <Chip
                     active={activeRegions?.includes(id)}
                     onPress={() => chooseRegion(id)}
+                    disabled={getIsRegionDisabled(id)}
                     key={id}
                     testID={value}
                     text={value}

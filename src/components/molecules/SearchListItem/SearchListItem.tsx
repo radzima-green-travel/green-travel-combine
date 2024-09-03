@@ -1,13 +1,11 @@
 import React, {memo, useCallback} from 'react';
-import {Text, View} from 'react-native';
 
-import {Icon} from 'atoms';
+import {HighlightedText} from 'atoms';
 import {themeStyles} from './styles';
 import {useThemeStyles, useColorScheme} from 'core/hooks';
 import {SearchObject} from 'core/types';
 import {DARK_ICONS_MATCHER, ICONS_MATCHER} from 'core/constants';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import {ListItem} from '../ListItem';
 
 interface IProps {
   data: SearchObject;
@@ -19,6 +17,7 @@ export const SearchListItem = memo(({data, testID, onPress}: IProps) => {
   const {
     name,
     category: {icon, name: categoryName},
+    description,
   } = data;
 
   const styles = useThemeStyles(themeStyles);
@@ -29,28 +28,28 @@ export const SearchListItem = memo(({data, testID, onPress}: IProps) => {
   }, [onPress, data]);
 
   return (
-    <TouchableOpacity
+    <ListItem
+      leadIcon={
+        colorScheme === 'light' ? ICONS_MATCHER[icon] : DARK_ICONS_MATCHER[icon]
+      }
+      leadIconContainerStyle={styles.iconContainer}
+      testID={testID}
+      type="primary"
       onPress={onPressHandler}
-      activeOpacity={1}
-      style={styles.container}
-      {...getPlatformsTestID(testID)}>
-      <Icon
-        style={styles.icon}
-        name={
-          colorScheme === 'light'
-            ? ICONS_MATCHER[icon]
-            : DARK_ICONS_MATCHER[icon]
-        }
-        size={36}
-      />
-      <View style={styles.textContainer}>
-        <Text
-          style={styles.title}
-          {...getPlatformsTestID(composeTestID(testID, 'title'))}>
-          {name}
-        </Text>
-        <Text style={styles.subtitle}>{categoryName}</Text>
-      </View>
-    </TouchableOpacity>
+      titleNumberOfLines={2}
+      subTitleNumberOfLines={2}
+      containerStyle={styles.container}
+      title={name}
+      renderTitle={props => <HighlightedText {...props} textWithMarkup />}
+      renderSubtitle={props => (
+        <HighlightedText
+          {...props}
+          textWithMarkup
+          boldTextStyle={styles.subtitleHighlight}
+        />
+      )}
+      subtitle={categoryName + (description ? ` · ${description}` : '')}
+      boldTitle={false}
+    />
   );
 });

@@ -1,10 +1,16 @@
 import {IconsNames} from 'components/atoms/Icon';
 import {ReactElement, ReactNode} from 'react';
-import {StyleProp, SwitchProps, TextStyle, ViewStyle} from 'react-native';
+import {
+  StyleProp,
+  SwitchProps,
+  TextStyle,
+  ViewStyle,
+  TextProps,
+} from 'react-native';
 
 export interface BaseListItemProps {
   testID: string;
-  title: string;
+  title?: string;
   onPress?: () => void;
   disabled?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
@@ -16,10 +22,10 @@ export interface BaseListItemProps {
   titleNumberOfLines?: number;
   subTitleNumberOfLines?: number;
   boldTitle?: boolean;
-  onTitleTruncate?: (isTruncated: boolean) => void;
-  onSubtitleTruncate?: (isTruncated: boolean) => void;
   rightElement?: ReactElement;
   leftElement?: ReactElement | null;
+  renderTitle?: (props: TextProps) => ReactElement;
+  renderSubtitle?: (props: TextProps) => ReactElement;
 }
 
 export interface ListItemPrimaryProps extends BaseListItemProps {
@@ -30,6 +36,7 @@ export interface ListItemPrimaryProps extends BaseListItemProps {
   labelStyle?: StyleProp<TextStyle>;
   leadIcon?: IconsNames;
   leadIconStyle?: StyleProp<TextStyle>;
+  leadIconContainerStyle?: StyleProp<ViewStyle>;
 }
 type ItemProp<T> = T extends undefined ? {item?: never} : {item: T};
 

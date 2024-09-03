@@ -12,29 +12,29 @@ import 'react-native-gesture-handler';
 import * as expoConfig from './app.json';
 
 import * as Sentry from '@sentry/react-native';
-
-// import {ComponentSandbox} from 'atoms';
+import {Preview} from './src/components/atoms/Preview/Preview';
 // TODO: fix analytics details page, fix input color, fix snacbars position and color
 
 const App = () => {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <Provider store={store}>
-        {/* <ComponentSandbox> */}
-        <BottomSheetModalProvider>
-          <PersistGate loading={null} persistor={persistor}>
-            <SafeAreaProvider>
-              <RootNavigator />
-            </SafeAreaProvider>
-          </PersistGate>
-        </BottomSheetModalProvider>
-        {/* </ComponentSandbox> */}
+        <Preview>
+          <BottomSheetModalProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <SafeAreaProvider>
+                <RootNavigator />
+              </SafeAreaProvider>
+            </PersistGate>
+          </BottomSheetModalProvider>
+        </Preview>
       </Provider>
     </GestureHandlerRootView>
   );
 };
 
 const AppWithSentry = Sentry.wrap(App);
+
 AppRegistry.registerComponent(expoConfig.expo.name, () => AppWithSentry);
 
 export default App;

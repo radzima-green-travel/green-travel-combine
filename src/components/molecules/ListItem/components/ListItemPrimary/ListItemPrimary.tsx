@@ -17,6 +17,7 @@ export const ListItemPrimary = memo<ListItemPrimaryProps>(
     labelStyle,
     leadIcon,
     leadIconStyle,
+    leadIconContainerStyle,
     ...props
   }) => {
     const styles = useThemeStyles(themeStyles);
@@ -51,7 +52,7 @@ export const ListItemPrimary = memo<ListItemPrimaryProps>(
 
     const rennderLeftIcon = () => {
       return leadIcon ? (
-        <View style={styles.leadIconContainer}>
+        <View style={[styles.leadIconContainer, leadIconContainerStyle]}>
           <Icon
             name={leadIcon}
             size={24}

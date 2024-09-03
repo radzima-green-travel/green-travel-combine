@@ -236,6 +236,7 @@ export interface ObjectCategoryMap extends ObjectCategoryMapDTO {
 }
 export interface SearchObject extends SearchObjectDTO {
   analyticsMetadata: Record<ExtractI18nKeys<SearchObjectDTO>, string>;
+  description?: string;
 }
 export interface CardItem {
   name: string;

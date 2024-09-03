@@ -51,3 +51,27 @@
 
 1. Follow the [commit rules](./docs/COMMITLINT.md).
 2. To create new development client build, push main to `dev-client` branch.
+3. To develop UI components in isolation "preview" can be used:
+
+```javascript
+import { preview } from 'preview';
+
+
+...
+
+
+
+preview(() => (
+  <View style={{width: 300, backgroundColor: 'white', padding: 5}}>
+    <RangePickSlider
+      minValue={0}
+      maxValue={10}
+      steps={5}
+      markSteps={10}
+      value={2}
+      onChangeValue={() => {}}
+    />
+  </View>
+));
+
+```

@@ -9,7 +9,7 @@ import {
   selectTransformedAggregationsWithNumberOfItems,
   selectFiltersCategories,
 } from 'core/selectors';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProps} from '../types';
 import {
   useOnRequestError,
@@ -35,7 +35,7 @@ export const useFilters = () => {
   const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
-  const {settlementsWithNumberOfItems} = useSelector(
+  const {settlementsWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
   );
 
@@ -103,18 +103,6 @@ export const useFilters = () => {
     [dispatch],
   );
 
-  const chooseSettlements = useCallback(
-    (items: string[]) => {
-      dispatch(
-        setActiveFilter({
-          name: 'municipalities',
-          value: items,
-        }),
-      );
-    },
-    [dispatch],
-  );
-
   const clearFilters = useCallback(() => {
     dispatch(clearFiltersAction());
   }, [dispatch]);
@@ -122,15 +110,9 @@ export const useFilters = () => {
   const navigateToSettlements = useCallback(() => {
     navigation.navigate('Settlements', {
       initialSelectedSettlements: activeFilters.municipalities,
-      onApplySelection: chooseSettlements,
       regionsToInclude: keys(pickBy(settlementsWithNumberOfItems, Boolean)),
     });
-  }, [
-    activeFilters.municipalities,
-    chooseSettlements,
-    settlementsWithNumberOfItems,
-    navigation,
-  ]);
+  }, [activeFilters.municipalities, settlementsWithNumberOfItems, navigation]);
 
   useUpdateEffect(() => {
     getFiltersData();
@@ -140,12 +122,31 @@ export const useFilters = () => {
     getFiltersInitialData();
   }, [getFiltersInitialData]);
 
-  useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
-    show({
-      title: errorLabel.text,
-      type: 'error',
-    });
-  });
+  const isFocused = useIsFocused();
+
+  useOnRequestError(
+    getFiltersDataRequest,
+    'filters',
+    errorLabel => {
+      if (isFocused) {
+        show({
+          title: errorLabel.text,
+          type: 'error',
+        });
+      }
+    },
+    false,
+  );
+
+  const getIsRegionDisabled = useCallback(
+    (regionID: string) => {
+      return (
+        Boolean(activeFilters.municipalities.length) &&
+        regionsWithNumberOfItems[regionID] === 0
+      );
+    },
+    [activeFilters.municipalities.length, regionsWithNumberOfItems],
+  );
 
   return {
     caregoriesData,
@@ -168,5 +169,6 @@ export const useFilters = () => {
     chooseCategory,
     total,
     snackBarProps,
+    getIsRegionDisabled,
   };
 };

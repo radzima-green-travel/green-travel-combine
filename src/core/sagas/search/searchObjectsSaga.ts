@@ -23,15 +23,25 @@ export function* searchObjectsSaga({
     );
 
     if (!query) {
-      yield put(successAction({searchObjects: [], nextToken: null, total: 0}));
+      yield put(
+        successAction({
+          searchObjects: [],
+          nextToken: null,
+          total: 0,
+          highlight: {},
+        }),
+      );
       return;
     }
-    const {items, nextToken, total}: SearchObjectsResponseDTO = yield call(
-      [graphQLAPI, graphQLAPI.getSearchObjects],
-      {query, nextToken: isLoadingMoreAction ? prevToken : null},
-    );
+    const {items, nextToken, total, highlight}: SearchObjectsResponseDTO =
+      yield call([graphQLAPI, graphQLAPI.getSearchObjects], {
+        query,
+        nextToken: isLoadingMoreAction ? prevToken : null,
+      });
 
-    yield put(successAction({searchObjects: items, nextToken, total}));
+    yield put(
+      successAction({searchObjects: items, nextToken, total, highlight}),
+    );
   } catch (e) {
     yield put(failureAction(e as RequestError));
   }

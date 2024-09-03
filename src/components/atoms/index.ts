@@ -39,3 +39,4 @@ export {TrancateDetectionText} from './TrancateDetectionText';
 export {Checkbox} from './Checkbox';
 export {Multiswitch} from './Multiswitch';
 export {SnackBar} from './SnackBar';
+export {HighlightedText} from './HighlightedText';

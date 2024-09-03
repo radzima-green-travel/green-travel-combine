@@ -1,6 +1,12 @@
 import React, {useCallback, useEffect} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {SuspenseView} from 'atoms';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  Platform,
+  KeyboardAvoidingView,
+} from 'react-native';
+import {HighlightedText, SnackBar, SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {screenOptions} from './screenOptions';
 import {themeStyles, ITEM_HEIGHT} from './styles';
@@ -34,6 +40,8 @@ export const Settlements = () => {
     getSettlementsData,
     resetSelectedSettlements,
     isApplyButtonDisabled,
+    loading,
+    snackBarProps,
   } = useSettlements();
 
   const {bottom} = useSafeAreaInsets();
@@ -87,7 +95,10 @@ export const Settlements = () => {
   }, [navigation, renderHeaderRight]);
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={24}
+      style={styles.container}>
       <SearchField
         testID={'searchField'}
         onChange={handleSearchValue}
@@ -113,6 +124,9 @@ export const Settlements = () => {
               checked={selectedSettlements.includes(item.id)}
               onPress={chooseSettlement}
               testID={'settlementsListItem'}
+              renderTitle={props => {
+                return <HighlightedText {...props} query={searchValue} />;
+              }}
             />
           )}
           ListEmptyComponent={renderListEmptyComponent}
@@ -131,12 +145,14 @@ export const Settlements = () => {
                 : t('settlements.apply'),
               testID: 'applyButton',
               disabled: isApplyButtonDisabled,
+              loading,
               onPress: applySettlements,
             },
           ]}
         />
       </SuspenseView>
-    </View>
+      <SnackBar isOnTop testID="snackBar" {...snackBarProps} />
+    </KeyboardAvoidingView>
   );
 };
 

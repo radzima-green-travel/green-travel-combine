@@ -1,13 +1,20 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
-import {HomeNavigatorParamsList} from 'core/types';
-
-export type SearchScreenNavigationProps = StackNavigationProp<
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
+import {
+  TabNavigatorParamsList,
+  MainNavigatorParamsList,
   HomeNavigatorParamsList,
-  'Search'
->;
+} from 'core/types';
 
+export type SearchScreenNavigationProps = CompositeNavigationProp<
+  StackNavigationProp<HomeNavigatorParamsList, 'Search'>,
+  CompositeNavigationProp<
+    BottomTabNavigationProp<TabNavigatorParamsList>,
+    StackNavigationProp<MainNavigatorParamsList>
+  >
+>;
 export type SearchScreenRouteProps = RouteProp<
   HomeNavigatorParamsList,
   'Search'
