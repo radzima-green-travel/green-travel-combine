@@ -5,7 +5,10 @@ export function prepareSettlementsSections(
   settlements: SpotItemDTO[],
   regionsToInclude: string[],
   searchValue: string,
+  selectedSettlements: string[],
 ) {
+  const selectedSettlementsSection = [] as SpotItemDTO[];
+
   const sections = reduce(
     orderBy(settlements, 'value'),
     (acc, item) => {
@@ -16,14 +19,21 @@ export function prepareSettlementsSections(
         const firstLetter = item.value[0];
 
         acc[firstLetter] = [...(acc[firstLetter] || []), item];
+
+        if (includes(selectedSettlements, item.id)) {
+          selectedSettlementsSection.push(item);
+        }
       }
       return acc;
     },
     {} as Record<string, SpotItemDTO[]>,
   );
 
-  return chain(sections)
-    .pickBy(value => value.length)
-    .map((data = [], title) => ({title, data}))
-    .value();
+  return {
+    settlementsSections: chain(sections)
+      .pickBy(value => value.length)
+      .map((data = [], title) => ({title, data}))
+      .value(),
+    selectedSettlementsSection,
+  };
 }

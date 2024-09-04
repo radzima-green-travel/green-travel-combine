@@ -28,11 +28,14 @@ export const selectSettlementsSections = createSelector(
   selectSettlements,
   (_: IState, regionsToInclude: string[]) => regionsToInclude,
   (_: IState, _1: string[], searchValue: string) => searchValue,
-  (settlements, regionsToInclude, searchValue) => {
+  (_: IState, _1: string[], _2: string, selectedSettlements: string[]) =>
+    selectedSettlements,
+  (settlements, regionsToInclude, searchValue, selectedSettlements) => {
     return prepareSettlementsSections(
       settlements,
       regionsToInclude,
       searchValue,
+      selectedSettlements,
     );
   },
 );

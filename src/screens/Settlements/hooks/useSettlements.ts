@@ -52,8 +52,14 @@ export const useSettlements = () => {
   }, [initialSelectedSettlements, selectedSettlements]);
   const [searchValue, setSearchValue] = useState('');
 
-  const settlementsSections = useSelector((state: IState) =>
-    selectSettlementsSections(state, regionsToInclude, searchValue),
+  const {settlementsSections, selectedSettlementsSection} = useSelector(
+    (state: IState) =>
+      selectSettlementsSections(
+        state,
+        regionsToInclude,
+        searchValue,
+        selectedSettlements,
+      ),
   );
 
   const isDataLoaded = useSelector(selectIsSettlementsLoaded);
@@ -102,6 +108,7 @@ export const useSettlements = () => {
   return {
     navigation,
     settlementsSections,
+    selectedSettlementsSection,
     selectedSettlements,
     fullScreenLoading: fullScreenLoading,
     errorTexts,

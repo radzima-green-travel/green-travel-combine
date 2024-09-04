@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   View,
   Platform,
+  FlatList,
   KeyboardAvoidingView,
 } from 'react-native';
 import {HighlightedText, SnackBar, SuspenseView} from 'atoms';
@@ -30,6 +31,7 @@ export const Settlements = () => {
   const {
     navigation,
     settlementsSections,
+    selectedSettlementsSection,
     selectedSettlements,
     fullScreenLoading,
     searchValue,
@@ -110,6 +112,23 @@ export const Settlements = () => {
         error={errorTexts}
         retryCallback={getSettlementsData}>
         <SectionList
+          ListHeaderComponent={
+            <FlatList
+              data={selectedSettlementsSection}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => (
+                <ListItem
+                  type={'checkbox'}
+                  item={item}
+                  key={item.id}
+                  title={item.value}
+                  checked={selectedSettlements.includes(item.id)}
+                  onPress={chooseSettlement}
+                  testID={'settlementsListItem'}
+                />
+              )}
+            />
+          }
           contentContainerStyle={styles.sectionListContentContainer}
           showsVerticalScrollIndicator={false}
           sections={settlementsSections}
