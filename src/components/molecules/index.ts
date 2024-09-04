@@ -1,5 +1,3 @@
-import {FilterDistance} from './FilterDistance';
-
 export {AppMapFilters} from './AppMapFilters';
 export {AppMapButtons} from './AppMapButtons';
 export {AuthSocial} from './AuthSocial';
