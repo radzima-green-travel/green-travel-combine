@@ -63,7 +63,7 @@ import { preview } from 'preview';
 
 preview(() => (
   <View style={{width: 300, backgroundColor: 'white', padding: 5}}>
-    <RangePickSlider
+    <CustomSlider
       minValue={0}
       maxValue={10}
       steps={5}

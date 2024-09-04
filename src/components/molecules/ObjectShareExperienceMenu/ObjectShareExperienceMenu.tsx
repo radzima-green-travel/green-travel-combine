@@ -1,7 +1,7 @@
 import React, {memo, useCallback, useMemo} from 'react';
 import {View, Text} from 'react-native';
 import {useThemeStyles, useTranslation, useTimeRange} from 'core/hooks';
-import {RangePickSlider} from 'atoms';
+import {CustomSlider} from 'atoms';
 import {ListItem, Ratings} from 'molecules';
 import {themeStyles} from './styles';
 import {ButtonsGroup} from '../ButtonsGroup';
@@ -97,7 +97,8 @@ export const ObjectShareExperienceMenu = memo(
 
         <Text style={styles.timeText}>{timeString}</Text>
 
-        <RangePickSlider
+        <CustomSlider
+          type="withMarks"
           minValue={0}
           maxValue={12}
           steps={72}
