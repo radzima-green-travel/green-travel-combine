@@ -6,15 +6,21 @@ import {ListItem} from 'components/molecules';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 
 interface Props {
-  enabled: boolean;
+  isOn: boolean;
   distance: number;
-  onChange: (value: number) => void;
+  onChangeSwitcherState: (isOn: boolean) => void;
+  onChangeDistance: (value: number) => void;
 }
 
-export const FilterDistance = ({enabled, distance, onChange}: Props) => {
+export const FilterDistance = ({
+  isOn,
+  distance,
+  onChangeSwitcherState,
+  onChangeDistance,
+}: Props) => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('filters');
-  const [filerEnabled, setFilterEnabled] = useState(enabled);
+  const [distanceValue, setDistanceValue] = useState(distance);
 
   return (
     <View>
@@ -24,20 +30,24 @@ export const FilterDistance = ({enabled, distance, onChange}: Props) => {
         boldTitle={true}
         title={t('distance.considerDistance')}
         testID={'considerDistance'}
-        switchProps={{value: filerEnabled, onValueChange: setFilterEnabled}}
+        switchProps={{
+          value: isOn,
+          onValueChange: onChangeSwitcherState,
+        }}
       />
-      {filerEnabled && (
+      {isOn && (
         <View>
           <Text style={styles.distanceStyle}>
-            {t('distance.upTo', {distance: distance})}
+            {t('distance.upTo', {distance: distanceValue})}
           </Text>
           <CustomSlider
             type="basic"
             minValue={1}
-            maxValue={40}
-            steps={40}
-            value={distance}
-            onChangeValue={onChange}
+            maxValue={100}
+            steps={100}
+            value={distanceValue}
+            onChangeValue={setDistanceValue}
+            onSlidingComplete={onChangeDistance}
           />
         </View>
       )}

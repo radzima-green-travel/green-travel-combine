@@ -35,6 +35,9 @@ export const Filters = () => {
     snackBarProps,
     activeSettlements,
     getIsRegionDisabled,
+    activeDistance,
+    updateDistanceIsOn,
+    updateDistance,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -43,8 +46,6 @@ export const Filters = () => {
       clearFilters();
     };
   }, [clearFilters]);
-
-  const [distance, setDistance] = useState(1);
 
   const buttons = useMemo(() => {
     return [
@@ -152,9 +153,10 @@ export const Filters = () => {
                 />
               </FiltersSectionContainer>
               <FilterDistance
-                enabled={true}
-                distance={distance}
-                onChange={setDistance}
+                distance={activeDistance.value}
+                isOn={activeDistance.isOn}
+                onChangeSwitcherState={updateDistanceIsOn}
+                onChangeDistance={updateDistance}
               />
             </FiltersSectionContainer>
             <FiltersSectionContainer itemName={t('ratingGoogle')}>

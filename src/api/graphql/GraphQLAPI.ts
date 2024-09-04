@@ -102,10 +102,17 @@ class GraphQLAPI extends GraphQLAPIEngine {
 
   async getFilterObjects({
     filter = {},
+    distance,
   }: FiltersParams = {}): Promise<ObjectFiltersDataResponseDTO> {
     const response = await this.executeQuery({
       query: filterObjects,
       params: {
+        km: distance ? (distance.isOn ? distance.value : null) : null,
+        location: distance
+          ? distance.isOn
+            ? distance.location || null
+            : null
+          : null,
         filter: {
           statuses: ['published'],
           ...filter,

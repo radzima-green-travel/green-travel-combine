@@ -21,10 +21,11 @@ export const searchSpotsQuery = `
      }
    }
    `;
-
-export const filterObjects = `query filterLandingObjects($filter: FacetLandingObjectFilterInput) {
+export const filterObjects = `query filterLandingObjects($filter: FacetLandingObjectFilterInput, $km: Int, $location: LocationInput) {
   filterLandingObjects(
     filter: $filter
+    km: $km
+    location: $location
   ) {
     aggregations {
       googleRatings {

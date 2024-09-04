@@ -10,6 +10,7 @@ interface BaseProps {
   steps: number;
   value: number;
   onChangeValue: (value: number) => void;
+  onSlidingComplete?: (value: number) => void;
   containerStyle?: StyleProp<ViewStyle>;
 }
 
@@ -33,6 +34,7 @@ export const CustomSlider = memo((props: IProps) => {
     containerStyle,
     value,
     onChangeValue,
+    onSlidingComplete,
   } = props;
   const styles = useThemeStyles(themeStyles);
 
@@ -79,6 +81,15 @@ export const CustomSlider = memo((props: IProps) => {
     [onChangeValue],
   );
 
+  const onSlidingCompleteHandler = useCallback(
+    (values: number[]) => {
+      if (onSlidingComplete) {
+        onSlidingComplete(values[0]);
+      }
+    },
+    [onSlidingComplete],
+  );
+
   return (
     <View
       onLayout={({nativeEvent}) => {
@@ -95,6 +106,7 @@ export const CustomSlider = memo((props: IProps) => {
           }
           value={value}
           onValueChange={onValueChangeHandler}
+          onSlidingComplete={onSlidingCompleteHandler}
           thumbTouchSize={{width: thumbSize, height: thumbSize}}
           trackStyle={styles.trackStyle}
           renderThumbComponent={() => <View style={styles.thumbStyle} />}

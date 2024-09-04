@@ -28,6 +28,7 @@ const initialState: FiltersState = {
     categories: [],
     regions: [],
     municipalities: [],
+    distance: {isOn: false, value: 5, location: undefined},
   },
   categoriesList: [],
 };
@@ -35,11 +36,21 @@ const initialState: FiltersState = {
 export const filtersReducer = createReducer(initialState, builder => {
   builder
     .addCase(setActiveFilter, (state, {payload}) => {
+      console.log('setActiveFilter:', payload);
       let newState;
       if (payload.name === 'googleRating') {
         newState = payload.value;
-      } else if (typeof payload.value === 'string') {
+      } else if (
+        typeof payload.value === 'string' &&
+        payload.name !== 'distance'
+      ) {
         newState = xor(state.activeFilters[payload.name], [payload.value]);
+      } else if (payload.name === 'distance') {
+        newState = {
+          isOn: payload.isOn,
+          value: payload.value,
+          location: payload.location,
+        };
       } else {
         newState = payload.value;
       }

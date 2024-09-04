@@ -51,18 +51,23 @@ export const useFilters = () => {
     getFiltersDataRequest,
   );
 
-  const emptyActiveFilters = !Object.values(activeFilters).find(
-    value => value?.length,
-  );
+  const emptyActiveFilters =
+    !activeFilters.categories.length &&
+    !activeFilters.googleRating.length &&
+    !activeFilters.municipalities.length &&
+    !activeFilters.regions.length &&
+    !activeFilters.distance.isOn;
 
   const getFiltersInitialData = useCallback(() => {
     dispatch(getInitialFiltersRequest());
   }, [dispatch]);
 
   const getFiltersData = useCallback(() => {
+    const {distance, ...otherFilters} = activeFilters;
     dispatch(
       getFiltersDataRequest({
-        filter: activeFilters,
+        filter: otherFilters,
+        distance: distance,
       }),
     );
   }, [dispatch, activeFilters]);
@@ -101,6 +106,32 @@ export const useFilters = () => {
       );
     },
     [dispatch],
+  );
+
+  const updateDistanceIsOn = useCallback(
+    (isOn: boolean) => {
+      dispatch(
+        setActiveFilter({
+          name: 'distance',
+          isOn: isOn,
+          value: activeFilters.distance.value,
+        }),
+      );
+    },
+    [dispatch, activeFilters],
+  );
+
+  const updateDistance = useCallback(
+    (distance: number) => {
+      dispatch(
+        setActiveFilter({
+          name: 'distance',
+          isOn: activeFilters.distance.isOn,
+          value: distance,
+        }),
+      );
+    },
+    [dispatch, activeFilters],
   );
 
   const clearFilters = useCallback(() => {
@@ -165,8 +196,11 @@ export const useFilters = () => {
     activeRegions: activeFilters.regions,
     activeCategories: activeFilters.categories,
     activeSettlements: activeFilters.municipalities,
+    activeDistance: activeFilters.distance,
     updateRatings,
     chooseCategory,
+    updateDistanceIsOn,
+    updateDistance,
     total,
     snackBarProps,
     getIsRegionDisabled,
