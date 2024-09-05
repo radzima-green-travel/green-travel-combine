@@ -45,7 +45,7 @@ export const CustomSlider = memo((props: IProps) => {
       return null;
     }
 
-    if (containerWidth) {
+    if (!containerWidth) {
       return null;
     }
 
