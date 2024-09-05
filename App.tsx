@@ -13,9 +13,14 @@ import * as expoConfig from './app.json';
 
 import * as Sentry from '@sentry/react-native';
 import {Preview} from './src/components/atoms/Preview/Preview';
+import {useAnimatedKeyboard} from 'react-native-reanimated';
 // TODO: fix analytics details page, fix input color, fix snacbars position and color
 
 const App = () => {
+  useAnimatedKeyboard({
+    isStatusBarTranslucentAndroid: true,
+  });
+
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <Provider store={store}>
