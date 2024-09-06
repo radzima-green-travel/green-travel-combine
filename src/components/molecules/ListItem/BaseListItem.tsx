@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useMemo} from 'react';
 import {Text, TextProps, TouchableOpacity, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {ListItemWrapper} from './ListItemWrapper';
@@ -55,8 +55,8 @@ export const BaseListItem = memo(
       return null;
     };
 
-    const renderTitleSection = () => {
-      const textProps: TextProps = {
+    const textProps: TextProps = useMemo(
+      () => ({
         style: [
           styles.title,
           (contentStylingType === 'secondary' || !boldTitle) &&
@@ -66,8 +66,17 @@ export const BaseListItem = memo(
         numberOfLines: titleNumberOfLines,
         ellipsizeMode: 'tail',
         children: title,
-      };
+      }),
+      [
+        title,
+        titleNumberOfLines,
+        boldTitle,
+        contentStylingType,
+        onSubtitlePress,
+      ],
+    );
 
+    const renderTitleSection = () => {
       let titleNode: React.JSX.Element | null = null;
       if (renderTitle) {
         titleNode = renderTitle(textProps);
