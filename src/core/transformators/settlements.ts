@@ -1,26 +1,25 @@
 import {SpotItemDTO} from 'core/types';
-import {reduce, chain, includes, toLower, orderBy, map} from 'lodash';
+import {reduce, chain, includes, toLower, orderBy, filter} from 'lodash';
 
-export function prepareSortedSettlementsSections(settlements: SpotItemDTO[]) {
-  return orderBy(settlements, 'value');
-}
-
-export function prepareSettlementsSections(
+export function prepareFilteredSettlementsSections(
   settlements: SpotItemDTO[],
   regionsToInclude: string[],
   searchValue: string,
 ) {
+  return filter(
+    orderBy(settlements, 'value'),
+    item =>
+      includes(regionsToInclude, item.id) &&
+      toLower(item.value).includes(toLower(searchValue)),
+  );
+}
+
+export function prepareSettlementsSections(settlements: SpotItemDTO[]) {
   const sections = reduce(
     settlements,
     (acc, item) => {
-      if (
-        includes(regionsToInclude, item.id) &&
-        toLower(item.value).includes(toLower(searchValue))
-      ) {
-        const firstLetter = item.value[0];
-
-        acc[firstLetter] = [...(acc[firstLetter] || []), item];
-      }
+      const firstLetter = item.value[0];
+      acc[firstLetter] = [...(acc[firstLetter] || []), item];
       return acc;
     },
     {} as Record<string, SpotItemDTO[]>,
@@ -34,21 +33,7 @@ export function prepareSettlementsSections(
 
 export function prepareSelectedSettlementsSection(
   settlements: SpotItemDTO[],
-  regionsToInclude: string[],
-  searchValue: string,
   selectedSettlements: string[],
 ) {
-  const selectedSettlementsSection = [] as SpotItemDTO[];
-
-  map(settlements, item => {
-    if (
-      includes(regionsToInclude, item.id) &&
-      toLower(item.value).includes(toLower(searchValue)) &&
-      includes(selectedSettlements, item.id)
-    ) {
-      selectedSettlementsSection.push(item);
-    }
-  });
-
-  return selectedSettlementsSection;
+  return filter(settlements, item => includes(selectedSettlements, item.id));
 }

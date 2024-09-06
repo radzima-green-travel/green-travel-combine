@@ -4,10 +4,11 @@ import {selectAppLanguage} from './settingsSelectors';
 import {
   prepareSettlementsSections,
   prepareSelectedSettlementsSection,
-  prepareSortedSettlementsSections,
+  prepareFilteredSettlementsSections,
 } from 'core/transformators/settlements';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
+import {SpotItemDTO} from 'core/types';
 
 export const selectSettlementsData = (state: IState) => {
   return state.settlements.settlementsData;
@@ -28,17 +29,12 @@ export const selectIsSettlementsLoaded = createSelector(
   settlements => Boolean(settlements.length),
 );
 
-export const selectSortedSelectSettlements = createSelector(
+export const selectFilteredSettlements = createSelector(
   selectSettlements,
-  settlements => prepareSortedSettlementsSections(settlements),
-);
-
-export const selectSettlementsSections = createSelector(
-  selectSortedSelectSettlements,
   (_: IState, regionsToInclude: string[]) => regionsToInclude,
   (_: IState, _1: string[], searchValue: string) => searchValue,
   (settlements, regionsToInclude, searchValue) => {
-    return prepareSettlementsSections(
+    return prepareFilteredSettlementsSections(
       settlements,
       regionsToInclude,
       searchValue,
@@ -46,18 +42,17 @@ export const selectSettlementsSections = createSelector(
   },
 );
 
+export const selectSettlementsSections = createSelector(
+  (settlements: SpotItemDTO[]) => settlements,
+  settlements => {
+    return prepareSettlementsSections(settlements);
+  },
+);
+
 export const selectSelectedSettlementsSection = createSelector(
-  selectSortedSelectSettlements,
-  (_: IState, regionsToInclude: string[]) => regionsToInclude,
-  (_: IState, _1: string[], searchValue: string) => searchValue,
-  (_: IState, _1: string[], _2: string, selectedSettlements: string[]) =>
-    selectedSettlements,
-  (settlements, regionsToInclude, searchValue, selectedSettlements) => {
-    return prepareSelectedSettlementsSection(
-      settlements,
-      regionsToInclude,
-      searchValue,
-      selectedSettlements,
-    );
+  (settlements: SpotItemDTO[]) => settlements,
+  (_: SpotItemDTO[], selectedSettlements: string[]) => selectedSettlements,
+  (settlements, selectedSettlements) => {
+    return prepareSelectedSettlementsSection(settlements, selectedSettlements);
   },
 );
