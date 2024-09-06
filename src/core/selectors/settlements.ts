@@ -8,7 +8,6 @@ import {
 } from 'core/transformators/settlements';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
-import {SpotItemDTO} from 'core/types';
 
 export const selectSettlementsData = (state: IState) => {
   return state.settlements.settlementsData;
@@ -43,16 +42,14 @@ export const selectFilteredSettlements = createSelector(
 );
 
 export const selectSettlementsSections = createSelector(
-  (settlements: SpotItemDTO[]) => settlements,
-  settlements => {
-    return prepareSettlementsSections(settlements);
-  },
+  selectFilteredSettlements,
+  filteredSettlements => prepareSettlementsSections(filteredSettlements),
 );
 
 export const selectSelectedSettlementsSection = createSelector(
-  (settlements: SpotItemDTO[]) => settlements,
-  (_: SpotItemDTO[], selectedSettlements: string[]) => selectedSettlements,
-  (settlements, selectedSettlements) => {
-    return prepareSelectedSettlementsSection(settlements, selectedSettlements);
-  },
+  selectFilteredSettlements,
+  (_: IState, _1: string[], _2: string, selectedSettlements: string[]) =>
+    selectedSettlements,
+  (filteredSettlements, selectedSettlements) =>
+    prepareSelectedSettlementsSection(filteredSettlements, selectedSettlements),
 );
