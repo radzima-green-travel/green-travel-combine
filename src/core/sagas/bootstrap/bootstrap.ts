@@ -13,6 +13,7 @@ import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
 import {getObjectAttributesSaga} from '../objectAttributes';
 import {getHomePageDataRequest} from 'core/actions';
+import {initAppLocaleSaga} from './initAppLocaleSaga';
 
 export function* bootstrapSaga() {
   yield takeEvery(ACTIONS.BOOTSTRAP_REQUEST, function* () {
@@ -23,6 +24,8 @@ export function* bootstrapSaga() {
 
       yield call(initUserAuthSaga);
       yield put(getAppConfigurationRequest());
+
+      yield call(initAppLocaleSaga);
 
       if (isAuthorized) {
         yield spawn(getObjectAttributesSaga);

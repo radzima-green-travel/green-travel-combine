@@ -133,6 +133,8 @@ export const Settlements = () => {
           showsVerticalScrollIndicator={false}
           sections={settlementsSections}
           keyExtractor={item => item.id}
+          stickySectionHeadersEnabled={false}
+          maintainVisibleContentPosition={{minIndexForVisible: 1}}
           getItemLayout={getItemLayout}
           renderItem={({item}) => (
             <ListItem
