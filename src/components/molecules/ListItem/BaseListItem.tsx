@@ -68,11 +68,14 @@ export const BaseListItem = memo(
         children: title,
       }),
       [
-        title,
-        titleNumberOfLines,
-        boldTitle,
+        styles.title,
+        styles.titleSecondary,
+        styles.titleLink,
         contentStylingType,
+        boldTitle,
         onSubtitlePress,
+        titleNumberOfLines,
+        title,
       ],
     );
 
