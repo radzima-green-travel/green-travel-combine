@@ -3,6 +3,7 @@ import {useState, useEffect, useCallback, useMemo} from 'react';
 import {
   selectIsSettlementsLoaded,
   selectSettlementsSections,
+  selectSelectedSettlementsSection,
 } from 'core/selectors';
 import {
   useRequestLoading,
@@ -55,6 +56,14 @@ export const useSettlements = () => {
   const settlementsSections = useSelector((state: IState) =>
     selectSettlementsSections(state, regionsToInclude, searchValue),
   );
+  const selectedSettlementsSection = useSelector((state: IState) =>
+    selectSelectedSettlementsSection(
+      state,
+      regionsToInclude,
+      searchValue,
+      selectedSettlements,
+    ),
+  );
 
   const isDataLoaded = useSelector(selectIsSettlementsLoaded);
 
@@ -102,6 +111,7 @@ export const useSettlements = () => {
   return {
     navigation,
     settlementsSections,
+    selectedSettlementsSection,
     selectedSettlements,
     fullScreenLoading: fullScreenLoading,
     errorTexts,

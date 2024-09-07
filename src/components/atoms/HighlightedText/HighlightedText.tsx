@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {StyleProp, Text, TextProps, TextStyle} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {getTextParts} from './utils';
@@ -10,31 +10,33 @@ interface Props extends TextProps {
   boldTextStyle?: StyleProp<TextStyle>;
 }
 
-export const HighlightedText: React.FC<Props> = ({
-  textWithMarkup = false,
-  query,
-  style,
-  children,
-  boldTextStyle,
-  ...props
-}) => {
-  const styles = useThemeStyles(themeStyles);
-
-  const textParts = getTextParts({
-    textWithMarkup,
-    text: children as string,
+export const HighlightedText: React.FC<Props> = memo(
+  ({
+    textWithMarkup = false,
     query,
-  });
+    style,
+    children,
+    boldTextStyle,
+    ...props
+  }) => {
+    const styles = useThemeStyles(themeStyles);
 
-  const textStyle = [styles.boldText, boldTextStyle];
+    const textParts = getTextParts({
+      textWithMarkup,
+      text: children as string,
+      query,
+    });
 
-  return (
-    <Text {...props}>
-      {textParts.map(({isBold, partText}, index) => (
-        <Text key={index} style={[style, isBold && textStyle]}>
-          {partText}
-        </Text>
-      ))}
-    </Text>
-  );
-};
+    const textStyle = [styles.boldText, boldTextStyle];
+
+    return (
+      <Text {...props}>
+        {textParts.map(({isBold, partText}, index) => (
+          <Text key={index} style={[style, isBold && textStyle]}>
+            {partText}
+          </Text>
+        ))}
+      </Text>
+    );
+  },
+);

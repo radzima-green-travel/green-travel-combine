@@ -41,6 +41,7 @@ export const SearchField = memo(
           value={value}
           selectionColor={styles.selectionColor[colorTheme]}
           placeholder={t('settlements.search')}
+          placeholderTextColor={styles.placeholderTextColor[colorTheme]}
           onChangeText={onChange}
           style={[styles.input, inputStyle]}
           {...getPlatformsTestID(composeTestID(testID, 'input'))}
