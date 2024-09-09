@@ -1,4 +1,8 @@
-import {ObjectFiltersAggregationsDTO} from 'core/types';
+import {
+  ActiveFilters,
+  FiltersParams,
+  ObjectFiltersAggregationsDTO,
+} from 'core/types';
 import {reduce} from 'lodash';
 
 export const transformBucketsToCountMap = (
@@ -46,3 +50,26 @@ export function prepareAggregationsWithNumberOfItems(
     ),
   };
 }
+
+export const transformActiveFiltersToFilterParam = (
+  activeFilters: ActiveFilters,
+): FiltersParams => {
+  const {distance} = activeFilters;
+  return {
+    km: distance ? (distance.isOn ? distance.value : undefined) : undefined,
+    location: undefined,
+    filter: {
+      statuses: ['published'],
+      googleRating: activeFilters.googleRating || undefined,
+      categories: activeFilters.categories?.length
+        ? activeFilters.categories
+        : undefined,
+      regions: activeFilters.regions?.length
+        ? activeFilters.regions
+        : undefined,
+      municipalities: activeFilters.municipalities?.length
+        ? activeFilters.municipalities
+        : undefined,
+    },
+  };
+};

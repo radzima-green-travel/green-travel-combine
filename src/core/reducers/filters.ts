@@ -12,6 +12,7 @@ import {
   clearFilters,
 } from 'core/actions';
 import {xor} from 'lodash';
+import {DEFAULT_DISTANCE_FILTER_VALUE} from 'core/constants';
 
 interface FiltersState {
   regionsList: RegionsListResponseDTO;
@@ -28,7 +29,11 @@ const initialState: FiltersState = {
     categories: [],
     regions: [],
     municipalities: [],
-    distance: {isOn: false, value: 5, location: undefined},
+    distance: {
+      isOn: false,
+      value: DEFAULT_DISTANCE_FILTER_VALUE,
+      location: undefined,
+    },
   },
   categoriesList: [],
 };
@@ -36,7 +41,6 @@ const initialState: FiltersState = {
 export const filtersReducer = createReducer(initialState, builder => {
   builder
     .addCase(setActiveFilter, (state, {payload}) => {
-      console.log('setActiveFilter:', payload);
       let newState;
       if (payload.name === 'googleRating') {
         newState = payload.value;
@@ -47,9 +51,9 @@ export const filtersReducer = createReducer(initialState, builder => {
         newState = xor(state.activeFilters[payload.name], [payload.value]);
       } else if (payload.name === 'distance') {
         newState = {
-          isOn: payload.isOn,
-          value: payload.value,
-          location: payload.location,
+          isOn: payload.isOn ?? state.activeFilters.distance.isOn,
+          value: payload.value || state.activeFilters.distance.value,
+          location: payload.location || state.activeFilters.distance.location,
         };
       } else {
         newState = payload.value;

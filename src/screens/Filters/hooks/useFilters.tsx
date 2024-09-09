@@ -24,6 +24,7 @@ import {
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
 import {keys, pickBy} from 'lodash';
+import {areAllActiveFiltersUnser} from './utils';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -51,25 +52,14 @@ export const useFilters = () => {
     getFiltersDataRequest,
   );
 
-  const emptyActiveFilters =
-    !activeFilters.categories.length &&
-    !activeFilters.googleRating.length &&
-    !activeFilters.municipalities.length &&
-    !activeFilters.regions.length &&
-    !activeFilters.distance.isOn;
+  const emptyActiveFilters = areAllActiveFiltersUnser(activeFilters);
 
   const getFiltersInitialData = useCallback(() => {
     dispatch(getInitialFiltersRequest());
   }, [dispatch]);
 
   const getFiltersData = useCallback(() => {
-    const {distance, ...otherFilters} = activeFilters;
-    dispatch(
-      getFiltersDataRequest({
-        filter: otherFilters,
-        distance: distance,
-      }),
-    );
+    dispatch(getFiltersDataRequest(activeFilters));
   }, [dispatch, activeFilters]);
 
   const updateRatings = useCallback(
@@ -114,11 +104,10 @@ export const useFilters = () => {
         setActiveFilter({
           name: 'distance',
           isOn: isOn,
-          value: activeFilters.distance.value,
         }),
       );
     },
-    [dispatch, activeFilters],
+    [dispatch],
   );
 
   const updateDistance = useCallback(
@@ -126,12 +115,11 @@ export const useFilters = () => {
       dispatch(
         setActiveFilter({
           name: 'distance',
-          isOn: activeFilters.distance.isOn,
           value: distance,
         }),
       );
     },
-    [dispatch, activeFilters],
+    [dispatch],
   );
 
   const clearFilters = useCallback(() => {

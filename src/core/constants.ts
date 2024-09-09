@@ -271,3 +271,5 @@ export const AnalyticsAllowedEditFields: Record<
 };
 
 export const TIME_PICKER_FIELDS = new Set([ObjectField.attendanceTime]);
+
+export const DEFAULT_DISTANCE_FILTER_VALUE = 5;

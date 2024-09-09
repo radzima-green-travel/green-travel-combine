@@ -5,5 +5,5 @@ import {getInitialFiltersSaga} from './getInitialFiltersSaga';
 
 export function* filtersSaga() {
   yield takeLeading(getInitialFiltersRequest, getInitialFiltersSaga);
-  yield takeEvery([getFiltersDataRequest], getFiltersDataSaga);
+  yield takeEvery(getFiltersDataRequest, getFiltersDataSaga);
 }

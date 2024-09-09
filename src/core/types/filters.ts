@@ -19,8 +19,8 @@ export type SetActiveFilterPayload =
     }
   | {
       name: 'distance';
-      isOn: boolean;
-      value: number;
+      isOn?: boolean;
+      value?: number;
       location?: {lat: number; lon: number};
     };
 
