@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -30,6 +30,7 @@ export const Settlements = () => {
   const {
     navigation,
     settlementsSections,
+    selectedSettlementsSection,
     selectedSettlements,
     fullScreenLoading,
     searchValue,
@@ -88,6 +89,25 @@ export const Settlements = () => {
     [styles.listEmptyContainer, styles.listEmptyText, t],
   );
 
+  const SelectedSettlementsSection = useMemo(
+    () => (
+      <>
+        {selectedSettlementsSection.map(item => (
+          <ListItem
+            type={'checkbox'}
+            item={item}
+            key={item.id}
+            title={item.value}
+            checked={selectedSettlements.includes(item.id)}
+            onPress={chooseSettlement}
+            testID={'settlementsListItem'}
+          />
+        ))}
+      </>
+    ),
+    [chooseSettlement, selectedSettlements, selectedSettlementsSection],
+  );
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: renderHeaderRight,
@@ -110,10 +130,13 @@ export const Settlements = () => {
         error={errorTexts}
         retryCallback={getSettlementsData}>
         <SectionList
+          ListHeaderComponent={SelectedSettlementsSection}
           contentContainerStyle={styles.sectionListContentContainer}
           showsVerticalScrollIndicator={false}
           sections={settlementsSections}
           keyExtractor={item => item.id}
+          stickySectionHeadersEnabled={false}
+          maintainVisibleContentPosition={{minIndexForVisible: 1}}
           getItemLayout={getItemLayout}
           renderItem={({item}) => (
             <ListItem

@@ -5,7 +5,6 @@ import {selectAppLanguage, selectIsSystemLanguage} from 'core/selectors';
 import {setLanguage} from 'core/reducers';
 
 export function* initAppLocaleSaga() {
-  let isLocaledUpdated = false;
   let language = yield select(selectAppLanguage);
   let isSystemLanguage = yield select(selectIsSystemLanguage);
 
@@ -19,7 +18,6 @@ export function* initAppLocaleSaga() {
       languageService,
       languageService.getCurrentLanguage,
     ]);
-    isLocaledUpdated = Boolean(language) && language !== newLanguage;
     language = newLanguage;
     isSystemLanguage = true;
   }
@@ -35,6 +33,4 @@ export function* initAppLocaleSaga() {
     [languageService, languageService.setTranslationsCurrentLanguage],
     language,
   );
-
-  return isLocaledUpdated;
 }

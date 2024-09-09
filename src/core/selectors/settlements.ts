@@ -1,7 +1,11 @@
 import {createSelector} from '@reduxjs/toolkit';
 import {IState} from 'core/store';
 import {selectAppLanguage} from './settingsSelectors';
-import {prepareSettlementsSections} from 'core/transformators/settlements';
+import {
+  prepareSettlementsSections,
+  prepareSelectedSettlementsSection,
+  prepareFilteredSettlementsSections,
+} from 'core/transformators/settlements';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
 
@@ -24,15 +28,28 @@ export const selectIsSettlementsLoaded = createSelector(
   settlements => Boolean(settlements.length),
 );
 
-export const selectSettlementsSections = createSelector(
+export const selectFilteredSettlements = createSelector(
   selectSettlements,
   (_: IState, regionsToInclude: string[]) => regionsToInclude,
   (_: IState, _1: string[], searchValue: string) => searchValue,
   (settlements, regionsToInclude, searchValue) => {
-    return prepareSettlementsSections(
+    return prepareFilteredSettlementsSections(
       settlements,
       regionsToInclude,
       searchValue,
     );
   },
+);
+
+export const selectSettlementsSections = createSelector(
+  selectFilteredSettlements,
+  filteredSettlements => prepareSettlementsSections(filteredSettlements),
+);
+
+export const selectSelectedSettlementsSection = createSelector(
+  selectFilteredSettlements,
+  (_: IState, _1: string[], _2: string, selectedSettlements: string[]) =>
+    selectedSettlements,
+  (filteredSettlements, selectedSettlements) =>
+    prepareSelectedSettlementsSection(filteredSettlements, selectedSettlements),
 );

@@ -33,6 +33,10 @@ export const themeStyles = {
       dark: COLORS.dark.icon.tertiary,
     },
   },
+  placeholderTextColor: {
+    light: COLORS.light.text.tertiary,
+    dark: COLORS.dark.text.tertiary,
+  },
   selectionColor: {
     light: COLORS.light.text.primary,
     dark: COLORS.dark.text.primary,
