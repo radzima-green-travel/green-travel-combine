@@ -8,6 +8,7 @@ import {
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
   selectFiltersCategories,
+  selectAreAllActiveFiltersUnset,
 } from 'core/selectors';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProps} from '../types';
@@ -35,6 +36,7 @@ export const useFilters = () => {
   const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
+  const emptyActiveFilters = useSelector(selectAreAllActiveFiltersUnset);
   const {settlementsWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
   );
@@ -51,20 +53,12 @@ export const useFilters = () => {
     getFiltersDataRequest,
   );
 
-  const emptyActiveFilters = !Object.values(activeFilters).find(
-    value => value?.length,
-  );
-
   const getFiltersInitialData = useCallback(() => {
     dispatch(getInitialFiltersRequest());
   }, [dispatch]);
 
   const getFiltersData = useCallback(() => {
-    dispatch(
-      getFiltersDataRequest({
-        filter: activeFilters,
-      }),
-    );
+    dispatch(getFiltersDataRequest(activeFilters));
   }, [dispatch, activeFilters]);
 
   const updateRatings = useCallback(
@@ -97,6 +91,30 @@ export const useFilters = () => {
         setActiveFilter({
           name: 'regions',
           value: regionID,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
+  const updateDistanceIsOn = useCallback(
+    (isOn: boolean) => {
+      dispatch(
+        setActiveFilter({
+          name: 'distance',
+          isOn: isOn,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
+  const updateDistance = useCallback(
+    (distance: number) => {
+      dispatch(
+        setActiveFilter({
+          name: 'distance',
+          value: distance,
         }),
       );
     },
@@ -165,8 +183,11 @@ export const useFilters = () => {
     activeRegions: activeFilters.regions,
     activeCategories: activeFilters.categories,
     activeSettlements: activeFilters.municipalities,
+    activeDistance: activeFilters.distance,
     updateRatings,
     chooseCategory,
+    updateDistanceIsOn,
+    updateDistance,
     total,
     snackBarProps,
     getIsRegionDisabled,

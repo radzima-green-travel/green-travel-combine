@@ -50,3 +50,16 @@ export const selectTransformedAggregationsWithNumberOfItems = createSelector(
     return prepareAggregationsWithNumberOfItems(filtersData?.aggregations);
   },
 );
+
+export const selectAreAllActiveFiltersUnset = createSelector(
+  selectActiveFilters,
+  activeFilters => {
+    return (
+      !activeFilters.categories.length &&
+      !activeFilters.googleRating.length &&
+      !activeFilters.municipalities.length &&
+      !activeFilters.regions.length &&
+      !activeFilters.distance.isOn
+    );
+  },
+);

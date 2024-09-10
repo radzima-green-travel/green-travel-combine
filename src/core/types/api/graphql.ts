@@ -162,6 +162,8 @@ export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
 export interface FiltersParams {
+  km?: number;
+  location?: {lat: number; lon: number};
   filter?: {
     categories?: string[];
     googleRating?: string;

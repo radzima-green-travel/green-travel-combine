@@ -31,7 +31,7 @@ export {PasswordHint} from './PasswordHint';
 export * from './HandleKeyboard';
 export {NumPager} from './NumPager';
 export {LottieAnimation} from './LottieAnimation';
-export {RangePickSlider} from './RangePickSlider';
+export {CustomSlider} from './CustomSlider';
 export {AnimatedStar} from './AnimatedStar';
 export {Link} from './Link';
 export {Chip} from './Chip';

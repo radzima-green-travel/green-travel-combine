@@ -176,7 +176,10 @@
     "whereToLook": "Where to look",
     "ratingGoogle": "Google rating",
     "geolocation": "Geolocation",
-    "considerDistance": "Consider the distance",
+    "distance": {
+      "considerDistance": "Consider the distance",
+      "upTo": "up to {{distance}} km"
+    },
     "hideVisit": "Hide visit",
     "choose": "Choose",
     "any": "Any",

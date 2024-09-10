@@ -1,15 +1,15 @@
 import {
-  FiltersParams,
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
   SetActiveFilterPayload,
   CategoryFilterItemDTO,
+  ActiveFilters,
 } from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
 
 export const getFiltersDataRequest = createAsyncAction<
-  FiltersParams,
+  ActiveFilters,
   ObjectFiltersDataDTO
 >('GET_FILTERS_DATA');
 

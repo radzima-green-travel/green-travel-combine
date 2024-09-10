@@ -9,7 +9,7 @@ import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ListItem} from 'components/molecules';
+import {ListItem, FilterDistance} from 'components/molecules';
 
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
@@ -35,6 +35,9 @@ export const Filters = () => {
     snackBarProps,
     activeSettlements,
     getIsRegionDisabled,
+    activeDistance,
+    updateDistanceIsOn,
+    updateDistance,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -149,11 +152,11 @@ export const Filters = () => {
                   )}
                 />
               </FiltersSectionContainer>
-              <ListItem
-                type="switch"
-                title={t('considerDistance')}
-                testID={'considerDistance'}
-                switchProps={{value: false}}
+              <FilterDistance
+                distance={activeDistance.value}
+                isOn={activeDistance.isOn}
+                onChangeSwitcherState={updateDistanceIsOn}
+                onChangeDistance={updateDistance}
               />
             </FiltersSectionContainer>
             <FiltersSectionContainer itemName={t('ratingGoogle')}>

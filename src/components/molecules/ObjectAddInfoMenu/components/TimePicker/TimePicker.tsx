@@ -1,5 +1,5 @@
 import React from 'react';
-import {RangePickSlider} from 'atoms';
+import {CustomSlider} from 'atoms';
 import {Text, View} from 'react-native';
 import {themeStyles} from './styles';
 import {useThemeStyles, useTimeRange} from 'core/hooks';
@@ -20,11 +20,12 @@ export const TimePicker = ({prompt, onChange, value, testID}: Props) => {
     <View testID={composeTestID(testID, 'timePicker')} style={styles.container}>
       {!!prompt && <Text style={styles.prompt}>{prompt}</Text>}
       <Text style={styles.timeText}>{timeString}</Text>
-      <RangePickSlider
+      <CustomSlider
+        type="withMarks"
+        markSteps={12}
         minValue={0}
         maxValue={12}
         steps={72}
-        markSteps={12}
         value={value}
         containerStyle={styles.rangePicker}
         onChangeValue={onChange}
