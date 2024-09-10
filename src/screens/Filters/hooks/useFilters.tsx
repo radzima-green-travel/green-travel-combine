@@ -8,6 +8,7 @@ import {
   selectFiltersTotal,
   selectTransformedAggregationsWithNumberOfItems,
   selectFiltersCategories,
+  selectAreAllActiveFiltersUnset,
 } from 'core/selectors';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProps} from '../types';
@@ -24,7 +25,6 @@ import {
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
 import {keys, pickBy} from 'lodash';
-import {areAllActiveFiltersUnser} from './utils';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ export const useFilters = () => {
   const regionsList = useSelector(selectFiltersRegions);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
+  const emptyActiveFilters = useSelector(selectAreAllActiveFiltersUnset);
   const {settlementsWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
   );
@@ -51,8 +52,6 @@ export const useFilters = () => {
   const {loading: filtersDataLoading} = useRequestLoading(
     getFiltersDataRequest,
   );
-
-  const emptyActiveFilters = areAllActiveFiltersUnser(activeFilters);
 
   const getFiltersInitialData = useCallback(() => {
     dispatch(getInitialFiltersRequest());
