@@ -1,7 +1,7 @@
 import {useThemeStyles} from 'core/hooks';
 import React, {memo} from 'react';
 import {View, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
-import {themeStyles} from './styles';
+import {buttonHitSlop, themeStyles} from './styles';
 import {IconProps, Icon} from 'atoms/Icon';
 import Animated from 'react-native-reanimated';
 interface IProps {
@@ -18,7 +18,8 @@ export const AnimatedCircleButton = memo(
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.8}
-        style={styles.container}>
+        style={styles.container}
+        hitSlop={buttonHitSlop}>
         <Animated.View style={[styles.iconContainer, style]} />
         <View style={styles.iconWrapper}>
           <Icon style={styles.icon} size={24} testID={testID} {...icon} />
