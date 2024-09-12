@@ -194,6 +194,13 @@
       "apply": "Apply",
       "applySeveral": "Apply ({{amount}})",
       "nothingFound": "Nothing found"
+    },
+    "errors": {
+      "-2": {
+        "CANT_GET_LOCATION": {
+          "text": "Unable to obtain geolocation"
+        }
+      }
     }
   },
   "authentification": {

@@ -14,6 +14,7 @@ import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProps} from '../types';
 import {
   useOnRequestError,
+  useOnRequestSuccess,
   useRequestLoading,
   useUpdateEffect,
 } from 'core/hooks';
@@ -22,6 +23,7 @@ import {
   getInitialFiltersRequest,
   setActiveFilter,
   clearFilters as clearFiltersAction,
+  requestUserLocation,
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
 import {keys, pickBy} from 'lodash';
@@ -99,14 +101,46 @@ export const useFilters = () => {
 
   const updateDistanceIsOn = useCallback(
     (isOn: boolean) => {
+      if (isOn) {
+        dispatch(requestUserLocation());
+      } else {
+        dispatch(
+          setActiveFilter({
+            name: 'distance',
+            isOn: false,
+          }),
+        );
+      }
+    },
+    [dispatch],
+  );
+
+  useOnRequestSuccess(requestUserLocation, (location, _) => {
+    dispatch(
+      setActiveFilter({
+        name: 'distance',
+        isOn: true,
+        location: location,
+      }),
+    );
+  });
+
+  useOnRequestError(
+    requestUserLocation,
+    'filters',
+    errorLabel => {
+      show({
+        title: errorLabel.text,
+        type: 'error',
+      });
       dispatch(
         setActiveFilter({
           name: 'distance',
-          isOn: isOn,
+          isOn: false,
         }),
       );
     },
-    [dispatch],
+    false,
   );
 
   const updateDistance = useCallback(

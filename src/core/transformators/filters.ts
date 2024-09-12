@@ -57,7 +57,11 @@ export const transformActiveFiltersToFilterParam = (
   const {distance} = activeFilters;
   return {
     km: distance ? (distance.isOn ? distance.value : undefined) : undefined,
-    location: undefined,
+    location: distance
+      ? distance.isOn
+        ? activeFilters.distance.location
+        : undefined
+      : undefined,
     filter: {
       statuses: ['published'],
       googleRating: activeFilters.googleRating || undefined,

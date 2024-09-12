@@ -1,5 +1,15 @@
 import {RequestErrorCodes, ErrorPresetParams} from 'core/types';
 
+export const createLocationErrorPreset = () => ({
+  message: 'Unable to retrieve geolocation.',
+  timestamp: Date.now(),
+  status: -2,
+  error_code: 'CANT_GET_LOCATION' as RequestErrorCodes,
+  path: '',
+  requestId: '',
+  error: 'Unable to retrieve geolocation.',
+});
+
 export const createPermissionErrorPreset = (path: string, message: string) => ({
   message: message,
   timestamp: Date.now(),

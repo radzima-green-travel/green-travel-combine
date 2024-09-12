@@ -194,6 +194,13 @@
       "apply": "Применить",
       "applySeveral": "Применить ({{amount}})",
       "nothingFound": "Ничего не найдено"
+    },
+    "errors": {
+      "-2": {
+        "CANT_GET_LOCATION": {
+          "text": "Не удалось получить геолокацию"
+        }
+      }
     }
   },
   "authentification": {
