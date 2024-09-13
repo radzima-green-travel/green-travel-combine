@@ -56,10 +56,10 @@ export const transformActiveFiltersToFilterParam = (
 ): FiltersParams => {
   const {distance} = activeFilters;
   return {
-    ...(distance && distance.isOn
+    ...(distance && distance.isOn && distance.location
       ? {
           km: distance.value,
-          location: distance.location,
+          location: {lat: distance.location.lat, lon: distance.location.lon},
         }
       : {}),
     filter: {

@@ -54,6 +54,7 @@ export {default as lock} from './lock.svg';
 export {default as mail} from './mail.svg';
 export {default as mapMarkerGray} from './mapMarkerGray.svg';
 export {default as markedStar} from './markedStar.svg';
+export {default as marker} from './marker.svg';
 export {default as markerFilled} from './markerFilled.svg';
 export {default as memoryNData} from './memoryNData.svg';
 export {default as museums} from './museums.svg';
