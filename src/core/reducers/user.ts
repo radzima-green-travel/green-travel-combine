@@ -54,9 +54,11 @@ export const userReducer = createReducer(initialState, builder => {
   }));
   builder.addCase(
     requestUserLocation.meta.successAction,
-    (state, {payload}) => ({
-      ...state,
-      location: payload,
-    }),
+    (state, {payload}) => {
+      return {
+        ...state,
+        location: payload,
+      };
+    },
   );
 });

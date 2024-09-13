@@ -13,6 +13,8 @@ export const selectFiltersData = (state: IState) => state.filters.filtersData;
 export const selectRegions = (state: IState) => state.filters.regionsList;
 export const selectActiveFilters = (state: IState) =>
   state.filters.activeFilters;
+export const selectActiveFiltersLocation = (state: IState) =>
+  state.filters.activeFilters.distance.location;
 export const selectFiltersTotal = (state: IState) =>
   state.filters.filtersData?.total;
 export const selectFiltersCategoriesList = (state: IState) =>

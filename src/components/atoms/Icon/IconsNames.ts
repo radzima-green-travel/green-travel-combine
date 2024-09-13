@@ -55,7 +55,6 @@ export type IconsNames =
   | 'mail'
   | 'mapMarkerGray'
   | 'markedStar'
-  | 'marker'
   | 'markerFilled'
   | 'memoryNData'
   | 'museums'

@@ -175,13 +175,11 @@
     "allCategories": "Все категории",
     "whereToLook": "Где искать",
     "ratingGoogle": "Рейтинг Google",
-    "geolocation": "Геопозиция",
     "distance": {
       "considerDistance": "Учитывать дистанцию",
       "upTo": "До {{distance}} км"
     },
     "hideVisit": "Скрыть посещенное",
-    "choose": "Выбрать",
     "any": "Любые",
     "clear": "Очистить",
     "showAll": "Показать {{amount}} объектов",
