@@ -29,7 +29,7 @@ export const useProfileDetails = () => {
   const {loading: deleting} = useRequestLoading(deleteUserRequest);
 
   const onSignOutPress = useCallback(() => {
-    Alert.alert(t('exitAccount'), t('notCancaled'), [
+    Alert.alert(t('exitAccount'), '', [
       {
         text: t('ok'),
         onPress: () => dispatch(signOutRequest()),
