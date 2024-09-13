@@ -32,7 +32,7 @@ const initialState: FiltersState = {
     distance: {
       isOn: false,
       value: DEFAULT_DISTANCE_FILTER_VALUE,
-      location: undefined,
+      location: null,
     },
   },
   categoriesList: [],

@@ -9,7 +9,7 @@ export type ActiveFilters = {
   distance: {
     isOn: boolean;
     value: number;
-    location?: Location;
+    location: Location | null;
   };
 };
 

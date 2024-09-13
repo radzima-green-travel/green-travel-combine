@@ -9,6 +9,7 @@ import {
   selectTransformedAggregationsWithNumberOfItems,
   selectFiltersCategories,
   selectAreAllActiveFiltersUnset,
+  selectDistanceFilterLocation,
 } from 'core/selectors';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProps} from '../types';
@@ -42,6 +43,7 @@ export const useFilters = () => {
   const {settlementsWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
   );
+  const distanceFilterLocation = useSelector(selectDistanceFilterLocation);
 
   const {loading: loadingInitialFilters} = useRequestLoading(
     getInitialFiltersRequest,
@@ -115,12 +117,12 @@ export const useFilters = () => {
     [dispatch],
   );
 
-  useOnRequestSuccess(requestUserLocation, (location, _) => {
+  useOnRequestSuccess(requestUserLocation, () => {
     dispatch(
       setActiveFilter({
         name: 'distance',
         isOn: true,
-        location: location,
+        location: distanceFilterLocation,
       }),
     );
   });
@@ -133,12 +135,6 @@ export const useFilters = () => {
         title: errorLabel.text,
         type: 'error',
       });
-      dispatch(
-        setActiveFilter({
-          name: 'distance',
-          isOn: false,
-        }),
-      );
     },
     false,
   );

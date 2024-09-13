@@ -12,3 +12,5 @@ export const selectBookmarksIds = createSelector(
   (bookmarks: Bookmarks) =>
     Object.keys(bookmarks).filter(key => bookmarks[key][0]),
 );
+
+export const selectUserLocation = (state: IState) => state.user.location;
