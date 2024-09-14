@@ -7,11 +7,14 @@ import {
 } from 'core/transformators/filters';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
+import {selectUserLocation} from './user';
 
 export const selectFiltersData = (state: IState) => state.filters.filtersData;
 export const selectRegions = (state: IState) => state.filters.regionsList;
 export const selectActiveFilters = (state: IState) =>
   state.filters.activeFilters;
+export const selectActiveFiltersLocation = (state: IState) =>
+  state.filters.activeFilters.distance.location;
 export const selectFiltersTotal = (state: IState) =>
   state.filters.filtersData?.total;
 export const selectFiltersCategoriesList = (state: IState) =>
@@ -63,3 +66,5 @@ export const selectAreAllActiveFiltersUnset = createSelector(
     );
   },
 );
+
+export const selectDistanceFilterLocation = selectUserLocation;

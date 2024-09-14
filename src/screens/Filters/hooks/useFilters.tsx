@@ -9,11 +9,14 @@ import {
   selectTransformedAggregationsWithNumberOfItems,
   selectFiltersCategories,
   selectAreAllActiveFiltersUnset,
+  selectDistanceFilterLocation,
+  selectActiveFiltersLocation,
 } from 'core/selectors';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {HomeScreenNavigationProps} from '../types';
 import {
   useOnRequestError,
+  useOnRequestSuccess,
   useRequestLoading,
   useUpdateEffect,
 } from 'core/hooks';
@@ -22,6 +25,7 @@ import {
   getInitialFiltersRequest,
   setActiveFilter,
   clearFilters as clearFiltersAction,
+  requestUserLocation,
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
 import {keys, pickBy} from 'lodash';
@@ -40,6 +44,8 @@ export const useFilters = () => {
   const {settlementsWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
     selectTransformedAggregationsWithNumberOfItems,
   );
+  const distanceFilterLocation = useSelector(selectDistanceFilterLocation);
+  const activeFiltersLocation = useSelector(selectActiveFiltersLocation);
 
   const {loading: loadingInitialFilters} = useRequestLoading(
     getInitialFiltersRequest,
@@ -99,14 +105,40 @@ export const useFilters = () => {
 
   const updateDistanceIsOn = useCallback(
     (isOn: boolean) => {
-      dispatch(
-        setActiveFilter({
-          name: 'distance',
-          isOn: isOn,
-        }),
-      );
+      if (isOn && !activeFiltersLocation) {
+        dispatch(requestUserLocation());
+      } else {
+        dispatch(
+          setActiveFilter({
+            name: 'distance',
+            isOn: isOn,
+          }),
+        );
+      }
     },
-    [dispatch],
+    [dispatch, activeFiltersLocation],
+  );
+
+  useOnRequestSuccess(requestUserLocation, () => {
+    dispatch(
+      setActiveFilter({
+        name: 'distance',
+        isOn: true,
+        location: distanceFilterLocation,
+      }),
+    );
+  });
+
+  useOnRequestError(
+    requestUserLocation,
+    'filters',
+    errorLabel => {
+      show({
+        title: errorLabel.text,
+        type: 'error',
+      });
+    },
+    false,
   );
 
   const updateDistance = useCallback(

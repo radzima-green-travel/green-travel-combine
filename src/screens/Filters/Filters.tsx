@@ -1,7 +1,6 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React, {useEffect, useMemo} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
-import {Chip, Multiswitch, SuspenseView, Button, Icon, SnackBar} from 'atoms';
+import {Chip, Multiswitch, SuspenseView, Icon, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {ButtonsGroup, FiltersSectionContainer} from 'molecules';
 import {screenOptions} from './screenOptions';
@@ -139,18 +138,6 @@ export const Filters = () => {
                     ]}
                   />
                 </TouchableOpacity>
-              </FiltersSectionContainer>
-              <FiltersSectionContainer isSubSection itemName={t('geolocation')}>
-                <Button
-                  text={t('choose')}
-                  theme="quarterly"
-                  testID={'chooseButton'}
-                  style={styles.chooseButtonContainer}
-                  labelAnimatedStyle={styles.chooseButtonLabel}
-                  icon={textStyle => (
-                    <Icon name="marker" size={20} style={textStyle} />
-                  )}
-                />
               </FiltersSectionContainer>
               <FilterDistance
                 distance={activeDistance.value}

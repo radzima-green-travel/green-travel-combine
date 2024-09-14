@@ -4,15 +4,17 @@ import {
   clearBookmarks,
   deleteAllFromUserSearchHistory,
   deleteObjectIdFromUserSearchHistory,
+  requestUserLocation,
   syncAndGetBookmarksRequest,
   updateBookmarksRequest,
 } from 'core/actions';
 import {filter, uniq} from 'lodash';
-import {Bookmarks} from 'core/types';
+import {Bookmarks, Location} from 'core/types';
 
 interface UserState {
   historyIds: string[];
   bookmarks: Bookmarks;
+  location?: Location;
 }
 
 const initialState: UserState = {
@@ -50,4 +52,13 @@ export const userReducer = createReducer(initialState, builder => {
     ...state,
     bookmarks: {},
   }));
+  builder.addCase(
+    requestUserLocation.meta.successAction,
+    (state, {payload}) => {
+      return {
+        ...state,
+        location: payload,
+      };
+    },
+  );
 });

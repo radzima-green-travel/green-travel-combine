@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {Bookmarks, UpdateBookmarksBody} from 'core/types';
+import {Bookmarks, UpdateBookmarksBody, Location} from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 
 interface UpdateBookmarksRequestPayload {
@@ -27,3 +27,7 @@ export const updateBookmarksRequest =
   createAsyncAction<UpdateBookmarksRequestPayload>('UPDATE_BOOKMARKS_REQUEST');
 
 export const clearBookmarks = createAction('CLEAR_BOOKMARKS');
+
+export const requestUserLocation = createAsyncAction<void, Location>(
+  'REQUEST_USER_LOCATION',
+);

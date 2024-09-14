@@ -175,13 +175,11 @@
     "allCategories": "All categories",
     "whereToLook": "Where to look",
     "ratingGoogle": "Google rating",
-    "geolocation": "Geolocation",
     "distance": {
       "considerDistance": "Consider the distance",
       "upTo": "up to {{distance}} km"
     },
     "hideVisit": "Hide visit",
-    "choose": "Choose",
     "any": "Any",
     "clear": "Clear",
     "showAll": "Show {{amount}} objects",
@@ -194,6 +192,13 @@
       "apply": "Apply",
       "applySeveral": "Apply ({{amount}})",
       "nothingFound": "Nothing found"
+    },
+    "errors": {
+      "-2": {
+        "CANT_GET_LOCATION": {
+          "text": "Unable to obtain geolocation"
+        }
+      }
     }
   },
   "authentification": {

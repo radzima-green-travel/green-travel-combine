@@ -49,14 +49,6 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.background.secondary,
     },
   },
-  chooseButtonContainer: {
-    paddingHorizontal: 12,
-    borderRadius: 12,
-    height: 40,
-  },
-  chooseButtonLabel: {
-    ...FONTS_PRESETS.footnoteBold,
-  },
   settlementsContainer: {
     height: 40,
     flexDirection: 'row',

@@ -17,7 +17,8 @@ export type RequestErrorCodes =
   | 'SIGNUP_CANCELED'
   | 'WRONG_PASSWORD'
   | 'INVALID_VARIABLE'
-  | 'VALIDATION_ERROR';
+  | 'VALIDATION_ERROR'
+  | 'CANT_GET_LOCATION';
 
 export interface IRequestError extends Error {
   timestamp: number;

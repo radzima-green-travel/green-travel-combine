@@ -10,3 +10,8 @@ export type UpdateBookmarksBody = {
 };
 
 export type BulkUpdateBookmarksBody = Bookmarks;
+
+export type Location = {
+  lat: number;
+  lon: number;
+};

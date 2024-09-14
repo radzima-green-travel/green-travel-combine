@@ -1,4 +1,5 @@
 import {SpotItemDTO} from './api';
+import {Location} from './user';
 
 export type ActiveFilters = {
   googleRating: string;
@@ -8,7 +9,7 @@ export type ActiveFilters = {
   distance: {
     isOn: boolean;
     value: number;
-    location?: {lat: number; lon: number};
+    location: Location | null;
   };
 };
 
@@ -21,7 +22,7 @@ export type SetActiveFilterPayload =
       name: 'distance';
       isOn?: boolean;
       value?: number;
-      location?: {lat: number; lon: number};
+      location?: Location;
     };
 
 export type SettlementsData = {

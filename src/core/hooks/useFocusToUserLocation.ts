@@ -2,7 +2,7 @@ import {Camera, Location} from '@rnmapbox/maps';
 import {IBounds} from 'core/types';
 
 import React, {useRef, useCallback, useState, useEffect} from 'react';
-import {permissionsService} from 'services/PermissionsService';
+import {locationService} from 'services/LocationService';
 import {useTask} from './useTask';
 
 export function useFocusToUserLocation(
@@ -16,8 +16,7 @@ export function useFocusToUserLocation(
   const [getUserLocationTask, finishAllTasks] = useTask();
 
   const getUserLocation = useCallback(async () => {
-    const permissionGranted =
-      await permissionsService.checkLocationPermission();
+    const permissionGranted = await locationService.checkLocationPermission();
     if (!permissionGranted) {
       return null;
     }
