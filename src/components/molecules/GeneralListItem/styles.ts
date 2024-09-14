@@ -79,8 +79,11 @@ export const themeStyles = {
   leftElementContainerM: {
     marginRight: 13,
   },
-  loading: {
+  hidden: {
     opacity: 0,
+  },
+  visible: {
+    opacity: 1,
   },
   titleRed: {
     color: COLORS.red,
