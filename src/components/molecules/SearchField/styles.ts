@@ -1,13 +1,19 @@
 import {COLORS, FONTS_PRESETS} from 'assets';
 
 export const themeStyles = {
+  container: {
+    backgroundColor: {
+      light: COLORS.light.background.secondary,
+      dark: COLORS.dark.background.secondary,
+    },
+  },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 48,
     backgroundColor: {
-      light: COLORS.light.other.search,
-      dark: COLORS.dark.other.search,
+      light: COLORS.light.background.secondary,
+      dark: COLORS.dark.background.secondary,
     },
     borderRadius: 12,
     padding: 12,

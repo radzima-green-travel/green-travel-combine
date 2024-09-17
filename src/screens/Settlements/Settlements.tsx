@@ -43,6 +43,7 @@ export const Settlements = () => {
     isApplyButtonDisabled,
     loading,
     snackBarProps,
+    clearInput,
   } = useSettlements();
 
   const {bottom} = useSafeAreaInsets();
@@ -123,6 +124,7 @@ export const Settlements = () => {
         testID={'searchField'}
         onChange={handleSearchValue}
         value={searchValue}
+        onRightButtonPress={clearInput}
       />
       <SuspenseView
         testID="suspenseView"
