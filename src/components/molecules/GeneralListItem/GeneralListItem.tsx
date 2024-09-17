@@ -78,7 +78,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
         <View
           style={[
             styles.contentContainer,
-            loading && styles.loading,
+            loading && styles.hidden,
             rightElementContentContainerStyle,
           ]}>
           {renderRightElement ? renderRightElement : null}
@@ -146,7 +146,10 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
           <View
             style={[styles.rightElementContainer, rightElementContainerStyle]}>
             {renderRightComponent()}
-            {loading ? <LoadingView size="small" /> : null}
+            <LoadingView
+              size="small"
+              containerStyle={[styles.hidden, loading && styles.visible]}
+            />
           </View>
         </View>
         {position === 'top' || position === 'middle' ? (
