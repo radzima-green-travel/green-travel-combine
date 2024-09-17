@@ -10,19 +10,24 @@ export const themeStyles = createThemeStyles({
     flexDirection: 'row',
     alignItems: 'center',
     height: 48,
-
-    borderWidth: 1,
     borderRadius: 12,
-    borderColor: {
-      light: COLORS.light.stroke.border,
-      dark: COLORS.dark.stroke.border,
-    },
     backgroundColor: {
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
     },
     alignSelf: 'stretch',
     paddingHorizontal: 12,
+  },
+
+  outlinedFieldContainer: {
+    borderWidth: 1,
+  },
+
+  inactiveFieldContainer: {
+    borderColor: {
+      light: COLORS.light.stroke.border,
+      dark: COLORS.dark.stroke.border,
+    },
   },
 
   activeFieldContainer: {
@@ -97,8 +102,8 @@ export const themeStyles = createThemeStyles({
   },
   placeholderText: {
     color: {
-      light: COLORS.light.text.secondary,
-      dark: COLORS.dark.text.secondary,
+      light: COLORS.light.text.tertiary,
+      dark: COLORS.dark.text.tertiary,
     },
   },
 });

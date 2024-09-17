@@ -58,6 +58,7 @@ export type IconsNames =
   | 'marker'
   | 'markerFilled'
   | 'memoryNData'
+  | 'more'
   | 'museums'
   | 'natureMonuments'
   | 'objectPin'
@@ -98,7 +99,7 @@ export type IconsNames =
   | 'strokeWaterRouteDark'
   | 'telephone'
   | 'theme'
-  | 'warMonuments'
-  | 'wave'
   | 'tune'
-  | 'tuneSimplified';
+  | 'tuneSimplified'
+  | 'warMonuments'
+  | 'wave';

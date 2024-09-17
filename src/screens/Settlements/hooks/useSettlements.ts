@@ -108,6 +108,10 @@ export const useSettlements = () => {
     setSelectedSettlements([]);
   }, []);
 
+  const clearInput = useCallback(() => {
+    setSearchValue('');
+  }, []);
+
   return {
     navigation,
     settlementsSections,
@@ -124,5 +128,6 @@ export const useSettlements = () => {
     isApplyButtonDisabled,
     loading,
     snackBarProps,
+    clearInput,
   };
 };

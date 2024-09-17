@@ -5,7 +5,14 @@ import React, {
   useCallback,
   useState,
 } from 'react';
-import {Pressable, TextInput, TextStyle, View} from 'react-native';
+import {
+  Pressable,
+  StyleProp,
+  TextInput,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -46,6 +53,8 @@ interface IProps {
   multiline?: boolean;
   placeholder?: string;
   testID: string;
+  outlineEnabled?: boolean;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 export const FormInput = forwardRef<TextInput, IProps>(
@@ -74,6 +83,8 @@ export const FormInput = forwardRef<TextInput, IProps>(
       multiline,
       placeholder,
       testID,
+      outlineEnabled = true,
+      containerStyle,
     }: IProps,
     ref,
   ) => {
@@ -165,7 +176,7 @@ export const FormInput = forwardRef<TextInput, IProps>(
     }, [labelWidth]);
 
     const inputContainerStyle = useAnimatedStyle(() => {
-      const inactiveColor = styles.inputFieldContainer.borderColor as string;
+      const inactiveColor = styles.inactiveFieldContainer.borderColor as string;
       const activeColor = styles.activeFieldContainer.borderColor as string;
       const errorColor = styles.errorFieldContainer.borderColor as string;
       if (error) {
@@ -200,7 +211,10 @@ export const FormInput = forwardRef<TextInput, IProps>(
           style={[
             styles.inputFieldContainer,
             multiline && styles.multilineInputWrapper,
-            inputContainerStyle,
+            containerStyle,
+            outlineEnabled
+              ? [styles.outlinedFieldContainer, inputContainerStyle]
+              : false,
           ]}>
           {iconLeft ? (
             <Icon
