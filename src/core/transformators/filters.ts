@@ -63,7 +63,6 @@ export const transformActiveFiltersToFilterParam = (
         }
       : {}),
     filter: {
-      statuses: ['published'],
       googleRating: activeFilters.googleRating || undefined,
       categories: activeFilters.categories?.length
         ? activeFilters.categories
