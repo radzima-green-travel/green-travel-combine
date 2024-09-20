@@ -41,18 +41,18 @@ export const Icon = ({
   const {fontSize, color: iconColor} = iconStyle;
 
   const iconWidth =
+    fontSize ||
     (height && width) ||
     size ||
     iconStyle.width ||
     iconStyle.size ||
-    fontSize ||
     24;
   const iconHeight =
+    fontSize ||
     (width && height) ||
     size ||
     iconStyle.height ||
     iconStyle.size ||
-    fontSize ||
     24;
 
   return (

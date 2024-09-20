@@ -41,3 +41,4 @@ export {ObjectBelongsToItem} from './ObjectBelongsToItem';
 export {FiltersSectionContainer} from './FiltersSectionContainer';
 export {SearchField} from './SearchField';
 export {FilterDistance} from './FilterDistance';
+export {HeaderBackButton} from './HeaderBackButton';

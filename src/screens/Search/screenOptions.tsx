@@ -1,14 +1,12 @@
-import {HeaderSearchbar} from 'atoms';
 import {selectSearchInputValue} from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
-import {TouchableOpacity} from 'react-native';
-import {Icon} from 'atoms';
+import {Icon, CustomNavigationHeader, Button} from 'atoms';
 import {useSearchActions, useSearchSelector} from 'core/hooks';
-import {composeTestID} from 'core/helpers';
+import {SearchField} from 'molecules';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
@@ -23,36 +21,47 @@ const HeaderTitle = () => {
     [dispatch, setSearchInputValue],
   );
 
+  const onRightButtonPress = useCallback(
+    (actionType: 'reset' | 'filter') => {
+      if (actionType === 'reset') {
+        setInputValue('');
+      }
+    },
+    [setInputValue],
+  );
+
   return (
-    <HeaderSearchbar
+    <SearchField
       testID="headerSearchbar"
       containerStyle={styles.headerTitleContainer}
       value={inputValue}
       onChange={setInputValue}
+      filterActionTypeEnabled
+      onRightButtonPress={onRightButtonPress}
     />
   );
 };
 
 const HeaderRight = ({navigation, testID}: IProps) => {
-  const styles = useThemeStyles(themeStyles);
-
   return (
-    <TouchableOpacity
-      hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
-      activeOpacity={0.8}
-      testID={composeTestID(testID, 'filterButton')}
-      onPress={() => navigation.navigate('Filter')}>
-      <Icon
-        name="tune"
-        style={styles.icon}
-        size={24}
-        testID={composeTestID(testID, 'filterIcon')}
-      />
-    </TouchableOpacity>
+    <Button
+      testID={testID}
+      isIconOnlyButton
+      // eslint-disable-next-line react/no-unstable-nested-components
+      icon={textStyle => <Icon name="tune" size={24} style={textStyle} />}
+      onPress={() => navigation.navigate('Filter')}
+      theme="quarterlyGrey"
+    />
   );
 };
 
 export const screenOptions: ScreenOptions = props => ({
   headerTitle: () => <HeaderTitle />,
   headerRight: () => <HeaderRight testID="headerRight" {...props} />,
+  header: CustomNavigationHeader,
+  headerTitleAlign: 'left',
+  headerStyle: {
+    // @ts-ignore
+    height: 64,
+  },
 });

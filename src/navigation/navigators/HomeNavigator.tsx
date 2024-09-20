@@ -10,13 +10,18 @@ import {
 } from '../../screens';
 import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
-import {useScreenOptions} from '../hooks';
+import {useNewScreenOptions, useScreenOptions} from '../hooks';
 import {defaultTransition} from '../transition';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
 export function HomeNavigator() {
   const {t: tHome} = useTranslation('home');
+
+  const newScreenOptions = useNewScreenOptions({
+    title: tHome('headerTitle'),
+    animation: defaultTransition,
+  });
 
   const screenOptions = useScreenOptions({
     title: tHome('headerTitle'),
@@ -34,6 +39,7 @@ export function HomeNavigator() {
         name="Search"
         component={SearchScreen}
         options={props => ({
+          ...newScreenOptions(props),
           ...SearchScreen.screenOptions(props),
           animation: 'fade',
         })}
