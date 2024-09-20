@@ -124,6 +124,32 @@ export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
       },
     },
   },
+  quarterlyGrey: {
+    container: {
+      backgroundColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
+    },
+    disabled: {
+      backgroundColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
+    },
+    text: {
+      color: {
+        light: COLORS.light.icon.secondary,
+        dark: COLORS.light.icon.secondary,
+      },
+    },
+    disabledText: {
+      color: {
+        light: COLORS.light.text.secondary,
+        dark: COLORS.dark.text.secondary,
+      },
+    },
+  },
   blackAndWhite: {
     container: {
       backgroundColor: {

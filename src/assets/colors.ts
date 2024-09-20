@@ -64,6 +64,7 @@ export const COLORS = {
       tertiary: '#999999',
       constant: '#ffffff',
       accentLight: '#35B47F',
+      accent: '#1F865B',
       disable: '#B8B8B8',
     },
     other: {
@@ -109,6 +110,7 @@ export const COLORS = {
       tertiary: '#7D7D7E',
       constant: '#ffffff',
       accentLight: '#35B47F',
+      accent: '#35B47F',
       disable: '#3D3D3D',
     },
     other: {
