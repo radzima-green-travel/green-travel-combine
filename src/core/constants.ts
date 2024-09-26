@@ -157,31 +157,17 @@ import {
 } from './types';
 
 export const ICONS_MATCHER = {
-  [MAP_PINS.BICYCLE_ROUTE]: 'strokeBike' as IconsNames,
-  [MAP_PINS.HISTORICAL_PLACE]: 'strokeChurch' as IconsNames,
-  [MAP_PINS.WALKING_ROUTES]: 'strokeFootprint' as IconsNames,
-  [MAP_PINS.EXCURSION_PIN]: 'strokeFlag' as IconsNames,
-  [MAP_PINS.OBJECT]: 'strokeForest' as IconsNames,
-  [MAP_PINS.WATER_ROUTE]: 'strokeWaterRoute' as IconsNames,
-  [MAP_PINS.CASTLES]: 'strokeCastles' as IconsNames,
-  [MAP_PINS.MUSEUMS]: 'strokeMuseums' as IconsNames,
-  [MAP_PINS.NATURE_MONUMENTS]: 'strokeNatureMonuments' as IconsNames,
-  [MAP_PINS.OTHER_MONUMENTS]: 'strokeOtherMonuments' as IconsNames,
-  [MAP_PINS.WAR_MONUMENTS]: 'strokeWarMonuments' as IconsNames,
-};
-
-export const DARK_ICONS_MATCHER = {
-  [MAP_PINS.BICYCLE_ROUTE]: 'strokeBikeDark' as IconsNames,
-  [MAP_PINS.HISTORICAL_PLACE]: 'strokeChurchDark' as IconsNames,
-  [MAP_PINS.WALKING_ROUTES]: 'strokeFootprintDark' as IconsNames,
-  [MAP_PINS.EXCURSION_PIN]: 'strokeFlagDark' as IconsNames,
-  [MAP_PINS.OBJECT]: 'strokeForestDark' as IconsNames,
-  [MAP_PINS.WATER_ROUTE]: 'strokeWaterRouteDark' as IconsNames,
-  [MAP_PINS.CASTLES]: 'strokeCastlesDark' as IconsNames,
-  [MAP_PINS.MUSEUMS]: 'strokeMuseumsDark' as IconsNames,
-  [MAP_PINS.NATURE_MONUMENTS]: 'strokeNatureMonumentsDark' as IconsNames,
-  [MAP_PINS.OTHER_MONUMENTS]: 'strokeOtherMonumentsDark' as IconsNames,
-  [MAP_PINS.WAR_MONUMENTS]: 'strokeWarMonumentsDark' as IconsNames,
+  [MAP_PINS.BICYCLE_ROUTE]: 'bike' as IconsNames,
+  [MAP_PINS.HISTORICAL_PLACE]: 'church' as IconsNames,
+  [MAP_PINS.WALKING_ROUTES]: 'footprints' as IconsNames,
+  [MAP_PINS.EXCURSION_PIN]: 'flag' as IconsNames,
+  [MAP_PINS.OBJECT]: 'forest' as IconsNames,
+  [MAP_PINS.WATER_ROUTE]: 'wave' as IconsNames,
+  [MAP_PINS.CASTLES]: 'castles' as IconsNames,
+  [MAP_PINS.MUSEUMS]: 'museums' as IconsNames,
+  [MAP_PINS.NATURE_MONUMENTS]: 'natureMonuments' as IconsNames,
+  [MAP_PINS.OTHER_MONUMENTS]: 'otherMonuments' as IconsNames,
+  [MAP_PINS.WAR_MONUMENTS]: 'warMonuments' as IconsNames,
 };
 
 export const MAP_BOTTOM_MENU_HEIGHT = 185;
