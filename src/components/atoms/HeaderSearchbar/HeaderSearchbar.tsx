@@ -57,7 +57,10 @@ export const HeaderSearchbar = memo(
           autoFocus={autoFocus}
           value={value}
           selectionColor={
-            selectionColor || (isLightTheme ? COLORS.logCabin : COLORS.white)
+            selectionColor ||
+            (isLightTheme
+              ? COLORS.light.icon.accentLight
+              : COLORS.dark.icon.accentLight)
           }
           onChangeText={onChangeText}
           style={[styles.input, inputStyle]}
