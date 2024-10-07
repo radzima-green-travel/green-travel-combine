@@ -21,13 +21,14 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
+import {useColorScheme, useThemeStyles} from 'core/hooks';
 import {Icon} from '../Icon';
 import {IconProps} from 'atoms/Icon';
 import {HelperText} from '../HelperText';
 import {useHandleKeyboardInput} from '../HandleKeyboard';
 import {useTextInputAutoFocus} from 'core/hooks';
 import {composeTestID} from 'core/helpers';
+import {COLORS} from 'assets';
 
 interface IProps {
   iconLeft?: IconProps;
@@ -89,6 +90,7 @@ export const FormInput = forwardRef<TextInput, IProps>(
     ref,
   ) => {
     const styles = useThemeStyles(themeStyles);
+    const colorTheme = useColorScheme();
     const isInputEmty = !value.length;
     const isFocused = useSharedValue(false);
 
@@ -205,6 +207,8 @@ export const FormInput = forwardRef<TextInput, IProps>(
       );
     };
 
+    const isLightTheme = colorTheme === 'light';
+
     return (
       <View style={styles.container} ref={containerToHandleRef}>
         <Animated.View
@@ -251,8 +255,11 @@ export const FormInput = forwardRef<TextInput, IProps>(
               onBlur={onBlurHandler}
               onSubmitEditing={onSubmitEditingHandler}
               returnKeyType={returnKeyType}
-              cursorColor={(styles.inputField as TextStyle).color}
-              selectionColor={(styles.inputField as TextStyle).color}
+              selectionColor={
+                isLightTheme
+                  ? COLORS.light.icon.accentLight
+                  : COLORS.dark.icon.accentLight
+              }
               placeholderTextColor={(styles.placeholderText as TextStyle).color}
             />
           </View>
