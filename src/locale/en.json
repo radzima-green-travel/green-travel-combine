@@ -163,7 +163,13 @@
     "searchTitle": "Search history",
     "notFound": "Unfortunately, no results match this search",
     "clearAll": "Clear all",
-    "emptySearchPlaceholder": "Enter your search query in the input field\nto start searching."
+    "emptySearchPlaceholder": "Enter your search query in the input field\nto start searching.",
+    "options": {
+      "title": "Search parameters",
+      "byTitles": "Find by titles",
+      "byDescription": "Find by description",
+      "byAddress": "Find by address"
+    }
   },
   "map": {
     "all": "All",
