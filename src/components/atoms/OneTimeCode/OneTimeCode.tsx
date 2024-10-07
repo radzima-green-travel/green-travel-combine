@@ -1,10 +1,11 @@
 import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
+import {useColorScheme, useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {HelperText} from '../HelperText';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {useTextInputAutoFocus} from 'core/hooks';
+import {COLORS} from 'assets';
 
 interface IProp {
   onChange: (code: string, isCodeFull: boolean) => void;
@@ -26,6 +27,7 @@ export const OneTimeCode = ({
   testID,
 }: IProp) => {
   const styles = useThemeStyles(themeStyles);
+  const colorTheme = useColorScheme();
   const [containerIsFocused, setContainerIsFocused] = useState(false);
   const isCodeFull = value.length === codeLength;
   const codeDigits = useMemo(() => [...Array(codeLength)], [codeLength]);
@@ -80,6 +82,8 @@ export const OneTimeCode = ({
 
   const textInputAutoFocus = useTextInputAutoFocus(codeRef, autoFocus);
 
+  const isLightTheme = colorTheme === 'light';
+
   return (
     <View style={styles.container}>
       <Pressable style={styles.codeContainer} onPress={onCodeDigitPress}>
@@ -96,6 +100,11 @@ export const OneTimeCode = ({
         onBlur={onCodeDigitBlur}
         onSubmitEditing={onCodeDigitBlur}
         autoFocus={textInputAutoFocus}
+        selectionColor={
+          isLightTheme
+            ? COLORS.light.icon.accentLight
+            : COLORS.dark.icon.accentLight
+        }
       />
       <HelperText messageText={messageText} error={error} />
     </View>

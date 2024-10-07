@@ -1,6 +1,6 @@
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import React, {useCallback, memo, useState, useMemo} from 'react';
-import {StyleProp, TextStyle} from 'react-native';
+import {StyleProp, ViewStyle} from 'react-native';
 import {themeStyles} from './styles';
 import {FormInput} from 'atoms';
 import {IconProps} from 'components/atoms/Icon';
@@ -8,7 +8,7 @@ import {IconProps} from 'components/atoms/Icon';
 type RightButtonType = 'reset' | 'filter';
 interface Props {
   onChange: (text: string) => void;
-  inputStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
   value: string;
   testID: string;
   onRightButtonPress?: (actionType: RightButtonType) => void;
@@ -22,6 +22,7 @@ export const SearchField = memo(
     testID,
     onRightButtonPress,
     filterActionTypeEnabled = false,
+    containerStyle,
   }: Props) => {
     const [isFocused, setIsFocused] = useState(false);
     const styles = useThemeStyles(themeStyles);
@@ -66,7 +67,7 @@ export const SearchField = memo(
         value={value}
         onChange={onChange}
         outlineEnabled={false}
-        containerStyle={styles.container}
+        containerStyle={[styles.container, containerStyle]}
         onRightIconPress={onRightButtonPressHandler}
         testID={testID}
       />

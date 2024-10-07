@@ -28,4 +28,11 @@ export const themeStyles = createThemeStyles({
     padding: 8,
     alignItems: 'center',
   },
+  leadIconStyle: {
+    color: {
+      light: COLORS.light.icon.accent,
+      dark: COLORS.dark.icon.accent,
+    },
+    fontSize: 20,
+  },
 });

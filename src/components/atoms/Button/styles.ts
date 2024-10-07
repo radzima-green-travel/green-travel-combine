@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
   },
   iconButton: {
     width: 48,
+    alignSelf: undefined,
   },
   text: {
     ...FONTS_PRESETS.footnoteBold,

@@ -2,9 +2,9 @@ import React, {memo, useCallback} from 'react';
 
 import {HighlightedText} from 'atoms';
 import {themeStyles} from './styles';
-import {useThemeStyles, useColorScheme} from 'core/hooks';
+import {useThemeStyles} from 'core/hooks';
 import {SearchObject} from 'core/types';
-import {DARK_ICONS_MATCHER, ICONS_MATCHER} from 'core/constants';
+import {ICONS_MATCHER} from 'core/constants';
 import {ListItem} from '../ListItem';
 
 interface IProps {
@@ -21,7 +21,6 @@ export const SearchListItem = memo(({data, testID, onPress}: IProps) => {
   } = data;
 
   const styles = useThemeStyles(themeStyles);
-  const colorScheme = useColorScheme();
 
   const onPressHandler = useCallback(() => {
     onPress(data);
@@ -29,9 +28,8 @@ export const SearchListItem = memo(({data, testID, onPress}: IProps) => {
 
   return (
     <ListItem
-      leadIcon={
-        colorScheme === 'light' ? ICONS_MATCHER[icon] : DARK_ICONS_MATCHER[icon]
-      }
+      leadIcon={ICONS_MATCHER[icon]}
+      leadIconStyle={styles.leadIconStyle}
       leadIconContainerStyle={styles.iconContainer}
       testID={testID}
       type="primary"

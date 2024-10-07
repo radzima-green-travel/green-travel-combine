@@ -4,6 +4,7 @@ import {screenOptions} from './screenOptions';
 import {SearchList} from 'organisms';
 import {useSearch} from './hooks';
 import {SuspenseView} from 'atoms';
+import {useColorScheme, useStatusBar} from 'core/hooks';
 
 export const Search = () => {
   const {
@@ -17,6 +18,10 @@ export const Search = () => {
     searchHistorySuspenseProps,
     listPaninationProps,
   } = useSearch();
+
+  const scheme = useColorScheme();
+
+  useStatusBar(scheme);
 
   return (
     <SuspenseView testID="searchSusspenseView" cover {...searchSuspenseProps}>

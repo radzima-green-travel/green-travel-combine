@@ -105,7 +105,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
   ): Promise<ObjectFiltersDataResponseDTO> {
     const response = await this.executeQuery({
       query: filterObjects,
-      params: params,
+      params: {filter: {statuses: ['published'], ...params.filter}, ...params},
     });
 
     return response.filterLandingObjects;

@@ -183,7 +183,7 @@
     "ratingGoogle": "Рейтинг Google",
     "distance": {
       "considerDistance": "Учитывать дистанцию",
-      "upTo": "До {{distance}} км"
+      "upTo": "до {{distance}} км"
     },
     "hideVisit": "Скрыть посещенное",
     "any": "Любые",
