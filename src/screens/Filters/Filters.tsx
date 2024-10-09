@@ -1,7 +1,12 @@
 import React, {useEffect, useMemo} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import {Chip, Multiswitch, SuspenseView, Icon, SnackBar} from 'atoms';
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import {
+  useColorScheme,
+  useStatusBar,
+  useThemeStyles,
+  useTranslation,
+} from 'core/hooks';
 import {ButtonsGroup, FiltersSectionContainer} from 'molecules';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
@@ -9,6 +14,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ListItem, FilterDistance} from 'components/molecules';
+import {isIOS} from 'services/PlatformService';
 
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
@@ -39,6 +45,10 @@ export const Filters = () => {
     updateDistance,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
+
+  const scheme = useColorScheme();
+
+  useStatusBar(scheme, {disabled: isIOS});
 
   useEffect(() => {
     return () => {
