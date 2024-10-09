@@ -71,7 +71,11 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.secondary,
     },
   },
+  keyboardAvoidingView: {
+    flex: 1,
+  },
   sectionListContentContainer: {
     flexGrow: 1,
+    paddingBottom: 16,
   },
 });

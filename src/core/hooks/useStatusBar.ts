@@ -4,11 +4,14 @@ import {StatusBar} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import {THEME_TYPE} from 'core/constants';
 
-export function useStatusBar(theme: THEME_TYPE) {
+export function useStatusBar(
+  theme: THEME_TYPE,
+  {disabled = false}: {disabled?: boolean} = {},
+) {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && !disabled) {
       const entry = StatusBar.pushStackEntry({
         barStyle: theme === 'dark' ? 'light-content' : 'dark-content',
         animated: true,
@@ -18,5 +21,5 @@ export function useStatusBar(theme: THEME_TYPE) {
         StatusBar.popStackEntry(entry);
       };
     }
-  }, [isFocused, theme]);
+  }, [isFocused, theme, disabled]);
 }
