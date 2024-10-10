@@ -67,7 +67,9 @@ export const Card = memo(
         />
         <LinearGradient {...gradientConfig} style={styles.gradient} />
         <View style={styles.cardContentContainer}>
-          <Text style={styles.title}>{title}</Text>
+          <Text testID={composeTestID(testID, 'title')} style={styles.title}>
+            {title}
+          </Text>
           {isFavoriteBlockVisible ? (
             <FavoriteButtonContainer
               testID={composeTestID(testID, 'favoriteButton')}

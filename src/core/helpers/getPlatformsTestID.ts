@@ -1,6 +1,6 @@
 export function getPlatformsTestID(testID: string) {
   return {
-    accessibilityLabel: testID,
+    // accessibilityLabel: testID,
     testID: testID,
   };
 }
