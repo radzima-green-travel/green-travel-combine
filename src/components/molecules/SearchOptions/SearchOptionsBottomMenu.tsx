@@ -4,12 +4,7 @@ import {ListItem} from '../ListItem';
 import {useTranslation} from 'react-i18next';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
-
-interface SearchOptions {
-  byTitles: boolean;
-  byDescription: boolean;
-  byAddress: boolean;
-}
+import {SearchOptions} from 'core/types';
 
 interface IProps {
   value: SearchOptions;

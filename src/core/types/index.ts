@@ -13,3 +13,4 @@ export * from './api';
 export * from './filters';
 export * from './objectsList';
 export * from './categoriesList';
+export * from './search';

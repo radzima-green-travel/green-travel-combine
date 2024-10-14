@@ -1,18 +1,22 @@
-import {selectSearchInputValue} from 'core/selectors';
+import {selectSearchInputValue, selectSearchOptions} from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
 import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {Icon, CustomNavigationHeader, Button} from 'atoms';
+import {useBottomMenu, useThemeStyles} from 'core/hooks';
+import {Icon, CustomNavigationHeader, Button, BottomMenu} from 'atoms';
 import {useSearchActions, useSearchSelector} from 'core/hooks';
-import {SearchField} from 'molecules';
+import {SearchField, SearchOptionsBottomMenu} from 'molecules';
+import {Portal} from '@gorhom/portal';
+import {SearchOptions} from 'core/types';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
-  const {setSearchInputValue} = useSearchActions();
+  const {setSearchInputValue, setSearchOptions} = useSearchActions();
   const inputValue = useSearchSelector(selectSearchInputValue);
+  const searchOptions = useSearchSelector(selectSearchOptions);
   const styles = useThemeStyles(themeStyles);
+  const {openMenu, ...bottomMenuProps} = useBottomMenu();
 
   const setInputValue = useCallback(
     (text: string) => {
@@ -26,19 +30,41 @@ const HeaderTitle = () => {
       if (actionType === 'reset') {
         setInputValue('');
       }
+      if (actionType === 'filter') {
+        openMenu();
+      }
     },
-    [setInputValue],
+    [setInputValue, openMenu],
+  );
+
+  const updateSearchOptions = useCallback(
+    (options: SearchOptions) => {
+      dispatch(setSearchOptions(options));
+      console.log(options);
+    },
+    [dispatch, setSearchOptions],
   );
 
   return (
-    <SearchField
-      testID="headerSearchbar"
-      containerStyle={styles.headerTitleContainer}
-      value={inputValue}
-      onChange={setInputValue}
-      filterActionTypeEnabled
-      onRightButtonPress={onRightButtonPress}
-    />
+    <>
+      <SearchField
+        testID="headerSearchbar"
+        containerStyle={styles.headerTitleContainer}
+        value={inputValue}
+        onChange={setInputValue}
+        filterActionTypeEnabled
+        onRightButtonPress={onRightButtonPress}
+      />
+      <Portal>
+        <BottomMenu testID={'bottomMenu'} withBackdrop {...bottomMenuProps}>
+          <SearchOptionsBottomMenu
+            value={searchOptions}
+            onChange={updateSearchOptions}
+            bottomInset={0}
+          />
+        </BottomMenu>
+      </Portal>
+    </>
   );
 };
 

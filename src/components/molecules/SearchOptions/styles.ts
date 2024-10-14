@@ -1,15 +1,11 @@
-import {COLORS, FONTS_STYLES, FONTS_PRESETS} from 'assets';
-import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
+import {COLORS, FONTS_STYLES} from 'assets';
+import {MAP_BOTTOM_MENU_HEIGHT, PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
   container: {
     minHeight: MAP_BOTTOM_MENU_HEIGHT,
     paddingTop: 16,
-    backgroundColor: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
-    },
-    paddingHorizontal: 16,
+    paddingHorizontal: PADDING_HORIZONTAL,
     flex: 1,
   },
   contentContainer: {
@@ -22,12 +18,12 @@ export const themeStyles = {
     alignItems: 'flex-start',
   },
   text: {
-    ...FONTS_STYLES.semibold20,
+    ...FONTS_STYLES.title3Bold,
     color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
     flexShrink: 1,
   },
   searchOption: {
-    ...FONTS_PRESETS.subheadlineBold,
+    ...FONTS_STYLES.text_16_24_400,
     paddingVertical: 8,
   },
 };

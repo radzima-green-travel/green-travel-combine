@@ -46,6 +46,11 @@ export const selectSearchInputValue = createSelector(
   search => search.inputValue,
 );
 
+export const selectSearchOptions = createSelector(
+  selectSearchState,
+  search => search.options,
+);
+
 export const selectSearchObjectsData = createSelector(
   selectSearchObjectsRawData,
   selectSearchObjectsHighlightRawData,
