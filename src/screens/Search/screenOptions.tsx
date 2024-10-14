@@ -40,7 +40,6 @@ const HeaderTitle = () => {
   const updateSearchOptions = useCallback(
     (options: SearchOptions) => {
       dispatch(setSearchOptions(options));
-      console.log(options);
     },
     [dispatch, setSearchOptions],
   );

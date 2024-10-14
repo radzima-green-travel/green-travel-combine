@@ -1,4 +1,4 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
 import {MAP_BOTTOM_MENU_HEIGHT, PADDING_HORIZONTAL} from 'core/constants';
 
 export const themeStyles = {
@@ -18,12 +18,12 @@ export const themeStyles = {
     alignItems: 'flex-start',
   },
   text: {
-    ...FONTS_STYLES.title3Bold,
+    ...FONTS_PRESETS.title3Bold,
     color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
     flexShrink: 1,
   },
   searchOption: {
-    ...FONTS_STYLES.text_16_24_400,
+    ...FONTS_PRESETS.bodyRegular,
     paddingVertical: 8,
   },
 };
