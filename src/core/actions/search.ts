@@ -1,6 +1,7 @@
 import {createAsyncAction} from 'core/helpers';
 import {HighlightDTO, SearchObjectDTO} from 'core/types/api';
 import {createAction} from '@reduxjs/toolkit';
+import {SearchOptions} from 'core/types';
 
 export const searchObjectsRequest = createAsyncAction<
   {query: string},
@@ -36,3 +37,6 @@ export const addSearchObjectToHistory = createAction<{
 export const setSearchInputValue = createAction<string>(
   'SET_SEARCH_INPUT_VALUE',
 );
+
+export const setSearchOptions =
+  createAction<SearchOptions>('SET_SEARCH_OPTIONS');
