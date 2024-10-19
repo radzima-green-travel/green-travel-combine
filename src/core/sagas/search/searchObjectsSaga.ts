@@ -7,22 +7,24 @@ import {
 import {selectSearchNextToken} from 'core/selectors/search';
 import {RequestError} from 'core/errors';
 import type {SearchObjectsResponseDTO} from 'core/types/api';
+import {checkIfFiltersAreUnset} from 'core/transformators/filters';
+import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
 
 export function* searchObjectsSaga({
-  payload: {query},
+  payload: {query, filters},
   type,
   meta: {successAction, failureAction, reducerId},
 }:
   | ReturnType<typeof searchObjectsRequest>
   | ReturnType<typeof searchMoreObjectsRequest>) {
   try {
+    const isFiltersUnset = yield call(checkIfFiltersAreUnset, filters);
     const isLoadingMoreAction = type === searchMoreObjectsRequest.type;
     const prevToken: ReturnType<typeof selectSearchNextToken> = yield select(
       selectSearchNextToken,
       reducerId || '',
     );
-
-    if (!query) {
+    if (!query && isFiltersUnset) {
       yield put(
         successAction({
           searchObjects: [],
@@ -37,6 +39,7 @@ export function* searchObjectsSaga({
       yield call([graphQLAPI, graphQLAPI.getSearchObjects], {
         query,
         nextToken: isLoadingMoreAction ? prevToken : null,
+        ...(filters ? transformActiveFiltersToFilterParam(filters) : {}),
       });
 
     yield put(

@@ -23,7 +23,9 @@ export const selectSearchNextToken = createSelector(
 
 export const selectSearchObjectsRawData = createSelector(
   selectSearchState,
-  search => search.searchObjects,
+  search => {
+    return search.searchObjects;
+  },
 );
 
 export const selectSearchObjectsHighlightRawData = createSelector(
@@ -54,9 +56,10 @@ export const selectSearchOptions = createSelector(
 export const selectSearchObjectsData = createSelector(
   selectSearchObjectsRawData,
   selectSearchObjectsHighlightRawData,
+  selectSearchInputValue,
   selectAppLanguage,
-  (searchObjects, highlight, locale) =>
-    prepareSearchItems(searchObjects, highlight, locale),
+  (searchObjects, highlight, query, locale) =>
+    prepareSearchItems(searchObjects, highlight, query, locale),
 );
 
 export const selectSearchHistoryObjects = createSelector(

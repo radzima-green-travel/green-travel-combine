@@ -4,6 +4,7 @@ import {selectAppLanguage} from './settingsSelectors';
 import {
   prepareGoogleRatings,
   prepareAggregationsWithNumberOfItems,
+  checkIfFiltersAreUnset,
 } from 'core/transformators/filters';
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
@@ -56,15 +57,15 @@ export const selectTransformedAggregationsWithNumberOfItems = createSelector(
 
 export const selectAreAllActiveFiltersUnset = createSelector(
   selectActiveFilters,
-  activeFilters => {
-    return (
-      !activeFilters.categories.length &&
-      !activeFilters.googleRating.length &&
-      !activeFilters.municipalities.length &&
-      !activeFilters.regions.length &&
-      !activeFilters.distance.isOn
-    );
-  },
+  checkIfFiltersAreUnset,
 );
 
 export const selectDistanceFilterLocation = selectUserLocation;
+
+export const selectIsFiltersInitialDataLoaded = createSelector(
+  selectFiltersCategoriesList,
+  selectRegions,
+  (categories, regions) => {
+    return Boolean(categories.length && regions.length);
+  },
+);

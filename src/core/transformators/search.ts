@@ -21,6 +21,7 @@ export function extractValueFromHighlight(
 export function prepareSearchItems(
   searchObjects: SearchObjectDTO[],
   highlight: Record<string, HighlightDTO[]> | null,
+  query: string,
   locale: SupportedLocales | null,
 ): SearchObject[] {
   return map(searchObjects, object => {
@@ -29,15 +30,19 @@ export function prepareSearchItems(
       category: extractLocaleSpecificValues(object.category, locale),
     };
 
-    const highlightForValue = extractValueFromHighlight(
-      processedObject,
-      highlight,
-    );
+    if (query) {
+      const highlightForValue = extractValueFromHighlight(
+        processedObject,
+        highlight,
+      );
 
-    return {
-      ...processedObject,
-      name: highlightForValue('name'),
-      description: highlightForValue('description'),
-    };
+      return {
+        ...processedObject,
+        name: highlightForValue('name'),
+        description: highlightForValue('description'),
+      };
+    }
+
+    return processedObject;
   });
 }

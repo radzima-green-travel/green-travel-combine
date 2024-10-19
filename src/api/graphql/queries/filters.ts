@@ -1,3 +1,5 @@
+import {createFilterObjectsQuery} from './common';
+
 export const searchSpotsQuery = `
    query SearchSpots($filter: SearchableSpotFilterInput, $sort: [SearchableSpotSortInput], $limit: Int, $nextToken: String, $from: Int, $aggregates: [SearchableSpotAggregationInput]) {
      searchSpots(
@@ -21,13 +23,8 @@ export const searchSpotsQuery = `
      }
    }
    `;
-export const filterObjects = `query filterLandingObjects($filter: FacetLandingObjectFilterInput, $km: Int, $location: LocationInput) {
-  filterLandingObjects(
-    filter: $filter
-    km: $km
-    location: $location
-  ) {
-    aggregations {
+export const filterObjects = createFilterObjectsQuery(` 
+  aggregations {
       googleRatings {
         doc_count
         facets {
@@ -61,11 +58,7 @@ export const filterObjects = `query filterLandingObjects($filter: FacetLandingOb
          }
        }
      }
-    }
-    total
-  }
-}
-`;
+    }`);
 
 export const getFiltersCategoriesQuery = `query MyQuery(
   $filter: SearchableCategoryFilterInput = {},

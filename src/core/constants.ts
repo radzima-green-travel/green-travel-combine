@@ -259,3 +259,14 @@ export const AnalyticsAllowedEditFields: Record<
 export const TIME_PICKER_FIELDS = new Set([ObjectField.attendanceTime]);
 
 export const DEFAULT_DISTANCE_FILTER_VALUE = 5;
+export const INITIAL_FILTERS = {
+  googleRating: '',
+  categories: [],
+  regions: [],
+  municipalities: [],
+  distance: {
+    isOn: false,
+    value: DEFAULT_DISTANCE_FILTER_VALUE,
+    location: null,
+  },
+};

@@ -4,7 +4,7 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
 import {TabNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
 
-export type HomeScreenNavigationProps = CompositeNavigationProp<
+export type FiltersNavigationProps = CompositeNavigationProp<
   StackNavigationProp<MainNavigatorParamsList, 'Filter'>,
   CompositeNavigationProp<
     BottomTabNavigationProp<TabNavigatorParamsList>,
@@ -12,11 +12,11 @@ export type HomeScreenNavigationProps = CompositeNavigationProp<
   >
 >;
 
-export type HomeScreenRouteProps = RouteProp<MainNavigatorParamsList, 'Filter'>;
+export type FiltersRouteProps = RouteProp<MainNavigatorParamsList, 'Filter'>;
 
 export interface IProps {
-  navigation: HomeScreenNavigationProps;
-  route: HomeScreenRouteProps;
+  navigation: FiltersNavigationProps;
+  route: FiltersRouteProps;
   testID: string;
 }
 
