@@ -133,7 +133,10 @@ export const Settlements = () => {
             sections={settlementsSections}
             keyExtractor={item => item.id}
             stickySectionHeadersEnabled={false}
-            maintainVisibleContentPosition={{minIndexForVisible: 1}}
+            maintainVisibleContentPosition={{
+              minIndexForVisible: 1,
+              autoscrollToTopThreshold: 1,
+            }}
             getItemLayout={getItemLayout}
             renderItem={({item}) => (
               <ListItem
