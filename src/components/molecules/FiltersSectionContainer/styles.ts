@@ -22,7 +22,7 @@ export const themeStyles = createThemeStyles({
     marginBottom: 4,
   },
   subSectionName: {
-    ...FONTS_PRESETS.subheadlineRegular,
+    ...FONTS_PRESETS.subheadlineBold,
     paddingVertical: 8,
     color: {
       light: COLORS.light.text.primary,
