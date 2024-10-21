@@ -23,6 +23,8 @@ import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
 import {useSearchSelector} from './useSearchSelector';
 import {useSearchActions} from './useSearchActions';
+import {useRoute} from '@react-navigation/native';
+import {SearchScreenRouteProps} from '../../screens/Search/types';
 
 export function useSearchList() {
   const dispatch = useDispatch();
@@ -36,6 +38,10 @@ export function useSearchList() {
 
   const historyObjectsIds = useSelector(selectSearchHistoryObjectsIds);
   const historyObjects = useSearchSelector(selectSearchHistory);
+
+  const {params} = useRoute<SearchScreenRouteProps>();
+
+  const {filtersToApply} = params || {};
 
   const searchResults = useSearchSelector(selectSearchObjectsData);
 
@@ -61,20 +67,26 @@ export function useSearchList() {
     dispatch(getSearchObjectsHistoryRequest());
   }, [dispatch, getSearchObjectsHistoryRequest]);
 
-  const searchObjects = useCallback(
-    (query: string) => {
-      dispatch(searchObjectsRequest({query: query}));
-    },
-    [dispatch, searchObjectsRequest],
-  );
+  const searchObjects = useCallback(() => {
+    if (inputValue || filtersToApply) {
+      dispatch(
+        searchObjectsRequest({query: inputValue, filters: filtersToApply}),
+      );
+    }
+  }, [dispatch, filtersToApply, inputValue, searchObjectsRequest]);
 
   const searchMoreObjects = useCallback(() => {
-    dispatch(searchMoreObjectsRequest({query: inputValue}));
-  }, [dispatch, inputValue, searchMoreObjectsRequest]);
+    if (inputValue || filtersToApply) {
+      dispatch(
+        searchMoreObjectsRequest({query: inputValue, filters: filtersToApply}),
+      );
+    }
+  }, [dispatch, filtersToApply, inputValue, searchMoreObjectsRequest]);
 
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const isSearchEmpty = inputValue === '';
+  const isFiltersEmpty = !filtersToApply;
 
   const setIsFirstLoadFalse = useStaticCallback(() => {
     if (!isSearchEmpty) {
@@ -94,7 +106,7 @@ export function useSearchList() {
     }
   }, [isSearchEmpty]);
 
-  const isHistoryVisible = isSearchEmpty || isFirstLoad;
+  const isHistoryVisible = isFiltersEmpty && (isSearchEmpty || isFirstLoad);
 
   const data = isHistoryVisible ? historyObjects : searchResults;
 
@@ -118,9 +130,9 @@ export function useSearchList() {
     [searchObjects],
   );
 
-  useUpdateEffect(() => {
-    searchObjectsDebounce(inputValue);
-  }, [searchObjectsDebounce, inputValue]);
+  useEffect(() => {
+    searchObjectsDebounce();
+  }, [searchObjectsDebounce]);
 
   const addToHistory = useCallback(
     (object: SearchObject) => {
@@ -153,8 +165,8 @@ export function useSearchList() {
   );
 
   const retryCallback = useCallback(() => {
-    searchObjects(inputValue);
-  }, [inputValue, searchObjects]);
+    searchObjects();
+  }, [searchObjects]);
 
   return {
     isHistoryVisible,

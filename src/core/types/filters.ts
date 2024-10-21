@@ -1,7 +1,7 @@
 import {SpotItemDTO} from './api';
 import {Location} from './user';
 
-export type ActiveFilters = {
+export type SearchFilters = {
   googleRating: string;
   regions: string[];
   categories: string[];

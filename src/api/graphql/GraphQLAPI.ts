@@ -103,9 +103,10 @@ class GraphQLAPI extends GraphQLAPIEngine {
   async getFilterObjects(
     params: FiltersParams = {},
   ): Promise<ObjectFiltersDataResponseDTO> {
+    const {filter, ...otherParams} = params;
     const response = await this.executeQuery({
       query: filterObjects,
-      params: {filter: {statuses: ['published'], ...params.filter}, ...params},
+      params: {filter: {statuses: ['published'], ...filter}, ...otherParams},
     });
 
     return response.filterLandingObjects;
@@ -149,19 +150,14 @@ class GraphQLAPI extends GraphQLAPIEngine {
     return response.searchCategories;
   }
 
-  async getSearchObjects({
-    query,
-    nextToken,
-  }: {
-    query: string;
-    nextToken: string | null;
-  }): Promise<SearchObjectsResponseDTO> {
+  async getSearchObjects(
+    params: FiltersParams,
+  ): Promise<SearchObjectsResponseDTO> {
+    const {filter, ...otherParams} = params;
+
     const response = await this.executeQuery({
       query: getSearchObjectsQuery,
-      params: {
-        query,
-        nextToken,
-      },
+      params: {filter: {statuses: ['published'], ...filter}, ...otherParams},
     });
 
     return response.filterLandingObjects;

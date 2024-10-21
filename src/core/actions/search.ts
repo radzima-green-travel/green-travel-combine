@@ -1,10 +1,10 @@
 import {createAsyncAction} from 'core/helpers';
 import {HighlightDTO, SearchObjectDTO} from 'core/types/api';
 import {createAction} from '@reduxjs/toolkit';
-import {SearchOptions} from 'core/types';
+import {SearchFilters, SearchOptions} from 'core/types';
 
 export const searchObjectsRequest = createAsyncAction<
-  {query: string},
+  {query: string; filters?: SearchFilters},
   {
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;
@@ -14,7 +14,7 @@ export const searchObjectsRequest = createAsyncAction<
 >('SEARCH_OBJECTS');
 
 export const searchMoreObjectsRequest = createAsyncAction<
-  {query: string},
+  {query: string; filters?: SearchFilters},
   {
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;

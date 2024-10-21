@@ -3,6 +3,7 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 import {IObject, IObjectIncompleteField} from './common';
 import {AnalyticsNavigationScreenNames} from './analytics';
 import {FromScreenName} from './analytics/objectDetails';
+import {SearchFilters} from './filters';
 
 type ObjectDetailsParams = {
   objectId: string;
@@ -16,7 +17,9 @@ type ObjectDetailsParams = {
 
 export type HomeNavigatorParamsList = {
   Home: undefined;
-  Search: undefined;
+  Search?: {
+    filtersToApply?: SearchFilters;
+  };
   ObjectsList: {
     categoryId: string;
     title: string;
@@ -79,7 +82,10 @@ export type MainNavigatorParamsList = {
   AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList> & {
     onSuccessSignIn?: () => void;
   };
-  Filter: undefined;
+  Filter?: {
+    initialFilters?: SearchFilters;
+    initialQuery?: string;
+  };
   Settlements: {
     initialSelectedSettlements: string[];
     regionsToInclude: string[];

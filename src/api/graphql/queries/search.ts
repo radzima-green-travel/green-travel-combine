@@ -1,3 +1,5 @@
+import {createFilterObjectsQuery} from './common';
+
 export const searchObjectQueryParameters = `
     items {
           id
@@ -23,8 +25,7 @@ export const searchObjectQueryParameters = `
         }
 `;
 
-export const getSearchObjectsQuery = `query MyQuery($nextToken: String = null, $query: String = "") {
-  filterLandingObjects(limit: 20, query: $query, filter: {statuses: "published"}, nextToken: $nextToken) {
+export const getSearchObjectsQuery = createFilterObjectsQuery(`
     ${searchObjectQueryParameters}
      highlight {
       name {
@@ -36,11 +37,7 @@ export const getSearchObjectsQuery = `query MyQuery($nextToken: String = null, $
         id
       }
     }
-    nextToken
-    total
-  }
-}
-`;
+    nextToken`);
 
 export const getSearchObjectsHistoryQuery = `query MyQuery($match: String = "") {
   searchObjects(limit: 15, filter: {id: {match: $match}}) {

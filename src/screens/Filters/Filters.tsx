@@ -27,7 +27,6 @@ export const Filters = () => {
     activeRegions,
     activeCategories,
     emptyActiveFilters,
-    getFiltersInitialData,
     updateRatings,
     chooseCategory,
     chooseRegion,
@@ -43,6 +42,8 @@ export const Filters = () => {
     activeDistance,
     updateDistanceIsOn,
     updateDistance,
+    applyFilters,
+    getFiltersData,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -67,7 +68,7 @@ export const Filters = () => {
         testID: 'clearButton',
       },
       {
-        onPress: () => {},
+        onPress: applyFilters,
         theme: 'primary' as const,
         textStyle: styles.button,
         text: t('showFiltered', {amount: total}),
@@ -82,6 +83,7 @@ export const Filters = () => {
     styles.button,
     total,
     filtersDataLoading,
+    applyFilters,
   ]);
 
   return (
@@ -90,7 +92,7 @@ export const Filters = () => {
         <SuspenseView
           loading={fullScreenLoading}
           error={errorTexts}
-          retryCallback={getFiltersInitialData}
+          retryCallback={getFiltersData}
           testID={'filtersSuspenseView'}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={styles.title}>{t('title')}</Text>

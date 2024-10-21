@@ -162,6 +162,8 @@ export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
 export interface FiltersParams {
+  query?: string;
+  nextToken?: string | null;
   km?: number;
   location?: {lat: number; lon: number};
   filter?: {
