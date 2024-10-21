@@ -25,7 +25,6 @@ import {useSearchSelector} from './useSearchSelector';
 import {useSearchActions} from './useSearchActions';
 import {useRoute} from '@react-navigation/native';
 import {SearchScreenRouteProps} from '../../screens/Search/types';
-import {checkIfFiltersAreUnset} from 'core/transformators/filters';
 
 export function useSearchList() {
   const dispatch = useDispatch();
