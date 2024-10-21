@@ -7,7 +7,6 @@ import {
 import {selectSearchNextToken} from 'core/selectors/search';
 import {RequestError} from 'core/errors';
 import type {SearchObjectsResponseDTO} from 'core/types/api';
-import {checkIfFiltersAreUnset} from 'core/transformators/filters';
 import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
 
 export function* searchObjectsSaga({
@@ -18,13 +17,12 @@ export function* searchObjectsSaga({
   | ReturnType<typeof searchObjectsRequest>
   | ReturnType<typeof searchMoreObjectsRequest>) {
   try {
-    const isFiltersUnset = yield call(checkIfFiltersAreUnset, filters);
     const isLoadingMoreAction = type === searchMoreObjectsRequest.type;
     const prevToken: ReturnType<typeof selectSearchNextToken> = yield select(
       selectSearchNextToken,
       reducerId || '',
     );
-    if (!query && isFiltersUnset) {
+    if (!query && !filters) {
       yield put(
         successAction({
           searchObjects: [],

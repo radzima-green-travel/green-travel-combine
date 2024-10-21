@@ -87,8 +87,7 @@ export function useSearchList() {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const isSearchEmpty = inputValue === '';
-  const isFiltersEmpty =
-    !filtersToApply || checkIfFiltersAreUnset(filtersToApply);
+  const isFiltersEmpty = !filtersToApply;
 
   const setIsFirstLoadFalse = useStaticCallback(() => {
     if (!isSearchEmpty) {
