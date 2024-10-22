@@ -312,8 +312,8 @@ export const useAppMap = () => {
   );
 
   const onDeleteItem = useCallback(
-    (searchItem: SearchObject) => {
-      deleteFromHistory(searchItem.id);
+    (objectId: string) => {
+      deleteFromHistory(objectId);
     },
     [deleteFromHistory],
   );

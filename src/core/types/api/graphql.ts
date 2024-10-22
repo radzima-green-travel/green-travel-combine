@@ -256,9 +256,12 @@ export interface PaginatedList<T> {
   nextToken: string;
   total: number;
 }
+
+export type Highlight = Record<string, HighlightDTO[] | null>;
+
 export type SearchObjectsResponseDTO = {
   items: Array<SearchObjectDTO>;
-  highlight: Record<string, HighlightDTO[]>;
+  highlight: Highlight;
   nextToken: string | null;
   total: number;
 };

@@ -35,4 +35,11 @@ export const themeStyles = createThemeStyles({
     },
     fontSize: 20,
   },
+  tailIconStyle: {
+    color: {
+      light: COLORS.light.icon.tertiary,
+      dark: COLORS.dark.icon.tertiary,
+    },
+    fontSize: 24,
+  },
 });

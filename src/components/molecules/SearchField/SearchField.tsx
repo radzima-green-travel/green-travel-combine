@@ -47,15 +47,15 @@ export const SearchField = memo(
 
     const iconRight = useMemo(() => {
       if (rightButtonActiveType === 'reset') {
-        return {name: 'close'} as Omit<IconProps, 'testID'>;
+        return {name: 'close', style: styles.icon} as Omit<IconProps, 'testID'>;
       }
 
       if (rightButtonActiveType === 'filter') {
-        return {name: 'more'} as Omit<IconProps, 'testID'>;
+        return {name: 'more', style: styles.icon} as Omit<IconProps, 'testID'>;
       }
 
       return undefined;
-    }, [rightButtonActiveType]);
+    }, [rightButtonActiveType, styles]);
 
     return (
       <FormInput

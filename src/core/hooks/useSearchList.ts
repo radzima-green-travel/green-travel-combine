@@ -67,20 +67,17 @@ export function useSearchList() {
     dispatch(getSearchObjectsHistoryRequest());
   }, [dispatch, getSearchObjectsHistoryRequest]);
 
-  const searchObjects = useCallback(() => {
-    if (inputValue || filtersToApply) {
-      dispatch(
-        searchObjectsRequest({query: inputValue, filters: filtersToApply}),
-      );
-    }
-  }, [dispatch, filtersToApply, inputValue, searchObjectsRequest]);
+  const searchObjects = useCallback(
+    (query: string) => {
+      dispatch(searchObjectsRequest({query: query, filters: filtersToApply}));
+    },
+    [dispatch, filtersToApply, searchObjectsRequest],
+  );
 
   const searchMoreObjects = useCallback(() => {
-    if (inputValue || filtersToApply) {
-      dispatch(
-        searchMoreObjectsRequest({query: inputValue, filters: filtersToApply}),
-      );
-    }
+    dispatch(
+      searchMoreObjectsRequest({query: inputValue, filters: filtersToApply}),
+    );
   }, [dispatch, filtersToApply, inputValue, searchMoreObjectsRequest]);
 
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -131,8 +128,8 @@ export function useSearchList() {
   );
 
   useEffect(() => {
-    searchObjectsDebounce();
-  }, [searchObjectsDebounce]);
+    searchObjectsDebounce(inputValue);
+  }, [searchObjectsDebounce, inputValue]);
 
   const addToHistory = useCallback(
     (object: SearchObject) => {
@@ -165,8 +162,8 @@ export function useSearchList() {
   );
 
   const retryCallback = useCallback(() => {
-    searchObjects();
-  }, [searchObjects]);
+    searchObjects(inputValue);
+  }, [searchObjects, inputValue]);
 
   return {
     isHistoryVisible,

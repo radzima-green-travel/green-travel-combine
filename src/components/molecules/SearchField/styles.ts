@@ -35,8 +35,8 @@ export const themeStyles = {
   },
   icon: {
     color: {
-      light: COLORS.light.icon.tertiary,
-      dark: COLORS.dark.icon.tertiary,
+      light: COLORS.light.icon.secondary,
+      dark: COLORS.dark.icon.secondary,
     },
   },
   placeholderTextColor: {

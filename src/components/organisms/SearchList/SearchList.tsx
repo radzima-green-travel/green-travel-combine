@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import {SearchEmptyView, SearchListItem} from 'molecules';
-import {SwipeToDeleteContainer} from '../../containers';
 import {Icon} from 'atoms';
 import {COLORS} from 'assets';
 import {themeStyles} from './styles';
@@ -21,8 +20,8 @@ import {composeTestID} from 'core/helpers';
 
 interface IProps {
   data: SearchObject[];
-  onItemPress: (object: SearchObject) => void;
-  onDeletePress: (object: SearchObject) => void;
+  onItemPress: (objectId: string) => void;
+  onDeletePress: (objectId: string) => void;
   onDeleteAllPress: () => void;
   isHistoryVisible: boolean;
   FlatListComponent?: typeof FlatList | typeof BottomSheetFlatList;
@@ -66,18 +65,21 @@ export const SearchList = memo(
                 </View>
               )}
               renderItem={({item}) => {
+                const {name, category, id, description} = item;
+
                 return (
-                  <SwipeToDeleteContainer
-                    data={item}
-                    key={item.id}
-                    testID={composeTestID(testID, 'swipeToDelete')}
-                    onDeletePress={onDeletePress}>
-                    <SearchListItem
-                      onPress={onItemPress}
-                      data={item}
-                      testID={composeTestID(testID, 'item')}
-                    />
-                  </SwipeToDeleteContainer>
+                  <SearchListItem
+                    objectId={id}
+                    onPress={onItemPress}
+                    objectName={name}
+                    description={description}
+                    categoryName={category.name}
+                    categoryIcon={category.icon}
+                    testID={composeTestID(testID, 'item')}
+                    withRemoveButton
+                    onRemovePress={onDeletePress}
+                    key={'historty' + id}
+                  />
                 );
               }}
             />
@@ -93,11 +95,16 @@ export const SearchList = memo(
             onScrollBeginDrag={Keyboard.dismiss}
             data={data}
             renderItem={({item}) => {
+              const {name, category, id, description} = item;
               return (
                 <SearchListItem
-                  key={'historty' + item.id}
+                  key={id}
+                  objectId={id}
                   onPress={onItemPress}
-                  data={item}
+                  objectName={name}
+                  description={description}
+                  categoryName={category.name}
+                  categoryIcon={category.icon}
                   testID={composeTestID(testID, 'item')}
                 />
               );

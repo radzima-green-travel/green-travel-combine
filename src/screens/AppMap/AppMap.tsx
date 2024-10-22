@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {ClusterMap, ClusterMapShape, BottomMenu, SuspenseView} from 'atoms';
 import {Keyboard, StyleProp, View} from 'react-native';
 
@@ -18,13 +18,14 @@ import {
 } from 'molecules';
 
 import {FeatureCollection, Point} from '@turf/helpers';
-import {SearchObject} from 'core/types';
 
 import {WINDOW_HEIGHT} from 'services/PlatformService';
 import {useAppMap} from './hooks';
 import {Portal} from '@gorhom/portal';
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {SearchList} from 'components/organisms';
+import {find} from 'lodash';
+import {useStaticCallback} from 'react-redux-help-kit';
 
 export const AppMap = () => {
   const {
@@ -67,14 +68,18 @@ export const AppMap = () => {
     searchListProps,
   } = useAppMap();
 
-  const onItemPressHandler = useCallback(
-    (object: SearchObject) => {
+  const onItemPressHandler = useStaticCallback(
+    (objectId: string) => {
+      const object = find(data, {id: objectId});
+
       Keyboard.dismiss();
-      setTimeout(() => {
-        onSearchItemPress(object);
-      }, 0);
+      if (object) {
+        setTimeout(() => {
+          onSearchItemPress(object);
+        }, 0);
+      }
     },
-    [onSearchItemPress],
+    [data, onSearchItemPress],
   );
 
   const {
