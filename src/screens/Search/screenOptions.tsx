@@ -74,6 +74,7 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
   const {filtersToApply} = route.params || {};
   const numberOfAppliedFilters = prepareNumberOfAppliedFilters(filtersToApply);
   const styles = useThemeStyles(themeStyles);
+
   return (
     <View>
       <Button
@@ -81,12 +82,12 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
         isIconOnlyButton
         // eslint-disable-next-line react/no-unstable-nested-components
         icon={textStyle => <Icon name="tune" size={24} style={textStyle} />}
-        onPress={() =>
+        onPress={() => {
           navigation.navigate('Filter', {
             initialFilters: filtersToApply,
             initialQuery: inputValue,
-          })
-        }
+          });
+        }}
         theme="quarterlyGrey"
       />
       {numberOfAppliedFilters ? (

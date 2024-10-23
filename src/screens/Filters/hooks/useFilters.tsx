@@ -58,7 +58,7 @@ export const useFilters = () => {
 
   useLayoutEffect(() => {
     if (initialFilters) {
-      dispatch(initActiveFilters(initialFilters));
+      dispatch(initActiveFilters({...initialFilters}));
     }
   }, [initialFilters, dispatch]);
 

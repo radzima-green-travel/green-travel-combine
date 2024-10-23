@@ -8,7 +8,7 @@ import {
   setSearchOptions,
 } from 'core/actions';
 import {SearchOptions} from 'core/types';
-import type {HighlightDTO, SearchObjectDTO} from 'core/types/api';
+import type {Highlight, SearchObjectDTO} from 'core/types/api';
 import {mapValues} from 'lodash';
 import {byIdReducer} from 'react-redux-help-kit';
 
@@ -16,7 +16,7 @@ interface SearchState {
   searchObjects: Array<SearchObjectDTO>;
   nextToken: string | null;
   searchHistoryObjects: Array<SearchObjectDTO>;
-  highlight: Record<string, HighlightDTO[]> | null;
+  highlight: Highlight | null;
   inputValue: string;
   total: number;
   options: SearchOptions;
@@ -70,7 +70,7 @@ export const reducer = createReducer(initialState, builder => {
       searchObjects: [...state.searchObjects, ...payload.searchObjects],
       highlight: mapValues(state.highlight, (value, key) => {
         const newValues = payload.highlight[key] || [];
-        return [...value, ...newValues];
+        return [...(value || []), ...newValues];
       }),
       nextToken: payload.nextToken,
       total: payload.total,

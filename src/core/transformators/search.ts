@@ -1,5 +1,5 @@
 import {
-  HighlightDTO,
+  Highlight,
   SearchObject,
   SearchObjectDTO,
   SupportedLocales,
@@ -12,7 +12,7 @@ import {
 
 export function extractValueFromHighlight(
   object: SearchObject,
-  highlight: Record<string, HighlightDTO[]> | null,
+  highlight: Highlight | null,
 ) {
   return (key: string) =>
     find(highlight?.[key], {id: object.id})?.value || object[key];
@@ -20,7 +20,7 @@ export function extractValueFromHighlight(
 
 export function prepareSearchItems(
   searchObjects: SearchObjectDTO[],
-  highlight: Record<string, HighlightDTO[]> | null,
+  highlight: Highlight | null,
   query: string,
   locale: SupportedLocales | null,
 ): SearchObject[] {

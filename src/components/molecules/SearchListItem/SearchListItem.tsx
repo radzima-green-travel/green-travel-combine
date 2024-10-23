@@ -3,51 +3,69 @@ import React, {memo, useCallback} from 'react';
 import {HighlightedText} from 'atoms';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
-import {SearchObject} from 'core/types';
 import {ICONS_MATCHER} from 'core/constants';
 import {ListItem} from '../ListItem';
 
 interface IProps {
-  data: SearchObject;
-  onPress: (item: SearchObject) => void;
+  objectName: string;
+  categoryName: string;
+  categoryIcon: string;
+  description?: string;
+  objectId: string;
+  onPress: (objectId: string) => void;
   testID: string;
+  withRemoveButton?: boolean;
+  onRemovePress?: (objectId: string) => void;
 }
 
-export const SearchListItem = memo(({data, testID, onPress}: IProps) => {
-  const {
-    name,
-    category: {icon, name: categoryName},
+export const SearchListItem = memo(
+  ({
+    objectName,
+    categoryName,
+    categoryIcon,
     description,
-  } = data;
+    objectId,
+    testID,
+    onPress,
+    withRemoveButton = false,
+    onRemovePress,
+  }: IProps) => {
+    const styles = useThemeStyles(themeStyles);
 
-  const styles = useThemeStyles(themeStyles);
+    const onPressHandler = useCallback(() => {
+      onPress(objectId);
+    }, [onPress, objectId]);
 
-  const onPressHandler = useCallback(() => {
-    onPress(data);
-  }, [onPress, data]);
+    const onRemovePressHandler = useCallback(() => {
+      onRemovePress?.(objectId);
+    }, [onRemovePress, objectId]);
 
-  return (
-    <ListItem
-      leadIcon={ICONS_MATCHER[icon]}
-      leadIconStyle={styles.leadIconStyle}
-      leadIconContainerStyle={styles.iconContainer}
-      testID={testID}
-      type="primary"
-      onPress={onPressHandler}
-      titleNumberOfLines={2}
-      subTitleNumberOfLines={2}
-      containerStyle={styles.container}
-      title={name}
-      renderTitle={props => <HighlightedText {...props} textWithMarkup />}
-      renderSubtitle={props => (
-        <HighlightedText
-          {...props}
-          textWithMarkup
-          boldTextStyle={styles.subtitleHighlight}
-        />
-      )}
-      subtitle={categoryName + (description ? ` · ${description}` : '')}
-      boldTitle={false}
-    />
-  );
-});
+    return (
+      <ListItem
+        leadIcon={ICONS_MATCHER[categoryIcon]}
+        leadIconStyle={styles.leadIconStyle}
+        leadIconContainerStyle={styles.iconContainer}
+        testID={testID}
+        type="primary"
+        onPress={onPressHandler}
+        titleNumberOfLines={2}
+        subTitleNumberOfLines={2}
+        containerStyle={styles.container}
+        title={objectName}
+        renderTitle={props => <HighlightedText {...props} textWithMarkup />}
+        tailIcon={withRemoveButton ? 'close' : undefined}
+        tailIconStyle={styles.tailIconStyle}
+        onRightLabelPress={onRemovePressHandler}
+        renderSubtitle={props => (
+          <HighlightedText
+            {...props}
+            textWithMarkup
+            boldTextStyle={styles.subtitleHighlight}
+          />
+        )}
+        subtitle={categoryName + (description ? ` · ${description}` : '')}
+        boldTitle={false}
+      />
+    );
+  },
+);

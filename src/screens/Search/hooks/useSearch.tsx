@@ -1,11 +1,11 @@
 import {useCallback, useEffect} from 'react';
 
-import {SearchObject} from 'core/types';
-import {useSearchList} from 'core/hooks';
+import {useSearchList, useStaticCallback} from 'core/hooks';
 import {Keyboard} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SearchScreenNavigationProps} from '../types';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {find} from 'lodash';
 
 export const useSearch = () => {
   const {
@@ -23,28 +23,31 @@ export const useSearch = () => {
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
 
-  const navigateToObjectDetails = useCallback(
-    (searchItem: SearchObject) => {
+  const navigateToObjectDetails = useStaticCallback(
+    (objectId: string) => {
       Keyboard.dismiss();
 
-      if (!isHistoryVisible) {
-        addToHistory(searchItem);
+      const searchItem = find(data, {id: objectId});
+      if (searchItem) {
+        if (!isHistoryVisible) {
+          addToHistory(searchItem);
+        }
+        navigation.navigate('ObjectDetails', {
+          objectId: searchItem.id,
+          objectCoverImageUrl: searchItem.cover,
+          objcetCoverBlurhash: searchItem.blurhash,
+          analytics: {
+            fromScreenName: getAnalyticsNavigationScreenName(),
+          },
+        });
       }
-      navigation.navigate('ObjectDetails', {
-        objectId: searchItem.id,
-        objectCoverImageUrl: searchItem.cover,
-        objcetCoverBlurhash: searchItem.blurhash,
-        analytics: {
-          fromScreenName: getAnalyticsNavigationScreenName(),
-        },
-      });
     },
-    [addToHistory, isHistoryVisible, navigation],
+    [addToHistory, isHistoryVisible, navigation, data],
   );
 
   const deleteItem = useCallback(
-    (searchItem: SearchObject) => {
-      deleteFromHistory(searchItem.id);
+    (objectId: string) => {
+      deleteFromHistory(objectId);
     },
     [deleteFromHistory],
   );

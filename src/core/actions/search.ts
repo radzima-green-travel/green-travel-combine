@@ -1,5 +1,5 @@
 import {createAsyncAction} from 'core/helpers';
-import {HighlightDTO, SearchObjectDTO} from 'core/types/api';
+import {Highlight, SearchObjectDTO} from 'core/types/api';
 import {createAction} from '@reduxjs/toolkit';
 import {SearchFilters, SearchOptions} from 'core/types';
 
@@ -9,7 +9,7 @@ export const searchObjectsRequest = createAsyncAction<
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;
     total: number;
-    highlight: Record<string, HighlightDTO[]>;
+    highlight: Highlight;
   }
 >('SEARCH_OBJECTS');
 
@@ -19,7 +19,7 @@ export const searchMoreObjectsRequest = createAsyncAction<
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;
     total: number;
-    highlight: Record<string, HighlightDTO[]>;
+    highlight: Highlight;
   }
 >('SEARCH_MORE_OBJECTS');
 

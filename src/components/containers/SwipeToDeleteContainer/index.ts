@@ -1,1 +1,0 @@
-export {SwipeToDeleteContainer} from './SwipeToDeleteContainer';
