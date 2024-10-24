@@ -19,6 +19,12 @@
           "resizeMode": "cover",
           "backgroundColor": "#1F1F1F"
         }
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "entitlements": {
+        "aps-environment": "development"
       }
     },
     "androidStatusBar": {

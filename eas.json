@@ -15,7 +15,10 @@
     },
     "production": {
       "credentialsSource": "local",
-      "distribution": "internal"
+      "distribution": "store",
+      "ios": {
+        "enterpriseProvisioning": "universal"
+      }
     }
   },
   "submit": {
