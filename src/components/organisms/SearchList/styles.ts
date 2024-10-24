@@ -1,16 +1,14 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
+import {createThemeStyles} from 'core/helpers/styles';
 import {StyleSheet} from 'react-native';
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   listContainer: {
     flex: 1,
     backgroundColor: {
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
     },
-  },
-  contentContainer: {
-    paddingTop: 32,
   },
   emptyListContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -22,33 +20,23 @@ export const themeStyles = {
     alignItems: 'center',
   },
   emptyListText: {
-    ...FONTS_STYLES.regular15,
+    ...FONTS_PRESETS.footnoteRegular,
     color: {
-      light: COLORS.boulder,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.secondary,
+      dark: COLORS.light.text.secondary,
     },
     textAlign: 'center',
-    marginTop: 8,
   },
-  listTitleHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginRight: 16,
-    marginBottom: 24,
-    marginLeft: 16,
-  },
-  listTitle: {
-    ...FONTS_STYLES.regular15,
-    color: {
-      light: COLORS.logCabin,
-      dark: COLORS.altoForDark,
+  listHeader: {
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
     },
   },
-  clearAll: {
-    ...FONTS_STYLES.regular13,
+  resultsCount: {
     color: {
-      light: COLORS.boulder,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.tertiary,
+      dark: COLORS.dark.text.tertiary,
     },
   },
-};
+});

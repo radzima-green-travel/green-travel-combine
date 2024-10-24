@@ -17,6 +17,7 @@ export const Search = () => {
     searchSuspenseProps,
     searchHistorySuspenseProps,
     listPaninationProps,
+    totalResults,
   } = useSearch();
 
   const scheme = useColorScheme();
@@ -38,6 +39,7 @@ export const Search = () => {
           onDeleteAllPress={deleteAllItems}
           isSearchPreviewVisible={isSearchPreviewVisible}
           listPaninationProps={listPaninationProps}
+          totalResults={totalResults}
         />
       </SuspenseView>
     </SuspenseView>
