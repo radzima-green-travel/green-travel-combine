@@ -8,17 +8,13 @@ import {
   selectSearchInputValue,
   selectSearchObjectsData,
   selectSearchObjectsTotal,
-  selectSearchHistoryObjectsIds,
+  selectIsUserHasSavedSearchHistory,
 } from 'core/selectors';
 import {SearchObject} from 'core/types';
 import {debounce} from 'lodash';
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  useRequestLoading,
-  useStaticCallback,
-  useUpdateEffect,
-} from 'react-redux-help-kit';
+import {useRequestLoading} from 'react-redux-help-kit';
 import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
 import {useSearchSelector} from './useSearchSelector';
@@ -36,7 +32,9 @@ export function useSearchList() {
     addSearchObjectToHistory,
   } = useSearchActions();
 
-  const historyObjectsIds = useSelector(selectSearchHistoryObjectsIds);
+  const isUserHasSavedSearchHistory = useSelector(
+    selectIsUserHasSavedSearchHistory,
+  );
   const historyObjects = useSearchSelector(selectSearchHistory);
 
   const {params} = useRoute<SearchScreenRouteProps>();
@@ -80,35 +78,16 @@ export function useSearchList() {
     );
   }, [dispatch, filtersToApply, inputValue, searchMoreObjectsRequest]);
 
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
-
-  const isSearchEmpty = inputValue === '';
+  const isSearchEmpty = inputValue.length < 2;
   const isFiltersEmpty = !filtersToApply;
 
-  const setIsFirstLoadFalse = useStaticCallback(() => {
-    if (!isSearchEmpty) {
-      setIsFirstLoad(false);
-    }
-  }, [isSearchEmpty]);
-
-  useUpdateEffect(() => {
-    if (loading === false) {
-      setIsFirstLoadFalse();
-    }
-  }, [loading, setIsFirstLoadFalse]);
-
-  useEffect(() => {
-    if (isSearchEmpty) {
-      setIsFirstLoad(true);
-    }
-  }, [isSearchEmpty]);
-
-  const isHistoryVisible = isFiltersEmpty && (isSearchEmpty || isFirstLoad);
+  const isHistoryVisible =
+    isUserHasSavedSearchHistory && isFiltersEmpty && isSearchEmpty;
 
   const data = isHistoryVisible ? historyObjects : searchResults;
 
   const needToLoadHistory =
-    Boolean(historyObjectsIds.length) && !historyObjects.length;
+    isUserHasSavedSearchHistory && !historyObjects.length;
 
   useEffect(() => {
     if (needToLoadHistory) {
@@ -128,7 +107,9 @@ export function useSearchList() {
   );
 
   useEffect(() => {
-    searchObjectsDebounce(inputValue);
+    if (inputValue.length > 1) {
+      searchObjectsDebounce(inputValue);
+    }
   }, [searchObjectsDebounce, inputValue]);
 
   const addToHistory = useCallback(
@@ -175,8 +156,7 @@ export function useSearchList() {
     onTextChange,
     inputValue,
     listPaninationProps,
-    isFirstLoad,
-    isSearchPreviewVisible: isSearchEmpty || isFirstLoad,
+    isSearchPreviewVisible: isSearchEmpty,
     searchSuspenseProps: {
       loading,
       error: errorTexts,
@@ -187,5 +167,6 @@ export function useSearchList() {
       error: historyLoadingError,
       retryCallback: getSearchObjectsHistory,
     },
+    totalResults: searchResultsTotal,
   };
 }

@@ -19,6 +19,7 @@ export const useSearch = () => {
     searchHistorySuspenseProps,
     listPaninationProps,
     isSearchPreviewVisible,
+    totalResults,
   } = useSearchList();
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
@@ -72,5 +73,6 @@ export const useSearch = () => {
     searchHistorySuspenseProps,
     listPaninationProps,
     isSearchPreviewVisible,
+    totalResults,
   };
 };
