@@ -1,5 +1,6 @@
 import {MultiPolygon, LineString} from '@turf/helpers';
 import {ObjectField} from 'core/constants';
+import {SupportedLocales} from '../common';
 
 export interface QueryParams {
   limit: number;
@@ -166,6 +167,7 @@ export interface FiltersParams {
   nextToken?: string | null;
   km?: number;
   location?: {lat: number; lon: number};
+  locale?: SupportedLocales;
   filter?: {
     categories?: string[];
     googleRating?: string;

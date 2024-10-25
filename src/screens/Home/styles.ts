@@ -17,7 +17,5 @@ export const themeStyles = {
       dark: COLORS.altoForDark,
     },
   },
-  searchContainer: {
-    marginRight: 12,
-  },
+  searchContainer: {},
 };

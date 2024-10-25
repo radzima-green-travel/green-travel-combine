@@ -25,7 +25,9 @@ export const searchObjectQueryParameters = `
         }
 `;
 
-export const getSearchObjectsQuery = createFilterObjectsQuery(`
+export const getSearchObjectsQuery = (locale?: string) =>
+  createFilterObjectsQuery(
+    `
     ${searchObjectQueryParameters}
      highlight {
       name {
@@ -37,7 +39,9 @@ export const getSearchObjectsQuery = createFilterObjectsQuery(`
         id
       }
     }
-    nextToken`);
+    nextToken`,
+    locale,
+  );
 
 export const getSearchObjectsHistoryQuery = `query MyQuery($match: String = "") {
   searchObjects(limit: 15, filter: {id: {match: $match}}) {

@@ -156,7 +156,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
     const {filter, ...otherParams} = params;
 
     const response = await this.executeQuery({
-      query: getSearchObjectsQuery,
+      query: getSearchObjectsQuery(otherParams.locale),
       params: {filter: {statuses: ['published'], ...filter}, ...otherParams},
     });
 

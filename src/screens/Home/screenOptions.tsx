@@ -23,18 +23,6 @@ const HeaderRight = ({navigation, testID}: IProps) => {
           testID={composeTestID(testID, 'searchIcon')}
         />
       </TouchableOpacity>
-      <TouchableOpacity
-        hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
-        activeOpacity={0.8}
-        {...getPlatformsTestID(composeTestID(testID, 'filterButton'))}
-        onPress={() => navigation.navigate('Filter')}>
-        <Icon
-          name="tune"
-          style={styles.icon}
-          size={24}
-          testID={composeTestID(testID, 'tuneIcon')}
-        />
-      </TouchableOpacity>
     </>
   );
 };

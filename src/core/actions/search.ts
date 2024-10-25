@@ -23,17 +23,6 @@ export const searchMoreObjectsRequest = createAsyncAction<
   }
 >('SEARCH_MORE_OBJECTS');
 
-export const getSearchObjectsHistoryRequest = createAsyncAction<
-  void,
-  {
-    searchHistoryObjects: SearchObjectDTO[];
-  }
->('GET_SEARCH_OBJECTS_HISTORY');
-
-export const addSearchObjectToHistory = createAction<{
-  searchObject: SearchObjectDTO;
-}>('ADD_SEARCH_OBJECT_TO_HISTORY');
-
 export const setSearchInputValue = createAction<string>(
   'SET_SEARCH_INPUT_VALUE',
 );
