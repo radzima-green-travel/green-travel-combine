@@ -1,4 +1,4 @@
-import {call, put, select} from 'redux-saga/effects';
+import {call, delay, put, select} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
 import {
   searchObjectsRequest,
@@ -8,6 +8,8 @@ import {selectSearchNextToken} from 'core/selectors/search';
 import {RequestError} from 'core/errors';
 import type {SearchObjectsResponseDTO} from 'core/types/api';
 import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
+import {selectAppLanguage} from 'core/selectors';
+import {DEFAULT_LOCALE} from 'core/constants';
 
 export function* searchObjectsSaga({
   payload: {query, filters},
@@ -22,21 +24,20 @@ export function* searchObjectsSaga({
       selectSearchNextToken,
       reducerId || '',
     );
-    if (!query && !filters) {
-      yield put(
-        successAction({
-          searchObjects: [],
-          nextToken: null,
-          total: 0,
-          highlight: {},
-        }),
-      );
-      return;
+
+    const appLocale: ReturnType<typeof selectAppLanguage> =
+      yield select(selectAppLanguage);
+
+    if (!isLoadingMoreAction) {
+      yield delay(300);
     }
+
     const {items, nextToken, total, highlight}: SearchObjectsResponseDTO =
       yield call([graphQLAPI, graphQLAPI.getSearchObjects], {
         query,
         nextToken: isLoadingMoreAction ? prevToken : null,
+        locale:
+          !appLocale || appLocale === DEFAULT_LOCALE ? undefined : appLocale,
         ...(filters ? transformActiveFiltersToFilterParam(filters) : {}),
       });
 

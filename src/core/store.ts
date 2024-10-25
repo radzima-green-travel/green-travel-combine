@@ -19,6 +19,7 @@ import {
   categoriesListReducer,
   userReducer,
   settlementsReducer,
+  searchHistoryReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
@@ -58,6 +59,7 @@ const rootReducer = combineReducers({
   bootsrap: bootstrapReducer,
   objectDetailsMap: objectDetailsMapReducer,
   search: searchReducer,
+  searchHistory: searchHistoryReducer,
   authentication: persistReducer(
     authenticationPersistConfig,
     authenticationReducer,

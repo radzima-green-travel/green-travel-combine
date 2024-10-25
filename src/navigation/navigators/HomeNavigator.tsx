@@ -12,6 +12,7 @@ import {useTranslation} from 'core/hooks';
 import {HomeNavigatorParamsList} from 'core/types';
 import {useNewScreenOptions, useScreenOptions} from '../hooks';
 import {defaultTransition} from '../transition';
+import {merge} from 'lodash';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
@@ -38,11 +39,19 @@ export function HomeNavigator() {
       <Stack.Screen
         name="Search"
         component={SearchScreen}
-        options={props => ({
-          ...newScreenOptions(props),
-          ...SearchScreen.screenOptions(props),
-          animation: 'fade',
-        })}
+        options={props => {
+          const commonScreenOptions = newScreenOptions(props);
+          const searchSpecificScreenOptions = SearchScreen.screenOptions(props);
+          return {
+            ...commonScreenOptions,
+            ...searchSpecificScreenOptions,
+            headerStyle: merge(
+              commonScreenOptions.headerStyle,
+              searchSpecificScreenOptions.headerStyle,
+            ),
+            animation: 'fade',
+          };
+        }}
       />
       <Stack.Screen
         getId={({params}) => params.objectId}
