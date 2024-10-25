@@ -9,6 +9,8 @@ import {useSearchActions, useSearchSelector} from 'core/hooks';
 import {SearchField, SearchOptionsBottomMenu} from 'molecules';
 import {Portal} from '@gorhom/portal';
 import {SearchOptions} from 'core/types';
+import {Text, View} from 'react-native';
+import {prepareNumberOfAppliedFilters} from 'core/transformators/filters';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
@@ -67,16 +69,33 @@ const HeaderTitle = () => {
   );
 };
 
-const HeaderRight = ({navigation, testID}: IProps) => {
+const HeaderRight = ({navigation, route, testID}: IProps) => {
+  const inputValue = useSearchSelector(selectSearchInputValue);
+  const {filtersToApply} = route.params || {};
+  const numberOfAppliedFilters = prepareNumberOfAppliedFilters(filtersToApply);
+  const styles = useThemeStyles(themeStyles);
+
   return (
-    <Button
-      testID={testID}
-      isIconOnlyButton
-      // eslint-disable-next-line react/no-unstable-nested-components
-      icon={textStyle => <Icon name="tune" size={24} style={textStyle} />}
-      onPress={() => navigation.navigate('Filter')}
-      theme="quarterlyGrey"
-    />
+    <View>
+      <Button
+        testID={testID}
+        isIconOnlyButton
+        // eslint-disable-next-line react/no-unstable-nested-components
+        icon={textStyle => <Icon name="tune" size={24} style={textStyle} />}
+        onPress={() => {
+          navigation.navigate('Filter', {
+            initialFilters: filtersToApply,
+            initialQuery: inputValue,
+          });
+        }}
+        theme="quarterlyGrey"
+      />
+      {numberOfAppliedFilters ? (
+        <View style={styles.filtersBadge}>
+          <Text style={styles.filterBadgeText}>{numberOfAppliedFilters}</Text>
+        </View>
+      ) : null}
+    </View>
   );
 };
 

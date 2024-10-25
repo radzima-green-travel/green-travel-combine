@@ -33,3 +33,20 @@ export const categoryQueryParameters = `
         locale
       }
    }`;
+
+export const createFilterObjectsQuery = (
+  queryParameters: string,
+) => `query MyQuery($filter: FacetLandingObjectFilterInput, $km: Int, $location: LocationInput, $nextToken: String = null, $query: String = "") {
+    filterLandingObjects(
+      filter: $filter
+      km: $km
+      location: $location,
+      limit: 20,
+      query: $query,
+      nextToken: $nextToken
+    ) {
+      ${queryParameters}
+      total
+    }
+  }
+  `;

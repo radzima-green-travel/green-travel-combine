@@ -1,5 +1,5 @@
 import {
-  ActiveFilters,
+  SearchFilters,
   FiltersParams,
   ObjectFiltersAggregationsDTO,
 } from 'core/types';
@@ -52,7 +52,7 @@ export function prepareAggregationsWithNumberOfItems(
 }
 
 export const transformActiveFiltersToFilterParam = (
-  activeFilters: ActiveFilters,
+  activeFilters: SearchFilters,
 ): FiltersParams => {
   const {distance} = activeFilters;
   return {
@@ -75,4 +75,39 @@ export const transformActiveFiltersToFilterParam = (
         : undefined,
     },
   };
+};
+
+export const checkIfFiltersAreUnset = (filters?: SearchFilters) => {
+  return (
+    !filters ||
+    (!filters.categories.length &&
+      !filters.googleRating.length &&
+      !filters.municipalities.length &&
+      !filters.regions.length &&
+      !filters.distance.isOn)
+  );
+};
+
+export const prepareNumberOfAppliedFilters = (filters?: SearchFilters) => {
+  if (!filters) {
+    return 0;
+  }
+
+  let numberOfAppliedFilters = 0;
+  if (filters.categories.length) {
+    numberOfAppliedFilters += 1;
+  }
+  if (filters.googleRating.length) {
+    numberOfAppliedFilters += 1;
+  }
+  if (filters.municipalities.length) {
+    numberOfAppliedFilters += 1;
+  }
+  if (filters.regions.length) {
+    numberOfAppliedFilters += 1;
+  }
+  if (filters.distance.isOn) {
+    numberOfAppliedFilters += 1;
+  }
+  return numberOfAppliedFilters;
 };

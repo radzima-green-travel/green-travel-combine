@@ -3,26 +3,25 @@ import {
   RegionsListResponseDTO,
   SetActiveFilterPayload,
   CategoryFilterItemDTO,
-  ActiveFilters,
+  SearchFilters,
 } from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
 
 export const getFiltersDataRequest = createAsyncAction<
-  ActiveFilters,
-  ObjectFiltersDataDTO
->('GET_FILTERS_DATA');
-
-export const getInitialFiltersRequest = createAsyncAction<
-  void,
+  {query?: string; filters: SearchFilters},
   {
     regionsList: RegionsListResponseDTO;
     categoriesList: CategoryFilterItemDTO[];
     filtersData: ObjectFiltersDataDTO;
   }
->('GET_INITIAL_FILTERS');
+>('GET_FILTERS_DATA');
 
 export const setActiveFilter =
   createAction<SetActiveFilterPayload>('SET_ACTIVE_FILTER');
+
+export const initActiveFilters = createAction<SearchFilters>(
+  'INIT_ACTIVE_FILTERS',
+);
 
 export const clearFilters = createAction('CLEAR_FILTERS');

@@ -160,9 +160,10 @@
     "emptyText": "Nothing is saved for now"
   },
   "search": {
-    "searchTitle": "Search history",
-    "notFound": "Unfortunately, no results match this search",
-    "clearAll": "Clear all",
+    "recent": "Recent",
+    "clear": "Clear",
+    "results": "Results",
+    "notFound": "Try changing your search criteria",
     "emptySearchPlaceholder": "Enter your search query in the input field\nto start searching.",
     "options": {
       "title": "Search parameters",

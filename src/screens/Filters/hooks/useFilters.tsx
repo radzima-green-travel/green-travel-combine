@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
 
 import {
   selectTransformedGoogleRatings,
@@ -11,21 +11,21 @@ import {
   selectAreAllActiveFiltersUnset,
   selectDistanceFilterLocation,
   selectActiveFiltersLocation,
+  selectIsFiltersInitialDataLoaded,
 } from 'core/selectors';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
-import {HomeScreenNavigationProps} from '../types';
+import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
+import {FiltersNavigationProps, FiltersRouteProps} from '../types';
 import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
-  useUpdateEffect,
 } from 'core/hooks';
 import {
   getFiltersDataRequest,
-  getInitialFiltersRequest,
   setActiveFilter,
   clearFilters as clearFiltersAction,
   requestUserLocation,
+  initActiveFilters,
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
 import {keys, pickBy} from 'lodash';
@@ -33,11 +33,16 @@ import {keys, pickBy} from 'lodash';
 export const useFilters = () => {
   const dispatch = useDispatch();
   const {show, ...snackBarProps} = useSnackbar();
-  const navigation = useNavigation<HomeScreenNavigationProps>();
-
+  const navigation = useNavigation<FiltersNavigationProps>();
+  const {params} = useRoute<FiltersRouteProps>();
+  const {initialFilters, initialQuery} = params || {};
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectFiltersRegions);
+  const isFiltersInitialDataLoaded = useSelector(
+    selectIsFiltersInitialDataLoaded,
+  );
+
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
   const emptyActiveFilters = useSelector(selectAreAllActiveFiltersUnset);
@@ -47,25 +52,24 @@ export const useFilters = () => {
   const distanceFilterLocation = useSelector(selectDistanceFilterLocation);
   const activeFiltersLocation = useSelector(selectActiveFiltersLocation);
 
-  const {loading: loadingInitialFilters} = useRequestLoading(
-    getInitialFiltersRequest,
-  );
-  const {errorTexts: errorTextsInitialFilters} = useOnRequestError(
-    getInitialFiltersRequest,
-    'filters',
-  );
-
   const {loading: filtersDataLoading} = useRequestLoading(
     getFiltersDataRequest,
   );
 
-  const getFiltersInitialData = useCallback(() => {
-    dispatch(getInitialFiltersRequest());
-  }, [dispatch]);
+  useLayoutEffect(() => {
+    if (initialFilters) {
+      dispatch(initActiveFilters({...initialFilters}));
+    }
+  }, [initialFilters, dispatch]);
 
   const getFiltersData = useCallback(() => {
-    dispatch(getFiltersDataRequest(activeFilters));
-  }, [dispatch, activeFilters]);
+    dispatch(
+      getFiltersDataRequest({
+        query: initialQuery,
+        filters: activeFilters,
+      }),
+    );
+  }, [dispatch, initialQuery, activeFilters]);
 
   const updateRatings = useCallback(
     (newRating: string) => {
@@ -164,21 +168,29 @@ export const useFilters = () => {
     });
   }, [activeFilters.municipalities, settlementsWithNumberOfItems, navigation]);
 
-  useUpdateEffect(() => {
-    getFiltersData();
-  }, [dispatch, getFiltersData]);
+  const isFirstRender = useRef(true);
+
+  const isNeedToFetchData = (() => {
+    if (isFirstRender.current) {
+      return !initialFilters && !isFiltersInitialDataLoaded;
+    }
+    return true;
+  })();
 
   useEffect(() => {
-    getFiltersInitialData();
-  }, [getFiltersInitialData]);
+    if (isNeedToFetchData) {
+      getFiltersData();
+    }
+    isFirstRender.current = false;
+  }, [dispatch, getFiltersData, isNeedToFetchData]);
 
   const isFocused = useIsFocused();
 
-  useOnRequestError(
+  const {errorTexts} = useOnRequestError(
     getFiltersDataRequest,
     'filters',
     errorLabel => {
-      if (isFocused) {
+      if (isFocused && isFiltersInitialDataLoaded) {
         show({
           title: errorLabel.text,
           type: 'error',
@@ -198,16 +210,24 @@ export const useFilters = () => {
     [activeFilters.municipalities.length, regionsWithNumberOfItems],
   );
 
+  const applyFilters = useCallback(() => {
+    navigation.navigate('HomeNavigator', {
+      screen: 'Search',
+      params: {
+        filtersToApply: activeFilters,
+      },
+    });
+  }, [activeFilters, navigation]);
+
   return {
     caregoriesData,
     googleRatings,
     getFiltersData,
-    getFiltersInitialData,
     chooseRegion,
     clearFilters,
     navigateToSettlements,
-    fullScreenLoading: loadingInitialFilters,
-    errorTexts: errorTextsInitialFilters,
+    fullScreenLoading: isFiltersInitialDataLoaded ? false : filtersDataLoading,
+    errorTexts: isFiltersInitialDataLoaded ? null : errorTexts,
     filtersDataLoading,
     emptyActiveFilters,
     regions: regionsList,
@@ -223,5 +243,6 @@ export const useFilters = () => {
     total,
     snackBarProps,
     getIsRegionDisabled,
+    applyFilters,
   };
 };

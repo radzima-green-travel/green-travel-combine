@@ -1,40 +1,30 @@
 import {
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
-  ActiveFilters,
+  SearchFilters,
   CategoryFilterItemDTO,
 } from 'core/types';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
   setActiveFilter,
-  getInitialFiltersRequest,
   clearFilters,
+  initActiveFilters,
 } from 'core/actions';
 import {xor} from 'lodash';
-import {DEFAULT_DISTANCE_FILTER_VALUE} from 'core/constants';
+import {INITIAL_FILTERS} from 'core/constants';
 
 interface FiltersState {
   regionsList: RegionsListResponseDTO;
   filtersData: ObjectFiltersDataDTO | null;
-  activeFilters: ActiveFilters;
+  activeFilters: SearchFilters;
   categoriesList: CategoryFilterItemDTO[];
 }
 
 const initialState: FiltersState = {
   regionsList: [],
   filtersData: null,
-  activeFilters: {
-    googleRating: '',
-    categories: [],
-    regions: [],
-    municipalities: [],
-    distance: {
-      isOn: false,
-      value: DEFAULT_DISTANCE_FILTER_VALUE,
-      location: null,
-    },
-  },
+  activeFilters: INITIAL_FILTERS,
   categoriesList: [],
 };
 
@@ -69,8 +59,9 @@ export const filtersReducer = createReducer(initialState, builder => {
         activeFilters: initialState.activeFilters,
       };
     })
+
     .addCase(
-      getInitialFiltersRequest.meta.successAction,
+      getFiltersDataRequest.meta.successAction,
       (state, {payload: {regionsList, categoriesList, filtersData}}) => {
         return {
           ...state,
@@ -80,10 +71,10 @@ export const filtersReducer = createReducer(initialState, builder => {
         };
       },
     )
-    .addCase(getFiltersDataRequest.meta.successAction, (state, {payload}) => {
+    .addCase(initActiveFilters, (state, {payload}) => {
       return {
         ...state,
-        filtersData: payload,
+        activeFilters: payload,
       };
     });
 });

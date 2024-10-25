@@ -8,21 +8,19 @@ import {
   selectSearchInputValue,
   selectSearchObjectsData,
   selectSearchObjectsTotal,
-  selectSearchHistoryObjectsIds,
+  selectIsUserHasSavedSearchHistory,
 } from 'core/selectors';
 import {SearchObject} from 'core/types';
 import {debounce} from 'lodash';
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  useRequestLoading,
-  useStaticCallback,
-  useUpdateEffect,
-} from 'react-redux-help-kit';
+import {useRequestLoading} from 'react-redux-help-kit';
 import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
 import {useSearchSelector} from './useSearchSelector';
 import {useSearchActions} from './useSearchActions';
+import {useRoute} from '@react-navigation/native';
+import {SearchScreenRouteProps} from '../../screens/Search/types';
 
 export function useSearchList() {
   const dispatch = useDispatch();
@@ -34,8 +32,14 @@ export function useSearchList() {
     addSearchObjectToHistory,
   } = useSearchActions();
 
-  const historyObjectsIds = useSelector(selectSearchHistoryObjectsIds);
+  const isUserHasSavedSearchHistory = useSelector(
+    selectIsUserHasSavedSearchHistory,
+  );
   const historyObjects = useSearchSelector(selectSearchHistory);
+
+  const {params} = useRoute<SearchScreenRouteProps>();
+
+  const {filtersToApply} = params || {};
 
   const searchResults = useSearchSelector(selectSearchObjectsData);
 
@@ -63,43 +67,27 @@ export function useSearchList() {
 
   const searchObjects = useCallback(
     (query: string) => {
-      dispatch(searchObjectsRequest({query: query}));
+      dispatch(searchObjectsRequest({query: query, filters: filtersToApply}));
     },
-    [dispatch, searchObjectsRequest],
+    [dispatch, filtersToApply, searchObjectsRequest],
   );
 
   const searchMoreObjects = useCallback(() => {
-    dispatch(searchMoreObjectsRequest({query: inputValue}));
-  }, [dispatch, inputValue, searchMoreObjectsRequest]);
+    dispatch(
+      searchMoreObjectsRequest({query: inputValue, filters: filtersToApply}),
+    );
+  }, [dispatch, filtersToApply, inputValue, searchMoreObjectsRequest]);
 
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const isSearchEmpty = inputValue.length < 2;
+  const isFiltersEmpty = !filtersToApply;
 
-  const isSearchEmpty = inputValue === '';
-
-  const setIsFirstLoadFalse = useStaticCallback(() => {
-    if (!isSearchEmpty) {
-      setIsFirstLoad(false);
-    }
-  }, [isSearchEmpty]);
-
-  useUpdateEffect(() => {
-    if (loading === false) {
-      setIsFirstLoadFalse();
-    }
-  }, [loading, setIsFirstLoadFalse]);
-
-  useEffect(() => {
-    if (isSearchEmpty) {
-      setIsFirstLoad(true);
-    }
-  }, [isSearchEmpty]);
-
-  const isHistoryVisible = isSearchEmpty || isFirstLoad;
+  const isHistoryVisible =
+    isUserHasSavedSearchHistory && isFiltersEmpty && isSearchEmpty;
 
   const data = isHistoryVisible ? historyObjects : searchResults;
 
   const needToLoadHistory =
-    Boolean(historyObjectsIds.length) && !historyObjects.length;
+    isUserHasSavedSearchHistory && !historyObjects.length;
 
   useEffect(() => {
     if (needToLoadHistory) {
@@ -118,8 +106,10 @@ export function useSearchList() {
     [searchObjects],
   );
 
-  useUpdateEffect(() => {
-    searchObjectsDebounce(inputValue);
+  useEffect(() => {
+    if (inputValue.length > 1) {
+      searchObjectsDebounce(inputValue);
+    }
   }, [searchObjectsDebounce, inputValue]);
 
   const addToHistory = useCallback(
@@ -154,7 +144,7 @@ export function useSearchList() {
 
   const retryCallback = useCallback(() => {
     searchObjects(inputValue);
-  }, [inputValue, searchObjects]);
+  }, [searchObjects, inputValue]);
 
   return {
     isHistoryVisible,
@@ -166,8 +156,7 @@ export function useSearchList() {
     onTextChange,
     inputValue,
     listPaninationProps,
-    isFirstLoad,
-    isSearchPreviewVisible: isSearchEmpty || isFirstLoad,
+    isSearchPreviewVisible: isSearchEmpty,
     searchSuspenseProps: {
       loading,
       error: errorTexts,
@@ -178,5 +167,6 @@ export function useSearchList() {
       error: historyLoadingError,
       retryCallback: getSearchObjectsHistory,
     },
+    totalResults: searchResultsTotal,
   };
 }

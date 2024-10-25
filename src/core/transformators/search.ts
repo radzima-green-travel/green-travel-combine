@@ -1,5 +1,5 @@
 import {
-  HighlightDTO,
+  Highlight,
   SearchObject,
   SearchObjectDTO,
   SupportedLocales,
@@ -12,7 +12,7 @@ import {
 
 export function extractValueFromHighlight(
   object: SearchObject,
-  highlight: Record<string, HighlightDTO[]> | null,
+  highlight: Highlight | null,
 ) {
   return (key: string) =>
     find(highlight?.[key], {id: object.id})?.value || object[key];
@@ -20,7 +20,8 @@ export function extractValueFromHighlight(
 
 export function prepareSearchItems(
   searchObjects: SearchObjectDTO[],
-  highlight: Record<string, HighlightDTO[]> | null,
+  highlight: Highlight | null,
+  query: string,
   locale: SupportedLocales | null,
 ): SearchObject[] {
   return map(searchObjects, object => {
@@ -29,15 +30,19 @@ export function prepareSearchItems(
       category: extractLocaleSpecificValues(object.category, locale),
     };
 
-    const highlightForValue = extractValueFromHighlight(
-      processedObject,
-      highlight,
-    );
+    if (query) {
+      const highlightForValue = extractValueFromHighlight(
+        processedObject,
+        highlight,
+      );
 
-    return {
-      ...processedObject,
-      name: highlightForValue('name'),
-      description: highlightForValue('description'),
-    };
+      return {
+        ...processedObject,
+        name: highlightForValue('name'),
+        description: highlightForValue('description'),
+      };
+    }
+
+    return processedObject;
   });
 }

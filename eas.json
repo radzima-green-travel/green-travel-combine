@@ -15,7 +15,7 @@
     },
     "production": {
       "credentialsSource": "local",
-      "distribution": "internal"
+      "distribution": "store"
     }
   },
   "submit": {

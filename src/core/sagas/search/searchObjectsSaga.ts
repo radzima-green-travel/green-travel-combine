@@ -7,9 +7,10 @@ import {
 import {selectSearchNextToken} from 'core/selectors/search';
 import {RequestError} from 'core/errors';
 import type {SearchObjectsResponseDTO} from 'core/types/api';
+import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
 
 export function* searchObjectsSaga({
-  payload: {query},
+  payload: {query, filters},
   type,
   meta: {successAction, failureAction, reducerId},
 }:
@@ -21,8 +22,7 @@ export function* searchObjectsSaga({
       selectSearchNextToken,
       reducerId || '',
     );
-
-    if (!query) {
+    if (!query && !filters) {
       yield put(
         successAction({
           searchObjects: [],
@@ -37,6 +37,7 @@ export function* searchObjectsSaga({
       yield call([graphQLAPI, graphQLAPI.getSearchObjects], {
         query,
         nextToken: isLoadingMoreAction ? prevToken : null,
+        ...(filters ? transformActiveFiltersToFilterParam(filters) : {}),
       });
 
     yield put(

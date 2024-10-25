@@ -1,17 +1,12 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React, {memo} from 'react';
 import {
   FlatList,
   Keyboard,
   KeyboardAvoidingView,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import {SearchEmptyView, SearchListItem} from 'molecules';
-import {SwipeToDeleteContainer} from '../../containers';
-import {Icon} from 'atoms';
-import {COLORS} from 'assets';
+import {ListItem, SearchEmptyView, SearchListItem} from 'molecules';
 import {themeStyles} from './styles';
 import {useListPagination, useThemeStyles, useTranslation} from 'core/hooks';
 import {SearchObject} from 'core/types';
@@ -21,14 +16,15 @@ import {composeTestID} from 'core/helpers';
 
 interface IProps {
   data: SearchObject[];
-  onItemPress: (object: SearchObject) => void;
-  onDeletePress: (object: SearchObject) => void;
+  onItemPress: (objectId: string) => void;
+  onDeletePress: (objectId: string) => void;
   onDeleteAllPress: () => void;
   isHistoryVisible: boolean;
   FlatListComponent?: typeof FlatList | typeof BottomSheetFlatList;
   listPaninationProps: ReturnType<typeof useListPagination>;
   isSearchPreviewVisible: boolean;
   testID: string;
+  totalResults: number;
 }
 
 export const SearchList = memo(
@@ -42,10 +38,48 @@ export const SearchList = memo(
     isSearchPreviewVisible,
     listPaninationProps,
     testID,
+    totalResults,
   }: IProps) => {
     const {t} = useTranslation('search');
 
     const styles = useThemeStyles(themeStyles);
+
+    const renderHeader = () => {
+      if (isHistoryVisible) {
+        return (
+          <ListItem
+            testID={composeTestID(testID, 'listHeader')}
+            type="primary"
+            title={t('recent')}
+            containerStyle={styles.listHeader}
+            label={t('clear')}
+            onRightLabelPress={onDeleteAllPress}
+          />
+        );
+      }
+
+      if (isSearchPreviewVisible) {
+        return null;
+      }
+
+      return (
+        <ListItem
+          testID={composeTestID(testID, 'listHeader')}
+          type="primary"
+          title={t('results')}
+          renderTitle={props => (
+            <Text>
+              <Text {...props} />
+              <Text> </Text>
+              <Text style={[props.style, styles.resultsCount]}>
+                {totalResults}
+              </Text>
+            </Text>
+          )}
+          containerStyle={styles.listHeader}
+        />
+      );
+    };
 
     const renderContent = () => {
       if (data.length) {
@@ -53,31 +87,23 @@ export const SearchList = memo(
           return (
             <FlatListComponent
               style={styles.listContainer}
-              contentContainerStyle={styles.contentContainer}
               data={data}
-              ListHeaderComponent={() => (
-                <View style={styles.listTitleHeader}>
-                  <Text style={styles.listTitle}>{t('searchTitle')}</Text>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={onDeleteAllPress}>
-                    <Text style={styles.clearAll}>{t('clearAll')}</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
               renderItem={({item}) => {
+                const {name, category, id, description} = item;
+
                 return (
-                  <SwipeToDeleteContainer
-                    data={item}
-                    key={item.id}
-                    testID={composeTestID(testID, 'swipeToDelete')}
-                    onDeletePress={onDeletePress}>
-                    <SearchListItem
-                      onPress={onItemPress}
-                      data={item}
-                      testID={composeTestID(testID, 'item')}
-                    />
-                  </SwipeToDeleteContainer>
+                  <SearchListItem
+                    objectId={id}
+                    onPress={onItemPress}
+                    objectName={name}
+                    description={description}
+                    categoryName={category.name}
+                    categoryIcon={category.icon}
+                    testID={composeTestID(testID, 'item')}
+                    withRemoveButton
+                    onRemovePress={onDeletePress}
+                    key={'historty' + id}
+                  />
                 );
               }}
             />
@@ -89,15 +115,19 @@ export const SearchList = memo(
             style={styles.listContainer}
             keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
-            contentContainerStyle={styles.contentContainer}
             onScrollBeginDrag={Keyboard.dismiss}
             data={data}
             renderItem={({item}) => {
+              const {name, category, id, description} = item;
               return (
                 <SearchListItem
-                  key={'historty' + item.id}
+                  key={id}
+                  objectId={id}
                   onPress={onItemPress}
-                  data={item}
+                  objectName={name}
+                  description={description}
+                  categoryName={category.name}
+                  categoryIcon={category.icon}
                   testID={composeTestID(testID, 'item')}
                 />
               );
@@ -120,11 +150,10 @@ export const SearchList = memo(
           behavior="padding"
           style={styles.emptyListContainer}>
           <View style={styles.emptyListContent}>
-            <Icon name="search" color={COLORS.silver} height={48} width={48} />
             <Text style={styles.emptyListText}>{t('notFound')}</Text>
           </View>
         </KeyboardAvoidingView>
-
+        {renderHeader()}
         {renderContent()}
       </>
     );

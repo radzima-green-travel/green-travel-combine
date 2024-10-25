@@ -1,11 +1,5 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  Platform,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {Text, TouchableOpacity, View, KeyboardAvoidingView} from 'react-native';
 import {HighlightedText, SnackBar, SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {screenOptions} from './screenOptions';
@@ -46,7 +40,7 @@ export const Settlements = () => {
     clearInput,
   } = useSettlements();
 
-  const {bottom} = useSafeAreaInsets();
+  const {bottom, top} = useSafeAreaInsets();
 
   const renderSectionHeader = useCallback(
     ({section: {title}}) => (
@@ -116,10 +110,7 @@ export const Settlements = () => {
   }, [navigation, renderHeaderRight]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={24}
-      style={styles.container}>
+    <View style={styles.container}>
       <SearchField
         testID={'searchField'}
         onChange={handleSearchValue}
@@ -131,34 +122,43 @@ export const Settlements = () => {
         loading={fullScreenLoading}
         error={errorTexts}
         retryCallback={getSettlementsData}>
-        <SectionList
-          ListHeaderComponent={SelectedSettlementsSection}
-          contentContainerStyle={styles.sectionListContentContainer}
-          showsVerticalScrollIndicator={false}
-          sections={settlementsSections}
-          keyExtractor={item => item.id}
-          stickySectionHeadersEnabled={false}
-          maintainVisibleContentPosition={{minIndexForVisible: 1}}
-          getItemLayout={getItemLayout}
-          renderItem={({item}) => (
-            <ListItem
-              type={'checkbox'}
-              item={item}
-              key={item.id}
-              title={item.value}
-              checked={selectedSettlements.includes(item.id)}
-              onPress={chooseSettlement}
-              testID={'settlementsListItem'}
-              renderTitle={props => {
-                return <HighlightedText {...props} query={searchValue} />;
-              }}
-            />
-          )}
-          ListEmptyComponent={renderListEmptyComponent}
-          renderSectionHeader={renderSectionHeader}
-          initialNumToRender={15}
-          maxToRenderPerBatch={15}
-        />
+        <KeyboardAvoidingView
+          style={styles.keyboardAvoidingView}
+          behavior={'padding'}
+          keyboardVerticalOffset={top + 50}>
+          <SectionList
+            ListHeaderComponent={SelectedSettlementsSection}
+            contentContainerStyle={styles.sectionListContentContainer}
+            showsVerticalScrollIndicator={false}
+            sections={settlementsSections}
+            keyExtractor={item => item.id}
+            stickySectionHeadersEnabled={false}
+            maintainVisibleContentPosition={{
+              minIndexForVisible: 1,
+              autoscrollToTopThreshold: 1,
+            }}
+            getItemLayout={getItemLayout}
+            renderItem={({item}) => (
+              <ListItem
+                type={'checkbox'}
+                item={item}
+                key={item.id}
+                title={item.value}
+                checked={selectedSettlements.includes(item.id)}
+                onPress={chooseSettlement}
+                testID={'settlementsListItem'}
+                renderTitle={props => {
+                  return <HighlightedText {...props} query={searchValue} />;
+                }}
+              />
+            )}
+            ListEmptyComponent={renderListEmptyComponent}
+            renderSectionHeader={renderSectionHeader}
+            initialNumToRender={30}
+            maxToRenderPerBatch={15}
+          />
+        </KeyboardAvoidingView>
+
         <ButtonsGroup
           bottomInset={bottom}
           buttons={[
@@ -177,7 +177,7 @@ export const Settlements = () => {
         />
       </SuspenseView>
       <SnackBar isOnTop testID="snackBar" {...snackBarProps} />
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 

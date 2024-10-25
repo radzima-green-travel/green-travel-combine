@@ -1,6 +1,7 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
+import {createThemeStyles} from 'core/helpers/styles';
 
-export const themeStyles = {
+export const themeStyles = createThemeStyles({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -10,10 +11,10 @@ export const themeStyles = {
     },
   },
   text: {
-    ...FONTS_STYLES.regular14,
+    ...FONTS_PRESETS.footnoteRegular,
     color: {
-      light: COLORS.boulder,
-      dark: COLORS.altoForDark,
+      light: COLORS.light.text.secondary,
+      dark: COLORS.dark.text.secondary,
     },
     textAlign: 'center',
     paddingTop: 27,
@@ -25,4 +26,4 @@ export const themeStyles = {
       dark: COLORS.mirage,
     },
   },
-};
+});
