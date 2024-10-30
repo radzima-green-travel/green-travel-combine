@@ -1,24 +1,20 @@
-import {selectSearchInputValue, selectSearchOptions} from 'core/selectors';
+import {selectSearchInputValue} from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
 import {themeStyles} from './styles';
-import {useBottomMenu, useThemeStyles} from 'core/hooks';
-import {Icon, CustomNavigationHeader, Button, BottomMenu} from 'atoms';
+import {useThemeStyles} from 'core/hooks';
+import {Icon, CustomNavigationHeader, Button} from 'atoms';
 import {useSearchActions, useSearchSelector} from 'core/hooks';
-import {SearchField, SearchOptionsBottomMenu} from 'molecules';
-import {Portal} from '@gorhom/portal';
-import {SearchOptions} from 'core/types';
+import {SearchField} from 'molecules';
 import {Text, View} from 'react-native';
 import {prepareNumberOfAppliedFilters} from 'core/transformators/filters';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
-  const {setSearchInputValue, setSearchOptions} = useSearchActions();
+  const {setSearchInputValue} = useSearchActions();
   const inputValue = useSearchSelector(selectSearchInputValue);
-  const searchOptions = useSearchSelector(selectSearchOptions);
   const styles = useThemeStyles(themeStyles);
-  const {openMenu, ...bottomMenuProps} = useBottomMenu();
 
   const setInputValue = useCallback(
     (text: string) => {
@@ -32,19 +28,19 @@ const HeaderTitle = () => {
       if (actionType === 'reset') {
         setInputValue('');
       }
-      if (actionType === 'filter') {
-        openMenu();
-      }
+      // if (actionType === 'filter') {
+      //   openMenu();
+      // }
     },
-    [setInputValue, openMenu],
+    [setInputValue],
   );
 
-  const updateSearchOptions = useCallback(
-    (options: SearchOptions) => {
-      dispatch(setSearchOptions(options));
-    },
-    [dispatch, setSearchOptions],
-  );
+  // const updateSearchOptions = useCallback(
+  //   (options: SearchOptions) => {
+  //     dispatch(setSearchOptions(options));
+  //   },
+  //   [dispatch, setSearchOptions],
+  // );
 
   return (
     <>
@@ -53,10 +49,10 @@ const HeaderTitle = () => {
         containerStyle={styles.headerTitleContainer}
         value={inputValue}
         onChange={setInputValue}
-        filterActionTypeEnabled
+        // filterActionTypeEnabled
         onRightButtonPress={onRightButtonPress}
       />
-      <Portal>
+      {/* <Portal>
         <BottomMenu testID={'bottomMenu'} withBackdrop {...bottomMenuProps}>
           <SearchOptionsBottomMenu
             value={searchOptions}
@@ -64,7 +60,7 @@ const HeaderTitle = () => {
             bottomInset={0}
           />
         </BottomMenu>
-      </Portal>
+      </Portal> */}
     </>
   );
 };

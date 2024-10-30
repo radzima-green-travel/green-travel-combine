@@ -13,7 +13,7 @@ import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ListItem, FilterDistance} from 'components/molecules';
+import {FilterDistance} from 'components/molecules';
 import {isIOS} from 'services/PlatformService';
 
 export const Filters = () => {
@@ -167,12 +167,12 @@ export const Filters = () => {
                 testID={'googleRating'}
               />
             </FiltersSectionContainer>
-            <ListItem
+            {/* <ListItem
               type="switch"
               title={t('hideVisit')}
               testID={'hideVisit'}
               switchProps={{value: false}}
-            />
+            /> */}
           </ScrollView>
           <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
         </SuspenseView>
