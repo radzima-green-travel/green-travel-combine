@@ -4,10 +4,12 @@ import {
   SearchObjectDTO,
   SupportedLocales,
 } from 'core/types';
-import {map, find} from 'lodash';
+import {map, find, mapValues, every, isEmpty} from 'lodash';
 import {
   extractLocaleSpecificValues,
   translateAndProcessImagesForEntity,
+  prepareObjectAddressSpots,
+  getAddressStringFromSpots,
 } from './common';
 
 export function extractValueFromHighlight(
@@ -16,6 +18,30 @@ export function extractValueFromHighlight(
 ) {
   return (key: string) =>
     find(highlight?.[key], {id: object.id})?.value || object[key];
+}
+
+export function prepareSearchObjectAddress(
+  object: SearchObject,
+  highlight: Highlight | null,
+  locale: SupportedLocales | null,
+) {
+  const translatedSpots = prepareObjectAddressSpots(object.addresses, locale);
+  const highlightForValue = extractValueFromHighlight(object, highlight);
+  const spotsWithHighlights = mapValues(translatedSpots, (value, key) =>
+    highlightForValue('spot_' + key),
+  );
+
+  if (every(spotsWithHighlights, isEmpty)) {
+    return '';
+  }
+
+  return getAddressStringFromSpots(
+    mapValues(
+      translatedSpots,
+      (value, key) => highlightForValue('spot_' + key) || value,
+    ),
+    locale,
+  );
 }
 
 export function prepareSearchItems(
@@ -40,6 +66,7 @@ export function prepareSearchItems(
         ...processedObject,
         name: highlightForValue('name'),
         description: highlightForValue('description'),
+        address: prepareSearchObjectAddress(processedObject, highlight, locale),
       };
     }
 

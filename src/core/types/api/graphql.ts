@@ -138,6 +138,7 @@ export interface SearchObjectDTO {
   i18n: Array<I18nType<'name'>>;
   category: SearchObjetcCategoryDTO;
   location: LocationDTO | null;
+  addresses: AddressessDTO;
 }
 
 export interface CategoryAggregationsByObjectsDTO {
@@ -259,7 +260,15 @@ export interface PaginatedList<T> {
   total: number;
 }
 
-export type Highlight = Record<string, HighlightDTO[] | null>;
+type HighlightName =
+  | 'name'
+  | 'description'
+  | 'spot_region'
+  | 'spot_subRegion'
+  | 'spot_street'
+  | 'spot_municipality';
+
+export type Highlight = Record<HighlightName, HighlightDTO[] | null>;
 
 export type SearchObjectsResponseDTO = {
   items: Array<SearchObjectDTO>;
