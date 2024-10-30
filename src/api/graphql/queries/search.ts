@@ -1,7 +1,7 @@
 import {createFilterObjectsQuery} from './common';
 
 export const searchObjectQueryParameters = `
-    items {
+
           id
           name
           cover
@@ -22,19 +22,62 @@ export const searchObjectQueryParameters = `
               locale
             }
           }
-        }
 `;
 
 export const getSearchObjectsQuery = (locale?: string) =>
   createFilterObjectsQuery(
     `
-    ${searchObjectQueryParameters}
+     items {
+      ${searchObjectQueryParameters}
+        addresses {
+          items {
+            region {
+              value
+              i18n {
+                locale
+                value
+              }
+            }
+            municipality {
+              value
+              i18n {
+                locale
+                value
+              }
+            }
+            subRegion {
+              value
+              i18n {
+                locale
+                value
+              }
+            }
+            street
+          }
+       }
+     }
      highlight {
       name {
         value
         id
       }
       description {
+        value
+        id
+      }
+      spot_subRegion {
+        value
+        id
+      }
+      spot_street {
+        value
+        id
+      }
+      spot_region {
+        value
+        id
+      }
+      spot_municipality {
         value
         id
       }
@@ -45,7 +88,9 @@ export const getSearchObjectsQuery = (locale?: string) =>
 
 export const getSearchObjectsHistoryQuery = `query MyQuery($match: String = "") {
   searchObjects(limit: 15, filter: {id: {match: $match}}) {
+    items {
     ${searchObjectQueryParameters}
+    }
   }
 }
 `;

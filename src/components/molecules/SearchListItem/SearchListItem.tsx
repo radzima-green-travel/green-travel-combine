@@ -11,6 +11,7 @@ interface IProps {
   categoryName: string;
   categoryIcon: string;
   description?: string;
+  address?: string;
   objectId: string;
   onPress: (objectId: string) => void;
   testID: string;
@@ -24,6 +25,7 @@ export const SearchListItem = memo(
     categoryName,
     categoryIcon,
     description,
+    address,
     objectId,
     testID,
     onPress,
@@ -39,6 +41,8 @@ export const SearchListItem = memo(
     const onRemovePressHandler = useCallback(() => {
       onRemovePress?.(objectId);
     }, [onRemovePress, objectId]);
+
+    const subtitlePostfix = address || description;
 
     return (
       <ListItem
@@ -63,7 +67,9 @@ export const SearchListItem = memo(
             boldTextStyle={styles.subtitleHighlight}
           />
         )}
-        subtitle={categoryName + (description ? ` · ${description}` : '')}
+        subtitle={
+          categoryName + (subtitlePostfix ? ` · ${subtitlePostfix}` : '')
+        }
         boldTitle={false}
       />
     );
