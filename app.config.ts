@@ -58,7 +58,7 @@ export default ({config}: Dict) => {
       [
         '@rnmapbox/maps',
         {
-          RNMapboxMapsVersion: '11.1.0',
+          RNMapboxMapsVersion: '11.6.0',
           RNMapboxMapsDownloadToken: process.env.MAPBOX_DOWNLOAD_TOKEN ?? '',
         },
       ],
