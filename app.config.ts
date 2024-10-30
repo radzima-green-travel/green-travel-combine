@@ -17,7 +17,11 @@ export default ({config}: Dict) => {
       ...(config.ios ?? {}),
       bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.greentravel.radzima',
       buildNumber: process.env.BUILD_NUMBER ?? '1',
-      associatedDomains: [`applinks:${process.env.DEEP_LINK_DOMAIN}`],
+      ...(process.env.DEEP_LINK_DOMAIN
+        ? {
+            associatedDomains: [`applinks:${process.env.DEEP_LINK_DOMAIN}`],
+          }
+        : {}),
       infoPlist: {
         NSAppTransportSecurity: {
           NSAllowsArbitraryLoads: process.env.EAS_BUILD_TYPE === 'development',
@@ -54,7 +58,7 @@ export default ({config}: Dict) => {
       [
         '@rnmapbox/maps',
         {
-          RNMapboxMapsVersion: '11.1.0',
+          RNMapboxMapsVersion: '11.6.0',
           RNMapboxMapsDownloadToken: process.env.MAPBOX_DOWNLOAD_TOKEN ?? '',
         },
       ],
