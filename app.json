@@ -7,7 +7,6 @@
     "ios": {
       "appStoreUrl": "https://apps.apple.com/ru/app/radzima/id1587158874",
       "publishBundlePath": "./build",
-      "associatedDomains": ["applinks:d1u39lnww2smbf.cloudfront.net"],
       "supportsTablet": true,
       "userInterfaceStyle": "automatic",
       "splash": {
