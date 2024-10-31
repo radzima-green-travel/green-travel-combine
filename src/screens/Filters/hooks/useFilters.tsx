@@ -28,7 +28,7 @@ import {
   initActiveFilters,
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
-import {keys, pickBy} from 'lodash';
+import {isString, keys, pickBy} from 'lodash';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -172,7 +172,10 @@ export const useFilters = () => {
 
   const isNeedToFetchData = (() => {
     if (isFirstRender.current) {
-      return !initialFilters && !isFiltersInitialDataLoaded;
+      return (
+        !initialFilters &&
+        (!isFiltersInitialDataLoaded || isString(initialQuery))
+      );
     }
     return true;
   })();

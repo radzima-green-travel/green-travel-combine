@@ -10,8 +10,13 @@ import {
   ObjectMapDTO,
   ObjectShortDTO,
   SearchObjectDTO,
+  SearchObjetcCategoryDTO,
+  SpotItemDTO,
 } from './api';
 
+export type TranslatedEntity<T> = Omit<T, 'i18n'> & {
+  analyticsMetadata: Record<ExtractI18nKeys<T>, string>;
+};
 export interface ILabelError {
   text: string;
   title: string;
@@ -218,26 +223,25 @@ export type SpotI18n =
   | null
   | undefined;
 
-export interface CategoryShort extends CategoryShortDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<ObjectShortDTO>, string>;
-}
+export type CategoryShort = TranslatedEntity<CategoryShortDTO>;
+export type ObjectShort = TranslatedEntity<ObjectShortDTO>;
+export type ObjectCategoryMap = TranslatedEntity<ObjectCategoryMapDTO>;
+export type SearchObjectCategory = TranslatedEntity<SearchObjetcCategoryDTO>;
+export type SpotItem = TranslatedEntity<SpotItemDTO>;
 
-export interface ObjectShort extends ObjectShortDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<ObjectShortDTO>, string>;
-}
-
-export interface ObjectMap extends ObjectMapDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<ObjectMapDTO>, string>;
+export interface ObjectMap
+  extends Omit<TranslatedEntity<ObjectMapDTO>, 'addresses'> {
   address: string;
 }
 
-export interface ObjectCategoryMap extends ObjectCategoryMapDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<ObjectCategoryMapDTO>, string>;
-}
-export interface SearchObject extends SearchObjectDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<SearchObjectDTO>, string>;
-  description?: string;
-  address?: string;
+export interface SearchObject
+  extends Omit<TranslatedEntity<SearchObjectDTO>, 'addresses' | 'category'> {
+  category: SearchObjectCategory;
+  highlight?: {
+    name: string;
+    description?: string;
+    address?: string;
+  };
 }
 export interface CardItem {
   name: string;

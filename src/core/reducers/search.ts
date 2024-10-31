@@ -50,7 +50,7 @@ export const reducer = createReducer(initialState, builder => {
       ...state,
       searchObjects: [...state.searchObjects, ...payload.searchObjects],
       highlight: mapValues(state.highlight, (value, key) => {
-        const newValues = payload.highlight[key] || [];
+        const newValues = payload.highlight?.[key] || [];
         return [...(value || []), ...newValues];
       }),
       nextToken: payload.nextToken,

@@ -4,7 +4,7 @@ import {
   SearchObjectDTO,
   SupportedLocales,
 } from 'core/types';
-import {map, find, mapValues, every, isEmpty} from 'lodash';
+import {map, find, mapValues, every, isEmpty, omit} from 'lodash';
 import {
   extractLocaleSpecificValues,
   translateAndProcessImagesForEntity,
@@ -13,7 +13,7 @@ import {
 } from './common';
 
 export function extractValueFromHighlight(
-  object: SearchObject,
+  object: SearchObjectDTO,
   highlight: Highlight | null,
 ) {
   return (key: string) =>
@@ -21,7 +21,7 @@ export function extractValueFromHighlight(
 }
 
 export function prepareSearchObjectAddress(
-  object: SearchObject,
+  object: SearchObjectDTO,
   highlight: Highlight | null,
   locale: SupportedLocales | null,
 ) {
@@ -57,16 +57,15 @@ export function prepareSearchItems(
     };
 
     if (query) {
-      const highlightForValue = extractValueFromHighlight(
-        processedObject,
-        highlight,
-      );
+      const highlightForValue = extractValueFromHighlight(object, highlight);
 
       return {
-        ...processedObject,
-        name: highlightForValue('name'),
-        description: highlightForValue('description'),
-        address: prepareSearchObjectAddress(processedObject, highlight, locale),
+        ...omit(processedObject, ['addresses']),
+        highlight: {
+          name: highlightForValue('name'),
+          description: highlightForValue('description'),
+          address: prepareSearchObjectAddress(object, highlight, locale),
+        },
       };
     }
 

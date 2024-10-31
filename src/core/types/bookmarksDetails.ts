@@ -1,19 +1,17 @@
 import {
   BookmarksCategory,
   BookmarksObjectDTO,
-  ExtractI18nKeys,
   ObjectShortDTO,
 } from 'core/types/api';
-import {ObjectShort} from 'core/types/common';
+import {ObjectShort, TranslatedEntity} from 'core/types/common';
 
 export interface BookmarksInitialObjectsDataState {
   objects: BookmarksObjectDTO[];
   objectsIds: string[];
 }
 
-interface ProcessedBookmarksObjectCategory extends BookmarksCategory {
-  analyticsMetadata: Record<ExtractI18nKeys<BookmarksCategory>, string>;
-}
+interface ProcessedBookmarksObjectCategory
+  extends TranslatedEntity<BookmarksCategory> {}
 
 interface ProcessedBookmarksInitialObject {
   id: string;

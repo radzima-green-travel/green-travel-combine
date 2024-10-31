@@ -31,7 +31,7 @@ export const useSearch = () => {
       const searchItem = find(data, {id: objectId});
       if (searchItem) {
         if (!isHistoryVisible) {
-          addToHistory(searchItem);
+          addToHistory(objectId);
         }
         navigation.navigate('ObjectDetails', {
           objectId: searchItem.id,

@@ -117,15 +117,16 @@ export const SearchList = memo(
             onScrollBeginDrag={Keyboard.dismiss}
             data={data}
             renderItem={({item}) => {
-              const {name, category, id, description, address} = item;
+              const {name, category, id, highlight} = item;
+
               return (
                 <SearchListItem
                   key={id}
                   objectId={id}
                   onPress={onItemPress}
-                  objectName={name}
-                  description={description}
-                  address={address}
+                  objectName={highlight?.name || name}
+                  description={highlight?.description}
+                  address={highlight?.address}
                   categoryName={category.name}
                   categoryIcon={category.icon}
                   testID={composeTestID(testID, 'item')}
