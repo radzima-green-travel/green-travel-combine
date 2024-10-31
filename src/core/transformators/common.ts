@@ -7,6 +7,7 @@ import {
   ObjectShort,
   CategoryShort,
   AddressessDTO,
+  TranslatedEntity,
 } from 'core/types';
 import {compact, find, head, keys, map, omit, pick} from 'lodash';
 import {imagesService} from 'services/ImagesService';
@@ -52,7 +53,7 @@ export const extractLocaleSpecificValues = <
 >(
   entity: T,
   locale: SupportedLocales | null,
-) => {
+): TranslatedEntity<T> => {
   const firstLocaleSpecificData = omit(head(entity.i18n), ['locale']);
   const keysToTranslate = keys(firstLocaleSpecificData);
 
@@ -67,7 +68,7 @@ export const extractLocaleSpecificValues = <
   >;
 
   return {
-    ...entity,
+    ...omit(entity, 'i18n'),
     ...localeSpecificData,
     analyticsMetadata,
   };

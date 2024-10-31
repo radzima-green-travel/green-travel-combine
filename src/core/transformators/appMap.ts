@@ -92,7 +92,7 @@ export const getMapMarkers = (objects: ObjectMap[], filters: IMapFilter[]) => {
 };
 
 export const createMarkerFromObject = (
-  data: ObjectMapDTO | null,
+  data: ObjectMap | null,
 ): FeatureCollection<Geometry, {icon_image: string; objectId: string}> => {
   return featureCollection(
     compact([

@@ -19,7 +19,7 @@ import {every, xor} from 'lodash';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {SettlementsScreenRouteProps} from '../types';
 import {IState} from 'core/store';
-import {SpotItemDTO} from 'core/types';
+import {SpotItem} from 'core/types';
 import {useSnackbar} from 'atoms';
 
 export const useSettlements = () => {
@@ -98,7 +98,7 @@ export const useSettlements = () => {
     }
   }, [getSettlementsData, isDataLoaded]);
 
-  const chooseSettlement = useCallback((item: SpotItemDTO) => {
+  const chooseSettlement = useCallback((item: SpotItem) => {
     setSelectedSettlements(prevState => {
       return xor(prevState, [item.id]);
     });

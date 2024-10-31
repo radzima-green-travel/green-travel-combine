@@ -37,6 +37,11 @@ export const selectSearchInputValue = createSelector(
   search => search.inputValue,
 );
 
+export const selectSearchQuery = createSelector(
+  selectSearchInputValue,
+  searchInput => (searchInput.length < 2 ? '' : searchInput),
+);
+
 export const selectSearchOptions = createSelector(
   selectSearchState,
   search => search.options,

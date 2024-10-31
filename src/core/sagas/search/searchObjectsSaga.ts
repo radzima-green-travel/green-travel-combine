@@ -25,6 +25,18 @@ export function* searchObjectsSaga({
       reducerId || '',
     );
 
+    if (!query.length && !filters) {
+      yield put(
+        successAction({
+          searchObjects: [],
+          nextToken: null,
+          total: 0,
+          highlight: null,
+        }),
+      );
+      return;
+    }
+
     const appLocale: ReturnType<typeof selectAppLanguage> =
       yield select(selectAppLanguage);
 
@@ -34,7 +46,7 @@ export function* searchObjectsSaga({
 
     const {items, nextToken, total, highlight}: SearchObjectsResponseDTO =
       yield call([graphQLAPI, graphQLAPI.getSearchObjects], {
-        query,
+        query: query,
         nextToken: isLoadingMoreAction ? prevToken : null,
         locale:
           !appLocale || appLocale === DEFAULT_LOCALE ? undefined : appLocale,

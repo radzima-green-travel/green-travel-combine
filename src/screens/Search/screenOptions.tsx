@@ -1,4 +1,4 @@
-import {selectSearchInputValue} from 'core/selectors';
+import {selectSearchInputValue, selectSearchQuery} from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
@@ -66,7 +66,8 @@ const HeaderTitle = () => {
 };
 
 const HeaderRight = ({navigation, route, testID}: IProps) => {
-  const inputValue = useSearchSelector(selectSearchInputValue);
+  const searchQuery = useSearchSelector(selectSearchQuery);
+
   const {filtersToApply} = route.params || {};
   const numberOfAppliedFilters = prepareNumberOfAppliedFilters(filtersToApply);
   const styles = useThemeStyles(themeStyles);
@@ -81,7 +82,7 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
         onPress={() => {
           navigation.navigate('Filter', {
             initialFilters: filtersToApply,
-            initialQuery: inputValue,
+            initialQuery: searchQuery,
           });
         }}
         theme="quarterlyGrey"

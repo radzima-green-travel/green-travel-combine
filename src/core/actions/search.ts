@@ -9,7 +9,7 @@ export const searchObjectsRequest = createAsyncAction<
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;
     total: number;
-    highlight: Highlight;
+    highlight: Highlight | null;
   }
 >('SEARCH_OBJECTS');
 
@@ -19,7 +19,7 @@ export const searchMoreObjectsRequest = createAsyncAction<
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;
     total: number;
-    highlight: Highlight;
+    highlight: Highlight | null;
   }
 >('SEARCH_MORE_OBJECTS');
 
