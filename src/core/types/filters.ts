@@ -11,6 +11,7 @@ export type SearchFilters = {
     value: number;
     location: Location | null;
   };
+  excludeVisited: boolean;
 };
 
 export type SetActiveFilterPayload =
@@ -23,6 +24,10 @@ export type SetActiveFilterPayload =
       isOn?: boolean;
       value?: number;
       location?: Location;
+    }
+  | {
+      name: 'excludeVisited';
+      value: boolean;
     };
 
 export type SettlementsData = {

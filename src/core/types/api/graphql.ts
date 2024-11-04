@@ -170,6 +170,7 @@ export interface FiltersParams {
   location?: {lat: number; lon: number};
   locale?: SupportedLocales;
   filter?: {
+    userId?: string;
     categories?: string[];
     googleRating?: string;
     regions?: string[];

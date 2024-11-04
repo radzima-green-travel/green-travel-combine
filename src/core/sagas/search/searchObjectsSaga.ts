@@ -8,7 +8,7 @@ import {selectSearchNextToken} from 'core/selectors/search';
 import {RequestError} from 'core/errors';
 import type {SearchObjectsResponseDTO} from 'core/types/api';
 import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
-import {selectAppLanguage} from 'core/selectors';
+import {selectAppLanguage, selectUserAuthorizedData} from 'core/selectors';
 import {DEFAULT_LOCALE} from 'core/constants';
 
 export function* searchObjectsSaga({
@@ -44,13 +44,22 @@ export function* searchObjectsSaga({
       yield delay(300);
     }
 
+    const userData: ReturnType<typeof selectUserAuthorizedData> = yield select(
+      selectUserAuthorizedData,
+    );
+
     const {items, nextToken, total, highlight}: SearchObjectsResponseDTO =
       yield call([graphQLAPI, graphQLAPI.getSearchObjects], {
         query: query,
         nextToken: isLoadingMoreAction ? prevToken : null,
         locale:
           !appLocale || appLocale === DEFAULT_LOCALE ? undefined : appLocale,
-        ...(filters ? transformActiveFiltersToFilterParam(filters) : {}),
+        ...(filters
+          ? transformActiveFiltersToFilterParam({
+              filters,
+              userId: userData?.sub,
+            })
+          : {}),
       });
 
     yield put(

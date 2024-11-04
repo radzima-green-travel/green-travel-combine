@@ -154,6 +154,7 @@ import {
   NavigationRoutes,
   AnalyticsNavigationScreenNames,
   AnalyticsAddInfoFieldsNames,
+  SearchFilters,
 } from './types';
 
 export const ICONS_MATCHER = {
@@ -259,7 +260,7 @@ export const AnalyticsAllowedEditFields: Record<
 export const TIME_PICKER_FIELDS = new Set([ObjectField.attendanceTime]);
 
 export const DEFAULT_DISTANCE_FILTER_VALUE = 5;
-export const INITIAL_FILTERS = {
+export const INITIAL_FILTERS: SearchFilters = {
   googleRating: '',
   categories: [],
   regions: [],
@@ -269,4 +270,5 @@ export const INITIAL_FILTERS = {
     value: DEFAULT_DISTANCE_FILTER_VALUE,
     location: null,
   },
+  excludeVisited: false,
 };

@@ -3,6 +3,7 @@ import {
   RegionsListResponseDTO,
   SearchFilters,
   CategoryFilterItemDTO,
+  SetActiveFilterPayload,
 } from 'core/types';
 import {createReducer} from '@reduxjs/toolkit';
 import {
@@ -28,29 +29,36 @@ const initialState: FiltersState = {
   categoriesList: [],
 };
 
+function getNewFilterState(
+  payload: SetActiveFilterPayload,
+  activeFilters: SearchFilters,
+) {
+  const dispancePayload = payload;
+  const googlePayload = payload;
+
+  if (googlePayload.name === 'googleRating') {
+    return googlePayload.value;
+  }
+
+  if (dispancePayload.name === 'distance') {
+    return {
+      isOn: dispancePayload.isOn ?? activeFilters.distance.isOn,
+      value: dispancePayload.value || activeFilters.distance.value,
+      location: dispancePayload.location || activeFilters.distance.location,
+    };
+  } else if (typeof payload.value === 'string') {
+    return xor(activeFilters[payload.name], [payload.value]);
+  }
+
+  return payload.value;
+}
+
 export const filtersReducer = createReducer(initialState, builder => {
   builder
     .addCase(setActiveFilter, (state, {payload}) => {
-      let newState;
-      if (payload.name === 'googleRating') {
-        newState = payload.value;
-      } else if (
-        typeof payload.value === 'string' &&
-        payload.name !== 'distance'
-      ) {
-        newState = xor(state.activeFilters[payload.name], [payload.value]);
-      } else if (payload.name === 'distance') {
-        newState = {
-          isOn: payload.isOn ?? state.activeFilters.distance.isOn,
-          value: payload.value || state.activeFilters.distance.value,
-          location: payload.location || state.activeFilters.distance.location,
-        };
-      } else {
-        newState = payload.value;
-      }
       state.activeFilters = {
         ...state.activeFilters,
-        [payload.name]: newState,
+        [payload.name]: getNewFilterState(payload, state.activeFilters),
       };
     })
     .addCase(clearFilters, state => {
