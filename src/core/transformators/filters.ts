@@ -51,10 +51,14 @@ export function prepareAggregationsWithNumberOfItems(
   };
 }
 
-export const transformActiveFiltersToFilterParam = (
-  activeFilters: SearchFilters,
-): FiltersParams => {
-  const {distance} = activeFilters;
+export const transformActiveFiltersToFilterParam = ({
+  filters,
+  userId,
+}: {
+  filters: SearchFilters;
+  userId?: string;
+}): FiltersParams => {
+  const {distance, excludeVisited} = filters;
   return {
     ...(distance && distance.isOn && distance.location
       ? {
@@ -62,16 +66,14 @@ export const transformActiveFiltersToFilterParam = (
           location: {lat: distance.location.lat, lon: distance.location.lon},
         }
       : {}),
+
     filter: {
-      googleRating: activeFilters.googleRating || undefined,
-      categories: activeFilters.categories?.length
-        ? activeFilters.categories
-        : undefined,
-      regions: activeFilters.regions?.length
-        ? activeFilters.regions
-        : undefined,
-      municipalities: activeFilters.municipalities?.length
-        ? activeFilters.municipalities
+      ...(excludeVisited && userId ? {userId} : {}),
+      googleRating: filters.googleRating || undefined,
+      categories: filters.categories?.length ? filters.categories : undefined,
+      regions: filters.regions?.length ? filters.regions : undefined,
+      municipalities: filters.municipalities?.length
+        ? filters.municipalities
         : undefined,
     },
   };
@@ -88,7 +90,13 @@ export const checkIfFiltersAreUnset = (filters?: SearchFilters) => {
   );
 };
 
-export const prepareNumberOfAppliedFilters = (filters?: SearchFilters) => {
+export const prepareNumberOfAppliedFilters = ({
+  filters,
+  isAuthorized,
+}: {
+  filters?: SearchFilters;
+  isAuthorized: boolean;
+}) => {
   if (!filters) {
     return 0;
   }
@@ -107,6 +115,9 @@ export const prepareNumberOfAppliedFilters = (filters?: SearchFilters) => {
     numberOfAppliedFilters += 1;
   }
   if (filters.distance.isOn) {
+    numberOfAppliedFilters += 1;
+  }
+  if (filters.excludeVisited && isAuthorized) {
     numberOfAppliedFilters += 1;
   }
   return numberOfAppliedFilters;

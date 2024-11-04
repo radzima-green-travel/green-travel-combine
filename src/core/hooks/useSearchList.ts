@@ -14,6 +14,7 @@ import {
   selectSearchObjectsRawData,
   selectSearchQuery,
   selectSearchInputValue,
+  selectUserAuthorized,
 } from 'core/selectors';
 import {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,7 +23,7 @@ import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
 import {useSearchSelector} from './useSearchSelector';
 import {useSearchActions} from './useSearchActions';
-import {useRoute} from '@react-navigation/native';
+import {useIsFocused, useRoute} from '@react-navigation/native';
 import {SearchScreenRouteProps} from '../../screens/Search/types';
 import {find} from 'lodash';
 
@@ -45,7 +46,8 @@ export function useSearchList() {
   const searchResultsTotal = useSearchSelector(selectSearchObjectsTotal);
   const searchQuery = useSearchSelector(selectSearchQuery);
   const inputValue = useSearchSelector(selectSearchInputValue);
-  const appLocale = useSearchSelector(selectAppLanguage);
+  const appLocale = useSelector(selectAppLanguage);
+  const isAuthorized = useSelector(selectUserAuthorized);
   const {loading} = useRequestLoading(searchObjectsRequest);
   const {errorTexts} = useOnRequestError(searchObjectsRequest, '');
   const {loading: historyLoading} = useRequestLoading(
@@ -101,9 +103,13 @@ export function useSearchList() {
     hasMoreToLoad: !loading && searchResults.length < searchResultsTotal,
   });
 
+  const isScreenFocused = useIsFocused();
+
   useUpdateEffect(() => {
-    searchObjects();
-  }, [searchObjects, appLocale]);
+    if (isScreenFocused) {
+      searchObjects();
+    }
+  }, [searchObjects, appLocale, isAuthorized, isScreenFocused]);
 
   const addToHistory = useCallback(
     (id: string) => {
