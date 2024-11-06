@@ -2,24 +2,29 @@ import {
   selectSearchInputValue,
   selectSearchQuery,
   selectUserAuthorized,
+  selectSearchOptions,
 } from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
 import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {Icon, CustomNavigationHeader, Button} from 'atoms';
+import {useBottomMenu, useThemeStyles} from 'core/hooks';
+import {Icon, CustomNavigationHeader, Button, BottomMenu} from 'atoms';
 import {useSearchActions, useSearchSelector} from 'core/hooks';
-import {SearchField} from 'molecules';
-import {Text, View} from 'react-native';
+import {SearchField, SearchOptionsBottomMenu} from 'molecules';
+import {Portal} from '@gorhom/portal';
+import {SearchOptions} from 'core/types';
+import {Keyboard, Text, View} from 'react-native';
 import {prepareNumberOfAppliedFilters} from 'core/transformators/filters';
 import {useSelector} from 'react-redux';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
-  const {setSearchInputValue} = useSearchActions();
+  const {setSearchInputValue, setSearchOptions} = useSearchActions();
   const inputValue = useSearchSelector(selectSearchInputValue);
+  const searchOptions = useSearchSelector(selectSearchOptions);
   const styles = useThemeStyles(themeStyles);
+  const {openMenu, ...bottomMenuProps} = useBottomMenu();
 
   const setInputValue = useCallback(
     (text: string) => {
@@ -33,19 +38,20 @@ const HeaderTitle = () => {
       if (actionType === 'reset') {
         setInputValue('');
       }
-      // if (actionType === 'filter') {
-      //   openMenu();
-      // }
+      if (actionType === 'filter') {
+        Keyboard.dismiss();
+        openMenu();
+      }
     },
-    [setInputValue],
+    [setInputValue, openMenu],
   );
 
-  // const updateSearchOptions = useCallback(
-  //   (options: SearchOptions) => {
-  //     dispatch(setSearchOptions(options));
-  //   },
-  //   [dispatch, setSearchOptions],
-  // );
+  const updateSearchOptions = useCallback(
+    (options: SearchOptions) => {
+      dispatch(setSearchOptions(options));
+    },
+    [dispatch, setSearchOptions],
+  );
 
   return (
     <>
@@ -54,10 +60,10 @@ const HeaderTitle = () => {
         containerStyle={styles.headerTitleContainer}
         value={inputValue}
         onChange={setInputValue}
-        // filterActionTypeEnabled
+        filterActionTypeEnabled
         onRightButtonPress={onRightButtonPress}
       />
-      {/* <Portal>
+      <Portal>
         <BottomMenu testID={'bottomMenu'} withBackdrop {...bottomMenuProps}>
           <SearchOptionsBottomMenu
             value={searchOptions}
@@ -65,13 +71,14 @@ const HeaderTitle = () => {
             bottomInset={0}
           />
         </BottomMenu>
-      </Portal> */}
+      </Portal>
     </>
   );
 };
 
 const HeaderRight = ({navigation, route, testID}: IProps) => {
   const searchQuery = useSearchSelector(selectSearchQuery);
+  const searchOptions = useSearchSelector(selectSearchOptions);
   const isAuthorized = useSelector(selectUserAuthorized);
   const {filtersToApply} = route.params || {};
   const numberOfAppliedFilters = prepareNumberOfAppliedFilters({
@@ -97,6 +104,7 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
                 }
               : undefined,
             initialQuery: searchQuery,
+            searchOptions: searchOptions,
           });
         }}
         theme="quarterlyGrey"

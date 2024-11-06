@@ -4,7 +4,7 @@ import {createAction} from '@reduxjs/toolkit';
 import {SearchFilters, SearchOptions} from 'core/types';
 
 export const searchObjectsRequest = createAsyncAction<
-  {query: string; filters?: SearchFilters},
+  {query: string; filters?: SearchFilters; options: SearchOptions},
   {
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;
@@ -14,7 +14,7 @@ export const searchObjectsRequest = createAsyncAction<
 >('SEARCH_OBJECTS');
 
 export const searchMoreObjectsRequest = createAsyncAction<
-  {query: string; filters?: SearchFilters},
+  {query: string; filters?: SearchFilters; options: SearchOptions},
   {
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;

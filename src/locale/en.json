@@ -167,7 +167,6 @@
     "emptySearchPlaceholder": "Enter your search query in the input field\nto start searching.",
     "options": {
       "title": "Search parameters",
-      "byTitles": "Find by titles",
       "byDescription": "Find by description",
       "byAddress": "Find by address"
     }

@@ -36,7 +36,7 @@ export const useFilters = () => {
   const {show, ...snackBarProps} = useSnackbar();
   const navigation = useNavigation<FiltersNavigationProps>();
   const {params} = useRoute<FiltersRouteProps>();
-  const {initialFilters, initialQuery} = params || {};
+  const {initialFilters, initialQuery, searchOptions} = params || {};
   const isAuthorized = useSelector(selectUserAuthorized);
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
@@ -69,9 +69,10 @@ export const useFilters = () => {
       getFiltersDataRequest({
         query: initialQuery,
         filters: activeFilters,
+        options: searchOptions,
       }),
     );
-  }, [dispatch, initialQuery, activeFilters]);
+  }, [dispatch, initialQuery, activeFilters, searchOptions]);
 
   const updateRatings = useCallback(
     (newRating: string) => {

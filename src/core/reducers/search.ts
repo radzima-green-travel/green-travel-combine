@@ -25,7 +25,7 @@ const initialState: SearchState = {
   inputValue: '',
   nextToken: null,
   total: 0,
-  options: {byAddress: false, byDescription: false, byTitles: false},
+  options: {byAddress: true, byDescription: true},
 };
 export const reducer = createReducer(initialState, builder => {
   builder.addCase(setSearchInputValue, (state, {payload}) => ({
