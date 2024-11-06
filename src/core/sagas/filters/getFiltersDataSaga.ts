@@ -10,10 +10,11 @@ import {getFiltersDataRequest} from 'core/actions';
 import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
 import {getInitialFiltersSaga} from './getInitialFiltersSaga';
 import {selectUserAuthorizedData} from 'core/selectors';
+import {transformSearchOptionsToFieldsToSearch} from 'core/transformators/search';
 
 export function* getFiltersDataSaga({
   meta: {failureAction, successAction},
-  payload: {filters, query},
+  payload: {filters, query, options},
 }: ReturnType<typeof getFiltersDataRequest>) {
   try {
     const userData: ReturnType<typeof selectUserAuthorizedData> = yield select(
@@ -28,6 +29,7 @@ export function* getFiltersDataSaga({
       },
     ] = yield all([
       call([graphQLAPI, graphQLAPI.getFilterObjects], {
+        ...(options ? transformSearchOptionsToFieldsToSearch(options) : {}),
         ...transformActiveFiltersToFilterParam({
           filters,
           userId: userData?.sub,

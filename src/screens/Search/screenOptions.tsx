@@ -77,6 +77,7 @@ const HeaderTitle = () => {
 
 const HeaderRight = ({navigation, route, testID}: IProps) => {
   const searchQuery = useSearchSelector(selectSearchQuery);
+  const searchOptions = useSearchSelector(selectSearchOptions);
   const isAuthorized = useSelector(selectUserAuthorized);
   const {filtersToApply} = route.params || {};
   const numberOfAppliedFilters = prepareNumberOfAppliedFilters({
@@ -102,6 +103,7 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
                 }
               : undefined,
             initialQuery: searchQuery,
+            searchOptions: searchOptions,
           });
         }}
         theme="quarterlyGrey"

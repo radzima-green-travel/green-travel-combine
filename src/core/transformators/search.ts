@@ -3,6 +3,7 @@ import {
   SearchObject,
   SearchObjectDTO,
   SupportedLocales,
+  SearchOptions,
 } from 'core/types';
 import {map, find, mapValues, every, isEmpty, omit} from 'lodash';
 import {
@@ -71,4 +72,13 @@ export function prepareSearchItems(
 
     return processedObject;
   });
+}
+
+export function transformSearchOptionsToFieldsToSearch(options: SearchOptions) {
+  return {
+    fieldsToSearch: {
+      isSpotIncluded: options.byAddress,
+      isDescriptionIncluded: options.byDescription,
+    },
+  };
 }

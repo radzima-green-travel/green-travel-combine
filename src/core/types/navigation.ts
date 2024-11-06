@@ -4,6 +4,7 @@ import {IObject, IObjectIncompleteField} from './common';
 import {AnalyticsNavigationScreenNames} from './analytics';
 import {FromScreenName} from './analytics/objectDetails';
 import {SearchFilters} from './filters';
+import {SearchOptions} from './search';
 
 type ObjectDetailsParams = {
   objectId: string;
@@ -85,6 +86,7 @@ export type MainNavigatorParamsList = {
   Filter?: {
     initialFilters?: SearchFilters;
     initialQuery?: string;
+    searchOptions?: SearchOptions;
   };
   Settlements: {
     initialSelectedSettlements: string[];

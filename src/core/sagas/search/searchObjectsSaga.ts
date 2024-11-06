@@ -10,6 +10,7 @@ import type {SearchObjectsResponseDTO} from 'core/types/api';
 import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
 import {selectAppLanguage, selectUserAuthorizedData} from 'core/selectors';
 import {DEFAULT_LOCALE} from 'core/constants';
+import {transformSearchOptionsToFieldsToSearch} from 'core/transformators/search';
 
 export function* searchObjectsSaga({
   payload: {query, filters, options},
@@ -54,10 +55,7 @@ export function* searchObjectsSaga({
         nextToken: isLoadingMoreAction ? prevToken : null,
         locale:
           !appLocale || appLocale === DEFAULT_LOCALE ? undefined : appLocale,
-        fieldsToSearch: {
-          isSpotIncluded: options.byAddress,
-          isDescriptionIncluded: options.byDescription,
-        },
+        ...transformSearchOptionsToFieldsToSearch(options),
         ...(filters
           ? transformActiveFiltersToFilterParam({
               filters,

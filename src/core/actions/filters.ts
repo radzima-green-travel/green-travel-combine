@@ -4,12 +4,13 @@ import {
   SetActiveFilterPayload,
   CategoryFilterItemDTO,
   SearchFilters,
+  SearchOptions,
 } from 'core/types';
 import {createAsyncAction} from 'core/helpers';
 import {createAction} from '@reduxjs/toolkit';
 
 export const getFiltersDataRequest = createAsyncAction<
-  {query?: string; filters: SearchFilters},
+  {query?: string; filters: SearchFilters; options?: SearchOptions},
   {
     regionsList: RegionsListResponseDTO;
     categoriesList: CategoryFilterItemDTO[];
