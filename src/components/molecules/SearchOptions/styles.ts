@@ -11,11 +11,13 @@ export const themeStyles = {
   contentContainer: {
     flex: 1,
     justifyContent: 'space-between',
+    paddingBottom: 34,
   },
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    paddingVertical: 12,
   },
   text: {
     ...FONTS_PRESETS.title3Bold,
@@ -24,6 +26,6 @@ export const themeStyles = {
   },
   searchOption: {
     ...FONTS_PRESETS.bodyRegular,
-    paddingVertical: 8,
+    paddingVertical: 16,
   },
 };

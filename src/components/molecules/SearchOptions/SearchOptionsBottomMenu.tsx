@@ -30,21 +30,6 @@ export const SearchOptionsBottomMenu = memo(
               titleContainerStyle={styles.searchOption}
               type="switch"
               boldTitle={false}
-              title={t('options.byTitles')}
-              testID={'searchByTitlesOption'}
-              switchProps={{
-                value: value.byTitles,
-                onValueChange: byTitles =>
-                  onChange({
-                    ...value,
-                    byTitles: byTitles,
-                  }),
-              }}
-            />
-            <ListItem
-              titleContainerStyle={styles.searchOption}
-              type="switch"
-              boldTitle={false}
               title={t('options.byDescription')}
               testID={'searchByDescriptionOption'}
               switchProps={{

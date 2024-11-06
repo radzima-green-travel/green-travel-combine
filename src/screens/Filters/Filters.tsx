@@ -164,7 +164,7 @@ export const Filters = () => {
                 testID={'googleRating'}
               />
             </FiltersSectionContainer>
-            {/* <ListItem
+            <ListItem
               type="switch"
               title={t('hideVisit')}
               testID={'hideVisit'}

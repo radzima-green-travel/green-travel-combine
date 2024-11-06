@@ -177,6 +177,7 @@ export interface FiltersParams {
     municipalities?: string[];
     statuses?: string | string[];
   };
+  fieldsToSearch?: {isSpotIncluded: boolean; isDescriptionIncluded: boolean};
 }
 
 export interface SettlementsParams {

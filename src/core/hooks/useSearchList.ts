@@ -15,6 +15,7 @@ import {
   selectSearchQuery,
   selectSearchInputValue,
   selectUserAuthorized,
+  selectSearchOptions,
 } from 'core/selectors';
 import {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -45,6 +46,7 @@ export function useSearchList() {
   const searchResultsRaw = useSearchSelector(selectSearchObjectsRawData);
   const searchResultsTotal = useSearchSelector(selectSearchObjectsTotal);
   const searchQuery = useSearchSelector(selectSearchQuery);
+  const searchOptions = useSearchSelector(selectSearchOptions);
   const inputValue = useSearchSelector(selectSearchInputValue);
   const appLocale = useSelector(selectAppLanguage);
   const isAuthorized = useSelector(selectUserAuthorized);
@@ -67,15 +69,35 @@ export function useSearchList() {
 
   const searchObjects = useCallback(() => {
     dispatch(
-      searchObjectsRequest({query: searchQuery, filters: filtersToApply}),
+      searchObjectsRequest({
+        query: searchQuery,
+        filters: filtersToApply,
+        options: searchOptions,
+      }),
     );
-  }, [dispatch, filtersToApply, searchObjectsRequest, searchQuery]);
+  }, [
+    dispatch,
+    filtersToApply,
+    searchObjectsRequest,
+    searchQuery,
+    searchOptions,
+  ]);
 
   const searchMoreObjects = useCallback(() => {
     dispatch(
-      searchMoreObjectsRequest({query: searchQuery, filters: filtersToApply}),
+      searchMoreObjectsRequest({
+        query: searchQuery,
+        filters: filtersToApply,
+        options: searchOptions,
+      }),
     );
-  }, [dispatch, filtersToApply, searchQuery, searchMoreObjectsRequest]);
+  }, [
+    dispatch,
+    filtersToApply,
+    searchQuery,
+    searchMoreObjectsRequest,
+    searchOptions,
+  ]);
 
   const isSearchEmpty = !searchQuery.length;
   const isFiltersEmpty = !filtersToApply;
