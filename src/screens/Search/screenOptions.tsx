@@ -14,7 +14,7 @@ import {useSearchActions, useSearchSelector} from 'core/hooks';
 import {SearchField, SearchOptionsBottomMenu} from 'molecules';
 import {Portal} from '@gorhom/portal';
 import {SearchOptions} from 'core/types';
-import {Text, View} from 'react-native';
+import {Keyboard, Text, View} from 'react-native';
 import {prepareNumberOfAppliedFilters} from 'core/transformators/filters';
 import {useSelector} from 'react-redux';
 
@@ -39,6 +39,7 @@ const HeaderTitle = () => {
         setInputValue('');
       }
       if (actionType === 'filter') {
+        Keyboard.dismiss();
         openMenu();
       }
     },
