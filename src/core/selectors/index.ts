@@ -12,3 +12,4 @@ export * from './user';
 export * from './settlements';
 export * from './objectDetails';
 export * from './bookmarksDetails';
+export * from './searchHistory';

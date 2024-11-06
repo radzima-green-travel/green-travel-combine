@@ -9,7 +9,7 @@ export const searchObjectsRequest = createAsyncAction<
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;
     total: number;
-    highlight: Highlight;
+    highlight: Highlight | null;
   }
 >('SEARCH_OBJECTS');
 
@@ -19,20 +19,9 @@ export const searchMoreObjectsRequest = createAsyncAction<
     searchObjects: SearchObjectDTO[];
     nextToken: string | null;
     total: number;
-    highlight: Highlight;
+    highlight: Highlight | null;
   }
 >('SEARCH_MORE_OBJECTS');
-
-export const getSearchObjectsHistoryRequest = createAsyncAction<
-  void,
-  {
-    searchHistoryObjects: SearchObjectDTO[];
-  }
->('GET_SEARCH_OBJECTS_HISTORY');
-
-export const addSearchObjectToHistory = createAction<{
-  searchObject: SearchObjectDTO;
-}>('ADD_SEARCH_OBJECT_TO_HISTORY');
 
 export const setSearchInputValue = createAction<string>(
   'SET_SEARCH_INPUT_VALUE',

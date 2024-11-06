@@ -2,53 +2,54 @@ import {
   addObjectIdToUserSearchHistory,
   deleteAllFromUserSearchHistory,
   deleteObjectIdFromUserSearchHistory,
+  addSearchObjectToHistory,
+  getSearchObjectsHistoryRequest,
 } from 'core/actions';
 import {
   selectSearchHistory,
-  selectSearchInputValue,
   selectSearchObjectsData,
   selectSearchObjectsTotal,
   selectIsUserHasSavedSearchHistory,
+  selectAppLanguage,
+  selectSearchObjectsRawData,
+  selectSearchQuery,
+  selectSearchInputValue,
+  selectUserAuthorized,
 } from 'core/selectors';
-import {SearchObject} from 'core/types';
-import {debounce} from 'lodash';
-import {useCallback, useEffect, useMemo} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useRequestLoading} from 'react-redux-help-kit';
+import {useRequestLoading, useUpdateEffect} from 'react-redux-help-kit';
 import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
 import {useSearchSelector} from './useSearchSelector';
 import {useSearchActions} from './useSearchActions';
-import {useRoute} from '@react-navigation/native';
+import {useIsFocused, useRoute} from '@react-navigation/native';
 import {SearchScreenRouteProps} from '../../screens/Search/types';
+import {find} from 'lodash';
 
 export function useSearchList() {
   const dispatch = useDispatch();
-  const {
-    setSearchInputValue,
-    searchObjectsRequest,
-    getSearchObjectsHistoryRequest,
-    searchMoreObjectsRequest,
-    addSearchObjectToHistory,
-  } = useSearchActions();
+  const {setSearchInputValue, searchObjectsRequest, searchMoreObjectsRequest} =
+    useSearchActions();
 
   const isUserHasSavedSearchHistory = useSelector(
     selectIsUserHasSavedSearchHistory,
   );
-  const historyObjects = useSearchSelector(selectSearchHistory);
 
   const {params} = useRoute<SearchScreenRouteProps>();
 
   const {filtersToApply} = params || {};
 
+  const historyObjects = useSelector(selectSearchHistory);
   const searchResults = useSearchSelector(selectSearchObjectsData);
-
+  const searchResultsRaw = useSearchSelector(selectSearchObjectsRawData);
   const searchResultsTotal = useSearchSelector(selectSearchObjectsTotal);
+  const searchQuery = useSearchSelector(selectSearchQuery);
   const inputValue = useSearchSelector(selectSearchInputValue);
-
+  const appLocale = useSelector(selectAppLanguage);
+  const isAuthorized = useSelector(selectUserAuthorized);
   const {loading} = useRequestLoading(searchObjectsRequest);
   const {errorTexts} = useOnRequestError(searchObjectsRequest, '');
-
   const {loading: historyLoading} = useRequestLoading(
     getSearchObjectsHistoryRequest,
   );
@@ -56,33 +57,34 @@ export function useSearchList() {
     getSearchObjectsHistoryRequest,
     '',
   );
-
   const {loading: nextDataLoading} = useRequestLoading(
     searchMoreObjectsRequest,
   );
 
   const getSearchObjectsHistory = useCallback(() => {
     dispatch(getSearchObjectsHistoryRequest());
-  }, [dispatch, getSearchObjectsHistoryRequest]);
+  }, [dispatch]);
 
-  const searchObjects = useCallback(
-    (query: string) => {
-      dispatch(searchObjectsRequest({query: query, filters: filtersToApply}));
-    },
-    [dispatch, filtersToApply, searchObjectsRequest],
-  );
+  const searchObjects = useCallback(() => {
+    dispatch(
+      searchObjectsRequest({query: searchQuery, filters: filtersToApply}),
+    );
+  }, [dispatch, filtersToApply, searchObjectsRequest, searchQuery]);
 
   const searchMoreObjects = useCallback(() => {
     dispatch(
-      searchMoreObjectsRequest({query: inputValue, filters: filtersToApply}),
+      searchMoreObjectsRequest({query: searchQuery, filters: filtersToApply}),
     );
-  }, [dispatch, filtersToApply, inputValue, searchMoreObjectsRequest]);
+  }, [dispatch, filtersToApply, searchQuery, searchMoreObjectsRequest]);
 
-  const isSearchEmpty = inputValue.length < 2;
+  const isSearchEmpty = !searchQuery.length;
   const isFiltersEmpty = !filtersToApply;
 
   const isHistoryVisible =
     isUserHasSavedSearchHistory && isFiltersEmpty && isSearchEmpty;
+
+  const isSearchPreviewVisible =
+    !isHistoryVisible && isSearchEmpty && isFiltersEmpty;
 
   const data = isHistoryVisible ? historyObjects : searchResults;
 
@@ -101,23 +103,23 @@ export function useSearchList() {
     hasMoreToLoad: !loading && searchResults.length < searchResultsTotal,
   });
 
-  const searchObjectsDebounce = useMemo(
-    () => debounce(searchObjects, 350, {trailing: true, leading: false}),
-    [searchObjects],
-  );
+  const isScreenFocused = useIsFocused();
 
-  useEffect(() => {
-    if (inputValue.length > 1) {
-      searchObjectsDebounce(inputValue);
+  useUpdateEffect(() => {
+    if (isScreenFocused) {
+      searchObjects();
     }
-  }, [searchObjectsDebounce, inputValue]);
+  }, [searchObjects, appLocale, isAuthorized, isScreenFocused]);
 
   const addToHistory = useCallback(
-    (object: SearchObject) => {
-      dispatch(addObjectIdToUserSearchHistory(object.id));
-      dispatch(addSearchObjectToHistory({searchObject: object}));
+    (id: string) => {
+      const rawObject = find(searchResultsRaw, {id: id});
+      dispatch(addObjectIdToUserSearchHistory(id));
+      if (rawObject) {
+        dispatch(addSearchObjectToHistory({searchObject: rawObject}));
+      }
     },
-    [addSearchObjectToHistory, dispatch],
+    [dispatch, searchResultsRaw],
   );
 
   const deleteFromHistory = useCallback(
@@ -143,8 +145,8 @@ export function useSearchList() {
   );
 
   const retryCallback = useCallback(() => {
-    searchObjects(inputValue);
-  }, [searchObjects, inputValue]);
+    searchObjects();
+  }, [searchObjects]);
 
   return {
     isHistoryVisible,
@@ -156,9 +158,9 @@ export function useSearchList() {
     onTextChange,
     inputValue,
     listPaninationProps,
-    isSearchPreviewVisible: isSearchEmpty,
+    isSearchPreviewVisible,
     searchSuspenseProps: {
-      loading,
+      loading: loading,
       error: errorTexts,
       retryCallback: retryCallback,
     },

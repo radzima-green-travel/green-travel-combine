@@ -175,7 +175,7 @@ export const useAppMap = () => {
   }, [isMenuOpened, unselectObject]);
 
   const selectObjectAndOpenMenu = useCallback(
-    (object: SearchObject) => {
+    (object: ObjectMap) => {
       hapticFeedbackService.trigger();
       const objectMap = find(objects, {id: object.id});
       if (objectMap) {
@@ -293,8 +293,12 @@ export const useAppMap = () => {
 
         moveCameraToSearchedObject(object, cluster, clusterBounds);
 
-        addToHistory(object);
-        selectObjectAndOpenMenu(object);
+        addToHistory(object.id);
+
+        const mapObject = find(objects, {id: object.id});
+        if (mapObject) {
+          selectObjectAndOpenMenu(mapObject);
+        }
         clearInput();
       }
     },

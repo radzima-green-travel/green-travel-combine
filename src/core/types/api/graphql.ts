@@ -1,5 +1,6 @@
 import {MultiPolygon, LineString} from '@turf/helpers';
 import {ObjectField} from 'core/constants';
+import {SupportedLocales} from '../common';
 
 export interface QueryParams {
   limit: number;
@@ -137,6 +138,7 @@ export interface SearchObjectDTO {
   i18n: Array<I18nType<'name'>>;
   category: SearchObjetcCategoryDTO;
   location: LocationDTO | null;
+  addresses: AddressessDTO;
 }
 
 export interface CategoryAggregationsByObjectsDTO {
@@ -166,7 +168,9 @@ export interface FiltersParams {
   nextToken?: string | null;
   km?: number;
   location?: {lat: number; lon: number};
+  locale?: SupportedLocales;
   filter?: {
+    userId?: string;
     categories?: string[];
     googleRating?: string;
     regions?: string[];
@@ -257,7 +261,15 @@ export interface PaginatedList<T> {
   total: number;
 }
 
-export type Highlight = Record<string, HighlightDTO[] | null>;
+type HighlightName =
+  | 'name'
+  | 'description'
+  | 'spot_region'
+  | 'spot_subRegion'
+  | 'spot_street'
+  | 'spot_municipality';
+
+export type Highlight = Record<HighlightName, HighlightDTO[] | null>;
 
 export type SearchObjectsResponseDTO = {
   items: Array<SearchObjectDTO>;

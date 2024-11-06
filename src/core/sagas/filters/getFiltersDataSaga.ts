@@ -1,4 +1,4 @@
-import {all, call, put} from 'redux-saga/effects';
+import {all, call, put, select} from 'redux-saga/effects';
 import {
   CategoryFilterItemDTO,
   ObjectFiltersDataDTO,
@@ -9,12 +9,17 @@ import {graphQLAPI} from 'api/graphql';
 import {getFiltersDataRequest} from 'core/actions';
 import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
 import {getInitialFiltersSaga} from './getInitialFiltersSaga';
+import {selectUserAuthorizedData} from 'core/selectors';
 
 export function* getFiltersDataSaga({
   meta: {failureAction, successAction},
   payload: {filters, query},
 }: ReturnType<typeof getFiltersDataRequest>) {
   try {
+    const userData: ReturnType<typeof selectUserAuthorizedData> = yield select(
+      selectUserAuthorizedData,
+    );
+
     const [filtersResult, filtersInitialData]: [
       ObjectFiltersDataDTO,
       {
@@ -23,7 +28,10 @@ export function* getFiltersDataSaga({
       },
     ] = yield all([
       call([graphQLAPI, graphQLAPI.getFilterObjects], {
-        ...transformActiveFiltersToFilterParam(filters),
+        ...transformActiveFiltersToFilterParam({
+          filters,
+          userId: userData?.sub,
+        }),
         query,
       }),
       call(getInitialFiltersSaga),

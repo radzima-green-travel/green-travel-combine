@@ -30,6 +30,10 @@ export const themeStyles = createThemeStyles({
   },
   subFilterName: {
     ...FONTS_PRESETS.subheadlineBold,
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
     paddingVertical: 8,
   },
   icon: {

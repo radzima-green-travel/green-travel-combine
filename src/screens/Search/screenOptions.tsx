@@ -1,4 +1,8 @@
-import {selectSearchInputValue} from 'core/selectors';
+import {
+  selectSearchInputValue,
+  selectSearchQuery,
+  selectUserAuthorized,
+} from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
@@ -9,6 +13,7 @@ import {useSearchActions, useSearchSelector} from 'core/hooks';
 import {SearchField} from 'molecules';
 import {Text, View} from 'react-native';
 import {prepareNumberOfAppliedFilters} from 'core/transformators/filters';
+import {useSelector} from 'react-redux';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
@@ -66,9 +71,13 @@ const HeaderTitle = () => {
 };
 
 const HeaderRight = ({navigation, route, testID}: IProps) => {
-  const inputValue = useSearchSelector(selectSearchInputValue);
+  const searchQuery = useSearchSelector(selectSearchQuery);
+  const isAuthorized = useSelector(selectUserAuthorized);
   const {filtersToApply} = route.params || {};
-  const numberOfAppliedFilters = prepareNumberOfAppliedFilters(filtersToApply);
+  const numberOfAppliedFilters = prepareNumberOfAppliedFilters({
+    filters: filtersToApply,
+    isAuthorized,
+  });
   const styles = useThemeStyles(themeStyles);
 
   return (
@@ -80,8 +89,14 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
         icon={textStyle => <Icon name="tune" size={24} style={textStyle} />}
         onPress={() => {
           navigation.navigate('Filter', {
-            initialFilters: filtersToApply,
-            initialQuery: inputValue,
+            initialFilters: filtersToApply
+              ? {
+                  ...filtersToApply,
+                  excludeVisited:
+                    filtersToApply?.excludeVisited && isAuthorized,
+                }
+              : undefined,
+            initialQuery: searchQuery,
           });
         }}
         theme="quarterlyGrey"

@@ -9,3 +9,4 @@ export * from './settlements';
 export * from './objectDetails';
 export * from './bookmarksDetails';
 export * from './appConfiguration';
+export * from './searchHistory';

@@ -12,6 +12,7 @@ import {
   selectDistanceFilterLocation,
   selectActiveFiltersLocation,
   selectIsFiltersInitialDataLoaded,
+  selectUserAuthorized,
 } from 'core/selectors';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
 import {FiltersNavigationProps, FiltersRouteProps} from '../types';
@@ -28,7 +29,7 @@ import {
   initActiveFilters,
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
-import {keys, pickBy} from 'lodash';
+import {isString, keys, pickBy} from 'lodash';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export const useFilters = () => {
   const navigation = useNavigation<FiltersNavigationProps>();
   const {params} = useRoute<FiltersRouteProps>();
   const {initialFilters, initialQuery} = params || {};
+  const isAuthorized = useSelector(selectUserAuthorized);
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
   const regionsList = useSelector(selectFiltersRegions);
@@ -123,6 +125,32 @@ export const useFilters = () => {
     [dispatch, activeFiltersLocation],
   );
 
+  const updateExcludeVisitedFilter = useCallback(
+    (isOn: boolean) => {
+      dispatch(
+        setActiveFilter({
+          name: 'excludeVisited',
+          value: isOn,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
+  const onExcludeVisitedPress = useCallback(
+    (isOn: boolean) => {
+      if (isOn && !isAuthorized) {
+        navigation.navigate('AuthNavigator', {
+          screen: 'AuthMethodSelection',
+          onSuccessSignIn: () => updateExcludeVisitedFilter(isOn),
+        });
+      } else {
+        updateExcludeVisitedFilter(isOn);
+      }
+    },
+    [isAuthorized, navigation, updateExcludeVisitedFilter],
+  );
+
   useOnRequestSuccess(requestUserLocation, () => {
     dispatch(
       setActiveFilter({
@@ -172,7 +200,10 @@ export const useFilters = () => {
 
   const isNeedToFetchData = (() => {
     if (isFirstRender.current) {
-      return !initialFilters && !isFiltersInitialDataLoaded;
+      return (
+        !initialFilters &&
+        (!isFiltersInitialDataLoaded || isString(initialQuery))
+      );
     }
     return true;
   })();
@@ -231,11 +262,7 @@ export const useFilters = () => {
     filtersDataLoading,
     emptyActiveFilters,
     regions: regionsList,
-    activeRating: activeFilters.googleRating,
-    activeRegions: activeFilters.regions,
-    activeCategories: activeFilters.categories,
-    activeSettlements: activeFilters.municipalities,
-    activeDistance: activeFilters.distance,
+    activeFilters,
     updateRatings,
     chooseCategory,
     updateDistanceIsOn,
@@ -244,5 +271,6 @@ export const useFilters = () => {
     snackBarProps,
     getIsRegionDisabled,
     applyFilters,
+    onExcludeVisitedPress,
   };
 };

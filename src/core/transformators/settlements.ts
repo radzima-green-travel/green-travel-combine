@@ -1,8 +1,8 @@
-import {SpotItemDTO} from 'core/types';
+import {SpotItem} from 'core/types';
 import {reduce, chain, includes, toLower, orderBy, filter} from 'lodash';
 
 export function prepareFilteredSettlementsSections(
-  settlements: SpotItemDTO[],
+  settlements: SpotItem[],
   regionsToInclude: string[],
   searchValue: string,
 ) {
@@ -14,7 +14,7 @@ export function prepareFilteredSettlementsSections(
   );
 }
 
-export function prepareSettlementsSections(settlements: SpotItemDTO[]) {
+export function prepareSettlementsSections(settlements: SpotItem[]) {
   const sections = reduce(
     settlements,
     (acc, item) => {
@@ -22,7 +22,7 @@ export function prepareSettlementsSections(settlements: SpotItemDTO[]) {
       acc[firstLetter] = [...(acc[firstLetter] || []), item];
       return acc;
     },
-    {} as Record<string, SpotItemDTO[]>,
+    {} as Record<string, SpotItem[]>,
   );
 
   return chain(sections)
@@ -32,7 +32,7 @@ export function prepareSettlementsSections(settlements: SpotItemDTO[]) {
 }
 
 export function prepareSelectedSettlementsSection(
-  settlements: SpotItemDTO[],
+  settlements: SpotItem[],
   selectedSettlements: string[],
 ) {
   return filter(settlements, item => includes(selectedSettlements, item.id));

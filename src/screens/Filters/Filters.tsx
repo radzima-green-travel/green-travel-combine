@@ -7,7 +7,7 @@ import {
   useThemeStyles,
   useTranslation,
 } from 'core/hooks';
-import {ButtonsGroup, FiltersSectionContainer} from 'molecules';
+import {ButtonsGroup, FiltersSectionContainer, ListItem} from 'molecules';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -23,9 +23,6 @@ export const Filters = () => {
     caregoriesData,
     googleRatings,
     regions,
-    activeRating,
-    activeRegions,
-    activeCategories,
     emptyActiveFilters,
     updateRatings,
     chooseCategory,
@@ -37,13 +34,13 @@ export const Filters = () => {
     errorTexts,
     total,
     snackBarProps,
-    activeSettlements,
     getIsRegionDisabled,
-    activeDistance,
     updateDistanceIsOn,
     updateDistance,
     applyFilters,
     getFiltersData,
+    onExcludeVisitedPress,
+    activeFilters,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -100,7 +97,7 @@ export const Filters = () => {
               <View style={styles.categoryList}>
                 {caregoriesData?.map(({id, name}) => (
                   <Chip
-                    active={activeCategories?.includes(id)}
+                    active={activeFilters.categories?.includes(id)}
                     onPress={() => chooseCategory(id)}
                     key={id}
                     testID={name}
@@ -115,7 +112,7 @@ export const Filters = () => {
               <View style={styles.categoryList}>
                 {regions?.map(({id, value}) => (
                   <Chip
-                    active={activeRegions?.includes(id)}
+                    active={activeFilters.regions?.includes(id)}
                     onPress={() => chooseRegion(id)}
                     disabled={getIsRegionDisabled(id)}
                     key={id}
@@ -132,10 +129,10 @@ export const Filters = () => {
                   activeOpacity={0.8}
                   style={styles.settlementsContainer}
                   onPress={navigateToSettlements}>
-                  {activeSettlements.length ? (
+                  {activeFilters.municipalities.length ? (
                     <View style={styles.activeSettlementsLabelContainer}>
                       <Text style={styles.activeSettlementsLabel}>
-                        {activeSettlements.length}
+                        {activeFilters.municipalities.length}
                       </Text>
                     </View>
                   ) : (
@@ -152,15 +149,15 @@ export const Filters = () => {
                 </TouchableOpacity>
               </FiltersSectionContainer>
               <FilterDistance
-                distance={activeDistance.value}
-                isOn={activeDistance.isOn}
+                distance={activeFilters.distance.value}
+                isOn={activeFilters.distance.isOn}
                 onChangeSwitcherState={updateDistanceIsOn}
                 onChangeDistance={updateDistance}
               />
             </FiltersSectionContainer>
             <FiltersSectionContainer itemName={t('ratingGoogle')}>
               <Multiswitch
-                activeItemId={activeRating}
+                activeItemId={activeFilters.googleRating}
                 items={googleRatings}
                 defaultValue={{id: 'Any', value: t('any')}}
                 onItemPress={updateRatings}
@@ -171,8 +168,11 @@ export const Filters = () => {
               type="switch"
               title={t('hideVisit')}
               testID={'hideVisit'}
-              switchProps={{value: false}}
-            /> */}
+              switchProps={{
+                value: activeFilters.excludeVisited,
+                onValueChange: onExcludeVisitedPress,
+              }}
+            />
           </ScrollView>
           <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
         </SuspenseView>

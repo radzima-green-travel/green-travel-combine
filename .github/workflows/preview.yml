@@ -35,6 +35,7 @@ jobs:
 
       - name: 🚀 Create preview
         uses: expo/expo-github-action/preview@v8
+        id: preview
         with:
           # `github.event.pull_request.head.ref` is only available on `pull_request` triggers.
           # Use your own, or keep the automatically infered branch name from `--auto`, when using different triggers.

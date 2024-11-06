@@ -10,8 +10,13 @@ import {
   ObjectMapDTO,
   ObjectShortDTO,
   SearchObjectDTO,
+  SearchObjetcCategoryDTO,
+  SpotItemDTO,
 } from './api';
 
+export type TranslatedEntity<T> = Omit<T, 'i18n'> & {
+  analyticsMetadata: Record<ExtractI18nKeys<T>, string>;
+};
 export interface ILabelError {
   text: string;
   title: string;
@@ -218,25 +223,25 @@ export type SpotI18n =
   | null
   | undefined;
 
-export interface CategoryShort extends CategoryShortDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<ObjectShortDTO>, string>;
-}
+export type CategoryShort = TranslatedEntity<CategoryShortDTO>;
+export type ObjectShort = TranslatedEntity<ObjectShortDTO>;
+export type ObjectCategoryMap = TranslatedEntity<ObjectCategoryMapDTO>;
+export type SearchObjectCategory = TranslatedEntity<SearchObjetcCategoryDTO>;
+export type SpotItem = TranslatedEntity<SpotItemDTO>;
 
-export interface ObjectShort extends ObjectShortDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<ObjectShortDTO>, string>;
-}
-
-export interface ObjectMap extends ObjectMapDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<ObjectMapDTO>, string>;
+export interface ObjectMap
+  extends Omit<TranslatedEntity<ObjectMapDTO>, 'addresses'> {
   address: string;
 }
 
-export interface ObjectCategoryMap extends ObjectCategoryMapDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<ObjectCategoryMapDTO>, string>;
-}
-export interface SearchObject extends SearchObjectDTO {
-  analyticsMetadata: Record<ExtractI18nKeys<SearchObjectDTO>, string>;
-  description?: string;
+export interface SearchObject
+  extends Omit<TranslatedEntity<SearchObjectDTO>, 'addresses' | 'category'> {
+  category: SearchObjectCategory;
+  highlight?: {
+    name: string;
+    description?: string;
+    address?: string;
+  };
 }
 export interface CardItem {
   name: string;
@@ -248,111 +253,3 @@ export interface CardItem {
     objectName?: string;
   };
 }
-
-// export enum TestIDs {
-//   TabBarItemMain = 'tabBarItemMain',
-//   TabBarItemMap = 'tabBarItemMap',
-//   TabBarItemFavorites = 'tabBarItemFavorites',
-//   TabBarItemProfile = 'tabBarItemProfile',
-//   SearchButton = 'searchButton',
-//   FilterButton = 'filterButton',
-//   HeaderScreenTitle = 'headerScreenTitle',
-//   HeaderBookmarkButton = 'headerBookmarkButton',
-//   HeaderBackButton = 'headerBackButton',
-//   HeaderShareButton = 'HeaderShareButton',
-//   HeaderCloseButton = 'HeaderCloseButton',
-//   HeaderResetButton = 'HeaderResetButton',
-//   AllButton = 'allButton',
-//   SeeOnTheMapButton = 'seeOnTheMapButton',
-//   ObjectDetailsTitle = 'objectDetailsTitle',
-//   ObjectDetailsAddress = 'objectDetailsAddress',
-//   ObjectDetailsLocation = 'objectDetailsLocation',
-//   ObjectDetailsDescription = 'objectDetailsDescription',
-//   ObjectDetailsReferencesTitle = 'objectDetailsReferencesTitle',
-//   ObjectDetailsReferencesItem = 'objectDetailsReferencesItem',
-//   ObjectDetailsOfficialSiteLink = 'objectDetailsOfficialSiteLink',
-//   ObjectDetailsLinkedTitle = 'objectDetailsLinkedTitle',
-//   ObjectDetailsLinkedObject = 'objectDetailsLinkedObject',
-//   ObjectDetailsImage = 'objectDetailsImage',
-//   HeaderSearchInput = 'headerSearchInput',
-//   HeaderClearButton = 'headerClearButton',
-//   SearchResultList = 'searchResultList',
-//   SearchResultItemTitle = 'searchResultItemTitle',
-//   FavoritesCard = 'favoritesCard',
-//   FavoriteButton = 'favoriteButton',
-//   MapOverview = 'mapOverview',
-//   MapSearchBackButton = 'mapSearchBackButton',
-//   MapItemDetailsSubtitle = 'mapItemDetailsSubtitle',
-//   MapSearchButton = 'mapSearchButton',
-//   CategoryTitle = 'categoryTitle',
-//   CategoryCardTitle = 'categoryCardTitle',
-//   SubCategoryTitle = 'subCategoryTitle',
-//   ObjectTitle = 'objectTitle',
-//   SubObject = 'subObject',
-//   EmailAuthButton = 'emailAuthButton',
-//   FacebookAuthButton = 'facebookAuthButton',
-//   GoogleAuthButton = 'googleAuthButton',
-//   AppleAuthButton = 'appleAuthButton',
-//   SubmitButton = 'submitButton',
-//   SecondaryButton = 'secondaryButton',
-//   CodeInput = 'codeInput',
-//   EmailInput = 'emailInput',
-//   PasswordInput = 'passwordInput',
-//   OldPasswordInput = 'oldPasswordInput',
-//   NewPasswordInput = 'newPasswordInput',
-//   Icon = 'icon',
-//   Card = 'card',
-//   AppUpdateBottomMenu = 'appUpdateBottomMenu',
-//   AppMapSearchBottomMenu = 'appMapSearchBottomMenu',
-//   AppMapSearchBottomMenuContent = 'appMapSearchBottomMenuContent',
-//   AppMapObjectBottomMenu = 'appMapObjectBottomMenu',
-//   AppMapObjectBottomMenuContent = 'appMapObjectBottomMenuContet',
-//   ObjectShareExperienceMenu = 'objectShareExperienceMenu',
-//   ObjectShareExperienceMenuContent = 'objectShareExperienceMenuContent',
-//   ObjectReportinaccuraciesMenu = 'objectReportinaccuraciesMenu',
-//   ObjectReportinaccuraciesMenuContent = 'objectReportinaccuraciesMenuContent',
-//   ObjectShareExperienceSuccessMenu = 'objectShareExperienceSuccessMenu',
-//   ObjectShareExperienceSuccessMenuContent = 'objectShareExperienceSuccessMenuContent',
-//   MarkAsVisitedButton = 'markAsVisitedButton',
-//   ObjectDetailsBottomButtons = 'objectDetailsBottomButtons',
-//   ObjectDetailsReportInaccuraciesButton = 'objectDetailsReportInaccuraciesButton',
-//   ObjectDetailsCompletenessBlock = 'objectDetailsCompletenessBlock',
-//   objectDetailsCompletenessBlockSmall = 'objectDetailsCompletenessBlockSmall',
-//   ObjectDetailsAddInfoList = 'objectDetailsAddInfoList',
-//   ObjectDetailsAddInfoSubmitButton = 'objectDetailsAddInfoSubmitButton',
-//   ObjectDetailsAddInfoMenu = 'objectDetailsAddInfoMenu',
-//   ObjectDetailsAddInfoMenuContent = 'objectDetailsAddInfoMenuContent',
-//   ObjectDetailsAddInfoSuccessMenu = 'objectDetailsAddInfoSuccessMenu',
-//   ObjectDetailsPhoneNumbersMenu = 'objectDetailsPhoneNumbersMenu',
-//   ObjectDetailsAddInfoSuccessMenuContent = 'objectDetailsAddInfoSuccessMenuContent',
-//   ObjectDetailsOfficialWebsite = 'objectDetailsOfficialWebsite',
-//   ObjectDetailsPhoneNumber = 'objectDetailsPhoneNumber',
-//   ObjectDetailsAttendanceTime = 'objectDetailsAttendanceTime',
-//   ObjectDetailsWorkingHours = 'objectDetailsWorkingHours',
-//   ObjectDetailsRenting = 'objectDetailsRenting',
-//   ObjectDetailsChildService = 'objectDetailsChildService',
-//   ObjectDetailsAccommodationPlace = 'objectDetailsAccommodationPlace',
-//   ObjectDetailsUpcomingEvents = 'objectDetailsUpcomingEvents',
-//   ObjectDetailsDinnerPlaces = 'objectDetailsDinnerPlaces',
-//   ObjectDetailsIncludes = 'objectDetailsIncludes',
-//   ObjectDetailsBelongsTo = 'objectDetailsBelongsTo',
-//   ObjectDetailsAddInfoConfirmMenu = 'objectDetailsAddInfoConfirmMenu',
-//   ObjectDetailsAddInfoConfirmContent = 'objectDetailsAddInfoConfirmContent',
-//   FiltersMultySwitch = 'filtersMultySwitch',
-//   FiltersChooseButton = 'filtersChooseButton',
-//   ApplyButton = 'applyButton',
-//   SearchBar = 'SearchBar',
-//   SettlementSectionListHeader = 'SettlementSectionListHeader',
-//   SettlementSectionListItem = 'SettlementSectionListItem',
-//   SettlementSectionListItemCheckbox = 'SettlementSectionListItemCheckbox',
-//   NotFound = 'notFound',
-//   BookmarkSuspenseView = 'BookmarkSuspenseView',
-//   AppMapSuspenseView = 'AppMapSuspenseView',
-//   AppMapButtons = 'AppMapButtons',
-//   AppMapFilters = 'AppMapFilters',
-//   BookmarksListSuspenseView = 'BookmarksListSuspenseView',
-//   CategoriesListSuspenseView = 'CategoriesListSuspenseView',
-//   FiltersSuspenseView = 'FiltersSuspenseView',
-//   HomeSuspenseView = 'HomeSuspenseView',
-//   ObjectDetailsSuspenseView = 'ObjectDetailsSuspenseView',
-// }

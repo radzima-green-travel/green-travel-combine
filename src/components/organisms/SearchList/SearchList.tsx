@@ -89,14 +89,13 @@ export const SearchList = memo(
               style={styles.listContainer}
               data={data}
               renderItem={({item}) => {
-                const {name, category, id, description} = item;
+                const {name, category, id} = item;
 
                 return (
                   <SearchListItem
                     objectId={id}
                     onPress={onItemPress}
                     objectName={name}
-                    description={description}
                     categoryName={category.name}
                     categoryIcon={category.icon}
                     testID={composeTestID(testID, 'item')}
@@ -118,14 +117,16 @@ export const SearchList = memo(
             onScrollBeginDrag={Keyboard.dismiss}
             data={data}
             renderItem={({item}) => {
-              const {name, category, id, description} = item;
+              const {name, category, id, highlight} = item;
+
               return (
                 <SearchListItem
                   key={id}
                   objectId={id}
                   onPress={onItemPress}
-                  objectName={name}
-                  description={description}
+                  objectName={highlight?.name || name}
+                  description={highlight?.description}
+                  address={highlight?.address}
                   categoryName={category.name}
                   categoryIcon={category.icon}
                   testID={composeTestID(testID, 'item')}

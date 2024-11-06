@@ -7,6 +7,7 @@ import {
   ObjectShort,
   CategoryShort,
   AddressessDTO,
+  TranslatedEntity,
 } from 'core/types';
 import {compact, find, head, keys, map, omit, pick} from 'lodash';
 import {imagesService} from 'services/ImagesService';
@@ -52,7 +53,7 @@ export const extractLocaleSpecificValues = <
 >(
   entity: T,
   locale: SupportedLocales | null,
-) => {
+): TranslatedEntity<T> => {
   const firstLocaleSpecificData = omit(head(entity.i18n), ['locale']);
   const keysToTranslate = keys(firstLocaleSpecificData);
 
@@ -67,7 +68,7 @@ export const extractLocaleSpecificValues = <
   >;
 
   return {
-    ...entity,
+    ...omit(entity, 'i18n'),
     ...localeSpecificData,
     analyticsMetadata,
   };
@@ -101,8 +102,8 @@ export const translateAndProcessImagesForEntity = <
   return processImagesUrls(entityWithEtxtractedLocaleData);
 };
 
-export const getObjectFullAddress = (
-  addressess: AddressessDTO,
+export const prepareObjectAddressSpots = (
+  addresses: AddressessDTO,
   locale: SupportedLocales | null,
 ) => {
   const {
@@ -110,17 +111,43 @@ export const getObjectFullAddress = (
     municipality,
     subRegion,
     street = '',
-  } = addressess.items[0] || {};
+  } = addresses.items[0] || {};
 
-  const translatedSpots = compact([region, municipality, subRegion]).map(
-    spot => {
-      return extractLocaleSpecificValues(spot, locale).value;
-    },
-  );
+  return {
+    region: region ? extractLocaleSpecificValues(region, locale).value : '',
+    municipality: municipality
+      ? extractLocaleSpecificValues(municipality, locale).value
+      : '',
+    subRegion: subRegion
+      ? extractLocaleSpecificValues(subRegion, locale).value
+      : '',
+    street,
+  };
+};
 
+export function getAddressStringFromSpots(
+  spots: {
+    region: string;
+    municipality: string;
+    subRegion: string;
+    street: string;
+  },
+  locale: SupportedLocales | null,
+) {
+  const {region, municipality, subRegion, street} = spots;
+  const translatedSpots = compact([region, municipality, subRegion]);
   if (street) {
     translatedSpots.push(locale === 'ru' ? street : transliterate(street));
   }
 
   return translatedSpots.join(', ');
+}
+
+export const getObjectFullAddress = (
+  addresses: AddressessDTO,
+  locale: SupportedLocales | null,
+) => {
+  const translatedSpots = prepareObjectAddressSpots(addresses, locale);
+
+  return getAddressStringFromSpots(translatedSpots, locale);
 };

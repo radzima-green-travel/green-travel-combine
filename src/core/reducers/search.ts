@@ -3,8 +3,6 @@ import {
   searchObjectsRequest,
   searchMoreObjectsRequest,
   setSearchInputValue,
-  getSearchObjectsHistoryRequest,
-  addSearchObjectToHistory,
   setSearchOptions,
 } from 'core/actions';
 import {SearchOptions} from 'core/types';
@@ -15,7 +13,6 @@ import {byIdReducer} from 'react-redux-help-kit';
 interface SearchState {
   searchObjects: Array<SearchObjectDTO>;
   nextToken: string | null;
-  searchHistoryObjects: Array<SearchObjectDTO>;
   highlight: Highlight | null;
   inputValue: string;
   total: number;
@@ -24,7 +21,6 @@ interface SearchState {
 
 const initialState: SearchState = {
   searchObjects: [],
-  searchHistoryObjects: [],
   highlight: null,
   inputValue: '',
   nextToken: null,
@@ -32,25 +28,10 @@ const initialState: SearchState = {
   options: {byAddress: false, byDescription: false, byTitles: false},
 };
 export const reducer = createReducer(initialState, builder => {
-  builder.addCase(
-    getSearchObjectsHistoryRequest.meta.successAction,
-    (state, {payload}) => ({
-      ...state,
-      searchHistoryObjects: payload.searchHistoryObjects,
-    }),
-  );
-
   builder.addCase(setSearchInputValue, (state, {payload}) => ({
     ...state,
     inputValue: payload,
   }));
-  builder.addCase(
-    addSearchObjectToHistory,
-    (state, {payload: {searchObject}}) => ({
-      ...state,
-      searchHistoryObjects: [...state.searchHistoryObjects, searchObject],
-    }),
-  );
 
   builder.addCase(
     searchObjectsRequest.meta.successAction,
@@ -69,7 +50,7 @@ export const reducer = createReducer(initialState, builder => {
       ...state,
       searchObjects: [...state.searchObjects, ...payload.searchObjects],
       highlight: mapValues(state.highlight, (value, key) => {
-        const newValues = payload.highlight[key] || [];
+        const newValues = payload.highlight?.[key] || [];
         return [...(value || []), ...newValues];
       }),
       nextToken: payload.nextToken,
