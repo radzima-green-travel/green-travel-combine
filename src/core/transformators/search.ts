@@ -32,17 +32,26 @@ export function prepareSearchObjectAddress(
     highlightForValue('spot_' + key),
   );
 
+  const isFoundStreetOrMunicipality =
+    spotsWithHighlights.street || spotsWithHighlights.municipality;
+  const isFoundInRegionOrSubRegion =
+    spotsWithHighlights.region || spotsWithHighlights.subRegion;
+
   if (every(spotsWithHighlights, isEmpty)) {
     return '';
   }
 
-  return getAddressStringFromSpots(
-    mapValues(
+  return getAddressStringFromSpots({
+    spots: mapValues(
       translatedSpots,
       (value, key) => highlightForValue('spot_' + key) || value,
     ),
     locale,
-  );
+    order:
+      isFoundStreetOrMunicipality && !isFoundInRegionOrSubRegion
+        ? 'secondary'
+        : 'primary',
+  });
 }
 
 export function prepareSearchItems(

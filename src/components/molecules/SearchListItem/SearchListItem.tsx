@@ -5,6 +5,7 @@ import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {ICONS_MATCHER} from 'core/constants';
 import {ListItem} from '../ListItem';
+import {TextProps} from 'react-native';
 
 interface IProps {
   objectName: string;
@@ -44,6 +45,36 @@ export const SearchListItem = memo(
 
     const subtitlePostfix = address || description;
 
+    const renderSubtitle = (props: TextProps) => {
+      if (address && description) {
+        return (
+          <>
+            <HighlightedText
+              {...props}
+              textWithMarkup
+              numberOfLines={1}
+              boldTextStyle={styles.subtitleHighlight}>
+              {categoryName + ` · ${address}`}
+            </HighlightedText>
+            <HighlightedText
+              {...props}
+              textWithMarkup
+              numberOfLines={2}
+              boldTextStyle={styles.subtitleHighlight}>
+              {` · ${description}`}
+            </HighlightedText>
+          </>
+        );
+      }
+
+      return (
+        <HighlightedText
+          {...props}
+          textWithMarkup
+          boldTextStyle={styles.subtitleHighlight}
+        />
+      );
+    };
     return (
       <ListItem
         leadIcon={ICONS_MATCHER[categoryIcon]}
@@ -60,13 +91,7 @@ export const SearchListItem = memo(
         tailIcon={withRemoveButton ? 'close' : undefined}
         tailIconStyle={styles.tailIconStyle}
         onRightLabelPress={onRemovePressHandler}
-        renderSubtitle={props => (
-          <HighlightedText
-            {...props}
-            textWithMarkup
-            boldTextStyle={styles.subtitleHighlight}
-          />
-        )}
+        renderSubtitle={renderSubtitle}
         subtitle={
           categoryName + (subtitlePostfix ? ` · ${subtitlePostfix}` : '')
         }

@@ -125,21 +125,32 @@ export const prepareObjectAddressSpots = (
   };
 };
 
-export function getAddressStringFromSpots(
+export function getAddressStringFromSpots({
+  spots,
+  locale,
+  order = 'primary',
+}: {
   spots: {
     region: string;
     municipality: string;
     subRegion: string;
     street: string;
-  },
-  locale: SupportedLocales | null,
-) {
+  };
+  locale: SupportedLocales | null;
+  order?: 'primary' | 'secondary';
+}) {
   const {region, municipality, subRegion, street} = spots;
-  const translatedSpots = compact([region, municipality, subRegion]);
+
+  let translatedStreet = '';
   if (street) {
-    translatedSpots.push(locale === 'ru' ? street : transliterate(street));
+    translatedStreet = locale === 'ru' ? street : transliterate(street);
   }
 
+  const translatedSpots = compact(
+    order === 'primary'
+      ? [region, subRegion, municipality, translatedStreet]
+      : [municipality, translatedStreet, region, subRegion],
+  );
   return translatedSpots.join(', ');
 }
 
@@ -149,5 +160,5 @@ export const getObjectFullAddress = (
 ) => {
   const translatedSpots = prepareObjectAddressSpots(addresses, locale);
 
-  return getAddressStringFromSpots(translatedSpots, locale);
+  return getAddressStringFromSpots({spots: translatedSpots, locale});
 };
