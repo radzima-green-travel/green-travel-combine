@@ -16,7 +16,7 @@ export const selectSettlementsData = (state: IState) => {
 export const selectSettlements = createSelector(
   selectSettlementsData,
   selectAppLanguage,
-  ({data}, locale) => {
+  (data, locale) => {
     return map(data, settlement =>
       extractLocaleSpecificValues(settlement, locale),
     );

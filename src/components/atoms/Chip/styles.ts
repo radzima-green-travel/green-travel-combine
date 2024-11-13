@@ -13,10 +13,13 @@ export const styles = StyleSheet.create({
   },
   text: {
     ...FONTS_PRESETS.bodyRegular,
+    lineHeight: undefined,
   },
-  iconContainer: {
-    width: 24,
-    height: 24,
+  rightIcon: {
+    marginLeft: 8,
+  },
+  leftIcon: {
+    marginRight: 8,
   },
   contentContainer: {
     alignSelf: 'stretch',

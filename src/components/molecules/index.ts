@@ -43,3 +43,4 @@ export {SearchField} from './SearchField';
 export {FilterDistance} from './FilterDistance';
 export {HeaderBackButton} from './HeaderBackButton';
 export {SearchOptionsBottomMenu} from './SearchOptions';
+export {SearchFiltersBar} from './SearchFiltersBar';

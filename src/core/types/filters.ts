@@ -30,7 +30,4 @@ export type SetActiveFilterPayload =
       value: boolean;
     };
 
-export type SettlementsData = {
-  data: SpotItemDTO[];
-  total: number;
-};
+export type SettlementsData = SpotItemDTO[];

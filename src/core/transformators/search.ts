@@ -4,14 +4,28 @@ import {
   SearchObjectDTO,
   SupportedLocales,
   SearchOptions,
+  SearchFilters,
+  SearchFiltersItem,
+  SpotItem,
+  CategoryFilterItem,
 } from 'core/types';
-import {map, find, mapValues, every, isEmpty, omit} from 'lodash';
+import {
+  map,
+  find,
+  mapValues,
+  every,
+  isEmpty,
+  omit,
+  forEach,
+  keys,
+} from 'lodash';
 import {
   extractLocaleSpecificValues,
   translateAndProcessImagesForEntity,
   prepareObjectAddressSpots,
   getAddressStringFromSpots,
 } from './common';
+import i18n from 'i18next';
 
 export function extractValueFromHighlight(
   object: SearchObjectDTO,
@@ -91,3 +105,78 @@ export function transformSearchOptionsToFieldsToSearch(options: SearchOptions) {
     },
   };
 }
+
+export const prepareSearchFiltersBarItems = ({
+  filters,
+  isAuthorized,
+  regions,
+  categories,
+  settlements,
+}: {
+  filters: SearchFilters;
+  isAuthorized: boolean;
+  regions: SpotItem[];
+  categories: CategoryFilterItem[];
+  settlements: SpotItem[];
+}): Array<SearchFiltersItem> => {
+  const filtersItems: Array<SearchFiltersItem> = [];
+  const filtersKeys = keys(filters) as Array<keyof SearchFilters>;
+
+  function getFilterValue(filterName: keyof SearchFilters, filterId: string) {
+    if (filterName === 'categories') {
+      return find(categories, {id: filterId})?.name || '';
+    }
+
+    if (filterName === 'regions') {
+      return find(regions, {id: filterId})?.value || '';
+    }
+
+    return find(settlements, {id: filterId})?.value || '';
+  }
+
+  forEach(filtersKeys, key => {
+    if (Array.isArray(filters[key])) {
+      const filter = filters[key] as string[];
+      if (filter.length) {
+        let translationsKey = '';
+        let value = '';
+        if (filter.length === 1) {
+          value = getFilterValue(key, filter[0]);
+        } else {
+          translationsKey = `search:filters.${key}Plural${filter.length <= 4 ? '' : 'Variation'}`;
+        }
+
+        filtersItems.push({
+          id: key,
+          value: value || i18n.t(translationsKey, {amount: filter.length}),
+        });
+      }
+    } else if (key === 'distance' && filters[key].isOn) {
+      filtersItems.push({
+        id: key,
+        value: i18n.t(`search:filters.${key}`, {
+          amount: filters[key].value,
+        }),
+      });
+    } else if (
+      key === 'excludeVisited' &&
+      filters[key] === true &&
+      isAuthorized
+    ) {
+      filtersItems.push({
+        id: key,
+        value: i18n.t(`search:filters.${key}`),
+      });
+    } else if (key === 'googleRating' && filters[key]) {
+      filtersItems.push({
+        id: key,
+        icon: 'google',
+        value: i18n.t(`search:filters.${key}`, {
+          amount: filters[key],
+        }),
+      });
+    }
+  });
+
+  return filtersItems;
+};

@@ -41,12 +41,7 @@ export function* getSettlementsDataSaga({
       return [...acc, ...items];
     }, [] as Array<SpotItemDTO>);
 
-    yield put(
-      successAction({
-        data,
-        total,
-      }),
-    );
+    yield put(successAction(data));
   } catch (e) {
     yield put(failureAction(e as RequestError));
   }
