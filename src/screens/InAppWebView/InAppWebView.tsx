@@ -30,6 +30,7 @@ export const InAppWebView = () => {
         onNavigationStateChange={event => {
           setLoading(event.loading);
         }}
+        textZoom={100}
         source={{uri: url}}
         originWhitelist={['*']}
         viewportContent={'width=device-width, user-scalable=no'}
