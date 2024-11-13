@@ -3,6 +3,7 @@ import {IRequestError} from './errors';
 import {animations} from 'assets';
 import {ObjectField} from 'core/constants';
 import {
+  CategoryFilterItemDTO,
   CategoryShortDTO,
   ExtractI18nKeys,
   LocationDTO,
@@ -228,6 +229,7 @@ export type ObjectShort = TranslatedEntity<ObjectShortDTO>;
 export type ObjectCategoryMap = TranslatedEntity<ObjectCategoryMapDTO>;
 export type SearchObjectCategory = TranslatedEntity<SearchObjetcCategoryDTO>;
 export type SpotItem = TranslatedEntity<SpotItemDTO>;
+export type CategoryFilterItem = TranslatedEntity<CategoryFilterItemDTO>;
 
 export interface ObjectMap
   extends Omit<TranslatedEntity<ObjectMapDTO>, 'addresses'> {

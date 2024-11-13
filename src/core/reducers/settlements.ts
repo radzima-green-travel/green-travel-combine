@@ -7,10 +7,7 @@ interface SettlementsState {
 }
 
 const initialState: SettlementsState = {
-  settlementsData: {
-    data: [],
-    total: 0,
-  },
+  settlementsData: [],
 };
 
 export const settlementsReducer = createReducer(initialState, builder => {

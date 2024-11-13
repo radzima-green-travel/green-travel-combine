@@ -169,6 +169,17 @@
       "title": "Search parameters",
       "byDescription": "Find by description",
       "byAddress": "Find by address"
+    },
+    "filters": {
+      "distance": "+{{amount}}km",
+      "googleRating": "{{amount}}+",
+      "excludeVisited": "Visited is hidden",
+      "categoriesPlural": "{{amount}} categories",
+      "categoriesPluralVariation": "{{amount}} categories",
+      "regionsPlural": "{{amount}} regions",
+      "regionsPluralVariation": "{{amount}} regions",
+      "municipalitiesPlural": "{{amount}} settlements",
+      "municipalitiesPluralVariation": "{{amount}} settlements"
     }
   },
   "map": {

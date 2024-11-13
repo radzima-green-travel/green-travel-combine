@@ -2,7 +2,15 @@ import {createSelector} from 'reselect';
 import {IState} from 'core/store';
 import {selectAppLanguage} from './settingsSelectors';
 
-import {prepareSearchItems} from '../transformators/search';
+import {
+  prepareSearchFiltersBarItems,
+  prepareSearchItems,
+} from '../transformators/search';
+import {SearchFilters} from 'core/types';
+import {selectUserAuthorized} from './authentificationSelectors';
+import {selectFiltersCategories, selectFiltersRegions} from './filtersPage';
+import {selectSettlements} from './settlements';
+import {checkIfFiltersAreUnset} from 'core/transformators/filters';
 
 const selectSearchState = createSelector(
   (state: IState) => state.search,
@@ -59,4 +67,25 @@ export const selectSearchObjectsData = createSelector(
 export const selectSearchInputForSearch = createSelector(
   selectSearchInputValue,
   inputValue => inputValue.trim(),
+);
+
+export const selectSearchFiltersItems = createSelector(
+  (_: IState, appliedFilters?: SearchFilters) => appliedFilters,
+  selectUserAuthorized,
+  selectFiltersRegions,
+  selectFiltersCategories,
+  selectSettlements,
+  (filters, isAuthorized, regions, categories, settlements) => {
+    if (!filters || checkIfFiltersAreUnset(filters)) {
+      return [];
+    }
+
+    return prepareSearchFiltersBarItems({
+      filters,
+      isAuthorized,
+      regions,
+      categories,
+      settlements,
+    });
+  },
 );

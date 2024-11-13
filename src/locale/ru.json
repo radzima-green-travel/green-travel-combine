@@ -169,6 +169,17 @@
       "title": "Параметры поиска",
       "byDescription": "Искать по описанию",
       "byAddress": "Искать по адресу"
+    },
+    "filters": {
+      "distance": "+{{amount}}км",
+      "googleRating": "{{amount}}+",
+      "excludeVisited": "Скрыто посещенное",
+      "categoriesPlural": "{{amount}} категории",
+      "categoriesPluralVariation": "{{amount}} категорий",
+      "regionsPlural": "{{amount}} области",
+      "regionsPluralVariation": "{{amount}} областей",
+      "municipalitiesPlural": "{{amount}} населенных пункта",
+      "municipalitiesPluralVariation": "{{amount}} населенных пунктов"
     }
   },
   "map": {

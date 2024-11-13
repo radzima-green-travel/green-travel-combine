@@ -8,13 +8,13 @@ import {
   View,
   Text,
   Pressable,
-  GestureResponderEvent,
 } from 'react-native';
 
 import {CHIP_THEMES} from './constants';
 import {styles} from './styles';
-import {getPlatformsTestID, composeTestID} from 'core/helpers';
-import {Icon} from '../Icon';
+import {composeTestID} from 'core/helpers';
+import {Icon, IconsNames} from '../Icon';
+import {crossHitClop} from '../HeaderSearchbar/styles';
 
 export type Props = {
   text: string;
@@ -26,10 +26,10 @@ export type Props = {
   checked?: boolean;
   active?: boolean;
   outlined?: boolean;
-  leftIcon?: (textStyle: StyleProp<TextStyle>) => React.ReactElement;
+  leftIcon?: IconsNames;
   testID: string;
   isShowCloseIcon?: boolean;
-  onClosePress?: (event: GestureResponderEvent) => void;
+  onClosePress?: () => void;
 };
 
 export const Chip = memo(
@@ -65,19 +65,29 @@ export const Chip = memo(
 
     const renderContent = () => {
       return (
-        <View style={styles.contentContainer}>
+        <View style={[styles.contentContainer]}>
           {leftIcon ? (
-            <View style={[styles.iconContainer]}>
-              {leftIcon(iconThemeStyles)}
-            </View>
+            <Icon
+              style={[iconThemeStyles, styles.leftIcon]}
+              name={leftIcon}
+              testID={composeTestID(testID, 'leftIcon')}
+              size={20}
+            />
           ) : null}
-          <Text style={[finalTextStyle]}>{text}</Text>
+          <Text testID={composeTestID(testID, 'text')} style={[finalTextStyle]}>
+            {text}
+          </Text>
           {isShowCloseIcon ? (
-            <Pressable style={[styles.iconContainer]} onPress={onClosePress}>
+            <Pressable
+              testID={composeTestID(testID, 'closeButton')}
+              hitSlop={crossHitClop}
+              style={styles.rightIcon}
+              onPress={onClosePress}>
               <Icon
                 style={iconThemeStyles}
-                name={'close'}
+                name={'clear'}
                 testID={composeTestID(testID, 'closeIcon')}
+                size={20}
               />
             </Pressable>
           ) : null}
@@ -90,6 +100,7 @@ export const Chip = memo(
         onPress={onPress}
         activeOpacity={0.9}
         disabled={disabled}
+        accessible={false}
         style={[
           styles.container,
           chipThemeStyles.container,
@@ -98,7 +109,7 @@ export const Chip = memo(
           disabled && chipThemeStyles.disabled,
           style,
         ]}
-        {...getPlatformsTestID(testID)}
+        testID={testID}
         accessibilityState={{checked, disabled}}>
         {renderContent()}
       </TouchableOpacity>

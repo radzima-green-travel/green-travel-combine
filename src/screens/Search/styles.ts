@@ -4,6 +4,9 @@ import {createThemeStyles} from 'core/helpers/styles';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 
 export const themeStyles = createThemeStyles({
+  listContainer: {
+    flex: 1,
+  },
   headerTitleContainer: {
     width:
       SCREEN_WIDTH - PADDING_HORIZONTAL * 3 - PADDING_HORIZONTAL / 2 - 48 - 32, // TODO: add constants for 48 and 32 ( right and left button widths )

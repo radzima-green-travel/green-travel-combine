@@ -20,6 +20,8 @@ export const useSearch = () => {
     listPaninationProps,
     isSearchPreviewVisible,
     totalResults,
+    filtersItems,
+    removeAppliedFilter,
   } = useSearchList();
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
@@ -74,5 +76,7 @@ export const useSearch = () => {
     listPaninationProps,
     isSearchPreviewVisible,
     totalResults,
+    filtersItems,
+    removeAppliedFilter,
   };
 };

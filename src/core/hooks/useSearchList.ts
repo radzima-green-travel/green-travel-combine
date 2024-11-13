@@ -16,6 +16,7 @@ import {
   selectSearchInputValue,
   selectUserAuthorized,
   selectSearchOptions,
+  selectSearchFiltersItems,
 } from 'core/selectors';
 import {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -24,9 +25,14 @@ import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
 import {useSearchSelector} from './useSearchSelector';
 import {useSearchActions} from './useSearchActions';
-import {useIsFocused, useRoute} from '@react-navigation/native';
-import {SearchScreenRouteProps} from '../../screens/Search/types';
+import {useRoute, useNavigation} from '@react-navigation/native';
+import {
+  SearchScreenRouteProps,
+  SearchScreenNavigationProps,
+} from '../../screens/Search/types';
 import {find} from 'lodash';
+import {INITIAL_FILTERS} from 'core/constants';
+import {IState} from 'core/store';
 
 export function useSearchList() {
   const dispatch = useDispatch();
@@ -38,6 +44,7 @@ export function useSearchList() {
   );
 
   const {params} = useRoute<SearchScreenRouteProps>();
+  const navigation = useNavigation<SearchScreenNavigationProps>();
 
   const {filtersToApply} = params || {};
 
@@ -50,6 +57,10 @@ export function useSearchList() {
   const inputValue = useSearchSelector(selectSearchInputValue);
   const appLocale = useSelector(selectAppLanguage);
   const isAuthorized = useSelector(selectUserAuthorized);
+
+  const filtersItems = useSelector((state: IState) =>
+    selectSearchFiltersItems(state, filtersToApply),
+  );
   const {loading} = useRequestLoading(searchObjectsRequest);
   const {errorTexts} = useOnRequestError(searchObjectsRequest, '');
   const {loading: historyLoading} = useRequestLoading(
@@ -61,6 +72,20 @@ export function useSearchList() {
   );
   const {loading: nextDataLoading} = useRequestLoading(
     searchMoreObjectsRequest,
+  );
+
+  const removeAppliedFilter = useCallback(
+    (filterName: string) => {
+      if (filtersToApply) {
+        navigation.setParams({
+          filtersToApply: {
+            ...filtersToApply,
+            [filterName]: INITIAL_FILTERS[filterName],
+          },
+        });
+      }
+    },
+    [filtersToApply, navigation],
   );
 
   const getSearchObjectsHistory = useCallback(() => {
@@ -125,13 +150,11 @@ export function useSearchList() {
     hasMoreToLoad: !loading && searchResults.length < searchResultsTotal,
   });
 
-  const isScreenFocused = useIsFocused();
-
   useUpdateEffect(() => {
-    if (isScreenFocused) {
+    if (navigation.isFocused()) {
       searchObjects();
     }
-  }, [searchObjects, appLocale, isAuthorized, isScreenFocused]);
+  }, [searchObjects, appLocale, isAuthorized, navigation.isFocused]);
 
   const addToHistory = useCallback(
     (id: string) => {
@@ -192,5 +215,7 @@ export function useSearchList() {
       retryCallback: getSearchObjectsHistory,
     },
     totalResults: searchResultsTotal,
+    removeAppliedFilter,
+    filtersItems,
   };
 }
