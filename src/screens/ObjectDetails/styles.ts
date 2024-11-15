@@ -46,6 +46,9 @@ export const themeStyles = createThemeStyles({
   visitedButtonText: {
     position: 'absolute',
   },
+  visitedButton: {
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
   animationContainer: {
     alignSelf: 'center',
     position: 'absolute',
@@ -84,6 +87,13 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.background.primary,
     },
     marginHorizontal: PADDING_HORIZONTAL,
+  },
+  loader: {
+    position: 'absolute',
+    top: IMAGE_HEIGHT,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
 

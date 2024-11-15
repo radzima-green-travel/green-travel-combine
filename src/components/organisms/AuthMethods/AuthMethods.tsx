@@ -1,6 +1,7 @@
 import React, {memo} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleProp, TextStyle} from 'react-native';
 import {Button, Icon} from 'atoms';
+import {IconsNames} from 'atoms/Icon/IconsNames';
 import {useThemeStyles} from 'core/hooks';
 import {isIOS} from 'services/PlatformService';
 import {themeStyles} from './styles';
@@ -17,6 +18,14 @@ interface IProps {
   appleLoading?: boolean;
   testID: string;
 }
+
+const getCustomIcon = ({
+  name,
+  style,
+}: {
+  name: IconsNames;
+  style?: StyleProp<TextStyle>;
+}) => <Icon name={name} style={style} />;
 
 export const AuthMethods = memo(
   ({
@@ -41,7 +50,7 @@ export const AuthMethods = memo(
         style={styles.otherOptionsButton}
         onPress={onAppleButtonPress}
         text={t('appleAuth')}
-        icon={() => <Icon name={'appleAuth'} style={styles.appleIcon} />}
+        icon={() => getCustomIcon({name: 'appleAuth', style: styles.appleIcon})}
         loading={appleLoading}
         disabled={googleLoading || facebookLoading}
         iconPosition="left"
@@ -55,7 +64,7 @@ export const AuthMethods = memo(
         style={styles.otherOptionsButton}
         onPress={onGoogleButtonPress}
         text={t('googleAuth')}
-        icon={() => <Icon name={'googleAuth'} />}
+        icon={() => getCustomIcon({name: 'googleAuth'})}
         loading={googleLoading}
         disabled={appleLoading || facebookLoading}
         textStyle={styles.otherButtonText}
@@ -81,7 +90,7 @@ export const AuthMethods = memo(
           text={t('facebookAuth')}
           disabled={googleLoading || facebookLoading}
           loading={facebookLoading}
-          icon={() => <Icon name={'facebookAuth'} />}
+          icon={() => getCustomIcon({name: 'facebookAuth'})}
           iconPosition="left"
         />
         {isIOS && getGmailButton()}
@@ -92,9 +101,12 @@ export const AuthMethods = memo(
           style={styles.otherOptionsButton}
           onPress={onEmailButtonPress}
           text={t('emailAuth')}
-          icon={() => (
-            <Icon name={'emailAuth'} style={styles.emailIconOtherOption} />
-          )}
+          icon={() =>
+            getCustomIcon({
+              name: 'emailAuth',
+              style: styles.emailIconOtherOption,
+            })
+          }
           iconPosition="left"
         />
       </View>

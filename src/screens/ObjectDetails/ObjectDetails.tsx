@@ -202,7 +202,7 @@ export const ObjectDetails = () => {
                   onPress={markAsVisited}
                   text={isVisited ? t('visitedObject') : t('markAsVisited')}
                   theme={'secondary'}
-                  style={{backgroundColor: 'rgba(0, 0, 0, 0)'}}
+                  style={styles.visitedButton}
                   textStyle={styles.visitedButtonText}
                   loading={visitedObjectLoading}
                   onButtonLabelLayout={onButtonLabelLayout}
@@ -317,14 +317,7 @@ export const ObjectDetails = () => {
         ) : null}
 
         {loading ? (
-          <View
-            style={{
-              position: 'absolute',
-              top: IMAGE_HEIGHT,
-              bottom: 0,
-              left: 0,
-              right: 0,
-            }}>
+          <View style={styles.loader}>
             <SuspenseView
               testID="loadingSupsenseView"
               loading={true}

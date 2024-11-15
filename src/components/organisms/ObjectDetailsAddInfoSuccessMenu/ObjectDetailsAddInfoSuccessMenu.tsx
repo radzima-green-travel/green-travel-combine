@@ -3,8 +3,11 @@ import {BottomMenu} from 'atoms';
 import {ObjectSuccessMenu} from 'molecules';
 import {useBottomMenu, useTranslation} from 'core/hooks';
 import React from 'react';
+import {StyleProp, ImageStyle} from 'react-native';
 import {useColorScheme} from 'react-native';
 import {composeTestID} from 'core/helpers';
+import {useThemeStyles} from 'core/hooks';
+import {themeStyles} from './styles';
 
 interface IProps {
   addInfoSuccessMenuProps: ReturnType<typeof useBottomMenu>;
@@ -17,6 +20,7 @@ export const ObjectDetailsAddInfoSuccessMenu = ({
 }: IProps) => {
   const theme = useColorScheme();
   const {t} = useTranslation('objectDetailsAddInfo');
+  const styles = useThemeStyles(themeStyles);
 
   return (
     <Portal>
@@ -28,7 +32,7 @@ export const ObjectDetailsAddInfoSuccessMenu = ({
           subtitle={t('addInfoSuccessSubtitle')}
           buttonText={t('cool')}
           imageAsset={theme === 'light' ? 'handshakeLight' : 'handshakeLight'}
-          imageStyle={{width: 240, height: 144}}
+          imageStyle={styles.imageStyle as StyleProp<ImageStyle>}
         />
       </BottomMenu>
     </Portal>
