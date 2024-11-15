@@ -217,7 +217,7 @@ export const useFilters = () => {
         ),
       }),
     );
-  }, [dispatch, settlementsWithNumberOfItems]);
+  }, [activeFilters.municipalities, dispatch, settlementsWithNumberOfItems]);
 
   const isNeedToFetchData = (() => {
     if (isFirstRender.current) {
