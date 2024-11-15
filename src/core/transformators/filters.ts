@@ -86,7 +86,8 @@ export const checkIfFiltersAreUnset = (filters?: SearchFilters) => {
       !filters.googleRating.length &&
       !filters.municipalities.length &&
       !filters.regions.length &&
-      !filters.distance.isOn)
+      !filters.distance.isOn &&
+      !filters.excludeVisited)
   );
 };
 
