@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Text, View} from 'react-native';
 import {GeneralListItem} from 'molecules';
 import {screenOptions} from './screenOptions';
@@ -24,6 +24,14 @@ export const ProfileDetails = () => {
     snackBarProps,
   } = useProfileDetails();
 
+  const AuthorizedEmailText = useCallback(() => {
+    return map(userName, letter => (
+      <View>
+        <Text style={styles.email}>{letter}</Text>
+      </View>
+    ));
+  }, [styles.email, userName]);
+
   return (
     <View style={styles.container}>
       <View style={styles.itemContainer}>
@@ -36,11 +44,7 @@ export const ProfileDetails = () => {
           renderRightElement={
             isAuthorized && (
               <View style={styles.emailTextContainer}>
-                {map(userName, letter => (
-                  <View>
-                    <Text style={styles.email}>{letter}</Text>
-                  </View>
-                ))}
+                <AuthorizedEmailText />
               </View>
             )
           }
