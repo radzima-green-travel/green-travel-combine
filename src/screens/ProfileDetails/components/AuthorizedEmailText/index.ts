@@ -1,0 +1,1 @@
+export {AuthorizedEmailText} from './AuthorizedEmailText';
