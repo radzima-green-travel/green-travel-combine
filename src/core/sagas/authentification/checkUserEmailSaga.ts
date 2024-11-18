@@ -1,12 +1,9 @@
 import {put, call} from 'redux-saga/effects';
-import {
-  checkUserEmailRequest,
-  checkUserEmailSuccess,
-  checkUserEmailFailure,
-} from '../../reducers';
+import {checkUserEmailRequest} from 'core/actions';
 import {checkIfUserExistSaga} from './checkIfUserExistSaga';
 
 export function* checkUserEmailSaga({
+  meta: {successAction, failureAction},
   payload: email,
 }: ReturnType<typeof checkUserEmailRequest>) {
   try {
@@ -16,8 +13,8 @@ export function* checkUserEmailSaga({
       isPasswordReset: boolean;
     } = yield call(checkIfUserExistSaga, email);
 
-    yield put(checkUserEmailSuccess(data));
+    yield put(successAction(data));
   } catch (e) {
-    yield put(checkUserEmailFailure(e as Error));
+    yield put(failureAction(e as Error));
   }
 }

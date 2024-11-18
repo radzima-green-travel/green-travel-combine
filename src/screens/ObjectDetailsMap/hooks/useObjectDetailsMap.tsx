@@ -22,7 +22,7 @@ import {mapService} from 'services/MapService';
 import {
   clearObjectDetailsMapDirection,
   showObjectDetailsMapDirectionRequest,
-} from 'core/reducers';
+} from 'core/actions';
 
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 import {

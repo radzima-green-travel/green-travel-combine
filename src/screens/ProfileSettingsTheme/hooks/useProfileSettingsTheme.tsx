@@ -1,4 +1,4 @@
-import {setTheme} from 'core/reducers';
+import {setTheme} from 'core/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {THEME_TYPE} from 'core/constants';
 import {useCallback} from 'react';

@@ -1,20 +1,15 @@
 import {all, call, put, take, race} from 'redux-saga/effects';
-import {ActionType} from 'typesafe-actions';
-import {
-  confirmSignUpRequest,
-  confirmSignUpSuccess,
-  confirmSignUpFailure,
-  confirmSignUpCancel,
-} from 'core/reducers';
+import {confirmSignUpRequest, confirmSignUpCancel} from 'core/actions';
 import {createAuthHubChannel} from './createAuthHubChannel';
 import {CognitoUserWithAttributes} from 'core/types';
 import {amplifyApi} from 'api/amplify';
 import {createSignupCancelErrorPreset, RequestError} from 'core/errors';
-import {getObjectAttributesSaga} from '../objectAttributes';
+import {getObjectAttributesSaga} from 'core/sagas';
 
 export function* confirmSignUpSaga({
   payload: {email, code},
-}: ActionType<typeof confirmSignUpRequest>) {
+  meta: {successAction, failureAction},
+}: ReturnType<typeof confirmSignUpRequest>) {
   const channel = createAuthHubChannel();
 
   try {
@@ -45,12 +40,12 @@ export function* confirmSignUpSaga({
     }
 
     yield put(
-      confirmSignUpSuccess(
+      successAction(
         (userData as CognitoUserWithAttributes | null)?.attributes || null,
       ),
     );
   } catch (e) {
-    yield put(confirmSignUpFailure(e as Error));
+    yield put(failureAction(e as Error));
   } finally {
     channel.close();
   }

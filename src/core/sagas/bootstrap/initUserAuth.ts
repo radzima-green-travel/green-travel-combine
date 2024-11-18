@@ -1,5 +1,5 @@
 import {Auth} from 'aws-amplify';
-import {setUserAuthData, resetUserAuthData, clearUserData} from 'core/reducers';
+import {setUserAuthData, resetUserAuthData, clearUserData} from 'core/actions';
 import {selectUserAuthorized} from 'core/selectors';
 import {CognitoUserWithAttributes} from 'core/types';
 import {call, put, select} from 'redux-saga/effects';

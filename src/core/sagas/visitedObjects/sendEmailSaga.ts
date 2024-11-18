@@ -5,7 +5,7 @@ import {CognitoUserWithAttributes} from 'core/types';
 import {
   sendAddInfoEmailRequest,
   sendInaccuraciesEmailRequest,
-} from 'core/reducers';
+} from 'core/actions';
 
 export function* getUserIdSaga() {
   try {
@@ -20,7 +20,7 @@ export function* getUserIdSaga() {
 
 export function* sendEmailSaga({
   payload,
-  meta: {success, failure},
+  meta: {successAction, failureAction},
 }: ReturnType<
   typeof sendInaccuraciesEmailRequest | typeof sendAddInfoEmailRequest
 >) {
@@ -30,8 +30,8 @@ export function* sendEmailSaga({
 
     yield call(amplifyApi.sendEmail, {...emailData, userId});
 
-    yield put(success(showSuccessMenu));
+    yield put(successAction(showSuccessMenu));
   } catch (e: any) {
-    yield put(failure(e));
+    yield put(failureAction(e));
   }
 }

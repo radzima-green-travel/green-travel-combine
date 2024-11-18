@@ -1,17 +1,13 @@
 import {call, put} from 'redux-saga/effects';
-import {ActionType} from 'typesafe-actions';
-import {
-  confirmNewPasswordRequest,
-  confirmNewPasswordSuccess,
-  confirmNewPasswordFailure,
-} from 'core/reducers';
-import {CognitoUserWithAttributes} from '../../types';
+import {confirmNewPasswordRequest} from 'core/actions';
+import {CognitoUserWithAttributes} from 'core/types';
 import {amplifyApi} from 'api/amplify';
-import {getObjectAttributesSaga} from '../objectAttributes';
+import {getObjectAttributesSaga} from 'core/sagas';
 
 export function* confirmNewPasswordSaga({
   payload: {email, tempPassword, newPassword},
-}: ActionType<typeof confirmNewPasswordRequest>) {
+  meta: {successAction, failureAction},
+}: ReturnType<typeof confirmNewPasswordRequest>) {
   try {
     const user: CognitoUserWithAttributes = yield call(
       amplifyApi.signIn,
@@ -24,8 +20,8 @@ export function* confirmNewPasswordSaga({
     yield call(amplifyApi.changePassword, user, tempPassword, newPassword);
     yield call(getObjectAttributesSaga);
 
-    yield put(confirmNewPasswordSuccess(attributes));
+    yield put(successAction(attributes));
   } catch (e) {
-    yield put(confirmNewPasswordFailure(e as Error));
+    yield put(failureAction(e as Error));
   }
 }

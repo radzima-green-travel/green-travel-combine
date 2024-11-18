@@ -6,7 +6,7 @@ import {
   useRequestLoading,
   useTranslation,
 } from 'core/hooks';
-import {sendInaccuraciesEmailRequest} from 'core/reducers';
+import {sendInaccuraciesEmailRequest} from 'core/actions';
 import {useCallback} from 'react';
 import {Keyboard} from 'react-native';
 import {useDispatch} from 'react-redux';

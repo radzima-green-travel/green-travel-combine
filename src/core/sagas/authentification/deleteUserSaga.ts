@@ -2,16 +2,17 @@ import {all, call, put, select, take} from 'redux-saga/effects';
 import {amplifyApi} from 'api/amplify';
 
 import {
-  deleteUserSuccess,
-  deleteUserFailure,
+  deleteUserRequest,
   inAppBrowserCancelOperation,
   inAppBrowserSuccessOperation,
   clearUserData,
-} from 'core/reducers';
+} from 'core/actions';
 
 import {selectIsAuthorizedWithSocialProviders} from 'core/selectors';
 
-export function* deleteUserSaga() {
+export function* deleteUserSaga({
+  meta: {successAction, failureAction},
+}: ReturnType<typeof deleteUserRequest>) {
   try {
     const isAuthorizedWithSocialProviders: ReturnType<
       typeof selectIsAuthorizedWithSocialProviders
@@ -30,9 +31,9 @@ export function* deleteUserSaga() {
       }),
     ]);
 
-    yield put(deleteUserSuccess());
+    yield put(successAction());
     yield put(clearUserData());
   } catch (e) {
-    yield put(deleteUserFailure(e as Error));
+    yield put(failureAction(e as Error));
   }
 }

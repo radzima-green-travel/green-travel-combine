@@ -1,21 +1,15 @@
 import {call, put, select, spawn} from 'redux-saga/effects';
 
 import {languageService} from 'services/LanguageService';
-import {ActionType} from 'typesafe-actions';
-import {
-  changeLanguageRequest,
-  changeLanguageSuccess,
-  changeLanguageFailure,
-  setLanguage,
-} from '../../reducers';
+import {changeLanguageRequest, setLanguage} from 'core/actions';
 import {ILabelError, SupportedLocales} from 'core/types';
 import {selectUserAuthorized} from 'core/selectors';
 import {updateUserAttributesSaga} from '../authentification/updateUserAttributesSaga';
 
 export function* changeAppLanguageSaga({
   payload: {language, isSystemLanguage},
-  meta: {entityId},
-}: ActionType<typeof changeLanguageRequest>) {
+  meta: {entityId, successAction, failureAction},
+}: ReturnType<typeof changeLanguageRequest>) {
   let nextLanguage = language;
 
   try {
@@ -46,8 +40,12 @@ export function* changeAppLanguageSaga({
       });
     }
 
-    yield put(changeLanguageSuccess(undefined, {entityId: entityId}));
+    yield put(successAction(undefined, {entityId}));
   } catch (e) {
-    yield put(changeLanguageFailure(e as ILabelError, {entityId: entityId}));
+    yield put(
+      failureAction(e as ILabelError, {
+        entityId,
+      }),
+    );
   }
 }

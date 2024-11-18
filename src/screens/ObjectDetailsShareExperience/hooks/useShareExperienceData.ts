@@ -9,7 +9,7 @@ import {
   clearShareExperienceData,
   updateVisitedObjectRequest,
   sendInaccuraciesEmailRequest,
-} from 'core/reducers';
+} from 'core/actions';
 import {selectObjectShareExperienceData} from 'core/selectors';
 import {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';

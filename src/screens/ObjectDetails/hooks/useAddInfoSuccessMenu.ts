@@ -1,5 +1,5 @@
 import {useBottomMenu, useOnRequestSuccess} from 'core/hooks';
-import {sendAddInfoEmailRequest} from 'core/reducers';
+import {sendAddInfoEmailRequest} from 'core/actions';
 
 export const useAddInfoSuccessMenu = () => {
   const addInfoSuccessMenuProps = useBottomMenu();

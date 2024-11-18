@@ -11,7 +11,7 @@ import {useShareExperienceMenu, useShareExperienceData} from './hooks';
 import {
   sendInaccuraciesEmailRequest,
   updateVisitedObjectRequest,
-} from 'core/reducers';
+} from 'core/actions';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const ObjectDetailsShareExperience = () => {

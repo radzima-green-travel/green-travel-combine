@@ -1,5 +1,5 @@
 import {call, take, race} from 'redux-saga/effects';
-import {inAppBrowserCancelOperation} from 'core/reducers';
+import {inAppBrowserCancelOperation} from 'core/actions';
 import {CognitoUserWithAttributes} from 'core/types';
 import {amplifyApi} from 'api/amplify';
 import {
