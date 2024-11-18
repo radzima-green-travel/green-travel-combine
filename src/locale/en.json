@@ -196,7 +196,7 @@
       "considerDistance": "Consider the distance",
       "upTo": "up to {{distance}} km"
     },
-    "hideVisit": "Hide visit",
+    "hideVisit": "Hide visited",
     "any": "Any",
     "clear": "Clear",
     "showAll": "Show {{amount}} objects",
