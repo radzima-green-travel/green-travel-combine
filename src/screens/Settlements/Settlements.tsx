@@ -3,19 +3,13 @@ import {Text, TouchableOpacity, View, KeyboardAvoidingView} from 'react-native';
 import {HighlightedText, SnackBar, SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {screenOptions} from './screenOptions';
-import {themeStyles, ITEM_HEIGHT} from './styles';
+import {themeStyles} from './styles';
 import {SectionList} from 'react-native';
 import {ButtonsGroup, SearchField} from 'molecules';
 import {useSettlements} from './hooks';
 import {getPlatformsTestID} from 'core/helpers';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ListItem} from 'molecules/ListItem';
-
-const getItemLayout = (_, index) => ({
-  length: ITEM_HEIGHT,
-  offset: ITEM_HEIGHT * index,
-  index,
-});
 
 export const Settlements = () => {
   const styles = useThemeStyles(themeStyles);
@@ -129,15 +123,10 @@ export const Settlements = () => {
           <SectionList
             ListHeaderComponent={SelectedSettlementsSection}
             contentContainerStyle={styles.sectionListContentContainer}
-            showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={true}
             sections={settlementsSections}
             keyExtractor={item => item.id}
             stickySectionHeadersEnabled={false}
-            maintainVisibleContentPosition={{
-              minIndexForVisible: 1,
-              autoscrollToTopThreshold: 1,
-            }}
-            getItemLayout={getItemLayout}
             renderItem={({item}) => (
               <ListItem
                 type={'checkbox'}

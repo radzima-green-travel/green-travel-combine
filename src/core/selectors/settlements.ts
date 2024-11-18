@@ -47,9 +47,8 @@ export const selectSettlementsSections = createSelector(
 );
 
 export const selectSelectedSettlementsSection = createSelector(
-  selectFilteredSettlements,
-  (_: IState, _1: string[], _2: string, selectedSettlements: string[]) =>
-    selectedSettlements,
+  selectSettlements,
+  (_: IState, selectedSettlements: string[]) => selectedSettlements,
   (filteredSettlements, selectedSettlements) =>
     prepareSelectedSettlementsSection(filteredSettlements, selectedSettlements),
 );

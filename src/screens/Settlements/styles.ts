@@ -61,6 +61,7 @@ export const themeStyles = createThemeStyles({
   },
   listEmptyContainer: {
     flex: 1,
+    minHeight: 400,
     justifyContent: 'center',
     alignItems: 'center',
   },
