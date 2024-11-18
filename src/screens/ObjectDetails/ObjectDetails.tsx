@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React, {useCallback} from 'react';
 import {Text, View} from 'react-native';
 
@@ -192,7 +191,7 @@ export const ObjectDetails = () => {
               <View style={styles.visitedButtonContainer}>
                 <Button
                   testID={'markAsVisitedButton'}
-                  icon={textStyle =>
+                  renderIcon={textStyle =>
                     isVisited ? (
                       <Icon style={textStyle} name={'check'} />
                     ) : (
@@ -307,7 +306,7 @@ export const ObjectDetails = () => {
               <Button
                 style={styles.reportInaccuraciesButton}
                 onPress={openInnacurateInfoMenu}
-                icon={textStyle => <Icon style={textStyle} name="mail" />}
+                renderIcon={textStyle => <Icon style={textStyle} name="mail" />}
                 theme="tertiary"
                 text={t('reportInaccuracies')}
                 testID={'reportInaccuraciesButton'}

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import {useThemeStyles} from 'core/hooks';
 import {Image} from 'expo-image';
 import React, {memo} from 'react';
@@ -69,7 +68,7 @@ export const Card = memo(
             testID={composeTestID(testID, 'button')}
             theme="quarterly"
             isIconOnlyButton
-            icon={textStyle => (
+            renderIcon={textStyle => (
               <Icon
                 testID={composeTestID(testID, 'buttonIcon')}
                 name={rightButtonIcon}
