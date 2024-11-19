@@ -35,6 +35,9 @@ export const themeStyles = {
   button: {
     marginTop: 14,
   },
+  noBottomInset: {
+    marginBottom: 16,
+  },
 
   icon: {
     color: {light: COLORS.logCabin, dark: COLORS.altoForDark},

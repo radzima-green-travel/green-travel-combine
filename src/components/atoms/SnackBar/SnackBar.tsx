@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React, {memo, forwardRef, useMemo} from 'react';
 import {View, Text} from 'react-native';
 
@@ -66,7 +65,7 @@ export const SnackBar = memo(
                 style={styles.icon}
                 onPress={hide}
                 isIconOnlyButton
-                icon={() => (
+                renderIcon={() => (
                   <Icon
                     testID={composeTestID(testID, 'closeIcon')}
                     name={'close'}

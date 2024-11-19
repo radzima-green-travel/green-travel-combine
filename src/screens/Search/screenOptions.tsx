@@ -92,8 +92,9 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
       <Button
         testID={testID}
         isIconOnlyButton
-        // eslint-disable-next-line react/no-unstable-nested-components
-        icon={textStyle => <Icon name="tune" size={24} style={textStyle} />}
+        renderIcon={textStyle => (
+          <Icon name="tune" size={24} style={textStyle} />
+        )}
         onPress={() => {
           navigation.navigate('Filter', {
             initialFilters: filtersToApply

@@ -77,8 +77,8 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
       {
         text: t('delete'),
         onPress: () => {
-          sendUnmarkOptionClickEvent(),
-            dispatch(deleteVisitedObjectRequest({objectId}));
+          sendUnmarkOptionClickEvent();
+          dispatch(deleteVisitedObjectRequest({objectId}));
         },
       },
       {text: t('cancel'), style: 'cancel', onPress: sendCancelOptionClickEvent},

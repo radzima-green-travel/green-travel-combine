@@ -95,7 +95,7 @@ export const ObjectDetailsMapBottomMenu = memo(
 
           <Button
             testID={composeTestID(testID, 'showDirectionButton')}
-            style={[styles.button, !bottomInset && {marginBottom: 16}]}
+            style={[styles.button, !bottomInset && styles.noBottomInset]}
             loading={loading}
             onPress={() => {
               onButtonPress(data);

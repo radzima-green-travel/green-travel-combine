@@ -41,7 +41,7 @@ export const AuthMethods = memo(
         style={styles.otherOptionsButton}
         onPress={onAppleButtonPress}
         text={t('appleAuth')}
-        icon={() => <Icon name={'appleAuth'} style={styles.appleIcon} />}
+        renderIcon={() => <Icon name={'appleAuth'} style={styles.appleIcon} />}
         loading={appleLoading}
         disabled={googleLoading || facebookLoading}
         iconPosition="left"
@@ -55,7 +55,7 @@ export const AuthMethods = memo(
         style={styles.otherOptionsButton}
         onPress={onGoogleButtonPress}
         text={t('googleAuth')}
-        icon={() => <Icon name={'googleAuth'} />}
+        renderIcon={() => <Icon name={'facebookAuth'} />}
         loading={googleLoading}
         disabled={appleLoading || facebookLoading}
         textStyle={styles.otherButtonText}
@@ -81,7 +81,7 @@ export const AuthMethods = memo(
           text={t('facebookAuth')}
           disabled={googleLoading || facebookLoading}
           loading={facebookLoading}
-          icon={() => <Icon name={'facebookAuth'} />}
+          renderIcon={() => <Icon name={'facebookAuth'} />}
           iconPosition="left"
         />
         {isIOS && getGmailButton()}
@@ -92,7 +92,7 @@ export const AuthMethods = memo(
           style={styles.otherOptionsButton}
           onPress={onEmailButtonPress}
           text={t('emailAuth')}
-          icon={() => (
+          renderIcon={() => (
             <Icon name={'emailAuth'} style={styles.emailIconOtherOption} />
           )}
           iconPosition="left"

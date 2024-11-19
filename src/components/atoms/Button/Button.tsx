@@ -25,7 +25,7 @@ export type Props = {
   loading?: boolean;
   disabled?: boolean;
   checked?: boolean;
-  icon?: (textStyle: StyleProp<TextStyle>) => React.ReactElement;
+  renderIcon?: (textStyle: StyleProp<TextStyle>) => React.ReactElement;
   testID: string;
   iconPosition?: 'left' | 'center';
   isIconOnlyButton?: boolean;
@@ -38,7 +38,7 @@ export const Button = memo(
   ({
     onPress,
     text,
-    icon,
+    renderIcon,
     loading = false,
     disabled = false,
     checked = false,
@@ -73,14 +73,14 @@ export const Button = memo(
 
       return (
         <View style={styles.contentContainer}>
-          {icon ? (
+          {renderIcon ? (
             <Animated.View
               style={[
                 !isIconOnlyButton && styles.iconContainer,
                 iconPosition === 'left' && styles.leftIconContainer,
                 iconContainerAnimatedStyle,
               ]}>
-              {icon(textThemeStyles)}
+              {renderIcon(textThemeStyles)}
             </Animated.View>
           ) : null}
           {text && !isIconOnlyButton ? (

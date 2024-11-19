@@ -35,4 +35,8 @@ export const themeLayerStyles = {
   areaStroke: {
     lineColor: COLORS.forestGreen,
   } as StyleProp<LineLayerStyle>,
+
+  container: {
+    flex: 1,
+  },
 };

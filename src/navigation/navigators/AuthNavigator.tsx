@@ -29,11 +29,15 @@ export function AuthNavigator() {
     navigation.goBack();
   }, [navigation]);
 
+  const getHeaderRight = () => (
+    <HeaderCancelButton onPress={onHeaderRightPress} />
+  );
+
   const screenOptions = useScreenOptions({
     withBottomInset: true,
     title: '',
     animation: defaultTransition,
-    headerRight: () => <HeaderCancelButton onPress={onHeaderRightPress} />,
+    headerRight: getHeaderRight,
     orientation: 'portrait',
   });
 
