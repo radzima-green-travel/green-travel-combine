@@ -78,4 +78,13 @@ export const themeStyles = createThemeStyles({
     flexGrow: 1,
     paddingBottom: 16,
   },
+
+  categoryList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    left: -4,
+  },
+  chipContainer: {
+    margin: 4,
+  },
 });

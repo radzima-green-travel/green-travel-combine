@@ -216,7 +216,8 @@
           "text": "Не удалось получить геолокацию"
         }
       }
-    }
+    },
+    "selected": "Выбрано"
   },
   "authentification": {
     "validation": {

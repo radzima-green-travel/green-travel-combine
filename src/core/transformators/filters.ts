@@ -2,6 +2,7 @@ import {
   SearchFilters,
   FiltersParams,
   ObjectFiltersAggregationsDTO,
+  GoogleRatingsAggregationsByObjectsDTO,
 } from 'core/types';
 import {reduce} from 'lodash';
 
@@ -18,23 +19,21 @@ export const transformBucketsToCountMap = (
   );
 
 export function prepareGoogleRatings(
-  ratings: {
-    key: string;
-    from: number;
-  }[],
+  ratings: GoogleRatingsAggregationsByObjectsDTO[],
 ) {
   return reduce(
     ratings,
-    (acc, {from, key}) => {
+    (acc, {from, key, doc_count}) => {
       if (from >= 3.5) {
         acc.push({
           id: String(from),
           value: key,
+          disabled: !doc_count,
         });
       }
       return acc;
     },
-    [] as {id: string; value: string}[],
+    [] as {id: string; value: string; disabled: boolean}[],
   );
 }
 
@@ -42,6 +41,10 @@ export function prepareAggregationsWithNumberOfItems(
   aggregations?: ObjectFiltersAggregationsDTO,
 ) {
   return {
+    categoriesWithNumberOfItems: transformBucketsToCountMap(
+      aggregations?.categories?.facets?.buckets || [],
+    ),
+
     settlementsWithNumberOfItems: transformBucketsToCountMap(
       aggregations?.municipalities?.facets?.buckets || [],
     ),

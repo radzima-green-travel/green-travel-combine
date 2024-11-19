@@ -29,6 +29,7 @@ export const filterObjects = createFilterObjectsQuery(`
         doc_count
         facets {
           buckets {
+            doc_count
             from
             key
           }

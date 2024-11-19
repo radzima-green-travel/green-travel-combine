@@ -51,14 +51,14 @@ export const Chip = memo(
 
     const textThemeStyles = [
       chipThemeStyles.text,
-      active && chipThemeStyles.activeText,
       disabled && chipThemeStyles.disabledText,
+      active && chipThemeStyles.activeText,
     ];
 
     const iconThemeStyles = [
       chipThemeStyles.icon,
-      active && chipThemeStyles.activeIcon,
       disabled && chipThemeStyles.disabledIcon,
+      active && chipThemeStyles.activeIcon,
     ];
 
     const finalTextStyle = [styles.text, textThemeStyles, textStyle];
@@ -99,18 +99,18 @@ export const Chip = memo(
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.9}
-        disabled={disabled}
+        disabled={!active && disabled}
         accessible={false}
         style={[
           styles.container,
           chipThemeStyles.container,
-          outlined && chipThemeStyles.outlinedBorder,
-          active && chipThemeStyles.active,
           disabled && chipThemeStyles.disabled,
+          active && chipThemeStyles.active,
+          outlined && chipThemeStyles.outlinedBorder,
           style,
         ]}
         testID={testID}
-        accessibilityState={{checked, disabled}}>
+        accessibilityState={{checked, disabled: !active && disabled}}>
         {renderContent()}
       </TouchableOpacity>
     );

@@ -41,6 +41,7 @@ export const Filters = () => {
     getFiltersData,
     onExcludeVisitedPress,
     activeFilters,
+    getIsCategoryDisabled,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -100,6 +101,7 @@ export const Filters = () => {
                     active={activeFilters.categories?.includes(id)}
                     onPress={() => chooseCategory(id)}
                     key={id}
+                    disabled={getIsCategoryDisabled(id)}
                     testID={name}
                     text={name}
                     style={styles.chipContainer}
@@ -159,7 +161,7 @@ export const Filters = () => {
               <Multiswitch
                 activeItemId={activeFilters.googleRating}
                 items={googleRatings}
-                defaultValue={{id: 'Any', value: t('any')}}
+                defaultValue={{id: 'Any', value: t('any'), disabled: false}}
                 onItemPress={updateRatings}
                 testID={'googleRating'}
               />

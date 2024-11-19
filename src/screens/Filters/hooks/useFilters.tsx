@@ -48,9 +48,11 @@ export const useFilters = () => {
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
   const emptyActiveFilters = useSelector(selectAreAllActiveFiltersUnset);
-  const {settlementsWithNumberOfItems, regionsWithNumberOfItems} = useSelector(
-    selectTransformedAggregationsWithNumberOfItems,
-  );
+  const {
+    settlementsWithNumberOfItems,
+    categoriesWithNumberOfItems,
+    regionsWithNumberOfItems,
+  } = useSelector(selectTransformedAggregationsWithNumberOfItems);
   const distanceFilterLocation = useSelector(selectDistanceFilterLocation);
   const activeFiltersLocation = useSelector(selectActiveFiltersLocation);
 
@@ -234,12 +236,16 @@ export const useFilters = () => {
 
   const getIsRegionDisabled = useCallback(
     (regionID: string) => {
-      return (
-        Boolean(activeFilters.municipalities.length) &&
-        regionsWithNumberOfItems[regionID] === 0
-      );
+      return regionsWithNumberOfItems[regionID] === 0;
     },
-    [activeFilters.municipalities.length, regionsWithNumberOfItems],
+    [regionsWithNumberOfItems],
+  );
+
+  const getIsCategoryDisabled = useCallback(
+    (categoryId: string) => {
+      return categoriesWithNumberOfItems[categoryId] === 0;
+    },
+    [categoriesWithNumberOfItems],
   );
 
   const applyFilters = useCallback(() => {
@@ -271,6 +277,7 @@ export const useFilters = () => {
     total,
     snackBarProps,
     getIsRegionDisabled,
+    getIsCategoryDisabled,
     applyFilters,
     onExcludeVisitedPress,
   };
