@@ -14,7 +14,7 @@ import {store} from 'core/store';
 import {
   inAppBrowserSuccessOperation,
   inAppBrowserCancelOperation,
-} from 'core/reducers';
+} from 'core/actions';
 
 async function urlOpener(url, redirectUrl) {
   // await InAppBrowser.isAvailable();

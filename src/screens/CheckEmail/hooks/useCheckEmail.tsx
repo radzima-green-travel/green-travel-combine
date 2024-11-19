@@ -6,7 +6,7 @@ import {
 } from 'core/hooks';
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {checkUserEmailRequest} from 'core/reducers';
+import {checkUserEmailRequest} from 'core/actions';
 import {CheckEmailScreenNavigationProps} from '../types';
 import {useSnackbar} from 'atoms';
 import {useFormik} from 'formik';

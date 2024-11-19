@@ -3,7 +3,7 @@ import {put, delay, call} from 'redux-saga/effects';
 import {
   scheduleShareExperienceMenu,
   setShareExperienceData,
-} from 'core/reducers';
+} from 'core/actions';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 export function* scheduleShareExperienceMenuSaga({

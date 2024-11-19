@@ -10,7 +10,7 @@ import {
   useOnSuccessSignIn,
 } from 'core/hooks';
 import {useRoute} from '@react-navigation/native';
-import {confirmNewPasswordRequest} from 'core/reducers';
+import {confirmNewPasswordRequest} from 'core/actions';
 import {NewPasswordScreenRouteProps} from '../types';
 import {useFormik} from 'formik';
 import {SignInFormModel} from 'core/types';

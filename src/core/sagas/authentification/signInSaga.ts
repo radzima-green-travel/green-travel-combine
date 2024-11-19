@@ -1,9 +1,8 @@
 import {call, put, select, spawn} from 'redux-saga/effects';
-import {ActionType} from 'typesafe-actions';
 import {amplifyApi} from 'api/amplify';
 import {createAuthHubChannel} from './createAuthHubChannel';
 
-import {signInRequest, signInSuccess, signInFailure} from 'core/reducers';
+import {signInRequest} from 'core/actions';
 import {CognitoUserWithAttributes, SupportedLocales} from '../../types';
 import {socialSignInSaga} from './socialSignInSaga';
 import {selectAppLanguage} from 'core/selectors';
@@ -12,7 +11,8 @@ import {getObjectAttributesSaga} from '../objectAttributes';
 
 export function* signInSaga({
   payload: {email, password, socialProvider},
-}: ActionType<typeof signInRequest>) {
+  meta: {successAction, failureAction},
+}: ReturnType<typeof signInRequest>) {
   const authChannel = createAuthHubChannel();
   try {
     let user: CognitoUserWithAttributes | null = null;
@@ -33,10 +33,16 @@ export function* signInSaga({
       yield call(getObjectAttributesSaga);
     }
     yield put(
-      signInSuccess(user?.attributes || null, {entityId: socialProvider}),
+      successAction(user?.attributes || null, {
+        entityId: socialProvider,
+      }),
     );
   } catch (e) {
-    yield put(signInFailure(e as Error, {entityId: socialProvider}));
+    yield put(
+      failureAction(e as Error, {
+        entityId: socialProvider,
+      }),
+    );
   } finally {
     authChannel.close();
   }

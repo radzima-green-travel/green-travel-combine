@@ -1,15 +1,12 @@
 import {call, put} from 'redux-saga/effects';
 
-import {
-  updateVisitedObjectRequest,
-  updateVisitedObjectSuccess,
-  updateVisitedObjectFailure,
-} from 'core/reducers';
+import {updateVisitedObjectRequest} from 'core/actions';
 
 import {amplifyApi} from 'api/amplify';
 
 export function* updateVisitedObjectSaga({
   payload,
+  meta: {successAction, failureAction},
 }: ReturnType<typeof updateVisitedObjectRequest>) {
   const {objectId, data} = payload;
   try {
@@ -22,8 +19,8 @@ export function* updateVisitedObjectSaga({
       },
     });
 
-    yield put(updateVisitedObjectSuccess());
+    yield put(successAction());
   } catch (e) {
-    yield put(updateVisitedObjectFailure(e as Error));
+    yield put(failureAction(e as Error));
   }
 }

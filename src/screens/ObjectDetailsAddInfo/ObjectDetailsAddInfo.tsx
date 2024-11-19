@@ -9,7 +9,7 @@ import {ObjectDetailsAddInfoMenu} from 'organisms';
 import {ObjectField} from 'core/constants';
 import {BottomMenu} from 'atoms';
 import {ConfirmMenu} from 'molecules';
-import {sendAddInfoEmailRequest} from 'core/reducers';
+import {sendAddInfoEmailRequest} from 'core/actions';
 import {selectForPlatform} from 'services/PlatformService';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 

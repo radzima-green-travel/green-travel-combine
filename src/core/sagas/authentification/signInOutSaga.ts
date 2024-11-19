@@ -2,15 +2,16 @@ import {all, call, put, select, take} from 'redux-saga/effects';
 import {amplifyApi} from 'api/amplify';
 
 import {
-  signOutFailure,
-  signOutSuccess,
+  signOutRequest,
   inAppBrowserCancelOperation,
   inAppBrowserSuccessOperation,
   clearUserData,
-} from 'core/reducers';
+} from 'core/actions';
 import {selectIsAuthorizedWithSocialProviders} from 'core/selectors';
 
-export function* signInOutSaga() {
+export function* signInOutSaga({
+  meta: {successAction, failureAction},
+}: ReturnType<typeof signOutRequest>) {
   try {
     const isAuthorizedWithSocialProviders: ReturnType<
       typeof selectIsAuthorizedWithSocialProviders
@@ -29,9 +30,9 @@ export function* signInOutSaga() {
       }),
     ]);
 
-    yield put(signOutSuccess());
+    yield put(successAction());
     yield put(clearUserData());
   } catch (e) {
-    yield put(signOutFailure(e as Error));
+    yield put(failureAction(e as Error));
   }
 }

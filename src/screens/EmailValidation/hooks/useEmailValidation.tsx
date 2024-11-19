@@ -7,7 +7,7 @@ import {
   resendSignUpCodeRequest,
   forgotPasswordCodeSubmitRequest,
   confirmSignUpCancel,
-} from 'core/reducers';
+} from 'core/actions';
 import {
   useOnSuccessSignIn,
   useOnRequestError,

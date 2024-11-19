@@ -1,10 +1,12 @@
 import {call, put, select} from 'redux-saga/effects';
-import {ActionType} from 'typesafe-actions';
 import {Auth} from 'aws-amplify';
-import {signUpRequest, signUpSuccess, signUpFailure} from 'core/reducers';
+import {signUpRequest} from 'core/actions';
 import {selectAppLanguage} from 'core/selectors';
 
-export function* signUpSaga({payload}: ActionType<typeof signUpRequest>) {
+export function* signUpSaga({
+  payload,
+  meta: {successAction, failureAction},
+}: ReturnType<typeof signUpRequest>) {
   try {
     const locale = yield select(selectAppLanguage);
 
@@ -22,8 +24,8 @@ export function* signUpSaga({payload}: ActionType<typeof signUpRequest>) {
       },
     });
 
-    yield put(signUpSuccess(payload.email));
+    yield put(successAction(payload.email));
   } catch (e) {
-    yield put(signUpFailure(e as Error));
+    yield put(failureAction(e as Error));
   }
 }

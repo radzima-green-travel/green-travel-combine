@@ -20,12 +20,12 @@ import {
   userReducer,
   settlementsReducer,
   searchHistoryReducer,
+  objectDetailsReducer,
+  settingsReducer,
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
-// import logger from 'redux-logger';
-import {settingsReducer} from './reducers/SettingsReducer';
-import {objectDetailsReducer} from './reducers/objectDetails';
+
 const AsyncStorage = reduxStorage;
 
 const userPersistConfig = {

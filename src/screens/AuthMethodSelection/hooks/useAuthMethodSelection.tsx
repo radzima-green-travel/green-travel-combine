@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {AuthMethodSelectionScreenNavigationProps} from '../types';
 
 import {useDispatch} from 'react-redux';
-import {signInRequest} from 'core/reducers';
+import {signInRequest} from 'core/actions';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 import {useNavigateToPrivacyPolicyAndTnC, useOnSuccessSignIn} from 'core/hooks';

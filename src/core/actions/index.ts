@@ -10,3 +10,8 @@ export * from './objectDetails';
 export * from './bookmarksDetails';
 export * from './appConfiguration';
 export * from './searchHistory';
+export * from './authentication';
+export * from './bootstrap';
+export * from './objectDetailsMap';
+export * from './settings';
+export * from './visitedObjects';

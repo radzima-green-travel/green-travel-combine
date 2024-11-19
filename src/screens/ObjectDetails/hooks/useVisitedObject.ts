@@ -5,7 +5,7 @@ import {
   addVisitedObjectRequest,
   deleteVisitedObjectRequest,
   scheduleShareExperienceMenu,
-} from 'core/reducers';
+} from 'core/actions';
 import {selectUserAuthorized, selectVisitedObjectsIds} from 'core/selectors';
 import {some, isEqual} from 'lodash';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';

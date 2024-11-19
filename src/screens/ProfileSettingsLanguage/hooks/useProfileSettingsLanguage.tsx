@@ -1,4 +1,4 @@
-import {changeLanguageRequest} from 'core/reducers';
+import {changeLanguageRequest} from 'core/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useCallback} from 'react';
 import {selectAppLanguage, selectIsSystemLanguage} from 'core/selectors';

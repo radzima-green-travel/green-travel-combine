@@ -4,7 +4,7 @@ import {navigationRef} from 'services/NavigationService';
 import * as SplashScreen from 'expo-splash-screen';
 import {MainNavigator} from './MainNavigator';
 import {useDispatch, useSelector} from 'react-redux';
-import {bootstrapRequest} from 'core/reducers';
+import {bootstrapRequest} from 'core/actions';
 import {StatusBar} from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {

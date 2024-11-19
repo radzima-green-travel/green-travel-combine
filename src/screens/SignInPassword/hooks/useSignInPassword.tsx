@@ -7,7 +7,7 @@ import {
   useRequestLoading,
   useTogglePasswordHidden,
 } from 'core/hooks';
-import {signInRequest} from 'core/reducers';
+import {signInRequest} from 'core/actions';
 import {useDispatch} from 'react-redux';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {
