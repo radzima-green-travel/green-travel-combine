@@ -20,7 +20,6 @@ import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
-  useDeepCompareLayoutEffect,
 } from 'core/hooks';
 import {
   getFiltersDataRequest,
@@ -199,25 +198,6 @@ export const useFilters = () => {
   }, [activeFilters.municipalities, settlementsWithNumberOfItems, navigation]);
 
   const isFirstRender = useRef(true);
-  const isShoudToFetchData = useRef(true);
-
-  useDeepCompareLayoutEffect(() => {
-    const availableSettlementsWithNumberOfItems = pickBy(
-      settlementsWithNumberOfItems,
-      Boolean,
-    );
-
-    isShoudToFetchData.current = false;
-
-    dispatch(
-      setActiveFilter({
-        name: 'municipalities',
-        value: activeFilters.municipalities.filter(item =>
-          Boolean(availableSettlementsWithNumberOfItems[item]),
-        ),
-      }),
-    );
-  }, [activeFilters.municipalities, dispatch, settlementsWithNumberOfItems]);
 
   const isNeedToFetchData = (() => {
     if (isFirstRender.current) {
@@ -226,7 +206,7 @@ export const useFilters = () => {
         (!isFiltersInitialDataLoaded || isString(initialQuery))
       );
     }
-    return isShoudToFetchData.current;
+    return true;
   })();
 
   useEffect(() => {
@@ -234,7 +214,6 @@ export const useFilters = () => {
       getFiltersData();
     }
     isFirstRender.current = false;
-    isShoudToFetchData.current = true;
   }, [dispatch, getFiltersData, isNeedToFetchData]);
 
   const isFocused = useIsFocused();

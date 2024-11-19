@@ -41,7 +41,3 @@ export {useSearchActions} from './useSearchActions';
 export {useSearchSelector} from './useSearchSelector';
 export {useObjectDetailsActions} from './useObjectDetailsActions';
 export {useObjectDetailsSelector} from './useObjectDetailsSelector';
-export {
-  useDeepCompareEffect,
-  useDeepCompareLayoutEffect,
-} from './useDeepCompareEffect';
