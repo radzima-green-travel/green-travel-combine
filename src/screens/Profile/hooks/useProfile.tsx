@@ -10,7 +10,8 @@ import {
   selectAppTheme,
 } from 'core/selectors';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-import {clearCacheRequest, signInRequest} from 'core/reducers';
+import {clearCacheRequest} from 'core/actions';
+import {signInRequest} from 'core/actions';
 import {useNavigateToPrivacyPolicyAndTnC, useTranslation} from 'core/hooks';
 import {useSnackbar} from '../../../components/atoms';
 import {getLanguageByLocale} from 'core/helpers';

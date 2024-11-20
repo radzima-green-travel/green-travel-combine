@@ -1,5 +1,5 @@
 import {put} from 'redux-saga/effects';
-import {clearVisitedObjects} from 'core/reducers';
+import {clearVisitedObjects} from 'core/actions';
 import {clearBookmarks} from 'core/actions';
 
 export function* clearUserDataSaga() {

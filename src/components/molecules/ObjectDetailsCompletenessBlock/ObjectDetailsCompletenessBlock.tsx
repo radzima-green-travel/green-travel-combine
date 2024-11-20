@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import React, {memo} from 'react';
 import {View, Text} from 'react-native';
@@ -74,7 +73,9 @@ export const ObjectDetailsCompletenessBlock = memo(
         <Button
           testID={composeTestID(testID, 'addInformationButton')}
           style={styles.button}
-          icon={textStyle => <Icon name="pen" size={24} style={textStyle} />}
+          renderIcon={textStyle => (
+            <Icon name="pen" size={24} style={textStyle} />
+          )}
           theme="secondary"
           text={t('addInformation')}
           onPress={onAddInformationPress}

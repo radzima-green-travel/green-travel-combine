@@ -1,11 +1,10 @@
 import {Alert} from 'react-native';
-import {EmptyActionCreator, PayloadAction} from 'typesafe-actions';
+import {Action} from 'react-redux-help-kit';
 
 import {useOnRequestError} from './useOnRequestError';
 
-type ActionCreator = (payload: any) => PayloadAction<string, any>;
 export function useRequestErrorAlert(
-  action: EmptyActionCreator<string> | ActionCreator,
+  action: Action,
   translationRooKeyt: string,
 ) {
   useOnRequestError(action, translationRooKeyt, ({text, title}) => {

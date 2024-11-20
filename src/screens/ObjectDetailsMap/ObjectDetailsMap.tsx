@@ -61,7 +61,7 @@ export const ObjectDetailsMap = () => {
   });
 
   return (
-    <View style={{flex: 1}}>
+    <View style={layersStyles.container}>
       <ClusterMap
         attributionPosition={{bottom: 40, right: 30}}
         centerCoordinate={centerCoordinate}

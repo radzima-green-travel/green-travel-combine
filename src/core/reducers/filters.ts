@@ -56,9 +56,12 @@ function getNewFilterState(
 export const filtersReducer = createReducer(initialState, builder => {
   builder
     .addCase(setActiveFilter, (state, {payload}) => {
-      state.activeFilters = {
-        ...state.activeFilters,
-        [payload.name]: getNewFilterState(payload, state.activeFilters),
+      return {
+        ...state,
+        activeFilters: {
+          ...state.activeFilters,
+          [payload.name]: getNewFilterState(payload, state.activeFilters),
+        },
       };
     })
     .addCase(clearFilters, state => {

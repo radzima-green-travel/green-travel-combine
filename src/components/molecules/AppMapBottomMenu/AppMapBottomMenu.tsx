@@ -80,7 +80,7 @@ export const AppMapBottomMenu = memo(
           </View>
           <Button
             testID={composeTestID(testID, 'getMoreButton')}
-            style={[styles.button, !bottomInset && {marginBottom: 16}]}
+            style={[styles.button, !bottomInset && styles.noBottomInset]}
             onPress={() => {
               onGetMorePress(data);
             }}

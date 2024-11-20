@@ -2,7 +2,7 @@ import {call, put, select} from 'redux-saga/effects';
 
 import {languageService} from 'services/LanguageService';
 import {selectAppLanguage, selectIsSystemLanguage} from 'core/selectors';
-import {setLanguage} from 'core/reducers';
+import {setLanguage} from 'core/actions';
 
 export function* initAppLocaleSaga() {
   let language = yield select(selectAppLanguage);

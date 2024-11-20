@@ -11,7 +11,7 @@ import {
   SignUpFormScreenNavigationProps,
 } from '../types';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {signUpRequest} from 'core/reducers';
+import {signUpRequest} from 'core/actions';
 import {useFormik} from 'formik';
 import {SignUpFormModel} from 'core/types';
 import {validationSchema} from './validation';

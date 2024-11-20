@@ -5,7 +5,7 @@ import {
   addVisitedObjectRequest,
   deleteVisitedObjectRequest,
   scheduleShareExperienceMenu,
-} from 'core/reducers';
+} from 'core/actions';
 import {selectUserAuthorized, selectVisitedObjectsIds} from 'core/selectors';
 import {some, isEqual} from 'lodash';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
@@ -77,8 +77,8 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
       {
         text: t('delete'),
         onPress: () => {
-          sendUnmarkOptionClickEvent(),
-            dispatch(deleteVisitedObjectRequest({objectId}));
+          sendUnmarkOptionClickEvent();
+          dispatch(deleteVisitedObjectRequest({objectId}));
         },
       },
       {text: t('cancel'), style: 'cancel', onPress: sendCancelOptionClickEvent},

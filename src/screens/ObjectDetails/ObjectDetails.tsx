@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React, {useCallback} from 'react';
 import {Text, View} from 'react-native';
 
@@ -192,7 +191,7 @@ export const ObjectDetails = () => {
               <View style={styles.visitedButtonContainer}>
                 <Button
                   testID={'markAsVisitedButton'}
-                  icon={textStyle =>
+                  renderIcon={textStyle =>
                     isVisited ? (
                       <Icon style={textStyle} name={'check'} />
                     ) : (
@@ -202,7 +201,7 @@ export const ObjectDetails = () => {
                   onPress={markAsVisited}
                   text={isVisited ? t('visitedObject') : t('markAsVisited')}
                   theme={'secondary'}
-                  style={{backgroundColor: 'rgba(0, 0, 0, 0)'}}
+                  style={styles.visitedButton}
                   textStyle={styles.visitedButtonText}
                   loading={visitedObjectLoading}
                   onButtonLabelLayout={onButtonLabelLayout}
@@ -307,7 +306,7 @@ export const ObjectDetails = () => {
               <Button
                 style={styles.reportInaccuraciesButton}
                 onPress={openInnacurateInfoMenu}
-                icon={textStyle => <Icon style={textStyle} name="mail" />}
+                renderIcon={textStyle => <Icon style={textStyle} name="mail" />}
                 theme="tertiary"
                 text={t('reportInaccuracies')}
                 testID={'reportInaccuraciesButton'}
@@ -317,14 +316,7 @@ export const ObjectDetails = () => {
         ) : null}
 
         {loading ? (
-          <View
-            style={{
-              position: 'absolute',
-              top: IMAGE_HEIGHT,
-              bottom: 0,
-              left: 0,
-              right: 0,
-            }}>
+          <View style={styles.loader}>
             <SuspenseView
               testID="loadingSupsenseView"
               loading={true}

@@ -14,7 +14,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {Keyboard} from 'react-native';
 import {useObjectInfoForm} from './useObjectInfoForm';
 import {useDispatch} from 'react-redux';
-import {sendAddInfoEmailRequest} from 'core/reducers';
+import {sendAddInfoEmailRequest} from 'core/actions';
 import reduce from 'lodash/reduce';
 import {useSnackbar} from 'atoms';
 import {IObjectIncompleteField} from 'core/types';

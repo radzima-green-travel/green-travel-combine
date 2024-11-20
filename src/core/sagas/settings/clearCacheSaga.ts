@@ -1,18 +1,17 @@
 import {call, put} from 'redux-saga/effects';
 
-import {
-  clearCacheRequestSuccess,
-  clearCacheRequestFailure,
-} from '../../reducers';
+import {clearCacheRequest} from 'core/actions';
 import {ILabelError} from 'core/types';
 import {Image} from 'expo-image';
 
-export function* clearCacheSaga() {
+export function* clearCacheSaga({
+  meta: {successAction, failureAction},
+}: ReturnType<typeof clearCacheRequest>) {
   try {
     yield call(Image.clearDiskCache);
 
-    yield put(clearCacheRequestSuccess());
+    yield put(successAction());
   } catch (e) {
-    yield put(clearCacheRequestFailure(e as ILabelError));
+    yield put(failureAction(e as ILabelError));
   }
 }

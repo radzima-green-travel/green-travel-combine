@@ -1,20 +1,19 @@
 import {call, put} from 'redux-saga/effects';
 import {GetVisitedObjectsResponse} from 'core/types';
-import {
-  getVisitedObjectsSuccess,
-  getVisitedObjectsFailure,
-} from 'core/reducers';
+import {getVisitedObjectsRequest} from 'core/actions';
 
 import {amplifyApi} from 'api/amplify';
 
-export function* getVisitedObjectsSaga() {
+export function* getVisitedObjectsSaga({
+  meta: {successAction, failureAction},
+}: ReturnType<typeof getVisitedObjectsRequest>) {
   try {
     const {data}: GetVisitedObjectsResponse = yield call(
       amplifyApi.getUserVisitedObjects,
     );
 
-    yield put(getVisitedObjectsSuccess(data));
+    yield put(successAction(data));
   } catch (e) {
-    yield put(getVisitedObjectsFailure(e as Error));
+    yield put(failureAction(e as Error));
   }
 }

@@ -12,7 +12,7 @@ import {
   changePasswordRequest,
   deleteUserRequest,
   signOutRequest,
-} from 'core/reducers';
+} from 'core/actions';
 import {Alert} from 'react-native';
 import {
   selectIsAuthorizedWithSocialProviders,

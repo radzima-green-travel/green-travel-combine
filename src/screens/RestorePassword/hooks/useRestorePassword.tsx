@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {useOnRequestError, useRequestLoading, useTranslation} from 'core/hooks';
 import {useNavigation} from '@react-navigation/native';
-import {forgotPasswordRequest} from 'core/reducers';
+import {forgotPasswordRequest} from 'core/actions';
 import {useOnRequestSuccess} from 'core/hooks';
 import {RestorePasswordScreenNavigationProps} from '../types';
 import {useFormik} from 'formik';

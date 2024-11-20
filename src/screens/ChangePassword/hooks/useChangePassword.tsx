@@ -8,7 +8,7 @@ import {
 } from 'core/hooks';
 import {SignUpFormScreenNavigationProps} from '../types';
 import {useNavigation} from '@react-navigation/native';
-import {changePasswordRequest} from 'core/reducers';
+import {changePasswordRequest} from 'core/actions';
 import {useFormik} from 'formik';
 import {ChangePasswordFormModel, IRequestError} from 'core/types';
 import {validationSchema} from './validation';

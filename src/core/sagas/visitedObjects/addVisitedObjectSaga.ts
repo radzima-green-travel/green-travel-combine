@@ -1,21 +1,18 @@
 import {call, put} from 'redux-saga/effects';
 
-import {
-  addVisitedObjectFailure,
-  addVisitedObjectRequest,
-  addVisitedObjectSuccess,
-} from 'core/reducers';
+import {addVisitedObjectRequest} from 'core/actions';
 
 import {amplifyApi} from 'api/amplify';
 
 export function* addVisitedObjectSaga({
   payload,
+  meta: {successAction, failureAction},
 }: ReturnType<typeof addVisitedObjectRequest>) {
   try {
     yield call(amplifyApi.addUserVisitedObject, payload);
 
-    yield put(addVisitedObjectSuccess());
+    yield put(successAction());
   } catch (e) {
-    yield put(addVisitedObjectFailure(e as Error));
+    yield put(failureAction(e as Error));
   }
 }
