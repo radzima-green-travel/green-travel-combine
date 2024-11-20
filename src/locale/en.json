@@ -216,7 +216,8 @@
           "text": "Unable to obtain geolocation"
         }
       }
-    }
+    },
+    "selected": "Selected"
   },
   "authentification": {
     "validation": {

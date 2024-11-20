@@ -36,5 +36,11 @@ export const MULTISWITCH_THEMES: {
         dark: COLORS.dark.text.constant,
       },
     },
+    disabledText: {
+      color: {
+        light: COLORS.light.text.disable,
+        dark: COLORS.dark.text.disable,
+      },
+    },
   },
 };

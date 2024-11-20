@@ -78,4 +78,23 @@ export const themeStyles = createThemeStyles({
     flexGrow: 1,
     paddingBottom: 16,
   },
+
+  categoryList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    left: -4,
+  },
+  chipContainer: {
+    margin: 4,
+  },
+  secondaryChip: {
+    backgroundColor: {
+      light: COLORS.light.background.accentLight,
+      dark: COLORS.dark.background.accentLight,
+    },
+    borderColor: {
+      light: COLORS.light.background.accentLight,
+      dark: COLORS.dark.background.accentLight,
+    },
+  },
 });

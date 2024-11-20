@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
-import {Chip, Multiswitch, SuspenseView, Icon, SnackBar} from 'atoms';
+import {Text, View} from 'react-native';
+import {Chip, Multiswitch, SuspenseView, SnackBar} from 'atoms';
 import {
   useColorScheme,
   useStatusBar,
@@ -41,6 +41,7 @@ export const Filters = () => {
     getFiltersData,
     onExcludeVisitedPress,
     activeFilters,
+    getIsCategoryDisabled,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -100,6 +101,7 @@ export const Filters = () => {
                     active={activeFilters.categories?.includes(id)}
                     onPress={() => chooseCategory(id)}
                     key={id}
+                    disabled={getIsCategoryDisabled(id)}
                     testID={name}
                     text={name}
                     style={styles.chipContainer}
@@ -122,32 +124,25 @@ export const Filters = () => {
                   />
                 ))}
               </View>
-              <FiltersSectionContainer
-                isSubSection
-                itemName={t('settlements.title')}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.settlementsContainer}
-                  onPress={navigateToSettlements}>
-                  {activeFilters.municipalities.length ? (
-                    <View style={styles.activeSettlementsLabelContainer}>
-                      <Text style={styles.activeSettlementsLabel}>
-                        {activeFilters.municipalities.length}
-                      </Text>
-                    </View>
-                  ) : (
-                    <Text style={styles.settlementsLabel}>{t('any')}</Text>
-                  )}
-                  <Icon
-                    name="chevronMediumRight"
-                    size={24}
-                    style={[
-                      styles.settlementsLabel,
-                      styles.settlementsLabelIcon,
-                    ]}
-                  />
-                </TouchableOpacity>
-              </FiltersSectionContainer>
+              <ListItem
+                testID="settlements"
+                type="primary"
+                title={t('settlements.title')}
+                boldTitle
+                containerStyle={styles.settlementsContainer}
+                onPress={navigateToSettlements}
+                tailIcon="chevronMediumRight"
+                {...(activeFilters.municipalities.length
+                  ? {
+                      label: String(activeFilters.municipalities.length),
+                      labelContainerStyle:
+                        styles.activeSettlementsLabelContainer,
+                      labelStyle: styles.activeSettlementsLabel,
+                    }
+                  : {
+                      label: t('any'),
+                    })}
+              />
               <FilterDistance
                 distance={activeFilters.distance.value}
                 isOn={activeFilters.distance.isOn}
@@ -159,13 +154,14 @@ export const Filters = () => {
               <Multiswitch
                 activeItemId={activeFilters.googleRating}
                 items={googleRatings}
-                defaultValue={{id: 'Any', value: t('any')}}
+                defaultValue={{id: 'Any', value: t('any'), disabled: false}}
                 onItemPress={updateRatings}
                 testID={'googleRating'}
               />
             </FiltersSectionContainer>
             <ListItem
               type="switch"
+              boldTitle
               title={t('hideVisit')}
               testID={'hideVisit'}
               switchProps={{

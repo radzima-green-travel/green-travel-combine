@@ -54,10 +54,11 @@ export const themeStyles = createThemeStyles({
     },
   },
   settlementsContainer: {
-    height: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
+    paddingHorizontal: 0,
   },
   settlementsLabel: {
     ...FONTS_PRESETS.subheadlineRegular,

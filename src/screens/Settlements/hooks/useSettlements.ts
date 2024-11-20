@@ -4,6 +4,7 @@ import {
   selectIsSettlementsLoaded,
   selectSettlementsSections,
   selectSelectedSettlementsSection,
+  selectFilteredSettlements,
 } from 'core/selectors';
 import {
   useRequestLoading,
@@ -51,18 +52,18 @@ export const useSettlements = () => {
 
     return false;
   }, [initialSelectedSettlements, selectedSettlements]);
+
   const [searchValue, setSearchValue] = useState('');
 
   const settlementsSections = useSelector((state: IState) =>
     selectSettlementsSections(state, regionsToInclude, searchValue),
   );
   const selectedSettlementsSection = useSelector((state: IState) =>
-    selectSelectedSettlementsSection(
-      state,
-      regionsToInclude,
-      searchValue,
-      selectedSettlements,
-    ),
+    selectSelectedSettlementsSection(state, selectedSettlements),
+  );
+
+  const filteredSettlements = useSelector((state: IState) =>
+    selectFilteredSettlements(state, regionsToInclude, searchValue),
   );
 
   const isDataLoaded = useSelector(selectIsSettlementsLoaded);
@@ -129,5 +130,6 @@ export const useSettlements = () => {
     loading,
     snackBarProps,
     clearInput,
+    filteredSettlements,
   };
 };

@@ -146,6 +146,12 @@ export interface CategoryAggregationsByObjectsDTO {
   key: string;
 }
 
+export interface GoogleRatingsAggregationsByObjectsDTO {
+  doc_count: number;
+  from: number;
+  key: string;
+}
+
 export interface CategoriesResponseDTO {
   items: Array<CategoryShortDTO>;
   nextToken: string;
@@ -202,10 +208,7 @@ export type ObjectFiltersAggregationsDTO = {
   };
   googleRatings: {
     facets: {
-      buckets: {
-        key: string;
-        from: number;
-      }[];
+      buckets: GoogleRatingsAggregationsByObjectsDTO[];
     };
   };
 };

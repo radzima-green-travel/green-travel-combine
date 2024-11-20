@@ -1,21 +1,16 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {Text, TouchableOpacity, View, KeyboardAvoidingView} from 'react-native';
-import {HighlightedText, SnackBar, SuspenseView} from 'atoms';
+import {Chip, HighlightedText, SnackBar, SuspenseView} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {screenOptions} from './screenOptions';
-import {themeStyles, ITEM_HEIGHT} from './styles';
+import {themeStyles} from './styles';
 import {SectionList} from 'react-native';
-import {ButtonsGroup, SearchField} from 'molecules';
+import {ButtonsGroup, FiltersSectionContainer, SearchField} from 'molecules';
 import {useSettlements} from './hooks';
 import {getPlatformsTestID} from 'core/helpers';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ListItem} from 'molecules/ListItem';
-
-const getItemLayout = (_, index) => ({
-  length: ITEM_HEIGHT,
-  offset: ITEM_HEIGHT * index,
-  index,
-});
+import {every} from 'lodash';
 
 export const Settlements = () => {
   const styles = useThemeStyles(themeStyles);
@@ -38,6 +33,7 @@ export const Settlements = () => {
     loading,
     snackBarProps,
     clearInput,
+    filteredSettlements,
   } = useSettlements();
 
   const {bottom, top} = useSafeAreaInsets();
@@ -84,24 +80,42 @@ export const Settlements = () => {
     [styles.listEmptyContainer, styles.listEmptyText, t],
   );
 
-  const SelectedSettlementsSection = useMemo(
-    () => (
-      <>
-        {selectedSettlementsSection.map(item => (
-          <ListItem
-            type={'checkbox'}
-            item={item}
-            key={item.id}
-            title={item.value}
-            checked={selectedSettlements.includes(item.id)}
-            onPress={chooseSettlement}
-            testID={'settlementsListItem'}
-          />
-        ))}
-      </>
-    ),
-    [chooseSettlement, selectedSettlements, selectedSettlementsSection],
-  );
+  const SelectedSettlementsSection = useMemo(() => {
+    return selectedSettlementsSection.length ? (
+      <FiltersSectionContainer itemName={t('selected')}>
+        <View style={styles.categoryList}>
+          {selectedSettlementsSection?.map(item => {
+            const notInTheList = every(
+              filteredSettlements,
+              ({id}) => id !== item.id,
+            );
+
+            return (
+              <Chip
+                active={true}
+                onPress={() => chooseSettlement(item)}
+                key={item.id}
+                testID={'settlementsListItem'}
+                text={item.value}
+                style={[
+                  styles.chipContainer,
+                  notInTheList && styles.secondaryChip,
+                ]}
+              />
+            );
+          })}
+        </View>
+      </FiltersSectionContainer>
+    ) : null;
+  }, [
+    chooseSettlement,
+    filteredSettlements,
+    selectedSettlementsSection,
+    styles.categoryList,
+    styles.chipContainer,
+    styles.secondaryChip,
+    t,
+  ]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -133,11 +147,6 @@ export const Settlements = () => {
             sections={settlementsSections}
             keyExtractor={item => item.id}
             stickySectionHeadersEnabled={false}
-            maintainVisibleContentPosition={{
-              minIndexForVisible: 1,
-              autoscrollToTopThreshold: 1,
-            }}
-            getItemLayout={getItemLayout}
             renderItem={({item}) => (
               <ListItem
                 type={'checkbox'}

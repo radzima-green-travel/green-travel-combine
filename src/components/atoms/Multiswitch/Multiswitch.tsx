@@ -6,12 +6,12 @@ import {styles} from './styles';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 
 interface IProps {
-  items: {id: string; value: string}[];
+  items: {id: string; value: string; disabled: boolean}[];
   onItemPress: (item: string) => void;
   testID: string;
   activeItemId: string | null;
   style?: StyleProp<ViewStyle>;
-  defaultValue?: {id: string; value: string};
+  defaultValue?: {id: string; value: string; disabled: boolean};
 }
 
 export const Multiswitch = memo(
@@ -37,6 +37,7 @@ export const Multiswitch = memo(
                   active && multiswitchStyles.active,
                 ]}
                 key={item.id}
+                disabled={item.disabled}
                 onPress={() => {
                   if (item.id !== activeId) {
                     onItemPress(item.id);
@@ -47,6 +48,7 @@ export const Multiswitch = memo(
                   style={[
                     styles.text,
                     multiswitchStyles.nonActiveText,
+                    item.disabled && multiswitchStyles.disabledText,
                     active && multiswitchStyles.activeText,
                   ]}>
                   {item.value}

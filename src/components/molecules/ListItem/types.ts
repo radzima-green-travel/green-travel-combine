@@ -34,6 +34,7 @@ export interface ListItemPrimaryProps extends BaseListItemProps {
   onRightLabelPress?: () => void;
   tailIconStyle?: StyleProp<TextStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  labelContainerStyle?: StyleProp<ViewStyle>;
   leadIcon?: IconsNames;
   leadIconStyle?: StyleProp<TextStyle>;
   leadIconContainerStyle?: StyleProp<ViewStyle>;
