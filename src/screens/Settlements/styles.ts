@@ -87,4 +87,14 @@ export const themeStyles = createThemeStyles({
   chipContainer: {
     margin: 4,
   },
+  secondaryChip: {
+    backgroundColor: {
+      light: COLORS.light.background.accentLight,
+      dark: COLORS.dark.background.accentLight,
+    },
+    borderColor: {
+      light: COLORS.light.background.accentLight,
+      dark: COLORS.dark.background.accentLight,
+    },
+  },
 });

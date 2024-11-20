@@ -15,6 +15,7 @@ export const ListItemPrimary = memo<ListItemPrimaryProps>(
     onRightLabelPress,
     testID,
     labelStyle,
+    labelContainerStyle,
     leadIcon,
     leadIconStyle,
     leadIconContainerStyle,
@@ -26,7 +27,9 @@ export const ListItemPrimary = memo<ListItemPrimaryProps>(
       const rightLabelNode = (
         <View style={styles.rightContainer}>
           {label ? (
-            <Text style={[styles.label, labelStyle]}>{label}</Text>
+            <View style={labelContainerStyle}>
+              <Text style={[styles.label, labelStyle]}>{label}</Text>
+            </View>
           ) : null}
           {tailIcon ? (
             <Icon

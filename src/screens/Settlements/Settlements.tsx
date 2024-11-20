@@ -85,20 +85,22 @@ export const Settlements = () => {
       <FiltersSectionContainer itemName={t('selected')}>
         <View style={styles.categoryList}>
           {selectedSettlementsSection?.map(item => {
-            const outlined = every(
+            const notInTheList = every(
               filteredSettlements,
               ({id}) => id !== item.id,
             );
 
             return (
               <Chip
-                active={!outlined}
-                outlined={outlined}
+                active={true}
                 onPress={() => chooseSettlement(item)}
                 key={item.id}
                 testID={'settlementsListItem'}
                 text={item.value}
-                style={styles.chipContainer}
+                style={[
+                  styles.chipContainer,
+                  notInTheList && styles.secondaryChip,
+                ]}
               />
             );
           })}
@@ -111,6 +113,7 @@ export const Settlements = () => {
     selectedSettlementsSection,
     styles.categoryList,
     styles.chipContainer,
+    styles.secondaryChip,
     t,
   ]);
 
