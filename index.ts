@@ -30,7 +30,7 @@ async function urlOpener(url, redirectUrl) {
   if (result.type === 'success') {
     Linking.openURL(result.url);
     store.dispatch(inAppBrowserSuccessOperation());
-  } else if (result.type === 'cancel') {
+  } else if (result.type === 'cancel' || result.type === 'dismiss') {
     store.dispatch(inAppBrowserCancelOperation());
   }
 }

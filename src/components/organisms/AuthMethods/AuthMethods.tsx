@@ -55,7 +55,7 @@ export const AuthMethods = memo(
         style={styles.otherOptionsButton}
         onPress={onGoogleButtonPress}
         text={t('googleAuth')}
-        renderIcon={() => <Icon name={'facebookAuth'} />}
+        renderIcon={() => <Icon name={'googleAuth'} />}
         loading={googleLoading}
         disabled={appleLoading || facebookLoading}
         textStyle={styles.otherButtonText}
