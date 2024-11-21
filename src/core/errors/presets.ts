@@ -22,6 +22,18 @@ export const createPermissionErrorPreset = (
   error: message,
 });
 
+export const locationPermissionCanceledErrorPreset = (
+  message: string = 'Location permission canceled',
+) => ({
+  message: message,
+  timestamp: Date.now(),
+  status: -2,
+  error_code: 'ERROR_LOCATION_PERMISSION_CANCELED' as RequestErrorCodes,
+  path: '',
+  requestId: '',
+  error: message,
+});
+
 export const createInternetConnectionErrorPreset = (message: string) => ({
   message: message,
   timestamp: Date.now(),

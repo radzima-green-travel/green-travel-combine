@@ -236,9 +236,13 @@ export interface ObjectMap
   address: string;
 }
 
-export interface SearchObject
-  extends Omit<TranslatedEntity<SearchObjectDTO>, 'addresses' | 'category'> {
+export interface TranslatedSearchObject
+  extends Omit<TranslatedEntity<SearchObjectDTO>, 'category'> {
   category: SearchObjectCategory;
+}
+
+export interface SearchObject
+  extends Omit<TranslatedSearchObject, 'addresses'> {
   highlight?: {
     name: string;
     description?: string;

@@ -30,6 +30,7 @@ import {
 } from 'core/actions';
 import {useSnackbar} from 'components/atoms';
 import {isString, keys, pickBy} from 'lodash';
+import {RequestError} from 'core/errors';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -168,10 +169,15 @@ export const useFilters = () => {
     requestUserLocation,
     'filters',
     errorLabel => {
-      show({
-        title: errorLabel.text,
-        type: 'error',
-      });
+      if (
+        (errorLabel.originalError as RequestError).error_code !==
+        'ERROR_LOCATION_PERMISSION_CANCELED'
+      ) {
+        show({
+          title: errorLabel.text,
+          type: 'error',
+        });
+      }
     },
     false,
   );

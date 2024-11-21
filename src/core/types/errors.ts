@@ -18,7 +18,8 @@ export type RequestErrorCodes =
   | 'WRONG_PASSWORD'
   | 'INVALID_VARIABLE'
   | 'VALIDATION_ERROR'
-  | 'CANT_GET_LOCATION';
+  | 'CANT_GET_LOCATION'
+  | 'ERROR_LOCATION_PERMISSION_CANCELED';
 
 export interface IRequestError extends Error {
   timestamp: number;

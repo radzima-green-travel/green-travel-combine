@@ -8,6 +8,7 @@ import {
   SearchFiltersItem,
   SpotItem,
   CategoryFilterItem,
+  TranslatedSearchObject,
 } from 'core/types';
 import {
   map,
@@ -28,7 +29,7 @@ import {
 import i18n from 'i18next';
 
 export function extractValueFromHighlight(
-  object: SearchObjectDTO,
+  object: TranslatedSearchObject,
   highlight: Highlight | null,
 ) {
   return (key: string) =>
@@ -36,7 +37,7 @@ export function extractValueFromHighlight(
 }
 
 export function prepareSearchObjectAddress(
-  object: SearchObjectDTO,
+  object: TranslatedSearchObject,
   highlight: Highlight | null,
   locale: SupportedLocales | null,
 ) {
@@ -81,14 +82,21 @@ export function prepareSearchItems(
     };
 
     if (query) {
-      const highlightForValue = extractValueFromHighlight(object, highlight);
+      const highlightForValue = extractValueFromHighlight(
+        processedObject,
+        highlight,
+      );
 
       return {
         ...omit(processedObject, ['addresses']),
         highlight: {
           name: highlightForValue('name'),
           description: highlightForValue('description'),
-          address: prepareSearchObjectAddress(object, highlight, locale),
+          address: prepareSearchObjectAddress(
+            processedObject,
+            highlight,
+            locale,
+          ),
         },
       };
     }

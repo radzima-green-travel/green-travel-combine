@@ -8,6 +8,7 @@ import i18n from 'i18next';
 import {
   createLocationErrorPreset,
   createPermissionErrorPreset,
+  locationPermissionCanceledErrorPreset,
   RequestError,
 } from 'core/errors';
 
@@ -23,7 +24,7 @@ class LocationService {
         return false;
       }
 
-      this.handleLocationPermissionDenied();
+      await this.handleLocationPermissionDenied();
       return false;
     }
 
@@ -34,7 +35,7 @@ class LocationService {
     const {status} = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
-      this.handleLocationPermissionDenied();
+      await this.handleLocationPermissionDenied();
       return false;
     } else {
       const servicesEnabled = await Location.hasServicesEnabledAsync();
@@ -49,16 +50,24 @@ class LocationService {
   }
 
   handleLocationPermissionDenied() {
-    Alert.alert(i18n.t('common:locationPermissionText'), '', [
-      {
-        text: i18n.t('common:locationPermissionCancel'),
-        style: 'cancel',
-      },
-      {
-        text: i18n.t('common:locationPermissionSettings'),
-        onPress: async () => await Linking.openSettings(),
-      },
-    ]);
+    return new Promise((res, rej) => {
+      Alert.alert(i18n.t('common:locationPermissionText'), '', [
+        {
+          text: i18n.t('common:locationPermissionCancel'),
+          onPress: () => {
+            rej(new RequestError(locationPermissionCanceledErrorPreset()));
+          },
+          style: 'cancel',
+        },
+        {
+          text: i18n.t('common:locationPermissionSettings'),
+          onPress: () => {
+            Linking.openSettings();
+            res('');
+          },
+        },
+      ]);
+    });
   }
 
   handeLocationServicesDisabled() {
@@ -75,12 +84,12 @@ class LocationService {
   }
 
   async getLowAccuracyCurrentPosition() {
-    try {
-      const permissionGranted = await this.checkLocationPermission();
-      if (!permissionGranted) {
-        throw new RequestError(createPermissionErrorPreset());
-      }
+    const permissionGranted = await this.checkLocationPermission();
+    if (!permissionGranted) {
+      throw new RequestError(createPermissionErrorPreset());
+    }
 
+    try {
       const {coords} = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Low,
       });
@@ -89,7 +98,7 @@ class LocationService {
         lat: coords.latitude,
         lon: coords.longitude,
       } as LoctaionCoords;
-    } catch (error) {
+    } catch (e) {
       throw new RequestError(createLocationErrorPreset());
     }
   }
