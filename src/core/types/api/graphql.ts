@@ -267,7 +267,7 @@ export interface PaginatedList<T> {
 
 type HighlightName =
   | 'name'
-  | 'description'
+  | 'description_plain'
   | 'spot_region'
   | 'spot_subRegion'
   | 'spot_street'

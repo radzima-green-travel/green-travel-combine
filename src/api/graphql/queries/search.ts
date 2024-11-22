@@ -61,7 +61,7 @@ export const getSearchObjectsQuery = (locale?: string) =>
         value
         id
       }
-      description {
+      description_plain {
         value
         id
       }

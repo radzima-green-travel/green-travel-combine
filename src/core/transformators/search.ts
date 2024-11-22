@@ -32,8 +32,7 @@ export function extractValueFromHighlight(
   object: TranslatedSearchObject,
   highlight: Highlight | null,
 ) {
-  return (key: string) =>
-    find(highlight?.[key], {id: object.id})?.value || object[key];
+  return (key: string) => find(highlight?.[key], {id: object.id})?.value;
 }
 
 export function prepareSearchObjectAddress(
@@ -91,7 +90,7 @@ export function prepareSearchItems(
         ...omit(processedObject, ['addresses']),
         highlight: {
           name: highlightForValue('name'),
-          description: highlightForValue('description'),
+          description: highlightForValue('description_plain'),
           address: prepareSearchObjectAddress(
             processedObject,
             highlight,
