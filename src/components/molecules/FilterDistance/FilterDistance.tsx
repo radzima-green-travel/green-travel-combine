@@ -1,5 +1,5 @@
 import {CustomSlider} from 'components/atoms';
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {themeStyles} from './styles';
 import {ListItem} from 'components/molecules';
@@ -17,6 +17,10 @@ export const FilterDistance = memo(
     const styles = useThemeStyles(themeStyles);
     const {t} = useTranslation('filters');
     const [distanceValue, setDistanceValue] = useState(distance);
+
+    useEffect(() => {
+      setDistanceValue(distance);
+    }, [distance]);
 
     return (
       <View>
