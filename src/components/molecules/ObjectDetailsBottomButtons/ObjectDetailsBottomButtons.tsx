@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React, {memo, useMemo} from 'react';
 import {Icon} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
@@ -46,7 +45,7 @@ export const ObjectDetailsBottomButtons = memo(
           loading: isFavoriteLoading,
           testID: composeTestID(testID, 'bookmarkButton'),
           checked: isFavorite,
-          icon: textStyle => (
+          renderIcon: textStyle => (
             <Icon
               name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
               size={24}
@@ -60,7 +59,7 @@ export const ObjectDetailsBottomButtons = memo(
           isIconOnlyButton: true,
           testID: composeTestID(testID, 'shareButton'),
 
-          icon: textStyle => (
+          renderIcon: textStyle => (
             <Icon
               name={isIOS ? 'shareIos' : 'shareAndroid'}
               size={24}
