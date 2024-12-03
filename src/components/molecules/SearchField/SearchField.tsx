@@ -13,6 +13,7 @@ interface Props {
   testID: string;
   onRightButtonPress?: (actionType: RightButtonType) => void;
   filterActionTypeEnabled?: boolean;
+  onFocus?: () => void;
 }
 
 export const SearchField = memo(
@@ -23,6 +24,7 @@ export const SearchField = memo(
     onRightButtonPress,
     filterActionTypeEnabled = false,
     containerStyle,
+    onFocus,
   }: Props) => {
     const [isFocused, setIsFocused] = useState(false);
     const styles = useThemeStyles(themeStyles);
@@ -57,10 +59,19 @@ export const SearchField = memo(
       return undefined;
     }, [rightButtonActiveType, styles]);
 
+    const onFocusHandler = useCallback(() => {
+      onFocus?.();
+      setIsFocused(true);
+    }, [onFocus]);
+
+    const onBlurHandler = useCallback(() => {
+      setIsFocused(false);
+    }, []);
+
     return (
       <FormInput
-        onBlur={() => setIsFocused(false)}
-        onFocus={() => setIsFocused(true)}
+        onBlur={onBlurHandler}
+        onFocus={onFocusHandler}
         iconLeft={{name: 'search'}}
         iconRight={iconRight}
         placeholder={t('settlements.search')}

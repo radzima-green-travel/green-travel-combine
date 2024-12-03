@@ -222,7 +222,7 @@ export interface ObjectFiltersDataDTO {
 export interface SpotItemDTO {
   id: string;
   value: string;
-  i18n: Partial<I18nType<keyof SpotItemDTO>>[];
+  i18n: Array<I18nType<'value'>>;
 }
 
 export interface CategoryFilterItemDTO {

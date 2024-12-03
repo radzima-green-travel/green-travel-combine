@@ -217,5 +217,7 @@ export function useSearchList() {
     totalResults: searchResultsTotal,
     removeAppliedFilter,
     filtersItems,
+    isSearchEmpty,
+    isFiltersEmpty,
   };
 }

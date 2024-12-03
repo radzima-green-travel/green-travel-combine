@@ -83,14 +83,20 @@ export type MainNavigatorParamsList = {
   AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList> & {
     onSuccessSignIn?: () => void;
   };
-  Filter?: {
+  Filter: {
     initialFilters?: SearchFilters;
     initialQuery?: string;
     searchOptions?: SearchOptions;
+    analytics: {
+      fromScreenName: AnalyticsNavigationScreenNames;
+    };
   };
   Settlements: {
     initialSelectedSettlements: string[];
     regionsToInclude: string[];
+    analytics: {
+      regionsSelectedNames: string[];
+    };
   };
   ObjectDetails: ObjectDetailsParams;
   ObjectDetailsAddInfo: {

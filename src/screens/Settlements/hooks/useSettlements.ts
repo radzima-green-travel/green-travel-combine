@@ -22,6 +22,7 @@ import {SettlementsScreenRouteProps} from '../types';
 import {IState} from 'core/store';
 import {SpotItem} from 'core/types';
 import {useSnackbar} from 'atoms';
+import {useSettlementsAnalytics} from './useSettlementsAnalytics';
 
 export const useSettlements = () => {
   const dispatch = useDispatch();
@@ -68,6 +69,19 @@ export const useSettlements = () => {
 
   const isDataLoaded = useSelector(selectIsSettlementsLoaded);
 
+  const {
+    sendSettlementsViewEvent,
+    sendSettlementSelectEvent,
+    sendSettlementsApplyEvent,
+    sendSettlementsResetEvent,
+    sendSettlementsSearchClearEvent,
+    sendSettlementsSearchEvent,
+  } = useSettlementsAnalytics();
+
+  useEffect(() => {
+    sendSettlementsViewEvent();
+  }, [sendSettlementsViewEvent]);
+
   const applySettlements = useCallback(() => {
     dispatch(
       setActiveFilter({
@@ -75,7 +89,14 @@ export const useSettlements = () => {
         value: selectedSettlements,
       }),
     );
-  }, [dispatch, selectedSettlements]);
+
+    sendSettlementsApplyEvent(selectedSettlementsSection);
+  }, [
+    dispatch,
+    selectedSettlements,
+    selectedSettlementsSection,
+    sendSettlementsApplyEvent,
+  ]);
 
   useOnRequestSuccess(getFiltersDataRequest, () => {
     navigation.goBack();
@@ -99,19 +120,31 @@ export const useSettlements = () => {
     }
   }, [getSettlementsData, isDataLoaded]);
 
-  const chooseSettlement = useCallback((item: SpotItem) => {
-    setSelectedSettlements(prevState => {
-      return xor(prevState, [item.id]);
-    });
-  }, []);
+  const chooseSettlement = useCallback(
+    (item: SpotItem) => {
+      setSelectedSettlements(prevState => {
+        if (!prevState.includes(item.id)) {
+          sendSettlementSelectEvent(item.analyticsMetadata.value);
+        }
+        return xor(prevState, [item.id]);
+      });
+    },
+    [sendSettlementSelectEvent],
+  );
 
   const resetSelectedSettlements = useCallback(() => {
     setSelectedSettlements([]);
-  }, []);
+    sendSettlementsResetEvent(selectedSettlementsSection);
+  }, [selectedSettlementsSection, sendSettlementsResetEvent]);
 
   const clearInput = useCallback(() => {
     setSearchValue('');
-  }, []);
+    sendSettlementsSearchClearEvent();
+  }, [sendSettlementsSearchClearEvent]);
+
+  const onSearchStart = useCallback(() => {
+    sendSettlementsSearchEvent();
+  }, [sendSettlementsSearchEvent]);
 
   return {
     navigation,
@@ -131,5 +164,6 @@ export const useSettlements = () => {
     snackBarProps,
     clearInput,
     filteredSettlements,
+    onSearchStart,
   };
 };

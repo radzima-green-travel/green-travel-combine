@@ -17,10 +17,17 @@ import {SearchOptions} from 'core/types';
 import {Keyboard, Text, View} from 'react-native';
 import {prepareNumberOfAppliedFilters} from 'core/transformators/filters';
 import {useSelector} from 'react-redux';
+import {useSearchAnalytics} from './hooks/useSearchAnalytics';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
   const {setSearchInputValue, setSearchOptions} = useSearchActions();
+  const {
+    sendSearchParameterOnEvent,
+    sendSearchParametersCloseEvent,
+    sendSearchParametersViewEvent,
+  } = useSearchAnalytics();
   const inputValue = useSearchSelector(selectSearchInputValue);
   const searchOptions = useSearchSelector(selectSearchOptions);
   const styles = useThemeStyles(themeStyles);
@@ -41,16 +48,19 @@ const HeaderTitle = () => {
       if (actionType === 'filter') {
         Keyboard.dismiss();
         openMenu();
+        sendSearchParametersViewEvent();
       }
     },
-    [setInputValue, openMenu],
+    [setInputValue, openMenu, sendSearchParametersViewEvent],
   );
 
   const updateSearchOptions = useCallback(
     (options: SearchOptions) => {
       dispatch(setSearchOptions(options));
+
+      sendSearchParameterOnEvent(options);
     },
-    [dispatch, setSearchOptions],
+    [dispatch, sendSearchParameterOnEvent, setSearchOptions],
   );
 
   return (
@@ -64,7 +74,11 @@ const HeaderTitle = () => {
         onRightButtonPress={onRightButtonPress}
       />
       <Portal>
-        <BottomMenu testID={'bottomMenu'} withBackdrop {...bottomMenuProps}>
+        <BottomMenu
+          onHideEnd={sendSearchParametersCloseEvent}
+          testID={'bottomMenu'}
+          withBackdrop
+          {...bottomMenuProps}>
           <SearchOptionsBottomMenu
             value={searchOptions}
             onChange={updateSearchOptions}
@@ -106,6 +120,9 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
               : undefined,
             initialQuery: searchQuery,
             searchOptions: searchOptions,
+            analytics: {
+              fromScreenName: getAnalyticsNavigationScreenName(),
+            },
           });
         }}
         theme="quarterlyGrey"

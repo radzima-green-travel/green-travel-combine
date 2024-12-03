@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {SearchScreenNavigationProps} from '../types';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {find} from 'lodash';
+import {useSearchAnalytics} from './useSearchAnalytics';
 
 export const useSearch = () => {
   const {
@@ -22,7 +23,21 @@ export const useSearch = () => {
     totalResults,
     filtersItems,
     removeAppliedFilter,
+    isSearchEmpty,
+    isFiltersEmpty,
   } = useSearchList();
+
+  const {
+    sendSearchViewEvent,
+    sendSearchHistoryClearEvent,
+    sendSearchHistoryItemRemoveEvent,
+    sendFilterRemoveEvent,
+    sendSearchResultsItemClickEvent,
+  } = useSearchAnalytics();
+
+  useEffect(() => {
+    sendSearchViewEvent();
+  }, [sendSearchViewEvent]);
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
 
@@ -43,6 +58,12 @@ export const useSearch = () => {
             fromScreenName: getAnalyticsNavigationScreenName(),
           },
         });
+
+        sendSearchResultsItemClickEvent({
+          isHistoryVisible,
+          isFiltersApplied: !isFiltersEmpty,
+          isSearchQueryApplied: !isSearchEmpty,
+        });
       }
     },
     [addToHistory, isHistoryVisible, navigation, data],
@@ -51,13 +72,23 @@ export const useSearch = () => {
   const deleteItem = useCallback(
     (objectId: string) => {
       deleteFromHistory(objectId);
+      sendSearchHistoryItemRemoveEvent(objectId);
     },
-    [deleteFromHistory],
+    [deleteFromHistory, sendSearchHistoryItemRemoveEvent],
   );
 
   const deleteAllItems = useCallback(() => {
     deleteAllFromHistory();
-  }, [deleteAllFromHistory]);
+    sendSearchHistoryClearEvent();
+  }, [deleteAllFromHistory, sendSearchHistoryClearEvent]);
+
+  const removeAppliedFilterHandler = useCallback(
+    (filterName: string) => {
+      removeAppliedFilter(filterName);
+      sendFilterRemoveEvent(filterName);
+    },
+    [removeAppliedFilter, sendFilterRemoveEvent],
+  );
 
   useEffect(() => {
     return () => {
@@ -77,6 +108,6 @@ export const useSearch = () => {
     isSearchPreviewVisible,
     totalResults,
     filtersItems,
-    removeAppliedFilter,
+    removeAppliedFilter: removeAppliedFilterHandler,
   };
 };

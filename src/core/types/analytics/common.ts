@@ -41,9 +41,9 @@ export type AnalyticsNavigationScreenNames =
   | 'ObjectListScreen'
   | 'BookmarksListScreen'
   | 'HomeScreen'
-  | 'SearchScreen'
   | 'AppMapScreen'
   | 'unknown'
-  | 'DeepLink';
+  | 'DeepLink'
+  | 'SearchAndFiltersScreen';
 
 export type AnalyticsModalNames = 'AddInfoModal' | 'VisitedModal';
