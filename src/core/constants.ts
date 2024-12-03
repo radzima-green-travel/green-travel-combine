@@ -154,7 +154,7 @@ export const AnalyticScreensNames: Partial<
   Home: 'HomeScreen',
   BookmarksList: 'BookmarksListScreen',
   ObjectsList: 'ObjectListScreen',
-  Search: 'SearchScreen',
+  Search: 'SearchAndFiltersScreen',
   AppMap: 'AppMapScreen',
 };
 
@@ -186,4 +186,12 @@ export const INITIAL_FILTERS: SearchFilters = {
     location: null,
   },
   excludeVisited: false,
+};
+export const FILTERS_NAMES_ANAYLITICS_MAP = {
+  categories: 'category',
+  regions: 'region',
+  municipalities: 'settlement',
+  distance: 'distance',
+  googleRating: 'google_rating',
+  excludeVisited: 'hide_visited',
 };

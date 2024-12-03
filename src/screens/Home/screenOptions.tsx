@@ -13,7 +13,9 @@ const HeaderRight = ({navigation, testID}: IProps) => {
       <TouchableOpacity
         hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('Search')}
+        onPress={() => {
+          navigation.navigate('Search');
+        }}
         {...getPlatformsTestID(composeTestID(testID, 'searchButton'))}
         style={styles.searchContainer}>
         <Icon

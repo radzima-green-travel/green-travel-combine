@@ -42,6 +42,7 @@ export const Filters = () => {
     onExcludeVisitedPress,
     activeFilters,
     getIsCategoryDisabled,
+    clearFiltersPress,
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
@@ -58,7 +59,7 @@ export const Filters = () => {
   const buttons = useMemo(() => {
     return [
       {
-        onPress: clearFilters,
+        onPress: clearFiltersPress,
         theme: 'secondary' as const,
         text: t('clear'),
         textStyle: styles.button,
@@ -76,7 +77,7 @@ export const Filters = () => {
     ];
   }, [
     emptyActiveFilters,
-    clearFilters,
+    clearFiltersPress,
     t,
     styles.button,
     total,
@@ -96,14 +97,15 @@ export const Filters = () => {
             <Text style={styles.title}>{t('title')}</Text>
             <FiltersSectionContainer itemName={t('allCategories')}>
               <View style={styles.categoryList}>
-                {caregoriesData?.map(({id, name}) => (
+                {caregoriesData?.map(item => (
                   <Chip
-                    active={activeFilters.categories?.includes(id)}
-                    onPress={() => chooseCategory(id)}
-                    key={id}
-                    disabled={getIsCategoryDisabled(id)}
-                    testID={name}
-                    text={name}
+                    item={item}
+                    active={activeFilters.categories?.includes(item.id)}
+                    onPress={chooseCategory}
+                    key={item.id}
+                    disabled={getIsCategoryDisabled(item.id)}
+                    testID={'categoeyChipItem'}
+                    text={item.name}
                     style={styles.chipContainer}
                   />
                 ))}
@@ -112,14 +114,15 @@ export const Filters = () => {
             <FiltersSectionContainer itemName={t('whereToLook')}>
               <Text style={styles.subFilterName}>{t('regions')}</Text>
               <View style={styles.categoryList}>
-                {regions?.map(({id, value}) => (
+                {regions?.map(item => (
                   <Chip
-                    active={activeFilters.regions?.includes(id)}
-                    onPress={() => chooseRegion(id)}
-                    disabled={getIsRegionDisabled(id)}
-                    key={id}
-                    testID={value}
-                    text={value}
+                    item={item}
+                    active={activeFilters.regions?.includes(item.id)}
+                    onPress={chooseRegion}
+                    disabled={getIsRegionDisabled(item.id)}
+                    key={item.id}
+                    testID={'regionChipItem'}
+                    text={item.value}
                     style={styles.chipContainer}
                   />
                 ))}

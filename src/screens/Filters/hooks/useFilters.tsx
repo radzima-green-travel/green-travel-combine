@@ -31,6 +31,8 @@ import {
 import {useSnackbar} from 'components/atoms';
 import {isString, keys, pickBy} from 'lodash';
 import {RequestError} from 'core/errors';
+import {useFiltersAnalytics} from './useFiltersAnalytics';
+import {CategoryFilterItem, SpotItem} from 'core/types';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
@@ -56,6 +58,22 @@ export const useFilters = () => {
   } = useSelector(selectTransformedAggregationsWithNumberOfItems);
   const distanceFilterLocation = useSelector(selectDistanceFilterLocation);
   const activeFiltersLocation = useSelector(selectActiveFiltersLocation);
+  const {
+    sendFiltersCategorySelectEvent,
+    sendFiltersRegionSelectEvent,
+    sendFilterDistanceEvent,
+    sendFilterDistanceSetEvent,
+    sendFilterRatingSelectEvent,
+    sendFilterHideVisitedEvent,
+    sendFilterClearEvent,
+    sendFilterApplyEvent,
+    sendFiltersViewEvent,
+    getAppliedFiltersAnalyticsData,
+  } = useFiltersAnalytics();
+
+  useEffect(() => {
+    sendFiltersViewEvent();
+  }, [sendFiltersViewEvent]);
 
   const {loading: filtersDataLoading} = useRequestLoading(
     getFiltersDataRequest,
@@ -85,32 +103,37 @@ export const useFilters = () => {
           value: newRating === 'Any' ? '' : newRating,
         }),
       );
+      sendFilterRatingSelectEvent(newRating);
     },
-    [dispatch],
+    [dispatch, sendFilterRatingSelectEvent],
   );
 
   const chooseCategory = useCallback(
-    (categoryID: string) => {
+    (category: CategoryFilterItem) => {
       dispatch(
         setActiveFilter({
           name: 'categories',
-          value: categoryID,
+          value: category.id,
         }),
       );
+
+      sendFiltersCategorySelectEvent(category);
     },
-    [dispatch],
+    [dispatch, sendFiltersCategorySelectEvent],
   );
 
   const chooseRegion = useCallback(
-    (regionID: string) => {
+    (region: SpotItem) => {
       dispatch(
         setActiveFilter({
           name: 'regions',
-          value: regionID,
+          value: region.id,
         }),
       );
+
+      sendFiltersRegionSelectEvent(region);
     },
-    [dispatch],
+    [dispatch, sendFiltersRegionSelectEvent],
   );
 
   const updateDistanceIsOn = useCallback(
@@ -124,9 +147,10 @@ export const useFilters = () => {
             isOn: isOn,
           }),
         );
+        sendFilterDistanceEvent(isOn);
       }
     },
-    [dispatch, activeFiltersLocation],
+    [activeFiltersLocation, dispatch, sendFilterDistanceEvent],
   );
 
   const updateExcludeVisitedFilter = useCallback(
@@ -137,8 +161,9 @@ export const useFilters = () => {
           value: isOn,
         }),
       );
+      sendFilterHideVisitedEvent(isOn);
     },
-    [dispatch],
+    [dispatch, sendFilterHideVisitedEvent],
   );
 
   const onExcludeVisitedPress = useCallback(
@@ -163,6 +188,7 @@ export const useFilters = () => {
         location: distanceFilterLocation,
       }),
     );
+    sendFilterDistanceEvent(true);
   });
 
   useOnRequestError(
@@ -190,20 +216,34 @@ export const useFilters = () => {
           value: distance,
         }),
       );
+      sendFilterDistanceSetEvent(distance);
     },
-    [dispatch],
+    [dispatch, sendFilterDistanceSetEvent],
   );
 
   const clearFilters = useCallback(() => {
     dispatch(clearFiltersAction());
   }, [dispatch]);
 
+  const clearFiltersPress = useCallback(() => {
+    clearFilters();
+    sendFilterClearEvent();
+  }, [clearFilters, sendFilterClearEvent]);
+
   const navigateToSettlements = useCallback(() => {
     navigation.navigate('Settlements', {
       initialSelectedSettlements: activeFilters.municipalities,
       regionsToInclude: keys(pickBy(settlementsWithNumberOfItems, Boolean)),
+      analytics: {
+        regionsSelectedNames: getAppliedFiltersAnalyticsData().regions_selected,
+      },
     });
-  }, [activeFilters.municipalities, settlementsWithNumberOfItems, navigation]);
+  }, [
+    navigation,
+    activeFilters.municipalities,
+    settlementsWithNumberOfItems,
+    getAppliedFiltersAnalyticsData,
+  ]);
 
   const isFirstRender = useRef(true);
 
@@ -261,7 +301,8 @@ export const useFilters = () => {
         filtersToApply: activeFilters,
       },
     });
-  }, [activeFilters, navigation]);
+    sendFilterApplyEvent();
+  }, [activeFilters, navigation, sendFilterApplyEvent]);
 
   return {
     caregoriesData,
@@ -286,5 +327,6 @@ export const useFilters = () => {
     getIsCategoryDisabled,
     applyFilters,
     onExcludeVisitedPress,
+    clearFiltersPress,
   };
 };

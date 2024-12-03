@@ -34,6 +34,7 @@ export const Settlements = () => {
     snackBarProps,
     clearInput,
     filteredSettlements,
+    onSearchStart,
   } = useSettlements();
 
   const {bottom, top} = useSafeAreaInsets();
@@ -93,7 +94,8 @@ export const Settlements = () => {
             return (
               <Chip
                 active={true}
-                onPress={() => chooseSettlement(item)}
+                item={item}
+                onPress={chooseSettlement}
                 key={item.id}
                 testID={'settlementsListItem'}
                 text={item.value}
@@ -130,6 +132,7 @@ export const Settlements = () => {
         onChange={handleSearchValue}
         value={searchValue}
         onRightButtonPress={clearInput}
+        onFocus={onSearchStart}
       />
       <SuspenseView
         testID="suspenseView"
