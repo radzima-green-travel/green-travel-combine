@@ -35,7 +35,6 @@ export const selectSearchHistory = createSelector(
     if (objects.length === 0) {
       return [];
     }
-
     const historyObjectsMap = reduce(
       objects,
       (acc, object) => {
@@ -44,8 +43,17 @@ export const selectSearchHistory = createSelector(
       },
       {} as Record<string, SearchObject>,
     );
-    return map(ids, id => {
-      return historyObjectsMap[id];
-    });
+    return reduce(
+      ids,
+      (acc, id) => {
+        const historyObject = historyObjectsMap[id];
+
+        if (historyObject) {
+          acc.push(historyObject);
+        }
+        return acc;
+      },
+      [] as Array<SearchObject>,
+    );
   },
 );
