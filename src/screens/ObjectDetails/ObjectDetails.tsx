@@ -38,7 +38,6 @@ import {ObjectDetailsReportInaccuraciesMenu} from 'organisms';
 import Animated, {FadeInDown} from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
 import {ObjectInfoCardItemsSection, ObjectInfoSection} from './components';
-import {IObjectAdditionalInfoItem} from 'core/types';
 
 export const ObjectDetails = () => {
   const {t} = useTranslation('objectDetails');
