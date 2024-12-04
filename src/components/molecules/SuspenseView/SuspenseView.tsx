@@ -1,6 +1,6 @@
 import React, {memo, useEffect, useState} from 'react';
-import {ErrorView} from 'molecules';
-import {LoadingView} from '../LoadingView';
+import {LoadingView} from 'atoms';
+import {ErrorView} from '../ErrorView';
 import {Props} from './types';
 import {composeTestID} from 'core/helpers';
 

@@ -8,6 +8,7 @@ import {
   ObjectDetailsBottomButtons,
   ObjectDetailsCompletenessBlock,
   ObjectDetailsCompletenessSmallBlock,
+  SuspenseView,
 } from 'molecules';
 import {
   ObjectDetailsAddInfoSuccessMenu,
@@ -16,14 +17,7 @@ import {
   ObjectDetailsShowInfoMenu,
   ObjectDetailsListItemsMenu,
 } from 'organisms';
-import {
-  ImageSlider,
-  SnackBar,
-  SuspenseView,
-  Button,
-  Icon,
-  LottieAnimation,
-} from 'atoms';
+import {ImageSlider, SnackBar, Button, Icon, LottieAnimation} from 'atoms';
 import {useFavorite, useThemeStyles, useTranslation} from 'core/hooks';
 import {isEmpty} from 'lodash';
 import {themeStyles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';

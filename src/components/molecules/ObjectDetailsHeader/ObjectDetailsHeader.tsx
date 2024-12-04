@@ -3,8 +3,8 @@ import {getDefaultHeaderHeight} from '@react-navigation/elements';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'services/PlatformService';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
+import {AnimatedCircleButton} from '../AnimatedCircleButton';
 
-import {AnimatedCircleButton} from 'molecules';
 import React, {memo} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/core';

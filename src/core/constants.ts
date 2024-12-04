@@ -195,3 +195,5 @@ export const FILTERS_NAMES_ANAYLITICS_MAP = {
   googleRating: 'google_rating',
   excludeVisited: 'hide_visited',
 };
+
+export const INTERACTIVE_CARD_RATIO = 324 / 144;

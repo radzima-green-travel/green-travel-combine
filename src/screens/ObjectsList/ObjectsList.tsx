@@ -1,7 +1,6 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {SuspenseView} from 'atoms';
-import {ObjectCard} from 'molecules';
+import {ObjectCard, SuspenseView} from 'molecules';
 import {styles} from './styles';
 
 import {SCREEN_WIDTH} from 'services/PlatformService';

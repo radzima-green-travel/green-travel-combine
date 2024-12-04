@@ -1,5 +1,5 @@
 import React from 'react';
-import {ClusterMap, ClusterMapShape, BottomMenu, SuspenseView} from 'atoms';
+import {ClusterMap, ClusterMapShape, BottomMenu} from 'atoms';
 import {Keyboard, StyleProp, View} from 'react-native';
 
 import {styles, selectedPointStyle} from './styles';
@@ -15,6 +15,7 @@ import {
   AppMapBottomSearchMenu,
   AppMapFilters,
   AppMapButtons,
+  SuspenseView,
 } from 'molecules';
 
 import {FeatureCollection, Point} from '@turf/helpers';

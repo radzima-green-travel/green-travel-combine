@@ -1,13 +1,18 @@
 import React, {useEffect, useMemo} from 'react';
 import {Text, View} from 'react-native';
-import {Chip, Multiswitch, SuspenseView, SnackBar} from 'atoms';
+import {Chip, Multiswitch, SnackBar} from 'atoms';
 import {
   useColorScheme,
   useStatusBar,
   useThemeStyles,
   useTranslation,
 } from 'core/hooks';
-import {ButtonsGroup, FiltersSectionContainer, ListItem} from 'molecules';
+import {
+  ButtonsGroup,
+  FiltersSectionContainer,
+  ListItem,
+  SuspenseView,
+} from 'molecules';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';

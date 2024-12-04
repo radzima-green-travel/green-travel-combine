@@ -1,7 +1,8 @@
-import {Card} from 'atoms';
 import {CardItem} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
+import {InteractiveCard} from '../InteractiveCard';
+
 interface IProps {
   data: CardItem;
   onPress: (item: CardItem) => void;
@@ -38,7 +39,7 @@ export const ObjectCard = memo(
     );
 
     return (
-      <Card
+      <InteractiveCard
         isFavoriteBlockVisible
         removeFavoriteWithAnimation={removeFavoriteWithAnimation}
         onRemoveAnimationEnd={onRemoveAnimationEnd}

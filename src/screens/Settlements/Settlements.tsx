@@ -1,11 +1,16 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {Text, TouchableOpacity, View, KeyboardAvoidingView} from 'react-native';
-import {Chip, HighlightedText, SnackBar, SuspenseView} from 'atoms';
+import {Chip, HighlightedText, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 import {SectionList} from 'react-native';
-import {ButtonsGroup, FiltersSectionContainer, SearchField} from 'molecules';
+import {
+  ButtonsGroup,
+  FiltersSectionContainer,
+  SearchField,
+  SuspenseView,
+} from 'molecules';
 import {useSettlements} from './hooks';
 import {getPlatformsTestID} from 'core/helpers';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';

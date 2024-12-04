@@ -12,7 +12,7 @@ import {initUserAuthSaga} from './initUserAuth';
 import {takeEveryMulticast} from '../utils';
 import {appStateChannel} from '../channels';
 import {listenAppStateChangesSaga} from '../app';
-import {getObjectAttributesSaga} from 'core/sagas';
+import {getObjectAttributesSaga} from '../objectAttributes';
 import {initAppLocaleSaga} from './initAppLocaleSaga';
 
 export function* bootstrapSaga() {
