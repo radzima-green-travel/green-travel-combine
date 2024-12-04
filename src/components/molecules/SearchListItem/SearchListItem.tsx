@@ -6,6 +6,7 @@ import {useThemeStyles} from 'core/hooks';
 import {ICONS_MATCHER} from 'core/constants';
 import {ListItem} from '../ListItem';
 import {TextProps} from 'react-native';
+import {trim} from 'lodash';
 
 interface IProps {
   objectName: string;
@@ -43,10 +44,14 @@ export const SearchListItem = memo(
       onRemovePress?.(objectId);
     }, [onRemovePress, objectId]);
 
-    const subtitlePostfix = address || description;
+    const descriptionWithTruncate = description
+      ? `...${trim(description)}`
+      : '';
+
+    const subtitlePostfix = address || descriptionWithTruncate;
 
     const renderSubtitle = (props: TextProps) => {
-      if (address && description) {
+      if (address && descriptionWithTruncate) {
         return (
           <>
             <HighlightedText
@@ -61,7 +66,7 @@ export const SearchListItem = memo(
               textWithMarkup
               numberOfLines={2}
               boldTextStyle={styles.subtitleHighlight}>
-              {` · ${description}`}
+              {` · ${descriptionWithTruncate}`}
             </HighlightedText>
           </>
         );
