@@ -1,5 +1,6 @@
 import React from 'react';
-import {SuspenseView, SnackBar} from 'atoms';
+import {SuspenseView} from 'molecules';
+import {SnackBar} from 'atoms';
 import {HomeSectionBar} from 'organisms';
 import {FlatList, RefreshControl, View} from 'react-native';
 

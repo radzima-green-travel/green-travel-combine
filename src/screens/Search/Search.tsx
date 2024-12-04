@@ -3,7 +3,7 @@ import {screenOptions} from './screenOptions';
 
 import {SearchList} from 'organisms';
 import {useSearch} from './hooks';
-import {SuspenseView} from 'atoms';
+import {SuspenseView} from 'molecules';
 import {useColorScheme, useStatusBar, useThemeStyles} from 'core/hooks';
 import {SearchFiltersBar} from 'components/molecules';
 import {View} from 'react-native';

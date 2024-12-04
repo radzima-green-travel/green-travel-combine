@@ -1,7 +1,7 @@
-import {Card} from 'atoms';
 import {CardItem} from 'core/types';
 import React, {memo, useCallback} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
+import {InteractiveCard} from '../InteractiveCard';
 
 interface IProps {
   data: CardItem;
@@ -20,7 +20,7 @@ export const CategoryCard = memo(
     }, [data, onPress]);
 
     return (
-      <Card
+      <InteractiveCard
         containerStyle={containerStyle}
         width={width}
         onPress={onPressHandler}

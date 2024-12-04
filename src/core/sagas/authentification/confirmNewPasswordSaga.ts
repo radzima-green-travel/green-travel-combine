@@ -2,7 +2,7 @@ import {call, put} from 'redux-saga/effects';
 import {confirmNewPasswordRequest} from 'core/actions';
 import {CognitoUserWithAttributes} from 'core/types';
 import {amplifyApi} from 'api/amplify';
-import {getObjectAttributesSaga} from 'core/sagas';
+import {getObjectAttributesSaga} from '../objectAttributes';
 
 export function* confirmNewPasswordSaga({
   payload: {email, tempPassword, newPassword},

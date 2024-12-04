@@ -1,13 +1,12 @@
 import {FONTS_STYLES, COLORS} from 'assets';
-import {PADDING_HORIZONTAL} from 'core/constants';
+import {PADDING_HORIZONTAL, INTERACTIVE_CARD_RATIO} from 'core/constants';
 import {SCREEN_WIDTH} from 'services/PlatformService';
-import {ratio} from 'atoms/Card/Card';
 
 export const cardWidth = Math.round(
   (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945,
 );
 
-export const cardHeihgt = cardWidth / ratio;
+export const cardHeihgt = cardWidth / INTERACTIVE_CARD_RATIO;
 export const SNAP_INTERVAL = cardWidth + PADDING_HORIZONTAL;
 
 export const themeStyles = {

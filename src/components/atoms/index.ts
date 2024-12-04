@@ -1,7 +1,6 @@
 export {BookmarkItem} from './BookmarkItem';
 export {BottomMenu, Backdrop} from './BottomMenu';
 export {Button} from './Button';
-export {Card} from './Card';
 export {ClusterMap} from './ClusterMap';
 export {ClusterMapShape} from './ClusterMapShape';
 export {Divider} from './Divider';
@@ -17,7 +16,6 @@ export {OneTimeCode} from './OneTimeCode';
 export {Portal} from './Portal';
 export {RefreshPageReminder} from './RefreshPageReminder';
 export {ScreenContent} from './ScreenContent';
-export {SuspenseView} from './SuspenseView';
 export {Test} from './Test';
 export {TextElemets} from './TextElemets';
 export * from './SnackBar';

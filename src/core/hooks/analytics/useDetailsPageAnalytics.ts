@@ -3,7 +3,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import {analyticsService} from 'services/AnalyticsService';
 import {selectObjectDetails} from 'core/selectors';
 import {getScreenTimeSec} from 'core/helpers';
-import {useObjectDetailsSelector} from 'core/hooks';
+import {useObjectDetailsSelector} from '../useObjectDetailsSelector';
 
 export function useDetailsPageAnalytics() {
   const data = useObjectDetailsSelector(selectObjectDetails);

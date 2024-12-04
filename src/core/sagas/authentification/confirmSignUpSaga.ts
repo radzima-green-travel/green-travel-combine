@@ -4,7 +4,7 @@ import {createAuthHubChannel} from './createAuthHubChannel';
 import {CognitoUserWithAttributes} from 'core/types';
 import {amplifyApi} from 'api/amplify';
 import {createSignupCancelErrorPreset, RequestError} from 'core/errors';
-import {getObjectAttributesSaga} from 'core/sagas';
+import {getObjectAttributesSaga} from '../objectAttributes';
 
 export function* confirmSignUpSaga({
   payload: {email, code},

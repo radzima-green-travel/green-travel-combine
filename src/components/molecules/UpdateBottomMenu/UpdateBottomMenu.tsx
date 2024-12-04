@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {Button} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
-import {UpdateView} from 'molecules';
+import {UpdateView} from '../UpdateView';
 import {composeTestID} from 'core/helpers';
 
 interface UpdateBottomMenuProps {

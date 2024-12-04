@@ -5,7 +5,7 @@ import {themeStyles} from './styles';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {Icon} from 'atoms';
-import {RatingBadge} from 'molecules';
+import {RatingBadge} from '../RatingBadge';
 
 interface IProps {
   title: string;

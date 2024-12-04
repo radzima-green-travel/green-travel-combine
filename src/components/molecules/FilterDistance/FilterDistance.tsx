@@ -1,8 +1,8 @@
-import {CustomSlider} from 'components/atoms';
+import {CustomSlider} from 'atoms';
 import React, {memo, useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {themeStyles} from './styles';
-import {ListItem} from 'components/molecules';
+import {ListItem} from '../ListItem';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 
 interface Props {

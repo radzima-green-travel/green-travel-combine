@@ -10,12 +10,12 @@ import {
 import {Icon} from 'atoms/Icon';
 import {themeStyles, gradientConfig} from './styles';
 import {LinearGradient} from 'expo-linear-gradient';
-import {FavoriteButtonContainer} from '../../containers';
+import {FavoriteButtonContainer} from 'containers';
 import {useThemeStyles} from 'core/hooks';
 import {Image} from 'expo-image';
 import {composeTestID} from 'core/helpers';
+import {INTERACTIVE_CARD_RATIO} from 'core/constants';
 
-export const ratio = 324 / 144;
 interface IProps {
   imageUri?: string;
   title: string;
@@ -31,7 +31,7 @@ interface IProps {
   testID: string;
 }
 
-export const Card = memo(
+export const InteractiveCard = memo(
   ({
     imageUri,
     title,
@@ -48,7 +48,7 @@ export const Card = memo(
   }: IProps) => {
     const styles = useThemeStyles(themeStyles);
     const dimensions = useMemo(() => {
-      return {width, height: width / ratio};
+      return {width, height: width / INTERACTIVE_CARD_RATIO};
     }, [width]);
 
     return (
