@@ -50,7 +50,6 @@ export const InteractiveCard = memo(
     const dimensions = useMemo(() => {
       return {width, height: width / INTERACTIVE_CARD_RATIO};
     }, [width]);
-
     return (
       <TouchableOpacity
         onPress={onPress}
@@ -62,9 +61,9 @@ export const InteractiveCard = memo(
         <Image
           style={styles.image as ImageStyle}
           source={imageUri}
-          placeholder={blurhash}
+          placeholder={{blurhash: blurhash || undefined}}
           cachePolicy="memory-disk"
-          transition={200}
+          transition={100}
         />
         <LinearGradient {...gradientConfig} style={styles.gradient} />
         <View style={styles.cardContentContainer}>

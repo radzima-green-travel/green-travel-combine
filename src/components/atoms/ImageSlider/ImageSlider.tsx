@@ -50,7 +50,12 @@ export const ImageSlider = ({
           contentFit="cover"
           cachePolicy="memory-disk"
           source={imageSourse.uri}
-          placeholder={index === 0 ? previewImageBlurhash : undefined}
+          placeholder={{
+            blurhash:
+              index === 0 && previewImageBlurhash
+                ? previewImageBlurhash
+                : undefined,
+          }}
           {...getPlatformsTestID(composeTestID(testID, index))}
         />
       </Pressable>

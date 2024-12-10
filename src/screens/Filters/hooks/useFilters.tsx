@@ -9,18 +9,12 @@ import {
   selectTransformedAggregationsWithNumberOfItems,
   selectFiltersCategories,
   selectAreAllActiveFiltersUnset,
-  selectDistanceFilterLocation,
-  selectActiveFiltersLocation,
   selectIsFiltersInitialDataLoaded,
   selectUserAuthorized,
 } from 'core/selectors';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
 import {FiltersNavigationProps, FiltersRouteProps} from '../types';
-import {
-  useOnRequestError,
-  useOnRequestSuccess,
-  useRequestLoading,
-} from 'core/hooks';
+import {useOnRequestError, useRequestLoading} from 'core/hooks';
 import {
   getFiltersDataRequest,
   setActiveFilter,
@@ -56,8 +50,6 @@ export const useFilters = () => {
     categoriesWithNumberOfItems,
     regionsWithNumberOfItems,
   } = useSelector(selectTransformedAggregationsWithNumberOfItems);
-  const distanceFilterLocation = useSelector(selectDistanceFilterLocation);
-  const activeFiltersLocation = useSelector(selectActiveFiltersLocation);
   const {
     sendFiltersCategorySelectEvent,
     sendFiltersRegionSelectEvent,
@@ -138,19 +130,15 @@ export const useFilters = () => {
 
   const updateDistanceIsOn = useCallback(
     (isOn: boolean) => {
-      if (isOn && !activeFiltersLocation) {
-        dispatch(requestUserLocation());
-      } else {
-        dispatch(
-          setActiveFilter({
-            name: 'distance',
-            isOn: isOn,
-          }),
-        );
-        sendFilterDistanceEvent(isOn);
-      }
+      dispatch(
+        setActiveFilter({
+          name: 'distance',
+          isOn: isOn,
+        }),
+      );
+      sendFilterDistanceEvent(isOn);
     },
-    [activeFiltersLocation, dispatch, sendFilterDistanceEvent],
+    [dispatch, sendFilterDistanceEvent],
   );
 
   const updateExcludeVisitedFilter = useCallback(
@@ -179,17 +167,6 @@ export const useFilters = () => {
     },
     [isAuthorized, navigation, updateExcludeVisitedFilter],
   );
-
-  useOnRequestSuccess(requestUserLocation, () => {
-    dispatch(
-      setActiveFilter({
-        name: 'distance',
-        isOn: true,
-        location: distanceFilterLocation,
-      }),
-    );
-    sendFilterDistanceEvent(true);
-  });
 
   useOnRequestError(
     requestUserLocation,

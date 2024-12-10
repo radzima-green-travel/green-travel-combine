@@ -8,13 +8,18 @@ import i18n from 'i18next';
 import {
   createLocationErrorPreset,
   createPermissionErrorPreset,
-  locationPermissionCanceledErrorPreset,
   RequestError,
 } from 'core/errors';
 
 class LocationService {
   async checkLocationPermissionIOS() {
-    const {status} = await Location.requestForegroundPermissionsAsync();
+    const initalStatus = (await Location.getForegroundPermissionsAsync())
+      .status;
+    let status = initalStatus;
+
+    if (status === 'undetermined') {
+      status = (await Location.requestForegroundPermissionsAsync()).status;
+    }
 
     if (status !== 'granted') {
       const servicesEnabled = await Location.hasServicesEnabledAsync();
@@ -24,7 +29,9 @@ class LocationService {
         return false;
       }
 
-      await this.handleLocationPermissionDenied();
+      if (initalStatus !== 'undetermined') {
+        this.handleLocationPermissionDenied();
+      }
       return false;
     }
 
@@ -32,10 +39,12 @@ class LocationService {
   }
 
   async checkLocationPermissionAndroid() {
-    const {status} = await Location.requestForegroundPermissionsAsync();
-
+    const start = Date.now();
+    const status = (await Location.requestForegroundPermissionsAsync()).status;
     if (status !== 'granted') {
-      await this.handleLocationPermissionDenied();
+      if (Date.now() - start < 1000) {
+        this.handleLocationPermissionDenied();
+      }
       return false;
     } else {
       const servicesEnabled = await Location.hasServicesEnabledAsync();
@@ -50,24 +59,19 @@ class LocationService {
   }
 
   handleLocationPermissionDenied() {
-    return new Promise((res, rej) => {
-      Alert.alert(i18n.t('common:locationPermissionText'), '', [
-        {
-          text: i18n.t('common:locationPermissionCancel'),
-          onPress: () => {
-            rej(new RequestError(locationPermissionCanceledErrorPreset()));
-          },
-          style: 'cancel',
+    Alert.alert(i18n.t('common:locationPermissionText'), '', [
+      {
+        text: i18n.t('common:locationPermissionCancel'),
+
+        style: 'cancel',
+      },
+      {
+        text: i18n.t('common:locationPermissionSettings'),
+        onPress: () => {
+          Linking.openSettings();
         },
-        {
-          text: i18n.t('common:locationPermissionSettings'),
-          onPress: () => {
-            Linking.openSettings();
-            res('');
-          },
-        },
-      ]);
-    });
+      },
+    ]);
   }
 
   handeLocationServicesDisabled() {
