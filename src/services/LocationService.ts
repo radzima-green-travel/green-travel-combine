@@ -8,7 +8,6 @@ import i18n from 'i18next';
 import {
   createLocationErrorPreset,
   createPermissionErrorPreset,
-  locationPermissionCanceledErrorPreset,
   RequestError,
 } from 'core/errors';
 
@@ -35,7 +34,7 @@ class LocationService {
     const {status} = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
-      await this.handleLocationPermissionDenied();
+      this.handleLocationPermissionDenied();
       return false;
     } else {
       const servicesEnabled = await Location.hasServicesEnabledAsync();
@@ -50,24 +49,19 @@ class LocationService {
   }
 
   handleLocationPermissionDenied() {
-    return new Promise((res, rej) => {
-      Alert.alert(i18n.t('common:locationPermissionText'), '', [
-        {
-          text: i18n.t('common:locationPermissionCancel'),
-          onPress: () => {
-            rej(new RequestError(locationPermissionCanceledErrorPreset()));
-          },
-          style: 'cancel',
+    Alert.alert(i18n.t('common:locationPermissionText'), '', [
+      {
+        text: i18n.t('common:locationPermissionCancel'),
+
+        style: 'cancel',
+      },
+      {
+        text: i18n.t('common:locationPermissionSettings'),
+        onPress: () => {
+          Linking.openSettings();
         },
-        {
-          text: i18n.t('common:locationPermissionSettings'),
-          onPress: () => {
-            Linking.openSettings();
-            res('');
-          },
-        },
-      ]);
-    });
+      },
+    ]);
   }
 
   handeLocationServicesDisabled() {

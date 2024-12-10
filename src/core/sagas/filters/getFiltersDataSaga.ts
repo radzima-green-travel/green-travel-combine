@@ -6,11 +6,12 @@ import {
 } from 'core/types';
 import {RequestError} from 'core/errors';
 import {graphQLAPI} from 'api/graphql';
-import {getFiltersDataRequest} from 'core/actions';
+import {getFiltersDataRequest, setActiveFilter} from 'core/actions';
 import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
 import {getInitialFiltersSaga} from './getInitialFiltersSaga';
 import {selectUserAuthorizedData} from 'core/selectors';
 import {transformSearchOptionsToFieldsToSearch} from 'core/transformators/search';
+import {locationService} from 'services/LocationService';
 
 export function* getFiltersDataSaga({
   meta: {failureAction, successAction},
@@ -21,6 +22,33 @@ export function* getFiltersDataSaga({
       selectUserAuthorizedData,
     );
 
+    const {isOn, location} = filters.distance;
+
+    if (isOn && !location) {
+      const permissionGranted = yield call([
+        locationService,
+        locationService.checkLocationPermission,
+      ]);
+
+      if (!permissionGranted) {
+        yield put(setActiveFilter({name: 'distance', isOn: false}));
+      } else {
+        const loctaionCoords = yield call([
+          locationService,
+          locationService.getLowAccuracyCurrentPosition,
+        ]);
+
+        yield put(
+          setActiveFilter({
+            name: 'distance',
+            isOn: true,
+            location: loctaionCoords,
+          }),
+        );
+      }
+
+      return;
+    }
     const [filtersResult, filtersInitialData]: [
       ObjectFiltersDataDTO,
       {
