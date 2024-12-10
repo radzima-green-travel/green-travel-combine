@@ -13,7 +13,13 @@ import {
 
 class LocationService {
   async checkLocationPermissionIOS() {
-    const {status} = await Location.requestForegroundPermissionsAsync();
+    const initalStatus = (await Location.getForegroundPermissionsAsync())
+      .status;
+    let status = initalStatus;
+
+    if (status === 'undetermined') {
+      status = (await Location.requestForegroundPermissionsAsync()).status;
+    }
 
     if (status !== 'granted') {
       const servicesEnabled = await Location.hasServicesEnabledAsync();
@@ -23,7 +29,9 @@ class LocationService {
         return false;
       }
 
-      await this.handleLocationPermissionDenied();
+      if (initalStatus !== 'undetermined') {
+        this.handleLocationPermissionDenied();
+      }
       return false;
     }
 
@@ -31,10 +39,12 @@ class LocationService {
   }
 
   async checkLocationPermissionAndroid() {
-    const {status} = await Location.requestForegroundPermissionsAsync();
-
+    const start = Date.now();
+    const status = (await Location.requestForegroundPermissionsAsync()).status;
     if (status !== 'granted') {
-      this.handleLocationPermissionDenied();
+      if (Date.now() - start < 1000) {
+        this.handleLocationPermissionDenied();
+      }
       return false;
     } else {
       const servicesEnabled = await Location.hasServicesEnabledAsync();
