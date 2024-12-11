@@ -86,7 +86,7 @@ export const getSearchObjectsQuery = (locale?: string) =>
   );
 
 export const getSearchObjectsHistoryQuery = `query MyQuery($match: String = "") {
-  searchObjects(limit: 15, filter: {id: {match: $match}, statuses: "published"}) {
+  searchObjects(limit: 15, filter: {id: {match: $match}, status: {eq: "published"}}) {
     items {
     ${searchObjectQueryParameters}
     }
