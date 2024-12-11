@@ -25,7 +25,7 @@ export const searchHistoryReducer = createReducer(initialState, builder => {
     addSearchObjectToHistory,
     (state, {payload: {searchObject}}) => ({
       ...state,
-      searchHistoryObjects: [...state.searchHistoryObjects, searchObject],
+      searchHistoryObjects: [searchObject, ...state.searchHistoryObjects],
     }),
   );
 });
