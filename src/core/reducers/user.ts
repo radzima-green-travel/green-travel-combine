@@ -24,7 +24,7 @@ const initialState: UserState = {
 export const userReducer = createReducer(initialState, builder => {
   builder.addCase(addObjectIdToUserSearchHistory, (state, {payload}) => ({
     ...state,
-    historyIds: uniq([...state.historyIds, payload]),
+    historyIds: uniq([payload, ...state.historyIds]),
   }));
   builder.addCase(deleteObjectIdFromUserSearchHistory, (state, {payload}) => ({
     ...state,
