@@ -154,6 +154,7 @@ export const Filters = () => {
               <FilterDistance
                 distance={activeFilters.distance.value}
                 isOn={activeFilters.distance.isOn}
+                location={activeFilters.distance.location}
                 onChangeSwitcherState={updateDistanceIsOn}
                 onChangeDistance={updateDistance}
               />

@@ -4,16 +4,24 @@ import {Text, View} from 'react-native';
 import {themeStyles} from './styles';
 import {ListItem} from '../ListItem';
 import {useThemeStyles, useTranslation} from 'core/hooks';
+import {Location} from 'core/types';
 
 interface Props {
   isOn: boolean;
   distance: number;
+  location: Location | null;
   onChangeSwitcherState: (isOn: boolean) => void;
   onChangeDistance: (value: number) => void;
 }
 
 export const FilterDistance = memo(
-  ({isOn, distance, onChangeSwitcherState, onChangeDistance}: Props) => {
+  ({
+    isOn,
+    distance,
+    onChangeSwitcherState,
+    onChangeDistance,
+    location,
+  }: Props) => {
     const styles = useThemeStyles(themeStyles);
     const {t} = useTranslation('filters');
     const [distanceValue, setDistanceValue] = useState(distance);
@@ -35,7 +43,7 @@ export const FilterDistance = memo(
             onValueChange: onChangeSwitcherState,
           }}
         />
-        {isOn && (
+        {isOn && location && (
           <View>
             <Text style={styles.distanceStyle}>
               {t('distance.upTo', {distance: distanceValue})}
