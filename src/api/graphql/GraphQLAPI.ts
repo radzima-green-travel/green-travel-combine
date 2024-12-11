@@ -172,6 +172,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
       query: getSearchObjectsHistoryQuery,
       params: {
         match: objectsIds.join(' '),
+        filter: {statuses: ['published']},
       },
     });
 

@@ -1,7 +1,6 @@
 import {createFilterObjectsQuery} from './common';
 
 export const searchObjectQueryParameters = `
-
           id
           name
           cover
