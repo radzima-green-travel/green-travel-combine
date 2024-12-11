@@ -16,6 +16,7 @@ import {xor} from 'lodash';
 import {INITIAL_FILTERS} from 'core/constants';
 
 interface FiltersState {
+  initialFiltersData: ObjectFiltersDataDTO | null;
   regionsList: RegionsListResponseDTO;
   filtersData: ObjectFiltersDataDTO | null;
   activeFilters: SearchFilters;
@@ -23,6 +24,7 @@ interface FiltersState {
 }
 
 const initialState: FiltersState = {
+  initialFiltersData: null,
   regionsList: [],
   filtersData: null,
   activeFilters: INITIAL_FILTERS,
@@ -68,6 +70,7 @@ export const filtersReducer = createReducer(initialState, builder => {
       return {
         ...state,
         activeFilters: initialState.activeFilters,
+        filtersData: state.initialFiltersData,
       };
     })
 
@@ -79,6 +82,7 @@ export const filtersReducer = createReducer(initialState, builder => {
           regionsList,
           categoriesList,
           filtersData,
+          initialFiltersData: state.initialFiltersData || filtersData,
         };
       },
     )
