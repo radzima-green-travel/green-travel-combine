@@ -45,7 +45,7 @@ export const SearchListItem = memo(
     }, [onRemovePress, objectId]);
 
     const descriptionWithTruncate = description
-      ? `...${trim(description)}`
+      ? `...${trim(description)}...`
       : '';
 
     const subtitlePostfix = address || descriptionWithTruncate;

@@ -1,6 +1,7 @@
 import {sendAnalyticsEvent} from 'core/actions';
 import {FILTERS_NAMES_ANAYLITICS_MAP} from 'core/constants';
-import {selectSearchHistory} from 'core/selectors';
+import {useSearchSelector} from 'core/hooks';
+import {selectSearchHistory, selectSearchOptions} from 'core/selectors';
 import {SearchOptions} from 'core/types';
 import {compact, find} from 'lodash';
 import {useCallback, useRef} from 'react';
@@ -11,6 +12,7 @@ export function useSearchAnalytics() {
 
   const historyObjects = useSelector(selectSearchHistory);
   const ignoreCloseEvent = useRef(false);
+  const searchOptions = useSearchSelector(selectSearchOptions);
 
   const sendSearchViewEvent = useCallback(() => {
     dispatch(
@@ -54,10 +56,16 @@ export function useSearchAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'Search_parameters_close',
+          data: {
+            parameters: compact([
+              searchOptions.byAddress && 'Addess',
+              searchOptions.byDescription && 'Description',
+            ]),
+          },
         }),
       );
     }
-  }, [dispatch]);
+  }, [dispatch, searchOptions.byAddress, searchOptions.byDescription]);
 
   const sendSearchHistoryItemRemoveEvent = useCallback(
     (objectId: string) => {
