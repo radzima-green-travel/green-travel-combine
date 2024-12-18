@@ -17,7 +17,9 @@ export type SearchParameterOnEvent = {
 
 export type SearchParametersCloseEvent = {
   name: 'Search_parameters_close';
-  data?: {};
+  data: {
+    parameters: string[];
+  };
 };
 
 export type SearchHistoryItemRemoveEvent = {
