@@ -14,6 +14,9 @@ export function* getBookmarksInitialObjectsDataSaga({
         id: {
           match: payload.join(' '),
         },
+        status: {
+          eq: 'published',
+        },
       },
     };
 
