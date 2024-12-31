@@ -20,7 +20,7 @@ export function* getUserIdSaga() {
 
 export function* sendEmailSaga({
   payload,
-  meta: {successAction, failureAction},
+  meta: {successAction, failureAction, entityId},
 }: ReturnType<
   typeof sendInaccuraciesEmailRequest | typeof sendAddInfoEmailRequest
 >) {
@@ -30,8 +30,8 @@ export function* sendEmailSaga({
 
     yield call(amplifyApi.sendEmail, {...emailData, userId});
 
-    yield put(successAction(showSuccessMenu));
+    yield put(successAction(showSuccessMenu, {entityId}));
   } catch (e: any) {
-    yield put(failureAction(e));
+    yield put(failureAction(e, {entityId}));
   }
 }

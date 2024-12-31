@@ -12,7 +12,7 @@ export const themeStyles = {
     ...FONTS_PRESETS.headlineBold,
     color: {
       light: COLORS.light.text.primary,
-      dark: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
     },
   },
   titleSingle: {
