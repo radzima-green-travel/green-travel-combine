@@ -148,9 +148,9 @@ export const ObjectDetailsShareExperience = () => {
         header={reportInnacuraciesHeader}>
         <ObjectReportinaccuraciesMenu
           ref={innaccuraciesMenuRef}
+          keyboardHeight={reportInnacurateInfoMenuProps.keyboardHeight}
           onSendPress={onSendPress}
           onInputValueChange={onReportInnacuranceFieldValueChange}
-          autoHandleKeyboard
           isSendLoading={sendLoading}
           testID={'reportInaccuraciesMenu'}
         />
