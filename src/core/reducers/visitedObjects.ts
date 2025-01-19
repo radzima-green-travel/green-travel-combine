@@ -8,7 +8,7 @@ import {
   clearShareExperienceData,
 } from 'core/actions';
 import {addVisitedObjectRequest} from 'core/actions';
-import {filter, isEqual} from 'lodash';
+import {filter, isEqual, some} from 'lodash';
 
 interface InitialState {
   data: VisitedObjectsData;
@@ -24,21 +24,28 @@ export const visitedObjectsReducer = createReducer(initialState, builder => {
   builder
     .addCase(
       getVisitedObjectsRequest.meta.successAction,
-      (state, {payload}) => ({
-        ...state,
-        data: payload,
-      }),
+      (state, {payload}) => {
+        const locallyVisitedObjects = filter(state.data, object => {
+          return !some(payload, ({id}) => isEqual(id, object.id));
+        });
+        return {
+          ...state,
+          data: [...payload, ...locallyVisitedObjects],
+        };
+      },
     )
-    .addCase(addVisitedObjectRequest, (state, {payload}) => ({
-      ...state,
-      data: [
-        ...state.data,
-        {
-          id: payload.objectId,
-          timestamp: payload.data.timestamp,
-        },
-      ],
-    }))
+    .addCase(addVisitedObjectRequest, (state, {payload}) => {
+      return {
+        ...state,
+        data: [
+          ...state.data,
+          {
+            id: payload.objectId,
+            timestamp: payload.data.timestamp,
+          },
+        ],
+      };
+    })
     .addCase(deleteVisitedObjectRequest, (state, {payload}) => ({
       ...state,
       data: [

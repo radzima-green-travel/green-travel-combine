@@ -19,6 +19,7 @@ import {
   omit,
   forEach,
   keys,
+  orderBy,
 } from 'lodash';
 import {
   extractLocaleSpecificValues,
@@ -74,7 +75,7 @@ export function prepareSearchItems(
   query: string,
   locale: SupportedLocales | null,
 ): SearchObject[] {
-  return map(searchObjects, object => {
+  const preparedItems = map(searchObjects, object => {
     const processedObject = {
       ...translateAndProcessImagesForEntity(object, locale),
       category: extractLocaleSpecificValues(object.category, locale),
@@ -101,7 +102,9 @@ export function prepareSearchItems(
     }
 
     return processedObject;
-  });
+  }) as SearchObject[];
+
+  return orderBy(preparedItems, item => item?.highlight?.name, 'asc');
 }
 
 export function transformSearchOptionsToFieldsToSearch(options: SearchOptions) {
