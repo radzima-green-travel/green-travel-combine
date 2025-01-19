@@ -19,7 +19,6 @@ import {
   omit,
   forEach,
   keys,
-  orderBy,
 } from 'lodash';
 import {
   extractLocaleSpecificValues,
@@ -104,7 +103,7 @@ export function prepareSearchItems(
     return processedObject;
   }) as SearchObject[];
 
-  return orderBy(preparedItems, item => item?.highlight?.name, 'asc');
+  return preparedItems;
 }
 
 export function transformSearchOptionsToFieldsToSearch(options: SearchOptions) {
