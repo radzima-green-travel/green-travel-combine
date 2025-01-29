@@ -7,7 +7,8 @@
     "ios": {      
       "appStoreUrl": "https://apps.apple.com/ru/app/radzima/id1587158874",
       "publishBundlePath": "./build",
-      "supportsTablet": false,
+      "supportsTablet": true,
+      "requireFullScreen": true,
       "userInterfaceStyle": "automatic",
       "splash": {
         "image": "src/assets/splash/SplashLight.png",
