@@ -15,7 +15,8 @@
     "update-svg": "node scripts/update-svg/update-svg.js",
     "build-ios": "eas build --profile production --platform ios --local",
     "build-dev-client-ios": "eas build --profile development --platform ios --local",
-    "postinstall": "patch-package && yarn husky install"
+    "postinstall": "patch-package && yarn husky install",
+    "eas-build-post-install": "node post-install.js"
   },
   "dependencies": {
     "@amplitude/analytics-react-native": "^1.4.9",
