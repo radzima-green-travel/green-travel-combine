@@ -23,7 +23,9 @@ export const searchSpotsQuery = `
      }
    }
    `;
-export const filterObjects = createFilterObjectsQuery(` 
+export const getFilterObjectsQuery = (locale?: string) =>
+  createFilterObjectsQuery(
+    ` 
   aggregations {
       googleRatings {
         doc_count
@@ -59,7 +61,9 @@ export const filterObjects = createFilterObjectsQuery(`
          }
        }
      }
-    }`);
+    }`,
+    locale,
+  );
 
 export const getFiltersCategoriesQuery = `query MyQuery(
   $filter: SearchableCategoryFilterInput = {},

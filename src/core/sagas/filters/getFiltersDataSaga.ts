@@ -9,9 +9,10 @@ import {graphQLAPI} from 'api/graphql';
 import {getFiltersDataRequest, setActiveFilter} from 'core/actions';
 import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
 import {getInitialFiltersSaga} from './getInitialFiltersSaga';
-import {selectUserAuthorizedData} from 'core/selectors';
+import {selectAppLanguage, selectUserAuthorizedData} from 'core/selectors';
 import {transformSearchOptionsToFieldsToSearch} from 'core/transformators/search';
 import {locationService} from 'services/LocationService';
+import {DEFAULT_LOCALE} from 'core/constants';
 
 export function* getFiltersDataSaga({
   meta: {failureAction, successAction},
@@ -49,6 +50,9 @@ export function* getFiltersDataSaga({
 
       return;
     }
+
+    const appLocale: ReturnType<typeof selectAppLanguage> =
+      yield select(selectAppLanguage);
     const [filtersResult, filtersInitialData]: [
       ObjectFiltersDataDTO,
       {
@@ -60,9 +64,12 @@ export function* getFiltersDataSaga({
         ...(options ? transformSearchOptionsToFieldsToSearch(options) : {}),
         ...transformActiveFiltersToFilterParam({
           filters,
+
           userId: userData?.sub,
         }),
         query,
+        locale:
+          !appLocale || appLocale === DEFAULT_LOCALE ? undefined : appLocale,
       }),
       call(getInitialFiltersSaga),
     ]);
