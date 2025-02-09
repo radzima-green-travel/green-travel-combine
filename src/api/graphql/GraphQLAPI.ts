@@ -34,7 +34,7 @@ import {generateListObjectsShortQuery} from './queries/homePage';
 import {getObjectsTotalCountQuery} from './queries/common';
 import {
   searchSpotsQuery,
-  filterObjects,
+  getFilterObjectsQuery,
   getFiltersCategoriesQuery,
 } from './queries/filters';
 import {getBookmarksInitialObjectsDataQuery} from './queries/bookmarksDetails';
@@ -105,8 +105,11 @@ class GraphQLAPI extends GraphQLAPIEngine {
   ): Promise<ObjectFiltersDataResponseDTO> {
     const {filter, ...otherParams} = params;
     const response = await this.executeQuery({
-      query: filterObjects,
-      params: {filter: {statuses: ['published'], ...filter}, ...otherParams},
+      query: getFilterObjectsQuery(otherParams.locale),
+      params: {
+        filter: {statuses: ['published'], ...filter},
+        ...otherParams,
+      },
     });
 
     return response.filterLandingObjects;
