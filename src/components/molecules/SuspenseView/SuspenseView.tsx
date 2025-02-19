@@ -3,6 +3,8 @@ import {LoadingView} from 'atoms';
 import {ErrorView} from '../ErrorView';
 import {Props} from './types';
 import {composeTestID} from 'core/helpers';
+import {View} from 'react-native';
+import {styles} from './styles';
 
 function useDelayLoading(loading: boolean = false, delay: number) {
   const [showLoading, setShowLoading] = useState(false);
@@ -33,9 +35,9 @@ export const SuspenseView = memo<Props>(
     testID,
   }: Props) => {
     const showLoading = useDelayLoading(loading, loadingDelay || 0);
-
+    let content: React.ReactElement | null = null;
     if (error) {
-      return (
+      content = (
         <ErrorView
           onButtonPress={retryCallback}
           error={error}
@@ -43,17 +45,21 @@ export const SuspenseView = memo<Props>(
           testID={composeTestID(testID, 'errorView')}
         />
       );
-    }
-
-    if (showLoading && !cover) {
-      return <LoadingView />;
+    } else if (showLoading && !cover) {
+      content = <LoadingView />;
+    } else {
+      content = (
+        <>
+          {children}
+          {cover && showLoading && <LoadingView transparent={false} />}
+        </>
+      );
     }
 
     return (
-      <>
-        {children}
-        {cover && showLoading && <LoadingView transparent={false} />}
-      </>
+      <View style={styles.container} testID={testID}>
+        {content}
+      </View>
     );
   },
 );

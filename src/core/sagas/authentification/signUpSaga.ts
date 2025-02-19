@@ -1,5 +1,5 @@
 import {call, put, select} from 'redux-saga/effects';
-import {Auth} from 'aws-amplify';
+import {amplifyApi} from 'api/amplify';
 import {signUpRequest} from 'core/actions';
 import {selectAppLanguage} from 'core/selectors';
 
@@ -10,7 +10,7 @@ export function* signUpSaga({
   try {
     const locale = yield select(selectAppLanguage);
 
-    yield call([Auth, Auth.signUp], {
+    yield call(amplifyApi.signUp, {
       username: payload.email,
       password: payload.password,
       attributes: {

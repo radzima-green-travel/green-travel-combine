@@ -1,5 +1,5 @@
 import {call} from 'redux-saga/effects';
-import {Auth} from 'aws-amplify';
+import {amplifyApi} from 'api/amplify';
 import {SupportedLocales} from 'core/types';
 
 export function* updateUserAttributesSaga({
@@ -8,9 +8,9 @@ export function* updateUserAttributesSaga({
   locale: SupportedLocales;
 }) {
   try {
-    const user = yield call([Auth, Auth.currentAuthenticatedUser]);
+    const user = yield call(amplifyApi.currentAuthenticatedUser);
 
-    yield call([Auth, Auth.updateUserAttributes], user, {
+    yield call(amplifyApi.updateUserAttributes, user, {
       'custom:locale': locale,
     });
   } catch (e) {

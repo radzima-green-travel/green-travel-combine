@@ -125,7 +125,7 @@ export const HomeSectionBar = memo(
     );
 
     return (
-      <View>
+      <View testID={testID}>
         <View style={styles.sectionTitleContainer}>
           <Text
             style={styles.sectionTitle}

@@ -50,11 +50,11 @@ class GraphQLAPI extends GraphQLAPIEngine {
 
     return response.searchCategories;
   }
-  async getObjectsForCategories(
-    categoryIds: string[],
-  ): Promise<ObjectsForCategoriesResponseDTO> {
+  async getObjectsForCategories(params: {
+    categoryIds: string[];
+  }): Promise<ObjectsForCategoriesResponseDTO> {
     return this.executeQuery({
-      query: generateListObjectsShortQuery(categoryIds),
+      query: generateListObjectsShortQuery(params.categoryIds),
     });
   }
 
