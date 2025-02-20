@@ -1,1 +1,1 @@
-export {amplifyApi} from './AmplifyAPI';
+export * from './AmplifyAPI';

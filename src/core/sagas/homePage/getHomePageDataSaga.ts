@@ -32,10 +32,9 @@ export function* getHomePageDataSaga({
     } = yield call(getCategoriesData, {payload: {limit: 200}});
 
     const objectForCategoriesResponse: ObjectsForCategoriesResponseDTO =
-      yield call(
-        [graphQLAPI, graphQLAPI.getObjectsForCategories],
-        map(categoriesWithObjects, 'key'),
-      );
+      yield call([graphQLAPI, graphQLAPI.getObjectsForCategories], {
+        categoryIds: map(categoriesWithObjects, 'key'),
+      });
 
     const objectsByCategory: ReturnType<typeof getObjectByCategories> =
       yield call(

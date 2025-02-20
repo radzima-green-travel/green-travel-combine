@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {IProps, ScreenOptions} from './types';
-import {Icon} from 'atoms';
+import {Icon} from 'atoms/Icon';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
