@@ -1,7 +1,7 @@
 import React from 'react';
-import {SuspenseView} from 'molecules/SuspenseView';
-import {SnackBar} from 'atoms/SnackBar';
-import {HomeSectionBar} from 'organisms/HomeSectionBar';
+import {SuspenseView} from 'molecules';
+import {SnackBar} from 'atoms';
+import {HomeSectionBar} from 'organisms';
 import {FlatList, RefreshControl} from 'react-native';
 
 import {useThemeStyles} from 'core/hooks/useThemeStyles';

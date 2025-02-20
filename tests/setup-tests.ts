@@ -1,11 +1,13 @@
 import '@testing-library/react-native';
+import 'react-native-gesture-handler/jestSetup';
+import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
+import {languageService} from 'services/LanguageService';
 
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
 );
 
 // include this line for mocking react-native-gesture-handler
-import 'react-native-gesture-handler/jestSetup';
 
 // include this section and the NativeAnimatedHelper section for mocking react-native-reanimated
 jest.mock('react-native-reanimated', () => {
@@ -22,8 +24,6 @@ jest.mock('react-native-reanimated', () => {
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 
 jest.mock('react-native-theme-switch-animation', () => jest.fn());
-
-import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 
 jest.mock('react-native-safe-area-context', () => mockSafeAreaContext);
 
@@ -42,4 +42,8 @@ jest.mock('redux-persist', () => {
     persistReducer: jest.fn((_, reducer) => reducer),
     persistStore: jest.fn(a => a),
   };
+});
+
+beforeAll(() => {
+  languageService.init();
 });

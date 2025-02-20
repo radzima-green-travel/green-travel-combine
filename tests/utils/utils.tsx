@@ -4,7 +4,7 @@ import {find, isEmpty, isEqual, mapValues} from 'lodash';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 
-export function mockGetGraphQLApi(
+export function mockCreateGraphQLAPI(
   mock: Record<string, Array<{params: Object; response: Object}>>,
 ) {
   return mapValues(mock, methodMocks => {
