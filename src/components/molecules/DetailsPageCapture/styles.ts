@@ -57,5 +57,6 @@ export const themeStyles = createThemeStyles({
   ratings: {
     flexDirection: 'row',
     marginVertical: 8,
+    gap: 8,
   },
 });

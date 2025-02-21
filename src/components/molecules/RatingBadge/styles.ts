@@ -8,12 +8,19 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.background.secondary,
     },
     flexDirection: 'row',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 4,
+  },
+  containerSmall: {
+    paddingHorizontal: 6,
+    paddingVertical: 5,
+    borderRadius: 6,
+  },
+  containerMedium: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderRadius: 12,
-    marginRight: 8,
   },
   label: {
     ...FONTS_PRESETS.caption1Regular,
@@ -28,7 +35,6 @@ export const themeStyles = createThemeStyles({
       light: COLORS.light.text.primary,
       dark: COLORS.dark.text.primary,
     },
-    marginHorizontal: 4,
   },
   icon: {
     color: {

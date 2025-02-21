@@ -72,7 +72,10 @@
         "title": "",
         "text": "Отсутствует подключение к Интернету"
       }
-    }
+    },
+    "placesYouWontFindWidgetTitle": "Места, которые\n**не отмечены**\nна Google Maps",
+    "randomSpotWidgetTitle": "Посетите\n**случайное место**\nв Беларуси",
+    "spotOfTheWeekWidgetTitle": "Точка <highlight>недели</highlight>"
   },
   "objectDetails": {
     "seeOnTheMap": "Показать на карте",

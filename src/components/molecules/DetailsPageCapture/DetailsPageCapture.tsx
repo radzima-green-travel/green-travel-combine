@@ -84,6 +84,7 @@ export const DetailsPageCapture = memo(
           <View style={styles.ratings}>
             {usersRating && usersRatingsTotal ? (
               <RatingBadge
+                testID="userRating"
                 rating={usersRating}
                 label={t('usersRating', {rating: usersRatingsTotal})}
                 iconName="starSmall"
@@ -91,6 +92,7 @@ export const DetailsPageCapture = memo(
             ) : null}
             {googleRating && googleRatingsTotal ? (
               <RatingBadge
+                testID="googleRating"
                 rating={googleRating}
                 label={t('googleRating', {rating: googleRatingsTotal})}
                 iconName="googleIconSmall"

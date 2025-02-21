@@ -72,7 +72,10 @@
         "title": "",
         "text": "Internet connection lost"
       }
-    }
+    },
+    "placesYouWontFindWidgetTitle": "Places\nyou **won't find**\non Google Maps",
+    "randomSpotWidgetTitle": "Discover\n**a random spot**\nin Belarus",
+    "spotOfTheWeekWidgetTitle": "Spot of the <highlight>week</highlight>"
   },
   "objectDetails": {
     "seeOnTheMap": "Show on map",
