@@ -7,8 +7,11 @@ import {
   GetVisitedObjectsResponse,
   AddVisitedObjectBody,
 } from 'core/types';
-import {Auth} from 'aws-amplify';
-import {AmplifyApiEngine, CustomApiRequestConfig} from '../engines';
+import {Auth, Hub} from 'aws-amplify';
+import {
+  AmplifyApiEngine,
+  CustomApiRequestConfig,
+} from '../engines/AmplifyAPIEngine';
 
 class AmplifyApi extends AmplifyApiEngine {
   async getHeaders(config?: CustomApiRequestConfig) {
@@ -74,6 +77,33 @@ class AmplifyApi extends AmplifyApiEngine {
       ...args,
     );
     return user;
+  };
+
+  signUp = async (...args: Parameters<typeof Auth.signUp>): Promise<void> => {
+    await this.invoke(
+      {
+        context: Auth,
+        method: Auth.signUp,
+        errorMap: () => {
+          return {};
+        },
+      },
+      ...args,
+    );
+  };
+  updateUserAttributes = async (
+    ...args: Parameters<typeof Auth.updateUserAttributes>
+  ): Promise<void> => {
+    await this.invoke(
+      {
+        context: Auth,
+        method: Auth.updateUserAttributes,
+        errorMap: () => {
+          return {};
+        },
+      },
+      ...args,
+    );
   };
 
   forgotPasswordSubmit = async (
@@ -298,3 +328,4 @@ class AmplifyApi extends AmplifyApiEngine {
 }
 
 export const amplifyApi = new AmplifyApi();
+export {Hub};

@@ -1,0 +1,2494 @@
+{
+  "getObjectsForCategories": [
+    {
+      "params": {
+        "categoryIds": [
+          "f94cfadb-527d-44ac-a470-d4f5d3364921",
+          "6047a51e85272e884685376f",
+          "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+          "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+          "6047a51e85272e8846853778",
+          "6047a51e85272e8846853772",
+          "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+          "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+          "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+          "6047a51e85272e8846853779",
+          "6047a51e85272e884685377e",
+          "b498eae3-f22e-41de-bc50-a0950dde4bd6"
+        ]
+      },
+      "response": {
+        "category0": {
+          "items": [
+            {
+              "cover": "hG-JkRLdyBWJ_3rnQuDvB.jpg",
+              "blurhash": "LKCHgCbdL}%NEFogpKX88^bYSzMx",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "All Saints Church (Tours)",
+                  "locale": "en"
+                },
+                {
+                  "name": "诸圣堂（旅游）",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Церковь Всех Святых (Туров)",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "ffc1994b-fa6c-49bc-9fc4-3f81db34eff0"
+            },
+            {
+              "cover": "1624471855512_1c572abc5829efb7f436e653715efe46.jpg",
+              "blurhash": "L8Dl=q~BI8s+00WBtloz=]R4-;WB",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "Holy Cross Church",
+                  "locale": "en"
+                },
+                {
+                  "name": "圣十字教堂",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Крестовоздвиженская церковь",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "fc86a8ac-a42a-4a22-aee8-879fabe177ca"
+            },
+            {
+              "cover": "Vi56kw8_L37USGXrJahPS.jpg",
+              "blurhash": "LcFPZ=In0K%2?dWAM_R*%MWBW;oL",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "Holy Trinity Church (Bila Tserkva)",
+                  "locale": "en"
+                },
+                {
+                  "name": "圣三一教堂（Bila Tserkva）",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Свято-Троицкая церковь (Белая церковь)",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "faaaed29-885b-4b60-a008-1b28c9e243b2"
+            },
+            {
+              "cover": "19-Rxqz0l5wlbWi3tbDho.webp",
+              "blurhash": "L9C?=g9Z00~8pfIT-L-;VEIS.8tn",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "St. Elias Church",
+                  "locale": "en"
+                }
+              ],
+              "name": "Церковь Святого Илии",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "ed3264e7-39f8-4724-a62b-f74bce9c03a9"
+            },
+            {
+              "cover": "SUkFe5ghpaqNtrnC82_Ls.jpg",
+              "blurhash": "LXCG}#WCIVxtAhj]t5RkD*ofxaRj",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "Transfiguration Church (Chechersk)",
+                  "locale": "en"
+                },
+                {
+                  "name": "变身教堂 (切切尔斯克)",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Спасо-Преображенская церковь (Чечерск)",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "ec98b105-b1c1-4fbc-a459-5e821ff3bebf"
+            },
+            {
+              "cover": "QOnLLZ3KXZt3JXWUauMsi.jpg",
+              "blurhash": "LjC7pzs:SkNKXraeofoeI9WCnfob",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "The Church of the Body of God",
+                  "locale": "en"
+                },
+                {
+                  "name": "上帝身体的教会",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Костёл Божьего тела",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "d9567406-0b7e-425c-8f84-f09c6de8cae8"
+            },
+            {
+              "cover": "uliO4zpPi-2keYWj-78Tc.jpg",
+              "blurhash": "LpB;kct8NKNGOej=s;oeM{M{oHoz",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "Holy Trinity Church, Zasvir",
+                  "locale": "en"
+                },
+                {
+                  "name": "扎斯维尔圣三一教堂",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Костёл Святой Троицы (Засвирь)",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "d83d8063-3284-4551-9c63-b68ff553c368"
+            },
+            {
+              "cover": "tGZnXtS_dnzSgiF1SNErn.JPG",
+              "blurhash": "LTDcdgD%IpjXyGRjV@jYo#bcjEoz",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "Transfiguration Church (Dikushki)",
+                  "locale": "en"
+                },
+                {
+                  "name": "变身教堂（Dikushki）",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Спасо-Преображенская церковь (Дикушки)",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "d21b7377-cc28-4229-b55c-b6173e36f28d"
+            },
+            {
+              "cover": "zu6nkvCG4Ld4vf1MYV9aj.jpg",
+              "blurhash": "LmG]E%tSogWXY8W?WBa#-qj?WAj@",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "Holy Assumption Monastery in Pustynki",
+                  "locale": "en"
+                },
+                {
+                  "name": "Pustynki 的圣母升天修道院",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Свято-Успенский мужской монастырь в Пустынках",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "cf2ad2c7-0e83-4525-98b1-e077830e661d"
+            },
+            {
+              "cover": "r3tcBbdPDQtT8uF_LW_Tg.png",
+              "blurhash": "LnHV-zj@WYof.AaxV@f6IAWBV@ay",
+              "category": {
+                "name": "Религия"
+              },
+              "i18n": [
+                {
+                  "name": "The Church of Saints Peter and Paul (Medvedichi)",
+                  "locale": "en"
+                }
+              ],
+              "name": "Костёл Святых Петра и Павла (Медведичи)",
+              "categoryId": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+              "id": "c9ae872d-5897-407f-85a9-89865b2df3c1"
+            }
+          ]
+        },
+        "category1": {
+          "items": [
+            {
+              "cover": "m0Wh30j5TdoUJK6Z9MlfT.jpg",
+              "blurhash": "LEHxsLI9_2tTWFRM-U%K~m-;IWRR",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Slavgorodsky Republican Wetland Reserve",
+                  "locale": "en"
+                },
+                {
+                  "name": "斯拉夫戈罗德斯基共和党湿地保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский водно-болотный заказник «Славгородский»",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "d02b5497-25e5-492f-bf78-77e999bf3432"
+            },
+            {
+              "cover": "1615990592857_487a950b5023e6d8766b97feeecc3540.jpg",
+              "blurhash": "L6FX|i~m}kE,%f}*xStPxsS^ESof",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Buda-Koshelevsky National Wildlife Refuge",
+                  "locale": "en"
+                },
+                {
+                  "name": "布达-科舍列夫斯基国家野生动物保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский биологический заказник «Буда-Кошелёвский»",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ffa"
+            },
+            {
+              "cover": "1621437437322_1616010692033_10.jpg",
+              "blurhash": "LmB}nCi^t5WEu6WEkDoIX:bJkCfQ",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Verkhnevileisky National Wildlife Refuge",
+                  "locale": "en"
+                },
+                {
+                  "name": "Verkhnevileisky 国家野生动物保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский гидрологический заказник «Верхневилейский»",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ff9"
+            },
+            {
+              "cover": "G1zjxfzbWsPPVCt9A80h8.jpg",
+              "blurhash": "LuH{1fkBayj@~qayj@j[flWUoffR",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Drozhbitka-Svina Republican Reserve",
+                  "locale": "en"
+                },
+                {
+                  "name": "Drozhbitka-Svina 共和党后备队",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский заказник «Дрожбитка-Свина»",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ff8"
+            },
+            {
+              "cover": "1616518969991_dcdb5b0b1e708cffe8cc4da700472295.jpg",
+              "blurhash": "LpIEkMxYW=s:~qn$n$ofyEs:oJa}",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Yanka National Wildlife Refuge",
+                  "locale": "en"
+                },
+                {
+                  "name": "扬卡国家野生动物保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский заказник \"Янка\"",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ff7"
+            },
+            {
+              "cover": "1616010029447_5_compressed_127.jpg",
+              "blurhash": "LDCGM7R%03xI~nxqD+WZS8t5avfm",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Zhada Republican Wetland Reserve",
+                  "locale": "en"
+                },
+                {
+                  "name": "扎达国家野生动物保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский водно-болотный заказник «Жада»",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ff6"
+            },
+            {
+              "cover": "u6tfsv-oqcOyS9OSHHjUz.jpg",
+              "blurhash": "LZBqF{k8ITt9%jaeRit8p0jXofa$",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Morochno National Wildlife Refuge",
+                  "locale": "en"
+                },
+                {
+                  "name": "莫罗奇诺国家野生动物保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский заказник \"Морочно\"",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ff5"
+            },
+            {
+              "cover": "uWO2f4TMlsm0-gSnD9LKa.jpg",
+              "blurhash": "LdGv00xtofWB_NofoeWB?cWAofj[",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Lebyazhy National Wildlife Refuge",
+                  "locale": "en"
+                },
+                {
+                  "name": "Lebyazhy 国家野生动物保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский заказник \"Лебяжий\"",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ff4"
+            },
+            {
+              "cover": "3cMP2-Okj5CLiENCuH0U9.jpg",
+              "blurhash": "LECt%.4TN3%~A5Max_n#D4?utmMd",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Voronichsky Island National Wildlife Refuge",
+                  "locale": "en"
+                },
+                {
+                  "name": "沃罗尼奇斯基岛国家野生动物保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Республиканский водно-болотный заказник «Вороничский остров»",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ff3"
+            },
+            {
+              "cover": "rkysmslpW68kgTrpl2oly.jpg",
+              "blurhash": "L@GcAFxtWCV[_4j[j[oL.8aej]oM",
+              "category": {
+                "name": "Заповедные территории"
+              },
+              "i18n": [
+                {
+                  "name": "Moshno Biological Reserve",
+                  "locale": "en"
+                },
+                {
+                  "name": "莫什诺国家野生动物保护区",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Биологический заказник «Мошно»",
+              "categoryId": "6047a51e85272e884685376f",
+              "id": "6047a7d8f105f554a9098ff2"
+            }
+          ]
+        },
+        "category2": {
+          "items": [
+            {
+              "cover": "mPOn2OTU0znPyrjorDslr.jpg",
+              "blurhash": "LNE2^EIWEN%1?wV@xaR+tSjExYNG",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Gorvattov Manor (g. Narovlya)",
+                  "locale": "en"
+                },
+                {
+                  "name": "戈尔瓦托夫庄园（例如 Narovlya）",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Усадьба Горваттов (г. Наровля)",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "f00e3f5b-f749-4d50-a612-c4ebdc342b5c"
+            },
+            {
+              "cover": "h3liIni-1C8-qlxLq4ZEa.jpg",
+              "blurhash": "L$HoE|a}IVt7_4WCM{oftRR*WBWB",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Sulistrovskys' Manor",
+                  "locale": "en"
+                },
+                {
+                  "name": "Sulistrovskys Manor",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Усадьба Сулистровских",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "eebfb827-de59-4e3a-aa5b-1d7c3bbf2cfd"
+            },
+            {
+              "cover": "OSjBmOV10gsqMF7X-xwxs.jpg",
+              "blurhash": "LvCaV{ngoyofcIoGadf5S+bcV?Rj",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Governor's Palace",
+                  "locale": "en"
+                }
+              ],
+              "name": "Дворец губернатора",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "e521fff0-ac33-4676-8e39-66279b05eb63"
+            },
+            {
+              "cover": "nCUCgFr2U3dPOX1tHP0Cm.jpg",
+              "blurhash": "LPGI+C?a%f%M_4kCxboME1IUM{M{",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Yastrzhembsky Manor",
+                  "locale": "en"
+                },
+                {
+                  "name": "亚斯特任布斯基庄园",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Усадьба Ястржембских",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "e4be1a84-da60-4c49-826b-3a73223532df"
+            },
+            {
+              "cover": "wutVPqu6-Civ78ON5ma0z.jpg",
+              "blurhash": "LLGIoK?aOSX8_M-pD+aL%|tPIBRj",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Borovsky-Shumsky Manor",
+                  "locale": "en"
+                },
+                {
+                  "name": "波罗夫斯基-舒姆斯基庄园",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Усадьба Боровских-Шумских",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "d84e5626-816e-4b27-91e8-ee7a46fdb4fb"
+            },
+            {
+              "cover": "PFOn0leZsz4xhenSY-uyn.png",
+              "blurhash": "LPDJxKE2RiV?5xWGs,oI9c-:W?oz",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Gorvattov manor (ag. Golovchitsy)",
+                  "locale": "en"
+                },
+                {
+                  "name": "Gorvattov 庄园 (ag.Golovchitsy)",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Усадьба Горваттов (аг. Головчицы)",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "d5879bea-7e15-4670-b104-0c52ab8c0845"
+            },
+            {
+              "cover": "CVWxnOpXTB2U-AGmn8rAm.jpg",
+              "blurhash": "LPGJ1+IURjMx~XRjR*Rj={xubat7",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Katznelson Merchant Mansion",
+                  "locale": "en"
+                },
+                {
+                  "name": "卡茨纳尔逊商人大厦",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Особняк купчихи Кацнельсон",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "cf3a1b6b-d76a-4407-b72c-ec30c7496f87"
+            },
+            {
+              "cover": "TVLr3iqVB8AP_jNOArxeY.jpg",
+              "blurhash": "LTBDsUxuMxRk.TtRRiaxx_ofjXj[",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Bishevsky Manor",
+                  "locale": "en"
+                },
+                {
+                  "name": "比舍夫斯基庄园",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Усадьба Бишевских",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "ced2de4f-bb37-47e4-b116-c402fc826366"
+            },
+            {
+              "cover": "N-qCVbSG-YjaH3cDqKVH9.jpg",
+              "blurhash": "LnCG=TfhWAozyGWAWAkCk@jYjsay",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Bochvitsy Manor",
+                  "locale": "en"
+                }
+              ],
+              "name": "Усадьба Бохвицей",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "cb39e7af-e3bd-4ea1-b2b1-b87c6b418bf2"
+            },
+            {
+              "cover": "nRcv8RSELR9d_afwu2VfF.jpg",
+              "blurhash": "LfF?62IpNIs-.AWWWUayJDt6snR*",
+              "category": {
+                "name": "Архитектура"
+              },
+              "i18n": [
+                {
+                  "name": "Novitsky Manor",
+                  "locale": "en"
+                },
+                {
+                  "name": "诺维茨基庄园",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Усадьба Новицких",
+              "categoryId": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+              "id": "c15c7109-4c47-4690-8d26-465382690da8"
+            }
+          ]
+        },
+        "category3": {
+          "items": [
+            {
+              "cover": "1625251117510_Muzej-Spasjonnye-hudozhestvennye-cennosti-v-Breste-1024x491.jpg",
+              "blurhash": "LGI4|krBNfE85xR3M{Ir0p%IV?tR",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "“Saved Art Treasures” Museum",
+                  "locale": "en"
+                },
+                {
+                  "name": "保存的艺术珍品博物馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Музей «Спасённые художественные ценности»",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "fef074d1-7b9c-4166-9f7b-b594f4dcfe7e"
+            },
+            {
+              "cover": "q-gc7Hg2xIAIziKqqMtR0.jpg",
+              "blurhash": "LDB;B]xnRO?bjjIVWaIoY6S5a~IU",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "Great Patriotic War Museum",
+                  "locale": "en"
+                },
+                {
+                  "name": "伟大的卫国战争博物馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Музей Великой Отечественной войны",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "ed9852f4-2bdf-4a77-b66e-7502c657dce2"
+            },
+            {
+              "cover": "qxqsjA5EbHDAO4PiW0kMS.jpg",
+              "blurhash": "LIFPNcNYbX?I.Anixbo|57jYt7t8",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "Gomel Regional Museum of Military Glory",
+                  "locale": "en"
+                },
+                {
+                  "name": "戈梅利地区军事荣耀博物馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Гомельский областной музей военной славы",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "ea0b5b73-f8ac-4dd9-bbc5-fc97722a0afa"
+            },
+            {
+              "cover": "gjjKGl9_ZIY_8OlnR-ZUD.jpg",
+              "blurhash": "L8F$2v01IeD#01~oM^oj4qs+?aXN",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "“Mini Country” Museum of Architectural Miniatures",
+                  "locale": "en"
+                },
+                {
+                  "name": "“Strana mini” 建筑缩影博物馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Музей архитектурных миниатюр «Страна мини»",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "e5d68cd4-3f04-4caf-a809-7730d1c3a888"
+            },
+            {
+              "cover": "mngCWAgfzkqdlq-CtnZA3.jpg",
+              "blurhash": "L99kH1?[MRxt_1?axvs;x]-;.7xu",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "Rumyantsev-Paskevich Winter Garden and Ferris Tower",
+                  "locale": "en"
+                },
+                {
+                  "name": "Rumyantsev-Paskevich 冬季花园和摩天塔",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Зимний сад Румянцевых-Паскевичей и башня обозрения",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "dbab9af6-e7fb-4d6c-b8f5-01603160544a"
+            },
+            {
+              "cover": "rY0Zkm6nWtj_uwL65-MXg.jpg",
+              "blurhash": "LEEMKwIZ9FD%%Qo|MxM_%%IYV?M_",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "Yanka Kupala State Literary Museum, Vyazynka branch",
+                  "locale": "en"
+                },
+                {
+                  "name": "Yanki Kupala 图书馆博物馆，《Vyazynka》电影",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Государственный литературный музей Янки Купалы, филиал «Вязынка»",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "cfb1cca5-5a12-4832-bcdd-1c1123d4b576"
+            },
+            {
+              "cover": "wT6VFg71M0R2r9wX_4an7.jpg",
+              "blurhash": "LzIs8zt6o}t7yZaeWCs:tmkCRPax",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "National Art Museum of Belarus",
+                  "locale": "en"
+                },
+                {
+                  "name": "白俄罗斯国家美术馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Национальный художественный музей Беларуси",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "bc53ee58-9fc9-4018-be28-1413278eecac"
+            },
+            {
+              "cover": "7OgU0rBXHRql3TZvLLwTr.png",
+              "blurhash": "LtIX~rD%M{M{_4M{RPRjx]WVn%WB",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "Sula Park and Museum of Interactive History",
+                  "locale": "en"
+                },
+                {
+                  "name": "苏拉互动历史博物馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Парк-музей интерактивной истории «Сула»",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "b0f058a1-3140-4aa9-be4d-1089e9db1724"
+            },
+            {
+              "cover": "XXLmBqZpxuXQHNGDHf2Xh.jpg",
+              "blurhash": "LdHx$tx^R+xu.Tt7jFxto~RmWqM|",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "Nature Museum",
+                  "locale": "en"
+                },
+                {
+                  "name": "自然博物馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Музей природы",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "9d463a6b-4328-4574-bf8b-90b7f2bea1a7"
+            },
+            {
+              "cover": "Lt2MIK5ZL8GJF8YhfM591.jpg",
+              "blurhash": "LeF~dV?cbbxu_Nx]j[%M%Mt7V?of",
+              "category": {
+                "name": "Музеи"
+              },
+              "i18n": [
+                {
+                  "name": "The Vetka Museum of Old Believers and Belarusian Traditions named after F. G. Shklyarova",
+                  "locale": "en"
+                },
+                {
+                  "name": "位于维特卡的 FG Shklyarov 老信徒和白俄罗斯传统博物馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Ветковский музей старообрядчества и белорусских традиций имени Ф. Г. Шклярова",
+              "categoryId": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+              "id": "9aefe20a-7457-4e8c-8640-39f2b624c10d"
+            }
+          ]
+        },
+        "category4": {
+          "items": [
+            {
+              "cover": "1627890392257_forest-4308558_1280.jpg",
+              "blurhash": "L5Eot{tx00rZ0v$k}b%F[3m]^hXK",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Forest trails",
+                  "locale": "en"
+                },
+                {
+                  "name": "森林步道",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Лесные тропы",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "fd6f54ad-d261-499c-a018-e423f63332d7"
+            },
+            {
+              "cover": "1627883222177_ozery.jpg",
+              "blurhash": "LBE3YP#AMbt70B00IS%i~p=rs+%i",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Grodno - Losevo - Grodno",
+                  "locale": "en"
+                },
+                {
+                  "name": "格罗德诺-洛舍沃-格罗德诺",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Гродно - Лосево - Гродно",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "fc39c61e-5d71-495d-b629-deb14d04a652"
+            },
+            {
+              "cover": "kUiJg94Vuf_fIaBNAeW1E.jpg",
+              "blurhash": "L6Ee#i030U~m0$]$nQOrDT-5?F9x",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Around Vyacha Lake",
+                  "locale": "en"
+                },
+                {
+                  "name": "维亚查湖周围",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Вокруг озера Вяча",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "f56ba711-10c3-44e4-a190-845e0cc6cf47"
+            },
+            {
+              "cover": "-Nc52qI2ysjHA71BmYeub.jpg",
+              "blurhash": "LAF$U,D*IS~W02=^RQM|^s?u-:V@",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Molotov Line",
+                  "locale": "en"
+                },
+                {
+                  "name": "莫洛托夫线",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Линия Молотова",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "bf746250-96c7-4504-8501-39f44ba7aca7"
+            },
+            {
+              "cover": "oSdeZX5_LWkppC7X3CpxD.jpg",
+              "blurhash": "L79kf;H[00~p0JRjs@kQ-qxt%2R*",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Health trail",
+                  "locale": "en"
+                },
+                {
+                  "name": "健康足迹",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Тропа здоровья",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "bbb345a3-0ae6-47f7-88f2-8295cfa77bc6"
+            },
+            {
+              "cover": "1627990852737_besedki.jpg",
+              "blurhash": "LIFYlbWAD%~X?^tQIUx]xwxus.Rk",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Dota Bike Tour (Stalin Line)",
+                  "locale": "en"
+                },
+                {
+                  "name": "在斯大林的线上",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Велосипедный тур по дотам (Линия Сталина)",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "a730cd6e-7532-4974-ab37-3674c84c73e4"
+            },
+            {
+              "cover": "k9gmIBN3-x_l5yfUJb8Dw.jpg",
+              "blurhash": "LRL3=Bxt^j~UOZ9aR*ozE2D%WBNG",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "From Minsk to the World",
+                  "locale": "en"
+                },
+                {
+                  "name": "从明斯克走向世界",
+                  "locale": "zh"
+                }
+              ],
+              "name": "От Минска до Мира",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "9e766dd7-b478-49c9-adbe-9b4b1f18cb22"
+            },
+            {
+              "cover": "1627653138852_partizanskij les.jpg",
+              "blurhash": "LGE{wYNMIZoh17R.kDxu~BV[Rlbb",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "In Polesye",
+                  "locale": "en"
+                },
+                {
+                  "name": "在 Polesye",
+                  "locale": "zh"
+                }
+              ],
+              "name": "По Полесью",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "7f4c8578-c55e-4dc5-969f-d0021ce9aa3c"
+            },
+            {
+              "cover": "ipQNk0XxRXJes-T5y3h31.jpg",
+              "blurhash": "LoP=$b.8NwVX_Nksa%nNM|Rjf8of",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "From Zhlobin to Rogachev",
+                  "locale": "en"
+                },
+                {
+                  "name": "从日洛宾到罗加乔夫",
+                  "locale": "zh"
+                }
+              ],
+              "name": "От Жлобина до Рогачёва",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "6a78a624-2e0b-4097-a594-c7344347a0d1"
+            },
+            {
+              "cover": "cS4y73ayPvBSlDBTmqAGv.jpg",
+              "blurhash": "LmF?OoRjn%WB-@WBxZj[WXj]ofj[",
+              "category": {
+                "name": "Велосипедные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Green way ",
+                  "locale": "en"
+                },
+                {
+                  "name": "绿路 ",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Зелёный путь ",
+              "categoryId": "6047a51e85272e8846853778",
+              "id": "6047a7d9f105f554a9099157"
+            }
+          ]
+        },
+        "category5": {
+          "items": [
+            {
+              "cover": "1622113184983_srednya-pripyat-1.jpg",
+              "blurhash": "LpHLJ6s.IpWC~XoLRkaytlayo2ay",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "Extremely educational water route “Srednyaya Pripyat”",
+                  "locale": "en"
+                },
+                {
+                  "name": "极具教育意义的水路 “Srednyaya Pripyat”",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Экстремально-познавательный водный маршрут \"Средняя Припять\"",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "fb2dd20d-26a4-4c92-bdb2-b920051ab9ee"
+            },
+            {
+              "cover": "mjs5DfkrZWAUOXhuXpHvG.jpg",
+              "blurhash": "L+I$7x-;Rkog_4xuaxj]%MV@WBWB",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "Picturesque images of Yelshchina",
+                  "locale": "en"
+                },
+                {
+                  "name": "Yelshchina 的风景如画的图像",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Живописные образы Ельщины",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "f8f4162c-4e02-4f3e-9b64-ec634845d304"
+            },
+            {
+              "cover": "hD9t_O_wZYD0eh4CT-dN6.jpg",
+              "blurhash": "LkH3~-8wH=j]?@MzRRf5E2t7ofWB",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "Water route on the motorboat “Lake Bobrovichskoye”",
+                  "locale": "en"
+                },
+                {
+                  "name": "摩托艇 “波布罗维奇斯科湖” 上的水上航线",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Водный маршрут на моторной лодке «Озеро Бобровичское»",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "ea1fae71-c678-459e-a683-3fd7de7e22bd"
+            },
+            {
+              "cover": "8Np_d0hdEkL2L3-jVDhJW.jpg",
+              "blurhash": "LuHK|rXlS2wJPXnPs:S~K+r?WUbH",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "Braslav City Tour",
+                  "locale": "en"
+                },
+                {
+                  "name": "布拉斯拉夫城市观光",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Обзорная экскурсия по Браславу",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "e42df7bd-e43e-46b3-b5a8-2a5379325d6d"
+            },
+            {
+              "cover": "lJJc5lU7zUXu42bP6cWF1.jpg",
+              "blurhash": "LGBzB@02kPoz_MIBM_t7X7n%IUxu",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "“Beaver Safari” in Braslav Lakes",
+                  "locale": "en"
+                },
+                {
+                  "name": "布拉斯拉夫湖的海狸野生动物园",
+                  "locale": "zh"
+                }
+              ],
+              "name": "«Бобровое сафари» в Браславских озераx",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "d6fecc0f-d0d3-49ce-acea-0c41f939b067"
+            },
+            {
+              "cover": "1622111340491_8d5495c91bdc74eb94eb12528090e7dd.jpg",
+              "blurhash": "LtF$X}WBRjRj~qaxWBWB-=axWBWB",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "On a forest reserve path",
+                  "locale": "en"
+                },
+                {
+                  "name": "在森林保护区小径上",
+                  "locale": "zh"
+                }
+              ],
+              "name": "По лесной заповедной тропе",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "cfae1e3a-0bce-4aa4-9fa2-d93f2208e46e"
+            },
+            {
+              "cover": "1622112981143_032.jpg",
+              "blurhash": "LOCGlGRjIUxbtoodxtWV_4WAM{xa",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "Nalibok secrets with Ganka",
+                  "locale": "en"
+                },
+                {
+                  "name": "Nalibok 景观",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Налибокские секреты с Ганкой",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "c33fb954-4f17-4962-b6f6-751f33ea3228"
+            },
+            {
+              "cover": "Eg4Apax5tLoHtoNVay2-D.jpg",
+              "blurhash": "LeF%GW-mjEa}%j%L%LWBDOW=t7t7",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "Braslav Around the World",
+                  "locale": "en"
+                },
+                {
+                  "name": "布拉斯拉夫环游世界",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Браславская кругосветка",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "bd735377-d869-4bdc-b193-f390730a69cf"
+            },
+            {
+              "cover": "1628688811970_Ozarichi.jpg",
+              "blurhash": "LVHL-oIV4mR5%$IpROV=?wM{xtac",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "On the road of memory and sorrow",
+                  "locale": "en"
+                },
+                {
+                  "name": "在记忆和悲伤的道路上",
+                  "locale": "zh"
+                }
+              ],
+              "name": "По дороге памяти и скорби",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "bc89026a-d514-4a4b-9b0e-a6770aeb23d9"
+            },
+            {
+              "cover": "1622110826716_Capture0.JPG",
+              "blurhash": "L35#hIWE4nNGD,t5M|od00Rk~pxa",
+              "category": {
+                "name": "Экскурсии"
+              },
+              "i18n": [
+                {
+                  "name": "Yelnya Invite",
+                  "locale": "en"
+                },
+                {
+                  "name": "Yelnya 邀请",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Ельня Invite",
+              "categoryId": "6047a51e85272e8846853772",
+              "id": "bb321f2b-2656-4453-9993-6edd2fd1ead0"
+            }
+          ]
+        },
+        "category6": {
+          "items": [
+            {
+              "cover": "tTvajThSrGE47CDLnwXGC.jpg",
+              "blurhash": "LhHC4logIntR?wt7ayt7%Mxuj@of",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "Buinichi Field Memorial Complex",
+                  "locale": "en"
+                },
+                {
+                  "name": "Buynichskoye Field 纪念建筑群",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Мемориальный комплекс «Буйничское поле»",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "d6571b3c-d8f5-4b5e-8c5a-708a64842d18"
+            },
+            {
+              "cover": "_44Zu5P4nkXN4bs3o9XdN.jpg",
+              "blurhash": "LaD^s6IUx^j]O_bIR.adVsoznhj[",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "Khatyn Memorial Complex",
+                  "locale": "en"
+                },
+                {
+                  "name": "哈廷纪念馆",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Мемориальный комплекс «Хатынь»",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "d2bd6fec-45a5-4a4f-8151-e14099787bb7"
+            },
+            {
+              "cover": "1634217370156_00_full.jpg",
+              "blurhash": "LvFQC5ofxaWCt:afofWCIBNGWCjt",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "Monument to Internationalist Soldiers",
+                  "locale": "en"
+                },
+                {
+                  "name": "国际主义士兵纪念碑",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Монумент воинам-интернационалистам",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "b99b2dbe-176f-4c10-bb2b-e56148340394"
+            },
+            {
+              "cover": "94QrvfdRTHMe8uqHbiM1m.jpg",
+              "blurhash": "LSG9NrwHWZRk_4n%WTkCNHNeRkae",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "The Island of Courage and Grief",
+                  "locale": "en"
+                },
+                {
+                  "name": "勇气与悲伤之岛",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Остров Мужества и Скорби",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "7e2f1b05-66fa-4bc3-b629-be893574914c"
+            },
+            {
+              "cover": "vMBs0txpEpRq9-ZCSj_Yc.jpg",
+              "blurhash": "L,J8nof6RjWV_4ayWCbHRjaykCj[",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "“Stalin Line” Historical and Cultural Complex",
+                  "locale": "en"
+                },
+                {
+                  "name": "历史文化综合体 “斯大林线”",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Историко-культурный комплекс «Линия Сталина»",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "7d688c05-d0ff-46f1-a4f0-e0a9d9e7c9b2"
+            },
+            {
+              "cover": "hwMVrmOP9pNXfDXZL5hzN.jpg",
+              "blurhash": "LOJbdNs:e,V[I^skofs.?ds:xtWA",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "Memorial “Monument to Children Victims of the Great Patriotic War”",
+                  "locale": "en"
+                },
+                {
+                  "name": "纪念碑 “伟大卫国战争受害儿童纪念碑”",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Мемориал \"Памятник детям-жертвам Великой Отечественной войны\"",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "6048e3b95f6a5bfa79132193"
+            },
+            {
+              "cover": "Sh5axzWj-EW1xFNIlpd4n.jpg",
+              "blurhash": "LsHLoARiWBt7_NM{Rjof-;t7j[j[",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "Usakino Memorial Complex of Partisan Glory",
+                  "locale": "en"
+                },
+                {
+                  "name": "Usakino 游击队荣耀纪念建筑群",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Мемориальный комплекс партизанской славы «Усакино»",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "6047ed278323793e9c1b1fd2"
+            },
+            {
+              "cover": "X9j6qDre6yKVRqDal9hza.jpg",
+              "blurhash": "LvJRjmWBt7t7~qayofofoKj[WAWB",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "Spiritual and patriotic complex in the Old Park",
+                  "locale": "en"
+                },
+                {
+                  "name": "旧公园的精神和爱国情结",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Духовно-патриотический комплекс в Старинном парке",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "6047ea5e8323793e9c1b1c74"
+            },
+            {
+              "cover": "rYQf1kFRQiVlWUjw5YeWA.jpg",
+              "blurhash": "LDBD}[XMs+WB?vozjJt7_4ogkTxu",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "Holocaust Memorial (Bronnaya Gora)",
+                  "locale": "en"
+                },
+                {
+                  "name": "大屠杀纪念馆（Bronnaya Gora）",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Памятник жертвам Холокоста (Бронная Гора)",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "6047e4d78323793e9c1b19ec"
+            },
+            {
+              "cover": "1625850119159_kazarm.jpg",
+              "blurhash": "LhJ*3e#kM{sBPEV?n~ayPCR%s,WV",
+              "category": {
+                "name": "Памятники войны"
+              },
+              "i18n": [
+                {
+                  "name": "Red barracks",
+                  "locale": "en"
+                },
+                {
+                  "name": "红色军营",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Красные казармы",
+              "categoryId": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+              "id": "6047e4d58323793e9c1b19d3"
+            }
+          ]
+        },
+        "category7": {
+          "items": [
+            {
+              "cover": "HmeQ5oZeVuHaL4QfYAg-p.png",
+              "blurhash": "LBFZT1oiM[IV*8t1IbofITR%aRt7",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Diprise Zoo Park",
+                  "locale": "en"
+                }
+              ],
+              "name": "Зооландшафтный парк «Диприз»",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "e017919a-7b51-41ce-b0c4-c8ac9cbb82b9"
+            },
+            {
+              "cover": "_vIsd3lFxp-YtqHCPG1zi.jpg",
+              "blurhash": "L;H_=QWVs:fkyZs.j[j[xvj@j[fP",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Mayak Mountain",
+                  "locale": "en"
+                },
+                {
+                  "name": "Mayak 山",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Гора Маяк",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "ba018c9a-dc2d-4aca-9cbd-19023718d2a7"
+            },
+            {
+              "cover": "x--S3e2OXyp2XtM_7Wrlu.jpg",
+              "blurhash": "L5EC?W9i4Uu24PIBt0WGqGxnx^IA",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Mankovichi Park",
+                  "locale": "en"
+                },
+                {
+                  "name": "曼科维奇公园",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Парк «Маньковичи»",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "6048e5bd5f6a5bfa7913335b"
+            },
+            {
+              "cover": "cHxmXx-nKjNRqgwwxyYQE.jpg",
+              "blurhash": "L7AU$m4o00?@0v-EvXOk-=bXJ4s=",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Sources of living and dead water",
+                  "locale": "en"
+                },
+                {
+                  "name": "活水和死水的来源",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Источники живой и мёртвой воды",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "6047ea5f8323793e9c1b1cb7"
+            },
+            {
+              "cover": "1pwS8M-6I5ubap59GxL4v.jpeg",
+              "blurhash": "L%J8L#wHo#WY.TR*bIoLOvWXWXj]",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Berezinskaya water system",
+                  "locale": "en"
+                },
+                {
+                  "name": "别雷津斯卡亚供水系统",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Березинская водная система",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "6047e4d38323793e9c1b18ec"
+            },
+            {
+              "cover": "l2cxKPBC4AqJs6ELNKoEl.jpeg",
+              "blurhash": "LwD,vCtSo#i_.Togt8jZkqadogoz",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Borisov stone with inscriptions of the 12th century. (Polotsk)",
+                  "locale": "en"
+                },
+                {
+                  "name": "带有12世纪铭文的鲍里索夫石头。(波洛茨克)",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Борисов камень с надписями XII в. (Полоцк)",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "6047a7d9f105f554a90991cf"
+            },
+            {
+              "cover": "0-7ooZzLaJ6Z0N3a-wEZg.jpg",
+              "blurhash": "LTG9ETtRs*aJ0nRjRioHu6xuV?V@",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Borisov stone with inscriptions of the 12th century. (Druya)",
+                  "locale": "en"
+                },
+                {
+                  "name": "带有12世纪铭文的鲍里索夫石头。(Druya)",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Борисов камень с надписями XII в. (Друя)",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "6047a7d9f105f554a909918c"
+            },
+            {
+              "cover": "E4yyaKTWMb91RsfEUj7xH.jpg",
+              "blurhash": "LEC@QH~VTAXMTBpB-;%MO*RPaOxt",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Bolshoy Boltsiksky spring",
+                  "locale": "en"
+                },
+                {
+                  "name": "Bolshoy Boltsiksky 春天",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Большой Болцикский родник",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "6047a7d9f105f554a909912d"
+            },
+            {
+              "cover": "1623141028915_krynica.jpg",
+              "blurhash": "L8D,rq00=|^+}wD#r{%f-=nWRjo#",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Blue Spring",
+                  "locale": "en"
+                },
+                {
+                  "name": "来源 “Golubaya krinitsa”",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Источник «Голубая криница»",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "6047a7d8f105f554a90990a2"
+            },
+            {
+              "cover": "hjVz3ZTgCN2HVoPiFOYGP.jpg",
+              "blurhash": "LrDmjfW@oga}.AW?ogfR.9R.ogay",
+              "category": {
+                "name": "Природа"
+              },
+              "i18n": [
+                {
+                  "name": "Boulder Museum",
+                  "locale": "en"
+                },
+                {
+                  "name": "石头公园",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Музей валунов",
+              "categoryId": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+              "id": "6047a7d8f105f554a909907b"
+            }
+          ]
+        },
+        "category8": {
+          "items": [
+            {
+              "cover": "1624128478629_H4XgYNvElHlF3P4Z.jpg",
+              "blurhash": "LXF~jj%NR3RPt:NGIUxZt7M_oHof",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Augustow Canal",
+                  "locale": "en"
+                },
+                {
+                  "name": "奥古斯托运河",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Августовский канал",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "c7df8611-76d2-4e22-bcc0-ac94a860cf78"
+            },
+            {
+              "cover": "94JVFKRXj6nOFpaQadLpV.jpg",
+              "blurhash": "LHD+@#IUIU%L~pIVMyt7kkWCRURk",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "“Murovanka Khreptovich” farm",
+                  "locale": "en"
+                },
+                {
+                  "name": "Hozdvor “Murovanka Khreptovichey”",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Хоздвор «Мурованка Хрептовичей»",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "698c9476-038f-47d5-ae08-aadd049475ec"
+            },
+            {
+              "cover": "PbyUbuRIzBihJmxOxbg5_.jpg",
+              "blurhash": "L6EMKs4V0J~VT*%4-pspb^oLMy9a",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Primitive Man",
+                  "locale": "en"
+                },
+                {
+                  "name": "原始人",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Стоянка первобытного человека",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "6047ea5d8323793e9c1b1bfb"
+            },
+            {
+              "cover": "TcAOziQh8ZXfqd3-lskQw.jpg",
+              "blurhash": "LICa*8ko-;Ri_Ls:%fS0-:V[i~WT",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Death Valley and Angel Valley",
+                  "locale": "en"
+                },
+                {
+                  "name": "死亡谷和天使谷",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Долина Смерти и Долина Ангелов",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "6047e4d38323793e9c1b18ea"
+            },
+            {
+              "cover": "ef8a0b5650f9e5d0bb8beb36c60e8ce3_2a07c07b130478087621e5c6a2d26540.jpg",
+              "blurhash": "LbHdQuxaE+WC~VR*WVoLK*t6$iaz",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Dnieper-Bug and Belozersk canals",
+                  "locale": "en"
+                },
+                {
+                  "name": "第聂伯罗夫斯科-Bug 和 Belozersky 运河",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Днепровско-Бугский и Белозёрский каналы",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "6047e4d38323793e9c1b18de"
+            },
+            {
+              "cover": "ALZyZfTLr4q8oAnCt3iWR.jpg",
+              "blurhash": "LCEo*%9ENg~V_MROxa-;?dr;Rh%g",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Turovskoye hillfort",
+                  "locale": "en"
+                },
+                {
+                  "name": "Turovskoye hillfort",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Туровское городище",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "6047a7d9f105f554a90991f4"
+            },
+            {
+              "cover": "lJPrDLSmolFabIl4w3yOB.jpg",
+              "blurhash": "LhKUDzR-aet6?wofj[ayXUoeWBWB",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Granite quarry",
+                  "locale": "en"
+                },
+                {
+                  "name": "花岗岩石场",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Гранитный карьер",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "6047a7d9f105f554a90991b2"
+            },
+            {
+              "cover": "wv_7IG7qSwqs0sMCYR6Gr.jpg",
+              "blurhash": "LBBrMv_OIAN@4TC8%#xbD4*0$MRQ",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Krasnoselsky quarries",
+                  "locale": "en"
+                },
+                {
+                  "name": "克拉斯诺塞尔斯基采石场",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Красносельские карьеры",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "6047a7d9f105f554a90991aa"
+            },
+            {
+              "cover": "EzOXdVDY9SWU2I-_TwkVC.png",
+              "blurhash": "LaG]H+Rj-=of_Nt7RjM{%Nt7WBRj",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Lamplighter in Brest",
+                  "locale": "en"
+                }
+              ],
+              "name": "Фонарщик в Бресте",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "4fbec55b-9ab0-43d9-9147-c8737829e0f7"
+            },
+            {
+              "cover": "tfXCbR-dQLdgPN8xrRz1i.jpg",
+              "blurhash": "LsI#fKkWn+jF?wj]ofa|?IjFR*j]",
+              "category": {
+                "name": "Культурные объекты"
+              },
+              "i18n": [
+                {
+                  "name": "Klimovichi quarries",
+                  "locale": "en"
+                },
+                {
+                  "name": "Klimovichi 采石场",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Климовичские карьеры",
+              "categoryId": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+              "id": "32c5bd9c-5f69-4fb6-bb9c-72fc00493a60"
+            }
+          ]
+        },
+        "category9": {
+          "items": [
+            {
+              "cover": "iHMGZ4f07oRd0r-toQPCk.jpg",
+              "blurhash": "LRD^1B-g4:E1lCITxXxv.To#RjRi",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "August ring",
+                  "locale": "en"
+                },
+                {
+                  "name": "八月戒指",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Августовское колечко",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "c77d4da3-2741-46fc-915a-70054161346a"
+            },
+            {
+              "cover": "2MlPDIauAjYesYzewXVCt.PNG",
+              "blurhash": "LuEyxtWYROt8.AogjYs:%hofj]WB",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "On the Neman River",
+                  "locale": "en"
+                },
+                {
+                  "name": "在尼曼河上",
+                  "locale": "zh"
+                }
+              ],
+              "name": "По реке Нёман",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "acb9060d-e9f7-4794-99c2-69f3208e3582"
+            },
+            {
+              "cover": "fu3nItGN5bdXiDQ1yrcOm.jpg",
+              "blurhash": "LDB;8PMhIVRR?[N1tdt7xuahx;oN",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Kotra",
+                  "locale": "en"
+                },
+                {
+                  "name": "Kotra",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Котра",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "9b4565c5-2dff-44a9-96a2-c0e15be3f543"
+            },
+            {
+              "cover": "qYaoIA4NcIZkoby3nr43p.jpg",
+              "blurhash": "LTEpG}_3V?j?_4xvV@s:?bxtWAae",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Along Oshmyanka with the confluence with Vilia",
+                  "locale": "en"
+                },
+                {
+                  "name": "沿着奥什米亚卡与维利亚交汇处",
+                  "locale": "zh"
+                }
+              ],
+              "name": "По Ошмянке с впадением в Вилию",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "8785f082-e59a-490e-96c6-442cef4b6f75"
+            },
+            {
+              "cover": "1620297826733_cover.jpg",
+              "blurhash": "L:KU[~NHR-oe~qofRkoLivt6RkoL",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Osveya cruise",
+                  "locale": "en"
+                },
+                {
+                  "name": "Osveya 巡航",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Освейский круиз",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "6047a7d9f105f554a909914f"
+            },
+            {
+              "cover": "1620316092774_371287_main.jpg",
+              "blurhash": "LFB48q+pxURqO_E2t0WUtpVqWWn$",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Along the Berezina River",
+                  "locale": "en"
+                },
+                {
+                  "name": "沿着别雷齐纳河",
+                  "locale": "zh"
+                }
+              ],
+              "name": "По реке Березине",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "6047a7d9f105f554a909914e"
+            },
+            {
+              "cover": "6fuv-rP6KYT5KOdHcSAb4.jpg",
+              "blurhash": "LjAeaSo$yFV?%%kCo#aeN4WAV@js",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Secrets of protected lakes",
+                  "locale": "en"
+                },
+                {
+                  "name": "受保护的湖泊的秘密",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Секреты заповедных озёр",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "6047a7d9f105f554a909914d"
+            },
+            {
+              "cover": "1628791269778_IMG-4004.jpeg",
+              "blurhash": "LoB59oROMcf5yGadWAaxbyj?tRae",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "On the Viliya River",
+                  "locale": "en"
+                },
+                {
+                  "name": "在维利亚河上",
+                  "locale": "zh"
+                }
+              ],
+              "name": "По реке Вилия",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "5c247a85-cb6f-4a40-97f3-de7a1d7774cb"
+            },
+            {
+              "cover": "TIpqV7NPQKEoepXAjWEZA.jpeg",
+              "blurhash": "LpE3e$n}j=WB?wjYocayo$WBoeay",
+              "category": {
+                "name": "Водные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Along the Iput River",
+                  "locale": "en"
+                },
+                {
+                  "name": "沿着伊普特河",
+                  "locale": "zh"
+                }
+              ],
+              "name": "По реке Ипуть",
+              "categoryId": "6047a51e85272e8846853779",
+              "id": "034fee5f-0f36-4dfb-9c99-8a1d56a39641"
+            }
+          ]
+        },
+        "category10": {
+          "items": [
+            {
+              "cover": "TCPk87M-hpHLfdB0famca.jpg",
+              "blurhash": "LgGST2Rj%0SP%%%LM{WBtns-V[j[",
+              "category": {
+                "name": "Пешие маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Nemnovo",
+                  "locale": "en"
+                },
+                {
+                  "name": "Nemnovo",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Немново",
+              "categoryId": "6047a51e85272e884685377e",
+              "id": "d13334b3-3f90-44f2-87aa-06916919a7cf"
+            },
+            {
+              "cover": "4VoEetT_EQeWcHOcgfzdx.jpg",
+              "blurhash": "L%Gc3~oLoeof_4Rkfkaz-;kAofj[",
+              "category": {
+                "name": "Пешие маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Around Lake Svityaz ",
+                  "locale": "en"
+                },
+                {
+                  "name": "斯维蒂亚兹湖周围 ",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Вокруг озера Свитязь ",
+              "categoryId": "6047a51e85272e884685377e",
+              "id": "78e527ab-31bc-41fd-a200-aca463cbf5c6"
+            },
+            {
+              "cover": "37Y85CIC6a80wvBlNEfaC.jpg",
+              "blurhash": "LnFs6~?ct6RP_4%gs:V@R+ayj?oL",
+              "category": {
+                "name": "Пешие маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Blue Lakes Ecotrail",
+                  "locale": "en"
+                },
+                {
+                  "name": "蓝湖生态步道",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Экотропа «Голубые озёра»",
+              "categoryId": "6047a51e85272e884685377e",
+              "id": "6047a7d9f105f554a9099158"
+            },
+            {
+              "cover": "GIzngqBpWW_71amXqcHSw.jpg",
+              "blurhash": "LvEC%%$xRkju%%n$n$WXX:R.s,j@",
+              "category": {
+                "name": "Пешие маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Desert island",
+                  "locale": "en"
+                },
+                {
+                  "name": "荒岛",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Необитаемый остров",
+              "categoryId": "6047a51e85272e884685377e",
+              "id": "6047a7d9f105f554a909914b"
+            },
+            {
+              "cover": "_djW_cyW6yIbm-auPITtV.jpg",
+              "blurhash": "LeBzzyx]8^RQ?wtSITV@tUkEacod",
+              "category": {
+                "name": "Пешие маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Lake ring",
+                  "locale": "en"
+                },
+                {
+                  "name": "湖环",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Озёрное кольцо",
+              "categoryId": "6047a51e85272e884685377e",
+              "id": "6047a7d9f105f554a9099149"
+            },
+            {
+              "cover": "8IPEu8UroaIrnnhsHFLU-.jpg",
+              "blurhash": "LXEW1{sFD+%L_LxbRRxu%Lxuofs:",
+              "category": {
+                "name": "Пешие маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "This is where the war began",
+                  "locale": "en"
+                },
+                {
+                  "name": "战争就是从这里开始的",
+                  "locale": "zh"
+                }
+              ],
+              "name": "Здесь начиналась война",
+              "categoryId": "6047a51e85272e884685377e",
+              "id": "3a8deba9-51b8-4124-b81c-fd6ea23272a6"
+            }
+          ]
+        },
+        "category11": {
+          "items": [
+            {
+              "cover": "_7f2wvWg1WHm2tuBYnaL9.png",
+              "blurhash": "LhEf.=ROMxWB?wRPRij[MxRPozkC",
+              "category": {
+                "name": "Автомобильные маршруты"
+              },
+              "i18n": [
+                {
+                  "name": "Manor and park complexes in Brest region",
+                  "locale": "en"
+                }
+              ],
+              "name": "Усадебно-парковые комплексы Брестчины",
+              "categoryId": "b498eae3-f22e-41de-bc50-a0950dde4bd6",
+              "id": "1e5e14e4-b24b-474f-a11e-bc704fb93631"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "getCategoriesList": [
+    {
+      "params": {
+        "limit": 200
+      },
+      "response": {
+        "nextToken": "WyIwMDEzNGFiYi1kNjU2LTQ0Y2EtYTUzYi1hMTYzZWFhOGQ5NjMiXQ==",
+        "total": 15,
+        "items": [
+          {
+            "name": "Религия",
+            "id": "f94cfadb-527d-44ac-a470-d4f5d3364921",
+            "parent": "c3f608f1-54cf-4b53-9464-a683b4f18c50",
+            "index": 1,
+            "cover": "1624283786795_costels.jpg",
+            "blurhash": "L.MQq+kCtRt6_NWAV@oLNGj[RPa#",
+            "i18n": [
+              {
+                "name": "Religion",
+                "locale": "en"
+              },
+              {
+                "name": "宗教",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Достопримечательности",
+            "id": "c3f608f1-54cf-4b53-9464-a683b4f18c50",
+            "parent": null,
+            "index": 1,
+            "cover": "1623657915513_R37d787f00e3838eb79e75cb0f4839299.jpg",
+            "blurhash": "LbEC^AX2RhaJt:jEV?WBObxEROWX",
+            "i18n": [
+              {
+                "name": "Sights",
+                "locale": "en"
+              },
+              {
+                "name": "视野",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Автомобильные маршруты",
+            "id": "b498eae3-f22e-41de-bc50-a0950dde4bd6",
+            "parent": "6047a51e85272e8846853770",
+            "index": 3,
+            "cover": "FtAauZWSJCFTBGxD3p4aD.png",
+            "blurhash": "LCEyM5^*00EO?F~S%2s:Vas.-o-m",
+            "i18n": [
+              {
+                "name": "Road routes",
+                "locale": "en"
+              }
+            ]
+          },
+          {
+            "name": "Архитектура",
+            "id": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957",
+            "parent": "c3f608f1-54cf-4b53-9464-a683b4f18c50",
+            "index": 0,
+            "cover": "pkXMXOqLlUHsgk-u-fcYj.jpg",
+            "blurhash": "LjGJ55IVJBjFGwe.ofjY9]e:nNt7",
+            "i18n": [
+              {
+                "name": "Architecture",
+                "locale": "en"
+              },
+              {
+                "name": "架构",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Пешие маршруты",
+            "id": "6047a51e85272e884685377e",
+            "parent": "6047a51e85272e8846853770",
+            "index": 0,
+            "cover": "1621232101292_s1200.jpg",
+            "blurhash": "L6Dl}u05.1xW.TxpIXIWsps*4rIW",
+            "i18n": [
+              {
+                "name": "Hiking routes",
+                "locale": "en"
+              },
+              {
+                "name": "徒步路线",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Водные маршруты",
+            "id": "6047a51e85272e8846853779",
+            "parent": "6047a51e85272e8846853770",
+            "index": 2,
+            "cover": "1619167745105_lodka-priroda-peyzazh-ozero.jpg",
+            "blurhash": "LFBov^}?I-X8^I-TbxahF|W.$dog",
+            "i18n": [
+              {
+                "name": "Water routes",
+                "locale": "en"
+              },
+              {
+                "name": "水上航线",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Велосипедные маршруты",
+            "id": "6047a51e85272e8846853778",
+            "parent": "6047a51e85272e8846853770",
+            "index": 1,
+            "cover": "1621232242972_img_7831.jpg",
+            "blurhash": "L15hVst600tK00jX%PkX~Vs:R4Rj",
+            "i18n": [
+              {
+                "name": "Cycle routes",
+                "locale": "en"
+              },
+              {
+                "name": "自行车路线",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Экскурсии",
+            "id": "6047a51e85272e8846853772",
+            "parent": null,
+            "index": 3,
+            "cover": "1622042276826_download (1).jpg",
+            "blurhash": "LUGbPE$*I9xu~E?HM{bI9]%3s:S4",
+            "i18n": [
+              {
+                "name": "Tours",
+                "locale": "en"
+              },
+              {
+                "name": "短途旅行",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Маршруты",
+            "id": "6047a51e85272e8846853770",
+            "parent": null,
+            "index": 2,
+            "cover": "1621232255448_57567badb37cc-tizer.jpg",
+            "blurhash": "L29Z},00W8-p04~AjGR.~nMy?aIn",
+            "i18n": [
+              {
+                "name": "Routes",
+                "locale": "en"
+              },
+              {
+                "name": "路线",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Заповедные территории",
+            "id": "6047a51e85272e884685376f",
+            "parent": null,
+            "index": 0,
+            "cover": "1622042003894_belovezhskaya_1_secretworlds_ru-1.jpg",
+            "blurhash": "L4AT=N0201#Z01=y?YIU?:X5MjRU",
+            "i18n": [
+              {
+                "name": "National parks",
+                "locale": "en"
+              },
+              {
+                "name": "保护区",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Культурные объекты",
+            "id": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2",
+            "parent": "c3f608f1-54cf-4b53-9464-a683b4f18c50",
+            "index": 5,
+            "cover": "1625127876088_gdbWMo2mWdDP38GW.jpg",
+            "blurhash": "LTGIiqaIMaM_PEITIToItSjY-Toc",
+            "i18n": [
+              {
+                "name": "Cultural facilities",
+                "locale": "en"
+              },
+              {
+                "name": "文化设施",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Природа",
+            "id": "2f4b4b05-cacd-4628-af3a-c34b8776de00",
+            "parent": "c3f608f1-54cf-4b53-9464-a683b4f18c50",
+            "index": 2,
+            "cover": "1624028172095_natural monument.jpg",
+            "blurhash": "LQF@bw~q[,%0M2MxInNa15E1ELWB",
+            "i18n": [
+              {
+                "name": "Nature",
+                "locale": "en"
+              },
+              {
+                "name": "自然",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Музеи",
+            "id": "1650c64a-dc76-44ef-9ed0-0a1f36329f42",
+            "parent": "c3f608f1-54cf-4b53-9464-a683b4f18c50",
+            "index": 3,
+            "cover": "1624028202682_museums 1.jpg",
+            "blurhash": "LbG921kC9Fj[_NxuRifk-;xuj[Rj",
+            "i18n": [
+              {
+                "name": "Museums",
+                "locale": "en"
+              },
+              {
+                "name": "博物馆",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "Памятники войны",
+            "id": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2",
+            "parent": "c3f608f1-54cf-4b53-9464-a683b4f18c50",
+            "index": 4,
+            "cover": "1624283820030_war monuments.jpg",
+            "blurhash": "L6A^RPNERNRk?wbKWGaLIBozR.R*",
+            "i18n": [
+              {
+                "name": "War monuments",
+                "locale": "en"
+              },
+              {
+                "name": "战争纪念碑",
+                "locale": "zh"
+              }
+            ]
+          },
+          {
+            "name": "test",
+            "id": "00134abb-d656-44ca-a53b-a163eaa8d963",
+            "parent": null,
+            "index": null,
+            "cover": "U0UhXXo2lHeALpR17Oqd0.jpeg",
+            "blurhash": "L4HoB.~q00xrt1.9RPa_00yE-=og",
+            "i18n": [
+              {
+                "name": "test",
+                "locale": "en"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "getCategoriesAggregationsByObjects": [
+    {
+      "params": {},
+      "response": [
+        {
+          "doc_count": 157,
+          "key": "f94cfadb-527d-44ac-a470-d4f5d3364921"
+        },
+        {
+          "doc_count": 103,
+          "key": "6047a51e85272e884685376f"
+        },
+        {
+          "doc_count": 82,
+          "key": "8cfbbe96-0397-497f-a6d4-01fdcb8c0957"
+        },
+        {
+          "doc_count": 35,
+          "key": "1650c64a-dc76-44ef-9ed0-0a1f36329f42"
+        },
+        {
+          "doc_count": 35,
+          "key": "6047a51e85272e8846853778"
+        },
+        {
+          "doc_count": 31,
+          "key": "6047a51e85272e8846853772"
+        },
+        {
+          "doc_count": 14,
+          "key": "0589cb9a-ac82-40f7-ae5f-4cea0d6e12b2"
+        },
+        {
+          "doc_count": 14,
+          "key": "2f4b4b05-cacd-4628-af3a-c34b8776de00"
+        },
+        {
+          "doc_count": 11,
+          "key": "3c7b38e0-0bbc-48d1-bb2d-45492d527da2"
+        },
+        {
+          "doc_count": 9,
+          "key": "6047a51e85272e8846853779"
+        },
+        {
+          "doc_count": 6,
+          "key": "6047a51e85272e884685377e"
+        },
+        {
+          "doc_count": 1,
+          "key": "b498eae3-f22e-41de-bc50-a0950dde4bd6"
+        }
+      ]
+    }
+  ]
+}

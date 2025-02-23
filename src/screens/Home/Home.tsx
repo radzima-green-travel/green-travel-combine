@@ -1,11 +1,10 @@
+import {COLORS} from 'assets';
 import {SnackBar} from 'atoms';
+import {useThemeStyles} from 'core/hooks/useThemeStyles';
 import {SuspenseView} from 'molecules';
 import {HomeSectionBar} from 'organisms';
 import React from 'react';
 import {FlatList, RefreshControl, View} from 'react-native';
-
-import {COLORS} from 'assets';
-import {useThemeStyles} from 'core/hooks';
 import {
   PlacesYouWontFindWidget,
   RandomSpotWidget,
@@ -51,43 +50,41 @@ export const Home = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <SuspenseView
-        loading={loading}
-        error={errorTexts}
-        retryCallback={getHomePageData}
-        testID={'homeSuspenseView'}>
-        <FlatList
-          ListHeaderComponent={widgetsBlock}
-          ref={listRef}
-          style={styles.list}
-          keyboardShouldPersistTaps="handled"
-          refreshControl={
-            <RefreshControl
-              tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
-              colors={[COLORS.forestGreen]}
-              refreshing={refreshing}
-              onRefresh={refreshHomePageData}
-            />
-          }
-          data={homeData}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <HomeSectionBar
-              testID="homeSectionBar"
-              onObjectPress={navigateToObjectDetails}
-              onCategoryPress={onCategoryPress}
-              onAllObjectsPress={onAllObjectsPress}
-              onAllCategoriesPress={navigateToCategoriesList}
-              item={item}
-              onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
-            />
-          )}
-        />
-        {/* {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null} */}
-        <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
-      </SuspenseView>
-    </View>
+    <SuspenseView
+      loading={loading}
+      error={errorTexts}
+      retryCallback={getHomePageData}
+      testID={'homeSuspenseView'}>
+      <FlatList
+        ref={listRef}
+        style={styles.list}
+        keyboardShouldPersistTaps="handled"
+        ListHeaderComponent={widgetsBlock}
+        refreshControl={
+          <RefreshControl
+            tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
+            colors={[COLORS.forestGreen]}
+            refreshing={refreshing}
+            onRefresh={refreshHomePageData}
+          />
+        }
+        data={homeData}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <HomeSectionBar
+            testID="homeSectionBar"
+            onObjectPress={navigateToObjectDetails}
+            onCategoryPress={onCategoryPress}
+            onAllObjectsPress={onAllObjectsPress}
+            onAllCategoriesPress={navigateToCategoriesList}
+            item={item}
+            onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
+          />
+        )}
+      />
+      {/* {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null} */}
+      <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
+    </SuspenseView>
   );
 };
 
