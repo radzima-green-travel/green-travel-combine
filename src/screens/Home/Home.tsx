@@ -6,8 +6,11 @@ import {FlatList, RefreshControl, View} from 'react-native';
 
 import {COLORS} from 'assets';
 import {useThemeStyles} from 'core/hooks';
-import {SpotOfTheWeekWidget} from 'src/screens/Home/components/SpotOfTheWeekWidget';
-import {PlacesYouWontFindWidget, RandomSpotWidget} from './components';
+import {
+  PlacesYouWontFindWidget,
+  RandomSpotWidget,
+  SpotOfTheWeekWidget,
+} from './components';
 import {useHome} from './hooks';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';

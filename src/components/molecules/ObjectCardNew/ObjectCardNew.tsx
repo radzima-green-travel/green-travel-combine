@@ -1,12 +1,12 @@
-import {RatingBadge} from 'components/molecules/RatingBadge';
+import {Icon} from 'atoms';
+import {composeTestID} from 'core/helpers';
 import {useThemeStyles} from 'core/hooks';
 import {Image, ImageStyle} from 'expo-image';
 import {isUndefined} from 'lodash';
 import React, {memo} from 'react';
 import {Text, View} from 'react-native';
+import {RatingBadge} from '../RatingBadge';
 import {objectCardStyles} from './styles';
-import {composeTestID} from 'core/helpers';
-import {Icon} from 'components/atoms';
 
 export interface ObjectCardNewProps {
   testID: string;
@@ -45,7 +45,7 @@ export const ObjectCardNew = memo(
             style={styles.favoriteToggleButton}>
             <Icon
               testID={composeTestID(testID, 'favoriteIcon')}
-              name={false ? 'bookmarkFilled' : 'bookmark'}
+              name={'bookmark'}
               width={18}
               height={18}
               style={styles.favoriteIcon}

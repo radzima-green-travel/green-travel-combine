@@ -39,8 +39,17 @@ export const ColoredWidget = memo(
     const {fontSizeStyle, cardHeightStyle, maxFontSizeMultiplier} =
       useColoredWidgetDynamicStyles();
 
-    const renderTitleText = (text: string, style?: StyleProp<TextStyle>) => (
+    const renderTitleText = ({
+      key,
+      text,
+      style,
+    }: {
+      key: number;
+      text: string;
+      style?: StyleProp<TextStyle>;
+    }) => (
       <Text
+        key={key}
         testID={composeTestID(testID, 'titleText')}
         style={[regularTextStyle, fontSizeStyle, style]}
         maxFontSizeMultiplier={maxFontSizeMultiplier}>
@@ -55,36 +64,41 @@ export const ColoredWidget = memo(
         onPress={onPress}>
         {backdropSlot}
         <View style={[styles.contentWrapper, titleAlignmentStyle]}>
-          {map(titleLines, (line, index) => {
+          {map(titleLines, (line, lineIndex) => {
             const chunks = parseTitleLine(line);
 
             if (chunks.length > 1 || first(chunks)?.highlighted) {
               return (
                 <View
                   testID={composeTestID(testID, 'titleRow')}
-                  key={index}
+                  key={lineIndex}
                   style={styles.titleRow}>
-                  {map(chunks, chunk => {
+                  {map(chunks, (chunk, chunkIndex) => {
                     if (chunk.highlighted) {
                       return (
                         <View
+                          key={chunkIndex}
                           testID={composeTestID(testID, 'titleBadge')}
                           style={[
                             styles.titleBadge,
                             {backgroundColor: titleBadgeColor},
                           ]}>
-                          {renderTitleText(chunk.text, styles.titleBadgeText)}
+                          {renderTitleText({
+                            key: chunkIndex,
+                            text: chunk.text,
+                            style: styles.titleBadgeText,
+                          })}
                         </View>
                       );
                     }
 
-                    return renderTitleText(chunk.text);
+                    return renderTitleText({key: chunkIndex, text: chunk.text});
                   })}
                 </View>
               );
             }
 
-            return renderTitleText(line);
+            return renderTitleText({key: lineIndex, text: line});
           })}
         </View>
       </Pressable>

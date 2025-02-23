@@ -1,8 +1,9 @@
-import {ColoredWidget} from 'components/molecules';
+import {ColoredWidget} from 'molecules';
 import {Image} from 'expo-image';
 import React, {memo} from 'react';
 import {useTranslation} from 'react-i18next';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
+import {widgetStyles} from './styles';
 
 export const RandomSpotWidget = ({onPress}: {onPress?: () => void}) => {
   const {t} = useTranslation('home');
@@ -23,26 +24,12 @@ export const RandomSpotWidget = ({onPress}: {onPress?: () => void}) => {
 
 export const BackdropImage = memo(() => {
   return (
-    <View style={imageStyles.container}>
+    <View style={widgetStyles.container}>
       <Image
         source={require('assets/images/dice-illustration.png')}
         contentFit="cover"
-        style={imageStyles.image}
+        style={widgetStyles.image}
       />
     </View>
   );
-});
-
-const imageStyles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    width: `${(150 / 154) * 100}%`,
-    maxWidth: 300,
-    left: -8,
-    bottom: -5,
-  },
-  image: {
-    width: '100%',
-    aspectRatio: 150 / 121,
-  },
 });

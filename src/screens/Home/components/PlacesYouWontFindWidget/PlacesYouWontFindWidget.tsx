@@ -1,8 +1,9 @@
-import {ColoredWidget} from 'components/molecules';
+import {ColoredWidget} from 'molecules';
 import {Image} from 'expo-image';
 import React, {memo} from 'react';
 import {useTranslation} from 'react-i18next';
-import {StyleSheet, useWindowDimensions, View} from 'react-native';
+import {useWindowDimensions, View} from 'react-native';
+import {widgetStyles} from './styles';
 
 export const PlacesYouWontFindWidget = ({onPress}: {onPress?: () => void}) => {
   const {t} = useTranslation('home');
@@ -26,27 +27,14 @@ const BackdropImage = memo(() => {
   return (
     <View
       style={[
-        imageStyles.container,
+        widgetStyles.container,
         {bottom: windowWidth >= 600 ? -8 : '-5.6%'},
       ]}>
       <Image
         source={require('assets/images/globe-illustration.png')}
         contentFit="cover"
-        style={imageStyles.image}
+        style={widgetStyles.image}
       />
     </View>
   );
-});
-
-const imageStyles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    width: `${(158 / 154) * 100}%`,
-    maxWidth: 300,
-    right: -11,
-  },
-  image: {
-    width: '100%',
-    aspectRatio: 158 / 86,
-  },
 });

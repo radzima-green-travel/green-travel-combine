@@ -1,4 +1,4 @@
-const badgeTextSplitRegex = /(\*\*.*?\*\*)/;
+const badgeTextSplitRegex = /(<em>.*?<\/em>)/;
 
 export const parseTitleLine = (inputString: string) =>
   inputString.split(badgeTextSplitRegex).reduce(
@@ -7,8 +7,8 @@ export const parseTitleLine = (inputString: string) =>
         return chunks;
       }
 
-      if (part.startsWith('**') && part.endsWith('**')) {
-        chunks.push({text: part.slice(2, -2), highlighted: true});
+      if (part.startsWith('<em>') && part.endsWith('</em>')) {
+        chunks.push({text: part.slice(4, -5), highlighted: true});
       } else {
         chunks.push({text: part, highlighted: false});
       }
