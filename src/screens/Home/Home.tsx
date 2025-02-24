@@ -1,13 +1,17 @@
-import React from 'react';
-import {SuspenseView} from 'molecules';
-import {SnackBar} from 'atoms';
-import {HomeSectionBar} from 'organisms';
-import {FlatList, RefreshControl} from 'react-native';
-
-import {useThemeStyles} from 'core/hooks/useThemeStyles';
 import {COLORS} from 'assets';
-import {screenOptions} from './screenOptions';
+import {SnackBar} from 'atoms';
+import {useThemeStyles} from 'core/hooks/useThemeStyles';
+import {SuspenseView} from 'molecules';
+import {HomeSectionBar} from 'organisms';
+import React from 'react';
+import {FlatList, RefreshControl, View} from 'react-native';
+import {
+  PlacesYouWontFindWidget,
+  RandomSpotWidget,
+  SpotOfTheWeekWidget,
+} from './components';
 import {useHome} from './hooks';
+import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 
 export const Home = () => {
@@ -29,6 +33,22 @@ export const Home = () => {
     snackBarProps,
   } = useHome();
 
+  const spotOfTheWeekPlaceholderObject = homeData[3]?.items[0];
+
+  const widgetsBlock = (
+    <View style={styles.widgetGrid}>
+      <View style={styles.widgetGridRightColumn}>
+        <PlacesYouWontFindWidget />
+        <RandomSpotWidget />
+      </View>
+      <View style={styles.widgetGridLeftColumn}>
+        {spotOfTheWeekPlaceholderObject && (
+          <SpotOfTheWeekWidget object={spotOfTheWeekPlaceholderObject} />
+        )}
+      </View>
+    </View>
+  );
+
   return (
     <SuspenseView
       loading={loading}
@@ -38,8 +58,8 @@ export const Home = () => {
       <FlatList
         ref={listRef}
         style={styles.list}
-        contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
+        ListHeaderComponent={widgetsBlock}
         refreshControl={
           <RefreshControl
             tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
