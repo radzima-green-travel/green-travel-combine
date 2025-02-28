@@ -38,4 +38,4 @@ export {Checkbox} from './Checkbox';
 export {Multiswitch} from './Multiswitch';
 export {SnackBar} from './SnackBar';
 export {HighlightedText} from './HighlightedText';
-export {CustomNavigationHeader} from './CustomNavigationHeader';
+export {CustomHeader} from './CustomHeader';

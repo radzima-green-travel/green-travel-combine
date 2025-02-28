@@ -20,7 +20,7 @@ import {
 } from 'core/selectors';
 import {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useRequestLoading, useUpdateEffect} from 'react-redux-help-kit';
+import {useRequestLoading} from 'react-redux-help-kit';
 import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
 import {useSearchSelector} from './useSearchSelector';
@@ -150,11 +150,17 @@ export function useSearchList() {
     hasMoreToLoad: !loading && searchResults.length < searchResultsTotal,
   });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (navigation.isFocused()) {
       searchObjects();
     }
-  }, [searchObjects, appLocale, isAuthorized, navigation.isFocused]);
+  }, [
+    searchObjects,
+    appLocale,
+    isAuthorized,
+    navigation.isFocused,
+    navigation,
+  ]);
 
   const addToHistory = useCallback(
     (id: string) => {

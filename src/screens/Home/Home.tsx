@@ -11,11 +11,20 @@ import {
   SpotOfTheWeekWidget,
 } from './components';
 import {useHome} from './hooks';
-import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
+import {useStatusBar, useColorScheme, useListContentTopInset} from 'core/hooks';
+import {useSearchHeader} from './screenOptions';
+import {HEADER_BOTTOM_RADIUS} from 'core/constants';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
+  const scheme = useColorScheme();
+
+  useSearchHeader();
+  useStatusBar(scheme);
+  const listContentInset = useListContentTopInset({
+    inset: HEADER_BOTTOM_RADIUS,
+  });
   const {
     loading,
     errorTexts,
@@ -50,42 +59,46 @@ export const Home = () => {
   );
 
   return (
-    <SuspenseView
-      loading={loading}
-      error={errorTexts}
-      retryCallback={getHomePageData}
-      testID={'homeSuspenseView'}>
-      <FlatList
-        ref={listRef}
-        style={styles.list}
-        keyboardShouldPersistTaps="handled"
-        ListHeaderComponent={widgetsBlock}
-        refreshControl={
-          <RefreshControl
-            tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
-            colors={[COLORS.forestGreen]}
-            refreshing={refreshing}
-            onRefresh={refreshHomePageData}
-          />
-        }
-        data={homeData}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <HomeSectionBar
-            testID="homeSectionBar"
-            onObjectPress={navigateToObjectDetails}
-            onCategoryPress={onCategoryPress}
-            onAllObjectsPress={onAllObjectsPress}
-            onAllCategoriesPress={navigateToCategoriesList}
-            item={item}
-            onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
-          />
-        )}
-      />
-      {/* {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null} */}
-      <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
-    </SuspenseView>
+    <View style={styles.container}>
+      <SuspenseView
+        loading={loading}
+        error={errorTexts}
+        retryCallback={getHomePageData}
+        testID={'homeSuspenseView'}>
+        <FlatList
+          ref={listRef}
+          {...listContentInset}
+          style={styles.list}
+          keyboardShouldPersistTaps="handled"
+          ListHeaderComponent={widgetsBlock}
+          refreshControl={
+            <RefreshControl
+              tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
+              colors={[COLORS.forestGreen]}
+              refreshing={refreshing}
+              onRefresh={refreshHomePageData}
+              progressViewOffset={
+                listContentInset.contentContainerStyle.paddingTop
+              }
+            />
+          }
+          data={homeData}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <HomeSectionBar
+              testID="homeSectionBar"
+              onObjectPress={navigateToObjectDetails}
+              onCategoryPress={onCategoryPress}
+              onAllObjectsPress={onAllObjectsPress}
+              onAllCategoriesPress={navigateToCategoriesList}
+              item={item}
+              onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
+            />
+          )}
+        />
+        {/* {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null} */}
+        <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
+      </SuspenseView>
+    </View>
   );
 };
-
-Home.screenOptions = screenOptions;

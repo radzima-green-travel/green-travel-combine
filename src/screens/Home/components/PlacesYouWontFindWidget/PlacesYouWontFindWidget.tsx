@@ -28,6 +28,7 @@ const BackdropImage = memo(() => {
     <View
       style={[
         widgetStyles.container,
+        // eslint-disable-next-line react-native/no-inline-styles
         {bottom: windowWidth >= 600 ? -8 : '-5.6%'},
       ]}>
       <Image
