@@ -12,19 +12,16 @@ import {
 } from './components';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
-import {useStatusBar, useColorScheme, useListContentTopInset} from 'core/hooks';
-import {useSearchHeader} from './screenOptions';
-import {HEADER_BOTTOM_RADIUS} from 'core/constants';
+import {useStatusBar, useColorScheme} from 'core/hooks';
+import {useHomeHeader} from './screenOptions';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
   const scheme = useColorScheme();
 
-  useSearchHeader();
+  const {pageListContainerProps} = useHomeHeader();
   useStatusBar(scheme);
-  const listContentInset = useListContentTopInset({
-    inset: HEADER_BOTTOM_RADIUS,
-  });
+
   const {
     loading,
     errorTexts,
@@ -67,7 +64,7 @@ export const Home = () => {
         testID={'homeSuspenseView'}>
         <FlatList
           ref={listRef}
-          {...listContentInset}
+          {...pageListContainerProps}
           style={styles.list}
           keyboardShouldPersistTaps="handled"
           ListHeaderComponent={widgetsBlock}
@@ -78,7 +75,7 @@ export const Home = () => {
               refreshing={refreshing}
               onRefresh={refreshHomePageData}
               progressViewOffset={
-                listContentInset.contentContainerStyle.paddingTop
+                pageListContainerProps.contentContainerStyle.paddingTop
               }
             />
           }

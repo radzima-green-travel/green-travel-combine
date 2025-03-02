@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useLayoutEffect} from 'react';
 import {Text, View} from 'react-native';
 import {HomeScreenNavigationProps, IProps} from './types';
 import {Icon} from 'atoms/Icon';
@@ -8,6 +8,7 @@ import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useNavigation} from '@react-navigation/native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
+import {HEADER_BOTTOM_RADIUS} from 'core/constants';
 
 const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
   return (
@@ -30,10 +31,10 @@ const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
   );
 };
 
-export function useSearchHeader() {
+export function useHomeHeader() {
   const navigation = useNavigation<HomeScreenNavigationProps>();
   const styles = useThemeStyles(themeStyles);
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       header: props => (
         <CustomHeader
@@ -55,7 +56,6 @@ export function useSearchHeader() {
           }}>
           <SearchField
             testID="headerSearchbar"
-            containerStyle={{}}
             value={''}
             onChange={() => {}}
             onRightButtonPress={() => {}}
@@ -64,4 +64,11 @@ export function useSearchHeader() {
       ),
     });
   }, [navigation, styles.headerTitle]);
+
+  return {
+    pageListContainerProps: {
+      contentContainerStyle: {paddingTop: HEADER_BOTTOM_RADIUS},
+      showsVerticalScrollIndicator: false,
+    },
+  };
 }

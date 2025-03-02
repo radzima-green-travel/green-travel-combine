@@ -6,8 +6,8 @@ import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 
 interface CustomHeaderProps extends NativeStackHeaderProps {
-  contentAbove?: () => JSX.Element;
-  contentBelow?: () => JSX.Element;
+  contentAbove?: () => React.ReactNode;
+  contentBelow?: () => React.ReactNode;
   style?: StyleProp<ViewStyle>;
   withOverlay?: boolean;
 }
