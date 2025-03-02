@@ -1,34 +1,74 @@
-import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import {IProps, ScreenOptions} from './types';
+import React, {useLayoutEffect} from 'react';
+import {Text, View} from 'react-native';
+import {HomeScreenNavigationProps, IProps} from './types';
 import {Icon} from 'atoms/Icon';
+import {SearchField} from 'molecules';
+import {Button, CustomHeader} from 'atoms';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {useNavigation} from '@react-navigation/native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import {HEADER_BOTTOM_RADIUS} from 'core/constants';
 
-const HeaderRight = ({navigation, testID}: IProps) => {
-  const styles = useThemeStyles(themeStyles);
+const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
   return (
-    <>
-      <TouchableOpacity
-        hitSlop={{top: 15, left: 15, right: 15, bottom: 10}}
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.navigate('Search');
-        }}
-        {...getPlatformsTestID(composeTestID(testID, 'searchButton'))}
-        style={styles.searchContainer}>
-        <Icon
-          name="search"
-          style={styles.icon}
-          size={24}
-          testID={composeTestID(testID, 'searchIcon')}
-        />
-      </TouchableOpacity>
-    </>
+    <Button
+      testID={testID}
+      isIconOnlyButton
+      renderIcon={textStyle => <Icon name="tune" size={24} style={textStyle} />}
+      onPress={() => {
+        navigation.navigate('Filter', {
+          initialFilters: undefined,
+          initialQuery: '',
+          searchOptions: undefined,
+          analytics: {
+            fromScreenName: getAnalyticsNavigationScreenName(),
+          },
+        });
+      }}
+      theme="quarterlyGrey"
+    />
   );
 };
 
-export const screenOptions: ScreenOptions = props => ({
-  headerRight: () => <HeaderRight {...props} testID="headerRight" />,
-});
+export function useHomeHeader() {
+  const navigation = useNavigation<HomeScreenNavigationProps>();
+  const styles = useThemeStyles(themeStyles);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      header: props => (
+        <CustomHeader
+          {...props}
+          contentAbove={() => (
+            <Text style={styles.headerTitle}>Good morning!</Text>
+          )}
+        />
+      ),
+      headerRight: () => (
+        <HeaderRight testID="headerRight" navigation={navigation} />
+      ),
+      headerTitle: () => (
+        <View
+          pointerEvents="box-only"
+          onStartShouldSetResponder={() => {
+            navigation.navigate('Search');
+            return false;
+          }}>
+          <SearchField
+            testID="headerSearchbar"
+            value={''}
+            onChange={() => {}}
+            onRightButtonPress={() => {}}
+          />
+        </View>
+      ),
+    });
+  }, [navigation, styles.headerTitle]);
+
+  return {
+    pageListContainerProps: {
+      contentContainerStyle: {paddingTop: HEADER_BOTTOM_RADIUS},
+      showsVerticalScrollIndicator: false,
+    },
+  };
+}

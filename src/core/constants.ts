@@ -61,6 +61,7 @@ export const enum MAP_PINS {
 }
 
 export const PADDING_HORIZONTAL = 16;
+export const HEADER_BOTTOM_RADIUS = 20;
 
 import {IconsNames} from 'atoms/Icon/IconsNames';
 import {KeyboardEventName, Platform} from 'react-native';

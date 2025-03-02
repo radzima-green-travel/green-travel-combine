@@ -14,6 +14,7 @@ interface Props {
   onRightButtonPress?: (actionType: RightButtonType) => void;
   filterActionTypeEnabled?: boolean;
   onFocus?: () => void;
+  autoFocus?: boolean;
 }
 
 export const SearchField = memo(
@@ -25,6 +26,7 @@ export const SearchField = memo(
     filterActionTypeEnabled = false,
     containerStyle,
     onFocus,
+    autoFocus,
   }: Props) => {
     const [isFocused, setIsFocused] = useState(false);
     const styles = useThemeStyles(themeStyles);
@@ -76,6 +78,7 @@ export const SearchField = memo(
         iconRight={iconRight}
         placeholder={t('settlements.search')}
         value={value}
+        autoFocus={autoFocus}
         onChange={onChange}
         outlineEnabled={false}
         containerStyle={[styles.container, containerStyle]}

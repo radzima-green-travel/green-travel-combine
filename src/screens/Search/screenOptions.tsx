@@ -9,7 +9,7 @@ import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
 import {themeStyles} from './styles';
 import {useBottomMenu, useThemeStyles} from 'core/hooks';
-import {Icon, CustomNavigationHeader, Button, BottomMenu} from 'atoms';
+import {Icon, CustomHeader, Button, BottomMenu} from 'atoms';
 import {useSearchActions, useSearchSelector} from 'core/hooks';
 import {SearchField, SearchOptionsBottomMenu} from 'molecules';
 import {Portal} from '@gorhom/portal';
@@ -69,6 +69,7 @@ const HeaderTitle = () => {
         testID="headerSearchbar"
         containerStyle={styles.headerTitleContainer}
         value={inputValue}
+        autoFocus
         onChange={setInputValue}
         filterActionTypeEnabled
         onRightButtonPress={onRightButtonPress}
@@ -136,13 +137,12 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
   );
 };
 
-export const screenOptions: ScreenOptions = props => ({
-  headerTitle: () => <HeaderTitle />,
-  headerRight: () => <HeaderRight testID="headerRight" {...props} />,
-  header: CustomNavigationHeader,
-  headerTitleAlign: 'left',
-  headerStyle: {
-    // @ts-ignore
-    height: 64,
-  },
-});
+export const screenOptions: ScreenOptions = props => {
+  return {
+    headerTitle: () => <HeaderTitle />,
+    headerRight: () => <HeaderRight testID="headerRight" {...props} />,
+    header: headerProps => (
+      <CustomHeader withOverlay={false} {...headerProps} />
+    ),
+  };
+};

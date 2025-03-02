@@ -34,7 +34,7 @@ export function HomeNavigator() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={HomeScreen.screenOptions}
+        options={newScreenOptions}
       />
       <Stack.Screen
         name="Search"
@@ -49,10 +49,11 @@ export function HomeNavigator() {
               commonScreenOptions.headerStyle,
               searchSpecificScreenOptions.headerStyle,
             ),
-            animation: 'fade',
+            animation: 'fade_from_bottom',
           };
         }}
       />
+
       <Stack.Screen
         getId={({params}) => params.objectId}
         name="ObjectDetails"
