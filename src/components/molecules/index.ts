@@ -46,5 +46,6 @@ export {SearchOptionsBottomMenu} from './SearchOptions';
 export {SearchFiltersBar} from './SearchFiltersBar';
 export {SuspenseView} from './SuspenseView';
 export {InteractiveCard} from './InteractiveCard';
+export {ChipsHorisontalList} from './ChipsHorisontalList';
 export * from './ObjectCardNew';
 export * from './ColoredWidget';
