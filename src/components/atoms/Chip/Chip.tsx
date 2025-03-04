@@ -7,6 +7,7 @@ import {
   TextStyle,
   View,
   Text,
+  StyleSheet,
   Pressable,
 } from 'react-native';
 
@@ -17,7 +18,7 @@ import {Icon, IconsNames} from '../Icon';
 import {crossHitClop} from '../HeaderSearchbar/styles';
 type ItemProp<T> = T extends undefined ? {item?: never} : {item: T};
 
-export type Props<T> = {
+export type ChipProps<T = undefined> = {
   text: string;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
@@ -30,6 +31,8 @@ export type Props<T> = {
   testID: string;
   isShowCloseIcon?: boolean;
   onClosePress?: () => void;
+  theme?: keyof typeof CHIP_THEMES;
+  iconSize?: number;
 } & ItemProp<T> & {
     onPress?: T extends undefined ? () => void : (item: T) => void;
   };
@@ -48,20 +51,22 @@ export const ChipComponent = <T extends any = undefined>({
   style,
   isShowCloseIcon,
   item,
-}: Props<T>) => {
-  const chipThemeStyles = useThemeStyles(CHIP_THEMES.default);
+  theme = 'default',
+  iconSize = 20,
+}: ChipProps<T>) => {
+  const chipThemeStyles = useThemeStyles(CHIP_THEMES[theme]);
 
-  const textThemeStyles = [
+  const textThemeStyles = StyleSheet.flatten([
     chipThemeStyles.text,
     disabled && chipThemeStyles.disabledText,
     active && chipThemeStyles.activeText,
-  ];
+  ]);
 
-  const iconThemeStyles = [
+  const iconThemeStyles = StyleSheet.flatten([
     chipThemeStyles.icon,
     disabled && chipThemeStyles.disabledIcon,
     active && chipThemeStyles.activeIcon,
-  ];
+  ]);
 
   const finalTextStyle = [styles.text, textThemeStyles, textStyle];
 
@@ -73,7 +78,7 @@ export const ChipComponent = <T extends any = undefined>({
             style={[iconThemeStyles, styles.leftIcon]}
             name={leftIcon}
             testID={composeTestID(testID, 'leftIcon')}
-            size={20}
+            size={iconSize}
           />
         ) : null}
         <Text testID={composeTestID(testID, 'text')} style={[finalTextStyle]}>
@@ -89,7 +94,7 @@ export const ChipComponent = <T extends any = undefined>({
               style={iconThemeStyles}
               name={'clear'}
               testID={composeTestID(testID, 'closeIcon')}
-              size={20}
+              size={iconSize}
             />
           </Pressable>
         ) : null}

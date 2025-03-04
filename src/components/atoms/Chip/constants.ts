@@ -1,6 +1,6 @@
 import {COLORS} from 'assets/colors';
 
-type ChipThemes = 'default';
+type ChipThemes = 'default' | 'large';
 
 export const CHIP_THEMES: {[key in ChipThemes]: {[key: string]: object}} = {
   default: {
@@ -13,6 +13,7 @@ export const CHIP_THEMES: {[key in ChipThemes]: {[key: string]: object}} = {
         light: COLORS.light.background.secondary,
         dark: COLORS.dark.background.secondary,
       },
+      borderRadius: 8,
     },
     text: {
       color: {
@@ -74,6 +75,31 @@ export const CHIP_THEMES: {[key in ChipThemes]: {[key: string]: object}} = {
       borderColor: {
         light: COLORS.light.background.accent,
         dark: COLORS.dark.background.accent,
+      },
+    },
+  },
+  large: {
+    container: {
+      backgroundColor: {
+        light: COLORS.light.background.primary,
+        dark: COLORS.dark.background.primary,
+      },
+      borderColor: {
+        light: COLORS.light.background.primary,
+        dark: COLORS.dark.background.primary,
+      },
+      borderRadius: 12,
+    },
+    text: {
+      color: {
+        light: COLORS.light.text.primary,
+        dark: COLORS.dark.text.primary,
+      },
+    },
+    icon: {
+      color: {
+        light: COLORS.light.icon.accentLight,
+        dark: COLORS.dark.icon.accentLight,
       },
     },
   },
