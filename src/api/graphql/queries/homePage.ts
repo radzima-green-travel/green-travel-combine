@@ -63,3 +63,15 @@ export const searchObjectsQuery = `query MyQuery(
   }
 }
 `;
+
+export const getRandomObjectThumbnailsQuery = `query MyQuery(
+  $limit: Int
+) {
+  filterLandingObjects(randomized: true, limit: $limit) {
+    items {
+      id
+      cover
+      blurhash
+    }
+  }
+}`;

@@ -40,3 +40,6 @@ export const selectHomePageData = createSelector(
     return prepareHomePageData(categoriesList, objectsByCategories);
   },
 );
+
+export const selectRandomObjectList = (state: IState) =>
+  state.homePage.randomObjects;
