@@ -3,7 +3,7 @@ import {fetchNextRandomObjects, shiftRandomObjectList} from 'core/actions';
 import {selectRandomObjectList} from 'core/selectors';
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {HomeScreenNavigationProps} from 'src/screens/Home/types';
+import {HomeScreenNavigationProps} from '../types';
 
 export const useOpenRandomObject = () => {
   const dispatch = useDispatch();
