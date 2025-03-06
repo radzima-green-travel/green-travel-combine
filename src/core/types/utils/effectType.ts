@@ -1,9 +1,9 @@
 export type EffectType<T> = T extends (
   ...args: any[]
-) => Generator<unknown, infer Return>
-  ? Return
-  : T extends (...args: any) => Promise<infer U>
-    ? U
-    : T extends (...args: any) => any
-      ? ReturnType<T>
+) => Generator<unknown, infer ReturnType>
+  ? ReturnType
+  : T extends (...args: any) => Promise<infer Payload>
+    ? Payload
+    : T extends (...args: any) => infer ReturnType
+      ? ReturnType
       : never;
