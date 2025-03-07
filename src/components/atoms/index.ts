@@ -32,7 +32,7 @@ export {LottieAnimation} from './LottieAnimation';
 export {CustomSlider} from './CustomSlider';
 export {AnimatedStar} from './AnimatedStar';
 export {Link} from './Link';
-export {Chip} from './Chip';
+export * from './Chip';
 export {TrancateDetectionText} from './TrancateDetectionText';
 export {Checkbox} from './Checkbox';
 export {Multiswitch} from './Multiswitch';
