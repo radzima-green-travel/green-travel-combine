@@ -18,6 +18,7 @@ import {
   CategoriesListQueryParams,
   ObjectsListQueryParams,
   SettlementsQueryParams,
+  ObjectThumbnailDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {
@@ -29,7 +30,10 @@ import {
   getSearchObjectsQuery,
   geObjectDetailsByIdQuery,
 } from './queries';
-import {generateListObjectsShortQuery} from './queries/homePage';
+import {
+  generateListObjectsShortQuery,
+  getRandomObjectThumbnailsQuery,
+} from './queries/homePage';
 
 import {getObjectsTotalCountQuery} from './queries/common';
 import {
@@ -179,6 +183,19 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
 
     return response.searchObjects;
+  }
+
+  async getRandomObjectThumbnails(
+    limit: number,
+  ): Promise<Array<ObjectThumbnailDTO>> {
+    const response = await this.executeQuery({
+      query: getRandomObjectThumbnailsQuery,
+      params: {
+        limit,
+      },
+    });
+
+    return response.filterLandingObjects.items;
   }
 
   async getObjectDetailsById(

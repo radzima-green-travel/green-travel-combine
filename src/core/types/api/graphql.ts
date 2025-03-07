@@ -442,3 +442,9 @@ export interface BookmarksObjectDTO {
 export interface BookmarksInitialObjectsDTO {
   items: Array<BookmarksObjectDTO>;
 }
+
+export interface ObjectThumbnailDTO {
+  id: string;
+  blurhash: string;
+  cover: string;
+}

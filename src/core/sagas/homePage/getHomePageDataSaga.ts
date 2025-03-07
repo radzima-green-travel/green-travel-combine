@@ -1,5 +1,4 @@
-import {call, put} from 'redux-saga/effects';
-import {CategoryAggregationsByObjectsDTO} from 'core/types';
+import {all, call, put} from 'redux-saga/effects';
 import {
   getHomePageDataRequest,
   refreshHomePageDataRequest,
@@ -8,12 +7,9 @@ import {graphQLAPI} from 'api/graphql';
 import {RequestError} from 'core/errors';
 import {getAppMapObjectsRequest} from 'core/actions';
 import {getObjectByCategories} from 'core/transformators/homePage';
-import type {
-  CategoriesResponseDTO,
-  ObjectsForCategoriesResponseDTO,
-} from 'core/types/api';
 import {getCategoriesData} from '../fetchRequests';
 import {map} from 'lodash';
+import {EffectType} from 'core/types/utils';
 
 export function* getHomePageDataSaga({
   meta: {failureAction, successAction},
@@ -23,20 +19,27 @@ export function* getHomePageDataSaga({
   try {
     yield put(getAppMapObjectsRequest());
 
-    const {
-      categoriesData: {items},
-      categoriesWithObjects,
-    }: {
-      categoriesData: CategoriesResponseDTO;
-      categoriesWithObjects: CategoryAggregationsByObjectsDTO[];
-    } = yield call(getCategoriesData, {payload: {limit: 200}});
+    const [
+      {
+        categoriesData: {items},
+        categoriesWithObjects,
+      },
+      randomObjects,
+    ]: [
+      EffectType<typeof getCategoriesData>,
+      EffectType<typeof graphQLAPI.getRandomObjectThumbnails>,
+    ] = yield all([
+      call(getCategoriesData, {payload: {limit: 200}}),
+      call([graphQLAPI, graphQLAPI.getRandomObjectThumbnails], 10),
+    ]);
 
-    const objectForCategoriesResponse: ObjectsForCategoriesResponseDTO =
-      yield call([graphQLAPI, graphQLAPI.getObjectsForCategories], {
-        categoryIds: map(categoriesWithObjects, 'key'),
-      });
+    const objectForCategoriesResponse: EffectType<
+      typeof graphQLAPI.getObjectsForCategories
+    > = yield call([graphQLAPI, graphQLAPI.getObjectsForCategories], {
+      categoryIds: map(categoriesWithObjects, 'key'),
+    });
 
-    const objectsByCategory: ReturnType<typeof getObjectByCategories> =
+    const objectsByCategory: EffectType<typeof getObjectByCategories> =
       yield call(
         getObjectByCategories,
         categoriesWithObjects,
@@ -47,6 +50,7 @@ export function* getHomePageDataSaga({
       successAction({
         categoriesList: items,
         objectsByCategory: objectsByCategory,
+        randomObjects,
       }),
     );
   } catch (e) {
