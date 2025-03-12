@@ -25,12 +25,15 @@ export function* getHomePageDataSaga({
         categoriesWithObjects,
       },
       randomObjects,
+      placeOfTheWeek,
     ]: [
       EffectType<typeof getCategoriesData>,
       EffectType<typeof graphQLAPI.getRandomObjectThumbnails>,
+      EffectType<typeof graphQLAPI.getPlaceOfTheWeekObject>,
     ] = yield all([
       call(getCategoriesData, {payload: {limit: 200}}),
       call([graphQLAPI, graphQLAPI.getRandomObjectThumbnails], 10),
+      call([graphQLAPI, graphQLAPI.getPlaceOfTheWeekObject]),
     ]);
 
     const objectForCategoriesResponse: EffectType<
@@ -51,6 +54,7 @@ export function* getHomePageDataSaga({
         categoriesList: items,
         objectsByCategory: objectsByCategory,
         randomObjects,
+        placeOfTheWeek,
       }),
     );
   } catch (e) {

@@ -15,6 +15,7 @@ import {themeStyles} from './styles';
 import {useStatusBar, useColorScheme} from 'core/hooks';
 import {useHomeHeader} from './screenOptions';
 import {useOpenRandomObject} from './hooks/useOpenRandomObject';
+import {usePlaceOfTheWeek} from './hooks/usePlaceOfTheWeek';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
@@ -41,8 +42,7 @@ export const Home = () => {
   } = useHome();
 
   const openRandomObject = useOpenRandomObject();
-
-  const spotOfTheWeekPlaceholderObject = homeData[3]?.items[0];
+  const {placeOfTheWeek} = usePlaceOfTheWeek();
 
   const widgetsBlock = (
     <View style={styles.widgetGrid}>
@@ -51,8 +51,11 @@ export const Home = () => {
         <RandomSpotWidget onPress={openRandomObject} />
       </View>
       <View style={styles.widgetGridLeftColumn}>
-        {spotOfTheWeekPlaceholderObject && (
-          <SpotOfTheWeekWidget object={spotOfTheWeekPlaceholderObject} />
+        {placeOfTheWeek && (
+          <SpotOfTheWeekWidget
+            onPress={navigateToObjectDetails}
+            object={placeOfTheWeek}
+          />
         )}
       </View>
     </View>

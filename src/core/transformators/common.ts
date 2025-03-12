@@ -8,6 +8,7 @@ import {
   CategoryShort,
   AddressessDTO,
   TranslatedEntity,
+  PlaceOfTheWeekObject,
 } from 'core/types';
 import {compact, find, head, keys, map, omit, pick} from 'lodash';
 import {imagesService} from 'services/ImagesService';
@@ -20,6 +21,27 @@ export function convertShortObjectToCardItem(object: ObjectShort): CardItem {
     name: object.name,
     analyticsMetadata: {
       categoryName: object.category.name,
+      objectName: object.analyticsMetadata.name,
+    },
+  };
+}
+
+export function convertPlaceOfTheWeekObjectToCardItem(
+  object: PlaceOfTheWeekObject,
+): CardItem {
+  const {googleRating, calculatedProperties} = object;
+  const {averageRating, totalRatings} = calculatedProperties || {};
+  return {
+    id: object.id,
+    cover: object.cover,
+    blurhash: object.blurhash || '',
+    name: object.name,
+    categoryName: object.category.name,
+    usersRating:
+      averageRating && totalRatings && totalRatings > 1 ? averageRating : null,
+    googleRating,
+    analyticsMetadata: {
+      categoryName: object.category.analyticsMetadata.name,
       objectName: object.analyticsMetadata.name,
     },
   };

@@ -448,3 +448,21 @@ export interface ObjectThumbnailDTO {
   blurhash: string;
   cover: string;
 }
+
+export interface PlaceOfTheWeekObjectDTO {
+  id: string;
+  name: string;
+  i18n: Array<I18nType<'name'>>;
+  category: {
+    name: string;
+    i18n: Array<I18nType<'name'>>;
+  };
+  cover: string;
+  blurhash: string;
+  googleRatingsTotal: number | null;
+  googleRating: number | null;
+  calculatedProperties: {
+    averageRating: number | null;
+    totalRatings: number | null;
+  } | null;
+}

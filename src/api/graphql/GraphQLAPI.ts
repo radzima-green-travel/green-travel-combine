@@ -19,6 +19,7 @@ import {
   ObjectsListQueryParams,
   SettlementsQueryParams,
   ObjectThumbnailDTO,
+  PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {
@@ -32,6 +33,7 @@ import {
 } from './queries';
 import {
   generateListObjectsShortQuery,
+  getPlaceOfTheWeekQuery,
   getRandomObjectThumbnailsQuery,
 } from './queries/homePage';
 
@@ -196,6 +198,14 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
 
     return response.filterLandingObjects.items;
+  }
+
+  async getPlaceOfTheWeekObject(): Promise<PlaceOfTheWeekObjectDTO> {
+    const response = await this.executeQuery({
+      query: getPlaceOfTheWeekQuery,
+    });
+
+    return response.listPlaceOfTheWeeks.items[0]?.object;
   }
 
   async getObjectDetailsById(

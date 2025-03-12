@@ -10,10 +10,11 @@ import {widgetStyles} from './styles';
 
 interface SpotOfTheWeekWidgetProps {
   object: CardItem;
+  onPress: (data: CardItem) => void;
 }
 
 export const SpotOfTheWeekWidget = memo(
-  ({object}: SpotOfTheWeekWidgetProps) => {
+  ({object, onPress}: SpotOfTheWeekWidgetProps) => {
     const {t} = useTranslation('home');
     const styles = useThemeStyles(widgetStyles);
 
@@ -37,13 +38,9 @@ export const SpotOfTheWeekWidget = memo(
           {t('spotOfTheWeekWidgetTitle')}
         </HighlightedText>
         <ObjectCardNew
+          onPress={onPress}
           testID="spotOfTheWeekWidget"
-          name={object.name}
-          imageUrl={object.cover}
-          imageBlurhash={object.blurhash}
-          categoryName="National parks"
-          userRating={4.9}
-          googleRating={4.5}
+          data={object}
         />
       </View>
     );

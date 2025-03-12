@@ -10,6 +10,7 @@ import {
   ObjectCategoryMapDTO,
   ObjectMapDTO,
   ObjectShortDTO,
+  PlaceOfTheWeekObjectDTO,
   SearchObjectDTO,
   SearchObjetcCategoryDTO,
   SpotItemDTO,
@@ -230,6 +231,10 @@ export type ObjectCategoryMap = TranslatedEntity<ObjectCategoryMapDTO>;
 export type SearchObjectCategory = TranslatedEntity<SearchObjetcCategoryDTO>;
 export type SpotItem = TranslatedEntity<SpotItemDTO>;
 export type CategoryFilterItem = TranslatedEntity<CategoryFilterItemDTO>;
+export interface PlaceOfTheWeekObject
+  extends Omit<TranslatedEntity<PlaceOfTheWeekObjectDTO>, 'category'> {
+  category: TranslatedEntity<PlaceOfTheWeekObjectDTO['category']>;
+}
 
 export interface ObjectMap
   extends Omit<TranslatedEntity<ObjectMapDTO>, 'addresses'> {
@@ -258,4 +263,9 @@ export interface CardItem {
     categoryName: string;
     objectName?: string;
   };
+  categoryName?: string;
+  usersRating?: number | null;
+  usersRatingsTotal?: number | null;
+  googleRating?: number | null;
+  googleRatingsTotal?: number | null;
 }

@@ -75,3 +75,32 @@ export const getRandomObjectThumbnailsQuery = `query MyQuery(
     }
   }
 }`;
+
+export const getPlaceOfTheWeekQuery = `query MyQuery {
+  listPlaceOfTheWeeks {
+    items {
+      object {
+        category {
+          name
+          i18n {
+            locale
+            name
+          }
+        }
+        cover
+        blurhash
+        googleRating
+        id
+        name
+        i18n {
+          locale
+          name
+        }
+        calculatedProperties {
+          averageRating
+          totalRatings
+        }
+      }
+    }
+  }
+}`;
