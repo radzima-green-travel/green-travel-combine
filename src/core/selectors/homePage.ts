@@ -17,7 +17,7 @@ export const selectHomePageRawObjectsByCategory = (state: IState) =>
 export const selectHomePageRawPlaceOfTheWeek = (state: IState) =>
   state.homePage.placeOfTheWeek;
 
-export const selectHomePagePlaceOwTheWeek = createSelector(
+export const selectHomePagePlaceOfTheWeek = createSelector(
   selectHomePageRawPlaceOfTheWeek,
   selectAppLanguage,
   (placeOfTheWeek, locale) => {

@@ -64,7 +64,7 @@ export const ObjectCardNew = memo(
           </FavoriteButtonContainer>
 
           <View style={styles.ratingRow}>
-            {usersRating && (
+            {!!usersRating && (
               <RatingBadge
                 testID={composeTestID(testID, 'userRating')}
                 rating={usersRating}
@@ -72,7 +72,7 @@ export const ObjectCardNew = memo(
                 iconName="starSmall"
               />
             )}
-            {googleRating && (
+            {!!googleRating && (
               <RatingBadge
                 testID={composeTestID(testID, 'googleRating')}
                 rating={googleRating}
