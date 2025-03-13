@@ -1,13 +1,22 @@
-import {CategoryShort, HomeSectionBarItem, ObjectShort} from 'core/types';
+import {
+  CategoryShort,
+  HomeSectionBarItem,
+  ObjectShort,
+  SupportedLocales,
+} from 'core/types';
 import {
   CategoriesAggregationsByObjectsResponseDTO,
   ObjectsForCategoriesResponseDTO,
   ObjectShortDTO,
+  PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
 import {filter, groupBy, isEmpty, map, orderBy, reduce} from 'lodash';
 import {
+  convertPlaceOfTheWeekObjectToCardItem,
   convertShortCategoryToCardItem,
   convertShortObjectToCardItem,
+  extractLocaleSpecificValues,
+  translateAndProcessImagesForEntity,
 } from './common';
 import {GRAPHQL_QUERY_CATEGORY_INDEX} from 'api/graphql';
 
@@ -83,4 +92,17 @@ export function prepareHomePageData(
     },
     [] as Array<HomeSectionBarItem>,
   );
+}
+
+export function preparePlaceOfTheWeekObject(
+  placeOfTheWeek: PlaceOfTheWeekObjectDTO | null,
+  locale: SupportedLocales | null,
+) {
+  if (!placeOfTheWeek) {
+    return null;
+  }
+  return convertPlaceOfTheWeekObjectToCardItem({
+    ...translateAndProcessImagesForEntity(placeOfTheWeek, locale),
+    category: extractLocaleSpecificValues(placeOfTheWeek.category, locale),
+  });
 }

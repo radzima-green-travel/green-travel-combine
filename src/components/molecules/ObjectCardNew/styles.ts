@@ -20,7 +20,7 @@ export const objectCardStyles = createThemeStyles({
     alignItems: 'flex-start',
     gap: 4,
   },
-  ratingRow: {flexDirection: 'row', gap: 4},
+  ratingRow: {flexDirection: 'row', gap: 4, marginTop: 'auto'},
   name: {
     ...FONTS_PRESETS.caption1Bold,
     color: {
@@ -48,6 +48,9 @@ export const objectCardStyles = createThemeStyles({
     alignSelf: 'flex-end',
   },
   favoriteIcon: {
-    color: '#767676',
+    color: {
+      light: COLORS.light.background.accent,
+      dark: COLORS.dark.background.accent,
+    },
   },
 });

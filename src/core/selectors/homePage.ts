@@ -1,5 +1,8 @@
 import {IState} from 'core/store';
-import {prepareHomePageData} from 'core/transformators/homePage';
+import {
+  prepareHomePageData,
+  preparePlaceOfTheWeekObject,
+} from 'core/transformators/homePage';
 import {createSelector} from 'reselect';
 import {selectAppLanguage} from './settingsSelectors';
 import {translateAndProcessImagesForEntity} from 'core/transformators/common';
@@ -10,6 +13,17 @@ export const selectHomePageRawCategoriesList = (state: IState) =>
 
 export const selectHomePageRawObjectsByCategory = (state: IState) =>
   state.homePage.objectsByCategory;
+
+export const selectHomePageRawPlaceOfTheWeek = (state: IState) =>
+  state.homePage.placeOfTheWeek;
+
+export const selectHomePagePlaceOfTheWeek = createSelector(
+  selectHomePageRawPlaceOfTheWeek,
+  selectAppLanguage,
+  (placeOfTheWeek, locale) => {
+    return preparePlaceOfTheWeekObject(placeOfTheWeek, locale);
+  },
+);
 
 export const selectHomePageCategoriesList = createSelector(
   selectHomePageRawCategoriesList,

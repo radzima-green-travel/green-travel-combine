@@ -4,12 +4,14 @@ import {
   CategoryShortDTO,
   ObjectShortDTO,
   ObjectThumbnailDTO,
+  PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
 
 interface GetHomePageDataRequestPayload {
   categoriesList: Array<CategoryShortDTO>;
   objectsByCategory: Record<string, ObjectShortDTO[]>;
   randomObjects: Array<ObjectThumbnailDTO>;
+  placeOfTheWeek: PlaceOfTheWeekObjectDTO;
 }
 
 export const getHomePageDataRequest = createAsyncAction<
