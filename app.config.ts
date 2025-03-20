@@ -1,8 +1,23 @@
 import withRemoveiOSNotificationEntitlement from './config-plugins/withRemoveiOSNotificationEntitlement';
 import withAndroidQueries from './config-plugins/withAndroidQueries';
 
-type Dict = {[key: string]: any};
-export default ({config}: Dict) => {
+type Environment = 'DEV' | 'DEVCLIENT' | 'PROD';
+
+const appIconAssets = {
+  DEV: 'Icon.png',
+  DEVCLIENT: 'Icon_Devclient.png',
+  PROD: 'Icon.png',
+} satisfies Record<Environment, string>;
+
+const adaptiveIconAssets = {
+  DEV: 'AndroidAdaptiveIcon.png',
+  DEVCLIENT: 'AndroidAdaptiveIcon_Devclient.png',
+  PROD: 'AndroidAdaptiveIcon.png',
+} satisfies Record<Environment, string>;
+
+const environment: Environment = process.env.ENVIRONMENT ?? 'DEV';
+
+export default ({config}: Record<string, any>) => {
   return {
     ...config,
     updates: {
@@ -15,7 +30,7 @@ export default ({config}: Dict) => {
     name: process.env.APP_NAME ?? 'Radzima Dev',
     version: process.env.APP_VERSION ?? '1.10.0',
     ios: {
-      ...(config.ios ?? {}),
+      ...config.ios,
       bundleIdentifier: process.env.IOS_BUNDLE_ID ?? 'com.greentravel.radzima',
       buildNumber: process.env.BUILD_NUMBER ?? '1',
       ...(process.env.DEEP_LINK_DOMAIN
@@ -30,9 +45,13 @@ export default ({config}: Dict) => {
       },
     },
     android: {
-      ...(config.android ?? {}),
+      ...config.android,
       package: process.env.ANDROID_BUNDLE_ID ?? 'app.radzima.dev',
       versionCode: process.env.BUILD_NUMBER ?? 1,
+      adaptiveIcon: {
+        ...config.android.adaptiveIcon,
+        foregroundImage: `src/assets/app/${adaptiveIconAssets[environment]}`,
+      },
       intentFilters: [
         {
           autoVerify: true,
@@ -53,8 +72,9 @@ export default ({config}: Dict) => {
         },
       ],
     },
+    icon: `src/assets/app/${appIconAssets[environment]}`,
     plugins: [
-      ...(config.plugins ?? []),
+      ...config.plugins,
       [withAndroidQueries],
       [withRemoveiOSNotificationEntitlement],
       [
