@@ -1,10 +1,9 @@
 import {COLORS} from 'assets';
 import {SnackBar} from 'atoms';
 import {useThemeStyles} from 'core/hooks/useThemeStyles';
-import {SuspenseView} from 'molecules';
-import {HomeSectionBar} from 'organisms';
+import {ChipsHorisontalList, SuspenseView} from 'molecules';
 import React from 'react';
-import {FlatList, RefreshControl, View} from 'react-native';
+import {RefreshControl, ScrollView, View} from 'react-native';
 import {
   PlacesYouWontFindWidget,
   RandomSpotWidget,
@@ -16,6 +15,8 @@ import {useStatusBar, useColorScheme} from 'core/hooks';
 import {useHomeHeader} from './screenOptions';
 import {useOpenRandomObject} from './hooks/useOpenRandomObject';
 import {usePlaceOfTheWeek} from './hooks/usePlaceOfTheWeek';
+import {map} from 'lodash';
+import {ICONS_MATCHER} from 'core/constants';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
@@ -31,8 +32,6 @@ export const Home = () => {
     refreshing,
     navigateToObjectDetails,
     onCategoryPress,
-    onAllObjectsPress,
-    navigateToCategoriesList,
     sendIsFavoriteChangedEvent,
     homeData,
     theme,
@@ -55,6 +54,7 @@ export const Home = () => {
           <SpotOfTheWeekWidget
             onPress={navigateToObjectDetails}
             object={placeOfTheWeek}
+            onFavoriteChanged={sendIsFavoriteChangedEvent}
           />
         )}
       </View>
@@ -68,12 +68,9 @@ export const Home = () => {
         error={errorTexts}
         retryCallback={getHomePageData}
         testID={'homeSuspenseView'}>
-        <FlatList
-          ref={listRef}
-          {...pageListContainerProps}
+        <ScrollView
           style={styles.list}
-          keyboardShouldPersistTaps="handled"
-          ListHeaderComponent={widgetsBlock}
+          ref={listRef}
           refreshControl={
             <RefreshControl
               tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
@@ -85,21 +82,38 @@ export const Home = () => {
               }
             />
           }
-          data={homeData}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <HomeSectionBar
-              testID="homeSectionBar"
-              onObjectPress={navigateToObjectDetails}
-              onCategoryPress={onCategoryPress}
-              onAllObjectsPress={onAllObjectsPress}
-              onAllCategoriesPress={navigateToCategoriesList}
-              item={item}
-              onObjectCardIsFavoriteChanged={sendIsFavoriteChangedEvent}
+          {...pageListContainerProps}>
+          {widgetsBlock}
+          <ChipsHorisontalList
+            testID="mainCategories"
+            title="Categories"
+            numberOfRows={2}
+            items={map(homeData.main, category => ({
+              text: category.name,
+              leftIcon: ICONS_MATCHER[category.icon],
+              iconSize: 24,
+              onPress: () => {
+                onCategoryPress(category);
+              },
+            }))}
+          />
+
+          {homeData.routes.length ? (
+            <ChipsHorisontalList
+              testID="routesCategories"
+              title="Routes"
+              items={map(homeData.routes, category => ({
+                text: category.name,
+                leftIcon: ICONS_MATCHER[category.icon],
+                iconSize: 24,
+                onPress: () => {
+                  onCategoryPress(category);
+                },
+              }))}
             />
-          )}
-        />
-        {/* {isUpdatesAvailable ? <RefreshPageReminder onPress={getData} /> : null} */}
+          ) : null}
+        </ScrollView>
+
         <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
       </SuspenseView>
     </View>

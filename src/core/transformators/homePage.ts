@@ -1,7 +1,7 @@
 import {
   CategoryShort,
-  HomeSectionBarItem,
-  ObjectShort,
+  HomePageCategory,
+  HomePagesCategories,
   SupportedLocales,
 } from 'core/types';
 import {
@@ -10,11 +10,9 @@ import {
   ObjectShortDTO,
   PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
-import {filter, groupBy, isEmpty, map, orderBy, reduce} from 'lodash';
+import {filter, orderBy, reduce} from 'lodash';
 import {
   convertPlaceOfTheWeekObjectToCardItem,
-  convertShortCategoryToCardItem,
-  convertShortObjectToCardItem,
   extractLocaleSpecificValues,
   translateAndProcessImagesForEntity,
 } from './common';
@@ -47,50 +45,42 @@ export function getObjectByCategories(
   );
 }
 
+export function convertShortCategoryToHomePageCategory(
+  category: CategoryShort,
+  parentCategoryName: string | null,
+): HomePageCategory {
+  return {
+    id: category.id,
+    icon: category.icon,
+    name: category.name,
+    analyticsMetadata: {
+      name: category.analyticsMetadata.name,
+      parentName: parentCategoryName,
+    },
+  };
+}
+
 export function prepareHomePageData(
   categoriesList: Array<CategoryShort>,
-  objectsByCategories: Record<string, Array<ObjectShort>>,
-) {
+): HomePagesCategories {
   const sortedCategories = orderBy(categoriesList, ['index'], ['asc']);
 
-  const {null: parentCategories, ...subcategoriesMap} = groupBy(
-    sortedCategories,
-    'parent',
-  );
-
   return reduce(
-    parentCategories,
+    sortedCategories,
     (acc, category) => {
-      let objects = objectsByCategories[category.id];
-
-      if (objects?.length && !category.parent) {
-        acc.push({
-          title: category.name,
-          items: map(objects, convertShortObjectToCardItem),
-          isCategoryItems: false,
-          categoryId: category.id,
-        });
+      if (!category.parent) {
+        acc.main.push(convertShortCategoryToHomePageCategory(category, null));
       } else {
-        const subCategories = subcategoriesMap[category.id];
-        const subCategoriesWithObjects = filter(subCategories, subCategory => {
-          return !isEmpty(objectsByCategories[subCategory.id]);
+        const sectionName =
+          category.widgetType === 'ROUTES_WIDGET' ? 'routes' : 'main';
+        acc[sectionName].push({
+          ...convertShortCategoryToHomePageCategory(category, category.name),
         });
-        if (subCategoriesWithObjects?.length) {
-          acc.push({
-            title: category.name,
-            items: map(
-              subCategoriesWithObjects,
-              convertShortCategoryToCardItem,
-            ),
-            isCategoryItems: true,
-            categoryId: category.id,
-          });
-        }
       }
 
       return acc;
     },
-    [] as Array<HomeSectionBarItem>,
+    {main: [], routes: []} as HomePagesCategories,
   );
 }
 

@@ -2,14 +2,12 @@ import {createAction} from '@reduxjs/toolkit';
 import {createAsyncAction} from 'core/helpers';
 import {
   CategoryShortDTO,
-  ObjectShortDTO,
   ObjectThumbnailDTO,
   PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
 
 interface GetHomePageDataRequestPayload {
   categoriesList: Array<CategoryShortDTO>;
-  objectsByCategory: Record<string, ObjectShortDTO[]>;
   randomObjects: Array<ObjectThumbnailDTO>;
   placeOfTheWeek: PlaceOfTheWeekObjectDTO;
 }

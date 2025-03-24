@@ -15,7 +15,8 @@ const adaptiveIconAssets = {
   PROD: 'AndroidAdaptiveIcon.png',
 } satisfies Record<Environment, string>;
 
-const environment: Environment = process.env.ENVIRONMENT ?? 'DEV';
+const environment: Environment = (process.env.ENVIRONMENT ??
+  'DEV') as Environment;
 
 export default ({config}: Record<string, any>) => {
   return {

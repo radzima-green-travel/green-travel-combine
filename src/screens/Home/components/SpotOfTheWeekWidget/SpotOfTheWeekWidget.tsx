@@ -11,10 +11,11 @@ import {widgetStyles} from './styles';
 interface SpotOfTheWeekWidgetProps {
   object: CardItem;
   onPress: (data: CardItem) => void;
+  onFavoriteChanged?: (item: CardItem, nextIsFavorite: boolean) => void;
 }
 
 export const SpotOfTheWeekWidget = memo(
-  ({object, onPress}: SpotOfTheWeekWidgetProps) => {
+  ({object, onPress, onFavoriteChanged}: SpotOfTheWeekWidgetProps) => {
     const {t} = useTranslation('home');
     const styles = useThemeStyles(widgetStyles);
 
@@ -41,6 +42,7 @@ export const SpotOfTheWeekWidget = memo(
           onPress={onPress}
           testID="spotOfTheWeekWidget"
           data={object}
+          onFavoriteChanged={onFavoriteChanged}
         />
       </View>
     );

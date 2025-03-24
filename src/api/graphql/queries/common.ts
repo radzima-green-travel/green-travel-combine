@@ -28,6 +28,8 @@ export const categoryQueryParameters = `
       index
       cover
       blurhash
+      widgetType
+      icon
       i18n {
         name
         locale

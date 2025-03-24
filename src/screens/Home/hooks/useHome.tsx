@@ -8,7 +8,7 @@ import {
   useColorScheme,
   useOnRequestError,
 } from 'core/hooks';
-import {CardItem} from 'core/types';
+import {CardItem, HomePageCategory} from 'core/types';
 import {selectHomePageData} from 'core/selectors';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {getHomePageDataRequest, refreshHomePageDataRequest} from 'core/actions';
@@ -22,13 +22,8 @@ export const useHome = () => {
   const homeData = useSelector(selectHomePageData);
   const {show, ...snackBarProps} = useSnackbar();
 
-  const {
-    listRef,
-    sendSelectCardEvent,
-    sendSelectAllEvent,
-    sendSaveCardEvent,
-    sendUnsaveCardEvent,
-  } = useHomeAnalytics();
+  const {listRef, sendSelectCardEvent, sendSaveCardEvent, sendUnsaveCardEvent} =
+    useHomeAnalytics();
 
   const {loading} = useRequestLoading(getHomePageDataRequest);
   const {errorTexts} = useOnRequestError(getHomePageDataRequest, '');
@@ -50,27 +45,14 @@ export const useHome = () => {
   );
 
   const onCategoryPress = useCallback(
-    (category: CardItem, parentCategoryName: string) => {
+    (category: HomePageCategory) => {
       navigateToObjectsList({categoryId: category.id, title: category.name});
-      sendSelectCardEvent(category.name, parentCategoryName);
+      sendSelectCardEvent(
+        category.analyticsMetadata.name,
+        category.analyticsMetadata.name,
+      );
     },
     [navigateToObjectsList, sendSelectCardEvent],
-  );
-
-  const onAllObjectsPress = useCallback(
-    (data: {categoryId: string; title: string}) => {
-      sendSelectAllEvent(data.title);
-      navigateToObjectsList(data);
-    },
-    [navigateToObjectsList, sendSelectAllEvent],
-  );
-
-  const navigateToCategoriesList = useCallback(
-    ({categoryId, title}: {categoryId: string; title: string}) => {
-      navigate('CategoriesList', {categoryId, title});
-      sendSelectAllEvent(title);
-    },
-    [navigate, sendSelectAllEvent],
   );
 
   const navigateToObjectDetails = useCallback(
@@ -90,13 +72,7 @@ export const useHome = () => {
   );
 
   const sendIsFavoriteChangedEvent = useCallback(
-    ({
-      object: {name, analyticsMetadata},
-      nextIsFavorite,
-    }: {
-      object: CardItem;
-      nextIsFavorite: boolean;
-    }) => {
+    ({analyticsMetadata, name}: CardItem, nextIsFavorite: boolean) => {
       if (nextIsFavorite) {
         sendSaveCardEvent(name, analyticsMetadata.categoryName);
       } else {
@@ -122,8 +98,6 @@ export const useHome = () => {
     refreshing,
     navigateToObjectDetails,
     onCategoryPress,
-    onAllObjectsPress,
-    navigateToCategoriesList,
     sendIsFavoriteChangedEvent,
     homeData,
     theme,
