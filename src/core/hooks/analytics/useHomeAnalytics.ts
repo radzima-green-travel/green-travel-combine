@@ -1,11 +1,11 @@
 import {useCallback, useRef} from 'react';
-import {FlatList} from 'react-native';
+import {ScrollView} from 'react-native';
 import {useScrollToTop, useFocusEffect} from '@react-navigation/native';
 import {analyticsService} from 'services/AnalyticsService';
 import {getScreenTimeSec} from 'core/helpers';
 
 export function useHomeAnalytics() {
-  const listRef = useRef<FlatList>(null);
+  const listRef = useRef<ScrollView>(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -30,7 +30,7 @@ export function useHomeAnalytics() {
   useScrollToTop(
     useRef({
       scrollToTop: () => {
-        listRef.current?.scrollToOffset({offset: 0});
+        listRef.current?.scrollTo({y: 0, x: 0});
       },
     }),
   );
@@ -65,17 +65,10 @@ export function useHomeAnalytics() {
     [],
   );
 
-  const sendSelectAllEvent = useCallback((categoryName: string) => {
-    analyticsService.logEvent('home_see_all_event', {
-      param_card_category: categoryName,
-    });
-  }, []);
-
   return {
     listRef,
     sendSelectCardEvent,
     sendSaveCardEvent,
     sendUnsaveCardEvent,
-    sendSelectAllEvent,
   };
 }

@@ -6,3 +6,18 @@ export type HomeSectionBarItem = {
   isCategoryItems: boolean;
   categoryId: string;
 };
+
+export type HomePageCategory = {
+  id: string;
+  name: string;
+  icon: string;
+  analyticsMetadata: {
+    name: string;
+    parentName: string | null;
+  };
+};
+
+export type HomePagesCategories = {
+  main: Array<HomePageCategory>;
+  routes: Array<HomePageCategory>;
+};

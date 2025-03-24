@@ -6,9 +6,8 @@ import {
 import {graphQLAPI} from 'api/graphql';
 import {RequestError} from 'core/errors';
 import {getAppMapObjectsRequest} from 'core/actions';
-import {getObjectByCategories} from 'core/transformators/homePage';
 import {getCategoriesData} from '../fetchRequests';
-import {map} from 'lodash';
+import {filter} from 'lodash';
 import {EffectType} from 'core/types/utils';
 
 export function* getHomePageDataSaga({
@@ -35,24 +34,12 @@ export function* getHomePageDataSaga({
       call([graphQLAPI, graphQLAPI.getRandomObjectThumbnails], 10),
       call([graphQLAPI, graphQLAPI.getPlaceOfTheWeekObject]),
     ]);
-
-    const objectForCategoriesResponse: EffectType<
-      typeof graphQLAPI.getObjectsForCategories
-    > = yield call([graphQLAPI, graphQLAPI.getObjectsForCategories], {
-      categoryIds: map(categoriesWithObjects, 'key'),
+    const categoriesList = filter(items, item => {
+      return categoriesWithObjects.some(category => category.key === item.id);
     });
-
-    const objectsByCategory: EffectType<typeof getObjectByCategories> =
-      yield call(
-        getObjectByCategories,
-        categoriesWithObjects,
-        objectForCategoriesResponse,
-      );
-
     yield put(
       successAction({
-        categoriesList: items,
-        objectsByCategory: objectsByCategory,
+        categoriesList: categoriesList,
         randomObjects,
         placeOfTheWeek,
       }),

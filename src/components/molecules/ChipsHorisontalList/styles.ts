@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
 import {PADDING_HORIZONTAL} from 'core/constants';
-import {FONTS_PRESETS} from 'assets';
+import {COLORS, FONTS_PRESETS} from 'assets';
+import {createThemeStyles} from 'core/helpers/styles';
 
-export const styles = StyleSheet.create({
+export const themeStyles = createThemeStyles({
   container: {
     marginVertical: 10,
     paddingHorizontal: PADDING_HORIZONTAL,
@@ -10,6 +10,10 @@ export const styles = StyleSheet.create({
   title: {
     ...FONTS_PRESETS.headlineBold,
     paddingBottom: 12,
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
   },
   listContainer: {
     flexDirection: 'column',

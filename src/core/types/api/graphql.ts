@@ -58,8 +58,10 @@ export interface CategoryShortDTO {
   id: string;
   parent: string | null;
   blurhash: string | null;
+  widgetType: 'MAIN_WIDGET' | 'ROUTES_WIDGET' | null;
   index: number;
   owner: string | null;
+  icon: string;
 }
 
 export interface HighlightDTO {
