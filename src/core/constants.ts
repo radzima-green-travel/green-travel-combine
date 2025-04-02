@@ -45,6 +45,7 @@ export const DEFAULT_BOUNDS = {
 
 export const enum MAP_PINS {
   BICYCLE_ROUTE = 'bicycle-route',
+  CAR_ROUTE = 'car-route',
   OBJECT = 'object',
   HISTORICAL_PLACE = 'historical-place',
   EXCURSION_PIN = 'excursion-pin',
@@ -85,6 +86,7 @@ export const ICONS_MATCHER = {
   [MAP_PINS.NATURE_MONUMENTS]: 'natureMonuments' as IconsNames,
   [MAP_PINS.OTHER_MONUMENTS]: 'otherMonuments' as IconsNames,
   [MAP_PINS.WAR_MONUMENTS]: 'warMonuments' as IconsNames,
+  [MAP_PINS.CAR_ROUTE]: 'car' as IconsNames,
 };
 
 export const MAP_BOTTOM_MENU_HEIGHT = 185;

@@ -17,10 +17,10 @@ const ICONS_MAP = {
   [ObjectField.workingHours]: 'clock',
   [ObjectField.phoneNumber]: 'telephone',
   [ObjectField.attendanceTime]: 'clockHistory',
-  [ObjectField.childServices]: 'sportsTennis',
+  [ObjectField.childServices]: 'deck',
   [ObjectField.accommodationPlace]: 'hotel',
   [ObjectField.dinnerPlaces]: 'restaurant',
-  [ObjectField.renting]: 'deck',
+  [ObjectField.renting]: 'sportsTennis',
   [ObjectField.upcomingEvents]: 'calendar',
 };
 

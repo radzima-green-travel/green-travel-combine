@@ -10,8 +10,8 @@ export const iconsConfig: {
 } = {
   [MAP_PINS.BICYCLE_ROUTE]: {
     name: 'bike',
-    width: 23.6,
-    height: 15.3,
+    width: 20,
+    height: 20,
   },
   [MAP_PINS.HISTORICAL_PLACE]: {
     name: 'church',
@@ -60,6 +60,11 @@ export const iconsConfig: {
   },
   [MAP_PINS.OTHER_MONUMENTS]: {
     name: 'otherMonuments',
+    width: 20,
+    height: 20,
+  },
+  [MAP_PINS.CAR_ROUTE]: {
+    name: 'car',
     width: 20,
     height: 20,
   },
