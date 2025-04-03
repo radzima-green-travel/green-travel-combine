@@ -1,18 +1,16 @@
 import {createAsyncAction} from 'core/helpers';
-import {ObjectShortDTO} from 'core/types';
+import {ObjectListFilters, ObjectShortDTO} from 'core/types';
 
 export interface ObjectsListSuccessPayload {
   id: string;
   data: Array<ObjectShortDTO>;
   nextToken: string;
   total: number;
-  categoryId: string;
 }
 
-interface ObjectsListRequestPayload {
-  categoryId: string;
-  objectsIds?: string[];
-}
+type ObjectsListRequestPayload = ObjectListFilters & {
+  listId: string;
+};
 
 export const getObjectsListInitialDataRequest = createAsyncAction<
   ObjectsListRequestPayload,

@@ -26,7 +26,6 @@ import {
   getCategoriesAggregationsByObjectsQuery,
   getAppMapObjectsQuery,
   searchCategoriesQuery,
-  searchObjectsQuery,
   getSearchObjectsHistoryQuery,
   getSearchObjectsQuery,
   geObjectDetailsByIdQuery,
@@ -35,6 +34,7 @@ import {
   generateListObjectsShortQuery,
   getPlaceOfTheWeekQuery,
   getRandomObjectThumbnailsQuery,
+  objectListQuery,
 } from './queries/homePage';
 
 import {getObjectsTotalCountQuery} from './queries/common';
@@ -113,7 +113,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
     const response = await this.executeQuery({
       query: getFilterObjectsQuery(otherParams.locale),
       params: {
-        filter: {statuses: ['published'], ...filter},
+        filter: {...this.defaultFilters, ...filter},
         ...otherParams,
       },
     });
@@ -144,11 +144,11 @@ class GraphQLAPI extends GraphQLAPIEngine {
     params: ObjectsListQueryParams,
   ): Promise<ListShortObjectsResponseDTO> {
     const response = await this.executeQuery({
-      query: searchObjectsQuery,
-      params,
+      query: objectListQuery,
+      params: {...params, filter: {...this.defaultFilters, ...params.filter}},
     });
 
-    return response.searchObjects;
+    return response.filterLandingObjects;
   }
 
   async getFiltersCategories(): Promise<FiltersCategoriesResponseDTO> {
@@ -166,7 +166,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
 
     const response = await this.executeQuery({
       query: getSearchObjectsQuery(otherParams.locale),
-      params: {filter: {statuses: ['published'], ...filter}, ...otherParams},
+      params: {filter: {...this.defaultFilters, ...filter}, ...otherParams},
     });
 
     return response.filterLandingObjects;
@@ -225,8 +225,10 @@ class GraphQLAPI extends GraphQLAPIEngine {
       params,
     });
 
-    return response.searchObjects.items;
+    return response.filterLandingObjects.items;
   }
+
+  private readonly defaultFilters = {statuses: ['published']};
 }
 
 export const graphQLAPI = new GraphQLAPI();

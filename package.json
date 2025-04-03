@@ -9,7 +9,7 @@
     "android": "npx expo run:android",
     "ios": "npx expo run:ios",
     "test": "jest",
-    "lint": "yarn run eslint './src/**/*.{ts,tsx,js}'",
+    "lint": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",
     "lint-fix": "yarn run eslint --fix './src/**/*.{ts,tsx,js}'",
     "test-clean": "yarn jest --clear-cache && yarn test --slowTestThreshold=0.2",
     "precommit": "yarn run eslint './src/**/*.{ts,tsx,js}' && yarn run tsc",

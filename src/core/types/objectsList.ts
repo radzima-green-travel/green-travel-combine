@@ -7,3 +7,9 @@ export type ProcessedObjectsListsById = Record<
   string,
   PaginatedList<ObjectShort>
 >;
+
+export type ObjectListFilters = Partial<{
+  categoryId: string;
+  objectsIds: string[];
+  markedAsNotOnGoogleMaps: boolean;
+}>;
