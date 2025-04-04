@@ -29,6 +29,8 @@ export const layerStyles = {
       '1K+',
     ],
     textSize: 14,
+    // from 0 to 9 => 0, from 10 to 19 => -0.05, from 20 => 0
+    textOffset: [['step', ['get', 'point_count'], 0, 9, -0.05, 20, 0], 0],
     textColor: COLORS.light.text.accent,
     textFont: ['Open Sans Bold'],
     iconAllowOverlap: true,
