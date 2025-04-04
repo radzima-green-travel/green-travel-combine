@@ -1,4 +1,5 @@
 import {SymbolLayerStyle} from '@rnmapbox/maps';
+import {COLORS} from 'assets';
 import {MAP_PINS} from 'core/constants';
 export const layerStyles = {
   singlePoint: {
@@ -27,8 +28,9 @@ export const layerStyles = {
       999,
       '1K+',
     ],
-    textSize: 12,
-    textColor: '#000',
+    textSize: 14,
+    textColor: COLORS.light.text.accent,
+    textFont: ['Open Sans Bold'],
     iconAllowOverlap: true,
     textAllowOverlap: true,
   } as SymbolLayerStyle,

@@ -136,8 +136,8 @@ export const ClusterMap = memo(
             style={styles.container}
             styleURL={
               theme === 'light'
-                ? 'mapbox://styles/epm-slr/cki08cwa421ws1aluy6vhnx2h'
-                : 'mapbox://styles/epm-slr/ckodyal5d3i9017pb9vii6v18'
+                ? 'mapbox://styles/epm-slr/cm8x0gqum00d901s5ap8h4l9c'
+                : 'mapbox://styles/epm-slr/cm8x0i6zo00n701qz8028au30'
             }
             logoPosition={{left: 22, bottom: 22}}
             attributionPosition={
