@@ -13,10 +13,13 @@ import {useHome} from './hooks';
 import {themeStyles} from './styles';
 import {useStatusBar, useColorScheme} from 'core/hooks';
 import {useHomeHeader} from './screenOptions';
-import {useOpenRandomObject} from './hooks/useOpenRandomObject';
-import {usePlaceOfTheWeek} from './hooks/usePlaceOfTheWeek';
 import {map} from 'lodash';
 import {ICONS_MATCHER} from 'core/constants';
+import {
+  useOpenRandomObject,
+  usePlaceOfTheWeek,
+  usePlacesYouWontFindWidget,
+} from './hooks';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
@@ -42,11 +45,12 @@ export const Home = () => {
 
   const openRandomObject = useOpenRandomObject();
   const {placeOfTheWeek} = usePlaceOfTheWeek();
+  const openPlacesPage = usePlacesYouWontFindWidget();
 
   const widgetsBlock = (
     <View style={styles.widgetGrid}>
       <View style={styles.widgetGridRightColumn}>
-        <PlacesYouWontFindWidget />
+        <PlacesYouWontFindWidget onPress={openPlacesPage} />
         <RandomSpotWidget onPress={openRandomObject} />
       </View>
       <View style={styles.widgetGridLeftColumn}>

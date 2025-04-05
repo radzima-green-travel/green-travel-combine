@@ -25,12 +25,12 @@ const initialState: BookmarksDetailsState = {
 export const bookmarksDetailsReducer = createReducer(initialState, builder => {
   builder.addCase(
     getBookmarksObjectsListRequest.meta.successAction,
-    (state, {payload: {data, categoryId}}) => {
-      const existingData = state.objectsList[categoryId] ?? [];
+    (state, {payload: {data, id}}) => {
+      const existingData = state.objectsList[id] ?? [];
 
       state.objectsList = {
         ...state.objectsList,
-        [categoryId]: [...existingData, ...data],
+        [id]: [...existingData, ...data],
       };
     },
   );

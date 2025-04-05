@@ -7,7 +7,7 @@ import {
 } from 'core/actions';
 import {RequestError} from 'core/errors';
 import {selectObjectsList} from 'selectors';
-import {ObjectsListQueryParams} from 'core/types/api';
+import {createObjectListQueryParams} from 'core/transformators/objectsList';
 
 export function* getObjectsListDataSaga({
   meta: {failureAction, successAction},
@@ -18,28 +18,11 @@ export function* getObjectsListDataSaga({
   | typeof getBookmarksObjectsListRequest
 >) {
   try {
-    const {categoryId, objectsIds} = payload;
+    const {listId, ...appliedFilters} = payload;
 
-    const {nextToken: prevNextToken} = yield select(
-      selectObjectsList(categoryId),
-    );
+    const {nextToken: prevNextToken} = yield select(selectObjectsList(listId));
 
-    const objectsIdsDefined = !!objectsIds?.length;
-
-    const statusFilter = {
-      status: {eq: 'published'},
-    };
-
-    const filter = objectsIdsDefined
-      ? {id: {match: objectsIds.join(' ')}}
-      : {categoryId: {eq: categoryId}};
-
-    const params: ObjectsListQueryParams = {
-      sort: {direction: 'asc', field: 'name'},
-      nextToken: objectsIdsDefined ? null : prevNextToken,
-      limit: objectsIdsDefined ? objectsIds.length : 10,
-      filter: {...filter, ...statusFilter},
-    };
+    const params = createObjectListQueryParams(appliedFilters, prevNextToken);
 
     const {items, nextToken, total} = yield call(
       [graphQLAPI, graphQLAPI.getObjectsList],
@@ -48,11 +31,10 @@ export function* getObjectsListDataSaga({
 
     yield put(
       successAction({
-        id: objectsIdsDefined ? objectsIds.join(' ') : categoryId,
+        id: listId,
         data: items,
         nextToken,
         total,
-        categoryId,
       }),
     );
   } catch (e) {

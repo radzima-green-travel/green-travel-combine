@@ -5,6 +5,7 @@ import {AnalyticsNavigationScreenNames} from './analytics';
 import {FromScreenName} from './analytics/objectDetails';
 import {SearchFilters} from './filters';
 import {SearchOptions} from './search';
+import {ObjectListFilters} from './objectsList';
 
 type ObjectDetailsParams = {
   objectId: string;
@@ -22,10 +23,8 @@ export type HomeNavigatorParamsList = {
     filtersToApply?: SearchFilters;
   };
   ObjectsList: {
-    categoryId: string;
     title: string;
-    objectsIds?: string[];
-  };
+  } & ObjectListFilters;
   CategoriesList: {
     categoryId: string;
     title: string;

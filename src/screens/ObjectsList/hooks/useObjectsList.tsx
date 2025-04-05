@@ -7,7 +7,7 @@ import {
   useRequestLoading,
 } from 'core/hooks';
 import {CardItem} from 'core/types';
-import {debounce} from 'lodash';
+import {debounce, omit} from 'lodash';
 import {useNavigation} from '@react-navigation/native';
 import {
   ObjectsListScreenNavigationProps,
@@ -62,11 +62,13 @@ export const useObjectsList = () => {
     [navigateToObjectDetails],
   );
 
-  const {
-    params: {categoryId, title, objectsIds},
-  } = useRoute<ObjectsListScreenRouteProps>();
+  const {params} = useRoute<ObjectsListScreenRouteProps>();
 
-  const listId = objectsIds?.length ? objectsIds.join(' ') : categoryId;
+  const [title, appliedFilters] = useMemo(() => {
+    return [params.title, omit(params, 'title')];
+  }, [params]);
+
+  const listId = createObjectListId(appliedFilters);
 
   const {data: listData, total} = useSelector(selectObjectsList(listId));
 
@@ -79,12 +81,12 @@ export const useObjectsList = () => {
   const {errorTexts} = useOnRequestError(getObjectsListInitialDataRequest, '');
 
   const fetchListInitialData = useCallback(() => {
-    dispatch(getObjectsListInitialDataRequest({categoryId, objectsIds}));
-  }, [dispatch, categoryId, objectsIds]);
+    dispatch(getObjectsListInitialDataRequest({listId, ...appliedFilters}));
+  }, [dispatch, appliedFilters, listId]);
 
   const fetchListNextData = useCallback(() => {
-    dispatch(getObjectsListNextDataRequest({categoryId, objectsIds}));
-  }, [dispatch, categoryId, objectsIds]);
+    dispatch(getObjectsListNextDataRequest({listId, ...appliedFilters}));
+  }, [dispatch, appliedFilters, listId]);
 
   const paginationProps = useListPagination({
     isLoading: nextDataLoading,
@@ -113,4 +115,14 @@ export const useObjectsList = () => {
     errorTexts,
     listData,
   };
+};
+
+export const createObjectListId = (appliedFilters: object) => {
+  let id = '';
+
+  for (const key in appliedFilters) {
+    id += key + String(appliedFilters[key]);
+  }
+
+  return id;
 };

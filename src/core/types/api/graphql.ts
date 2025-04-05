@@ -2,26 +2,33 @@ import {MultiPolygon, LineString} from '@turf/helpers';
 import {ObjectField} from 'core/constants';
 import {SupportedLocales} from '../common';
 
-export interface QueryParams {
+export type QueryParams = Partial<{
   limit: number;
-  nextToken: string;
-  filter: {
-    parent?: {
+  nextToken: string | null;
+  filter: Partial<{
+    parent: {
       eq?: string;
     };
-    categoryId?: {
-      eq?: string;
-    };
-    id?: {
-      match?: string;
-    };
-  };
-  sort: {
-    direction?: 'asc' | 'desc';
-    field?: string;
-  };
+    categories: string[];
+    ids: string[];
+    markedAsNotOnGoogleMaps: boolean;
+    userId: string;
+    googleRating: string;
+    regions: string[];
+    municipalities: string[];
+    statuses: string | string[];
+  }>;
+  sort: Partial<{
+    direction: 'asc' | 'desc';
+    field: string;
+  }>;
   from: number;
-}
+  query: string;
+  km: number;
+  location: {lat: number; lon: number};
+  locale: SupportedLocales;
+  fieldsToSearch: {isSpotIncluded: boolean; isDescriptionIncluded: boolean};
+}>;
 
 export type ObjectsListQueryParams = Pick<
   QueryParams,
@@ -171,22 +178,16 @@ export interface ObjectsForCategoriesResponseDTO {
 export type CategoriesAggregationsByObjectsResponseDTO =
   Array<CategoryAggregationsByObjectsDTO>;
 
-export interface FiltersParams {
-  query?: string;
-  nextToken?: string | null;
-  km?: number;
-  location?: {lat: number; lon: number};
-  locale?: SupportedLocales;
-  filter?: {
-    userId?: string;
-    categories?: string[];
-    googleRating?: string;
-    regions?: string[];
-    municipalities?: string[];
-    statuses?: string | string[];
-  };
-  fieldsToSearch?: {isSpotIncluded: boolean; isDescriptionIncluded: boolean};
-}
+export type FiltersParams = Pick<
+  QueryParams,
+  | 'query'
+  | 'nextToken'
+  | 'km'
+  | 'location'
+  | 'locale'
+  | 'filter'
+  | 'fieldsToSearch'
+>;
 
 export interface SettlementsParams {
   searchValue?: string;

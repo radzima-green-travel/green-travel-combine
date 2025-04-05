@@ -1,10 +1,14 @@
-import {ProcessedObjectsListsById, SupportedLocales} from 'core/types';
+import {
+  ObjectsListQueryParams,
+  ProcessedObjectsListsById,
+  SupportedLocales,
+} from 'core/types';
 import {map, mapValues} from 'lodash';
 import {
   convertShortObjectToCardItem,
   translateAndProcessImagesForEntity,
 } from 'core/transformators/common';
-import {ObjectsListsById} from 'core/types/objectsList';
+import {ObjectListFilters, ObjectsListsById} from 'core/types/objectsList';
 
 export const getProcessedObjectsLists = (
   objectsLists: ObjectsListsById,
@@ -34,5 +38,29 @@ export const prepareObjectsListData = (
   return {
     ...list,
     data: list.data.map(convertShortObjectToCardItem),
+  };
+};
+
+export const createObjectListQueryParams = (
+  appliedFilters: ObjectListFilters,
+  nextToken?: string,
+): ObjectsListQueryParams => {
+  const {objectsIds, categoryId, ...flags} = appliedFilters;
+
+  const objectsIdsDefined = !!objectsIds?.length;
+
+  const filter: ObjectsListQueryParams['filter'] = flags;
+
+  if (objectsIdsDefined) {
+    filter.ids = objectsIds;
+  } else if (categoryId) {
+    filter.categories = [categoryId];
+  }
+
+  return {
+    sort: {direction: 'asc', field: 'name'},
+    limit: objectsIdsDefined ? objectsIds.length : 10,
+    filter,
+    ...(!objectsIdsDefined && nextToken && {nextToken}),
   };
 };

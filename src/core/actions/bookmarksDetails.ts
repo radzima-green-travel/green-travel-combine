@@ -11,6 +11,7 @@ interface BookmarksInitialObjectsDataSuccessPayload {
 interface BookmarksObjectsListPayload {
   objectsIds: string[];
   categoryId: string;
+  listId: string;
 }
 
 export const getBookmarksObjectsListRequest = createAsyncAction<
