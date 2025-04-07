@@ -1,15 +1,17 @@
-export const getBookmarksInitialObjectsDataQuery = `query MyQuery ($filter: SearchableObjectFilterInput = {}) {
-  searchObjects(filter: $filter) {
-    items {
-      id
-      category {
+export const getBookmarksInitialObjectsDataQuery = `
+  query MyQuery($filter: FacetLandingObjectFilterInput) {
+    filterLandingObjects(filter: $filter) {
+      items {
         id
-        name
-        i18n {
+        category {
+          id
           name
-          locale
+          i18n {
+            name
+            locale
+          }
         }
       }
     }
   }
-}`;
+`;

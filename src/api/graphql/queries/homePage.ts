@@ -50,24 +50,23 @@ export const searchCategoriesQuery = `query MyQuery(
 }
 `;
 
-export const searchObjectsQuery = `query MyQuery(
-  $filter: SearchableObjectFilterInput = {},
-  $sort: [SearchableObjectSortInput],
+export const objectListQuery = `query MyQuery(
+  $filter: FacetLandingObjectFilterInput,
+  $sort: SearchableObjectSortInput,
   $limit: Int,
-  $nextToken: String
+  $nextToken: String = null,
 ) {
-  searchObjects(limit: $limit, filter: $filter, sort: $sort, nextToken: $nextToken) {
+  filterLandingObjects(filter: $filter, sort: $sort, limit: $limit, nextToken: $nextToken) {
+    ${shortCardQueryParameters}
     nextToken
     total
-    ${shortCardQueryParameters}
   }
-}
-`;
+}`;
 
 export const getRandomObjectThumbnailsQuery = `query MyQuery(
   $limit: Int
 ) {
-  filterLandingObjects(randomized: true, limit: $limit) {
+  filterLandingObjects(filter: {statuses: "published"}, randomized: true, limit: $limit) {
     items {
       id
       cover

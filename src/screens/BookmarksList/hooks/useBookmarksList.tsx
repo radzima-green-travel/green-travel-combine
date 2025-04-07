@@ -79,29 +79,28 @@ export const useBookmarksList = () => {
     }
   }, [filteredListData, goBack]);
 
+  const bookmarksFilled = !!bookmarksIds.length;
+
   const fetchListData = useCallback(
     (currentObjectIds: string[]) => {
-      if (bookmarksIds.length) {
+      if (bookmarksFilled) {
         dispatch(
           getBookmarksObjectsListRequest({
+            listId: categoryId,
             objectsIds: currentObjectIds,
             categoryId,
           }),
         );
       }
     },
-    [categoryId, dispatch, bookmarksIds.length],
+    [categoryId, dispatch, bookmarksFilled],
   );
 
-  useEffect(() => {
-    if (
-      !listData.length &&
-      !bookmarksObjectsLoading &&
-      !prevListDataLength.current
-    ) {
-      fetchListData(objectsIds);
-    }
-  }, [bookmarksObjectsLoading, fetchListData, listData.length, objectsIds]);
+  const listDataLoaded = !!listData.length;
+
+  useLayoutEffect(() => {
+    !listDataLoaded && fetchListData(objectsIds);
+  }, [fetchListData, objectsIds, listDataLoaded]);
 
   const retryFetchListData = useCallback(
     () => fetchListData(objectsIds),
