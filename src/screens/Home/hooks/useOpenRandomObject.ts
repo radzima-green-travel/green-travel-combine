@@ -4,26 +4,35 @@ import {selectRandomObjectList} from 'core/selectors';
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {HomeScreenNavigationProps} from '../types';
-
+import {useHomeAnalytics} from './useHomeAnalytics';
 export const useOpenRandomObject = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation<HomeScreenNavigationProps>();
 
+  const {sendMainScreenRandomPlaceViewEvent} = useHomeAnalytics();
+
   const randomObjects = useSelector(selectRandomObjectList);
-
-  return useCallback(() => {
+  const openRandomObject = useCallback(() => {
     const currentRandomObject = randomObjects[0];
+    if (currentRandomObject) {
+      if (randomObjects.length === 1) {
+        dispatch(fetchNextRandomObjects());
+      } else {
+        dispatch(shiftRandomObjectList());
+      }
 
-    if (randomObjects.length === 1) {
-      dispatch(fetchNextRandomObjects());
-    } else {
-      dispatch(shiftRandomObjectList());
+      navigate('ObjectDetails', {
+        objectId: currentRandomObject.id,
+        objcetCoverBlurhash: currentRandomObject.blurhash,
+        objectCoverImageUrl: currentRandomObject.cover,
+      });
+      const {analyticsMetadata} = currentRandomObject;
+      sendMainScreenRandomPlaceViewEvent(
+        analyticsMetadata.objectName,
+        analyticsMetadata.categoryName,
+      );
     }
+  }, [dispatch, navigate, randomObjects, sendMainScreenRandomPlaceViewEvent]);
 
-    navigate('ObjectDetails', {
-      objectId: currentRandomObject.id,
-      objcetCoverBlurhash: currentRandomObject.blurhash,
-      objectCoverImageUrl: currentRandomObject.cover,
-    });
-  }, [dispatch, navigate, randomObjects]);
+  return {openRandomObject};
 };

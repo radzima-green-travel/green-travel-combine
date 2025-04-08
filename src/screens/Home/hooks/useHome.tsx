@@ -1,19 +1,14 @@
 import {useCallback} from 'react';
 
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  useRequestLoading,
-  useHomeAnalytics,
-  useColorScheme,
-  useOnRequestError,
-} from 'core/hooks';
-import {CardItem, HomePageCategory} from 'core/types';
+import {useRequestLoading, useColorScheme, useOnRequestError} from 'core/hooks';
+import {HomePageCategory} from 'core/types';
 import {selectHomePageData} from 'core/selectors';
-import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {getHomePageDataRequest, refreshHomePageDataRequest} from 'core/actions';
 import {HomeScreenNavigationProps} from '../types';
 import {useSnackbar} from 'atoms';
+import {useHomeAnalytics} from './useHomeAnalytics';
 
 export const useHome = () => {
   const dispatch = useDispatch();
@@ -22,8 +17,14 @@ export const useHome = () => {
   const homeData = useSelector(selectHomePageData);
   const {show, ...snackBarProps} = useSnackbar();
 
-  const {listRef, sendSelectCardEvent, sendSaveCardEvent, sendUnsaveCardEvent} =
-    useHomeAnalytics();
+  const {
+    sendTrackPageLifeTimeEvent,
+    sendMainScreenViewEvent,
+    sendMainScreenCategoryViewEvent,
+  } = useHomeAnalytics();
+
+  useFocusEffect(sendTrackPageLifeTimeEvent);
+  useFocusEffect(sendMainScreenViewEvent);
 
   const {loading} = useRequestLoading(getHomePageDataRequest);
   const {errorTexts} = useOnRequestError(getHomePageDataRequest, '');
@@ -47,39 +48,9 @@ export const useHome = () => {
   const onCategoryPress = useCallback(
     (category: HomePageCategory) => {
       navigateToObjectsList({categoryId: category.id, title: category.name});
-      sendSelectCardEvent(
-        category.analyticsMetadata.name,
-        category.analyticsMetadata.name,
-      );
+      sendMainScreenCategoryViewEvent(category.analyticsMetadata.name);
     },
-    [navigateToObjectsList, sendSelectCardEvent],
-  );
-
-  const navigateToObjectDetails = useCallback(
-    ({id, name, cover, blurhash, analyticsMetadata}: CardItem) => {
-      navigate('ObjectDetails', {
-        objectId: id,
-        objectCoverImageUrl: cover,
-        objcetCoverBlurhash: blurhash,
-
-        analytics: {
-          fromScreenName: getAnalyticsNavigationScreenName(),
-        },
-      });
-      sendSelectCardEvent(name, analyticsMetadata.categoryName);
-    },
-    [navigate, sendSelectCardEvent],
-  );
-
-  const sendIsFavoriteChangedEvent = useCallback(
-    ({analyticsMetadata, name}: CardItem, nextIsFavorite: boolean) => {
-      if (nextIsFavorite) {
-        sendSaveCardEvent(name, analyticsMetadata.categoryName);
-      } else {
-        sendUnsaveCardEvent(name, analyticsMetadata.categoryName);
-      }
-    },
-    [sendSaveCardEvent, sendUnsaveCardEvent],
+    [navigateToObjectsList, sendMainScreenCategoryViewEvent],
   );
 
   useOnRequestError(refreshHomePageDataRequest, 'home', errorLabel => {
@@ -92,13 +63,10 @@ export const useHome = () => {
   return {
     loading,
     errorTexts,
-    listRef,
     getHomePageData,
     refreshHomePageData,
     refreshing,
-    navigateToObjectDetails,
     onCategoryPress,
-    sendIsFavoriteChangedEvent,
     homeData,
     theme,
     snackBarProps,

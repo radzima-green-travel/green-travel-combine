@@ -8,5 +8,10 @@ export {
 
 export {AnalyticsAddInfoFieldsNames} from './objectDetails';
 import {SearchEvents} from './search';
+import {MainScreenEvents} from './home';
 
-export type EventsPayload = ObjectDetailsEvents | SearchEvents | FiltersEvents;
+export type EventsPayload =
+  | ObjectDetailsEvents
+  | SearchEvents
+  | FiltersEvents
+  | MainScreenEvents;

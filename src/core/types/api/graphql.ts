@@ -450,6 +450,13 @@ export interface ObjectThumbnailDTO {
   id: string;
   blurhash: string;
   cover: string;
+
+  name: string;
+  i18n: Array<I18nType<'name'>>;
+  category: {
+    name: string;
+    i18n: Array<I18nType<'name'>>;
+  };
 }
 
 export interface PlaceOfTheWeekObjectDTO {
