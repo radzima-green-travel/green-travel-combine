@@ -68,9 +68,21 @@ export const getRandomObjectThumbnailsQuery = `query MyQuery(
 ) {
   filterLandingObjects(filter: {statuses: "published"}, randomized: true, limit: $limit) {
     items {
+      category {
+        name
+        i18n {
+          locale
+          name
+        }
+      }
       id
       cover
       blurhash
+      name
+      i18n {
+        locale
+        name
+      }
     }
   }
 }`;

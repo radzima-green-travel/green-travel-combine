@@ -2,6 +2,7 @@ import {IState} from 'core/store';
 import {
   prepareHomePageData,
   preparePlaceOfTheWeekObject,
+  prepareRandomObject,
 } from 'core/transformators/homePage';
 import {createSelector} from 'reselect';
 import {selectAppLanguage} from './settingsSelectors';
@@ -39,5 +40,12 @@ export const selectHomePageData = createSelector(
   },
 );
 
-export const selectRandomObjectList = (state: IState) =>
+export const selectRawRandomObjectList = (state: IState) =>
   state.homePage.randomObjects;
+export const selectRandomObjectList = createSelector(
+  selectRawRandomObjectList,
+  selectAppLanguage,
+  (randomObjects, locale) => {
+    return prepareRandomObject(randomObjects, locale);
+  },
+);

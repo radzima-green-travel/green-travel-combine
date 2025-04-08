@@ -5,7 +5,7 @@ export const provideCustomError = (error: AxiosError) => {
   if (error instanceof RequestError) {
     return Promise.reject(error);
   }
-  console.log(error.message);
+
   if (
     error.message === 'Network Error' ||
     error.message === 'timeout exceeded'

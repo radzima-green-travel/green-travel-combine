@@ -2,7 +2,7 @@ import {COLORS} from 'assets';
 import {SnackBar} from 'atoms';
 import {useThemeStyles} from 'core/hooks/useThemeStyles';
 import {ChipsHorisontalList, SuspenseView} from 'molecules';
-import React from 'react';
+import React, {useRef} from 'react';
 import {RefreshControl, ScrollView, View} from 'react-native';
 import {
   PlacesYouWontFindWidget,
@@ -20,22 +20,27 @@ import {
   usePlaceOfTheWeek,
   usePlacesYouWontFindWidget,
 } from './hooks';
+import {useScrollToTop} from '@react-navigation/native';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
   const scheme = useColorScheme();
-
+  const listRef = useRef<ScrollView>(null);
   const {pageListContainerProps} = useHomeHeader();
   useStatusBar(scheme);
+  useScrollToTop(
+    useRef({
+      scrollToTop: () => {
+        listRef.current?.scrollTo({y: 0, x: 0});
+      },
+    }),
+  );
 
   const {
     loading,
     errorTexts,
-    listRef,
     refreshing,
-    navigateToObjectDetails,
     onCategoryPress,
-    sendIsFavoriteChangedEvent,
     homeData,
     theme,
     getHomePageData,
@@ -43,9 +48,10 @@ export const Home = () => {
     snackBarProps,
   } = useHome();
 
-  const openRandomObject = useOpenRandomObject();
-  const {placeOfTheWeek} = usePlaceOfTheWeek();
-  const openPlacesPage = usePlacesYouWontFindWidget();
+  const {openRandomObject} = useOpenRandomObject();
+  const {placeOfTheWeek, openPlaceOfTheWeek, onFavoriteChanged} =
+    usePlaceOfTheWeek();
+  const {openPlacesPage} = usePlacesYouWontFindWidget();
 
   const widgetsBlock = (
     <View style={styles.widgetGrid}>
@@ -56,9 +62,9 @@ export const Home = () => {
       <View style={styles.widgetGridLeftColumn}>
         {placeOfTheWeek && (
           <SpotOfTheWeekWidget
-            onPress={navigateToObjectDetails}
+            onPress={openPlaceOfTheWeek}
             object={placeOfTheWeek}
-            onFavoriteChanged={sendIsFavoriteChangedEvent}
+            onFavoriteChanged={onFavoriteChanged}
           />
         )}
       </View>

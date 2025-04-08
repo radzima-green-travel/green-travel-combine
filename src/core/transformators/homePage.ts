@@ -8,9 +8,10 @@ import {
   CategoriesAggregationsByObjectsResponseDTO,
   ObjectsForCategoriesResponseDTO,
   ObjectShortDTO,
+  ObjectThumbnailDTO,
   PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
-import {filter, orderBy, reduce} from 'lodash';
+import {filter, map, orderBy, reduce} from 'lodash';
 import {
   convertPlaceOfTheWeekObjectToCardItem,
   extractLocaleSpecificValues,
@@ -94,5 +95,25 @@ export function preparePlaceOfTheWeekObject(
   return convertPlaceOfTheWeekObjectToCardItem({
     ...translateAndProcessImagesForEntity(placeOfTheWeek, locale),
     category: extractLocaleSpecificValues(placeOfTheWeek.category, locale),
+  });
+}
+
+export function prepareRandomObject(
+  objects: Array<ObjectThumbnailDTO>,
+  locale: SupportedLocales | null,
+) {
+  return map(objects, object => {
+    const {analyticsMetadata: categoryAnalyticsMetadata} =
+      extractLocaleSpecificValues(object.category, locale);
+
+    const randomObjectData = extractLocaleSpecificValues(object, locale);
+
+    return {
+      ...randomObjectData,
+      analyticsMetadata: {
+        objectName: randomObjectData.analyticsMetadata.name,
+        categoryName: categoryAnalyticsMetadata.name,
+      },
+    };
   });
 }
