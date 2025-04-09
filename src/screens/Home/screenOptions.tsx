@@ -4,9 +4,9 @@ import {HomeScreenNavigationProps, IProps} from './types';
 import {Icon} from 'atoms/Icon';
 import {SearchField} from 'molecules';
 import {Button, CustomHeader} from 'atoms';
-import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {getAnalyticsNavigationScreenName, getPartOfTheDay} from 'core/helpers';
 import {useNavigation} from '@react-navigation/native';
-import {useThemeStyles} from 'core/hooks';
+import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 import {HEADER_BOTTOM_RADIUS} from 'core/constants';
 
@@ -34,13 +34,19 @@ const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
 export function useHomeHeader() {
   const navigation = useNavigation<HomeScreenNavigationProps>();
   const styles = useThemeStyles(themeStyles);
+  const {t} = useTranslation('home');
+
+  const partOfTheDay = getPartOfTheDay();
+
   useLayoutEffect(() => {
     navigation.setOptions({
       header: props => (
         <CustomHeader
           {...props}
           contentAbove={() => (
-            <Text style={styles.headerTitle}>Good morning!</Text>
+            <Text style={styles.headerTitle}>
+              {t(`greeting.${partOfTheDay}`)}
+            </Text>
           )}
         />
       ),
@@ -63,7 +69,7 @@ export function useHomeHeader() {
         </View>
       ),
     });
-  }, [navigation, styles.headerTitle]);
+  }, [navigation, partOfTheDay, styles.headerTitle, t]);
 
   return {
     pageListContainerProps: {

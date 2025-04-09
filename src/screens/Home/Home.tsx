@@ -11,7 +11,7 @@ import {
 } from './components';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
-import {useStatusBar, useColorScheme} from 'core/hooks';
+import {useStatusBar, useColorScheme, useTranslation} from 'core/hooks';
 import {useHomeHeader} from './screenOptions';
 import {map} from 'lodash';
 import {ICONS_MATCHER} from 'core/constants';
@@ -24,6 +24,7 @@ import {useScrollToTop} from '@react-navigation/native';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
+  const {t} = useTranslation('home');
   const scheme = useColorScheme();
   const listRef = useRef<ScrollView>(null);
   const {pageListContainerProps} = useHomeHeader();
@@ -96,7 +97,7 @@ export const Home = () => {
           {widgetsBlock}
           <ChipsHorisontalList
             testID="mainCategories"
-            title="Categories"
+            title={t('categories')}
             numberOfRows={2}
             items={map(homeData.main, category => ({
               text: category.name,
@@ -111,7 +112,7 @@ export const Home = () => {
           {homeData.routes.length ? (
             <ChipsHorisontalList
               testID="routesCategories"
-              title="Routes"
+              title={t('routes')}
               items={map(homeData.routes, category => ({
                 text: category.name,
                 leftIcon: ICONS_MATCHER[category.icon],
