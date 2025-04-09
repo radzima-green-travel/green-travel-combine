@@ -64,9 +64,10 @@ export const objectListQuery = `query MyQuery(
 }`;
 
 export const getRandomObjectThumbnailsQuery = `query MyQuery(
+  $filter: FacetLandingObjectFilterInput,
   $limit: Int
 ) {
-  filterLandingObjects(filter: {statuses: "published"}, randomized: true, limit: $limit) {
+  filterLandingObjects(filter: $filter, randomized: true, limit: $limit) {
     items {
       category {
         name

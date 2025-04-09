@@ -76,7 +76,15 @@
     "placesYouWontFindWidgetTitle": "Places\nyou <em>won't find</em>\non Google Maps",
     "placesYouWontFindPageTitle": "Places you won’t find on Google Maps",
     "randomSpotWidgetTitle": "Discover\n<em>a random spot</em>\nin Belarus",
-    "spotOfTheWeekWidgetTitle": "Spot of the <em>week</em>"
+    "spotOfTheWeekWidgetTitle": "Spot of the <em>week</em>",
+    "greeting": {
+      "morning": "Good morning!",
+      "afternoon": "Good afternoon!",
+      "evening": "Good evening!",
+      "night": "Good night!"
+    },
+    "categories": "Categories",
+    "routes": "Routes"
   },
   "objectDetails": {
     "seeOnTheMap": "Show on map",

@@ -27,3 +27,22 @@ export function dateToReadableString(
 
   return dayAndMonthName;
 }
+
+export function getPartOfTheDay():
+  | 'morning'
+  | 'afternoon'
+  | 'evening'
+  | 'night' {
+  const date = new Date();
+  const hours = date.getHours();
+
+  if (hours > 5 && hours < 12) {
+    return 'morning';
+  } else if (hours >= 12 && hours < 17) {
+    return 'afternoon';
+  } else if (hours >= 17 && hours < 21) {
+    return 'evening';
+  }
+
+  return 'night';
+}

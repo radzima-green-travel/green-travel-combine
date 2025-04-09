@@ -193,6 +193,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
     const response = await this.executeQuery({
       query: getRandomObjectThumbnailsQuery,
       params: {
+        filter: this.defaultFilters,
         limit,
       },
     });
