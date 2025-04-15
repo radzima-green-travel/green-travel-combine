@@ -4,6 +4,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {View, StyleProp, ViewStyle, Text} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
+import {PADDING_HORIZONTAL} from 'core/constants';
 
 interface CustomHeaderProps extends NativeStackHeaderProps {
   contentAbove?: () => React.ReactNode;
@@ -67,7 +68,7 @@ export const CustomHeader = ({
         styles.container,
         withOverlay && styles.overlay,
         {
-          paddingTop: top,
+          paddingTop: top + PADDING_HORIZONTAL,
         },
         style,
         options.headerStyle,
