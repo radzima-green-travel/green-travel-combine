@@ -1,30 +1,28 @@
 import {useCallback} from 'react';
-
-import {useNavigation} from '@react-navigation/native';
-import {ProfileDetailsScreenNavigationProps} from '../types';
-import {
-  useOnRequestSuccess,
-  useRequestLoading,
-  useTranslation,
-} from 'core/hooks';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSnackbar} from 'atoms';
 import {
   changePasswordRequest,
   deleteUserRequest,
   signOutRequest,
 } from 'core/actions';
-import {Alert} from 'react-native';
+import {
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTranslation,
+} from 'core/hooks';
 import {
   selectIsAuthorizedWithSocialProviders,
   selectUserAuthorized,
   selectUserEmail,
 } from 'core/selectors';
-import {useSnackbar} from 'atoms';
+import {useRouter} from 'expo-router';
+import {Alert} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
 export const useProfileDetails = () => {
   const {t} = useTranslation('profile');
   const dispatch = useDispatch();
-  const navigation = useNavigation<ProfileDetailsScreenNavigationProps>();
+  const router = useRouter();
   const {loading} = useRequestLoading(signOutRequest);
   const {loading: deleting} = useRequestLoading(deleteUserRequest);
 
@@ -52,10 +50,8 @@ export const useProfileDetails = () => {
   const userName = useSelector(selectUserEmail);
 
   const onChangePasswordPress = useCallback(() => {
-    navigation.navigate('AuthNavigator', {
-      screen: 'ChangePassword',
-    });
-  }, [navigation]);
+    router.navigate('/change-password');
+  }, [router]);
 
   const isAuthorizedWithSocialProviders = useSelector(
     selectIsAuthorizedWithSocialProviders,
@@ -63,13 +59,9 @@ export const useProfileDetails = () => {
 
   const {show, ...snackBarProps} = useSnackbar();
 
-  useOnRequestSuccess(signOutRequest, () => {
-    navigation.goBack();
-  });
+  useOnRequestSuccess(signOutRequest, router.back);
 
-  useOnRequestSuccess(deleteUserRequest, () => {
-    navigation.goBack();
-  });
+  useOnRequestSuccess(deleteUserRequest, router.back);
 
   useOnRequestSuccess(changePasswordRequest, () => {
     show({

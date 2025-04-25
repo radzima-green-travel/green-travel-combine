@@ -6,19 +6,26 @@ import {
 } from 'core/selectors';
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {IProps, ScreenOptions} from './types';
 import {themeStyles} from './styles';
 import {useBottomMenu, useThemeStyles} from 'core/hooks';
 import {Icon, CustomHeader, Button, BottomMenu} from 'atoms';
 import {useSearchActions, useSearchSelector} from 'core/hooks';
 import {SearchField, SearchOptionsBottomMenu} from 'molecules';
 import {Portal} from '@gorhom/portal';
-import {SearchOptions} from 'core/types';
+import {
+  RouteQueryParams,
+  SearchFilters,
+  SearchOptions,
+  ScreenOptions,
+} from 'core/types';
 import {Keyboard, Text, View} from 'react-native';
 import {prepareNumberOfAppliedFilters} from 'core/transformators/filters';
 import {useSelector} from 'react-redux';
 import {useSearchAnalytics} from './hooks/useSearchAnalytics';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
+import {Link, useLocalSearchParams} from 'expo-router';
+import {base64} from 'core/helpers/encodingUtils';
+import {serializeRouteParams} from 'core/helpers/routerUtils';
 
 const HeaderTitle = () => {
   const dispatch = useDispatch();
@@ -91,43 +98,56 @@ const HeaderTitle = () => {
   );
 };
 
-const HeaderRight = ({navigation, route, testID}: IProps) => {
+const HeaderRight = () => {
   const searchQuery = useSearchSelector(selectSearchQuery);
   const searchOptions = useSearchSelector(selectSearchOptions);
   const isAuthorized = useSelector(selectUserAuthorized);
-  const {filtersToApply} = route.params || {};
+  const searchParams = useLocalSearchParams<RouteQueryParams.Search>();
+
+  const filtersToApply = base64(
+    searchParams.filtersToApply,
+  ).toMaybeObject<SearchFilters>();
+
   const numberOfAppliedFilters = prepareNumberOfAppliedFilters({
-    filters: filtersToApply,
+    filters: filtersToApply || undefined,
     isAuthorized,
   });
   const styles = useThemeStyles(themeStyles);
 
+  const testID = 'headerRight';
+
+  const {initialFilters, initialQuery} = {
+    initialFilters: filtersToApply
+      ? {
+          ...filtersToApply,
+          excludeVisited: filtersToApply?.excludeVisited && isAuthorized,
+        }
+      : undefined,
+    initialQuery: searchQuery,
+  };
+
   return (
     <View>
-      <Button
-        testID={testID}
-        isIconOnlyButton
-        renderIcon={textStyle => (
-          <Icon name="tune" size={24} style={textStyle} />
-        )}
-        onPress={() => {
-          navigation.navigate('Filter', {
-            initialFilters: filtersToApply
-              ? {
-                  ...filtersToApply,
-                  excludeVisited:
-                    filtersToApply?.excludeVisited && isAuthorized,
-                }
-              : undefined,
-            initialQuery: searchQuery,
-            searchOptions: searchOptions,
-            analytics: {
-              fromScreenName: getAnalyticsNavigationScreenName(),
-            },
-          });
+      <Link
+        href={{
+          pathname: '/filter',
+          params: serializeRouteParams({
+            initialFilters,
+            initialQuery,
+            searchOptions,
+            fromRouteName: getAnalyticsNavigationScreenName(),
+          }),
         }}
-        theme="quarterlyGrey"
-      />
+        asChild>
+        <Button
+          testID={testID}
+          isIconOnlyButton
+          renderIcon={textStyle => (
+            <Icon name="tune" size={24} style={textStyle} />
+          )}
+          theme="quarterlyGrey"
+        />
+      </Link>
       {numberOfAppliedFilters ? (
         <View style={styles.filtersBadge}>
           <Text style={styles.filterBadgeText}>{numberOfAppliedFilters}</Text>
@@ -137,12 +157,8 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
   );
 };
 
-export const screenOptions: ScreenOptions = props => {
-  return {
-    headerTitle: () => <HeaderTitle />,
-    headerRight: () => <HeaderRight testID="headerRight" {...props} />,
-    header: headerProps => (
-      <CustomHeader withOverlay={false} {...headerProps} />
-    ),
-  };
+export const screenOptions: ScreenOptions = {
+  headerTitle: () => <HeaderTitle />,
+  headerRight: () => <HeaderRight />,
+  header: headerProps => <CustomHeader withOverlay={false} {...headerProps} />,
 };

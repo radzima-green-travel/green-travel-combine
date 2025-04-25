@@ -7,7 +7,7 @@ import {IconProps} from 'components/atoms/Icon';
 
 type RightButtonType = 'reset' | 'filter';
 interface Props {
-  onChange: (text: string) => void;
+  onChange?: (text: string) => void;
   containerStyle?: StyleProp<ViewStyle>;
   value: string;
   testID: string;

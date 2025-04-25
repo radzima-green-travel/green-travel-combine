@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import {useSnackbar} from 'atoms';
 import {
   useObjectIncompleteFields,
@@ -14,14 +13,14 @@ import {selectObjectShareExperienceData} from 'core/selectors';
 import {useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-import {ObjectDetailsShareExperienceScreenNavigationProps} from '../types';
 import {useObjectShareExperienceAnalytics} from './useObjectShareExperienceAnalytics';
+import {useRouter} from 'expo-router';
+
 export function useShareExperienceData() {
   const dispatch = useDispatch();
   const {t} = useTranslation('objectDetails');
   const [isReportSent, setIsReportSent] = useState(false);
-  const navigation =
-    useNavigation<ObjectDetailsShareExperienceScreenNavigationProps>();
+  const router = useRouter();
   const {objectId, objectName, incompleteFieldsNames} =
     useSelector(selectObjectShareExperienceData) || {};
 
@@ -55,18 +54,17 @@ export function useShareExperienceData() {
   );
 
   const onMissedDetailsPress = useCallback(() => {
-    if (objectId && objectName && incompleteFields) {
-      navigation.navigate('ObjectDetailsAddInfo', {
-        objectId,
-        objectName,
-        incompleteFields,
-        showSuccessMenu: false,
-        analytics: {
+    if (objectId) {
+      router.navigate({
+        pathname: '/add-object-info/[objectId]',
+        params: {
+          objectId,
+          showSuccessMenu: 'false',
           fromScreenName: 'VisitedModal',
         },
       });
     }
-  }, [incompleteFields, navigation, objectId, objectName]);
+  }, [router, objectId]);
 
   const onSubmitPress = useCallback(
     ({

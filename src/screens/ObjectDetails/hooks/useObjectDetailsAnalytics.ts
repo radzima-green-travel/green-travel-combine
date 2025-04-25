@@ -1,18 +1,18 @@
 import {sendAnalyticsEvent} from 'core/actions/appConfiguration';
 import {useCallback, useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import {ObjectDetailsScreenRouteProps} from '../types';
-import {useRoute} from '@react-navigation/native';
 import {selectObjectDetails} from 'core/selectors';
 import {useObjectDetailsSelector} from 'core/hooks';
 import {getObjectDetailsAnalyticsIncompleteFieldName} from 'core/helpers';
 import {map} from 'lodash';
+import {useLocalSearchParams} from 'expo-router';
+import {RouteQueryParams} from 'core/types';
+import {FromScreenName} from 'core/types/analytics/objectDetails';
 
 export function useObjectDetailsAnalytics() {
   const dispatch = useDispatch();
-  const {
-    params: {analytics},
-  } = useRoute<ObjectDetailsScreenRouteProps>();
+  const {fromScreenName} =
+    useLocalSearchParams<RouteQueryParams.ObjectDetails>();
 
   const data = useObjectDetailsSelector(selectObjectDetails);
 
@@ -24,14 +24,13 @@ export function useObjectDetailsAnalytics() {
         sendAnalyticsEvent({
           name: 'ObjectScreen_view',
           data: {
-            from_screen_name:
-              analytics?.fromScreenName || ('DeepLink' as const),
+            from_screen_name: (fromScreenName || 'DeepLink') as FromScreenName,
             object_name: analyticsMetadata.name,
           },
         }),
       );
     }
-  }, [analytics?.fromScreenName, analyticsMetadata, dispatch]);
+  }, [fromScreenName, analyticsMetadata, dispatch]);
 
   const sendLocationLabelClickEvent = useCallback(() => {
     if (analyticsMetadata) {

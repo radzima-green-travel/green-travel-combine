@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {
@@ -6,27 +6,25 @@ import {
   deleteVisitedObjectRequest,
   scheduleShareExperienceMenu,
 } from 'core/actions';
-import {selectUserAuthorized, selectVisitedObjectsIds} from 'core/selectors';
+import {
+  selectObjectShareExperienceData,
+  selectUserAuthorized,
+  selectVisitedObjectsIds,
+} from 'core/selectors';
 import {some, isEqual} from 'lodash';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {AuthNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {Alert} from 'react-native';
 import {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {selectObjectDetails} from 'core/selectors';
 import {useObjectDetailsSelector} from 'core/hooks';
-
-export type NavigationProps = CompositeNavigationProp<
-  StackNavigationProp<AuthNavigatorParamsList>,
-  StackNavigationProp<MainNavigatorParamsList>
->;
+import {useRouter} from 'expo-router';
+import {navigationCallback} from 'core/actions/navigation';
 
 export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const {t} = useTranslation('objectDetails');
   const dispatch = useDispatch();
-  const navigation = useNavigation<NavigationProps>();
+  const router = useRouter();
   const visitedObjectsIds = useSelector(selectVisitedObjectsIds);
   const isAuthorized = useSelector(selectUserAuthorized);
   const data = useObjectDetailsSelector(selectObjectDetails);
@@ -96,18 +94,16 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     if (isAuthorized) {
       isVisited ? deleteVisitedObject() : addVisitedObject();
     } else {
-      navigation.navigate('AuthNavigator', {
-        screen: 'AuthMethodSelection',
+      router.navigate('/(auth)');
+      /*
+      {
         onSuccessSignIn: addVisitedObject,
-      });
+      }
+      */
     }
-  }, [
-    addVisitedObject,
-    deleteVisitedObject,
-    isAuthorized,
-    isVisited,
-    navigation,
-  ]);
+  }, [addVisitedObject, deleteVisitedObject, isAuthorized, isVisited, router]);
+
+  useOnRequestSuccess(navigationCallback, addVisitedObject);
 
   const {loading: addVisitedObjectLoading} = useRequestLoading(
     addVisitedObjectRequest,
@@ -137,6 +133,17 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
       );
     }
   });
+
+  const objectShareExperienceData = useSelector(
+    selectObjectShareExperienceData,
+  );
+
+  // TODO: [Expo Router] Update this flow to work via navigation
+  useEffect(() => {
+    if (objectShareExperienceData) {
+      router.navigate('/share-experience');
+    }
+  }, [objectShareExperienceData, router]);
 
   return {
     isAuthorized,

@@ -25,6 +25,8 @@ export function* getCategoriesData({
     call([graphQLAPI, graphQLAPI.getCategoriesAggregationsByObjects]),
   ]);
 
+  console.log('TEST_CATS', categoriesData);
+
   const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
     yield call(getCategoriesWithObjects, aggregations);
 

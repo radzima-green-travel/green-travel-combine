@@ -1,37 +1,39 @@
 import {useCallback, useEffect} from 'react';
-
-import {useDispatch} from 'react-redux';
+import {useSnackbar} from 'atoms';
 import {
+  confirmSignUpCancel,
   confirmSignUpRequest,
+  forgotPasswordCodeSubmitRequest,
   forgotPasswordRequest,
   resendSignUpCodeRequest,
-  forgotPasswordCodeSubmitRequest,
-  confirmSignUpCancel,
 } from 'core/actions';
 import {
-  useOnSuccessSignIn,
   useOnRequestError,
   useOnRequestSuccess,
+  useOnSuccessSignIn,
   useRequestLoading,
   useTranslation,
 } from 'core/hooks';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import {
-  EmailValidationScreenNavigationProps,
-  EmailValidationScreenRouteProps,
-} from '../types';
+  IRequestError,
+  RouteQueryParams,
+  ValidationCodeFormModel,
+} from 'core/types';
+import {useLocalSearchParams, useRouter} from 'expo-router';
 import {useFormik} from 'formik';
-import {IRequestError, ValidationCodeFormModel} from 'core/types';
-import {useSnackbar} from 'atoms';
+import {useDispatch} from 'react-redux';
 
 export const useEmailValidation = () => {
   const {t} = useTranslation('authentification');
   const codeLength = 6;
 
-  const navigation = useNavigation<EmailValidationScreenNavigationProps>();
-  const {
-    params: {email, isSignUp},
-  } = useRoute<EmailValidationScreenRouteProps>();
+  const router = useRouter();
+  const searchParams =
+    useLocalSearchParams<RouteQueryParams.CodeVerification>();
+
+  const {email} = searchParams;
+
+  const isSignUp = searchParams.isSignUp === 'true';
 
   const dispatch = useDispatch();
 
@@ -84,7 +86,10 @@ export const useEmailValidation = () => {
   useOnRequestSuccess(
     forgotPasswordCodeSubmitRequest,
     ({tempPassword}: {tempPassword: string}) => {
-      navigation.replace('NewPassword', {email, tempPassword});
+      router.replace({
+        pathname: '/new-password',
+        params: {email, tempPassword},
+      });
     },
   );
 

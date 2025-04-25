@@ -1,6 +1,5 @@
 import React, {useLayoutEffect} from 'react';
-import {Text, View} from 'react-native';
-import {HomeScreenNavigationProps, IProps} from './types';
+import {Pressable, Text} from 'react-native';
 import {Icon} from 'atoms/Icon';
 import {SearchField} from 'molecules';
 import {Button, CustomHeader} from 'atoms';
@@ -9,30 +8,34 @@ import {useNavigation} from '@react-navigation/native';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 import {HEADER_BOTTOM_RADIUS} from 'core/constants';
+import {Link} from 'expo-router';
 
-const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
+const HeaderRight = () => {
+  const testID = 'headerRight';
+
   return (
-    <Button
-      testID={testID}
-      isIconOnlyButton
-      renderIcon={textStyle => <Icon name="tune" size={24} style={textStyle} />}
-      onPress={() => {
-        navigation.navigate('Filter', {
-          initialFilters: undefined,
-          initialQuery: '',
-          searchOptions: undefined,
-          analytics: {
-            fromScreenName: getAnalyticsNavigationScreenName(),
-          },
-        });
-      }}
-      theme="quarterlyGrey"
-    />
+    <Link
+      asChild
+      href={{
+        pathname: '/filter',
+        params: {
+          fromScreenName: getAnalyticsNavigationScreenName(),
+        },
+      }}>
+      <Button
+        testID={testID}
+        isIconOnlyButton
+        renderIcon={textStyle => (
+          <Icon name="tune" size={24} style={textStyle} />
+        )}
+        theme="quarterlyGrey"
+      />
+    </Link>
   );
 };
 
 export function useHomeHeader() {
-  const navigation = useNavigation<HomeScreenNavigationProps>();
+  const navigation = useNavigation();
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('home');
 
@@ -50,23 +53,13 @@ export function useHomeHeader() {
           )}
         />
       ),
-      headerRight: () => (
-        <HeaderRight testID="headerRight" navigation={navigation} />
-      ),
+      headerRight: () => <HeaderRight />,
       headerTitle: () => (
-        <View
-          pointerEvents="box-only"
-          onStartShouldSetResponder={() => {
-            navigation.navigate('Search');
-            return false;
-          }}>
-          <SearchField
-            testID="headerSearchbar"
-            value={''}
-            onChange={() => {}}
-            onRightButtonPress={() => {}}
-          />
-        </View>
+        <Link href="/search" asChild>
+          <Pressable pointerEvents="box-only">
+            <SearchField testID="headerSearchbar" value={''} />
+          </Pressable>
+        </Link>
       ),
     });
   }, [navigation, partOfTheDay, styles.headerTitle, t]);

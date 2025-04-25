@@ -41,11 +41,10 @@ import {mapService} from 'services/MapService';
 import Supercluster from 'supercluster';
 import {xorBy, find} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
-import {useNavigation} from '@react-navigation/native';
-import {ObjectsListScreenNavigationProps} from '../types';
 import {getAnalyticsNavigationScreenName, isLocationExist} from 'core/helpers';
 import {useDispatch} from 'react-redux';
 import {getAppMapObjectsRequest} from 'core/actions';
+import {useRouter} from 'expo-router';
 
 type SelecteMarker = ReturnType<typeof createMarkerFromObject>;
 
@@ -73,7 +72,7 @@ type OnPressEvent = {
 export const useAppMap = () => {
   const dispatch = useDispatch();
 
-  const navigation = useNavigation<ObjectsListScreenNavigationProps>();
+  const router = useRouter();
   const objects = useSelector(selectAppMapObjects);
   const currentLocale = useSelector(selectAppLanguage);
 
@@ -218,17 +217,18 @@ export const useAppMap = () => {
 
       unselectObject();
       if (itemData) {
-        navigation.push('ObjectDetails', {
-          objectId: id,
-          objectCoverImageUrl: itemData.cover,
-          objcetCoverBlurhash: itemData.blurhash,
-          analytics: {
+        router.push({
+          pathname: '/object/[objectId]',
+          params: {
+            objectId: id,
+            objectCoverImageUrl: itemData.cover,
+            objcetCoverBlurhash: itemData.blurhash,
             fromScreenName: getAnalyticsNavigationScreenName(),
           },
         });
       }
     },
-    [objects, unselectObject, navigation],
+    [objects, unselectObject, router],
   );
 
   const {findZoomForObjectInCluster} = useFindZoomForObjectInCluster();

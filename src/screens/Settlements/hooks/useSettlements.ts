@@ -16,21 +16,30 @@ import {
   getSettlementsDataRequest,
   setActiveFilter,
 } from 'core/actions';
-import {every, xor} from 'lodash';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {SettlementsScreenRouteProps} from '../types';
+import {every, split, xor} from 'lodash';
 import {IState} from 'core/store';
-import {SpotItem} from 'core/types';
+import {RouteQueryParams, SpotItem} from 'core/types';
 import {useSnackbar} from 'atoms';
 import {useSettlementsAnalytics} from './useSettlementsAnalytics';
+import {useLocalSearchParams, useNavigation, useRouter} from 'expo-router';
 
 export const useSettlements = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const router = useRouter();
   const snackBarProps = useSnackbar();
-  const {
-    params: {initialSelectedSettlements, regionsToInclude},
-  } = useRoute<SettlementsScreenRouteProps>();
+
+  const searchParams = useLocalSearchParams<RouteQueryParams.Settlements>();
+
+  const {initialSelectedSettlements, regionsToInclude} = useMemo(() => {
+    return {
+      initialSelectedSettlements: searchParams.initialSelectedSettlements
+        ? split(searchParams.initialSelectedSettlements, ',')
+        : [],
+      regionsToInclude: searchParams.regionsToInclude
+        ? split(searchParams.regionsToInclude, ',')
+        : [],
+    };
+  }, [searchParams.initialSelectedSettlements, searchParams.regionsToInclude]);
 
   const {loading: fullScreenLoading} = useRequestLoading(
     getSettlementsDataRequest,
@@ -99,7 +108,7 @@ export const useSettlements = () => {
   ]);
 
   useOnRequestSuccess(getFiltersDataRequest, () => {
-    navigation.goBack();
+    router.back();
   });
 
   useOnRequestError(getFiltersDataRequest, 'filters', errorLabel => {
@@ -145,6 +154,8 @@ export const useSettlements = () => {
   const onSearchStart = useCallback(() => {
     sendSettlementsSearchEvent();
   }, [sendSettlementsSearchEvent]);
+
+  const navigation = useNavigation();
 
   return {
     navigation,

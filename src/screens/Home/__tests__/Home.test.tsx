@@ -10,8 +10,8 @@ import {fireEvent, render, screen, act} from '@testing-library/react-native';
 
 import {store} from 'core/store';
 import {Icon} from 'atoms/Icon';
-import {HomeNavigator} from '../../../navigation/navigators/HomeNavigator';
 import {getHomePageDataRequest} from 'core/actions';
+import TabStackLayout from '../../../app/(main)/(tabs)/(home,map,bookmarks,profile)/_layout';
 
 jest.mock('api/graphql', () => ({
   GRAPHQL_QUERY_CATEGORY_INDEX: 'category',
@@ -22,11 +22,13 @@ jest.mock('api/amplify', () => ({
   amplifyApi: {},
 }));
 
+// TODO: [Expo Router] Make this test work
+
 describe('Home page', () => {
   const loadHomePage = () => {
     render(
       <TestProvider store={store}>
-        <HomeNavigator />
+        <TabStackLayout segment="(home)" />
       </TestProvider>,
     );
     act(() => {
@@ -34,7 +36,7 @@ describe('Home page', () => {
     });
   };
 
-  it('renders objects and categroies on Home page', async () => {
+  it('renders objects and categories on Home page', async () => {
     loadHomePage();
     const sections = await screen.findAllByTestId('homeSectionBar');
 

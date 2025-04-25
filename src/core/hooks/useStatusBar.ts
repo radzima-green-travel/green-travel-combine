@@ -1,15 +1,23 @@
-import {useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import {StatusBar} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
 import {THEME_TYPE} from 'core/constants';
+import {useFocusEffect} from 'expo-router';
 
 export function useStatusBar(
   theme: THEME_TYPE,
   {disabled = false}: {disabled?: boolean} = {},
 ) {
-  const isFocused = useIsFocused();
+  const [isFocused, setIsFocused] = useState(false);
 
+  useFocusEffect(
+    useCallback(() => {
+      setIsFocused(true);
+
+      return () => setIsFocused(false);
+    }, []),
+  );
+  console.log(isFocused);
   useEffect(() => {
     if (isFocused && !disabled) {
       const entry = StatusBar.pushStackEntry({

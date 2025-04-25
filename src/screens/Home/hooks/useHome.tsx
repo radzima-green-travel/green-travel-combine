@@ -1,18 +1,17 @@
 import {useCallback} from 'react';
 
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useRouter} from 'expo-router';
 import {useDispatch, useSelector} from 'react-redux';
 import {useRequestLoading, useColorScheme, useOnRequestError} from 'core/hooks';
 import {HomePageCategory} from 'core/types';
 import {selectHomePageData} from 'core/selectors';
 import {getHomePageDataRequest, refreshHomePageDataRequest} from 'core/actions';
-import {HomeScreenNavigationProps} from '../types';
 import {useSnackbar} from 'atoms';
 import {useHomeAnalytics} from './useHomeAnalytics';
 
 export const useHome = () => {
   const dispatch = useDispatch();
-  const {navigate} = useNavigation<HomeScreenNavigationProps>();
+  const router = useRouter();
   const theme = useColorScheme();
   const homeData = useSelector(selectHomePageData);
   const {show, ...snackBarProps} = useSnackbar();
@@ -40,9 +39,9 @@ export const useHome = () => {
 
   const navigateToObjectsList = useCallback(
     ({categoryId, title}: {categoryId: string; title: string}) => {
-      navigate('ObjectsList', {categoryId, title});
+      router.navigate({pathname: '/object-list', params: {categoryId, title}});
     },
-    [navigate],
+    [router],
   );
 
   const onCategoryPress = useCallback(

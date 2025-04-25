@@ -6,22 +6,21 @@ import {
   useRequestLoading,
   useTogglePasswordHidden,
 } from 'core/hooks';
-import {SignUpFormScreenNavigationProps} from '../types';
-import {useNavigation} from '@react-navigation/native';
 import {changePasswordRequest} from 'core/actions';
 import {useFormik} from 'formik';
 import {ChangePasswordFormModel, IRequestError} from 'core/types';
 import {validationSchema} from './validation';
 import {useSnackbar} from 'atoms';
+import {useRouter} from 'expo-router';
 
 export const useChangePassword = () => {
   const dispatch = useDispatch();
 
-  const navigation = useNavigation<SignUpFormScreenNavigationProps>();
+  const router = useRouter();
 
   const navigateToEmailValidation = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
+    router.back();
+  }, [router]);
 
   const signUp = useCallback(
     ({oldPassword, newPassword}: ChangePasswordFormModel) => {

@@ -3,7 +3,11 @@ import {useCallback, useMemo, useRef, useEffect} from 'react';
 import {MapView, Camera} from '@rnmapbox/maps';
 import {Position} from '@turf/helpers';
 
-import {selectAppLanguage, selectIsDirectionShowed} from 'core/selectors';
+import {
+  selectAppLanguage,
+  selectIsDirectionShowed,
+  selectObjectDetails,
+} from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   useBottomMenu,
@@ -14,6 +18,7 @@ import {
   useRequestErrorAlert,
   useColorScheme,
   useStatusBar,
+  useObjectDetailsSelector,
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {IBounds, IObject} from 'core/types';
@@ -40,8 +45,6 @@ import {
   Point,
   point,
 } from '@turf/helpers';
-import {useRoute} from '@react-navigation/native';
-import {ObjectDetailsMapScreenRouteProps} from '../types';
 
 interface RegionPayload {
   zoomLevel: number;
@@ -57,9 +60,8 @@ export const useObjectDetailsMap = () => {
   const currentLocale = useSelector(selectAppLanguage);
 
   const {openMenu, closeMenu, ...menuProps} = useBottomMenu();
-  const {
-    params: {object},
-  } = useRoute<ObjectDetailsMapScreenRouteProps>();
+
+  const object = useObjectDetailsSelector(selectObjectDetails);
 
   const map = useRef<MapView>(null);
   const camera = useRef<Camera>(null);
@@ -149,7 +151,11 @@ export const useObjectDetailsMap = () => {
   const onMarkerPress = useCallback(
     (id: string | null) => {
       if (id) {
-        if (object?.area) {
+        if (!object) {
+          return;
+        }
+
+        if (object.area) {
           boundsToArea();
         } else {
           const coordinates = [object.location?.lon!, object.location?.lat!];

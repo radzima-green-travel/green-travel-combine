@@ -1,19 +1,22 @@
-import {useRoute} from '@react-navigation/native';
 import {sendAnalyticsEvent} from 'core/actions';
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 import {useDispatch} from 'react-redux';
-import {SettlementsScreenRouteProps} from '../types';
-import {SpotItem} from 'core/types';
-import {map} from 'lodash';
+import {RouteQueryParams, SpotItem} from 'core/types';
+import {map, split} from 'lodash';
+import {useLocalSearchParams} from 'expo-router';
 
 export function useSettlementsAnalytics() {
   const dispatch = useDispatch();
 
-  const {
-    params: {
-      analytics: {regionsSelectedNames},
-    },
-  } = useRoute<SettlementsScreenRouteProps>();
+  const searchParams = useLocalSearchParams<RouteQueryParams.Settlements>();
+
+  const {regionsSelectedNames} = useMemo(
+    () => ({
+      regionsSelectedNames: split(searchParams.regionsSelectedNames, ','),
+    }),
+    [searchParams.regionsSelectedNames],
+  );
+
   const sendSettlementsViewEvent = useCallback(() => {
     dispatch(
       sendAnalyticsEvent({

@@ -1,5 +1,4 @@
 import {useCallback, useMemo} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {
   useRequestLoading,
   useTranslation,
@@ -7,10 +6,10 @@ import {
 } from 'core/hooks';
 import {selectObjectDetails} from 'core/selectors';
 import {useObjectDetailsSelector} from 'core/hooks';
-import {ObjectDetailsScreenNavigationProps} from '../types';
+import {useRouter} from 'expo-router';
 
 export function useObjectDetailsDeepLinking() {
-  const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
+  const router = useRouter();
 
   const {t} = useTranslation('objectDetails');
   const data = useObjectDetailsSelector(selectObjectDetails);
@@ -18,13 +17,8 @@ export function useObjectDetailsDeepLinking() {
   const {loading} = useRequestLoading(getObjectDetailsRequest);
 
   const navigateToMainPage = useCallback(() => {
-    navigation.navigate('TabNavigator', {
-      screen: 'HomeNavigator',
-      params: {
-        screen: 'Home',
-      },
-    });
-  }, [navigation]);
+    router.navigate('/(home)');
+  }, [router]);
 
   const objectNotFoundErrorProps = useMemo(() => {
     if (!loading && !data) {

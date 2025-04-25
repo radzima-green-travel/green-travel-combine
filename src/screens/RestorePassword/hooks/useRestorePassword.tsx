@@ -1,24 +1,23 @@
+import {useSnackbar} from 'atoms';
+import {forgotPasswordRequest} from 'core/actions';
+import {
+  useOnRequestError,
+  useOnRequestSuccess,
+  useRequestLoading,
+  useTranslation,
+} from 'core/hooks';
+import {ForgotPasswordEmailFormModel} from 'core/types';
+import {useRouter} from 'expo-router';
+import {useFormik} from 'formik';
 import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {useOnRequestError, useRequestLoading, useTranslation} from 'core/hooks';
-import {useNavigation} from '@react-navigation/native';
-import {forgotPasswordRequest} from 'core/actions';
-import {useOnRequestSuccess} from 'core/hooks';
-import {RestorePasswordScreenNavigationProps} from '../types';
-import {useFormik} from 'formik';
-import {ForgotPasswordEmailFormModel} from 'core/types';
 import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
 
 export const useRestorePassword = () => {
   const {t} = useTranslation('authentification');
   const dispatch = useDispatch();
 
-  const navigation = useNavigation<RestorePasswordScreenNavigationProps>();
-
-  const navigateToSignIn = () => {
-    navigation.popToTop();
-  };
+  const router = useRouter();
 
   const onResendPassword = useCallback(
     ({email}: ForgotPasswordEmailFormModel) => {
@@ -38,9 +37,12 @@ export const useRestorePassword = () => {
   const {loading} = useRequestLoading(forgotPasswordRequest);
 
   useOnRequestSuccess(forgotPasswordRequest, () => {
-    navigation.navigate('EmailValidation', {
-      email: formik.values.email,
-      isSignUp: false,
+    router.navigate({
+      pathname: '/email-validation',
+      params: {
+        email: formik.values.email,
+        isSignUp: 'false',
+      },
     });
   });
 
@@ -57,7 +59,7 @@ export const useRestorePassword = () => {
 
   return {
     loading,
-    navigateToSignIn,
+    navigateToSignIn: router.dismissAll,
     buttonText,
     formik,
     isSubmitButtonDisabled: !formik.values.email,

@@ -1,22 +1,22 @@
-import {useCallback, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  useRequestLoading,
-  useBookmarksAnalytics,
-  useOnRequestError,
-} from 'core/hooks';
 import {
   clearBookmarksInitialObjectsData,
   getBookmarksInitialObjectsDataRequest,
   syncAndGetBookmarksRequest,
 } from 'core/actions';
+import {serializeRouteParams} from 'core/helpers/routerUtils';
+import {
+  useBookmarksAnalytics,
+  useOnRequestError,
+  useRequestLoading,
+} from 'core/hooks';
+import {selectBookmarksCategories, selectBookmarksIds} from 'core/selectors';
 import {IBookmarkItem} from 'core/types';
-import {useNavigation} from '@react-navigation/native';
-import {ObjectsListScreenNavigationProps} from '../types';
-import {selectBookmarksIds, selectBookmarksCategories} from 'core/selectors';
+import {useRouter} from 'expo-router';
+import {useCallback, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 export const useBookmarks = () => {
-  const navigation = useNavigation<ObjectsListScreenNavigationProps>();
+  const router = useRouter();
   const dispatch = useDispatch();
   const {sendSelectSavedCategoryEvent} = useBookmarksAnalytics();
 
@@ -49,14 +49,17 @@ export const useBookmarks = () => {
 
   const navigateToBookmarksList = useCallback(
     ({categoryName, categoryId, objectsIds}: IBookmarkItem) => {
-      navigation.navigate('BookmarksList', {
-        title: categoryName,
-        categoryId,
-        objectsIds,
+      router.navigate({
+        pathname: '/bookmarks-list',
+        params: serializeRouteParams({
+          title: categoryName,
+          categoryId,
+          objectsIds: objectsIds,
+        }),
       });
       sendSelectSavedCategoryEvent(categoryName);
     },
-    [navigation, sendSelectSavedCategoryEvent],
+    [router, sendSelectSavedCategoryEvent],
   );
 
   useEffect(() => {

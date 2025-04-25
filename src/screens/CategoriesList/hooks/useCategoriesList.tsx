@@ -1,32 +1,28 @@
 import {useCallback, useEffect, useLayoutEffect} from 'react';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   useCategoryListAnalytics,
   useListPagination,
   useOnRequestError,
   useRequestLoading,
 } from 'core/hooks';
-import {CardItem} from 'core/types';
+import {CardItem, RouteQueryParams} from 'core/types';
 import {
   getCategoriesListInitialDataRequest,
   getCategoriesListNextDataRequest,
 } from 'core/actions';
 import {selectCategoriesList} from 'selectors';
-import {
-  CategoriesListScreenNavigationProps,
-  CategoriesListScreenRouteProps,
-} from '../types';
+import {useRouter, useNavigation, useLocalSearchParams} from 'expo-router';
 
 export const useCategoriesList = () => {
   const dispatch = useDispatch();
 
-  const {navigate, setOptions} =
-    useNavigation<CategoriesListScreenNavigationProps>();
-  const {
-    params: {categoryId, title},
-  } = useRoute<CategoriesListScreenRouteProps>();
+  const router = useRouter();
+  const {setOptions} = useNavigation();
+
+  const {categoryId, title} =
+    useLocalSearchParams<RouteQueryParams.CategoryList>();
 
   const {
     data: listData,
@@ -57,10 +53,10 @@ export const useCategoriesList = () => {
 
   const navigateToObjectDetails = useCallback(
     (item: CardItem) => {
-      navigate('ObjectsList', {categoryId: item.id, title: item.name});
+      router.navigate(`/object-list?categoryId=${item.id}&title=${item.name}`);
       sendSelectCardEvent(item.name, title);
     },
-    [navigate, sendSelectCardEvent, title],
+    [router, sendSelectCardEvent, title],
   );
 
   const paginationProps = useListPagination({

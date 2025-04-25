@@ -1,12 +1,8 @@
-import {
-  NavigationState,
-  createNavigationContainerRef,
-} from '@react-navigation/native';
-import {MainNavigatorParamsList, TabNavigatorParamsList} from 'core/types';
-import {reduce} from 'lodash';
+import {NavigationContainerRefWithCurrent} from '@react-navigation/native';
 
-export const navigationRef =
-  createNavigationContainerRef<MainNavigatorParamsList>();
+let navigationRef: NavigationContainerRefWithCurrent<ReactNavigation.RootParamList>;
+
+export const setNavigationRef = ref => (navigationRef = ref);
 
 export function navigate(...args: Parameters<typeof navigationRef.navigate>) {
   navigationRef?.navigate(...args);
@@ -28,26 +24,4 @@ export function getCurrentRouteName() {
   }
 
   return '';
-}
-
-export function getCurrentTabName() {
-  const state = getCurrentStateData() as
-    | NavigationState<MainNavigatorParamsList>
-    | undefined;
-
-  const currentTabName = reduce(
-    state?.routes,
-    (acc, route) => {
-      if (route.name === 'TabNavigator' && route.state?.routeNames) {
-        const tabRouteState =
-          route.state as NavigationState<TabNavigatorParamsList>;
-        return tabRouteState.routeNames[tabRouteState.index] || null;
-      }
-
-      return acc;
-    },
-    null as keyof TabNavigatorParamsList | null,
-  );
-
-  return currentTabName;
 }

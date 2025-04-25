@@ -2,7 +2,7 @@
   "name": "greenTravel",
   "version": "1.6.0",
   "private": true,
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "npx expo start",
     "start-dev-client": "npx expo start --dev-client",
@@ -26,13 +26,9 @@
     "@miblanchard/react-native-slider": "^2.3.1",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/netinfo": "11.3.1",
-    "@react-navigation/bottom-tabs": "^6.4.0",
-    "@react-navigation/native": "^6.0.13",
-    "@react-navigation/native-stack": "^6.9.1",
-    "@react-navigation/stack": "^6.3.4",
     "@reduxjs/toolkit": "^2.2.5",
     "@rnmapbox/maps": "10.1.32",
-    "@sentry/react-native": "~5.24.3",
+    "@sentry/react-native": "~6.5.0",
     "@turf/distance": "^6.5.0",
     "add": "^2.0.6",
     "amazon-cognito-identity-js": "^5.2.3",
@@ -43,6 +39,7 @@
     "expo": "^51.0.38",
     "expo-application": "~5.9.1",
     "expo-clipboard": "~6.0.3",
+    "expo-constants": "~16.0.2",
     "expo-dev-client": "~4.0.28",
     "expo-haptics": "~13.0.1",
     "expo-image": "~1.13.0",
@@ -51,6 +48,7 @@
     "expo-localization": "~15.0.3",
     "expo-location": "~17.0.1",
     "expo-navigation-bar": "~3.0.7",
+    "expo-router": "~3.5.24",
     "expo-screen-orientation": "~7.0.5",
     "expo-splash-screen": "~0.27.6",
     "expo-status-bar": "~1.12.1",
@@ -127,7 +125,7 @@
     "metro-react-native-babel-preset": "0.76.8",
     "prettier": "^3.2.5",
     "react-test-renderer": "18.2.0",
-    "typescript": "~5.3.3"
+    "typescript": "~5.7.3"
   },
   "resolutions": {
     "@babel/preset-typescript": "^7.12.17",

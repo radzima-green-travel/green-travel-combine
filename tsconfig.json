@@ -39,10 +39,10 @@
         "./src/assets/*"
       ],
       "screens/*": [
-        "./src/components/screens/*"
+        "./src/screens/*"
       ],
       "screens": [
-        "./src/components/screens"
+        "./src/screens"
       ],
       "core": [
         "./src/core"
@@ -92,7 +92,9 @@
       "storage/*": [
         "./src/storage/*"
       ],
-      "preview": ["./src/components/atoms/Preview/Preview"]
+      "preview": [
+        "./src/components/atoms/Preview/Preview"
+      ]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
@@ -103,5 +105,11 @@
     "metro.config.js",
     "jest.config.js"
   ],
-  "extends": "expo/tsconfig.base"
+  "extends": "expo/tsconfig.base",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
 }

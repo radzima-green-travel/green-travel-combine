@@ -10,28 +10,24 @@ import {
   useTranslation,
   useRequestLoading,
   useOnRequestError,
-  useObjectIncompleteFields,
   useObjectDetailsActions,
 } from 'core/hooks';
-import {
-  ObjectDetailsScreenNavigationProps,
-  ObjectDetailsScreenRouteProps,
-} from '../types';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import {shareService} from 'services/ShareService';
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
-import {IBelongsTo, IInclude} from 'core/types';
+import {IBelongsTo, IInclude, RouteQueryParams} from 'core/types';
 import {selectObjectDetails} from 'core/selectors';
 import {useObjectDetailsSelector} from 'core/hooks';
+import {useLocalSearchParams, useNavigation, useRouter} from 'expo-router';
+import {serializeRouteParams} from 'core/helpers/routerUtils';
+import {map} from 'lodash';
 
 export const useObjectDetails = () => {
-  const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
-  const {
-    params: {objectId, objectCoverImageUrl, objcetCoverBlurhash},
-  } = useRoute<ObjectDetailsScreenRouteProps>();
+  const router = useRouter();
+  const {objectId, objectCoverImageUrl, objcetCoverBlurhash} =
+    useLocalSearchParams<RouteQueryParams.ObjectDetails>();
 
   const dispatch = useDispatch();
   const data = useObjectDetailsSelector(selectObjectDetails);
@@ -44,10 +40,6 @@ export const useObjectDetails = () => {
   const {sendSwitchPhotosEvent, sendScrollEvent} =
     // TODO: legacy. Will be removed after migration to new analytics
     useDetailsPageAnalytics();
-
-  const incompleteFields = useObjectIncompleteFields(
-    data?.category.incompleteFieldsNames ?? [],
-  );
 
   const {
     sendObjectScreenViewEvent,
@@ -89,16 +81,18 @@ export const useObjectDetails = () => {
         objectName: analyticsMetadata.name,
         categoryName: analyticsMetadata.categoryName,
       });
-      navigation.push('ObjectDetails', {
-        objectId: belongsToObjectId,
-        objectCoverImageUrl: image,
-        objcetCoverBlurhash: blurhash,
-        analytics: {
+
+      router.push({
+        pathname: '/object/[objectId]',
+        params: {
+          objectId: belongsToObjectId,
+          objectCoverImageUrl: image,
+          objcetCoverBlurhash: blurhash,
           fromScreenName: getAnalyticsNavigationScreenName(),
         },
       });
     },
-    [navigation, sendBelongsToNavigateEvent],
+    [router, sendBelongsToNavigateEvent],
   );
 
   const navigateToIncludesObjectListOrPage = useCallback(
@@ -106,48 +100,48 @@ export const useObjectDetails = () => {
       sendActivitiesNavigateEvent(analyticsMetadata.name);
       if (objects.length === 1) {
         const {id, cover, blurhash} = objects[0];
-        navigation.push('ObjectDetails', {
-          objectId: id,
-          objcetCoverBlurhash: blurhash,
-          objectCoverImageUrl: cover,
-          analytics: {
+        router.push({
+          pathname: '/object/[objectId]',
+          params: {
+            objectId: id,
+            objectCoverImageUrl: cover,
+            objcetCoverBlurhash: blurhash,
             fromScreenName: getAnalyticsNavigationScreenName(),
           },
         });
       } else {
-        navigation.push('ObjectsList', {
-          categoryId: categoryId,
-          title: name,
-          objectsIds: objects.map(({id}) => id),
+        router.push({
+          pathname: '/object-list',
+          params: serializeRouteParams({
+            categoryId,
+            title: name,
+            objectsIds: map(objects, 'id'),
+          }),
         });
       }
     },
-    [navigation, sendActivitiesNavigateEvent],
+    [router, sendActivitiesNavigateEvent],
   );
 
   const navigateToObjectsMap = useCallback(() => {
-    if (data) {
-      navigation.navigate('ObjectDetailsMap', {
-        object: data,
-      });
+    router.navigate(`/object-details-map/${objectId}`);
 
-      sendShowOnMapButtonClickEvent();
-    }
-  }, [data, navigation, sendShowOnMapButtonClickEvent]);
+    sendShowOnMapButtonClickEvent();
+  }, [objectId, router, sendShowOnMapButtonClickEvent]);
 
   const navigateToAddInfo = useCallback(() => {
     if (data) {
       sendAddInfoButtonClickEvent();
-      navigation.navigate('ObjectDetailsAddInfo', {
-        objectId: data.id,
-        objectName: data.name,
-        incompleteFields,
-        analytics: {
+
+      router.navigate({
+        pathname: '/add-object-info/[objectId]',
+        params: {
+          objectId: data.id,
           fromScreenName: 'ObjectScreen',
         },
       });
     }
-  }, [data, incompleteFields, navigation, sendAddInfoButtonClickEvent]);
+  }, [data, router, sendAddInfoButtonClickEvent]);
 
   const {onScroll, page, pagesAmount} = useImageSlider(
     data?.images?.length || 0,
@@ -157,11 +151,13 @@ export const useObjectDetails = () => {
 
   const defaultPhoto = require('../img/objectDetailsDefaultPhoto.png');
 
+  const {setOptions} = useNavigation();
+
   useLayoutEffect(() => {
-    navigation.setOptions({
+    setOptions({
       title: data?.name,
     });
-  }, [navigation, data]);
+  }, [setOptions, data]);
 
   useEffect(() => {
     dispatch(getObjectDetailsRequest({objectId}));
@@ -179,13 +175,16 @@ export const useObjectDetails = () => {
   }, [data?.name, objectId, sendObjectShareEvent]);
 
   const goToImageGallery = useCallback(() => {
-    if (data?.images) {
-      navigation.navigate('ImagesGallery', {
-        images: data.images,
-        initialIndex: page - 1,
+    if (data) {
+      router.navigate({
+        pathname: '/image-gallery',
+        params: {
+          objectId: data.id,
+          initialIndex: page - 1,
+        },
       });
     }
-  }, [data, navigation, page]);
+  }, [data, router, page]);
 
   const {loading} = useRequestLoading(getObjectDetailsRequest);
 

@@ -1,33 +1,30 @@
-import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
+import {useSnackbar} from 'atoms';
+import {signUpRequest} from 'core/actions';
 import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
   useTogglePasswordHidden,
 } from 'core/hooks';
-import {
-  SignUpFormScreenRouteProps,
-  SignUpFormScreenNavigationProps,
-} from '../types';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {signUpRequest} from 'core/actions';
+import {RouteQueryParams, SignUpFormModel} from 'core/types';
+import {useLocalSearchParams, useRouter} from 'expo-router';
 import {useFormik} from 'formik';
-import {SignUpFormModel} from 'core/types';
+import {useCallback} from 'react';
+import {useDispatch} from 'react-redux';
 import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
 
 export const useSignUpForm = () => {
   const dispatch = useDispatch();
 
-  const {
-    params: {email},
-  } = useRoute<SignUpFormScreenRouteProps>();
-  const navigation = useNavigation<SignUpFormScreenNavigationProps>();
+  const {email} = useLocalSearchParams<RouteQueryParams.SignUpForm>();
+  const router = useRouter();
 
   const navigateToEmailValidation = useCallback(() => {
-    navigation.replace('CodeVerification', {email, isSignUp: true});
-  }, [email, navigation]);
+    router.replace({
+      pathname: '/email-validation',
+      params: {email, isSignUp: 'true'},
+    });
+  }, [email, router]);
 
   const signUp = useCallback(
     ({password}: SignUpFormModel) => {

@@ -1,153 +1,51 @@
-import {Animated} from 'react-native';
-import {NavigatorScreenParams} from '@react-navigation/native';
-import {IObject, IObjectIncompleteField} from './common';
-import {AnalyticsNavigationScreenNames} from './analytics';
-import {FromScreenName} from './analytics/objectDetails';
-import {SearchFilters} from './filters';
-import {SearchOptions} from './search';
+import type {RouteProp} from '@react-navigation/core';
+import type {ParamListBase} from '@react-navigation/routers';
 import {ObjectListFilters} from './objectsList';
+import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 
-type ObjectDetailsParams = {
-  objectId: string;
-  objectCoverImageUrl: string;
-  objcetCoverBlurhash: string | null;
-  animatedValue?: Animated.Value;
-  analytics?: {
-    fromScreenName: AnalyticsNavigationScreenNames;
-  };
-};
+type QueryParams<T extends string> = Record<T, string>;
 
-export type HomeNavigatorParamsList = {
-  Home: undefined;
-  Search?: {
-    filtersToApply?: SearchFilters;
-  };
-  ObjectsList: {
-    title: string;
-  } & ObjectListFilters;
-  CategoriesList: {
-    categoryId: string;
-    title: string;
-  };
-  ObjectDetails: ObjectDetailsParams;
-};
+// TODO: [Expo Router] Optional and required params
+export namespace RouteQueryParams {
+  export type ObjectDetails = QueryParams<
+    | 'objectId'
+    | 'objectCoverImageUrl'
+    | 'objcetCoverBlurhash'
+    | 'fromScreenName'
+  >;
 
-type BookmarksListParams = {
-  title: string;
-  categoryId: string;
-  objectsIds: string[];
-};
+  export type ObjectDetailsMap = QueryParams<'objectId'>;
 
-export type BookmarksNavigatorParamsList = {
-  Bookmarks: undefined;
-  BookmarksList: BookmarksListParams;
-  ObjectDetails: ObjectDetailsParams;
-  ObjectsList: {
-    categoryId: string;
-    title: string;
-    objectsIds?: string[];
-  };
-};
+  export type ObjectDetailsAddInfo = QueryParams<'objectId' | 'fromScreenName'>;
 
-export type ProfileNavigatorParamsList = {
-  Profile: undefined;
-  ProfileDetails: undefined;
-  ProfileSettingsLanguage: undefined;
-  ProfileSettingsTheme: undefined;
-  InAppWebView: {url: string; title: string};
-  ObjectDetails: ObjectDetailsParams;
-  ObjectsList: {
-    categoryId: string;
-    title: string;
-    objectsIds?: string[];
-  };
-};
+  export type CategoryList = QueryParams<'categoryId' | 'title'>;
 
-export type AppMapNavigatorParamsList = {
-  AppMap: undefined;
-  ObjectDetails: ObjectDetailsParams;
-  ObjectsList: {
-    categoryId: string;
-    title: string;
-    objectsIds?: string[];
-  };
-};
+  export type Search = QueryParams<'filtersToApply'>;
 
-export type MainNavigatorParamsList = {
-  TabNavigator: NavigatorScreenParams<TabNavigatorParamsList>;
-  PlaceDetails: undefined;
-  PageNotFoundErrorScreen: undefined;
-  Splash: undefined;
-  ObjectDetailsMap: {object: IObject};
-  AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList> & {
-    onSuccessSignIn?: () => void;
-  };
-  Filter: {
-    initialFilters?: SearchFilters;
-    initialQuery?: string;
-    searchOptions?: SearchOptions;
-    analytics: {
-      fromScreenName: AnalyticsNavigationScreenNames;
-    };
-  };
-  Settlements: {
-    initialSelectedSettlements: string[];
-    regionsToInclude: string[];
-    analytics: {
-      regionsSelectedNames: string[];
-    };
-  };
-  ObjectDetails: ObjectDetailsParams;
-  ObjectDetailsAddInfo: {
-    objectId: string;
-    objectName: string;
-    incompleteFields: IObjectIncompleteField[];
-    showSuccessMenu?: boolean;
-    analytics?: {
-      fromScreenName: FromScreenName;
-    };
-  };
-  ImagesGallery: {
-    images: string[];
-    initialIndex: number;
-  };
-};
+  export type ObjectList = QueryParams<'title' | keyof ObjectListFilters>;
 
-export type TabNavigatorParamsList = {
-  HomeNavigator: NavigatorScreenParams<HomeNavigatorParamsList>;
-  AppMapNavigator: NavigatorScreenParams<AppMapNavigatorParamsList>;
-  BookmarksNavigator: NavigatorScreenParams<BookmarksNavigatorParamsList>;
-  ProfileNavigator: NavigatorScreenParams<ProfileNavigatorParamsList>;
-};
+  export type WebView = QueryParams<'url' | 'title'>;
 
-export type AuthNavigatorParamsList = {
-  CheckEmail: undefined;
-  SignInPassword: {
-    email: string;
-  };
-  SignUpForm: {
-    email: string;
-  };
-  CodeVerification: {email: string; isSignUp: true};
-  RestorePassword: undefined;
-  NewPassword: {
-    email: string;
-    tempPassword: string;
-  };
-  EmailValidation: {
-    email: string;
-    isSignUp: boolean;
-  };
-  AuthMethodSelection: undefined;
-  InAppWebView: {url: string; title: string};
-  ChangePassword: undefined;
-};
+  export type Filter = QueryParams<
+    'initialFilters' | 'initialQuery' | 'searchOptions' | 'fromScreenName'
+  >;
 
-export type NavigationRoutes =
-  | keyof MainNavigatorParamsList
-  | keyof TabNavigatorParamsList
-  | keyof AuthNavigatorParamsList
-  | keyof HomeNavigatorParamsList
-  | keyof BookmarksNavigatorParamsList
-  | keyof ProfileNavigatorParamsList
-  | keyof AppMapNavigatorParamsList;
+  export type ImageGallery = QueryParams<'images' | 'initialIndex'>;
+
+  export type SignInPassword = QueryParams<'email'>;
+  export type SignUpForm = QueryParams<'email'>;
+  export type CodeVerification = QueryParams<'email' | 'isSignUp'>;
+  export type NewPassword = QueryParams<'email' | 'tempPassword'>;
+  export type EmailValidation = QueryParams<'email' | 'isSignUp'>;
+
+  export type Settlements = QueryParams<
+    'initialSelectedSettlements' | 'regionsToInclude' | 'regionsSelectedNames'
+  >;
+}
+
+export type ScreenOptions = NativeStackNavigationOptions;
+
+export type ScreenOptionsFactory = (props: {
+  route: RouteProp<ParamListBase, string>;
+  navigation: any;
+}) => NativeStackNavigationOptions;

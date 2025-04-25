@@ -1,10 +1,7 @@
-import {IProps} from './types';
-
-import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import {COLORS} from 'assets';
-export type ScreenOptions = (props: IProps) => NativeStackNavigationOptions;
+import {ScreenOptions} from 'core/types';
 
-export const screenOptions: NativeStackNavigationOptions = {
+export const screenOptions: ScreenOptions = {
   contentStyle: {
     backgroundColor: COLORS.alabaster,
   },

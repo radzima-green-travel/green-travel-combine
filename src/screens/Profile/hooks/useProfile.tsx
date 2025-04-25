@@ -1,46 +1,42 @@
 import {useCallback} from 'react';
 import {Alert} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {ProfileScreenNavigationProps} from '../types';
-import {useDispatch, useSelector} from 'react-redux';
+import {clearCacheRequest, signInRequest} from 'core/actions';
+import {getLanguageByLocale} from 'core/helpers';
+import {useNavigateToPrivacyPolicyAndTnC, useTranslation} from 'core/hooks';
 import {
-  selectUserAuthorized,
   selectAppLanguage,
   selectAppTheme,
+  selectUserAuthorized,
 } from 'core/selectors';
+import {useRouter} from 'expo-router';
+import {useDispatch, useSelector} from 'react-redux';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-import {clearCacheRequest} from 'core/actions';
-import {signInRequest} from 'core/actions';
-import {useNavigateToPrivacyPolicyAndTnC, useTranslation} from 'core/hooks';
 import {useSnackbar} from '../../../components/atoms';
-import {getLanguageByLocale} from 'core/helpers';
 
 export const useProfile = () => {
   const {t} = useTranslation('profile');
   const dispatch = useDispatch();
-  const navigation = useNavigation<ProfileScreenNavigationProps>();
+  const router = useRouter();
   const isAuthorized = useSelector(selectUserAuthorized);
   const appLanguage = useSelector(selectAppLanguage);
   const appTheme = useSelector(selectAppTheme);
 
   const onAuthorisationItemPress = useCallback(() => {
     if (isAuthorized) {
-      navigation.navigate('ProfileDetails');
+      router.navigate('/profile-details');
     } else {
-      navigation.navigate('AuthNavigator', {
-        screen: 'AuthMethodSelection',
-      });
+      router.navigate('/auth-method-selection');
     }
-  }, [isAuthorized, navigation]);
+  }, [isAuthorized, router]);
 
   const navigateToProfileSettingsLanguage = useCallback(() => {
-    navigation.navigate('ProfileSettingsLanguage');
-  }, [navigation]);
+    router.navigate('/language-selection');
+  }, [router]);
 
   const navigateToProfileSettingsTheme = useCallback(() => {
-    navigation.navigate('ProfileSettingsTheme');
-  }, [navigation]);
+    router.navigate('/theme-selection');
+  }, [router]);
 
   const {navigateToPrivacyPolicy, navigateToTermsAndConditions} =
     useNavigateToPrivacyPolicyAndTnC();

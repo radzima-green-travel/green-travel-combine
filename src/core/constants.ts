@@ -1,3 +1,12 @@
+import {IconsNames} from 'atoms/Icon/IconsNames';
+import {KeyboardEventName, Platform} from 'react-native';
+import {
+  AnalyticsNavigationScreenNames,
+  AnalyticsAddInfoFieldsNames,
+  SearchFilters,
+} from './types';
+import {ExpoRouter} from 'expo-router';
+
 export const enum ACTIONS {
   BOOTSTRAP = 'BOOTSTRAP',
   SHOW_OBJECT_DETAILS_MAP_DIRECTION = 'SHOW_OBJECT_DETAILS_MAP_DIRECTION',
@@ -63,16 +72,6 @@ export const enum MAP_PINS {
 
 export const PADDING_HORIZONTAL = 16;
 export const HEADER_BOTTOM_RADIUS = 20;
-
-import {IconsNames} from 'atoms/Icon/IconsNames';
-import {KeyboardEventName, Platform} from 'react-native';
-import {} from './types/analytics';
-import {
-  NavigationRoutes,
-  AnalyticsNavigationScreenNames,
-  AnalyticsAddInfoFieldsNames,
-  SearchFilters,
-} from './types';
 
 export const ICONS_MATCHER = {
   [MAP_PINS.BICYCLE_ROUTE]: 'bike' as IconsNames,
@@ -146,19 +145,21 @@ export const OBJECT_ALLOWED_EDIT_FIELDS = [
   ObjectField.workingHours,
 ] as const;
 
-// export const OBJECT_ALLOWED_EDIT_FIELDS = new Set(
-//   OBJECT_ALLOWED_EDIT_FIELDS_ARRAY,
-// );
+type RoutePath =
+  | ExpoRouter.__routes['StaticRoutes']
+  | ExpoRouter.__routes['DynamicRoutes'];
+
+type RouteName = RoutePath extends `/${infer R}` ? R | 'index' : never;
 
 export const AnalyticScreensNames: Partial<
-  Record<NavigationRoutes, AnalyticsNavigationScreenNames>
+  Record<RouteName, AnalyticsNavigationScreenNames>
 > = {
-  ObjectDetails: 'ObjectScreen',
-  Home: 'HomeScreen',
-  BookmarksList: 'BookmarksListScreen',
-  ObjectsList: 'ObjectListScreen',
-  Search: 'SearchAndFiltersScreen',
-  AppMap: 'AppMapScreen',
+  'object/[objectId]': 'ObjectScreen',
+  index: 'HomeScreen',
+  'bookmarks-list': 'BookmarksListScreen',
+  'object-list': 'ObjectListScreen',
+  search: 'SearchAndFiltersScreen',
+  map: 'AppMapScreen',
 };
 
 export const AnalyticsAllowedEditFields: Record<

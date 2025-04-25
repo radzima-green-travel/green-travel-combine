@@ -1,14 +1,11 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {
-  ObjectDetailsAddInfoScreenNavigationProps,
-  ObjectDetailsAddInfoScreenRouteProps,
-} from '../types';
 import {
   useBottomMenu,
   useOnRequestError,
   useRequestLoading,
   useTranslation,
   useBackHandler,
+  useObjectDetailsSelector,
+  useObjectIncompleteFields,
 } from 'core/hooks';
 import {useCallback, useEffect, useState} from 'react';
 import {Keyboard} from 'react-native';
@@ -21,12 +18,21 @@ import {IObjectIncompleteField} from 'core/types';
 import {ObjectField, TIME_PICKER_FIELDS} from 'core/constants';
 import {useObjectAddInfoAnalytics} from './useObjectAddInfoAnalytics';
 import {filter} from 'lodash';
+import {useRouter} from 'expo-router';
+import {selectObjectDetails} from 'core/selectors';
 
 export const useObjectDetailsAddInfo = () => {
-  const navigation = useNavigation<ObjectDetailsAddInfoScreenNavigationProps>();
-  const {
-    params: {objectId, objectName, incompleteFields, showSuccessMenu},
-  } = useRoute<ObjectDetailsAddInfoScreenRouteProps>();
+  const router = useRouter();
+
+  const objectData = useObjectDetailsSelector(selectObjectDetails);
+
+  const objectId = objectData?.id,
+    objectName = objectData?.name;
+
+  const incompleteFields = useObjectIncompleteFields(
+    objectData?.category.incompleteFieldsNames ?? [],
+  );
+
   const {t} = useTranslation('objectDetailsAddInfo');
   const bottomMenuProps = useBottomMenu();
   const confirmBottomMenuProps = useBottomMenu();
@@ -34,6 +40,7 @@ export const useObjectDetailsAddInfo = () => {
     useState<IObjectIncompleteField | null>(null);
   const {form, onChangeField, isFormValid, getDisplayValue} =
     useObjectInfoForm(incompleteFields);
+
   const value = currentField ? form[currentField.id] : '';
   const dispatch = useDispatch();
   const snackBarProps = useSnackbar();
@@ -79,10 +86,10 @@ export const useObjectDetailsAddInfo = () => {
   }, [bottomMenuProps]);
 
   const navigateBack = useCallback(() => {
-    if (navigation.canGoBack()) {
-      navigation.goBack();
+    if (router.canGoBack()) {
+      router.back();
     }
-  }, [navigation]);
+  }, [router]);
 
   const getEmailContents = useCallback(() => {
     const contents = reduce(
@@ -129,7 +136,7 @@ export const useObjectDetailsAddInfo = () => {
           subject: t('addInfoEmailSubject', {objectName, fields}),
           message,
           objectId,
-          showSuccessMenu,
+          showSuccessMenu: false,
         }),
       );
     }
@@ -140,7 +147,6 @@ export const useObjectDetailsAddInfo = () => {
     confirmBottomMenuProps,
     dispatch,
     t,
-    showSuccessMenu,
   ]);
 
   const onSendPress = useCallback(() => {

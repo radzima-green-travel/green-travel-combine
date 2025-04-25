@@ -1,26 +1,31 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {
-  ImagesGalleryScreenRouteProps,
-  ImagesGalleryScreenNavigationProps,
-} from '../types';
-import {useCallback, useState} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
+import {useLocalSearchParams, useRouter} from 'expo-router';
+import {useObjectDetailsSelector} from 'core/hooks';
+import {selectObjectDetails} from 'core/selectors';
+import {toFinite} from 'lodash';
+import {RouteQueryParams} from 'core/types';
 
 export function useImagesGallery() {
-  const {
-    params: {images, initialIndex},
-  } = useRoute<ImagesGalleryScreenRouteProps>();
+  const params = useLocalSearchParams<RouteQueryParams.ImageGallery>();
+
+  const initialIndex = toFinite(params.initialIndex);
+
+  const objectData = useObjectDetailsSelector(selectObjectDetails);
+
+  const images = useMemo(() => objectData?.images ?? [], [objectData]);
+
   const [currentPage, setCurrentPage] = useState(initialIndex + 1);
 
-  const navigation = useNavigation<ImagesGalleryScreenNavigationProps>();
+  const router = useRouter();
 
   const setPage = useCallback(index => {
     setCurrentPage(index + 1);
   }, []);
 
   const closeGallery = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
+    router.back();
+  }, [router]);
 
   const triggerHapticFeedback = useCallback((scale: number) => {
     if (scale < 1) {

@@ -1,8 +1,6 @@
 import {sendAnalyticsEvent} from 'core/actions/appConfiguration';
 import {useCallback, useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import {ObjectDetailsAddInfoScreenRouteProps} from '../types';
-import {useRoute} from '@react-navigation/native';
 import {selectObjectDetails} from 'core/selectors';
 import {useObjectDetailsSelector} from 'core/hooks';
 import {ObjectField} from 'core/constants';
@@ -10,14 +8,15 @@ import {
   getObjectDetailsAnalyticsIncompleteFieldName,
   getObjectDetailsAnalyticsIncompleteFieldsNames,
 } from 'core/helpers';
-import {IObjectIncompleteField} from 'core/types';
+import {IObjectIncompleteField, RouteQueryParams} from 'core/types';
+import {useLocalSearchParams} from 'expo-router';
+import {FromScreenName} from 'core/types/analytics/objectDetails';
 
 export function useObjectAddInfoAnalytics() {
   const dispatch = useDispatch();
 
-  const {
-    params: {analytics},
-  } = useRoute<ObjectDetailsAddInfoScreenRouteProps>();
+  const {fromScreenName} =
+    useLocalSearchParams<RouteQueryParams.ObjectDetailsAddInfo>();
 
   const data = useObjectDetailsSelector(selectObjectDetails);
 
@@ -36,19 +35,19 @@ export function useObjectAddInfoAnalytics() {
   );
 
   const sendAddInfoModalViewEvent = useCallback(() => {
-    if (analyticsMetadata && analytics) {
+    if (analyticsMetadata && fromScreenName) {
       dispatch(
         sendAnalyticsEvent({
           name: 'AddInfoModal_view',
           data: {
             object_name: analyticsMetadata.name,
             object_category: analyticsMetadata.categoryName,
-            from_screen_name: analytics.fromScreenName,
+            from_screen_name: fromScreenName as FromScreenName,
           },
         }),
       );
     }
-  }, [analytics, analyticsMetadata, dispatch]);
+  }, [fromScreenName, analyticsMetadata, dispatch]);
 
   const sendAddInfoModalAnyFieldViewEvent = useCallback(
     (incompletFieldName: ObjectField) => {
