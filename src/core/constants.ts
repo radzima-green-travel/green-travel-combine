@@ -6,6 +6,7 @@ import {
   SearchFilters,
 } from './types';
 import {ExpoRouter} from 'expo-router';
+import {isIOS} from 'services/PlatformService';
 
 export const enum ACTIONS {
   BOOTSTRAP = 'BOOTSTRAP',
@@ -201,3 +202,5 @@ export const FILTERS_NAMES_ANAYLITICS_MAP = {
 };
 
 export const INTERACTIVE_CARD_RATIO = 324 / 144;
+
+export const DEFAULT_TRANSITION = isIOS ? 'default' : 'fade_from_bottom';

@@ -11,8 +11,9 @@ import {Slot, useNavigationContainerRef, SplashScreen} from 'expo-router';
 import {setNavigationRef} from 'services/NavigationService';
 import {PortalProvider} from '@gorhom/portal';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import {useAndroidNavbarStyle} from 'navigation/hooks';
+import {useAndroidNavbarStyle} from 'core/hooks/navigation';
 import {StatusBar} from 'expo-status-bar';
+import '../setup';
 
 SplashScreen.preventAutoHideAsync();
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);

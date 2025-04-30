@@ -1,1 +1,0 @@
-export {defaultTransition} from './defaultTransition';

@@ -95,11 +95,6 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
       isVisited ? deleteVisitedObject() : addVisitedObject();
     } else {
       router.navigate('/(auth)');
-      /*
-      {
-        onSuccessSignIn: addVisitedObject,
-      }
-      */
     }
   }, [addVisitedObject, deleteVisitedObject, isAuthorized, isVisited, router]);
 

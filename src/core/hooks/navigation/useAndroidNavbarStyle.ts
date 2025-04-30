@@ -9,13 +9,8 @@ export const useAndroidNavbarStyle = () => {
 
   useEffect(() => {
     if (isAndroid) {
-      if (theme === 'light') {
-        NavigationBar.setBackgroundColorAsync(COLORS.light.background.tabBar);
-        NavigationBar.setButtonStyleAsync('dark');
-      } else {
-        NavigationBar.setBackgroundColorAsync(COLORS.dark.background.tabBar);
-        NavigationBar.setButtonStyleAsync('light');
-      }
+      NavigationBar.setBackgroundColorAsync(COLORS[theme].background.tabBar);
+      NavigationBar.setButtonStyleAsync(theme === 'light' ? 'dark' : 'light');
     }
   }, [theme]);
 };

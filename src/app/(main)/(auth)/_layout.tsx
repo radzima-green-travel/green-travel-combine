@@ -1,11 +1,11 @@
 import {HeaderCancelButton} from 'components/atoms';
 import {Link, Stack} from 'expo-router';
-import {useScreenOptions} from 'navigation/hooks';
-import {defaultTransition} from 'navigation/transition';
+import {useScreenOptions} from 'core/hooks/navigation';
+import {DEFAULT_TRANSITION} from 'core/constants';
 import {useTranslation} from 'react-i18next';
 import {AuthMethodSelectionScreen, ChangePasswordScreen} from 'screens';
 
-export default function Layout() {
+export default function AuthLayout() {
   const {t} = useTranslation('authentification');
 
   const getHeaderRight = () => (
@@ -17,7 +17,7 @@ export default function Layout() {
   const screenOptions = useScreenOptions({
     withBottomInset: true,
     title: '',
-    animation: defaultTransition,
+    animation: DEFAULT_TRANSITION,
     headerRight: getHeaderRight,
     orientation: 'portrait',
   });

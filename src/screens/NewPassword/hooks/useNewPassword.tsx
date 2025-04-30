@@ -19,7 +19,7 @@ import {validationSchema} from './validation';
 export const useNewPassword = () => {
   const {t} = useTranslation('authentification');
   const dispatch = useDispatch();
-  // TODO: We need to figure out something for validation of the required parameters
+
   const {email, tempPassword} =
     useLocalSearchParams<RouteQueryParams.NewPassword>();
 

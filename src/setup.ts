@@ -1,11 +1,9 @@
-import {registerRootComponent} from 'expo';
-import {ExpoRoot} from 'expo-router';
-
 import {Linking} from 'react-native';
-
 import MapBox from '@rnmapbox/maps';
-import 'react-native-gesture-handler';
-import awsConfig from './src/aws-exports';
+
+// @ts-ignore
+import awsConfig from './aws-exports';
+
 import {sentryService} from 'services/SentryService';
 import {analyticsService} from 'services/AnalyticsService';
 import {languageService} from 'services/LanguageService';
@@ -59,12 +57,3 @@ sentryService.init();
 languageService.init();
 
 analyticsService.init(process.env.EXPO_PUBLIC_AMPLITUDE_KEY as string);
-
-// TODO: [Expo Router] Solve the issue where the app doesn't work without this explicit root component registration
-export function App() {
-  const ctx = (require as any).context('./src/app');
-
-  return <ExpoRoot context={ctx} />;
-}
-
-registerRootComponent(App);

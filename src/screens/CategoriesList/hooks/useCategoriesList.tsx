@@ -53,7 +53,13 @@ export const useCategoriesList = () => {
 
   const navigateToObjectDetails = useCallback(
     (item: CardItem) => {
-      router.navigate(`/object-list?categoryId=${item.id}&title=${item.name}`);
+      router.navigate({
+        pathname: '/object-list',
+        params: {
+          categoryId: item.id,
+          title: item.name,
+        },
+      });
       sendSelectCardEvent(item.name, title);
     },
     [router, sendSelectCardEvent, title],

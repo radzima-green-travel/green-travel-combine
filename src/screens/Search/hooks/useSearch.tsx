@@ -57,7 +57,6 @@ export const useSearch = () => {
             objectCoverImageUrl: searchItem.cover,
             objcetCoverBlurhash: searchItem.blurhash,
             fromScreenName: getAnalyticsNavigationScreenName(),
-            test: ['123', '456'],
           },
         });
 

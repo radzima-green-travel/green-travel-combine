@@ -42,7 +42,7 @@ export const FavoriteButtonContainer = memo(
         <View style={favoritesSynchronizing && styles.opaque}>
           <TouchableOpacity
             testID={composeTestID(testID, 'favoriteButton')}
-            hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
+            hitSlop={15}
             style={style}
             onPress={toggleFavoriteHandler}
             disabled={favoritesSynchronizing}

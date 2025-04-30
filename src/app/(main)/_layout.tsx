@@ -1,10 +1,10 @@
 import {COLORS} from 'assets';
 import {useColorScheme, useTranslation} from 'core/hooks';
+import {useScreenOptions} from 'core/hooks/navigation';
 import {Stack} from 'expo-router';
 import {Filters as FiltersScreen} from 'screens/Filters';
 import {Settlements as SettlementsScreen} from 'screens/Settlements';
-import {useScreenOptions} from '../../navigation/hooks';
-import {defaultTransition} from '../../navigation/transition';
+import {DEFAULT_TRANSITION} from 'core/constants';
 import {selectUpdatesAvailable, selectUpdatesSkipped} from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {OptionalUpdateScreen} from 'screens';
@@ -15,7 +15,7 @@ export default function MainLayout() {
   const {t: tFiters} = useTranslation('filters');
 
   const screenOptions = useScreenOptions({
-    animation: defaultTransition,
+    animation: DEFAULT_TRANSITION,
   });
 
   const updateIsAvailable = useSelector(selectUpdatesAvailable);

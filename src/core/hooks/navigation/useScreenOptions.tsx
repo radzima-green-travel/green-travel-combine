@@ -1,11 +1,11 @@
 import React from 'react';
-import {ColorSchemeName} from 'react-native';
-import {HeaderTitle} from 'atoms';
+import {ColorSchemeName, TouchableOpacity} from 'react-native';
+import {Icon, HeaderTitle} from 'atoms';
 import {COLORS} from 'assets';
 import {useColorScheme} from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
-import {HeaderBackButton} from 'molecules';
+import {getPlatformsTestID} from 'core/helpers';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -15,7 +15,7 @@ type IScreeOptions = {
   withBottomInset?: boolean;
 } & Partial<NativeStackNavigationOptions>;
 
-export function useNewScreenOptions({
+export function useScreenOptions({
   withBottomInset = false,
   ...customOptions
 }: IScreeOptions = {}) {
@@ -25,34 +25,29 @@ export function useNewScreenOptions({
   return ({navigation}) =>
     ({
       contentStyle: {
-        backgroundColor:
-          colorScheme === 'light'
-            ? COLORS.light.background.primary
-            : COLORS.dark.background.primary,
+        backgroundColor: COLORS[colorScheme].background.primary,
         ...(withBottomInset ? {paddingBottom: bottom} : {}),
       },
       headerBackTitleVisible: false,
       headerTintColor:
         colorScheme === 'light' ? COLORS.white : COLORS.altoForDark,
       headerStyle: {
-        backgroundColor:
-          colorScheme === 'light'
-            ? COLORS.light.background.primary
-            : COLORS.dark.background.primary,
+        backgroundColor: COLORS[colorScheme].background.navBar,
       },
       headerShadowVisible: false,
       headerBackVisible: false,
-
       headerTitleAlign: 'center',
       headerLeft: props => {
         return props.canGoBack ? (
-          <HeaderBackButton
-            testID={'backButton'}
-            onPress={() => navigation.goBack()}
-          />
+          <TouchableOpacity
+            {...getPlatformsTestID('backButton')}
+            hitSlop={15}
+            activeOpacity={0.8}
+            onPress={() => navigation.goBack()}>
+            <Icon name="chevronMediumLeft" color="white" size={20} />
+          </TouchableOpacity>
         ) : null;
       },
-
       headerTitle: props => (
         <HeaderTitle
           testID="headerTitle"

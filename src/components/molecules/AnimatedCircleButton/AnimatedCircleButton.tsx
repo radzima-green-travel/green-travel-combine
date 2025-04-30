@@ -1,7 +1,7 @@
 import {useThemeStyles} from 'core/hooks';
 import React, {memo} from 'react';
 import {View, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
-import {buttonHitSlop, themeStyles} from './styles';
+import {themeStyles} from './styles';
 import {IconProps, Icon} from 'atoms/Icon';
 import Animated from 'react-native-reanimated';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
@@ -21,7 +21,7 @@ export const AnimatedCircleButton = memo(
         activeOpacity={0.8}
         style={styles.container}
         {...getPlatformsTestID(testID)}
-        hitSlop={buttonHitSlop}>
+        hitSlop={15}>
         <Animated.View style={[styles.iconContainer, style]} />
         <View style={styles.iconWrapper}>
           <Icon

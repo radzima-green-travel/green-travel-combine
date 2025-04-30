@@ -1,8 +1,8 @@
 import {useTranslation} from 'core/hooks';
 import {Stack} from 'expo-router';
 import {merge} from 'lodash';
-import {useNewScreenOptions, useScreenOptions} from 'navigation/hooks';
-import {defaultTransition} from 'navigation/transition';
+import {useNewScreenOptions, useScreenOptions} from 'core/hooks/navigation';
+import {DEFAULT_TRANSITION} from 'core/constants';
 import React from 'react';
 import {SearchScreen} from 'screens';
 
@@ -30,12 +30,12 @@ export default function TabStackLayout({segment}) {
 
   const screenOptions = useScreenOptions({
     title: t(`tabs.${stackSettings.tabName}`),
-    animation: defaultTransition,
+    animation: DEFAULT_TRANSITION,
   });
 
   const newScreenOptions = useNewScreenOptions({
     title: t('headerTitle'),
-    animation: defaultTransition,
+    animation: DEFAULT_TRANSITION,
   });
 
   return (

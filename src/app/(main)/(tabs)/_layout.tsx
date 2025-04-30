@@ -3,6 +3,8 @@ import {Icon} from 'atoms';
 import {useColorScheme, useTranslation} from 'core/hooks';
 import {Tabs} from 'expo-router';
 import {analyticsService} from 'services/AnalyticsService';
+import {IconsNames} from 'components/atoms/Icon';
+import React from 'react';
 
 export default function TabsLayout() {
   const theme = useColorScheme();
@@ -47,9 +49,7 @@ export default function TabsLayout() {
           tabBarTestID: 'tabBarItemMain',
           tabBarAccessibilityLabel: 'tabBarItemMain',
           tabBarLabel: t('tabs.home'),
-          tabBarIcon: ({color}) => (
-            <Icon name={'home'} color={color} size={24} />
-          ),
+          tabBarIcon: HomeTabIcon,
         }}
       />
       <Tabs.Screen
@@ -63,9 +63,7 @@ export default function TabsLayout() {
           tabBarTestID: 'tabBarItemMap',
           tabBarAccessibilityLabel: 'tabBarItemMap',
           tabBarLabel: t('tabs.map'),
-          tabBarIcon: ({color}) => (
-            <Icon name={'marker'} color={color} size={24} />
-          ),
+          tabBarIcon: MapTabIcon,
         }}
       />
       <Tabs.Screen
@@ -79,9 +77,7 @@ export default function TabsLayout() {
           tabBarTestID: 'tabBarItemFavorites',
           tabBarAccessibilityLabel: 'tabBarItemFavorites',
           tabBarLabel: t('tabs.bookmarks'),
-          tabBarIcon: ({color}) => (
-            <Icon name={'bookmarkTab'} color={color} size={24} />
-          ),
+          tabBarIcon: BookmarksTabIcon,
         }}
       />
       <Tabs.Screen
@@ -95,11 +91,20 @@ export default function TabsLayout() {
           tabBarTestID: 'tabBarItemProfile',
           tabBarAccessibilityLabel: 'tabBarItemProfile',
           tabBarLabel: t('tabs.profile'),
-          tabBarIcon: ({color}) => (
-            <Icon name={'avatar'} color={color} size={24} />
-          ),
+          tabBarIcon: ProfileTabIcon,
         }}
       />
     </Tabs>
   );
 }
+
+const tabIconFactory = (iconName: IconsNames) => {
+  return ({color}: {color: string}) => (
+    <Icon name={iconName} color={color} size={24} />
+  );
+};
+
+const HomeTabIcon = tabIconFactory('home');
+const MapTabIcon = tabIconFactory('marker');
+const BookmarksTabIcon = tabIconFactory('bookmarkTab');
+const ProfileTabIcon = tabIconFactory('avatar');
