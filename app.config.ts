@@ -1,5 +1,6 @@
 import withRemoveiOSNotificationEntitlement from './config-plugins/withRemoveiOSNotificationEntitlement';
 import withAndroidQueries from './config-plugins/withAndroidQueries';
+import withSentryConfig from './config-plugins/withSentryConfig';
 
 type Environment = 'DEV' | 'DEVCLIENT' | 'PROD';
 
@@ -78,6 +79,7 @@ export default ({config}: Record<string, any>) => {
       ...config.plugins,
       [withAndroidQueries],
       [withRemoveiOSNotificationEntitlement],
+      [withSentryConfig],
       [
         '@rnmapbox/maps',
         {
