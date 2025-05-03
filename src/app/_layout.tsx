@@ -1,25 +1,33 @@
-import React, {useEffect} from 'react';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {PortalProvider} from '@gorhom/portal';
+import * as Sentry from '@sentry/react-native';
+import {NavbarAndroid} from 'components/atoms/NavbarAndroid';
+import {Preview} from 'components/atoms/Preview/Preview';
 import {persistor, store} from 'core/store';
+import {isRunningInExpoGo} from 'expo';
+import {Slot, SplashScreen, useNavigationContainerRef} from 'expo-router';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import {StatusBar} from 'expo-status-bar';
+import React, {useEffect} from 'react';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {useAnimatedKeyboard} from 'react-native-reanimated';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import 'react-native-gesture-handler';
-import {Preview} from 'components/atoms/Preview/Preview';
-import {useAnimatedKeyboard} from 'react-native-reanimated';
-import {Slot, useNavigationContainerRef, SplashScreen} from 'expo-router';
 import {setNavigationRef} from 'services/NavigationService';
-import {PortalProvider} from '@gorhom/portal';
-import * as ScreenOrientation from 'expo-screen-orientation';
-import {useAndroidNavbarStyle} from 'core/hooks/navigation';
-import {StatusBar} from 'expo-status-bar';
-import '../setup';
+import {initializeAppDependencies} from '../setup';
 
 SplashScreen.preventAutoHideAsync();
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
 
-// TODO: [Expo Router] Add Sentry wrapper
-export default function RootLayout() {
+const navigationIntegration = Sentry.reactNavigationIntegration({
+  enableTimeToInitialDisplay: !isRunningInExpoGo(),
+});
+
+initializeAppDependencies({
+  sentryOptions: {integrations: [navigationIntegration]},
+});
+
+function RootLayout() {
   useAnimatedKeyboard({
     isStatusBarTranslucentAndroid: true,
   });
@@ -27,7 +35,10 @@ export default function RootLayout() {
   const ref = useNavigationContainerRef();
 
   useEffect(() => {
-    setNavigationRef(ref);
+    if (ref) {
+      setNavigationRef(ref);
+      navigationIntegration.registerNavigationContainer(ref);
+    }
   }, [ref]);
 
   return (
@@ -38,7 +49,7 @@ export default function RootLayout() {
             <PersistGate loading={null} persistor={persistor}>
               <PortalProvider>
                 <Slot />
-                <AndroidNavbarStyle />
+                <NavbarAndroid />
                 <StatusBar
                   animated
                   style="light"
@@ -53,8 +64,4 @@ export default function RootLayout() {
   );
 }
 
-const AndroidNavbarStyle = () => {
-  useAndroidNavbarStyle();
-
-  return null;
-};
+export default Sentry.wrap(RootLayout);
