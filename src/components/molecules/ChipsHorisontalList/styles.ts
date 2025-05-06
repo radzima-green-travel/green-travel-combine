@@ -4,7 +4,6 @@ import {createThemeStyles} from 'core/helpers/styles';
 
 export const themeStyles = createThemeStyles({
   container: {
-    marginVertical: 10,
     paddingHorizontal: PADDING_HORIZONTAL,
   },
   title: {
@@ -17,22 +16,20 @@ export const themeStyles = createThemeStyles({
   },
   listContainer: {
     flexDirection: 'column',
+    gap: 8,
   },
   row: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    columnGap: 8,
   },
   chipWrapper: {
     flexShrink: 1,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  lastChipWrapper: {
-    marginRight: 0,
   },
   itemContainer: {
-    paddingVertical: 12,
+    justifyContent: 'center',
     paddingHorizontal: 16,
+    height: 48,
   },
   itemTextStyle: {
     ...FONTS_PRESETS.caption1Bold,

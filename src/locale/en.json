@@ -67,6 +67,8 @@
     "Interesting around": "Interesting nearby",
     "all": "All",
     "updatesAvailable": "New data",
+    "addLocationWidgetTitle": "Discovered a place not in our list?",
+    "addLocationButtonText": "Add your place",
     "errors": {
       "-1": {
         "title": "",

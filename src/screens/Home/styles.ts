@@ -12,6 +12,9 @@ export const themeStyles = {
   list: {
     flex: 1,
   },
+  listContent: {
+    gap: 24,
+  },
   icon: {
     color: {
       light: COLORS.white,
@@ -31,10 +34,14 @@ export const themeStyles = {
   widgetGrid: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 24,
     flexDirection: 'row',
+    paddingTop: 24,
     gap: 24,
   },
   widgetGridRightColumn: {flex: 1, gap: 16},
   widgetGridLeftColumn: {flex: 1.07},
+  addLocationWidget: {
+    marginHorizontal: 16,
+    marginBottom: 24,
+  },
 };

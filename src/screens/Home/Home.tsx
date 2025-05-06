@@ -8,6 +8,7 @@ import {
   PlacesYouWontFindWidget,
   RandomSpotWidget,
   SpotOfTheWeekWidget,
+  AddLocationWidget,
 } from './components';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
@@ -93,7 +94,11 @@ export const Home = () => {
               }
             />
           }
-          {...pageListContainerProps}>
+          {...pageListContainerProps}
+          contentContainerStyle={[
+            pageListContainerProps.contentContainerStyle,
+            styles.listContent,
+          ]}>
           {widgetsBlock}
           <ChipsHorisontalList
             testID="mainCategories"
@@ -123,6 +128,8 @@ export const Home = () => {
               }))}
             />
           ) : null}
+
+          <AddLocationWidget style={styles.addLocationWidget} />
         </ScrollView>
 
         <SnackBar testID="snackBar" isOnTop {...snackBarProps} />

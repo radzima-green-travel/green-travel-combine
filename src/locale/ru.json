@@ -67,6 +67,8 @@
     "Interesting around": "Интересное рядом",
     "all": "Все",
     "updatesAvailable": "Доступны обновления",
+    "addLocationWidgetTitle": "Нашли место, которого нет в нашем списке?",
+    "addLocationButtonText": "Добавить свое место",
     "errors": {
       "-1": {
         "title": "",
