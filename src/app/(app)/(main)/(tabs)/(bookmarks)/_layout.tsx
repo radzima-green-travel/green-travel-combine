@@ -8,7 +8,7 @@ export const unstable_settings = {
   initialRouteName: 'bookmarks',
 };
 
-export default function HomeStackLayout() {
+export default function BookmarksStackLayout() {
   const {t} = useTranslation('common');
 
   const screenOptions = useScreenOptions({

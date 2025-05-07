@@ -8,7 +8,7 @@ export const unstable_settings = {
   initialRouteName: 'profile',
 };
 
-export default function HomeStackLayout() {
+export default function ProfileStackLayout() {
   const {t} = useTranslation('common');
 
   const screenOptions = useScreenOptions({

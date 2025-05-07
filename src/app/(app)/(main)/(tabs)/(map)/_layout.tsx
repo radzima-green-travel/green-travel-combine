@@ -8,7 +8,7 @@ export const unstable_settings = {
   initialRouteName: 'map',
 };
 
-export default function HomeStackLayout() {
+export default function MapStackLayout() {
   const {t} = useTranslation('common');
 
   const screenOptions = useScreenOptions({
