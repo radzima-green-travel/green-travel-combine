@@ -8,7 +8,10 @@ import {DEFAULT_TRANSITION} from 'core/constants';
 import {selectUpdatesAvailable, selectUpdatesSkipped} from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {OptionalUpdateScreen} from 'screens';
-
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: 'index',
+};
 export default function MainLayout() {
   const colorScheme = useColorScheme();
 
@@ -20,7 +23,6 @@ export default function MainLayout() {
 
   const updateIsAvailable = useSelector(selectUpdatesAvailable);
   const updateIsSkipped = useSelector(selectUpdatesSkipped);
-
   return (
     <>
       <Stack screenOptions={screenOptions}>

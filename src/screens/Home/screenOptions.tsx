@@ -4,11 +4,10 @@ import {Icon} from 'atoms/Icon';
 import {SearchField} from 'molecules';
 import {Button, CustomHeader} from 'atoms';
 import {getAnalyticsNavigationScreenName, getPartOfTheDay} from 'core/helpers';
-import {useNavigation} from '@react-navigation/native';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles} from './styles';
 import {HEADER_BOTTOM_RADIUS} from 'core/constants';
-import {Link} from 'expo-router';
+import {Link, useNavigation} from 'expo-router';
 
 const HeaderRight = () => {
   const testID = 'headerRight';

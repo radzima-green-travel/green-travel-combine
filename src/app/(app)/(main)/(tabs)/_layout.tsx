@@ -39,7 +39,7 @@ export default function TabsLayout() {
       sceneContainerStyle={screenContainerStyle}
       screenOptions={screenOptions}>
       <Tabs.Screen
-        name="(home)"
+        name="(ahome)"
         listeners={{
           tabPress: () => {
             analyticsService.logEvent('navi_home_event');

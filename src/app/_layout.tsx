@@ -7,7 +7,6 @@ import {persistor, store} from 'core/store';
 import {isRunningInExpoGo} from 'expo';
 import {Slot, SplashScreen, useNavigationContainerRef} from 'expo-router';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import {StatusBar} from 'expo-status-bar';
 import React, {useEffect} from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {useAnimatedKeyboard} from 'react-native-reanimated';
@@ -50,11 +49,6 @@ function RootLayout() {
               <PortalProvider>
                 <Slot />
                 <NavbarAndroid />
-                <StatusBar
-                  animated
-                  style="light"
-                  backgroundColor="transparent"
-                />
               </PortalProvider>
             </PersistGate>
           </BottomSheetModalProvider>

@@ -10,7 +10,7 @@ export const PageNotFoundErrorScreen = () => {
   const router = useRouter();
 
   const navigateToMainPage = useCallback(() => {
-    router.navigate('/(home)');
+    router.navigate('/(ahome)');
   }, [router]);
 
   return (

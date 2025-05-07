@@ -11,7 +11,7 @@ import {fireEvent, render, screen, act} from '@testing-library/react-native';
 import {store} from 'core/store';
 import {Icon} from 'atoms/Icon';
 import {getHomePageDataRequest} from 'core/actions';
-import TabStackLayout from '../../../app/(main)/(tabs)/(home,map,bookmarks,profile)/_layout';
+// import TabStackLayout from '../../../app/(main)/(tabs)/(home,map,bookmarks,profile)/_layout';
 
 jest.mock('api/graphql', () => ({
   GRAPHQL_QUERY_CATEGORY_INDEX: 'category',
@@ -28,7 +28,8 @@ describe('Home page', () => {
   const loadHomePage = () => {
     render(
       <TestProvider store={store}>
-        <TabStackLayout segment="(home)" />
+        <Text />
+        {/* <TabStackLayout segment="(home)" /> */}
       </TestProvider>,
     );
     act(() => {

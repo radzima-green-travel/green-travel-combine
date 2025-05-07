@@ -17,7 +17,7 @@ export function useObjectDetailsDeepLinking() {
   const {loading} = useRequestLoading(getObjectDetailsRequest);
 
   const navigateToMainPage = useCallback(() => {
-    router.navigate('/(home)');
+    router.navigate('/(ahome)');
   }, [router]);
 
   const objectNotFoundErrorProps = useMemo(() => {

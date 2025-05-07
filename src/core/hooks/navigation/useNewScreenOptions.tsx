@@ -6,6 +6,7 @@ import {useColorScheme} from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import {HeaderBackButton} from 'molecules';
+import {useNavigation} from 'expo-router';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -21,35 +22,35 @@ export function useNewScreenOptions({
 }: IScreeOptions = {}) {
   const colorScheme = useColorScheme();
   const {bottom} = useSafeAreaInsets();
+  const navigation = useNavigation();
 
-  return ({navigation}) =>
-    ({
-      contentStyle: {
-        backgroundColor: COLORS[colorScheme].background.primary,
-        ...(withBottomInset ? {paddingBottom: bottom} : {}),
-      },
-      headerBackTitleVisible: false,
-      headerTintColor:
-        colorScheme === 'light' ? COLORS.white : COLORS.altoForDark,
-      headerStyle: {
-        backgroundColor: COLORS[colorScheme].background.primary,
-      },
-      headerShadowVisible: false,
-      headerBackVisible: false,
+  return {
+    contentStyle: {
+      backgroundColor: COLORS[colorScheme].background.primary,
+      ...(withBottomInset ? {paddingBottom: bottom} : {}),
+    },
+    headerBackTitleVisible: false,
+    headerTintColor:
+      colorScheme === 'light' ? COLORS.white : COLORS.altoForDark,
+    headerStyle: {
+      backgroundColor: COLORS[colorScheme].background.primary,
+    },
+    headerShadowVisible: false,
+    headerBackVisible: false,
 
-      headerTitleAlign: 'center',
-      headerLeft: props => {
-        return props.canGoBack ? (
-          <HeaderBackButton testID={'backButton'} onPress={navigation.goBack} />
-        ) : null;
-      },
-      headerTitle: props => (
-        <HeaderTitle
-          testID="headerTitle"
-          title={props.children}
-          tintColor={props.tintColor}
-        />
-      ),
-      ...customOptions,
-    }) as NativeStackNavigationOptions;
+    headerTitleAlign: 'center',
+    headerLeft: props => {
+      return props.canGoBack ? (
+        <HeaderBackButton testID={'backButton'} onPress={navigation.goBack} />
+      ) : null;
+    },
+    headerTitle: props => (
+      <HeaderTitle
+        testID="headerTitle"
+        title={props.children}
+        tintColor={props.tintColor}
+      />
+    ),
+    ...customOptions,
+  } as NativeStackNavigationOptions;
 }
