@@ -35,7 +35,7 @@ export const AnimatedStar = memo(({onPress, value, marked}: IProps) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={handlePress}
-      hitSlop={{top: 10, left: 10, right: 10, bottom: 10}}
+      hitSlop={10}
       style={styles.container}>
       <LottieAnimation
         ref={animationRef}

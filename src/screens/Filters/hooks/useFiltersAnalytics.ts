@@ -1,4 +1,3 @@
-import {useRoute} from '@react-navigation/native';
 import {sendAnalyticsEvent} from 'core/actions';
 import {
   selectActiveFilters,
@@ -7,12 +6,17 @@ import {
   selectFiltersTotal,
   selectSettlements,
 } from 'core/selectors';
-import {CategoryFilterItem, SpotItem} from 'core/types';
+import {
+  AnalyticsNavigationScreenNames,
+  CategoryFilterItem,
+  RouteQueryParams,
+  SpotItem,
+} from 'core/types';
 import {map, compact, find} from 'lodash';
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {FiltersRouteProps} from '../types';
 import {useStaticCallback} from 'react-redux-help-kit';
+import {useLocalSearchParams} from 'expo-router';
 
 export function useFiltersAnalytics() {
   const dispatch = useDispatch();
@@ -22,11 +26,8 @@ export function useFiltersAnalytics() {
   const settlementsList = useSelector(selectSettlements);
   const activeFilters = useSelector(selectActiveFilters);
   const total = useSelector(selectFiltersTotal);
-  const {
-    params: {
-      analytics: {fromScreenName},
-    },
-  } = useRoute<FiltersRouteProps>();
+
+  const {fromScreenName} = useLocalSearchParams<RouteQueryParams.Filter>();
 
   const getActiveCategories = useCallback(
     () =>
@@ -77,7 +78,8 @@ export function useFiltersAnalytics() {
       sendAnalyticsEvent({
         name: 'Filters_view',
         data: {
-          from_screen_name: fromScreenName,
+          // TODO: [Expo Router] Strict typing of query params is required, or relaxing the type of the event
+          from_screen_name: fromScreenName as AnalyticsNavigationScreenNames,
         },
       }),
     );

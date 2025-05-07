@@ -34,7 +34,7 @@ interface IProps {
   iconLeft?: IconProps;
   iconRight?: Omit<IconProps, 'testID'>;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   secureTextEntry?: boolean;
   onRightIconPress?: () => void;
   autoFocus?: boolean;
@@ -129,7 +129,7 @@ export const FormInput = forwardRef<TextInput, IProps>(
 
     const onChangeHandler = (nextValue: string) => {
       if (isInputValueValid(nextValue)) {
-        onChange(nextValue);
+        onChange?.(nextValue);
       }
     };
 

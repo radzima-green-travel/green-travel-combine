@@ -6,14 +6,8 @@ import {
   useOnRequestError,
   useRequestLoading,
 } from 'core/hooks';
-import {CardItem} from 'core/types';
-import {debounce, omit} from 'lodash';
-import {useNavigation} from '@react-navigation/native';
-import {
-  ObjectsListScreenNavigationProps,
-  ObjectsListScreenRouteProps,
-} from '../types';
-import {useRoute} from '@react-navigation/native';
+import {CardItem, RouteQueryParams} from 'core/types';
+import {debounce, split} from 'lodash';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectObjectsList} from 'selectors';
@@ -21,28 +15,33 @@ import {
   getObjectsListInitialDataRequest,
   getObjectsListNextDataRequest,
 } from 'core/actions';
+import {useRouter, useNavigation, useLocalSearchParams} from 'expo-router';
 
 export const useObjectsList = () => {
   const dispatch = useDispatch();
 
-  const {push, setOptions} = useNavigation<ObjectsListScreenNavigationProps>();
+  const router = useRouter();
+
+  const {setOptions} = useNavigation();
 
   const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
     useObjectsListAnalytics();
 
   const navigateToObjectDetails = useCallback(
     ({id, name, cover, blurhash, analyticsMetadata}: CardItem) => {
-      push('ObjectDetails', {
-        objectId: id,
-        objectCoverImageUrl: cover,
-        objcetCoverBlurhash: blurhash,
-        analytics: {
+      router.push({
+        pathname: '/object/[objectId]',
+        params: {
+          objectId: id,
+          objectCoverImageUrl: cover,
+          objcetCoverBlurhash: blurhash,
           fromScreenName: getAnalyticsNavigationScreenName(),
         },
       });
+
       sendSelectCardEvent(name, analyticsMetadata.categoryName);
     },
-    [push, sendSelectCardEvent],
+    [router, sendSelectCardEvent],
   );
 
   const sendIsFavoriteChangedEvent = useCallback(
@@ -62,11 +61,18 @@ export const useObjectsList = () => {
     [navigateToObjectDetails],
   );
 
-  const {params} = useRoute<ObjectsListScreenRouteProps>();
+  const {title, objectsIds, markedAsNotOnGoogleMaps, categoryId} =
+    useLocalSearchParams<RouteQueryParams.ObjectList>();
 
-  const [title, appliedFilters] = useMemo(() => {
-    return [params.title, omit(params, 'title')];
-  }, [params]);
+  const appliedFilters = useMemo(() => {
+    return {
+      objectsIds: objectsIds ? split(objectsIds, ',') : undefined,
+      ...(markedAsNotOnGoogleMaps && {
+        markedAsNotOnGoogleMaps: markedAsNotOnGoogleMaps === 'true',
+      }),
+      categoryId,
+    };
+  }, [categoryId, markedAsNotOnGoogleMaps, objectsIds]);
 
   const listId = createObjectListId(appliedFilters);
 

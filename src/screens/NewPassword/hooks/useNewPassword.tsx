@@ -1,28 +1,27 @@
 import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 
+import {useSnackbar} from 'atoms';
+import {confirmNewPasswordRequest} from 'core/actions';
 import {
-  useRequestLoading,
+  useOnRequestError,
   useOnRequestSuccess,
+  useOnSuccessSignIn,
+  useRequestLoading,
   useTogglePasswordHidden,
   useTranslation,
-  useOnRequestError,
-  useOnSuccessSignIn,
 } from 'core/hooks';
-import {useRoute} from '@react-navigation/native';
-import {confirmNewPasswordRequest} from 'core/actions';
-import {NewPasswordScreenRouteProps} from '../types';
+import {RouteQueryParams, SignInFormModel} from 'core/types';
+import {useLocalSearchParams} from 'expo-router';
 import {useFormik} from 'formik';
-import {SignInFormModel} from 'core/types';
 import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
 
 export const useNewPassword = () => {
   const {t} = useTranslation('authentification');
   const dispatch = useDispatch();
-  const {
-    params: {email, tempPassword},
-  } = useRoute<NewPasswordScreenRouteProps>();
+
+  const {email, tempPassword} =
+    useLocalSearchParams<RouteQueryParams.NewPassword>();
 
   const {onSuccessSignIn} = useOnSuccessSignIn();
 

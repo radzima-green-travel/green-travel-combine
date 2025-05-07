@@ -13,6 +13,7 @@ import {
   updateVisitedObjectRequest,
 } from 'core/actions';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useRouter} from 'expo-router';
 
 export const ObjectDetailsShareExperience = () => {
   const {t} = useTranslation('objectDetails');
@@ -60,10 +61,13 @@ export const ObjectDetailsShareExperience = () => {
 
   useOnRequestSuccess(sendInaccuraciesEmailRequest, backToInitialMenu);
 
+  const router = useRouter();
+
   const onHideEnd = useCallback(() => {
     if (getIsAllMenusClosed()) {
       clearInitialData();
       sendVisitedModalCloseEvent(Boolean(range || rating));
+      router.back();
     }
   }, [
     clearInitialData,
@@ -71,6 +75,7 @@ export const ObjectDetailsShareExperience = () => {
     rating,
     range,
     sendVisitedModalCloseEvent,
+    router,
   ]);
 
   const onReportInnacuranceMenuHide = useCallback(() => {

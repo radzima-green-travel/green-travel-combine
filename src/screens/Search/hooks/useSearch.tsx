@@ -2,11 +2,10 @@ import {useCallback, useEffect} from 'react';
 
 import {useSearchList, useStaticCallback} from 'core/hooks';
 import {Keyboard} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {SearchScreenNavigationProps} from '../types';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {find} from 'lodash';
 import {useSearchAnalytics} from './useSearchAnalytics';
+import {useRouter} from 'expo-router';
 
 export const useSearch = () => {
   const {
@@ -39,7 +38,7 @@ export const useSearch = () => {
     sendSearchViewEvent();
   }, [sendSearchViewEvent]);
 
-  const navigation = useNavigation<SearchScreenNavigationProps>();
+  const router = useRouter();
 
   const navigateToObjectDetails = useStaticCallback(
     (objectId: string) => {
@@ -50,11 +49,13 @@ export const useSearch = () => {
         if (!isHistoryVisible) {
           addToHistory(objectId);
         }
-        navigation.navigate('ObjectDetails', {
-          objectId: searchItem.id,
-          objectCoverImageUrl: searchItem.cover,
-          objcetCoverBlurhash: searchItem.blurhash,
-          analytics: {
+
+        router.navigate({
+          pathname: '/object/[objectId]',
+          params: {
+            objectId: searchItem.id,
+            objectCoverImageUrl: searchItem.cover,
+            objcetCoverBlurhash: searchItem.blurhash,
             fromScreenName: getAnalyticsNavigationScreenName(),
           },
         });
@@ -66,7 +67,7 @@ export const useSearch = () => {
         });
       }
     },
-    [addToHistory, isHistoryVisible, navigation, data],
+    [addToHistory, isHistoryVisible, router, data],
   );
 
   const deleteItem = useCallback(

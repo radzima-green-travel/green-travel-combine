@@ -1,5 +1,5 @@
-import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
+import {ScreenOptions} from 'core/types';
 
-export const screenOptions: NativeStackNavigationOptions = {
+export const screenOptions: ScreenOptions = {
   headerLeft: () => null,
 };

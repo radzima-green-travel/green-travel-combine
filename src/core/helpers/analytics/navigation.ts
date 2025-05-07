@@ -4,5 +4,6 @@ import {getCurrentRouteName} from 'services/NavigationService';
 
 export function getAnalyticsNavigationScreenName(): AnalyticsNavigationScreenNames {
   const routeName = getCurrentRouteName();
+
   return AnalyticScreensNames?.[routeName] || 'unknown';
 }

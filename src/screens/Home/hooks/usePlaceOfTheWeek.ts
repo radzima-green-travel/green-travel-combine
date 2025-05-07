@@ -1,15 +1,15 @@
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {selectHomePagePlaceOfTheWeek} from 'core/selectors';
+import {CardItem} from 'core/types';
+import {useRouter} from 'expo-router';
 import {useCallback} from 'react';
 import {useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useHomeAnalytics} from './useHomeAnalytics';
-import {HomeScreenNavigationProps} from '../types';
-import {CardItem} from 'core/types';
 
 export const usePlaceOfTheWeek = () => {
   const placeOfTheWeek = useSelector(selectHomePagePlaceOfTheWeek);
-  const {navigate} = useNavigation<HomeScreenNavigationProps>();
+
+  const {navigate} = useRouter();
 
   const {
     sendMainScreenWeekObjectViewEvent,
@@ -19,12 +19,12 @@ export const usePlaceOfTheWeek = () => {
 
   const openPlaceOfTheWeek = useCallback(
     ({id, name, cover, blurhash, analyticsMetadata}: CardItem) => {
-      navigate('ObjectDetails', {
-        objectId: id,
-        objectCoverImageUrl: cover,
-        objcetCoverBlurhash: blurhash,
-
-        analytics: {
+      navigate({
+        pathname: '/object/[objectId]',
+        params: {
+          objectId: id,
+          objectCoverImageUrl: cover,
+          objcetCoverBlurhash: blurhash,
           fromScreenName: getAnalyticsNavigationScreenName(),
         },
       });

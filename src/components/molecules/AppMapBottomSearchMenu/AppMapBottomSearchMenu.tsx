@@ -30,7 +30,7 @@ export const AppMapBottomSearchMenu = memo(
       <View style={[styles.container, {paddingBottom: bottomInset}]}>
         <View style={styles.searchBarContatiner}>
           <Pressable
-            hitSlop={{top: 15, left: 15, right: 15, bottom: 15}}
+            hitSlop={15}
             onPress={() => {
               onTextChange('');
               onBackPress();

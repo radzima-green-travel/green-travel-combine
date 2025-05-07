@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useMemo, useRef} from 'react';
 
 import {
   selectTransformedGoogleRatings,
@@ -12,9 +12,12 @@ import {
   selectIsFiltersInitialDataLoaded,
   selectUserAuthorized,
 } from 'core/selectors';
-import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
-import {FiltersNavigationProps, FiltersRouteProps} from '../types';
-import {useOnRequestError, useRequestLoading} from 'core/hooks';
+import {useIsFocused} from '@react-navigation/native';
+import {
+  useOnRequestError,
+  useOnRequestSuccess,
+  useRequestLoading,
+} from 'core/hooks';
 import {
   getFiltersDataRequest,
   setActiveFilter,
@@ -26,14 +29,38 @@ import {useSnackbar} from 'components/atoms';
 import {isString, keys, pickBy} from 'lodash';
 import {RequestError} from 'core/errors';
 import {useFiltersAnalytics} from './useFiltersAnalytics';
-import {CategoryFilterItem, SpotItem} from 'core/types';
+import {
+  CategoryFilterItem,
+  RouteQueryParams,
+  SearchFilters,
+  SearchOptions,
+  SpotItem,
+} from 'core/types';
+import {useLocalSearchParams, useRouter} from 'expo-router';
+import {base64} from 'core/helpers/encodingUtils';
+import {serializeRouteParams} from 'core/helpers/routerUtils';
+import {navigationCallback} from 'core/actions/navigation';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
   const {show, ...snackBarProps} = useSnackbar();
-  const navigation = useNavigation<FiltersNavigationProps>();
-  const {params} = useRoute<FiltersRouteProps>();
-  const {initialFilters, initialQuery, searchOptions} = params || {};
+  const router = useRouter();
+  const params = useLocalSearchParams<RouteQueryParams.Filter>();
+
+  const {initialFilters, searchOptions} = useMemo(
+    () => ({
+      initialFilters:
+        base64(params.initialFilters).toMaybeObject<SearchFilters>() ??
+        undefined,
+      searchOptions:
+        base64(params.searchOptions).toMaybeObject<SearchOptions>() ??
+        undefined,
+    }),
+    [params.initialFilters, params.searchOptions],
+  );
+
+  const initialQuery = params.initialQuery;
+
   const isAuthorized = useSelector(selectUserAuthorized);
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
@@ -157,16 +184,19 @@ export const useFilters = () => {
   const onExcludeVisitedPress = useCallback(
     (isOn: boolean) => {
       if (isOn && !isAuthorized) {
-        navigation.navigate('AuthNavigator', {
-          screen: 'AuthMethodSelection',
-          onSuccessSignIn: () => updateExcludeVisitedFilter(isOn),
-        });
+        router.navigate('/auth-method-selection');
       } else {
         updateExcludeVisitedFilter(isOn);
       }
     },
-    [isAuthorized, navigation, updateExcludeVisitedFilter],
+    [isAuthorized, router, updateExcludeVisitedFilter],
   );
+
+  useOnRequestSuccess(navigationCallback, contextName => {
+    if (contextName === 'auth') {
+      updateExcludeVisitedFilter(true);
+    }
+  });
 
   useOnRequestError(
     requestUserLocation,
@@ -208,15 +238,16 @@ export const useFilters = () => {
   }, [clearFilters, sendFilterClearEvent]);
 
   const navigateToSettlements = useCallback(() => {
-    navigation.navigate('Settlements', {
-      initialSelectedSettlements: activeFilters.municipalities,
-      regionsToInclude: keys(pickBy(settlementsWithNumberOfItems, Boolean)),
-      analytics: {
+    router.navigate({
+      pathname: '/settlements',
+      params: serializeRouteParams({
+        initialSelectedSettlements: activeFilters.municipalities,
+        regionsToInclude: keys(pickBy(settlementsWithNumberOfItems, Boolean)),
         regionsSelectedNames: getAppliedFiltersAnalyticsData().regions_selected,
-      },
+      }),
     });
   }, [
-    navigation,
+    router,
     activeFilters.municipalities,
     settlementsWithNumberOfItems,
     getAppliedFiltersAnalyticsData,
@@ -272,14 +303,9 @@ export const useFilters = () => {
   );
 
   const applyFilters = useCallback(() => {
-    navigation.navigate('HomeNavigator', {
-      screen: 'Search',
-      params: {
-        filtersToApply: activeFilters,
-      },
-    });
+    router.navigate(`/search?filtersToApply=${base64().from(activeFilters)}`);
     sendFilterApplyEvent();
-  }, [activeFilters, navigation, sendFilterApplyEvent]);
+  }, [activeFilters, router, sendFilterApplyEvent]);
 
   return {
     caregoriesData,

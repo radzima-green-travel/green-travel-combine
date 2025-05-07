@@ -1,45 +1,43 @@
-import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useMemo, useRef} from 'react';
 
+import {getBookmarksObjectsListRequest} from 'core/actions';
+import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {
   useBookmarksListAnalytics,
   useBookmarksObjects,
   useOnRequestError,
   useRequestLoading,
 } from 'core/hooks';
-import {CardItem} from 'core/types';
-import {useNavigation} from '@react-navigation/native';
-import {
-  BookmarksListScreenNavigationProps,
-  BookmarksListScreenRouteProps,
-} from '../types';
-import {useRoute} from '@react-navigation/native';
-import {getAnalyticsNavigationScreenName} from 'core/helpers';
-import {getBookmarksObjectsListRequest} from 'core/actions';
+import {CardItem, RouteQueryParams} from 'core/types';
+import {useLocalSearchParams, useNavigation, useRouter} from 'expo-router';
+import {split} from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
-import {isAndroid} from 'services/PlatformService';
 import {selectBookmarksObjectsList} from 'selectors';
+import {isAndroid} from 'services/PlatformService';
 
 export const useBookmarksList = () => {
   const dispatch = useDispatch();
-  const {navigate, setOptions, goBack} =
-    useNavigation<BookmarksListScreenNavigationProps>();
+  const router = useRouter();
+
+  const {setOptions} = useNavigation();
 
   const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
     useBookmarksListAnalytics();
 
   const navigateToObjectDetails = useCallback(
     ({id, name, cover, blurhash, analyticsMetadata}: CardItem) => {
-      navigate('ObjectDetails', {
-        objectId: id,
-        objectCoverImageUrl: cover,
-        objcetCoverBlurhash: blurhash,
-        analytics: {
+      router.navigate({
+        pathname: '/object/[objectId]',
+        params: {
+          objectId: id,
+          objectCoverImageUrl: cover,
+          objcetCoverBlurhash: blurhash,
           fromScreenName: getAnalyticsNavigationScreenName(),
         },
       });
       sendSelectCardEvent(name, analyticsMetadata.categoryName);
     },
-    [navigate, sendSelectCardEvent],
+    [router, sendSelectCardEvent],
   );
 
   const sendIsFavoriteChangedEvent = useCallback(
@@ -54,8 +52,12 @@ export const useBookmarksList = () => {
   );
 
   const {
-    params: {title, objectsIds, categoryId},
-  } = useRoute<BookmarksListScreenRouteProps>();
+    title,
+    objectsIds: objectIdsProp,
+    categoryId,
+  } = useLocalSearchParams<RouteQueryParams.ObjectList>();
+
+  const objectsIds = useMemo(() => split(objectIdsProp, ','), [objectIdsProp]);
 
   const listData = useSelector(selectBookmarksObjectsList(categoryId));
 
@@ -75,9 +77,9 @@ export const useBookmarksList = () => {
 
   const onLastObjectRemoveAnimationEnd = useCallback(() => {
     if (filteredListData.length === 1) {
-      goBack();
+      router.back();
     }
-  }, [filteredListData, goBack]);
+  }, [filteredListData.length, router]);
 
   const bookmarksFilled = !!bookmarksIds.length;
 
@@ -125,11 +127,11 @@ export const useBookmarksList = () => {
       prevListDataLength.current > filteredListData.length &&
       filteredListData.length === 0
     ) {
-      goBack();
+      router.back();
     }
 
     prevListDataLength.current = filteredListData.length;
-  }, [goBack, onLastObjectRemoveAnimationEnd, filteredListData, loading]);
+  }, [router, onLastObjectRemoveAnimationEnd, filteredListData, loading]);
 
   return {
     retryFetchListData,

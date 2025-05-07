@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {TouchableOpacity, Text} from 'react-native';
 import {themeStyles} from './styles';
 interface IProps {
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export const HeaderCancelButton = memo(({onPress}: IProps) => {

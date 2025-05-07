@@ -18,21 +18,19 @@ import {
   selectSearchOptions,
   selectSearchFiltersItems,
 } from 'core/selectors';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useRequestLoading} from 'react-redux-help-kit';
 import {useOnRequestError} from './useOnRequestError';
 import {useListPagination} from './useListPagination';
 import {useSearchSelector} from './useSearchSelector';
 import {useSearchActions} from './useSearchActions';
-import {useRoute, useNavigation} from '@react-navigation/native';
-import {
-  SearchScreenRouteProps,
-  SearchScreenNavigationProps,
-} from '../../screens/Search/types';
 import {find} from 'lodash';
 import {INITIAL_FILTERS} from 'core/constants';
 import {IState} from 'core/store';
+import {useRouter, useNavigation, useLocalSearchParams} from 'expo-router';
+import {base64} from 'core/helpers/encodingUtils';
+import {RouteQueryParams, SearchFilters} from 'core/types';
 
 export function useSearchList() {
   const dispatch = useDispatch();
@@ -43,10 +41,15 @@ export function useSearchList() {
     selectIsUserHasSavedSearchHistory,
   );
 
-  const {params} = useRoute<SearchScreenRouteProps>();
-  const navigation = useNavigation<SearchScreenNavigationProps>();
+  const router = useRouter();
 
-  const {filtersToApply} = params || {};
+  const params = useLocalSearchParams<RouteQueryParams.Search>();
+
+  const filtersToApply = useMemo(
+    () =>
+      base64(params.filtersToApply).toMaybeObject<SearchFilters>() ?? undefined,
+    [params.filtersToApply],
+  );
 
   const historyObjects = useSelector(selectSearchHistory);
   const searchResults = useSearchSelector(selectSearchObjectsData);
@@ -77,15 +80,15 @@ export function useSearchList() {
   const removeAppliedFilter = useCallback(
     (filterName: string) => {
       if (filtersToApply) {
-        navigation.setParams({
-          filtersToApply: {
+        router.setParams({
+          filtersToApply: base64().from({
             ...filtersToApply,
             [filterName]: INITIAL_FILTERS[filterName],
-          },
+          }),
         });
       }
     },
-    [filtersToApply, navigation],
+    [filtersToApply, router],
   );
 
   const getSearchObjectsHistory = useCallback(() => {
@@ -149,6 +152,8 @@ export function useSearchList() {
     loadMore: searchMoreObjects,
     hasMoreToLoad: !loading && searchResults.length < searchResultsTotal,
   });
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (navigation.isFocused()) {

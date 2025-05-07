@@ -1,26 +1,20 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {WebView} from 'react-native-webview';
-import React, {useState, useLayoutEffect} from 'react';
 import {LoadingView} from 'atoms';
-import {
-  SocialLoginInAppBrowserScreenRouteProps,
-  SocialLoginInAppBrowserScreenNavigationProps,
-} from './types';
 import {tryOpenURL} from 'core/helpers';
+import {RouteQueryParams} from 'core/types';
+import {useLocalSearchParams, useNavigation} from 'expo-router';
+import React, {useLayoutEffect, useState} from 'react';
+import {WebView} from 'react-native-webview';
 
 export const InAppWebView = () => {
   const [loading, setLoading] = useState(true);
 
-  const navigation =
-    useNavigation<SocialLoginInAppBrowserScreenNavigationProps>();
+  const navigation = useNavigation();
 
-  const {
-    params: {url, title},
-  } = useRoute<SocialLoginInAppBrowserScreenRouteProps>();
+  const {url, title} = useLocalSearchParams<RouteQueryParams.WebView>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: title,
+      title,
     });
   }, [title, navigation]);
 

@@ -3,21 +3,15 @@ import React, {useCallback} from 'react';
 import {ErrorView} from 'molecules';
 
 import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
-import {PageNotFoundErrorScreenNavigationProps} from './types';
+import {useRouter} from 'expo-router';
 
 export const PageNotFoundErrorScreen = () => {
   const {t} = useTranslation('notFoundPage');
-  const navigation = useNavigation<PageNotFoundErrorScreenNavigationProps>();
+  const router = useRouter();
 
   const navigateToMainPage = useCallback(() => {
-    navigation.navigate('TabNavigator', {
-      screen: 'HomeNavigator',
-      params: {
-        screen: 'Home',
-      },
-    });
-  }, [navigation]);
+    router.navigate('/(ahome)');
+  }, [router]);
 
   return (
     <ErrorView

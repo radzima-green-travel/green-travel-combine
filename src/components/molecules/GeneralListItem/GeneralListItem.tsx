@@ -29,7 +29,7 @@ interface IProps {
 }
 
 export type onPressProps<TItem> = TItem extends undefined
-  ? {onPress: (item: null, event: GestureResponderEvent) => void}
+  ? {item?: never; onPress: (item: null, event: GestureResponderEvent) => void}
   : {
       item: TItem;
       onPress: (item: TItem, event: GestureResponderEvent) => void;
@@ -105,7 +105,7 @@ const GeneralListItemComponent = <T extends unknown = undefined>({
 
   const onPressHandler = useCallback(
     (event: GestureResponderEvent) => {
-      onPress(item, event);
+      onPress(item as any, event);
     },
     [item, onPress],
   );

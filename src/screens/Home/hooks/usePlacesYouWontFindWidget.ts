@@ -1,21 +1,25 @@
-import {useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
-import {HomeScreenNavigationProps} from '../types';
 import {useTranslation} from 'core/hooks';
 import {useHomeAnalytics} from './useHomeAnalytics';
+import {useRouter} from 'expo-router';
 
 export const usePlacesYouWontFindWidget = () => {
-  const navigation = useNavigation<HomeScreenNavigationProps>();
+  const router = useRouter();
   const {sendMainScreenNonGMObjectsViewEvent} = useHomeAnalytics();
 
   const {t} = useTranslation('home');
+
   const openPlacesPage = useCallback(() => {
-    navigation.navigate('ObjectsList', {
-      title: t('placesYouWontFindPageTitle'),
-      markedAsNotOnGoogleMaps: true,
+    router.navigate({
+      pathname: '/object-list',
+      params: {
+        title: t('placesYouWontFindPageTitle'),
+        markedAsNotOnGoogleMaps: 'true',
+      },
     });
     sendMainScreenNonGMObjectsViewEvent();
-  }, [navigation, sendMainScreenNonGMObjectsViewEvent, t]);
+  }, [router, sendMainScreenNonGMObjectsViewEvent, t]);
+
   return {
     openPlacesPage,
   };

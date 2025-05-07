@@ -1,15 +1,13 @@
 import {useCallback} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {AuthMethodSelectionScreenNavigationProps} from '../types';
-
 import {useDispatch} from 'react-redux';
 import {signInRequest} from 'core/actions';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 import {useNavigateToPrivacyPolicyAndTnC, useOnSuccessSignIn} from 'core/hooks';
+import {useRouter} from 'expo-router';
 
 export const useAuthMethodSelection = () => {
-  const navigation = useNavigation<AuthMethodSelectionScreenNavigationProps>();
+  const navigation = useRouter();
   const dispatch = useDispatch();
 
   const {navigateToPrivacyPolicy, navigateToTermsAndConditions} =
@@ -18,7 +16,7 @@ export const useAuthMethodSelection = () => {
   const {onSuccessSignIn} = useOnSuccessSignIn();
 
   const handleEmailButtonPress = useCallback(() => {
-    navigation.navigate('CheckEmail');
+    navigation.navigate('/check-email');
   }, [navigation]);
 
   const handleGoogleButtonPress = () => {

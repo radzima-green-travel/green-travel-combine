@@ -1,37 +1,30 @@
 import {useCallback} from 'react';
-
+import {useSnackbar} from 'atoms';
+import {signInRequest} from 'core/actions';
 import {
-  useOnSuccessSignIn,
   useOnRequestError,
   useOnRequestSuccess,
+  useOnSuccessSignIn,
   useRequestLoading,
   useTogglePasswordHidden,
 } from 'core/hooks';
-import {signInRequest} from 'core/actions';
-import {useDispatch} from 'react-redux';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {
-  SignInPasswordScreenNavigationProps,
-  SignInPasswordScreenRouteProps,
-} from '../types';
+import {IRequestError, RouteQueryParams, SignInFormModel} from 'core/types';
+import {useLocalSearchParams, useRouter} from 'expo-router';
 import {useFormik} from 'formik';
-import {IRequestError, SignInFormModel} from 'core/types';
+import {useDispatch} from 'react-redux';
 import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
 
 export const useSignInPassword = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation<SignInPasswordScreenNavigationProps>();
+  const router = useRouter();
 
-  const {
-    params: {email},
-  } = useRoute<SignInPasswordScreenRouteProps>();
+  const {email} = useLocalSearchParams<RouteQueryParams.SignInPassword>();
 
   const {onSuccessSignIn} = useOnSuccessSignIn();
 
   const navigateToRestorePassword = useCallback(() => {
-    navigation.navigate('RestorePassword');
-  }, [navigation]);
+    router.navigate('/restore-password');
+  }, [router]);
 
   const signIn = useCallback(
     ({password}: SignInFormModel) => {

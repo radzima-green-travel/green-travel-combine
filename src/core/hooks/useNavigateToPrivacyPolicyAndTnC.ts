@@ -1,34 +1,35 @@
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {CompositeNavigationProp} from '@react-navigation/native';
-import {MainNavigatorParamsList, ProfileNavigatorParamsList} from 'core/types';
 import {useSelector} from 'react-redux';
 import {selectAppLanguage} from 'core/selectors';
 import {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
-
-export type NavigationProps = CompositeNavigationProp<
-  StackNavigationProp<ProfileNavigatorParamsList>,
-  StackNavigationProp<MainNavigatorParamsList>
->;
+import {useRouter} from 'expo-router';
 
 export function useNavigateToPrivacyPolicyAndTnC() {
-  const navigation = useNavigation<NavigationProps>();
+  const router = useRouter();
+
   const currentLocale = useSelector(selectAppLanguage);
+
   const {t} = useTranslation('common');
+
   const navigateToPrivacyPolicy = useCallback(() => {
-    navigation.navigate('InAppWebView', {
-      url: `https://radzima.app/${currentLocale}/privacy-policy-text/`,
-      title: t('privacyPolicy'),
+    router.navigate({
+      pathname: '/web-view',
+      params: {
+        url: `https://radzima.app/${currentLocale}/privacy-policy-text/`,
+        title: t('privacyPolicy'),
+      },
     });
-  }, [currentLocale, navigation, t]);
+  }, [currentLocale, router, t]);
 
   const navigateToTermsAndConditions = useCallback(() => {
-    navigation.navigate('InAppWebView', {
-      url: `https://radzima.app/${currentLocale}/tearms-and-conditions-text/`,
-      title: t('termsAndConditions'),
+    router.navigate({
+      pathname: '/web-view',
+      params: {
+        url: `https://radzima.app/${currentLocale}/tearms-and-conditions-text/`,
+        title: t('termsAndConditions'),
+      },
     });
-  }, [currentLocale, navigation, t]);
+  }, [currentLocale, router, t]);
 
   return {
     navigateToPrivacyPolicy,

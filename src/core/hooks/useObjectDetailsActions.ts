@@ -1,17 +1,9 @@
 import {useCurrentActions} from 'react-redux-help-kit';
 import * as actions from '../../core/actions/objectDetails';
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {HomeNavigatorParamsList} from 'core/types';
-
-type ObjectDetailsScreenRouteProps = RouteProp<
-  HomeNavigatorParamsList,
-  'ObjectDetails'
->;
+import {useLocalSearchParams} from 'expo-router';
 
 export const useObjectDetailsActions = () => {
-  const {
-    params: {objectId},
-  } = useRoute<ObjectDetailsScreenRouteProps>();
+  const {objectId} = useLocalSearchParams<'/object/[objectId]'>();
 
   return useCurrentActions(actions, {
     reducerId: objectId,

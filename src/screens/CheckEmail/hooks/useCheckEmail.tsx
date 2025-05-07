@@ -1,20 +1,19 @@
-import {useCallback} from 'react';
+import {useSnackbar} from 'atoms';
+import {checkUserEmailRequest} from 'core/actions';
 import {
+  useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
-  useOnRequestError,
 } from 'core/hooks';
-import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import {checkUserEmailRequest} from 'core/actions';
-import {CheckEmailScreenNavigationProps} from '../types';
-import {useSnackbar} from 'atoms';
-import {useFormik} from 'formik';
 import {CheckEmailFormModel} from 'core/types';
+import {useRouter} from 'expo-router';
+import {useFormik} from 'formik';
+import {useCallback} from 'react';
+import {useDispatch} from 'react-redux';
 import {validationSchema} from './validation';
 
 export const useCheckEmail = () => {
-  const navigation = useNavigation<CheckEmailScreenNavigationProps>();
+  const navigation = useRouter();
   const dispatch = useDispatch();
 
   const {loading} = useRequestLoading(checkUserEmailRequest);
@@ -39,14 +38,17 @@ export const useCheckEmail = () => {
 
   useOnRequestSuccess(checkUserEmailRequest, data => {
     if (!data.exist) {
-      navigation.navigate('SignUpForm', {email: values.email});
+      navigation.navigate(`/sign-up?email=${values.email}`);
     } else if (data.exist) {
       if (data.isConfirmed) {
-        navigation.navigate('SignInPassword', {email: values.email});
+        navigation.navigate(`/password?email=${values.email}`);
       } else {
-        navigation.navigate('EmailValidation', {
-          email: values.email,
-          isSignUp: data.isPasswordReset ? false : true,
+        navigation.navigate({
+          pathname: '/email-validation',
+          params: {
+            email: values.email,
+            isSignUp: data.isPasswordReset ? 'false' : 'true',
+          },
         });
       }
     }
