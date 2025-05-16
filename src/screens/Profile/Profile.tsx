@@ -55,7 +55,7 @@ export const Profile = () => {
           onPress={navigateToProfileSettingsLanguage}
           title={t('language')}
           renderLeftElement={
-            <Icon style={styles.icon} name="language" size={30} />
+            <Icon style={styles.icon} name="language" size={24} />
           }
           renderRightElement={<Text style={styles.rightText}>{language}</Text>}
           withChevron
@@ -65,7 +65,7 @@ export const Profile = () => {
           onPress={navigateToProfileSettingsTheme}
           title={t('theme')}
           renderLeftElement={
-            <Icon style={styles.icon} name="theme" size={30} />
+            <Icon style={styles.icon} name="theme" size={24} />
           }
           renderRightElement={<Text style={styles.rightText}>{theme}</Text>}
           withChevron
@@ -75,7 +75,7 @@ export const Profile = () => {
           onPress={onClearCachePress}
           title={t('clearCache')}
           renderLeftElement={
-            <Icon style={styles.icon} name="clearCache" size={30} />
+            <Icon style={styles.icon} name="clearCache" size={24} />
           }
         />
       </View>

@@ -66,7 +66,7 @@ export const OneTimeCode = ({
         key={index}
         style={[
           styles.digitContainer,
-          containerIsFocused && isDigitFocused && isLastDigitEmpty
+          containerIsFocused && isDigitFocused
             ? styles.digitContainerFocused
             : null,
         ]}>

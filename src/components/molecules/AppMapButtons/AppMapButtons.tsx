@@ -49,7 +49,7 @@ export const AppMapButtons = memo(
         <MapButtonContainer
           onPress={onSearchPress}
           testID={composeTestID(testID, 'mapButtonContainer')}>
-          <Icon style={styles.icon} name="search" width={22} height={22} />
+          <Icon style={styles.icon} name="search" size={24} />
         </MapButtonContainer>
         <MapButtonContainer
           testID={composeTestID(testID, 'showLocationButton')}
@@ -58,8 +58,7 @@ export const AppMapButtons = memo(
           <Icon
             style={styles.icon}
             name={isUserLocationFocused ? 'showLocationFilled' : 'showLocation'}
-            width={22.5}
-            height={22}
+            size={24}
             color={COLORS.logCabin}
           />
         </MapButtonContainer>
