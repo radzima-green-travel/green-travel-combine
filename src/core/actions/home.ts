@@ -5,6 +5,7 @@ import {
   ObjectThumbnailDTO,
   PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
+import {NewPlaceForm} from '../types/addNewPlace';
 
 interface GetHomePageDataRequestPayload {
   categoriesList: Array<CategoryShortDTO>;
@@ -28,3 +29,9 @@ export const fetchNextRandomObjects = createAsyncAction<
 >('FETCH_NEXT_RANDOM_OBJECTS');
 
 export const shiftRandomObjectList = createAction('SHIFT_RANDOM_OBJECT_LIST');
+
+export const submitNewPlaceFormRequest = createAsyncAction<
+  NewPlaceForm.Schema,
+  boolean,
+  Error
+>('SUBMIT_NEW_PLACE_FORM_REQUEST');

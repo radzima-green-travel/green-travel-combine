@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Text, View} from 'react-native';
+import {Platform, Text, View} from 'react-native';
 import {AnimatedCircleButton, ButtonsGroup, ListItem} from 'molecules';
 import {useOnRequestSuccess, useThemeStyles, useTranslation} from 'core/hooks';
 import {MARGIN_TOP, themeStyles} from './styles';
@@ -10,7 +10,6 @@ import {ObjectField} from 'core/constants';
 import {BottomMenu} from 'atoms';
 import {ConfirmMenu} from 'molecules';
 import {sendAddInfoEmailRequest} from 'core/actions';
-import {selectForPlatform} from 'services/PlatformService';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const ICONS_MAP = {
@@ -73,10 +72,10 @@ export const ObjectDetailsAddInfo = () => {
       <View
         style={[
           styles.header,
-          selectForPlatform(
-            {marginTop: MARGIN_TOP},
-            {marginTop: Math.max(top, MARGIN_TOP * 2)},
-          ),
+          Platform.select({
+            ios: {marginTop: MARGIN_TOP},
+            android: {marginTop: Math.max(top, MARGIN_TOP * 2)},
+          }),
         ]}>
         <AnimatedCircleButton
           icon={{name: 'chevronMediumLeft'}}

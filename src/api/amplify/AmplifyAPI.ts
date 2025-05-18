@@ -313,7 +313,7 @@ class AmplifyApi extends AmplifyApiEngine {
   }: {
     message: string;
     subject: string;
-    objectId: string;
+    objectId?: string;
     userId: string | null;
   }) => {
     return this.postByApi('apiac472374', '/send', {

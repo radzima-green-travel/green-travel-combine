@@ -11,12 +11,6 @@ export const WINDOW_WIDTH = Dimensions.get('window').width;
 export const SCREEN_HEIGHT = Dimensions.get('screen').height;
 export const SCREEN_WIDTH = Dimensions.get('screen').width;
 
-export function selectForPlatform<T>(
-  forIOS?: T,
-  forAndroid?: T,
-): T | undefined {
-  return Platform.select<T>({ios: forIOS, android: forAndroid});
-}
 let keyboardHeight: number | null = null;
 
 export const getDeviceKeyuboardHeight = () => {

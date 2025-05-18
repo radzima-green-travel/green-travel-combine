@@ -6,11 +6,26 @@ const {
 
 const config = {
   transformer: {
-    babelTransformerPath: require.resolve('react-native-svg-transformer'),
+    babelTransformerPath: require.resolve('react-native-svg-transformer/expo'),
   },
   resolver: {
     assetExts: assetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...sourceExts, 'svg'],
+    // https://github.com/arktypeio/arktype/issues/1027
+    resolveRequest: (context, moduleImport, platform) => {
+      if (moduleImport === 'arktype' || moduleImport.startsWith('@ark/')) {
+        return context.resolveRequest(
+          {
+            ...context,
+            unstable_enablePackageExports: true,
+          },
+          moduleImport,
+          platform,
+        );
+      }
+
+      return context.resolveRequest(context, moduleImport, platform);
+    },
   },
 };
 

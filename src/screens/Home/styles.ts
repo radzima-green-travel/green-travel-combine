@@ -40,7 +40,7 @@ export const themeStyles = {
   },
   widgetGridRightColumn: {flex: 1, gap: 16},
   widgetGridLeftColumn: {flex: 1.07},
-  addLocationWidget: {
+  addNewPlaceWidget: {
     marginHorizontal: 16,
     marginBottom: 24,
   },

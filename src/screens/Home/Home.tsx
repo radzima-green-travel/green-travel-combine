@@ -8,7 +8,7 @@ import {
   PlacesYouWontFindWidget,
   RandomSpotWidget,
   SpotOfTheWeekWidget,
-  AddLocationWidget,
+  AddNewPlaceWidget,
 } from './components';
 import {useHome} from './hooks';
 import {themeStyles} from './styles';
@@ -20,8 +20,10 @@ import {
   useOpenRandomObject,
   usePlaceOfTheWeek,
   usePlacesYouWontFindWidget,
+  useAddPlaceWidget,
 } from './hooks';
 import {useScrollToTop} from '@react-navigation/native';
+import {ObjectDetailsAddInfoSuccessMenu} from '../../components/organisms';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
@@ -54,6 +56,8 @@ export const Home = () => {
   const {placeOfTheWeek, openPlaceOfTheWeek, onFavoriteChanged} =
     usePlaceOfTheWeek();
   const {openPlacesPage} = usePlacesYouWontFindWidget();
+
+  const {openAddNewPlacePage, successBottomSheetProps} = useAddPlaceWidget();
 
   const widgetsBlock = (
     <View style={styles.widgetGrid}>
@@ -128,11 +132,17 @@ export const Home = () => {
               }))}
             />
           ) : null}
-
-          <AddLocationWidget style={styles.addLocationWidget} />
+          <AddNewPlaceWidget
+            style={styles.addNewPlaceWidget}
+            onPress={openAddNewPlacePage}
+          />
         </ScrollView>
 
         <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
+        <ObjectDetailsAddInfoSuccessMenu
+          testID="addInfoSuccessMenu"
+          addInfoSuccessMenuProps={successBottomSheetProps}
+        />
       </SuspenseView>
     </View>
   );

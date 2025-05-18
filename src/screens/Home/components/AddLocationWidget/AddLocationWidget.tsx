@@ -10,17 +10,17 @@ interface AddLocationWidgetProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const AddLocationWidget = ({onPress, style}: AddLocationWidgetProps) => {
+export const AddNewPlaceWidget = ({onPress, style}: AddLocationWidgetProps) => {
   const {t} = useTranslation('home');
 
   return (
-    <View testID="addLocationWidget" style={[styles.container, style]}>
-      <Text style={styles.title}>{t('addLocationWidgetTitle')}</Text>
+    <View testID="addNewPlaceWidget" style={[styles.container, style]}>
+      <Text style={styles.title}>{t('addNewPlaceWidgetTitle')}</Text>
       <Button
-        testID={composeTestID('addLocationWidget', 'button')}
+        testID={composeTestID('addNewPlaceWidget', 'button')}
         theme="secondary"
         onPress={onPress}
-        text={t('addLocationButtonText')}
+        text={t('addNewPlaceButtonText')}
         renderIcon={textStyle => <Icon name="addLocation" style={textStyle} />}
         iconPosition="center"
       />

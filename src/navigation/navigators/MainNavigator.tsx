@@ -8,6 +8,7 @@ import {
   ObjectDetailsShareExperienceScreen,
   FiltersScreen,
   SettlementsScreen,
+  AddNewPlaceScreen,
 } from '../../screens';
 
 import {TabNavigator} from './TabNavigator';
@@ -120,6 +121,11 @@ export function MainNavigator() {
           presentation: 'modal',
           gestureEnabled: false,
         }}
+      />
+      <Stack.Screen
+        name="AddNewPlace"
+        component={AddNewPlaceScreen}
+        options={{headerShown: false, presentation: 'modal'}}
       />
     </Stack.Navigator>
   );

@@ -67,8 +67,8 @@
     "Interesting around": "Interesting nearby",
     "all": "All",
     "updatesAvailable": "New data",
-    "addLocationWidgetTitle": "Discovered a place not in our list?",
-    "addLocationButtonText": "Add your place",
+    "addNewPlaceWidgetTitle": "Discovered a place not in our list?",
+    "addNewPlaceButtonText": "Add your place",
     "errors": {
       "-1": {
         "title": "",
@@ -363,5 +363,26 @@
     "updateApp": "Update App",
     "remindLater": "Remind later",
     "dontUpdate": "Don't update"
+  },
+  "addNewPlaceForm": {
+    "title": "Add New Place",
+    "fieldTitles": {
+      "objectName": "Object name",
+      "objectDescription": "Description",
+      "objectWebsite": "Object website",
+      "userEmail": "Email address"
+    },
+    "fieldDescriptions": {
+      "objectName": "What’s the name of the location?",
+      "objectDescription": "Share some details about the place you're adding",
+      "objectWebsite": "Add a link to the map or official website for more information",
+      "userEmail": "Please provide your email address for contact"
+    },
+    "fieldErrors": {
+      "objectName": "Please enter the name of the location",
+      "userEmail": "Invalid email format"
+    },
+    "fieldSubmitLabel": "Done",
+    "formSubmitLabel": "Submit"
   }
 }
