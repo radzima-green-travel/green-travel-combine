@@ -10,7 +10,7 @@ import {Keyboard, TextInput, View, Text, StyleSheet} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {FullWindowOverlay} from 'react-native-screens';
 import {isIOS} from 'services/PlatformService';
-import {themeStyles} from '../../styles';
+import {themeStyles} from './styles';
 import {SubmitButton} from '../SubmitButton';
 import {FieldConfig} from '../../types';
 
@@ -60,10 +60,10 @@ export const FieldEditorSheet = <T extends string>({
           : undefined;
 
         return (
-          <View style={styles.fieldContainer}>
+          <View style={styles.container}>
             <Text
               testID={composeTestID(testID, 'description')}
-              style={styles.fieldDescription}>
+              style={styles.description}>
               {t(`fieldDescriptions.${fieldName}`)}
             </Text>
             <FormInput

@@ -2,13 +2,13 @@ import {useForm} from '@tanstack/react-form';
 import {Type} from 'arktype/out/type';
 import {SnackBar, useSnackbar} from 'atoms';
 import {composeTestID} from 'core/helpers';
-import {useBottomMenu, useThemeStyles} from 'core/hooks';
+import {useBottomMenu} from 'core/hooks';
 import React, {useCallback, useState} from 'react';
 import {TFunction} from 'react-i18next';
 import {Platform, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {FieldEditorSheet, FieldSet, Header, SubmitButton} from './components';
-import {themeStyles} from './styles';
+import {styles} from './styles';
 import {AnyFormValues, FieldConfig} from './types';
 
 interface ModalFormProps<T extends AnyFormValues> {
@@ -58,8 +58,6 @@ export const ModalForm = <T extends AnyFormValues>({
       }
     },
   });
-
-  const styles = useThemeStyles(themeStyles);
 
   const {top: topSafeAreaInset, bottom: bottomSafeAreaInset} =
     useSafeAreaInsets();

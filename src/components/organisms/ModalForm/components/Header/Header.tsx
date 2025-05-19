@@ -1,10 +1,10 @@
-import React, {ReactNode} from 'react';
-import {View, Platform, Text} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {composeTestID} from 'core/helpers';
 import {useThemeStyles} from 'core/hooks';
 import {AnimatedCircleButton} from 'molecules';
-import {themeStyles, headerGap} from '../../styles';
+import React, {ReactNode} from 'react';
+import {Platform, Text, View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {themeStyles, containerGap} from './styles';
 
 export const Header = ({
   title,
@@ -23,10 +23,10 @@ export const Header = ({
     <View
       testID={testID}
       style={[
-        styles.header,
+        styles.container,
         Platform.select({
-          ios: {marginTop: headerGap},
-          android: {marginTop: Math.max(topSafeAreaInset, headerGap * 2)},
+          ios: {marginTop: containerGap},
+          android: {marginTop: Math.max(topSafeAreaInset, containerGap * 2)},
         }),
       ]}>
       <AnimatedCircleButton

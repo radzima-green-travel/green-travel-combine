@@ -1,12 +1,11 @@
+import {composeTestID} from 'core/helpers';
 import {map} from 'lodash';
+import {ListItem} from 'molecules';
 import React, {memo} from 'react';
 import {TFunction} from 'react-i18next';
 import {ScrollView} from 'react-native';
-import {composeTestID} from 'core/helpers';
-import {useThemeStyles} from 'core/hooks';
-import {ListItem} from 'molecules';
-import {themeStyles} from '../../styles';
 import {AnyForm} from '../../types';
+import {styles} from './styles';
 
 const FieldSetComponent = <T extends AnyForm>({
   testID,
@@ -19,13 +18,11 @@ const FieldSetComponent = <T extends AnyForm>({
   form: T;
   t: TFunction;
 }) => {
-  const styles = useThemeStyles(themeStyles);
-
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       alwaysBounceVertical={false}
-      contentContainerStyle={styles.list}>
+      contentContainerStyle={styles.contentContainer}>
       {map(Object.keys(form.state.values), key => {
         const valueSelector = (state: typeof form.state) => state.values[key];
 
