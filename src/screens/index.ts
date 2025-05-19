@@ -29,3 +29,4 @@ export {ObjectDetailsShareExperience as ObjectDetailsShareExperienceScreen} from
 export {ObjectDetailsAddInfo as ObjectDetailsAddInfoScreen} from './ObjectDetailsAddInfo';
 export {Filters as FiltersScreen} from './Filters';
 export {Settlements as SettlementsScreen} from './Settlements';
+export {AddNewPlaceScreen} from './AddNewPlace';

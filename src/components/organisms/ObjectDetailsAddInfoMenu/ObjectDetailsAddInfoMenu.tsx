@@ -3,13 +3,13 @@ import React, {useCallback} from 'react';
 import {Portal} from '@gorhom/portal';
 import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
 import {useMemo} from 'react';
-import {Keyboard, StyleSheet, View} from 'react-native';
+import {Keyboard, Platform, StyleSheet, View} from 'react-native';
 import {useBottomMenu} from 'core/hooks';
 import {ObjectAddInfoMenu} from 'molecules';
 import {IObjectIncompleteField} from 'core/types';
 import {ObjectField} from 'core/constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {isIOS, selectForPlatform} from 'services/PlatformService';
+import {isIOS} from 'services/PlatformService';
 import {FullWindowOverlay} from 'react-native-screens';
 import {composeTestID} from 'core/helpers';
 
@@ -74,11 +74,10 @@ export const ObjectDetailsAddInfoMenu = ({
             value={value}
           />
         </BottomMenu>
-
         <SnackBar
           testID={composeTestID(testID, 'snackBar')}
           isOnTop
-          offset={selectForPlatform(0, -top)}
+          offset={Platform.select({ios: 0, android: -top})}
           {...snackBarProps}
         />
       </>

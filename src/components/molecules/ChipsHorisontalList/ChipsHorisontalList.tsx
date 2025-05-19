@@ -32,14 +32,10 @@ export const ChipsHorisontalList: React.FC<ChipsHorisontalListProps> = memo(
               return (
                 <View key={rowIndex.toString()} style={styles.row}>
                   {row.map((item, index) => {
-                    const isLastInRow = index === row.length - 1;
                     return (
                       <View
                         key={item.item || index.toString()}
-                        style={[
-                          styles.chipWrapper,
-                          isLastInRow && styles.lastChipWrapper,
-                        ]}>
+                        style={styles.chipWrapper}>
                         <Chip
                           style={styles.itemContainer}
                           textStyle={styles.itemTextStyle}

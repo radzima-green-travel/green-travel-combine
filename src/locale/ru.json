@@ -67,6 +67,8 @@
     "Interesting around": "Интересное рядом",
     "all": "Все",
     "updatesAvailable": "Доступны обновления",
+    "addNewPlaceWidgetTitle": "Нашли место, которого нет в нашем списке?",
+    "addNewPlaceButtonText": "Добавить свое место",
     "errors": {
       "-1": {
         "title": "",
@@ -361,5 +363,26 @@
     "updateApp": "Обновить приложение",
     "remindLater": "Напомнить позже",
     "dontUpdate": "Не обновлять"
+  },
+  "addNewPlaceForm": {
+    "title": "Добавить новое место",
+    "fieldTitles": {
+      "objectName": "Название объекта",
+      "objectDescription": "Описание",
+      "objectWebsite": "Сайт объекта",
+      "userEmail": "Электронная почта"
+    },
+    "fieldDescriptions": {
+      "objectName": "Поделитесь названием объекта",
+      "objectDescription": "Поделитесь описанием объекта, который вы хотите добавить",
+      "objectWebsite": "Поделитесь ссылкой на карту объекта или веб сайт",
+      "userEmail": "Пожалуйста, укажите адрес своей электронной почты для связи"
+    },
+    "fieldErrors": {
+      "objectName": "Пожалуйста, введите название объекта",
+      "userEmail": "Неверный формат электронной почты"
+    },
+    "fieldSubmitLabel": "Готово",
+    "formSubmitLabel": "Отправить"
   }
 }

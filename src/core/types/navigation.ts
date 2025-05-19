@@ -111,6 +111,7 @@ export type MainNavigatorParamsList = {
     images: string[];
     initialIndex: number;
   };
+  AddNewPlace: undefined;
 };
 
 export type TabNavigatorParamsList = {

@@ -30,7 +30,7 @@ import {useTextInputAutoFocus} from 'core/hooks';
 import {composeTestID} from 'core/helpers';
 import {COLORS} from 'assets';
 
-interface IProps {
+export interface FormInputProps {
   iconLeft?: IconProps;
   iconRight?: Omit<IconProps, 'testID'>;
   value: string;
@@ -56,9 +56,10 @@ interface IProps {
   testID: string;
   outlineEnabled?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
+  blurOnSubmit?: boolean;
 }
 
-export const FormInput = forwardRef<TextInput, IProps>(
+export const FormInput = forwardRef<TextInput, FormInputProps>(
   (
     {
       iconLeft,
@@ -86,7 +87,8 @@ export const FormInput = forwardRef<TextInput, IProps>(
       testID,
       outlineEnabled = true,
       containerStyle,
-    }: IProps,
+      blurOnSubmit,
+    },
     ref,
   ) => {
     const styles = useThemeStyles(themeStyles);
@@ -255,6 +257,7 @@ export const FormInput = forwardRef<TextInput, IProps>(
               onBlur={onBlurHandler}
               onSubmitEditing={onSubmitEditingHandler}
               returnKeyType={returnKeyType}
+              blurOnSubmit={blurOnSubmit}
               selectionColor={
                 isLightTheme
                   ? COLORS.light.icon.accentLight
