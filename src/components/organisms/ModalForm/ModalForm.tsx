@@ -9,7 +9,8 @@ import {Platform, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {FieldEditorSheet, FieldSet, Header, SubmitButton} from './components';
 import {styles} from './styles';
-import {AnyFormValues, FieldConfig} from './types';
+import {AnyFormValues} from './types';
+import {FormFieldConfig} from 'core/types';
 
 interface ModalFormProps<T extends AnyFormValues> {
   defaultValues: T;
@@ -17,7 +18,7 @@ interface ModalFormProps<T extends AnyFormValues> {
   onBackPress?: () => void;
   submitting?: boolean;
   t: TFunction;
-  fieldConfigs?: Partial<Record<keyof T, FieldConfig>>;
+  fieldConfigs?: Partial<Record<keyof T, FormFieldConfig>>;
   onSubmit?: (values: T) => void;
   snackBarProps: ReturnType<typeof useSnackbar>;
   testID: string;

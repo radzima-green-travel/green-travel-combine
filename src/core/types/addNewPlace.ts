@@ -1,7 +1,8 @@
 import {type} from 'arktype';
+import {FormFieldConfig} from './common';
 
 export namespace NewPlaceForm {
-  export const fieldConfigs = {
+  export const fieldConfigs: Record<string, FormFieldConfig> = {
     objectName: {
       maxLength: 100,
     },
@@ -11,6 +12,10 @@ export namespace NewPlaceForm {
     },
     objectWebsite: {
       maxLength: 150,
+      keyboardType: 'url',
+    },
+    userEmail: {
+      keyboardType: 'email-address',
     },
   };
 

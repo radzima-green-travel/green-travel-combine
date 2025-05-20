@@ -15,6 +15,7 @@ import {
   SearchObjetcCategoryDTO,
   SpotItemDTO,
 } from './api';
+import {TextInputProps} from 'react-native';
 
 export type TranslatedEntity<T> = Omit<T, 'i18n'> & {
   analyticsMetadata: Record<ExtractI18nKeys<T>, string>;
@@ -269,3 +270,8 @@ export interface CardItem {
   googleRating?: number | null;
   googleRatingsTotal?: number | null;
 }
+
+export type FormFieldConfig = Pick<
+  TextInputProps,
+  'maxLength' | 'multiline' | 'keyboardType'
+>;

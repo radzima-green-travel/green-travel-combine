@@ -5,12 +5,12 @@ import React from 'react';
 import {StyleProp, Text, View, ViewStyle} from 'react-native';
 import {styles} from './styles';
 
-interface AddLocationWidgetProps {
+interface AddNewPlaceWidgetProps {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
-export const AddNewPlaceWidget = ({onPress, style}: AddLocationWidgetProps) => {
+export const AddNewPlaceWidget = ({onPress, style}: AddNewPlaceWidgetProps) => {
   const {t} = useTranslation('home');
 
   return (
@@ -23,6 +23,7 @@ export const AddNewPlaceWidget = ({onPress, style}: AddLocationWidgetProps) => {
         text={t('addNewPlaceButtonText')}
         renderIcon={textStyle => <Icon name="addLocation" style={textStyle} />}
         iconPosition="center"
+        style={styles.button}
       />
     </View>
   );
