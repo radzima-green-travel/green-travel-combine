@@ -12,7 +12,7 @@ import {FullWindowOverlay} from 'react-native-screens';
 import {isIOS} from 'services/PlatformService';
 import {themeStyles} from './styles';
 import {SubmitButton} from '../SubmitButton';
-import {FieldConfig} from '../../types';
+import {FormFieldConfig} from 'core/types';
 
 export const FieldEditorSheet = <T extends string>({
   testID,
@@ -34,7 +34,7 @@ export const FieldEditorSheet = <T extends string>({
   onHide?: () => void;
   defaultValue: T;
   schema: Type<Record<string, any>>;
-  fieldConfig?: FieldConfig;
+  fieldConfig?: FormFieldConfig;
 }) => {
   const {bottom: bottomSafeAreaInset} = useSafeAreaInsets();
   const form = useForm({
