@@ -36,6 +36,7 @@ const FieldSetComponent = <T extends AnyForm>({
                   subtitle={fieldValue}
                   title={t(`fieldTitles.${key}`)}
                   onPress={() => onFieldPress?.(key as any)}
+                  tailIcon="chevronMediumRight"
                 />
               );
             }}
