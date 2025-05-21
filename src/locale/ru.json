@@ -68,7 +68,7 @@
     "all": "Все",
     "updatesAvailable": "Доступны обновления",
     "addNewPlaceWidgetTitle": "Нашли место, которого нет в нашем списке?",
-    "addNewPlaceButtonText": "Добавить свое место",
+    "addNewPlaceButtonText": "Добавить место",
     "errors": {
       "-1": {
         "title": "",
@@ -365,7 +365,7 @@
     "dontUpdate": "Не обновлять"
   },
   "addNewPlaceForm": {
-    "title": "Добавить новое место",
+    "title": "Добавить место",
     "fieldTitles": {
       "objectName": "Название объекта",
       "objectDescription": "Описание",

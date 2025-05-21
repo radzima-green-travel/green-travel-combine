@@ -68,7 +68,7 @@
     "all": "All",
     "updatesAvailable": "New data",
     "addNewPlaceWidgetTitle": "Discovered a place not in our list?",
-    "addNewPlaceButtonText": "Add your place",
+    "addNewPlaceButtonText": "Add new place",
     "errors": {
       "-1": {
         "title": "",
@@ -365,7 +365,7 @@
     "dontUpdate": "Don't update"
   },
   "addNewPlaceForm": {
-    "title": "Add New Place",
+    "title": "Add new place",
     "fieldTitles": {
       "objectName": "Object name",
       "objectDescription": "Description",
@@ -379,7 +379,7 @@
       "userEmail": "Please provide your email address for contact"
     },
     "fieldErrors": {
-      "objectName": "Please enter the name of the location",
+      "objectName": "Please enter object name",
       "userEmail": "Invalid email format"
     },
     "fieldSubmitLabel": "Done",
