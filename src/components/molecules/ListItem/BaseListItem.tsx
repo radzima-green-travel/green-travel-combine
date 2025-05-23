@@ -4,6 +4,7 @@ import {useThemeStyles} from 'core/hooks';
 import {ListItemWrapper} from './ListItemWrapper';
 import {themeStyles} from './styles';
 import {BaseListItemProps} from './types';
+import {composeTestID} from 'core/helpers';
 
 export const BaseListItem = memo(
   ({
@@ -41,7 +42,9 @@ export const BaseListItem = memo(
         if (renderSubtitle) {
           subtitleNode = renderSubtitle(textProps);
         } else {
-          subtitleNode = <Text {...textProps} />;
+          subtitleNode = (
+            <Text testID={composeTestID(testID, 'subtitle')} {...textProps} />
+          );
         }
 
         return (
@@ -84,12 +87,17 @@ export const BaseListItem = memo(
       if (renderTitle) {
         titleNode = renderTitle(textProps);
       } else {
-        titleNode = <Text {...textProps} />;
+        titleNode = (
+          <Text {...textProps} testID={composeTestID(testID, 'title')} />
+        );
       }
 
       if (onSubtitlePress) {
         return (
-          <TouchableOpacity activeOpacity={0.9} onPress={onSubtitlePress}>
+          <TouchableOpacity
+            testID={composeTestID(testID, 'titleButton')}
+            activeOpacity={0.9}
+            onPress={onSubtitlePress}>
             {titleNode}
           </TouchableOpacity>
         );

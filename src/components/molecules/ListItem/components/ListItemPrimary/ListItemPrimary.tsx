@@ -28,7 +28,11 @@ export const ListItemPrimary = memo<ListItemPrimaryProps>(
         <View style={styles.rightContainer}>
           {label ? (
             <View style={labelContainerStyle}>
-              <Text style={[styles.label, labelStyle]}>{label}</Text>
+              <Text
+                testID={composeTestID(testID, 'label')}
+                style={[styles.label, labelStyle]}>
+                {label}
+              </Text>
             </View>
           ) : null}
           {tailIcon ? (
