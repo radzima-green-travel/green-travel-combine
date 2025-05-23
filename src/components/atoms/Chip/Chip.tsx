@@ -24,7 +24,6 @@ export type ChipProps<T = undefined> = {
   textStyle?: StyleProp<TextStyle>;
   loading?: boolean;
   disabled?: boolean;
-  checked?: boolean;
   active?: boolean;
   outlined?: boolean;
   leftIcon?: IconsNames;
@@ -43,7 +42,6 @@ export const ChipComponent = <T extends any = undefined>({
   text,
   leftIcon,
   disabled = false,
-  checked = false,
   active = false,
   outlined = false,
   textStyle,
@@ -121,7 +119,7 @@ export const ChipComponent = <T extends any = undefined>({
         style,
       ]}
       testID={testID}
-      accessibilityState={{checked, disabled: !active && disabled}}>
+      accessibilityState={{selected: active, disabled: !active && disabled}}>
       {renderContent()}
     </TouchableOpacity>
   );
