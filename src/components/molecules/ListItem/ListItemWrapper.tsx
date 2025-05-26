@@ -39,6 +39,7 @@ export const ListItemWrapper = memo(
         activeOpacity={0.8}
         onPress={onPress}
         disabled={!onPress || disabled}
+        accessible={false}
         style={containerStyles}>
         {children}
       </TouchableOpacity>
