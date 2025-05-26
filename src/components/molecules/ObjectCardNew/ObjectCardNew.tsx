@@ -36,6 +36,7 @@ export const ObjectCardNew = memo(
         onPress={onPressHandler}
         testID={testID}
         activeOpacity={0.8}
+        accessible={false}
         style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
