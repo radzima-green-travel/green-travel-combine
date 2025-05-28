@@ -22,6 +22,8 @@ interface ModalFormProps<T extends AnyFormValues> {
   onSubmit?: (values: T) => void;
   snackBarProps: ReturnType<typeof useSnackbar>;
   testID: string;
+  onSelectedField?: (fieldName: keyof T | null) => void;
+  onSelectedFieldChange?: (fieldName: keyof T | null) => void;
 }
 
 export const ModalForm = <T extends AnyFormValues>({
@@ -34,6 +36,8 @@ export const ModalForm = <T extends AnyFormValues>({
   onSubmit,
   snackBarProps,
   testID,
+  onSelectedField,
+  onSelectedFieldChange,
 }: ModalFormProps<T>) => {
   type FieldName = Extract<keyof T, string>;
 
@@ -70,14 +74,16 @@ export const ModalForm = <T extends AnyFormValues>({
   const openFieldEditor = useCallback(
     (fieldName: FieldName) => {
       setSelectedField(fieldName);
+      onSelectedField?.(fieldName);
       menuProps.openMenuWithInputAutoFocus();
     },
-    [menuProps],
+    [menuProps, onSelectedField],
   );
 
   const submitField = (value: T[FieldName]) => {
     if (selectedField) {
       form.setFieldValue(selectedField, value);
+      onSelectedFieldChange?.(selectedField);
       setSelectedField(null);
     }
   };
