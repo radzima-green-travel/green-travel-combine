@@ -1,0 +1,1 @@
+export {useAddNewPlaceAnalytics} from './useAddNewPlaceAnalytics';

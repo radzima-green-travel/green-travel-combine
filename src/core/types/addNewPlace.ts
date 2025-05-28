@@ -56,3 +56,19 @@ export const NewPlaceEmailRequest = type({
     userId: input.userId,
   };
 });
+
+export type AddNewObjectAnalyicsFields =
+  | 'Object name'
+  | 'Description'
+  | 'Object website'
+  | 'Email address';
+
+export const AddNewObjectAnalyicsFieldsMap: Record<
+  keyof NewPlaceForm.Schema,
+  AddNewObjectAnalyicsFields
+> = {
+  objectName: 'Object name',
+  objectDescription: 'Description',
+  objectWebsite: 'Object website',
+  userEmail: 'Email address',
+};

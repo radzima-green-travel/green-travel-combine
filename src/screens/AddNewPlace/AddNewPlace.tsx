@@ -7,13 +7,20 @@ import {
   useRequestLoading,
 } from 'core/hooks';
 import {NewPlaceForm} from 'core/types/addNewPlace';
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {useSnackbar} from 'components/atoms';
+import {useAddNewPlaceAnalytics} from './hooks';
 
 export const AddNewPlaceScreen = () => {
   const navigation = useNavigation();
+  const {
+    sendAddNewPlaceViewEvent,
+    sendAddAnyFieldViewEvent,
+    sendAddAnyFieldInputSubmitEvent,
+    sendAddNewPlaceSendAllEvent,
+  } = useAddNewPlaceAnalytics();
 
   const {t} = useTranslation('addNewPlaceForm');
 
@@ -22,6 +29,10 @@ export const AddNewPlaceScreen = () => {
   const {loading: submitting} = useRequestLoading(submitNewPlaceFormRequest);
 
   const snackBarProps = useSnackbar();
+
+  useEffect(() => {
+    sendAddNewPlaceViewEvent();
+  }, [sendAddNewPlaceViewEvent]);
 
   useOnRequestSuccess(submitNewPlaceFormRequest, navigation.goBack);
 
@@ -36,10 +47,10 @@ export const AddNewPlaceScreen = () => {
 
   const handleSubmit = useCallback(
     (values: NewPlaceForm.Schema) => {
-      console.log('handleSubmit', values);
       dispatch(submitNewPlaceFormRequest(values));
+      sendAddNewPlaceSendAllEvent(values);
     },
-    [dispatch],
+    [dispatch, sendAddNewPlaceSendAllEvent],
   );
 
   return (
@@ -53,6 +64,8 @@ export const AddNewPlaceScreen = () => {
       submitting={submitting}
       onSubmit={handleSubmit}
       snackBarProps={snackBarProps}
+      onSelectedField={sendAddAnyFieldViewEvent}
+      onSelectedFieldChange={sendAddAnyFieldInputSubmitEvent}
     />
   );
 };
