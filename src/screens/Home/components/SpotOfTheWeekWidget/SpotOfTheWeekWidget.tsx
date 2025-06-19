@@ -39,9 +39,10 @@ export const SpotOfTheWeekWidget = memo(
           {t('spotOfTheWeekWidgetTitle')}
         </HighlightedText>
         <ObjectCardNew
-          onPress={onPress}
+          item={object}
           testID="spotOfTheWeekWidget"
-          data={object}
+          {...object}
+          onPress={onPress}
           onFavoriteChanged={onFavoriteChanged}
         />
       </View>

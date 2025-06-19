@@ -1,18 +1,26 @@
-import React, {memo} from 'react';
+import {ObjectListModeSwitch} from 'atoms';
+import {ICONS_MATCHER} from 'core/constants';
+import {composeTestID} from 'core/helpers';
+import {useListPagination, useThemeStyles, useTranslation} from 'core/hooks';
+import {SearchObject} from 'core/types';
+import {idKeyExtractor} from 'core/utils/react';
+import {
+  ListItem,
+  ObjectCardNew,
+  SearchEmptyView,
+  SearchListItem,
+} from 'molecules';
+import React, {ComponentType, memo, useCallback} from 'react';
 import {
   FlatList,
-  Keyboard,
+  FlatListProps,
   KeyboardAvoidingView,
+  ListRenderItem,
   Text,
   View,
 } from 'react-native';
-import {ListItem, SearchEmptyView, SearchListItem} from 'molecules';
+import {ObjectListViewMode} from '../../types';
 import {themeStyles} from './styles';
-import {useListPagination, useThemeStyles, useTranslation} from 'core/hooks';
-import {SearchObject} from 'core/types';
-
-import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
-import {composeTestID} from 'core/helpers';
 
 interface IProps {
   data: SearchObject[];
@@ -20,7 +28,7 @@ interface IProps {
   onDeletePress: (objectId: string) => void;
   onDeleteAllPress: () => void;
   isHistoryVisible: boolean;
-  FlatListComponent?: typeof FlatList | typeof BottomSheetFlatList;
+  FlatListComponent?: ComponentType<FlatListProps<SearchObject>>;
   listPaninationProps: ReturnType<typeof useListPagination>;
   isSearchPreviewVisible: boolean;
   testID: string;
@@ -44,7 +52,67 @@ export const SearchList = memo(
 
     const styles = useThemeStyles(themeStyles);
 
-    const renderHeader = () => {
+    const [viewMode, setViewMode] = React.useState<ObjectListViewMode>('list');
+
+    const prevTotalResults = React.useRef(totalResults);
+
+    // TODO: Move the view mode logic into hook after search bar refactoring
+    if (totalResults !== prevTotalResults.current) {
+      prevTotalResults.current = totalResults;
+      setViewMode('list');
+    }
+
+    const resultsFound = !!totalResults;
+
+    const renderSearchResultItem: ListRenderItem<SearchObject> = useCallback(
+      ({item, index}) => {
+        const {name, category, id, highlight} = item;
+
+        const isLastItem = index === totalResults - 1;
+
+        if (viewMode === 'card') {
+          return (
+            <ObjectCardNew
+              testID={composeTestID(testID, 'cardItem')}
+              item={item.id}
+              id={id}
+              name={name}
+              categoryName={category.name}
+              cover={item.cover}
+              blurhash={item.blurhash}
+              usersRating={item.usersRating}
+              googleRating={item.googleRating}
+              onPress={onItemPress}
+              onFavoriteChanged={undefined}
+              style={isLastItem ? styles.cardLast : styles.card}
+            />
+          );
+        }
+
+        return (
+          <SearchListItem
+            testID={composeTestID(testID, 'listItem')}
+            objectId={id}
+            onPress={onItemPress}
+            objectName={highlight?.name || name}
+            description={highlight?.description}
+            address={highlight?.address}
+            categoryName={category.name}
+            categoryIcon={ICONS_MATCHER[category.icon]}
+          />
+        );
+      },
+      [
+        totalResults,
+        viewMode,
+        onItemPress,
+        testID,
+        styles.cardLast,
+        styles.card,
+      ],
+    );
+
+    const renderHeader = useCallback(() => {
       if (isHistoryVisible) {
         return (
           <ListItem
@@ -77,76 +145,57 @@ export const SearchList = memo(
             </Text>
           )}
           containerStyle={styles.listHeader}
+          rightElement={
+            resultsFound ? (
+              <ObjectListModeSwitch
+                testID={composeTestID(testID, 'viewModeSwitch')}
+                selectedMode={viewMode}
+                onPress={setViewMode}
+              />
+            ) : undefined
+          }
         />
       );
-    };
+    }, [
+      isHistoryVisible,
+      isSearchPreviewVisible,
+      onDeleteAllPress,
+      resultsFound,
+      styles.listHeader,
+      styles.resultsCount,
+      t,
+      testID,
+      totalResults,
+      viewMode,
+    ]);
 
-    const renderContent = () => {
-      if (data.length) {
-        if (isHistoryVisible) {
-          return (
-            <FlatListComponent
-              style={styles.listContainer}
-              data={data}
-              renderItem={({item}) => {
-                const {name, category, id} = item;
-
-                return (
-                  <SearchListItem
-                    objectId={id}
-                    onPress={onItemPress}
-                    objectName={name}
-                    categoryName={category.name}
-                    categoryIcon={category.icon}
-                    testID={composeTestID(testID, 'item')}
-                    withRemoveButton
-                    onRemovePress={onDeletePress}
-                    key={'historty' + id}
-                  />
-                );
-              }}
-            />
-          );
-        }
+    const renderHistoryItem = useCallback(
+      ({item}: {item: SearchObject}) => {
+        const {name, category, id} = item;
 
         return (
-          <FlatListComponent
-            style={styles.listContainer}
-            keyboardDismissMode="on-drag"
-            keyboardShouldPersistTaps="handled"
-            onScrollBeginDrag={Keyboard.dismiss}
-            data={data}
-            renderItem={({item}) => {
-              const {name, category, id, highlight} = item;
-
-              return (
-                <SearchListItem
-                  key={id}
-                  objectId={id}
-                  onPress={onItemPress}
-                  objectName={highlight?.name || name}
-                  description={highlight?.description}
-                  address={highlight?.address}
-                  categoryName={category.name}
-                  categoryIcon={category.icon}
-                  testID={composeTestID(testID, 'item')}
-                />
-              );
-            }}
-            {...listPaninationProps}
+          <SearchListItem
+            objectId={id}
+            onPress={onItemPress}
+            objectName={name}
+            categoryName={category.name}
+            categoryIcon="clockHistory2"
+            testID={composeTestID(testID, 'historyItem')}
+            onRemovePress={onDeletePress}
+            withRemoveButton
+            withIconBackground={false}
           />
         );
-      }
+      },
+      [onDeletePress, onItemPress, testID],
+    );
 
+    const renderEmptyView = useCallback(() => {
       if (isSearchPreviewVisible) {
         return <SearchEmptyView />;
       }
 
-      return null;
-    };
-
-    return (
-      <>
+      return (
         <KeyboardAvoidingView
           behavior="padding"
           style={styles.emptyListContainer}>
@@ -154,9 +203,40 @@ export const SearchList = memo(
             <Text style={styles.emptyListText}>{t('notFound')}</Text>
           </View>
         </KeyboardAvoidingView>
-        {renderHeader()}
-        {renderContent()}
-      </>
+      );
+    }, [
+      isSearchPreviewVisible,
+      styles.emptyListContainer,
+      styles.emptyListContent,
+      styles.emptyListText,
+      t,
+    ]);
+
+    const keyboardBehaviourProps = {
+      keyboardDismissMode: 'on-drag',
+      keyboardShouldPersistTaps: 'handled',
+    } as const;
+
+    return (
+      <FlatListComponent
+        style={styles.listContainer}
+        contentContainerStyle={styles.listContentContainer}
+        {...((resultsFound || isHistoryVisible) && keyboardBehaviourProps)}
+        data={data}
+        renderItem={
+          isHistoryVisible ? renderHistoryItem : renderSearchResultItem
+        }
+        windowSize={5}
+        ListHeaderComponent={renderHeader}
+        ListEmptyComponent={renderEmptyView}
+        keyExtractor={idKeyExtractor}
+        key={viewMode}
+        numColumns={viewMode === 'card' ? 2 : 1}
+        columnWrapperStyle={
+          viewMode === 'card' ? styles.columnWrapper : undefined
+        }
+        {...(!isHistoryVisible && listPaninationProps)}
+      />
     );
   },
 );

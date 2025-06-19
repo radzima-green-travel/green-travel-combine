@@ -5,7 +5,6 @@ import {SearchList} from 'organisms';
 import {useSearch} from './hooks';
 import {SuspenseView} from 'molecules';
 import {useColorScheme, useStatusBar, useThemeStyles} from 'core/hooks';
-import {SearchFiltersBar} from 'components/molecules';
 import {View} from 'react-native';
 import {themeStyles} from './styles';
 
@@ -21,9 +20,8 @@ export const Search = () => {
     searchHistorySuspenseProps,
     listPaninationProps,
     totalResults,
-    filtersItems,
-    removeAppliedFilter,
   } = useSearch();
+
   const styles = useThemeStyles(themeStyles);
 
   const scheme = useColorScheme();
@@ -34,20 +32,13 @@ export const Search = () => {
     <SuspenseView
       testID="searchSusspenseView"
       cover
+      loaderBackdropStyle={styles.loaderBackdrop}
       {...searchHistorySuspenseProps}>
-      {filtersItems.length ? (
-        <SearchFiltersBar
-          testID="searchFiltersBar"
-          onFilterPress={removeAppliedFilter}
-          filters={filtersItems}
-        />
-      ) : (
-        []
-      )}
       <View style={styles.listContainer}>
         <SuspenseView
           testID="searchSusspenseView"
           cover
+          loaderBackdropStyle={styles.loaderBackdrop}
           {...searchSuspenseProps}>
           <SearchList
             testID={'searchList'}

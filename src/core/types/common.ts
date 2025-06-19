@@ -243,7 +243,10 @@ export interface ObjectMap
 }
 
 export interface TranslatedSearchObject
-  extends Omit<TranslatedEntity<SearchObjectDTO>, 'category'> {
+  extends Omit<
+    TranslatedEntity<SearchObjectDTO>,
+    'category' | 'calculatedProperties'
+  > {
   category: SearchObjectCategory;
 }
 
@@ -254,6 +257,7 @@ export interface SearchObject
     description?: string;
     address?: string;
   };
+  usersRating?: number | null;
 }
 export interface CardItem {
   name: string;

@@ -1,5 +1,4 @@
 import {sendAnalyticsEvent} from 'core/actions';
-import {FILTERS_NAMES_ANAYLITICS_MAP} from 'core/constants';
 import {useSearchSelector} from 'core/hooks';
 import {selectSearchHistory, selectSearchOptions} from 'core/selectors';
 import {SearchOptions} from 'core/types';
@@ -119,20 +118,6 @@ export function useSearchAnalytics() {
     [dispatch],
   );
 
-  const sendFilterRemoveEvent = useCallback(
-    (filerName: string) => {
-      dispatch(
-        sendAnalyticsEvent({
-          name: 'Filter_remove',
-          data: {
-            filter: FILTERS_NAMES_ANAYLITICS_MAP[filerName],
-          },
-        }),
-      );
-    },
-    [dispatch],
-  );
-
   return {
     sendSearchViewEvent,
     sendSearchParametersViewEvent,
@@ -141,6 +126,5 @@ export function useSearchAnalytics() {
     sendSearchHistoryItemRemoveEvent,
     sendSearchHistoryClearEvent,
     sendSearchResultsItemClickEvent,
-    sendFilterRemoveEvent,
   };
 }

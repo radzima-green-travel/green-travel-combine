@@ -16,6 +16,7 @@ import {getPlatformsTestID} from 'core/helpers';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ListItem} from 'molecules/ListItem';
 import {every} from 'lodash';
+import {idKeyExtractor} from 'core/utils/react';
 
 export const Settlements = () => {
   const styles = useThemeStyles(themeStyles);
@@ -153,7 +154,7 @@ export const Settlements = () => {
             contentContainerStyle={styles.sectionListContentContainer}
             showsVerticalScrollIndicator={false}
             sections={settlementsSections}
-            keyExtractor={item => item.id}
+            keyExtractor={idKeyExtractor}
             stickySectionHeadersEnabled={false}
             renderItem={({item}) => (
               <ListItem

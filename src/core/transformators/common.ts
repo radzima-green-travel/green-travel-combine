@@ -26,19 +26,29 @@ export function convertShortObjectToCardItem(object: ObjectShort): CardItem {
   };
 }
 
+export const getUserRatingValue = (
+  averageRating: number | null | undefined,
+  totalRatings: number | null | undefined,
+) => {
+  return averageRating && totalRatings && totalRatings > 1
+    ? averageRating
+    : null;
+};
+
 export function convertPlaceOfTheWeekObjectToCardItem(
   object: PlaceOfTheWeekObject,
 ): CardItem {
   const {googleRating, calculatedProperties} = object;
   const {averageRating, totalRatings} = calculatedProperties || {};
+
   return {
     id: object.id,
     cover: object.cover,
     blurhash: object.blurhash || '',
     name: object.name,
     categoryName: object.category.name,
-    usersRating:
-      averageRating && totalRatings && totalRatings > 1 ? averageRating : null,
+    usersRating: getUserRatingValue(averageRating, totalRatings),
+    usersRatingsTotal: totalRatings || null,
     googleRating,
     analyticsMetadata: {
       categoryName: object.category.analyticsMetadata.name,
@@ -111,7 +121,7 @@ export const processImagesUrls = <T extends ImagesPropertyToProcess>(
 };
 
 export const translateAndProcessImagesForEntity = <
-  T extends WithPropertiesToSanitize<Record<keyof T, any>>,
+  T extends WithPropertiesToSanitize<Partial<Record<keyof T, any>>>,
 >(
   entity: T,
   locale: SupportedLocales | null,

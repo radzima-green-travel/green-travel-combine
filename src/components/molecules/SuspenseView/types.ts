@@ -1,5 +1,6 @@
 import {ReactNode} from 'react';
 import {ILabelError} from 'core/types';
+import {StyleProp, ViewStyle} from 'react-native';
 
 export type Props = {
   loading?: boolean;
@@ -11,4 +12,5 @@ export type Props = {
   buttonText?: string;
   testID: string;
   loadingDelay?: number;
+  loaderBackdropStyle?: StyleProp<ViewStyle>;
 };

@@ -148,6 +148,11 @@ export interface SearchObjectDTO {
   category: SearchObjetcCategoryDTO;
   location: LocationDTO | null;
   addresses: AddressessDTO;
+  googleRating?: number | null;
+  calculatedProperties?: {
+    averageRating: number | null;
+    totalRatings: number | null;
+  };
 }
 
 export interface CategoryAggregationsByObjectsDTO {
