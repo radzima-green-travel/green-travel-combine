@@ -77,3 +77,6 @@ export {default as tune} from './tune.svg';
 export {default as tuneSimplified} from './tuneSimplified.svg';
 export {default as warMonuments} from './warMonuments.svg';
 export {default as wave} from './wave.svg';
+export {default as gridView} from './gridView.svg';
+export {default as headlineView} from './headlineView.svg';
+export {default as clockHistory2} from './clockHistory2.svg';

@@ -21,8 +21,6 @@ export const useSearch = () => {
     listPaninationProps,
     isSearchPreviewVisible,
     totalResults,
-    filtersItems,
-    removeAppliedFilter,
     isSearchEmpty,
     isFiltersEmpty,
   } = useSearchList();
@@ -31,7 +29,6 @@ export const useSearch = () => {
     sendSearchViewEvent,
     sendSearchHistoryClearEvent,
     sendSearchHistoryItemRemoveEvent,
-    sendFilterRemoveEvent,
     sendSearchResultsItemClickEvent,
   } = useSearchAnalytics();
 
@@ -82,14 +79,6 @@ export const useSearch = () => {
     sendSearchHistoryClearEvent();
   }, [deleteAllFromHistory, sendSearchHistoryClearEvent]);
 
-  const removeAppliedFilterHandler = useCallback(
-    (filterName: string) => {
-      removeAppliedFilter(filterName);
-      sendFilterRemoveEvent(filterName);
-    },
-    [removeAppliedFilter, sendFilterRemoveEvent],
-  );
-
   useEffect(() => {
     return () => {
       clearInput();
@@ -107,7 +96,5 @@ export const useSearch = () => {
     listPaninationProps,
     isSearchPreviewVisible,
     totalResults,
-    filtersItems,
-    removeAppliedFilter: removeAppliedFilterHandler,
   };
 };

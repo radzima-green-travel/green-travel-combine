@@ -6,6 +6,7 @@ import {styles} from './styles';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useObjectsList} from './hooks';
+import {idKeyExtractor} from 'core/utils/react';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 export const ObjectsList = () => {
@@ -28,7 +29,7 @@ export const ObjectsList = () => {
       <FlatList
         data={listData}
         contentContainerStyle={styles.contentContainer}
-        keyExtractor={item => item.id}
+        keyExtractor={idKeyExtractor}
         renderItem={({item}) => (
           <ObjectCard
             onPress={navigateToObjectDetailsDebounced}

@@ -3,21 +3,22 @@ import React, {memo, useCallback} from 'react';
 import {HighlightedText} from 'atoms';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
-import {ICONS_MATCHER} from 'core/constants';
 import {ListItem} from '../ListItem';
 import {TextProps} from 'react-native';
 import {trim} from 'lodash';
+import {IconsNames} from 'atoms/Icon';
 
 interface IProps {
   objectName: string;
   categoryName: string;
-  categoryIcon: string;
+  categoryIcon: IconsNames;
   description?: string;
   address?: string;
   objectId: string;
   onPress: (objectId: string) => void;
   testID: string;
   withRemoveButton?: boolean;
+  withIconBackground?: boolean;
   onRemovePress?: (objectId: string) => void;
 }
 
@@ -32,6 +33,7 @@ export const SearchListItem = memo(
     testID,
     onPress,
     withRemoveButton = false,
+    withIconBackground = true,
     onRemovePress,
   }: IProps) => {
     const styles = useThemeStyles(themeStyles);
@@ -82,9 +84,11 @@ export const SearchListItem = memo(
     };
     return (
       <ListItem
-        leadIcon={ICONS_MATCHER[categoryIcon]}
+        leadIcon={categoryIcon}
         leadIconStyle={styles.leadIconStyle}
-        leadIconContainerStyle={styles.iconContainer}
+        leadIconContainerStyle={
+          withIconBackground ? styles.iconContainer : undefined
+        }
         testID={testID}
         type="primary"
         onPress={onPressHandler}

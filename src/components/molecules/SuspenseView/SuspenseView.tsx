@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LoadingView} from 'atoms';
 import {ErrorView} from '../ErrorView';
 import {Props} from './types';
@@ -23,45 +23,49 @@ function useDelayLoading(loading: boolean = false, delay: number) {
   return delay ? showLoading : loading;
 }
 
-export const SuspenseView = memo<Props>(
-  ({
-    loading,
-    loadingDelay,
-    error,
-    retryCallback,
-    children,
-    cover = false,
-    buttonText,
-    testID,
-  }: Props) => {
-    const showLoading = useDelayLoading(loading, loadingDelay || 0);
-    let content: React.ReactElement | null = null;
-    if (error) {
-      content = (
-        <ErrorView
-          onButtonPress={retryCallback}
-          error={error}
-          buttonText={buttonText}
-          testID={composeTestID(testID, 'errorView')}
-        />
-      );
-    } else if (showLoading && !cover) {
-      content = <LoadingView />;
-    } else {
-      content = (
-        <>
-          {children}
-          {cover && showLoading && <LoadingView transparent={false} />}
-        </>
-      );
-    }
+export const SuspenseView = ({
+  loading,
+  loadingDelay,
+  error,
+  retryCallback,
+  children,
+  cover = false,
+  buttonText,
+  testID,
+  loaderBackdropStyle,
+}: Props) => {
+  const showLoading = useDelayLoading(loading, loadingDelay || 0);
 
-    return (
-      <View style={styles.container} testID={testID}>
-        {content}
-      </View>
+  let content: React.ReactElement | null = null;
+
+  if (error) {
+    content = (
+      <ErrorView
+        onButtonPress={retryCallback}
+        error={error}
+        buttonText={buttonText}
+        testID={composeTestID(testID, 'errorView')}
+      />
     );
-  },
-);
+  } else if (showLoading && !cover) {
+    content = <LoadingView containerStyle={loaderBackdropStyle} />;
+  } else {
+    content = (
+      <>
+        {children}
+        {cover && showLoading && (
+          <LoadingView
+            transparent={false}
+            containerStyle={loaderBackdropStyle}
+          />
+        )}
+      </>
+    );
+  }
 
-export default SuspenseView;
+  return (
+    <View style={styles.container} testID={testID}>
+      {content}
+    </View>
+  );
+};

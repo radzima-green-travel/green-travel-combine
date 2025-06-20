@@ -8,10 +8,14 @@ import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {IProps, ScreenOptions} from './types';
 import {themeStyles} from './styles';
-import {useBottomMenu, useThemeStyles} from 'core/hooks';
+import {useAppliedFilters, useBottomMenu, useThemeStyles} from 'core/hooks';
 import {Icon, CustomHeader, Button, BottomMenu} from 'atoms';
 import {useSearchActions, useSearchSelector} from 'core/hooks';
-import {SearchField, SearchOptionsBottomMenu} from 'molecules';
+import {
+  SearchField,
+  SearchFiltersBar,
+  SearchOptionsBottomMenu,
+} from 'molecules';
 import {Portal} from '@gorhom/portal';
 import {SearchOptions} from 'core/types';
 import {Keyboard, Text, View} from 'react-native';
@@ -137,12 +141,38 @@ const HeaderRight = ({navigation, route, testID}: IProps) => {
   );
 };
 
+const HeaderBottomContent = () => {
+  const {appliedFilters, removeAppliedFilter} = useAppliedFilters();
+
+  const styles = useThemeStyles(themeStyles);
+
+  return (
+    !!appliedFilters.length && (
+      <SearchFiltersBar
+        testID="searchFiltersBar"
+        onFilterPress={removeAppliedFilter}
+        filters={appliedFilters}
+        style={styles.filterList}
+        contentContainerStyle={styles.filterListContent}
+      />
+    )
+  );
+};
+
+const renderBottomContent = () => {
+  return <HeaderBottomContent />;
+};
+
 export const screenOptions: ScreenOptions = props => {
   return {
     headerTitle: () => <HeaderTitle />,
     headerRight: () => <HeaderRight testID="headerRight" {...props} />,
     header: headerProps => (
-      <CustomHeader withOverlay={false} {...headerProps} />
+      <CustomHeader
+        {...headerProps}
+        withOverlay
+        contentBelow={renderBottomContent}
+      />
     ),
   };
 };

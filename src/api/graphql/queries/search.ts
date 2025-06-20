@@ -21,6 +21,11 @@ export const searchObjectQueryParameters = `
               locale
             }
           }
+          googleRating
+          calculatedProperties {
+            averageRating
+            totalRatings
+          }
 `;
 
 export const getSearchObjectsQuery = (locale?: string) =>

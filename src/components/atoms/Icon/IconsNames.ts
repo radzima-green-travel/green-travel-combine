@@ -24,6 +24,7 @@ export type IconsNames =
   | 'clearCache'
   | 'clock'
   | 'clockHistory'
+  | 'clockHistory2'
   | 'close'
   | 'compass'
   | 'contentCopy'
@@ -77,4 +78,6 @@ export type IconsNames =
   | 'tune'
   | 'tuneSimplified'
   | 'warMonuments'
-  | 'wave';
+  | 'wave'
+  | 'gridView'
+  | 'headlineView';

@@ -12,6 +12,7 @@ import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {ZoomableView} from '../ZoomableViewGlobal';
+import {indexKeyExtractor} from 'core/utils/react';
 interface IProps {
   images?: string[];
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
@@ -84,7 +85,7 @@ export const ImageSlider = ({
         scrollEventThrottle={16}
         // bounces={false}
         style={styles.container}
-        keyExtractor={(_item, index) => String(_item || index)}
+        keyExtractor={indexKeyExtractor}
         onScroll={onScroll}
         data={images}
         initialNumToRender={1}

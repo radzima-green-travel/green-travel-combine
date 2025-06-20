@@ -7,7 +7,7 @@ export const themeStyles = createThemeStyles({
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
     },
-    borderRadius: undefined,
+    borderRadius: 16,
   },
   subtitleContainer: {
     flexDirection: 'row',

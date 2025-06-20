@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {FlatList, ListRenderItem} from 'react-native';
+import {ScrollView, StyleProp, ViewStyle} from 'react-native';
 import {Chip} from 'atoms';
 import {SearchFiltersItem} from 'core/types';
 import {composeTestID} from 'core/helpers';
@@ -10,16 +10,25 @@ interface SearchFiltersProps {
   filters: SearchFiltersItem[];
   testID: string;
   onFilterPress: (id: string) => void;
+  style?: StyleProp<ViewStyle>;
+  contentContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export const SearchFiltersBar = memo(
-  ({filters, testID, onFilterPress}: SearchFiltersProps) => {
+  ({
+    filters,
+    testID,
+    onFilterPress,
+    style,
+    contentContainerStyle,
+  }: SearchFiltersProps) => {
     const styles = useThemeStyles(themeStyles);
-    const renderItem: ListRenderItem<SearchFiltersItem> = ({item}) => {
+
+    const renderItem = (item: SearchFiltersItem) => {
       const {id, value, icon} = item;
+
       return (
         <Chip
-          style={styles.itemContainer}
           key={id}
           leftIcon={icon}
           testID={composeTestID(testID, 'item')}
@@ -31,13 +40,14 @@ export const SearchFiltersBar = memo(
     };
 
     return (
-      <FlatList
-        style={styles.listContainer}
-        keyExtractor={({id}) => id}
+      <ScrollView
+        testID={testID}
+        style={style}
+        contentContainerStyle={[styles.listContainer, contentContainerStyle]}
         horizontal
-        data={filters}
-        renderItem={renderItem}
-      />
+        showsHorizontalScrollIndicator={false}>
+        {filters.map(renderItem)}
+      </ScrollView>
     );
   },
 );

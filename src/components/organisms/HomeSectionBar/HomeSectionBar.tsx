@@ -7,6 +7,7 @@ import {CardItem, HomeSectionBarItem} from 'core/types';
 import {useThemeStyles} from 'core/hooks';
 import {useScrollToTop} from '@react-navigation/native';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import {idKeyExtractor} from 'core/utils/react';
 
 interface Props {
   item: HomeSectionBarItem;
@@ -151,7 +152,7 @@ export const HomeSectionBar = memo(
             snapToOffsets={snapToOffsets}
             snapToStart={false}
             decelerationRate="fast"
-            keyExtractor={({id}) => id}
+            keyExtractor={idKeyExtractor}
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
             data={items}
@@ -162,7 +163,7 @@ export const HomeSectionBar = memo(
         ) : (
           <FlatList
             ref={listRef}
-            keyExtractor={({id}) => id}
+            keyExtractor={idKeyExtractor}
             snapToOffsets={snapToOffsets}
             snapToStart={false}
             decelerationRate="fast"
