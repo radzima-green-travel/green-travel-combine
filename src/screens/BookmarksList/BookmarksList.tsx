@@ -6,6 +6,7 @@ import {styles} from './styles';
 import {isIOS, SCREEN_WIDTH} from 'services/PlatformService';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {useBookmarksList} from './hooks';
+import {idKeyExtractor} from 'core/utils/react';
 
 const cardWidth = SCREEN_WIDTH - PADDING_HORIZONTAL * 2;
 
@@ -29,7 +30,7 @@ export const BookmarksList = () => {
       <FlatList
         data={filteredListData}
         contentContainerStyle={styles.contentContainer}
-        keyExtractor={item => item.id}
+        keyExtractor={idKeyExtractor}
         renderItem={({item}) => (
           <ObjectCard
             removeFavoriteWithAnimation={isIOS}

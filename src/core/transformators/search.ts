@@ -25,6 +25,7 @@ import {
   translateAndProcessImagesForEntity,
   prepareObjectAddressSpots,
   getAddressStringFromSpots,
+  getUserRatingValue,
 } from './common';
 import i18n from 'i18next';
 
@@ -86,6 +87,9 @@ export function prepareSearchItems(
         highlight,
       );
 
+      const {averageRating, totalRatings} =
+        processedObject.calculatedProperties ?? {};
+
       return {
         ...omit(processedObject, ['addresses']),
         highlight: {
@@ -97,6 +101,7 @@ export function prepareSearchItems(
             locale,
           ),
         },
+        usersRating: getUserRatingValue(averageRating, totalRatings),
       };
     }
 

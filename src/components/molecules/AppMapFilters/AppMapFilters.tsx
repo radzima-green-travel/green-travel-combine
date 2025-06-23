@@ -7,6 +7,7 @@ import {IMapFilter} from 'core/types';
 import {useTranslation} from 'react-i18next';
 import {useScrollToTop} from '@react-navigation/native';
 import {composeTestID} from 'core/helpers';
+import {createKeyExtractor} from 'core/utils/react';
 
 interface IProps {
   filters: Array<IMapFilter>;
@@ -65,7 +66,7 @@ export const AppMapFilters = memo(
         <FlatList
           ref={listRef}
           horizontal={true}
-          keyExtractor={item => item.categoryId}
+          keyExtractor={createKeyExtractor('categoryId')}
           data={filters}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.contentContainer}

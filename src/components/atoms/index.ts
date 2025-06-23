@@ -39,3 +39,4 @@ export {Multiswitch} from './Multiswitch';
 export {SnackBar} from './SnackBar';
 export {HighlightedText} from './HighlightedText';
 export {CustomHeader} from './CustomHeader';
+export * from './ObjectListModeSwitch';

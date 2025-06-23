@@ -2,13 +2,17 @@ import {COLORS, FONTS_PRESETS} from 'assets';
 import {createThemeStyles} from 'core/helpers/styles';
 import {StyleSheet} from 'react-native';
 
+const itemGap = 12;
+
 export const themeStyles = createThemeStyles({
   listContainer: {
     flex: 1,
-    backgroundColor: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
-    },
+  },
+  listContentContainer: {
+    paddingHorizontal: 16,
+    gap: itemGap,
+    paddingBottom: 40,
+    flexGrow: 1,
   },
   emptyListContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -28,15 +32,26 @@ export const themeStyles = createThemeStyles({
     textAlign: 'center',
   },
   listHeader: {
-    backgroundColor: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
-    },
+    paddingHorizontal: 0,
+    marginBottom: -itemGap,
   },
   resultsCount: {
     color: {
       light: COLORS.light.text.tertiary,
       dark: COLORS.dark.text.tertiary,
     },
+  },
+  columnWrapper: {
+    gap: itemGap,
+  },
+  card: {
+    minHeight: 168,
+    flex: 0.5,
+  },
+  get cardLast() {
+    return {
+      ...this.card,
+      marginRight: itemGap / 2,
+    };
   },
 });
