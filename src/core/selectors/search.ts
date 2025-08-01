@@ -42,7 +42,7 @@ export const selectSearchObjectsTotal = createSelector(
 
 export const selectSearchInputValue = createSelector(
   selectSearchState,
-  search => search.inputValue,
+  search => search.inputValue.trim(),
 );
 
 export const selectSearchQuery = createSelector(
@@ -58,15 +58,10 @@ export const selectSearchOptions = createSelector(
 export const selectSearchObjectsData = createSelector(
   selectSearchObjectsRawData,
   selectSearchObjectsHighlightRawData,
-  selectSearchInputValue,
+  selectSearchQuery,
   selectAppLanguage,
   (searchObjects, highlight, query, locale) =>
     prepareSearchItems(searchObjects, highlight, query, locale),
-);
-
-export const selectSearchInputForSearch = createSelector(
-  selectSearchInputValue,
-  inputValue => inputValue.trim(),
 );
 
 export const selectSearchFiltersItems = createSelector(

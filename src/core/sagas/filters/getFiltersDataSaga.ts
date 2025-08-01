@@ -23,7 +23,7 @@ export function* getFiltersDataSaga({
       selectUserAuthorizedData,
     );
 
-    const {isOn, location} = filters.distance;
+    const {isOn, location} = filters.distance ?? {};
 
     if (isOn && !location) {
       const permissionGranted = yield call([

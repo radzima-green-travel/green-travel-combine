@@ -1,1 +1,1 @@
-export {Search} from './Search';
+export {SearchScreen as Search} from './SearchScreen';

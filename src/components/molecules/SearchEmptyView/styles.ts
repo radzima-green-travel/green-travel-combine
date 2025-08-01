@@ -5,10 +5,6 @@ export const themeStyles = createThemeStyles({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: {
-      light: COLORS.light.background.primary,
-      dark: COLORS.dark.background.primary,
-    },
   },
   text: {
     ...FONTS_PRESETS.footnoteRegular,
@@ -17,7 +13,7 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.secondary,
     },
     textAlign: 'center',
-    paddingTop: 27,
+    paddingTop: 68,
     paddingBottom: 30,
   },
   icon: {

@@ -158,7 +158,7 @@ export const AnalyticScreensNames: Partial<
   BookmarksList: 'BookmarksListScreen',
   ObjectsList: 'ObjectListScreen',
   Search: 'SearchAndFiltersScreen',
-  AppMap: 'AppMapScreen',
+  Explore: 'ExploreScreen',
 };
 
 export const AnalyticsAllowedEditFields: Record<
@@ -189,6 +189,8 @@ export const INITIAL_FILTERS: SearchFilters = {
     location: null,
   },
   excludeVisited: false,
+  markedAsNotOnGoogleMaps: false,
+  objectIds: [],
 };
 export const FILTERS_NAMES_ANAYLITICS_MAP = {
   categories: 'category',

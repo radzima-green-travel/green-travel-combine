@@ -1,7 +1,8 @@
-import {call, put, select, spawn, takeEvery} from 'redux-saga/effects';
+import {all, call, put, select, spawn, takeEvery} from 'redux-saga/effects';
 
 import {
   bootstrapRequest,
+  fetchInitialFilters,
   getAppConfigurationRequest,
   getHomePageDataRequest,
 } from 'core/actions';
@@ -24,12 +25,13 @@ export function* bootstrapSaga() {
       try {
         const isAuthorized = yield select(selectUserAuthorized);
 
-        yield put(getHomePageDataRequest());
-
-        yield call(initUserAuthSaga);
-        yield put(getAppConfigurationRequest());
-
-        yield call(initAppLocaleSaga);
+        yield all([
+          put(getHomePageDataRequest()),
+          call(initAppLocaleSaga),
+          call(initUserAuthSaga),
+          put(getAppConfigurationRequest()),
+          put(fetchInitialFilters()),
+        ]);
 
         if (isAuthorized) {
           yield spawn(getObjectAttributesSaga);

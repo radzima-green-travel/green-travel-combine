@@ -26,3 +26,8 @@ export const initActiveFilters = createAction<SearchFilters>(
 );
 
 export const clearFilters = createAction('CLEAR_FILTERS');
+
+export const fetchInitialFilters = createAsyncAction<
+  void,
+  {regionsList: RegionsListResponseDTO; categoriesList: CategoryFilterItemDTO[]}
+>('FETCH_INITIAL_FILTERS');

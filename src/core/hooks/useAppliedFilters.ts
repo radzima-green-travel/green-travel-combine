@@ -7,20 +7,28 @@ import {
   SearchScreenRouteProps,
   SearchScreenNavigationProps,
 } from '../../screens/Search/types';
-import {selectSearchFiltersItems} from '../selectors';
+import {selectSearchFiltersItems, selectUserAuthorized} from '../selectors';
 import {useDispatch} from 'react-redux';
 import {sendAnalyticsEvent} from '../actions';
+import {prepareNumberOfAppliedFilters} from '../transformators/filters';
 
 export const useAppliedFilters = () => {
   const {params} = useRoute<SearchScreenRouteProps>();
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
 
-  const {filtersToApply} = params || {};
+  const {appliedFilters: filtersToApply} = params || {};
 
   const appliedFilters = useSelector((state: IState) =>
     selectSearchFiltersItems(state, filtersToApply),
   );
+
+  const isAuthorized = useSelector(selectUserAuthorized);
+
+  const numberOfAppliedFilters = prepareNumberOfAppliedFilters({
+    filters: filtersToApply,
+    isAuthorized,
+  });
 
   const dispatch = useDispatch();
 
@@ -42,7 +50,7 @@ export const useAppliedFilters = () => {
     (filterName: string) => {
       if (filtersToApply) {
         navigation.setParams({
-          filtersToApply: {
+          appliedFilters: {
             ...filtersToApply,
             [filterName]: INITIAL_FILTERS[filterName],
           },
@@ -56,6 +64,7 @@ export const useAppliedFilters = () => {
 
   return {
     appliedFilters,
+    numberOfAppliedFilters,
     removeAppliedFilter,
   };
 };

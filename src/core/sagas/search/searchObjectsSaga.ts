@@ -26,18 +26,6 @@ export function* searchObjectsSaga({
       reducerId || '',
     );
 
-    if (!query.length && !filters) {
-      yield put(
-        successAction({
-          searchObjects: [],
-          nextToken: null,
-          total: 0,
-          highlight: null,
-        }),
-      );
-      return;
-    }
-
     const appLocale: ReturnType<typeof selectAppLanguage> =
       yield select(selectAppLanguage);
 

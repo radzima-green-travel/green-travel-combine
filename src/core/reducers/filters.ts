@@ -11,6 +11,7 @@ import {
   setActiveFilter,
   clearFilters,
   initActiveFilters,
+  fetchInitialFilters,
 } from 'core/actions';
 import {xor} from 'lodash';
 import {INITIAL_FILTERS} from 'core/constants';
@@ -44,9 +45,9 @@ function getNewFilterState(
 
   if (dispancePayload.name === 'distance') {
     return {
-      isOn: dispancePayload.isOn ?? activeFilters.distance.isOn,
-      value: dispancePayload.value || activeFilters.distance.value,
-      location: dispancePayload.location || activeFilters.distance.location,
+      isOn: dispancePayload.isOn ?? activeFilters.distance?.isOn,
+      value: dispancePayload.value || activeFilters.distance?.value,
+      location: dispancePayload.location || activeFilters.distance?.location,
     };
   } else if (typeof payload.value === 'string') {
     return xor(activeFilters[payload.name], [payload.value]);
@@ -86,6 +87,13 @@ export const filtersReducer = createReducer(initialState, builder => {
         };
       },
     )
+    .addCase(fetchInitialFilters.meta.successAction, (state, {payload}) => {
+      return {
+        ...state,
+        regionsList: payload.regionsList,
+        categoriesList: payload.categoriesList,
+      };
+    })
     .addCase(initActiveFilters, (state, {payload}) => {
       return {
         ...state,

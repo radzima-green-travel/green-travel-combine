@@ -1,1 +1,1 @@
-export {SearchEmptyView} from './SearchEmptyView';
+export {SearchPromptView as SearchEmptyView} from './SearchEmptyView';

@@ -33,7 +33,7 @@ export const useFilters = () => {
   const {show, ...snackBarProps} = useSnackbar();
   const navigation = useNavigation<FiltersNavigationProps>();
   const {params} = useRoute<FiltersRouteProps>();
-  const {initialFilters, initialQuery, searchOptions} = params || {};
+  const {initialFilters, initialQuery, searchOptions, onApply} = params || {};
   const isAuthorized = useSelector(selectUserAuthorized);
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
@@ -209,7 +209,7 @@ export const useFilters = () => {
 
   const navigateToSettlements = useCallback(() => {
     navigation.navigate('Settlements', {
-      initialSelectedSettlements: activeFilters.municipalities,
+      initialSelectedSettlements: activeFilters.municipalities ?? [],
       regionsToInclude: keys(pickBy(settlementsWithNumberOfItems, Boolean)),
       analytics: {
         regionsSelectedNames: getAppliedFiltersAnalyticsData().regions_selected,
@@ -272,14 +272,10 @@ export const useFilters = () => {
   );
 
   const applyFilters = useCallback(() => {
-    navigation.navigate('HomeNavigator', {
-      screen: 'Search',
-      params: {
-        filtersToApply: activeFilters,
-      },
-    });
+    onApply?.(activeFilters);
+    navigation.goBack();
     sendFilterApplyEvent();
-  }, [activeFilters, navigation, sendFilterApplyEvent]);
+  }, [activeFilters, onApply, navigation, sendFilterApplyEvent]);
 
   return {
     caregoriesData,

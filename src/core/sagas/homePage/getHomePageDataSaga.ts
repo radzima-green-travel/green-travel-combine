@@ -5,7 +5,6 @@ import {
 } from 'core/actions/home';
 import {graphQLAPI} from 'api/graphql';
 import {RequestError} from 'core/errors';
-import {getAppMapObjectsRequest} from 'core/actions';
 import {getCategoriesData} from '../fetchRequests';
 import {filter} from 'lodash';
 import {EffectType} from 'core/types/utils';
@@ -16,8 +15,6 @@ export function* getHomePageDataSaga({
   typeof getHomePageDataRequest | typeof refreshHomePageDataRequest
 >) {
   try {
-    yield put(getAppMapObjectsRequest());
-
     const [
       {
         categoriesData: {items},

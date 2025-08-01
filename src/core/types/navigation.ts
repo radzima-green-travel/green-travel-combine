@@ -5,7 +5,6 @@ import {AnalyticsNavigationScreenNames} from './analytics';
 import {FromScreenName} from './analytics/objectDetails';
 import {SearchFilters} from './filters';
 import {SearchOptions} from './search';
-import {ObjectListFilters} from './objectsList';
 
 type ObjectDetailsParams = {
   objectId: string;
@@ -17,14 +16,16 @@ type ObjectDetailsParams = {
   };
 };
 
+type ObjectListParams = {
+  title?: string;
+  appliedFilters?: SearchFilters;
+  showsTitle?: boolean;
+};
+
 export type HomeNavigatorParamsList = {
   Home: undefined;
-  Search?: {
-    filtersToApply?: SearchFilters;
-  };
-  ObjectsList: {
-    title: string;
-  } & ObjectListFilters;
+  Search?: ObjectListParams;
+  ObjectsList: ObjectListParams;
   CategoriesList: {
     categoryId: string;
     title: string;
@@ -42,11 +43,7 @@ export type BookmarksNavigatorParamsList = {
   Bookmarks: undefined;
   BookmarksList: BookmarksListParams;
   ObjectDetails: ObjectDetailsParams;
-  ObjectsList: {
-    categoryId: string;
-    title: string;
-    objectsIds?: string[];
-  };
+  ObjectsList: ObjectListParams;
 };
 
 export type ProfileNavigatorParamsList = {
@@ -56,21 +53,13 @@ export type ProfileNavigatorParamsList = {
   ProfileSettingsTheme: undefined;
   InAppWebView: {url: string; title: string};
   ObjectDetails: ObjectDetailsParams;
-  ObjectsList: {
-    categoryId: string;
-    title: string;
-    objectsIds?: string[];
-  };
+  ObjectsList: ObjectListParams;
 };
 
-export type AppMapNavigatorParamsList = {
-  AppMap: undefined;
+export type ExploreNavigatorParamsList = {
+  Explore: ObjectListParams;
   ObjectDetails: ObjectDetailsParams;
-  ObjectsList: {
-    categoryId: string;
-    title: string;
-    objectsIds?: string[];
-  };
+  ObjectsList: ObjectListParams;
 };
 
 export type MainNavigatorParamsList = {
@@ -89,6 +78,7 @@ export type MainNavigatorParamsList = {
     analytics: {
       fromScreenName: AnalyticsNavigationScreenNames;
     };
+    onApply?: (filters: SearchFilters) => void;
   };
   Settlements: {
     initialSelectedSettlements: string[];
@@ -116,7 +106,7 @@ export type MainNavigatorParamsList = {
 
 export type TabNavigatorParamsList = {
   HomeNavigator: NavigatorScreenParams<HomeNavigatorParamsList>;
-  AppMapNavigator: NavigatorScreenParams<AppMapNavigatorParamsList>;
+  ExploreNavigator: NavigatorScreenParams<ExploreNavigatorParamsList>;
   BookmarksNavigator: NavigatorScreenParams<BookmarksNavigatorParamsList>;
   ProfileNavigator: NavigatorScreenParams<ProfileNavigatorParamsList>;
 };
@@ -151,4 +141,4 @@ export type NavigationRoutes =
   | keyof HomeNavigatorParamsList
   | keyof BookmarksNavigatorParamsList
   | keyof ProfileNavigatorParamsList
-  | keyof AppMapNavigatorParamsList;
+  | keyof ExploreNavigatorParamsList;

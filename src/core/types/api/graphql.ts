@@ -43,8 +43,6 @@ export type CategoriesListQueryParams = Partial<
   Pick<QueryParams, 'limit' | 'filter' | 'nextToken' | 'sort'>
 >;
 
-export type AppMapObjectsQueryParams = Pick<QueryParams, 'limit' | 'from'>;
-
 export type BookmarksInitialObjectsParams = Pick<QueryParams, 'filter'>;
 
 interface DefaultI18n {
@@ -192,6 +190,7 @@ export type FiltersParams = Pick<
   | 'locale'
   | 'filter'
   | 'fieldsToSearch'
+  | 'sort'
 >;
 
 export interface SettlementsParams {
@@ -262,10 +261,6 @@ export type SettlementsResponseDTO = {
 export type FiltersCategoriesResponseDTO = {
   items: Array<CategoryFilterItemDTO>;
 };
-
-export type AppMapObjectsTotalCountResponseDTO = {total: number};
-
-export type AppMapObjectsResponseDTO = {items: Array<ObjectMapDTO>};
 
 export interface PaginatedList<T> {
   data: Array<T>;

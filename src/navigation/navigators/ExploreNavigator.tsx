@@ -1,32 +1,30 @@
 import React from 'react';
 
-import {
-  AppMapScreen,
-  ObjectDetailsScreen,
-  ObjectsListScreen,
-} from '../../screens';
+import {ObjectDetailsScreen, ObjectsListScreen} from '../../screens';
 
-import {useScreenOptions} from '../hooks';
-import {AppMapNavigatorParamsList} from 'core/types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {defaultTransition} from '../transition';
+import {ExploreNavigatorParamsList} from 'core/types';
 import {useTranslation} from 'react-i18next';
+import {useScreenOptions} from '../hooks';
+import {defaultTransition} from '../transition';
 
-const Stack = createNativeStackNavigator<AppMapNavigatorParamsList>();
+const Stack = createNativeStackNavigator<ExploreNavigatorParamsList>();
 
-export function AppMapNavigatior() {
+export function ExploreNavigatior() {
   const {t} = useTranslation('common');
 
   const screenOptions = useScreenOptions({
     title: t('tabs.map'),
     animation: defaultTransition,
   });
+
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen
+        name="Explore"
+        component={ObjectsListScreen}
         options={{headerShown: false}}
-        name="AppMap"
-        component={AppMapScreen}
+        initialParams={{title: t('tabs.explore'), showsTitle: true}}
       />
       <Stack.Screen
         getId={({params}) => params.objectId}

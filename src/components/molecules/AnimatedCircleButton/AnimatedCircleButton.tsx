@@ -10,16 +10,17 @@ interface IProps {
   icon: IconProps;
   testID: string;
   onPress?: () => void;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 export const AnimatedCircleButton = memo(
-  ({icon, testID, onPress, style}: IProps) => {
+  ({icon, testID, onPress, style, containerStyle}: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     return (
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.8}
-        style={styles.container}
+        style={[styles.container, containerStyle]}
         {...getPlatformsTestID(testID)}
         hitSlop={buttonHitSlop}>
         <Animated.View style={[styles.iconContainer, style]} />

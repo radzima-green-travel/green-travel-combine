@@ -78,6 +78,10 @@ export const transformActiveFiltersToFilterParam = ({
       municipalities: filters.municipalities?.length
         ? filters.municipalities
         : undefined,
+      ...(filters.markedAsNotOnGoogleMaps && {
+        markedAsNotOnGoogleMaps: filters.markedAsNotOnGoogleMaps,
+      }),
+      ...(filters.objectIds?.length && {ids: filters.objectIds}),
     },
   };
 };
@@ -85,11 +89,11 @@ export const transformActiveFiltersToFilterParam = ({
 export const checkIfFiltersAreUnset = (filters?: SearchFilters) => {
   return (
     !filters ||
-    (!filters.categories.length &&
-      !filters.googleRating.length &&
-      !filters.municipalities.length &&
-      !filters.regions.length &&
-      !filters.distance.isOn &&
+    (!filters.categories?.length &&
+      !filters.googleRating?.length &&
+      !filters.municipalities?.length &&
+      !filters.regions?.length &&
+      !filters.distance?.isOn &&
       !filters.excludeVisited)
   );
 };
@@ -106,19 +110,19 @@ export const prepareNumberOfAppliedFilters = ({
   }
 
   let numberOfAppliedFilters = 0;
-  if (filters.categories.length) {
+  if (filters.categories?.length) {
     numberOfAppliedFilters += 1;
   }
-  if (filters.googleRating.length) {
+  if (filters.googleRating?.length) {
     numberOfAppliedFilters += 1;
   }
-  if (filters.municipalities.length) {
+  if (filters.municipalities?.length) {
     numberOfAppliedFilters += 1;
   }
-  if (filters.regions.length) {
+  if (filters.regions?.length) {
     numberOfAppliedFilters += 1;
   }
-  if (filters.distance.isOn) {
+  if (filters.distance?.isOn) {
     numberOfAppliedFilters += 1;
   }
   if (filters.excludeVisited && isAuthorized) {

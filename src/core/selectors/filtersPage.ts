@@ -9,17 +9,40 @@ import {
 import {extractLocaleSpecificValues} from 'core/transformators/common';
 import {map} from 'lodash';
 import {selectUserLocation} from './user';
+import {INITIAL_FILTERS} from '../constants';
+import {SearchFilters} from '../types';
 
-export const selectFiltersData = (state: IState) => state.filters.filtersData;
-export const selectRegions = (state: IState) => state.filters.regionsList;
-export const selectActiveFilters = (state: IState) =>
-  state.filters.activeFilters;
-export const selectActiveFiltersLocation = (state: IState) =>
-  state.filters.activeFilters.distance.location;
-export const selectFiltersTotal = (state: IState) =>
-  state.filters.filtersData?.total;
-export const selectFiltersCategoriesList = (state: IState) =>
-  state.filters.categoriesList;
+export const selectFiltersSlice = (state: IState) => state.filters;
+
+export const selectFiltersData = createSelector(
+  selectFiltersSlice,
+  filters => filters.filtersData,
+);
+export const selectRegions = createSelector(
+  selectFiltersSlice,
+  filters => filters.regionsList,
+);
+export const selectActiveFilters = createSelector(
+  selectFiltersSlice,
+  filters =>
+    ({
+      ...INITIAL_FILTERS,
+      ...filters.activeFilters,
+      distance: {
+        ...INITIAL_FILTERS.distance,
+        ...filters.activeFilters.distance,
+      },
+    }) as Required<SearchFilters>,
+);
+
+export const selectFiltersTotal = createSelector(
+  selectFiltersSlice,
+  filters => filters.filtersData?.total,
+);
+export const selectFiltersCategoriesList = createSelector(
+  selectFiltersSlice,
+  filters => filters.categoriesList,
+);
 
 export const selectFiltersRegions = createSelector(
   selectRegions,

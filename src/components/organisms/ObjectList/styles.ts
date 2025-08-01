@@ -19,10 +19,6 @@ export const themeStyles = createThemeStyles({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  emptyListContent: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   emptyListText: {
     ...FONTS_PRESETS.footnoteRegular,
     color: {
@@ -32,7 +28,7 @@ export const themeStyles = createThemeStyles({
     textAlign: 'center',
   },
   listHeader: {
-    paddingHorizontal: 0,
+    marginHorizontal: -16,
     marginBottom: -itemGap,
   },
   resultsCount: {
@@ -41,17 +37,24 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.text.tertiary,
     },
   },
-  columnWrapper: {
-    gap: itemGap,
-  },
   card: {
     minHeight: 168,
     flex: 0.5,
   },
-  get cardLast() {
+  get cardOdd() {
     return {
       ...this.card,
-      marginRight: itemGap / 2,
+      marginRight: itemGap,
     };
+  },
+  scrollToTopButtonContainer: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 16,
+    right: 16,
+  },
+  scrollToTopButton: {
+    borderWidth: 0,
   },
 });

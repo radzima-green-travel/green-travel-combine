@@ -19,14 +19,14 @@ export function useNavigateToPrivacyPolicyAndTnC() {
   const navigateToPrivacyPolicy = useCallback(() => {
     navigation.navigate('InAppWebView', {
       url: `https://radzima.app/${currentLocale}/privacy-policy-text/`,
-      title: t('privacyPolicy'),
+      title: t('privacyPolicy')!,
     });
   }, [currentLocale, navigation, t]);
 
   const navigateToTermsAndConditions = useCallback(() => {
     navigation.navigate('InAppWebView', {
       url: `https://radzima.app/${currentLocale}/tearms-and-conditions-text/`,
-      title: t('termsAndConditions'),
+      title: t('termsAndConditions')!,
     });
   }, [currentLocale, navigation, t]);
 

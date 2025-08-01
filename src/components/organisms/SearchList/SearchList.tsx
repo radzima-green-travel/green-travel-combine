@@ -1,181 +1,49 @@
-import {ObjectListModeSwitch} from 'atoms';
-import {ICONS_MATCHER} from 'core/constants';
 import {composeTestID} from 'core/helpers';
-import {useListPagination, useThemeStyles, useTranslation} from 'core/hooks';
+import {useTranslation} from 'core/hooks';
 import {SearchObject} from 'core/types';
-import {idKeyExtractor} from 'core/utils/react';
-import {
-  ListItem,
-  ObjectCardNew,
-  SearchEmptyView,
-  SearchListItem,
-} from 'molecules';
-import React, {ComponentType, memo, useCallback} from 'react';
-import {
-  FlatList,
-  FlatListProps,
-  KeyboardAvoidingView,
-  ListRenderItem,
-  Text,
-  View,
-} from 'react-native';
-import {ObjectListViewMode} from '../../types';
-import {themeStyles} from './styles';
+import {ListItem, SearchEmptyView, SearchListItem} from 'molecules';
+import React, {memo, useCallback} from 'react';
+import {ObjectList, ObjectListProps} from '../ObjectList';
 
-interface IProps {
-  data: SearchObject[];
-  onItemPress: (objectId: string) => void;
-  onDeletePress: (objectId: string) => void;
+interface SearchListProps extends ObjectListProps {
+  onDeletePress: (object: SearchObject) => void;
   onDeleteAllPress: () => void;
   isHistoryVisible: boolean;
-  FlatListComponent?: ComponentType<FlatListProps<SearchObject>>;
-  listPaninationProps: ReturnType<typeof useListPagination>;
-  isSearchPreviewVisible: boolean;
-  testID: string;
-  totalResults: number;
+  isSearchPromptVisible: boolean;
 }
 
 export const SearchList = memo(
   ({
+    testID,
     data,
-    FlatListComponent = FlatList,
     isHistoryVisible,
+    onItemPress,
     onDeletePress,
     onDeleteAllPress,
-    onItemPress,
-    isSearchPreviewVisible,
-    listPaninationProps,
-    testID,
-    totalResults,
-  }: IProps) => {
+    isSearchPromptVisible,
+    ...listProps
+  }: SearchListProps) => {
     const {t} = useTranslation('search');
 
-    const styles = useThemeStyles(themeStyles);
-
-    const [viewMode, setViewMode] = React.useState<ObjectListViewMode>('list');
-
-    const prevTotalResults = React.useRef(totalResults);
-
-    // TODO: Move the view mode logic into hook after search bar refactoring
-    if (totalResults !== prevTotalResults.current) {
-      prevTotalResults.current = totalResults;
-      setViewMode('list');
-    }
-
-    const resultsFound = !!totalResults;
-
-    const renderSearchResultItem: ListRenderItem<SearchObject> = useCallback(
-      ({item, index}) => {
-        const {name, category, id, highlight} = item;
-
-        const isLastItem = index === totalResults - 1;
-
-        if (viewMode === 'card') {
-          return (
-            <ObjectCardNew
-              testID={composeTestID(testID, 'cardItem')}
-              item={item.id}
-              id={id}
-              name={name}
-              categoryName={category.name}
-              cover={item.cover}
-              blurhash={item.blurhash}
-              usersRating={item.usersRating}
-              googleRating={item.googleRating}
-              onPress={onItemPress}
-              onFavoriteChanged={undefined}
-              style={isLastItem ? styles.cardLast : styles.card}
-            />
-          );
-        }
-
-        return (
-          <SearchListItem
-            testID={composeTestID(testID, 'listItem')}
-            objectId={id}
-            onPress={onItemPress}
-            objectName={highlight?.name || name}
-            description={highlight?.description}
-            address={highlight?.address}
-            categoryName={category.name}
-            categoryIcon={ICONS_MATCHER[category.icon]}
-          />
-        );
-      },
-      [
-        totalResults,
-        viewMode,
-        onItemPress,
-        testID,
-        styles.cardLast,
-        styles.card,
-      ],
-    );
-
-    const renderHeader = useCallback(() => {
-      if (isHistoryVisible) {
-        return (
-          <ListItem
-            testID={composeTestID(testID, 'listHeader')}
-            type="primary"
-            title={t('recent')}
-            containerStyle={styles.listHeader}
-            label={t('clear')}
-            onRightLabelPress={onDeleteAllPress}
-          />
-        );
-      }
-
-      if (isSearchPreviewVisible) {
-        return null;
-      }
-
+    const renderHistoryHeader = useCallback(() => {
       return (
         <ListItem
           testID={composeTestID(testID, 'listHeader')}
           type="primary"
-          title={t('results')}
-          renderTitle={props => (
-            <Text>
-              <Text {...props} />
-              <Text> </Text>
-              <Text style={[props.style, styles.resultsCount]}>
-                {totalResults}
-              </Text>
-            </Text>
-          )}
-          containerStyle={styles.listHeader}
-          rightElement={
-            resultsFound ? (
-              <ObjectListModeSwitch
-                testID={composeTestID(testID, 'viewModeSwitch')}
-                selectedMode={viewMode}
-                onPress={setViewMode}
-              />
-            ) : undefined
-          }
+          title={t('recent')}
+          label={t('clear')}
+          onRightLabelPress={onDeleteAllPress}
         />
       );
-    }, [
-      isHistoryVisible,
-      isSearchPreviewVisible,
-      onDeleteAllPress,
-      resultsFound,
-      styles.listHeader,
-      styles.resultsCount,
-      t,
-      testID,
-      totalResults,
-      viewMode,
-    ]);
+    }, [onDeleteAllPress, t, testID]);
 
     const renderHistoryItem = useCallback(
-      ({item}: {item: SearchObject}) => {
-        const {name, category, id} = item;
+      ({item}: {item: {data: SearchObject}}) => {
+        const {name, category} = item.data;
 
         return (
           <SearchListItem
-            objectId={id}
+            item={item.data}
             onPress={onItemPress}
             objectName={name}
             categoryName={category.name}
@@ -190,52 +58,25 @@ export const SearchList = memo(
       [onDeletePress, onItemPress, testID],
     );
 
-    const renderEmptyView = useCallback(() => {
-      if (isSearchPreviewVisible) {
-        return <SearchEmptyView />;
-      }
+    const historyListProps = {
+      renderItem: renderHistoryItem,
+      ListHeaderComponent: renderHistoryHeader,
+    };
 
-      return (
-        <KeyboardAvoidingView
-          behavior="padding"
-          style={styles.emptyListContainer}>
-          <View style={styles.emptyListContent}>
-            <Text style={styles.emptyListText}>{t('notFound')}</Text>
-          </View>
-        </KeyboardAvoidingView>
-      );
-    }, [
-      isSearchPreviewVisible,
-      styles.emptyListContainer,
-      styles.emptyListContent,
-      styles.emptyListText,
-      t,
-    ]);
-
-    const keyboardBehaviourProps = {
-      keyboardDismissMode: 'on-drag',
-      keyboardShouldPersistTaps: 'handled',
-    } as const;
+    const searchPreviewListProps = {
+      data: [],
+      ListHeaderComponent: null,
+      ListEmptyComponent: SearchEmptyView,
+    };
 
     return (
-      <FlatListComponent
-        style={styles.listContainer}
-        contentContainerStyle={styles.listContentContainer}
-        {...((resultsFound || isHistoryVisible) && keyboardBehaviourProps)}
+      <ObjectList
+        testID={testID}
         data={data}
-        renderItem={
-          isHistoryVisible ? renderHistoryItem : renderSearchResultItem
-        }
-        windowSize={5}
-        ListHeaderComponent={renderHeader}
-        ListEmptyComponent={renderEmptyView}
-        keyExtractor={idKeyExtractor}
-        key={viewMode}
-        numColumns={viewMode === 'card' ? 2 : 1}
-        columnWrapperStyle={
-          viewMode === 'card' ? styles.columnWrapper : undefined
-        }
-        {...(!isHistoryVisible && listPaninationProps)}
+        {...(isHistoryVisible && historyListProps)}
+        {...(isSearchPromptVisible && searchPreviewListProps)}
+        onItemPress={onItemPress}
+        {...listProps}
       />
     );
   },

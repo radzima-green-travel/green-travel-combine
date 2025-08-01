@@ -1,12 +1,13 @@
-import {PADDING_HORIZONTAL} from 'core/constants';
-import {StyleSheet} from 'react-native';
+import {COLORS} from 'assets';
+import {HEADER_BOTTOM_RADIUS} from 'core/constants';
+import {createThemeStyles} from 'core/helpers/styles';
 
-export const styles = StyleSheet.create({
-  contentContainer: {
-    paddingTop: 32,
-    paddingHorizontal: PADDING_HORIZONTAL,
-  },
-  cardContainer: {
-    marginBottom: 32,
+export const themeStyles = createThemeStyles({
+  listContainer: {
+    paddingTop: HEADER_BOTTOM_RADIUS,
+    backgroundColor: {
+      light: COLORS.light.background.secondary,
+      dark: COLORS.dark.background.secondary,
+    },
   },
 });

@@ -6,7 +6,7 @@ import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {PADDING_HORIZONTAL} from 'core/constants';
 
-interface CustomHeaderProps extends NativeStackHeaderProps {
+interface CustomHeaderProps extends Partial<NativeStackHeaderProps> {
   contentAbove?: () => React.ReactNode;
   contentBelow?: () => React.ReactNode;
   style?: StyleProp<ViewStyle>;
@@ -26,7 +26,7 @@ export const CustomHeader = ({
   const styles = useThemeStyles(themeStyles);
 
   const headerLeft = () => {
-    const headerLeftElement = options.headerLeft?.({
+    const headerLeftElement = options?.headerLeft?.({
       canGoBack: Boolean(back),
       label: '',
       tintColor: '',
@@ -36,25 +36,23 @@ export const CustomHeader = ({
   };
 
   const headerRight = () => {
-    const headerRightElement = options.headerRight?.({
+    const headerRightElement = options?.headerRight?.({
       canGoBack: Boolean(back),
       tintColor: '',
     });
 
-    return headerRightElement ? (
-      <View style={styles.headerRightContainer}>{headerRightElement}</View>
-    ) : null;
+    return headerRightElement ? headerRightElement : null;
   };
 
   const headerTitle = () => {
     const title =
-      typeof options.headerTitle === 'function' ? (
+      typeof options?.headerTitle === 'function' ? (
         options.headerTitle?.({
           children: options.title || '',
           tintColor: '',
         })
       ) : (
-        <Text>{options.headerTitle}</Text>
+        <Text>{options?.headerTitle}</Text>
       );
 
     return title ? (
@@ -71,7 +69,7 @@ export const CustomHeader = ({
           paddingTop: top + PADDING_HORIZONTAL,
         },
         style,
-        options.headerStyle,
+        options?.headerStyle,
       ]}>
       {contentAbove && contentAbove()}
       <View style={styles.mainContentContainer}>
