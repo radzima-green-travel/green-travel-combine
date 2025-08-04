@@ -80,6 +80,7 @@ export function TabNavigator() {
           },
         }}
         options={{
+          lazy: false,
           tabBarTestID: 'tabBarItemMap',
           tabBarAccessibilityLabel: 'tabBarItemMap',
           tabBarLabel: t('tabs.explore'),

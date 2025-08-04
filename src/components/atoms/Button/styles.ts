@@ -38,8 +38,8 @@ export const styles = StyleSheet.create({
       shadowRadius: 10,
     },
     default: {
-      elevation: 4,
-      shadowColor: 'rgba(0, 0, 0, 0.15)',
+      elevation: 10,
+      shadowColor: 'rgba(0, 0, 0, 0.5)',
     },
   }),
 });

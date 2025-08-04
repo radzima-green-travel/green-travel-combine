@@ -1,7 +1,7 @@
 import {composeTestID} from 'core/helpers';
 import {useTranslation} from 'core/hooks';
 import {SearchObject} from 'core/types';
-import {ListItem, SearchEmptyView, SearchListItem} from 'molecules';
+import {ListItem, SearchPromptView, SearchListItem} from 'molecules';
 import React, {memo, useCallback} from 'react';
 import {ObjectList, ObjectListProps} from '../ObjectList';
 
@@ -66,7 +66,7 @@ export const SearchList = memo(
     const searchPreviewListProps = {
       data: [],
       ListHeaderComponent: null,
-      ListEmptyComponent: SearchEmptyView,
+      ListEmptyComponent: SearchPromptView,
     };
 
     return (

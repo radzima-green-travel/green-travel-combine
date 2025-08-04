@@ -196,11 +196,6 @@
       "municipalitiesPluralVariation": "{{amount}} settlements"
     }
   },
-  "map": {
-    "all": "All",
-    "getMore": "More info",
-    "routeLength": "{{km}} km, "
-  },
   "filters": {
     "title": "Filters",
     "allCategories": "All categories",

@@ -7,13 +7,13 @@ import {PADDING, themeStyles} from './styles';
 
 interface IProps {
   buttons: Array<ButtonProps>;
-  withShadow?: boolean;
+  elevated?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   bottomInset?: number;
 }
 
 export const ButtonsGroup = memo(
-  ({buttons, withShadow, containerStyle, bottomInset}: IProps) => {
+  ({buttons, elevated, containerStyle, bottomInset}: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     return (
@@ -33,8 +33,8 @@ export const ButtonsGroup = memo(
             <Button
               style={style}
               key={index}
+              elevated={elevated}
               {...buttonProps}
-              withShadow={withShadow}
             />
           );
         })}

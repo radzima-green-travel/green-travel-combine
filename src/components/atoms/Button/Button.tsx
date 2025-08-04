@@ -32,7 +32,7 @@ export type Props = {
   onButtonLabelLayout?: (event: LayoutChangeEvent) => void;
   iconContainerAnimatedStyle?: StyleProp<ViewStyle>;
   labelAnimatedStyle?: StyleProp<TextStyle>;
-  withShadow?: boolean;
+  elevated?: boolean;
 };
 
 export const Button = memo(
@@ -52,7 +52,7 @@ export const Button = memo(
     onButtonLabelLayout,
     iconContainerAnimatedStyle,
     labelAnimatedStyle,
-    withShadow,
+    elevated,
   }: Props) => {
     const buttonThemeStyles = useThemeStyles(BUTTON_THEMES[theme]);
 
@@ -105,7 +105,7 @@ export const Button = memo(
           styles.container,
           buttonThemeStyles.container,
           disabled && buttonThemeStyles.disabled,
-          withShadow && styles.shadow,
+          elevated && styles.shadow,
           style,
           isIconOnlyButton && styles.iconButton,
         ]}

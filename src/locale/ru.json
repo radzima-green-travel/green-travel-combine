@@ -196,11 +196,6 @@
       "municipalitiesPluralVariation": "{{amount}} населенных пунктов"
     }
   },
-  "map": {
-    "all": "Все",
-    "getMore": "Узнать больше",
-    "routeLength": "{{km}} км, "
-  },
   "filters": {
     "title": "Фильтры",
     "allCategories": "Все категории",

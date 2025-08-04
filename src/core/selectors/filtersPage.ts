@@ -22,15 +22,20 @@ export const selectRegions = createSelector(
   selectFiltersSlice,
   filters => filters.regionsList,
 );
-export const selectActiveFilters = createSelector(
+
+const selectActiveFiltersBase = createSelector(
   selectFiltersSlice,
+  filters => filters.activeFilters,
+);
+export const selectActiveFilters = createSelector(
+  selectActiveFiltersBase,
   filters =>
     ({
       ...INITIAL_FILTERS,
-      ...filters.activeFilters,
+      ...filters,
       distance: {
         ...INITIAL_FILTERS.distance,
-        ...filters.activeFilters.distance,
+        ...filters.distance,
       },
     }) as Required<SearchFilters>,
 );

@@ -9,18 +9,19 @@ import {
 } from 'core/selectors';
 import {useCallback, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useRequestLoading, useStaticCallback} from 'react-redux-help-kit';
+import {useRequestLoading} from 'react-redux-help-kit';
 import {ObjectListViewMode} from '../../components/types';
 import {
   SearchScreenNavigationProps,
   SearchScreenRouteProps,
 } from '../../screens/Search/types';
 import {getAnalyticsNavigationScreenName} from '../helpers';
+import {SearchObject} from '../types';
 import {useListPagination} from './useListPagination';
 import {useOnRequestError} from './useOnRequestError';
 import {useSearchActions} from './useSearchActions';
 import {useSearchSelector} from './useSearchSelector';
-import {SearchObject} from '../types';
+import {Keyboard} from 'react-native';
 
 export function useSearchList() {
   const dispatch = useDispatch();
@@ -87,22 +88,20 @@ export function useSearchList() {
     setViewMode('list');
   }
 
-  // static callback is not generic and provides only loose type
-  const objectPressHandler = (object: SearchObject) => {
-    navigation.navigate('ObjectDetails', {
-      objectId: object.id,
-      objectCoverImageUrl: object.cover,
-      objcetCoverBlurhash: object.blurhash,
-      analytics: {
-        fromScreenName: getAnalyticsNavigationScreenName(),
-      },
-    });
-  };
-
-  const openObjectDetails = useStaticCallback(objectPressHandler, [
-    navigation,
-    searchResults,
-  ]) as typeof objectPressHandler;
+  const openObjectDetails = useCallback(
+    (object: SearchObject) => {
+      Keyboard.dismiss();
+      navigation.navigate('ObjectDetails', {
+        objectId: object.id,
+        objectCoverImageUrl: object.cover,
+        objcetCoverBlurhash: object.blurhash,
+        analytics: {
+          fromScreenName: getAnalyticsNavigationScreenName(),
+        },
+      });
+    },
+    [navigation],
+  );
 
   const dataLoaded = !!searchResults.length;
 
@@ -122,7 +121,6 @@ export function useSearchList() {
       retryCallback: searchObjects,
     },
     totalResults: searchResultsTotal,
-    isSearchPromptVisible: !searchQuery.length && !appliedFilters,
     initSearch,
     pageTitle: showsTitle ? pageTitle : undefined,
     viewMode,

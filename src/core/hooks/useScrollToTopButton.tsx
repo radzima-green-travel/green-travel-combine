@@ -12,8 +12,9 @@ import Animated, {
   useAnimatedProps,
   useAnimatedReaction,
   useAnimatedRef,
+  useAnimatedScrollHandler,
   useAnimatedStyle,
-  useScrollViewOffset,
+  useDerivedValue,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
@@ -23,28 +24,42 @@ export const useScrollToTopButton = () => {
 
   const animatedListRef = useAnimatedRef<Animated.FlatList<any>>();
   const listHeight = useSharedValue(0);
-  const scrollOffset = useScrollViewOffset(animatedListRef as any);
+  const listContentHeight = useSharedValue(0);
+  const scrollOffset = useSharedValue(0);
+
+  const listScrollHandler = useAnimatedScrollHandler(event => {
+    scrollOffset.value = event.contentOffset.y;
+  });
+
+  // Doesn't let the button appear on iOS overscroll bounce
+  const safeScrollOffset = useDerivedValue(() =>
+    Math.min(scrollOffset.value, listContentHeight.value - listHeight.value),
+  );
 
   useAnimatedReaction(
-    () => scrollOffset.value > listHeight.value * 0.5,
+    () => safeScrollOffset.value > listHeight.value * 0.5,
     isBeyondScrollThreshold => {
       buttonAnimationValue.value = withSpring(isBeyondScrollThreshold ? 1 : 0, {
-        stiffness: 150,
+        stiffness: 80,
         overshootClamping: false,
-        velocity: 10,
+        velocity: 1.8,
       });
     },
   );
 
   const buttonContainerStyle = useAnimatedStyle(() => ({
     ...styles.container,
-    opacity: buttonAnimationValue.value,
+    opacity: interpolate(buttonAnimationValue.value, [0, 0.05, 1], [0, 1, 1]),
     transform: [
       {
-        scale: interpolate(buttonAnimationValue.value, [0, 1], [0.85, 1]),
+        scale: interpolate(
+          buttonAnimationValue.value,
+          [0, 0.04, 0.05, 1],
+          [0, 0, 0.25, 1],
+        ),
       },
       {
-        translateY: interpolate(buttonAnimationValue.value, [0, 1], [10, 0]),
+        translateY: interpolate(buttonAnimationValue.value, [0, 1], [200, 0]),
       },
     ],
   }));
@@ -67,7 +82,7 @@ export const useScrollToTopButton = () => {
               <Icon name="arrowUp" size={24} style={textStyle} />
             )}
             isIconOnlyButton
-            withShadow
+            elevated
             theme="secondary"
             style={StyleSheet.compose(styles.button, buttonStyle)}
             onPress={() => {
@@ -82,17 +97,26 @@ export const useScrollToTopButton = () => {
     [animatedListRef, buttonContainerProps, buttonContainerStyle],
   );
 
-  const onListLayout = useCallback(
+  const listLayoutHandler = useCallback(
     (event: LayoutChangeEvent) => {
       listHeight.value = event.nativeEvent.layout.height;
     },
     [listHeight],
   );
 
+  const listContentSizeChangeHandler = useCallback(
+    (_, height: number) => {
+      listContentHeight.value = height;
+    },
+    [listContentHeight],
+  );
+
   return {
     ScrollToTopButton,
     listRef: animatedListRef,
-    onListLayout,
+    listScrollHandler,
+    listLayoutHandler,
+    listContentSizeChangeHandler,
   };
 };
 

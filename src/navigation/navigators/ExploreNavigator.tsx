@@ -14,7 +14,7 @@ export function ExploreNavigatior() {
   const {t} = useTranslation('common');
 
   const screenOptions = useScreenOptions({
-    title: t('tabs.map'),
+    title: t('tabs.explore'),
     animation: defaultTransition,
   });
 
@@ -32,8 +32,6 @@ export function ExploreNavigatior() {
         component={ObjectDetailsScreen}
         options={{headerShown: false}}
       />
-
-      <Stack.Screen name="ObjectsList" component={ObjectsListScreen} />
     </Stack.Navigator>
   );
 }

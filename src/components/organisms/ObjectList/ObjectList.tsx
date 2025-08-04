@@ -175,7 +175,9 @@ export const ObjectList = ({
   const {
     ScrollToTopButton,
     listRef: scrollToTopListRef,
-    onListLayout,
+    listScrollHandler,
+    listLayoutHandler,
+    listContentSizeChangeHandler,
   } = useScrollToTopButton();
 
   return (
@@ -187,13 +189,16 @@ export const ObjectList = ({
         data={data}
         renderItem={renderItem}
         windowSize={5}
+        scrollEventThrottle={16}
         ListHeaderComponent={renderHeader}
         ListHeaderComponentStyle={styles.listHeader}
         ListEmptyComponent={renderEmptyView}
         keyExtractor={idKeyExtractor}
         numColumns={viewMode === 'card' ? 2 : 1}
         key={viewMode}
-        onLayout={onListLayout}
+        onScroll={listScrollHandler}
+        onLayout={listLayoutHandler}
+        onContentSizeChange={listContentSizeChangeHandler}
         {...(handlesKeyboard && data.length && keyboardBehaviourProps)}
         {...listProps}
       />

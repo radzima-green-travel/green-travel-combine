@@ -18,7 +18,7 @@ export {GeneralListItem} from './GeneralListItem';
 export {AnimatedCircleButton} from './AnimatedCircleButton';
 export {UpdateBottomMenu} from './UpdateBottomMenu';
 export {UpdateView} from './UpdateView';
-export {SearchEmptyView} from './SearchEmptyView';
+export {SearchPromptView} from './SearchPromptView';
 export {ObjectDetailsBottomButtons} from './ObjectDetailsBottomButtons';
 export {ConfirmMenu} from './ConfirmMenu';
 export {Ratings} from './Ratings';

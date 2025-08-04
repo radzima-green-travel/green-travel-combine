@@ -22,7 +22,6 @@ export const SearchScreen = () => {
     searchSuspenseProps,
     listPaninationProps,
     totalResults,
-    isSearchPromptVisible,
     initSearch,
     openObjectDetails,
     viewMode,
@@ -137,7 +136,9 @@ export const SearchScreen = () => {
               onItemPress={itemPressHandler}
               onDeletePress={historyItemRemoveHandler}
               onDeleteAllPress={clearSearchHistoryHandler}
-              isSearchPromptVisible={!isHistoryVisible && isSearchPromptVisible}
+              isSearchPromptVisible={
+                !isHistoryVisible && isSearchEmpty && isFiltersEmpty
+              }
               totalResults={totalResults}
               {...(!isHistoryVisible && listPaninationProps)}
             />

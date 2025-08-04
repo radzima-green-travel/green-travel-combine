@@ -33,7 +33,7 @@ import {COLORS} from 'assets';
 export interface FormInputProps {
   iconLeft?: IconProps;
   iconRight?: Omit<IconProps, 'testID'>;
-  value?: string;
+  value: string;
   onChange: (value: string) => void;
   secureTextEntry?: boolean;
   onRightIconPress?: () => void;
@@ -93,7 +93,7 @@ export const FormInput = forwardRef<TextInput, FormInputProps>(
   ) => {
     const styles = useThemeStyles(themeStyles);
     const colorTheme = useColorScheme();
-    const isInputEmty = !value?.length;
+    const isInputEmty = !value.length;
     const isFocused = useSharedValue(false);
 
     const [labelWidth, setLabelWidth] = useState(0);

@@ -83,7 +83,7 @@ export const ObjectDetailsBottomButtons = memo(
       <ButtonsGroup
         containerStyle={styles.container}
         buttons={buttons}
-        withShadow
+        elevated
       />
     );
   },
