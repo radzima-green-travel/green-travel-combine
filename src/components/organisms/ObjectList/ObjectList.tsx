@@ -1,3 +1,8 @@
+import {ICONS_MATCHER} from 'core/constants';
+import {composeTestID} from 'core/helpers';
+import {useScrollToTopButton, useThemeStyles, useTranslation} from 'core/hooks';
+import {SearchObject} from 'core/types';
+import {idKeyExtractor} from 'core/utils/react';
 import React, {ComponentType, useCallback} from 'react';
 import {
   FlatListProps,
@@ -6,16 +11,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import {SearchObject} from '../../../core/types';
-import {ObjectListViewMode} from '../../types';
-import {useThemeStyles, useTranslation, useScrollToTopButton} from 'core/hooks';
-import {themeStyles} from './styles';
-import {ListItem, ObjectCardNew, SearchListItem} from '../../molecules';
-import {composeTestID} from '../../../core/helpers';
-import {ICONS_MATCHER} from '../../../core/constants';
-import {idKeyExtractor} from '../../../core/utils/react';
-import {ObjectListModeSwitch} from '../../atoms';
 import Animated from 'react-native-reanimated';
+import {ObjectListModeSwitch} from '../../atoms';
+import {ListItem, ObjectCardNew, SearchListItem} from '../../molecules';
+import {ObjectListViewMode} from '../../types';
+import {themeStyles} from './styles';
 
 export interface ObjectListProps
   extends Omit<FlatListProps<SearchObject>, 'data' | 'renderItem'> {

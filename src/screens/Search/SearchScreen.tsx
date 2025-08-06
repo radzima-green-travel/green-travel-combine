@@ -105,8 +105,8 @@ export const SearchScreen = () => {
     <>
       <SearchHeader
         testID="header"
-        searchQuery={searchInputValue}
-        onSearchQueryChange={setSearchInputValue}
+        searchInputValue={searchInputValue}
+        onSearchInputValueChange={setSearchInputValue}
         onResetSearchPress={clearSearchInputValue}
         onFilterButtonPress={onFilterButtonPress}
         appliedFilters={appliedFilters}

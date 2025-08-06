@@ -32,6 +32,11 @@ export function ExploreNavigatior() {
         component={ObjectDetailsScreen}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="ObjectsList"
+        component={ObjectsListScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 }

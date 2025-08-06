@@ -70,8 +70,8 @@ export const ObjectListScreen = () => {
       <SearchHeader
         testID="header"
         title={pageTitle}
-        searchQuery={searchInputValue}
-        onSearchQueryChange={setSearchInputValue}
+        searchInputValue={searchInputValue}
+        onSearchInputValueChange={setSearchInputValue}
         onResetSearchPress={clearSearchInputValue}
         onFilterButtonPress={onFilterButtonPress}
         appliedFilters={appliedFilters}

@@ -42,7 +42,7 @@ export const selectSearchObjectsTotal = createSelector(
 
 export const selectSearchInputValue = createSelector(
   selectSearchState,
-  search => search.inputValue.trim(),
+  search => search.inputValue,
 );
 
 export const selectSearchQuery = createSelector(

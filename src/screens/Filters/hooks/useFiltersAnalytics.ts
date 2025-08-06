@@ -56,14 +56,14 @@ export function useFiltersAnalytics() {
       categories_selected: compact(getActiveCategories()),
       regions_selected: compact(getActiveRegions()),
       settlements_selected: compact(getActiveSettlements()),
-      distance: activeFilters.distance?.isOn ? activeFilters.distance.value : 0,
+      distance: activeFilters.distance.isOn ? activeFilters.distance.value : 0,
       rating: activeFilters.googleRating,
       hide_visit: activeFilters.excludeVisited,
       filtered_objects_count: total || 0,
     };
   }, [
-    activeFilters.distance?.isOn,
-    activeFilters.distance?.value,
+    activeFilters.distance.isOn,
+    activeFilters.distance.value,
     activeFilters.excludeVisited,
     activeFilters.googleRating,
     getActiveCategories,
@@ -85,7 +85,7 @@ export function useFiltersAnalytics() {
 
   const sendFiltersCategorySelectEvent = useCallback(
     (category: CategoryFilterItem) => {
-      if (!activeFilters.categories?.includes(category.id)) {
+      if (!activeFilters.categories.includes(category.id)) {
         dispatch(
           sendAnalyticsEvent({
             name: 'Filters_category_select',
@@ -99,7 +99,7 @@ export function useFiltersAnalytics() {
 
   const sendFiltersRegionSelectEvent = useCallback(
     (region: SpotItem) => {
-      if (!activeFilters.regions?.includes(region.id)) {
+      if (!activeFilters.regions.includes(region.id)) {
         dispatch(
           sendAnalyticsEvent({
             name: 'Filters_region_select',

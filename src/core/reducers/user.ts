@@ -63,6 +63,8 @@ export const userReducer = createReducer(initialState, builder => {
     },
   );
   builder.addCase(
+    // Fixes a bug where some history items are not available anymore
+    // and they stay in the user's history forever, affecting the UI
     getSearchObjectsHistoryRequest.meta.successAction,
     (state, {payload}) => {
       state.historyIds = filter(state.historyIds, item => {

@@ -1,4 +1,7 @@
+import {Portal} from '@gorhom/portal';
+import {useNavigation} from '@react-navigation/native';
 import {BottomMenu, Button, CustomHeader, Icon} from 'atoms';
+import {composeTestID} from 'core/helpers';
 import {
   useBottomMenu,
   useColorScheme,
@@ -13,20 +16,17 @@ import {
   SearchFiltersBar,
   SearchOptionsBottomMenu,
 } from 'molecules';
-import React, {useCallback} from 'react';
+import React, {memo, useCallback} from 'react';
 import {Keyboard, StyleProp, Text, View, ViewStyle} from 'react-native';
 import {themeStyles} from './styles';
-import {Portal} from '@gorhom/portal';
-import {composeTestID} from '../../../core/helpers';
-import {useNavigation} from '@react-navigation/native';
 
 interface SearchHeaderProps {
   testID: string;
 
   title?: string;
-  searchQuery: string;
+  searchInputValue: string;
   autoFocus?: boolean;
-  onSearchQueryChange: (value: string) => void;
+  onSearchInputValueChange: (value: string) => void;
 
   onResetSearchPress: () => void;
   onOptionsMenuButtonPress?: () => void;
@@ -36,9 +36,6 @@ interface SearchHeaderProps {
   appliedFilters?: SearchFiltersItem[];
   onRemoveFilterPress: (filterId: string) => void;
 
-  onBackPress?: () => void;
-  canGoBack?: boolean;
-
   searchOptions: SearchOptions;
   onOptionsChange?: (newOptions: SearchOptions) => void;
   onOptionsMenuClose?: () => void;
@@ -46,139 +43,136 @@ interface SearchHeaderProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const SearchHeader = ({
-  testID,
-  title,
-  searchQuery,
-  onSearchQueryChange,
-  onResetSearchPress,
-  autoFocus = true,
+export const SearchHeader = memo(
+  ({
+    testID,
+    title,
+    searchInputValue,
+    onSearchInputValueChange,
+    onResetSearchPress,
+    autoFocus = true,
 
-  onFilterButtonPress,
-  numberOfAppliedFilters,
-  appliedFilters,
-  onRemoveFilterPress,
+    onFilterButtonPress,
+    numberOfAppliedFilters,
+    appliedFilters,
+    onRemoveFilterPress,
 
-  onBackPress,
-  canGoBack,
+    onOptionsMenuButtonPress,
+    searchOptions,
+    onOptionsChange = noop,
+    onOptionsMenuClose,
 
-  onOptionsMenuButtonPress,
-  searchOptions,
-  onOptionsChange = noop,
-  onOptionsMenuClose,
+    style,
+  }: SearchHeaderProps) => {
+    const styles = useThemeStyles(themeStyles);
 
-  style,
-}: SearchHeaderProps) => {
-  const styles = useThemeStyles(themeStyles);
+    const navigation = useNavigation();
 
-  const navigation = useNavigation();
+    const scheme = useColorScheme();
 
-  const scheme = useColorScheme();
+    useStatusBar(scheme);
 
-  useStatusBar(scheme);
+    const {openMenu, ...bottomMenuProps} = useBottomMenu();
 
-  const {openMenu, ...bottomMenuProps} = useBottomMenu();
+    const onSearchActionButtonPress = useCallback(
+      (actionType: 'reset' | 'filter') => {
+        if (actionType === 'reset') {
+          onResetSearchPress?.();
+        }
+        if (actionType === 'filter') {
+          Keyboard.dismiss();
+          openMenu();
+          onOptionsMenuButtonPress?.();
+        }
+      },
+      [onResetSearchPress, openMenu, onOptionsMenuButtonPress],
+    );
 
-  const onSearchActionButtonPress = useCallback(
-    (actionType: 'reset' | 'filter') => {
-      if (actionType === 'reset') {
-        onResetSearchPress?.();
-      }
-      if (actionType === 'filter') {
-        Keyboard.dismiss();
-        openMenu();
-        onOptionsMenuButtonPress?.();
-      }
-    },
-    [onResetSearchPress, openMenu, onOptionsMenuButtonPress],
-  );
-
-  const renderSearchInput = () => (
-    <SearchField
-      testID={composeTestID(testID, 'searchInput')}
-      containerStyle={styles.headerTitleContainer}
-      value={searchQuery}
-      autoFocus={autoFocus}
-      onChange={onSearchQueryChange}
-      filterActionTypeEnabled
-      onRightButtonPress={onSearchActionButtonPress}
-    />
-  );
-
-  const renderHeaderRight = () => (
-    <View>
-      <Button
-        testID={composeTestID(testID, 'filterButton')}
-        isIconOnlyButton
-        renderIcon={textStyle => (
-          <Icon name="tune" size={24} style={textStyle} />
-        )}
-        onPress={onFilterButtonPress}
-        theme="quarterlyGrey"
+    const renderSearchInput = () => (
+      <SearchField
+        testID={composeTestID(testID, 'searchInput')}
+        value={searchInputValue}
+        autoFocus={autoFocus}
+        onChange={onSearchInputValueChange}
+        filterActionTypeEnabled
+        onRightButtonPress={onSearchActionButtonPress}
       />
-      {numberOfAppliedFilters ? (
-        <View style={styles.filtersBadge}>
-          <Text style={styles.filterBadgeText}>{numberOfAppliedFilters}</Text>
-        </View>
-      ) : null}
-    </View>
-  );
+    );
 
-  const renderBottomContent = () => (
-    <>
-      {!!appliedFilters?.length && (
-        <SearchFiltersBar
-          testID={composeTestID(testID, 'filtersBar')}
-          onFilterPress={onRemoveFilterPress}
-          filters={appliedFilters}
-          style={styles.filterList}
-          contentContainerStyle={styles.filterListContent}
+    const renderFilterButton = () => (
+      <View>
+        <Button
+          testID={composeTestID(testID, 'filterButton')}
+          isIconOnlyButton
+          renderIcon={textStyle => (
+            <Icon name="tune" size={24} style={textStyle} />
+          )}
+          onPress={onFilterButtonPress}
+          theme="quarterlyGrey"
         />
-      )}
-    </>
-  );
+        {numberOfAppliedFilters ? (
+          <View style={styles.filtersBadge}>
+            <Text style={styles.filterBadgeText}>{numberOfAppliedFilters}</Text>
+          </View>
+        ) : null}
+      </View>
+    );
 
-  const headerLeft = () => (
-    <HeaderBackButton
-      testID="backButton"
-      onPress={onBackPress ?? navigation.goBack}
-      containerStyle={styles.backButton}
-    />
-  );
-
-  const renderTitle = () => title && <Text style={styles.title}>{title}</Text>;
-
-  const backButtonVisible = [
-    canGoBack === true,
-    navigation.getState()?.index! > 0,
-  ].some(Boolean);
-
-  return (
-    <>
-      <CustomHeader
-        style={style}
-        options={{
-          headerLeft: backButtonVisible ? headerLeft : undefined,
-          headerTitle: renderSearchInput,
-          headerRight: renderHeaderRight,
-        }}
-        withOverlay
-        contentAbove={renderTitle}
-        contentBelow={renderBottomContent}
-      />
-      <Portal>
-        <BottomMenu
-          onHideEnd={onOptionsMenuClose}
-          testID={composeTestID(testID, 'optionsMenu')}
-          withBackdrop
-          {...bottomMenuProps}>
-          <SearchOptionsBottomMenu
-            value={searchOptions}
-            onChange={onOptionsChange}
-            bottomInset={0}
+    const renderFilterBar = () => (
+      <>
+        {!!appliedFilters?.length && (
+          <SearchFiltersBar
+            testID={composeTestID(testID, 'filtersBar')}
+            onFilterPress={onRemoveFilterPress}
+            filters={appliedFilters}
+            style={styles.filterList}
+            contentContainerStyle={styles.filterListContent}
           />
-        </BottomMenu>
-      </Portal>
-    </>
-  );
-};
+        )}
+      </>
+    );
+
+    const renderBackButton = () => (
+      <HeaderBackButton
+        testID="backButton"
+        onPress={navigation.goBack}
+        containerStyle={styles.backButton}
+      />
+    );
+
+    const renderTitle = () =>
+      title && <Text style={styles.title}>{title}</Text>;
+
+    // Traditional navigation.canGoBack() doesn't work well with navigating between tabs (Home to Explore e.g.)
+    const canGoBack = navigation.getState()?.index! > 0;
+
+    return (
+      <>
+        <CustomHeader
+          style={style}
+          options={{
+            headerLeft: canGoBack ? renderBackButton : undefined,
+            headerTitle: renderSearchInput,
+            headerRight: renderFilterButton,
+          }}
+          withOverlay
+          contentAbove={renderTitle}
+          contentBelow={renderFilterBar}
+        />
+        <Portal>
+          <BottomMenu
+            onHideEnd={onOptionsMenuClose}
+            testID={composeTestID(testID, 'optionsMenu')}
+            withBackdrop
+            {...bottomMenuProps}>
+            <SearchOptionsBottomMenu
+              value={searchOptions}
+              onChange={onOptionsChange}
+              bottomInset={0}
+            />
+          </BottomMenu>
+        </Portal>
+      </>
+    );
+  },
+);

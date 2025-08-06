@@ -209,7 +209,7 @@ export const useFilters = () => {
 
   const navigateToSettlements = useCallback(() => {
     navigation.navigate('Settlements', {
-      initialSelectedSettlements: activeFilters.municipalities ?? [],
+      initialSelectedSettlements: activeFilters.municipalities,
       regionsToInclude: keys(pickBy(settlementsWithNumberOfItems, Boolean)),
       analytics: {
         regionsSelectedNames: getAppliedFiltersAnalyticsData().regions_selected,

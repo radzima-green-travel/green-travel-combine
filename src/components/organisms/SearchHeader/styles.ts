@@ -3,7 +3,6 @@ import {PADDING_HORIZONTAL} from 'core/constants';
 import {createThemeStyles} from 'core/helpers/styles';
 
 export const themeStyles = createThemeStyles({
-  headerTitleContainer: {},
   filtersBadge: {
     position: 'absolute',
     right: -4,

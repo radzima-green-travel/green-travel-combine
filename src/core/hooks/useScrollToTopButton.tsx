@@ -127,9 +127,9 @@ interface ScrollToTopButtonProps {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute' as const,
-    alignItems: 'center' as const,
-    justifyContent: 'center' as const,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
     bottom: 16,
     right: 16,
   },

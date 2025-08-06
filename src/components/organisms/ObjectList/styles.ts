@@ -47,14 +47,4 @@ export const themeStyles = createThemeStyles({
       marginRight: itemGap,
     };
   },
-  scrollToTopButtonContainer: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    bottom: 16,
-    right: 16,
-  },
-  scrollToTopButton: {
-    borderWidth: 0,
-  },
 });
