@@ -40,7 +40,12 @@ export const useHome = () => {
 
   const navigateToObjectsList = useCallback(
     ({categoryId, title}: {categoryId: string; title: string}) => {
-      navigate('ObjectsList', {categoryId, title});
+      navigate('ObjectsList', {
+        appliedFilters: {
+          categories: [categoryId],
+        },
+        title,
+      });
     },
     [navigate],
   );

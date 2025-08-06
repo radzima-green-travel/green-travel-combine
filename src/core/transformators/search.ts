@@ -149,6 +149,10 @@ export const prepareSearchFiltersBarItems = ({
   }
 
   forEach(filtersKeys, key => {
+    if (key === 'objectIds') {
+      return;
+    }
+
     if (Array.isArray(filters[key])) {
       const filter = filters[key] as string[];
       if (filter.length) {
@@ -165,11 +169,11 @@ export const prepareSearchFiltersBarItems = ({
           value: value || i18n.t(translationsKey, {amount: filter.length}),
         });
       }
-    } else if (key === 'distance' && filters[key].isOn) {
+    } else if (key === 'distance' && filters[key]?.isOn) {
       filtersItems.push({
         id: key,
         value: i18n.t(`search:filters.${key}`, {
-          amount: filters[key].value,
+          amount: filters[key]?.value,
         }),
       });
     } else if (

@@ -41,7 +41,7 @@ export type AnalyticsNavigationScreenNames =
   | 'ObjectListScreen'
   | 'BookmarksListScreen'
   | 'HomeScreen'
-  | 'AppMapScreen'
+  | 'ExploreScreen'
   | 'unknown'
   | 'DeepLink'
   | 'SearchAndFiltersScreen';

@@ -36,6 +36,12 @@ export const ObjectListModeSwitch: React.FC<ObjectListModeSwitchProps> = ({
     };
   });
 
+  // The component doesn't support animation on selectedMode prop change
+  // Because it is used in FlatList header, which gets re-mounted on numColums change
+  // But this doesn't happen with current usage
+
+  // Keeping animated value outside component didn't work out because icons cannot be animated
+  // The only way left is to use an alternative library like LegendList to avoid re-mounting
   const handlePress = (mode: ObjectListViewMode) => {
     position.value = withTiming(mode === 'card' ? 1 : 0, {
       duration: 300,

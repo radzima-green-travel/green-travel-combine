@@ -1,7 +1,7 @@
 import {SpotItemDTO} from './api';
 import {Location} from './user';
 
-export type SearchFilters = {
+export type SearchFilters = Partial<{
   googleRating: string;
   regions: string[];
   categories: string[];
@@ -12,7 +12,9 @@ export type SearchFilters = {
     location: Location | null;
   };
   excludeVisited: boolean;
-};
+  markedAsNotOnGoogleMaps: boolean;
+  objectIds: string[];
+}>;
 
 export type SetActiveFilterPayload =
   | {

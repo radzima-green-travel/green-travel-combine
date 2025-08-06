@@ -57,7 +57,7 @@ export const useCategoriesList = () => {
 
   const navigateToObjectDetails = useCallback(
     (item: CardItem) => {
-      navigate('ObjectsList', {categoryId: item.id, title: item.name});
+      navigate('ObjectsList', {appliedFilters: {categories: [item.id]}});
       sendSelectCardEvent(item.name, title);
     },
     [navigate, sendSelectCardEvent, title],

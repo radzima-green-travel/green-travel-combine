@@ -116,9 +116,11 @@ export const useObjectDetails = () => {
         });
       } else {
         navigation.push('ObjectsList', {
-          categoryId: categoryId,
+          appliedFilters: {
+            categories: [categoryId],
+            objectIds: objects.map(({id}) => id),
+          },
           title: name,
-          objectsIds: objects.map(({id}) => id),
         });
       }
     },

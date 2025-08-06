@@ -1,1 +1,0 @@
-export {SearchEmptyView} from './SearchEmptyView';

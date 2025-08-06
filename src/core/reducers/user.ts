@@ -4,11 +4,12 @@ import {
   clearBookmarks,
   deleteAllFromUserSearchHistory,
   deleteObjectIdFromUserSearchHistory,
+  getSearchObjectsHistoryRequest,
   requestUserLocation,
   syncAndGetBookmarksRequest,
   updateBookmarksRequest,
 } from 'core/actions';
-import {filter, uniq} from 'lodash';
+import {filter, some, uniq} from 'lodash';
 import {Bookmarks, Location} from 'core/types';
 
 interface UserState {
@@ -59,6 +60,19 @@ export const userReducer = createReducer(initialState, builder => {
         ...state,
         location: payload,
       };
+    },
+  );
+  builder.addCase(
+    // Fixes a bug where some history items are not available anymore
+    // and they stay in the user's history forever, affecting the UI
+    getSearchObjectsHistoryRequest.meta.successAction,
+    (state, {payload}) => {
+      state.historyIds = filter(state.historyIds, item => {
+        return some(
+          payload.searchHistoryObjects,
+          historyItem => historyItem.id === item,
+        );
+      });
     },
   );
 });

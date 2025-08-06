@@ -1,0 +1,1 @@
+export {SearchPromptView} from './SearchPromptView';

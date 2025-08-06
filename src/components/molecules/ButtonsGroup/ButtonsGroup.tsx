@@ -7,13 +7,13 @@ import {PADDING, themeStyles} from './styles';
 
 interface IProps {
   buttons: Array<ButtonProps>;
-  withShadow?: boolean;
+  elevated?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   bottomInset?: number;
 }
 
 export const ButtonsGroup = memo(
-  ({buttons, withShadow, containerStyle, bottomInset}: IProps) => {
+  ({buttons, elevated, containerStyle, bottomInset}: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     return (
@@ -26,11 +26,17 @@ export const ButtonsGroup = memo(
         {buttons.map((buttonProps, index) => {
           const style = [
             styles.button,
-            withShadow && styles.buttonShadow,
             index === buttons.length - 1 && styles.lastButton,
             !buttonProps.isIconOnlyButton && styles.nonIconButton,
           ];
-          return <Button style={style} key={index} {...buttonProps} />;
+          return (
+            <Button
+              style={style}
+              key={index}
+              elevated={elevated}
+              {...buttonProps}
+            />
+          );
         })}
       </View>
     );

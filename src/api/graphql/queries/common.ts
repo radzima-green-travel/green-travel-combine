@@ -14,12 +14,6 @@ export const shortCardQueryParameters = `
       id
     }`;
 
-export const getObjectsTotalCountQuery = `query MyQuery {
-  searchObjects(filter: {status: {eq: "published"}}) {
-    total
-  }
-}`;
-
 export const categoryQueryParameters = `
     items {
       name
@@ -39,9 +33,10 @@ export const categoryQueryParameters = `
 export const createFilterObjectsQuery = (
   queryParameters: string,
   locale?: string,
-) => `query MyQuery($filter: FacetLandingObjectFilterInput, $fieldsToSearch: LandingObjectFieldsToSearchInput, $km: Int, $location: LocationInput, $nextToken: String = null,  $query: String = ""${locale ? ', $locale: String = ""' : ''}) {
+) => `query MyQuery($filter: FacetLandingObjectFilterInput, $sort: SearchableObjectSortInput, $fieldsToSearch: LandingObjectFieldsToSearchInput, $km: Int, $location: LocationInput, $nextToken: String = null,  $query: String = ""${locale ? ', $locale: String = ""' : ''}) {
     filterLandingObjects(
       filter: $filter
+      sort: $sort
       km: $km
       location: $location,
       limit: 20,

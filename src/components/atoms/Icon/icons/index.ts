@@ -80,3 +80,4 @@ export {default as wave} from './wave.svg';
 export {default as gridView} from './gridView.svg';
 export {default as headlineView} from './headlineView.svg';
 export {default as clockHistory2} from './clockHistory2.svg';
+export {default as arrowUp} from './arrowUp.svg';

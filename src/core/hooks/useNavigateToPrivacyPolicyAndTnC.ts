@@ -19,14 +19,16 @@ export function useNavigateToPrivacyPolicyAndTnC() {
   const navigateToPrivacyPolicy = useCallback(() => {
     navigation.navigate('InAppWebView', {
       url: `https://radzima.app/${currentLocale}/privacy-policy-text/`,
-      title: t('privacyPolicy'),
+      // typescript complains on string | undefined issue for some obscure reason
+      // if you assign t('privacyPolicy') to a variable and pass to title, it won't
+      title: t('privacyPolicy')!,
     });
   }, [currentLocale, navigation, t]);
 
   const navigateToTermsAndConditions = useCallback(() => {
     navigation.navigate('InAppWebView', {
       url: `https://radzima.app/${currentLocale}/tearms-and-conditions-text/`,
-      title: t('termsAndConditions'),
+      title: t('termsAndConditions')!,
     });
   }, [currentLocale, navigation, t]);
 

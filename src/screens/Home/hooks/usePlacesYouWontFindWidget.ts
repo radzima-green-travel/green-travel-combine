@@ -12,7 +12,7 @@ export const usePlacesYouWontFindWidget = () => {
   const openPlacesPage = useCallback(() => {
     navigation.navigate('ObjectsList', {
       title: t('placesYouWontFindPageTitle'),
-      markedAsNotOnGoogleMaps: true,
+      appliedFilters: {markedAsNotOnGoogleMaps: true},
     });
     sendMainScreenNonGMObjectsViewEvent();
   }, [navigation, sendMainScreenNonGMObjectsViewEvent, t]);

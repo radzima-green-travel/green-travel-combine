@@ -1,1 +1,0 @@
-export {useObjectsList} from './useObjectsList';

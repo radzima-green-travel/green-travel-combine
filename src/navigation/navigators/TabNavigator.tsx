@@ -2,7 +2,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useColorScheme, useTranslation} from 'core/hooks';
-import {AppMapNavigatior} from './AppMapNavigatior';
+import {ExploreNavigatior} from './ExploreNavigator';
 import {BookmarksNavigator} from './BookmarksNavigator';
 import {ProfileNavigator} from './ProfileNavigator';
 import {Icon} from 'atoms';
@@ -72,19 +72,20 @@ export function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="AppMapNavigator"
-        component={AppMapNavigatior}
+        name="ExploreNavigator"
+        component={ExploreNavigatior}
         listeners={{
           tabPress: () => {
             analyticsService.logEvent('navi_map_event');
           },
         }}
         options={{
+          lazy: false,
           tabBarTestID: 'tabBarItemMap',
           tabBarAccessibilityLabel: 'tabBarItemMap',
-          tabBarLabel: t('tabs.map'),
+          tabBarLabel: t('tabs.explore'),
           tabBarIcon: ({color}) => (
-            <Icon name={'marker'} color={color} size={24} />
+            <Icon name={'search'} color={color} size={24} />
           ),
         }}
       />

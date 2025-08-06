@@ -158,7 +158,7 @@ export const AnalyticScreensNames: Partial<
   BookmarksList: 'BookmarksListScreen',
   ObjectsList: 'ObjectListScreen',
   Search: 'SearchAndFiltersScreen',
-  AppMap: 'AppMapScreen',
+  Explore: 'ExploreScreen',
 };
 
 export const AnalyticsAllowedEditFields: Record<

@@ -3,24 +3,27 @@ import {Highlight, SearchObjectDTO} from 'core/types/api';
 import {createAction} from '@reduxjs/toolkit';
 import {SearchFilters, SearchOptions} from 'core/types';
 
+interface SearchObjectsRequestPayload {
+  query: string;
+  filters?: SearchFilters;
+  options: SearchOptions;
+}
+
+interface SearchObjectsResponsePayload {
+  searchObjects: SearchObjectDTO[];
+  nextToken: string | null;
+  total: number;
+  highlight: Highlight | null;
+}
+
 export const searchObjectsRequest = createAsyncAction<
-  {query: string; filters?: SearchFilters; options: SearchOptions},
-  {
-    searchObjects: SearchObjectDTO[];
-    nextToken: string | null;
-    total: number;
-    highlight: Highlight | null;
-  }
+  SearchObjectsRequestPayload,
+  SearchObjectsResponsePayload
 >('SEARCH_OBJECTS');
 
 export const searchMoreObjectsRequest = createAsyncAction<
-  {query: string; filters?: SearchFilters; options: SearchOptions},
-  {
-    searchObjects: SearchObjectDTO[];
-    nextToken: string | null;
-    total: number;
-    highlight: Highlight | null;
-  }
+  SearchObjectsRequestPayload,
+  SearchObjectsResponsePayload
 >('SEARCH_MORE_OBJECTS');
 
 export const setSearchInputValue = createAction<string>(

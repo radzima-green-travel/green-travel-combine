@@ -42,3 +42,5 @@ export {useSearchSelector} from './useSearchSelector';
 export {useObjectDetailsActions} from './useObjectDetailsActions';
 export {useObjectDetailsSelector} from './useObjectDetailsSelector';
 export {useAppliedFilters} from './useAppliedFilters';
+export {useSearchHeader} from './useSearchHeader';
+export {useScrollToTopButton} from './useScrollToTopButton';
