@@ -15,6 +15,7 @@ import {SearchOptions} from '../types';
 import {useAppliedFilters} from './useAppliedFilters';
 import {useSearchActions} from './useSearchActions';
 import {useSearchSelector} from './useSearchSelector';
+import {useTranslation} from 'core/hooks';
 
 export const useSearchHeader = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,11 @@ export const useSearchHeader = () => {
 
   const {params} = useRoute<SearchScreenRouteProps>();
 
-  const {appliedFilters: filtersToApply} = params || {};
+  const {appliedFilters: filtersToApply, title, showsTitle} = params || {};
+
+  const {t, i18n} = useTranslation();
+
+  const normalizedTitle = title && i18n.exists(title) ? t(title) : title;
 
   const setSearchInputValue = useCallback(
     (text: string) => {
@@ -78,6 +83,7 @@ export const useSearchHeader = () => {
   ]);
 
   return {
+    pageTitle: showsTitle ? normalizedTitle : undefined,
     searchInputValue,
     setSearchInputValue,
     clearSearchInputValue,

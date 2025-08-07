@@ -31,13 +31,20 @@ export const themeStyles = createThemeStyles({
     paddingTop: 20,
     paddingHorizontal: PADDING_HORIZONTAL,
   },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    gap: 8,
+  },
+  titleLarge: FONTS_PRESETS.title3Bold,
+  titleSmall: FONTS_PRESETS.subheadlineBold,
   title: {
-    ...FONTS_PRESETS.title3Bold,
+    flex: 1,
     color: {
       light: COLORS.light.text.primary,
       dark: COLORS.dark.text.primary,
     },
-    marginBottom: 16,
   },
   backButton: {
     marginRight: 8,

@@ -140,18 +140,30 @@ export const SearchHeader = memo(
       />
     );
 
-    const renderTitle = () =>
-      title && <Text style={styles.title}>{title}</Text>;
-
     // Traditional navigation.canGoBack() doesn't work well with navigating between tabs (Home to Explore e.g.)
     const canGoBack = navigation.getState()?.index! > 0;
+
+    const renderTitle = () =>
+      !!title && (
+        <View style={styles.titleContainer}>
+          {canGoBack && renderBackButton()}
+          <Text
+            numberOfLines={1}
+            style={[
+              styles.title,
+              canGoBack ? styles.titleSmall : styles.titleLarge,
+            ]}>
+            {title}
+          </Text>
+        </View>
+      );
 
     return (
       <>
         <CustomHeader
           style={style}
           options={{
-            headerLeft: canGoBack ? renderBackButton : undefined,
+            headerLeft: !title && canGoBack ? renderBackButton : undefined,
             headerTitle: renderSearchInput,
             headerRight: renderFilterButton,
           }}

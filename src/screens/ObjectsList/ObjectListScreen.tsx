@@ -21,13 +21,13 @@ export const ObjectListScreen = () => {
     listPaninationProps,
     searchSuspenseProps,
     totalResults,
-    pageTitle,
     viewMode,
     setViewMode,
     openObjectDetails,
   } = useSearchList();
 
   const {
+    pageTitle,
     searchInputValue,
     setSearchInputValue,
     clearSearchInputValue,
