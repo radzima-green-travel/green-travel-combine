@@ -44,7 +44,7 @@ export function useSearchList() {
 
   const {params} = useRoute<SearchScreenRouteProps>();
 
-  const {appliedFilters, title: pageTitle, showsTitle} = params || {};
+  const {appliedFilters} = params || {};
 
   const {loading} = useRequestLoading(searchObjectsRequest);
   const {errorTexts} = useOnRequestError(searchObjectsRequest, '');
@@ -122,7 +122,6 @@ export function useSearchList() {
     },
     totalResults: searchResultsTotal,
     initSearch,
-    pageTitle: showsTitle ? pageTitle : undefined,
     viewMode,
     setViewMode,
     openObjectDetails,

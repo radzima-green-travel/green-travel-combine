@@ -4,17 +4,13 @@ import {ObjectDetailsScreen, ObjectsListScreen} from '../../screens';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ExploreNavigatorParamsList} from 'core/types';
-import {useTranslation} from 'react-i18next';
 import {useScreenOptions} from '../hooks';
 import {defaultTransition} from '../transition';
 
 const Stack = createNativeStackNavigator<ExploreNavigatorParamsList>();
 
 export function ExploreNavigatior() {
-  const {t} = useTranslation('common');
-
   const screenOptions = useScreenOptions({
-    title: t('tabs.explore'),
     animation: defaultTransition,
   });
 
@@ -24,7 +20,7 @@ export function ExploreNavigatior() {
         name="Explore"
         component={ObjectsListScreen}
         options={{headerShown: false}}
-        initialParams={{title: t('tabs.explore'), showsTitle: true}}
+        initialParams={{title: 'common:tabs.explore', showsTitle: true}}
       />
       <Stack.Screen
         getId={({params}) => params.objectId}
