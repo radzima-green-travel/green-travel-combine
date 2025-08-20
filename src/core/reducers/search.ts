@@ -4,14 +4,18 @@ import {
   searchMoreObjectsRequest,
   setSearchInputValue,
   setSearchOptions,
+  getMapSearchObjectsRequest,
+  getVisibleOnMapObjectsRequest,
 } from 'core/actions';
 import {SearchOptions} from 'core/types';
-import type {Highlight, SearchObjectDTO} from 'core/types/api';
+import type {Highlight, ObjectMapDTO, SearchObjectDTO} from 'core/types/api';
 import {mapValues} from 'lodash';
 import {byIdReducer} from 'react-redux-help-kit';
 
 interface SearchState {
   searchObjects: Array<SearchObjectDTO>;
+  mapSearchObjects: ObjectMapDTO[];
+  visibleOnMapObjects: Array<SearchObjectDTO>;
   nextToken: string | null;
   highlight: Highlight | null;
   inputValue: string;
@@ -21,6 +25,8 @@ interface SearchState {
 
 const initialState: SearchState = {
   searchObjects: [],
+  mapSearchObjects: [],
+  visibleOnMapObjects: [],
   highlight: null,
   inputValue: '',
   nextToken: null,
@@ -62,6 +68,25 @@ export const reducer = createReducer(initialState, builder => {
     ...state,
     options: payload,
   }));
+
+  builder.addCase(
+    getMapSearchObjectsRequest.meta.successAction,
+    (state, {payload}) => {
+      return {
+        ...state,
+        mapSearchObjects: payload.mapSearchObjects,
+      };
+    },
+  );
+  builder.addCase(
+    getVisibleOnMapObjectsRequest.meta.successAction,
+    (state, {payload}) => {
+      return {
+        ...state,
+        visibleOnMapObjects: payload,
+      };
+    },
+  );
 });
 
 export const searchReducer = byIdReducer<SearchState>('search')(reducer);

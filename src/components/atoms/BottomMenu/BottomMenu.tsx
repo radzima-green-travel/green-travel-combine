@@ -4,7 +4,6 @@ import {Text, View} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 
 import BottomSheet, {
-  useBottomSheetDynamicSnapPoints,
   BottomSheetView,
   BottomSheetBackdrop,
 } from '@gorhom/bottom-sheet';
@@ -18,7 +17,6 @@ import React, {
   useMemo,
   memo,
   useState,
-  ComponentProps,
 } from 'react';
 import {AnimatedCircleButton} from 'molecules/AnimatedCircleButton';
 import {composeTestID} from 'core/helpers';
@@ -81,15 +79,6 @@ export const BottomMenu = memo(
       },
       ref,
     ) => {
-      const initialSnapPoints = useMemo(() => ['CONTENT_HEIGHT'], []);
-
-      const {
-        animatedHandleHeight,
-        animatedSnapPoints,
-        animatedContentHeight,
-        handleContentLayout,
-      } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
-
       const styles = useThemeStyles(themeStyles);
       const isOpened = useRef(false);
       const isOpening = useRef(false);
@@ -222,7 +211,7 @@ export const BottomMenu = memo(
       if (menuHeight) {
         return (
           <BottomSheet
-            backdropComponent={withBackdrop ? renderBackdrop : null}
+            backdropComponent={withBackdrop ? renderBackdrop : undefined}
             handleComponent={showDragIndicator ? undefined : null}
             ref={bottomSheetRef}
             handleStyle={styles.handleStyles}
@@ -243,7 +232,7 @@ export const BottomMenu = memo(
 
       return (
         <BottomSheet
-          backdropComponent={withBackdrop ? renderBackdrop : null}
+          backdropComponent={withBackdrop ? renderBackdrop : undefined}
           handleComponent={showDragIndicator ? undefined : null}
           animatedPosition={animatedPosition}
           ref={bottomSheetRef}
@@ -252,18 +241,12 @@ export const BottomMenu = memo(
           handleIndicatorStyle={styles.touchIndicator}
           animatedIndex={animatedIndex}
           index={initialIndex}
-          snapPoints={
-            animatedSnapPoints as ComponentProps<
-              typeof BottomSheet
-            >['snapPoints']
-          }
-          handleHeight={animatedHandleHeight}
-          contentHeight={animatedContentHeight}
+          enableDynamicSizing
           enablePanDownToClose={isPanDownEnabled}
           onAnimate={onAnimate}
           bottomInset={bottomInset}
           onChange={onChange}>
-          <BottomSheetView key={key} onLayout={handleContentLayout}>
+          <BottomSheetView key={key}>
             <>
               {renderMenuHeader()}
               {children}

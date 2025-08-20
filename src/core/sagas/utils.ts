@@ -16,3 +16,13 @@ export function takeEveryMulticast<T extends NotUndefined>(
     }
   });
 }
+
+export function splitCalls(total: number, limit: number) {
+  const fromArray: number[] = [];
+
+  for (let i = 0; i < total; i += limit) {
+    fromArray.push(i);
+  }
+
+  return fromArray;
+}

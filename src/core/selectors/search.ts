@@ -30,6 +30,11 @@ export const selectSearchObjectsRawData = createSelector(
   },
 );
 
+export const selectVisibleOnMapObjectsRawData = createSelector(
+  selectSearchState,
+  search => search.visibleOnMapObjects,
+);
+
 export const selectSearchObjectsHighlightRawData = createSelector(
   selectSearchState,
   search => search.highlight,
@@ -83,4 +88,16 @@ export const selectSearchFiltersItems = createSelector(
       settlements,
     });
   },
+);
+
+export const selectMapSearchObjects = createSelector(
+  selectSearchState,
+  search => search.mapSearchObjects,
+);
+
+export const selectVisibleOnMapObjects = createSelector(
+  selectVisibleOnMapObjectsRawData,
+  selectAppLanguage,
+  (visibleOnMapObjects, locale) =>
+    prepareSearchItems(visibleOnMapObjects, null, '', locale),
 );

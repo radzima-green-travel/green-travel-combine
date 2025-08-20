@@ -1,7 +1,6 @@
 import {InteractionManager} from 'react-native';
 import {useCallback, useMemo, useRef, useEffect} from 'react';
-import {MapView, Camera} from '@rnmapbox/maps';
-import {Position} from '@turf/helpers';
+import {MapView, Camera, MapState} from '@rnmapbox/maps';
 
 import {selectAppLanguage, selectIsDirectionShowed} from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
@@ -42,15 +41,6 @@ import {
 } from '@turf/helpers';
 import {useRoute} from '@react-navigation/native';
 import {ObjectDetailsMapScreenRouteProps} from '../types';
-
-interface RegionPayload {
-  zoomLevel: number;
-  heading: number;
-  animated: boolean;
-  isUserInteraction: boolean;
-  visibleBounds: Position[];
-  pitch: number;
-}
 
 export const useObjectDetailsMap = () => {
   const {t} = useTranslation('objectDetails');
@@ -236,11 +226,8 @@ export const useObjectDetailsMap = () => {
   }, [dispatch]);
 
   const unfocusUserLocation = useCallback(
-    (feature: Feature<Point, RegionPayload>) => {
-      const {
-        properties: {isUserInteraction},
-      } = feature;
-      if (isUserInteraction) {
+    ({gestures: {isGestureActive}}: MapState) => {
+      if (isGestureActive) {
         setIsUserLocationFocused(false);
       }
     },

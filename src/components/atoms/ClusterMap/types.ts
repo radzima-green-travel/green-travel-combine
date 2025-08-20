@@ -1,4 +1,4 @@
-import {Camera, MapView} from '@rnmapbox/maps';
+import {Camera, MapState} from '@rnmapbox/maps';
 import {IBounds, ICoordinates, SupportedLocales} from 'core/types';
 import * as React from 'react';
 
@@ -10,9 +10,9 @@ export type Props = {
   centerCoordinate?: ICoordinates | null;
   cameraRef?: React.Ref<Camera>;
   attributionPosition?: {bottom: number; right: number};
-  onRegionIsChanging?: React.ComponentProps<
-    typeof MapView
-  >['onRegionIsChanging'];
+
   testID: string;
   locale: SupportedLocales | null;
+  onMapIdle?: (state: MapState) => void;
+  onCameraChanged?: (state: MapState) => void;
 };

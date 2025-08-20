@@ -1,17 +1,13 @@
-import {COLORS} from 'assets';
-import {createThemeStyles} from 'core/helpers/styles';
 import {StyleSheet} from 'react-native';
+import {COLORS, FONTS_PRESETS} from 'assets';
+import {createThemeStyles} from 'core/helpers/styles';
+
+export const SNAP_POINT_0 = 68;
+export const SNAP_POINT_1 = 250;
 
 export const themeStyles = createThemeStyles({
   listContainer: {
     flex: 1,
-    // paddingTop: HEADER_BOTTOM_RADIUS,
-    backgroundColor: {
-      light: COLORS.light.background.secondary,
-      dark: COLORS.dark.background.secondary,
-    },
-  },
-  loaderBackdrop: {
     backgroundColor: {
       light: COLORS.light.background.secondary,
       dark: COLORS.dark.background.secondary,
@@ -37,7 +33,6 @@ export const themeStyles = createThemeStyles({
     marginTop: -12,
     paddingTop: 8,
   },
-
   indicator: {
     width: 44,
     height: 4,
@@ -60,6 +55,34 @@ export const themeStyles = createThemeStyles({
     bottom: 0,
     left: 0,
     right: 0,
-    paddingVertical: 16,
+    paddingBottom: 16,
+  },
+  resultsLabel: {
+    ...FONTS_PRESETS.bodyBold,
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
+  },
+  resultsContainer: {
+    marginTop: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  resultsCount: {
+    ...FONTS_PRESETS.bodyBold,
+    color: {
+      light: COLORS.light.text.tertiary,
+      dark: COLORS.dark.text.tertiary,
+    },
+  },
+
+  loaderContainer: {
+    position: 'absolute',
+    top: 30,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
   },
 });

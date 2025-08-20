@@ -27,7 +27,8 @@ export const ClusterMap = memo(
         centerCoordinate,
         cameraRef,
         attributionPosition,
-        onRegionIsChanging,
+        onCameraChanged,
+        onMapIdle,
         locale,
         testID,
       }: Props,
@@ -132,8 +133,8 @@ export const ClusterMap = memo(
           <MapView
             ref={map}
             onPress={onMapPress}
-            onRegionIsChanging={onRegionIsChanging}
             style={styles.container}
+            onMapIdle={onMapIdle}
             styleURL={
               theme === 'light'
                 ? 'mapbox://styles/epm-slr/cm8x0gqum00d901s5ap8h4l9c'
@@ -146,9 +147,19 @@ export const ClusterMap = memo(
             localizeLabels={{locale: locale ?? DEFAULT_LOCALE}}
             compassEnabled={true}
             compassFadeWhenNorth
+            onCameraChanged={onCameraChanged}
             compassPosition={{top: top > 20 ? 0 : 10, right: 16}}
             scaleBarEnabled={false}>
-            <Camera {...initialBounds} ref={cameraRef} />
+            <Camera
+              {...initialBounds}
+              padding={{
+                paddingLeft: 30,
+                paddingRight: 30,
+                paddingTop: 0 /* Top padding in points */,
+                paddingBottom: 100,
+              }}
+              ref={cameraRef}
+            />
             {children}
           </MapView>
         </View>

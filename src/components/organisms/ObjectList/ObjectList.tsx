@@ -3,7 +3,7 @@ import {composeTestID} from 'core/helpers';
 import {useScrollToTopButton, useThemeStyles, useTranslation} from 'core/hooks';
 import {SearchObject} from 'core/types';
 import {idKeyExtractor} from 'core/utils/react';
-import React, {ComponentType, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {
   FlatListProps,
   KeyboardAvoidingView,
@@ -32,7 +32,7 @@ export interface ObjectListProps
     nextIsFavorite: boolean,
   ) => void;
 
-  ListComponent?: ComponentType<FlatListProps<SearchObject> & {ref?: any}>;
+  ListComponent?: typeof Animated.FlatList;
 
   viewMode?: ObjectListViewMode;
   onViewModeChange?: (viewMode: ObjectListViewMode) => void;
@@ -181,7 +181,8 @@ export const ObjectList = ({
   } = useScrollToTopButton();
 
   return (
-    <>
+    <View style={styles.listContainer}>
+      {/*@ts-ignore*/}
       <ListComponent
         ref={scrollToTopListRef}
         style={styles.listContainer}
@@ -203,6 +204,6 @@ export const ObjectList = ({
         {...listProps}
       />
       {withScrollToTopButton && <ScrollToTopButton />}
-    </>
+    </View>
   );
 };

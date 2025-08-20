@@ -26,6 +26,7 @@ export class GraphQLAPIEngine {
       )) as GraphQLResult<any>;
       return response.data;
     } catch (error) {
+      console.error('GraphQLAPIEngine error:', error);
       const graphQLError = error as any;
       const errorMessage = graphQLError?.errors[0].message || '';
 

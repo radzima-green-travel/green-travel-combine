@@ -1,13 +1,23 @@
 import React, {useCallback, useEffect} from 'react';
 
-import {useSearchHeader, useSearchList, useThemeStyles} from 'core/hooks';
+import {
+  useSearchHeader,
+  useSearchList,
+  useSearchMapView,
+  useThemeStyles,
+} from 'core/hooks';
 import {SuspenseView} from 'molecules';
-import {SearchHeader, SearchList} from 'organisms';
-import {View} from 'react-native';
+import {SearchHeader, SearchList, MapWithBottomSheet} from 'organisms';
 import {useSearchHistory} from './hooks';
 import {useSearchAnalytics} from './hooks/useSearchAnalytics';
 import {themeStyles} from './styles';
 import {SearchObject} from '../../core/types';
+
+import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import Animated from 'react-native-reanimated';
+
+const AnimatedBottomSheetFlatList =
+  Animated.createAnimatedComponent(BottomSheetFlatList);
 
 export const SearchScreen = () => {
   const {
@@ -26,6 +36,7 @@ export const SearchScreen = () => {
     openObjectDetails,
     viewMode,
     setViewMode,
+    searchParameters,
   } = useSearchList();
 
   const {
@@ -52,6 +63,10 @@ export const SearchScreen = () => {
     onFilterButtonPress,
     searchOptions,
   } = useSearchHeader();
+
+  const mapWithBottomSheetProps = useSearchMapView({
+    searchParameters: searchParameters,
+  });
 
   useEffect(() => {
     if (!isHistoryVisible && (!isSearchEmpty || !isFiltersEmpty)) {
@@ -101,6 +116,41 @@ export const SearchScreen = () => {
     sendSearchHistoryClearEvent();
   }, [clearHistory, sendSearchHistoryClearEvent]);
 
+  const rendnerList = () => {
+    const showPlainList = isHistoryVisible || (isSearchEmpty && isFiltersEmpty);
+    const list = (
+      <SearchList
+        testID="searchList"
+        ListComponent={
+          showPlainList ? undefined : (AnimatedBottomSheetFlatList as any)
+        }
+        isHistoryVisible={isHistoryVisible}
+        data={data}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
+        onItemPress={itemPressHandler}
+        onDeletePress={historyItemRemoveHandler}
+        onDeleteAllPress={clearSearchHistoryHandler}
+        isSearchPromptVisible={
+          !isHistoryVisible && isSearchEmpty && isFiltersEmpty
+        }
+        totalResults={totalResults}
+        {...(!isHistoryVisible && listPaninationProps)}
+      />
+    );
+    if (showPlainList) {
+      return list;
+    }
+
+    return (
+      <MapWithBottomSheet
+        onObjectPress={openObjectDetails}
+        {...mapWithBottomSheetProps}>
+        {list}
+      </MapWithBottomSheet>
+    );
+  };
+
   return (
     <>
       <SearchHeader
@@ -121,29 +171,13 @@ export const SearchScreen = () => {
         cover
         loaderBackdropStyle={styles.loaderBackdrop}
         {...historySuspenseProps}>
-        <View style={styles.listContainer}>
-          <SuspenseView
-            testID="searchSusspenseView"
-            cover
-            loaderBackdropStyle={styles.loaderBackdrop}
-            {...searchSuspenseProps}>
-            <SearchList
-              testID="searchList"
-              isHistoryVisible={isHistoryVisible}
-              data={data}
-              viewMode={viewMode}
-              onViewModeChange={setViewMode}
-              onItemPress={itemPressHandler}
-              onDeletePress={historyItemRemoveHandler}
-              onDeleteAllPress={clearSearchHistoryHandler}
-              isSearchPromptVisible={
-                !isHistoryVisible && isSearchEmpty && isFiltersEmpty
-              }
-              totalResults={totalResults}
-              {...(!isHistoryVisible && listPaninationProps)}
-            />
-          </SuspenseView>
-        </View>
+        <SuspenseView
+          testID="searchSusspenseView"
+          cover
+          loaderBackdropStyle={styles.loaderBackdrop}
+          {...searchSuspenseProps}>
+          {rendnerList()}
+        </SuspenseView>
       </SuspenseView>
     </>
   );

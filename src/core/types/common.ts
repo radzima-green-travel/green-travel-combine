@@ -237,10 +237,7 @@ export interface PlaceOfTheWeekObject
   category: TranslatedEntity<PlaceOfTheWeekObjectDTO['category']>;
 }
 
-export interface ObjectMap
-  extends Omit<TranslatedEntity<ObjectMapDTO>, 'addresses'> {
-  address: string;
-}
+export interface ObjectMap extends ObjectMapDTO {}
 
 export interface TranslatedSearchObject
   extends Omit<
