@@ -7,7 +7,7 @@ import {
 import {selectSearchNextToken} from 'core/selectors/search';
 import {RequestError} from 'core/errors';
 import type {SearchObjectsResponseDTO} from 'core/types/api';
-import {getSearchPayloadSaga} from './getSearchPayloadSaga';
+import {createSearchPayloadSaga} from './createSearchPayloadSaga';
 
 export function* searchObjectsSaga({
   payload: {query, filters, options},
@@ -27,7 +27,7 @@ export function* searchObjectsSaga({
       yield delay(300);
     }
 
-    const searchPayload = yield call(getSearchPayloadSaga, {
+    const searchPayload = yield call(createSearchPayloadSaga, {
       query,
       filters,
       options,

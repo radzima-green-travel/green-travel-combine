@@ -1,9 +1,8 @@
-import {call, put} from 'redux-saga/effects';
 import {graphQLAPI} from 'api/graphql';
 import {getVisibleOnMapObjectsRequest} from 'core/actions/search';
 import {RequestError} from 'core/errors';
-import type {SearchObjectsResponseDTO} from 'core/types/api';
-import {getSearchPayloadSaga} from './getSearchPayloadSaga';
+import {createSearchPayloadSaga} from './createSearchPayloadSaga';
+import {call, put} from 'core/utils/typed-saga';
 
 export function* getVisibleOnMapObjectsSaga({
   payload: {objectIds},
@@ -15,11 +14,11 @@ export function* getVisibleOnMapObjectsSaga({
       return;
     }
 
-    const searchPayload = yield call(getSearchPayloadSaga, {
+    const searchPayload = yield* call(createSearchPayloadSaga, {
       filters: {objectIds},
     });
 
-    const {items}: SearchObjectsResponseDTO = yield call(
+    const {items} = yield* call(
       [graphQLAPI, graphQLAPI.getSearchObjects],
       searchPayload,
     );

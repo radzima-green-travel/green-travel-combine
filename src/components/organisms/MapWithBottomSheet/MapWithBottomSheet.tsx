@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useRef} from 'react';
 import {LayoutChangeEvent, Text, View} from 'react-native';
 import Animated, {
   measure,
@@ -12,7 +12,7 @@ import Animated, {
   ZoomOut,
 } from 'react-native-reanimated';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {Icon, LoadingView, MapButtonContainer} from 'atoms';
+import {Button, Icon, LoadingView, MapButtonContainer} from 'atoms';
 import {Map, MapObjectsCarousel} from './components';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles, SNAP_POINT_0, SNAP_POINT_1} from './styles';
@@ -65,6 +65,8 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     visibleObjects: visibleObjectsOnMap,
     onMarkersAppear: onMarkersAppear,
   });
+
+  const bottomMenuRef = useRef<BottomSheet>(null);
 
   const styles = useThemeStyles(themeStyles);
   const [mapViewPort, setMapViewPort] = useState<{
@@ -128,6 +130,18 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     };
   });
 
+  const mapButtonStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: withTiming(animatedIndex.value > 1.99 ? 1 : 0, {
+            duration: 150,
+          }),
+        },
+      ],
+    };
+  });
+
   const {isObjectsListVisible, onMapIdle} = useMapObjectsCarousel({
     mapViewHeight: mapViewPort?.height,
     mapTranslateY: translateY,
@@ -136,82 +150,97 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
   });
 
   return (
-    <Animated.View ref={animatedRef} style={styles.listContainer}>
-      <Animated.View onLayout={calculateMapViewPort} style={animatedStyles}>
-        <Map
-          {...mapProps}
-          onMapIdle={onMapIdle}
-          currentLocale={currentLocale}
-        />
-      </Animated.View>
-
-      {loading ? (
-        <Animated.View
-          pointerEvents={'none'}
-          entering={ZoomIn}
-          exiting={ZoomOut}
-          style={styles.loaderContainer}>
-          <MapButtonContainer
-            testID={'mapButtonContainer'}
-            onPress={onShowLocationPress}>
-            <LoadingView size="small" />
-          </MapButtonContainer>
+    <>
+      <Animated.View ref={animatedRef} style={styles.listContainer}>
+        <Animated.View onLayout={calculateMapViewPort} style={animatedStyles}>
+          <Map
+            {...mapProps}
+            onMapIdle={onMapIdle}
+            currentLocale={currentLocale}
+          />
         </Animated.View>
-      ) : null}
 
-      <Animated.View
-        pointerEvents="box-none"
-        layout={LinearTransition}
-        style={[styles.visibleObjectsContainer, visibleObjectsAnimatedStyle]}>
+        {loading ? (
+          <Animated.View
+            pointerEvents={'none'}
+            entering={ZoomIn}
+            exiting={ZoomOut}
+            style={styles.loaderContainer}>
+            <MapButtonContainer
+              testID={'mapButtonContainer'}
+              onPress={onShowLocationPress}>
+              <LoadingView size="small" />
+            </MapButtonContainer>
+          </Animated.View>
+        ) : null}
+
         <Animated.View
           pointerEvents="box-none"
-          style={styles.mapButtonContainer}
-          layout={LinearTransition}>
-          <MapButtonContainer
-            testID={'mapButtonContainer'}
-            onPress={onShowLocationPress}>
-            <Icon
-              style={styles.icon}
-              name={
-                isUserLocationFocused ? 'showLocationFilled' : 'showLocation'
-              }
-              size={24}
-            />
-          </MapButtonContainer>
-        </Animated.View>
+          layout={LinearTransition}
+          style={[styles.visibleObjectsContainer, visibleObjectsAnimatedStyle]}>
+          <Animated.View
+            pointerEvents="box-none"
+            style={styles.mapButtonContainer}
+            layout={LinearTransition}>
+            <MapButtonContainer
+              testID={'mapButtonContainer'}
+              onPress={onShowLocationPress}>
+              <Icon
+                style={styles.icon}
+                name={
+                  isUserLocationFocused ? 'showLocationFilled' : 'showLocation'
+                }
+                size={24}
+              />
+            </MapButtonContainer>
+          </Animated.View>
 
-        {isObjectsListVisible ? (
-          <MapObjectsCarousel
-            objects={visibleObjects}
-            carouselRef={carouselRef}
-            onCarouselSnap={onCarouselSnap}
-            onObjectPress={onObjectPress}
-          />
-        ) : null}
-      </Animated.View>
-      <BottomSheet
-        snapPoints={snapPoints}
-        backgroundStyle={styles.bottomSheetContainer}
-        enableDynamicSizing={false}
-        handleStyle={styles.handleContainer}
-        animatedIndex={animatedIndex}
-        handleIndicatorStyle={styles.indicator}
-        animatedPosition={animatedPosition}
-        onChange={onMenuPositionChange}
-        index={2}>
-        {children}
-        <Animated.View
-          pointerEvents="none"
-          style={[styles.overlayStyle, overlay]}>
-          <View style={styles.resultsContainer}>
-            <Text>
-              <Text style={styles.resultsLabel}>{t('results')}</Text>
-              <Text> </Text>
-              <Text style={styles.resultsCount}>{totalResults}</Text>
-            </Text>
-          </View>
+          {isObjectsListVisible ? (
+            <MapObjectsCarousel
+              objects={visibleObjects}
+              carouselRef={carouselRef}
+              onCarouselSnap={onCarouselSnap}
+              onObjectPress={onObjectPress}
+            />
+          ) : null}
         </Animated.View>
-      </BottomSheet>
-    </Animated.View>
+        <BottomSheet
+          ref={bottomMenuRef}
+          snapPoints={snapPoints}
+          backgroundStyle={styles.bottomSheetContainer}
+          enableDynamicSizing={false}
+          handleStyle={styles.handleContainer}
+          animatedIndex={animatedIndex}
+          handleIndicatorStyle={styles.indicator}
+          animatedPosition={animatedPosition}
+          onChange={onMenuPositionChange}
+          index={2}>
+          {children}
+          <Animated.View
+            pointerEvents="none"
+            style={[styles.overlayStyle, overlay]}>
+            <View style={styles.resultsContainer}>
+              <Text>
+                <Text style={styles.resultsLabel}>{t('results')}</Text>
+                <Text> </Text>
+                <Text style={styles.resultsCount}>{totalResults}</Text>
+              </Text>
+            </View>
+          </Animated.View>
+        </BottomSheet>
+      </Animated.View>
+      <Animated.View
+        style={[styles.bottomButtonContainer, mapButtonStyle]}
+        pointerEvents="box-none">
+        <Button
+          elevated
+          testID="mapButton"
+          text={t('map')}
+          style={styles.bottomButton}
+          onPress={() => bottomMenuRef.current?.snapToIndex(0)}
+          renderIcon={textStyle => <Icon name="map" style={textStyle} />}
+        />
+      </Animated.View>
+    </>
   );
 };

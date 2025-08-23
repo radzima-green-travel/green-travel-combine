@@ -1,65 +1,11 @@
 import {COLORS} from 'assets';
 import {createThemeStyles} from 'core/helpers/styles';
-import {StyleSheet} from 'react-native';
 
 export const themeStyles = createThemeStyles({
-  listContainer: {
-    flex: 1,
-    // paddingTop: HEADER_BOTTOM_RADIUS,
-    backgroundColor: {
-      light: COLORS.light.background.secondary,
-      dark: COLORS.dark.background.secondary,
-    },
-  },
   loaderBackdrop: {
     backgroundColor: {
       light: COLORS.light.background.secondary,
       dark: COLORS.dark.background.secondary,
     },
-  },
-  icon: {
-    color: {
-      light: COLORS.light.icon.accent,
-      dark: COLORS.dark.icon.accent,
-    },
-  },
-  bottomSheetContainer: {
-    backgroundColor: {
-      light: COLORS.light.background.secondary,
-      dark: COLORS.dark.background.secondary,
-    },
-    marginTop: -12,
-  },
-  handleContainer: {
-    height: 32,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginTop: -12,
-    paddingTop: 8,
-  },
-
-  indicator: {
-    width: 44,
-    height: 4,
-    borderRadius: 4,
-    backgroundColor: {
-      light: COLORS.light.stroke.border,
-      dark: COLORS.dark.stroke.border,
-    },
-  },
-  mapButtonContainer: {
-    marginLeft: 'auto',
-    marginRight: 16,
-  },
-  overlayStyle: {
-    backgroundColor: '#F5F5F5',
-    ...StyleSheet.absoluteFillObject,
-  },
-  visibleObjectsContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingVertical: 16,
   },
 });

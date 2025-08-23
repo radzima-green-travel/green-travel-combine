@@ -4,14 +4,14 @@ import {getMapSearchObjectsRequest} from 'core/actions/search';
 import {RequestError} from 'core/errors';
 import type {MapSearchObjectsDTO, ObjectMapDTO} from 'core/types/api';
 import {splitCalls} from '../utils';
-import {getSearchPayloadSaga} from './getSearchPayloadSaga';
+import {createSearchPayloadSaga} from './createSearchPayloadSaga';
 
 export function* getMapSearchObjectsSaga({
   payload: {query, filters, options, totals},
   meta: {successAction, failureAction},
 }: ReturnType<typeof getMapSearchObjectsRequest>) {
   try {
-    const searchPayload = yield call(getSearchPayloadSaga, {
+    const searchPayload = yield call(createSearchPayloadSaga, {
       query,
       filters,
       options,

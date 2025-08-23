@@ -1,25 +1,17 @@
 import React, {useCallback, useEffect} from 'react';
 
 import {SuspenseView} from 'components/molecules';
-import {
-  MapWithBottomSheet,
-  ObjectList,
-  SearchHeader,
-} from 'components/organisms';
+import {ObjectList, SearchHeader} from 'components/organisms';
 import {
   useObjectsListAnalytics,
   useSearchHeader,
   useSearchList,
-  useSearchMapView,
+  useObjectListView,
   useThemeStyles,
 } from 'core/hooks';
 import {themeStyles} from './styles';
 import {SearchObject} from '../../core/types';
-import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
-import Animated from 'react-native-reanimated';
 
-const AnimatedBottomSheetFlatList =
-  Animated.createAnimatedComponent(BottomSheetFlatList);
 export const ObjectListScreen = () => {
   const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
     useObjectsListAnalytics();
@@ -75,7 +67,7 @@ export const ObjectListScreen = () => {
     [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
-  const mapWithBottomSheetProps = useSearchMapView({
+  const mapWithBottomSheetProps = useObjectListView({
     searchParameters: searchParameters,
   });
 
@@ -95,26 +87,19 @@ export const ObjectListScreen = () => {
         onOptionsChange={updateSearchOptions}
         autoFocus={false}
       />
-      <SuspenseView
-        testID="objectsListSuspenseView"
-        {...searchSuspenseProps}
-        cover>
-        <MapWithBottomSheet
-          onObjectPress={openObjectDetails}
-          {...mapWithBottomSheetProps}>
-          <ObjectList
-            testID="objectList"
-            ListComponent={AnimatedBottomSheetFlatList as any}
-            data={searchResults}
-            totalResults={totalResults}
-            onItemPress={handleItemPress}
-            style={styles.listContainer}
-            viewMode={viewMode}
-            onViewModeChange={setViewMode}
-            onToggleFavoriteStatusPress={handleFavoriteStatusChange}
-            {...listPaninationProps}
-          />
-        </MapWithBottomSheet>
+      <SuspenseView testID="objectsListSuspenseView" {...searchSuspenseProps}>
+        <ObjectList
+          testID="objectList"
+          data={searchResults}
+          totalResults={totalResults}
+          onItemPress={handleItemPress}
+          style={styles.listContainer}
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+          onToggleFavoriteStatusPress={handleFavoriteStatusChange}
+          mapWithBottomSheetProps={mapWithBottomSheetProps}
+          {...listPaninationProps}
+        />
       </SuspenseView>
     </>
   );

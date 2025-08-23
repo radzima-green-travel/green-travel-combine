@@ -6,7 +6,7 @@ import {DEFAULT_LOCALE} from 'core/constants';
 import {transformSearchOptionsToFieldsToSearch} from 'core/transformators/search';
 import {SearchObjectsRequestPayload} from 'core/actions';
 
-export function* getSearchPayloadSaga({
+export function* createSearchPayloadSaga({
   query,
   filters,
   options,

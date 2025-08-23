@@ -13,7 +13,7 @@ import {useSearchActions} from './useSearchActions';
 import {useSelector} from 'react-redux';
 import {DEFAULT_LOCALE} from 'core/constants';
 
-export function useSearchMapView({
+export function useObjectListView({
   searchParameters,
 }: {
   searchParameters: SearchObjectsRequestPayload;

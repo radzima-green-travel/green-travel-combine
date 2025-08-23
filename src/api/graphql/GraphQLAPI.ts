@@ -45,7 +45,7 @@ import {
   getFiltersCategoriesQuery,
 } from './queries/filters';
 import {getBookmarksInitialObjectsDataQuery} from './queries/bookmarksDetails';
-import {err} from 'react-native-svg';
+
 import {getObjectsTotalCountQuery} from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
@@ -159,19 +159,15 @@ class GraphQLAPI extends GraphQLAPIEngine {
   async getMapSearchObjects(
     params: FiltersParams,
   ): Promise<MapSearchObjectsDTO> {
-    try {
-      const {filter, ...otherParams} = params;
-      const response = await this.executeQuery({
-        query: getSearchMapObjectsQuery(otherParams.locale),
-        params: {
-          filter: {...this.defaultFilters, ...filter},
-          ...otherParams,
-        },
-      });
-      return response.filterLandingObjects;
-    } catch (error) {
-      throw err;
-    }
+    const {filter, ...otherParams} = params;
+    const response = await this.executeQuery({
+      query: getSearchMapObjectsQuery(otherParams.locale),
+      params: {
+        filter: {...this.defaultFilters, ...filter},
+        ...otherParams,
+      },
+    });
+    return response.filterLandingObjects;
   }
 
   async getSearchObjectsHistory({

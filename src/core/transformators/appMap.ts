@@ -10,41 +10,35 @@ import {
 } from '@turf/helpers';
 import {MAP_PINS} from 'core/constants';
 
-export const getMapMarkers = (objects: ObjectMap[]) => {
-  const points = compact(
-    map(objects, data => {
-      if (isLocationExist(data)) {
-        const {location} = data;
-        return point(
-          [location!.lon!, location!.lat!],
-          {
-            icon_image: data.category.icon,
-            objectId: data.id,
-          },
-          {id: data.id},
-        );
-      }
-      return null;
-    }),
+const createMarkerFromObject = (data: ObjectMap, iconPostfix: string = '') => {
+  if (!isLocationExist(data)) {
+    return null;
+  }
+
+  const {location} = data;
+  return point(
+    [location!.lon!, location!.lat!],
+    {
+      icon_image: `${data.category.icon}${iconPostfix}`,
+      objectId: data.id,
+    },
+    {id: data.id},
   );
+};
+
+export const getMapMarkers = (objects: ObjectMap[]) => {
+  const points = compact(map(objects, data => createMarkerFromObject(data)));
 
   return points.length ? featureCollection(points) : null;
 };
 
-export const createMarkerFromObject = (
+export const createSelectedMarkerFromObject = (
   data: ObjectMap | null,
 ): FeatureCollection<Geometry, {icon_image: string; objectId: string}> => {
   return featureCollection(
     compact([
-      data && isLocationExist(data)
-        ? point(
-            [data.location!.lon!, data.location!.lat!],
-            {
-              icon_image: `${data.category.icon}${MAP_PINS.SELECTED_POSTFIX}`,
-              objectId: data.id,
-            },
-            {id: data.id},
-          )
+      data
+        ? createMarkerFromObject(data, MAP_PINS.SELECTED_POSTFIX)
         : undefined,
     ]),
   );

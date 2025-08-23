@@ -150,16 +150,7 @@ export const ClusterMap = memo(
             onCameraChanged={onCameraChanged}
             compassPosition={{top: top > 20 ? 0 : 10, right: 16}}
             scaleBarEnabled={false}>
-            <Camera
-              {...initialBounds}
-              padding={{
-                paddingLeft: 30,
-                paddingRight: 30,
-                paddingTop: 0 /* Top padding in points */,
-                paddingBottom: 100,
-              }}
-              ref={cameraRef}
-            />
+            <Camera {...initialBounds} ref={cameraRef} />
             {children}
           </MapView>
         </View>

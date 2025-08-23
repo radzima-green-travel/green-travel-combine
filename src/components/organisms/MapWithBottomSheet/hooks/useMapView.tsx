@@ -9,7 +9,7 @@ import {
 
 import {
   getMapMarkers,
-  createMarkerFromObject,
+  createSelectedMarkerFromObject,
 } from 'core/transformators/appMap';
 import {ObjectMap, SearchObject} from 'core/types';
 import {every, isEqual} from 'lodash';
@@ -69,8 +69,8 @@ export const useMapView = ({
 
   const selectedMarker = useMemo(() => {
     return selectedObject
-      ? createMarkerFromObject(selectedObject)
-      : createMarkerFromObject(null);
+      ? createSelectedMarkerFromObject(selectedObject)
+      : createSelectedMarkerFromObject(null);
   }, [selectedObject]);
 
   const bounds = useMemo(() => {
@@ -118,40 +118,48 @@ export const useMapView = ({
 
   const getVisibleFeatures = useCallback(
     async (bbox: number[]) => {
-      const data = (await mapRef.current?.queryRenderedFeaturesInRect(
-        bbox as [number, number, number, number],
-        [],
-        ['singlePoint'],
-      )) as ReturnType<typeof createMarkerFromObject>;
+      if (!mapObjects.length) {
+        return;
+      }
 
-      if (data) {
-        const {features} = data;
+      async function queryRenderedFeaturesInRect() {
+        const data = (await mapRef.current?.queryRenderedFeaturesInRect(
+          bbox as [number, number, number, number],
+          [],
+          ['singlePoint'],
+        )) as ReturnType<typeof createSelectedMarkerFromObject>;
 
-        const currentVisible = features.reduce(
-          (acc, feature) => ({
-            ...acc,
-            [feature.properties.objectId]: true,
-          }),
-          {},
-        );
+        if (data) {
+          const {features} = data;
 
-        if (
-          selectedObject &&
-          (!features.length ||
-            every(features, feature => {
-              return feature.properties.objectId !== selectedObject?.id;
-            }))
-        ) {
-          unselectObject();
-        }
+          const currentVisible = features.reduce(
+            (acc, feature) => ({
+              ...acc,
+              [feature.properties.objectId]: true,
+            }),
+            {},
+          );
 
-        if (!isEqual(currentVisible, prevVisible.current)) {
-          prevVisible.current = currentVisible;
-          onMarkersAppear(features);
+          if (
+            selectedObject &&
+            (!features.length ||
+              every(features, feature => {
+                return feature.properties.objectId !== selectedObject?.id;
+              }))
+          ) {
+            unselectObject();
+          }
+
+          if (!isEqual(currentVisible, prevVisible.current)) {
+            prevVisible.current = currentVisible;
+            onMarkersAppear(features);
+          }
         }
       }
+
+      queryRenderedFeaturesInRect();
     },
-    [onMarkersAppear, selectedObject, unselectObject],
+    [mapObjects.length, onMarkersAppear, selectedObject, unselectObject],
   );
 
   const onMapPress = useCallback(() => {

@@ -47,7 +47,10 @@ export const themeStyles = createThemeStyles({
     marginRight: 16,
   },
   overlayStyle: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: {
+      light: COLORS.light.background.secondary,
+      dark: COLORS.dark.background.secondary,
+    },
     ...StyleSheet.absoluteFillObject,
   },
   visibleObjectsContainer: {
@@ -85,4 +88,16 @@ export const themeStyles = createThemeStyles({
     right: 0,
     alignItems: 'center',
   },
+
+  bottomButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 16,
+  },
+
+  bottomButton: {alignSelf: 'center', paddingHorizontal: 12},
 });
