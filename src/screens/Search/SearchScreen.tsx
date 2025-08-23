@@ -1,9 +1,13 @@
 import React, {useCallback, useEffect} from 'react';
 
-import {useSearchHeader, useSearchList, useThemeStyles} from 'core/hooks';
+import {
+  useSearchHeader,
+  useSearchList,
+  useObjectListView,
+  useThemeStyles,
+} from 'core/hooks';
 import {SuspenseView} from 'molecules';
 import {SearchHeader, SearchList} from 'organisms';
-import {View} from 'react-native';
 import {useSearchHistory} from './hooks';
 import {useSearchAnalytics} from './hooks/useSearchAnalytics';
 import {themeStyles} from './styles';
@@ -26,6 +30,7 @@ export const SearchScreen = () => {
     openObjectDetails,
     viewMode,
     setViewMode,
+    searchParameters,
   } = useSearchList();
 
   const {
@@ -52,6 +57,10 @@ export const SearchScreen = () => {
     onFilterButtonPress,
     searchOptions,
   } = useSearchHeader();
+
+  const mapWithBottomSheetProps = useObjectListView({
+    searchParameters: searchParameters,
+  });
 
   useEffect(() => {
     if (!isHistoryVisible && (!isSearchEmpty || !isFiltersEmpty)) {
@@ -101,6 +110,8 @@ export const SearchScreen = () => {
     sendSearchHistoryClearEvent();
   }, [clearHistory, sendSearchHistoryClearEvent]);
 
+  const showPlainList = isHistoryVisible || (isSearchEmpty && isFiltersEmpty);
+
   return (
     <>
       <SearchHeader
@@ -121,29 +132,29 @@ export const SearchScreen = () => {
         cover
         loaderBackdropStyle={styles.loaderBackdrop}
         {...historySuspenseProps}>
-        <View style={styles.listContainer}>
-          <SuspenseView
-            testID="searchSusspenseView"
-            cover
-            loaderBackdropStyle={styles.loaderBackdrop}
-            {...searchSuspenseProps}>
-            <SearchList
-              testID="searchList"
-              isHistoryVisible={isHistoryVisible}
-              data={data}
-              viewMode={viewMode}
-              onViewModeChange={setViewMode}
-              onItemPress={itemPressHandler}
-              onDeletePress={historyItemRemoveHandler}
-              onDeleteAllPress={clearSearchHistoryHandler}
-              isSearchPromptVisible={
-                !isHistoryVisible && isSearchEmpty && isFiltersEmpty
-              }
-              totalResults={totalResults}
-              {...(!isHistoryVisible && listPaninationProps)}
-            />
-          </SuspenseView>
-        </View>
+        <SuspenseView
+          testID="searchSusspenseView"
+          cover
+          loaderBackdropStyle={styles.loaderBackdrop}
+          {...searchSuspenseProps}>
+          <SearchList
+            testID="searchList"
+            isHistoryVisible={isHistoryVisible}
+            data={data}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
+            onItemPress={itemPressHandler}
+            onDeletePress={historyItemRemoveHandler}
+            onDeleteAllPress={clearSearchHistoryHandler}
+            isSearchPromptVisible={
+              !isHistoryVisible && isSearchEmpty && isFiltersEmpty
+            }
+            totalResults={totalResults}
+            withMapWithBottomSheet={!showPlainList}
+            mapWithBottomSheetProps={mapWithBottomSheetProps}
+            {...(!isHistoryVisible && listPaninationProps)}
+          />
+        </SuspenseView>
       </SuspenseView>
     </>
   );

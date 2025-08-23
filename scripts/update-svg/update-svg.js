@@ -51,9 +51,3 @@ fs.writeFileSync(
     .map(file => `export {default as ${file}} from '${index[file]}'`)
     .join(';\n')};\n`,
 );
-
-fs.writeFileSync(
-  path.resolve(rootDirectory, '../IconsNames.ts'),
-  `export type IconsNames =
-  | '${names.join("'\n  | '")}';\n`,
-);

@@ -7,6 +7,10 @@ const itemGap = 12;
 export const themeStyles = createThemeStyles({
   listContainer: {
     flex: 1,
+    backgroundColor: {
+      light: COLORS.light.background.secondary,
+      dark: COLORS.dark.background.secondary,
+    },
   },
   listContentContainer: {
     paddingHorizontal: 16,

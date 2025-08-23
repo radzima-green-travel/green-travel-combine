@@ -92,11 +92,7 @@ export interface LocationDTO {
 }
 
 export interface ObjectCategoryMapDTO {
-  id: string;
   icon: string;
-  name: string;
-  singularName: string;
-  i18n: Array<I18nType<'name' | 'singularName'>>;
 }
 
 export interface AddressItemDTO {
@@ -121,14 +117,8 @@ export interface AddressessDTO {
 
 export interface ObjectMapDTO {
   location: LocationDTO | null;
-  name: string;
   id: string;
-  i18n: Array<I18nType<'name'>>;
   category: ObjectCategoryMapDTO;
-  addresses: AddressessDTO;
-  length: number | null;
-  cover: string;
-  blurhash: string | null;
 }
 
 export interface SearchObjetcCategoryDTO {
@@ -191,6 +181,8 @@ export type FiltersParams = Pick<
   | 'filter'
   | 'fieldsToSearch'
   | 'sort'
+  | 'limit'
+  | 'from'
 >;
 
 export interface SettlementsParams {
@@ -287,6 +279,10 @@ export type SearchObjectsResponseDTO = {
 
 export type SearchObjectsHistoryResponseDTO = {
   items: Array<SearchObjectDTO>;
+};
+
+export type MapSearchObjectsDTO = {
+  items: Array<ObjectMapDTO>;
 };
 
 export interface CalculatedProperties {
@@ -432,10 +428,7 @@ export type ObjectDetailsResponseDTO = {
   url: string | null;
 };
 
-export type BookmarksCategory = Pick<
-  ObjectCategoryMapDTO,
-  'name' | 'i18n' | 'id'
->;
+export type BookmarksCategory = Pick<SearchObjectDTO, 'name' | 'i18n' | 'id'>;
 
 export interface BookmarksObjectDTO {
   id: string;
@@ -476,3 +469,8 @@ export interface PlaceOfTheWeekObjectDTO {
     totalRatings: number | null;
   } | null;
 }
+
+export type AppMapObjectsQueryParams = Pick<QueryParams, 'limit' | 'from'>;
+export type AppMapObjectsTotalCountResponseDTO = {total: number};
+
+export type AppMapObjectsResponseDTO = {items: Array<ObjectMapDTO>};

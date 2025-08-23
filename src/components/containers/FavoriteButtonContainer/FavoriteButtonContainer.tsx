@@ -39,7 +39,7 @@ export const FavoriteButtonContainer = memo(
 
     return (
       <View {...getPlatformsTestID(testID)}>
-        <View style={favoritesSynchronizing && styles.opaque}>
+        <View>
           <TouchableOpacity
             testID={composeTestID(testID, 'favoriteButton')}
             hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
@@ -48,17 +48,15 @@ export const FavoriteButtonContainer = memo(
             disabled={favoritesSynchronizing}
             activeOpacity={0.8}
             accessibilityState={{checked: !!isFavorite}}>
-            {children(Boolean(isFavorite))}
+            <View style={favoritesSynchronizing && styles.opaque}>
+              {children(Boolean(isFavorite))}
+            </View>
+
+            {favoritesSynchronizing ? (
+              <LoadingView size="small" color={loadingIndicatorColor} />
+            ) : null}
           </TouchableOpacity>
         </View>
-
-        {favoritesSynchronizing ? (
-          <LoadingView
-            size="small"
-            color={loadingIndicatorColor}
-            containerStyle={styles.loadingContainer}
-          />
-        ) : null}
       </View>
     );
   },

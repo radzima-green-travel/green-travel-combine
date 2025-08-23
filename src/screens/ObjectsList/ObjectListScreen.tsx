@@ -6,6 +6,7 @@ import {
   useObjectsListAnalytics,
   useSearchHeader,
   useSearchList,
+  useObjectListView,
   useThemeStyles,
 } from 'core/hooks';
 import {themeStyles} from './styles';
@@ -24,6 +25,7 @@ export const ObjectListScreen = () => {
     viewMode,
     setViewMode,
     openObjectDetails,
+    searchParameters,
   } = useSearchList();
 
   const {
@@ -65,6 +67,10 @@ export const ObjectListScreen = () => {
     [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
+  const mapWithBottomSheetProps = useObjectListView({
+    searchParameters: searchParameters,
+  });
+
   return (
     <>
       <SearchHeader
@@ -91,6 +97,7 @@ export const ObjectListScreen = () => {
           viewMode={viewMode}
           onViewModeChange={setViewMode}
           onToggleFavoriteStatusPress={handleFavoriteStatusChange}
+          mapWithBottomSheetProps={mapWithBottomSheetProps}
           {...listPaninationProps}
         />
       </SuspenseView>

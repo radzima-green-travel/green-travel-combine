@@ -1,24 +1,30 @@
 import {ICONS_MATCHER} from 'core/constants';
 import {composeTestID} from 'core/helpers';
-import {useScrollToTopButton, useThemeStyles, useTranslation} from 'core/hooks';
+import {
+  useScrollToTopButton,
+  useObjectListView,
+  useThemeStyles,
+  useTranslation,
+} from 'core/hooks';
 import {SearchObject} from 'core/types';
 import {idKeyExtractor} from 'core/utils/react';
-import React, {ComponentType, useCallback} from 'react';
-import {
-  FlatListProps,
-  KeyboardAvoidingView,
-  ListRenderItem,
-  Text,
-  View,
-} from 'react-native';
+import React, {useCallback} from 'react';
+import {KeyboardAvoidingView, ListRenderItem, Text, View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {ObjectListModeSwitch} from '../../atoms';
 import {ListItem, ObjectCardNew, SearchListItem} from '../../molecules';
 import {ObjectListViewMode} from '../../types';
 import {themeStyles} from './styles';
+import {MapWithBottomSheet} from '../MapWithBottomSheet';
+import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+
+const AnimatedBottomSheetFlatList =
+  Animated.createAnimatedComponent(BottomSheetFlatList);
+
+type AnimatedFlatListProps = React.ComponentProps<typeof Animated.FlatList>;
 
 export interface ObjectListProps
-  extends Omit<FlatListProps<SearchObject>, 'data' | 'renderItem'> {
+  extends Omit<AnimatedFlatListProps, 'data' | 'renderItem'> {
   testID: string;
   data: SearchObject[];
   renderItem?: ListRenderItem<{
@@ -32,13 +38,13 @@ export interface ObjectListProps
     nextIsFavorite: boolean,
   ) => void;
 
-  ListComponent?: ComponentType<FlatListProps<SearchObject> & {ref?: any}>;
-
   viewMode?: ObjectListViewMode;
   onViewModeChange?: (viewMode: ObjectListViewMode) => void;
+  mapWithBottomSheetProps?: ReturnType<typeof useObjectListView>;
 
   handlesKeyboard?: boolean;
   withScrollToTopButton?: boolean;
+  withMapWithBottomSheet?: boolean;
 }
 
 export const ObjectList = ({
@@ -53,14 +59,14 @@ export const ObjectList = ({
 
   renderItem: renderItemProp,
 
-  ListComponent = Animated.FlatList,
   handlesKeyboard = true,
   withScrollToTopButton = true,
+  withMapWithBottomSheet = true,
+  mapWithBottomSheetProps,
 
   ...listProps
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
-
   const {t} = useTranslation('search');
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
@@ -180,29 +186,47 @@ export const ObjectList = ({
     listContentSizeChangeHandler,
   } = useScrollToTopButton();
 
+  const ListComponent = (
+    withMapWithBottomSheet ? AnimatedBottomSheetFlatList : Animated.FlatList
+  ) as typeof Animated.FlatList<SearchObject>;
+
+  const list = (
+    <ListComponent
+      ref={scrollToTopListRef}
+      style={styles.listContainer}
+      contentContainerStyle={styles.listContentContainer}
+      data={data}
+      renderItem={renderItem}
+      windowSize={5}
+      scrollEventThrottle={16}
+      ListHeaderComponent={renderHeader}
+      ListHeaderComponentStyle={styles.listHeader}
+      ListEmptyComponent={renderEmptyView}
+      // @ts-ignore
+      keyExtractor={idKeyExtractor}
+      numColumns={viewMode === 'card' ? 2 : 1}
+      key={viewMode}
+      onScroll={listScrollHandler}
+      onLayout={listLayoutHandler}
+      onContentSizeChange={listContentSizeChangeHandler}
+      {...(handlesKeyboard && data.length && keyboardBehaviourProps)}
+      {...listProps}
+    />
+  );
+
   return (
-    <>
-      <ListComponent
-        ref={scrollToTopListRef}
-        style={styles.listContainer}
-        contentContainerStyle={styles.listContentContainer}
-        data={data}
-        renderItem={renderItem}
-        windowSize={5}
-        scrollEventThrottle={16}
-        ListHeaderComponent={renderHeader}
-        ListHeaderComponentStyle={styles.listHeader}
-        ListEmptyComponent={renderEmptyView}
-        keyExtractor={idKeyExtractor}
-        numColumns={viewMode === 'card' ? 2 : 1}
-        key={viewMode}
-        onScroll={listScrollHandler}
-        onLayout={listLayoutHandler}
-        onContentSizeChange={listContentSizeChangeHandler}
-        {...(handlesKeyboard && data.length && keyboardBehaviourProps)}
-        {...listProps}
-      />
+    <View style={styles.listContainer}>
+      {withMapWithBottomSheet && mapWithBottomSheetProps ? (
+        <MapWithBottomSheet
+          onObjectPress={onItemPress}
+          {...mapWithBottomSheetProps}>
+          {list}
+        </MapWithBottomSheet>
+      ) : (
+        list
+      )}
+
       {withScrollToTopButton && <ScrollToTopButton />}
-    </>
+    </View>
   );
 };

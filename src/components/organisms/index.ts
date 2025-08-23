@@ -11,3 +11,4 @@ export {ObjectDetailsShowInfoMenu} from './ObjectDetailsShowInfoMenu';
 export {ObjectBelongsTo} from './ObjectBelongsTo';
 export {ObjectDetailsListItemsMenu} from './ObjectDetailsListItemsMenu';
 export * from './ObjectList';
+export * from './MapWithBottomSheet';

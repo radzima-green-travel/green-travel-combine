@@ -28,6 +28,22 @@ export const searchObjectQueryParameters = `
           }
 `;
 
+export const getSearchMapObjectsQuery = (locale?: string) =>
+  createFilterObjectsQuery(
+    `
+  items {
+      id
+      location {
+          lat
+          lon
+      }
+      category {
+        icon      
+      }
+  }
+  `,
+    locale,
+  );
 export const getSearchObjectsQuery = (locale?: string) =>
   createFilterObjectsQuery(
     `

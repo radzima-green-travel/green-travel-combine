@@ -65,7 +65,7 @@ export const ObjectDetailsMap = () => {
       <ClusterMap
         attributionPosition={{bottom: 40, right: 30}}
         centerCoordinate={centerCoordinate}
-        onRegionIsChanging={unfocusUserLocation}
+        onCameraChanged={unfocusUserLocation}
         onShapePress={onMarkerPress}
         bounds={bounds}
         ref={map}

@@ -7,10 +7,7 @@ import {
 import {selectSearchNextToken} from 'core/selectors/search';
 import {RequestError} from 'core/errors';
 import type {SearchObjectsResponseDTO} from 'core/types/api';
-import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
-import {selectAppLanguage, selectUserAuthorizedData} from 'core/selectors';
-import {DEFAULT_LOCALE} from 'core/constants';
-import {transformSearchOptionsToFieldsToSearch} from 'core/transformators/search';
+import {createSearchPayloadSaga} from './createSearchPayloadSaga';
 
 export function* searchObjectsSaga({
   payload: {query, filters, options},
@@ -26,30 +23,20 @@ export function* searchObjectsSaga({
       reducerId || '',
     );
 
-    const appLocale: ReturnType<typeof selectAppLanguage> =
-      yield select(selectAppLanguage);
-
     if (!isLoadingMoreAction) {
       yield delay(300);
     }
 
-    const userData: ReturnType<typeof selectUserAuthorizedData> = yield select(
-      selectUserAuthorizedData,
-    );
+    const searchPayload = yield call(createSearchPayloadSaga, {
+      query,
+      filters,
+      options,
+    });
 
     const {items, nextToken, total, highlight}: SearchObjectsResponseDTO =
       yield call([graphQLAPI, graphQLAPI.getSearchObjects], {
-        query: query,
+        ...searchPayload,
         nextToken: isLoadingMoreAction ? prevToken : null,
-        locale:
-          !appLocale || appLocale === DEFAULT_LOCALE ? undefined : appLocale,
-        ...transformSearchOptionsToFieldsToSearch(options),
-        ...(filters
-          ? transformActiveFiltersToFilterParam({
-              filters,
-              userId: userData?.sub,
-            })
-          : {}),
       });
 
     yield put(

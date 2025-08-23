@@ -58,7 +58,9 @@ export async function tryOpenURL(url: string) {
   }
 }
 
-export function isLocationExist(object: {location: LocationDTO | null}) {
+export function isLocationExist<T extends {location: LocationDTO | null}>(
+  object: T,
+) {
   return Boolean(object?.location?.lat && object.location.lon);
 }
 

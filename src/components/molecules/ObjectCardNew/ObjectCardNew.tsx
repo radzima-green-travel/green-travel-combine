@@ -3,7 +3,14 @@ import {composeTestID} from 'core/helpers';
 import {useThemeStyles} from 'core/hooks';
 import {Image, ImageStyle} from 'expo-image';
 import React, {memo, useCallback} from 'react';
-import {Text, View, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 import {RatingBadge} from '../RatingBadge';
 import {objectCardStyles} from './styles';
 import {FavoriteButtonContainer} from 'components/containers';
@@ -65,18 +72,20 @@ const Component = <T,>({
         <FavoriteButtonContainer
           testID={composeTestID(testID, 'favoriteButton')}
           onFavoriteToggle={onFavoriteChangedHandler}
+          style={styles.favoriteToggleButton}
+          loadingIndicatorColor={
+            (styles.favoriteIcon as TextStyle).color as string
+          }
           objectId={id}>
           {isFavorite => {
             return (
-              <View style={styles.favoriteToggleButton}>
-                <Icon
-                  testID={composeTestID(testID, 'favoriteIcon')}
-                  name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                  width={18}
-                  height={18}
-                  style={styles.favoriteIcon}
-                />
-              </View>
+              <Icon
+                testID={composeTestID(testID, 'favoriteIcon')}
+                name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
+                width={18}
+                height={18}
+                style={styles.favoriteIcon}
+              />
             );
           }}
         </FavoriteButtonContainer>

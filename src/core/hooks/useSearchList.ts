@@ -7,7 +7,7 @@ import {
   selectSearchQuery,
   selectUserAuthorized,
 } from 'core/selectors';
-import {useCallback, useRef, useState} from 'react';
+import {useCallback, useMemo, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useRequestLoading} from 'react-redux-help-kit';
 import {ObjectListViewMode} from '../../components/types';
@@ -53,15 +53,17 @@ export function useSearchList() {
     searchMoreObjectsRequest,
   );
 
+  const searchParameters = useMemo(() => {
+    return {
+      query: searchQuery,
+      filters: appliedFilters,
+      options: searchOptionsRef.current,
+    };
+  }, [searchQuery, appliedFilters]);
+
   const searchObjects = useCallback(() => {
-    dispatch(
-      searchObjectsRequest({
-        query: searchQuery,
-        filters: appliedFilters,
-        options: searchOptionsRef.current,
-      }),
-    );
-  }, [dispatch, appliedFilters, searchObjectsRequest, searchQuery]);
+    dispatch(searchObjectsRequest(searchParameters));
+  }, [dispatch, searchObjectsRequest, searchParameters]);
 
   const searchMoreObjects = useCallback(() => {
     dispatch(
@@ -125,5 +127,6 @@ export function useSearchList() {
     viewMode,
     setViewMode,
     openObjectDetails,
+    searchParameters,
   };
 }

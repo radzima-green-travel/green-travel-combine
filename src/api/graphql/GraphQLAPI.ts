@@ -17,6 +17,10 @@ import {
   SettlementsQueryParams,
   ObjectThumbnailDTO,
   PlaceOfTheWeekObjectDTO,
+  AppMapObjectsTotalCountResponseDTO,
+  AppMapObjectsQueryParams,
+  AppMapObjectsResponseDTO,
+  MapSearchObjectsDTO,
 } from 'core/types/api';
 import {GraphQLAPIEngine} from './GraphQLAPIEngine';
 import {
@@ -25,6 +29,8 @@ import {
   getSearchObjectsHistoryQuery,
   getSearchObjectsQuery,
   geObjectDetailsByIdQuery,
+  getSearchMapObjectsQuery,
+  getAppMapObjectsQuery,
 } from './queries';
 import {
   generateListObjectsShortQuery,
@@ -39,6 +45,8 @@ import {
   getFiltersCategoriesQuery,
 } from './queries/filters';
 import {getBookmarksInitialObjectsDataQuery} from './queries/bookmarksDetails';
+
+import {getObjectsTotalCountQuery} from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getCategoriesList(
@@ -148,6 +156,20 @@ class GraphQLAPI extends GraphQLAPIEngine {
     return response.filterLandingObjects;
   }
 
+  async getMapSearchObjects(
+    params: FiltersParams,
+  ): Promise<MapSearchObjectsDTO> {
+    const {filter, ...otherParams} = params;
+    const response = await this.executeQuery({
+      query: getSearchMapObjectsQuery(otherParams.locale),
+      params: {
+        filter: {...this.defaultFilters, ...filter},
+        ...otherParams,
+      },
+    });
+    return response.filterLandingObjects;
+  }
+
   async getSearchObjectsHistory({
     objectsIds,
   }: {
@@ -203,6 +225,24 @@ class GraphQLAPI extends GraphQLAPIEngine {
     });
 
     return response.filterLandingObjects.items;
+  }
+  async getObjectsTotalCount(): Promise<AppMapObjectsTotalCountResponseDTO> {
+    const response = await this.executeQuery({
+      query: getObjectsTotalCountQuery,
+    });
+
+    return response.searchObjects;
+  }
+
+  async getAppMapObjects(
+    params: AppMapObjectsQueryParams,
+  ): Promise<AppMapObjectsResponseDTO> {
+    const response = await this.executeQuery({
+      query: getAppMapObjectsQuery,
+      params,
+    });
+
+    return response.searchObjects;
   }
 
   private readonly defaultFilters = {statuses: ['published']};
