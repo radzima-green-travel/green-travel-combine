@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef} from 'react';
+import React, {useState, useCallback} from 'react';
 import {LayoutChangeEvent, Text, View} from 'react-native';
 import Animated, {
   measure,
@@ -59,14 +59,15 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     visibleObjects,
     carouselRef,
     onCarouselSnap,
+    bottomMenuRef,
+    isCarouselVisible,
+    setIsCarouselVisible,
     ...mapProps
   } = useMapView({
     mapObjects: mapObjects,
     visibleObjects: visibleObjectsOnMap,
     onMarkersAppear: onMarkersAppear,
   });
-
-  const bottomMenuRef = useRef<BottomSheet>(null);
 
   const styles = useThemeStyles(themeStyles);
   const [mapViewPort, setMapViewPort] = useState<{
@@ -142,11 +143,13 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     };
   });
 
-  const {isObjectsListVisible, onMapIdle} = useMapObjectsCarousel({
+  const {onMapIdle} = useMapObjectsCarousel({
     mapViewHeight: mapViewPort?.height,
     mapTranslateY: translateY,
     bottomSheetAnimatedIndex: animatedIndex,
     onMapInteraction: getVisibleFeatures,
+    setIsCarouselVisible,
+    isCarouselVisible,
   });
 
   return (
@@ -195,8 +198,9 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
             </MapButtonContainer>
           </Animated.View>
 
-          {isObjectsListVisible ? (
+          {isCarouselVisible ? (
             <MapObjectsCarousel
+              selectedObject={mapProps.selectedObject}
               objects={visibleObjects}
               carouselRef={carouselRef}
               onCarouselSnap={onCarouselSnap}

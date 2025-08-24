@@ -1,19 +1,28 @@
-import React, {memo} from 'react';
+import React, {memo, useMemo} from 'react';
 import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel';
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 import {ObjectCardNew} from 'molecules';
-import {SearchObject} from 'core/types';
+import {ObjectMap, SearchObject} from 'core/types';
 import {styles} from './styles';
 
 interface MapObjectsCarouselProps {
   objects: SearchObject[];
+  selectedObject: ObjectMap | null;
   carouselRef: React.RefObject<ICarouselInstance>;
   onCarouselSnap: (index: number) => void;
   onObjectPress: (objectId: SearchObject) => void;
 }
 
 export const MapObjectsCarousel: React.FC<MapObjectsCarouselProps> = memo(
-  ({objects, carouselRef, onCarouselSnap, onObjectPress}) => {
+  ({objects, carouselRef, selectedObject, onCarouselSnap, onObjectPress}) => {
+    const defaultIndex = useMemo(() => {
+      if (!selectedObject) {
+        return 0;
+      }
+      const index = objects.findIndex(obj => obj.id === selectedObject?.id);
+      return index !== -1 ? index : 0;
+    }, [objects, selectedObject]);
+
     if (!objects.length) {
       return null;
     }
@@ -49,6 +58,7 @@ export const MapObjectsCarousel: React.FC<MapObjectsCarouselProps> = memo(
           snapEnabled={true}
           onSnapToItem={onCarouselSnap}
           width={200}
+          defaultIndex={defaultIndex}
           containerStyle={styles.itemContainer}
           style={styles.carousel}
           mode="parallax"

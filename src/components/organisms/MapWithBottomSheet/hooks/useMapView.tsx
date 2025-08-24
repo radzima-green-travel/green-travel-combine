@@ -12,10 +12,10 @@ import {
   createSelectedMarkerFromObject,
 } from 'core/transformators/appMap';
 import {ObjectMap, SearchObject} from 'core/types';
-import {every, isEqual} from 'lodash';
+import {isEqual} from 'lodash';
 import {ShapeSource, Camera, MapView, MapState} from '@rnmapbox/maps';
 
-import {useFocusToUserLocation} from 'core/hooks';
+import {useFocusToUserLocation, useStaticCallback} from 'core/hooks';
 
 import {Feature, Position, Geometry} from '@turf/helpers';
 
@@ -24,6 +24,7 @@ import {find} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 import {ICarouselInstance} from 'react-native-reanimated-carousel';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 const defaultBbox = [
   23.1994938494, 51.3195034857, 32.6936430193, 56.1691299506,
@@ -53,6 +54,7 @@ export const useMapView = ({
   ) => void;
 }) => {
   const carouselRef = useRef<ICarouselInstance>(null);
+  const bottomMenuRef = useRef<BottomSheet>(null);
 
   const camera = useRef<Camera>(null);
   const mapRef = useRef<MapView>(null);
@@ -60,8 +62,16 @@ export const useMapView = ({
   const ignoreFitBounds = useRef(false);
 
   const [selectedObject, setSelectedObject] = useState<null | ObjectMap>(null);
+  const [isCarouselVisible, setIsCarouselVisible] = useState(false);
 
   const isObjectsEmpty = !mapObjects.length;
+
+  const {
+    focusToUserLocation,
+    setIsUserLocationFocused,
+    isUserLocationFocused,
+    ...userLocationProps
+  } = useFocusToUserLocation(camera);
 
   const markers = useMemo(() => {
     return !isObjectsEmpty ? getMapMarkers(mapObjects) : null;
@@ -86,7 +96,6 @@ export const useMapView = ({
 
   const selectObject = useCallback(
     (objectId: string) => {
-      hapticFeedbackService.trigger();
       const objectMap = find(mapObjects, {id: objectId});
 
       if (objectMap) {
@@ -96,8 +105,14 @@ export const useMapView = ({
     [mapObjects],
   );
 
-  const preselectFirstMarkerFromVisibleObjects = useCallback(() => {
-    if (visibleObjects.length > 0) {
+  useEffect(() => {
+    if (selectedObject) {
+      hapticFeedbackService.trigger();
+    }
+  }, [selectedObject]);
+
+  const preselectMarkerFromVisibleObjects = useStaticCallback(() => {
+    if (visibleObjects.length > 0 && !selectedObject) {
       const firstVisibleObject = visibleObjects[0];
       const firstVisibleObjectId = firstVisibleObject.id;
 
@@ -105,11 +120,11 @@ export const useMapView = ({
         selectObject(firstVisibleObjectId);
       }
     }
-  }, [selectObject, visibleObjects]);
+  }, [selectObject, visibleObjects, selectedObject, carouselRef]);
 
   useEffect(() => {
-    preselectFirstMarkerFromVisibleObjects();
-  }, [preselectFirstMarkerFromVisibleObjects]);
+    preselectMarkerFromVisibleObjects();
+  }, [preselectMarkerFromVisibleObjects, visibleObjects]);
 
   const prevVisible = useRef<Record<string, boolean> | null>(null);
   const unselectObject = useCallback(() => {
@@ -140,26 +155,28 @@ export const useMapView = ({
             {},
           );
 
-          if (
-            selectedObject &&
-            (!features.length ||
-              every(features, feature => {
-                return feature.properties.objectId !== selectedObject?.id;
-              }))
-          ) {
-            unselectObject();
-          }
-
           if (!isEqual(currentVisible, prevVisible.current)) {
             prevVisible.current = currentVisible;
-            onMarkersAppear(features);
+
+            if (selectedObject?.id && !currentVisible[selectedObject?.id]) {
+              unselectObject();
+            }
+            if (isCarouselVisible) {
+              onMarkersAppear(features);
+            }
           }
         }
       }
 
       queryRenderedFeaturesInRect();
     },
-    [mapObjects.length, onMarkersAppear, selectedObject, unselectObject],
+    [
+      isCarouselVisible,
+      mapObjects.length,
+      onMarkersAppear,
+      selectedObject?.id,
+      unselectObject,
+    ],
   );
 
   const onMapPress = useCallback(() => {
@@ -193,13 +210,6 @@ export const useMapView = ({
     },
     [mapObjects, selectObject, visibleObjects],
   );
-
-  const {
-    focusToUserLocation,
-    setIsUserLocationFocused,
-    isUserLocationFocused,
-    ...userLocationProps
-  } = useFocusToUserLocation(camera);
 
   const fitToClusterLeaves = useCallback((event: OnPressEvent) => {
     const {features} = event;
@@ -253,6 +263,7 @@ export const useMapView = ({
     bounds,
     camera,
     mapRef,
+    bottomMenuRef,
     unfocusUserLocation,
     onShapePress,
     onMapPress,
@@ -274,5 +285,8 @@ export const useMapView = ({
     visibleObjects,
     getVisibleFeatures,
     unselectObject,
+
+    isCarouselVisible,
+    setIsCarouselVisible,
   };
 };

@@ -1,7 +1,7 @@
 import {MapState} from '@rnmapbox/maps';
 import {HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL} from 'core/constants';
 import {isEqual} from 'lodash';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 import {
   runOnJS,
   SharedValue,
@@ -17,19 +17,21 @@ export function useMapObjectsCarousel({
   mapTranslateY,
   bottomSheetAnimatedIndex,
   onMapInteraction,
+  setIsCarouselVisible,
+  isCarouselVisible,
 }: {
   mapViewHeight?: number;
   mapTranslateY: SharedValue<number>;
   bottomSheetAnimatedIndex: SharedValue<number>;
   onMapInteraction: (visibleAreaBbox: number[]) => void;
+  isCarouselVisible: boolean;
+  setIsCarouselVisible: (visible: boolean) => void;
 }) {
-  const [isObjectsListVisible, setIsObjectListVisible] = useState(false);
-
   useAnimatedReaction(
     () => bottomSheetAnimatedIndex.value < 0.1,
     nextVisible => {
-      if (nextVisible !== isObjectsListVisible) {
-        runOnJS(setIsObjectListVisible)(nextVisible);
+      if (nextVisible !== isCarouselVisible) {
+        runOnJS(setIsCarouselVisible)(nextVisible);
       }
     },
   );
@@ -54,13 +56,11 @@ export function useMapObjectsCarousel({
   }, [mapTranslateY.value, mapViewHeight]);
 
   const getVisibleFeaturesInBbox = useCallback(() => {
-    if (isObjectsListVisible) {
-      const bbox = getMapVisibleAreaBbbox();
-      if (bbox) {
-        onMapInteraction(bbox);
-      }
+    const bbox = getMapVisibleAreaBbbox();
+    if (bbox) {
+      onMapInteraction(bbox);
     }
-  }, [getMapVisibleAreaBbbox, isObjectsListVisible, onMapInteraction]);
+  }, [getMapVisibleAreaBbbox, onMapInteraction]);
 
   const prevCenter = useRef<Position | null>(null);
 
@@ -78,10 +78,9 @@ export function useMapObjectsCarousel({
 
   useEffect(() => {
     getVisibleFeaturesInBbox();
-  }, [getVisibleFeaturesInBbox, isObjectsListVisible]);
+  }, [getVisibleFeaturesInBbox, isCarouselVisible]);
 
   return {
-    isObjectsListVisible,
     onMapIdle,
   };
 }
