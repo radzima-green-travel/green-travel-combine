@@ -28,7 +28,6 @@ export {
 } from 'react-redux-help-kit';
 export {useNavigateToPrivacyPolicyAndTnC} from './useNavigateToPrivacyPolicyAndTnC';
 export {useFavorite} from './useFavorite';
-export {useTextInputAutoFocus} from './useTextInputAutoFocus';
 export {useOnSuccessSignIn} from './useOnSuccessSignIn';
 export {useHeaderHeight} from './useHeaderHeight';
 export {useScrollScrollViewScrollToElement} from './useScrollScrollViewScrollToElement';

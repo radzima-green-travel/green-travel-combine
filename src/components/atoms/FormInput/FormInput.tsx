@@ -26,7 +26,6 @@ import {Icon} from '../Icon';
 import {IconProps} from 'atoms/Icon';
 import {HelperText} from '../HelperText';
 import {useHandleKeyboardInput} from '../HandleKeyboard';
-import {useTextInputAutoFocus} from 'core/hooks';
 import {composeTestID} from 'core/helpers';
 import {COLORS} from 'assets';
 
@@ -144,8 +143,6 @@ export const FormInput = forwardRef<TextInput, FormInputProps>(
       }
     };
 
-    const textInputAutofocus = useTextInputAutoFocus(inputRef, autoFocus);
-
     const translateY = useDerivedValue(() => {
       return withTiming(isFocused.value || !isInputEmty ? 1 : 0, {
         duration: 200,
@@ -252,7 +249,7 @@ export const FormInput = forwardRef<TextInput, FormInputProps>(
               placeholder={placeholder}
               maxLength={maxLength}
               onChangeText={onChangeHandler}
-              autoFocus={textInputAutofocus}
+              autoFocus={autoFocus}
               onFocus={onFocusHandler}
               onBlur={onBlurHandler}
               onSubmitEditing={onSubmitEditingHandler}
