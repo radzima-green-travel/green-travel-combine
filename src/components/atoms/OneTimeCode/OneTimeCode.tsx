@@ -4,7 +4,6 @@ import {useColorScheme, useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {HelperText} from '../HelperText';
 import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {useTextInputAutoFocus} from 'core/hooks';
 import {COLORS} from 'assets';
 
 interface IProp {
@@ -80,8 +79,6 @@ export const OneTimeCode = ({
     );
   };
 
-  const textInputAutoFocus = useTextInputAutoFocus(codeRef, autoFocus);
-
   const isLightTheme = colorTheme === 'light';
 
   return (
@@ -99,7 +96,7 @@ export const OneTimeCode = ({
         onFocus={onCodeDigitFocus}
         onBlur={onCodeDigitBlur}
         onSubmitEditing={onCodeDigitBlur}
-        autoFocus={textInputAutoFocus}
+        autoFocus={autoFocus}
         selectionColor={
           isLightTheme
             ? COLORS.light.icon.accentLight
