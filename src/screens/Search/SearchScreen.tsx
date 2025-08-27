@@ -3,7 +3,7 @@ import React, {useCallback, useEffect} from 'react';
 import {
   useSearchHeader,
   useSearchList,
-  useObjectListView,
+  useObjectListMapView,
   useThemeStyles,
 } from 'core/hooks';
 import {SuspenseView} from 'molecules';
@@ -58,7 +58,7 @@ export const SearchScreen = () => {
     searchOptions,
   } = useSearchHeader();
 
-  const mapWithBottomSheetProps = useObjectListView({
+  const mapWithBottomSheetProps = useObjectListMapView({
     searchParameters: searchParameters,
   });
 

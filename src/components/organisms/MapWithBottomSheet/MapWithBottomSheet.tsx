@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect, useRef} from 'react';
 import {LayoutChangeEvent, Text, View} from 'react-native';
 import Animated, {
   measure,
@@ -10,17 +10,30 @@ import Animated, {
   withTiming,
   ZoomIn,
   ZoomOut,
+  runOnJS,
+  useAnimatedReaction,
 } from 'react-native-reanimated';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {Button, Icon, LoadingView, MapButtonContainer} from 'atoms';
-import {Map, MapObjectsCarousel} from './components';
+import {
+  Map,
+  MapObjectsCarousel,
+  MAP_OBJECTS_CAROUSEL_HEIGHT,
+} from './components';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles, SNAP_POINT_0, SNAP_POINT_1} from './styles';
 import {useMapView} from './hooks';
 import {Feature, Geometry} from '@turf/helpers';
 
 import {ObjectMap, SearchObject, SupportedLocales} from 'core/types';
-import {useMapObjectsCarousel} from './hooks';
+
+import {MapState} from '@rnmapbox/maps';
+import {HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL} from 'core/constants';
+import {isEqual} from 'lodash';
+
+import {SCREEN_WIDTH} from 'services/PlatformService';
+import {} from './components';
+import {Position} from 'geojson';
 
 interface MapWithBottomSheetProps {
   mapObjects: ObjectMap[];
@@ -143,14 +156,57 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     };
   });
 
-  const {onMapIdle} = useMapObjectsCarousel({
-    mapViewHeight: mapViewPort?.height,
-    mapTranslateY: translateY,
-    bottomSheetAnimatedIndex: animatedIndex,
-    onMapInteraction: getVisibleFeatures,
-    setIsCarouselVisible,
-    isCarouselVisible,
-  });
+  useAnimatedReaction(
+    () => animatedIndex.value < 0.1,
+    nextVisible => {
+      if (nextVisible !== isCarouselVisible) {
+        runOnJS(setIsCarouselVisible)(nextVisible);
+      }
+    },
+  );
+
+  const getMapVisibleAreaBbbox = useCallback(() => {
+    if (mapViewPort?.height) {
+      const top = HEADER_BOTTOM_RADIUS + PADDING_HORIZONTAL - translateY.value;
+      const right = SCREEN_WIDTH;
+      const bottom =
+        mapViewPort.height -
+        SNAP_POINT_0 +
+        PADDING_HORIZONTAL -
+        MAP_OBJECTS_CAROUSEL_HEIGHT +
+        translateY.value;
+      const left = 0;
+
+      return [top, right, bottom, left];
+    }
+
+    return null;
+  }, [translateY.value, mapViewPort?.height]);
+
+  const getVisibleFeaturesInBbox = useCallback(() => {
+    const bbox = getMapVisibleAreaBbbox();
+    if (bbox) {
+      getVisibleFeatures(bbox);
+    }
+  }, [getMapVisibleAreaBbbox, getVisibleFeatures]);
+
+  const prevCenter = useRef<Position | null>(null);
+
+  const onMapIdle = useCallback(
+    (event: MapState) => {
+      if (isEqual(prevCenter.current, event?.properties?.center)) {
+        return;
+      }
+
+      prevCenter.current = event?.properties?.center;
+      getVisibleFeaturesInBbox();
+    },
+    [getVisibleFeaturesInBbox],
+  );
+
+  useEffect(() => {
+    getVisibleFeaturesInBbox();
+  }, [getVisibleFeaturesInBbox, isCarouselVisible]);
 
   return (
     <>

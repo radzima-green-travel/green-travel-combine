@@ -47,6 +47,7 @@ export const reducer = createReducer(initialState, builder => {
       nextToken: payload.nextToken,
       total: payload.total,
       highlight: payload.highlight,
+      visibleOnMapObjects: [],
     }),
   );
 

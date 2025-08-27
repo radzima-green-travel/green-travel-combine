@@ -6,7 +6,7 @@ import {
   useObjectsListAnalytics,
   useSearchHeader,
   useSearchList,
-  useObjectListView,
+  useObjectListMapView,
   useThemeStyles,
 } from 'core/hooks';
 import {themeStyles} from './styles';
@@ -67,7 +67,7 @@ export const ObjectListScreen = () => {
     [sendSaveCardEvent, sendUnsaveCardEvent],
   );
 
-  const mapWithBottomSheetProps = useObjectListView({
+  const mapWithBottomSheetProps = useObjectListMapView({
     searchParameters: searchParameters,
   });
 
@@ -87,7 +87,10 @@ export const ObjectListScreen = () => {
         onOptionsChange={updateSearchOptions}
         autoFocus={false}
       />
-      <SuspenseView testID="objectsListSuspenseView" {...searchSuspenseProps}>
+      <SuspenseView
+        cover
+        testID="objectsListSuspenseView"
+        {...searchSuspenseProps}>
         <ObjectList
           testID="objectList"
           data={searchResults}

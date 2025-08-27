@@ -88,8 +88,8 @@ export const useMapView = ({
       ? mapService.getBoundsFromGeoJSON(markers, {
           left: 30,
           right: 30,
-          bottom: 250,
-          top: 170,
+          bottom: markers.features?.length < 5 ? 250 : 250,
+          top: markers.features?.length < 5 ? 170 : 100,
         })
       : mapService.getBoundsFromBbox(defaultBbox, {});
   }, [markers]);
@@ -101,8 +101,17 @@ export const useMapView = ({
       if (objectMap) {
         setSelectedObject({...objectMap});
       }
+
+      if (!isCarouselVisible && objectMap?.location) {
+        camera.current?.moveTo([
+          objectMap?.location.lon,
+          objectMap?.location.lat,
+        ]);
+
+        bottomMenuRef.current?.snapToIndex(0);
+      }
     },
-    [mapObjects],
+    [isCarouselVisible, mapObjects],
   );
 
   useEffect(() => {
@@ -123,17 +132,25 @@ export const useMapView = ({
   }, [selectObject, visibleObjects, selectedObject, carouselRef]);
 
   useEffect(() => {
-    preselectMarkerFromVisibleObjects();
-  }, [preselectMarkerFromVisibleObjects, visibleObjects]);
+    if (isCarouselVisible) {
+      preselectMarkerFromVisibleObjects();
+    }
+  }, [preselectMarkerFromVisibleObjects, visibleObjects, isCarouselVisible]);
 
   const prevVisible = useRef<Record<string, boolean> | null>(null);
   const unselectObject = useCallback(() => {
     setSelectedObject(null);
   }, []);
 
+  useEffect(() => {
+    if (!isCarouselVisible) {
+      unselectObject();
+    }
+  }, [isCarouselVisible, unselectObject]);
+
   const getVisibleFeatures = useCallback(
     async (bbox: number[]) => {
-      if (!mapObjects.length) {
+      if (!mapObjects.length || !isCarouselVisible) {
         return;
       }
 
@@ -161,9 +178,8 @@ export const useMapView = ({
             if (selectedObject?.id && !currentVisible[selectedObject?.id]) {
               unselectObject();
             }
-            if (isCarouselVisible) {
-              onMarkersAppear(features);
-            }
+
+            onMarkersAppear(features);
           }
         }
       }
