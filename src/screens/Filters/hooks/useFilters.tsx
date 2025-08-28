@@ -272,8 +272,10 @@ export const useFilters = () => {
   );
 
   const applyFilters = useCallback(() => {
-    onApply?.(activeFilters);
-    navigation.goBack();
+    const {redirectHandled} = onApply?.(activeFilters) ?? {};
+    if (!redirectHandled) {
+      navigation.goBack();
+    }
     sendFilterApplyEvent();
   }, [activeFilters, onApply, navigation, sendFilterApplyEvent]);
 

@@ -24,6 +24,13 @@ const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
           analytics: {
             fromScreenName: getAnalyticsNavigationScreenName(),
           },
+          onApply: appliedFilters => {
+            navigation.navigate('Search', {
+              appliedFilters,
+            });
+
+            return {redirectHandled: true};
+          },
         });
       }}
       theme="quarterlyGrey"

@@ -72,6 +72,8 @@ export const useSearchHeader = () => {
       },
       onApply: filters => {
         navigation.setParams({appliedFilters: filters});
+
+        return {redirectHandled: false};
       },
     });
   }, [

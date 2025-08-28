@@ -78,7 +78,7 @@ export type MainNavigatorParamsList = {
     analytics: {
       fromScreenName: AnalyticsNavigationScreenNames;
     };
-    onApply?: (filters: SearchFilters) => void;
+    onApply?: (filters: SearchFilters) => {redirectHandled: boolean};
   };
   Settlements: {
     initialSelectedSettlements: string[];
