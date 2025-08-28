@@ -31,7 +31,7 @@ import {MapState} from '@rnmapbox/maps';
 import {HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL} from 'core/constants';
 import {isEqual} from 'lodash';
 
-import {SCREEN_WIDTH} from 'services/PlatformService';
+import {isAndroid, SCREEN_WIDTH} from 'services/PlatformService';
 import {} from './components';
 import {Position} from 'geojson';
 
@@ -73,8 +73,8 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     carouselRef,
     onCarouselSnap,
     bottomMenuRef,
-    isCarouselVisible,
-    setIsCarouselVisible,
+    bottomMenuOpened,
+    setBottomMenuOpened,
     ...mapProps
   } = useMapView({
     mapObjects: mapObjects,
@@ -158,9 +158,9 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
 
   useAnimatedReaction(
     () => animatedIndex.value < 0.1,
-    nextVisible => {
-      if (nextVisible !== isCarouselVisible) {
-        runOnJS(setIsCarouselVisible)(nextVisible);
+    nextOpened => {
+      if (nextOpened !== bottomMenuOpened) {
+        runOnJS(setBottomMenuOpened)(nextOpened);
       }
     },
   );
@@ -168,16 +168,17 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
   const getMapVisibleAreaBbbox = useCallback(() => {
     if (mapViewPort?.height) {
       const top = HEADER_BOTTOM_RADIUS + PADDING_HORIZONTAL - translateY.value;
-      const right = SCREEN_WIDTH;
-      const bottom =
-        mapViewPort.height -
-        SNAP_POINT_0 +
-        PADDING_HORIZONTAL -
-        MAP_OBJECTS_CAROUSEL_HEIGHT +
-        translateY.value;
+      const right = isAndroid ? 1000 : SCREEN_WIDTH;
+      const bottom = isAndroid
+        ? 1000
+        : mapViewPort.height -
+          SNAP_POINT_0 +
+          PADDING_HORIZONTAL -
+          MAP_OBJECTS_CAROUSEL_HEIGHT +
+          translateY.value;
       const left = 0;
 
-      return [top, right, bottom, left];
+      return [top * (isAndroid ? 2 : 1), right, bottom, left];
     }
 
     return null;
@@ -206,7 +207,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
 
   useEffect(() => {
     getVisibleFeaturesInBbox();
-  }, [getVisibleFeaturesInBbox, isCarouselVisible]);
+  }, [getVisibleFeaturesInBbox, bottomMenuOpened]);
 
   return (
     <>
@@ -254,7 +255,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
             </MapButtonContainer>
           </Animated.View>
 
-          {isCarouselVisible ? (
+          {bottomMenuOpened ? (
             <MapObjectsCarousel
               selectedObject={mapProps.selectedObject}
               objects={visibleObjects}

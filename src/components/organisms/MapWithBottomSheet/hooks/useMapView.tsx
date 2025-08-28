@@ -62,7 +62,7 @@ export const useMapView = ({
   const ignoreFitBounds = useRef(false);
 
   const [selectedObject, setSelectedObject] = useState<null | ObjectMap>(null);
-  const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const [bottomMenuOpened, setBottomMenuOpened] = useState(false);
 
   const isObjectsEmpty = !mapObjects.length;
 
@@ -88,7 +88,7 @@ export const useMapView = ({
       ? mapService.getBoundsFromGeoJSON(markers, {
           left: 30,
           right: 30,
-          bottom: markers.features?.length < 5 ? 250 : 250,
+          bottom: 250,
           top: markers.features?.length < 5 ? 170 : 100,
         })
       : mapService.getBoundsFromBbox(defaultBbox, {});
@@ -102,7 +102,7 @@ export const useMapView = ({
         setSelectedObject({...objectMap});
       }
 
-      if (!isCarouselVisible && objectMap?.location) {
+      if (!bottomMenuOpened && objectMap?.location) {
         camera.current?.moveTo([
           objectMap?.location.lon,
           objectMap?.location.lat,
@@ -111,7 +111,7 @@ export const useMapView = ({
         bottomMenuRef.current?.snapToIndex(0);
       }
     },
-    [isCarouselVisible, mapObjects],
+    [bottomMenuOpened, mapObjects],
   );
 
   useEffect(() => {
@@ -132,25 +132,26 @@ export const useMapView = ({
   }, [selectObject, visibleObjects, selectedObject, carouselRef]);
 
   useEffect(() => {
-    if (isCarouselVisible) {
+    if (bottomMenuOpened) {
       preselectMarkerFromVisibleObjects();
     }
-  }, [preselectMarkerFromVisibleObjects, visibleObjects, isCarouselVisible]);
+  }, [preselectMarkerFromVisibleObjects, visibleObjects, bottomMenuOpened]);
 
   const prevVisible = useRef<Record<string, boolean> | null>(null);
+
   const unselectObject = useCallback(() => {
     setSelectedObject(null);
   }, []);
 
   useEffect(() => {
-    if (!isCarouselVisible) {
+    if (!bottomMenuOpened) {
       unselectObject();
     }
-  }, [isCarouselVisible, unselectObject]);
+  }, [bottomMenuOpened, unselectObject]);
 
   const getVisibleFeatures = useCallback(
     async (bbox: number[]) => {
-      if (!mapObjects.length || !isCarouselVisible) {
+      if (!mapObjects.length || !bottomMenuOpened) {
         return;
       }
 
@@ -187,7 +188,7 @@ export const useMapView = ({
       queryRenderedFeaturesInRect();
     },
     [
-      isCarouselVisible,
+      bottomMenuOpened,
       mapObjects.length,
       onMarkersAppear,
       selectedObject?.id,
@@ -302,7 +303,7 @@ export const useMapView = ({
     getVisibleFeatures,
     unselectObject,
 
-    isCarouselVisible,
-    setIsCarouselVisible,
+    bottomMenuOpened,
+    setBottomMenuOpened,
   };
 };
