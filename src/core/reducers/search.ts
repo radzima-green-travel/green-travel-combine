@@ -15,7 +15,7 @@ import {byIdReducer} from 'react-redux-help-kit';
 interface SearchState {
   searchObjects: Array<SearchObjectDTO>;
   mapSearchObjects: ObjectMapDTO[];
-  visibleOnMapObjects: Array<SearchObjectDTO>;
+  objectsVisibleOnMap: Array<SearchObjectDTO>;
   nextToken: string | null;
   highlight: Highlight | null;
   inputValue: string;
@@ -26,7 +26,7 @@ interface SearchState {
 const initialState: SearchState = {
   searchObjects: [],
   mapSearchObjects: [],
-  visibleOnMapObjects: [],
+  objectsVisibleOnMap: [],
   highlight: null,
   inputValue: '',
   nextToken: null,
@@ -47,7 +47,7 @@ export const reducer = createReducer(initialState, builder => {
       nextToken: payload.nextToken,
       total: payload.total,
       highlight: payload.highlight,
-      visibleOnMapObjects: [],
+      objectsVisibleOnMap: [],
     }),
   );
 
@@ -84,7 +84,7 @@ export const reducer = createReducer(initialState, builder => {
     (state, {payload}) => {
       return {
         ...state,
-        visibleOnMapObjects: payload,
+        objectsVisibleOnMap: payload,
       };
     },
   );
