@@ -43,4 +43,4 @@ export {useObjectDetailsSelector} from './useObjectDetailsSelector';
 export {useAppliedFilters} from './useAppliedFilters';
 export {useSearchHeader} from './useSearchHeader';
 export {useScrollToTopButton} from './useScrollToTopButton';
-export {useObjectListView} from './useObjectListView';
+export {useObjectListMapView} from './useObjectListMapView';

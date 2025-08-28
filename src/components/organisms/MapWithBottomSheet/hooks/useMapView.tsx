@@ -62,7 +62,7 @@ export const useMapView = ({
   const ignoreFitBounds = useRef(false);
 
   const [selectedObject, setSelectedObject] = useState<null | ObjectMap>(null);
-  const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const [bottomMenuOpened, setBottomMenuOpened] = useState(false);
 
   const isObjectsEmpty = !mapObjects.length;
 
@@ -89,7 +89,7 @@ export const useMapView = ({
           left: 30,
           right: 30,
           bottom: 250,
-          top: 170,
+          top: markers.features?.length < 5 ? 170 : 100,
         })
       : mapService.getBoundsFromBbox(defaultBbox, {});
   }, [markers]);
@@ -101,8 +101,17 @@ export const useMapView = ({
       if (objectMap) {
         setSelectedObject({...objectMap});
       }
+
+      if (!bottomMenuOpened && objectMap?.location) {
+        camera.current?.moveTo([
+          objectMap?.location.lon,
+          objectMap?.location.lat,
+        ]);
+
+        bottomMenuRef.current?.snapToIndex(0);
+      }
     },
-    [mapObjects],
+    [bottomMenuOpened, mapObjects],
   );
 
   useEffect(() => {
@@ -123,17 +132,26 @@ export const useMapView = ({
   }, [selectObject, visibleObjects, selectedObject, carouselRef]);
 
   useEffect(() => {
-    preselectMarkerFromVisibleObjects();
-  }, [preselectMarkerFromVisibleObjects, visibleObjects]);
+    if (bottomMenuOpened) {
+      preselectMarkerFromVisibleObjects();
+    }
+  }, [preselectMarkerFromVisibleObjects, visibleObjects, bottomMenuOpened]);
 
   const prevVisible = useRef<Record<string, boolean> | null>(null);
+
   const unselectObject = useCallback(() => {
     setSelectedObject(null);
   }, []);
 
+  useEffect(() => {
+    if (!bottomMenuOpened) {
+      unselectObject();
+    }
+  }, [bottomMenuOpened, unselectObject]);
+
   const getVisibleFeatures = useCallback(
     async (bbox: number[]) => {
-      if (!mapObjects.length) {
+      if (!mapObjects.length || !bottomMenuOpened) {
         return;
       }
 
@@ -161,9 +179,8 @@ export const useMapView = ({
             if (selectedObject?.id && !currentVisible[selectedObject?.id]) {
               unselectObject();
             }
-            if (isCarouselVisible) {
-              onMarkersAppear(features);
-            }
+
+            onMarkersAppear(features);
           }
         }
       }
@@ -171,7 +188,7 @@ export const useMapView = ({
       queryRenderedFeaturesInRect();
     },
     [
-      isCarouselVisible,
+      bottomMenuOpened,
       mapObjects.length,
       onMarkersAppear,
       selectedObject?.id,
@@ -286,7 +303,7 @@ export const useMapView = ({
     getVisibleFeatures,
     unselectObject,
 
-    isCarouselVisible,
-    setIsCarouselVisible,
+    bottomMenuOpened,
+    setBottomMenuOpened,
   };
 };

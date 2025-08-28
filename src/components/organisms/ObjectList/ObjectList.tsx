@@ -2,7 +2,7 @@ import {ICONS_MATCHER} from 'core/constants';
 import {composeTestID} from 'core/helpers';
 import {
   useScrollToTopButton,
-  useObjectListView,
+  useObjectListMapView,
   useThemeStyles,
   useTranslation,
 } from 'core/hooks';
@@ -40,7 +40,7 @@ export interface ObjectListProps
 
   viewMode?: ObjectListViewMode;
   onViewModeChange?: (viewMode: ObjectListViewMode) => void;
-  mapWithBottomSheetProps?: ReturnType<typeof useObjectListView>;
+  mapWithBottomSheetProps?: ReturnType<typeof useObjectListMapView>;
 
   handlesKeyboard?: boolean;
   withScrollToTopButton?: boolean;

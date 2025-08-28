@@ -8,12 +8,12 @@ import {
 import {useDispatch} from 'react-redux';
 import {SearchObjectsRequestPayload} from 'core/actions';
 import {useRequestLoading} from 'react-redux-help-kit';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useSearchActions} from './useSearchActions';
 import {useSelector} from 'react-redux';
 import {DEFAULT_LOCALE} from 'core/constants';
 
-export function useObjectListView({
+export function useObjectListMapView({
   searchParameters,
 }: {
   searchParameters: SearchObjectsRequestPayload;
@@ -37,14 +37,23 @@ export function useObjectListView({
     getVisibleOnMapObjectsRequest,
   );
 
+  const searchPayloadUpdated = useRef(true);
+
+  const searchPayload = useMemo(() => {
+    return {
+      ...searchParameters,
+      totals: searchResultsTotal,
+    };
+  }, [searchParameters, searchResultsTotal]);
+
   useEffect(() => {
-    if (isMapViewEnabled) {
-      dispatch(
-        getMapSearchObjectsRequest({
-          ...searchParameters,
-          totals: searchResultsTotal,
-        }),
-      );
+    searchPayloadUpdated.current = true;
+  }, [searchPayload]);
+
+  useEffect(() => {
+    if (isMapViewEnabled && searchPayloadUpdated.current) {
+      dispatch(getMapSearchObjectsRequest(searchPayload));
+      searchPayloadUpdated.current = false;
     }
   }, [
     dispatch,
@@ -52,6 +61,7 @@ export function useObjectListView({
     isMapViewEnabled,
     searchResultsTotal,
     getMapSearchObjectsRequest,
+    searchPayload,
   ]);
 
   const updateMapViewVisibility = useCallback((index: number) => {
