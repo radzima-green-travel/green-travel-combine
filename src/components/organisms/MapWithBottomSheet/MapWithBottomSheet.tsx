@@ -48,6 +48,7 @@ interface MapWithBottomSheetProps {
   totalResults: number;
   currentLocale: SupportedLocales;
   onObjectPress: (object: SearchObject) => void;
+  onTouch?: () => void;
 }
 
 export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
@@ -60,6 +61,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
   visibleObjectsOnMap,
   onMarkersAppear,
   onObjectPress,
+  onTouch,
 }) => {
   const snapPoints = [SNAP_POINT_0, SNAP_POINT_1, '100%'];
 
@@ -211,7 +213,10 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
 
   return (
     <>
-      <Animated.View ref={animatedRef} style={styles.listContainer}>
+      <Animated.View
+        ref={animatedRef}
+        style={styles.listContainer}
+        onTouchStart={onTouch}>
         <Animated.View onLayout={calculateMapViewPort} style={animatedStyles}>
           <Map
             {...mapProps}

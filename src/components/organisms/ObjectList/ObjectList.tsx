@@ -9,7 +9,13 @@ import {
 import {SearchObject} from 'core/types';
 import {idKeyExtractor} from 'core/utils/react';
 import React, {useCallback} from 'react';
-import {KeyboardAvoidingView, ListRenderItem, Text, View} from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  ListRenderItem,
+  Text,
+  View,
+} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {ObjectListModeSwitch} from '../../atoms';
 import {ListItem, ObjectCardNew, SearchListItem} from '../../molecules';
@@ -186,6 +192,10 @@ export const ObjectList = ({
     listContentSizeChangeHandler,
   } = useScrollToTopButton();
 
+  const hideKeyboard = useCallback(() => {
+    Keyboard.dismiss();
+  }, []);
+
   const ListComponent = (
     withMapWithBottomSheet ? AnimatedBottomSheetFlatList : Animated.FlatList
   ) as typeof Animated.FlatList<SearchObject>;
@@ -219,6 +229,7 @@ export const ObjectList = ({
       {withMapWithBottomSheet && mapWithBottomSheetProps ? (
         <MapWithBottomSheet
           onObjectPress={onItemPress}
+          onTouch={hideKeyboard}
           {...mapWithBottomSheetProps}>
           {list}
         </MapWithBottomSheet>
