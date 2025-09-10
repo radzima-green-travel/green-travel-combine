@@ -136,7 +136,12 @@ export const SearchScreen = () => {
           testID="searchSusspenseView"
           cover
           loaderBackdropStyle={styles.loaderBackdrop}
-          {...searchSuspenseProps}>
+          {...searchSuspenseProps}
+          loading={
+            mapWithBottomSheetProps.isMapViewEnabled
+              ? false
+              : searchSuspenseProps.loading
+          }>
           <SearchList
             testID="searchList"
             isHistoryVisible={isHistoryVisible}

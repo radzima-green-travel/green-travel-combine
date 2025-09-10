@@ -84,5 +84,6 @@ export function useObjectListMapView({
     mapObjects,
     visibleObjectsOnMap,
     onMarkersAppear: getVisibleOnMapObjects,
+    isMapViewEnabled,
   };
 }

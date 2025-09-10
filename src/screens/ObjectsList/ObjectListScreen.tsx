@@ -90,7 +90,12 @@ export const ObjectListScreen = () => {
       <SuspenseView
         cover
         testID="objectsListSuspenseView"
-        {...searchSuspenseProps}>
+        {...searchSuspenseProps}
+        loading={
+          mapWithBottomSheetProps.isMapViewEnabled
+            ? false
+            : searchSuspenseProps.loading
+        }>
         <ObjectList
           testID="objectList"
           data={searchResults}
