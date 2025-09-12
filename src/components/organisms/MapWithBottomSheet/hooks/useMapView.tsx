@@ -266,15 +266,32 @@ export const useMapView = ({
     [setIsUserLocationFocused],
   );
 
+  const fitToBoundaries = useCallback(() => {
+    const isSingleMarker = markers?.features?.length === 1;
+
+    if (isSingleMarker) {
+      const feature = markers.features[0];
+      const coordinates = feature.geometry.coordinates;
+
+      camera.current?.setCamera({
+        centerCoordinate: coordinates,
+        zoomLevel: 17,
+        animationDuration: 300,
+      });
+    } else {
+      camera.current?.fitBounds(...bounds);
+    }
+  }, [bounds, markers]);
+
   useLayoutEffect(() => {
     if (bounds) {
       if (!ignoreFitBounds.current) {
-        camera.current?.fitBounds(...bounds);
+        fitToBoundaries();
       } else {
         ignoreFitBounds.current = false;
       }
     }
-  }, [bounds, camera, ignoreFitBounds]);
+  }, [bounds, camera, fitToBoundaries, ignoreFitBounds]);
 
   return {
     bounds,
