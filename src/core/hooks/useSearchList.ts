@@ -7,13 +7,12 @@ import {
   selectSearchQuery,
   selectUserAuthorized,
 } from 'core/selectors';
-import {useCallback, useMemo, useRef, useState} from 'react';
+import {useCallback, useMemo, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useRequestLoading} from 'react-redux-help-kit';
-import {ObjectListViewMode} from '../../components/types';
 import {
   SearchScreenNavigationProps,
-  SearchScreenRouteProps,
+  type SearchScreenRouteProps,
 } from '../../screens/Search/types';
 import {getAnalyticsNavigationScreenName} from '../helpers';
 import {SearchObject} from '../types';
@@ -21,6 +20,7 @@ import {useListPagination} from './useListPagination';
 import {useOnRequestError} from './useOnRequestError';
 import {useSearchActions} from './useSearchActions';
 import {useSearchSelector} from './useSearchSelector';
+import {useSearchListViewMode} from './useSearchListViewMode';
 import {Keyboard} from 'react-native';
 
 export function useSearchList() {
@@ -61,6 +61,8 @@ export function useSearchList() {
     };
   }, [searchQuery, appliedFilters]);
 
+  const {viewMode, setViewMode} = useSearchListViewMode(searchParameters);
+
   const searchObjects = useCallback(() => {
     dispatch(searchObjectsRequest(searchParameters));
   }, [dispatch, searchObjectsRequest, searchParameters]);
@@ -80,15 +82,6 @@ export function useSearchList() {
     loadMore: searchMoreObjects,
     hasMoreToLoad: !loading && searchResults.length < searchResultsTotal,
   });
-
-  const [viewMode, setViewMode] = useState<ObjectListViewMode>('list');
-
-  const prevQuery = useRef(searchQuery);
-
-  if (prevQuery.current !== searchQuery) {
-    prevQuery.current = searchQuery;
-    setViewMode('list');
-  }
 
   const openObjectDetails = useCallback(
     (object: SearchObject) => {

@@ -10,6 +10,7 @@ export {useImageSlider} from './useImageSlider';
 export {useLightStatusBar} from './useLightStatusBar';
 export {useRequestErrorAlert} from './useRequestErrorAlert';
 export {useSearchList} from './useSearchList';
+export {useSearchListViewMode} from './useSearchListViewMode';
 export {useStatusBar} from './useStatusBar';
 export {useTask} from './useTask';
 export {useThemeStyles} from './useThemeStyles';

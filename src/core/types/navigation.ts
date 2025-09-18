@@ -5,6 +5,7 @@ import {AnalyticsNavigationScreenNames} from './analytics';
 import {FromScreenName} from './analytics/objectDetails';
 import {SearchFilters} from './filters';
 import {SearchOptions} from './search';
+import type {ObjectListViewMode} from '../../components/types';
 
 type ObjectDetailsParams = {
   objectId: string;
@@ -20,6 +21,7 @@ type ObjectListParams = {
   title?: string;
   appliedFilters?: SearchFilters;
   showsTitle?: boolean;
+  defaultViewMode?: ObjectListViewMode;
 };
 
 export type HomeNavigatorParamsList = {
