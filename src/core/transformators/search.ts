@@ -19,6 +19,8 @@ import {
   omit,
   forEach,
   keys,
+  isEqual,
+  isArray,
 } from 'lodash';
 import {
   extractLocaleSpecificValues,
@@ -198,3 +200,45 @@ export const prepareSearchFiltersBarItems = ({
 
   return filtersItems;
 };
+
+export const checkIfSearchParamsApplied = (
+  {
+    query,
+    filters,
+  }: {
+    query: string;
+    filters?: SearchFilters;
+  },
+  initialFilters?: SearchFilters,
+) => {
+  if (query.length > 0) {
+    return true;
+  }
+
+  if (!filters) {
+    return false;
+  }
+
+  for (const _ in filters) {
+    const key = _ as keyof SearchFilters;
+
+    const value = filters[key];
+
+    const maybeInitialValue = initialFilters?.[key];
+
+    if (
+      falsyValues.includes(value) ||
+      (maybeInitialValue !== undefined && isEqual(value, maybeInitialValue)) ||
+      (isArray(value) && !value.length) ||
+      (key === 'distance' && !(value as SearchFilters['distance'])?.isOn)
+    ) {
+      continue;
+    }
+
+    return true;
+  }
+
+  return false;
+};
+
+const falsyValues: any[] = [null, undefined, '', false];

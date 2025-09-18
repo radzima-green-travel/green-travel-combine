@@ -20,7 +20,11 @@ export function ExploreNavigatior() {
         name="Explore"
         component={ObjectsListScreen}
         options={{headerShown: false}}
-        initialParams={{title: 'common:tabs.explore', showsTitle: true}}
+        initialParams={{
+          title: 'common:tabs.explore',
+          showsTitle: true,
+          defaultViewMode: 'card',
+        }}
       />
       <Stack.Screen
         getId={({params}) => params.objectId}
