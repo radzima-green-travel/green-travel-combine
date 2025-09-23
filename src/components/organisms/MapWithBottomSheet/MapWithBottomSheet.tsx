@@ -1,5 +1,6 @@
 import React, {useState, useCallback, useEffect, useRef} from 'react';
-import {LayoutChangeEvent, Text, View} from 'react-native';
+import {LayoutChangeEvent, Text, View, PixelRatio} from 'react-native';
+
 import Animated, {
   measure,
   useAnimatedRef,
@@ -31,7 +32,7 @@ import {MapState} from '@rnmapbox/maps';
 import {HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL} from 'core/constants';
 import {isEqual} from 'lodash';
 
-import {isAndroid, SCREEN_WIDTH} from 'services/PlatformService';
+import {isAndroid, SCREEN_HEIGHT, SCREEN_WIDTH} from 'services/PlatformService';
 import {} from './components';
 import {Position} from 'geojson';
 
@@ -170,17 +171,18 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
   const getMapVisibleAreaBbbox = useCallback(() => {
     if (mapViewPort?.height) {
       const top = HEADER_BOTTOM_RADIUS + PADDING_HORIZONTAL - translateY.value;
-      const right = isAndroid ? 1000 : SCREEN_WIDTH;
-      const bottom = isAndroid
-        ? 1000
-        : mapViewPort.height -
-          SNAP_POINT_0 +
-          PADDING_HORIZONTAL -
-          MAP_OBJECTS_CAROUSEL_HEIGHT +
-          translateY.value;
+      const right = SCREEN_WIDTH;
+      const bottom =
+        mapViewPort.height -
+        SNAP_POINT_0 +
+        PADDING_HORIZONTAL -
+        MAP_OBJECTS_CAROUSEL_HEIGHT +
+        translateY.value;
       const left = 0;
 
-      return [top * (isAndroid ? 2 : 1), right, bottom, left];
+      return [top, right, bottom, left].map(
+        coord => coord * (isAndroid ? PixelRatio.get() : 1),
+      ) as [number, number, number, number];
     }
 
     return null;
