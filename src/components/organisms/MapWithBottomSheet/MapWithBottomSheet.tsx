@@ -32,7 +32,7 @@ import {MapState} from '@rnmapbox/maps';
 import {HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL} from 'core/constants';
 import {isEqual} from 'lodash';
 
-import {isAndroid, SCREEN_HEIGHT, SCREEN_WIDTH} from 'services/PlatformService';
+import {isAndroid, SCREEN_WIDTH} from 'services/PlatformService';
 import {} from './components';
 import {Position} from 'geojson';
 
@@ -281,6 +281,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
           animatedIndex={animatedIndex}
           handleIndicatorStyle={styles.indicator}
           animatedPosition={animatedPosition}
+          accessible={false}
           onChange={onMenuPositionChange}
           index={2}>
           {children}
