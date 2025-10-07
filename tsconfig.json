@@ -5,6 +5,10 @@
     "isolatedModules": false,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    "noImplicitAny": false,
+    "module": "nodenext",
+    "target": "ESNext",
+    "moduleResolution": "nodenext",
     "paths": {
       "components/*": [
         "./src/components/*"

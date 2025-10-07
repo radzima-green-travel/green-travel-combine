@@ -1,6 +1,7 @@
 import {COLORS, FONTS_PRESETS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {createThemeStyles} from 'core/helpers/styles';
+import type {LinearGradientProps} from 'expo-linear-gradient';
 import {StyleSheet} from 'react-native';
 import {SCREEN_WIDTH} from 'services/PlatformService';
 
@@ -97,7 +98,7 @@ export const themeStyles = createThemeStyles({
   },
 });
 
-export const gradientConfig = {
+export const gradientConfig: LinearGradientProps = {
   colors: ['rgba(32, 36, 30, 0.8)', 'rgba(32, 36, 30, 0)'],
   start: {x: 0.0, y: 0},
   end: {x: 0.0, y: 1},

@@ -53,7 +53,7 @@ export const useMapView = ({
     markers: Array<Feature<Geometry, {icon_image: string; objectId: string}>>,
   ) => void;
 }) => {
-  const carouselRef = useRef<ICarouselInstance>(null);
+  const carouselRef = useRef<ICarouselInstance>(null!);
   const bottomMenuRef = useRef<BottomSheet>(null);
 
   const camera = useRef<Camera>(null);

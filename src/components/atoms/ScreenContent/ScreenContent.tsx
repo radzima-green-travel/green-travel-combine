@@ -1,4 +1,4 @@
-import React, {ReactChild} from 'react';
+import React, {type ReactElement} from 'react';
 
 import {SafeAreaView, StatusBar} from 'react-native';
 
@@ -19,7 +19,7 @@ export function ScreenContent({
   ...props
 }: {
   statusbarProps?: any;
-  children?: Array<ReactChild>;
+  children?: Array<ReactElement>;
   style?: any;
 }) {
   return (

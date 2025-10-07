@@ -75,7 +75,7 @@ describe('Home page', () => {
     );
 
     const categoryCard = categoryCards[0];
-    const categoryCardTitleNode = await categoryCard.findByType(Text);
+    const categoryCardTitleNode = await categoryCard.findByType(Text as any);
     const categoryCardTitle = categoryCardTitleNode.props.children as string;
 
     fireEvent(categoryCard, 'press');

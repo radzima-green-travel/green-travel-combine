@@ -1,5 +1,5 @@
 import {useForm} from '@tanstack/react-form';
-import {Type} from 'arktype/out/type';
+import {Type} from 'arktype';
 import {SnackBar, useSnackbar} from 'atoms';
 import {composeTestID} from 'core/helpers';
 import {useBottomMenu} from 'core/hooks';
