@@ -1,20 +1,9 @@
 {
+  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "lib": [
-      "es6"
-    ],
-    "allowJs": true,
-    "jsx": "react-native",
-    "noEmit": true,
-    "isolatedModules": false,
     "strict": true,
-    "noImplicitAny": false,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
       "components/*": [
@@ -94,14 +83,5 @@
       ],
       "preview": ["./src/components/atoms/Preview/Preview"]
     },
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
   },
-  "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js"
-  ],
-  "extends": "expo/tsconfig.base"
 }

@@ -1,4 +1,5 @@
-import createSagaMiddleware from 'redux-saga';
+// https://github.com/redux-saga/redux-saga/issues/2709#issuecomment-2847140992
+const createSagaMiddleware = require('redux-saga').default;
 import {configureStore, Tuple} from '@reduxjs/toolkit';
 import {rootSaga} from './rootSaga';
 import {persistStore, persistReducer} from 'redux-persist';
