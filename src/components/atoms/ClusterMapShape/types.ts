@@ -1,5 +1,5 @@
-import {FeatureCollection, Geometry, Properties} from '@turf/helpers';
+import {FeatureCollection, Geometry, GeoJsonProperties} from 'geojson';
 
 export type Props = {
-  markers: FeatureCollection<Geometry, Properties>;
+  markers: FeatureCollection<Geometry, GeoJsonProperties>;
 };

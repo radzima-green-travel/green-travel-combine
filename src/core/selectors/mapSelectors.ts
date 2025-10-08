@@ -1,11 +1,7 @@
 import {createSelector} from 'reselect';
 import {compact} from 'lodash';
-import {
-  FeatureCollection,
-  featureCollection,
-  point,
-  Geometry,
-} from '@turf/helpers';
+import {featureCollection, point} from '@turf/helpers';
+import type {FeatureCollection, Geometry} from 'geojson';
 import {IObject} from '../types';
 import {IState} from 'core/store';
 import {isLocationExist} from 'core/helpers';

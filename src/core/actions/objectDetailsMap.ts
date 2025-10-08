@@ -2,7 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 import {ACTIONS} from 'core/constants';
 import {createAsyncAction} from 'core/helpers';
 import {ICoordinates, ILabelError, IObject} from 'core/types';
-import {Feature, LineString} from '@turf/helpers';
+import type {Feature, LineString} from 'geojson';
 
 export const showObjectDetailsMapDirectionRequest = createAsyncAction<
   {

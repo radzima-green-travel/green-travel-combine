@@ -17,7 +17,7 @@ import {ShapeSource, Camera, MapView, MapState} from '@rnmapbox/maps';
 
 import {useFocusToUserLocation, useStaticCallback} from 'core/hooks';
 
-import {Feature, Position, Geometry} from '@turf/helpers';
+import type {Feature, Position, Geometry} from 'geojson';
 
 import {mapService} from 'services/MapService';
 import {find} from 'lodash';

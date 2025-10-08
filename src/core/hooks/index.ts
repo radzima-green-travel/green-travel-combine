@@ -4,7 +4,6 @@ export {useBookmarksObjects} from './useBookmarksObjects';
 export {useBottomMenu} from './useBottomMenu';
 export {useColorScheme} from './useColorScheme';
 export {useDarkStatusBar} from './useDarkStatusBar';
-export {useFindZoomForObjectInCluster} from './useFindZoomForObjectInCluster';
 export {useFocusToUserLocation} from './useFocusToUserLocation';
 export {useImageSlider} from './useImageSlider';
 export {useLightStatusBar} from './useLightStatusBar';
