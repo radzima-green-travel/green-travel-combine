@@ -15,7 +15,6 @@ export {MapFilterItem} from './MapFilterItem';
 export {OneTimeCode} from './OneTimeCode';
 export {Portal} from './Portal';
 export {RefreshPageReminder} from './RefreshPageReminder';
-export {ScreenContent} from './ScreenContent';
 export {Test} from './Test';
 export {TextElemets} from './TextElemets';
 export * from './SnackBar';
