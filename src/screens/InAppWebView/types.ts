@@ -1,11 +1,9 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import {AuthNavigatorParamsList} from 'core/types';
 
-export type SocialLoginInAppBrowserScreenNavigationProps = StackNavigationProp<
-  AuthNavigatorParamsList,
-  'InAppWebView'
->;
+export type SocialLoginInAppBrowserScreenNavigationProps =
+  NativeStackNavigationProp<AuthNavigatorParamsList, 'InAppWebView'>;
 
 export type SocialLoginInAppBrowserScreenRouteProps = RouteProp<
   AuthNavigatorParamsList,

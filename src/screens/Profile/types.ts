@@ -1,10 +1,10 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {MainNavigatorParamsList, ProfileNavigatorParamsList} from 'core/types';
 
 export type ProfileScreenNavigationProps = CompositeNavigationProp<
-  StackNavigationProp<ProfileNavigatorParamsList, 'Profile'>,
-  StackNavigationProp<MainNavigatorParamsList>
+  NativeStackNavigationProp<ProfileNavigatorParamsList, 'Profile'>,
+  NativeStackNavigationProp<MainNavigatorParamsList>
 >;
 
 export type ProfileScreenRouteProps = RouteProp<

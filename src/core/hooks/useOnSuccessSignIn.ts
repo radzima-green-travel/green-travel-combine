@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import {last} from 'lodash';
 import {AuthNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type AuthNavigatorRouteProps = RouteProp<
   MainNavigatorParamsList,
@@ -14,8 +14,8 @@ type AuthNavigatorRouteProps = RouteProp<
 >;
 
 export type NavigationProps = CompositeNavigationProp<
-  StackNavigationProp<AuthNavigatorParamsList>,
-  StackNavigationProp<MainNavigatorParamsList>
+  NativeStackNavigationProp<AuthNavigatorParamsList>,
+  NativeStackNavigationProp<MainNavigatorParamsList>
 >;
 
 export const useOnSuccessSignIn = () => {

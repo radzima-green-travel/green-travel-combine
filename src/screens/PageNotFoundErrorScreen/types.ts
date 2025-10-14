@@ -1,11 +1,11 @@
 import {
-  StackNavigationProp,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+  NativeStackNavigationProp,
+  NativeStackNavigationOptions,
+} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import {MainNavigatorParamsList} from 'core/types';
 
-export type PageNotFoundErrorScreenNavigationProps = StackNavigationProp<
+export type PageNotFoundErrorScreenNavigationProps = NativeStackNavigationProp<
   MainNavigatorParamsList,
   'PageNotFoundErrorScreen'
 >;
@@ -20,4 +20,4 @@ export interface IProps {
   route: PageNotFoundErrorScreenRouteProps;
 }
 
-export type ScreenOptions = (props: IProps) => StackNavigationOptions;
+export type ScreenOptions = (props: IProps) => NativeStackNavigationOptions;

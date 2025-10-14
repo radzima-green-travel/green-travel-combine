@@ -1,8 +1,8 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import {MainNavigatorParamsList} from 'core/types';
 
-export type ImagesGalleryScreenNavigationProps = StackNavigationProp<
+export type ImagesGalleryScreenNavigationProps = NativeStackNavigationProp<
   MainNavigatorParamsList,
   'ImagesGallery'
 >;

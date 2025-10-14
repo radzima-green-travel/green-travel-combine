@@ -1,9 +1,9 @@
 import {RouteProp} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MainNavigatorParamsList} from 'core/types';
 
 export type ObjectDetailsShareExperienceScreenNavigationProps =
-  StackNavigationProp<MainNavigatorParamsList>;
+  NativeStackNavigationProp<MainNavigatorParamsList>;
 
 export type ObjectDetailsShareExperienceScreenRouteProps =
   RouteProp<MainNavigatorParamsList>;

@@ -1,8 +1,8 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import {BookmarksNavigatorParamsList} from 'core/types';
 
-export type BookmarksListScreenNavigationProps = StackNavigationProp<
+export type BookmarksListScreenNavigationProps = NativeStackNavigationProp<
   BookmarksNavigatorParamsList,
   'BookmarksList'
 >;
