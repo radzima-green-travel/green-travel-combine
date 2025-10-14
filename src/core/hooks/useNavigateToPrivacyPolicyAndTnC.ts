@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CompositeNavigationProp} from '@react-navigation/native';
 import {MainNavigatorParamsList, ProfileNavigatorParamsList} from 'core/types';
 import {useSelector} from 'react-redux';
@@ -8,8 +8,8 @@ import {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 
 export type NavigationProps = CompositeNavigationProp<
-  StackNavigationProp<ProfileNavigatorParamsList>,
-  StackNavigationProp<MainNavigatorParamsList>
+  NativeStackNavigationProp<ProfileNavigatorParamsList>,
+  NativeStackNavigationProp<MainNavigatorParamsList>
 >;
 
 export function useNavigateToPrivacyPolicyAndTnC() {

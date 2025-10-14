@@ -1,8 +1,8 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import {HomeNavigatorParamsList} from 'core/types';
 
-export type ObjectsListScreenNavigationProps = StackNavigationProp<
+export type ObjectsListScreenNavigationProps = NativeStackNavigationProp<
   HomeNavigatorParamsList,
   'ObjectsList'
 >;

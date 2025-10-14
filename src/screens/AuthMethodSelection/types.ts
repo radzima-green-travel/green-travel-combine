@@ -1,11 +1,9 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import {AuthNavigatorParamsList} from 'core/types';
 
-export type AuthMethodSelectionScreenNavigationProps = StackNavigationProp<
-  AuthNavigatorParamsList,
-  'AuthMethodSelection'
->;
+export type AuthMethodSelectionScreenNavigationProps =
+  NativeStackNavigationProp<AuthNavigatorParamsList, 'AuthMethodSelection'>;
 
 export type AuthMethodSelectionScreenRouteProps = RouteProp<
   AuthNavigatorParamsList,

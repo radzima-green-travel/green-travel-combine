@@ -13,7 +13,11 @@ class AnalyticsService {
   }
 
   init(apiKey: string) {
-    this.instance.init(apiKey, undefined, {trackingSessionEvents: true});
+    this.instance.init(apiKey, undefined, {
+      trackingSessionEvents: true,
+      // https://github.com/amplitude/Amplitude-TypeScript/issues/1228
+      disableCookies: true,
+    });
     const identify = new Identify();
     identify.set('user_property_framework', 'react');
     this.instance.identify(identify);

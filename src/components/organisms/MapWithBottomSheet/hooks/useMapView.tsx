@@ -17,7 +17,7 @@ import {ShapeSource, Camera, MapView, MapState} from '@rnmapbox/maps';
 
 import {useFocusToUserLocation, useStaticCallback} from 'core/hooks';
 
-import {Feature, Position, Geometry} from '@turf/helpers';
+import type {Feature, Position, Geometry} from 'geojson';
 
 import {mapService} from 'services/MapService';
 import {find} from 'lodash';
@@ -53,7 +53,7 @@ export const useMapView = ({
     markers: Array<Feature<Geometry, {icon_image: string; objectId: string}>>,
   ) => void;
 }) => {
-  const carouselRef = useRef<ICarouselInstance>(null);
+  const carouselRef = useRef<ICarouselInstance>(null!);
   const bottomMenuRef = useRef<BottomSheet>(null);
 
   const camera = useRef<Camera>(null);

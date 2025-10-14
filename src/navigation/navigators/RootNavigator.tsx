@@ -23,6 +23,10 @@ import {
 } from 'core/selectors';
 import {linkingService} from 'services/LinkingService';
 import {useColorScheme} from 'core/hooks';
+import {
+  initialWindowMetrics,
+  SafeAreaProvider,
+} from 'react-native-safe-area-context';
 
 SplashScreen.preventAutoHideAsync();
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
@@ -96,24 +100,22 @@ export function RootNavigator() {
   };
 
   return (
-    <NavigationContainer<MainNavigatorParamsList>
-      linking={linkingService.getInitialLinkingData()}
-      onReady={() => setIsReady(true)}
-      ref={navigationRef}>
-      <PortalProvider>
-        {bootstrapFinished ? (
-          <>
-            <MainNavigator />
-            {showUpdateScreen()}
-            {showSplash()}
-          </>
-        ) : null}
-      </PortalProvider>
-      <StatusBar
-        animated
-        style={statusBarStyle}
-        backgroundColor="transparent"
-      />
-    </NavigationContainer>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <NavigationContainer<MainNavigatorParamsList>
+        linking={linkingService.getInitialLinkingData()}
+        onReady={() => setIsReady(true)}
+        ref={navigationRef}>
+        <PortalProvider>
+          {bootstrapFinished ? (
+            <>
+              <MainNavigator />
+              {showUpdateScreen()}
+              {showSplash()}
+            </>
+          ) : null}
+        </PortalProvider>
+        <StatusBar animated style={statusBarStyle} />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

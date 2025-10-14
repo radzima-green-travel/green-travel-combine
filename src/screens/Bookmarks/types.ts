@@ -1,4 +1,4 @@
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
 import {
   MainNavigatorParamsList,
@@ -6,8 +6,8 @@ import {
 } from 'core/types';
 
 export type ObjectsListScreenNavigationProps = CompositeNavigationProp<
-  StackNavigationProp<BookmarksNavigatorParamsList, 'Bookmarks'>,
-  StackNavigationProp<MainNavigatorParamsList>
+  NativeStackNavigationProp<BookmarksNavigatorParamsList, 'Bookmarks'>,
+  NativeStackNavigationProp<MainNavigatorParamsList>
 >;
 
 export type ObjectsListScreenRouteProps = RouteProp<

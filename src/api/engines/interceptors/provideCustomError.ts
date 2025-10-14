@@ -1,7 +1,7 @@
 import {AxiosError} from 'axios';
 import {createInternetConnectionErrorPreset, RequestError} from 'core/errors';
 
-export const provideCustomError = (error: AxiosError) => {
+export const provideCustomError = (error: AxiosError<any>) => {
   if (error instanceof RequestError) {
     return Promise.reject(error);
   }

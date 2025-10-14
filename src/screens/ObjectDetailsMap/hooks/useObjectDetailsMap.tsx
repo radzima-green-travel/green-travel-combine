@@ -30,15 +30,12 @@ import {
 } from 'core/selectors';
 
 import {
-  Feature,
   featureCollection,
-  MultiPolygon,
   multiPolygon,
-  LineString,
   lineString,
-  Point,
   point,
 } from '@turf/helpers';
+import type {Feature, MultiPolygon, LineString, Point} from 'geojson';
 import {useRoute} from '@react-navigation/native';
 import {ObjectDetailsMapScreenRouteProps} from '../types';
 

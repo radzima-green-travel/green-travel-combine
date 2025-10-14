@@ -5,7 +5,7 @@ import {
   clearObjectDetailsMapDirection,
   setObjectDetailsMapObjects,
 } from 'core/actions';
-import {Feature, LineString} from '@turf/helpers';
+import type {Feature, LineString} from 'geojson';
 
 interface InitialState {
   direction: Feature<LineString, unknown> | null;

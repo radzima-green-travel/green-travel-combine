@@ -17,9 +17,7 @@ import {useAnimatedKeyboard} from 'react-native-reanimated';
 // TODO: fix analytics details page, fix input color, fix snacbars position and color
 
 const App = () => {
-  useAnimatedKeyboard({
-    isStatusBarTranslucentAndroid: true,
-  });
+  useAnimatedKeyboard();
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>

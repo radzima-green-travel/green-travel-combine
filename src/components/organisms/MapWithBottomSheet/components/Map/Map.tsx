@@ -11,7 +11,7 @@ import {
   MapState,
 } from '@rnmapbox/maps';
 import {SupportedLocales} from 'core/types';
-import {FeatureCollection, Point} from '@turf/helpers';
+import type {FeatureCollection, Point} from 'geojson';
 
 import type {useMapView} from '../../hooks';
 import {styles, selectedPointStyle} from './styles';

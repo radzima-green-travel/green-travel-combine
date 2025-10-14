@@ -1,4 +1,4 @@
-import {MultiPolygon, LineString} from '@turf/helpers';
+import type {MultiPolygon, LineString} from 'geojson';
 import {ObjectField} from 'core/constants';
 import {SupportedLocales} from '../common';
 

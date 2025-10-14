@@ -24,7 +24,7 @@ import {
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles, SNAP_POINT_0, SNAP_POINT_1} from './styles';
 import {useMapView} from './hooks';
-import {Feature, Geometry} from '@turf/helpers';
+import type {Feature, Geometry} from 'geojson';
 
 import {ObjectMap, SearchObject, SupportedLocales} from 'core/types';
 

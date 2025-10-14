@@ -2,10 +2,10 @@ import {ShapeSource, SymbolLayer} from '@rnmapbox/maps';
 import React, {ComponentProps, memo, forwardRef} from 'react';
 import {layerStyles} from './styles';
 
-import {FeatureCollection, Geometry, Properties} from '@turf/helpers';
+import type {FeatureCollection, Geometry, GeoJsonProperties} from 'geojson';
 
 export interface IProps {
-  markers: FeatureCollection<Geometry, Properties>;
+  markers: FeatureCollection<Geometry, GeoJsonProperties>;
   onShapePress?: ComponentProps<typeof ShapeSource>['onPress'];
 }
 

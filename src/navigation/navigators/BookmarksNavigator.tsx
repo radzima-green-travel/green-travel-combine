@@ -21,6 +21,7 @@ export function BookmarksNavigator() {
   const screenOptions = useScreenOptions({
     title: t('tabs.bookmarks'),
     animation: defaultTransition,
+    headerTitleAlign: 'center',
   });
 
   return (

@@ -2,6 +2,7 @@ import {COLORS, FONTS_STYLES, FONTS_PRESETS} from 'assets';
 import {PADDING_HORIZONTAL} from 'core/constants';
 import {hexWithAlpha} from 'core/helpers';
 import {createThemeStyles} from 'core/helpers/styles';
+import type {LinearGradientProps} from 'expo-linear-gradient';
 
 export const TEXT_COLLAPSE_HEIGHT = 192;
 
@@ -74,12 +75,12 @@ export const themeStyles = createThemeStyles({
   },
 });
 
-export const gradientColorsLight = [
+export const gradientColorsLight: LinearGradientProps['colors'] = [
   COLORS.light.linearGradient,
   hexWithAlpha(COLORS.light.linearGradient, 0.4),
   hexWithAlpha(COLORS.light.linearGradient, 0),
 ];
-export const gradientColorsDark = [
+export const gradientColorsDark: LinearGradientProps['colors'] = [
   COLORS.dark.linearGradient,
   hexWithAlpha(COLORS.dark.linearGradient, 0.4),
   hexWithAlpha(COLORS.dark.linearGradient, 0),

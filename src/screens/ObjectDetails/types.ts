@@ -1,7 +1,7 @@
 import {
-  StackNavigationOptions,
-  StackNavigationProp,
-} from '@react-navigation/stack';
+  NativeStackNavigationOptions,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
 import {
@@ -12,10 +12,10 @@ import {
 import {ColorSchemeName} from 'react-native';
 
 export type ObjectDetailsScreenNavigationProps = CompositeNavigationProp<
-  StackNavigationProp<HomeNavigatorParamsList, 'ObjectDetails'>,
+  NativeStackNavigationProp<HomeNavigatorParamsList, 'ObjectDetails'>,
   CompositeNavigationProp<
     BottomTabNavigationProp<TabNavigatorParamsList>,
-    StackNavigationProp<MainNavigatorParamsList>
+    NativeStackNavigationProp<MainNavigatorParamsList>
   >
 >;
 
@@ -30,4 +30,4 @@ export interface IProps {
 }
 export type ScreenOptions = (
   theme: ColorSchemeName,
-) => (props: IProps) => StackNavigationOptions;
+) => (props: IProps) => NativeStackNavigationOptions;

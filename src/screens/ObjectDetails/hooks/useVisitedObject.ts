@@ -11,7 +11,7 @@ import {some, isEqual} from 'lodash';
 import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Alert} from 'react-native';
 import {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
@@ -19,8 +19,8 @@ import {selectObjectDetails} from 'core/selectors';
 import {useObjectDetailsSelector} from 'core/hooks';
 
 export type NavigationProps = CompositeNavigationProp<
-  StackNavigationProp<AuthNavigatorParamsList>,
-  StackNavigationProp<MainNavigatorParamsList>
+  NativeStackNavigationProp<AuthNavigatorParamsList>,
+  NativeStackNavigationProp<MainNavigatorParamsList>
 >;
 
 export const useVisitedObject = ({objectId}: {objectId: string}) => {

@@ -2,12 +2,8 @@ import {isLocationExist} from 'core/helpers';
 import type {ObjectMap} from 'core/types';
 import {compact, map} from 'lodash';
 
-import {
-  FeatureCollection,
-  featureCollection,
-  point,
-  Geometry,
-} from '@turf/helpers';
+import {featureCollection, point} from '@turf/helpers';
+import type {FeatureCollection, Geometry} from 'geojson';
 import {MAP_PINS} from 'core/constants';
 
 const createMarkerFromObject = (data: ObjectMap, iconPostfix: string = '') => {

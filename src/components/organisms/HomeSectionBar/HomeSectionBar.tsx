@@ -38,7 +38,7 @@ export const HomeSectionBar = memo(
 
     const isLessThenTwoItems = items.length < 2;
 
-    const listRef = useRef<FlatList>(null);
+    const listRef = useRef<FlatList>(null!);
 
     const onAllPressHandler = useCallback(() => {
       if (isCategoryItems) {

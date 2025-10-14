@@ -21,7 +21,7 @@ import {
   ObjectDetailsMapBottomMenu,
 } from 'molecules';
 
-import {FeatureCollection, LineString, Point} from '@turf/helpers';
+import type {FeatureCollection, LineString, Point} from 'geojson';
 import {useObjectDetailsMap} from './hooks';
 import {themeLayerStyles} from './styles';
 import {Portal} from '@gorhom/portal';
