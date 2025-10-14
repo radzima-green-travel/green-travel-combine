@@ -1,6 +1,6 @@
 import React from 'react';
 import {ColorSchemeName, TouchableOpacity} from 'react-native';
-import {Icon, HeaderTitle} from 'atoms';
+import {Icon, HeaderTitle, CustomHeader} from 'atoms';
 import {COLORS} from 'assets';
 import {useColorScheme} from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -42,7 +42,9 @@ export function useScreenOptions({
       },
       headerShadowVisible: false,
       headerBackVisible: false,
-      headerTitleAlign: 'center',
+      // Default header has this issue starting from Expo 53
+      // https://github.com/react-navigation/react-navigation/issues/11353
+      header: props => <CustomHeader {...props} withOverlay={false} />,
       headerLeft: props => {
         return props.canGoBack ? (
           <TouchableOpacity

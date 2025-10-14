@@ -4,7 +4,7 @@
     "slug": "radzima",
     "scheme": "radzima",
     "userInterfaceStyle": "automatic",
-    "ios": {      
+    "ios": {
       "appStoreUrl": "https://apps.apple.com/ru/app/radzima/id1587158874",
       "publishBundlePath": "./build",
       "supportsTablet": true,
@@ -28,6 +28,7 @@
       "hidden": true
     },
     "android": {
+      "edgeToEdgeEnabled": true,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=app.radzima",
       "publishBundlePath": "./build",
       "userInterfaceStyle": "automatic",
@@ -54,10 +55,7 @@
         "android.permission.READ_EXTERNAL_STORAGE"
       ]
     },
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "icon": "src/assets/app/Icon.png",
     "plugins": [
       [
@@ -66,18 +64,14 @@
           "locationWhenInUsePermission": "This will let to pinpoint your exact location."
         }
       ],
-      [
-        "expo-localization"
-      ],
+      ["expo-localization"],
       [
         "expo-screen-orientation",
         {
           "initialOrientation": "PORTRAIT_UP"
         }
       ],
-      [
-        "react-native-map-link"
-      ]
+      ["react-native-map-link"]
     ],
     "extra": {
       "eas": {

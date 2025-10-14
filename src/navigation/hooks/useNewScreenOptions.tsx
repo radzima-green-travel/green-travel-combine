@@ -43,7 +43,6 @@ export function useNewScreenOptions({
       headerShadowVisible: false,
       headerBackVisible: false,
 
-      headerTitleAlign: 'center',
       headerLeft: props => {
         return props.canGoBack ? (
           <HeaderBackButton

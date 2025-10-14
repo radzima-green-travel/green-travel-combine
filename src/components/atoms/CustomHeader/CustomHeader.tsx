@@ -1,7 +1,7 @@
 import React from 'react';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {View, StyleProp, ViewStyle, Text} from 'react-native';
+import {View, StyleProp, ViewStyle, Text, StyleSheet} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {PADDING_HORIZONTAL} from 'core/constants';
@@ -25,24 +25,36 @@ export const CustomHeader = ({
 
   const styles = useThemeStyles(themeStyles);
 
-  const headerLeft = () => {
+  const {headerTitleAlign} = options || {};
+
+  const headerCentered = headerTitleAlign === 'center';
+
+  const headerLeftBlock = (() => {
     const headerLeftElement = options?.headerLeft?.({
       canGoBack: Boolean(back),
       label: '',
       tintColor: '',
     });
 
-    return headerLeftElement ? headerLeftElement : null;
-  };
+    return headerLeftElement && headerCentered ? (
+      <View style={styles.expanded}>{headerLeftElement}</View>
+    ) : (
+      headerLeftElement
+    );
+  })();
 
-  const headerRight = () => {
+  const headerRightBlock = (() => {
     const headerRightElement = options?.headerRight?.({
       canGoBack: Boolean(back),
       tintColor: '',
     });
 
-    return headerRightElement ? headerRightElement : null;
-  };
+    return headerRightElement && headerCentered ? (
+      <View style={styles.expanded}>{headerRightElement}</View>
+    ) : (
+      headerRightElement
+    );
+  })();
 
   const headerTitle = () => {
     const title =
@@ -56,7 +68,13 @@ export const CustomHeader = ({
       );
 
     return title ? (
-      <View style={styles.headerTitleContainer}>{title}</View>
+      <View
+        style={StyleSheet.compose(
+          styles.headerTitleContainer,
+          headerCentered && styles.alignCenter,
+        )}>
+        {title}
+      </View>
     ) : null;
   };
 
@@ -73,9 +91,12 @@ export const CustomHeader = ({
       ]}>
       {contentAbove && contentAbove()}
       <View style={styles.mainContentContainer}>
-        {headerLeft()}
+        {headerLeftBlock}
         {headerTitle()}
-        {headerRight()}
+        {headerRightBlock}
+        {headerLeftBlock && !headerRightBlock && headerCentered && (
+          <View style={styles.expanded} />
+        )}
       </View>
 
       {contentBelow && contentBelow()}
