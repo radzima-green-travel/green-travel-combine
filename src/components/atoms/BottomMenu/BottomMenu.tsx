@@ -221,6 +221,7 @@ export const BottomMenu = memo(
             snapPoints={snapPoints as [number]}
             enablePanDownToClose={isPanDownEnabled}
             onAnimate={onAnimate}
+            accessible={false}
             onChange={onChange}>
             <>
               {renderMenuHeader()}
@@ -245,6 +246,7 @@ export const BottomMenu = memo(
           enablePanDownToClose={isPanDownEnabled}
           onAnimate={onAnimate}
           bottomInset={bottomInset}
+          accessible={false}
           onChange={onChange}>
           <BottomSheetView key={key}>
             <>
