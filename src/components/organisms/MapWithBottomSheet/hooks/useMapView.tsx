@@ -12,7 +12,7 @@ import {
   createSelectedMarkerFromObject,
 } from 'core/transformators/appMap';
 import {ObjectMap, SearchObject} from 'core/types';
-import {isEqual} from 'lodash';
+import {isEqual, find} from 'lodash';
 import {ShapeSource, Camera, MapView, MapState} from '@rnmapbox/maps';
 
 import {useFocusToUserLocation, useStaticCallback} from 'core/hooks';
@@ -20,7 +20,6 @@ import {useFocusToUserLocation, useStaticCallback} from 'core/hooks';
 import type {Feature, Position, Geometry} from 'geojson';
 
 import {mapService} from 'services/MapService';
-import {find} from 'lodash';
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
 
 import {ICarouselInstance} from 'react-native-reanimated-carousel';
@@ -31,7 +30,7 @@ const defaultBbox = [
 ];
 
 type OnPressEvent = {
-  features: Array<GeoJSON.Feature>;
+  features: GeoJSON.Feature[];
   coordinates: {
     latitude: number;
     longitude: number;
@@ -50,7 +49,7 @@ export const useMapView = ({
   mapObjects: ObjectMap[];
   visibleObjects: SearchObject[];
   onMarkersAppear: (
-    markers: Array<Feature<Geometry, {icon_image: string; objectId: string}>>,
+    markers: Feature<Geometry, {icon_image: string; objectId: string}>[],
   ) => void;
 }) => {
   const carouselRef = useRef<ICarouselInstance>(null!);

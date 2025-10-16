@@ -4,8 +4,10 @@ import {THEME_TYPE} from 'core/constants';
 import {useCallback} from 'react';
 import {selectAppTheme} from 'core/selectors';
 import switchTheme from 'react-native-theme-switch-animation';
-import {GestureResponderEvent} from 'react-native';
-import {useColorScheme as useSystemColorScheme} from 'react-native';
+import {
+  GestureResponderEvent,
+  useColorScheme as useSystemColorScheme,
+} from 'react-native';
 import {useColorScheme} from 'core/hooks';
 
 export const useProfileSettingsTheme = () => {

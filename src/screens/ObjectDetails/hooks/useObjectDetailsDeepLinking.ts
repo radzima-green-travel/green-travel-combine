@@ -4,9 +4,9 @@ import {
   useRequestLoading,
   useTranslation,
   useObjectDetailsActions,
+  useObjectDetailsSelector,
 } from 'core/hooks';
 import {selectObjectDetails} from 'core/selectors';
-import {useObjectDetailsSelector} from 'core/hooks';
 import {ObjectDetailsScreenNavigationProps} from '../types';
 
 export function useObjectDetailsDeepLinking() {

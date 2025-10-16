@@ -1,6 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, CompositeNavigationProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {CompositeNavigationProp} from '@react-navigation/native';
 import {MainNavigatorParamsList, ProfileNavigatorParamsList} from 'core/types';
 import {useSelector} from 'react-redux';
 import {selectAppLanguage} from 'core/selectors';

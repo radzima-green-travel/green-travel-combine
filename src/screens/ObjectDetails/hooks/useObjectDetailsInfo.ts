@@ -1,8 +1,12 @@
 import {useMemo, useCallback} from 'react';
 
-import {useBottomMenu, useThemeStyles, useTranslation} from 'core/hooks';
+import {
+  useBottomMenu,
+  useThemeStyles,
+  useTranslation,
+  useObjectDetailsSelector,
+} from 'core/hooks';
 import {selectObjectDetails} from 'core/selectors';
-import {useObjectDetailsSelector} from 'core/hooks';
 import {
   msToHoursAndMinutes,
   sanitizePhoneNumber,

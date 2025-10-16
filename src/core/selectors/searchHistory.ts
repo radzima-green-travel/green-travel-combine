@@ -53,7 +53,7 @@ export const selectSearchHistory = createSelector(
         }
         return acc;
       },
-      [] as Array<SearchObject>,
+      [] as SearchObject[],
     );
   },
 );

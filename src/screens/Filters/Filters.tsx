@@ -12,13 +12,13 @@ import {
   FiltersSectionContainer,
   ListItem,
   SuspenseView,
+  FilterDistance,
 } from 'molecules';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFilters} from './hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {FilterDistance} from 'components/molecules';
 import {isIOS} from 'services/PlatformService';
 
 export const Filters = () => {

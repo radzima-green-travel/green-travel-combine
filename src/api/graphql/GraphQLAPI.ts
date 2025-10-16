@@ -187,7 +187,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
 
   async getRandomObjectThumbnails(
     limit: number,
-  ): Promise<Array<ObjectThumbnailDTO>> {
+  ): Promise<ObjectThumbnailDTO[]> {
     const response = await this.executeQuery({
       query: getRandomObjectThumbnailsQuery,
       params: {

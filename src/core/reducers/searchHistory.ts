@@ -6,7 +6,7 @@ import {
 import type {SearchObjectDTO} from 'core/types/api';
 
 interface SearchState {
-  searchHistoryObjects: Array<SearchObjectDTO>;
+  searchHistoryObjects: SearchObjectDTO[];
 }
 
 const initialState: SearchState = {

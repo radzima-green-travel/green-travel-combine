@@ -10,15 +10,12 @@ import {
 
 import {SupportedLocales, LocationDTO} from 'core/types';
 
-export const extractThemeStyles = (
-  styles: Object,
-  theme: ColorSchemeName,
-): {[propName: string]: StyleProp<ViewStyle | TextStyle>} => {
+export const extractThemeStyles = (styles: object, theme: ColorSchemeName) => {
   return mapValues(styles, value => {
     return isPlainObject(value) && (has(value, 'dark') || has(value, 'light'))
       ? value[theme!]
       : value;
-  });
+  }) as {[propName: string]: StyleProp<ViewStyle | TextStyle>};
 };
 
 export const sanitizePhoneNumber = (phoneNumber: string) => {

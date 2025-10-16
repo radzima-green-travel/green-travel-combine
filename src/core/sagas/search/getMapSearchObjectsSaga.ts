@@ -25,7 +25,7 @@ export function* getMapSearchObjectsSaga({
       }),
     );
 
-    const response: Array<MapSearchObjectsDTO> = yield all(objectsCalls);
+    const response: MapSearchObjectsDTO[] = yield all(objectsCalls);
     const mapSearchObjects = response.reduce((acc, {items}) => {
       return [...acc, ...items];
     }, [] as ObjectMapDTO[]);

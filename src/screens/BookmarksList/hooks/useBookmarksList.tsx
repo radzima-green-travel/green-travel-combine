@@ -7,12 +7,11 @@ import {
   useRequestLoading,
 } from 'core/hooks';
 import {CardItem} from 'core/types';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   BookmarksListScreenNavigationProps,
   BookmarksListScreenRouteProps,
 } from '../types';
-import {useRoute} from '@react-navigation/native';
 import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {getBookmarksObjectsListRequest} from 'core/actions';
 import {useDispatch, useSelector} from 'react-redux';

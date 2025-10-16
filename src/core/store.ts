@@ -1,5 +1,4 @@
 // https://github.com/redux-saga/redux-saga/issues/2709#issuecomment-2847140992
-const createSagaMiddleware = require('redux-saga').default;
 import {configureStore, Tuple} from '@reduxjs/toolkit';
 import {rootSaga} from './rootSaga';
 import {persistStore, persistReducer} from 'redux-persist';
@@ -25,6 +24,7 @@ import {
 } from './reducers';
 // @ts-ignore
 import {reduxStorage} from 'core/reduxStorage';
+const createSagaMiddleware = require('redux-saga').default;
 
 const AsyncStorage = reduxStorage;
 

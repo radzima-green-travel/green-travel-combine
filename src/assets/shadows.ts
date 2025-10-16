@@ -1,5 +1,4 @@
-import {Platform} from 'react-native';
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {COLORS} from './colors';
 
 const boxShadow =

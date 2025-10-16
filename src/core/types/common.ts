@@ -26,7 +26,7 @@ export interface ILabelError {
   originalError: IRequestError | Error;
 }
 
-export type ICoordinates = Array<number>;
+export type ICoordinates = number[];
 
 export interface IArea {
   totalArea: number;
@@ -213,7 +213,7 @@ export type ObjectI18n =
   | null
   | undefined;
 export type CategoryAndObjectI18n =
-  | Array<CategoryI18n | ObjectI18n | null>
+  | (CategoryI18n | ObjectI18n | null)[]
   | null
   | undefined;
 

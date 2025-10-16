@@ -6,8 +6,8 @@ import {
   clearVisitedObjects,
   setShareExperienceData,
   clearShareExperienceData,
+  addVisitedObjectRequest,
 } from 'core/actions';
-import {addVisitedObjectRequest} from 'core/actions';
 import {filter, isEqual, some} from 'lodash';
 
 interface InitialState {

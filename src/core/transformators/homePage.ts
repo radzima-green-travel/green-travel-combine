@@ -42,7 +42,7 @@ export function getObjectByCategories(
 
       return acc;
     },
-    {} as Record<string, Array<ObjectShortDTO>>,
+    {} as Record<string, ObjectShortDTO[]>,
   );
 }
 
@@ -62,7 +62,7 @@ export function convertShortCategoryToHomePageCategory(
 }
 
 export function prepareHomePageData(
-  categoriesList: Array<CategoryShort>,
+  categoriesList: CategoryShort[],
 ): HomePagesCategories {
   const sortedCategories = orderBy(categoriesList, ['index'], ['asc']);
 
@@ -99,7 +99,7 @@ export function preparePlaceOfTheWeekObject(
 }
 
 export function prepareRandomObject(
-  objects: Array<ObjectThumbnailDTO>,
+  objects: ObjectThumbnailDTO[],
   locale: SupportedLocales | null,
 ) {
   return map(objects, object => {

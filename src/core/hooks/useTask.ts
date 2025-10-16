@@ -1,7 +1,7 @@
 import {useCallback, useMemo} from 'react';
 
 class RemotePromise {
-  resolveCallbacks: Array<(value?: unknown) => void> = [];
+  resolveCallbacks: ((value?: unknown) => void)[] = [];
 
   pending() {
     return new Promise(res => {

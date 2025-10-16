@@ -2,6 +2,7 @@ import {call, put, select} from 'redux-saga/effects';
 import {
   CategoryAggregationsByObjectsDTO,
   CategoriesResponseDTO,
+  CategoriesListQueryParams,
 } from 'core/types';
 import {
   getCategoriesListInitialDataRequest,
@@ -9,7 +10,6 @@ import {
 } from 'core/actions';
 import {RequestError} from 'core/errors';
 import {selectCategoriesList} from 'selectors';
-import {CategoriesListQueryParams} from '../../types';
 import {getCategoriesData} from '../fetchRequests';
 import {filter} from 'lodash';
 

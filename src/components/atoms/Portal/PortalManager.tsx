@@ -2,10 +2,10 @@ import * as React from 'react';
 import {View, StyleSheet} from 'react-native';
 
 type State = {
-  portals: Array<{
+  portals: {
     key: number;
     children: React.ReactNode;
-  }>;
+  }[];
 };
 
 /**

@@ -24,7 +24,7 @@ import {
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {themeStyles, SNAP_POINT_0, SNAP_POINT_1} from './styles';
 import {useMapView} from './hooks';
-import type {Feature, Geometry} from 'geojson';
+import type {Feature, Geometry, Position} from 'geojson';
 
 import {ObjectMap, SearchObject, SupportedLocales} from 'core/types';
 
@@ -33,14 +33,12 @@ import {HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL} from 'core/constants';
 import {isEqual} from 'lodash';
 
 import {isAndroid, SCREEN_WIDTH} from 'services/PlatformService';
-import {} from './components';
-import {Position} from 'geojson';
 
 interface MapWithBottomSheetProps {
   mapObjects: ObjectMap[];
   visibleObjectsOnMap: SearchObject[];
   onMarkersAppear: (
-    markers: Array<Feature<Geometry, {icon_image: string; objectId: string}>>,
+    markers: Feature<Geometry, {icon_image: string; objectId: string}>[],
   ) => void;
   onMenuPositionChange: (index: number) => void;
 

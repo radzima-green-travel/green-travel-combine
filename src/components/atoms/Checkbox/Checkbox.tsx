@@ -4,8 +4,7 @@ import {StyleProp, ViewStyle, TouchableOpacity} from 'react-native';
 
 import {CHECKBOX_THEMES} from './constants';
 import {styles} from './styles';
-import {composeTestID} from 'core/helpers';
-import {getPlatformsTestID} from 'core/helpers';
+import {composeTestID, getPlatformsTestID} from 'core/helpers';
 import {Icon} from '../Icon';
 
 export type Props = {

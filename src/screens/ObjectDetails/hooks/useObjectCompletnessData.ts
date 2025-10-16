@@ -2,9 +2,9 @@ import {
   useHeaderHeight,
   useScrollScrollViewScrollToElement,
   useObjectIncompleteFields,
+  useObjectDetailsSelector,
 } from 'core/hooks';
 import {selectObjectDetails} from 'core/selectors';
-import {useObjectDetailsSelector} from 'core/hooks';
 
 import {View} from 'react-native';
 import Animated from 'react-native-reanimated';

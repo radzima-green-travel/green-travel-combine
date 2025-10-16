@@ -5,7 +5,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 
 export function mockCreateGraphQLAPI(
-  mock: Record<string, Array<{params: Object; response: Object}>>,
+  mock: Record<string, {params: object; response: object}[]>,
 ) {
   return mapValues(mock, methodMocks => {
     return jest.fn(

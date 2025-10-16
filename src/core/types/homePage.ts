@@ -2,7 +2,7 @@ import {CardItem} from './common';
 
 export type HomeSectionBarItem = {
   title: string;
-  items: Array<CardItem>;
+  items: CardItem[];
   isCategoryItems: boolean;
   categoryId: string;
 };
@@ -18,6 +18,6 @@ export type HomePageCategory = {
 };
 
 export type HomePagesCategories = {
-  main: Array<HomePageCategory>;
-  routes: Array<HomePageCategory>;
+  main: HomePageCategory[];
+  routes: HomePageCategory[];
 };

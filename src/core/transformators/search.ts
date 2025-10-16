@@ -134,9 +134,9 @@ export const prepareSearchFiltersBarItems = ({
   regions: SpotItem[];
   categories: CategoryFilterItem[];
   settlements: SpotItem[];
-}): Array<SearchFiltersItem> => {
-  const filtersItems: Array<SearchFiltersItem> = [];
-  const filtersKeys = keys(filters) as Array<keyof SearchFilters>;
+}): SearchFiltersItem[] => {
+  const filtersItems: SearchFiltersItem[] = [];
+  const filtersKeys = keys(filters) as (keyof SearchFilters)[];
 
   function getFilterValue(filterName: keyof SearchFilters, filterId: string) {
     if (filterName === 'categories') {

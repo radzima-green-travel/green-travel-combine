@@ -37,7 +37,7 @@ export type SearchHistoryClearEvent = {
 export type SearchResultsItemClickEvent = {
   name: 'Search_and_Filters_results_item_click';
   data: {
-    type: Array<'Search' | 'History' | 'Filtered objects'>;
+    type: ('Search' | 'History' | 'Filtered objects')[];
   };
 };
 

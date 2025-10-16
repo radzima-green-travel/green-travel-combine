@@ -8,7 +8,7 @@ import {Button, Icon} from 'atoms';
 import {composeTestID} from 'core/helpers';
 
 interface IProps {
-  incompleteFields: Array<{id: string; label: string}>;
+  incompleteFields: {id: string; label: string}[];
   percentage: number;
   onAddInformationPress: () => void;
   testID: string;
