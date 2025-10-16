@@ -1,4 +1,5 @@
 import '@testing-library/react-native';
+import { JSX } from 'react';
 import 'react-native-gesture-handler/jestSetup';
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 import {languageService} from 'services/LanguageService';

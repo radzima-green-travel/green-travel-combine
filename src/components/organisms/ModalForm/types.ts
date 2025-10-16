@@ -10,6 +10,8 @@ export type AnyForm<T = any> = ReactFormExtendedApi<
   any,
   any,
   any,
+  any,
+  any,
   any
 >;
 
