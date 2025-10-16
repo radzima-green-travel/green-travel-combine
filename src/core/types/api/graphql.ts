@@ -53,12 +53,12 @@ export type I18nType<T extends string> = {
 } & DefaultI18n;
 
 export type ExtractI18nKeys<T> = {
-  [K in keyof T]: T[K] extends Array<I18nType<infer R>> ? R : never;
+  [K in keyof T]: T[K] extends I18nType<infer R>[] ? R : never;
 }[keyof T];
 
 export interface CategoryShortDTO {
   cover: string;
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
   name: string;
   id: string;
   parent: string | null;
@@ -79,7 +79,7 @@ export interface ObjectShortDTO {
   category: {
     name: string;
   };
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
   name: string;
   id: string;
   blurhash: string | null;
@@ -98,21 +98,21 @@ export interface ObjectCategoryMapDTO {
 export interface AddressItemDTO {
   region: {
     value: string;
-    i18n: Array<I18nType<'value'>>;
+    i18n: I18nType<'value'>[];
   };
   municipality: {
     value: string;
-    i18n: Array<I18nType<'value'>>;
+    i18n: I18nType<'value'>[];
   };
   subRegion: {
     value: string;
-    i18n: Array<I18nType<'value'>>;
+    i18n: I18nType<'value'>[];
   };
   street: string;
 }
 
 export interface AddressessDTO {
-  items: Array<AddressItemDTO>;
+  items: AddressItemDTO[];
 }
 
 export interface ObjectMapDTO {
@@ -124,7 +124,7 @@ export interface ObjectMapDTO {
 export interface SearchObjetcCategoryDTO {
   name: string;
   icon: string;
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
 }
 
 export interface SearchObjectDTO {
@@ -132,7 +132,7 @@ export interface SearchObjectDTO {
   id: string;
   cover: string;
   blurhash: string | null;
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
   category: SearchObjetcCategoryDTO;
   location: LocationDTO | null;
   addresses: AddressessDTO;
@@ -155,13 +155,13 @@ export interface GoogleRatingsAggregationsByObjectsDTO {
 }
 
 export interface CategoriesResponseDTO {
-  items: Array<CategoryShortDTO>;
+  items: CategoryShortDTO[];
   nextToken: string;
   total: number;
 }
 
 export interface ListShortObjectsResponseDTO {
-  items: Array<ObjectShortDTO>;
+  items: ObjectShortDTO[];
 }
 
 export interface ObjectsForCategoriesResponseDTO {
@@ -169,7 +169,7 @@ export interface ObjectsForCategoriesResponseDTO {
 }
 
 export type CategoriesAggregationsByObjectsResponseDTO =
-  Array<CategoryAggregationsByObjectsDTO>;
+  CategoryAggregationsByObjectsDTO[];
 
 export type FiltersParams = Pick<
   QueryParams,
@@ -221,18 +221,11 @@ export interface ObjectFiltersDataDTO {
 export interface SpotItemDTO {
   id: string;
   value: string;
-  i18n: Array<I18nType<'value'>>;
+  i18n: I18nType<'value'>[];
 }
 
 export interface CategoryFilterItemDTO {
-  i18n: Array<I18nType<'name'>>;
-  name: string;
-  id: string;
-  index: number;
-}
-
-export interface CategoryFilterItemDTO {
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
   name: string;
   id: string;
   index: number;
@@ -242,20 +235,20 @@ export type ObjectFiltersDataResponseDTO = {
   filterLandingObjects: ObjectFiltersDataDTO;
 };
 
-export type RegionsListResponseDTO = Array<SpotItemDTO>;
+export type RegionsListResponseDTO = SpotItemDTO[];
 
 export type SettlementsResponseDTO = {
-  items: Array<SpotItemDTO>;
+  items: SpotItemDTO[];
   nextToken: string;
   total: number;
 };
 
 export type FiltersCategoriesResponseDTO = {
-  items: Array<CategoryFilterItemDTO>;
+  items: CategoryFilterItemDTO[];
 };
 
 export interface PaginatedList<T> {
-  data: Array<T>;
+  data: T[];
   nextToken: string;
   total: number;
 }
@@ -271,18 +264,18 @@ type HighlightName =
 export type Highlight = Record<HighlightName, HighlightDTO[] | null>;
 
 export type SearchObjectsResponseDTO = {
-  items: Array<SearchObjectDTO>;
+  items: SearchObjectDTO[];
   highlight: Highlight;
   nextToken: string | null;
   total: number;
 };
 
 export type SearchObjectsHistoryResponseDTO = {
-  items: Array<SearchObjectDTO>;
+  items: SearchObjectDTO[];
 };
 
 export type MapSearchObjectsDTO = {
-  items: Array<ObjectMapDTO>;
+  items: ObjectMapDTO[];
 };
 
 export interface CalculatedProperties {
@@ -309,45 +302,45 @@ export interface AccommodationPlaceItemDTO {
   name: string;
   googleMapLink: string;
   messengerLink: string;
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
 }
 
 export type AccommodationPlaceDTO = {
-  items: Array<AccommodationPlaceItemDTO>;
+  items: AccommodationPlaceItemDTO[];
 };
 
 export interface DinnerPlacesItemDTO {
   name: string;
   googleMapLink: string;
   messengerLink: string;
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
 }
 
 export type DinnerPlacesDTO = {
-  items: Array<DinnerPlacesItemDTO>;
+  items: DinnerPlacesItemDTO[];
 };
 
 export interface UpcomingEventsItemDTO {
   name: string;
   link: string;
   date: string;
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
 }
 
 export type UpcomingEventsDTO = {
-  items: Array<UpcomingEventsItemDTO>;
+  items: UpcomingEventsItemDTO[];
 };
 
 export interface RentingItemDTO {
   renting: {
     name: string;
     locale: string;
-    i18n: Array<I18nType<'name'>>;
+    i18n: I18nType<'name'>[];
   };
 }
 
 export type RentingDTO = {
-  items: Array<RentingItemDTO>;
+  items: RentingItemDTO[];
 };
 
 export interface ChildServicesItemDTO {
@@ -355,12 +348,12 @@ export interface ChildServicesItemDTO {
     id: string;
     name: string;
     locale: string;
-    i18n: Array<I18nType<'name'>>;
+    i18n: I18nType<'name'>[];
   };
 }
 
 export type ChildServicesDTO = {
-  items: Array<ChildServicesItemDTO>;
+  items: ChildServicesItemDTO[];
 };
 
 export interface IncludeItemDTO {
@@ -372,31 +365,31 @@ export interface IncludeItemDTO {
       id: string;
       cover: string;
       name: string;
-      i18n: Array<I18nType<'name'>>;
+      i18n: I18nType<'name'>[];
     };
   };
 }
 
 export type IncludeDTO = {
-  items: Array<IncludeItemDTO>;
+  items: IncludeItemDTO[];
 };
 
 export interface BelongsToItemDTO {
   belongsTo: {
     blurhash: string | null;
     id: string;
-    i18n: Array<I18nType<'name'>>;
+    i18n: I18nType<'name'>[];
     cover: string;
     name: string;
     category: {
       name: string;
-      i18n: Array<I18nType<'name'>>;
+      i18n: I18nType<'name'>[];
     };
   };
 }
 
 export type BelongsToDTO = {
-  items: Array<BelongsToItemDTO>;
+  items: BelongsToItemDTO[];
 };
 
 export type ObjectDetailsResponseDTO = {
@@ -416,7 +409,7 @@ export type ObjectDetailsResponseDTO = {
   googleRating: number | null;
   googleRatingsTotal: number | null;
   images: string[];
-  i18n: Array<I18nType<'name' | 'description'>>;
+  i18n: I18nType<'name' | 'description'>[];
   renting: RentingDTO;
   length: number | null;
   location: LocationDTO | null;
@@ -436,7 +429,7 @@ export interface BookmarksObjectDTO {
 }
 
 export interface BookmarksInitialObjectsDTO {
-  items: Array<BookmarksObjectDTO>;
+  items: BookmarksObjectDTO[];
 }
 
 export interface ObjectThumbnailDTO {
@@ -445,20 +438,20 @@ export interface ObjectThumbnailDTO {
   cover: string;
 
   name: string;
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
   category: {
     name: string;
-    i18n: Array<I18nType<'name'>>;
+    i18n: I18nType<'name'>[];
   };
 }
 
 export interface PlaceOfTheWeekObjectDTO {
   id: string;
   name: string;
-  i18n: Array<I18nType<'name'>>;
+  i18n: I18nType<'name'>[];
   category: {
     name: string;
-    i18n: Array<I18nType<'name'>>;
+    i18n: I18nType<'name'>[];
   };
   cover: string;
   blurhash: string;
@@ -473,4 +466,4 @@ export interface PlaceOfTheWeekObjectDTO {
 export type AppMapObjectsQueryParams = Pick<QueryParams, 'limit' | 'from'>;
 export type AppMapObjectsTotalCountResponseDTO = {total: number};
 
-export type AppMapObjectsResponseDTO = {items: Array<ObjectMapDTO>};
+export type AppMapObjectsResponseDTO = {items: ObjectMapDTO[]};

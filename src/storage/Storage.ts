@@ -54,7 +54,7 @@ class Storage {
     }
   }
 
-  getParams(options: StorageOptions): Array<any> {
+  getParams(options: StorageOptions): any[] {
     return Object.entries(options)
       .sort((x, y) => paramsOrderPattern[x[0]] - paramsOrderPattern[y[0]])
       .map(itm => itm[1]);

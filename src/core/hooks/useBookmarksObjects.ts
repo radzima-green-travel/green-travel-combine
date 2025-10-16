@@ -1,7 +1,6 @@
-import {selectBookmarksIds} from 'core/selectors';
+import {selectBookmarksIds, selectBookmarksCategories} from 'core/selectors';
 import {useSelector} from 'react-redux';
 import {useMemo} from 'react';
-import {selectBookmarksCategories} from 'core/selectors';
 import {CardItem} from 'core/types';
 
 export function useBookmarksObjects(listData: CardItem[], categoryId: string) {

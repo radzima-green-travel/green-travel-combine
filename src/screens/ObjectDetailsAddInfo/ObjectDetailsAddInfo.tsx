@@ -1,6 +1,11 @@
 import React, {useMemo} from 'react';
 import {Platform, Text, View} from 'react-native';
-import {AnimatedCircleButton, ButtonsGroup, ListItem} from 'molecules';
+import {
+  AnimatedCircleButton,
+  ButtonsGroup,
+  ListItem,
+  ConfirmMenu,
+} from 'molecules';
 import {useOnRequestSuccess, useThemeStyles, useTranslation} from 'core/hooks';
 import {MARGIN_TOP, themeStyles} from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -8,7 +13,6 @@ import {useObjectDetailsAddInfo} from './hooks';
 import {ObjectDetailsAddInfoMenu} from 'organisms';
 import {ObjectField} from 'core/constants';
 import {BottomMenu} from 'atoms';
-import {ConfirmMenu} from 'molecules';
 import {sendAddInfoEmailRequest} from 'core/actions';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 

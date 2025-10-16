@@ -13,9 +13,9 @@ import {mapValues} from 'lodash';
 import {byIdReducer} from 'react-redux-help-kit';
 
 interface SearchState {
-  searchObjects: Array<SearchObjectDTO>;
+  searchObjects: SearchObjectDTO[];
   mapSearchObjects: ObjectMapDTO[];
-  objectsVisibleOnMap: Array<SearchObjectDTO>;
+  objectsVisibleOnMap: SearchObjectDTO[];
   nextToken: string | null;
   highlight: Highlight | null;
   inputValue: string;

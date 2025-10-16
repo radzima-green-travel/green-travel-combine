@@ -2,13 +2,12 @@ import {useRoute, useNavigation} from '@react-navigation/native';
 import {FILTERS_NAMES_ANAYLITICS_MAP, INITIAL_FILTERS} from 'core/constants';
 import {IState} from 'core/store';
 import {useCallback} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   SearchScreenRouteProps,
   SearchScreenNavigationProps,
 } from '../../screens/Search/types';
 import {selectSearchFiltersItems, selectUserAuthorized} from '../selectors';
-import {useDispatch} from 'react-redux';
 import {sendAnalyticsEvent} from '../actions';
 import {prepareNumberOfAppliedFilters} from '../transformators/filters';
 

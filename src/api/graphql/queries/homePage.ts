@@ -19,7 +19,7 @@ export const getCategoriesAggregationsByObjectsQuery = `query MyQuery {
   }
   `;
 
-export function generateListObjectsShortQuery(categoriesIds: Array<string>) {
+export function generateListObjectsShortQuery(categoriesIds: string[]) {
   return `query MyQuery {     
         ${reduce(
           categoriesIds,

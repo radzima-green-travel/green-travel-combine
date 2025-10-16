@@ -1,9 +1,8 @@
 import React, {forwardRef} from 'react';
-import {Text, TextInput} from 'react-native';
+import {Text, TextInput, View, KeyboardType} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {FormInput} from 'atoms';
-import {View, KeyboardType} from 'react-native';
 import {composeTestID} from 'core/helpers';
 
 interface IProps {

@@ -1,12 +1,10 @@
 import {Portal} from '@gorhom/portal';
 import {BottomMenu} from 'atoms';
 import {ObjectSuccessMenu} from 'molecules';
-import {useBottomMenu, useTranslation} from 'core/hooks';
+import {useBottomMenu, useTranslation, useThemeStyles} from 'core/hooks';
 import React from 'react';
-import {StyleProp, ImageStyle} from 'react-native';
-import {useColorScheme} from 'react-native';
+import {StyleProp, ImageStyle, useColorScheme} from 'react-native';
 import {composeTestID} from 'core/helpers';
-import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 
 interface IProps {

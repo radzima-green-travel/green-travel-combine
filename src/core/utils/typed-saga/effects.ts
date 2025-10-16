@@ -12,7 +12,28 @@ import {
   select as selectDefault,
 } from 'redux-saga/effects';
 
-export * from 'redux-saga/effects';
+export {
+  takeEvery,
+  takeLatest,
+  takeLeading,
+  put,
+  take,
+  fork,
+  cancel,
+  cancelled,
+  delay,
+  debounce,
+  throttle,
+  all,
+  race,
+  spawn,
+  join,
+  actionChannel,
+  flush,
+  getContext,
+  setContext,
+  // add other exports from 'redux-saga/effects' as needed, except 'call' and 'select'
+} from 'redux-saga/effects';
 
 export function call<Args extends any[], Fn extends (...args: Args) => any>(
   fn: Fn,

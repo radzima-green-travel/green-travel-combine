@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {Portal} from '@gorhom/portal';
 import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
-import {useMemo} from 'react';
 import {Keyboard, Platform, StyleSheet, View} from 'react-native';
 import {useBottomMenu} from 'core/hooks';
 import {ObjectAddInfoMenu} from 'molecules';

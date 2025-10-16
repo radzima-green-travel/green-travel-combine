@@ -39,7 +39,7 @@ export function* getSettlementsDataSaga({
 
     const data = response.reduce((acc, {items}) => {
       return [...acc, ...items];
-    }, [] as Array<SpotItemDTO>);
+    }, [] as SpotItemDTO[]);
 
     yield put(successAction(data));
   } catch (e) {

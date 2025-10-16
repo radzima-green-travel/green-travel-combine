@@ -9,6 +9,7 @@ import {
   ObjectDetailsCompletenessBlock,
   ObjectDetailsCompletenessSmallBlock,
   SuspenseView,
+  ObjectDetailsHeader,
 } from 'molecules';
 import {
   ObjectDetailsAddInfoSuccessMenu,
@@ -16,6 +17,7 @@ import {
   ObjectBelongsTo,
   ObjectDetailsShowInfoMenu,
   ObjectDetailsListItemsMenu,
+  ObjectDetailsReportInaccuraciesMenu,
 } from 'organisms';
 import {ImageSlider, SnackBar, Button, Icon, LottieAnimation} from 'atoms';
 import {useFavorite, useThemeStyles, useTranslation} from 'core/hooks';
@@ -33,8 +35,6 @@ import {
   useObjectDetailsAnalytics,
 } from './hooks';
 import {isLocationExist} from 'core/helpers';
-import {ObjectDetailsHeader} from 'molecules';
-import {ObjectDetailsReportInaccuraciesMenu} from 'organisms';
 import Animated, {FadeInDown} from 'react-native-reanimated';
 import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
 import {ObjectInfoCardItemsSection, ObjectInfoSection} from './components';

@@ -12,6 +12,7 @@ import {
   useOnRequestError,
   useObjectIncompleteFields,
   useObjectDetailsActions,
+  useObjectDetailsSelector,
 } from 'core/hooks';
 import {
   ObjectDetailsScreenNavigationProps,
@@ -25,7 +26,6 @@ import {getAnalyticsNavigationScreenName} from 'core/helpers';
 import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
 import {IBelongsTo, IInclude} from 'core/types';
 import {selectObjectDetails} from 'core/selectors';
-import {useObjectDetailsSelector} from 'core/hooks';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();

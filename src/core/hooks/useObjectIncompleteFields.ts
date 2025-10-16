@@ -21,7 +21,7 @@ export const useObjectIncompleteFields = (
             ? [{id: fieldName, label: t(`objectFieldsLabels.${fieldName}`)}]
             : []),
         ],
-        [] as Array<IObjectIncompleteField>,
+        [] as IObjectIncompleteField[],
       ),
     [categoryIncompleteFields, t],
   );

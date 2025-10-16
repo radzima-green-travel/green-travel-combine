@@ -6,7 +6,7 @@ import {useColorScheme} from './useColorScheme';
 
 type NamedStyles<T> = {[P in keyof T]: ViewStyle | TextStyle | ImageStyle};
 
-export const useThemeStyles = function <T extends Object>(
+export const useThemeStyles = function <T extends object>(
   themeStyles: T,
   {disableStyleSheet = false} = {},
 ): NamedStyles<T> {
@@ -14,7 +14,7 @@ export const useThemeStyles = function <T extends Object>(
 
   const styles = useMemo(() => {
     const processedStyles = mapValues(themeStyles, selectorStyles => {
-      return extractThemeStyles(selectorStyles as Object, theme);
+      return extractThemeStyles(selectorStyles as object, theme);
     });
     if (disableStyleSheet) {
       return processedStyles;

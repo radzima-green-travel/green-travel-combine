@@ -1,3 +1,13 @@
+import {IconsNames} from 'atoms/Icon/IconsNames';
+import {KeyboardEventName, Platform} from 'react-native';
+import {} from './types/analytics';
+import {
+  NavigationRoutes,
+  AnalyticsNavigationScreenNames,
+  AnalyticsAddInfoFieldsNames,
+  SearchFilters,
+} from './types';
+
 export const enum ACTIONS {
   BOOTSTRAP = 'BOOTSTRAP',
   SHOW_OBJECT_DETAILS_MAP_DIRECTION = 'SHOW_OBJECT_DETAILS_MAP_DIRECTION',
@@ -63,16 +73,6 @@ export const enum MAP_PINS {
 
 export const PADDING_HORIZONTAL = 16;
 export const HEADER_BOTTOM_RADIUS = 20;
-
-import {IconsNames} from 'atoms/Icon/IconsNames';
-import {KeyboardEventName, Platform} from 'react-native';
-import {} from './types/analytics';
-import {
-  NavigationRoutes,
-  AnalyticsNavigationScreenNames,
-  AnalyticsAddInfoFieldsNames,
-  SearchFilters,
-} from './types';
 
 export const ICONS_MATCHER = {
   [MAP_PINS.BICYCLE_ROUTE]: 'bike' as IconsNames,

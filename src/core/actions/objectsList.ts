@@ -3,7 +3,7 @@ import {ObjectListFilters, ObjectShortDTO} from 'core/types';
 
 export interface ObjectsListSuccessPayload {
   id: string;
-  data: Array<ObjectShortDTO>;
+  data: ObjectShortDTO[];
   nextToken: string;
   total: number;
 }

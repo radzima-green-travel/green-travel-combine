@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
-import {View, StatusBar} from 'react-native';
+import {View, StatusBar, TextInput} from 'react-native';
 import {ButtonsGroup} from '../ButtonsGroup';
 import {FormInput} from 'atoms';
 import {composeTestID} from 'core/helpers';
@@ -17,7 +17,6 @@ import {
 } from 'core/hooks';
 import {themeStyles} from './styles';
 import {PADDING_HORIZONTAL} from 'core/constants';
-import {TextInput} from 'react-native';
 
 interface IProps {
   testID: string;

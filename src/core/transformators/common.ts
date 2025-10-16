@@ -73,11 +73,11 @@ export function convertShortCategoryToCardItem(
 
 type ImagesPropertyToProcess = {
   cover?: string;
-  images?: Array<string>;
+  images?: string[];
 };
 
 type WithPropertiesToSanitize<T extends Record<string, any>> = T & {
-  i18n: Array<Partial<I18nType<Extract<keyof T, string>>>>;
+  i18n: Partial<I18nType<Extract<keyof T, string>>>[];
 } & ImagesPropertyToProcess;
 
 export const extractLocaleSpecificValues = <

@@ -6,7 +6,7 @@ import {useThemeStyles} from 'core/hooks';
 import {PADDING, themeStyles} from './styles';
 
 interface IProps {
-  buttons: Array<ButtonProps>;
+  buttons: ButtonProps[];
   elevated?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   bottomInset?: number;

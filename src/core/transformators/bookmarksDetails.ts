@@ -1,4 +1,4 @@
-import {SupportedLocales} from 'core/types';
+import {SupportedLocales, IBookmarkItem} from 'core/types';
 import {
   convertShortObjectToCardItem,
   translateAndProcessImagesForEntity,
@@ -10,7 +10,6 @@ import {
   ProcessedBookmarksObjectsList,
   BookmarksObjectsListState,
 } from 'core/types/bookmarksDetails';
-import {IBookmarkItem} from 'core/types';
 
 export const getProcessedBookmarksInitialObjectsData = (
   data: BookmarksInitialObjectsDataState,

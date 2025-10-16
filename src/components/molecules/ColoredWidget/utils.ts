@@ -15,5 +15,5 @@ export const parseTitleLine = (inputString: string) =>
 
       return chunks;
     },
-    [] as Array<{text: string; highlighted: boolean}>,
+    [] as {text: string; highlighted: boolean}[],
   );

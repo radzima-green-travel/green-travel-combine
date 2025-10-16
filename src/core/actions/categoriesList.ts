@@ -3,7 +3,7 @@ import {CategoryShortDTO} from 'core/types';
 
 interface CategoriesListSuccessPayload {
   id: string;
-  data: Array<CategoryShortDTO>;
+  data: CategoryShortDTO[];
   requestedItemsCount: number;
   nextToken: string;
   total: number;

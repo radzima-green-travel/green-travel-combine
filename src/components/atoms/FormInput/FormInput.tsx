@@ -22,8 +22,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {themeStyles} from './styles';
 import {useColorScheme, useThemeStyles} from 'core/hooks';
-import {Icon} from '../Icon';
-import {IconProps} from 'atoms/Icon';
+import {Icon, IconProps} from '../Icon';
 import {HelperText} from '../HelperText';
 import {useHandleKeyboardInput} from '../HandleKeyboard';
 import {composeTestID} from 'core/helpers';

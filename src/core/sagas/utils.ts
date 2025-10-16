@@ -1,4 +1,6 @@
 import {fork, take} from 'redux-saga/effects';
+
+// eslint-disable-next-line import/no-unresolved
 import {NotUndefined} from '@redux-saga/types';
 
 import {MulticastChannel} from 'redux-saga';

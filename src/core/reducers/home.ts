@@ -13,8 +13,8 @@ import {
 import {drop} from 'lodash';
 
 interface HomePageState {
-  categoriesList: Array<CategoryShortDTO>;
-  randomObjects: Array<ObjectThumbnailDTO>;
+  categoriesList: CategoryShortDTO[];
+  randomObjects: ObjectThumbnailDTO[];
   placeOfTheWeek: PlaceOfTheWeekObjectDTO | null;
 }
 

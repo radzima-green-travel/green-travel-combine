@@ -1,10 +1,15 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {Text, TouchableOpacity, View, KeyboardAvoidingView} from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+  SectionList,
+} from 'react-native';
 import {Chip, HighlightedText, SnackBar} from 'atoms';
 import {useThemeStyles, useTranslation} from 'core/hooks';
 import {screenOptions} from './screenOptions';
 import {themeStyles} from './styles';
-import {SectionList} from 'react-native';
 import {
   ButtonsGroup,
   FiltersSectionContainer,

@@ -8,8 +8,8 @@ import {
 import {NewPlaceForm} from '../types/addNewPlace';
 
 interface GetHomePageDataRequestPayload {
-  categoriesList: Array<CategoryShortDTO>;
-  randomObjects: Array<ObjectThumbnailDTO>;
+  categoriesList: CategoryShortDTO[];
+  randomObjects: ObjectThumbnailDTO[];
   placeOfTheWeek: PlaceOfTheWeekObjectDTO;
 }
 
@@ -25,7 +25,7 @@ export const refreshHomePageDataRequest = createAsyncAction<
 
 export const fetchNextRandomObjects = createAsyncAction<
   void,
-  Array<ObjectThumbnailDTO>
+  ObjectThumbnailDTO[]
 >('FETCH_NEXT_RANDOM_OBJECTS');
 
 export const shiftRandomObjectList = createAction('SHIFT_RANDOM_OBJECT_LIST');

@@ -5,12 +5,11 @@ import {
   selectSearchObjectsTotal,
   selectVisibleOnMapObjects,
 } from 'core/selectors';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SearchObjectsRequestPayload} from 'core/actions';
 import {useRequestLoading} from 'react-redux-help-kit';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useSearchActions} from './useSearchActions';
-import {useSelector} from 'react-redux';
 import {DEFAULT_LOCALE} from 'core/constants';
 
 export function useObjectListMapView({

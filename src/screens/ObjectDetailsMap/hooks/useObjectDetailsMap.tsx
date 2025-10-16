@@ -2,7 +2,12 @@ import {InteractionManager} from 'react-native';
 import {useCallback, useMemo, useRef, useEffect} from 'react';
 import {MapView, Camera, MapState} from '@rnmapbox/maps';
 
-import {selectAppLanguage, selectIsDirectionShowed} from 'core/selectors';
+import {
+  selectAppLanguage,
+  selectIsDirectionShowed,
+  createMarkerFromDetailsObject,
+  selectMapDirection,
+} from 'core/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   useBottomMenu,
@@ -24,10 +29,6 @@ import {
 } from 'core/actions';
 
 import {hapticFeedbackService} from 'services/HapticFeedbackService';
-import {
-  createMarkerFromDetailsObject,
-  selectMapDirection,
-} from 'core/selectors';
 
 import {
   featureCollection,

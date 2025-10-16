@@ -57,9 +57,11 @@ function objectCompletenessInfo(
 }
 
 export function prepareObjectAdditionalInfoItems(
-  items: Array<
-    AccommodationPlaceItemDTO | DinnerPlacesItemDTO | UpcomingEventsItemDTO
-  >,
+  items: (
+    | AccommodationPlaceItemDTO
+    | DinnerPlacesItemDTO
+    | UpcomingEventsItemDTO
+  )[],
   currentLocale: SupportedLocales | null,
 ): IObjectAdditionalInfoItem[] {
   return reduce(

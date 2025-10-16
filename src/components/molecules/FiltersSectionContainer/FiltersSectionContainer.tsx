@@ -1,6 +1,5 @@
-import React, {memo} from 'react';
+import React, {memo, ReactNode} from 'react';
 import {View, Text, StyleProp, ViewStyle} from 'react-native';
-import {ReactNode} from 'react';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
 

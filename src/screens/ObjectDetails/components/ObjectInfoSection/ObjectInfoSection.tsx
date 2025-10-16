@@ -1,10 +1,9 @@
 import React, {ComponentProps, memo, useState} from 'react';
 import {themeStyles} from './styles';
 import {useThemeStyles} from 'core/hooks';
-import {View} from 'react-native';
+import {View, StyleProp, ViewStyle} from 'react-native';
 import {IconsNames} from 'atoms/Icon';
 import {ListItem} from 'molecules';
-import {StyleProp, ViewStyle} from 'react-native';
 import {TrancateDetectionText} from 'components/atoms';
 
 export type Item = {
