@@ -60,6 +60,7 @@ fastlane/screenshots
 
 # Bundle artifact
 *.jsbundle
+*.gz
 
 # react-native-ultimate-config
 rnuc.xcconfig
