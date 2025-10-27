@@ -38,95 +38,91 @@ export function MainNavigator() {
   );
 
   return (
-    <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen
-        name="TabNavigator"
-        options={{headerShown: false, animation: 'fade'}}>
-        {() => (
-          <>
-            <TabNavigator />
-
-            {objectShareExperienceData ? (
-              <ObjectDetailsShareExperienceScreen />
-            ) : null}
-          </>
-        )}
-      </Stack.Screen>
-      <Stack.Screen
-        name="ObjectDetailsMap"
-        component={ObjectDetailsMapScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Group
-        screenOptions={() => ({
-          headerStyle: {
-            backgroundColor:
-              colorScheme === 'light'
-                ? COLORS.light.background.primary
-                : COLORS.dark.background.primary,
-          },
-          presentation: 'modal',
-        })}>
+    <>
+      <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
-          name="Filter"
-          component={FiltersScreen}
-          options={props => ({
-            ...FiltersScreen.screenOptions(props),
-          })}
+          name="TabNavigator"
+          component={TabNavigator}
+          options={{headerShown: false, animation: 'fade'}}></Stack.Screen>
+        <Stack.Screen
+          name="ObjectDetailsMap"
+          component={ObjectDetailsMapScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Group
+          screenOptions={() => ({
+            headerStyle: {
+              backgroundColor:
+                colorScheme === 'light'
+                  ? COLORS.light.background.primary
+                  : COLORS.dark.background.primary,
+            },
+            presentation: 'modal',
+          })}>
+          <Stack.Screen
+            name="Filter"
+            component={FiltersScreen}
+            options={props => ({
+              ...FiltersScreen.screenOptions(props),
+            })}
+          />
+          <Stack.Screen
+            name="Settlements"
+            component={SettlementsScreen}
+            options={props => ({
+              ...SettlementsScreen.screenOptions(props),
+              title: tFiters('settlements.title'),
+              headerTintColor:
+                colorScheme === 'light'
+                  ? COLORS.light.text.primary
+                  : COLORS.dark.text.primary,
+            })}
+          />
+        </Stack.Group>
+        <Stack.Screen
+          name="PageNotFoundErrorScreen"
+          component={PageNotFoundErrorScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
         />
         <Stack.Screen
-          name="Settlements"
-          component={SettlementsScreen}
-          options={props => ({
-            ...SettlementsScreen.screenOptions(props),
-            title: tFiters('settlements.title'),
-            headerTintColor:
-              colorScheme === 'light'
-                ? COLORS.light.text.primary
-                : COLORS.dark.text.primary,
-          })}
+          name="AuthNavigator"
+          component={AuthNavigator}
+          options={{
+            headerShown: false,
+            presentation: 'modal',
+          }}
         />
-      </Stack.Group>
-      <Stack.Screen
-        name="PageNotFoundErrorScreen"
-        component={PageNotFoundErrorScreen}
-        options={{
-          headerShown: false,
-          gestureEnabled: false,
-        }}
-      />
-      <Stack.Screen
-        name="AuthNavigator"
-        component={AuthNavigator}
-        options={{
-          headerShown: false,
-          presentation: 'modal',
-        }}
-      />
-      <Stack.Screen
-        name="ImagesGallery"
-        component={ImagesGalleryScreen}
-        options={{
-          headerShown: false,
-          animation: 'fade',
-        }}
-      />
+        <Stack.Screen
+          name="ImagesGallery"
+          component={ImagesGalleryScreen}
+          options={{
+            headerShown: false,
+            animation: 'fade',
+          }}
+        />
 
-      <Stack.Screen
-        name="ObjectDetailsAddInfo"
-        component={ObjectDetailsAddInfoScreen}
-        options={{
-          ...screenOptions,
-          headerShown: false,
-          presentation: 'modal',
-          gestureEnabled: false,
-        }}
-      />
-      <Stack.Screen
-        name="AddNewPlace"
-        component={AddNewPlaceScreen}
-        options={{headerShown: false, presentation: 'modal'}}
-      />
-    </Stack.Navigator>
+        <Stack.Screen
+          name="ObjectDetailsAddInfo"
+          component={ObjectDetailsAddInfoScreen}
+          options={{
+            ...screenOptions,
+            headerShown: false,
+            presentation: 'modal',
+            gestureEnabled: false,
+          }}
+        />
+        <Stack.Screen
+          name="AddNewPlace"
+          component={AddNewPlaceScreen}
+          options={{headerShown: false, presentation: 'modal'}}
+        />
+      </Stack.Navigator>
+      {objectShareExperienceData ? (
+        <ObjectDetailsShareExperienceScreen />
+      ) : null}
+    </>
   );
 }
