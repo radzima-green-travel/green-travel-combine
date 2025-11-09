@@ -1,7 +1,14 @@
 import React from 'react';
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {View, StyleProp, ViewStyle, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  StyleProp,
+  ViewStyle,
+  Text,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import {useThemeStyles} from 'core/hooks';
 import {themeStyles} from './styles';
 import {PADDING_HORIZONTAL} from 'core/constants';
@@ -78,13 +85,19 @@ export const CustomHeader = ({
     ) : null;
   };
 
+  const topOffset = Platform.select({
+    ios: options?.presentation === 'modal' ? 0 : top,
+    android: top,
+    default: 0,
+  });
+
   return (
     <View
       style={[
         styles.container,
         withOverlay && styles.overlay,
         {
-          paddingTop: top + PADDING_HORIZONTAL,
+          paddingTop: topOffset + PADDING_HORIZONTAL,
         },
         style,
         options?.headerStyle,

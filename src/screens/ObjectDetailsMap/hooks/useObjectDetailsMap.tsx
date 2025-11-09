@@ -16,7 +16,6 @@ import {
   useTranslation,
   useOnRequestSuccess,
   useRequestErrorAlert,
-  useColorScheme,
   useStatusBar,
 } from 'core/hooks';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -236,9 +235,7 @@ export const useObjectDetailsMap = () => {
     closeMenu();
   }, [closeMenu]);
 
-  const theme = useColorScheme();
-
-  useStatusBar(theme);
+  useStatusBar({style: 'auto'});
 
   return {
     bottom,

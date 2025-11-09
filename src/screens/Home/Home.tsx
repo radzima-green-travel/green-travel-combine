@@ -18,7 +18,7 @@ import {
   useAddPlaceWidget,
 } from './hooks';
 import {themeStyles} from './styles';
-import {useStatusBar, useColorScheme, useTranslation} from 'core/hooks';
+import {useStatusBar, useTranslation} from 'core/hooks';
 import {useHomeHeader} from './screenOptions';
 import {map} from 'lodash';
 import {ICONS_MATCHER} from 'core/constants';
@@ -28,10 +28,12 @@ import {ObjectDetailsAddInfoSuccessMenu} from '../../components/organisms';
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('home');
-  const scheme = useColorScheme();
+
   const listRef = useRef<ScrollView>(null);
   const {pageListContainerProps} = useHomeHeader();
-  useStatusBar(scheme);
+
+  useStatusBar({style: 'auto'});
+
   useScrollToTop(
     useRef({
       scrollToTop: () => {

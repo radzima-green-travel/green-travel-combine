@@ -1,19 +1,15 @@
-import {useEffect, useState} from 'react';
-import {StatusBar} from 'react-native';
-
-import {useColorScheme} from 'core/hooks';
-import {IMAGE_HEIGHT} from '../styles';
-import {useIsFocused} from '@react-navigation/native';
+import {useColorScheme, useStatusBar} from 'core/hooks';
+import {useState} from 'react';
 import {
   SharedValue,
   runOnJS,
   useAnimatedReaction,
 } from 'react-native-reanimated';
+import {IMAGE_HEIGHT} from '../styles';
 
 export function useObjectDetailsStatusBar(animatedValue: SharedValue<number>) {
   const [isScrolledBelowImage, setIsScrolledBelowImage] = useState(false);
   const theme = useColorScheme();
-  const isScreenFocused = useIsFocused();
 
   const isLightTheme = theme === 'light';
 
@@ -27,19 +23,7 @@ export function useObjectDetailsStatusBar(animatedValue: SharedValue<number>) {
     [],
   );
 
-  useEffect(() => {
-    if (isScreenFocused) {
-      const barStyle =
-        isLightTheme && isScrolledBelowImage ? 'dark-content' : 'light-content';
-
-      const entry = StatusBar.pushStackEntry({
-        barStyle: barStyle,
-        animated: true,
-      });
-
-      return () => {
-        StatusBar.popStackEntry(entry);
-      };
-    }
-  }, [isLightTheme, isScreenFocused, isScrolledBelowImage]);
+  useStatusBar({
+    style: isLightTheme && isScrolledBelowImage ? 'dark' : 'light',
+  });
 }

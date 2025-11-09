@@ -1,12 +1,7 @@
 import React, {useEffect, useMemo} from 'react';
 import {Text, View} from 'react-native';
 import {Chip, Multiswitch, SnackBar} from 'atoms';
-import {
-  useColorScheme,
-  useStatusBar,
-  useThemeStyles,
-  useTranslation,
-} from 'core/hooks';
+import {useStatusBar, useThemeStyles, useTranslation} from 'core/hooks';
 import {
   ButtonsGroup,
   FiltersSectionContainer,
@@ -51,9 +46,7 @@ export const Filters = () => {
   } = useFilters();
   const {bottom} = useSafeAreaInsets();
 
-  const scheme = useColorScheme();
-
-  useStatusBar(scheme, {disabled: isIOS});
+  useStatusBar({style: isIOS ? 'light' : 'auto'});
 
   useEffect(() => {
     return () => {

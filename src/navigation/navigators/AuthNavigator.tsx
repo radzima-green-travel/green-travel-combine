@@ -43,33 +43,40 @@ export function AuthNavigator() {
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen name="CheckEmail" component={CheckEmailScreen} />
-      <Stack.Screen
-        name="AuthMethodSelection"
-        component={AuthMethodSelectionScreen}
-        options={AuthMethodSelectionScreen.screenOptions}
-      />
-      <Stack.Screen name="SignInPassword" component={SignInPasswordScreen} />
-      <Stack.Screen name="SignUpForm" component={SignUpFormScreen} />
-      <Stack.Screen name="CodeVerification" component={EmailValidationScreen} />
-      <Stack.Screen name="EmailValidation" component={EmailValidationScreen} />
-
-      <Stack.Screen
-        name="RestorePassword"
-        component={RestorePasswordScreen}
-        options={{title: t('restorePassword', {ns: 'authentification'})}}
-      />
-      <Stack.Screen
-        name="NewPassword"
-        component={NewPasswordScreen}
-        options={{title: t('restorePassword', {ns: 'authentification'})}}
-      />
-      <Stack.Screen name="InAppWebView" component={InAppWebViewScreen} />
-      <Stack.Screen
-        name="ChangePassword"
-        component={ChangePasswordScreen}
-        options={ChangePasswordScreen.screenOptions}
-      />
+      <Stack.Group screenOptions={{presentation: 'modal'}}>
+        <Stack.Screen name="CheckEmail" component={CheckEmailScreen} />
+        <Stack.Screen
+          name="AuthMethodSelection"
+          component={AuthMethodSelectionScreen}
+          options={AuthMethodSelectionScreen.screenOptions}
+        />
+        <Stack.Screen name="SignInPassword" component={SignInPasswordScreen} />
+        <Stack.Screen name="SignUpForm" component={SignUpFormScreen} />
+        <Stack.Screen
+          name="CodeVerification"
+          component={EmailValidationScreen}
+        />
+        <Stack.Screen
+          name="EmailValidation"
+          component={EmailValidationScreen}
+        />
+        <Stack.Screen
+          name="RestorePassword"
+          component={RestorePasswordScreen}
+          options={{title: t('restorePassword', {ns: 'authentification'})}}
+        />
+        <Stack.Screen
+          name="NewPassword"
+          component={NewPasswordScreen}
+          options={{title: t('restorePassword', {ns: 'authentification'})}}
+        />
+        <Stack.Screen name="InAppWebView" component={InAppWebViewScreen} />
+        <Stack.Screen
+          name="ChangePassword"
+          component={ChangePasswordScreen}
+          options={ChangePasswordScreen.screenOptions}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }
