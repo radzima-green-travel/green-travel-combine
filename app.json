@@ -24,14 +24,12 @@
         "usesNonExemptEncryption": false
       }
     },
-    "androidStatusBar": {
-      "hidden": true
-    },
     "android": {
       "edgeToEdgeEnabled": true,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=app.radzima",
       "publishBundlePath": "./build",
       "userInterfaceStyle": "automatic",
+      "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "src/assets/app/AndroidAdaptiveIcon.png",
         "backgroundColor": "#ffffff"
@@ -71,7 +69,16 @@
           "initialOrientation": "PORTRAIT_UP"
         }
       ],
-      ["react-native-map-link"]
+      ["react-native-map-link"],
+      [
+        "react-native-edge-to-edge",
+        {
+          "android": {
+            "parentTheme": "Default",
+            "enforceNavigationBarContrast": false
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {

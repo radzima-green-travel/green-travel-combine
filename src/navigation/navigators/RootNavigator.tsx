@@ -5,14 +5,13 @@ import * as SplashScreen from 'expo-splash-screen';
 import {MainNavigator} from './MainNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {bootstrapRequest} from 'core/actions';
-import {StatusBar} from 'expo-status-bar';
+import {SystemBars} from 'react-native-edge-to-edge';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {
   ForceUpdateScreen,
   OptionalUpdateScreen,
   SplashScreen as CustomSplashScreen,
 } from '../../screens';
-
 import {PortalProvider} from '@gorhom/portal';
 import {useOnRequestSuccess, useRequestError} from 'react-redux-help-kit';
 import {MainNavigatorParamsList} from 'core/types';
@@ -114,8 +113,14 @@ export function RootNavigator() {
             </>
           ) : null}
         </PortalProvider>
-        <StatusBar animated style={statusBarStyle} />
       </NavigationContainer>
+      <SystemBars
+        // TODO: Update to always correspond to the app theme when migration to the new design is complete
+        style={{
+          statusBar: statusBarStyle,
+          navigationBar: theme === 'light' ? 'dark' : 'light',
+        }}
+      />
     </SafeAreaProvider>
   );
 }

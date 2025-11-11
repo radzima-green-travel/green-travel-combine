@@ -2,12 +2,7 @@ import {Portal} from '@gorhom/portal';
 import {useNavigation} from '@react-navigation/native';
 import {BottomMenu, Button, CustomHeader, Icon} from 'atoms';
 import {composeTestID} from 'core/helpers';
-import {
-  useBottomMenu,
-  useColorScheme,
-  useStatusBar,
-  useThemeStyles,
-} from 'core/hooks';
+import {useBottomMenu, useStatusBar, useThemeStyles} from 'core/hooks';
 import {SearchFiltersItem, SearchOptions} from 'core/types';
 import {noop} from 'lodash';
 import {
@@ -68,9 +63,7 @@ export const SearchHeader = memo(
 
     const navigation = useNavigation();
 
-    const scheme = useColorScheme();
-
-    useStatusBar(scheme);
+    useStatusBar({style: 'auto'});
 
     const {openMenu, ...bottomMenuProps} = useBottomMenu();
 

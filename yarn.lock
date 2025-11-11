@@ -10657,6 +10657,7 @@ __metadata:
     react-i18next: "npm:11.18.3"
     react-native: "npm:0.79.5"
     react-native-awesome-gallery: "npm:^0.3.6"
+    react-native-edge-to-edge: "npm:^1.7.0"
     react-native-gesture-handler: "npm:~2.24.0"
     react-native-map-link: "npm:^3.5.0"
     react-native-mmkv: "patch:react-native-mmkv@npm%3A2.12.2#~/.yarn/patches/react-native-mmkv-npm-2.12.2-9efa7abf70.patch"
@@ -14482,6 +14483,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/6373cc1b447eae31689a9b62e38b15621e9273626e2324700c4c3eb58c02ce489236a4b9e3e0dc1187e062defd8316195c5b1213facd718706b79b92127a05a3
+  languageName: node
+  linkType: hard
+
+"react-native-edge-to-edge@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "react-native-edge-to-edge@npm:1.7.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/809dcf1c68f79cff788963ec7691b37024986e82470be5047bfbe42929fc2c7d45db23eab816321e776f0bb3a8295f7efa526377bce6a559c10681cd409d597d
   languageName: node
   linkType: hard
 

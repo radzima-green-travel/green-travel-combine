@@ -89,6 +89,14 @@ export const FieldEditorSheet = <T extends string>({
     </form.Field>
   );
 
+  // TODO: Keyboard height is determined in an inconsistent and obscure way across the app
+  // Work with keyboard should be refactored to use a consistent approach
+  const keyboardOffset = isIOS
+    ? (menuProps.keyboardHeight ?? bottomSafeAreaInset)
+    : menuProps.keyboardHeight
+      ? menuProps.keyboardHeight + bottomSafeAreaInset
+      : bottomSafeAreaInset;
+
   const menu = (
     <BottomMenu
       testID={composeTestID(testID, 'bottomMenu')}
@@ -102,7 +110,11 @@ export const FieldEditorSheet = <T extends string>({
       }}
       {...menuProps}>
       {fieldBlock}
-      <View style={{height: menuProps.keyboardHeight ?? bottomSafeAreaInset}} />
+      <View
+        style={{
+          height: keyboardOffset,
+        }}
+      />
     </BottomMenu>
   );
 

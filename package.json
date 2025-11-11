@@ -69,6 +69,7 @@
     "react-i18next": "11.18.3",
     "react-native": "0.79.5",
     "react-native-awesome-gallery": "^0.3.6",
+    "react-native-edge-to-edge": "^1.7.0",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-map-link": "^3.5.0",
     "react-native-mmkv": "patch:react-native-mmkv@npm%3A2.12.2#~/.yarn/patches/react-native-mmkv-npm-2.12.2-9efa7abf70.patch",
