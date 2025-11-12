@@ -1,24 +1,20 @@
-import React from 'react';
-
-import * as Icons from './icons';
-
-import {StyleProp, TextStyle, View} from 'react-native';
-import {IconsNames} from './IconsNames';
+import * as Icons from 'assets/icons';
 import {getPlatformsTestID} from 'core/helpers';
+import React from 'react';
+import {StyleProp, StyleSheet, TextStyle} from 'react-native';
+import type {SvgProps} from 'react-native-svg';
+import {IconName} from './types';
 
 export interface Props {
-  name: IconsNames;
+  name: IconName;
   width?: number | string;
   height?: number | string;
   color?: string;
   size?: number;
   style?: StyleProp<TextStyle>;
-  additionalColor?: string;
   testID?: string;
   checked?: boolean;
 }
-
-const IconsMap: {[key: string]: any} = Icons;
 
 export const Icon = ({
   name,
@@ -27,43 +23,42 @@ export const Icon = ({
   color,
   size,
   style = {},
-  additionalColor,
   testID = name,
   checked = false,
 }: Props) => {
-  const IconComponent = IconsMap[name];
+  const IconComponent = (Icons as Record<IconName, React.FC<SvgProps>>)[name];
 
   if (!IconComponent) {
     return null;
   }
 
-  const iconStyle = Array.isArray(style) ? Object.assign({}, ...style) : style;
+  const iconStyle = StyleSheet.flatten(style);
   const {fontSize, color: iconColor} = iconStyle;
 
   const iconWidth =
     fontSize ||
     (height && width) ||
     size ||
-    iconStyle.width ||
-    iconStyle.size ||
-    24;
+    (iconStyle.width as number) ||
+    defaultIconSize;
   const iconHeight =
     fontSize ||
     (width && height) ||
     size ||
-    iconStyle.height ||
-    iconStyle.size ||
-    24;
+    (iconStyle.height as number) ||
+    defaultIconSize;
 
   return (
-    <View {...getPlatformsTestID(testID)} accessibilityState={{checked}}>
-      <IconComponent
-        width={iconWidth}
-        height={iconHeight}
-        style={iconStyle}
-        color={iconColor || color || 'white'}
-        additionalColor={additionalColor}
-      />
-    </View>
+    <IconComponent
+      {...getPlatformsTestID(testID)}
+      width={iconWidth}
+      height={iconHeight}
+      style={iconStyle}
+      color={iconColor || color || defaultIconColor}
+      accessibilityState={{checked}}
+    />
   );
 };
+
+const defaultIconSize = 24;
+const defaultIconColor = 'white';
