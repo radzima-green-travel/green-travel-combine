@@ -1,11 +1,11 @@
-import React, {memo, useState} from 'react';
-import {MapButtonContainer, Icon} from 'atoms';
-import {themeStyles} from './styles';
-import {COLORS} from 'assets';
-import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-import {useThemeStyles} from 'core/hooks';
-import {SCREEN_HEIGHT} from 'services/PlatformService';
-import {composeTestID} from 'core/helpers';
+import React, { memo, useState } from 'react';
+import { MapButtonContainer, Icon } from 'atoms';
+import { themeStyles } from './styles';
+import { COLORS } from 'assets';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import { useThemeStyles } from 'core/hooks';
+import { SCREEN_HEIGHT } from 'services/PlatformService';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   onShowLocationPress: () => void;
@@ -29,12 +29,12 @@ export const ObjectDetailsMapButtons = memo(
       const diff = SCREEN_HEIGHT - bottomMenuPosition.value;
       const translateY = diff < buttonsOffset ? 0 : (diff - buttonsOffset) * -1;
       return {
-        transform: [{translateY}],
+        transform: [{ translateY }],
       };
     });
     return (
       <Animated.View
-        onLayout={({nativeEvent}) =>
+        onLayout={({ nativeEvent }) =>
           setButtonsOffset(
             SCREEN_HEIGHT -
               nativeEvent.layout.y -

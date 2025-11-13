@@ -1,6 +1,6 @@
-import {IState} from 'core/store';
-import {createSelector} from 'reselect';
-import {selectAppLanguage} from 'core/selectors/settingsSelectors';
+import { IState } from 'core/store';
+import { createSelector } from 'reselect';
+import { selectAppLanguage } from 'core/selectors/settingsSelectors';
 import {
   getProcessedCategoriesLists,
   prepareCategoriesListData,

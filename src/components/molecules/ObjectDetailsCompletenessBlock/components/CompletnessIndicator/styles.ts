@@ -1,7 +1,7 @@
-import {COLORS, FONTS_PRESETS} from 'assets';
+import { COLORS, FONTS_PRESETS } from 'assets';
 
-import {createThemeStyles} from 'core/helpers/styles';
-import {smallProgressHeight} from '../ProgressBar/styles';
+import { createThemeStyles } from 'core/helpers/styles';
+import { smallProgressHeight } from '../ProgressBar/styles';
 
 export const calloutBorderRadius = 10;
 const calloutArrowWidth = 2;
@@ -16,7 +16,7 @@ export const themeStyles = createThemeStyles({
   containerSmall: {
     paddingHorizontal: 0,
   },
-  wrapper: {height: 44, marginTop: 10},
+  wrapper: { height: 44, marginTop: 10 },
   callout: {
     alignSelf: 'flex-start',
     paddingVertical: 3,
@@ -55,7 +55,7 @@ export const themeStyles = createThemeStyles({
       light: COLORS.light.other.constantWhite,
       dark: COLORS.dark.other.constantWhite,
     },
-    transform: [{translateX: -calloutArrowWidth / 2}],
+    transform: [{ translateX: -calloutArrowWidth / 2 }],
   },
   calloutArrowSmall: {
     height: calloutArrowHightSmall,

@@ -1,1 +1,1 @@
-export {useCheckEmail} from './useCheckEmail';
+export { useCheckEmail } from './useCheckEmail';

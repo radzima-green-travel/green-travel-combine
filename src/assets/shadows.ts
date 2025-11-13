@@ -1,11 +1,11 @@
-import {Platform, StyleSheet} from 'react-native';
-import {COLORS} from './colors';
+import { Platform, StyleSheet } from 'react-native';
+import { COLORS } from './colors';
 
 const boxShadow =
   Platform.OS === 'ios'
     ? {
         shadowColor: COLORS.deepBlue,
-        shadowOffset: {width: 2, height: 2},
+        shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 2,
       }

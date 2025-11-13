@@ -1,5 +1,5 @@
-import React, {useCallback} from 'react';
-import {Text, View} from 'react-native';
+import React, { useCallback } from 'react';
+import { Text, View } from 'react-native';
 
 import {
   DetailsPageCapture,
@@ -19,11 +19,16 @@ import {
   ObjectDetailsListItemsMenu,
   ObjectDetailsReportInaccuraciesMenu,
 } from 'organisms';
-import {ImageSlider, SnackBar, Button, Icon, LottieAnimation} from 'atoms';
-import {useFavorite, useThemeStyles, useTranslation} from 'core/hooks';
-import {isEmpty} from 'lodash';
-import {themeStyles, IMAGE_HEIGHT, IMAGE_WIDTH, gradientConfig} from './styles';
-import {LinearGradient} from 'expo-linear-gradient';
+import { ImageSlider, SnackBar, Button, Icon, LottieAnimation } from 'atoms';
+import { useFavorite, useThemeStyles, useTranslation } from 'core/hooks';
+import { isEmpty } from 'lodash';
+import {
+  themeStyles,
+  IMAGE_HEIGHT,
+  IMAGE_WIDTH,
+  gradientConfig,
+} from './styles';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   useObjectDetails,
   useObjectDetailsAnimation,
@@ -34,14 +39,14 @@ import {
   useObjectDetailsInfo,
   useObjectDetailsAnalytics,
 } from './hooks';
-import {isLocationExist} from 'core/helpers';
-import Animated, {FadeInDown} from 'react-native-reanimated';
-import {PinchToZoomProvider} from 'atoms/ZoomableViewGlobal';
-import {ObjectInfoCardItemsSection, ObjectInfoSection} from './components';
+import { isLocationExist } from 'core/helpers';
+import Animated, { FadeInDown } from 'react-native-reanimated';
+import { PinchToZoomProvider } from 'atoms/ZoomableViewGlobal';
+import { ObjectInfoCardItemsSection, ObjectInfoSection } from './components';
 
 export const ObjectDetails = () => {
-  const {t} = useTranslation('objectDetails');
-  const {t: tCommon} = useTranslation('common');
+  const { t } = useTranslation('objectDetails');
+  const { t: tCommon } = useTranslation('common');
   const styles = useThemeStyles(themeStyles);
   const {
     data,
@@ -69,7 +74,7 @@ export const ObjectDetails = () => {
     objcetCoverBlurhash,
   } = useObjectDetails();
 
-  const {sendBookmarksAddEvent, sendBookmarksRemoveEvent} =
+  const { sendBookmarksAddEvent, sendBookmarksRemoveEvent } =
     useObjectDetailsAnalytics();
 
   const sendToggleFavoriteEvent = useCallback(
@@ -83,8 +88,8 @@ export const ObjectDetails = () => {
     [sendBookmarksAddEvent, sendBookmarksRemoveEvent],
   );
 
-  const {favoritesSynchronizing, toggleFavoriteHandler, isFavorite} =
-    useFavorite({objectId, onFavoriteToggle: sendToggleFavoriteEvent});
+  const { favoritesSynchronizing, toggleFavoriteHandler, isFavorite } =
+    useFavorite({ objectId, onFavoriteToggle: sendToggleFavoriteEvent });
 
   const {
     isVisited,
@@ -98,13 +103,13 @@ export const ObjectDetails = () => {
     objectId,
   });
 
-  const {scrollHandler, imageSliderContainerAnimatedStyle, translationY} =
+  const { scrollHandler, imageSliderContainerAnimatedStyle, translationY } =
     useObjectDetailsAnimation({
       imageHeight: IMAGE_HEIGHT,
       onScrollEndReached: sendScrollEvent,
     });
 
-  const {openInnacurateInfoMenu, ...reportInaccuraciesMenuProps} =
+  const { openInnacurateInfoMenu, ...reportInaccuraciesMenuProps } =
     useReportInaccuracies({
       objectId,
       objectName: data?.name || '',
@@ -352,7 +357,7 @@ export const ObjectDetails = () => {
         <LinearGradient
           pointerEvents={'none'}
           {...gradientConfig}
-          style={[styles.gradient, {height: top}]}
+          style={[styles.gradient, { height: top }]}
         />
         <SnackBar testID={'snackBar'} offset={80} {...snackBarProps} />
         <ObjectDetailsHeader

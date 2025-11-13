@@ -1,11 +1,11 @@
-import {useCallback, useEffect, useRef} from 'react';
-import {IBottomMenuRef} from 'atoms/BottomMenu/BottomMenu';
-import {useSharedValue} from 'react-native-reanimated';
-import {SCREEN_HEIGHT} from 'services/PlatformService';
-import {useBackHandler} from './useBackHandler';
-import {useKeyboardHeight} from './useKeyboardHeight';
-import {TextInput} from 'react-native';
-import {useStaticCallback} from 'react-redux-help-kit';
+import { useCallback, useEffect, useRef } from 'react';
+import { IBottomMenuRef } from 'atoms/BottomMenu/BottomMenu';
+import { useSharedValue } from 'react-native-reanimated';
+import { SCREEN_HEIGHT } from 'services/PlatformService';
+import { useBackHandler } from './useBackHandler';
+import { useKeyboardHeight } from './useKeyboardHeight';
+import { TextInput } from 'react-native';
+import { useStaticCallback } from 'react-redux-help-kit';
 
 function delay(ms: number) {
   return new Promise(resolve => {
@@ -19,7 +19,7 @@ export function useBottomMenu() {
 
   const textInputRef = useRef<TextInput>(null);
 
-  const {keyboardHeight} = useKeyboardHeight();
+  const { keyboardHeight } = useKeyboardHeight();
 
   const openMenu = useCallback(() => {
     menuRef.current?.show();

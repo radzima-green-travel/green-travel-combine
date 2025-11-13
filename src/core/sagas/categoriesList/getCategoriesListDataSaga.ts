@@ -1,4 +1,4 @@
-import {call, put, select} from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import {
   CategoryAggregationsByObjectsDTO,
   CategoriesResponseDTO,
@@ -8,20 +8,20 @@ import {
   getCategoriesListInitialDataRequest,
   getCategoriesListNextDataRequest,
 } from 'core/actions';
-import {RequestError} from 'core/errors';
-import {selectCategoriesList} from 'selectors';
-import {getCategoriesData} from '../fetchRequests';
-import {filter} from 'lodash';
+import { RequestError } from 'core/errors';
+import { selectCategoriesList } from 'selectors';
+import { getCategoriesData } from '../fetchRequests';
+import { filter } from 'lodash';
 
 export function* getCategoriesListDataSaga({
-  meta: {failureAction, successAction},
+  meta: { failureAction, successAction },
   payload,
 }: ReturnType<
   | typeof getCategoriesListInitialDataRequest
   | typeof getCategoriesListNextDataRequest
 >) {
   try {
-    const {nextToken: prevNextToken} = yield select(
+    const { nextToken: prevNextToken } = yield select(
       selectCategoriesList(payload),
     );
 
@@ -36,12 +36,12 @@ export function* getCategoriesListDataSaga({
     };
 
     const {
-      categoriesData: {items, nextToken, total},
+      categoriesData: { items, nextToken, total },
       categoriesWithObjects,
     }: {
       categoriesData: CategoriesResponseDTO;
       categoriesWithObjects: CategoryAggregationsByObjectsDTO[];
-    } = yield call(getCategoriesData, {payload: params});
+    } = yield call(getCategoriesData, { payload: params });
 
     const filteredData = filter(items, item =>
       categoriesWithObjects.some(category => category.key === item.id),

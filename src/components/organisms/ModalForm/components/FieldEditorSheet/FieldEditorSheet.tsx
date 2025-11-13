@@ -1,18 +1,18 @@
-import {Portal} from '@gorhom/portal';
-import {useForm} from '@tanstack/react-form';
-import {Type} from 'arktype';
-import {BottomMenu, FormInput} from 'atoms';
-import {composeTestID} from 'core/helpers';
-import {useBottomMenu, useThemeStyles} from 'core/hooks';
-import React, {RefObject} from 'react';
-import {TFunction} from 'react-i18next';
-import {Keyboard, TextInput, View, Text, StyleSheet} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {FullWindowOverlay} from 'react-native-screens';
-import {isIOS} from 'services/PlatformService';
-import {themeStyles} from './styles';
-import {SubmitButton} from '../SubmitButton';
-import {FormFieldConfig} from 'core/types';
+import { Portal } from '@gorhom/portal';
+import { useForm } from '@tanstack/react-form';
+import { Type } from 'arktype';
+import { BottomMenu, FormInput } from 'atoms';
+import { composeTestID } from 'core/helpers';
+import { useBottomMenu, useThemeStyles } from 'core/hooks';
+import React, { RefObject } from 'react';
+import { TFunction } from 'react-i18next';
+import { Keyboard, TextInput, View, Text, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FullWindowOverlay } from 'react-native-screens';
+import { isIOS } from 'services/PlatformService';
+import { themeStyles } from './styles';
+import { SubmitButton } from '../SubmitButton';
+import { FormFieldConfig } from 'core/types';
 
 export const FieldEditorSheet = <T extends string>({
   testID,
@@ -36,13 +36,13 @@ export const FieldEditorSheet = <T extends string>({
   schema: Type<Record<string, any>>;
   fieldConfig?: FormFieldConfig;
 }) => {
-  const {bottom: bottomSafeAreaInset} = useSafeAreaInsets();
+  const { bottom: bottomSafeAreaInset } = useSafeAreaInsets();
   const form = useForm({
-    defaultValues: {[fieldName]: defaultValue} as Record<string, any>,
+    defaultValues: { [fieldName]: defaultValue } as Record<string, any>,
     validators: {
       onSubmit: schema,
     },
-    onSubmit: ({value}) => {
+    onSubmit: ({ value }) => {
       onSubmit?.(value[fieldName].trim());
     },
   });

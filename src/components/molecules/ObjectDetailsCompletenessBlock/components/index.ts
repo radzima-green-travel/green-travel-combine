@@ -1,2 +1,2 @@
-export {CompletnessIndicator} from './CompletnessIndicator';
-export {ProgressBar} from './ProgressBar';
+export { CompletnessIndicator } from './CompletnessIndicator';
+export { ProgressBar } from './ProgressBar';

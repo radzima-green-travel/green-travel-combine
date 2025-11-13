@@ -1,4 +1,4 @@
-import {AnalyticsNavigationScreenNames} from './common';
+import { AnalyticsNavigationScreenNames } from './common';
 
 export type FiltersCategorySelectEvent = {
   name: 'Filters_category_select';

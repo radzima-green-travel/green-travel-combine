@@ -1,13 +1,14 @@
-import {useBackHandler, useBottomMenu, useStaticCallback} from 'core/hooks';
-import {useCallback, useRef, useState} from 'react';
-import {Keyboard, TextInput} from 'react-native';
-import {useDerivedValue, useSharedValue} from 'react-native-reanimated';
-import {useObjectShareExperienceAnalytics} from './useObjectShareExperienceAnalytics';
+import { useBackHandler, useBottomMenu, useStaticCallback } from 'core/hooks';
+import { useCallback, useRef, useState } from 'react';
+import { Keyboard, TextInput } from 'react-native';
+import { useDerivedValue, useSharedValue } from 'react-native-reanimated';
+import { useObjectShareExperienceAnalytics } from './useObjectShareExperienceAnalytics';
 
 export function useShareExperienceMenu() {
   const innaccuraciesMenuRef = useRef<TextInput>(null);
 
-  const {sendReportInaccuranceViewEvent} = useObjectShareExperienceAnalytics();
+  const { sendReportInaccuranceViewEvent } =
+    useObjectShareExperienceAnalytics();
 
   const shareExperienceMenuProps = useBottomMenu();
   const reportInnacurateInfoMenuProps = useBottomMenu();

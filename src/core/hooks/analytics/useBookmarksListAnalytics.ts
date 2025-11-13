@@ -1,5 +1,5 @@
-import {useCallback} from 'react';
-import {analyticsService} from 'services/AnalyticsService';
+import { useCallback } from 'react';
+import { analyticsService } from 'services/AnalyticsService';
 
 export function useBookmarksListAnalytics() {
   const sendSelectCardEvent = useCallback(

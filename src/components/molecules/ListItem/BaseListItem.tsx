@@ -1,10 +1,10 @@
-import React, {memo, useMemo} from 'react';
-import {Text, TextProps, TouchableOpacity, View} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
-import {ListItemWrapper} from './ListItemWrapper';
-import {themeStyles} from './styles';
-import {BaseListItemProps} from './types';
-import {composeTestID} from 'core/helpers';
+import React, { memo, useMemo } from 'react';
+import { Text, TextProps, TouchableOpacity, View } from 'react-native';
+import { useThemeStyles } from 'core/hooks';
+import { ListItemWrapper } from './ListItemWrapper';
+import { themeStyles } from './styles';
+import { BaseListItemProps } from './types';
+import { composeTestID } from 'core/helpers';
 
 export const BaseListItem = memo(
   ({

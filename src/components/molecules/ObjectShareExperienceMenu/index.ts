@@ -1,1 +1,1 @@
-export {ObjectShareExperienceMenu} from './ObjectShareExperienceMenu';
+export { ObjectShareExperienceMenu } from './ObjectShareExperienceMenu';

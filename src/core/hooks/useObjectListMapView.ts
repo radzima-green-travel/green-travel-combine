@@ -1,23 +1,23 @@
-import {useSearchSelector} from './useSearchSelector';
+import { useSearchSelector } from './useSearchSelector';
 import {
   selectAppLanguage,
   selectMapSearchObjects,
   selectSearchObjectsTotal,
   selectVisibleOnMapObjects,
 } from 'core/selectors';
-import {useDispatch, useSelector} from 'react-redux';
-import {SearchObjectsRequestPayload} from 'core/actions';
-import {useRequestLoading} from 'react-redux-help-kit';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {useSearchActions} from './useSearchActions';
-import {DEFAULT_LOCALE} from 'core/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchObjectsRequestPayload } from 'core/actions';
+import { useRequestLoading } from 'react-redux-help-kit';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchActions } from './useSearchActions';
+import { DEFAULT_LOCALE } from 'core/constants';
 
 export function useObjectListMapView({
   searchParameters,
 }: {
   searchParameters: SearchObjectsRequestPayload;
 }) {
-  const {getMapSearchObjectsRequest, getVisibleOnMapObjectsRequest} =
+  const { getMapSearchObjectsRequest, getVisibleOnMapObjectsRequest } =
     useSearchActions();
   const mapObjects = useSearchSelector(selectMapSearchObjects);
 
@@ -29,10 +29,10 @@ export function useObjectListMapView({
   const visibleObjectsOnMap = useSearchSelector(selectVisibleOnMapObjects);
   const [isMapViewEnabled, setIsMapViewEnabled] = useState(false);
 
-  const {loading: getMapSearchObjectsPending} = useRequestLoading(
+  const { loading: getMapSearchObjectsPending } = useRequestLoading(
     getMapSearchObjectsRequest,
   );
-  const {loading: getVisibleObjectsPending} = useRequestLoading(
+  const { loading: getVisibleObjectsPending } = useRequestLoading(
     getVisibleOnMapObjectsRequest,
   );
 
@@ -70,7 +70,7 @@ export function useObjectListMapView({
   const getVisibleOnMapObjects = useCallback(
     markers => {
       const objectIds = markers.map(marker => marker.properties.objectId);
-      dispatch(getVisibleOnMapObjectsRequest({objectIds: objectIds}));
+      dispatch(getVisibleOnMapObjectsRequest({ objectIds: objectIds }));
     },
     [dispatch, getVisibleOnMapObjectsRequest],
   );

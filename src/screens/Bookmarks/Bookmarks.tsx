@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
-import {styles} from './styles';
-import {BookmarkItem} from 'atoms';
-import {BookmarksEmptyView, SuspenseView} from 'molecules';
-import {useBookmarks} from './hooks';
+import { View, ScrollView } from 'react-native';
+import { styles } from './styles';
+import { BookmarkItem } from 'atoms';
+import { BookmarksEmptyView, SuspenseView } from 'molecules';
+import { useBookmarks } from './hooks';
 
 export const Bookmarks = () => {
   const {

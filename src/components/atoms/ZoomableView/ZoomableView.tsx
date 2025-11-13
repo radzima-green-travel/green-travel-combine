@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/core';
-import React, {PropsWithChildren, memo} from 'react';
+import { useNavigation } from '@react-navigation/core';
+import React, { PropsWithChildren, memo } from 'react';
 
 import {
   PinchGestureHandler,
@@ -13,7 +13,7 @@ import Reanimated, {
   withTiming,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {isIOS, isAndroid} from 'services/PlatformService';
+import { isIOS, isAndroid } from 'services/PlatformService';
 
 interface IProps {
   width: number;
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 export const ZoomableView = memo(
-  ({children, width, height}: PropsWithChildren<IProps>) => {
+  ({ children, width, height }: PropsWithChildren<IProps>) => {
     const navigation = useNavigation();
     const isStart = useSharedValue(false);
 
@@ -112,14 +112,14 @@ export const ZoomableView = memo(
     const rStyle = useAnimatedStyle(() => {
       return {
         transform: [
-          {translateX: -translationX.value},
-          {translateY: -translationY.value},
+          { translateX: -translationX.value },
+          { translateY: -translationY.value },
 
-          {translateX: originX.value},
-          {translateY: originY.value},
-          {scale: scale.value},
-          {translateX: -originX.value},
-          {translateY: -originY.value},
+          { translateX: originX.value },
+          { translateY: originY.value },
+          { scale: scale.value },
+          { translateX: -originX.value },
+          { translateY: -originY.value },
         ],
       };
     });

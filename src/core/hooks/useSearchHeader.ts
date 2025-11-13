@@ -1,39 +1,39 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   SearchScreenNavigationProps,
   SearchScreenRouteProps,
 } from '../../screens/Search/types';
-import {getAnalyticsNavigationScreenName} from '../helpers';
+import { getAnalyticsNavigationScreenName } from '../helpers';
 import {
   selectSearchInputValue,
   selectSearchOptions,
   selectUserAuthorized,
 } from '../selectors';
-import {SearchOptions} from '../types';
-import {useAppliedFilters} from './useAppliedFilters';
-import {useSearchActions} from './useSearchActions';
-import {useSearchSelector} from './useSearchSelector';
-import {useTranslation} from 'core/hooks';
+import { SearchOptions } from '../types';
+import { useAppliedFilters } from './useAppliedFilters';
+import { useSearchActions } from './useSearchActions';
+import { useSearchSelector } from './useSearchSelector';
+import { useTranslation } from 'core/hooks';
 
 export const useSearchHeader = () => {
   const dispatch = useDispatch();
-  const {setSearchInputValue: setSearchInputValueAction, setSearchOptions} =
+  const { setSearchInputValue: setSearchInputValueAction, setSearchOptions } =
     useSearchActions();
 
   const searchOptions = useSearchSelector(selectSearchOptions);
   const searchInputValue = useSearchSelector(selectSearchInputValue);
   const isAuthorized = useSelector(selectUserAuthorized);
 
-  const {appliedFilters, removeAppliedFilter, numberOfAppliedFilters} =
+  const { appliedFilters, removeAppliedFilter, numberOfAppliedFilters } =
     useAppliedFilters();
 
-  const {params} = useRoute<SearchScreenRouteProps>();
+  const { params } = useRoute<SearchScreenRouteProps>();
 
-  const {appliedFilters: filtersToApply, title, showsTitle} = params || {};
+  const { appliedFilters: filtersToApply, title, showsTitle } = params || {};
 
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const normalizedTitle = title && i18n.exists(title) ? t(title) : title;
 
@@ -71,9 +71,9 @@ export const useSearchHeader = () => {
         fromScreenName: getAnalyticsNavigationScreenName(),
       },
       onApply: filters => {
-        navigation.setParams({appliedFilters: filters});
+        navigation.setParams({ appliedFilters: filters });
 
-        return {redirectHandled: false};
+        return { redirectHandled: false };
       },
     });
   }, [

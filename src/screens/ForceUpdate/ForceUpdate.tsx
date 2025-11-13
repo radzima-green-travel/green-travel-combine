@@ -1,14 +1,14 @@
 import React from 'react';
-import {View} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {UpdateView} from 'molecules';
-import {useForceUpdate} from './hooks';
+import { View } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { UpdateView } from 'molecules';
+import { useForceUpdate } from './hooks';
 
 export const ForceUpdate = () => {
-  const {t} = useTranslation('updateVersion');
+  const { t } = useTranslation('updateVersion');
   const styles = useThemeStyles(themeStyles);
-  const {onUpdate} = useForceUpdate();
+  const { onUpdate } = useForceUpdate();
 
   return (
     <View style={styles.contentContainer}>

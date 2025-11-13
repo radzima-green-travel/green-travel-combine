@@ -1,6 +1,6 @@
 import React from 'react';
-import {BottomMenu, ClusterMap} from 'atoms';
-import {StyleProp, View} from 'react-native';
+import { BottomMenu, ClusterMap } from 'atoms';
+import { StyleProp, View } from 'react-native';
 
 import {
   FillLayerStyle,
@@ -14,17 +14,17 @@ import {
   SymbolLayer,
   Images,
 } from '@rnmapbox/maps';
-import {useThemeStyles} from 'core/hooks';
+import { useThemeStyles } from 'core/hooks';
 import {
   BackCircleButton,
   ObjectDetailsMapButtons,
   ObjectDetailsMapBottomMenu,
 } from 'molecules';
 
-import type {FeatureCollection, LineString, Point} from 'geojson';
-import {useObjectDetailsMap} from './hooks';
-import {themeLayerStyles} from './styles';
-import {Portal} from '@gorhom/portal';
+import type { FeatureCollection, LineString, Point } from 'geojson';
+import { useObjectDetailsMap } from './hooks';
+import { themeLayerStyles } from './styles';
+import { Portal } from '@gorhom/portal';
 
 const mapPin = require('assets/images/map-pin.png');
 
@@ -63,7 +63,7 @@ export const ObjectDetailsMap = () => {
   return (
     <View style={layersStyles.container}>
       <ClusterMap
-        attributionPosition={{bottom: 40, right: 30}}
+        attributionPosition={{ bottom: 40, right: 30 }}
         centerCoordinate={centerCoordinate}
         onCameraChanged={unfocusUserLocation}
         onShapePress={onMarkerPress}

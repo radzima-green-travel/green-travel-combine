@@ -17,4 +17,4 @@ const themeStyles = {
   },
 };
 
-export {themeStyles};
+export { themeStyles };

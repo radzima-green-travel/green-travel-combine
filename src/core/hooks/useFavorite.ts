@@ -1,11 +1,11 @@
-import {useRequestLoading} from 'react-redux-help-kit';
-import {useToggleFavorite} from './useToggleFavorite';
-import {useSelector} from 'react-redux';
-import {useCallback, useMemo} from 'react';
-import {find} from 'lodash';
-import {selectBookmarksIds} from 'core/selectors';
-import {syncAndGetBookmarksRequest} from 'core/actions';
-import {hapticFeedbackService} from 'services/HapticFeedbackService';
+import { useRequestLoading } from 'react-redux-help-kit';
+import { useToggleFavorite } from './useToggleFavorite';
+import { useSelector } from 'react-redux';
+import { useCallback, useMemo } from 'react';
+import { find } from 'lodash';
+import { selectBookmarksIds } from 'core/selectors';
+import { syncAndGetBookmarksRequest } from 'core/actions';
+import { hapticFeedbackService } from 'services/HapticFeedbackService';
 
 export function useFavorite({
   objectId,
@@ -19,7 +19,7 @@ export function useFavorite({
   onAnimationEnd?: () => void;
 }) {
   const bookmarksIds = useSelector(selectBookmarksIds);
-  const {loading: favoritesSynchronizing} = useRequestLoading(
+  const { loading: favoritesSynchronizing } = useRequestLoading(
     syncAndGetBookmarksRequest,
   );
 
@@ -37,9 +37,9 @@ export function useFavorite({
       hapticFeedbackService.trigger();
       const nextIsFavorite = !isFavorite;
       onFavoriteToggle?.(nextIsFavorite);
-      toggleFavorite({objectId, needToAdd: nextIsFavorite});
+      toggleFavorite({ objectId, needToAdd: nextIsFavorite });
     }
   }, [isFavorite, objectId, onFavoriteToggle, toggleFavorite]);
 
-  return {toggleFavoriteHandler, favoritesSynchronizing, isFavorite};
+  return { toggleFavoriteHandler, favoritesSynchronizing, isFavorite };
 }

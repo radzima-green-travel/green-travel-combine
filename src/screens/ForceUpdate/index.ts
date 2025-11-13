@@ -1,1 +1,1 @@
-export {ForceUpdate} from './ForceUpdate';
+export { ForceUpdate } from './ForceUpdate';

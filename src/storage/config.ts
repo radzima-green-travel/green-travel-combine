@@ -6,5 +6,5 @@ export default {
     merge: 'mergeItem',
     multiRemove: 'multiRemove',
   },
-  paramsOrderPattern: {key: 0, value: 1, cb: 2},
+  paramsOrderPattern: { key: 0, value: 1, cb: 2 },
 };

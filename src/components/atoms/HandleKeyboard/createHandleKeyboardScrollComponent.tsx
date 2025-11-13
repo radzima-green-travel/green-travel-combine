@@ -9,7 +9,7 @@ import React, {
   ComponentType,
   PropsWithChildren,
 } from 'react';
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 import {
   Keyboard,
   LayoutAnimation,
@@ -17,13 +17,13 @@ import {
   ScrollView,
   KeyboardEvent,
 } from 'react-native';
-import {useInputsRefs} from './hooks';
+import { useInputsRefs } from './hooks';
 
-import {HandleKeyboardContext} from './context';
-import {calculateAndAdjustKeyboard} from './service';
-import {KEYBOARD_SHOW_EVENT, KEYBOARD_HIDE_EVENT} from 'core/constants';
-import {isIOS} from 'services/PlatformService';
-import {useStaticCallback} from 'core/hooks';
+import { HandleKeyboardContext } from './context';
+import { calculateAndAdjustKeyboard } from './service';
+import { KEYBOARD_SHOW_EVENT, KEYBOARD_HIDE_EVENT } from 'core/constants';
+import { isIOS } from 'services/PlatformService';
+import { useStaticCallback } from 'core/hooks';
 
 interface HandleKeyboardProps {
   handleKeyboardAdditionalOffset?: number;
@@ -61,7 +61,7 @@ export function createHandleKeyboardScrollComponent(
 
     const changeListBottomOffset = useCallback(toValue => {
       if (keyboardData.current) {
-        const {duration, easing} = keyboardData.current;
+        const { duration, easing } = keyboardData.current;
         setBottom(prevValue => {
           if (prevValue !== toValue) {
             LayoutAnimation.configureNext({
@@ -89,7 +89,7 @@ export function createHandleKeyboardScrollComponent(
           return;
         }
 
-        const {endCoordinates} = keyboardData.current;
+        const { endCoordinates } = keyboardData.current;
 
         calculateAndAdjustKeyboard({
           scrollNode: scrollRef.current,
@@ -113,7 +113,7 @@ export function createHandleKeyboardScrollComponent(
     );
 
     const debounceKeyboardShow = useMemo(
-      () => debounce(onKeyBoardShow, 10, {trailing: true}),
+      () => debounce(onKeyBoardShow, 10, { trailing: true }),
       [onKeyBoardShow],
     );
 
@@ -160,7 +160,7 @@ export function createHandleKeyboardScrollComponent(
       }
     }
 
-    const {registerInputNode, focusNextInput, focusInputByRef} =
+    const { registerInputNode, focusNextInput, focusInputByRef } =
       useInputsRefs();
     const [value] = useState(() => ({
       handleNode,

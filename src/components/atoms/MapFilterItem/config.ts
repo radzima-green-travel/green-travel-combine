@@ -1,5 +1,5 @@
-import {MAP_PINS} from 'core/constants';
-import {IconName} from 'components/atoms/Icon/types';
+import { MAP_PINS } from 'core/constants';
+import { IconName } from 'components/atoms/Icon/types';
 
 export const iconsConfig: {
   [key: string]: {

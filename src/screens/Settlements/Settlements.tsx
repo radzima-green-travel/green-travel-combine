@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo} from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -6,26 +6,26 @@ import {
   KeyboardAvoidingView,
   SectionList,
 } from 'react-native';
-import {Chip, HighlightedText, SnackBar} from 'atoms';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {screenOptions} from './screenOptions';
-import {themeStyles} from './styles';
+import { Chip, HighlightedText, SnackBar } from 'atoms';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { screenOptions } from './screenOptions';
+import { themeStyles } from './styles';
 import {
   ButtonsGroup,
   FiltersSectionContainer,
   SearchField,
   SuspenseView,
 } from 'molecules';
-import {useSettlements} from './hooks';
-import {getPlatformsTestID} from 'core/helpers';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ListItem} from 'molecules/ListItem';
-import {every} from 'lodash';
-import {idKeyExtractor} from 'core/utils/react';
+import { useSettlements } from './hooks';
+import { getPlatformsTestID } from 'core/helpers';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ListItem } from 'molecules/ListItem';
+import { every } from 'lodash';
+import { idKeyExtractor } from 'core/utils/react';
 
 export const Settlements = () => {
   const styles = useThemeStyles(themeStyles);
-  const {t} = useTranslation('filters');
+  const { t } = useTranslation('filters');
 
   const {
     navigation,
@@ -48,10 +48,10 @@ export const Settlements = () => {
     onSearchStart,
   } = useSettlements();
 
-  const {bottom, top} = useSafeAreaInsets();
+  const { bottom, top } = useSafeAreaInsets();
 
   const renderSectionHeader = useCallback(
-    ({section: {title}}) => (
+    ({ section: { title } }) => (
       <View style={styles.sectionHeaderWrapper}>
         <View
           style={styles.sectionHeaderContainer}
@@ -99,7 +99,7 @@ export const Settlements = () => {
           {selectedSettlementsSection?.map(item => {
             const notInTheList = every(
               filteredSettlements,
-              ({id}) => id !== item.id,
+              ({ id }) => id !== item.id,
             );
 
             return (
@@ -161,7 +161,7 @@ export const Settlements = () => {
             sections={settlementsSections}
             keyExtractor={idKeyExtractor}
             stickySectionHeadersEnabled={false}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <ListItem
                 type={'checkbox'}
                 item={item}

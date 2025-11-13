@@ -1,2 +1,2 @@
-export {Input} from './Input';
-export {TimePicker} from './TimePicker';
+export { Input } from './Input';
+export { TimePicker } from './TimePicker';

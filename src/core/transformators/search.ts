@@ -35,7 +35,7 @@ export function extractValueFromHighlight(
   object: TranslatedSearchObject,
   highlight: Highlight | null,
 ) {
-  return (key: string) => find(highlight?.[key], {id: object.id})?.value;
+  return (key: string) => find(highlight?.[key], { id: object.id })?.value;
 }
 
 export function prepareSearchObjectAddress(
@@ -89,7 +89,7 @@ export function prepareSearchItems(
         highlight,
       );
 
-      const {averageRating, totalRatings} =
+      const { averageRating, totalRatings } =
         processedObject.calculatedProperties ?? {};
 
       return {
@@ -140,14 +140,14 @@ export const prepareSearchFiltersBarItems = ({
 
   function getFilterValue(filterName: keyof SearchFilters, filterId: string) {
     if (filterName === 'categories') {
-      return find(categories, {id: filterId})?.name || '';
+      return find(categories, { id: filterId })?.name || '';
     }
 
     if (filterName === 'regions') {
-      return find(regions, {id: filterId})?.value || '';
+      return find(regions, { id: filterId })?.value || '';
     }
 
-    return find(settlements, {id: filterId})?.value || '';
+    return find(settlements, { id: filterId })?.value || '';
   }
 
   forEach(filtersKeys, key => {
@@ -168,7 +168,7 @@ export const prepareSearchFiltersBarItems = ({
 
         filtersItems.push({
           id: key,
-          value: value || i18n.t(translationsKey, {amount: filter.length}),
+          value: value || i18n.t(translationsKey, { amount: filter.length }),
         });
       }
     } else if (key === 'distance' && filters[key]?.isOn) {

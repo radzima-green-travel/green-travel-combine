@@ -1,1 +1,1 @@
-export {BookmarkItem} from './BookmarkItem';
+export { BookmarkItem } from './BookmarkItem';

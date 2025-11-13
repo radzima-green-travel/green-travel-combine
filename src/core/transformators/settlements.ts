@@ -1,5 +1,5 @@
-import {SpotItem} from 'core/types';
-import {reduce, chain, includes, toLower, orderBy, filter} from 'lodash';
+import { SpotItem } from 'core/types';
+import { reduce, chain, includes, toLower, orderBy, filter } from 'lodash';
 
 export function prepareFilteredSettlementsSections(
   settlements: SpotItem[],
@@ -27,7 +27,7 @@ export function prepareSettlementsSections(settlements: SpotItem[]) {
 
   return chain(sections)
     .pickBy(value => value.length)
-    .map((data = [], title) => ({title, data}))
+    .map((data = [], title) => ({ title, data }))
     .value();
 }
 

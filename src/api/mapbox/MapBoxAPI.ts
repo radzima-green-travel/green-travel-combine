@@ -1,5 +1,5 @@
-import {RestApiEngine} from '../engines';
-import {ICoordinates, IObject} from 'core/types';
+import { RestApiEngine } from '../engines';
+import { ICoordinates, IObject } from 'core/types';
 
 class MapBoxAPI extends RestApiEngine {
   getDirections({

@@ -1,1 +1,1 @@
-export {AuthorizedEmailText} from './AuthorizedEmailText';
+export { AuthorizedEmailText } from './AuthorizedEmailText';

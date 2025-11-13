@@ -3,7 +3,7 @@ import {
   PinchGestureHandlerEventPayload,
   Gesture,
 } from 'react-native-gesture-handler';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 import {
   useSharedValue,
@@ -11,7 +11,7 @@ import {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
-import {BackHandler} from 'react-native';
+import { BackHandler } from 'react-native';
 
 export function usePinchToZoomAnimation({
   width,
@@ -113,14 +113,14 @@ export function usePinchToZoomAnimation({
 
   const transformStyle = useDerivedValue(() => {
     return [
-      {translateX: -translationX.value},
-      {translateY: -translationY.value},
+      { translateX: -translationX.value },
+      { translateY: -translationY.value },
 
-      {translateX: originX.value},
-      {translateY: originY.value},
-      {scale: scale.value},
-      {translateX: -originX.value},
-      {translateY: -originY.value},
+      { translateX: originX.value },
+      { translateY: originY.value },
+      { scale: scale.value },
+      { translateX: -originX.value },
+      { translateY: -originY.value },
     ];
   });
 

@@ -1,1 +1,1 @@
-export {authentificationSaga} from './authentification';
+export { authentificationSaga } from './authentification';

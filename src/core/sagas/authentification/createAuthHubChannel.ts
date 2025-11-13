@@ -1,5 +1,5 @@
-import {eventChannel} from 'redux-saga';
-import {Hub} from 'api/amplify';
+import { eventChannel } from 'redux-saga';
+import { Hub } from 'api/amplify';
 
 export function createAuthHubChannel() {
   return eventChannel(emitter => {

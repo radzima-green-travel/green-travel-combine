@@ -1,10 +1,10 @@
-import React, {memo, useCallback} from 'react';
-import {BaseListItem} from '../../BaseListItem';
-import {ListItemCheckboxProps} from '../../types';
-import {Checkbox} from 'atoms';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {composeTestID} from 'core/helpers';
+import React, { memo, useCallback } from 'react';
+import { BaseListItem } from '../../BaseListItem';
+import { ListItemCheckboxProps } from '../../types';
+import { Checkbox } from 'atoms';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { composeTestID } from 'core/helpers';
 
 export const ListItemCheckboxComponent = <T extends any = undefined>({
   checked,

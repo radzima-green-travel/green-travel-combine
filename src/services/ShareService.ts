@@ -1,5 +1,5 @@
-import {Share} from 'react-native';
-import {isIOS} from './PlatformService';
+import { Share } from 'react-native';
+import { isIOS } from './PlatformService';
 
 class ShareService {
   deepLinkDomain: string = '';

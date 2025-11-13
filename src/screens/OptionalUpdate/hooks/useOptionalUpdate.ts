@@ -1,15 +1,15 @@
-import {useBottomMenu} from 'core/hooks';
-import {setSkipAppUpdate} from 'core/actions';
-import {useCallback} from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useDispatch} from 'react-redux';
-import {updateService} from 'services/UpdateService';
+import { useBottomMenu } from 'core/hooks';
+import { setSkipAppUpdate } from 'core/actions';
+import { useCallback } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
+import { updateService } from 'services/UpdateService';
 
 export const useOptionalUpdate = () => {
   const dispatch = useDispatch();
-  const {closeMenu, ...menuProps} = useBottomMenu();
+  const { closeMenu, ...menuProps } = useBottomMenu();
 
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
   const onUpdate = useCallback(() => {
     updateService.openApplicationMarketplace();

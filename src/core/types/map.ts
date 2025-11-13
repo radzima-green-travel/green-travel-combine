@@ -1,4 +1,4 @@
-import {ICoordinates} from './common';
+import { ICoordinates } from './common';
 
 export interface IMapFilter {
   categoryId: string;

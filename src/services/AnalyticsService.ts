@@ -3,7 +3,7 @@ import {
   Types,
   Identify,
 } from '@amplitude/analytics-react-native';
-import {Events, EventsPayload} from 'core/types';
+import { Events, EventsPayload } from 'core/types';
 
 class AnalyticsService {
   instance: Types.ReactNativeClient;
@@ -31,7 +31,7 @@ class AnalyticsService {
     return this.instance.logEvent(eventType, params);
   }
 
-  log({name, data}: EventsPayload): Types.AmplitudeReturn<Types.Result> {
+  log({ name, data }: EventsPayload): Types.AmplitudeReturn<Types.Result> {
     return this.instance.logEvent(name, data);
   }
 }

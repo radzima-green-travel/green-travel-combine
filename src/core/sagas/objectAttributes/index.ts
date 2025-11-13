@@ -1,1 +1,1 @@
-export {getObjectAttributesSaga} from './getObjectAttributesSaga';
+export { getObjectAttributesSaga } from './getObjectAttributesSaga';

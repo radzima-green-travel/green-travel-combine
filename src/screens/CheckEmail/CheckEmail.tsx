@@ -1,13 +1,13 @@
 import React from 'react';
-import {useTranslation} from 'core/hooks';
-import {FormInput, SnackBar, WithFormikInput} from 'atoms';
-import {AuthForm} from 'organisms';
-import {useCheckEmail} from './hooks';
-import {FormikProvider} from 'formik';
+import { useTranslation } from 'core/hooks';
+import { FormInput, SnackBar, WithFormikInput } from 'atoms';
+import { AuthForm } from 'organisms';
+import { useCheckEmail } from './hooks';
+import { FormikProvider } from 'formik';
 
 export const CheckEmail = () => {
-  const {t} = useTranslation('authentification');
-  const {loading, formik, snackBarProps, isSubmitButtonDisabled, submitForm} =
+  const { t } = useTranslation('authentification');
+  const { loading, formik, snackBarProps, isSubmitButtonDisabled, submitForm } =
     useCheckEmail();
   return (
     <FormikProvider value={formik}>
@@ -20,7 +20,7 @@ export const CheckEmail = () => {
         testID="authForm"
         submitButtonLoading={loading}>
         <WithFormikInput<string> name="email">
-          {({messageText, ...inputProps}) => (
+          {({ messageText, ...inputProps }) => (
             <FormInput
               testID={'emailInput'}
               autoFocus

@@ -1,6 +1,6 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {PADDING_HORIZONTAL} from 'core/constants';
-import {StyleSheet} from 'react-native';
+import { COLORS, FONTS_STYLES } from 'assets';
+import { PADDING_HORIZONTAL } from 'core/constants';
+import { StyleSheet } from 'react-native';
 
 export const themeStyles = {
   container: {

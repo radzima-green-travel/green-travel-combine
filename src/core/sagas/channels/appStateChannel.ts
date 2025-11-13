@@ -1,5 +1,5 @@
-import {AppState, AppStateStatus} from 'react-native';
-import {multicastChannel} from 'redux-saga';
+import { AppState, AppStateStatus } from 'react-native';
+import { multicastChannel } from 'redux-saga';
 
 function createAppStateChannel() {
   const chan = multicastChannel<{
@@ -10,7 +10,7 @@ function createAppStateChannel() {
   let prevSate: AppStateStatus = AppState.currentState;
 
   const listener = (state: AppStateStatus) => {
-    chan.put({state, prevSate});
+    chan.put({ state, prevSate });
     prevSate = state;
   };
 

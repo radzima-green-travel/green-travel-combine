@@ -1,13 +1,13 @@
-import {IState} from 'core/store';
+import { IState } from 'core/store';
 import {
   prepareHomePageData,
   preparePlaceOfTheWeekObject,
   prepareRandomObject,
 } from 'core/transformators/homePage';
-import {createSelector} from 'reselect';
-import {selectAppLanguage} from './settingsSelectors';
-import {translateAndProcessImagesForEntity} from 'core/transformators/common';
-import {map} from 'lodash';
+import { createSelector } from 'reselect';
+import { selectAppLanguage } from './settingsSelectors';
+import { translateAndProcessImagesForEntity } from 'core/transformators/common';
+import { map } from 'lodash';
 
 export const selectHomePageRawCategoriesList = (state: IState) =>
   state.homePage.categoriesList;

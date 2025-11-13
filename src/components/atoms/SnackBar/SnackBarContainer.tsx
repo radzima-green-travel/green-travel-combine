@@ -9,7 +9,7 @@ import React, {
   useEffect,
 } from 'react';
 
-import {useWindowDimensions, LayoutChangeEvent} from 'react-native';
+import { useWindowDimensions, LayoutChangeEvent } from 'react-native';
 
 import Animated, {
   useAnimatedStyle,
@@ -19,9 +19,9 @@ import Animated, {
   Easing,
   runOnJS,
 } from 'react-native-reanimated';
-import {themeStyles} from './styles';
-import {useStaticCallback, useThemeStyles} from 'core/hooks';
-import {getPlatformsTestID} from 'core/helpers';
+import { themeStyles } from './styles';
+import { useStaticCallback, useThemeStyles } from 'core/hooks';
+import { getPlatformsTestID } from 'core/helpers';
 
 export interface SnackBarContainerProps {
   isOnTop?: boolean;
@@ -38,10 +38,10 @@ export interface SnackBarContainerRef {
 export const SnackBarContainer = memo(
   forwardRef<SnackBarContainerRef, PropsWithChildren<SnackBarContainerProps>>(
     (
-      {children, testID, isOnTop = false, timeoutMs = 3000, offset = 0},
+      { children, testID, isOnTop = false, timeoutMs = 3000, offset = 0 },
       ref,
     ) => {
-      const {height: SCREEN_HEIGHT} = useWindowDimensions();
+      const { height: SCREEN_HEIGHT } = useWindowDimensions();
       const styles = useThemeStyles(themeStyles);
       const animatedValue = useSharedValue(0);
       const [toastHeight, setToastHeight] = useState<number | null>(null);
@@ -49,7 +49,7 @@ export const SnackBarContainer = memo(
 
       const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-      const calculateToastHeight = ({nativeEvent}: LayoutChangeEvent) => {
+      const calculateToastHeight = ({ nativeEvent }: LayoutChangeEvent) => {
         if (timer.current) {
           clearTimeout(timer.current);
         }

@@ -1,5 +1,5 @@
-import {IconsNames} from 'components/atoms/Icon';
-import {ReactElement, ReactNode} from 'react';
+import { IconsNames } from 'components/atoms/Icon';
+import { ReactElement, ReactNode } from 'react';
 import {
   StyleProp,
   SwitchProps,
@@ -39,7 +39,7 @@ export interface ListItemPrimaryProps extends BaseListItemProps {
   leadIconStyle?: StyleProp<TextStyle>;
   leadIconContainerStyle?: StyleProp<ViewStyle>;
 }
-type ItemProp<T> = T extends undefined ? {item?: never} : {item: T};
+type ItemProp<T> = T extends undefined ? { item?: never } : { item: T };
 
 export type ListItemCheckboxProps<T> = ItemProp<T> &
   Omit<BaseListItemProps, 'onPress'> & {

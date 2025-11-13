@@ -1,11 +1,11 @@
-import {all, call} from 'redux-saga/effects';
-import {graphQLAPI} from 'api/graphql';
-import {getCategoriesWithObjects} from 'core/transformators/homePage';
+import { all, call } from 'redux-saga/effects';
+import { graphQLAPI } from 'api/graphql';
+import { getCategoriesWithObjects } from 'core/transformators/homePage';
 import type {
   CategoriesResponseDTO,
   CategoriesAggregationsByObjectsResponseDTO,
 } from 'core/types/api';
-import {CategoriesListQueryParams} from 'core/types/api';
+import { CategoriesListQueryParams } from 'core/types/api';
 
 interface getCategoriesDataReturn {
   categoriesData: CategoriesResponseDTO;
@@ -28,5 +28,5 @@ export function* getCategoriesData({
   const categoriesWithObjects: ReturnType<typeof getCategoriesWithObjects> =
     yield call(getCategoriesWithObjects, aggregations);
 
-  return {categoriesData, categoriesWithObjects};
+  return { categoriesData, categoriesWithObjects };
 }

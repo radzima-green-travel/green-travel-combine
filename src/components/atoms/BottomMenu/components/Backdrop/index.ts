@@ -1,1 +1,1 @@
-export {Backdrop} from './Backdrop';
+export { Backdrop } from './Backdrop';

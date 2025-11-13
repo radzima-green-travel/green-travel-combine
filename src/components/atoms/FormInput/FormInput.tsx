@@ -20,13 +20,13 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {themeStyles} from './styles';
-import {useColorScheme, useThemeStyles} from 'core/hooks';
-import {Icon, IconProps} from '../Icon';
-import {HelperText} from '../HelperText';
-import {useHandleKeyboardInput} from '../HandleKeyboard';
-import {composeTestID} from 'core/helpers';
-import {COLORS} from 'assets';
+import { themeStyles } from './styles';
+import { useColorScheme, useThemeStyles } from 'core/hooks';
+import { Icon, IconProps } from '../Icon';
+import { HelperText } from '../HelperText';
+import { useHandleKeyboardInput } from '../HandleKeyboard';
+import { composeTestID } from 'core/helpers';
+import { COLORS } from 'assets';
 
 export interface FormInputProps {
   iconLeft?: IconProps;

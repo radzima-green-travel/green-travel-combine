@@ -1,6 +1,6 @@
-import {useCallback, useEffect} from 'react';
+import { useCallback, useEffect } from 'react';
 
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   confirmSignUpRequest,
   forgotPasswordRequest,
@@ -15,34 +15,34 @@ import {
   useRequestLoading,
   useTranslation,
 } from 'core/hooks';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   EmailValidationScreenNavigationProps,
   EmailValidationScreenRouteProps,
 } from '../types';
-import {useFormik} from 'formik';
-import {IRequestError, ValidationCodeFormModel} from 'core/types';
-import {useSnackbar} from 'atoms';
+import { useFormik } from 'formik';
+import { IRequestError, ValidationCodeFormModel } from 'core/types';
+import { useSnackbar } from 'atoms';
 
 export const useEmailValidation = () => {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const codeLength = 6;
 
   const navigation = useNavigation<EmailValidationScreenNavigationProps>();
   const {
-    params: {email, isSignUp},
+    params: { email, isSignUp },
   } = useRoute<EmailValidationScreenRouteProps>();
 
   const dispatch = useDispatch();
 
-  const {onSuccessSignIn} = useOnSuccessSignIn();
+  const { onSuccessSignIn } = useOnSuccessSignIn();
 
   const onConfirmSignUp = useCallback(
-    ({code}: {code: string}) => {
+    ({ code }: { code: string }) => {
       if (isSignUp) {
-        dispatch(confirmSignUpRequest({email, code}));
+        dispatch(confirmSignUpRequest({ email, code }));
       } else {
-        dispatch(forgotPasswordCodeSubmitRequest({email, code}));
+        dispatch(forgotPasswordCodeSubmitRequest({ email, code }));
       }
     },
     [isSignUp, dispatch, email],
@@ -54,18 +54,18 @@ export const useEmailValidation = () => {
     },
     onSubmit: onConfirmSignUp,
   });
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
-  const {loading} = useRequestLoading(confirmSignUpRequest);
-  const {loading: forgotPasswordCodeSumbitLoading} = useRequestLoading(
+  const { loading } = useRequestLoading(confirmSignUpRequest);
+  const { loading: forgotPasswordCodeSumbitLoading } = useRequestLoading(
     forgotPasswordCodeSubmitRequest,
   );
 
-  const {loading: resendSignUpCodeLoading} = useRequestLoading(
+  const { loading: resendSignUpCodeLoading } = useRequestLoading(
     resendSignUpCodeRequest,
   );
 
-  const {loading: resendRestorePasswordCodeLoading} = useRequestLoading(
+  const { loading: resendRestorePasswordCodeLoading } = useRequestLoading(
     forgotPasswordRequest,
   );
 
@@ -74,7 +74,7 @@ export const useEmailValidation = () => {
   }, [dispatch, email]);
 
   const onResendRestorePasswordCodetoEmail = useCallback(() => {
-    dispatch(forgotPasswordRequest({email}));
+    dispatch(forgotPasswordRequest({ email }));
   }, [dispatch, email]);
 
   const buttonText = t('ready');
@@ -83,8 +83,8 @@ export const useEmailValidation = () => {
 
   useOnRequestSuccess(
     forgotPasswordCodeSubmitRequest,
-    ({tempPassword}: {tempPassword: string}) => {
-      navigation.replace('NewPassword', {email, tempPassword});
+    ({ tempPassword }: { tempPassword: string }) => {
+      navigation.replace('NewPassword', { email, tempPassword });
     },
   );
 

@@ -1,11 +1,11 @@
-import {Portal} from '@gorhom/portal';
-import {BottomMenu} from 'atoms';
-import {ObjectSuccessMenu} from 'molecules';
-import {useBottomMenu, useTranslation, useThemeStyles} from 'core/hooks';
+import { Portal } from '@gorhom/portal';
+import { BottomMenu } from 'atoms';
+import { ObjectSuccessMenu } from 'molecules';
+import { useBottomMenu, useTranslation, useThemeStyles } from 'core/hooks';
 import React from 'react';
-import {StyleProp, ImageStyle, useColorScheme} from 'react-native';
-import {composeTestID} from 'core/helpers';
-import {themeStyles} from './styles';
+import { StyleProp, ImageStyle, useColorScheme } from 'react-native';
+import { composeTestID } from 'core/helpers';
+import { themeStyles } from './styles';
 
 interface IProps {
   addInfoSuccessMenuProps: ReturnType<typeof useBottomMenu>;
@@ -17,7 +17,7 @@ export const ObjectDetailsAddInfoSuccessMenu = ({
   testID,
 }: IProps) => {
   const theme = useColorScheme();
-  const {t} = useTranslation('objectDetailsAddInfo');
+  const { t } = useTranslation('objectDetailsAddInfo');
   const styles = useThemeStyles(themeStyles);
 
   return (

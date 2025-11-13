@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import {
   useSearchHeader,
@@ -6,12 +6,12 @@ import {
   useObjectListMapView,
   useThemeStyles,
 } from 'core/hooks';
-import {SuspenseView} from 'molecules';
-import {SearchHeader, SearchList} from 'organisms';
-import {useSearchHistory} from './hooks';
-import {useSearchAnalytics} from './hooks/useSearchAnalytics';
-import {themeStyles} from './styles';
-import {SearchObject} from '../../core/types';
+import { SuspenseView } from 'molecules';
+import { SearchHeader, SearchList } from 'organisms';
+import { useSearchHistory } from './hooks';
+import { useSearchAnalytics } from './hooks/useSearchAnalytics';
+import { themeStyles } from './styles';
+import { SearchObject } from '../../core/types';
 
 export const SearchScreen = () => {
   const {

@@ -1,7 +1,7 @@
-import React, {memo, ReactNode} from 'react';
-import {View, Text, StyleProp, ViewStyle} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
+import React, { memo, ReactNode } from 'react';
+import { View, Text, StyleProp, ViewStyle } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
 
 export type Props = {
   children: ReactNode;
@@ -11,7 +11,7 @@ export type Props = {
 };
 
 export const FiltersSectionContainer = memo(
-  ({children, itemName, style, isSubSection}: Props) => {
+  ({ children, itemName, style, isSubSection }: Props) => {
     const styles = useThemeStyles(themeStyles);
 
     return (

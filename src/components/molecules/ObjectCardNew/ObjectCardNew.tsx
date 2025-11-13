@@ -1,8 +1,8 @@
-import {Icon} from 'atoms';
-import {composeTestID} from 'core/helpers';
-import {useThemeStyles} from 'core/hooks';
-import {Image, ImageStyle} from 'expo-image';
-import React, {memo, useCallback} from 'react';
+import { Icon } from 'atoms';
+import { composeTestID } from 'core/helpers';
+import { useThemeStyles } from 'core/hooks';
+import { Image, ImageStyle } from 'expo-image';
+import React, { memo, useCallback } from 'react';
 import {
   Text,
   View,
@@ -11,10 +11,10 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import {RatingBadge} from '../RatingBadge';
-import {objectCardStyles} from './styles';
-import {FavoriteButtonContainer} from 'components/containers';
-import {CardItem} from 'core/types';
+import { RatingBadge } from '../RatingBadge';
+import { objectCardStyles } from './styles';
+import { FavoriteButtonContainer } from 'components/containers';
+import { CardItem } from 'core/types';
 export interface ObjectCardNewProps<T> {
   testID: string;
   item: T;
@@ -66,7 +66,7 @@ const Component = <T,>({
         <Image
           testID={composeTestID(testID, 'image')}
           source={cover}
-          placeholder={{blurhash: blurhash ?? undefined}}
+          placeholder={{ blurhash: blurhash ?? undefined }}
           style={styles.image as ImageStyle}
         />
         <FavoriteButtonContainer

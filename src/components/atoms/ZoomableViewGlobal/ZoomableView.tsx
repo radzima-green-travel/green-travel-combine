@@ -13,11 +13,11 @@ import Reanimated, {
   useDerivedValue,
   useAnimatedReaction,
 } from 'react-native-reanimated';
-import {GestureDetector} from 'react-native-gesture-handler';
-import {Portal} from '@gorhom/portal';
-import {usePinchToZoomAnimation} from './usePinchToZoomAnimation';
-import {PinchToZoomContext} from './context';
-import {styles} from './styles';
+import { GestureDetector } from 'react-native-gesture-handler';
+import { Portal } from '@gorhom/portal';
+import { usePinchToZoomAnimation } from './usePinchToZoomAnimation';
+import { PinchToZoomContext } from './context';
+import { styles } from './styles';
 
 interface IProps {
   width: number;
@@ -37,17 +37,17 @@ export const ZoomableView = memo(
     pushOnTopElement,
     position,
   }: PropsWithChildren<IProps>) => {
-    const {scrollYOffsetAnimatedValue} = useContext(PinchToZoomContext);
+    const { scrollYOffsetAnimatedValue } = useContext(PinchToZoomContext);
     const [elementPosition, setElementPosition] = useState<{
       left: number;
       top: number;
       width: number;
       height: number;
-    } | null>(position ? {...position, width, height} : null);
+    } | null>(position ? { ...position, width, height } : null);
     const [isPortalVisible, setIsPortalVisible] = useState(false);
     const elementRef = useRef<Reanimated.View>(null);
 
-    const {zoomableViewAnimatedStyle, isZooming, pinchHandler} =
+    const { zoomableViewAnimatedStyle, isZooming, pinchHandler } =
       usePinchToZoomAnimation({
         width: width,
         height: height,
@@ -96,9 +96,9 @@ export const ZoomableView = memo(
     return (
       <>
         <GestureDetector gesture={pinchHandler}>
-          <Reanimated.View style={{width, height}}>
+          <Reanimated.View style={{ width, height }}>
             <Reanimated.View
-              style={[{width, height}, zoomableViewAnimatedStyle]}
+              style={[{ width, height }, zoomableViewAnimatedStyle]}
               ref={elementRef}>
               {children}
             </Reanimated.View>

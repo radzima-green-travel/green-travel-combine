@@ -1,1 +1,1 @@
-export {bootstrapSaga} from './bootstrap';
+export { bootstrapSaga } from './bootstrap';

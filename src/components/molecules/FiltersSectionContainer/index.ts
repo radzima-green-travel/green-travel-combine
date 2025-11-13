@@ -1,1 +1,1 @@
-export {FiltersSectionContainer} from './FiltersSectionContainer';
+export { FiltersSectionContainer } from './FiltersSectionContainer';

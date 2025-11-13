@@ -1,1 +1,1 @@
-export {settlementsSaga} from './settlements';
+export { settlementsSaga } from './settlements';

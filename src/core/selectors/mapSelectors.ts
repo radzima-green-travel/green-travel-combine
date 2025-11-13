@@ -1,10 +1,10 @@
-import {createSelector} from 'reselect';
-import {compact} from 'lodash';
-import {featureCollection, point} from '@turf/helpers';
-import type {FeatureCollection, Geometry} from 'geojson';
-import {IObject} from '../types';
-import {IState} from 'core/store';
-import {isLocationExist} from 'core/helpers';
+import { createSelector } from 'reselect';
+import { compact } from 'lodash';
+import { featureCollection, point } from '@turf/helpers';
+import type { FeatureCollection, Geometry } from 'geojson';
+import { IObject } from '../types';
+import { IState } from 'core/store';
+import { isLocationExist } from 'core/helpers';
 
 export const selectObjectDetailsMapOjects = (state: IState) =>
   state.objectDetailsMap.objects;
@@ -22,7 +22,7 @@ export const selectIsDirectionShowed = createSelector(
 
 export const createMarkerFromDetailsObject = (
   data: IObject | null,
-): FeatureCollection<Geometry, {icon: string; objectId: string}> => {
+): FeatureCollection<Geometry, { icon: string; objectId: string }> => {
   return featureCollection(
     compact([
       // @ts-ignore
@@ -33,7 +33,7 @@ export const createMarkerFromDetailsObject = (
               icon: 'mapPin',
               objectId: data.id,
             },
-            {id: data.id},
+            { id: data.id },
           )
         : undefined,
     ]),

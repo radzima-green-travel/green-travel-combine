@@ -1,24 +1,24 @@
-import {isLocationExist} from 'core/helpers';
-import type {ObjectMap} from 'core/types';
-import {compact, map} from 'lodash';
+import { isLocationExist } from 'core/helpers';
+import type { ObjectMap } from 'core/types';
+import { compact, map } from 'lodash';
 
-import {featureCollection, point} from '@turf/helpers';
-import type {FeatureCollection, Geometry} from 'geojson';
-import {MAP_PINS} from 'core/constants';
+import { featureCollection, point } from '@turf/helpers';
+import type { FeatureCollection, Geometry } from 'geojson';
+import { MAP_PINS } from 'core/constants';
 
 const createMarkerFromObject = (data: ObjectMap, iconPostfix: string = '') => {
   if (!isLocationExist(data)) {
     return null;
   }
 
-  const {location} = data;
+  const { location } = data;
   return point(
     [location!.lon!, location!.lat!],
     {
       icon_image: `${data.category.icon}${iconPostfix}`,
       objectId: data.id,
     },
-    {id: data.id},
+    { id: data.id },
   );
 };
 
@@ -30,7 +30,7 @@ export const getMapMarkers = (objects: ObjectMap[]) => {
 
 export const createSelectedMarkerFromObject = (
   data: ObjectMap | null,
-): FeatureCollection<Geometry, {icon_image: string; objectId: string}> => {
+): FeatureCollection<Geometry, { icon_image: string; objectId: string }> => {
   return featureCollection(
     compact([
       data

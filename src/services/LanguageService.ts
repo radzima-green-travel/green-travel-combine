@@ -1,11 +1,11 @@
-import {getLocales} from 'expo-localization';
-import {initReactI18next} from 'react-i18next';
+import { getLocales } from 'expo-localization';
+import { initReactI18next } from 'react-i18next';
 import i18n from 'i18next';
 
 import ruTranslations from '../locale/ru.json';
 import enTranslations from '../locale/en.json';
-import {SupportedLocales} from 'core/types';
-import {DEFAULT_LOCALE} from 'core/constants';
+import { SupportedLocales } from 'core/types';
+import { DEFAULT_LOCALE } from 'core/constants';
 
 const RESOURCES = new Map([
   ['ru' as const, ruTranslations],

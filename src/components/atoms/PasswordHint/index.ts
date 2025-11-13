@@ -1,1 +1,1 @@
-export {PasswordHint} from './PasswordHint';
+export { PasswordHint } from './PasswordHint';

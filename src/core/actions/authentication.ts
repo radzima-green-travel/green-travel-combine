@@ -1,8 +1,8 @@
-import {createAction} from '@reduxjs/toolkit';
-import {ACTIONS} from 'core/constants';
-import {createAsyncAction} from 'core/helpers';
-import {CognitoUserAttributes} from 'core/types';
-import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
+import { createAction } from '@reduxjs/toolkit';
+import { ACTIONS } from 'core/constants';
+import { createAsyncAction } from 'core/helpers';
+import { CognitoUserAttributes } from 'core/types';
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 
 export const resetUserAuthData = createAction(ACTIONS.RESET_USER_AUTH_DATA);
 
@@ -18,7 +18,7 @@ export const changePasswordRequest = createAsyncAction<
 >(ACTIONS.CHANGE_PASSWORD);
 
 export const forgotPasswordCodeSubmitRequest = createAsyncAction<
-  {email: string; code: string},
+  { email: string; code: string },
   {
     tempPassword: string;
   },
@@ -34,7 +34,7 @@ export const inAppBrowserSuccessOperation = createAction(
 
 export const checkUserEmailRequest = createAsyncAction<
   string,
-  {exist: boolean; isConfirmed: boolean; isPasswordReset: boolean},
+  { exist: boolean; isConfirmed: boolean; isPasswordReset: boolean },
   Error
 >(ACTIONS.CHECK_USER_EMAIL);
 

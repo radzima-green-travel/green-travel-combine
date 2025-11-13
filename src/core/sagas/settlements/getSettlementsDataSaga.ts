@@ -1,8 +1,8 @@
-import {SettlementsResponseDTO, SpotItemDTO} from './../../types/api/graphql';
-import {call, put, all} from 'redux-saga/effects';
-import {getSettlementsDataRequest} from 'core/actions';
-import {graphQLAPI} from 'api/graphql';
-import {RequestError} from 'core/errors';
+import { SettlementsResponseDTO, SpotItemDTO } from './../../types/api/graphql';
+import { call, put, all } from 'redux-saga/effects';
+import { getSettlementsDataRequest } from 'core/actions';
+import { graphQLAPI } from 'api/graphql';
+import { RequestError } from 'core/errors';
 
 function splitCalls(total: number, limit: number) {
   const fromArray: number[] = [];
@@ -15,10 +15,10 @@ function splitCalls(total: number, limit: number) {
 }
 
 export function* getSettlementsDataSaga({
-  meta: {failureAction, successAction},
+  meta: { failureAction, successAction },
 }: ReturnType<typeof getSettlementsDataRequest>) {
   try {
-    const {total}: SettlementsResponseDTO = yield call([
+    const { total }: SettlementsResponseDTO = yield call([
       graphQLAPI,
       graphQLAPI.getSettlements,
     ]);
@@ -37,7 +37,7 @@ export function* getSettlementsDataSaga({
     );
     const response: SettlementsResponseDTO[] = yield all(objectsCalls);
 
-    const data = response.reduce((acc, {items}) => {
+    const data = response.reduce((acc, { items }) => {
       return [...acc, ...items];
     }, [] as SpotItemDTO[]);
 

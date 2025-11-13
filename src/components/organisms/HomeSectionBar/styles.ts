@@ -1,6 +1,6 @@
-import {FONTS_STYLES, COLORS} from 'assets';
-import {PADDING_HORIZONTAL, INTERACTIVE_CARD_RATIO} from 'core/constants';
-import {SCREEN_WIDTH} from 'services/PlatformService';
+import { FONTS_STYLES, COLORS } from 'assets';
+import { PADDING_HORIZONTAL, INTERACTIVE_CARD_RATIO } from 'core/constants';
+import { SCREEN_WIDTH } from 'services/PlatformService';
 
 export const cardWidth = Math.round(
   (SCREEN_WIDTH - PADDING_HORIZONTAL * 2) * 0.945,

@@ -1,5 +1,5 @@
-import {all, call, put, select, take} from 'redux-saga/effects';
-import {amplifyApi} from 'api/amplify';
+import { all, call, put, select, take } from 'redux-saga/effects';
+import { amplifyApi } from 'api/amplify';
 
 import {
   signOutRequest,
@@ -7,10 +7,10 @@ import {
   inAppBrowserSuccessOperation,
   clearUserData,
 } from 'core/actions';
-import {selectIsAuthorizedWithSocialProviders} from 'core/selectors';
+import { selectIsAuthorizedWithSocialProviders } from 'core/selectors';
 
 export function* signInOutSaga({
-  meta: {successAction, failureAction},
+  meta: { successAction, failureAction },
 }: ReturnType<typeof signOutRequest>) {
   try {
     const isAuthorizedWithSocialProviders: ReturnType<
