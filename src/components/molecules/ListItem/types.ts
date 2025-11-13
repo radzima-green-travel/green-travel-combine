@@ -41,8 +41,8 @@ export interface ListItemPrimaryProps extends BaseListItemProps {
 }
 type ItemProp<T> = T extends undefined ? { item?: never } : { item: T };
 
-export type ListItemCheckboxProps<T> = ItemProp<T> &
-  Omit<BaseListItemProps, 'onPress'> & {
+export type ListItemCheckboxProps<T> = ItemProp<T>
+  & Omit<BaseListItemProps, 'onPress'> & {
     checked: boolean;
     onPress?: T extends undefined ? () => void : (item: T) => void;
   };

@@ -106,8 +106,8 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
       const maxPosition = mapViewPort.height - SNAP_POINT_1;
 
       return (
-        -(mapViewPort.height - Math.max(maxPosition, animatedPosition.value)) /
-        2
+        -(mapViewPort.height - Math.max(maxPosition, animatedPosition.value))
+        / 2
       );
     }
 
@@ -171,11 +171,11 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
       const top = HEADER_BOTTOM_RADIUS + PADDING_HORIZONTAL - translateY.value;
       const right = SCREEN_WIDTH;
       const bottom =
-        mapViewPort.height -
-        SNAP_POINT_0 +
-        PADDING_HORIZONTAL -
-        MAP_OBJECTS_CAROUSEL_HEIGHT +
-        translateY.value;
+        mapViewPort.height
+        - SNAP_POINT_0
+        + PADDING_HORIZONTAL
+        - MAP_OBJECTS_CAROUSEL_HEIGHT
+        + translateY.value;
       const left = 0;
 
       return [top, right, bottom, left].map(

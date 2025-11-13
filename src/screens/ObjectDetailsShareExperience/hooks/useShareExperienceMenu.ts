@@ -74,9 +74,9 @@ export function useShareExperienceMenu() {
         : 'share';
     }
     return (
-      isShareExperienceMenuClosed &&
-      isInnacurateInfoMenuClosed &&
-      isInnacurateInfoSuccessMenuClosed
+      isShareExperienceMenuClosed
+      && isInnacurateInfoMenuClosed
+      && isInnacurateInfoSuccessMenuClosed
     );
   }, [shareExperienceMenuProps, reportInnacurateInfoMenuProps]);
 

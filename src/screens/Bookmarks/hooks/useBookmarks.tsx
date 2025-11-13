@@ -36,8 +36,8 @@ export const useBookmarks = () => {
   );
 
   const loading =
-    (!bookmarksCategories.length && bookmarksObjectsLoading) ||
-    syncBookmarksLoading;
+    (!bookmarksCategories.length && bookmarksObjectsLoading)
+    || syncBookmarksLoading;
 
   const showEmptyView = !bookmarksCategories.length;
 

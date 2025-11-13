@@ -62,8 +62,8 @@ export function usePinchToZoomAnimation({
       focalX.value = event.focalX - width / 2;
       focalY.value = event.focalY - height / 2;
       if (
-        (event.numberOfPointers === 2 && prevNumberOfPointers.value === 1) ||
-        (event.numberOfPointers === 1 && prevNumberOfPointers.value === 2)
+        (event.numberOfPointers === 2 && prevNumberOfPointers.value === 1)
+        || (event.numberOfPointers === 1 && prevNumberOfPointers.value === 2)
       ) {
         transOriginX.value = translationX.value + focalX.value;
         transOriginY.value = translationY.value + focalY.value;
@@ -81,9 +81,9 @@ export function usePinchToZoomAnimation({
     .onEnd(() => {
       const reset = () => {
         if (
-          scale.value === 1 &&
-          translationX.value === 0 &&
-          translationY.value === 0
+          scale.value === 1
+          && translationX.value === 0
+          && translationY.value === 0
         ) {
           isZooming.value = false;
         }

@@ -60,9 +60,9 @@ export function useFocusToUserLocation(
 
   useEffect(() => {
     if (
-      userLocationVisible &&
-      !initiallyFocusedToUserLocation.current &&
-      userLocation
+      userLocationVisible
+      && !initiallyFocusedToUserLocation.current
+      && userLocation
     ) {
       finishAllTasks(userLocation);
       initiallyFocusedToUserLocation.current = true;

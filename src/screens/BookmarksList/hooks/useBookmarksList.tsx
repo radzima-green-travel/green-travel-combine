@@ -118,9 +118,9 @@ export const useBookmarksList = () => {
 
   useEffect(() => {
     if (
-      isAndroid &&
-      prevListDataLength.current > filteredListData.length &&
-      filteredListData.length === 0
+      isAndroid
+      && prevListDataLength.current > filteredListData.length
+      && filteredListData.length === 0
     ) {
       goBack();
     }

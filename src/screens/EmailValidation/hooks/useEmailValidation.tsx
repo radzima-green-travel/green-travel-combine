@@ -107,8 +107,8 @@ export const useEmailValidation = () => {
 
   useOnRequestError(confirmSignUpRequest, 'authentification', errorLabel => {
     if (
-      (errorLabel.originalError as IRequestError).error_code !==
-      'SIGNUP_CANCELED'
+      (errorLabel.originalError as IRequestError).error_code
+      !== 'SIGNUP_CANCELED'
     ) {
       show({
         type: 'error',

@@ -36,10 +36,10 @@ export const ObjectDetailsMapButtons = memo(
       <Animated.View
         onLayout={({ nativeEvent }) =>
           setButtonsOffset(
-            SCREEN_HEIGHT -
-              nativeEvent.layout.y -
-              nativeEvent.layout.height -
-              16,
+            SCREEN_HEIGHT
+              - nativeEvent.layout.y
+              - nativeEvent.layout.height
+              - 16,
           )
         }
         style={[styles.container, animatedStyles]}>

@@ -43,8 +43,8 @@ function objectCompletenessInfo(
   const amountOfIncompleteFields = incompleteFieldsNames.length;
   const amountOfCompletenessFields = completenessFields?.length || 0;
   const percentageOfCompletion =
-    amountOfCompletenessFields &&
-    amountOfCompletenessFields >= amountOfIncompleteFields
+    amountOfCompletenessFields
+    && amountOfCompletenessFields >= amountOfIncompleteFields
       ? Math.round(
           (1 - amountOfIncompleteFields / amountOfCompletenessFields) * 100,
         )

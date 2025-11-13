@@ -95,10 +95,10 @@ export const ObjectReportinaccuraciesMenu = memo(
           </View>
           <ButtonsGroup
             bottomInset={
-              bottomInset ||
-              Number(keyboardHeight) +
-                PADDING_HORIZONTAL +
-                Number(StatusBar?.currentHeight)
+              bottomInset
+              || Number(keyboardHeight)
+                + PADDING_HORIZONTAL
+                + Number(StatusBar?.currentHeight)
             }
             containerStyle={styles.buttonsContainer}
             buttons={buttons}

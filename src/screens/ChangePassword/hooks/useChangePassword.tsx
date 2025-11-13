@@ -52,8 +52,8 @@ export const useChangePassword = () => {
 
   useOnRequestError(changePasswordRequest, 'authentification', errorLabel => {
     if (
-      (errorLabel.originalError as IRequestError).status === 400 &&
-      ['WRONG_PASSWORD', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
+      (errorLabel.originalError as IRequestError).status === 400
+      && ['WRONG_PASSWORD', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
         (errorLabel.originalError as IRequestError).error_code,
       )
     ) {

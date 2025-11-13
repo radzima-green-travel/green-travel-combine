@@ -120,9 +120,10 @@ export const FormInput = forwardRef<TextInput, FormInputProps>(
 
     const isInputValueValid = (valueToCheck: string) => {
       const isInvalidValue =
-        valueToCheck.length &&
-        ((invalidChars instanceof RegExp && !invalidChars.test(valueToCheck)) ||
-          (allowedChars instanceof RegExp && allowedChars.test(valueToCheck)));
+        valueToCheck.length
+        && ((invalidChars instanceof RegExp && !invalidChars.test(valueToCheck))
+          || (allowedChars instanceof RegExp
+            && allowedChars.test(valueToCheck)));
 
       return !isInvalidValue;
     };

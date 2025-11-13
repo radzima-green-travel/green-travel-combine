@@ -88,13 +88,13 @@ export const transformActiveFiltersToFilterParam = ({
 
 export const checkIfFiltersAreUnset = (filters?: SearchFilters) => {
   return (
-    !filters ||
-    (!filters.categories?.length &&
-      !filters.googleRating?.length &&
-      !filters.municipalities?.length &&
-      !filters.regions?.length &&
-      !filters.distance?.isOn &&
-      !filters.excludeVisited)
+    !filters
+    || (!filters.categories?.length
+      && !filters.googleRating?.length
+      && !filters.municipalities?.length
+      && !filters.regions?.length
+      && !filters.distance?.isOn
+      && !filters.excludeVisited)
   );
 };
 

@@ -132,8 +132,8 @@ export const SnackBarContainer = memo(
                 animatedValue.value,
                 [0, 1],
                 [
-                  (isOnTop ? -1 : 1) *
-                    (toastHeight ? toastHeight + offset : SCREEN_HEIGHT),
+                  (isOnTop ? -1 : 1)
+                    * (toastHeight ? toastHeight + offset : SCREEN_HEIGHT),
                   -offset,
                 ],
               ),

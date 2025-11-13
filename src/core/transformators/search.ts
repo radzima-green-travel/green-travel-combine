@@ -179,9 +179,9 @@ export const prepareSearchFiltersBarItems = ({
         }),
       });
     } else if (
-      key === 'excludeVisited' &&
-      filters[key] === true &&
-      isAuthorized
+      key === 'excludeVisited'
+      && filters[key] === true
+      && isAuthorized
     ) {
       filtersItems.push({
         id: key,
@@ -227,10 +227,10 @@ export const checkIfSearchParamsApplied = (
     const maybeInitialValue = initialFilters?.[key];
 
     if (
-      falsyValues.includes(value) ||
-      (maybeInitialValue !== undefined && isEqual(value, maybeInitialValue)) ||
-      (isArray(value) && !value.length) ||
-      (key === 'distance' && !(value as SearchFilters['distance'])?.isOn)
+      falsyValues.includes(value)
+      || (maybeInitialValue !== undefined && isEqual(value, maybeInitialValue))
+      || (isArray(value) && !value.length)
+      || (key === 'distance' && !(value as SearchFilters['distance'])?.isOn)
     ) {
       continue;
     }

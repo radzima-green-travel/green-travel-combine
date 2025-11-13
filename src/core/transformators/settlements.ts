@@ -9,8 +9,8 @@ export function prepareFilteredSettlementsSections(
   return filter(
     orderBy(settlements, 'value'),
     item =>
-      includes(regionsToInclude, item.id) &&
-      toLower(item.value).includes(toLower(searchValue)),
+      includes(regionsToInclude, item.id)
+      && toLower(item.value).includes(toLower(searchValue)),
   );
 }
 

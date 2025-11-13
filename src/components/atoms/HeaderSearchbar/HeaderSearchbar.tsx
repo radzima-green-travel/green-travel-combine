@@ -57,8 +57,8 @@ export const HeaderSearchbar = memo(
           autoFocus={autoFocus}
           value={value}
           selectionColor={
-            selectionColor ||
-            (isLightTheme
+            selectionColor
+            || (isLightTheme
               ? COLORS.light.icon.accentLight
               : COLORS.dark.icon.accentLight)
           }

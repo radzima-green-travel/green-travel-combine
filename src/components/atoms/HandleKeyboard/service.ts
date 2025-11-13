@@ -33,10 +33,10 @@ export const calculateAndAdjustKeyboard = ({
           const screenY = nodeY + listY;
 
           let y =
-            screenY +
-            (isIOS ? 0 : StatusBar.currentHeight || 0) +
-            nodeHeight -
-            (keyboardY - additionalNodeOffset);
+            screenY
+            + (isIOS ? 0 : StatusBar.currentHeight || 0)
+            + nodeHeight
+            - (keyboardY - additionalNodeOffset);
 
           if (y > 0) {
             y = y + listBottomOffset + 10; // add current bottom value of the whole list and tine offset (10)

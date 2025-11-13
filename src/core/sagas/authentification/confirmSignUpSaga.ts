@@ -20,8 +20,8 @@ export function* confirmSignUpSaga({
             const data = yield take(channel);
 
             if (
-              data?.payload?.event === 'autoSignIn' ||
-              data?.payload?.event === 'autoSignIn_failure'
+              data?.payload?.event === 'autoSignIn'
+              || data?.payload?.event === 'autoSignIn_failure'
             ) {
               return data?.payload?.data;
             }

@@ -177,8 +177,8 @@ export const useFilters = () => {
     'filters',
     errorLabel => {
       if (
-        (errorLabel.originalError as RequestError).error_code !==
-        'ERROR_LOCATION_PERMISSION_CANCELED'
+        (errorLabel.originalError as RequestError).error_code
+        !== 'ERROR_LOCATION_PERMISSION_CANCELED'
       ) {
         show({
           title: errorLabel.text,
@@ -231,8 +231,8 @@ export const useFilters = () => {
   const isNeedToFetchData = (() => {
     if (isFirstRender.current) {
       return (
-        !initialFilters &&
-        (!isFiltersInitialDataLoaded || isString(initialQuery))
+        !initialFilters
+        && (!isFiltersInitialDataLoaded || isString(initialQuery))
       );
     }
     return true;

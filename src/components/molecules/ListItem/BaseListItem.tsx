@@ -62,8 +62,8 @@ export const BaseListItem = memo(
       () => ({
         style: [
           styles.title,
-          (contentStylingType === 'secondary' || !boldTitle) &&
-            styles.titleSecondary,
+          (contentStylingType === 'secondary' || !boldTitle)
+            && styles.titleSecondary,
           onSubtitlePress && styles.titleLink,
         ],
         numberOfLines: titleNumberOfLines,
@@ -127,16 +127,16 @@ export const BaseListItem = memo(
           <View
             style={[
               styles.titleContainer,
-              (position === 'top' || position === 'middle') &&
-                styles.titleContainerSeparator,
-              (position === 'bottom' || position === 'middle') &&
-                styles.titleContainerBottomMiddle,
+              (position === 'top' || position === 'middle')
+                && styles.titleContainerSeparator,
+              (position === 'bottom' || position === 'middle')
+                && styles.titleContainerBottomMiddle,
               titleContainerStyle,
             ]}>
             <View
               style={
-                contentStylingType === 'secondary' &&
-                styles.secondaryContentContainer
+                contentStylingType === 'secondary'
+                && styles.secondaryContentContainer
               }>
               {renderTitleSection()}
               {renderSubtitleSection()}

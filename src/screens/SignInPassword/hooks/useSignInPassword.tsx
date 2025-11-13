@@ -59,8 +59,8 @@ export const useSignInPassword = () => {
 
   useOnRequestError(signInRequest, 'authentification', errorLabel => {
     if (
-      (errorLabel.originalError as IRequestError).status === 400 &&
-      ['NOT_AUTHORIZED', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
+      (errorLabel.originalError as IRequestError).status === 400
+      && ['NOT_AUTHORIZED', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
         (errorLabel.originalError as IRequestError).error_code,
       )
     ) {

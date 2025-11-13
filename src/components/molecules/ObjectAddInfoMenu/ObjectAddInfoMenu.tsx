@@ -117,9 +117,9 @@ export const ObjectAddInfoMenu = memo(
             bottomInset={
               isTimePickerField
                 ? bottom
-                : Number(keyboardHeight) +
-                  PADDING_HORIZONTAL +
-                  Number(StatusBar?.currentHeight)
+                : Number(keyboardHeight)
+                  + PADDING_HORIZONTAL
+                  + Number(StatusBar?.currentHeight)
             }
             containerStyle={styles.buttonsContainer}
             buttons={buttons}

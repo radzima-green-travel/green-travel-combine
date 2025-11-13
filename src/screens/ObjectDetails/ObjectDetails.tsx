@@ -334,8 +334,10 @@ export const ObjectDetails = () => {
               width={IMAGE_WIDTH}
               height={IMAGE_HEIGHT}
               images={
-                data?.images ||
-                (objectCoverImageUrl ? [objectCoverImageUrl] : [defaultPhoto])
+                data?.images
+                || (objectCoverImageUrl
+                  ? [objectCoverImageUrl]
+                  : [defaultPhoto])
               }
               onScroll={onScroll}
               testID="imageSlider"

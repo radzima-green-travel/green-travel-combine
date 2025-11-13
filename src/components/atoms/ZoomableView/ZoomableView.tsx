@@ -74,9 +74,9 @@ export const ZoomableView = memo(
           focalX.value = event.focalX - width / 2;
           focalY.value = event.focalY - height / 2;
           if (
-            (event.numberOfPointers === 2 &&
-              prevNumberOfPointers.value === 1) ||
-            (event.numberOfPointers === 1 && prevNumberOfPointers.value === 2)
+            (event.numberOfPointers === 2 && prevNumberOfPointers.value === 1)
+            || (event.numberOfPointers === 1
+              && prevNumberOfPointers.value === 2)
           ) {
             transOriginX.value = translationX.value + focalX.value;
             transOriginY.value = translationY.value + focalY.value;

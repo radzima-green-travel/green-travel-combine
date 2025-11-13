@@ -32,8 +32,8 @@ interface HandleKeyboardProps {
 export function createHandleKeyboardScrollComponent<T, P>(
   ScrollableComponent: ComponentType<P>,
 ): React.ForwardRefExoticComponent<
-  React.PropsWithoutRef<React.PropsWithChildren<P & HandleKeyboardProps>> &
-    React.RefAttributes<T>
+  React.PropsWithoutRef<React.PropsWithChildren<P & HandleKeyboardProps>>
+    & React.RefAttributes<T>
 >;
 
 export function createHandleKeyboardScrollComponent(
@@ -82,9 +82,9 @@ export function createHandleKeyboardScrollComponent(
     const scrollToNode = useCallback(
       node => {
         if (
-          !node ||
-          !keyboardData.current ||
-          !TextInput.State.currentlyFocusedInput()
+          !node
+          || !keyboardData.current
+          || !TextInput.State.currentlyFocusedInput()
         ) {
           return;
         }

@@ -36,17 +36,17 @@ export const Icon = ({
   const { fontSize, color: iconColor } = iconStyle;
 
   const iconWidth =
-    fontSize ||
-    (height && width) ||
-    size ||
-    (iconStyle.width as number) ||
-    defaultIconSize;
+    fontSize
+    || (height && width)
+    || size
+    || (iconStyle.width as number)
+    || defaultIconSize;
   const iconHeight =
-    fontSize ||
-    (width && height) ||
-    size ||
-    (iconStyle.height as number) ||
-    defaultIconSize;
+    fontSize
+    || (width && height)
+    || size
+    || (iconStyle.height as number)
+    || defaultIconSize;
 
   return (
     <IconComponent

@@ -35,8 +35,8 @@ export function* socialSignInSaga({
 
           return response;
         } else if (
-          data?.payload?.event === 'signIn_failure' ||
-          data?.payload?.event === 'cognitoHostedUI_failure'
+          data?.payload?.event === 'signIn_failure'
+          || data?.payload?.event === 'cognitoHostedUI_failure'
         ) {
           throw new RequestError(createSocialLoginErrorPreset());
         }

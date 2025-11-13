@@ -7,8 +7,8 @@ export const provideCustomError = (error: AxiosError<any>) => {
   }
 
   if (
-    error.message === 'Network Error' ||
-    error.message === 'timeout exceeded'
+    error.message === 'Network Error'
+    || error.message === 'timeout exceeded'
   ) {
     const internetConnectionError = new RequestError(
       createInternetConnectionErrorPreset(error.message),
