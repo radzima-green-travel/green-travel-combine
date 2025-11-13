@@ -1,8 +1,8 @@
-import {FONTS_PRESETS, COLORS} from 'assets';
-import {createThemeStyles} from 'core/helpers/styles';
+import { FONTS_PRESETS, COLORS } from 'assets';
+import { createThemeStyles } from 'core/helpers/styles';
 
 export const widgetStyles = createThemeStyles({
-  container: {flex: 1, gap: 8},
+  container: { flex: 1, gap: 8 },
   title: {
     ...FONTS_PRESETS.headlineBold,
     color: {

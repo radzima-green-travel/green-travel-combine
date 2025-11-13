@@ -1,5 +1,5 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {MAP_BOTTOM_MENU_HEIGHT} from 'core/constants';
+import { COLORS, FONTS_STYLES } from 'assets';
+import { MAP_BOTTOM_MENU_HEIGHT } from 'core/constants';
 
 export const themeStyles = {
   container: {
@@ -23,13 +23,13 @@ export const themeStyles = {
   },
   text: {
     ...FONTS_STYLES.semibold20,
-    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
+    color: { light: COLORS.logCabin, dark: COLORS.altoForDark },
     flexShrink: 1,
   },
 
   subtitle: {
     ...FONTS_STYLES.regular13,
-    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
+    color: { light: COLORS.logCabin, dark: COLORS.altoForDark },
     marginTop: 4,
   },
   button: {
@@ -49,6 +49,6 @@ export const themeStyles = {
     marginBottom: 14.5,
   },
   icon: {
-    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
+    color: { light: COLORS.logCabin, dark: COLORS.altoForDark },
   },
 };

@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect, useMemo, useRef} from 'react';
-import {ActivityIndicator, StyleSheet} from 'react-native';
-import {COLORS} from 'assets';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { COLORS } from 'assets';
 
 interface ListPaginationProps {
   loadMore: () => void;

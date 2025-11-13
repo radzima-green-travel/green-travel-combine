@@ -1,1 +1,1 @@
-export {useProfileSettingsTheme} from './useProfileSettingsTheme';
+export { useProfileSettingsTheme } from './useProfileSettingsTheme';

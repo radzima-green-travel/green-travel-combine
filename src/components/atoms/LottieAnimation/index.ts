@@ -1,1 +1,1 @@
-export {LottieAnimation} from './LottieAnimation';
+export { LottieAnimation } from './LottieAnimation';

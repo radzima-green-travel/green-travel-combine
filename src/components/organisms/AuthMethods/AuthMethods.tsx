@@ -1,11 +1,11 @@
-import React, {memo} from 'react';
-import {View, Text} from 'react-native';
-import {Button, Icon} from 'atoms';
-import {useThemeStyles} from 'core/hooks';
-import {isIOS} from 'services/PlatformService';
-import {themeStyles} from './styles';
-import {useTranslation} from 'react-i18next';
-import {composeTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { View, Text } from 'react-native';
+import { Button, Icon } from 'atoms';
+import { useThemeStyles } from 'core/hooks';
+import { isIOS } from 'services/PlatformService';
+import { themeStyles } from './styles';
+import { useTranslation } from 'react-i18next';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   onEmailButtonPress: () => void;
@@ -29,8 +29,8 @@ export const AuthMethods = memo(
     appleLoading,
     testID,
   }: IProps) => {
-    const {t} = useTranslation('authentification');
-    const {t: tCommon} = useTranslation('common');
+    const { t } = useTranslation('authentification');
+    const { t: tCommon } = useTranslation('common');
 
     const styles = useThemeStyles(themeStyles);
 

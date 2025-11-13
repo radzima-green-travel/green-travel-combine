@@ -1,18 +1,18 @@
-import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
   useTogglePasswordHidden,
 } from 'core/hooks';
-import {SignUpFormScreenNavigationProps} from '../types';
-import {useNavigation} from '@react-navigation/native';
-import {changePasswordRequest} from 'core/actions';
-import {useFormik} from 'formik';
-import {ChangePasswordFormModel, IRequestError} from 'core/types';
-import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
+import { SignUpFormScreenNavigationProps } from '../types';
+import { useNavigation } from '@react-navigation/native';
+import { changePasswordRequest } from 'core/actions';
+import { useFormik } from 'formik';
+import { ChangePasswordFormModel, IRequestError } from 'core/types';
+import { validationSchema } from './validation';
+import { useSnackbar } from 'atoms';
 
 export const useChangePassword = () => {
   const dispatch = useDispatch();
@@ -24,8 +24,8 @@ export const useChangePassword = () => {
   }, [navigation]);
 
   const signUp = useCallback(
-    ({oldPassword, newPassword}: ChangePasswordFormModel) => {
-      dispatch(changePasswordRequest({newPassword, oldPassword}));
+    ({ oldPassword, newPassword }: ChangePasswordFormModel) => {
+      dispatch(changePasswordRequest({ newPassword, oldPassword }));
     },
     [dispatch],
   );
@@ -40,7 +40,7 @@ export const useChangePassword = () => {
     validateOnMount: true,
   });
 
-  const {loading} = useRequestLoading(changePasswordRequest);
+  const { loading } = useRequestLoading(changePasswordRequest);
 
   const oldPasswordHidden = useTogglePasswordHidden();
 
@@ -48,12 +48,12 @@ export const useChangePassword = () => {
 
   useOnRequestSuccess(changePasswordRequest, navigateToEmailValidation);
 
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   useOnRequestError(changePasswordRequest, 'authentification', errorLabel => {
     if (
-      (errorLabel.originalError as IRequestError).status === 400 &&
-      ['WRONG_PASSWORD', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
+      (errorLabel.originalError as IRequestError).status === 400
+      && ['WRONG_PASSWORD', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
         (errorLabel.originalError as IRequestError).error_code,
       )
     ) {

@@ -1,1 +1,1 @@
-export {useBookmarks} from './useBookmarks';
+export { useBookmarks } from './useBookmarks';

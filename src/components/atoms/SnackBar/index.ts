@@ -1,2 +1,2 @@
-export {useSnackbar} from './useSnackbar';
-export {SnackBar} from './SnackBar';
+export { useSnackbar } from './useSnackbar';
+export { SnackBar } from './SnackBar';

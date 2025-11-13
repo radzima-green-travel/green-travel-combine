@@ -1,4 +1,4 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import { COLORS, FONTS_STYLES } from 'assets';
 
 export const themeStyles = {
   container: {
@@ -13,10 +13,10 @@ export const themeStyles = {
   },
   text: {
     ...FONTS_STYLES.regular12,
-    color: {light: COLORS.boulder, dark: COLORS.altoForDark},
+    color: { light: COLORS.boulder, dark: COLORS.altoForDark },
   },
   icon: {
-    color: {light: COLORS.boulder, dark: COLORS.altoForDark},
+    color: { light: COLORS.boulder, dark: COLORS.altoForDark },
   },
   successIcon: {
     color: {

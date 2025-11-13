@@ -1,9 +1,9 @@
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import * as Linking from 'expo-linking';
 import * as Location from 'expo-location';
-import {Location as LoctaionCoords} from 'core/types';
+import { Location as LoctaionCoords } from 'core/types';
 
-import {isIOS} from './PlatformService';
+import { isIOS } from './PlatformService';
 import i18n from 'i18next';
 import {
   createLocationErrorPreset,
@@ -94,7 +94,7 @@ class LocationService {
     }
 
     try {
-      const {coords} = await Location.getCurrentPositionAsync({
+      const { coords } = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Low,
       });
 

@@ -4,11 +4,11 @@ import {
   RegionsListResponseDTO,
   ObjectFiltersDataDTO,
 } from 'core/types';
-import {all, call, select} from 'redux-saga/effects';
-import {graphQLAPI} from 'api/graphql';
-import {getCategoriesWithObjects} from 'core/transformators/homePage';
-import {filter} from 'lodash';
-import {selectFiltersCategoriesList, selectRegions} from 'core/selectors';
+import { all, call, select } from 'redux-saga/effects';
+import { graphQLAPI } from 'api/graphql';
+import { getCategoriesWithObjects } from 'core/transformators/homePage';
+import { filter } from 'lodash';
+import { selectFiltersCategoriesList, selectRegions } from 'core/selectors';
 
 export function* getInitialFiltersSaga() {
   const currentRegionsList = yield select(selectRegions);

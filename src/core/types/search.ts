@@ -1,5 +1,5 @@
-import type {IconsNames} from 'atoms/Icon';
-import {SearchFilters} from './filters';
+import type { IconsNames } from 'atoms/Icon';
+import { SearchFilters } from './filters';
 
 export type SearchOptions = {
   byAddress: boolean;

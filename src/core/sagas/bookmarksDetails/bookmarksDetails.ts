@@ -1,6 +1,6 @@
-import {takeEvery} from 'redux-saga/effects';
-import {getBookmarksObjectsListSaga} from './getBookmarksObjectsListSaga';
-import {getBookmarksInitialObjectsDataSaga} from './getBookmarksInitialObjectsDataSaga';
+import { takeEvery } from 'redux-saga/effects';
+import { getBookmarksObjectsListSaga } from './getBookmarksObjectsListSaga';
+import { getBookmarksInitialObjectsDataSaga } from './getBookmarksInitialObjectsDataSaga';
 import {
   getBookmarksInitialObjectsDataRequest,
   getBookmarksObjectsListRequest,

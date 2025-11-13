@@ -1,4 +1,4 @@
-import {CardItem} from './common';
+import { CardItem } from './common';
 
 export type HomeSectionBarItem = {
   title: string;

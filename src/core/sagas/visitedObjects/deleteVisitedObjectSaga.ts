@@ -1,12 +1,12 @@
-import {call, put} from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
-import {deleteVisitedObjectRequest} from 'core/actions';
+import { deleteVisitedObjectRequest } from 'core/actions';
 
-import {amplifyApi} from 'api/amplify';
+import { amplifyApi } from 'api/amplify';
 
 export function* deleteVisitedObjectSaga({
   payload,
-  meta: {successAction, failureAction},
+  meta: { successAction, failureAction },
 }: ReturnType<typeof deleteVisitedObjectRequest>) {
   try {
     yield call(amplifyApi.deleteUserVisitedObject, payload);

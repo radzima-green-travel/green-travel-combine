@@ -2,8 +2,8 @@ import {
   NativeStackNavigationProp,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
-import {RouteProp} from '@react-navigation/native';
-import {MainNavigatorParamsList} from 'core/types';
+import { RouteProp } from '@react-navigation/native';
+import { MainNavigatorParamsList } from 'core/types';
 
 export type PageNotFoundErrorScreenNavigationProps = NativeStackNavigationProp<
   MainNavigatorParamsList,

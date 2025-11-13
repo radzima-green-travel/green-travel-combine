@@ -1,10 +1,10 @@
-import {sendAnalyticsEvent} from 'core/actions';
-import {useSearchSelector} from 'core/hooks';
-import {selectSearchHistory, selectSearchOptions} from 'core/selectors';
-import {SearchOptions} from 'core/types';
-import {compact, find} from 'lodash';
-import {useCallback, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { sendAnalyticsEvent } from 'core/actions';
+import { useSearchSelector } from 'core/hooks';
+import { selectSearchHistory, selectSearchOptions } from 'core/selectors';
+import { SearchOptions } from 'core/types';
+import { compact, find } from 'lodash';
+import { useCallback, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function useSearchAnalytics() {
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ export function useSearchAnalytics() {
 
   const sendSearchHistoryItemRemoveEvent = useCallback(
     (objectId: string) => {
-      const object = find(historyObjects, {id: objectId});
+      const object = find(historyObjects, { id: objectId });
       if (object) {
         dispatch(
           sendAnalyticsEvent({

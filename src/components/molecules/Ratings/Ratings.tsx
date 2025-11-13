@@ -1,9 +1,9 @@
-import React, {memo} from 'react';
-import {View} from 'react-native';
-import {AnimatedStar, Icon} from 'atoms';
-import {map} from 'lodash';
-import {createNumericArray} from 'core/helpers';
-import {styles} from './styles';
+import React, { memo } from 'react';
+import { View } from 'react-native';
+import { AnimatedStar, Icon } from 'atoms';
+import { map } from 'lodash';
+import { createNumericArray } from 'core/helpers';
+import { styles } from './styles';
 
 interface IProps {
   rating?: number;
@@ -11,7 +11,7 @@ interface IProps {
   onChange?: (point: number) => void;
 }
 
-export const Ratings = memo(({rating = 0, points = 5, onChange}: IProps) => {
+export const Ratings = memo(({ rating = 0, points = 5, onChange }: IProps) => {
   return (
     <View style={styles.container}>
       {onChange

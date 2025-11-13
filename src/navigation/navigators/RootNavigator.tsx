@@ -1,27 +1,27 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {navigationRef} from 'services/NavigationService';
+import React, { useEffect, useState, useCallback } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { navigationRef } from 'services/NavigationService';
 import * as SplashScreen from 'expo-splash-screen';
-import {MainNavigator} from './MainNavigator';
-import {useDispatch, useSelector} from 'react-redux';
-import {bootstrapRequest} from 'core/actions';
-import {SystemBars} from 'react-native-edge-to-edge';
+import { MainNavigator } from './MainNavigator';
+import { useDispatch, useSelector } from 'react-redux';
+import { bootstrapRequest } from 'core/actions';
+import { SystemBars } from 'react-native-edge-to-edge';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {
   ForceUpdateScreen,
   OptionalUpdateScreen,
   SplashScreen as CustomSplashScreen,
 } from '../../screens';
-import {PortalProvider} from '@gorhom/portal';
-import {useOnRequestSuccess, useRequestError} from 'react-redux-help-kit';
-import {MainNavigatorParamsList} from 'core/types';
+import { PortalProvider } from '@gorhom/portal';
+import { useOnRequestSuccess, useRequestError } from 'react-redux-help-kit';
+import { MainNavigatorParamsList } from 'core/types';
 import {
   selectUpdatesAvailable,
   selectUpdatesMandatory,
   selectUpdatesSkipped,
 } from 'core/selectors';
-import {linkingService} from 'services/LinkingService';
-import {useColorScheme} from 'core/hooks';
+import { linkingService } from 'services/LinkingService';
+import { useColorScheme } from 'core/hooks';
 import {
   initialWindowMetrics,
   SafeAreaProvider,
@@ -61,7 +61,7 @@ export function RootNavigator() {
 
   useOnRequestSuccess(bootstrapRequest, finishBootstrap);
 
-  const {error, clearError} = useRequestError(bootstrapRequest);
+  const { error, clearError } = useRequestError(bootstrapRequest);
   useEffect(() => {
     if (error) {
       clearError();

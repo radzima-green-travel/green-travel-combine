@@ -1,1 +1,1 @@
-export {categoriesListSaga} from './categoriesList';
+export { categoriesListSaga } from './categoriesList';

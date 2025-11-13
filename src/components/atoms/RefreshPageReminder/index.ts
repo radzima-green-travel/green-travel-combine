@@ -1,1 +1,1 @@
-export {RefreshPageReminder} from './RefreshPageReminder';
+export { RefreshPageReminder } from './RefreshPageReminder';

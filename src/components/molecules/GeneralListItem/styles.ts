@@ -1,5 +1,5 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {StyleSheet} from 'react-native';
+import { COLORS, FONTS_STYLES } from 'assets';
+import { StyleSheet } from 'react-native';
 
 export const heightS = 44;
 export const heightM = 95;

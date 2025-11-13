@@ -1,10 +1,10 @@
-import {CustomSlider} from 'atoms';
-import React, {memo, useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
-import {themeStyles} from './styles';
-import {ListItem} from '../ListItem';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {Location} from 'core/types';
+import { CustomSlider } from 'atoms';
+import React, { memo, useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import { themeStyles } from './styles';
+import { ListItem } from '../ListItem';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { Location } from 'core/types';
 
 interface Props {
   isOn: boolean;
@@ -23,7 +23,7 @@ export const FilterDistance = memo(
     location,
   }: Props) => {
     const styles = useThemeStyles(themeStyles);
-    const {t} = useTranslation('filters');
+    const { t } = useTranslation('filters');
     const [distanceValue, setDistanceValue] = useState(distance);
 
     useEffect(() => {
@@ -46,7 +46,7 @@ export const FilterDistance = memo(
         {isOn && location && (
           <View>
             <Text style={styles.distanceStyle}>
-              {t('distance.upTo', {distance: distanceValue})}
+              {t('distance.upTo', { distance: distanceValue })}
             </Text>
             <CustomSlider
               type="basic"

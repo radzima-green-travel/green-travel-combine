@@ -1,1 +1,1 @@
-export {InAppWebView} from './InAppWebView';
+export { InAppWebView } from './InAppWebView';

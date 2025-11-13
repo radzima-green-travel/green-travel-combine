@@ -1,10 +1,10 @@
-import React, {memo, useMemo} from 'react';
-import {Text, TextProps, TouchableOpacity, View} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
-import {ListItemWrapper} from './ListItemWrapper';
-import {themeStyles} from './styles';
-import {BaseListItemProps} from './types';
-import {composeTestID} from 'core/helpers';
+import React, { memo, useMemo } from 'react';
+import { Text, TextProps, TouchableOpacity, View } from 'react-native';
+import { useThemeStyles } from 'core/hooks';
+import { ListItemWrapper } from './ListItemWrapper';
+import { themeStyles } from './styles';
+import { BaseListItemProps } from './types';
+import { composeTestID } from 'core/helpers';
 
 export const BaseListItem = memo(
   ({
@@ -62,8 +62,8 @@ export const BaseListItem = memo(
       () => ({
         style: [
           styles.title,
-          (contentStylingType === 'secondary' || !boldTitle) &&
-            styles.titleSecondary,
+          (contentStylingType === 'secondary' || !boldTitle)
+            && styles.titleSecondary,
           onSubtitlePress && styles.titleLink,
         ],
         numberOfLines: titleNumberOfLines,
@@ -127,16 +127,16 @@ export const BaseListItem = memo(
           <View
             style={[
               styles.titleContainer,
-              (position === 'top' || position === 'middle') &&
-                styles.titleContainerSeparator,
-              (position === 'bottom' || position === 'middle') &&
-                styles.titleContainerBottomMiddle,
+              (position === 'top' || position === 'middle')
+                && styles.titleContainerSeparator,
+              (position === 'bottom' || position === 'middle')
+                && styles.titleContainerBottomMiddle,
               titleContainerStyle,
             ]}>
             <View
               style={
-                contentStylingType === 'secondary' &&
-                styles.secondaryContentContainer
+                contentStylingType === 'secondary'
+                && styles.secondaryContentContainer
               }>
               {renderTitleSection()}
               {renderSubtitleSection()}

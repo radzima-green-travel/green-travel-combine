@@ -1,4 +1,4 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import {
   addObjectIdToUserSearchHistory,
   clearBookmarks,
@@ -9,8 +9,8 @@ import {
   syncAndGetBookmarksRequest,
   updateBookmarksRequest,
 } from 'core/actions';
-import {filter, some, uniq} from 'lodash';
-import {Bookmarks, Location} from 'core/types';
+import { filter, some, uniq } from 'lodash';
+import { Bookmarks, Location } from 'core/types';
 
 interface UserState {
   historyIds: string[];
@@ -23,19 +23,22 @@ const initialState: UserState = {
   bookmarks: {},
 };
 export const userReducer = createReducer(initialState, builder => {
-  builder.addCase(addObjectIdToUserSearchHistory, (state, {payload}) => ({
+  builder.addCase(addObjectIdToUserSearchHistory, (state, { payload }) => ({
     ...state,
     historyIds: uniq([payload, ...state.historyIds]),
   }));
-  builder.addCase(deleteObjectIdFromUserSearchHistory, (state, {payload}) => ({
-    ...state,
-    historyIds: filter(state.historyIds, item => item !== payload),
-  }));
+  builder.addCase(
+    deleteObjectIdFromUserSearchHistory,
+    (state, { payload }) => ({
+      ...state,
+      historyIds: filter(state.historyIds, item => item !== payload),
+    }),
+  );
   builder.addCase(deleteAllFromUserSearchHistory, state => ({
     ...state,
     historyIds: [],
   }));
-  builder.addCase(updateBookmarksRequest, (state, {payload}) => ({
+  builder.addCase(updateBookmarksRequest, (state, { payload }) => ({
     ...state,
     bookmarks: {
       ...state.bookmarks,
@@ -44,7 +47,7 @@ export const userReducer = createReducer(initialState, builder => {
   }));
   builder.addCase(
     syncAndGetBookmarksRequest.meta.successAction,
-    (state, {payload}) => ({
+    (state, { payload }) => ({
       ...state,
       bookmarks: payload,
     }),
@@ -55,7 +58,7 @@ export const userReducer = createReducer(initialState, builder => {
   }));
   builder.addCase(
     requestUserLocation.meta.successAction,
-    (state, {payload}) => {
+    (state, { payload }) => {
       return {
         ...state,
         location: payload,
@@ -66,7 +69,7 @@ export const userReducer = createReducer(initialState, builder => {
     // Fixes a bug where some history items are not available anymore
     // and they stay in the user's history forever, affecting the UI
     getSearchObjectsHistoryRequest.meta.successAction,
-    (state, {payload}) => {
+    (state, { payload }) => {
       state.historyIds = filter(state.historyIds, item => {
         return some(
           payload.searchHistoryObjects,

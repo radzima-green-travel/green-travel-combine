@@ -1,10 +1,10 @@
-import {map, mapValues, orderBy} from 'lodash';
+import { map, mapValues, orderBy } from 'lodash';
 import {
   convertShortCategoryToCardItem,
   translateAndProcessImagesForEntity,
 } from './common';
-import {ProcessedCategoriesListsById, SupportedLocales} from 'core/types';
-import {CategoriesListsById} from 'core/types/categoriesList';
+import { ProcessedCategoriesListsById, SupportedLocales } from 'core/types';
+import { CategoriesListsById } from 'core/types/categoriesList';
 
 export const getProcessedCategoriesLists = (
   categoriesLists: CategoriesListsById,

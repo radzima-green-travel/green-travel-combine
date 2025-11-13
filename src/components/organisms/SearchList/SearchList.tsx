@@ -1,10 +1,10 @@
-import {composeTestID} from 'core/helpers';
-import {useTranslation} from 'core/hooks';
-import {SearchObject} from 'core/types';
-import {ListItem, SearchPromptView, SearchListItem} from 'molecules';
-import React, {memo, useCallback} from 'react';
-import {ObjectList, ObjectListProps} from '../ObjectList';
-import {HEADER_BOTTOM_RADIUS} from 'core/constants';
+import { composeTestID } from 'core/helpers';
+import { useTranslation } from 'core/hooks';
+import { SearchObject } from 'core/types';
+import { ListItem, SearchPromptView, SearchListItem } from 'molecules';
+import React, { memo, useCallback } from 'react';
+import { ObjectList, ObjectListProps } from '../ObjectList';
+import { HEADER_BOTTOM_RADIUS } from 'core/constants';
 
 interface SearchListProps extends ObjectListProps {
   onDeletePress: (object: SearchObject) => void;
@@ -24,12 +24,12 @@ export const SearchList = memo(
     isSearchPromptVisible,
     ...listProps
   }: SearchListProps) => {
-    const {t} = useTranslation('search');
+    const { t } = useTranslation('search');
 
     const renderHistoryHeader = useCallback(() => {
       return (
         <ListItem
-          containerStyle={{marginTop: HEADER_BOTTOM_RADIUS}}
+          containerStyle={{ marginTop: HEADER_BOTTOM_RADIUS }}
           testID={composeTestID(testID, 'listHeader')}
           type="primary"
           title={t('recent')}
@@ -40,8 +40,8 @@ export const SearchList = memo(
     }, [onDeleteAllPress, t, testID]);
 
     const renderHistoryItem = useCallback(
-      ({item}: {item: {data: SearchObject}}) => {
-        const {name, category} = item.data;
+      ({ item }: { item: { data: SearchObject } }) => {
+        const { name, category } = item.data;
 
         return (
           <SearchListItem

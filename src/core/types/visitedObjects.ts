@@ -1,4 +1,4 @@
-import {ObjectField} from 'core/constants';
+import { ObjectField } from 'core/constants';
 
 export interface VisitedObject {
   id: string;

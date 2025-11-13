@@ -1,1 +1,1 @@
-export {BackCircleButton} from './BackCircleButton';
+export { BackCircleButton } from './BackCircleButton';

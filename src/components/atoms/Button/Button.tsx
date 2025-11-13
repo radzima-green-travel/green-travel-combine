@@ -1,5 +1,5 @@
-import {useThemeStyles} from 'core/hooks';
-import React, {memo} from 'react';
+import { useThemeStyles } from 'core/hooks';
+import React, { memo } from 'react';
 import {
   StyleProp,
   ViewStyle,
@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-import {BUTTON_THEMES} from './constants';
-import {styles} from './styles';
-import {ButtonThemes} from './types';
-import {getPlatformsTestID} from 'core/helpers';
+import { BUTTON_THEMES } from './constants';
+import { styles } from './styles';
+import { ButtonThemes } from './types';
+import { getPlatformsTestID } from 'core/helpers';
 
 export type Props = {
   text?: string;
@@ -110,7 +110,7 @@ export const Button = memo(
           isIconOnlyButton && styles.iconButton,
         ]}
         {...getPlatformsTestID(testID)}
-        accessibilityState={{checked, disabled, busy: loading}}>
+        accessibilityState={{ checked, disabled, busy: loading }}>
         {renderContent()}
       </TouchableOpacity>
     );

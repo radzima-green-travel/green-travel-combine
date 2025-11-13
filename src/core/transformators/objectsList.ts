@@ -3,12 +3,12 @@ import {
   ProcessedObjectsListsById,
   SupportedLocales,
 } from 'core/types';
-import {map, mapValues} from 'lodash';
+import { map, mapValues } from 'lodash';
 import {
   convertShortObjectToCardItem,
   translateAndProcessImagesForEntity,
 } from 'core/transformators/common';
-import {ObjectListFilters, ObjectsListsById} from 'core/types/objectsList';
+import { ObjectListFilters, ObjectsListsById } from 'core/types/objectsList';
 
 export const getProcessedObjectsLists = (
   objectsLists: ObjectsListsById,
@@ -45,7 +45,7 @@ export const createObjectListQueryParams = (
   appliedFilters: ObjectListFilters,
   nextToken?: string,
 ): ObjectsListQueryParams => {
-  const {objectsIds, categoryId, ...flags} = appliedFilters;
+  const { objectsIds, categoryId, ...flags } = appliedFilters;
 
   const objectsIdsDefined = !!objectsIds?.length;
 
@@ -58,9 +58,9 @@ export const createObjectListQueryParams = (
   }
 
   return {
-    sort: {direction: 'asc', field: 'name'},
+    sort: { direction: 'asc', field: 'name' },
     limit: objectsIdsDefined ? objectsIds.length : 10,
     filter,
-    ...(!objectsIdsDefined && nextToken && {nextToken}),
+    ...(!objectsIdsDefined && nextToken && { nextToken }),
   };
 };

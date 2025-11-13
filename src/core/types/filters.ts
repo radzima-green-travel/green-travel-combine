@@ -1,5 +1,5 @@
-import {SpotItemDTO} from './api';
-import {Location} from './user';
+import { SpotItemDTO } from './api';
+import { Location } from './user';
 
 export type SearchFilters = Partial<{
   googleRating: string;

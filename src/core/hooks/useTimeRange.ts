@@ -1,10 +1,10 @@
-import {useCallback, useRef} from 'react';
-import {useTranslation} from 'react-i18next';
-import {hapticFeedbackService} from 'services/HapticFeedbackService';
-import {useUpdateEffect} from 'react-redux-help-kit';
+import { useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { hapticFeedbackService } from 'services/HapticFeedbackService';
+import { useUpdateEffect } from 'react-redux-help-kit';
 
 export function useTimeRange(range: number) {
-  const {t} = useTranslation('common');
+  const { t } = useTranslation('common');
   const hours = Math.floor(range);
   const minutes = Math.ceil((range - hours) * 60);
   const timeString = `${hours} ${t('hours')} ${minutes} ${t('minutes')}`;
@@ -25,5 +25,5 @@ export function useTimeRange(range: number) {
     onTimeChange();
   }, [minutes, hours, onTimeChange]);
 
-  return {timeString, hours, minutes};
+  return { timeString, hours, minutes };
 }

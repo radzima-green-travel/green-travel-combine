@@ -1,2 +1,2 @@
-export {MapWithBottomSheet} from './MapWithBottomSheet';
-export {useMapView} from './hooks';
+export { MapWithBottomSheet } from './MapWithBottomSheet';
+export { useMapView } from './hooks';

@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import {useSnackbar} from 'atoms';
+import { useNavigation } from '@react-navigation/native';
+import { useSnackbar } from 'atoms';
 import {
   useObjectIncompleteFields,
   useOnRequestError,
@@ -10,25 +10,25 @@ import {
   updateVisitedObjectRequest,
   sendInaccuraciesEmailRequest,
 } from 'core/actions';
-import {selectObjectShareExperienceData} from 'core/selectors';
-import {useCallback, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-import {ObjectDetailsShareExperienceScreenNavigationProps} from '../types';
-import {useObjectShareExperienceAnalytics} from './useObjectShareExperienceAnalytics';
+import { selectObjectShareExperienceData } from 'core/selectors';
+import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useOnRequestSuccess, useRequestLoading } from 'react-redux-help-kit';
+import { ObjectDetailsShareExperienceScreenNavigationProps } from '../types';
+import { useObjectShareExperienceAnalytics } from './useObjectShareExperienceAnalytics';
 export function useShareExperienceData() {
   const dispatch = useDispatch();
-  const {t} = useTranslation('objectDetails');
+  const { t } = useTranslation('objectDetails');
   const [isReportSent, setIsReportSent] = useState(false);
   const navigation =
     useNavigation<ObjectDetailsShareExperienceScreenNavigationProps>();
-  const {objectId, objectName, incompleteFieldsNames} =
+  const { objectId, objectName, incompleteFieldsNames } =
     useSelector(selectObjectShareExperienceData) || {};
 
   const incompleteFields = useObjectIncompleteFields(
     incompleteFieldsNames ?? [],
   );
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   const {
     sendVisitedModalSendEvent,
@@ -44,7 +44,7 @@ export function useShareExperienceData() {
         sendReportInaccuranceSendEvent();
         dispatch(
           sendInaccuraciesEmailRequest({
-            subject: t('inaccuraciesEmailSubject', {objectName}),
+            subject: t('inaccuraciesEmailSubject', { objectName }),
             message: message,
             objectId,
           }),
@@ -88,7 +88,7 @@ export function useShareExperienceData() {
         dispatch(
           updateVisitedObjectRequest({
             objectId,
-            data: {timestamp: Date.now(), spentTime, rating},
+            data: { timestamp: Date.now(), spentTime, rating },
           }),
         );
       }
@@ -117,10 +117,10 @@ export function useShareExperienceData() {
     setIsReportSent(true);
   });
 
-  const {loading: sumbitLoading} = useRequestLoading(
+  const { loading: sumbitLoading } = useRequestLoading(
     updateVisitedObjectRequest,
   );
-  const {loading: sendLoading} = useRequestLoading(
+  const { loading: sendLoading } = useRequestLoading(
     sendInaccuraciesEmailRequest,
   );
 

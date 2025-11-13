@@ -1,2 +1,2 @@
-export {BottomMenu} from './BottomMenu';
-export {Backdrop} from './components/Backdrop';
+export { BottomMenu } from './BottomMenu';
+export { Backdrop } from './components/Backdrop';

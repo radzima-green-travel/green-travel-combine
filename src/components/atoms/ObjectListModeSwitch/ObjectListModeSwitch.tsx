@@ -1,16 +1,16 @@
-import {composeTestID} from 'core/helpers';
+import { composeTestID } from 'core/helpers';
 import React from 'react';
-import {Pressable, View} from 'react-native';
+import { Pressable, View } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {useThemeStyles} from '../../../core/hooks';
-import {ObjectListViewMode} from '../../types';
-import {Icon} from '../Icon/Icon';
-import {objectListModeSwitchStyles} from './styles';
+import { useThemeStyles } from '../../../core/hooks';
+import { ObjectListViewMode } from '../../types';
+import { Icon } from '../Icon/Icon';
+import { objectListModeSwitchStyles } from './styles';
 
 export interface ObjectListModeSwitchProps {
   testID: string;

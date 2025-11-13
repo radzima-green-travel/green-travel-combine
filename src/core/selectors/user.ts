@@ -1,7 +1,7 @@
-import {IState} from 'core/store';
-import {createSelector} from 'reselect';
-import {Bookmarks} from 'core/types';
-import {isEmpty} from 'lodash';
+import { IState } from 'core/store';
+import { createSelector } from 'reselect';
+import { Bookmarks } from 'core/types';
+import { isEmpty } from 'lodash';
 
 export const selectSearchHistoryObjectsIds = (state: IState) =>
   state.user.historyIds;

@@ -1,1 +1,1 @@
-export {MapFilterItem} from './MapFilterItem';
+export { MapFilterItem } from './MapFilterItem';

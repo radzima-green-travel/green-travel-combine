@@ -1,22 +1,22 @@
-import {useCallback} from 'react';
-import {Alert} from 'react-native';
+import { useCallback } from 'react';
+import { Alert } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {ProfileScreenNavigationProps} from '../types';
-import {useDispatch, useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { ProfileScreenNavigationProps } from '../types';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectUserAuthorized,
   selectAppLanguage,
   selectAppTheme,
 } from 'core/selectors';
-import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-import {clearCacheRequest, signInRequest} from 'core/actions';
-import {useNavigateToPrivacyPolicyAndTnC, useTranslation} from 'core/hooks';
-import {useSnackbar} from '../../../components/atoms';
-import {getLanguageByLocale} from 'core/helpers';
+import { useOnRequestSuccess, useRequestLoading } from 'react-redux-help-kit';
+import { clearCacheRequest, signInRequest } from 'core/actions';
+import { useNavigateToPrivacyPolicyAndTnC, useTranslation } from 'core/hooks';
+import { useSnackbar } from '../../../components/atoms';
+import { getLanguageByLocale } from 'core/helpers';
 
 export const useProfile = () => {
-  const {t} = useTranslation('profile');
+  const { t } = useTranslation('profile');
   const dispatch = useDispatch();
   const navigation = useNavigation<ProfileScreenNavigationProps>();
   const isAuthorized = useSelector(selectUserAuthorized);
@@ -41,7 +41,7 @@ export const useProfile = () => {
     navigation.navigate('ProfileSettingsTheme');
   }, [navigation]);
 
-  const {navigateToPrivacyPolicy, navigateToTermsAndConditions} =
+  const { navigateToPrivacyPolicy, navigateToTermsAndConditions } =
     useNavigateToPrivacyPolicyAndTnC();
 
   const onClearCachePress = useCallback(() => {
@@ -50,7 +50,7 @@ export const useProfile = () => {
         text: t('clear'),
         onPress: () => dispatch(clearCacheRequest()),
       },
-      {text: t('cancel'), style: 'cancel'},
+      { text: t('cancel'), style: 'cancel' },
     ]);
   }, [t, dispatch]);
 
@@ -58,9 +58,9 @@ export const useProfile = () => {
 
   const theme = appTheme ? t(`${appTheme}`) : t('systemTheme');
 
-  const {loading} = useRequestLoading(signInRequest);
+  const { loading } = useRequestLoading(signInRequest);
 
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   useOnRequestSuccess(clearCacheRequest, () => {
     show({

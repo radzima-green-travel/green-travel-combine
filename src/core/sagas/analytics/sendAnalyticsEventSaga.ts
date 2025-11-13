@@ -1,6 +1,6 @@
-import {sendAnalyticsEvent} from '../../actions/appConfiguration';
-import {call} from 'redux-saga/effects';
-import {analyticsService} from 'services/AnalyticsService';
+import { sendAnalyticsEvent } from '../../actions/appConfiguration';
+import { call } from 'redux-saga/effects';
+import { analyticsService } from 'services/AnalyticsService';
 
 export function* sendAnalyticsEventSaga({
   payload,

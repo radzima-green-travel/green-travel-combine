@@ -1,1 +1,1 @@
-export {useSearchHistory} from './useSearchHistory';
+export { useSearchHistory } from './useSearchHistory';

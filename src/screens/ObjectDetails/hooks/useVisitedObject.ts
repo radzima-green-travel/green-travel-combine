@@ -1,6 +1,6 @@
-import {useCallback, useMemo} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useTranslation} from 'react-i18next';
+import { useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
   addVisitedObjectRequest,
   deleteVisitedObjectRequest,
@@ -11,23 +11,26 @@ import {
   selectVisitedObjectsIds,
   selectObjectDetails,
 } from 'core/selectors';
-import {some, isEqual} from 'lodash';
-import {useOnRequestSuccess, useRequestLoading} from 'react-redux-help-kit';
-import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {AuthNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Alert} from 'react-native';
-import {useMarkAsVisitedButtonAnimation} from './useMarkAsVisitedButtonAnimation';
-import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
-import {useObjectDetailsSelector} from 'core/hooks';
+import { some, isEqual } from 'lodash';
+import { useOnRequestSuccess, useRequestLoading } from 'react-redux-help-kit';
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from '@react-navigation/native';
+import { AuthNavigatorParamsList, MainNavigatorParamsList } from 'core/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Alert } from 'react-native';
+import { useMarkAsVisitedButtonAnimation } from './useMarkAsVisitedButtonAnimation';
+import { useObjectDetailsAnalytics } from './useObjectDetailsAnalytics';
+import { useObjectDetailsSelector } from 'core/hooks';
 
 export type NavigationProps = CompositeNavigationProp<
   NativeStackNavigationProp<AuthNavigatorParamsList>,
   NativeStackNavigationProp<MainNavigatorParamsList>
 >;
 
-export const useVisitedObject = ({objectId}: {objectId: string}) => {
-  const {t} = useTranslation('objectDetails');
+export const useVisitedObject = ({ objectId }: { objectId: string }) => {
+  const { t } = useTranslation('objectDetails');
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationProps>();
   const visitedObjectsIds = useSelector(selectVisitedObjectsIds);
@@ -58,7 +61,7 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
   const visitedObject = useMemo(
     () => ({
       objectId,
-      data: {timestamp: Date.now()},
+      data: { timestamp: Date.now() },
     }),
     [objectId],
   );
@@ -81,10 +84,14 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
         text: t('delete'),
         onPress: () => {
           sendUnmarkOptionClickEvent();
-          dispatch(deleteVisitedObjectRequest({objectId}));
+          dispatch(deleteVisitedObjectRequest({ objectId }));
         },
       },
-      {text: t('cancel'), style: 'cancel', onPress: sendCancelOptionClickEvent},
+      {
+        text: t('cancel'),
+        style: 'cancel',
+        onPress: sendCancelOptionClickEvent,
+      },
     ]);
   }, [
     sendUnmarkVisitedButtonClickEvent,
@@ -112,11 +119,11 @@ export const useVisitedObject = ({objectId}: {objectId: string}) => {
     navigation,
   ]);
 
-  const {loading: addVisitedObjectLoading} = useRequestLoading(
+  const { loading: addVisitedObjectLoading } = useRequestLoading(
     addVisitedObjectRequest,
   );
 
-  const {loading: deleteVisitedObjectLoading} = useRequestLoading(
+  const { loading: deleteVisitedObjectLoading } = useRequestLoading(
     deleteVisitedObjectRequest,
   );
 

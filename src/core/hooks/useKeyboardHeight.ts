@@ -1,6 +1,6 @@
-import {KEYBOARD_SHOW_EVENT} from 'core/constants';
-import {useEffect, useState} from 'react';
-import {Keyboard} from 'react-native';
+import { KEYBOARD_SHOW_EVENT } from 'core/constants';
+import { useEffect, useState } from 'react';
+import { Keyboard } from 'react-native';
 import {
   getDeviceKeyuboardHeight,
   setDeviceKeyboardHeight,

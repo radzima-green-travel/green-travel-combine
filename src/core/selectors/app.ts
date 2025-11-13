@@ -1,8 +1,8 @@
-import {compare} from 'compare-versions';
-import {getAppVersion} from 'core/helpers';
-import {IState} from 'core/store';
-import {createSelector} from 'reselect';
-import {isIOS} from 'services/PlatformService';
+import { compare } from 'compare-versions';
+import { getAppVersion } from 'core/helpers';
+import { IState } from 'core/store';
+import { createSelector } from 'reselect';
+import { isIOS } from 'services/PlatformService';
 
 export const selectGlobalConfiguration = (state: IState) =>
   state.appConfiguration.data;

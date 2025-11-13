@@ -1,5 +1,5 @@
-import {useThemeStyles} from 'core/hooks';
-import React, {memo} from 'react';
+import { useThemeStyles } from 'core/hooks';
+import React, { memo } from 'react';
 import {
   StyleProp,
   ViewStyle,
@@ -11,12 +11,12 @@ import {
   Pressable,
 } from 'react-native';
 
-import {CHIP_THEMES} from './constants';
-import {styles} from './styles';
-import {composeTestID} from 'core/helpers';
-import {Icon, IconsNames} from '../Icon';
-import {crossHitClop} from '../HeaderSearchbar/styles';
-type ItemProp<T> = T extends undefined ? {item?: never} : {item: T};
+import { CHIP_THEMES } from './constants';
+import { styles } from './styles';
+import { composeTestID } from 'core/helpers';
+import { Icon, IconsNames } from '../Icon';
+import { crossHitClop } from '../HeaderSearchbar/styles';
+type ItemProp<T> = T extends undefined ? { item?: never } : { item: T };
 
 export type ChipProps<T = undefined> = {
   text: string;
@@ -119,7 +119,7 @@ export const ChipComponent = <T extends any = undefined>({
         style,
       ]}
       testID={testID}
-      accessibilityState={{selected: active, disabled: !active && disabled}}>
+      accessibilityState={{ selected: active, disabled: !active && disabled }}>
       {renderContent()}
     </TouchableOpacity>
   );

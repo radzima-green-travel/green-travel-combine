@@ -1,1 +1,1 @@
-export {useImagesGallery} from './useImagesGallery';
+export { useImagesGallery } from './useImagesGallery';

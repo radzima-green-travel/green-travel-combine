@@ -1,5 +1,5 @@
-import {useCallback, useLayoutEffect} from 'react';
-import {useRoute} from '@react-navigation/native';
+import { useCallback, useLayoutEffect } from 'react';
+import { useRoute } from '@react-navigation/native';
 import {
   addObjectIdToUserSearchHistory,
   addSearchObjectToHistory,
@@ -18,16 +18,16 @@ import {
   selectSearchObjectsRawData,
   selectSearchQuery,
 } from 'core/selectors';
-import {find} from 'lodash';
-import {useDispatch, useSelector} from 'react-redux';
-import {SearchScreenRouteProps} from '../types';
+import { find } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchScreenRouteProps } from '../types';
 
 export const useSearchHistory = () => {
   const dispatch = useDispatch();
 
-  const {params} = useRoute<SearchScreenRouteProps>();
+  const { params } = useRoute<SearchScreenRouteProps>();
 
-  const {appliedFilters} = params || {};
+  const { appliedFilters } = params || {};
 
   const searchQuery = useSearchSelector(selectSearchQuery);
   const isUserHasSavedSearchHistory = useSelector(
@@ -44,10 +44,10 @@ export const useSearchHistory = () => {
   const needToLoadHistory =
     isUserHasSavedSearchHistory && !historyObjects.length;
 
-  const {loading: historyLoading} = useRequestLoading(
+  const { loading: historyLoading } = useRequestLoading(
     getSearchObjectsHistoryRequest,
   );
-  const {errorTexts: historyLoadingError} = useOnRequestError(
+  const { errorTexts: historyLoadingError } = useOnRequestError(
     getSearchObjectsHistoryRequest,
     '',
   );
@@ -66,11 +66,11 @@ export const useSearchHistory = () => {
 
   const addObjectToHistory = useCallback(
     (objectId: string) => {
-      const rawObject = find(searchResults, {id: objectId});
+      const rawObject = find(searchResults, { id: objectId });
 
       dispatch(addObjectIdToUserSearchHistory(objectId));
       if (rawObject) {
-        dispatch(addSearchObjectToHistory({searchObject: rawObject}));
+        dispatch(addSearchObjectToHistory({ searchObject: rawObject }));
       }
     },
     [dispatch, searchResults],

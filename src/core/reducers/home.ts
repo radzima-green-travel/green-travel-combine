@@ -1,4 +1,4 @@
-import {createReducer, isAnyOf} from '@reduxjs/toolkit';
+import { createReducer, isAnyOf } from '@reduxjs/toolkit';
 import {
   getHomePageDataRequest,
   refreshHomePageDataRequest,
@@ -10,7 +10,7 @@ import {
   ObjectThumbnailDTO,
   PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
-import {drop} from 'lodash';
+import { drop } from 'lodash';
 
 interface HomePageState {
   categoriesList: CategoryShortDTO[];
@@ -27,7 +27,7 @@ const initialState: HomePageState = {
 export const homePageReducer = createReducer(initialState, builder => {
   builder.addCase(
     fetchNextRandomObjects.meta.successAction,
-    (state, {payload}) => ({
+    (state, { payload }) => ({
       ...state,
       randomObjects: payload,
     }),
@@ -43,7 +43,7 @@ export const homePageReducer = createReducer(initialState, builder => {
       getHomePageDataRequest.meta.successAction,
       refreshHomePageDataRequest.meta.successAction,
     ),
-    (state, {payload}) => ({
+    (state, { payload }) => ({
       ...state,
       categoriesList: payload.categoriesList,
       randomObjects: payload.randomObjects,

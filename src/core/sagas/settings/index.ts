@@ -1,1 +1,1 @@
-export {settingsSaga} from './settingsSaga';
+export { settingsSaga } from './settingsSaga';

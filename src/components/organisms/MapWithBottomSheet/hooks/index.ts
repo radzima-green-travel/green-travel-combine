@@ -1,1 +1,1 @@
-export {useMapView} from './useMapView';
+export { useMapView } from './useMapView';

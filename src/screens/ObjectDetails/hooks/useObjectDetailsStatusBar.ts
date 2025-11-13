@@ -1,11 +1,11 @@
-import {useColorScheme, useStatusBar} from 'core/hooks';
-import {useState} from 'react';
+import { useColorScheme, useStatusBar } from 'core/hooks';
+import { useState } from 'react';
 import {
   SharedValue,
   runOnJS,
   useAnimatedReaction,
 } from 'react-native-reanimated';
-import {IMAGE_HEIGHT} from '../styles';
+import { IMAGE_HEIGHT } from '../styles';
 
 export function useObjectDetailsStatusBar(animatedValue: SharedValue<number>) {
   const [isScrolledBelowImage, setIsScrolledBelowImage] = useState(false);

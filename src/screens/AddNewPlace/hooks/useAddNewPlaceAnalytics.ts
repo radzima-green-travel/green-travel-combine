@@ -1,11 +1,11 @@
-import {sendAnalyticsEvent} from 'core/actions';
+import { sendAnalyticsEvent } from 'core/actions';
 import {
   AddNewObjectAnalyicsFieldsMap,
   NewPlaceForm,
 } from 'core/types/addNewPlace';
-import {reduce} from 'lodash';
-import {useCallback, useRef} from 'react';
-import {useDispatch} from 'react-redux';
+import { reduce } from 'lodash';
+import { useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 export function useAddNewPlaceAnalytics() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export function useAddNewPlaceAnalytics() {
         dispatch(
           sendAnalyticsEvent({
             name: 'Add_any_ObjectField_view',
-            data: {field_name: AddNewObjectAnalyicsFieldsMap[fieldName]},
+            data: { field_name: AddNewObjectAnalyicsFieldsMap[fieldName] },
           }),
         );
       }
@@ -40,7 +40,7 @@ export function useAddNewPlaceAnalytics() {
         dispatch(
           sendAnalyticsEvent({
             name: 'Add_any_ObjectField_input_submit',
-            data: {field_name: AddNewObjectAnalyicsFieldsMap[fieldName]},
+            data: { field_name: AddNewObjectAnalyicsFieldsMap[fieldName] },
           }),
         );
         atLeastOneFieldFilled.current = true;
@@ -65,7 +65,7 @@ export function useAddNewPlaceAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'AddObject_send_all',
-          data: {field_values: field_values},
+          data: { field_values: field_values },
         }),
       );
     },
@@ -76,7 +76,7 @@ export function useAddNewPlaceAnalytics() {
     dispatch(
       sendAnalyticsEvent({
         name: 'AddObject_close',
-        data: {at_least_one_field_filled: atLeastOneFieldFilled.current},
+        data: { at_least_one_field_filled: atLeastOneFieldFilled.current },
       }),
     );
   }, [dispatch]);

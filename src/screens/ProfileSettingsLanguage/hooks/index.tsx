@@ -1,1 +1,1 @@
-export {useProfileSettingsLanguage} from './useProfileSettingsLanguage';
+export { useProfileSettingsLanguage } from './useProfileSettingsLanguage';

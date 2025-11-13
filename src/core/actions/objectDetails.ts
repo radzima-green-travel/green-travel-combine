@@ -1,8 +1,8 @@
-import {createAsyncAction} from 'core/helpers';
-import {ObjectDetailsResponseDTO} from 'core/types';
+import { createAsyncAction } from 'core/helpers';
+import { ObjectDetailsResponseDTO } from 'core/types';
 
 export const getObjectDetailsRequest = createAsyncAction<
-  {objectId: string},
+  { objectId: string },
   {
     objectDetails: ObjectDetailsResponseDTO;
   }

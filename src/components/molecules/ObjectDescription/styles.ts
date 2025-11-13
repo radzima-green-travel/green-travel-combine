@@ -1,8 +1,8 @@
-import {COLORS, FONTS_STYLES, FONTS_PRESETS} from 'assets';
-import {PADDING_HORIZONTAL} from 'core/constants';
-import {hexWithAlpha} from 'core/helpers';
-import {createThemeStyles} from 'core/helpers/styles';
-import type {LinearGradientProps} from 'expo-linear-gradient';
+import { COLORS, FONTS_STYLES, FONTS_PRESETS } from 'assets';
+import { PADDING_HORIZONTAL } from 'core/constants';
+import { hexWithAlpha } from 'core/helpers';
+import { createThemeStyles } from 'core/helpers/styles';
+import type { LinearGradientProps } from 'expo-linear-gradient';
 
 export const TEXT_COLLAPSE_HEIGHT = 192;
 
@@ -87,6 +87,6 @@ export const gradientColorsDark: LinearGradientProps['colors'] = [
 ];
 
 export const gradientConfig = {
-  start: {x: 0.0, y: 0.8},
-  end: {x: 0.0, y: 0},
+  start: { x: 0.0, y: 0.8 },
+  end: { x: 0.0, y: 0 },
 };

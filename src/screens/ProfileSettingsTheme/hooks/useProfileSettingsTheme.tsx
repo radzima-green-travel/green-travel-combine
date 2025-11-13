@@ -1,14 +1,14 @@
-import {setTheme} from 'core/actions';
-import {useDispatch, useSelector} from 'react-redux';
-import {THEME_TYPE} from 'core/constants';
-import {useCallback} from 'react';
-import {selectAppTheme} from 'core/selectors';
+import { setTheme } from 'core/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { THEME_TYPE } from 'core/constants';
+import { useCallback } from 'react';
+import { selectAppTheme } from 'core/selectors';
 import switchTheme from 'react-native-theme-switch-animation';
 import {
   GestureResponderEvent,
   useColorScheme as useSystemColorScheme,
 } from 'react-native';
-import {useColorScheme} from 'core/hooks';
+import { useColorScheme } from 'core/hooks';
 
 export const useProfileSettingsTheme = () => {
   const dispatch = useDispatch();
@@ -54,5 +54,5 @@ export const useProfileSettingsTheme = () => {
     [dispatch, getIsThemeUpdated],
   );
 
-  return {changeTheme, userTheme};
+  return { changeTheme, userTheme };
 };

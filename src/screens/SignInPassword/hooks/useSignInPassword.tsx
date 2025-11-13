@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 
 import {
   useOnSuccessSignIn,
@@ -7,35 +7,35 @@ import {
   useRequestLoading,
   useTogglePasswordHidden,
 } from 'core/hooks';
-import {signInRequest} from 'core/actions';
-import {useDispatch} from 'react-redux';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { signInRequest } from 'core/actions';
+import { useDispatch } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   SignInPasswordScreenNavigationProps,
   SignInPasswordScreenRouteProps,
 } from '../types';
-import {useFormik} from 'formik';
-import {IRequestError, SignInFormModel} from 'core/types';
-import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
+import { useFormik } from 'formik';
+import { IRequestError, SignInFormModel } from 'core/types';
+import { validationSchema } from './validation';
+import { useSnackbar } from 'atoms';
 
 export const useSignInPassword = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<SignInPasswordScreenNavigationProps>();
 
   const {
-    params: {email},
+    params: { email },
   } = useRoute<SignInPasswordScreenRouteProps>();
 
-  const {onSuccessSignIn} = useOnSuccessSignIn();
+  const { onSuccessSignIn } = useOnSuccessSignIn();
 
   const navigateToRestorePassword = useCallback(() => {
     navigation.navigate('RestorePassword');
   }, [navigation]);
 
   const signIn = useCallback(
-    ({password}: SignInFormModel) => {
-      dispatch(signInRequest({email, password}));
+    ({ password }: SignInFormModel) => {
+      dispatch(signInRequest({ email, password }));
     },
     [dispatch, email],
   );
@@ -48,19 +48,19 @@ export const useSignInPassword = () => {
     onSubmit: signIn,
   });
 
-  const {loading} = useRequestLoading(signInRequest);
+  const { loading } = useRequestLoading(signInRequest);
 
-  const {passwordHidden, rightIcon, handlePasswordHidden} =
+  const { passwordHidden, rightIcon, handlePasswordHidden } =
     useTogglePasswordHidden();
 
   useOnRequestSuccess(signInRequest, onSuccessSignIn);
 
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   useOnRequestError(signInRequest, 'authentification', errorLabel => {
     if (
-      (errorLabel.originalError as IRequestError).status === 400 &&
-      ['NOT_AUTHORIZED', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
+      (errorLabel.originalError as IRequestError).status === 400
+      && ['NOT_AUTHORIZED', 'PASSWORD_ATTEMPTS_EXCEEDED'].includes(
         (errorLabel.originalError as IRequestError).error_code,
       )
     ) {

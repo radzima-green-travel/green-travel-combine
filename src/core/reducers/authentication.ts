@@ -1,5 +1,5 @@
-import {CognitoUserAttributes} from 'core/types';
-import {createReducer, isAnyOf} from '@reduxjs/toolkit';
+import { CognitoUserAttributes } from 'core/types';
+import { createReducer, isAnyOf } from '@reduxjs/toolkit';
 import {
   resetUserAuthData,
   clearUserData,
@@ -27,7 +27,7 @@ export const authenticationReducer = createReducer(initialState, builder => {
         confirmNewPasswordRequest.meta.successAction,
         setUserAuthData,
       ),
-      (state, {payload}) => ({
+      (state, { payload }) => ({
         ...state,
         userAttributes: payload,
       }),

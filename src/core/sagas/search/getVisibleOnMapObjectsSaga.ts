@@ -1,12 +1,12 @@
-import {graphQLAPI} from 'api/graphql';
-import {getVisibleOnMapObjectsRequest} from 'core/actions/search';
-import {RequestError} from 'core/errors';
-import {createSearchPayloadSaga} from './createSearchPayloadSaga';
-import {call, put} from 'core/utils/typed-saga';
+import { graphQLAPI } from 'api/graphql';
+import { getVisibleOnMapObjectsRequest } from 'core/actions/search';
+import { RequestError } from 'core/errors';
+import { createSearchPayloadSaga } from './createSearchPayloadSaga';
+import { call, put } from 'core/utils/typed-saga';
 
 export function* getVisibleOnMapObjectsSaga({
-  payload: {objectIds},
-  meta: {successAction, failureAction},
+  payload: { objectIds },
+  meta: { successAction, failureAction },
 }: ReturnType<typeof getVisibleOnMapObjectsRequest>) {
   try {
     if (objectIds.length === 0) {
@@ -15,10 +15,10 @@ export function* getVisibleOnMapObjectsSaga({
     }
 
     const searchPayload = yield* call(createSearchPayloadSaga, {
-      filters: {objectIds},
+      filters: { objectIds },
     });
 
-    const {items} = yield* call(
+    const { items } = yield* call(
       [graphQLAPI, graphQLAPI.getSearchObjects],
       searchPayload,
     );

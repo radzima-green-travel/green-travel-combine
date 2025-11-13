@@ -1,5 +1,5 @@
-import {COLORS} from 'assets';
-import {hexWithAlpha} from 'core/helpers';
+import { COLORS } from 'assets';
+import { hexWithAlpha } from 'core/helpers';
 
 export const themeStyles = {
   container: {

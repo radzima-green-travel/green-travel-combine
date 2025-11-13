@@ -1,10 +1,10 @@
-import React, {memo, useCallback} from 'react';
-import {ImageStyle, Text, TouchableOpacity, View} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {IBelongsTo} from 'core/types';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {Image} from 'expo-image';
+import React, { memo, useCallback } from 'react';
+import { ImageStyle, Text, TouchableOpacity, View } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { IBelongsTo } from 'core/types';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { Image } from 'expo-image';
 
 interface IProps {
   onPress: (item: IBelongsTo) => void;
@@ -12,9 +12,9 @@ interface IProps {
   testID: string;
 }
 
-export const ObjectBelongsToItem = memo(({data, onPress, testID}: IProps) => {
+export const ObjectBelongsToItem = memo(({ data, onPress, testID }: IProps) => {
   const styles = useThemeStyles(themeStyles);
-  const {image, name, categoryName} = data;
+  const { image, name, categoryName } = data;
 
   const onPressHandler = useCallback(() => {
     onPress(data);
@@ -29,7 +29,7 @@ export const ObjectBelongsToItem = memo(({data, onPress, testID}: IProps) => {
       <Image
         {...getPlatformsTestID(composeTestID(testID, 'image'))}
         style={styles.image as ImageStyle}
-        source={{uri: image}}
+        source={{ uri: image }}
       />
       <View style={styles.textContainer}>
         <Text

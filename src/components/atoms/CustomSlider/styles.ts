@@ -1,7 +1,7 @@
-import {COLORS, FONTS_PRESETS} from 'assets';
-import {hexWithAlpha} from 'core/helpers/common';
-import {createThemeStyles} from 'core/helpers/styles';
-import {isIOS} from 'services/PlatformService';
+import { COLORS, FONTS_PRESETS } from 'assets';
+import { hexWithAlpha } from 'core/helpers/common';
+import { createThemeStyles } from 'core/helpers/styles';
+import { isIOS } from 'services/PlatformService';
 
 export const thumbSize = 28;
 
@@ -36,7 +36,7 @@ export const themeStyles = createThemeStyles({
     ...(isIOS
       ? {
           shadowColor: hexWithAlpha('#000000', 0.11),
-          shadowOffset: {width: 0, height: 2},
+          shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.4,
           shadowRadius: 0,
         }

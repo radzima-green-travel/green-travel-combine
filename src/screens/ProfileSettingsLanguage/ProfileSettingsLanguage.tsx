@@ -1,18 +1,18 @@
 import React from 'react';
-import {COLORS} from 'assets';
-import {Icon} from 'atoms';
-import {GeneralListItem} from 'molecules';
-import {View} from 'react-native';
-import {useProfileSettingsLanguage} from './hooks';
-import {useTranslation} from 'react-i18next';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
+import { COLORS } from 'assets';
+import { Icon } from 'atoms';
+import { GeneralListItem } from 'molecules';
+import { View } from 'react-native';
+import { useProfileSettingsLanguage } from './hooks';
+import { useTranslation } from 'react-i18next';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
 
 export const ProfileSettingsLanguage = () => {
-  const {t} = useTranslation('profile');
+  const { t } = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
 
-  const {changeLanguage, userLanguage, getLoadingStateByEntityId} =
+  const { changeLanguage, userLanguage, getLoadingStateByEntityId } =
     useProfileSettingsLanguage();
 
   return (

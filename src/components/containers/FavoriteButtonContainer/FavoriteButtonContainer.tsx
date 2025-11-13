@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {LoadingView} from 'atoms';
-import {COLORS} from 'assets';
-import {styles} from './styles';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {useFavorite} from 'core/hooks';
+import React, { memo } from 'react';
+import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { LoadingView } from 'atoms';
+import { COLORS } from 'assets';
+import { styles } from './styles';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { useFavorite } from 'core/hooks';
 const onAnimationEndDefault = () => {};
 
 interface IProps {
@@ -29,7 +29,7 @@ export const FavoriteButtonContainer = memo(
     testID,
     loadingIndicatorColor = COLORS.white,
   }: IProps) => {
-    const {toggleFavoriteHandler, isFavorite, favoritesSynchronizing} =
+    const { toggleFavoriteHandler, isFavorite, favoritesSynchronizing } =
       useFavorite({
         objectId,
         onFavoriteToggle,
@@ -42,12 +42,12 @@ export const FavoriteButtonContainer = memo(
         <View>
           <TouchableOpacity
             testID={composeTestID(testID, 'favoriteButton')}
-            hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}
+            hitSlop={{ top: 15, left: 15, bottom: 15, right: 15 }}
             style={style}
             onPress={toggleFavoriteHandler}
             disabled={favoritesSynchronizing}
             activeOpacity={0.8}
-            accessibilityState={{checked: !!isFavorite}}>
+            accessibilityState={{ checked: !!isFavorite }}>
             <View style={favoritesSynchronizing && styles.opaque}>
               {children(Boolean(isFavorite))}
             </View>

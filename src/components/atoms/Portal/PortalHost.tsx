@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import PortalManager from './PortalManager';
 
 type Props = {
@@ -7,9 +7,9 @@ type Props = {
 };
 
 type Operation =
-  | {type: 'mount'; key: number; children: React.ReactNode}
-  | {type: 'update'; key: number; children: React.ReactNode}
-  | {type: 'unmount'; key: number};
+  | { type: 'mount'; key: number; children: React.ReactNode }
+  | { type: 'update'; key: number; children: React.ReactNode }
+  | { type: 'unmount'; key: number };
 
 export type PortalMethods = {
   mount: (children: React.ReactNode) => number;
@@ -76,7 +76,7 @@ export default class PortalHost extends React.Component<Props> {
     if (this.manager) {
       this.manager.mount(key, children);
     } else {
-      this.queue.push({type: 'mount', key, children});
+      this.queue.push({ type: 'mount', key, children });
     }
 
     return key;
@@ -86,7 +86,7 @@ export default class PortalHost extends React.Component<Props> {
     if (this.manager) {
       this.manager.update(key, children);
     } else {
-      const op = {type: 'mount', key, children};
+      const op = { type: 'mount', key, children };
       const index = this.queue.findIndex(
         o => o.type === 'mount' || (o.type === 'update' && o.key === key),
       );
@@ -104,7 +104,7 @@ export default class PortalHost extends React.Component<Props> {
     if (this.manager) {
       this.manager.unmount(key);
     } else {
-      this.queue.push({type: 'unmount', key});
+      this.queue.push({ type: 'unmount', key });
     }
   };
 

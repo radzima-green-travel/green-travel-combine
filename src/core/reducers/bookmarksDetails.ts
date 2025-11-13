@@ -1,4 +1,4 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import {
   getBookmarksObjectsListRequest,
   clearBookmarksInitialObjectsData,
@@ -25,7 +25,7 @@ const initialState: BookmarksDetailsState = {
 export const bookmarksDetailsReducer = createReducer(initialState, builder => {
   builder.addCase(
     getBookmarksObjectsListRequest.meta.successAction,
-    (state, {payload: {data, id}}) => {
+    (state, { payload: { data, id } }) => {
       const existingData = state.objectsList[id] ?? [];
 
       state.objectsList = {
@@ -36,7 +36,7 @@ export const bookmarksDetailsReducer = createReducer(initialState, builder => {
   );
   builder.addCase(
     getBookmarksInitialObjectsDataRequest.meta.successAction,
-    (state, {payload}) => ({
+    (state, { payload }) => ({
       ...state,
       initialObjectsData: payload,
     }),

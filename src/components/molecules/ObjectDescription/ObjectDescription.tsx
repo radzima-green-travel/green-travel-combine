@@ -1,6 +1,6 @@
-import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
-import React, {memo, useState} from 'react';
-import HTML, {MixedStyleDeclaration} from 'react-native-render-html';
+import { useColorScheme, useThemeStyles, useTranslation } from 'core/hooks';
+import React, { memo, useState } from 'react';
+import HTML, { MixedStyleDeclaration } from 'react-native-render-html';
 import {
   themeStyles,
   gradientConfig,
@@ -8,12 +8,12 @@ import {
   gradientColorsDark,
   TEXT_COLLAPSE_HEIGHT,
 } from './styles';
-import {useWindowDimensions, View} from 'react-native';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {LinearGradient} from 'expo-linear-gradient';
-import {IOrigins} from 'core/types';
-import {Button} from 'atoms';
-import {ObjectDescriptionSource} from '../ObjectDescriptionSource';
+import { useWindowDimensions, View } from 'react-native';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { LinearGradient } from 'expo-linear-gradient';
+import { IOrigins } from 'core/types';
+import { Button } from 'atoms';
+import { ObjectDescriptionSource } from '../ObjectDescriptionSource';
 
 interface IProps {
   description: string;
@@ -31,8 +31,8 @@ export const ObjectDescription = memo(
     onToggleDescription,
     onLinkPress,
   }: IProps) => {
-    const styles = useThemeStyles(themeStyles, {disableStyleSheet: true});
-    const {t} = useTranslation('objectDetails');
+    const styles = useThemeStyles(themeStyles, { disableStyleSheet: true });
+    const { t } = useTranslation('objectDetails');
     const theme = useColorScheme();
 
     const [fullTextHeight, setFullTextHeight] = useState(0);
@@ -42,16 +42,16 @@ export const ObjectDescription = memo(
       fullTextHeight && fullTextHeight < TEXT_COLLAPSE_HEIGHT,
     );
 
-    const {width} = useWindowDimensions();
+    const { width } = useWindowDimensions();
     return (
       <View style={styles.container} {...getPlatformsTestID(testID)}>
         <View
           style={[
             styles.descriptionContainer,
-            (isExpanded || isNoNeedToCollapse) && {height: fullTextHeight},
+            (isExpanded || isNoNeedToCollapse) && { height: fullTextHeight },
           ]}>
           <View
-            onLayout={({nativeEvent}) => {
+            onLayout={({ nativeEvent }) => {
               setFullTextHeight(nativeEvent.layout.height);
             }}
             style={styles.descriptionContent}>
@@ -59,7 +59,7 @@ export const ObjectDescription = memo(
               contentWidth={width}
               enableCSSInlineProcessing={false}
               baseStyle={styles.text as MixedStyleDeclaration}
-              source={{html: description}}
+              source={{ html: description }}
               tagsStyles={{
                 h1: styles.headline as MixedStyleDeclaration,
                 h2: styles.headline as MixedStyleDeclaration,

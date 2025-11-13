@@ -1,6 +1,6 @@
-import {createThemeStyles} from 'core/helpers/styles';
-import {COLORS, FONTS_PRESETS} from 'assets';
-import {PADDING_HORIZONTAL} from 'core/constants';
+import { createThemeStyles } from 'core/helpers/styles';
+import { COLORS, FONTS_PRESETS } from 'assets';
+import { PADDING_HORIZONTAL } from 'core/constants';
 
 export const themeStyles = createThemeStyles({
   text: {

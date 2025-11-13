@@ -1,5 +1,5 @@
-import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   useOnRequestError,
   useOnRequestSuccess,
@@ -10,28 +10,28 @@ import {
   SignUpFormScreenRouteProps,
   SignUpFormScreenNavigationProps,
 } from '../types';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {signUpRequest} from 'core/actions';
-import {useFormik} from 'formik';
-import {SignUpFormModel} from 'core/types';
-import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { signUpRequest } from 'core/actions';
+import { useFormik } from 'formik';
+import { SignUpFormModel } from 'core/types';
+import { validationSchema } from './validation';
+import { useSnackbar } from 'atoms';
 
 export const useSignUpForm = () => {
   const dispatch = useDispatch();
 
   const {
-    params: {email},
+    params: { email },
   } = useRoute<SignUpFormScreenRouteProps>();
   const navigation = useNavigation<SignUpFormScreenNavigationProps>();
 
   const navigateToEmailValidation = useCallback(() => {
-    navigation.replace('CodeVerification', {email, isSignUp: true});
+    navigation.replace('CodeVerification', { email, isSignUp: true });
   }, [email, navigation]);
 
   const signUp = useCallback(
-    ({password}: SignUpFormModel) => {
-      dispatch(signUpRequest({email, password}));
+    ({ password }: SignUpFormModel) => {
+      dispatch(signUpRequest({ email, password }));
     },
     [dispatch, email],
   );
@@ -45,14 +45,14 @@ export const useSignUpForm = () => {
     validateOnMount: true,
   });
 
-  const {loading} = useRequestLoading(signUpRequest);
+  const { loading } = useRequestLoading(signUpRequest);
 
-  const {passwordHidden, rightIcon, handlePasswordHidden} =
+  const { passwordHidden, rightIcon, handlePasswordHidden } =
     useTogglePasswordHidden();
 
   useOnRequestSuccess(signUpRequest, navigateToEmailValidation);
 
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   useOnRequestError(signUpRequest, 'authentification', errorLabel => {
     show({

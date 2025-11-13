@@ -1,1 +1,1 @@
-export {UpdateBottomMenu} from './UpdateBottomMenu';
+export { UpdateBottomMenu } from './UpdateBottomMenu';

@@ -1,10 +1,10 @@
-import {useThemeStyles} from 'core/hooks';
-import React, {memo} from 'react';
-import {View, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
-import {buttonHitSlop, themeStyles} from './styles';
-import {IconProps, Icon} from 'atoms/Icon';
+import { useThemeStyles } from 'core/hooks';
+import React, { memo } from 'react';
+import { View, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
+import { buttonHitSlop, themeStyles } from './styles';
+import { IconProps, Icon } from 'atoms/Icon';
 import Animated from 'react-native-reanimated';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
 interface IProps {
   style?: StyleProp<ViewStyle>;
   icon: IconProps;
@@ -13,7 +13,7 @@ interface IProps {
   containerStyle?: StyleProp<ViewStyle>;
 }
 export const AnimatedCircleButton = memo(
-  ({icon, testID, onPress, style, containerStyle}: IProps) => {
+  ({ icon, testID, onPress, style, containerStyle }: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     return (

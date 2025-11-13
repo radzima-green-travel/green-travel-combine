@@ -1,1 +1,1 @@
-export {HeaderBackButton} from './HeaderBackButton';
+export { HeaderBackButton } from './HeaderBackButton';

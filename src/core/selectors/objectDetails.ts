@@ -1,7 +1,7 @@
-import {createSelector} from 'reselect';
-import {IState} from 'core/store';
-import {selectAppLanguage} from './settingsSelectors';
-import {prepareObjectDetails} from 'core/transformators/objectDetails';
+import { createSelector } from 'reselect';
+import { IState } from 'core/store';
+import { selectAppLanguage } from './settingsSelectors';
+import { prepareObjectDetails } from 'core/transformators/objectDetails';
 
 const selectObjectDetailsState = createSelector(
   (state: IState) => state.objectDetails,

@@ -1,4 +1,4 @@
-import {useMemo, useCallback} from 'react';
+import { useMemo, useCallback } from 'react';
 
 import {
   useBottomMenu,
@@ -6,21 +6,21 @@ import {
   useTranslation,
   useObjectDetailsSelector,
 } from 'core/hooks';
-import {selectObjectDetails} from 'core/selectors';
+import { selectObjectDetails } from 'core/selectors';
 import {
   msToHoursAndMinutes,
   sanitizePhoneNumber,
   tryOpenURL,
 } from 'core/helpers';
-import type {Item} from '../components/ObjectInfoSection/ObjectInfoSection';
-import {compact, join, map} from 'lodash';
-import {themeStyles} from '../styles';
-import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
-import {CardType} from '../components';
+import type { Item } from '../components/ObjectInfoSection/ObjectInfoSection';
+import { compact, join, map } from 'lodash';
+import { themeStyles } from '../styles';
+import { useObjectDetailsAnalytics } from './useObjectDetailsAnalytics';
+import { CardType } from '../components';
 
 export function useObjectDetailsInfo() {
-  const {t} = useTranslation('common');
-  const {t: objectDetailsT} = useTranslation('objectDetails');
+  const { t } = useTranslation('common');
+  const { t: objectDetailsT } = useTranslation('objectDetails');
   const styles = useThemeStyles(themeStyles);
   const {
     sendOfficialSiteUrlClickEvent,
@@ -95,34 +95,34 @@ export function useObjectDetailsInfo() {
   const phoneNumbersMenuProps = useBottomMenu();
   const childServicesMenuProps = useBottomMenu();
 
-  const {openMenu: openWorkingHoursMenu} = workingHoursMenuProps;
-  const {openMenu: openPhoneNumbersMenu} = phoneNumbersMenuProps;
-  const {openMenu: openChildServicesMenu} = childServicesMenuProps;
+  const { openMenu: openWorkingHoursMenu } = workingHoursMenuProps;
+  const { openMenu: openPhoneNumbersMenu } = phoneNumbersMenuProps;
+  const { openMenu: openChildServicesMenu } = childServicesMenuProps;
 
   const areSeveralPhoneNumbers = phoneNumbers && phoneNumbers?.length > 1;
   const amountOfPhoneNumbers = (phoneNumbers && phoneNumbers?.length) || 0;
 
   const getAttendaceStringTime = (() => {
     if (attendanceTime) {
-      const {hours, minutes} = msToHoursAndMinutes(attendanceTime);
+      const { hours, minutes } = msToHoursAndMinutes(attendanceTime);
 
       let hoursString = '';
       let minutesString = '';
 
       if (hours) {
         if (hours === 1) {
-          hoursString = objectDetailsT('time.hour', {hours});
+          hoursString = objectDetailsT('time.hour', { hours });
         } else if (hours > 1 && hours < 5) {
-          hoursString = objectDetailsT('time.hours', {hours});
+          hoursString = objectDetailsT('time.hours', { hours });
         } else {
-          hoursString = objectDetailsT('time.hoursAfter4', {hours});
+          hoursString = objectDetailsT('time.hoursAfter4', { hours });
         }
 
         hoursString += ' ';
       }
 
       if (minutes) {
-        minutesString = objectDetailsT('time.minutes', {minutes});
+        minutesString = objectDetailsT('time.minutes', { minutes });
       }
 
       return `${hoursString}${minutesString}`;
@@ -183,8 +183,8 @@ export function useObjectDetailsInfo() {
         leadIcon: 'telephone',
         onSubtitlePress: () => onTelephonePress(phone),
         testID: 'ObjectDetailsPhoneNumber',
-        containerStyle: {paddingVertical: 6},
-        titleContainerStyle: {paddingBottom: 16},
+        containerStyle: { paddingVertical: 6 },
+        titleContainerStyle: { paddingBottom: 16 },
         leadIconStyle: styles.listItemIcon,
         position: index === amountOfPhoneNumbers - 1 ? 'bottom' : 'middle',
       } as Item;

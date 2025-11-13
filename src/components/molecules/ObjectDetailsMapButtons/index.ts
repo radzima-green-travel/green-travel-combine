@@ -1,1 +1,1 @@
-export {ObjectDetailsMapButtons} from './ObjectDetailsMapButtons';
+export { ObjectDetailsMapButtons } from './ObjectDetailsMapButtons';

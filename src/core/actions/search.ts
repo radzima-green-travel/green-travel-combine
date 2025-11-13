@@ -1,7 +1,7 @@
-import {createAsyncAction} from 'core/helpers';
-import {Highlight, ObjectMapDTO, SearchObjectDTO} from 'core/types/api';
-import {createAction} from '@reduxjs/toolkit';
-import {SearchFilters, SearchOptions} from 'core/types';
+import { createAsyncAction } from 'core/helpers';
+import { Highlight, ObjectMapDTO, SearchObjectDTO } from 'core/types/api';
+import { createAction } from '@reduxjs/toolkit';
+import { SearchFilters, SearchOptions } from 'core/types';
 
 export interface SearchObjectsRequestPayload {
   query?: string;
@@ -30,7 +30,7 @@ export const getMapSearchObjectsRequest = createAsyncAction<
   SearchObjectsRequestPayload & {
     totals: number;
   },
-  {mapSearchObjects: ObjectMapDTO[]}
+  { mapSearchObjects: ObjectMapDTO[] }
 >('GET_SEARCH_RESULT_OBJECTS_IDS');
 
 export const setSearchInputValue = createAction<string>(
@@ -41,6 +41,6 @@ export const setSearchOptions =
   createAction<SearchOptions>('SET_SEARCH_OPTIONS');
 
 export const getVisibleOnMapObjectsRequest = createAsyncAction<
-  {objectIds: string[]},
+  { objectIds: string[] },
   SearchObjectDTO[]
 >('GET_VISIBLE_ON_MAP_OBJECTS');

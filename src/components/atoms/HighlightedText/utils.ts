@@ -25,5 +25,5 @@ export const getTextParts = ({
     }));
   }
 
-  return text ? [{partText: text, isBold: false}] : [];
+  return text ? [{ partText: text, isBold: false }] : [];
 };

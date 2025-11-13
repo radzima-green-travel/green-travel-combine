@@ -1,1 +1,1 @@
-export {searchSaga} from './search';
+export { searchSaga } from './search';

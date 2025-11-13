@@ -1,5 +1,5 @@
-import {CategoryShortDTO, PaginatedList} from './api';
-import {CategoryShort} from './common';
+import { CategoryShortDTO, PaginatedList } from './api';
+import { CategoryShort } from './common';
 
 export type PaginatedCategoriesList = PaginatedList<CategoryShortDTO> & {
   requestedItemsCount: number;

@@ -4,14 +4,14 @@ import {
   ObjectFiltersAggregationsDTO,
   GoogleRatingsAggregationsByObjectsDTO,
 } from 'core/types';
-import {reduce} from 'lodash';
+import { reduce } from 'lodash';
 
 export const transformBucketsToCountMap = (
-  buckets: {key: string; doc_count: number}[],
-): {[key: string]: number} =>
+  buckets: { key: string; doc_count: number }[],
+): { [key: string]: number } =>
   reduce(
     buckets,
-    (acc, {key, doc_count}) => {
+    (acc, { key, doc_count }) => {
       acc[key] = doc_count;
       return acc;
     },
@@ -23,7 +23,7 @@ export function prepareGoogleRatings(
 ) {
   return reduce(
     ratings,
-    (acc, {from, key, doc_count}) => {
+    (acc, { from, key, doc_count }) => {
       if (from >= 3.5) {
         acc.push({
           id: String(from),
@@ -33,7 +33,7 @@ export function prepareGoogleRatings(
       }
       return acc;
     },
-    [] as {id: string; value: string; disabled: boolean}[],
+    [] as { id: string; value: string; disabled: boolean }[],
   );
 }
 
@@ -61,17 +61,17 @@ export const transformActiveFiltersToFilterParam = ({
   filters: SearchFilters;
   userId?: string;
 }): FiltersParams => {
-  const {distance, excludeVisited} = filters;
+  const { distance, excludeVisited } = filters;
   return {
     ...(distance && distance.isOn && distance.location
       ? {
           km: distance.value,
-          location: {lat: distance.location.lat, lon: distance.location.lon},
+          location: { lat: distance.location.lat, lon: distance.location.lon },
         }
       : {}),
 
     filter: {
-      ...(excludeVisited && userId ? {userId} : {}),
+      ...(excludeVisited && userId ? { userId } : {}),
       googleRating: filters.googleRating || undefined,
       categories: filters.categories?.length ? filters.categories : undefined,
       regions: filters.regions?.length ? filters.regions : undefined,
@@ -81,20 +81,20 @@ export const transformActiveFiltersToFilterParam = ({
       ...(filters.markedAsNotOnGoogleMaps && {
         markedAsNotOnGoogleMaps: filters.markedAsNotOnGoogleMaps,
       }),
-      ...(filters.objectIds?.length && {ids: filters.objectIds}),
+      ...(filters.objectIds?.length && { ids: filters.objectIds }),
     },
   };
 };
 
 export const checkIfFiltersAreUnset = (filters?: SearchFilters) => {
   return (
-    !filters ||
-    (!filters.categories?.length &&
-      !filters.googleRating?.length &&
-      !filters.municipalities?.length &&
-      !filters.regions?.length &&
-      !filters.distance?.isOn &&
-      !filters.excludeVisited)
+    !filters
+    || (!filters.categories?.length
+      && !filters.googleRating?.length
+      && !filters.municipalities?.length
+      && !filters.regions?.length
+      && !filters.distance?.isOn
+      && !filters.excludeVisited)
   );
 };
 

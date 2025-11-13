@@ -1,7 +1,7 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import { COLORS, FONTS_STYLES } from 'assets';
 
 export const themeStyles = {
-  container: {alignItems: 'center'},
+  container: { alignItems: 'center' },
   title: {
     ...FONTS_STYLES.semibold20,
     color: {

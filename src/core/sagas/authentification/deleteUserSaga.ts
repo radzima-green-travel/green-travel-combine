@@ -1,5 +1,5 @@
-import {all, call, put, select, take} from 'redux-saga/effects';
-import {amplifyApi} from 'api/amplify';
+import { all, call, put, select, take } from 'redux-saga/effects';
+import { amplifyApi } from 'api/amplify';
 
 import {
   deleteUserRequest,
@@ -8,10 +8,10 @@ import {
   clearUserData,
 } from 'core/actions';
 
-import {selectIsAuthorizedWithSocialProviders} from 'core/selectors';
+import { selectIsAuthorizedWithSocialProviders } from 'core/selectors';
 
 export function* deleteUserSaga({
-  meta: {successAction, failureAction},
+  meta: { successAction, failureAction },
 }: ReturnType<typeof deleteUserRequest>) {
   try {
     const isAuthorizedWithSocialProviders: ReturnType<

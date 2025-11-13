@@ -6,13 +6,13 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react';
-import {TextInput} from 'react-native';
-import {HandleKeyboardContext, HandlerContainerContext} from '../context';
+import { TextInput } from 'react-native';
+import { HandleKeyboardContext, HandlerContainerContext } from '../context';
 
 export function useHandleKeyboardInput(
   forwardedRef?: ForwardedRef<TextInput | null>,
 ) {
-  const {handleNode, focusNextInput, registerInputNode, focusInputByRef} =
+  const { handleNode, focusNextInput, registerInputNode, focusInputByRef } =
     useContext(HandleKeyboardContext);
   const parentContainer = useContext(HandlerContainerContext);
   const containerToHandleRef = useRef(null);

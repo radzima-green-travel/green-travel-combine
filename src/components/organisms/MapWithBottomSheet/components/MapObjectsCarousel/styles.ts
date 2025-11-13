@@ -1,6 +1,6 @@
-import {PADDING_HORIZONTAL} from 'core/constants';
-import {StyleSheet} from 'react-native';
-import {SCREEN_WIDTH} from 'services/PlatformService';
+import { PADDING_HORIZONTAL } from 'core/constants';
+import { StyleSheet } from 'react-native';
+import { SCREEN_WIDTH } from 'services/PlatformService';
 
 export const MAP_OBJECTS_CAROUSEL_HEIGHT = 168;
 

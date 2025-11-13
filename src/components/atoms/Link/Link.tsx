@@ -1,7 +1,7 @@
-import React, {memo} from 'react';
-import {StyleProp, Text, TouchableOpacity, ViewStyle} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
+import React, { memo } from 'react';
+import { StyleProp, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
 
 interface IProps {
   name: string;
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 export const Link = memo(
-  ({name, link, onPress, testID, style, numberOfLines}: IProps) => {
+  ({ name, link, onPress, testID, style, numberOfLines }: IProps) => {
     const styles = useThemeStyles(themeStyles);
     return (
       <TouchableOpacity

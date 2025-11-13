@@ -1,1 +1,1 @@
-export {HomeSectionBar} from './HomeSectionBar';
+export { HomeSectionBar } from './HomeSectionBar';

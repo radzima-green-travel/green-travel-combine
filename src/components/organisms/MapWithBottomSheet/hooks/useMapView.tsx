@@ -11,18 +11,18 @@ import {
   getMapMarkers,
   createSelectedMarkerFromObject,
 } from 'core/transformators/appMap';
-import {ObjectMap, SearchObject} from 'core/types';
-import {isEqual, find} from 'lodash';
-import {ShapeSource, Camera, MapView, MapState} from '@rnmapbox/maps';
+import { ObjectMap, SearchObject } from 'core/types';
+import { isEqual, find } from 'lodash';
+import { ShapeSource, Camera, MapView, MapState } from '@rnmapbox/maps';
 
-import {useFocusToUserLocation, useStaticCallback} from 'core/hooks';
+import { useFocusToUserLocation, useStaticCallback } from 'core/hooks';
 
-import type {Feature, Position, Geometry} from 'geojson';
+import type { Feature, Position, Geometry } from 'geojson';
 
-import {mapService} from 'services/MapService';
-import {hapticFeedbackService} from 'services/HapticFeedbackService';
+import { mapService } from 'services/MapService';
+import { hapticFeedbackService } from 'services/HapticFeedbackService';
 
-import {ICarouselInstance} from 'react-native-reanimated-carousel';
+import { ICarouselInstance } from 'react-native-reanimated-carousel';
 import BottomSheet from '@gorhom/bottom-sheet';
 
 const defaultBbox = [
@@ -49,7 +49,7 @@ export const useMapView = ({
   mapObjects: ObjectMap[];
   visibleObjects: SearchObject[];
   onMarkersAppear: (
-    markers: Feature<Geometry, {icon_image: string; objectId: string}>[],
+    markers: Feature<Geometry, { icon_image: string; objectId: string }>[],
   ) => void;
 }) => {
   const carouselRef = useRef<ICarouselInstance>(null!);
@@ -95,10 +95,10 @@ export const useMapView = ({
 
   const selectObject = useCallback(
     (objectId: string) => {
-      const objectMap = find(mapObjects, {id: objectId});
+      const objectMap = find(mapObjects, { id: objectId });
 
       if (objectMap) {
-        setSelectedObject({...objectMap});
+        setSelectedObject({ ...objectMap });
       }
 
       if (!bottomMenuOpened && objectMap?.location) {
@@ -162,7 +162,7 @@ export const useMapView = ({
         )) as ReturnType<typeof createSelectedMarkerFromObject>;
 
         if (data) {
-          const {features} = data;
+          const { features } = data;
 
           const currentVisible = features.reduce(
             (acc, feature) => ({
@@ -212,13 +212,13 @@ export const useMapView = ({
   const onShapePress = useCallback(
     async (objectId: string | null) => {
       if (objectId) {
-        const itemData = find(mapObjects, {id: objectId});
+        const itemData = find(mapObjects, { id: objectId });
 
         if (itemData) {
           selectObject(itemData.id);
 
           carouselRef.current?.scrollTo({
-            index: visibleObjects.findIndex(({id}) => id === itemData.id),
+            index: visibleObjects.findIndex(({ id }) => id === itemData.id),
             animated: true,
           });
         }
@@ -228,16 +228,16 @@ export const useMapView = ({
   );
 
   const fitToClusterLeaves = useCallback((event: OnPressEvent) => {
-    const {features} = event;
+    const { features } = event;
     const isCluster = features[0]?.properties?.cluster;
 
     if (isCluster) {
       const cluster = features[0] as GeoJSON.Feature<
         GeoJSON.Point,
-        {cluster_id: number}
+        { cluster_id: number }
       >;
       const {
-        geometry: {coordinates},
+        geometry: { coordinates },
       } = cluster;
 
       shapeSourceRef.current?.getClusterExpansionZoom(cluster).then(zoom => {
@@ -257,7 +257,7 @@ export const useMapView = ({
   }, [bounds, focusToUserLocation]);
 
   const unfocusUserLocation = useCallback(
-    ({gestures: {isGestureActive}}: MapState) => {
+    ({ gestures: { isGestureActive } }: MapState) => {
       if (isGestureActive) {
         setIsUserLocationFocused(false);
       }

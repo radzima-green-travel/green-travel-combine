@@ -1,6 +1,6 @@
-import {useCurrentDataSelector} from 'react-redux-help-kit';
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {HomeNavigatorParamsList} from 'core/types';
+import { useCurrentDataSelector } from 'react-redux-help-kit';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { HomeNavigatorParamsList } from 'core/types';
 
 type ObjectDetailsScreenRouteProps = RouteProp<
   HomeNavigatorParamsList,
@@ -13,7 +13,7 @@ export const useObjectDetailsSelector = <
   selector: T,
 ) => {
   const {
-    params: {objectId},
+    params: { objectId },
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
   return useCurrentDataSelector(selector, {

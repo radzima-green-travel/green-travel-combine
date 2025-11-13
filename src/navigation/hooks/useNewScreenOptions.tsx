@@ -1,11 +1,11 @@
 import React from 'react';
-import {ColorSchemeName} from 'react-native';
-import {HeaderTitle} from 'atoms';
-import {COLORS} from 'assets';
-import {useColorScheme} from 'core/hooks';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
-import {HeaderBackButton} from 'molecules';
+import { ColorSchemeName } from 'react-native';
+import { HeaderTitle } from 'atoms';
+import { COLORS } from 'assets';
+import { useColorScheme } from 'core/hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
+import { HeaderBackButton } from 'molecules';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -20,16 +20,16 @@ export function useNewScreenOptions({
   ...customOptions
 }: IScreeOptions = {}) {
   const colorScheme = useColorScheme();
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
-  return ({navigation}) =>
+  return ({ navigation }) =>
     ({
       contentStyle: {
         backgroundColor:
           colorScheme === 'light'
             ? COLORS.light.background.primary
             : COLORS.dark.background.primary,
-        ...(withBottomInset ? {paddingBottom: bottom} : {}),
+        ...(withBottomInset ? { paddingBottom: bottom } : {}),
       },
       headerBackTitleVisible: false,
       headerTintColor:

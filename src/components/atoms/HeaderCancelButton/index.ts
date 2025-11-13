@@ -1,1 +1,1 @@
-export {HeaderCancelButton} from './HeaderCancelButton';
+export { HeaderCancelButton } from './HeaderCancelButton';

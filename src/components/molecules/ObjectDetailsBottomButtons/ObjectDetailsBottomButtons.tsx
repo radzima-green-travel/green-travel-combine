@@ -1,10 +1,10 @@
-import React, {memo, useMemo} from 'react';
-import {Icon} from 'atoms';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles} from './styles';
-import {isIOS} from 'services/PlatformService';
-import {ButtonsGroup} from '../ButtonsGroup';
-import {composeTestID} from 'core/helpers';
+import React, { memo, useMemo } from 'react';
+import { Icon } from 'atoms';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { themeStyles } from './styles';
+import { isIOS } from 'services/PlatformService';
+import { ButtonsGroup } from '../ButtonsGroup';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   onShowOnMapPress: () => void;
@@ -26,7 +26,7 @@ export const ObjectDetailsBottomButtons = memo(
     showOnMapButtonEnabled,
     testID,
   }: IProps) => {
-    const {t} = useTranslation('objectDetails');
+    const { t } = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
 
     const buttons = useMemo(() => {

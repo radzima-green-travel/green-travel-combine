@@ -1,5 +1,5 @@
-import {ShareExperienceInitialData, VisitedObjectsData} from 'core/types';
-import {createReducer} from '@reduxjs/toolkit';
+import { ShareExperienceInitialData, VisitedObjectsData } from 'core/types';
+import { createReducer } from '@reduxjs/toolkit';
 import {
   getVisitedObjectsRequest,
   deleteVisitedObjectRequest,
@@ -8,7 +8,7 @@ import {
   clearShareExperienceData,
   addVisitedObjectRequest,
 } from 'core/actions';
-import {filter, isEqual, some} from 'lodash';
+import { filter, isEqual, some } from 'lodash';
 
 interface InitialState {
   data: VisitedObjectsData;
@@ -24,9 +24,9 @@ export const visitedObjectsReducer = createReducer(initialState, builder => {
   builder
     .addCase(
       getVisitedObjectsRequest.meta.successAction,
-      (state, {payload}) => {
+      (state, { payload }) => {
         const locallyVisitedObjects = filter(state.data, object => {
-          return !some(payload, ({id}) => isEqual(id, object.id));
+          return !some(payload, ({ id }) => isEqual(id, object.id));
         });
         return {
           ...state,
@@ -34,7 +34,7 @@ export const visitedObjectsReducer = createReducer(initialState, builder => {
         };
       },
     )
-    .addCase(addVisitedObjectRequest, (state, {payload}) => {
+    .addCase(addVisitedObjectRequest, (state, { payload }) => {
       return {
         ...state,
         data: [
@@ -46,7 +46,7 @@ export const visitedObjectsReducer = createReducer(initialState, builder => {
         ],
       };
     })
-    .addCase(deleteVisitedObjectRequest, (state, {payload}) => ({
+    .addCase(deleteVisitedObjectRequest, (state, { payload }) => ({
       ...state,
       data: [
         ...filter(state.data, object => !isEqual(object.id, payload.objectId)),
@@ -56,7 +56,7 @@ export const visitedObjectsReducer = createReducer(initialState, builder => {
       ...state,
       data: [],
     }))
-    .addCase(setShareExperienceData, (state, {payload}) => ({
+    .addCase(setShareExperienceData, (state, { payload }) => ({
       ...state,
       shareExperienceData: payload,
     }))

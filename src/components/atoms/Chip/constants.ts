@@ -1,8 +1,8 @@
-import {COLORS} from 'assets/colors';
+import { COLORS } from 'assets/colors';
 
 type ChipThemes = 'default' | 'large';
 
-export const CHIP_THEMES: {[key in ChipThemes]: {[key: string]: object}} = {
+export const CHIP_THEMES: { [key in ChipThemes]: { [key: string]: object } } = {
   default: {
     container: {
       backgroundColor: {

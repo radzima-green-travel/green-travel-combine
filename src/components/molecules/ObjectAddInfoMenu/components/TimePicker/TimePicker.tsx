@@ -1,9 +1,9 @@
 import React from 'react';
-import {CustomSlider} from 'atoms';
-import {Text, View} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles, useTimeRange} from 'core/hooks';
-import {composeTestID} from 'core/helpers';
+import { CustomSlider } from 'atoms';
+import { Text, View } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles, useTimeRange } from 'core/hooks';
+import { composeTestID } from 'core/helpers';
 
 interface Props {
   prompt: string;
@@ -12,8 +12,8 @@ interface Props {
   testID: string;
 }
 
-export const TimePicker = ({prompt, onChange, value, testID}: Props) => {
-  const {timeString} = useTimeRange(value);
+export const TimePicker = ({ prompt, onChange, value, testID }: Props) => {
+  const { timeString } = useTimeRange(value);
   const styles = useThemeStyles(themeStyles);
 
   return (

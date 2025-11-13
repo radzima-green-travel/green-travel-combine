@@ -3,7 +3,7 @@ import {
   BookmarksObjectDTO,
   ObjectShortDTO,
 } from 'core/types/api';
-import {ObjectShort, TranslatedEntity} from 'core/types/common';
+import { ObjectShort, TranslatedEntity } from 'core/types/common';
 
 export interface BookmarksInitialObjectsDataState {
   objects: BookmarksObjectDTO[];

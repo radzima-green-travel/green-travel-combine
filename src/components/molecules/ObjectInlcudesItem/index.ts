@@ -1,1 +1,1 @@
-export {ObjectInlcudesItem} from './ObjectInlcudesItem';
+export { ObjectInlcudesItem } from './ObjectInlcudesItem';

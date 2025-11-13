@@ -1,19 +1,19 @@
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {getDefaultHeaderHeight} from '@react-navigation/elements';
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'services/PlatformService';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {AnimatedCircleButton} from '../AnimatedCircleButton';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { getDefaultHeaderHeight } from '@react-navigation/elements';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from 'services/PlatformService';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { AnimatedCircleButton } from '../AnimatedCircleButton';
 
-import React, {memo} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import React, { memo } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 import Animated, {
   SharedValue,
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import {composeTestID} from 'core/helpers';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   objectName: string;
@@ -23,10 +23,10 @@ interface IProps {
 }
 
 export const ObjectDetailsHeader = memo(
-  ({objectName, animatedValue, pivotHeightToAnimate, testID}: IProps) => {
+  ({ objectName, animatedValue, pivotHeightToAnimate, testID }: IProps) => {
     const navigation = useNavigation();
     const styles = useThemeStyles(themeStyles);
-    const {top} = useSafeAreaInsets();
+    const { top } = useSafeAreaInsets();
 
     const height = getDefaultHeaderHeight(
       {
@@ -58,7 +58,7 @@ export const ObjectDetailsHeader = memo(
     });
 
     return (
-      <View pointerEvents="box-none" style={[styles.container, {height}]}>
+      <View pointerEvents="box-none" style={[styles.container, { height }]}>
         <Animated.View
           pointerEvents="none"
           style={[StyleSheet.absoluteFill, hideStyle]}>

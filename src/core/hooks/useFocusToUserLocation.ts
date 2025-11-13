@@ -1,9 +1,9 @@
-import {Camera, Location} from '@rnmapbox/maps';
-import {IBounds} from 'core/types';
+import { Camera, Location } from '@rnmapbox/maps';
+import { IBounds } from 'core/types';
 
-import React, {useRef, useCallback, useState, useEffect} from 'react';
-import {locationService} from 'services/LocationService';
-import {useTask} from './useTask';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
+import { locationService } from 'services/LocationService';
+import { useTask } from './useTask';
 
 export function useFocusToUserLocation(
   cameraRef: React.RefObject<Camera | null>,
@@ -60,9 +60,9 @@ export function useFocusToUserLocation(
 
   useEffect(() => {
     if (
-      userLocationVisible &&
-      !initiallyFocusedToUserLocation.current &&
-      userLocation
+      userLocationVisible
+      && !initiallyFocusedToUserLocation.current
+      && userLocation
     ) {
       finishAllTasks(userLocation);
       initiallyFocusedToUserLocation.current = true;
@@ -75,7 +75,7 @@ export function useFocusToUserLocation(
         setUserLocationVisible(true);
       }
       if (event?.coords) {
-        const {latitude, longitude} = event.coords;
+        const { latitude, longitude } = event.coords;
         setUserLocation([longitude, latitude]);
       }
     },

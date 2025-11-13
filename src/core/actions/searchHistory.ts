@@ -1,6 +1,6 @@
-import {createAsyncAction} from 'core/helpers';
-import {SearchObjectDTO} from 'core/types/api';
-import {createAction} from '@reduxjs/toolkit';
+import { createAsyncAction } from 'core/helpers';
+import { SearchObjectDTO } from 'core/types/api';
+import { createAction } from '@reduxjs/toolkit';
 
 export const getSearchObjectsHistoryRequest = createAsyncAction<
   void,

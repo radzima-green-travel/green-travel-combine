@@ -1,14 +1,14 @@
-import {useMemo} from 'react';
-import {StyleSheet, ViewStyle, TextStyle, ImageStyle} from 'react-native';
-import {mapValues} from 'lodash';
-import {extractThemeStyles} from 'core/helpers';
-import {useColorScheme} from './useColorScheme';
+import { useMemo } from 'react';
+import { StyleSheet, ViewStyle, TextStyle, ImageStyle } from 'react-native';
+import { mapValues } from 'lodash';
+import { extractThemeStyles } from 'core/helpers';
+import { useColorScheme } from './useColorScheme';
 
-type NamedStyles<T> = {[P in keyof T]: ViewStyle | TextStyle | ImageStyle};
+type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
 
 export const useThemeStyles = function <T extends object>(
   themeStyles: T,
-  {disableStyleSheet = false} = {},
+  { disableStyleSheet = false } = {},
 ): NamedStyles<T> {
   const theme = useColorScheme();
 

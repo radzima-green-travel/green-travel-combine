@@ -1,15 +1,15 @@
-import React, {useCallback, useMemo} from 'react';
-import {Portal} from '@gorhom/portal';
-import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
-import {Keyboard, Platform, StyleSheet, View} from 'react-native';
-import {useBottomMenu} from 'core/hooks';
-import {ObjectAddInfoMenu} from 'molecules';
-import {IObjectIncompleteField} from 'core/types';
-import {ObjectField} from 'core/constants';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {isIOS} from 'services/PlatformService';
-import {FullWindowOverlay} from 'react-native-screens';
-import {composeTestID} from 'core/helpers';
+import React, { useCallback, useMemo } from 'react';
+import { Portal } from '@gorhom/portal';
+import { BottomMenu, SnackBar, useSnackbar } from 'atoms';
+import { Keyboard, Platform, StyleSheet, View } from 'react-native';
+import { useBottomMenu } from 'core/hooks';
+import { ObjectAddInfoMenu } from 'molecules';
+import { IObjectIncompleteField } from 'core/types';
+import { ObjectField } from 'core/constants';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { isIOS } from 'services/PlatformService';
+import { FullWindowOverlay } from 'react-native-screens';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   currentField: IObjectIncompleteField;
@@ -32,7 +32,7 @@ export const ObjectDetailsAddInfoMenu = ({
   onInputValueChange,
   testID,
 }: IProps) => {
-  const {top} = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
   const menuHeader = useMemo(
     () => ({
       title: currentField?.label ?? '',
@@ -49,7 +49,7 @@ export const ObjectDetailsAddInfoMenu = ({
     [addInfoMenuProps, onChange],
   );
 
-  const {textInputRef, keyboardHeight} = addInfoMenuProps;
+  const { textInputRef, keyboardHeight } = addInfoMenuProps;
   const renderContent = () => {
     return (
       <>
@@ -75,7 +75,7 @@ export const ObjectDetailsAddInfoMenu = ({
         <SnackBar
           testID={composeTestID(testID, 'snackBar')}
           isOnTop
-          offset={Platform.select({ios: 0, android: -top})}
+          offset={Platform.select({ ios: 0, android: -top })}
           {...snackBarProps}
         />
       </>

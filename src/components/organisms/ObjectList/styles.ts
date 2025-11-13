@@ -1,6 +1,6 @@
-import {COLORS, FONTS_PRESETS} from 'assets';
-import {createThemeStyles} from 'core/helpers/styles';
-import {StyleSheet} from 'react-native';
+import { COLORS, FONTS_PRESETS } from 'assets';
+import { createThemeStyles } from 'core/helpers/styles';
+import { StyleSheet } from 'react-native';
 
 const itemGap = 12;
 

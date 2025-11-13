@@ -1,10 +1,10 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
-import {useColorScheme, useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {HelperText} from '../HelperText';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {COLORS} from 'assets';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { Pressable, Text, TextInput, View } from 'react-native';
+import { useColorScheme, useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { HelperText } from '../HelperText';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { COLORS } from 'assets';
 
 interface IProp {
   onChange: (code: string, isCodeFull: boolean) => void;

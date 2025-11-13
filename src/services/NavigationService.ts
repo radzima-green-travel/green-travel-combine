@@ -2,8 +2,8 @@ import {
   NavigationState,
   createNavigationContainerRef,
 } from '@react-navigation/native';
-import {MainNavigatorParamsList, TabNavigatorParamsList} from 'core/types';
-import {reduce} from 'lodash';
+import { MainNavigatorParamsList, TabNavigatorParamsList } from 'core/types';
+import { reduce } from 'lodash';
 
 export const navigationRef =
   createNavigationContainerRef<MainNavigatorParamsList>();

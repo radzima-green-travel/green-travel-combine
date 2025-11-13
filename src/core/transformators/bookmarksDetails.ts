@@ -1,9 +1,9 @@
-import {SupportedLocales, IBookmarkItem} from 'core/types';
+import { SupportedLocales, IBookmarkItem } from 'core/types';
 import {
   convertShortObjectToCardItem,
   translateAndProcessImagesForEntity,
 } from 'core/transformators/common';
-import {map, mapValues} from 'lodash';
+import { map, mapValues } from 'lodash';
 import {
   BookmarksInitialObjectsDataState,
   ProcessedBookmarksInitialObjectsData,

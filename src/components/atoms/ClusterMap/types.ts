@@ -1,5 +1,5 @@
-import {Camera, MapState} from '@rnmapbox/maps';
-import {IBounds, ICoordinates, SupportedLocales} from 'core/types';
+import { Camera, MapState } from '@rnmapbox/maps';
+import { IBounds, ICoordinates, SupportedLocales } from 'core/types';
 import * as React from 'react';
 
 export type Props = {
@@ -9,7 +9,7 @@ export type Props = {
   children: React.ReactNode;
   centerCoordinate?: ICoordinates | null;
   cameraRef?: React.Ref<Camera>;
-  attributionPosition?: {bottom: number; right: number};
+  attributionPosition?: { bottom: number; right: number };
 
   testID: string;
   locale: SupportedLocales | null;

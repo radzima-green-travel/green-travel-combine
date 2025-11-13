@@ -1,4 +1,4 @@
-import {RequestErrorCodes, ErrorPresetParams} from 'core/types';
+import { RequestErrorCodes, ErrorPresetParams } from 'core/types';
 
 export const createLocationErrorPreset = () => ({
   message: 'Unable to retrieve geolocation.',

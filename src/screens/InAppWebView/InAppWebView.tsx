@@ -1,12 +1,12 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {WebView} from 'react-native-webview';
-import React, {useState, useLayoutEffect} from 'react';
-import {LoadingView} from 'atoms';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { WebView } from 'react-native-webview';
+import React, { useState, useLayoutEffect } from 'react';
+import { LoadingView } from 'atoms';
 import {
   SocialLoginInAppBrowserScreenRouteProps,
   SocialLoginInAppBrowserScreenNavigationProps,
 } from './types';
-import {tryOpenURL} from 'core/helpers';
+import { tryOpenURL } from 'core/helpers';
 
 export const InAppWebView = () => {
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ export const InAppWebView = () => {
     useNavigation<SocialLoginInAppBrowserScreenNavigationProps>();
 
   const {
-    params: {url, title},
+    params: { url, title },
   } = useRoute<SocialLoginInAppBrowserScreenRouteProps>();
 
   useLayoutEffect(() => {
@@ -31,7 +31,7 @@ export const InAppWebView = () => {
           setLoading(event.loading);
         }}
         textZoom={100}
-        source={{uri: url}}
+        source={{ uri: url }}
         originWhitelist={['*']}
         viewportContent={'width=device-width, user-scalable=no'}
         onShouldStartLoadWithRequest={request => {

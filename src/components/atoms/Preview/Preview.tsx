@@ -4,10 +4,10 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 let component: React.JSX.Element | null = null;
-const myRef = React.createRef<{update: () => void}>();
+const myRef = React.createRef<{ update: () => void }>();
 
 export const preview = (Comp: () => React.JSX.Element) => {
   component = <Comp />;
@@ -19,9 +19,9 @@ global.preview = preview;
 myRef.current?.update();
 
 const PreviewComponent = forwardRef<
-  {update: () => void},
+  { update: () => void },
   PropsWithChildren<{}>
->(({children}, ref) => {
+>(({ children }, ref) => {
   const [_, state] = React.useState(Math.random());
 
   useImperativeHandle(ref, () => ({
@@ -45,7 +45,7 @@ const PreviewComponent = forwardRef<
   return renderComponent();
 });
 
-export const Preview = ({children}) => {
+export const Preview = ({ children }) => {
   return __DEV__ ? (
     <PreviewComponent ref={myRef}>{children}</PreviewComponent>
   ) : (

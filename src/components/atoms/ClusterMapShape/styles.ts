@@ -1,6 +1,6 @@
-import {SymbolLayerStyle} from '@rnmapbox/maps';
-import {COLORS} from 'assets';
-import {MAP_PINS} from 'core/constants';
+import { SymbolLayerStyle } from '@rnmapbox/maps';
+import { COLORS } from 'assets';
+import { MAP_PINS } from 'core/constants';
 export const layerStyles = {
   singlePoint: {
     iconImage: ['get', 'icon_image'],

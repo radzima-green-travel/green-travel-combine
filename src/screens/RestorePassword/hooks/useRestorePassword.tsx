@@ -1,21 +1,21 @@
-import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   useOnRequestError,
   useRequestLoading,
   useTranslation,
   useOnRequestSuccess,
 } from 'core/hooks';
-import {useNavigation} from '@react-navigation/native';
-import {forgotPasswordRequest} from 'core/actions';
-import {RestorePasswordScreenNavigationProps} from '../types';
-import {useFormik} from 'formik';
-import {ForgotPasswordEmailFormModel} from 'core/types';
-import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
+import { useNavigation } from '@react-navigation/native';
+import { forgotPasswordRequest } from 'core/actions';
+import { RestorePasswordScreenNavigationProps } from '../types';
+import { useFormik } from 'formik';
+import { ForgotPasswordEmailFormModel } from 'core/types';
+import { validationSchema } from './validation';
+import { useSnackbar } from 'atoms';
 
 export const useRestorePassword = () => {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const dispatch = useDispatch();
 
   const navigation = useNavigation<RestorePasswordScreenNavigationProps>();
@@ -25,8 +25,8 @@ export const useRestorePassword = () => {
   };
 
   const onResendPassword = useCallback(
-    ({email}: ForgotPasswordEmailFormModel) => {
-      dispatch(forgotPasswordRequest({email}));
+    ({ email }: ForgotPasswordEmailFormModel) => {
+      dispatch(forgotPasswordRequest({ email }));
     },
     [dispatch],
   );
@@ -39,7 +39,7 @@ export const useRestorePassword = () => {
     onSubmit: onResendPassword,
   });
 
-  const {loading} = useRequestLoading(forgotPasswordRequest);
+  const { loading } = useRequestLoading(forgotPasswordRequest);
 
   useOnRequestSuccess(forgotPasswordRequest, () => {
     navigation.navigate('EmailValidation', {
@@ -50,7 +50,7 @@ export const useRestorePassword = () => {
 
   const buttonText = t('send');
 
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   useOnRequestError(forgotPasswordRequest, 'authentification', errorLabel => {
     show({

@@ -1,1 +1,1 @@
-export {ObjectDetailsBottomButtons} from './ObjectDetailsBottomButtons';
+export { ObjectDetailsBottomButtons } from './ObjectDetailsBottomButtons';

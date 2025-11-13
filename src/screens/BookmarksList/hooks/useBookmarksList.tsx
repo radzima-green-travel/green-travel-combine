@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
 import {
   useBookmarksListAnalytics,
@@ -6,28 +6,28 @@ import {
   useOnRequestError,
   useRequestLoading,
 } from 'core/hooks';
-import {CardItem} from 'core/types';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { CardItem } from 'core/types';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   BookmarksListScreenNavigationProps,
   BookmarksListScreenRouteProps,
 } from '../types';
-import {getAnalyticsNavigationScreenName} from 'core/helpers';
-import {getBookmarksObjectsListRequest} from 'core/actions';
-import {useDispatch, useSelector} from 'react-redux';
-import {isAndroid} from 'services/PlatformService';
-import {selectBookmarksObjectsList} from 'selectors';
+import { getAnalyticsNavigationScreenName } from 'core/helpers';
+import { getBookmarksObjectsListRequest } from 'core/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { isAndroid } from 'services/PlatformService';
+import { selectBookmarksObjectsList } from 'selectors';
 
 export const useBookmarksList = () => {
   const dispatch = useDispatch();
-  const {navigate, setOptions, goBack} =
+  const { navigate, setOptions, goBack } =
     useNavigation<BookmarksListScreenNavigationProps>();
 
-  const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
+  const { sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent } =
     useBookmarksListAnalytics();
 
   const navigateToObjectDetails = useCallback(
-    ({id, name, cover, blurhash, analyticsMetadata}: CardItem) => {
+    ({ id, name, cover, blurhash, analyticsMetadata }: CardItem) => {
       navigate('ObjectDetails', {
         objectId: id,
         objectCoverImageUrl: cover,
@@ -42,7 +42,7 @@ export const useBookmarksList = () => {
   );
 
   const sendIsFavoriteChangedEvent = useCallback(
-    ({name, analyticsMetadata}: CardItem, nextIsFavoriteStatus: boolean) => {
+    ({ name, analyticsMetadata }: CardItem, nextIsFavoriteStatus: boolean) => {
       if (nextIsFavoriteStatus) {
         sendSaveCardEvent(name, analyticsMetadata.categoryName);
       } else {
@@ -53,20 +53,18 @@ export const useBookmarksList = () => {
   );
 
   const {
-    params: {title, objectsIds, categoryId},
+    params: { title, objectsIds, categoryId },
   } = useRoute<BookmarksListScreenRouteProps>();
 
   const listData = useSelector(selectBookmarksObjectsList(categoryId));
 
-  const {filteredListData, newBookmarksIds, bookmarksIds} = useBookmarksObjects(
-    listData,
-    categoryId,
-  );
+  const { filteredListData, newBookmarksIds, bookmarksIds } =
+    useBookmarksObjects(listData, categoryId);
 
-  const {loading: bookmarksObjectsLoading} = useRequestLoading(
+  const { loading: bookmarksObjectsLoading } = useRequestLoading(
     getBookmarksObjectsListRequest,
   );
-  const {errorTexts} = useOnRequestError(getBookmarksObjectsListRequest, '');
+  const { errorTexts } = useOnRequestError(getBookmarksObjectsListRequest, '');
 
   const loading = !listData.length && bookmarksObjectsLoading;
 
@@ -120,9 +118,9 @@ export const useBookmarksList = () => {
 
   useEffect(() => {
     if (
-      isAndroid &&
-      prevListDataLength.current > filteredListData.length &&
-      filteredListData.length === 0
+      isAndroid
+      && prevListDataLength.current > filteredListData.length
+      && filteredListData.length === 0
     ) {
       goBack();
     }

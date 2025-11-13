@@ -1,1 +1,1 @@
-export {OptionalUpdate} from './OptionalUpdate';
+export { OptionalUpdate } from './OptionalUpdate';

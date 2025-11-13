@@ -1,1 +1,1 @@
-export {InteractiveCard} from './InteractiveCard';
+export { InteractiveCard } from './InteractiveCard';

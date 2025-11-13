@@ -1,5 +1,5 @@
-import {FONTS_PRESETS} from 'assets';
-import {Platform, StyleSheet} from 'react-native';
+import { FONTS_PRESETS } from 'assets';
+import { Platform, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   shadow: Platform.select({
     ios: {
       shadowColor: 'rgba(0, 0, 0, 0.15)',
-      shadowOffset: {width: 2, height: 9},
+      shadowOffset: { width: 2, height: 9 },
       shadowOpacity: 1,
       shadowRadius: 10,
     },

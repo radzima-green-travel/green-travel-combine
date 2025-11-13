@@ -1,1 +1,1 @@
-export {ProfileDetails} from './ProfileDetails';
+export { ProfileDetails } from './ProfileDetails';

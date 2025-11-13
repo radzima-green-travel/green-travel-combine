@@ -1,13 +1,13 @@
-import {OBJECT_ALLOWED_EDIT_FIELDS, ObjectField} from 'core/constants';
-import {IObjectIncompleteField} from 'core/types';
+import { OBJECT_ALLOWED_EDIT_FIELDS, ObjectField } from 'core/constants';
+import { IObjectIncompleteField } from 'core/types';
 import reduce from 'lodash/reduce';
-import {useMemo} from 'react';
-import {useTranslation} from 'react-i18next';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const useObjectIncompleteFields = (
   categoryIncompleteFields: ObjectField[],
 ) => {
-  const {t} = useTranslation('common');
+  const { t } = useTranslation('common');
 
   return useMemo(
     () =>
@@ -18,7 +18,7 @@ export const useObjectIncompleteFields = (
           ...(OBJECT_ALLOWED_EDIT_FIELDS.includes(
             fieldName as (typeof OBJECT_ALLOWED_EDIT_FIELDS)[number],
           )
-            ? [{id: fieldName, label: t(`objectFieldsLabels.${fieldName}`)}]
+            ? [{ id: fieldName, label: t(`objectFieldsLabels.${fieldName}`) }]
             : []),
         ],
         [] as IObjectIncompleteField[],

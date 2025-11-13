@@ -1,1 +1,1 @@
-export {ZoomableView} from './ZoomableView';
+export { ZoomableView } from './ZoomableView';

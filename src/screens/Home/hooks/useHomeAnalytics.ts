@@ -1,7 +1,7 @@
-import {sendAnalyticsEvent} from 'core/actions';
-import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
-import {getScreenTimeSec} from 'core/helpers';
+import { sendAnalyticsEvent } from 'core/actions';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { getScreenTimeSec } from 'core/helpers';
 
 export function useHomeAnalytics() {
   const dispatch = useDispatch();
@@ -15,18 +15,18 @@ export function useHomeAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'home_lifetime',
-          data: {param_time_interval: timeInSec},
+          data: { param_time_interval: timeInSec },
         }),
       );
     };
   }, [dispatch]);
 
   const sendMainScreenViewEvent = useCallback(() => {
-    dispatch(sendAnalyticsEvent({name: 'MainScreen_view'}));
+    dispatch(sendAnalyticsEvent({ name: 'MainScreen_view' }));
   }, [dispatch]);
 
   const sendMainScreenNonGMObjectsViewEvent = useCallback(() => {
-    dispatch(sendAnalyticsEvent({name: 'MainScreen_non_GM_objects_view'}));
+    dispatch(sendAnalyticsEvent({ name: 'MainScreen_non_GM_objects_view' }));
   }, [dispatch]);
 
   const sendMainScreenWeekObjectViewEvent = useCallback(
@@ -34,7 +34,7 @@ export function useHomeAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'MainScreen_week_object_view',
-          data: {object_name, object_category},
+          data: { object_name, object_category },
         }),
       );
     },
@@ -46,7 +46,7 @@ export function useHomeAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'MainScreen_week_object_bookmarks_add',
-          data: {object_name, object_category},
+          data: { object_name, object_category },
         }),
       );
     },
@@ -58,7 +58,7 @@ export function useHomeAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'MainScreen_random_place_view',
-          data: {object_name, object_category},
+          data: { object_name, object_category },
         }),
       );
     },
@@ -70,7 +70,7 @@ export function useHomeAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'MainScreen_week_object_bookmarks_remove',
-          data: {object_name, object_category},
+          data: { object_name, object_category },
         }),
       );
     },
@@ -82,7 +82,7 @@ export function useHomeAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'MainScreen_category_view',
-          data: {category},
+          data: { category },
         }),
       );
     },

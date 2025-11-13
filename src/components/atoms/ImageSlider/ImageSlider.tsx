@@ -6,13 +6,13 @@ import {
   ImageStyle,
   Pressable,
 } from 'react-native';
-import {Image} from 'expo-image';
+import { Image } from 'expo-image';
 
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {ZoomableView} from '../ZoomableViewGlobal';
-import {indexKeyExtractor} from 'core/utils/react';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { ZoomableView } from '../ZoomableViewGlobal';
+import { indexKeyExtractor } from 'core/utils/react';
 interface IProps {
   images?: string[];
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
@@ -36,7 +36,7 @@ export const ImageSlider = ({
 }: IProps) => {
   const activePageIndex = Math.max(0, activePage - 1);
   const styles = useThemeStyles(themeStyles);
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     const imageSourse =
       typeof item === 'string'
         ? {
@@ -47,7 +47,7 @@ export const ImageSlider = ({
     return (
       <Pressable onPress={onImagePress}>
         <Image
-          style={[styles.image as ImageStyle, {width}]}
+          style={[styles.image as ImageStyle, { width }]}
           contentFit="cover"
           cachePolicy="memory-disk"
           source={imageSourse.uri}

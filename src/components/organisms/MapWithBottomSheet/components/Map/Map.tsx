@@ -1,6 +1,6 @@
 import React from 'react';
-import {ClusterMap, ClusterMapShape} from 'atoms';
-import {StyleProp, View} from 'react-native';
+import { ClusterMap, ClusterMapShape } from 'atoms';
+import { StyleProp, View } from 'react-native';
 
 import {
   SymbolLayerStyle,
@@ -10,11 +10,11 @@ import {
   UserLocationRenderMode,
   MapState,
 } from '@rnmapbox/maps';
-import {SupportedLocales} from 'core/types';
-import type {FeatureCollection, Point} from 'geojson';
+import { SupportedLocales } from 'core/types';
+import type { FeatureCollection, Point } from 'geojson';
 
-import type {useMapView} from '../../hooks';
-import {styles, selectedPointStyle} from './styles';
+import type { useMapView } from '../../hooks';
+import { styles, selectedPointStyle } from './styles';
 
 interface MapProps
   extends Pick<

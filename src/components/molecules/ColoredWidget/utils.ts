@@ -8,12 +8,12 @@ export const parseTitleLine = (inputString: string) =>
       }
 
       if (part.startsWith('<em>') && part.endsWith('</em>')) {
-        chunks.push({text: part.slice(4, -5), highlighted: true});
+        chunks.push({ text: part.slice(4, -5), highlighted: true });
       } else {
-        chunks.push({text: part, highlighted: false});
+        chunks.push({ text: part, highlighted: false });
       }
 
       return chunks;
     },
-    [] as {text: string; highlighted: boolean}[],
+    [] as { text: string; highlighted: boolean }[],
   );

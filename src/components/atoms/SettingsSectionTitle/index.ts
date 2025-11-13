@@ -1,1 +1,1 @@
-export {SettingsSectionTitle} from './SettingsSectionTitle';
+export { SettingsSectionTitle } from './SettingsSectionTitle';

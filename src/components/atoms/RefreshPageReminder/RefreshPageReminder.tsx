@@ -1,7 +1,7 @@
-import React, {memo, useLayoutEffect, useMemo} from 'react';
-import {View, Animated, Text, TouchableOpacity} from 'react-native';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles} from './styles';
+import React, { memo, useLayoutEffect, useMemo } from 'react';
+import { View, Animated, Text, TouchableOpacity } from 'react-native';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { themeStyles } from './styles';
 
 type Props = {
   onPress: () => void;
@@ -22,8 +22,8 @@ const opacityInterpolation = {
   outputRange: [0, 0, 0, 1],
 };
 
-export const RefreshPageReminder = memo<Props>(({onPress}: Props) => {
-  const {t} = useTranslation('home');
+export const RefreshPageReminder = memo<Props>(({ onPress }: Props) => {
+  const { t } = useTranslation('home');
   const styles = useThemeStyles(themeStyles);
   const animatedValue = useMemo(() => new Animated.Value(0), []);
 

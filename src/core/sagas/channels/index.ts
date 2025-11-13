@@ -1,1 +1,1 @@
-export {appStateChannel} from './appStateChannel';
+export { appStateChannel } from './appStateChannel';

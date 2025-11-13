@@ -22,7 +22,7 @@ import {
   AppMapObjectsResponseDTO,
   MapSearchObjectsDTO,
 } from 'core/types/api';
-import {GraphQLAPIEngine} from './GraphQLAPIEngine';
+import { GraphQLAPIEngine } from './GraphQLAPIEngine';
 import {
   getCategoriesAggregationsByObjectsQuery,
   searchCategoriesQuery,
@@ -44,9 +44,9 @@ import {
   getFilterObjectsQuery,
   getFiltersCategoriesQuery,
 } from './queries/filters';
-import {getBookmarksInitialObjectsDataQuery} from './queries/bookmarksDetails';
+import { getBookmarksInitialObjectsDataQuery } from './queries/bookmarksDetails';
 
-import {getObjectsTotalCountQuery} from './queries/common';
+import { getObjectsTotalCountQuery } from './queries/common';
 
 class GraphQLAPI extends GraphQLAPIEngine {
   async getCategoriesList(
@@ -112,11 +112,11 @@ class GraphQLAPI extends GraphQLAPIEngine {
   async getFilterObjects(
     params: FiltersParams = {},
   ): Promise<ObjectFiltersDataResponseDTO> {
-    const {filter, ...otherParams} = params;
+    const { filter, ...otherParams } = params;
     const response = await this.executeQuery({
       query: getFilterObjectsQuery(otherParams.locale),
       params: {
-        filter: {...this.defaultFilters, ...filter},
+        filter: { ...this.defaultFilters, ...filter },
         ...otherParams,
       },
     });
@@ -129,7 +129,10 @@ class GraphQLAPI extends GraphQLAPIEngine {
   ): Promise<ListShortObjectsResponseDTO> {
     const response = await this.executeQuery({
       query: objectListQuery,
-      params: {...params, filter: {...this.defaultFilters, ...params.filter}},
+      params: {
+        ...params,
+        filter: { ...this.defaultFilters, ...params.filter },
+      },
     });
 
     return response.filterLandingObjects;
@@ -146,11 +149,11 @@ class GraphQLAPI extends GraphQLAPIEngine {
   async getSearchObjects(
     params: FiltersParams,
   ): Promise<SearchObjectsResponseDTO> {
-    const {filter, ...otherParams} = params;
+    const { filter, ...otherParams } = params;
 
     const response = await this.executeQuery({
       query: getSearchObjectsQuery(otherParams.locale),
-      params: {filter: {...this.defaultFilters, ...filter}, ...otherParams},
+      params: { filter: { ...this.defaultFilters, ...filter }, ...otherParams },
     });
 
     return response.filterLandingObjects;
@@ -159,11 +162,11 @@ class GraphQLAPI extends GraphQLAPIEngine {
   async getMapSearchObjects(
     params: FiltersParams,
   ): Promise<MapSearchObjectsDTO> {
-    const {filter, ...otherParams} = params;
+    const { filter, ...otherParams } = params;
     const response = await this.executeQuery({
       query: getSearchMapObjectsQuery(otherParams.locale),
       params: {
-        filter: {...this.defaultFilters, ...filter},
+        filter: { ...this.defaultFilters, ...filter },
         ...otherParams,
       },
     });
@@ -245,7 +248,7 @@ class GraphQLAPI extends GraphQLAPIEngine {
     return response.searchObjects;
   }
 
-  private readonly defaultFilters = {statuses: ['published']};
+  private readonly defaultFilters = { statuses: ['published'] };
 }
 
 export const graphQLAPI = new GraphQLAPI();

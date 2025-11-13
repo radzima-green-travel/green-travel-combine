@@ -1,12 +1,12 @@
-import {ColoredWidget} from 'molecules';
-import {Image} from 'expo-image';
-import React, {memo} from 'react';
-import {useTranslation} from 'react-i18next';
-import {View} from 'react-native';
-import {widgetStyles} from './styles';
+import { ColoredWidget } from 'molecules';
+import { Image } from 'expo-image';
+import React, { memo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
+import { widgetStyles } from './styles';
 
-export const RandomSpotWidget = ({onPress}: {onPress?: () => void}) => {
-  const {t} = useTranslation('home');
+export const RandomSpotWidget = ({ onPress }: { onPress?: () => void }) => {
+  const { t } = useTranslation('home');
 
   return (
     <ColoredWidget

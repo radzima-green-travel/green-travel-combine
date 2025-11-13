@@ -1,4 +1,4 @@
-import {createFilterObjectsQuery} from './common';
+import { createFilterObjectsQuery } from './common';
 
 export const searchObjectQueryParameters = `
           id

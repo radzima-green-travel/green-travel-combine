@@ -1,5 +1,5 @@
-import React, {createContext} from 'react';
-import {TextInput} from 'react-native';
+import React, { createContext } from 'react';
+import { TextInput } from 'react-native';
 
 type HandleKeyboardContextType = {
   handleNode: (node: any) => void;

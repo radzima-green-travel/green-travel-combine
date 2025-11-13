@@ -1,4 +1,4 @@
-import {useSnackbar} from 'atoms';
+import { useSnackbar } from 'atoms';
 import {
   useBottomMenu,
   useOnRequestError,
@@ -6,11 +6,11 @@ import {
   useRequestLoading,
   useTranslation,
 } from 'core/hooks';
-import {sendInaccuraciesEmailRequest} from 'core/actions';
-import {useCallback} from 'react';
-import {Keyboard} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
+import { sendInaccuraciesEmailRequest } from 'core/actions';
+import { useCallback } from 'react';
+import { Keyboard } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { useObjectDetailsAnalytics } from './useObjectDetailsAnalytics';
 
 const entityIdObjectDetails = 'objectDetails';
 
@@ -22,7 +22,7 @@ export function useReportInaccuracies({
   objectName: string;
 }) {
   const dispatch = useDispatch();
-  const {t} = useTranslation('objectDetails');
+  const { t } = useTranslation('objectDetails');
   const {
     onReportInnacuranceFieldValueChange,
     sendReportInaccuranceCloseEvent,
@@ -51,11 +51,11 @@ export function useReportInaccuracies({
         dispatch(
           sendInaccuraciesEmailRequest(
             {
-              subject: t('inaccuraciesEmailSubject', {objectName}),
+              subject: t('inaccuraciesEmailSubject', { objectName }),
               message: message,
               objectId,
             },
-            {entityId: entityIdObjectDetails},
+            { entityId: entityIdObjectDetails },
           ),
         );
       }
@@ -63,7 +63,7 @@ export function useReportInaccuracies({
     [dispatch, objectId, objectName, sendReportInaccuranceSendEvent, t],
   );
 
-  const {show} = snackBarProps;
+  const { show } = snackBarProps;
 
   useOnRequestError(
     sendInaccuraciesEmailRequest,
@@ -86,7 +86,7 @@ export function useReportInaccuracies({
     openInnacurateInfoSuccessMenu();
   });
 
-  const {loading: sendInaccuraciesLoading} = useRequestLoading(
+  const { loading: sendInaccuraciesLoading } = useRequestLoading(
     sendInaccuraciesEmailRequest,
   );
 

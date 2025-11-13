@@ -1,11 +1,11 @@
-import {call, put} from 'redux-saga/effects';
-import {changePasswordRequest} from 'core/actions';
-import {CognitoUserWithAttributes} from 'core/types';
-import {amplifyApi} from 'api/amplify';
+import { call, put } from 'redux-saga/effects';
+import { changePasswordRequest } from 'core/actions';
+import { CognitoUserWithAttributes } from 'core/types';
+import { amplifyApi } from 'api/amplify';
 
 export function* changePasswordSaga({
-  payload: {oldPassword, newPassword},
-  meta: {successAction, failureAction},
+  payload: { oldPassword, newPassword },
+  meta: { successAction, failureAction },
 }: ReturnType<typeof changePasswordRequest>) {
   try {
     const user: CognitoUserWithAttributes = yield call(

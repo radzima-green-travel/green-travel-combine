@@ -1,1 +1,1 @@
-export {CustomSlider as CustomSlider} from './CustomSlider';
+export { CustomSlider as CustomSlider } from './CustomSlider';

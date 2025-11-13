@@ -1,2 +1,2 @@
-export {useObjectDetailsAddInfo} from './useObjectDetailsAddInfo';
-export {useObjectAddInfoAnalytics} from './useObjectAddInfoAnalytics';
+export { useObjectDetailsAddInfo } from './useObjectDetailsAddInfo';
+export { useObjectAddInfoAnalytics } from './useObjectAddInfoAnalytics';

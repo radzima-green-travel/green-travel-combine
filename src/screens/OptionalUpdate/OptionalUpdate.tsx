@@ -1,11 +1,11 @@
 import React from 'react';
-import {BottomMenu} from 'atoms';
-import {UpdateBottomMenu} from 'molecules';
-import {useOptionalUpdate} from './hooks';
-import {Portal} from '@gorhom/portal';
+import { BottomMenu } from 'atoms';
+import { UpdateBottomMenu } from 'molecules';
+import { useOptionalUpdate } from './hooks';
+import { Portal } from '@gorhom/portal';
 
 export const OptionalUpdate = () => {
-  const {onUpdate, onRemindLater, onSkipUpdate, menuProps, bottom} =
+  const { onUpdate, onRemindLater, onSkipUpdate, menuProps, bottom } =
     useOptionalUpdate();
 
   return (

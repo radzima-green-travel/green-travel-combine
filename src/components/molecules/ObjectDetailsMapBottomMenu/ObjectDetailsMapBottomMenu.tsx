@@ -1,13 +1,13 @@
-import React, {memo, useMemo} from 'react';
-import {View, Text, TextStyle} from 'react-native';
-import {themeStyles} from './styles';
+import React, { memo, useMemo } from 'react';
+import { View, Text, TextStyle } from 'react-native';
+import { themeStyles } from './styles';
 
-import {Button, Icon} from 'atoms';
-import {FavoriteButtonContainer} from 'containers';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {COLORS} from 'assets';
-import {IObject} from 'core/types';
-import {composeTestID} from 'core/helpers';
+import { Button, Icon } from 'atoms';
+import { FavoriteButtonContainer } from 'containers';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { COLORS } from 'assets';
+import { IObject } from 'core/types';
+import { composeTestID } from 'core/helpers';
 
 export type ObjectDetailsMapBottomMenuRef = {
   show: () => void;
@@ -35,7 +35,7 @@ export const ObjectDetailsMapBottomMenu = memo(
     belongsToSubtitle,
     testID,
   }: IProps) => {
-    const {t} = useTranslation('objectDetails');
+    const { t } = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
 
     const subtitleText = useMemo(() => {
@@ -43,7 +43,7 @@ export const ObjectDetailsMapBottomMenu = memo(
         return null;
       }
 
-      const {address, length, category} = data;
+      const { address, length, category } = data;
 
       let result = address || '';
 
@@ -63,9 +63,9 @@ export const ObjectDetailsMapBottomMenu = memo(
     if (!data) {
       return null;
     }
-    const {id, name} = data;
+    const { id, name } = data;
     return (
-      <View style={[styles.container, {paddingBottom: bottomInset}]}>
+      <View style={[styles.container, { paddingBottom: bottomInset }]}>
         <View style={[styles.contentContainer]}>
           <View>
             <View style={styles.textContainer}>

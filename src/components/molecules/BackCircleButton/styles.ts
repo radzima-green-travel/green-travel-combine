@@ -1,4 +1,4 @@
-import {SCREEN_WIDTH} from 'services/PlatformService';
+import { SCREEN_WIDTH } from 'services/PlatformService';
 
 export const TOP = 15;
 export const LEFT_RATIO = 16 / 375;

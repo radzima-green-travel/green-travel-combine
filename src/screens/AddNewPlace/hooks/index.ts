@@ -1,1 +1,1 @@
-export {useAddNewPlaceAnalytics} from './useAddNewPlaceAnalytics';
+export { useAddNewPlaceAnalytics } from './useAddNewPlaceAnalytics';

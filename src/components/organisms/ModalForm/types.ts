@@ -1,4 +1,4 @@
-import {ReactFormExtendedApi} from '@tanstack/react-form';
+import { ReactFormExtendedApi } from '@tanstack/react-form';
 
 export type AnyForm<T = any> = ReactFormExtendedApi<
   T,

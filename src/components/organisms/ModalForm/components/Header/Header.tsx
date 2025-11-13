@@ -1,10 +1,10 @@
-import {composeTestID} from 'core/helpers';
-import {useThemeStyles} from 'core/hooks';
-import {AnimatedCircleButton} from 'molecules';
-import React, {ReactNode} from 'react';
-import {Platform, Text, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {themeStyles, containerGap} from './styles';
+import { composeTestID } from 'core/helpers';
+import { useThemeStyles } from 'core/hooks';
+import { AnimatedCircleButton } from 'molecules';
+import React, { ReactNode } from 'react';
+import { Platform, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { themeStyles, containerGap } from './styles';
 
 export const Header = ({
   title,
@@ -17,7 +17,7 @@ export const Header = ({
 }) => {
   const styles = useThemeStyles(themeStyles);
 
-  const {top: topSafeAreaInset} = useSafeAreaInsets();
+  const { top: topSafeAreaInset } = useSafeAreaInsets();
 
   return (
     <View
@@ -25,12 +25,12 @@ export const Header = ({
       style={[
         styles.container,
         Platform.select({
-          ios: {marginTop: containerGap},
-          android: {marginTop: Math.max(topSafeAreaInset, containerGap * 2)},
+          ios: { marginTop: containerGap },
+          android: { marginTop: Math.max(topSafeAreaInset, containerGap * 2) },
         }),
       ]}>
       <AnimatedCircleButton
-        icon={{name: 'chevronMediumLeft'}}
+        icon={{ name: 'chevronMediumLeft' }}
         testID={composeTestID(testID, 'backButton')}
         onPress={onBackPress}
       />

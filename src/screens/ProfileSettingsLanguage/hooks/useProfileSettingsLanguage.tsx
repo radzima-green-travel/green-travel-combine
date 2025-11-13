@@ -1,9 +1,9 @@
-import {changeLanguageRequest} from 'core/actions';
-import {useDispatch, useSelector} from 'react-redux';
-import {useCallback} from 'react';
-import {selectAppLanguage, selectIsSystemLanguage} from 'core/selectors';
-import {SupportedLocales} from 'core/types';
-import {useRequestLoading} from 'react-redux-help-kit';
+import { changeLanguageRequest } from 'core/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCallback } from 'react';
+import { selectAppLanguage, selectIsSystemLanguage } from 'core/selectors';
+import { SupportedLocales } from 'core/types';
+import { useRequestLoading } from 'react-redux-help-kit';
 
 export const useProfileSettingsLanguage = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,9 @@ export const useProfileSettingsLanguage = () => {
 
   const userLanguage = isSystemLanguage ? null : appLanguage;
 
-  const {getLoadingStateByEntityId} = useRequestLoading(changeLanguageRequest);
+  const { getLoadingStateByEntityId } = useRequestLoading(
+    changeLanguageRequest,
+  );
 
   const changeLanguage = useCallback(
     (language: SupportedLocales | null) => {
@@ -22,7 +24,7 @@ export const useProfileSettingsLanguage = () => {
             language,
             isSystemLanguage: !language,
           },
-          {entityId: language || 'defaultLocale'},
+          { entityId: language || 'defaultLocale' },
         ),
       );
     },

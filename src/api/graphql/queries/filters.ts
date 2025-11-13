@@ -1,4 +1,4 @@
-import {createFilterObjectsQuery} from './common';
+import { createFilterObjectsQuery } from './common';
 
 export const searchSpotsQuery = `
    query SearchSpots($filter: SearchableSpotFilterInput, $sort: [SearchableSpotSortInput], $limit: Int, $nextToken: String, $from: Int, $aggregates: [SearchableSpotAggregationInput]) {

@@ -1,11 +1,11 @@
-import {Portal} from '@gorhom/portal';
-import {BottomMenu, SnackBar, useSnackbar} from 'atoms';
-import {ObjectReportinaccuraciesMenu, ObjectSuccessMenu} from 'molecules';
-import {useBottomMenu, useColorScheme, useTranslation} from 'core/hooks';
-import React, {memo, useMemo} from 'react';
-import {Keyboard} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {composeTestID} from 'core/helpers';
+import { Portal } from '@gorhom/portal';
+import { BottomMenu, SnackBar, useSnackbar } from 'atoms';
+import { ObjectReportinaccuraciesMenu, ObjectSuccessMenu } from 'molecules';
+import { useBottomMenu, useColorScheme, useTranslation } from 'core/hooks';
+import React, { memo, useMemo } from 'react';
+import { Keyboard } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   onSendPress: (value: string) => void;
@@ -30,8 +30,8 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
     testID,
   }: IProps) => {
     const theme = useColorScheme();
-    const {top} = useSafeAreaInsets();
-    const {t} = useTranslation('objectDetails');
+    const { top } = useSafeAreaInsets();
+    const { t } = useTranslation('objectDetails');
     const reportInaccuraciesMenuHeader = useMemo(
       () => ({
         title: t('reportInaccuraciesMenuTitle'),
@@ -39,7 +39,7 @@ export const ObjectDetailsReportInaccuraciesMenu = memo(
       [t],
     );
 
-    const {textInputRef, keyboardHeight} = reportInnacurateInfoMenuProps;
+    const { textInputRef, keyboardHeight } = reportInnacurateInfoMenuProps;
 
     return (
       <Portal>

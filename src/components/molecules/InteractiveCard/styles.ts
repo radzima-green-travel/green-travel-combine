@@ -1,13 +1,13 @@
-import {StyleSheet} from 'react-native';
-import {COLORS} from 'assets/colors';
-import {FONTS_STYLES} from 'assets/fonts';
-import type {LinearGradientProps} from 'expo-linear-gradient';
+import { StyleSheet } from 'react-native';
+import { COLORS } from 'assets/colors';
+import { FONTS_STYLES } from 'assets/fonts';
+import type { LinearGradientProps } from 'expo-linear-gradient';
 
 export const themeStyles = {
   cardContainer: {
     height: 144,
     shadowColor: 'rgb(21, 39, 2)',
-    shadowOffset: {width: 0, height: 5},
+    shadowOffset: { width: 0, height: 5 },
     shadowOpacity: {
       light: 0.3,
       dark: 0,
@@ -72,6 +72,6 @@ export const themeStyles = {
 
 export const gradientConfig: LinearGradientProps = {
   colors: ['rgba(32, 36, 30, 0.9)', 'rgba(32, 36, 30, 0)'],
-  start: {x: 0.0, y: 0},
-  end: {x: 0.0, y: 0.5},
+  start: { x: 0.0, y: 0 },
+  end: { x: 0.0, y: 0.5 },
 };

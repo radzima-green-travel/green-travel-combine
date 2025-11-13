@@ -1,1 +1,1 @@
-export {FavoriteButtonContainer} from './FavoriteButtonContainer';
+export { FavoriteButtonContainer } from './FavoriteButtonContainer';

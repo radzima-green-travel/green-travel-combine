@@ -1,1 +1,1 @@
-export {SearchOptionsBottomMenu} from './SearchOptionsBottomMenu';
+export { SearchOptionsBottomMenu } from './SearchOptionsBottomMenu';

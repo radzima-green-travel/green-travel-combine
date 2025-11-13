@@ -1,16 +1,16 @@
-import {useCallback, useRef, useState} from 'react';
-import {useRoute} from '@react-navigation/native';
-import {ObjectListViewMode} from '../../components/types';
-import {type SearchScreenRouteProps} from '../../screens/Search/types';
-import type {SearchFilters} from '../types';
-import {checkIfSearchParamsApplied} from '../transformators/search';
+import { useCallback, useRef, useState } from 'react';
+import { useRoute } from '@react-navigation/native';
+import { ObjectListViewMode } from '../../components/types';
+import { type SearchScreenRouteProps } from '../../screens/Search/types';
+import type { SearchFilters } from '../types';
+import { checkIfSearchParamsApplied } from '../transformators/search';
 
 export const useSearchListViewMode = (searchParameters: {
   query: string;
   filters?: SearchFilters;
 }) => {
-  const {params} = useRoute<SearchScreenRouteProps>();
-  const {defaultViewMode = 'list', appliedFilters} = params ?? {};
+  const { params } = useRoute<SearchScreenRouteProps>();
+  const { defaultViewMode = 'list', appliedFilters } = params ?? {};
 
   const defaultSearchViewMode: ObjectListViewMode = 'list';
   const initialFilters = useRef(appliedFilters).current;

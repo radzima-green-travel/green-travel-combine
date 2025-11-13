@@ -1,12 +1,12 @@
-import {useCallback, useMemo} from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   CompositeNavigationProp,
   RouteProp,
   useNavigation,
 } from '@react-navigation/native';
-import {last} from 'lodash';
-import {AuthNavigatorParamsList, MainNavigatorParamsList} from 'core/types';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { last } from 'lodash';
+import { AuthNavigatorParamsList, MainNavigatorParamsList } from 'core/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type AuthNavigatorRouteProps = RouteProp<
   MainNavigatorParamsList,

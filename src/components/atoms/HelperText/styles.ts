@@ -1,4 +1,4 @@
-import {COLORS, FONTS_PRESETS} from 'assets';
+import { COLORS, FONTS_PRESETS } from 'assets';
 
 export const themeStyles = {
   messageText: {

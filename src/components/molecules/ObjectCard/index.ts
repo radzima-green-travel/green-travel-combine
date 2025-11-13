@@ -1,1 +1,1 @@
-export {ObjectCard} from './ObjectCard';
+export { ObjectCard } from './ObjectCard';

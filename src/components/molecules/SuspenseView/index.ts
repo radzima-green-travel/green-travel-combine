@@ -1,1 +1,1 @@
-export {SuspenseView} from './SuspenseView';
+export { SuspenseView } from './SuspenseView';

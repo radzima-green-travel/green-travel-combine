@@ -1,1 +1,1 @@
-export {useForceUpdate} from './useForceUpdate';
+export { useForceUpdate } from './useForceUpdate';

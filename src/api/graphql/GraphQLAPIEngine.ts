@@ -1,6 +1,6 @@
-import {GraphQLResult} from '@aws-amplify/api-graphql';
-import {graphqlOperation, API} from 'aws-amplify';
-import {GraphQLError} from 'graphql';
+import { GraphQLResult } from '@aws-amplify/api-graphql';
+import { graphqlOperation, API } from 'aws-amplify';
+import { GraphQLError } from 'graphql';
 import {
   RequestError,
   createErrorPreset,
@@ -8,7 +8,7 @@ import {
   createInvalidVariableErrorPreset,
   createValidationErrorPreset,
 } from 'core/errors';
-import {ErrorPresetParams} from 'core/types';
+import { ErrorPresetParams } from 'core/types';
 
 export class GraphQLAPIEngine {
   async executeQuery({

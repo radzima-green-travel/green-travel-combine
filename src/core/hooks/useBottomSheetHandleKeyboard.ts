@@ -1,12 +1,12 @@
-import {useBottomSheetInternal} from '@gorhom/bottom-sheet';
-import {PADDING_HORIZONTAL} from 'core/constants';
-import {useEffect, useState, useCallback} from 'react';
-import {StatusBar} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {isIOS} from 'services/PlatformService';
+import { useBottomSheetInternal } from '@gorhom/bottom-sheet';
+import { PADDING_HORIZONTAL } from 'core/constants';
+import { useEffect, useState, useCallback } from 'react';
+import { StatusBar } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { isIOS } from 'services/PlatformService';
 
 export function useBottomSheetHandleKeyboard() {
-  const {shouldHandleKeyboardEvents} = useBottomSheetInternal();
+  const { shouldHandleKeyboardEvents } = useBottomSheetInternal();
 
   useEffect(() => {
     return () => {
@@ -14,7 +14,7 @@ export function useBottomSheetHandleKeyboard() {
     };
   }, [shouldHandleKeyboardEvents]);
 
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
   const [bottomInset, setBottomInset] = useState(0);
 

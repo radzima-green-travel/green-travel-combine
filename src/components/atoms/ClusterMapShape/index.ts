@@ -1,1 +1,1 @@
-export {ClusterMapShape} from './ClusterMapShape';
+export { ClusterMapShape } from './ClusterMapShape';

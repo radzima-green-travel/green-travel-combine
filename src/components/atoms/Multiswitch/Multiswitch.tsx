@@ -1,21 +1,34 @@
-import React, {memo} from 'react';
-import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
-import {MULTISWITCH_THEMES} from './constants';
-import {styles} from './styles';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
+import { useThemeStyles } from 'core/hooks';
+import { MULTISWITCH_THEMES } from './constants';
+import { styles } from './styles';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
 
 interface IProps {
-  items: {id: string; value: string; disabled: boolean}[];
+  items: { id: string; value: string; disabled: boolean }[];
   onItemPress: (item: string) => void;
   testID: string;
   activeItemId: string | null;
   style?: StyleProp<ViewStyle>;
-  defaultValue?: {id: string; value: string; disabled: boolean};
+  defaultValue?: { id: string; value: string; disabled: boolean };
 }
 
 export const Multiswitch = memo(
-  ({items, onItemPress, activeItemId, testID, style, defaultValue}: IProps) => {
+  ({
+    items,
+    onItemPress,
+    activeItemId,
+    testID,
+    style,
+    defaultValue,
+  }: IProps) => {
     const multiswitchStyles = useThemeStyles(MULTISWITCH_THEMES.default);
 
     const switchItems = defaultValue ? [defaultValue, ...items] : items;

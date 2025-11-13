@@ -1,4 +1,4 @@
-import {createThemeStyles} from 'core/helpers/styles';
+import { createThemeStyles } from 'core/helpers/styles';
 
 export const themeStyles = createThemeStyles({
   boldText: {

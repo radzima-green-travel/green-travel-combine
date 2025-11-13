@@ -11,13 +11,13 @@ import {
   ObjectThumbnailDTO,
   PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
-import {filter, map, orderBy, reduce} from 'lodash';
+import { filter, map, orderBy, reduce } from 'lodash';
 import {
   convertPlaceOfTheWeekObjectToCardItem,
   extractLocaleSpecificValues,
   translateAndProcessImagesForEntity,
 } from './common';
-import {GRAPHQL_QUERY_CATEGORY_INDEX} from 'api/graphql';
+import { GRAPHQL_QUERY_CATEGORY_INDEX } from 'api/graphql';
 
 export function getCategoriesWithObjects(
   categoriesAggregations: CategoriesAggregationsByObjectsResponseDTO,
@@ -81,7 +81,7 @@ export function prepareHomePageData(
 
       return acc;
     },
-    {main: [], routes: []} as HomePagesCategories,
+    { main: [], routes: [] } as HomePagesCategories,
   );
 }
 
@@ -103,7 +103,7 @@ export function prepareRandomObject(
   locale: SupportedLocales | null,
 ) {
   return map(objects, object => {
-    const {analyticsMetadata: categoryAnalyticsMetadata} =
+    const { analyticsMetadata: categoryAnalyticsMetadata } =
       extractLocaleSpecificValues(object.category, locale);
 
     const randomObjectData = extractLocaleSpecificValues(object, locale);

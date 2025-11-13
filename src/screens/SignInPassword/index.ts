@@ -1,1 +1,1 @@
-export {SignInPassword} from './SignInPassword';
+export { SignInPassword } from './SignInPassword';

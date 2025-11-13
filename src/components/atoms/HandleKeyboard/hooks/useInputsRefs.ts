@@ -1,6 +1,6 @@
-import {useRef, useCallback} from 'react';
-import {TextInput} from 'react-native';
-import {pull, findIndex} from 'lodash';
+import { useRef, useCallback } from 'react';
+import { TextInput } from 'react-native';
+import { pull, findIndex } from 'lodash';
 
 export function useInputsRefs() {
   const store = useRef<TextInput[]>([]);

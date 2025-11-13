@@ -1,6 +1,6 @@
-import {COLORS, FONTS_PRESETS} from 'assets';
-import {createThemeStyles} from 'core/helpers/styles';
-import {StyleSheet} from 'react-native';
+import { COLORS, FONTS_PRESETS } from 'assets';
+import { createThemeStyles } from 'core/helpers/styles';
+import { StyleSheet } from 'react-native';
 
 export const objectCardStyles = createThemeStyles({
   container: {
@@ -12,7 +12,7 @@ export const objectCardStyles = createThemeStyles({
     borderRadius: 20,
     overflow: 'hidden',
   },
-  imageContainer: {flex: 1, padding: 8},
+  imageContainer: { flex: 1, padding: 8 },
   image: StyleSheet.absoluteFillObject,
   detailsBlock: {
     paddingTop: 8,
@@ -20,7 +20,7 @@ export const objectCardStyles = createThemeStyles({
     alignItems: 'flex-start',
     gap: 4,
   },
-  ratingRow: {flexDirection: 'row', gap: 4, marginTop: 'auto'},
+  ratingRow: { flexDirection: 'row', gap: 4, marginTop: 'auto' },
   name: {
     ...FONTS_PRESETS.caption1Bold,
     color: {

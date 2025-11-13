@@ -1,4 +1,4 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import {
   searchObjectsRequest,
   searchMoreObjectsRequest,
@@ -7,10 +7,10 @@ import {
   getMapSearchObjectsRequest,
   getVisibleOnMapObjectsRequest,
 } from 'core/actions';
-import {SearchOptions} from 'core/types';
-import type {Highlight, ObjectMapDTO, SearchObjectDTO} from 'core/types/api';
-import {mapValues} from 'lodash';
-import {byIdReducer} from 'react-redux-help-kit';
+import { SearchOptions } from 'core/types';
+import type { Highlight, ObjectMapDTO, SearchObjectDTO } from 'core/types/api';
+import { mapValues } from 'lodash';
+import { byIdReducer } from 'react-redux-help-kit';
 
 interface SearchState {
   searchObjects: SearchObjectDTO[];
@@ -31,17 +31,17 @@ const initialState: SearchState = {
   inputValue: '',
   nextToken: null,
   total: 0,
-  options: {byAddress: true, byDescription: true},
+  options: { byAddress: true, byDescription: true },
 };
 export const reducer = createReducer(initialState, builder => {
-  builder.addCase(setSearchInputValue, (state, {payload}) => ({
+  builder.addCase(setSearchInputValue, (state, { payload }) => ({
     ...state,
     inputValue: payload,
   }));
 
   builder.addCase(
     searchObjectsRequest.meta.successAction,
-    (state, {payload}) => ({
+    (state, { payload }) => ({
       ...state,
       searchObjects: payload.searchObjects,
       nextToken: payload.nextToken,
@@ -53,7 +53,7 @@ export const reducer = createReducer(initialState, builder => {
 
   builder.addCase(
     searchMoreObjectsRequest.meta.successAction,
-    (state, {payload}) => ({
+    (state, { payload }) => ({
       ...state,
       searchObjects: [...state.searchObjects, ...payload.searchObjects],
       highlight: mapValues(state.highlight, (value, key) => {
@@ -65,14 +65,14 @@ export const reducer = createReducer(initialState, builder => {
     }),
   );
 
-  builder.addCase(setSearchOptions, (state, {payload}) => ({
+  builder.addCase(setSearchOptions, (state, { payload }) => ({
     ...state,
     options: payload,
   }));
 
   builder.addCase(
     getMapSearchObjectsRequest.meta.successAction,
-    (state, {payload}) => {
+    (state, { payload }) => {
       return {
         ...state,
         mapSearchObjects: payload.mapSearchObjects,
@@ -81,7 +81,7 @@ export const reducer = createReducer(initialState, builder => {
   );
   builder.addCase(
     getVisibleOnMapObjectsRequest.meta.successAction,
-    (state, {payload}) => {
+    (state, { payload }) => {
       return {
         ...state,
         objectsVisibleOnMap: payload,

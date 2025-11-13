@@ -1,16 +1,19 @@
-import React, {useLayoutEffect} from 'react';
-import {Text, View} from 'react-native';
-import {HomeScreenNavigationProps, IProps} from './types';
-import {Icon} from 'atoms/Icon';
-import {SearchField} from 'molecules';
-import {Button, CustomHeader} from 'atoms';
-import {getAnalyticsNavigationScreenName, getPartOfTheDay} from 'core/helpers';
-import {useNavigation} from '@react-navigation/native';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles} from './styles';
-import {HEADER_BOTTOM_RADIUS} from 'core/constants';
+import React, { useLayoutEffect } from 'react';
+import { Text, View } from 'react-native';
+import { HomeScreenNavigationProps, IProps } from './types';
+import { Icon } from 'atoms/Icon';
+import { SearchField } from 'molecules';
+import { Button, CustomHeader } from 'atoms';
+import {
+  getAnalyticsNavigationScreenName,
+  getPartOfTheDay,
+} from 'core/helpers';
+import { useNavigation } from '@react-navigation/native';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { themeStyles } from './styles';
+import { HEADER_BOTTOM_RADIUS } from 'core/constants';
 
-const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
+const HeaderRight = ({ navigation, testID }: Omit<IProps, 'route'>) => {
   return (
     <Button
       testID={testID}
@@ -29,7 +32,7 @@ const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
               appliedFilters,
             });
 
-            return {redirectHandled: true};
+            return { redirectHandled: true };
           },
         });
       }}
@@ -41,7 +44,7 @@ const HeaderRight = ({navigation, testID}: Omit<IProps, 'route'>) => {
 export function useHomeHeader() {
   const navigation = useNavigation<HomeScreenNavigationProps>();
   const styles = useThemeStyles(themeStyles);
-  const {t} = useTranslation('home');
+  const { t } = useTranslation('home');
 
   const partOfTheDay = getPartOfTheDay();
 
@@ -80,7 +83,7 @@ export function useHomeHeader() {
 
   return {
     pageListContainerProps: {
-      contentContainerStyle: {paddingTop: HEADER_BOTTOM_RADIUS},
+      contentContainerStyle: { paddingTop: HEADER_BOTTOM_RADIUS },
       showsVerticalScrollIndicator: false,
     },
   };

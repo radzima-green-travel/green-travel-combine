@@ -1,1 +1,1 @@
-export {FilterDistance} from './FilterDistance';
+export { FilterDistance } from './FilterDistance';

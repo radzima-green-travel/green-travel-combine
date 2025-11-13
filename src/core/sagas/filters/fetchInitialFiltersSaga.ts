@@ -1,15 +1,15 @@
-import {put} from 'redux-saga/effects';
-import {getInitialFiltersSaga} from './getInitialFiltersSaga';
-import {fetchInitialFilters} from '../../actions';
-import {RequestError} from '../../errors';
+import { put } from 'redux-saga/effects';
+import { getInitialFiltersSaga } from './getInitialFiltersSaga';
+import { fetchInitialFilters } from '../../actions';
+import { RequestError } from '../../errors';
 
 export function* fetchInitialFiltersSaga({
   meta,
 }: ReturnType<typeof fetchInitialFilters>) {
   try {
-    const {regionsList, categoriesList} = yield* getInitialFiltersSaga();
+    const { regionsList, categoriesList } = yield* getInitialFiltersSaga();
 
-    yield put(meta.successAction({regionsList, categoriesList}));
+    yield put(meta.successAction({ regionsList, categoriesList }));
   } catch (e) {
     yield put(meta.failureAction(e as RequestError));
   }

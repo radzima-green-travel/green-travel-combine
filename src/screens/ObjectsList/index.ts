@@ -1,1 +1,1 @@
-export {ObjectListScreen as ObjectsList} from './ObjectListScreen';
+export { ObjectListScreen as ObjectsList } from './ObjectListScreen';

@@ -1,4 +1,4 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   ObjectDetailsAddInfoScreenNavigationProps,
   ObjectDetailsAddInfoScreenRouteProps,
@@ -10,29 +10,29 @@ import {
   useTranslation,
   useBackHandler,
 } from 'core/hooks';
-import {useCallback, useEffect, useState} from 'react';
-import {Keyboard} from 'react-native';
-import {useObjectInfoForm} from './useObjectInfoForm';
-import {useDispatch} from 'react-redux';
-import {sendAddInfoEmailRequest} from 'core/actions';
+import { useCallback, useEffect, useState } from 'react';
+import { Keyboard } from 'react-native';
+import { useObjectInfoForm } from './useObjectInfoForm';
+import { useDispatch } from 'react-redux';
+import { sendAddInfoEmailRequest } from 'core/actions';
 import reduce from 'lodash/reduce';
-import {useSnackbar} from 'atoms';
-import {IObjectIncompleteField} from 'core/types';
-import {ObjectField, TIME_PICKER_FIELDS} from 'core/constants';
-import {useObjectAddInfoAnalytics} from './useObjectAddInfoAnalytics';
-import {filter} from 'lodash';
+import { useSnackbar } from 'atoms';
+import { IObjectIncompleteField } from 'core/types';
+import { ObjectField, TIME_PICKER_FIELDS } from 'core/constants';
+import { useObjectAddInfoAnalytics } from './useObjectAddInfoAnalytics';
+import { filter } from 'lodash';
 
 export const useObjectDetailsAddInfo = () => {
   const navigation = useNavigation<ObjectDetailsAddInfoScreenNavigationProps>();
   const {
-    params: {objectId, objectName, incompleteFields, showSuccessMenu},
+    params: { objectId, objectName, incompleteFields, showSuccessMenu },
   } = useRoute<ObjectDetailsAddInfoScreenRouteProps>();
-  const {t} = useTranslation('objectDetailsAddInfo');
+  const { t } = useTranslation('objectDetailsAddInfo');
   const bottomMenuProps = useBottomMenu();
   const confirmBottomMenuProps = useBottomMenu();
   const [currentField, setCurrentField] =
     useState<IObjectIncompleteField | null>(null);
-  const {form, onChangeField, isFormValid, getDisplayValue} =
+  const { form, onChangeField, isFormValid, getDisplayValue } =
     useObjectInfoForm(incompleteFields);
   const value = currentField ? form[currentField.id] : '';
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ export const useObjectDetailsAddInfo = () => {
   }, [sendAddInfoModalViewEvent]);
 
   const getIsDataCanBeLost = () => {
-    const {fields} = getEmailContents();
+    const { fields } = getEmailContents();
     return !!fields;
   };
 
@@ -87,7 +87,7 @@ export const useObjectDetailsAddInfo = () => {
   const getEmailContents = useCallback(() => {
     const contents = reduce(
       incompleteFields,
-      (acc, {id, label}) => {
+      (acc, { id, label }) => {
         if (form[id]) {
           const change = `${label}: ${getDisplayValue(id)}`;
           acc.message ||= change;
@@ -104,7 +104,7 @@ export const useObjectDetailsAddInfo = () => {
 
         return acc;
       },
-      {message: '', fields: ''},
+      { message: '', fields: '' },
     );
 
     return contents;
@@ -120,13 +120,13 @@ export const useObjectDetailsAddInfo = () => {
 
   const sendFilledData = useCallback(() => {
     if (objectId && objectName) {
-      const {message, fields} = getEmailContents();
+      const { message, fields } = getEmailContents();
 
       confirmBottomMenuProps.closeMenu();
 
       dispatch(
         sendAddInfoEmailRequest({
-          subject: t('addInfoEmailSubject', {objectName, fields}),
+          subject: t('addInfoEmailSubject', { objectName, fields }),
           message,
           objectId,
           showSuccessMenu,
@@ -150,7 +150,7 @@ export const useObjectDetailsAddInfo = () => {
     );
   }, [form, incompleteFields, sendAddInfoModalSendAllEvent, sendFilledData]);
 
-  const {loading: isSendLoading} = useRequestLoading(sendAddInfoEmailRequest);
+  const { loading: isSendLoading } = useRequestLoading(sendAddInfoEmailRequest);
 
   useOnRequestError(
     sendAddInfoEmailRequest,

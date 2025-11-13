@@ -1,5 +1,5 @@
-import {AppState, AppStateStatus} from 'react-native';
-import {useEffect, useRef} from 'react';
+import { AppState, AppStateStatus } from 'react-native';
+import { useEffect, useRef } from 'react';
 
 export function useAppState(
   callback: (state: AppStateStatus, prevState: AppStateStatus) => void,
@@ -12,7 +12,7 @@ export function useAppState(
       prevState.current = state;
     };
 
-    const {remove} = AppState.addEventListener('change', listener);
+    const { remove } = AppState.addEventListener('change', listener);
     return () => {
       remove();
     };

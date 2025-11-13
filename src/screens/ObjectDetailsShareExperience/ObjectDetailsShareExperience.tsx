@@ -1,22 +1,26 @@
-import {BottomMenu, SnackBar, Backdrop} from 'atoms';
-import {useColorScheme, useOnRequestSuccess, useTranslation} from 'core/hooks';
+import { BottomMenu, SnackBar, Backdrop } from 'atoms';
+import {
+  useColorScheme,
+  useOnRequestSuccess,
+  useTranslation,
+} from 'core/hooks';
 import {
   ObjectShareExperienceMenu,
   ObjectReportinaccuraciesMenu,
   ObjectSuccessMenu,
 } from 'molecules';
-import React, {useCallback, useMemo} from 'react';
-import {useShareExperienceMenu, useShareExperienceData} from './hooks';
+import React, { useCallback, useMemo } from 'react';
+import { useShareExperienceMenu, useShareExperienceData } from './hooks';
 
 import {
   sendInaccuraciesEmailRequest,
   updateVisitedObjectRequest,
 } from 'core/actions';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const ObjectDetailsShareExperience = () => {
-  const {t} = useTranslation('objectDetails');
-  const {top} = useSafeAreaInsets();
+  const { t } = useTranslation('objectDetails');
+  const { top } = useSafeAreaInsets();
   const theme = useColorScheme();
 
   const {

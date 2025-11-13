@@ -1,5 +1,5 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {useState, useEffect, useCallback, useMemo} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   selectIsSettlementsLoaded,
   selectSettlementsSections,
@@ -16,26 +16,26 @@ import {
   getSettlementsDataRequest,
   setActiveFilter,
 } from 'core/actions';
-import {every, xor} from 'lodash';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {SettlementsScreenRouteProps} from '../types';
-import {IState} from 'core/store';
-import {SpotItem} from 'core/types';
-import {useSnackbar} from 'atoms';
-import {useSettlementsAnalytics} from './useSettlementsAnalytics';
+import { every, xor } from 'lodash';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { SettlementsScreenRouteProps } from '../types';
+import { IState } from 'core/store';
+import { SpotItem } from 'core/types';
+import { useSnackbar } from 'atoms';
+import { useSettlementsAnalytics } from './useSettlementsAnalytics';
 
 export const useSettlements = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const snackBarProps = useSnackbar();
   const {
-    params: {initialSelectedSettlements, regionsToInclude},
+    params: { initialSelectedSettlements, regionsToInclude },
   } = useRoute<SettlementsScreenRouteProps>();
 
-  const {loading: fullScreenLoading} = useRequestLoading(
+  const { loading: fullScreenLoading } = useRequestLoading(
     getSettlementsDataRequest,
   );
-  const {errorTexts} = useOnRequestError(
+  const { errorTexts } = useOnRequestError(
     getSettlementsDataRequest,
     'settlements',
   );
@@ -109,7 +109,7 @@ export const useSettlements = () => {
     });
   });
 
-  const {loading} = useRequestLoading(getFiltersDataRequest);
+  const { loading } = useRequestLoading(getFiltersDataRequest);
   const getSettlementsData = useCallback(() => {
     dispatch(getSettlementsDataRequest());
   }, [dispatch]);

@@ -1,17 +1,17 @@
-import {useRoute} from '@react-navigation/native';
-import {sendAnalyticsEvent} from 'core/actions';
-import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
-import {SettlementsScreenRouteProps} from '../types';
-import {SpotItem} from 'core/types';
-import {map} from 'lodash';
+import { useRoute } from '@react-navigation/native';
+import { sendAnalyticsEvent } from 'core/actions';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { SettlementsScreenRouteProps } from '../types';
+import { SpotItem } from 'core/types';
+import { map } from 'lodash';
 
 export function useSettlementsAnalytics() {
   const dispatch = useDispatch();
 
   const {
     params: {
-      analytics: {regionsSelectedNames},
+      analytics: { regionsSelectedNames },
     },
   } = useRoute<SettlementsScreenRouteProps>();
   const sendSettlementsViewEvent = useCallback(() => {
@@ -30,7 +30,7 @@ export function useSettlementsAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'Filters_settlement_select',
-          data: {settlement: settlementName},
+          data: { settlement: settlementName },
         }),
       );
     },

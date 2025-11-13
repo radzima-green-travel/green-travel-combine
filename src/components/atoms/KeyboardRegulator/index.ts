@@ -1,2 +1,2 @@
-export {KeyboardRegulator} from './KeyboardRegulator';
-export {rootViewRef} from './service';
+export { KeyboardRegulator } from './KeyboardRegulator';
+export { rootViewRef } from './service';

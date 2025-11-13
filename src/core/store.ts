@@ -1,9 +1,9 @@
 // https://github.com/redux-saga/redux-saga/issues/2709#issuecomment-2847140992
-import {configureStore, Tuple} from '@reduxjs/toolkit';
-import {rootSaga} from './rootSaga';
-import {persistStore, persistReducer} from 'redux-persist';
-import {asyncReducers} from 'react-redux-help-kit';
-import {combineReducers} from 'redux';
+import { configureStore, Tuple } from '@reduxjs/toolkit';
+import { rootSaga } from './rootSaga';
+import { persistStore, persistReducer } from 'redux-persist';
+import { asyncReducers } from 'react-redux-help-kit';
+import { combineReducers } from 'redux';
 import {
   bookmarksDetailsReducer,
   bootstrapReducer,
@@ -23,7 +23,7 @@ import {
   settingsReducer,
 } from './reducers';
 // @ts-ignore
-import {reduxStorage} from 'core/reduxStorage';
+import { reduxStorage } from 'core/reduxStorage';
 const createSagaMiddleware = require('redux-saga').default;
 
 const AsyncStorage = reduxStorage;

@@ -1,7 +1,7 @@
-import {CardItem} from 'core/types';
-import React, {memo, useCallback} from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
-import {InteractiveCard} from '../InteractiveCard';
+import { CardItem } from 'core/types';
+import React, { memo, useCallback } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
+import { InteractiveCard } from '../InteractiveCard';
 
 interface IProps {
   data: CardItem;
@@ -12,8 +12,8 @@ interface IProps {
 }
 
 export const CategoryCard = memo(
-  ({data, width, onPress, containerStyle, testID}: IProps) => {
-    const {name, cover, blurhash} = data;
+  ({ data, width, onPress, containerStyle, testID }: IProps) => {
+    const { name, cover, blurhash } = data;
 
     const onPressHandler = useCallback(() => {
       onPress(data);

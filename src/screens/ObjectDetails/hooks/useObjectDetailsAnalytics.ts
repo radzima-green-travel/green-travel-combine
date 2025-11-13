@@ -1,22 +1,22 @@
-import {sendAnalyticsEvent} from 'core/actions/appConfiguration';
-import {useCallback, useRef} from 'react';
-import {useDispatch} from 'react-redux';
-import {ObjectDetailsScreenRouteProps} from '../types';
-import {useRoute} from '@react-navigation/native';
-import {selectObjectDetails} from 'core/selectors';
-import {useObjectDetailsSelector} from 'core/hooks';
-import {getObjectDetailsAnalyticsIncompleteFieldName} from 'core/helpers';
-import {map} from 'lodash';
+import { sendAnalyticsEvent } from 'core/actions/appConfiguration';
+import { useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { ObjectDetailsScreenRouteProps } from '../types';
+import { useRoute } from '@react-navigation/native';
+import { selectObjectDetails } from 'core/selectors';
+import { useObjectDetailsSelector } from 'core/hooks';
+import { getObjectDetailsAnalyticsIncompleteFieldName } from 'core/helpers';
+import { map } from 'lodash';
 
 export function useObjectDetailsAnalytics() {
   const dispatch = useDispatch();
   const {
-    params: {analytics},
+    params: { analytics },
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
   const data = useObjectDetailsSelector(selectObjectDetails);
 
-  const {analyticsMetadata, category} = data || {};
+  const { analyticsMetadata, category } = data || {};
 
   const sendObjectScreenViewEvent = useCallback(() => {
     if (analyticsMetadata) {

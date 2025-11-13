@@ -1,9 +1,9 @@
-import React, {memo, useMemo} from 'react';
-import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel';
-import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
-import {ObjectCardNew} from 'molecules';
-import {ObjectMap, SearchObject} from 'core/types';
-import {styles} from './styles';
+import React, { memo, useMemo } from 'react';
+import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { ObjectCardNew } from 'molecules';
+import { ObjectMap, SearchObject } from 'core/types';
+import { styles } from './styles';
 
 interface MapObjectsCarouselProps {
   objects: SearchObject[];
@@ -14,7 +14,7 @@ interface MapObjectsCarouselProps {
 }
 
 export const MapObjectsCarousel: React.FC<MapObjectsCarouselProps> = memo(
-  ({objects, carouselRef, selectedObject, onCarouselSnap, onObjectPress}) => {
+  ({ objects, carouselRef, selectedObject, onCarouselSnap, onObjectPress }) => {
     const defaultIndex = useMemo(() => {
       if (!selectedObject) {
         return 0;
@@ -67,7 +67,7 @@ export const MapObjectsCarousel: React.FC<MapObjectsCarouselProps> = memo(
             parallaxScrollingScale: 1,
             parallaxScrollingOffset: -5,
           }}
-          renderItem={({item: object}) => {
+          renderItem={({ item: object }) => {
             return (
               <ObjectCardNew
                 testID="card"

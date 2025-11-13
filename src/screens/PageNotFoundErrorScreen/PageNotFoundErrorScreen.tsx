@@ -1,13 +1,13 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 
-import {ErrorView} from 'molecules';
+import { ErrorView } from 'molecules';
 
-import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
-import {PageNotFoundErrorScreenNavigationProps} from './types';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import { PageNotFoundErrorScreenNavigationProps } from './types';
 
 export const PageNotFoundErrorScreen = () => {
-  const {t} = useTranslation('notFoundPage');
+  const { t } = useTranslation('notFoundPage');
   const navigation = useNavigation<PageNotFoundErrorScreenNavigationProps>();
 
   const navigateToMainPage = useCallback(() => {

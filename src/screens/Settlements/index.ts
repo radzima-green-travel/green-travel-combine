@@ -1,1 +1,1 @@
-export {Settlements} from './Settlements';
+export { Settlements } from './Settlements';

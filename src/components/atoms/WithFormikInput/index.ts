@@ -1,1 +1,1 @@
-export {WithFormikInput} from './WithFormikInput';
+export { WithFormikInput } from './WithFormikInput';

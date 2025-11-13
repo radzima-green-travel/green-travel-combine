@@ -1,9 +1,9 @@
-import {createReducer, isAnyOf} from '@reduxjs/toolkit';
+import { createReducer, isAnyOf } from '@reduxjs/toolkit';
 import {
   getCategoriesListNextDataRequest,
   getCategoriesListInitialDataRequest,
 } from 'core/actions';
-import {CategoriesListsById} from 'core/types';
+import { CategoriesListsById } from 'core/types';
 
 interface CategoriesListState {
   categoriesListsById: CategoriesListsById;
@@ -19,7 +19,10 @@ export const categoriesListReducer = createReducer(initialState, builder => {
       getCategoriesListInitialDataRequest.meta.successAction,
       getCategoriesListNextDataRequest.meta.successAction,
     ),
-    (state, {payload: {data, total, nextToken, id, requestedItemsCount}}) => {
+    (
+      state,
+      { payload: { data, total, nextToken, id, requestedItemsCount } },
+    ) => {
       const existingData = state.categoriesListsById[id]?.data ?? [];
       const existingRequestedItemsCount =
         state.categoriesListsById[id]?.requestedItemsCount ?? 0;

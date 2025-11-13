@@ -1,1 +1,1 @@
-export {ObjectSuccessMenu} from './ObjectSuccessMenu';
+export { ObjectSuccessMenu } from './ObjectSuccessMenu';

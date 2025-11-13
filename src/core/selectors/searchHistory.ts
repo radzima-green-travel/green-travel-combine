@@ -1,9 +1,9 @@
-import {createSelector} from 'reselect';
-import {SearchObject} from '../types';
-import {IState} from 'core/store';
-import {map, reduce} from 'lodash';
-import {selectAppLanguage} from './settingsSelectors';
-import {selectSearchHistoryObjectsIds} from './user';
+import { createSelector } from 'reselect';
+import { SearchObject } from '../types';
+import { IState } from 'core/store';
+import { map, reduce } from 'lodash';
+import { selectAppLanguage } from './settingsSelectors';
+import { selectSearchHistoryObjectsIds } from './user';
 import {
   extractLocaleSpecificValues,
   translateAndProcessImagesForEntity,

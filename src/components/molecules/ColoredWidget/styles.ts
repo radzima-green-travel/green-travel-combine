@@ -1,12 +1,12 @@
-import {FONTS_PRESETS} from 'assets/fonts';
-import {StyleSheet} from 'react-native';
+import { FONTS_PRESETS } from 'assets/fonts';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: '#CFE9BC',
     borderRadius: 20,
   },
-  contentWrapper: {paddingVertical: 12, paddingHorizontal: 13},
+  contentWrapper: { paddingVertical: 12, paddingHorizontal: 13 },
   titleText: FONTS_PRESETS.footnoteBold,
   titleRow: {
     flexDirection: 'row',
@@ -19,5 +19,5 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: -7, // makes badge aligned horizontally with the rest of the text lines
   },
-  titleBadgeText: {color: 'white'},
+  titleBadgeText: { color: 'white' },
 });

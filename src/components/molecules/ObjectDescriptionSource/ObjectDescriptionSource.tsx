@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {Text, View} from 'react-native';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {IOrigins} from 'core/types';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {themeStyles} from './styles';
-import {Link} from 'atoms';
+import React, { memo } from 'react';
+import { Text, View } from 'react-native';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { IOrigins } from 'core/types';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { themeStyles } from './styles';
+import { Link } from 'atoms';
 
 interface IProps {
   origins: IOrigins[];
@@ -13,9 +13,9 @@ interface IProps {
 }
 
 export const ObjectDescriptionSource = memo(
-  ({origins, onLinkPress, testID}: IProps) => {
+  ({ origins, onLinkPress, testID }: IProps) => {
     const styles = useThemeStyles(themeStyles);
-    const {t} = useTranslation('objectDetails');
+    const { t } = useTranslation('objectDetails');
 
     const sourceData = origins.map(origin => (
       <Link

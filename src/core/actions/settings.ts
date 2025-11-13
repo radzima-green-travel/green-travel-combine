@@ -1,7 +1,7 @@
-import {createAction} from '@reduxjs/toolkit';
-import {createAsyncAction} from 'core/helpers';
-import {ACTIONS, THEME_TYPE} from 'core/constants';
-import {ILabelError, SupportedLocales} from 'core/types';
+import { createAction } from '@reduxjs/toolkit';
+import { createAsyncAction } from 'core/helpers';
+import { ACTIONS, THEME_TYPE } from 'core/constants';
+import { ILabelError, SupportedLocales } from 'core/types';
 
 export const setLanguage = createAction<{
   language: SupportedLocales | null;
@@ -9,7 +9,7 @@ export const setLanguage = createAction<{
 }>(ACTIONS.SET_LANGUAGE);
 
 export const changeLanguageRequest = createAsyncAction<
-  {language: SupportedLocales | null; isSystemLanguage: boolean},
+  { language: SupportedLocales | null; isSystemLanguage: boolean },
   void,
   ILabelError
 >(ACTIONS.CHANGE_LANGUAGE);

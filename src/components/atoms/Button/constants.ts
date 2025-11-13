@@ -1,7 +1,9 @@
-import {COLORS} from 'assets/colors';
-import {ButtonThemes} from './types';
+import { COLORS } from 'assets/colors';
+import { ButtonThemes } from './types';
 
-export const BUTTON_THEMES: {[key in ButtonThemes]: {[key: string]: object}} = {
+export const BUTTON_THEMES: {
+  [key in ButtonThemes]: { [key: string]: object };
+} = {
   primary: {
     container: {
       backgroundColor: {

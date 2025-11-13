@@ -1,5 +1,5 @@
-import {RefObject, useCallback, useRef} from 'react';
-import {ScrollView, View} from 'react-native';
+import { RefObject, useCallback, useRef } from 'react';
+import { ScrollView, View } from 'react-native';
 
 export function useScrollScrollViewScrollToElement<
   El = View,

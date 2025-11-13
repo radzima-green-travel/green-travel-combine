@@ -1,10 +1,10 @@
-import {select} from 'redux-saga/effects';
+import { select } from 'redux-saga/effects';
 
-import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
-import {selectAppLanguage, selectUserAuthorizedData} from 'core/selectors';
-import {DEFAULT_LOCALE} from 'core/constants';
-import {transformSearchOptionsToFieldsToSearch} from 'core/transformators/search';
-import {SearchObjectsRequestPayload} from 'core/actions';
+import { transformActiveFiltersToFilterParam } from 'core/transformators/filters';
+import { selectAppLanguage, selectUserAuthorizedData } from 'core/selectors';
+import { DEFAULT_LOCALE } from 'core/constants';
+import { transformSearchOptionsToFieldsToSearch } from 'core/transformators/search';
+import { SearchObjectsRequestPayload } from 'core/actions';
 
 export function* createSearchPayloadSaga({
   query,

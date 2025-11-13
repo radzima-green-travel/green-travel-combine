@@ -1,5 +1,5 @@
-import {FONTS_PRESETS} from 'assets';
-import {createThemeStyles} from 'core/helpers/styles';
+import { FONTS_PRESETS } from 'assets';
+import { createThemeStyles } from 'core/helpers/styles';
 
 export const styles = createThemeStyles({
   container: {

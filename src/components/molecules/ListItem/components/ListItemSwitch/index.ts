@@ -1,1 +1,1 @@
-export {ListItemSwitch} from './ListItemSwitch';
+export { ListItemSwitch } from './ListItemSwitch';

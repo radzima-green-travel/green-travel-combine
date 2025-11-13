@@ -1,1 +1,1 @@
-export {ObjectDetailsShareExperience} from './ObjectDetailsShareExperience';
+export { ObjectDetailsShareExperience } from './ObjectDetailsShareExperience';

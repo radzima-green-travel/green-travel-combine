@@ -1,4 +1,4 @@
-import {all, call, put, select, spawn, takeEvery} from 'redux-saga/effects';
+import { all, call, put, select, spawn, takeEvery } from 'redux-saga/effects';
 
 import {
   bootstrapRequest,
@@ -7,20 +7,20 @@ import {
   getHomePageDataRequest,
 } from 'core/actions';
 
-import {ILabelError} from 'core/types';
-import {selectUserAuthorized} from 'core/selectors';
-import {initUserAuthSaga} from './initUserAuth';
-import {takeEveryMulticast} from '../utils';
-import {appStateChannel} from '../channels';
-import {listenAppStateChangesSaga} from '../app';
-import {getObjectAttributesSaga} from '../objectAttributes';
-import {initAppLocaleSaga} from './initAppLocaleSaga';
+import { ILabelError } from 'core/types';
+import { selectUserAuthorized } from 'core/selectors';
+import { initUserAuthSaga } from './initUserAuth';
+import { takeEveryMulticast } from '../utils';
+import { appStateChannel } from '../channels';
+import { listenAppStateChangesSaga } from '../app';
+import { getObjectAttributesSaga } from '../objectAttributes';
+import { initAppLocaleSaga } from './initAppLocaleSaga';
 
 export function* bootstrapSaga() {
   yield takeEvery(
     bootstrapRequest,
     function* ({
-      meta: {successAction, failureAction},
+      meta: { successAction, failureAction },
     }: ReturnType<typeof bootstrapRequest>) {
       try {
         const isAuthorized = yield select(selectUserAuthorized);

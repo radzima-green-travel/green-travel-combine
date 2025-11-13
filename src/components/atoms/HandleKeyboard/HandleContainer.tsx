@@ -1,6 +1,6 @@
-import React, {ComponentProps, PropsWithChildren, memo, useRef} from 'react';
-import {View} from 'react-native';
-import {HandlerContainerContext} from './context';
+import React, { ComponentProps, PropsWithChildren, memo, useRef } from 'react';
+import { View } from 'react-native';
+import { HandlerContainerContext } from './context';
 
 interface Props extends ComponentProps<typeof View> {}
 

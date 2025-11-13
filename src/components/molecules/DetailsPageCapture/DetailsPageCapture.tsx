@@ -1,11 +1,11 @@
-import React, {memo, useMemo, useCallback} from 'react';
-import {TouchableOpacity, Text, View} from 'react-native';
-import {ICoordinates} from 'core/types';
-import {themeStyles} from './styles';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {Icon} from 'atoms';
-import {RatingBadge} from '../RatingBadge';
+import React, { memo, useMemo, useCallback } from 'react';
+import { TouchableOpacity, Text, View } from 'react-native';
+import { ICoordinates } from 'core/types';
+import { themeStyles } from './styles';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { Icon } from 'atoms';
+import { RatingBadge } from '../RatingBadge';
 
 interface IProps {
   title: string;
@@ -36,7 +36,7 @@ export const DetailsPageCapture = memo(
     googleRatingsTotal,
     testID,
   }: IProps) => {
-    const {t} = useTranslation('objectDetails');
+    const { t } = useTranslation('objectDetails');
 
     const styles = useThemeStyles(themeStyles);
     const location = useMemo(() => {
@@ -86,7 +86,7 @@ export const DetailsPageCapture = memo(
               <RatingBadge
                 testID="userRating"
                 rating={usersRating}
-                label={t('usersRating', {rating: usersRatingsTotal})}
+                label={t('usersRating', { rating: usersRatingsTotal })}
                 iconName="starSmall"
               />
             ) : null}
@@ -94,7 +94,7 @@ export const DetailsPageCapture = memo(
               <RatingBadge
                 testID="googleRating"
                 rating={googleRating}
-                label={t('googleRating', {rating: googleRatingsTotal})}
+                label={t('googleRating', { rating: googleRatingsTotal })}
                 iconName="googleIconSmall"
               />
             ) : null}

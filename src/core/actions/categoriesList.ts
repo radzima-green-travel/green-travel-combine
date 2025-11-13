@@ -1,5 +1,5 @@
-import {createAsyncAction} from 'core/helpers';
-import {CategoryShortDTO} from 'core/types';
+import { createAsyncAction } from 'core/helpers';
+import { CategoryShortDTO } from 'core/types';
 
 interface CategoriesListSuccessPayload {
   id: string;

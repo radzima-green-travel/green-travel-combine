@@ -1,6 +1,6 @@
-import {StatusBar, View, ScrollView} from 'react-native';
-import {invoke, has} from 'lodash';
-import {isIOS} from 'services/PlatformService';
+import { StatusBar, View, ScrollView } from 'react-native';
+import { invoke, has } from 'lodash';
+import { isIOS } from 'services/PlatformService';
 
 export const calculateAndAdjustKeyboard = ({
   scrollNode,
@@ -33,10 +33,10 @@ export const calculateAndAdjustKeyboard = ({
           const screenY = nodeY + listY;
 
           let y =
-            screenY +
-            (isIOS ? 0 : StatusBar.currentHeight || 0) +
-            nodeHeight -
-            (keyboardY - additionalNodeOffset);
+            screenY
+            + (isIOS ? 0 : StatusBar.currentHeight || 0)
+            + nodeHeight
+            - (keyboardY - additionalNodeOffset);
 
           if (y > 0) {
             y = y + listBottomOffset + 10; // add current bottom value of the whole list and tine offset (10)
@@ -48,7 +48,7 @@ export const calculateAndAdjustKeyboard = ({
 
             if (scrollNode) {
               if (scrollNode.scrollTo) {
-                scrollNode.scrollTo({x: 0, y, animated: true});
+                scrollNode.scrollTo({ x: 0, y, animated: true });
               } else if (has(scrollNode, '_listRef')) {
                 // FlatList doesn't have scrollTo method, but we can use it directly from list engine
 

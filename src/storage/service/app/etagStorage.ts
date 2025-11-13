@@ -1,9 +1,11 @@
-import {storage} from '../../Storage';
+import { storage } from '../../Storage';
 
 export async function getEtagsFromStorage(): Promise<{
   [key: string]: string;
 } | null> {
-  const etags: Record<string, string> | null = await storage.get({key: 'etag'});
+  const etags: Record<string, string> | null = await storage.get({
+    key: 'etag',
+  });
   return etags;
 }
 
@@ -12,11 +14,11 @@ export async function setEtagsToStorage(
 ): Promise<{
   [key: string]: string;
 } | null> {
-  return storage.merge({key: 'etag', value: etags});
+  return storage.merge({ key: 'etag', value: etags });
 }
 
 export async function resetEtagsStorage(): Promise<{
   [key: string]: string;
 } | null> {
-  return storage.remove({key: 'etag'});
+  return storage.remove({ key: 'etag' });
 }

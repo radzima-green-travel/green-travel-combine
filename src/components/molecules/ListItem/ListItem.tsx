@@ -1,5 +1,9 @@
-import React, {memo} from 'react';
-import {ListItemPrimary, ListItemSwitch, ListItemCheckbox} from './components';
+import React, { memo } from 'react';
+import {
+  ListItemPrimary,
+  ListItemSwitch,
+  ListItemCheckbox,
+} from './components';
 import {
   ListItemCheckboxProps,
   ListItemPrimaryProps,
@@ -7,9 +11,9 @@ import {
 } from './types';
 
 type ListItemProps<T = undefined> =
-  | ({type: 'checkbox'} & ListItemCheckboxProps<T>)
-  | ({type: 'switch'} & ListItemSwitchProps)
-  | ({type: 'primary'} & ListItemPrimaryProps);
+  | ({ type: 'checkbox' } & ListItemCheckboxProps<T>)
+  | ({ type: 'switch' } & ListItemSwitchProps)
+  | ({ type: 'primary' } & ListItemPrimaryProps);
 
 const ListItemComponent = <T extends any = undefined>(
   props: ListItemProps<T>,

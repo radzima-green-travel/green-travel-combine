@@ -1,5 +1,5 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {StyleSheet, ViewStyle} from 'react-native';
+import { COLORS, FONTS_STYLES } from 'assets';
+import { StyleSheet, ViewStyle } from 'react-native';
 
 const buttonStyles: ViewStyle = {
   minWidth: 212,

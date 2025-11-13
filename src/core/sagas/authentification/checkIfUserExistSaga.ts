@@ -1,6 +1,6 @@
-import {call} from 'redux-saga/effects';
-import {amplifyApi} from 'api/amplify';
-import {RequestError} from 'core/errors';
+import { call } from 'redux-saga/effects';
+import { amplifyApi } from 'api/amplify';
+import { RequestError } from 'core/errors';
 
 export function* checkIfUserExistSaga(email: string) {
   try {

@@ -1,5 +1,5 @@
-import {SpotItem} from 'core/types';
-import {reduce, chain, includes, toLower, orderBy, filter} from 'lodash';
+import { SpotItem } from 'core/types';
+import { reduce, chain, includes, toLower, orderBy, filter } from 'lodash';
 
 export function prepareFilteredSettlementsSections(
   settlements: SpotItem[],
@@ -9,8 +9,8 @@ export function prepareFilteredSettlementsSections(
   return filter(
     orderBy(settlements, 'value'),
     item =>
-      includes(regionsToInclude, item.id) &&
-      toLower(item.value).includes(toLower(searchValue)),
+      includes(regionsToInclude, item.id)
+      && toLower(item.value).includes(toLower(searchValue)),
   );
 }
 
@@ -27,7 +27,7 @@ export function prepareSettlementsSections(settlements: SpotItem[]) {
 
   return chain(sections)
     .pickBy(value => value.length)
-    .map((data = [], title) => ({title, data}))
+    .map((data = [], title) => ({ title, data }))
     .value();
 }
 

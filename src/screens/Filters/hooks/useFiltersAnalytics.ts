@@ -1,5 +1,5 @@
-import {useRoute} from '@react-navigation/native';
-import {sendAnalyticsEvent} from 'core/actions';
+import { useRoute } from '@react-navigation/native';
+import { sendAnalyticsEvent } from 'core/actions';
 import {
   selectActiveFilters,
   selectFiltersCategories,
@@ -7,12 +7,12 @@ import {
   selectFiltersTotal,
   selectSettlements,
 } from 'core/selectors';
-import {CategoryFilterItem, SpotItem} from 'core/types';
-import {map, compact, find} from 'lodash';
-import {useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {FiltersRouteProps} from '../types';
-import {useStaticCallback} from 'react-redux-help-kit';
+import { CategoryFilterItem, SpotItem } from 'core/types';
+import { map, compact, find } from 'lodash';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FiltersRouteProps } from '../types';
+import { useStaticCallback } from 'react-redux-help-kit';
 
 export function useFiltersAnalytics() {
   const dispatch = useDispatch();
@@ -24,28 +24,28 @@ export function useFiltersAnalytics() {
   const total = useSelector(selectFiltersTotal);
   const {
     params: {
-      analytics: {fromScreenName},
+      analytics: { fromScreenName },
     },
   } = useRoute<FiltersRouteProps>();
 
   const getActiveCategories = useCallback(
     () =>
       map(activeFilters.categories, categoryId => {
-        return find(categoriesList, {id: categoryId})?.analyticsMetadata.name;
+        return find(categoriesList, { id: categoryId })?.analyticsMetadata.name;
       }),
     [categoriesList, activeFilters.categories],
   );
 
   const getActiveRegions = useCallback(() => {
     return map(activeFilters.regions, regionId => {
-      return find(regionsList, {id: regionId})?.analyticsMetadata.value;
+      return find(regionsList, { id: regionId })?.analyticsMetadata.value;
     });
   }, [regionsList, activeFilters.regions]);
 
   const getActiveSettlements = useCallback(
     () =>
       map(activeFilters.municipalities, settlementId => {
-        return find(settlementsList, {id: settlementId})?.analyticsMetadata
+        return find(settlementsList, { id: settlementId })?.analyticsMetadata
           .value;
       }),
     [settlementsList, activeFilters.municipalities],
@@ -89,7 +89,7 @@ export function useFiltersAnalytics() {
         dispatch(
           sendAnalyticsEvent({
             name: 'Filters_category_select',
-            data: {category: category.analyticsMetadata.name},
+            data: { category: category.analyticsMetadata.name },
           }),
         );
       }
@@ -103,7 +103,7 @@ export function useFiltersAnalytics() {
         dispatch(
           sendAnalyticsEvent({
             name: 'Filters_region_select',
-            data: {region: region.analyticsMetadata.value},
+            data: { region: region.analyticsMetadata.value },
           }),
         );
       }
@@ -127,7 +127,7 @@ export function useFiltersAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'Filters_distance',
-          data: {filter_by_distance: isOn},
+          data: { filter_by_distance: isOn },
         }),
       );
     },
@@ -139,7 +139,7 @@ export function useFiltersAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'Filters_distance_set',
-          data: {distance},
+          data: { distance },
         }),
       );
     },
@@ -151,7 +151,7 @@ export function useFiltersAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'Filters_rating_select',
-          data: {rating: rating === 'Any' ? rating : rating + '+'},
+          data: { rating: rating === 'Any' ? rating : rating + '+' },
         }),
       );
     },
@@ -163,7 +163,7 @@ export function useFiltersAnalytics() {
       dispatch(
         sendAnalyticsEvent({
           name: 'Filters_hide_visited',
-          data: {hide_visited: hideVisited},
+          data: { hide_visited: hideVisited },
         }),
       );
     },

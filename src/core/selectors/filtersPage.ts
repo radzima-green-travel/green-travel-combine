@@ -1,16 +1,16 @@
-import {createSelector} from '@reduxjs/toolkit';
-import {IState} from 'core/store';
-import {selectAppLanguage} from './settingsSelectors';
+import { createSelector } from '@reduxjs/toolkit';
+import { IState } from 'core/store';
+import { selectAppLanguage } from './settingsSelectors';
 import {
   prepareGoogleRatings,
   prepareAggregationsWithNumberOfItems,
   checkIfFiltersAreUnset,
 } from 'core/transformators/filters';
-import {extractLocaleSpecificValues} from 'core/transformators/common';
-import {map} from 'lodash';
-import {selectUserLocation} from './user';
-import {INITIAL_FILTERS} from '../constants';
-import {SearchFilters} from '../types';
+import { extractLocaleSpecificValues } from 'core/transformators/common';
+import { map } from 'lodash';
+import { selectUserLocation } from './user';
+import { INITIAL_FILTERS } from '../constants';
+import { SearchFilters } from '../types';
 
 export const selectFiltersSlice = (state: IState) => state.filters;
 

@@ -1,9 +1,9 @@
-import {put, call} from 'redux-saga/effects';
-import {checkUserEmailRequest} from 'core/actions';
-import {checkIfUserExistSaga} from './checkIfUserExistSaga';
+import { put, call } from 'redux-saga/effects';
+import { checkUserEmailRequest } from 'core/actions';
+import { checkIfUserExistSaga } from './checkIfUserExistSaga';
 
 export function* checkUserEmailSaga({
-  meta: {successAction, failureAction},
+  meta: { successAction, failureAction },
   payload: email,
 }: ReturnType<typeof checkUserEmailRequest>) {
   try {

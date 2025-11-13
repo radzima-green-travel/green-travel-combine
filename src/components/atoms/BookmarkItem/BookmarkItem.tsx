@@ -1,10 +1,10 @@
-import {useThemeStyles} from 'core/hooks';
-import {IBookmarkItem} from 'core/types';
-import React, {memo, useCallback} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import {SCREEN_WIDTH} from 'services/PlatformService';
-import {themeStyles} from './styles';
-import {getPlatformsTestID} from 'core/helpers';
+import { useThemeStyles } from 'core/hooks';
+import { IBookmarkItem } from 'core/types';
+import React, { memo, useCallback } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
+import { SCREEN_WIDTH } from 'services/PlatformService';
+import { themeStyles } from './styles';
+import { getPlatformsTestID } from 'core/helpers';
 
 const ratio = 165 / 104;
 const width = (SCREEN_WIDTH * 0.88) / 2;
@@ -23,7 +23,7 @@ interface IProps {
 }
 
 export const BookmarkItem = memo(
-  ({isOdd, isLast, count, onPress, item, testID}: IProps) => {
+  ({ isOdd, isLast, count, onPress, item, testID }: IProps) => {
     const onPressHandler = useCallback(() => {
       onPress(item);
     }, [item, onPress]);
@@ -34,8 +34,8 @@ export const BookmarkItem = memo(
         onPress={onPressHandler}
         style={[
           styles.box,
-          {width: width, height: height},
-          isOdd && {marginRight: isLast ? width + marginRight : marginRight},
+          { width: width, height: height },
+          isOdd && { marginRight: isLast ? width + marginRight : marginRight },
         ]}
         {...getPlatformsTestID(testID)}>
         <Text style={styles.text}>{item.categoryName}</Text>

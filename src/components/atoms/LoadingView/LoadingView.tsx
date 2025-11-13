@@ -1,9 +1,9 @@
-import React, {memo} from 'react';
-import {View, ActivityIndicator, StyleProp, ViewStyle} from 'react-native';
+import React, { memo } from 'react';
+import { View, ActivityIndicator, StyleProp, ViewStyle } from 'react-native';
 
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {COLORS} from 'assets';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { COLORS } from 'assets';
 
 type Props = {
   transparent?: boolean;
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const LoadingView = memo<Props>(
-  ({transparent = true, size = 'large', color, containerStyle}: Props) => {
+  ({ transparent = true, size = 'large', color, containerStyle }: Props) => {
     const styles = useThemeStyles(themeStyles);
     return (
       <View

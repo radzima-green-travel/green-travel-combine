@@ -1,1 +1,1 @@
-export {ObjectDetailsHeader} from './ObjectDetailsHeader';
+export { ObjectDetailsHeader } from './ObjectDetailsHeader';

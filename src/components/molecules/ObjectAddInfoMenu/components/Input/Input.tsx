@@ -1,9 +1,9 @@
-import React, {forwardRef} from 'react';
-import {Text, TextInput, View, KeyboardType} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {FormInput} from 'atoms';
-import {composeTestID} from 'core/helpers';
+import React, { forwardRef } from 'react';
+import { Text, TextInput, View, KeyboardType } from 'react-native';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { FormInput } from 'atoms';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   onChange: (value: string) => void;
@@ -16,7 +16,7 @@ interface IProps {
 }
 
 export const Input = forwardRef<TextInput, IProps>(
-  ({prompt, testID, ...props}, ref) => {
+  ({ prompt, testID, ...props }, ref) => {
     const styles = useThemeStyles(themeStyles);
 
     return (

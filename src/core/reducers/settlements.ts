@@ -1,6 +1,6 @@
-import {SettlementsData} from 'core/types';
-import {createReducer} from '@reduxjs/toolkit';
-import {getSettlementsDataRequest} from 'core/actions';
+import { SettlementsData } from 'core/types';
+import { createReducer } from '@reduxjs/toolkit';
+import { getSettlementsDataRequest } from 'core/actions';
 
 interface SettlementsState {
   settlementsData: SettlementsData;
@@ -13,7 +13,7 @@ const initialState: SettlementsState = {
 export const settlementsReducer = createReducer(initialState, builder => {
   builder.addCase(
     getSettlementsDataRequest.meta.successAction,
-    (state, {payload}) => {
+    (state, { payload }) => {
       return {
         ...state,
         settlementsData: payload,

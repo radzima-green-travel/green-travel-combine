@@ -1,1 +1,1 @@
-export {AnimatedCircleButton} from './AnimatedCircleButton';
+export { AnimatedCircleButton } from './AnimatedCircleButton';

@@ -1,12 +1,12 @@
-import React, {memo} from 'react';
-import {Text, View} from 'react-native';
+import React, { memo } from 'react';
+import { Text, View } from 'react-native';
 
-import {Icon} from 'atoms';
-import {IconsNames} from 'atoms/Icon';
-import {composeTestID} from 'core/helpers';
-import {useThemeStyles} from 'core/hooks';
-import {capitalize, isUndefined} from 'lodash';
-import {themeStyles} from './styles';
+import { Icon } from 'atoms';
+import { IconsNames } from 'atoms/Icon';
+import { composeTestID } from 'core/helpers';
+import { useThemeStyles } from 'core/hooks';
+import { capitalize, isUndefined } from 'lodash';
+import { themeStyles } from './styles';
 
 interface IProps {
   testID: string;
@@ -17,7 +17,7 @@ interface IProps {
 }
 
 export const RatingBadge = memo(
-  ({testID, rating, label, iconName, size = 'medium'}: IProps) => {
+  ({ testID, rating, label, iconName, size = 'medium' }: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     const containerSizeStyle = styles[`container${capitalize(size)}`];

@@ -1,12 +1,12 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
-import {showObjectDetailsMapDirectionRequest} from 'core/actions';
-import {mapBoxApi} from 'api/mapbox';
-import {lineString as makeLineString} from '@turf/helpers';
-import {ILabelError} from 'core/types';
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { showObjectDetailsMapDirectionRequest } from 'core/actions';
+import { mapBoxApi } from 'api/mapbox';
+import { lineString as makeLineString } from '@turf/helpers';
+import { ILabelError } from 'core/types';
 
 export function* getDirectionSaga({
   payload,
-  meta: {successAction, failureAction},
+  meta: { successAction, failureAction },
 }: ReturnType<typeof showObjectDetailsMapDirectionRequest>) {
   try {
     const data = yield call([mapBoxApi, mapBoxApi.getDirections], payload);

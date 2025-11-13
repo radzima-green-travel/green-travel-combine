@@ -1,9 +1,9 @@
 import * as Icons from 'assets/icons';
-import {getPlatformsTestID} from 'core/helpers';
+import { getPlatformsTestID } from 'core/helpers';
 import React from 'react';
-import {StyleProp, StyleSheet, TextStyle} from 'react-native';
-import type {SvgProps} from 'react-native-svg';
-import {IconName} from './types';
+import { StyleProp, StyleSheet, TextStyle } from 'react-native';
+import type { SvgProps } from 'react-native-svg';
+import { IconName } from './types';
 
 export interface Props {
   name: IconName;
@@ -33,20 +33,20 @@ export const Icon = ({
   }
 
   const iconStyle = StyleSheet.flatten(style);
-  const {fontSize, color: iconColor} = iconStyle;
+  const { fontSize, color: iconColor } = iconStyle;
 
   const iconWidth =
-    fontSize ||
-    (height && width) ||
-    size ||
-    (iconStyle.width as number) ||
-    defaultIconSize;
+    fontSize
+    || (height && width)
+    || size
+    || (iconStyle.width as number)
+    || defaultIconSize;
   const iconHeight =
-    fontSize ||
-    (width && height) ||
-    size ||
-    (iconStyle.height as number) ||
-    defaultIconSize;
+    fontSize
+    || (width && height)
+    || size
+    || (iconStyle.height as number)
+    || defaultIconSize;
 
   return (
     <IconComponent
@@ -55,7 +55,7 @@ export const Icon = ({
       height={iconHeight}
       style={iconStyle}
       color={iconColor || color || defaultIconColor}
-      accessibilityState={{checked}}
+      accessibilityState={{ checked }}
     />
   );
 };

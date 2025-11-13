@@ -3,7 +3,7 @@
 // The original plugin is not maintained and a lot of issues have been reported
 // So it's better to keep a local implementation for frequently used effects
 
-import {EffectType} from '../../types/utils/effectType';
+import { EffectType } from '../../types/utils/effectType';
 import {
   CallEffect,
   SelectEffect,
@@ -41,7 +41,7 @@ export function call<Args extends any[], Fn extends (...args: Args) => any>(
 ): Generator<CallEffect<EffectType<Fn>>, EffectType<Fn>>;
 
 export function call<
-  Ctx extends {[P in Name]: (this: Ctx, ...args: any[]) => any},
+  Ctx extends { [P in Name]: (this: Ctx, ...args: any[]) => any },
   Name extends string,
 >(
   ctxAndFnName: [Ctx, Name],
@@ -49,10 +49,10 @@ export function call<
 ): Generator<CallEffect<EffectType<Ctx[Name]>>, EffectType<Ctx[Name]>>;
 
 export function call<
-  Ctx extends {[P in Name]: (this: Ctx, ...args: any[]) => any},
+  Ctx extends { [P in Name]: (this: Ctx, ...args: any[]) => any },
   Name extends string,
 >(
-  ctxAndFnName: {context: Ctx; fn: Name},
+  ctxAndFnName: { context: Ctx; fn: Name },
   ...args: Parameters<Ctx[Name]>
 ): Generator<CallEffect<EffectType<Ctx[Name]>>, EffectType<Ctx[Name]>>;
 
@@ -62,7 +62,7 @@ export function call<Ctx, Fn extends (this: Ctx, ...args: any[]) => any>(
 ): Generator<CallEffect<EffectType<Fn>>, EffectType<Fn>>;
 
 export function call<Ctx, Fn extends (this: Ctx, ...args: any[]) => any>(
-  ctxAndFn: {context: Ctx; fn: Fn},
+  ctxAndFn: { context: Ctx; fn: Fn },
   ...args: Parameters<Fn>
 ): Generator<CallEffect<EffectType<Fn>>, EffectType<Fn>>;
 

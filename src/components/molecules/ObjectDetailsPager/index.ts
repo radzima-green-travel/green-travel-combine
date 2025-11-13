@@ -1,1 +1,1 @@
-export {ObjectDetailsPager} from './ObjectDetailsPager';
+export { ObjectDetailsPager } from './ObjectDetailsPager';

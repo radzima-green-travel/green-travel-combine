@@ -1,2 +1,2 @@
-export {ObjectDetailsCompletenessBlock} from './ObjectDetailsCompletenessBlock';
-export {ObjectDetailsCompletenessSmallBlock} from './ObjectDetailsCompletenessSmallBlock';
+export { ObjectDetailsCompletenessBlock } from './ObjectDetailsCompletenessBlock';
+export { ObjectDetailsCompletenessSmallBlock } from './ObjectDetailsCompletenessSmallBlock';

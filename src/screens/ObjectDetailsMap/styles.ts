@@ -1,6 +1,6 @@
-import {StyleProp} from 'react-native';
-import {LineLayerStyle, SymbolLayerStyle} from '@rnmapbox/maps';
-import {COLORS} from 'assets';
+import { StyleProp } from 'react-native';
+import { LineLayerStyle, SymbolLayerStyle } from '@rnmapbox/maps';
+import { COLORS } from 'assets';
 
 export const themeLayerStyles = {
   objectDetailsPin: {

@@ -1,12 +1,12 @@
-import React, {memo, useCallback} from 'react';
+import React, { memo, useCallback } from 'react';
 
-import {HighlightedText} from 'atoms';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {ListItem} from '../ListItem';
-import {TextProps} from 'react-native';
-import {trim} from 'lodash';
-import {IconsNames} from 'atoms/Icon';
+import { HighlightedText } from 'atoms';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { ListItem } from '../ListItem';
+import { TextProps } from 'react-native';
+import { trim } from 'lodash';
+import { IconsNames } from 'atoms/Icon';
 
 interface IProps<T> {
   item: T;

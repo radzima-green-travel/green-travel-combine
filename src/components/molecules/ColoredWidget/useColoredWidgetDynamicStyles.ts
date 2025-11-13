@@ -1,11 +1,11 @@
-import {FONTS_PRESETS} from 'assets';
-import {useWindowDimensions} from 'react-native';
-import {interpolate, Extrapolation} from 'react-native-reanimated';
+import { FONTS_PRESETS } from 'assets';
+import { useWindowDimensions } from 'react-native';
+import { interpolate, Extrapolation } from 'react-native-reanimated';
 
 export const useColoredWidgetDynamicStyles = () => {
-  const {width: windowWidth} = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
-  const {fontSize: defaultFontSize, lineHeight: defaultLineHeight} =
+  const { fontSize: defaultFontSize, lineHeight: defaultLineHeight } =
     FONTS_PRESETS.footnoteBold;
 
   const lineHeightRatio = defaultLineHeight / defaultFontSize;
@@ -32,7 +32,7 @@ export const useColoredWidgetDynamicStyles = () => {
   };
 
   const cardHeightStyle = {
-    ...(windowWidth >= 768 ? {height: 280} : {aspectRatio: 154 / 136}),
+    ...(windowWidth >= 768 ? { height: 280 } : { aspectRatio: 154 / 136 }),
   };
 
   const maxFontSizeMultiplier = interpolate(

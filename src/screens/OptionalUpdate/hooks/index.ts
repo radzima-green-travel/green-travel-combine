@@ -1,1 +1,1 @@
-export {useOptionalUpdate} from './useOptionalUpdate';
+export { useOptionalUpdate } from './useOptionalUpdate';

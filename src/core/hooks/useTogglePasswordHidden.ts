@@ -1,5 +1,5 @@
-import {useCallback, useState} from 'react';
-import {IconsNames} from 'atoms/Icon';
+import { useCallback, useState } from 'react';
+import { IconsNames } from 'atoms/Icon';
 
 export function useTogglePasswordHidden() {
   const [passwordHidden, setPasswordHidden] = useState(true);

@@ -10,8 +10,8 @@ import {
   TranslatedEntity,
   PlaceOfTheWeekObject,
 } from 'core/types';
-import {compact, find, head, keys, map, omit, pick} from 'lodash';
-import {imagesService} from 'services/ImagesService';
+import { compact, find, head, keys, map, omit, pick } from 'lodash';
+import { imagesService } from 'services/ImagesService';
 
 export function convertShortObjectToCardItem(object: ObjectShort): CardItem {
   return {
@@ -38,8 +38,8 @@ export const getUserRatingValue = (
 export function convertPlaceOfTheWeekObjectToCardItem(
   object: PlaceOfTheWeekObject,
 ): CardItem {
-  const {googleRating, calculatedProperties} = object;
-  const {averageRating, totalRatings} = calculatedProperties || {};
+  const { googleRating, calculatedProperties } = object;
+  const { averageRating, totalRatings } = calculatedProperties || {};
 
   return {
     id: object.id,
@@ -171,7 +171,7 @@ export function getAddressStringFromSpots({
   locale: SupportedLocales | null;
   order?: 'primary' | 'secondary';
 }) {
-  const {region, municipality, subRegion, street} = spots;
+  const { region, municipality, subRegion, street } = spots;
 
   let translatedStreet = '';
   if (street) {
@@ -192,5 +192,5 @@ export const getObjectFullAddress = (
 ) => {
   const translatedSpots = prepareObjectAddressSpots(addresses, locale);
 
-  return getAddressStringFromSpots({spots: translatedSpots, locale});
+  return getAddressStringFromSpots({ spots: translatedSpots, locale });
 };

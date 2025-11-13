@@ -1,14 +1,14 @@
-import {call, take, race} from 'redux-saga/effects';
-import {inAppBrowserCancelOperation} from 'core/actions';
-import {CognitoUserWithAttributes} from 'core/types';
-import {amplifyApi} from 'api/amplify';
+import { call, take, race } from 'redux-saga/effects';
+import { inAppBrowserCancelOperation } from 'core/actions';
+import { CognitoUserWithAttributes } from 'core/types';
+import { amplifyApi } from 'api/amplify';
 import {
   createSocialLoginCancelErrorPreset,
   RequestError,
   createSocialLoginErrorPreset,
 } from 'core/errors';
-import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
-import {EventChannel} from 'redux-saga';
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import { EventChannel } from 'redux-saga';
 
 export function* socialSignInSaga({
   provider,
@@ -21,7 +21,7 @@ export function* socialSignInSaga({
     customProvider: provider,
   });
 
-  const {user}: {user: CognitoUserWithAttributes} = yield race({
+  const { user }: { user: CognitoUserWithAttributes } = yield race({
     user: call(function* () {
       while (true) {
         const data: any = yield take(authChannel);
@@ -35,8 +35,8 @@ export function* socialSignInSaga({
 
           return response;
         } else if (
-          data?.payload?.event === 'signIn_failure' ||
-          data?.payload?.event === 'cognitoHostedUI_failure'
+          data?.payload?.event === 'signIn_failure'
+          || data?.payload?.event === 'cognitoHostedUI_failure'
         ) {
           throw new RequestError(createSocialLoginErrorPreset());
         }

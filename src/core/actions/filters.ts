@@ -6,11 +6,11 @@ import {
   SearchFilters,
   SearchOptions,
 } from 'core/types';
-import {createAsyncAction} from 'core/helpers';
-import {createAction} from '@reduxjs/toolkit';
+import { createAsyncAction } from 'core/helpers';
+import { createAction } from '@reduxjs/toolkit';
 
 export const getFiltersDataRequest = createAsyncAction<
-  {query?: string; filters: SearchFilters; options?: SearchOptions},
+  { query?: string; filters: SearchFilters; options?: SearchOptions },
   {
     regionsList: RegionsListResponseDTO;
     categoriesList: CategoryFilterItemDTO[];
@@ -29,5 +29,8 @@ export const clearFilters = createAction('CLEAR_FILTERS');
 
 export const fetchInitialFilters = createAsyncAction<
   void,
-  {regionsList: RegionsListResponseDTO; categoriesList: CategoryFilterItemDTO[]}
+  {
+    regionsList: RegionsListResponseDTO;
+    categoriesList: CategoryFilterItemDTO[];
+  }
 >('FETCH_INITIAL_FILTERS');

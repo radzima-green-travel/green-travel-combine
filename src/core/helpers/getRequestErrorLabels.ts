@@ -1,10 +1,10 @@
-import {RequestError} from 'core/errors';
+import { RequestError } from 'core/errors';
 
 export function getRequestErrorLabels(
   error: RequestError,
   translationsNameSpace: string,
 ) {
-  const {error_code, status} = error;
+  const { error_code, status } = error;
   const defaultErrorLabelPath = 'common:errors.default';
 
   const titleLabels = [`${defaultErrorLabelPath}.title`];

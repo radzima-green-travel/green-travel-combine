@@ -1,5 +1,5 @@
-import {getIn, useFormikContext} from 'formik';
-import React, {useCallback, useEffect, useState} from 'react';
+import { getIn, useFormikContext } from 'formik';
+import React, { useCallback, useEffect, useState } from 'react';
 
 interface WithFormikInputProps<TValue> {
   name: string;
@@ -27,7 +27,7 @@ export function WithFormikInput<TValue = string>({
   resetOnUnmount,
   onFocus,
 }: WithFormikInputProps<TValue>) {
-  const {values, setFieldValue, errors, touched, setFieldTouched} =
+  const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<Record<string, TValue>>();
 
   const [defaultValue] = useState(getIn(values, name));

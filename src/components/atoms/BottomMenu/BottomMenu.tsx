@@ -1,7 +1,7 @@
-import Animated, {SharedValue} from 'react-native-reanimated';
-import {themeStyles} from './styles';
-import {Text, View} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
+import Animated, { SharedValue } from 'react-native-reanimated';
+import { themeStyles } from './styles';
+import { Text, View } from 'react-native';
+import { useThemeStyles } from 'core/hooks';
 
 import BottomSheet, {
   BottomSheetView,
@@ -18,9 +18,9 @@ import React, {
   memo,
   useState,
 } from 'react';
-import {AnimatedCircleButton} from 'molecules/AnimatedCircleButton';
-import {composeTestID} from 'core/helpers';
-import {uniqueId} from 'lodash';
+import { AnimatedCircleButton } from 'molecules/AnimatedCircleButton';
+import { composeTestID } from 'core/helpers';
+import { uniqueId } from 'lodash';
 
 interface IProps {
   onHideEnd?: () => void;
@@ -161,8 +161,13 @@ export const BottomMenu = memo(
           return null;
         }
 
-        const {title, subtitle, onBackPress, onClosePress, closeButtonVisible} =
-          header;
+        const {
+          title,
+          subtitle,
+          onBackPress,
+          onClosePress,
+          closeButtonVisible,
+        } = header;
 
         const buttonsVisible =
           onBackPress || onClosePress || closeButtonVisible;

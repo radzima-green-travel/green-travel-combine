@@ -1,29 +1,29 @@
-import {all, call, put, select} from 'redux-saga/effects';
+import { all, call, put, select } from 'redux-saga/effects';
 import {
   CategoryFilterItemDTO,
   ObjectFiltersDataDTO,
   RegionsListResponseDTO,
 } from 'core/types';
-import {RequestError} from 'core/errors';
-import {graphQLAPI} from 'api/graphql';
-import {getFiltersDataRequest, setActiveFilter} from 'core/actions';
-import {transformActiveFiltersToFilterParam} from 'core/transformators/filters';
-import {getInitialFiltersSaga} from './getInitialFiltersSaga';
-import {selectAppLanguage, selectUserAuthorizedData} from 'core/selectors';
-import {transformSearchOptionsToFieldsToSearch} from 'core/transformators/search';
-import {locationService} from 'services/LocationService';
-import {DEFAULT_LOCALE} from 'core/constants';
+import { RequestError } from 'core/errors';
+import { graphQLAPI } from 'api/graphql';
+import { getFiltersDataRequest, setActiveFilter } from 'core/actions';
+import { transformActiveFiltersToFilterParam } from 'core/transformators/filters';
+import { getInitialFiltersSaga } from './getInitialFiltersSaga';
+import { selectAppLanguage, selectUserAuthorizedData } from 'core/selectors';
+import { transformSearchOptionsToFieldsToSearch } from 'core/transformators/search';
+import { locationService } from 'services/LocationService';
+import { DEFAULT_LOCALE } from 'core/constants';
 
 export function* getFiltersDataSaga({
-  meta: {failureAction, successAction},
-  payload: {filters, query, options},
+  meta: { failureAction, successAction },
+  payload: { filters, query, options },
 }: ReturnType<typeof getFiltersDataRequest>) {
   try {
     const userData: ReturnType<typeof selectUserAuthorizedData> = yield select(
       selectUserAuthorizedData,
     );
 
-    const {isOn, location} = filters.distance ?? {};
+    const { isOn, location } = filters.distance ?? {};
 
     if (isOn && !location) {
       const permissionGranted = yield call([
@@ -32,7 +32,7 @@ export function* getFiltersDataSaga({
       ]);
 
       if (!permissionGranted) {
-        yield put(setActiveFilter({name: 'distance', isOn: false}));
+        yield put(setActiveFilter({ name: 'distance', isOn: false }));
       } else {
         const loctaionCoords = yield call([
           locationService,

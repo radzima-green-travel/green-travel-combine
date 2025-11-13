@@ -1,6 +1,6 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {PADDING_HORIZONTAL} from 'core/constants';
-import {hexWithAlpha} from 'core/helpers';
+import { COLORS, FONTS_STYLES } from 'assets';
+import { PADDING_HORIZONTAL } from 'core/constants';
+import { hexWithAlpha } from 'core/helpers';
 
 export const themeStyles = {
   container: {

@@ -1,5 +1,5 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 
 import {
   selectTransformedGoogleRatings,
@@ -12,9 +12,13 @@ import {
   selectIsFiltersInitialDataLoaded,
   selectUserAuthorized,
 } from 'core/selectors';
-import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
-import {FiltersNavigationProps, FiltersRouteProps} from '../types';
-import {useOnRequestError, useRequestLoading} from 'core/hooks';
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import { FiltersNavigationProps, FiltersRouteProps } from '../types';
+import { useOnRequestError, useRequestLoading } from 'core/hooks';
 import {
   getFiltersDataRequest,
   setActiveFilter,
@@ -22,18 +26,18 @@ import {
   requestUserLocation,
   initActiveFilters,
 } from 'core/actions';
-import {useSnackbar} from 'components/atoms';
-import {isString, keys, pickBy} from 'lodash';
-import {RequestError} from 'core/errors';
-import {useFiltersAnalytics} from './useFiltersAnalytics';
-import {CategoryFilterItem, SpotItem} from 'core/types';
+import { useSnackbar } from 'components/atoms';
+import { isString, keys, pickBy } from 'lodash';
+import { RequestError } from 'core/errors';
+import { useFiltersAnalytics } from './useFiltersAnalytics';
+import { CategoryFilterItem, SpotItem } from 'core/types';
 
 export const useFilters = () => {
   const dispatch = useDispatch();
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
   const navigation = useNavigation<FiltersNavigationProps>();
-  const {params} = useRoute<FiltersRouteProps>();
-  const {initialFilters, initialQuery, searchOptions, onApply} = params || {};
+  const { params } = useRoute<FiltersRouteProps>();
+  const { initialFilters, initialQuery, searchOptions, onApply } = params || {};
   const isAuthorized = useSelector(selectUserAuthorized);
   const caregoriesData = useSelector(selectFiltersCategories);
   const googleRatings = useSelector(selectTransformedGoogleRatings);
@@ -67,13 +71,13 @@ export const useFilters = () => {
     sendFiltersViewEvent();
   }, [sendFiltersViewEvent]);
 
-  const {loading: filtersDataLoading} = useRequestLoading(
+  const { loading: filtersDataLoading } = useRequestLoading(
     getFiltersDataRequest,
   );
 
   useLayoutEffect(() => {
     if (initialFilters) {
-      dispatch(initActiveFilters({...initialFilters}));
+      dispatch(initActiveFilters({ ...initialFilters }));
     }
   }, [initialFilters, dispatch]);
 
@@ -173,8 +177,8 @@ export const useFilters = () => {
     'filters',
     errorLabel => {
       if (
-        (errorLabel.originalError as RequestError).error_code !==
-        'ERROR_LOCATION_PERMISSION_CANCELED'
+        (errorLabel.originalError as RequestError).error_code
+        !== 'ERROR_LOCATION_PERMISSION_CANCELED'
       ) {
         show({
           title: errorLabel.text,
@@ -227,8 +231,8 @@ export const useFilters = () => {
   const isNeedToFetchData = (() => {
     if (isFirstRender.current) {
       return (
-        !initialFilters &&
-        (!isFiltersInitialDataLoaded || isString(initialQuery))
+        !initialFilters
+        && (!isFiltersInitialDataLoaded || isString(initialQuery))
       );
     }
     return true;
@@ -243,7 +247,7 @@ export const useFilters = () => {
 
   const isFocused = useIsFocused();
 
-  const {errorTexts} = useOnRequestError(
+  const { errorTexts } = useOnRequestError(
     getFiltersDataRequest,
     'filters',
     errorLabel => {
@@ -272,7 +276,7 @@ export const useFilters = () => {
   );
 
   const applyFilters = useCallback(() => {
-    const {redirectHandled} = onApply?.(activeFilters) ?? {};
+    const { redirectHandled } = onApply?.(activeFilters) ?? {};
     if (!redirectHandled) {
       navigation.goBack();
     }

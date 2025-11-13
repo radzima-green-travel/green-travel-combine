@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {useTranslation} from 'core/hooks';
-import {AuthForm} from 'organisms';
-import {OneTimeCode, SnackBar, WithFormikInput} from 'atoms';
-import {useEmailValidation} from './hooks';
-import {FormikProvider} from 'formik';
+import { useTranslation } from 'core/hooks';
+import { AuthForm } from 'organisms';
+import { OneTimeCode, SnackBar, WithFormikInput } from 'atoms';
+import { useEmailValidation } from './hooks';
+import { FormikProvider } from 'formik';
 
 export const EmailValidation = () => {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const {
     isSignUp,
     email,
@@ -43,7 +43,7 @@ export const EmailValidation = () => {
         }
         secondaryButtonText={t('repeatAttempt')}>
         <WithFormikInput<string> name="code">
-          {({messageText, ...inputProps}) => (
+          {({ messageText, ...inputProps }) => (
             <OneTimeCode
               testID="codeInput"
               autoFocus

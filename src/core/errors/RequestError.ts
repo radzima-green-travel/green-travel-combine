@@ -1,4 +1,4 @@
-import {IRequestError, RequestErrorCodes} from 'core/types';
+import { IRequestError, RequestErrorCodes } from 'core/types';
 
 export class RequestError extends Error implements IRequestError {
   message: string = '';

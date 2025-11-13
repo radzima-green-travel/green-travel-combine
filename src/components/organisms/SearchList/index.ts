@@ -1,1 +1,1 @@
-export {SearchList} from './SearchList';
+export { SearchList } from './SearchList';

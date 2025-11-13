@@ -1,4 +1,4 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   selectAppLanguage,
   selectSearchObjectsData,
@@ -7,28 +7,28 @@ import {
   selectSearchQuery,
   selectUserAuthorized,
 } from 'core/selectors';
-import {useCallback, useMemo, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useRequestLoading} from 'react-redux-help-kit';
+import { useCallback, useMemo, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRequestLoading } from 'react-redux-help-kit';
 import {
   SearchScreenNavigationProps,
   type SearchScreenRouteProps,
 } from '../../screens/Search/types';
-import {getAnalyticsNavigationScreenName} from '../helpers';
-import {SearchObject} from '../types';
-import {useListPagination} from './useListPagination';
-import {useOnRequestError} from './useOnRequestError';
-import {useSearchActions} from './useSearchActions';
-import {useSearchSelector} from './useSearchSelector';
-import {useSearchListViewMode} from './useSearchListViewMode';
-import {Keyboard} from 'react-native';
+import { getAnalyticsNavigationScreenName } from '../helpers';
+import { SearchObject } from '../types';
+import { useListPagination } from './useListPagination';
+import { useOnRequestError } from './useOnRequestError';
+import { useSearchActions } from './useSearchActions';
+import { useSearchSelector } from './useSearchSelector';
+import { useSearchListViewMode } from './useSearchListViewMode';
+import { Keyboard } from 'react-native';
 
 export function useSearchList() {
   const dispatch = useDispatch();
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
 
-  const {searchObjectsRequest, searchMoreObjectsRequest} = useSearchActions();
+  const { searchObjectsRequest, searchMoreObjectsRequest } = useSearchActions();
 
   const searchResults = useSearchSelector(selectSearchObjectsData);
   const searchResultsTotal = useSearchSelector(selectSearchObjectsTotal);
@@ -42,14 +42,14 @@ export function useSearchList() {
   const appLocale = useSelector(selectAppLanguage);
   const isAuthorized = useSelector(selectUserAuthorized);
 
-  const {params} = useRoute<SearchScreenRouteProps>();
+  const { params } = useRoute<SearchScreenRouteProps>();
 
-  const {appliedFilters} = params || {};
+  const { appliedFilters } = params || {};
 
-  const {loading} = useRequestLoading(searchObjectsRequest);
-  const {errorTexts} = useOnRequestError(searchObjectsRequest, '');
+  const { loading } = useRequestLoading(searchObjectsRequest);
+  const { errorTexts } = useOnRequestError(searchObjectsRequest, '');
 
-  const {loading: nextDataLoading} = useRequestLoading(
+  const { loading: nextDataLoading } = useRequestLoading(
     searchMoreObjectsRequest,
   );
 
@@ -61,7 +61,7 @@ export function useSearchList() {
     };
   }, [searchQuery, appliedFilters]);
 
-  const {viewMode, setViewMode} = useSearchListViewMode(searchParameters);
+  const { viewMode, setViewMode } = useSearchListViewMode(searchParameters);
 
   const searchObjects = useCallback(() => {
     dispatch(searchObjectsRequest(searchParameters));

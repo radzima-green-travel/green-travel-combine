@@ -1,1 +1,1 @@
-export {NumPager} from './NumPager';
+export { NumPager } from './NumPager';

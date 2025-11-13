@@ -1,4 +1,4 @@
-import {shuffle} from 'lodash';
+import { shuffle } from 'lodash';
 
 export function generatePassword(passwordLength: number) {
   const numberChars = '0123456789';

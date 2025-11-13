@@ -1,12 +1,12 @@
 import React from 'react';
-import {useTranslation} from 'core/hooks';
-import {FormInput, PasswordHint, SnackBar, WithFormikInput} from 'atoms';
-import {AuthForm} from 'organisms';
-import {useNewPassword} from './hooks';
-import {FormikProvider} from 'formik';
+import { useTranslation } from 'core/hooks';
+import { FormInput, PasswordHint, SnackBar, WithFormikInput } from 'atoms';
+import { AuthForm } from 'organisms';
+import { useNewPassword } from './hooks';
+import { FormikProvider } from 'formik';
 
 export const NewPassword = () => {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const {
     formik,
     loading,
@@ -29,7 +29,7 @@ export const NewPassword = () => {
         isSubmitButtonDisabled={isSubmitButtonDisabled}
         submitButtonLoading={loading}>
         <WithFormikInput<string> name="password">
-          {({messageText, ...inputProps}) => (
+          {({ messageText, ...inputProps }) => (
             <FormInput
               testID={'passwordInput'}
               autoFocus
