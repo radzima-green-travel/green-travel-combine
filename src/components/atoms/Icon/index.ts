@@ -1,2 +1,2 @@
 export {Icon, Props as IconProps} from './Icon';
-export {IconsNames} from './IconsNames';
+export {IconName as IconsNames} from './types';

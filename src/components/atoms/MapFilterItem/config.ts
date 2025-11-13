@@ -1,9 +1,9 @@
 import {MAP_PINS} from 'core/constants';
-import {IconsNames} from 'atoms/Icon/IconsNames';
+import {IconName} from 'components/atoms/Icon/types';
 
 export const iconsConfig: {
   [key: string]: {
-    name: IconsNames;
+    name: IconName;
     width: number;
     height: number;
   };

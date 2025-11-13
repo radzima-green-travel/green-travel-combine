@@ -1,4 +1,4 @@
-import {IconsNames} from 'atoms/Icon/IconsNames';
+import {IconName} from 'components/atoms/Icon/types';
 import {KeyboardEventName, Platform} from 'react-native';
 import {} from './types/analytics';
 import {
@@ -75,18 +75,18 @@ export const PADDING_HORIZONTAL = 16;
 export const HEADER_BOTTOM_RADIUS = 20;
 
 export const ICONS_MATCHER = {
-  [MAP_PINS.BICYCLE_ROUTE]: 'bike' as IconsNames,
-  [MAP_PINS.HISTORICAL_PLACE]: 'church' as IconsNames,
-  [MAP_PINS.WALKING_ROUTES]: 'footprints' as IconsNames,
-  [MAP_PINS.EXCURSION_PIN]: 'flag' as IconsNames,
-  [MAP_PINS.OBJECT]: 'forest' as IconsNames,
-  [MAP_PINS.WATER_ROUTE]: 'wave' as IconsNames,
-  [MAP_PINS.CASTLES]: 'castles' as IconsNames,
-  [MAP_PINS.MUSEUMS]: 'museums' as IconsNames,
-  [MAP_PINS.NATURE_MONUMENTS]: 'natureMonuments' as IconsNames,
-  [MAP_PINS.OTHER_MONUMENTS]: 'otherMonuments' as IconsNames,
-  [MAP_PINS.WAR_MONUMENTS]: 'warMonuments' as IconsNames,
-  [MAP_PINS.CAR_ROUTE]: 'car' as IconsNames,
+  [MAP_PINS.BICYCLE_ROUTE]: 'bike' as IconName,
+  [MAP_PINS.HISTORICAL_PLACE]: 'church' as IconName,
+  [MAP_PINS.WALKING_ROUTES]: 'footprints' as IconName,
+  [MAP_PINS.EXCURSION_PIN]: 'flag' as IconName,
+  [MAP_PINS.OBJECT]: 'forest' as IconName,
+  [MAP_PINS.WATER_ROUTE]: 'wave' as IconName,
+  [MAP_PINS.CASTLES]: 'castles' as IconName,
+  [MAP_PINS.MUSEUMS]: 'museums' as IconName,
+  [MAP_PINS.NATURE_MONUMENTS]: 'natureMonuments' as IconName,
+  [MAP_PINS.OTHER_MONUMENTS]: 'otherMonuments' as IconName,
+  [MAP_PINS.WAR_MONUMENTS]: 'warMonuments' as IconName,
+  [MAP_PINS.CAR_ROUTE]: 'car' as IconName,
 };
 
 export const MAP_BOTTOM_MENU_HEIGHT = 185;
