@@ -4,6 +4,7 @@ import {useColorScheme, useTranslation} from 'core/hooks';
 import {ExploreNavigatior} from './ExploreNavigator';
 import {BookmarksNavigator} from './BookmarksNavigator';
 import {ProfileNavigator} from './ProfileNavigator';
+import {RoutesNavigator} from './RoutesNavigator';
 import {Icon} from 'atoms';
 import {HomeNavigator} from './HomeNavigator';
 import {TabNavigatorParamsList} from 'core/types';
@@ -85,6 +86,23 @@ export function TabNavigator() {
           tabBarLabel: t('tabs.explore'),
           tabBarIcon: ({color}) => (
             <Icon name={'search'} color={color} size={24} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="RoutesNavigator"
+        component={RoutesNavigator}
+        listeners={{
+          tabPress: () => {
+            analyticsService.logEvent('navi_routes_event');
+          },
+        }}
+        options={{
+          tabBarTestID: 'tabBarItemRoutes',
+          tabBarAccessibilityLabel: 'tabBarItemRoutes',
+          tabBarLabel: t('tabs.routes'),
+          tabBarIcon: ({color}) => (
+            <Icon name={'routeSimple'} color={color} size={24} />
           ),
         }}
       />

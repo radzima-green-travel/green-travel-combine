@@ -29,3 +29,4 @@ export {ObjectDetailsAddInfo as ObjectDetailsAddInfoScreen} from './ObjectDetail
 export {Filters as FiltersScreen} from './Filters';
 export {Settlements as SettlementsScreen} from './Settlements';
 export {AddNewPlaceScreen} from './AddNewPlace';
+export {RoutesScreen} from './Routes';

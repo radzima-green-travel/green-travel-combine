@@ -64,6 +64,10 @@ export type ExploreNavigatorParamsList = {
   ObjectsList: ObjectListParams;
 };
 
+export type RoutesNavigatorParamsList = {
+  Routes: undefined;
+};
+
 export type MainNavigatorParamsList = {
   TabNavigator: NavigatorScreenParams<TabNavigatorParamsList>;
   PlaceDetails: undefined;
@@ -109,6 +113,7 @@ export type MainNavigatorParamsList = {
 export type TabNavigatorParamsList = {
   HomeNavigator: NavigatorScreenParams<HomeNavigatorParamsList>;
   ExploreNavigator: NavigatorScreenParams<ExploreNavigatorParamsList>;
+  RoutesNavigator: NavigatorScreenParams<RoutesNavigatorParamsList>;
   BookmarksNavigator: NavigatorScreenParams<BookmarksNavigatorParamsList>;
   ProfileNavigator: NavigatorScreenParams<ProfileNavigatorParamsList>;
 };
@@ -143,4 +148,5 @@ export type NavigationRoutes =
   | keyof HomeNavigatorParamsList
   | keyof BookmarksNavigatorParamsList
   | keyof ProfileNavigatorParamsList
-  | keyof ExploreNavigatorParamsList;
+  | keyof ExploreNavigatorParamsList
+  | keyof RoutesNavigatorParamsList;

@@ -29,10 +29,10 @@
         "./src/assets/*"
       ],
       "screens/*": [
-        "./src/components/screens/*"
+        "./src/screens/*"
       ],
       "screens": [
-        "./src/components/screens"
+        "./src/screens"
       ],
       "core": [
         "./src/core"
