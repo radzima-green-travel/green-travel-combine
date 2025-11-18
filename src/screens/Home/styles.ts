@@ -1,4 +1,4 @@
-import {COLORS, FONTS_PRESETS} from 'assets';
+import {COLORS} from 'assets';
 
 export const themeStyles = {
   container: {
@@ -20,15 +20,6 @@ export const themeStyles = {
       light: COLORS.white,
       dark: COLORS.altoForDark,
     },
-  },
-  headerTitle: {
-    ...FONTS_PRESETS.title3Bold,
-    color: {
-      light: COLORS.light.text.primary,
-      dark: COLORS.dark.text.primary,
-    },
-    marginTop: 24,
-    marginBottom: 16,
   },
   searchContainer: {},
   widgetGrid: {

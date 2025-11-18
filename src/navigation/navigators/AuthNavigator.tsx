@@ -39,6 +39,7 @@ export function AuthNavigator() {
     animation: defaultTransition,
     headerRight: getHeaderRight,
     orientation: 'portrait',
+    legacyDesign: true,
   });
 
   return (

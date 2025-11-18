@@ -22,6 +22,7 @@ export function BookmarksNavigator() {
     title: t('tabs.bookmarks'),
     animation: defaultTransition,
     headerTitleAlign: 'center',
+    legacyDesign: true,
   });
 
   return (

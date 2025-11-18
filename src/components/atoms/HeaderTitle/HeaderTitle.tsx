@@ -10,6 +10,11 @@ interface Props {
   testID: string;
 }
 
+/**
+ * @deprecated HeaderTitle is deprecated and will be removed in a future release.
+ * Use the new standardized Header component from containers/Header instead.
+ */
+
 export const HeaderTitle = memo(({title, tintColor, testID}: Props) => {
   const styles = useThemeStyles(themeStyles);
   const textColor = tintColor ? {color: tintColor} : {};

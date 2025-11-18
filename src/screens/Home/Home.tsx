@@ -1,7 +1,7 @@
 import {COLORS} from 'assets';
 import {SnackBar} from 'atoms';
 import {useThemeStyles} from 'core/hooks/useThemeStyles';
-import {ChipsHorisontalList, SuspenseView} from 'molecules';
+import {ChipsHorisontalList, SearchField, SuspenseView} from 'molecules';
 import React, {useRef} from 'react';
 import {RefreshControl, ScrollView, View} from 'react-native';
 import {
@@ -18,21 +18,19 @@ import {
   useAddPlaceWidget,
 } from './hooks';
 import {themeStyles} from './styles';
-import {useStatusBar, useTranslation} from 'core/hooks';
-import {useHomeHeader} from './screenOptions';
-import {map} from 'lodash';
+import {useTranslation} from 'core/hooks';
+import {map, noop} from 'lodash';
 import {ICONS_MATCHER} from 'core/constants';
 import {useScrollToTop} from '@react-navigation/native';
-import {ObjectDetailsAddInfoSuccessMenu} from '../../components/organisms';
+import {ObjectDetailsAddInfoSuccessMenu} from 'organisms';
+import {useHomeHeader} from './hooks/useHomeHeader';
+import {Header} from 'containers';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
   const {t} = useTranslation('home');
 
   const listRef = useRef<ScrollView>(null);
-  const {pageListContainerProps} = useHomeHeader();
-
-  useStatusBar({style: 'auto'});
 
   useScrollToTop(
     useRef({
@@ -61,6 +59,8 @@ export const Home = () => {
 
   const {openAddNewPlacePage, successBottomSheetProps} = useAddPlaceWidget();
 
+  const {title, openSearch, openFilters} = useHomeHeader();
+
   const widgetsBlock = (
     <View style={styles.widgetGrid}>
       <View style={styles.widgetGridRightColumn}>
@@ -81,6 +81,31 @@ export const Home = () => {
 
   return (
     <View style={styles.container}>
+      <Header>
+        <Header.TopBlock>
+          <Header.Title>{title}</Header.Title>
+        </Header.TopBlock>
+        <Header.ContentBlock>
+          <View
+            style={{flex: 1}}
+            pointerEvents="box-only"
+            onStartShouldSetResponder={openSearch}>
+            <SearchField
+              testID="headerSearchbar"
+              value={''}
+              onChange={noop}
+              onRightButtonPress={noop}
+            />
+          </View>
+        </Header.ContentBlock>
+        <Header.RightBlock>
+          <Header.ActionButton
+            testID="filterButton"
+            onPress={openFilters}
+            icon="tune"
+          />
+        </Header.RightBlock>
+      </Header>
       <SuspenseView
         loading={loading}
         error={errorTexts}
@@ -95,14 +120,12 @@ export const Home = () => {
               colors={[COLORS.forestGreen]}
               refreshing={refreshing}
               onRefresh={refreshHomePageData}
-              progressViewOffset={
-                pageListContainerProps.contentContainerStyle.paddingTop
-              }
+              progressViewOffset={Header.overlayOffset}
             />
           }
-          {...pageListContainerProps}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={[
-            pageListContainerProps.contentContainerStyle,
+            {paddingTop: Header.overlayOffset},
             styles.listContent,
           ]}>
           {widgetsBlock}

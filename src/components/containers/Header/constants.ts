@@ -1,0 +1,1 @@
+export const HEADER_OVERLAY_OFFSET = 20;

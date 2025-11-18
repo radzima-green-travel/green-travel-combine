@@ -59,13 +59,7 @@ export function MainNavigator() {
             },
             presentation: 'modal',
           })}>
-          <Stack.Screen
-            name="Filter"
-            component={FiltersScreen}
-            options={props => ({
-              ...FiltersScreen.screenOptions(props),
-            })}
-          />
+          <Stack.Screen name="Filter" component={FiltersScreen} />
           <Stack.Screen
             name="Settlements"
             component={SettlementsScreen}

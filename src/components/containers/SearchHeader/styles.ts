@@ -28,7 +28,6 @@ export const themeStyles = createThemeStyles({
     marginHorizontal: -PADDING_HORIZONTAL,
   },
   filterListContent: {
-    paddingTop: 20,
     paddingHorizontal: PADDING_HORIZONTAL,
   },
   titleContainer: {

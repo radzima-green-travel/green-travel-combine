@@ -31,6 +31,7 @@ export function ProfileNavigator() {
           : COLORS.dark.background.secondary,
     },
     headerTitleAlign: 'center',
+    legacyDesign: true,
   });
 
   return (

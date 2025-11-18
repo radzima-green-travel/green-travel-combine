@@ -12,6 +12,8 @@ import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {useSnackbar} from 'components/atoms';
 import {useAddNewPlaceAnalytics} from './hooks';
+import {Header} from '../../components/containers';
+import {isIOS} from '../../services/PlatformService';
 
 export const AddNewPlaceScreen = () => {
   const navigation = useNavigation();
@@ -54,18 +56,28 @@ export const AddNewPlaceScreen = () => {
   );
 
   return (
-    <ModalForm
-      testID="addNewPlaceForm"
-      schema={NewPlaceForm.Schema}
-      defaultValues={defaultValues}
-      t={t}
-      onBackPress={navigation.goBack}
-      fieldConfigs={NewPlaceForm.fieldConfigs}
-      submitting={submitting}
-      onSubmit={handleSubmit}
-      snackBarProps={snackBarProps}
-      onSelectedField={sendAddAnyFieldViewEvent}
-      onSelectedFieldChange={sendAddAnyFieldInputSubmitEvent}
-    />
+    <>
+      <Header style={{gap: 8}} statusbarStyle={isIOS ? 'light' : 'auto'}>
+        <Header.TopBlock>
+          <Header.BackButton onPress={navigation.goBack} />
+        </Header.TopBlock>
+        <Header.ContentBlock>
+          <Header.Title>{t('title')}</Header.Title>
+        </Header.ContentBlock>
+      </Header>
+      <ModalForm
+        testID="addNewPlaceForm"
+        schema={NewPlaceForm.Schema}
+        defaultValues={defaultValues}
+        t={t}
+        onBackPress={navigation.goBack}
+        fieldConfigs={NewPlaceForm.fieldConfigs}
+        submitting={submitting}
+        onSubmit={handleSubmit}
+        snackBarProps={snackBarProps}
+        onSelectedField={sendAddAnyFieldViewEvent}
+        onSelectedFieldChange={sendAddAnyFieldInputSubmitEvent}
+      />
+    </>
   );
 };
