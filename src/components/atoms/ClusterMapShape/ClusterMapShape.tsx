@@ -1,8 +1,8 @@
-import {ShapeSource, SymbolLayer} from '@rnmapbox/maps';
-import React, {ComponentProps, memo, forwardRef} from 'react';
-import {layerStyles} from './styles';
+import { ShapeSource, SymbolLayer } from '@rnmapbox/maps';
+import React, { ComponentProps, memo, forwardRef } from 'react';
+import { layerStyles } from './styles';
 
-import type {FeatureCollection, Geometry, GeoJsonProperties} from 'geojson';
+import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 
 export interface IProps {
   markers: FeatureCollection<Geometry, GeoJsonProperties>;
@@ -10,11 +10,11 @@ export interface IProps {
 }
 
 export const ClusterMapShape = memo(
-  forwardRef<ShapeSource, IProps>(({markers, onShapePress}, ref) => {
+  forwardRef<ShapeSource, IProps>(({ markers, onShapePress }, ref) => {
     return (
       <ShapeSource
         id={'earthquakes'}
-        hitbox={{width: 20, height: 20}}
+        hitbox={{ width: 20, height: 20 }}
         cluster
         ref={ref}
         onPress={onShapePress}

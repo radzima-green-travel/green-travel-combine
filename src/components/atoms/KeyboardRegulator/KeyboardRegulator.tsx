@@ -1,7 +1,7 @@
-import React, {memo, useState, useCallback, ReactNode} from 'react';
+import React, { memo, useState, useCallback, ReactNode } from 'react';
 
-import {View} from 'react-native';
-import {rootViewRef} from './service';
+import { View } from 'react-native';
+import { rootViewRef } from './service';
 interface IProps {
   children: ReactNode;
 }
@@ -11,14 +11,14 @@ interface IHeight {
   height?: number;
 }
 
-export const KeyboardRegulator = memo(({children}: IProps) => {
-  const [style, setStyle] = useState<IHeight>({flex: 1});
+export const KeyboardRegulator = memo(({ children }: IProps) => {
+  const [style, setStyle] = useState<IHeight>({ flex: 1 });
 
-  const setAppHeight = useCallback(({nativeEvent}) => {
+  const setAppHeight = useCallback(({ nativeEvent }) => {
     const {
-      layout: {height},
+      layout: { height },
     } = nativeEvent;
-    setStyle({height});
+    setStyle({ height });
   }, []);
 
   return (

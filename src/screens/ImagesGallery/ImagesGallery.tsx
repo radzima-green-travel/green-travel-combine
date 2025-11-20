@@ -1,12 +1,12 @@
-import React, {memo} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {useImagesGallery} from './hooks';
-import Gallery, {RenderItemInfo} from 'react-native-awesome-gallery';
-import {Icon} from 'atoms';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Image} from 'expo-image';
+import React, { memo } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useImagesGallery } from './hooks';
+import Gallery, { RenderItemInfo } from 'react-native-awesome-gallery';
+import { Icon } from 'atoms';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Image } from 'expo-image';
 
 export const ImagesGallery = memo(() => {
   const {
@@ -19,17 +19,17 @@ export const ImagesGallery = memo(() => {
   } = useImagesGallery();
 
   const styles = useThemeStyles(themeStyles);
-  const {top, bottom} = useSafeAreaInsets();
+  const { top, bottom } = useSafeAreaInsets();
 
-  const renderItem = ({item, setImageDimensions}: RenderItemInfo<string>) => {
+  const renderItem = ({ item, setImageDimensions }: RenderItemInfo<string>) => {
     return (
       <Image
         source={item}
         style={StyleSheet.absoluteFillObject}
         contentFit="contain"
         onLoad={e => {
-          const {width, height} = e.source;
-          setImageDimensions({width, height});
+          const { width, height } = e.source;
+          setImageDimensions({ width, height });
         }}
       />
     );
@@ -37,7 +37,7 @@ export const ImagesGallery = memo(() => {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.topBarContainer, {paddingTop: top}]}>
+      <View style={[styles.topBarContainer, { paddingTop: top }]}>
         <View style={styles.textContainer}>
           <Text style={styles.text}>{currentPage}</Text>
           <Text style={styles.text}>/</Text>
@@ -55,7 +55,10 @@ export const ImagesGallery = memo(() => {
       <View style={styles.bottomBarContainer}>
         <Pressable
           onPress={closeGallery}
-          style={[styles.closeButtonContainer, {paddingBottom: bottom || 16}]}>
+          style={[
+            styles.closeButtonContainer,
+            { paddingBottom: bottom || 16 },
+          ]}>
           <Icon name="close" size={24} style={styles.closeIcon} />
           <Text style={styles.closeText}>Close</Text>
         </Pressable>

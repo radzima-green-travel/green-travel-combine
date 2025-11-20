@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {View} from 'react-native';
-import {Button} from 'atoms';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles} from './styles';
-import {UpdateView} from '../UpdateView';
-import {composeTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { View } from 'react-native';
+import { Button } from 'atoms';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { themeStyles } from './styles';
+import { UpdateView } from '../UpdateView';
+import { composeTestID } from 'core/helpers';
 
 interface UpdateBottomMenuProps {
   onUpdate: () => void;
@@ -22,11 +22,11 @@ export const UpdateBottomMenu = memo(
     bottomInset,
     testID,
   }: UpdateBottomMenuProps) => {
-    const {t} = useTranslation('updateVersion');
+    const { t } = useTranslation('updateVersion');
     const styles = useThemeStyles(themeStyles);
 
     return (
-      <View style={[styles.container, {paddingBottom: bottomInset}]}>
+      <View style={[styles.container, { paddingBottom: bottomInset }]}>
         <UpdateView
           title={t('updateAvailable')}
           subTitle={t('improveWork')}

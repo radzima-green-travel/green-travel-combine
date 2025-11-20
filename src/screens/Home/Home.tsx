@@ -1,9 +1,9 @@
-import {COLORS} from 'assets';
-import {SnackBar} from 'atoms';
-import {useThemeStyles} from 'core/hooks/useThemeStyles';
-import {ChipsHorisontalList, SuspenseView} from 'molecules';
-import React, {useRef} from 'react';
-import {RefreshControl, ScrollView, View} from 'react-native';
+import { COLORS } from 'assets';
+import { SnackBar } from 'atoms';
+import { useThemeStyles } from 'core/hooks/useThemeStyles';
+import { ChipsHorisontalList, SuspenseView } from 'molecules';
+import React, { useRef } from 'react';
+import { RefreshControl, ScrollView, View } from 'react-native';
 import {
   PlacesYouWontFindWidget,
   RandomSpotWidget,
@@ -17,27 +17,27 @@ import {
   usePlacesYouWontFindWidget,
   useAddPlaceWidget,
 } from './hooks';
-import {themeStyles} from './styles';
-import {useStatusBar, useTranslation} from 'core/hooks';
-import {useHomeHeader} from './screenOptions';
-import {map} from 'lodash';
-import {ICONS_MATCHER} from 'core/constants';
-import {useScrollToTop} from '@react-navigation/native';
-import {ObjectDetailsAddInfoSuccessMenu} from '../../components/organisms';
+import { themeStyles } from './styles';
+import { useStatusBar, useTranslation } from 'core/hooks';
+import { useHomeHeader } from './screenOptions';
+import { map } from 'lodash';
+import { ICONS_MATCHER } from 'core/constants';
+import { useScrollToTop } from '@react-navigation/native';
+import { ObjectDetailsAddInfoSuccessMenu } from '../../components/organisms';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
-  const {t} = useTranslation('home');
+  const { t } = useTranslation('home');
 
   const listRef = useRef<ScrollView>(null);
-  const {pageListContainerProps} = useHomeHeader();
+  const { pageListContainerProps } = useHomeHeader();
 
-  useStatusBar({style: 'auto'});
+  useStatusBar({ style: 'auto' });
 
   useScrollToTop(
     useRef({
       scrollToTop: () => {
-        listRef.current?.scrollTo({y: 0, x: 0});
+        listRef.current?.scrollTo({ y: 0, x: 0 });
       },
     }),
   );
@@ -54,12 +54,12 @@ export const Home = () => {
     snackBarProps,
   } = useHome();
 
-  const {openRandomObject} = useOpenRandomObject();
-  const {placeOfTheWeek, openPlaceOfTheWeek, onFavoriteChanged} =
+  const { openRandomObject } = useOpenRandomObject();
+  const { placeOfTheWeek, openPlaceOfTheWeek, onFavoriteChanged } =
     usePlaceOfTheWeek();
-  const {openPlacesPage} = usePlacesYouWontFindWidget();
+  const { openPlacesPage } = usePlacesYouWontFindWidget();
 
-  const {openAddNewPlacePage, successBottomSheetProps} = useAddPlaceWidget();
+  const { openAddNewPlacePage, successBottomSheetProps } = useAddPlaceWidget();
 
   const widgetsBlock = (
     <View style={styles.widgetGrid}>

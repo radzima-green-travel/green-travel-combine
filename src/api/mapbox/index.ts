@@ -1,1 +1,1 @@
-export {mapBoxApi} from './MapBoxAPI';
+export { mapBoxApi } from './MapBoxAPI';

@@ -1,4 +1,4 @@
-import {takeEvery} from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 import {
   confirmNewPasswordRequest,
   confirmSignUpRequest,
@@ -13,18 +13,18 @@ import {
   changePasswordRequest,
   clearUserData,
 } from 'core/actions';
-import {confirmNewPasswordSaga} from './confirmNewPasswordSaga';
-import {confirmSignUpSaga} from './confirmSignUpSaga';
-import {forgotPasswordSaga} from './forgotPasswordSaga';
-import {resendSignUpCodeSaga} from './resendSignUpCodeSaga';
-import {signInSaga} from './signInSaga';
-import {signUpSaga} from './signUpSaga';
-import {signInOutSaga} from './signInOutSaga';
-import {deleteUserSaga} from './deleteUserSaga';
-import {checkUserEmailSaga} from './checkUserEmailSaga';
-import {forgotPasswordCodeSubmitSaga} from './forgotPasswordCodeSubmitSaga';
-import {changePasswordSaga} from './changePasswordSaga';
-import {clearUserDataSaga} from './clearUserDataSaga';
+import { confirmNewPasswordSaga } from './confirmNewPasswordSaga';
+import { confirmSignUpSaga } from './confirmSignUpSaga';
+import { forgotPasswordSaga } from './forgotPasswordSaga';
+import { resendSignUpCodeSaga } from './resendSignUpCodeSaga';
+import { signInSaga } from './signInSaga';
+import { signUpSaga } from './signUpSaga';
+import { signInOutSaga } from './signInOutSaga';
+import { deleteUserSaga } from './deleteUserSaga';
+import { checkUserEmailSaga } from './checkUserEmailSaga';
+import { forgotPasswordCodeSubmitSaga } from './forgotPasswordCodeSubmitSaga';
+import { changePasswordSaga } from './changePasswordSaga';
+import { clearUserDataSaga } from './clearUserDataSaga';
 
 export function* authentificationSaga() {
   yield takeEvery(confirmNewPasswordRequest, confirmNewPasswordSaga);

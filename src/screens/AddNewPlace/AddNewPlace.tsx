@@ -1,17 +1,17 @@
-import {useNavigation} from '@react-navigation/native';
-import {ModalForm} from 'components/organisms/ModalForm';
-import {submitNewPlaceFormRequest} from 'core/actions';
+import { useNavigation } from '@react-navigation/native';
+import { ModalForm } from 'components/organisms/ModalForm';
+import { submitNewPlaceFormRequest } from 'core/actions';
 import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
 } from 'core/hooks';
-import {NewPlaceForm} from 'core/types/addNewPlace';
-import React, {useCallback, useEffect, useRef} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useDispatch} from 'react-redux';
-import {useSnackbar} from 'components/atoms';
-import {useAddNewPlaceAnalytics} from './hooks';
+import { NewPlaceForm } from 'core/types/addNewPlace';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'components/atoms';
+import { useAddNewPlaceAnalytics } from './hooks';
 
 export const AddNewPlaceScreen = () => {
   const navigation = useNavigation();
@@ -22,11 +22,11 @@ export const AddNewPlaceScreen = () => {
     sendAddNewPlaceSendAllEvent,
   } = useAddNewPlaceAnalytics();
 
-  const {t} = useTranslation('addNewPlaceForm');
+  const { t } = useTranslation('addNewPlaceForm');
 
   const dispatch = useDispatch();
 
-  const {loading: submitting} = useRequestLoading(submitNewPlaceFormRequest);
+  const { loading: submitting } = useRequestLoading(submitNewPlaceFormRequest);
 
   const snackBarProps = useSnackbar();
 

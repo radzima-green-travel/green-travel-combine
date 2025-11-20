@@ -1,1 +1,1 @@
-export {ListItemPrimary} from './ListItemPrimary';
+export { ListItemPrimary } from './ListItemPrimary';

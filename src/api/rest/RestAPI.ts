@@ -1,7 +1,7 @@
-import {RestApiEngine} from '../engines';
+import { RestApiEngine } from '../engines';
 
-import {AppConfiguration} from 'core/types';
-import {getAppVersion} from 'core/helpers';
+import { AppConfiguration } from 'core/types';
+import { getAppVersion } from 'core/helpers';
 
 export class RestAPI extends RestApiEngine {
   constructor(baseURL: string) {

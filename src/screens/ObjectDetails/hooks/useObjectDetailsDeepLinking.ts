@@ -1,21 +1,21 @@
-import {useCallback, useMemo} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import { useCallback, useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   useRequestLoading,
   useTranslation,
   useObjectDetailsActions,
   useObjectDetailsSelector,
 } from 'core/hooks';
-import {selectObjectDetails} from 'core/selectors';
-import {ObjectDetailsScreenNavigationProps} from '../types';
+import { selectObjectDetails } from 'core/selectors';
+import { ObjectDetailsScreenNavigationProps } from '../types';
 
 export function useObjectDetailsDeepLinking() {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
 
-  const {t} = useTranslation('objectDetails');
+  const { t } = useTranslation('objectDetails');
   const data = useObjectDetailsSelector(selectObjectDetails);
-  const {getObjectDetailsRequest} = useObjectDetailsActions();
-  const {loading} = useRequestLoading(getObjectDetailsRequest);
+  const { getObjectDetailsRequest } = useObjectDetailsActions();
+  const { loading } = useRequestLoading(getObjectDetailsRequest);
 
   const navigateToMainPage = useCallback(() => {
     navigation.navigate('TabNavigator', {

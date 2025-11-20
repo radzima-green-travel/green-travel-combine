@@ -1,9 +1,9 @@
-import React, {memo} from 'react';
-import {View, Text, ScrollView} from 'react-native';
-import {themeStyles} from './styles';
-import {Chip, ChipProps} from 'atoms';
-import {useThemeStyles} from 'core/hooks';
-import {composeTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { themeStyles } from './styles';
+import { Chip, ChipProps } from 'atoms';
+import { useThemeStyles } from 'core/hooks';
+import { composeTestID } from 'core/helpers';
 
 type ChipsHorisontalListProps = {
   items: Omit<ChipProps, 'testID'>[];
@@ -13,9 +13,9 @@ type ChipsHorisontalListProps = {
 };
 
 export const ChipsHorisontalList: React.FC<ChipsHorisontalListProps> = memo(
-  ({items = [], numberOfRows = 1, title = '', testID}) => {
+  ({ items = [], numberOfRows = 1, title = '', testID }) => {
     const itemsPerRow = Math.ceil(items.length / numberOfRows);
-    const rows = Array.from({length: numberOfRows}, (_, rowIndex) =>
+    const rows = Array.from({ length: numberOfRows }, (_, rowIndex) =>
       items.slice(rowIndex * itemsPerRow, (rowIndex + 1) * itemsPerRow),
     );
     const styles = useThemeStyles(themeStyles);

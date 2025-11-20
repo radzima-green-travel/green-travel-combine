@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const FONTS_STYLES = StyleSheet.create({
   bold15: {

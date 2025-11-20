@@ -1,5 +1,5 @@
-import {isIOS} from './PlatformService';
-import {tryOpenURL} from 'core/helpers';
+import { isIOS } from './PlatformService';
+import { tryOpenURL } from 'core/helpers';
 
 class UpdateService {
   openApplicationMarketplace() {

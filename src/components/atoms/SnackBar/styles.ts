@@ -1,4 +1,4 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import { COLORS, FONTS_STYLES } from 'assets';
 
 export const themeStyles = {
   bottomContainer: {
@@ -24,7 +24,7 @@ export const themeStyles = {
     paddingLeft: 16,
     borderRadius: 8,
     shadowColor: COLORS.black,
-    shadowOffset: {width: 0, height: 4},
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
     elevation: 3,

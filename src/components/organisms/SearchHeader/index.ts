@@ -1,1 +1,1 @@
-export {SearchHeader} from './SearchHeader';
+export { SearchHeader } from './SearchHeader';

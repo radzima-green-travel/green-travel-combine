@@ -1,5 +1,5 @@
-import {Button, Icon} from 'components/atoms';
-import React, {useCallback, useMemo} from 'react';
+import { Button, Icon } from 'components/atoms';
+import React, { useCallback, useMemo } from 'react';
 import {
   LayoutChangeEvent,
   StyleProp,
@@ -72,7 +72,7 @@ export const useScrollToTopButton = () => {
 
   const ScrollToTopButton = useMemo(
     () =>
-      ({style, buttonStyle}: ScrollToTopButtonProps) => (
+      ({ style, buttonStyle }: ScrollToTopButtonProps) => (
         <Animated.View
           style={StyleSheet.compose(buttonContainerStyle, style)}
           animatedProps={buttonContainerProps}>

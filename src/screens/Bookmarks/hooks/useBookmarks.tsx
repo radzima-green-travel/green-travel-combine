@@ -1,5 +1,5 @@
-import {useCallback, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   useRequestLoading,
   useBookmarksAnalytics,
@@ -10,34 +10,34 @@ import {
   getBookmarksInitialObjectsDataRequest,
   syncAndGetBookmarksRequest,
 } from 'core/actions';
-import {IBookmarkItem} from 'core/types';
-import {useNavigation} from '@react-navigation/native';
-import {ObjectsListScreenNavigationProps} from '../types';
-import {selectBookmarksIds, selectBookmarksCategories} from 'core/selectors';
+import { IBookmarkItem } from 'core/types';
+import { useNavigation } from '@react-navigation/native';
+import { ObjectsListScreenNavigationProps } from '../types';
+import { selectBookmarksIds, selectBookmarksCategories } from 'core/selectors';
 
 export const useBookmarks = () => {
   const navigation = useNavigation<ObjectsListScreenNavigationProps>();
   const dispatch = useDispatch();
-  const {sendSelectSavedCategoryEvent} = useBookmarksAnalytics();
+  const { sendSelectSavedCategoryEvent } = useBookmarksAnalytics();
 
   const bookmarksCategories = useSelector(selectBookmarksCategories);
 
   const bookmarksIds = useSelector(selectBookmarksIds);
 
-  const {loading: bookmarksObjectsLoading} = useRequestLoading(
+  const { loading: bookmarksObjectsLoading } = useRequestLoading(
     getBookmarksInitialObjectsDataRequest,
   );
-  const {loading: syncBookmarksLoading} = useRequestLoading(
+  const { loading: syncBookmarksLoading } = useRequestLoading(
     syncAndGetBookmarksRequest,
   );
-  const {errorTexts} = useOnRequestError(
+  const { errorTexts } = useOnRequestError(
     getBookmarksInitialObjectsDataRequest,
     '',
   );
 
   const loading =
-    (!bookmarksCategories.length && bookmarksObjectsLoading) ||
-    syncBookmarksLoading;
+    (!bookmarksCategories.length && bookmarksObjectsLoading)
+    || syncBookmarksLoading;
 
   const showEmptyView = !bookmarksCategories.length;
 
@@ -48,7 +48,7 @@ export const useBookmarks = () => {
   }, [dispatch, bookmarksIds]);
 
   const navigateToBookmarksList = useCallback(
-    ({categoryName, categoryId, objectsIds}: IBookmarkItem) => {
+    ({ categoryName, categoryId, objectsIds }: IBookmarkItem) => {
       navigation.navigate('BookmarksList', {
         title: categoryName,
         categoryId,

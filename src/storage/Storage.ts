@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import config from './config';
-import {StorageOptions, StorageResponse} from './types';
+import { StorageOptions, StorageResponse } from './types';
 
 const {
-  operations: {get, set, remove, merge, multiRemove},
+  operations: { get, set, remove, merge, multiRemove },
   paramsOrderPattern,
 } = config;
 
@@ -37,7 +37,7 @@ class Storage {
       }
       const adaptedOptions = {
         ...options,
-        ...(options.value ? {value: JSON.stringify(options.value)} : {}),
+        ...(options.value ? { value: JSON.stringify(options.value) } : {}),
       };
       const response = await AsyncStorage[operation](
         ...this.getParams(adaptedOptions),

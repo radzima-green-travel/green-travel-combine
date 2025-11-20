@@ -1,32 +1,32 @@
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 
-import {useNavigation} from '@react-navigation/native';
-import {ProfileDetailsScreenNavigationProps} from '../types';
+import { useNavigation } from '@react-navigation/native';
+import { ProfileDetailsScreenNavigationProps } from '../types';
 import {
   useOnRequestSuccess,
   useRequestLoading,
   useTranslation,
 } from 'core/hooks';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   changePasswordRequest,
   deleteUserRequest,
   signOutRequest,
 } from 'core/actions';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import {
   selectIsAuthorizedWithSocialProviders,
   selectUserAuthorized,
   selectUserEmail,
 } from 'core/selectors';
-import {useSnackbar} from 'atoms';
+import { useSnackbar } from 'atoms';
 
 export const useProfileDetails = () => {
-  const {t} = useTranslation('profile');
+  const { t } = useTranslation('profile');
   const dispatch = useDispatch();
   const navigation = useNavigation<ProfileDetailsScreenNavigationProps>();
-  const {loading} = useRequestLoading(signOutRequest);
-  const {loading: deleting} = useRequestLoading(deleteUserRequest);
+  const { loading } = useRequestLoading(signOutRequest);
+  const { loading: deleting } = useRequestLoading(deleteUserRequest);
 
   const onSignOutPress = useCallback(() => {
     Alert.alert(t('exitAccount'), '', [
@@ -34,7 +34,7 @@ export const useProfileDetails = () => {
         text: t('ok'),
         onPress: () => dispatch(signOutRequest()),
       },
-      {text: t('cancel'), style: 'cancel'},
+      { text: t('cancel'), style: 'cancel' },
     ]);
   }, [t, dispatch]);
 
@@ -44,7 +44,7 @@ export const useProfileDetails = () => {
         text: t('ok'),
         onPress: () => dispatch(deleteUserRequest()),
       },
-      {text: t('cancel'), style: 'cancel'},
+      { text: t('cancel'), style: 'cancel' },
     ]);
   }, [t, dispatch]);
 
@@ -61,7 +61,7 @@ export const useProfileDetails = () => {
     selectIsAuthorizedWithSocialProviders,
   );
 
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   useOnRequestSuccess(signOutRequest, () => {
     navigation.goBack();

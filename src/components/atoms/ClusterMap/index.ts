@@ -1,1 +1,1 @@
-export {ClusterMap} from './ClusterMap';
+export { ClusterMap } from './ClusterMap';

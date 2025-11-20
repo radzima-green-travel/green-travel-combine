@@ -1,16 +1,16 @@
-import {useForm} from '@tanstack/react-form';
-import {Type} from 'arktype';
-import {SnackBar, useSnackbar} from 'atoms';
-import {composeTestID} from 'core/helpers';
-import {useBottomMenu} from 'core/hooks';
-import React, {useCallback, useState} from 'react';
-import {TFunction} from 'react-i18next';
-import {Platform, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {FieldEditorSheet, FieldSet, Header, SubmitButton} from './components';
-import {styles} from './styles';
-import {AnyFormValues} from './types';
-import {FormFieldConfig} from 'core/types';
+import { useForm } from '@tanstack/react-form';
+import { Type } from 'arktype';
+import { SnackBar, useSnackbar } from 'atoms';
+import { composeTestID } from 'core/helpers';
+import { useBottomMenu } from 'core/hooks';
+import React, { useCallback, useState } from 'react';
+import { TFunction } from 'react-i18next';
+import { Platform, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FieldEditorSheet, FieldSet, Header, SubmitButton } from './components';
+import { styles } from './styles';
+import { AnyFormValues } from './types';
+import { FormFieldConfig } from 'core/types';
 
 interface ModalFormProps<T extends AnyFormValues> {
   defaultValues: T;
@@ -47,10 +47,10 @@ export const ModalForm = <T extends AnyFormValues>({
       onSubmit: schema,
     },
     canSubmitWhenInvalid: true,
-    onSubmit: ({value}) => {
+    onSubmit: ({ value }) => {
       onSubmit?.(schema.assert(value) as T);
     },
-    onSubmitInvalid: ({formApi}) => {
+    onSubmitInvalid: ({ formApi }) => {
       if (formApi.state.errorMap.onSubmit) {
         const firstInvalidFieldName = Object.keys(
           formApi.state.errorMap.onSubmit,
@@ -64,7 +64,7 @@ export const ModalForm = <T extends AnyFormValues>({
     },
   });
 
-  const {top: topSafeAreaInset, bottom: bottomSafeAreaInset} =
+  const { top: topSafeAreaInset, bottom: bottomSafeAreaInset } =
     useSafeAreaInsets();
 
   const [selectedField, setSelectedField] = useState<FieldName | null>(null);
@@ -94,7 +94,7 @@ export const ModalForm = <T extends AnyFormValues>({
 
   return (
     <View
-      style={[styles.container, {paddingBottom: bottomSafeAreaInset + 16}]}
+      style={[styles.container, { paddingBottom: bottomSafeAreaInset + 16 }]}
       pointerEvents={submitting ? 'none' : 'auto'}>
       <Header
         testID={composeTestID(testID, 'header')}
@@ -134,7 +134,7 @@ export const ModalForm = <T extends AnyFormValues>({
       <SnackBar
         testID={composeTestID(testID, 'snackBar')}
         isOnTop
-        offset={Platform.select({ios: 0, android: -topSafeAreaInset})}
+        offset={Platform.select({ ios: 0, android: -topSafeAreaInset })}
         {...snackBarProps}
       />
     </View>

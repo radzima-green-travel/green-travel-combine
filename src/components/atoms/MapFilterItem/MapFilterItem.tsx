@@ -1,11 +1,11 @@
-import {useThemeStyles} from 'core/hooks';
-import React, {memo, useCallback} from 'react';
-import {Text, Pressable} from 'react-native';
-import {Icon} from '../Icon';
-import {themeStyles} from './styles';
-import {iconsConfig} from './config';
-import {IMapFilter} from 'core/types';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import { useThemeStyles } from 'core/hooks';
+import React, { memo, useCallback } from 'react';
+import { Text, Pressable } from 'react-native';
+import { Icon } from '../Icon';
+import { themeStyles } from './styles';
+import { iconsConfig } from './config';
+import { IMapFilter } from 'core/types';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
 
 interface IProps {
   data: IMapFilter;
@@ -15,8 +15,8 @@ interface IProps {
 }
 
 export const MapFilterItem = memo(
-  ({isSelected, data, onSelect, testID}: IProps) => {
-    const {title, icon} = data;
+  ({ isSelected, data, onSelect, testID }: IProps) => {
+    const { title, icon } = data;
     const styles = useThemeStyles(themeStyles);
     const iconProps = iconsConfig[icon];
     const onSelectHandler = useCallback(() => {

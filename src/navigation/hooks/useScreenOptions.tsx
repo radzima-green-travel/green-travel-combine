@@ -1,11 +1,11 @@
 import React from 'react';
-import {ColorSchemeName, TouchableOpacity} from 'react-native';
-import {Icon, HeaderTitle, CustomHeader} from 'atoms';
-import {COLORS} from 'assets';
-import {useColorScheme} from 'core/hooks';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
-import {getPlatformsTestID} from 'core/helpers';
+import { ColorSchemeName, TouchableOpacity } from 'react-native';
+import { Icon, HeaderTitle, CustomHeader } from 'atoms';
+import { COLORS } from 'assets';
+import { useColorScheme } from 'core/hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
+import { getPlatformsTestID } from 'core/helpers';
 
 export interface IOptions {
   colorScheme: ColorSchemeName;
@@ -20,16 +20,16 @@ export function useScreenOptions({
   ...customOptions
 }: IScreeOptions = {}) {
   const colorScheme = useColorScheme();
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
-  return ({navigation}) =>
+  return ({ navigation }) =>
     ({
       contentStyle: {
         backgroundColor:
           colorScheme === 'light'
             ? COLORS.light.background.primary
             : COLORS.dark.background.primary,
-        ...(withBottomInset ? {paddingBottom: bottom} : {}),
+        ...(withBottomInset ? { paddingBottom: bottom } : {}),
       },
       headerBackTitleVisible: false,
       headerTintColor:
@@ -49,7 +49,7 @@ export function useScreenOptions({
         return props.canGoBack ? (
           <TouchableOpacity
             {...getPlatformsTestID('backButton')}
-            hitSlop={{left: 15, right: 15, bottom: 15, top: 15}}
+            hitSlop={{ left: 15, right: 15, bottom: 15, top: 15 }}
             activeOpacity={0.8}
             onPress={() => navigation.goBack()}>
             <Icon name="chevronMediumLeft" color="white" size={20} />

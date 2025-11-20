@@ -1,26 +1,26 @@
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 import {
   useOnRequestSuccess,
   useRequestLoading,
   useOnRequestError,
 } from 'core/hooks';
-import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import {checkUserEmailRequest} from 'core/actions';
-import {CheckEmailScreenNavigationProps} from '../types';
-import {useSnackbar} from 'atoms';
-import {useFormik} from 'formik';
-import {CheckEmailFormModel} from 'core/types';
-import {validationSchema} from './validation';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { checkUserEmailRequest } from 'core/actions';
+import { CheckEmailScreenNavigationProps } from '../types';
+import { useSnackbar } from 'atoms';
+import { useFormik } from 'formik';
+import { CheckEmailFormModel } from 'core/types';
+import { validationSchema } from './validation';
 
 export const useCheckEmail = () => {
   const navigation = useNavigation<CheckEmailScreenNavigationProps>();
   const dispatch = useDispatch();
 
-  const {loading} = useRequestLoading(checkUserEmailRequest);
+  const { loading } = useRequestLoading(checkUserEmailRequest);
 
   const checkEmail = useCallback(
-    ({email}: CheckEmailFormModel) => {
+    ({ email }: CheckEmailFormModel) => {
       dispatch(checkUserEmailRequest(email));
     },
     [dispatch],
@@ -35,14 +35,14 @@ export const useCheckEmail = () => {
     validateOnBlur: false,
   });
 
-  const {values} = formik;
+  const { values } = formik;
 
   useOnRequestSuccess(checkUserEmailRequest, data => {
     if (!data.exist) {
-      navigation.navigate('SignUpForm', {email: values.email});
+      navigation.navigate('SignUpForm', { email: values.email });
     } else if (data.exist) {
       if (data.isConfirmed) {
-        navigation.navigate('SignInPassword', {email: values.email});
+        navigation.navigate('SignInPassword', { email: values.email });
       } else {
         navigation.navigate('EmailValidation', {
           email: values.email,
@@ -52,7 +52,7 @@ export const useCheckEmail = () => {
     }
   });
 
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   useOnRequestError(checkUserEmailRequest, 'authentification', errorLabel => {
     show({

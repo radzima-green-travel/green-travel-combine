@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {COLORS, FONTS_PRESETS} from 'assets';
-import {createThemeStyles} from 'core/helpers/styles';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS_PRESETS } from 'assets';
+import { createThemeStyles } from 'core/helpers/styles';
 
 export const SNAP_POINT_0 = 68;
 export const SNAP_POINT_1 = 250;
@@ -99,5 +99,5 @@ export const themeStyles = createThemeStyles({
     paddingBottom: 16,
   },
 
-  bottomButton: {alignSelf: 'center', paddingHorizontal: 12},
+  bottomButton: { alignSelf: 'center', paddingHorizontal: 12 },
 });

@@ -1,9 +1,9 @@
-import {COLORS} from 'assets/colors';
+import { COLORS } from 'assets/colors';
 
 type CheckboxThemes = 'default';
 
 export const CHECKBOX_THEMES: {
-  [key in CheckboxThemes]: {[key: string]: object};
+  [key in CheckboxThemes]: { [key: string]: object };
 } = {
   default: {
     container: {

@@ -1,9 +1,9 @@
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import React, {useCallback, memo, useState, useMemo} from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
-import {themeStyles} from './styles';
-import {FormInput} from 'atoms';
-import {IconProps} from 'components/atoms/Icon';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import React, { useCallback, memo, useState, useMemo } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
+import { themeStyles } from './styles';
+import { FormInput } from 'atoms';
+import { IconProps } from 'components/atoms/Icon';
 
 type RightButtonType = 'reset' | 'filter';
 interface Props {
@@ -30,7 +30,7 @@ export const SearchField = memo(
   }: Props) => {
     const [isFocused, setIsFocused] = useState(false);
     const styles = useThemeStyles(themeStyles);
-    const {t} = useTranslation('filters');
+    const { t } = useTranslation('filters');
 
     const rightButtonActiveType: RightButtonType | null = (() => {
       if (filterActionTypeEnabled) {
@@ -51,11 +51,17 @@ export const SearchField = memo(
 
     const iconRight = useMemo(() => {
       if (rightButtonActiveType === 'reset') {
-        return {name: 'close', style: styles.icon} as Omit<IconProps, 'testID'>;
+        return { name: 'close', style: styles.icon } as Omit<
+          IconProps,
+          'testID'
+        >;
       }
 
       if (rightButtonActiveType === 'filter') {
-        return {name: 'more', style: styles.icon} as Omit<IconProps, 'testID'>;
+        return { name: 'more', style: styles.icon } as Omit<
+          IconProps,
+          'testID'
+        >;
       }
 
       return undefined;
@@ -74,7 +80,7 @@ export const SearchField = memo(
       <FormInput
         onBlur={onBlurHandler}
         onFocus={onFocusHandler}
-        iconLeft={{name: 'search'}}
+        iconLeft={{ name: 'search' }}
         iconRight={iconRight}
         placeholder={t('settlements.search')}
         value={value}

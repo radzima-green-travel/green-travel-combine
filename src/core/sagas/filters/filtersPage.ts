@@ -1,7 +1,7 @@
-import {fetchInitialFilters, getFiltersDataRequest} from 'core/actions';
-import {takeLatest} from 'redux-saga/effects';
-import {getFiltersDataSaga} from './getFiltersDataSaga';
-import {fetchInitialFiltersSaga} from './fetchInitialFiltersSaga';
+import { fetchInitialFilters, getFiltersDataRequest } from 'core/actions';
+import { takeLatest } from 'redux-saga/effects';
+import { getFiltersDataSaga } from './getFiltersDataSaga';
+import { fetchInitialFiltersSaga } from './fetchInitialFiltersSaga';
 
 export function* filtersSaga() {
   yield takeLatest(getFiltersDataRequest, getFiltersDataSaga);

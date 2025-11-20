@@ -1,10 +1,10 @@
-import React, {memo, useState} from 'react';
-import {View, Text, Image, StyleProp, ImageStyle} from 'react-native';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles, calloutBorderRadius} from './styles';
-import {composeTestID} from 'core/helpers';
-import {ProgressBar} from '../ProgressBar';
-import {images} from 'assets/images';
+import React, { memo, useState } from 'react';
+import { View, Text, Image, StyleProp, ImageStyle } from 'react-native';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { themeStyles, calloutBorderRadius } from './styles';
+import { composeTestID } from 'core/helpers';
+import { ProgressBar } from '../ProgressBar';
+import { images } from 'assets/images';
 
 interface IProps {
   percentage: number;
@@ -13,9 +13,9 @@ interface IProps {
 }
 
 export const CompletnessIndicator = memo(
-  ({percentage, testID, size = 'm'}: IProps) => {
+  ({ percentage, testID, size = 'm' }: IProps) => {
     const styles = useThemeStyles(themeStyles);
-    const {t} = useTranslation('objectDetails');
+    const { t } = useTranslation('objectDetails');
     const percentageString = `${percentage}%` as `${number}%`;
     const [containerWidth, setContainerWidth] = useState(0);
     const [calloutWidth, setCalloutWidth] = useState(0);
@@ -52,13 +52,13 @@ export const CompletnessIndicator = memo(
           ]}>
           <View
             testID={composeTestID(testID, 'callout')}
-            onLayout={({nativeEvent}) => {
+            onLayout={({ nativeEvent }) => {
               setCalloutWidth(nativeEvent.layout.width);
             }}
             style={[
               styles.callout,
               isSmall && styles.calloutSmall,
-              {left: colloutLeftPosition},
+              { left: colloutLeftPosition },
             ]}>
             <Image
               style={
@@ -72,14 +72,14 @@ export const CompletnessIndicator = memo(
             />
             <Text
               style={[styles.calloutText, isSmall && styles.calloutTextSmall]}>
-              {t('readyOn', {percentage})}
+              {t('readyOn', { percentage })}
             </Text>
           </View>
           <View
             style={[
               styles.calloutArrow,
               isSmall && styles.calloutArrowSmall,
-              {left: percentageString},
+              { left: percentageString },
             ]}
           />
         </View>
@@ -92,7 +92,7 @@ export const CompletnessIndicator = memo(
         testID={testID}>
         <View
           style={!isSmall && styles.wrapper}
-          onLayout={({nativeEvent}) => {
+          onLayout={({ nativeEvent }) => {
             setContainerWidth(nativeEvent.layout.width);
           }}>
           {renderCallout()}

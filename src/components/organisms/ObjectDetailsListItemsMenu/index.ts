@@ -1,1 +1,1 @@
-export {ObjectDetailsListItemsMenu} from './ObjectDetailsListItemsMenu';
+export { ObjectDetailsListItemsMenu } from './ObjectDetailsListItemsMenu';

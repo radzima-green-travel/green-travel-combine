@@ -6,11 +6,11 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
-import {KEYBOARD_SHOW_EVENT, KEYBOARD_HIDE_EVENT} from 'core/constants';
+import { KEYBOARD_SHOW_EVENT, KEYBOARD_HIDE_EVENT } from 'core/constants';
 
-import {View, StyleSheet, Keyboard} from 'react-native';
-import {isIOS} from 'services/PlatformService';
-import {getPlatformsTestID} from 'core/helpers';
+import { View, StyleSheet, Keyboard } from 'react-native';
+import { isIOS } from 'services/PlatformService';
+import { getPlatformsTestID } from 'core/helpers';
 
 type Props = {
   children: ReactNode;
@@ -18,8 +18,8 @@ type Props = {
 };
 
 export const HandleKeyboardRootWrapper = memo<Props>(
-  ({children, testID}: Props) => {
-    const [style, setStyle] = useState<{flex: 1} | {height: number}>({
+  ({ children, testID }: Props) => {
+    const [style, setStyle] = useState<{ flex: 1 } | { height: number }>({
       flex: 1,
     });
 
@@ -47,12 +47,12 @@ export const HandleKeyboardRootWrapper = memo<Props>(
       }
     }, []);
 
-    const setAppHeight = useCallback(({nativeEvent}) => {
+    const setAppHeight = useCallback(({ nativeEvent }) => {
       const {
-        layout: {height},
+        layout: { height },
       } = nativeEvent;
       if (!isKeyboardOpened.current || isIOS) {
-        setStyle({height});
+        setStyle({ height });
       }
     }, []);
 

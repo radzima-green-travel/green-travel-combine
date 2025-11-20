@@ -11,9 +11,9 @@ import {
   SupportedLocales,
   UpcomingEventsItemDTO,
 } from 'core/types';
-import {filter, isEmpty, map, reduce, some} from 'lodash';
-import {ObjectField} from 'core/constants';
-import {dateToReadableString, isDateInThePast} from 'core/helpers';
+import { filter, isEmpty, map, reduce, some } from 'lodash';
+import { ObjectField } from 'core/constants';
+import { dateToReadableString, isDateInThePast } from 'core/helpers';
 import {
   extractLocaleSpecificValues,
   getObjectFullAddress,
@@ -43,8 +43,8 @@ function objectCompletenessInfo(
   const amountOfIncompleteFields = incompleteFieldsNames.length;
   const amountOfCompletenessFields = completenessFields?.length || 0;
   const percentageOfCompletion =
-    amountOfCompletenessFields &&
-    amountOfCompletenessFields >= amountOfIncompleteFields
+    amountOfCompletenessFields
+    && amountOfCompletenessFields >= amountOfIncompleteFields
       ? Math.round(
           (1 - amountOfIncompleteFields / amountOfCompletenessFields) * 100,
         )
@@ -67,7 +67,7 @@ export function prepareObjectAdditionalInfoItems(
   return reduce(
     items,
     (acc, item) => {
-      const {name} = extractLocaleSpecificValues(item, currentLocale);
+      const { name } = extractLocaleSpecificValues(item, currentLocale);
 
       const placeItem = item as AccommodationPlaceItemDTO | DinnerPlacesItemDTO;
       const eventItem = item as UpcomingEventsItemDTO;
@@ -100,17 +100,17 @@ export function prepareObjectInclude(
     includeItems,
     (acc, includeItem) => {
       const {
-        include: {category, id, blurhash},
+        include: { category, id, blurhash },
       } = includeItem;
 
-      const {cover: objectCover} = processImagesUrls(includeItem.include);
+      const { cover: objectCover } = processImagesUrls(includeItem.include);
 
       const {
         id: categoryId,
         name,
         cover,
       } = translateAndProcessImagesForEntity(category, currentLocale);
-      const objectData = {id, cover: objectCover, blurhash};
+      const objectData = { id, cover: objectCover, blurhash };
       if (some(acc, item => item.categoryId === categoryId)) {
         return map(acc, item => {
           return item.categoryId === categoryId
@@ -148,7 +148,7 @@ export function prepareObjectBelongsTo(
   }
 
   return belongsToItems.reduce((acc, item) => {
-    const {belongsTo} = item;
+    const { belongsTo } = item;
 
     const {
       id: objectId,
@@ -156,7 +156,7 @@ export function prepareObjectBelongsTo(
       cover,
     } = translateAndProcessImagesForEntity(belongsTo, currentLocale);
 
-    const {name: categoryName} = extractLocaleSpecificValues(
+    const { name: categoryName } = extractLocaleSpecificValues(
       belongsTo.category,
       currentLocale,
     );
@@ -215,22 +215,22 @@ export const prepareObjectDetails = (
     url,
   } = object;
 
-  const {averageSpentTime, averageRating, totalRatings} =
+  const { averageSpentTime, averageRating, totalRatings } =
     calculatedProperties ?? {
       averageSpentTime: null,
       averageRating: null,
       totalRatings: null,
     };
 
-  const {name: translatedName, description: translatedDescription} =
-    extractLocaleSpecificValues({name, description, i18n}, currentLocale);
+  const { name: translatedName, description: translatedDescription } =
+    extractLocaleSpecificValues({ name, description, i18n }, currentLocale);
 
   const translatedAddress = getObjectFullAddress(addresses, currentLocale);
 
-  const {percentageOfCompletion, incompleteFieldsNames} =
+  const { percentageOfCompletion, incompleteFieldsNames } =
     objectCompletenessInfo(object, category.completenessFields);
 
-  const {images: convertedImages} = processImagesUrls({i18n, images});
+  const { images: convertedImages } = processImagesUrls({ i18n, images });
 
   return {
     id,
@@ -259,16 +259,16 @@ export const prepareObjectDetails = (
     usersRatingsTotal: totalRatings,
     googleRating,
     googleRatingsTotal,
-    renting: map(renting.items, ({renting: rentingService}) => {
-      const {name: rentingServiceName} = extractLocaleSpecificValues(
+    renting: map(renting.items, ({ renting: rentingService }) => {
+      const { name: rentingServiceName } = extractLocaleSpecificValues(
         rentingService,
         currentLocale,
       );
 
       return rentingServiceName;
     }),
-    childServices: map(childServices.items, ({childService}) => {
-      const {name: childServiceName} = extractLocaleSpecificValues(
+    childServices: map(childServices.items, ({ childService }) => {
+      const { name: childServiceName } = extractLocaleSpecificValues(
         childService,
         currentLocale,
       );

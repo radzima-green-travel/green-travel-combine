@@ -1,8 +1,8 @@
-import {COLORS} from 'assets';
-import {Icon, LoadingView} from 'atoms';
-import {hexWithAlpha} from 'core/helpers';
-import {useColorScheme, useThemeStyles} from 'core/hooks';
-import React, {memo, ReactNode, useCallback, useMemo} from 'react';
+import { COLORS } from 'assets';
+import { Icon, LoadingView } from 'atoms';
+import { hexWithAlpha } from 'core/helpers';
+import { useColorScheme, useThemeStyles } from 'core/hooks';
+import React, { memo, ReactNode, useCallback, useMemo } from 'react';
 import {
   GestureResponderEvent,
   StyleProp,
@@ -11,7 +11,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {themeStyles} from './styles';
+import { themeStyles } from './styles';
 
 interface IProps {
   renderLeftElement?: ReactNode;
@@ -29,7 +29,10 @@ interface IProps {
 }
 
 export type onPressProps<TItem> = TItem extends undefined
-  ? {item?: never; onPress: (item: null, event: GestureResponderEvent) => void}
+  ? {
+      item?: never;
+      onPress: (item: null, event: GestureResponderEvent) => void;
+    }
   : {
       item: TItem;
       onPress: (item: TItem, event: GestureResponderEvent) => void;

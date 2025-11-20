@@ -1,1 +1,1 @@
-export {DetailsPageCapture} from './DetailsPageCapture';
+export { DetailsPageCapture } from './DetailsPageCapture';

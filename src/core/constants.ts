@@ -1,5 +1,5 @@
-import {IconName} from 'components/atoms/Icon/types';
-import {KeyboardEventName, Platform} from 'react-native';
+import { IconName } from 'components/atoms/Icon/types';
+import { KeyboardEventName, Platform } from 'react-native';
 import {} from './types/analytics';
 import {
   NavigationRoutes,

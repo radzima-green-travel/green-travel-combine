@@ -1,6 +1,6 @@
-import {createAction} from '@reduxjs/toolkit';
-import {Bookmarks, UpdateBookmarksBody, Location} from 'core/types';
-import {createAsyncAction} from 'core/helpers';
+import { createAction } from '@reduxjs/toolkit';
+import { Bookmarks, UpdateBookmarksBody, Location } from 'core/types';
+import { createAsyncAction } from 'core/helpers';
 
 interface UpdateBookmarksRequestPayload {
   objectId: string;

@@ -1,1 +1,1 @@
-export {filtersSaga} from './filtersPage';
+export { filtersSaga } from './filtersPage';

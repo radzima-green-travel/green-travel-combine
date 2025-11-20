@@ -1,4 +1,4 @@
-import React, {memo, useMemo} from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   View,
   Text,
@@ -7,14 +7,14 @@ import {
   ViewStyle,
   ImageStyle,
 } from 'react-native';
-import {Icon} from 'atoms/Icon';
-import {themeStyles, gradientConfig} from './styles';
-import {LinearGradient} from 'expo-linear-gradient';
-import {FavoriteButtonContainer} from 'containers';
-import {useThemeStyles} from 'core/hooks';
-import {Image} from 'expo-image';
-import {composeTestID} from 'core/helpers';
-import {INTERACTIVE_CARD_RATIO} from 'core/constants';
+import { Icon } from 'atoms/Icon';
+import { themeStyles, gradientConfig } from './styles';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FavoriteButtonContainer } from 'containers';
+import { useThemeStyles } from 'core/hooks';
+import { Image } from 'expo-image';
+import { composeTestID } from 'core/helpers';
+import { INTERACTIVE_CARD_RATIO } from 'core/constants';
 
 interface IProps {
   imageUri?: string;
@@ -48,7 +48,7 @@ export const InteractiveCard = memo(
   }: IProps) => {
     const styles = useThemeStyles(themeStyles);
     const dimensions = useMemo(() => {
-      return {width, height: width / INTERACTIVE_CARD_RATIO};
+      return { width, height: width / INTERACTIVE_CARD_RATIO };
     }, [width]);
     return (
       <TouchableOpacity
@@ -61,7 +61,7 @@ export const InteractiveCard = memo(
         <Image
           style={styles.image as ImageStyle}
           source={imageUri}
-          placeholder={{blurhash: blurhash || undefined}}
+          placeholder={{ blurhash: blurhash || undefined }}
           cachePolicy="memory-disk"
           transition={100}
         />

@@ -1,16 +1,16 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {GeneralListItem} from 'molecules';
-import {Icon, SettingsSectionTitle, SnackBar} from 'atoms';
-import {useProfile} from './hooks';
-import {useTranslation} from 'react-i18next';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {getAppSettingsApplicationVersion} from 'core/helpers';
+import { Text, View } from 'react-native';
+import { GeneralListItem } from 'molecules';
+import { Icon, SettingsSectionTitle, SnackBar } from 'atoms';
+import { useProfile } from './hooks';
+import { useTranslation } from 'react-i18next';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { getAppSettingsApplicationVersion } from 'core/helpers';
 
 export const Profile = () => {
-  const {t} = useTranslation('profile');
-  const {t: tCommon} = useTranslation('common');
+  const { t } = useTranslation('profile');
+  const { t: tCommon } = useTranslation('common');
 
   const appSettingsVersion = getAppSettingsApplicationVersion();
 

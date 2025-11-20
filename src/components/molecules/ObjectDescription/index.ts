@@ -1,1 +1,1 @@
-export {ObjectDescription} from './ObjectDescription';
+export { ObjectDescription } from './ObjectDescription';

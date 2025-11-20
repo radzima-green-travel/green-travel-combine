@@ -1,1 +1,1 @@
-export {SearchPromptView} from './SearchPromptView';
+export { SearchPromptView } from './SearchPromptView';

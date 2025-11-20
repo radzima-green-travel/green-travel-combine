@@ -1,5 +1,5 @@
-import {RequestError} from 'core/errors';
-import {getRequestErrorLabels} from '../getRequestErrorLabels';
+import { RequestError } from 'core/errors';
+import { getRequestErrorLabels } from '../getRequestErrorLabels';
 
 const errorDefaultTextTranslationKey = 'common:errors.default.text';
 const errorDefaultTitleTranslationKey = 'common:errors.default.title';
@@ -14,7 +14,7 @@ describe('getRequestErrorLabels', () => {
 
   it('should return status labels with common if status exist', () => {
     expect(
-      getRequestErrorLabels({status: 300} as RequestError, 'home'),
+      getRequestErrorLabels({ status: 300 } as RequestError, 'home'),
     ).toEqual({
       textLabels: [
         'home:errors.300.text',

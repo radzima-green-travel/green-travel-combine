@@ -1,1 +1,1 @@
-export {AuthMethodSelection} from './AuthMethodSelection';
+export { AuthMethodSelection } from './AuthMethodSelection';

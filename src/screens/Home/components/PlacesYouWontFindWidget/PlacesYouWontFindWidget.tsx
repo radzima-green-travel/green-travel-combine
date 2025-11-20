@@ -1,12 +1,16 @@
-import {ColoredWidget} from 'molecules';
-import {Image} from 'expo-image';
-import React, {memo} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useWindowDimensions, View} from 'react-native';
-import {widgetStyles} from './styles';
+import { ColoredWidget } from 'molecules';
+import { Image } from 'expo-image';
+import React, { memo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useWindowDimensions, View } from 'react-native';
+import { widgetStyles } from './styles';
 
-export const PlacesYouWontFindWidget = ({onPress}: {onPress?: () => void}) => {
-  const {t} = useTranslation('home');
+export const PlacesYouWontFindWidget = ({
+  onPress,
+}: {
+  onPress?: () => void;
+}) => {
+  const { t } = useTranslation('home');
 
   return (
     <ColoredWidget
@@ -22,13 +26,13 @@ export const PlacesYouWontFindWidget = ({onPress}: {onPress?: () => void}) => {
 };
 
 const BackdropImage = memo(() => {
-  const {width: windowWidth} = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   return (
     <View
       style={[
         widgetStyles.container,
-        {bottom: windowWidth >= 600 ? -8 : '-5.6%'},
+        { bottom: windowWidth >= 600 ? -8 : '-5.6%' },
       ]}>
       <Image
         source={require('assets/images/globe-illustration.png')}

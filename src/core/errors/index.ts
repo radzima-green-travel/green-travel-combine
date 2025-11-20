@@ -1,2 +1,2 @@
-export {RequestError} from './RequestError';
+export { RequestError } from './RequestError';
 export * from './presets';

@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {BaseListItem} from '../../BaseListItem';
-import {ListItemSwitchProps} from '../../types';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {Switch} from 'react-native';
-import {composeTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { BaseListItem } from '../../BaseListItem';
+import { ListItemSwitchProps } from '../../types';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { Switch } from 'react-native';
+import { composeTestID } from 'core/helpers';
 
 export const ListItemSwitchComponent = ({
   testID,

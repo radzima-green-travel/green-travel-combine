@@ -1,6 +1,6 @@
-import {PADDING_HORIZONTAL, HEADER_BOTTOM_RADIUS} from 'core/constants';
-import {createThemeStyles} from 'core/helpers/styles';
-import {COLORS} from '../../../assets';
+import { PADDING_HORIZONTAL, HEADER_BOTTOM_RADIUS } from 'core/constants';
+import { createThemeStyles } from 'core/helpers/styles';
+import { COLORS } from '../../../assets';
 
 export const themeStyles = createThemeStyles({
   container: {

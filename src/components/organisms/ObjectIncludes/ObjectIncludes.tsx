@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {ObjectInlcudesItem} from 'molecules';
-import {View, Text, ScrollView} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {IInclude} from 'core/types';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { ObjectInlcudesItem } from 'molecules';
+import { View, Text, ScrollView } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { IInclude } from 'core/types';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
 
 interface IProps {
   data: IInclude[];
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 export const ObjectIncludes = memo(
-  ({data, title, onIncludePress, testID}: IProps) => {
+  ({ data, title, onIncludePress, testID }: IProps) => {
     const styles = useThemeStyles(themeStyles);
     return (
       <View {...getPlatformsTestID(testID)} style={styles.container}>

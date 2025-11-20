@@ -1,12 +1,12 @@
-import {useColorScheme, useThemeStyles} from 'core/hooks';
-import React, {memo} from 'react';
-import {Text, View} from 'react-native';
-import {themeStyles} from './styles';
-import {composeTestID} from 'core/helpers';
-import {Card} from 'molecules';
-import {IObjectAdditionalInfoItem} from 'core/types';
-import {images} from 'assets/images';
-import {capitalize, map} from 'lodash';
+import { useColorScheme, useThemeStyles } from 'core/hooks';
+import React, { memo } from 'react';
+import { Text, View } from 'react-native';
+import { themeStyles } from './styles';
+import { composeTestID } from 'core/helpers';
+import { Card } from 'molecules';
+import { IObjectAdditionalInfoItem } from 'core/types';
+import { images } from 'assets/images';
+import { capitalize, map } from 'lodash';
 export type CardType = 'accommodation' | 'placeToEat' | 'event';
 interface IProps {
   items: IObjectAdditionalInfoItem[];
@@ -18,7 +18,7 @@ interface IProps {
 }
 
 export const ObjectInfoCardItemsSection = memo(
-  ({items, testID, type, title, onRightButtonPress, onLinkPress}: IProps) => {
+  ({ items, testID, type, title, onRightButtonPress, onLinkPress }: IProps) => {
     const styles = useThemeStyles(themeStyles);
     const scheme = useColorScheme();
 
@@ -34,7 +34,7 @@ export const ObjectInfoCardItemsSection = memo(
 
     const renderCards = () =>
       map(items, (item, index) => {
-        const {name, date, link, googleLink} = item;
+        const { name, date, link, googleLink } = item;
         return (
           <Card
             containerStyle={styles.item}

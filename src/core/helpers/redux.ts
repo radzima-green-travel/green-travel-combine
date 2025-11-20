@@ -1,5 +1,5 @@
-import {createAction} from '@reduxjs/toolkit';
-import {RequestError} from 'core/errors';
+import { createAction } from '@reduxjs/toolkit';
+import { RequestError } from 'core/errors';
 
 interface Meta {
   reducerId?: string;
@@ -33,7 +33,7 @@ export function createAsyncAction<
     type + '_REQUEST',
     (payload: RequestPayload, meta?: Meta) => ({
       payload,
-      meta: {...metaData, ...meta},
+      meta: { ...metaData, ...meta },
     }),
   );
 

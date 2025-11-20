@@ -1,4 +1,4 @@
-import {isPlainObject, mapValues, has} from 'lodash';
+import { isPlainObject, mapValues, has } from 'lodash';
 
 import {
   StyleProp,
@@ -8,14 +8,14 @@ import {
   Linking,
 } from 'react-native';
 
-import {SupportedLocales, LocationDTO} from 'core/types';
+import { SupportedLocales, LocationDTO } from 'core/types';
 
 export const extractThemeStyles = (styles: object, theme: ColorSchemeName) => {
   return mapValues(styles, value => {
     return isPlainObject(value) && (has(value, 'dark') || has(value, 'light'))
       ? value[theme!]
       : value;
-  }) as {[propName: string]: StyleProp<ViewStyle | TextStyle>};
+  }) as { [propName: string]: StyleProp<ViewStyle | TextStyle> };
 };
 
 export const sanitizePhoneNumber = (phoneNumber: string) => {
@@ -55,7 +55,7 @@ export async function tryOpenURL(url: string) {
   }
 }
 
-export function isLocationExist<T extends {location: LocationDTO | null}>(
+export function isLocationExist<T extends { location: LocationDTO | null }>(
   object: T,
 ) {
   return Boolean(object?.location?.lat && object.location.lon);
@@ -82,5 +82,5 @@ export function getLanguageByLocale(lang: SupportedLocales | null) {
 }
 
 export const createNumericArray = (length: number) => {
-  return Array.from({length}, (_, index) => index + 1);
+  return Array.from({ length }, (_, index) => index + 1);
 };

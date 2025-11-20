@@ -1,1 +1,1 @@
-export {TrancateDetectionText} from './TrancateDetectionText';
+export { TrancateDetectionText } from './TrancateDetectionText';

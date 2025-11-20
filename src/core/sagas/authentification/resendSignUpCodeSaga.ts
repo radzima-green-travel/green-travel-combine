@@ -1,10 +1,10 @@
-import {call, put} from 'redux-saga/effects';
-import {resendSignUpCodeRequest} from 'core/actions';
-import {amplifyApi} from 'api/amplify';
+import { call, put } from 'redux-saga/effects';
+import { resendSignUpCodeRequest } from 'core/actions';
+import { amplifyApi } from 'api/amplify';
 
 export function* resendSignUpCodeSaga({
   payload,
-  meta: {successAction, failureAction},
+  meta: { successAction, failureAction },
 }: ReturnType<typeof resendSignUpCodeRequest>) {
   try {
     yield call(amplifyApi.resendSignUp, payload);

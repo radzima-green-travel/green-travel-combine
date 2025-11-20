@@ -1,9 +1,9 @@
-import React, {memo} from 'react';
-import {View, Text} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {Icon} from '../Icon';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { View, Text } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { Icon } from '../Icon';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
 
 interface IProps {
   currentPage: number;
@@ -11,7 +11,7 @@ interface IProps {
   testID: string;
 }
 
-export const NumPager = memo(({currentPage, pagesAmount, testID}: IProps) => {
+export const NumPager = memo(({ currentPage, pagesAmount, testID }: IProps) => {
   const styles = useThemeStyles(themeStyles);
   return (
     <View

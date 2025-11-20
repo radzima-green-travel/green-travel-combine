@@ -1,1 +1,1 @@
-export {CompletnessIndicator} from './CompletnessIndicator';
+export { CompletnessIndicator } from './CompletnessIndicator';

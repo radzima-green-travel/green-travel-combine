@@ -1,1 +1,1 @@
-export {visitedObjectsSaga} from './visitedObjectsSaga';
+export { visitedObjectsSaga } from './visitedObjectsSaga';

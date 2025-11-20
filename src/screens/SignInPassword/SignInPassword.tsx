@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {FormInput, SnackBar, WithFormikInput} from 'atoms';
-import {AuthForm} from 'organisms';
-import {useSignInPassword} from './hooks';
-import {useTranslation} from 'react-i18next';
-import {FormikProvider} from 'formik';
+import { FormInput, SnackBar, WithFormikInput } from 'atoms';
+import { AuthForm } from 'organisms';
+import { useSignInPassword } from './hooks';
+import { useTranslation } from 'react-i18next';
+import { FormikProvider } from 'formik';
 
 export const SignInPassword = () => {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const {
     email,
     loading,
@@ -34,7 +34,7 @@ export const SignInPassword = () => {
         secondaryButtonText={t('forgetPassword')}
         onSecondaryButtonPress={navigateToRestorePassword}>
         <WithFormikInput<string> name="password">
-          {({messageText, ...inputProps}) => (
+          {({ messageText, ...inputProps }) => (
             <FormInput
               testID={'passwordInput'}
               autoFocus

@@ -1,5 +1,5 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {createThemeStyles} from 'core/helpers/styles';
+import { COLORS, FONTS_STYLES } from 'assets';
+import { createThemeStyles } from 'core/helpers/styles';
 
 export const themeStyles = createThemeStyles({
   prompt: {

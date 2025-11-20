@@ -1,10 +1,10 @@
-import React, {memo, PropsWithChildren} from 'react';
-import {View, Text, Keyboard} from 'react-native';
-import {Button} from 'atoms';
-import {useThemeStyles} from 'core/hooks';
+import React, { memo, PropsWithChildren } from 'react';
+import { View, Text, Keyboard } from 'react-native';
+import { Button } from 'atoms';
+import { useThemeStyles } from 'core/hooks';
 
-import {themeStyles} from './styles';
-import {composeTestID} from 'core/helpers';
+import { themeStyles } from './styles';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   title: string;

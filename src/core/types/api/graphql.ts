@@ -1,6 +1,6 @@
-import type {MultiPolygon, LineString} from 'geojson';
-import {ObjectField} from 'core/constants';
-import {SupportedLocales} from '../common';
+import type { MultiPolygon, LineString } from 'geojson';
+import { ObjectField } from 'core/constants';
+import { SupportedLocales } from '../common';
 
 export type QueryParams = Partial<{
   limit: number;
@@ -25,9 +25,9 @@ export type QueryParams = Partial<{
   from: number;
   query: string;
   km: number;
-  location: {lat: number; lon: number};
+  location: { lat: number; lon: number };
   locale: SupportedLocales;
-  fieldsToSearch: {isSpotIncluded: boolean; isDescriptionIncluded: boolean};
+  fieldsToSearch: { isSpotIncluded: boolean; isDescriptionIncluded: boolean };
 }>;
 
 export type ObjectsListQueryParams = Pick<
@@ -37,7 +37,7 @@ export type ObjectsListQueryParams = Pick<
 
 export type SettlementsQueryParams = Partial<
   Pick<QueryParams, 'limit' | 'sort' | 'from'>
-> & {filter?: {value?: {matchPhrasePrefix?: string}}};
+> & { filter?: { value?: { matchPhrasePrefix?: string } } };
 
 export type CategoriesListQueryParams = Partial<
   Pick<QueryParams, 'limit' | 'filter' | 'nextToken' | 'sort'>
@@ -214,7 +214,7 @@ export type ObjectFiltersAggregationsDTO = {
 
 export interface ObjectFiltersDataDTO {
   total: number;
-  googleRatings: {key: string; from: string}[];
+  googleRatings: { key: string; from: string }[];
   aggregations: ObjectFiltersAggregationsDTO;
 }
 
@@ -464,6 +464,6 @@ export interface PlaceOfTheWeekObjectDTO {
 }
 
 export type AppMapObjectsQueryParams = Pick<QueryParams, 'limit' | 'from'>;
-export type AppMapObjectsTotalCountResponseDTO = {total: number};
+export type AppMapObjectsTotalCountResponseDTO = { total: number };
 
-export type AppMapObjectsResponseDTO = {items: ObjectMapDTO[]};
+export type AppMapObjectsResponseDTO = { items: ObjectMapDTO[] };

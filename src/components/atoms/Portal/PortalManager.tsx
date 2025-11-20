@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 type State = {
   portals: {
@@ -18,7 +18,7 @@ export default class PortalManager extends React.PureComponent<{}, State> {
 
   mount = (key: number, children: React.ReactNode) => {
     this.setState(state => ({
-      portals: [...state.portals, {key, children}],
+      portals: [...state.portals, { key, children }],
     }));
   };
 
@@ -26,7 +26,7 @@ export default class PortalManager extends React.PureComponent<{}, State> {
     this.setState(state => ({
       portals: state.portals.map(item => {
         if (item.key === key) {
-          return {...item, children};
+          return { ...item, children };
         }
         return item;
       }),
@@ -38,7 +38,7 @@ export default class PortalManager extends React.PureComponent<{}, State> {
     }));
 
   render() {
-    return this.state.portals.map(({key, children}) => (
+    return this.state.portals.map(({ key, children }) => (
       <View
         key={key}
         collapsable={

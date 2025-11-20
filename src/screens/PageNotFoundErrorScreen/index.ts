@@ -1,1 +1,1 @@
-export {PageNotFoundErrorScreen} from './PageNotFoundErrorScreen';
+export { PageNotFoundErrorScreen } from './PageNotFoundErrorScreen';

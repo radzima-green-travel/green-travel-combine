@@ -1,21 +1,28 @@
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
-import {useRequestLoading, useColorScheme, useOnRequestError} from 'core/hooks';
-import {HomePageCategory} from 'core/types';
-import {selectHomePageData} from 'core/selectors';
-import {getHomePageDataRequest, refreshHomePageDataRequest} from 'core/actions';
-import {HomeScreenNavigationProps} from '../types';
-import {useSnackbar} from 'atoms';
-import {useHomeAnalytics} from './useHomeAnalytics';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  useRequestLoading,
+  useColorScheme,
+  useOnRequestError,
+} from 'core/hooks';
+import { HomePageCategory } from 'core/types';
+import { selectHomePageData } from 'core/selectors';
+import {
+  getHomePageDataRequest,
+  refreshHomePageDataRequest,
+} from 'core/actions';
+import { HomeScreenNavigationProps } from '../types';
+import { useSnackbar } from 'atoms';
+import { useHomeAnalytics } from './useHomeAnalytics';
 
 export const useHome = () => {
   const dispatch = useDispatch();
-  const {navigate} = useNavigation<HomeScreenNavigationProps>();
+  const { navigate } = useNavigation<HomeScreenNavigationProps>();
   const theme = useColorScheme();
   const homeData = useSelector(selectHomePageData);
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
   const {
     sendTrackPageLifeTimeEvent,
@@ -26,9 +33,9 @@ export const useHome = () => {
   useFocusEffect(sendTrackPageLifeTimeEvent);
   useFocusEffect(sendMainScreenViewEvent);
 
-  const {loading} = useRequestLoading(getHomePageDataRequest);
-  const {errorTexts} = useOnRequestError(getHomePageDataRequest, '');
-  const {loading: refreshing} = useRequestLoading(refreshHomePageDataRequest);
+  const { loading } = useRequestLoading(getHomePageDataRequest);
+  const { errorTexts } = useOnRequestError(getHomePageDataRequest, '');
+  const { loading: refreshing } = useRequestLoading(refreshHomePageDataRequest);
 
   const getHomePageData = useCallback(() => {
     dispatch(getHomePageDataRequest());
@@ -39,7 +46,7 @@ export const useHome = () => {
   }, [dispatch]);
 
   const navigateToObjectsList = useCallback(
-    ({categoryId, title}: {categoryId: string; title: string}) => {
+    ({ categoryId, title }: { categoryId: string; title: string }) => {
       navigate('ObjectsList', {
         appliedFilters: {
           categories: [categoryId],
@@ -52,7 +59,7 @@ export const useHome = () => {
 
   const onCategoryPress = useCallback(
     (category: HomePageCategory) => {
-      navigateToObjectsList({categoryId: category.id, title: category.name});
+      navigateToObjectsList({ categoryId: category.id, title: category.name });
       sendMainScreenCategoryViewEvent(category.analyticsMetadata.name);
     },
     [navigateToObjectsList, sendMainScreenCategoryViewEvent],

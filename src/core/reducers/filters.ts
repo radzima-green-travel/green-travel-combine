@@ -5,7 +5,7 @@ import {
   CategoryFilterItemDTO,
   SetActiveFilterPayload,
 } from 'core/types';
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import {
   getFiltersDataRequest,
   setActiveFilter,
@@ -13,8 +13,8 @@ import {
   initActiveFilters,
   fetchInitialFilters,
 } from 'core/actions';
-import {xor} from 'lodash';
-import {INITIAL_FILTERS} from 'core/constants';
+import { xor } from 'lodash';
+import { INITIAL_FILTERS } from 'core/constants';
 
 interface FiltersState {
   initialFiltersData: ObjectFiltersDataDTO | null;
@@ -58,7 +58,7 @@ function getNewFilterState(
 
 export const filtersReducer = createReducer(initialState, builder => {
   builder
-    .addCase(setActiveFilter, (state, {payload}) => {
+    .addCase(setActiveFilter, (state, { payload }) => {
       return {
         ...state,
         activeFilters: {
@@ -77,7 +77,7 @@ export const filtersReducer = createReducer(initialState, builder => {
 
     .addCase(
       getFiltersDataRequest.meta.successAction,
-      (state, {payload: {regionsList, categoriesList, filtersData}}) => {
+      (state, { payload: { regionsList, categoriesList, filtersData } }) => {
         return {
           ...state,
           regionsList,
@@ -87,14 +87,14 @@ export const filtersReducer = createReducer(initialState, builder => {
         };
       },
     )
-    .addCase(fetchInitialFilters.meta.successAction, (state, {payload}) => {
+    .addCase(fetchInitialFilters.meta.successAction, (state, { payload }) => {
       return {
         ...state,
         regionsList: payload.regionsList,
         categoriesList: payload.categoriesList,
       };
     })
-    .addCase(initActiveFilters, (state, {payload}) => {
+    .addCase(initActiveFilters, (state, { payload }) => {
       return {
         ...state,
         activeFilters: payload,

@@ -1,6 +1,6 @@
-import {ComponentRef, useCallback, useRef, useState} from 'react';
-import {SnackBarProps} from './SnackBar';
-import {SnackBarContainer} from './SnackBarContainer';
+import { ComponentRef, useCallback, useRef, useState } from 'react';
+import { SnackBarProps } from './SnackBar';
+import { SnackBarContainer } from './SnackBarContainer';
 
 export function useSnackbar() {
   const ref = useRef<ComponentRef<typeof SnackBarContainer>>(null);
