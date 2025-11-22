@@ -7,7 +7,7 @@ import React, {
   type ReactElement,
   type ReactNode,
 } from 'react';
-import {AnimatedCircleButton} from 'molecules';
+import { AnimatedCircleButton } from 'molecules';
 import {
   StyleProp,
   View,
@@ -17,15 +17,15 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import {useStatusBar, useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation, type NavigationProp} from '@react-navigation/native';
-import {Button, Icon} from 'atoms';
-import type {IconName} from '../../atoms/Icon/types';
-import type {ButtonThemes} from '../../atoms/Button/types';
-import {HEADER_OVERLAY_OFFSET} from './constants';
-import type {SystemBarStyle} from 'react-native-edge-to-edge';
+import { useStatusBar, useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation, type NavigationProp } from '@react-navigation/native';
+import { Button, Icon } from 'atoms';
+import type { IconName } from '../../atoms/Icon/types';
+import type { ButtonThemes } from '../../atoms/Button/types';
+import { HEADER_OVERLAY_OFFSET } from './constants';
+import type { SystemBarStyle } from 'react-native-edge-to-edge';
 
 export type HeaderRenderProps = {
   canGoBack: boolean;
@@ -63,8 +63,13 @@ const HeaderComponent = ({
 }: HeaderProps) => {
   const navigation = useNavigation<any>();
 
-  const {topBlock, bottomBlock, leftBlock, rightBlock, contentBlock} =
-    useHeaderBlocks(children, {title, canGoBack, navigation, contentAlignment});
+  const { topBlock, bottomBlock, leftBlock, rightBlock, contentBlock } =
+    useHeaderBlocks(children, {
+      title,
+      canGoBack,
+      navigation,
+      contentAlignment,
+    });
 
   useLayoutEffect(() => {
     if (replacesDefaultHeader) {
@@ -74,7 +79,7 @@ const HeaderComponent = ({
     }
   }, [replacesDefaultHeader, navigation]);
 
-  useStatusBar({style: statusbarStyle});
+  useStatusBar({ style: statusbarStyle });
 
   const styles = useThemeStyles(themeStyles);
 
@@ -132,7 +137,7 @@ const useHeaderBlocks = (
     // Handle render prop pattern
     let childrenArray = React.Children.toArray(
       typeof children === 'function'
-        ? children({canGoBack, navigation})
+        ? children({ canGoBack, navigation })
         : children,
     );
 
@@ -242,7 +247,7 @@ function blockFactory(name: string, defaulProps: Partial<BlockProps> = {}) {
     );
   };
 
-  Object.defineProperty(Block, 'name', {value: name, writable: false});
+  Object.defineProperty(Block, 'name', { value: name, writable: false });
 
   return Block;
 }
@@ -253,9 +258,9 @@ const BottomBlock = blockFactory('BottomBlock');
 const LeftBlock = blockFactory('LeftBlock');
 const RightBlock = blockFactory('RightBlock', {
   contentAlignment: 'right',
-  style: {marginLeft: 'auto'},
+  style: { marginLeft: 'auto' },
 });
-const ContentBlock = blockFactory('ContentBlock', {expanded: true});
+const ContentBlock = blockFactory('ContentBlock', { expanded: true });
 
 const isElementOfType = <const T extends ComponentType<any>>(
   element: ReactNode,
@@ -287,7 +292,7 @@ export const ActionButton = ({
   if (size === 'small') {
     return (
       <AnimatedCircleButton
-        icon={{name: icon}}
+        icon={{ name: icon }}
         onPress={onPress}
         testID={testID}
         containerStyle={style}
@@ -312,7 +317,7 @@ interface BackButtonProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const BackButton = ({onPress, style}: BackButtonProps) => {
+export const BackButton = ({ onPress, style }: BackButtonProps) => {
   return (
     <ActionButton
       testID="backButton"
@@ -329,7 +334,7 @@ interface TitleProps extends PropsWithChildren {
   style?: StyleProp<TextStyle>;
 }
 
-const Title = ({children, size = 'large', style}: TitleProps) => {
+const Title = ({ children, size = 'large', style }: TitleProps) => {
   const styles = useThemeStyles(themeStyles);
 
   return (
@@ -345,7 +350,7 @@ const Title = ({children, size = 'large', style}: TitleProps) => {
   );
 };
 
-const PageContentWithOverlay = ({children}: PropsWithChildren) => {
+const PageContentWithOverlay = ({ children }: PropsWithChildren) => {
   const maybeChild = React.Children.only(children);
 
   if (!React.isValidElement(maybeChild)) {

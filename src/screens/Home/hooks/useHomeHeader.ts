@@ -1,12 +1,15 @@
-import {useNavigation} from '@react-navigation/native';
-import {getAnalyticsNavigationScreenName, getPartOfTheDay} from 'core/helpers';
-import {useTranslation} from 'core/hooks';
-import {useCallback} from 'react';
-import type {HomeScreenNavigationProps} from '../types';
+import { useNavigation } from '@react-navigation/native';
+import {
+  getAnalyticsNavigationScreenName,
+  getPartOfTheDay,
+} from 'core/helpers';
+import { useTranslation } from 'core/hooks';
+import { useCallback } from 'react';
+import type { HomeScreenNavigationProps } from '../types';
 
 export const useHomeHeader = () => {
   const navigation = useNavigation<HomeScreenNavigationProps>();
-  const {t} = useTranslation('home');
+  const { t } = useTranslation('home');
   const partOfTheDay = getPartOfTheDay();
 
   const openSearch = useCallback(() => {
@@ -28,7 +31,7 @@ export const useHomeHeader = () => {
           appliedFilters,
         });
 
-        return {redirectHandled: true};
+        return { redirectHandled: true };
       },
     });
   }, [navigation]);
