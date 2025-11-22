@@ -1,4 +1,4 @@
-import {NamedThemeStyles} from '../types/styles';
+import { NamedThemeStyles } from '../types/styles';
 
 export function createThemeStyles<
   T extends NamedThemeStyles<T> | NamedThemeStyles<any>,

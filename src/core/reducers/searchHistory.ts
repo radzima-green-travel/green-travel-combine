@@ -1,9 +1,9 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import {
   getSearchObjectsHistoryRequest,
   addSearchObjectToHistory,
 } from 'core/actions';
-import type {SearchObjectDTO} from 'core/types/api';
+import type { SearchObjectDTO } from 'core/types/api';
 
 interface SearchState {
   searchHistoryObjects: SearchObjectDTO[];
@@ -15,7 +15,7 @@ const initialState: SearchState = {
 export const searchHistoryReducer = createReducer(initialState, builder => {
   builder.addCase(
     getSearchObjectsHistoryRequest.meta.successAction,
-    (state, {payload}) => ({
+    (state, { payload }) => ({
       ...state,
       searchHistoryObjects: payload.searchHistoryObjects,
     }),
@@ -23,7 +23,7 @@ export const searchHistoryReducer = createReducer(initialState, builder => {
 
   builder.addCase(
     addSearchObjectToHistory,
-    (state, {payload: {searchObject}}) => ({
+    (state, { payload: { searchObject } }) => ({
       ...state,
       searchHistoryObjects: [searchObject, ...state.searchHistoryObjects],
     }),

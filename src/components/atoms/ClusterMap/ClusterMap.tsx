@@ -6,15 +6,15 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import {View, PixelRatio, GestureResponderEvent} from 'react-native';
-import {MapView, Camera} from '@rnmapbox/maps';
-import {Props} from './types';
-import {styles} from './styles';
-import {isIOS} from 'services/PlatformService';
-import {useColorScheme} from 'core/hooks';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {getPlatformsTestID} from 'core/helpers';
-import {DEFAULT_LOCALE} from 'core/constants';
+import { View, PixelRatio, GestureResponderEvent } from 'react-native';
+import { MapView, Camera } from '@rnmapbox/maps';
+import { Props } from './types';
+import { styles } from './styles';
+import { isIOS } from 'services/PlatformService';
+import { useColorScheme } from 'core/hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { getPlatformsTestID } from 'core/helpers';
+import { DEFAULT_LOCALE } from 'core/constants';
 
 export const ClusterMap = memo(
   forwardRef<MapView, Props>(
@@ -35,7 +35,7 @@ export const ClusterMap = memo(
       ref,
     ) => {
       const onShapePressed = useRef(false);
-      const {top} = useSafeAreaInsets();
+      const { top } = useSafeAreaInsets();
       const map = useRef<MapView>(null);
 
       useEffect(() => {
@@ -91,7 +91,7 @@ export const ClusterMap = memo(
             if (!onShapePress) {
               return;
             }
-            const {locationX, locationY} = event.nativeEvent;
+            const { locationX, locationY } = event.nativeEvent;
             let locX = locationX;
             let locY = locationY;
 
@@ -100,11 +100,12 @@ export const ClusterMap = memo(
               locY = locationY * PixelRatio.get();
             }
 
-            const {features} = (await map.current?.queryRenderedFeaturesAtPoint(
-              [locX, locY],
-              undefined,
-              ['singlePoint', 'areaFill'],
-            )) || {features: []};
+            const { features } =
+              (await map.current?.queryRenderedFeaturesAtPoint(
+                [locX, locY],
+                undefined,
+                ['singlePoint', 'areaFill'],
+              )) || { features: [] };
 
             if (features[0]?.properties?.objectId) {
               onShapePressed.current = true;
@@ -140,15 +141,15 @@ export const ClusterMap = memo(
                 ? 'mapbox://styles/epm-slr/cm8x0gqum00d901s5ap8h4l9c'
                 : 'mapbox://styles/epm-slr/cm8x0i6zo00n701qz8028au30'
             }
-            logoPosition={{left: 22, bottom: 22}}
+            logoPosition={{ left: 22, bottom: 22 }}
             attributionPosition={
-              attributionPosition || {bottom: isIOS ? 90 : 100, right: 30}
+              attributionPosition || { bottom: isIOS ? 90 : 100, right: 30 }
             }
-            localizeLabels={{locale: locale ?? DEFAULT_LOCALE}}
+            localizeLabels={{ locale: locale ?? DEFAULT_LOCALE }}
             compassEnabled={true}
             compassFadeWhenNorth
             onCameraChanged={onCameraChanged}
-            compassPosition={{top: top > 20 ? 0 : 10, right: 16}}
+            compassPosition={{ top: top > 20 ? 0 : 10, right: 16 }}
             scaleBarEnabled={false}>
             <Camera {...initialBounds} ref={cameraRef} />
             {children}

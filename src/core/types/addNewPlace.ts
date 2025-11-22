@@ -1,5 +1,5 @@
-import {type} from 'arktype';
-import {FormFieldConfig} from './common';
+import { type } from 'arktype';
+import { FormFieldConfig } from './common';
 
 export namespace NewPlaceForm {
   export const fieldConfigs: Record<string, FormFieldConfig> = {

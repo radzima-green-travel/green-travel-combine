@@ -1,5 +1,5 @@
-import {ObjectShortDTO, PaginatedList} from './api';
-import {ObjectShort} from './common';
+import { ObjectShortDTO, PaginatedList } from './api';
+import { ObjectShort } from './common';
 
 export type ObjectsListsById = Record<string, PaginatedList<ObjectShortDTO>>;
 

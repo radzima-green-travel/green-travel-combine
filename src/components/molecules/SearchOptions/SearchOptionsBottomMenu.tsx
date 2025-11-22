@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {View, Text} from 'react-native';
-import {ListItem} from '../ListItem';
-import {useTranslation} from 'react-i18next';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {SearchOptions} from 'core/types';
+import React, { memo } from 'react';
+import { View, Text } from 'react-native';
+import { ListItem } from '../ListItem';
+import { useTranslation } from 'react-i18next';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { SearchOptions } from 'core/types';
 
 interface IProps {
   value: SearchOptions;
@@ -13,12 +13,12 @@ interface IProps {
 }
 
 export const SearchOptionsBottomMenu = memo(
-  ({value, onChange, bottomInset}: IProps) => {
-    const {t} = useTranslation('search');
+  ({ value, onChange, bottomInset }: IProps) => {
+    const { t } = useTranslation('search');
     const styles = useThemeStyles(themeStyles);
 
     return (
-      <View style={[styles.container, {paddingBottom: bottomInset}]}>
+      <View style={[styles.container, { paddingBottom: bottomInset }]}>
         <View style={styles.contentContainer}>
           <View>
             <View style={styles.textContainer}>

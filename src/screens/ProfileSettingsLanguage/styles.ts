@@ -1,4 +1,4 @@
-import {PADDING_HORIZONTAL} from 'core/constants';
+import { PADDING_HORIZONTAL } from 'core/constants';
 
 export const themeStyles = {
   container: {

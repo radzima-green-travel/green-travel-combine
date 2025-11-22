@@ -1,5 +1,5 @@
-import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
-import {provideCustomError} from './interceptors';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { provideCustomError } from './interceptors';
 
 export class RestApiEngine {
   protected axiosInstance: AxiosInstance;

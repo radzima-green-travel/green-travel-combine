@@ -1,1 +1,1 @@
-export {AuthMethods} from './AuthMethods';
+export { AuthMethods } from './AuthMethods';

@@ -1,5 +1,5 @@
-import {COLORS} from 'assets';
-import {StyleSheet} from 'react-native';
+import { COLORS } from 'assets';
+import { StyleSheet } from 'react-native';
 
 export const themeStyles = {
   container: {
@@ -28,4 +28,4 @@ export const themeStyles = {
   },
 };
 
-export const buttonHitSlop = {top: 15, left: 15, bottom: 15, right: 15};
+export const buttonHitSlop = { top: 15, left: 15, bottom: 15, right: 15 };

@@ -11,22 +11,22 @@ import {
   AddNewPlaceScreen,
 } from '../../screens';
 
-import {TabNavigator} from './TabNavigator';
-import {MainNavigatorParamsList} from 'core/types';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {defaultTransition} from '../transition';
-import {AuthNavigator} from './AuthNavigator';
-import {useTranslation, useColorScheme} from 'core/hooks';
-import {useAndroidNavbarStyle, useScreenOptions} from 'navigation/hooks';
-import {useSelector} from 'react-redux';
-import {selectObjectShareExperienceData} from 'core/selectors';
-import {COLORS} from 'assets';
+import { TabNavigator } from './TabNavigator';
+import { MainNavigatorParamsList } from 'core/types';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { defaultTransition } from '../transition';
+import { AuthNavigator } from './AuthNavigator';
+import { useTranslation, useColorScheme } from 'core/hooks';
+import { useAndroidNavbarStyle, useScreenOptions } from 'navigation/hooks';
+import { useSelector } from 'react-redux';
+import { selectObjectShareExperienceData } from 'core/selectors';
+import { COLORS } from 'assets';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
 export function MainNavigator() {
   useAndroidNavbarStyle();
-  const {t: tFiters} = useTranslation('filters');
+  const { t: tFiters } = useTranslation('filters');
   const colorScheme = useColorScheme();
 
   const screenOptions = useScreenOptions({
@@ -43,11 +43,11 @@ export function MainNavigator() {
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
-          options={{headerShown: false, animation: 'fade'}}></Stack.Screen>
+          options={{ headerShown: false, animation: 'fade' }}></Stack.Screen>
         <Stack.Screen
           name="ObjectDetailsMap"
           component={ObjectDetailsMapScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Group
           screenOptions={() => ({
@@ -117,7 +117,7 @@ export function MainNavigator() {
         <Stack.Screen
           name="AddNewPlace"
           component={AddNewPlaceScreen}
-          options={{headerShown: false, presentation: 'modal'}}
+          options={{ headerShown: false, presentation: 'modal' }}
         />
       </Stack.Navigator>
       {objectShareExperienceData ? (

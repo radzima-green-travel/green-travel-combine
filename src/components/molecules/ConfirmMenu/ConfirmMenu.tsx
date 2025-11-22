@@ -1,11 +1,11 @@
-import React, {memo, useMemo} from 'react';
-import {View, Text} from 'react-native';
-import {ButtonsGroup} from '../ButtonsGroup';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
+import React, { memo, useMemo } from 'react';
+import { View, Text } from 'react-native';
+import { ButtonsGroup } from '../ButtonsGroup';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
 
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface IProps {
   testID: string;
@@ -51,7 +51,7 @@ export const ConfirmMenu = memo(
       onDeclinePress,
       onConfirmPress,
     ]);
-    const {bottom} = useSafeAreaInsets();
+    const { bottom } = useSafeAreaInsets();
 
     return (
       <View {...getPlatformsTestID(testID)} style={styles.container}>

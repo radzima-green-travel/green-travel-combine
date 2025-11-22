@@ -1,6 +1,6 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 
-import {AppConfiguration} from 'core/types';
+import { AppConfiguration } from 'core/types';
 import {
   getAppConfigurationRequest,
   setSkipAppUpdate,
@@ -19,7 +19,7 @@ const initialState: AppConfigurationState = {
 export const appConfigurationReducer = createReducer(initialState, builder => {
   builder.addCase(
     getAppConfigurationRequest.meta.successAction,
-    (state, {payload}) => {
+    (state, { payload }) => {
       return {
         ...state,
         data: payload,

@@ -1,1 +1,1 @@
-export {UpdateView} from './UpdateView';
+export { UpdateView } from './UpdateView';

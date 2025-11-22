@@ -1,6 +1,6 @@
-import {createAction} from '@reduxjs/toolkit';
-import {createAsyncAction} from 'core/helpers';
-import {AppConfiguration, EventsPayload} from 'core/types';
+import { createAction } from '@reduxjs/toolkit';
+import { createAsyncAction } from 'core/helpers';
+import { AppConfiguration, EventsPayload } from 'core/types';
 
 export const getAppConfigurationRequest = createAsyncAction<
   void,

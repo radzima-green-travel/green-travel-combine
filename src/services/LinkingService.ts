@@ -1,6 +1,6 @@
-import {LinkingOptions, getStateFromPath} from '@react-navigation/native';
-import {MainNavigatorParamsList} from 'core/types';
-import {getCurrentTabName} from './NavigationService';
+import { LinkingOptions, getStateFromPath } from '@react-navigation/native';
+import { MainNavigatorParamsList } from 'core/types';
+import { getCurrentTabName } from './NavigationService';
 
 class LinkingService {
   getInitialLinkingData(): LinkingOptions<MainNavigatorParamsList> {

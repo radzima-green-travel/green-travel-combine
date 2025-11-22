@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import {EMAIL_VALIDATE_REGEX} from 'core/validation';
+import { EMAIL_VALIDATE_REGEX } from 'core/validation';
 
 export const validationSchema = Yup.object({
   email: Yup.string()

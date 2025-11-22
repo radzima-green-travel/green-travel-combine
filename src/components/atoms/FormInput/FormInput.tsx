@@ -20,13 +20,13 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {themeStyles} from './styles';
-import {useColorScheme, useThemeStyles} from 'core/hooks';
-import {Icon, IconProps} from '../Icon';
-import {HelperText} from '../HelperText';
-import {useHandleKeyboardInput} from '../HandleKeyboard';
-import {composeTestID} from 'core/helpers';
-import {COLORS} from 'assets';
+import { themeStyles } from './styles';
+import { useColorScheme, useThemeStyles } from 'core/hooks';
+import { Icon, IconProps } from '../Icon';
+import { HelperText } from '../HelperText';
+import { useHandleKeyboardInput } from '../HandleKeyboard';
+import { composeTestID } from 'core/helpers';
+import { COLORS } from 'assets';
 
 export interface FormInputProps {
   iconLeft?: IconProps;
@@ -120,9 +120,10 @@ export const FormInput = forwardRef<TextInput, FormInputProps>(
 
     const isInputValueValid = (valueToCheck: string) => {
       const isInvalidValue =
-        valueToCheck.length &&
-        ((invalidChars instanceof RegExp && !invalidChars.test(valueToCheck)) ||
-          (allowedChars instanceof RegExp && allowedChars.test(valueToCheck)));
+        valueToCheck.length
+        && ((invalidChars instanceof RegExp && !invalidChars.test(valueToCheck))
+          || (allowedChars instanceof RegExp
+            && allowedChars.test(valueToCheck)));
 
       return !isInvalidValue;
     };

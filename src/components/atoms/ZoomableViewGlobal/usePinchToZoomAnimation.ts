@@ -3,7 +3,7 @@ import {
   PinchGestureHandlerEventPayload,
   Gesture,
 } from 'react-native-gesture-handler';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 import {
   useSharedValue,
@@ -11,7 +11,7 @@ import {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
-import {BackHandler} from 'react-native';
+import { BackHandler } from 'react-native';
 
 export function usePinchToZoomAnimation({
   width,
@@ -62,8 +62,8 @@ export function usePinchToZoomAnimation({
       focalX.value = event.focalX - width / 2;
       focalY.value = event.focalY - height / 2;
       if (
-        (event.numberOfPointers === 2 && prevNumberOfPointers.value === 1) ||
-        (event.numberOfPointers === 1 && prevNumberOfPointers.value === 2)
+        (event.numberOfPointers === 2 && prevNumberOfPointers.value === 1)
+        || (event.numberOfPointers === 1 && prevNumberOfPointers.value === 2)
       ) {
         transOriginX.value = translationX.value + focalX.value;
         transOriginY.value = translationY.value + focalY.value;
@@ -81,9 +81,9 @@ export function usePinchToZoomAnimation({
     .onEnd(() => {
       const reset = () => {
         if (
-          scale.value === 1 &&
-          translationX.value === 0 &&
-          translationY.value === 0
+          scale.value === 1
+          && translationX.value === 0
+          && translationY.value === 0
         ) {
           isZooming.value = false;
         }
@@ -113,14 +113,14 @@ export function usePinchToZoomAnimation({
 
   const transformStyle = useDerivedValue(() => {
     return [
-      {translateX: -translationX.value},
-      {translateY: -translationY.value},
+      { translateX: -translationX.value },
+      { translateY: -translationY.value },
 
-      {translateX: originX.value},
-      {translateY: originY.value},
-      {scale: scale.value},
-      {translateX: -originX.value},
-      {translateY: -originY.value},
+      { translateX: originX.value },
+      { translateY: originY.value },
+      { scale: scale.value },
+      { translateX: -originX.value },
+      { translateY: -originY.value },
     ];
   });
 

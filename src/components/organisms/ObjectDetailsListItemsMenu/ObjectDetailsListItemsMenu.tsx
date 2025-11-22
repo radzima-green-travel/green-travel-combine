@@ -1,12 +1,12 @@
-import React, {memo} from 'react';
-import {View, StyleProp, ViewStyle} from 'react-native';
-import {Portal} from '@gorhom/portal';
-import {BottomMenu} from 'atoms';
-import {ListItem} from 'molecules';
-import {ListItemPrimaryProps} from 'molecules/ListItem';
-import {useBottomMenu, useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {composeTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { View, StyleProp, ViewStyle } from 'react-native';
+import { Portal } from '@gorhom/portal';
+import { BottomMenu } from 'atoms';
+import { ListItem } from 'molecules';
+import { ListItemPrimaryProps } from 'molecules/ListItem';
+import { useBottomMenu, useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   menuProps: ReturnType<typeof useBottomMenu>;

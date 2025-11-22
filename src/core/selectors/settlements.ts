@@ -1,13 +1,13 @@
-import {createSelector} from '@reduxjs/toolkit';
-import {IState} from 'core/store';
-import {selectAppLanguage} from './settingsSelectors';
+import { createSelector } from '@reduxjs/toolkit';
+import { IState } from 'core/store';
+import { selectAppLanguage } from './settingsSelectors';
 import {
   prepareSettlementsSections,
   prepareSelectedSettlementsSection,
   prepareFilteredSettlementsSections,
 } from 'core/transformators/settlements';
-import {extractLocaleSpecificValues} from 'core/transformators/common';
-import {map} from 'lodash';
+import { extractLocaleSpecificValues } from 'core/transformators/common';
+import { map } from 'lodash';
 
 export const selectSettlementsData = (state: IState) => {
   return state.settlements.settlementsData;

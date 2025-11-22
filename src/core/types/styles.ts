@@ -1,4 +1,4 @@
-import {ColorValue, ImageStyle, TextStyle, ViewStyle} from 'react-native';
+import { ColorValue, ImageStyle, TextStyle, ViewStyle } from 'react-native';
 
 interface ThemeViewStyle
   extends Omit<ViewStyle, 'backgroundColor' | 'borderColor'> {

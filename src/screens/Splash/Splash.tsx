@@ -1,5 +1,5 @@
-import React, {useCallback} from 'react';
-import {View, useWindowDimensions} from 'react-native';
+import React, { useCallback } from 'react';
+import { View, useWindowDimensions } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -9,10 +9,10 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import * as SplashScreen from 'expo-splash-screen';
-import {themeStyles} from './styles';
-import {useColorScheme, useThemeStyles} from 'core/hooks';
-import {isAndroid} from 'services/PlatformService';
-import {setStatusBarHidden} from 'expo-status-bar';
+import { themeStyles } from './styles';
+import { useColorScheme, useThemeStyles } from 'core/hooks';
+import { isAndroid } from 'services/PlatformService';
+import { setStatusBarHidden } from 'expo-status-bar';
 
 interface IProps {
   onAnimationEnd?: () => void;
@@ -26,13 +26,13 @@ const splashImageWidth = 1284;
 const logoWidthOnSplash = 192;
 const logoWidthPercentage = logoWidthOnSplash / splashImageWidth;
 
-export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
+export const Splash = ({ onAnimationEnd, onFadeStart }: IProps) => {
   const opacity = useSharedValue(1);
   const animatedValue = useSharedValue(0);
   const theme = useColorScheme();
   const styles = useThemeStyles(themeStyles);
 
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const logoDimensions = Math.round(width * logoWidthPercentage);
   const imageSource = theme === 'light' ? logoSrc : darkLogoSrc;
@@ -48,7 +48,7 @@ export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
       width: logoDimensions,
       height: logoDimensions,
       transform: [
-        {translateX: interpolate(animatedValue.value, [0, 1], [0, -90])},
+        { translateX: interpolate(animatedValue.value, [0, 1], [0, -90]) },
       ],
     };
   });
@@ -57,7 +57,7 @@ export const Splash = ({onAnimationEnd, onFadeStart}: IProps) => {
     return {
       opacity: animatedValue.value,
       transform: [
-        {scale: animatedValue.value},
+        { scale: animatedValue.value },
         {
           translateX: interpolate(animatedValue.value, [0, 1], [0, 35]),
         },

@@ -1,4 +1,4 @@
-import {msToHoursAndMinutes} from '../date';
+import { msToHoursAndMinutes } from '../date';
 
 describe('msToHoursAndMinutes', () => {
   it('should convert ms to hours and minutes', () => {

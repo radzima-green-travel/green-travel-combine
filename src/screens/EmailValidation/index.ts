@@ -1,1 +1,1 @@
-export {EmailValidation} from './EmailValidation';
+export { EmailValidation } from './EmailValidation';

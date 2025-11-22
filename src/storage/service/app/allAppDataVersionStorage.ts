@@ -1,4 +1,4 @@
-import {storage} from '../../Storage';
+import { storage } from '../../Storage';
 
 export async function getAllAppDataVersionFromStorage(): Promise<
   string | null
@@ -12,5 +12,5 @@ export async function getAllAppDataVersionFromStorage(): Promise<
 export async function setAllAppDataVersionToStorage(
   version: string,
 ): Promise<void> {
-  return storage.set({key: 'allAppDataVersion', value: version});
+  return storage.set({ key: 'allAppDataVersion', value: version });
 }

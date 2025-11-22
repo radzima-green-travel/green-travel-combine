@@ -1,1 +1,1 @@
-export {objectsListSaga} from './objectsList';
+export { objectsListSaga } from './objectsList';

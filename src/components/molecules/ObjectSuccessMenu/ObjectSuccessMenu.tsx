@@ -1,13 +1,13 @@
-import React, {memo, useMemo} from 'react';
-import {View, Text, StyleProp, ImageStyle} from 'react-native';
-import {ButtonsGroup} from '../ButtonsGroup';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
+import React, { memo, useMemo } from 'react';
+import { View, Text, StyleProp, ImageStyle } from 'react-native';
+import { ButtonsGroup } from '../ButtonsGroup';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
 
-import {Image} from 'expo-image';
-import {images} from 'assets/images';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Image } from 'expo-image';
+import { images } from 'assets/images';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface IProps {
   testID: string;
@@ -41,7 +41,7 @@ export const ObjectSuccessMenu = memo(
         },
       ];
     }, [buttonText, onPress, testID]);
-    const {bottom} = useSafeAreaInsets();
+    const { bottom } = useSafeAreaInsets();
 
     return (
       <View {...getPlatformsTestID(testID)} style={styles.container}>

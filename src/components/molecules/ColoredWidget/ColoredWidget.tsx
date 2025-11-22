@@ -1,10 +1,10 @@
-import {composeTestID} from 'core/helpers';
-import {first, map} from 'lodash';
-import React, {memo, ReactNode} from 'react';
-import {Pressable, StyleProp, Text, TextStyle, View} from 'react-native';
-import {styles} from './styles';
-import {useColoredWidgetDynamicStyles} from './useColoredWidgetDynamicStyles';
-import {parseTitleLine} from './utils';
+import { composeTestID } from 'core/helpers';
+import { first, map } from 'lodash';
+import React, { memo, ReactNode } from 'react';
+import { Pressable, StyleProp, Text, TextStyle, View } from 'react-native';
+import { styles } from './styles';
+import { useColoredWidgetDynamicStyles } from './useColoredWidgetDynamicStyles';
+import { parseTitleLine } from './utils';
 
 export interface ColoredWidgetProps {
   testID: string;
@@ -34,9 +34,9 @@ export const ColoredWidget = memo(
       alignItems: titleAlignment === 'left' ? 'flex-start' : 'flex-end',
     } as const;
 
-    const regularTextStyle = [styles.titleText, {color: titleColor}];
+    const regularTextStyle = [styles.titleText, { color: titleColor }];
 
-    const {fontSizeStyle, cardHeightStyle, maxFontSizeMultiplier} =
+    const { fontSizeStyle, cardHeightStyle, maxFontSizeMultiplier } =
       useColoredWidgetDynamicStyles();
 
     const renderTitleText = ({
@@ -60,7 +60,7 @@ export const ColoredWidget = memo(
     return (
       <Pressable
         testID={testID}
-        style={[styles.container, {backgroundColor}, cardHeightStyle]}
+        style={[styles.container, { backgroundColor }, cardHeightStyle]}
         onPress={onPress}>
         {backdropSlot}
         <View style={[styles.contentWrapper, titleAlignmentStyle]}>
@@ -81,7 +81,7 @@ export const ColoredWidget = memo(
                           testID={composeTestID(testID, 'titleBadge')}
                           style={[
                             styles.titleBadge,
-                            {backgroundColor: titleBadgeColor},
+                            { backgroundColor: titleBadgeColor },
                           ]}>
                           {renderTitleText({
                             key: chunkIndex,
@@ -92,13 +92,16 @@ export const ColoredWidget = memo(
                       );
                     }
 
-                    return renderTitleText({key: chunkIndex, text: chunk.text});
+                    return renderTitleText({
+                      key: chunkIndex,
+                      text: chunk.text,
+                    });
                   })}
                 </View>
               );
             }
 
-            return renderTitleText({key: lineIndex, text: line});
+            return renderTitleText({ key: lineIndex, text: line });
           })}
         </View>
       </Pressable>

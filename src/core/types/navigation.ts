@@ -1,11 +1,11 @@
-import {Animated} from 'react-native';
-import {NavigatorScreenParams} from '@react-navigation/native';
-import {IObject, IObjectIncompleteField} from './common';
-import {AnalyticsNavigationScreenNames} from './analytics';
-import {FromScreenName} from './analytics/objectDetails';
-import {SearchFilters} from './filters';
-import {SearchOptions} from './search';
-import type {ObjectListViewMode} from '../../components/types';
+import { Animated } from 'react-native';
+import { NavigatorScreenParams } from '@react-navigation/native';
+import { IObject, IObjectIncompleteField } from './common';
+import { AnalyticsNavigationScreenNames } from './analytics';
+import { FromScreenName } from './analytics/objectDetails';
+import { SearchFilters } from './filters';
+import { SearchOptions } from './search';
+import type { ObjectListViewMode } from '../../components/types';
 
 type ObjectDetailsParams = {
   objectId: string;
@@ -53,7 +53,7 @@ export type ProfileNavigatorParamsList = {
   ProfileDetails: undefined;
   ProfileSettingsLanguage: undefined;
   ProfileSettingsTheme: undefined;
-  InAppWebView: {url: string; title: string};
+  InAppWebView: { url: string; title: string };
   ObjectDetails: ObjectDetailsParams;
   ObjectsList: ObjectListParams;
 };
@@ -73,7 +73,7 @@ export type MainNavigatorParamsList = {
   PlaceDetails: undefined;
   PageNotFoundErrorScreen: undefined;
   Splash: undefined;
-  ObjectDetailsMap: {object: IObject};
+  ObjectDetailsMap: { object: IObject };
   AuthNavigator: NavigatorScreenParams<AuthNavigatorParamsList> & {
     onSuccessSignIn?: () => void;
   };
@@ -84,7 +84,7 @@ export type MainNavigatorParamsList = {
     analytics: {
       fromScreenName: AnalyticsNavigationScreenNames;
     };
-    onApply?: (filters: SearchFilters) => {redirectHandled: boolean};
+    onApply?: (filters: SearchFilters) => { redirectHandled: boolean };
   };
   Settlements: {
     initialSelectedSettlements: string[];
@@ -126,7 +126,7 @@ export type AuthNavigatorParamsList = {
   SignUpForm: {
     email: string;
   };
-  CodeVerification: {email: string; isSignUp: true};
+  CodeVerification: { email: string; isSignUp: true };
   RestorePassword: undefined;
   NewPassword: {
     email: string;
@@ -137,7 +137,7 @@ export type AuthNavigatorParamsList = {
     isSignUp: boolean;
   };
   AuthMethodSelection: undefined;
-  InAppWebView: {url: string; title: string};
+  InAppWebView: { url: string; title: string };
   ChangePassword: undefined;
 };
 

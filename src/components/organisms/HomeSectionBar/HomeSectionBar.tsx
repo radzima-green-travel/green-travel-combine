@@ -1,18 +1,21 @@
-import React, {memo, useCallback, useRef, useEffect, useMemo} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import {ObjectCard, CategoryCard} from 'molecules';
-import {themeStyles, cardWidth, SNAP_INTERVAL} from './styles';
-import {useTranslation} from 'react-i18next';
-import {CardItem, HomeSectionBarItem} from 'core/types';
-import {useThemeStyles} from 'core/hooks';
-import {useScrollToTop} from '@react-navigation/native';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {idKeyExtractor} from 'core/utils/react';
+import React, { memo, useCallback, useRef, useEffect, useMemo } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { ObjectCard, CategoryCard } from 'molecules';
+import { themeStyles, cardWidth, SNAP_INTERVAL } from './styles';
+import { useTranslation } from 'react-i18next';
+import { CardItem, HomeSectionBarItem } from 'core/types';
+import { useThemeStyles } from 'core/hooks';
+import { useScrollToTop } from '@react-navigation/native';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { idKeyExtractor } from 'core/utils/react';
 
 interface Props {
   item: HomeSectionBarItem;
-  onAllObjectsPress: (options: {categoryId: string; title: string}) => void;
-  onAllCategoriesPress: (options: {categoryId: string; title: string}) => void;
+  onAllObjectsPress: (options: { categoryId: string; title: string }) => void;
+  onAllCategoriesPress: (options: {
+    categoryId: string;
+    title: string;
+  }) => void;
   onObjectPress: (options: CardItem) => void;
   onCategoryPress: (options: CardItem, parentCategoryName: string) => void;
   onObjectCardIsFavoriteChanged: (data: {
@@ -32,9 +35,9 @@ export const HomeSectionBar = memo(
     item,
     testID,
   }: Props) => {
-    const {t} = useTranslation('home');
+    const { t } = useTranslation('home');
     const styles = useThemeStyles(themeStyles);
-    const {items, isCategoryItems, title, categoryId} = item;
+    const { items, isCategoryItems, title, categoryId } = item;
 
     const isLessThenTwoItems = items.length < 2;
 
@@ -42,9 +45,9 @@ export const HomeSectionBar = memo(
 
     const onAllPressHandler = useCallback(() => {
       if (isCategoryItems) {
-        onAllCategoriesPress({categoryId, title});
+        onAllCategoriesPress({ categoryId, title });
       } else {
-        onAllObjectsPress({categoryId, title});
+        onAllObjectsPress({ categoryId, title });
       }
     }, [
       categoryId,
@@ -81,7 +84,7 @@ export const HomeSectionBar = memo(
     useScrollToTop(listRef);
 
     useEffect(() => {
-      listRef.current?.scrollToOffset({animated: true, offset: 0});
+      listRef.current?.scrollToOffset({ animated: true, offset: 0 });
     }, []);
 
     const snapToOffsets = useMemo(() => {
@@ -91,7 +94,7 @@ export const HomeSectionBar = memo(
     }, [items]);
 
     const renderItem = useCallback(
-      ({item: data}: {item: CardItem}) => {
+      ({ item: data }: { item: CardItem }) => {
         if (isCategoryItems) {
           return (
             <CategoryCard

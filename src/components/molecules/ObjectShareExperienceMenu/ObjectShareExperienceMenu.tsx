@@ -1,13 +1,13 @@
-import React, {memo, useCallback, useMemo} from 'react';
-import {View, Text} from 'react-native';
-import {useThemeStyles, useTranslation, useTimeRange} from 'core/hooks';
-import {CustomSlider} from 'atoms';
-import {Ratings} from '../Ratings';
-import {ListItem} from '../ListItem';
-import {themeStyles} from './styles';
-import {ButtonsGroup} from '../ButtonsGroup';
-import {composeTestID} from 'core/helpers';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import React, { memo, useCallback, useMemo } from 'react';
+import { View, Text } from 'react-native';
+import { useThemeStyles, useTranslation, useTimeRange } from 'core/hooks';
+import { CustomSlider } from 'atoms';
+import { Ratings } from '../Ratings';
+import { ListItem } from '../ListItem';
+import { themeStyles } from './styles';
+import { ButtonsGroup } from '../ButtonsGroup';
+import { composeTestID } from 'core/helpers';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface IProps {
   onSubmitPress: (data: {
@@ -45,12 +45,12 @@ export const ObjectShareExperienceMenu = memo(
     isMissedDetailsButtonVisible,
     onRangeChange,
   }: IProps) => {
-    const {t} = useTranslation('objectDetails');
+    const { t } = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
-    const {timeString, hours, minutes} = useTimeRange(range);
+    const { timeString, hours, minutes } = useTimeRange(range);
 
     const onSubmitPressHandler = useCallback(() => {
-      onSubmitPress({minutes, hours, rating});
+      onSubmitPress({ minutes, hours, rating });
     }, [hours, minutes, onSubmitPress, rating]);
 
     const isSubmitButtonDisabled = !rating && !range;
@@ -82,7 +82,7 @@ export const ObjectShareExperienceMenu = memo(
       isSubmitButtonDisabled,
     ]);
 
-    const {bottom} = useSafeAreaInsets();
+    const { bottom } = useSafeAreaInsets();
 
     return (
       <View style={styles.container}>

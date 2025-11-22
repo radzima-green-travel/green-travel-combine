@@ -1,8 +1,8 @@
-import React, {memo} from 'react';
-import {StyleProp, Text, TextProps, TextStyle} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
-import {getTextParts} from './utils';
-import {themeStyles} from './styles';
+import React, { memo } from 'react';
+import { StyleProp, Text, TextProps, TextStyle } from 'react-native';
+import { useThemeStyles } from 'core/hooks';
+import { getTextParts } from './utils';
+import { themeStyles } from './styles';
 
 interface Props extends TextProps {
   query?: string;
@@ -31,7 +31,7 @@ export const HighlightedText: React.FC<Props> = memo(
 
     return (
       <Text {...props}>
-        {textParts.map(({isBold, partText}, index) => (
+        {textParts.map(({ isBold, partText }, index) => (
           <Text key={index} style={[style, isBold && textStyle]}>
             {partText}
           </Text>

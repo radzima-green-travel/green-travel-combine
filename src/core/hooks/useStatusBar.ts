@@ -1,9 +1,9 @@
-import {useIsFocused} from '@react-navigation/native';
-import {useEffect} from 'react';
-import {SystemBars, SystemBarStyle} from 'react-native-edge-to-edge';
-import {useColorScheme} from './useColorScheme';
+import { useIsFocused } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { SystemBars, SystemBarStyle } from 'react-native-edge-to-edge';
+import { useColorScheme } from './useColorScheme';
 
-export function useStatusBar({style}: {style: SystemBarStyle}) {
+export function useStatusBar({ style }: { style: SystemBarStyle }) {
   const isFocused = useIsFocused();
   const scheme = useColorScheme();
 

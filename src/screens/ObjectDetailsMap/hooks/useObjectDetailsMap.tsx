@@ -1,6 +1,6 @@
-import {InteractionManager} from 'react-native';
-import {useCallback, useMemo, useRef, useEffect} from 'react';
-import {MapView, Camera, MapState} from '@rnmapbox/maps';
+import { InteractionManager } from 'react-native';
+import { useCallback, useMemo, useRef, useEffect } from 'react';
+import { MapView, Camera, MapState } from '@rnmapbox/maps';
 
 import {
   selectAppLanguage,
@@ -8,7 +8,7 @@ import {
   createMarkerFromDetailsObject,
   selectMapDirection,
 } from 'core/selectors';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   useBottomMenu,
   useFocusToUserLocation,
@@ -18,16 +18,16 @@ import {
   useRequestErrorAlert,
   useStatusBar,
 } from 'core/hooks';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {IBounds, IObject} from 'core/types';
-import {showLocation} from 'react-native-map-link';
-import {mapService} from 'services/MapService';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { IBounds, IObject } from 'core/types';
+import { showLocation } from 'react-native-map-link';
+import { mapService } from 'services/MapService';
 import {
   clearObjectDetailsMapDirection,
   showObjectDetailsMapDirectionRequest,
 } from 'core/actions';
 
-import {hapticFeedbackService} from 'services/HapticFeedbackService';
+import { hapticFeedbackService } from 'services/HapticFeedbackService';
 
 import {
   featureCollection,
@@ -35,17 +35,17 @@ import {
   lineString,
   point,
 } from '@turf/helpers';
-import type {Feature, MultiPolygon, LineString, Point} from 'geojson';
-import {useRoute} from '@react-navigation/native';
-import {ObjectDetailsMapScreenRouteProps} from '../types';
+import type { Feature, MultiPolygon, LineString, Point } from 'geojson';
+import { useRoute } from '@react-navigation/native';
+import { ObjectDetailsMapScreenRouteProps } from '../types';
 
 export const useObjectDetailsMap = () => {
-  const {t} = useTranslation('objectDetails');
+  const { t } = useTranslation('objectDetails');
   const currentLocale = useSelector(selectAppLanguage);
 
-  const {openMenu, closeMenu, ...menuProps} = useBottomMenu();
+  const { openMenu, closeMenu, ...menuProps } = useBottomMenu();
   const {
-    params: {object},
+    params: { object },
   } = useRoute<ObjectDetailsMapScreenRouteProps>();
 
   const map = useRef<MapView>(null);
@@ -72,11 +72,11 @@ export const useObjectDetailsMap = () => {
     ...userLocationProps
   } = useFocusToUserLocation(camera);
 
-  const {loading} = useRequestLoading(showObjectDetailsMapDirectionRequest);
+  const { loading } = useRequestLoading(showObjectDetailsMapDirectionRequest);
 
   const onMenuButtonPress = useCallback(
     async (obj: IObject) => {
-      const {location, name} = obj;
+      const { location, name } = obj;
 
       if (isDirectionShowed) {
         showLocation({
@@ -105,7 +105,7 @@ export const useObjectDetailsMap = () => {
     [centerCoordinate, dispatch, getUserLocation, isDirectionShowed, t],
   );
 
-  const {bottom, top} = useSafeAreaInsets();
+  const { bottom, top } = useSafeAreaInsets();
 
   const bounds = useMemo(() => {
     if (object) {
@@ -223,7 +223,7 @@ export const useObjectDetailsMap = () => {
   }, [dispatch]);
 
   const unfocusUserLocation = useCallback(
-    ({gestures: {isGestureActive}}: MapState) => {
+    ({ gestures: { isGestureActive } }: MapState) => {
       if (isGestureActive) {
         setIsUserLocationFocused(false);
       }
@@ -235,7 +235,7 @@ export const useObjectDetailsMap = () => {
     closeMenu();
   }, [closeMenu]);
 
-  useStatusBar({style: 'auto'});
+  useStatusBar({ style: 'auto' });
 
   return {
     bottom,

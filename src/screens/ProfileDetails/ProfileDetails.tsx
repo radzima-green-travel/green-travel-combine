@@ -1,16 +1,16 @@
 import React from 'react';
-import {View} from 'react-native';
-import {GeneralListItem} from 'molecules';
-import {screenOptions} from './screenOptions';
-import {useProfileDetails} from './hooks';
-import {useTranslation} from 'react-i18next';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {SnackBar} from 'atoms';
-import {AuthorizedEmailText} from './components';
+import { View } from 'react-native';
+import { GeneralListItem } from 'molecules';
+import { screenOptions } from './screenOptions';
+import { useProfileDetails } from './hooks';
+import { useTranslation } from 'react-i18next';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { SnackBar } from 'atoms';
+import { AuthorizedEmailText } from './components';
 
 export const ProfileDetails = () => {
-  const {t} = useTranslation('profile');
+  const { t } = useTranslation('profile');
   const styles = useThemeStyles(themeStyles);
   const {
     loading,

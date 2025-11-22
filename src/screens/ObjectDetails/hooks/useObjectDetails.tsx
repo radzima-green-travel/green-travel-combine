@@ -1,8 +1,8 @@
-import {useCallback, useLayoutEffect, useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+import { useCallback, useLayoutEffect, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import * as Clipboard from 'expo-clipboard';
 
-import {useSnackbar} from 'atoms';
+import { useSnackbar } from 'atoms';
 import {
   useDetailsPageAnalytics,
   useImageSlider,
@@ -18,30 +18,30 @@ import {
   ObjectDetailsScreenNavigationProps,
   ObjectDetailsScreenRouteProps,
 } from '../types';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {shareService} from 'services/ShareService';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { shareService } from 'services/ShareService';
 
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {getAnalyticsNavigationScreenName} from 'core/helpers';
-import {useObjectDetailsAnalytics} from './useObjectDetailsAnalytics';
-import {IBelongsTo, IInclude} from 'core/types';
-import {selectObjectDetails} from 'core/selectors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { getAnalyticsNavigationScreenName } from 'core/helpers';
+import { useObjectDetailsAnalytics } from './useObjectDetailsAnalytics';
+import { IBelongsTo, IInclude } from 'core/types';
+import { selectObjectDetails } from 'core/selectors';
 
 export const useObjectDetails = () => {
   const navigation = useNavigation<ObjectDetailsScreenNavigationProps>();
   const {
-    params: {objectId, objectCoverImageUrl, objcetCoverBlurhash},
+    params: { objectId, objectCoverImageUrl, objcetCoverBlurhash },
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
   const dispatch = useDispatch();
   const data = useObjectDetailsSelector(selectObjectDetails);
-  const {getObjectDetailsRequest} = useObjectDetailsActions();
+  const { getObjectDetailsRequest } = useObjectDetailsActions();
 
-  const {top} = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
-  const {sendSwitchPhotosEvent, sendScrollEvent} =
+  const { sendSwitchPhotosEvent, sendScrollEvent } =
     // TODO: legacy. Will be removed after migration to new analytics
     useDetailsPageAnalytics();
 
@@ -64,7 +64,7 @@ export const useObjectDetails = () => {
   }, [sendObjectScreenViewEvent]);
 
   const snackBarProps = useSnackbar();
-  const {show} = snackBarProps;
+  const { show } = snackBarProps;
   const copyLocationToClipboard = useCallback(
     async (location: string) => {
       sendLocationLabelClickEvent();
@@ -102,10 +102,10 @@ export const useObjectDetails = () => {
   );
 
   const navigateToIncludesObjectListOrPage = useCallback(
-    ({objects, categoryId, name, analyticsMetadata}: IInclude) => {
+    ({ objects, categoryId, name, analyticsMetadata }: IInclude) => {
       sendActivitiesNavigateEvent(analyticsMetadata.name);
       if (objects.length === 1) {
-        const {id, cover, blurhash} = objects[0];
+        const { id, cover, blurhash } = objects[0];
         navigation.push('ObjectDetails', {
           objectId: id,
           objcetCoverBlurhash: blurhash,
@@ -118,7 +118,7 @@ export const useObjectDetails = () => {
         navigation.push('ObjectsList', {
           appliedFilters: {
             categories: [categoryId],
-            objectIds: objects.map(({id}) => id),
+            objectIds: objects.map(({ id }) => id),
           },
           title: name,
         });
@@ -151,7 +151,7 @@ export const useObjectDetails = () => {
     }
   }, [data, incompleteFields, navigation, sendAddInfoButtonClickEvent]);
 
-  const {onScroll, page, pagesAmount} = useImageSlider(
+  const { onScroll, page, pagesAmount } = useImageSlider(
     data?.images?.length || 0,
   );
 
@@ -166,7 +166,7 @@ export const useObjectDetails = () => {
   }, [navigation, data]);
 
   useEffect(() => {
-    dispatch(getObjectDetailsRequest({objectId}));
+    dispatch(getObjectDetailsRequest({ objectId }));
   }, [dispatch, getObjectDetailsRequest, objectId]);
 
   useUpdateEffect(() => {
@@ -189,12 +189,12 @@ export const useObjectDetails = () => {
     }
   }, [data, navigation, page]);
 
-  const {loading} = useRequestLoading(getObjectDetailsRequest);
+  const { loading } = useRequestLoading(getObjectDetailsRequest);
 
-  const {errorTexts} = useOnRequestError(getObjectDetailsRequest, '');
+  const { errorTexts } = useOnRequestError(getObjectDetailsRequest, '');
 
   const onTryAgainPress = useCallback(() => {
-    dispatch(getObjectDetailsRequest({objectId}));
+    dispatch(getObjectDetailsRequest({ objectId }));
   }, [dispatch, getObjectDetailsRequest, objectId]);
 
   return {

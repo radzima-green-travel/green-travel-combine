@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTranslation} from 'core/hooks';
+import { useTranslation } from 'core/hooks';
 import {
   FormInput,
   SnackBar,
@@ -8,16 +8,16 @@ import {
   createHandleKeyboardScrollComponent,
   HandleContainer,
 } from 'atoms';
-import {AuthForm} from 'organisms';
-import {useSignUpForm} from './hooks';
-import {FormikProvider} from 'formik';
-import {ScrollView} from 'react-native-gesture-handler';
+import { AuthForm } from 'organisms';
+import { useSignUpForm } from './hooks';
+import { FormikProvider } from 'formik';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const HandleKeyboardScrollView =
   createHandleKeyboardScrollComponent(ScrollView);
 
 export const SignUpForm = () => {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const {
     loading,
     email,
@@ -37,13 +37,13 @@ export const SignUpForm = () => {
           <AuthForm
             testID="authForm"
             title={t('inputPassword')}
-            text={t('createPasswordFor', {email})}
+            text={t('createPasswordFor', { email })}
             onSubmitPress={submitForm}
             submitButtonText={t('send')}
             isSubmitButtonDisabled={isSubmitButtonDisabled}
             submitButtonLoading={loading}>
             <WithFormikInput<string> name="password">
-              {({messageText, ...inputProps}) => (
+              {({ messageText, ...inputProps }) => (
                 <FormInput
                   testID={'passwordFormInput'}
                   autoFocus

@@ -1,5 +1,5 @@
-import {createAsyncAction} from 'core/helpers';
-import {ObjectListFilters, ObjectShortDTO} from 'core/types';
+import { createAsyncAction } from 'core/helpers';
+import { ObjectListFilters, ObjectShortDTO } from 'core/types';
 
 export interface ObjectsListSuccessPayload {
   id: string;

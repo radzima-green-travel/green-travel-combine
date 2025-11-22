@@ -6,17 +6,17 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
-import {View, StatusBar, TextInput} from 'react-native';
-import {ButtonsGroup} from '../ButtonsGroup';
-import {FormInput} from 'atoms';
-import {composeTestID} from 'core/helpers';
+import { View, StatusBar, TextInput } from 'react-native';
+import { ButtonsGroup } from '../ButtonsGroup';
+import { FormInput } from 'atoms';
+import { composeTestID } from 'core/helpers';
 import {
   useBottomSheetHandleKeyboard,
   useThemeStyles,
   useTranslation,
 } from 'core/hooks';
-import {themeStyles} from './styles';
-import {PADDING_HORIZONTAL} from 'core/constants';
+import { themeStyles } from './styles';
+import { PADDING_HORIZONTAL } from 'core/constants';
 
 interface IProps {
   testID: string;
@@ -42,7 +42,7 @@ export const ObjectReportinaccuraciesMenu = memo(
       ref,
     ) => {
       const styles = useThemeStyles(themeStyles);
-      const {t} = useTranslation('objectDetails');
+      const { t } = useTranslation('objectDetails');
       const [value, setValue] = useState<string>('');
 
       const onSendPressHandler = useCallback(() => {
@@ -66,7 +66,7 @@ export const ObjectReportinaccuraciesMenu = memo(
         ];
       }, [isSendLoading, onSendPressHandler, t, testID, value.length]);
 
-      const {onFocus, onBlur, bottomInset} = useBottomSheetHandleKeyboard();
+      const { onFocus, onBlur, bottomInset } = useBottomSheetHandleKeyboard();
 
       const onFocusHandler = useCallback(() => {
         if (autoHandleKeyboard) {
@@ -95,10 +95,10 @@ export const ObjectReportinaccuraciesMenu = memo(
           </View>
           <ButtonsGroup
             bottomInset={
-              bottomInset ||
-              Number(keyboardHeight) +
-                PADDING_HORIZONTAL +
-                Number(StatusBar?.currentHeight)
+              bottomInset
+              || Number(keyboardHeight)
+                + PADDING_HORIZONTAL
+                + Number(StatusBar?.currentHeight)
             }
             containerStyle={styles.buttonsContainer}
             buttons={buttons}

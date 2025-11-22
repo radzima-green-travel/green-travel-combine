@@ -1,7 +1,7 @@
-import {useCurrentActions} from 'react-redux-help-kit';
+import { useCurrentActions } from 'react-redux-help-kit';
 import * as actions from '../../core/actions/objectDetails';
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {HomeNavigatorParamsList} from 'core/types';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { HomeNavigatorParamsList } from 'core/types';
 
 type ObjectDetailsScreenRouteProps = RouteProp<
   HomeNavigatorParamsList,
@@ -10,7 +10,7 @@ type ObjectDetailsScreenRouteProps = RouteProp<
 
 export const useObjectDetailsActions = () => {
   const {
-    params: {objectId},
+    params: { objectId },
   } = useRoute<ObjectDetailsScreenRouteProps>();
 
   return useCurrentActions(actions, {

@@ -1,9 +1,9 @@
-import {createReducer, isAnyOf} from '@reduxjs/toolkit';
+import { createReducer, isAnyOf } from '@reduxjs/toolkit';
 import {
   getObjectsListInitialDataRequest,
   getObjectsListNextDataRequest,
 } from 'core/actions';
-import {ObjectsListsById} from 'core/types/objectsList';
+import { ObjectsListsById } from 'core/types/objectsList';
 
 interface ObjectsListState {
   objectsListsById: ObjectsListsById;
@@ -19,7 +19,7 @@ export const objectsListReducer = createReducer(initialState, builder => {
       getObjectsListInitialDataRequest.meta.successAction,
       getObjectsListNextDataRequest.meta.successAction,
     ),
-    (state, {payload: {data, total, nextToken, id}}) => {
+    (state, { payload: { data, total, nextToken, id } }) => {
       const existingData = state.objectsListsById[id]?.data ?? [];
 
       state.objectsListsById = {

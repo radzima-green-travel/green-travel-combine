@@ -1,6 +1,6 @@
-import {createAction} from '@reduxjs/toolkit';
-import {ACTIONS} from 'core/constants';
-import {createAsyncAction} from 'core/helpers';
+import { createAction } from '@reduxjs/toolkit';
+import { ACTIONS } from 'core/constants';
+import { createAsyncAction } from 'core/helpers';
 import {
   AddVisitedObjectBody,
   ShareExperienceInitialData,

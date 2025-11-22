@@ -1,6 +1,6 @@
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RouteProp} from '@react-navigation/native';
-import {MainNavigatorParamsList} from 'core/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteProp } from '@react-navigation/native';
+import { MainNavigatorParamsList } from 'core/types';
 
 export type ImagesGalleryScreenNavigationProps = NativeStackNavigationProp<
   MainNavigatorParamsList,

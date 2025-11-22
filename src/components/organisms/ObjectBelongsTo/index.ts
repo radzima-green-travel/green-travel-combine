@@ -1,1 +1,1 @@
-export {ObjectBelongsTo} from './ObjectBelongsTo';
+export { ObjectBelongsTo } from './ObjectBelongsTo';

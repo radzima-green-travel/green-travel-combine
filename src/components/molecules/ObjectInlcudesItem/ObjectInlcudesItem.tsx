@@ -1,10 +1,10 @@
-import React, {memo, useCallback} from 'react';
-import {ImageStyle, Text, TouchableOpacity} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {IInclude} from 'core/types';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {Image} from 'expo-image';
+import React, { memo, useCallback } from 'react';
+import { ImageStyle, Text, TouchableOpacity } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { IInclude } from 'core/types';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { Image } from 'expo-image';
 
 interface IProps {
   onPress: (config: IInclude) => void;
@@ -12,9 +12,9 @@ interface IProps {
   testID: string;
 }
 
-export const ObjectInlcudesItem = memo(({data, onPress, testID}: IProps) => {
+export const ObjectInlcudesItem = memo(({ data, onPress, testID }: IProps) => {
   const styles = useThemeStyles(themeStyles);
-  const {image, name} = data;
+  const { image, name } = data;
 
   const onPressHandler = useCallback(() => {
     onPress(data);
@@ -29,7 +29,7 @@ export const ObjectInlcudesItem = memo(({data, onPress, testID}: IProps) => {
       <Image
         {...getPlatformsTestID(composeTestID(testID, 'image'))}
         style={styles.image as ImageStyle}
-        source={{uri: image}}
+        source={{ uri: image }}
       />
       <Text
         numberOfLines={2}

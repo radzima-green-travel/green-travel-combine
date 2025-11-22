@@ -1,6 +1,6 @@
-import {reduce} from 'lodash';
-import {shortCardQueryParameters, categoryQueryParameters} from './common';
-import {GRAPHQL_QUERY_CATEGORY_INDEX} from '../constants';
+import { reduce } from 'lodash';
+import { shortCardQueryParameters, categoryQueryParameters } from './common';
+import { GRAPHQL_QUERY_CATEGORY_INDEX } from '../constants';
 
 export const getCategoriesAggregationsByObjectsQuery = `query MyQuery {
     filterLandingObjects(filter: {statuses: "published"}) {
@@ -25,8 +25,8 @@ export function generateListObjectsShortQuery(categoriesIds: string[]) {
           categoriesIds,
           (acc, id, index) => {
             return (
-              acc +
-              `${GRAPHQL_QUERY_CATEGORY_INDEX}${index}: searchObjects(limit: 10, filter: {status: {eq: "published"}, categoryId: {eq: "${id}"}}) {
+              acc
+              + `${GRAPHQL_QUERY_CATEGORY_INDEX}${index}: searchObjects(limit: 10, filter: {status: {eq: "published"}, categoryId: {eq: "${id}"}}) {
                 ${shortCardQueryParameters}
             }`
             );

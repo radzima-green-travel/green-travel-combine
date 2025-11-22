@@ -1,1 +1,1 @@
-export {objectDetailsSaga} from './objectDetails';
+export { objectDetailsSaga } from './objectDetails';

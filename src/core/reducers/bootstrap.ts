@@ -1,5 +1,5 @@
-import {createReducer, isAnyOf} from '@reduxjs/toolkit';
-import {bootstrapRequest} from 'core/actions';
+import { createReducer, isAnyOf } from '@reduxjs/toolkit';
+import { bootstrapRequest } from 'core/actions';
 
 interface InitialState {
   finished: boolean;

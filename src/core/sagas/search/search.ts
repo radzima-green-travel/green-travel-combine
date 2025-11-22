@@ -5,11 +5,11 @@ import {
   searchMoreObjectsRequest,
   searchObjectsRequest,
 } from 'core/actions';
-import {takeEvery, takeLatest} from 'redux-saga/effects';
-import {getSearchObjectsHistorySaga} from './getSearchObjectsHistorySaga';
-import {searchObjectsSaga} from './searchObjectsSaga';
-import {getMapSearchObjectsSaga} from './getMapSearchObjectsSaga';
-import {getVisibleOnMapObjectsSaga} from './getVisibleOnMapObjectsSaga';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
+import { getSearchObjectsHistorySaga } from './getSearchObjectsHistorySaga';
+import { searchObjectsSaga } from './searchObjectsSaga';
+import { getMapSearchObjectsSaga } from './getMapSearchObjectsSaga';
+import { getVisibleOnMapObjectsSaga } from './getVisibleOnMapObjectsSaga';
 
 export function* searchSaga() {
   yield takeEvery(getSearchObjectsHistoryRequest, getSearchObjectsHistorySaga);

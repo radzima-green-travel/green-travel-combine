@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect} from 'react';
+import React, { useCallback, useEffect } from 'react';
 
-import {SuspenseView} from 'components/molecules';
-import {ObjectList, SearchHeader} from 'components/organisms';
+import { SuspenseView } from 'components/molecules';
+import { ObjectList, SearchHeader } from 'components/organisms';
 import {
   useObjectsListAnalytics,
   useSearchHeader,
@@ -9,11 +9,11 @@ import {
   useObjectListMapView,
   useThemeStyles,
 } from 'core/hooks';
-import {themeStyles} from './styles';
-import {SearchObject} from '../../core/types';
+import { themeStyles } from './styles';
+import { SearchObject } from '../../core/types';
 
 export const ObjectListScreen = () => {
-  const {sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent} =
+  const { sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent } =
     useObjectsListAnalytics();
 
   const {

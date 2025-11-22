@@ -1,17 +1,17 @@
-import {call, put, select, spawn} from 'redux-saga/effects';
-import {amplifyApi} from 'api/amplify';
-import {createAuthHubChannel} from './createAuthHubChannel';
+import { call, put, select, spawn } from 'redux-saga/effects';
+import { amplifyApi } from 'api/amplify';
+import { createAuthHubChannel } from './createAuthHubChannel';
 
-import {signInRequest} from 'core/actions';
-import {CognitoUserWithAttributes, SupportedLocales} from '../../types';
-import {socialSignInSaga} from './socialSignInSaga';
-import {selectAppLanguage} from 'core/selectors';
-import {updateUserAttributesSaga} from './updateUserAttributesSaga';
-import {getObjectAttributesSaga} from '../objectAttributes';
+import { signInRequest } from 'core/actions';
+import { CognitoUserWithAttributes, SupportedLocales } from '../../types';
+import { socialSignInSaga } from './socialSignInSaga';
+import { selectAppLanguage } from 'core/selectors';
+import { updateUserAttributesSaga } from './updateUserAttributesSaga';
+import { getObjectAttributesSaga } from '../objectAttributes';
 
 export function* signInSaga({
-  payload: {email, password, socialProvider},
-  meta: {successAction, failureAction},
+  payload: { email, password, socialProvider },
+  meta: { successAction, failureAction },
 }: ReturnType<typeof signInRequest>) {
   const authChannel = createAuthHubChannel();
   try {
@@ -28,7 +28,7 @@ export function* signInSaga({
     if (user) {
       const locale: SupportedLocales = yield select(selectAppLanguage);
       if (user.attributes.email_verified) {
-        yield spawn(updateUserAttributesSaga, {locale});
+        yield spawn(updateUserAttributesSaga, { locale });
       }
       yield call(getObjectAttributesSaga);
     }

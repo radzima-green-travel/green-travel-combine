@@ -1,5 +1,5 @@
-import {COLORS, FONTS_STYLES} from 'assets';
-import {Platform} from 'react-native';
+import { COLORS, FONTS_STYLES } from 'assets';
+import { Platform } from 'react-native';
 export const themeStyles = {
   searchContainer: {
     flexDirection: 'row',
@@ -14,7 +14,7 @@ export const themeStyles = {
     paddingLeft: 16,
 
     shadowColor: 'rgb(0, 0, 0)',
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.25,
     shadowRadius: 2,
     elevation: 5,
@@ -63,4 +63,4 @@ const hitSlop = {
   right: 6,
 };
 
-export {crossHitClop, hitSlop};
+export { crossHitClop, hitSlop };

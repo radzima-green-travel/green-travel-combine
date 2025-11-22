@@ -1,1 +1,1 @@
-export {GeneralListItem} from './GeneralListItem';
+export { GeneralListItem } from './GeneralListItem';

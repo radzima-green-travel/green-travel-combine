@@ -1,10 +1,10 @@
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import React, {memo} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import {themeStyles} from './styles';
-import {CompletnessIndicator} from './components';
-import {Icon} from 'atoms';
-import {composeTestID} from 'core/helpers';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import React, { memo } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
+import { themeStyles } from './styles';
+import { CompletnessIndicator } from './components';
+import { Icon } from 'atoms';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
   percentage: number;
@@ -13,8 +13,8 @@ interface IProps {
 }
 
 export const ObjectDetailsCompletenessSmallBlock = memo(
-  ({percentage, testID, onPress}: IProps) => {
-    const {t} = useTranslation('objectDetails');
+  ({ percentage, testID, onPress }: IProps) => {
+    const { t } = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
 
     return (

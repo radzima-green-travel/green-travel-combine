@@ -1,5 +1,5 @@
-import React, {useMemo} from 'react';
-import {StyleSheet} from 'react-native';
+import React, { useMemo } from 'react';
+import { StyleSheet } from 'react-native';
 
 import Animated, {
   Extrapolate,
@@ -13,7 +13,7 @@ interface BackdropProps {
   onPress: () => void;
 }
 
-export const Backdrop = ({animatedIndex, onPress}: BackdropProps) => {
+export const Backdrop = ({ animatedIndex, onPress }: BackdropProps) => {
   const containerAnimatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(
       animatedIndex.value,

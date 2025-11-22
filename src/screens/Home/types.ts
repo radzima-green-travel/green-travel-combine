@@ -2,8 +2,8 @@ import {
   NativeStackNavigationProp,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { RouteProp, CompositeNavigationProp } from '@react-navigation/native';
 import {
   HomeNavigatorParamsList,
   TabNavigatorParamsList,

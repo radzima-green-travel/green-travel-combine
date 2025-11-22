@@ -1,10 +1,10 @@
-import {graphQLAPI} from 'api/graphql';
-import {fetchNextRandomObjects} from 'core/actions';
-import {RequestError} from 'core/errors';
-import {call, put} from 'redux-saga/effects';
+import { graphQLAPI } from 'api/graphql';
+import { fetchNextRandomObjects } from 'core/actions';
+import { RequestError } from 'core/errors';
+import { call, put } from 'redux-saga/effects';
 
 export function* fetchRandomObjects({
-  meta: {failureAction, successAction},
+  meta: { failureAction, successAction },
 }: ReturnType<typeof fetchNextRandomObjects>) {
   try {
     const objects = yield call(

@@ -1,9 +1,9 @@
-import React, {memo} from 'react';
-import {Button, Icon} from 'atoms';
-import {StyleProp, Text, TextStyle, View} from 'react-native';
-import {useColorScheme, useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles} from './styles';
-import {composeTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { Button, Icon } from 'atoms';
+import { StyleProp, Text, TextStyle, View } from 'react-native';
+import { useColorScheme, useThemeStyles, useTranslation } from 'core/hooks';
+import { themeStyles } from './styles';
+import { composeTestID } from 'core/helpers';
 
 interface UpdateBottomMenuProps {
   title: string;
@@ -25,7 +25,7 @@ export const UpdateView = memo(
   }: UpdateBottomMenuProps) => {
     const styles = useThemeStyles(themeStyles);
     const theme = useColorScheme();
-    const {t} = useTranslation('updateVersion');
+    const { t } = useTranslation('updateVersion');
 
     return (
       <View style={styles.container}>

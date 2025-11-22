@@ -1,7 +1,7 @@
-import type {MultiPolygon, LineString} from 'geojson';
-import {IRequestError} from './errors';
-import {animations} from 'assets';
-import {ObjectField} from 'core/constants';
+import type { MultiPolygon, LineString } from 'geojson';
+import { IRequestError } from './errors';
+import { animations } from 'assets';
+import { ObjectField } from 'core/constants';
 import {
   CategoryFilterItemDTO,
   CategoryShortDTO,
@@ -15,7 +15,7 @@ import {
   SearchObjetcCategoryDTO,
   SpotItemDTO,
 } from './api';
-import {TextInputProps} from 'react-native';
+import { TextInputProps } from 'react-native';
 
 export type TranslatedEntity<T> = Omit<T, 'i18n'> & {
   analyticsMetadata: Record<ExtractI18nKeys<T>, string>;
@@ -38,7 +38,7 @@ export interface IInclude {
   categoryId: string;
   name: string;
   image: string;
-  objects: {id: string; cover: string; blurhash: string | null}[];
+  objects: { id: string; cover: string; blurhash: string | null }[];
   analyticsMetadata: {
     name: string;
   };
@@ -182,7 +182,10 @@ export type IBookmarkItem = {
 export type IBookmarksData = IBookmarkItem[];
 
 export interface IGetHomeDataResponse {
-  data: {listMobileObjects: ICategory[]; getObjectsMetadata: {value: string}};
+  data: {
+    listMobileObjects: ICategory[];
+    getObjectsMetadata: { value: string };
+  };
 }
 
 export type SupportedLocales = 'ru' | 'en';

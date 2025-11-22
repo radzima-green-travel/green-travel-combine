@@ -1,5 +1,5 @@
-import {COLORS, FONTS_PRESETS} from 'assets';
-import {MAP_BOTTOM_MENU_HEIGHT, PADDING_HORIZONTAL} from 'core/constants';
+import { COLORS, FONTS_PRESETS } from 'assets';
+import { MAP_BOTTOM_MENU_HEIGHT, PADDING_HORIZONTAL } from 'core/constants';
 
 export const themeStyles = {
   container: {
@@ -21,7 +21,7 @@ export const themeStyles = {
   },
   text: {
     ...FONTS_PRESETS.title3Bold,
-    color: {light: COLORS.logCabin, dark: COLORS.altoForDark},
+    color: { light: COLORS.logCabin, dark: COLORS.altoForDark },
     flexShrink: 1,
   },
   searchOption: {

@@ -1,7 +1,7 @@
-import {createAsyncAction} from 'core/helpers';
-import {BookmarksObjectDTO} from 'core/types';
-import {ObjectsListSuccessPayload} from 'core/actions/objectsList';
-import {createAction} from '@reduxjs/toolkit';
+import { createAsyncAction } from 'core/helpers';
+import { BookmarksObjectDTO } from 'core/types';
+import { ObjectsListSuccessPayload } from 'core/actions/objectsList';
+import { createAction } from '@reduxjs/toolkit';
 
 interface BookmarksInitialObjectsDataSuccessPayload {
   objects: BookmarksObjectDTO[];

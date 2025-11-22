@@ -1,10 +1,10 @@
-import {call, put} from 'redux-saga/effects';
-import {amplifyApi} from 'api/amplify';
-import {forgotPasswordRequest} from 'core/actions';
+import { call, put } from 'redux-saga/effects';
+import { amplifyApi } from 'api/amplify';
+import { forgotPasswordRequest } from 'core/actions';
 
 export function* forgotPasswordSaga({
-  payload: {email},
-  meta: {successAction, failureAction},
+  payload: { email },
+  meta: { successAction, failureAction },
 }: ReturnType<typeof forgotPasswordRequest>) {
   try {
     yield call([amplifyApi, amplifyApi.forgotPassword], email);

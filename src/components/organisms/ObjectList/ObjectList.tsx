@@ -1,14 +1,14 @@
-import {ICONS_MATCHER} from 'core/constants';
-import {composeTestID} from 'core/helpers';
+import { ICONS_MATCHER } from 'core/constants';
+import { composeTestID } from 'core/helpers';
 import {
   useScrollToTopButton,
   useObjectListMapView,
   useThemeStyles,
   useTranslation,
 } from 'core/hooks';
-import {SearchObject} from 'core/types';
-import {idKeyExtractor} from 'core/utils/react';
-import React, {useCallback} from 'react';
+import { SearchObject } from 'core/types';
+import { idKeyExtractor } from 'core/utils/react';
+import React, { useCallback } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -17,12 +17,12 @@ import {
   View,
 } from 'react-native';
 import Animated from 'react-native-reanimated';
-import {ObjectListModeSwitch} from '../../atoms';
-import {ListItem, ObjectCardNew, SearchListItem} from '../../molecules';
-import {ObjectListViewMode} from '../../types';
-import {themeStyles} from './styles';
-import {MapWithBottomSheet} from '../MapWithBottomSheet';
-import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
+import { ObjectListModeSwitch } from '../../atoms';
+import { ListItem, ObjectCardNew, SearchListItem } from '../../molecules';
+import { ObjectListViewMode } from '../../types';
+import { themeStyles } from './styles';
+import { MapWithBottomSheet } from '../MapWithBottomSheet';
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 
 const AnimatedBottomSheetFlatList =
   Animated.createAnimatedComponent(BottomSheetFlatList);
@@ -73,19 +73,19 @@ export const ObjectList = ({
   ...listProps
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
-  const {t} = useTranslation('search');
+  const { t } = useTranslation('search');
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
-    ({item, index, separators}) => {
+    ({ item, index, separators }) => {
       if (renderItemProp) {
         return renderItemProp({
-          item: {data: item, viewMode},
+          item: { data: item, viewMode },
           index,
           separators,
         });
       }
 
-      const {name, category, id, highlight} = item;
+      const { name, category, id, highlight } = item;
 
       const isOddItem = !(index % 2);
 

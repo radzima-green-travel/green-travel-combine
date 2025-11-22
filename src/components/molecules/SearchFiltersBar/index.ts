@@ -1,1 +1,1 @@
-export {SearchFiltersBar} from './SearchFiltersBar';
+export { SearchFiltersBar } from './SearchFiltersBar';

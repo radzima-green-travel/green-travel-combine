@@ -1,11 +1,11 @@
-import {composeTestID} from 'core/helpers';
-import {map} from 'lodash';
-import {ListItem} from 'molecules';
-import React, {memo} from 'react';
-import {TFunction} from 'react-i18next';
-import {ScrollView} from 'react-native';
-import {AnyForm} from '../../types';
-import {styles} from './styles';
+import { composeTestID } from 'core/helpers';
+import { map } from 'lodash';
+import { ListItem } from 'molecules';
+import React, { memo } from 'react';
+import { TFunction } from 'react-i18next';
+import { ScrollView } from 'react-native';
+import { AnyForm } from '../../types';
+import { styles } from './styles';
 
 const FieldSetComponent = <T extends AnyForm>({
   testID,
