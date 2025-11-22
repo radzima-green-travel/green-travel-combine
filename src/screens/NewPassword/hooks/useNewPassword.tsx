@@ -1,5 +1,5 @@
-import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
   useRequestLoading,
@@ -9,27 +9,31 @@ import {
   useOnRequestError,
   useOnSuccessSignIn,
 } from 'core/hooks';
-import {useRoute} from '@react-navigation/native';
-import {confirmNewPasswordRequest} from 'core/actions';
-import {NewPasswordScreenRouteProps} from '../types';
-import {useFormik} from 'formik';
-import {SignInFormModel} from 'core/types';
-import {validationSchema} from './validation';
-import {useSnackbar} from 'atoms';
+import { useRoute } from '@react-navigation/native';
+import { confirmNewPasswordRequest } from 'core/actions';
+import { NewPasswordScreenRouteProps } from '../types';
+import { useFormik } from 'formik';
+import { SignInFormModel } from 'core/types';
+import { validationSchema } from './validation';
+import { useSnackbar } from 'atoms';
 
 export const useNewPassword = () => {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const dispatch = useDispatch();
   const {
-    params: {email, tempPassword},
+    params: { email, tempPassword },
   } = useRoute<NewPasswordScreenRouteProps>();
 
-  const {onSuccessSignIn} = useOnSuccessSignIn();
+  const { onSuccessSignIn } = useOnSuccessSignIn();
 
   const confirmNewPassword = useCallback(
-    ({password}: SignInFormModel) => {
+    ({ password }: SignInFormModel) => {
       dispatch(
-        confirmNewPasswordRequest({email, tempPassword, newPassword: password}),
+        confirmNewPasswordRequest({
+          email,
+          tempPassword,
+          newPassword: password,
+        }),
       );
     },
     [dispatch, email, tempPassword],
@@ -43,11 +47,11 @@ export const useNewPassword = () => {
     onSubmit: confirmNewPassword,
   });
 
-  const {loading} = useRequestLoading(confirmNewPasswordRequest);
+  const { loading } = useRequestLoading(confirmNewPasswordRequest);
 
-  const {show, ...snackBarProps} = useSnackbar();
+  const { show, ...snackBarProps } = useSnackbar();
 
-  const {passwordHidden, rightIcon, handlePasswordHidden} =
+  const { passwordHidden, rightIcon, handlePasswordHidden } =
     useTogglePasswordHidden();
   const buttonText = t('save').toUpperCase();
 

@@ -7,7 +7,7 @@ import {
   GetVisitedObjectsResponse,
   AddVisitedObjectBody,
 } from 'core/types';
-import {Auth, Hub} from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
 import {
   AmplifyApiEngine,
   CustomApiRequestConfig,
@@ -15,7 +15,7 @@ import {
 
 class AmplifyApi extends AmplifyApiEngine {
   async getHeaders(config?: CustomApiRequestConfig) {
-    const {headers} = config || {};
+    const { headers } = config || {};
     let authHeaders = {};
 
     try {
@@ -278,11 +278,13 @@ class AmplifyApi extends AmplifyApiEngine {
     objectId: string;
     data: UpdateBookmarksBody;
   }) => {
-    return this.postByApi('apiac472374', `/bookmark/${objectId}`, {body: data});
+    return this.postByApi('apiac472374', `/bookmark/${objectId}`, {
+      body: data,
+    });
   };
 
   bulkUpdateUserBookmarks = async (data: BulkUpdateBookmarksBody) => {
-    return this.postByApi('apiac472374', '/bookmark', {body: data});
+    return this.postByApi('apiac472374', '/bookmark', { body: data });
   };
 
   getUserVisitedObjects = async (): Promise<GetVisitedObjectsResponse> => {
@@ -301,7 +303,7 @@ class AmplifyApi extends AmplifyApiEngine {
     });
   };
 
-  deleteUserVisitedObject = async ({objectId}: {objectId: string}) => {
+  deleteUserVisitedObject = async ({ objectId }: { objectId: string }) => {
     return this.deleteByApi('apiac472374', `/visited-objects/${objectId}`);
   };
 
@@ -328,4 +330,4 @@ class AmplifyApi extends AmplifyApiEngine {
 }
 
 export const amplifyApi = new AmplifyApi();
-export {Hub};
+export { Hub };

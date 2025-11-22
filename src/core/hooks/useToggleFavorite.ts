@@ -1,7 +1,7 @@
-import {useCallback} from 'react';
-import {useDispatch} from 'react-redux';
-import {updateBookmarksRequest} from 'core/actions';
-import {LayoutAnimation} from 'react-native';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateBookmarksRequest } from 'core/actions';
+import { LayoutAnimation } from 'react-native';
 
 const onAnimationEndDefault = () => {};
 
@@ -12,12 +12,12 @@ export function useToggleFavorite({
   const dispatch = useDispatch();
 
   return useCallback(
-    ({objectId, needToAdd}: {objectId: string; needToAdd: boolean}) => {
+    ({ objectId, needToAdd }: { objectId: string; needToAdd: boolean }) => {
       if (needToAdd) {
         dispatch(
           updateBookmarksRequest({
             objectId,
-            data: {timestamp: Date.now(), status: true},
+            data: { timestamp: Date.now(), status: true },
           }),
         );
       } else {
@@ -40,7 +40,7 @@ export function useToggleFavorite({
         dispatch(
           updateBookmarksRequest({
             objectId,
-            data: {timestamp: Date.now(), status: false},
+            data: { timestamp: Date.now(), status: false },
           }),
         );
       }

@@ -1,22 +1,22 @@
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import React, {memo} from 'react';
-import {View, Text} from 'react-native';
-import {themeStyles} from './styles';
-import {CompletnessIndicator} from './components';
-import {chunk} from 'lodash';
-import {Button, Icon} from 'atoms';
-import {composeTestID} from 'core/helpers';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import React, { memo } from 'react';
+import { View, Text } from 'react-native';
+import { themeStyles } from './styles';
+import { CompletnessIndicator } from './components';
+import { chunk } from 'lodash';
+import { Button, Icon } from 'atoms';
+import { composeTestID } from 'core/helpers';
 
 interface IProps {
-  incompleteFields: {id: string; label: string}[];
+  incompleteFields: { id: string; label: string }[];
   percentage: number;
   onAddInformationPress: () => void;
   testID: string;
 }
 
 export const ObjectDetailsCompletenessBlock = memo(
-  ({incompleteFields, percentage, onAddInformationPress, testID}: IProps) => {
-    const {t} = useTranslation('objectDetails');
+  ({ incompleteFields, percentage, onAddInformationPress, testID }: IProps) => {
+    const { t } = useTranslation('objectDetails');
     const styles = useThemeStyles(themeStyles);
 
     const chunkedIncompleteFields = chunk(incompleteFields, 2);

@@ -5,13 +5,13 @@ import {
 import mockApiHome from '../../../../tests/mocks/home.json';
 
 import React from 'react';
-import {Text} from 'react-native';
-import {fireEvent, render, screen, act} from '@testing-library/react-native';
+import { Text } from 'react-native';
+import { fireEvent, render, screen, act } from '@testing-library/react-native';
 
-import {store} from 'core/store';
-import {Icon} from 'atoms/Icon';
-import {HomeNavigator} from '../../../navigation/navigators/HomeNavigator';
-import {getHomePageDataRequest} from 'core/actions';
+import { store } from 'core/store';
+import { Icon } from 'atoms/Icon';
+import { HomeNavigator } from '../../../navigation/navigators/HomeNavigator';
+import { getHomePageDataRequest } from 'core/actions';
 
 jest.mock('api/graphql', () => ({
   GRAPHQL_QUERY_CATEGORY_INDEX: 'category',

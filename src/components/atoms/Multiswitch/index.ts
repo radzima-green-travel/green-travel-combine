@@ -1,1 +1,1 @@
-export {Multiswitch} from './Multiswitch';
+export { Multiswitch } from './Multiswitch';

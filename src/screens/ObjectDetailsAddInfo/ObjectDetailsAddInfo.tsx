@@ -1,20 +1,24 @@
-import React, {useMemo} from 'react';
-import {Platform, Text, View} from 'react-native';
+import React, { useMemo } from 'react';
+import { Platform, Text, View } from 'react-native';
 import {
   AnimatedCircleButton,
   ButtonsGroup,
   ListItem,
   ConfirmMenu,
 } from 'molecules';
-import {useOnRequestSuccess, useThemeStyles, useTranslation} from 'core/hooks';
-import {MARGIN_TOP, themeStyles} from './styles';
-import {ScrollView} from 'react-native-gesture-handler';
-import {useObjectDetailsAddInfo} from './hooks';
-import {ObjectDetailsAddInfoMenu} from 'organisms';
-import {ObjectField} from 'core/constants';
-import {BottomMenu} from 'atoms';
-import {sendAddInfoEmailRequest} from 'core/actions';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {
+  useOnRequestSuccess,
+  useThemeStyles,
+  useTranslation,
+} from 'core/hooks';
+import { MARGIN_TOP, themeStyles } from './styles';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useObjectDetailsAddInfo } from './hooks';
+import { ObjectDetailsAddInfoMenu } from 'organisms';
+import { ObjectField } from 'core/constants';
+import { BottomMenu } from 'atoms';
+import { sendAddInfoEmailRequest } from 'core/actions';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ICONS_MAP = {
   [ObjectField.workingHours]: 'clock',
@@ -28,9 +32,9 @@ const ICONS_MAP = {
 };
 
 export const ObjectDetailsAddInfo = () => {
-  const {t} = useTranslation('objectDetailsAddInfo');
+  const { t } = useTranslation('objectDetailsAddInfo');
   const styles = useThemeStyles(themeStyles);
-  const {top} = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
   const {
     name,
     navigateBack,
@@ -67,7 +71,7 @@ export const ObjectDetailsAddInfo = () => {
   }, [isFormValid, isSendLoading, onSendPress, t]);
 
   useOnRequestSuccess(sendAddInfoEmailRequest, navigateBack);
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
   return (
     <View
@@ -77,12 +81,12 @@ export const ObjectDetailsAddInfo = () => {
         style={[
           styles.header,
           Platform.select({
-            ios: {marginTop: MARGIN_TOP},
-            android: {marginTop: Math.max(top, MARGIN_TOP * 2)},
+            ios: { marginTop: MARGIN_TOP },
+            android: { marginTop: Math.max(top, MARGIN_TOP * 2) },
           }),
         ]}>
         <AnimatedCircleButton
-          icon={{name: 'chevronMediumLeft'}}
+          icon={{ name: 'chevronMediumLeft' }}
           testID={'backButton'}
           onPress={onBackPress}
         />

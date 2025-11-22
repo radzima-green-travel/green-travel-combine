@@ -1,11 +1,11 @@
-import {useThemeStyles} from 'core/hooks';
-import React, {memo} from 'react';
-import {StyleProp, ViewStyle, TouchableOpacity} from 'react-native';
+import { useThemeStyles } from 'core/hooks';
+import React, { memo } from 'react';
+import { StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
 
-import {CHECKBOX_THEMES} from './constants';
-import {styles} from './styles';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
-import {Icon} from '../Icon';
+import { CHECKBOX_THEMES } from './constants';
+import { styles } from './styles';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
+import { Icon } from '../Icon';
 
 export type Props = {
   onPress?: () => void;
@@ -14,7 +14,7 @@ export type Props = {
   testID: string;
 };
 
-export const Checkbox = memo(({onPress, style, testID, checked}: Props) => {
+export const Checkbox = memo(({ onPress, style, testID, checked }: Props) => {
   const buttonThemeStyles = useThemeStyles(CHECKBOX_THEMES.default);
 
   return (
@@ -29,10 +29,10 @@ export const Checkbox = memo(({onPress, style, testID, checked}: Props) => {
         style,
       ]}
       {...getPlatformsTestID(testID)}
-      accessibilityState={{checked}}>
+      accessibilityState={{ checked }}>
       {checked ? (
         <Icon
-          {...(buttonThemeStyles.icon as {color: string})}
+          {...(buttonThemeStyles.icon as { color: string })}
           name="check"
           testID={composeTestID(testID, 'checkIcon')}
         />

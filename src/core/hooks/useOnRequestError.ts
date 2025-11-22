@@ -4,22 +4,22 @@ import {
   useStaticCallback,
   useUpdateEffect,
 } from 'react-redux-help-kit';
-import {getRequestErrorLabels} from 'core/helpers';
-import {RequestError} from 'core/errors';
-import {useTranslation} from 'react-i18next';
+import { getRequestErrorLabels } from 'core/helpers';
+import { RequestError } from 'core/errors';
+import { useTranslation } from 'react-i18next';
 
-import {useMemo} from 'react';
-import {ILabelError} from 'core/types';
+import { useMemo } from 'react';
+import { ILabelError } from 'core/types';
 
 export function useOnRequestError(
   action: Action,
   translationsNameSpace: string,
   callback?: (errorTexts: ILabelError, entityId: string | null) => void,
   autoClear = true,
-): {errorTexts: ILabelError | null; clearError: () => void} {
-  const {t} = useTranslation();
+): { errorTexts: ILabelError | null; clearError: () => void } {
+  const { t } = useTranslation();
 
-  const {error, clearError, entityId} = useRequestError(action);
+  const { error, clearError, entityId } = useRequestError(action);
 
   const errorTexts = useMemo(() => {
     if (!error) {
@@ -27,7 +27,7 @@ export function useOnRequestError(
     }
 
     if (error instanceof RequestError) {
-      const {textLabels, titleLabels} = getRequestErrorLabels(
+      const { textLabels, titleLabels } = getRequestErrorLabels(
         error,
         translationsNameSpace,
       );

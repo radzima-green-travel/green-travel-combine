@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTranslation} from 'core/hooks';
+import { useTranslation } from 'core/hooks';
 import {
   FormInput,
   SnackBar,
@@ -8,19 +8,19 @@ import {
   createHandleKeyboardScrollComponent,
   HandleContainer,
 } from 'atoms';
-import {AuthForm} from 'organisms';
-import {useChangePassword} from './hooks';
-import {FormikProvider} from 'formik';
-import {ScrollView} from 'react-native-gesture-handler';
-import {styles} from './styles';
-import {View} from 'react-native';
-import {screenOptions} from './screenOptions';
+import { AuthForm } from 'organisms';
+import { useChangePassword } from './hooks';
+import { FormikProvider } from 'formik';
+import { ScrollView } from 'react-native-gesture-handler';
+import { styles } from './styles';
+import { View } from 'react-native';
+import { screenOptions } from './screenOptions';
 
 const HandleKeyboardScrollView =
   createHandleKeyboardScrollComponent(ScrollView);
 
 export const ChangePassword = () => {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const {
     loading,
     submitForm,
@@ -43,7 +43,7 @@ export const ChangePassword = () => {
             testID="authForm"
             submitButtonLoading={loading}>
             <WithFormikInput<string> name="oldPassword">
-              {({messageText, ...inputProps}) => (
+              {({ messageText, ...inputProps }) => (
                 <FormInput
                   testID={'oldPasswordInput'}
                   autoFocus
@@ -64,7 +64,7 @@ export const ChangePassword = () => {
             </WithFormikInput>
             <View style={styles.newPasswordContainer}>
               <WithFormikInput<string> name="newPassword">
-                {({messageText, ...inputProps}) => (
+                {({ messageText, ...inputProps }) => (
                   <FormInput
                     testID={'newPasswordInput'}
                     iconRight={{

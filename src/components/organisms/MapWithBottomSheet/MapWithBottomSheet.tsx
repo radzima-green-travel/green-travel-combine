@@ -1,5 +1,5 @@
-import React, {useState, useCallback, useEffect, useRef} from 'react';
-import {LayoutChangeEvent, Text, View, PixelRatio} from 'react-native';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { LayoutChangeEvent, Text, View, PixelRatio } from 'react-native';
 
 import Animated, {
   measure,
@@ -15,30 +15,30 @@ import Animated, {
   useAnimatedReaction,
 } from 'react-native-reanimated';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {Button, Icon, LoadingView, MapButtonContainer} from 'atoms';
+import { Button, Icon, LoadingView, MapButtonContainer } from 'atoms';
 import {
   Map,
   MapObjectsCarousel,
   MAP_OBJECTS_CAROUSEL_HEIGHT,
 } from './components';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles, SNAP_POINT_0, SNAP_POINT_1} from './styles';
-import {useMapView} from './hooks';
-import type {Feature, Geometry, Position} from 'geojson';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { themeStyles, SNAP_POINT_0, SNAP_POINT_1 } from './styles';
+import { useMapView } from './hooks';
+import type { Feature, Geometry, Position } from 'geojson';
 
-import {ObjectMap, SearchObject, SupportedLocales} from 'core/types';
+import { ObjectMap, SearchObject, SupportedLocales } from 'core/types';
 
-import {MapState} from '@rnmapbox/maps';
-import {HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL} from 'core/constants';
-import {isEqual} from 'lodash';
+import { MapState } from '@rnmapbox/maps';
+import { HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL } from 'core/constants';
+import { isEqual } from 'lodash';
 
-import {isAndroid, SCREEN_WIDTH} from 'services/PlatformService';
+import { isAndroid, SCREEN_WIDTH } from 'services/PlatformService';
 
 interface MapWithBottomSheetProps {
   mapObjects: ObjectMap[];
   visibleObjectsOnMap: SearchObject[];
   onMarkersAppear: (
-    markers: Feature<Geometry, {icon_image: string; objectId: string}>[],
+    markers: Feature<Geometry, { icon_image: string; objectId: string }>[],
   ) => void;
   onMenuPositionChange: (index: number) => void;
 
@@ -64,7 +64,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
 }) => {
   const snapPoints = [SNAP_POINT_0, SNAP_POINT_1, '100%'];
 
-  const {t} = useTranslation('search');
+  const { t } = useTranslation('search');
 
   const {
     getVisibleFeatures,
@@ -90,7 +90,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
   } | null>(null);
 
   const calculateMapViewPort = useCallback(
-    ({nativeEvent}: LayoutChangeEvent) => {
+    ({ nativeEvent }: LayoutChangeEvent) => {
       setMapViewPort({
         width: nativeEvent.layout.width,
         height: nativeEvent.layout.height,
@@ -106,8 +106,8 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
       const maxPosition = mapViewPort.height - SNAP_POINT_1;
 
       return (
-        -(mapViewPort.height - Math.max(maxPosition, animatedPosition.value)) /
-        2
+        -(mapViewPort.height - Math.max(maxPosition, animatedPosition.value))
+        / 2
       );
     }
 
@@ -171,11 +171,11 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
       const top = HEADER_BOTTOM_RADIUS + PADDING_HORIZONTAL - translateY.value;
       const right = SCREEN_WIDTH;
       const bottom =
-        mapViewPort.height -
-        SNAP_POINT_0 +
-        PADDING_HORIZONTAL -
-        MAP_OBJECTS_CAROUSEL_HEIGHT +
-        translateY.value;
+        mapViewPort.height
+        - SNAP_POINT_0
+        + PADDING_HORIZONTAL
+        - MAP_OBJECTS_CAROUSEL_HEIGHT
+        + translateY.value;
       const left = 0;
 
       return [top, right, bottom, left].map(

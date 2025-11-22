@@ -1,5 +1,5 @@
-import {COLORS} from 'assets';
-import {createThemeStyles} from 'core/helpers/styles';
+import { COLORS } from 'assets';
+import { createThemeStyles } from 'core/helpers/styles';
 
 export const themeStyles = createThemeStyles({
   container: {

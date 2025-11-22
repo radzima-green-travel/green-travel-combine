@@ -1,10 +1,10 @@
-import React, {ComponentProps, memo, useState} from 'react';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {View, StyleProp, ViewStyle} from 'react-native';
-import {IconsNames} from 'atoms/Icon';
-import {ListItem} from 'molecules';
-import {TrancateDetectionText} from 'components/atoms';
+import React, { ComponentProps, memo, useState } from 'react';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { View, StyleProp, ViewStyle } from 'react-native';
+import { IconsNames } from 'atoms/Icon';
+import { ListItem } from 'molecules';
+import { TrancateDetectionText } from 'components/atoms';
 
 export type Item = {
   title: string;
@@ -29,7 +29,7 @@ interface IProps {
   items: Item[];
 }
 
-export const ObjectInfoSection = memo(({items}: IProps) => {
+export const ObjectInfoSection = memo(({ items }: IProps) => {
   const styles = useThemeStyles(themeStyles);
   const [isTitleTruncated, setIsTitleTruncated] = useState(false);
   const [isSubtitleTruncated, setIsSubtitleTruncated] = useState(false);

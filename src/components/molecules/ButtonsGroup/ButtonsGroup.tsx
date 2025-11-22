@@ -1,9 +1,9 @@
-import React, {memo} from 'react';
-import type {Props as ButtonProps} from 'atoms/Button/Button';
-import {Button} from 'atoms';
-import {StyleProp, View, ViewStyle} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
-import {PADDING, themeStyles} from './styles';
+import React, { memo } from 'react';
+import type { Props as ButtonProps } from 'atoms/Button/Button';
+import { Button } from 'atoms';
+import { StyleProp, View, ViewStyle } from 'react-native';
+import { useThemeStyles } from 'core/hooks';
+import { PADDING, themeStyles } from './styles';
 
 interface IProps {
   buttons: ButtonProps[];
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 export const ButtonsGroup = memo(
-  ({buttons, elevated, containerStyle, bottomInset}: IProps) => {
+  ({ buttons, elevated, containerStyle, bottomInset }: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     return (
@@ -21,7 +21,7 @@ export const ButtonsGroup = memo(
         style={[
           styles.container,
           containerStyle,
-          {paddingBottom: bottomInset || PADDING},
+          { paddingBottom: bottomInset || PADDING },
         ]}>
         {buttons.map((buttonProps, index) => {
           const style = [

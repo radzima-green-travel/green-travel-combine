@@ -1,13 +1,13 @@
-import {IState} from 'core/store';
-import {createSelector} from 'reselect';
-import {selectAppLanguage} from 'core/selectors/settingsSelectors';
+import { IState } from 'core/store';
+import { createSelector } from 'reselect';
+import { selectAppLanguage } from 'core/selectors/settingsSelectors';
 import {
   getBookmarksObjectsList,
   getProcessedBookmarksObjectsList,
   getProcessedBookmarksInitialObjectsData,
   getBookmarksCategories,
 } from 'core/transformators/bookmarksDetails';
-import {selectBookmarksIds} from 'core/selectors/user';
+import { selectBookmarksIds } from 'core/selectors/user';
 
 export const selectRawInitialObjectsData = (state: IState) =>
   state.bookmarksDetails.initialObjectsData;

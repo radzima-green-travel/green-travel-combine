@@ -6,7 +6,7 @@ import {
   useAnimatedReaction,
   runOnJS,
 } from 'react-native-reanimated';
-import {useObjectDetailsStatusBar} from './useObjectDetailsStatusBar';
+import { useObjectDetailsStatusBar } from './useObjectDetailsStatusBar';
 
 export function useObjectDetailsAnimation({
   imageHeight,
@@ -21,7 +21,7 @@ export function useObjectDetailsAnimation({
   const scrollHandler = useAnimatedScrollHandler(event => {
     translationY.value = event.contentOffset.y;
 
-    const {layoutMeasurement, contentOffset, contentSize} = event;
+    const { layoutMeasurement, contentOffset, contentSize } = event;
 
     isCloseToBottom.value =
       layoutMeasurement.height + contentOffset.y >= contentSize.height;
@@ -47,7 +47,7 @@ export function useObjectDetailsAnimation({
             translationY.value,
             [0, imageHeight],
             [0, -imageHeight],
-            {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
+            { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
           ),
         },
 
@@ -56,7 +56,7 @@ export function useObjectDetailsAnimation({
             translationY.value,
             [-imageHeight * 2, 0],
             [5, 1],
-            {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
+            { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
           ),
         },
       ],

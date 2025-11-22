@@ -1,1 +1,1 @@
-export {restAPI} from './RestAPI';
+export { restAPI } from './RestAPI';

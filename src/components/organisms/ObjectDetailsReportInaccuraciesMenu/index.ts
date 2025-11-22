@@ -1,1 +1,1 @@
-export {ObjectDetailsReportInaccuraciesMenu} from './ObjectDetailsReportInaccuraciesMenu';
+export { ObjectDetailsReportInaccuraciesMenu } from './ObjectDetailsReportInaccuraciesMenu';

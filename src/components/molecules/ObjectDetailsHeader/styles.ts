@@ -1,6 +1,6 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import { COLORS, FONTS_STYLES } from 'assets';
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const themeStyles = {
   container: {

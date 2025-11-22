@@ -7,11 +7,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {TextInput, View, StatusBar} from 'react-native';
-import {ButtonsGroup} from '../ButtonsGroup';
-import {useThemeStyles, useTranslation} from 'core/hooks';
-import {themeStyles} from './styles';
-import {Input, TimePicker} from './components';
+import { TextInput, View, StatusBar } from 'react-native';
+import { ButtonsGroup } from '../ButtonsGroup';
+import { useThemeStyles, useTranslation } from 'core/hooks';
+import { themeStyles } from './styles';
+import { Input, TimePicker } from './components';
 import {
   KEYBOARD_TYPE,
   PLACEHOLDER,
@@ -23,8 +23,8 @@ import {
   PADDING_HORIZONTAL,
   TIME_PICKER_FIELDS,
 } from 'core/constants';
-import {composeTestID} from 'core/helpers';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { composeTestID } from 'core/helpers';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface IProps {
   currentField: ObjectField;
@@ -48,7 +48,7 @@ export const ObjectAddInfoMenu = memo(
       },
       ref,
     ) => {
-      const {t} = useTranslation('objectDetailsAddInfo');
+      const { t } = useTranslation('objectDetailsAddInfo');
       const styles = useThemeStyles(themeStyles);
       const isTimePickerField = TIME_PICKER_FIELDS.has(currentField);
 
@@ -108,7 +108,7 @@ export const ObjectAddInfoMenu = memo(
         ];
       }, [onSubmitForm, t, testID, value]);
 
-      const {bottom} = useSafeAreaInsets();
+      const { bottom } = useSafeAreaInsets();
 
       return (
         <View testID={testID} style={styles.container}>
@@ -117,9 +117,9 @@ export const ObjectAddInfoMenu = memo(
             bottomInset={
               isTimePickerField
                 ? bottom
-                : Number(keyboardHeight) +
-                  PADDING_HORIZONTAL +
-                  Number(StatusBar?.currentHeight)
+                : Number(keyboardHeight)
+                  + PADDING_HORIZONTAL
+                  + Number(StatusBar?.currentHeight)
             }
             containerStyle={styles.buttonsContainer}
             buttons={buttons}

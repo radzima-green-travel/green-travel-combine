@@ -1,12 +1,12 @@
-import React, {memo} from 'react';
-import {View, Text} from 'react-native';
-import {Icon, Button} from 'atoms';
-import {SCREEN_WIDTH} from 'services/PlatformService';
-import {themeStyles} from './styles';
-import {useTranslation} from 'react-i18next';
-import {ILabelError} from 'core/types';
-import {useThemeStyles} from 'core/hooks';
-import {composeTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { View, Text } from 'react-native';
+import { Icon, Button } from 'atoms';
+import { SCREEN_WIDTH } from 'services/PlatformService';
+import { themeStyles } from './styles';
+import { useTranslation } from 'react-i18next';
+import { ILabelError } from 'core/types';
+import { useThemeStyles } from 'core/hooks';
+import { composeTestID } from 'core/helpers';
 
 const ratio = 281 / 373;
 const width = SCREEN_WIDTH;
@@ -19,8 +19,8 @@ interface IProps {
 }
 
 export const ErrorView = memo(
-  ({onButtonPress, error, buttonText, testID}: IProps) => {
-    const {t} = useTranslation('common');
+  ({ onButtonPress, error, buttonText, testID }: IProps) => {
+    const { t } = useTranslation('common');
     const styles = useThemeStyles(themeStyles);
     return (
       <View style={styles.container}>

@@ -1,7 +1,7 @@
-import {NumPager} from 'atoms';
-import React, {memo} from 'react';
-import {View} from 'react-native';
-import {styles} from './styles';
+import { NumPager } from 'atoms';
+import React, { memo } from 'react';
+import { View } from 'react-native';
+import { styles } from './styles';
 
 interface IProps {
   pagesAmount: number;
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export const ObjectDetailsPager = memo(
-  ({pagesAmount, page, testID}: IProps) => {
+  ({ pagesAmount, page, testID }: IProps) => {
     return (
       <View style={styles.pagerContainer}>
         <NumPager

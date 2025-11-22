@@ -1,27 +1,27 @@
-import {sendAnalyticsEvent} from 'core/actions/appConfiguration';
-import {useCallback, useRef} from 'react';
-import {useDispatch} from 'react-redux';
-import {ObjectDetailsAddInfoScreenRouteProps} from '../types';
-import {useRoute} from '@react-navigation/native';
-import {selectObjectDetails} from 'core/selectors';
-import {useObjectDetailsSelector} from 'core/hooks';
-import {ObjectField} from 'core/constants';
+import { sendAnalyticsEvent } from 'core/actions/appConfiguration';
+import { useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { ObjectDetailsAddInfoScreenRouteProps } from '../types';
+import { useRoute } from '@react-navigation/native';
+import { selectObjectDetails } from 'core/selectors';
+import { useObjectDetailsSelector } from 'core/hooks';
+import { ObjectField } from 'core/constants';
 import {
   getObjectDetailsAnalyticsIncompleteFieldName,
   getObjectDetailsAnalyticsIncompleteFieldsNames,
 } from 'core/helpers';
-import {IObjectIncompleteField} from 'core/types';
+import { IObjectIncompleteField } from 'core/types';
 
 export function useObjectAddInfoAnalytics() {
   const dispatch = useDispatch();
 
   const {
-    params: {analytics},
+    params: { analytics },
   } = useRoute<ObjectDetailsAddInfoScreenRouteProps>();
 
   const data = useObjectDetailsSelector(selectObjectDetails);
 
-  const {analyticsMetadata} = data || {};
+  const { analyticsMetadata } = data || {};
 
   const focusedFieldData = useRef<{
     fieldName: ObjectField;
@@ -30,7 +30,7 @@ export function useObjectAddInfoAnalytics() {
 
   const saveCurrentFieldValueForAnalytics = useCallback(
     (fieldName: ObjectField, value: string | number) => {
-      focusedFieldData.current = {fieldName, value};
+      focusedFieldData.current = { fieldName, value };
     },
     [],
   );
@@ -92,7 +92,7 @@ export function useObjectAddInfoAnalytics() {
 
   const sendAddInfoModalAnyFieldInputCloseEvent = useCallback(() => {
     if (analyticsMetadata && focusedFieldData.current) {
-      const {fieldName, value} = focusedFieldData.current;
+      const { fieldName, value } = focusedFieldData.current;
       dispatch(
         sendAnalyticsEvent({
           name: 'AddInfoModal_any_field_input_close',

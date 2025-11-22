@@ -1,14 +1,14 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   ImagesGalleryScreenRouteProps,
   ImagesGalleryScreenNavigationProps,
 } from '../types';
-import {useCallback, useState} from 'react';
-import {hapticFeedbackService} from 'services/HapticFeedbackService';
+import { useCallback, useState } from 'react';
+import { hapticFeedbackService } from 'services/HapticFeedbackService';
 
 export function useImagesGallery() {
   const {
-    params: {images, initialIndex},
+    params: { images, initialIndex },
   } = useRoute<ImagesGalleryScreenRouteProps>();
   const [currentPage, setCurrentPage] = useState(initialIndex + 1);
 

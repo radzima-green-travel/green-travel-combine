@@ -1,4 +1,4 @@
-import {AnalyticsModalNames, AnalyticsNavigationScreenNames} from './common';
+import { AnalyticsModalNames, AnalyticsNavigationScreenNames } from './common';
 
 export type FromScreenName =
   | AnalyticsNavigationScreenNames

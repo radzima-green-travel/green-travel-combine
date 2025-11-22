@@ -1,16 +1,16 @@
-import {createSelector} from 'reselect';
-import {IState} from 'core/store';
-import {selectAppLanguage} from './settingsSelectors';
+import { createSelector } from 'reselect';
+import { IState } from 'core/store';
+import { selectAppLanguage } from './settingsSelectors';
 
 import {
   prepareSearchFiltersBarItems,
   prepareSearchItems,
 } from '../transformators/search';
-import {SearchFilters} from 'core/types';
-import {selectUserAuthorized} from './authentificationSelectors';
-import {selectFiltersCategories, selectFiltersRegions} from './filtersPage';
-import {selectSettlements} from './settlements';
-import {checkIfFiltersAreUnset} from 'core/transformators/filters';
+import { SearchFilters } from 'core/types';
+import { selectUserAuthorized } from './authentificationSelectors';
+import { selectFiltersCategories, selectFiltersRegions } from './filtersPage';
+import { selectSettlements } from './settlements';
+import { checkIfFiltersAreUnset } from 'core/transformators/filters';
 
 const selectSearchState = createSelector(
   (state: IState) => state.search,

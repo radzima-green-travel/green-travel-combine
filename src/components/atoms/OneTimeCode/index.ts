@@ -1,1 +1,1 @@
-export {OneTimeCode} from './OneTimeCode';
+export { OneTimeCode } from './OneTimeCode';

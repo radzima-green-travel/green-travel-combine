@@ -1,6 +1,6 @@
 import React from 'react';
-import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { NativeStackHeaderProps } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   View,
   StyleProp,
@@ -9,9 +9,9 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {PADDING_HORIZONTAL} from 'core/constants';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { PADDING_HORIZONTAL } from 'core/constants';
 
 interface CustomHeaderProps extends Partial<NativeStackHeaderProps> {
   contentAbove?: () => React.ReactNode;
@@ -28,11 +28,11 @@ export const CustomHeader = ({
   style,
   withOverlay = true,
 }: CustomHeaderProps) => {
-  const {top} = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
 
   const styles = useThemeStyles(themeStyles);
 
-  const {headerTitleAlign} = options || {};
+  const { headerTitleAlign } = options || {};
 
   const headerCentered = headerTitleAlign === 'center';
 

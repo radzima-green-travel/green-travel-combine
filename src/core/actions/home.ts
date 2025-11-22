@@ -1,11 +1,11 @@
-import {createAction} from '@reduxjs/toolkit';
-import {createAsyncAction} from 'core/helpers';
+import { createAction } from '@reduxjs/toolkit';
+import { createAsyncAction } from 'core/helpers';
 import {
   CategoryShortDTO,
   ObjectThumbnailDTO,
   PlaceOfTheWeekObjectDTO,
 } from 'core/types/api';
-import {NewPlaceForm} from '../types/addNewPlace';
+import { NewPlaceForm } from '../types/addNewPlace';
 
 interface GetHomePageDataRequestPayload {
   categoriesList: CategoryShortDTO[];

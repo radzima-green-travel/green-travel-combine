@@ -1,1 +1,1 @@
-export {AuthSocial} from './AuthSocial';
+export { AuthSocial } from './AuthSocial';

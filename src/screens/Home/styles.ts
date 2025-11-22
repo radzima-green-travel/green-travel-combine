@@ -1,4 +1,4 @@
-import {COLORS} from 'assets';
+import { COLORS } from 'assets';
 
 export const themeStyles = {
   container: {
@@ -29,8 +29,8 @@ export const themeStyles = {
     paddingTop: 24,
     gap: 24,
   },
-  widgetGridRightColumn: {flex: 1, gap: 16},
-  widgetGridLeftColumn: {flex: 1.07},
+  widgetGridRightColumn: { flex: 1, gap: 16 },
+  widgetGridLeftColumn: { flex: 1.07 },
   addNewPlaceWidget: {
     marginHorizontal: 16,
     marginBottom: 24,

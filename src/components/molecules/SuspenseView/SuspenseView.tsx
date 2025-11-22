@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {LoadingView} from 'atoms';
-import {ErrorView} from '../ErrorView';
-import {Props} from './types';
-import {composeTestID} from 'core/helpers';
-import {View} from 'react-native';
-import {styles} from './styles';
+import React, { useEffect, useState } from 'react';
+import { LoadingView } from 'atoms';
+import { ErrorView } from '../ErrorView';
+import { Props } from './types';
+import { composeTestID } from 'core/helpers';
+import { View } from 'react-native';
+import { styles } from './styles';
 
 function useDelayLoading(loading: boolean = false, delay: number) {
   const [showLoading, setShowLoading] = useState(false);

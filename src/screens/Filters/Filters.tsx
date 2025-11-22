@@ -1,7 +1,7 @@
-import React, {useEffect, useMemo} from 'react';
-import {Text, View} from 'react-native';
-import {Chip, Multiswitch, SnackBar} from 'atoms';
-import {useThemeStyles, useTranslation} from 'core/hooks';
+import React, { useEffect, useMemo } from 'react';
+import { Text, View } from 'react-native';
+import { Chip, Multiswitch, SnackBar } from 'atoms';
+import { useStatusBar, useThemeStyles, useTranslation } from 'core/hooks';
 import {
   ButtonsGroup,
   FiltersSectionContainer,
@@ -9,16 +9,16 @@ import {
   SuspenseView,
   FilterDistance,
 } from 'molecules';
-import {themeStyles} from './styles';
-import {ScrollView} from 'react-native-gesture-handler';
-import {useFilters} from './hooks';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {isIOS} from 'services/PlatformService';
-import {Header} from 'containers';
+import { themeStyles } from './styles';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useFilters } from './hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { isIOS } from 'services/PlatformService';
+import { Header } from 'containers';
 
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
-  const {t} = useTranslation('filters');
+  const { t } = useTranslation('filters');
   const {
     caregoriesData,
     googleRatings,
@@ -44,7 +44,9 @@ export const Filters = () => {
     getIsCategoryDisabled,
     clearFiltersPress,
   } = useFilters();
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
+
+  useStatusBar({ style: isIOS ? 'light' : 'auto' });
 
   useEffect(() => {
     return () => {
@@ -66,7 +68,7 @@ export const Filters = () => {
         onPress: applyFilters,
         theme: 'primary' as const,
         textStyle: styles.button,
-        text: t('showFiltered', {amount: total}),
+        text: t('showFiltered', { amount: total }),
         loading: filtersDataLoading,
         testID: 'showFiltered',
       },
@@ -84,7 +86,7 @@ export const Filters = () => {
   return (
     <>
       <Header overlaysContent={false} statusbarStyle={isIOS ? 'light' : 'auto'}>
-        {({navigation}) => (
+        {({ navigation }) => (
           <Header.RightBlock>
             <Header.ActionButton
               icon="close"
@@ -167,7 +169,7 @@ export const Filters = () => {
                 <Multiswitch
                   activeItemId={activeFilters.googleRating}
                   items={googleRatings}
-                  defaultValue={{id: 'Any', value: t('any'), disabled: false}}
+                  defaultValue={{ id: 'Any', value: t('any'), disabled: false }}
                   onItemPress={updateRatings}
                   testID={'googleRating'}
                 />

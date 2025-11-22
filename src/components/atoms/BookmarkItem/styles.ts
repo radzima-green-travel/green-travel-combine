@@ -1,4 +1,4 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import { COLORS, FONTS_STYLES } from 'assets';
 
 export const themeStyles = {
   box: {
@@ -6,7 +6,7 @@ export const themeStyles = {
       light: 'rgb(21, 39, 2)',
       dark: 'rgb(32, 34, 31)',
     },
-    shadowOffset: {width: 0, height: 5},
+    shadowOffset: { width: 0, height: 5 },
     shadowOpacity: {
       light: 0.2,
       dark: 0,

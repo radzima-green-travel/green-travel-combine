@@ -1,4 +1,4 @@
-import {COLORS, FONTS_STYLES} from 'assets';
+import { COLORS, FONTS_STYLES } from 'assets';
 
 export const themeStyles = {
   text: {

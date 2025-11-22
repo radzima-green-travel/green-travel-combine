@@ -1,10 +1,10 @@
-import {API} from 'aws-amplify';
+import { API } from 'aws-amplify';
 import {
   RequestError,
   createErrorPreset,
   createInternetConnectionErrorPreset,
 } from 'core/errors';
-import {AmplifyError, ErrorPresetParams} from 'core/types';
+import { AmplifyError, ErrorPresetParams } from 'core/types';
 
 export interface CustomApiRequestConfig {
   params?: Record<string, any>;

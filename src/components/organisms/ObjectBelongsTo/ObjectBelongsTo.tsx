@@ -1,10 +1,10 @@
-import React, {memo} from 'react';
-import {ObjectBelongsToItem} from 'molecules';
-import {View, Text, ScrollView} from 'react-native';
-import {themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
-import {IBelongsTo} from 'core/types';
-import {composeTestID, getPlatformsTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { ObjectBelongsToItem } from 'molecules';
+import { View, Text, ScrollView } from 'react-native';
+import { themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
+import { IBelongsTo } from 'core/types';
+import { composeTestID, getPlatformsTestID } from 'core/helpers';
 
 interface IProps {
   data: IBelongsTo[];
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 export const ObjectBelongsTo = memo(
-  ({data, title, onBelongsToItemPress, testID}: IProps) => {
+  ({ data, title, onBelongsToItemPress, testID }: IProps) => {
     const styles = useThemeStyles(themeStyles);
 
     const renderItems = () => {

@@ -1,8 +1,8 @@
-import React, {memo, useMemo} from 'react';
-import {TouchableOpacity, ViewStyle} from 'react-native';
-import {useThemeStyles} from 'core/hooks';
-import {ListItemWrapperProps} from './types';
-import {themeStyles} from './styles';
+import React, { memo, useMemo } from 'react';
+import { TouchableOpacity, ViewStyle } from 'react-native';
+import { useThemeStyles } from 'core/hooks';
+import { ListItemWrapperProps } from './types';
+import { themeStyles } from './styles';
 
 export const ListItemWrapper = memo(
   ({

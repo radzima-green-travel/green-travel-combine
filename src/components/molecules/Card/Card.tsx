@@ -1,11 +1,11 @@
-import {useThemeStyles} from 'core/hooks';
-import {Image} from 'expo-image';
-import React, {memo} from 'react';
-import {Text, View, ImageStyle, StyleProp, ViewStyle} from 'react-native';
-import {themeStyles} from './styles';
-import {Button, Icon, Link} from 'atoms';
-import {composeTestID} from 'core/helpers';
-import {IconsNames} from 'atoms/Icon';
+import { useThemeStyles } from 'core/hooks';
+import { Image } from 'expo-image';
+import React, { memo } from 'react';
+import { Text, View, ImageStyle, StyleProp, ViewStyle } from 'react-native';
+import { themeStyles } from './styles';
+import { Button, Icon, Link } from 'atoms';
+import { composeTestID } from 'core/helpers';
+import { IconsNames } from 'atoms/Icon';
 
 interface IProps {
   title: string;

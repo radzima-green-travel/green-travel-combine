@@ -1,5 +1,5 @@
-import {useCallback, useRef, useState} from 'react';
-import {LayoutChangeEvent} from 'react-native';
+import { useCallback, useRef, useState } from 'react';
+import { LayoutChangeEvent } from 'react-native';
 import {
   interpolate,
   useAnimatedStyle,

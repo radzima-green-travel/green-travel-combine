@@ -1,7 +1,7 @@
-import {selectBookmarksIds, selectBookmarksCategories} from 'core/selectors';
-import {useSelector} from 'react-redux';
-import {useMemo} from 'react';
-import {CardItem} from 'core/types';
+import { selectBookmarksIds, selectBookmarksCategories } from 'core/selectors';
+import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import { CardItem } from 'core/types';
 
 export function useBookmarksObjects(listData: CardItem[], categoryId: string) {
   const bookmarksCategories = useSelector(selectBookmarksCategories);
@@ -31,5 +31,5 @@ export function useBookmarksObjects(listData: CardItem[], categoryId: string) {
     [bookmarksIds, listData],
   );
 
-  return {filteredListData, newBookmarksIds, bookmarksIds};
+  return { filteredListData, newBookmarksIds, bookmarksIds };
 }

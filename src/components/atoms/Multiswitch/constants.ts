@@ -1,9 +1,9 @@
-import {COLORS} from 'assets/colors';
+import { COLORS } from 'assets/colors';
 
 export type MultiswitchThemes = 'default';
 
 export const MULTISWITCH_THEMES: {
-  [key in MultiswitchThemes]: {[key: string]: object};
+  [key in MultiswitchThemes]: { [key: string]: object };
 } = {
   default: {
     container: {

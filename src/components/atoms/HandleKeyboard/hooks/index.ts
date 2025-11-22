@@ -1,2 +1,2 @@
-export {useInputsRefs} from './useInputsRefs';
-export {useHandleKeyboardInput} from './useHandleKeyboardInput';
+export { useInputsRefs } from './useInputsRefs';
+export { useHandleKeyboardInput } from './useHandleKeyboardInput';

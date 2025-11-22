@@ -1,8 +1,8 @@
-import React, {memo, useCallback, useState} from 'react';
-import {View, Text, ViewStyle, StyleProp} from 'react-native';
-import {Slider} from '@miblanchard/react-native-slider';
-import {thumbSize, themeStyles} from './styles';
-import {useThemeStyles} from 'core/hooks';
+import React, { memo, useCallback, useState } from 'react';
+import { View, Text, ViewStyle, StyleProp } from 'react-native';
+import { Slider } from '@miblanchard/react-native-slider';
+import { thumbSize, themeStyles } from './styles';
+import { useThemeStyles } from 'core/hooks';
 
 interface BaseProps {
   minValue: number;
@@ -49,12 +49,12 @@ export const CustomSlider = memo((props: IProps) => {
       return null;
     }
 
-    const {markSteps} = props;
+    const { markSteps } = props;
     const partWidth = (containerWidth - thumbSize) / markSteps;
 
     return (
       <View style={styles.marksContainer}>
-        {Array.from({length: markSteps + 1}).map((_, index) => {
+        {Array.from({ length: markSteps + 1 }).map((_, index) => {
           const isEven = index % 2 === 0;
           return (
             <View
@@ -92,7 +92,7 @@ export const CustomSlider = memo((props: IProps) => {
 
   return (
     <View
-      onLayout={({nativeEvent}) => {
+      onLayout={({ nativeEvent }) => {
         setContainerWidth(nativeEvent.layout.width);
       }}
       style={[styles.container, containerStyle]}>
@@ -107,7 +107,7 @@ export const CustomSlider = memo((props: IProps) => {
           value={value}
           onValueChange={onValueChangeHandler}
           onSlidingComplete={onSlidingCompleteHandler}
-          thumbTouchSize={{width: thumbSize, height: thumbSize}}
+          thumbTouchSize={{ width: thumbSize, height: thumbSize }}
           trackStyle={styles.trackStyle}
           renderThumbComponent={() => <View style={styles.thumbStyle} />}
           step={maxValue / steps}

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 
 import {
   AuthMethodSelectionScreen,
@@ -11,19 +11,19 @@ import {
   InAppWebViewScreen,
   ChangePasswordScreen,
 } from '../../screens';
-import {HeaderCancelButton} from 'atoms';
+import { HeaderCancelButton } from 'atoms';
 
-import {useTranslation} from 'react-i18next';
-import {useScreenOptions} from '../hooks';
-import {AuthNavigatorParamsList} from 'core/types';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {defaultTransition} from '../transition';
-import {useNavigation} from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { useScreenOptions } from '../hooks';
+import { AuthNavigatorParamsList } from 'core/types';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { defaultTransition } from '../transition';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator<AuthNavigatorParamsList>();
 
 export function AuthNavigator() {
-  const {t} = useTranslation('authentification');
+  const { t } = useTranslation('authentification');
   const navigation = useNavigation();
   const onHeaderRightPress = useCallback(() => {
     navigation.goBack();
@@ -44,7 +44,7 @@ export function AuthNavigator() {
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="CheckEmail" component={CheckEmailScreen} />
         <Stack.Screen
           name="AuthMethodSelection"
@@ -64,12 +64,12 @@ export function AuthNavigator() {
         <Stack.Screen
           name="RestorePassword"
           component={RestorePasswordScreen}
-          options={{title: t('restorePassword', {ns: 'authentification'})}}
+          options={{ title: t('restorePassword', { ns: 'authentification' }) }}
         />
         <Stack.Screen
           name="NewPassword"
           component={NewPasswordScreen}
-          options={{title: t('restorePassword', {ns: 'authentification'})}}
+          options={{ title: t('restorePassword', { ns: 'authentification' }) }}
         />
         <Stack.Screen name="InAppWebView" component={InAppWebViewScreen} />
         <Stack.Screen

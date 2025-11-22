@@ -1,1 +1,1 @@
-export {ConfirmMenu} from './ConfirmMenu';
+export { ConfirmMenu } from './ConfirmMenu';

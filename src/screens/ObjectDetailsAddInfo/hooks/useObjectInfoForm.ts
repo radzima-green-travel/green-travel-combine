@@ -1,8 +1,8 @@
-import {ObjectField, TIME_PICKER_FIELDS} from 'core/constants';
-import {useTranslation} from 'core/hooks';
-import {IObjectIncompleteField} from 'core/types';
-import {merge, reduce, some} from 'lodash';
-import {useCallback, useReducer} from 'react';
+import { ObjectField, TIME_PICKER_FIELDS } from 'core/constants';
+import { useTranslation } from 'core/hooks';
+import { IObjectIncompleteField } from 'core/types';
+import { merge, reduce, some } from 'lodash';
+import { useCallback, useReducer } from 'react';
 
 type FormValue = string | number;
 
@@ -12,7 +12,7 @@ type Form = {
 
 interface IAction {
   type: typeof CHANGE_FIELD;
-  payload: {[key in ObjectField]?: FormValue};
+  payload: { [key in ObjectField]?: FormValue };
 }
 
 const CHANGE_FIELD = 'CHANGE_FIELD';
@@ -37,15 +37,15 @@ export const useObjectInfoForm = (
     formReducer,
     reduce(
       incompleteFields,
-      (f, field) => ({...f, [field.id]: initialValues[field.id] ?? ''}),
+      (f, field) => ({ ...f, [field.id]: initialValues[field.id] ?? '' }),
       {} as Form,
     ),
   );
-  const {t} = useTranslation('common');
+  const { t } = useTranslation('common');
   const isFormValid = some(form, Boolean);
 
   const onChangeField = useCallback((field: ObjectField, value: FormValue) => {
-    dispatch({type: CHANGE_FIELD, payload: {[field]: value}});
+    dispatch({ type: CHANGE_FIELD, payload: { [field]: value } });
   }, []);
 
   const getDisplayValue = useCallback(

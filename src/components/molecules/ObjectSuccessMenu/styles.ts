@@ -1,6 +1,6 @@
-import {PADDING_HORIZONTAL} from 'core/constants';
-import {createThemeStyles} from 'core/helpers/styles';
-import {COLORS, FONTS_PRESETS} from 'assets';
+import { PADDING_HORIZONTAL } from 'core/constants';
+import { createThemeStyles } from 'core/helpers/styles';
+import { COLORS, FONTS_PRESETS } from 'assets';
 
 export const themeStyles = createThemeStyles({
   container: {
@@ -8,7 +8,7 @@ export const themeStyles = createThemeStyles({
     alignItems: 'center',
     paddingHorizontal: PADDING_HORIZONTAL,
   },
-  image: {width: 124, height: 124, marginTop: 16},
+  image: { width: 124, height: 124, marginTop: 16 },
   title: {
     ...FONTS_PRESETS.title3Bold,
     color: {

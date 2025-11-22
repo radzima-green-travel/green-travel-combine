@@ -1,14 +1,14 @@
-import React, {memo, forwardRef, useMemo} from 'react';
-import {View, Text} from 'react-native';
+import React, { memo, forwardRef, useMemo } from 'react';
+import { View, Text } from 'react-native';
 
-import {themeStyles} from './styles';
-import {SnackBarContainer, SnackBarContainerRef} from './SnackBarContainer';
+import { themeStyles } from './styles';
+import { SnackBarContainer, SnackBarContainerRef } from './SnackBarContainer';
 
-import {useThemeStyles} from 'core/hooks';
-import {Button} from 'atoms/Button';
-import {Icon} from 'atoms/Icon';
-import {isEqual} from 'lodash';
-import {composeTestID} from 'core/helpers';
+import { useThemeStyles } from 'core/hooks';
+import { Button } from 'atoms/Button';
+import { Icon } from 'atoms/Icon';
+import { isEqual } from 'lodash';
+import { composeTestID } from 'core/helpers';
 
 export interface SnackBarProps {
   isOnTop?: boolean;

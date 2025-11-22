@@ -1,5 +1,5 @@
-import {ICoordinates, IBounds} from 'core/types';
-import {featureCollection, point} from '@turf/helpers';
+import { ICoordinates, IBounds } from 'core/types';
+import { featureCollection, point } from '@turf/helpers';
 import bbox from '@turf/bbox';
 
 interface MapPaddings {
@@ -28,7 +28,7 @@ class MapService {
 
   getBoundsFromBbox(
     bboxArray: number[],
-    {top = 0, right = 0, bottom = 0, left = 0}: MapPaddings = {},
+    { top = 0, right = 0, bottom = 0, left = 0 }: MapPaddings = {},
   ): IBounds {
     const [minLng, minLat, maxLng, maxLat] = bboxArray;
 

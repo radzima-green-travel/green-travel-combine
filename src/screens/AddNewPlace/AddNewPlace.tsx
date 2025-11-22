@@ -1,19 +1,19 @@
-import {useNavigation} from '@react-navigation/native';
-import {ModalForm} from 'components/organisms/ModalForm';
-import {submitNewPlaceFormRequest} from 'core/actions';
+import { useNavigation } from '@react-navigation/native';
+import { ModalForm } from 'components/organisms/ModalForm';
+import { submitNewPlaceFormRequest } from 'core/actions';
 import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
 } from 'core/hooks';
-import {NewPlaceForm} from 'core/types/addNewPlace';
-import React, {useCallback, useEffect, useRef} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useDispatch} from 'react-redux';
-import {useSnackbar} from 'components/atoms';
-import {useAddNewPlaceAnalytics} from './hooks';
-import {Header} from '../../components/containers';
-import {isIOS} from '../../services/PlatformService';
+import { NewPlaceForm } from 'core/types/addNewPlace';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'components/atoms';
+import { useAddNewPlaceAnalytics } from './hooks';
+import { Header } from '../../components/containers';
+import { isIOS } from '../../services/PlatformService';
 
 export const AddNewPlaceScreen = () => {
   const navigation = useNavigation();
@@ -24,11 +24,11 @@ export const AddNewPlaceScreen = () => {
     sendAddNewPlaceSendAllEvent,
   } = useAddNewPlaceAnalytics();
 
-  const {t} = useTranslation('addNewPlaceForm');
+  const { t } = useTranslation('addNewPlaceForm');
 
   const dispatch = useDispatch();
 
-  const {loading: submitting} = useRequestLoading(submitNewPlaceFormRequest);
+  const { loading: submitting } = useRequestLoading(submitNewPlaceFormRequest);
 
   const snackBarProps = useSnackbar();
 
@@ -57,7 +57,7 @@ export const AddNewPlaceScreen = () => {
 
   return (
     <>
-      <Header style={{gap: 8}} statusbarStyle={isIOS ? 'light' : 'auto'}>
+      <Header style={{ gap: 8 }} statusbarStyle={isIOS ? 'light' : 'auto'}>
         <Header.TopBlock>
           <Header.BackButton onPress={navigation.goBack} />
         </Header.TopBlock>

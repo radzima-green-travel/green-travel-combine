@@ -1,19 +1,19 @@
-import {useCallback, useEffect, useLayoutEffect} from 'react';
+import { useCallback, useEffect, useLayoutEffect } from 'react';
 
-import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   useCategoryListAnalytics,
   useListPagination,
   useOnRequestError,
   useRequestLoading,
 } from 'core/hooks';
-import {CardItem} from 'core/types';
+import { CardItem } from 'core/types';
 import {
   getCategoriesListInitialDataRequest,
   getCategoriesListNextDataRequest,
 } from 'core/actions';
-import {selectCategoriesList} from 'selectors';
+import { selectCategoriesList } from 'selectors';
 import {
   CategoriesListScreenNavigationProps,
   CategoriesListScreenRouteProps,
@@ -22,10 +22,10 @@ import {
 export const useCategoriesList = () => {
   const dispatch = useDispatch();
 
-  const {navigate, setOptions} =
+  const { navigate, setOptions } =
     useNavigation<CategoriesListScreenNavigationProps>();
   const {
-    params: {categoryId, title},
+    params: { categoryId, title },
   } = useRoute<CategoriesListScreenRouteProps>();
 
   const {
@@ -34,18 +34,18 @@ export const useCategoriesList = () => {
     requestedItemsCount,
   } = useSelector(selectCategoriesList(categoryId));
 
-  const {loading: initialDataLoading} = useRequestLoading(
+  const { loading: initialDataLoading } = useRequestLoading(
     getCategoriesListInitialDataRequest,
   );
-  const {loading: nextDataLoading} = useRequestLoading(
+  const { loading: nextDataLoading } = useRequestLoading(
     getCategoriesListNextDataRequest,
   );
-  const {errorTexts} = useOnRequestError(
+  const { errorTexts } = useOnRequestError(
     getCategoriesListInitialDataRequest,
     '',
   );
 
-  const {sendSelectCardEvent} = useCategoryListAnalytics();
+  const { sendSelectCardEvent } = useCategoryListAnalytics();
 
   const fetchListInitialData = useCallback(() => {
     dispatch(getCategoriesListInitialDataRequest(categoryId));
@@ -57,7 +57,7 @@ export const useCategoriesList = () => {
 
   const navigateToObjectDetails = useCallback(
     (item: CardItem) => {
-      navigate('ObjectsList', {appliedFilters: {categories: [item.id]}});
+      navigate('ObjectsList', { appliedFilters: { categories: [item.id] } });
       sendSelectCardEvent(item.name, title);
     },
     [navigate, sendSelectCardEvent, title],

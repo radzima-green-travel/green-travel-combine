@@ -1,19 +1,19 @@
-import {Portal} from '@gorhom/portal';
-import {useNavigation} from '@react-navigation/native';
-import {BottomMenu, Button, Icon} from 'atoms';
-import {composeTestID} from 'core/helpers';
-import {useBottomMenu, useThemeStyles} from 'core/hooks';
-import {SearchFiltersItem, SearchOptions} from 'core/types';
-import {noop} from 'lodash';
+import { Portal } from '@gorhom/portal';
+import { useNavigation } from '@react-navigation/native';
+import { BottomMenu, Button, Icon } from 'atoms';
+import { composeTestID } from 'core/helpers';
+import { useBottomMenu, useStatusBar, useThemeStyles } from 'core/hooks';
+import { SearchFiltersItem, SearchOptions } from 'core/types';
+import { noop } from 'lodash';
 import {
   SearchField,
   SearchFiltersBar,
   SearchOptionsBottomMenu,
 } from 'molecules';
-import React, {memo, useCallback} from 'react';
-import {Keyboard, StyleProp, Text, View, ViewStyle} from 'react-native';
-import {themeStyles} from './styles';
-import {Header} from '../Header';
+import React, { memo, useCallback } from 'react';
+import { Keyboard, StyleProp, Text, View, ViewStyle } from 'react-native';
+import { themeStyles } from './styles';
+import { Header } from '../Header';
 
 interface SearchHeaderProps {
   testID: string;
@@ -63,7 +63,9 @@ export const SearchHeader = memo(
 
     const navigation = useNavigation();
 
-    const {openMenu, ...bottomMenuProps} = useBottomMenu();
+    useStatusBar({ style: 'auto' });
+
+    const { openMenu, ...bottomMenuProps } = useBottomMenu();
 
     const onSearchActionButtonPress = useCallback(
       (actionType: 'reset' | 'filter') => {
@@ -80,7 +82,7 @@ export const SearchHeader = memo(
     );
 
     const searchInput = (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <SearchField
           testID={composeTestID(testID, 'searchInput')}
           value={searchInputValue}

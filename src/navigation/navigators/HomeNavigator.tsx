@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   HomeScreen,
   ObjectDetailsScreen,
@@ -8,15 +8,15 @@ import {
   CategoriesListScreen,
   SearchScreen,
 } from '../../screens';
-import {useTranslation} from 'core/hooks';
-import {HomeNavigatorParamsList} from 'core/types';
-import {useScreenOptions} from '../hooks';
-import {defaultTransition} from '../transition';
+import { useTranslation } from 'core/hooks';
+import { HomeNavigatorParamsList } from 'core/types';
+import { useScreenOptions } from '../hooks';
+import { defaultTransition } from '../transition';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
 export function HomeNavigator() {
-  const {t: tHome} = useTranslation('home');
+  const { t: tHome } = useTranslation('home');
 
   const screenOptions = useScreenOptions({
     title: tHome('headerTitle'),
@@ -29,10 +29,10 @@ export function HomeNavigator() {
       <Stack.Screen
         name="Search"
         component={SearchScreen}
-        options={{animation: 'fade_from_bottom'}}
+        options={{ animation: 'fade_from_bottom', headerShown: false }}
       />
       <Stack.Screen
-        getId={({params}) => params.objectId}
+        getId={({ params }) => params.objectId}
         name="ObjectDetails"
         initialParams={{
           analytics: {
@@ -40,12 +40,12 @@ export function HomeNavigator() {
           },
         }}
         component={ObjectDetailsScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ObjectsList"
         component={ObjectsListScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen name="CategoriesList" component={CategoriesListScreen} />
     </Stack.Navigator>

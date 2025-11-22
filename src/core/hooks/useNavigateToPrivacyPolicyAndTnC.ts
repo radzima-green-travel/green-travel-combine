@@ -1,10 +1,16 @@
-import {useNavigation, CompositeNavigationProp} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {MainNavigatorParamsList, ProfileNavigatorParamsList} from 'core/types';
-import {useSelector} from 'react-redux';
-import {selectAppLanguage} from 'core/selectors';
-import {useCallback} from 'react';
-import {useTranslation} from 'react-i18next';
+import {
+  useNavigation,
+  CompositeNavigationProp,
+} from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {
+  MainNavigatorParamsList,
+  ProfileNavigatorParamsList,
+} from 'core/types';
+import { useSelector } from 'react-redux';
+import { selectAppLanguage } from 'core/selectors';
+import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type NavigationProps = CompositeNavigationProp<
   NativeStackNavigationProp<ProfileNavigatorParamsList>,
@@ -14,7 +20,7 @@ export type NavigationProps = CompositeNavigationProp<
 export function useNavigateToPrivacyPolicyAndTnC() {
   const navigation = useNavigation<NavigationProps>();
   const currentLocale = useSelector(selectAppLanguage);
-  const {t} = useTranslation('common');
+  const { t } = useTranslation('common');
   const navigateToPrivacyPolicy = useCallback(() => {
     navigation.navigate('InAppWebView', {
       url: `https://radzima.app/${currentLocale}/privacy-policy-text/`,

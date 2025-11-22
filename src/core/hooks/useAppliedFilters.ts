@@ -1,22 +1,22 @@
-import {useRoute, useNavigation} from '@react-navigation/native';
-import {FILTERS_NAMES_ANAYLITICS_MAP, INITIAL_FILTERS} from 'core/constants';
-import {IState} from 'core/store';
-import {useCallback} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { FILTERS_NAMES_ANAYLITICS_MAP, INITIAL_FILTERS } from 'core/constants';
+import { IState } from 'core/store';
+import { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   SearchScreenRouteProps,
   SearchScreenNavigationProps,
 } from '../../screens/Search/types';
-import {selectSearchFiltersItems, selectUserAuthorized} from '../selectors';
-import {sendAnalyticsEvent} from '../actions';
-import {prepareNumberOfAppliedFilters} from '../transformators/filters';
+import { selectSearchFiltersItems, selectUserAuthorized } from '../selectors';
+import { sendAnalyticsEvent } from '../actions';
+import { prepareNumberOfAppliedFilters } from '../transformators/filters';
 
 export const useAppliedFilters = () => {
-  const {params} = useRoute<SearchScreenRouteProps>();
+  const { params } = useRoute<SearchScreenRouteProps>();
 
   const navigation = useNavigation<SearchScreenNavigationProps>();
 
-  const {appliedFilters: filtersToApply} = params || {};
+  const { appliedFilters: filtersToApply } = params || {};
 
   const appliedFilters = useSelector((state: IState) =>
     selectSearchFiltersItems(state, filtersToApply),

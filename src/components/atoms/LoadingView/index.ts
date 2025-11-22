@@ -1,1 +1,1 @@
-export {LoadingView} from './LoadingView';
+export { LoadingView } from './LoadingView';

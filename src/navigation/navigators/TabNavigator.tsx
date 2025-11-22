@@ -1,19 +1,19 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useColorScheme, useTranslation} from 'core/hooks';
-import {ExploreNavigatior} from './ExploreNavigator';
-import {BookmarksNavigator} from './BookmarksNavigator';
-import {ProfileNavigator} from './ProfileNavigator';
-import {Icon} from 'atoms';
-import {HomeNavigator} from './HomeNavigator';
-import {TabNavigatorParamsList} from 'core/types';
-import {COLORS} from 'assets';
-import {analyticsService} from 'services/AnalyticsService';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useColorScheme, useTranslation } from 'core/hooks';
+import { ExploreNavigatior } from './ExploreNavigator';
+import { BookmarksNavigator } from './BookmarksNavigator';
+import { ProfileNavigator } from './ProfileNavigator';
+import { Icon } from 'atoms';
+import { HomeNavigator } from './HomeNavigator';
+import { TabNavigatorParamsList } from 'core/types';
+import { COLORS } from 'assets';
+import { analyticsService } from 'services/AnalyticsService';
 
 const Tab = createBottomTabNavigator<TabNavigatorParamsList>();
 
 export function TabNavigator() {
-  const {t} = useTranslation('common');
+  const { t } = useTranslation('common');
   const theme = useColorScheme();
 
   return (
@@ -47,7 +47,7 @@ export function TabNavigator() {
             : {
                 borderTopWidth: 0,
                 shadowColor: COLORS.logCabin,
-                shadowOffset: {width: 0, height: -5},
+                shadowOffset: { width: 0, height: -5 },
                 shadowOpacity: 0.15,
                 shadowRadius: 6,
               }),
@@ -65,7 +65,7 @@ export function TabNavigator() {
           tabBarTestID: 'tabBarItemMain',
           tabBarAccessibilityLabel: 'tabBarItemMain',
           tabBarLabel: t('tabs.home'),
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name={'home'} color={color} size={24} />
           ),
         }}
@@ -83,7 +83,7 @@ export function TabNavigator() {
           tabBarTestID: 'tabBarItemMap',
           tabBarAccessibilityLabel: 'tabBarItemMap',
           tabBarLabel: t('tabs.explore'),
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name={'search'} color={color} size={24} />
           ),
         }}
@@ -100,7 +100,7 @@ export function TabNavigator() {
           tabBarTestID: 'tabBarItemFavorites',
           tabBarAccessibilityLabel: 'tabBarItemFavorites',
           tabBarLabel: t('tabs.bookmarks'),
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name={'bookmarkTab'} color={color} size={24} />
           ),
         }}
@@ -117,7 +117,7 @@ export function TabNavigator() {
           tabBarTestID: 'tabBarItemProfile',
           tabBarAccessibilityLabel: 'tabBarItemProfile',
           tabBarLabel: t('tabs.profile'),
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name={'avatar'} color={color} size={24} />
           ),
         }}

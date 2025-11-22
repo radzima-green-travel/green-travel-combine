@@ -1,1 +1,1 @@
-export {CustomHeader} from './CustomHeader';
+export { CustomHeader } from './CustomHeader';

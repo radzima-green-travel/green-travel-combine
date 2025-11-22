@@ -1,14 +1,14 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import {Icon, HeaderTitle} from 'atoms';
-import {COLORS} from 'assets';
-import {useColorScheme} from 'core/hooks';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Icon, HeaderTitle } from 'atoms';
+import { COLORS } from 'assets';
+import { useColorScheme } from 'core/hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   NativeStackNavigationOptions,
   type NativeStackHeaderProps,
 } from '@react-navigation/native-stack';
-import {Header} from 'components/containers/Header';
+import { Header } from 'components/containers/Header';
 
 type UseScreenOptionsProps = {
   withBottomInset?: boolean;
@@ -21,7 +21,7 @@ export function useScreenOptions({
   ...customOptions
 }: UseScreenOptionsProps = {}) {
   const colorScheme = useColorScheme();
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
   return () =>
     ({
@@ -30,7 +30,7 @@ export function useScreenOptions({
           colorScheme === 'light'
             ? COLORS.light.background.primary
             : COLORS.dark.background.primary,
-        ...(withBottomInset ? {paddingBottom: bottom} : {}),
+        ...(withBottomInset ? { paddingBottom: bottom } : {}),
       },
       headerStyle: legacyDesign
         ? {
@@ -42,7 +42,7 @@ export function useScreenOptions({
         : undefined,
       // Default header has this issue starting from Expo 53
       // https://github.com/react-navigation/react-navigation/issues/11353
-      header: props => renderHeader({stackHeaderProps: props, legacyDesign}),
+      header: props => renderHeader({ stackHeaderProps: props, legacyDesign }),
       ...customOptions,
     }) as NativeStackNavigationOptions;
 }
@@ -54,8 +54,8 @@ const renderHeader = ({
   legacyDesign: boolean;
   stackHeaderProps: NativeStackHeaderProps;
 }) => {
-  const {options} = stackHeaderProps;
-  const {headerRight} = options;
+  const { options } = stackHeaderProps;
+  const { headerRight } = options;
 
   if (!legacyDesign) {
     return (
@@ -69,7 +69,7 @@ const renderHeader = ({
 
   return (
     <Header
-      style={StyleSheet.compose(options?.headerStyle, {paddingTop: 8})}
+      style={StyleSheet.compose(options?.headerStyle, { paddingTop: 8 })}
       replacesDefaultHeader={false}
       overlaysContent={false}
       contentAlignment="center"
@@ -99,7 +99,7 @@ const renderHeader = ({
             </Header.ContentBlock>
             {!!headerRight && (
               <Header.RightBlock>
-                {headerRight({canGoBack: props.canGoBack, tintColor: ''})}
+                {headerRight({ canGoBack: props.canGoBack, tintColor: '' })}
               </Header.RightBlock>
             )}
           </>

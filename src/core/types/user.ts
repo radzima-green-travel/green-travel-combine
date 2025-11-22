@@ -2,7 +2,7 @@ export type Bookmarks = {
   [objectId: string]: [boolean, number];
 };
 
-export type GetBookmarksResponse = {data: Bookmarks};
+export type GetBookmarksResponse = { data: Bookmarks };
 
 export type UpdateBookmarksBody = {
   status: boolean;

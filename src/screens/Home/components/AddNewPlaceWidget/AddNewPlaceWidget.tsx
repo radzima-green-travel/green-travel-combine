@@ -1,17 +1,20 @@
-import {Button, Icon} from 'atoms';
-import {composeTestID} from 'core/helpers';
-import {useTranslation} from 'core/hooks';
+import { Button, Icon } from 'atoms';
+import { composeTestID } from 'core/helpers';
+import { useTranslation } from 'core/hooks';
 import React from 'react';
-import {StyleProp, Text, View, ViewStyle} from 'react-native';
-import {styles} from './styles';
+import { StyleProp, Text, View, ViewStyle } from 'react-native';
+import { styles } from './styles';
 
 interface AddNewPlaceWidgetProps {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
-export const AddNewPlaceWidget = ({onPress, style}: AddNewPlaceWidgetProps) => {
-  const {t} = useTranslation('home');
+export const AddNewPlaceWidget = ({
+  onPress,
+  style,
+}: AddNewPlaceWidgetProps) => {
+  const { t } = useTranslation('home');
 
   return (
     <View testID="addNewPlaceWidget" style={[styles.container, style]}>

@@ -1,6 +1,6 @@
-import {COLORS} from 'assets';
+import { COLORS } from 'assets';
 
-import {createThemeStyles} from 'core/helpers/styles';
+import { createThemeStyles } from 'core/helpers/styles';
 
 const thubSize = 12;
 const thubSizeSmall = 8;
@@ -50,7 +50,7 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.other.constantWhite,
     },
     top: '50%',
-    transform: [{translateY: -thubSize / 2}, {translateX: -thubSize / 2}],
+    transform: [{ translateY: -thubSize / 2 }, { translateX: -thubSize / 2 }],
   },
 
   thumbSmall: {
@@ -59,8 +59,8 @@ export const themeStyles = createThemeStyles({
     borderRadius: thubSizeSmall,
     borderWidth: thubSizeSmall / 4,
     transform: [
-      {translateY: -thubSizeSmall / 2},
-      {translateX: -thubSizeSmall / 2},
+      { translateY: -thubSizeSmall / 2 },
+      { translateX: -thubSizeSmall / 2 },
     ],
   },
 });

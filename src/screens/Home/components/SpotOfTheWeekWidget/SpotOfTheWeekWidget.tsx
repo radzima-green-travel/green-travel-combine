@@ -1,12 +1,12 @@
-import {HighlightedText} from 'atoms';
-import {useThemeStyles} from 'core/hooks';
-import {CardItem} from 'core/types';
-import {ObjectCardNew} from 'molecules';
-import React, {memo} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useWindowDimensions, View} from 'react-native';
-import {Extrapolation, interpolate} from 'react-native-reanimated';
-import {widgetStyles} from './styles';
+import { HighlightedText } from 'atoms';
+import { useThemeStyles } from 'core/hooks';
+import { CardItem } from 'core/types';
+import { ObjectCardNew } from 'molecules';
+import React, { memo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useWindowDimensions, View } from 'react-native';
+import { Extrapolation, interpolate } from 'react-native-reanimated';
+import { widgetStyles } from './styles';
 
 interface SpotOfTheWeekWidgetProps {
   object: CardItem;
@@ -15,11 +15,11 @@ interface SpotOfTheWeekWidgetProps {
 }
 
 export const SpotOfTheWeekWidget = memo(
-  ({object, onPress, onFavoriteChanged}: SpotOfTheWeekWidgetProps) => {
-    const {t} = useTranslation('home');
+  ({ object, onPress, onFavoriteChanged }: SpotOfTheWeekWidgetProps) => {
+    const { t } = useTranslation('home');
     const styles = useThemeStyles(widgetStyles);
 
-    const {width: windowWidth} = useWindowDimensions();
+    const { width: windowWidth } = useWindowDimensions();
 
     const maxFontSizeMultiplier = interpolate(
       windowWidth,

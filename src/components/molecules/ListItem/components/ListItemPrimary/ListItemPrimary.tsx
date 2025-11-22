@@ -1,11 +1,11 @@
-import React, {memo} from 'react';
-import {BaseListItem} from '../../BaseListItem';
-import {ListItemPrimaryProps} from '../../types';
-import {TouchableOpacity, View, Text} from 'react-native';
-import {Icon} from 'atoms';
-import {useThemeStyles} from 'core/hooks';
-import {themeStyles} from './styles';
-import {composeTestID} from 'core/helpers';
+import React, { memo } from 'react';
+import { BaseListItem } from '../../BaseListItem';
+import { ListItemPrimaryProps } from '../../types';
+import { TouchableOpacity, View, Text } from 'react-native';
+import { Icon } from 'atoms';
+import { useThemeStyles } from 'core/hooks';
+import { themeStyles } from './styles';
+import { composeTestID } from 'core/helpers';
 
 export const ListItemPrimary = memo<ListItemPrimaryProps>(
   ({

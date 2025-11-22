@@ -1,2 +1,2 @@
-export {getAnalyticsNavigationScreenName} from './navigation';
+export { getAnalyticsNavigationScreenName } from './navigation';
 export * from './object';
