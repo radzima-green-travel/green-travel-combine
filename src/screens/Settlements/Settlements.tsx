@@ -7,8 +7,7 @@ import {
   SectionList,
 } from 'react-native';
 import { Chip, HighlightedText, SnackBar } from 'atoms';
-import { useThemeStyles, useTranslation } from 'core/hooks';
-import { screenOptions } from './screenOptions';
+import { useHeader, useThemeStyles, useTranslation } from 'core/hooks';
 import { themeStyles } from './styles';
 import {
   ButtonsGroup,
@@ -48,6 +47,24 @@ export const Settlements = () => {
     onSearchStart,
   } = useSettlements();
 
+  const hasSelectedSettlements = selectedSettlements.length > 0;
+
+  useHeader(
+    {
+      titleAlign: 'center',
+      titleSize: 'small',
+      rightActions: hasSelectedSettlements
+        ? [
+            {
+              label: t('settlements.reset'),
+              action: resetSelectedSettlements,
+            },
+          ]
+        : undefined,
+    },
+    [hasSelectedSettlements, t, resetSelectedSettlements],
+  );
+
   const { bottom, top } = useSafeAreaInsets();
 
   const renderSectionHeader = useCallback(
@@ -65,18 +82,6 @@ export const Settlements = () => {
       styles.sectionHeaderText,
       styles.sectionHeaderWrapper,
     ],
-  );
-
-  const renderHeaderRight = useCallback(
-    () =>
-      selectedSettlements.length ? (
-        <TouchableOpacity
-          onPress={resetSelectedSettlements}
-          {...getPlatformsTestID('headerResetButton')}>
-          <Text style={styles.resetButtonText}>{t('settlements.reset')}</Text>
-        </TouchableOpacity>
-      ) : null,
-    [styles.resetButtonText, t, selectedSettlements, resetSelectedSettlements],
   );
 
   const renderListEmptyComponent = useCallback(
@@ -129,12 +134,6 @@ export const Settlements = () => {
     styles.secondaryChip,
     t,
   ]);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: renderHeaderRight,
-    });
-  }, [navigation, renderHeaderRight]);
 
   return (
     <View style={styles.container}>
@@ -203,5 +202,3 @@ export const Settlements = () => {
     </View>
   );
 };
-
-Settlements.screenOptions = screenOptions;

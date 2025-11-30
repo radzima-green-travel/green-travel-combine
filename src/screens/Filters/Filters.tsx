@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { Text, View } from 'react-native';
 import { Chip, Multiswitch, SnackBar } from 'atoms';
-import { useStatusBar, useThemeStyles, useTranslation } from 'core/hooks';
+import { useThemeStyles, useTranslation, useHeader } from 'core/hooks';
 import {
   ButtonsGroup,
   FiltersSectionContainer,
@@ -14,7 +14,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useFilters } from './hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { isIOS } from 'services/PlatformService';
-import { Header } from 'containers';
 
 export const Filters = () => {
   const styles = useThemeStyles(themeStyles);
@@ -46,7 +45,12 @@ export const Filters = () => {
   } = useFilters();
   const { bottom } = useSafeAreaInsets();
 
-  useStatusBar({ style: isIOS ? 'light' : 'auto' });
+  useHeader({
+    backButtonPosition: 'topRight',
+    backButtonIcon: 'close',
+    overlaysContent: false,
+    statusbarStyle: isIOS ? 'light' : 'auto',
+  });
 
   useEffect(() => {
     return () => {
@@ -85,18 +89,6 @@ export const Filters = () => {
 
   return (
     <>
-      <Header overlaysContent={false} statusbarStyle={isIOS ? 'light' : 'auto'}>
-        {({ navigation }) => (
-          <Header.RightBlock>
-            <Header.ActionButton
-              icon="close"
-              onPress={navigation.goBack}
-              testID="closeButton"
-              size="small"
-            />
-          </Header.RightBlock>
-        )}
-      </Header>
       <View style={styles.container}>
         <View style={styles.content}>
           <SuspenseView
@@ -105,7 +97,6 @@ export const Filters = () => {
             retryCallback={getFiltersData}
             testID={'filtersSuspenseView'}>
             <ScrollView showsVerticalScrollIndicator={false}>
-              <Text style={styles.title}>{t('title')}</Text>
               <FiltersSectionContainer itemName={t('allCategories')}>
                 <View style={styles.categoryList}>
                   {caregoriesData?.map(item => (

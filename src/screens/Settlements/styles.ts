@@ -10,31 +10,6 @@ export const themeStyles = createThemeStyles({
     overflow: 'hidden',
     marginHorizontal: PADDING_HORIZONTAL,
   },
-  backButtonContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: {
-      light: COLORS.light.background.secondary,
-      dark: COLORS.dark.background.secondary,
-    },
-  },
-  icon: {
-    color: {
-      light: COLORS.light.icon.primary,
-      dark: COLORS.dark.icon.primary,
-    },
-  },
-
-  resetButtonText: {
-    ...FONTS_PRESETS.calloutRegular,
-    color: {
-      light: COLORS.light.text.accent,
-      dark: COLORS.dark.text.accent,
-    },
-  },
   sectionHeaderContainer: {
     height: 24,
     paddingHorizontal: 16,

@@ -1,8 +1,7 @@
 import { Portal } from '@gorhom/portal';
-import { useNavigation } from '@react-navigation/native';
 import { BottomMenu, Button, Icon } from 'atoms';
 import { composeTestID } from 'core/helpers';
-import { useBottomMenu, useStatusBar, useThemeStyles } from 'core/hooks';
+import { useBottomMenu, useThemeStyles } from 'core/hooks';
 import { SearchFiltersItem, SearchOptions } from 'core/types';
 import { noop } from 'lodash';
 import {
@@ -12,8 +11,8 @@ import {
 } from 'molecules';
 import React, { memo, useCallback } from 'react';
 import { Keyboard, StyleProp, Text, View, ViewStyle } from 'react-native';
-import { themeStyles } from './styles';
 import { Header } from '../Header';
+import { themeStyles } from './styles';
 
 interface SearchHeaderProps {
   testID: string;
@@ -60,10 +59,6 @@ export const SearchHeader = memo(
     style,
   }: SearchHeaderProps) => {
     const styles = useThemeStyles(themeStyles);
-
-    const navigation = useNavigation();
-
-    useStatusBar({ style: 'auto' });
 
     const { openMenu, ...bottomMenuProps } = useBottomMenu();
 
@@ -113,39 +108,36 @@ export const SearchHeader = memo(
       </View>
     );
 
-    // Traditional navigation.canGoBack() doesn't work well with navigating between tabs (Home to Explore e.g.)
-    const canGoBack = navigation.getState()?.index! > 0;
-
-    const backButton = canGoBack ? (
-      <Header.BackButton onPress={navigation.goBack} />
+    const filtersBar = appliedFilters?.length ? (
+      <SearchFiltersBar
+        testID={composeTestID(testID, 'filtersBar')}
+        onFilterPress={onRemoveFilterPress}
+        filters={appliedFilters}
+        style={styles.filterList}
+        contentContainerStyle={styles.filterListContent}
+      />
     ) : null;
 
     return (
       <>
-        <Header>
-          {!!title && (
-            <Header.TopBlock>
-              {backButton}
-              <Header.Title size={canGoBack ? 'small' : 'large'}>
-                {title}
-              </Header.Title>
-            </Header.TopBlock>
-          )}
-          {!title && <Header.LeftBlock>{backButton}</Header.LeftBlock>}
-          <Header.ContentBlock>{searchInput}</Header.ContentBlock>
-          <Header.RightBlock>{filterButton}</Header.RightBlock>
-          <Header.BottomBlock>
-            {!!appliedFilters?.length && (
-              <SearchFiltersBar
-                testID={composeTestID(testID, 'filtersBar')}
-                onFilterPress={onRemoveFilterPress}
-                filters={appliedFilters}
-                style={styles.filterList}
-                contentContainerStyle={styles.filterListContent}
-              />
-            )}
-          </Header.BottomBlock>
-        </Header>
+        <Header
+          testID={composeTestID(testID, 'header')}
+          style={style}
+          topSlot={({ canGoBack }) => {
+            return title ? (
+              <>
+                {canGoBack && <Header.BackButton />}
+                <Header.Title size={canGoBack ? 'small' : 'large'}>
+                  {title}
+                </Header.Title>
+              </>
+            ) : null;
+          }}
+          backButtonHidden={!!title}
+          titleSlot={searchInput}
+          rightSlot={filterButton}
+          bottomSlot={filtersBar}
+        />
         <Portal>
           <BottomMenu
             onHideEnd={onOptionsMenuClose}
@@ -163,17 +155,3 @@ export const SearchHeader = memo(
     );
   },
 );
-
-/*
-<CustomHeader
-          style={style}
-          options={{
-            headerLeft: !title && canGoBack ? renderBackButton : undefined,
-            headerTitle: renderSearchInput,
-            headerRight: renderFilterButton,
-          }}
-          withOverlay
-          contentAbove={renderTitle}
-          contentBelow={renderFilterBar}
-        />
-        */

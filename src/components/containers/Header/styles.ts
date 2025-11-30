@@ -7,7 +7,7 @@ export const themeStyles = createThemeStyles({
   container: {
     paddingTop: 20,
     paddingHorizontal: PADDING_HORIZONTAL,
-    paddingBottom: PADDING_HORIZONTAL,
+    paddingBottom: 16,
     backgroundColor: {
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
@@ -20,10 +20,13 @@ export const themeStyles = createThemeStyles({
     marginBottom: -HEADER_OVERLAY_OFFSET,
     zIndex: 100,
   },
-  block: {
+  contentRow: {
     flexDirection: 'row',
-    gap: 8,
     alignItems: 'center',
+    gap: 8,
+  },
+  rightBlock: {
+    marginLeft: 'auto',
   },
   expanded: {
     flex: 1,
@@ -45,4 +48,14 @@ export const themeStyles = createThemeStyles({
   },
   titleLarge: FONTS_PRESETS.title3Bold,
   titleSmall: FONTS_PRESETS.subheadlineBold,
+  actionButtonWithLabel: {
+    alignSelf: 'stretch',
+  },
+  actionButtonLabel: {
+    ...FONTS_PRESETS.calloutRegular,
+    color: {
+      light: COLORS.light.text.accent,
+      dark: COLORS.dark.text.accent,
+    },
+  },
 });

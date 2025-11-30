@@ -83,11 +83,9 @@ export const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Header>
-        <Header.TopBlock>
-          <Header.Title>{title}</Header.Title>
-        </Header.TopBlock>
-        <Header.ContentBlock>
+      <Header
+        topSlot={<Header.Title>{title}</Header.Title>}
+        titleSlot={
           <View
             style={{ flex: 1 }}
             pointerEvents="box-only"
@@ -99,15 +97,14 @@ export const Home = () => {
               onRightButtonPress={noop}
             />
           </View>
-        </Header.ContentBlock>
-        <Header.RightBlock>
-          <Header.ActionButton
-            testID="filterButton"
-            onPress={openFilters}
-            icon="tune"
-          />
-        </Header.RightBlock>
-      </Header>
+        }
+        rightActions={[
+          {
+            icon: 'tune',
+            action: openFilters,
+          },
+        ]}
+      />
       <SuspenseView
         loading={loading}
         error={errorTexts}

@@ -15,7 +15,6 @@ import { FormFieldConfig } from 'core/types';
 interface ModalFormProps<T extends AnyFormValues> {
   defaultValues: T;
   schema: Type<AnyFormValues>;
-  onBackPress?: () => void;
   submitting?: boolean;
   t: TFunction;
   fieldConfigs?: Partial<Record<keyof T, FormFieldConfig>>;
@@ -30,7 +29,6 @@ export const ModalForm = <T extends AnyFormValues>({
   schema,
   defaultValues,
   t,
-  onBackPress,
   submitting,
   fieldConfigs: fieldConfig,
   onSubmit,

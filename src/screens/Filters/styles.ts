@@ -42,17 +42,6 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.icon.primary,
     },
   },
-  closeButtonContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: {
-      light: COLORS.light.background.secondary,
-      dark: COLORS.dark.background.secondary,
-    },
-  },
   settlementsContainer: {
     backgroundColor: {
       light: COLORS.light.background.primary,

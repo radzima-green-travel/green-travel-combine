@@ -8,7 +8,8 @@ import {
   NativeStackNavigationOptions,
   type NativeStackHeaderProps,
 } from '@react-navigation/native-stack';
-import { Header } from 'components/containers/Header';
+import { Header } from 'containers';
+import type { UseHeaderProps } from 'core/hooks/useHeader';
 
 type UseScreenOptionsProps = {
   withBottomInset?: boolean;
@@ -52,7 +53,9 @@ const renderHeader = ({
   legacyDesign,
 }: {
   legacyDesign: boolean;
-  stackHeaderProps: NativeStackHeaderProps;
+  stackHeaderProps: NativeStackHeaderProps & {
+    options?: { customOptions?: UseHeaderProps };
+  };
 }) => {
   const { options } = stackHeaderProps;
   const { headerRight } = options;
@@ -63,6 +66,7 @@ const renderHeader = ({
         title={options?.title}
         replacesDefaultHeader={false}
         overlaysContent={options?.presentation !== 'modal'}
+        {...options?.customOptions}
       />
     );
   }
@@ -72,39 +76,35 @@ const renderHeader = ({
       style={StyleSheet.compose(options?.headerStyle, { paddingTop: 8 })}
       replacesDefaultHeader={false}
       overlaysContent={false}
-      contentAlignment="center"
-      statusbarStyle="light">
-      {props => {
+      titleAlign="center"
+      statusbarStyle="light"
+      leftSlot={({ canGoBack, navigation }) => {
         return (
-          <>
-            <Header.LeftBlock>
-              {props.canGoBack && (
-                <TouchableOpacity
-                  testID="backButton"
-                  hitSlop={15}
-                  activeOpacity={0.8}
-                  onPress={props.navigation.goBack}>
-                  <Icon name="chevronMediumLeft" color="white" size={20} />
-                </TouchableOpacity>
-              )}
-            </Header.LeftBlock>
-            <Header.ContentBlock contentAlignment="center">
-              {!!options.title && (
-                <HeaderTitle
-                  testID="headerTitle"
-                  title={options.title}
-                  tintColor={options.headerTintColor}
-                />
-              )}
-            </Header.ContentBlock>
-            {!!headerRight && (
-              <Header.RightBlock>
-                {headerRight({ canGoBack: props.canGoBack, tintColor: '' })}
-              </Header.RightBlock>
-            )}
-          </>
+          canGoBack && (
+            <TouchableOpacity
+              testID="backButton"
+              hitSlop={15}
+              activeOpacity={0.8}
+              onPress={navigation.goBack}>
+              <Icon name="chevronMediumLeft" color="white" size={20} />
+            </TouchableOpacity>
+          )
         );
       }}
-    </Header>
+      titleSlot={() => {
+        return (
+          !!options.title && (
+            <HeaderTitle
+              testID="headerTitle"
+              title={options.title}
+              tintColor={options.headerTintColor}
+            />
+          )
+        );
+      }}
+      rightSlot={({ canGoBack, navigation }) => {
+        return !!headerRight && headerRight({ canGoBack, tintColor: '' });
+      }}
+    />
   );
 };
