@@ -84,7 +84,7 @@ export const Home = () => {
   return (
     <View style={styles.container}>
       <Header
-        topSlot={<Header.Title>{title}</Header.Title>}
+        topSlot={<Header.Title style={{ paddingTop: 8 }}>{title}</Header.Title>}
         titleSlot={
           <View
             style={{ flex: 1 }}

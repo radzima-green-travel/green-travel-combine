@@ -5,14 +5,14 @@ import { HEADER_OVERLAY_OFFSET } from './constants';
 
 export const themeStyles = createThemeStyles({
   container: {
-    paddingTop: 20,
+    paddingTop: 16,
     paddingHorizontal: PADDING_HORIZONTAL,
     paddingBottom: 16,
     backgroundColor: {
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
     },
-    gap: 20,
+    gap: 16,
   },
   overlay: {
     borderBottomLeftRadius: HEADER_OVERLAY_OFFSET,

@@ -73,7 +73,10 @@ const renderHeader = ({
 
   return (
     <Header
-      style={StyleSheet.compose(options?.headerStyle, { paddingTop: 8 })}
+      style={StyleSheet.compose(options?.headerStyle, {
+        paddingTop: options.title ? 8 : 20,
+        paddingBottom: 16,
+      })}
       replacesDefaultHeader={false}
       overlaysContent={false}
       titleAlign="center"

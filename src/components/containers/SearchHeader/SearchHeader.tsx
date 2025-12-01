@@ -127,7 +127,9 @@ export const SearchHeader = memo(
             return title ? (
               <>
                 {canGoBack && <Header.BackButton />}
-                <Header.Title size={canGoBack ? 'small' : 'large'}>
+                <Header.Title
+                  size={canGoBack ? 'small' : 'large'}
+                  style={canGoBack ? undefined : { paddingTop: 8 }}>
                   {title}
                 </Header.Title>
               </>
