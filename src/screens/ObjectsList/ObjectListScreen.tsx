@@ -87,6 +87,7 @@ export const ObjectListScreen = () => {
         onOptionsChange={updateSearchOptions}
         autoFocus={false}
       />
+
       <SuspenseView
         cover
         testID="objectsListSuspenseView"
@@ -96,18 +97,20 @@ export const ObjectListScreen = () => {
             ? false
             : searchSuspenseProps.loading
         }>
-        <ObjectList
-          testID="objectList"
-          data={searchResults}
-          totalResults={totalResults}
-          onItemPress={handleItemPress}
-          style={styles.listContainer}
-          viewMode={viewMode}
-          onViewModeChange={setViewMode}
-          onToggleFavoriteStatusPress={handleFavoriteStatusChange}
-          mapWithBottomSheetProps={mapWithBottomSheetProps}
-          {...listPaninationProps}
-        />
+        <SearchHeader.PageContentWrapperWithOverlay>
+          <ObjectList
+            testID="objectList"
+            data={searchResults}
+            totalResults={totalResults}
+            onItemPress={handleItemPress}
+            style={styles.listContainer}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
+            onToggleFavoriteStatusPress={handleFavoriteStatusChange}
+            mapWithBottomSheetProps={mapWithBottomSheetProps}
+            {...listPaninationProps}
+          />
+        </SearchHeader.PageContentWrapperWithOverlay>
       </SuspenseView>
     </>
   );

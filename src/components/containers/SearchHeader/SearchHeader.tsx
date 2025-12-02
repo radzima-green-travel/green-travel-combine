@@ -37,7 +37,7 @@ interface SearchHeaderProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const SearchHeader = memo(
+const SearchHeaderComponent = memo(
   ({
     testID,
     title,
@@ -157,3 +157,7 @@ export const SearchHeader = memo(
     );
   },
 );
+
+export const SearchHeader = Object.assign(SearchHeaderComponent, {
+  PageContentWrapperWithOverlay: Header.PageContentWrapperWithOverlay,
+});
