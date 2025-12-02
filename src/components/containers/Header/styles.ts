@@ -1,7 +1,6 @@
 import { COLORS, FONTS_PRESETS } from 'assets';
 import { createThemeStyles } from 'core/helpers/styles';
-import { PADDING_HORIZONTAL } from 'core/constants';
-import { HEADER_OVERLAY_OFFSET } from './constants';
+import { PADDING_HORIZONTAL, HEADER_OVERLAY_OFFSET } from 'core/constants';
 
 export const themeStyles = createThemeStyles({
   container: {

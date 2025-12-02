@@ -1,34 +1,40 @@
-import React, { type FC, type ReactElement, useLayoutEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   NavigationProp,
   useNavigation,
   useNavigationState,
   useRoute,
 } from '@react-navigation/native';
+import React, {
+  type FC,
+  type ReactElement,
+  type ReactNode,
+  useLayoutEffect,
+} from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Button, Icon } from 'atoms';
 import { useStatusBar, useThemeStyles } from 'core/hooks';
 import { AnimatedCircleButton } from 'molecules';
-import { Button, Icon } from 'atoms';
+import { useHeaderWithOverlayLayout } from './hooks/useHeaderWithOverlayLayout';
 import { themeStyles } from './styles';
-import { HEADER_OVERLAY_OFFSET } from './constants';
-import { isElementOfType } from './utils';
 import type {
-  HeaderProps,
-  HeaderTitleProps,
-  HeaderBackButtonProps,
   HeaderActionButtonProps,
-  PageContentWithOverlayProps,
+  HeaderBackButtonProps,
   HeaderContent,
   HeaderContextValue,
+  HeaderProps,
+  HeaderTitleProps,
+  PageContentWrapperProps,
 } from './types';
+import { isElementOfType } from './utils';
+import { resolveChildrenWithProps } from '../../../core/utils/react';
 
 const HeaderComponent: FC<HeaderProps> = ({
   overlaysContent = true,
@@ -70,11 +76,11 @@ const HeaderComponent: FC<HeaderProps> = ({
 
   const renderProps: HeaderContextValue = { navigation, canGoBack };
 
-  const resolvedTopSlot = resolveContent(topSlot, renderProps);
-  const resolvedBottomSlot = resolveContent(bottomSlot, renderProps);
-  const resolvedLeftSlot = resolveContent(leftSlot, renderProps);
-  const resolvedRightSlot = resolveContent(rightSlot, renderProps);
-  const resolvedTitleSlot = resolveContent(titleSlot, renderProps);
+  const resolvedTopSlot = resolveChildrenWithProps(topSlot, renderProps);
+  const resolvedBottomSlot = resolveChildrenWithProps(bottomSlot, renderProps);
+  const resolvedLeftSlot = resolveChildrenWithProps(leftSlot, renderProps);
+  const resolvedRightSlot = resolveChildrenWithProps(rightSlot, renderProps);
+  const resolvedTitleSlot = resolveChildrenWithProps(titleSlot, renderProps);
 
   const showBackButton = !backButtonHidden && canGoBack;
   const backButtonOnLeft = backButtonPosition === 'left';
@@ -286,9 +292,17 @@ const HeaderTitle: FC<HeaderTitleProps> = ({
   );
 };
 
-const PageContentWithOverlay: FC<PageContentWithOverlayProps> = ({
+const PageContentWrapperWithOverlay: FC<PageContentWrapperProps> = ({
   children,
 }) => {
+  const pageLayoutProps = useHeaderWithOverlayLayout();
+
+  if (typeof children === 'function') {
+    return children(pageLayoutProps);
+  }
+
+  const { pageContainerProps } = pageLayoutProps;
+
   const maybeChild = React.Children.only(children);
 
   if (!React.isValidElement(maybeChild)) {
@@ -304,36 +318,25 @@ const PageContentWithOverlay: FC<PageContentWithOverlayProps> = ({
     child,
     !isList
       ? {
-          style: StyleSheet.compose(child.props.style, {
-            paddingTop: HEADER_OVERLAY_OFFSET,
-          }),
+          ...pageContainerProps.static,
+          style: StyleSheet.compose(
+            child.props.style,
+            pageContainerProps.static.style,
+          ),
         }
       : {
+          ...pageContainerProps.scrollable,
           contentContainerStyle: StyleSheet.compose(
             child.props.contentContainerStyle,
-            {
-              paddingTop: HEADER_OVERLAY_OFFSET,
-            },
+            pageContainerProps.scrollable.contentContainerStyle,
           ),
-          showsVerticalScrollIndicator: false,
         },
   );
-};
-
-const resolveContent = (
-  content: HeaderContent | undefined,
-  props: HeaderContextValue,
-): React.ReactNode => {
-  if (typeof content === 'function') {
-    return content(props);
-  }
-  return content;
 };
 
 export const Header = Object.assign(HeaderComponent, {
   Title: HeaderTitle,
   BackButton: HeaderBackButton,
   ActionButton: HeaderActionButton,
-  PageContentWithOverlay: PageContentWithOverlay,
-  overlayOffset: HEADER_OVERLAY_OFFSET,
+  PageContentWrapperWithOverlay,
 });

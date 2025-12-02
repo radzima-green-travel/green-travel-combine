@@ -36,7 +36,6 @@ export const AddNewPlaceScreen = () => {
     backButtonPosition: 'topLeft',
     title: t('title'),
     statusbarStyle: isIOS ? 'light' : 'auto',
-    style: { gap: 12 },
     overlaysContent: false,
   });
 

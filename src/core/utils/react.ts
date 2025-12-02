@@ -1,4 +1,5 @@
 import { memoize } from 'lodash';
+import type { ReactNode } from 'react';
 
 export const indexKeyExtractor = <T>(_: T, index: number) => String(index);
 
@@ -10,3 +11,13 @@ const createKeyExtractorBase =
 export const createKeyExtractor = memoize(createKeyExtractorBase);
 
 export const idKeyExtractor = createKeyExtractor('id');
+
+export const resolveChildrenWithProps = <Props>(
+  children: ReactNode | ((props: Props) => ReactNode),
+  props: Props,
+): React.ReactNode => {
+  if (typeof children === 'function') {
+    return children(props);
+  }
+  return children;
+};

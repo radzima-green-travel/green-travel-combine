@@ -12,5 +12,5 @@ export const isElementOfType = <const T extends ComponentType<any>>(
   if (!React.isValidElement(element)) {
     return false;
   }
-  return element.type === type || (element.type as any).name === type.name;
+  return element.type === type;
 };

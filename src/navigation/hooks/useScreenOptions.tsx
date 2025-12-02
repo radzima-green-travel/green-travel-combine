@@ -9,7 +9,7 @@ import {
   type NativeStackHeaderProps,
 } from '@react-navigation/native-stack';
 import { Header } from 'containers';
-import type { UseHeaderProps } from 'core/hooks/useHeader';
+import type { UseHeaderProps } from 'components/containers/Header/hooks/useHeader';
 
 type UseScreenOptionsProps = {
   withBottomInset?: boolean;

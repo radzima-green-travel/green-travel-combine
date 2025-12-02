@@ -72,7 +72,7 @@ export const enum MAP_PINS {
 }
 
 export const PADDING_HORIZONTAL = 16;
-export const HEADER_BOTTOM_RADIUS = 20;
+export const HEADER_OVERLAY_OFFSET = 20;
 
 export const ICONS_MATCHER = {
   [MAP_PINS.BICYCLE_ROUTE]: 'bike' as IconName,

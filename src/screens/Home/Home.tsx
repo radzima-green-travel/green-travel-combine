@@ -110,57 +110,63 @@ export const Home = () => {
         error={errorTexts}
         retryCallback={getHomePageData}
         testID={'homeSuspenseView'}>
-        <ScrollView
-          style={styles.list}
-          ref={listRef}
-          refreshControl={
-            <RefreshControl
-              tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
-              colors={[COLORS.forestGreen]}
-              refreshing={refreshing}
-              onRefresh={refreshHomePageData}
-              progressViewOffset={Header.overlayOffset}
-            />
-          }
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
-            { paddingTop: Header.overlayOffset },
-            styles.listContent,
-          ]}>
-          {widgetsBlock}
-          <ChipsHorisontalList
-            testID="mainCategories"
-            title={t('categories')}
-            numberOfRows={2}
-            items={map(homeData.main, category => ({
-              text: category.name,
-              leftIcon: ICONS_MATCHER[category.icon],
-              iconSize: 24,
-              onPress: () => {
-                onCategoryPress(category);
-              },
-            }))}
-          />
+        <Header.PageContentWrapperWithOverlay>
+          {({ overlayOffset, pageContainerProps }) => (
+            <ScrollView
+              style={styles.list}
+              ref={listRef}
+              refreshControl={
+                <RefreshControl
+                  tintColor={
+                    theme === 'light' ? COLORS.forestGreen : COLORS.white
+                  }
+                  colors={[COLORS.forestGreen]}
+                  refreshing={refreshing}
+                  onRefresh={refreshHomePageData}
+                  progressViewOffset={overlayOffset}
+                />
+              }
+              {...pageContainerProps.scrollable}
+              contentContainerStyle={[
+                styles.listContent,
+                pageContainerProps.scrollable.contentContainerStyle,
+              ]}>
+              {widgetsBlock}
+              <ChipsHorisontalList
+                testID="mainCategories"
+                title={t('categories')}
+                numberOfRows={2}
+                items={map(homeData.main, category => ({
+                  text: category.name,
+                  leftIcon: ICONS_MATCHER[category.icon],
+                  iconSize: 24,
+                  onPress: () => {
+                    onCategoryPress(category);
+                  },
+                }))}
+              />
 
-          {homeData.routes.length ? (
-            <ChipsHorisontalList
-              testID="routesCategories"
-              title={t('routes')}
-              items={map(homeData.routes, category => ({
-                text: category.name,
-                leftIcon: ICONS_MATCHER[category.icon],
-                iconSize: 24,
-                onPress: () => {
-                  onCategoryPress(category);
-                },
-              }))}
-            />
-          ) : null}
-          <AddNewPlaceWidget
-            style={styles.addNewPlaceWidget}
-            onPress={openAddNewPlacePage}
-          />
-        </ScrollView>
+              {homeData.routes.length ? (
+                <ChipsHorisontalList
+                  testID="routesCategories"
+                  title={t('routes')}
+                  items={map(homeData.routes, category => ({
+                    text: category.name,
+                    leftIcon: ICONS_MATCHER[category.icon],
+                    iconSize: 24,
+                    onPress: () => {
+                      onCategoryPress(category);
+                    },
+                  }))}
+                />
+              ) : null}
+              <AddNewPlaceWidget
+                style={styles.addNewPlaceWidget}
+                onPress={openAddNewPlacePage}
+              />
+            </ScrollView>
+          )}
+        </Header.PageContentWrapperWithOverlay>
 
         <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
         <ObjectDetailsAddInfoSuccessMenu

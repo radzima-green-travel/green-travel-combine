@@ -27,7 +27,6 @@ export const Settlements = () => {
   const { t } = useTranslation('filters');
 
   const {
-    navigation,
     settlementsSections,
     selectedSettlementsSection,
     selectedSettlements,

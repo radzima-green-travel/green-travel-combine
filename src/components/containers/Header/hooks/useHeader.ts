@@ -1,6 +1,7 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { HeaderProps } from 'components/containers/Header/types';
 import { DependencyList, useLayoutEffect, useMemo } from 'react';
+import { useHeaderWithOverlayLayout } from './useHeaderWithOverlayLayout';
 
 export type UseHeaderProps = Pick<
   HeaderProps,
@@ -20,7 +21,10 @@ export type UseHeaderProps = Pick<
 
 /** @description A hook used for quick configuration of header within basic supported options.
  * Use **Header** component if you need highly customized header with custom components */
-export const useHeader = (props: UseHeaderProps, deps: DependencyList = []) => {
+export const useHeader = (
+  props: UseHeaderProps = defaultProps,
+  deps: DependencyList = [],
+) => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   // Props are memoized and detached from dependencies on purpose, to simplify common usage
@@ -37,6 +41,14 @@ export const useHeader = (props: UseHeaderProps, deps: DependencyList = []) => {
   const memoizedProps = useMemo(() => props, deps);
 
   useLayoutEffect(() => {
-    navigation.setOptions({ customOptions: memoizedProps });
+    if (memoizedProps !== defaultProps) {
+      navigation.setOptions({ customOptions: memoizedProps });
+    }
   }, [navigation, memoizedProps]);
+
+  const { overlaysContent } = memoizedProps;
+
+  return useHeaderWithOverlayLayout({ enabled: overlaysContent });
 };
+
+const defaultProps: UseHeaderProps = { overlaysContent: true };

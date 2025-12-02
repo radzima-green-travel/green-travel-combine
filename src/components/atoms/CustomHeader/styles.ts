@@ -1,4 +1,4 @@
-import { PADDING_HORIZONTAL, HEADER_BOTTOM_RADIUS } from 'core/constants';
+import { PADDING_HORIZONTAL, HEADER_OVERLAY_OFFSET } from 'core/constants';
 import { createThemeStyles } from 'core/helpers/styles';
 import { COLORS } from '../../../assets';
 
@@ -12,9 +12,9 @@ export const themeStyles = createThemeStyles({
     },
   },
   overlay: {
-    borderBottomLeftRadius: HEADER_BOTTOM_RADIUS,
-    borderBottomRightRadius: HEADER_BOTTOM_RADIUS,
-    marginBottom: -HEADER_BOTTOM_RADIUS,
+    borderBottomLeftRadius: HEADER_OVERLAY_OFFSET,
+    borderBottomRightRadius: HEADER_OVERLAY_OFFSET,
+    marginBottom: -HEADER_OVERLAY_OFFSET,
     zIndex: 100,
   },
   mainContentContainer: {

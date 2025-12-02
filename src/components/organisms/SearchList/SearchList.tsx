@@ -4,7 +4,7 @@ import { SearchObject } from 'core/types';
 import { ListItem, SearchPromptView, SearchListItem } from 'molecules';
 import React, { memo, useCallback } from 'react';
 import { ObjectList, ObjectListProps } from '../ObjectList';
-import { HEADER_BOTTOM_RADIUS } from 'core/constants';
+import { HEADER_OVERLAY_OFFSET } from 'core/constants';
 
 interface SearchListProps extends ObjectListProps {
   onDeletePress: (object: SearchObject) => void;
@@ -29,7 +29,7 @@ export const SearchList = memo(
     const renderHistoryHeader = useCallback(() => {
       return (
         <ListItem
-          containerStyle={{ marginTop: HEADER_BOTTOM_RADIUS }}
+          containerStyle={{ marginTop: HEADER_OVERLAY_OFFSET }}
           testID={composeTestID(testID, 'listHeader')}
           type="primary"
           title={t('recent')}

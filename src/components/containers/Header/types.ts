@@ -4,6 +4,7 @@ import type { NavigationProp } from '@react-navigation/native';
 import type { SystemBarStyle } from 'react-native-edge-to-edge';
 import type { IconName } from '../../atoms/Icon/types';
 import type { OneOf } from '../../../core/types/utils/common';
+import type { useHeaderWithOverlayLayout } from './hooks/useHeaderWithOverlayLayout';
 
 export interface HeaderContextValue {
   navigation: NavigationProp<any>;
@@ -81,6 +82,8 @@ export type HeaderAction = HeaderActionLayoutProps & {
   action?: () => void;
 };
 
-export interface PageContentWithOverlayProps {
-  children: ReactElement;
+export interface PageContentWrapperProps {
+  children:
+    | ReactNode
+    | ((props: ReturnType<typeof useHeaderWithOverlayLayout>) => ReactNode);
 }
