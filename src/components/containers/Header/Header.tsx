@@ -4,12 +4,7 @@ import {
   useNavigationState,
   useRoute,
 } from '@react-navigation/native';
-import React, {
-  type FC,
-  type ReactElement,
-  type ReactNode,
-  useLayoutEffect,
-} from 'react';
+import React, { type FC, type ReactElement, useLayoutEffect } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -22,12 +17,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Icon } from 'atoms';
 import { useStatusBar, useThemeStyles } from 'core/hooks';
 import { AnimatedCircleButton } from 'molecules';
-import { useHeaderWithOverlayLayout } from './hooks/useHeaderWithOverlayLayout';
+import { useHeaderWithOverlayLayout } from './hooks';
 import { themeStyles } from './styles';
 import type {
   HeaderActionButtonProps,
   HeaderBackButtonProps,
-  HeaderContent,
   HeaderContextValue,
   HeaderProps,
   HeaderTitleProps,

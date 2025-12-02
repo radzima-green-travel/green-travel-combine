@@ -46,9 +46,7 @@ export const useHeader = (
     }
   }, [navigation, memoizedProps]);
 
-  const { overlaysContent } = memoizedProps;
-
-  return useHeaderWithOverlayLayout({ enabled: overlaysContent });
+  return useHeaderWithOverlayLayout();
 };
 
 const defaultProps: UseHeaderProps = { overlaysContent: true };
