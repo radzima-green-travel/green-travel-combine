@@ -27,8 +27,7 @@ import type {
   HeaderTitleProps,
   PageContentWrapperProps,
 } from './types';
-import { isElementOfType } from './utils';
-import { resolveChildrenWithProps } from '../../../core/utils/react';
+import { isElementOfType, resolveChildrenWithProps } from 'core/utils/react';
 
 const HeaderComponent: FC<HeaderProps> = ({
   overlaysContent = true,

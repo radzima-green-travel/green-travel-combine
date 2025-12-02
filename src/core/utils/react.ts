@@ -1,5 +1,10 @@
 import { memoize } from 'lodash';
-import type { ReactNode } from 'react';
+import React, {
+  ComponentProps,
+  type ComponentType,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 
 export const indexKeyExtractor = <T>(_: T, index: number) => String(index);
 
@@ -20,4 +25,15 @@ export const resolveChildrenWithProps = <Props>(
     return children(props);
   }
   return children;
+};
+
+export const isElementOfType = <const T extends ComponentType<any>>(
+  element: ReactNode,
+  type: T,
+): element is ReactElement<ComponentProps<T>, T> => {
+  if (!React.isValidElement(element)) {
+    return false;
+  }
+
+  return element.type === type;
 };
