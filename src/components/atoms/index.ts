@@ -36,5 +36,4 @@ export { TrancateDetectionText } from './TrancateDetectionText';
 export { Checkbox } from './Checkbox';
 export { Multiswitch } from './Multiswitch';
 export { HighlightedText } from './HighlightedText';
-export { CustomHeader } from './CustomHeader';
 export * from './ObjectListModeSwitch';
