@@ -1,4 +1,4 @@
-import type { ReactNode, ReactElement } from 'react';
+import type { ReactNode } from 'react';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import type { NavigationProp } from '@react-navigation/native';
 import type { SystemBarStyle } from 'react-native-edge-to-edge';

@@ -88,104 +88,102 @@ export const Filters = () => {
   ]);
 
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <SuspenseView
-            loading={fullScreenLoading}
-            error={errorTexts}
-            retryCallback={getFiltersData}
-            testID={'filtersSuspenseView'}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <FiltersSectionContainer itemName={t('allCategories')}>
-                <View style={styles.categoryList}>
-                  {caregoriesData?.map(item => (
-                    <Chip
-                      item={item}
-                      active={activeFilters.categories?.includes(item.id)}
-                      onPress={chooseCategory}
-                      key={item.id}
-                      disabled={getIsCategoryDisabled(item.id)}
-                      testID={'categoeyChipItem'}
-                      text={item.name}
-                      style={styles.chipContainer}
-                    />
-                  ))}
-                </View>
-              </FiltersSectionContainer>
-              <FiltersSectionContainer itemName={t('whereToLook')}>
-                <Text style={styles.subFilterName}>{t('regions')}</Text>
-                <View style={styles.categoryList}>
-                  {regions?.map(item => (
-                    <Chip
-                      item={item}
-                      active={activeFilters.regions?.includes(item.id)}
-                      onPress={chooseRegion}
-                      disabled={getIsRegionDisabled(item.id)}
-                      key={item.id}
-                      testID={'regionChipItem'}
-                      text={item.value}
-                      style={styles.chipContainer}
-                    />
-                  ))}
-                </View>
-                <ListItem
-                  testID="settlements"
-                  type="primary"
-                  title={t('settlements.title')}
-                  boldTitle
-                  containerStyle={styles.settlementsContainer}
-                  onPress={navigateToSettlements}
-                  tailIcon="chevronMediumRight"
-                  {...(activeFilters.municipalities.length
-                    ? {
-                        label: String(activeFilters.municipalities.length),
-                        labelContainerStyle:
-                          styles.activeSettlementsLabelContainer,
-                        labelStyle: styles.activeSettlementsLabel,
-                      }
-                    : {
-                        label: t('any'),
-                      })}
-                />
-                <FilterDistance
-                  distance={activeFilters.distance.value}
-                  isOn={activeFilters.distance.isOn}
-                  location={activeFilters.distance.location}
-                  onChangeSwitcherState={updateDistanceIsOn}
-                  onChangeDistance={updateDistance}
-                />
-              </FiltersSectionContainer>
-              <FiltersSectionContainer itemName={t('ratingGoogle')}>
-                <Multiswitch
-                  activeItemId={activeFilters.googleRating}
-                  items={googleRatings}
-                  defaultValue={{ id: 'Any', value: t('any'), disabled: false }}
-                  onItemPress={updateRatings}
-                  testID={'googleRating'}
-                />
-              </FiltersSectionContainer>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <SuspenseView
+          loading={fullScreenLoading}
+          error={errorTexts}
+          retryCallback={getFiltersData}
+          testID={'filtersSuspenseView'}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <FiltersSectionContainer itemName={t('allCategories')}>
+              <View style={styles.categoryList}>
+                {caregoriesData?.map(item => (
+                  <Chip
+                    item={item}
+                    active={activeFilters.categories?.includes(item.id)}
+                    onPress={chooseCategory}
+                    key={item.id}
+                    disabled={getIsCategoryDisabled(item.id)}
+                    testID={'categoeyChipItem'}
+                    text={item.name}
+                    style={styles.chipContainer}
+                  />
+                ))}
+              </View>
+            </FiltersSectionContainer>
+            <FiltersSectionContainer itemName={t('whereToLook')}>
+              <Text style={styles.subFilterName}>{t('regions')}</Text>
+              <View style={styles.categoryList}>
+                {regions?.map(item => (
+                  <Chip
+                    item={item}
+                    active={activeFilters.regions?.includes(item.id)}
+                    onPress={chooseRegion}
+                    disabled={getIsRegionDisabled(item.id)}
+                    key={item.id}
+                    testID={'regionChipItem'}
+                    text={item.value}
+                    style={styles.chipContainer}
+                  />
+                ))}
+              </View>
               <ListItem
-                type="switch"
+                testID="settlements"
+                type="primary"
+                title={t('settlements.title')}
                 boldTitle
-                title={t('hideVisit')}
-                testID={'hideVisit'}
-                switchProps={{
-                  value: activeFilters.excludeVisited,
-                  onValueChange: onExcludeVisitedPress,
-                }}
+                containerStyle={styles.settlementsContainer}
+                onPress={navigateToSettlements}
+                tailIcon="chevronMediumRight"
+                {...(activeFilters.municipalities.length
+                  ? {
+                      label: String(activeFilters.municipalities.length),
+                      labelContainerStyle:
+                        styles.activeSettlementsLabelContainer,
+                      labelStyle: styles.activeSettlementsLabel,
+                    }
+                  : {
+                      label: t('any'),
+                    })}
               />
-            </ScrollView>
-            <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
-          </SuspenseView>
-        </View>
-
-        <ButtonsGroup
-          buttons={buttons}
-          bottomInset={bottom}
-          containerStyle={styles.buttonsGroupContainer}
-        />
+              <FilterDistance
+                distance={activeFilters.distance.value}
+                isOn={activeFilters.distance.isOn}
+                location={activeFilters.distance.location}
+                onChangeSwitcherState={updateDistanceIsOn}
+                onChangeDistance={updateDistance}
+              />
+            </FiltersSectionContainer>
+            <FiltersSectionContainer itemName={t('ratingGoogle')}>
+              <Multiswitch
+                activeItemId={activeFilters.googleRating}
+                items={googleRatings}
+                defaultValue={{ id: 'Any', value: t('any'), disabled: false }}
+                onItemPress={updateRatings}
+                testID={'googleRating'}
+              />
+            </FiltersSectionContainer>
+            <ListItem
+              type="switch"
+              boldTitle
+              title={t('hideVisit')}
+              testID={'hideVisit'}
+              switchProps={{
+                value: activeFilters.excludeVisited,
+                onValueChange: onExcludeVisitedPress,
+              }}
+            />
+          </ScrollView>
+          <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
+        </SuspenseView>
       </View>
-    </>
+
+      <ButtonsGroup
+        buttons={buttons}
+        bottomInset={bottom}
+        containerStyle={styles.buttonsGroupContainer}
+      />
+    </View>
   );
 };

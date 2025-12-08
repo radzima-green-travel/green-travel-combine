@@ -4,7 +4,6 @@ import {
   getPartOfTheDay,
 } from 'core/helpers';
 import { useTranslation } from 'core/hooks';
-import { useCallback } from 'react';
 import type { HomeScreenNavigationProps } from '../types';
 
 export const useHomeHeader = () => {
@@ -12,13 +11,13 @@ export const useHomeHeader = () => {
   const { t } = useTranslation('home');
   const partOfTheDay = getPartOfTheDay();
 
-  const openSearch = useCallback(() => {
+  const openSearch = () => {
     navigation.navigate('Search');
 
     return false;
-  }, [navigation]);
+  };
 
-  const openFilters = useCallback(() => {
+  const openFilters = () => {
     navigation.navigate('Filter', {
       initialFilters: undefined,
       initialQuery: '',
@@ -34,7 +33,7 @@ export const useHomeHeader = () => {
         return { redirectHandled: true };
       },
     });
-  }, [navigation]);
+  };
 
   return {
     title: t(`greeting.${partOfTheDay}`),

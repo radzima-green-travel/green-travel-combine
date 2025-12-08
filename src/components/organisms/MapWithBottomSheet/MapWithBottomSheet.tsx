@@ -187,7 +187,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     }
 
     return null;
-  }, [translateY.value, mapViewPort?.height]);
+  }, [translateY.value, mapViewPort?.height, overlayOffset]);
 
   const getVisibleFeaturesInBbox = useCallback(() => {
     const bbox = getMapVisibleAreaBbbox();

@@ -1,5 +1,5 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { HeaderProps } from 'components/containers/Header/types';
+import { HeaderProps } from '../types';
 import { DependencyList, useLayoutEffect, useMemo } from 'react';
 import { useHeaderWithOverlayLayout } from './useHeaderWithOverlayLayout';
 
