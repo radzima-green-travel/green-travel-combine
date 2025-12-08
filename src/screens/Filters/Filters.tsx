@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { Text, View } from 'react-native';
 import { Chip, Multiswitch, SnackBar } from 'atoms';
-import { useStatusBar, useThemeStyles, useTranslation } from 'core/hooks';
+import { useThemeStyles, useTranslation, useHeader } from 'core/hooks';
 import {
   ButtonsGroup,
   FiltersSectionContainer,
@@ -9,7 +9,6 @@ import {
   SuspenseView,
   FilterDistance,
 } from 'molecules';
-import { screenOptions } from './screenOptions';
 import { themeStyles } from './styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useFilters } from './hooks';
@@ -46,7 +45,12 @@ export const Filters = () => {
   } = useFilters();
   const { bottom } = useSafeAreaInsets();
 
-  useStatusBar({ style: isIOS ? 'light' : 'auto' });
+  useHeader({
+    backButtonPosition: 'topRight',
+    backButtonIcon: 'close',
+    overlaysContent: false,
+    statusbarStyle: isIOS ? 'light' : 'auto',
+  });
 
   useEffect(() => {
     return () => {
@@ -92,7 +96,6 @@ export const Filters = () => {
           retryCallback={getFiltersData}
           testID={'filtersSuspenseView'}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Text style={styles.title}>{t('title')}</Text>
             <FiltersSectionContainer itemName={t('allCategories')}>
               <View style={styles.categoryList}>
                 {caregoriesData?.map(item => (
@@ -184,5 +187,3 @@ export const Filters = () => {
     </View>
   );
 };
-
-Filters.screenOptions = screenOptions;

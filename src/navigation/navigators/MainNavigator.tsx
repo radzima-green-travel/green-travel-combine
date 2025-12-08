@@ -62,21 +62,14 @@ export function MainNavigator() {
           <Stack.Screen
             name="Filter"
             component={FiltersScreen}
-            options={props => ({
-              ...FiltersScreen.screenOptions(props),
-            })}
+            options={{ title: tFiters('title') }}
           />
           <Stack.Screen
             name="Settlements"
             component={SettlementsScreen}
-            options={props => ({
-              ...SettlementsScreen.screenOptions(props),
+            options={{
               title: tFiters('settlements.title'),
-              headerTintColor:
-                colorScheme === 'light'
-                  ? COLORS.light.text.primary
-                  : COLORS.dark.text.primary,
-            })}
+            }}
           />
         </Stack.Group>
         <Stack.Screen
@@ -117,7 +110,7 @@ export function MainNavigator() {
         <Stack.Screen
           name="AddNewPlace"
           component={AddNewPlaceScreen}
-          options={{ headerShown: false, presentation: 'modal' }}
+          options={{ presentation: 'modal' }}
         />
       </Stack.Navigator>
       {objectShareExperienceData ? (

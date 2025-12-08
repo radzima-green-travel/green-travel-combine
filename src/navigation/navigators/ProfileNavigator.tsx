@@ -30,7 +30,7 @@ export function ProfileNavigator() {
           ? COLORS.light.background.secondary
           : COLORS.dark.background.secondary,
     },
-    headerTitleAlign: 'center',
+    legacyDesign: true,
   });
 
   return (

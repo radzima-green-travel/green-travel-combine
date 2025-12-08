@@ -1,7 +1,7 @@
 import { COLORS } from 'assets';
 import { SnackBar } from 'atoms';
 import { useThemeStyles } from 'core/hooks/useThemeStyles';
-import { ChipsHorisontalList, SuspenseView } from 'molecules';
+import { ChipsHorisontalList, SearchField, SuspenseView } from 'molecules';
 import React, { useRef } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import {
@@ -19,18 +19,18 @@ import {
 } from './hooks';
 import { themeStyles } from './styles';
 import { useStatusBar, useTranslation } from 'core/hooks';
-import { useHomeHeader } from './screenOptions';
-import { map } from 'lodash';
+import { map, noop } from 'lodash';
 import { ICONS_MATCHER } from 'core/constants';
 import { useScrollToTop } from '@react-navigation/native';
-import { ObjectDetailsAddInfoSuccessMenu } from '../../components/organisms';
+import { ObjectDetailsAddInfoSuccessMenu } from 'organisms';
+import { useHomeHeader } from './hooks/useHomeHeader';
+import { Header } from 'containers';
 
 export const Home = () => {
   const styles = useThemeStyles(themeStyles);
   const { t } = useTranslation('home');
 
   const listRef = useRef<ScrollView>(null);
-  const { pageListContainerProps } = useHomeHeader();
 
   useStatusBar({ style: 'auto' });
 
@@ -61,6 +61,8 @@ export const Home = () => {
 
   const { openAddNewPlacePage, successBottomSheetProps } = useAddPlaceWidget();
 
+  const { title, openSearch, openFilters } = useHomeHeader();
+
   const widgetsBlock = (
     <View style={styles.widgetGrid}>
       <View style={styles.widgetGridRightColumn}>
@@ -81,64 +83,90 @@ export const Home = () => {
 
   return (
     <View style={styles.container}>
+      <Header
+        topSlot={<Header.Title style={{ paddingTop: 8 }}>{title}</Header.Title>}
+        titleSlot={
+          <View
+            style={{ flex: 1 }}
+            pointerEvents="box-only"
+            onStartShouldSetResponder={openSearch}>
+            <SearchField
+              testID="headerSearchbar"
+              value={''}
+              onChange={noop}
+              onRightButtonPress={noop}
+            />
+          </View>
+        }
+        rightActions={[
+          {
+            icon: 'tune',
+            action: openFilters,
+          },
+        ]}
+      />
       <SuspenseView
         loading={loading}
         error={errorTexts}
         retryCallback={getHomePageData}
         testID={'homeSuspenseView'}>
-        <ScrollView
-          style={styles.list}
-          ref={listRef}
-          refreshControl={
-            <RefreshControl
-              tintColor={theme === 'light' ? COLORS.forestGreen : COLORS.white}
-              colors={[COLORS.forestGreen]}
-              refreshing={refreshing}
-              onRefresh={refreshHomePageData}
-              progressViewOffset={
-                pageListContainerProps.contentContainerStyle.paddingTop
+        <Header.PageContentWrapperWithOverlay>
+          {({ overlayOffset, pageContainerProps }) => (
+            <ScrollView
+              style={styles.list}
+              ref={listRef}
+              refreshControl={
+                <RefreshControl
+                  tintColor={
+                    theme === 'light' ? COLORS.forestGreen : COLORS.white
+                  }
+                  colors={[COLORS.forestGreen]}
+                  refreshing={refreshing}
+                  onRefresh={refreshHomePageData}
+                  progressViewOffset={overlayOffset}
+                />
               }
-            />
-          }
-          {...pageListContainerProps}
-          contentContainerStyle={[
-            pageListContainerProps.contentContainerStyle,
-            styles.listContent,
-          ]}>
-          {widgetsBlock}
-          <ChipsHorisontalList
-            testID="mainCategories"
-            title={t('categories')}
-            numberOfRows={2}
-            items={map(homeData.main, category => ({
-              text: category.name,
-              leftIcon: ICONS_MATCHER[category.icon],
-              iconSize: 24,
-              onPress: () => {
-                onCategoryPress(category);
-              },
-            }))}
-          />
+              {...pageContainerProps.scrollable}
+              contentContainerStyle={[
+                styles.listContent,
+                pageContainerProps.scrollable.contentContainerStyle,
+              ]}>
+              {widgetsBlock}
+              <ChipsHorisontalList
+                testID="mainCategories"
+                title={t('categories')}
+                numberOfRows={2}
+                items={map(homeData.main, category => ({
+                  text: category.name,
+                  leftIcon: ICONS_MATCHER[category.icon],
+                  iconSize: 24,
+                  onPress: () => {
+                    onCategoryPress(category);
+                  },
+                }))}
+              />
 
-          {homeData.routes.length ? (
-            <ChipsHorisontalList
-              testID="routesCategories"
-              title={t('routes')}
-              items={map(homeData.routes, category => ({
-                text: category.name,
-                leftIcon: ICONS_MATCHER[category.icon],
-                iconSize: 24,
-                onPress: () => {
-                  onCategoryPress(category);
-                },
-              }))}
-            />
-          ) : null}
-          <AddNewPlaceWidget
-            style={styles.addNewPlaceWidget}
-            onPress={openAddNewPlacePage}
-          />
-        </ScrollView>
+              {homeData.routes.length ? (
+                <ChipsHorisontalList
+                  testID="routesCategories"
+                  title={t('routes')}
+                  items={map(homeData.routes, category => ({
+                    text: category.name,
+                    leftIcon: ICONS_MATCHER[category.icon],
+                    iconSize: 24,
+                    onPress: () => {
+                      onCategoryPress(category);
+                    },
+                  }))}
+                />
+              ) : null}
+              <AddNewPlaceWidget
+                style={styles.addNewPlaceWidget}
+                onPress={openAddNewPlacePage}
+              />
+            </ScrollView>
+          )}
+        </Header.PageContentWrapperWithOverlay>
 
         <SnackBar testID="snackBar" isOnTop {...snackBarProps} />
         <ObjectDetailsAddInfoSuccessMenu

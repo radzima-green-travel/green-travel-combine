@@ -1,18 +1,17 @@
 import { Portal } from '@gorhom/portal';
-import { useNavigation } from '@react-navigation/native';
-import { BottomMenu, Button, CustomHeader, Icon } from 'atoms';
+import { BottomMenu, Button, Icon } from 'atoms';
 import { composeTestID } from 'core/helpers';
-import { useBottomMenu, useStatusBar, useThemeStyles } from 'core/hooks';
+import { useBottomMenu, useThemeStyles } from 'core/hooks';
 import { SearchFiltersItem, SearchOptions } from 'core/types';
 import { noop } from 'lodash';
 import {
-  HeaderBackButton,
   SearchField,
   SearchFiltersBar,
   SearchOptionsBottomMenu,
 } from 'molecules';
 import React, { memo, useCallback } from 'react';
 import { Keyboard, StyleProp, Text, View, ViewStyle } from 'react-native';
+import { Header } from '../Header';
 import { themeStyles } from './styles';
 
 interface SearchHeaderProps {
@@ -38,7 +37,7 @@ interface SearchHeaderProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const SearchHeader = memo(
+const SearchHeaderComponent = memo(
   ({
     testID,
     title,
@@ -61,10 +60,6 @@ export const SearchHeader = memo(
   }: SearchHeaderProps) => {
     const styles = useThemeStyles(themeStyles);
 
-    const navigation = useNavigation();
-
-    useStatusBar({ style: 'auto' });
-
     const { openMenu, ...bottomMenuProps } = useBottomMenu();
 
     const onSearchActionButtonPress = useCallback(
@@ -81,18 +76,20 @@ export const SearchHeader = memo(
       [onResetSearchPress, openMenu, onOptionsMenuButtonPress],
     );
 
-    const renderSearchInput = () => (
-      <SearchField
-        testID={composeTestID(testID, 'searchInput')}
-        value={searchInputValue}
-        autoFocus={autoFocus}
-        onChange={onSearchInputValueChange}
-        filterActionTypeEnabled
-        onRightButtonPress={onSearchActionButtonPress}
-      />
+    const searchInput = (
+      <View style={{ flex: 1 }}>
+        <SearchField
+          testID={composeTestID(testID, 'searchInput')}
+          value={searchInputValue}
+          autoFocus={autoFocus}
+          onChange={onSearchInputValueChange}
+          filterActionTypeEnabled
+          onRightButtonPress={onSearchActionButtonPress}
+        />
+      </View>
     );
 
-    const renderFilterButton = () => (
+    const filterButton = (
       <View>
         <Button
           testID={composeTestID(testID, 'filterButton')}
@@ -111,58 +108,37 @@ export const SearchHeader = memo(
       </View>
     );
 
-    const renderFilterBar = () => (
-      <>
-        {!!appliedFilters?.length && (
-          <SearchFiltersBar
-            testID={composeTestID(testID, 'filtersBar')}
-            onFilterPress={onRemoveFilterPress}
-            filters={appliedFilters}
-            style={styles.filterList}
-            contentContainerStyle={styles.filterListContent}
-          />
-        )}
-      </>
-    );
-
-    const renderBackButton = () => (
-      <HeaderBackButton
-        testID="backButton"
-        onPress={navigation.goBack}
-        containerStyle={styles.backButton}
+    const filtersBar = appliedFilters?.length ? (
+      <SearchFiltersBar
+        testID={composeTestID(testID, 'filtersBar')}
+        onFilterPress={onRemoveFilterPress}
+        filters={appliedFilters}
+        style={styles.filterList}
+        contentContainerStyle={styles.filterListContent}
       />
-    );
-
-    // Traditional navigation.canGoBack() doesn't work well with navigating between tabs (Home to Explore e.g.)
-    const canGoBack = navigation.getState()?.index! > 0;
-
-    const renderTitle = () =>
-      !!title && (
-        <View style={styles.titleContainer}>
-          {canGoBack && renderBackButton()}
-          <Text
-            numberOfLines={1}
-            style={[
-              styles.title,
-              canGoBack ? styles.titleSmall : styles.titleLarge,
-            ]}>
-            {title}
-          </Text>
-        </View>
-      );
+    ) : null;
 
     return (
       <>
-        <CustomHeader
+        <Header
+          testID={composeTestID(testID, 'header')}
           style={style}
-          options={{
-            headerLeft: !title && canGoBack ? renderBackButton : undefined,
-            headerTitle: renderSearchInput,
-            headerRight: renderFilterButton,
+          topSlot={({ canGoBack }) => {
+            return title ? (
+              <>
+                {canGoBack && <Header.BackButton />}
+                <Header.Title
+                  size={canGoBack ? 'small' : 'large'}
+                  style={canGoBack ? undefined : { paddingTop: 8 }}>
+                  {title}
+                </Header.Title>
+              </>
+            ) : null;
           }}
-          withOverlay
-          contentAbove={renderTitle}
-          contentBelow={renderFilterBar}
+          backButtonHidden={!!title}
+          titleSlot={searchInput}
+          rightSlot={filterButton}
+          bottomSlot={filtersBar}
         />
         <Portal>
           <BottomMenu
@@ -181,3 +157,7 @@ export const SearchHeader = memo(
     );
   },
 );
+
+export const SearchHeader = Object.assign(SearchHeaderComponent, {
+  PageContentWrapperWithOverlay: Header.PageContentWrapperWithOverlay,
+});

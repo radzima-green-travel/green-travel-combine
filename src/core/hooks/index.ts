@@ -44,3 +44,4 @@ export { useAppliedFilters } from './useAppliedFilters';
 export { useSearchHeader } from './useSearchHeader';
 export { useScrollToTopButton } from './useScrollToTopButton';
 export { useObjectListMapView } from './useObjectListMapView';
+export * from '../../components/containers/Header/hooks/useHeader';

@@ -5,6 +5,7 @@ import {
   useOnRequestError,
   useOnRequestSuccess,
   useRequestLoading,
+  useHeader,
 } from 'core/hooks';
 import { NewPlaceForm } from 'core/types/addNewPlace';
 import React, { useCallback, useEffect, useRef } from 'react';
@@ -12,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'components/atoms';
 import { useAddNewPlaceAnalytics } from './hooks';
+import { isIOS } from '../../services/PlatformService';
 
 export const AddNewPlaceScreen = () => {
   const navigation = useNavigation();
@@ -29,6 +31,13 @@ export const AddNewPlaceScreen = () => {
   const { loading: submitting } = useRequestLoading(submitNewPlaceFormRequest);
 
   const snackBarProps = useSnackbar();
+
+  useHeader({
+    backButtonPosition: 'topLeft',
+    title: t('title'),
+    statusbarStyle: isIOS ? 'light' : 'auto',
+    overlaysContent: false,
+  });
 
   useEffect(() => {
     sendAddNewPlaceViewEvent();
@@ -59,7 +68,6 @@ export const AddNewPlaceScreen = () => {
       schema={NewPlaceForm.Schema}
       defaultValues={defaultValues}
       t={t}
-      onBackPress={navigation.goBack}
       fieldConfigs={NewPlaceForm.fieldConfigs}
       submitting={submitting}
       onSubmit={handleSubmit}

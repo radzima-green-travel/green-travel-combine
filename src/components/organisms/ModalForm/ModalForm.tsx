@@ -7,7 +7,7 @@ import React, { useCallback, useState } from 'react';
 import { TFunction } from 'react-i18next';
 import { Platform, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FieldEditorSheet, FieldSet, Header, SubmitButton } from './components';
+import { FieldEditorSheet, FieldSet, SubmitButton } from './components';
 import { styles } from './styles';
 import { AnyFormValues } from './types';
 import { FormFieldConfig } from 'core/types';
@@ -15,7 +15,6 @@ import { FormFieldConfig } from 'core/types';
 interface ModalFormProps<T extends AnyFormValues> {
   defaultValues: T;
   schema: Type<AnyFormValues>;
-  onBackPress?: () => void;
   submitting?: boolean;
   t: TFunction;
   fieldConfigs?: Partial<Record<keyof T, FormFieldConfig>>;
@@ -30,7 +29,6 @@ export const ModalForm = <T extends AnyFormValues>({
   schema,
   defaultValues,
   t,
-  onBackPress,
   submitting,
   fieldConfigs: fieldConfig,
   onSubmit,
@@ -96,11 +94,6 @@ export const ModalForm = <T extends AnyFormValues>({
     <View
       style={[styles.container, { paddingBottom: bottomSafeAreaInset + 16 }]}
       pointerEvents={submitting ? 'none' : 'auto'}>
-      <Header
-        testID={composeTestID(testID, 'header')}
-        title={t('title')}
-        onBackPress={onBackPress}
-      />
       <FieldSet
         testID={testID}
         form={form}

@@ -29,10 +29,11 @@ import type { Feature, Geometry, Position } from 'geojson';
 import { ObjectMap, SearchObject, SupportedLocales } from 'core/types';
 
 import { MapState } from '@rnmapbox/maps';
-import { HEADER_BOTTOM_RADIUS, PADDING_HORIZONTAL } from 'core/constants';
+import { PADDING_HORIZONTAL } from 'core/constants';
 import { isEqual } from 'lodash';
 
 import { isAndroid, SCREEN_WIDTH } from 'services/PlatformService';
+import { useHeaderWithOverlayLayout } from '../../containers/Header';
 
 interface MapWithBottomSheetProps {
   mapObjects: ObjectMap[];
@@ -166,9 +167,11 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     },
   );
 
+  const { overlayOffset } = useHeaderWithOverlayLayout();
+
   const getMapVisibleAreaBbbox = useCallback(() => {
     if (mapViewPort?.height) {
-      const top = HEADER_BOTTOM_RADIUS + PADDING_HORIZONTAL - translateY.value;
+      const top = overlayOffset + PADDING_HORIZONTAL - translateY.value;
       const right = SCREEN_WIDTH;
       const bottom =
         mapViewPort.height
@@ -184,7 +187,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     }
 
     return null;
-  }, [translateY.value, mapViewPort?.height]);
+  }, [translateY.value, mapViewPort?.height, overlayOffset]);
 
   const getVisibleFeaturesInBbox = useCallback(() => {
     const bbox = getMapVisibleAreaBbbox();
