@@ -1,7 +1,7 @@
 export { HomeSectionBar } from './HomeSectionBar';
 export { ObjectIncludes } from './ObjectIncludes';
 export { SearchList } from './SearchList';
-export { SearchHeader } from './SearchHeader';
+export { SearchHeader } from '../containers/SearchHeader';
 export { AuthForm } from './AuthForm';
 export { AuthMethods } from './AuthMethods';
 export { ObjectDetailsReportInaccuraciesMenu } from './ObjectDetailsReportInaccuraciesMenu';

@@ -4,7 +4,7 @@ import { SearchObject } from 'core/types';
 import { ListItem, SearchPromptView, SearchListItem } from 'molecules';
 import React, { memo, useCallback } from 'react';
 import { ObjectList, ObjectListProps } from '../ObjectList';
-import { HEADER_BOTTOM_RADIUS } from 'core/constants';
+import { useHeaderWithOverlayLayout } from '../../containers/Header';
 
 interface SearchListProps extends ObjectListProps {
   onDeletePress: (object: SearchObject) => void;
@@ -26,10 +26,12 @@ export const SearchList = memo(
   }: SearchListProps) => {
     const { t } = useTranslation('search');
 
+    const { overlayOffset } = useHeaderWithOverlayLayout();
+
     const renderHistoryHeader = useCallback(() => {
       return (
         <ListItem
-          containerStyle={{ marginTop: HEADER_BOTTOM_RADIUS }}
+          containerStyle={{ marginTop: overlayOffset }}
           testID={composeTestID(testID, 'listHeader')}
           type="primary"
           title={t('recent')}
@@ -37,7 +39,7 @@ export const SearchList = memo(
           onRightLabelPress={onDeleteAllPress}
         />
       );
-    }, [onDeleteAllPress, t, testID]);
+    }, [onDeleteAllPress, t, testID, overlayOffset]);
 
     const renderHistoryItem = useCallback(
       ({ item }: { item: { data: SearchObject } }) => {
