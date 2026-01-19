@@ -1,7 +1,8 @@
-const {getDefaultConfig} = require('expo/metro-config');
-const {mergeConfig} = require('metro-config');
+const { getDefaultConfig } = require('expo/metro-config');
+const { mergeConfig } = require('metro-config');
+const { withUniwindConfig } = require('uniwind/metro');
 const {
-  resolver: {sourceExts, assetExts},
+  resolver: { sourceExts, assetExts },
 } = getDefaultConfig(__dirname);
 
 const config = {
@@ -14,4 +15,9 @@ const config = {
   },
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = withUniwindConfig(
+  mergeConfig(getDefaultConfig(__dirname), config),
+  {
+    cssEntryFile: './src/global.css',
+  },
+);

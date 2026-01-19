@@ -18,7 +18,12 @@ import {
 } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { ObjectListModeSwitch } from '../../atoms';
-import { ListItem, ObjectCardNew, SearchListItem } from '../../molecules';
+import {
+  ListItem,
+  ObjectCardNew,
+  SearchListItem,
+  type ObjectCardSlots,
+} from '../../molecules';
 import { ObjectListViewMode } from '../../types';
 import { themeStyles } from './styles';
 import { MapWithBottomSheet } from '../MapWithBottomSheet';
@@ -51,6 +56,7 @@ export interface ObjectListProps
   handlesKeyboard?: boolean;
   withScrollToTopButton?: boolean;
   withMapWithBottomSheet?: boolean;
+  slots?: ObjectCardSlots;
 }
 
 export const ObjectList = ({
@@ -69,7 +75,7 @@ export const ObjectList = ({
   withScrollToTopButton = true,
   withMapWithBottomSheet = true,
   mapWithBottomSheetProps,
-
+  slots,
   ...listProps
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
@@ -104,6 +110,7 @@ export const ObjectList = ({
             onPress={onItemPress}
             onFavoriteChanged={onToggleFavoriteStatusPress}
             style={isOddItem ? styles.cardOdd : styles.card}
+            slots={slots}
           />
         );
       }

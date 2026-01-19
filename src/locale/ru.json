@@ -381,5 +381,31 @@
     },
     "fieldSubmitLabel": "Готово",
     "formSubmitLabel": "Отправить"
+  },
+  "routes": {
+    "common": {
+      "addRouteButtonLabel": "Добавить маршрут",
+      "routeObjectCount_one": "{{amount}} объект",
+      "routeObjectCount_other": "{{amount}} объектов"
+    },
+    "routeList": {
+      "title": "Маршруты",
+      "empty": {
+        "title": "Маршруты не найдены",
+        "description": "Создайте новый маршрут, чтобы начать"
+      }
+    },
+    "addRouteForm": {
+      "fieldTitles": {
+        "name": "Создать маршрут"
+      },
+      "fieldDescriptions": {
+        "name": "Как называется ваш маршрут?"
+      },
+      "fieldErrors": {
+        "name": "Пожалуйста, введите название маршрута"
+      },
+      "fieldSubmitLabel": "Готово"
+    }
   }
 }

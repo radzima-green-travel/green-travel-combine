@@ -15,6 +15,11 @@ import { RatingBadge } from '../RatingBadge';
 import { objectCardStyles } from './styles';
 import { FavoriteButtonContainer } from 'components/containers';
 import { CardItem } from 'core/types';
+
+export interface ObjectCardSlots {
+  actionButtons?: (id: CardItem['id']) => React.ReactNode;
+}
+
 export interface ObjectCardNewProps<T> {
   testID: string;
   item: T;
@@ -28,6 +33,7 @@ export interface ObjectCardNewProps<T> {
   onPress: (data: T) => void;
   onFavoriteChanged?: (item: T, nextIsFavorite: boolean) => void;
   style?: StyleProp<ViewStyle>;
+  slots?: ObjectCardSlots;
 }
 
 const Component = <T,>({
@@ -43,6 +49,7 @@ const Component = <T,>({
   onFavoriteChanged,
   onPress,
   style,
+  slots,
 }: ObjectCardNewProps<T>) => {
   const styles = useThemeStyles(objectCardStyles);
 
@@ -69,6 +76,7 @@ const Component = <T,>({
           placeholder={{ blurhash: blurhash ?? undefined }}
           style={styles.image as ImageStyle}
         />
+        {slots?.actionButtons?.(id)}
         <FavoriteButtonContainer
           testID={composeTestID(testID, 'favoriteButton')}
           onFavoriteToggle={onFavoriteChangedHandler}

@@ -4,4 +4,6 @@ module.exports = {
   bracketSameLine: true,
   singleQuote: true,
   arrowParens: 'avoid',
+  plugins: ['prettier-plugin-tailwindcss'],
+  tailwindStylesheet: './src/global.css',
 };

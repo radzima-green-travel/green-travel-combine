@@ -381,5 +381,31 @@
     },
     "fieldSubmitLabel": "Done",
     "formSubmitLabel": "Submit"
+  },
+  "routes": {
+    "common": {
+      "addRouteButtonLabel": "Add route",
+      "routeObjectCount_one": "{{amount}} object",
+      "routeObjectCount_other": "{{amount}} objects"
+    },
+    "routeList": {
+      "title": "Routes",
+      "empty": {
+        "title": "No routes found",
+        "description": "Create a new route to get started"
+      }
+    },
+    "addRouteForm": {
+      "fieldTitles": {
+        "name": "Create route"
+      },
+      "fieldDescriptions": {
+        "name": "What's the name of the route?"
+      },
+      "fieldErrors": {
+        "name": "Please enter the name of the route"
+      },
+      "fieldSubmitLabel": "Done"
+    }
   }
 }

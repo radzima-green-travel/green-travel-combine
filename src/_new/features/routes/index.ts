@@ -1,13 +1,16 @@
-import {Feature} from '../../core/model/feature';
-import {listOfRoutesFeature} from './list-of-routes';
+import { createFeature } from '@core/utils';
+import { RouteListScreen, RouteScreen } from './containers';
+import { useAddToRoute } from './hooks';
 
-export const routesFeature: Feature = {
-  name: 'routes',
-  bootstrap: async () => {
-    await listOfRoutesFeature.bootstrap();
-    return {};
-  },
+export const Routes = createFeature({
   exports: {
-    ...listOfRoutesFeature.exports,
+    RouteListScreen,
+    RouteScreen,
+    useAddToRoute,
   },
-};
+});
+
+export namespace Routes {
+  export type NavigatorParamsList =
+    import('./navigation').RoutesNavigatorParamsList;
+}

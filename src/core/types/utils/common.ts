@@ -10,3 +10,10 @@ export type OneOf<
         ? never
         : C & Partial<Record<keyof A | keyof B, never>>
       : never);
+
+/**
+ * Statically extracts only the public members of a class.
+ * This is useful for creating interfaces from classes that have private or protected members,
+ * and for mocking classes without having to implement private fields or constructor details.
+ */
+export type Public<T> = { [P in keyof T]: T[P] };

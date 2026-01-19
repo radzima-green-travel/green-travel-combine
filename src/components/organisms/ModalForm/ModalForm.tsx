@@ -122,6 +122,7 @@ export const ModalForm = <T extends AnyFormValues>({
           schema={schema.pick(selectedField)}
           t={t}
           fieldConfig={fieldConfig?.[selectedField]}
+          initialState="open"
         />
       )}
       <SnackBar

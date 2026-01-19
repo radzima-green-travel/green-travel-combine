@@ -26,9 +26,14 @@ import {
   initialWindowMetrics,
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
+import { DIProvider, container } from '@core/di';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Uniwind } from 'uniwind';
 
 SplashScreen.preventAutoHideAsync();
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+
+const queryClient = new QueryClient();
 
 export function RootNavigator() {
   const dispatch = useDispatch();
@@ -46,6 +51,10 @@ export function RootNavigator() {
 
   const statusBarThemedStyle = theme === 'dark' ? 'light' : 'dark';
   const statusBarStyle = splashFadingStarted ? 'light' : statusBarThemedStyle;
+
+  useEffect(() => {
+    Uniwind.setTheme(theme);
+  }, [theme]);
 
   useEffect(() => {
     dispatch(bootstrapRequest());
@@ -99,28 +108,32 @@ export function RootNavigator() {
   };
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <NavigationContainer<MainNavigatorParamsList>
-        linking={linkingService.getInitialLinkingData()}
-        onReady={() => setIsReady(true)}
-        ref={navigationRef}>
-        <PortalProvider>
-          {bootstrapFinished ? (
-            <>
-              <MainNavigator />
-              {showUpdateScreen()}
-              {showSplash()}
-            </>
-          ) : null}
-        </PortalProvider>
-      </NavigationContainer>
-      <SystemBars
-        // TODO: Update to always correspond to the app theme when migration to the new design is complete
-        style={{
-          statusBar: statusBarStyle,
-          navigationBar: theme === 'light' ? 'dark' : 'light',
-        }}
-      />
-    </SafeAreaProvider>
+    <DIProvider container={container}>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+          <NavigationContainer<MainNavigatorParamsList>
+            linking={linkingService.getInitialLinkingData()}
+            onReady={() => setIsReady(true)}
+            ref={navigationRef}>
+            <PortalProvider>
+              {bootstrapFinished ? (
+                <>
+                  <MainNavigator />
+                  {showUpdateScreen()}
+                  {showSplash()}
+                </>
+              ) : null}
+            </PortalProvider>
+          </NavigationContainer>
+          <SystemBars
+            // TODO: Update to always correspond to the app theme when migration to the new design is complete
+            style={{
+              statusBar: statusBarStyle,
+              navigationBar: theme === 'light' ? 'dark' : 'light',
+            }}
+          />
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </DIProvider>
   );
 }

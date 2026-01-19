@@ -1,0 +1,243 @@
+@theme {
+    /* Spacing scale */
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 12px;
+    --spacing-4: 16px;
+    --spacing-5: 20px;
+    --spacing-6: 24px;
+    --spacing-7: 28px;
+    --spacing-8: 32px;
+    --spacing-9: 36px;
+    --spacing-10: 40px;
+    --spacing-11: 44px;
+    --spacing-12: 48px;
+    --spacing-13: 52px;
+    --spacing-14: 56px;
+    --spacing-15: 60px;
+    --spacing-16: 64px;
+    --spacing-17: 68px;
+    --spacing-18: 72px;
+    --spacing-19: 76px;
+    --spacing-20: 80px;
+    --spacing-gutter: 16px;
+    --spacing-header-overlay: 20px;
+
+
+    /* Common colors */
+    --color-apple: #4BA83B;
+    --color-forest-green: #37842A;
+    --color-alabaster: #F8F8F8;
+    --color-boulder: #777777;
+    --color-log-cabin: #0A0B0A;
+    --color-white: #FFFFFF;
+    --color-silver: #BDBDBD;
+    --color-cornflower-blue: #538FEF;
+    --color-deep-blue: #1890FF;
+    --color-dark-blue: #1667E9;
+    --color-cerulean: #85E6C9;
+    --color-alto: #D9D9D9;
+    --color-persimmon: #FF565E;
+    --color-black: #000000;
+    --color-red: #FF575E;
+    --color-dim-grey: #767676;
+    --color-ocean-green: #36B56F;
+    --color-background: #23343C;
+    --color-cull-grey: #96A7AF;
+    --color-alto-dark: #D4D4D4;
+    --color-fiord: #475E69;
+    --color-plantation: #286053;
+    --color-mirage: #1A282F;
+    --color-oxford-blue: #30444E;
+    --color-tuna: #3c3c43;
+    --color-baltic-sea: #262626;
+
+    --color-other-constant-white: #ffffff;
+}
+
+@layer theme {
+  :root {
+    /* Light theme colors */
+    @variant light {
+      --color-linear-gradient: #FFFFFF;
+      --background-color-primary: #FFFFFF;
+      --background-color-secondary: #F5F5F5;
+      --background-color-accent: #1F865B;
+      --background-color-tab-bar: rgba(255, 255, 255, 1);
+      --background-color-nav-bar: rgba(31, 134, 91, 1);
+      --background-color-negative: #FF3B30;
+      --background-color-success: #35B47F;
+      --background-color-secondary-contrast: #1F1F1F;
+      --background-color-transparent: rgba(0, 0, 0, 0);
+      --background-color-accent-light: #86D2B2;
+      --background-color-quarterly: #ECF4F1;
+      --border-color-primary: #E5E5E5;
+      --border-color-primary-alpha: rgba(9, 9, 9, 0.12);
+      --border-color-divider-light: #F5F5F5;
+      --text-color-primary: #090909;
+      --text-color-accent: #1F865B;
+      --text-color-constant: #ffffff;
+      --text-color-link: #1F865B;
+      --text-color-secondary: #767676;
+      --text-color-tertiary: #999999;
+      --text-color-negative: #CC0B00;
+      --text-color-disabled: #B8B8B8;
+      --color-icon-primary: rgba(9, 9, 9, 1);
+      --color-icon-secondary: #767676;
+      --color-icon-tertiary: #999999;
+      --color-icon-constant: #ffffff;
+      --color-icon-accent-light: #35B47F;
+      --color-icon-accent: #1F865B;
+      --color-icon-disabled: #B8B8B8;
+      --color-other-search: rgba(245, 245, 245, 1);
+    }
+
+    /* Dark theme colors */
+    @variant dark {
+      --color-linear-gradient: #131313;
+      --background-color-primary: #131313;
+      --background-color-secondary: #1F1F1F;
+      --background-color-accent: #35B47F;
+      --background-color-tab-bar: rgba(31, 31, 31, 1);
+      --background-color-nav-bar: rgba(19, 19, 19, 1);
+      --background-color-negative: #FF5147;
+      --background-color-success: #35B47F;
+      --background-color-secondary-contrast: #F5F5F5;
+      --background-color-transparent: rgba(0, 0, 0, 0);
+      --background-color-accent-light: #86D2B2;
+      --background-color-quarterly: #1F1F1F;
+      --border-color-primary: #3D3D3D;
+      --border-color-primary-alpha: rgba(9, 9, 9, 0.12);
+      --border-color-divider-light: #1F1F1F;
+      --text-color-primary: #D6D6D6;
+      --text-color-secondary: #767676;
+      --text-color-accent: #35B47F;
+      --text-color-constant: #ffffff;
+      --text-color-link: #35B47F;
+      --text-color-tertiary: #5C5C5C;
+      --text-color-negative: #FF5147;
+      --text-color-disabled: #3D3D3D;
+      --color-icon-primary: rgba(184, 184, 184, 1);
+      --color-icon-secondary: #767676;
+      --color-icon-tertiary: #7D7D7E;
+      --color-icon-constant: #ffffff;
+      --color-icon-accent-light: #35B47F;
+      --color-icon-accent: #35B47F;
+      --color-icon-disabled: #3D3D3D;
+      --color-other-search: rgba(31, 31, 31, 1);
+    }
+  }
+}
+
+@layer components {
+  .font-largeTitleRegular {
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 56px;
+  }
+  .font-largeTitleBold {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 56px;
+  }
+  .font-title1Regular {
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 48px;
+  }
+  .font-title1Bold {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 44px;
+  }
+  .font-title2Regular {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 40px;
+  }
+  .font-title2Bold {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+  }
+  .font-title3Regular {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+  }
+  .font-title3Bold {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+  .font-headlineRegular {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .font-headlineBold {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .font-subheadlineRegular {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .font-subheadlineBold {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .font-bodyRegular {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .font-bodyBold {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .font-calloutRegular {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .font-calloutBold {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  .font-footnoteRegular {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .font-footnoteBold {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+  .font-caption1Regular {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  .font-caption1Bold {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+  .font-caption2Regular {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+  }
+  .font-caption2Bold {
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 13px;
+  }
+}

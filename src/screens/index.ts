@@ -29,4 +29,5 @@ export { ObjectDetailsAddInfo as ObjectDetailsAddInfoScreen } from './ObjectDeta
 export { Filters as FiltersScreen } from './Filters';
 export { Settlements as SettlementsScreen } from './Settlements';
 export { AddNewPlaceScreen } from './AddNewPlace';
-export { RoutesScreen } from './Routes';
+export { RoutesScreen } from './RouteList';
+export { RouteScreen as RouteDetailsScreen } from './Route';

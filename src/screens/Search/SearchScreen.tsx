@@ -6,14 +6,14 @@ import {
   useObjectListMapView,
   useThemeStyles,
 } from 'core/hooks';
-import { SuspenseView } from 'molecules';
+import { SuspenseView, type ObjectCardSlots } from 'molecules';
 import { SearchHeader, SearchList } from 'organisms';
 import { useSearchHistory } from './hooks';
 import { useSearchAnalytics } from './hooks/useSearchAnalytics';
 import { themeStyles } from './styles';
-import { SearchObject } from '../../core/types';
+import { SearchObject } from 'core/types';
 
-export const SearchScreen = () => {
+export const SearchScreen = ({ slots }: { slots?: ObjectCardSlots }) => {
   const {
     sendSearchViewEvent,
     sendSearchHistoryClearEvent,
@@ -157,6 +157,7 @@ export const SearchScreen = () => {
             totalResults={totalResults}
             withMapWithBottomSheet={!showPlainList}
             mapWithBottomSheetProps={mapWithBottomSheetProps}
+            slots={slots}
             {...(!isHistoryVisible && listPaninationProps)}
           />
         </SuspenseView>
