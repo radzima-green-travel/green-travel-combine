@@ -3,13 +3,18 @@ import { SearchScreen } from '../Search/SearchScreen';
 import { Routes } from '@features/routes';
 
 export const AddObjectsToRoute = () => {
-  const { useAddToRoute } = useContext(Routes.Context);
-
-  const { AddToRouteButton } = useAddToRoute();
+  const { AddToRouteFlow } = useContext(Routes.Context);
 
   return (
-    <SearchScreen
-      slots={{ actionButtons: id => <AddToRouteButton objectId={id} /> }}
-    />
+    <AddToRouteFlow.Provider>
+      <SearchScreen
+        slots={{
+          cardActionButtons: (id, viewMode) => (
+            <AddToRouteFlow.AddButton objectId={id} listViewMode={viewMode} />
+          ),
+          footer: <AddToRouteFlow.DoneButton />,
+        }}
+      />
+    </AddToRouteFlow.Provider>
   );
 };

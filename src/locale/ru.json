@@ -406,6 +406,9 @@
         "name": "Пожалуйста, введите название маршрута"
       },
       "fieldSubmitLabel": "Готово"
+    },
+    "addToRouteFlow": {
+      "submitButtonLabel": "Готово ({{count}})"
     }
   }
 }

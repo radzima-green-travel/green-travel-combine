@@ -81,7 +81,17 @@ export namespace RoutesService {
     }
 
     async update(input: Route.UpdateRouteInput): Promise<Route.Route> {
-      throw new Error('Method not implemented.');
+      await delay(500);
+
+      const route = this.routes.find(route => route.id === input.id);
+
+      if (!route) {
+        throw new Error('Route not found');
+      }
+
+      route.objectIds = input.objectIds || [];
+
+      return route;
     }
   }
 }

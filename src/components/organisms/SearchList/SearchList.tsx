@@ -43,11 +43,12 @@ export const SearchList = memo(
 
     const renderHistoryItem = useCallback(
       ({ item }: { item: { data: SearchObject } }) => {
-        const { name, category } = item.data;
+        const { name, category, id } = item.data;
 
         return (
           <SearchListItem
             item={item.data}
+            id={id}
             onPress={onItemPress}
             objectName={name}
             categoryName={category.name}

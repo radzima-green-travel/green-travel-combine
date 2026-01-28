@@ -1,12 +1,11 @@
 import { createFeature } from '@core/utils';
-import { RouteListScreen, RouteScreen } from './containers';
-import { useAddToRoute } from './hooks';
+import { AddToRouteFlow, RouteListScreen, RouteScreen } from './containers';
 
 export const Routes = createFeature({
   exports: {
     RouteListScreen,
     RouteScreen,
-    useAddToRoute,
+    AddToRouteFlow,
   },
 });
 

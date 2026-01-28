@@ -45,7 +45,6 @@ export const objectCardStyles = createThemeStyles({
     },
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'flex-end',
   },
   favoriteIcon: {
     color: {

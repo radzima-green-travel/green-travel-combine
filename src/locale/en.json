@@ -406,6 +406,9 @@
         "name": "Please enter the name of the route"
       },
       "fieldSubmitLabel": "Done"
+    },
+    "addToRouteFlow": {
+      "submitButtonLabel": "Done ({{count}})"
     }
   }
 }

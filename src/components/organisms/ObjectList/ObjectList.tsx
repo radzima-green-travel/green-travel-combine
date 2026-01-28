@@ -18,16 +18,12 @@ import {
 } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { ObjectListModeSwitch } from '../../atoms';
-import {
-  ListItem,
-  ObjectCardNew,
-  SearchListItem,
-  type ObjectCardSlots,
-} from '../../molecules';
+import { ListItem, ObjectCardNew, SearchListItem } from '../../molecules';
 import { ObjectListViewMode } from '../../types';
 import { themeStyles } from './styles';
 import { MapWithBottomSheet } from '../MapWithBottomSheet';
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import { useObjectListSlots } from './ObjectListSlotsContext';
 
 const AnimatedBottomSheetFlatList =
   Animated.createAnimatedComponent(BottomSheetFlatList);
@@ -56,7 +52,6 @@ export interface ObjectListProps
   handlesKeyboard?: boolean;
   withScrollToTopButton?: boolean;
   withMapWithBottomSheet?: boolean;
-  slots?: ObjectCardSlots;
 }
 
 export const ObjectList = ({
@@ -75,11 +70,11 @@ export const ObjectList = ({
   withScrollToTopButton = true,
   withMapWithBottomSheet = true,
   mapWithBottomSheetProps,
-  slots,
   ...listProps
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
   const { t } = useTranslation('search');
+  const { footer } = useObjectListSlots();
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
@@ -110,7 +105,6 @@ export const ObjectList = ({
             onPress={onItemPress}
             onFavoriteChanged={onToggleFavoriteStatusPress}
             style={isOddItem ? styles.cardOdd : styles.card}
-            slots={slots}
           />
         );
       }
@@ -118,6 +112,7 @@ export const ObjectList = ({
       return (
         <SearchListItem
           item={item}
+          id={id}
           testID={composeTestID(testID, 'listItem')}
           onPress={onItemPress}
           objectName={highlight?.name || name}
@@ -244,6 +239,7 @@ export const ObjectList = ({
         list
       )}
 
+      {footer}
       {withScrollToTopButton && <ScrollToTopButton />}
     </View>
   );

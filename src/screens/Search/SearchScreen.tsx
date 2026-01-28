@@ -6,14 +6,19 @@ import {
   useObjectListMapView,
   useThemeStyles,
 } from 'core/hooks';
-import { SuspenseView, type ObjectCardSlots } from 'molecules';
-import { SearchHeader, SearchList } from 'organisms';
+import { SuspenseView } from 'molecules';
+import {
+  SearchHeader,
+  SearchList,
+  ObjectListSlotsContext,
+  ObjectListSlots,
+} from 'organisms';
 import { useSearchHistory } from './hooks';
 import { useSearchAnalytics } from './hooks/useSearchAnalytics';
 import { themeStyles } from './styles';
 import { SearchObject } from 'core/types';
 
-export const SearchScreen = ({ slots }: { slots?: ObjectCardSlots }) => {
+export const SearchScreen = ({ slots }: { slots?: ObjectListSlots }) => {
   const {
     sendSearchViewEvent,
     sendSearchHistoryClearEvent,
@@ -113,7 +118,7 @@ export const SearchScreen = ({ slots }: { slots?: ObjectCardSlots }) => {
   const showPlainList = isHistoryVisible || (isSearchEmpty && isFiltersEmpty);
 
   return (
-    <>
+    <ObjectListSlotsContext.Provider value={slots}>
       <SearchHeader
         testID="header"
         searchInputValue={searchInputValue}
@@ -157,11 +162,10 @@ export const SearchScreen = ({ slots }: { slots?: ObjectCardSlots }) => {
             totalResults={totalResults}
             withMapWithBottomSheet={!showPlainList}
             mapWithBottomSheetProps={mapWithBottomSheetProps}
-            slots={slots}
             {...(!isHistoryVisible && listPaninationProps)}
           />
         </SuspenseView>
       </SuspenseView>
-    </>
+    </ObjectListSlotsContext.Provider>
   );
 };

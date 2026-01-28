@@ -26,7 +26,13 @@ export const RouteCard = ({ route, onPress }: RouteCardProps) => {
       <View className="flex-1">
         <Text className="font-subheadlineBold text-primary">{route.name}</Text>
         <Text className="font-caption1Regular mt-1 text-secondary">
-          {t('common.routeObjectCount', { amount: route.objectIds.length })}
+          {t(
+            // TODO: Bump the prehistoric version of i18next to 21.0.0, preferably latest
+            route.objectIds.length === 1
+              ? 'common.routeObjectCount_one'
+              : 'common.routeObjectCount_other',
+            { amount: route.objectIds.length },
+          )}
         </Text>
       </View>
       <Icon name="more" size={24} className="text-secondary" />

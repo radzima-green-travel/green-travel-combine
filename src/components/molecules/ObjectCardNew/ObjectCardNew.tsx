@@ -15,10 +15,7 @@ import { RatingBadge } from '../RatingBadge';
 import { objectCardStyles } from './styles';
 import { FavoriteButtonContainer } from 'components/containers';
 import { CardItem } from 'core/types';
-
-export interface ObjectCardSlots {
-  actionButtons?: (id: CardItem['id']) => React.ReactNode;
-}
+import { useObjectListSlots } from 'organisms/ObjectList';
 
 export interface ObjectCardNewProps<T> {
   testID: string;
@@ -33,7 +30,6 @@ export interface ObjectCardNewProps<T> {
   onPress: (data: T) => void;
   onFavoriteChanged?: (item: T, nextIsFavorite: boolean) => void;
   style?: StyleProp<ViewStyle>;
-  slots?: ObjectCardSlots;
 }
 
 const Component = <T,>({
@@ -49,9 +45,9 @@ const Component = <T,>({
   onFavoriteChanged,
   onPress,
   style,
-  slots,
 }: ObjectCardNewProps<T>) => {
   const styles = useThemeStyles(objectCardStyles);
+  const { cardActionButtons } = useObjectListSlots();
 
   const onPressHandler = () => onPress(item);
 
@@ -76,28 +72,31 @@ const Component = <T,>({
           placeholder={{ blurhash: blurhash ?? undefined }}
           style={styles.image as ImageStyle}
         />
-        {slots?.actionButtons?.(id)}
-        <FavoriteButtonContainer
-          testID={composeTestID(testID, 'favoriteButton')}
-          onFavoriteToggle={onFavoriteChangedHandler}
-          style={styles.favoriteToggleButton}
-          loadingIndicatorColor={
-            (styles.favoriteIcon as TextStyle).color as string
-          }
-          objectId={id}>
-          {isFavorite => {
-            return (
-              <Icon
-                testID={composeTestID(testID, 'favoriteIcon')}
-                name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                width={18}
-                height={18}
-                style={styles.favoriteIcon}
-              />
-            );
-          }}
-        </FavoriteButtonContainer>
-
+        <View className="flex-row items-center gap-2 self-end">
+          {cardActionButtons?.(id, 'card')}
+          <FavoriteButtonContainer
+            testID={composeTestID(testID, 'favoriteButton')}
+            onFavoriteToggle={onFavoriteChangedHandler}
+            style={styles.favoriteToggleButton}
+            loadingIndicatorColor={
+              (styles.favoriteIcon as TextStyle).color as string
+            }
+            objectId={id}>
+            {isFavorite => {
+              return (
+                <Icon
+                  testID={composeTestID(testID, 'favoriteIcon')}
+                  name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
+                  width={18}
+                  height={18}
+                  className={
+                    isFavorite ? 'text-icon-accent' : 'text-icon-secondary'
+                  }
+                />
+              );
+            }}
+          </FavoriteButtonContainer>
+        </View>
         <View style={styles.ratingRow}>
           {!!usersRating && (
             <RatingBadge

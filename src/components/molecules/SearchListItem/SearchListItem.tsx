@@ -7,9 +7,11 @@ import { ListItem } from '../ListItem';
 import { TextProps } from 'react-native';
 import { trim } from 'lodash';
 import { IconsNames } from 'atoms/Icon';
+import { useObjectListSlots } from 'organisms/ObjectList';
 
 interface IProps<T> {
   item: T;
+  id: string;
   objectName: string;
   categoryName: string;
   categoryIcon: IconsNames;
@@ -24,6 +26,7 @@ interface IProps<T> {
 
 const SearchListItemComponent = <T,>({
   item,
+  id,
   objectName,
   categoryName,
   categoryIcon,
@@ -36,6 +39,7 @@ const SearchListItemComponent = <T,>({
   onRemovePress,
 }: IProps<T>) => {
   const styles = useThemeStyles(themeStyles);
+  const { cardActionButtons } = useObjectListSlots();
 
   const onPressHandler = useCallback(() => {
     onPress(item);
@@ -102,6 +106,7 @@ const SearchListItemComponent = <T,>({
       renderSubtitle={renderSubtitle}
       subtitle={categoryName + (subtitlePostfix ? ` · ${subtitlePostfix}` : '')}
       boldTitle={false}
+      rightElement={cardActionButtons?.(id, 'list')}
     />
   );
 };
