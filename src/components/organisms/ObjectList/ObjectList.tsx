@@ -203,8 +203,6 @@ export const ObjectList = ({
   const list = (
     <ListComponent
       ref={scrollToTopListRef}
-      style={styles.listContainer}
-      contentContainerStyle={styles.listContentContainer}
       data={data}
       renderItem={renderItem}
       windowSize={5}
@@ -221,6 +219,11 @@ export const ObjectList = ({
       onContentSizeChange={listContentSizeChangeHandler}
       {...(handlesKeyboard && data.length && keyboardBehaviourProps)}
       {...listProps}
+      style={[styles.listContainer, listProps.style]}
+      contentContainerStyle={[
+        styles.listContentContainer,
+        listProps.contentContainerStyle,
+      ]}
     />
   );
 
