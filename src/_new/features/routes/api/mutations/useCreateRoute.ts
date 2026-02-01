@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useInjection } from '@core/di';
 import { RoutesService } from '../../services/routesService';
-import { Route } from '../../model';
+import { RouteModel } from '../../model';
 
 export const useCreateRoute = ({
   onSuccess,
   onError,
 }: {
-  onSuccess?: (data: Route.Route) => void;
+  onSuccess?: (data: RouteModel.Route) => void;
   onError?: () => void;
 }) => {
   const routesService = useInjection(RoutesService.Tag);
@@ -23,14 +23,15 @@ export const useCreateRoute = ({
       });
 
       // Snapshot the previous value
-      const previousRoutes = queryClient.getQueryData<Route.Route[]>([
+      const previousRoutes = queryClient.getQueryData<RouteModel.Route[]>([
         'routes',
       ]);
 
       // Optimistically update the cache
-      const optimisticRoute: Route.Route = Route.createOptimisticRoute(input);
+      const optimisticRoute: RouteModel.Route =
+        RouteModel.createOptimisticRoute(input);
 
-      queryClient.setQueryData<Route.Route[]>(['routes'], (old = []) => [
+      queryClient.setQueryData<RouteModel.Route[]>(['routes'], (old = []) => [
         ...old,
         optimisticRoute,
       ]);

@@ -1,11 +1,11 @@
 import { View, Text, Pressable } from 'react-native';
-import { Route } from '../../model';
+import { RouteModel } from '../../model';
 import { Icon } from 'components/atoms';
 import { useTranslation } from 'react-i18next';
 
 interface RouteCardProps {
-  route: Route.Route;
-  onPress: (route: Route.Route) => void;
+  route: RouteModel.Route;
+  onPress: (route: RouteModel.Route) => void;
 }
 
 export const RouteCard = ({ route, onPress }: RouteCardProps) => {

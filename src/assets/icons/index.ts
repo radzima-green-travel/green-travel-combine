@@ -86,3 +86,4 @@ export { default as routeSimple } from './routeSimple.svg';
 export { default as addLarge } from './addLarge.svg';
 export { default as plusCircle } from './plusCircle.svg';
 export { default as checkCircle } from './checkCircle.svg';
+export { default as addRoute } from './addRoute.svg';

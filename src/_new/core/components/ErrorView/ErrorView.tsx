@@ -1,21 +1,22 @@
-import { View, Text } from 'react-native';
 import { AppError } from '@core/model';
-import { useTranslation } from 'react-i18next';
-import { Button } from 'components/atoms';
+import { Button, Icon } from 'components/atoms';
 import { composeTestID } from 'core/helpers';
-import type { TFunction } from 'i18next';
+import { type TFunction } from 'i18next';
+import { isObject } from 'lodash';
+import { useTranslation } from 'react-i18next';
+import { Text, useWindowDimensions, View } from 'react-native';
 
 interface ErrorViewProps {
   testID: string;
   error: AppError.Unknown;
   retryLabel?: string;
-  onRetry: () => void;
+  onRetry?: () => void;
   getErrorMessages?: (
     error: AppError.Unknown,
     t: TFunction,
   ) => {
     title: string;
-    description: string;
+    text: string;
   };
 }
 
@@ -26,25 +27,36 @@ export const ErrorView = ({
   retryLabel,
   onRetry,
 }: ErrorViewProps) => {
-  const { t } = useTranslation();
-  const { title, description } = getErrorMessages(error, t);
+  const { t } = useTranslation('common');
+  const { title, text } = getErrorMessages(error, t);
+
+  const { width: windowWidth } = useWindowDimensions();
+
+  const ratio = 281 / 373;
+  const height = windowWidth * ratio;
 
   return (
-    <View testID={testID}>
+    <View
+      testID={testID}
+      className="bg-background-primary absolute inset-0 items-center justify-center px-gutter">
+      <Icon name="error" width={windowWidth} height={height} />
+      {title ? (
+        <Text
+          testID={composeTestID(testID, 'title')}
+          className="font-title3Bold mb-4 text-center text-primary">
+          {title}
+        </Text>
+      ) : null}
       <Text
-        testID={composeTestID(testID, 'title')}
-        className="font-title3Bold text-primary">
-        {title}
-      </Text>
-      <Text
-        testID={composeTestID(testID, 'description')}
-        className="font-subheadlineRegular text-secondary">
-        {description}
+        testID={composeTestID(testID, 'text')}
+        className="font-subheadlineRegular text-center text-secondary">
+        {text}
       </Text>
       <Button
+        className="mt-8 self-stretch"
         testID={composeTestID(testID, 'retryButton')}
         onPress={onRetry}
-        text={retryLabel || t('common.tryAgain')}
+        text={retryLabel || t('tryAgain')}
         theme="quarterly"
       />
     </View>
@@ -52,13 +64,19 @@ export const ErrorView = ({
 };
 
 const getAppErrorMessages = (error: AppError.Unknown, t: TFunction) => {
-  const defaultTitle = t('common.errors.unknown.title');
-  const defaultDescription = t('common.errors.unknown.description');
+  const errorsTranslation =
+    (t('errors', { returnObjects: true }) as Record<
+      string,
+      { title: string; text: string }
+    >) ?? {};
 
-  // TODO: Add instanceof checks for other error types
+  const maybeErrorCode = isObject(error.cause)
+    ? error.cause['code']
+    : undefined;
 
-  return {
-    title: defaultTitle,
-    description: defaultDescription,
-  };
+  const errorTranslation = errorsTranslation[maybeErrorCode]
+    ?? errorsTranslation[error.tag]
+    ?? errorsTranslation['default'] ?? { title: '', text: '' };
+
+  return errorTranslation as { title: string; text: string };
 };

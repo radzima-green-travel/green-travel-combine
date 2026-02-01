@@ -3,15 +3,15 @@ import { SuspenseView } from 'molecules';
 import { useTranslation } from 'core/hooks';
 import { FlatList } from 'react-native';
 import { RoutesEmptyListView, RouteCard } from '../../components';
-import { Route } from '../../model';
-import { Button } from 'components/atoms';
+import { RouteModel } from '../../model';
+import { Button, Icon } from 'components/atoms';
 
 export const RouteList = ({
   addRouteHandler,
   onRoutePress,
 }: {
   addRouteHandler: () => void;
-  onRoutePress: (id: Route.Route['id']) => void;
+  onRoutePress: (id: RouteModel.Route['id']) => void;
 }) => {
   const { data, isPending, error } = useRouteList();
   const { t } = useTranslation('routes');
@@ -41,7 +41,8 @@ export const RouteList = ({
             testID="addRouteButton"
             onPress={addRouteHandler}
             text={t('common.addRouteButtonLabel')}
-            className="mt-4"
+            className="mt-4 self-center px-3"
+            renderIcon={textStyle => <Icon name="addRoute" style={textStyle} />}
           />
         </RoutesEmptyListView>
       }

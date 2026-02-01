@@ -3,7 +3,7 @@ import type { Public } from 'core/types/utils/common';
 import { type } from 'arktype';
 import type { ServiceIdentifier } from 'inversify';
 import { injectable } from 'inversify';
-import { Route } from '../model';
+import { RouteModel } from '../model';
 import { delay } from '@core/utils';
 
 export namespace RoutesService {
@@ -23,12 +23,12 @@ export namespace RoutesService {
         }
       `,
         schema: type({ routes: 'unknown[]' }).pipe(({ routes }) =>
-          Route.Route.array().assert(routes),
+          RouteModel.Route.array().assert(routes),
         ),
       });
     }
 
-    async create(input: Route.CreateRouteInput) {
+    async create(input: RouteModel.CreateRouteInput) {
       return this.client.executeQuery({
         query: `
         mutation CreateRoute($input: CreateRouteInput!) {
@@ -40,11 +40,11 @@ export namespace RoutesService {
         }
       `,
         params: { input },
-        schema: Route.Route,
+        schema: RouteModel.Route,
       });
     }
 
-    async update(input: Route.UpdateRouteInput) {
+    async update(input: RouteModel.UpdateRouteInput) {
       return this.client.executeQuery({
         query: `
         mutation UpdateRoute($input: UpdateRouteInput!) {
@@ -56,7 +56,7 @@ export namespace RoutesService {
         }
       `,
         params: { input },
-        schema: Route.Route,
+        schema: RouteModel.Route,
       });
     }
   }
@@ -66,21 +66,25 @@ export namespace RoutesService {
 
   @injectable()
   export class Mock implements Tag {
-    private readonly routes: Route.Route[] = [];
+    private readonly routes: RouteModel.Route[] = [];
 
-    async getList(): Promise<Route.Route[]> {
+    async getList(): Promise<RouteModel.Route[]> {
       await delay(1000);
       return this.routes;
     }
 
-    async create(input: Route.CreateRouteInput): Promise<Route.Route> {
+    async create(
+      input: RouteModel.CreateRouteInput,
+    ): Promise<RouteModel.Route> {
       await delay(1000);
-      const route = Route.createOptimisticRoute(input);
+      const route = RouteModel.createOptimisticRoute(input);
       this.routes.push(route);
       return route;
     }
 
-    async update(input: Route.UpdateRouteInput): Promise<Route.Route> {
+    async update(
+      input: RouteModel.UpdateRouteInput,
+    ): Promise<RouteModel.Route> {
       await delay(500);
 
       const route = this.routes.find(route => route.id === input.id);

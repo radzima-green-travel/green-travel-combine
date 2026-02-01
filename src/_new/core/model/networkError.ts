@@ -13,10 +13,8 @@ export class NetworkError extends Builder.Base {}
 
 export namespace NetworkError {
   export class Unknown extends Builder.Tagged('Unknown') {}
-  export class NoConnectionError extends Builder.Tagged('NoConnectionError') {}
-  export class InvalidVariableError extends Builder.Tagged(
-    'InvalidVariableError',
-  ) {}
+  export class NoConnection extends Builder.Tagged('NoConnection') {}
+  export class InvalidVariable extends Builder.Tagged('InvalidVariable') {}
   export class RequestValidationFailed extends Builder.Tagged(
     'RequestValidationFailed',
   ) {}

@@ -41,12 +41,10 @@ export namespace GraphQlClient {
         if (typedError instanceof GraphQLError) {
           switch (true) {
             case typedError.message.includes('Network Error'):
-              return Promise.reject(
-                new NetworkError.NoConnectionError(typedError),
-              );
+              return Promise.reject(new NetworkError.NoConnection(typedError));
             case typedError.message.includes('invalid value'):
               return Promise.reject(
-                new NetworkError.InvalidVariableError(typedError),
+                new NetworkError.InvalidVariable(typedError),
               );
             case typedError.message.includes('Validation error'):
               return Promise.reject(

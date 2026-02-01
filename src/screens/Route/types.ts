@@ -1,13 +1,13 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
-import { RoutesNavigatorParamsList } from 'core/types';
+import { Routes } from '@features/routes';
 
 export type RouteDetailsScreenNavigationProps = NativeStackNavigationProp<
-  RoutesNavigatorParamsList,
-  'RouteDetails'
+  Routes.NavigatorParamsList,
+  'Route'
 >;
 
 export type RouteDetailsScreenRouteProps = RouteProp<
-  RoutesNavigatorParamsList,
-  'RouteDetails'
+  Routes.NavigatorParamsList,
+  'Route'
 >;

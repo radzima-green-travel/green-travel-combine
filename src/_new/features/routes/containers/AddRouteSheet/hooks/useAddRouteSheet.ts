@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { AddRouteForm } from '../../../model';
 import { useCreateRoute } from '../../../api';
 import { useSnackbar } from 'atoms';
-import type { Route } from '../../../model';
+import type { RouteModel } from '../../../model';
 
 export const useAddRouteSheet = ({
   menuProps,
   onRouteCreated,
 }: {
-  onRouteCreated?: (routeId: Route.Route['id']) => void;
+  onRouteCreated?: (routeId: RouteModel.Route['id']) => void;
   menuProps: ReturnType<typeof useBottomMenu>;
 }) => {
   const { t: tRoutes } = useTranslation('routes');

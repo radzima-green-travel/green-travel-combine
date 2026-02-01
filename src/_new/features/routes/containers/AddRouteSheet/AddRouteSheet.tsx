@@ -2,14 +2,14 @@ import { FieldEditorSheet } from 'components/organisms/ModalForm/components/Fiel
 import { useBottomMenu } from 'core/hooks/useBottomMenu';
 import { SnackBar } from 'atoms';
 import { useAddRouteSheet } from './hooks/useAddRouteSheet';
-import type { Route } from '../../model';
+import type { RouteModel } from '../../model';
 
 export const AddRouteSheet = ({
   menuProps,
   onRouteCreated,
 }: {
   menuProps: ReturnType<typeof useBottomMenu>;
-  onRouteCreated?: (routeId: Route.Route['id']) => void;
+  onRouteCreated?: (routeId: RouteModel.Route['id']) => void;
 }) => {
   const { handleSubmit, defaultValue, schema, t, snackbar } = useAddRouteSheet({
     menuProps,

@@ -1,6 +1,6 @@
 import { type } from 'arktype';
 
-export namespace Route {
+export namespace RouteModel {
   export const Route = type({
     id: 'string',
     name: 'string',

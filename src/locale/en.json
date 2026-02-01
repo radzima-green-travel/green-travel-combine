@@ -7,6 +7,10 @@
         "title": "Route cannot be built, sorry",
         "text": "Please check your internet connection, or maybe Mapbox service is having issues"
       },
+      "NetworkError.NoConnection": {
+        "title": "Route cannot be built, sorry",
+        "text": "Please check your internet connection, or maybe Mapbox service is having issues"
+      },
       "default": {
         "title": "",
         "text": "Oops! Something's not right..."
@@ -391,8 +395,8 @@
     "routeList": {
       "title": "Routes",
       "empty": {
-        "title": "No routes found",
-        "description": "Create a new route to get started"
+        "title": "Plan your first journey",
+        "description": "Start by creating a route or add places\ndirectly from the catalog"
       }
     },
     "addRouteForm": {
