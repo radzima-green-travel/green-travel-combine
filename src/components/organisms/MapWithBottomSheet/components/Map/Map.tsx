@@ -1,6 +1,6 @@
 import React from 'react';
 import { ClusterMap, ClusterMapShape } from 'atoms';
-import { StyleProp, View } from 'react-native';
+import { View } from 'react-native';
 
 import {
   SymbolLayerStyle,
@@ -83,7 +83,7 @@ export const Map = (props: MapProps) => {
             shape={selectedMarker as FeatureCollection<Point>}>
             <SymbolLayer
               id={'selectedPoint'}
-              style={selectedPointStyle as StyleProp<SymbolLayerStyle>}
+              style={selectedPointStyle as SymbolLayerStyle}
             />
           </ShapeSource>
         ) : null}
