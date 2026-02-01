@@ -34,7 +34,7 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "@reduxjs/toolkit": "^2.2.5",
-    "@rnmapbox/maps": "10.1.39",
+    "@rnmapbox/maps": "10.2.10",
     "@sentry/react-native": "~6.14.0",
     "@tanstack/react-form": "^1.11.1",
     "@turf/bbox": "7.2.0",

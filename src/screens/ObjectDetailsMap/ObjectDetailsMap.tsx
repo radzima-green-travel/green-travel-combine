@@ -1,6 +1,6 @@
 import React from 'react';
 import { BottomMenu, ClusterMap } from 'atoms';
-import { StyleProp, View } from 'react-native';
+import { View } from 'react-native';
 
 import {
   FillLayerStyle,
@@ -88,13 +88,13 @@ export const ObjectDetailsMap = () => {
               id="directionFillBackground"
               belowLayerID="singlePoint"
               style={
-                layersStyles.directionBackground as StyleProp<LineLayerStyle>
+                layersStyles.directionBackground as LineLayerStyle
               }
             />
             <LineLayer
               id="directionFill"
               belowLayerID="singlePoint"
-              style={layersStyles.direction as StyleProp<LineLayerStyle>}
+              style={layersStyles.direction as LineLayerStyle}
             />
           </ShapeSource>
         ) : null}
@@ -103,11 +103,11 @@ export const ObjectDetailsMap = () => {
           <ShapeSource id="area" shape={data?.area}>
             <FillLayer
               id="areaFill"
-              style={layersStyles.area as StyleProp<FillLayerStyle>}
+              style={layersStyles.area as FillLayerStyle}
             />
             <LineLayer
               id="areaStroke"
-              style={layersStyles.areaStroke as StyleProp<LineLayerStyle>}
+              style={layersStyles.areaStroke as LineLayerStyle}
             />
           </ShapeSource>
         ) : null}
@@ -116,7 +116,7 @@ export const ObjectDetailsMap = () => {
           <ShapeSource id="routeSource" shape={data?.routes}>
             <LineLayer
               id="routeFill"
-              style={layersStyles.route as StyleProp<LineLayerStyle>}
+              style={layersStyles.route as LineLayerStyle}
             />
           </ShapeSource>
         ) : null}
@@ -130,7 +130,7 @@ export const ObjectDetailsMap = () => {
               <SymbolLayer
                 id="singlePoint"
                 style={
-                  layersStyles.objectDetailsPin as StyleProp<SymbolLayerStyle>
+                  layersStyles.objectDetailsPin as SymbolLayerStyle
                 }
               />
             </ShapeSource>
