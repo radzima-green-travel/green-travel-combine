@@ -81,7 +81,6 @@ export default ({config}: Record<string, any>) => {
       [
         '@rnmapbox/maps',
         {
-          RNMapboxMapsVersion: '11.6.0',
           RNMapboxMapsDownloadToken: process.env.MAPBOX_DOWNLOAD_TOKEN ?? '',
         },
       ],
