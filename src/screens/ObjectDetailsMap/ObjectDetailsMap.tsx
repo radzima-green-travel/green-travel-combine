@@ -1,6 +1,6 @@
 import React from 'react';
 import { BottomMenu, ClusterMap } from 'atoms';
-import { View } from 'react-native';
+import { StyleProp, View } from 'react-native';
 
 import {
   FillLayerStyle,
@@ -87,9 +87,7 @@ export const ObjectDetailsMap = () => {
             <LineLayer
               id="directionFillBackground"
               belowLayerID="singlePoint"
-              style={
-                layersStyles.directionBackground as LineLayerStyle
-              }
+              style={layersStyles.directionBackground as LineLayerStyle}
             />
             <LineLayer
               id="directionFill"
@@ -129,9 +127,7 @@ export const ObjectDetailsMap = () => {
               shape={dataShapeSource as FeatureCollection<Point>}>
               <SymbolLayer
                 id="singlePoint"
-                style={
-                  layersStyles.objectDetailsPin as SymbolLayerStyle
-                }
+                style={layersStyles.objectDetailsPin as SymbolLayerStyle}
               />
             </ShapeSource>
           </>
