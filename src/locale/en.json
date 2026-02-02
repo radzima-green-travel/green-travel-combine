@@ -7,6 +7,10 @@
         "title": "Route cannot be built, sorry",
         "text": "Please check your internet connection, or maybe Mapbox service is having issues"
       },
+      "NetworkError.NoConnection": {
+        "title": "Route cannot be built, sorry",
+        "text": "Please check your internet connection, or maybe Mapbox service is having issues"
+      },
       "default": {
         "title": "",
         "text": "Oops! Something's not right..."
@@ -16,6 +20,7 @@
       "home": "Main",
       "bookmarks": "Favorites",
       "explore": "Explore",
+      "routes": "Routes",
       "profile": "Profile"
     },
     "tryAgain": "Try again",
@@ -380,5 +385,34 @@
     },
     "fieldSubmitLabel": "Done",
     "formSubmitLabel": "Submit"
+  },
+  "routes": {
+    "common": {
+      "addRouteButtonLabel": "Add route",
+      "routeObjectCount_one": "{{amount}} object",
+      "routeObjectCount_other": "{{amount}} objects"
+    },
+    "routeList": {
+      "title": "Routes",
+      "empty": {
+        "title": "Plan your first journey",
+        "description": "Start by creating a route or add places\ndirectly from the catalog"
+      }
+    },
+    "addRouteForm": {
+      "fieldTitles": {
+        "name": "Create route"
+      },
+      "fieldDescriptions": {
+        "name": "What's the name of the route?"
+      },
+      "fieldErrors": {
+        "name": "Please enter the name of the route"
+      },
+      "fieldSubmitLabel": "Done"
+    },
+    "addToRouteFlow": {
+      "submitButtonLabel": "Done ({{count}})"
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { useCurrentActions } from 'react-redux-help-kit';
-import * as actions from '../../core/actions/search';
+import * as actions from 'core/actions/search';
 import { useRoute } from '@react-navigation/native';
 
 export const useSearchActions = () => {

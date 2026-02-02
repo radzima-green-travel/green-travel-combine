@@ -7,7 +7,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { useThemeStyles } from '../../../core/hooks';
+import { useThemeStyles } from 'core/hooks';
 import { ObjectListViewMode } from '../../types';
 import { Icon } from '../Icon/Icon';
 import { objectListModeSwitchStyles } from './styles';

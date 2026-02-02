@@ -24,6 +24,7 @@ export const FieldEditorSheet = <T extends string>({
   defaultValue,
   schema,
   fieldConfig,
+  initialState = 'closed',
 }: {
   testID: string;
   fieldName: string;
@@ -35,6 +36,7 @@ export const FieldEditorSheet = <T extends string>({
   defaultValue: T;
   schema: Type<Record<string, any>>;
   fieldConfig?: FormFieldConfig;
+  initialState?: 'open' | 'closed';
 }) => {
   const { bottom: bottomSafeAreaInset } = useSafeAreaInsets();
   const form = useForm({
@@ -101,7 +103,7 @@ export const FieldEditorSheet = <T extends string>({
     <BottomMenu
       testID={composeTestID(testID, 'bottomMenu')}
       withBackdrop
-      initialIndex={0}
+      initialIndex={initialState === 'open' ? 0 : -1}
       onBackdropPress={Keyboard.dismiss}
       adjustIOSKeyboardFrameDrops
       onHideEnd={onHide}

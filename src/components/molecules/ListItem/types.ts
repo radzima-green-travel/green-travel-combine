@@ -22,10 +22,10 @@ export interface BaseListItemProps {
   titleNumberOfLines?: number;
   subTitleNumberOfLines?: number;
   boldTitle?: boolean;
-  rightElement?: ReactElement;
-  leftElement?: ReactElement | null;
-  renderTitle?: (props: TextProps) => ReactElement;
-  renderSubtitle?: (props: TextProps) => ReactElement;
+  rightElement?: ReactNode;
+  leftElement?: ReactNode;
+  renderTitle?: (props: TextProps) => ReactNode;
+  renderSubtitle?: (props: TextProps) => ReactNode;
 }
 
 export interface ListItemPrimaryProps extends BaseListItemProps {

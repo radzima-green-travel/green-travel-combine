@@ -6,6 +6,8 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "components/*": [
         "./src/components/*"
@@ -29,10 +31,10 @@
         "./src/assets/*"
       ],
       "screens/*": [
-        "./src/components/screens/*"
+        "./src/screens/*"
       ],
       "screens": [
-        "./src/components/screens"
+        "./src/screens"
       ],
       "core": [
         "./src/core"
@@ -82,7 +84,12 @@
       "storage/*": [
         "./src/storage/*"
       ],
-      "preview": ["./src/components/atoms/Preview/Preview"]
+      "preview": ["./src/components/atoms/Preview/Preview"],
+      
+      "@core": ["./src/_new/core"],
+      "@core/*": ["./src/_new/core/*"],
+      "@features": ["./src/_new/features"],
+      "@features/*": ["./src/_new/features/*"],
     },
   },
 }

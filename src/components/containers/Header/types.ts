@@ -3,7 +3,7 @@ import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import type { NavigationProp } from '@react-navigation/native';
 import type { SystemBarStyle } from 'react-native-edge-to-edge';
 import type { IconName } from '../../atoms/Icon/types';
-import type { OneOf } from '../../../core/types/utils/common';
+import type { OneOf } from 'core/types/utils/common';
 import type { useHeaderWithOverlayLayout } from './hooks/useHeaderWithOverlayLayout';
 
 export interface HeaderContextValue {

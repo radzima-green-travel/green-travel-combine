@@ -2,7 +2,8 @@ type TabEvents =
   | 'navi_bookmarks_event'
   | 'navi_home_event'
   | 'navi_map_event'
-  | 'navi_profile_event';
+  | 'navi_profile_event'
+  | 'navi_routes_event';
 type ScreenViewEvents =
   | 'view_home_event'
   | 'view_map_event'

@@ -16,6 +16,7 @@
       "bookmarks": "Избранное",
       "home": "Главная",
       "explore": "Исследовать",
+      "routes": "Маршруты",
       "profile": "Профиль"
     },
     "tryAgain": "Попробовать еще раз",
@@ -380,5 +381,34 @@
     },
     "fieldSubmitLabel": "Готово",
     "formSubmitLabel": "Отправить"
+  },
+  "routes": {
+    "common": {
+      "addRouteButtonLabel": "Добавить маршрут",
+      "routeObjectCount_one": "{{amount}} объект",
+      "routeObjectCount_other": "{{amount}} объектов"
+    },
+    "routeList": {
+      "title": "Маршруты",
+      "empty": {
+        "title": "Планируйте свою первую поездку",
+        "description": "Начните с создания маршрута или добавьте\nместа прямо из каталога"
+      }
+    },
+    "addRouteForm": {
+      "fieldTitles": {
+        "name": "Создать маршрут"
+      },
+      "fieldDescriptions": {
+        "name": "Как называется ваш маршрут?"
+      },
+      "fieldErrors": {
+        "name": "Пожалуйста, введите название маршрута"
+      },
+      "fieldSubmitLabel": "Готово"
+    },
+    "addToRouteFlow": {
+      "submitButtonLabel": "Готово ({{count}})"
+    }
   }
 }

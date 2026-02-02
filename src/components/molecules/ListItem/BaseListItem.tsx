@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, type ReactNode } from 'react';
 import { Text, TextProps, TouchableOpacity, View } from 'react-native';
 import { useThemeStyles } from 'core/hooks';
 import { ListItemWrapper } from './ListItemWrapper';
@@ -37,7 +37,7 @@ export const BaseListItem = memo(
 
           children: subtitle,
         };
-        let subtitleNode: React.JSX.Element | null = null;
+        let subtitleNode: ReactNode = null;
 
         if (renderSubtitle) {
           subtitleNode = renderSubtitle(textProps);
@@ -83,7 +83,7 @@ export const BaseListItem = memo(
     );
 
     const renderTitleSection = () => {
-      let titleNode: React.JSX.Element | null = null;
+      let titleNode: ReactNode = null;
       if (renderTitle) {
         titleNode = renderTitle(textProps);
       } else {

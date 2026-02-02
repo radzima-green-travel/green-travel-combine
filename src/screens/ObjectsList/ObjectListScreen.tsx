@@ -10,7 +10,7 @@ import {
   useThemeStyles,
 } from 'core/hooks';
 import { themeStyles } from './styles';
-import { SearchObject } from '../../core/types';
+import { SearchObject } from 'core/types';
 
 export const ObjectListScreen = () => {
   const { sendSaveCardEvent, sendSelectCardEvent, sendUnsaveCardEvent } =

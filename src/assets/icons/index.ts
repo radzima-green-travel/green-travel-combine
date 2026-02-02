@@ -82,3 +82,8 @@ export { default as tune } from './tune.svg';
 export { default as tuneSimplified } from './tuneSimplified.svg';
 export { default as warMonuments } from './warMonuments.svg';
 export { default as wave } from './wave.svg';
+export { default as routeSimple } from './routeSimple.svg';
+export { default as addLarge } from './addLarge.svg';
+export { default as plusCircle } from './plusCircle.svg';
+export { default as checkCircle } from './checkCircle.svg';
+export { default as addRoute } from './addRoute.svg';

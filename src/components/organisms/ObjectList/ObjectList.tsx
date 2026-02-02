@@ -23,6 +23,7 @@ import { ObjectListViewMode } from '../../types';
 import { themeStyles } from './styles';
 import { MapWithBottomSheet } from '../MapWithBottomSheet';
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import { useObjectListSlots } from './ObjectListSlotsContext';
 
 const AnimatedBottomSheetFlatList =
   Animated.createAnimatedComponent(BottomSheetFlatList);
@@ -69,11 +70,11 @@ export const ObjectList = ({
   withScrollToTopButton = true,
   withMapWithBottomSheet = true,
   mapWithBottomSheetProps,
-
   ...listProps
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
   const { t } = useTranslation('search');
+  const { footer } = useObjectListSlots();
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
@@ -111,6 +112,7 @@ export const ObjectList = ({
       return (
         <SearchListItem
           item={item}
+          id={id}
           testID={composeTestID(testID, 'listItem')}
           onPress={onItemPress}
           objectName={highlight?.name || name}
@@ -240,6 +242,7 @@ export const ObjectList = ({
         list
       )}
 
+      {footer}
       {withScrollToTopButton && <ScrollToTopButton />}
     </View>
   );

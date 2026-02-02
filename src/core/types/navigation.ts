@@ -6,6 +6,7 @@ import { FromScreenName } from './analytics/objectDetails';
 import { SearchFilters } from './filters';
 import { SearchOptions } from './search';
 import type { ObjectListViewMode } from '../../components/types';
+import { Routes } from '@features/routes';
 
 type ObjectDetailsParams = {
   objectId: string;
@@ -109,6 +110,7 @@ export type MainNavigatorParamsList = {
 export type TabNavigatorParamsList = {
   HomeNavigator: NavigatorScreenParams<HomeNavigatorParamsList>;
   ExploreNavigator: NavigatorScreenParams<ExploreNavigatorParamsList>;
+  RoutesNavigator: NavigatorScreenParams<Routes.NavigatorParamsList>;
   BookmarksNavigator: NavigatorScreenParams<BookmarksNavigatorParamsList>;
   ProfileNavigator: NavigatorScreenParams<ProfileNavigatorParamsList>;
 };
@@ -143,4 +145,5 @@ export type NavigationRoutes =
   | keyof HomeNavigatorParamsList
   | keyof BookmarksNavigatorParamsList
   | keyof ProfileNavigatorParamsList
-  | keyof ExploreNavigatorParamsList;
+  | keyof ExploreNavigatorParamsList
+  | keyof Routes.NavigatorParamsList;

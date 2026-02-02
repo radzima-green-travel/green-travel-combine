@@ -7,13 +7,18 @@ import {
   useThemeStyles,
 } from 'core/hooks';
 import { SuspenseView } from 'molecules';
-import { SearchHeader, SearchList } from 'organisms';
+import {
+  SearchHeader,
+  SearchList,
+  ObjectListSlotsContext,
+  ObjectListSlots,
+} from 'organisms';
 import { useSearchHistory } from './hooks';
 import { useSearchAnalytics } from './hooks/useSearchAnalytics';
 import { themeStyles } from './styles';
-import { SearchObject } from '../../core/types';
+import { SearchObject } from 'core/types';
 
-export const SearchScreen = () => {
+export const SearchScreen = ({ slots }: { slots?: ObjectListSlots }) => {
   const {
     sendSearchViewEvent,
     sendSearchHistoryClearEvent,
@@ -113,7 +118,7 @@ export const SearchScreen = () => {
   const showPlainList = isHistoryVisible || (isSearchEmpty && isFiltersEmpty);
 
   return (
-    <>
+    <ObjectListSlotsContext.Provider value={slots}>
       <SearchHeader
         testID="header"
         searchInputValue={searchInputValue}
@@ -161,6 +166,6 @@ export const SearchScreen = () => {
           />
         </SuspenseView>
       </SuspenseView>
-    </>
+    </ObjectListSlotsContext.Provider>
   );
 };
