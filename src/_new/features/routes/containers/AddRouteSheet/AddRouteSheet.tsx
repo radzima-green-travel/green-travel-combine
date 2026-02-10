@@ -1,34 +1,29 @@
 import { FieldEditorSheet } from 'components/organisms/ModalForm/components/FieldEditorSheet';
 import { useBottomMenu } from 'core/hooks/useBottomMenu';
-import { SnackBar } from 'atoms';
 import { useAddRouteSheet } from './hooks/useAddRouteSheet';
-import type { RouteModel } from '../../model';
 
 export const AddRouteSheet = ({
   menuProps,
-  onRouteCreated,
+  onSubmitName,
 }: {
   menuProps: ReturnType<typeof useBottomMenu>;
-  onRouteCreated?: (routeId: RouteModel.Route['id']) => void;
+  onSubmitName?: (name: string) => void;
 }) => {
-  const { handleSubmit, defaultValue, schema, t, snackbar } = useAddRouteSheet({
+  const { handleSubmit, defaultValue, schema, t } = useAddRouteSheet({
     menuProps,
-    onRouteCreated,
+    onSubmitName,
   });
 
   return (
-    <>
-      <FieldEditorSheet
-        testID="addRouteForm"
-        fieldName="name"
-        t={t}
-        onSubmit={handleSubmit}
-        menuProps={menuProps}
-        onHide={() => {}}
-        defaultValue={defaultValue}
-        schema={schema}
-      />
-      <SnackBar testID="addRouteFormSnackBar" {...snackbar} />
-    </>
+    <FieldEditorSheet
+      testID="addRouteForm"
+      fieldName="name"
+      t={t}
+      onSubmit={handleSubmit}
+      menuProps={menuProps}
+      onHide={() => {}}
+      defaultValue={defaultValue}
+      schema={schema}
+    />
   );
 };

@@ -1,37 +1,20 @@
-import { useBottomMenu } from 'core/hooks/useBottomMenu';
+import type { useBottomMenu } from 'core/hooks';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AddRouteForm } from '../../../model';
-import { useCreateRoute } from '../../../api';
-import { useSnackbar } from 'atoms';
-import type { RouteModel } from '../../../model';
 
 export const useAddRouteSheet = ({
   menuProps,
-  onRouteCreated,
+  onSubmitName,
 }: {
-  onRouteCreated?: (routeId: RouteModel.Route['id']) => void;
+  onSubmitName?: (name: string) => void;
   menuProps: ReturnType<typeof useBottomMenu>;
 }) => {
   const { t: tRoutes } = useTranslation('routes');
 
-  const snackbar = useSnackbar();
-
-  const { mutate: createRoute } = useCreateRoute({
-    onSuccess: data => {
-      onRouteCreated?.(data.id);
-    },
-    onError: () => {
-      snackbar.show({
-        type: 'error',
-        title: tRoutes('addRouteForm.error'),
-      });
-    },
-  });
-
   const handleSubmit = (name: AddRouteForm.Schema['name']) => {
     menuProps.closeMenu();
-    createRoute({ name: name });
+    onSubmitName?.(name);
   };
 
   const [{ defaultValue, schema }] = useState(() => ({
@@ -47,6 +30,5 @@ export const useAddRouteSheet = ({
     defaultValue,
     schema,
     t,
-    snackbar,
   };
 };

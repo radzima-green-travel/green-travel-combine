@@ -409,10 +409,11 @@
       "fieldErrors": {
         "name": "Please enter the name of the route"
       },
-      "fieldSubmitLabel": "Done"
+      "fieldSubmitLabel": "Find objects"
     },
     "addToRouteFlow": {
-      "submitButtonLabel": "Done ({{count}})"
+      "submitButtonLabel": "Done ({{count}})",
+      "error": "Failed to create or update route"
     }
   }
 }

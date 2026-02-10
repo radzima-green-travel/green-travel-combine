@@ -405,10 +405,11 @@
       "fieldErrors": {
         "name": "Пожалуйста, введите название маршрута"
       },
-      "fieldSubmitLabel": "Готово"
+      "fieldSubmitLabel": "Найти объекты"
     },
     "addToRouteFlow": {
-      "submitButtonLabel": "Готово ({{count}})"
+      "submitButtonLabel": "Готово ({{count}})",
+      "error": "Не удалось создать или обновить маршрут"
     }
   }
 }

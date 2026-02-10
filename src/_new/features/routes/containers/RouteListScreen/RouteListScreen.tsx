@@ -20,8 +20,8 @@ export function RouteListScreen() {
       />
       <AddRouteSheet
         menuProps={menuProps}
-        onRouteCreated={id =>
-          navigation.navigate('AddObjectsToRoute', { routeId: id })
+        onSubmitName={name =>
+          navigation.navigate('AddObjectsToRoute', { name })
         }
       />
     </>

@@ -5,6 +5,7 @@ import { FlatList } from 'react-native';
 import { RoutesEmptyListView, RouteCard } from '../../components';
 import { RouteModel } from '../../model';
 import { Button, Icon } from 'components/atoms';
+import { idKeyExtractor } from 'core/utils/react';
 
 export const RouteList = ({
   addRouteHandler,
@@ -28,6 +29,7 @@ export const RouteList = ({
   return (
     <FlatList
       data={data}
+      keyExtractor={idKeyExtractor}
       renderItem={({ item }) => (
         <RouteCard route={item} onPress={() => onRoutePress(item.id)} />
       )}

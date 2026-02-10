@@ -1,8 +1,11 @@
 import { useObservable } from '@legendapp/state/react';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { createContext, type PropsWithChildren, useMemo } from 'react';
-import { useRouteById, useUpdateRoute } from '../../api';
+import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'atoms';
+import { useCreateRoute, useRouteById, useUpdateRoute } from '../../api';
 import type { RoutesNavigatorParamsList } from '../../navigation';
+import { ActionBar } from './ActionBar';
 import { AddButton } from './AddButton';
 import { DoneButton } from './DoneButton';
 
@@ -15,6 +18,7 @@ type AddToRouteFlowContextValue = {
   state$: ReturnType<typeof useObservable<AddToRouteState>>;
   toggle: (objectId: string) => void;
   save: () => Promise<void>;
+  snackbar: ReturnType<typeof useSnackbar>;
 };
 
 export const AddToRouteFlowContext = createContext<AddToRouteFlowContextValue>(
@@ -23,17 +27,39 @@ export const AddToRouteFlowContext = createContext<AddToRouteFlowContextValue>(
 
 const Provider = ({ children }: PropsWithChildren) => {
   const {
-    params: { routeId },
+    params: { name, routeId },
   } = useRoute<RouteProp<RoutesNavigatorParamsList, 'AddObjectsToRoute'>>();
 
   const navigation = useNavigation();
+  const snackbar = useSnackbar();
+  const { t: tRoutes } = useTranslation('routes');
 
-  const { data: route } = useRouteById(routeId);
+  const isCreateMode = !!name;
+
+  const { data: route } = useRouteById(routeId ?? '');
 
   const state$ = useObservable<AddToRouteState>(() => ({
-    selectedIds: new Set(route?.objectIds),
+    selectedIds: new Set(isCreateMode ? [] : (route?.objectIds ?? [])),
     isPending: false,
   }));
+
+  const showError = () => {
+    snackbar.show({
+      type: 'error',
+      title: tRoutes('addToRouteFlow.error'),
+    });
+  };
+
+  const { mutate: createRoute } = useCreateRoute({
+    onSuccess: () => {
+      state$.isPending.set(false);
+      navigation.goBack();
+    },
+    onError: () => {
+      state$.isPending.set(false);
+      showError();
+    },
+  });
 
   const { mutate: updateRoute } = useUpdateRoute({
     onSuccess: () => {
@@ -42,9 +68,7 @@ const Provider = ({ children }: PropsWithChildren) => {
     },
     onError: () => {
       state$.isPending.set(false);
-    },
-    onMutate: () => {
-      state$.isPending.set(true);
+      showError();
     },
   });
 
@@ -58,18 +82,22 @@ const Provider = ({ children }: PropsWithChildren) => {
     };
 
     const save = async () => {
-      updateRoute({
-        id: routeId,
-        objectIds: Array.from(state$.selectedIds.peek()),
-      });
+      state$.isPending.set(true);
+      const objectIds = Array.from(state$.selectedIds.peek());
+      if (isCreateMode && name) {
+        createRoute({ name, objectIds });
+      } else if (routeId) {
+        updateRoute({ id: routeId, objectIds });
+      }
     };
 
     return {
       state$,
       toggle,
       save,
+      snackbar,
     };
-  }, [routeId, state$, updateRoute]);
+  }, [isCreateMode, name, routeId, state$, createRoute, updateRoute, snackbar]);
 
   return (
     <AddToRouteFlowContext.Provider value={value}>
@@ -81,5 +109,5 @@ const Provider = ({ children }: PropsWithChildren) => {
 export const AddToRouteFlow = {
   Provider,
   AddButton,
-  DoneButton,
+  ActionBar,
 } as const;
