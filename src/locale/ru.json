@@ -408,8 +408,11 @@
       "fieldSubmitLabel": "Найти объекты"
     },
     "addToRouteFlow": {
-      "submitButtonLabel": "Готово ({{count}})",
-      "error": "Не удалось создать или обновить маршрут"
+      "submitButtonLabel_zero": "Готово",
+      "submitButtonLabel_other": "Готово ({{count}})",
+      "errors": {
+        "default": "Не удалось создать или обновить маршрут"
+      }
     }
   }
 }

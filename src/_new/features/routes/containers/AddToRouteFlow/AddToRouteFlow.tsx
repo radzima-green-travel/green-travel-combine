@@ -1,13 +1,12 @@
 import { useObservable } from '@legendapp/state/react';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useSnackbar } from 'atoms';
 import { createContext, type PropsWithChildren, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'atoms';
 import { useCreateRoute, useRouteById, useUpdateRoute } from '../../api';
 import type { RoutesNavigatorParamsList } from '../../navigation';
 import { ActionBar } from './ActionBar';
 import { AddButton } from './AddButton';
-import { DoneButton } from './DoneButton';
 
 type AddToRouteState = {
   selectedIds: Set<string>;
@@ -44,9 +43,10 @@ const Provider = ({ children }: PropsWithChildren) => {
   }));
 
   const showError = () => {
+    // TODO: [Routes] Add error tag to translation mapping, update error label
     snackbar.show({
       type: 'error',
-      title: tRoutes('addToRouteFlow.error'),
+      title: tRoutes('addToRouteFlow.errors.default'),
     });
   };
 

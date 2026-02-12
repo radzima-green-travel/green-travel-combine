@@ -412,8 +412,11 @@
       "fieldSubmitLabel": "Find objects"
     },
     "addToRouteFlow": {
-      "submitButtonLabel": "Done ({{count}})",
-      "error": "Failed to create or update route"
+      "submitButtonLabel_zero": "Done",
+      "submitButtonLabel_other": "Done ({{count}})",
+      "errors": {
+        "default": "Failed to create or update route"
+      }
     }
   }
 }
