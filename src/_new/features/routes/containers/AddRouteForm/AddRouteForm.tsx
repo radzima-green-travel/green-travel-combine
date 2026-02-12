@@ -1,17 +1,17 @@
 import { FieldEditorSheet } from 'components/organisms/ModalForm/components/FieldEditorSheet';
 import { useBottomMenu } from 'core/hooks/useBottomMenu';
-import { useAddRouteSheet } from './hooks/useAddRouteSheet';
+import { useAddRouteForm } from './hooks/useAddRouteForm';
 
-export const AddRouteSheet = ({
+export const AddRouteForm = ({
   menuProps,
-  onSubmitName,
+  onSubmit,
 }: {
   menuProps: ReturnType<typeof useBottomMenu>;
-  onSubmitName?: (name: string) => void;
+  onSubmit?: (name: string) => void;
 }) => {
-  const { handleSubmit, defaultValue, schema, t } = useAddRouteSheet({
+  const { handleSubmit, resetForm, defaultValue, schema, t } = useAddRouteForm({
     menuProps,
-    onSubmitName,
+    onSubmit,
   });
 
   return (
@@ -21,7 +21,7 @@ export const AddRouteSheet = ({
       t={t}
       onSubmit={handleSubmit}
       menuProps={menuProps}
-      onHide={() => {}}
+      onHide={resetForm}
       defaultValue={defaultValue}
       schema={schema}
     />

@@ -1,5 +1,5 @@
 import { Portal } from '@gorhom/portal';
-import { useForm } from '@tanstack/react-form';
+import { useForm, type AnyFormApi } from '@tanstack/react-form';
 import { Type } from 'arktype';
 import { BottomMenu, FormInput } from 'atoms';
 import { composeTestID } from 'core/helpers';
@@ -30,9 +30,9 @@ export const FieldEditorSheet = <T extends string>({
   fieldName: string;
   t: TFunction;
   inputRef?: RefObject<TextInput>;
-  onSubmit?: (value: T) => void;
+  onSubmit?: (value: T, formApi: AnyFormApi) => void;
   menuProps: ReturnType<typeof useBottomMenu>;
-  onHide?: () => void;
+  onHide?: (formApi: AnyFormApi) => void;
   defaultValue: T;
   schema: Type<Record<string, any>>;
   fieldConfig?: FormFieldConfig;
@@ -44,8 +44,8 @@ export const FieldEditorSheet = <T extends string>({
     validators: {
       onSubmit: schema,
     },
-    onSubmit: ({ value }) => {
-      onSubmit?.(value[fieldName].trim());
+    onSubmit: ({ value, formApi }) => {
+      onSubmit?.(value[fieldName].trim(), formApi);
     },
   });
 
@@ -106,7 +106,7 @@ export const FieldEditorSheet = <T extends string>({
       initialIndex={initialState === 'open' ? 0 : -1}
       onBackdropPress={Keyboard.dismiss}
       adjustIOSKeyboardFrameDrops
-      onHideEnd={onHide}
+      onHideEnd={() => onHide?.(form)}
       header={{
         title: t(`fieldTitles.${fieldName}`),
       }}

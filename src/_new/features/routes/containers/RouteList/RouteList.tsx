@@ -8,11 +8,11 @@ import { Button, Icon } from 'components/atoms';
 import { idKeyExtractor } from 'core/utils/react';
 
 export const RouteList = ({
-  addRouteHandler,
-  onRoutePress,
+  onAddRoute,
+  onSelectRoute,
 }: {
-  addRouteHandler: () => void;
-  onRoutePress: (id: RouteModel.Route['id']) => void;
+  onAddRoute: () => void;
+  onSelectRoute: (id: RouteModel.Route['id']) => void;
 }) => {
   const { data, isPending, error } = useRouteList();
   const { t } = useTranslation('routes');
@@ -34,7 +34,7 @@ export const RouteList = ({
         data={data}
         keyExtractor={idKeyExtractor}
         renderItem={({ item }) => (
-          <RouteCard route={item} onPress={() => onRoutePress(item.id)} />
+          <RouteCard route={item} onPress={() => onSelectRoute(item.id)} />
         )}
         ListEmptyComponent={
           <RoutesEmptyListView
@@ -44,7 +44,7 @@ export const RouteList = ({
             image="mapPoint">
             <Button
               testID="addRouteButton"
-              onPress={addRouteHandler}
+              onPress={onAddRoute}
               text={t('common.addRouteButtonLabel')}
               className="mt-4 self-center px-3"
               renderIcon={textStyle => (
@@ -59,7 +59,7 @@ export const RouteList = ({
       {hasItems && (
         <Button
           testID="addRouteFloatingButton"
-          onPress={addRouteHandler}
+          onPress={onAddRoute}
           text={t('common.addRouteButtonLabel')}
           className="absolute right-gutter bottom-4 px-4"
           elevated

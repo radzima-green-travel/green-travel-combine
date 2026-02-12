@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useBottomMenu } from 'core/hooks';
 import { RoutesNavigatorParamsList } from '../../navigation';
-import { AddRouteSheet } from '../AddRouteSheet';
+import { AddRouteForm } from '../AddRouteForm';
 import { RouteList } from '../RouteList';
 
 export function RouteListScreen() {
@@ -12,18 +12,16 @@ export function RouteListScreen() {
       NativeStackNavigationProp<RoutesNavigatorParamsList, 'Routes'>
     >();
 
+  const openAddObjectsScreen = (name: string) =>
+    navigation.navigate('AddObjectsToRoute', { name });
+
   return (
     <>
       <RouteList
-        addRouteHandler={menuProps.openMenuWithInputAutoFocus}
-        onRoutePress={id => navigation.navigate('Route', { id })}
+        onAddRoute={menuProps.openMenuWithInputAutoFocus}
+        onSelectRoute={id => navigation.navigate('Route', { id })}
       />
-      <AddRouteSheet
-        menuProps={menuProps}
-        onSubmitName={name =>
-          navigation.navigate('AddObjectsToRoute', { name })
-        }
-      />
+      <AddRouteForm menuProps={menuProps} onSubmit={openAddObjectsScreen} />
     </>
   );
 }
