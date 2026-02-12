@@ -34,6 +34,7 @@ import { isEqual } from 'lodash';
 
 import { isAndroid, SCREEN_WIDTH } from 'services/PlatformService';
 import { useHeaderWithOverlayLayout } from '../../containers/Header';
+import { useObjectListSlots } from '../ObjectList';
 
 interface MapWithBottomSheetProps {
   mapObjects: ObjectMap[];
@@ -63,9 +64,15 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
   onObjectPress,
   onTouch,
 }) => {
-  const snapPoints = [SNAP_POINT_0, SNAP_POINT_1, '100%'];
-
   const { t } = useTranslation('search');
+
+  const { floatingFooter } = useObjectListSlots();
+
+  const snapPoints = [
+    SNAP_POINT_0,
+    SNAP_POINT_1 + (floatingFooter ? 90 : 0),
+    '100%',
+  ];
 
   const {
     getVisibleFeatures,
@@ -264,13 +271,16 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
           </Animated.View>
 
           {bottomMenuOpened ? (
-            <MapObjectsCarousel
-              selectedObject={mapProps.selectedObject}
-              objects={visibleObjects}
-              carouselRef={carouselRef}
-              onCarouselSnap={onCarouselSnap}
-              onObjectPress={onObjectPress}
-            />
+            <View className="gap-4">
+              <MapObjectsCarousel
+                selectedObject={mapProps.selectedObject}
+                objects={visibleObjects}
+                carouselRef={carouselRef}
+                onCarouselSnap={onCarouselSnap}
+                onObjectPress={onObjectPress}
+              />
+              {floatingFooter}
+            </View>
           ) : null}
         </Animated.View>
         <BottomSheet
@@ -299,18 +309,19 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
           </Animated.View>
         </BottomSheet>
       </Animated.View>
-      <Animated.View
-        style={[styles.bottomButtonContainer, mapButtonStyle]}
-        pointerEvents="box-none">
-        <Button
-          elevated
-          testID="mapButton"
-          text={t('map')}
-          style={styles.bottomButton}
-          onPress={() => bottomMenuRef.current?.snapToIndex(0)}
-          renderIcon={textStyle => <Icon name="map" style={textStyle} />}
-        />
-      </Animated.View>
+      <View style={styles.bottomButtonContainer}>
+        <Animated.View style={mapButtonStyle} pointerEvents="box-none">
+          <Button
+            elevated
+            testID="mapButton"
+            text={t('map')}
+            style={styles.bottomButton}
+            onPress={() => bottomMenuRef.current?.snapToIndex(0)}
+            renderIcon={textStyle => <Icon name="map" style={textStyle} />}
+          />
+        </Animated.View>
+        {!bottomMenuOpened && floatingFooter}
+      </View>
     </>
   );
 };

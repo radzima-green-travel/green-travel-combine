@@ -1,15 +1,19 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import { useThemeStyles, useTranslation } from 'core/hooks';
 import { AuthMethods } from 'organisms';
 import { useAuthMethodSelection } from './hooks';
+import { AuthMethodSelectionScreenRouteProps } from './types';
 import { themeStyles } from './styles';
 import { screenOptions } from './screenOptions';
 export const AuthMethodSelection = () => {
   const { t } = useTranslation('authentification');
   const { t: tCommon } = useTranslation('common');
+  const { params } = useRoute<AuthMethodSelectionScreenRouteProps>();
 
   const styles = useThemeStyles(themeStyles);
+  const title = params?.title;
 
   const {
     handleEmailButtonPress,
@@ -30,6 +34,7 @@ export const AuthMethodSelection = () => {
         onAppleButtonPress={handleAppleButtonPress}
         onFacebookButtonPress={handleFacebookButtonPress}
         onGoogleButtonPress={handleGoogleButtonPress}
+        title={title}
         googleLoading={googleLoading}
         facebookLoading={facebookLoading}
         appleLoading={appleLoading}

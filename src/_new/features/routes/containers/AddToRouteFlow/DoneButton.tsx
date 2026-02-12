@@ -15,9 +15,14 @@ export const DoneButton = ({ className }: { className?: string }) => {
     <Button
       className={className}
       testID="doneButton"
-      text={t('addToRouteFlow.submitButtonLabel', { count })}
+      text={
+        count > 0
+          ? t('addToRouteFlow.submitButtonLabel_other', { count })
+          : t('addToRouteFlow.submitButtonLabel_zero')
+      }
       loading={isPending}
       onPress={save}
+      elevated
     />
   );
 };

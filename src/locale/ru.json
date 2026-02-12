@@ -410,6 +410,7 @@
     "addToRouteFlow": {
       "submitButtonLabel_zero": "Готово",
       "submitButtonLabel_other": "Готово ({{count}})",
+      "authPromptMessage": "Чтобы сохранить маршрут,\nвойдите или создайте аккаунт",
       "errors": {
         "default": "Не удалось создать или обновить маршрут"
       }
