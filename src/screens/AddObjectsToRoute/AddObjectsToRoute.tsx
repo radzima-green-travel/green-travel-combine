@@ -12,7 +12,7 @@ export const AddObjectsToRoute = () => {
           cardActionButtons: (id, viewMode) => (
             <AddToRouteFlow.AddButton objectId={id} listViewMode={viewMode} />
           ),
-          footer: <AddToRouteFlow.DoneButton />,
+          footer: <AddToRouteFlow.ActionBar />,
         }}
       />
     </AddToRouteFlow.Provider>

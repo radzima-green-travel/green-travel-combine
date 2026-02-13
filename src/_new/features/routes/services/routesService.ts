@@ -69,14 +69,15 @@ export namespace RoutesService {
     private readonly routes: RouteModel.Route[] = [];
 
     async getList(): Promise<RouteModel.Route[]> {
-      await delay(1000);
-      return this.routes;
+      await delay(500);
+      return [...this.routes];
     }
 
     async create(
       input: RouteModel.CreateRouteInput,
     ): Promise<RouteModel.Route> {
-      await delay(1000);
+      await delay(300);
+
       const route = RouteModel.createOptimisticRoute(input);
       this.routes.push(route);
       return route;
