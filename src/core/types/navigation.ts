@@ -133,7 +133,11 @@ export type AuthNavigatorParamsList = {
     email: string;
     isSignUp: boolean;
   };
-  AuthMethodSelection: undefined;
+  AuthMethodSelection:
+    | {
+        title?: string;
+      }
+    | undefined;
   InAppWebView: { url: string; title: string };
   ChangePassword: undefined;
 };

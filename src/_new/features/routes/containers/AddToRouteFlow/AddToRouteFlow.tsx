@@ -1,9 +1,15 @@
 import { useObservable } from '@legendapp/state/react';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { useSnackbar } from 'atoms';
-import { createContext, type PropsWithChildren, useMemo } from 'react';
+import {
+  createContext,
+  type PropsWithChildren,
+  useContext,
+  useMemo,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCreateRoute, useRouteById, useUpdateRoute } from '../../api';
+import { RoutesDependencies } from '../../context';
 import type { RoutesNavigatorParamsList } from '../../navigation';
 import { ActionBar } from './ActionBar';
 import { AddButton } from './AddButton';
@@ -32,6 +38,7 @@ const Provider = ({ children }: PropsWithChildren) => {
   const navigation = useNavigation();
   const snackbar = useSnackbar();
   const { t: tRoutes } = useTranslation('routes');
+  const { isAuthenticated, redirectToSignIn } = useContext(RoutesDependencies);
 
   const isCreateMode = !!name;
 
@@ -73,6 +80,19 @@ const Provider = ({ children }: PropsWithChildren) => {
   });
 
   const value = useMemo(() => {
+    const requestSignIn = (params: { onSuccess: () => void }) => {
+      if (isAuthenticated) {
+        params.onSuccess();
+
+        return;
+      }
+
+      redirectToSignIn({
+        onSuccess: params.onSuccess,
+        authPromptMessage: tRoutes('addToRouteFlow.authPromptMessage'),
+      });
+    };
+
     const toggle = (objectId: string) => {
       if (state$.selectedIds.has(objectId)) {
         state$.selectedIds.delete(objectId);
@@ -82,11 +102,17 @@ const Provider = ({ children }: PropsWithChildren) => {
     };
 
     const save = async () => {
-      state$.isPending.set(true);
       const objectIds = Array.from(state$.selectedIds.peek());
+
       if (isCreateMode && name) {
-        createRoute({ name, objectIds });
+        requestSignIn({
+          onSuccess: () => {
+            state$.isPending.set(true);
+            createRoute({ name, objectIds });
+          },
+        });
       } else if (routeId) {
+        state$.isPending.set(true);
         updateRoute({ id: routeId, objectIds });
       }
     };
@@ -97,7 +123,18 @@ const Provider = ({ children }: PropsWithChildren) => {
       save,
       snackbar,
     };
-  }, [isCreateMode, name, routeId, state$, createRoute, updateRoute, snackbar]);
+  }, [
+    isAuthenticated,
+    redirectToSignIn,
+    isCreateMode,
+    name,
+    routeId,
+    state$,
+    createRoute,
+    updateRoute,
+    snackbar,
+    tRoutes,
+  ]);
 
   return (
     <AddToRouteFlowContext.Provider value={value}>

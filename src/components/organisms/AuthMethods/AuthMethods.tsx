@@ -12,6 +12,7 @@ interface IProps {
   onGoogleButtonPress: () => void;
   onFacebookButtonPress: () => void;
   onAppleButtonPress: () => void;
+  title?: string;
   googleLoading?: boolean;
   facebookLoading?: boolean;
   appleLoading?: boolean;
@@ -24,6 +25,7 @@ export const AuthMethods = memo(
     onGoogleButtonPress,
     onFacebookButtonPress,
     onAppleButtonPress,
+    title,
     googleLoading,
     facebookLoading,
     appleLoading,
@@ -65,7 +67,7 @@ export const AuthMethods = memo(
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{t('authSelectionTitle')}</Text>
+        <Text style={styles.title}>{title ?? t('authSelectionTitle')}</Text>
         {isIOS ? getAppleButton() : getGmailButton()}
         <View style={styles.separatorSection}>
           <View style={styles.separator} />

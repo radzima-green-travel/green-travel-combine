@@ -3,7 +3,7 @@ import type { ObjectListViewMode } from '../../types';
 
 export interface ObjectListSlots {
   cardActionButtons?: (id: string, viewMode: ObjectListViewMode) => ReactNode;
-  footer?: ReactNode;
+  floatingFooter?: ReactNode;
 }
 
 export const ObjectListSlotsContext = createContext<

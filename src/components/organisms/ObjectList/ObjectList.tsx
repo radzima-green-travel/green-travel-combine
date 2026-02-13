@@ -74,7 +74,7 @@ export const ObjectList = ({
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
   const { t } = useTranslation('search');
-  const { footer } = useObjectListSlots();
+  const { floatingFooter } = useObjectListSlots();
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
@@ -241,8 +241,11 @@ export const ObjectList = ({
       ) : (
         list
       )}
-
-      {footer}
+      {!withMapWithBottomSheet && (
+        <View className="absolute right-0 bottom-4 left-0">
+          {floatingFooter}
+        </View>
+      )}
       {withScrollToTopButton && <ScrollToTopButton />}
     </View>
   );
