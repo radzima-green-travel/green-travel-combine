@@ -1,7 +1,11 @@
 import { createContext } from 'react';
 
 export interface RoutesDependenciesType {
-  // Add external dependencies here when needed
+  isAuthenticated: boolean;
+  redirectToSignIn: (params: {
+    onSuccess: () => void;
+    authPromptMessage?: string;
+  }) => void;
 }
 
 export const RoutesDependencies = createContext<RoutesDependenciesType>(null!);
