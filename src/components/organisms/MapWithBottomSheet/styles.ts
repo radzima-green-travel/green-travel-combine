@@ -97,6 +97,7 @@ export const themeStyles = createThemeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 16,
+    gap: 16,
   },
 
   bottomButton: { alignSelf: 'center', paddingHorizontal: 12 },

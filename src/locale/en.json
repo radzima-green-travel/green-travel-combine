@@ -414,6 +414,7 @@
     "addToRouteFlow": {
       "submitButtonLabel_zero": "Done",
       "submitButtonLabel_other": "Done ({{count}})",
+      "authPromptMessage": "To keep your route, please\nSign In or Create new account",
       "errors": {
         "default": "Failed to create or update route"
       }
