@@ -59,7 +59,6 @@ export const MapObjectsCarousel: React.FC<MapObjectsCarouselProps> = memo(
           onSnapToItem={onCarouselSnap}
           width={200}
           defaultIndex={defaultIndex}
-          containerStyle={styles.itemContainer}
           style={styles.carousel}
           mode="parallax"
           modeConfig={{

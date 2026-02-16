@@ -68,11 +68,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
 
   const { floatingFooter } = useObjectListSlots();
 
-  const snapPoints = [
-    SNAP_POINT_0,
-    SNAP_POINT_1 + (floatingFooter ? 90 : 0),
-    '100%',
-  ];
+  const snapPoints = [SNAP_POINT_0, SNAP_POINT_1, '100%'];
 
   const {
     getVisibleFeatures,
@@ -162,6 +158,15 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
           }),
         },
       ],
+    };
+  });
+
+  const listFloatingFooterStyle = useAnimatedStyle(() => {
+    return {
+      alignSelf: 'stretch',
+      opacity: withTiming(animatedIndex.value > 1.99 ? 1 : 0, {
+        duration: 150,
+      }),
     };
   });
 
@@ -271,7 +276,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
           </Animated.View>
 
           {bottomMenuOpened ? (
-            <View className="gap-4">
+            <>
               <MapObjectsCarousel
                 selectedObject={mapProps.selectedObject}
                 objects={visibleObjects}
@@ -279,8 +284,11 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
                 onCarouselSnap={onCarouselSnap}
                 onObjectPress={onObjectPress}
               />
-              {floatingFooter}
-            </View>
+              {/* This wrapper fixes the issue when the footer moves to the top of the object carousel during transition to "no objects visible" state */}
+              <Animated.View layout={LinearTransition}>
+                {floatingFooter}
+              </Animated.View>
+            </>
           ) : null}
         </Animated.View>
         <BottomSheet
@@ -320,7 +328,11 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
             renderIcon={textStyle => <Icon name="map" style={textStyle} />}
           />
         </Animated.View>
-        {!bottomMenuOpened && floatingFooter}
+        {!bottomMenuOpened && (
+          <Animated.View style={listFloatingFooterStyle}>
+            {floatingFooter}
+          </Animated.View>
+        )}
       </View>
     </>
   );

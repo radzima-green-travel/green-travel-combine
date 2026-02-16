@@ -59,6 +59,8 @@ export const themeStyles = createThemeStyles({
     left: 0,
     right: 0,
     paddingBottom: 16,
+    paddingTop: 16,
+    gap: 16,
   },
   resultsLabel: {
     ...FONTS_PRESETS.bodyBold,

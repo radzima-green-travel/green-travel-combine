@@ -10,9 +10,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  itemContainer: {
-    marginTop: PADDING_HORIZONTAL,
-  },
   card: {
     height: MAP_OBJECTS_CAROUSEL_HEIGHT,
     width: 200,
