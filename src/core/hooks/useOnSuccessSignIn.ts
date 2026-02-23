@@ -30,6 +30,9 @@ export const useOnSuccessSignIn = () => {
   }, [navigation]);
 
   const onSuccessSignIn = useCallback(() => {
+    if (!navigation.isFocused()) {
+      return;
+    }
     if (parentParams?.onSuccessSignIn) {
       parentParams?.onSuccessSignIn();
     }
