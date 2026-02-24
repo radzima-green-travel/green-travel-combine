@@ -58,6 +58,7 @@ export const ErrorView = ({
         onPress={onRetry}
         text={retryLabel || t('tryAgain')}
         theme="quarterly"
+        withBorder={false}
       />
     </View>
   );

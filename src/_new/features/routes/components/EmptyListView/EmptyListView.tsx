@@ -32,7 +32,7 @@ export const RoutesEmptyListView = ({
               testID={composeTestID(testID, 'image')}
               source={RoutesImages[image]}
               className="aspect-square w-full"
-              contentFit="contain"
+              contentFit="scale-down"
             />
           </View>
           <Text

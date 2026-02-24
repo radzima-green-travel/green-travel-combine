@@ -34,6 +34,7 @@ export type Props = {
   iconContainerAnimatedStyle?: StyleProp<ViewStyle>;
   labelAnimatedStyle?: StyleProp<TextStyle>;
   elevated?: boolean;
+  withBorder?: boolean;
 };
 
 export const Button = withUniwind(
@@ -55,6 +56,7 @@ export const Button = withUniwind(
       iconContainerAnimatedStyle,
       labelAnimatedStyle,
       elevated,
+      withBorder = true,
     }: Props) => {
       const buttonThemeStyles = useThemeStyles(BUTTON_THEMES[theme]);
 
@@ -98,19 +100,22 @@ export const Button = withUniwind(
         );
       };
 
+      const finalContainerStyle = [
+        styles.container,
+        buttonThemeStyles.container,
+        disabled && buttonThemeStyles.disabled,
+        elevated && styles.shadow,
+        withBorder === false && { borderWidth: 0 },
+        style,
+        isIconOnlyButton && styles.iconButton,
+      ];
+
       return (
         <TouchableOpacity
           onPress={onPress}
           activeOpacity={0.9}
           disabled={disabled || loading}
-          style={[
-            styles.container,
-            buttonThemeStyles.container,
-            disabled && buttonThemeStyles.disabled,
-            elevated && styles.shadow,
-            style,
-            isIconOnlyButton && styles.iconButton,
-          ]}
+          style={finalContainerStyle}
           {...getPlatformsTestID(testID)}
           accessibilityState={{ checked, disabled, busy: loading }}>
           {renderContent()}
