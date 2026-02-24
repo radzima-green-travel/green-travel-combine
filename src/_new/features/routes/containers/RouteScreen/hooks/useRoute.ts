@@ -29,7 +29,7 @@ export function useRoute(id: string) {
   const dispatch = useDispatch();
 
   const { data: route } = useRouteById(id);
-  const objectIds = useMemo(() => route?.objectIds || [], [route]);
+  const objectIds = route?.objectIds || [];
 
   const { searchObjectsRequest, setSearchInputValue } = useSearchActions();
   const searchResults = useSearchSelector(selectSearchObjectsData);
