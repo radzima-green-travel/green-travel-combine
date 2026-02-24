@@ -76,7 +76,7 @@ export function RouteScreen() {
   }
 
   return (
-    <View className="flex-1 bg-secondary">
+    <View className="bg-secondary flex-1">
       <Header
         testID="routeDetailHeader"
         style={{ paddingBottom: 0 }}

@@ -43,13 +43,13 @@ export const ErrorView = ({
       {title ? (
         <Text
           testID={composeTestID(testID, 'title')}
-          className="font-title3Bold mb-4 text-center text-primary">
+          className="font-title3Bold text-primary mb-4 text-center">
           {title}
         </Text>
       ) : null}
       <Text
         testID={composeTestID(testID, 'text')}
-        className="font-subheadlineRegular text-center text-secondary">
+        className="font-subheadlineRegular text-secondary text-center">
         {text}
       </Text>
       <Button

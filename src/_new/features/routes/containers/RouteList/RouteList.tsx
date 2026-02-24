@@ -53,7 +53,7 @@ export const RouteList = ({
             />
           </RoutesEmptyListView>
         }
-        className="flex-1 bg-secondary"
+        className="bg-secondary flex-1"
         contentContainerClassName="grow gap-3 pt-[calc(var(--spacing-header-overlay)+var(--spacing-4))] px-gutter"
       />
       {hasItems && (
