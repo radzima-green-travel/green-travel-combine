@@ -78,13 +78,7 @@ export default ({config}: Record<string, any>) => {
       ...config.plugins,
       [withAndroidQueries],
       [withRemoveiOSNotificationEntitlement],
-      [
-        '@rnmapbox/maps',
-        {
-          RNMapboxMapsVersion: '11.6.0',
-          RNMapboxMapsDownloadToken: process.env.MAPBOX_DOWNLOAD_TOKEN ?? '',
-        },
-      ],
+      "@rnmapbox/maps"
     ],
   };
 };
