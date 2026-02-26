@@ -15,7 +15,7 @@ import Animated, {
   useAnimatedReaction,
 } from 'react-native-reanimated';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { Button, Icon, LoadingView, MapButtonContainer } from 'atoms';
+import { Icon, LoadingView, MapButtonContainer } from 'atoms';
 import {
   Map,
   MapObjectsCarousel,
@@ -34,9 +34,10 @@ import { isEqual } from 'lodash';
 
 import { isAndroid, SCREEN_WIDTH } from 'services/PlatformService';
 import { useHeaderWithOverlayLayout } from '../../containers/Header';
-import { useObjectListSlots } from '../ObjectList';
+import type { MapWithBottomSheetControls } from './hooks';
+import { MapButton } from './MapButton';
 
-interface MapWithBottomSheetProps {
+type MapWithBottomSheetProps = {
   mapObjects: ObjectMap[];
   visibleObjectsOnMap: SearchObject[];
   onMarkersAppear: (
@@ -50,9 +51,12 @@ interface MapWithBottomSheetProps {
   currentLocale: SupportedLocales;
   onObjectPress: (object: SearchObject) => void;
   onTouch?: () => void;
-}
 
-export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
+  /** Renders below the map objects carousel when the bottom sheet is expanded. */
+  objectCarouselFooter?: React.ReactNode;
+} & MapWithBottomSheetControls;
+
+const MapWithBottomSheetBase: React.FC<MapWithBottomSheetProps> = ({
   loading,
   children,
   totalResults,
@@ -63,10 +67,11 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
   onMarkersAppear,
   onObjectPress,
   onTouch,
+  bottomSheetRef,
+  bottomSheetPositionIndex,
+  objectCarouselFooter,
 }) => {
   const { t } = useTranslation('search');
-
-  const { floatingFooter } = useObjectListSlots();
 
   const snapPoints = [SNAP_POINT_0, SNAP_POINT_1, '100%'];
 
@@ -85,6 +90,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     mapObjects: mapObjects,
     visibleObjects: visibleObjectsOnMap,
     onMarkersAppear: onMarkersAppear,
+    bottomSheetRef,
   });
 
   const styles = useThemeStyles(themeStyles);
@@ -103,7 +109,8 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
     [],
   );
   const animatedPosition = useSharedValue(0);
-  const animatedIndex = useSharedValue(0);
+
+  const animatedIndex = bottomSheetPositionIndex;
 
   const translateY = useDerivedValue(() => {
     if (mapViewPort?.height) {
@@ -146,27 +153,6 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
   const overlay = useAnimatedStyle(() => {
     return {
       opacity: withTiming(animatedIndex.value < 0.1 ? 1 : 0),
-    };
-  });
-
-  const mapButtonStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          scale: withTiming(animatedIndex.value > 1.99 ? 1 : 0, {
-            duration: 150,
-          }),
-        },
-      ],
-    };
-  });
-
-  const listFloatingFooterStyle = useAnimatedStyle(() => {
-    return {
-      alignSelf: 'stretch',
-      opacity: withTiming(animatedIndex.value > 1.99 ? 1 : 0, {
-        duration: 150,
-      }),
     };
   });
 
@@ -286,7 +272,7 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
               />
               {/* This wrapper fixes the issue when the footer moves to the top of the object carousel during transition to "no objects visible" state */}
               <Animated.View layout={LinearTransition}>
-                {floatingFooter}
+                {objectCarouselFooter}
               </Animated.View>
             </>
           ) : null}
@@ -317,23 +303,10 @@ export const MapWithBottomSheet: React.FC<MapWithBottomSheetProps> = ({
           </Animated.View>
         </BottomSheet>
       </Animated.View>
-      <View style={styles.bottomButtonContainer}>
-        <Animated.View style={mapButtonStyle} pointerEvents="box-none">
-          <Button
-            elevated
-            testID="mapButton"
-            text={t('map')}
-            style={styles.bottomButton}
-            onPress={() => bottomMenuRef.current?.snapToIndex(0)}
-            renderIcon={textStyle => <Icon name="map" style={textStyle} />}
-          />
-        </Animated.View>
-        {!bottomMenuOpened && (
-          <Animated.View style={listFloatingFooterStyle}>
-            {floatingFooter}
-          </Animated.View>
-        )}
-      </View>
     </>
   );
 };
+
+export const MapWithBottomSheet = Object.assign(MapWithBottomSheetBase, {
+  MapButton,
+});
