@@ -46,18 +46,16 @@ export const useMapView = ({
   mapObjects,
   onMarkersAppear,
   visibleObjects,
-  bottomSheetRef: externalBottomSheetRef,
+  bottomSheetRef,
 }: {
   mapObjects: ObjectMap[];
   visibleObjects: SearchObject[];
   onMarkersAppear: (
     markers: Feature<Geometry, { icon_image: string; objectId: string }>[],
   ) => void;
-  bottomSheetRef?: RefObject<BottomSheet | null>;
+  bottomSheetRef: RefObject<BottomSheet | null>;
 }) => {
   const carouselRef = useRef<ICarouselInstance>(null!);
-  const internalBottomSheetRef = useRef<BottomSheet>(null);
-  const bottomMenuRef = externalBottomSheetRef ?? internalBottomSheetRef;
 
   const camera = useRef<Camera>(null);
   const mapRef = useRef<MapView>(null);
@@ -111,10 +109,10 @@ export const useMapView = ({
           objectMap?.location.lat,
         ]);
 
-        bottomMenuRef.current?.snapToIndex(0);
+        bottomSheetRef.current?.snapToIndex(0);
       }
     },
-    [bottomMenuOpened, mapObjects, bottomMenuRef],
+    [bottomMenuOpened, mapObjects, bottomSheetRef],
   );
 
   useEffect(() => {
@@ -300,7 +298,6 @@ export const useMapView = ({
     bounds,
     camera,
     mapRef,
-    bottomMenuRef,
     unfocusUserLocation,
     onShapePress,
     onMapPress,

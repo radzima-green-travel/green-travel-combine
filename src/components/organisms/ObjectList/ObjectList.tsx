@@ -81,7 +81,8 @@ export const ObjectList = ({
   const styles = useThemeStyles(themeStyles);
   const { t } = useTranslation('search');
   const { floatingFooter } = useObjectListSlots();
-  const mapSheetControls = useMapWithBottomSheetControls();
+  const { bottomSheetRef, bottomSheetPositionIndex, snapToMapView } =
+    useMapWithBottomSheetControls();
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
@@ -211,12 +212,9 @@ export const ObjectList = ({
 
   const floatingFooterWrapperStyle = useAnimatedStyle(() => {
     return {
-      opacity: withTiming(
-        mapSheetControls.bottomSheetPositionIndex.value > 1.99 ? 1 : 0,
-        {
-          duration: 150,
-        },
-      ),
+      opacity: withTiming(bottomSheetPositionIndex.value > 1.99 ? 1 : 0, {
+        duration: 150,
+      }),
     };
   });
 
@@ -254,12 +252,13 @@ export const ObjectList = ({
           onObjectPress={onItemPress}
           onTouch={hideKeyboard}
           objectCarouselFooter={floatingFooter}
-          {...mapSheetControls}
+          bottomSheetRef={bottomSheetRef}
+          bottomSheetPositionIndex={bottomSheetPositionIndex}
           {...mapWithBottomSheetProps}>
           {list}
         </MapWithBottomSheet>
       ) : (
-        list
+        <>{list}</>
       )}
       <View
         className="absolute right-0 bottom-4 left-0 gap-4"
@@ -267,10 +266,8 @@ export const ObjectList = ({
         <View className="flex-row justify-center">
           {withMapWithBottomSheet && (
             <MapWithBottomSheet.MapButton
-              onPress={mapSheetControls.snapToMapView}
-              bottomSheetPositionIndex={
-                mapSheetControls.bottomSheetPositionIndex
-              }
+              onPress={snapToMapView}
+              bottomSheetPositionIndex={bottomSheetPositionIndex}
             />
           )}
           {withScrollToTopButton && (

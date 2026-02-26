@@ -54,9 +54,12 @@ type MapWithBottomSheetProps = {
 
   /** Renders below the map objects carousel when the bottom sheet is expanded. */
   objectCarouselFooter?: React.ReactNode;
-} & MapWithBottomSheetControls;
+} & Pick<
+  MapWithBottomSheetControls,
+  'bottomSheetRef' | 'bottomSheetPositionIndex'
+>;
 
-const MapWithBottomSheetBase: React.FC<MapWithBottomSheetProps> = ({
+const MapWithBottomSheetComponent: React.FC<MapWithBottomSheetProps> = ({
   loading,
   children,
   totalResults,
@@ -82,7 +85,6 @@ const MapWithBottomSheetBase: React.FC<MapWithBottomSheetProps> = ({
     visibleObjects,
     carouselRef,
     onCarouselSnap,
-    bottomMenuRef,
     bottomMenuOpened,
     setBottomMenuOpened,
     ...mapProps
@@ -278,7 +280,7 @@ const MapWithBottomSheetBase: React.FC<MapWithBottomSheetProps> = ({
           ) : null}
         </Animated.View>
         <BottomSheet
-          ref={bottomMenuRef}
+          ref={bottomSheetRef}
           snapPoints={snapPoints}
           backgroundStyle={styles.bottomSheetContainer}
           enableDynamicSizing={false}
@@ -307,6 +309,6 @@ const MapWithBottomSheetBase: React.FC<MapWithBottomSheetProps> = ({
   );
 };
 
-export const MapWithBottomSheet = Object.assign(MapWithBottomSheetBase, {
+export const MapWithBottomSheet = Object.assign(MapWithBottomSheetComponent, {
   MapButton,
 });
