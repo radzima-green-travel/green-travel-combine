@@ -1,18 +1,21 @@
-import { useCallback, useMemo } from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { selectUserAuthorized } from 'core/selectors';
-import { MainNavigatorParamsList } from 'core/types';
-import { useTranslation } from 'core/hooks';
-import { RouteListScreen } from '../../screens/RouteList';
-import { RouteScreen } from '../../screens/Route';
-import { useScreenOptions } from '../hooks/useScreenOptions';
 import { Routes } from '@features/routes';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useTranslation } from 'core/hooks';
+import { selectUserAuthorized } from 'core/selectors';
+import { MainNavigatorParamsList, ObjectDetailsParams } from 'core/types';
+import { useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { ObjectDetailsScreen } from '../../screens';
 import { AddObjectsToRoute } from '../../screens/AddObjectsToRoute/AddObjectsToRoute';
+import { RouteScreen } from '../../screens/Route';
+import { RouteListScreen } from '../../screens/RouteList';
+import { useScreenOptions } from '../hooks/useScreenOptions';
 
-const Stack = createNativeStackNavigator<Routes.NavigatorParamsList>();
+const Stack = createNativeStackNavigator<
+  Routes.NavigatorParamsList & { ObjectDetails: ObjectDetailsParams }
+>();
 
 export function RoutesNavigator() {
   const { t } = useTranslation('routes');
@@ -51,6 +54,12 @@ export function RoutesNavigator() {
         />
         <Stack.Screen name="Route" component={RouteScreen} />
         <Stack.Screen name="AddObjectsToRoute" component={AddObjectsToRoute} />
+        <Stack.Screen
+          getId={({ params }) => params.objectId}
+          name="ObjectDetails"
+          component={ObjectDetailsScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </Routes.Provider>
   );

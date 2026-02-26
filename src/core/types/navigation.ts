@@ -8,7 +8,7 @@ import { SearchOptions } from './search';
 import type { ObjectListViewMode } from '../../components/types';
 import { Routes } from '@features/routes';
 
-type ObjectDetailsParams = {
+export type ObjectDetailsParams = {
   objectId: string;
   objectCoverImageUrl: string;
   objcetCoverBlurhash: string | null;
