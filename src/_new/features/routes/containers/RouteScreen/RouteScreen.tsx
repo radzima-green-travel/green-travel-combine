@@ -1,7 +1,5 @@
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
-import { useScreenParams } from '@core/hooks/useScreenParams';
-import { RouteScreenParams } from './params';
 import { Header } from 'components/containers';
 import { Button, Icon, ObjectListModeSwitch, SnackBar } from 'components/atoms';
 import { ListItem, SuspenseView } from 'components/molecules';
@@ -11,7 +9,6 @@ import { useRoute } from './hooks/useRoute';
 import { RoutesEmptyListView } from '@features/routes/components';
 
 export function RouteScreen() {
-  const { id } = useScreenParams(RouteScreenParams);
   const { t } = useTranslation('routes');
 
   const {
@@ -27,7 +24,7 @@ export function RouteScreen() {
     onViewModeChange,
     snackbar,
     mapWithBottomSheetProps,
-  } = useRoute(id);
+  } = useRoute();
 
   useHeader(
     {

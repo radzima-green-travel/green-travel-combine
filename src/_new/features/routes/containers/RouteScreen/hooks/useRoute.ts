@@ -6,6 +6,8 @@ import {
   useFocusEffect,
   type CompositeNavigationProp,
 } from '@react-navigation/native';
+import { useScreenParams } from '@core/hooks/useScreenParams';
+import { RouteScreenParams } from '../params';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   useSearchActions,
@@ -29,7 +31,8 @@ type RouteScreenNavigationProps = CompositeNavigationProp<
   NativeStackNavigationProp<MainNavigatorParamsList>
 >;
 
-export function useRoute(id: string) {
+export function useRoute() {
+  const { id } = useScreenParams(RouteScreenParams);
   const { t } = useTranslation('routes');
   const snackbar = useSnackbar();
   const objectCountBeforeAddRef = useRef<number | null>(null);
