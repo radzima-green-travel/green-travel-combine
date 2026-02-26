@@ -417,7 +417,7 @@
     },
     "routeDetails": {
       "common": {
-        "objectsCount": "Объекты",
+        "objectsCount": "Объекты {{count}}",
         "addObjects": "Добавить объекты"
       },
       "snackbar": {

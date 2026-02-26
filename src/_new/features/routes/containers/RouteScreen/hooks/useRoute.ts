@@ -1,7 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import {
+  useNavigation,
+  useFocusEffect,
+  type CompositeNavigationProp,
+} from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   useSearchActions,
@@ -14,18 +18,23 @@ import { selectSearchObjectsData } from 'core/selectors';
 import { useRequestLoading } from 'react-redux-help-kit';
 import { useOnRequestError } from 'core/hooks/useOnRequestError';
 import { getAnalyticsNavigationScreenName } from 'core/helpers';
-import type { MainNavigatorParamsList } from 'core/types';
+import type { MainNavigatorParamsList, SearchObject } from 'core/types';
 import { ObjectListViewMode } from 'components/types';
 import { useRouteById } from '../../../api';
 import { useSnackbar } from 'atoms';
+import type { RoutesNavigatorParamsList } from '../../../navigation';
+
+type RouteScreenNavigationProps = CompositeNavigationProp<
+  NativeStackNavigationProp<RoutesNavigatorParamsList, 'Route'>,
+  NativeStackNavigationProp<MainNavigatorParamsList>
+>;
 
 export function useRoute(id: string) {
   const { t } = useTranslation('routes');
   const snackbar = useSnackbar();
   const objectCountBeforeAddRef = useRef<number | null>(null);
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<MainNavigatorParamsList>>();
+  const navigation = useNavigation<RouteScreenNavigationProps>();
   const dispatch = useDispatch();
 
   const { data: route } = useRouteById(id);
@@ -64,7 +73,7 @@ export function useRoute(id: string) {
     objectIds.length,
   ]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     searchObjects();
   }, [searchObjects]);
 
@@ -90,16 +99,10 @@ export function useRoute(id: string) {
 
   const objectsCount = objects.length;
 
-  const handleAddObjectsPress = useCallback(() => {
+  const handleAddObjectsPress = () => {
     objectCountBeforeAddRef.current = objectsCount;
-    navigation.navigate('TabNavigator', {
-      screen: 'RoutesNavigator',
-      params: {
-        screen: 'AddObjectsToRoute',
-        params: { routeId: id },
-      },
-    });
-  }, [id, navigation, objectsCount]);
+    navigation.navigate('AddObjectsToRoute', { routeId: id });
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -120,19 +123,13 @@ export function useRoute(id: string) {
     }, [objectsCount, route?.name, snackbar, t]),
   );
 
-  const handleObjectPress = useCallback(
-    (object: (typeof objects)[0]) => {
-      openObjectDetails(object);
-    },
-    [openObjectDetails],
-  );
+  const handleObjectPress = (object: SearchObject) => {
+    openObjectDetails(object);
+  };
 
-  const handleViewModeChange = useCallback(
-    (mode: ObjectListViewMode) => {
-      setViewMode(mode);
-    },
-    [setViewMode],
-  );
+  const handleViewModeChange = (mode: ObjectListViewMode) => {
+    setViewMode(mode);
+  };
 
   return {
     route,
@@ -144,9 +141,9 @@ export function useRoute(id: string) {
     errorTexts,
     viewMode,
     searchObjects,
-    handleAddObjectsPress,
-    handleObjectPress,
-    handleViewModeChange,
+    onAddObjectsPress: handleAddObjectsPress,
+    onObjectPress: handleObjectPress,
+    onViewModeChange: handleViewModeChange,
     snackbar,
     mapWithBottomSheetProps,
   };

@@ -4,13 +4,9 @@ import { useScreenParams } from '@core/hooks/useScreenParams';
 import { RouteScreenParams } from './params';
 import { Header } from 'components/containers';
 import { Button, Icon, ObjectListModeSwitch, SnackBar } from 'components/atoms';
-import {
-  ListItem,
-  SuspenseView,
-  AnimatedCircleButton,
-} from 'components/molecules';
+import { ListItem, SuspenseView } from 'components/molecules';
 import { ObjectList } from 'components/organisms';
-import { useTranslation } from 'core/hooks';
+import { useHeader, useTranslation } from 'core/hooks';
 import { useRoute } from './hooks/useRoute';
 import { RoutesEmptyListView } from '@features/routes/components';
 
@@ -26,12 +22,29 @@ export function RouteScreen() {
     errorTexts,
     viewMode,
     searchObjects,
-    handleAddObjectsPress,
-    handleObjectPress,
-    handleViewModeChange,
+    onAddObjectsPress,
+    onObjectPress,
+    onViewModeChange,
     snackbar,
     mapWithBottomSheetProps,
   } = useRoute(id);
+
+  useHeader(
+    {
+      title: routeName,
+      titleSize: 'small',
+      titleAlign: 'center',
+      rightActions: [
+        {
+          icon: 'more',
+          action: () => {
+            // TODO: Open route options menu
+          },
+        },
+      ],
+    },
+    [routeName],
+  );
 
   const renderHeader = useCallback(() => {
     return (
@@ -39,12 +52,12 @@ export function RouteScreen() {
         <ListItem
           testID="routeObjectsHeader"
           type="primary"
-          title={`${t('routeDetails.common.objectsCount')} ${objectsCount}`}
+          title={t('routeDetails.common.objectsCount', { count: objectsCount })}
           rightElement={
             <ObjectListModeSwitch
               testID="viewModeSwitch"
               selectedMode={viewMode}
-              onPress={handleViewModeChange}
+              onPress={onViewModeChange}
             />
           }
         />
@@ -53,7 +66,7 @@ export function RouteScreen() {
             testID="addObjectsButton"
             theme="quarterly"
             withBorder={true}
-            onPress={handleAddObjectsPress}
+            onPress={onAddObjectsPress}
             text={t('routeDetails.common.addObjects')}
             renderIcon={textStyle => <Icon name="addLarge" style={textStyle} />}
             iconPosition="left"
@@ -62,7 +75,7 @@ export function RouteScreen() {
         </View>
       </View>
     );
-  }, [objectsCount, viewMode, handleViewModeChange, handleAddObjectsPress, t]);
+  }, [t, objectsCount, viewMode, onViewModeChange, onAddObjectsPress]);
 
   if ((loading && !objectsCount) || errorTexts) {
     return (
@@ -77,28 +90,6 @@ export function RouteScreen() {
 
   return (
     <View className="bg-secondary flex-1">
-      <Header
-        testID="routeDetailHeader"
-        style={{ paddingBottom: 0 }}
-        topSlot={() => {
-          return (
-            <View className="flex-row items-center gap-3">
-              <Header.BackButton />
-              <View className="flex-1 items-center">
-                <Header.Title size="small">{routeName}</Header.Title>
-              </View>
-              <AnimatedCircleButton
-                testID="routeOptionsButton"
-                icon={{ name: 'more' }}
-                onPress={() => {
-                  // TODO: Open route options menu
-                }}
-              />
-            </View>
-          );
-        }}
-        backButtonHidden={true}
-      />
       <Header.PageContentWrapperWithOverlay>
         {!objectsCount ? (
           <RoutesEmptyListView
@@ -108,7 +99,7 @@ export function RouteScreen() {
             image="binoculars">
             <Button
               testID="addRouteButton"
-              onPress={handleAddObjectsPress}
+              onPress={onAddObjectsPress}
               text={t('routeDetails.empty.addRouteButtonLabel')}
               className="mt-4 self-center px-3"
             />
@@ -127,9 +118,9 @@ export function RouteScreen() {
               testID="routeObjectsList"
               data={objects}
               totalResults={objectsCount}
-              onItemPress={handleObjectPress}
+              onItemPress={onObjectPress}
               viewMode={viewMode}
-              onViewModeChange={handleViewModeChange}
+              onViewModeChange={onViewModeChange}
               ListHeaderComponent={renderHeader}
               mapWithBottomSheetProps={mapWithBottomSheetProps}
             />
