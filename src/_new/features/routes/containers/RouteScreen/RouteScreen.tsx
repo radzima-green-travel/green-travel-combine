@@ -62,7 +62,6 @@ export function RouteScreen() {
           <Button
             testID="addObjectsButton"
             theme="quarterly"
-            withBorder={true}
             onPress={onAddObjectsPress}
             text={t('routeDetails.common.addObjects')}
             renderIcon={textStyle => <Icon name="addLarge" style={textStyle} />}
