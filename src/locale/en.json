@@ -418,6 +418,21 @@
       "errors": {
         "default": "Failed to create or update route"
       }
+    },
+      "routeDetails": {
+        "common": {
+          "objectsCount": "Items/Objects {{count}}",
+          "addObjects": "Add objects"
+        },
+      "snackbar": {
+        "savedObjectTo_one": "Saved object to {{routeName}}",
+        "savedObjectTo_other": "Saved {{amount}} objects to {{routeName}}"
+      },
+      "empty": {
+        "addRouteButtonLabel": "Start exploring",
+        "title": "No added objects yet",
+        "description": "Start your first route. Tap the 'Add' icon on places you like"
+      }
     }
   }
 }

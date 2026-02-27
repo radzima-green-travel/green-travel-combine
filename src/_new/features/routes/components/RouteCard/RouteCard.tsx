@@ -14,8 +14,8 @@ export const RouteCard = ({ route, onPress }: RouteCardProps) => {
   return (
     <Pressable
       onPress={() => onPress(route)}
-      className="flex-row items-center gap-3 rounded-[12] bg-primary px-4 py-2">
-      <View className="h-10 w-10 items-center justify-center rounded-[12] bg-quarterly">
+      className="bg-primary flex-row items-center gap-3 rounded-[12] px-4 py-2">
+      <View className="bg-quarterly h-10 w-10 items-center justify-center rounded-[12]">
         <Icon
           name="routeSimple"
           size={24}
@@ -25,7 +25,7 @@ export const RouteCard = ({ route, onPress }: RouteCardProps) => {
       </View>
       <View className="flex-1">
         <Text className="font-subheadlineBold text-primary">{route.name}</Text>
-        <Text className="font-caption1Regular mt-1 text-secondary">
+        <Text className="font-caption1Regular text-secondary mt-1">
           {t(
             // TODO: Bump the prehistoric version of i18next to 21.0.0, preferably latest
             route.objectIds.length === 1

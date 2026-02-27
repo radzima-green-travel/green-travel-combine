@@ -29,6 +29,9 @@ export const themeStyles = {
     shadowRadius: 3,
     elevation: 3,
   },
+  containerWithLeadIcon: {
+    justifyContent: 'flex-start',
+  },
   successContainer: {
     backgroundColor: {
       light: COLORS.light.background.success,
@@ -47,6 +50,14 @@ export const themeStyles = {
       dark: COLORS.dark.background.secondaryContrast,
     },
   },
+  notificationContainer: {
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
+    height: 56,
+    marginHorizontal: 16,
+  },
   text: {
     ...FONTS_STYLES.regular14,
     color: {
@@ -60,6 +71,12 @@ export const themeStyles = {
       dark: COLORS.dark.text.tertiary,
     },
   },
+  notificationText: {
+    color: {
+      light: COLORS.light.text.primary,
+      dark: COLORS.dark.text.primary,
+    },
+  },
   icon: {
     backgroundColor: 'transparent',
   },
@@ -67,6 +84,32 @@ export const themeStyles = {
     color: {
       light: COLORS.light.icon.tertiary,
       dark: COLORS.dark.icon.tertiary,
+    },
+  },
+  defaultLeadIconContainer: {
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  defaultLeadIcon: {
+    color: COLORS.white,
+  },
+  notificationLeadIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+    backgroundColor: {
+      light: COLORS.light.background.quarterly,
+      dark: COLORS.dark.background.quarterly,
+    },
+  },
+  notificationLeadIcon: {
+    color: {
+      light: COLORS.light.icon.accent,
+      dark: COLORS.dark.icon.accent,
     },
   },
 };

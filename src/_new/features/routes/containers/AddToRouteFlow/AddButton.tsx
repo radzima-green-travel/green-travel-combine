@@ -53,7 +53,7 @@ const AddButtonList = ({
       activeOpacity={0.8}
       testID="addToRouteButton"
       onPress={onPress}>
-      <View className="h-[30] w-[30] items-center justify-center rounded-[15] bg-primary">
+      <View className="bg-primary h-[30] w-[30] items-center justify-center rounded-[15]">
         <Icon
           name={isAdded ? 'checkCircle' : 'plusCircle'}
           size={20}
