@@ -1,9 +1,8 @@
-import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import { useCallback, useLayoutEffect, useMemo } from 'react';
 import { Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
 import {
   useNavigation,
-  useFocusEffect,
   type CompositeNavigationProp,
 } from '@react-navigation/native';
 import { useScreenParams } from '@core/hooks/useScreenParams';
@@ -35,7 +34,6 @@ export function useRoute() {
   const { id } = useScreenParams(RouteScreenParams);
   const { t } = useTranslation('routes');
   const snackbar = useSnackbar();
-  const objectCountBeforeAddRef = useRef<number | null>(null);
 
   const navigation = useNavigation<RouteScreenNavigationProps>();
   const dispatch = useDispatch();
@@ -81,7 +79,7 @@ export function useRoute() {
   }, [searchObjects]);
 
   const openObjectDetails = useCallback(
-    (object: (typeof searchResults)[0]) => {
+    (object: SearchObject) => {
       Keyboard.dismiss();
       navigation.navigate('ObjectDetails', {
         objectId: object.id,
@@ -100,19 +98,15 @@ export function useRoute() {
     return searchResults.filter(obj => objectIds.includes(obj.id));
   }, [searchResults, objectIds]);
 
-  const objectsCount = objects.length;
-
   const handleAddObjectsPress = () => {
-    objectCountBeforeAddRef.current = objectsCount;
-    navigation.navigate('AddObjectsToRoute', { routeId: id });
-  };
-
-  useFocusEffect(
-    useCallback(() => {
-      const prevCount = objectCountBeforeAddRef.current;
-      const routeName = route?.name ?? '';
-      if (prevCount !== null && objectsCount > prevCount) {
-        const addedCount = objectsCount - prevCount;
+    navigation.navigate('AddObjectsToRoute', {
+      routeId: id,
+      onDone: addedIds => {
+        const addedCount = addedIds.length;
+        if (!addedCount) {
+          return;
+        }
+        const routeName = route?.name ?? '';
         const key =
           addedCount === 1
             ? 'routeDetails.snackbar.savedObjectTo_one'
@@ -121,10 +115,9 @@ export function useRoute() {
           title: t(key, { amount: addedCount, routeName }),
           timeoutMs: 1000,
         });
-        objectCountBeforeAddRef.current = null;
-      }
-    }, [objectsCount, route?.name, snackbar, t]),
-  );
+      },
+    });
+  };
 
   const handleObjectPress = (object: SearchObject) => {
     openObjectDetails(object);
@@ -138,7 +131,7 @@ export function useRoute() {
     route,
     routeName: route?.name ?? '',
     objects,
-    objectsCount,
+    objectsCount: objects.length,
     objectIds,
     loading,
     errorTexts,
