@@ -1,11 +1,12 @@
-import { useRouteList } from '../../api';
-import { SuspenseView } from 'molecules';
-import { useTranslation } from 'core/hooks';
-import { FlatList, View } from 'react-native';
-import { RoutesEmptyListView, RouteCard } from '../../components';
-import { RouteModel } from '../../model';
 import { Button, Icon } from 'components/atoms';
+import { useTranslation } from 'core/hooks';
+import { resolveErrorMessage } from '@core/utils/resolveErrorMessage';
 import { idKeyExtractor } from 'core/utils/react';
+import { SuspenseView } from 'molecules';
+import { FlatList } from 'react-native';
+import { useRouteList } from '../../api';
+import { RouteCard, RoutesEmptyListView } from '../../components';
+import { RouteModel } from '../../model';
 
 export const RouteList = ({
   onAddRoute,
@@ -17,19 +18,13 @@ export const RouteList = ({
   const { data, isPending, error } = useRouteList();
   const { t } = useTranslation('routes');
 
-  if (isPending || error)
-    return (
-      <SuspenseView
-        testID="routeListSuspense"
-        loading={isPending}
-        error={error ? { text: error.tag, title: 'Error' } : null}
-      />
-    );
-
-  const hasItems = data.length > 0;
+  const hasItems = data?.length! > 0;
 
   return (
-    <View className="flex-1">
+    <SuspenseView
+      testID="routeListSuspense"
+      loading={isPending}
+      error={resolveErrorMessage(error, t)}>
       <FlatList
         data={data}
         keyExtractor={idKeyExtractor}
@@ -66,6 +61,6 @@ export const RouteList = ({
           renderIcon={textStyle => <Icon name="addRoute" style={textStyle} />}
         />
       )}
-    </View>
+    </SuspenseView>
   );
 };
