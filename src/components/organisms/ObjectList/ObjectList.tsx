@@ -81,7 +81,7 @@ export const ObjectList = ({
   const styles = useThemeStyles(themeStyles);
   const { t } = useTranslation('search');
   const { floatingFooter } = useObjectListSlots();
-  const { bottomSheetRef, bottomSheetPositionIndex, snapToMapView } =
+  const { bottomSheetRef, initialSnapIndex, currentSnapIndex, snapToMapView } =
     useMapWithBottomSheetControls();
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
@@ -212,7 +212,7 @@ export const ObjectList = ({
 
   const floatingFooterWrapperStyle = useAnimatedStyle(() => {
     return {
-      opacity: withTiming(bottomSheetPositionIndex.value > 1.99 ? 1 : 0, {
+      opacity: withTiming(currentSnapIndex.value > 1.99 ? 1 : 0, {
         duration: 150,
       }),
     };
@@ -253,7 +253,8 @@ export const ObjectList = ({
           onTouch={hideKeyboard}
           objectCarouselFooter={floatingFooter}
           bottomSheetRef={bottomSheetRef}
-          bottomSheetPositionIndex={bottomSheetPositionIndex}
+          initialSnapIndex={initialSnapIndex}
+          currentSnapIndex={currentSnapIndex}
           {...mapWithBottomSheetProps}>
           {list}
         </MapWithBottomSheet>
@@ -267,7 +268,7 @@ export const ObjectList = ({
           {withMapWithBottomSheet && (
             <MapWithBottomSheet.MapButton
               onPress={snapToMapView}
-              bottomSheetPositionIndex={bottomSheetPositionIndex}
+              mapBottomSheetSnapIndex={currentSnapIndex}
             />
           )}
           {withScrollToTopButton && (

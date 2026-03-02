@@ -4,7 +4,8 @@ import { useSharedValue } from 'react-native-reanimated';
 
 export function useMapWithBottomSheetControls() {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const bottomSheetPositionIndex = useSharedValue(0);
+  const initialSnapIndex = 2;
+  const currentSnapIndex = useSharedValue(initialSnapIndex);
 
   const snapToMapView = useCallback(() => {
     bottomSheetRef.current?.snapToIndex(0);
@@ -16,7 +17,8 @@ export function useMapWithBottomSheetControls() {
 
   return {
     bottomSheetRef,
-    bottomSheetPositionIndex,
+    initialSnapIndex,
+    currentSnapIndex,
     snapToMapView,
     snapToListView,
   };

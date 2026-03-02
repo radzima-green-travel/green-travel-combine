@@ -10,12 +10,12 @@ import { themeStyles } from './styles';
 
 interface MapButtonProps {
   onPress: () => void;
-  bottomSheetPositionIndex: SharedValue<number>;
+  mapBottomSheetSnapIndex: SharedValue<number>;
 }
 
 export const MapButton: React.FC<MapButtonProps> = ({
   onPress,
-  bottomSheetPositionIndex,
+  mapBottomSheetSnapIndex,
 }) => {
   const { t } = useTranslation('search');
   const styles = useThemeStyles(themeStyles);
@@ -23,7 +23,7 @@ export const MapButton: React.FC<MapButtonProps> = ({
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       {
-        scale: withTiming(bottomSheetPositionIndex.value > 1.99 ? 1 : 0, {
+        scale: withTiming(mapBottomSheetSnapIndex.value > 1.99 ? 1 : 0, {
           duration: 150,
         }),
       },

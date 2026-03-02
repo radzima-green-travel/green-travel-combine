@@ -43,7 +43,7 @@ type MapWithBottomSheetProps = {
   onMarkersAppear: (
     markers: Feature<Geometry, { icon_image: string; objectId: string }>[],
   ) => void;
-  onMenuPositionChange: (index: number) => void;
+  onMenuPositionChange: (snapIndex: number) => void;
 
   children: React.ReactNode;
   loading: boolean;
@@ -56,7 +56,7 @@ type MapWithBottomSheetProps = {
   objectCarouselFooter?: React.ReactNode;
 } & Pick<
   MapWithBottomSheetControls,
-  'bottomSheetRef' | 'bottomSheetPositionIndex'
+  'bottomSheetRef' | 'initialSnapIndex' | 'currentSnapIndex'
 >;
 
 const MapWithBottomSheetComponent: React.FC<MapWithBottomSheetProps> = ({
@@ -70,8 +70,9 @@ const MapWithBottomSheetComponent: React.FC<MapWithBottomSheetProps> = ({
   onMarkersAppear,
   onObjectPress,
   onTouch,
+  initialSnapIndex,
   bottomSheetRef,
-  bottomSheetPositionIndex,
+  currentSnapIndex,
   objectCarouselFooter,
 }) => {
   const { t } = useTranslation('search');
@@ -111,8 +112,6 @@ const MapWithBottomSheetComponent: React.FC<MapWithBottomSheetProps> = ({
     [],
   );
   const animatedPosition = useSharedValue(0);
-
-  const animatedIndex = bottomSheetPositionIndex;
 
   const translateY = useDerivedValue(() => {
     if (mapViewPort?.height) {
@@ -154,12 +153,12 @@ const MapWithBottomSheetComponent: React.FC<MapWithBottomSheetProps> = ({
 
   const overlay = useAnimatedStyle(() => {
     return {
-      opacity: withTiming(animatedIndex.value < 0.1 ? 1 : 0),
+      opacity: withTiming(currentSnapIndex.value < 0.1 ? 1 : 0),
     };
   });
 
   useAnimatedReaction(
-    () => animatedIndex.value < 0.1,
+    () => currentSnapIndex.value < 0.1,
     nextOpened => {
       if (nextOpened !== bottomMenuOpened) {
         runOnJS(setBottomMenuOpened)(nextOpened);
@@ -285,12 +284,12 @@ const MapWithBottomSheetComponent: React.FC<MapWithBottomSheetProps> = ({
           backgroundStyle={styles.bottomSheetContainer}
           enableDynamicSizing={false}
           handleStyle={styles.handleContainer}
-          animatedIndex={animatedIndex}
+          animatedIndex={currentSnapIndex}
           handleIndicatorStyle={styles.indicator}
           animatedPosition={animatedPosition}
           accessible={false}
           onChange={onMenuPositionChange}
-          index={2}>
+          index={initialSnapIndex}>
           {children}
           <Animated.View
             pointerEvents="none"
