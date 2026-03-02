@@ -6,6 +6,10 @@ import {
   useThemeStyles,
   useTranslation,
 } from 'core/hooks';
+import {
+  MapWithBottomSheet,
+  useMapWithBottomSheetControls,
+} from '../MapWithBottomSheet';
 import { SearchObject } from 'core/types';
 import { idKeyExtractor } from 'core/utils/react';
 import React, { useCallback } from 'react';
@@ -16,12 +20,14 @@ import {
   Text,
   View,
 } from 'react-native';
-import Animated from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 import { ObjectListModeSwitch } from '../../atoms';
 import { ListItem, ObjectCardNew, SearchListItem } from '../../molecules';
 import { ObjectListViewMode } from '../../types';
 import { themeStyles } from './styles';
-import { MapWithBottomSheet } from '../MapWithBottomSheet';
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { useObjectListSlots } from './ObjectListSlotsContext';
 
@@ -75,6 +81,8 @@ export const ObjectList = ({
   const styles = useThemeStyles(themeStyles);
   const { t } = useTranslation('search');
   const { floatingFooter } = useObjectListSlots();
+  const { bottomSheetRef, initialSnapIndex, currentSnapIndex, snapToMapView } =
+    useMapWithBottomSheetControls();
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
@@ -202,6 +210,14 @@ export const ObjectList = ({
     withMapWithBottomSheet ? AnimatedBottomSheetFlatList : Animated.FlatList
   ) as typeof Animated.FlatList<SearchObject>;
 
+  const floatingFooterWrapperStyle = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(currentSnapIndex.value > 1.99 ? 1 : 0, {
+        duration: 150,
+      }),
+    };
+  });
+
   const list = (
     <ListComponent
       ref={scrollToTopListRef}
@@ -235,18 +251,38 @@ export const ObjectList = ({
         <MapWithBottomSheet
           onObjectPress={onItemPress}
           onTouch={hideKeyboard}
+          objectCarouselFooter={floatingFooter}
+          bottomSheetRef={bottomSheetRef}
+          initialSnapIndex={initialSnapIndex}
+          currentSnapIndex={currentSnapIndex}
           {...mapWithBottomSheetProps}>
           {list}
         </MapWithBottomSheet>
       ) : (
-        list
+        <>{list}</>
       )}
-      {!withMapWithBottomSheet && (
-        <View className="absolute right-0 bottom-4 left-0">
-          {floatingFooter}
+      <View
+        className="absolute right-0 bottom-4 left-0 gap-4"
+        pointerEvents="box-none">
+        <View className="flex-row justify-center">
+          {withMapWithBottomSheet && (
+            <MapWithBottomSheet.MapButton
+              onPress={snapToMapView}
+              mapBottomSheetSnapIndex={currentSnapIndex}
+            />
+          )}
+          {withScrollToTopButton && (
+            <View className="absolute right-gutter">
+              <ScrollToTopButton />
+            </View>
+          )}
         </View>
-      )}
-      {withScrollToTopButton && <ScrollToTopButton />}
+        {!!floatingFooter && (
+          <Animated.View style={floatingFooterWrapperStyle}>
+            {floatingFooter}
+          </Animated.View>
+        )}
+      </View>
     </View>
   );
 };

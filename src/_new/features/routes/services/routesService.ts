@@ -79,7 +79,7 @@ export namespace RoutesService {
       await delay(300);
 
       const route = RouteModel.createOptimisticRoute(input);
-      this.routes.push(route);
+      this.routes.unshift(route);
       return route;
     }
 

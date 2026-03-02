@@ -389,8 +389,8 @@
   "routes": {
     "common": {
       "addRouteButtonLabel": "Add route",
-      "routeObjectCount_one": "{{amount}} object",
-      "routeObjectCount_other": "{{amount}} objects"
+      "routeObjectCount": "{{count}} object",
+      "routeObjectCount_plural": "{{count}} objects"
     },
     "routeList": {
       "title": "Routes",
