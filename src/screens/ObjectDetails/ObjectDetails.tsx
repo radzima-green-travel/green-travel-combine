@@ -153,6 +153,12 @@ export const ObjectDetails = () => {
       testID="suspenseView"
       error={errorTexts}
       retryCallback={onTryAgainPress}>
+      <ObjectDetailsHeader
+        testID="header"
+        scrollOffset={translationY}
+        objectName={data?.name || ''}
+        contentRevealThreshold={IMAGE_HEIGHT}
+      />
       <Animated.View style={styles.container}>
         {data ? (
           <Animated.ScrollView
@@ -362,12 +368,6 @@ export const ObjectDetails = () => {
           style={[styles.gradient, { height: top }]}
         />
         <SnackBar testID={'snackBar'} offset={80} {...snackBarProps} />
-        <ObjectDetailsHeader
-          testID="header"
-          animatedValue={translationY}
-          objectName={data?.name || ''}
-          pivotHeightToAnimate={IMAGE_HEIGHT}
-        />
         {/* <Animated.View entering={FadeInDown.delay(250)}> */}
         <ObjectDetailsBottomButtons
           testID="bottomButtons"
