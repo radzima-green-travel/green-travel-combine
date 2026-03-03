@@ -23,10 +23,11 @@ export function useFavorite({
     syncAndGetBookmarksRequest,
   );
 
-  const isFavorite = useMemo(
-    () => (objectId ? find(bookmarksIds, id => id === objectId) : false),
-    [bookmarksIds, objectId],
-  );
+  // TODO: Update bookmarkIds selector to return object for O(1) lookup
+  const isFavorite = objectId
+    ? !!find(bookmarksIds, id => id === objectId)
+    : false;
+
   const toggleFavorite = useToggleFavorite({
     removeWithAnimation,
     onAnimationEnd,

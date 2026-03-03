@@ -38,6 +38,8 @@ export const themeStyles = createThemeStyles({
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
     },
+    flexDirection: 'row',
+    gap: 8,
     paddingHorizontal: PADDING_HORIZONTAL,
     paddingTop: 14,
     paddingBottom: PADDING_HORIZONTAL,
@@ -48,6 +50,7 @@ export const themeStyles = createThemeStyles({
     position: 'absolute',
   },
   visitedButton: {
+    flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0)',
   },
   animationContainer: {
@@ -88,6 +91,12 @@ export const themeStyles = createThemeStyles({
       dark: COLORS.dark.background.primary,
     },
     marginHorizontal: PADDING_HORIZONTAL,
+  },
+  mapButton: {
+    position: 'absolute',
+    bottom: 24,
+    alignSelf: 'center',
+    paddingHorizontal: 12,
   },
   loader: {
     position: 'absolute',

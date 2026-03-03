@@ -5,7 +5,6 @@ import {
   DetailsPageCapture,
   ObjectDescription,
   ObjectDetailsPager,
-  ObjectDetailsBottomButtons,
   ObjectDetailsCompletenessBlock,
   ObjectDetailsCompletenessSmallBlock,
   SuspenseView,
@@ -158,6 +157,9 @@ export const ObjectDetails = () => {
         scrollOffset={translationY}
         objectName={data?.name || ''}
         contentRevealThreshold={IMAGE_HEIGHT}
+        onSharePress={shareObjectLink}
+        onBookmarkPress={toggleFavoriteHandler}
+        isFavorite={isFavorite}
       />
       <Animated.View style={styles.container}>
         {data ? (
@@ -214,6 +216,20 @@ export const ObjectDetails = () => {
                     isVisited && iconContainerAnimatedStyle
                   }
                   labelAnimatedStyle={isVisited && labelAnimatedStyle}
+                />
+                <Button
+                  testID={'favoriteButton'}
+                  isIconOnlyButton
+                  theme={'secondary'}
+                  checked={isFavorite}
+                  loading={favoritesSynchronizing}
+                  onPress={toggleFavoriteHandler}
+                  renderIcon={textStyle => (
+                    <Icon
+                      style={textStyle}
+                      name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
+                    />
+                  )}
                 />
               </View>
             </Animated.View>
@@ -368,17 +384,18 @@ export const ObjectDetails = () => {
           style={[styles.gradient, { height: top }]}
         />
         <SnackBar testID={'snackBar'} offset={80} {...snackBarProps} />
-        {/* <Animated.View entering={FadeInDown.delay(250)}> */}
-        <ObjectDetailsBottomButtons
-          testID="bottomButtons"
-          onBookmarkPress={toggleFavoriteHandler}
-          onSharePress={shareObjectLink}
-          onShowOnMapPress={navigateToObjectsMap}
-          isFavorite={Boolean(isFavorite)}
-          isFavoriteLoading={favoritesSynchronizing}
-          showOnMapButtonEnabled={locationExist}
+
+        <Button
+          testID="mapButton"
+          elevated
+          disabled={!locationExist}
+          onPress={navigateToObjectsMap}
+          text={t('seeOnTheMap')}
+          style={styles.mapButton}
+          renderIcon={textStyle => (
+            <Icon name="map" size={20} style={textStyle} />
+          )}
         />
-        {/* </Animated.View> */}
 
         <ObjectDetailsReportInaccuraciesMenu
           testID="reportInaccuraciesMenu"
