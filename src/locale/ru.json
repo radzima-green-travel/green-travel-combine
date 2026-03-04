@@ -421,8 +421,9 @@
         "addObjects": "Добавить объекты"
       },
       "snackbar": {
-        "savedObjectTo_one": "Объект сохранён в {{routeName}}",
-        "savedObjectTo_other": "Сохранено {{amount}} объектов в {{routeName}}"
+        "savedObjectTo_0": "Объект сохранён в {{routeName}}",
+        "savedObjectTo_1": "Сохранено {{count}} объекта в {{routeName}}",
+        "savedObjectTo_2": "Сохранено {{count}} объектов в {{routeName}}"
       },
       "empty": {
         "addRouteButtonLabel": "Начните исследование",

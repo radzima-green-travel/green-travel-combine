@@ -425,8 +425,8 @@
           "addObjects": "Add objects"
         },
       "snackbar": {
-        "savedObjectTo_one": "Saved object to {{routeName}}",
-        "savedObjectTo_other": "Saved {{amount}} objects to {{routeName}}"
+        "savedObjectTo": "Saved object to {{routeName}}",
+        "savedObjectTo_plural": "Saved {{count}} objects to {{routeName}}"
       },
       "empty": {
         "addRouteButtonLabel": "Start exploring",

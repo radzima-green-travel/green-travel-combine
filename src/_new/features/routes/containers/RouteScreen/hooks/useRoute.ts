@@ -93,11 +93,6 @@ export function useRoute() {
     [navigation],
   );
 
-  const objects = useMemo(() => {
-    if (!objectIds.length) return [];
-    return searchResults.filter(obj => objectIds.includes(obj.id));
-  }, [searchResults, objectIds]);
-
   const handleAddObjectsPress = () => {
     navigation.navigate('AddObjectsToRoute', {
       routeId: id,
@@ -107,12 +102,11 @@ export function useRoute() {
           return;
         }
         const routeName = route?.name ?? '';
-        const key =
-          addedCount === 1
-            ? 'routeDetails.snackbar.savedObjectTo_one'
-            : 'routeDetails.snackbar.savedObjectTo_other';
         snackbar.show({
-          title: t(key, { amount: addedCount, routeName }),
+          title: t('routeDetails.snackbar.savedObjectTo', {
+            count: addedCount,
+            routeName,
+          }),
           timeoutMs: 1000,
         });
       },
@@ -128,11 +122,9 @@ export function useRoute() {
   };
 
   return {
-    route,
     routeName: route?.name ?? '',
-    objects,
-    objectsCount: objects.length,
-    objectIds,
+    objects: searchResults,
+    objectsCount: searchResults.length,
     loading,
     errorTexts,
     viewMode,
