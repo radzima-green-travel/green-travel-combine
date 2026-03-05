@@ -1,5 +1,4 @@
 import { useColorScheme, useStatusBar } from 'core/hooks';
-import { useState } from 'react';
 import {
   SharedValue,
   runOnJS,
@@ -7,23 +6,17 @@ import {
 } from 'react-native-reanimated';
 import { IMAGE_HEIGHT } from '../styles';
 
-export function useObjectDetailsStatusBar(animatedValue: SharedValue<number>) {
-  const [isScrolledBelowImage, setIsScrolledBelowImage] = useState(false);
+export function useObjectDetailsStatusBar(scrollOffset: SharedValue<number>) {
   const theme = useColorScheme();
-
   const isLightTheme = theme === 'light';
 
-  useAnimatedReaction(
-    () => {
-      return animatedValue.value >= IMAGE_HEIGHT;
-    },
-    isScrollBelow => {
-      runOnJS(setIsScrolledBelowImage)(isScrollBelow);
-    },
-    [],
-  );
+  const { setStyle } = useStatusBar({ style: 'light' });
 
-  useStatusBar({
-    style: isLightTheme && isScrolledBelowImage ? 'dark' : 'light',
-  });
+  useAnimatedReaction(
+    () => scrollOffset.value >= IMAGE_HEIGHT,
+    isScrollBelow => {
+      runOnJS(setStyle)(isLightTheme && isScrollBelow ? 'dark' : 'light');
+    },
+    [isLightTheme],
+  );
 }
