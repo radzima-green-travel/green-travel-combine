@@ -20,8 +20,8 @@ export const useCreateRoute = ({
     onSuccess: data => {
       onSuccess?.(data);
       queryClient.setQueryData<RouteModel.Route[]>(['routes'], oldData => [
-        ...(oldData || []),
         data,
+        ...(oldData || []),
       ]);
     },
     onError,

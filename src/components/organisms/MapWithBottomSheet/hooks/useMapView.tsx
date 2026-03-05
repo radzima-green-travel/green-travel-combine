@@ -22,6 +22,7 @@ import type { Feature, Position, Geometry } from 'geojson';
 import { mapService } from 'services/MapService';
 import { hapticFeedbackService } from 'services/HapticFeedbackService';
 
+import type { RefObject } from 'react';
 import { ICarouselInstance } from 'react-native-reanimated-carousel';
 import BottomSheet from '@gorhom/bottom-sheet';
 
@@ -45,15 +46,16 @@ export const useMapView = ({
   mapObjects,
   onMarkersAppear,
   visibleObjects,
+  bottomSheetRef,
 }: {
   mapObjects: ObjectMap[];
   visibleObjects: SearchObject[];
   onMarkersAppear: (
     markers: Feature<Geometry, { icon_image: string; objectId: string }>[],
   ) => void;
+  bottomSheetRef: RefObject<BottomSheet | null>;
 }) => {
   const carouselRef = useRef<ICarouselInstance>(null!);
-  const bottomMenuRef = useRef<BottomSheet>(null);
 
   const camera = useRef<Camera>(null);
   const mapRef = useRef<MapView>(null);
@@ -107,10 +109,10 @@ export const useMapView = ({
           objectMap?.location.lat,
         ]);
 
-        bottomMenuRef.current?.snapToIndex(0);
+        bottomSheetRef.current?.snapToIndex(0);
       }
     },
-    [bottomMenuOpened, mapObjects],
+    [bottomMenuOpened, mapObjects, bottomSheetRef],
   );
 
   useEffect(() => {
@@ -296,7 +298,6 @@ export const useMapView = ({
     bounds,
     camera,
     mapRef,
-    bottomMenuRef,
     unfocusUserLocation,
     onShapePress,
     onMapPress,

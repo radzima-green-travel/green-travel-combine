@@ -7,6 +7,9 @@ import enTranslations from '../locale/en.json';
 import { SupportedLocales } from 'core/types';
 import { DEFAULT_LOCALE } from 'core/constants';
 
+// TODO: Remove this once we update to the latest version of i18next
+// Rules of pluralization are updated in 21.0.0 for consistency
+// @ts-expect-error
 const RESOURCES = new Map([
   ['ru' as const, ruTranslations],
   ['en' as const, enTranslations],

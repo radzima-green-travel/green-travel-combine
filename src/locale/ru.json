@@ -385,8 +385,9 @@
   "routes": {
     "common": {
       "addRouteButtonLabel": "Добавить маршрут",
-      "routeObjectCount_one": "{{amount}} объект",
-      "routeObjectCount_other": "{{amount}} объектов"
+      "routeObjectCount_0": "{{count}} объект",
+      "routeObjectCount_1": "{{count}} объекта",
+      "routeObjectCount_2": "{{count}} объектов"
     },
     "routeList": {
       "title": "Маршруты",
