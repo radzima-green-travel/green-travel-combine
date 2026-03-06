@@ -27,7 +27,7 @@ export const RouteCard = ({ route, onPress }: RouteCardProps) => {
         <Text className="font-subheadlineBold text-primary" numberOfLines={2}>
           {route.name}
         </Text>
-        <Text className="font-caption1Regular mt-1 text-secondary">
+        <Text className="font-caption1Regular text-secondary mt-1">
           {t('common.routeObjectCount', {
             count: route.objectIds.length,
           })}
