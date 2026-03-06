@@ -28,10 +28,24 @@ export const themeStyles = {
       dark: COLORS.dark.stroke.border,
     },
   },
-
-  rightPlaceholder: {
-    width: 32,
-    height: 32,
+  contentWrapper: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  header: {
+    position: 'absolute',
+    width: '100%',
+    zIndex: 100,
+  },
+  headerContent: {
+    backgroundColor: 'transparent',
+  },
+  headerBackdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: {
+      light: COLORS.light.background.primary,
+      dark: COLORS.dark.background.primary,
+    },
   },
 
   titleContainer: {

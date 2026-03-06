@@ -1,27 +1,47 @@
 import { useIsFocused } from '@react-navigation/native';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { SystemBars, SystemBarStyle } from 'react-native-edge-to-edge';
 import { useColorScheme } from './useColorScheme';
 
 export function useStatusBar({ style }: { style: SystemBarStyle }) {
   const isFocused = useIsFocused();
   const scheme = useColorScheme();
+  const currentStyleRef = useRef(style);
+  const entryRef = useRef<ReturnType<typeof SystemBars.pushStackEntry> | null>(
+    null,
+  );
 
   useEffect(() => {
     if (isFocused) {
-      const statusBarStyle = getStatusBarStyle(scheme, style);
-
-      const entry = SystemBars.pushStackEntry({
+      entryRef.current = SystemBars.pushStackEntry({
         style: {
-          statusBar: statusBarStyle,
+          statusBar: getStatusBarStyle(scheme, currentStyleRef.current),
         },
       });
 
       return () => {
-        SystemBars.popStackEntry(entry);
+        if (entryRef.current) {
+          SystemBars.popStackEntry(entryRef.current);
+          entryRef.current = null;
+        }
       };
     }
   }, [isFocused, style, scheme]);
+
+  return {
+    // Stable reference across renders so callers passing this to runOnJS don't re-register reactions
+    setStyle: useCallback(
+      (nextStyle: SystemBarStyle) => {
+        currentStyleRef.current = nextStyle;
+        if (entryRef.current) {
+          entryRef.current = SystemBars.replaceStackEntry(entryRef.current, {
+            style: { statusBar: getStatusBarStyle(scheme, nextStyle) },
+          });
+        }
+      },
+      [scheme],
+    ),
+  };
 }
 
 // Default options from library work with the system theme, not the app theme

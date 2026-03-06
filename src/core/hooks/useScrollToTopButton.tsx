@@ -72,9 +72,10 @@ export const useScrollToTopButton = () => {
 
   const ScrollToTopButton = useMemo(
     () =>
-      ({ style, buttonStyle }: ScrollToTopButtonProps) => (
+      ({ style, buttonStyle, className }: ScrollToTopButtonProps) => (
         <Animated.View
           style={StyleSheet.compose(buttonContainerStyle, style)}
+          className={className}
           animatedProps={buttonContainerProps}>
           <Button
             testID="scrollToTopButton"
@@ -121,17 +122,15 @@ export const useScrollToTopButton = () => {
 };
 
 interface ScrollToTopButtonProps {
+  className?: string;
   style?: StyleProp<ViewStyle>;
   buttonStyle?: StyleProp<ViewStyle>;
 }
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    bottom: 16,
-    right: 16,
   },
   button: {
     borderWidth: 0,

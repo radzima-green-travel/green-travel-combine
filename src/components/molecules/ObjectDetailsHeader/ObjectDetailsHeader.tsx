@@ -1,89 +1,52 @@
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { getDefaultHeaderHeight } from '@react-navigation/elements';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from 'services/PlatformService';
-import { themeStyles } from './styles';
+import { Header } from 'containers';
 import { useThemeStyles } from 'core/hooks';
-import { AnimatedCircleButton } from '../AnimatedCircleButton';
-
 import React, { memo } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
+import { View } from 'react-native';
 import Animated, {
   SharedValue,
-  interpolate,
   useAnimatedStyle,
+  useDerivedValue,
+  withTiming,
 } from 'react-native-reanimated';
-import { composeTestID } from 'core/helpers';
+import { themeStyles } from './styles';
 
 interface IProps {
   objectName: string;
-  animatedValue: SharedValue<number>;
-  pivotHeightToAnimate: number;
+  scrollOffset: SharedValue<number>;
+  contentRevealThreshold: number;
   testID: string;
 }
 
 export const ObjectDetailsHeader = memo(
-  ({ objectName, animatedValue, pivotHeightToAnimate, testID }: IProps) => {
-    const navigation = useNavigation();
+  ({ objectName, scrollOffset, contentRevealThreshold, testID }: IProps) => {
     const styles = useThemeStyles(themeStyles);
-    const { top } = useSafeAreaInsets();
 
-    const height = getDefaultHeaderHeight(
-      {
-        height: SCREEN_HEIGHT,
-        width: SCREEN_WIDTH,
-      },
-      false,
-      top,
+    const contentRevealed = useDerivedValue(
+      () => scrollOffset.value >= contentRevealThreshold,
     );
 
-    const hideStyle = useAnimatedStyle(() => {
-      return {
-        opacity: interpolate(
-          animatedValue.value,
-          [0, pivotHeightToAnimate - 80, pivotHeightToAnimate],
-          [0, 0, 1],
-        ),
-      };
-    });
-
-    const buttonStyle = useAnimatedStyle(() => {
-      return {
-        opacity: interpolate(
-          animatedValue.value,
-          [0, pivotHeightToAnimate - 80, pivotHeightToAnimate],
-          [1, 1, 0],
-        ),
-      };
-    });
+    const headerRevealingContentStyle = useAnimatedStyle(() => ({
+      opacity: withTiming(contentRevealed.value ? 1 : 0, {
+        duration: 150,
+      }),
+    }));
 
     return (
-      <View pointerEvents="box-none" style={[styles.container, { height }]}>
+      <View style={styles.header}>
         <Animated.View
-          pointerEvents="none"
-          style={[StyleSheet.absoluteFill, hideStyle]}>
-          <View style={styles.headerBG} />
-        </Animated.View>
-        <View style={styles.content} pointerEvents="box-none">
-          <AnimatedCircleButton
-            icon={{
-              name: 'chevronMediumLeft',
-            }}
-            testID={composeTestID(testID, 'backButton')}
-            style={buttonStyle}
-            onPress={() => {
-              if (navigation.canGoBack()) {
-                navigation.goBack();
-              }
-            }}
-          />
-          <View style={styles.titleContainer}>
-            <Animated.Text numberOfLines={1} style={[styles.title, hideStyle]}>
-              {objectName}
-            </Animated.Text>
-          </View>
-          <View style={styles.rightPlaceholder} />
-        </View>
+          style={[styles.headerBackdrop, headerRevealingContentStyle]}
+        />
+        <Header
+          overlaysContent={false}
+          style={styles.headerContent}
+          testID={testID}
+          titleAlign="center"
+          titleSlot={
+            <Animated.View style={headerRevealingContentStyle}>
+              <Header.Title size="small">{objectName}</Header.Title>
+            </Animated.View>
+          }
+        />
       </View>
     );
   },
