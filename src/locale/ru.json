@@ -415,6 +415,22 @@
       "errors": {
         "default": "Не удалось создать или обновить маршрут"
       }
+    },
+    "routeDetails": {
+      "common": {
+        "objectsCount": "Объекты {{count}}",
+        "addObjects": "Добавить объекты"
+      },
+      "snackbar": {
+        "savedObjectTo_0": "Объект сохранён в {{routeName}}",
+        "savedObjectTo_1": "Сохранено {{count}} объекта в {{routeName}}",
+        "savedObjectTo_2": "Сохранено {{count}} объектов в {{routeName}}"
+      },
+      "empty": {
+        "addRouteButtonLabel": "Начните исследование",
+        "title": "Объекты не добавлены",
+        "description": "Начните свой первый маршрут. Нажмите значок 'Добавить' на понравившихся местах"
+      }
     }
   }
 }

@@ -67,6 +67,7 @@ export const Card = memo(
             onPress={onRightButtonPress}
             testID={composeTestID(testID, 'button')}
             theme="quarterly"
+            withBorder={false}
             isIconOnlyButton
             renderIcon={textStyle => (
               <Icon

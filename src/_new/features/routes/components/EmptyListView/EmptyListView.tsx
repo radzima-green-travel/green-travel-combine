@@ -32,17 +32,17 @@ export const RoutesEmptyListView = ({
               testID={composeTestID(testID, 'image')}
               source={RoutesImages[image]}
               className="aspect-square w-full"
-              contentFit="contain"
+              contentFit="scale-down"
             />
           </View>
           <Text
             testID={composeTestID(testID, 'title')}
-            className="font-title3Bold mt-4 text-center text-primary">
+            className="font-title3Bold text-primary mt-4 text-center">
             {title}
           </Text>
           <Text
             testID={composeTestID(testID, 'description')}
-            className="font-subheadlineRegular text-center text-secondary">
+            className="font-subheadlineRegular text-secondary text-center">
             {description}
           </Text>
           {children}

@@ -106,9 +106,18 @@ export const BUTTON_THEMES: {
         light: COLORS.light.background.quarterly,
         dark: COLORS.dark.background.quarterly,
       },
+      borderWidth: 1,
+      borderColor: {
+        light: COLORS.light.background.accent,
+        dark: COLORS.dark.background.accent,
+      },
     },
     disabled: {
       backgroundColor: {
+        light: COLORS.light.background.secondary,
+        dark: COLORS.dark.background.secondary,
+      },
+      borderColor: {
         light: COLORS.light.background.secondary,
         dark: COLORS.dark.background.secondary,
       },
