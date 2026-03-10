@@ -102,12 +102,14 @@ export function useRoute() {
           return;
         }
         const routeName = route?.name ?? '';
-        snackbar.show({
-          title: t('routeDetails.snackbar.savedObjectTo', {
-            count: addedCount,
-            routeName,
-          }),
-          timeoutMs: 1000,
+        requestAnimationFrame(() => {
+          snackbar.show({
+            title: t('routeDetails.snackbar.savedObjectTo', {
+              count: addedCount,
+              routeName,
+            }),
+            timeoutMs: 2000,
+          });
         });
       },
     });

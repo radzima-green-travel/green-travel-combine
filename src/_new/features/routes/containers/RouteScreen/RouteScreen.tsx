@@ -6,7 +6,10 @@ import { ListItem, SuspenseView } from 'components/molecules';
 import { ObjectList } from 'components/organisms';
 import { useHeader, useTranslation } from 'core/hooks';
 import { useRoute } from './hooks/useRoute';
-import { RoutesEmptyListView } from '@features/routes/components';
+import {
+  AddObjectsCardTile,
+  RoutesEmptyListView,
+} from '@features/routes/components';
 
 export function RouteScreen() {
   const { t } = useTranslation('routes');
@@ -58,17 +61,21 @@ export function RouteScreen() {
             />
           }
         />
-        <View className="px-gutter pt-4 pb-4">
-          <Button
-            testID="addObjectsButton"
-            theme="quarterly"
-            onPress={onAddObjectsPress}
-            text={t('routeDetails.common.addObjects')}
-            renderIcon={textStyle => <Icon name="addLarge" style={textStyle} />}
-            iconPosition="left"
-            className="h-14 w-full"
-          />
-        </View>
+        {viewMode === 'list' && (
+          <View className="px-gutter pt-4 pb-4">
+            <Button
+              testID="addObjectsButton"
+              theme="quarterly"
+              onPress={onAddObjectsPress}
+              text={t('routeDetails.common.addObjects')}
+              renderIcon={textStyle => (
+                <Icon name="addLarge" style={textStyle} />
+              )}
+              iconPosition="left"
+              className="h-14 w-full"
+            />
+          </View>
+        )}
       </View>
     );
   }, [t, objectsCount, viewMode, onViewModeChange, onAddObjectsPress]);
@@ -119,6 +126,12 @@ export function RouteScreen() {
               onViewModeChange={onViewModeChange}
               ListHeaderComponent={renderHeader}
               mapWithBottomSheetProps={mapWithBottomSheetProps}
+              prependedCardItem={
+                <AddObjectsCardTile
+                  testID="addObjectsCardTile"
+                  onPress={onAddObjectsPress}
+                />
+              }
             />
           </SuspenseView>
         )}
