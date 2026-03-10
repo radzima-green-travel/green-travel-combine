@@ -72,14 +72,18 @@ export type HeaderActionLayoutProps = OneOf<
   }
 >;
 
+export type HeaderActionButtonSize = 'small' | 'large';
+
 export type HeaderActionButtonProps = HeaderActionLayoutProps & {
   onPress?: () => void;
+  size?: HeaderActionButtonSize;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
 
 export type HeaderAction = HeaderActionLayoutProps & {
   action?: () => void;
+  size?: HeaderActionButtonSize;
 };
 
 export interface PageContentWrapperProps {
