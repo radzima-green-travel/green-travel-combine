@@ -1,7 +1,7 @@
 import { useRequestLoading } from 'react-redux-help-kit';
 import { useToggleFavorite } from './useToggleFavorite';
 import { useSelector } from 'react-redux';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { find } from 'lodash';
 import { selectBookmarksIds } from 'core/selectors';
 import { syncAndGetBookmarksRequest } from 'core/actions';
@@ -23,10 +23,11 @@ export function useFavorite({
     syncAndGetBookmarksRequest,
   );
 
-  const isFavorite = useMemo(
-    () => (objectId ? find(bookmarksIds, id => id === objectId) : false),
-    [bookmarksIds, objectId],
-  );
+  // TODO: Update bookmarkIds selector to return object for O(1) lookup
+  const isFavorite = objectId
+    ? !!find(bookmarksIds, id => id === objectId)
+    : false;
+
   const toggleFavorite = useToggleFavorite({
     removeWithAnimation,
     onAnimationEnd,
