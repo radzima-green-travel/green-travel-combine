@@ -12,14 +12,12 @@ import Animated, {
 import { isIOS } from 'services/PlatformService';
 import { themeStyles } from './styles';
 
-interface IProps {
+interface Props {
   objectName: string;
   scrollOffset: SharedValue<number>;
   contentRevealThreshold: number;
   testID: string;
   onSharePress: () => void;
-  onBookmarkPress: () => void;
-  isFavorite: boolean;
 }
 
 export const ObjectDetailsHeader = memo(
@@ -29,13 +27,12 @@ export const ObjectDetailsHeader = memo(
     contentRevealThreshold,
     testID,
     onSharePress,
-    onBookmarkPress,
-    isFavorite,
-  }: IProps) => {
+  }: Props) => {
     const styles = useThemeStyles(themeStyles);
 
     const contentRevealed = useDerivedValue(
       () => scrollOffset.value >= contentRevealThreshold,
+      [contentRevealThreshold],
     );
 
     const headerRevealingContentStyle = useAnimatedStyle(() => ({
@@ -65,20 +62,11 @@ export const ObjectDetailsHeader = memo(
           }
           // TODO: Update header action button to support small and large sizes
           rightSlot={
-            <>
-              <Animated.View style={headerRevealingContentStyle}>
-                <Header.BackButton
-                  icon={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                  onPress={onBookmarkPress}
-                  testID={composeTestID(testID, 'bookmarkButton')}
-                />
-              </Animated.View>
-              <Header.BackButton
-                icon={isIOS ? 'shareIos' : 'shareAndroid'}
-                onPress={onSharePress}
-                testID={composeTestID(testID, 'shareButton')}
-              />
-            </>
+            <Header.BackButton
+              icon={isIOS ? 'shareIos' : 'shareAndroid'}
+              onPress={onSharePress}
+              testID={composeTestID(testID, 'shareButton')}
+            />
           }
         />
       </View>

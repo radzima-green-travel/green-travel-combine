@@ -158,8 +158,6 @@ export const ObjectDetails = () => {
         objectName={data?.name || ''}
         contentRevealThreshold={IMAGE_HEIGHT}
         onSharePress={shareObjectLink}
-        onBookmarkPress={toggleFavoriteHandler}
-        isFavorite={isFavorite}
       />
       <Animated.View style={styles.container}>
         {data ? (
