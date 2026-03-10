@@ -19,7 +19,6 @@ export { AnimatedCircleButton } from './AnimatedCircleButton';
 export { UpdateBottomMenu } from './UpdateBottomMenu';
 export { UpdateView } from './UpdateView';
 export { SearchPromptView } from './SearchPromptView';
-export { ObjectDetailsBottomButtons } from './ObjectDetailsBottomButtons';
 export { ConfirmMenu } from './ConfirmMenu';
 export { Ratings } from './Ratings';
 export { ObjectShareExperienceMenu } from './ObjectShareExperienceMenu';

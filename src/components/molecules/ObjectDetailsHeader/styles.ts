@@ -39,6 +39,7 @@ export const themeStyles = {
   },
   headerContent: {
     backgroundColor: 'transparent',
+    paddingBottom: 8,
   },
   headerBackdrop: {
     ...StyleSheet.absoluteFillObject,
