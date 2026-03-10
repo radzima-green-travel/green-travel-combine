@@ -1,7 +1,7 @@
 import { useRequestLoading } from 'react-redux-help-kit';
 import { useToggleFavorite } from './useToggleFavorite';
 import { useSelector } from 'react-redux';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { find } from 'lodash';
 import { selectBookmarksIds } from 'core/selectors';
 import { syncAndGetBookmarksRequest } from 'core/actions';
