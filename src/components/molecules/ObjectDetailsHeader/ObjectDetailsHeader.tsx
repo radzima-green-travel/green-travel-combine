@@ -60,10 +60,10 @@ export const ObjectDetailsHeader = memo(
               </Header.Title>
             </Animated.View>
           }
-          // TODO: Update header action button to support small and large sizes
           rightSlot={
-            <Header.BackButton
+            <Header.ActionButton
               icon={isIOS ? 'shareIos' : 'shareAndroid'}
+              size="small"
               onPress={onSharePress}
               testID={composeTestID(testID, 'shareButton')}
             />

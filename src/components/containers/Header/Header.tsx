@@ -223,11 +223,12 @@ const HeaderBackButton: FC<HeaderBackButtonProps> = ({
   const navigation = useNavigation();
 
   return (
-    <AnimatedCircleButton
-      icon={{ name: icon }}
+    <HeaderActionButton
+      icon={icon}
+      size="small"
       onPress={onPress ?? navigation.goBack}
       testID={testID}
-      containerStyle={style}
+      style={style}
     />
   );
 };
@@ -236,6 +237,7 @@ const HeaderActionButton: FC<HeaderActionButtonProps> = ({
   label,
   icon,
   onPress,
+  size = 'large',
   style,
   testID = 'actionButton',
 }) => {
@@ -249,6 +251,17 @@ const HeaderActionButton: FC<HeaderActionButtonProps> = ({
         style={StyleSheet.compose(styles.actionButtonWithLabel, style)}>
         <Text style={styles.actionButtonLabel}>{label}</Text>
       </TouchableOpacity>
+    );
+  }
+
+  if (size === 'small') {
+    return (
+      <AnimatedCircleButton
+        icon={{ name: icon }}
+        onPress={onPress}
+        testID={testID}
+        containerStyle={style}
+      />
     );
   }
 
