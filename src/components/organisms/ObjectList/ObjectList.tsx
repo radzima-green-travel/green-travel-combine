@@ -12,7 +12,7 @@ import {
 } from '../MapWithBottomSheet';
 import { SearchObject } from 'core/types';
 import { idKeyExtractor } from 'core/utils/react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -36,6 +36,8 @@ const AnimatedBottomSheetFlatList =
 
 type AnimatedFlatListProps = React.ComponentProps<typeof Animated.FlatList>;
 
+const PREPENDED_ITEM_ID = '__PREPENDED_ITEM__';
+
 export interface ObjectListProps
   extends Omit<AnimatedFlatListProps, 'data' | 'renderItem'> {
   testID: string;
@@ -58,6 +60,7 @@ export interface ObjectListProps
   handlesKeyboard?: boolean;
   withScrollToTopButton?: boolean;
   withMapWithBottomSheet?: boolean;
+  prependedCardElement?: React.ReactNode;
 }
 
 export const ObjectList = ({
@@ -76,16 +79,32 @@ export const ObjectList = ({
   withScrollToTopButton = true,
   withMapWithBottomSheet = true,
   mapWithBottomSheetProps,
+  prependedCardElement,
   ...listProps
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
   const { t } = useTranslation('search');
   const { floatingFooter } = useObjectListSlots();
+
+  const displayData = useMemo(() => {
+    if (prependedCardElement) {
+      return [{ id: PREPENDED_ITEM_ID } as SearchObject, ...data];
+    }
+    return data;
+  }, [prependedCardElement, data]);
+
   const { bottomSheetRef, initialSnapIndex, currentSnapIndex, snapToMapView } =
     useMapWithBottomSheetControls();
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
+      if (item.id === PREPENDED_ITEM_ID) {
+        if (viewMode === 'card') {
+          return <View style={styles.cardOdd}>{prependedCardElement}</View>;
+        }
+        return <>{prependedCardElement}</>;
+      }
+
       if (renderItemProp) {
         return renderItemProp({
           item: { data: item, viewMode },
@@ -139,6 +158,7 @@ export const ObjectList = ({
       styles.cardOdd,
       styles.card,
       onToggleFavoriteStatusPress,
+      prependedCardElement,
     ],
   );
 
@@ -221,7 +241,7 @@ export const ObjectList = ({
   const list = (
     <ListComponent
       ref={scrollToTopListRef}
-      data={data}
+      data={displayData}
       renderItem={renderItem}
       windowSize={5}
       scrollEventThrottle={16}
