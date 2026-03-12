@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { Header } from 'components/containers';
-import { Button, Icon, ObjectListModeSwitch, SnackBar } from 'components/atoms';
+import { Button, ObjectListModeSwitch, SnackBar } from 'components/atoms';
 import { ListItem, SuspenseView } from 'components/molecules';
 import { ObjectList } from 'components/organisms';
 import { useHeader, useTranslation } from 'core/hooks';
 import { useRoute } from './hooks/useRoute';
 import {
-  AddObjectsCardTile,
+  AddObjectsSlot,
   RoutesEmptyListView,
 } from '@features/routes/components';
 
@@ -61,24 +61,9 @@ export function RouteScreen() {
             />
           }
         />
-        {viewMode === 'list' && (
-          <View className="px-gutter pt-4 pb-4">
-            <Button
-              testID="addObjectsButton"
-              theme="quarterly"
-              onPress={onAddObjectsPress}
-              text={t('routeDetails.common.addObjects')}
-              renderIcon={textStyle => (
-                <Icon name="addLarge" style={textStyle} />
-              )}
-              iconPosition="left"
-              className="h-14 w-full"
-            />
-          </View>
-        )}
       </View>
     );
-  }, [t, objectsCount, viewMode, onViewModeChange, onAddObjectsPress]);
+  }, [t, objectsCount, viewMode, onViewModeChange]);
 
   if ((loading && !objectsCount) || errorTexts) {
     return (
@@ -126,10 +111,10 @@ export function RouteScreen() {
               onViewModeChange={onViewModeChange}
               ListHeaderComponent={renderHeader}
               mapWithBottomSheetProps={mapWithBottomSheetProps}
-              prependedCardItem={
-                <AddObjectsCardTile
-                  testID="addObjectsCardTile"
+              prependedCardSlot={
+                <AddObjectsSlot
                   onPress={onAddObjectsPress}
+                  viewMode={viewMode}
                 />
               }
             />

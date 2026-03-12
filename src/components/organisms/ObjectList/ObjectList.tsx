@@ -60,7 +60,7 @@ export interface ObjectListProps
   handlesKeyboard?: boolean;
   withScrollToTopButton?: boolean;
   withMapWithBottomSheet?: boolean;
-  prependedCardItem?: React.ReactNode;
+  prependedCardSlot?: React.ReactNode;
 }
 
 export const ObjectList = ({
@@ -79,7 +79,7 @@ export const ObjectList = ({
   withScrollToTopButton = true,
   withMapWithBottomSheet = true,
   mapWithBottomSheetProps,
-  prependedCardItem,
+  prependedCardSlot,
   ...listProps
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
@@ -87,11 +87,11 @@ export const ObjectList = ({
   const { floatingFooter } = useObjectListSlots();
 
   const displayData = useMemo(() => {
-    if (prependedCardItem && viewMode === 'card') {
+    if (prependedCardSlot) {
       return [{ id: PREPENDED_CARD_ITEM_ID } as SearchObject, ...data];
     }
     return data;
-  }, [prependedCardItem, viewMode, data]);
+  }, [prependedCardSlot, data]);
 
   const { bottomSheetRef, initialSnapIndex, currentSnapIndex, snapToMapView } =
     useMapWithBottomSheetControls();
@@ -99,12 +99,10 @@ export const ObjectList = ({
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
       if (item.id === PREPENDED_CARD_ITEM_ID) {
-        const isOddItem = !(index % 2);
-        return (
-          <View style={isOddItem ? styles.cardOdd : styles.card}>
-            {prependedCardItem}
-          </View>
-        );
+        if (viewMode === 'card') {
+          return <View style={styles.cardOdd}>{prependedCardSlot}</View>;
+        }
+        return <>{prependedCardSlot}</>;
       }
 
       if (renderItemProp) {
@@ -160,7 +158,7 @@ export const ObjectList = ({
       styles.cardOdd,
       styles.card,
       onToggleFavoriteStatusPress,
-      prependedCardItem,
+      prependedCardSlot,
     ],
   );
 

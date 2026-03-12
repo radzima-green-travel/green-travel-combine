@@ -1,1 +1,1 @@
-export * from './AddObjectsCardTile';
+export * from './AddObjectsSlot';
