@@ -1,3 +1,3 @@
-export * from './AddObjectsSlot';
+export * from './AddObjects';
 export * from './EmptyListView';
 export * from './RouteCard';

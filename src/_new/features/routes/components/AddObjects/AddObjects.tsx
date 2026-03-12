@@ -3,17 +3,17 @@ import { ObjectListViewMode } from 'components/types';
 import { useTranslation } from 'core/hooks';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-interface AddObjectsSlotProps {
+interface AddObjectsProps {
   testID?: string;
   onPress: () => void;
   viewMode?: ObjectListViewMode;
 }
 
-export const AddObjectsSlot = ({
-  testID = 'addObjectsSlot',
+export const AddObjects = ({
+  testID = 'AddObjects',
   onPress,
   viewMode = 'list',
-}: AddObjectsSlotProps) => {
+}: AddObjectsProps) => {
   const { t } = useTranslation('routes');
 
   if (viewMode === 'list') {

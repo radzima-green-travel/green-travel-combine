@@ -6,10 +6,7 @@ import { ListItem, SuspenseView } from 'components/molecules';
 import { ObjectList } from 'components/organisms';
 import { useHeader, useTranslation } from 'core/hooks';
 import { useRoute } from './hooks/useRoute';
-import {
-  AddObjectsSlot,
-  RoutesEmptyListView,
-} from '@features/routes/components';
+import { AddObjects, RoutesEmptyListView } from '@features/routes/components';
 
 export function RouteScreen() {
   const { t } = useTranslation('routes');
@@ -77,7 +74,7 @@ export function RouteScreen() {
   }
 
   return (
-    <View className="bg-secondary flex-1">
+    <View className="flex-1 bg-secondary">
       <Header.PageContentWrapperWithOverlay>
         {!objectsCount ? (
           <RoutesEmptyListView
@@ -111,11 +108,8 @@ export function RouteScreen() {
               onViewModeChange={onViewModeChange}
               ListHeaderComponent={renderHeader}
               mapWithBottomSheetProps={mapWithBottomSheetProps}
-              prependedCardSlot={
-                <AddObjectsSlot
-                  onPress={onAddObjectsPress}
-                  viewMode={viewMode}
-                />
+              prependedCardElement={
+                <AddObjects onPress={onAddObjectsPress} viewMode={viewMode} />
               }
             />
           </SuspenseView>

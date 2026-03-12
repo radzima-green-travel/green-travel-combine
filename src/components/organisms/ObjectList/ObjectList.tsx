@@ -36,7 +36,7 @@ const AnimatedBottomSheetFlatList =
 
 type AnimatedFlatListProps = React.ComponentProps<typeof Animated.FlatList>;
 
-const PREPENDED_CARD_SLOT_ID = '__PREPENDED_CARD_SLOT__';
+const PREPENDED_ITEM_ID = '__PREPENDED_ITEM__';
 
 export interface ObjectListProps
   extends Omit<AnimatedFlatListProps, 'data' | 'renderItem'> {
@@ -60,7 +60,7 @@ export interface ObjectListProps
   handlesKeyboard?: boolean;
   withScrollToTopButton?: boolean;
   withMapWithBottomSheet?: boolean;
-  prependedCardSlot?: React.ReactNode;
+  prependedCardElement?: React.ReactNode;
 }
 
 export const ObjectList = ({
@@ -79,7 +79,7 @@ export const ObjectList = ({
   withScrollToTopButton = true,
   withMapWithBottomSheet = true,
   mapWithBottomSheetProps,
-  prependedCardSlot,
+  prependedCardElement,
   ...listProps
 }: ObjectListProps) => {
   const styles = useThemeStyles(themeStyles);
@@ -87,22 +87,22 @@ export const ObjectList = ({
   const { floatingFooter } = useObjectListSlots();
 
   const displayData = useMemo(() => {
-    if (prependedCardSlot) {
-      return [{ id: PREPENDED_CARD_SLOT_ID } as SearchObject, ...data];
+    if (prependedCardElement) {
+      return [{ id: PREPENDED_ITEM_ID } as SearchObject, ...data];
     }
     return data;
-  }, [prependedCardSlot, data]);
+  }, [prependedCardElement, data]);
 
   const { bottomSheetRef, initialSnapIndex, currentSnapIndex, snapToMapView } =
     useMapWithBottomSheetControls();
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
-      if (item.id === PREPENDED_CARD_SLOT_ID) {
+      if (item.id === PREPENDED_ITEM_ID) {
         if (viewMode === 'card') {
-          return <View style={styles.cardOdd}>{prependedCardSlot}</View>;
+          return <View style={styles.cardOdd}>{prependedCardElement}</View>;
         }
-        return <>{prependedCardSlot}</>;
+        return <>{prependedCardElement}</>;
       }
 
       if (renderItemProp) {
@@ -158,7 +158,7 @@ export const ObjectList = ({
       styles.cardOdd,
       styles.card,
       onToggleFavoriteStatusPress,
-      prependedCardSlot,
+      prependedCardElement,
     ],
   );
 
