@@ -36,7 +36,7 @@ const AnimatedBottomSheetFlatList =
 
 type AnimatedFlatListProps = React.ComponentProps<typeof Animated.FlatList>;
 
-const PREPENDED_CARD_ITEM_ID = '__PREPENDED_CARD_ITEM__';
+const PREPENDED_CARD_SLOT_ID = '__PREPENDED_CARD_SLOT__';
 
 export interface ObjectListProps
   extends Omit<AnimatedFlatListProps, 'data' | 'renderItem'> {
@@ -88,7 +88,7 @@ export const ObjectList = ({
 
   const displayData = useMemo(() => {
     if (prependedCardSlot) {
-      return [{ id: PREPENDED_CARD_ITEM_ID } as SearchObject, ...data];
+      return [{ id: PREPENDED_CARD_SLOT_ID } as SearchObject, ...data];
     }
     return data;
   }, [prependedCardSlot, data]);
@@ -98,7 +98,7 @@ export const ObjectList = ({
 
   const renderItem: ListRenderItem<SearchObject> = useCallback(
     ({ item, index, separators }) => {
-      if (item.id === PREPENDED_CARD_ITEM_ID) {
+      if (item.id === PREPENDED_CARD_SLOT_ID) {
         if (viewMode === 'card') {
           return <View style={styles.cardOdd}>{prependedCardSlot}</View>;
         }
