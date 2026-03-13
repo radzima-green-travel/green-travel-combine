@@ -87,14 +87,12 @@ export const ObjectDetailsMap = () => {
             <LineLayer
               id="directionFillBackground"
               belowLayerID="singlePoint"
-              style={
-                layersStyles.directionBackground as StyleProp<LineLayerStyle>
-              }
+              style={layersStyles.directionBackground as LineLayerStyle}
             />
             <LineLayer
               id="directionFill"
               belowLayerID="singlePoint"
-              style={layersStyles.direction as StyleProp<LineLayerStyle>}
+              style={layersStyles.direction as LineLayerStyle}
             />
           </ShapeSource>
         ) : null}
@@ -103,11 +101,11 @@ export const ObjectDetailsMap = () => {
           <ShapeSource id="area" shape={data?.area}>
             <FillLayer
               id="areaFill"
-              style={layersStyles.area as StyleProp<FillLayerStyle>}
+              style={layersStyles.area as FillLayerStyle}
             />
             <LineLayer
               id="areaStroke"
-              style={layersStyles.areaStroke as StyleProp<LineLayerStyle>}
+              style={layersStyles.areaStroke as LineLayerStyle}
             />
           </ShapeSource>
         ) : null}
@@ -116,7 +114,7 @@ export const ObjectDetailsMap = () => {
           <ShapeSource id="routeSource" shape={data?.routes}>
             <LineLayer
               id="routeFill"
-              style={layersStyles.route as StyleProp<LineLayerStyle>}
+              style={layersStyles.route as LineLayerStyle}
             />
           </ShapeSource>
         ) : null}
@@ -129,9 +127,7 @@ export const ObjectDetailsMap = () => {
               shape={dataShapeSource as FeatureCollection<Point>}>
               <SymbolLayer
                 id="singlePoint"
-                style={
-                  layersStyles.objectDetailsPin as StyleProp<SymbolLayerStyle>
-                }
+                style={layersStyles.objectDetailsPin as SymbolLayerStyle}
               />
             </ShapeSource>
           </>
