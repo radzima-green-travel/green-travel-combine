@@ -80,12 +80,12 @@ export const SnackBar = memo(
               typeSpecificStyles.container,
               leadIcon && styles.containerWithLeadIcon,
             ]}>
-            <View>{renderLeftIcon()}</View>
+            {renderLeftIcon()}
             <Text style={[styles.text, typeSpecificStyles.text]}>{title}</Text>
             {withCloseButton ? (
               <Button
                 testID={composeTestID(testID, 'closeButton')}
-                style={styles.icon}
+                style={styles.closeButton}
                 onPress={hide}
                 isIconOnlyButton
                 renderIcon={() => (
