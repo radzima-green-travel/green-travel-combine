@@ -108,7 +108,8 @@ const Provider = ({
 
           if (added.length > 0 && removed.length === 0) {
             snackbar.show({
-              type: 'success',
+              type: 'notification',
+              leadIcon: 'addRoute',
               title:
                 added.length === 1
                   ? t('saveToRouteList.savedToRoute', {
@@ -120,7 +121,8 @@ const Provider = ({
             });
           } else if (removed.length > 0 && added.length === 0) {
             snackbar.show({
-              type: 'success',
+              type: 'notification',
+              leadIcon: 'addRoute',
               title:
                 removed.length === 1
                   ? t('saveToRouteList.removedFromRoute', {
@@ -132,7 +134,8 @@ const Provider = ({
             });
           } else {
             snackbar.show({
-              type: 'success',
+              type: 'notification',
+              leadIcon: 'addRoute',
               title: t('saveToRouteList.changesSaved'),
             });
           }
