@@ -1,4 +1,5 @@
 import { COLORS, FONTS_STYLES } from 'assets';
+import { PADDING_HORIZONTAL } from 'core/constants';
 
 export const themeStyles = {
   bottomContainer: {
@@ -17,11 +18,12 @@ export const themeStyles = {
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 48,
+    minHeight: 48,
     marginVertical: 13,
-    marginHorizontal: 20,
-    paddingLeft: 16,
+    marginHorizontal: PADDING_HORIZONTAL,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 12,
     borderRadius: 8,
     shadowColor: COLORS.black,
     shadowOffset: { width: 0, height: 4 },
@@ -31,6 +33,9 @@ export const themeStyles = {
   },
   containerWithLeadIcon: {
     justifyContent: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    borderRadius: 12, // TODO: Should be consistent across variants, raise the design issue
   },
   successContainer: {
     backgroundColor: {
@@ -55,8 +60,6 @@ export const themeStyles = {
       light: COLORS.light.background.primary,
       dark: COLORS.dark.background.primary,
     },
-    height: 56,
-    marginHorizontal: 16,
   },
   text: {
     ...FONTS_STYLES.regular14,
@@ -77,8 +80,9 @@ export const themeStyles = {
       dark: COLORS.dark.text.primary,
     },
   },
-  icon: {
+  closeButton: {
     backgroundColor: 'transparent',
+    marginLeft: 'auto',
   },
   closeIcon: {
     color: {
@@ -87,20 +91,16 @@ export const themeStyles = {
     },
   },
   defaultLeadIconContainer: {
-    alignSelf: 'stretch',
+    width: 40,
+    height: 40,
     justifyContent: 'center',
-    marginRight: 12,
+    alignItems: 'center',
+    borderRadius: 12,
   },
   defaultLeadIcon: {
     color: COLORS.white,
   },
   notificationLeadIconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
     backgroundColor: {
       light: COLORS.light.background.quarterly,
       dark: COLORS.dark.background.quarterly,
