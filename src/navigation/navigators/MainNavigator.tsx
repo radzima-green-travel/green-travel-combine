@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import {
   PageNotFoundErrorScreen,
@@ -14,13 +14,19 @@ import {
 import { TabNavigator } from './TabNavigator';
 import { MainNavigatorParamsList } from 'core/types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { defaultTransition } from '../transition';
 import { AuthNavigator } from './AuthNavigator';
 import { useTranslation, useColorScheme } from 'core/hooks';
 import { useAndroidNavbarStyle, useScreenOptions } from 'navigation/hooks';
 import { useSelector } from 'react-redux';
-import { selectObjectShareExperienceData } from 'core/selectors';
+import {
+  selectObjectShareExperienceData,
+  selectUserAuthorized,
+} from 'core/selectors';
 import { COLORS } from 'assets';
+import { Routes } from '@features/routes';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
@@ -37,8 +43,31 @@ export function MainNavigator() {
     selectObjectShareExperienceData,
   );
 
+  const isAuthenticated = useSelector(selectUserAuthorized);
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<MainNavigatorParamsList>>();
+
+  const redirectToSignIn = useCallback(
+    (params: { onSuccess: () => void; authPromptMessage?: string }) => {
+      navigation.navigate('AuthNavigator', {
+        screen: 'AuthMethodSelection',
+        params: {
+          title: params.authPromptMessage,
+        },
+        onSuccessSignIn: params.onSuccess,
+      });
+    },
+    [navigation],
+  );
+
+  const routesDependencies = useMemo(
+    () => ({ isAuthenticated, redirectToSignIn }),
+    [isAuthenticated, redirectToSignIn],
+  );
+
   return (
-    <>
+    <Routes.Provider value={routesDependencies}>
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="TabNavigator"
@@ -116,6 +145,6 @@ export function MainNavigator() {
       {objectShareExperienceData ? (
         <ObjectDetailsShareExperienceScreen />
       ) : null}
-    </>
+    </Routes.Provider>
   );
 }

@@ -419,11 +419,22 @@
         "default": "Failed to create or update route"
       }
     },
-      "routeDetails": {
-        "common": {
-          "objectsCount": "Items/Objects {{count}}",
-          "addObjects": "Add objects"
-        },
+    "saveToRouteList": {
+      "title": "Save to route list",
+      "createNewRoute": "Create new route",
+      "done": "Done",
+      "savedToRoute": "Saved object to {{routeName}}",
+      "savedToRoutes": "Saved object to {{count}} routes",
+      "removedFromRoute": "Removed from {{routeName}}",
+      "removedFromRoutes": "Removed from {{count}} routes",
+      "changesSaved": "Your changes have been saved",
+      "saveError": "Failed to save changes"
+    },
+    "routeDetails": {
+      "common": {
+        "objectsCount": "Items/Objects {{count}}",
+        "addObjects": "Add objects"
+      },
       "snackbar": {
         "savedObjectTo": "Saved object to {{routeName}}",
         "savedObjectTo_plural": "Saved {{count}} objects to {{routeName}}"

@@ -416,6 +416,17 @@
         "default": "Не удалось создать или обновить маршрут"
       }
     },
+    "saveToRouteList": {
+      "title": "Сохранить в маршрут",
+      "createNewRoute": "Создать новый маршрут",
+      "done": "Готово",
+      "savedToRoute": "Объект добавлен в {{routeName}}",
+      "savedToRoutes": "Объект добавлен в {{count}} маршрута",
+      "removedFromRoute": "Удалено из {{routeName}}",
+      "removedFromRoutes": "Удалено из {{count}} маршрутов",
+      "changesSaved": "Изменения сохранены",
+      "saveError": "Не удалось сохранить изменения"
+    },
     "routeDetails": {
       "common": {
         "objectsCount": "Объекты {{count}}",

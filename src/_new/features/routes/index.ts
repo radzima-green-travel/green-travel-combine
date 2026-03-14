@@ -1,5 +1,10 @@
 import { createFeature } from '@core/utils';
-import { AddToRouteFlow, RouteListScreen, RouteScreen } from './containers';
+import {
+  AddToRouteFlow,
+  RouteListScreen,
+  RouteScreen,
+  SaveToRouteListFlow,
+} from './containers';
 import { RoutesDependencies } from './context';
 
 export const Routes = createFeature({
@@ -8,6 +13,7 @@ export const Routes = createFeature({
     RouteListScreen,
     RouteScreen,
     AddToRouteFlow,
+    SaveToRouteListFlow,
   },
 });
 

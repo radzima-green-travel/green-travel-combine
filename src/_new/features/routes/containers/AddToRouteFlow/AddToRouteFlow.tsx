@@ -17,7 +17,6 @@ import { AddButton } from './AddButton';
 type AddToRouteState = {
   selectedIds: Set<string>;
   isPending: boolean;
-  addedIds: string[];
 };
 
 type AddToRouteFlowContextValue = {
@@ -43,12 +42,9 @@ const Provider = ({ children }: PropsWithChildren) => {
 
   const isCreateMode = !!name;
 
-  const { data: route } = useRouteById(routeId ?? '');
-
   const state$ = useObservable<AddToRouteState>(() => ({
-    selectedIds: new Set(isCreateMode ? [] : (route?.objectIds ?? [])),
+    selectedIds: new Set(),
     isPending: false,
-    addedIds: [],
   }));
 
   const showError = () => {
@@ -59,30 +55,25 @@ const Provider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  const handleSaveSuccess = () => {
+  const handleSuccess = () => {
     state$.isPending.set(false);
-
-    if (onDone) {
-      const addedIds = state$.addedIds.peek();
-      onDone(addedIds);
-    }
-
+    onDone?.(Array.from(state$.selectedIds.peek()));
     navigation.goBack();
   };
 
-  const handleSaveError = () => {
+  const handleError = () => {
     state$.isPending.set(false);
     showError();
   };
 
   const { mutate: createRoute } = useCreateRoute({
-    onSuccess: handleSaveSuccess,
-    onError: handleSaveError,
+    onSuccess: handleSuccess,
+    onError: handleError,
   });
 
   const { mutate: updateRoute } = useUpdateRoute({
-    onSuccess: handleSaveSuccess,
-    onError: handleSaveError,
+    onSuccess: handleSuccess,
+    onError: handleError,
   });
 
   const value = useMemo(() => {
@@ -111,7 +102,6 @@ const Provider = ({ children }: PropsWithChildren) => {
       const objectIds = Array.from(state$.selectedIds.peek());
 
       if (isCreateMode && name) {
-        state$.addedIds.set(objectIds);
         requestSignIn({
           onSuccess: () => {
             state$.isPending.set(true);
@@ -119,11 +109,6 @@ const Provider = ({ children }: PropsWithChildren) => {
           },
         });
       } else if (routeId) {
-        const initialIds = route?.objectIds ?? [];
-        const initialIdsSet = new Set(initialIds);
-        const addedIds = objectIds.filter(id => !initialIdsSet.has(id));
-
-        state$.addedIds.set(addedIds);
         state$.isPending.set(true);
         updateRoute({ id: routeId, objectIds });
       }
@@ -136,17 +121,16 @@ const Provider = ({ children }: PropsWithChildren) => {
       snackbar,
     };
   }, [
-    state$,
-    snackbar,
     isAuthenticated,
     redirectToSignIn,
-    tRoutes,
     isCreateMode,
     name,
     routeId,
+    state$,
     createRoute,
-    route?.objectIds,
     updateRoute,
+    snackbar,
+    tRoutes,
   ]);
 
   return (
