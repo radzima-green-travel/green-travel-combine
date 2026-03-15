@@ -31,7 +31,10 @@ export const SaveToRouteListMenu = ({ onCreateRoute }: Props) => {
           {t('saveToRouteList.createNewRoute')}
         </ListItem.Title>
       }
-      onPress={onCreateRoute}
+      onPress={() => {
+        menuProps.closeMenu();
+        onCreateRoute();
+      }}
       leadingContent={<ListItem.SubjectIcon name="addLarge" />}
     />
   );
