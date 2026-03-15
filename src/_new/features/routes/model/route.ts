@@ -19,6 +19,11 @@ export namespace RouteModel {
     objectIds?: string[];
   }
 
+  export interface SetObjectRoutesInput {
+    objectId: string;
+    routeIds: string[];
+  }
+
   export const createOptimisticRoute = (input: CreateRouteInput) => {
     return {
       id: `temp-${Date.now()}`,

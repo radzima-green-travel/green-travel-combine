@@ -1,11 +1,30 @@
+import { AppError } from '@core/model';
+import { resolveErrorMessage } from '@core/utils/resolveErrorMessage';
 import { useObservable } from '@legendapp/state/react';
 import { useSnackbar } from 'atoms';
 import { useBottomMenu } from 'core/hooks';
 import { type PropsWithChildren, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRouteList, useUpdateRoute } from '../../api';
+import { useRouteList, useSetObjectRoutes } from '../../api';
 import { Menus, SaveToRouteListButton } from './components';
 import { SaveToRouteListFlowContext, SaveToRouteListState } from './context';
+
+const getRouteSelectionChanges = ({
+  selectedRouteIds,
+  initialRouteIds,
+}: {
+  selectedRouteIds: Set<string>;
+  initialRouteIds: Set<string>;
+}) => {
+  const addedRouteIds = [...selectedRouteIds].filter(
+    routeId => !initialRouteIds.has(routeId),
+  );
+  const removedRouteIds = [...initialRouteIds].filter(
+    routeId => !selectedRouteIds.has(routeId),
+  );
+
+  return { addedRouteIds, removedRouteIds };
+};
 
 const Provider = ({
   children,
@@ -15,149 +34,148 @@ const Provider = ({
   const menuProps = useBottomMenu();
   const { t } = useTranslation('routes');
   const routes = useRouteList();
-  const hasInitialized = useRef(false);
 
-  const state$ = useObservable<SaveToRouteListState>(() => ({
-    selectedRouteIds: new Set(),
-    initialRouteIds: new Set(),
-    isPending: false,
-  }));
+  const state$ = useObservable<SaveToRouteListState>(
+    () => ({
+      selectedRouteIds: new Set(),
+      initialRouteIds: new Set(),
+      isPending: false,
+    }),
+    [objectId],
+  );
 
+  const currentRouteIdsWithThisObject = useRef<Set<string> | null>(null);
+
+  // This effect is used to keep the selected and initial route ids in sync with the routes data
   useEffect(() => {
     if (!routes.data) return;
 
-    if (!hasInitialized.current) {
-      hasInitialized.current = true;
-      const ids = new Set(
-        routes.data.filter(r => r.objectIds.includes(objectId)).map(r => r.id),
-      );
-      state$.selectedRouteIds.set(new Set(ids));
-      state$.initialRouteIds.set(new Set(ids));
+    const routeIdsWithThisObject = new Set(
+      routes.data.filter(r => r.objectIds.includes(objectId)).map(r => r.id),
+    );
+
+    const currentRouteIdsSnapshot = currentRouteIdsWithThisObject.current;
+
+    currentRouteIdsWithThisObject.current = routeIdsWithThisObject;
+
+    if (!currentRouteIdsSnapshot) {
+      state$.selectedRouteIds.set(new Set(routeIdsWithThisObject));
+      state$.initialRouteIds.set(new Set(routeIdsWithThisObject));
       return;
     }
 
-    // Auto-select routes newly created with this objectId included
-    const allKnownIds = new Set([
-      ...state$.selectedRouteIds.peek(),
-      ...state$.initialRouteIds.peek(),
-    ]);
-    routes.data.forEach(route => {
-      if (route.objectIds.includes(objectId) && !allKnownIds.has(route.id)) {
-        state$.selectedRouteIds.add(route.id);
-        state$.initialRouteIds.add(route.id);
+    routeIdsWithThisObject.forEach(routeId => {
+      if (!currentRouteIdsSnapshot.has(routeId)) {
+        state$.selectedRouteIds.add(routeId);
+        state$.initialRouteIds.add(routeId);
       }
     });
   }, [routes.data, objectId, state$]);
 
-  const { mutateAsync: updateRouteAsync } = useUpdateRoute({});
+  const { mutateAsync: setObjectRoutesAsync } = useSetObjectRoutes({});
 
   // Stable ref to latest routes data avoids recreating context value on every query update
   const routesDataRef = useRef(routes.data);
   routesDataRef.current = routes.data;
 
-  const value = useMemo(
-    () => {
-      const toggle = (routeId: string) => {
-        if (state$.selectedRouteIds.peek().has(routeId)) {
-          state$.selectedRouteIds.delete(routeId);
-        } else {
-          state$.selectedRouteIds.add(routeId);
-        }
-      };
+  const value = useMemo(() => {
+    const toggle = (routeId: string) => {
+      if (state$.selectedRouteIds.peek().has(routeId)) {
+        state$.selectedRouteIds.delete(routeId);
+      } else {
+        state$.selectedRouteIds.add(routeId);
+      }
+    };
 
-      const save = async () => {
-        const current = state$.selectedRouteIds.peek();
-        const initial = state$.initialRouteIds.peek();
-        const added = [...current].filter(id => !initial.has(id));
-        const removed = [...initial].filter(id => !current.has(id));
+    const showSuccessNotification = ({
+      addedRouteNames = [],
+      removedRouteNames = [],
+    }: {
+      addedRouteNames?: string[];
+      removedRouteNames?: string[];
+    }) => {
+      const snackbarTitle =
+        addedRouteNames.length > 0 && removedRouteNames.length === 0
+          ? addedRouteNames.length === 1
+            ? t('saveToRouteList.savedToRoute', {
+                routeName: addedRouteNames[0],
+              })
+            : t('saveToRouteList.savedToRoutes', {
+                count: addedRouteNames.length,
+              })
+          : removedRouteNames.length > 0 && addedRouteNames.length === 0
+            ? removedRouteNames.length === 1
+              ? t('saveToRouteList.removedFromRoute', {
+                  routeName: removedRouteNames[0],
+                })
+              : t('saveToRouteList.removedFromRoutes', {
+                  count: removedRouteNames.length,
+                })
+            : t('saveToRouteList.changesSaved');
 
-        if (added.length === 0 && removed.length === 0) {
-          menuProps.closeMenu();
-          return;
-        }
+      snackbar.show({
+        type: 'notification',
+        leadIcon: 'addRoute',
+        title: snackbarTitle,
+      });
+    };
 
-        state$.isPending.set(true);
+    const save = async () => {
+      const selectedRouteIdsSnapshot = new Set(state$.selectedRouteIds.peek());
 
-        try {
-          const routeMap = new Map(
-            routesDataRef.current?.map(r => [r.id, r]) ?? [],
-          );
+      const { addedRouteIds, removedRouteIds } = getRouteSelectionChanges({
+        selectedRouteIds: selectedRouteIdsSnapshot,
+        initialRouteIds: state$.initialRouteIds.peek(),
+      });
 
-          await Promise.all([
-            ...added.map(routeId => {
-              const route = routeMap.get(routeId);
-              if (!route) return Promise.resolve();
+      if (addedRouteIds.length === 0 && removedRouteIds.length === 0) {
+        menuProps.closeMenu();
+        return;
+      }
 
-              return updateRouteAsync({
-                id: routeId,
-                objectIds: [...route.objectIds, objectId],
-              });
-            }),
-            ...removed.map(routeId => {
-              const route = routeMap.get(routeId);
-              if (!route) return Promise.resolve();
+      state$.isPending.set(true);
 
-              return updateRouteAsync({
-                id: routeId,
-                objectIds: route.objectIds.filter(id => id !== objectId),
-              });
-            }),
-          ]);
+      try {
+        const routeNamesById = new Map(
+          routesDataRef.current?.map(route => [route.id, route.name]) ?? [],
+        );
 
-          const getRouteName = (id: string) => routeMap.get(id)?.name ?? '';
+        await setObjectRoutesAsync({
+          objectId,
+          routeIds: Array.from(selectedRouteIdsSnapshot),
+        });
 
-          if (added.length > 0 && removed.length === 0) {
-            snackbar.show({
-              type: 'notification',
-              leadIcon: 'addRoute',
-              title:
-                added.length === 1
-                  ? t('saveToRouteList.savedToRoute', {
-                      routeName: getRouteName(added[0]),
-                    })
-                  : t('saveToRouteList.savedToRoutes', {
-                      count: added.length,
-                    }),
-            });
-          } else if (removed.length > 0 && added.length === 0) {
-            snackbar.show({
-              type: 'notification',
-              leadIcon: 'addRoute',
-              title:
-                removed.length === 1
-                  ? t('saveToRouteList.removedFromRoute', {
-                      routeName: getRouteName(removed[0]),
-                    })
-                  : t('saveToRouteList.removedFromRoutes', {
-                      count: removed.length,
-                    }),
-            });
-          } else {
-            snackbar.show({
-              type: 'notification',
-              leadIcon: 'addRoute',
-              title: t('saveToRouteList.changesSaved'),
-            });
-          }
+        showSuccessNotification({
+          addedRouteNames: addedRouteIds.map(
+            routeId => routeNamesById.get(routeId) ?? '',
+          ),
+          removedRouteNames: removedRouteIds.map(
+            routeId => routeNamesById.get(routeId) ?? '',
+          ),
+        });
 
-          state$.initialRouteIds.set(new Set(current));
-          state$.isPending.set(false);
-          menuProps.closeMenu();
-        } catch {
-          state$.isPending.set(false);
-          snackbar.show({
-            type: 'error',
-            title: t('saveToRouteList.saveError'),
-          });
-        }
-      };
+        state$.initialRouteIds.set(selectedRouteIdsSnapshot);
+        menuProps.closeMenu();
+      } catch (error) {
+        snackbar.show({
+          type: 'error',
+          ...resolveErrorMessage(AppError.fromUnknown(error), t),
+        });
+      } finally {
+        state$.isPending.set(false);
+      }
+    };
 
-      return { state$, toggle, save, menuProps, snackbar, objectId };
-    },
-    // Stable deps only — routes data accessed via ref inside save()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state$, menuProps, snackbar, objectId, t, updateRouteAsync],
-  );
+    return {
+      state$,
+      toggle,
+      save,
+      showSuccessNotification,
+      menuProps,
+      snackbar,
+      objectId,
+    };
+  }, [state$, menuProps, snackbar, objectId, t, setObjectRoutesAsync]);
 
   return (
     <SaveToRouteListFlowContext.Provider value={value}>

@@ -13,6 +13,10 @@ export type SaveToRouteListFlowContextValue = {
   state$: ReturnType<typeof useObservable<SaveToRouteListState>>;
   toggle: (routeId: string) => void;
   save: () => Promise<void>;
+  showSuccessNotification: (input: {
+    addedRouteNames?: string[];
+    removedRouteNames?: string[];
+  }) => void;
   menuProps: ReturnType<typeof useBottomMenu>;
   snackbar: ReturnType<typeof useSnackbar>;
   objectId: string;

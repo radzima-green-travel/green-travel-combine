@@ -31,4 +31,8 @@ export namespace AppError {
 
     return { Base, Tagged };
   }
+
+  export function fromUnknown<T extends unknown>(error: T): AppError.Unknown {
+    return error instanceof AppError ? error : new AppError.Unknown(error);
+  }
 }

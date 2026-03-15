@@ -23,9 +23,11 @@ export const SaveToRouteListMenu = ({ onCreateRoute }: Props) => {
   const { height } = useWindowDimensions();
   const maxHeight = height * 0.75;
 
+  const menuItemClassName = 'h-[74]';
+
   const createRouteButton = (
     <ListItem
-      className="h-[74]"
+      className={menuItemClassName}
       title={
         <ListItem.Title fontVariant="bold" className="text-accent">
           {t('saveToRouteList.createNewRoute')}
@@ -57,7 +59,11 @@ export const SaveToRouteListMenu = ({ onCreateRoute }: Props) => {
         {createRouteButton}
         <ScrollView>
           {routes.data?.map(route => (
-            <RouteRow key={route.id} route={route} className="h-[74]" />
+            <RouteRow
+              key={route.id}
+              route={route}
+              className={menuItemClassName}
+            />
           ))}
         </ScrollView>
         <View className="px-gutter pt-4 pb-4">
