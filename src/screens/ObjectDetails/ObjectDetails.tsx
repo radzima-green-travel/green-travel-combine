@@ -155,13 +155,6 @@ export const ObjectDetails = () => {
         testID="suspenseView"
         error={errorTexts}
         retryCallback={onTryAgainPress}>
-        <ObjectDetailsHeader
-          testID="header"
-          scrollOffset={translationY}
-          objectName={data?.name || ''}
-          contentRevealThreshold={IMAGE_HEIGHT}
-          onSharePress={shareObjectLink}
-        />
         <Animated.View style={styles.container}>
           {data ? (
             <Animated.ScrollView
@@ -438,10 +431,16 @@ export const ObjectDetails = () => {
               menuProps={childServicesMenuProps}
             />
           ) : null}
-
-          <SaveToRouteListFlow.Menus />
         </Animated.View>
+        <ObjectDetailsHeader
+          testID="header"
+          scrollOffset={translationY}
+          objectName={data?.name || ''}
+          contentRevealThreshold={IMAGE_HEIGHT}
+          onSharePress={shareObjectLink}
+        />
       </SuspenseView>
+      <SaveToRouteListFlow.Menus />
     </SaveToRouteListFlow.Provider>
   );
 };

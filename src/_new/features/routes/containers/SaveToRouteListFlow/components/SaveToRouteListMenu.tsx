@@ -1,11 +1,13 @@
+import { ListItem } from '@core/components';
 import { useValue } from '@legendapp/state/react';
 import { BottomMenu, Button } from 'atoms';
+import { Header } from 'components/containers';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useRouteList } from '../../../api';
 import { SaveToRouteListFlowContext } from '../context';
-import { CreateRouteMenuItem } from './CreateRouteMenuItem';
 import { RouteRow } from './RouteRow';
 
 type Props = {
@@ -18,23 +20,51 @@ export const SaveToRouteListMenu = ({ onCreateRoute }: Props) => {
   const isPending = useValue(() => state$.isPending.get());
   const { t } = useTranslation('routes');
 
+  const { height } = useWindowDimensions();
+  const maxHeight = height * 0.75;
+
+  const createRouteButton = (
+    <ListItem
+      className="h-[74]"
+      title={
+        <ListItem.Title fontVariant="bold" className="text-accent">
+          {t('saveToRouteList.createNewRoute')}
+        </ListItem.Title>
+      }
+      onPress={onCreateRoute}
+      leadingContent={<ListItem.SubjectIcon name="addLarge" />}
+    />
+  );
+
+  //This layout is used because the bottomsheet does not support dynamic height
+  // properly with mixed content - multiple views or scrollview + view (footer)
+
   return (
-    <BottomMenu
-      ref={menuProps.ref}
-      testID="saveToRouteListMenu"
-      withBackdrop
-      header={{ title: t('saveToRouteList.title') }}>
-      <CreateRouteMenuItem onPress={onCreateRoute} />
-      {routes.data?.map(route => (
-        <RouteRow key={route.id} route={route} />
-      ))}
-      <View className="px-gutter pt-2 pb-safe-offset-4">
-        <Button
-          testID="saveToRouteListDoneButton"
-          onPress={save}
-          text={t('saveToRouteList.done')}
-          loading={isPending}
+    <BottomMenu ref={menuProps.ref} testID="saveToRouteListMenu" withBackdrop>
+      <View style={{ maxHeight }}>
+        <Header
+          title={t('saveToRouteList.title')}
+          replacesDefaultHeader={false}
+          backButtonHidden
+          withSafeArea={false}
+          overlaysContent={false}
+          statusbarStyle="light"
+          className="bg-transparent"
         />
+        {createRouteButton}
+        <ScrollView>
+          {routes.data?.map(route => (
+            <RouteRow key={route.id} route={route} className="h-[74]" />
+          ))}
+        </ScrollView>
+        <View className="px-gutter pt-4 pb-4">
+          <Button
+            testID="saveToRouteListDoneButton"
+            onPress={save}
+            text={t('saveToRouteList.done')}
+            loading={isPending}
+          />
+        </View>
       </View>
     </BottomMenu>
   );

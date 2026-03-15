@@ -35,7 +35,6 @@ export const themeStyles = {
   header: {
     position: 'absolute',
     width: '100%',
-    zIndex: 100,
   },
   headerContent: {
     backgroundColor: 'transparent',
