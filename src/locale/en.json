@@ -297,7 +297,6 @@
     "checkAccount": "Let's check if you have an account...",
     "check": "Check",
     "authSelectionTitle": "Sign In or Create new account",
-    "facebookAuth": "Continue with Facebook",
     "googleAuth": "Continue with Google",
     "emailAuth": "Continue with Email",
     "appleAuth": "Continue with Apple",
@@ -419,11 +418,11 @@
         "default": "Failed to create or update route"
       }
     },
-      "routeDetails": {
-        "common": {
-          "objectsCount": "Items/Objects {{count}}",
-          "addObjects": "Add objects"
-        },
+    "routeDetails": {
+      "common": {
+        "objectsCount": "Items/Objects {{count}}",
+        "addObjects": "Add objects"
+      },
       "snackbar": {
         "savedObjectTo": "Saved object to {{routeName}}",
         "savedObjectTo_plural": "Saved {{count}} objects to {{routeName}}"
