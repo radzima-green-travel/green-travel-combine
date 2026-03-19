@@ -1,4 +1,4 @@
-import { ComponentRef, useCallback, useRef, useState } from 'react';
+import { ComponentRef, useCallback, useMemo, useRef, useState } from 'react';
 import { SnackBarProps } from './SnackBar';
 import { SnackBarContainer } from './SnackBarContainer';
 
@@ -25,10 +25,13 @@ export function useSnackbar() {
     [show],
   );
 
-  return {
-    ref,
-    hide,
-    show: showHandler,
-    ...snackBarProps,
-  };
+  return useMemo(
+    () => ({
+      ref,
+      hide,
+      show: showHandler,
+      ...snackBarProps,
+    }),
+    [ref, hide, showHandler, snackBarProps],
+  );
 }

@@ -47,6 +47,7 @@ export interface HeaderProps {
   bottomAlign?: HeaderAlign;
 
   testID?: string;
+  withSafeArea?: boolean;
 }
 
 export interface HeaderTitleProps {

@@ -12,8 +12,10 @@ export function RouteListScreen() {
       NativeStackNavigationProp<RoutesNavigatorParamsList, 'Routes'>
     >();
 
-  const openAddObjectsScreen = (name: string) =>
+  const openAddObjectsScreen = (name: string) => {
+    menuProps.closeMenu();
     navigation.navigate('AddObjectsToRoute', { name });
+  };
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Text, View } from 'react-native';
 
 import {
@@ -42,8 +42,10 @@ import { isLocationExist } from 'core/helpers';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { PinchToZoomProvider } from 'atoms/ZoomableViewGlobal';
 import { ObjectInfoCardItemsSection, ObjectInfoSection } from './components';
+import { Routes } from '@features/routes';
 
 export const ObjectDetails = () => {
+  const { SaveToRouteListFlow } = useContext(Routes.Context);
   const { t } = useTranslation('objectDetails');
   const { t: tCommon } = useTranslation('common');
   const styles = useThemeStyles(themeStyles);
@@ -148,289 +150,298 @@ export const ObjectDetails = () => {
   const locationExist = Boolean(data && isLocationExist(data));
 
   return (
-    <SuspenseView
-      testID="suspenseView"
-      error={errorTexts}
-      retryCallback={onTryAgainPress}>
-      <ObjectDetailsHeader
-        testID="header"
-        scrollOffset={translationY}
-        objectName={data?.name || ''}
-        contentRevealThreshold={IMAGE_HEIGHT}
-        onSharePress={shareObjectLink}
-      />
-      <Animated.View style={styles.container}>
-        {data ? (
-          <Animated.ScrollView
-            scrollEventThrottle={16}
-            ref={scrollRef}
-            showsVerticalScrollIndicator={false}
-            onScroll={scrollHandler}
-            contentContainerStyle={styles.listContentContainer}>
-            <Animated.View
-              entering={FadeInDown}
-              style={[styles.contentContainer]}>
-              <DetailsPageCapture
-                testID="pageCapture"
-                routeLength={data.length}
-                title={data.name}
-                subtitle={data.address}
-                coordinates={
-                  locationExist
-                    ? [data.location!.lon!, data.location!.lat!]
-                    : undefined
-                }
-                onCoordinatesPress={copyLocationToClipboard}
-                usersRating={data.usersRating}
-                googleRating={data.googleRating}
-                usersRatingsTotal={data.usersRatingsTotal}
-                googleRatingsTotal={data.googleRatingsTotal}
-              />
-              <LottieAnimation
-                ref={animationRef}
-                name={'Confetti'}
-                width={200}
-                height={200}
-                containerStyle={styles.animationContainer}
-              />
-              <View style={styles.visitedButtonContainer}>
-                <Button
-                  testID={'markAsVisitedButton'}
-                  renderIcon={textStyle =>
-                    isVisited ? (
-                      <Icon style={textStyle} name={'check'} />
-                    ) : (
-                      <></>
-                    )
+    <SaveToRouteListFlow.Provider objectId={objectId}>
+      <SuspenseView
+        testID="suspenseView"
+        error={errorTexts}
+        retryCallback={onTryAgainPress}>
+        <Animated.View style={styles.container}>
+          <ObjectDetailsHeader
+            testID="header"
+            scrollOffset={translationY}
+            objectName={data?.name || ''}
+            contentRevealThreshold={IMAGE_HEIGHT}
+            onSharePress={shareObjectLink}
+          />
+          {data ? (
+            <Animated.ScrollView
+              scrollEventThrottle={16}
+              ref={scrollRef}
+              showsVerticalScrollIndicator={false}
+              onScroll={scrollHandler}
+              contentContainerStyle={styles.listContentContainer}>
+              <Animated.View
+                entering={FadeInDown}
+                style={[styles.contentContainer]}>
+                <DetailsPageCapture
+                  testID="pageCapture"
+                  routeLength={data.length}
+                  title={data.name}
+                  subtitle={data.address}
+                  coordinates={
+                    locationExist
+                      ? [data.location!.lon!, data.location!.lat!]
+                      : undefined
                   }
-                  onPress={markAsVisited}
-                  text={isVisited ? t('visitedObject') : t('markAsVisited')}
-                  theme={'secondary'}
-                  style={styles.visitedButton}
-                  textStyle={styles.visitedButtonText}
-                  loading={visitedObjectLoading}
-                  onButtonLabelLayout={onButtonLabelLayout}
-                  iconContainerAnimatedStyle={
-                    isVisited && iconContainerAnimatedStyle
-                  }
-                  labelAnimatedStyle={isVisited && labelAnimatedStyle}
+                  onCoordinatesPress={copyLocationToClipboard}
+                  usersRating={data.usersRating}
+                  googleRating={data.googleRating}
+                  usersRatingsTotal={data.usersRatingsTotal}
+                  googleRatingsTotal={data.googleRatingsTotal}
                 />
-                <Button
-                  testID={'favoriteButton'}
-                  isIconOnlyButton
-                  theme={'secondary'}
-                  checked={isFavorite}
-                  loading={favoritesSynchronizing}
-                  onPress={toggleFavoriteHandler}
-                  renderIcon={textStyle => (
-                    <Icon
-                      style={textStyle}
-                      name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
-                    />
-                  )}
+                <LottieAnimation
+                  ref={animationRef}
+                  name={'Confetti'}
+                  width={200}
+                  height={200}
+                  containerStyle={styles.animationContainer}
                 />
-              </View>
-            </Animated.View>
-            <Animated.View entering={FadeInDown.delay(200)}>
-              <Text style={styles.sectionTitle}>
-                {t('aboutThisExperience')}
-              </Text>
-              {isCompletnessBlockVisible ? (
-                <ObjectDetailsCompletenessSmallBlock
-                  onPress={scrollToElement}
-                  percentage={percentage}
-                  testID={'completenessBlockSmall'}
-                />
-              ) : null}
-
-              {mainInfoSection.length ? (
-                <ObjectInfoSection items={mainInfoSection} />
-              ) : null}
-              {workingHoursSection.length ? (
-                <ObjectInfoSection items={workingHoursSection} />
-              ) : null}
-              <ObjectDescription
-                testID={'description'}
-                origins={data.origins}
-                description={data.description}
-                onToggleDescription={onToggleDescriptionVisibility}
-                onLinkPress={onDescriptionLinkPress}
-              />
-              <Text style={styles.sectionTitle}>{t('additionalDetails')}</Text>
-
-              {additionalDetailsSection.length ? (
-                <ObjectInfoSection items={additionalDetailsSection} />
-              ) : null}
-              {isCompletnessBlockVisible ? (
-                <View ref={elementRef}>
-                  <ObjectDetailsCompletenessBlock
-                    incompleteFields={incompleteFields}
-                    percentage={percentage}
-                    testID={'completenessBlock'}
-                    onAddInformationPress={navigateToAddInfo}
+                <View style={styles.visitedButtonContainer}>
+                  <Button
+                    testID={'markAsVisitedButton'}
+                    renderIcon={textStyle =>
+                      isVisited ? (
+                        <Icon style={textStyle} name={'check'} />
+                      ) : (
+                        <></>
+                      )
+                    }
+                    onPress={markAsVisited}
+                    text={isVisited ? t('visitedObject') : t('markAsVisited')}
+                    theme={'secondary'}
+                    style={styles.visitedButton}
+                    textStyle={styles.visitedButtonText}
+                    loading={visitedObjectLoading}
+                    onButtonLabelLayout={onButtonLabelLayout}
+                    iconContainerAnimatedStyle={
+                      isVisited && iconContainerAnimatedStyle
+                    }
+                    labelAnimatedStyle={isVisited && labelAnimatedStyle}
+                  />
+                  <SaveToRouteListFlow.SaveButton />
+                  <Button
+                    testID={'favoriteButton'}
+                    isIconOnlyButton
+                    theme={'secondary'}
+                    checked={isFavorite}
+                    loading={favoritesSynchronizing}
+                    onPress={toggleFavoriteHandler}
+                    renderIcon={textStyle => (
+                      <Icon
+                        style={textStyle}
+                        name={isFavorite ? 'bookmarkFilled' : 'bookmark'}
+                      />
+                    )}
                   />
                 </View>
-              ) : null}
+              </Animated.View>
+              <Animated.View entering={FadeInDown.delay(200)}>
+                <Text style={styles.sectionTitle}>
+                  {t('aboutThisExperience')}
+                </Text>
+                {isCompletnessBlockVisible ? (
+                  <ObjectDetailsCompletenessSmallBlock
+                    onPress={scrollToElement}
+                    percentage={percentage}
+                    testID={'completenessBlockSmall'}
+                  />
+                ) : null}
 
-              {accommodationPlace?.length ? (
-                <ObjectInfoCardItemsSection
-                  testID={'accommodationPlace'}
-                  items={accommodationPlace}
-                  title={tCommon('objectFieldsLabels.accommodationPlace')}
-                  type="accommodation"
-                  onRightButtonPress={onInfoCardRightButtonPress}
-                  onLinkPress={onInfoCardLinkPress}
+                {mainInfoSection.length ? (
+                  <ObjectInfoSection items={mainInfoSection} />
+                ) : null}
+                {workingHoursSection.length ? (
+                  <ObjectInfoSection items={workingHoursSection} />
+                ) : null}
+                <ObjectDescription
+                  testID={'description'}
+                  origins={data.origins}
+                  description={data.description}
+                  onToggleDescription={onToggleDescriptionVisibility}
+                  onLinkPress={onDescriptionLinkPress}
                 />
-              ) : null}
-              {dinnerPlaces?.length ? (
-                <ObjectInfoCardItemsSection
-                  testID={'dinnerPlaces'}
-                  items={dinnerPlaces}
-                  title={tCommon('objectFieldsLabels.dinnerPlaces')}
-                  type="placeToEat"
-                  onRightButtonPress={onInfoCardRightButtonPress}
-                  onLinkPress={onInfoCardLinkPress}
-                />
-              ) : null}
+                <Text style={styles.sectionTitle}>
+                  {t('additionalDetails')}
+                </Text>
 
-              {upcomingEvents?.length ? (
-                <ObjectInfoCardItemsSection
-                  testID={'upcomingEvents'}
-                  items={upcomingEvents}
-                  title={tCommon('objectFieldsLabels.upcomingEvents')}
-                  type="event"
-                  onRightButtonPress={onInfoCardRightButtonPress}
-                  onLinkPress={onInfoCardLinkPress}
-                />
-              ) : null}
+                {additionalDetailsSection.length ? (
+                  <ObjectInfoSection items={additionalDetailsSection} />
+                ) : null}
+                {isCompletnessBlockVisible ? (
+                  <View ref={elementRef}>
+                    <ObjectDetailsCompletenessBlock
+                      incompleteFields={incompleteFields}
+                      percentage={percentage}
+                      testID={'completenessBlock'}
+                      onAddInformationPress={navigateToAddInfo}
+                    />
+                  </View>
+                ) : null}
 
-              {isEmpty(data.belongsTo) ? null : (
-                <ObjectBelongsTo
-                  title={t('belongs')}
-                  data={data.belongsTo}
-                  onBelongsToItemPress={navigateToBelongsToObject}
-                  testID={'belongsTo'}
-                />
-              )}
+                {accommodationPlace?.length ? (
+                  <ObjectInfoCardItemsSection
+                    testID={'accommodationPlace'}
+                    items={accommodationPlace}
+                    title={tCommon('objectFieldsLabels.accommodationPlace')}
+                    type="accommodation"
+                    onRightButtonPress={onInfoCardRightButtonPress}
+                    onLinkPress={onInfoCardLinkPress}
+                  />
+                ) : null}
+                {dinnerPlaces?.length ? (
+                  <ObjectInfoCardItemsSection
+                    testID={'dinnerPlaces'}
+                    items={dinnerPlaces}
+                    title={tCommon('objectFieldsLabels.dinnerPlaces')}
+                    type="placeToEat"
+                    onRightButtonPress={onInfoCardRightButtonPress}
+                    onLinkPress={onInfoCardLinkPress}
+                  />
+                ) : null}
 
-              {isEmpty(data.include) ? null : (
-                <ObjectIncludes
-                  title={t('includes')}
-                  data={data.include}
-                  onIncludePress={navigateToIncludesObjectListOrPage}
-                  testID={'includes'}
-                />
-              )}
+                {upcomingEvents?.length ? (
+                  <ObjectInfoCardItemsSection
+                    testID={'upcomingEvents'}
+                    items={upcomingEvents}
+                    title={tCommon('objectFieldsLabels.upcomingEvents')}
+                    type="event"
+                    onRightButtonPress={onInfoCardRightButtonPress}
+                    onLinkPress={onInfoCardLinkPress}
+                  />
+                ) : null}
 
-              <Button
-                style={styles.reportInaccuraciesButton}
-                onPress={openInnacurateInfoMenu}
-                renderIcon={textStyle => <Icon style={textStyle} name="mail" />}
-                theme="tertiary"
-                text={t('reportInaccuracies')}
-                testID={'reportInaccuraciesButton'}
+                {isEmpty(data.belongsTo) ? null : (
+                  <ObjectBelongsTo
+                    title={t('belongs')}
+                    data={data.belongsTo}
+                    onBelongsToItemPress={navigateToBelongsToObject}
+                    testID={'belongsTo'}
+                  />
+                )}
+
+                {isEmpty(data.include) ? null : (
+                  <ObjectIncludes
+                    title={t('includes')}
+                    data={data.include}
+                    onIncludePress={navigateToIncludesObjectListOrPage}
+                    testID={'includes'}
+                  />
+                )}
+
+                <Button
+                  style={styles.reportInaccuraciesButton}
+                  onPress={openInnacurateInfoMenu}
+                  renderIcon={textStyle => (
+                    <Icon style={textStyle} name="mail" />
+                  )}
+                  theme="tertiary"
+                  text={t('reportInaccuracies')}
+                  testID={'reportInaccuraciesButton'}
+                />
+              </Animated.View>
+            </Animated.ScrollView>
+          ) : null}
+
+          {loading ? (
+            <View style={styles.loader}>
+              <SuspenseView
+                testID="loadingSupsenseView"
+                loading={true}
+                loadingDelay={1000}
               />
-            </Animated.View>
-          </Animated.ScrollView>
-        ) : null}
+            </View>
+          ) : null}
 
-        {loading ? (
-          <View style={styles.loader}>
-            <SuspenseView
-              testID="loadingSupsenseView"
-              loading={true}
-              loadingDelay={1000}
-            />
-          </View>
-        ) : null}
+          <Animated.View
+            style={[
+              styles.imageSliderContainer,
+              imageSliderContainerAnimatedStyle,
+            ]}>
+            <PinchToZoomProvider scrollYOffsetAnimatedValue={translationY}>
+              <ImageSlider
+                width={IMAGE_WIDTH}
+                height={IMAGE_HEIGHT}
+                images={
+                  data?.images
+                  || (objectCoverImageUrl
+                    ? [objectCoverImageUrl]
+                    : [defaultPhoto])
+                }
+                onScroll={onScroll}
+                testID="imageSlider"
+                activePage={page}
+                previewImageBlurhash={objcetCoverBlurhash}
+                onImagePress={goToImageGallery}
+              />
+            </PinchToZoomProvider>
 
-        <Animated.View
-          style={[
-            styles.imageSliderContainer,
-            imageSliderContainerAnimatedStyle,
-          ]}>
-          <PinchToZoomProvider scrollYOffsetAnimatedValue={translationY}>
-            <ImageSlider
-              width={IMAGE_WIDTH}
-              height={IMAGE_HEIGHT}
-              images={
-                data?.images
-                || (objectCoverImageUrl
-                  ? [objectCoverImageUrl]
-                  : [defaultPhoto])
-              }
-              onScroll={onScroll}
-              testID="imageSlider"
-              activePage={page}
-              previewImageBlurhash={objcetCoverBlurhash}
-              onImagePress={goToImageGallery}
-            />
-          </PinchToZoomProvider>
+            {isJustOneImage ? null : (
+              <ObjectDetailsPager
+                testID="imagePager"
+                pagesAmount={pagesAmount}
+                page={page}
+              />
+            )}
+          </Animated.View>
 
-          {isJustOneImage ? null : (
-            <ObjectDetailsPager
-              testID="imagePager"
-              pagesAmount={pagesAmount}
-              page={page}
+          <LinearGradient
+            pointerEvents={'none'}
+            {...gradientConfig}
+            style={[styles.gradient, { height: top }]}
+          />
+          <SnackBar testID={'snackBar'} offset={80} {...snackBarProps} />
+
+          <Button
+            testID="mapButton"
+            elevated
+            disabled={!locationExist}
+            onPress={navigateToObjectsMap}
+            text={t('seeOnTheMap')}
+            style={styles.mapButton}
+            renderIcon={textStyle => (
+              <Icon name="map" size={20} style={textStyle} />
+            )}
+          />
+
+          <ObjectDetailsReportInaccuraciesMenu
+            testID="reportInaccuraciesMenu"
+            {...reportInaccuraciesMenuProps}
+          />
+
+          <ObjectDetailsAddInfoSuccessMenu
+            testID="addInfoSuccessMenu"
+            addInfoSuccessMenuProps={addInfoSuccessMenuProps}
+          />
+
+          {workingHours ? (
+            <ObjectDetailsShowInfoMenu
+              testID="workingHoursMenu"
+              title={t('workHours')}
+              description={workingHours}
+              menuProps={workingHoursMenuProps}
             />
-          )}
+          ) : null}
+
+          {areSeveralPhoneNumbers ? (
+            <ObjectDetailsListItemsMenu
+              menuItems={phoneNumberMenuItems}
+              menuProps={phoneNumbersMenuProps}
+              testID={'phoneNumbersMenu'}
+            />
+          ) : null}
+
+          {childServices ? (
+            <ObjectDetailsShowInfoMenu
+              testID="childServicesMenu"
+              title={tCommon('objectFieldsLabels.childServices')}
+              description={childServices}
+              menuProps={childServicesMenuProps}
+            />
+          ) : null}
         </Animated.View>
+      </SuspenseView>
 
-        <LinearGradient
-          pointerEvents={'none'}
-          {...gradientConfig}
-          style={[styles.gradient, { height: top }]}
-        />
-        <SnackBar testID={'snackBar'} offset={80} {...snackBarProps} />
-
-        <Button
-          testID="mapButton"
-          elevated
-          disabled={!locationExist}
-          onPress={navigateToObjectsMap}
-          text={t('seeOnTheMap')}
-          style={styles.mapButton}
-          renderIcon={textStyle => (
-            <Icon name="map" size={20} style={textStyle} />
-          )}
-        />
-
-        <ObjectDetailsReportInaccuraciesMenu
-          testID="reportInaccuraciesMenu"
-          {...reportInaccuraciesMenuProps}
-        />
-
-        <ObjectDetailsAddInfoSuccessMenu
-          testID="addInfoSuccessMenu"
-          addInfoSuccessMenuProps={addInfoSuccessMenuProps}
-        />
-
-        {workingHours ? (
-          <ObjectDetailsShowInfoMenu
-            testID="workingHoursMenu"
-            title={t('workHours')}
-            description={workingHours}
-            menuProps={workingHoursMenuProps}
-          />
-        ) : null}
-
-        {areSeveralPhoneNumbers ? (
-          <ObjectDetailsListItemsMenu
-            menuItems={phoneNumberMenuItems}
-            menuProps={phoneNumbersMenuProps}
-            testID={'phoneNumbersMenu'}
-          />
-        ) : null}
-
-        {childServices ? (
-          <ObjectDetailsShowInfoMenu
-            testID="childServicesMenu"
-            title={tCommon('objectFieldsLabels.childServices')}
-            description={childServices}
-            menuProps={childServicesMenuProps}
-          />
-        ) : null}
-      </Animated.View>
-    </SuspenseView>
+      <SaveToRouteListFlow.Menus />
+    </SaveToRouteListFlow.Provider>
   );
 };

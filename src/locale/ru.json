@@ -4,8 +4,12 @@
     "and": "и",
     "errors": {
       "-1": {
-        "title": "Ошибка сети",
-        "text": "Пожалуйста проверьте ваше интернет соединение и попробуйте еще раз"
+        "title": "Не удалось построить маршрут",
+        "text": "Проверьте подключение к интернету или, возможно, сервис Mapbox временно недоступен"
+      },
+      "NetworkError.NoConnection": {
+        "title": "Не удалось построить маршрут",
+        "text": "Проверьте подключение к интернету или, возможно, сервис Mapbox временно недоступен"
       },
       "default": {
         "title": "",
@@ -386,7 +390,12 @@
       "addRouteButtonLabel": "Добавить маршрут",
       "routeObjectCount_0": "{{count}} объект",
       "routeObjectCount_1": "{{count}} объекта",
-      "routeObjectCount_2": "{{count}} объектов"
+      "routeObjectCount_2": "{{count}} объектов",
+      "errors": {
+        "routeCreation": "Не удалось создать маршрут",
+        "saveToRouteList": "Не удалось сохранить объект в маршруты",
+        "addToRoute": "Не удалось добавить объекты в маршрут"
+      }
     },
     "routeList": {
       "title": "Маршруты",
@@ -410,9 +419,19 @@
     "addToRouteFlow": {
       "submitButtonLabel_zero": "Готово",
       "submitButtonLabel_other": "Готово ({{count}})",
-      "authPromptMessage": "Чтобы сохранить маршрут,\nвойдите или создайте аккаунт",
-      "errors": {
-        "default": "Не удалось создать или обновить маршрут"
+      "authPromptMessage": "Чтобы сохранить маршрут,\nвойдите или создайте аккаунт"
+    },
+    "saveToRouteList": {
+      "modalTitle": "Сохранить в маршрут",
+      "createRouteButtonLabel": "Создать новый маршрут",
+      "saveRouteButtonLabel": "Сохранить",
+      "confirmSelectionButtonLabel": "Готово",
+      "notifications": {
+        "objectAddedToRoute": "Объект добавлен в {{routeName}}",
+        "objectAddedToRoutes": "Объект добавлен в {{count}} маршрута",
+        "objectRemovedFromRoute": "Удалено из {{routeName}}",
+        "objectRemovedFromRoutes": "Удалено из {{count}} маршрутов",
+        "selectionUpdated": "Изменения сохранены"
       }
     },
     "routeDetails": {

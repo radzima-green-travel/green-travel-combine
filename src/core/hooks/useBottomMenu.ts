@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { IBottomMenuRef } from 'atoms/BottomMenu/BottomMenu';
 import { useSharedValue } from 'react-native-reanimated';
 import { SCREEN_HEIGHT } from 'services/PlatformService';
@@ -79,17 +79,31 @@ export function useBottomMenu() {
     return false;
   });
 
-  return {
-    openMenu,
-    closeMenu,
-    isMenuOpened,
-    ref: menuRef,
-    animatedPosition,
-    isMenuOpening,
-    isMenuClosed,
+  return useMemo(
+    () => ({
+      openMenu,
+      closeMenu,
+      isMenuOpened,
+      ref: menuRef,
+      animatedPosition,
+      isMenuOpening,
+      isMenuClosed,
 
-    keyboardHeight,
-    openMenuWithInputAutoFocus,
-    textInputRef,
-  };
+      keyboardHeight,
+      openMenuWithInputAutoFocus,
+      textInputRef,
+    }),
+    [
+      openMenu,
+      closeMenu,
+      isMenuOpened,
+      menuRef,
+      animatedPosition,
+      isMenuOpening,
+      isMenuClosed,
+      keyboardHeight,
+      openMenuWithInputAutoFocus,
+      textInputRef,
+    ],
+  );
 }
