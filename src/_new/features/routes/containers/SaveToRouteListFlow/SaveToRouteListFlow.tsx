@@ -97,21 +97,21 @@ const Provider = ({
       const snackbarTitle =
         addedRouteNames.length > 0 && removedRouteNames.length === 0
           ? addedRouteNames.length === 1
-            ? t('saveToRouteList.savedToRoute', {
+            ? t('saveToRouteList.notifications.objectAddedToRoute', {
                 routeName: addedRouteNames[0],
               })
-            : t('saveToRouteList.savedToRoutes', {
+            : t('saveToRouteList.notifications.objectAddedToRoutes', {
                 count: addedRouteNames.length,
               })
           : removedRouteNames.length > 0 && addedRouteNames.length === 0
             ? removedRouteNames.length === 1
-              ? t('saveToRouteList.removedFromRoute', {
+              ? t('saveToRouteList.notifications.objectRemovedFromRoute', {
                   routeName: removedRouteNames[0],
                 })
-              : t('saveToRouteList.removedFromRoutes', {
+              : t('saveToRouteList.notifications.objectRemovedFromRoutes', {
                   count: removedRouteNames.length,
                 })
-            : t('saveToRouteList.changesSaved');
+            : t('saveToRouteList.notifications.selectionUpdated');
 
       snackbar.show({
         type: 'notification',

@@ -420,15 +420,17 @@
       }
     },
     "saveToRouteList": {
-      "title": "Save to route list",
-      "createNewRoute": "Create new route",
-      "done": "Done",
-      "savedToRoute": "Saved object to {{routeName}}",
-      "savedToRoutes": "Saved object to {{count}} routes",
-      "removedFromRoute": "Removed from {{routeName}}",
-      "removedFromRoutes": "Removed from {{count}} routes",
-      "changesSaved": "Your changes have been saved",
-      "saveError": "Failed to save changes"
+      "modalTitle": "Save to route list",
+      "createRouteButtonLabel": "Create new route",
+      "saveRouteButtonLabel": "Save",
+      "confirmSelectionButtonLabel": "Done",
+      "notifications": {
+        "objectAddedToRoute": "Saved object to {{routeName}}",
+        "objectAddedToRoutes": "Saved object to {{count}} routes",
+        "objectRemovedFromRoute": "Removed from {{routeName}}",
+        "objectRemovedFromRoutes": "Removed from {{count}} routes",
+        "selectionUpdated": "Your changes have been saved"
+      }
     },
     "routeDetails": {
       "common": {

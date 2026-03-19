@@ -30,7 +30,7 @@ export const SaveToRouteListMenu = ({ onCreateRoute }: Props) => {
       className={menuItemClassName}
       title={
         <ListItem.Title fontVariant="bold" className="text-accent">
-          {t('saveToRouteList.createNewRoute')}
+          {t('saveToRouteList.createRouteButtonLabel')}
         </ListItem.Title>
       }
       onPress={() => {
@@ -48,7 +48,7 @@ export const SaveToRouteListMenu = ({ onCreateRoute }: Props) => {
     <BottomMenu ref={menuProps.ref} testID="saveToRouteListMenu" withBackdrop>
       <View style={{ maxHeight }}>
         <Header
-          title={t('saveToRouteList.title')}
+          title={t('saveToRouteList.modalTitle')}
           replacesDefaultHeader={false}
           backButtonHidden
           withSafeArea={false}
@@ -70,7 +70,7 @@ export const SaveToRouteListMenu = ({ onCreateRoute }: Props) => {
           <Button
             testID="saveToRouteListDoneButton"
             onPress={save}
-            text={t('saveToRouteList.done')}
+            text={t('saveToRouteList.confirmSelectionButtonLabel')}
             loading={isPending}
           />
         </View>

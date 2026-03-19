@@ -417,15 +417,17 @@
       }
     },
     "saveToRouteList": {
-      "title": "Сохранить в маршрут",
-      "createNewRoute": "Создать новый маршрут",
-      "done": "Готово",
-      "savedToRoute": "Объект добавлен в {{routeName}}",
-      "savedToRoutes": "Объект добавлен в {{count}} маршрута",
-      "removedFromRoute": "Удалено из {{routeName}}",
-      "removedFromRoutes": "Удалено из {{count}} маршрутов",
-      "changesSaved": "Изменения сохранены",
-      "saveError": "Не удалось сохранить изменения"
+      "modalTitle": "Сохранить в маршрут",
+      "createRouteButtonLabel": "Создать новый маршрут",
+      "saveRouteButtonLabel": "Сохранить",
+      "confirmSelectionButtonLabel": "Готово",
+      "notifications": {
+        "objectAddedToRoute": "Объект добавлен в {{routeName}}",
+        "objectAddedToRoutes": "Объект добавлен в {{count}} маршрута",
+        "objectRemovedFromRoute": "Удалено из {{routeName}}",
+        "objectRemovedFromRoutes": "Удалено из {{count}} маршрутов",
+        "selectionUpdated": "Изменения сохранены"
+      }
     },
     "routeDetails": {
       "common": {

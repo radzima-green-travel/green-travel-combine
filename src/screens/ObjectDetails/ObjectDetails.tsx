@@ -156,6 +156,13 @@ export const ObjectDetails = () => {
         error={errorTexts}
         retryCallback={onTryAgainPress}>
         <Animated.View style={styles.container}>
+          <ObjectDetailsHeader
+            testID="header"
+            scrollOffset={translationY}
+            objectName={data?.name || ''}
+            contentRevealThreshold={IMAGE_HEIGHT}
+            onSharePress={shareObjectLink}
+          />
           {data ? (
             <Animated.ScrollView
               scrollEventThrottle={16}
@@ -432,14 +439,8 @@ export const ObjectDetails = () => {
             />
           ) : null}
         </Animated.View>
-        <ObjectDetailsHeader
-          testID="header"
-          scrollOffset={translationY}
-          objectName={data?.name || ''}
-          contentRevealThreshold={IMAGE_HEIGHT}
-          onSharePress={shareObjectLink}
-        />
       </SuspenseView>
+
       <SaveToRouteListFlow.Menus />
     </SaveToRouteListFlow.Provider>
   );
