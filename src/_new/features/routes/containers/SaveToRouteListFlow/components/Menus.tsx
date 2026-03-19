@@ -25,10 +25,10 @@ export const Menus = () => {
         addedRouteNames: [route.name],
       });
     },
-    onError: error => {
+    onError: () => {
       snackbar.show({
         type: 'error',
-        ...resolveErrorMessage(error, t),
+        title: t('common.errors.routeCreation'),
       });
     },
   });

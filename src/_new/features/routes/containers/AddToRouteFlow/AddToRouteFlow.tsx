@@ -52,10 +52,9 @@ const Provider = ({ children }: PropsWithChildren) => {
   }));
 
   const showError = () => {
-    // TODO: [Routes] Add error tag to translation mapping, update error label
     snackbar.show({
       type: 'error',
-      title: tRoutes('addToRouteFlow.errors.default'),
+      title: tRoutes('common.errors.addToRoute'),
     });
   };
 

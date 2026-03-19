@@ -72,7 +72,7 @@ const Provider = ({
     });
   }, [routes.data, objectId, state$]);
 
-  const { mutateAsync: setObjectRoutesAsync } = useSetObjectRoutes({});
+  const { mutateAsync: setObjectRoutes } = useSetObjectRoutes({});
 
   // Stable ref to latest routes data avoids recreating context value on every query update
   const routesDataRef = useRef(routes.data);
@@ -140,7 +140,7 @@ const Provider = ({
           routesDataRef.current?.map(route => [route.id, route.name]) ?? [],
         );
 
-        await setObjectRoutesAsync({
+        await setObjectRoutes({
           objectId,
           routeIds: Array.from(selectedRouteIdsSnapshot),
         });
@@ -156,10 +156,10 @@ const Provider = ({
 
         state$.initialRouteIds.set(selectedRouteIdsSnapshot);
         menuProps.closeMenu();
-      } catch (error) {
+      } catch {
         snackbar.show({
           type: 'error',
-          ...resolveErrorMessage(AppError.fromUnknown(error), t),
+          title: t('common.errors.saveToRouteList'),
         });
       } finally {
         state$.isPending.set(false);
@@ -175,7 +175,7 @@ const Provider = ({
       snackbar,
       objectId,
     };
-  }, [state$, menuProps, snackbar, objectId, t, setObjectRoutesAsync]);
+  }, [state$, menuProps, snackbar, objectId, t, setObjectRoutes]);
 
   return (
     <SaveToRouteListFlowContext.Provider value={value}>

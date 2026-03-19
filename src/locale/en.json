@@ -390,7 +390,12 @@
     "common": {
       "addRouteButtonLabel": "Add route",
       "routeObjectCount": "{{count}} object",
-      "routeObjectCount_plural": "{{count}} objects"
+      "routeObjectCount_plural": "{{count}} objects",
+      "errors": {
+        "routeCreation": "Failed to create route",
+        "saveToRouteList": "Failed to save object to routes",
+        "addToRoute": "Failed to add objects to route"
+      }
     },
     "routeList": {
       "title": "Routes",
@@ -414,10 +419,7 @@
     "addToRouteFlow": {
       "submitButtonLabel_zero": "Done",
       "submitButtonLabel_other": "Done ({{count}})",
-      "authPromptMessage": "To keep your route, please\nSign In or Create new account",
-      "errors": {
-        "default": "Failed to create or update route"
-      }
+      "authPromptMessage": "To keep your route, please\nSign In or Create new account"
     },
     "saveToRouteList": {
       "modalTitle": "Save to route list",
