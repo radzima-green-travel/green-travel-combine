@@ -29,13 +29,6 @@ export const useAuthMethodSelection = () => {
       signInRequest({ socialProvider: CognitoHostedUIIdentityProvider.Google }),
     );
   };
-  const handleFacebookButtonPress = () => {
-    dispatch(
-      signInRequest({
-        socialProvider: CognitoHostedUIIdentityProvider.Facebook,
-      }),
-    );
-  };
   const handleAppleButtonPress = () => {
     dispatch(
       signInRequest({ socialProvider: CognitoHostedUIIdentityProvider.Apple }),
@@ -49,13 +42,9 @@ export const useAuthMethodSelection = () => {
   return {
     handleEmailButtonPress,
     handleGoogleButtonPress,
-    handleFacebookButtonPress,
     handleAppleButtonPress,
     googleLoading: getLoadingStateByEntityId(
       CognitoHostedUIIdentityProvider.Google,
-    ),
-    facebookLoading: getLoadingStateByEntityId(
-      CognitoHostedUIIdentityProvider.Facebook,
     ),
     appleLoading: getLoadingStateByEntityId(
       CognitoHostedUIIdentityProvider.Apple,
