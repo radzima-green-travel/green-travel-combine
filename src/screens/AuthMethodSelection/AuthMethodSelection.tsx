@@ -18,10 +18,8 @@ export const AuthMethodSelection = () => {
   const {
     handleEmailButtonPress,
     handleGoogleButtonPress,
-    handleFacebookButtonPress,
     handleAppleButtonPress,
     googleLoading,
-    facebookLoading,
     appleLoading,
     navigateToPrivacyPolicy,
     navigateToTermsAndConditions,
@@ -32,11 +30,9 @@ export const AuthMethodSelection = () => {
       <AuthMethods
         onEmailButtonPress={handleEmailButtonPress}
         onAppleButtonPress={handleAppleButtonPress}
-        onFacebookButtonPress={handleFacebookButtonPress}
         onGoogleButtonPress={handleGoogleButtonPress}
         title={title}
         googleLoading={googleLoading}
-        facebookLoading={facebookLoading}
         appleLoading={appleLoading}
         testID="authMethods"
       />

@@ -1,15 +1,12 @@
-import type { useBottomMenu } from 'core/hooks';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AddRouteForm } from '../../../model';
 import type { AnyFormApi } from '@tanstack/react-form';
 
 export const useAddRouteForm = ({
-  menuProps,
   onSubmit,
 }: {
   onSubmit?: (name: string) => void;
-  menuProps: ReturnType<typeof useBottomMenu>;
 }) => {
   const { t: tRoutes } = useTranslation('routes');
 
@@ -21,7 +18,6 @@ export const useAddRouteForm = ({
     name: AddRouteForm.Schema['name'],
     formApi: AnyFormApi,
   ) => {
-    menuProps.closeMenu();
     onSubmit?.(name);
     resetForm(formApi);
   };

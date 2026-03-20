@@ -18,6 +18,7 @@ export const FieldEditorSheet = <T extends string>({
   testID,
   fieldName,
   t,
+  submitLabel,
   onSubmit,
   menuProps,
   onHide,
@@ -26,10 +27,12 @@ export const FieldEditorSheet = <T extends string>({
   fieldConfig,
   initialState = 'closed',
   shouldShowDescription = true,
+  withFullWindowOverlay = true,
 }: {
   testID: string;
   fieldName: string;
   t: TFunction;
+  submitLabel?: string;
   inputRef?: RefObject<TextInput>;
   onSubmit?: (value: T, formApi: AnyFormApi) => void;
   menuProps: ReturnType<typeof useBottomMenu>;
@@ -39,6 +42,7 @@ export const FieldEditorSheet = <T extends string>({
   fieldConfig?: FormFieldConfig;
   initialState?: 'open' | 'closed';
   shouldShowDescription?: boolean;
+  withFullWindowOverlay?: boolean;
 }) => {
   const { bottom: bottomSafeAreaInset } = useSafeAreaInsets();
   const form = useForm({
@@ -86,7 +90,7 @@ export const FieldEditorSheet = <T extends string>({
             <SubmitButton
               onPress={form.handleSubmit}
               testID={composeTestID(testID, 'submitButton')}
-              label={t('fieldSubmitLabel')}
+              label={submitLabel ?? t('fieldSubmitLabel')}
               disabled={!value.trim() || hasError}
             />
           </View>
@@ -126,7 +130,7 @@ export const FieldEditorSheet = <T extends string>({
 
   return (
     <Portal>
-      {isIOS ? (
+      {isIOS && withFullWindowOverlay ? (
         <FullWindowOverlay>
           <View pointerEvents="box-none" style={StyleSheet.absoluteFillObject}>
             {menu}

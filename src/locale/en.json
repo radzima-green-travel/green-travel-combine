@@ -297,7 +297,6 @@
     "checkAccount": "Let's check if you have an account...",
     "check": "Check",
     "authSelectionTitle": "Sign In or Create new account",
-    "facebookAuth": "Continue with Facebook",
     "googleAuth": "Continue with Google",
     "emailAuth": "Continue with Email",
     "appleAuth": "Continue with Apple",
@@ -390,7 +389,12 @@
     "common": {
       "addRouteButtonLabel": "Add route",
       "routeObjectCount": "{{count}} object",
-      "routeObjectCount_plural": "{{count}} objects"
+      "routeObjectCount_plural": "{{count}} objects",
+      "errors": {
+        "routeCreation": "Failed to create route",
+        "saveToRouteList": "Failed to save object to routes",
+        "addToRoute": "Failed to add objects to route"
+      }
     },
     "routeList": {
       "title": "Routes",
@@ -414,16 +418,26 @@
     "addToRouteFlow": {
       "submitButtonLabel_zero": "Done",
       "submitButtonLabel_other": "Done ({{count}})",
-      "authPromptMessage": "To keep your route, please\nSign In or Create new account",
-      "errors": {
-        "default": "Failed to create or update route"
+      "authPromptMessage": "To keep your route, please\nSign In or Create new account"
+    },
+    "saveToRouteList": {
+      "modalTitle": "Save to route list",
+      "createRouteButtonLabel": "Create new route",
+      "saveRouteButtonLabel": "Save",
+      "confirmSelectionButtonLabel": "Done",
+      "notifications": {
+        "objectAddedToRoute": "Saved object to {{routeName}}",
+        "objectAddedToRoutes": "Saved object to {{count}} routes",
+        "objectRemovedFromRoute": "Removed from {{routeName}}",
+        "objectRemovedFromRoutes": "Removed from {{count}} routes",
+        "selectionUpdated": "Your changes have been saved"
       }
     },
-      "routeDetails": {
-        "common": {
-          "objectsCount": "Items/Objects {{count}}",
-          "addObjects": "Add objects"
-        },
+    "routeDetails": {
+      "common": {
+        "objectsCount": "Items/Objects {{count}}",
+        "addObjects": "Add objects"
+      },
       "snackbar": {
         "savedObjectTo": "Saved object to {{routeName}}",
         "savedObjectTo_plural": "Saved {{count}} objects to {{routeName}}"

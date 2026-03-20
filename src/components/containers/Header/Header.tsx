@@ -28,6 +28,7 @@ import type {
   PageContentWrapperProps,
 } from './types';
 import { isElementOfType, resolveChildrenWithProps } from 'core/utils/react';
+import { withUniwind } from 'uniwind';
 
 const HeaderComponent: FC<HeaderProps> = ({
   overlaysContent = true,
@@ -40,6 +41,7 @@ const HeaderComponent: FC<HeaderProps> = ({
   title,
   titleAlign = 'left',
   titleSize = 'large',
+  withSafeArea = true,
   style,
   titleStyle,
   rightActions,
@@ -141,7 +143,7 @@ const HeaderComponent: FC<HeaderProps> = ({
   return (
     <SafeAreaView
       testID={testID}
-      edges={['top']}
+      edges={withSafeArea ? ['top'] : []}
       style={[styles.container, overlaysContent && styles.overlay, style]}>
       {/* Top Slot */}
       {resolvedTopSlot || (showBackButton && backButtonInTopRow) ? (
@@ -340,7 +342,7 @@ const PageContentWrapperWithOverlay: FC<PageContentWrapperProps> = ({
   );
 };
 
-export const Header = Object.assign(HeaderComponent, {
+export const Header = Object.assign(withUniwind(HeaderComponent), {
   Title: HeaderTitle,
   BackButton: HeaderBackButton,
   ActionButton: HeaderActionButton,

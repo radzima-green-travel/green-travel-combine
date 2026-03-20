@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   PageNotFoundErrorScreen,
   ObjectDetailsMapScreen,
@@ -17,10 +15,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { defaultTransition } from '../transition';
 import { AuthNavigator } from './AuthNavigator';
 import { useTranslation, useColorScheme } from 'core/hooks';
-import { useAndroidNavbarStyle, useScreenOptions } from 'navigation/hooks';
+import {
+  useAndroidNavbarStyle,
+  useRoutesDependencies,
+  useScreenOptions,
+} from 'navigation/hooks';
 import { useSelector } from 'react-redux';
 import { selectObjectShareExperienceData } from 'core/selectors';
 import { COLORS } from 'assets';
+import { Routes } from '@features/routes';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
@@ -37,8 +40,10 @@ export function MainNavigator() {
     selectObjectShareExperienceData,
   );
 
+  const routesDependencies = useRoutesDependencies();
+
   return (
-    <>
+    <Routes.Provider value={routesDependencies}>
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="TabNavigator"
@@ -116,6 +121,6 @@ export function MainNavigator() {
       {objectShareExperienceData ? (
         <ObjectDetailsShareExperienceScreen />
       ) : null}
-    </>
+    </Routes.Provider>
   );
 }

@@ -1,4 +1,3 @@
-export { AuthSocial } from './AuthSocial';
 export { BackCircleButton } from './BackCircleButton';
 export { BookmarksEmptyView } from './BookmarksEmptyView';
 export { CategoryCard } from './CategoryCard';

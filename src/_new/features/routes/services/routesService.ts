@@ -71,6 +71,25 @@ export namespace RoutesService {
         schema: type('unknown').pipe(() => undefined),
       });
     }
+
+    async setObjectRoutes(input: RouteModel.SetObjectRoutesInput) {
+      return this.client.executeQuery({
+        query: `
+        mutation SetObjectRoutes($input: SetObjectRoutesInput!) {
+          setObjectRoutes(input: $input) {
+            id
+            name
+            objectIds
+          }
+        }
+      `,
+        params: { input },
+        schema: type({ setObjectRoutes: 'unknown[]' }).pipe(
+          ({ setObjectRoutes }) =>
+            RouteModel.Route.array().assert(setObjectRoutes),
+        ),
+      });
+    }
   }
 
   export type Tag = Public<Default>;
@@ -122,6 +141,32 @@ export namespace RoutesService {
       if (index !== -1) {
         this.routes.splice(index, 1);
       }
+    }
+
+    async setObjectRoutes(
+      input: RouteModel.SetObjectRoutesInput,
+    ): Promise<RouteModel.Route[]> {
+      await delay(500);
+
+      const selectedRouteIds = new Set(input.routeIds);
+      const updatedRoutes: RouteModel.Route[] = [];
+
+      for (const route of this.routes) {
+        const hasObject = route.objectIds.includes(input.objectId);
+        const shouldHaveObject = selectedRouteIds.has(route.id);
+
+        if (hasObject === shouldHaveObject) {
+          continue;
+        }
+
+        route.objectIds = shouldHaveObject
+          ? [...route.objectIds, input.objectId]
+          : route.objectIds.filter(id => id !== input.objectId);
+
+        updatedRoutes.push(route);
+      }
+
+      return updatedRoutes;
     }
   }
 }

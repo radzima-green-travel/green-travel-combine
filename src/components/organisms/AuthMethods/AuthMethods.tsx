@@ -10,11 +10,9 @@ import { composeTestID } from 'core/helpers';
 interface IProps {
   onEmailButtonPress: () => void;
   onGoogleButtonPress: () => void;
-  onFacebookButtonPress: () => void;
   onAppleButtonPress: () => void;
   title?: string;
   googleLoading?: boolean;
-  facebookLoading?: boolean;
   appleLoading?: boolean;
   testID: string;
 }
@@ -23,11 +21,9 @@ export const AuthMethods = memo(
   ({
     onEmailButtonPress,
     onGoogleButtonPress,
-    onFacebookButtonPress,
     onAppleButtonPress,
     title,
     googleLoading,
-    facebookLoading,
     appleLoading,
     testID,
   }: IProps) => {
@@ -45,7 +41,7 @@ export const AuthMethods = memo(
         text={t('appleAuth')}
         renderIcon={() => <Icon name={'appleAuth'} style={styles.appleIcon} />}
         loading={appleLoading}
-        disabled={googleLoading || facebookLoading}
+        disabled={googleLoading}
         iconPosition="left"
       />
     );
@@ -59,7 +55,7 @@ export const AuthMethods = memo(
         text={t('googleAuth')}
         renderIcon={() => <Icon name={'googleAuth'} />}
         loading={googleLoading}
-        disabled={appleLoading || facebookLoading}
+        disabled={appleLoading}
         textStyle={styles.otherButtonText}
         iconPosition="left"
       />
@@ -74,18 +70,6 @@ export const AuthMethods = memo(
           <Text style={styles.separatorText}>{tCommon('or')}</Text>
           <View style={styles.separator} />
         </View>
-        <Button
-          testID={composeTestID(testID, 'facebookButton')}
-          theme={'secondary'}
-          style={styles.otherOptionsButton}
-          textStyle={styles.otherButtonText}
-          onPress={onFacebookButtonPress}
-          text={t('facebookAuth')}
-          disabled={googleLoading || facebookLoading}
-          loading={facebookLoading}
-          renderIcon={() => <Icon name={'facebookAuth'} />}
-          iconPosition="left"
-        />
         {isIOS && getGmailButton()}
         <Button
           testID={composeTestID(testID, 'emailButton')}
