@@ -278,4 +278,6 @@ export interface CardItem {
 export type FormFieldConfig = Pick<
   TextInputProps,
   'maxLength' | 'multiline' | 'keyboardType'
->;
+> & {
+  label: string;
+};

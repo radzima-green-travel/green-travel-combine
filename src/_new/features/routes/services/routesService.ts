@@ -60,6 +60,18 @@ export namespace RoutesService {
       });
     }
 
+    async delete(id: string): Promise<void> {
+      await this.client.executeQuery({
+        query: `
+          mutation DeleteRoute($id: String!) {
+            deleteRoute(id: $id)
+          }
+        `,
+        params: { id },
+        schema: type('unknown').pipe(() => undefined),
+      });
+    }
+
     async setObjectRoutes(input: RouteModel.SetObjectRoutesInput) {
       return this.client.executeQuery({
         query: `
@@ -107,15 +119,28 @@ export namespace RoutesService {
     ): Promise<RouteModel.Route> {
       await delay(500);
 
-      const route = this.routes.find(route => route.id === input.id);
+      const index = this.routes.findIndex(route => route.id === input.id);
 
-      if (!route) {
+      if (index === -1) {
         throw new Error('Route not found');
       }
 
-      route.objectIds = input.objectIds || [];
+      const updatedRoute = {
+        ...this.routes[index],
+        ...(input.name !== undefined && { name: input.name }),
+        ...(input.objectIds !== undefined && { objectIds: input.objectIds }),
+      };
 
-      return route;
+      this.routes[index] = updatedRoute;
+      return updatedRoute;
+    }
+
+    async delete(id: string): Promise<void> {
+      await delay(300);
+      const index = this.routes.findIndex(r => r.id === id);
+      if (index !== -1) {
+        this.routes.splice(index, 1);
+      }
     }
 
     async setObjectRoutes(

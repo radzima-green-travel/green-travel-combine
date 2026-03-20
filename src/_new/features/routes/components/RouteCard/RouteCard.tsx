@@ -14,8 +14,8 @@ export const RouteCard = ({ route, onPress }: RouteCardProps) => {
   return (
     <Pressable
       onPress={() => onPress(route)}
-      className="bg-primary flex-row items-center gap-3 rounded-[12] px-4 py-2">
-      <View className="bg-quarterly h-10 w-10 items-center justify-center rounded-[12]">
+      className="flex-row items-center gap-3 rounded-[12] bg-primary px-4 py-2">
+      <View className="h-10 w-10 items-center justify-center rounded-[12] bg-quarterly">
         <Icon
           name="routeSimple"
           size={24}
@@ -27,7 +27,7 @@ export const RouteCard = ({ route, onPress }: RouteCardProps) => {
         <Text className="font-subheadlineBold text-primary" numberOfLines={2}>
           {route.name}
         </Text>
-        <Text className="font-caption1Regular text-secondary mt-1">
+        <Text className="font-caption1Regular mt-1 text-secondary">
           {t('common.routeObjectCount', {
             count: route.objectIds.length,
           })}
