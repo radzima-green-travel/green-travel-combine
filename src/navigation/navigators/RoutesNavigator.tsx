@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { ObjectDetailsScreen } from '../../screens';
 import { AddObjectsToRoute } from '../../screens/AddObjectsToRoute/AddObjectsToRoute';
 import { RouteScreen } from '../../screens/Route';
+import { EditRouteScreen } from '../../screens/EditRoute';
 import { RouteListScreen } from '../../screens/RouteList';
 import { useScreenOptions } from '../hooks/useScreenOptions';
 
@@ -53,6 +54,7 @@ export function RoutesNavigator() {
           options={{ title: t('routeList.title') }}
         />
         <Stack.Screen name="Route" component={RouteScreen} />
+        <Stack.Screen name="EditRoute" component={EditRouteScreen} />
         <Stack.Screen name="AddObjectsToRoute" component={AddObjectsToRoute} />
         <Stack.Screen
           getId={({ params }) => params.objectId}

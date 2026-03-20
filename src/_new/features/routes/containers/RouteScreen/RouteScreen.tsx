@@ -7,6 +7,7 @@ import { ObjectList } from 'components/organisms';
 import { useHeader, useTranslation } from 'core/hooks';
 import { useRoute } from './hooks/useRoute';
 import { AddObjects, RoutesEmptyListView } from '@features/routes/components';
+import { ManageRouteMenu } from '../ManageRouteMenu';
 
 export function RouteScreen() {
   const { t } = useTranslation('routes');
@@ -24,6 +25,8 @@ export function RouteScreen() {
     onViewModeChange,
     snackbar,
     mapWithBottomSheetProps,
+    manageMenuProps,
+    handleManageMenuAction,
   } = useRoute();
 
   useHeader(
@@ -34,13 +37,11 @@ export function RouteScreen() {
       rightActions: [
         {
           icon: 'more',
-          action: () => {
-            // TODO: Open route options menu
-          },
+          action: manageMenuProps.openMenu,
         },
       ],
     },
-    [routeName],
+    [routeName, manageMenuProps.openMenu],
   );
 
   const renderHeader = useCallback(() => {
@@ -121,6 +122,11 @@ export function RouteScreen() {
         type="notification"
         leadIcon="routeSimple"
         offset={18}
+      />
+      <ManageRouteMenu
+        menuProps={manageMenuProps}
+        onEdit={handleManageMenuAction.onEdit}
+        onDelete={handleManageMenuAction.onDelete}
       />
     </View>
   );

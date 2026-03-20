@@ -25,6 +25,7 @@ export const FieldEditorSheet = <T extends string>({
   schema,
   fieldConfig,
   initialState = 'closed',
+  shouldShowDescription = true,
 }: {
   testID: string;
   fieldName: string;
@@ -37,6 +38,7 @@ export const FieldEditorSheet = <T extends string>({
   schema: Type<Record<string, any>>;
   fieldConfig?: FormFieldConfig;
   initialState?: 'open' | 'closed';
+  shouldShowDescription?: boolean;
 }) => {
   const { bottom: bottomSafeAreaInset } = useSafeAreaInsets();
   const form = useForm({
@@ -63,11 +65,13 @@ export const FieldEditorSheet = <T extends string>({
 
         return (
           <View style={styles.container}>
-            <Text
-              testID={composeTestID(testID, 'description')}
-              style={styles.description}>
-              {t(`fieldDescriptions.${fieldName}`)}
-            </Text>
+            {shouldShowDescription && (
+              <Text
+                testID={composeTestID(testID, 'description')}
+                style={styles.description}>
+                {t(`fieldDescriptions.${fieldName}`)}
+              </Text>
+            )}
             <FormInput
               ref={menuProps.textInputRef}
               testID={composeTestID(testID, 'input')}

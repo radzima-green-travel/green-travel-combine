@@ -433,6 +433,44 @@
         "title": "No added objects yet",
         "description": "Start your first route. Tap the 'Add' icon on places you like"
       }
+    },
+    "manageRoute": {
+      "title": "Manage Route",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "renameRouteForm": {
+      "fieldTitles": {
+        "name": "Rename route"
+      },
+      "fieldLabel": {
+        "name": "Name"
+      },
+      "fieldErrors": {
+        "name": "Please enter the route name"
+      },
+      "fieldSubmitLabel": "Save"
+    },
+    "editRoute": {
+      "title": "Edit route",
+      "done": "Done",
+      "selectAll": "Select All",
+      "cancel": "Cancel",
+      "remove": "Remove ({{count}})",
+      "deleteObjectsConfirm": {
+        "title": "Delete this object?",
+        "title_plural": "Delete {{count}} objects?",
+        "message": "It will be permanently deleted from '{{routeName}}' route.",
+        "message_plural": "They will be permanently deleted from '{{routeName}}' route.",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
+    },
+    "deleteRouteConfirm": {
+      "title": "Delete this route?",
+      "message": "'{{routeName}}' will be permanently deleted.",
+      "cancel": "Cancel",
+      "delete": "Delete"
     }
   }
 }

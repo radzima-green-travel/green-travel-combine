@@ -15,5 +15,6 @@ export type AddObjectsToRouteParams =
 export type RoutesNavigatorParamsList = {
   Routes: undefined;
   Route: RouteScreenParams;
+  EditRoute: { id: string };
   AddObjectsToRoute: AddObjectsToRouteParams;
 };
