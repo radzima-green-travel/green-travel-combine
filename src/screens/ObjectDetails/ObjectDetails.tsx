@@ -328,6 +328,8 @@ export const ObjectDetails = () => {
                   />
                 )}
 
+                <SaveToRouteListFlow.ObjectRoutesSection />
+
                 <Button
                   style={styles.reportInaccuraciesButton}
                   onPress={openInnacurateInfoMenu}

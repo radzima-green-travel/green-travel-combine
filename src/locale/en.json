@@ -433,6 +433,12 @@
         "selectionUpdated": "Your changes have been saved"
       }
     },
+    "objectRoutes": {
+      "sectionTitle": "Routes",
+      "addButtonLabel": "Add",
+      "showMoreButtonLabel": "Show more",
+      "showLessButtonLabel": "Show less"
+    },
     "routeDetails": {
       "common": {
         "objectsCount": "Items/Objects {{count}}",

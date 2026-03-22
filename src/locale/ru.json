@@ -434,6 +434,12 @@
         "selectionUpdated": "Изменения сохранены"
       }
     },
+    "objectRoutes": {
+      "sectionTitle": "Маршруты",
+      "addButtonLabel": "Добавить",
+      "showMoreButtonLabel": "Показать ещё",
+      "showLessButtonLabel": "Свернуть"
+    },
     "routeDetails": {
       "common": {
         "objectsCount": "Объекты {{count}}",

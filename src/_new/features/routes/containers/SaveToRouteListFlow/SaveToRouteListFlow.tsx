@@ -1,12 +1,14 @@
-import { AppError } from '@core/model';
-import { resolveErrorMessage } from '@core/utils/resolveErrorMessage';
 import { useObservable } from '@legendapp/state/react';
 import { useSnackbar } from 'atoms';
 import { useBottomMenu } from 'core/hooks';
 import { type PropsWithChildren, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouteList, useSetObjectRoutes } from '../../api';
-import { Menus, SaveToRouteListButton } from './components';
+import {
+  Menus,
+  ObjectRoutesSection,
+  SaveToRouteListButton,
+} from './components';
 import { SaveToRouteListFlowContext, SaveToRouteListState } from './context';
 
 const getRouteSelectionChanges = ({
@@ -188,4 +190,5 @@ export const SaveToRouteListFlow = {
   Provider,
   SaveButton: SaveToRouteListButton,
   Menus,
+  ObjectRoutesSection,
 } as const;
